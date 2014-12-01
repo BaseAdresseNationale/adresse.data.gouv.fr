@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   id="svg3900"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="csv.svg"
+   inkscape:export-filename="/home/ybon/Code/projects/wwwenix/wwwenix/static/wwwenix/img/highlight_api.png"
+   inkscape:export-xdpi="135"
+   inkscape:export-ydpi="135">
+  <defs
+     id="defs3902" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.97"
+     inkscape:cx="50"
+     inkscape:cy="50"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3908"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3905">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-952.36218)">
+    <path
+       sodipodi:type="arc"
+       style="fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="path3929"
+       sodipodi:cx="40"
+       sodipodi:cy="47.5"
+       sodipodi:rx="25"
+       sodipodi:ry="27.5"
+       d="M 65,47.5 C 65,62.687831 53.807119,75 40,75 26.192881,75 15,62.687831 15,47.5 15,32.312169 26.192881,20 40,20 53.807119,20 65,32.312169 65,47.5 z"
+       transform="matrix(2,0,0,1.8181818,-30,915.99855)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="155.7868"
+       y="967.80786"
+       id="text4457"
+       sodipodi:linespacing="125%"><tspan
+         y="967.80786"
+         x="155.7868"
+         sodipodi:role="line"
+         id="tspan4459" /></text>
+    <path
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="m 20,977.36218 0,10 60,0 0,-10 z m 0,15 0,5 20,0 0,-5 z m 25,0 0,5 35,0 0,-5 z m -25,10.00002 0,5 20,0 0,-5 z m 25,0 0,5 35,0 0,-5 z m -25,10 0,5 20,0 0,-5 z m 25,0 0,5 35,0 0,-5 z m -25,10 0,5 20,0 0,-5 z m 25,0 0,5 35,0 0,-5 z"
+       id="table"
+       inkscape:connector-curvature="0"
+       inkscape:label="table"
+       inkscape:export-filename="/home/ybon/Code/js/leaflet-storage/src/img/browse-data.png"
+       inkscape:export-xdpi="89.996864"
+       inkscape:export-ydpi="89.996864"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccc" />
+  </g>
+</svg>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block body_class %}api{% endblock %}
+
+{% block content %}
+<div class="wrapper head">
+    <div class="row">
+        <h1>API</h1>
+        <p>Avec l'API d'<strong>{{ site_name }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
+    </div>
+</div>
+<div class="wrapper entrypoint">
+    <div class="row">
+        <div class="col third">
+            <h2>/search/</h2>
+            <p>Point d'entrée pour le géocodage.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Utiliser le paramètre <b>q</b> pour faire une recherche plein texte:</p>
+            <pre>http '{{ api_root }}/search/?q=8 bd du port'</pre>
+            <p>Avec <b>limit</b> on peut contrôler le nombre d'éléments retournés:</p>
+            <pre>http '{{ api_root }}/search/?q=8 bd du port&amp;limit=15'</pre>
+            <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
+            <pre>http '{{ api_root }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
+        </div>
+    </div>        
+</div>
+<div class="wrapper entrypoint">
+    <div class="row">
+        <div class="col third">
+            <h2>/reverse/</h2>
+            <p>Point d'entrée pour le géocodage inverse.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Les paramètres <b>lat</b> et <b>lon</b> sont obligatoires:</p>
+            <pre>http '{{ api_root }}/reverse/?lon=2.37&amp;lat=48.357'</pre>
+            <p>Le paramètre <b>type</b> permet forcer le type de retour:</p>
+            <pre>http '{{ api_root }}/reverse/?lon=2.37&amp;lat=48.357&amp;type=commune'</pre>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint">
+    <div class="row">
+        <div class="col third">
+            <h2>/csv/</h2>
+            <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Exemple d'appel en ligne de commande:</p>
+            <pre>http --timeout 600 -f POST {{ api_root }}/csv/ columns='L4_VOIE' columns='L6_POST' data@~/Data/geo/csv/siren-bourgogne.csv > siren_geocoded_full1.csv</pre>
+        </div>
+    </div>
+</div>
+{% endblock content %}

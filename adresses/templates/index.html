@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body_class %}home{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="window">
+        <h1>LA BASE ADRESSES NATIONALE</h1><br />
+        <h2>{{ baseline }}</h2>
+    </div>
+</div>
+<ul class="actions">
+    <li><a href="{{ download_url }}" class="download">Télécharger</a></li>
+    <li><a href="#" class="contribute">Contribuer</a></li>
+    <li><a href="{{ url_for('tools') }}" class="tools">Outils</a></li>
+    <li><a href="{{ url_for('api') }}" class="api">API</a></li>
+</ul>
+<ul class="partners">
+    <li><a href="http://ign.fr/"><img src="{{ url_for('static', filename='img/IGN.jpg') }}" /></a></li>
+    <li><a href="http://www.laposte.fr/"><img src="{{ url_for('static', filename='img/laposte.png') }}" /></a></li>
+    <li><a href="http://openstreetmap.fr/"><img src="{{ url_for('static', filename='img/OSM.png') }}" /></a></li>
+    <li><a href="http://www.modernisation.gouv.fr/"><img src="{{ url_for('static', filename='img/SGMAP.jpg') }}" /></a></li>
+</ul>
+{% endblock content %}
