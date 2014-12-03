@@ -35,7 +35,7 @@ var photonControlOptions = {
     feedbackLabel: 'Signaler',
     feedbackEmail: 'adresses@data.gouv.fr'
 };
-var map = L.map('map', {scrollWheelZoom: false, photonControl: true, photonControlOptions: photonControlOptions, attributionControl: false});
+var map = L.map('map', {photonControl: true, photonControlOptions: photonControlOptions, attributionControl: false});
 map.setView(CENTER, 12);
 searchPoints.addTo(map);
 var tilelayer = L.tileLayer(TILELAYER, {maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap Contributors</a> | Tiles \u00a9 <a href="http://thunderforest.com/">Thunderforest</a>'}).addTo(map);

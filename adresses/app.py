@@ -29,16 +29,37 @@ def csv():
     return render_template('csv.html')
 
 
+@app.route('/cgu/')
+def cgu():
+    return render_template('cgu.html')
+
+
+@app.route('/faq/')
+def faq():
+    return render_template('faq.html')
+
+
+@app.route('/about/')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/foss/')
+def foss():
+    return render_template('foss.html')
+
+
 @app.context_processor
 def shared_context():
     return {
         "site_name": "adresses.gouv.fr",
         "site_url": os.environ.get('SITE_URL', 'http://adresses.gouv.fr'),
         "baseline": "Une base d'adresses nationale libre et citoyenne",
-        "description": "Dis Chrichri, c'est quoi la BAN?",
+        "description": "Dis Cricri, c'est quoi la BAN?",
         "twitter": "@etalab",
         "download_url": "https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/",
-        "api_root": "http://localhost:5005"
+        "api_root": "http://localhost:5005",
+        "contact_email": "adresses@data.gouv.fr"
     }
 
 

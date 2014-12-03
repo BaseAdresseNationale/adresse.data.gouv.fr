@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body_class %}foss{% endblock %}
+
+{% block content %}
+<div class="wrapper head">
+    <div class="row">
+        <h1>Logiciel libre</h1>
+        <p><strong>{{ site_name }}</strong> est entièrement bâti sur du code libre.</p>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="row">
+        <ul>
+            <li>Le code de ce site: <a href="https://github.com/etalab/adresses.gouv.fr">https://github.com/etalab/adresses.gouv.fr</a></li>
+            <li>Le code du moteur de géocodage: <a href="https://github.com/etalab/ban-geocode">https://github.com/etalab/ban-geocode</a></li>
+            <li>Le code de la BAN: <a href="https://github.com/osm-fr/bano">https://github.com/osm-fr/bano</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}

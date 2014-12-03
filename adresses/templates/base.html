@@ -36,14 +36,16 @@
               --><a href="{{ url_for('api') }}" class="mwide tthird">API</a><!--
             --></section>
         </header>
-        {% block content %}
-        {% endblock content %}
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
         <footer>
             <ul>{{ site_name }}
-                <li><a href="#">À propos</a></li>
-                <li><a href="#">Mentions légales</a></li>
-                <li><a href="#">Faq</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{{ url_for('about') }}">À propos</a></li>
+                <li><a href="{{ url_for('cgu') }}">Mentions légales</a></li>
+                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                <li><a href="mailto:{{ contact_email }}">Contact</a></li>
             </ul>
             <ul>Partenaires
                 <li><a href="http://ign.fr/">IGN</a></li>

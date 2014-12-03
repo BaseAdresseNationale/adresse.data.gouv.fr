@@ -10,11 +10,15 @@
     </div>
 </div>
 <div class="wrapper">
-    <div class="row">
-        <h2><a href="{{ url_for('map') }}">La carte interactive</a></h2>
-        <p>Cherchez des adresses et lieux-dits, cliquez pour faire un géocodage inversé…</p>
-        <h2><a href="{{ url_for('csv') }}">Le géocodeur CSV</a></h2>
-        <p>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</p>
-    </div>
+    <ul class="row">
+        <li class="map">
+            <h2><a href="{{ url_for('map') }}">La carte interactive</a></h2>
+            <p>Cherchez des adresses et lieux-dits, cliquez pour faire un géocodage inversé…</p>
+        </li>
+        <li class="csv">
+            <h2><a href="{{ url_for('csv') }}">Le géocodeur CSV</a></h2>
+            <p>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</p>
+        </li>
+    </ul>
 </div>
 {% endblock content %}
