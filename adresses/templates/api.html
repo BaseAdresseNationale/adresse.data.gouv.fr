@@ -9,7 +9,7 @@
         <p>Avec l'API d'<strong>{{ site_name }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
     </div>
 </div>
-<div class="wrapper entrypoint">
+<div class="wrapper entrypoint" id="search">
     <div class="row">
         <div class="col third">
             <h2>/search/</h2>
@@ -22,10 +22,51 @@
             <pre>http '{{ api_root }}/search/?q=8 bd du port&amp;limit=15'</pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
             <pre>http '{{ api_root }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
+            <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
+<pre>{
+  "type": "FeatureCollection",
+  "query": "bois d'arcy",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "2.030635",
+          "48.801045"
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "context": "78, Yvelines, Île-de-France",
+        "city": "Bois-d'Arcy",
+        "type": "commune",
+        "postcode": "78390",
+        "name": "Bois-d'Arcy"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "3.715269",
+          "47.546679"
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "context": "89, Yonne, Bourgogne",
+        "city": "Bois-d'Arcy",
+        "type": "commune",
+        "postcode": "89660",
+        "name": "Bois-d'Arcy"
+      }
+    }
+  ]
+}</pre>
         </div>
     </div>        
 </div>
-<div class="wrapper entrypoint">
+<div class="wrapper entrypoint" id="reverse">
     <div class="row">
         <div class="col third">
             <h2>/reverse/</h2>
@@ -36,18 +77,21 @@
             <pre>http '{{ api_root }}/reverse/?lon=2.37&amp;lat=48.357'</pre>
             <p>Le paramètre <b>type</b> permet forcer le type de retour:</p>
             <pre>http '{{ api_root }}/reverse/?lon=2.37&amp;lat=48.357&amp;type=commune'</pre>
+            <p>Même format de réponse que pour le point d'entrée <a href="#search"><b>/search/</b></a>.</p>
         </div>
     </div>
 </div>
-<div class="wrapper entrypoint">
+<div class="wrapper entrypoint" id="csv">
     <div class="row">
         <div class="col third">
             <h2>/csv/</h2>
             <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
         </div>
         <div class="col two-third details">
-            <p>Exemple d'appel en ligne de commande:</p>
-            <pre>http --timeout 600 -f POST {{ api_root }}/csv/ columns='L4_VOIE' columns='L6_POST' data@~/Data/geo/csv/siren-bourgogne.csv > siren_geocoded_full1.csv</pre>
+            <p>Le fichier csv doit être passé via le paramètre <b>data</b>:</p>
+            <pre>http --timeout 600 -f POST {{ api_root }}/csv/ data@path/to/file.csv</pre>
+            <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
+            <pre>http -f POST {{ api_root }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
         </div>
     </div>
 </div>

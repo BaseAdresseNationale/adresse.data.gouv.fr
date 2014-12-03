@@ -183,6 +183,9 @@ strong {
 .img-group img {
     vertical-align: top;
 }
+a {
+    color: #333;
+}
 
 /* ************************************************* */
 /* *********************** GRID ******************** */
@@ -508,8 +511,8 @@ footer ul {
 }
 .api .entrypoint pre {
     font-size: 12px;
-    background-color: #ccc;
-    border: solid 1px #bbb;
+    background-color: #ddd;
+    border: solid 1px #ccc;
     width: 95%;
     overflow: auto;
     padding: 10px;
