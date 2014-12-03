@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body_class %}download{% endblock %}
+
+{% block content %}
+<div class="wrapper head">
+    <div class="row">
+        <h1>Données brutes</h1>
+        <p><strong>{{ site_name }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
+    </div>
+</div>
+<div class="wrapper">
+    <ul class="row">
+        {% for code, name in departements|dictsort %}
+            <li><strong>{{ name }}</strong> <a href="{{ csv_url|format(code) }}">csv</a> <a href="{{ shp_url|format(code) }}">shp</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

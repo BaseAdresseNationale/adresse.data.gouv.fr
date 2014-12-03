@@ -1,6 +1,9 @@
 import os
 
 from flask import Flask, render_template
+
+from constants import DEPARTEMENTS
+
 app = Flask(__name__)
 
 
@@ -47,6 +50,16 @@ def about():
 @app.route('/foss/')
 def foss():
     return render_template('foss.html')
+
+
+@app.route('/download/')
+def download():
+    context = {
+        'departements': DEPARTEMENTS,
+        'csv_url': 'http://bano.openstreetmap.fr/data/bano-%s.csv',
+        'shp_url': 'http://bano.openstreetmap.fr/data/bano-%s-shp.zip',
+    }
+    return render_template('download.html', **context)
 
 
 @app.context_processor
