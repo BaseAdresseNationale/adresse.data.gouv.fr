@@ -478,19 +478,24 @@ footer ul {
 /* ***************** Content pages ***************** */
 /* ************************************************* */
 .head {
-    padding: 20px;
-    padding-left: 120px;
-    background-repeat: no-repeat;
-    background-position: center left 20px;
+    background-color: #333;
+}
+.head .row {
+    max-width: 1400px;
+    margin-top: 0;
     background-color: #333;
     color: #efefef;
+    padding: 40px;
+    padding-left: 140px;
+    background-repeat: no-repeat;
+    background-position: center left 20px;
 }
 
 
 /* ************************************************* */
 /* ********************* API *********************** */
 /* ************************************************* */
-.api .head {
+.api .head .row {
     background-image: url('./img/api.svg');
 }
 .api .entrypoint h2, .api .entrypoint h3 {
@@ -532,7 +537,7 @@ footer ul {
 /* ************************************************* */
 /* ******************** TOOLS ********************** */
 /* ************************************************* */
-.tools .head {
+.tools .head .row {
     background-image: url('./img/tools.svg');
 }
 .tools h2 a {
@@ -576,7 +581,7 @@ footer ul {
 /* ************************************************* */
 /* ********************* CSV *********************** */
 /* ************************************************* */
-.csv .head {
+.csv .head .row {
     background-image: url('./img/csv.svg');
 }
 
@@ -584,7 +589,7 @@ footer ul {
 /* ************************************************* */
 /* ********************* FAQ *********************** */
 /* ************************************************* */
-.faq .head {
+.faq .head .row {
     background-image: url('./img/faq.svg');
 }
 
@@ -592,7 +597,7 @@ footer ul {
 /* ************************************************* */
 /* ******************** ABOUT ********************** */
 /* ************************************************* */
-.about .head {
+.about .head .row {
     background-image: url('./img/about.svg');
 }
 
@@ -600,6 +605,6 @@ footer ul {
 /* ************************************************* */
 /* ********************* FOSS ********************** */
 /* ************************************************* */
-.foss .head {
+.foss .head .row {
     background-image: url('./img/copyleft.svg');
 }
