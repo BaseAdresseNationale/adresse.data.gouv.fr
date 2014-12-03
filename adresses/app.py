@@ -52,7 +52,7 @@ def foss():
 @app.context_processor
 def shared_context():
     return {
-        "site_name": "adresses.gouv.fr",
+        "site_name": "adresse.data.gouv.fr",
         "site_url": os.environ.get('SITE_URL', 'http://adresses.gouv.fr'),
         "baseline": "Une base d'adresses nationale libre et citoyenne",
         "description": "Dis Cricri, c'est quoi la BAN?",

@@ -577,6 +577,14 @@ footer ul {
 .map footer {
     display: none;
 }
+.reverse-label {
+    padding: 0 10px;
+    margin-bottom: 0!important;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    opacity: 0.8;
+}
 
 /* ************************************************* */
 /* ********************* CSV *********************** */
@@ -584,7 +592,9 @@ footer ul {
 .csv .head .row {
     background-image: url('./img/csv.svg');
 }
-
+.csvtogeocoder #chosenColumns:empty:before {
+    content: "Glisser les colonnes ici"!important;
+}
 
 /* ************************************************* */
 /* ********************* FAQ *********************** */

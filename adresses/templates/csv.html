@@ -15,6 +15,16 @@
 </div>
 <script src="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
 <script type="text/javascript">
-    CSVToGeocoder({container: '#main', postURL: '{{ api_root }}/csv/'});
+    CSVToGeocoder({container: '#main', postURL: '{{ api_root }}/csv/', i18n: {
+        'Choose a file': 'Choisir un fichier',
+        'Choose the columns to consider': 'Sélectionner les colonnes à utiliser',
+        'Run the process': 'Lancer le géocodage',
+        'Drag your file here': 'Glisser un fichier ici',
+        'or': 'ou',
+        'browse': 'choisir',
+        'Geocode': 'Lancer',
+        'all words must be found': 'tous les mots doivent être trouvés',
+        'or drag another file here': 'ou glisser un autre fichier',
+    }});
 </script>
 {% endblock content %}

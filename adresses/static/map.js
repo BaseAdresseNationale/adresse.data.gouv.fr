@@ -35,8 +35,43 @@ var photonControlOptions = {
     feedbackLabel: 'Signaler',
     feedbackEmail: 'adresses@data.gouv.fr'
 };
-var map = L.map('map', {photonControl: true, photonControlOptions: photonControlOptions, attributionControl: false});
+var photonReverseControlOptions = {
+    resultsHandler: showSearchPoints,
+    position: 'topleft',
+    url: 'http://bano.fluv.io/reverse/?',
+    formatResult: formatResult,
+    noResultLabel: 'Aucun résultat',
+    tooltipLabel: 'Cliquer sur la carte pour obtenir l\'adresse'
+};
+var map = L.map('map', {
+    photonControl: true,
+    photonControlOptions: photonControlOptions,
+    photonReverseControl: true,
+    photonReverseControlOptions: photonReverseControlOptions,
+    attributionControl: false
+});
 map.setView(CENTER, 12);
 searchPoints.addTo(map);
-var tilelayer = L.tileLayer(TILELAYER, {maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap Contributors</a> | Tiles \u00a9 <a href="http://thunderforest.com/">Thunderforest</a>'}).addTo(map);
-var attributionControl = L.control.attribution({position: 'bottomleft'}).addTo(map);
+L.tileLayer(TILELAYER, {maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap Contributors</a> | Tiles \u00a9 <a href="http://thunderforest.com/">Thunderforest</a>'}).addTo(map);
+L.control.attribution({position: 'bottomleft'}).addTo(map);
+
+L.Control.ReverseLabel = L.Control.extend({
+
+    options: {
+        position: 'bottomright'
+    },
+
+    onAdd: function (map) {
+        var container = L.DomUtil.create('div', 'reverse-label');
+        var reverse = new L.PhotonReverse({url: 'http://bano.fluv.io/reverse/?', handleResults: function (data) {
+            container.innerHTML = 'Carte centrée sur «' + data.features[0].properties.label + '»';
+        }});
+        map.on('moveend', function () {
+            if (this.getZoom() > 14) reverse.doReverse(this.getCenter());
+            else container.innerHTML = '';
+        });
+        return container;
+    }
+
+});
+new L.Control.ReverseLabel().addTo(map);
