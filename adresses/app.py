@@ -58,6 +58,7 @@ def download():
         'departements': DEPARTEMENTS,
         'csv_url': 'http://bano.openstreetmap.fr/data/bano-%s.csv',
         'shp_url': 'http://bano.openstreetmap.fr/data/bano-%s-shp.zip',
+        'ttl_url': 'http://bano.openstreetmap.fr/data/bano-%s.ttl.gz',
     }
     return render_template('download.html', **context)
 
@@ -67,7 +68,7 @@ def shared_context():
     return {
         "site_name": "adresse.data.gouv.fr",
         "site_url": os.environ.get('SITE_URL', 'http://adresses.gouv.fr'),
-        "baseline": "Une base d'adresses nationale libre et citoyenne",
+        "baseline": "Un référentiel national ouvert\u2009: de l'adresse à la coordonnée géographique",
         "description": "Dis Cricri, c'est quoi la BAN?",
         "twitter": "@etalab",
         "download_url": "https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/",

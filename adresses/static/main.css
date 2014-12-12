@@ -388,25 +388,48 @@ footer ul {
 /* ************************************************* */
 .home .window {
     background-image: url('./img/window.png');
+    background-position: top left;
     width: 100%;
     height: 350px;
     text-align: center;
-    padding-top: 100px;
 }
 .home .window h1,
 .home .window h2 {
     background-color: #fefefd;
     display: inline-block;
     line-height: 1.5em;
-    padding: 4px;
+    padding: 4px 12px;
     font-weight: normal;
 }
 .home .window h1 {
-    font-size: 2.6em;
+    margin-top: 100px;
+    font-size: 2.9em;
     font-family: 'open_sansextrabold';
 }
 .home .window h2 {
     font-family: 'open_sanslight_italic';
+    font-size: 1.3em;
+}
+.home .pitch {
+    background-color: #222;
+    color: #fefefd;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    font-family: 'open_sanslight';
+}
+.home .pitch strong {
+    font-family: 'open_sanssemibold';
+}
+.home .pitch a {
+    font-family: 'open_sanssemibold_italic';
+    color: #fefefd;
+}
+.pitch p {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1000px;
 }
 .home .partners {
     text-align: center;
@@ -424,7 +447,7 @@ footer ul {
     max-height: 150px;
 }
 .home .actions {
-    background-color: #666;
+    background-color: #2C3E50;
     text-align: center;
     padding: 50px 0;
 }
@@ -441,7 +464,9 @@ footer ul {
     background-repeat: no-repeat;
     background-position: top center;
     vertical-align: bottom;
-    padding-top: 100px;
+    padding-top: 110px;
+    text-transform: uppercase;
+    font-family: 'open_sansbold';
 }
 .home .actions li a:hover {
     text-decoration: underline;
@@ -553,7 +578,21 @@ footer ul {
     background-image: url('./img/map.svg');
 }
 .tools ul .csv {
-    background-image: url('./img/csv.svg');
+    background-image: url('./img/csv-grey.svg');
+}
+.tools ul .api {
+    background-image: url('./img/api-grey.svg');
+}
+.tooltip {
+    position: fixed;
+    z-index: 10000;
+    background-color: #000;
+    opacity: 0.9;
+    color: #fefefd;
+    padding: 5px 10px;
+    border-radius: 1px;
+    box-shadow: 0 0 2px black;
+    display: none;
 }
 
 
@@ -585,6 +624,7 @@ footer ul {
     color: #333;
     opacity: 0.8;
 }
+
 
 /* ************************************************* */
 /* ********************* CSV *********************** */
@@ -625,4 +665,34 @@ footer ul {
 /* ************************************************* */
 .download .head .row {
     background-image: url('./img/download.svg');
+}
+.download h2 {
+    text-align: center;
+    text-transform: uppercase;
+}
+.download-map {
+    border: 1px solid #aaa;
+    margin-bottom: 40px;
+    background-color: #2574A9;
+}
+.download-map .dep {
+    fill: #eee;
+    stroke: #aaa;
+}
+.download-map .dep:hover {
+    fill: #666;
+    cursor: pointer;
+}
+.departements {
+    border-right: 1px solid #ddd;
+}
+.departements li {
+    padding: 5px;
+}
+.departements li:target {
+    border-right: 3px solid #ddd;
+    background-color: #f6f6f6;
+}
+.departements li:target:before {
+    content: '⮕ ';
 }

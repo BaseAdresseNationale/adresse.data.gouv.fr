@@ -6,7 +6,8 @@
   "dependencies": {
     "csvtogeocoder-ui": "yohanboniface/csvtogeocoder-ui",
     "leaflet": "^0.7.3",
-    "leaflet.photon": "^0.2.1"
+    "leaflet.photon": "^0.2.1",
+    "topojson": "^1.6.18"
   },
   "devDependencies": {},
   "scripts": {

@@ -14,7 +14,7 @@
    id="svg3900"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="csv.svg"
+   sodipodi:docname="faq.svg"
    inkscape:export-filename="/home/ybon/Code/projects/wwwenix/wwwenix/static/wwwenix/img/highlight_api.png"
    inkscape:export-xdpi="135"
    inkscape:export-ydpi="135">
@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.1107137"
-     inkscape:cx="161.88307"
+     inkscape:cx="78.498952"
      inkscape:cy="44.657881"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -65,14 +65,14 @@
      transform="translate(0,-952.36218)">
     <path
        sodipodi:type="arc"
-       style="fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="fill:none;stroke:#f2f2f2;stroke-width:2.09761762999999979;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="path3929"
        sodipodi:cx="40"
        sodipodi:cy="47.5"
        sodipodi:rx="25"
        sodipodi:ry="27.5"
-       d="M 65,47.5 C 65,62.687831 53.807119,75 40,75 26.192881,75 15,62.687831 15,47.5 15,32.312169 26.192881,20 40,20 53.807119,20 65,32.312169 65,47.5 z"
-       transform="matrix(2,0,0,1.8181818,-30,915.99855)" />
+       d="m 65,47.5 a 25,27.5 0 1 1 -50,0 25,27.5 0 1 1 50,0 z"
+       transform="matrix(1.923077,0,0,1.7482517,-26.923077,919.32023)" />
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -86,7 +86,7 @@
          id="tspan4459" /></text>
     <text
        xml:space="preserve"
-       style="font-size:43.8360672px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:43.83606720000000223px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#f2f2f2;fill-opacity:1;stroke:none;font-family:Sans"
        x="31.979771"
        y="1030.3622"
        id="text2995"
@@ -95,6 +95,6 @@
          id="tspan2997"
          x="31.979771"
          y="1030.3622"
-         style="font-size:78.90492249px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;font-family:Open Sans;-inkscape-font-specification:Open Sans Bold">?</tspan></text>
+         style="font-size:78.90492249000000413px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#f2f2f2;font-family:Open Sans;-inkscape-font-specification:Open Sans Bold">?</tspan></text>
   </g>
 </svg>

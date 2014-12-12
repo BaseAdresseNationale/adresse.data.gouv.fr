@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body_class %}download{% endblock %}
+{% block extrahead %}
+    <script src="{{ url_for('static', filename='node_modules/d3/d3.js') }}"></script>
+    <script src="{{ url_for('static', filename='node_modules/topojson/topojson.js') }}"></script>
+{% endblock extrahead %}
 
 {% block content %}
 <div class="wrapper head">
@@ -10,10 +14,29 @@
     </div>
 </div>
 <div class="wrapper">
-    <ul class="row">
-        {% for code, name in departements|dictsort %}
-            <li><strong>{{ name }}</strong> <a href="{{ csv_url|format(code) }}">csv</a> <a href="{{ shp_url|format(code) }}">shp</a></li>
-        {% endfor %}
-    </ul>
+    <div class="row sea">
+        <div class="col third">
+            <ul class="departements">
+                {% for code, name in departements|dictsort %}
+                    <li id="departement-{{code}}"><strong><a href="#departement-{{ code }}">{{ name }}</a></strong> <a href="{{ csv_url|format(code) }}">csv</a> | <a href="{{ shp_url|format(code) }}">shp</a> | <a href="{{ ttl_url|format(code) }}">ttl</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col two-third">
+            <h2>Métropole et Corse</h2>
+            <div class="metropole download-map"></div>
+            <h2>Guadeloupe</h2>
+            <div class="guadeloupe download-map"></div>
+            <h2>Martinique</h2>
+            <div class="martinique download-map"></div>
+            <h2>Guyane</h2>
+            <div class="guyane download-map"></div>
+            <h2>La Réunion</h2>
+            <div class="reunion download-map"></div>
+            <h2>Mayotte</h2>
+            <div class="mayotte download-map"></div>
+        </div>
+    </div>
 </div>
+<script src="{{ url_for('static', filename='download-map.js') }}"></script>
 {% endblock content %}
