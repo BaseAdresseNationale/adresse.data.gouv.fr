@@ -71,7 +71,6 @@ def shared_context():
         "baseline": "Un référentiel national ouvert\u2009: de l'adresse à la coordonnée géographique",
         "description": "Dis Cricri, c'est quoi la BAN?",
         "twitter": "@etalab",
-        "download_url": "https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/",
         "api_root": "http://localhost:5005",
         "contact_email": "adresse@data.gouv.fr"
     }
