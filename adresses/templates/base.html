@@ -42,19 +42,24 @@
             {% block content %}
             {% endblock content %}
         </div>
-        <footer>
-            <ul>{{ site_name }}
-                <li><a href="{{ url_for('about') }}">À propos</a></li>
-                <li><a href="{{ url_for('cgu') }}">Mentions légales</a></li>
-                <li><a href="{{ url_for('faq') }}">FAQ</a></li>
-                <li><a href="mailto:{{ contact_email }}">Contact</a></li>
-            </ul>
-            <ul>Partenaires
-                <li><a href="http://ign.fr/">IGN</a></li>
-                <li><a href="http://www.laposte.fr/">La Poste</a></li>
-                <li><a href="http://openstreetmap.fr/">OpenStreetMap France</a></li>
-                <li><a href="http://www.modernisation.gouv.fr/">SGMAP</a></li>
-            </ul>
+        <footer class="wrapper">
+            <div class="row">
+                <ul class="col third">{{ site_name }}
+                    <li><a href="{{ url_for('about') }}">À propos</a></li>
+                    <li><a href="{{ url_for('cgu') }}">Mentions légales</a></li>
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                    <li><a href="mailto:{{ contact_email }}">Contact</a></li>
+                </ul>
+                <ul class="col third">Partenaires
+                    <li><a href="http://ign.fr/">IGN</a></li>
+                    <li><a href="http://www.laposte.fr/">La Poste</a></li>
+                    <li><a href="http://openstreetmap.fr/">OpenStreetMap France</a></li>
+                    <li><a href="http://www.modernisation.gouv.fr/">SGMAP</a></li>
+                </ul>
+                <div class="col third netword">
+                    <a href="https://twitter.com/{{ twitter }}" class="twitter">Suivez-nous sur Twitter</a>
+                </div>
+            </div>
         </footer>
         <script type="text/javascript">
             Tooltip({content: 'Bientôt! :)', duration: 3000}).attachTo('.soon');

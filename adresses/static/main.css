@@ -366,7 +366,18 @@ footer ul {
     width: 30%;
     display: inline-block;
 }
-
+footer .twitter:before {
+    width: 20px;
+    height: 20px;
+    background-image: url('./img/twitter.png');
+    background-position: left center;
+    background-size: 20px auto;
+    background-repeat: no-repeat;
+    content: ' ';
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 5px;
+}
 .beta:after {
     content: 'bêta';
     font-family: 'open_sansextrabold';
