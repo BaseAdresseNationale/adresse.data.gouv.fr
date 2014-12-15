@@ -73,7 +73,7 @@ def shared_context():
         "twitter": "@etalab",
         "download_url": "https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/",
         "api_root": "http://localhost:5005",
-        "contact_email": "adresses@data.gouv.fr"
+        "contact_email": "adresse@data.gouv.fr"
     }
 
 
