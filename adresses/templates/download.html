@@ -18,7 +18,7 @@
         <div class="col third">
             <ul class="departements">
                 {% for code, name in departements|dictsort %}
-                    <li id="departement-{{code}}"><strong><a href="#departement-{{ code }}">{{ name }}</a></strong> <a href="{{ csv_url|format(code) }}">csv</a> | <a href="{{ shp_url|format(code) }}">shp</a> | <a href="{{ ttl_url|format(code) }}">ttl</a></li>
+                    <li id="departement-{{code}}"><strong><a href="#departement-{{ code }}">{{ name }}</a></strong> <a href="{{ csv_url|format(code) }}" title="Fichier CSV">csv</a> | <a href="{{ shp_url|format(code) }}" title="Shapefile">shp</a> | <a href="{{ ttl_url|format(code) }}" title="Turle RDF">ttl</a></li>
                 {% endfor %}
             </ul>
         </div>
