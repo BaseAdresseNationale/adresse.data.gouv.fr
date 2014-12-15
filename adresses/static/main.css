@@ -671,16 +671,16 @@ footer ul {
     text-transform: uppercase;
 }
 .download-map {
-    border: 1px solid #aaa;
+    border-bottom: 1px solid #eee;
     margin-bottom: 40px;
-    background-color: #2574A9;
+    background-color: #fefefd;
 }
 .download-map .dep {
-    fill: #eee;
+    fill: #ececec;
     stroke: #aaa;
 }
 .download-map .dep:hover {
-    fill: #666;
+    fill: #6C7A89;
     cursor: pointer;
 }
 .departements {
