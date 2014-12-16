@@ -6,6 +6,9 @@ from constants import DEPARTEMENTS
 
 app = Flask(__name__)
 
+SITE_URL = os.environ.get('SITE_URL', 'http://adresse.data.gouv.fr')
+API_URL = os.environ.get('API_URL', 'http://api.adresse.data.gouv.fr')
+
 
 @app.route('/')
 def index():
@@ -66,13 +69,13 @@ def download():
 @app.context_processor
 def shared_context():
     return {
-        "site_name": "adresse.data.gouv.fr",
-        "site_url": os.environ.get('SITE_URL', 'http://adresses.gouv.fr'),
-        "baseline": "Un référentiel national ouvert\u2009: de l'adresse à la coordonnée géographique",
-        "description": "Dis Cricri, c'est quoi la BAN?",
-        "twitter": "@etalab",
-        "api_root": "http://localhost:5005",
-        "contact_email": "adresse@data.gouv.fr"
+        "SITE_NAME": "adresse.data.gouv.fr",
+        "SITE_URL": SITE_URL,
+        "BASELINE": "Un référentiel national ouvert\u2009: de l'adresse à la coordonnée géographique",
+        "DESCRIPTION": "Dis Cricri, c'est quoi la BAN?",
+        "TWITTER": "@etalab",
+        "API_URL": API_URL,
+        "CONTACT_EMAIL": "adresse@data.gouv.fr"
     }
 
 

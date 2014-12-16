@@ -1,4 +1,3 @@
-API_URL = 'http://bano.fluv.io/search/?';
 TILELAYER = 'http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png';
 CENTER = [48.72568, -3.985908];
 MAXZOOM = 18;

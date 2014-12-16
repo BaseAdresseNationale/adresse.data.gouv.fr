@@ -6,7 +6,7 @@
 <div class="wrapper head">
     <div class="row">
         <h1>API</h1>
-        <p>Avec l'API d'<strong>{{ site_name }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
+        <p>Avec l'API d'<strong>{{ SITE_NAME }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
     </div>
 </div>
 <div class="wrapper entrypoint" id="search">
@@ -17,11 +17,11 @@
         </div>
         <div class="col two-third details">
             <p>Utiliser le paramètre <b>q</b> pour faire une recherche plein texte:</p>
-            <pre>http '{{ api_root }}/search/?q=8 bd du port'</pre>
+            <pre>http '{{ API_URL }}/search/?q=8 bd du port'</pre>
             <p>Avec <b>limit</b> on peut contrôler le nombre d'éléments retournés:</p>
-            <pre>http '{{ api_root }}/search/?q=8 bd du port&amp;limit=15'</pre>
+            <pre>http '{{ API_URL }}/search/?q=8 bd du port&amp;limit=15'</pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
-            <pre>http '{{ api_root }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
+            <pre>http '{{ API_URL }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
 <pre>{
   "type": "FeatureCollection",
@@ -74,9 +74,9 @@
         </div>
         <div class="col two-third details">
             <p>Les paramètres <b>lat</b> et <b>lon</b> sont obligatoires:</p>
-            <pre>http '{{ api_root }}/reverse/?lon=2.37&amp;lat=48.357'</pre>
+            <pre>http '{{ API_URL }}/reverse/?lon=2.37&amp;lat=48.357'</pre>
             <p>Le paramètre <b>type</b> permet forcer le type de retour:</p>
-            <pre>http '{{ api_root }}/reverse/?lon=2.37&amp;lat=48.357&amp;type=commune'</pre>
+            <pre>http '{{ API_URL }}/reverse/?lon=2.37&amp;lat=48.357&amp;type=commune'</pre>
             <p>Même format de réponse que pour le point d'entrée <a href="#search"><b>/search/</b></a>.</p>
         </div>
     </div>
@@ -89,9 +89,9 @@
         </div>
         <div class="col two-third details">
             <p>Le fichier csv doit être passé via le paramètre <b>data</b>:</p>
-            <pre>http --timeout 600 -f POST {{ api_root }}/csv/ data@path/to/file.csv</pre>
+            <pre>http --timeout 600 -f POST {{ API_URL }}/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
-            <pre>http -f POST {{ api_root }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
+            <pre>http -f POST {{ API_URL }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
         </div>
     </div>
 </div>

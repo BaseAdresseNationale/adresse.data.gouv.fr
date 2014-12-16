@@ -2,24 +2,24 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ baseline }} - {{ site_name }}</title>
+        <title>{{ BASELINE }} - {{ SITE_NAME }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="description" content="{{ description }}">
+        <meta name="description" content="{{ DESCRIPTION }}">
 
         <!-- Twitter Card data -->
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:site" content="{{ twitter }}">
-        <meta name="twitter:title" content="{{ site_name }}, {{ baseline }}">
-        <meta name="twitter:description" content="{{ description }}">
+        <meta name="twitter:site" content="{{ TWITTER }}">
+        <meta name="twitter:title" content="{{ SITE_NAME }}, {{ BASELINE }}">
+        <meta name="twitter:description" content="{{ DESCRIPTION }}">
         <meta name="twitter:image" content="{{ url_for('static', filename='img/logo_marianne_share.jpeg') }}">
 
         <!-- Open Graph data -->
-        <meta property="og:title" content="{{ site_name }}, {{ baseline }}">
+        <meta property="og:title" content="{{ SITE_NAME }}, {{ BASELINE }}">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="{{ site_url }}">
+        <meta property="og:url" content="{{ SITE_URL }}">
         <meta property="og:image" content="{{ url_for('static', filename='img/logo_marianne_share.jpeg') }}">
-        <meta property="og:description" content="{{ description }}">
-        <meta property="og:site_name" content="{{ site_name }}">
+        <meta property="og:description" content="{{ DESCRIPTION }}">
+        <meta property="og:SITE_NAME" content="{{ SITE_NAME }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet.photon/leaflet.photon.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
@@ -30,7 +30,7 @@
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <header class="wrapper">
-            <section><h1 class="beta"><a href="/">{{ site_name }}</a></h1></section>
+            <section><h1 class="beta"><a href="/">{{ SITE_NAME }}</a></h1></section>
             <section class="menu"><!--
               --><a class="mwide tthird" href="{{ url_for('download') }}">Télécharger</a><!--
               --><a class="mwide tthird soon" href="#">Contribuer</a><!--
@@ -44,11 +44,11 @@
         </div>
         <footer class="wrapper">
             <div class="row">
-                <ul class="col third">{{ site_name }}
+                <ul class="col third">{{ SITE_NAME }}
                     <li><a href="{{ url_for('about') }}">À propos</a></li>
                     <li><a href="{{ url_for('cgu') }}">Mentions légales</a></li>
                     <li><a href="{{ url_for('faq') }}">FAQ</a></li>
-                    <li><a href="mailto:{{ contact_email }}">Contact</a></li>
+                    <li><a href="mailto:{{ CONTACT_EMAIL }}">Contact</a></li>
                 </ul>
                 <ul class="col third">Partenaires
                     <li><a href="http://ign.fr/">IGN</a></li>
@@ -57,7 +57,7 @@
                     <li><a href="http://www.modernisation.gouv.fr/">SGMAP</a></li>
                 </ul>
                 <div class="col third netword">
-                    <a href="https://twitter.com/{{ twitter }}" class="twitter">Suivez-nous sur Twitter</a>
+                    <a href="https://twitter.com/{{ TWITTER }}" class="twitter">Suivez-nous sur Twitter</a>
                 </div>
             </div>
         </footer>
