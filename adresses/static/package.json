@@ -7,7 +7,7 @@
     "csvtogeocoder-ui": "yohanboniface/csvtogeocoder-ui",
     "d3": "^3.5.2",
     "leaflet": "^0.7.3",
-    "leaflet.photon": "^0.2.1",
+    "leaflet.photon": "^0.3.0",
     "topojson": "^1.6.18"
   },
   "devDependencies": {},
