@@ -491,8 +491,8 @@ footer .twitter:before {
 .home .actions .tools {
     background-image: url('./img/tools.svg');
 }
-.home .actions .api {
-    background-image: url('./img/api.svg');
+.home .actions .about {
+    background-image: url('./img/about.svg');
 }
 .home h2.inter {
     height: 70px;
