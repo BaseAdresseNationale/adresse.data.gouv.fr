@@ -16,7 +16,16 @@ var formatResult = function (feature, el) {
         details = [],
         type = this.formatType(feature);
     title.innerHTML = feature.properties.name;
-    details.push(feature.properties.type);
+    var types = {
+        housenumber: 'numéro',
+        street: 'rue',
+        locality: 'lieu-dit',
+        hamlet: 'hamlet',
+        village: 'village',
+        city: 'city',
+        commune: 'commune',
+    };
+    if (types[feature.properties.type]) L.DomUtil.create('span', 'type', title).innerHTML = types[feature.properties.type];
     if (feature.properties.city && feature.properties.city !== feature.properties.name) {
         details.push(feature.properties.city);
     }

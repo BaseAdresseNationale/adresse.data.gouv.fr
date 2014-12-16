@@ -635,6 +635,12 @@ footer .twitter:before {
     color: #333;
     opacity: 0.8;
 }
+.photon-autocomplete li .type {
+    font-family: 'open_sanslight';
+    font-weight: normal;
+    float: right;
+    font-size: 0.8em;
+}
 
 
 /* ************************************************* */
