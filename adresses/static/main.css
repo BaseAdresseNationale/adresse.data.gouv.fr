@@ -526,6 +526,18 @@ footer .twitter:before {
     background-repeat: no-repeat;
     background-position: center left 20px;
 }
+.prose {
+    font-size: 1.1em;
+}
+.prose ul {
+    list-style: circle;
+}
+.prose ul li {
+    margin-left: 30px;
+}
+.prose h3 {
+    margin-top: 15px;
+}
 
 
 /* ************************************************* */
