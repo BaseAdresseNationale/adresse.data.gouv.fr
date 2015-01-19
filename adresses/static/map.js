@@ -9,13 +9,13 @@ var searchPoints = L.geoJson(null, {
 var showSearchPoints = function (geojson) {
     searchPoints.clearLayers();
     searchPoints.addData(geojson);
-}
+};
 var formatResult = function (feature, el) {
     var title = L.DomUtil.create('strong', '', el),
         detailsContainer = L.DomUtil.create('small', '', el),
         details = [],
         type = this.formatType(feature);
-    title.innerHTML = feature.properties.name;
+    title.innerHTML = feature.properties.label || feature.properties.name;
     var types = {
         housenumber: 'numéro',
         street: 'rue',
