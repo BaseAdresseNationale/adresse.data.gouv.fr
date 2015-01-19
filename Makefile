@@ -1,4 +1,4 @@
 serve:
-	python adresses/app.py
+	python adresse/app.py
 assets:
-	cd adresses/static/ && npm install
+	cd adresse/static/ && npm install
