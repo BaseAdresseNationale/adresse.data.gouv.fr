@@ -13,8 +13,7 @@ var showSearchPoints = function (geojson) {
 var formatResult = function (feature, el) {
     var title = L.DomUtil.create('strong', '', el),
         detailsContainer = L.DomUtil.create('small', '', el),
-        details = [],
-        type = this.formatType(feature);
+        details = [];
     title.innerHTML = feature.properties.label || feature.properties.name;
     var types = {
         housenumber: 'numéro',
@@ -37,7 +36,7 @@ var photonControlOptions = {
     resultsHandler: showSearchPoints,
     placeholder: 'Ex. 6 quai de la tourelle cergy…',
     position: 'topright',
-    url: API_URL,
+    url: API_URL + '/search/?',
     formatResult: formatResult,
     noResultLabel: 'Aucun résultat',
     feedbackLabel: 'Signaler',
@@ -46,7 +45,7 @@ var photonControlOptions = {
 var photonReverseControlOptions = {
     resultsHandler: showSearchPoints,
     position: 'topleft',
-    url: 'http://bano.fluv.io/reverse/?',
+    url: API_URL + '/reverse/?',
     formatResult: formatResult,
     noResultLabel: 'Aucun résultat',
     tooltipLabel: 'Cliquer sur la carte pour obtenir l\'adresse'
