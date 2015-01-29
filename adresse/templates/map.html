@@ -5,7 +5,7 @@
 {% block content %}
 <div id="map"></div>
 <script type="text/javascript">
-    API_URL = '{{ API_URL }}/search/?';
+    API_URL = '{{ API_URL }}';
 </script>
 <script src="{{ url_for('static', filename='map.js') }}"></script>
 {% endblock content %}
