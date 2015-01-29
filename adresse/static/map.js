@@ -42,19 +42,10 @@ var photonControlOptions = {
     feedbackLabel: 'Signaler',
     feedbackEmail: 'adresses@data.gouv.fr'
 };
-var photonReverseControlOptions = {
-    resultsHandler: showSearchPoints,
-    position: 'topleft',
-    url: API_URL + '/reverse/?',
-    formatResult: formatResult,
-    noResultLabel: 'Aucun résultat',
-    tooltipLabel: 'Cliquer sur la carte pour obtenir l\'adresse'
-};
 var map = L.map('map', {
     photonControl: true,
     photonControlOptions: photonControlOptions,
     photonReverseControl: true,
-    photonReverseControlOptions: photonReverseControlOptions,
     attributionControl: false
 });
 map.setView(CENTER, 12);
@@ -70,7 +61,7 @@ L.Control.ReverseLabel = L.Control.extend({
 
     onAdd: function (map) {
         var container = L.DomUtil.create('div', 'reverse-label');
-        var reverse = new L.PhotonReverse({url: 'http://bano.fluv.io/reverse/?', handleResults: function (data) {
+        var reverse = new L.PhotonReverse({url: API_URL + '/reverse/?', handleResults: function (data) {
             container.innerHTML = 'Carte centrée sur «' + data.features[0].properties.label + '»';
         }});
         map.on('moveend', function () {
