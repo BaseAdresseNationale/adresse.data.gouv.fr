@@ -1,3 +1,4 @@
+# coding=utf-8
 DEPARTEMENTS = {
     "01": "Ain",
     "02": "Aisne",
