@@ -1,4 +1,4 @@
-TILELAYER = 'http://{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png';
+TILELAYER = 'http://wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg';
 CENTER = [48.72568, -3.985908];
 MAXZOOM = 18;
 var searchPoints = L.geoJson(null, {
@@ -50,7 +50,7 @@ var map = L.map('map', {
 });
 map.setView(CENTER, 12);
 searchPoints.addTo(map);
-L.tileLayer(TILELAYER, {maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright">OpenStreetMap Contributors</a> | Tiles \u00a9 <a href="http://thunderforest.com/">Thunderforest</a>'}).addTo(map);
+L.tileLayer(TILELAYER, {minZoom: 6, maxZoom: MAXZOOM, attribution: 'Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, <a href="https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/">Adresses BANO</a> sous licence ODbL'}).addTo(map);
 L.control.attribution({position: 'bottomleft'}).addTo(map);
 
 L.Control.ReverseLabel = L.Control.extend({
