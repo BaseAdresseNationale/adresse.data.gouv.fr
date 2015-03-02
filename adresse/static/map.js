@@ -47,7 +47,8 @@ var photonControlOptions = {
     feedbackEmail: 'adresses@data.gouv.fr',
     minChar: function (val) {
         return SHORT_CITY_NAMES.indexOf(val) !== -1 || val.length > 3;
-    }
+    },
+    submitDelay: 200
 };
 var map = L.map('map', {
     photonControl: true,
