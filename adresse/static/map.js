@@ -1,6 +1,8 @@
-TILELAYER = 'http://wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg';
-CENTER = [48.72568, -3.985908];
-MAXZOOM = 18;
+/* eslint strict:0, quotes:[1, "simple"], curly: 0, no-shadow:0 */
+/* globals L, API_URL, TILE_URL */
+
+var CENTER = [48.72568, -3.985908];
+var MAXZOOM = 18;
 var searchPoints = L.geoJson(null, {
         onEachFeature: function (feature, layer) {
             layer.bindPopup(feature.properties.name);
@@ -22,7 +24,7 @@ var formatResult = function (feature, el) {
         hamlet: 'hamlet',
         village: 'village',
         city: 'city',
-        commune: 'commune',
+        commune: 'commune'
     };
     if (types[feature.properties.type]) L.DomUtil.create('span', 'type', title).innerHTML = types[feature.properties.type];
     if (feature.properties.city && feature.properties.city !== feature.properties.name) {
@@ -32,6 +34,8 @@ var formatResult = function (feature, el) {
     detailsContainer.innerHTML = details.join(', ');
 };
 
+
+var SHORT_CITY_NAMES = ['y', 'ay', 'bu', 'by', 'eu', 'fa', 'gy', 'oo', 'oz', 'py', 'ri', 'ry', 'sy', 'ur', 'us', 'uz'];
 var photonControlOptions = {
     resultsHandler: showSearchPoints,
     placeholder: 'Ex. 6 quai de la tourelle cergy…',
@@ -40,7 +44,10 @@ var photonControlOptions = {
     formatResult: formatResult,
     noResultLabel: 'Aucun résultat',
     feedbackLabel: 'Signaler',
-    feedbackEmail: 'adresses@data.gouv.fr'
+    feedbackEmail: 'adresses@data.gouv.fr',
+    minChar: function (val) {
+        return SHORT_CITY_NAMES.indexOf(val) !== -1 || val.length > 3;
+    }
 };
 var map = L.map('map', {
     photonControl: true,
@@ -50,7 +57,7 @@ var map = L.map('map', {
 });
 map.setView(CENTER, 12);
 searchPoints.addTo(map);
-L.tileLayer(TILELAYER, {minZoom: 6, maxZoom: MAXZOOM, attribution: 'Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, <a href="https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/">Adresses BANO</a> sous licence ODbL'}).addTo(map);
+L.tileLayer(TILE_URL, {minZoom: 6, maxZoom: MAXZOOM, attribution: 'Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, <a href="https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/">Adresses BANO</a> sous licence ODbL'}).addTo(map);
 L.control.attribution({position: 'bottomleft'}).addTo(map);
 
 L.Control.ReverseLabel = L.Control.extend({
