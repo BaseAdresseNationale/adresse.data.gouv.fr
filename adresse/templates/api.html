@@ -20,6 +20,8 @@
             <pre>http '{{ API_URL }}/search/?q=8 bd du port'</pre>
             <p>Avec <b>limit</b> on peut contrôler le nombre d'éléments retournés:</p>
             <pre>http '{{ API_URL }}/search/?q=8 bd du port&amp;limit=15'</pre>
+            <p>Avec <b>autocomplete</b> on peut désactiver les traitements d'auto-complétion:</p>
+            <pre>http '{{ API_URL }}/search/?q=8 bd du port&amp;autocomplete=false'</pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
             <pre>http '{{ API_URL }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
