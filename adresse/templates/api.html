@@ -9,6 +9,13 @@
         <p>Avec l'API d'<strong>{{ SITE_NAME }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
     </div>
 </div>
+
+<div class="wrapper">
+    <div class="row prose">
+        <p>Pour plus de clareté, les exemples de commande utilisent le package <a href="https://pypi.python.org/pypi/httpie">httpie</a>.</p>
+    </div>
+</div>
+
 <div class="wrapper entrypoint" id="search">
     <div class="row">
         <div class="col third">
@@ -90,7 +97,7 @@
             <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
         </div>
         <div class="col two-third details">
-            <p>Le fichier csv doit être passé via le paramètre <b>data</b>:</p>
+            <p>Le fichier csv (limité actuellement à 32Mo) doit être passé via le paramètre <b>data</b>:</p>
             <pre>http --timeout 600 -f POST {{ API_URL }}/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
             <pre>http -f POST {{ API_URL }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
