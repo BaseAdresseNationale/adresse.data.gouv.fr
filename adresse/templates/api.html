@@ -33,44 +33,53 @@
             <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
 <pre>{
-  "type": "FeatureCollection",
-  "query": "bois d'arcy",
-  "features": [
-    {
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "2.030635",
-          "48.801045"
-        ]
-      },
-      "type": "Feature",
-      "properties": {
-        "context": "78, Yvelines, Île-de-France",
-        "city": "Bois-d'Arcy",
-        "type": "commune",
-        "postcode": "78390",
-        "name": "Bois-d'Arcy"
-      }
-    },
-    {
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          "3.715269",
-          "47.546679"
-        ]
-      },
-      "type": "Feature",
-      "properties": {
-        "context": "89, Yonne, Bourgogne",
-        "city": "Bois-d'Arcy",
-        "type": "commune",
-        "postcode": "89660",
-        "name": "Bois-d'Arcy"
-      }
-    }
-  ]
+	"attribution": "BANO",
+	"licence": "ODbL",
+	"query": "8 bd du port",
+	"type": "FeatureCollection",
+	"version": "draft",
+	"features": [
+		{
+			"properties":
+			{
+				"context": "80, Somme, Picardie",
+				"housenumber": "8",
+				"label": "8 Boulevard du Port 80000 Amiens",
+				"postcode": "80000",
+				"id": "800216590L",
+				"score": 0.3351181818181818,
+				"name": "8 Boulevard du Port",
+				"city": "Amiens",
+				"type": "housenumber"
+			},
+			"geometry":
+			{
+				"type": "Point",
+				"coordinates": [2.29009, 49.897446]
+			},
+			"type": "Feature"
+		},
+		{
+			"properties":
+			{
+				"context": "34, H\u00e9rault, Languedoc-Roussillon",
+				"housenumber": "8",
+				"label": "8 Boulevard du Port 34140 M\u00e8ze",
+				"postcode": "34140",
+				"id": "341570770U",
+				"score": 0.3287575757575757,
+				"name": "8 Boulevard du Port",
+				"city": "M\u00e8ze",
+				"type": "housenumber"
+			},
+			"geometry":
+			{
+				"type": "Point",
+				"coordinates": [3.605875, 43.425232]
+			},
+			"type": "Feature"
+		}
+	]
 }</pre>
         </div>
     </div>        
