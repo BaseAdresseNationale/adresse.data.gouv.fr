@@ -81,6 +81,26 @@
 		}
 	]
 }</pre>
+            <p>Les attributs retournés sont:</p>
+            <ul>
+            	<li>id: identifiant dans la base d'origine, pour BANO il est composé du code INSEE de la commune, puis du code FANTOIR de la voie ou du lieu-dit</li>
+            	<li>type: type de résultat trouvé</li>
+            	<ul>
+            		<li>housenumber: numéro "à la plaque"</li>
+            		<li>street: position "à la voie", placé approximativement au centre de celle-ci</li>
+            		<li>place: lieu-dit</li>
+            		<li>village: numéro "à la commune" dans un village</li>
+            		<li>town: numéro "à la commune" dans une ville moyenne</li>
+            		<li>city: numéro "à la commune" dans une grande ville</li>
+            	</ul>
+            	<li>score: valeur de 0 à 1 indiquant la pertinence du résultat</li>
+            	<li>housenumber*: numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
+            	<li>name: numéro éventuel et nom de voie ou lieu dit</li>
+            	<li>postcode: code postal</li>
+            	<li>city: nom de la commune</li>
+            	<li>context: n° de département, nom de département et de région</li>
+            	<li>label: libellé complet de l'adresse</li>
+            </ul>
         </div>
     </div>        
 </div>
