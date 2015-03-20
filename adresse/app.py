@@ -35,13 +35,14 @@ def map():
 def csv():
     return render_template('csv.html')
 
+
 @app.route('/mapdev/')
-def map():
+def mapdev():
     return render_template('mapdev.html', TILE_URL=TILE_URL)
 
 
 @app.route('/csvdev/')
-def csv():
+def csvdev():
     return render_template('csvdev.html')
 
 
