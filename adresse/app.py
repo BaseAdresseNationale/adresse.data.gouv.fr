@@ -35,6 +35,15 @@ def map():
 def csv():
     return render_template('csv.html')
 
+@app.route('/mapdev/')
+def map():
+    return render_template('mapdev.html', TILE_URL=TILE_URL)
+
+
+@app.route('/csvdev/')
+def csv():
+    return render_template('csvdev.html')
+
 
 @app.route('/cgu/')
 def cgu():
