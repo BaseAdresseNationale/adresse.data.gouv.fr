@@ -5,7 +5,7 @@
 {% block content %}
 <div id="map"></div>
 <script type="text/javascript">
-    API_URL = 'http://devapi-adresse.data.gouv.fr';
+    API_URL = '//devapi-adresse.data.gouv.fr';
     TILE_URL = '{{ TILE_URL|safe }}';
 </script>
 <script src="{{ url_for('static', filename='map.js') }}"></script>
