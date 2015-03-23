@@ -21,9 +21,9 @@ var formatResult = function (feature, el) {
         housenumber: 'numéro',
         street: 'rue',
         locality: 'lieu-dit',
-        hamlet: 'hamlet',
+        hamlet: 'hameau',
         village: 'village',
-        city: 'city',
+        city: 'ville',
         commune: 'commune'
     };
     if (types[feature.properties.type]) L.DomUtil.create('span', 'type', title).innerHTML = types[feature.properties.type];
