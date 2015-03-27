@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body_class %}csv{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.css') }}">
+<div class="wrapper head">
+    <div class="row">
+        <h1>Géocoder un fichier CSV</h1>
+        <p><strong>{{ SITE_NAME }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
+    </div>
+</div>
+<div class="wrapper">
+    <div id="main" class="row"></div>
+</div>
+<script src="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
+<script type="text/javascript">
+    CSVToGeocoder({container: '#main', postURL: '//devapi-adresse.data.gouv.fr/csv/', i18n: {
+        'Choose a file': 'Choisir un fichier',
+        'Choose the columns to consider': 'Sélectionner les colonnes à utiliser',
+        'Run the process': 'Lancer le géocodage',
+        'Drag your file here': 'Glisser un fichier ici',
+        'or': 'ou',
+        'browse': 'choisir',
+        'Geocode': 'Lancer',
+        'all words must be found': 'tous les mots doivent être trouvés',
+        'or drag another file here': 'ou glisser un autre fichier',
+    }});
+</script>
+{% endblock content %}
