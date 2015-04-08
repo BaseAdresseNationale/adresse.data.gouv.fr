@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 SITE_URL = os.environ.get('SITE_URL', 'http://adresse.data.gouv.fr')
 API_URL = os.environ.get('API_URL', '//api-adresse.data.gouv.fr')
+DEVAPI_URL = '//devapi-adresse.data.gouv.fr'
 TILE_URL = os.environ.get('TILE_URL', '//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg')  # noqa
 
 
@@ -26,24 +27,16 @@ def tools():
     return render_template('tools.html')
 
 
-@app.route('/map/')
-def map():
-    return render_template('map.html', TILE_URL=TILE_URL)
+@app.route('/map/', defaults={'url': API_URL})
+@app.route('/mapdev/', defaults={'url': DEVAPI_URL})
+def map(url):
+    return render_template('map.html', TILE_URL=TILE_URL, API_URL=url)
 
 
-@app.route('/csv/')
-def csv():
-    return render_template('csv.html')
-
-
-@app.route('/mapdev/')
-def mapdev():
-    return render_template('mapdev.html', TILE_URL=TILE_URL)
-
-
-@app.route('/csvdev/')
-def csvdev():
-    return render_template('csvdev.html')
+@app.route('/csv/', defaults={'url': API_URL})
+@app.route('/csvdev/', defaults={'url': DEVAPI_URL})
+def csv(url):
+    return render_template('csv.html', API_URL=url)
 
 
 @app.route('/cgu/')
