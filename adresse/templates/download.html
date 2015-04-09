@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from "helpers.html" import render_field %}
+
 {% block body_class %}download{% endblock %}
 {% block extrahead %}
     <script src="{{ url_for('static', filename='node_modules/d3/d3.js') }}"></script>
@@ -16,28 +18,23 @@
 </div>
 <div class="wrapper">
     <div class="row sea">
-        <div class="col third">
-            <ul class="departements">
-                {% for code, name in departements|dictsort %}
-                    <li id="departement-{{code}}"><strong><a href="#departement-{{ code }}">{{ name }}</a></strong> <a href="{{ csv_url|format(code) }}" title="Fichier CSV">csv</a> | <a href="{{ shp_url|format(code) }}" title="Shapefile">shp</a> | <a href="{{ ttl_url|format(code) }}" title="Turle RDF">ttl</a></li>
-                {% endfor %}
-            </ul>
+        <div class="col half">
+            <h2>Télécharger en ODBL</h2>
+            <p>Cette version ne contient pas les colonnes x et y, mais elle est néanmoins enrichie des adresses disponibles dans OpenStreetMap.</p>
+            <a href="#" class="button">Télécharger maintenant</a>
         </div>
-        <div class="col two-third">
-            <h2>Métropole et Corse</h2>
-            <div class="metropole download-map"></div>
-            <h2>Guadeloupe</h2>
-            <div class="guadeloupe download-map"></div>
-            <h2>Martinique</h2>
-            <div class="martinique download-map"></div>
-            <h2>Guyane</h2>
-            <div class="guyane download-map"></div>
-            <h2>La Réunion</h2>
-            <div class="reunion download-map"></div>
-            <h2>Mayotte</h2>
-            <div class="mayotte download-map"></div>
+        <div class="col half">
+            <h2>Télécharger en licence hygiène</h2>
+            <p>Super la licence non virale qui salit pas les doigts.</p>
+            <form method="post" id="tracked_download" action="{{ url_for('download') }}">
+                {{ form.csrf_token }}
+                {{ render_field(form.first_name)}}
+                {{ render_field(form.last_name)}}
+                {{ render_field(form.email)}}
+                {{ render_field(form.company)}}
+                <input type="submit" value="Recevoir un lien de téléchargement dans trois minutes" />
+            </form>
         </div>
     </div>
 </div>
-<script src="{{ url_for('static', filename='download-map.js') }}"></script>
 {% endblock content %}

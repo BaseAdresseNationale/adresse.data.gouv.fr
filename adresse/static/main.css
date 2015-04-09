@@ -303,7 +303,28 @@ select {
 select[multiple="multiple"] {
     height: auto;
 }
-
+label.cap {
+    background-color: #eee;
+    border: #ddd solid 1px;
+    border-bottom: none;
+    display: block;
+    border-radius: 2px 2px 0 0;
+    padding: 5px;
+    font-family: 'open_sanssemibold';
+}
+label.cap + input {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+input.error {
+    box-shadow: 0px 0px 6px #CF000F;
+}
+ul.errors li {
+    background-color: #E74C3C;
+    margin-top: -14px;
+    margin-bottom: 14px;
+    padding: 2px 5px;
+}
 
 /* ************************************************* */
 /* *************** HEADER & FOOTER ***************** */
@@ -391,6 +412,32 @@ footer .twitter:before {
     top: 25px;
     left: -31px;
     float: right;
+}
+.flashes li {
+    padding: 10px;
+    text-align: center;
+}
+.flashes li:before,
+.flashes li:after {
+    font-family: 'open_sansextrabold';
+}
+.flashes li.success {
+    background-color: #66CC99;
+}
+.flashes li.success:before {
+    content: '⍟ ';
+}
+.flashes li.success:after {
+    content: ' ⍟';
+}
+.flashes li.error {
+    background-color: #E74C3C;
+}
+.flashes li.error:before {
+    content: '⚠ ';
+}
+.flashes li.error:after {
+    content: ' ⚠';
 }
 
 
