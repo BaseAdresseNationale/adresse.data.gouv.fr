@@ -421,22 +421,22 @@ footer .twitter:before {
 .flashes li:after {
     font-family: 'open_sansextrabold';
 }
-.flashes li.success {
+.flashes .success {
     background-color: #66CC99;
 }
-.flashes li.success:before {
+.flashes .success:before {
     content: '⍟ ';
 }
-.flashes li.success:after {
+.flashes .success:after {
     content: ' ⍟';
 }
-.flashes li.error {
+.flashes .error {
     background-color: #E74C3C;
 }
-.flashes li.error:before {
+.flashes .error:before {
     content: '⚠ ';
 }
-.flashes li.error:after {
+.flashes .error:after {
     content: ' ⚠';
 }
 
