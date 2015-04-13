@@ -58,7 +58,7 @@ var map = L.map('map', {
 });
 map.setView(CENTER, 12);
 searchPoints.addTo(map);
-L.tileLayer(TILE_URL, {minZoom: 6, maxZoom: MAXZOOM, attribution: 'Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, <a href="https://www.data.gouv.fr/fr/datasets/base-d-adresses-nationale-ouverte-bano/">Adresses BANO</a> sous licence ODbL'}).addTo(map);
+L.tileLayer(TILE_URL, {minZoom: 6, maxZoom: MAXZOOM, attribution: 'Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL'}).addTo(map);
 L.control.attribution({position: 'bottomleft'}).addTo(map);
 
 L.Control.ReverseLabel = L.Control.extend({
