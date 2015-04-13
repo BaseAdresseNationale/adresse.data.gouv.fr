@@ -90,6 +90,10 @@ def download(token):
         return redirect(url_for('download'))
     return render_template('download.html', form=form)
 
+@app.route('/contrib/')
+def contrib():
+    return render_template('contrib.html')
+
 
 @app.context_processor
 def shared_context():
