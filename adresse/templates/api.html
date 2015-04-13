@@ -31,6 +31,9 @@
             <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;autocomplete=0'</pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
             <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
+            <p>Les filtres <b>type</b> et <b>postcode</b> permettent de restreindre la recherche:</p>
+            <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;postcode=44380'</pre>
+            <pre>http 'http:{{ API_URL }}/search/?q=paris&amp;type=street'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
 <pre>{
 	"attribution": "BANO",
