@@ -13,26 +13,26 @@
     <div class="row">
         <h1>Données brutes</h1>
         <p><strong>{{ SITE_NAME }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
-        <p>Les données listées ci-dessous sont issues du rapprochement des données & traitements adresses des partenaires de la BAN : IGN, La Poste, DGFIP, Etalab et OpenStreetMap France.</p>
+        <p>Les données listées ci-dessous sont issues du rapprochement des données & traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
     </div>
 </div>
 <div class="wrapper">
     <div class="row sea">
         <div class="col half">
-            <h2>Télécharger en licence OdBL</h2>
-            <p>Cette version de la BAN contient toutes les données disponibles, y compris en OdBL</p>
+            <h2>Télécharger en licence ODbL</h2>
+            <p>Cette version contient toutes les données de la BAN, complétées par des données en ODbL</p>
             <a href="#" class="button">Télécharger maintenant</a>
         </div>
         <div class="col half">
             <h2>Télécharger en licence gratuite de repartage</h2>
-            <p>Cette version de la BAN ne contient pas de données OdBL, et peut être utilisée gratuitement, sous réserve de repartage des contributions</p>
+            <p>Cette version de la BAN ne contient pas de données ODbL, et peut être utilisée gratuitement, sous réserve de repartage des contributions</p>
             <form method="post" id="tracked_download" action="{{ url_for('download') }}">
                 {{ form.csrf_token }}
                 {{ render_field(form.first_name)}}
                 {{ render_field(form.last_name)}}
                 {{ render_field(form.email)}}
                 {{ render_field(form.company)}}
-                <input type="submit" value="Recevoir un lien de téléchargement dans trois minutes" />
+                <input type="submit" value="Recevoir le lien de téléchargement par email" />
             </form>
         </div>
     </div>
