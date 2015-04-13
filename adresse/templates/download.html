@@ -24,8 +24,8 @@
             <a href="#" class="button">Télécharger maintenant</a>
         </div>
         <div class="col half">
-            <h2>Télécharger en licence gratuite de repartage</h2>
-            <p>Cette version de la BAN ne contient pas de données ODbL, et peut être utilisée gratuitement, sous réserve de repartage des contributions</p>
+            <h2>Télécharger en <a href="{{ url_for('static', filename='BAN_Licence_de_repartage.pdf') }}">licence gratuite de repartage</a></h2>
+            <p>Cette version de la BAN ne contient pas de données ODbL, et peut être utilisée gratuitement, sous réserve de repartage des contributions*</p>
             <form method="post" id="tracked_download" action="{{ url_for('download') }}">
                 {{ form.csrf_token }}
                 {{ render_field(form.first_name)}}
@@ -34,6 +34,7 @@
                 {{ render_field(form.company)}}
                 <input type="submit" value="Recevoir le lien de téléchargement par email" />
             </form>
+            <p>* Si vous ne souhaitez pas vous engager à mettre à disposition du public vos Enrichissements ou si vous n’utilisez pas la BAN pour votre Usage Propre vous devez vous rapporter aux autres offres proposées respectivement par <a href="http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique">La Poste</a> ou <a href="http://professionnels.ign.fr/pointadresse">l’IGN</a>.</p>
         </div>
     </div>
 </div>
