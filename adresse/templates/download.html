@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from "helpers.html" import render_field %}
+
 {% block body_class %}download{% endblock %}
 {% block extrahead %}
     <script src="{{ url_for('static', filename='node_modules/d3/d3.js') }}"></script>
@@ -11,33 +13,28 @@
     <div class="row">
         <h1>Données brutes</h1>
         <p><strong>{{ SITE_NAME }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
-        <p>Les données listées ci-dessous proviennent du projet BANO initié par OpenStreetMap France et seront prochainement complétées par celles des autres partenaires.</p>
+        <p>Les données listées ci-dessous sont issues du rapprochement des données & traitements adresses des partenaires de la BAN : IGN, La Poste, DGFIP, Etalab et OpenStreetMap France.</p>
     </div>
 </div>
 <div class="wrapper">
     <div class="row sea">
-        <div class="col third">
-            <ul class="departements">
-                {% for code, name in departements|dictsort %}
-                    <li id="departement-{{code}}"><strong><a href="#departement-{{ code }}">{{ name }}</a></strong> <a href="{{ csv_url|format(code) }}" title="Fichier CSV">csv</a> | <a href="{{ shp_url|format(code) }}" title="Shapefile">shp</a> | <a href="{{ ttl_url|format(code) }}" title="Turle RDF">ttl</a></li>
-                {% endfor %}
-            </ul>
+        <div class="col half">
+            <h2>Télécharger en licence OdBL</h2>
+            <p>Cette version de la BAN contient toutes les données disponibles, y compris en OdBL</p>
+            <a href="#" class="button">Télécharger maintenant</a>
         </div>
-        <div class="col two-third">
-            <h2>Métropole et Corse</h2>
-            <div class="metropole download-map"></div>
-            <h2>Guadeloupe</h2>
-            <div class="guadeloupe download-map"></div>
-            <h2>Martinique</h2>
-            <div class="martinique download-map"></div>
-            <h2>Guyane</h2>
-            <div class="guyane download-map"></div>
-            <h2>La Réunion</h2>
-            <div class="reunion download-map"></div>
-            <h2>Mayotte</h2>
-            <div class="mayotte download-map"></div>
+        <div class="col half">
+            <h2>Télécharger en licence gratuite de repartage</h2>
+            <p>Cette version de la BAN ne contient pas de données OdBL, et peut être utilisée gratuitement, sous réserve de repartage des contributions</p>
+            <form method="post" id="tracked_download" action="{{ url_for('download') }}">
+                {{ form.csrf_token }}
+                {{ render_field(form.first_name)}}
+                {{ render_field(form.last_name)}}
+                {{ render_field(form.email)}}
+                {{ render_field(form.company)}}
+                <input type="submit" value="Recevoir un lien de téléchargement dans trois minutes" />
+            </form>
         </div>
     </div>
 </div>
-<script src="{{ url_for('static', filename='download-map.js') }}"></script>
 {% endblock content %}

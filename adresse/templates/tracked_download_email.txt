@@ -1,0 +1,11 @@
+Bonjour {{ first_name }} {{ last_name }},
+
+Merci de blabla sous licence IGN.
+
+
+Voici le lien de téléchargement:
+
+{{ download_link }}
+
+
+L'équipe de la base adresse nationale
