@@ -88,7 +88,7 @@ def test_cannot_download_if_invalid_token(webapp):
 
 
 def test_can_download_with_token(webapp, config):
-    config['BAN_FILE_PATH'] = '/a/b/c/'
+    config['BAN_FILE_PATH'] = '/a/b/c.zip'
     dl = TrackedDownload(
         first_name='toto',
         last_name='tata',
@@ -98,5 +98,6 @@ def test_can_download_with_token(webapp, config):
     dl.save()
     url = url_for('download', token=dl.token)
     resp = webapp.get(url, status=200)
-    assert resp.headers['X-Accel-Redirect'] == '/a/b/c/'
+    assert resp.headers['X-Accel-Redirect'] == '/a/b/c.zip'
+    assert resp.headers['Content-Disposition'] == 'attachment; filename="c.zip"'  # noqa
     assert webapp.get(url, status=403)

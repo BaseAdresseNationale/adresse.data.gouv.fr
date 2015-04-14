@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from flask import flash, redirect, render_template, request, url_for
 from flask_mail import Message
 
@@ -67,9 +69,10 @@ def download(token):
             flash("Merci d'avoir téléchargé la base adresse nationale !",
                   "success")
             if app.config['BAN_FILE_PATH']:
+                name = Path(app.config['BAN_FILE_PATH']).name
                 headers = {
                     'X-Accel-Redirect': app.config['BAN_FILE_PATH'],
-                    'Content-Disposition': 'attachment; filename="ban.zip"',
+                    'Content-Disposition': 'attachment; filename="{}"'.format(name),  # noqa
                 }
                 return '', 200, headers
     if request.method == 'POST' and form.validate():
