@@ -1,11 +1,9 @@
 Bonjour {{ first_name }} {{ last_name }},
 
-Merci de blabla sous licence IGN.
-
-
-Voici le lien de téléchargement:
+Vous pouvez télécharger les données BAN sous licence
+gratuite de repartage en cliquant sur le lien suivant:
 
 {{ download_link }}
 
 
-L'équipe de la base adresse nationale
+L'équipe de la Base Adresse Nationale
