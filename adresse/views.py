@@ -67,8 +67,11 @@ def download(token):
             flash("Merci d'avoir téléchargé la base adresse nationale !",
                   "success")
             if app.config['BAN_FILE_PATH']:
-                return '', 200, {'X-Accel-Redirect':
-                                 app.config['BAN_FILE_PATH']}
+                headers = {
+                    'X-Accel-Redirect': app.config['BAN_FILE_PATH'],
+                    'Content-Disposition': 'attachment; filename="ban.zip"',
+                }
+                return '', 200, headers
     if request.method == 'POST' and form.validate():
         dl = TrackedDownload(**form.data)
         dl.save()
