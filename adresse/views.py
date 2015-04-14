@@ -1,4 +1,4 @@
-from flask import abort, flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for
 from flask_mail import Message
 
 from . import app, mail
@@ -89,6 +89,7 @@ def download(token):
               email=dl.email), 'success')
         return redirect(url_for('download'))
     return render_template('download.html', form=form)
+
 
 @app.route('/contrib/')
 def contrib():

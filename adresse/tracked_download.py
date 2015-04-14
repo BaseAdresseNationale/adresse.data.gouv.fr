@@ -41,7 +41,7 @@ class TrackedDownload(object):
         if not self.token:
             salt = app.config['SECRET_KEY']
             string = self.email.encode() + salt.encode()
-            self.token = hashlib.sha512(string).hexdigest()
+            self.token = hashlib.sha512(string).hexdigest()[:8]
 
     def save(self):
         DB.commit('INSERT INTO tracked_download '
