@@ -5,5 +5,8 @@ gratuite de repartage en cliquant sur le lien suivant:
 
 {{ download_link }}
 
+Le fichier à télécharger est compressé en ZIP et fait un peu
+plus de 800Mo. Il contient un fichier CSV pour chaque département.
+
 
 L'équipe de la Base Adresse Nationale
