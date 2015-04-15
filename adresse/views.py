@@ -108,7 +108,7 @@ def shared_context():
         "SITE_NAME": "adresse.data.gouv.fr",
         "SITE_URL": app.config['SITE_URL'],
         "BASELINE": "Un référentiel national ouvert\u2009: de l'adresse à la coordonnée géographique",  # noqa
-        "DESCRIPTION": "Dis Cricri, c'est quoi la BAN?",
+        "DESCRIPTION": "Site officiel de la Base Adresse Nationale",
         "TWITTER": "@etalab",
         "API_URL": app.config['API_URL'],
         "CONTACT_EMAIL": "adresse@data.gouv.fr"
