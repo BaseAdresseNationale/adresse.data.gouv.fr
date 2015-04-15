@@ -29,7 +29,7 @@ class TrackedDownloadForm(BaseForm):
     last_name = StringField('Nom', [validators.DataRequired(DATA_REQUIRED)])
     email = StringField('Email', [validators.DataRequired(DATA_REQUIRED),
                                   validators.Email(EMAIL)])
-    company = StringField('Société', [validators.DataRequired(DATA_REQUIRED)])
+    company = StringField('Société')
 
 
 class TrackedDownload(object):
