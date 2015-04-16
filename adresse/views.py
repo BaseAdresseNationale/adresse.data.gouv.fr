@@ -101,6 +101,10 @@ def download(token):
 def contrib():
     return render_template('contrib.html')
 
+@app.route('/news/')
+def contrib():
+    return render_template('news.html')
+
 
 @app.context_processor
 def shared_context():
