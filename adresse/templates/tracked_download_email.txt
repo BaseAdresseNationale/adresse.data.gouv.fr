@@ -5,6 +5,10 @@ gratuite de repartage en cliquant sur le lien suivant:
 
 {{ download_link }}
 
+Ce lien est à usage unique. Si votre téléchargement est interrompu,
+vous pouvez le réactiver en remplissant à nouveau le formulaire
+sur http://adresse.data.gouv.fr/download/
+
 Le fichier à télécharger est compressé en ZIP et fait un peu
 plus de 800Mo. Il contient un fichier CSV pour chaque département.
 
