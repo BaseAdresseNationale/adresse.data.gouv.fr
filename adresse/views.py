@@ -101,8 +101,9 @@ def download(token):
 def contrib():
     return render_template('contrib.html')
 
+
 @app.route('/news/')
-def contrib():
+def news():
     return render_template('news.html')
 
 
