@@ -38,6 +38,24 @@ def test_new_trackeddownload_request_should_send_an_email(webapp, config):
         assert download_link in outbox[0].body
 
 
+def test_do_not_create_new_td_if_already_exist_and_valid(webapp):
+    assert not DB.fetchone('SELECT count(*) as t FROM tracked_download')['t']
+    form = webapp.get(url_for('download')).forms['tracked_download']
+    form['first_name'] = "Victor"
+    form['last_name'] = "Hugo"
+    form['email'] = 'victor@hugo.com'
+    form['company'] = "Totoche SARL"
+    form.submit().follow()
+    assert DB.fetchone('SELECT count(*) as t FROM tracked_download')['t'] == 1
+    form = webapp.get(url_for('download')).forms['tracked_download']
+    form['first_name'] = "Victor"
+    form['last_name'] = "Hugo"
+    form['email'] = 'victor@hugo.com'
+    form['company'] = "Totoche SARL"
+    form.submit().follow()
+    assert DB.fetchone('SELECT count(*) as t FROM tracked_download')['t'] == 1
+
+
 def test_cannot_create_new_tracked_download_if_missing_email(webapp):
     assert not DB.fetchone('SELECT count(*) as t FROM tracked_download')['t']
     form = webapp.get(url_for('download')).forms['tracked_download']
@@ -100,4 +118,19 @@ def test_can_download_with_token(webapp, config):
     resp = webapp.get(url, status=200)
     assert resp.headers['X-Accel-Redirect'] == '/a/b/c.zip'
     assert resp.headers['Content-Disposition'] == 'attachment; filename="c.zip"'  # noqa
+
+
+def test_cant_download_if_over_max_use(webapp, config, monkeypatch):
+    monkeypatch.setattr(TrackedDownload, 'MAX_USE', 2)
+    config['BAN_FILE_PATH'] = '/a/b/c.zip'
+    dl = TrackedDownload(
+        first_name='toto',
+        last_name='tata',
+        email='toto@tata.com',
+        company='toto SA',
+    )
+    dl.save()
+    url = url_for('download', token=dl.token)
+    assert webapp.get(url, status=200)
+    assert webapp.get(url, status=200)
     assert webapp.get(url, status=403)

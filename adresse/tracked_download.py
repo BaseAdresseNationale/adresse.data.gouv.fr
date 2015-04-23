@@ -34,6 +34,8 @@ class TrackedDownloadForm(BaseForm):
 
 class TrackedDownload(object):
 
+    MAX_USE = 3
+
     def __init__(self, **data):
         self.token = None
         for key, value in data.items():
@@ -57,6 +59,13 @@ class TrackedDownload(object):
     @classmethod
     def from_token(cls, token):
         data = DB.fetchone('SELECT * FROM tracked_download '
-                           'WHERE used=0 AND token=?',
-                           [token])
+                           'WHERE used<? AND token=?',
+                           [cls.MAX_USE, token])
+        return TrackedDownload(**data) if data else None
+
+    @classmethod
+    def from_email(cls, email):
+        data = DB.fetchone('SELECT * FROM tracked_download '
+                           'WHERE used<? AND email=?',
+                           [cls.MAX_USE, email])
         return TrackedDownload(**data) if data else None

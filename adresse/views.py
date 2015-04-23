@@ -76,8 +76,10 @@ def download(token):
                 }
                 return '', 200, headers
     if request.method == 'POST' and form.validate():
-        dl = TrackedDownload(**form.data)
-        dl.save()
+        dl = TrackedDownload.from_email(form.email.data)
+        if not dl:
+            dl = TrackedDownload(**form.data)
+            dl.save()
         msg = Message()
         msg.add_recipient(dl.email)
         email_context = dict(dl.__dict__)
