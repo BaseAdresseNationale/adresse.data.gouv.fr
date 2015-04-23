@@ -53,8 +53,9 @@ class TrackedDownload(object):
                    self.token])
 
     def use(self):
-        DB.commit('UPDATE tracked_download SET used=used+1 WHERE token=?',
-                  [self.token])
+        DB.commit('UPDATE tracked_download SET used=used+1 '
+                  'WHERE used<? AND token=?',
+                  [self.MAX_USE, self.token])
 
     @classmethod
     def from_token(cls, token):
