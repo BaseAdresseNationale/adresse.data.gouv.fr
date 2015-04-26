@@ -36,8 +36,8 @@
             <pre>http 'http:{{ API_URL }}/search/?q=paris&amp;type=street'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
 <pre>{
-	"attribution": "BANO",
-	"licence": "ODbL",
+	"attribution": "BAN",
+	"licence": "ODbL 1.0",
 	"query": "8 bd du port",
 	"type": "FeatureCollection",
 	"version": "draft",
@@ -86,7 +86,7 @@
 }</pre>
             <p>Les attributs retournés sont:</p>
             <ul>
-            	<li><em>id</em> identifiant dans la base d'origine, pour BANO il est composé du code INSEE de la commune, puis du code FANTOIR de la voie ou du lieu-dit</li>
+            	<li><em>id</em> identifiant (actuellement non stable)</li>
             	<li><em>type</em> type de résultat trouvé</li>
             	<ul>
             		<li><em>housenumber</em> numéro "à la plaque"</li>
@@ -129,7 +129,7 @@
             <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
         </div>
         <div class="col two-third details">
-            <p>Le fichier csv (limité actuellement à 32Mo) doit être passé via le paramètre <b>data</b>:</p>
+            <p>Le fichier csv (limité actuellement à 8Mo) doit être passé via le paramètre <b>data</b>:</p>
             <pre>http --timeout 600 -f POST http:{{ API_URL }}/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
             <pre>http -f POST http:{{ API_URL }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
