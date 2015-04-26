@@ -5,7 +5,7 @@ gratuite de repartage en cliquant sur le lien suivant:
 
 {{ download_link }}
 
-Ce lien est à usage unique. Si votre téléchargement est interrompu,
+Ce lien est à usage limité. Si votre lien de téléchargement est expiré,
 vous pouvez le réactiver en remplissant à nouveau le formulaire
 sur http://adresse.data.gouv.fr/download/
 
