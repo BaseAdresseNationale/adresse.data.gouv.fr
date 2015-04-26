@@ -129,7 +129,7 @@
             <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
         </div>
         <div class="col two-third details">
-            <p>Le fichier csv (limité actuellement à 8Mo) doit être passé via le paramètre <b>data</b>:</p>
+            <p>Le fichier csv, encode en UTF-8 et limité actuellement à 8Mo doit être passé via le paramètre <b>data</b>:</p>
             <pre>http --timeout 600 -f POST http:{{ API_URL }}/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
             <pre>http -f POST http:{{ API_URL }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
