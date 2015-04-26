@@ -84,25 +84,25 @@
 		}
 	]
 }</pre>
-            <p>Les attributs retournés sont:</p>
+            <p>Les attributs retournés sont&nbsp;:</p>
             <ul>
-            	<li><em>id</em> identifiant (actuellement non stable)</li>
-            	<li><em>type</em> type de résultat trouvé</li>
+            	<li><em>id</em>&nbsp;: identifiant (actuellement non stable)</li>
+            	<li><em>type</em>&nbsp;: type de résultat trouvé</li>
             	<ul>
-            		<li><em>housenumber</em> numéro "à la plaque"</li>
-            		<li><em>street</em> position "à la voie", placé approximativement au centre de celle-ci</li>
-            		<li><em>place</em> lieu-dit</li>
-            		<li><em>village</em> numéro "à la commune" dans un village</li>
-            		<li><em>town</em> numéro "à la commune" dans une ville moyenne</li>
-            		<li><em>city</em> numéro "à la commune" dans une grande ville</li>
+            		<li><em>housenumber</em>&nbsp;: numéro "à la plaque"</li>
+            		<li><em>street</em>&nbsp;: position "à la voie", placé approximativement au centre de celle-ci</li>
+            		<li><em>place</em>&nbsp;: lieu-dit</li>
+            		<li><em>village</em>&nbsp;: numéro "à la commune" dans un village</li>
+            		<li><em>town</em>&nbsp;: numéro "à la commune" dans une ville moyenne</li>
+            		<li><em>city</em>&nbsp;: numéro "à la commune" dans une grande ville</li>
             	</ul>
-            	<li><em>score</em> valeur de 0 à 1 indiquant la pertinence du résultat</li>
-            	<li><em>housenumber</em> numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
-            	<li><em>name</em> numéro éventuel et nom de voie ou lieu dit</li>
-            	<li><em>postcode</em> code postal</li>
-            	<li><em>city</em> nom de la commune</li>
-            	<li><em>context</em> n° de département, nom de département et de région</li>
-            	<li><em>label</em> libellé complet de l'adresse</li>
+            	<li><em>score</em>&nbsp;: valeur de 0 à 1 indiquant la pertinence du résultat</li>
+            	<li><em>housenumber</em>&nbsp;: numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
+            	<li><em>name</em>&nbsp;: numéro éventuel et nom de voie ou lieu dit</li>
+            	<li><em>postcode</em>&nbsp;: code postal</li>
+            	<li><em>city</em>&nbsp;: nom de la commune</li>
+            	<li><em>context</em>&nbsp;: n° de département, nom de département et de région</li>
+            	<li><em>label</em>&nbsp;: libellé complet de l'adresse</li>
             </ul>
         </div>
     </div>        
@@ -129,7 +129,7 @@
             <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
         </div>
         <div class="col two-third details">
-            <p>Le fichier csv, encode en UTF-8 et limité actuellement à 8Mo doit être passé via le paramètre <b>data</b>:</p>
+            <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo doit être passé via le paramètre <b>data</b>:</p>
             <pre>http --timeout 600 -f POST http:{{ API_URL }}/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
             <pre>http -f POST http:{{ API_URL }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
