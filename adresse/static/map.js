@@ -70,7 +70,8 @@ L.Control.ReverseLabel = L.Control.extend({
     onAdd: function (map) {
         var container = L.DomUtil.create('div', 'reverse-label');
         var reverse = new L.PhotonReverse({url: API_URL + '/reverse/?', handleResults: function (data) {
-            container.innerHTML = 'Carte centrée sur «' + data.features[0].properties.label + '»';
+            if (data.features.length) container.innerHTML = 'Carte centrée sur «' + data.features[0].properties.label + '»';
+            else container.innerHTML = '';
         }});
         map.on('moveend', function () {
             if (this.getZoom() > 14) reverse.doReverse(this.getCenter());
