@@ -13,18 +13,27 @@
 <div class="wrapper">
     <div id="main" class="row"></div>
 </div>
+<script src="{{ url_for('static', filename='node_modules/papaparse/papaparse.js') }}"></script>
 <script src="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
 <script type="text/javascript">
-    CSVToGeocoder({container: '#main', postURL: '{{ API_URL }}/csv/', i18n: {
-        'Choose a file': 'Choisir un fichier',
-        'Choose the columns to consider': 'Sélectionner les colonnes à utiliser',
-        'Run the process': 'Lancer le géocodage',
-        'Drag your file here': 'Glisser un fichier ici',
-        'or': 'ou',
-        'browse': 'choisir',
-        'Geocode': 'Lancer',
-        'all words must be found': 'tous les mots doivent être trouvés',
-        'or drag another file here': 'ou glisser un autre fichier',
-    }});
+    CSVToGeocoder({
+        container: '#main',
+        postURL: '{{ API_URL }}/csv/',
+        encodings: ['utf-8', 'iso-8859-1'],
+        i18n: {
+            'Choose a file': 'Choisir un fichier',
+            'Preview the file and check encoding': "Aperçu du fichier et vérification de l'encodage",
+            'Choose the columns you want to use to compute the addresses': "Choisir les colonnes à utiliser pour construire les adresses",
+            'If you see weird characters in the preview, you can try with another encoding': "S'il y a des caractères non reconnus dans l'aperçu, vous pouvez essayer un autre encodage",
+            'Drag or click on a column to select it. You can then drag the selected columns to reorder them.': "Glisser ou cliquer sur une entête pour la sélectionner. Vous pouvez ensuite réordonner les entêtes par glisser-déposer.",
+            'Run the process': 'Lancer le géocodage',
+            'Drag your file here': 'Glisser un fichier ici',
+            'or': 'ou',
+            'browse': 'choisir',
+            'Geocode': 'Lancer',
+            'all words must be found': 'tous les mots doivent être trouvés',
+            'or drag another file here': 'ou glisser un autre fichier',
+        }
+    });
 </script>
 {% endblock content %}
