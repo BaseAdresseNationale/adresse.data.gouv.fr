@@ -125,14 +125,26 @@
 <div class="wrapper entrypoint" id="csv">
     <div class="row">
         <div class="col third">
-            <h2>/csv/</h2>
+            <h2>/search/csv/</h2>
             <p>Point d'entrée pour le géocodage de masse à partir d'un fichier CSV.</p>
         </div>
         <div class="col two-third details">
-            <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo doit être passé via le paramètre <b>data</b>:</p>
-            <pre>http --timeout 600 -f POST http:{{ API_URL }}/csv/ data@path/to/file.csv</pre>
+            <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre <b>data</b>:</p>
+            <pre>http --timeout 600 -f POST http:{{ API_URL }}/search/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
-            <pre>http -f POST http:{{ API_URL }}/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
+            <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="csv">
+    <div class="row">
+        <div class="col third">
+            <h2>/reverse/csv/</h2>
+            <p>Point d'entrée pour le géocodage inverse de masse à partir d'un fichier CSV.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre <b>data</b>. Il doit contenir les colonnes <b>latitude</b> (ou <em>lat</em>) et <b>longitude</b> (ou <em>lon</em> ou <em>lng</em>).</p>
+            <pre>http --timeout 600 -f POST http:{{ API_URL }}/reverse/csv/ data@path/to/file.csv</pre>
         </div>
     </div>
 </div>
