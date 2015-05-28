@@ -31,7 +31,7 @@
             <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;autocomplete=0'</pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
             <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
-            <p>Les filtres <b>type</b> et <b>postcode</b> permettent de restreindre la recherche:</p>
+            <p>Les filtres <b>type</b>, <b>postcode</b> (code Postal) et <b>citycode</b> (code INSEE) permettent de restreindre la recherche:</p>
             <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;postcode=44380'</pre>
             <pre>http 'http:{{ API_URL }}/search/?q=paris&amp;type=street'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
@@ -49,6 +49,7 @@
 				"housenumber": "8",
 				"label": "8 Boulevard du Port 80000 Amiens",
 				"postcode": "80000",
+				"citycode": "80021",
 				"id": "800216590L",
 				"score": 0.3351181818181818,
 				"name": "8 Boulevard du Port",
@@ -69,6 +70,7 @@
 				"housenumber": "8",
 				"label": "8 Boulevard du Port 34140 M\u00e8ze",
 				"postcode": "34140",
+				"citycode": "34157",
 				"id": "341570770U",
 				"score": 0.3287575757575757,
 				"name": "8 Boulevard du Port",
@@ -100,6 +102,7 @@
             	<li><em>housenumber</em>&nbsp;: numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
             	<li><em>name</em>&nbsp;: numéro éventuel et nom de voie ou lieu dit</li>
             	<li><em>postcode</em>&nbsp;: code postal</li>
+            	<li><em>citycode</em>&nbsp;: code INSEE de la commune</li>
             	<li><em>city</em>&nbsp;: nom de la commune</li>
             	<li><em>context</em>&nbsp;: n° de département, nom de département et de région</li>
             	<li><em>label</em>&nbsp;: libellé complet de l'adresse</li>
