@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   id="svg3900"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="news.svg"
+   inkscape:export-filename="/home/ybon/Code/projects/wwwenix/wwwenix/static/wwwenix/img/highlight_api.png"
+   inkscape:export-xdpi="135"
+   inkscape:export-ydpi="135">
+  <defs
+     id="defs3902" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.2214274"
+     inkscape:cx="27.300946"
+     inkscape:cy="37.865955"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="744"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3908"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3905">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-952.36218)">
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#f2f2f2;stroke-width:2.09753383;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3929"
+       sodipodi:cx="40"
+       sodipodi:cy="47.5"
+       sodipodi:rx="25"
+       sodipodi:ry="27.5"
+       d="M 65,47.5 A 25,27.5 0 0 1 40,75 25,27.5 0 0 1 15,47.5 25,27.5 0 0 1 40,20 25,27.5 0 0 1 65,47.5 Z"
+       transform="matrix(1.9230769,0,0,1.7482517,-26.923077,919.32023)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="155.7868"
+       y="967.80786"
+       id="text4457"
+       sodipodi:linespacing="125%"><tspan
+         y="967.80786"
+         x="155.7868"
+         sodipodi:role="line"
+         id="tspan4459" /></text>
+    <path
+       style="fill:none;stroke:#f2f2f2;stroke-width:4.59037256;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3929-2"
+       sodipodi:type="arc"
+       sodipodi:cx="50"
+       sodipodi:cy="1000.269"
+       sodipodi:rx="34.869255"
+       sodipodi:ry="34.434296"
+       sodipodi:start="4.712389"
+       sodipodi:end="0"
+       d="M 50.000001,965.83469 A 34.869255,34.434296 0 0 1 84.869255,1000.269"
+       sodipodi:open="true" />
+    <path
+       style="fill:none;stroke:#f2f2f2;stroke-width:4.33958244;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3929-2-8"
+       sodipodi:type="arc"
+       sodipodi:cx="49.644669"
+       sodipodi:cy="1001.6921"
+       sodipodi:rx="23.513693"
+       sodipodi:ry="22.468348"
+       sodipodi:start="4.712389"
+       sodipodi:end="0"
+       d="m 49.644669,979.22373 a 23.513693,22.468348 0 0 1 23.513692,22.46837"
+       sodipodi:open="true" />
+    <ellipse
+       cy="1002.3622"
+       cx="50"
+       style="fill:#f2f2f2;fill-opacity:1;stroke:none;stroke-width:1.8613559;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path3929-2-8-8"
+       rx="8.8162928"
+       ry="8.8822317" />
+  </g>
+</svg>

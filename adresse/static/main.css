@@ -585,6 +585,10 @@ footer .twitter:before {
 .prose h3 {
     margin-top: 15px;
 }
+sup {
+    font-size: 0.8em;
+    line-height: 1em;
+}
 
 
 /* ************************************************* */
@@ -771,4 +775,12 @@ footer .twitter:before {
 }
 .departements li:target:before {
     content: '⮕ ';
+}
+
+
+/* ************************************************* */
+/* ******************** NEWS *********************** */
+/* ************************************************* */
+.news .head .row {
+    background-image: url('./img/news.svg');
 }
