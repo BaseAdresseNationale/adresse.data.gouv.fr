@@ -1,35 +1,6 @@
 import hashlib
 
-from flask import session
-from wtforms import Form, StringField, validators
-from wtforms.csrf.session import SessionCSRF
-
 from . import DB, app
-
-
-class BaseForm(Form):
-
-    class Meta:
-        csrf = True
-        csrf_class = SessionCSRF
-        csrf_secret = app.config['SECRET_KEY'].encode()
-
-        @property
-        def csrf_context(self):
-            return session
-
-
-class TrackedDownloadForm(BaseForm):
-
-    DATA_REQUIRED = 'Ce champ est obligatoire.'
-    EMAIL = 'Adresse courriel invalide.'
-
-    first_name = StringField('Prénom',
-                             [validators.DataRequired(DATA_REQUIRED)])
-    last_name = StringField('Nom', [validators.DataRequired(DATA_REQUIRED)])
-    email = StringField('Email', [validators.DataRequired(DATA_REQUIRED),
-                                  validators.Email(EMAIL)])
-    company = StringField('Société')
 
 
 class TrackedDownload(object):

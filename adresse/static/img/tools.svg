@@ -13,7 +13,7 @@
    height="100"
    id="svg3900"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="tools.svg"
    inkscape:export-filename="/home/ybon/Code/projects/wwwenix/wwwenix/static/wwwenix/img/highlight_api.png"
    inkscape:export-xdpi="135"
@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="54.299373"
+     inkscape:cx="17.049373"
      inkscape:cy="45.681975"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -71,7 +71,7 @@
        sodipodi:cy="47.5"
        sodipodi:rx="25"
        sodipodi:ry="27.5"
-       d="m 65,47.5 a 25,27.5 0 1 1 -50,0 25,27.5 0 1 1 50,0 z"
+       d="M 65,47.5 A 25,27.5 0 0 1 40,75 25,27.5 0 0 1 15,47.5 25,27.5 0 0 1 40,20 25,27.5 0 0 1 65,47.5 Z"
        transform="matrix(1.9230769,0,0,1.7482518,-26.923077,919.32022)" />
     <text
        xml:space="preserve"
@@ -88,6 +88,6 @@
        inkscape:connector-curvature="0"
        d="m 35,972.36218 35.833334,33.44442 -17.319444,1.4931 9.854167,21.7986 -6.569445,2.9861 -9.555556,-22.0972 L 35,1021.633 v -49.27082"
        id="path3"
-       style="fill:#ffffff" />
+       style="fill:#f2f2f2;fill-opacity:1" />
   </g>
 </svg>

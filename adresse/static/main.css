@@ -312,6 +312,7 @@ label.cap {
     padding: 5px;
     font-family: 'open_sanssemibold';
 }
+label.cap + textarea,
 label.cap + input {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -783,4 +784,12 @@ sup {
 /* ************************************************* */
 .news .head .row {
     background-image: url('./img/news.svg');
+}
+
+
+/* ************************************************* */
+/* ***************** Contribute ******************** */
+/* ************************************************* */
+.contribute .head .row {
+    background-image: url('./img/contribute.svg');
 }
