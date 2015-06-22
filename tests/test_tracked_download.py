@@ -74,7 +74,7 @@ def test_cannot_create_new_tracked_download_without_csrf_token(webapp):
     form['email'] = 'victor@hugo.com'
     form['company'] = "Totoche SARL"
     form['csrf_token'] = ""
-    form.submit()
+    form.submit(status=400)
     assert not DB.fetchone('SELECT count(*) as t FROM tracked_download')['t']
 
 

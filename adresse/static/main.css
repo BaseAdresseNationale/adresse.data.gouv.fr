@@ -275,6 +275,7 @@ input[type="submit"],
     height: 50px;
     line-height: 50px;
     text-align: center;
+    width: 100%;
 }
 .button.action {
     background-color: #C75C5C;
@@ -326,6 +327,20 @@ ul.errors li {
     margin-bottom: 14px;
     padding: 2px 5px;
 }
+.help-text, .helptext {
+    display: block;
+    padding: 7px 7px;
+    margin-top: -14px;
+    margin-bottom: 14px;
+    background: #777;
+    color: #eee;
+    font-size: 11px;
+    border-radius: 0 2px;
+}
+select + .help-text {
+    margin-top: 0;
+}
+
 
 /* ************************************************* */
 /* *************** HEADER & FOOTER ***************** */
@@ -792,4 +807,222 @@ sup {
 /* ************************************************* */
 .contribute .head .row {
     background-image: url('./img/contribute.svg');
+}
+
+
+/* ************************************************* */
+/* ***************** Contribute ******************** */
+/* ************************************************* */
+body.crowdsourcing {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.crowdsourcing #map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.crowdsourcing .step {
+    z-index: -1;
+    opacity: 0;
+}
+.crowdsourcing .with-transition {
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+}
+.crowdsourcing #search .step-action {
+    position: absolute;
+    left: calc(50% - 400px / 2);
+    top: calc(50% - 48px);
+    z-index: 1001;
+}
+.crowdsourcing #search input {
+    height: 48px;
+    border: none;
+    width: 400px;
+    padding: 5px 10px;
+    box-shadow: 0 0px 2px 0px #999 inset;
+}
+.crowdsourcing .step-action:before {
+    background-color: #333;
+    border: 3px solid #E0E0D1;
+    border-radius: 27px;
+    color: white;
+    content: "1";
+    display: block;
+    font-family: 'open_sansbold';
+    font-size: 36px;
+    height: 48px;
+    line-height: 46px;
+    margin-left: -68px;
+    position: absolute;
+    text-align: center;
+    width: 48px;
+}
+.crowdsourcing .overlay {
+    background-color: #fff;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-image: url('./img/texture.png');
+}
+.crowdsourcing #panel {
+    opacity: 0;
+    position: absolute;
+    right: -25%;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    background-color: #fff;
+    padding: 20px;
+    background-image: url('./img/texture.png');
+}
+.crowdsourcing #topbar {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: -80px;
+    right: 25%;
+    width: 75%;
+    height: 80px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-right: 1px solid #ccc;
+    background-image: url('./img/texture.png');
+}
+.crowdsourcing #topbar h2 {
+    line-height: 48px;
+    margin-left: 200px;
+}
+.crowdsourcing #topbar h2:before {
+    content: '2';
+}
+.crowdsourcing #panel h2:before {
+    content: '3';
+    left: calc(50% + 24px);
+    position: absolute;
+    top: -60px;
+}
+.crowdsourcing #panel h2 {
+    margin-top: 60px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.crowdsourcing #login .message,
+.crowdsourcing #thanks .message {
+    position: absolute;
+    left: calc(50% - 400px / 2);
+    bottom: 0;
+    width: 400px;
+    padding: 40px;
+    box-shadow: 0 0px 2px 0px #999 inset;
+    background-color: #fff;
+    z-index: 1001;
+}
+.crowdsourcing.step-search #search,
+.crowdsourcing.step-edit #topbar,
+.crowdsourcing.step-thanks #thanks,
+.crowdsourcing.step-edit #panel {
+    opacity: 1;
+    display: block;
+    z-index: 1000;
+}
+.crowdsourcing.step-edit #panel {
+    right: 0;
+}
+.crowdsourcing.step-edit #topbar {
+    top: 0;
+}
+.crowdsourcing.ask-for-login #login .message,
+.crowdsourcing.step-thanks #thanks .message {
+    bottom: calc(50% - 100px);
+}
+.crowdsourcing #login {
+    display: none;
+}
+.crowdsourcing.ask-for-login #login {
+    display: block;
+}
+/*.step2 #map {
+    width: 75%;
+}
+*/
+.crowdsourcing .marker {
+    position: relative;
+    background: #22313F;
+    border: 4px solid #efefef;
+    color: #efefef;
+    text-align: center;
+    width: 40px;
+    font-family: 'open_sansbold';
+    height: 30px;
+    line-height: 20px;
+    box-shadow: 6px 11px 11px 0px #000;
+}
+.crowdsourcing .marker:after, .marker:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.crowdsourcing .marker:after {
+    border-color: rgba(122, 213, 115, 0);
+    border-top-color: #22313F;
+    border-width: 10px;
+    margin-left: -10px;
+}
+.crowdsourcing .marker:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-top-color: #efefef;
+    border-width: 16px;
+    margin-left: -16px;
+}
+.crowdsourcing .on-dirty {
+    display: none;
+}
+.crowdsourcing.dirty .on-dirty {
+    /*display: initial;*/
+    display: inline-block;
+}
+.crowdsourcing #menu {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1002;
+    background-color: #fff;
+    text-align: center;
+    background-image: url('./img/texture.png');
+    padding: 10px;
+    font-size: 0.9em;
+}
+.crowdsourcing #menu .button {
+    line-height: 40px;
+    height: 40px;
+    margin-top: 5px;
+    padding: 0 10px;
+}
+.crowdsourcing .when-logged {
+    display: none;
+}
+.crowdsourcing.logged .when-logged {
+    display: block;
+}
+.crowdsourcing.logged .when-anonymous {
+    display: none;
 }

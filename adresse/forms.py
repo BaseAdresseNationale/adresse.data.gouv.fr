@@ -1,22 +1,10 @@
-from flask import session
-from wtforms import Form, StringField, validators, TextAreaField
-from wtforms.csrf.session import SessionCSRF
-
-from . import app
+from flask_wtf import Form
+from wtforms import StringField, validators, TextAreaField
 
 
 class BaseForm(Form):
     DATA_REQUIRED = 'Ce champ est obligatoire.'
     EMAIL = 'Adresse courriel invalide.'
-
-    class Meta:
-        csrf = True
-        csrf_class = SessionCSRF
-        csrf_secret = app.config['SECRET_KEY'].encode()
-
-        @property
-        def csrf_context(self):
-            return session
 
 
 class TrackedDownloadForm(BaseForm):
@@ -37,3 +25,11 @@ class ReportForm(BaseForm):
                          validators.Email(BaseForm.EMAIL)])
     message = TextAreaField('Signalement',
                             [validators.DataRequired(BaseForm.DATA_REQUIRED)])
+
+
+class ContributionForm(BaseForm):
+    id = StringField()
+    before = StringField()
+    after = StringField()
+    username = StringField()
+    auth_provider = StringField()

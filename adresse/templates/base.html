@@ -21,15 +21,19 @@
         <meta property="og:image" content="{{ url_for('static', filename='img/logo_marianne_share.jpeg') }}">
         <meta property="og:description" content="{{ DESCRIPTION }}">
         <meta property="og:SITE_NAME" content="{{ SITE_NAME }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.css') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename='leaflet/leaflet.css') }}"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet.photon/leaflet.photon.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-        <script src="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.js') }}"></script>
+        <script src="{{ url_for('static', filename='leaflet/leaflet-src.js') }}"></script>
+        <script src="{{ url_for('static', filename='leaflet.editable.js') }}"></script>
         <script src="{{ url_for('static', filename='node_modules/leaflet.photon/leaflet.photon.js') }}"></script>
+        <script src="{{ url_for('static', filename='node_modules/leaflet-formbuilder/Leaflet.FormBuilder.js') }}"></script>
+        <script src="{{ url_for('static', filename='node_modules/reqwest/reqwest.min.js') }}"></script>
         <script src="{{ url_for('static', filename='utils.js') }}"></script>
         {% block extrahead %}{% endblock %}
     </head>
     <body class="{% block body_class %}{% endblock %}">
+    {% block body %}
         <header class="wrapper">
             <section><h1 class="beta"><a href="/">{{ SITE_NAME }}</a></h1></section>
             <section class="menu"><!--
@@ -75,20 +79,21 @@
         <script type="text/javascript">
             Tooltip({content: 'Bientôt! :)', duration: 3000}).attachTo('.soon');
         </script>
-<!-- Piwik -->
-<script type="text/javascript">
-  var _paq = _paq || [];
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//stats.data.gouv.fr/";
-    _paq.push(['setTrackerUrl', u+'piwik.php']);
-    _paq.push(['setSiteId', 13]);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<noscript><p><img src="//stats.data.gouv.fr/piwik.php?idsite=13" style="border:0;" alt="" /></p></noscript>
-<!-- End Piwik Code -->
+    {% endblock body %}
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//stats.data.gouv.fr/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', 13]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//stats.data.gouv.fr/piwik.php?idsite=13" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
     </body>
 </html>

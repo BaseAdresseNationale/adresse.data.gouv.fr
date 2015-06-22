@@ -17,11 +17,11 @@ function Tooltip (o) {
             Tooltip._initialized = true;
         },
         attachTo = function (selector) {
-             var els = document.querySelectorAll(selector);
-             for (var i = 0; i < els.length; i++) {
-                 els[i].addEventListener('mouseover', open);
-                 els[i].addEventListener('mouseout', close);
-             }
+            var els = document.querySelectorAll(selector);
+            for (var i = 0; i < els.length; i++) {
+                els[i].addEventListener('mouseover', open);
+                els[i].addEventListener('mouseout', close);
+            }
         },
         onMouseMove = function (e) {
             var maxY = document.documentElement.clientHeight,

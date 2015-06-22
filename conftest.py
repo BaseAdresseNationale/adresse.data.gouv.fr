@@ -14,6 +14,7 @@ def pytest_runtest_setup(item):
     ctx.push()
     DB.init()
     DB.commit('DELETE FROM tracked_download')
+    DB.commit('DELETE FROM contributions')
 
 
 @pytest.fixture
