@@ -8,5 +8,8 @@ SITE_URL = os.environ.get('SITE_URL', '//adresse.data.gouv.fr')
 API_URL = os.environ.get('API_URL', '//api-adresse.data.gouv.fr')
 DEVAPI_URL = '//devapi-adresse.data.gouv.fr'
 TILE_URL = os.environ.get('TILE_URL', '//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg')  # noqa
+ORTHO_TILE_URL = os.environ.get('ORTHO_TILE_URL', '//wxs.ign.fr/6ethvfpfeengah4atl3wpqs1/wmts/?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg')  # noqa
 BAN_FILE_PATH = None
 REPORT_EMAIL = 'sav.sna@laposte.fr'
+DATAGOUV_CONSUMER_KEY = "XXXX"
+DATAGOUV_CONSUMER_SECRET = "YYYY"

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block extrahead %}
+    <meta name="csrf" content="{{ csrf_token() }}">
+{% endblock extrahead %}
+{% block body_class %}crowdsourcing{% endblock %}
+
+{% block body %}
+<div id="map"></div>
+<div id="menu">
+    <a href="/" title="Retour à la page d'accueil" class="brand"><img src="{{ url_for('static', filename="img/logo.jpg") }}"></a>
+    <ul>
+        <li class="when-logged"><span class="username"></span></li>
+        <li class="when-logged"><a href="{{ url_for('logout') }}" class="logout button neutral">Déconnection</a></li>
+        <li class="when-anonymous"><a href="#" class="login button">Connection</a></li>
+    </ul>
+</div>
+<div id="overlay" class="with-transition"></div>
+<div id="search" class="step">
+    <div class="input">
+        <input type="text" /><!--
+        --><a class="geolocate button" href="#" title="Me positionner sur la carte"></a>
+    </div>
+</div>
+<div id="panel" class="step with-transition">
+</div>
+<div id="thanks" class="step">
+    <div class="message with-transition">Merci pour votre contribution. Elle sera prise en compte dans les moins brefs délais.<br />
+    <a href="#" class="button">Continuer</a>
+    </div>
+</div>
+<div id="login" class="with-transition">
+    <div class="message with-transition">
+        <a href="#" class="button oauth">S'identifier</a>
+        <a href="#" class="button neutral anonymous">Contribution anonyme</a>
+        <p>S'identifier avec un compte data.gouv.fr facilite la prise en compte de votre contribution.</p>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='crowdsourcing.js') }}"></script>
+<script type="text/javascript">
+    initUI({
+        tileUrl: '{{ TILE_URL|safe }}',
+        user: '{{ session.fullname }}'
+    });
+</script>
+{% endblock body %}

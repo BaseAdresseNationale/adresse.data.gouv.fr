@@ -1,10 +1,14 @@
+import json
+
 from pathlib import Path
 
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, session
 from flask_mail import Message
+from flask.ext.oauthlib.client import OAuth
 
 from . import app, mail
-from .forms import ReportForm, TrackedDownloadForm
+from .crowdsourcing import Crowdsourcing
+from .forms import ReportForm, TrackedDownloadForm, CrowdsourcingForm
 from .tracked_download import TrackedDownload
 
 
@@ -122,9 +126,87 @@ def contrib():
     return render_template('contrib.html', form=form)
 
 
+@app.route('/crowdsourcing/', methods=['GET', 'POST'])
+def crowdsourcing():
+    form = CrowdsourcingForm(request.form)
+    if request.method == 'POST':
+        if form.validate():
+            data = dict(form.data)
+            data.update({
+                'username': session.get('username'),
+                'auth_provider': session.get('auth_provider')
+            })
+            contrib = Crowdsourcing(**data)
+            contrib.save()
+            return '{"status": "ok"}'
+        else:
+            return json.dumps(form.errors)
+    else:
+        return render_template('crowdsourcing.html', form=form,
+                               session=session,
+                               TILE_URL=app.config['ORTHO_TILE_URL'])
+
+
+@app.route('/crowdsourcing/data/')
+def crowdsourcing_data():
+    data = Crowdsourcing.data(request.args.get('from', None))
+    return json.dumps([c.to_json() for c in data])
+
+
 @app.route('/news/')
 def news():
     return render_template('news.html')
+
+
+# Oauth
+oauth = OAuth(app)
+udata = oauth.remote_app(
+    'udata',
+    base_url='https://www.data.gouv.fr/api/1/',
+    request_token_url=None,
+    request_token_params={'scope': 'default'},
+    access_token_method='POST',
+    access_token_url='https://www.data.gouv.fr/oauth/token',
+    authorize_url='https://www.data.gouv.fr/oauth/authorize',
+    app_key='DATAGOUV'
+)
+
+
+@app.route('/login/')
+def login():
+    return udata.authorize(callback=url_for('authorized', _external=True))
+
+
+@app.route('/logout/')
+def logout():
+    session.pop('udata_token', None)
+    session.pop('username', None)
+    session.pop('fullname', None)
+    session.pop('auth_provider', None)
+    return redirect(url_for('index'))
+
+
+@app.route('/authorized')
+def authorized():
+    resp = udata.authorized_response()
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+        )
+    session['udata_token'] = (resp['access_token'], '')
+    me = udata.get('me')
+    session['username'] = me.data['id']
+    session['auth_provider'] = 'https://www.data.gouv.fr'
+    session['fullname'] = ' '.join([me.data['first_name'],
+                                    me.data['last_name']])
+    return render_template('ajax_authentication_redirect.html',
+                           session=session)
+
+
+@udata.tokengetter
+def get_udata_oauth_token():
+    return session.get('udata_token')
 
 
 @app.context_processor

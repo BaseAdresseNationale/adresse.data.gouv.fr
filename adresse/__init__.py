@@ -2,6 +2,7 @@ import sqlite3
 
 from flask import Flask, g, _app_ctx_stack as stack
 from flask_mail import Mail
+from flask_wtf.csrf import CsrfProtect
 
 app = Flask(__name__)
 app.config.from_object('adresse.default')
@@ -13,6 +14,7 @@ if app.debug:
     app.config['TESTING'] = True
 
 mail = Mail(app)
+CsrfProtect(app)
 
 
 class DB(object):
