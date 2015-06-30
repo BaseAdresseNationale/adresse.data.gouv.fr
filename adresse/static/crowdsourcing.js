@@ -56,15 +56,7 @@ var BanUi = L.Evented.extend({
             this.map.locate({setView: true});
         }, this);
         this.map.on('locationfound', this.reverse, this);
-        this.map.on('layeradd', function (e) {
-            if (!(e.layer instanceof BanUi.Marker)) return;
-            var tooltip = L.tooltip({
-                content: 'Déplacez le marqueur s\'il n\'est pas parfaitement positionné sur la porte d\'entrée.',
-                static: true,
-                duration: 10000
-            }).attachTo('.marker').open();
-            this.map.once('mousedown editable:editing', tooltip.close, tooltip);
-        }, this);
+        this.map.on('layeradd', this.attachMarkerTooltip, this);
     },
 
     step: function (id) {
@@ -82,9 +74,11 @@ var BanUi = L.Evented.extend({
     onStep_edit: function () {
         this.panel.innerHTML = '';
         var fields = [
-            ['properties.housenumber', {handler: 'Input', placeholder: 'Numéro', helpText: 'Numéro'}],
-            ['properties.rep', {handler: 'Input', placeholder: 'Répétiteur (bis, ter…)', helpText: 'Répétiteur (bis, ter…)'}],
-            ['properties.street', {handler: 'Input', placeholder: 'Nom de la voie', helpText: 'Nom de la voie'}]
+            ['properties.housenumber', {handler: 'Input', placeholder: 'Numéro', helpText: 'Numéro', wrapper: 'div', wrapperClass: 'half'}],
+            ['properties.rep', {handler: 'Input', placeholder: 'Répétiteur (bis, ter…)', helpText: 'Répétiteur (bis, ter…)', wrapper: 'div', wrapperClass: 'half'}],
+            ['properties.street', {handler: 'Input', placeholder: 'Nom de la voie', helpText: 'Nom de la voie'}],
+            ['properties.locality', {handler: 'Input', placeholder: 'Lieu-dit', helpText: 'Lieu-dit (optionnel)'}],
+            ['properties.comment', {handler: 'Textarea', placeholder: 'Commentaire', helpText: 'Commentaire (optionnel)'}]
         ];
         this.form = new L.FormBuilder(this.housenumber, fields);
         this.form.on('postsync', function (e) {
@@ -120,7 +114,15 @@ var BanUi = L.Evented.extend({
     },
 
     addHousenumber: function (geojson) {
+        this.formTooltipContent = 'Complétez les propriétés de l\'adresse.';
+        this.markerTooltipContent = 'Positionnez le marqueur sur l\'entrée du bâtiment ou terrain.';
         geojson.properties.housenumber = this.extractHousenumber(this.inputString);
+        this.editHousenumber(geojson);
+    },
+
+    updateHousenumber: function (geojson) {
+        this.formTooltipContent = 'Vérifiez les propriétés de l\'adresse.';
+        this.markerTooltipContent = 'Déplacez le marqueur s\'il n\'est pas parfaitement positionné sur la porte d\'entrée.';
         this.editHousenumber(geojson);
     },
 
@@ -131,13 +133,7 @@ var BanUi = L.Evented.extend({
         this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 19, {animate: true});
         this.map.once('moveend', function () {
             this.step('edit');
-            L.DomEvent.once(this.panel, 'transitionend', function () {
-                var tooltip = L.tooltip({content: 'Vérifiez les propriétés de l\'adresse.', static: true, position: 'left', offsetY: 30}).attachTo('#panel').open();
-                this.housenumber.addTo(this.housenumberLayer);
-                this.housenumber.enableEdit();
-                this.on('step', tooltip.close, tooltip);
-                this.form.on('postsync', tooltip.close, tooltip);
-            }, this);
+            L.DomEvent.once(this.panel, 'transitionend', this.attachFormTooltip, this);
         }, this);
     },
 
@@ -231,8 +227,27 @@ var BanUi = L.Evented.extend({
 
     onSelected: function (e) {
         this.inputString = this.search.value;
-        if (e.choice.properties.type === 'housenumber') this.editHousenumber(e.choice);
+        if (e.choice.properties.type === 'housenumber') this.updateHousenumber(e.choice);
         else if (e.choice.properties.type === 'street') this.addHousenumber(e.choice);
+    },
+
+    attachMarkerTooltip: function (e) {
+        if (!(e.layer instanceof BanUi.Marker)) return;
+        var tooltip = L.tooltip({
+            content: this.markerTooltipContent,
+            static: true,
+            duration: 10000
+        }).attachTo('.marker').open();
+        this.map.once('mousedown editable:editing', tooltip.close, tooltip);
+        this.on('step', tooltip.close, tooltip);
+    },
+
+    attachFormTooltip: function () {
+        var tooltip = L.tooltip({content: this.formTooltipContent, static: true, position: 'left', offsetY: 30}).attachTo('#panel').open();
+        this.housenumber.addTo(this.housenumberLayer);
+        this.housenumber.enableEdit();
+        this.on('step', tooltip.close, tooltip);
+        this.form.on('postsync', tooltip.close, tooltip);
     }
 
 

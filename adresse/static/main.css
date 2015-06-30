@@ -1066,3 +1066,19 @@ body.crowdsourcing {
 .crowdsourcing.logged .when-anonymous {
     display: none;
 }
+.crowdsourcing textarea {
+    height: 100px;
+    resize: vertical;
+}
+.crowdsourcing .half + .half {
+    margin-left: 1%;
+}
+.crowdsourcing .half {
+    display: inline-block;
+    width: 49%;
+}
+.crowdsourcing #panel textarea,
+.crowdsourcing #panel input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}

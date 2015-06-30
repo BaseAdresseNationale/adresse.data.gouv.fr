@@ -7,7 +7,7 @@
     "csvtogeocoder-ui": "yohanboniface/csvtogeocoder-ui",
     "d3": "^3.5.2",
     "leaflet": "^0.7.3",
-    "leaflet-formbuilder": "^0.1.0",
+    "leaflet-formbuilder": "^0.2.0",
     "leaflet.photon": "^0.7.0",
     "papaparse": "^4.1.1",
     "reqwest": "^1.1.5",
