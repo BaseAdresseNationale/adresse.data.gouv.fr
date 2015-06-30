@@ -244,7 +244,13 @@ var BanUi = L.Evented.extend({
     },
 
     attachFormTooltip: function () {
-        var tooltip = L.tooltip({content: this.formTooltipContent, static: true, position: 'left', offsetY: 30}).attachTo('#panel').open();
+        var tooltip = L.tooltip({
+            content: this.formTooltipContent,
+            static: true,
+            position: 'left',
+            duration: 10000,
+            offsetY: 30
+        }).attachTo('#panel').open();
         this.housenumber.addTo(this.housenumberLayer);
         this.housenumber.enableEdit();
         this.on('step', tooltip.close, tooltip);
