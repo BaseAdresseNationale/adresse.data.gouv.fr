@@ -263,7 +263,7 @@ B.Icon = L.DivIcon.extend({
 
     options: {
         iconSize: null,
-        iconAnchor: [20, 40],
+        iconAnchor: [20, 42],
         className: 'marker'
     },
 
