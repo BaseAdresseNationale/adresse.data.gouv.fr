@@ -27,7 +27,7 @@ class ReportForm(BaseForm):
                             [validators.DataRequired(BaseForm.DATA_REQUIRED)])
 
 
-class ContributionForm(BaseForm):
+class CrowdsourcingForm(BaseForm):
     id = StringField()
     before = StringField()
     after = StringField()

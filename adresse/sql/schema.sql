@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `tracked_download` (
     `token` TEXT NOT NULL,
     `used` INTEGER NOT NULL DEFAULT 0
 );
-CREATE TABLE IF NOT EXISTS `contributions` (
+CREATE TABLE IF NOT EXISTS `crowdsourcing` (
     `created_at` TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `operation` TEXT NOT NULL,
     `id` TEXT,

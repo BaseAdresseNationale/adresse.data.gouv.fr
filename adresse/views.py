@@ -7,8 +7,8 @@ from flask_mail import Message
 from flask.ext.oauthlib.client import OAuth
 
 from . import app, mail
-from .contrib import Contribution
-from .forms import ReportForm, TrackedDownloadForm, ContributionForm
+from .crowdsourcing import Crowdsourcing
+from .forms import ReportForm, TrackedDownloadForm, CrowdsourcingForm
 from .tracked_download import TrackedDownload
 
 
@@ -128,7 +128,7 @@ def contrib():
 
 @app.route('/crowdsourcing/', methods=['GET', 'POST'])
 def crowdsourcing():
-    form = ContributionForm(request.form)
+    form = CrowdsourcingForm(request.form)
     if request.method == 'POST':
         if form.validate():
             data = dict(form.data)
@@ -136,7 +136,7 @@ def crowdsourcing():
                 'username': session.get('username'),
                 'auth_provider': session.get('auth_provider')
             })
-            contrib = Contribution(**data)
+            contrib = Crowdsourcing(**data)
             contrib.save()
             return '{"status": "ok"}'
         else:
@@ -145,6 +145,12 @@ def crowdsourcing():
         return render_template('crowdsourcing.html', form=form,
                                session=session,
                                TILE_URL=app.config['ORTHO_TILE_URL'])
+
+
+@app.route('/crowdsourcing/data/')
+def crowdsourcing_data():
+    data = Crowdsourcing.data(request.args.get('from', None))
+    return json.dumps([c.to_json() for c in data])
 
 
 @app.route('/news/')
