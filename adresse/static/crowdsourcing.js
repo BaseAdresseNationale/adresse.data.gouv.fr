@@ -32,7 +32,7 @@ var BanUi = L.Evented.extend({
             onSelected: function () {}
         };
         this.housenumberLayer = new L.FeatureGroup();
-        this.map = L.map('map', {zoomControl: false, editable: true, editOptions: {featuresLayer: this.housenumberLayer}, maxZoom: 19}).setView([48.843, 2.376], 18);
+        this.map = L.map('map', {zoomControl: false, editable: true, editOptions: {featuresLayer: this.housenumberLayer}, maxZoom: 20}).setView([48.843, 2.376], 18);
         this.housenumberLayer.addTo(this.map);
         this.map.on('editable:editing', this.makeDirty, this);
 
@@ -49,7 +49,8 @@ var BanUi = L.Evented.extend({
 
         L.tileLayer(this.options.tileUrl, {
             attribution: '&copy; IGN',
-            maxZoom: 19
+            maxZoom: 20,
+            maxNativeZoom: 18
         }).addTo(this.map);
         L.DomEvent.on(qs('.geolocate'), 'click', function (e) {
             L.DomEvent.stop(e);
@@ -130,7 +131,7 @@ var BanUi = L.Evented.extend({
         this.housenumber = new BanUi.Marker(geojson);
         var center = this.housenumber.getLatLng(),
             centerPoint = this.map.project(center);
-        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 19, {animate: true});
+        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 20, {animate: true});
         this.map.once('moveend', function () {
             this.step('edit');
             L.DomEvent.once(this.panel, 'transitionend', this.attachFormTooltip, this);
