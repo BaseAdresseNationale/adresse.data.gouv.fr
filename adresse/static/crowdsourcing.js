@@ -83,7 +83,7 @@ var BanUi = L.Evented.extend({
         ];
         this.form = new L.FormBuilder(this.housenumber, fields);
         this.form.on('postsync', function (e) {
-            if (e.helper.field === 'properties.housenumber') this.housenumber._icon.innerHTML = this.housenumber.properties.housenumber || '?';
+            if (e.helper.field === 'properties.housenumber' || e.helper.field === 'properties.rep') this.housenumber._initIcon();
             this.makeDirty();
         }, this);
         this.panel.appendChild(this.form.build());
@@ -219,9 +219,7 @@ var BanUi = L.Evented.extend({
             detailsContainer = L.DomUtil.create('small', '', el),
             details = [], action = feature.properties.type === 'housenumber' ? 'Vérifier ' : 'Ajouter une adresse dans ';
         title.innerHTML = action + '<strong>' + feature.properties.name + '</strong>';
-        if (feature.properties.city && feature.properties.city !== feature.properties.name) {
-            details.push(feature.properties.city);
-        }
+        if (feature.properties.city && feature.properties.city !== feature.properties.name) details.push(feature.properties.city);
         if (feature.properties.context) details.push(feature.properties.context);
         detailsContainer.innerHTML = details.join(', ');
     },
@@ -267,6 +265,17 @@ B.Icon = L.DivIcon.extend({
         iconSize: null,
         iconAnchor: [20, 40],
         className: 'marker'
+    },
+
+    createIcon: function (oldIcon) {
+        var div = L.DivIcon.prototype.createIcon.call(this, oldIcon),
+            content = this.options.housenumber.getLabel(),
+            len = content.length;
+        div.innerHTML = content;
+        if (len > 7) div.style.fontSize = '7px';
+        else if (len > 5) div.style.fontSize = '9px';
+        else div.style.fontSize = '12px';
+        return div;
     }
 
 });
@@ -283,9 +292,16 @@ B.Marker = L.Marker.extend({
         this.properties.rep = housenumber.split(' ')[1];
         this.properties.id = geojson.properties.id;
         var options = {
-            icon: new B.Icon({html: this.properties.housenumber || '?'})
+            icon: new B.Icon({housenumber: this})
         };
         L.Marker.prototype.initialize.call(this, latlng, options);
+    },
+
+    getLabel: function () {
+        var label = '';
+        if (this.properties.housenumber) label += this.properties.housenumber;
+        if (this.properties.rep) label += ' ' + this.properties.rep;
+        return label || '?';
     },
 
     save: function () {

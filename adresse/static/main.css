@@ -1000,7 +1000,7 @@ body.crowdsourcing {
 .crowdsourcing .marker {
     position: relative;
     background: #22313F;
-    border: 4px solid #efefef;
+    border: 3px solid #efefef;
     color: #efefef;
     text-align: center;
     width: 40px;
@@ -1022,14 +1022,14 @@ body.crowdsourcing {
 .crowdsourcing .marker:after {
     border-color: rgba(122, 213, 115, 0);
     border-top-color: #22313F;
-    border-width: 10px;
-    margin-left: -10px;
+    border-width: 11px;
+    margin-left: -11px;
 }
 .crowdsourcing .marker:before {
     border-color: rgba(194, 225, 245, 0);
     border-top-color: #efefef;
-    border-width: 16px;
-    margin-left: -16px;
+    border-width: 15px;
+    margin-left: -15px;
 }
 .crowdsourcing .on-dirty {
     display: none;
