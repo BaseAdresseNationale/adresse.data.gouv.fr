@@ -16,10 +16,10 @@
 </div>
 <div id="search" class="step">
     <div class="overlay with-transition"></div>
-    <span class="step-action"><input type="text" /></span>
-</div>
-<div id="topbar" class="step with-transition">
-    <h2 class="step-action">Éditer la position de l'adresse</h2>
+    <div class="input">
+        <input type="text" /><!--
+        --><a class="geolocate button" href="#" title="Me positionner sur la carte"></a>
+    </div>
 </div>
 <div id="panel" class="step with-transition">
 </div>
@@ -34,6 +34,7 @@
     <div class="message with-transition">
         <a href="#" class="button oauth">S'identifier</a>
         <a href="#" class="button neutral anonymous">Contribution anonyme</a>
+        <p>S'identifier avec un compte data.gouv.fr facilite la prise en compte de votre contribution.</p>
     </div>
 </div>
 <script src="{{ url_for('static', filename='crowdsourcing.js') }}"></script>

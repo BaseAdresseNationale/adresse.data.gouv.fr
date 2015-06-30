@@ -676,14 +676,43 @@ sup {
 .tooltip {
     position: fixed;
     z-index: 10000;
-    background-color: #000;
+    background-color: #333;
     opacity: 0.9;
     color: #fefefd;
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 1px;
     box-shadow: 0 0 2px black;
     display: none;
+    cursor: pointer;
 }
+.tooltip.tooltip-top:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-top-color: #333;
+    border-width: 11px;
+    margin-left: -100px;
+}
+.tooltip.tooltip-left:after {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #333;
+    border-width: 11px;
+    margin-top: -10px;
+}
+
 
 
 /* ************************************************* */
@@ -719,6 +748,12 @@ sup {
     font-weight: normal;
     float: right;
     font-size: 0.8em;
+}
+ul.photon-autocomplete {
+    z-index: 1002;
+}
+.photon-autocomplete li.on {
+    background-color: #ABB7B7;
 }
 
 
@@ -837,18 +872,40 @@ body.crowdsourcing {
     -o-transition: all 1s;
     transition: all 1s;
 }
-.crowdsourcing #search .step-action {
+.crowdsourcing #search .input {
     position: absolute;
-    left: calc(50% - 400px / 2);
-    top: calc(50% - 48px);
+    left: calc(50% - 250px);
+    top: calc(50% - 100px);
     z-index: 1001;
+    width: 500px;
+    padding: 40px;
+    box-shadow: 0 0px 2px 0px #999 inset;
+    background-color: #fff;
+    background-image: url('./img/texture.png');
 }
 .crowdsourcing #search input {
-    height: 48px;
-    border: none;
-    width: 400px;
-    padding: 5px 10px;
-    box-shadow: 0 0px 2px 0px #999 inset;
+    margin-bottom: 0;
+    width: 360px;
+    display: inline-block;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    vertical-align: middle;
+}
+.crowdsourcing #search input:focus {
+    outline: none;
+}
+.crowdsourcing #search .geolocate {
+    width: 56px;
+    height: 56px;
+    display: inline-block;
+    background-image: url('./img/geolocate.svg');
+    background-size: 70%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    vertical-align: middle;
+    margin-top: 0;
 }
 .crowdsourcing .step-action:before {
     background-color: #333;
@@ -901,25 +958,6 @@ body.crowdsourcing {
     border-right: 1px solid #ccc;
     background-image: url('./img/texture.png');
 }
-.crowdsourcing #topbar h2 {
-    line-height: 48px;
-    margin-left: 200px;
-}
-.crowdsourcing #topbar h2:before {
-    content: '2';
-}
-.crowdsourcing #panel h2:before {
-    content: '3';
-    left: calc(50% + 24px);
-    position: absolute;
-    top: -60px;
-}
-.crowdsourcing #panel h2 {
-    margin-top: 60px;
-    position: relative;
-    text-align: center;
-    margin-bottom: 40px;
-}
 .crowdsourcing #login .message,
 .crowdsourcing #thanks .message {
     position: absolute;
@@ -945,7 +983,9 @@ body.crowdsourcing {
 .crowdsourcing.step-edit #topbar {
     top: 0;
 }
-.crowdsourcing.ask-for-login #login .message,
+.crowdsourcing.ask-for-login #login .message {
+    bottom: calc(50% - 150px);
+}
 .crowdsourcing.step-thanks #thanks .message {
     bottom: calc(50% - 100px);
 }
@@ -955,10 +995,10 @@ body.crowdsourcing {
 .crowdsourcing.ask-for-login #login {
     display: block;
 }
-/*.step2 #map {
-    width: 75%;
+.crowdsourcing #login .message p {
+    font-size: 0.9em;
+    font-family: 'open_sanslight_italic';
 }
-*/
 .crowdsourcing .marker {
     position: relative;
     background: #22313F;

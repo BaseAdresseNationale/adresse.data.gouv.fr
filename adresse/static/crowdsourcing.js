@@ -6,7 +6,7 @@ var qs = function (selector, element) {
 
 var API_URL = '//api-adresse.data.gouv.fr';
 
-var BanUi = L.Class.extend({
+var BanUi = L.Evented.extend({
 
     initialize: function (options) {
         this.options = options || {};
@@ -32,18 +32,39 @@ var BanUi = L.Class.extend({
             onSelected: function () {}
         };
         this.housenumberLayer = new L.FeatureGroup();
-        this.map = L.map('map', {zoomControl: false, editable: true, editOptions: {featuresLayer: this.housenumberLayer}, maxZoom: 18}).setView([48.843, 2.376], 18);
+        this.map = L.map('map', {zoomControl: false, editable: true, editOptions: {featuresLayer: this.housenumberLayer}, maxZoom: 19}).setView([48.843, 2.376], 18);
         this.housenumberLayer.addTo(this.map);
         this.map.on('editable:editing', this.makeDirty, this);
 
         this.searchControl = new L.PhotonSearch(this.map, this.search, options);
         this.searchControl.on('selected', this.onSelected, this);
+        var tooltip = L.tooltip({
+            content: 'Vous pouvez chercher une adresse pour la vérifier, ou chercher une rue pour ajouter une adresse manquante.',
+            duration: 10000,
+            static: true}
+        ).attachTo('input').open();
+        this.searchControl.once('selected', function () {
+            tooltip.close();
+        });
 
         L.tileLayer(this.options.tileUrl, {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; IGN',
+            maxZoom: 19
         }).addTo(this.map);
-        this.map.locate({setView: true});
+        L.DomEvent.on(qs('.geolocate'), 'click', function (e) {
+            L.DomEvent.stop(e);
+            this.map.locate({setView: true});
+        }, this);
         this.map.on('locationfound', this.reverse, this);
+        this.map.on('layeradd', function (e) {
+            if (!(e.layer instanceof BanUi.Marker)) return;
+            var tooltip = L.tooltip({
+                content: 'Déplacez le marqueur s\'il n\'est pas parfaitement positionné sur la porte d\'entrée.',
+                static: true,
+                duration: 10000
+            }).attachTo('.marker').open();
+            this.map.once('mousedown editable:editing', tooltip.close, tooltip);
+        }, this);
     },
 
     step: function (id) {
@@ -51,6 +72,7 @@ var BanUi = L.Class.extend({
         L.DomUtil.addClass(document.body, 'step-' + id);
         var key = 'onStep_' + id;
         if (this[key]) this[key]();
+        this.fire('step', {step: 'id'});
     },
 
     onStep_search: function () {
@@ -64,14 +86,12 @@ var BanUi = L.Class.extend({
             ['properties.rep', {handler: 'Input', placeholder: 'Répétiteur (bis, ter…)', helpText: 'Répétiteur (bis, ter…)'}],
             ['properties.street', {handler: 'Input', placeholder: 'Nom de la voie', helpText: 'Nom de la voie'}]
         ];
-        var title = L.DomUtil.create('h2', 'step-action', this.panel);
-        title.innerHTML = 'Éditer les propriétés';
-        var builder = new L.FormBuilder(this.housenumber, fields);
-        builder.on('postsync', function (e) {
+        this.form = new L.FormBuilder(this.housenumber, fields);
+        this.form.on('postsync', function (e) {
             if (e.helper.field === 'properties.housenumber') this.housenumber._icon.innerHTML = this.housenumber.properties.housenumber || '?';
             this.makeDirty();
         }, this);
-        this.panel.appendChild(builder.build());
+        this.panel.appendChild(this.form.build());
         var submit = L.DomUtil.create('a', 'button on-dirty', this.panel);
         submit.innerHTML = 'Valider';
         submit.href = '#';
@@ -108,12 +128,15 @@ var BanUi = L.Class.extend({
         this.housenumber = new BanUi.Marker(geojson);
         var center = this.housenumber.getLatLng(),
             centerPoint = this.map.project(center);
-        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 18, {animate: true});
+        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 19, {animate: true});
         this.map.once('moveend', function () {
             this.step('edit');
             L.DomEvent.once(this.panel, 'transitionend', function () {
+                var tooltip = L.tooltip({content: 'Vérifiez les propriétés de l\'adresse.', static: true, position: 'left', offsetY: 30}).attachTo('#panel').open();
                 this.housenumber.addTo(this.housenumberLayer);
                 this.housenumber.enableEdit();
+                this.on('step', tooltip.close, tooltip);
+                this.form.on('postsync', tooltip.close, tooltip);
             }, this);
         }, this);
     },

@@ -1,60 +1,95 @@
-function Tooltip (o) {
-    var close = function () {
-            if (!Tooltip._) return;
-            Tooltip._.innerHTML = '';
-            Tooltip._.style.display = 'none';
-        },
-        open = function () {
-            Tooltip._.innerHTML = '';
-            Tooltip._.innerHTML = o.content;
-            Tooltip._.style.display = 'block';
-            if (o.duration) window.setTimeout(close, o.duration);
-        },
-        init = function () {
-            Tooltip._ = document.createElement('div');
-            Tooltip._.setAttribute('class', 'tooltip');
-            document.body.appendChild(Tooltip._);
-            Tooltip._initialized = true;
-        },
-        attachTo = function (selector) {
-            var els = document.querySelectorAll(selector);
-            for (var i = 0; i < els.length; i++) {
-                els[i].addEventListener('mouseover', open);
-                els[i].addEventListener('mouseout', close);
-            }
-        },
-        onMouseMove = function (e) {
-            var maxY = document.documentElement.clientHeight,
-                maxX = document.documentElement.clientWidth,
-                width = Tooltip._.clientWidth,
-                height = Tooltip._.clientHeight,
-                marginX = 20,
-                x = e.clientX + marginX,
-                y = e.clientY - (height / 2);
+/*global L*/
+'use strict';
+L.Tooltip = L.Evented.extend({
 
-            if (x + width > maxX) {
-                x = e.clientX - width - marginX;
-            }
+    options: {
+        width: 300,
+        position: 'top',
+        offsetY: 0,
+        offsetX: 0,
+        closable: true
+    },
 
-            if (y + height > maxY) {
-                y = e.clientY - (height / 2);
-            }
+    initialize: function (options) {
+        L.setOptions(this, options);
+        this._ = L.DomUtil.create('div', 'tooltip tooltip-' + this.options.position, document.body);
+        this._.style.width = this.options.width + 'px';
+        if (!this.options.static) L.DomEvent.on(this._, 'mousemove', this.onMouseMove, this);
+        if (this.options.closable) L.DomEvent.on(this._, 'click', this.close, this);
+    },
 
-            if (Tooltip._) {
-                Tooltip._.style.left = x + 'px';
-                Tooltip._.style.top = y + 'px';
-            }
-        };
-    if (!Tooltip._initialized) {
-        init();
+    close: function () {
+        if (!this._) return;
+        this._.innerHTML = '';
+        this._.style.display = 'none';
+        return this;
+    },
+
+    open: function () {
+        this._.innerHTML = '';
+        this._.innerHTML = this.options.content;
+        this._.style.display = 'block';
+        if (this.options.duration) window.setTimeout(L.bind(this.close, this), this.options.duration);
+        return this;
+    },
+
+    attachToEl: function (el) {
+        if (this.options.static) {
+            if (this.options.position === 'left') this.attachLeft(el);
+            else this.attachTop(el);
+        } else {
+            L.DomEvent.on(el, 'mouseover', this.open, this);
+            L.DomEvent.on(el, 'mouseout', this.close, this);
+        }
+    },
+
+    attachTop: function (el) {
+        var coords = this.getPosition(el);
+        this.setPosition({left: coords.left - 40 + this.options.offsetX, bottom: document.documentElement.scrollHeight - coords.top + 11 + this.options.offsetY});
+    },
+
+    attachLeft: function (el) {
+        var coords = this.getPosition(el);
+        this.setPosition({top: coords.top + this.options.offsetY, right: document.documentElement.offsetWidth - coords.left + 11 + this.options.offsetX});
+    },
+
+    attachTo: function (selector) {
+        var els = document.querySelectorAll(selector);
+        for (var i = 0; i < els.length; i++) this.attachToEl(els[i]);
+        return this;
+    },
+
+    getPosition: function (el) {
+        return el.getBoundingClientRect();
+    },
+
+    setPosition: function (coords) {
+        if (coords.left) this._.style.left = coords.left + 'px';
+        if (coords.right) this._.style.right = coords.right + 'px';
+        if (coords.top) this._.style.top = coords.top + 'px';
+        if (coords.bottom) this._.style.bottom = coords.bottom + 'px';
+    },
+
+    onMouseMove: function (e) {
+        var maxY = document.documentElement.clientHeight,
+            maxX = document.documentElement.clientWidth,
+            width = this._.clientWidth,
+            height = this._.clientHeight,
+            marginX = 20,
+            x = e.clientX + marginX,
+            y = e.clientY - (height / 2);
+
+        if (x + width > maxX) {
+            x = e.clientX - width - marginX;
+        }
+
+        if (y + height > maxY) {
+            y = e.clientY - (height / 2);
+        }
+
+        if (this._) this.setPosition({left: x, top: y});
     }
-    document.addEventListener('mousemove', onMouseMove);
-    Tooltip.close = close;
-    return {
-        open: open,
-        close: close,
-        attachTo: attachTo
-    };
-}
-Tooltip._initialized = false;
-Tooltip._ = null;
+});
+L.tooltip = function (options) {
+    return new L.Tooltip(options);
+};
