@@ -1043,17 +1043,48 @@ body.crowdsourcing {
     left: 10px;
     top: 10px;
     z-index: 1002;
-    background-color: #fff;
     text-align: center;
-    background-image: url('./img/texture.png');
-    padding: 10px;
     font-size: 0.9em;
+}
+.crowdsourcing #menu .navigation {
+    padding: 10px;
+    background-color: #fff;
+    background-image: url('./img/texture.png');
 }
 .crowdsourcing #menu .button {
     line-height: 40px;
     height: 40px;
     margin-top: 5px;
     padding: 0 10px;
+}
+.crowdsourcing #menu .zoom {
+    margin-top: 10px;
+    border-radius: 2px;
+    background-color: #fff;
+    background-image: url('./img/texture.png');
+    border: 1px solid #ccc;
+    display: none;
+}
+.crowdsourcing #menu .zoom a {
+    padding: 0;
+    display: inline-block;
+    width: 50%;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'open_sanslight';
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+}
+.crowdsourcing.step-edit #menu .zoom {
+    display: block;
+}
+.crowdsourcing #menu .zoom a:hover {
+    background-color: #eee;
+}
+.crowdsourcing #menu .zoom a + a {
+    border-left: 1px solid #ccc;
 }
 .crowdsourcing .when-logged {
     display: none;
@@ -1079,4 +1110,10 @@ body.crowdsourcing {
 .crowdsourcing #panel input {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+}
+.crowdsourcing .leaflet-control-container {
+    display: none;
+}
+.crowdsourcing.step-edit .leaflet-control-container {
+    display: block;
 }

@@ -32,7 +32,13 @@ var BanUi = L.Evented.extend({
             onSelected: function () {}
         };
         this.housenumberLayer = new L.FeatureGroup();
-        this.map = L.map('map', {zoomControl: false, editable: true, editOptions: {featuresLayer: this.housenumberLayer}, maxZoom: 20}).setView([48.843, 2.376], 18);
+        this.map = L.map('map', {
+            zoomControl: false,
+            editable: true,
+            editOptions: {featuresLayer: this.housenumberLayer},
+            maxZoom: 20
+        });
+        this.map.setView([48.843, 2.376], 18);
         this.housenumberLayer.addTo(this.map);
         this.map.on('editable:editing', this.makeDirty, this);
 
@@ -48,16 +54,29 @@ var BanUi = L.Evented.extend({
         });
 
         L.tileLayer(this.options.tileUrl, {
-            attribution: '&copy; IGN',
+            attribution: 'Images &copy; IGN',
             maxZoom: 20,
             maxNativeZoom: 18
         }).addTo(this.map);
+        L.control.attribution({position: 'bottomleft', prefix: false}).addTo(this.map);
         L.DomEvent.on(qs('.geolocate'), 'click', function (e) {
             L.DomEvent.stop(e);
             this.map.locate({setView: true});
         }, this);
         this.map.on('locationfound', this.reverse, this);
         this.map.on('layeradd', this.attachMarkerTooltip, this);
+        var zoomIn = qs('#menu .zoom .plus'),
+            zoomOut = qs('#menu .zoom .minus');
+        L.DomEvent.on(zoomIn, 'click', L.DomEvent.stop).on(zoomIn, 'click', this.zoomIn, this);
+        L.DomEvent.on(zoomOut, 'click', L.DomEvent.stop).on(zoomOut, 'click', this.zoomOut, this);
+    },
+
+    zoomIn: function () {
+        this.map.zoomIn();
+    },
+
+    zoomOut: function () {
+        this.map.zoomOut();
     },
 
     step: function (id) {
@@ -237,7 +256,7 @@ var BanUi = L.Evented.extend({
             static: true,
             duration: 10000
         }).attachTo('.marker').open();
-        this.map.once('mousedown editable:editing', tooltip.close, tooltip);
+        this.map.once('mousedown editable:editing zoomstart', tooltip.close, tooltip);
         this.on('step', tooltip.close, tooltip);
     },
 
