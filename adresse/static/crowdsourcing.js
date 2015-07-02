@@ -249,7 +249,7 @@ var BanUi = L.Evented.extend({
     onSelected: function (e) {
         this.inputString = this.search.value;
         if (e.choice.properties.type === 'housenumber') this.updateHousenumber(e.choice);
-        else if (e.choice.properties.type === 'street') this.addHousenumber(e.choice);
+        else this.addHousenumber(e.choice);
     },
 
     attachMarkerTooltip: function (e) {
