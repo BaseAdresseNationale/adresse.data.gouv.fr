@@ -16,12 +16,15 @@ var BanUi = L.Evented.extend({
         this.actionStepTitle2 = qs('#topbar h2');
         var continueButton = qs('#thanks .message a.button');
         var loginLink = qs('.login');
+        var gotoSearch = qs('#menu .goto-search');
         L.DomEvent.on(loginLink, 'click', L.DomEvent.stop)
                   .on(loginLink, 'click', this.doLogin, this);
         L.DomEvent.on(continueButton, 'click', L.DomEvent.stop)
                   .on(continueButton, 'click', function () { this.step('search'); }, this);
-        this.step('search');
+        L.DomEvent.on(gotoSearch, 'click', L.DomEvent.stop)
+                  .on(gotoSearch, 'click', function () { this.step('search'); }, this);
         this.initMap();
+        this.step('search');
     },
 
     initMap: function () {
@@ -88,6 +91,7 @@ var BanUi = L.Evented.extend({
     },
 
     onStep_search: function () {
+        this.clear();
         this.search.focus();
     },
 
@@ -117,7 +121,6 @@ var BanUi = L.Evented.extend({
         cancel.innerHTML = 'Annuler';
         cancel.href = '#';
         L.DomEvent.on(cancel, 'click', L.DomEvent.stop).on(cancel, 'click', function () {
-            this.clear();
             this.step('search');
         }, this);
     },

@@ -1050,6 +1050,7 @@ body.crowdsourcing {
     padding: 10px;
     background-color: #fff;
     background-image: url('./img/texture.png');
+    border: 1px solid #eee;
 }
 .crowdsourcing #menu .button {
     line-height: 40px;
@@ -1064,6 +1065,7 @@ body.crowdsourcing {
     background-image: url('./img/texture.png');
     border: 1px solid #ccc;
     display: none;
+    border: 1px solid #eee;
 }
 .crowdsourcing #menu .zoom a {
     padding: 0;
@@ -1077,11 +1079,30 @@ body.crowdsourcing {
     line-height: 30px;
     vertical-align: middle;
 }
+.crowdsourcing #menu .goto-search a {
+    background-color: #fff;
+    display: block;
+    padding: 10px;
+    padding-left: 15px;
+    text-decoration: none;
+    margin-top: 5px;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    font-family: 'open_sanslight';
+    background-image: url('./img/search.svg');
+    background-repeat: no-repeat;
+    background-position: left 5px center;
+    background-size: 20%;
+}
 .crowdsourcing.step-edit #menu .zoom {
     display: block;
 }
+.crowdsourcing.step-search .goto-search {
+    display: none;
+}
+.crowdsourcing #menu .goto-search a:hover,
 .crowdsourcing #menu .zoom a:hover {
-    background-color: #eee;
+    background-color: #efefef;
 }
 .crowdsourcing #menu .zoom a + a {
     border-left: 1px solid #ccc;
