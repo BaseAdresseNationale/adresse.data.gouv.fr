@@ -136,6 +136,9 @@
             <pre>http --timeout 600 -f POST http:{{ API_URL }}/search/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
             <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
+            <p>Il est possible de préciser le nom d'une colonne contenant le code INSEE ou le code Postal pour limiter les recherches, exemple :</p>
+            <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' citycode='ma_colonne_code_insee' data@path/to/file.csv</pre>
+            <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' postcode='colonne_code_postal' data@path/to/file.csv</pre>
         </div>
     </div>
 </div>
