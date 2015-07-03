@@ -16,10 +16,46 @@
 <script src="{{ url_for('static', filename='node_modules/papaparse/papaparse.js') }}"></script>
 <script src="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
 <script type="text/javascript">
+    var onBuild = function (e) {
+        CSVToGeocoder.createNode('h2', {className: 'step-title'}, e.container, '4. Paramètres avancés (optionnels)');
+        var step4 = CSVToGeocoder.createNode('div', {className: 'step'}, e.container);
+        var citycodeLabel = CSVToGeocoder.createNode('div',  {}, step4);
+        citycodeLabel.textContent = 'Colonne contenant le code INSEE : ';
+        CSVToGeocoder.createNode('select', {name: 'citycode'}, citycodeLabel);
+        var postcodeLabel = CSVToGeocoder.createNode('div',  {}, step4);
+        postcodeLabel.textContent = 'Colonne contenant le code postal : ';
+        CSVToGeocoder.createNode('select', {name: 'postcode'}, postcodeLabel);
+    };
+    var onSubmit = function (e) {
+        var addParameter = function (name) {
+            var el = document.querySelector('select[name="' + name + '"]'),
+                value = el.options[el.selectedIndex].value;
+            if (value) e.form.append(name, value);
+        }
+        addParameter('citycode');
+        addParameter('postcode');
+    };
+    var onFileLoad = function (e) {
+        var addOptions = function (name) {
+            var select = document.querySelector('select[name="' + name + '"]');
+            select.innerHTML = '';
+            var option = CSVToGeocoder.createNode('option', {value: ''}, select);
+            option.textContent = 'Aucune';
+            for (var i = 0; i < e.headers.length; i++) {
+                option = CSVToGeocoder.createNode('option', {value: e.headers[i]}, select)
+                option.textContent = e.headers[i];
+            };
+        }
+        addOptions('citycode');
+        addOptions('postcode');
+    };
     CSVToGeocoder({
         container: '#main',
         postURL: '{{ API_URL }}/search/csv/',
         encodings: ['utf-8', 'iso-8859-1', 'windows-1252'],
+        onBuild: onBuild,
+        onSubmit: onSubmit,
+        onFileLoad: onFileLoad,
         i18n: {
             'Choose a file': 'Choisir un fichier',
             'Preview the file and check encoding': "Aperçu du fichier et vérification de l'encodage",

@@ -11,7 +11,8 @@
         "new-cap": 0,
         "strict": [2, "global"],
         "indent": [2, 4],
-        "no-shadow": 0
+        "no-shadow": 0,
+        "no-use-before-define": 0
     },
     "globals": {
         "L": true
