@@ -144,7 +144,8 @@ def crowdsourcing():
     else:
         return render_template('crowdsourcing.html', form=form,
                                session=session,
-                               TILE_URL=app.config['ORTHO_TILE_URL'])
+                               TILE_URL=app.config['ORTHO_TILE_URL'],
+                               ROADS_TILE_URL=app.config['ROADS_TILE_URL'])
 
 
 @app.route('/crowdsourcing/data/')
