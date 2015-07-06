@@ -64,7 +64,7 @@ var BanUi = L.Evented.extend({
         L.tileLayer(this.options.roadsTileUrl, {
             maxZoom: 20,
             maxNativeZoom: 18,
-            opacity: 0.8
+            opacity: 0.6
         }).addTo(this.map);
         L.control.attribution({position: 'bottomleft', prefix: false}).addTo(this.map);
         L.DomEvent.on(qs('.geolocate'), 'click', function (e) {
