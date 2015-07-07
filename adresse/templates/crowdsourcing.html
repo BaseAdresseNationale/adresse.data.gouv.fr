@@ -7,6 +7,9 @@
 {% block body %}
 <div id="map"></div>
 <div id="menu">
+    <div class="goto-search">
+        <a href="#">Recherche</a>
+    </div>
     <div class="navigation">
         <a href="/" title="Retour à la page d'accueil" class="brand"><img src="{{ url_for('static', filename="img/logo.jpg") }}"></a>
         <ul>
@@ -14,9 +17,6 @@
             <li class="when-logged"><a href="{{ url_for('logout') }}" class="logout button neutral">Déconnexion</a></li>
             <li class="when-anonymous"><a href="#" class="login button">Connexion</a></li>
         </ul>
-    </div>
-    <div class="goto-search">
-        <a href="#">Recherche</a>
     </div>
     <div class="zoom">
         <a href="#" class="plus">+</a><!--

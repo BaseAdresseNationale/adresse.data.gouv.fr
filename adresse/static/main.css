@@ -1059,7 +1059,7 @@ body.crowdsourcing {
     padding: 0 10px;
 }
 .crowdsourcing #menu .zoom {
-    margin-top: 10px;
+    margin-top: 5px;
     border-radius: 2px;
     background-color: #fff;
     background-image: url('./img/texture.png');
@@ -1085,11 +1085,11 @@ body.crowdsourcing {
     padding: 10px;
     padding-left: 15px;
     text-decoration: none;
-    margin-top: 5px;
+    margin-bottom: 5px;
     border-radius: 2px;
     border: 1px solid #eee;
     font-family: 'open_sanslight';
-    background-image: url('./img/search.svg');
+    background-image: url('./img/back.svg');
     background-repeat: no-repeat;
     background-position: left 5px center;
     background-size: 20%;
@@ -1102,7 +1102,7 @@ body.crowdsourcing {
 }
 .crowdsourcing #menu .goto-search a:hover,
 .crowdsourcing #menu .zoom a:hover {
-    background-color: #efefef;
+    background-color: #E4F1FE;
 }
 .crowdsourcing #menu .zoom a + a {
     border-left: 1px solid #ccc;
