@@ -109,6 +109,8 @@ var BanUi = L.Evented.extend({
             ['properties.locality', {handler: 'Input', placeholder: 'Lieu-dit', helpText: 'Lieu-dit (optionnel)'}],
             ['properties.comment', {handler: 'Textarea', placeholder: 'Commentaire', helpText: 'Commentaire (optionnel)'}]
         ];
+        var title = L.DomUtil.create('h3', '', this.panel);
+        title.textContent = this.housenumber.properties.city + ' (' + this.housenumber.properties.citycode + ')';
         this.form = new L.FormBuilder(this.housenumber, fields);
         this.form.on('postsync', function (e) {
             if (e.helper.field === 'properties.housenumber' || e.helper.field === 'properties.rep') this.housenumber._initIcon();
@@ -274,7 +276,7 @@ var BanUi = L.Evented.extend({
             static: true,
             position: 'left',
             duration: 10000,
-            offsetY: 30
+            offsetY: 50
         }).attachTo('#panel').open();
         this.housenumber.addTo(this.housenumberLayer);
         this.housenumber.enableEdit();
@@ -318,6 +320,8 @@ B.Marker = L.Marker.extend({
         this.properties.housenumber = housenumber.split(' ')[0];
         this.properties.rep = housenumber.split(' ')[1];
         this.properties.id = geojson.properties.id;
+        this.properties.city = geojson.properties.city;
+        this.properties.citycode = geojson.properties.citycode;
         var options = {
             icon: new B.Icon({housenumber: this})
         };
