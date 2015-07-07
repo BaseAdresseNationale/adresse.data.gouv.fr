@@ -1138,3 +1138,18 @@ body.crowdsourcing {
 .crowdsourcing.step-edit .leaflet-control-container {
     display: block;
 }
+.crowdsourcing .close {
+    color: #999;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.crowdsourcing .close:before {
+    content: '🗙';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+.crowdsourcing .close:hover {
+    color: #666;
+}

@@ -211,9 +211,10 @@ var BanUi = L.Evented.extend({
 
     askForLogin: function (callback) {
         var askOauth = qs('#login .oauth'),
-            anonymous = qs('#login .anonymous');
+            anonymous = qs('#login .anonymous'),
+            closeButton = qs('#login .close');
         var proceed = function () {
-            L.DomUtil.removeClass(document.body, 'ask-for-login');
+            close();
             if (callback) callback.call(this);
             L.DomEvent.off(anonymous, 'click', proceed, this);
             L.DomEvent.off(askOauth, 'click', doLogin, this);
@@ -221,11 +222,17 @@ var BanUi = L.Evented.extend({
         var doLogin = function () {
             this.doLogin(proceed);
         };
+        var close = function () {
+            L.DomUtil.removeClass(document.body, 'ask-for-login');
+            L.DomEvent.off(closeButton, 'click', close, this);
+        };
         L.DomUtil.addClass(document.body, 'ask-for-login');
         L.DomEvent.on(askOauth, 'click', L.DomEvent.stop)
                   .on(askOauth, 'click', doLogin, this);
         L.DomEvent.on(anonymous, 'click', L.DomEvent.stop)
                   .on(anonymous, 'click', proceed, this);
+        L.DomEvent.on(closeButton, 'click', L.DomEvent.stop)
+                  .on(closeButton, 'click', close, this);
     },
 
     extractHousenumber: function (name) {
