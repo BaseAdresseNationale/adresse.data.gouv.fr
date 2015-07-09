@@ -160,11 +160,13 @@ var BanUi = L.Evented.extend({
         this.housenumber = new BanUi.Marker(geojson);
         var center = this.housenumber.getLatLng(),
             centerPoint = this.map.project(center);
-        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 19, {animate: true});
-        this.map.once('moveend', function () {
-            this.step('edit');
-            L.DomEvent.once(this.panel, 'transitionend', this.attachFormTooltip, this);
-        }, this);
+        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 19);
+        this.step('edit');
+        var callback = function () {
+            this.attachFormTooltip();
+            L.DomEvent.off(this.panel, 'transitionend', callback, this);
+        };
+        L.DomEvent.on(this.panel, 'transitionend', callback, this);
     },
 
     makeDirty: function () {
