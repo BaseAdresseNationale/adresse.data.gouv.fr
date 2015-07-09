@@ -45,7 +45,7 @@ L.Tooltip = L.Evented.extend({
 
     attachTop: function (el) {
         var coords = this.getPosition(el);
-        this.setPosition({left: coords.left - 40 + this.options.offsetX, bottom: document.documentElement.scrollHeight - coords.top + 11 + this.options.offsetY});
+        this.setPosition({left: coords.left - 40 + this.options.offsetX, bottom: this.getDocHeight() - coords.top + 11 + this.options.offsetY});
     },
 
     attachLeft: function (el) {
@@ -68,6 +68,15 @@ L.Tooltip = L.Evented.extend({
         if (coords.right) this._.style.right = coords.right + 'px';
         if (coords.top) this._.style.top = coords.top + 'px';
         if (coords.bottom) this._.style.bottom = coords.bottom + 'px';
+    },
+
+    getDocHeight: function () {
+        var D = document;
+        return Math.max(
+            D.body.scrollHeight, D.documentElement.scrollHeight,
+            D.body.offsetHeight, D.documentElement.offsetHeight,
+            D.body.clientHeight, D.documentElement.clientHeight
+        );
     },
 
     onMouseMove: function (e) {
