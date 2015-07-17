@@ -68,10 +68,14 @@ def foss():
 def download(token):
     form = TrackedDownloadForm(request.form)
     context = {'form': form}
-    if app.config['BAN_FILE_PATH']:
-        path = app.config['BAN_FILE_PATH'].format(area='')  # Check full one.
-        t = os.path.getmtime(path)
-        context['delivery_date'] = datetime.datetime.fromtimestamp(t)
+    if app.config['DELIVERY_CONTROL_FILE']:
+        path = app.config['DELIVERY_CONTROL_FILE']
+        try:
+            t = os.path.getmtime(path)
+        except FileNotFoundError:
+            pass
+        else:
+            context['delivery_date'] = datetime.datetime.fromtimestamp(t)
     if token:
         dl = TrackedDownload.from_token(token)
         if not dl:
