@@ -7,6 +7,7 @@ from flask_mail import Message
 from flask.ext.oauthlib.client import OAuth
 
 from . import app, mail
+from .constants import DEPARTEMENTS
 from .crowdsourcing import Crowdsourcing
 from .forms import ReportForm, TrackedDownloadForm, CrowdsourcingForm
 from .tracked_download import TrackedDownload
@@ -74,14 +75,16 @@ def download(token):
             flash("Merci d'avoir téléchargé la base adresse nationale !",
                   "success")
             if app.config['BAN_FILE_PATH']:
-                name = Path(app.config['BAN_FILE_PATH']).name
+                suffix = "_%s" % dl.area if dl.area else ''
+                path = app.config['BAN_FILE_PATH'].format(area=suffix)
+                name = Path(path).name
                 headers = {
-                    'X-Accel-Redirect': app.config['BAN_FILE_PATH'],
+                    'X-Accel-Redirect': path,
                     'Content-Disposition': 'attachment; filename="{}"'.format(name),  # noqa
                 }
                 return '', 200, headers
     if request.method == 'POST' and form.validate():
-        dl = TrackedDownload.from_email(form.email.data)
+        dl = TrackedDownload.from_email(form.email.data, form.area.data)
         if not dl:
             dl = TrackedDownload(**form.data)
             dl.save()
@@ -97,6 +100,9 @@ def download(token):
         msg.html = render_template('tracked_download_email.html',
                                    **email_context)
         msg.subject = "Votre téléchargement de la base adresse nationale"
+        area = DEPARTEMENTS.get(dl.area)
+        if area:
+            msg.subject = "{} [{}]".format(msg.subject, area)
         mail.send(msg)
         flash('Un courriel vous a été envoyé à l\'adresse {email}'.format(
               email=dl.email), 'success')

@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `tracked_download` (
     `email` TEXT NOT NULL,
     `company` TEXT,
     `token` TEXT NOT NULL,
+    `area` TEXT,
     `used` INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS `crowdsourcing` (

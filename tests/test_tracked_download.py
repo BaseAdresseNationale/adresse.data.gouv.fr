@@ -38,6 +38,25 @@ def test_new_trackeddownload_request_should_send_an_email(webapp, config):
         assert download_link in outbox[0].body
 
 
+def test_new_trackeddownload_should_send_an_email_with_area(webapp, config):
+    with mail.record_messages() as outbox:
+        form = webapp.get(url_for('download')).forms['tracked_download']
+        form['first_name'] = "Victor"
+        form['last_name'] = "Hugo"
+        form['email'] = 'victor@hugo.com'
+        form['company'] = "Totoche SARL"
+        form['area'] = "01"
+        form.submit().follow()
+        assert len(outbox) == 1
+        assert outbox[0].subject == "Votre téléchargement de la base adresse nationale [Ain]"  # noqa
+        assert "Victor" in outbox[0].body
+        token = DB.fetchone('SELECT token FROM tracked_download')['token']
+        download_link = "https:{domain}{path}".format(
+            domain=config['SITE_URL'],
+            path=url_for('download', token=token))
+        assert download_link in outbox[0].body
+
+
 def test_do_not_create_new_td_if_already_exist_and_valid(webapp):
     assert not DB.fetchone('SELECT count(*) as t FROM tracked_download')['t']
     form = webapp.get(url_for('download')).forms['tracked_download']
@@ -84,6 +103,7 @@ def test_trackeddownload_init_create_token():
         last_name='tata',
         email='toto@tata.com',
         company='toto SA',
+        area='',
     )
     assert dl.token
 
@@ -95,6 +115,7 @@ def test_calling_trackeddownload_save_should_persist_data_in_db():
         last_name='tata',
         email='toto@tata.com',
         company='toto SA',
+        area='',
     )
     dl.save()
     assert DB.fetchone('SELECT count(*) as t FROM tracked_download')['t']
@@ -112,12 +133,29 @@ def test_can_download_with_token(webapp, config):
         last_name='tata',
         email='toto@tata.com',
         company='toto SA',
+        area='',
     )
     dl.save()
     url = url_for('download', token=dl.token)
     resp = webapp.get(url, status=200)
     assert resp.headers['X-Accel-Redirect'] == '/a/b/c.zip'
     assert resp.headers['Content-Disposition'] == 'attachment; filename="c.zip"'  # noqa
+
+
+def test_area_in_final_url(webapp, config):
+    config['BAN_FILE_PATH'] = '/a/b/c{area}.zip'
+    dl = TrackedDownload(
+        first_name='toto',
+        last_name='tata',
+        email='toto@tata.com',
+        company='toto SA',
+        area='01',
+    )
+    dl.save()
+    url = url_for('download', token=dl.token)
+    resp = webapp.get(url, status=200)
+    assert resp.headers['X-Accel-Redirect'] == '/a/b/c_01.zip'
+    assert resp.headers['Content-Disposition'] == 'attachment; filename="c_01.zip"'  # noqa
 
 
 def test_cant_download_if_over_max_use(webapp, config, monkeypatch):
@@ -128,6 +166,7 @@ def test_cant_download_if_over_max_use(webapp, config, monkeypatch):
         last_name='tata',
         email='toto@tata.com',
         company='toto SA',
+        area='',
     )
     dl.save()
     url = url_for('download', token=dl.token)

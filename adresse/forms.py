@@ -1,5 +1,11 @@
 from flask_wtf import Form
-from wtforms import StringField, validators, TextAreaField
+from wtforms import StringField, validators, TextAreaField, SelectField
+
+from .constants import DEPARTEMENTS
+
+CHOICES = list(DEPARTEMENTS.items())
+CHOICES.sort()
+CHOICES = [('', 'France entière')] + CHOICES
 
 
 class BaseForm(Form):
@@ -16,6 +22,7 @@ class TrackedDownloadForm(BaseForm):
     email = StringField('Email',
                         [validators.DataRequired(BaseForm.DATA_REQUIRED),
                          validators.Email(BaseForm.EMAIL)])
+    area = SelectField('Zone de couverture', choices=CHOICES)
     company = StringField('Société')
 
 

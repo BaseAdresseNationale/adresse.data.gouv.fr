@@ -18,10 +18,10 @@ class TrackedDownload(object):
 
     def save(self):
         DB.commit('INSERT INTO tracked_download '
-                  '(first_name, last_name, email, company, token) '
-                  'VALUES (?, ?, ?, ?, ?)',
+                  '(first_name, last_name, email, company, token, area) '
+                  'VALUES (?, ?, ?, ?, ?, ?)',
                   [self.first_name, self.last_name, self.email, self.company,
-                   self.token])
+                   self.token, self.area])
 
     def use(self):
         DB.commit('UPDATE tracked_download SET used=used+1 '
@@ -36,8 +36,8 @@ class TrackedDownload(object):
         return TrackedDownload(**data) if data else None
 
     @classmethod
-    def from_email(cls, email):
+    def from_email(cls, email, area):
         data = DB.fetchone('SELECT * FROM tracked_download '
-                           'WHERE used<? AND email=?',
-                           [cls.MAX_USE, email])
+                           'WHERE used<? AND email=? AND area=?',
+                           [cls.MAX_USE, email, area])
         return TrackedDownload(**data) if data else None
