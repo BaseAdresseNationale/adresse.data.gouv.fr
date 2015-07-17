@@ -3,10 +3,6 @@
 {% from "helpers.html" import render_field %}
 
 {% block body_class %}download{% endblock %}
-{% block extrahead %}
-    <script src="{{ url_for('static', filename='node_modules/d3/d3.js') }}"></script>
-    <script src="{{ url_for('static', filename='node_modules/topojson/topojson.js') }}"></script>
-{% endblock extrahead %}
 
 {% block content %}
 <div class="wrapper head">
@@ -28,6 +24,7 @@
             <p>Si vous ne souhaitez pas vous engager à mettre à disposition du public vos Enrichissements ou si vous n’utilisez pas la BAN pour votre Usage Propre vous devez vous rapporter aux autres offres proposées respectivement par <a href="http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique">La Poste</a> ou <a href="http://professionnels.ign.fr/pointadresse">l’IGN</a>.</p>
             <p>Le fichier à télécharger est compressé au format ZIP et pèse un peu plus de 800Mo. Il contient un fichier CSV pour chaque département.<br>
             <a href="{{ url_for('static', filename='pdf/Description du contenu du produit gratuit issu de la Base Adresse Nationale.pdf') }}">Consultez le descriptif des données</a></p>
+            {% if delivery_date %}<p>Date de dernière livraison: {{ delivery_date.strftime('%d/%m/%Y') }}</p>{% endif %}
         </div>
         <div class="col two-third">
             <form method="post" id="tracked_download" action="{{ url_for('download') }}">

@@ -1,4 +1,6 @@
+import datetime
 import json
+import os
 
 from pathlib import Path
 
@@ -65,11 +67,16 @@ def foss():
 @app.route('/download/', methods=['GET', 'POST'], defaults={'token': None})
 def download(token):
     form = TrackedDownloadForm(request.form)
+    context = {'form': form}
+    if app.config['BAN_FILE_PATH']:
+        path = app.config['BAN_FILE_PATH'].format(area='')  # Check full one.
+        t = os.path.getmtime(path)
+        context['delivery_date'] = datetime.datetime.fromtimestamp(t)
     if token:
         dl = TrackedDownload.from_token(token)
         if not dl:
             flash('Clé invalide.', 'error')
-            return render_template('download.html', form=form), 403
+            return render_template('download.html', **context), 403
         else:
             dl.use()
             flash("Merci d'avoir téléchargé la base adresse nationale !",
@@ -107,7 +114,7 @@ def download(token):
         flash('Un courriel vous a été envoyé à l\'adresse {email}'.format(
               email=dl.email), 'success')
         return redirect(url_for('download'))
-    return render_template('download.html', form=form)
+    return render_template('download.html', **context)
 
 
 @app.route('/contrib/', methods=['GET', 'POST'])
