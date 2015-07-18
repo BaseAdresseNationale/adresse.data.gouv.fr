@@ -13,7 +13,7 @@ class TrackedDownload(object):
             setattr(self, key, value)
         if not self.token:
             salt = app.config['SECRET_KEY']
-            string = self.email.encode() + salt.encode()
+            string = self.email.encode() + self.area.encode() + salt.encode()
             self.token = hashlib.sha512(string).hexdigest()[:8]
 
     def save(self):

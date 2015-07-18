@@ -108,6 +108,32 @@ def test_trackeddownload_init_create_token():
     assert dl.token
 
 
+def test_trackeddownload_do_not_create_twice_same_token_with_different_area():
+    dl = TrackedDownload(
+        first_name='toto',
+        last_name='tata',
+        email='toto@tata.com',
+        company='toto SA',
+        area='',
+    )
+    dl2 = TrackedDownload(
+        first_name='toto',
+        last_name='tata',
+        email='toto@tata.com',
+        company='toto SA',
+        area='',
+    )
+    dl3 = TrackedDownload(
+        first_name='toto',
+        last_name='tata',
+        email='toto@tata.com',
+        company='toto SA',
+        area='01',
+    )
+    assert dl.token == dl2.token
+    assert dl.token != dl3.token
+
+
 def test_calling_trackeddownload_save_should_persist_data_in_db():
     assert not DB.fetchone('SELECT count(*) as t FROM tracked_download')['t']
     dl = TrackedDownload(
