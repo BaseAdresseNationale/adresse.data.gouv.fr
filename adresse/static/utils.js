@@ -12,10 +12,12 @@ L.Tooltip = L.Evented.extend({
 
     initialize: function (options) {
         L.setOptions(this, options);
+        this.els = [];
         this._ = L.DomUtil.create('div', 'tooltip tooltip-' + this.options.position, document.body);
         this._.style.width = this.options.width + 'px';
         if (!this.options.static) L.DomEvent.on(this._, 'mousemove', this.onMouseMove, this);
         if (this.options.closable) L.DomEvent.on(this._, 'click', this.close, this);
+        if (this.options.selector) this.attachTo(this.options.selector);
     },
 
     close: function () {
@@ -53,10 +55,17 @@ L.Tooltip = L.Evented.extend({
         this.setPosition({top: coords.top + this.options.offsetY, right: document.documentElement.offsetWidth - coords.left + 11 + this.options.offsetX});
     },
 
-    attachTo: function (selector) {
-        var els = document.querySelectorAll(selector);
-        for (var i = 0; i < els.length; i++) this.attachToEl(els[i]);
+    attach: function () {
+        for (var i = 0; i < this.els.length; i++) this.attachToEl(this.els[i]);
         return this;
+    },
+
+    attachTo: function (els) {
+        if (typeof els === 'string') els = document.querySelectorAll(els);
+        else if (els.nodeType === 1) els = [els];
+        for (var i = 0; i < els.length; i++) this.els.push(els[i]);
+        if (this.options.static) L.DomEvent.on(window, 'resize', this.attach, this);
+        return this.attach();
     },
 
     getPosition: function (el) {

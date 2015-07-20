@@ -50,8 +50,9 @@ var BanUi = L.Evented.extend({
         var tooltip = L.tooltip({
             content: 'Vous pouvez chercher une adresse pour la vérifier, ou chercher une rue pour ajouter une adresse manquante.',
             duration: 10000,
-            static: true}
-        ).attachTo('input').open();
+            static: true,
+            selector: 'input'
+        }).open();
         this.searchControl.once('selected', function () {
             tooltip.close();
         });
@@ -273,8 +274,9 @@ var BanUi = L.Evented.extend({
         var tooltip = L.tooltip({
             content: this.markerTooltipContent,
             static: true,
-            duration: 10000
-        }).attachTo('.marker').open();
+            duration: 10000,
+            selector: '.marker'
+        }).open();
         this.map.once('mousedown editable:editing zoomstart', tooltip.close, tooltip);
         this.on('step', tooltip.close, tooltip);
     },
@@ -285,8 +287,9 @@ var BanUi = L.Evented.extend({
             static: true,
             position: 'left',
             duration: 10000,
-            offsetY: 50
-        }).attachTo('#panel').open();
+            offsetY: 50,
+            selector: '#panel'
+        }).open();
         this.housenumber.addTo(this.housenumberLayer);
         this.housenumber.enableEdit();
         this.on('step', tooltip.close, tooltip);
