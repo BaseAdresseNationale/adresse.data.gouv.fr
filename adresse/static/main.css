@@ -970,6 +970,7 @@ body.crowdsourcing {
     right: 0;
     padding: 10px;
 }
+.crowdsourcing.step-edit #panel.toggled,
 .crowdsourcing #panel.toggled {
     right: -360px;
 }
