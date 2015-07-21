@@ -18,6 +18,11 @@
             <li class="when-anonymous"><a href="#" class="login button">Connexion</a></li>
         </ul>
     </div>
+    <div class="buttons"><!--
+        --><a href="#" class="button submit on-dirty" title="Valider les changements"></a><!--
+        --><a href="#" class="button neutral fake-submit on-not-dirty" title="Aucun changement à valider"></a><!--
+        --><a href="#" class="button cancel neutral" title="Annuler l'édition de l'adresse"></a><!--
+    --></div>
     <div class="zoom">
         <a href="#" class="plus">+</a><!--
         --><a href="#" class="minus">−</a>
@@ -30,7 +35,10 @@
         --><a class="geolocate button" href="#" title="Me positionner sur la carte"></a>
     </div>
 </div>
-<div id="panel" class="step with-transition"></div>
+<div id="panel" class="step with-transition">
+    <div class="handle"></div>
+    <div class="body with-transition"></div>
+</div>
 <div id="thanks" class="step">
     <div class="message with-transition">Merci pour votre contribution. Elle sera prise en compte dans les meilleurs délais.<br />
     <a href="#" class="button">Continuer</a>

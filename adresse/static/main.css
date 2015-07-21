@@ -750,7 +750,7 @@ sup {
     font-size: 0.8em;
 }
 ul.photon-autocomplete {
-    z-index: 1002;
+    z-index: 1004;
 }
 .photon-autocomplete li.on {
     background-color: #ABB7B7;
@@ -846,7 +846,7 @@ ul.photon-autocomplete {
 
 
 /* ************************************************* */
-/* ***************** Contribute ******************** */
+/* **************** Crowdsourcing ****************** */
 /* ************************************************* */
 body.crowdsourcing {
     width: 100%;
@@ -876,7 +876,7 @@ body.crowdsourcing {
     position: absolute;
     left: calc(50% - 250px);
     top: calc(50% - 100px);
-    z-index: 1001;
+    z-index: 1003;
     width: 500px;
     padding: 40px;
     box-shadow: 0 0px 2px 0px #999 inset;
@@ -949,6 +949,30 @@ body.crowdsourcing {
     padding: 20px;
     background-image: url('./img/texture.png');
 }
+.crowdsourcing #panel .handle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background-color: #666;
+    cursor: pointer;
+    background-image: url('./img/properties.svg');
+    background-repeat: no-repeat;
+    background-position: top 30px center;
+    background-size: 80%;
+}
+.crowdsourcing #panel .body {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+.crowdsourcing #panel.toggled {
+    right: -360px;
+}
 .crowdsourcing #login .message,
 .crowdsourcing #thanks .message {
     position: absolute;
@@ -958,14 +982,14 @@ body.crowdsourcing {
     padding: 40px;
     box-shadow: 0 0px 2px 0px #999 inset;
     background-color: #fff;
-    z-index: 1001;
+    z-index: 1003;
 }
 .crowdsourcing.step-search #search,
 .crowdsourcing.step-thanks #thanks,
 .crowdsourcing.step-edit #panel {
     opacity: 1;
     display: block;
-    z-index: 1000;
+    z-index: 1003;
 }
 /* Workaround FF bug that doesn't propagate opacity to children */
 /* when there is a transition in some cases */
@@ -1038,19 +1062,27 @@ body.crowdsourcing {
     /*display: initial;*/
     display: inline-block;
 }
+.crowdsourcing.dirty .on-not-dirty {
+    display: none;
+}
 .crowdsourcing #menu {
     position: absolute;
     left: 10px;
     top: 10px;
-    z-index: 1002;
+    z-index: 1001;
     text-align: center;
     font-size: 0.9em;
 }
+.crowdsourcing #menu .buttons,
 .crowdsourcing #menu .navigation {
     padding: 10px;
     background-color: #fff;
     background-image: url('./img/texture.png');
     border: 1px solid #eee;
+    margin-top: 5px;
+}
+.crowdsourcing #menu .buttons {
+    display: none;
 }
 .crowdsourcing #menu .button {
     line-height: 40px;
@@ -1085,15 +1117,15 @@ body.crowdsourcing {
     padding: 10px;
     padding-left: 15px;
     text-decoration: none;
-    margin-bottom: 5px;
     border-radius: 2px;
     border: 1px solid #eee;
     font-family: 'open_sanslight';
     background-image: url('./img/back.svg');
     background-repeat: no-repeat;
     background-position: left 5px center;
-    background-size: 20%;
+    background-size: 15%;
 }
+.crowdsourcing.step-edit #menu .buttons,
 .crowdsourcing.step-edit #menu .zoom {
     display: block;
 }
@@ -1106,6 +1138,23 @@ body.crowdsourcing {
 }
 .crowdsourcing #menu .zoom a + a {
     border-left: 1px solid #ccc;
+}
+.crowdsourcing #menu .buttons a {
+    background-image: url('./img/submit.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    width: 48%;
+    margin: 0;
+}
+.crowdsourcing #menu .buttons a + a {
+    margin-left: 2px;
+}
+.crowdsourcing #menu .buttons a.cancel {
+    background-image: url('./img/cancel.svg');
+}
+.crowdsourcing #menu .buttons a.fake-submit {
+    cursor: not-allowed;
 }
 .crowdsourcing .when-logged {
     display: none;
@@ -1152,4 +1201,75 @@ body.crowdsourcing {
 }
 .crowdsourcing .close:hover {
     color: #666;
+}
+
+/* ************************************************* */
+/* ********************* MOBILE ******************** */
+/* ************************************************* */
+@media only screen and (max-width:767px) {
+    .row {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .twide {
+        width: 100%;
+        padding-left: 0!important;
+    }
+    .tthird {
+        width: 33.3333%;
+    }
+    .tshow {
+        display: inherit;
+    }
+    .thide {
+        display: none;
+    }
+    header section {
+        display: block;
+    }
+    header {
+        padding: 5px;
+        line-height: 1em;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .crowdsourcing.step-edit #panel {
+        right: -360px;
+    }
+    .crowdsourcing.step-edit #panel.toggled {
+        right: 0;
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 639px) {
+    .mwide {
+        padding-left: 0!important;
+        width: 100%;
+    }
+    .mwide + .mwide {
+        margin-top: 20px;
+    }
+    .mthird {
+        width: 33.3333%;
+    }
+    .mshow {
+        display: inherit;
+    }
+    .mhide {
+        display: none;
+    }
+}
+@media only screen and (max-width: 499px) {
+    .crowdsourcing #search .input {
+        left: calc(50% - 150px);
+        width: 300px;
+    }
+    .crowdsourcing #search input {
+        width: 160px;
+    }
+}
+@media only screen and (max-height: 767px) {
+    .crowdsourcing #panel .body {
+        overflow-y: scroll;
+    }
 }

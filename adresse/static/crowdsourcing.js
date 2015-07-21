@@ -12,6 +12,8 @@ var BanUi = L.Evented.extend({
         this.options = options || {};
         if (this.options.user) this.markLoggedIn();
         this.panel = qs('#panel');
+        this.panelBody = this.panel.querySelector('.body');
+        this.panelHandle = this.panel.querySelector('.handle');
         this.search = qs('#search input');
         this.actionStepTitle2 = qs('#topbar h2');
         var continueButton = qs('#thanks .message a.button');
@@ -25,6 +27,11 @@ var BanUi = L.Evented.extend({
                   .on(gotoSearch, 'click', function () { this.step('search'); }, this);
         this.initMap();
         this.step('search');
+        L.DomEvent.on(this.panelHandle, 'click', this.togglePanel, this);
+        var submit = qs('#menu .submit');
+        L.DomEvent.on(submit, 'click', L.DomEvent.stop).on(submit, 'click', this.submit, this);
+        var cancel = qs('#menu .cancel');
+        L.DomEvent.on(cancel, 'click', L.DomEvent.stop).on(cancel, 'click', this.cancel, this);
     },
 
     initMap: function () {
@@ -37,6 +44,7 @@ var BanUi = L.Evented.extend({
         this.housenumberLayer = new L.FeatureGroup();
         this.map = L.map('map', {
             zoomControl: false,
+            attributionControl: false,
             editable: true,
             editOptions: {featuresLayer: this.housenumberLayer},
             maxZoom: 20
@@ -102,7 +110,7 @@ var BanUi = L.Evented.extend({
     },
 
     onStep_edit: function () {
-        this.panel.innerHTML = '';
+        this.panelBody.innerHTML = '';
         var fields = [
             ['properties.housenumber', {handler: 'Input', placeholder: 'Numéro', helpText: 'Numéro', wrapper: 'div', wrapperClass: 'half'}],
             ['properties.rep', {handler: 'Input', placeholder: 'Répétiteur (bis, ter…)', helpText: 'Répétiteur (bis, ter…)', wrapper: 'div', wrapperClass: 'half'}],
@@ -110,27 +118,14 @@ var BanUi = L.Evented.extend({
             ['properties.locality', {handler: 'Input', placeholder: 'Lieu-dit', helpText: 'Lieu-dit (optionnel)'}],
             ['properties.comment', {handler: 'Textarea', placeholder: 'Commentaire', helpText: 'Commentaire (optionnel)'}]
         ];
-        var title = L.DomUtil.create('h3', '', this.panel);
+        var title = L.DomUtil.create('h3', '', this.panelBody);
         title.textContent = this.housenumber.properties.city + ' (' + this.housenumber.properties.citycode + ')';
         this.form = new L.FormBuilder(this.housenumber, fields);
         this.form.on('postsync', function (e) {
             if (e.helper.field === 'properties.housenumber' || e.helper.field === 'properties.rep') this.housenumber._initIcon();
             this.makeDirty();
         }, this);
-        this.panel.appendChild(this.form.build());
-        var submit = L.DomUtil.create('a', 'button on-dirty', this.panel);
-        submit.innerHTML = 'Valider';
-        submit.href = '#';
-        L.DomEvent.on(submit, 'click', L.DomEvent.stop).on(submit, 'click', function () {
-            if (!this.isLoggedIn()) this.askForLogin(this.save);
-            else this.save();
-        }, this);
-        var cancel = L.DomUtil.create('a', 'button neutral', this.panel);
-        cancel.innerHTML = 'Annuler';
-        cancel.href = '#';
-        L.DomEvent.on(cancel, 'click', L.DomEvent.stop).on(cancel, 'click', function () {
-            this.step('search');
-        }, this);
+        this.panelBody.appendChild(this.form.build());
     },
 
     reverse: function (e) {
@@ -159,9 +154,7 @@ var BanUi = L.Evented.extend({
 
     editHousenumber: function (geojson) {
         this.housenumber = new BanUi.Marker(geojson);
-        var center = this.housenumber.getLatLng(),
-            centerPoint = this.map.project(center);
-        this.map.setView(this.map.unproject(centerPoint.add([100, 0])), 19);
+        this.map.setView(this.housenumber.getLatLng(), 19);
         this.step('edit');
         var callback = function () {
             this.attachFormTooltip();
@@ -178,9 +171,28 @@ var BanUi = L.Evented.extend({
         L.DomUtil.removeClass(document.body, 'dirty');
     },
 
+    toggleClass: function (el, name) {
+        if (L.DomUtil.hasClass(el, name)) L.DomUtil.removeClass(el, name);
+        else L.DomUtil.addClass(el, name);
+    },
+
+    togglePanel: function () {
+        this.fire('togglepanel');
+        this.toggleClass(this.panel, 'toggled');
+    },
+
     clear: function () {
         this.unmakeDirty();
         this.housenumberLayer.clearLayers();
+    },
+
+    submit: function () {
+        if (!this.isLoggedIn()) this.askForLogin(this.save);
+        else this.save();
+    },
+
+    cancel: function () {
+        this.step('search');
     },
 
     save: function () {
@@ -278,7 +290,7 @@ var BanUi = L.Evented.extend({
             selector: '.marker'
         }).open();
         this.map.once('mousedown editable:editing zoomstart', tooltip.close, tooltip);
-        this.on('step', tooltip.close, tooltip);
+        this.on('step togglepanel', tooltip.close, tooltip);
     },
 
     attachFormTooltip: function () {
@@ -287,12 +299,12 @@ var BanUi = L.Evented.extend({
             static: true,
             position: 'left',
             duration: 10000,
-            offsetY: 50,
-            selector: '#panel'
+            offsetY: 25,
+            selector: '#panel .handle'
         }).open();
         this.housenumber.addTo(this.housenumberLayer);
         this.housenumber.enableEdit();
-        this.on('step', tooltip.close, tooltip);
+        this.on('step togglepanel', tooltip.close, tooltip);
         this.form.on('postsync', tooltip.close, tooltip);
     }
 
