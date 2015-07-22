@@ -6,14 +6,14 @@
 <div class="wrapper">
     <div class="window">
         <h1>LA BASE ADRESSE NATIONALE</h1><br />
-        <h2>{{ BASELINE }}</h2>
+        <h2 class="mhide">{{ BASELINE }}</h2>
     </div>
     <div class="pitch">
         <p>Pour que les <strong>services d'urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, ce référentiel, véritable enjeu de <strong>souveraineté</strong> pour la France, est la première alliance entre l'État et la société civile. <br /><a href="{{ url_for('about') }}">En savoir plus.</a></p>
     </div>
 </div>
 <ul class="actions">
-    <li><a href="{{ url_for('about') }}" class="about">Pourquoi ? Comment ?</a></li>
+    <li class="mwide"><a href="{{ url_for('about') }}" class="about">Pourquoi ? Comment ?</a></li>
     <li><a href="{{ url_for('download') }}" class="download">Accéder aux données</a></li>
     <li><a href="{{ url_for('contrib') }}" class="contribute">Contribuer au projet</a></li>
     <li><a href="{{ url_for('tools') }}" class="tools">Découvrir les outils</a></li>
