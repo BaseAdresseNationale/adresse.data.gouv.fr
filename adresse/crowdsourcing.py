@@ -1,3 +1,5 @@
+import json
+
 from . import DB
 
 
@@ -32,7 +34,14 @@ class Crowdsourcing(object):
                    self.username, self.auth_provider])
 
     def to_json(self):
-        return self.__dict__
+        return {
+            "id": self.id,
+            "before": json.loads(self.before) if self.before else None,
+            "after": json.loads(self.after),
+            "username": self.username,
+            "auth_provider": self.auth_provider,
+            "operation": self.operation,
+        }
 
     @classmethod
     def data(self, _from=None):
