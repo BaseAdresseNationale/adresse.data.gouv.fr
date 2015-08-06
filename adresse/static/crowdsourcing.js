@@ -143,6 +143,8 @@ var BanUi = L.Evented.extend({
         this.formTooltipContent = 'Complétez les propriétés de l\'adresse.';
         this.markerTooltipContent = 'Positionnez le marqueur sur l\'entrée du bâtiment ou terrain.';
         geojson.properties.housenumber = this.extractHousenumber(this.inputString);
+        geojson.properties.parentId = geojson.properties.id;
+        geojson.properties.id = null;
         this.editHousenumber(geojson);
     },
 
@@ -335,17 +337,17 @@ B.Icon = L.DivIcon.extend({
 
 B.Marker = L.Marker.extend({
 
-    initialize: function (geojson) {
-        this.before = JSON.stringify(geojson);
-        var latlng = L.latLng(geojson.geometry.coordinates[1], geojson.geometry.coordinates[0]);
+    initialize: function (source) {
+        this.source = source;
+        var latlng = L.latLng(source.geometry.coordinates[1], source.geometry.coordinates[0]);
         this.properties = {};
-        var housenumber = geojson.properties.housenumber || '';
-        this.properties.street = L.Util.trim(geojson.properties.name.replace(housenumber, ''));
+        var housenumber = source.properties.housenumber || '';
+        this.properties.street = L.Util.trim(source.properties.name.replace(housenumber, ''));
         this.properties.housenumber = housenumber.split(' ')[0];
         this.properties.rep = housenumber.split(' ')[1];
-        this.properties.id = geojson.properties.id;
-        this.properties.city = geojson.properties.city;
-        this.properties.citycode = geojson.properties.citycode;
+        this.properties.id = source.properties.id;
+        this.properties.city = source.properties.city;
+        this.properties.citycode = source.properties.citycode;
         var options = {
             icon: new B.Icon({housenumber: this})
         };
@@ -360,7 +362,9 @@ B.Marker = L.Marker.extend({
     },
 
     save: function () {
-        var after = JSON.parse(this.before), self = this;
+        var before = this.properties.id ? JSON.stringify(this.source) : '',
+            after = this.source,
+            self = this;
         after.geometry.coordinates = [this._latlng.lng, this._latlng.lat];
         after.properties = L.extend(after.properties, this.properties);
         var settings = {
@@ -369,7 +373,7 @@ B.Marker = L.Marker.extend({
             method: 'post',
             data: {
                 id: this.properties.id,
-                before: this.before,
+                before: before,
                 after: JSON.stringify(after)
             },
             headers: {
