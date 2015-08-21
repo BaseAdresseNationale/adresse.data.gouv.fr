@@ -4,6 +4,7 @@ DEPARTEMENTS = {
     "03": "Allier",
     "04": "Alpes-de-Haute-Provence",
     "05": "Hautes-Alpes",
+    "06": "Alpes-Maritimes",
     "07": "Ardèche",
     "08": "Ardennes",
     "09": "Ariège",
