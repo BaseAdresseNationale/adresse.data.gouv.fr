@@ -3,7 +3,7 @@ from wtforms import StringField, validators, TextAreaField, SelectField
 
 from .constants import DEPARTEMENTS
 
-CHOICES = list(DEPARTEMENTS.items())
+CHOICES = list((k, '{} {}'.format(k, v)) for k, v in DEPARTEMENTS.items())
 CHOICES.sort()
 CHOICES = [('', 'France entière')] + CHOICES
 
