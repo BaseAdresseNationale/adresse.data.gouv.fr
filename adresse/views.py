@@ -1,17 +1,18 @@
 import datetime
 import json
 import os
-
 from pathlib import Path
 
-from flask import flash, redirect, render_template, request, url_for, session
-from flask_mail import Message
+from flask import (abort, flash, redirect, render_template, request, session,
+                   url_for)
 from flask.ext.oauthlib.client import OAuth
+from flask_mail import Message
+from werkzeug import security
 
 from . import app, mail
 from .constants import DEPARTEMENTS
 from .crowdsourcing import Crowdsourcing
-from .forms import ReportForm, TrackedDownloadForm, CrowdsourcingForm
+from .forms import CrowdsourcingForm, ReportForm, TrackedDownloadForm
 from .tracked_download import TrackedDownload
 
 
@@ -178,8 +179,10 @@ def news():
 
 # Oauth
 oauth = OAuth(app)
-udata = oauth.remote_app(
-    'udata',
+
+# Data.gouv.fr
+dgfr = oauth.remote_app(
+    'dgfr',
     base_url='https://www.data.gouv.fr/api/1/',
     request_token_url=None,
     request_token_params={'scope': 'default'},
@@ -189,42 +192,77 @@ udata = oauth.remote_app(
     app_key='DATAGOUV'
 )
 
+# France Connect
+fc = oauth.remote_app(
+    'franceconnect',
+    base_url='https://fcp.integ01.dev-franceconnect.fr/api/v1/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://fcp.integ01.dev-franceconnect.fr/api/v1/token',
+    authorize_url='https://fcp.integ01.dev-franceconnect.fr/api/v1/authorize',
+    app_key='FRANCECONNECT',
+    request_token_params={'scope': 'openid profile'}
+)
 
-@app.route('/login/')
-def login():
-    return udata.authorize(callback=url_for('authorized', _external=True))
+
+@fc.tokengetter
+@dgfr.tokengetter
+def get_oauth_token():
+    return session.get('oauth_token')
+
+
+@app.route('/login/<provider>/')
+def login(provider):
+    if provider == "dgfr":
+        remote_app = dgfr
+    elif provider == "france-connect":
+        remote_app = fc
+    else:
+        abort(400, 'Unkown login provider')
+    return remote_app.authorize(
+        callback=url_for('authorized', provider=provider, _external=True),
+        state=security.gen_salt(10),
+        nonce=security.gen_salt(10),
+    )
 
 
 @app.route('/logout/')
 def logout():
-    session.pop('udata_token', None)
+    session.pop('oauth_token', None)
     session.pop('username', None)
     session.pop('fullname', None)
     session.pop('auth_provider', None)
     return redirect(url_for('index'))
 
 
-@app.route('/authorized')
-def authorized():
-    resp = udata.authorized_response()
+@app.route('/authorized/<provider>/')
+def authorized(provider):
+    if provider == 'dgfr':
+        remote_app = dgfr
+        endpoint = 'me'
+        id_key = 'id'
+        first_name_key = 'first_name'
+        last_name_key = 'last_name'
+    elif provider == 'france-connect':
+        remote_app = fc
+        endpoint = 'userinfo?schema=openid'
+        id_key = 'sub'
+        first_name_key = 'given_name'
+        last_name_key = 'family_name'
+    resp = remote_app.authorized_response()
     if resp is None:
         return 'Access denied: reason=%s error=%s' % (
             request.args['error_reason'],
             request.args['error_description']
         )
-    session['udata_token'] = (resp['access_token'], '')
-    me = udata.get('me')
-    session['username'] = me.data['id']
-    session['auth_provider'] = 'https://www.data.gouv.fr'
-    session['fullname'] = ' '.join([me.data['first_name'],
-                                    me.data['last_name']])
+    session['oauth_token'] = (resp['access_token'], '')
+    data = dgfr.get(endpoint).data
+    session['username'] = data.get(id_key)
+    session['auth_provider'] = provider
+    session['fullname'] = ' '.join([data.get(first_name_key),
+                                    data.get(last_name_key)])
     return render_template('ajax_authentication_redirect.html',
                            session=session)
-
-
-@udata.tokengetter
-def get_udata_oauth_token():
-    return session.get('udata_token')
 
 
 @app.context_processor

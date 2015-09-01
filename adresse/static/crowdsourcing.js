@@ -218,7 +218,7 @@ var BanUi = L.Evented.extend({
     },
 
     doLogin: function (callback) {
-        var win = window.open('/login/');
+        var win = window.open('/login/dgfr/');
         this.oauthProceed = function () {
             this.markLoggedIn();
             if (callback && callback.call) callback.call(this);
