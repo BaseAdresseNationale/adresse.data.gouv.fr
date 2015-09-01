@@ -232,7 +232,8 @@ def logout():
     session.pop('username', None)
     session.pop('fullname', None)
     session.pop('auth_provider', None)
-    return redirect(url_for('index'))
+    url = request.referrer or url_for('index')
+    return redirect(url)
 
 
 @app.route('/authorized/<provider>/')
