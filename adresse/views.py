@@ -163,7 +163,8 @@ def crowdsourcing():
         return render_template('crowdsourcing.html', form=form,
                                session=session,
                                TILE_URL=app.config['ORTHO_TILE_URL'],
-                               ROADS_TILE_URL=app.config['ROADS_TILE_URL'])
+                               ROADS_TILE_URL=app.config['ROADS_TILE_URL'],
+                               PROVIDERS=['dgfr', 'france-connect'])
 
 
 @app.route('/crowdsourcing/data/')
@@ -257,7 +258,7 @@ def authorized(provider):
             request.args['error_description']
         )
     session['oauth_token'] = (resp['access_token'], '')
-    data = dgfr.get(endpoint).data
+    data = remote_app.get(endpoint).data
     session['username'] = data.get(id_key)
     session['auth_provider'] = provider
     session['fullname'] = ' '.join([data.get(first_name_key),

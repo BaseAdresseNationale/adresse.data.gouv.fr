@@ -49,7 +49,14 @@
         <a href="#" class="close"></a>
         <a href="#" class="button oauth">S'identifier</a>
         <a href="#" class="button neutral anonymous">Contribution anonyme</a>
-        <p>S'identifier avec un compte data.gouv.fr facilite la prise en compte de votre contribution.</p>
+        <p>S'identifier facilite la prise en compte de votre contribution.</p>
+    </div>
+</div>
+<div id="login-provider" class="with-transition">
+    <div class="message with-transition">
+        <a href="#" class="close"></a>
+        <h3>Choisir un fournisseur</h3>
+        <div></div>
     </div>
 </div>
 <script src="{{ url_for('static', filename='crowdsourcing.js') }}"></script>
@@ -57,7 +64,8 @@
     initUI({
         tileUrl: '{{ TILE_URL|safe }}',
         roadsTileUrl: '{{ ROADS_TILE_URL|safe }}',
-        user: '{{ session.fullname }}'
+        user: '{{ session.fullname }}',
+        login_providers: {{ PROVIDERS|tojson|safe }}
     });
 </script>
 {% endblock body %}

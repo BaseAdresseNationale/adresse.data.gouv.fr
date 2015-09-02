@@ -973,6 +973,7 @@ body.crowdsourcing {
 .crowdsourcing #panel.toggled {
     right: -360px;
 }
+.crowdsourcing #login-provider .message,
 .crowdsourcing #login .message,
 .crowdsourcing #thanks .message {
     position: absolute;
@@ -1008,6 +1009,10 @@ body.crowdsourcing {
 .crowdsourcing.ask-for-login #login .message {
     bottom: calc(50% - 150px);
 }
+.crowdsourcing.choose-login-provider #login-provider .message {
+    bottom: calc(50% - 50px);
+    text-align: center;
+}
 .crowdsourcing.step-thanks #thanks .message {
     bottom: calc(50% - 100px);
 }
@@ -1020,6 +1025,26 @@ body.crowdsourcing {
 .crowdsourcing #login .message p {
     font-size: 0.9em;
     font-family: 'open_sanslight_italic';
+}
+.crowdsourcing #login-provider {
+    display: none;
+}
+.crowdsourcing.choose-login-provider #login-provider {
+    display: block;
+}
+.crowdsourcing #login-provider a.provider {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-image: url('./dgfr.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.crowdsourcing #login-provider a.provider + a.provider {
+    margin-left: 10px;
+}
+.crowdsourcing #login-provider a.france-connect {
+    background-image: url('./france-connect.png');
 }
 .crowdsourcing .marker {
     position: relative;

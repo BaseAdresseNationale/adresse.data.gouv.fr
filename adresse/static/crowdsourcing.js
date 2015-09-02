@@ -20,11 +20,14 @@ var BanUi = L.Evented.extend({
         var loginLink = qs('.login');
         var gotoSearch = qs('#menu .goto-search');
         L.DomEvent.on(loginLink, 'click', L.DomEvent.stop)
-                  .on(loginLink, 'click', this.doLogin, this);
+                  .on(loginLink, 'click', this.chooseLoginProvider, this);
         L.DomEvent.on(continueButton, 'click', L.DomEvent.stop)
                   .on(continueButton, 'click', function () { this.step('search'); }, this);
         L.DomEvent.on(gotoSearch, 'click', L.DomEvent.stop)
                   .on(gotoSearch, 'click', function () { this.step('search'); }, this);
+        for (var i = 0; i < options.login_providers.length; i++) {
+            this.addLoginProviderButton(options.login_providers[i]);
+        }
         this.initMap();
         this.step('search');
         L.DomEvent.on(this.panelHandle, 'click', this.togglePanel, this);
@@ -64,6 +67,7 @@ var BanUi = L.Evented.extend({
         this.searchControl.once('selected', function () {
             tooltip.close();
         });
+        this.on('chooseprovider', tooltip.close, tooltip);
 
         L.tileLayer(this.options.tileUrl, {
             attribution: 'Images &copy; IGN',
@@ -189,7 +193,8 @@ var BanUi = L.Evented.extend({
     },
 
     submit: function () {
-        if (!this.isLoggedIn()) this.askForLogin(this.save);
+        this._loginCallback = this.save;
+        if (!this.isLoggedIn()) this.askForLogin();
         else this.save();
     },
 
@@ -217,39 +222,62 @@ var BanUi = L.Evented.extend({
         L.DomUtil.addClass(document.body, 'logged');
     },
 
-    doLogin: function (callback) {
-        var win = window.open('/login/dgfr/');
+    doLogin: function (provider) {
+        var win = window.open('/login/' + provider + '/');
         this.oauthProceed = function () {
             this.markLoggedIn();
-            if (callback && callback.call) callback.call(this);
+            if (this._loginCallback && this._loginCallback.call) this._loginCallback.call(this);
             win.close();
         };
     },
 
-    askForLogin: function (callback) {
+    askForLogin: function () {
         var askOauth = qs('#login .oauth'),
             anonymous = qs('#login .anonymous'),
             closeButton = qs('#login .close');
         var proceed = function () {
-            close();
-            if (callback) callback.call(this);
+            close.call(this);
+            this.save();
             L.DomEvent.off(anonymous, 'click', proceed, this);
-            L.DomEvent.off(askOauth, 'click', doLogin, this);
-        };
-        var doLogin = function () {
-            this.doLogin(proceed);
+            L.DomEvent.off(askOauth, 'click', this.chooseLoginProvider, this);
         };
         var close = function () {
             L.DomUtil.removeClass(document.body, 'ask-for-login');
             L.DomEvent.off(closeButton, 'click', close, this);
+            this._loginCallback = null;
         };
+        this._loginCallback = proceed;
         L.DomUtil.addClass(document.body, 'ask-for-login');
         L.DomEvent.on(askOauth, 'click', L.DomEvent.stop)
-                  .on(askOauth, 'click', doLogin, this);
+                  .on(askOauth, 'click', this.chooseLoginProvider, this);
         L.DomEvent.on(anonymous, 'click', L.DomEvent.stop)
                   .on(anonymous, 'click', proceed, this);
         L.DomEvent.on(closeButton, 'click', L.DomEvent.stop)
                   .on(closeButton, 'click', close, this);
+    },
+
+    chooseLoginProvider: function (callback) {
+        this.fire('chooseprovider');
+        L.DomUtil.addClass(document.body, 'choose-login-provider');
+        var closeButton = qs('#login-provider .close');
+        var close = function () {
+            L.DomUtil.removeClass(document.body, 'choose-login-provider');
+            L.DomEvent.off(closeButton, 'click', close, this);
+        };
+        L.DomEvent.on(closeButton, 'click', L.DomEvent.stop)
+                  .on(closeButton, 'click', close, this);
+    },
+
+    addLoginProviderButton: function (provider) {
+        var container = qs('#login-provider .message div');
+        var a = L.DomUtil.create('a', 'provider ' + provider, container);
+        a.href = '#';
+        L.DomEvent
+                .on(a, 'click', L.DomEvent.stop)
+                .on(a, 'click', function () {
+                    this.doLogin(provider);
+                    L.DomUtil.removeClass(document.body, 'choose-login-provider');
+                }, this);
     },
 
     extractHousenumber: function (name) {
@@ -292,7 +320,7 @@ var BanUi = L.Evented.extend({
             selector: '.marker'
         }).open();
         this.map.once('mousedown editable:editing zoomstart', tooltip.close, tooltip);
-        this.on('step togglepanel', tooltip.close, tooltip);
+        this.on('step togglepanel chooseprovider', tooltip.close, tooltip);
     },
 
     attachFormTooltip: function () {
@@ -306,7 +334,7 @@ var BanUi = L.Evented.extend({
         }).open();
         this.housenumber.addTo(this.housenumberLayer);
         this.housenumber.enableEdit();
-        this.on('step togglepanel', tooltip.close, tooltip);
+        this.on('step togglepanel chooseprovider', tooltip.close, tooltip);
         this.form.on('postsync', tooltip.close, tooltip);
     }
 
@@ -377,7 +405,7 @@ B.Marker = L.Marker.extend({
                 after: JSON.stringify(after)
             },
             headers: {
-              'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest'
             },
             error: function (resp) {
                 self.fire('error', {errors: resp});
