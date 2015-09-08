@@ -232,8 +232,11 @@ def logout():
     session.pop('oauth_token', None)
     session.pop('username', None)
     session.pop('fullname', None)
-    session.pop('auth_provider', None)
-    url = request.referrer or url_for('index')
+    provider = session.pop('auth_provider', None)
+    if provider == 'france-connect':
+        url = '{}logout'.format(fc.base_url)
+    else:
+        url = request.referrer or url_for('index')
     return redirect(url)
 
 
