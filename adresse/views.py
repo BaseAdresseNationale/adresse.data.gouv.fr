@@ -164,7 +164,7 @@ def crowdsourcing():
                                session=session,
                                TILE_URL=app.config['ORTHO_TILE_URL'],
                                ROADS_TILE_URL=app.config['ROADS_TILE_URL'],
-                               PROVIDERS=['dgfr', 'france-connect'])
+                               PROVIDERS=['dgfr', 'france-connect', 'osm'])
 
 
 @app.route('/crowdsourcing/data/')
@@ -205,7 +205,19 @@ fc = oauth.remote_app(
     request_token_params={'scope': 'openid profile'}
 )
 
+# OpenStreetMap
+osm = oauth.remote_app(
+    'osm',
+    base_url='http://www.openstreetmap.org/oauth/',
+    request_token_url='http://www.openstreetmap.org/oauth/request_token',
+    access_token_method='POST',
+    access_token_url='http://www.openstreetmap.org/oauth/access_token',
+    authorize_url='http://www.openstreetmap.org/oauth/authorize',
+    app_key='OSM'
+)
 
+
+@osm.tokengetter
 @fc.tokengetter
 @dgfr.tokengetter
 def get_oauth_token():
@@ -218,6 +230,8 @@ def login(provider):
         remote_app = dgfr
     elif provider == "france-connect":
         remote_app = fc
+    elif provider == "osm":
+        remote_app = osm
     else:
         abort(400, 'Unkown login provider')
     return remote_app.authorize(
@@ -240,32 +254,56 @@ def logout():
     return redirect(url)
 
 
+def get_dgfr_user_details(data):
+    return {
+        'username': data['id'],
+        'fullname': ' '.join([data['first_name'], data['last_name']])
+    }
+
+
+def get_fc_user_details(data):
+    return {
+        'username': data['sub'],
+        'fullname': ' '.join([data['given_name'], data['family_name']])
+    }
+
+
+def get_osm_user_details(data):
+    user = data.find('user')
+    return {
+        'username': user.attrib['id'],
+        'fullname': user.attrib['display_name']
+    }
+
+
 @app.route('/authorized/<provider>/')
 def authorized(provider):
+    token_key = "access_token"
     if provider == 'dgfr':
         remote_app = dgfr
         endpoint = 'me'
-        id_key = 'id'
-        first_name_key = 'first_name'
-        last_name_key = 'last_name'
+        getter = get_dgfr_user_details
     elif provider == 'france-connect':
         remote_app = fc
         endpoint = 'userinfo?schema=openid'
-        id_key = 'sub'
-        first_name_key = 'given_name'
-        last_name_key = 'family_name'
+        getter = get_fc_user_details
+    elif provider == 'osm':
+        remote_app = osm
+        endpoint = 'http://api.openstreetmap.org/api/0.6/user/details'
+        getter = get_osm_user_details
+        token_key = "oauth_token"
     resp = remote_app.authorized_response()
     if resp is None:
         return 'Access denied: reason=%s error=%s' % (
             request.args['error_reason'],
             request.args['error_description']
         )
-    session['oauth_token'] = (resp['access_token'], '')
-    data = remote_app.get(endpoint).data
-    session['username'] = data.get(id_key)
+    session['oauth_token'] = (resp[token_key],
+                              resp.get('oauth_token_secret', ''))  # Oauth1
     session['auth_provider'] = provider
-    session['fullname'] = ' '.join([data.get(first_name_key),
-                                    data.get(last_name_key)])
+    data = getter(remote_app.get(endpoint).data)
+    session['username'] = data['username']
+    session['fullname'] = data['fullname']
     return render_template('ajax_authentication_redirect.html',
                            session=session)
 

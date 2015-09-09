@@ -1046,6 +1046,9 @@ body.crowdsourcing {
 .crowdsourcing #login-provider a.france-connect {
     background-image: url('./france-connect.png');
 }
+.crowdsourcing #login-provider a.osm {
+    background-image: url('./img/OSM-240px.png');
+}
 .crowdsourcing .marker {
     position: relative;
     background: #22313F;
