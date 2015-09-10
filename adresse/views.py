@@ -196,11 +196,11 @@ dgfr = oauth.remote_app(
 # France Connect
 fc = oauth.remote_app(
     'franceconnect',
-    base_url='https://fcp.integ01.dev-franceconnect.fr/api/v1/',
+    base_url='https://app.franceconnect.gouv.fr/api/v1/',
     request_token_url=None,
     access_token_method='POST',
-    access_token_url='https://fcp.integ01.dev-franceconnect.fr/api/v1/token',
-    authorize_url='https://fcp.integ01.dev-franceconnect.fr/api/v1/authorize',
+    access_token_url='https://app.franceconnect.gouv.fr/api/v1/token',
+    authorize_url='https://app.franceconnect.gouv.fr/api/v1/authorize',
     app_key='FRANCECONNECT',
     request_token_params={'scope': 'openid profile'}
 )
