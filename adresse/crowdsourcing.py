@@ -37,10 +37,11 @@ class Crowdsourcing(object):
         return {
             "id": self.id,
             "before": json.loads(self.before) if self.before else None,
-            "after": json.loads(self.after),
+            "after": json.loads(self.after) if self.after else None,
             "username": self.username,
             "auth_provider": self.auth_provider,
             "operation": self.operation,
+            "created_at": self.created_at,
         }
 
     @classmethod
