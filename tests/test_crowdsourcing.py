@@ -27,10 +27,10 @@ def test_can_create_new_crowdsourcing_from_post(client):
     token = get_csrf_token(response.data)
     data = {
         'id': 'xxxx',
-        'before': 'yyyyy',
-        'after': 'zzzzzzz'
+        'before': '{"geometry": {"coordinates": [0, 0]}, "properties": {}}',
+        'after': '{"geometry": {"coordinates": [1, 1]}, "properties": {}}',
     }
-    print(client.post(url, data=data, headers={'X-CSRFToken': token}))
+    client.post(url, data=data, headers={'X-CSRFToken': token})
     assert DB.fetchone('SELECT count(*) as t FROM crowdsourcing')['t']
 
 
@@ -66,3 +66,22 @@ def test_can_access_crowdsourcing_data(client):
     response = client.get(url_for('crowdsourcing_data'))
     assert response.json
     assert response.json[0]['id'] == 'zzzzzzz'
+
+
+def test_diff_should_return_none_if_not_an_update():
+    c = Crowdsourcing(id="zzzzzzz").save()
+    assert c.diff is None
+
+
+def test_diff_should_diff_coordinates():
+    before = '{"geometry": {"type": "Point", "coordinates": [0, 0]}, "properties": {}}'  # noqa
+    after = '{"geometry": {"type": "Point", "coordinates": [1, 1]}, "properties": {}}'  # noqa
+    c = Crowdsourcing(id="zzzzzzz", before=before, after=after).save()
+    assert c.diff == {"coordinates": {"before": [0, 0], "after": [1, 1]}}
+
+
+def test_diff_should_diff_properties():
+    before = '{"geometry": {"type": "Point", "coordinates": [0, 0]}, "properties": {"housenumber": "foo", "street": "baz"}}'  # noqa
+    after = '{"geometry": {"type": "Point", "coordinates": [0, 0]}, "properties": {"housenumber": "foo", "street": "bazz"}}'  # noqa
+    c = Crowdsourcing(id="zzzzzzz", before=before, after=after).save()
+    assert c.diff == {"street": {"before": "baz", "after": "bazz"}}

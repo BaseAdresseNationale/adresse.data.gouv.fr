@@ -15,6 +15,7 @@ class Crowdsourcing(object):
         self.after = None
         self.username = None
         self.auth_provider = None
+        self.created_at = None
         for key, value in data.items():
             setattr(self, key, value)
         if not self.id and self.after:
@@ -32,6 +33,7 @@ class Crowdsourcing(object):
                   'VALUES (?, ?, ?, ?, ?, ?)',
                   [self.operation, self.id, self.before, self.after,
                    self.username, self.auth_provider])
+        return self
 
     def to_json(self):
         return {
@@ -42,7 +44,30 @@ class Crowdsourcing(object):
             "auth_provider": self.auth_provider,
             "operation": self.operation,
             "created_at": self.created_at,
+            "diff": self.diff,
         }
+
+    @property
+    def diff(self):
+        if self.operation != Crowdsourcing.UPDATE:
+            return None
+        d = {}
+        b = json.loads(self.before)
+        a = json.loads(self.after)
+        if (round(b['geometry']['coordinates'][0], 6) != round(a['geometry']['coordinates'][0], 6)  # noqa
+            or round(b['geometry']['coordinates'][0], 6) != round(a['geometry']['coordinates'][0], 6)):  # noqa
+            d['coordinates'] = {
+                'before': b['geometry']['coordinates'],
+                'after': a['geometry']['coordinates']
+            }
+        keys = ['housenumber', 'rep', 'street', 'locality']
+        for key in keys:
+            if a['properties'].get(key) != b['properties'].get(key):
+                d[key] = {
+                    'before': b['properties'].get(key),
+                    'after': a['properties'].get(key)
+                }
+        return d
 
     @classmethod
     def data(self, _from=None):

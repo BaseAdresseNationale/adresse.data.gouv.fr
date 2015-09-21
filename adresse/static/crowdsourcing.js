@@ -376,6 +376,12 @@ B.Marker = L.Marker.extend({
         this.properties.id = source.properties.id;
         this.properties.city = source.properties.city;
         this.properties.citycode = source.properties.citycode;
+        this.before = '';
+        if (this.properties.id) {
+            this.before = this.source;
+            this.before.properties = L.extend({}, this.before.properties, this.properties);
+            this.before = JSON.stringify(this.before);
+        }
         var options = {
             icon: new B.Icon({housenumber: this})
         };
@@ -390,8 +396,7 @@ B.Marker = L.Marker.extend({
     },
 
     save: function () {
-        var before = this.properties.id ? JSON.stringify(this.source) : '',
-            after = this.source,
+        var after = this.source,
             self = this;
         after.geometry.coordinates = [this._latlng.lng, this._latlng.lat];
         after.properties = L.extend(after.properties, this.properties);
@@ -401,7 +406,7 @@ B.Marker = L.Marker.extend({
             method: 'post',
             data: {
                 id: this.properties.id,
-                before: before,
+                before: this.before,
                 after: JSON.stringify(after)
             },
             headers: {
