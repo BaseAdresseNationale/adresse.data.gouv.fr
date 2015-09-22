@@ -120,7 +120,7 @@ var BanUi = L.Evented.extend({
             ['properties.rep', {handler: 'Input', placeholder: 'Répétiteur (bis, ter…)', helpText: 'Répétiteur (bis, ter…)', wrapper: 'div', wrapperClass: 'half'}],
             ['properties.street', {handler: 'Input', placeholder: 'Nom de la voie', helpText: 'Nom de la voie'}],
             ['properties.locality', {handler: 'Input', placeholder: 'Lieu-dit', helpText: 'Lieu-dit (optionnel)'}],
-            ['properties.comment', {handler: 'Textarea', placeholder: 'Commentaire', helpText: 'Commentaire (optionnel)'}]
+            ['comment', {handler: 'Textarea', placeholder: 'Commentaire', helpText: 'Commentaire (optionnel)'}]
         ];
         var title = L.DomUtil.create('h3', '', this.panelBody);
         title.textContent = this.housenumber.properties.city + ' (' + this.housenumber.properties.citycode + ')';
@@ -407,7 +407,8 @@ B.Marker = L.Marker.extend({
             data: {
                 id: this.properties.id,
                 before: this.before,
-                after: JSON.stringify(after)
+                after: JSON.stringify(after),
+                comment: this.comment
             },
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'

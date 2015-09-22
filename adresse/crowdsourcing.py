@@ -15,8 +15,10 @@ class Crowdsourcing(object):
         self.before = None
         self.after = None
         self.username = None
+        self.user_display_name = None
         self.auth_provider = None
         self.created_at = None
+        self.comment = None
         for key, value in data.items():
             setattr(self, key, value)
         if not self.id and self.after:
@@ -30,10 +32,11 @@ class Crowdsourcing(object):
 
     def save(self):
         DB.commit('INSERT INTO crowdsourcing '
-                  '(operation, id, before, after, username, auth_provider) '
-                  'VALUES (?, ?, ?, ?, ?, ?)',
+                  '(operation, id, before, after, username, user_display_name, auth_provider, comment) '  # noqa
+                  'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                   [self.operation, self.id, self.before, self.after,
-                   self.username, self.auth_provider])
+                   self.username, self.user_display_name, self.auth_provider,
+                   self.comment])
         return self
 
     def to_json(self):
@@ -42,10 +45,12 @@ class Crowdsourcing(object):
             "before": json.loads(self.before) if self.before else None,
             "after": json.loads(self.after) if self.after else None,
             "username": self.username,
+            "user_display_name": self.user_display_name,
             "auth_provider": self.auth_provider,
             "operation": self.operation,
             "created_at": self.created_at,
             "diff": self.diff,
+            "comment": self.comment,
         }
 
     @property

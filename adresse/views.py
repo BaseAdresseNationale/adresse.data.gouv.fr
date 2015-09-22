@@ -152,6 +152,7 @@ def crowdsourcing():
             data = dict(form.data)
             data.update({
                 'username': session.get('username'),
+                'user_display_name': session.get('fullname'),
                 'auth_provider': session.get('auth_provider')
             })
             contrib = Crowdsourcing(**data)

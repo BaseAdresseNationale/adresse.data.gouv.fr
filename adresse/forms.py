@@ -40,3 +40,4 @@ class CrowdsourcingForm(BaseForm):
     after = StringField()
     username = StringField()
     auth_provider = StringField()
+    comment = StringField()

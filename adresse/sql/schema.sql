@@ -15,5 +15,7 @@ CREATE TABLE IF NOT EXISTS `crowdsourcing` (
     `before` TEXT,
     `after` TEXT,
     `username` TEXT,
-    `auth_provider` TEXT
+    `auth_provider` TEXT,
+    `user_display_name` TEXT,
+    `comment` TEXT
 );

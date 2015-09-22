@@ -14,4 +14,13 @@ Lieu-dit: {{ data.properties.locality|default('—') }}
 Code postal: {{ data.properties.postcode }}
 Commune: {{ data.properties.city }}
 
+{% if contrib.user_display_name %}
+Contributeur: {{ contrib.user_display_name }}
+{% else %}
+Contributeur anonyme.
+{% endif %}
+{% if contrib.comment %}
+Commentaire du contributeur: «{{ contrib.comment }}»
+{% endif %}
+
 L'équipe de la Base Adresse Nationale
