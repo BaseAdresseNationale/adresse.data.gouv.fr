@@ -57,6 +57,7 @@ var map = L.map('map', {
     attributionControl: false
 });
 map.setView(CENTER, 12);
+map.addHash();
 searchPoints.addTo(map);
 L.tileLayer(TILE_URL, {minZoom: 6, maxZoom: MAXZOOM, attribution: 'Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL'}).addTo(map);
 L.control.attribution({position: 'bottomleft'}).addTo(map);

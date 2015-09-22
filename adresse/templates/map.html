@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body_class %}map{% endblock %}
-
+{% block extrahead %}
+    <script src="{{ url_for('static', filename='node_modules/leaflet-hash/leaflet-hash.js') }}"></script>
+{% endblock %}
 {% block content %}
 <div id="map"></div>
 <script type="text/javascript">
