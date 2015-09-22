@@ -1,0 +1,19 @@
+<p>Bonjour,</p>
+
+<p>Une adresse a été {% if contrib.operation == contrib.DELETE %}supprimée{% elif contrib.operation == contrib.UPDATE %}mise à jour{% else %}ajoutée{% endif %} via le site adresse.data.gouv.fr:</p>
+
+<table>
+    {% if data.properties.id %}<tr><th>Identifiant BAN</th><td>{{ data.properties.id }}</td></tr>{% endif %}
+    <tr><th>Numéro</th><td>{{ data.properties.housenumber }}</td></tr>
+    {% if diff.housenumber %}<tr><td>Ancienne valeur</td><td>{{ diff.housenumber.before }}»)</td></tr>{% endif %}
+    <tr><th>Indice de répétition</th><td>{{ data.properties.rep|default('—') }}</td></tr>
+    {% if diff.rep %}<tr><td>Ancienne valeur</td><td>{{ diff.rep.before or '' }}</td></tr>{% endif %}
+    <tr><th>Voie</th><td>{{ data.properties.street }}</td></tr>
+    {% if diff.street %}<tr><td>Ancienne valeur</td><td>{{ diff.street.before }}</td></tr>{% endif %}
+    <tr><th>Lieu-dit</th><td>{{ data.properties.locality|default('—') }}</td></tr>
+    {% if diff.locality %}<tr><td>Ancienne valeur</td><td>{{ diff.locality.before }}</td></tr>{% endif %}
+    <tr><th>Code postal</th><td>{{ data.properties.postcode }}</td></tr>
+    <tr><th>Commune</th><td>{{ data.properties.city }}</td></tr>
+</table>
+
+<p>L'équipe de la Base Adresse Nationale</p>

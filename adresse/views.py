@@ -156,6 +156,25 @@ def crowdsourcing():
             })
             contrib = Crowdsourcing(**data)
             contrib.save()
+            diff = contrib.diff
+            if contrib.operation != Crowdsourcing.UPDATE \
+               or list(diff.keys()) != ['coordinates']:
+                msg = Message(
+                    recipients=[app.config['REPORT_EMAIL']],
+                    bcc=[app.config['MAIL_DEFAULT_SENDER']])
+                data = contrib.to_json()
+                email_context = {
+                    'data': data.get('after', data.get('before')),
+                    'contrib': contrib,
+                    'Crowdsourcing': Crowdsourcing,
+                    'diff': diff,
+                }
+                msg.body = render_template('crowdsourcing_report_email.txt',
+                                           **email_context)
+                msg.html = render_template('crowdsourcing_report_email.html',
+                                           **email_context)
+                msg.subject = "Contribution BAN"
+                mail.send(msg)
             return '{"status": "ok"}'
         else:
             return json.dumps(form.errors)

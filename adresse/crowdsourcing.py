@@ -8,6 +8,7 @@ class Crowdsourcing(object):
     CREATE = 'c'
     UPDATE = 'u'
     DELETE = 'd'
+    PROPERTIES = ['housenumber', 'rep', 'street', 'locality']
 
     def __init__(self, **data):
         self.id = None
@@ -60,8 +61,7 @@ class Crowdsourcing(object):
                 'before': b['geometry']['coordinates'],
                 'after': a['geometry']['coordinates']
             }
-        keys = ['housenumber', 'rep', 'street', 'locality']
-        for key in keys:
+        for key in Crowdsourcing.PROPERTIES:
             if a['properties'].get(key) != b['properties'].get(key):
                 d[key] = {
                     'before': b['properties'].get(key),
