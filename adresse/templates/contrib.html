@@ -16,20 +16,13 @@
         <div class="col half prose mwide">
             <h2>Guichet Adresse pour les organismes publics</h2>
             <p>Développé conjointement par l'IGN et La Poste, cet outil est destiné plus particulièrement aux mairies ainsi qu'à certains services territoriaux comme les SDIS.</p>
-            <a href="https://orgpub-adresse.data.gouv.fr/"><img width="80%" src="{{ url_for('static', filename='img/outil-mairies.png') }}" /></a>
+            <a href="https://orgpub-adresse.data.gouv.fr/"><img width="80%" src="{{ url_for('static', filename='img/guichet-201512-menu.png') }}" /></a>
         </div>
         <div class="col half mwide">
             <h2>Signalement auprès de la Poste (SNA)</h2>
-            <p>Vous pouvez utiliser le formulaire ci-dessous pour signaler une erreur ou un manque auprès du SNA de la Poste.</p>
+            <p>Vous pouvez utiliser l'interface ci-dessous pour signaler une erreur ou un manque auprès du SNA de la Poste.</p>
             <p>Pour toute autre question contactez le 36.31 si vous êtes un particulier, le 36.34 si vous êtes Professionnel ou Entreprise.</p>
-            <form method="post" id="report" action="{{ url_for('contrib') }}">
-                {{ form.csrf_token }}
-                {{ render_field(form.email)}}
-                {{ render_field(form.message)}}
-                <input type="submit" value="Envoyer un signalement" />
-            </form>
-            <p>* champ obligatoire</p>
-        </div>
+            <a href="/crowdsourcing"><img width="80%" src="{{ url_for('static', filename='img/crowdsourcing-ban.png') }}" /></a>        </div>
     </div>
 </div>
 {% endblock content %}
