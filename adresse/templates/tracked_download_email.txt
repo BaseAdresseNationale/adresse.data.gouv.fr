@@ -10,7 +10,12 @@ vous pouvez le réactiver en remplissant à nouveau le formulaire
 sur http://adresse.data.gouv.fr/download/
 
 Le fichier à télécharger est compressé en ZIP et fait un peu
-plus de 800Mo. Il contient un fichier CSV pour chaque département.
+plus de 800Mo pour la France entière.
+Il contient un fichier CSV pour chaque département.
 
+Nous vous invitons par ailleurs à remplir notre questionnaire de
+satisfaction sur https://fr.surveymonkey.com/r/QBAN
+
+Merci d'avance !
 
 L'équipe de la Base Adresse Nationale
