@@ -23,89 +23,89 @@
             <p>Liste l'ensemble des points d'entrée de la BAN.</p>
         </div>
         <div class="col two-third details">
-            <pre>http 'http:{{ API_URL }}/'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/'</pre>
             <p>Le retour correspond à un json contenant les différents points d'entrée de l'API:</p>
             <pre>
 {
-    "contact": "contact@ban.somewhere.fr", 
-    "doc_url": "https://doc.ban.somewhere.fr", 
+    "contact": "contact@ban.somewhere.fr",
+    "doc_url": "https://doc.ban.somewhere.fr",
     "endpoints": {
         "/municipality": {
-            "GET": "Get Municipality collection.", 
-        }, 
+            "GET": "Get Municipality collection.",
+        },
         "/municipality/{identifier}": {
-            "GET": "Get Municipality with 'identifier'.", 
-        }, 
+            "GET": "Get Municipality with 'identifier'.",
+        },
         "/municipality/{identifier}/groups": {
             "GET": "Retrieve Municipality groups."
-        }, 
+        },
         "/municipality/{identifier}/versions": {
             "GET": "Get resource versions."
-        }, 
+        },
         "/municipality/{identifier}/versions/{version}": {
             "GET": "Get Municipality version corresponding to 'version' number."
-        }, 
+        },
         "/postcode": {
-            "GET": "Get Postcode collection.", 
-        }, 
+            "GET": "Get Postcode collection.",
+        },
         "/postcode/{identifier}": {
-            "GET": "Get Postcode with 'identifier'.", 
-        }, 
+            "GET": "Get Postcode with 'identifier'.",
+        },
         "/postcode/{identifier}/versions": {
             "GET": "Get resource versions."
-        }, 
+        },
         "/postcode/{identifier}/versions/{version}": {
             "GET": "Get Postcode version corresponding to 'version' number."
-        }, 
+        },
         "/group": {
             "GET": "Get Group collection."
-        }, 
+        },
         "/group/{identifier}": {
-            "GET": "Get Group with 'identifier'.", 
-        }, 
+            "GET": "Get Group with 'identifier'.",
+        },
         "/group/{identifier}/housenumbers": {
             "GET": "Retrieve Group housenumbers."
-        }, 
+        },
         "/group/{identifier}/versions": {
             "GET": "Get resource versions."
-        }, 
+        },
         "/group/{identifier}/versions/{version}": {
             "GET": "Get Group version corresponding to 'version' number."
-        }, 
+        },
         "/housenumber": {
             "GET": "Get Housenumber collection."
-        }, 
+        },
         "/housenumber/{identifier}": {
-            "GET": "Get Housenumber with 'identifier'.", 
-        }, 
+            "GET": "Get Housenumber with 'identifier'.",
+        },
         "/housenumber/{identifier}/positions": {
             "GET": "Retrieve Housenumber positions."
-        }, 
+        },
         "/housenumber/{identifier}/versions": {
             "GET": "Get resource versions."
-        }, 
+        },
         "/housenumber/{identifier}/versions/{version}": {
             "GET": "Get Housenumber version corresponding to 'version' number."
-        }, 
+        },
         "/position": {
-            "GET": "Get Position collection.", 
-        }, 
+            "GET": "Get Position collection.",
+        },
         "/position/{identifier}": {
-            "GET": "Get Position with 'identifier'.", 
-        }, 
+            "GET": "Get Position with 'identifier'.",
+        },
         "/position/{identifier}/versions": {
             "GET": "Get resource versions."
-        }, 
+        },
         "/position/{identifier}/versions/{version}": {
             "GET": "Get Position version corresponding to 'version' number."
-        }, 
-    }, 
-    "licence": "XXXX", 
+        },
+    },
+    "licence": "XXXX",
     "version": "0.0.0"
 }
             </pre>
         </div>
-    </div>        
+    </div>
 </div>
 <div class="wrapper entrypoint" id="municipality">
     <div class="row">
@@ -115,52 +115,52 @@
         </div>
         <div class="col two-third details">
             <p>Sans paramètre, liste les 20 premières communes :</p>
-            <pre>http 'http:{{ API_URL }}/municipality'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/municipality'</pre>
             <p>Le paramètre <b>limit</b> permet de lister les communes par lot de <b>limit</b> communes :</p>
-            <pre>http 'http:{{ API_URL }}/municipality?limit=50'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/municipality?limit=50'</pre>
             <p>Le retour correspond à un json Collection :</p>
             <pre>
 {
     "collection": [
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "INSEE/COG (2015)"
-            }, 
-            "created_at": "2016-06-20T10:18:07.045602", 
-            "created_by": 2, 
-            "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
-            "insee": "27002", 
-            "modified_at": "2016-06-20T10:18:07.045602", 
-            "modified_by": 2, 
-            "name": "Acon", 
+            },
+            "created_at": "2016-06-20T10:18:07.045602",
+            "created_by": 2,
+            "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8",
+            "insee": "27002",
+            "modified_at": "2016-06-20T10:18:07.045602",
+            "modified_by": 2,
+            "name": "Acon",
             "postcodes": [
                 "27570"
-            ], 
-            "siren": null, 
+            ],
+            "siren": null,
             "version": 1
-        }, 
+        },
         ...
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "INSEE/COG (2015)"
-            }, 
-            "created_at": "2016-06-20T10:18:07.274099", 
-            "created_by": 1, 
-            "id": "ban-municipality-73838c0dd2a9429ea076ab03e3ab1e7c", 
-            "insee": "27021", 
-            "modified_at": "2016-06-20T10:18:07.274099", 
-            "modified_by": 1, 
-            "name": "Asnières", 
+            },
+            "created_at": "2016-06-20T10:18:07.274099",
+            "created_by": 1,
+            "id": "ban-municipality-73838c0dd2a9429ea076ab03e3ab1e7c",
+            "insee": "27021",
+            "modified_at": "2016-06-20T10:18:07.274099",
+            "modified_by": 1,
+            "name": "Asnières",
             "postcodes": [
                 "27260"
-            ], 
-            "siren": null, 
+            ],
+            "siren": null,
             "version": 1
         }
-    ], 
-    "next": "http://localhost/municipality?limit=50&offset=50", 
+    ],
+    "next": "http://localhost/municipality?limit=50&offset=50",
     "total": 675
 }
             </pre>
@@ -190,25 +190,25 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à la commune <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "alias": null, 
+    "alias": null,
     "attributes": {
         "source": "INSEE/COG (2015)"
-    }, 
-    "created_at": "2016-06-20T10:18:07.045602", 
-    "created_by": 2, 
-    "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
-    "insee": "27002", 
-    "modified_at": "2016-06-20T10:18:07.045602", 
-    "modified_by": 2, 
-    "name": "Acon", 
+    },
+    "created_at": "2016-06-20T10:18:07.045602",
+    "created_by": 2,
+    "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8",
+    "insee": "27002",
+    "modified_at": "2016-06-20T10:18:07.045602",
+    "modified_by": 2,
+    "name": "Acon",
     "postcodes": [
         "27570"
-    ], 
-    "siren": null, 
+    ],
+    "siren": null,
     "version": 1
 }
             </pre>
@@ -237,50 +237,50 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>groups</b> permet de lister les groupes associés à la commune <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/groups'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/groups'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
     "collection": [
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "DGFIP/FANTOIR (2015-07)"
-            }, 
-            "created_at": "2016-06-20T10:19:05.898122", 
-            "created_by": 4, 
-            "fantoir": "270020002", 
-            "id": "ban-group-6cbd8a2768354901b7d6ef366d5fbcc3", 
-            "ign": null, 
-            "kind": "way", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T10:19:05.898122", 
-            "modified_by": 4, 
-            "municipality": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
-            "name": "RUE DES ATTELAGES", 
+            },
+            "created_at": "2016-06-20T10:19:05.898122",
+            "created_by": 4,
+            "fantoir": "270020002",
+            "id": "ban-group-6cbd8a2768354901b7d6ef366d5fbcc3",
+            "ign": null,
+            "kind": "way",
+            "laposte": null,
+            "modified_at": "2016-06-20T10:19:05.898122",
+            "modified_by": 4,
+            "municipality": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8",
+            "name": "RUE DES ATTELAGES",
             "resource": "group"
         },
         ...
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "DGFIP/FANTOIR (2015-07)"
-            }, 
-            "created_at": "2016-06-20T10:19:06.182304", 
-            "created_by": 3, 
-            "fantoir": "270020022", 
-            "id": "ban-group-998111b8e2414aef83ff436d73f5b1ef", 
-            "ign": null, 
-            "kind": "way", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T10:19:06.182304", 
-            "modified_by": 3, 
-            "municipality": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
-            "name": "CHE DES PRES", 
+            },
+            "created_at": "2016-06-20T10:19:06.182304",
+            "created_by": 3,
+            "fantoir": "270020022",
+            "id": "ban-group-998111b8e2414aef83ff436d73f5b1ef",
+            "ign": null,
+            "kind": "way",
+            "laposte": null,
+            "modified_at": "2016-06-20T10:19:06.182304",
+            "modified_by": 3,
+            "municipality": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8",
+            "name": "CHE DES PRES",
             "resource": "group"
         }
-    ], 
-    "next": "http://localhost/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/groups?offset=20", 
+    ],
+    "next": "http://localhost/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/groups?offset=20",
     "total": 79
 }
             </pre>
@@ -311,28 +311,28 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>versions</b> liste l'ensemble des versions existantes pour la commune <b>identidier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/versions'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/versions'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
             {
                 "collection": [
                     {
-                        "alias": null, 
+                        "alias": null,
                         "attributes": {
                             "source": "INSEE/COG (2015)"
-                        }, 
-                        "created_at": "2016-06-20T10:18:07.045602", 
-                        "created_by": 2, 
-                        "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
-                        "insee": "27002", 
-                        "modified_at": "2016-06-20T10:18:07.045602", 
-                        "modified_by": 2, 
-                        "name": "Acon", 
-                        "postcodes": [], 
-                        "siren": null, 
+                        },
+                        "created_at": "2016-06-20T10:18:07.045602",
+                        "created_by": 2,
+                        "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8",
+                        "insee": "27002",
+                        "modified_at": "2016-06-20T10:18:07.045602",
+                        "modified_by": 2,
+                        "name": "Acon",
+                        "postcodes": [],
+                        "siren": null,
                         "version": 1
                     }
-                ], 
+                ],
                 "total": 1
             }
             </pre>
@@ -360,23 +360,23 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> de la commune <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/versions/1'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/versions/1'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
             {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.045602", 
-                "created_by": 2, 
-                "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
-                "insee": "27002", 
-                "modified_at": "2016-06-20T10:18:07.045602", 
-                "modified_by": 2, 
-                "name": "Acon", 
-                "postcodes": [], 
-                "siren": null, 
+                },
+                "created_at": "2016-06-20T10:18:07.045602",
+                "created_by": 2,
+                "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8",
+                "insee": "27002",
+                "modified_at": "2016-06-20T10:18:07.045602",
+                "modified_by": 2,
+                "name": "Acon",
+                "postcodes": [],
+                "siren": null,
                 "version": 1
             }
             </pre>
@@ -405,9 +405,9 @@
         </div>
         <div class="col two-third details">
             <p>Sans paramètre, liste les 20 premiers codes postaux :</p>
-            <pre>http 'http:{{ API_URL }}/postcode'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/postcode'</pre>
             <p>Le paramètre <b>limit</b> permet de lister les codes postaux par lot de <b>limit</b> codes postaux :</p>
-            <pre>http 'http:{{ API_URL }}/postcode?limit=50'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/postcode?limit=50'</pre>
             <p>Le retour correspond à un json Collection :</p>
             <pre>
 {
@@ -415,60 +415,60 @@
         {
             "attributes": {
                 "source": "La Poste (2015)"
-            }, 
-            "code": "27800", 
-            "created_at": "2016-06-20T10:46:35.982571", 
-            "created_by": 5, 
-            "id": "ban-postcode-8f25c2089fbb4e68a2163847a8be7cdd", 
-            "modified_at": "2016-06-20T10:46:35.982571", 
-            "modified_by": 5, 
+            },
+            "code": "27800",
+            "created_at": "2016-06-20T10:46:35.982571",
+            "created_by": 5,
+            "id": "ban-postcode-8f25c2089fbb4e68a2163847a8be7cdd",
+            "modified_at": "2016-06-20T10:46:35.982571",
+            "modified_by": 5,
             "municipality": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.055213", 
-                "created_by": 1, 
-                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
-                "insee": "27001", 
-                "modified_at": "2016-06-20T10:18:07.055213", 
-                "modified_by": 1, 
-                "name": "Aclou", 
+                },
+                "created_at": "2016-06-20T10:18:07.055213",
+                "created_by": 1,
+                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f",
+                "insee": "27001",
+                "modified_at": "2016-06-20T10:18:07.055213",
+                "modified_by": 1,
+                "name": "Aclou",
                 "siren": null
-            }, 
-            "name": "ACLOU", 
+            },
+            "name": "ACLOU",
             "version": 1
-        }, 
+        },
         ...
         {
             "attributes": {
                 "source": "La Poste (2015)"
-            }, 
-            "code": "27820", 
-            "created_at": "2016-06-20T10:46:36.253280", 
-            "created_by": 5, 
-            "id": "ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6", 
-            "modified_at": "2016-06-20T10:46:36.253280", 
-            "modified_by": 5, 
+            },
+            "code": "27820",
+            "created_at": "2016-06-20T10:46:36.253280",
+            "created_by": 5,
+            "id": "ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6",
+            "modified_at": "2016-06-20T10:46:36.253280",
+            "modified_by": 5,
             "municipality": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.258136", 
-                "created_by": 2, 
-                "id": "ban-municipality-da25577738974a298faf45a2c8bc616f", 
-                "insee": "27019", 
-                "modified_at": "2016-06-20T10:18:07.258136", 
-                "modified_by": 2, 
-                "name": "Armentières-sur-Avre", 
+                },
+                "created_at": "2016-06-20T10:18:07.258136",
+                "created_by": 2,
+                "id": "ban-municipality-da25577738974a298faf45a2c8bc616f",
+                "insee": "27019",
+                "modified_at": "2016-06-20T10:18:07.258136",
+                "modified_by": 2,
+                "name": "Armentières-sur-Avre",
                 "siren": null
-            }, 
-            "name": "ARMENTIERES SUR AVRE", 
+            },
+            "name": "ARMENTIERES SUR AVRE",
             "version": 1
         }
-    ], 
-    "next": "http://localhost/postcode?offset=20", 
+    ],
+    "next": "http://localhost/postcode?offset=20",
     "total": 677
 }
             </pre>
@@ -504,34 +504,34 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à un code postal :</p>
-            <pre>http 'http:{{ API_URL }}/postcode/ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/postcode/ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
     "attributes": {
         "source": "La Poste (2015)"
-    }, 
-    "code": "27820", 
-    "created_at": "2016-06-20T10:46:36.253280", 
-    "created_by": 5, 
-    "id": "ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6", 
-    "modified_at": "2016-06-20T10:46:36.253280", 
-    "modified_by": 5, 
+    },
+    "code": "27820",
+    "created_at": "2016-06-20T10:46:36.253280",
+    "created_by": 5,
+    "id": "ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6",
+    "modified_at": "2016-06-20T10:46:36.253280",
+    "modified_by": 5,
     "municipality": {
-        "alias": null, 
+        "alias": null,
         "attributes": {
             "source": "INSEE/COG (2015)"
-        }, 
-        "created_at": "2016-06-20T10:18:07.258136", 
-        "created_by": 2, 
-        "id": "ban-municipality-da25577738974a298faf45a2c8bc616f", 
-        "insee": "27019", 
-        "modified_at": "2016-06-20T10:18:07.258136", 
-        "modified_by": 2, 
-        "name": "Armentières-sur-Avre", 
+        },
+        "created_at": "2016-06-20T10:18:07.258136",
+        "created_by": 2,
+        "id": "ban-municipality-da25577738974a298faf45a2c8bc616f",
+        "insee": "27019",
+        "modified_at": "2016-06-20T10:18:07.258136",
+        "modified_by": 2,
+        "name": "Armentières-sur-Avre",
         "siren": null
-    }, 
-    "name": "ARMENTIERES SUR AVRE", 
+    },
+    "name": "ARMENTIERES SUR AVRE",
     "version": 1
 }
             </pre>
@@ -565,7 +565,7 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>versions</b> permet de lister les versions liées au code postal <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/postcode/ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4/versions'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/postcode/ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4/versions'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
@@ -573,31 +573,31 @@
         {
             "attributes": {
                 "source": "La Poste (2015)"
-            }, 
-            "code": "27400", 
-            "created_at": "2016-06-20T10:46:36.009472", 
-            "created_by": 5, 
-            "id": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
-            "modified_at": "2016-06-20T10:46:36.009472", 
-            "modified_by": 5, 
+            },
+            "code": "27400",
+            "created_at": "2016-06-20T10:46:36.009472",
+            "created_by": 5,
+            "id": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4",
+            "modified_at": "2016-06-20T10:46:36.009472",
+            "modified_by": 5,
             "municipality": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.065921", 
-                "created_by": 2, 
-                "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
-                "insee": "27003", 
-                "modified_at": "2016-06-20T10:18:07.065921", 
-                "modified_by": 2, 
-                "name": "Acquigny", 
+                },
+                "created_at": "2016-06-20T10:18:07.065921",
+                "created_by": 2,
+                "id": "ban-municipality-af7c291a310646278e1fec17c51b101d",
+                "insee": "27003",
+                "modified_at": "2016-06-20T10:18:07.065921",
+                "modified_by": 2,
+                "name": "Acquigny",
                 "siren": null
-            }, 
-            "name": "ACQUIGNY", 
+            },
+            "name": "ACQUIGNY",
             "version": 1
         }
-    ], 
+    ],
     "total": 1
 }
             </pre>
@@ -633,34 +633,34 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'un code postal' <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/postcode/ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4/versions/1'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/postcode/ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4/versions/1'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
     "attributes": {
         "source": "La Poste (2015)"
-    }, 
-    "code": "27400", 
-    "created_at": "2016-06-20T10:46:36.009472", 
-    "created_by": 5, 
-    "id": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
-    "modified_at": "2016-06-20T10:46:36.009472", 
-    "modified_by": 5, 
+    },
+    "code": "27400",
+    "created_at": "2016-06-20T10:46:36.009472",
+    "created_by": 5,
+    "id": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4",
+    "modified_at": "2016-06-20T10:46:36.009472",
+    "modified_by": 5,
     "municipality": {
-        "alias": null, 
+        "alias": null,
         "attributes": {
             "source": "INSEE/COG (2015)"
-        }, 
-        "created_at": "2016-06-20T10:18:07.065921", 
-        "created_by": 2, 
-        "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
-        "insee": "27003", 
-        "modified_at": "2016-06-20T10:18:07.065921", 
-        "modified_by": 2, 
-        "name": "Acquigny", 
+        },
+        "created_at": "2016-06-20T10:18:07.065921",
+        "created_by": 2,
+        "id": "ban-municipality-af7c291a310646278e1fec17c51b101d",
+        "insee": "27003",
+        "modified_at": "2016-06-20T10:18:07.065921",
+        "modified_by": 2,
+        "name": "Acquigny",
         "siren": null
-    }, 
-    "name": "ACQUIGNY", 
+    },
+    "name": "ACQUIGNY",
     "version": 1
 }            </pre>
             <p>Les attributs retournés sont&nbsp;:</p>
@@ -693,78 +693,78 @@
         </div>
         <div class="col two-third details">
             <p>Sans paramètre, liste les 20 premiers groupes :</p>
-            <pre>http 'http:{{ API_URL }}/group'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/group'</pre>
             <p>Le paramètre <b>limit</b> permet de lister les groupes par lot de <b>limit</b> groupes :</p>
-            <pre>http 'http:{{ API_URL }}/group?limit=50'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/group?limit=50'</pre>
             <p>Le retour correspond à un json Collection :</p>
             <pre>
 {
     "collection": [
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "DGFIP/FANTOIR (2015-07)"
-            }, 
-            "created_at": "2016-06-20T10:19:05.150027", 
-            "created_by": 4, 
-            "fantoir": "270010023", 
-            "id": "ban-group-057b2bfc20ee47078af49b341e866677", 
-            "ign": null, 
-            "kind": "way", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T10:19:05.150027", 
-            "modified_by": 4, 
+            },
+            "created_at": "2016-06-20T10:19:05.150027",
+            "created_by": 4,
+            "fantoir": "270010023",
+            "id": "ban-group-057b2bfc20ee47078af49b341e866677",
+            "ign": null,
+            "kind": "way",
+            "laposte": null,
+            "modified_at": "2016-06-20T10:19:05.150027",
+            "modified_by": 4,
             "municipality": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.055213", 
-                "created_by": 1, 
-                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
-                "insee": "27001", 
-                "modified_at": "2016-06-20T10:18:07.055213", 
-                "modified_by": 1, 
-                "name": "Aclou", 
+                },
+                "created_at": "2016-06-20T10:18:07.055213",
+                "created_by": 1,
+                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f",
+                "insee": "27001",
+                "modified_at": "2016-06-20T10:18:07.055213",
+                "modified_by": 1,
+                "name": "Aclou",
                 "siren": null
-            }, 
-            "name": "PL DES BRUYERES", 
+            },
+            "name": "PL DES BRUYERES",
             "version": 1
-        }, 
+        },
         ...
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "DGFIP/FANTOIR (2015-07)"
-            }, 
-            "created_at": "2016-06-20T10:19:05.630876", 
-            "created_by": 4, 
-            "fantoir": "27001B008", 
-            "id": "ban-group-88099ac6a3cd44fd9bf480bdd7603007", 
-            "ign": null, 
-            "kind": "area", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T10:19:05.630876", 
-            "modified_by": 4, 
+            },
+            "created_at": "2016-06-20T10:19:05.630876",
+            "created_by": 4,
+            "fantoir": "27001B008",
+            "id": "ban-group-88099ac6a3cd44fd9bf480bdd7603007",
+            "ign": null,
+            "kind": "area",
+            "laposte": null,
+            "modified_at": "2016-06-20T10:19:05.630876",
+            "modified_by": 4,
             "municipality": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.055213", 
-                "created_by": 1, 
-                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
-                "insee": "27001", 
-                "modified_at": "2016-06-20T10:18:07.055213", 
-                "modified_by": 1, 
-                "name": "Aclou", 
+                },
+                "created_at": "2016-06-20T10:18:07.055213",
+                "created_by": 1,
+                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f",
+                "insee": "27001",
+                "modified_at": "2016-06-20T10:18:07.055213",
+                "modified_by": 1,
+                "name": "Aclou",
                 "siren": null
-            }, 
-            "name": "LES BRUYERES SUD", 
+            },
+            "name": "LES BRUYERES SUD",
             "version": 1
         }
-    ], 
-    "next": "http://localhost/group?offset=20", 
+    ],
+    "next": "http://localhost/group?offset=20",
     "total": 48539
 }
             </pre>
@@ -803,38 +803,38 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à un groupe :</p>
-            <pre>http 'http:{{ API_URL }}/group/ban-group-88099ac6a3cd44fd9bf480bdd7603007'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/group/ban-group-88099ac6a3cd44fd9bf480bdd7603007'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "alias": null, 
+    "alias": null,
     "attributes": {
         "source": "DGFIP/FANTOIR (2015-07)"
-    }, 
-    "created_at": "2016-06-20T10:19:05.630876", 
-    "created_by": 4, 
-    "fantoir": "27001B008", 
-    "id": "ban-group-88099ac6a3cd44fd9bf480bdd7603007", 
-    "ign": null, 
-    "kind": "area", 
-    "laposte": null, 
-    "modified_at": "2016-06-20T10:19:05.630876", 
-    "modified_by": 4, 
+    },
+    "created_at": "2016-06-20T10:19:05.630876",
+    "created_by": 4,
+    "fantoir": "27001B008",
+    "id": "ban-group-88099ac6a3cd44fd9bf480bdd7603007",
+    "ign": null,
+    "kind": "area",
+    "laposte": null,
+    "modified_at": "2016-06-20T10:19:05.630876",
+    "modified_by": 4,
     "municipality": {
-        "alias": null, 
+        "alias": null,
         "attributes": {
             "source": "INSEE/COG (2015)"
-        }, 
-        "created_at": "2016-06-20T10:18:07.055213", 
-        "created_by": 1, 
-        "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
-        "insee": "27001", 
-        "modified_at": "2016-06-20T10:18:07.055213", 
-        "modified_by": 1, 
-        "name": "Aclou", 
+        },
+        "created_at": "2016-06-20T10:18:07.055213",
+        "created_by": 1,
+        "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f",
+        "insee": "27001",
+        "modified_at": "2016-06-20T10:18:07.055213",
+        "modified_by": 1,
+        "name": "Aclou",
         "siren": null
-    }, 
-    "name": "LES BRUYERES SUD", 
+    },
+    "name": "LES BRUYERES SUD",
     "version": 1
 }
             </pre>
@@ -871,7 +871,7 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>housenumbers</b> permet de lister les nousenumbers associés à un groupe <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/housenumbers'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/housenumbers'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
@@ -879,56 +879,56 @@
         {
             "attributes": {
                 "source": "BAN (2016-06-05)"
-            }, 
+            },
             "center": {
                 "coordinates": [
-                    1.185993, 
+                    1.185993,
                     49.172992
-                ], 
+                ],
                 "type": "Point"
-            }, 
-            "cia": "27003_0005_1_", 
-            "created_at": "2016-06-20T11:41:46.705214", 
-            "created_by": 9, 
-            "id": "ban-housenumber-53d494901c0242d0812a48f0632ed509", 
-            "ign": "ADRNIVX_0000000332213104", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T11:41:46.705214", 
-            "modified_by": 9, 
-            "number": "1", 
-            "ordinal": null, 
-            "parent": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
-            "postcode": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
+            },
+            "cia": "27003_0005_1_",
+            "created_at": "2016-06-20T11:41:46.705214",
+            "created_by": 9,
+            "id": "ban-housenumber-53d494901c0242d0812a48f0632ed509",
+            "ign": "ADRNIVX_0000000332213104",
+            "laposte": null,
+            "modified_at": "2016-06-20T11:41:46.705214",
+            "modified_by": 9,
+            "number": "1",
+            "ordinal": null,
+            "parent": "ban-group-855d0bb1b3bf4463be43988aa21eb1de",
+            "postcode": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4",
             "resource": "housenumber"
-        }, 
+        },
         ...
         {
             "attributes": {
                 "source": "BAN (2016-06-05)"
-            }, 
+            },
             "center": {
                 "coordinates": [
-                    1.1812834, 
+                    1.1812834,
                     49.1729015
-                ], 
+                ],
                 "type": "Point"
-            }, 
-            "cia": "27003_0005_25_", 
-            "created_at": "2016-06-20T10:47:02.036278", 
-            "created_by": 8, 
-            "id": "ban-housenumber-7e0c288b651f4f5d8e2e5f6c268bc6e4", 
-            "ign": "ADRNIVX_0000000287394830", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T11:41:47.288049", 
-            "modified_by": 10, 
-            "number": "25", 
-            "ordinal": null, 
-            "parent": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
-            "postcode": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
+            },
+            "cia": "27003_0005_25_",
+            "created_at": "2016-06-20T10:47:02.036278",
+            "created_by": 8,
+            "id": "ban-housenumber-7e0c288b651f4f5d8e2e5f6c268bc6e4",
+            "ign": "ADRNIVX_0000000287394830",
+            "laposte": null,
+            "modified_at": "2016-06-20T11:41:47.288049",
+            "modified_by": 10,
+            "number": "25",
+            "ordinal": null,
+            "parent": "ban-group-855d0bb1b3bf4463be43988aa21eb1de",
+            "postcode": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4",
             "resource": "housenumber"
         }
-    ], 
-    "next": "http://localhost/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/housenumbers?offset=20", 
+    ],
+    "next": "http://localhost/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/housenumbers?offset=20",
     "total": 73
 }
             </pre>
@@ -963,43 +963,43 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>versions</b> permet de lister les versions liées au groupe <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/versions'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/versions'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
     "collection": [
         {
-            "alias": null, 
+            "alias": null,
             "attributes": {
                 "source": "DGFIP/FANTOIR (2015-07)"
-            }, 
-            "created_at": "2016-06-20T10:19:07.106394", 
-            "created_by": 4, 
-            "fantoir": "270030005", 
-            "id": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
-            "ign": null, 
-            "kind": "way", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T10:19:07.106394", 
-            "modified_by": 4, 
+            },
+            "created_at": "2016-06-20T10:19:07.106394",
+            "created_by": 4,
+            "fantoir": "270030005",
+            "id": "ban-group-855d0bb1b3bf4463be43988aa21eb1de",
+            "ign": null,
+            "kind": "way",
+            "laposte": null,
+            "modified_at": "2016-06-20T10:19:07.106394",
+            "modified_by": 4,
             "municipality": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "INSEE/COG (2015)"
-                }, 
-                "created_at": "2016-06-20T10:18:07.065921", 
-                "created_by": 2, 
-                "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
-                "insee": "27003", 
-                "modified_at": "2016-06-20T10:18:07.065921", 
-                "modified_by": 2, 
-                "name": "Acquigny", 
+                },
+                "created_at": "2016-06-20T10:18:07.065921",
+                "created_by": 2,
+                "id": "ban-municipality-af7c291a310646278e1fec17c51b101d",
+                "insee": "27003",
+                "modified_at": "2016-06-20T10:18:07.065921",
+                "modified_by": 2,
+                "name": "Acquigny",
                 "siren": null
-            }, 
-            "name": "RUE ARISTIDE BRIAND", 
+            },
+            "name": "RUE ARISTIDE BRIAND",
             "version": 1
         }
-    ], 
+    ],
     "total": 1
 }
             </pre>
@@ -1038,38 +1038,38 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'un groupe' <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/versions/1'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/versions/1'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "alias": null, 
+    "alias": null,
     "attributes": {
         "source": "DGFIP/FANTOIR (2015-07)"
-    }, 
-    "created_at": "2016-06-20T10:19:07.106394", 
-    "created_by": 4, 
-    "fantoir": "270030005", 
-    "id": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
-    "ign": null, 
-    "kind": "way", 
-    "laposte": null, 
-    "modified_at": "2016-06-20T10:19:07.106394", 
-    "modified_by": 4, 
+    },
+    "created_at": "2016-06-20T10:19:07.106394",
+    "created_by": 4,
+    "fantoir": "270030005",
+    "id": "ban-group-855d0bb1b3bf4463be43988aa21eb1de",
+    "ign": null,
+    "kind": "way",
+    "laposte": null,
+    "modified_at": "2016-06-20T10:19:07.106394",
+    "modified_by": 4,
     "municipality": {
-        "alias": null, 
+        "alias": null,
         "attributes": {
             "source": "INSEE/COG (2015)"
-        }, 
-        "created_at": "2016-06-20T10:18:07.065921", 
-        "created_by": 2, 
-        "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
-        "insee": "27003", 
-        "modified_at": "2016-06-20T10:18:07.065921", 
-        "modified_by": 2, 
-        "name": "Acquigny", 
+        },
+        "created_at": "2016-06-20T10:18:07.065921",
+        "created_by": 2,
+        "id": "ban-municipality-af7c291a310646278e1fec17c51b101d",
+        "insee": "27003",
+        "modified_at": "2016-06-20T10:18:07.065921",
+        "modified_by": 2,
+        "name": "Acquigny",
         "siren": null
-    }, 
-    "name": "RUE ARISTIDE BRIAND", 
+    },
+    "name": "RUE ARISTIDE BRIAND",
     "version": 1
 }
             </pre>
@@ -1106,112 +1106,112 @@
         </div>
         <div class="col two-third details">
             <p>Sans paramètre, liste les 20 premiers housenumber :</p>
-            <pre>http 'http:{{ API_URL }}/housenumber'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/housenumber'</pre>
             <p>Le paramètre <b>limit</b> permet de lister les housenumber par lot de <b>limit</b> housenumber :</p>
-            <pre>http 'http:{{ API_URL }}/housenumber?limit=50'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/housenumber?limit=50'</pre>
             <p>Le retour correspond à un json Collection :</p>
             <pre>
 {
     "collection": [
         {
-            "ancestors": [], 
+            "ancestors": [],
             "attributes": {
                 "source": "BAN (2016-06-05)"
-            }, 
-            "center": null, 
-            "cia": "27231_0047_0_", 
-            "created_at": "2016-06-20T12:58:12.696170", 
-            "created_by": 13, 
-            "id": "ban-housenumber-91152fe98759472f9df04d19093cbb07", 
-            "ign": "ADRNIVX_0000000325891892", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T12:58:12.696170", 
-            "modified_by": 13, 
-            "number": "0", 
-            "ordinal": null, 
+            },
+            "center": null,
+            "cia": "27231_0047_0_",
+            "created_at": "2016-06-20T12:58:12.696170",
+            "created_by": 13,
+            "id": "ban-housenumber-91152fe98759472f9df04d19093cbb07",
+            "ign": "ADRNIVX_0000000325891892",
+            "laposte": null,
+            "modified_at": "2016-06-20T12:58:12.696170",
+            "modified_by": 13,
+            "number": "0",
+            "ordinal": null,
             "parent": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "DGFIP/FANTOIR (2015-07)"
-                }, 
-                "created_at": "2016-06-20T10:24:18.015248", 
-                "created_by": 3, 
-                "fantoir": "272310047", 
-                "id": "ban-group-2211302a7d0b4bc99be5b8a428e8cb2b", 
-                "ign": null, 
-                "kind": "way", 
-                "laposte": null, 
-                "modified_at": "2016-06-20T10:24:18.015248", 
-                "modified_by": 3, 
-                "municipality": "ban-municipality-34afc30d8b084af1a5a170e072ac2fb4", 
+                },
+                "created_at": "2016-06-20T10:24:18.015248",
+                "created_by": 3,
+                "fantoir": "272310047",
+                "id": "ban-group-2211302a7d0b4bc99be5b8a428e8cb2b",
+                "ign": null,
+                "kind": "way",
+                "laposte": null,
+                "modified_at": "2016-06-20T10:24:18.015248",
+                "modified_by": 3,
+                "municipality": "ban-municipality-34afc30d8b084af1a5a170e072ac2fb4",
                 "name": "RUE DES SOUPIRS"
-            }, 
+            },
             "postcode": {
                 "attributes": {
                     "source": "La Poste (2015)"
-                }, 
-                "code": "27120", 
-                "created_at": "2016-06-20T10:46:38.366513", 
-                "created_by": 6, 
-                "id": "ban-postcode-2df6922954604d44b367b84c2d0a0ecc", 
-                "modified_at": "2016-06-20T10:46:38.366513", 
-                "modified_by": 6, 
-                "municipality": "ban-municipality-34afc30d8b084af1a5a170e072ac2fb4", 
+                },
+                "code": "27120",
+                "created_at": "2016-06-20T10:46:38.366513",
+                "created_by": 6,
+                "id": "ban-postcode-2df6922954604d44b367b84c2d0a0ecc",
+                "modified_at": "2016-06-20T10:46:38.366513",
+                "modified_by": 6,
+                "municipality": "ban-municipality-34afc30d8b084af1a5a170e072ac2fb4",
                 "name": "FAINS"
-            }, 
+            },
             "version": 1
         },
         ...
         {
-            "ancestors": [], 
+            "ancestors": [],
             "attributes": {
                 "source": "BAN (2016-06-05)"
-            }, 
-            "center": null, 
-            "cia": "27239_B041_0_", 
-            "created_at": "2016-06-20T14:17:59.053841", 
-            "created_by": 15, 
-            "id": "ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b", 
-            "ign": "ADRNIVX_0000000325887238", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T14:17:59.053841", 
-            "modified_by": 15, 
-            "number": "0", 
-            "ordinal": null, 
+            },
+            "center": null,
+            "cia": "27239_B041_0_",
+            "created_at": "2016-06-20T14:17:59.053841",
+            "created_by": 15,
+            "id": "ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b",
+            "ign": "ADRNIVX_0000000325887238",
+            "laposte": null,
+            "modified_at": "2016-06-20T14:17:59.053841",
+            "modified_by": 15,
+            "number": "0",
+            "ordinal": null,
             "parent": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "DGFIP/FANTOIR (2015-07)"
-                }, 
-                "created_at": "2016-06-20T10:24:28.757309", 
-                "created_by": 4, 
-                "fantoir": "27239B041", 
-                "id": "ban-group-94f08c86f351423ba9358fe542a11967", 
-                "ign": null, 
-                "kind": "area", 
-                "laposte": null, 
-                "modified_at": "2016-06-20T10:24:28.757309", 
-                "modified_by": 4, 
-                "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+                },
+                "created_at": "2016-06-20T10:24:28.757309",
+                "created_by": 4,
+                "fantoir": "27239B041",
+                "id": "ban-group-94f08c86f351423ba9358fe542a11967",
+                "ign": null,
+                "kind": "area",
+                "laposte": null,
+                "modified_at": "2016-06-20T10:24:28.757309",
+                "modified_by": 4,
+                "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049",
                 "name": "LA MOTTE"
-            }, 
+            },
             "postcode": {
                 "attributes": {
                     "source": "La Poste (2015)"
-                }, 
-                "code": "27270", 
-                "created_at": "2016-06-20T10:46:38.445463", 
-                "created_by": 5, 
-                "id": "ban-postcode-099578c5fb854975a1309c0376eda992", 
-                "modified_at": "2016-06-20T10:46:38.445463", 
-                "modified_by": 5, 
-                "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+                },
+                "code": "27270",
+                "created_at": "2016-06-20T10:46:38.445463",
+                "created_by": 5,
+                "id": "ban-postcode-099578c5fb854975a1309c0376eda992",
+                "modified_at": "2016-06-20T10:46:38.445463",
+                "modified_by": 5,
+                "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049",
                 "name": "FERRIERES ST HILAIRE"
-            }, 
+            },
             "version": 1
         }
-    ], 
-    "next": "http://localhost/housenumber?offset=20", 
+    ],
+    "next": "http://localhost/housenumber?offset=20",
     "total": 249862
 }
             </pre>
@@ -1262,55 +1262,55 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à un housenumber :</p>
-            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/housenumber/ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "ancestors": [], 
+    "ancestors": [],
     "attributes": {
         "source": "BAN (2016-06-05)"
-    }, 
-    "center": null, 
-    "cia": "27239_B041_0_", 
-    "created_at": "2016-06-20T14:17:59.053841", 
-    "created_by": 15, 
-    "id": "ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b", 
-    "ign": "ADRNIVX_0000000325887238", 
-    "laposte": null, 
-    "modified_at": "2016-06-20T14:17:59.053841", 
-    "modified_by": 15, 
-    "number": "0", 
-    "ordinal": null, 
+    },
+    "center": null,
+    "cia": "27239_B041_0_",
+    "created_at": "2016-06-20T14:17:59.053841",
+    "created_by": 15,
+    "id": "ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b",
+    "ign": "ADRNIVX_0000000325887238",
+    "laposte": null,
+    "modified_at": "2016-06-20T14:17:59.053841",
+    "modified_by": 15,
+    "number": "0",
+    "ordinal": null,
     "parent": {
-        "alias": null, 
+        "alias": null,
         "attributes": {
             "source": "DGFIP/FANTOIR (2015-07)"
-        }, 
-        "created_at": "2016-06-20T10:24:28.757309", 
-        "created_by": 4, 
-        "fantoir": "27239B041", 
-        "id": "ban-group-94f08c86f351423ba9358fe542a11967", 
-        "ign": null, 
-        "kind": "area", 
-        "laposte": null, 
-        "modified_at": "2016-06-20T10:24:28.757309", 
-        "modified_by": 4, 
-        "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+        },
+        "created_at": "2016-06-20T10:24:28.757309",
+        "created_by": 4,
+        "fantoir": "27239B041",
+        "id": "ban-group-94f08c86f351423ba9358fe542a11967",
+        "ign": null,
+        "kind": "area",
+        "laposte": null,
+        "modified_at": "2016-06-20T10:24:28.757309",
+        "modified_by": 4,
+        "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049",
         "name": "LA MOTTE"
-    }, 
+    },
     "postcode": {
         "attributes": {
             "source": "La Poste (2015)"
-        }, 
-        "code": "27270", 
-        "created_at": "2016-06-20T10:46:38.445463", 
-        "created_by": 5, 
-        "id": "ban-postcode-099578c5fb854975a1309c0376eda992", 
-        "modified_at": "2016-06-20T10:46:38.445463", 
-        "modified_by": 5, 
-        "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+        },
+        "code": "27270",
+        "created_at": "2016-06-20T10:46:38.445463",
+        "created_by": 5,
+        "id": "ban-postcode-099578c5fb854975a1309c0376eda992",
+        "modified_at": "2016-06-20T10:46:38.445463",
+        "modified_by": 5,
+        "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049",
         "name": "FERRIERES ST HILAIRE"
-    }, 
+    },
     "version": 1
 }
             </pre>
@@ -1361,35 +1361,35 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>positions</b> permet de lister les positions associés à un housenumber <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/positions'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/positions'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
     "collection": [
         {
-            "attributes": null, 
+            "attributes": null,
             "center": {
                 "coordinates": [
-                    1.1691397, 
+                    1.1691397,
                     49.1521282
-                ], 
+                ],
                 "type": "Point"
-            }, 
-            "comment": null, 
-            "created_at": "2016-06-20T11:43:11.230653", 
-            "created_by": 11, 
-            "housenumber": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
-            "id": "ban-position-2573d3177d9d473f8eea676bc4a64cd7", 
-            "kind": "entrance", 
-            "modified_at": "2016-06-20T11:43:11.230653", 
-            "modified_by": 11, 
-            "name": null, 
-            "parent": null, 
-            "positioning": "other", 
-            "resource": "position", 
+            },
+            "comment": null,
+            "created_at": "2016-06-20T11:43:11.230653",
+            "created_by": 11,
+            "housenumber": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148",
+            "id": "ban-position-2573d3177d9d473f8eea676bc4a64cd7",
+            "kind": "entrance",
+            "modified_at": "2016-06-20T11:43:11.230653",
+            "modified_by": 11,
+            "name": null,
+            "parent": null,
+            "positioning": "other",
+            "resource": "position",
             "source": "DGFiP/BANO (2016-04)"
         }
-    ], 
+    ],
     "total": 1
 }
             </pre>
@@ -1420,96 +1420,96 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>versions</b> permet de lister les versions liées au housenumber <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/versions'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/versions'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
     "collection": [
         {
-            "ancestors": [], 
+            "ancestors": [],
             "attributes": {
                 "source": "DGFiP/BANO (2016-04)"
-            }, 
-            "center": null, 
-            "cia": "27014_0057_10_", 
-            "created_at": "2016-06-20T10:47:31.736089", 
-            "created_by": 7, 
-            "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
-            "ign": null, 
-            "laposte": null, 
-            "modified_at": "2016-06-20T10:47:31.736089", 
-            "modified_by": 7, 
-            "number": "10", 
-            "ordinal": null, 
+            },
+            "center": null,
+            "cia": "27014_0057_10_",
+            "created_at": "2016-06-20T10:47:31.736089",
+            "created_by": 7,
+            "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148",
+            "ign": null,
+            "laposte": null,
+            "modified_at": "2016-06-20T10:47:31.736089",
+            "modified_by": 7,
+            "number": "10",
+            "ordinal": null,
             "parent": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "DGFIP/FANTOIR (2015-07)"
-                }, 
-                "created_at": "2016-06-20T10:19:20.505441", 
-                "created_by": 4, 
-                "fantoir": "270140057", 
-                "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
-                "ign": null, 
-                "kind": "way", 
-                "laposte": null, 
-                "modified_at": "2016-06-20T10:19:20.505441", 
-                "modified_by": 4, 
-                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+                },
+                "created_at": "2016-06-20T10:19:20.505441",
+                "created_by": 4,
+                "fantoir": "270140057",
+                "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a",
+                "ign": null,
+                "kind": "way",
+                "laposte": null,
+                "modified_at": "2016-06-20T10:19:20.505441",
+                "modified_by": 4,
+                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f",
                 "name": "RUE DES RIVES DE L ITON"
-            }, 
-            "postcode": null, 
+            },
+            "postcode": null,
             "version": 1
-        }, 
+        },
         {
-            "ancestors": [], 
+            "ancestors": [],
             "attributes": {
                 "source": "BAN (2016-06-05)"
-            }, 
-            "center": null, 
-            "cia": "27014_0057_10_", 
-            "created_at": "2016-06-20T10:47:31.736089", 
-            "created_by": 7, 
-            "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
-            "ign": "ADRNIVX_0000000287406573", 
-            "laposte": null, 
-            "modified_at": "2016-06-20T11:42:52.380367", 
-            "modified_by": 9, 
-            "number": "10", 
-            "ordinal": null, 
+            },
+            "center": null,
+            "cia": "27014_0057_10_",
+            "created_at": "2016-06-20T10:47:31.736089",
+            "created_by": 7,
+            "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148",
+            "ign": "ADRNIVX_0000000287406573",
+            "laposte": null,
+            "modified_at": "2016-06-20T11:42:52.380367",
+            "modified_by": 9,
+            "number": "10",
+            "ordinal": null,
             "parent": {
-                "alias": null, 
+                "alias": null,
                 "attributes": {
                     "source": "DGFIP/FANTOIR (2015-07)"
-                }, 
-                "created_at": "2016-06-20T10:19:20.505441", 
-                "created_by": 4, 
-                "fantoir": "270140057", 
-                "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
-                "ign": null, 
-                "kind": "way", 
-                "laposte": null, 
-                "modified_at": "2016-06-20T10:19:20.505441", 
-                "modified_by": 4, 
-                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+                },
+                "created_at": "2016-06-20T10:19:20.505441",
+                "created_by": 4,
+                "fantoir": "270140057",
+                "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a",
+                "ign": null,
+                "kind": "way",
+                "laposte": null,
+                "modified_at": "2016-06-20T10:19:20.505441",
+                "modified_by": 4,
+                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f",
                 "name": "RUE DES RIVES DE L ITON"
-            }, 
+            },
             "postcode": {
                 "attributes": {
                     "source": "La Poste (2015)"
-                }, 
-                "code": "27400", 
-                "created_at": "2016-06-20T10:46:36.187261", 
-                "created_by": 6, 
-                "id": "ban-postcode-443e760be9534704a9bb854a59148baa", 
-                "modified_at": "2016-06-20T10:46:36.187261", 
-                "modified_by": 6, 
-                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+                },
+                "code": "27400",
+                "created_at": "2016-06-20T10:46:36.187261",
+                "created_by": 6,
+                "id": "ban-postcode-443e760be9534704a9bb854a59148baa",
+                "modified_at": "2016-06-20T10:46:36.187261",
+                "modified_by": 6,
+                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f",
                 "name": "AMFREVILLE SUR ITON"
-            }, 
+            },
             "version": 2
         }
-    ], 
+    ],
     "total": 2
 }
             </pre>
@@ -1559,43 +1559,43 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'un housenumber' <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/versions/1'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/versions/1'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "ancestors": [], 
+    "ancestors": [],
     "attributes": {
         "source": "DGFiP/BANO (2016-04)"
-    }, 
-    "center": null, 
-    "cia": "27014_0057_10_", 
-    "created_at": "2016-06-20T10:47:31.736089", 
-    "created_by": 7, 
-    "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
-    "ign": null, 
-    "laposte": null, 
-    "modified_at": "2016-06-20T10:47:31.736089", 
-    "modified_by": 7, 
-    "number": "10", 
-    "ordinal": null, 
+    },
+    "center": null,
+    "cia": "27014_0057_10_",
+    "created_at": "2016-06-20T10:47:31.736089",
+    "created_by": 7,
+    "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148",
+    "ign": null,
+    "laposte": null,
+    "modified_at": "2016-06-20T10:47:31.736089",
+    "modified_by": 7,
+    "number": "10",
+    "ordinal": null,
     "parent": {
-        "alias": null, 
+        "alias": null,
         "attributes": {
             "source": "DGFIP/FANTOIR (2015-07)"
-        }, 
-        "created_at": "2016-06-20T10:19:20.505441", 
-        "created_by": 4, 
-        "fantoir": "270140057", 
-        "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
-        "ign": null, 
-        "kind": "way", 
-        "laposte": null, 
-        "modified_at": "2016-06-20T10:19:20.505441", 
-        "modified_by": 4, 
-        "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+        },
+        "created_at": "2016-06-20T10:19:20.505441",
+        "created_by": 4,
+        "fantoir": "270140057",
+        "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a",
+        "ign": null,
+        "kind": "way",
+        "laposte": null,
+        "modified_at": "2016-06-20T10:19:20.505441",
+        "modified_by": 4,
+        "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f",
         "name": "RUE DES RIVES DE L ITON"
-    }, 
-    "postcode": null, 
+    },
+    "postcode": null,
     "version": 1
 }
             </pre>
@@ -1636,108 +1636,108 @@
         </div>
         <div class="col two-third details">
             <p>Sans paramètre, liste les 20 premières positions :</p>
-            <pre>http 'http:{{ API_URL }}/position'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/position'</pre>
             <p>Le paramètre <b>limit</b> permet de lister les positions par lot de <b>limit</b> positions :</p>
-            <pre>http 'http:{{ API_URL }}/position?limit=50'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/position?limit=50'</pre>
             <p>Le retour correspond à un json Collection :</p>
             <pre>
 {
     "collection": [
         {
-            "attributes": null, 
+            "attributes": null,
             "center": {
                 "coordinates": [
-                    1.1691397, 
+                    1.1691397,
                     49.1521282
-                ], 
+                ],
                 "type": "Point"
-            }, 
-            "comment": null, 
-            "created_at": "2016-06-20T11:43:11.230653", 
-            "created_by": 11, 
+            },
+            "comment": null,
+            "created_at": "2016-06-20T11:43:11.230653",
+            "created_by": 11,
             "housenumber": {
                 "attributes": {
                     "source": "BAN (2016-06-05)"
-                }, 
+                },
                 "center": {
                     "coordinates": [
-                        1.1691397, 
+                        1.1691397,
                         49.1521282
-                    ], 
+                    ],
                     "type": "Point"
-                }, 
-                "cia": "27014_0057_10_", 
-                "created_at": "2016-06-20T10:47:31.736089", 
-                "created_by": 7, 
-                "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
-                "ign": "ADRNIVX_0000000287406573", 
-                "laposte": null, 
-                "modified_at": "2016-06-20T11:42:52.380367", 
-                "modified_by": 9, 
-                "number": "10", 
-                "ordinal": null, 
-                "parent": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
+                },
+                "cia": "27014_0057_10_",
+                "created_at": "2016-06-20T10:47:31.736089",
+                "created_by": 7,
+                "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148",
+                "ign": "ADRNIVX_0000000287406573",
+                "laposte": null,
+                "modified_at": "2016-06-20T11:42:52.380367",
+                "modified_by": 9,
+                "number": "10",
+                "ordinal": null,
+                "parent": "ban-group-001c4d71360a497cbbf1bb54c7917c4a",
                 "postcode": "ban-postcode-443e760be9534704a9bb854a59148baa"
-            }, 
-            "id": "ban-position-2573d3177d9d473f8eea676bc4a64cd7", 
-            "kind": "entrance", 
-            "modified_at": "2016-06-20T11:43:11.230653", 
-            "modified_by": 11, 
-            "name": null, 
-            "parent": null, 
-            "positioning": "other", 
-            "source": "DGFiP/BANO (2016-04)", 
+            },
+            "id": "ban-position-2573d3177d9d473f8eea676bc4a64cd7",
+            "kind": "entrance",
+            "modified_at": "2016-06-20T11:43:11.230653",
+            "modified_by": 11,
+            "name": null,
+            "parent": null,
+            "positioning": "other",
+            "source": "DGFiP/BANO (2016-04)",
             "version": 1
-        }, 
+        },
         ...
         {
-            "attributes": null, 
+            "attributes": null,
             "center": {
                 "coordinates": [
-                    1.3354327, 
+                    1.3354327,
                     49.1714559
-                ], 
+                ],
                 "type": "Point"
-            }, 
-            "comment": null, 
-            "created_at": "2016-06-20T11:43:11.589286", 
-            "created_by": 12, 
+            },
+            "comment": null,
+            "created_at": "2016-06-20T11:43:11.589286",
+            "created_by": 12,
             "housenumber": {
                 "attributes": {
                     "source": "BAN (2016-06-05)"
-                }, 
+                },
                 "center": {
                     "coordinates": [
-                        1.3354327, 
+                        1.3354327,
                         49.1714559
-                    ], 
+                    ],
                     "type": "Point"
-                }, 
-                "cia": "27022_0074_62_", 
-                "created_at": "2016-06-20T10:48:27.768694", 
-                "created_by": 8, 
-                "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
-                "ign": "ADRNIVX_0000000287396476", 
-                "laposte": null, 
-                "modified_at": "2016-06-20T12:23:58.365989", 
-                "modified_by": 14, 
-                "number": "62", 
-                "ordinal": null, 
-                "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+                },
+                "cia": "27022_0074_62_",
+                "created_at": "2016-06-20T10:48:27.768694",
+                "created_by": 8,
+                "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307",
+                "ign": "ADRNIVX_0000000287396476",
+                "laposte": null,
+                "modified_at": "2016-06-20T12:23:58.365989",
+                "modified_by": 14,
+                "number": "62",
+                "ordinal": null,
+                "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa",
                 "postcode": "ban-postcode-c3d11efe38c44365ae7afff74645055a"
-            }, 
-            "id": "ban-position-62e9721012074895866274c0139d3ff2", 
-            "kind": "entrance", 
-            "modified_at": "2016-06-20T11:43:11.589286", 
-            "modified_by": 12, 
-            "name": null, 
-            "parent": null, 
-            "positioning": "other", 
-            "source": "DGFiP/BANO (2016-04)", 
+            },
+            "id": "ban-position-62e9721012074895866274c0139d3ff2",
+            "kind": "entrance",
+            "modified_at": "2016-06-20T11:43:11.589286",
+            "modified_by": 12,
+            "name": null,
+            "parent": null,
+            "positioning": "other",
+            "source": "DGFiP/BANO (2016-04)",
             "version": 1
         }
-    ], 
-    "next": "http://localhost/position?offset=20", 
+    ],
+    "next": "http://localhost/position?offset=20",
     "total": 139484
 }
             </pre>
@@ -1790,53 +1790,53 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à une position <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "attributes": null, 
+    "attributes": null,
     "center": {
         "coordinates": [
-            1.3354327, 
+            1.3354327,
             49.1714559
-        ], 
+        ],
         "type": "Point"
-    }, 
-    "comment": null, 
-    "created_at": "2016-06-20T11:43:11.589286", 
-    "created_by": 12, 
+    },
+    "comment": null,
+    "created_at": "2016-06-20T11:43:11.589286",
+    "created_by": 12,
     "housenumber": {
         "attributes": {
             "source": "BAN (2016-06-05)"
-        }, 
+        },
         "center": {
             "coordinates": [
-                1.3354327, 
+                1.3354327,
                 49.1714559
-            ], 
+            ],
             "type": "Point"
-        }, 
-        "cia": "27022_0074_62_", 
-        "created_at": "2016-06-20T10:48:27.768694", 
-        "created_by": 8, 
-        "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
-        "ign": "ADRNIVX_0000000287396476", 
-        "laposte": null, 
-        "modified_at": "2016-06-20T12:23:58.365989", 
-        "modified_by": 14, 
-        "number": "62", 
-        "ordinal": null, 
-        "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+        },
+        "cia": "27022_0074_62_",
+        "created_at": "2016-06-20T10:48:27.768694",
+        "created_by": 8,
+        "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307",
+        "ign": "ADRNIVX_0000000287396476",
+        "laposte": null,
+        "modified_at": "2016-06-20T12:23:58.365989",
+        "modified_by": 14,
+        "number": "62",
+        "ordinal": null,
+        "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa",
         "postcode": "ban-postcode-c3d11efe38c44365ae7afff74645055a"
-    }, 
-    "id": "ban-position-62e9721012074895866274c0139d3ff2", 
-    "kind": "entrance", 
-    "modified_at": "2016-06-20T11:43:11.589286", 
-    "modified_by": 12, 
-    "name": null, 
-    "parent": null, 
-    "positioning": "other", 
-    "source": "DGFiP/BANO (2016-04)", 
+    },
+    "id": "ban-position-62e9721012074895866274c0139d3ff2",
+    "kind": "entrance",
+    "modified_at": "2016-06-20T11:43:11.589286",
+    "modified_by": 12,
+    "name": null,
+    "parent": null,
+    "positioning": "other",
+    "source": "DGFiP/BANO (2016-04)",
     "version": 1
 }
             </pre>
@@ -1887,58 +1887,58 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>versions</b> permet de lister les versions liées à la position <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2/versions'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2/versions'</pre>
             <p>Le retour correspond à un json Collection:</p>
             <pre>
 {
     "collection": [
         {
-            "attributes": null, 
+            "attributes": null,
             "center": {
                 "coordinates": [
-                    1.3354327, 
+                    1.3354327,
                     49.1714559
-                ], 
+                ],
                 "type": "Point"
-            }, 
-            "comment": null, 
-            "created_at": "2016-06-20T11:43:11.589286", 
-            "created_by": 12, 
+            },
+            "comment": null,
+            "created_at": "2016-06-20T11:43:11.589286",
+            "created_by": 12,
             "housenumber": {
                 "attributes": {
                     "source": "DGFiP/BANO (2016-04)"
-                }, 
+                },
                 "center": {
                     "coordinates": [
-                        1.3354327, 
+                        1.3354327,
                         49.1714559
-                    ], 
+                    ],
                     "type": "Point"
-                }, 
-                "cia": "27022_0074_62_", 
-                "created_at": "2016-06-20T10:48:27.768694", 
-                "created_by": 8, 
-                "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
-                "ign": null, 
-                "laposte": null, 
-                "modified_at": "2016-06-20T10:48:27.768694", 
-                "modified_by": 8, 
-                "number": "62", 
-                "ordinal": null, 
-                "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+                },
+                "cia": "27022_0074_62_",
+                "created_at": "2016-06-20T10:48:27.768694",
+                "created_by": 8,
+                "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307",
+                "ign": null,
+                "laposte": null,
+                "modified_at": "2016-06-20T10:48:27.768694",
+                "modified_by": 8,
+                "number": "62",
+                "ordinal": null,
+                "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa",
                 "postcode": null
-            }, 
-            "id": "ban-position-62e9721012074895866274c0139d3ff2", 
-            "kind": "entrance", 
-            "modified_at": "2016-06-20T11:43:11.589286", 
-            "modified_by": 12, 
-            "name": null, 
-            "parent": null, 
-            "positioning": "other", 
-            "source": "DGFiP/BANO (2016-04)", 
+            },
+            "id": "ban-position-62e9721012074895866274c0139d3ff2",
+            "kind": "entrance",
+            "modified_at": "2016-06-20T11:43:11.589286",
+            "modified_by": 12,
+            "name": null,
+            "parent": null,
+            "positioning": "other",
+            "source": "DGFiP/BANO (2016-04)",
             "version": 1
         }
-    ], 
+    ],
     "total": 1
 }
             </pre>
@@ -1989,53 +1989,53 @@
         </div>
         <div class="col two-third details">
             <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'une position' <b>identifier</b> :</p>
-            <pre>http 'http:{{ API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2/versions/1'</pre>
+            <pre>http 'http:{{ CRUD_API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2/versions/1'</pre>
             <p>Le retour correspond à un json :</p>
             <pre>
 {
-    "attributes": null, 
+    "attributes": null,
     "center": {
         "coordinates": [
-            1.3354327, 
+            1.3354327,
             49.1714559
-        ], 
+        ],
         "type": "Point"
-    }, 
-    "comment": null, 
-    "created_at": "2016-06-20T11:43:11.589286", 
-    "created_by": 12, 
+    },
+    "comment": null,
+    "created_at": "2016-06-20T11:43:11.589286",
+    "created_by": 12,
     "housenumber": {
         "attributes": {
             "source": "DGFiP/BANO (2016-04)"
-        }, 
+        },
         "center": {
             "coordinates": [
-                1.3354327, 
+                1.3354327,
                 49.1714559
-            ], 
+            ],
             "type": "Point"
-        }, 
-        "cia": "27022_0074_62_", 
-        "created_at": "2016-06-20T10:48:27.768694", 
-        "created_by": 8, 
-        "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
-        "ign": null, 
-        "laposte": null, 
-        "modified_at": "2016-06-20T10:48:27.768694", 
-        "modified_by": 8, 
-        "number": "62", 
-        "ordinal": null, 
-        "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+        },
+        "cia": "27022_0074_62_",
+        "created_at": "2016-06-20T10:48:27.768694",
+        "created_by": 8,
+        "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307",
+        "ign": null,
+        "laposte": null,
+        "modified_at": "2016-06-20T10:48:27.768694",
+        "modified_by": 8,
+        "number": "62",
+        "ordinal": null,
+        "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa",
         "postcode": null
-    }, 
-    "id": "ban-position-62e9721012074895866274c0139d3ff2", 
-    "kind": "entrance", 
-    "modified_at": "2016-06-20T11:43:11.589286", 
-    "modified_by": 12, 
-    "name": null, 
-    "parent": null, 
-    "positioning": "other", 
-    "source": "DGFiP/BANO (2016-04)", 
+    },
+    "id": "ban-position-62e9721012074895866274c0139d3ff2",
+    "kind": "entrance",
+    "modified_at": "2016-06-20T11:43:11.589286",
+    "modified_by": 12,
+    "name": null,
+    "parent": null,
+    "positioning": "other",
+    "source": "DGFiP/BANO (2016-04)",
     "version": 1
 }
             </pre>

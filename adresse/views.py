@@ -342,5 +342,6 @@ def shared_context():
         "DESCRIPTION": "Site officiel de la Base Adresse Nationale",
         "TWITTER": "@BaseAdresse",
         "API_URL": app.config['API_URL'],
+        "CRUD_API_URL": app.config['CRUD_API_URL'],
         "CONTACT_EMAIL": "adresse@data.gouv.fr"
     }
