@@ -1,0 +1,2081 @@
+{% extends 'base.html' %}
+
+{% block body_class %}api{% endblock %}
+
+{% block content %}
+<div class="wrapper head">
+    <div class="row">
+        <h1>API</h1>
+        <p>Avec l'API d'<strong>{{ SITE_NAME }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
+    </div>
+</div>
+
+<div class="wrapper">
+    <div class="row prose">
+        <p>Pour plus de clarté, les exemples de commande utilisent le package <a href="https://pypi.python.org/pypi/httpie">httpie</a>.</p>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="endpoints">
+    <div class="row">
+        <div class="col third">
+            <h2>/</h2>
+            <p>Point d'entrée pour la BAN.</p>
+            <p>Liste l'ensemble des points d'entrée de la BAN.</p>
+        </div>
+        <div class="col two-third details">
+            <pre>http 'http:{{ API_URL }}/'</pre>
+            <p>Le retour correspond à un json contenant les différents points d'entrée de l'API:</p>
+            <pre>
+{
+    "contact": "contact@ban.somewhere.fr", 
+    "doc_url": "https://doc.ban.somewhere.fr", 
+    "endpoints": {
+        "/municipality": {
+            "GET": "Get Municipality collection.", 
+        }, 
+        "/municipality/{identifier}": {
+            "GET": "Get Municipality with 'identifier'.", 
+        }, 
+        "/municipality/{identifier}/groups": {
+            "GET": "Retrieve Municipality groups."
+        }, 
+        "/municipality/{identifier}/versions": {
+            "GET": "Get resource versions."
+        }, 
+        "/municipality/{identifier}/versions/{version}": {
+            "GET": "Get Municipality version corresponding to 'version' number."
+        }, 
+        "/postcode": {
+            "GET": "Get Postcode collection.", 
+        }, 
+        "/postcode/{identifier}": {
+            "GET": "Get Postcode with 'identifier'.", 
+        }, 
+        "/postcode/{identifier}/versions": {
+            "GET": "Get resource versions."
+        }, 
+        "/postcode/{identifier}/versions/{version}": {
+            "GET": "Get Postcode version corresponding to 'version' number."
+        }, 
+        "/group": {
+            "GET": "Get Group collection."
+        }, 
+        "/group/{identifier}": {
+            "GET": "Get Group with 'identifier'.", 
+        }, 
+        "/group/{identifier}/housenumbers": {
+            "GET": "Retrieve Group housenumbers."
+        }, 
+        "/group/{identifier}/versions": {
+            "GET": "Get resource versions."
+        }, 
+        "/group/{identifier}/versions/{version}": {
+            "GET": "Get Group version corresponding to 'version' number."
+        }, 
+        "/housenumber": {
+            "GET": "Get Housenumber collection."
+        }, 
+        "/housenumber/{identifier}": {
+            "GET": "Get Housenumber with 'identifier'.", 
+        }, 
+        "/housenumber/{identifier}/positions": {
+            "GET": "Retrieve Housenumber positions."
+        }, 
+        "/housenumber/{identifier}/versions": {
+            "GET": "Get resource versions."
+        }, 
+        "/housenumber/{identifier}/versions/{version}": {
+            "GET": "Get Housenumber version corresponding to 'version' number."
+        }, 
+        "/position": {
+            "GET": "Get Position collection.", 
+        }, 
+        "/position/{identifier}": {
+            "GET": "Get Position with 'identifier'.", 
+        }, 
+        "/position/{identifier}/versions": {
+            "GET": "Get resource versions."
+        }, 
+        "/position/{identifier}/versions/{version}": {
+            "GET": "Get Position version corresponding to 'version' number."
+        }, 
+    }, 
+    "licence": "XXXX", 
+    "version": "0.0.0"
+}
+            </pre>
+        </div>
+    </div>        
+</div>
+<div class="wrapper entrypoint" id="municipality">
+    <div class="row">
+        <div class="col third">
+            <h2>/municipality/</h2>
+            <p>Liste l'ensemble des communes contenues dans la BAN.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Sans paramètre, liste les 20 premières communes :</p>
+            <pre>http 'http:{{ API_URL }}/municipality'</pre>
+            <p>Le paramètre <b>limit</b> permet de lister les communes par lot de <b>limit</b> communes :</p>
+            <pre>http 'http:{{ API_URL }}/municipality?limit=50'</pre>
+            <p>Le retour correspond à un json Collection :</p>
+            <pre>
+{
+    "collection": [
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "INSEE/COG (2015)"
+            }, 
+            "created_at": "2016-06-20T10:18:07.045602", 
+            "created_by": 2, 
+            "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
+            "insee": "27002", 
+            "modified_at": "2016-06-20T10:18:07.045602", 
+            "modified_by": 2, 
+            "name": "Acon", 
+            "postcodes": [
+                "27570"
+            ], 
+            "siren": null, 
+            "version": 1
+        }, 
+        ...
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "INSEE/COG (2015)"
+            }, 
+            "created_at": "2016-06-20T10:18:07.274099", 
+            "created_by": 1, 
+            "id": "ban-municipality-73838c0dd2a9429ea076ab03e3ab1e7c", 
+            "insee": "27021", 
+            "modified_at": "2016-06-20T10:18:07.274099", 
+            "modified_by": 1, 
+            "name": "Asnières", 
+            "postcodes": [
+                "27260"
+            ], 
+            "siren": null, 
+            "version": 1
+        }
+    ], 
+    "next": "http://localhost/municipality?limit=50&offset=50", 
+    "total": 675
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à la commune</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                <li><em>name</em>&nbsp;: Nom de la commune</li>
+                <li><em>postcodes</em>&nbsp;: Liste des codes postaux associés à cette commune</li>
+                <li><em>siren</em>&nbsp;: Code SIREN de la commune</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement commune</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de communes</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de communes</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="municipality_identifier">
+    <div class="row">
+        <div class="col third">
+            <h2>/municipality/{identifier}</h2>
+            <p>Permet d'obtenir les informations relatives à la commune <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à la commune <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "alias": null, 
+    "attributes": {
+        "source": "INSEE/COG (2015)"
+    }, 
+    "created_at": "2016-06-20T10:18:07.045602", 
+    "created_by": 2, 
+    "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
+    "insee": "27002", 
+    "modified_at": "2016-06-20T10:18:07.045602", 
+    "modified_by": 2, 
+    "name": "Acon", 
+    "postcodes": [
+        "27570"
+    ], 
+    "siren": null, 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à la commune</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                <li><em>name</em>&nbsp;: Nom de la commune</li>
+                <li><em>postcodes</em>&nbsp;: Liste des codes postaux associés à cette commune</li>
+                <li><em>siren</em>&nbsp;: Code SIREN de la commune</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement commune</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="municipality_identifier_groups">
+    <div class="row">
+        <div class="col third">
+            <h2>/municipality/{identifier}/groups</h2>
+            <p>Liste l'ensemble des groupes liés à la commune <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>groups</b> permet de lister les groupes associés à la commune <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/groups'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "DGFIP/FANTOIR (2015-07)"
+            }, 
+            "created_at": "2016-06-20T10:19:05.898122", 
+            "created_by": 4, 
+            "fantoir": "270020002", 
+            "id": "ban-group-6cbd8a2768354901b7d6ef366d5fbcc3", 
+            "ign": null, 
+            "kind": "way", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T10:19:05.898122", 
+            "modified_by": 4, 
+            "municipality": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
+            "name": "RUE DES ATTELAGES", 
+            "resource": "group"
+        },
+        ...
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "DGFIP/FANTOIR (2015-07)"
+            }, 
+            "created_at": "2016-06-20T10:19:06.182304", 
+            "created_by": 3, 
+            "fantoir": "270020022", 
+            "id": "ban-group-998111b8e2414aef83ff436d73f5b1ef", 
+            "ign": null, 
+            "kind": "way", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T10:19:06.182304", 
+            "modified_by": 3, 
+            "municipality": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
+            "name": "CHE DES PRES", 
+            "resource": "group"
+        }
+    ], 
+    "next": "http://localhost/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/groups?offset=20", 
+    "total": 79
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à la commune</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                </ol>
+                <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>municipality</em>&nbsp;: Identifiant de la commune</li>
+                <li><em>name</em>&nbsp;: Nom de voie ou lieu dit</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de groups associés à une commune</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de groups associés à une commune</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="municipality_identifier_versions">
+    <div class="row">
+        <div class="col third">
+            <h2>/municipality/{identifier}/versions</h2>
+            <p>Liste l'ensemble des versions liées à la commune <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>versions</b> liste l'ensemble des versions existantes pour la commune <b>identidier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/versions'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+            {
+                "collection": [
+                    {
+                        "alias": null, 
+                        "attributes": {
+                            "source": "INSEE/COG (2015)"
+                        }, 
+                        "created_at": "2016-06-20T10:18:07.045602", 
+                        "created_by": 2, 
+                        "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
+                        "insee": "27002", 
+                        "modified_at": "2016-06-20T10:18:07.045602", 
+                        "modified_by": 2, 
+                        "name": "Acon", 
+                        "postcodes": [], 
+                        "siren": null, 
+                        "version": 1
+                    }
+                ], 
+                "total": 1
+            }
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à la commune</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                <li><em>name</em>&nbsp;: Nom de la commune</li>
+                <li><em>postcodes</em>&nbsp;: Liste des codes postaux associés à cette commune</li>
+                <li><em>siren</em>&nbsp;: Code SIREN de la commune</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement commune</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="municipality_identifier_versions_version">
+    <div class="row">
+        <div class="col third">
+            <h2>/municipality/{identifier}/versions/{version}</h2>
+            <p>Permet d'obtenir la version spécifique de la commune <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> de la commune <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/municipality/ban-municipality-7498d75279b84748bbe6a0bc819db1c8/versions/1'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+            {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.045602", 
+                "created_by": 2, 
+                "id": "ban-municipality-7498d75279b84748bbe6a0bc819db1c8", 
+                "insee": "27002", 
+                "modified_at": "2016-06-20T10:18:07.045602", 
+                "modified_by": 2, 
+                "name": "Acon", 
+                "postcodes": [], 
+                "siren": null, 
+                "version": 1
+            }
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à la commune</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                <li><em>name</em>&nbsp;: Nom de la commune</li>
+                <li><em>postcodes</em>&nbsp;: Liste des codes postaux associés à cette commune</li>
+                <li><em>siren</em>&nbsp;: Code SIREN de la commune</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement commune</li>
+            </ul>
+            </pre>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="postcode">
+    <div class="row">
+        <div class="col third">
+            <h2>/postcode</h2>
+            <p>Liste l'ensemble des codes postaux contenus dans la BAN.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Sans paramètre, liste les 20 premiers codes postaux :</p>
+            <pre>http 'http:{{ API_URL }}/postcode'</pre>
+            <p>Le paramètre <b>limit</b> permet de lister les codes postaux par lot de <b>limit</b> codes postaux :</p>
+            <pre>http 'http:{{ API_URL }}/postcode?limit=50'</pre>
+            <p>Le retour correspond à un json Collection :</p>
+            <pre>
+{
+    "collection": [
+        {
+            "attributes": {
+                "source": "La Poste (2015)"
+            }, 
+            "code": "27800", 
+            "created_at": "2016-06-20T10:46:35.982571", 
+            "created_by": 5, 
+            "id": "ban-postcode-8f25c2089fbb4e68a2163847a8be7cdd", 
+            "modified_at": "2016-06-20T10:46:35.982571", 
+            "modified_by": 5, 
+            "municipality": {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.055213", 
+                "created_by": 1, 
+                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
+                "insee": "27001", 
+                "modified_at": "2016-06-20T10:18:07.055213", 
+                "modified_by": 1, 
+                "name": "Aclou", 
+                "siren": null
+            }, 
+            "name": "ACLOU", 
+            "version": 1
+        }, 
+        ...
+        {
+            "attributes": {
+                "source": "La Poste (2015)"
+            }, 
+            "code": "27820", 
+            "created_at": "2016-06-20T10:46:36.253280", 
+            "created_by": 5, 
+            "id": "ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6", 
+            "modified_at": "2016-06-20T10:46:36.253280", 
+            "modified_by": 5, 
+            "municipality": {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.258136", 
+                "created_by": 2, 
+                "id": "ban-municipality-da25577738974a298faf45a2c8bc616f", 
+                "insee": "27019", 
+                "modified_at": "2016-06-20T10:18:07.258136", 
+                "modified_by": 2, 
+                "name": "Armentières-sur-Avre", 
+                "siren": null
+            }, 
+            "name": "ARMENTIERES SUR AVRE", 
+            "version": 1
+        }
+    ], 
+    "next": "http://localhost/postcode?offset=20", 
+    "total": 677
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                </ol>
+                <li><em>code</em>&nbsp;: N° de code postal</li>
+                <li><em>id</em>&nbsp;: Identifiant du code postal</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement code postal</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de codes postaux</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de codes postaux</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="postcode_identifier">
+    <div class="row">
+        <div class="col third">
+            <h2>/postcode/{identifier}</h2>
+            <p>Permet d'obtenir toutes les informations relatives au code postal <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à un code postal :</p>
+            <pre>http 'http:{{ API_URL }}/postcode/ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "attributes": {
+        "source": "La Poste (2015)"
+    }, 
+    "code": "27820", 
+    "created_at": "2016-06-20T10:46:36.253280", 
+    "created_by": 5, 
+    "id": "ban-postcode-376559d37dfa4220ae14fb43d1c4c4d6", 
+    "modified_at": "2016-06-20T10:46:36.253280", 
+    "modified_by": 5, 
+    "municipality": {
+        "alias": null, 
+        "attributes": {
+            "source": "INSEE/COG (2015)"
+        }, 
+        "created_at": "2016-06-20T10:18:07.258136", 
+        "created_by": 2, 
+        "id": "ban-municipality-da25577738974a298faf45a2c8bc616f", 
+        "insee": "27019", 
+        "modified_at": "2016-06-20T10:18:07.258136", 
+        "modified_by": 2, 
+        "name": "Armentières-sur-Avre", 
+        "siren": null
+    }, 
+    "name": "ARMENTIERES SUR AVRE", 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                </ol>
+                <li><em>code</em>&nbsp;: N° de code postal</li>
+                <li><em>id</em>&nbsp;: Identifiant du code postal</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement code postal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="postcode_identifier_versions">
+    <div class="row">
+        <div class="col third">
+            <h2>/postcode/{identifier}/versions</h2>
+            <p>Liste l'ensemble des versions liées au code postal <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>versions</b> permet de lister les versions liées au code postal <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/postcode/ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4/versions'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "attributes": {
+                "source": "La Poste (2015)"
+            }, 
+            "code": "27400", 
+            "created_at": "2016-06-20T10:46:36.009472", 
+            "created_by": 5, 
+            "id": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
+            "modified_at": "2016-06-20T10:46:36.009472", 
+            "modified_by": 5, 
+            "municipality": {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.065921", 
+                "created_by": 2, 
+                "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
+                "insee": "27003", 
+                "modified_at": "2016-06-20T10:18:07.065921", 
+                "modified_by": 2, 
+                "name": "Acquigny", 
+                "siren": null
+            }, 
+            "name": "ACQUIGNY", 
+            "version": 1
+        }
+    ], 
+    "total": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                </ol>
+                <li><em>code</em>&nbsp;: N° de code postal</li>
+                <li><em>id</em>&nbsp;: Identifiant du code postal</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregitrement code postal</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de codes postaux</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de codes postaux</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="postcode_identifier_versions_version">
+    <div class="row">
+        <div class="col third">
+            <h2>/postcode/{identifier}/versions/{version}</h2>
+            <p>Permet d'obtenir la version spécifique du code postal <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'un code postal' <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/postcode/ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4/versions/1'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "attributes": {
+        "source": "La Poste (2015)"
+    }, 
+    "code": "27400", 
+    "created_at": "2016-06-20T10:46:36.009472", 
+    "created_by": 5, 
+    "id": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
+    "modified_at": "2016-06-20T10:46:36.009472", 
+    "modified_by": 5, 
+    "municipality": {
+        "alias": null, 
+        "attributes": {
+            "source": "INSEE/COG (2015)"
+        }, 
+        "created_at": "2016-06-20T10:18:07.065921", 
+        "created_by": 2, 
+        "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
+        "insee": "27003", 
+        "modified_at": "2016-06-20T10:18:07.065921", 
+        "modified_by": 2, 
+        "name": "Acquigny", 
+        "siren": null
+    }, 
+    "name": "ACQUIGNY", 
+    "version": 1
+}            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+           <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                </ol>
+                <li><em>code</em>&nbsp;: N° de code postal</li>
+                <li><em>id</em>&nbsp;: Identifiant du code postal</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement code postal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="group">
+    <div class="row">
+        <div class="col third">
+            <h2>/group</h2>
+            <p>Liste l'ensemble des groupes contenus dans la BAN.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Sans paramètre, liste les 20 premiers groupes :</p>
+            <pre>http 'http:{{ API_URL }}/group'</pre>
+            <p>Le paramètre <b>limit</b> permet de lister les groupes par lot de <b>limit</b> groupes :</p>
+            <pre>http 'http:{{ API_URL }}/group?limit=50'</pre>
+            <p>Le retour correspond à un json Collection :</p>
+            <pre>
+{
+    "collection": [
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "DGFIP/FANTOIR (2015-07)"
+            }, 
+            "created_at": "2016-06-20T10:19:05.150027", 
+            "created_by": 4, 
+            "fantoir": "270010023", 
+            "id": "ban-group-057b2bfc20ee47078af49b341e866677", 
+            "ign": null, 
+            "kind": "way", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T10:19:05.150027", 
+            "modified_by": 4, 
+            "municipality": {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.055213", 
+                "created_by": 1, 
+                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
+                "insee": "27001", 
+                "modified_at": "2016-06-20T10:18:07.055213", 
+                "modified_by": 1, 
+                "name": "Aclou", 
+                "siren": null
+            }, 
+            "name": "PL DES BRUYERES", 
+            "version": 1
+        }, 
+        ...
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "DGFIP/FANTOIR (2015-07)"
+            }, 
+            "created_at": "2016-06-20T10:19:05.630876", 
+            "created_by": 4, 
+            "fantoir": "27001B008", 
+            "id": "ban-group-88099ac6a3cd44fd9bf480bdd7603007", 
+            "ign": null, 
+            "kind": "area", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T10:19:05.630876", 
+            "modified_by": 4, 
+            "municipality": {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.055213", 
+                "created_by": 1, 
+                "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
+                "insee": "27001", 
+                "modified_at": "2016-06-20T10:18:07.055213", 
+                "modified_by": 1, 
+                "name": "Aclou", 
+                "siren": null
+            }, 
+            "name": "LES BRUYERES SUD", 
+            "version": 1
+        }
+    ], 
+    "next": "http://localhost/group?offset=20", 
+    "total": 48539
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à un groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe</li>
+                </ol>
+                <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                <li><em>id</em>&nbsp;: Identifiant du groupe</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au groupe</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement groupe</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de groupes</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de groupes</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="group_identifier">
+    <div class="row">
+        <div class="col third">
+            <h2>/group/{identifier}</h2>
+            <p>Permet d'obtenir toutes les informations relatives au groupe <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à un groupe :</p>
+            <pre>http 'http:{{ API_URL }}/group/ban-group-88099ac6a3cd44fd9bf480bdd7603007'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "alias": null, 
+    "attributes": {
+        "source": "DGFIP/FANTOIR (2015-07)"
+    }, 
+    "created_at": "2016-06-20T10:19:05.630876", 
+    "created_by": 4, 
+    "fantoir": "27001B008", 
+    "id": "ban-group-88099ac6a3cd44fd9bf480bdd7603007", 
+    "ign": null, 
+    "kind": "area", 
+    "laposte": null, 
+    "modified_at": "2016-06-20T10:19:05.630876", 
+    "modified_by": 4, 
+    "municipality": {
+        "alias": null, 
+        "attributes": {
+            "source": "INSEE/COG (2015)"
+        }, 
+        "created_at": "2016-06-20T10:18:07.055213", 
+        "created_by": 1, 
+        "id": "ban-municipality-185fa749d6da44ba9c2ca7182e5afb4f", 
+        "insee": "27001", 
+        "modified_at": "2016-06-20T10:18:07.055213", 
+        "modified_by": 1, 
+        "name": "Aclou", 
+        "siren": null
+    }, 
+    "name": "LES BRUYERES SUD", 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: attribut relatif au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: origine de la donnée groupe</li>
+                </ol>
+                <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                <li><em>id</em>&nbsp;: Identifiant du groupe</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au groupe</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement groupe</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="group_identifier_housenumbers">
+    <div class="row">
+        <div class="col third">
+            <h2>/group/{identifier}/housenumbers</h2>
+            <p>Permet d'obtenir l'ensemble des housenumbers liés au groupe <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>housenumbers</b> permet de lister les nousenumbers associés à un groupe <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/housenumbers'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "attributes": {
+                "source": "BAN (2016-06-05)"
+            }, 
+            "center": {
+                "coordinates": [
+                    1.185993, 
+                    49.172992
+                ], 
+                "type": "Point"
+            }, 
+            "cia": "27003_0005_1_", 
+            "created_at": "2016-06-20T11:41:46.705214", 
+            "created_by": 9, 
+            "id": "ban-housenumber-53d494901c0242d0812a48f0632ed509", 
+            "ign": "ADRNIVX_0000000332213104", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T11:41:46.705214", 
+            "modified_by": 9, 
+            "number": "1", 
+            "ordinal": null, 
+            "parent": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
+            "postcode": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
+            "resource": "housenumber"
+        }, 
+        ...
+        {
+            "attributes": {
+                "source": "BAN (2016-06-05)"
+            }, 
+            "center": {
+                "coordinates": [
+                    1.1812834, 
+                    49.1729015
+                ], 
+                "type": "Point"
+            }, 
+            "cia": "27003_0005_25_", 
+            "created_at": "2016-06-20T10:47:02.036278", 
+            "created_by": 8, 
+            "id": "ban-housenumber-7e0c288b651f4f5d8e2e5f6c268bc6e4", 
+            "ign": "ADRNIVX_0000000287394830", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T11:41:47.288049", 
+            "modified_by": 10, 
+            "number": "25", 
+            "ordinal": null, 
+            "parent": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
+            "postcode": "ban-postcode-be24a2fdfa8d434b8c830a9b55b400c4", 
+            "resource": "housenumber"
+        }
+    ], 
+    "next": "http://localhost/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/housenumbers?offset=20", 
+    "total": 73
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe</li>
+                </ol>
+                <li><em>center</em>&nbsp;: Attribut relatif au groupe</li>
+                <ol>
+                    <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude du groupe</li>
+                    <li><em>type</em>&nbsp;: Type de la coordonnée groupe</li>
+                </ol>
+                <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                <li><em>id</em>&nbsp;: Identifiant du groupe</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>number</em>&nbsp;: N° de voie</li>
+                <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                <li><em>parent</em>&nbsp;: Identifiant du groupe parent</li>
+                <li><em>postcode</em>&nbsp;: Identifiant du code postal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="group_identifier_versions">
+    <div class="row">
+        <div class="col third">
+            <h2>/group/{identifier}/versions</h2>
+            <p>Liste l'ensemble des versions liées au groupe <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>versions</b> permet de lister les versions liées au groupe <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/versions'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "alias": null, 
+            "attributes": {
+                "source": "DGFIP/FANTOIR (2015-07)"
+            }, 
+            "created_at": "2016-06-20T10:19:07.106394", 
+            "created_by": 4, 
+            "fantoir": "270030005", 
+            "id": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
+            "ign": null, 
+            "kind": "way", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T10:19:07.106394", 
+            "modified_by": 4, 
+            "municipality": {
+                "alias": null, 
+                "attributes": {
+                    "source": "INSEE/COG (2015)"
+                }, 
+                "created_at": "2016-06-20T10:18:07.065921", 
+                "created_by": 2, 
+                "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
+                "insee": "27003", 
+                "modified_at": "2016-06-20T10:18:07.065921", 
+                "modified_by": 2, 
+                "name": "Acquigny", 
+                "siren": null
+            }, 
+            "name": "RUE ARISTIDE BRIAND", 
+            "version": 1
+        }
+    ], 
+    "total": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe</li>
+                </ol>
+                <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                <li><em>id</em>&nbsp;: Identifiant du groupe</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée à un groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement groupe</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de groupes</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de groupes</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="group_identifier_versions_version">
+    <div class="row">
+        <div class="col third">
+            <h2>/group/{identifier}/versions/{version}</h2>
+            <p>Permet d'obtenir la version spécifique du groupe <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'un groupe' <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/group/ban-group-855d0bb1b3bf4463be43988aa21eb1de/versions/1'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "alias": null, 
+    "attributes": {
+        "source": "DGFIP/FANTOIR (2015-07)"
+    }, 
+    "created_at": "2016-06-20T10:19:07.106394", 
+    "created_by": 4, 
+    "fantoir": "270030005", 
+    "id": "ban-group-855d0bb1b3bf4463be43988aa21eb1de", 
+    "ign": null, 
+    "kind": "way", 
+    "laposte": null, 
+    "modified_at": "2016-06-20T10:19:07.106394", 
+    "modified_by": 4, 
+    "municipality": {
+        "alias": null, 
+        "attributes": {
+            "source": "INSEE/COG (2015)"
+        }, 
+        "created_at": "2016-06-20T10:18:07.065921", 
+        "created_by": 2, 
+        "id": "ban-municipality-af7c291a310646278e1fec17c51b101d", 
+        "insee": "27003", 
+        "modified_at": "2016-06-20T10:18:07.065921", 
+        "modified_by": 2, 
+        "name": "Acquigny", 
+        "siren": null
+    }, 
+    "name": "RUE ARISTIDE BRIAND", 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe</li>
+                </ol>
+                <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                <li><em>id</em>&nbsp;: Identifiant du groupe</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>municipality</em>&nbsp;: Informations relatives à la commune liée à un groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée commune</li>
+                    <li><em>id</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>insee</em>&nbsp;: Code insee de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune</li>
+                    <li><em>siren</em>&nbsp;: Code siren de la municipality</li>
+                </ol>
+                <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement groupe</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="housenumber">
+    <div class="row">
+        <div class="col third">
+            <h2>/housenumber</h2>
+            <p>Liste l'ensemble des housenumber contenus dans la BAN.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Sans paramètre, liste les 20 premiers housenumber :</p>
+            <pre>http 'http:{{ API_URL }}/housenumber'</pre>
+            <p>Le paramètre <b>limit</b> permet de lister les housenumber par lot de <b>limit</b> housenumber :</p>
+            <pre>http 'http:{{ API_URL }}/housenumber?limit=50'</pre>
+            <p>Le retour correspond à un json Collection :</p>
+            <pre>
+{
+    "collection": [
+        {
+            "ancestors": [], 
+            "attributes": {
+                "source": "BAN (2016-06-05)"
+            }, 
+            "center": null, 
+            "cia": "27231_0047_0_", 
+            "created_at": "2016-06-20T12:58:12.696170", 
+            "created_by": 13, 
+            "id": "ban-housenumber-91152fe98759472f9df04d19093cbb07", 
+            "ign": "ADRNIVX_0000000325891892", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T12:58:12.696170", 
+            "modified_by": 13, 
+            "number": "0", 
+            "ordinal": null, 
+            "parent": {
+                "alias": null, 
+                "attributes": {
+                    "source": "DGFIP/FANTOIR (2015-07)"
+                }, 
+                "created_at": "2016-06-20T10:24:18.015248", 
+                "created_by": 3, 
+                "fantoir": "272310047", 
+                "id": "ban-group-2211302a7d0b4bc99be5b8a428e8cb2b", 
+                "ign": null, 
+                "kind": "way", 
+                "laposte": null, 
+                "modified_at": "2016-06-20T10:24:18.015248", 
+                "modified_by": 3, 
+                "municipality": "ban-municipality-34afc30d8b084af1a5a170e072ac2fb4", 
+                "name": "RUE DES SOUPIRS"
+            }, 
+            "postcode": {
+                "attributes": {
+                    "source": "La Poste (2015)"
+                }, 
+                "code": "27120", 
+                "created_at": "2016-06-20T10:46:38.366513", 
+                "created_by": 6, 
+                "id": "ban-postcode-2df6922954604d44b367b84c2d0a0ecc", 
+                "modified_at": "2016-06-20T10:46:38.366513", 
+                "modified_by": 6, 
+                "municipality": "ban-municipality-34afc30d8b084af1a5a170e072ac2fb4", 
+                "name": "FAINS"
+            }, 
+            "version": 1
+        },
+        ...
+        {
+            "ancestors": [], 
+            "attributes": {
+                "source": "BAN (2016-06-05)"
+            }, 
+            "center": null, 
+            "cia": "27239_B041_0_", 
+            "created_at": "2016-06-20T14:17:59.053841", 
+            "created_by": 15, 
+            "id": "ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b", 
+            "ign": "ADRNIVX_0000000325887238", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T14:17:59.053841", 
+            "modified_by": 15, 
+            "number": "0", 
+            "ordinal": null, 
+            "parent": {
+                "alias": null, 
+                "attributes": {
+                    "source": "DGFIP/FANTOIR (2015-07)"
+                }, 
+                "created_at": "2016-06-20T10:24:28.757309", 
+                "created_by": 4, 
+                "fantoir": "27239B041", 
+                "id": "ban-group-94f08c86f351423ba9358fe542a11967", 
+                "ign": null, 
+                "kind": "area", 
+                "laposte": null, 
+                "modified_at": "2016-06-20T10:24:28.757309", 
+                "modified_by": 4, 
+                "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+                "name": "LA MOTTE"
+            }, 
+            "postcode": {
+                "attributes": {
+                    "source": "La Poste (2015)"
+                }, 
+                "code": "27270", 
+                "created_at": "2016-06-20T10:46:38.445463", 
+                "created_by": 5, 
+                "id": "ban-postcode-099578c5fb854975a1309c0376eda992", 
+                "modified_at": "2016-06-20T10:46:38.445463", 
+                "modified_by": 5, 
+                "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+                "name": "FERRIERES ST HILAIRE"
+            }, 
+            "version": 1
+        }
+    ], 
+    "next": "http://localhost/housenumber?offset=20", 
+    "total": 249862
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à un housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+                </ol>
+                <li><em>center</em>&nbsp;: Position par défaut</li>
+                <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>number</em>&nbsp;: N° de voie</li>
+                <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                <li><em>parent</em>&nbsp;: Informations relatives au groupe associé au housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe associée</li>
+                    <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                    <li><em>id</em>&nbsp;: Identifiant du groupe associé</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>kind</em>&nbsp;: Type de position</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>municipality</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom du groupe</li>
+                </ol>
+                <li><em>postcode</em>&nbsp;: Informations relatives au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                    <li><em>code</em>&nbsp;: Code postal associé</li>
+                    <li><em>id</em>&nbsp;: Identifiant du code postal associé</li>
+                    <li><em>municipality</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                </ol>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement housenumber</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de housenumber</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de housenumber</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="housenumber_identifier">
+    <div class="row">
+        <div class="col third">
+            <h2>/housenumber/{identifier}</h2>
+            <p>Permet d'obtenir toutes les informations relatives au housenumber <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à un housenumber :</p>
+            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "ancestors": [], 
+    "attributes": {
+        "source": "BAN (2016-06-05)"
+    }, 
+    "center": null, 
+    "cia": "27239_B041_0_", 
+    "created_at": "2016-06-20T14:17:59.053841", 
+    "created_by": 15, 
+    "id": "ban-housenumber-047ea9c100554b9db4f4fb72b3eeac5b", 
+    "ign": "ADRNIVX_0000000325887238", 
+    "laposte": null, 
+    "modified_at": "2016-06-20T14:17:59.053841", 
+    "modified_by": 15, 
+    "number": "0", 
+    "ordinal": null, 
+    "parent": {
+        "alias": null, 
+        "attributes": {
+            "source": "DGFIP/FANTOIR (2015-07)"
+        }, 
+        "created_at": "2016-06-20T10:24:28.757309", 
+        "created_by": 4, 
+        "fantoir": "27239B041", 
+        "id": "ban-group-94f08c86f351423ba9358fe542a11967", 
+        "ign": null, 
+        "kind": "area", 
+        "laposte": null, 
+        "modified_at": "2016-06-20T10:24:28.757309", 
+        "modified_by": 4, 
+        "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+        "name": "LA MOTTE"
+    }, 
+    "postcode": {
+        "attributes": {
+            "source": "La Poste (2015)"
+        }, 
+        "code": "27270", 
+        "created_at": "2016-06-20T10:46:38.445463", 
+        "created_by": 5, 
+        "id": "ban-postcode-099578c5fb854975a1309c0376eda992", 
+        "modified_at": "2016-06-20T10:46:38.445463", 
+        "modified_by": 5, 
+        "municipality": "ban-municipality-b7e3be4ffe5242a59173ef1c5fbaa049", 
+        "name": "FERRIERES ST HILAIRE"
+    }, 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: attribut relatif à un housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: origine de la donnée housenumber</li>
+                </ol>
+                <li><em>center</em>&nbsp;: Position par défaut</li>
+                <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>laposte</em>&nbsp;: matricule du fichier hexavia</li>
+                <li><em>number</em>&nbsp;: N° de voie</li>
+                <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                <li><em>parent</em>&nbsp;: Informations relatives au groupe associé au housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe associée</li>
+                    <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                    <li><em>id</em>&nbsp;: Identifiant du groupe associé</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>kind</em>&nbsp;: Type de position</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>municipality</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune parente</li>
+                </ol>
+                <li><em>postcode</em>&nbsp;: Informations relatives au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                    <li><em>code</em>&nbsp;: Code postal associé</li>
+                    <li><em>id</em>&nbsp;: Identifiant du code postal associé</li>
+                    <li><em>municipality</em>&nbsp;: Identifiant de la commune</li>
+                    <li><em>name</em>&nbsp;: Nom de la commune associée au code postal</li>
+                </ol>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement housenumber</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de housenumber</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de housenumber</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="housenumber_identifier_positions">
+    <div class="row">
+        <div class="col third">
+            <h2>/housenumber/{identifier}/positions</h2>
+            <p>Permet d'obtenir l'ensemble des positions liées au housenumber <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>positions</b> permet de lister les positions associés à un housenumber <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/positions'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "attributes": null, 
+            "center": {
+                "coordinates": [
+                    1.1691397, 
+                    49.1521282
+                ], 
+                "type": "Point"
+            }, 
+            "comment": null, 
+            "created_at": "2016-06-20T11:43:11.230653", 
+            "created_by": 11, 
+            "housenumber": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
+            "id": "ban-position-2573d3177d9d473f8eea676bc4a64cd7", 
+            "kind": "entrance", 
+            "modified_at": "2016-06-20T11:43:11.230653", 
+            "modified_by": 11, 
+            "name": null, 
+            "parent": null, 
+            "positioning": "other", 
+            "resource": "position", 
+            "source": "DGFiP/BANO (2016-04)"
+        }
+    ], 
+    "total": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>center</em>&nbsp;: Attribut relatif à la position</li>
+                <ol>
+                    <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position</li>
+                    <li><em>type</em>&nbsp;: Type de la coordonnée position</li>
+                </ol>
+                <li><em>comment</em>&nbsp;: Commentaire lié à la position</li>
+                <li><em>housenumber</em>&nbsp;: Identifiant du housenumber</li>
+                <li><em>id</em>&nbsp;: Identifiant de la position</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>name</em>&nbsp;: Nom de la position</li>
+                <li><em>parent</em>&nbsp;: Position parente</li>
+                <li><em>positioning</em>&nbsp;: Méthode d'obtention des coordonnées géographiques</li>
+                <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="housenumber_identifier_versions">
+    <div class="row">
+        <div class="col third">
+            <h2>/housenumber/{identifier}/versions</h2>
+            <p>Liste l'ensemble des versions liées au housenumber <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>versions</b> permet de lister les versions liées au housenumber <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/versions'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "ancestors": [], 
+            "attributes": {
+                "source": "DGFiP/BANO (2016-04)"
+            }, 
+            "center": null, 
+            "cia": "27014_0057_10_", 
+            "created_at": "2016-06-20T10:47:31.736089", 
+            "created_by": 7, 
+            "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
+            "ign": null, 
+            "laposte": null, 
+            "modified_at": "2016-06-20T10:47:31.736089", 
+            "modified_by": 7, 
+            "number": "10", 
+            "ordinal": null, 
+            "parent": {
+                "alias": null, 
+                "attributes": {
+                    "source": "DGFIP/FANTOIR (2015-07)"
+                }, 
+                "created_at": "2016-06-20T10:19:20.505441", 
+                "created_by": 4, 
+                "fantoir": "270140057", 
+                "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
+                "ign": null, 
+                "kind": "way", 
+                "laposte": null, 
+                "modified_at": "2016-06-20T10:19:20.505441", 
+                "modified_by": 4, 
+                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+                "name": "RUE DES RIVES DE L ITON"
+            }, 
+            "postcode": null, 
+            "version": 1
+        }, 
+        {
+            "ancestors": [], 
+            "attributes": {
+                "source": "BAN (2016-06-05)"
+            }, 
+            "center": null, 
+            "cia": "27014_0057_10_", 
+            "created_at": "2016-06-20T10:47:31.736089", 
+            "created_by": 7, 
+            "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
+            "ign": "ADRNIVX_0000000287406573", 
+            "laposte": null, 
+            "modified_at": "2016-06-20T11:42:52.380367", 
+            "modified_by": 9, 
+            "number": "10", 
+            "ordinal": null, 
+            "parent": {
+                "alias": null, 
+                "attributes": {
+                    "source": "DGFIP/FANTOIR (2015-07)"
+                }, 
+                "created_at": "2016-06-20T10:19:20.505441", 
+                "created_by": 4, 
+                "fantoir": "270140057", 
+                "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
+                "ign": null, 
+                "kind": "way", 
+                "laposte": null, 
+                "modified_at": "2016-06-20T10:19:20.505441", 
+                "modified_by": 4, 
+                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+                "name": "RUE DES RIVES DE L ITON"
+            }, 
+            "postcode": {
+                "attributes": {
+                    "source": "La Poste (2015)"
+                }, 
+                "code": "27400", 
+                "created_at": "2016-06-20T10:46:36.187261", 
+                "created_by": 6, 
+                "id": "ban-postcode-443e760be9534704a9bb854a59148baa", 
+                "modified_at": "2016-06-20T10:46:36.187261", 
+                "modified_by": 6, 
+                "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+                "name": "AMFREVILLE SUR ITON"
+            }, 
+            "version": 2
+        }
+    ], 
+    "total": 2
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif à un housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+                </ol>
+                <li><em>center</em>&nbsp;: Position par défaut</li>
+                <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>number</em>&nbsp;: N° de voie</li>
+                <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                <li><em>parent</em>&nbsp;: Informations relatives au groupe associé au housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe associée</li>
+                    <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                    <li><em>id</em>&nbsp;: Identifiant du groupe associé</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>kind</em>&nbsp;: Type de position</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>name</em>&nbsp;: Nom du groupe associé</li>
+                </ol>
+                <li><em>postcode</em>&nbsp;: Informations relatives au code postal</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée code postal</li>
+                    <li><em>code</em>&nbsp;: Code postal associé</li>
+                    <li><em>id</em>&nbsp;: Identifiant du code postal associé</li>
+                    <li><em>municipality</em>&nbsp;: Nom du la commune associée</li>
+                    <li><em>name</em>&nbsp;: Nom du code postal</li>
+                </ol>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement housenumber</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de housenumber</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de housenumber</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="housenumber_identifier_versions_version">
+    <div class="row">
+        <div class="col third">
+            <h2>/housenumber/{identifier}/versions/{version}</h2>
+            <p>Permet d'obtenir la version spécifique du housenumber <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'un housenumber' <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/housenumber/ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148/versions/1'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "ancestors": [], 
+    "attributes": {
+        "source": "DGFiP/BANO (2016-04)"
+    }, 
+    "center": null, 
+    "cia": "27014_0057_10_", 
+    "created_at": "2016-06-20T10:47:31.736089", 
+    "created_by": 7, 
+    "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
+    "ign": null, 
+    "laposte": null, 
+    "modified_at": "2016-06-20T10:47:31.736089", 
+    "modified_by": 7, 
+    "number": "10", 
+    "ordinal": null, 
+    "parent": {
+        "alias": null, 
+        "attributes": {
+            "source": "DGFIP/FANTOIR (2015-07)"
+        }, 
+        "created_at": "2016-06-20T10:19:20.505441", 
+        "created_by": 4, 
+        "fantoir": "270140057", 
+        "id": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
+        "ign": null, 
+        "kind": "way", 
+        "laposte": null, 
+        "modified_at": "2016-06-20T10:19:20.505441", 
+        "modified_by": 4, 
+        "municipality": "ban-municipality-ac79c2e510134e1cbc321cebbe04a82f", 
+        "name": "RUE DES RIVES DE L ITON"
+    }, 
+    "postcode": null, 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>attributes</em>&nbsp;: Attribut relatif au groupe</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe</li>
+                </ol>
+                <li><em>center</em>&nbsp;: Position par défaut</li>
+                <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                <li><em>number</em>&nbsp;: N° de voie</li>
+                <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                <li><em>parent</em>&nbsp;: Informations relatives au groupe associé au housenumber</li>
+                <ol>
+                    <li><em>source</em>&nbsp;: Origine de la donnée groupe associé</li>
+                    <li><em>fantoir</em>&nbsp;: Identification DGFIP de la voie</li>
+                    <li><em>id</em>&nbsp;: Identifiant du groupe associé</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>kind</em>&nbsp;: Type de position</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>name</em>&nbsp;: Nom du groupe associé</li>
+                </ol>
+                <li><em>postcode</em>&nbsp;: Informations relatives au code postal</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement housenumber</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="position">
+    <div class="row">
+        <div class="col third">
+            <h2>/position/</h2>
+            <p>Liste l'ensemble des positions contenues dans la BAN.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Sans paramètre, liste les 20 premières positions :</p>
+            <pre>http 'http:{{ API_URL }}/position'</pre>
+            <p>Le paramètre <b>limit</b> permet de lister les positions par lot de <b>limit</b> positions :</p>
+            <pre>http 'http:{{ API_URL }}/position?limit=50'</pre>
+            <p>Le retour correspond à un json Collection :</p>
+            <pre>
+{
+    "collection": [
+        {
+            "attributes": null, 
+            "center": {
+                "coordinates": [
+                    1.1691397, 
+                    49.1521282
+                ], 
+                "type": "Point"
+            }, 
+            "comment": null, 
+            "created_at": "2016-06-20T11:43:11.230653", 
+            "created_by": 11, 
+            "housenumber": {
+                "attributes": {
+                    "source": "BAN (2016-06-05)"
+                }, 
+                "center": {
+                    "coordinates": [
+                        1.1691397, 
+                        49.1521282
+                    ], 
+                    "type": "Point"
+                }, 
+                "cia": "27014_0057_10_", 
+                "created_at": "2016-06-20T10:47:31.736089", 
+                "created_by": 7, 
+                "id": "ban-housenumber-e51ec5e93c5e4bc3a6ed491d7e862148", 
+                "ign": "ADRNIVX_0000000287406573", 
+                "laposte": null, 
+                "modified_at": "2016-06-20T11:42:52.380367", 
+                "modified_by": 9, 
+                "number": "10", 
+                "ordinal": null, 
+                "parent": "ban-group-001c4d71360a497cbbf1bb54c7917c4a", 
+                "postcode": "ban-postcode-443e760be9534704a9bb854a59148baa"
+            }, 
+            "id": "ban-position-2573d3177d9d473f8eea676bc4a64cd7", 
+            "kind": "entrance", 
+            "modified_at": "2016-06-20T11:43:11.230653", 
+            "modified_by": 11, 
+            "name": null, 
+            "parent": null, 
+            "positioning": "other", 
+            "source": "DGFiP/BANO (2016-04)", 
+            "version": 1
+        }, 
+        ...
+        {
+            "attributes": null, 
+            "center": {
+                "coordinates": [
+                    1.3354327, 
+                    49.1714559
+                ], 
+                "type": "Point"
+            }, 
+            "comment": null, 
+            "created_at": "2016-06-20T11:43:11.589286", 
+            "created_by": 12, 
+            "housenumber": {
+                "attributes": {
+                    "source": "BAN (2016-06-05)"
+                }, 
+                "center": {
+                    "coordinates": [
+                        1.3354327, 
+                        49.1714559
+                    ], 
+                    "type": "Point"
+                }, 
+                "cia": "27022_0074_62_", 
+                "created_at": "2016-06-20T10:48:27.768694", 
+                "created_by": 8, 
+                "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
+                "ign": "ADRNIVX_0000000287396476", 
+                "laposte": null, 
+                "modified_at": "2016-06-20T12:23:58.365989", 
+                "modified_by": 14, 
+                "number": "62", 
+                "ordinal": null, 
+                "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+                "postcode": "ban-postcode-c3d11efe38c44365ae7afff74645055a"
+            }, 
+            "id": "ban-position-62e9721012074895866274c0139d3ff2", 
+            "kind": "entrance", 
+            "modified_at": "2016-06-20T11:43:11.589286", 
+            "modified_by": 12, 
+            "name": null, 
+            "parent": null, 
+            "positioning": "other", 
+            "source": "DGFiP/BANO (2016-04)", 
+            "version": 1
+        }
+    ], 
+    "next": "http://localhost/position?offset=20", 
+    "total": 139484
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>center</em>&nbsp;: Attribut relatif à la position</li>
+                <ol>
+                    <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position</li>
+                    <li><em>type</em>&nbsp;: Type de la coordonnée position</li>
+                </ol>
+                <li><em>comment</em>&nbsp;: Commentaire de la position</li>
+                <li><em>housenumber</em>&nbsp;: Attributs relatifs au housenumber associé</li>
+                <ol>
+                    <li><em>attributes</em>&nbsp;: Attribut relatif à un housenumber</li>
+                    <ol>
+                        <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+                    </ol>
+                    <li><em>center</em>&nbsp;: Attribut relatif à la position du housenumber</li>
+                    <ol>
+                        <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position du housenumber</li>
+                        <li><em>type</em>&nbsp;: Type de la coordonnée position du housenumber</li>
+                    </ol>
+                    <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                    <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>number</em>&nbsp;: N° de voie</li>
+                    <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                    <li><em>parent</em>&nbsp;: Identifiant du groupe associé au housenumber</li>
+                    <li><em>postcode</em>&nbsp;: Origine de la donnée housenumber</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la position</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>name</em>&nbsp;: Nom de la position</li>
+                <li><em>parent</em>&nbsp;: Position parente</li>
+                <li><em>positioning</em>&nbsp;: Méthode d'obtention des coordonnées géographiques</li>
+                <li><em>source</em>&nbsp;: Origine de la donnée position</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement position</li>
+                <li><em>next</em>&nbsp;: Url permettant de récupérer le prochain lot de positions</li>
+                <li><em>previous</em>&nbsp;: Url permettant de récupérer le précédent lot de positions</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="position_identifier">
+    <div class="row">
+        <div class="col third">
+            <h2>/position/{identifier}</h2>
+            <p>Permet d'obtenir les informations relatives à la position <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>identifier</b> permet de visualiser les informations relatives à une position <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "attributes": null, 
+    "center": {
+        "coordinates": [
+            1.3354327, 
+            49.1714559
+        ], 
+        "type": "Point"
+    }, 
+    "comment": null, 
+    "created_at": "2016-06-20T11:43:11.589286", 
+    "created_by": 12, 
+    "housenumber": {
+        "attributes": {
+            "source": "BAN (2016-06-05)"
+        }, 
+        "center": {
+            "coordinates": [
+                1.3354327, 
+                49.1714559
+            ], 
+            "type": "Point"
+        }, 
+        "cia": "27022_0074_62_", 
+        "created_at": "2016-06-20T10:48:27.768694", 
+        "created_by": 8, 
+        "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
+        "ign": "ADRNIVX_0000000287396476", 
+        "laposte": null, 
+        "modified_at": "2016-06-20T12:23:58.365989", 
+        "modified_by": 14, 
+        "number": "62", 
+        "ordinal": null, 
+        "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+        "postcode": "ban-postcode-c3d11efe38c44365ae7afff74645055a"
+    }, 
+    "id": "ban-position-62e9721012074895866274c0139d3ff2", 
+    "kind": "entrance", 
+    "modified_at": "2016-06-20T11:43:11.589286", 
+    "modified_by": 12, 
+    "name": null, 
+    "parent": null, 
+    "positioning": "other", 
+    "source": "DGFiP/BANO (2016-04)", 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>center</em>&nbsp;: Attribut relatif à la position</li>
+                <ol>
+                    <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position</li>
+                    <li><em>type</em>&nbsp;: Type de la coordonnée position</li>
+                </ol>
+                <li><em>comment</em>&nbsp;: Commentaire de la position</li>
+                <li><em>housenumber</em>&nbsp;: Attributs relatifs au housenumber associé</li>
+                <ol>
+                    <li><em>attributes</em>&nbsp;: Attribut relatif à un housenumber</li>
+                    <ol>
+                        <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+                    </ol>
+                    <li><em>center</em>&nbsp;: Attribut relatif à la position du housenumber</li>
+                    <ol>
+                        <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position du housenumber</li>
+                        <li><em>type</em>&nbsp;: Type de la coordonnée position du housenumber</li>
+                    </ol>
+                    <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                    <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>number</em>&nbsp;: N° de voie</li>
+                    <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                    <li><em>parent</em>&nbsp;: Identifiant du groupe associé au housenumber</li>
+                    <li><em>postcode</em>&nbsp;: Origine de la donnée housenumber</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la position</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>name</em>&nbsp;: Nom de la position</li>
+                <li><em>parent</em>&nbsp;: Position parente</li>
+                <li><em>positioning</em>&nbsp;: Méthode d'obtention des coordonnées géographiques</li>
+                <li><em>source</em>&nbsp;: Origine de la donnée position</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement position</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="position_identifier_versions">
+    <div class="row">
+        <div class="col third">
+            <h2>/position/{identifier}/versions</h2>
+            <p>Liste l'ensemble des versions liées à la position <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>versions</b> permet de lister les versions liées à la position <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2/versions'</pre>
+            <p>Le retour correspond à un json Collection:</p>
+            <pre>
+{
+    "collection": [
+        {
+            "attributes": null, 
+            "center": {
+                "coordinates": [
+                    1.3354327, 
+                    49.1714559
+                ], 
+                "type": "Point"
+            }, 
+            "comment": null, 
+            "created_at": "2016-06-20T11:43:11.589286", 
+            "created_by": 12, 
+            "housenumber": {
+                "attributes": {
+                    "source": "DGFiP/BANO (2016-04)"
+                }, 
+                "center": {
+                    "coordinates": [
+                        1.3354327, 
+                        49.1714559
+                    ], 
+                    "type": "Point"
+                }, 
+                "cia": "27022_0074_62_", 
+                "created_at": "2016-06-20T10:48:27.768694", 
+                "created_by": 8, 
+                "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
+                "ign": null, 
+                "laposte": null, 
+                "modified_at": "2016-06-20T10:48:27.768694", 
+                "modified_by": 8, 
+                "number": "62", 
+                "ordinal": null, 
+                "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+                "postcode": null
+            }, 
+            "id": "ban-position-62e9721012074895866274c0139d3ff2", 
+            "kind": "entrance", 
+            "modified_at": "2016-06-20T11:43:11.589286", 
+            "modified_by": 12, 
+            "name": null, 
+            "parent": null, 
+            "positioning": "other", 
+            "source": "DGFiP/BANO (2016-04)", 
+            "version": 1
+        }
+    ], 
+    "total": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>center</em>&nbsp;: Attribut relatif à la position</li>
+                <ol>
+                    <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position</li>
+                    <li><em>type</em>&nbsp;: Type de la coordonnée position</li>
+                </ol>
+                <li><em>comment</em>&nbsp;: Commentaire de la position</li>
+                <li><em>housenumber</em>&nbsp;: Attributs relatifs au housenumber associé</li>
+                <ol>
+                    <li><em>attributes</em>&nbsp;: Attribut relatif à un housenumber</li>
+                    <ol>
+                        <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+                    </ol>
+                    <li><em>center</em>&nbsp;: Attribut relatif à la position du housenumber</li>
+                    <ol>
+                        <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position du housenumber</li>
+                        <li><em>type</em>&nbsp;: Type de la coordonnée position du housenumber</li>
+                    </ol>
+                    <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                    <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>number</em>&nbsp;: N° de voie</li>
+                    <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                    <li><em>parent</em>&nbsp;: Identifiant du groupe associé au housenumber</li>
+                    <li><em>postcode</em>&nbsp;: Origine de la donnée housenumber</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la position</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>name</em>&nbsp;: Nom de la position</li>
+                <li><em>parent</em>&nbsp;: Position parente</li>
+                <li><em>positioning</em>&nbsp;: Méthode d'obtention des coordonnées géographiques</li>
+                <li><em>source</em>&nbsp;: Origine de la donnée position</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement position</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrapper entrypoint" id="position_identifier_versions_version">
+    <div class="row">
+        <div class="col third">
+            <h2>/position/{identifier}/versions/{version}</h2>
+            <p>Permet d'obtenir la version spécifique de la position <b>identifier</b>.</p>
+        </div>
+        <div class="col two-third details">
+            <p>Le paramètre <b>version</b> permet de ne visualiser que la version <b>version</b> d'une position' <b>identifier</b> :</p>
+            <pre>http 'http:{{ API_URL }}/position/ban-position-62e9721012074895866274c0139d3ff2/versions/1'</pre>
+            <p>Le retour correspond à un json :</p>
+            <pre>
+{
+    "attributes": null, 
+    "center": {
+        "coordinates": [
+            1.3354327, 
+            49.1714559
+        ], 
+        "type": "Point"
+    }, 
+    "comment": null, 
+    "created_at": "2016-06-20T11:43:11.589286", 
+    "created_by": 12, 
+    "housenumber": {
+        "attributes": {
+            "source": "DGFiP/BANO (2016-04)"
+        }, 
+        "center": {
+            "coordinates": [
+                1.3354327, 
+                49.1714559
+            ], 
+            "type": "Point"
+        }, 
+        "cia": "27022_0074_62_", 
+        "created_at": "2016-06-20T10:48:27.768694", 
+        "created_by": 8, 
+        "id": "ban-housenumber-8c142bac6de74bf08f1e7d01076d5307", 
+        "ign": null, 
+        "laposte": null, 
+        "modified_at": "2016-06-20T10:48:27.768694", 
+        "modified_by": 8, 
+        "number": "62", 
+        "ordinal": null, 
+        "parent": "ban-group-a5bf46ba9297470389a9cabf48dc93aa", 
+        "postcode": null
+    }, 
+    "id": "ban-position-62e9721012074895866274c0139d3ff2", 
+    "kind": "entrance", 
+    "modified_at": "2016-06-20T11:43:11.589286", 
+    "modified_by": 12, 
+    "name": null, 
+    "parent": null, 
+    "positioning": "other", 
+    "source": "DGFiP/BANO (2016-04)", 
+    "version": 1
+}
+            </pre>
+            <p>Les attributs retournés sont&nbsp;:</p>
+            <ul>
+                <li><em>center</em>&nbsp;: Attribut relatif à la position</li>
+                <ol>
+                    <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position</li>
+                    <li><em>type</em>&nbsp;: Type de la coordonnée position</li>
+                </ol>
+                <li><em>comment</em>&nbsp;: Commentaire de la position</li>
+                <li><em>housenumber</em>&nbsp;: Attributs relatifs au housenumber associé</li>
+                <ol>
+                    <li><em>attributes</em>&nbsp;: Attribut relatif à un housenumber</li>
+                    <ol>
+                        <li><em>source</em>&nbsp;: Origine de la donnée housenumber</li>
+                    </ol>
+                    <li><em>center</em>&nbsp;: Attribut relatif à la position du housenumber</li>
+                    <ol>
+                        <li><em>coordinates</em>&nbsp;: Coordonnées longitude, latitude de la position du housenumber</li>
+                        <li><em>type</em>&nbsp;: Type de la coordonnée position du housenumber</li>
+                    </ol>
+                    <li><em>cia</em>&nbsp;: Clé d'Interopérabilité Adresse</li>
+                    <li><em>id</em>&nbsp;: Identifiant du housenumber</li>
+                    <li><em>ign</em>&nbsp;: Identifiant IGN</li>
+                    <li><em>laposte</em>&nbsp;: Matricule du fichier hexavia</li>
+                    <li><em>number</em>&nbsp;: N° de voie</li>
+                    <li><em>ordinal</em>&nbsp;: Indice de répétition</li>
+                    <li><em>parent</em>&nbsp;: Identifiant du groupe associé au housenumber</li>
+                    <li><em>postcode</em>&nbsp;: Origine de la donnée housenumber</li>
+                </ol>
+                <li><em>id</em>&nbsp;: Identifiant de la position</li>
+                <li><em>kind</em>&nbsp;: Type de position</li>
+                <li><em>name</em>&nbsp;: Nom de la position</li>
+                <li><em>parent</em>&nbsp;: Position parente</li>
+                <li><em>positioning</em>&nbsp;: Méthode d'obtention des coordonnées géographiques</li>
+                <li><em>source</em>&nbsp;: origine de la donnée position</li>
+                <li><em>version</em>&nbsp;: N° de version de l'enregistrement position</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}
