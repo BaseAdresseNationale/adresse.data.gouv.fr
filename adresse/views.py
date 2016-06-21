@@ -26,6 +26,11 @@ def api():
     return render_template('api.html')
 
 
+@app.route('/api-gestion/')
+def api_gestion():
+    return render_template('api-gestion.html')
+
+
 @app.route('/tools/')
 def tools():
     return render_template('tools.html')
