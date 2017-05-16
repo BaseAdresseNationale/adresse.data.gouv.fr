@@ -12,46 +12,94 @@
         <p>Les données listées ci-dessous sont issues du rapprochement des données & traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
     </div>
 </div>
-<div class="wrapper">
+<div class="wrapper prose">
     <div class="row">
-        <div class="col">
-            <h2>Télécharger en <a href="{{ url_for('static', filename='pdf/BAN Licence de repartage.pdf') }}">licence gratuite de repartage</a></h2>
-        </div>
+        <p>Les <strong>données</strong> issues de la Base Adresse Nationale <strong>peuvent être téléchargées gratuitement</strong>,
+          et sont <strong>disponibles sous deux licences</strong>.</p>
     </div>
     <div class="row">
-        <div class="col third mwide">
-            <p>Cette version de la BAN ne contient pas de données ODbL, et peut être utilisée gratuitement, sous réserve de repartage des contributions.</p>
-            <p>Si vous ne souhaitez pas vous engager à mettre à disposition du public vos Enrichissements ou si vous n’utilisez pas la BAN pour votre Usage Propre vous devez vous rapporter aux autres offres proposées respectivement par <a href="http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique">La Poste</a> ou <a href="http://professionnels.ign.fr/pointadresse">l’IGN</a>.</p>
-            <p>Le fichier à télécharger est compressé au format ZIP et pèse un peu plus de 800Mo. Il contient un fichier CSV pour chaque département.<br>
-            <a href="{{ url_for('static', filename='pdf/Description du contenu du produit gratuit issu de la Base Adresse Nationale.pdf') }}">Consultez le descriptif des données</a></p>
+        <div class="col half">
+            <h2>Données sous licence gratuite de repartage</h2>
+
+            <h3>Résumé de la licence</h3>
+
+            <p>Ci-après, le concédant désigne l'IGN et La Poste.</p>
+
+            <p>La licence gratuite de repartage vous autorise à :</p>
+            <ul>
+              <li>copier, distribuer et utiliser la base de données ;</li>
+              <li>produire des créations à partir de cette base de données ;</li>
+              <li>modifier, transformer et construire à partir de cette base de données.</li>
+            </ul>
+
+            <p>Tant que :</p>
+            <ul>
+              <li>vous mentionnez la source des données ;</li>
+              <li>vous ne commercialisez pas ces données ;</li>
+              <li>vous communiquez au concédant les bases de données dérivées ;</li>
+              <li>vous cédez au concédant, et à titre gratuit, les droits d'auteur et de propriété industrielle sur les bases de données dérivées.</li>
+            </ul>
+
+            <p>Pour plus de renseignements, consultez <a href="{{ url_for('static', filename='pdf/BAN Licence de repartage.pdf') }}">le texte de la licence</a>.</p>
+
+            <h3>Données</h3>
+
+            <p>Pour connaître précisement le contenu de ces données, <a href="{{ url_for('static', filename='pdf/Description du contenu du produit gratuit issu de la Base Adresse Nationale.pdf') }}">consultez le descriptif des données</a>.</p>
+
+            <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
+
             {% if delivery_date %}<p>Date de dernière livraison: {{ delivery_date.strftime('%d/%m/%Y') }}</p>{% endif %}
+
+            <a href="/data/" class="button neutral">Accéder aux données</a>
         </div>
-        <div class="col two-third mwide">
-            <form method="post" id="tracked_download" action="{{ url_for('download') }}">
-                {{ form.csrf_token }}
-                {{ render_field(form.first_name)}}
-                {{ render_field(form.last_name)}}
-                {{ render_field(form.email)}}
-                {{ render_field(form.area)}}
-                {{ render_field(form.company)}}
-                <input type="submit" value="Recevoir le lien de téléchargement par email" />
-            </form>
-            <p>* champ obligatoire</p>
+        <div class="col half">
+            <h2>Données sous licence ODbL</h2>
+
+            <h3>Résumé de la licence</h3>
+
+            <p>La licence ODbL vous autorise à :</p>
+            <ul>
+              <li>copier, distribuer et utiliser la base de données ;</li>
+              <li>produire des créations à partir de cette base de données ;</li>
+              <li>modifier, transformer et construire à partir de cette base de données.</li>
+            </ul>
+
+            <p>Tant que :</p>
+            <ul>
+              <li>vous mentionnez la source des données ;</li>
+              <li>vous partagez à l'identique les bases de données dérivées ;</li>
+              <li>vous gardez ouvertes ces données.</li>
+            </ul>
+
+            <p>Pour plus de renseignements, consultez <a href="http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode" target="_blank">la traduction française intégrale de la licence</a> ou le <a href="http://vvlibri.org/fr/licence/odbl/10/fr" target="_blank">résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href="http://opendatacommons.org/licenses/odbl/summary/" target="_blank">Open Data Commons</a>.</p>
+
+            <h3>Données</h3>
+
+            <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
+
+            <ul>
+              <li>le libellé à la norme AFNOR et le libellé d'acheminement ne sont pas disponibles ;</li>
+              <li>les données subissent <a href="http://openstreetmap.fr/ban">des traitements qualité supplémentaires.</a></li>
+            </ul>
+
+            <p>Données en téléchargement pour une commune, un département, ou la France entière, et disponibles aux formats CSV, Shapefile et JSON.</p>
+
+            <p>Pour plus de renseignements, consultez <a href="http://openstreetmap.fr/ban">la page dédiée à la diffusion de ces données</a> sur le site d'OpenStreetMap France.</p>
+
+            <a href="http://bano.openstreetmap.fr/BAN_odbl" class="button neutral">Accéder aux données</a>
         </div>
     </div>
     <hr />
     <div class="row">
-        <div class="col">
-            <h2>Accéder aux données sous licence ODbL</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col third mwide">
-            <p>Pour accéder aux données diffusées par OpenStreetMap France (OSM France) sous licence ODbL, vous devez vous rendre sur le site d’OSM France.</p>
-        </div>
-        <div class="col two-third mwide">
-            <a href="http://openstreetmap.fr/ban/" class="button neutral">Accéder à OSM France</a>
-        </div>
+        <h2>Offres commerciales des partenaires</h2>
+
+        <p>Si les licences ou les données ci-dessus <strong>ne vous conviennent pas</strong>, vous pouvez vous rapporter aux <strong>autres offres</strong> proposées
+          par les partenaires :</p>
+
+        <ul class="partners">
+            <li><a href="http://professionnels.ign.fr/pointadresse"><img alt="IGN" src="{{ url_for('static', filename='img/IGN.jpg') }}" /></a></li>
+            <li><a href="http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique"><img alt="La Poste" src="{{ url_for('static', filename='img/laposte.jpg') }}" /></a></li>
+        </ul>
     </div>
 </div>
 {% endblock content %}

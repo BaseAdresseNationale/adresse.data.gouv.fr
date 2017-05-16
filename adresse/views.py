@@ -10,10 +10,8 @@ from flask_mail import Message
 from werkzeug import security
 
 from . import app, mail
-from .constants import DEPARTEMENTS
 from .crowdsourcing import Crowdsourcing
-from .forms import CrowdsourcingForm, ReportForm, TrackedDownloadForm
-from .tracked_download import TrackedDownload
+from .forms import CrowdsourcingForm, ReportForm
 
 
 @app.route('/')
@@ -69,11 +67,9 @@ def foss():
     return render_template('foss.html')
 
 
-@app.route('/download/<token>')
-@app.route('/download/', methods=['GET', 'POST'], defaults={'token': None})
-def download(token):
-    form = TrackedDownloadForm(request.form)
-    context = {'form': form}
+@app.route('/download/')
+def download():
+    context = {}
     if app.config['DELIVERY_CONTROL_FILE']:
         path = app.config['DELIVERY_CONTROL_FILE']
         try:
@@ -82,48 +78,7 @@ def download(token):
             pass
         else:
             context['delivery_date'] = datetime.datetime.fromtimestamp(t)
-    if token:
-        dl = TrackedDownload.from_token(token)
-        if not dl:
-            flash('Clé invalide.', 'error')
-            return render_template('download.html', **context), 403
-        else:
-            dl.use()
-            flash("Merci d'avoir téléchargé la base adresse nationale !",
-                  "success")
-            if app.config['BAN_FILE_PATH']:
-                suffix = "_%s" % dl.area if dl.area else ''
-                path = app.config['BAN_FILE_PATH'].format(area=suffix)
-                name = Path(path).name
-                headers = {
-                    'X-Accel-Redirect': path,
-                    'Content-Disposition': 'attachment; filename="{}"'.format(name),  # noqa
-                }
-                return '', 200, headers
-    if request.method == 'POST' and form.validate():
-        dl = TrackedDownload.from_email(form.email.data, form.area.data)
-        if not dl:
-            dl = TrackedDownload(**form.data)
-            dl.save()
-        msg = Message()
-        msg.add_recipient(dl.email)
-        email_context = dict(dl.__dict__)
-        download_link = "https:{domain}{path}".format(
-            domain=app.config['SITE_URL'],
-            path=url_for('download', token=dl.token))
-        email_context['download_link'] = download_link
-        msg.body = render_template('tracked_download_email.txt',
-                                   **email_context)
-        msg.html = render_template('tracked_download_email.html',
-                                   **email_context)
-        msg.subject = "Votre téléchargement de la base adresse nationale"
-        area = DEPARTEMENTS.get(dl.area)
-        if area:
-            msg.subject = "{} [{}]".format(msg.subject, area)
-        mail.send(msg)
-        flash('Un courriel vous a été envoyé à l\'adresse {email}'.format(
-              email=dl.email), 'success')
-        return redirect(url_for('download'))
+
     return render_template('download.html', **context)
 
 

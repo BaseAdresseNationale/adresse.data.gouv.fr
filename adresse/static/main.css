@@ -214,14 +214,17 @@ a {
     margin-right: auto;
     margin-top: 40px;
 }
-.col {
-    float: left;
-}
-.col + .col {
-    padding-left: 40px;
-}
-.half {
-    width: 50%;
+
+@media (min-width: 900px) {
+  .col {
+      float: left;
+  }
+  .col + .col {
+      padding-left: 40px;
+  }
+  .half {
+      width: 50%;
+  }
 }
 .third {
     width: 33.33%;
@@ -272,6 +275,7 @@ input[type="submit"],
     background-color: #4E5D73;
     display: inline-block;
     margin-top: 20px;
+    margin-bottom: 20px;
     height: 50px;
     line-height: 50px;
     text-align: center;
@@ -491,18 +495,18 @@ footer .twitter:before {
     margin-right: auto;
     max-width: 1000px;
 }
-.home .partners {
+.partners {
     text-align: center;
     padding: 50px 0;
 }
-.home .partners li {
+.partners li {
     display: inline-block;
     vertical-align: middle;
 }
-.home .partners li + li {
+.partners li + li {
     margin-left: 50px;
 }
-.home .partners li img {
+.partners li img {
     max-width: 150px;
     max-height: 150px;
 }
@@ -784,21 +788,7 @@ ul.photon-autocomplete {
     background-image: url('./img/download.svg');
 }
 .download h2 {
-    text-align: center;
     text-transform: uppercase;
-}
-.departements {
-    border-right: 1px solid #ddd;
-}
-.departements li {
-    padding: 5px;
-}
-.departements li:target {
-    border-right: 3px solid #ddd;
-    background-color: #f6f6f6;
-}
-.departements li:target:before {
-    content: '⮕ ';
 }
 
 
