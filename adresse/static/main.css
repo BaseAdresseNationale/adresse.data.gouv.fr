@@ -415,19 +415,6 @@ footer .twitter:before {
     vertical-align: middle;
     padding-right: 5px;
 }
-.beta:after {
-    content: 'bêta';
-    font-family: 'open_sansextrabold';
-    font-weight: normal;
-    color: #de1c12;
-    font-size: 15px;
-    padding: 3px 5px;
-    position: relative;
-    text-align: center;
-    text-transform: uppercase;
-    top: 25px;
-    left: -31px;
-}
 .flashes li {
     padding: 10px;
     text-align: center;
@@ -629,7 +616,7 @@ sup {
 .api .entrypoint .details {
     background-color: #eee;
     color: #333;
-    padding: 40px; 
+    padding: 40px;
     border: 1px solid #ddd;
 }
 .api .entrypoint pre {
