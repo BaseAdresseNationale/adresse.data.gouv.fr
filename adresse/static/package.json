@@ -10,8 +10,7 @@
     "leaflet-hash": "^0.2.1",
     "leaflet.photon": "^0.7.0",
     "papaparse": "^4.1.1",
-    "reqwest": "^1.1.5",
-    "topojson": "^1.6.18"
+    "reqwest": "^1.1.5"
   },
   "devDependencies": {},
   "scripts": {
