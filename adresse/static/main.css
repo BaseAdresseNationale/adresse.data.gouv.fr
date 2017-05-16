@@ -787,19 +787,6 @@ ul.photon-autocomplete {
     text-align: center;
     text-transform: uppercase;
 }
-.download-map {
-    border-bottom: 1px solid #eee;
-    margin-bottom: 40px;
-    background-color: #fefefd;
-}
-.download-map .dep {
-    fill: #ececec;
-    stroke: #aaa;
-}
-.download-map .dep:hover {
-    fill: #6C7A89;
-    cursor: pointer;
-}
 .departements {
     border-right: 1px solid #ddd;
 }

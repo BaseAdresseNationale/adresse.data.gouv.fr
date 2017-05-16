@@ -5,7 +5,6 @@
   "main": "map.js",
   "dependencies": {
     "csvtogeocoder-ui": "yohanboniface/csvtogeocoder-ui",
-    "d3": "^3.5.2",
     "leaflet": "^0.7.3",
     "leaflet-formbuilder": "^0.2.0",
     "leaflet-hash": "^0.2.1",
