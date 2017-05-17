@@ -419,32 +419,6 @@ footer .twitter:before {
     vertical-align: middle;
     padding-right: 5px;
 }
-.flashes li {
-    padding: 10px;
-    text-align: center;
-}
-.flashes li:before,
-.flashes li:after {
-    font-family: 'open_sansextrabold';
-}
-.flashes .success {
-    background-color: #66CC99;
-}
-.flashes .success:before {
-    content: '⍟ ';
-}
-.flashes .success:after {
-    content: ' ⍟';
-}
-.flashes .error {
-    background-color: #E74C3C;
-}
-.flashes .error:before {
-    content: '⚠ ';
-}
-.flashes .error:after {
-    content: ' ⚠';
-}
 
 
 /* ************************************************* */
