@@ -5,3 +5,4 @@ __pycache__
 *.sql
 !schema.sql
 adresse/local.py
+venv
