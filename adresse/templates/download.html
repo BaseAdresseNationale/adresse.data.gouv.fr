@@ -25,8 +25,6 @@
 
             <h3>Résumé de la licence</h3>
 
-            <p>Ci-après, le concédant désigne l'IGN et La Poste.</p>
-
             <p>La licence gratuite de repartage vous autorise à :</p>
             <ul>
               <li>copier, distribuer et utiliser la base de données ;</li>
@@ -38,8 +36,8 @@
             <ul>
               <li>vous mentionnez la source des données ;</li>
               <li>vous ne commercialisez pas ces données ;</li>
-              <li>vous communiquez au concédant les bases de données dérivées ;</li>
-              <li>vous cédez au concédant, et à titre gratuit, les droits d'auteur et de propriété industrielle sur les bases de données dérivées.</li>
+              <li>vous communiquez à l'IGN et à La Poste les bases de données dérivées ;</li>
+              <li>vous cédez à l'IGN et à La Poste, et à titre gratuit, les droits d'auteur et de propriété industrielle sur les bases de données dérivées.</li>
             </ul>
 
             <p>Pour plus de renseignements, consultez <a href="{{ url_for('static', filename='pdf/BAN Licence de repartage.pdf') }}">le texte de la licence</a>.</p>
@@ -56,7 +54,7 @@
 
             {% if delivery_date %}<p>Date de dernière livraison: {{ delivery_date.strftime('%d/%m/%Y') }}</p>{% endif %}
 
-            <a href="/data/" class="button neutral">Accéder aux données</a>
+            <a href="/data/" class="button">Accéder aux données</a>
         </div>
       </div>
 
@@ -100,7 +98,7 @@
 
             <p>Pour plus de renseignements, consultez <a href="http://openstreetmap.fr/ban">la page dédiée à la diffusion de ces données</a> sur le site d'OpenStreetMap France.</p>
 
-            <a href="http://bano.openstreetmap.fr/BAN_odbl" class="button neutral">Accéder aux données</a>
+            <a href="http://bano.openstreetmap.fr/BAN_odbl" class="button">Accéder aux données</a>
         </div>
     </div>
     <hr />
