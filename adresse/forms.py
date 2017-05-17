@@ -1,21 +1,7 @@
 from flask_wtf import Form
-from wtforms import StringField, validators, TextAreaField
+from wtforms import StringField
 
-
-class BaseForm(Form):
-    DATA_REQUIRED = 'Ce champ est obligatoire.'
-    EMAIL = 'Adresse courriel invalide.'
-
-
-class ReportForm(BaseForm):
-    email = StringField('Votre email',
-                        [validators.DataRequired(BaseForm.DATA_REQUIRED),
-                         validators.Email(BaseForm.EMAIL)])
-    message = TextAreaField('Signalement',
-                            [validators.DataRequired(BaseForm.DATA_REQUIRED)])
-
-
-class CrowdsourcingForm(BaseForm):
+class CrowdsourcingForm(Form):
     id = StringField()
     before = StringField()
     after = StringField()

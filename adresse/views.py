@@ -3,7 +3,7 @@ import json
 import os
 from pathlib import Path
 
-from flask import (abort, flash, redirect, render_template, request, session,
+from flask import (abort, redirect, render_template, request, session,
                    url_for)
 from flask.ext.oauthlib.client import OAuth
 from flask_mail import Message
@@ -11,7 +11,7 @@ from werkzeug import security
 
 from . import app, mail
 from .crowdsourcing import Crowdsourcing
-from .forms import CrowdsourcingForm, ReportForm
+from .forms import CrowdsourcingForm
 
 
 @app.route('/')
@@ -82,26 +82,9 @@ def download():
     return render_template('download.html', **context)
 
 
-@app.route('/contrib/', methods=['GET', 'POST'])
+@app.route('/contrib/')
 def contrib():
-    form = ReportForm(request.form)
-    if request.method == 'POST' and form.validate():
-        msg = Message(
-            recipients=[form.email.data],
-            reply_to=form.email.data,
-            bcc=[app.config['REPORT_EMAIL'],
-                 app.config['MAIL_DEFAULT_SENDER']])
-        email_context = {
-            'message': form.message.data,
-            'email': form.email.data
-        }
-        msg.body = render_template('report_email.txt', **email_context)
-        msg.html = render_template('report_email.html', **email_context)
-        msg.subject = "Signalement BAN"
-        mail.send(msg)
-        flash('Votre signalement a bien été envoyé, merci!', 'success')
-        return redirect(url_for('contrib'))
-    return render_template('contrib.html', form=form)
+    return render_template('contrib.html')
 
 
 @app.route('/crowdsourcing/', methods=['GET', 'POST'])

@@ -1,9 +1,0 @@
-Bonjour,
-
-Un signalement a été envoyé via le site adresse.data.gouv.fr:
-
-"""
-{{ message }}
-"""
-
-L'équipe de la Base Adresse Nationale
