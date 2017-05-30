@@ -6,11 +6,9 @@
   "dependencies": {
     "csvtogeocoder-ui": "yohanboniface/csvtogeocoder-ui",
     "leaflet": "^0.7.3",
-    "leaflet-formbuilder": "^0.2.0",
     "leaflet-hash": "^0.2.1",
     "leaflet.photon": "^0.7.0",
-    "papaparse": "^4.1.1",
-    "reqwest": "^1.1.5"
+    "papaparse": "^4.1.1"
   },
   "devDependencies": {},
   "scripts": {
