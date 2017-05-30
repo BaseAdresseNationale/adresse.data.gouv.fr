@@ -1,8 +1,4 @@
-node_modules/
-npm-debug.log
 __pycache__
 *~
-*.sql
-!schema.sql
 adresse/local.py
 venv

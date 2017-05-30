@@ -5,14 +5,12 @@
 ## Pré-requis
 
 * Python 3
-* Node.js >= 4
 
 ## Installation
 
 ```
 pip install -r requirements.txt
 pip install gunicorn
-cd adresse/static && npm install && cd ../..
 ```
 
 ## Lancement
