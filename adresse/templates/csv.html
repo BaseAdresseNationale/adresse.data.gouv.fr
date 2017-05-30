@@ -3,7 +3,7 @@
 {% block body_class %}csv{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='csvtogeocoder-ui/csvtogeocoder.css') }}">
 <div class="wrapper head">
     <div class="row">
         <h1>Géocoder un fichier CSV</h1>
@@ -14,7 +14,7 @@
     <div id="main" class="row"></div>
 </div>
 <script src="https://unpkg.com/papaparse@4.3.2/papaparse.js"></script>
-<script src="{{ url_for('static', filename='node_modules/csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
+<script src="{{ url_for('static', filename='csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
 <script type="text/javascript">
     var onBuild = function (e) {
         CSVToGeocoder.createNode('h2', {className: 'step-title'}, e.container, '4. Paramètres avancés (optionnels)');

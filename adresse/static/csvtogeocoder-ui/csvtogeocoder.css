@@ -1,0 +1,119 @@
+.csvtogeocoder {
+    padding: 20px;
+}
+.csvtogeocoder #holder {
+    width: 90%;
+    margin: 20px auto;
+}
+.csvtogeocoder #holder {
+    border: 1px dashed #ccc;
+    height: 200px;
+    text-align: center;
+    line-height: 200px;
+}
+.csvtogeocoder #availableColumns {
+    padding: 0;
+}
+.csvtogeocoder #chosenColumns,
+.csvtogeocoder #availableColumns {
+    margin: 20px auto;
+}
+.csvtogeocoder #holder.hover { border: 1px dashed #333; }
+.csvtogeocoder #chosenColumns {
+    padding: 0;
+    height: 37px;
+    line-height: 37px;
+    border: 1px dashed #ccc;
+    color: #ccc;
+}
+.csvtogeocoder #chosenColumns:empty:before {
+    content: 'Drag columns here';
+    padding-left: 5px;
+}
+.csvtogeocoder #chosenColumns li,
+.csvtogeocoder #availableColumns li {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    display: inline;
+    padding: 5px 5px 5px 0;;
+    cursor: grab;
+    color: #444;
+    margin-right: 2px;
+}
+.csvtogeocoder #chosenColumns li:before,
+.csvtogeocoder #availableColumns li:before {
+    background-color: #ccc;
+    color: #fff;
+    content: "+";
+    display: inline-block;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 5px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+.csvtogeocoder #chosenColumns li:before {
+    content: '-';
+}
+.csvtogeocoder #chosenColumns.hover { border: 1px dashed #333; }
+.csvtogeocoder #fileInput {display: none;}
+.csvtogeocoder input[type="button"] {
+    display: block;
+    min-width: 200px;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    margin-bottom: 14px;
+    text-align: center;
+    min-height: 56px;
+    line-height: 56px;
+    border-radius: 2px;
+    font-weight: normal;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+.csvtogeocoder input[type="button"]:hover {
+    background-color: #34495e;
+}
+progress {
+  width: 100%;
+}
+.csvtogeocoder .preview {
+    width: 100%;
+    border: 1px solid #999;
+}
+.csvtogeocoder .preview th {
+    background-color: #eee;
+}
+.csvtogeocoder .preview td {
+    text-align: center;
+}
+.csvtogeocoder #helpEncoding {
+    display: none;
+}
+.csvtogeocoder select {
+    display: inline;
+    width: auto;
+}
+.csvtogeocoder .step {
+    display: none;
+}
+.csvtogeocoder .step-title {
+    color: #ccc;
+}
+.csvtogeocoder.active .step-title {
+    color: inherit;
+}
+.csvtogeocoder.active .step {
+    display: block;
+}
+.csvtogeocoder .error {
+    background-color: #F64747;
+    padding: 20px;
+    text-align: center;
+    display: none;
+}
+.csvtogeocoder.error .error {
+    display: block;
+}
