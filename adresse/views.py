@@ -26,14 +26,12 @@ def tools():
     return render_template('tools.html')
 
 
-@app.route('/mapdev/', defaults={'url': app.config['DEVAPI_URL']})
 @app.route('/map/', defaults={'url': app.config['API_URL']})
 def map(url):
     return render_template('map.html', TILE_URL=app.config['TILE_URL'],
                            API_URL=url)
 
 
-@app.route('/csvdev/', defaults={'url': app.config['DEVAPI_URL']})
 @app.route('/csv/', defaults={'url': app.config['API_URL']})
 def csv(url):
     return render_template('csv.html', API_URL=url)
