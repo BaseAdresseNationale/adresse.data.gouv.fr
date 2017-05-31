@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+---
+body_class: contribute
+layout: default
+---
 
-{% block body_class %}contribute{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>Contribuer</h1>
@@ -14,7 +14,7 @@
         <div class="col half prose mwide">
             <h2>Guichet Adresse pour les organismes publics</h2>
             <p>Développé conjointement par l'IGN et La Poste, cet outil est destiné plus particulièrement aux mairies ainsi qu'à certains services territoriaux comme les SDIS.</p>
-            <a href="https://guichet-adresse.ign.fr/login"><img width="80%" src="{{ url_for('static', filename='img/guichet-201605.png') }}" /></a>
+            <a href="https://guichet-adresse.ign.fr/login"><img width="80%" src="/img/guichet-201605.png" /></a>
         </div>
         <div class="col half mwide">
             <h2>Contribution citoyenne</h2>
@@ -23,4 +23,3 @@
         </div>
     </div>
 </div>
-{% endblock content %}

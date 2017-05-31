@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+---
+body_class: cgu
+layout: default
+---
 
-{% block body_class %}cgu{% endblock %}
-
-{% block content %}
 <div class="wrapper">
     <div class="row">
         <div class="col two-third">
@@ -28,7 +28,7 @@
         </div>
         <div class="col third">
             <h2>Nous contacter</h2>
-            <p><a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a><br />
+            <p><a href="mailto:{{ site.email }}">{{ site.email }}</a><br />
             Tél : +33 1 40 15 69 61</p>
 
             <h2>Mentions légales</h2>
@@ -51,4 +51,3 @@
 
     </div>
 </div>
-{% endblock content %}

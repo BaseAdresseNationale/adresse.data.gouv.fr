@@ -3,11 +3,11 @@
 /* ************************************************* */
 @font-face {
     font-family: 'open_sanssemibold';
-    src: url('./font/OpenSans-Semibold-webfont.eot');
-    src: url('./font/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-Semibold-webfont.woff') format('woff'),
-         url('./font/OpenSans-Semibold-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-Semibold-webfont.svg#open_sanssemibold') format('svg');
+    src: url('/font/OpenSans-Semibold-webfont.eot');
+    src: url('/font/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-Semibold-webfont.woff') format('woff'),
+         url('/font/OpenSans-Semibold-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-Semibold-webfont.svg#open_sanssemibold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -15,11 +15,11 @@
 
 @font-face {
     font-family: 'open_sansextrabold_italic';
-    src: url('./font/OpenSans-ExtraBoldItalic-webfont.eot');
-    src: url('./font/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'),
-         url('./font/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-ExtraBoldItalic-webfont.svg#open_sansextrabold_italic') format('svg');
+    src: url('/font/OpenSans-ExtraBoldItalic-webfont.eot');
+    src: url('/font/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'),
+         url('/font/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-ExtraBoldItalic-webfont.svg#open_sansextrabold_italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -27,11 +27,11 @@
 
 @font-face {
     font-family: 'open_sanssemibold_italic';
-    src: url('./font/OpenSans-SemiboldItalic-webfont.eot');
-    src: url('./font/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
-         url('./font/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-SemiboldItalic-webfont.svg#open_sanssemibold_italic') format('svg');
+    src: url('/font/OpenSans-SemiboldItalic-webfont.eot');
+    src: url('/font/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-SemiboldItalic-webfont.woff') format('woff'),
+         url('/font/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-SemiboldItalic-webfont.svg#open_sanssemibold_italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -39,11 +39,11 @@
 
 @font-face {
     font-family: 'open_sansregular';
-    src: url('./font/OpenSans-Regular-webfont.eot');
-    src: url('./font/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-Regular-webfont.woff') format('woff'),
-         url('./font/OpenSans-Regular-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
+    src: url('/font/OpenSans-Regular-webfont.eot');
+    src: url('/font/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-Regular-webfont.woff') format('woff'),
+         url('/font/OpenSans-Regular-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -51,11 +51,11 @@
 
 @font-face {
     font-family: 'open_sanslight';
-    src: url('./font/OpenSans-Light-webfont.eot');
-    src: url('./font/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-Light-webfont.woff') format('woff'),
-         url('./font/OpenSans-Light-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-Light-webfont.svg#open_sanslight') format('svg');
+    src: url('/font/OpenSans-Light-webfont.eot');
+    src: url('/font/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-Light-webfont.woff') format('woff'),
+         url('/font/OpenSans-Light-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-Light-webfont.svg#open_sanslight') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -63,11 +63,11 @@
 
 @font-face {
     font-family: 'open_sanslight_italic';
-    src: url('./font/OpenSans-LightItalic-webfont.eot');
-    src: url('./font/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-LightItalic-webfont.woff') format('woff'),
-         url('./font/OpenSans-LightItalic-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-LightItalic-webfont.svg#open_sanslight_italic') format('svg');
+    src: url('/font/OpenSans-LightItalic-webfont.eot');
+    src: url('/font/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-LightItalic-webfont.woff') format('woff'),
+         url('/font/OpenSans-LightItalic-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-LightItalic-webfont.svg#open_sanslight_italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -75,11 +75,11 @@
 
 @font-face {
     font-family: 'open_sansitalic';
-    src: url('./font/OpenSans-Italic-webfont.eot');
-    src: url('./font/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-Italic-webfont.woff') format('woff'),
-         url('./font/OpenSans-Italic-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
+    src: url('/font/OpenSans-Italic-webfont.eot');
+    src: url('/font/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-Italic-webfont.woff') format('woff'),
+         url('/font/OpenSans-Italic-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-Italic-webfont.svg#open_sansitalic') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -87,11 +87,11 @@
 
 @font-face {
     font-family: 'open_sansextrabold';
-    src: url('./font/OpenSans-ExtraBold-webfont.eot');
-    src: url('./font/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-ExtraBold-webfont.woff') format('woff'),
-         url('./font/OpenSans-ExtraBold-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-ExtraBold-webfont.svg#open_sansextrabold') format('svg');
+    src: url('/font/OpenSans-ExtraBold-webfont.eot');
+    src: url('/font/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-ExtraBold-webfont.woff') format('woff'),
+         url('/font/OpenSans-ExtraBold-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-ExtraBold-webfont.svg#open_sansextrabold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -99,11 +99,11 @@
 
 @font-face {
     font-family: 'open_sansbold';
-    src: url('./font/OpenSans-Bold-webfont.eot');
-    src: url('./font/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-Bold-webfont.woff') format('woff'),
-         url('./font/OpenSans-Bold-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
+    src: url('/font/OpenSans-Bold-webfont.eot');
+    src: url('/font/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-Bold-webfont.woff') format('woff'),
+         url('/font/OpenSans-Bold-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -111,11 +111,11 @@
 
 @font-face {
     font-family: 'open_sansbold_italic';
-    src: url('./font/OpenSans-BoldItalic-webfont.eot');
-    src: url('./font/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('./font/OpenSans-BoldItalic-webfont.woff') format('woff'),
-         url('./font/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
-         url('./font/OpenSans-BoldItalic-webfont.svg#open_sansbold_italic') format('svg');
+    src: url('/font/OpenSans-BoldItalic-webfont.eot');
+    src: url('/font/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/font/OpenSans-BoldItalic-webfont.woff') format('woff'),
+         url('/font/OpenSans-BoldItalic-webfont.ttf') format('truetype'),
+         url('/font/OpenSans-BoldItalic-webfont.svg#open_sansbold_italic') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -397,7 +397,7 @@ header a {
     font-family: 'open_sanslight';
 }
 header h1 a {
-    background-image: url('./img/logo.jpg');
+    background-image: url('/img/logo.jpg');
     background-repeat: no-repeat;
     background-position: left 20px center;
     color: #333;
@@ -410,7 +410,7 @@ footer ul {
 footer .twitter:before {
     width: 20px;
     height: 20px;
-    background-image: url('./img/twitter.png');
+    background-image: url('/img/twitter.png');
     background-position: left center;
     background-size: 20px auto;
     background-repeat: no-repeat;
@@ -425,7 +425,7 @@ footer .twitter:before {
 /* ******************** HOME *********************** */
 /* ************************************************* */
 .home .window {
-    background-image: url('./img/window.png');
+    background-image: url('/img/window.png');
     background-position: top left;
     width: 100%;
     height: 350px;
@@ -510,16 +510,16 @@ footer .twitter:before {
     text-decoration: underline;
 }
 .home .actions .download {
-    background-image: url('./img/download.svg');
+    background-image: url('/img/download.svg');
 }
 .home .actions .contribute {
-    background-image: url('./img/contribute.svg');
+    background-image: url('/img/contribute.svg');
 }
 .home .actions .tools {
-    background-image: url('./img/tools.svg');
+    background-image: url('/img/tools.svg');
 }
 .home .actions .about {
-    background-image: url('./img/about.svg');
+    background-image: url('/img/about.svg');
 }
 .home h2.inter {
     height: 70px;
@@ -575,7 +575,7 @@ sup {
 /* ********************* API *********************** */
 /* ************************************************* */
 .api .head .row {
-    background-image: url('./img/api.svg');
+    background-image: url('/img/api.svg');
 }
 .api .entrypoint h2, .api .entrypoint h3 {
     font-weight: normal;
@@ -617,7 +617,7 @@ sup {
 /* ******************** TOOLS ********************** */
 /* ************************************************* */
 .tools .head .row {
-    background-image: url('./img/tools.svg');
+    background-image: url('/img/tools.svg');
 }
 .tools h2 a {
     color: #333;
@@ -629,13 +629,13 @@ sup {
     padding-left: 70px;
 }
 .tools ul .map {
-    background-image: url('./img/map.svg');
+    background-image: url('/img/map.svg');
 }
 .tools ul .csv {
-    background-image: url('./img/csv-grey.svg');
+    background-image: url('/img/csv-grey.svg');
 }
 .tools ul .api {
-    background-image: url('./img/api-grey.svg');
+    background-image: url('/img/api-grey.svg');
 }
 .tooltip {
     position: fixed;
@@ -725,7 +725,7 @@ ul.photon-autocomplete {
 /* ********************* CSV *********************** */
 /* ************************************************* */
 .csv .head .row {
-    background-image: url('./img/csv.svg');
+    background-image: url('/img/csv.svg');
 }
 .csvtogeocoder #chosenColumns:empty:before {
     content: "Glisser les colonnes ici"!important;
@@ -735,7 +735,7 @@ ul.photon-autocomplete {
 /* ********************* FAQ *********************** */
 /* ************************************************* */
 .faq .head .row {
-    background-image: url('./img/faq.svg');
+    background-image: url('/img/faq.svg');
 }
 
 
@@ -743,7 +743,7 @@ ul.photon-autocomplete {
 /* ******************** ABOUT ********************** */
 /* ************************************************* */
 .about .head .row {
-    background-image: url('./img/about.svg');
+    background-image: url('/img/about.svg');
 }
 
 
@@ -751,7 +751,7 @@ ul.photon-autocomplete {
 /* ********************* FOSS ********************** */
 /* ************************************************* */
 .foss .head .row {
-    background-image: url('./img/copyleft.svg');
+    background-image: url('/img/copyleft.svg');
 }
 
 
@@ -759,7 +759,7 @@ ul.photon-autocomplete {
 /* ******************* DOWNLOAD ******************** */
 /* ************************************************* */
 .download .head .row {
-    background-image: url('./img/download.svg');
+    background-image: url('/img/download.svg');
 }
 .download h2 {
     text-transform: uppercase;
@@ -770,7 +770,7 @@ ul.photon-autocomplete {
 /* ******************** NEWS *********************** */
 /* ************************************************* */
 .news .head .row {
-    background-image: url('./img/news.svg');
+    background-image: url('/img/news.svg');
 }
 
 
@@ -778,7 +778,7 @@ ul.photon-autocomplete {
 /* ***************** Contribute ******************** */
 /* ************************************************* */
 .contribute .head .row {
-    background-image: url('./img/contribute.svg');
+    background-image: url('/img/contribute.svg');
 }
 
 

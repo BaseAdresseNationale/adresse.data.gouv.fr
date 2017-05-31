@@ -3,54 +3,52 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ BASELINE }} - {{ SITE_NAME }}</title>
+        <title>{{ site.baseline }} - {{ site.title }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="description" content="{{ DESCRIPTION }}">
+        <meta name="description" content="{{ site.description }}">
 
         <!-- Twitter Card data -->
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:site" content="{{ TWITTER }}">
-        <meta name="twitter:title" content="{{ SITE_NAME }}, {{ BASELINE }}">
-        <meta name="twitter:description" content="{{ DESCRIPTION }}">
-        <meta name="twitter:image" content="{{ url_for('static', filename='img/logo_marianne_share.jpeg') }}">
+        <meta name="twitter:site" content="{{ site.twitter_id }}">
+        <meta name="twitter:title" content="{{ site.title }}, {{ site.baseline }}">
+        <meta name="twitter:description" content="{{ site.description }}">
+        <meta name="twitter:image" content="{{ site.url }}/img/logo_marianne_share.jpeg">
 
         <!-- Open Graph data -->
-        <meta property="og:title" content="{{ SITE_NAME }}, {{ BASELINE }}">
+        <meta property="og:title" content="{{ site.title }}, {{ site.baseline }}">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="{{ SITE_URL }}">
-        <meta property="og:image" content="{{ url_for('static', filename='img/logo_marianne_share.jpeg') }}">
-        <meta property="og:description" content="{{ DESCRIPTION }}">
-        <meta property="og:SITE_NAME" content="{{ SITE_NAME }}">
+        <meta property="og:url" content="{{ site.url }}">
+        <meta property="og:image" content="{{ site.url }}/img/logo_marianne_share.jpeg">
+        <meta property="og:description" content="{{ site.description }}">
+        <meta property="og:SITE_NAME" content="{{ site.title }}">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css"/>
         <link rel="stylesheet" href="https://unpkg.com/leaflet.photon@0.7.2/leaflet.photon.css"/>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
         <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet-src.js"></script>
         <script src="https://unpkg.com/leaflet.photon@0.7.2/leaflet.photon.js"></script>
-        {% block extrahead %}{% endblock %}
+        <script src="https://unpkg.com/leaflet-hash@0.2.1/leaflet-hash.js"></script>
     </head>
-    <body class="{% block body_class %}{% endblock %}">
-    {% block body %}
+    <body class="{{ page.body_class }}">
         <header class="wrapper">
-            <section><h1><a href="/" class="beta">{{ SITE_NAME }}</a></h1></section>
+            <section><h1><a href="/" class="beta">{{ site.title }}</a></h1></section>
             <section class="menu"><!--
-              --><a class="mwide tthird" href="{{ url_for('about') }}">Infos</a><!--
-              --><a class="mwide tthird" href="{{ url_for('download') }}">Données</a><!--
-              --><a class="mwide tthird" href="{{ url_for('contrib') }}">Contribuer</a><!--
-              --><a class="mwide tthird" href="{{ url_for('tools') }}">Outils</a><!--
-              --><a class="mwide tthird" href="{{ url_for('news') }}">Actu</a><!--
+            --><a class="mwide tthird" href="/about">Infos</a><!--
+            --><a class="mwide tthird" href="/download">Données</a><!--
+            --><a class="mwide tthird" href="/contrib">Contribuer</a><!--
+            --><a class="mwide tthird" href="/tools">Outils</a><!--
+            --><a class="mwide tthird" href="/news">Actu</a><!--
             --></section>
         </header>
         <div class="content">
-            {% block content %}
-            {% endblock content %}
+            {{ content }}
         </div>
         <footer class="wrapper">
             <div class="row">
-                <ul class="col third mwide">{{ SITE_NAME }}
-                    <li><a href="{{ url_for('about') }}">À propos</a></li>
-                    <li><a href="{{ url_for('cgu') }}">Mentions légales et CGU</a></li>
-                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
-                    <li><a href="mailto:{{ CONTACT_EMAIL }}">Contact</a></li>
+                <ul class="col third mwide">{{ site.title }}
+                    <li><a href="/about">À propos</a></li>
+                    <li><a href="/cgu">Mentions légales et CGU</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="mailto:{{ site.email }}">Contact</a></li>
                 </ul>
                 <ul class="col third mwide">Partenaires
                     <li><a href="http://ign.fr/">IGN</a></li>
@@ -59,11 +57,10 @@
                     <li><a href="http://www.modernisation.gouv.fr/">SGMAP</a> / <a href="http://www.etalab.gouv.fr/">Etalab</a></li>
                 </ul>
                 <div class="col third mwide">
-                    <a href="https://twitter.com/{{ TWITTER }}" class="twitter">Suivez-nous sur Twitter</a>
+                    <a href="https://twitter.com/{{ site.twitter_id }}" class="twitter">Suivez-nous sur Twitter</a>
                 </div>
             </div>
         </footer>
-    {% endblock body %}
         <!-- Piwik -->
         <script type="text/javascript">
           var _paq = _paq || [];

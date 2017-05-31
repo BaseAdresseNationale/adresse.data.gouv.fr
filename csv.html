@@ -1,20 +1,20 @@
-{% extends 'base.html' %}
+---
+body_class: csv
+layout: default
+---
 
-{% block body_class %}csv{% endblock %}
-
-{% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='csvtogeocoder-ui/csvtogeocoder.css') }}">
+<link rel="stylesheet" type="text/css" href="/csvtogeocoder-ui/csvtogeocoder.css">
 <div class="wrapper head">
     <div class="row">
         <h1>Géocoder un fichier CSV</h1>
-        <p><strong>{{ SITE_NAME }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
+        <p><strong>{{ site.title }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
     </div>
 </div>
 <div class="wrapper">
     <div id="main" class="row"></div>
 </div>
 <script src="https://unpkg.com/papaparse@4.3.2/papaparse.js"></script>
-<script src="{{ url_for('static', filename='csvtogeocoder-ui/csvtogeocoder.js') }}"></script>
+<script src="/csvtogeocoder-ui/csvtogeocoder.js"></script>
 <script type="text/javascript">
     var onBuild = function (e) {
         CSVToGeocoder.createNode('h2', {className: 'step-title'}, e.container, '4. Paramètres avancés (optionnels)');
@@ -51,7 +51,7 @@
     };
     CSVToGeocoder({
         container: '#main',
-        postURL: '{{ API_URL }}/search/csv/',
+        postURL: '{{ site.api_url }}/search/csv/',
         encodings: ['utf-8', 'iso-8859-1', 'windows-1252'],
         onBuild: onBuild,
         onSubmit: onSubmit,
@@ -72,4 +72,3 @@
         }
     });
 </script>
-{% endblock content %}

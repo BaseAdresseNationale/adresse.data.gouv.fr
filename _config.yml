@@ -1,0 +1,10 @@
+# Site settings
+title: adresse.data.gouv.fr
+email: adresse@data.gouv.fr
+baseline: "Un référentiel national ouvert\u2009: de l'adresse à la coordonnée géographique"
+description: Site officiel de la Base Adresse Nationale
+url: https://adresse.data.gouv.fr
+twitter_id: "@BaseAdresse"
+api_url: https://api-adresse.data.gouv.fr
+api_gestion_url: https://ban-dev.data.gouv.fr
+tiles_url: //wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg

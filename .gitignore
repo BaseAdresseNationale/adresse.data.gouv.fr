@@ -1,4 +1,14 @@
-__pycache__
-*~
-adresse/local.py
-venv
+# Jekyll
+_site
+.sass-cache
+.jekyll-metadata
+
+# OSX
+.DS_Store
+
+# Bundler
+.bundle
+Gemfile.lock
+
+# Ruby
+.ruby-gemset

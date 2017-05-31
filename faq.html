@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+---
+body_class: faq
+layout: default
+---
 
-{% block body_class %}faq{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>Foire aux questions</h1>
-        <p>En savoir plus sur <strong>{{ SITE_NAME }}</strong>.</p>
+        <p>En savoir plus sur <strong>{{ site.title }}</strong>.</p>
     </div>
 </div>
 <div class="wrapper">
@@ -22,7 +22,7 @@
             <li>ainsi que pour contribuer à l'amélioration de son contenu.</li>
         </ul>
         <h3>Qui gère ce site ?</h3>
-        <p>Le site {{ SITE_NAME }} est géré par la mission Etalab du SGMAP.</p>
+        <p>Le site {{ site.title }} est géré par la mission Etalab du SGMAP.</p>
 
         <h2>Les données</h2>
 
@@ -35,9 +35,8 @@
     </div>
     <div class="col half">
         <h2>Quelle est la licence des données proposées par l'API de géocodage ?</h2>
-        <p>Les données utilisées par <a href="{{ url_for('api') }}">l'API disponible sur ce site</a> sont celles sous licence ODbL.</p>
+        <p>Les données utilisées par <a href="/api">l'API disponible sur ce site</a> sont celles sous licence ODbL.</p>
 
         </div>
     </div>
 </div>
-{% endblock content %}

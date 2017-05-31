@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+---
+body_class: download
+layout: default
+---
 
-{% block body_class %}download{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>Données brutes</h1>
-        <p><strong>{{ SITE_NAME }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
+        <p><strong>{{ site.title }}</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
         <p>Les données listées ci-dessous sont issues du rapprochement des données & traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
     </div>
 </div>
@@ -38,7 +38,7 @@
               <li>vous cédez à l'IGN et à La Poste, et à titre gratuit, les droits d'auteur et de propriété industrielle sur les bases de données dérivées.</li>
             </ul>
 
-            <p>Pour plus de renseignements, consultez <a href="{{ url_for('static', filename='pdf/BAN Licence de repartage.pdf') }}">le texte de la licence</a>.</p>
+            <p>Pour plus de renseignements, consultez <a href="/pdf/BAN Licence de repartage.pdf">le texte de la licence</a>.</p>
 
         </div>
 
@@ -46,11 +46,9 @@
 
             <h3>Données</h3>
 
-            <p>Pour connaître précisement le contenu de ces données, <a href="{{ url_for('static', filename='pdf/Description du contenu du produit gratuit issu de la Base Adresse Nationale.pdf') }}">consultez le descriptif des données</a>.</p>
+            <p>Pour connaître précisement le contenu de ces données, <a href="/pdf/Description du contenu du produit gratuit issu de la Base Adresse Nationale.pdf">consultez le descriptif des données</a>.</p>
 
             <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-
-            {% if delivery_date %}<p>Date de dernière livraison: {{ delivery_date.strftime('%d/%m/%Y') }}</p>{% endif %}
 
             <a href="/data/" class="button">Accéder aux données</a>
         </div>
@@ -107,9 +105,8 @@
           par les partenaires :</p>
 
         <ul class="partners">
-            <li><a href="http://professionnels.ign.fr/pointadresse"><img alt="IGN" src="{{ url_for('static', filename='img/IGN.jpg') }}" /></a></li>
-            <li><a href="http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique"><img alt="La Poste" src="{{ url_for('static', filename='img/laposte.jpg') }}" /></a></li>
+            <li><a href="http://professionnels.ign.fr/pointadresse"><img alt="IGN" src="/img/IGN.jpg" /></a></li>
+            <li><a href="http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique"><img alt="La Poste" src="/img/laposte.jpg" /></a></li>
         </ul>
     </div>
 </div>
-{% endblock content %}

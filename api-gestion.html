@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+---
+body_class: api
+layout: default
+---
 
-{% block body_class %}api{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>API</h1>
-        <p>Avec l'API d'<strong>{{ SITE_NAME }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
+        <p>Avec l'API d'<strong>{{ site.title }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
             <p>Liste l'ensemble des points d'entrée de la BAN.</p>
         </div>
         <div class="col two-third details">
-            <pre>http 'http:{{ CRUD_API_URL }}/'</pre>
+            <pre>http '{{ api_gestion_url }}/'</pre>
             <p>Le retour correspond à un json contenant les différents points d'entrée de l'API:</p>
             <pre>
 {
@@ -2078,4 +2078,3 @@
         </div>
     </div>
 </div>
-{% endblock content %}

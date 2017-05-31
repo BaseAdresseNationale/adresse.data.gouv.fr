@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+---
+body_class: news
+layout: default
+---
 
-{% block body_class %}news{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>Actualités</h1>
@@ -32,26 +32,26 @@
             <p>Le Comité de Pilotage de la BAN s'est tenu dans les locaux de la DINSIC. Le compte-rendu sera prochainement disponible...</p>
 
             <h3>30 septembre: Réunion du Comité de Pilotage BAN</h3>
-            <p><a href="/static/20150930-Cpte rendu COPIL BAN (validé).pdf">Compte-rendu disponible (format PDF)</a> et <a href="/static/20150930-annexes-COPIL.zip">documents en annexe</a></p>
+            <p><a href="/pdf/ban-copil-2015-09-30-compte-rendu.pdf">Compte-rendu disponible (format PDF)</a> et <a href="/pdf/ban-copil-2015-09-30-annexes.pdf">documents en annexe</a></p>
 
             <h3>QBAN(O): Un plugin BAN pour géocoder vos données depuis QGis</h3>
             <p>QBAN(O) permet de géolocaliser vos adresses issues d'un fichier excel ou CSV. Il se sert de la base BAN (Base Adresse Nationale).
             <br>Il est disponible gratuitement sur: <a href="https://plugins.qgis.org/plugins/QBano/">https://plugins.qgis.org/plugins/QBano/</a></p>
 
-            <h3>3 juillet : Amélioration du <a href="{{ url_for('csv') }}">géocodage de fichiers CSV</a></h3>
+            <h3>3 juillet : Amélioration du <a href="/csv">géocodage de fichiers CSV</a></h3>
             <p>Il est désormais possible d'indiquer les colonnes contenant le code INSEE ou le code POSTAL.
             <br>Ceci permet au géocodage de chaque ligne d'être plus pertinent en limitant la recherche à la commune ou au code postal correspondant.
-            <br>La <a href="{{ url_for('api') }}">documentation de l'API</a> a été mise à jour.</p>
+            <br>La <a href="/api">documentation de l'API</a> a été mise à jour.</p>
 
             <h3>11 juin : Modification de l'API</h3>
-            <p>L'id de l'adresse trouvée est désormais retournée par <a href="{{ url_for('api') }}">l'API</a> (elle correspond actuellement à l'identifiant IGN).</p>
+            <p>L'id de l'adresse trouvée est désormais retournée par <a href="/api">l'API</a> (elle correspond actuellement à l'identifiant IGN).</p>
 
             <h3>7 juin : Mise à jour des données BAN</h3>
             <p>Les données téléchargeables en licence gratuite de repartage ont été mises à jour, DOM inclus.</p>
             <p>Les données BAN sont désormais mises à jour chaque début de semaine. Seuls les retards seront désormais signalés sur cette page.</p>
 
             <h3>4 juin : Page actualités/événements + formulaire de signalement</h3>
-            <p>Ajout de la page actualités/événements, ainsi que du formulaire de <a href="{{ url_for('contrib') }}">signalement</a>.</p>
+            <p>Ajout de la page actualités/événements, ainsi que du formulaire de <a href="/contrib">signalement</a>.</p>
 
             <h3>1<sup>er</sup> juin : Mise à jour des données BAN</h3>
             <p>Les données téléchargeables en licence gratuite de repartage ont été mises à jour, DOM inclus.</p>
@@ -60,7 +60,7 @@
             <p>Les données téléchargeables en licence gratuite de repartage ont été mises à jour.</p>
 
             <h3>27 mai : Gestion des codes INSEE par l'API</h3>
-            <p>L'<a href="{{ url_for('api') }}">API</a> de géocodage retourne désormais le code INSEE dans ses résultats et permet aussi de limiter les recherches.</p>
+            <p>L'<a href="/api">API</a> de géocodage retourne désormais le code INSEE dans ses résultats et permet aussi de limiter les recherches.</p>
 
             <h3>19 mai : BAN Tour à Dijon</h3>
             <p>4<sup>e</sup> étape du BAN organisée par GéoBourgogne. Captation vidéo disponible sur <a href="http://livestream.com/accounts/3589765/events/4006714">http://livestream.com/accounts/3589765/events/4006714</a></p>
@@ -82,7 +82,7 @@
               <li>11 mai 2016: openlab #4</li>
             </ul>
             <p>&nbsp;</p>
-            
+
             <h3>Dernières étapes du BAN Tour</h3>
             <ul>
               <li>le 2 décembre à Lyon: <a href="http://www.interconnectes.com/ban-tour/">Forum des interconnectés</a></li>
@@ -94,4 +94,3 @@
         </div>
     </div>
 </div>
-{% endblock content %}

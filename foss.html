@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+---
+body_class: foss
+layout: default
+---
 
-{% block body_class %}foss{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>Logiciel libre</h1>
-        <p><strong>{{ SITE_NAME }}</strong> est entièrement bâti sur du code libre.</p>
+        <p><strong>{{ site.title }}</strong> est entièrement bâti sur du code libre.</p>
     </div>
 </div>
 <div class="wrapper">
@@ -19,4 +19,3 @@
         </ul>
     </div>
 </div>
-{% endblock content %}

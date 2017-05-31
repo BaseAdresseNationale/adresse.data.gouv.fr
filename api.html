@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+---
+body_class: api
+layout: default
+---
 
-{% block body_class %}api{% endblock %}
-
-{% block content %}
 <div class="wrapper head">
     <div class="row">
         <h1>API</h1>
-        <p>Avec l'API d'<strong>{{ SITE_NAME }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
+        <p>Avec l'API d'<strong>{{ site.title }}</strong>, embarquez directement les données ouvertes dans votre application.</p>
     </div>
 </div>
 
@@ -24,16 +24,16 @@
         </div>
         <div class="col two-third details">
             <p>Utiliser le paramètre <b>q</b> pour faire une recherche plein texte:</p>
-            <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port'</pre>
+            <pre>http '{{ site.api_url }}/search/?q=8 bd du port'</pre>
             <p>Avec <b>limit</b> on peut contrôler le nombre d'éléments retournés:</p>
-            <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;limit=15'</pre>
+            <pre>http '{{ site.api_url }}/search/?q=8 bd du port&amp;limit=15'</pre>
             <p>Avec <b>autocomplete</b> on peut désactiver les traitements d'auto-complétion:</p>
-            <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;autocomplete=0'</pre>
+            <pre>http '{{ site.api_url }}/search/?q=8 bd du port&amp;autocomplete=0'</pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
-            <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
+            <pre>http '{{ site.api_url }}/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
             <p>Les filtres <b>type</b>, <b>postcode</b> (code Postal) et <b>citycode</b> (code INSEE) permettent de restreindre la recherche:</p>
-            <pre>http 'http:{{ API_URL }}/search/?q=8 bd du port&amp;postcode=44380'</pre>
-            <pre>http 'http:{{ API_URL }}/search/?q=paris&amp;type=street'</pre>
+            <pre>http '{{ site.api_url }}/search/?q=8 bd du port&amp;postcode=44380'</pre>
+            <pre>http '{{ site.api_url }}/search/?q=paris&amp;type=street'</pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href="https://github.com/yohanboniface/geocodejson-spec">GeoCodeJSON</a>:</p>
 <pre>{
 	"attribution": "BAN",
@@ -106,7 +106,7 @@
             	<li><em>label</em>&nbsp;: libellé complet de l'adresse</li>
             </ul>
         </div>
-    </div>        
+    </div>
 </div>
 <div class="wrapper entrypoint" id="reverse">
     <div class="row">
@@ -116,9 +116,9 @@
         </div>
         <div class="col two-third details">
             <p>Les paramètres <b>lat</b> et <b>lon</b> sont obligatoires:</p>
-            <pre>http 'http:{{ API_URL }}/reverse/?lon=2.37&amp;lat=48.357'</pre>
+            <pre>http '{{ site.api_url }}/reverse/?lon=2.37&amp;lat=48.357'</pre>
             <p>Le paramètre <b>type</b> permet forcer le type de retour:</p>
-            <pre>http 'http:{{ API_URL }}/reverse/?lon=2.37&amp;lat=48.357&amp;type=street'</pre>
+            <pre>http '{{ site.api_url }}/reverse/?lon=2.37&amp;lat=48.357&amp;type=street'</pre>
             <p>Même format de réponse que pour le point d'entrée <a href="#search"><b>/search/</b></a>.</p>
         </div>
     </div>
@@ -131,12 +131,12 @@
         </div>
         <div class="col two-third details">
             <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre <b>data</b>:</p>
-            <pre>http --timeout 600 -f POST http:{{ API_URL }}/search/csv/ data@path/to/file.csv</pre>
+            <pre>http --timeout 600 -f POST {{ site.api_url }}/search/csv/ data@path/to/file.csv</pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l'adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
-            <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
+            <pre>http -f POST {{ site.api_url }}/search/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
             <p>Il est possible de préciser le nom d'une colonne contenant le code INSEE ou le code Postal pour limiter les recherches, exemple :</p>
-            <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' citycode='ma_colonne_code_insee' data@path/to/file.csv</pre>
-            <pre>http -f POST http:{{ API_URL }}/search/csv/ columns='voie' columns='ville' postcode='colonne_code_postal' data@path/to/file.csv</pre>
+            <pre>http -f POST {{ site.api_url }}/search/csv/ columns='voie' columns='ville' citycode='ma_colonne_code_insee' data@path/to/file.csv</pre>
+            <pre>http -f POST {{ site.api_url }}/search/csv/ columns='voie' columns='ville' postcode='colonne_code_postal' data@path/to/file.csv</pre>
         </div>
     </div>
 </div>
@@ -148,8 +148,7 @@
         </div>
         <div class="col two-third details">
             <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre <b>data</b>. Il doit contenir les colonnes <b>latitude</b> (ou <em>lat</em>) et <b>longitude</b> (ou <em>lon</em> ou <em>lng</em>).</p>
-            <pre>http --timeout 600 -f POST http:{{ API_URL }}/reverse/csv/ data@path/to/file.csv</pre>
+            <pre>http --timeout 600 -f POST {{ site.api_url }}/reverse/csv/ data@path/to/file.csv</pre>
         </div>
     </div>
 </div>
-{% endblock content %}
