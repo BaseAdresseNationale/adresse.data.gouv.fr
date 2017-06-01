@@ -397,9 +397,10 @@ header a {
     font-family: 'open_sanslight';
 }
 header h1 a {
-    background-image: url('/img/logo.jpg');
+    background-image: url('/img/marianne.svg');
     background-repeat: no-repeat;
     background-position: left 20px center;
+    background-size: contain;
     color: #333;
     padding-left: 140px;
 }
