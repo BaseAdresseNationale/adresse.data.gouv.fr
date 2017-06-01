@@ -8,12 +8,12 @@ Un référentiel national ouvert : de l'adresse à la coordonnée géographiqu
 ```bash
 brew install ruby
 gem install bundler
+bundle install
 ```
 
 ### Lancement du serveur
 
 ```bash
-bundle install
 bundle exec jekyll serve
 ```
 
