@@ -44,7 +44,7 @@ var photonControlOptions = {
     formatResult: formatResult,
     noResultLabel: 'Aucun résultat',
     feedbackLabel: 'Signaler',
-    feedbackEmail: 'adresses@data.gouv.fr',
+    feedbackEmail: 'adresse@data.gouv.fr',
     minChar: function (val) {
         return SHORT_CITY_NAMES.indexOf(val) !== -1 || val.length >= 3;
     },
