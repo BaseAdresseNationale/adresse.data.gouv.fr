@@ -1,9 +1,20 @@
+import React from 'react'
 import Page from '../layouts/main'
 
-import LeafletMap from '../components/map'
+let LeafletMap
 
-export default () => (
-  <Page>
-    <LeafletMap />
-  </Page>
-)
+class Map extends React.Component {
+  componentDidMount() {
+    LeafletMap = require('../components/map').default
+    this.forceUpdate()
+  }
+
+  render() {
+    if (LeafletMap) {
+      return <Page><LeafletMap /></Page>
+    }
+    return <Page />
+  }
+}
+
+export default Map
