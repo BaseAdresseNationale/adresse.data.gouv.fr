@@ -16,7 +16,7 @@ const Table = ({csv}) => {
         return (
           <div key={col}>
             <div className='title box' alt={col}>{col}</div>
-            {ligns.map(lign => <div key={`${col} - ${lign}`} className='lign box'>{lign[idx]}</div>)}
+            {ligns.map(lign => <div key={`${col} - ${lign}`} className='row box'>{lign[idx]}</div>)}
           </div>
         )
       })}
@@ -48,7 +48,7 @@ const Table = ({csv}) => {
           background-color: ${theme.colors.lightGrey};
         }
 
-        .lign {
+        .row {
         }
         `}</style>
     </div>
