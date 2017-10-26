@@ -1,0 +1,103 @@
+version: 2
+
+defaults:
+  workspace_root: &workspace_root
+    ~/cadastredatagouv
+
+  container: &default_container
+    working_directory: *workspace_root
+    docker:
+      - image: circleci/node:8
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      name: Restore node_modules cache
+      keys:
+        - v1-cadastredatagouv-node-{{ checksum "yarn.lock" }}
+        - v1-cadastredatagouv-node-
+
+jobs:
+  install:
+    <<: *default_container
+    steps:
+      - checkout
+
+      - restore_cache:
+          name: Restore yarn cache
+          keys:
+            - v1-cadastredatagouv-yarn-{{ checksum "yarn.lock" }}
+            - v1-cadastredatagouv-yarn-
+
+      - *restore_node_modules
+
+      - run:
+          name: Install dependencies
+          command: yarn
+
+      - save_cache:
+          name: Save yarn cache
+          key: v1-cadastredatagouv-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn/
+
+      - save_cache:
+          name: Save node_modules cache
+          key: v1-cadastredatagouv-node-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+
+      - run:
+          name: Remove node_modules to cleanup workspace
+          command: rm -r node_modules/
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - ./
+
+  lint:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - run:
+          name: Lint JavaScript
+          command: yarn lint
+
+  build:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - run:
+          name: Build output bundles
+          command: yarn build
+
+      - store_artifacts:
+          name: Store build bundle
+          path: .next/app.js
+
+      - store_artifacts:
+          name: Store build pages bundles
+          path: .next/bundles
+
+workflows:
+  version: 2
+
+  build_test_deploy:
+    jobs:
+      - install
+
+      - build:
+          requires:
+            - install
+
+      - lint:
+          requires:
+            - install
