@@ -57,13 +57,13 @@ class Csv extends React.Component {
     }
   }
 
-  addColumn = (column) => {
+  addColumn(column) {
     const columns = [...this.state.columns]
     columns.push(column)
     this.setState({columns})
   }
 
-  removeColumn = (column) => {
+  removeColumn(column) {
     const columns = [...this.state.columns.filter(col => col !== column)]
     this.setState({columns})
   }
