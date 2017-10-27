@@ -13,13 +13,6 @@ const Footer = () => (
         </ul>
       </div>
       <ul className='footer__links'>
-        <li><h2>Partenaires</h2></li>
-        <li><a href='http://ign.fr/'>IGN</a></li>
-        <li><a href='http://www.laposte.fr/'>La Poste</a></li>
-        <li><a href='http://openstreetmap.fr/'>OpenStreetMap France</a></li>
-        <li><a href='http://www.modernisation.gouv.fr/'>SGMAP / Etalab</a></li>
-      </ul>
-      <ul className='footer__links'>
         <li><h2>adresse.data.gouv.fr</h2></li>
         <li><a href='/about'>À propos</a></li>
         <li><a href='/cgu'>Mentions légales et CGU</a></li>
@@ -41,6 +34,10 @@ const Footer = () => (
         justify-content: space-around;
         align-items: center;
         flex-wrap: wrap;
+      }
+
+      .footer__logo img {
+        width: 160px;
       }
 
       .footer ul {
