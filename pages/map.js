@@ -1,19 +1,12 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Page from '../layouts/main'
 
-let LeafletMap
+const LeafletMap = dynamic(import('../components/map'), { ssr: false })
 
 class Map extends React.Component {
-  componentDidMount() {
-    LeafletMap = require('../components/map').default
-    this.forceUpdate()
-  }
-
   render() {
-    if (LeafletMap) {
-      return <Page><LeafletMap /></Page>
-    }
-    return <Page />
+    return <Page><LeafletMap /></Page>
   }
 }
 

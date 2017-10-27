@@ -8,7 +8,7 @@ const position = [48.72568, -3.985908]
 class LeafletMap extends React.Component {
   render() {
     return (
-      <div id='map'>
+      <div>
         <Map center={position} zoom={13}>
           <TileLayer
             url='//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg'
@@ -23,27 +23,27 @@ class LeafletMap extends React.Component {
         <style dangerouslySetInnerHTML={{__html: mapStyle}} />
 
         <style jsx>{`
-          #map {
+          div {
             width: 100%;
-            position: absolute;
-            top: 100px;
+            position: fixed;
+            top: 70px;
             bottom: 0;
             left: 0;
             right: 0;
           }
 
-          #map .photon-input {
+          div :global(.leaflet-container) {
+            height: 100%;
+          }
+
+          div :global(.photon-input) {
             width: 400px;
           }
 
-          #map .leaflet-right {
+          div :global(.leaflet-right) {
             right: calc(50% - 200px);
           }
-
-          #map footer {
-            display: none;
-          }
-          `}</style>
+        `}</style>
       </div>
     )
   }
