@@ -4,10 +4,10 @@ import Page from '../layouts/main'
 
 const LeafletMap = dynamic(import('../components/map'), { ssr: false })
 
-class Map extends React.Component {
-  render() {
-    return <Page><LeafletMap /></Page>
-  }
-}
+const Map = () => (
+  <Page showFooter={false}>
+    <LeafletMap />
+  </Page>
+)
 
 export default Map

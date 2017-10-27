@@ -18,14 +18,14 @@ class Layout extends React.Component {
   }
 
   render() {
-    const {children} = this.props
+    const {children, showFooter} = this.props
 
     return (
       <div>
         <Meta />
         <Header />
-        { children }
-        <Footer />
+        {children}
+        {showFooter && <Footer />}
       </div>
     )
   }
@@ -35,11 +35,13 @@ Layout.propTypes = {
   router: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }).isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
+  showFooter: PropTypes.bool
 }
 
 Layout.defaultProps = {
-  children: null
+  children: null,
+  showFooter: true
 }
 
 export default withRouter(Layout)
