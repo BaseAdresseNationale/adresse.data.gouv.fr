@@ -26,7 +26,7 @@ class Csv extends React.Component {
     this.setState({
       file: [],
       columns: [],
-      csv: null,
+      csv: null
     })
   }
 
@@ -87,7 +87,7 @@ class Csv extends React.Component {
               <div>
                 <div id='preview'>
                   <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-                  <Table csv={csv} />
+                  <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />
                 </div>
                 <div>
                   <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>

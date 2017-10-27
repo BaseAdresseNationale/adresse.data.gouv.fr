@@ -1,62 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../styles/theme'
-
-const Table = ({csv}) => {
-  if (!csv) {
-    return null
-  }
-
-  const columns = csv.data[0]
-  const ligns = csv.data.slice(1, 10)
+const Table2 = ({headers, rows}) => {
   return (
-    <div className='table'>
-      {columns.map((col, idx) => {
-        return (
-          <div key={col}>
-            <div className='title box' alt={col}>{col}</div>
-            {ligns.map(lign => <div key={`${col} - ${lign}`} className='row box'>{lign[idx]}</div>)}
-          </div>
-        )
-      })}
+    <table>
+      <tr>
+        {headers.map(header => <th key={header}>{header}</th>)}
+      </tr>
+      {rows.map((row, idx) => (
+        <tr key={`col-${idx}`}>
+          {row.map((item, index) => <th key={`$col-${idx}-${index}`}>{item}</th>)}
+        </tr>
+      ))}
       <style jsx>{`
-        .table {
-          display: flex;
-          overflow-y: scroll;
-          border: 1px ${theme.colors.lightGrey} solid;
-        }
+          table, th, td {
+            border: 1px solid whitesmoke;
+            overflow: scroll;
+          }
 
-        .box {
-          padding: 1em;
-          margin-right: 0.3em;
-          max-width: 120px;
-          min-height: 80px;
-          max-height: 80px;
-          text-align: center;
-          overflow: auto;
-        }
-
-        .box:hover {
-          overflow: visible;
-          background-color: ${theme.colors.darkGrey};
-          max-width: none;
-          max-height: none;
-        }
-
-        .title {
-          background-color: ${theme.colors.lightGrey};
-        }
-
-        .row {
-        }
-        `}</style>
-    </div>
+          th {
+            padding: 1em;
+          }
+          `}</style>
+    </table>
   )
 }
 
-Table.propTypes = {
-  csv: PropTypes.object.isRequired
+Table2.propTypes = {
+  headers: PropTypes.array.isRequired,
+  rows: PropTypes.array.isRequired
 }
 
-export default Table
+export default Table2
