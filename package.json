@@ -24,6 +24,7 @@
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
+    "babel-plugin-inline-import": "^2.0.6",
     "eslint-config-xo-react": "^0.13.0",
     "eslint-plugin-react": "^7.4.0",
     "xo": "^0.18.2"

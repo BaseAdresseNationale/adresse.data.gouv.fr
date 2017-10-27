@@ -1,6 +1,8 @@
 import React from 'react'
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet'
 
+import mapStyle from 'leaflet/dist/leaflet.css'
+
 const position = [48.72568, -3.985908]
 
 class LeafletMap extends React.Component {
@@ -17,6 +19,9 @@ class LeafletMap extends React.Component {
             </Popup>
           </Marker>
         </Map>
+
+        <style dangerouslySetInnerHTML={{__html: mapStyle}} />
+
         <style jsx>{`
           #map {
             width: 100%;
