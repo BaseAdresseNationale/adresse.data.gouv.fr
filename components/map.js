@@ -26,7 +26,7 @@ class LeafletMap extends React.Component {
           div {
             width: 100%;
             position: fixed;
-            top: 70px;
+            top: 74px;
             bottom: 0;
             left: 0;
             right: 0;
