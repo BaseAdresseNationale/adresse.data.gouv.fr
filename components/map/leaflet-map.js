@@ -1,23 +1,23 @@
 import React from 'react'
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet'
+import PropTypes from 'prop-types'
+import L from 'leaflet'
+import {Map, TileLayer, Marker} from 'react-leaflet'
 
 import mapStyle from 'leaflet/dist/leaflet.css'
 
-const position = [48.72568, -3.985908]
-
 class LeafletMap extends React.Component {
   render() {
+    const {position, zoom} = this.props
+    const iconUrl = '../../static/images/map/marker-icon.png'
+
     return (
       <div>
-        <Map center={position} zoom={13}>
+        <Map center={position} zoom={zoom}>
           <TileLayer
             url='//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg'
             attribution='Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL' />
-          <Marker position={position}>
-            <Popup>
-              <span>A pretty CSS3 popup.<br />Easily customizable.</span>
-            </Popup>
-          </Marker>
+
+          <Marker position={position} icon={L.icon({iconUrl})} />
         </Map>
 
         <style dangerouslySetInnerHTML={{__html: mapStyle}} />
@@ -43,10 +43,27 @@ class LeafletMap extends React.Component {
           div :global(.leaflet-right) {
             right: calc(50% - 200px);
           }
+
+          @media (max-width: 550px) {
+            div {
+              width: 100%;
+              top: 164px;
+            }
+          }
         `}</style>
       </div>
     )
   }
+}
+
+LeafletMap.propTypes = {
+  position: PropTypes.array,
+  zoom: PropTypes.number
+}
+
+LeafletMap.defaultProps = {
+  position: [48.72568, -3.985908],
+  zoom: 13
 }
 
 export default LeafletMap
