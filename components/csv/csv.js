@@ -48,8 +48,7 @@ class Csv extends React.Component {
       this.setState({
         error: 'Ce fichier est trop volumineux.'
       }, this.resetState())
-    }
-    else {
+    } else {
       this.setState({
         file,
         error: null
@@ -94,8 +93,8 @@ class Csv extends React.Component {
                   <ColumnsSelect
                     columns={csv.data[0]}
                     selectedColumns={columns}
-                    onAdd={this.addColumn}
-                    onRemove={this.removeColumn} />
+                    onAdd={column => this.addColumn(column)}
+                    onRemove={column => this.removeColumn(column)} />
                 </div>
                 <Geocoder file={file[0]} columns={columns} />
               </div>
