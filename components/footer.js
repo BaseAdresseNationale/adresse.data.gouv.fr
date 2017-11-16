@@ -6,10 +6,10 @@ const Footer = () => (
       <div className='footer__logo'>
         <img src='static/images/logos/etalab.svg' />
         <ul className='footer__social'>
-          <li><a href='https://www.twitter.com/etalab'><img src='static/images/medias/twitter.svg' alt='Twitter' /></a></li>
-          <li><a href='https://www.github.com/etalab'><img src='static/images/medias/github.svg' alt='Github' /></a></li>
-          <li><a href='https://www.facebook.com/etalab'><img src='static/images/medias/facebook.svg' alt='Facebook' /></a></li>
-          <li><a href='mailto:info@data.gouv.fr'><img src='static/images/medias/envelop.svg' alt='Contact' /></a></li>
+          <li><a href='https://twitter.com/AdresseDataGouv'><img src='static/images/medias/twitter.svg' alt='Twitter' /></a></li>
+          <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><img src='static/images/medias/github.svg' alt='Github' /></a></li>
+          <li><a href='https://blog.geo.data.gouv.fr'><img src='static/images/medias/medium.svg' alt='Medium' /></a></li>
+          <li><a href='mailto:contact@adresse.data.gouv.fr'><img src='static/images/medias/envelop.svg' alt='Contact' /></a></li>
         </ul>
       </div>
       <ul className='footer__links'>
