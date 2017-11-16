@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import 'whatwg-fetch'
 
 import Button from '../button'
 import Loader from '../loader'

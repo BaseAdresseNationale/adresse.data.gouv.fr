@@ -26,7 +26,7 @@ class Layout extends React.Component {
         <Header />
         {children}
         {showFooter && <Footer />}
-        <script src='https://cdn.polyfill.io/v2/polyfill.min@.js?features=default,modernizr:es6string,modernizr:es6array,es7,fetch' />
+        <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.prototype.includes,Promise,fetch' />
       </div>
     )
   }
