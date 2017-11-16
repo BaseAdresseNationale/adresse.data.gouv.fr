@@ -15,7 +15,7 @@ const Section = ({title, subtitle, children, background, centered}) => (
 
     <style jsx>{`
       section {
-        padding: 6em 0;
+        padding: 3em 0;
         ${centered && 'text-align: center;'}
       }
 
