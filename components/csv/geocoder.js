@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import 'whatwg-fetch'
 
-import theme from '../../styles/theme'
-
 import Button from '../button'
 import Loader from '../loader'
 
