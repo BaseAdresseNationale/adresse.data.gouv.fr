@@ -62,7 +62,7 @@ LeafletMap.propTypes = {
 }
 
 LeafletMap.defaultProps = {
-  position: [48.72568, -3.985908],
+  position: [48.8583701, 2.2944813],
   zoom: 13
 }
 

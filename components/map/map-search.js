@@ -48,8 +48,6 @@ class MapSearch extends React.Component {
       <div>
         <SearchInput value={value} features={features} loading={loading} search={input => this.updateValue(input)} handleSelect={feature => this.selectFeature(feature)} />
         <LeafletMap position={selected ? selected.geometry.coordinates.reverse() : undefined} />
-        <style jsx>{`
-          `}</style>
       </div>
     )
   }
