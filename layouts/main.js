@@ -24,8 +24,24 @@ class Layout extends React.Component {
       <div>
         <Meta />
         <Header />
-        {children}
+        <main>
+          {children}
+        </main>
         {showFooter && <Footer />}
+
+        <style jsx>{`
+          div {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fff;
+          }
+
+          main {
+            flex: 1;
+          }
+        `}</style>
+
         <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.prototype.includes,Promise,fetch' />
       </div>
     )
