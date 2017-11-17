@@ -49,9 +49,8 @@ class Geocoder extends React.Component {
     .then(response => {
       if (response.status === 200) {
         return response.blob()
-      } else {
-        throw new Error(response.statusText)
       }
+      throw new Error(response.statusText)
     })
     .then(myBlob => {
       this.setState({
@@ -68,7 +67,7 @@ class Geocoder extends React.Component {
   }
 
   render() {
-    const {url, status, error} = this.state
+    const {url, status, error, file} = this.state
     return (
       <div className='geocoder'>
         {!status && <Button onClick={() => this.geocodage()}>Lancer le géocodage</Button>}
@@ -79,7 +78,7 @@ class Geocoder extends React.Component {
             </div>
           </Button>}
         {url &&
-          <a href={url} download>
+          <a href={url} download={geocodedFileName(file.name)}>
             <Button>Télécharger</Button>
           </a>
         }
@@ -106,6 +105,13 @@ class Geocoder extends React.Component {
 Geocoder.propTypes = {
   file: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired
+}
+
+function geocodedFileName(originalFileName = 'file') {
+  if (originalFileName.toLowerCase().endsWith('.csv')) {
+    originalFileName = originalFileName.substr(0, originalFileName.length - 4)
+  }
+  return originalFileName + '.geocoded.csv'
 }
 
 export default Geocoder

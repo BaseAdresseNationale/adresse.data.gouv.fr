@@ -42,7 +42,7 @@ class Layout extends React.Component {
           }
         `}</style>
 
-        <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.prototype.includes,Promise,fetch' />
+        <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.prototype.includes,modernizr:es6string,Promise,fetch' />
       </div>
     )
   }
