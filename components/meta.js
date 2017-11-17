@@ -11,7 +11,7 @@ export default () => (
       <meta httpEquiv='x-ua-compatible' content='ie=edge' />
       <meta name='viewport' content='width=device-width, initial-scale=1' />
 
-      <title>Un référentiel national ouvert\u2009: de l’adresse à la coordonnée géographique - adresse.data.gouv.fr</title>
+      <title>Un référentiel national ouvert : de l’adresse à la coordonnée géographique - adresse.data.gouv.fr</title>
 
       <link rel='icon' href='/static/favicon.ico' />
 
@@ -28,13 +28,13 @@ export default () => (
       <meta name='twitter:image' content='{{ site.url }}/img/logo_marianne_share.jpeg' />
 
       <meta name='twitter:card' content='summary' />
-      <meta name='twitter:title' content='adresse.data.gouv.fr, Un référentiel national ouvert\u2009: de l’adresse à la coordonnée géographique' />
+      <meta name='twitter:title' content='adresse.data.gouv.fr, Un référentiel national ouvert : de l’adresse à la coordonnée géographique' />
       <meta name='twitter:description' content='Site officiel de la Base Adresse Nationale' />
       <meta name='twitter:site' content='@BaseAdresse' />
       <meta name='twitter:image:src' content='/static/images/logos/logo-adresse.svg' />
 
       {/* Open Graph general (Facebook, Pinterest & Google+) */}
-      <meta name='og:title' content='adresse.data.gouv.fr, Un référentiel national ouvert\u2009: de l’adresse à la coordonnée géographique' />
+      <meta name='og:title' content='adresse.data.gouv.fr, Un référentiel national ouvert : de l’adresse à la coordonnée géographique' />
       <meta name='og:description' content='Site officiel de la Base Adresse Nationale' />
       <meta name='og:image' content='/static/images/logos/logo-adresse.svg' />
       <meta name='og:url' content='https://adresse.data.gouv.fr' />
