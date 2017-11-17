@@ -36,14 +36,14 @@ const Download = () => (
             <li>vous communiquez à l’IGN et à La Poste les bases de données dérivées ;</li>
             <li>vous cédez à l’IGN et à La Poste, et à titre gratuit, les droits d’auteur et de propriété industrielle sur les bases de données dérivées.</li>
           </ul>
-          <p>Pour plus de renseignements, consultez <Link href='/pdf/licence-gratuite-repartage.pdf'><a>le texte de la licence</a></Link>.</p>
+          <p>Pour plus de renseignements, consultez <Link href='/static/docs/licence-gratuite-repartage.pdf'><a>le texte de la licence</a></Link>.</p>
         </div>
 
         <div>
           <h3>Données</h3>
           <div>
             <div>
-              <p>Pour connaître précisement le contenu de ces données, <Link href='/pdf/description-contenu.pdf'><a>consultez le descriptif des données</a></Link>.</p>
+              <p>Pour connaître précisement le contenu de ces données, <Link href='/static/docs/description-contenu.pdf'><a>consultez le descriptif des données</a></Link>.</p>
               <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
               <ButtonLink href='/data/'>
                 Accéder aux données
