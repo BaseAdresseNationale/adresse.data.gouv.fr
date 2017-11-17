@@ -13,7 +13,7 @@ const LeafletMap = ({position, zoom}) => {
       <Map center={position} zoom={zoom}>
         <TileLayer
           url='//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg'
-          attribution='Fond de plan \u00a9 <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL' />
+          attribution='Fond de plan © <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL' />
 
         <Marker position={position} icon={L.icon({iconUrl})} />
       </Map>
