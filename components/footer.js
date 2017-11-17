@@ -17,7 +17,7 @@ const Footer = () => (
         <li><a href='/about'>À propos</a></li>
         <li><a href='/cgu'>Mentions légales et CGU</a></li>
         <li><a href='/faq'>FAQ</a></li>
-        <li><a href='/contact'>Contact</a></li>
+        <li><a href='mailto:contact@adresse.data.gouv.fr'>Contact</a></li>
       </ul>
     </div>
     <style jsx>{`
