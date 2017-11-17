@@ -55,7 +55,7 @@ const SearchInput = ({value, features, loading, search, handleSelect}) => {
         .wrap {
           width: 30%;
           position: absolute;
-          top: 150%;
+          top: 150px;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 1;
