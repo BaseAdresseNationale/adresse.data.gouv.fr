@@ -71,7 +71,7 @@ class Geocoder extends React.Component {
     const {url, status, error} = this.state
     return (
       <div className='geocoder'>
-        {!status && <Button onClick={() => this.geocodage()}>Lancer le géocadage</Button>}
+        {!status && <Button onClick={() => this.geocodage()}>Lancer le géocodage</Button>}
         {status === 'pending' &&
           <Button>
             <div className='col'>
