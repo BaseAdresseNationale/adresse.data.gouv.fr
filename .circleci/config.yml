@@ -1,0 +1,141 @@
+version: 2
+
+defaults:
+  workspace_root: &workspace_root
+    ~/adressedatagouv
+
+  container: &default_container
+    working_directory: *workspace_root
+    docker:
+      - image: circleci/node:8
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      name: Restore node_modules cache
+      keys:
+        - v1-adressedatagouv-node-{{ checksum "yarn.lock" }}
+        - v1-adressedatagouv-node-
+
+jobs:
+  checkout:
+    <<: *default_container
+    steps:
+      - checkout
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - ./
+
+  install:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - restore_cache:
+          name: Restore yarn cache
+          keys:
+            - v1-adressedatagouv-yarn-{{ checksum "yarn.lock" }}
+            - v1-adressedatagouv-yarn-
+
+      - run:
+          name: Install dependencies
+          command: yarn
+
+      - save_cache:
+          name: Save yarn cache
+          key: v1-adressedatagouv-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn/
+
+      - save_cache:
+          name: Save node_modules cache
+          key: v1-adressedatagouv-node-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+
+  lint:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - run:
+          name: Lint JavaScript
+          command: yarn lint
+
+  build:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - run:
+          name: Build output bundles
+          command: yarn build
+
+      - run:
+          name: Export bundles as static HTML
+          command: yarn export
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - out
+
+  deploy:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - add_ssh_keys:
+          fingerprints:
+            - fc:92:4b:d7:21:5f:f3:4f:46:35:d1:9e:79:b3:4b:c6
+
+      - run:
+          name: Setup SSH to GitHub
+          command: ssh-keyscan github.com > ~/.ssh/known_hosts
+
+      - run:
+          name: Set SSH user email
+          command: git config --global user.email "infra@beta.gouv.fr"
+
+      - run:
+          name: Set SSH user name
+          command: git config --global user.name "CircleCI"
+
+      - deploy:
+          name: Deploy to gh-pages branch on GitHub
+          command: yarn deploy
+
+workflows:
+  version: 2
+
+  build_test_deploy:
+    jobs:
+      - checkout
+
+      - install:
+          requires:
+            - checkout
+
+      - build:
+          requires:
+            - install
+
+      - lint:
+          requires:
+            - install
+
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

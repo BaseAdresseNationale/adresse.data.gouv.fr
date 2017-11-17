@@ -1,14 +1,17 @@
-# Jekyll
-_site
-.sass-cache
-.jekyll-metadata
+# Node.js
+node_modules
 
-# OSX
+# Build
+.next
+out
+
+# Apple stuff
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# Bundler
-.bundle
-Gemfile.lock
+# Thumbnails
+._*
 
-# Ruby
-.ruby-gemset
+# Logs
+*.log

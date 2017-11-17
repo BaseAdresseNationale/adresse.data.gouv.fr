@@ -1,20 +1,21 @@
-# adresse.data.gouv.fr
-Un référentiel national ouvert : de l'adresse à la coordonnée géographique
+# adresse.data.gouv.fr [![CircleCI](https://circleci.com/gh/etalab/adresse.data.gouv.fr.svg?style=svg)](https://circleci.com/gh/etalab/adresse.data.gouv.fr)
 
-## Installation et utilisation
+Site officiel de la Base Adresse Nationale
 
-### Installation des dépendances
+## Développement
 
-```bash
-brew install ruby
-gem install bundler
-bundle install
-```
+Cette application utilise [Next.js](https://github.com/zeit/next.js).
 
-### Lancement du serveur
+1. Installer les dépendances
 
-```bash
-bundle exec jekyll serve
-```
+   ```bash
+   yarn
+   ```
 
-Puis lancez votre navigateur via : http://localhost:4000/
+2. Lancer le serveur de développement
+
+   ```bash
+   yarn dev
+   ```
+
+   Par défaut, il écoutera sur le port `3000`, pour changer, utiliser `yarn dev -p 4242`.

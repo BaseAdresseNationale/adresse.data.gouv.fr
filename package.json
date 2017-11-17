@@ -1,0 +1,70 @@
+{
+  "name": "adresse.data.gouv.fr",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site officiel de la Base Adresse Nationale",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "lint": "xo",
+    "deploy": "gh-pages -d out -m 'Deploy [skip ci]'"
+  },
+  "dependencies": {
+    "debounce": "^1.1.0",
+    "leaflet": "^1.2.0",
+    "next": "^4.0.0",
+    "papaparse": "^4.3.6",
+    "piwik-react-router": "^0.10.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-autocomplete": "^1.7.2",
+    "react-dom": "^16.0.0",
+    "react-dropzone": "^4.2.1",
+    "react-leaflet": "^1.7.1"
+  },
+  "devDependencies": {
+    "babel-plugin-inline-import": "^2.0.6",
+    "eslint-config-xo-react": "^0.14.0",
+    "eslint-plugin-react": "^7.4.0",
+    "gh-pages": "^1.0.0",
+    "xo": "^0.18.2"
+  },
+  "xo": {
+    "extends": "xo-react",
+    "semicolon": false,
+    "space": 2,
+    "rules": {
+      "jsx-quotes": [
+        "error",
+        "prefer-single"
+      ],
+      "react/jsx-closing-bracket-location": [
+        "error",
+        "after-props"
+      ],
+      "react/jsx-closing-tag-location": "off",
+      "react/jsx-first-prop-new-line": "off",
+      "react/jsx-max-props-per-line": [
+        "warn",
+        {
+          "maximum": 4,
+          "when": "multiline"
+        }
+      ],
+      "react/jsx-tag-spacing": [
+        "error",
+        {
+          "closingSlash": "never",
+          "beforeSelfClosing": "always",
+          "afterOpening": "never"
+        }
+      ],
+      "react/forbid-component-props": "off",
+      "react/react-in-jsx-scope": "off"
+    }
+  }
+}
