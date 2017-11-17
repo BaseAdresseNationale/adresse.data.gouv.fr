@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "lint": "xo"
+    "lint": "xo",
+    "deploy": "gh-pages -d out -m 'Deploy [skip ci]'"
   },
   "dependencies": {
     "debounce": "^1.1.0",
@@ -29,6 +30,7 @@
     "babel-plugin-inline-import": "^2.0.6",
     "eslint-config-xo-react": "^0.14.0",
     "eslint-plugin-react": "^7.4.0",
+    "gh-pages": "^1.0.0",
     "xo": "^0.18.2"
   },
   "xo": {

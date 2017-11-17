@@ -2,7 +2,7 @@ version: 2
 
 defaults:
   workspace_root: &workspace_root
-    ~/cadastredatagouv
+    ~/adressedatagouv
 
   container: &default_container
     working_directory: *workspace_root
@@ -17,22 +17,31 @@ defaults:
     restore_cache:
       name: Restore node_modules cache
       keys:
-        - v1-cadastredatagouv-node-{{ checksum "yarn.lock" }}
-        - v1-cadastredatagouv-node-
+        - v1-adressedatagouv-node-{{ checksum "yarn.lock" }}
+        - v1-adressedatagouv-node-
 
 jobs:
-  install:
+  checkout:
     <<: *default_container
     steps:
       - checkout
 
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - ./
+
+  install:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
       - restore_cache:
           name: Restore yarn cache
           keys:
-            - v1-cadastredatagouv-yarn-{{ checksum "yarn.lock" }}
-            - v1-cadastredatagouv-yarn-
-
-      - *restore_node_modules
+            - v1-adressedatagouv-yarn-{{ checksum "yarn.lock" }}
+            - v1-adressedatagouv-yarn-
 
       - run:
           name: Install dependencies
@@ -40,24 +49,15 @@ jobs:
 
       - save_cache:
           name: Save yarn cache
-          key: v1-cadastredatagouv-yarn-{{ checksum "yarn.lock" }}
+          key: v1-adressedatagouv-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn/
 
       - save_cache:
           name: Save node_modules cache
-          key: v1-cadastredatagouv-node-{{ checksum "yarn.lock" }}
+          key: v1-adressedatagouv-node-{{ checksum "yarn.lock" }}
           paths:
             - node_modules/
-
-      - run:
-          name: Remove node_modules to cleanup workspace
-          command: rm -r node_modules/
-
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - ./
 
   lint:
     <<: *default_container
@@ -79,20 +79,51 @@ jobs:
           name: Build output bundles
           command: yarn build
 
-      - store_artifacts:
-          name: Store build bundle
-          path: .next/app.js
+      - run:
+          name: Export bundles as static HTML
+          command: yarn export
 
-      - store_artifacts:
-          name: Store build pages bundles
-          path: .next/bundles
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - out
+
+  deploy:
+    <<: *default_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - add_ssh_keys:
+          fingerprints:
+            - fc:92:4b:d7:21:5f:f3:4f:46:35:d1:9e:79:b3:4b:c6
+
+      - run:
+          name: Setup SSH to GitHub
+          command: ssh-keyscan github.com > ~/.ssh/known_hosts
+
+      - run:
+          name: Set SSH user email
+          command: git config --global user.email "infra@beta.gouv.fr"
+
+      - run:
+          name: Set SSH user name
+          command: git config --global user.name "CircleCI"
+
+      - deploy:
+          name: Deploy to gh-pages branch on GitHub
+          command: yarn deploy
 
 workflows:
   version: 2
 
   build_test_deploy:
     jobs:
-      - install
+      - checkout
+
+      - install:
+          requires:
+            - checkout
 
       - build:
           requires:
@@ -101,3 +132,10 @@ workflows:
       - lint:
           requires:
             - install
+
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
