@@ -3,6 +3,7 @@ node_modules
 
 # Build
 .next
+out
 
 # Apple stuff
 .DS_Store
