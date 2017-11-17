@@ -11,7 +11,7 @@
     "start": "next start",
     "export": "next export",
     "lint": "xo",
-    "deploy": "touch out/.nojekyll && gh-pages -d out -m 'Deploy [skip ci]'"
+    "deploy": "touch out/.nojekyll && gh-pages -d out -m 'Deploy [skip ci]' --dotfiles=true"
   },
   "dependencies": {
     "debounce": "^1.1.0",
