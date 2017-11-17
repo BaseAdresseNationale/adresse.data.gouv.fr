@@ -49,9 +49,8 @@ class Geocoder extends React.Component {
     .then(response => {
       if (response.status === 200) {
         return response.blob()
-      } else {
-        throw new Error(response.statusText)
       }
+      throw new Error(response.statusText)
     })
     .then(myBlob => {
       this.setState({

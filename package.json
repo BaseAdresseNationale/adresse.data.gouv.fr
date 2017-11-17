@@ -37,6 +37,9 @@
     "extends": "xo-react",
     "semicolon": false,
     "space": 2,
+    "envs": [
+      "browser"
+    ],
     "rules": {
       "jsx-quotes": [
         "error",
