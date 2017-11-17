@@ -29,6 +29,7 @@ const Button = ({children, ...props}) => (
       }
 
       button:hover {
+        cursor: pointer;
         box-shadow: inset 0 0 0 2em ${theme.secondaryDarken};
       }
 
