@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import Section from './section'
 import Head from './head'
 
@@ -18,7 +20,7 @@ const About = () => (
         <p>Le projet est co-gouverné par <a href='http://www.modernisation.gouv.fr/laction-publique-se-transforme/en-ouvrant-les-donnees-publiques/administrateur-general-des-donnees-chief-data-officer-interview-henri-verdier'>l’Administrateur Général des Données</a> et le <a href='http://cnig.gouv.fr/'>Conseil National de l’Information Géographique</a>.</p>
       </div>
       <div className='prose'>
-        <p><a href='/faq'>Consultez la FAQ pour en savoir plus...</a></p>
+        <p><Link href='/faq'><a>Consultez la FAQ pour en savoir plus...</a></Link></p>
       </div>
     </Section>
     <style jsx>{`

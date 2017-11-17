@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import Section from './section'
 import Head from './head'
 
@@ -14,7 +16,7 @@ const Tools = () => (
         <div className='tool'>
           <img src='/static/images/icons/map.svg' alt='map' />
           <div>
-            <h2><a href='/map'>La carte interactive</a></h2>
+            <h2><Link href='/map'><a>La carte interactive</a></Link></h2>
             <p>Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé…</p>
           </div>
         </div>
@@ -22,7 +24,7 @@ const Tools = () => (
         <div className='tool'>
           <img src='/static/images/icons/csv-grey.svg' alt='csv' />
           <div>
-            <h2><a href='/csv'>Le géocodeur CSV</a></h2>
+            <h2><Link href='/csv'><a>Le géocodeur CSV</a></Link></h2>
             <p>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</p>
           </div>
         </div>
@@ -30,15 +32,15 @@ const Tools = () => (
         <div className='tool'>
           <img src='/static/images/icons/api-grey.svg' alt='api' />
           <div>
-            <h2><a href='/api'>L’API</a></h2>
+            <h2><Link href='/api'><a>L’API</a></Link></h2>
             <p>Géocodez vos adresses grâce à l’API en ligne…</p>
           </div>
         </div>
 
       </div>
       <div>
-        <p>Tous ces outils sont <a href='/foss'>sous licence libre</a>.</p>
-        <p>Les données de référence utilisées par l’API sont sous licence ODbL. <a href='/faq'>En savoir plus…</a></p>
+        <p>Tous ces outils sont sous licences libres.</p>
+        <p>Les données de référence utilisées par l’API sont sous licence ODbL. <Link href='/faq'><a>En savoir plus…</a></Link></p>
       </div>
     </Section>
     <style jsx>{`

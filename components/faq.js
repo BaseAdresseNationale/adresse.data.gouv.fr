@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import Section from './section'
 import Head from './head'
 
@@ -32,7 +34,7 @@ const About = () => (
         </div>
         <div>
           <h2>Quelle est la licence des données proposées par l’API de géocodage ?</h2>
-          <p>Les données utilisées par <a href='/api'>l’API disponible sur ce site</a> sont celles sous licence ODbL.</p>
+          <p>Les données utilisées par <Link href='/api'><a>l’API disponible sur ce site</a></Link> sont celles sous licence ODbL.</p>
 
           <h2>Quelle sont les limitations en vigueur sur l’API de géocodage ?</h2>
           <p>Les appels sont limités à :</p>
