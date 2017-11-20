@@ -26,7 +26,7 @@ const Cgu = () => (
       </div>
       <div>
         <h2>Nous contacter</h2>
-        <p><a href='mailto:contact@adresse.data.gouv.fr'>contact@@adresse.data.gouv.fr</a></p>
+        <p><a href='mailto:contact@adresse.data.gouv.fr'>contact@adresse.data.gouv.fr</a></p>
 
         <h2>Mentions légales</h2>
         <h4>Editeur</h4>
