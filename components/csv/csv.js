@@ -71,7 +71,7 @@ class Csv extends React.Component {
       this.setState({
         error: `Ce type de fichier n’est pas supporté : ${file.type}.`
       }, this.resetState())
-    } else if (fileExtension && !allowedExtensions(fileExtension)) {
+    } else if (fileExtension && !allowedExtensions.includes(fileExtension)) {
       this.setState({
         error: `Cette extension de fichier n’est pas supportée : ${fileExtension}.`
       }, this.resetState())
