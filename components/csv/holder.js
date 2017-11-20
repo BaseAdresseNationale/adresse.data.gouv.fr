@@ -25,7 +25,6 @@ const Holder = ({file, handleDrop}) => (
 )
 
 Holder.propTypes = {
-  file: PropTypes.array.isRequired,
   handleDrop: PropTypes.func.isRequired
 }
 

@@ -11,6 +11,31 @@ import Holder from './holder'
 import Table from './table'
 import Geocoder from './geocoder'
 
+const allowedTypes = [
+  'text/plain',
+  'text/csv',
+  'text/x-csv',
+  'application/vnd.ms-excel',
+  'application/csv',
+  'application/x-csv',
+  'text/comma-separated-values',
+  'text/x-comma-separated-value'
+]
+
+const allowedExtensions = [
+  'csv',
+  'tsv',
+  'txt'
+]
+
+function getFileExtension(fileName) {
+  const dotPosition = fileName.lastIndexOf('.')
+  if (dotPosition > 0 && dotPosition < fileName.length - 1) {
+    return fileName.substr(dotPosition + 1).toLowerCase()
+  }
+  return null
+}
+
 class Csv extends React.Component {
   constructor() {
     super()
@@ -41,9 +66,14 @@ class Csv extends React.Component {
 
   onDrop(fileList) {
     const file = fileList[0]
-    if (file.type !== 'text/csv') {
+    const fileExtension = getFileExtension(file.name)
+    if (file.type && !allowedTypes.includes(file.type)) {
       this.setState({
-        error: 'Ce fichier n’est pas un fichier csv.'
+        error: `Ce type de fichier n’est pas supporté : ${file.type}.`
+      }, this.resetState())
+    } else if (fileExtension && !allowedExtensions.includes(fileExtension)) {
+      this.setState({
+        error: `Cette extension de fichier n’est pas supportée : ${fileExtension}.`
       }, this.resetState())
     } else if (file.size > 6000000) {
       this.setState({
