@@ -2,6 +2,7 @@ import React from 'react'
 import Papa from 'papaparse'
 
 import theme from '../../styles/theme'
+import detectEncoding from '../../lib/detect-encoding'
 
 import Section from '../section'
 import Head from '../head'
@@ -56,12 +57,18 @@ class Csv extends React.Component {
   }
 
   parseFile(file) {
-    Papa.parse(file, {
-      complete: res => {
-        this.setState({csv: res, columns: []})
-        window.location.href = '#preview'
-      }
-    })
+    detectEncoding(file)
+      .then(({encoding}) => {
+        Papa.parse(file, {
+          encoding,
+          complete: res => {
+            this.setState({csv: res, columns: []})
+            window.location.href = '#preview'
+          },
+          error: () => this.setState({error: 'Impossible de lire ce fichier.'})
+        })
+      })
+      .catch(() => this.setState({error: 'Impossible de lire ce fichier.'}))
   }
 
   onDrop(fileList) {
