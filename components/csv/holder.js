@@ -12,7 +12,7 @@ const style = {
 
 const Holder = ({file, handleDrop}) => (
   <Dropzone style={style} multiple={false} onDrop={handleDrop}>
-    {file[0] ? <h2 className='centered'>{file[0].name}</h2> : <p className='centered'>Glisser un fichier ici (max 6Mo ou environ 15000 lignes), ou cliquer pour choisir</p>}
+    {file ? <h2 className='centered'>{file.name}</h2> : <p className='centered'>Glisser un fichier ici (max 6Mo ou environ 15000 lignes), ou cliquer pour choisir</p>}
     <style jsx>{`
       .centered {
         display: flex;

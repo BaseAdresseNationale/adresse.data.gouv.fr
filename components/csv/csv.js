@@ -15,7 +15,7 @@ class Csv extends React.Component {
   constructor() {
     super()
     this.state = {
-      file: [],
+      file: null,
       csv: null,
       columns: [],
       error: null
@@ -24,7 +24,7 @@ class Csv extends React.Component {
 
   resetState() {
     this.setState({
-      file: [],
+      file: null,
       columns: [],
       csv: null
     })
@@ -39,8 +39,9 @@ class Csv extends React.Component {
     })
   }
 
-  onDrop(file) {
-    if (file[0].type !== 'text/csv') {
+  onDrop(fileList) {
+    const file = fileList[0]
+    if (file.type !== 'text/csv') {
       this.setState({
         error: 'Ce fichier n’est pas un fichier csv.'
       }, this.resetState())
@@ -52,7 +53,7 @@ class Csv extends React.Component {
       this.setState({
         file,
         error: null
-      }, this.parseFile(file[0]))
+      }, this.parseFile(file))
     }
   }
 
@@ -79,7 +80,7 @@ class Csv extends React.Component {
           <div id='main' className='csvtogeocoder'>
             <div>
               <h2>1. Choisir un fichier</h2>
-              <Holder file={file} handleDrop={file => this.onDrop(file)} />
+              <Holder file={file} handleDrop={fileList => this.onDrop(fileList)} />
               {error && <div className='error'>{error}</div>}
             </div>
             {csv ? (
@@ -96,7 +97,7 @@ class Csv extends React.Component {
                     onAdd={column => this.addColumn(column)}
                     onRemove={column => this.removeColumn(column)} />
                 </div>
-                <Geocoder file={file[0]} columns={columns} />
+                <Geocoder file={file} columns={columns} />
               </div>
             ) : (
               <div className='disabled'>
