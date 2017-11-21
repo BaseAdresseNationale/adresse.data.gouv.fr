@@ -15,6 +15,8 @@ class Geocoder extends React.Component {
       error: null,
       blob: null
     }
+
+    this.handleGeocodeClick = this.handleGeocodeClick.bind(this)
   }
 
   componentWillReceiveProps({file}) {
@@ -27,7 +29,7 @@ class Geocoder extends React.Component {
     }
   }
 
-  geocode() {
+  handleGeocodeClick() {
     const {file, columns, encoding} = this.props
 
     this.setState({status: 'pending'})
@@ -53,7 +55,7 @@ class Geocoder extends React.Component {
 
     return (
       <div className='geocoder'>
-        {!status && <Button onClick={() => this.geocode()}>Lancer le géocodage</Button>}
+        {!status && <Button onClick={this.handleGeocodeClick}>Lancer le géocodage</Button>}
         {status === 'pending' &&
           <Button>
             <div className='col'>
