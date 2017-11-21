@@ -960,6 +960,10 @@ bl@~1.1.2:
   dependencies:
     readable-stream "~2.0.5"
 
+blob-to-buffer@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/blob-to-buffer/-/blob-to-buffer-1.2.6.tgz#089ac264c686b73ead6c539a484a8003bfbb2033"
+
 block-stream@*:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/block-stream/-/block-stream-0.0.9.tgz#13ebfe778a03205cfe03751481ebb4b3300c126a"
@@ -3260,6 +3264,10 @@ js-yaml@^3.5.1:
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
+
+jschardet-french@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/jschardet-french/-/jschardet-french-0.0.1.tgz#4881d2168d99653931bd5e5a2d48a94b42201e43"
 
 jsesc@^1.3.0:
   version "1.3.0"

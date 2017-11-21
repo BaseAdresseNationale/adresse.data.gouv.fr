@@ -2,6 +2,7 @@ import React from 'react'
 import Papa from 'papaparse'
 
 import theme from '../../styles/theme'
+import detectEncoding from '../../lib/detect-encoding'
 
 import Section from '../section'
 import Head from '../head'
@@ -43,7 +44,8 @@ class Csv extends React.Component {
       file: null,
       csv: null,
       columns: [],
-      error: null
+      error: null,
+      encoding: null
     }
   }
 
@@ -51,17 +53,27 @@ class Csv extends React.Component {
     this.setState({
       file: null,
       columns: [],
-      csv: null
+      csv: null,
+      encoding: null
     })
   }
 
   parseFile(file) {
-    Papa.parse(file, {
-      complete: res => {
-        this.setState({csv: res, columns: []})
-        window.location.href = '#preview'
-      }
-    })
+    detectEncoding(file)
+      .then(({encoding}) => {
+        this.setState({encoding})
+        Papa.parse(file, {
+          skipEmptyLines: true,
+          encoding,
+          preview: 20,
+          complete: res => {
+            this.setState({csv: res, columns: []})
+            window.location.href = '#preview'
+          },
+          error: () => this.setState({error: 'Impossible de lire ce fichier.'})
+        })
+      })
+      .catch(() => this.setState({error: 'Impossible de lire ce fichier.'}))
   }
 
   onDrop(fileList) {
@@ -99,7 +111,7 @@ class Csv extends React.Component {
   }
 
   render() {
-    const {file, csv, columns, error} = this.state
+    const {file, csv, columns, error, encoding} = this.state
 
     return (
       <div>
@@ -127,7 +139,7 @@ class Csv extends React.Component {
                     onAdd={column => this.addColumn(column)}
                     onRemove={column => this.removeColumn(column)} />
                 </div>
-                <Geocoder file={file} columns={columns} />
+                <Geocoder file={file} encoding={encoding} columns={columns} />
               </div>
             ) : (
               <div className='disabled'>

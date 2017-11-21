@@ -14,7 +14,9 @@
     "deploy": "touch out/.nojekyll && gh-pages -d out -m 'Deploy [skip ci]' --dotfiles=true"
   },
   "dependencies": {
+    "blob-to-buffer": "^1.2.6",
     "debounce": "^1.1.0",
+    "jschardet-french": "^0.0.1",
     "leaflet": "^1.2.0",
     "next": "^4.0.0",
     "papaparse": "^4.3.6",

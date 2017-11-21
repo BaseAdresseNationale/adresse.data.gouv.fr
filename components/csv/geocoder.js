@@ -1,84 +1,67 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import geocodeMany from '../../lib/geocode/many'
+
 import Button from '../button'
 import Loader from '../loader'
 
 class Geocoder extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      file: props.file,
-      columns: props.columns,
       status: null,
-      url: null,
-      error: null
+      error: null,
+      blob: null
     }
   }
 
-  componentDidUpdate() {
-    const {file, columns} = this.state
-
-    if (this.props.file !== file || columns !== this.props.columns) {
-      this.newFile()
-    }
-  }
-
-  newFile() {
-    this.setState({
-      file: this.props.file,
-      columns: this.props.columns,
-      status: null,
-      url: null,
-      error: null
-    })
-  }
-
-  geocodage() {
-    const {file, columns} = this.props
-    const data = new FormData()
-
-    data.append('data', file)
-    columns.map(column => data.append('columns', column))
-    this.setState({status: 'pending', error: null})
-
-    fetch('https://api-adresse.data.gouv.fr/search/csv', {
-      method: 'POST',
-      body: data
-    })
-    .then(response => {
-      if (response.status === 200) {
-        return response.blob()
-      }
-      throw new Error(response.statusText)
-    })
-    .then(myBlob => {
-      this.setState({
-        status: 'done',
-        url: URL.createObjectURL(myBlob)
-      })
-    })
-    .catch(err => {
+  componentWillReceiveProps({file}) {
+    if (this.props.file !== file) {
       this.setState({
         status: null,
-        error: err
+        error: null,
+        blob: null
       })
-    })
+    }
+  }
+
+  geocode() {
+    const {file, columns, encoding} = this.props
+
+    this.setState({status: 'pending'})
+
+    geocodeMany(file, encoding, columns)
+      .then(resultBlob => {
+        this.setState({
+          status: 'done',
+          blob: resultBlob
+        })
+      })
+      .catch(err => {
+        this.setState({
+          status: null,
+          error: err
+        })
+      })
   }
 
   render() {
-    const {url, status, error, file} = this.state
+    const {status, error, blob} = this.state
+    const {file} = this.props
+
     return (
       <div className='geocoder'>
-        {!status && <Button onClick={() => this.geocodage()}>Lancer le géocodage</Button>}
+        {!status && <Button onClick={() => this.geocode()}>Lancer le géocodage</Button>}
         {status === 'pending' &&
           <Button>
             <div className='col'>
               En cours de géocodage…<Loader />
             </div>
           </Button>}
-        {url &&
-          <a href={url} download={geocodedFileName(file.name)}>
+        {blob &&
+          <a href={URL.createObjectURL(blob)} download={geocodedFileName(file.name)}>
             <Button>Télécharger</Button>
           </a>
         }
@@ -104,7 +87,8 @@ class Geocoder extends React.Component {
 
 Geocoder.propTypes = {
   file: PropTypes.object.isRequired,
-  columns: PropTypes.array.isRequired
+  columns: PropTypes.array.isRequired,
+  encoding: PropTypes.string.isRequired
 }
 
 function geocodedFileName(originalFileName = 'file') {
