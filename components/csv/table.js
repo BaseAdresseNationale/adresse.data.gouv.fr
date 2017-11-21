@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Table2 = ({headers, rows}) => (
+const Table = ({headers, rows}) => (
   <table>
     <tbody>
       <tr>
@@ -35,9 +35,9 @@ const Table2 = ({headers, rows}) => (
   </table>
 )
 
-Table2.propTypes = {
+Table.propTypes = {
   headers: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired
 }
 
-export default Table2
+export default Table
