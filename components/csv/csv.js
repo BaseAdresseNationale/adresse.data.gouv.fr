@@ -65,6 +65,7 @@ class Csv extends React.Component {
         Papa.parse(file, {
           skipEmptyLines: true,
           encoding,
+          preview: 20,
           complete: res => {
             this.setState({csv: res, columns: []})
             window.location.href = '#preview'
