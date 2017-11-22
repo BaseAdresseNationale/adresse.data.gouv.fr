@@ -26,7 +26,7 @@ const News = () => (
          Il se sert de la BAN (Base Adresse Nationale) mais peut être utilisé avec la BANO (Base Adresse Nationale Ouverte).</p>
 
         <h3>15 avril 2015 : Lancement officiel de la Base Adresse Nationale</h3>
-        <iframe frameBorder='0' width='480' height='270' src='//www.dailymotion.com/embed/video/x2nab4x' allowFullScreen /><br /><a href='http://www.dailymotion.com/video/x2nab4x_lancement-de-la-base-adresse-nationale-collaborative-mercredi-15-avril-2015_tech' target='_blank' rel='noopener noreferrer'>Lancement de la Base Adresse Nationale…</a> <i>par <a href='http://www.dailymotion.com/SGMAP' target='_blank' rel='noopener noreferrer'>SGMAP</a></i>
+        <iframe frameBorder='0' width='480' height='270' src='//www.dailymotion.com/embed/video/x2nab4x' allowFullScreen /><br /><a href='http://www.dailymotion.com/video/x2nab4x_lancement-de-la-base-adresse-nationale-collaborative-mercredi-15-avril-2015_tech' target='_blank' rel='noopener noreferrer'>Lancement de la Base Adresse Nationale…</a> <i>par le <a href='http://www.dailymotion.com/SGMAP' target='_blank' rel='noopener noreferrer'>SGMAP</a></i>
       </div>
     </Section>
   </div>
