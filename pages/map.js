@@ -5,7 +5,7 @@ import Page from '../layouts/main'
 const MapSearch = dynamic(import('../components/map/map-search'), {
   ssr: false,
   loading: () => (
-    <div style={{ textAlign: 'center', paddingTop: 20 }}>
+    <div style={{textAlign: 'center', paddingTop: 20}}>
       Chargement…
     </div>
   )

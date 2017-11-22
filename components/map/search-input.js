@@ -43,13 +43,13 @@ const SearchInput = ({value, features, loading, search, handleSelect}) => {
         )}
         renderInput={props => <input className='search' {...props} placeholder='Ex. 6 quai de la tourelle cergy…' />}
         renderMenu={(items, value) => (
-            <div className={`menu ${value.length ? '' : 'hidden'}`}>
-              { loading ? (
-                <div className='item'><img src='../../static/loader.gif' /></div>
-              ) : items.length === 0 ? (
-                <div className='item'>Aucun résultat</div>
-              ) : items}
-            </div>
+          <div className={`menu ${value.length ? '' : 'hidden'}`}>
+            { loading ? (
+              <div className='item'><img src='../../static/loader.gif' /></div>
+            ) : items.length === 0 ? (
+              <div className='item'>Aucun résultat</div>
+            ) : items}
+          </div>
         )} />
       <style jsx>{`
         .wrap {

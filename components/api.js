@@ -1,3 +1,4 @@
+/* eslint react/no-unescaped-entities: off */
 import Section from './section'
 import Head from './head'
 

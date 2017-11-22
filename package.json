@@ -29,6 +29,7 @@
     "react-leaflet": "^1.7.1"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.2",
     "babel-plugin-inline-import": "^2.0.6",
     "eslint-config-xo-react": "^0.14.0",
     "eslint-plugin-react": "^7.4.0",
@@ -43,6 +44,7 @@
     "envs": [
       "browser"
     ],
+    "parser": "babel-eslint",
     "rules": {
       "jsx-quotes": [
         "error",
@@ -70,7 +72,10 @@
         }
       ],
       "react/forbid-component-props": "off",
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-curly-brace-presence": "off",
+      "react/require-default-props": "off",
+      "react/jsx-no-bind": "off"
     }
   }
 }

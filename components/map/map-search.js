@@ -23,15 +23,13 @@ class MapSearch extends React.Component {
         response.json().then(json => {
           this.setState({
             features: json.features || [],
-            loading: false,
-            error: false
+            loading: false
           })
         })
       } else {
         this.setState({
           features: [],
-          loading: false,
-          error: true
+          loading: false
         })
       }
     })

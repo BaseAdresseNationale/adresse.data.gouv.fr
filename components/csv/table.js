@@ -1,3 +1,4 @@
+/* eslint react/no-array-index-key: off */
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -8,8 +9,8 @@ const Table = ({headers, rows}) => (
         {headers.map(header => <th key={header} className='header'>{header}</th>)}
       </tr>
       {rows.map((row, idx) => (
-        <tr key={`col-${idx}`}>
-          {row.map((item, index) => <th key={`$col-${idx}-${index}`}>{item}</th>)}
+        <tr key={`row-${idx}`}>
+          {row.map((item, index) => <th key={`row-${idx}-${index}`}>{item}</th>)}
         </tr>
       ))}
     </tbody>
