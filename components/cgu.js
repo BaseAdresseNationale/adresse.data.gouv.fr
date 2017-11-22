@@ -16,7 +16,7 @@ const Cgu = () => (
 
         <h4>Accès aux données personnelles</h4>
         <p>En application de la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, les utilisateurs de la plateforme data.gouv.fr disposent notamment d’un droit d’accès et de rectification auprès de l’éditeur de la plateforme.<br />
-        Ce droit s’exerce auprès de la Mission Etalab, Secrétariat général pour la modernisation de l’action publique (SGMAP), 64 à 70 allée de Bercy, bâtiment Sully, 75572 Paris Cedex 12.<br />
+        Ce droit s’exerce auprès de la Mission Etalab, Direction interministérielle du numérique et du système d'information et de communication de l'État (DINSIC), 20 avenue de Ségur, 75007 Paris.<br />
         La plateforme data.gouv.fr a été déclarée à la Commission Nationale de l’Informatique et des Libertés sous le numéro : eRa0876341t. </p>
 
         <h4>Stockage des données soumises à l’API</h4>

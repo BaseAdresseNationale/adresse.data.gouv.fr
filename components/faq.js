@@ -21,7 +21,7 @@ const About = () => (
             <li>ainsi que pour contribuer à l’amélioration de son contenu.</li>
           </ul>
           <h3>Qui gère ce site ?</h3>
-          <p>Le site adresse.data.gouv.fr est géré par la mission Etalab du SGMAP.</p>
+          <p>Le site adresse.data.gouv.fr est géré par la mission Etalab de la DINSIC.</p>
 
           <h2>Les données</h2>
 
