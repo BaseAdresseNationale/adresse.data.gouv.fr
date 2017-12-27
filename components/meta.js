@@ -130,13 +130,13 @@ export default () => (
         }
 
         code {
-          background: ${theme.colors.lighterGrey};
+          background: ${theme.backgroundGrey};
           border-radius: ${theme.borderRadius};
           padding: 0.5em;
-          font-size: 0.8em;
           font-family: 'Courier New';
           word-break: break-word;
-          white-space: pre;
+          white-space: pre-wrap;
+          vertical-align: middle;
           display: inline-block;
           max-width: 100%;
           overflow-x: auto;

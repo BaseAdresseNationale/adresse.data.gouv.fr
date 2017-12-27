@@ -1,4 +1,6 @@
 /* eslint react/no-unescaped-entities: off */
+import theme from '../styles/theme'
+
 import Section from './section'
 import Head from './head'
 
@@ -19,18 +21,18 @@ const Api = () => (
           </div>
           <div className='details'>
             <p>Utiliser le paramètre <b>q</b> pour faire une recherche plein texte:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port'</code></pre>
             <p>Avec <b>limit</b> on peut contrôler le nombre d’éléments retournés:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;limit=15'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;limit=15'</code></pre>
             <p>Avec <b>autocomplete</b> on peut désactiver les traitements d’auto-complétion:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;autocomplete=0'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;autocomplete=0'</code></pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;lat=48.789&amp;lon=2.789'</code></pre>
             <p>Les filtres <b>type</b>, <b>postcode</b> (code Postal) et <b>citycode</b> (code INSEE) permettent de restreindre la recherche:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;postcode=44380'</pre>
-            <pre>http 'https://api-adresse.data.gouv.fr/search/?q=paris&amp;type=street'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/search/?q=8 bd du port&amp;postcode=44380'</code></pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/search/?q=paris&amp;type=street'</code></pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href='https://github.com/yohanboniface/geocodejson-spec'>GeoCodeJSON</a>:</p>
-            <pre>{`
+            <pre><code>{`
             	'attribution': 'BAN',
             	'licence': 'ODbL 1.0',
             	'query': '8 bd du port',
@@ -80,7 +82,7 @@ const Api = () => (
             			'type': 'Feature'
             		}
             	]
-            `}</pre>
+            `}</code></pre>
             <p>Les attributs retournés sont&nbsp;:</p>
             <ul>
               <li><em>id</em>&nbsp;: identifiant de l’adresse (non stable: actuellement identifiant IGN)</li>
@@ -111,9 +113,9 @@ const Api = () => (
           </div>
           <div className='details'>
             <p>Les paramètres <b>lat</b> et <b>lon</b> sont obligatoires:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/reverse/?lon=2.37&amp;lat=48.357'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/reverse/?lon=2.37&amp;lat=48.357'</code></pre>
             <p>Le paramètre <b>type</b> permet forcer le type de retour:</p>
-            <pre>http 'https://api-adresse.data.gouv.fr/reverse/?lon=2.37&amp;lat=48.357&amp;type=street'</pre>
+            <pre><code>http 'https://api-adresse.data.gouv.fr/reverse/?lon=2.37&amp;lat=48.357&amp;type=street'</code></pre>
             <p>Même format de réponse que pour le point d’entrée <a href='#search'><b>/search/</b></a>.</p>
           </div>
         </div>
@@ -126,12 +128,12 @@ const Api = () => (
           </div>
           <div className='details'>
             <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre <b>data</b>:</p>
-            <pre>http --timeout 600 -f POST https://api-adresse.data.gouv.fr/search/csv/ data@path/to/file.csv</pre>
+            <pre><code>http --timeout 600 -f POST https://api-adresse.data.gouv.fr/search/csv/ data@path/to/file.csv</code></pre>
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l’adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
-            <pre>http -f POST https://api-adresse.data.gouv.fr/search/csv/ columns='voie' columns='ville' data@path/to/file.csv</pre>
+            <pre><code>http -f POST https://api-adresse.data.gouv.fr/search/csv/ columns='voie' columns='ville' data@path/to/file.csv</code></pre>
             <p>Il est possible de préciser le nom d’une colonne contenant le code INSEE ou le code Postal pour limiter les recherches, exemple :</p>
-            <pre>http -f POST https://api-adresse.data.gouv.fr/search/csv/ columns='voie' columns='ville' citycode='ma_colonne_code_insee' data@path/to/file.csv</pre>
-            <pre>http -f POST https://api-adresse.data.gouv.fr/search/csv/ columns='voie' columns='ville' postcode='colonne_code_postal’ data@path/to/file.csv</pre>
+            <pre><code>http -f POST https://api-adresse.data.gouv.fr/search/csv/ columns='voie' columns='ville' citycode='ma_colonne_code_insee' data@path/to/file.csv</code></pre>
+            <pre><code>http -f POST https://api-adresse.data.gouv.fr/search/csv/ columns='voie' columns='ville' postcode='colonne_code_postal’ data@path/to/file.csv</code></pre>
           </div>
         </div>
       </div>
@@ -143,7 +145,7 @@ const Api = () => (
           </div>
           <div className='details'>
             <p>Le fichier csv, encodé en UTF-8 et limité actuellement à 8Mo, doit être passé via le paramètre <b>data</b>. Il doit contenir les colonnes <b>latitude</b> (ou <em>lat</em>) et <b>longitude</b> (ou <em>lon</em> ou <em>lng</em>).</p>
-            <pre>http --timeout 600 -f POST https://api-adresse.data.gouv.fr/reverse/csv/ data@path/to/file.csv</pre>
+            <pre><code>http --timeout 600 -f POST https://api-adresse.data.gouv.fr/reverse/csv/ data@path/to/file.csv</code></pre>
           </div>
         </div>
       </div>
@@ -151,7 +153,7 @@ const Api = () => (
     </Section>
     <style jsx>{`
       .entrypoint + .entrypoint {
-        border-top: 1px solid #ddd;
+        border-top: 1px solid ${theme.borderLighter};
       }
 
       .row {
@@ -162,11 +164,17 @@ const Api = () => (
       }
 
       .details {
-        background-color: #eee;
-        color: #333;
+        background-color: ${theme.colors.darkGrey};
+        color: ${theme.colors.white};
         padding: 40px;
-        border: 1px solid #ddd;
+        border: 1px solid ${theme.borderLighter};
+        border-radius: ${theme.borderRadius};
+        box-shadow: 0 1px 4px 0 ${theme.boxShadow};
         width: 100%;
+      }
+
+      .details code {
+        color: ${theme.darkText};
       }
 
       .prose {
