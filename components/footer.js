@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 import theme from '../styles/theme'
 
-// <Link href='/about'><a>À propos</a></Link>
 const Footer = () => (
   <footer className='footer'>
     <div className='container'>
@@ -25,7 +24,7 @@ const Footer = () => (
     </div>
     <style jsx>{`
       .footer {
-        background: ${theme.backgroundDark};
+        background: ${theme.colors.almostBlack};
         color: ${theme.colors.white};
         padding: 2em 0;
         line-height: 2em;
@@ -35,7 +34,7 @@ const Footer = () => (
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        align-items: center;
+        margin-bottom: 2em;
         flex-wrap: wrap;
       }
 

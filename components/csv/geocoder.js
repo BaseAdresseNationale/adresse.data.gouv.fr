@@ -76,6 +76,7 @@ class Geocoder extends React.Component {
 
           .col {
             display: flex;
+            align-items: center;
           }
 
           .error {

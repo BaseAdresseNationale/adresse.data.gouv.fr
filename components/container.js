@@ -7,7 +7,6 @@ const Container = ({children}) => (
     <style jsx>{`
       div {
         position: relative;
-        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
@@ -38,4 +37,3 @@ Container.defaultProps = {
 }
 
 export default Container
-

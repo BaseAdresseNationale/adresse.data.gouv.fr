@@ -55,6 +55,17 @@ const Cgu = () => (
         width: 80%
         margin-left: 3em;
       }
+
+      @media (max-width: 749px) {
+        .row {
+          flex-wrap: wrap;
+        }
+
+        .row > div:nth-child(2) {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
       `}</style>
   </Section>
 )
