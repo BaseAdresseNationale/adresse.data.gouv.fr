@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import theme from '../styles/theme'
+
 import Section from './section'
 import Head from './head'
 
@@ -52,6 +54,10 @@ const Tools = () => (
       .tool {
         display: flex;
         align-items: center;
+      }
+
+      .tool a {
+        color: ${theme.darkText};
       }
 
       .tool img {
