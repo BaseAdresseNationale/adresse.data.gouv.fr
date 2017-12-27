@@ -8,10 +8,11 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "export": "next export",
     "lint": "xo",
-    "deploy": "touch out/.nojekyll && gh-pages -d out -m 'Deploy [skip ci]' --dotfiles=true"
+    "deploy": "touch out/.nojekyll && gh-pages -d out -m 'Deploy [skip ci]' --dotfiles=true",
+    "heroku-postbuild": "next build"
   },
   "dependencies": {
     "blob-to-buffer": "^1.2.6",
