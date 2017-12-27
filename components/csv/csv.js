@@ -5,7 +5,6 @@ import theme from '../../styles/theme'
 import detectEncoding from '../../lib/detect-encoding'
 
 import Section from '../section'
-import Head from '../head'
 
 import ColumnsSelect from './columns-select'
 import Holder from './holder'
@@ -114,42 +113,37 @@ class Csv extends React.Component {
     const {file, csv, columns, error, encoding} = this.state
 
     return (
-      <div>
-        <Head title='Géocoder un fichier CSV' icon='/static/images/icons/csv.svg'>
-          <p><strong>adresse.data.gouv.fr</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
-        </Head>
-        <Section>
-          <div id='main' className='csvtogeocoder'>
-            <div>
-              <h2>1. Choisir un fichier</h2>
-              <Holder file={file} handleDrop={fileList => this.onDrop(fileList)} />
-              {error && <div className='error'>{error}</div>}
-            </div>
-            {csv ? (
-              <div>
-                <div id='preview'>
-                  <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-                  <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />
-                </div>
-                <div>
-                  <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
-                  <ColumnsSelect
-                    columns={csv.data[0]}
-                    selectedColumns={columns}
-                    onAdd={column => this.addColumn(column)}
-                    onRemove={column => this.removeColumn(column)} />
-                </div>
-                <Geocoder file={file} encoding={encoding} columns={columns} />
-              </div>
-            ) : (
-              <div className='disabled'>
-                <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-                <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
-              </div>
-            )
-          }
+      <Section>
+        <div id='main' className='csvtogeocoder'>
+          <div>
+            <h2>1. Choisir un fichier</h2>
+            <Holder file={file} handleDrop={fileList => this.onDrop(fileList)} />
+            {error && <div className='error'>{error}</div>}
           </div>
-        </Section>
+          {csv ? (
+            <div>
+              <div id='preview'>
+                <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
+                <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />
+              </div>
+              <div>
+                <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
+                <ColumnsSelect
+                  columns={csv.data[0]}
+                  selectedColumns={columns}
+                  onAdd={column => this.addColumn(column)}
+                  onRemove={column => this.removeColumn(column)} />
+              </div>
+              <Geocoder file={file} encoding={encoding} columns={columns} />
+            </div>
+          ) : (
+            <div className='disabled'>
+              <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
+              <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
+            </div>
+          )
+        }
+        </div>
         <style jsx>{`
           .disabled {
             color: ${theme.colors.lightGrey}
@@ -158,8 +152,8 @@ class Csv extends React.Component {
           .error {
             color: red;
           }
-          `}</style>
-      </div>
+        `}</style>
+      </Section>
     )
   }
 }

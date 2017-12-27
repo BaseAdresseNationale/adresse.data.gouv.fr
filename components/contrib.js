@@ -1,22 +1,14 @@
 import Section from './section'
-import Head from './head'
 
 const Contrib = () => (
-  <div>
-    <Head title='Contribuer' icon='/static/images/icons/contribute.svg'>
+  <Section>
+    <div className='row'>
       <div>
-        <p>Les différents outils à votre disposition pour contribuer au contenu de la BAN.</p>
+        <h2>Guichet Adresse pour les organismes publics</h2>
+        <p>Développé conjointement par l’IGN et La Poste, cet outil est destiné plus particulièrement aux mairies ainsi qu’à certains services territoriaux comme les SDIS.</p>
+        <a href='https://guichet-adresse.ign.fr/login'><img src='/static/images/guichet-201605.png' alt='guichet adresse' /></a>
       </div>
-    </Head>
-    <Section>
-      <div className='row'>
-        <div>
-          <h2>Guichet Adresse pour les organismes publics</h2>
-          <p>Développé conjointement par l’IGN et La Poste, cet outil est destiné plus particulièrement aux mairies ainsi qu’à certains services territoriaux comme les SDIS.</p>
-          <a href='https://guichet-adresse.ign.fr/login'><img src='/static/images/guichet-201605.png' alt='guichet adresse' /></a>
-        </div>
-      </div>
-    </Section>
+    </div>
     <style jsx>{`
       .row {
         display: flex;
@@ -33,8 +25,8 @@ const Contrib = () => (
           width: 48%;
         }
       }
-      `}</style>
-  </div>
+    `}</style>
+  </Section>
 )
 
 export default Contrib
