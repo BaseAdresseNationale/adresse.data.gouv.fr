@@ -31,8 +31,6 @@ const About = () => (
           <h3>Comment signaler une erreur ou un manque dans les données ?</h3>
           <p>L’outil de signalement d’erreur est en cours de développement.<br />En attendant son ouverture, vous pouvez signaler une erreur avec l’outil <a href='https://espacecollaboratif.ign.fr/'>Espace Collaboratif de l’IGN</a> ou auprès du <a href='http://www.laposte.fr/sna'>Service National de l’Adresse</a> de La Poste.</p>
 
-        </div>
-        <div>
           <h2>Quelle est la licence des données proposées par l’API de géocodage ?</h2>
           <p>Les données utilisées par <Link href='/api'><a>l’API disponible sur ce site</a></Link> sont celles sous licence ODbL.</p>
 
