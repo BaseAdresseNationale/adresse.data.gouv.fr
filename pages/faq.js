@@ -8,7 +8,7 @@ const title = 'Foire aux questions'
 const description = 'Questions les plus fréquemment posées.'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<FaQuestion />}>
       {description}
     </Head>

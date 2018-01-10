@@ -8,7 +8,7 @@ const title = 'Géocoder un fichier CSV'
 const description = 'adresse.data.gouv.fr met en place des outils pour une prise en main rapide des données adresses ouvertes.'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<FaTable />}>
       <strong>adresse.data.gouv.fr</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.
     </Head>

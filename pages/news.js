@@ -8,7 +8,7 @@ const title = 'Actualités'
 const description = 'Les événements, actualités autour des données et des services liés à l’Adresse.'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<FaNewspaperO />}>
       {description}
     </Head>

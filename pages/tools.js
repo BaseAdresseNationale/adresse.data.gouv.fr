@@ -8,7 +8,7 @@ const title = 'Outils'
 const description = 'adresse.data.gouv.fr met en place des outils pour une prise en main rapide des données adresses ouvertes.'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<FaWrench />}>
       <strong>adresse.data.gouv.fr</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.
     </Head>

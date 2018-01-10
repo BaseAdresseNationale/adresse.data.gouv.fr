@@ -5,9 +5,10 @@ import Head from '../components/head'
 import Download from '../components/download'
 
 const title = 'Données brutes'
+const description = 'adresse.data.gouv.fr met en place des outils pour une prise en main rapide des données adresses ouvertes.'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />}>
       <div>
         <p><strong>adresse.data.gouv.fr</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
