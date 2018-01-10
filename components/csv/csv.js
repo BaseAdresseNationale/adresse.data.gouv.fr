@@ -28,6 +28,8 @@ const allowedExtensions = [
   'txt'
 ]
 
+const MAX_SIZE = '6000000'
+
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
   if (dotPosition > 0 && dotPosition < fileName.length - 1) {
@@ -86,7 +88,7 @@ class Csv extends React.Component {
       this.setState({
         error: `Cette extension de fichier n’est pas supportée : ${fileExtension}.`
       }, this.resetState())
-    } else if (file.size > 6000000) {
+    } else if (file.size > MAX_SIZE) {
       this.setState({
         error: 'Ce fichier est trop volumineux.'
       }, this.resetState())
@@ -117,7 +119,7 @@ class Csv extends React.Component {
         <div id='main' className='csvtogeocoder'>
           <div>
             <h2>1. Choisir un fichier</h2>
-            <Holder file={file} handleDrop={fileList => this.onDrop(fileList)} />
+            <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={fileList => this.onDrop(fileList)} />
             {error && <div className='error'>{error}</div>}
           </div>
           {csv ? (
