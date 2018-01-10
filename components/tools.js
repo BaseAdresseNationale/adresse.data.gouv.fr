@@ -23,6 +23,12 @@ const titles = [
     href: '/api',
     description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
     icon: <FaTerminal />
+  },
+  {
+    title: 'Le validateur BAL',
+    href: '/validateur-bal',
+    description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
+    icon: <FaTable />
   }
 ]
 
