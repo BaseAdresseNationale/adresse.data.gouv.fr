@@ -1,9 +1,6 @@
 import FaMapMarker from 'react-icons/lib/fa/map-marker'
 import FaTable from 'react-icons/lib/fa/table'
 import FaTerminal from 'react-icons/lib/fa/terminal'
-import Link from 'next/link'
-
-import theme from '../styles/theme'
 
 import Section from './section'
 import HeadLinkTitle from './head-link-title'
@@ -39,31 +36,6 @@ const Tools = () => (
       subtitle={description}
       icon={icon} />)
     )}
-
-    <div>
-      <p>Tous ces outils sont sous licences libres.</p>
-      <p>Les données de référence utilisées par l’API sont sous licence ODbL. <Link href='/faq'><a>En savoir plus…</a></Link></p>
-    </div>
-    <style jsx>{`
-      .row {
-        display: flex;
-        flex-flow: column;
-      }
-
-      .tool {
-        display: flex;
-        align-items: center;
-      }
-
-      .tool a {
-        color: ${theme.darkText};
-      }
-
-      .tool img {
-        width: 50px;
-        margin-right: 1em;
-      }
-    `}</style>
   </Section>
 )
 
