@@ -8,7 +8,7 @@ const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer au contenu de la BAN.'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<FaPencil />}>
       {description}
     </Head>

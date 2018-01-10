@@ -23,12 +23,13 @@
     "papaparse": "^4.3.6",
     "piwik-react-router": "^0.10.0",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
+    "react": "^16.2.0",
     "react-autocomplete": "^1.7.2",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.1",
     "react-icons": "^2.2.7",
-    "react-leaflet": "^1.7.1"
+    "react-leaflet": "^1.7.1",
+    "underscore.string": "^3.3.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",

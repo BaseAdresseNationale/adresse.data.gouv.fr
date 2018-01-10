@@ -8,7 +8,7 @@ const title = 'À propos'
 const description = 'En savoir plus sur adresse.data.gouv.fr'
 
 export default () => (
-  <Page>
+  <Page title={title} description={description}>
     <Head title={title} icon={<FaInfoCircle />}>
       En savoir plus sur <strong>adresse.data.gouv.fr</strong>.
     </Head>

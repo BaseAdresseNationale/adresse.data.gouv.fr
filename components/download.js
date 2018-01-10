@@ -123,7 +123,7 @@ const Download = () => (
         }
       }
       `}</style>
-    </Section>
+  </Section>
 )
 
 export default Download
