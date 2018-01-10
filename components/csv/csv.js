@@ -119,7 +119,7 @@ class Csv extends React.Component {
         <div id='main' className='csvtogeocoder'>
           <div>
             <h2>1. Choisir un fichier</h2>
-            <Holder file={file} placeholder={`Déposez un fichier ici (max ${MAX_SIZE / 1000000} Mo ou environ 15000 lignes), ou cliquer pour choisir`} onDrop={fileList => this.onDrop(fileList)} />
+            <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={fileList => this.onDrop(fileList)} />
             {error && <div className='error'>{error}</div>}
           </div>
           {csv ? (
