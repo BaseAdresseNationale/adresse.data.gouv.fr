@@ -18,11 +18,11 @@ class Layout extends React.Component {
   }
 
   render() {
-    const {children, showFooter} = this.props
+    const {title, description, children, showFooter} = this.props
 
     return (
       <div>
-        <Meta />
+        <Meta title={title} description={description} />
         <Header />
         <main>
           {children}
@@ -53,12 +53,16 @@ Layout.propTypes = {
     pathname: PropTypes.string.isRequired
   }).isRequired,
   children: PropTypes.node,
-  showFooter: PropTypes.bool
+  showFooter: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string
 }
 
 Layout.defaultProps = {
   children: null,
-  showFooter: true
+  showFooter: true,
+  title: null,
+  description: null
 }
 
 export default withRouter(Layout)
