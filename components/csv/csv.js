@@ -48,6 +48,11 @@ class Csv extends React.Component {
       error: null,
       encoding: null
     }
+
+    this.handleFileDrop = this.handleFileDrop.bind(this)
+    this.parseFile = this.parseFile.bind(this)
+    this.handleAddColumn = this.handleAddColumn.bind(this)
+    this.handleRemoveColumn = this.handleRemoveColumn.bind(this)
   }
 
   resetState() {
@@ -77,7 +82,7 @@ class Csv extends React.Component {
       .catch(() => this.setState({error: 'Impossible de lire ce fichier.'}))
   }
 
-  onDrop(fileList) {
+  handleFileDrop(fileList) {
     const file = fileList[0]
     const fileExtension = getFileExtension(file.name)
     if (file.type && !allowedTypes.includes(file.type)) {
@@ -100,13 +105,13 @@ class Csv extends React.Component {
     }
   }
 
-  addColumn(column) {
+  handleAddColumn(column) {
     const columns = [...this.state.columns]
     columns.push(column)
     this.setState({columns})
   }
 
-  removeColumn(column) {
+  handleRemoveColumn(column) {
     const columns = [...this.state.columns.filter(col => col !== column)]
     this.setState({columns})
   }
@@ -119,7 +124,7 @@ class Csv extends React.Component {
         <div id='main' className='csvtogeocoder'>
           <div>
             <h2>1. Choisir un fichier</h2>
-            <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={fileList => this.onDrop(fileList)} />
+            <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={this.handleFileDrop} />
             {error && <div className='error'>{error}</div>}
           </div>
           {csv ? (
@@ -133,8 +138,8 @@ class Csv extends React.Component {
                 <ColumnsSelect
                   columns={csv.data[0]}
                   selectedColumns={columns}
-                  onAdd={column => this.addColumn(column)}
-                  onRemove={column => this.removeColumn(column)} />
+                  onAdd={this.handleAddColumn}
+                  onRemove={this.handleRemoveColumn} />
               </div>
               <Geocoder file={file} encoding={encoding} columns={columns} />
             </div>
