@@ -1,7 +1,9 @@
 // eslint-disable-next-line import/no-unassigned-import
 import 'regenerator-runtime/runtime'
 import React from 'react'
+import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
+import {withRouter} from 'next/router'
 
 import theme from '../../styles/theme'
 
@@ -34,6 +36,14 @@ class BALValidator extends React.Component {
     this.handleFileDrop = this.handleFileDrop.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.parseFile = this.parseFile.bind(this)
+  }
+
+  componentDidMount() {
+    const {router} = this.props
+
+    if (router.query.url) {
+      this.handleInput(router.query.url)
+    }
   }
 
   resetState() {
@@ -100,13 +110,13 @@ class BALValidator extends React.Component {
   }
 
   render() {
+    const {router} = this.props
     const {error, file, report, inProgress, loading} = this.state
     const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithErrors, parseMeta, rowsErrorsCount} = report || {}
 
     return (
       <div>
-        <FileHander file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} loading={loading} />
-
+        <FileHander defaultValue={router.query.url} file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} loading={loading} />
         {inProgress &&
         <div className='centered'>
           <h4>Analyse en cours…</h4>
@@ -168,4 +178,11 @@ class BALValidator extends React.Component {
   }
 }
 
-export default BALValidator
+BALValidator.propTypes = {
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    query: PropTypes.object.isRequired
+  }).isRequired
+}
+
+export default (withRouter(BALValidator))
