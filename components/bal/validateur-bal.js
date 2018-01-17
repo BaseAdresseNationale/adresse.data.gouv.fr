@@ -7,10 +7,10 @@ import theme from '../../styles/theme'
 
 import Loader from '../loader'
 import Section from '../section'
-import Holder from '../csv/holder'
 import Fields from './fields'
 import CsvMeta from './csv-meta'
 import Rows from './rows'
+import FileHander from './file-handler'
 
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
@@ -27,10 +27,12 @@ class BALValidator extends React.Component {
       error: null,
       file: null,
       report: null,
+      loading: false,
       inProgress: false
     }
 
     this.handleFileDrop = this.handleFileDrop.bind(this)
+    this.handleInput = this.handleInput.bind(this)
     this.parseFile = this.parseFile.bind(this)
   }
 
@@ -65,28 +67,45 @@ class BALValidator extends React.Component {
     }
   }
 
+  async handleInput(input) {
+    if (input) {
+      this.setState({loading: true, error: false})
+      const url = 'https://cors.now.sh/' + input
+
+      try {
+        const response = await fetch(url)
+
+        if (response.status === 400 || response.status === 500) {
+          throw new Error(`status ${response.status}`)
+        }
+
+        const file = await response.blob()
+        this.setState({file, loading: false})
+        this.parseFile()
+      } catch (err) {
+        this.setState({loading: false, error: `Impossible de récupérer le fichier… [${err.message}]`})
+      }
+    } else {
+      this.setState({loading: false, error: 'Le champ est vide.'})
+    }
+  }
+
   parseFile() {
     const {file} = this.state
 
     this.setState({inProgress: true})
     validate(file)
       .then(report => this.setState({report, inProgress: false}))
-      .catch(err => this.setState({error: err, inProgress: false}))
+      .catch(err => this.setState({error: `Impossible d’analyser le fichier… [${err.message}]`, inProgress: false}))
   }
 
   render() {
-    const {error, file, report, inProgress} = this.state
+    const {error, file, report, inProgress, loading} = this.state
     const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithErrors, parseMeta, rowsErrorsCount} = report || {}
 
     return (
       <div>
-        <Section>
-          <div>
-            <h2>Choisir un fichier</h2>
-            <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
-            <div className='error'>{error}</div>
-          </div>
-        </Section>
+        <FileHander file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} loading={loading} />
 
         {inProgress &&
         <div className='centered'>
@@ -134,10 +153,6 @@ class BALValidator extends React.Component {
             display: grid;
             grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
             grid-gap: 2em 1em;
-          }
-
-          .error {
-            color: red;
           }
 
           .centered {
