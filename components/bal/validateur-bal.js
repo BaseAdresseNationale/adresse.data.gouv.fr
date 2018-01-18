@@ -22,6 +22,12 @@ function getFileExtension(fileName) {
   return null
 }
 
+const statusCodeMsg = {
+  400: 'l’url n’est pas valide',
+  404: 'il n’a pas pu être trouvé',
+  500: 'le serveur ne répond pas'
+}
+
 class BALValidator extends React.Component {
   constructor() {
     super()
@@ -84,22 +90,19 @@ class BALValidator extends React.Component {
 
       try {
         const response = await fetch(url)
-
-        if (response.status === 400) {
-          throw new Error('Impossible de récupérer le fichier car l’url n’est pas valide')
-        } else if (response.status === 404) {
-          throw new Error('Impossible de récupérer le fichier car il n’a pas pu être trouvé')
-        } else if (response.status === 500) {
-          throw new Error('Impossible de récupérer le fichier car une erreur est survenue')
+        if (response.ok) {
+          if (!response.headers.has('Content-Type') || !response.headers.get('Content-Type').includes('csv')) {
+            throw new Error('Le fichier n’est pas au format CSV')
+          } else {
+            const file = await response.blob()
+            this.setState({file, loading: false})
+            this.parseFile()
+          }
+        } else if (response.status in statusCodeMsg) {
+          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
+        } else {
+          throw new Error(`Impossible de récupérer le fichier car une erreur est survenue.`)
         }
-
-        if (!response.headers.has('Content-Type') || !response.headers.get('Content-Type').includes('csv')) {
-          throw new Error('Le fichier n’est pas au format CSV')
-        }
-
-        const file = await response.blob()
-        this.setState({file, loading: false})
-        this.parseFile()
       } catch (err) {
         this.handleError(err)
       }
