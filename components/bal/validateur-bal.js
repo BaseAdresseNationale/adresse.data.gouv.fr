@@ -46,6 +46,10 @@ class BALValidator extends React.Component {
     }
   }
 
+  handleError(error) {
+    this.setState({error: error.message, file: null, report: null})
+  }
+
   resetState() {
     this.setState({
       file: null,
@@ -62,13 +66,9 @@ class BALValidator extends React.Component {
     this.resetState()
 
     if (!fileExtension || fileExtension !== 'csv') {
-      this.setState({
-        error: `Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.`
-      })
+      this.handleError(new Error('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.'))
     } else if (file.size > 100 * 1024 * 1024) {
-      this.setState({
-        error: 'Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'
-      })
+      this.handleError(new Error('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'))
     } else {
       this.setState({
         file,
@@ -85,19 +85,24 @@ class BALValidator extends React.Component {
       try {
         const response = await fetch(url)
 
-        if (response.status === 400 || response.status === 500) {
-          throw new Error(`status ${response.status}`)
+        if (response.status === 400) {
+          throw new Error('l’url n’est pas valide')
+        } else if (response.status === 404) {
+          throw new Error('le fichier n’a pas pu être trouvé')
+        } else if (response.status === 500) {
+          throw new Error('une erreur est survenue')
         }
 
         const file = await response.blob()
         this.setState({file, loading: false})
         this.parseFile()
       } catch (err) {
-        this.setState({loading: false, error: `Impossible de récupérer le fichier… [${err.message}]`})
+        this.handleError(new Error(`Impossible de récupérer le fichier car ${err.message}.`))
       }
     } else {
-      this.setState({loading: false, error: 'Le champ est vide.'})
+      this.handleError(new Error('Le champ est vide.'))
     }
+    this.setState({loading: false})
   }
 
   parseFile() {
