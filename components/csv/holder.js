@@ -8,8 +8,7 @@ import theme from '../../styles/theme'
 
 // Unable to pass the css by className, maybe a react-dropzone bug ¯\_(ツ)_/¯
 const style = {
-  width: '90%',
-  margin: '20px auto',
+  width: '100%',
   border: '1px dashed #ccc',
   height: '200px',
   textAlign: 'center'
