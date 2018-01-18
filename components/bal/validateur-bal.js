@@ -48,7 +48,7 @@ class BALValidator extends React.Component {
     const {router} = this.props
 
     if (router.query.url) {
-      this.handleInput(router.query.url)
+      this.handleInput(decodeURIComponent(router.query.url))
     }
   }
 
