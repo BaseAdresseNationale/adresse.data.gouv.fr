@@ -86,7 +86,7 @@ class BALValidator extends React.Component {
   async handleInput(input) {
     if (input) {
       this.setState({loading: true, error: false})
-      const url = 'https://adresse-dgv-cors.now.sh/' + input
+      const url = 'https://cors.now.sh/' + input
 
       try {
         const response = await fetch(url)
