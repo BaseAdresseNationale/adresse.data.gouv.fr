@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-unassigned-import
 import 'regenerator-runtime/runtime'
+import {format} from 'url'
 import React from 'react'
 import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
@@ -66,7 +67,7 @@ class BALValidator extends React.Component {
   }
 
   handleError(error) {
-    this.setState({error: error.message, file: null, report: null})
+    this.setState({error: error.message, file: null, report: null, url: null})
   }
 
   resetState() {
@@ -74,6 +75,7 @@ class BALValidator extends React.Component {
       file: null,
       error: null,
       report: null,
+      url: null,
       inProgress: false
     })
   }
@@ -98,7 +100,7 @@ class BALValidator extends React.Component {
 
   async handleInput(input) {
     if (input) {
-      this.setState({loading: true, error: false})
+      this.setState({loading: true, error: false, url: input})
       const url = 'https://adressedgv-cors.now.sh/' + input
 
       try {
@@ -126,11 +128,23 @@ class BALValidator extends React.Component {
   }
 
   parseFile() {
+    const {router} = this.props
     const {file} = this.state
 
     this.setState({inProgress: true})
     validate(file)
-      .then(report => this.setState({report, inProgress: false}))
+      .then(report => {
+        this.setState({report, inProgress: false})
+        const query = {
+          ...router.query,
+          url: encodeURI(this.state.url)
+        }
+        const url = format({
+          pathname: '/validateur-bal',
+          query
+        })
+        this.props.router.push(url)
+      })
       .catch(err => this.setState({error: `Impossible d’analyser le fichier… [${err.message}]`, inProgress: false}))
   }
 
