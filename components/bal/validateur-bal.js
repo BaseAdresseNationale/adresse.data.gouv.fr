@@ -128,24 +128,20 @@ class BALValidator extends React.Component {
   }
 
   parseFile() {
-    const {router} = this.props
     const {file} = this.state
 
     this.setState({inProgress: true})
     validate(file)
-      .then(report => {
-        this.setState({report, inProgress: false})
-        const query = {
-          ...router.query,
-          url: encodeURI(this.state.url)
-        }
-        const url = format({
-          pathname: '/validateur-bal',
-          query
-        })
-        this.props.router.push(url)
-      })
+      .then(report => this.setState({report, inProgress: false}))
+      .then(() => this.pushEncodedUrl())
       .catch(err => this.setState({error: `Impossible d’analyser le fichier… [${err.message}]`, inProgress: false}))
+  }
+
+  pushEncodedUrl() {
+    const {router} = this.props
+    const query = {...router.query, url: encodeURI(this.state.url)}
+    const url = format({pathname: '/validateur-bal', query})
+    this.props.router.push(url)
   }
 
   render() {
