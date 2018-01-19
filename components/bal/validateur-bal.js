@@ -22,6 +22,13 @@ function getFileExtension(fileName) {
   return null
 }
 
+function checkContentType(contentType) {
+  if (contentType.includes('csv') || contentType.includes('application/octet-stream')) {
+    return true
+  }
+  return false
+}
+
 const statusCodeMsg = {
   400: 'l’url n’est pas valide',
   404: 'il n’a pas pu être trouvé',
@@ -91,12 +98,12 @@ class BALValidator extends React.Component {
       try {
         const response = await fetch(url)
         if (response.ok) {
-          if (!response.headers.has('Content-Type') || !response.headers.get('Content-Type').includes('csv')) {
-            throw new Error('Le fichier n’est pas au format CSV')
-          } else {
+          if (response.headers.has('Content-Type') && checkContentType(response.headers.get('Content-Type'))) {
             const file = await response.blob()
             this.setState({file, loading: false})
             this.parseFile()
+          } else {
+            throw new Error('Le fichier n’est pas au format CSV')
           }
         } else if (response.status in statusCodeMsg) {
           throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
