@@ -36,7 +36,7 @@ class FileHandler extends React.Component {
           <div className='container'>
             <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={onFileDrop} />
             <div className='else'>ou</div>
-            <InputForm placeholder='Entrer une url vers une fichier CSV' value={inputValue} onChange={this.handleChange} onSubmit={this.handleSubmit} buttonText='Utiliser' loading={loading} />
+            <InputForm placeholder='Entrer une url vers un fichier CSV' value={inputValue} onChange={this.handleChange} onSubmit={this.handleSubmit} buttonText='Utiliser' loading={loading} />
           </div>
           {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
         </div>
