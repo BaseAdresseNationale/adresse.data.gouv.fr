@@ -22,9 +22,15 @@ function getFileExtension(fileName) {
   return null
 }
 
-function checkContentType(contentType) {
-  if (contentType.includes('csv') || contentType.includes('application/octet-stream')) {
-    return true
+function checkHeaders(headers) {
+  const contentType = headers.get('Content-Type')
+  const contentDisposition = headers.get('Content-Disposition')
+
+  if (contentType && contentDisposition) {
+    if (contentType.includes('csv') ||
+        (contentType.includes('application/octet-stream') && contentDisposition.includes('.csv'))) {
+      return true
+    }
   }
   return false
 }
@@ -93,12 +99,12 @@ class BALValidator extends React.Component {
   async handleInput(input) {
     if (input) {
       this.setState({loading: true, error: false})
-      const url = 'https://cors.now.sh/' + input
+      const url = 'https://adressedgv-cors.now.sh/' + input
 
       try {
         const response = await fetch(url)
         if (response.ok) {
-          if (response.headers.has('Content-Type') && checkContentType(response.headers.get('Content-Type'))) {
+          if (checkHeaders(response.headers)) {
             const file = await response.blob()
             this.setState({file, loading: false})
             this.parseFile()
