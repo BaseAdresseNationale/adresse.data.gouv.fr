@@ -20,7 +20,8 @@ const allowedTypes = [
   'application/csv',
   'application/x-csv',
   'text/comma-separated-values',
-  'text/x-comma-separated-value'
+  'text/x-comma-separated-value',
+  'text/tab-separated-values'
 ]
 
 const allowedExtensions = [
