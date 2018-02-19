@@ -4,7 +4,6 @@ import Hero from '../components/hero'
 import Pitch from '../components/home/pitch'
 import DataAndTools from '../components/home/data-and-tools'
 import Subscribe from '../components/home/subscribe'
-import Partners from '../components/home/partners'
 
 export default () => (
   <Page>
@@ -14,7 +13,6 @@ export default () => (
 
     <Pitch />
     <DataAndTools />
-    <Partners />
     <Subscribe />
   </Page>
 )
