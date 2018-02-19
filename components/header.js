@@ -48,7 +48,7 @@ export default () => (
 
       .nav__link {
         padding: 1em;
-        height: 40px;
+        height: 38px;
       }
 
       .nav__logo {
