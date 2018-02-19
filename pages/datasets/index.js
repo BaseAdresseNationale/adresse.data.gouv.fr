@@ -9,7 +9,9 @@ const description = 'Sources de données de l’Adresse Ouverte'
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaWrench />} />
+    <Head title={title} icon={<FaWrench />}>
+      {description}
+    </Head>
     <Datasets />
   </Page>
 )
