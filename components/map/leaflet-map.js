@@ -6,9 +6,9 @@ import {Map, TileLayer, Marker} from 'react-leaflet'
 
 import mapStyle from 'leaflet/dist/leaflet.css'
 
-const LeafletMap = ({position, zoom}) => {
-  const iconUrl = '../../static/images/map/marker-icon.png'
+L.Icon.Default.imagePath = '/static/images/leaflet/'
 
+const LeafletMap = ({position, zoom}) => {
   return (
     <div>
       <Map center={position} zoom={zoom}>
@@ -16,7 +16,7 @@ const LeafletMap = ({position, zoom}) => {
           url='//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg'
           attribution='Fond de plan © <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL' />
 
-        <Marker position={position} icon={L.icon({iconUrl})} />
+        <Marker position={position} />
       </Map>
 
       <style dangerouslySetInnerHTML={{__html: mapStyle}} />
