@@ -14,10 +14,10 @@ const MapSearch = dynamic(import('../components/map/map-search'), {
 const title = 'Carte interactive'
 const description = 'Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé…'
 
-const Map = () => (
+const Explore = () => (
   <Page title={title} description={description} showFooter={false}>
     <MapSearch />
   </Page>
 )
 
-export default Map
+export default Explore
