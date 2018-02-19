@@ -17,7 +17,6 @@ export default () => (
         <li><Link href='/download'><a>Données</a></Link></li>
         <li><Link href='/contrib'><a>Contribuer</a></Link></li>
         <li><Link href='/tools'><a>Outils</a></Link></li>
-        <li><Link href='/news'><a>Actu</a></Link></li>
       </ul>
     </div>
 
