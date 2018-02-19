@@ -1,4 +1,4 @@
-import FaWrench from 'react-icons/lib/fa/wrench'
+import FaDatabase from 'react-icons/lib/fa/database'
 import Page from '../../layouts/main'
 
 import Head from '../../components/head'
@@ -9,7 +9,7 @@ const description = 'Sources de données de l’Adresse Ouverte'
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaWrench />}>
+    <Head title={title} icon={<FaDatabase />}>
       {description}
     </Head>
     <Datasets />
