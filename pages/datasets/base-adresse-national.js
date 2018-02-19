@@ -2,8 +2,10 @@ import FaBook from 'react-icons/lib/fa/book'
 import Page from '../../layouts/main'
 
 import Head from '../../components/head'
-import Ban from '../../components/ban'
-import Partners from '../../components/partners'
+
+import Description from '../../components/ban/description'
+import Data from '../../components/ban/data'
+import Partners from '../../components/ban/partners'
 
 const title = 'Base Adresse National'
 const description = 'Référence l’intégralité des adresses du territoire français'
@@ -13,7 +15,8 @@ export default () => (
     <Head title={title} icon={<FaBook />}>
       En savoir plus sur <strong>adresse.data.gouv.fr</strong>.
     </Head>
-    <Ban />
+    <Description />
+    <Data />
     <Partners />
   </Page>
 )

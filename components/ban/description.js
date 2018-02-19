@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import Section from './section'
+import Section from '../section'
 
-const Ban = () => (
+const Description = () => (
   <Section>
     <div className='prose'>
       <p>La Base Adresse Nationale est une base de données qui a pour but de référencer l’intégralité des adresses du territoire français.</p>
@@ -29,4 +29,4 @@ const Ban = () => (
   </Section>
 )
 
-export default Ban
+export default Description

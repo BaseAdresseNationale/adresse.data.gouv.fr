@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
-import Section from './section'
-import ButtonLink from './button-link'
+import Section from '../section'
+import ButtonLink from '../button-link'
 
-const Download = () => (
+const Data = () => (
   <Section>
 
     <div>
@@ -126,4 +126,4 @@ const Download = () => (
   </Section>
 )
 
-export default Download
+export default Data
