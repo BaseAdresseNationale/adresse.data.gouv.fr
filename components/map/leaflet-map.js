@@ -13,8 +13,8 @@ const LeafletMap = ({position, zoom}) => {
     <div>
       <Map center={position} zoom={zoom}>
         <TileLayer
-          url='//wxs.ign.fr/14repeswer1lgaj7p7yergsz/geoportail/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image%2Fjpeg'
-          attribution='Fond de plan © <a href="http://www.ign.fr/">IGN</a>, Adresses BAN sous licence ODbL' />
+          url='https://tile.jawg.io/sunny/{z}/{x}/{y}.png?api-key=community'
+          attribution='Carte &copy; <a href="http://www.jawg.io/">jawgmap</a> / <a href="https://osm.org/copyright">OpenStreetMap</a>, Adresses BAN sous licence ODbL' />
 
         <Marker position={position} />
       </Map>
