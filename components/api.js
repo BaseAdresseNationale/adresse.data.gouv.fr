@@ -88,7 +88,7 @@ const Api = () => (
               <ul>
                 <li><em>housenumber</em>&nbsp;: numéro "à la plaque"</li>
                 <li><em>street</em>&nbsp;: position "à la voie", placé approximativement au centre de celle-ci</li>
-                <li><em>place</em>&nbsp;: lieu-dit</li>
+                <li><em>locality</em>&nbsp;: lieu-dit</li>
                 <li><em>municipality</em>&nbsp;: numéro "à la commune"</li>
               </ul>
               <li><em>score</em>&nbsp;: valeur de 0 à 1 indiquant la pertinence du résultat</li>
