@@ -1,7 +1,7 @@
 import React from 'react'
 import debounce from 'debounce'
 
-import LeafletMap from './leaflet-map'
+import LeafletMap from '../leaflet-map'
 import SearchInput from './search-input'
 
 class MapSearch extends React.Component {
@@ -45,7 +45,7 @@ class MapSearch extends React.Component {
     return (
       <div>
         <SearchInput value={value} features={features} loading={loading} search={input => this.updateValue(input)} handleSelect={feature => this.selectFeature(feature)} />
-        <LeafletMap position={selected ? selected.geometry.coordinates.reverse() : undefined} />
+        <LeafletMap position={selected ? selected.geometry.coordinates.reverse() : undefined} fullscreen />
       </div>
     )
   }
