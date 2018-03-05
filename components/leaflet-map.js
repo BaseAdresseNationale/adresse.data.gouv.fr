@@ -10,7 +10,7 @@ L.Icon.Default.imagePath = '/static/images/leaflet/'
 
 class LeafletMap extends React.Component {
   render() {
-    const {center, position, zoom, data, fullscreen} = this.props
+    const {center, viewport, position, zoom, data, fullscreen} = this.props
     let bounds
 
     if (data) {
@@ -20,7 +20,7 @@ class LeafletMap extends React.Component {
 
     return (
       <div className={fullscreen ? `fullscreen` : 'window'}>
-        <Map center={center} zoom={zoom} bounds={bounds} scrollWheelZoom={false}>
+        <Map viewport={viewport} center={center} zoom={zoom} bounds={bounds} scrollWheelZoom={false}>
           <TileLayer
             url='https://tilecache.openstreetmap.fr/osmfr/{z}/{x}/{y}.png'
             attribution='Map data &copy; 2012 OpenStreetMap contributors' />
@@ -84,6 +84,10 @@ class LeafletMap extends React.Component {
 LeafletMap.propTypes = {
   data: PropTypes.object,
   center: PropTypes.array,
+  viewport: PropTypes.shape({
+    center: PropTypes.array,
+    zoom: PropTypes.number
+  }),
   position: PropTypes.array,
   zoom: PropTypes.number,
   fullscreen: PropTypes.bool
@@ -92,6 +96,10 @@ LeafletMap.propTypes = {
 LeafletMap.defaultProps = {
   data: null,
   position: null,
+  viewport: {
+    center: [46.921982, 2.978952],
+    zoom: 5
+  },
   center: [46.921982, 2.978952],
   zoom: 5,
   fullscreen: false

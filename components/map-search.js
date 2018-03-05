@@ -23,7 +23,7 @@ class MapSearch extends React.Component {
     this.state = {
       input: '',
       results: [],
-      selected: null,
+      viewport: null,
       loading: false,
       error: null
     }
@@ -41,7 +41,11 @@ class MapSearch extends React.Component {
   }
 
   handleSelect(item) {
-    this.setState({selected: item, input: item.properties.label})
+    const viewport = {
+      center: item.geometry.coordinates.reverse(),
+      zoom: 13
+    }
+    this.setState({viewport, input: item.properties.label})
   }
 
   handleInput(input) {
@@ -69,7 +73,7 @@ class MapSearch extends React.Component {
   }
 
   render() {
-    const {results, input, selected, error, loading} = this.state
+    const {results, input, viewport, error, loading} = this.state
 
     return (
       <div>
@@ -90,7 +94,7 @@ class MapSearch extends React.Component {
           </div>
           }
 
-        <LeafletMap position={selected ? selected.geometry.coordinates.reverse() : undefined} fullscreen />
+        <LeafletMap viewport={viewport} position={viewport ? viewport.center : null} fullscreen />
       </div>
     )
   }
