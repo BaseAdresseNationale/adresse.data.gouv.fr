@@ -6,9 +6,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "node server",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "cross-env NODE_ENV=production node server",
     "export": "next export",
     "lint": "xo",
     "heroku-postbuild": "next build"
@@ -16,7 +16,9 @@
   "dependencies": {
     "@etalab/bal": "^0.3.4",
     "blob-to-buffer": "^1.2.6",
+    "compression": "^1.7.2",
     "debounce": "^1.1.0",
+    "express": "^4.16.2",
     "jschardet-french": "^0.0.1",
     "leaflet": "^1.2.0",
     "next": "^5.0.1-canary.14",
