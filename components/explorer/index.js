@@ -80,8 +80,8 @@ class Explorer extends React.Component {
           results={results}
           loading={loading}
           placeholder='Rechercher une commune…'
-          handleSelect={this.handleSelect}
-          search={this.handleInput}
+          onSelect={this.handleSelect}
+          onSearch={this.handleInput}
           renderItem={renderCommune}
           getItemValue={item => item.nom} />
 

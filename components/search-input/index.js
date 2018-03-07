@@ -18,13 +18,13 @@ class SearchInput extends React.Component {
   }
 
   handleSearch(event) {
-    const {search} = this.props
-    search(event.target.value)
+    const {onSearch} = this.props
+    onSearch(event.target.value)
   }
 
   handleSelect(itemName, item) {
-    const {handleSelect} = this.props
-    handleSelect(item)
+    const {onSelect} = this.props
+    onSelect(item)
   }
 
   renderInput(props) {
@@ -128,8 +128,8 @@ SearchInput.propTypes = {
   placeholder: PropTypes.string,
   loading: PropTypes.bool,
   wrapperStyle: PropTypes.object,
-  handleSelect: PropTypes.func.isRequired,
-  search: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
   getItemValue: PropTypes.func.isRequired
 }

@@ -82,8 +82,8 @@ class MapSearch extends React.Component {
           results={results}
           loading={loading}
           placeholder='Ex. 6 quai de la tourelle cergy…'
-          handleSelect={this.handleSelect}
-          search={this.handleInput}
+          onSelect={this.handleSelect}
+          onSearch={this.handleInput}
           renderItem={renderAdresse}
           getItemValue={item => item.properties.context}
           wrapperStyle={wrapperStyle} />
