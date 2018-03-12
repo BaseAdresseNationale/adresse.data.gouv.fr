@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# This script creates a folder with gzip assets that will be compared
+# in BuildSize (buildsize.org).
+
+set -e
+
+# Default target is `bundle-stats`
+TARGET=${TARGET:-bundle-stats}
+mkdir -p $TARGET
+
+# Copy main bundle
+cp -r .next/main.js $TARGET
+
+# Copy every page with a clean namespaced name
+# e.g.: pages/publication/producers => page-publication-producers
+for page in $(find .next/bundles/pages -name "*.js"); do
+  clean=page-$(echo ${page#.next/bundles/pages/} | tr '/' '-')
+  cp $page $TARGET/$clean
+done
+
+# Copy every additional chunk
+# Remove generated hashes from the filenames
+for chunk in $(find .next/chunks -name "*.js"); do
+  clean=chunk-$(echo ${chunk#.next/chunks/} | sed 's/[_-]\([a-f0-9]\{20,64\}\)//g' | tr '/' '-')
+  cp $chunk $TARGET/$clean
+done
+
+# Gzip the whole directory
+gzip -r $TARGET
+
+echo 'Done'

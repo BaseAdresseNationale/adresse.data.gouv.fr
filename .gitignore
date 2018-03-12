@@ -4,6 +4,7 @@ node_modules
 # Build
 .next
 out
+bundle-stats
 
 # Apple stuff
 .DS_Store

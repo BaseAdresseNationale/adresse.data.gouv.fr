@@ -2,8 +2,8 @@ const {join} = require('path')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
 module.exports = {
-  webpack(config, {dev}) {
-    if (!dev) {
+  webpack(config, {dev, isServer}) {
+    if (!dev && !isServer) {
       config.plugins.push(new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: false,
@@ -13,21 +13,5 @@ module.exports = {
     }
 
     return config
-  },
-
-  exportPathMap() {
-    return {
-      '/': {page: '/'},
-      '/about': {page: '/about'},
-      '/api': {page: '/api'},
-      '/cgu': {page: '/cgu'},
-      '/contrib': {page: '/contrib'},
-      '/csv': {page: '/csv'},
-      '/download': {page: '/download'},
-      '/faq': {page: '/faq'},
-      '/map': {page: '/map'},
-      '/news': {page: '/news'},
-      '/tools': {page: '/tools'}
-    }
   }
 }

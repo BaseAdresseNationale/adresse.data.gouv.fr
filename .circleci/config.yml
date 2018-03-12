@@ -4,10 +4,10 @@ defaults:
   workspace_root: &workspace_root
     ~/adressedatagouv
 
-  container: &default_container
+  nodejs_container: &nodejs_container
     working_directory: *workspace_root
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:8-stretch
 
   attach_workspace: &attach_workspace
     attach_workspace:
@@ -22,7 +22,7 @@ defaults:
 
 jobs:
   checkout:
-    <<: *default_container
+    <<: *nodejs_container
     steps:
       - checkout
 
@@ -32,7 +32,7 @@ jobs:
             - ./
 
   install:
-    <<: *default_container
+    <<: *nodejs_container
     steps:
       - *attach_workspace
       - *restore_node_modules
@@ -60,7 +60,7 @@ jobs:
             - node_modules/
 
   lint:
-    <<: *default_container
+    <<: *nodejs_container
     steps:
       - *attach_workspace
       - *restore_node_modules
@@ -70,7 +70,7 @@ jobs:
           command: yarn lint
 
   build:
-    <<: *default_container
+    <<: *nodejs_container
     steps:
       - *attach_workspace
       - *restore_node_modules
@@ -83,6 +83,14 @@ jobs:
           root: *workspace_root
           paths:
             - .next/
+
+      - run:
+          name: Extract built bundles for stats
+          command: ./build/scripts/extract-bundles
+
+      -  store_artifacts:
+          name: Store built bundles for stats
+          path: bundle-stats
 
 workflows:
   version: 2
