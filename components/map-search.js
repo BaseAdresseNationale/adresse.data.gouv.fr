@@ -5,7 +5,7 @@ import api from '../lib/api'
 
 import Notification from './notification'
 import renderAdresse from './search-input/render-adresse'
-import LeafletMap from './leaflet-map'
+import AddressMap from './mapbox/address-map'
 import SearchInput from './search-input'
 
 const wrapperStyle = {
@@ -42,7 +42,7 @@ class MapSearch extends React.Component {
 
   handleSelect(item) {
     const viewport = {
-      center: item.geometry.coordinates.reverse(),
+      center: item.geometry.coordinates,
       zoom: 13
     }
     this.setState({viewport, input: item.properties.label})
@@ -94,7 +94,7 @@ class MapSearch extends React.Component {
           </div>
           }
 
-        <LeafletMap viewport={viewport} position={viewport ? viewport.center : null} fullscreen />
+        <AddressMap {...viewport} />
       </div>
     )
   }

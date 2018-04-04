@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
-const LeafletMap = dynamic(import('../../leaflet-map'), {
+const GeojsonMap = dynamic(import('../../mapbox/geojson-map'), {
   ssr: false,
   loading: () => (
     <div style={{width: '200px'}}>
@@ -14,11 +14,8 @@ const LeafletMap = dynamic(import('../../leaflet-map'), {
 const Map = ({centre, contour}) => (
   <div className='map'>
     {centre && contour ?
-      <LeafletMap
-        data={contour}
-        center={centre.coordinates.reverse()}
-        zoom={13} /> :
-      <LeafletMap />
+      <GeojsonMap data={contour} center={centre.coordinates} /> :
+      <GeojsonMap />
     }
     <style jsx>{`
       .map {
