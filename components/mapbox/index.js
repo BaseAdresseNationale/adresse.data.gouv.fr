@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import getConfig from 'next/config'
 import ReactMapboxGl from 'react-mapbox-gl'
 
+// eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
 
 const {publicRuntimeConfig: {
