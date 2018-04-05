@@ -5,7 +5,7 @@ const Loader = () => (
     <style jsx>{`
       .loader {
         margin-left: 10px;
-        border: 4px solid ${theme.colors.white}
+        border: 4px solid ${theme.colors.white};
         border-top: 4px solid #3498db; /* Blue */
         border-radius: 50%;
         width: 25px;
