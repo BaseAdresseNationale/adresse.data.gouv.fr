@@ -15,20 +15,15 @@ class FetchRouterParam extends React.Component {
   }
 
   componentDidMount() {
-    const {paramName, router} = this.props
-
-    if (router.query[paramName]) {
-      this.getData()
-    }
+    this.getData()
   }
 
   async getData() {
-    const {baseUrl, paramName, constructQuery, router} = this.props
-    const param = router.query[paramName]
+    const {baseUrl, constructQuery, router} = this.props
     this.setState({loading: true})
 
     try {
-      const result = await api(baseUrl, constructQuery(param))
+      const result = await api(baseUrl, constructQuery({...router.query}))
       this.setState(state => {
         state.data = result
       })
@@ -49,7 +44,7 @@ class FetchRouterParam extends React.Component {
       React.cloneElement(child, {data}))
 
     return (
-      <LoadingContent loading={loading} error={error}>
+      <LoadingContent loading={loading} error={error} centered>
         {childrenWithProps}
       </LoadingContent>
     )
@@ -58,7 +53,6 @@ class FetchRouterParam extends React.Component {
 
 FetchRouterParam.propTypes = {
   baseUrl: PropTypes.string.isRequired,
-  paramName: PropTypes.string.isRequired,
   constructQuery: PropTypes.func.isRequired,
   router: PropTypes.shape({
     push: PropTypes.func.isRequired,

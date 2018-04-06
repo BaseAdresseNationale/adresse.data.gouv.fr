@@ -19,7 +19,7 @@ class VoiesTable extends React.Component {
   }
 
   componentDidMount() {
-    this.sort(val => val.name, 'alphabetical')
+    this.sort(val => val.nom, 'alphabetical')
   }
 
   sort(func, sortedBy) {

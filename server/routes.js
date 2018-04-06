@@ -4,9 +4,17 @@ module.exports = app => {
   const router = new Router()
 
   router.get('/explore/commune/:code', (req, res) => {
-    app.render(req, res, '/explore', {
+    app.render(req, res, '/explore/commune', {
       ...req.query,
-      code: req.params.code
+      codeCommune: req.params.code
+    })
+  })
+
+  router.get('/explore/commune/:codeCommune/voies/:code', (req, res) => {
+    app.render(req, res, '/explore/commune/voies', {
+      ...req.query,
+      codeCommune: req.params.codeCommune,
+      codeVoie: req.params.code
     })
   })
 

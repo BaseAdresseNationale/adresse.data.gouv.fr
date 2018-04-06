@@ -57,7 +57,7 @@ class SearchInput extends React.Component {
     return (
       <div className={`menu ${value.length ? '' : 'hidden'}`}>
         { loading && !items.length ? (
-          <div className='item'><Loader /></div>
+          <div className='item'><Loader size='small' /></div>
         ) : items.length === 0 ? (
           <div className='item'>Aucun résultat</div>
         ) : items}

@@ -7,20 +7,6 @@ import Metrics from './metrics'
 import Map from './map'
 import Voies from './voies'
 
-const voiesExamples = [
-  {name: 'Fordham St. Munster', numbers: ['', '', '', '', ''], lieuDit: false},
-  {name: 'Grand Avenue', numbers: ['', '', '', ''], lieuDit: false},
-  {name: 'Ridge Road', numbers: ['', '', '', ''], lieuDit: false},
-  {name: 'Highland Avenue', numbers: ['', '', ''], lieuDit: false},
-  {name: 'Hanover Court', numbers: ['', '', '', '', '', '', '', '', ''], lieuDit: false},
-  {name: 'Summit Avenue', numbers: ['', '', '', '', ''], lieuDit: false},
-  {name: 'Shady Lane', numbers: ['', '', '', '', '', '', '', '', ''], lieuDit: false},
-  {name: 'Central Avenue', numbers: ['', '', '', '', '', '', '', '', '', '', '', ''], lieuDit: false},
-  {name: 'Willow Street', numbers: ['', '', '', '', '', '', '', ''], lieuDit: false},
-  {name: 'Dogwood Drive', numbers: ['', '', '', '', '', '', '', '', ''], lieuDit: false},
-  {name: 'Lexington Court', numbers: ['', '', ''], lieuDit: true}
-]
-
 class Commune extends React.Component {
   render() {
     return (
@@ -34,7 +20,7 @@ class Commune extends React.Component {
         </div>
 
         <div className='voies'>
-          <Voies voies={voiesExamples} />
+          <Voies codeCommune={this.props.code} />
         </div>
 
         <style jsx>{`

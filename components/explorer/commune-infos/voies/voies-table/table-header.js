@@ -4,23 +4,6 @@ import PropTypes from 'prop-types'
 import theme from '../../../../../styles/theme'
 
 class TableHeader extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.alphabeticalSort = this.alphabeticalSort.bind(this)
-    this.numberSort = this.numberSort.bind(this)
-  }
-
-  alphabeticalSort() {
-    const {sort} = this.props
-    sort(val => val.name, 'alphabetical')
-  }
-
-  numberSort() {
-    const {sort} = this.props
-    sort(val => val.numbers.length, 'numbers')
-  }
-
   render() {
     const {title, sort, icon, actived} = this.props
 

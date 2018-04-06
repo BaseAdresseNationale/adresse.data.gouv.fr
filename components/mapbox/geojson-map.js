@@ -13,7 +13,7 @@ const lineLayout = {
 
 const linePaint = {
   'line-color': '#4790E5',
-  'line-width': 4
+  'line-width': 2
 }
 
 const fillPaint = {
@@ -27,7 +27,7 @@ const polygonPaint = {
   'fill-opacity': 0.3
 }
 
-class Layers extends React.Component {
+class GeojsonMap extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -89,15 +89,15 @@ class Layers extends React.Component {
   }
 }
 
-Layers.propTypes = {
+GeojsonMap.propTypes = {
   data: PropTypes.object.isRequired,
   id: PropTypes.string,
   cluster: PropTypes.bool
 }
 
-Layers.defaultProps = {
+GeojsonMap.defaultProps = {
   id: 'source_id',
   cluster: false
 }
 
-export default Layers
+export default GeojsonMap
