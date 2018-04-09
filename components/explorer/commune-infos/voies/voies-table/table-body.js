@@ -6,12 +6,14 @@ import theme from '../../../../../styles/theme'
 
 class TableBody extends React.Component {
   render() {
-    const {voies, router} = this.props
+    const {voies, wrapped, router} = this.props
+
     return (
       <tbody>
-        {voies.map(voie => (
+        {voies.map((voie, idx) => (
           <tr
             key={voie.idVoie}
+            className={wrapped && idx === 8 ? 'fade-out' : ''}
             onClick={() =>
               Router.push(
                 `/commune/voie?codeVoie=${voie.codeVoie}`,
@@ -35,6 +37,14 @@ class TableBody extends React.Component {
             cursor: pointer;
             background-color: ${theme.colors.lightGrey};
           }
+
+          tr.fade-out {
+            opacity: 0.6;
+          }
+
+          tr.fade-out td {
+            border: 1px dotted ${theme.border};
+          }
           `}</style>
       </tbody>
     )
@@ -43,10 +53,15 @@ class TableBody extends React.Component {
 
 TableBody.propTypes = {
   voies: PropTypes.array.isRequired,
+  wrapped: PropTypes.bool,
   router: PropTypes.shape({
     push: PropTypes.func.isRequired,
     query: PropTypes.object.isRequired
   }).isRequired
+}
+
+TableBody.defaultProps = {
+  wrapped: false
 }
 
 export default (withRouter(TableBody))

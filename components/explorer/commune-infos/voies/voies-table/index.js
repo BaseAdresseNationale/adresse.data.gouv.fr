@@ -13,10 +13,12 @@ class VoiesTable extends React.Component {
     this.state = {
       voies: [...props.voies],
       sortedBy: 'alphabetical',
-      order: 'asc'
+      order: 'asc',
+      wrap: true
     }
 
     this.sort = this.sort.bind(this)
+    this.handleWrap = this.handleWrap.bind(this)
   }
 
   componentDidMount() {
@@ -38,20 +40,62 @@ class VoiesTable extends React.Component {
     this.setState({voies: sorted, sortedBy, order})
   }
 
+  handleWrap() {
+    this.setState(state => {
+      return {wrap: !state.wrap}
+    })
+  }
+
   render() {
-    const {voies, sortedBy, order} = this.state
+    const {voies, sortedBy, order, wrap} = this.state
+    const voiesDisplay = wrap ? voies.slice(0, 9) : voies
+    const wrapper = voiesDisplay.length < voies.length
 
     return (
-      <table>
-        <TableHead sortedBy={sortedBy} sort={this.sort} order={order} />
-        <TableBody voies={voies} />
+      <div>
+        <table className={wrapper && 'wrapped'}>
+          <TableHead sortedBy={sortedBy} sort={this.sort} order={order} />
+          <TableBody voies={voiesDisplay} wrapped={wrapper} />
+        </table>
+
+        {voies.length >= 9 &&
+          <div className='wrap' onClick={this.handleWrap}>
+            {wrap ? 'Afficher toutes les voies' : 'Réduire'}
+          </div>
+        }
+
         <style jsx>{`
           table {
             border-collapse: collapse;
             width: 100%;
           }
+
+          table.wrapped:after {
+            position: absolute;
+            bottom: 35px;
+            height: 3%;
+            width: 100%;
+            content: "";
+            background: linear-gradient(to top,
+               rgba(255,255,255, 1) 20%,
+               rgba(255,255,255, 0) 80%
+            );
+          }
+
+          .wrap {
+            width: 100%;
+            text-align: center;
+            margin-top: 1em;
+            text-decoration: underline;
+          }
+
+          .wrap:hover {
+            cursor: pointer;
+            text-decoration: none;
+          }
           `}</style>
-      </table>
+      </div>
+
     )
   }
 }
