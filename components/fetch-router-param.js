@@ -18,6 +18,10 @@ class FetchRouterParam extends React.Component {
     this.getData()
   }
 
+  componentWillReceiveProps() {
+    this.getData()
+  }
+
   async getData() {
     const {baseUrl, constructQuery, router} = this.props
     this.setState({loading: true})
