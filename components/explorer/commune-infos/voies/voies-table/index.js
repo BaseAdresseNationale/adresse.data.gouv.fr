@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {sortBy} from 'lodash'
 
 import isSort from '../../../../../lib/sort'
 
@@ -19,22 +20,22 @@ class VoiesTable extends React.Component {
   }
 
   componentDidMount() {
-    this.sort(val => val.nom, 'alphabetical')
+    this.sort(val => val.nomsVoie[0], 'alphabetical')
   }
 
   sort(func, sortedBy) {
-    const voies = [...this.state.voies]
+    const {voies} = this.state
+    let sorted = sortBy(voies, func)
     let order = ''
 
     if (isSort(voies, func)) {
-      voies.sort((voieA, voieB) => func(voieB) > func(voieA))
+      sorted = sorted.reverse()
       order = 'desc'
     } else {
-      voies.sort((voieA, voieB) => func(voieA) > func(voieB))
       order = 'asc'
     }
 
-    this.setState({voies, sortedBy, order})
+    this.setState({voies: sorted, sortedBy, order})
   }
 
   render() {

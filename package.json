@@ -22,6 +22,7 @@
     "express": "^4.16.2",
     "jschardet-french": "^0.0.1",
     "leaflet": "^1.2.0",
+    "lodash": "^4.17.5",
     "mapbox-gl": "^0.44.2",
     "next": "^5.1.0",
     "next-runtime-dotenv": "^1.0.1",
