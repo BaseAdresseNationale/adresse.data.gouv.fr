@@ -42,9 +42,9 @@ class AddressesMap extends React.Component {
   }
 
   componentWillMount() {
-    const {data} = this.props
-    const extent = bbox(data)
-    const boundsCenter = center(data).geometry.coordinates
+    const {addresses} = this.props
+    const extent = bbox(addresses)
+    const boundsCenter = center(addresses).geometry.coordinates
 
     this.setState({
       bounds: [
@@ -65,14 +65,15 @@ class AddressesMap extends React.Component {
 
   render() {
     const {bounds, boundsCenter} = this.state
-    const {data, selectedAddress, onSelect} = this.props
+    const {addresses, selectedAddress, onSelect} = this.props
+
     const center = selectedAddress ?
       selectedAddress.positions[0].coordinates :
       boundsCenter
 
     return (
-      <Mapbox center={center} bounds={bounds} zoom={selectedAddress ? 17 : 15} fullscreen>
-        {data && data.features.map(feature => (
+      <Mapbox center={center} bounds={bounds} zoom={selectedAddress ? 17 : 15}>
+        {addresses && addresses.features.map(feature => (
           <Marker
             key={feature.properties.numero}
             onClick={() => onSelect(feature)}
@@ -89,7 +90,7 @@ class AddressesMap extends React.Component {
 }
 
 AddressesMap.propTypes = {
-  data: PropTypes.object.isRequired,
+  addresses: PropTypes.object.isRequired,
   selectedAddress: PropTypes.object,
   onSelect: PropTypes.func
 }
