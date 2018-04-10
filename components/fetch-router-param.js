@@ -49,7 +49,7 @@ class FetchRouterParam extends React.Component {
 
     return (
       <LoadingContent loading={loading} error={error} centered>
-        {childrenWithProps}
+        {data ? childrenWithProps : <div />}
       </LoadingContent>
     )
   }

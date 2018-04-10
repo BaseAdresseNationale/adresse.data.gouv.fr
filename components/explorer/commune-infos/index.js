@@ -9,13 +9,12 @@ import Commune from './commune'
 class CommuneInfos extends React.Component {
   render() {
     const {data} = this.props
-    console.log(data)
 
     return (
       <Section>
         <SearchCommune />
 
-        {data && <Commune {...data} />}
+        <Commune {...data} />
         <style jsx>{`
             .error {
               margin: 1em 0;

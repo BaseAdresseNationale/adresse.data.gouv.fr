@@ -2,11 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
+import LoadingContent from '../../loading-content'
+
+const loadingStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'whitesmoke'
+}
+
 const GeojsonMap = dynamic(import('../../mapbox/geojson-map'), {
   ssr: false,
   loading: () => (
-    <div style={{width: '200px'}}>
-      Chargement…
+    <div style={loadingStyle}>
+      <LoadingContent loading>
+        Chargement…
+      </LoadingContent>
     </div>
   )
 })

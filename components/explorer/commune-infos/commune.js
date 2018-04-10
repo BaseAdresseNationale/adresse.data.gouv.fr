@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import FetchRouterParam from '../../fetch-router-param'
+
 import Head from './head'
 import Codes from './codes'
 import Metrics from './metrics'
@@ -20,7 +22,11 @@ class Commune extends React.Component {
         </div>
 
         <div className='voies'>
-          <Voies codeCommune={this.props.code} />
+          <FetchRouterParam
+            baseUrl='https://sandbox.geo.api.gouv.fr/explore'
+            constructQuery={({codeCommune}) => `/${codeCommune}`}>
+            <Voies />
+          </FetchRouterParam>
         </div>
 
         <style jsx>{`
