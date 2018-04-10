@@ -30,6 +30,18 @@ const selectedStyle = {
   border: `2px solid ${theme.primaryDark}`
 }
 
+const selectedPosStyle = {
+  width: 40,
+  height: 40,
+  borderRadius: '50%',
+  backgroundColor: theme.successBg,
+  color: 'black',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: `2px solid ${theme.successBorder}`
+}
+
 class AddressesMap extends React.Component {
   constructor(props) {
     super(props)
@@ -84,6 +96,16 @@ class AddressesMap extends React.Component {
             </div>
           </Marker>
         ))}
+        {selectedAddress && selectedAddress.positions.length > 1 && selectedAddress.positions.map((position, idx) => (
+          <Marker
+            key={selectedAddress.sources[idx]}
+            style={selectedPosStyle}
+            coordinates={position.coordinates}>
+            <div title={selectedAddress.sources[idx]}>
+              {selectedAddress.sources[idx]}
+            </div>
+          </Marker>
+          ))}
       </Mapbox>
     )
   }

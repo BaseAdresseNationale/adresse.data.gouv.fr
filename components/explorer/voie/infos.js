@@ -27,7 +27,7 @@ const Infos = ({voie}) => (
         justify-content: space-between;
         flex-direction: column;
         flex-flow: wrap;
-        margin-top: -2em;
+        margin: -2em 0 1em;
         padding: 1em 0;
       }
       `}</style>
