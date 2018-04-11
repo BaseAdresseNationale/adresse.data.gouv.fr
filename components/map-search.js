@@ -1,7 +1,7 @@
 import React from 'react'
 import debounce from 'debounce'
 
-import api from '../lib/api'
+import {_get} from '../lib/fetch'
 
 import Notification from './notification'
 import renderAdresse from './search-input/render-adresse'
@@ -55,10 +55,10 @@ class MapSearch extends React.Component {
 
   async handleSearch() {
     const {input} = this.state
-    const url = 'https://api-adresse.data.gouv.fr/search/?q='
+    const url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
 
     try {
-      const results = await api(url, input)
+      const results = await _get(url)
       this.setState({
         results: results.features || []
       })
