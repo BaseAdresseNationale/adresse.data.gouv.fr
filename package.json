@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "node server",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server",
+    "start": "NODE_ENV=production node server",
     "export": "next export",
     "lint": "xo",
     "heroku-postbuild": "next build"
