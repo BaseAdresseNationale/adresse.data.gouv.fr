@@ -13,7 +13,8 @@ const fullscreenStyle = {
 
 const containerStyle = {
   height: '100%',
-  width: '100%'
+  width: '100%',
+  boxShadow: '0 1px 4px #C9D3DF'
 }
 
 const Mapbox = ({center, zoom, bounds, fullscreen, children}) => {

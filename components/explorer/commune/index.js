@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FetchRouterParam from '../../fetch-router-param'
-
 import Head from './head'
 import Codes from './codes'
 import Metrics from './metrics'
 import Map from './map'
-import Voies from './voies'
 
 class Commune extends React.Component {
   render() {
@@ -21,14 +18,6 @@ class Commune extends React.Component {
           <Map {...this.props} />
         </div>
 
-        <div className='voies'>
-          <FetchRouterParam
-            baseUrl='https://sandbox.geo.api.gouv.fr/explore'
-            constructQuery={({codeCommune}) => `/${codeCommune}`}>
-            <Voies />
-          </FetchRouterParam>
-        </div>
-
         <style jsx>{`
           .grid {
             display: grid;
@@ -37,10 +26,6 @@ class Commune extends React.Component {
             grid-auto-rows: minmax(200px, auto);
             align-items: stretch;
             justify-content: center;
-          }
-
-          .voies {
-            margin-top: 2em;
           }
           `}</style>
       </div>

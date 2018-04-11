@@ -1,38 +1,46 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'next/router'
 
-import Section from '../../section'
+const Voie = ({voie}) => (
+  <div className='voie-infos'>
+    <div className='infos'>
+      <h4>Nombre d’adresse</h4>
+      <div>{voie.nbNumeros}</div>
+    </div>
 
-import Head from './head'
-import MapContainer from './map-container'
-import Infos from './infos'
+    <div className='infos'>
+      <h4>Noms de la voie</h4>
+      {voie.nomsVoie.map(nom => <div key={nom}>{nom}</div>)}
+    </div>
 
-class Voie extends React.Component {
-  render() {
-    const {data, router} = this.props
-    const {commune, voies, addresses} = data
-    const voie = voies.find(voie => voie.codeVoie === router.query.codeVoie)
+    <div className='infos'>
+      <h4>Sources</h4>
+      {voie.sources.map(source => <div key={source}>{source}</div>)}
+    </div>
 
-    return (
-      <Section>
-        <Head commune={commune} voie={voie} />
-        <Infos voie={voie} />
-        <MapContainer addresses={addresses} />
-      </Section>
-    )
-  }
-}
+    <div className='infos'>
+      <h4>Code de la voie</h4>
+      <div>{voie.codeVoie}</div>
+    </div>
+    <style jsx>{`
+      .voie-infos {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-flow: wrap;
+        margin: -2em 0 1em;
+        padding: 1em 0;
+      }
+      `}</style>
+  </div>
+)
 
 Voie.propTypes = {
-  data: PropTypes.array,
-  router: PropTypes.shape({
-    query: PropTypes.object.isRequired
-  }).isRequired
+  voie: PropTypes.shape({
+    nbNumeros: PropTypes.number.isRequired,
+    nomsVoie: PropTypes.array.isRequired,
+    sources: PropTypes.array.isRequired,
+    codeVoie: PropTypes.string.isRequired
+  })
 }
 
-Voie.defaultProps = {
-  data: null
-}
-
-export default (withRouter(Voie))
+export default Voie

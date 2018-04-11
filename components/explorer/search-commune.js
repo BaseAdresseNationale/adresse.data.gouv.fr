@@ -2,7 +2,7 @@ import React from 'react'
 import Router from 'next/router'
 import debounce from 'debounce'
 
-import api from '../../lib/api'
+import {_get} from '../../lib/fetch'
 
 import Section from '../section'
 import SearchInput from '../search-input'
@@ -51,10 +51,10 @@ class Explorer extends React.Component {
 
   async handleSearch() {
     const {query} = this.state
-    const url = 'https://geo.api.gouv.fr/'
+    const url = 'https://geo.api.gouv.fr/' + query
 
     try {
-      const results = await api(url, query)
+      const results = await _get(url)
       this.setState({
         results: results.splice(0, 5) || []
       })

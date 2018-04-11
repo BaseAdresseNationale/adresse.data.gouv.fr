@@ -1,20 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import withFetch from '../../../hoc/with-fetch'
+
 import VoiesTable from './voies-table'
 
 class Voies extends React.Component {
   render() {
-    const {data} = this.props
+    const {voies} = this.props
 
     return (
       <div>
         <div className='head'>
           <h3>Voies de la commune</h3>
-          <h5>{data.length} voies répertoriées</h5>
+          <h5>{voies.length} voies répertoriées</h5>
         </div>
 
-        <VoiesTable voies={data} />
+        <VoiesTable voies={voies} />
 
         <style jsx>{`
             .head {
@@ -37,11 +39,13 @@ class Voies extends React.Component {
 }
 
 Voies.propTypes = {
-  data: PropTypes.array
+  voies: PropTypes.array
 }
 
 Voies.defaultProps = {
-  data: []
+  voies: []
 }
 
-export default Voies
+export default withFetch(data => ({
+  voies: data
+}))(Voies)

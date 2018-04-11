@@ -7,25 +7,18 @@ const Address = ({address}) => {
       <h3>Numéro {numero}</h3>
       <div>
         Positions :
-        {positions.map(position => (
-          <ul key={`${position.coordinates[0]}-${position.coordinates[1]}`}>
-            {position.coordinates.map(coordinate => (
-              <li key={coordinate}>
-                {coordinate}
-              </li>
-            ))}
-          </ul>
+        {positions.map((position, idx) => (
+          <div key={sources[idx]}>
+            <h5>{sources[idx]}</h5>
+            <ul>
+              {position.coordinates.map(coordinate => (
+                <li key={coordinate}>
+                  {coordinate}
+                </li>
+              ))}
+            </ul>
+          </div>
         ))}
-      </div>
-      <div>
-        Sources :
-        <ul>
-          {sources.map(source => (
-            <li key={source}>
-              <div>{source}</div>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import Router, {withRouter} from 'next/router'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
@@ -40,15 +41,27 @@ class MapContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: null,
+      selected: props.selected,
       geojson: props.addresses ? toGeoJson(props.addresses) : {}
     }
     this.handleSelect = this.handleSelect.bind(this)
   }
 
   handleSelect(feature) {
-    const {addresses} = this.props
-    this.setState({selected: addresses.filter(address => address.numero === feature.properties.numero)[0]})
+    const {addresses, router} = this.props
+    const {codeCommune, codeVoie} = router.query
+
+    const address = addresses.filter(address => address.numero === feature.properties.numero)[0]
+
+    Router.push(
+      `/voies?codeVoie=${codeVoie}&numero=${address.numero}`,
+      `/explore/commune/${codeCommune}/voies/${codeVoie}/${address.numero}`,
+      {shallow: true}
+    )
+
+    this.setState({
+      selected: address
+    })
   }
 
   render() {
@@ -97,11 +110,16 @@ class MapContainer extends React.Component {
 }
 
 MapContainer.propTypes = {
-  addresses: PropTypes.array
+  addresses: PropTypes.array,
+  selected: PropTypes.object,
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    query: PropTypes.object.isRequired
+  }).isRequired
 }
 
 MapContainer.defaultProps = {
   addresses: null
 }
 
-export default MapContainer
+export default (withRouter(MapContainer))
