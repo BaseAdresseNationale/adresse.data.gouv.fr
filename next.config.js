@@ -1,14 +1,7 @@
 const {join} = require('path')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
-const nextRuntimeDotenv = require('next-runtime-dotenv')
 
-const withConfig = nextRuntimeDotenv({
-  public: [
-    'TILEHOSTING_KEY'
-  ]
-})
-
-module.exports = withConfig({
+module.exports = {
   webpack(config, {dev}) {
     if (!dev) {
       config.plugins.push(new BundleAnalyzerPlugin({
@@ -21,4 +14,4 @@ module.exports = withConfig({
 
     return config
   }
-})
+}

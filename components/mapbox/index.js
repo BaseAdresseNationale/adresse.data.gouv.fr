@@ -1,15 +1,10 @@
-/* eslint react/no-danger: off */
+/* eslint react/no-danger: off, react/style-prop-object: off */
 import React from 'react'
 import PropTypes from 'prop-types'
-import getConfig from 'next/config'
 import ReactMapboxGl from 'react-mapbox-gl'
 
 // eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
-
-const {publicRuntimeConfig: {
-  TILEHOSTING_KEY
-}} = getConfig()
 
 const fullscreenStyle = {
   height: '100vh',
@@ -24,7 +19,7 @@ const containerStyle = {
 const Mapbox = ({center, zoom, bounds, fullscreen, children}) => {
   return (
     <Map
-      style={`https://free.tilehosting.com/styles/bright/style.json?key=${TILEHOSTING_KEY}`}
+      style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
       zoom={[zoom]}
       center={center}
       fitBounds={bounds}

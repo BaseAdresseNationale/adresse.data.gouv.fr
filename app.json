@@ -5,9 +5,6 @@
   "env": {
     "NPM_CONFIG_PRODUCTION": {
       "required": "false"
-    },
-    "TILEHOSTING_KEY": {
-      "required": "true"
     }
   },
   "formation": {
