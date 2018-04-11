@@ -42,17 +42,9 @@ export default () => (
         align-items: center;
       }
 
-      .nav__home {
-        height: 40px;
-      }
-
-      .nav__link {
-        padding: 1em;
-        height: 40px;
-      }
-
       .nav__logo {
-        height: 100%;
+        height: 70px;
+        padding: 1em;
       }
 
       .nav__links {
