@@ -50,12 +50,13 @@ class MapContainer extends React.Component {
   handleSelect(feature) {
     const {addresses, router} = this.props
     const {codeCommune, codeVoie} = router.query
-
-    const address = addresses.filter(address => address.numero === feature.properties.numero)[0]
+    const address = feature ?
+      addresses.filter(address => address.numero === feature.properties.numero)[0] :
+      null
 
     Router.push(
-      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}&numero=${address.numero}`,
-      `/explore/commune/${codeCommune}/voies/${codeVoie}/${address.numero}`,
+      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}${address ? `&numero=${address.numero}` : ''}`,
+      `/explore/commune/${codeCommune}/voies/${codeVoie}${address ? `/${address.numero}` : ''}`,
       {shallow: true}
     )
 
@@ -83,7 +84,7 @@ class MapContainer extends React.Component {
 
         {selected &&
           <div className='selected-address'>
-            <Address address={selected} />
+            <Address address={selected} onClose={this.handleSelect} />
           </div>
         }
 
@@ -96,6 +97,7 @@ class MapContainer extends React.Component {
           .map {
             height: 500px;
             width: ${selected ? '80%' : '100%'};
+            border: 1px solid whitesmoke;
           }
 
           .selected-address {

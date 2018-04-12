@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types'
+import MdClose from 'react-icons/lib/md/close'
 
-const Address = ({address}) => {
+import theme from '../../../styles/theme'
+
+const Address = ({address, onClose}) => {
   const {numero, positions, sources} = address
   return (
     <div>
-      <h3>Numéro {numero}</h3>
+      <div className='head'>
+        <h3>Numéro {numero}</h3>
+        <div className='close' onClick={() => onClose()}><MdClose /></div>
+      </div>
       <div>
         Positions :
         {positions.map((position, idx) => (
@@ -20,6 +26,23 @@ const Address = ({address}) => {
           </div>
         ))}
       </div>
+      <style jsx>{`
+        .head {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .close {
+          font-size: 20px;
+          padding: 0px 2px;
+        }
+
+        .close:hover {
+          color:  ${theme.primary};
+          cursor: pointer;
+        }
+        `}</style>
     </div>
   )
 }
@@ -29,7 +52,8 @@ Address.propTypes = {
     numero: PropTypes.string.isRequired,
     positions: PropTypes.array.isRequired,
     sources: PropTypes.array.isRequired
-  }).isRequired
+  }).isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default Address
