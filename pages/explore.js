@@ -1,8 +1,8 @@
 import FaSearch from 'react-icons/lib/fa/search'
-import Page from '../../layouts/main'
+import Page from '../layouts/main'
 
-import Head from '../../components/head'
-import Explorer from '../../components/explorer'
+import Head from '../components/head'
+import Explorer from '../components/explorer'
 
 const title = 'Consulter'
 const description = 'Consulter les adresses'
