@@ -54,7 +54,7 @@ class MapContainer extends React.Component {
     const address = addresses.filter(address => address.numero === feature.properties.numero)[0]
 
     Router.push(
-      `/voies?codeVoie=${codeVoie}&numero=${address.numero}`,
+      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}&numero=${address.numero}`,
       `/explore/commune/${codeCommune}/voies/${codeVoie}/${address.numero}`,
       {shallow: true}
     )
