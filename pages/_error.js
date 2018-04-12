@@ -13,11 +13,13 @@ const messages = {
 
 class ErrorPage extends React.Component {
   static propTypes = {
-    code: PropTypes.number
+    code: PropTypes.number,
+    message: PropTypes.string
   }
 
   static defaultProps = {
-    code: 500
+    code: 500,
+    message: null
   }
 
   static getInitialProps({res, err}) {
@@ -27,17 +29,18 @@ class ErrorPage extends React.Component {
   }
 
   render() {
-    const {code} = this.props
+    const {code, message} = this.props
     const title = `Erreur ${code}`
+    const msg = message || messages[code]
 
     return (
       <Page>
-        <Meta title={title} description={messages[code]} />
+        <Meta title={title} description={msg} />
 
         <div>
           <section>
             <h1>{title}</h1>
-            <h2>{messages[code]}</h2>
+            <h2>{msg}</h2>
           </section>
         </div>
 

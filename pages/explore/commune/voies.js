@@ -80,9 +80,15 @@ VoiesPage.getInitialProps = async ({query}) => {
     _get(`${exploreApi}/${codeCommune}/${codeVoie}`)
   ])
 
+  const voie = voies.find(voie => voie.codeVoie === query.codeVoie)
+
+  if (!voie) {
+    throw new Error({code: 404, message: 'La voie demandée n’a pas pu être trouvée'})
+  }
+
   return {
     commune,
-    voie: voies.find(voie => voie.codeVoie === query.codeVoie),
+    voie,
     addresses,
     selected: query.numero ? addresses.find(address => address.numero === query.numero) : null
   }

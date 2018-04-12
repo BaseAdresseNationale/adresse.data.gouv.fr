@@ -32,7 +32,7 @@ export default Page => {
 
       if (error) {
         return (
-          <ErrorPage {...this.props} code={error.code} />
+          <ErrorPage {...this.props} code={error.code} message={error.message} />
         )
       }
 
