@@ -66,7 +66,7 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const {addresses} = this.props
+    const {addresses, commune, voie} = this.props
     const {selected, geojson} = this.state
 
     if (addresses && addresses.length <= 0) {
@@ -84,7 +84,7 @@ class MapContainer extends React.Component {
 
         {selected &&
           <div className='selected-address'>
-            <Address address={selected} onClose={this.handleSelect} />
+            <Address commune={commune} voie={voie} address={selected} onClose={this.handleSelect} />
           </div>
         }
 
@@ -112,6 +112,8 @@ class MapContainer extends React.Component {
 }
 
 MapContainer.propTypes = {
+  commune: PropTypes.object,
+  voie: PropTypes.object,
   addresses: PropTypes.array,
   selected: PropTypes.object,
   router: PropTypes.shape({

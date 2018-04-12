@@ -25,7 +25,7 @@ class VoiesPage extends React.Component {
         <Section>
           <Head commune={commune} voie={voie} />
           <Voie voie={voie} />
-          <MapContainer addresses={addresses} selected={selected} />
+          <MapContainer commune={commune} voie={voie} addresses={addresses} selected={selected} />
         </Section>
       </Page>
     )

@@ -1,24 +1,31 @@
 import PropTypes from 'prop-types'
 
+import FaDotCircleO from 'react-icons/lib/fa/dot-circle-o'
+import FaTags from 'react-icons/lib/fa/tags'
+import FaBarcode from 'react-icons/lib/fa/barcode'
+import FaDatabase from 'react-icons/lib/fa/database'
+
+import theme from '../../../styles/theme'
+
 const Voie = ({voie}) => (
   <div className='voie-infos'>
     <div className='infos'>
-      <h4>Nombre d’adresse</h4>
+      <h4><FaDotCircleO /> Nombre d’adresse</h4>
       <div>{voie.nbNumeros}</div>
     </div>
 
     <div className='infos'>
-      <h4>Noms de la voie</h4>
+      <h4><FaTags /> Noms de la voie</h4>
       {voie.nomsVoie.map(nom => <div key={nom}>{nom}</div>)}
     </div>
 
     <div className='infos'>
-      <h4>Sources</h4>
+      <h4><FaDatabase /> Sources</h4>
       {voie.sources.map(source => <div key={source}>{source}</div>)}
     </div>
 
     <div className='infos'>
-      <h4>Code de la voie</h4>
+      <h4><FaBarcode /> Code de la voie</h4>
       <div>{voie.codeVoie}</div>
     </div>
     <style jsx>{`
@@ -27,8 +34,14 @@ const Voie = ({voie}) => (
         justify-content: space-between;
         flex-direction: column;
         flex-flow: wrap;
-        margin: -2em 0 1em;
-        padding: 1em 0;
+        background-color: ${theme.primary};
+        color: ${theme.colors.white};
+        margin-top: -1em;
+        padding: 1em 2em;
+      }
+
+      .infos div {
+        text-align: center;
       }
       `}</style>
   </div>
