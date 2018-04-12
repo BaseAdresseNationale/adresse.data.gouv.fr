@@ -2,11 +2,6 @@
   "name": "adresse.data.gouv.fr",
   "scripts": {
   },
-  "env": {
-    "NPM_CONFIG_PRODUCTION": {
-      "required": "false"
-    }
-  },
   "formation": {
     "web": {
       "quantity": 1
