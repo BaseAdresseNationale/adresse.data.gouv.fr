@@ -1,20 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaSearch from 'react-icons/lib/fa/search'
 
 import {_get} from '../../lib/fetch'
 
 import Page from '../../layouts/main'
-import Head from '../../components/head'
 import Section from '../../components/section'
 import withErrors from '../../components/hoc/with-errors'
 
 import SearchCommune from '../../components/explorer/search-commune'
 import Commune from '../../components/explorer/commune'
 import Voies from '../../components/explorer/commune/voies'
-
-const title = 'Consulter'
-const description = 'Consulter les adresses'
 
 class CommunePage extends React.Component {
   state = {
@@ -34,15 +29,13 @@ class CommunePage extends React.Component {
   render() {
     const {communeVoiesPromise} = this.state
     const {commune} = this.props
+    const description = `Consulter les voies de ${commune.nom}`
 
     return (
-      <Page title={title} description={description}>
-        <Head title={title} icon={<FaSearch />}>
-          {description}
-        </Head>
+      <Page title={commune.nom} description={description}>
+        <SearchCommune />
 
         <Section>
-          <SearchCommune />
           <Commune {...commune} />
           <div className='voies'>
             <Voies promise={communeVoiesPromise} />

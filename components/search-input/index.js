@@ -63,14 +63,14 @@ class SearchInput extends React.Component {
         ) : items}
         <style jsx>{`
           .menu {
-            margin-right: 100%;
-            float: left;
-            width: calc(100% - 2px);
+            position: absolute;
+            box-shadow: 0 1px 4px ${theme.boxShadow};
+            z-index: 1;
+            width: 100%;
             background-color: ${theme.colors.white};
             border: 1px solid ${theme.border};
-            border-radius: 5px;
-            margin-bottom: 1em;
-            outline: none;
+            color: ${theme.colors.black};
+            border-radius: 0 0 5px 5px;
           }
 
           .item {

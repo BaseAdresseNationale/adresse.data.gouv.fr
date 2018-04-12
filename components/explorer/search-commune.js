@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import debounce from 'debounce'
+import FaSearch from 'react-icons/lib/fa/search'
 
 import {_get} from '../../lib/fetch'
 
@@ -71,7 +72,8 @@ class Explorer extends React.Component {
     const {input, results, loading, error} = this.state
 
     return (
-      <Section>
+      <Section background='color'>
+        <h2><FaSearch /> Chercher une commune</h2>
         <SearchInput
           value={input}
           results={results}

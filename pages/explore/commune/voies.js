@@ -9,19 +9,19 @@ import withErrors from '../../../components/hoc/with-errors'
 
 import Section from '../../../components/section'
 
+import SearchCommune from '../../../components/explorer/search-commune'
 import Head from '../../../components/explorer/voie/head'
 import Voie from '../../../components/explorer/voie'
 import MapContainer from '../../../components/explorer/voie/map-container'
 
-const title = 'Voie'
-const description = 'Consulter les voies de cette commune'
-
 class VoiesPage extends React.Component {
   render() {
     const {commune, voie, addresses, selected} = this.props
+    const description = 'Consulter les adresses'
 
     return (
-      <Page title={title} description={description}>
+      <Page title={voie.nomsVoie[0]} description={description}>
+        <SearchCommune />
         <Section>
           <Head commune={commune} voie={voie} />
           <Voie voie={voie} />
