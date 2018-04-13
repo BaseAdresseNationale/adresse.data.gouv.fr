@@ -14,6 +14,14 @@ import Head from '../../../components/explorer/voie/head'
 import Voie from '../../../components/explorer/voie'
 import MapContainer from '../../../components/explorer/voie/map-container'
 
+class VoieError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'VoieError'
+    this.code = 404
+  }
+}
+
 class VoiesPage extends React.Component {
   render() {
     const {commune, voie, addresses, selected} = this.props
@@ -83,7 +91,7 @@ VoiesPage.getInitialProps = async ({query}) => {
   const voie = voies.find(voie => voie.codeVoie === query.codeVoie)
 
   if (!voie) {
-    throw new Error({code: 404, message: 'La voie demandée n’a pas pu être trouvée'})
+    throw new VoieError('La voie demandée n’a pas pu être trouvée')
   }
 
   return {
