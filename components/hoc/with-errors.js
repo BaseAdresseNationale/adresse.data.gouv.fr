@@ -7,32 +7,31 @@ import ErrorPage from '../../pages/_error'
 export default Page => {
   const Extended = hoist(class extends React.Component {
     static propTypes = {
-      error: PropTypes.object
+      err: PropTypes.object
     }
 
     static defaultProps = {
-      error: null
+      err: null
     }
 
     state = {
-      error: null
+      err: null
     }
 
-    componentDidCatch(error) {
+    componentDidCatch(err) {
       this.setState({
-        error
+        err
       })
     }
 
     render() {
-      const {error: stateError} = this.state
-      const {error: propsError} = this.props
+      const {err: stateError} = this.state
+      const {err: propsError} = this.props
 
-      const error = stateError || propsError
-
-      if (error) {
+      const err = stateError || propsError
+      if (err) {
         return (
-          <ErrorPage {...this.props} code={error.code} message={error.message} />
+          <ErrorPage {...this.props} code={err.code} message={err.message} />
         )
       }
 
