@@ -30,20 +30,21 @@ const Voie = ({voie}) => (
     </div>
     <style jsx>{`
       .voie-infos {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        flex-flow: wrap;
+        display: grid;
+        text-align: center;
+        grid-template-columns: repeat(4, 1fr);
         background-color: ${theme.primary};
         color: ${theme.colors.white};
         margin-top: -1em;
         padding: 1em 2em;
       }
 
-      .infos div {
-        text-align: center;
+      @media (max-width: 749px) {
+        .voie-infos {
+          grid-template-columns: 50% 50%;
+        }
       }
-      `}</style>
+       `}</style>
   </div>
 )
 

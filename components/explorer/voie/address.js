@@ -49,29 +49,30 @@ const Address = ({commune, voie, address, onClose}) => {
         }
 
         .position {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1em;
+          display: grid;
+          grid-column-gap: 5px;
+          margin: 10px 0;
+          grid-template-columns: 0.5fr 1fr;
         }
 
         .source {
+          grid-column: 1;
           text-align: center;
-          width: 40%;
           background-color: ${theme.colors.lighterGrey};
         }
 
         .coordinates {
-          display: flex;
-          flex-direction: column;
-          width: 60%;
+          grid-column: 2;
+          display: grid;
+          grid-row-gap: 5px;
+          grid-template-rows: 50%;
           text-align: center;
         }
 
         .coordinate {
-          padding: 2px 4px;
+          align-self: center;
+          padding: 5px;
           background-color: ${theme.colors.lightGrey};
-          margin: 5px 0px 10px 10px;
         }
         `}</style>
     </div>

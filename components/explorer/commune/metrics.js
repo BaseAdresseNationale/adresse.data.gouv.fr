@@ -17,19 +17,13 @@ const Metrics = ({population, surface}) => (
     <style jsx>{`
       .metrics {
         display: grid;
-        grid-column: 2 / 3;
-
-        grid-row: 1;
-        align-items: center;
+        text-align: center;
       }
 
       .metric {
-        display: flex;
-        align-items: center;
-      }
-
-      .metric > div {
-        margin-left: 1em;
+        display: grid;
+        justify-items: center;
+        align-self: center;
       }
         `}</style>
   </div>

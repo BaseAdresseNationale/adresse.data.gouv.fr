@@ -66,12 +66,8 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const {addresses, commune, voie} = this.props
+    const {commune, voie} = this.props
     const {selected, geojson} = this.state
-
-    if (addresses && addresses.length <= 0) {
-      return <h1>Aucune adresse répertorié</h1>
-    }
 
     return (
       <div className='container'>
@@ -104,6 +100,20 @@ class MapContainer extends React.Component {
             width: 20%;
             padding: 0 2em;
             box-shadow: 0 1px 4px ${theme.boxShadow};
+          }
+
+          @media (max-width: 749px) {
+            .map {
+              width: 100%;
+              height: 500px;
+              border: 1px solid whitesmoke;
+            }
+
+            .selected-address {
+              width: 100%;
+              padding: 0 2em;
+              box-shadow: 0 1px 4px ${theme.boxShadow};
+            }
           }
         `}</style>
       </div>

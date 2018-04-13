@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '../../../styles/theme'
+
 import Head from './head'
 import Codes from './codes'
 import Metrics from './metrics'
@@ -12,20 +14,25 @@ class Commune extends React.Component {
       <div>
         <Head {...this.props} />
 
-        <div className='grid'>
+        <div className='head'>
           <Codes {...this.props} />
+        </div>
+
+        <div className='map'>
           <Metrics {...this.props} />
           <Map {...this.props} />
         </div>
 
         <style jsx>{`
-          .grid {
+          .head {
+            background-color: ${theme.primary};
+            color: ${theme.colors.white};
+          }
+
+          .map {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-gap: 10px;
-            grid-auto-rows: minmax(200px, auto);
-            align-items: stretch;
-            justify-content: center;
+            grid-template-columns: 1fr 3fr;
+            height: 420px;
           }
           `}</style>
       </div>
