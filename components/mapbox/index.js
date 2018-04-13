@@ -41,7 +41,7 @@ Mapbox.propTypes = {
 
 Mapbox.defaultProps = {
   center: [2.060204, 49.031407],
-  zoom: 13,
+  zoom: 11,
   bounds: null,
   fullscreen: false,
   children: null

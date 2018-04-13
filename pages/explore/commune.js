@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import {_get} from '../../lib/fetch'
 
 import Page from '../../layouts/main'
@@ -20,10 +19,22 @@ class CommunePage extends React.Component {
     const {commune} = this.props
 
     if (commune && commune.code) {
-      this.setState(() => ({
-        communeVoiesPromise: _get(`https://sandbox.geo.api.gouv.fr/explore/${commune.code}`)
-      }))
+      this.buildVoiesPromise(commune.code)
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {commune} = this.props
+
+    if (nextProps.commune.code !== commune.code) {
+      this.buildVoiesPromise(nextProps.commune.code)
+    }
+  }
+
+  buildVoiesPromise(codeCommune) {
+    this.setState(() => ({
+      communeVoiesPromise: _get(`https://sandbox.geo.api.gouv.fr/explore/${codeCommune}`)
+    }))
   }
 
   render() {

@@ -42,7 +42,7 @@ class Explorer extends React.Component {
     this.update()
     const href = `/explore/commune?codeCommune=${item.code}`
     const as = `/explore/commune/${item.code}`
-    Router.push(href, as, {shallow: true})
+    Router.push(href, as)
   }
 
   handleInput(input) {

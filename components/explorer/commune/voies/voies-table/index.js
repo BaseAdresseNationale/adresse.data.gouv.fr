@@ -25,6 +25,14 @@ class VoiesTable extends React.Component {
     this.sort(val => val.nomsVoie[0], 'alphabetical')
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(() => ({
+      voies: sortBy(nextProps.voies, val => val.nomsVoie[0]),
+      order: 'asc',
+      sortedBy: 'alphabetical'
+    }))
+  }
+
   sort(func, sortedBy) {
     const {voies} = this.state
     let sorted = sortBy(voies, func)

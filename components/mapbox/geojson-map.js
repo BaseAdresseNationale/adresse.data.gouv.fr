@@ -30,26 +30,22 @@ const polygonPaint = {
 class GeojsonMap extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      bounds: null,
-      boundsCenter: null
-    }
 
+    this.getBounds = this.getBounds.bind(this)
     this.getCirclePaint = this.getCirclePaint.bind(this)
   }
 
-  componentWillMount() {
+  getBounds() {
     const {data} = this.props
     const extent = bbox(data)
     const boundsCenter = center(data).geometry.coordinates
 
-    this.setState({
-      bounds: [
-        extent.splice(0, 2),
-        extent.splice(0, 2)
-      ],
-      boundsCenter
-    })
+    const bounds = [
+      extent.splice(0, 2),
+      extent.splice(0, 2)
+    ]
+
+    return {bounds, boundsCenter}
   }
 
   getCirclePaint() {
@@ -61,8 +57,8 @@ class GeojsonMap extends React.Component {
   }
 
   render() {
-    const {bounds, boundsCenter} = this.state
     const {data, id, cluster} = this.props
+    const {bounds, boundsCenter} = this.getBounds()
     const options = {
       cluster,
       clusterMaxZoom: 14,
