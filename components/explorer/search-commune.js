@@ -32,8 +32,8 @@ class Explorer extends React.Component {
     const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
 
     this.setState(state => {
-      state.query = `communes?nom=${state.input}&${fields}&boost=population`
       this.handleSearch()
+      return {query: `communes?nom=${state.input}&${fields}&boost=population`}
     })
   }
 
