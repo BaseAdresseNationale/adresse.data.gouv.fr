@@ -31,7 +31,7 @@ class ErrorPage extends React.Component {
   render() {
     const {code, message} = this.props
     const title = `Erreur ${code}`
-    const msg = message || messages[code]
+    const msg = code === 500 ? messages[500] : message || messages[code]
 
     return (
       <Page>
