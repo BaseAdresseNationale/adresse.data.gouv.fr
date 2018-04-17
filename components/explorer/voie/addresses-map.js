@@ -18,29 +18,19 @@ const markerStyle = {
   border: '2px solid #C9C9C9'
 }
 
-const selectedStyle = {
+const selectedStyle = Object.assign({}, markerStyle, {
   width: 40,
   height: 40,
-  borderRadius: '50%',
   backgroundColor: theme.primary,
   color: 'white',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
   border: `2px solid ${theme.primaryDark}`
-}
+})
 
-const selectedPosStyle = {
-  width: 40,
-  height: 40,
-  borderRadius: '50%',
+const selectedPosStyle = Object.assign({}, markerStyle, selectedStyle, {
   backgroundColor: theme.successBg,
   color: 'black',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
   border: `2px solid ${theme.successBorder}`
-}
+})
 
 class AddressesMap extends React.Component {
   constructor(props) {
@@ -80,7 +70,7 @@ class AddressesMap extends React.Component {
     const {addresses, selectedAddress, onSelect} = this.props
 
     const center = selectedAddress ?
-      selectedAddress.positions[0].coordinates :
+      selectedAddress.position.coordinates :
       boundsCenter
 
     return (
@@ -96,13 +86,13 @@ class AddressesMap extends React.Component {
             </div>
           </Marker>
         ))}
-        {selectedAddress && selectedAddress.positions.length > 1 && selectedAddress.positions.map((position, idx) => (
+        {selectedAddress && selectedAddress.entries.map(entry => (
           <Marker
-            key={selectedAddress.sources[idx]}
+            key={entry.source}
             style={selectedPosStyle}
-            coordinates={position.coordinates}>
-            <div title={selectedAddress.sources[idx]}>
-              {selectedAddress.sources[idx]}
+            coordinates={entry.position.coordinates}>
+            <div title={entry.source}>
+              {entry.source}
             </div>
           </Marker>
           ))}

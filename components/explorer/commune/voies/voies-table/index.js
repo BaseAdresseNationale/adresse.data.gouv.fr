@@ -22,12 +22,12 @@ class VoiesTable extends React.Component {
   }
 
   componentDidMount() {
-    this.sort(val => val.nomsVoie[0], 'alphabetical')
+    this.sort(val => val.nomVoie, 'alphabetical')
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(() => ({
-      voies: sortBy(nextProps.voies, val => val.nomsVoie[0]),
+      voies: sortBy(nextProps.voies, val => val.nomVoie),
       order: 'asc',
       sortedBy: 'alphabetical'
     }))

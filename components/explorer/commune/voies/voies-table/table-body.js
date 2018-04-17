@@ -18,9 +18,14 @@ class TableBody extends React.Component {
               Router.push(
                 `/commune/voie?codeVoie=${voie.codeVoie}`,
                 `/explore/commune/${router.query.codeCommune}/voies/${voie.codeVoie}`)}>
-            <td>{voie.nomsVoie[0]}</td>
-            <td>{voie.nbNumeros}</td>
-            <td>{voie.sources.map((source, idx) => `${source}${idx + 1 < voie.sources.length ? ', ' : ''}`)}</td>
+            <td>{voie.nomVoie}</td>
+            <td>{voie.numeros}</td>
+            <td>{voie.sources.map((source, idx) =>
+                `${source}${idx + 1 < voie.sources.length ? ', ' : ''}`)}
+            </td>
+            <td>{voie.destination.map((destination, idx) =>
+                `${destination}${idx + 1 < voie.destination.length ? ', ' : ''}`)}
+            </td>
           </tr>
         ))}
         <style jsx>{`

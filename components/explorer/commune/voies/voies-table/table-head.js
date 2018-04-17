@@ -18,12 +18,12 @@ class TableHead extends React.Component {
 
   alphabeticalSort() {
     const {sort} = this.props
-    sort(val => val.nomsVoie[0], 'alphabetical')
+    sort(val => val.nomVoie, 'alphabetical')
   }
 
   numberSort() {
     const {sort} = this.props
-    sort(val => val.nbNumeros, 'numbers')
+    sort(val => val.numeros, 'numbers')
   }
 
   render() {
@@ -36,12 +36,16 @@ class TableHead extends React.Component {
             sort={this.alphabeticalSort}
             icon={order === 'asc' ? <FaSortAlphaAsc /> : <FaSortAlphaDesc />}
             actived={sortedBy === 'alphabetical'} />
+
           <TableHeader
             title='Nombre de numéro'
             sort={this.numberSort}
             icon={order === 'asc' ? <FaSortNumericAsc /> : <FaSortNumericDesc />}
             actived={sortedBy === 'numbers'} />
+
           <TableHeader title='Sources' />
+
+          <TableHeader title='Déstinations' />
         </tr>
       </tbody>
     )

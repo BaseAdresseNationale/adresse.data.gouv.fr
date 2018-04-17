@@ -47,5 +47,5 @@ Voies.defaultProps = {
 }
 
 export default withFetch(data => ({
-  voies: data
+  voies: data.voies
 }))(Voies)

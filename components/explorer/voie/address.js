@@ -3,8 +3,14 @@ import MdClose from 'react-icons/lib/md/close'
 
 import theme from '../../../styles/theme'
 
-const Address = ({commune, voie, address, onClose}) => {
-  const {numero, positions, sources} = address
+const precisionRound = (number, precision) => {
+  const factor = Math.pow(10, precision)
+  return Math.round(number * factor) / factor
+}
+
+const Address = ({voie, address, onClose}) => {
+  const {numero, entries, active, pseudoNumero} = address
+
   return (
     <div>
       <div className='head'>
@@ -12,19 +18,17 @@ const Address = ({commune, voie, address, onClose}) => {
         <div className='close' onClick={() => onClose()}><MdClose /></div>
       </div>
 
-      <div>
-        <h5>{numero} {voie.nomsVoie[0]} - {commune.code} {commune.nom}</h5>
-      </div>
+      {active && !pseudoNumero && <h5>{numero} {voie.nomVoie} - {voie.codeCommune} {voie.nomCommune}</h5>}
 
       <div>
         Positions :
-        {positions.map((position, idx) => (
-          <div key={sources[idx]} className='position'>
-            <div className='source'><h5>{sources[idx]}</h5></div>
+        {entries.map(entry => (
+          <div key={entry.source} className='position'>
+            <div className='source'><h5>{entry.source}</h5></div>
             <div className='coordinates'>
-              {position.coordinates.map(coordinate => (
+              {entry.position.coordinates.map(coordinate => (
                 <div key={coordinate} className='coordinate'>
-                  {coordinate}
+                  {precisionRound(coordinate, 5)}
                 </div>
             ))}
             </div>
@@ -80,11 +84,14 @@ const Address = ({commune, voie, address, onClose}) => {
 }
 
 Address.propTypes = {
-  commune: PropTypes.object,
-  voie: PropTypes.object,
+  voie: PropTypes.shape({
+    nomVoie: PropTypes.string.isRequired,
+    codeCommune: PropTypes.string.isRequired,
+    nomCommune: PropTypes.string.isRequired
+  }),
   address: PropTypes.shape({
     numero: PropTypes.string.isRequired,
-    positions: PropTypes.array.isRequired,
+    position: PropTypes.object.isRequired,
     sources: PropTypes.array.isRequired
   }).isRequired,
   onClose: PropTypes.func.isRequired

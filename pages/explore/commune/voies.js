@@ -24,16 +24,27 @@ class VoieError extends Error {
 
 class VoiesPage extends React.Component {
   render() {
-    const {commune, voie, addresses, selected} = this.props
+    const {voie, selected} = this.props
     const description = 'Consulter les adresses'
+    const commune = {
+      nom: voie.nomCommune,
+      code: voie.codeCommune,
+      departement: {
+        code: voie.codeDepartement,
+        nom: voie.nomDepartement
+      }
+    }
 
     return (
-      <Page title={voie.nomsVoie[0]} description={description}>
+      <Page title={voie.nomVoie} description={description}>
         <SearchCommune />
         <Section>
-          <Head commune={commune} voie={voie} />
+          <Head commune={commune} nomVoie={voie.nomVoie} />
           <Voie voie={voie} />
-          <MapContainer commune={commune} voie={voie} addresses={addresses} selected={selected} />
+          <MapContainer
+            voie={voie}
+            addresses={voie.numeros}
+            selected={selected} />
         </Section>
       </Page>
     )
@@ -41,64 +52,63 @@ class VoiesPage extends React.Component {
 }
 
 VoiesPage.propTypes = {
-  commune: PropTypes.shape({
-    nom: PropTypes.string.isRequired,
-    code: PropTypes.string.isRequired,
-    codesPostaux: PropTypes.array.isRequired,
-    departement: PropTypes.shape({
-      nom: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired
-    }).isRequired,
-    region: PropTypes.shape({
-      nom: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired
-    }).isRequired,
-    centre: PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      coordinates: PropTypes.array.isRequired
-    }).isRequired,
-    contour: PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      coordinates: PropTypes.array.isRequired
-    }).isRequired,
-    population: PropTypes.number.isRequired,
-    surface: PropTypes.number.isRequired
+  voie: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    idVoie: PropTypes.string.isRequired,
+    codeVoie: PropTypes.string.isRequired,
+    nomVoie: PropTypes.string.isRequired,
+    codeCommune: PropTypes.string.isRequired,
+    nomCommune: PropTypes.string.isRequired,
+    sources: PropTypes.array.isRequired,
+    entries: PropTypes.array.isRequired,
+    destination: PropTypes.array.isRequired,
+    active: PropTypes.bool.isRequired,
+    numeros: PropTypes.array.isRequired
   }),
-  voie: PropTypes.object,
-  addresses: PropTypes.array,
-  selected: PropTypes.object
+  selected: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    numero: PropTypes.string.isRequired,
+    idVoie: PropTypes.string.isRequired,
+    codePostal: PropTypes.string.isRequired,
+    libelleAcheminement: PropTypes.string.isRequired,
+    position: PropTypes.object.isRequired,
+    pseudoNumero: PropTypes.bool,
+    destination: PropTypes.array,
+    parcelles: PropTypes.array,
+    active: PropTypes.bool.isRequired,
+    sources: PropTypes.array.isRequired,
+    entries: PropTypes.array.isRequired,
+    distanceMaxPositions: PropTypes.number,
+    centrePositions: PropTypes.object
+  })
 }
 
 VoiesPage.defaultProps = {
-  commune: null,
   voie: null,
-  addresses: null,
   selected: null
 }
 
 VoiesPage.getInitialProps = async ({query}) => {
   const {codeCommune, codeVoie} = query
-  const geoApi = 'https://geo.api.gouv.fr'
   const exploreApi = 'https://sandbox.geo.api.gouv.fr/explore'
-  const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
-
-  const [commune, voies, addresses] = await Promise.all([
-    _get(`${geoApi}/communes/${codeCommune}?${fields}&boost=population`),
-    _get(`${exploreApi}/${codeCommune}`),
+  const promises = [
     _get(`${exploreApi}/${codeCommune}/${codeVoie}`)
-  ])
+  ]
 
-  const voie = voies.find(voie => voie.codeVoie === query.codeVoie)
+  if (query.numero) {
+    promises.push(_get(`${exploreApi}/${codeCommune}/${codeVoie}/${query.numero}`))
+  }
+
+  const [voie, selected] = await Promise.all(promises)
 
   if (!voie) {
     throw new VoieError('La voie demandée n’a pas pu être trouvée')
   }
 
   return {
-    commune,
     voie,
-    addresses,
-    selected: query.numero ? addresses.find(address => address.numero === query.numero) : null
+    selected
   }
 }
 

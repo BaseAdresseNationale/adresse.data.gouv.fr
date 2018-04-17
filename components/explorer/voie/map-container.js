@@ -19,16 +19,20 @@ const AddressesMap = dynamic(import('./addresses-map'), {
 })
 
 function toGeoJson(addresses) {
+  const addrs = addresses.filter(address => address.position)
+
   return {
     type: 'FeatureCollection',
-    features: addresses.map(address => {
+    features: addrs.map(address => {
       return {
         type: 'Feature',
         geometry: {
-          type: address.positions[0].type,
-          coordinates: address.positions[0].coordinates
+          type: address.position.type,
+          coordinates: address.position.coordinates
         },
         properties: {
+          id: address.id,
+          idVoie: address.idVoie,
           numero: address.numero,
           sources: address.sources
         }
@@ -41,33 +45,25 @@ class MapContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: props.selected,
       geojson: props.addresses ? toGeoJson(props.addresses) : {}
     }
     this.handleSelect = this.handleSelect.bind(this)
   }
 
   handleSelect(feature) {
-    const {addresses, router} = this.props
+    const {router} = this.props
     const {codeCommune, codeVoie} = router.query
-    const address = feature ?
-      addresses.filter(address => address.numero === feature.properties.numero)[0] :
-      null
+    const addressNb = feature ? feature.properties.numero : null
 
     Router.push(
-      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}${address ? `&numero=${address.numero}` : ''}`,
-      `/explore/commune/${codeCommune}/voies/${codeVoie}${address ? `/${address.numero}` : ''}`,
-      {shallow: true}
+      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}${addressNb ? `&numero=${addressNb}` : ''}`,
+      `/explore/commune/${codeCommune}/voies/${codeVoie}${addressNb ? `/${addressNb}` : ''}`
     )
-
-    this.setState({
-      selected: address
-    })
   }
 
   render() {
-    const {commune, voie} = this.props
-    const {selected, geojson} = this.state
+    const {voie, selected} = this.props
+    const {geojson} = this.state
 
     return (
       <div className='container'>
@@ -80,7 +76,7 @@ class MapContainer extends React.Component {
 
         {selected &&
           <div className='selected-address'>
-            <Address commune={commune} voie={voie} address={selected} onClose={this.handleSelect} />
+            <Address voie={voie} address={selected} onClose={this.handleSelect} />
           </div>
         }
 
@@ -122,7 +118,6 @@ class MapContainer extends React.Component {
 }
 
 MapContainer.propTypes = {
-  commune: PropTypes.object,
   voie: PropTypes.object,
   addresses: PropTypes.array,
   selected: PropTypes.object,
