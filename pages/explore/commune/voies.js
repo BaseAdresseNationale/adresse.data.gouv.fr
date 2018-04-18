@@ -7,12 +7,8 @@ import {_get} from '../../../lib/fetch'
 
 import withErrors from '../../../components/hoc/with-errors'
 
-import Section from '../../../components/section'
-
 import SearchCommune from '../../../components/explorer/search-commune'
-import Head from '../../../components/explorer/voie/head'
 import Voie from '../../../components/explorer/voie'
-import MapContainer from '../../../components/explorer/voie/map-container'
 
 class VoieError extends Error {
   constructor(message) {
@@ -26,26 +22,11 @@ class VoiesPage extends React.Component {
   render() {
     const {voie, selected} = this.props
     const description = 'Consulter les adresses'
-    const commune = {
-      nom: voie.nomCommune,
-      code: voie.codeCommune,
-      departement: {
-        code: voie.codeDepartement,
-        nom: voie.nomDepartement
-      }
-    }
 
     return (
       <Page title={voie.nomVoie} description={description}>
         <SearchCommune />
-        <Section>
-          <Head commune={commune} nomVoie={voie.nomVoie} />
-          <Voie voie={voie} />
-          <MapContainer
-            voie={voie}
-            addresses={voie.numeros}
-            selected={selected} />
-        </Section>
+        <Voie voie={voie} selected={selected} />
       </Page>
     )
   }

@@ -1,78 +1,100 @@
+import React from 'react'
 import PropTypes from 'prop-types'
+import Router, {withRouter} from 'next/router'
 
-import FaDotCircleO from 'react-icons/lib/fa/dot-circle-o'
-import FaTags from 'react-icons/lib/fa/tags'
-import FaBarcode from 'react-icons/lib/fa/barcode'
-import FaHome from 'react-icons/lib/fa/home'
+import Section from '../../../components/section'
 
-import Tag from '../tag'
-import theme from '../../../styles/theme'
+import Head from '../../../components/explorer/voie/head'
+import Infos from '../../../components/explorer/voie/infos'
+import MapContainer from '../../../components/explorer/voie/map-container'
+import Addresses from '../../../components/explorer/voie/addresses'
 
-const Voie = ({voie}) => (
-  <div className='voie-infos'>
-    <div className='infos'>
-      <h4><FaDotCircleO /> Nombre d’adresse</h4>
-      <div>{voie.numeros.length}</div>
-    </div>
+class Voie extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleSelect = this.handleSelect.bind(this)
+  }
 
-    <div className='infos'>
-      <h4><FaTags /> Noms de la voie</h4>
-      {voie.entries.map(entry => (
-        <div key={entry.source} className='entries'>
-          {entry.nomVoie} <Tag type={entry.source} style={{margin: '3px'}} />
-        </div>
-      ))}
-    </div>
+  handleSelect(address) {
+    const {router} = this.props
+    const {codeCommune, codeVoie} = router.query
+    const addressNb = address ? address.numero : null
 
-    <div className='infos'>
-      <h4><FaHome /> Déstination</h4>
-      {voie.destination.length > 0 ?
-        voie.destination.map(destination => (
-          <div key={destination}>
-            {destination}
-          </div>
-        )) :
-        <div>Aucune utilisation connue des adresses</div>
+    Router.push(
+      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}${addressNb ? `&numero=${addressNb}` : ''}`,
+      `/explore/commune/${codeCommune}/voies/${codeVoie}${addressNb ? `/${addressNb}` : ''}`
+    )
+  }
+
+  render() {
+    const {voie, selected} = this.props
+    const commune = {
+      nom: voie.nomCommune,
+      code: voie.codeCommune,
+      departement: {
+        code: voie.codeDepartement,
+        nom: voie.nomDepartement
       }
-    </div>
+    }
 
-    <div className='infos'>
-      <h4><FaBarcode /> Code de la voie</h4>
-      <div>{voie.codeVoie}</div>
-    </div>
-    <style jsx>{`
-      .voie-infos {
-        display: grid;
-        text-align: center;
-        grid-template-columns: repeat(4, 1fr);
-        background-color: ${theme.primary};
-        color: ${theme.colors.white};
-        margin-top: -1em;
-        padding: 1em 2em;
-      }
-
-      .entries {
-        display: flex;
-        flex-direction: columns;
-        justify-content: space-around;
-        align-items: baseline;
-      }
-
-      @media (max-width: 749px) {
-        .voie-infos {
-          grid-template-columns: 50% 50%;
-        }
-      }
-       `}</style>
-  </div>
-)
+    return (
+      <Section>
+        <Head commune={commune} nomVoie={voie.nomVoie} />
+        <Infos voie={voie} />
+        <MapContainer
+          voie={voie}
+          addresses={voie.numeros}
+          selected={selected}
+          onSelect={this.handleSelect} />
+        <Addresses
+          addresses={voie.numeros}
+          selected={selected}
+          onSelect={this.handleSelect} />
+      </Section>
+    )
+  }
+}
 
 Voie.propTypes = {
   voie: PropTypes.shape({
-    numeros: PropTypes.array.isRequired,
+    _id: PropTypes.string.isRequired,
+    idVoie: PropTypes.string.isRequired,
+    codeVoie: PropTypes.string.isRequired,
+    nomVoie: PropTypes.string.isRequired,
+    codeCommune: PropTypes.string.isRequired,
+    nomCommune: PropTypes.string.isRequired,
+    sources: PropTypes.array.isRequired,
     entries: PropTypes.array.isRequired,
-    codeVoie: PropTypes.string.isRequired
-  })
+    destination: PropTypes.array.isRequired,
+    active: PropTypes.bool.isRequired,
+    numeros: PropTypes.array.isRequired
+  }),
+  selected: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    numero: PropTypes.string.isRequired,
+    idVoie: PropTypes.string.isRequired,
+    codePostal: PropTypes.string.isRequired,
+    libelleAcheminement: PropTypes.string.isRequired,
+    position: PropTypes.object.isRequired,
+    pseudoNumero: PropTypes.bool,
+    destination: PropTypes.array,
+    parcelles: PropTypes.array,
+    active: PropTypes.bool.isRequired,
+    sources: PropTypes.array.isRequired,
+    entries: PropTypes.array.isRequired,
+    distanceMaxPositions: PropTypes.number,
+    centrePositions: PropTypes.object
+  }),
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    query: PropTypes.object.isRequired
+  }).isRequired
 }
 
-export default Voie
+Voie.defaultProps = {
+  voie: null,
+  selected: null
+}
+
+export default (withRouter(Voie))

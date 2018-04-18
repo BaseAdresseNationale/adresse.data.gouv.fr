@@ -67,7 +67,7 @@ class AddressesMap extends React.Component {
 
   render() {
     const {bounds, boundsCenter} = this.state
-    const {addresses, selectedAddress, onSelect} = this.props
+    const {addresses, selectedAddress, handleSelect} = this.props
 
     const center = selectedAddress ?
       selectedAddress.position.coordinates :
@@ -78,7 +78,7 @@ class AddressesMap extends React.Component {
         {addresses && addresses.features.map(feature => (
           <Marker
             key={feature.properties.numero}
-            onClick={() => onSelect(feature)}
+            onClick={() => handleSelect(feature)}
             style={selectedAddress && feature.properties.numero === selectedAddress.numero ? selectedStyle : markerStyle}
             coordinates={feature.geometry.coordinates}>
             <div title={feature.properties.numero}>
@@ -104,7 +104,7 @@ class AddressesMap extends React.Component {
 AddressesMap.propTypes = {
   addresses: PropTypes.object.isRequired,
   selectedAddress: PropTypes.object,
-  onSelect: PropTypes.func
+  handleSelect: PropTypes.func
 }
 
 AddressesMap.defaultProps = {

@@ -47,22 +47,16 @@ class MapContainer extends React.Component {
     this.state = {
       geojson: props.addresses ? toGeoJson(props.addresses) : {}
     }
-    this.handleSelect = this.handleSelect.bind(this)
+    this.selectAddress = this.selectAddress.bind(this)
   }
 
-  handleSelect(feature) {
-    const {router} = this.props
-    const {codeCommune, codeVoie} = router.query
-    const addressNb = feature ? feature.properties.numero : null
-
-    Router.push(
-      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}${addressNb ? `&numero=${addressNb}` : ''}`,
-      `/explore/commune/${codeCommune}/voies/${codeVoie}${addressNb ? `/${addressNb}` : ''}`
-    )
+  selectAddress(feature) {
+    const {onSelect} = this.props
+    onSelect({numero: feature.properties.numero})
   }
 
   render() {
-    const {voie, selected} = this.props
+    const {voie, selected, onSelect} = this.props
     const {geojson} = this.state
 
     return (
@@ -71,12 +65,12 @@ class MapContainer extends React.Component {
           <AddressesMap
             addresses={geojson}
             selectedAddress={selected}
-            onSelect={this.handleSelect} />
+            handleSelect={this.selectAddress} />
         </div>
 
         {selected &&
           <div className='selected-address'>
-            <Address voie={voie} address={selected} onClose={this.handleSelect} />
+            <Address voie={voie} address={selected} onClose={onSelect} />
           </div>
         }
 
@@ -121,14 +115,11 @@ MapContainer.propTypes = {
   voie: PropTypes.object,
   addresses: PropTypes.array,
   selected: PropTypes.object,
-  router: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    query: PropTypes.object.isRequired
-  }).isRequired
+  onSelect: PropTypes.func.isRequired
 }
 
 MapContainer.defaultProps = {
   addresses: null
 }
 
-export default (withRouter(MapContainer))
+export default MapContainer
