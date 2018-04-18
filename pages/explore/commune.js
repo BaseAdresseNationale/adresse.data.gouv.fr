@@ -8,7 +8,7 @@ import withErrors from '../../components/hoc/with-errors'
 
 import SearchCommune from '../../components/explorer/search-commune'
 import Commune from '../../components/explorer/commune'
-import Voies from '../../components/explorer/commune/voies'
+import VoiesCommune from '../../components/explorer/commune/voies-commune'
 
 class CommunePage extends React.Component {
   state = {
@@ -48,16 +48,8 @@ class CommunePage extends React.Component {
 
         <Section>
           <Commune {...commune} />
-          <div className='voies'>
-            <Voies promise={communeVoiesPromise} />
-          </div>
+          <VoiesCommune promise={communeVoiesPromise} />
         </Section>
-
-        <style jsx>{`
-          .voies {
-            margin-top: 2em;
-          }
-          `}</style>
       </Page>
     )
   }

@@ -2,8 +2,6 @@ import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {sortBy} from 'lodash'
 
-import isSort from '../../../lib/sort'
-
 import Title from './title'
 import Table from './table'
 
@@ -14,6 +12,8 @@ class TableList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      order: 'desc',
+      actived: null,
       wrap: true
     }
 
@@ -25,31 +25,36 @@ class TableList extends React.Component {
     const {initialSort} = this.props
 
     if (initialSort) {
-      this.sort(initialSort.func, initialSort.sortedBy)
+      this.sort(initialSort.func, initialSort.title)
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.setState(() => ({
-  //     sortedList: sortBy(nextProps.list, val => val.nomVoie),
-  //     order: 'asc',
-  //     sortedBy: 'alphabetical'
-  //   }))
-  // }
+  componentWillReceiveProps(nextProps) {
+    const {initialSort} = nextProps
 
-  sort(func, sortedBy) {
+    if (initialSort) {
+      this.setState(() => ({
+        sortedList: sortBy(nextProps.list, initialSort.func),
+        order: 'asc',
+        actived: initialSort.title
+      }))
+    }
+  }
+
+  sort(func, header) {
+    const {order} = this.state
     const {list} = this.props
     let sorted = sortBy(list, func)
-    let order = ''
 
-    if (isSort(list, func)) {
+    if (order === 'asc') {
       sorted = sorted.reverse()
-      order = 'desc'
-    } else {
-      order = 'asc'
     }
 
-    this.setState({sortedList: sorted, sortedBy, order})
+    this.setState({
+      sortedList: sorted,
+      actived: header,
+      order: order === 'asc' ? 'desc' : 'asc'
+    })
   }
 
   handleWrap() {
@@ -59,7 +64,7 @@ class TableList extends React.Component {
   }
 
   render() {
-    const {wrap, sortedList} = this.state
+    const {wrap, order, sortedList, actived} = this.state
     const {title, subtitle, list, headers, genItems, selected, handleSelect} = this.props
     const disabledWrap = list.length < 9
     const orderedList = sortedList || list
@@ -73,7 +78,7 @@ class TableList extends React.Component {
 
         <Table list={displayedList} wrap={wrap} disabledWrap={disabledWrap} onWrap={this.handleWrap}>
           <Fragment>
-            <Head headers={headers} />
+            <Head headers={headers} order={order} actived={actived} sort={this.sort} />
             <Body
               items={genItems(displayedList)}
               wrapped={wrap && !disabledWrap}
@@ -108,10 +113,7 @@ TableList.propTypes = {
   headers: PropTypes.array.isRequired,
   genItems: PropTypes.func.isRequired,
   subtitle: PropTypes.string,
-  initialSort: PropTypes.shape({
-    func: PropTypes.func.isRequired,
-    sortedBy: PropTypes.string.isRequired
-  }),
+  initialSort: PropTypes.object,
   selected: PropTypes.object,
   handleSelect: PropTypes.func
 }

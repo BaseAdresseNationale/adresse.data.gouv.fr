@@ -4,28 +4,17 @@ import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
-import TableList from '../../table-list'
+import {getPosition, list} from '../../../lib/table'
 
-function getPosition(position) {
-  if (position) {
-    return `${position.coordinates[0]}, ${position.coordinates[1]}`
-  }
+import TableList from '../table-list'
 
-  return <FaClose />
-}
-
-function getSources(sources) {
-  return sources.map((source, idx) =>
-  `${source}${idx + 1 < sources.length ? ', ' : ''}`)
-}
-
-class Addresses extends React.Component {
+class AddressesTable extends React.Component {
   constructor(props) {
     super(props)
-    this.selectedAddress = this.selectedAddress.bind(this)
+    this.selectAddress = this.selectAddress.bind(this)
   }
 
-  selectedAddress(item) {
+  selectAddress(item) {
     const {onSelect} = this.props
     onSelect({numero: item.values[0]})
   }
@@ -44,7 +33,7 @@ class Addresses extends React.Component {
           key: address.id,
           values: [
             address.numero,
-            getSources(address.sources),
+            list(address.sources),
             getPosition(address.position),
             address.active ? <FaCheck /> : <FaClose />
           ]
@@ -61,13 +50,13 @@ class Addresses extends React.Component {
           headers={headers}
           genItems={genItems}
           selected={selected}
-          handleSelect={this.selectedAddress} />
+          handleSelect={this.selectAddress} />
       </div>
     )
   }
 }
 
-Addresses.propTypes = {
+AddressesTable.propTypes = {
   addresses: PropTypes.array.isRequired,
   selected: PropTypes.shape({
     numero: PropTypes.string.isRequired,
@@ -77,8 +66,8 @@ Addresses.propTypes = {
   onSelect: PropTypes.func.isRequired
 }
 
-Addresses.defaultProps = {
+AddressesTable.defaultProps = {
   selected: null
 }
 
-export default Addresses
+export default AddressesTable

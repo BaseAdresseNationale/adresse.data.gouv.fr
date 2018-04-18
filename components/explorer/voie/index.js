@@ -7,7 +7,7 @@ import Section from '../../../components/section'
 import Head from '../../../components/explorer/voie/head'
 import Infos from '../../../components/explorer/voie/infos'
 import MapContainer from '../../../components/explorer/voie/map-container'
-import Addresses from '../../../components/explorer/voie/addresses'
+import AddressesTable from '../../../components/explorer/voie/addresses-table'
 
 class Voie extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Voie extends React.Component {
           addresses={voie.numeros}
           selected={selected}
           onSelect={this.handleSelect} />
-        <Addresses
+        <AddressesTable
           addresses={voie.numeros}
           selected={selected}
           onSelect={this.handleSelect} />

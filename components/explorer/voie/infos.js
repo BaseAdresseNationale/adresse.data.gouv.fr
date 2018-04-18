@@ -25,7 +25,7 @@ const Infos = ({voie}) => (
     </div>
 
     <div className='infos'>
-      <h4><FaHome /> Déstination</h4>
+      <h4><FaHome /> Destination</h4>
       {voie.destination.length > 0 ?
         voie.destination.map(destination => (
           <div key={destination}>

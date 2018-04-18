@@ -63,6 +63,7 @@ Header.propTypes = {
 }
 
 Header.defaultProps = {
+  sort: null,
   icon: null,
   actived: false
 }
