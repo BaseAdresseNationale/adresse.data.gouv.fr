@@ -21,14 +21,6 @@ const Header = ({title, sort, icon, actived}) => (
         cursor: pointer;
       }
 
-      tr:nth-child(even) {
-        background-color: ${theme.backgroundGrey};
-      }
-
-      tr:hover {
-        background-color: ${theme.colors.lightGrey};
-      }
-
       th {
         padding-top: 12px;
         padding-bottom: 12px;
@@ -50,6 +42,12 @@ const Header = ({title, sort, icon, actived}) => (
 
       .icon.active {
         color: white;
+      }
+
+      @media (max-width: 460px) {
+        .icon {
+          display: none;
+        }
       }
       `}</style>
   </th>

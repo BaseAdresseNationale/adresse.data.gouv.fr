@@ -45,6 +45,18 @@ class Table extends React.Component {
             cursor: pointer;
             text-decoration: none;
           }
+
+          @media (max-width: 460px) {
+            table {
+              font-size: x-small;
+            }
+          }
+
+          @media (max-width: 400px) {
+            table.wrapped:after {
+              width: 90%;
+            }
+          }
           `}</style>
       </div>
 
