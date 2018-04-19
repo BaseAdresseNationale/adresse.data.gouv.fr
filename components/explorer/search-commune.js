@@ -25,34 +25,34 @@ class Explorer extends React.Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
 
-    this.handleSearch = debounce(this.handleSearch, 200)
-  }
-
-  update() {
-    this.setState({results: [], loading: true, error: null})
-    const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
-
-    this.setState(state => {
-      this.handleSearch()
-      return {query: `communes?nom=${state.input}&${fields}&boost=population`}
-    })
+    this.handleSearch = debounce(this.handleSearch, 400)
   }
 
   handleSelect(item) {
     this.setState({input: item.nom})
-    this.update()
     const href = `/explore/commune?codeCommune=${item.code}`
     const as = `/explore/commune/${item.code}`
     Router.push(href, as)
   }
 
   handleInput(input) {
-    this.setState({input})
-    this.update()
+    this.setState(() => {
+      if (input) {
+        this.handleSearch()
+      }
+
+      return {
+        input,
+        results: [],
+        loading: true,
+        error: null
+      }
+    })
   }
 
   async handleSearch() {
-    const {query} = this.state
+    const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
+    const query = `communes?nom=${this.state.input}&${fields}&boost=population`
     const url = 'https://geo.api.gouv.fr/' + query
 
     try {
@@ -66,6 +66,7 @@ class Explorer extends React.Component {
         error: err
       })
     }
+
     this.setState({loading: false})
   }
 
