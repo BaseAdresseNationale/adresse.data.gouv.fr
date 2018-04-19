@@ -78,15 +78,18 @@ class Explorer extends React.Component {
           <h2><FaSearch /> Chercher une commune</h2>
           <BetaRibbon />
         </div>
-        <SearchInput
-          value={input}
-          results={results}
-          loading={loading}
-          placeholder='Rechercher une commune…'
-          onSelect={this.handleSelect}
-          onSearch={this.handleInput}
-          renderItem={renderCommune}
-          getItemValue={item => item.nom} />
+
+        <div className='input'>
+          <SearchInput
+            value={input}
+            results={results}
+            loading={loading}
+            placeholder='Rechercher une commune…'
+            onSelect={this.handleSelect}
+            onSearch={this.handleInput}
+            renderItem={renderCommune}
+            getItemValue={item => item.nom} />
+        </div>
 
         {error &&
           <div className='error'>
@@ -106,6 +109,12 @@ class Explorer extends React.Component {
 
             .beta h2 {
               margin-right: 45px;
+            }
+
+            @media (max-width: 400px) {
+              .input {
+                margin: 0 -20px;
+              }
             }
           `}</style>
       </Section>
