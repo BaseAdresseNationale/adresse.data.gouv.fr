@@ -9,12 +9,23 @@ import AddressMap from './mapbox/address-map'
 import SearchInput from './search-input'
 
 const wrapperStyle = {
-  width: '30%',
+  width: '40%',
+  minWidth: '260px',
   position: 'absolute',
   top: '150px',
   left: '50%',
   transform: 'translate(-50%)',
   zIndex: 1
+}
+
+const errorStyle = {
+  width: '40%',
+  minWidth: '260px',
+  position: 'absolute',
+  top: '206px',
+  left: '50%',
+  transform: 'translate(-50%)',
+  zIndex: 10
 }
 
 class MapSearch extends React.Component {
@@ -35,11 +46,6 @@ class MapSearch extends React.Component {
     this.handleSearch = debounce(this.handleSearch, 200)
   }
 
-  update() {
-    this.setState({results: [], loading: true, error: null})
-    this.handleSearch()
-  }
-
   handleSelect(item) {
     const viewport = {
       center: item.geometry.coordinates,
@@ -49,8 +55,11 @@ class MapSearch extends React.Component {
   }
 
   handleInput(input) {
-    this.setState({input})
-    this.update()
+    this.setState({input, results: [], loading: true, error: null})
+
+    if (input) {
+      this.handleSearch()
+    }
   }
 
   async handleSearch() {
@@ -89,9 +98,10 @@ class MapSearch extends React.Component {
           wrapperStyle={wrapperStyle} />
 
         {error &&
-          <div className='error'>
-            <Notification message={error.message} type='error' />
-          </div>
+          <Notification
+            style={errorStyle}
+            message={error.message}
+            type='error' />
           }
 
         <AddressMap {...viewport} />

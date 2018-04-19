@@ -6,6 +6,7 @@ import {Marker} from 'react-mapbox-gl'
 import Mapbox from './index'
 
 const markerStyle = {
+  zIndex: 0,
   width: 30,
   height: 30,
   borderRadius: '50%',
