@@ -9,6 +9,7 @@ import Section from '../section'
 import SearchInput from '../search-input'
 import Notification from '../notification'
 import renderCommune from '../search-input/render-commune'
+import BetaRibbon from '../beta-ribbon'
 
 class Explorer extends React.Component {
   constructor(props) {
@@ -73,7 +74,10 @@ class Explorer extends React.Component {
 
     return (
       <Section background='color'>
-        <h2><FaSearch /> Chercher une commune</h2>
+        <div className='beta'>
+          <h2><FaSearch /> Chercher une commune</h2>
+          <BetaRibbon />
+        </div>
         <SearchInput
           value={input}
           results={results}
@@ -93,6 +97,15 @@ class Explorer extends React.Component {
         <style jsx>{`
             .error {
               margin: 1em 0;
+            }
+
+            .beta {
+              display: flex;
+              align-items: center;
+            }
+
+            .beta h2 {
+              margin-right: 45px;
             }
           `}</style>
       </Section>
