@@ -16,6 +16,7 @@ export default () => (
         <li><Link href='/about'><a>Infos</a></Link></li>
         <li><Link href='/download'><a>Données</a></Link></li>
         <li><Link href='/contrib'><a>Contribuer</a></Link></li>
+        <li><Link href='/explore'><a>Consulter</a></Link></li>
         <li><Link href='/tools'><a>Outils</a></Link></li>
         <li><Link href='/news'><a>Actu</a></Link></li>
       </ul>
@@ -48,7 +49,8 @@ export default () => (
       }
 
       .nav__links {
-        display: inline;
+        display: flex;
+        flex-flow: wrap;
         margin: 0;
         padding: 1em;
         list-style-type: none;
@@ -82,9 +84,13 @@ export default () => (
         color: ${theme.colors.white};
       }
 
-      @media (--smaller-than-phablet) {
+      @media (max-width: 480px) {
         .nav__links {
           padding-top: 0;
+        }
+
+        .nav__links li {
+          margin-top: 5px;
         }
       }
     `}</style>
