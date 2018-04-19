@@ -30,9 +30,19 @@ class Commune extends React.Component {
           }
 
           .map {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            height: 420px;
+            display: flex;
+            flex-direction: row;
+          }
+
+          .map > div {
+            width: 30%;
+          }
+
+          @media (max-width: 749px) {
+            .map {
+              display: flex;
+              flex-direction: column;
+            }
           }
           `}</style>
       </div>

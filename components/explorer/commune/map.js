@@ -25,9 +25,18 @@ const GeojsonMap = dynamic(import('../../mapbox/geojson-map'), {
 })
 
 const Map = ({contour}) => (
-  contour ?
-    <GeojsonMap data={contour} /> :
-    <GeojsonMap />
+  <div className='map'>
+    {contour ?
+      <GeojsonMap data={contour} /> :
+      <GeojsonMap />
+    }
+    <style jsx>{`
+      .map {
+        width: 100%;
+        height: 420px;
+      }
+    `}</style>
+  </div>
 )
 
 Map.propTypes = {
