@@ -13,5 +13,20 @@ module.exports = {
     }
 
     return config
+  },
+
+  exportPathMap() {
+    return {
+      '/': {page: '/'},
+      '/about': {page: '/about'},
+      '/api': {page: '/api'},
+      '/cgu': {page: '/cgu'},
+      '/contrib': {page: '/contrib'},
+      '/csv': {page: '/csv'},
+      '/download': {page: '/download'},
+      '/faq': {page: '/faq'},
+      '/news': {page: '/news'},
+      '/tools': {page: '/tools'}
+    }
   }
 }

@@ -4423,10 +4423,6 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-leaflet@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.2.0.tgz#fd5d93d9cb00091f5f8a69206d0d6744c1c82697"
-
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.3.0.tgz#3b09924edf9f083c0490fdd4c0bc4421e04764ee"
@@ -4475,10 +4471,6 @@ locate-path@^2.0.0:
   dependencies:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
-
-lodash-es@^4.0.0:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
 lodash.camelcase@^4.1.1:
   version "4.3.0"
@@ -5578,14 +5570,6 @@ react-icons@^2.2.7:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-2.2.7.tgz#d7860826b258557510dac10680abea5ca23cf650"
   dependencies:
     react-icon-base "2.1.0"
-
-react-leaflet@^1.7.1:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-1.7.4.tgz#073202401b5804cb00e97adf0768d1b2e3b7c9e9"
-  dependencies:
-    lodash "^4.0.0"
-    lodash-es "^4.0.0"
-    warning "^3.0.0"
 
 react-mapbox-gl@^3.8.0:
   version "3.8.0"
