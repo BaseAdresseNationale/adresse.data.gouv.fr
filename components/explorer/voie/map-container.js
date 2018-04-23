@@ -89,14 +89,18 @@ class MapContainer extends React.Component {
 
           .selected-address {
             width: 20%;
+            min-width: 200px;
             padding: 0 2em;
             box-shadow: 0 1px 4px ${theme.boxShadow};
           }
 
-          @media (max-width: 749px) {
+          @media (max-width: 900px) {
+            .container {
+              flex-direction: column;
+            }
+
             .map {
               width: 100%;
-              height: 500px;
               border: 1px solid whitesmoke;
             }
 

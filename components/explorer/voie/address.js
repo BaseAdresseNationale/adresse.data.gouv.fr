@@ -1,45 +1,76 @@
 import PropTypes from 'prop-types'
 import MdClose from 'react-icons/lib/md/close'
 
+import Tag from '../tag'
+import Notification from '../../notification'
+
 import theme from '../../../styles/theme'
 
-const precisionRound = (number, precision) => {
-  const factor = Math.pow(10, precision)
-  return Math.round(number * factor) / factor
-}
+const DISTANCE_MAX_POSITION = 5
 
 const Address = ({voie, address, onClose}) => {
-  const {numero, entries, active, pseudoNumero} = address
+  const {numero, entries, destination, active, parcelles, distanceMaxPositions, pseudoNumero} = address
 
   return (
     <div>
-      <div className='head'>
+      <div className='head flex-list'>
         <h4>Numéro {numero}</h4>
         <div className='close' onClick={() => onClose()}><MdClose /></div>
       </div>
 
       {active && !pseudoNumero && <h5>{numero} {voie.nomVoie} - {voie.codeCommune} {voie.nomCommune}</h5>}
 
-      <div>
-        Positions :
-        {entries.map(entry => (
-          <div key={entry.source} className='position'>
-            <div className='source'><h5>{entry.source}</h5></div>
-            <div className='coordinates'>
-              {entry.position.coordinates.map(coordinate => (
-                <div key={coordinate} className='coordinate'>
-                  {precisionRound(coordinate, 5)}
-                </div>
+      <div className='cats'>
+        <div className='cat'>
+          <div>Destination :</div>
+          {destination ?
+            <div className='flex-list'>
+              {destination.map(dest => (
+                <Tag key={dest} type={dest} />
+              ))}
+            </div> :
+            <div>Inconnu</div>
+          }
+        </div>
+
+        <div className='cat'>
+          <div>Sources :</div>
+          <div className='flex-list'>
+            {entries.map(entry => (
+              <Tag key={entry.source} type={entry.source} />
             ))}
-            </div>
           </div>
-        ))}
+        </div>
+
+        {parcelles &&
+          <div className='cat'>
+            <div>Parcelles :</div>
+            <div className='flex-list'>
+              {parcelles.map(parcelle => (
+                <div key={parcelle} className='parcelle'>
+                  {parcelle}
+                </div>
+              ))}
+            </div>
+          </div>}
       </div>
+
+      {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ?
+        <Notification
+          type='warning'
+          message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`} /> :
+          null
+      }
       <style jsx>{`
-        .head {
+        .flex-list{
           display: flex;
+          flex-flow: wrap;
           justify-content: space-between;
+        }
+
+        .head {
           align-items: baseline;
+          border-bottom: 1px solid ${theme.colors.lighterGrey};
         }
 
         .close {
@@ -52,31 +83,19 @@ const Address = ({voie, address, onClose}) => {
           cursor: pointer;
         }
 
-        .position {
-          display: grid;
-          grid-column-gap: 5px;
-          margin: 10px 0;
-          grid-template-columns: 0.5fr 1fr;
+        .cat {
+          margin: 1em 0;
         }
 
-        .source {
-          grid-column: 1;
-          text-align: center;
-          background-color: ${theme.colors.lighterGrey};
+        .cat .flex-list{
+          justify-content: flex-start;
         }
 
-        .coordinates {
-          grid-column: 2;
-          display: grid;
-          grid-row-gap: 5px;
-          grid-template-rows: 50%;
-          text-align: center;
-        }
-
-        .coordinate {
-          align-self: center;
-          padding: 5px;
-          background-color: ${theme.colors.lightGrey};
+        .parcelle {
+          padding: 0.3em 0.5em;
+          margin: 2px;
+          background-color: ${theme.colors.lighterBlue};
+          border: 1px solid ${theme.primary};
         }
         `}</style>
     </div>
