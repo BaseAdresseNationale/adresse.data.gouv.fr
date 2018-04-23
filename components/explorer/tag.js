@@ -35,9 +35,10 @@ Tag.propTypes = {
     'cadastre',
     'habitation',
     'commerce',
+    'site-touristique',
+    'site-industriel',
     'dependance-batie-isolee',
     'installations-techniques',
-    'site-industriel',
     'local-commun',
     'divers'
   ]).isRequired,

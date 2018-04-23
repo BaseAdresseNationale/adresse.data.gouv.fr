@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {getTypeByPriority} from '../../../lib/types'
+
 import {tagsList} from '../../../lib/table'
 
 import TableList from '../table-list'
@@ -42,8 +44,8 @@ class VoiesTable extends React.Component {
           values: [
             voie.nomVoie,
             voie.numeros,
-            tagsList(voie.sources),
-            tagsList(voie.destination)
+            tagsList(getTypeByPriority(voie.source)),
+            tagsList(getTypeByPriority(voie.destination))
           ]
         }
       })

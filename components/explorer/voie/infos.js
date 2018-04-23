@@ -5,6 +5,8 @@ import FaTags from 'react-icons/lib/fa/tags'
 import FaBarcode from 'react-icons/lib/fa/barcode'
 import FaHome from 'react-icons/lib/fa/home'
 
+import {getTypeByPriority} from '../../../lib/types'
+
 import Tag from '../tag'
 import theme from '../../../styles/theme'
 
@@ -29,7 +31,7 @@ const Infos = ({voie}) => (
       <h4><FaHome /> Destination</h4>
       <div className='destination'>
         {voie.destination.length > 0 ?
-          voie.destination.map(destination => (
+          getTypeByPriority(voie.destination).map(destination => (
             <div key={destination}>
               <Tag type={destination} />
             </div>

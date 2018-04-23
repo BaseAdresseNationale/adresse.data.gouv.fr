@@ -5,6 +5,7 @@ import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
 import {getPosition, tagsList} from '../../../lib/table'
+import {getTypeByPriority} from '../../../lib/types'
 
 import TableList from '../table-list'
 
@@ -36,9 +37,9 @@ class AddressesTable extends React.Component {
           key: address.id,
           values: [
             address.numero,
-            tagsList(address.sources),
+            tagsList(getTypeByPriority(address.sources)),
             getPosition(address.position),
-            tagsList(destination),
+            tagsList(getTypeByPriority(destination)),
             address.active ? <FaCheck /> : <FaClose />
           ]
         }
