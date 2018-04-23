@@ -19,21 +19,24 @@ const Infos = ({voie}) => (
       <h4><FaTags /> Noms de la voie</h4>
       {voie.entries.map(entry => (
         <div key={entry.source} className='entries'>
-          {entry.nomVoie} <Tag type={entry.source} style={{margin: '3px'}} />
+          <Tag type={entry.source} />
+          {entry.nomVoie}
         </div>
       ))}
     </div>
 
     <div className='infos'>
       <h4><FaHome /> Destination</h4>
-      {voie.destination.length > 0 ?
-        voie.destination.map(destination => (
-          <div key={destination}>
-            {destination}
-          </div>
-        )) :
-        <div>Aucune utilisation connue des adresses</div>
-      }
+      <div className='destination'>
+        {voie.destination.length > 0 ?
+          voie.destination.map(destination => (
+            <div key={destination}>
+              <Tag type={destination} />
+            </div>
+          )) :
+          <div>Aucune utilisation connue des adresses</div>
+        }
+      </div>
     </div>
 
     <div className='infos'>
@@ -54,8 +57,14 @@ const Infos = ({voie}) => (
       .entries {
         display: flex;
         flex-direction: columns;
-        justify-content: space-around;
-        align-items: baseline;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .destination {
+        display: flex;
+        justify-content: center;
+        flex-flow: wrap;
       }
 
       @media (max-width: 749px) {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
-import {getPosition, list} from '../../../lib/table'
+import {getPosition, tagsList} from '../../../lib/table'
 
 import TableList from '../table-list'
 
@@ -25,16 +25,20 @@ class AddressesTable extends React.Component {
       {title: 'Numéro'},
       {title: 'Sources'},
       {title: 'Positions'},
+      {title: 'Destination'},
       {title: 'Active'}
     ]
     const genItems = addresses => {
       return addresses.map(address => {
+        const destination = address.destination ? address.destination : []
+
         return {
           key: address.id,
           values: [
             address.numero,
-            list(address.sources),
+            tagsList(address.sources),
             getPosition(address.position),
+            tagsList(destination),
             address.active ? <FaCheck /> : <FaClose />
           ]
         }
@@ -42,16 +46,14 @@ class AddressesTable extends React.Component {
     }
 
     return (
-      <div>
-        <TableList
-          title='Adresses de la voie'
-          subtitle={`${addresses.length} addresses répertoriées`}
-          list={addresses}
-          headers={headers}
-          genItems={genItems}
-          selected={selected}
-          handleSelect={this.selectAddress} />
-      </div>
+      <TableList
+        title='Adresses de la voie'
+        subtitle={`${addresses.length} addresses répertoriées`}
+        list={addresses}
+        headers={headers}
+        genItems={genItems}
+        selected={selected}
+        handleSelect={this.selectAddress} />
     )
   }
 }

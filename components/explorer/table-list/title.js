@@ -18,14 +18,6 @@ class Title extends React.Component {
               justify-content: space-between;
               align-items: center;
             }
-
-            .loading {
-              width: 100%;
-              height: 200px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
             `}</style>
       </div>
     )

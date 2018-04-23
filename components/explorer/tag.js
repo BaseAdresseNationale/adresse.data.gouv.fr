@@ -1,39 +1,38 @@
 import PropTypes from 'prop-types'
-import theme from '../../styles/theme'
 
-const Tag = ({type, style}) => (
-  <div className={`tag ${type}`} style={style}>
-    {type}
-    <style jsx>{`
-      .tag {
-        padding: 2px 4px;
-        border-radius: 2px;
-        font-size: 12px;
-      }
+import types from '../../lib/types'
 
-      .ban {
-        background-color: ${theme.warningBorder};
-        border: 1px solid ${theme.warningBg};
-      }
-
-      .bano {
-        background-color: ${theme.successBorder};
-        border: 1px solid ${theme.warningBg};
-      }
-
-      .cadastre {
-        background-color: ${theme.errorBorder};
-        border: 1px solid ${theme.errorBg};
-      }
-      `}</style>
-  </div>
-)
+const Tag = ({type, style}) => {
+  const tag = types.find(t => t.name === type)
+  return (
+    <div className={`tag ${type}`} style={style}>
+      {type}
+      <style jsx>{`
+        .tag {
+          margin: 2px;
+          color: ${tag.color};
+          background-color: ${tag.background};
+          padding: 2px 4px;
+          border-radius: 2px;
+          font-size: 12px;
+        }
+        `}</style>
+    </div>
+  )
+}
 
 Tag.propTypes = {
   type: PropTypes.oneOf([
     'ban',
     'bano',
-    'cadastre'
+    'cadastre',
+    'habitation',
+    'commerce',
+    'dependance-batie-isolee',
+    'installations-techniques',
+    'site-industriel',
+    'local-commun',
+    'divers'
   ]).isRequired,
   style: PropTypes.object
 }

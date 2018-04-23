@@ -7,6 +7,8 @@ import theme from '../../../styles/theme'
 
 import Mapbox from '../../mapbox'
 
+import types from '../../../lib/types'
+
 const markerStyle = {
   width: 30,
   height: 30,
@@ -29,7 +31,7 @@ const selectedStyle = Object.assign({}, markerStyle, {
 const selectedPosStyle = Object.assign({}, markerStyle, selectedStyle, {
   backgroundColor: theme.successBg,
   color: 'black',
-  border: `2px solid ${theme.successBorder}`
+  border: `2px solid ${theme.primary}`
 })
 
 class AddressesMap extends React.Component {
@@ -57,6 +59,28 @@ class AddressesMap extends React.Component {
     })
   }
 
+  getSelectedMarkerStyle(entry) {
+    const style = {...selectedPosStyle}
+
+    const type = types.find(type => type.name === entry.source)
+    style.backgroundColor = type.background || style.backgroundColor
+    style.color = type.color || style.color
+
+    return style
+  }
+
+  getMarkerStyle(feature) {
+    const style = {...markerStyle}
+
+    if (feature.properties.destination) {
+      const type = types.find(type => type.name === feature.properties.destination[0])
+      style.backgroundColor = type.background || style.backgroundColor
+      style.color = type.color || style.color
+    }
+
+    return style
+  }
+
   getCirclePaint() {
     return {
       'circle-radius': 15,
@@ -79,7 +103,7 @@ class AddressesMap extends React.Component {
           <Marker
             key={feature.properties.numero}
             onClick={() => handleSelect(feature)}
-            style={selectedAddress && feature.properties.numero === selectedAddress.numero ? selectedStyle : markerStyle}
+            style={this.getMarkerStyle(feature)}
             coordinates={feature.geometry.coordinates}>
             <div title={feature.properties.numero}>
               {feature.properties.numero}
@@ -89,7 +113,7 @@ class AddressesMap extends React.Component {
         {selectedAddress && selectedAddress.entries.map(entry => (
           <Marker
             key={entry.source}
-            style={selectedPosStyle}
+            style={this.getSelectedMarkerStyle(entry)}
             coordinates={entry.position.coordinates}>
             <div title={entry.source}>
               {entry.source}

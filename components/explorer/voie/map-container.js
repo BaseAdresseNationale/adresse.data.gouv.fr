@@ -1,5 +1,4 @@
 import React from 'react'
-import Router, {withRouter} from 'next/router'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
@@ -34,7 +33,8 @@ function toGeoJson(addresses) {
           id: address.id,
           idVoie: address.idVoie,
           numero: address.numero,
-          sources: address.sources
+          sources: address.sources,
+          destination: address.destination
         }
       }
     }

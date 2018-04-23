@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {list} from '../../../lib/table'
+import {tagsList} from '../../../lib/table'
 
 import TableList from '../table-list'
 
@@ -42,8 +42,8 @@ class VoiesTable extends React.Component {
           values: [
             voie.nomVoie,
             voie.numeros,
-            list(voie.sources),
-            list(voie.destination)
+            tagsList(voie.sources),
+            tagsList(voie.destination)
           ]
         }
       })
