@@ -14,7 +14,14 @@ const Tag = ({type, style}) => {
           background-color: ${tag.background};
           padding: 2px 4px;
           border-radius: 2px;
+        }
+
+        @media (min-width: 460px) {
           font-size: 12px;
+        }
+
+        @media (max-width: 460px) {
+          font-size: x-small;
         }
         `}</style>
     </div>

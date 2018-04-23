@@ -72,6 +72,13 @@ const Infos = ({voie}) => (
           grid-template-columns: 50% 50%;
         }
       }
+
+      @media (max-width: 460px) {
+        .voie-infos {
+          display: flex;
+          flex-direction: column;
+        }
+      }
        `}</style>
   </div>
 )

@@ -82,6 +82,7 @@ class MapContainer extends React.Component {
 
           .map {
             height: 500px;
+            min-height: 500px;
             width: ${selected ? '80%' : '100%'};
             border: 1px solid whitesmoke;
           }

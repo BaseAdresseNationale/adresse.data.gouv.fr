@@ -9,9 +9,9 @@ const Codes = ({code, codesPostaux, departement, region}) => (
     {codesPostaux.length > 1 ?
       <div>
         <b>Codes postaux</b> :
-        <ul>
-          {codesPostaux.map(code => <li key={code}>{code}</li>)}
-        </ul>
+        <div>
+          {codesPostaux.map(code => <div key={code}>{code}</div>)}
+        </div>
       </div> :
       <div><b>Code postal</b> : {codesPostaux[0]}</div>
     }
