@@ -1,105 +1,120 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import {sortBy} from 'lodash'
+import {filter, includes, remove, union, difference} from 'lodash'
 
 import Title from './title'
-import Table from './table'
-
-import Head from './table/head'
-import Body from './table/body'
+import TableControl from './table-control'
+import Filters from './filters'
 
 class TableList extends React.Component {
   constructor(props) {
     super(props)
+    const sources = props.list.map(item => item.sources)
+    const destinations = props.list.map(item => item.destination)
+
     this.state = {
-      order: 'desc',
-      actived: null,
-      wrap: true
+      text: '',
+      onlyActive: true,
+      selectedTags: [],
+      availableSources: union(...sources),
+      availableDestinations: union(...destinations)
     }
 
-    this.sort = this.sort.bind(this)
-    this.handleWrap = this.handleWrap.bind(this)
+    this.handleTextFilter = this.handleTextFilter.bind(this)
+    this.handleTags = this.handleTags.bind(this)
+    this.handleActive = this.handleActive.bind(this)
   }
 
-  componentDidMount() {
-    const {initialSort} = this.props
-
-    if (initialSort) {
-      this.sort(initialSort.func, initialSort.title)
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {initialSort} = nextProps
-
-    if (initialSort) {
-      this.setState(() => ({
-        sortedList: sortBy(nextProps.list, initialSort.func),
-        order: 'asc',
-        actived: initialSort.title
-      }))
-    }
-  }
-
-  sort(func, header) {
-    const {order} = this.state
+  componentWillReceiveProps() {
     const {list} = this.props
-    let sorted = sortBy(list, func)
+    const sources = list.map(item => item.sources)
+    const destinations = list.map(item => item.destination)
 
-    if (order === 'asc') {
-      sorted = sorted.reverse()
-    }
+    this.setState(() => ({
+      text: '',
+      onlyActive: true,
+      selectedTags: [],
+      availableSources: union(...sources),
+      availableDestinations: union(...destinations)
+    }))
+  }
 
+  handleTextFilter(text) {
     this.setState({
-      sortedList: sorted,
-      actived: header,
-      order: order === 'asc' ? 'desc' : 'asc'
+      text
     })
   }
 
-  handleWrap() {
+  handleTags(tag) {
+    const selectedTags = [...this.state.selectedTags]
+
+    if (includes(selectedTags, tag)) {
+      remove(selectedTags, item => item === tag)
+    } else {
+      selectedTags.push(tag)
+    }
+
+    this.setState({
+      selectedTags
+    })
+  }
+
+  handleActive() {
     this.setState(state => {
-      return {wrap: !state.wrap}
+      const onlyActive = !state.onlyActive
+      return {
+        onlyActive
+      }
+    })
+  }
+
+  filterList() {
+    const {text, onlyActive, selectedTags} = this.state
+    const list = {...this.props.list}
+
+    return filter(list, item => {
+      const tags = union(item.sources, item.destination)
+      return difference(selectedTags, tags).length === 0 && // Filter tags
+              item.active === onlyActive && // Filter active
+              includes((item.nomVoie || item.numero).toUpperCase(), text.toUpperCase()) // Filter text
     })
   }
 
   render() {
-    const {wrap, order, sortedList, actived} = this.state
-    const {title, subtitle, list, headers, genItems, selected, handleSelect} = this.props
-    const disabledWrap = list.length < 9
-    const orderedList = sortedList || list
-    const displayedList = wrap && !disabledWrap ?
-      orderedList.slice(0, 9) :
-      orderedList
+    const {title, subtitle} = this.props
+    const {selected, headers, genItems, initialSort, handleSelect} = this.props
+    const {text, selectedTags, onlyActive, availableSources, availableDestinations} = this.state
+    const filteredList = this.filterList()
 
     return (
       <div>
         <Title title={title} subtitle={subtitle} />
 
-        <Table list={displayedList} wrap={wrap} disabledWrap={disabledWrap} onWrap={this.handleWrap}>
-          <Fragment>
-            <Head headers={headers} order={order} actived={actived} sort={this.sort} />
-            <Body
-              items={genItems(displayedList)}
-              wrapped={wrap && !disabledWrap}
-              selected={selected}
-              handleSelect={handleSelect} />
-          </Fragment>
-        </Table>
+        <Filters
+          text={text}
+          onChange={this.handleTextFilter}
+          sources={availableSources}
+          destinations={availableDestinations}
+          selectedTags={selectedTags}
+          onlyActive={onlyActive}
+          onFilterTags={this.handleTags}
+          onSwitch={this.handleActive} />
+
+        {filteredList.length === 0 ?
+          <div className='no-result'>Aucun résultat</div> :
+          <TableControl
+            list={filteredList}
+            selected={selected}
+            headers={headers}
+            genItems={genItems}
+            initialSort={initialSort}
+            handleSelect={handleSelect} />
+        }
 
         <style jsx>{`
-            .head {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            }
-
-            .loading {
-              width: 100%;
-              height: 200px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
+            .no-result {
+              text-align: center;
+              margin: 2em;
             }
             `}</style>
       </div>
