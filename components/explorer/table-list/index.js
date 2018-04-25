@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {filter, includes, remove, union, difference} from 'lodash'
+
+import {byTags, byText} from '../../../lib/filters'
+import {getTypeByPriority, unionTypes} from '../../../lib/types'
 
 import Title from './title'
 import TableControl from './table-control'
@@ -9,16 +11,16 @@ import Filters from './filters'
 class TableList extends React.Component {
   constructor(props) {
     super(props)
-    const sources = props.list.map(item => item.sources)
-    const destinations = props.list.map(item => item.destination)
 
     this.state = {
       text: '',
       onlyActive: true,
       selectedTags: [],
-      availableSources: union(...sources),
-      availableDestinations: union(...destinations)
+      getSources: sources => getTypeByPriority(unionTypes(sources)),
+      getDestination: destination => getTypeByPriority(unionTypes(destination))
     }
+
+    this.baseState = this.state
 
     this.handleTextFilter = this.handleTextFilter.bind(this)
     this.handleTags = this.handleTags.bind(this)
@@ -26,17 +28,7 @@ class TableList extends React.Component {
   }
 
   componentWillReceiveProps() {
-    const {list} = this.props
-    const sources = list.map(item => item.sources)
-    const destinations = list.map(item => item.destination)
-
-    this.setState(() => ({
-      text: '',
-      onlyActive: true,
-      selectedTags: [],
-      availableSources: union(...sources),
-      availableDestinations: union(...destinations)
-    }))
+    this.setState(this.baseState)
   }
 
   handleTextFilter(text) {
@@ -48,8 +40,9 @@ class TableList extends React.Component {
   handleTags(tag) {
     const selectedTags = [...this.state.selectedTags]
 
-    if (includes(selectedTags, tag)) {
-      remove(selectedTags, item => item === tag)
+    if (selectedTags.includes(tag)) {
+      const index = selectedTags.indexOf(tag)
+      selectedTags.splice(index, 1)
     } else {
       selectedTags.push(tag)
     }
@@ -70,21 +63,25 @@ class TableList extends React.Component {
 
   filterList() {
     const {text, onlyActive, selectedTags} = this.state
-    const list = {...this.props.list}
+    const list = [...this.props.list]
 
-    return filter(list, item => {
-      const tags = union(item.sources, item.destination)
-      return difference(selectedTags, tags).length === 0 && // Filter tags
+    return list.filter(item => {
+      const tags = [...item.sources, ...item.destination]
+
+      return byTags(tags, selectedTags) && // Filter tags
               item.active === onlyActive && // Filter active
-              includes((item.nomVoie || item.numero).toUpperCase(), text.toUpperCase()) // Filter text
+              byText((item.nomVoie || item.numero), text) // Filter text
     })
   }
 
   render() {
     const {title, subtitle} = this.props
     const {selected, headers, genItems, initialSort, handleSelect} = this.props
-    const {text, selectedTags, onlyActive, availableSources, availableDestinations} = this.state
+    const {text, selectedTags, onlyActive, getSources, getDestination} = this.state
+
     const filteredList = this.filterList()
+    const availableSources = getSources(filteredList.map(item => item.sources))
+    const availableDestination = getDestination(filteredList.map(item => item.destination))
 
     return (
       <div>
@@ -94,7 +91,7 @@ class TableList extends React.Component {
           text={text}
           onChange={this.handleTextFilter}
           sources={availableSources}
-          destinations={availableDestinations}
+          destinations={availableDestination}
           selectedTags={selectedTags}
           onlyActive={onlyActive}
           onFilterTags={this.handleTags}
