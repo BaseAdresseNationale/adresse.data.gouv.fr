@@ -32,4 +32,16 @@ describe('byText', () => {
     const toFind = 'HELLO'
     expect(byText(text, toFind)).toBe(true)
   })
+
+  test('return true if is empty', () => {
+    const text = 'hello world'
+    const toFind = ''
+    expect(byText(text, toFind)).toBe(true)
+  })
+
+  test('return true if is null', () => {
+    const text = 'hello world'
+    const toFind = null
+    expect(byText(text, toFind)).toBe(true)
+  })
 })

@@ -66,11 +66,12 @@ class TableList extends React.Component {
     const list = [...this.props.list]
 
     return list.filter(item => {
-      const tags = [...item.sources, ...item.destination]
+      const {sources, destination, active, nomVoie, numero} = item
 
-      return byTags(tags, selectedTags) && // Filter tags
-              item.active === onlyActive && // Filter active
-              byText((item.nomVoie || item.numero), text) // Filter text
+      return byTags(sources, selectedTags) && // Filter sources
+              byTags(destination || [], selectedTags) && // Filter destination
+              active === onlyActive && // Filter active
+              byText((nomVoie || numero), text) // Filter text
     })
   }
 
