@@ -9,6 +9,7 @@
     "dev": "node server",
     "build": "next build",
     "start": "NODE_ENV=production node server",
+    "test": "NODE_ENV=test jest",
     "export": "next export",
     "lint": "xo",
     "heroku-postbuild": "next build"
@@ -19,9 +20,12 @@
     "blob-to-buffer": "^1.2.6",
     "compression": "^1.7.2",
     "debounce": "^1.1.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "express": "^4.16.2",
     "hoist-non-react-statics": "^2.5.0",
     "isomorphic-unfetch": "^2.0.0",
+    "jest": "^22.4.3",
     "jschardet-french": "^0.0.1",
     "lodash": "^4.17.5",
     "mapbox-gl": "^0.44.2",
@@ -35,6 +39,7 @@
     "react-dropzone": "^4.2.1",
     "react-icons": "^2.2.7",
     "react-mapbox-gl": "^3.8.0",
+    "react-test-renderer": "^16.3.2",
     "regenerator-runtime": "^0.11.1",
     "underscore.string": "^3.3.4"
   },
@@ -45,6 +50,12 @@
     "eslint-plugin-react": "^7.4.0",
     "webpack-bundle-analyzer": "^2.11.1",
     "xo": "^0.18.2"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": [
+      "./jest.setup.js"
+    ]
   },
   "xo": {
     "extends": "xo-react",
@@ -85,6 +96,15 @@
       "react/jsx-curly-brace-presence": "off",
       "react/require-default-props": "off",
       "react/jsx-no-bind": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": "__tests__/**/*.js",
+        "env": [
+          "browser",
+          "jest"
+        ]
+      }
+    ]
   }
 }
