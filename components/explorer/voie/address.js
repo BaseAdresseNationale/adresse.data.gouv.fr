@@ -6,7 +6,7 @@ import Notification from '../../notification'
 
 import theme from '../../../styles/theme'
 
-const DISTANCE_MAX_POSITION = 5
+const DISTANCE_MAX_POSITION = 15
 
 const Address = ({voie, address, onClose}) => {
   const {numero, entries, destination, active, parcelles, distanceMaxPositions, pseudoNumero} = address

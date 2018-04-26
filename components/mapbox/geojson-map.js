@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {GeoJSONLayer} from 'react-mapbox-gl'
-import {center, bbox} from '@turf/turf'
 
 import ClusterLayers from './cluster-layers'
 import Mapbox from './index'
@@ -30,22 +29,7 @@ const polygonPaint = {
 class GeojsonMap extends React.Component {
   constructor(props) {
     super(props)
-
-    this.getBounds = this.getBounds.bind(this)
     this.getCirclePaint = this.getCirclePaint.bind(this)
-  }
-
-  getBounds() {
-    const {data} = this.props
-    const extent = bbox(data)
-    const boundsCenter = center(data).geometry.coordinates
-
-    const bounds = [
-      extent.splice(0, 2),
-      extent.splice(0, 2)
-    ]
-
-    return {bounds, boundsCenter}
   }
 
   getCirclePaint() {
@@ -58,7 +42,6 @@ class GeojsonMap extends React.Component {
 
   render() {
     const {data, id, cluster} = this.props
-    const {bounds, boundsCenter} = this.getBounds()
     const options = {
       cluster,
       clusterMaxZoom: 14,
@@ -68,7 +51,7 @@ class GeojsonMap extends React.Component {
     }
 
     return (
-      <Mapbox center={boundsCenter} bounds={bounds}>
+      <Mapbox data={data}>
         <GeoJSONLayer
           id={id}
           sourceOptions={options}

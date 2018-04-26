@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@etalab/bal": "^0.3.4",
-    "@turf/turf": "^5.1.6",
+    "@turf/bbox": "^6.0.1",
     "blob-to-buffer": "^1.2.6",
     "compression": "^1.7.2",
     "debounce": "^1.1.0",

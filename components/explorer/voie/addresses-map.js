@@ -1,125 +1,128 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Marker} from 'react-mapbox-gl'
-import {center, bbox} from '@turf/turf'
+import {Source, Layer} from 'react-mapbox-gl'
+
+import Mapbox from '../../mapbox'
+import Events from '../../mapbox/events'
 
 import theme from '../../../styles/theme'
 
-import Mapbox from '../../mapbox'
+import {addressToGeoJson} from '../../../lib/geojson'
 
-import types from '../../../lib/types'
-
-const markerStyle = {
-  width: 30,
-  height: 30,
-  borderRadius: '50%',
-  backgroundColor: '#E0E0E0',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  border: '2px solid #C9C9C9'
-}
-
-const selectedStyle = Object.assign({}, markerStyle, {
-  width: 40,
-  height: 40,
-  backgroundColor: theme.primary,
-  color: 'white',
-  border: `2px solid ${theme.primaryDark}`
-})
-
-const selectedPosStyle = Object.assign({}, markerStyle, selectedStyle, {
-  backgroundColor: theme.successBg,
-  color: 'black',
-  border: `2px solid ${theme.primary}`
-})
+const EMPTY_FILTER = ['==', 'non_existing_prop', 'non_existing_value']
 
 class AddressesMap extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      bounds: null,
-      boundsCenter: null
-    }
-
-    this.getCirclePaint = this.getCirclePaint.bind(this)
+    this.onClick = this.onClick.bind(this)
+    this.onMouseEnter = this.onMouseEnter.bind(this)
+    this.onMouseLeave = this.onMouseLeave.bind(this)
   }
 
-  componentWillMount() {
-    const {addresses} = this.props
-    const extent = bbox(addresses)
-    const boundsCenter = center(addresses).geometry.coordinates
-
-    this.setState({
-      bounds: [
-        extent.splice(0, 2),
-        extent.splice(0, 2)
-      ],
-      boundsCenter
-    })
+  onClick(map, event) {
+    const {handleSelect} = this.props
+    const [feature] = event.features
+    handleSelect(feature)
   }
 
-  getSelectedMarkerStyle(entry) {
-    const style = {...selectedPosStyle}
+  onMouseEnter(map, event) {
+    const canvas = event.originalEvent.target
+    canvas.style.cursor = 'pointer'
 
-    const type = types.find(type => type.name === entry.source)
-    style.backgroundColor = type.background || style.backgroundColor
-    style.color = type.color || style.color
-
-    return style
+    const [feature] = event.features
+    map.setFilter('point-hover', ['==', ['get', 'id'], feature.properties.id])
   }
 
-  getMarkerStyle(feature) {
-    const style = {...markerStyle}
+  onMouseLeave(map, event) {
+    const canvas = event.originalEvent.target
+    canvas.style.cursor = ''
 
-    if (feature.properties.destination) {
-      const type = types.find(type => type.name === feature.properties.destination[0])
-      style.backgroundColor = type.background || style.backgroundColor
-      style.color = type.color || style.color
-    }
-
-    return style
-  }
-
-  getCirclePaint() {
-    return {
-      'circle-radius': 15,
-      'circle-color': '#3099df',
-      'circle-opacity': 0.8
-    }
+    map.setFilter('point-hover', EMPTY_FILTER)
   }
 
   render() {
-    const {bounds, boundsCenter} = this.state
-    const {addresses, selectedAddress, handleSelect} = this.props
+    const {addresses, selectedAddress} = this.props
 
-    const center = selectedAddress ?
-      selectedAddress.position.coordinates :
-      boundsCenter
+    const data = selectedAddress ?
+      addressToGeoJson(selectedAddress) :
+      addresses
 
     return (
-      <Mapbox center={center} bounds={bounds} zoom={selectedAddress ? 17 : 15}>
-        {addresses && addresses.features.map(feature => (
-          <Marker
-            key={feature.properties.numero}
-            onClick={() => handleSelect(feature)}
-            style={this.getMarkerStyle(feature)}
-            coordinates={feature.geometry.coordinates}>
-            <div title={feature.properties.numero}>
-              {feature.properties.numero}
-            </div>
-          </Marker>
-        ))}
-        {selectedAddress && selectedAddress.entries.map(entry => (
-          <Marker
-            key={entry.source}
-            style={this.getSelectedMarkerStyle(entry)}
-            coordinates={entry.position.coordinates}>
-            <div title={entry.source}>
-              {entry.source}
-            </div>
-          </Marker>
-          ))}
+      <Mapbox data={data}>
+        <Source id='centered-map' geoJsonSource={{
+          type: 'geojson',
+          data
+        }} />
+
+        <Layer
+          id='point'
+          textField={['get', 'numero']}
+          textSize={20}
+          sourceId='centered-map'
+          type='circle'
+          filter={['in', '$type', 'Point']}
+          paint={{
+            'circle-stroke-width': 1,
+            'circle-stroke-color': '#DDD',
+            'circle-radius': 7,
+            'circle-color': [
+              'case',
+              ['==', ['get', 'source'], 'ban'],
+              '#FFDF51',
+              ['==', ['get', 'source'], 'bano'],
+              '#418864',
+              ['==', ['get', 'source'], 'cadastre'],
+              '#8C5FF5',
+              ['==', ['get', 'destination'], 'habitation'],
+              '#21BA45',
+              ['==', ['get', 'destination'], 'commerce'],
+              '#53DD9E',
+              ['==', ['get', 'destination'], 'site-touristique'],
+              '#A1003C',
+              ['==', ['get', 'destination'], 'site-industriel'],
+              '#a5673f',
+              ['==', ['get', 'destination'], 'dependance-batie-isolee'],
+              '#FBBD08',
+              ['==', ['get', 'destination'], 'installations-techniques'],
+              '#F2711C',
+              ['==', ['get', 'destination'], 'local-commun'],
+              '#00B5AD',
+              ['==', ['get', 'destination'], 'divers'],
+              '#DDDDDD',
+              '#26353f'
+            ],
+            'circle-opacity': 0.8
+          }} />
+
+        <Layer
+          id='point-hover'
+          sourceId='centered-map'
+          type='circle'
+          filter={EMPTY_FILTER}
+          paint={{
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#DDD',
+            'circle-radius': 10,
+            'circle-color': `${theme.primary}`,
+            'circle-opacity': 1
+          }} />
+
+        <Events
+          layers={['point']}
+          onClick={this.onClick}
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave} />
+
+        <style jsx>{`
+          .info {
+            position: absolute;
+            pointer-events: none;
+            top: 10px;
+            left: 10px;
+            max-width: 40%;
+            overflow: hidden;
+          }
+        `}</style>
       </Mapbox>
     )
   }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
 import theme from '../../../styles/theme'
+import {addressesToGeoJson} from '../../../lib/geojson'
 
 import LoadingContent from '../../loading-content'
 
@@ -17,35 +18,11 @@ const AddressesMap = dynamic(import('./addresses-map'), {
   )
 })
 
-function toGeoJson(addresses) {
-  const addrs = addresses.filter(address => address.position)
-
-  return {
-    type: 'FeatureCollection',
-    features: addrs.map(address => {
-      return {
-        type: 'Feature',
-        geometry: {
-          type: address.position.type,
-          coordinates: address.position.coordinates
-        },
-        properties: {
-          id: address.id,
-          idVoie: address.idVoie,
-          numero: address.numero,
-          sources: address.sources,
-          destination: address.destination
-        }
-      }
-    }
-  )}
-}
-
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      geojson: props.addresses ? toGeoJson(props.addresses) : {}
+      geojson: props.addresses ? addressesToGeoJson(props.addresses) : {}
     }
     this.selectAddress = this.selectAddress.bind(this)
   }

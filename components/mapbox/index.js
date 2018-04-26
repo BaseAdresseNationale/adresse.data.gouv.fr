@@ -3,6 +3,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMapboxGl from 'react-mapbox-gl'
 
+import bbox from '@turf/bbox'
+
 // eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
 
@@ -17,34 +19,57 @@ const containerStyle = {
   boxShadow: '0 1px 4px #C9D3DF'
 }
 
-const Mapbox = ({center, zoom, bounds, fullscreen, children}) => {
-  return (
-    <Map
-      style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
-      zoom={[zoom]}
-      center={center}
-      fitBounds={bounds}
-      fitBoundsOptions={{padding: 20, linear: true}}
-      containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
-      {children}
-    </Map>
-  )
+class Mapbox extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.bbox = bbox(props.data)
+  }
+
+  componentDidMount() {
+    this.bbox = null
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.data !== this.props.data) {
+      this.bbox = bbox(props.data)
+    }
+  }
+
+  getBounds = () => {
+    const {bbox} = this
+
+    if (bbox) {
+      return [
+        [bbox[0], bbox[1]],
+        [bbox[2], bbox[3]]
+      ]
+    }
+  }
+
+  render() {
+    const {fullscreen, children} = this.props
+
+    return (
+      <Map
+        style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
+        fitBounds={this.getBounds()}
+        fitBoundsOptions={{padding: 20, linear: true}}
+        containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
+        {children}
+      </Map>
+    )
+  }
 }
 
 Mapbox.propTypes = {
-  center: PropTypes.array,
-  zoom: PropTypes.number,
-  bounds: PropTypes.array,
-  fullscreen: PropTypes.bool,
-  children: PropTypes.node
+  data: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  fullscreen: PropTypes.bool
 }
 
 Mapbox.defaultProps = {
-  center: [2.060204, 49.031407],
-  zoom: 11,
-  bounds: null,
-  fullscreen: false,
-  children: null
+  fullscreen: false
 }
 
 export default Mapbox
