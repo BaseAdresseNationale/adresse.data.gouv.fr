@@ -118,7 +118,11 @@ class AddressesMap extends React.Component {
           sourceId='addresses-map'
           layout={{
             'text-field': '{numero}',
-            'text-anchor': 'center'
+            'text-anchor': 'center',
+            'text-size': 12,
+            'text-font': [
+              'Noto Sans Regular'
+            ]
           }} />
 
         <Layer
@@ -128,7 +132,11 @@ class AddressesMap extends React.Component {
           filter={['has', 'source']}
           layout={{
             'text-field': '{source}',
-            'text-anchor': 'center'
+            'text-anchor': 'center',
+            'text-size': 12,
+            'text-font': [
+              'Noto Sans Regular'
+            ]
           }} />
 
         <Events
