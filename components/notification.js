@@ -5,6 +5,8 @@ import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
+import {getErrorMsg} from '../lib/error'
+
 import theme from '../styles/theme'
 
 const types = {
@@ -17,7 +19,7 @@ const types = {
 const Notification = ({message, type, style}) => (
   <div style={style} className={`notification ${type}`}>
     <h4><div className='icon'>{types[type].icon}</div> {types[type].title}</h4>
-    {message}
+    {type === 'error' ? getErrorMsg(message) : message}
     <style jsx>{`
       h4 {
         margin: 0.6em 0;
