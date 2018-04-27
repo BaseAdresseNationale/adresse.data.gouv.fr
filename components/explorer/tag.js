@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 
-import types from '../../lib/types'
+import {getType} from '../../lib/types'
 
 const Tag = ({type, style}) => {
-  const tag = types.find(t => t.name === type)
+  const tag = getType(type)
   return (
     <div className={`tag ${type}`} style={style}>
       {type}
@@ -29,19 +29,7 @@ const Tag = ({type, style}) => {
 }
 
 Tag.propTypes = {
-  type: PropTypes.oneOf([
-    'ban',
-    'bano',
-    'cadastre',
-    'habitation',
-    'commerce',
-    'site-touristique',
-    'site-industriel',
-    'dependance-batie-isolee',
-    'installations-techniques',
-    'local-commun',
-    'divers'
-  ]).isRequired,
+  type: PropTypes.string.isRequired,
   style: PropTypes.object
 }
 
