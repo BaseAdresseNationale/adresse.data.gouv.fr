@@ -49,7 +49,7 @@ class AddressesTable extends React.Component {
     return (
       <TableList
         title='Adresses de la voie'
-        subtitle={`${addresses.length} addresses répertoriées`}
+        subtitle={`${addresses.length} adresses répertoriées`}
         list={addresses}
         headers={headers}
         genItems={genItems}

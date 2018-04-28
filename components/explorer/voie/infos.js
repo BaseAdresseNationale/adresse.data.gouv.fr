@@ -13,7 +13,7 @@ import theme from '../../../styles/theme'
 const Infos = ({voie}) => (
   <div className='voie-infos'>
     <div className='infos'>
-      <h4><FaDotCircleO /> Nombre d’adresse</h4>
+      <h4><FaDotCircleO /> Nombre d’adresses</h4>
       <div>{voie.numeros.length}</div>
     </div>
 
