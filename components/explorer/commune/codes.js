@@ -10,7 +10,7 @@ const Codes = ({code, codesPostaux, departement, region}) => (
       <div>
         <b>Codes postaux</b> :
         <div>
-          {codesPostaux.map(code => <div key={code}>{code}</div>)}
+          {codesPostaux.join(', ')}
         </div>
       </div> :
       <div><b>Code postal</b> : {codesPostaux[0]}</div>
