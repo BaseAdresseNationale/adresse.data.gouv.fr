@@ -45,18 +45,18 @@ const circlePaint = {
 class AddressesMap extends React.Component {
   constructor(props) {
     super(props)
-    this.onClick = this.onClick.bind(this)
-    this.onMouseEnter = this.onMouseEnter.bind(this)
-    this.onMouseLeave = this.onMouseLeave.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this)
   }
 
-  onClick(map, event) {
+  handleClick(map, event) {
     const {handleSelect} = this.props
     const [feature] = event.features
     handleSelect(feature)
   }
 
-  onMouseEnter(map, event) {
+  handleMouseEnter(map, event) {
     const canvas = event.originalEvent.target
     canvas.style.cursor = 'pointer'
 
@@ -70,7 +70,7 @@ class AddressesMap extends React.Component {
     map.setFilter('point-label', ['==', ['get', 'id'], feature.properties.id])
   }
 
-  onMouseLeave(map, event) {
+  handleMouseLeave(map, event) {
     const canvas = event.originalEvent.target
     canvas.style.cursor = ''
 
@@ -141,9 +141,9 @@ class AddressesMap extends React.Component {
 
         <Events
           layers={['point']}
-          onClick={this.onClick}
-          onMouseEnter={this.onMouseEnter}
-          onMouseLeave={this.onMouseLeave} />
+          onClick={this.handleClick}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave} />
 
         <style jsx>{`
           .info {
