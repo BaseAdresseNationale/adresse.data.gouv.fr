@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
-import {getPosition, tagsList} from '../../../lib/table'
+import {tagsList} from '../../../lib/table'
 import {getTypeByPriority} from '../../../lib/types'
 
 import TableList from '../table-list'
@@ -25,7 +25,6 @@ class AddressesTable extends React.Component {
     const headers = [
       {title: 'Numéro'},
       {title: 'Sources'},
-      {title: 'Positions'},
       {title: 'Destination'},
       {title: 'Active'}
     ]
@@ -38,7 +37,6 @@ class AddressesTable extends React.Component {
           values: [
             address.numero,
             tagsList(getTypeByPriority(address.sources)),
-            getPosition(address.position),
             tagsList(getTypeByPriority(destination)),
             address.active ? <FaCheck /> : <FaClose />
           ]
