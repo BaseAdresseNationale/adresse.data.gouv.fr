@@ -29,6 +29,7 @@ class SearchInput extends React.Component {
 
   renderInput(props) {
     const {placeholder} = this.props
+
     return (
       <div>
         <input className='search' {...props} placeholder={placeholder} />
@@ -53,7 +54,7 @@ class SearchInput extends React.Component {
 
   renderMenu(items, value) {
     const {loading} = this.props
-
+    
     return (
       <div className={`menu ${value.length ? '' : 'hidden'}`}>
         { loading && !items.length ? (
@@ -91,6 +92,7 @@ class SearchInput extends React.Component {
 
   render() {
     const {value, results, renderItem, getItemValue, wrapperStyle} = this.props
+    
     return (
       <div className='wrap'>
         <Autocomplete
@@ -99,6 +101,7 @@ class SearchInput extends React.Component {
           wrapperStyle={wrapperStyle}
           items={results}
           getItemValue={getItemValue}
+          isItemSelectable={item => !item.header}
           onSelect={this.handleSelect}
           onChange={this.handleSearch}
           renderItem={renderItem}

@@ -8,7 +8,7 @@ import {_get} from '../../lib/fetch'
 import Section from '../section'
 import SearchInput from '../search-input'
 import Notification from '../notification'
-import renderCommune from '../search-input/render-commune'
+import renderAddok from '../search-input/render-addok'
 import BetaRibbon from '../beta-ribbon'
 
 class Explorer extends React.Component {
@@ -21,6 +21,7 @@ class Explorer extends React.Component {
       error: null
     }
 
+    this.getFeatureValue = this.getFeatureValue.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
@@ -28,16 +29,30 @@ class Explorer extends React.Component {
     this.handleSearch = debounce(this.handleSearch, 400)
   }
 
-  handleSelect(item) {
-    this.setState({input: item.nom})
-    const href = `/explore/commune?codeCommune=${item.code}`
-    const as = `/explore/commune/${item.code}`
+  handleSelect(feature) {
+    const {citycode, id, housenumber, type} = feature.properties
+    const streetCode = type === 'municipality' ? null : id.split('-')[1]
+    this.setState({input: feature.name})
+    let href = ''
+    let as = ''
+
+    if (type === 'municipality') {
+      href = `/explore/commune?codeCommune=${citycode}`
+      as = `/explore/commune/${citycode}`
+    } else if (type === 'street') {
+      href = `/commune/voie?codeVoie=${streetCode}`
+      as = `/explore/commune/${citycode}/voies/${streetCode}`
+    } else if (type === 'housenumber') {
+      href = `/explore/commune/voies?codeCommune=${citycode}&codeVoie=${streetCode}&numero=${housenumber}`
+      as = `/explore/commune/${citycode}/voies/${streetCode}/${housenumber}`
+    }
+
     Router.push(href, as)
   }
 
   handleInput(input) {
     this.setState(() => {
-      if (input) {
+      if (input.length > 1) {
         this.handleSearch()
       }
 
@@ -51,14 +66,13 @@ class Explorer extends React.Component {
   }
 
   async handleSearch() {
-    const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
-    const query = `communes?nom=${this.state.input}&${fields}&boost=population`
-    const url = 'https://geo.api.gouv.fr/' + query
+    const {input} = this.state
+    const url = 'https://sandbox.geo.api.gouv.fr/explore-addok/search?q=' + input
 
     try {
       const results = await _get(url)
       this.setState({
-        results: results.splice(0, 5) || []
+        results: results.features.splice(0, 5) || []
       })
     } catch (err) {
       this.setState({
@@ -70,26 +84,41 @@ class Explorer extends React.Component {
     this.setState({loading: false})
   }
 
+  getFeatureValue(feature) {
+    return feature.header ? feature.header : feature.properties.name
+  }
+
   render() {
     const {input, results, loading, error} = this.state
+    let orderResults = []
+
+    orderResults = []
+    results.map(feature => {
+      if (!orderResults.find(item => item.header === feature.properties.type)) {
+        orderResults.push({
+          header: feature.properties.type
+        })
+      }
+      orderResults.push(feature)
+    })
 
     return (
       <Section background='color'>
         <div className='beta'>
-          <h2><FaSearch /> Chercher une commune</h2>
+          <h2><FaSearch /> Recherche une adresse</h2>
           <BetaRibbon />
         </div>
 
         <div className='input'>
           <SearchInput
             value={input}
-            results={results}
+            results={orderResults}
             loading={loading}
-            placeholder='Rechercher une commune…'
+            placeholder='Recherche…'
             onSelect={this.handleSelect}
             onSearch={this.handleInput}
-            renderItem={renderCommune}
-            getItemValue={item => item.nom} />
+            renderItem={renderAddok}
+            getItemValue={this.getFeatureValue} />
         </div>
 
         {error &&

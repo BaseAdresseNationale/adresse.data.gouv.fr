@@ -52,7 +52,6 @@ VoiesPage.propTypes = {
     numero: PropTypes.string.isRequired,
     idVoie: PropTypes.string.isRequired,
     codePostal: PropTypes.string.isRequired,
-    libelleAcheminement: PropTypes.string.isRequired,
     position: PropTypes.object.isRequired,
     pseudoNumero: PropTypes.bool,
     destination: PropTypes.array,
@@ -60,6 +59,7 @@ VoiesPage.propTypes = {
     active: PropTypes.bool.isRequired,
     sources: PropTypes.array.isRequired,
     entries: PropTypes.array.isRequired,
+    libelleAcheminement: PropTypes.string,
     distanceMaxPositions: PropTypes.number,
     centrePositions: PropTypes.object
   })
