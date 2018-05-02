@@ -12,7 +12,16 @@ const EMPTY_FILTER = ['==', 'non_existing_prop', 'non_existing_value']
 const circlePaint = {
   'circle-stroke-width': 1,
   'circle-stroke-color': '#DDD',
-  'circle-radius': 13,
+  'circle-radius': {
+    "stops": [
+      // zoom is 12 -> circle radius will be 15px
+      [12, 15],
+      // zoom is 17 -> circle radius will be 12px
+      [17, 12],
+      // zoom is 20 -> circle radius will be 10px
+      [20, 10],
+    ]
+  },
   'circle-color': [
     'case',
     ['==', ['get', 'source'], 'ban'],
@@ -107,7 +116,7 @@ class AddressesMap extends React.Component {
           paint={{
             'circle-stroke-width': 1,
             'circle-stroke-color': '#DDD',
-            'circle-radius': 13,
+            'circle-radius': circlePaint['circle-radius'],
             'circle-color': '#C9D3DF',
             'circle-opacity': 0.4
           }} />
