@@ -97,7 +97,6 @@ class SearchInput extends React.Component {
       <div className='wrap'>
         <Autocomplete
           value={value}
-          inputProps={{id: 'states-autocomplete'}}
           wrapperStyle={wrapperStyle}
           items={results}
           getItemValue={getItemValue}

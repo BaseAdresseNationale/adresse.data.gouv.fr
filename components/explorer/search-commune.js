@@ -52,8 +52,8 @@ class Explorer extends React.Component {
 
   handleInput(input) {
     this.setState(() => {
-      if (input.length > 1) {
-        this.handleSearch()
+      if (input) {
+        this.handleSearch(input)
       }
 
       return {
@@ -65,23 +65,22 @@ class Explorer extends React.Component {
     })
   }
 
-  async handleSearch() {
-    const {input} = this.state
+  async handleSearch(input) {
     const url = 'https://sandbox.geo.api.gouv.fr/explore-addok/search?q=' + input
 
     try {
       const results = await _get(url)
       this.setState({
-        results: results.features.splice(0, 5) || []
+        results: results.features.splice(0, 5) || [],
+        loading: false
       })
     } catch (err) {
       this.setState({
         results: [],
+        loading: false,
         error: err
       })
     }
-
-    this.setState({loading: false})
   }
 
   getFeatureValue(feature) {

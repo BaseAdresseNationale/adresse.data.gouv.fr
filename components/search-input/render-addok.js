@@ -10,23 +10,23 @@ const featuresTypes = {
   municipality: 'Commune'
 }
 
-function RenderAddok(item, isHighlighted) {
-  if (item.header) {
-    return (
-      <div>
-        <div key={item.header} className='header'>{featuresTypes[item.header]}</div>
-        <style jsx>{`
+function renderHeader(header) {
+  return (
+    <div>
+      <div key={header} className='header'>{featuresTypes[header]}</div>
+      <style jsx>{`
           .header {
             background-color: ${theme.colors.grey};
             color: ${theme.colors.white};
             padding: 0.2em;
           }
         `}
-        </style>
-      </div>
-    )
-  }
+      </style>
+    </div>
+  )
+}
 
+function renderItem(item, isHighlighted) {
   const {name, context, city, type, postcode} = item.properties
 
   return (
@@ -64,6 +64,10 @@ function RenderAddok(item, isHighlighted) {
         `}</style>
     </div>
   )
+}
+
+function RenderAddok(item, isHighlighted) {
+  return item.header ? renderHeader(item.header) : renderItem(item, isHighlighted)
 }
 
 export default RenderAddok
