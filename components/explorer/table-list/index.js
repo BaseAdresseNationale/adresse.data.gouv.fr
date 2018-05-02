@@ -14,7 +14,6 @@ class TableList extends React.Component {
 
     this.state = {
       text: '',
-      onlyActive: true,
       selectedTags: [],
       getSources: sources => getTypeByPriority(unionTypes(sources)),
       getDestination: destination => getTypeByPriority(unionTypes(destination))
@@ -24,7 +23,6 @@ class TableList extends React.Component {
 
     this.handleTextFilter = this.handleTextFilter.bind(this)
     this.handleTags = this.handleTags.bind(this)
-    this.handleActive = this.handleActive.bind(this)
   }
 
   componentWillReceiveProps() {
@@ -52,21 +50,12 @@ class TableList extends React.Component {
     })
   }
 
-  handleActive() {
-    this.setState(state => {
-      const onlyActive = !state.onlyActive
-      return {
-        onlyActive
-      }
-    })
-  }
-
   filterList() {
-    const {text, onlyActive, selectedTags} = this.state
+    const {text, selectedTags} = this.state
     const list = [...this.props.list]
 
     return list.filter(item => {
-      const {sources, destination, active, nomVoie, numero} = item
+      const {sources, destination, nomVoie, numero} = item
       let tags = sources
 
       if (destination) {
@@ -74,7 +63,6 @@ class TableList extends React.Component {
       }
 
       return byTags(tags, selectedTags) && // Filter tags
-              active === onlyActive && // Filter active
               byText((nomVoie || numero), text) // Filter text
     })
   }
@@ -82,7 +70,7 @@ class TableList extends React.Component {
   render() {
     const {title, subtitle} = this.props
     const {selected, headers, genItems, initialSort, handleSelect} = this.props
-    const {text, selectedTags, onlyActive, getSources, getDestination} = this.state
+    const {text, selectedTags, getSources, getDestination} = this.state
 
     const filteredList = this.filterList()
     const availableSources = getSources(filteredList.map(item => item.sources))
@@ -98,9 +86,7 @@ class TableList extends React.Component {
           sources={availableSources}
           destinations={availableDestination}
           selectedTags={selectedTags}
-          onlyActive={onlyActive}
-          onFilterTags={this.handleTags}
-          onSwitch={this.handleActive} />
+          onFilterTags={this.handleTags} />
 
         {filteredList.length === 0 ?
           <div className='no-result'>Aucun résultat</div> :

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../styles/theme'
 
-import SwitchInput from './switch-input'
 import TagsInput from './tags-input'
 
 class TableList extends React.Component {
@@ -26,18 +25,12 @@ class TableList extends React.Component {
   }
 
   render() {
-    const {text, sources, destinations, selectedTags, onFilterTags, onSwitch, onlyActive} = this.props
+    const {text, sources, destinations, selectedTags, onFilterTags} = this.props
 
     return (
-      <div className='grid'>
-        <div className='row-1'>
+      <div>
+        <div className='filter-1'>
           <input className='search' type='text' value={text} placeholder='Rechercher…' onChange={this.handleChange} />
-          <div className='switch'>
-            <SwitchInput handleChange={onSwitch} label='Active' isChecked={onlyActive} />
-          </div>
-        </div>
-
-        <div className='row-2'>
           {sources &&
             <div className='tags'>
               <TagsInput
@@ -47,7 +40,10 @@ class TableList extends React.Component {
                 toggleTag={onFilterTags} />
             </div>
           }
-          {destinations &&
+        </div>
+
+        <div className='destination'>
+          {destinations && (
             <div className='tags'>
               <TagsInput
                 title='Destination'
@@ -55,38 +51,42 @@ class TableList extends React.Component {
                 selected={selectedTags}
                 toggleTag={onFilterTags} />
             </div>
-          }
+          )}
         </div>
 
         <style jsx>{`
-            .grid {
-              display: grid;
+            .filter-1 {
+              display: flex;
             }
 
-            .row-1 {
-              display: grid;
-            }
-
-            .row-1 .search {
-              grid-column-start: 1;
-              grid-column-end: 4;
-            }
-
-            .row-1 .switch {
-              grid-column-start: 4;
-              grid-column-end: 4;
-            }
-
-            row-2 {
-              display: grid;
+            .filter-1 .tags {
+              margin-left: 1em;
             }
 
             .tags {
               width: 100%;
               border: 1px solid ${theme.colors.lightGrey};
+            }
+
+            .destination {
               margin: 5px 0;
             }
 
+            @media (max-width: 700px) {
+              .filter-1 {
+                display: flex;
+                flex-direction: column;
+              }
+
+              .filter-1 .tags {
+                margin: 5px 0 0 0;
+              }
+
+              .tags {
+                width: 100%;
+                margin: 5px 0;
+              }
+            }
           `}</style>
       </div>
     )
@@ -98,9 +98,7 @@ TableList.propTypes = {
   sources: PropTypes.array,
   destinations: PropTypes.array,
   selectedTags: PropTypes.array,
-  onlyActive: PropTypes.bool,
   onFilterTags: PropTypes.func.isRequired,
-  onSwitch: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired
 }
 
