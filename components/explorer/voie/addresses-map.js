@@ -13,13 +13,13 @@ const circlePaint = {
   'circle-stroke-width': 1,
   'circle-stroke-color': '#DDD',
   'circle-radius': {
-    "stops": [
-      // zoom is 12 -> circle radius will be 15px
+    stops: [
+      // Zoom is 12 -> circle radius will be 15px
       [12, 15],
-      // zoom is 17 -> circle radius will be 12px
+      // Zoom is 17 -> circle radius will be 12px
       [17, 12],
-      // zoom is 20 -> circle radius will be 10px
-      [20, 10],
+      // Zoom is 20 -> circle radius will be 10px
+      [20, 10]
     ]
   },
   'circle-color': [
@@ -62,6 +62,7 @@ class AddressesMap extends React.Component {
   handleClick(map, event) {
     const {handleSelect} = this.props
     const [feature] = event.features
+    this.resetFilters(map)
     handleSelect(feature)
   }
 
@@ -70,12 +71,10 @@ class AddressesMap extends React.Component {
     canvas.style.cursor = 'pointer'
 
     const [feature] = event.features
-    // Hide other points and numbers
-    map.setFilter('point-hover', ['!=', ['get', 'id'], feature.properties.id])
-    map.setFilter('point-label', EMPTY_FILTER)
 
+    // Hide other points and numbers
+    map.setFilter('point-hover', ['==', ['get', 'id'], feature.properties.id])
     // Focus point and number
-    map.setFilter('point', ['==', ['get', 'id'], feature.properties.id])
     map.setFilter('point-label', ['==', ['get', 'id'], feature.properties.id])
   }
 
@@ -83,6 +82,10 @@ class AddressesMap extends React.Component {
     const canvas = event.originalEvent.target
     canvas.style.cursor = ''
 
+    this.resetFilters(map)
+  }
+
+  resetFilters(map) {
     map.setFilter('point-hover', EMPTY_FILTER)
     map.setFilter('point-label', null)
     map.setFilter('point', null)
@@ -114,11 +117,11 @@ class AddressesMap extends React.Component {
           type='circle'
           filter={EMPTY_FILTER}
           paint={{
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#DDD',
+            'circle-stroke-width': 2,
+            'circle-stroke-color': circlePaint['circle-color'],
             'circle-radius': circlePaint['circle-radius'],
-            'circle-color': '#C9D3DF',
-            'circle-opacity': 0.4
+            'circle-color': '#fff',
+            'circle-opacity': 1
           }} />
 
         <Layer
