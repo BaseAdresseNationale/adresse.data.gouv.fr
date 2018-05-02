@@ -53,6 +53,22 @@ const Address = ({voie, address, onClose}) => {
               ))}
             </div>
           </div>}
+
+        <div>
+          Positions :
+            {entries.map(entry => (
+              <div key={entry.source} className='position'>
+                <div className='source'><h5>{entry.source}</h5></div>
+                <div className='coordinates'>
+                  {entry.position.coordinates.map(coordinate => (
+                    <div key={coordinate} className='coordinate' >
+                      {coordinate}
+                    </div>
+                  ))}
+                </div>
+              </div>
+          ))}
+        </div>
       </div>
 
       {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ?
@@ -97,6 +113,36 @@ const Address = ({voie, address, onClose}) => {
           background-color: ${theme.colors.lighterBlue};
           border: 1px solid ${theme.primary};
         }
+
+        .position {
+          display: grid;
+          grid-column-gap: 5px;
+          margin: 10px 0;
+          grid-template-columns: 0.5fr 1fr;
+        }
+
+        .source {
+          grid-column: 1;
+          text-align: center;
+          background-color: ${theme.colors.lighterGrey};
+         }
+
+        .coordinates {
+          grid-column: 2;
+          display: grid;
+          grid-row-gap: 5px;
+          grid-template-rows: 50%;
+          text-align: center;
+         }
+
+        .coordinate {
+          align-self: center;
+          padding: 5px;
+          background-color: ${theme.colors.lightGrey};
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+         }
         `}</style>
     </div>
   )
