@@ -105,7 +105,7 @@ class Explorer extends React.Component {
     return (
       <Section background='color'>
         <div className='beta'>
-          <h2><FaSearch /> Recherche une adresse</h2>
+          <h2><FaSearch /> Rechercher une adresse</h2>
           <BetaRibbon />
         </div>
 
