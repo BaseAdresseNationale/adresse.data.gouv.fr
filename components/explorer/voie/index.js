@@ -27,7 +27,7 @@ class Voie extends React.Component {
   }
 
   render() {
-    const {voie, selected} = this.props   
+    const {voie, selected} = this.props
     const commune = {
       nom: voie.nomCommune,
       code: voie.codeCommune,

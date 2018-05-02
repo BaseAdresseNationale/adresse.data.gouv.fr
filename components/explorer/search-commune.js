@@ -99,7 +99,7 @@ class Explorer extends React.Component {
           header: feature.properties.type
         })
       }
-      orderResults.push(feature)
+      return orderResults.push(feature)
     })
 
     return (

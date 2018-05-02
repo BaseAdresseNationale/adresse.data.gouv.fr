@@ -10,10 +10,10 @@ const featuresTypes = {
   municipality: 'Commune'
 }
 
-function RenderAddok(item, isHighlighted) {  
+function RenderAddok(item, isHighlighted) {
   if (item.header) {
     return (
-      <div> 
+      <div>
         <div key={item.header} className='header'>{featuresTypes[item.header]}</div>
         <style jsx>{`
           .header {
@@ -28,17 +28,17 @@ function RenderAddok(item, isHighlighted) {
   }
 
   const {name, context, city, type, postcode} = item.properties
-  
+
   return (
     <div>
       <div key={`${name}-${postcode}`} className={`item ${isHighlighted ? 'item-highlighted' : ''}`}>
         <div>
           <div className='label'>{name}</div>
         </div>
-          {type === 'municipality' ?
-            <div>{context}</div> :
-            <div>{city} - {postcode}</div>
-          }
+        {type === 'municipality' ?
+          <div>{context}</div> :
+          <div>{city} - {postcode}</div>
+        }
       </div>
       <style jsx>{`
         .item {
