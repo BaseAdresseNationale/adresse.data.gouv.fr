@@ -57,14 +57,17 @@ class MapContainer extends React.Component {
           .map {
             height: 500px;
             min-height: 500px;
-            width: ${selected ? '80%' : '100%'};
+            width: ${selected ? '70%' : '100%'};
             border: 1px solid whitesmoke;
           }
 
           .selected-address {
-            width: 20%;
+            width: 30%;
             min-width: 200px;
             padding: 0 2em;
+            display: block;
+            overflow: scroll;
+            height: 500px;
             box-shadow: 0 1px 4px ${theme.boxShadow};
           }
 
@@ -80,6 +83,7 @@ class MapContainer extends React.Component {
 
             .selected-address {
               width: 100%;
+              height: 100%;
               padding: 0 2em;
               box-shadow: 0 1px 4px ${theme.boxShadow};
             }
