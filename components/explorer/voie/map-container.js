@@ -21,9 +21,6 @@ const AddressesMap = dynamic(import('./addresses-map'), {
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      geojson: props.addresses ? addressesToGeoJson(props.addresses) : {}
-    }
     this.selectAddress = this.selectAddress.bind(this)
   }
 
@@ -33,8 +30,8 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    const {voie, selected, onSelect} = this.props
-    const {geojson} = this.state
+    const {voie, addresses, selected, onSelect} = this.props
+    const geojson = addresses ? addressesToGeoJson(addresses) : {}
 
     return (
       <div className='container'>
