@@ -54,21 +54,23 @@ const Address = ({voie, address, onClose}) => {
             </div>
           </div>}
 
-        <div>
-          Positions :
-            {entries.map(entry => (
-              <div key={entry.source} className='position'>
-                <div className='source'><h5>{entry.source}</h5></div>
-                <div className='coordinates'>
-                  {entry.position.coordinates.map(coordinate => (
-                    <div key={coordinate} className='coordinate' >
-                      {coordinate}
-                    </div>
-                  ))}
+        {entries.length > 0 &&
+          <div>
+            Positions :
+              {entries.map(entry => (
+                <div key={entry.source} className='position'>
+                  <div className='source'><h5>{entry.source}</h5></div>
+                  <div className='coordinates'>
+                    {entry.position.coordinates.map(coordinate => (
+                      <div key={coordinate} className='coordinate' >
+                        {coordinate}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-          ))}
-        </div>
+            ))}
+          </div>}
+
       </div>
 
       {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ?
