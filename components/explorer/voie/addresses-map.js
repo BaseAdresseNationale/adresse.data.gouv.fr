@@ -13,14 +13,8 @@ const circlePaint = {
   'circle-stroke-width': 1,
   'circle-stroke-color': '#DDD',
   'circle-radius': {
-    stops: [
-      // Zoom is 12 -> circle radius will be 15px
-      [12, 15],
-      // Zoom is 17 -> circle radius will be 12px
-      [17, 12],
-      // Zoom is 20 -> circle radius will be 10px
-      [20, 10]
-    ]
+    base: 1.6,
+    stops: [[12, 3], [22, 120]]
   },
   'circle-color': [
     'case',
