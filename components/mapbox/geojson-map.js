@@ -26,46 +26,34 @@ const polygonPaint = {
   'fill-opacity': 0.3
 }
 
-class GeojsonMap extends React.Component {
-  constructor(props) {
-    super(props)
-    this.getCirclePaint = this.getCirclePaint.bind(this)
+const GeojsonMap = ({data, id, cluster}) => {
+  const options = {
+    cluster,
+    clusterMaxZoom: 14,
+    clusterRadius: 50,
+    tolerance: 0.5,
+    buffer: 60
   }
 
-  getCirclePaint() {
-    return {
-      'circle-radius': 1,
-      'circle-color': '#3099df',
-      'circle-opacity': 0.6
-    }
-  }
-
-  render() {
-    const {data, id, cluster} = this.props
-    const options = {
-      cluster,
-      clusterMaxZoom: 14,
-      clusterRadius: 50,
-      tolerance: 0.5,
-      buffer: 60
-    }
-
-    return (
-      <Mapbox data={data}>
-        <GeoJSONLayer
-          id={id}
-          sourceOptions={options}
-          data={data}
-          lineLayout={lineLayout}
-          linePaint={linePaint}
-          fillPaint={fillPaint}
-          polygonPaint={polygonPaint}
-          circlePaint={this.getCirclePaint()}
-          circleOnMouseDown={this.markerClick} />
-        {cluster && <ClusterLayers sourceId={id} />}
-      </Mapbox>
-    )
-  }
+  return (
+    <Mapbox data={data}>
+      <GeoJSONLayer
+        id={id}
+        sourceOptions={options}
+        data={data}
+        lineLayout={lineLayout}
+        linePaint={linePaint}
+        fillPaint={fillPaint}
+        polygonPaint={polygonPaint}
+        circlePaint={{
+          'circle-radius': 1,
+          'circle-color': '#3099df',
+          'circle-opacity': 0.6
+        }}
+        circleOnMouseDown={this.markerClick} />
+      {cluster && <ClusterLayers sourceId={id} />}
+    </Mapbox>
+  )
 }
 
 GeojsonMap.propTypes = {
