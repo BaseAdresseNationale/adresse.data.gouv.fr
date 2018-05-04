@@ -2,8 +2,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMapboxGl from 'react-mapbox-gl'
-
 import bbox from '@turf/bbox'
+import {intersectionWith, isEqual} from 'lodash'
 
 // eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
@@ -23,7 +23,7 @@ class Mapbox extends React.Component {
   constructor(props) {
     super(props)
 
-    this.bbox = bbox(props.toFit || props.data)
+    this.bbox = bbox(props.data)
   }
 
   componentDidMount() {
@@ -31,9 +31,12 @@ class Mapbox extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.toFit !== this.props.toFit) {
-      this.bbox = bbox(props.toFit)
-    } else if (props.data !== this.props.data) {
+    const {data} = this.props
+    this.bbox = null
+
+    const intersection = intersectionWith(data.features, props.data.features, isEqual)
+
+    if (intersection.length === 0) {
       this.bbox = bbox(props.data)
     }
   }
@@ -68,13 +71,11 @@ class Mapbox extends React.Component {
 Mapbox.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  toFit: PropTypes.object,
   onStyleLoad: PropTypes.func,
   fullscreen: PropTypes.bool
 }
 
 Mapbox.defaultProps = {
-  toFit: null,
   onStyleLoad: null,
   fullscreen: false
 }

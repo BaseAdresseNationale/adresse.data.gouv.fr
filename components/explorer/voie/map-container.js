@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
+import {union} from 'lodash'
 
 import theme from '../../../styles/theme'
 import {_get} from '../../../lib/fetch'
@@ -43,14 +44,10 @@ class MapContainer extends React.Component {
     try {
       const results = await _get(url)
       this.setState(state => {
-        const filteredResults = results.filter(add => {
-          return !addresses.find(address => address.id === add.id) &&
-                !state.addrsAround.find(address => address.id === add.id)
-        })
+        const withoutVoie = results
+          .filter(add => !addresses.find(address => address.id === add.id))
 
-        return {
-          addrsAround: [...filteredResults, ...state.addrsAround]
-        }
+        return {addrsAround: union(withoutVoie, state.addrsAround)}
       })
     } catch (err) {
       this.setState({

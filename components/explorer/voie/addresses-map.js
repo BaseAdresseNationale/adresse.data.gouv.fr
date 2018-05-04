@@ -48,6 +48,7 @@ const circlePaint = {
 class AddressesMap extends React.Component {
   constructor(props) {
     super(props)
+
     this.handleClick = this.handleClick.bind(this)
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
@@ -99,15 +100,12 @@ class AddressesMap extends React.Component {
 
   render() {
     const {addresses, addrsAround, selectedAddress} = this.props
-    const allAddresses = addressesToGeoJson([...addresses, ...addrsAround])
-    const dataToFit = selectedAddress ? addressToGeoJson(selectedAddress) : allAddresses
-
     const data = selectedAddress ?
       addressToGeoJson(selectedAddress) :
       addressesToGeoJson(addresses)
 
     return (
-      <Mapbox data={selectedAddress ? data : allAddresses} toFit={dataToFit} onStyleLoad={this.handleDragEnd}>
+      <Mapbox data={data} onStyleLoad={this.handleDragEnd}>
         <Source id='addresses-map' geoJsonSource={{
           type: 'geojson',
           data
