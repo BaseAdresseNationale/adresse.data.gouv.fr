@@ -100,13 +100,14 @@ class AddressesMap extends React.Component {
   render() {
     const {addresses, addrsAround, selectedAddress} = this.props
     const allAddresses = addressesToGeoJson([...addresses, ...addrsAround])
+    const dataToFit = selectedAddress ? addressToGeoJson(selectedAddress) : allAddresses
 
     const data = selectedAddress ?
       addressToGeoJson(selectedAddress) :
       addressesToGeoJson(addresses)
 
     return (
-      <Mapbox data={selectedAddress ? data : allAddresses}>
+      <Mapbox data={selectedAddress ? data : allAddresses} toFit={dataToFit}>
         <Source id='addresses-map' geoJsonSource={{
           type: 'geojson',
           data

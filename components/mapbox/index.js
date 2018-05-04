@@ -23,7 +23,7 @@ class Mapbox extends React.Component {
   constructor(props) {
     super(props)
 
-    this.bbox = bbox(props.data)
+    this.bbox = bbox(props.toFit || props.data)
   }
 
   componentDidMount() {
@@ -31,7 +31,9 @@ class Mapbox extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.data !== this.props.data) {
+    if (props.toFit !== this.props.toFit) {
+      this.bbox = bbox(props.toFit)
+    } else if (props.data !== this.props.data) {
       this.bbox = bbox(props.data)
     }
   }
@@ -65,10 +67,12 @@ class Mapbox extends React.Component {
 Mapbox.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
+  toFit: PropTypes.object,
   fullscreen: PropTypes.bool
 }
 
 Mapbox.defaultProps = {
+  toFit: null,
   fullscreen: false
 }
 
