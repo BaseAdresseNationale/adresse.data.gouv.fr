@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import bbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
-import {addressesToGeoJson} from '../../../lib/geojson'
 import {_get} from '../../../lib/fetch'
 
 import LoadingContent from '../../loading-content'
@@ -31,15 +29,6 @@ class MapContainer extends React.Component {
 
     this.selectAddress = this.selectAddress.bind(this)
     this.getAddrsAround = this.getAddrsAround.bind(this)
-  }
-
-  componentDidMount() {
-    const {addresses} = this.props
-
-    if (addresses) {
-      const geojson = addressesToGeoJson(addresses)
-      this.getAddrsAround(bbox(geojson))
-    }
   }
 
   selectAddress(feature) {

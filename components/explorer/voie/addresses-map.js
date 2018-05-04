@@ -107,7 +107,7 @@ class AddressesMap extends React.Component {
       addressesToGeoJson(addresses)
 
     return (
-      <Mapbox data={selectedAddress ? data : allAddresses} toFit={dataToFit}>
+      <Mapbox data={selectedAddress ? data : allAddresses} toFit={dataToFit} onStyleLoad={this.handleDragEnd}>
         <Source id='addresses-map' geoJsonSource={{
           type: 'geojson',
           data

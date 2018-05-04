@@ -50,10 +50,11 @@ class Mapbox extends React.Component {
   }
 
   render() {
-    const {fullscreen, children} = this.props
+    const {fullscreen, onStyleLoad, children} = this.props
 
     return (
       <Map
+        onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         fitBounds={this.getBounds()}
         fitBoundsOptions={{padding: 20, linear: true}}
@@ -68,11 +69,13 @@ Mapbox.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   toFit: PropTypes.object,
+  onStyleLoad: PropTypes.func,
   fullscreen: PropTypes.bool
 }
 
 Mapbox.defaultProps = {
   toFit: null,
+  onStyleLoad: null,
   fullscreen: false
 }
 
