@@ -5,7 +5,7 @@ import {Source, Layer} from 'react-mapbox-gl'
 import Mapbox from '../../mapbox'
 import Events from '../../mapbox/events'
 
-import {addressToGeoJson} from '../../../lib/geojson'
+import {addressesToGeoJson, addressToGeoJson} from '../../../lib/geojson'
 
 const EMPTY_FILTER = ['==', 'non_existing_prop', 'non_existing_value']
 
@@ -51,11 +51,13 @@ class AddressesMap extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
+    this.handleDragEnd = this.handleDragEnd.bind(this)
   }
 
   handleClick(map, event) {
     const {handleSelect} = this.props
     const [feature] = event.features
+
     this.resetFilters(map)
     handleSelect(feature)
   }
@@ -66,9 +68,7 @@ class AddressesMap extends React.Component {
 
     const [feature] = event.features
 
-    // Hide other points and numbers
     map.setFilter('point-hover', ['==', ['get', 'id'], feature.properties.id])
-    // Focus point and number
     map.setFilter('point-label', ['==', ['get', 'id'], feature.properties.id])
   }
 
@@ -79,6 +79,18 @@ class AddressesMap extends React.Component {
     this.resetFilters(map)
   }
 
+  handleDragEnd(map) {
+    const {handleMove} = this.props
+    const bounds = map.getBounds().toArray()
+    const bbox = [
+      bounds[0][0],
+      bounds[0][1],
+      bounds[1][0],
+      bounds[1][1]
+    ]
+    handleMove(bbox)
+  }
+
   resetFilters(map) {
     map.setFilter('point-hover', EMPTY_FILTER)
     map.setFilter('point-label', null)
@@ -86,17 +98,23 @@ class AddressesMap extends React.Component {
   }
 
   render() {
-    const {addresses, selectedAddress} = this.props
+    const {addresses, addrsAround, selectedAddress} = this.props
+    const allAddresses = addressesToGeoJson([...addresses, ...addrsAround])
 
     const data = selectedAddress ?
       addressToGeoJson(selectedAddress) :
-      addresses
+      addressesToGeoJson(addresses)
 
     return (
-      <Mapbox data={data}>
+      <Mapbox data={selectedAddress ? data : allAddresses}>
         <Source id='addresses-map' geoJsonSource={{
           type: 'geojson',
           data
+        }} />
+
+        <Source id='addresses-around' geoJsonSource={{
+          type: 'geojson',
+          data: addressesToGeoJson(addrsAround)
         }} />
 
         <Layer
@@ -104,6 +122,21 @@ class AddressesMap extends React.Component {
           sourceId='addresses-map'
           type='circle'
           paint={circlePaint} />
+
+        <Layer
+          id='point-around'
+          sourceId='addresses-around'
+          type='circle'
+          paint={{
+            'circle-stroke-width': 2,
+            'circle-stroke-color': '#DDD',
+            'circle-radius': {
+              base: 1.6,
+              stops: [[12, 2], [22, 100]]
+            },
+            'circle-color': '#fff',
+            'circle-opacity': 0.2
+          }} />
 
         <Layer
           id='point-hover'
@@ -125,7 +158,24 @@ class AddressesMap extends React.Component {
           layout={{
             'text-field': '{numero}',
             'text-anchor': 'center',
-            'text-size': 12,
+            'text-size': {
+              stops: [[12, 3], [22, 18]]
+            },
+            'text-font': [
+              'Noto Sans Regular'
+            ]
+          }} />
+
+        <Layer
+          id='around-label'
+          type='symbol'
+          sourceId='addresses-around'
+          layout={{
+            'text-field': '{numero}',
+            'text-anchor': 'center',
+            'text-size': {
+              stops: [[12, 3], [22, 13]]
+            },
             'text-font': [
               'Noto Sans Regular'
             ]
@@ -149,7 +199,8 @@ class AddressesMap extends React.Component {
           layers={['point']}
           onClick={this.handleClick}
           onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave} />
+          onMouseLeave={this.handleMouseLeave}
+          onDragEnd={this.handleDragEnd} />
 
         <style jsx>{`
           .info {
@@ -167,7 +218,9 @@ class AddressesMap extends React.Component {
 }
 
 AddressesMap.propTypes = {
-  addresses: PropTypes.object.isRequired,
+  addresses: PropTypes.array.isRequired,
+  addrsAround: PropTypes.array.isRequired,
+  handleMove: PropTypes.func.isRequired,
   selectedAddress: PropTypes.object,
   handleSelect: PropTypes.func
 }

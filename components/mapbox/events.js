@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 
 class Events extends React.PureComponent {
   static propTypes = {
+    layers: PropTypes.arrayOf(PropTypes.string).isRequired,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
-    onMouseLeave: PropTypes.func.isRequired
+    onMouseLeave: PropTypes.func.isRequired,
+    onDragEnd: PropTypes.func.isRequired
   }
 
   static contextTypes = {
@@ -14,46 +16,75 @@ class Events extends React.PureComponent {
 
   constructor(props) {
     super(props)
-    this.onClick = this.onClick.bind(this)
-    this.onMouseEnter = this.onMouseEnter.bind(this)
-    this.onMouseLeave = this.onMouseLeave.bind(this)
+    this.handlers = []
+
+    for (const layer of props.layers) {
+      this.handlers.push({
+        event: 'click',
+        layer,
+        handler: this.onClick.bind(this, layer)
+      }, {
+        event: 'mousemove',
+        layer,
+        handler: this.onMouseEnter.bind(this, layer)
+      }, {
+        event: 'mouseleave',
+        layer,
+        handler: this.onMouseLeave.bind(this, layer)
+      }, {
+        event: 'dragend',
+        layer,
+        handler: this.onDragEnd.bind(this)
+      })
+    }
   }
 
   componentDidMount() {
     const {map} = this.context
 
-    map.on('click', 'point', this.onClick)
-    map.on('mousemove', 'point', this.onMouseEnter)
-    map.on('mouseleave', 'point', this.onMouseLeave)
+    for (const {event, layer, handler} of this.handlers) {
+      map.on(event, layer, handler)
+    }
   }
 
   componentWillUnmount() {
     const {map} = this.context
 
-    map.off('click', 'point', this.onClick)
-    map.off('mousemove', 'point', this.onMouseEnter)
-    map.off('mouseleave', 'point', this.onMouseLeave)
+    for (const {event, layer, handler} of this.handlers) {
+      map.off(event, layer, handler)
+    }
   }
 
-  onClick(event) {
+  componentWillUpdate() {
+    return false
+  }
+
+  onClick(layer, event) {
     const {map} = this.context
     const {onClick} = this.props
 
     onClick(map, event)
   }
 
-  onMouseEnter(event) {
+  onMouseEnter(layer, event) {
     const {map} = this.context
     const {onMouseEnter} = this.props
 
     onMouseEnter(map, event)
   }
 
-  onMouseLeave(event) {
+  onMouseLeave(layer, event) {
     const {map} = this.context
     const {onMouseLeave} = this.props
 
     onMouseLeave(map, event)
+  }
+
+  onDragEnd() {
+    const {map} = this.context
+    const {onDragEnd} = this.props
+
+    onDragEnd(map)
   }
 
   render() {

@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
+import bbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
 import {addressesToGeoJson} from '../../../lib/geojson'
+import {_get} from '../../../lib/fetch'
 
 import LoadingContent from '../../loading-content'
+import Notification from '../../notification'
 
 import Address from './address'
 
@@ -21,7 +24,22 @@ const AddressesMap = dynamic(import('./addresses-map'), {
 class MapContainer extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      addrsAround: []
+    }
+
     this.selectAddress = this.selectAddress.bind(this)
+    this.getAddrsAround = this.getAddrsAround.bind(this)
+  }
+
+  componentDidMount() {
+    const {addresses} = this.props
+
+    if (addresses) {
+      const geojson = addressesToGeoJson(addresses)
+      this.getAddrsAround(bbox(geojson))
+    }
   }
 
   selectAddress(feature) {
@@ -29,18 +47,47 @@ class MapContainer extends React.Component {
     onSelect({numero: feature.properties.numero})
   }
 
+  async getAddrsAround(bbox) {
+    const {voie, addresses} = this.props
+    const url = `https://sandbox.geo.api.gouv.fr/explore/${voie.codeCommune}/numeros?bbox=${bbox}`
+
+    try {
+      const results = await _get(url)
+      this.setState(state => {
+        const filteredResults = results.filter(add => {
+          return !addresses.find(address => address.id === add.id) &&
+                !state.addrsAround.find(address => address.id === add.id)
+        })
+
+        return {
+          addrsAround: [...filteredResults, ...state.addrsAround]
+        }
+      })
+    } catch (err) {
+      this.setState({
+        addrsAround: [],
+        error: err
+      })
+    }
+  }
+
   render() {
+    const {addrsAround, error} = this.state
     const {voie, addresses, selected, onSelect} = this.props
-    const geojson = addresses ? addressesToGeoJson(addresses) : {}
 
     return (
       <div className='container'>
-        <div className='map'>
-          <AddressesMap
-            addresses={geojson}
-            selectedAddress={selected}
-            handleSelect={this.selectAddress} />
-        </div>
+        {error ?
+          <Notification type='error' message={error} /> :
+          <div className='map'>
+            <AddressesMap
+              addresses={addresses}
+              addrsAround={addrsAround}
+              selectedAddress={selected}
+              handleMove={this.getAddrsAround}
+              handleSelect={this.selectAddress} />
+          </div>
+          }
 
         {selected &&
           <div className='selected-address'>
