@@ -61,11 +61,13 @@ const Address = ({voie, address, onClose}) => {
                 <div key={entry.source} className='position'>
                   <div className='source'><h5>{entry.source}</h5></div>
                   <div className='coordinates'>
-                    {entry.position.coordinates.map(coordinate => (
-                      <div key={coordinate} className='coordinate' >
-                        {coordinate}
-                      </div>
-                    ))}
+                    {entry.position &&
+                      entry.position.coordinates.map(coordinate => (
+                        <div key={coordinate} className='coordinate' >
+                          {coordinate}
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
             ))}

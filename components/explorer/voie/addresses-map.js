@@ -7,6 +7,8 @@ import Events from '../../mapbox/events'
 
 import {addressesToGeoJson, addressToGeoJson} from '../../../lib/geojson'
 
+import Notification from '../../notification'
+
 const EMPTY_FILTER = ['==', 'non_existing_prop', 'non_existing_value']
 
 const circlePaint = {
@@ -53,6 +55,10 @@ class AddressesMap extends React.Component {
     this.handleMouseEnter = this.handleMouseEnter.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
     this.handleDragEnd = this.handleDragEnd.bind(this)
+  }
+
+  componentWillMount() {
+
   }
 
   handleClick(map, event) {
@@ -103,6 +109,10 @@ class AddressesMap extends React.Component {
     const data = selectedAddress ?
       addressToGeoJson(selectedAddress) :
       addressesToGeoJson(addresses)
+
+    if (data.features.length === 0) {
+      return <Notification type='error' message='No position' />
+    }
 
     return (
       <Mapbox data={data} onStyleLoad={this.handleDragEnd}>
@@ -200,17 +210,6 @@ class AddressesMap extends React.Component {
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
           onDragEnd={this.handleDragEnd} />
-
-        <style jsx>{`
-          .info {
-            position: absolute;
-            pointer-events: none;
-            top: 10px;
-            left: 10px;
-            max-width: 40%;
-            overflow: hidden;
-          }
-        `}</style>
       </Mapbox>
     )
   }
