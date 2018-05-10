@@ -104,7 +104,7 @@ class Explorer extends React.Component {
     return (
       <Section background='color'>
         <div className='beta'>
-          <h2><FaSearch /> Rechercher une commune, une rue ou une adresse</h2>
+          <h2><FaSearch /> Rechercher une commune, une voie ou une adresse</h2>
           <BetaRibbon />
         </div>
 
@@ -113,7 +113,7 @@ class Explorer extends React.Component {
             value={input}
             results={orderResults}
             loading={loading}
-            placeholder='Recherche…'
+            placeholder='Exemple : place du capitole toulouse'
             onSelect={this.handleSelect}
             onSearch={this.handleInput}
             renderItem={renderAddok}
