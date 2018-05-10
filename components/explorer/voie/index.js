@@ -21,8 +21,8 @@ class Voie extends React.Component {
     const addressNb = address ? address.numero : null
 
     Router.push(
-      `/explore/commune/voies?codeCommune=${codeCommune}&codeVoie=${codeVoie}${addressNb ? `&numero=${addressNb}` : ''}`,
-      `/explore/commune/${codeCommune}/voies/${codeVoie}${addressNb ? `/${addressNb}` : ''}`
+      `/explore/commune/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}${addressNb ? `&numero=${addressNb}` : ''}`,
+      `/explore/commune/${codeCommune}/voie/${codeVoie}${addressNb ? `/${addressNb}` : ''}`
     )
   }
 

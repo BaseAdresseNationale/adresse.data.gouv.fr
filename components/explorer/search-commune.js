@@ -41,10 +41,10 @@ class Explorer extends React.Component {
       as = `/explore/commune/${citycode}`
     } else if (type === 'street') {
       href = `/commune/voie?codeVoie=${streetCode}`
-      as = `/explore/commune/${citycode}/voies/${streetCode}`
+      as = `/explore/commune/${citycode}/voie/${streetCode}`
     } else if (type === 'housenumber') {
-      href = `/explore/commune/voies?codeCommune=${citycode}&codeVoie=${streetCode}&numero=${housenumber}`
-      as = `/explore/commune/${citycode}/voies/${streetCode}/${housenumber}`
+      href = `/explore/commune/voie?codeCommune=${citycode}&codeVoie=${streetCode}&numero=${housenumber}`
+      as = `/explore/commune/${citycode}/voie/${streetCode}/${housenumber}`
     }
 
     Router.push(href, as)

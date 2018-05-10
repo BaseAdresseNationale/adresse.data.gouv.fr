@@ -10,16 +10,16 @@ module.exports = app => {
     })
   })
 
-  router.get('/explore/commune/:codeCommune/voies/:code', (req, res) => {
-    app.render(req, res, '/explore/commune/voies', {
+  router.get('/explore/commune/:codeCommune/voie/:code', (req, res) => {
+    app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,
       codeVoie: req.params.code
     })
   })
 
-  router.get('/explore/commune/:codeCommune/voies/:code/:numero', (req, res) => {
-    app.render(req, res, '/explore/commune/voies', {
+  router.get('/explore/commune/:codeCommune/voie/:code/:numero', (req, res) => {
+    app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,
       codeVoie: req.params.code,

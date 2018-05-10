@@ -18,7 +18,7 @@ class VoieError extends Error {
   }
 }
 
-class VoiesPage extends React.Component {
+class VoiePage extends React.Component {
   render() {
     const {voie, selected} = this.props
     const description = 'Consulter les adresses'
@@ -32,7 +32,7 @@ class VoiesPage extends React.Component {
   }
 }
 
-VoiesPage.propTypes = {
+VoiePage.propTypes = {
   voie: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     idVoie: PropTypes.string.isRequired,
@@ -65,12 +65,12 @@ VoiesPage.propTypes = {
   })
 }
 
-VoiesPage.defaultProps = {
+VoiePage.defaultProps = {
   voie: null,
   selected: null
 }
 
-VoiesPage.getInitialProps = async ({query}) => {
+VoiePage.getInitialProps = async ({query}) => {
   const {codeCommune, codeVoie} = query
   const exploreApi = 'https://sandbox.geo.api.gouv.fr/explore'
   const promises = [
@@ -93,4 +93,4 @@ VoiesPage.getInitialProps = async ({query}) => {
   }
 }
 
-export default (withErrors(VoiesPage))
+export default (withErrors(VoiePage))
