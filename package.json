@@ -10,7 +10,6 @@
     "build": "next build",
     "start": "NODE_ENV=production node server",
     "test": "NODE_ENV=test jest",
-    "export": "next export",
     "lint": "xo",
     "heroku-postbuild": "next build"
   },
