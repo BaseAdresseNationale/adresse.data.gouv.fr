@@ -9,7 +9,7 @@ import Partners from '../components/home/partners'
 export default () => (
   <Page>
     <Hero
-      title='La base adresse nationale'
+      title='La Base Adresse Nationale'
       tagline='Un référentiel national ouvert : de l’adresse à la coordonnée géographique' />
 
     <Pitch />

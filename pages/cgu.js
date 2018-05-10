@@ -3,7 +3,7 @@ import Page from '../layouts/main'
 import Cgu from '../components/cgu'
 
 export default () => (
-  <Page>
+  <Page title='Mentions légales'>
     <Cgu />
   </Page>
 )

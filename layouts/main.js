@@ -5,6 +5,7 @@ import {withRouter} from 'next/router'
 import piwik from '../lib/piwik'
 
 import Meta from '../components/meta'
+import MainStyle from '../components/main-style'
 import Header from '../components/header'
 import Footer from '../components/footer'
 
@@ -18,11 +19,12 @@ class Layout extends React.Component {
   }
 
   render() {
-    const {children, showFooter} = this.props
+    const {title, description, children, showFooter} = this.props
 
     return (
       <div>
-        <Meta />
+        <Meta title={title} description={description} />
+        <MainStyle />
         <Header />
         <main>
           {children}
@@ -53,12 +55,16 @@ Layout.propTypes = {
     pathname: PropTypes.string.isRequired
   }).isRequired,
   children: PropTypes.node,
-  showFooter: PropTypes.bool
+  showFooter: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string
 }
 
 Layout.defaultProps = {
   children: null,
-  showFooter: true
+  showFooter: true,
+  title: null,
+  description: null
 }
 
 export default withRouter(Layout)

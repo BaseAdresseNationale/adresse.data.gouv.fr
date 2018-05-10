@@ -1,65 +1,48 @@
-import Link from 'next/link'
+import FaMapMarker from 'react-icons/lib/fa/map-marker'
+import FaTable from 'react-icons/lib/fa/table'
+import FaTerminal from 'react-icons/lib/fa/terminal'
 
 import Section from './section'
-import Head from './head'
+import HeadLinkTitle from './head-link-title'
+
+const titles = [
+  {
+    title: 'La carte interactive',
+    href: '/map',
+    description: <span>Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé…</span>,
+    icon: <FaMapMarker />
+  },
+  {
+    title: 'Le géocodeur CSV',
+    href: '/csv',
+    description: <span>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</span>,
+    icon: <FaTable />
+  },
+  {
+    title: 'L’API',
+    href: '/api',
+    description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
+    icon: <FaTerminal />
+  },
+  {
+    title: 'Le validateur BAL',
+    href: '/validateur-bal',
+    description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
+    icon: <FaTable />
+  }
+]
 
 const Tools = () => (
-  <div>
-    <Head title='Outils' icon='/static/images/icons/tools.svg'>
-      <div>
-        <p><strong>adresse.data.gouv.fr</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
-      </div>
-    </Head>
-    <Section>
-      <div className='row'>
-
-        <div className='tool'>
-          <img src='/static/images/icons/map.svg' alt='map' />
-          <div>
-            <h2><Link href='/map'><a>La carte interactive</a></Link></h2>
-            <p>Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé…</p>
-          </div>
-        </div>
-
-        <div className='tool'>
-          <img src='/static/images/icons/csv-grey.svg' alt='csv' />
-          <div>
-            <h2><Link href='/csv'><a>Le géocodeur CSV</a></Link></h2>
-            <p>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</p>
-          </div>
-        </div>
-
-        <div className='tool'>
-          <img src='/static/images/icons/api-grey.svg' alt='api' />
-          <div>
-            <h2><Link href='/api'><a>L’API</a></Link></h2>
-            <p>Géocodez vos adresses grâce à l’API en ligne…</p>
-          </div>
-        </div>
-
-      </div>
-      <div>
-        <p>Tous ces outils sont sous licences libres.</p>
-        <p>Les données de référence utilisées par l’API sont sous licence ODbL. <Link href='/faq'><a>En savoir plus…</a></Link></p>
-      </div>
-    </Section>
-    <style jsx>{`
-      .row {
-        display: flex;
-        flex-flow: column;
-      }
-
-      .tool {
-        display: flex;
-        align-items: center;
-      }
-
-      .tool img {
-        width: 50px;
-        margin-right: 1em;
-      }
-      `}</style>
-  </div>
+  <Section>
+    {titles.map(({title, href, description, icon}) =>
+    (<HeadLinkTitle
+      key={title}
+      title={title}
+      href={href}
+      subtitle={description}
+      icon={icon} />)
+    )}
+  </Section>
 )
 
 export default Tools

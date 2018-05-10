@@ -19,14 +19,12 @@ class Geocoder extends React.Component {
     this.handleGeocodeClick = this.handleGeocodeClick.bind(this)
   }
 
-  componentWillReceiveProps({file}) {
-    if (this.props.file !== file) {
-      this.setState({
-        status: null,
-        error: null,
-        blob: null
-      })
-    }
+  componentWillReceiveProps() {
+    this.setState({
+      status: null,
+      error: null,
+      blob: null
+    })
   }
 
   handleGeocodeClick() {
@@ -76,6 +74,7 @@ class Geocoder extends React.Component {
 
           .col {
             display: flex;
+            align-items: center;
           }
 
           .error {
