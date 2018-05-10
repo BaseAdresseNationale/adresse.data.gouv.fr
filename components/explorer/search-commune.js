@@ -1,6 +1,6 @@
 import React from 'react'
 import Router from 'next/router'
-import debounce from 'debounce'
+import {debounce} from 'lodash'
 import FaSearch from 'react-icons/lib/fa/search'
 
 import {_get} from '../../lib/fetch'
