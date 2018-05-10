@@ -18,7 +18,7 @@ module.exports = app => {
     })
   })
 
-  router.get('/explore/commune/:codeCommune/voie/:code/:numero', (req, res) => {
+  router.get('/explore/commune/:codeCommune/voie/:code/numero/:numero', (req, res) => {
     app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,

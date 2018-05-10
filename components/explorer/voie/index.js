@@ -22,7 +22,7 @@ class Voie extends React.Component {
 
     Router.push(
       `/explore/commune/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}${addressNb ? `&numero=${addressNb}` : ''}`,
-      `/explore/commune/${codeCommune}/voie/${codeVoie}${addressNb ? `/${addressNb}` : ''}`
+      `/explore/commune/${codeCommune}/voie/${codeVoie}${addressNb ? `/numero/${addressNb}` : ''}`
     )
   }
 
