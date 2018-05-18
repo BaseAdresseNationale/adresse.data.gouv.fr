@@ -32,10 +32,6 @@ class BaseAdresseLocale extends React.Component {
             flex-flow: wrap;
             align-items: center;
           }
-
-          .base-adresse-locale > div {
-            margin: 1em 0;
-          }
           `}</style>
       </div>
     )

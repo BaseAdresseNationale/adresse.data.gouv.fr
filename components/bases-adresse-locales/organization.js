@@ -18,6 +18,7 @@ class Organization extends React.Component {
             justify-content: center;
             text-align: center;
             max-width: 130px;
+            margin: 1em 0;
           }
 
           .organization img {
