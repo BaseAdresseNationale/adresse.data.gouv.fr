@@ -16,10 +16,10 @@ const types = {
   error: {icon: <FaClose />, title: 'Erreur'}
 }
 
-const Notification = ({message, type, style}) => (
+const Notification = ({message, type, style, children}) => (
   <div style={style} className={`notification ${type}`}>
     <h4><div className='icon'>{types[type].icon}</div> {types[type].title}</h4>
-    {type === 'error' ? getErrorMsg(message) : message}
+    {children || (type === 'error' ? getErrorMsg(message) : message)}
     <style jsx>{`
       h4 {
         margin: 0.6em 0;
@@ -63,16 +63,25 @@ const Notification = ({message, type, style}) => (
 )
 
 Notification.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   type: PropTypes.PropTypes.oneOf([
     'info', 'success', 'error', 'warning'
   ]),
-  style: PropTypes.object
+  style: PropTypes.object,
+  children: (props, propName, componentName) => {
+    if (props.message) {
+      return new Error(
+        `message and chidlren properties can not both be supplied to ${componentName}.`
+      )
+    }
+  }
 }
 
 Notification.defaultProps = {
+  message: '',
   type: 'info',
-  style: null
+  style: null,
+  children: null
 }
 
 export default Notification
