@@ -5,7 +5,7 @@ import FaClose from 'react-icons/lib/fa/close'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
 
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 const fieldToFind = [
   'cle_interop',
