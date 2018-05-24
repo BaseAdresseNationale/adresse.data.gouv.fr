@@ -7,7 +7,7 @@ import Fields from './fields'
 import CsvMeta from './csv-meta'
 import Rows from './rows'
 
-class ValidateurReport extends React.Component {
+class Report extends React.Component {
   render() {
     const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithErrors, parseMeta, rowsErrorsCount} = this.props.report
     return (
@@ -55,7 +55,7 @@ class ValidateurReport extends React.Component {
   }
 }
 
-ValidateurReport.propTypes = {
+Report.propTypes = {
   report: PropTypes.shape({
     knownFields: PropTypes.array.isRequired,
     unknownFields: PropTypes.array.isRequired,
@@ -71,4 +71,4 @@ ValidateurReport.propTypes = {
   }).isRequired
 }
 
-export default ValidateurReport
+export default Report

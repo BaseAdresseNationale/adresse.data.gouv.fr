@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Section from '../section'
 
-import ValidateurReport from '../bal/validateur-report'
+import Report from '../bal/report'
 
 class BalDataset extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class BalDataset extends React.Component {
     return (
       <div>
         <Section title={`Rapport d’analyse du fichier :`} />
-        <ValidateurReport report={report} />
+        <Report report={report} />
       </div>
     )
   }

@@ -9,7 +9,7 @@ import {withRouter} from 'next/router'
 import Section from '../section'
 import Loader from '../loader'
 
-import ValidateurReport from './validateur-report'
+import Report from './report'
 import FileHander from './file-handler'
 
 function getFileExtension(fileName) {
@@ -156,7 +156,7 @@ class BALValidator extends React.Component {
 
         {report &&
           <Section title='Analyse terminée !' background='grey'>
-            <ValidateurReport report={report} />
+            <Report report={report} />
           </Section>
         }
         <style jsx>{`
