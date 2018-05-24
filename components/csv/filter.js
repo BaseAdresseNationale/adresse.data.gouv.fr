@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class CodeInsee extends React.Component {
+class Filter extends React.Component {
   constructor(props) {
     super(props)
 
@@ -20,9 +20,9 @@ class CodeInsee extends React.Component {
       <div>
         <form>
           <label>
-            Choisir une colonne:
+            Code INSEE:
           <select value={selected || ''} onChange={this.handleChange}>
-            <option value={null}>Aucune</option>
+            <option value={null}>Aucun</option>
             {columns.map(column =>
               <option key={column} value={column}>{column}</option>
             )}
@@ -34,14 +34,14 @@ class CodeInsee extends React.Component {
   }
 }
 
-CodeInsee.propTypes = {
+Filter.propTypes = {
   selected: PropTypes.string,
   columns: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired
 }
 
-CodeInsee.defaultProps = {
+Filter.defaultProps = {
   selected: ''
 }
 
-export default CodeInsee
+export default Filter

@@ -7,7 +7,7 @@ import Section from '../section'
 
 import Step from './step'
 import ColumnsSelect from './columns-select'
-import CodeInsee from './code-insee'
+import Filter from './filter'
 import Holder from './holder'
 import Table from './table'
 import Geocoder from './geocoder'
@@ -47,7 +47,7 @@ class Csv extends React.Component {
       file: null,
       csv: null,
       columns: [],
-      codeInsee: null,
+      filter: null,
       error: null,
       encoding: null
     }
@@ -56,7 +56,7 @@ class Csv extends React.Component {
     this.parseFile = this.parseFile.bind(this)
     this.handleAddColumn = this.handleAddColumn.bind(this)
     this.handleRemoveColumn = this.handleRemoveColumn.bind(this)
-    this.handleCodeInsee = this.handleCodeInsee.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
   }
 
   resetState() {
@@ -120,12 +120,12 @@ class Csv extends React.Component {
     this.setState({columns})
   }
 
-  handleCodeInsee(column) {
-    this.setState({codeInsee: column})
+  handleFilter(column) {
+    this.setState({filter: column})
   }
 
   render() {
-    const {file, csv, columns, codeInsee, error, encoding} = this.state
+    const {file, csv, columns, filter, error, encoding} = this.state
 
     return (
       <Section>
@@ -151,12 +151,12 @@ class Csv extends React.Component {
                 onRemove={this.handleRemoveColumn} />}
             </Step>
 
-            <Step title='4. Choisir la colonne correspondand au code INSEE'>
+            <Step title='4. Ajouter un filtre (optionnel)'>
               {columns.length > 0 &&
-                <CodeInsee
-                  selected={codeInsee}
+                <Filter
+                  selected={filter}
                   columns={columns}
-                  onSelect={this.handleCodeInsee} />}
+                  onSelect={this.handleFilter} />}
             </Step>
 
             <Step title=''>
@@ -165,7 +165,7 @@ class Csv extends React.Component {
                   file={file}
                   encoding={encoding}
                   columns={columns}
-                  codeInsee={codeInsee} />}
+                  filter={filter} />}
             </Step>
           </div>
         </div>
