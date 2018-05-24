@@ -1,12 +1,13 @@
 import React from 'react'
 import Papa from 'papaparse'
 
-import theme from '../../styles/theme'
 import detectEncoding from '../../lib/detect-encoding'
 
 import Section from '../section'
 
+import Step from './step'
 import ColumnsSelect from './columns-select'
+import CodeInsee from './code-insee'
 import Holder from './holder'
 import Table from './table'
 import Geocoder from './geocoder'
@@ -46,6 +47,7 @@ class Csv extends React.Component {
       file: null,
       csv: null,
       columns: [],
+      codeInsee: null,
       error: null,
       encoding: null
     }
@@ -54,6 +56,7 @@ class Csv extends React.Component {
     this.parseFile = this.parseFile.bind(this)
     this.handleAddColumn = this.handleAddColumn.bind(this)
     this.handleRemoveColumn = this.handleRemoveColumn.bind(this)
+    this.handleCodeInsee = this.handleCodeInsee.bind(this)
   }
 
   resetState() {
@@ -117,8 +120,12 @@ class Csv extends React.Component {
     this.setState({columns})
   }
 
+  handleCodeInsee(column) {
+    this.setState({codeInsee: column})
+  }
+
   render() {
-    const {file, csv, columns, error, encoding} = this.state
+    const {file, csv, columns, codeInsee, error, encoding} = this.state
 
     return (
       <Section>
@@ -128,35 +135,42 @@ class Csv extends React.Component {
             <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={this.handleFileDrop} />
             {error && <div className='error'>{error}</div>}
           </div>
-          {csv ? (
-            <div>
-              <div id='preview'>
-                <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-                <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />
-              </div>
-              <div>
-                <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
-                <ColumnsSelect
-                  columns={csv.data[0]}
-                  selectedColumns={columns}
-                  onAdd={this.handleAddColumn}
-                  onRemove={this.handleRemoveColumn} />
-              </div>
-              <Geocoder file={file} encoding={encoding} columns={columns} />
-            </div>
-          ) : (
-            <div className='disabled'>
-              <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-              <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
-            </div>
-          )
-        }
-        </div>
-        <style jsx>{`
-          .disabled {
-            color: ${theme.colors.lightGrey}
-          }
 
+          <div>
+            <div id='preview'>
+              <Step title='2. Aperçu du fichier et vérification de l’encodage'>
+                {csv && <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />}
+              </Step>
+            </div>
+
+            <Step title='3. Choisir les colonnes à utiliser pour construire les adresses'>
+              {csv && <ColumnsSelect
+                columns={csv.data[0]}
+                selectedColumns={columns}
+                onAdd={this.handleAddColumn}
+                onRemove={this.handleRemoveColumn} />}
+            </Step>
+
+            <Step title='4. Choisir la colonne correspondand au code INSEE'>
+              {columns.length > 0 &&
+                <CodeInsee
+                  selected={codeInsee}
+                  columns={columns}
+                  onSelect={this.handleCodeInsee} />}
+            </Step>
+
+            <Step title=''>
+              {columns.length > 0 &&
+                <Geocoder
+                  file={file}
+                  encoding={encoding}
+                  columns={columns}
+                  codeInsee={codeInsee} />}
+            </Step>
+          </div>
+        </div>
+
+        <style jsx>{`
           .error {
             color: red;
           }

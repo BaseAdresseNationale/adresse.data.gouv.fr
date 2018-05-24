@@ -28,11 +28,19 @@ class Geocoder extends React.Component {
   }
 
   handleGeocodeClick() {
-    const {file, columns, encoding} = this.props
+    const {file, columns, codeInsee, encoding} = this.props
+    const filters = []
+
+    if (codeInsee) {
+      filters.push({
+        name: 'citycode',
+        value: codeInsee
+      })
+    }
 
     this.setState({status: 'pending'})
 
-    geocodeMany(file, encoding, columns)
+    geocodeMany(file, encoding, filters, columns)
       .then(resultBlob => {
         this.setState({
           status: 'done',
@@ -89,7 +97,12 @@ class Geocoder extends React.Component {
 Geocoder.propTypes = {
   file: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
-  encoding: PropTypes.string.isRequired
+  encoding: PropTypes.string.isRequired,
+  codeInsee: PropTypes.string
+}
+
+Geocoder.defaultProps = {
+  codeInsee: null
 }
 
 function geocodedFileName(originalFileName = 'file') {
