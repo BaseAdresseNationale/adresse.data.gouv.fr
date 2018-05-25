@@ -1,12 +1,17 @@
 import React from 'react'
 import Papa from 'papaparse'
 
-import theme from '../../styles/theme'
+import FaPlus from 'react-icons/lib/fa/plus'
+import FaMinus from 'react-icons/lib/fa/minus'
+
 import detectEncoding from '../../lib/detect-encoding'
 
 import Section from '../section'
+import Button from '../button'
 
+import Step from './step'
 import ColumnsSelect from './columns-select'
+import Filter from './filter'
 import Holder from './holder'
 import Table from './table'
 import Geocoder from './geocoder'
@@ -45,7 +50,9 @@ class Csv extends React.Component {
     this.state = {
       file: null,
       csv: null,
-      columns: [],
+      selectedColumns: [],
+      filtersMenu: false,
+      filter: null,
       error: null,
       encoding: null
     }
@@ -54,12 +61,14 @@ class Csv extends React.Component {
     this.parseFile = this.parseFile.bind(this)
     this.handleAddColumn = this.handleAddColumn.bind(this)
     this.handleRemoveColumn = this.handleRemoveColumn.bind(this)
+    this.handleFilterMenu = this.handleFilterMenu.bind(this)
+    this.handleFilter = this.handleFilter.bind(this)
   }
 
   resetState() {
     this.setState({
       file: null,
-      columns: [],
+      selectedColumns: [],
       csv: null,
       encoding: null
     })
@@ -74,7 +83,7 @@ class Csv extends React.Component {
           encoding,
           preview: 20,
           complete: res => {
-            this.setState({csv: res, columns: []})
+            this.setState({csv: res, selectedColumns: []})
             window.location.href = '#preview'
           },
           error: () => this.setState({error: 'Impossible de lire ce fichier.'})
@@ -107,18 +116,32 @@ class Csv extends React.Component {
   }
 
   handleAddColumn(column) {
-    const columns = [...this.state.columns]
-    columns.push(column)
-    this.setState({columns})
+    const selectedColumns = [...this.state.selectedColumns]
+    selectedColumns.push(column)
+    this.setState({selectedColumns})
   }
 
   handleRemoveColumn(column) {
-    const columns = [...this.state.columns.filter(col => col !== column)]
-    this.setState({columns})
+    const selectedColumns = [...this.state.selectedColumns.filter(col => col !== column)]
+    this.setState({selectedColumns})
+  }
+
+  handleFilterMenu() {
+    this.setState(state => {
+      return {
+        filtersMenu: !state.filtersMenu,
+        filter: null
+      }
+    })
+  }
+
+  handleFilter(column) {
+    this.setState({filter: column})
   }
 
   render() {
-    const {file, csv, columns, error, encoding} = this.state
+    const {file, csv, selectedColumns, filtersMenu, filter, error, encoding} = this.state
+    const columns = csv ? csv.data[0] : []
 
     return (
       <Section>
@@ -128,33 +151,46 @@ class Csv extends React.Component {
             <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={this.handleFileDrop} />
             {error && <div className='error'>{error}</div>}
           </div>
-          {csv ? (
-            <div>
-              <div id='preview'>
-                <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-                <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />
-              </div>
-              <div>
-                <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
-                <ColumnsSelect
-                  columns={csv.data[0]}
-                  selectedColumns={columns}
-                  onAdd={this.handleAddColumn}
-                  onRemove={this.handleRemoveColumn} />
-              </div>
-              <Geocoder file={file} encoding={encoding} columns={columns} />
+
+          <div>
+            <div id='preview'>
+              <Step title='2. Aperçu du fichier et vérification de l’encodage'>
+                {csv && <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />}
+              </Step>
             </div>
-          ) : (
-            <div className='disabled'>
-              <h2>2. Aperçu du fichier et vérification de l’encodage</h2>
-              <h2>3. Choisir les colonnes à utiliser pour construire les adresses</h2>
-            </div>
-          )
-        }
+
+            <Step title='3. Choisir les colonnes à utiliser pour construire les adresses'>
+              {csv && <ColumnsSelect
+                columns={csv.data[0]}
+                selectedColumns={selectedColumns}
+                onAdd={this.handleAddColumn}
+                onRemove={this.handleRemoveColumn} />}
+            </Step>
+
+            {csv &&
+              <div className='filters'>
+                <Button onClick={this.handleFilterMenu} style={{fontSize: '1em', padding: '0.4em 1em'}}>
+                  {filtersMenu ? <FaMinus /> : <FaPlus />} Paramètres avancés
+                </Button>
+                {filtersMenu &&
+                  <Filter
+                    selected={filter}
+                    columns={columns}
+                    onSelect={this.handleFilter} />}
+              </div>}
+
+            {csv &&
+              <Geocoder
+                file={file}
+                encoding={encoding}
+                columns={selectedColumns}
+                filter={filter} />}
+          </div>
         </div>
+
         <style jsx>{`
-          .disabled {
-            color: ${theme.colors.lightGrey}
+          .filters {
+            margin: 1em 0;
           }
 
           .error {

@@ -23,15 +23,16 @@ const ColumnsSelect = ({columns, selectedColumns, onAdd, onRemove}) => (
     </div>
     <style jsx>{`
       .columns {
-        display: flex;
-        flex-flow: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
+        grid-gap: 5px;
       }
 
       .item {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         border: 1px solid ${theme.colors.lightGrey};
-        margin: 0.3em;
       }
 
       .item:hover {
@@ -44,6 +45,7 @@ const ColumnsSelect = ({columns, selectedColumns, onAdd, onRemove}) => (
 
       .selection {
         margin: 2em 0;
+        padding: 0.5em;
         border: 1px dashed #ccc;
       }
 
