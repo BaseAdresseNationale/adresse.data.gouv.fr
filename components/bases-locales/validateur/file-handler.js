@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import InputForm from '../input-form'
-import Holder from '../csv/holder'
-import Section from '../section'
-import Notification from '../notification'
+import InputForm from '../../input-form'
+import Holder from '../../csv/holder'
+import Section from '../../section'
+import Notification from '../../notification'
 
 class FileHandler extends React.Component {
   constructor(props) {

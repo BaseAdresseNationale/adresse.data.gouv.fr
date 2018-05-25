@@ -2,19 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaDatabase from 'react-icons/lib/fa/database'
 
-import {_get} from '../lib/fetch'
+import {_get} from '../../lib/fetch'
 
-import Page from '../layouts/main'
-import Head from '../components/head'
-import Section from '../components/section'
-import withErrors from '../components/hoc/with-errors'
+import Page from '../../layouts/main'
+import Head from '../../components/head'
+import Section from '../../components/section'
+import withErrors from '../../components/hoc/with-errors'
 
-import BasesAdresseLocales from '../components/bases-adresse-locales'
+import BasesAdresseLocales from '../../components/bases-locales/bases-adresse-locales'
 
 const title = 'Bases adresse locales'
 const description = 'Liste des bases adresse locales'
 
-class BasesAdresseLocalesPage extends React.Component {
+class JeuxDeDonnees extends React.Component {
   render() {
     const {datasets} = this.props
 
@@ -31,14 +31,14 @@ class BasesAdresseLocalesPage extends React.Component {
   }
 }
 
-BasesAdresseLocalesPage.propTypes = {
+JeuxDeDonnees.propTypes = {
   datasets: PropTypes.array.isRequired
 }
 
-BasesAdresseLocalesPage.getInitialProps = async () => {
+JeuxDeDonnees.getInitialProps = async () => {
   return {
     datasets: await _get('https://adresse.data.gouv.fr/api-bal/datasets')
   }
 }
 
-export default (withErrors(BasesAdresseLocalesPage))
+export default (withErrors(JeuxDeDonnees))

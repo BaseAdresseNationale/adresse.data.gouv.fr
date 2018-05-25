@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Section from '../section'
+import Section from '../../section'
 
-import Report from '../bal/report'
+import Report from '../validateur/report'
 
 class BalDataset extends React.Component {
   render() {

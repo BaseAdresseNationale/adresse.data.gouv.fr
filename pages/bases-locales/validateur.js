@@ -1,8 +1,8 @@
 import FaTable from 'react-icons/lib/fa/table'
-import Page from '../layouts/main'
+import Page from '../../layouts/main'
 
-import Head from '../components/head'
-import ValidateurBal from '../components/bal/validateur-bal'
+import Head from '../../components/head'
+import Validateur from '../../components/bases-locales/validateur'
 
 const title = 'Le validateur BAL'
 const description = 'Vérifier la conformité de votre fichier Base Adresse Locale.'
@@ -12,6 +12,6 @@ export default () => (
     <Head title={title} icon={<FaTable />}>
       {description}
     </Head>
-    <ValidateurBal />
+    <Validateur />
   </Page>
 )

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 import Line from './line'
 import RowErrors from './row-errors'

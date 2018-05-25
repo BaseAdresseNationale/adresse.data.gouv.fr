@@ -6,8 +6,8 @@ import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
 import {withRouter} from 'next/router'
 
-import Section from '../section'
-import Loader from '../loader'
+import Section from '../../section'
+import Loader from '../../loader'
 
 import Report from './report'
 import FileHander from './file-handler'
