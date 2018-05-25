@@ -29,6 +29,11 @@ class Filter extends React.Component {
           </select>
           </label>
         </form>
+        <style jsx>{`
+          form {
+            margin: 1em 0;
+          }
+        `}</style>
       </div>
     )
   }
