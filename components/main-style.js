@@ -92,7 +92,7 @@ const MainStyle = () => (
         }
 
         code {
-          background: ${theme.backgroundGrey};
+          background: ${theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};
           padding: 0.5em;
           font-family: 'Courier New';

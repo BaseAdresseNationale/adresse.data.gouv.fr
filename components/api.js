@@ -151,10 +151,10 @@ const Api = () => (
       }
 
       .details {
-        background-color: ${theme.colors.darkGrey};
+        background-color: ${theme.colors.almostBlack};
         color: ${theme.colors.white};
         padding: 40px;
-        border: 1px solid ${theme.borderLighter};
+        border: 1px solid ${theme.darkGrey};
         border-radius: ${theme.borderRadius};
         box-shadow: 0 1px 4px 0 ${theme.boxShadow};
         width: 100%;
