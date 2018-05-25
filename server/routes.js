@@ -27,6 +27,13 @@ module.exports = app => {
     })
   })
 
+  router.get('/validateur-bal/dataset/:id', (req, res) => {
+    app.render(req, res, '/validateur-bal/dataset', {
+      ...req.query,
+      id: req.params.id
+    })
+  })
+
   router.get('*', (req, res) => {
     app.render(req, res, req.params[0], req.query)
   })

@@ -68,9 +68,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.3.4.tgz#f3f181ca4afbb4fed66d0ac9a96bf3708bd66353"
+"@etalab/bal@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.3.5.tgz#75059e333614b5af5f252d34b5360872a6727ddd"
   dependencies:
     blob-to-buffer "^1.2.6"
     date-fns "^1.29.0"
