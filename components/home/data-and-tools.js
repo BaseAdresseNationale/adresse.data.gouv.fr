@@ -8,13 +8,6 @@ export default () => (
     background='color'
     title=''>
     <div className='main'>
-      <Link href='/about'>
-        <a>
-          <img src='/static/images/icons/about.svg' alt='Données PCI Vecteur' />
-          Pourquoi ? Comment ?
-        </a>
-      </Link>
-
       <Link href='/download'>
         <a>
           <img src='/static/images/icons/download.svg' alt='Données Cadastre simplifié' />

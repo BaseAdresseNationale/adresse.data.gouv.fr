@@ -11,15 +11,14 @@ const Footer = () => (
           <li><Link href='https://twitter.com/AdresseDataGouv'><a><img src='/static/images/medias/twitter.svg' alt='Twitter' /></a></Link></li>
           <li><Link href='https://github.com/etalab/adresse.data.gouv.fr'><a><img src='/static/images/medias/github.svg' alt='Github' /></a></Link></li>
           <li><Link href='https://blog.geo.data.gouv.fr'><a><img src='/static/images/medias/medium.svg' alt='Medium' /></a></Link></li>
-          <li><a href='mailto:contact@adresse.data.gouv.fr'><img src='/static/images/medias/envelop.svg' alt='Contact' /></a></li>
+          <li><a href='mailto:adresse@data.gouv.fr'><img src='/static/images/medias/envelop.svg' alt='Contact' /></a></li>
         </ul>
       </div>
       <ul className='footer__links'>
         <li><h2>adresse.data.gouv.fr</h2></li>
-        <li><Link href='/about'><a>À propos</a></Link></li>
         <li><Link href='/cgu'><a>Mentions légales et CGU</a></Link></li>
         <li><Link href='/faq'><a>FAQ</a></Link></li>
-        <li><a href='mailto:contact@adresse.data.gouv.fr'>Contact</a></li>
+        <li><a href='mailto:adresse@data.gouv.fr'>Contact</a></li>
       </ul>
     </div>
     <style jsx>{`
