@@ -92,7 +92,7 @@ const MainStyle = () => (
         }
 
         code {
-          background: ${theme.backgroundGrey};
+          background: ${theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};
           padding: 0.5em;
           font-family: 'Courier New';
@@ -100,6 +100,7 @@ const MainStyle = () => (
           white-space: pre-wrap;
           vertical-align: middle;
           display: inline-block;
+          width: 100%;
           max-width: 100%;
           overflow-x: auto;
         }
