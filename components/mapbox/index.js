@@ -1,12 +1,26 @@
 /* eslint react/no-danger: off, react/style-prop-object: off */
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import ReactMapboxGl from 'react-mapbox-gl'
 import bbox from '@turf/bbox'
 import {intersectionWith, isEqual} from 'lodash'
 
+import Notification from '../notification'
+
 // eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
+
+function isWebglSupported() {
+  try {
+    const canvas = document.createElement('canvas')
+
+    return Boolean(window.WebGLRenderingContext) && (
+      canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
+    )
+  } catch (err) {
+    return false
+  }
+}
 
 const fullscreenStyle = {
   height: '100vh',
@@ -56,14 +70,31 @@ class Mapbox extends React.Component {
     const {fullscreen, onStyleLoad, children} = this.props
 
     return (
-      <Map
-        onStyleLoad={onStyleLoad}
-        style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
-        fitBounds={this.getBounds()}
-        fitBoundsOptions={{padding: 20, linear: true}}
-        containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
-        {children}
-      </Map>
+      <Fragment>
+        {
+          isWebglSupported() ?
+            <Map
+              onStyleLoad={onStyleLoad}
+              style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
+              fitBounds={this.getBounds()}
+              fitBoundsOptions={{padding: 20, linear: true}}
+              containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
+              {children}
+            </Map> :
+            <div className='webgl-error'>
+              <Notification type='error' message='WebGL' />
+            </div>
+        }
+        <style jsx>{`
+          .webgl-error {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
+        `}</style>
+      </Fragment>
+
     )
   }
 }
