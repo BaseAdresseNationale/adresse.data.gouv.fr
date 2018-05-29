@@ -13,7 +13,7 @@ const loadingStyle = {
   backgroundColor: 'whitesmoke'
 }
 
-const GeojsonMap = dynamic(import('../../mapbox/geojson-map'), {
+const GeojsonMap = dynamic(import('../../mapbox-gl/geojson-map'), {
   ssr: false,
   loading: () => (
     <div style={loadingStyle}>

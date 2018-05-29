@@ -33,7 +33,7 @@ const containerStyle = {
   boxShadow: '0 1px 4px #C9D3DF'
 }
 
-class Mapbox extends React.Component {
+class MapboxGL extends React.Component {
   constructor(props) {
     super(props)
 
@@ -99,16 +99,16 @@ class Mapbox extends React.Component {
   }
 }
 
-Mapbox.propTypes = {
+MapboxGL.propTypes = {
   data: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   onStyleLoad: PropTypes.func,
   fullscreen: PropTypes.bool
 }
 
-Mapbox.defaultProps = {
+MapboxGL.defaultProps = {
   onStyleLoad: null,
   fullscreen: false
 }
 
-export default Mapbox
+export default MapboxGL

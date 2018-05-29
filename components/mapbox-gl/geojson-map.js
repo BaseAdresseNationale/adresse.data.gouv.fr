@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {GeoJSONLayer} from 'react-mapbox-gl'
 
 import ClusterLayers from './cluster-layers'
-import Mapbox from './index'
+import MapboxGL from './index'
 
 const lineLayout = {
   'line-cap': 'round',
@@ -36,7 +36,7 @@ const GeojsonMap = ({data, id, cluster}) => {
   }
 
   return (
-    <Mapbox data={data}>
+    <MapboxGL data={data}>
       <GeoJSONLayer
         id={id}
         sourceOptions={options}
@@ -52,7 +52,7 @@ const GeojsonMap = ({data, id, cluster}) => {
         }}
         circleOnMouseDown={this.markerClick} />
       {cluster && <ClusterLayers sourceId={id} />}
-    </Mapbox>
+    </MapboxGL>
   )
 }
 
