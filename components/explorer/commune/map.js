@@ -13,31 +13,33 @@ const loadingStyle = {
   backgroundColor: 'whitesmoke'
 }
 
-const GeojsonMap = dynamic(import('../../mapbox-gl/geojson-map'), {
-  ssr: false,
-  loading: () => (
-    <div style={loadingStyle}>
-      <LoadingContent loading>
-        Chargement…
+const Map = ({contour}) => {
+  const GeojsonMap = dynamic(import('../../mapbox-gl/geojson-map'), {
+    ssr: false,
+    loading: () => (
+      <div style={loadingStyle}>
+        <LoadingContent loading>
+          Chargement…
       </LoadingContent>
-    </div>
-  )
-})
+      </div>
+    )
+  })
 
-const Map = ({contour}) => (
-  <div className='map'>
-    {contour ?
-      <GeojsonMap data={contour} /> :
-      <GeojsonMap />
-    }
-    <style jsx>{`
+  return (
+    <div className='map'>
+      {contour ?
+        <GeojsonMap data={contour} /> :
+        <GeojsonMap />
+      }
+      <style jsx>{`
       .map {
         width: 100%;
         height: 420px;
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Map.propTypes = {
   contour: PropTypes.object.isRequired
