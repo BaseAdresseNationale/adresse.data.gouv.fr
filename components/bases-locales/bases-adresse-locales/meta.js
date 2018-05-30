@@ -30,8 +30,9 @@ class Meta extends React.Component {
               <span className='invalid'><FaClose /></span>
               {status === 'ok' ?
                 <Link href={{
-                  pathname: `/bases-locales/jeux-de-donnees/${id}/rapport-validation`,
-                  asPath: `/bases-locales/jeux-de-donnees/${id}/rapport-validation`
+                  pathname: `/bases-locales/jeux-de-donnees/${id}`,
+                  asPath: `bases-locales/jeux-de-donnees/${id}`,
+                  query: {report: true}
                 }}>
                   <a>Consulter le rapport</a>
                 </Link> :

@@ -1,43 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaDatabase from 'react-icons/lib/fa/database'
 
 import {_get} from '../../../lib/fetch'
 
 import Page from '../../../layouts/main'
-import Head from '../../../components/head'
-import Section from '../../../components/section'
 import withErrors from '../../../components/hoc/with-errors'
 
 import Dataset from '../../../components/bases-locales/bases-adresse-locales/dataset'
 
-const title = 'Fichier BAL'
-const description = 'Fichier d’une base adresse locale'
-
 class DatasetPage extends React.Component {
   render() {
-    const {dataset} = this.props
+    const {dataset, report} = this.props
+    const description = `${dataset.title} - ${dataset.organization.name}`
 
     return (
-      <Page title={title} description={description}>
-        <Head title={title} icon={<FaDatabase />}>
-          {description}
-        </Head>
-        <Section>
-          <Dataset dataset={dataset} />
-        </Section>
+      <Page title={dataset.title} description={description}>
+        <Dataset dataset={dataset} report={report} />
       </Page>
     )
   }
 }
 
 DatasetPage.propTypes = {
-  dataset: PropTypes.object.isRequired
+  dataset: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    organization: PropTypes.shape({
+      name: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  report: PropTypes.object
+}
+
+DatasetPage.defaultProps = {
+  report: null
 }
 
 DatasetPage.getInitialProps = async ({query}) => {
   return {
-    dataset: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}`)
+    dataset: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}`),
+    report: query.report ? await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}/report`) : null
   }
 }
 

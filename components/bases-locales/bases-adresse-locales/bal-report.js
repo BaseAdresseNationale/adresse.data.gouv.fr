@@ -11,14 +11,18 @@ class BalDataset extends React.Component {
     return (
       <div>
         <Section title={`Rapport d’analyse du fichier :`} />
-        <Report report={report} />
+        {report && <Report report={report} />}
       </div>
     )
   }
 }
 
 BalDataset.propTypes = {
-  report: PropTypes.object.isRequired
+  report: PropTypes.object
+}
+
+BalDataset.defaultProps = {
+  report: null
 }
 
 export default BalDataset

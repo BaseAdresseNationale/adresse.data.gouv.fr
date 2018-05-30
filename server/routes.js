@@ -34,10 +34,11 @@ module.exports = app => {
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id/rapport-validation', (req, res) => {
-    app.render(req, res, '/bases-locales/jeux-de-donnees/rapport-validation', {
+  router.get('/bases-locales/jeux-de-donnees/:id/:report', (req, res) => {
+    app.render(req, res, '/bases-locales/jeux-de-donnees/dataset', {
       ...req.query,
-      id: req.params.id
+      id: req.params.id,
+      report: req.params.report
     })
   })
 
