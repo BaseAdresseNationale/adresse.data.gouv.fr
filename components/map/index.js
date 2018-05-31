@@ -1,12 +1,13 @@
 import React from 'react'
 import {debounce} from 'lodash'
 
-import {_get} from '../lib/fetch'
+import {_get} from '../../lib/fetch'
 
-import Notification from './notification'
-import renderAdresse from './search-input/render-adresse'
-import AddressMap from './mapbox/address-map'
-import SearchInput from './search-input'
+import Notification from '../notification'
+import renderAdresse from '../search-input/render-adresse'
+import SearchInput from '../search-input'
+
+import AddressMap from './address-map'
 
 const wrapperStyle = {
   width: '40%',

@@ -4,7 +4,7 @@ import Page from '../layouts/main'
 
 import Loader from '../components/loader'
 
-const MapSearch = dynamic(import('../components/map-search'), {
+const Map = dynamic(import('../components/map'), {
   ssr: false,
   loading: () => (
     <div className={'centered'}>
@@ -25,10 +25,10 @@ const MapSearch = dynamic(import('../components/map-search'), {
 const title = 'Carte interactive'
 const description = 'Cherchez des adresses et lieux-dits.'
 
-const Map = () => (
+const MapPage = () => (
   <Page title={title} description={description} showFooter={false} >
-    <MapSearch />
+    <Map />
   </Page>
 )
 
-export default Map
+export default MapPage

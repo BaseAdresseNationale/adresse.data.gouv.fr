@@ -12,7 +12,7 @@ const PopupAddress = ({address}) => {
   return (
     <Popup
       anchor='top'
-      coordinates={address.geometries.coordinates}
+      coordinates={address.geometry.coordinates}
       offset={50}>
       <div className='container'>
         <div>
