@@ -7,7 +7,7 @@ import ReactMapboxGl from 'react-mapbox-gl'
 const Map = ReactMapboxGl({})
 
 const fullscreenStyle = {
-  height: '100vh',
+  height: 'calc(100vh - 75px)',
   width: '100vw'
 }
 
