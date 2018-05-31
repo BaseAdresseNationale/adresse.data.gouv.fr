@@ -1,51 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../styles/theme'
-
-const trads = {
-  context: 'Contexte',
-  name: 'Nom',
-  street: 'Voie',
-  housenumber: 'Numéro',
-  postcode: 'Code postal',
-  citycode: 'Code INSEE',
-  type: 'Type',
-  city: 'Commune'
-}
-
 const types = {
   locality: 'Lieu-dit',
-  street: 'Rue',
+  street: 'Voie',
   housenumber: 'Numéro'
-}
-
-const getProperties = (key, properties) => {
-  const trad = Object.keys(types).includes(properties[key]) ? types[properties[key]] : properties[key]
-  if (trad) {
-    return (
-      <div key={key}>
-        <b>{trads[key]} :</b> {trad}
-      </div>
-    )
-  }
 }
 
 const Feature = ({properties}) => (
   <div className='container'>
     <div>
-      {Object.keys(trads).map(key => getProperties(key, properties))}
+      <h4>{types[properties.type]}</h4>
+      <div>{properties.name}</div>
+      <div>{properties.postcode} {properties.city}</div>
+      <div>Code INSEE : {properties.citycode}</div>
+      <div>Contexte : {properties.context}</div>
     </div>
 
     <style jsx>{`
       .container {
-        border-color: ${theme.border};
-        background-color: ${theme.colors.white};
         padding: 8px;
         border-radius: 2px;
         font-size: 12px;
         line-height: 15px;
-        border: 1px solid $black;
       }
     `}</style>
   </div>

@@ -37,21 +37,11 @@ const AddressMap = ({address}) => {
       {address &&
         <Popup
           anchor='top'
-          coordinates={center}>
+          coordinates={center}
+          offset={50}>
           <Feature properties={address.properties} />
         </Popup>
       }
-
-      <style jsx>{`
-          .info {
-            position: absolute;
-            pointer-events: none;
-            top: 10px;
-            left: 10px;
-            max-width: 40%;
-            overflow: hidden;
-          }
-        `}</style>
     </CenteredMap >
   )
 }
