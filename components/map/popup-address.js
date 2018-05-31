@@ -23,6 +23,7 @@ const PopupAddress = ({address, onClose}) => {
           <h4>{types[type]}</h4>
           <div>{name}</div>
           <div>{postcode} {city}</div>
+          <div>--</div>
           <div>Code INSEE : {citycode}</div>
           <div>Contexte : {context}</div>
         </div>
