@@ -1,5 +1,6 @@
 import FaTable from 'react-icons/lib/fa/table'
 import FaTerminal from 'react-icons/lib/fa/terminal'
+import FaMap from 'react-icons/lib/fa/map'
 
 import Section from './section'
 import HeadLinkTitle from './head-link-title'
@@ -22,6 +23,12 @@ const titles = [
     href: '/validateur-bal',
     description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
     icon: <FaTable />
+  },
+  {
+    title: 'Carte interactive',
+    href: '/map',
+    description: <span>Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé.</span>,
+    icon: <FaMap />
   }
 ]
 
