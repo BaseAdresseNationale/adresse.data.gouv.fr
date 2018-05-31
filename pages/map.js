@@ -22,7 +22,7 @@ const MapSearch = dynamic(import('../components/map-search'), {
     )
 })
 
-const title = 'Recherche d’adresses dans la Base Adresse Nationale'
+const title = 'Carte interactive'
 const description = 'Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé.'
 
 const Map = () => (
