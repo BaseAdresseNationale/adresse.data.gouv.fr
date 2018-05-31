@@ -24,29 +24,47 @@ const zoomLevel = {
   locality: 15
 }
 
-const AddressMap = ({address}) => {
-  const center = address ? address.geometry.coordinates : [2.060204, 49.031407]
-  const zoom = address ? zoomLevel[address.properties.type] : 13
+class AddressMap extends React.Component {
+  static propTypes = {
+    address: PropTypes.object
+  }
 
-  return (
-    <CenteredMap zoom={zoom} center={center} fullscreen>
-      <Marker
-        style={markerStyle}
-        coordinates={center} />
+  static defaultProps = {
+    address: true
+  }
 
-      {address &&
-        <PopupAddress address={address} />
-      }
-    </CenteredMap >
-  )
-}
+  state = {
+    displayPopup: false
+  }
 
-AddressMap.propTypes = {
-  address: PropTypes.object
-}
+  handlePopup = () => {
+    this.setState(state => ({
+      displayPopup: !state.displayPopup
+    }))
+  }
 
-AddressMap.defaultProps = {
-  address: null
+  render() {
+    const {address} = this.props
+    const {displayPopup} = this.state
+    const center = address ? address.geometry.coordinates : [1.7191, 46.7111]
+    const zoom = address ? zoomLevel[address.properties.type] : 5
+
+    return (
+      <CenteredMap zoom={zoom} center={center} fullscreen>
+        {address &&
+          <Marker
+            style={markerStyle}
+            coordinates={center}
+            onMouseEnter={this.handlePopup}
+            onMouseLeave={this.handlePopup}
+            onClick={this.handlePopup} />}
+
+        {address && displayPopup &&
+          <PopupAddress address={address} onClose={this.handlePopup} />
+        }
+      </CenteredMap >
+    )
+  }
 }
 
 export default AddressMap

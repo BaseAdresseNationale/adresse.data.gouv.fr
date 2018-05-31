@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {Popup} from 'react-mapbox-gl'
+import FaTimesCircle from 'react-icons/lib/fa/times-circle'
 
 const types = {
   locality: 'Lieu-dit',
@@ -7,7 +8,7 @@ const types = {
   housenumber: 'Numéro'
 }
 
-const PopupAddress = ({address}) => {
+const PopupAddress = ({address, onClose}) => {
   const {context, name, postcode, citycode, type, city} = address.properties
   return (
     <Popup
@@ -15,6 +16,9 @@ const PopupAddress = ({address}) => {
       coordinates={address.geometry.coordinates}
       offset={50}>
       <div className='container'>
+        <div className='close' onClick={onClose}>
+          <FaTimesCircle />
+        </div>
         <div>
           <h4>{types[type]}</h4>
           <div>{name}</div>
@@ -29,6 +33,12 @@ const PopupAddress = ({address}) => {
             border-radius: 2px;
             font-size: 12px;
             line-height: 15px;
+          }
+
+          .close {
+            position: absolute;
+            right: 0;
+            margin: 0 1em;
           }
         `}</style>
       </div>
@@ -49,7 +59,8 @@ PopupAddress.propTypes = {
       type: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired
     }).isRequired
-  }).isRequired
+  }).isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default PopupAddress
