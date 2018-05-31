@@ -7,6 +7,12 @@ import HeadLinkTitle from './head-link-title'
 
 const titles = [
   {
+    title: 'Carte interactive',
+    href: '/map',
+    description: <span>Cherchez des adresses et lieux-dits.</span>,
+    icon: <FaMap />
+  },
+  {
     title: 'Le géocodeur CSV',
     href: '/csv',
     description: <span>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</span>,
@@ -23,12 +29,6 @@ const titles = [
     href: '/validateur-bal',
     description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
     icon: <FaTable />
-  },
-  {
-    title: 'Carte interactive',
-    href: '/map',
-    description: <span>Cherchez des adresses et lieux-dits.</span>,
-    icon: <FaMap />
   }
 ]
 
