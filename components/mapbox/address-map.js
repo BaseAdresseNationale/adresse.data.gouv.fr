@@ -18,11 +18,18 @@ const markerStyle = {
   border: '2px solid #a92d2d'
 }
 
+const zoomLevel = {
+  street: 16,
+  housenumber: 18,
+  locality: 15
+}
+
 const AddressMap = ({address}) => {
   const center = address ? address.geometry.coordinates : [2.060204, 49.031407]
+  const zoom = address ? zoomLevel[address.properties.type] : 13
 
   return (
-    <CenteredMap zoom={16} center={center} fullscreen>
+    <CenteredMap zoom={zoom} center={center} fullscreen>
       <Marker
         style={markerStyle}
         coordinates={center} />
