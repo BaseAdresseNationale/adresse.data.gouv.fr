@@ -27,7 +27,7 @@ const titles = [
   {
     title: 'Carte interactive',
     href: '/map',
-    description: <span>Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé.</span>,
+    description: <span>Cherchez des adresses et lieux-dits.</span>,
     icon: <FaMap />
   }
 ]

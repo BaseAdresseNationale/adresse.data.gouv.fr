@@ -23,7 +23,7 @@ const MapSearch = dynamic(import('../components/map-search'), {
 })
 
 const title = 'Carte interactive'
-const description = 'Cherchez des adresses et lieux-dits, zoomez et déplacez la carte pour faire un géocodage inversé.'
+const description = 'Cherchez des adresses et lieux-dits.'
 
 const Map = () => (
   <Page title={title} description={description} showFooter={false} >
