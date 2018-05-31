@@ -1,10 +1,10 @@
 /* eslint react/no-danger: off */
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Marker, Popup} from 'react-mapbox-gl'
+import {Marker} from 'react-mapbox-gl'
 
 import CenteredMap from './centered-map'
-import Feature from './feature'
+import PopupAddress from './popup-address'
 
 const markerStyle = {
   zIndex: 0,
@@ -35,12 +35,7 @@ const AddressMap = ({address}) => {
         coordinates={center} />
 
       {address &&
-        <Popup
-          anchor='top'
-          coordinates={center}
-          offset={50}>
-          <Feature properties={address.properties} />
-        </Popup>
+        <PopupAddress address={address} />
       }
     </CenteredMap >
   )
