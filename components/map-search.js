@@ -15,7 +15,7 @@ const wrapperStyle = {
   top: '150px',
   left: '50%',
   transform: 'translate(-50%)',
-  zIndex: 1
+  zIndex: 10
 }
 
 const errorStyle = {
@@ -34,7 +34,7 @@ class MapSearch extends React.Component {
     this.state = {
       input: '',
       results: [],
-      viewport: null,
+      address: null,
       loading: false,
       error: null
     }
@@ -46,12 +46,11 @@ class MapSearch extends React.Component {
     this.handleSearch = debounce(this.handleSearch, 200)
   }
 
-  handleSelect(item) {
-    const viewport = {
-      center: item.geometry.coordinates,
-      zoom: 16
-    }
-    this.setState({viewport, input: item.properties.label})
+  handleSelect(address) {
+    this.setState({
+      address,
+      input: address.properties.label
+    })
   }
 
   handleInput(input) {
@@ -82,7 +81,7 @@ class MapSearch extends React.Component {
   }
 
   render() {
-    const {results, input, viewport, error, loading} = this.state
+    const {results, input, address, error, loading} = this.state
 
     return (
       <div>
@@ -104,7 +103,7 @@ class MapSearch extends React.Component {
             type='error' />
         }
 
-        <AddressMap {...viewport} />
+        <AddressMap address={address} />
       </div >
     )
   }
