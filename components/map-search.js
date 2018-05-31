@@ -64,11 +64,17 @@ class MapSearch extends React.Component {
   async handleSearch() {
     const {input} = this.state
     const url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
+    const types = [
+      'locality',
+      'street',
+      'housenumber'
+    ]
 
     try {
       const results = await _get(url)
       this.setState({
-        results: results.features || []
+        results: results.features.filter(address =>
+          types.includes(address.properties.type)) || []
       })
     } catch (err) {
       this.setState({

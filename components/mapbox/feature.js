@@ -15,9 +15,9 @@ const trads = {
 }
 
 const types = {
+  locality: 'Lieu-dit',
   street: 'Rue',
-  housenumber: 'Numéro',
-  municipality: 'Commune'
+  housenumber: 'Numéro'
 }
 
 const getProperties = (key, properties) => {
