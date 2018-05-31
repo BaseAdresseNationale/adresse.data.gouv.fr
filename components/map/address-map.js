@@ -34,18 +34,38 @@ class AddressMap extends React.Component {
   }
 
   state = {
+    forcePopupDisplay: false,
     displayPopup: false
   }
 
-  handlePopup = () => {
+  handleClick = () => {
     this.setState(state => ({
-      displayPopup: !state.displayPopup
+      forcePopupDisplay: !state.forcePopupDisplay
+    }))
+  }
+
+  handleMouseEnter = () => {
+    this.setState(() => ({
+      displayPopup: true
+    }))
+  }
+
+  handleMouseLeave = () => {
+    this.setState(() => ({
+      displayPopup: false
+    }))
+  }
+
+  handleClose = () => {
+    this.setState(() => ({
+      forcePopupDisplay: false,
+      displayPopup: false
     }))
   }
 
   render() {
     const {address} = this.props
-    const {displayPopup} = this.state
+    const {displayPopup, forcePopupDisplay} = this.state
     const center = address ? address.geometry.coordinates : [1.7191, 46.7111]
     const zoom = address ? zoomLevel[address.properties.type] : 5
 
@@ -55,12 +75,12 @@ class AddressMap extends React.Component {
           <Marker
             style={markerStyle}
             coordinates={center}
-            onMouseEnter={this.handlePopup}
-            onMouseLeave={this.handlePopup}
-            onClick={this.handlePopup} />}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+            onClick={this.handleClick} />}
 
-        {address && displayPopup &&
-          <PopupAddress address={address} onClose={this.handlePopup} />
+        {address && (displayPopup || forcePopupDisplay) &&
+          <PopupAddress address={address} onClose={this.handleClose} />
         }
       </CenteredMap >
     )
