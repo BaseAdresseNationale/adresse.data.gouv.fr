@@ -1,7 +1,7 @@
 import React from 'react'
 import hoist from 'hoist-non-react-statics'
 
-import {isWebglSupported} from '../../lib/browser/webgl'
+import {isWebGLSupported} from '../../lib/browser/webgl'
 
 import Meta from '../meta'
 import MainPage from '../../layouts/main'
@@ -54,7 +54,7 @@ export default Page => {
       const {showMap} = this.state
 
       if (showMap) {
-        return isWebglSupported() ?
+        return isWebGLSupported() ?
           <Page {...this.props} /> :
           <MapError />
       }
