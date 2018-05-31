@@ -25,6 +25,7 @@ const errorStyle = {
   position: 'absolute',
   top: '206px',
   left: '50%',
+  margin: '1em 0',
   transform: 'translate(-50%)',
   zIndex: 10
 }
@@ -58,12 +59,11 @@ class MapSearch extends React.Component {
     this.setState({input, results: [], loading: true, error: null})
 
     if (input) {
-      this.handleSearch()
+      this.handleSearch(input)
     }
   }
 
-  async handleSearch() {
-    const {input} = this.state
+  async handleSearch(input) {
     const url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
     const types = [
       'locality',
