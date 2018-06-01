@@ -1,6 +1,8 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+
 import Page from '../layouts/main'
+import withWebGl from '../components/hoc/with-web-gl'
 
 import Loader from '../components/loader'
 
@@ -31,4 +33,4 @@ const MapPage = () => (
   </Page>
 )
 
-export default MapPage
+export default withWebGl(MapPage)
