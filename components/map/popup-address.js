@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import {Popup} from 'react-mapbox-gl'
 import FaTimesCircle from 'react-icons/lib/fa/times-circle'
+
+import theme from '../../styles/theme'
 
 const types = {
   locality: 'Lieu-dit',
@@ -11,39 +12,60 @@ const types = {
 const PopupAddress = ({address, onClose}) => {
   const {context, name, postcode, citycode, type, city} = address.properties
   return (
-    <Popup
-      anchor='top'
-      coordinates={address.geometry.coordinates}
-      offset={50}>
-      <div className='container'>
-        <div className='close' onClick={onClose}>
+    <div className='popup'>
+      <div className='head' onClick={onClose}>
+        <h4>{types[type]}</h4>
+        <div onClick={onClose}>
           <FaTimesCircle />
         </div>
-        <div>
-          <h4>{types[type]}</h4>
-          <div>{name}</div>
-          <div>{postcode} {city}</div>
-          <div>--</div>
-          <div>Code INSEE : {citycode}</div>
-          <div>Contexte : {context}</div>
-        </div>
-
-        <style jsx>{`
-          .container {
-            padding: 8px;
-            border-radius: 2px;
-            font-size: 12px;
-            line-height: 15px;
-          }
-
-          .close {
-            position: absolute;
-            right: 0;
-            margin: 0 1em;
-          }
-        `}</style>
       </div>
-    </Popup>
+      <div>
+        <div>{name}</div>
+        <div>{postcode} {city}</div>
+        <div className='divider' />
+        <div>Code INSEE : {citycode}</div>
+        <div>Contexte : {context}</div>
+      </div>
+
+      <style jsx>{`
+        .head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .divider {
+          width: 50%;
+          margin: 1.2em auto;
+          border-top: 1px solid ${theme.borderLighter};
+        }
+
+        .popup {
+          z-index: 9;
+          position: fixed;
+          padding: 0 1em 1em 1em;
+          bottom: 20px;
+          left: 50%;
+          min-width: 200px;
+          max-width: 90%;
+          transform: translate(-50%);
+          background: #ffffffc0;
+          border: 1px solid ${theme.border};
+        }
+
+        @media (max-width: 700px) {
+          .popup {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border: none;
+            min-width: 100%;
+            transform: none;
+            border-top: 1px solid ${theme.border};
+          }
+        }
+      `}</style>
+    </div>
   )
 }
 

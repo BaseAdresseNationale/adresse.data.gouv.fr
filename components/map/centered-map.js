@@ -24,6 +24,7 @@ class Mapbox extends React.Component {
     return (
       <Map
         zoom={[zoom]}
+        movingMethod='easeTo'
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         center={center}

@@ -9,16 +9,6 @@ import SearchInput from '../search-input'
 
 import AddressMap from './address-map'
 
-const wrapperStyle = {
-  width: '40%',
-  minWidth: '260px',
-  position: 'absolute',
-  top: '150px',
-  left: '50%',
-  transform: 'translate(-50%)',
-  zIndex: 10
-}
-
 const errorStyle = {
   width: '40%',
   minWidth: '260px',
@@ -92,16 +82,17 @@ class MapSearch extends React.Component {
 
     return (
       <div>
-        <SearchInput
-          value={input}
-          results={results}
-          loading={loading}
-          placeholder='Ex. 6 quai de la tourelle cergy…'
-          onSelect={this.handleSelect}
-          onSearch={this.handleInput}
-          renderItem={renderAdresse}
-          getItemValue={item => item.properties.context}
-          wrapperStyle={wrapperStyle} />
+        <div className='input'>
+          <SearchInput
+            value={input}
+            results={results}
+            loading={loading}
+            placeholder='Ex. 6 quai de la tourelle cergy…'
+            onSelect={this.handleSelect}
+            onSearch={this.handleInput}
+            renderItem={renderAdresse}
+            getItemValue={item => item.properties.context} />
+        </div>
 
         {error &&
           <Notification
@@ -111,6 +102,39 @@ class MapSearch extends React.Component {
         }
 
         <AddressMap address={address} />
+
+        <style jsx>{`
+          .input {
+            z-index: 10;
+            width: 40%;
+            min-width: 260px;
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translate(-50%);
+          }
+
+          @media (max-width: 700px) {
+            .input {
+              min-width: 100%;
+              top: 125px;
+              left: 50%;
+              transform: translate(-50%);
+            }
+          }
+
+          @media (max-width: 480px) {
+            .input {
+              top: 115px;
+            }
+          }
+
+          @media (max-width: 380px) {
+            .input {
+              top: 140px;
+            }
+          }
+        `}</style>
       </div >
     )
   }

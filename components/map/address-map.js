@@ -82,7 +82,7 @@ class AddressMap extends React.Component {
         {address && (displayPopup || forcePopupDisplay) &&
           <PopupAddress address={address} onClose={this.handleClose} />
         }
-      </CenteredMap >
+      </CenteredMap>
     )
   }
 }
