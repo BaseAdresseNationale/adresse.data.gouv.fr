@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Source, Layer} from 'react-mapbox-gl'
 
-import Mapbox from '../../mapbox'
-import Events from '../../mapbox/events'
+import MapboxGL from '../../mapbox-gl'
+import Events from '../../mapbox-gl/events'
 
 import {addressesToGeoJson, addressToGeoJson} from '../../../lib/geojson'
 
@@ -115,7 +115,7 @@ class AddressesMap extends React.Component {
     }
 
     return (
-      <Mapbox data={data} onStyleLoad={this.handleDragEnd}>
+      <MapboxGL data={data} onStyleLoad={this.handleDragEnd}>
         <Source id='addresses-map' geoJsonSource={{
           type: 'geojson',
           data
@@ -210,7 +210,7 @@ class AddressesMap extends React.Component {
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
           onDragEnd={this.handleDragEnd} />
-      </Mapbox>
+      </MapboxGL>
     )
   }
 }
