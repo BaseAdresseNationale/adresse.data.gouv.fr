@@ -45,6 +45,7 @@ export default Page => {
     }
 
     componentDidMount() {
+      this.PageComponent = isWebGLSupported() ? Page : MapError
       this.setState({
         showMap: true
       })
@@ -54,9 +55,8 @@ export default Page => {
       const {showMap} = this.state
 
       if (showMap) {
-        return isWebGLSupported() ?
-          <Page {...this.props} /> :
-          <MapError />
+        const {PageComponent} = this
+        return <PageComponent {...this.props} />
       }
 
       return null
