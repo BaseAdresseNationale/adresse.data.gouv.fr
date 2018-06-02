@@ -1,10 +1,17 @@
 import FaTable from 'react-icons/lib/fa/table'
 import FaTerminal from 'react-icons/lib/fa/terminal'
+import FaMap from 'react-icons/lib/fa/map'
 
 import Section from './section'
 import HeadLinkTitle from './head-link-title'
 
 const titles = [
+  {
+    title: 'Carte interactive',
+    href: '/map',
+    description: <span>Cherchez des adresses et lieux-dits.</span>,
+    icon: <FaMap />
+  },
   {
     title: 'Le géocodeur CSV',
     href: '/csv',
