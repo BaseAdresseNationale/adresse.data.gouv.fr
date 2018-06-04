@@ -29,6 +29,7 @@ const ButtonLink = ({children, ...props}) => (
         position: relative;
         overflow: hidden;
         transition: box-shadow 0.25s;
+        text-align: center;
       }
 
       a.button:hover,

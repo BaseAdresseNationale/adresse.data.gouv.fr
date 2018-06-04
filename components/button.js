@@ -25,6 +25,7 @@ const Button = ({children, ...props}) => (
         position: relative;
         overflow: hidden;
         transition: box-shadow 0.25s;
+        text-align: center;
       }
 
       button.button:hover {

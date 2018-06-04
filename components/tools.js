@@ -26,7 +26,7 @@ const titles = [
   },
   {
     title: 'Le validateur BAL',
-    href: '/validateur-bal',
+    href: '/bases-locales/validateur',
     description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
     icon: <FaTable />
   }

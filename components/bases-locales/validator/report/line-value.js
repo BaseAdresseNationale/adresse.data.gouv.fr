@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 class LineValue extends React.Component {
   constructor(props) {

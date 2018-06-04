@@ -27,8 +27,20 @@ module.exports = app => {
     })
   })
 
-  router.get('/validateur-bal/dataset/:id', (req, res) => {
-    app.render(req, res, '/validateur-bal/dataset', {
+  router.get('/bases-locales/validateur', (req, res) => {
+    app.render(req, res, '/bases-locales/validator', {
+      ...req.query
+    })
+  })
+
+  router.get('/bases-locales/jeux-de-donnees', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets', {
+      ...req.query
+    })
+  })
+
+  router.get('/bases-locales/jeux-de-donnees/:id', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets/dataset', {
       ...req.query,
       id: req.params.id
     })

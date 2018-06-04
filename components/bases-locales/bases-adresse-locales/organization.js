@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 class Organization extends React.Component {
   render() {
-    const {page, logo, name} = this.props
+    const {page, logo, name, size} = this.props
     return (
       <div className='organization'>
         <a href={page}>
-          <div><img src={logo} /></div>
+          <div className={size}><img src={logo} /></div>
           <div>{name}</div>
         </a>
 
@@ -17,12 +17,15 @@ class Organization extends React.Component {
             flex-direction: column;
             justify-content: center;
             text-align: center;
-            max-width: 130px;
             margin: 1em 0;
           }
 
-          .organization img {
+          .standard img {
             width: 100px;
+          }
+
+          .big img {
+            width: 200px;
           }
           `}</style>
       </div>
@@ -33,7 +36,15 @@ class Organization extends React.Component {
 Organization.propTypes = {
   name: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
-  page: PropTypes.string.isRequired
+  page: PropTypes.string.isRequired,
+  size: PropTypes.oneOf([
+    'standard',
+    'big'
+  ])
+}
+
+Organization.defaultProps = {
+  size: 'standard'
 }
 
 export default Organization

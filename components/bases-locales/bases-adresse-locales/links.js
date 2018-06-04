@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
-import ButtonLink from '../button-link'
+import ButtonLink from '../../button-link'
 
 class Links extends React.Component {
   render() {

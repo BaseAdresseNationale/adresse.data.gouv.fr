@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 
-import theme from '../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 import Row from './row'
 

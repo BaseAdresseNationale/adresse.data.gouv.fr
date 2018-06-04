@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 class Meta extends React.Component {
   render() {
@@ -30,8 +30,9 @@ class Meta extends React.Component {
               <span className='invalid'><FaClose /></span>
               {status === 'ok' ?
                 <Link href={{
-                  pathname: `/validateur-bal/dataset`,
-                  query: {id}
+                  pathname: `/bases-locales/jeux-de-donnees/${id}`,
+                  asPath: `bases-locales/jeux-de-donnees/${id}`,
+                  query: {report: true}
                 }}>
                   <a>Consulter le rapport</a>
                 </Link> :

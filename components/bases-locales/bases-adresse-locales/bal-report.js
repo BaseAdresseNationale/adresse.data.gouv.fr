@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Section from '../section'
+import Section from '../../section'
 
-import Report from '../bal/report'
+import Report from '../validator/report'
 
-class BalDataset extends React.Component {
+class BalReport extends React.Component {
   render() {
     const {report} = this.props
     return (
@@ -17,8 +17,12 @@ class BalDataset extends React.Component {
   }
 }
 
-BalDataset.propTypes = {
-  report: PropTypes.object.isRequired
+BalReport.propTypes = {
+  report: PropTypes.object
 }
 
-export default BalDataset
+BalReport.defaultProps = {
+  report: null
+}
+
+export default BalReport
