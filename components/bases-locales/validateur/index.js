@@ -137,7 +137,7 @@ class BALValidator extends React.Component {
   pushEncodedUrl() {
     const {router} = this.props
     const query = {...router.query, url: encodeURI(this.state.url)}
-    const url = format({pathname: '/validateur-bal', query})
+    const url = format({pathname: '/bases-locales/validateur', query})
     this.props.router.push(url)
   }
 
