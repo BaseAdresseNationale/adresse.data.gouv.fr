@@ -32,7 +32,8 @@ class SearchInput extends React.Component {
 
     return (
       <div>
-        <input className='search' {...props} placeholder={placeholder} />
+        {/* disable safari zoom in on focus with font-size at 16px */}
+        <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} />
         <style jsx>{`
           .search {
             background-color: ${theme.colors.white};
@@ -96,6 +97,7 @@ class SearchInput extends React.Component {
     return (
       <div className='wrap'>
         <Autocomplete
+          inputProps={{onFocus: this.onFocus}}
           value={value}
           wrapperStyle={wrapperStyle}
           items={results}

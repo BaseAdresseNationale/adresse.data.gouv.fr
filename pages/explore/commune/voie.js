@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {flowRight} from 'lodash'
 
 import Page from '../../../layouts/main'
 
 import {_get} from '../../../lib/fetch'
 
 import withErrors from '../../../components/hoc/with-errors'
+import withWebGl from '../../../components/hoc/with-web-gl'
 
 import SearchCommune from '../../../components/explorer/search-commune'
 import Voie from '../../../components/explorer/voie'
@@ -93,4 +95,7 @@ VoiePage.getInitialProps = async ({query}) => {
   }
 }
 
-export default (withErrors(VoiePage))
+export default flowRight(
+  withErrors,
+  withWebGl
+)(VoiePage)

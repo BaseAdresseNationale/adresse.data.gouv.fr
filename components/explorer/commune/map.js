@@ -13,31 +13,52 @@ const loadingStyle = {
   backgroundColor: 'whitesmoke'
 }
 
-const GeojsonMap = dynamic(import('../../mapbox/geojson-map'), {
-  ssr: false,
-  loading: () => (
-    <div style={loadingStyle}>
-      <LoadingContent loading>
-        Chargement…
-      </LoadingContent>
-    </div>
-  )
-})
+class Map extends React.PureComponent {
+  state = {
+    showMap: false
+  }
 
-const Map = ({contour}) => (
-  <div className='map'>
-    {contour ?
-      <GeojsonMap data={contour} /> :
-      <GeojsonMap />
-    }
-    <style jsx>{`
-      .map {
-        width: 100%;
-        height: 420px;
-      }
-    `}</style>
-  </div>
-)
+  componentWillMount() {
+    this.GeojsonMap = dynamic(import('../../mapbox-gl/geojson-map'), {
+      ssr: false,
+      loading: () => (
+        <div style={loadingStyle}>
+          <LoadingContent loading>
+            Chargement…
+          </LoadingContent>
+        </div>
+      )
+    })
+
+    this.setState({showMap: true})
+  }
+
+  render() {
+    const {showMap} = this.state
+    const {contour} = this.props
+    const {GeojsonMap} = this
+
+    return (
+      <div className='map'>
+
+        {showMap && (
+          contour ?
+            <GeojsonMap data={contour} /> :
+            <GeojsonMap />
+          )
+        }
+
+        <style jsx>{`
+          .map {
+            width: 100%;
+            height: 420px;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
+}
 
 Map.propTypes = {
   contour: PropTypes.object.isRequired

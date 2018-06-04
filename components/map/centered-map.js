@@ -2,14 +2,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMapboxGl from 'react-mapbox-gl'
-import bbox from '@turf/bbox'
-import {intersectionWith, isEqual} from 'lodash'
 
 // eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
 
 const fullscreenStyle = {
-  height: '100vh',
+  height: 'calc(100vh - 75px)',
   width: '100vw'
 }
 
@@ -20,47 +18,16 @@ const containerStyle = {
 }
 
 class Mapbox extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.bbox = bbox(props.data)
-  }
-
-  componentDidMount() {
-    this.bbox = null
-  }
-
-  componentWillReceiveProps(props) {
-    const {data} = this.props
-    this.bbox = null
-
-    const intersection = intersectionWith(data.features, props.data.features, isEqual)
-
-    if (intersection.length === 0) {
-      this.bbox = bbox(props.data)
-    }
-  }
-
-  getBounds = () => {
-    const {bbox} = this
-
-    if (bbox) {
-      return [
-        [bbox[0], bbox[1]],
-        [bbox[2], bbox[3]]
-      ]
-    }
-  }
-
   render() {
-    const {fullscreen, onStyleLoad, children} = this.props
+    const {center, zoom, fullscreen, onStyleLoad, children} = this.props
 
     return (
       <Map
+        zoom={[zoom]}
+        movingMethod='easeTo'
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
-        fitBounds={this.getBounds()}
-        fitBoundsOptions={{padding: 20, linear: true}}
+        center={center}
         containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
         {children}
       </Map>
@@ -69,13 +36,15 @@ class Mapbox extends React.Component {
 }
 
 Mapbox.propTypes = {
-  data: PropTypes.object.isRequired,
+  center: PropTypes.array.isRequired,
+  zoom: PropTypes.number,
   children: PropTypes.node.isRequired,
   onStyleLoad: PropTypes.func,
   fullscreen: PropTypes.bool
 }
 
 Mapbox.defaultProps = {
+  zoom: 13,
   onStyleLoad: null,
   fullscreen: false
 }
