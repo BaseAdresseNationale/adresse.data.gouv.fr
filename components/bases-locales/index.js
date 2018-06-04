@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import PropTypes from 'prop-types'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 
