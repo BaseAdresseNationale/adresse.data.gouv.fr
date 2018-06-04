@@ -29,14 +29,14 @@ const BasesLocales = ({datasets}) => (
       </div>
     </Section>
 
-    <Section title='Listes des bases locales actuellement disponibles' background='white'>
+    <Section title='Quelques bases locales déjà publiées' background='white'>
       {datasets.slice(0, 3).map(dataset => (
         <BaseAdresseLocale key={dataset.id} {...dataset} />
       ))}
       <div className='centered'>
-        <Link href='/bases-locales/jeux-de-donnees'>
-          <a className='linl'>Voir toutes les bases locales</a>
-        </Link>
+        <ButtonLink href='/bases-locales/jeux-de-donnees'>
+          Voir toutes les bases locales
+        </ButtonLink>
       </div>
     </Section>
     <style jsx>{`
