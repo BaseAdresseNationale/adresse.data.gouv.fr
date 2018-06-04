@@ -27,18 +27,22 @@ module.exports = app => {
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id', (req, res) => {
-    app.render(req, res, '/bases-locales/jeux-de-donnees/dataset', {
-      ...req.query,
-      id: req.params.id
+  router.get('/bases-locales/validateur', (req, res) => {
+    app.render(req, res, '/bases-locales/validator', {
+      ...req.query
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id/:report', (req, res) => {
-    app.render(req, res, '/bases-locales/jeux-de-donnees/dataset', {
+  router.get('/bases-locales/jeux-de-donnees', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets', {
+      ...req.query
+    })
+  })
+
+  router.get('/bases-locales/jeux-de-donnees/:id', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets/dataset', {
       ...req.query,
-      id: req.params.id,
-      report: req.params.report
+      id: req.params.id
     })
   })
 

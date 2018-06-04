@@ -14,7 +14,7 @@ import BasesAdresseLocales from '../../components/bases-locales/bases-adresse-lo
 const title = 'Bases adresse locales'
 const description = 'Liste des bases adresse locales'
 
-class JeuxDeDonnees extends React.Component {
+class Datasets extends React.Component {
   render() {
     const {datasets} = this.props
 
@@ -31,14 +31,14 @@ class JeuxDeDonnees extends React.Component {
   }
 }
 
-JeuxDeDonnees.propTypes = {
+Datasets.propTypes = {
   datasets: PropTypes.array.isRequired
 }
 
-JeuxDeDonnees.getInitialProps = async () => {
+Datasets.getInitialProps = async () => {
   return {
     datasets: await _get('https://adresse.data.gouv.fr/api-bal/datasets')
   }
 }
 
-export default (withErrors(JeuxDeDonnees))
+export default (withErrors(Datasets))
