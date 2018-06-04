@@ -69,18 +69,18 @@ class Dataset extends React.Component {
 
     return (
       <div>
-          {(!displayReport || error) &&
-            <div className='centered'>
-              <Button onClick={this.handleReport}>Afficher le rapport</Button>
-            </div>}
+        {(!displayReport || error) &&
+          <div className='centered'>
+            <Button onClick={this.handleReport}>Afficher le rapport</Button>
+          </div>}
 
-          {(displayReport || loading) &&
-            <LoadingContent loading={loading} error={error} centered>
-              <div className='report'>
-                <div className='close' onClick={this.handleReport}><FaTimesCircle size={32} /></div>
-                <BalReport report={report} />
-              </div>
-            </LoadingContent>}
+        {(displayReport || loading) &&
+          <LoadingContent loading={loading} error={error} centered>
+            <div className='report'>
+              <div className='close' onClick={this.handleReport}><FaTimesCircle size={32} /></div>
+              <BalReport report={report} />
+            </div>
+          </LoadingContent>}
 
         <style jsx>{`
           .centered {
