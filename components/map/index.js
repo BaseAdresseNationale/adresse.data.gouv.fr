@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import {withRouter} from 'next/router'
 import {debounce} from 'lodash'
 
 import {_get} from '../../lib/fetch'
@@ -20,7 +22,13 @@ const errorStyle = {
   zIndex: 10
 }
 
-class MapSearch extends React.Component {
+const zoomLevel = {
+  street: 16,
+  housenumber: 18,
+  locality: 15
+}
+
+class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,17 +36,34 @@ class MapSearch extends React.Component {
       results: [],
       address: null,
       loading: false,
+      addressLoading: false,
       error: null
     }
 
     this.handleInput = this.handleInput.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.getNearestAddress = this.getNearestAddress.bind(this)
 
     this.handleSearch = debounce(this.handleSearch, 200)
   }
 
+  componentDidMount() {
+    const {router} = this.props
+    const {lng, lat} = router.query
+
+    if (lng && lat) {
+      this.getNearestAddress(lng, lat)
+    }
+  }
+
   handleSelect(address) {
+    const {router} = this.props
+    const coords = address.geometry.coordinates
+    const zoom = zoomLevel[address.properties.type] || 18
+
+    router.push(`/map?lng=${coords[0]}&lat=${coords[1]}&z=${zoom}`)
+
     this.setState({
       address,
       input: address.properties.label
@@ -53,13 +78,37 @@ class MapSearch extends React.Component {
     }
   }
 
+  async getNearestAddress(lng, lat) {
+    const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${lng}&lat=${lat}`
+
+    this.setState({addressLoading: true})
+    try {
+      const results = await _get(url)
+      this.setState({
+        address: results.features.length > 0 ? results.features[0] : null,
+        addressLoading: false
+      })
+    } catch (err) {
+      this.setState({
+        address: null,
+        addressLoading: false,
+        error: err
+      })
+    }
+  }
+
   async handleSearch(input) {
-    const url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
+    const {lng, lat} = this.props.router.query
+    let url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
     const types = [
       'locality',
       'street',
       'housenumber'
     ]
+
+    if (lng && lat) {
+      url += `&lon=${lng}&lat=${lat}`
+    }
 
     try {
       const results = await _get(url)
@@ -78,7 +127,9 @@ class MapSearch extends React.Component {
   }
 
   render() {
-    const {results, input, address, error, loading} = this.state
+    const {lng, lat, z} = this.props.router.query
+    const {results, input, address, error, loading, addressLoading} = this.state
+    const center = lng && lat ? [lng, lat] : [1.7191, 46.7111]
 
     return (
       <div>
@@ -101,7 +152,12 @@ class MapSearch extends React.Component {
             type='error' />
         }
 
-        <AddressMap address={address} />
+        <AddressMap
+          address={address}
+          center={center}
+          zoom={Number(z) || 5}
+          loading={addressLoading}
+          getNearestAddress={this.getNearestAddress} />
 
         <style jsx>{`
           .input {
@@ -140,4 +196,11 @@ class MapSearch extends React.Component {
   }
 }
 
-export default MapSearch
+Map.propTypes = {
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    query: PropTypes.object.isRequired
+  }).isRequired
+}
+
+export default (withRouter(Map))

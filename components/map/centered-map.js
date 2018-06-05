@@ -19,12 +19,14 @@ const containerStyle = {
 
 class Mapbox extends React.Component {
   render() {
-    const {center, zoom, fullscreen, onStyleLoad, children} = this.props
+    const {center, zoom, fullscreen, onStyleLoad, handleDisplay, onClick, children} = this.props
 
     return (
       <Map
         zoom={[zoom]}
-        movingMethod='easeTo'
+        onClick={onClick}
+        onDragEnd={handleDisplay}
+        movingMethod='jumpTo'
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         center={center}
@@ -39,6 +41,8 @@ Mapbox.propTypes = {
   center: PropTypes.array.isRequired,
   zoom: PropTypes.number,
   children: PropTypes.node.isRequired,
+  handleDisplay: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   onStyleLoad: PropTypes.func,
   fullscreen: PropTypes.bool
 }
