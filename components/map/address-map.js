@@ -65,12 +65,11 @@ class AddressMap extends React.Component {
   render() {
     const {address, center, zoom, loading} = this.props
     const {displayPopup} = this.state
-    const centerOn = address ? address.geometry.coordinates : center
 
     return (
       <CenteredMap
         zoom={zoom}
-        center={centerOn}
+        center={center}
         handleDisplay={this.setHash}
         onClick={this.handleClose}
         fullscreen>

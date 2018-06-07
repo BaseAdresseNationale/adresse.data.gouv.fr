@@ -84,8 +84,10 @@ class Map extends React.Component {
     this.setState({addressLoading: true})
     try {
       const results = await _get(url)
+      const address = results.features.length > 0 ? results.features[0] : null
       this.setState({
-        address: results.features.length > 0 ? results.features[0] : null,
+        address,
+        input: address ? address.properties.label : '',
         addressLoading: false
       })
     } catch (err) {
