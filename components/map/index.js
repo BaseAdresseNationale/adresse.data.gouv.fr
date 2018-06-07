@@ -28,6 +28,9 @@ const zoomLevel = {
   locality: 15
 }
 
+const DEFAULT_COORDS = [1.7191, 46.7111]
+const DEFAULT_ZOOM = 5
+
 class Map extends React.Component {
   constructor(props) {
     super(props)
@@ -36,6 +39,8 @@ class Map extends React.Component {
       results: [],
       address: null,
       loading: false,
+      center: DEFAULT_COORDS,
+      zoom: 5,
       addressLoading: false,
       error: null
     }
@@ -44,25 +49,43 @@ class Map extends React.Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.getNearestAddress = this.getNearestAddress.bind(this)
+    this.mapUpdate = this.mapUpdate.bind(this)
+    this.replaceUrl = this.replaceUrl.bind(this)
 
     this.handleSearch = debounce(this.handleSearch, 200)
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {router} = this.props
-    const {lng, lat} = router.query
+    const {lng, lat, z} = router.query
 
     if (lng && lat) {
-      this.getNearestAddress(lng, lat)
+      await this.getNearestAddress([lng, lat])
+      this.setState({
+        center: [Number(lng), Number(lat)],
+        zoom: Number(z)
+      })
     }
   }
 
-  handleSelect(address) {
+  replaceUrl(coordinates, zoom) {
     const {router} = this.props
-    const coords = address.geometry.coordinates
-    const zoom = zoomLevel[address.properties.type] || 18
+    const lng = coordinates[0]
+    const lat = coordinates[1]
 
-    router.push(`/map?lng=${coords[0]}&lat=${coords[1]}&z=${zoom}`)
+    this.setState({
+      zoom,
+      center: [lng, lat]
+    })
+
+    router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
+  }
+
+  handleSelect(address) {
+    const coords = address.geometry.coordinates
+    const zoom = zoomLevel[address.properties.type] || DEFAULT_ZOOM
+
+    this.replaceUrl(coords, zoom)
 
     this.setState({
       address,
@@ -78,10 +101,19 @@ class Map extends React.Component {
     }
   }
 
-  async getNearestAddress(lng, lat) {
-    const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${lng}&lat=${lat}`
+  async mapUpdate(coordinates, zoom, getAddress = true) {
+    this.replaceUrl(coordinates, zoom)
+
+    if (getAddress) {
+      await this.getNearestAddress(coordinates)
+    }
+  }
+
+  async getNearestAddress(coordinates) {
+    const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates[0]}&lat=${coordinates[1]}`
 
     this.setState({addressLoading: true})
+
     try {
       const results = await _get(url)
       const address = results.features.length > 0 ? results.features[0] : null
@@ -129,9 +161,7 @@ class Map extends React.Component {
   }
 
   render() {
-    const {lng, lat, z} = this.props.router.query
-    const {results, input, address, error, loading, addressLoading} = this.state
-    const center = lng && lat ? [lng, lat] : [1.7191, 46.7111]
+    const {results, input, address, center, zoom, error, loading, addressLoading} = this.state
 
     return (
       <div>
@@ -157,9 +187,9 @@ class Map extends React.Component {
         <AddressMap
           address={address}
           center={center}
-          zoom={Number(z) || 5}
+          zoom={zoom}
           loading={addressLoading}
-          getNearestAddress={this.getNearestAddress} />
+          mapUpdate={this.mapUpdate} />
 
         <style jsx>{`
           .input {

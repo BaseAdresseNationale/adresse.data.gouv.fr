@@ -1,7 +1,6 @@
 /* eslint react/no-danger: off */
 import React from 'react'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 import {Marker} from 'react-mapbox-gl'
 
 import theme from '../../styles/theme'
@@ -27,9 +26,9 @@ class AddressMap extends React.Component {
   static propTypes = {
     address: PropTypes.object,
     loading: PropTypes.bool,
-    center: PropTypes.array.isRequired,
-    zoom: PropTypes.number.isRequired,
-    getNearestAddress: PropTypes.func.isRequired
+    center: PropTypes.array,
+    zoom: PropTypes.number,
+    mapUpdate: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -41,13 +40,24 @@ class AddressMap extends React.Component {
     displayPopup: true
   }
 
-  setHash = map => {
-    const {getNearestAddress} = this.props
-    const coords = map.getCenter()
+  handleDrag = map => {
+    const {mapUpdate} = this.props
+    const {lng, lat} = map.getCenter()
     const zoom = map.getZoom()
 
-    Router.push(`/map?lng=${coords.lng}&lat=${coords.lat}&z=${zoom}`)
-    getNearestAddress(coords.lng, coords.lat)
+    mapUpdate([lng, lat], zoom, true)
+  }
+
+  handleZoom = map => {
+    const {mapUpdate} = this.props
+    const {lng, lat} = map.getCenter()
+    const zoom = map.getZoom()
+
+    this.setState({
+      displayPopup: false
+    })
+
+    mapUpdate([lng, lat], zoom, false)
   }
 
   handleClick = () => {
@@ -70,7 +80,8 @@ class AddressMap extends React.Component {
       <CenteredMap
         zoom={zoom}
         center={center}
-        handleDisplay={this.setHash}
+        onDrag={this.handleDrag}
+        onZoom={this.handleZoom}
         onClick={this.handleClose}
         fullscreen>
 
