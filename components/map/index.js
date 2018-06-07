@@ -70,12 +70,12 @@ class Map extends React.Component {
 
   replaceUrl(coordinates, zoom) {
     const {router} = this.props
-    const lng = coordinates[0]
-    const lat = coordinates[1]
+    const lng = Number.parseFloat(coordinates[0]).toPrecision(6)
+    const lat = Number.parseFloat(coordinates[1]).toPrecision(6)
 
     this.setState({
       zoom,
-      center: [lng, lat]
+      center: [coordinates[0], coordinates[1]]
     })
 
     router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
@@ -189,7 +189,8 @@ class Map extends React.Component {
           center={center}
           zoom={zoom}
           loading={addressLoading}
-          mapUpdate={this.mapUpdate} />
+          mapUpdate={this.mapUpdate}
+          getNearestAddress={this.getNearestAddress} />
 
         <style jsx>{`
           .input {
