@@ -80,7 +80,6 @@ class Dropdown extends React.Component {
             padding: 1em;
             display: grid;
             grid-row-gap: 5px;
-            width: 100px;
             right: 0;
             text-align: left;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
