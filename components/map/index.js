@@ -173,7 +173,7 @@ class Map extends React.Component {
     const {results, input, address, center, zoom, error, loading, addressLoading} = this.state
 
     return (
-      <div>
+      <div className='container'>
         <div className='input'>
           <SearchInput
             value={input}
@@ -202,6 +202,13 @@ class Map extends React.Component {
           getNearestAddress={this.getNearestAddress} />
 
         <style jsx>{`
+          .container {
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 75px);
+            top: 75px;
+          }
+
           .input {
             z-index: 10;
             width: 40%;
@@ -212,24 +219,29 @@ class Map extends React.Component {
             transform: translate(-50%);
           }
 
-          @media (max-width: 700px) {
-            .input {
-              min-width: 100%;
-              top: 125px;
-              left: 50%;
-              transform: translate(-50%);
-            }
+          .map {
+            width: 100%;
+            height: 100%;
           }
 
-          @media (max-width: 480px) {
+          @media (max-width: 700px) {
+            .container {
+              display: flex;
+              flex-flow: column;
+              height: calc(100% - 130px);
+            }
+
             .input {
-              top: 115px;
+              position: initial;
+              min-width: 100%;
+              transform: none;
             }
           }
 
           @media (max-width: 380px) {
-            .input {
-              top: 140px;
+            .container {
+              top: 65px;
+              height: calc(100% - 120px);
             }
           }
         `}</style>
