@@ -29,7 +29,7 @@ const PopupAddress = ({address}) => {
         }
 
         .popup {
-          z-index: 9;
+          z-index: 1;
           position: fixed;
           padding: 0 1em 1em 1em;
           bottom: 20px;
