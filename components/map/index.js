@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
-import {debounce} from 'lodash'
+import {throttle, debounce} from 'lodash'
 
 import {_get} from '../../lib/fetch'
 
@@ -46,13 +46,13 @@ class Map extends React.Component {
     }
 
     this.handleInput = this.handleInput.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
     this.getNearestAddress = this.getNearestAddress.bind(this)
     this.mapUpdate = this.mapUpdate.bind(this)
     this.replaceUrl = this.replaceUrl.bind(this)
 
-    this.handleSearch = debounce(this.handleSearch, 200)
+    this.handleSearchThrottled = throttle(this.handleSearch, 200)
+    this.handleSearchDebounced = debounce(this.handleSearch, 200)
   }
 
   async componentDidMount() {
@@ -97,8 +97,46 @@ class Map extends React.Component {
     this.setState({input, results: [], loading: true, error: null})
 
     if (input) {
-      this.handleSearch(input)
+      if (input.length < 5) {
+        this.handleSearchThrottled(input)
+      } else {
+        this.handleSearchDebounced(input)
+      }
     }
+  }
+
+  async handleSearch(input) {
+    const {lng, lat} = this.props.router.query
+    const types = [
+      'locality',
+      'street',
+      'housenumber'
+    ]
+    let url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
+    let results = []
+    let error
+
+    if (lng && lat) {
+      url += `&lon=${lng}&lat=${lat}`
+    }
+
+    try {
+      const req = _get(url)
+      this.currentRequest = req
+      const response = await _get(url)
+      if (this.currentRequest === req) {
+        results = response.features.filter(address =>
+          types.includes(address.properties.type) || [])
+      }
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({
+      results,
+      error,
+      loading: false
+    })
   }
 
   async mapUpdate(coordinates, zoom, getAddress = true) {
@@ -111,53 +149,24 @@ class Map extends React.Component {
 
   async getNearestAddress(coordinates) {
     const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates[0]}&lat=${coordinates[1]}`
+    let address = null
+    let error
 
     this.setState({addressLoading: true})
 
     try {
       const results = await _get(url)
-      const address = results.features.length > 0 ? results.features[0] : null
-      this.setState({
-        address,
-        input: address ? address.properties.label : '',
-        addressLoading: false
-      })
+      address = results.features.length > 0 ? results.features[0] : null
     } catch (err) {
-      this.setState({
-        address: null,
-        addressLoading: false,
-        error: err
-      })
-    }
-  }
-
-  async handleSearch(input) {
-    const {lng, lat} = this.props.router.query
-    let url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
-    const types = [
-      'locality',
-      'street',
-      'housenumber'
-    ]
-
-    if (lng && lat) {
-      url += `&lon=${lng}&lat=${lat}`
+      error = err
     }
 
-    try {
-      const results = await _get(url)
-      this.setState({
-        results: results.features.filter(address =>
-          types.includes(address.properties.type)) || []
-      })
-    } catch (err) {
-      this.setState({
-        results: [],
-        error: err
-      })
-    }
-
-    this.setState({loading: false})
+    this.setState({
+      address,
+      input: address ? address.properties.label : '',
+      addressLoading: false,
+      error
+    })
   }
 
   render() {
