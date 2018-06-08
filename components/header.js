@@ -1,6 +1,18 @@
 import Link from 'next/link'
+import FaBars from 'react-icons/lib/fa/bars'
 
 import theme from '../styles/theme'
+
+import Dropdown from './dropdown'
+
+const links = [
+  {text: 'Données', href: '/download'},
+  {text: 'Bases locales', href: '/bases-locales'},
+  {text: 'API', href: '/api'},
+  {text: 'Contribuer', href: '/contrib'},
+  {text: 'Outils', href: '/tools'},
+  {text: 'FAQ', href: '/faq'}
+]
 
 export default () => (
   <nav className='nav'>
@@ -13,13 +25,17 @@ export default () => (
       </Link>
 
       <ul className='nav__links'>
-        <li><Link href='/download'><a>Données</a></Link></li>
-        <li><Link href='/bases-locales'><a>Bases locales</a></Link></li>
-        <li><Link href='/api'><a>API</a></Link></li>
-        <li><Link href='/contrib'><a>Contribuer</a></Link></li>
-        <li><Link href='/tools'><a>Outils</a></Link></li>
-        <li><Link href='/faq'><a>FAQ</a></Link></li>
+        {links.map(link => (
+          <li key={link.text}>
+            <Link href={link.href}><a>{link.text}</a></Link>
+          </li>
+        ))}
       </ul>
+
+      <div className='hamburger-menu'>
+        <Dropdown title={<FaBars />} links={links} />
+      </div>
+
     </div>
 
     <style jsx>{`
@@ -84,15 +100,26 @@ export default () => (
         color: ${theme.colors.white};
       }
 
-      @media (max-width: 480px) {
+      .hamburger-menu {
+        display: none;
+      }
+
+      @media (max-width: 800px) {
         .nav__links {
-          padding-top: 0;
+          display: none;
         }
 
-        .nav__links li {
-          margin-top: 5px;
+        .hamburger-menu {
+          display: block;
+          margin: 1em;
         }
       }
-    `}</style>
+
+      @media (max-width: 380px) {
+        .nav__logo {
+          height: 60px;
+        }
+      }
+  `}</style>
   </nav>
 )
