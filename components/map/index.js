@@ -1,5 +1,7 @@
 import React from 'react'
-import {debounce} from 'lodash'
+import PropTypes from 'prop-types'
+import {withRouter} from 'next/router'
+import {throttle, debounce} from 'lodash'
 
 import {_get} from '../../lib/fetch'
 
@@ -20,7 +22,16 @@ const errorStyle = {
   zIndex: 10
 }
 
-class MapSearch extends React.Component {
+const zoomLevel = {
+  street: 16,
+  housenumber: 18,
+  locality: 15
+}
+
+const DEFAULT_COORDS = [1.7191, 46.7111]
+const DEFAULT_ZOOM = 5
+
+class Map extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -28,17 +39,54 @@ class MapSearch extends React.Component {
       results: [],
       address: null,
       loading: false,
+      center: DEFAULT_COORDS,
+      zoom: 5,
+      addressLoading: false,
       error: null
     }
 
     this.handleInput = this.handleInput.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
+    this.getNearestAddress = this.getNearestAddress.bind(this)
+    this.mapUpdate = this.mapUpdate.bind(this)
+    this.replaceUrl = this.replaceUrl.bind(this)
 
-    this.handleSearch = debounce(this.handleSearch, 200)
+    this.handleSearchThrottled = throttle(this.handleSearch, 200)
+    this.handleSearchDebounced = debounce(this.handleSearch, 200)
+  }
+
+  async componentDidMount() {
+    const {router} = this.props
+    const {lng, lat, z} = router.query
+
+    if (lng && lat) {
+      await this.getNearestAddress([lng, lat])
+      this.setState({
+        center: [Number(lng), Number(lat)],
+        zoom: Number(z)
+      })
+    }
+  }
+
+  replaceUrl(coordinates, zoom) {
+    const {router} = this.props
+    const lng = Number.parseFloat(coordinates[0]).toPrecision(6)
+    const lat = Number.parseFloat(coordinates[1]).toPrecision(6)
+
+    this.setState({
+      zoom,
+      center: [coordinates[0], coordinates[1]]
+    })
+
+    router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
   }
 
   handleSelect(address) {
+    const coords = address.geometry.coordinates
+    const zoom = zoomLevel[address.properties.type] || DEFAULT_ZOOM
+
+    this.replaceUrl(coords, zoom)
+
     this.setState({
       address,
       input: address.properties.label
@@ -49,36 +97,80 @@ class MapSearch extends React.Component {
     this.setState({input, results: [], loading: true, error: null})
 
     if (input) {
-      this.handleSearch(input)
+      if (input.length < 5) {
+        this.handleSearchThrottled(input)
+      } else {
+        this.handleSearchDebounced(input)
+      }
     }
   }
 
   async handleSearch(input) {
-    const url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
+    const {lng, lat} = this.props.router.query
     const types = [
       'locality',
       'street',
       'housenumber'
     ]
+    let url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
+    let results = []
+    let error
+
+    if (lng && lat) {
+      url += `&lon=${lng}&lat=${lat}`
+    }
+
+    try {
+      const req = _get(url)
+      this.currentRequest = req
+      const response = await _get(url)
+      if (this.currentRequest === req) {
+        results = response.features.filter(address =>
+          types.includes(address.properties.type) || [])
+      }
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({
+      results,
+      error,
+      loading: false
+    })
+  }
+
+  async mapUpdate(coordinates, zoom, getAddress = true) {
+    this.replaceUrl(coordinates, zoom)
+
+    if (getAddress) {
+      await this.getNearestAddress(coordinates)
+    }
+  }
+
+  async getNearestAddress(coordinates) {
+    const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates[0]}&lat=${coordinates[1]}`
+    let address = null
+    let error
+
+    this.setState({addressLoading: true})
 
     try {
       const results = await _get(url)
-      this.setState({
-        results: results.features.filter(address =>
-          types.includes(address.properties.type)) || []
-      })
+      address = results.features.length > 0 ? results.features[0] : null
     } catch (err) {
-      this.setState({
-        results: [],
-        error: err
-      })
+      error = err
     }
 
-    this.setState({loading: false})
+    this.setState({
+      address,
+      input: address ? address.properties.label : '',
+      addressLoading: false,
+      error
+    })
   }
 
   render() {
-    const {results, input, address, error, loading} = this.state
+    const {results, input, address, center, zoom, error, loading, addressLoading} = this.state
 
     return (
       <div>
@@ -101,7 +193,13 @@ class MapSearch extends React.Component {
             type='error' />
         }
 
-        <AddressMap address={address} />
+        <AddressMap
+          address={address}
+          center={center}
+          zoom={zoom}
+          loading={addressLoading}
+          mapUpdate={this.mapUpdate}
+          getNearestAddress={this.getNearestAddress} />
 
         <style jsx>{`
           .input {
@@ -140,4 +238,11 @@ class MapSearch extends React.Component {
   }
 }
 
-export default MapSearch
+Map.propTypes = {
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    query: PropTypes.object.isRequired
+  }).isRequired
+}
+
+export default (withRouter(Map))

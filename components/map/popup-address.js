@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import FaTimesCircle from 'react-icons/lib/fa/times-circle'
 
 import theme from '../../styles/theme'
 
@@ -9,16 +8,11 @@ const types = {
   housenumber: 'Numéro'
 }
 
-const PopupAddress = ({address, onClose}) => {
+const PopupAddress = ({address}) => {
   const {context, name, postcode, citycode, type, city} = address.properties
   return (
     <div className='popup'>
-      <div className='head' onClick={onClose}>
-        <h4>{types[type]}</h4>
-        <div onClick={onClose}>
-          <FaTimesCircle />
-        </div>
-      </div>
+      <h4>{types[type]}</h4>
       <div>
         <div>{name}</div>
         <div>{postcode} {city}</div>
@@ -28,12 +22,6 @@ const PopupAddress = ({address, onClose}) => {
       </div>
 
       <style jsx>{`
-        .head {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
         .divider {
           width: 50%;
           margin: 1.2em auto;
@@ -41,7 +29,7 @@ const PopupAddress = ({address, onClose}) => {
         }
 
         .popup {
-          z-index: 9;
+          z-index: 1;
           position: fixed;
           padding: 0 1em 1em 1em;
           bottom: 20px;
@@ -82,8 +70,7 @@ PopupAddress.propTypes = {
       type: PropTypes.string.isRequired,
       city: PropTypes.string.isRequired
     }).isRequired
-  }).isRequired,
-  onClose: PropTypes.func.isRequired
+  }).isRequired
 }
 
 export default PopupAddress
