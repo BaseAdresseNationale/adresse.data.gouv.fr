@@ -10,9 +10,11 @@ const BasesLocales = ({datasets}) => (
   <div>
     <Section background='white'>
       <div className='intro'>
-        <p>La création des voies et des adresses en France est du ressort des communes, via le conseil municipal. Cette compétence est régulièrement déléguée à un EPCI.</p>
-        <p>Une base Adresse locale est donc l’expression de cette compétence, et regroupe tout ou partie des adresses d’une collectivité. Elle est publiée sous sa responsabilité.</p>
-        <p>Ces bases de données ont vocation à alimenter les bases nationales, et en particulier la Base Adresse Nationale.</p>
+        <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />
+        Cette compétence est <b>régulièrement déléguée à un EPCI</b>.</p>
+        <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe tout ou partie des adresses d’une collectivité.<br />
+        Elle est <b>publiée sous sa responsabilité</b>.</p>
+        <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
       </div>
     </Section>
 
@@ -40,7 +42,7 @@ const BasesLocales = ({datasets}) => (
     </Section>
     <style jsx>{`
       .intro {
-        text-align: center;
+        text-align: left;
       }
 
       .row {
