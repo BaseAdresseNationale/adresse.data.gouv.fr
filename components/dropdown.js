@@ -6,9 +6,12 @@ import theme from '../styles/theme'
 
 class Dropdown extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.node
+    ]).isRequired,
     links: PropTypes.arrayOf(PropTypes.shape({
-      action: PropTypes.func.isRequired,
+      action: PropTypes.func,
       text: PropTypes.string.isRequired
     })).isRequired
   }
