@@ -6,11 +6,6 @@ import ReactMapboxGl from 'react-mapbox-gl'
 // eslint-disable-next-line new-cap
 const Map = ReactMapboxGl({})
 
-const fullscreenStyle = {
-  height: 'calc(100vh - 75px)',
-  width: '100vw'
-}
-
 const containerStyle = {
   height: '100%',
   width: '100%',
@@ -19,7 +14,7 @@ const containerStyle = {
 
 class Mapbox extends React.Component {
   render() {
-    const {center, zoom, fullscreen, onStyleLoad, onDrag, onZoom, onClick, children} = this.props
+    const {center, zoom, onStyleLoad, onDrag, onZoom, onClick, children} = this.props
 
     return (
       <Map
@@ -31,7 +26,7 @@ class Mapbox extends React.Component {
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         center={center}
-        containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
+        containerStyle={containerStyle}>
         {children}
       </Map>
     )
@@ -45,14 +40,12 @@ Mapbox.propTypes = {
   onDrag: PropTypes.func.isRequired,
   onZoom: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  onStyleLoad: PropTypes.func,
-  fullscreen: PropTypes.bool
+  onStyleLoad: PropTypes.func
 }
 
 Mapbox.defaultProps = {
   zoom: 13,
-  onStyleLoad: null,
-  fullscreen: false
+  onStyleLoad: null
 }
 
 export default Mapbox
