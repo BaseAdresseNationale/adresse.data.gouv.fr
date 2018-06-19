@@ -2,14 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
+import FaBars from 'react-icons/lib/md/menu'
+import FaClose from 'react-icons/lib/md/close'
+
 import theme from '../styles/theme'
 
-class Dropdown extends React.Component {
+class HamburgerMenu extends React.Component {
   static propTypes = {
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.node
-    ]).isRequired,
     links: PropTypes.arrayOf(PropTypes.shape({
       action: PropTypes.func,
       text: PropTypes.string.isRequired
@@ -20,19 +19,7 @@ class Dropdown extends React.Component {
     visible: false
   }
 
-  componentDidMount() {
-    window.addEventListener('mousedown', this.closeDropdown)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('mousedown', this.closeDropdown)
-  }
-
-  setDropdownRef = node => {
-    this.dropdownRef = node
-  }
-
-  handleDropdown = e => {
+  handleMenu = e => {
     e.preventDefault()
 
     this.setState(state => ({
@@ -40,21 +27,15 @@ class Dropdown extends React.Component {
     }))
   }
 
-  closeDropdown = event => {
-    if (this.dropdownRef && !this.dropdownRef.contains(event.target)) {
-      this.setState(() => ({
-        visible: false
-      }))
-    }
-  }
-
   render() {
-    const {title, links} = this.props
+    const {links} = this.props
     const {visible} = this.state
 
     return (
-      <div ref={this.setDropdownRef} className='dropdown' onClick={this.handleDropdown}>
-        <a>{title}</a>
+      <div className='dropdown'>
+        <div onClick={this.handleMenu}>
+          {visible ? <FaClose size={22} /> : <FaBars size={22} />}
+        </div>
 
         {visible && (
           <div className='content'>
@@ -83,6 +64,7 @@ class Dropdown extends React.Component {
             padding: 1em;
             display: grid;
             grid-row-gap: 5px;
+            grid-auto-columns: max-content;
             right: 0;
             text-align: left;
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -110,4 +92,4 @@ class Dropdown extends React.Component {
   }
 }
 
-export default Dropdown
+export default HamburgerMenu
