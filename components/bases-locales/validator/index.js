@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
 import {withRouter} from 'next/router'
 
+import {createBALValidationError} from '../../../lib/error'
+
 import Section from '../../section'
 import Loader from '../../loader'
 
@@ -64,7 +66,7 @@ class BALValidator extends React.Component {
   }
 
   handleError(error) {
-    this.setState({error: error.message, file: null, report: null, url: null})
+    this.setState({error, file: null, report: null, url: null})
   }
 
   resetState() {
@@ -84,9 +86,9 @@ class BALValidator extends React.Component {
     this.resetState()
 
     if (!fileExtension || fileExtension !== 'csv') {
-      this.handleError(new Error('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.'))
+      this.handleError(createBALValidationError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.'))
     } else if (file.size > 100 * 1024 * 1024) {
-      this.handleError(new Error('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'))
+      this.handleError(createBALValidationError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'))
     } else {
       this.setState({
         file,
@@ -97,7 +99,7 @@ class BALValidator extends React.Component {
 
   async handleInput(input) {
     if (input) {
-      this.setState({loading: true, error: false, url: input})
+      this.setState({loading: true, error: null, url: input})
       const url = 'https://adressedgv-cors.now.sh/' + input
 
       try {
@@ -108,18 +110,18 @@ class BALValidator extends React.Component {
             this.setState({file, loading: false})
             this.parseFile()
           } else {
-            throw new Error('Le fichier n’est pas au format CSV')
+            throw createBALValidationError('Le fichier n’est pas au format CSV')
           }
         } else if (response.status in statusCodeMsg) {
-          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
+          throw createBALValidationError(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
         } else {
-          throw new Error(`Impossible de récupérer le fichier car une erreur est survenue.`)
+          throw createBALValidationError(`Impossible de récupérer le fichier car une erreur est survenue.`)
         }
       } catch (err) {
         this.handleError(err)
       }
     } else {
-      this.handleError(new Error('Le champ est vide.'))
+      this.handleError(createBALValidationError('Le champ est vide.'))
     }
     this.setState({loading: false})
   }
@@ -130,8 +132,12 @@ class BALValidator extends React.Component {
     this.setState({inProgress: true})
     validate(file)
       .then(report => this.setState({report, inProgress: false}))
-      .then(() => this.pushEncodedUrl())
-      .catch(err => this.setState({error: `Impossible d’analyser le fichier… [${err.message}]`, inProgress: false}))
+      .then(() => {
+        if (this.state.url) {
+          this.pushEncodedUrl()
+        }
+      })
+      .catch(err => this.setState({error: createBALValidationError(`Impossible d’analyser le fichier… [${err.message}]`), inProgress: false}))
   }
 
   pushEncodedUrl() {
