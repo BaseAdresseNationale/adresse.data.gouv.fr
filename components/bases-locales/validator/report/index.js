@@ -37,14 +37,11 @@ class Report extends React.Component {
 
         <style jsx>{`
           .container {
-            margin: 2em 0;
             padding: 2em 1em;
-            box-shadow: 0 1px 4px ${theme.boxShadow};
             background: ${theme.colors.white};
           }
 
           .items {
-            margin-bottom: 2em;
             display: grid;
             grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
             grid-gap: 2em 1em;

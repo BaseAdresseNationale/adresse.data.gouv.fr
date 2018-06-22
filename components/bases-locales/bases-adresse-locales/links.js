@@ -26,6 +26,8 @@ class Links extends React.Component {
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-width: 212px;
+            margin: 0 auto;
           }
           `}</style>
       </div>

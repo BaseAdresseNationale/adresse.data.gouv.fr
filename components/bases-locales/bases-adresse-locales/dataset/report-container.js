@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaTimesCircle from 'react-icons/lib/fa/times-circle'
 
-import {_get} from '../../../lib/fetch'
+import {_get} from '../../../../lib/fetch'
 
-import theme from '../../../styles/theme'
+import theme from '../../../../styles/theme'
 
-import Button from '../../button'
-import LoadingContent from '../../loading-content'
+import Button from '../../../button'
+import LoadingContent from '../../../loading-content'
 
-import BalReport from './bal-report'
+import BalReport from '../bal-report'
 
 class Dataset extends React.Component {
   constructor(props) {
@@ -68,28 +68,41 @@ class Dataset extends React.Component {
     const report = this.props.report || stateReport
 
     return (
-      <div>
+      <div className='container'>
         {(!displayReport || error) &&
           <div className='centered'>
             <Button onClick={this.handleReport}>Afficher le rapport</Button>
           </div>}
 
         {(displayReport || loading) &&
-          <LoadingContent loading={loading} error={error} centered>
-            <div className='report'>
-              <div className='close' onClick={this.handleReport}><FaTimesCircle size={32} /></div>
-              <BalReport report={report} />
-            </div>
-          </LoadingContent>}
+          <div className={`${loading ? 'loading' : ''}`}>
+            <LoadingContent loading={loading} error={error} centered>
+              <div className='report'>
+                <div className='close' onClick={this.handleReport}><FaTimesCircle size={32} /></div>
+                <BalReport report={report} />
+              </div>
+            </LoadingContent>
+          </div>
+        }
 
         <style jsx>{`
+          .container {
+            margin: 1em 0;
+          }
+
+          .loading {
+            width: 100%;
+            height: 400px;
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+          }
+
           .centered {
             display: flex;
             justify-content: center;
           }
 
           .report {
-            border-top: 1px solid ${theme.border};
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
 
           .close {

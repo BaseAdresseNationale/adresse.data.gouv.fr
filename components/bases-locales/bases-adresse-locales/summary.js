@@ -12,7 +12,7 @@ const Summary = ({id, url, status, licenseLabel, valid, organization, page, erro
         <Organization {...organization} />
       </div>
       <div>
-        <Meta id={id} status={status} license={licenseLabel} valid={valid} error={error} />
+        <Meta id={id} status={status} license={licenseLabel} valid={valid} error={error} column />
       </div>
       <div>
         <Links url={url} page={page} />
