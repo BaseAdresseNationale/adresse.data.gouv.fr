@@ -59,10 +59,10 @@ Report.propTypes = {
   report: PropTypes.shape({
     knownFields: PropTypes.array.isRequired,
     unknownFields: PropTypes.array.isRequired,
-    aliasedFields: PropTypes.array.isRequired,
+    aliasedFields: PropTypes.object.isRequired,
     rowsWithErrors: PropTypes.array.isRequired,
-    parseMeta: PropTypes.array.isRequired,
-    rowsErrorsCount: PropTypes.array.isRequired,
+    parseMeta: PropTypes.object.isRequired,
+    rowsErrorsCount: PropTypes.number.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,
