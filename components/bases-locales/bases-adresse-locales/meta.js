@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
@@ -7,54 +7,94 @@ import FaClose from 'react-icons/lib/fa/close'
 import theme from '../../../styles/theme'
 
 class Meta extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    status: PropTypes.oneOf([
+      'ok',
+      'malformed'
+    ]).isRequired,
+    license: PropTypes.string.isRequired,
+    lastUpdate: PropTypes.string,
+    error: PropTypes.string,
+    valid: PropTypes.bool,
+    column: PropTypes.bool
+  }
+
+  static defaultProps = {
+    column: false
+  }
+
   render() {
-    const {id, status, license, valid, error} = this.props
+    const {id, status, license, lastUpdate, valid, error, column} = this.props
+    const report = (
+      <div style={{marginLeft: '0.2em'}}>
+        {status === 'ok' ?
+          <Link href={{
+            pathname: `/bases-locales/jeux-de-donnees/${id}`,
+            asPath: `bases-locales/jeux-de-donnees/${id}`,
+            query: {report: true}
+          }}>
+            <a>Consulter le rapport</a>
+          </Link> :
+          <div className='error'>
+            <div>Le fichier n’a pas pu être analysé car :</div>
+            <div>{error}</div>
+          </div>
+        }
+      </div>
+    )
 
     return (
-      <div className='content'>
-        <div>
+      <div className={`content ${column ? 'column' : ''}`}>
+        <div className='info'>
           <b>Format :</b>
           <span>BAL 1.1</span>
         </div>
 
-        <div>
+        <div className='info'>
           <b>Licence :</b>
           <span>{license}</span>
         </div>
 
-        <div>
+        <div className='info'>
+          <b>Dernière date de mise à jour :</b>
+          <span>{lastUpdate ? lastUpdate : 'inconnue'}</span>
+        </div>
+
+        <div className='info'>
           <b>Conformité :</b>
           {valid ?
-            <span className='valid'><FaCheck /></span> :
-            <Fragment>
-              <span className='invalid'><FaClose /></span>
-              {status === 'ok' ?
-                <Link href={{
-                  pathname: `/bases-locales/jeux-de-donnees/${id}`,
-                  asPath: `bases-locales/jeux-de-donnees/${id}`,
-                  query: {report: true}
-                }}>
-                  <a>Consulter le rapport</a>
-                </Link> :
-                <div className='error'>
-                  <div>Le fichier n’a pas pu être analysé car :</div>
-                  <div>{error}</div>
-                </div>
-              }
-            </Fragment>
+            <span className='valid'><FaCheck />{report}</span> :
+            <span className='invalid'><FaClose />{report}</span>
           }
+
         </div>
         <style jsx>{`
           .content {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-flow: wrap;
+          }
+
+          .column {
             flex-direction: column;
+            align-items: start;
+          }
+
+          .info {
+            margin 0.5em 0;
+          }
+
+          .column .info {
+            margin 0;
           }
 
           span {
+            display: inline-flex;
             border-radius: 3.75em;
             background-color: ${theme.infoBg};
             color: ${theme.infoBorder};
-            display: inline-block;
             font-size: .75em;
             line-height: 1;
             padding: .4em 1.2em;
@@ -80,17 +120,6 @@ class Meta extends React.Component {
       </div>
     )
   }
-}
-
-Meta.propTypes = {
-  id: PropTypes.string.isRequired,
-  status: PropTypes.oneOf([
-    'ok',
-    'malformed'
-  ]).isRequired,
-  license: PropTypes.string.isRequired,
-  error: PropTypes.string,
-  valid: PropTypes.bool
 }
 
 export default Meta
