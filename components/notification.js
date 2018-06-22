@@ -63,13 +63,16 @@ const Notification = ({message, type, style, children}) => (
 )
 
 Notification.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.instanceOf(Error)
+  ]),
   type: PropTypes.PropTypes.oneOf([
     'info', 'success', 'error', 'warning'
   ]),
   style: PropTypes.object,
   children: (props, propName, componentName) => {
-    if (props.message) {
+    if (props.message && props.children) {
       return new Error(
         `message and chidlren properties can not both be supplied to ${componentName}.`
       )

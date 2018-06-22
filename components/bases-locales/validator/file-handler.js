@@ -63,7 +63,7 @@ FileHandler.propTypes = {
   file: PropTypes.object,
   error: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.bool
+    PropTypes.instanceOf(Error)
   ]),
   loading: PropTypes.bool,
   onFileDrop: PropTypes.func.isRequired,
