@@ -17,6 +17,11 @@ class ProducerDiscussion extends React.Component {
         <div className='centered'>
           <ButtonLink href={page}>Ouvrir une discussion avec le producteur</ButtonLink>
         </div>
+        <style jsx>{`
+          .centered {
+            text-align: center;
+          }
+        `}</style>
       </Section>
     )
   }

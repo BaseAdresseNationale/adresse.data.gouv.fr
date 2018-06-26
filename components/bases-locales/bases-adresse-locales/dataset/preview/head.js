@@ -5,19 +5,22 @@ import theme from '../../../../../styles/theme'
 
 class Head extends React.Component {
   static propTypes = {
-    communes: PropTypes.number.isRequired,
-    voies: PropTypes.number.isRequired,
-    addresses: PropTypes.number.isRequired
+    counters: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired
+      })
+    ).isRequired
   }
 
   render() {
-    const {communes, voies, addresses} = this.props
+    const {counters} = this.props
 
     return (
       <div className='container'>
-        <div>Communes : <b>{communes}</b></div>
-        <div>Voies : <b>{voies}</b></div>
-        <div>Adresses : <b>{addresses}</b></div>
+        {counters.map(counter => (
+          <div key={counter.name}>{counter.name} : <b>{counter.value}</b></div>
+        ))}
         <style jsx>{`
           .container {
             display: flex;

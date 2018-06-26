@@ -34,6 +34,10 @@ class Dataset extends React.Component {
     summary: PropTypes.object.isRequired
   }
 
+  static defaultProps = {
+    report: null
+  }
+
   render() {
     const {dataset, summary, report} = this.props
     const {id, title, description, url, status, licenseLabel, valid, organization, page, error} = dataset
@@ -90,12 +94,6 @@ class Dataset extends React.Component {
       </div>
     )
   }
-}
-
-
-
-Dataset.defaultProps = {
-  report: null
 }
 
 export default Dataset
