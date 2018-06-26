@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Head from './head'
-import ContoursMap from './contours-map'
+import Map from './map'
 import List from './list'
 
 class Preview extends React.Component {
@@ -11,11 +11,12 @@ class Preview extends React.Component {
     list: PropTypes.array.isRequired,
     filter: PropTypes.func.isRequired,
     toItem: PropTypes.func.isRequired,
-    contour: PropTypes.object
+    geojson: PropTypes.object,
+    points: PropTypes.bool
   }
 
   render() {
-    const {counters, list, filter, toItem, contour} = this.props
+    const {counters, list, filter, toItem, geojson, points} = this.props
 
     return (
       <div className='container'>
@@ -30,7 +31,7 @@ class Preview extends React.Component {
           </div>
 
           <div className='map'>
-            {contour && <ContoursMap contour={contour} />}
+            {geojson && <Map geojson={geojson} points={points} />}
           </div>
         </div>
 

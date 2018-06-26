@@ -13,7 +13,7 @@ const loadingStyle = {
   backgroundColor: 'whitesmoke'
 }
 
-class ContoursMap extends React.PureComponent {
+class Map extends React.PureComponent {
   state = {
     showMap: false
   }
@@ -35,14 +35,14 @@ class ContoursMap extends React.PureComponent {
 
   render() {
     const {showMap} = this.state
-    const {contour} = this.props
+    const {geojson, points} = this.props
     const {GeojsonMap} = this
 
     return (
       <div className='map'>
 
         {showMap &&
-          <GeojsonMap data={contour} />
+          <GeojsonMap data={geojson} points={points} />
         }
 
         <style jsx>{`
@@ -58,8 +58,13 @@ class ContoursMap extends React.PureComponent {
 
 }
 
-ContoursMap.propTypes = {
-  contour: PropTypes.object.isRequired
+Map.propTypes = {
+  geojson: PropTypes.object.isRequired,
+  points: PropTypes.bool
 }
 
-export default ContoursMap
+Map.defaultProps = {
+  points: false
+}
+
+export default Map

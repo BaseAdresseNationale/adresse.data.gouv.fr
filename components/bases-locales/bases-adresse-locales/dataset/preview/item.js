@@ -12,7 +12,8 @@ class Item extends React.Component {
       title: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.number
+        PropTypes.number,
+        PropTypes.node
       ])
     }).isRequired,
     link: PropTypes.func.isRequired

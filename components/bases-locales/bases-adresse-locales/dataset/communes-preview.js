@@ -40,7 +40,7 @@ class CommunesPreview extends React.Component {
         counters={counters}
         list={communes}
         filter={(commune, input) => deburr(commune.nom.toLowerCase()).includes(input)}
-        contour={communesContour}
+        geojson={communesContour}
         toItem={commune => {
           return {
             id: commune.code,
