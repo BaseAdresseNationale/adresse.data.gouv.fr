@@ -54,6 +54,15 @@ module.exports = app => {
     })
   })
 
+  router.get('/bases-locales/jeux-de-donnees/:id/:codeCommune/:codeVoie', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets/dataset/commune/voie', {
+      ...req.query,
+      id: req.params.id,
+      codeCommune: req.params.codeCommune,
+      codeVoie: req.params.codeVoie
+    })
+  })
+
   router.get('*', (req, res) => {
     app.render(req, res, req.params[0], req.query)
   })

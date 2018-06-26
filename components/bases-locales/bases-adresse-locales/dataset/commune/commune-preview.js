@@ -39,10 +39,10 @@ class CommunesPreview extends React.Component {
         counters={counters}
         list={voies}
         filter={(voie, input) => deburr(voie.nomVoie.toLowerCase()).includes(input)}
-        contour={contour}
+        geojson={contour}
         toItem={voie => {
           return {
-            id: voie.idVoie,
+            id: voie.codeVoie,
             name: voie.nomVoie,
             link: this.goto,
             info: {title: voie.numerosCount > 1 ? 'numéros' : 'numéro', value: voie.numerosCount}

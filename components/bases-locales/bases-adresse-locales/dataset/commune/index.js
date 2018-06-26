@@ -7,7 +7,7 @@ import Header from '../header'
 import ProducerDiscussion from '../producer-discussion'
 
 import Breadcrumb from './breadcrumb'
-import CommunesPreview from './commune-preview'
+import CommunePreview from './commune-preview'
 
 class Commune extends React.Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class Commune extends React.Component {
               title: 'Dernière mise à jour',
               children: dataset.lastUpdate ? dataset.lastUpdate : 'inconnue'}} />
 
-          <CommunesPreview commune={commune} />
+          <CommunePreview commune={commune} />
         </Section>
 
         <ProducerDiscussion page={page} />
