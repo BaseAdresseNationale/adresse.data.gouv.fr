@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
 
 import theme from '../../../styles/theme'
+
+import Info from './info'
 
 class Meta extends React.Component {
   static propTypes = {
@@ -46,29 +48,25 @@ class Meta extends React.Component {
 
     return (
       <div className={`content ${column ? 'column' : ''}`}>
-        <div className='info'>
-          <b>Format :</b>
+        <Info title='Format'>
           <span>BAL 1.1</span>
-        </div>
+        </Info>
 
-        <div className='info'>
-          <b>Licence :</b>
+        <Info title='Licence'>
           <span>{license}</span>
-        </div>
+        </Info>
 
-        <div className='info'>
-          <b>Dernière date de mise à jour :</b>
+        <Info title='Dernière date de mise à jour'>
           <span>{lastUpdate ? lastUpdate : 'inconnue'}</span>
-        </div>
+        </Info>
 
-        <div className='info'>
-          <b>Conformité :</b>
+        <Info title='Conformité' type={valid ? 'valid' : 'invalid'}>
           {valid ?
-            <span className='valid'><FaCheck />{report}</span> :
-            <span className='invalid'><FaClose />{report}</span>
+            <Fragment><FaCheck />{report}</Fragment> :
+            <Fragment><FaClose />{report}</Fragment>
           }
+        </Info>
 
-        </div>
         <style jsx>{`
           .content {
             display: flex;
@@ -80,37 +78,6 @@ class Meta extends React.Component {
           .column {
             flex-direction: column;
             align-items: start;
-          }
-
-          .info {
-            margin 0.5em 0;
-          }
-
-          .column .info {
-            margin 0;
-          }
-
-          span {
-            display: inline-flex;
-            border-radius: 3.75em;
-            background-color: ${theme.infoBg};
-            color: ${theme.infoBorder};
-            font-size: .75em;
-            line-height: 1;
-            padding: .4em 1.2em;
-            margin: .1em .5em
-          }
-
-          span.valid {
-            padding: .4em .5em;
-            background-color: ${theme.successBg};
-            color: ${theme.successBorder};
-          }
-
-          span.invalid {
-            padding: .4em .5em;
-            background-color: ${theme.errorBg};
-            color: ${theme.errorBorder};
           }
 
           .error {
