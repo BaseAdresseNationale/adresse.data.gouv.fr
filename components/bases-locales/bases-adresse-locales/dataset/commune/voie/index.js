@@ -36,7 +36,7 @@ class Voie extends React.Component {
         <Section>
           <Breadcrumb
             links={[
-              {link: title, href: `/bases-locales/jeux-de-donnees/${id}` },
+              {link: title, href: `/bases-locales/jeux-de-donnees/${id}`},
               {link: commune.nom, href: `/bases-locales/jeux-de-donnees/${id}/${commune.code}`}
             ]}
             current={voie.nomVoie} />
