@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {sumBy} from 'lodash'
 
 import {contoursToGeoJson} from '../../../../../lib/geojson'
 
@@ -10,24 +9,23 @@ import Communes from './communes'
 
 class CommunesPreview extends React.Component {
   static propTypes = {
-    communes: PropTypes.arrayOf(
-      PropTypes.shape({
-        voiesCount: PropTypes.number.isRequired,
-        numerosCount: PropTypes.number.isRequired
-      })
-    ).isRequired
+    summary: PropTypes.shape({
+      communes: PropTypes.array.isRequired,
+      voiesCount: PropTypes.number.isRequired,
+      numerosCount: PropTypes.number.isRequired
+    }).isRequired
   }
 
   render() {
-    const {communes} = this.props
+    const {communes, voiesCount, numerosCount} = this.props.summary
     const communesContours = contoursToGeoJson(communes)
 
     return (
       <div className='container'>
         <Head
           communes={communes.length}
-          voies={sumBy(communes, commune => commune.voiesCount)}
-          addresses={sumBy(communes, commune => commune.numerosCount)} />
+          voies={voiesCount}
+          addresses={numerosCount} />
 
         <div className='content'>
           <div className='communes'>

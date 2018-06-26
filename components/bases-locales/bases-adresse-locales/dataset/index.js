@@ -31,11 +31,11 @@ class Dataset extends React.Component {
       valid: PropTypes.bool,
       error: PropTypes.object
     }).isRequired,
-    communes: PropTypes.array.isRequired
+    summary: PropTypes.object.isRequired
   }
 
   render() {
-    const {dataset, communes, report} = this.props
+    const {dataset, summary, report} = this.props
     const {id, title, description, url, status, licenseLabel, valid, organization, page, error} = dataset
 
     return (
@@ -51,7 +51,7 @@ class Dataset extends React.Component {
             organization={organization}
             error={error} />
 
-          <CommunesPreview communes={communes} />
+          <CommunesPreview summary={summary} />
 
           <ReportContainer report={report} datasetId={id} />
           <Links url={url} page={page} />
