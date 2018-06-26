@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import theme from '../../../../styles/theme'
 
 import Section from '../../../../components/section'
-import ButtonLink from '../../../button-link'
 
 import Meta from '../meta'
 
@@ -14,6 +13,7 @@ import Header from './header'
 import Description from './description'
 import CommunesPreview from './communes-preview'
 import ReportContainer from './report-container'
+import ProducerDiscussion from './producer-discussion'
 
 class Dataset extends React.Component {
   static propTypes = {
@@ -57,11 +57,7 @@ class Dataset extends React.Component {
           <Links url={url} page={page} />
         </Section>
 
-        <Section title='Un problème à signaler ?' subtitle='Ou une question à poser ?' background='dark'>
-          <div className='centered'>
-            <ButtonLink href={page}>Ouvrir une discussion avec le producteur</ButtonLink>
-          </div>
-        </Section>
+        <ProducerDiscussion page={page} />
 
         <style jsx>{`
           .head {
