@@ -41,6 +41,7 @@ Summary.propTypes = {
   organization: PropTypes.object.isRequired,
   page: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  lastUpdate: PropTypes.string.isRequired,
   valid: PropTypes.bool,
   error: PropTypes.object
 }
