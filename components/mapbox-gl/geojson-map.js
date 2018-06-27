@@ -26,7 +26,7 @@ const polygonPaint = {
   'fill-opacity': 0.3
 }
 
-const GeojsonMap = ({data, id, cluster, points}) => {
+const GeojsonMap = ({data, id, cluster}) => {
   const options = {
     cluster,
     clusterMaxZoom: 14,
@@ -45,11 +45,6 @@ const GeojsonMap = ({data, id, cluster, points}) => {
         linePaint={linePaint}
         fillPaint={fillPaint}
         polygonPaint={polygonPaint}
-        circlePaint={points ? {
-          'circle-radius': 8,
-          'circle-color': '#3099df',
-          'circle-opacity': 1
-        } : null}
         circleOnMouseDown={this.markerClick} />
       {cluster && <ClusterLayers sourceId={id} />}
     </MapboxGL>
@@ -59,14 +54,12 @@ const GeojsonMap = ({data, id, cluster, points}) => {
 GeojsonMap.propTypes = {
   data: PropTypes.object.isRequired,
   id: PropTypes.string,
-  cluster: PropTypes.bool,
-  points: PropTypes.bool
+  cluster: PropTypes.bool
 }
 
 GeojsonMap.defaultProps = {
   id: 'source_id',
-  cluster: false,
-  points: false
+  cluster: false
 }
 
 export default GeojsonMap
