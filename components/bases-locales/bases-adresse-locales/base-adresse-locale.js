@@ -48,6 +48,7 @@ BaseAdresseLocale.propTypes = {
   title: PropTypes.string.isRequired,
   organization: PropTypes.object.isRequired,
   status: PropTypes.string.isRequired,
+  lastUpdate: PropTypes.string.isRequired,
   licenseLabel: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   page: PropTypes.string.isRequired,
