@@ -11,12 +11,11 @@ class Preview extends React.Component {
     list: PropTypes.array.isRequired,
     filter: PropTypes.func.isRequired,
     toItem: PropTypes.func.isRequired,
-    geojson: PropTypes.object,
-    points: PropTypes.bool
+    geojson: PropTypes.object
   }
 
   render() {
-    const {counters, list, filter, toItem, geojson, points} = this.props
+    const {counters, list, filter, toItem, geojson} = this.props
 
     return (
       <div className='container'>
@@ -31,7 +30,7 @@ class Preview extends React.Component {
           </div>
 
           <div className='map'>
-            {geojson && <Map geojson={geojson} points={points} />}
+            {geojson && <Map geojson={geojson} />}
           </div>
         </div>
 

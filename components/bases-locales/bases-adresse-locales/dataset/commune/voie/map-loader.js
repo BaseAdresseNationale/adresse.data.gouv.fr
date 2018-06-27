@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
-import LoadingContent from '../../../../loading-content'
+import LoadingContent from '../../../../../loading-content'
 
 const loadingStyle = {
   display: 'flex',
@@ -13,17 +13,13 @@ const loadingStyle = {
   backgroundColor: 'whitesmoke'
 }
 
-class Map extends React.PureComponent {
+class NumerosMap extends React.Component {
   state = {
     showMap: false
   }
 
-  static propTypes = {
-    geojson: PropTypes.object.isRequired
-  }
-
   componentWillMount() {
-    this.GeojsonMap = dynamic(import('../../../../mapbox-gl/geojson-map'), {
+    this.NumerosMap = dynamic(import('./numeros-map'), {
       ssr: false,
       loading: () => (
         <div style={loadingStyle}>
@@ -39,27 +35,15 @@ class Map extends React.PureComponent {
 
   render() {
     const {showMap} = this.state
-    const {geojson} = this.props
-    const {GeojsonMap} = this
+    const {numeros} = this.props
+    const {NumerosMap} = this
 
-    return (
-      <div className='map'>
-
-        {showMap &&
-          <GeojsonMap data={geojson} />
-        }
-
-        <style jsx>{`
-          .map {
-            width: 100%;
-            height: 500px;
-            margin: 1em 0;
-          }
-        `}</style>
-      </div>
-    )
+    return showMap && <NumerosMap numeros={numeros} />
   }
-
 }
 
-export default Map
+NumerosMap.propTypes = {
+  numeros: PropTypes.array.isRequired
+}
+
+export default NumerosMap
