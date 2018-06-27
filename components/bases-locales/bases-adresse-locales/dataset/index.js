@@ -23,6 +23,7 @@ class Dataset extends React.Component {
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
+      lastUpdate: PropTypes.string.isRequired,
       license: PropTypes.string.isRequired,
       licenseLabel: PropTypes.string.isRequired,
       organization: PropTypes.object.isRequired,
@@ -40,7 +41,7 @@ class Dataset extends React.Component {
 
   render() {
     const {dataset, summary, report} = this.props
-    const {id, title, description, url, status, licenseLabel, valid, organization, page, error} = dataset
+    const {id, title, description, url, lastUpdate, status, licenseLabel, valid, organization, page, error} = dataset
 
     return (
       <div>
@@ -51,6 +52,7 @@ class Dataset extends React.Component {
             id={id}
             status={status}
             license={licenseLabel}
+            lastUpdate={lastUpdate}
             valid={valid}
             organization={organization}
             error={error} />

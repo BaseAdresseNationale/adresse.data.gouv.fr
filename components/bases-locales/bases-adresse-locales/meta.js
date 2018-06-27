@@ -56,7 +56,7 @@ class Meta extends React.Component {
           <span>{license}</span>
         </Info>
 
-        <Info title='Dernière date de mise à jour'>
+        <Info title='Dernière mise à jour'>
           <span>{lastUpdate ? lastUpdate : 'inconnue'}</span>
         </Info>
 

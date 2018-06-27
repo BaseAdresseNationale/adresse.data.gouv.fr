@@ -5,14 +5,14 @@ import Organization from './organization'
 import Meta from './meta'
 import Links from './links'
 
-const Summary = ({id, url, status, licenseLabel, valid, organization, page, error}) => (
+const Summary = ({id, url, status, licenseLabel, valid, organization, lastUpdate, page, error}) => (
   <div>
     <div className='base-adresse-locale'>
       <div>
         <Organization {...organization} />
       </div>
       <div>
-        <Meta id={id} status={status} license={licenseLabel} valid={valid} error={error} column />
+        <Meta id={id} status={status} license={licenseLabel} lastUpdate={lastUpdate} valid={valid} error={error} column />
       </div>
       <div>
         <Links url={url} page={page} />

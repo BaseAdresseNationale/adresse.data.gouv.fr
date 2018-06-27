@@ -8,7 +8,7 @@ import Summary from './summary'
 
 class BaseAdresseLocale extends React.Component {
   render() {
-    const {id, url, title, status, licenseLabel, valid, organization, page, error} = this.props
+    const {id, url, title, status, licenseLabel, valid, organization, page, error, lastUpdate} = this.props
 
     return (
       <div className='container'>
@@ -25,6 +25,7 @@ class BaseAdresseLocale extends React.Component {
           id={id}
           url={url}
           status={status}
+          lastUpdate={lastUpdate}
           licenseLabel={licenseLabel}
           valid={valid}
           organization={organization}
