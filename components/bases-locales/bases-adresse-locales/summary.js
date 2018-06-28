@@ -9,7 +9,7 @@ const Summary = ({id, url, status, licenseLabel, valid, organization, lastUpdate
   <div>
     <div className='base-adresse-locale'>
       <div>
-        <Organization {...organization} />
+        <Organization logo={organization.logo} name={organization.name} />
       </div>
       <div>
         <Meta id={id} status={status} license={licenseLabel} lastUpdate={lastUpdate} valid={valid} error={error} column />
