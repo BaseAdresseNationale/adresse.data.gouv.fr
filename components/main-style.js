@@ -2,11 +2,8 @@ import {Fragment} from 'react'
 
 import theme from '../styles/theme'
 
-import Fonts from './styles/fonts'
-
 const MainStyle = () => (
   <Fragment>
-    <Fonts />
     <style jsx global>{`
       * {
           box-sizing: border-box;
@@ -51,7 +48,7 @@ const MainStyle = () => (
         @custom-media --larger-than-desktop (min-width: 1000px);
 
         body {
-          font-family: "Source Sans Pro", Arial, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
           font-size: 16px;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
@@ -63,7 +60,7 @@ const MainStyle = () => (
         h4,
         h5,
         h6 {
-          font-family: "Evolventa", "Trebuchet MS", sans-serif;
+          font-family: inherit;
         }
 
         h1 {
@@ -95,7 +92,7 @@ const MainStyle = () => (
           background: ${theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};
           padding: 0.5em;
-          font-family: 'Courier New';
+          font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
           word-break: break-word;
           white-space: pre-wrap;
           vertical-align: middle;
