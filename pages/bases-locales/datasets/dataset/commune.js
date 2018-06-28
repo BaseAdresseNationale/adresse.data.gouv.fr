@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {flowRight} from 'lodash'
 
 import {_get} from '../../../../lib/fetch'
 
 import Page from '../../../../layouts/main'
 import withErrors from '../../../../components/hoc/with-errors'
-import withWebGl from '../../../../components/hoc/with-web-gl'
 
 import Commune from '../../../../components/bases-locales/bases-adresse-locales/dataset/commune'
 
@@ -40,7 +38,4 @@ CommunePage.getInitialProps = async ({query}) => {
   }
 }
 
-export default flowRight(
-  withErrors,
-  withWebGl
-)(CommunePage)
+export default withErrors(CommunePage)

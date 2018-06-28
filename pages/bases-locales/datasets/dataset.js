@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {flowRight} from 'lodash'
 
 import {_get} from '../../../lib/fetch'
 
 import Page from '../../../layouts/main'
 import withErrors from '../../../components/hoc/with-errors'
-import withWebGl from '../../../components/hoc/with-web-gl'
 
 import Dataset from '../../../components/bases-locales/bases-adresse-locales/dataset'
 
@@ -48,7 +46,4 @@ DatasetPage.getInitialProps = async ({query}) => {
   }
 }
 
-export default flowRight(
-  withErrors,
-  withWebGl
-)(DatasetPage)
+export default withErrors(DatasetPage)

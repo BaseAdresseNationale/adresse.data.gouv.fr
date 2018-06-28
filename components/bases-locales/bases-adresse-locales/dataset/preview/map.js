@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
+import {isWebGLSupported} from '../../../../../lib/browser/webgl'
+
 import LoadingContent from '../../../../loading-content'
+import NoWebglError from '../../../../no-web-gl-error'
 
 const loadingStyle = {
   display: 'flex',
@@ -22,8 +25,8 @@ class Map extends React.PureComponent {
     geojson: PropTypes.object.isRequired
   }
 
-  componentWillMount() {
-    this.GeojsonMap = dynamic(import('../../../../mapbox-gl/geojson-map'), {
+  componentDidMount() {
+    this.GeojsonMap = isWebGLSupported() ? dynamic(import('../../../../mapbox-gl/geojson-map'), {
       ssr: false,
       loading: () => (
         <div style={loadingStyle}>
@@ -32,9 +35,13 @@ class Map extends React.PureComponent {
           </LoadingContent>
         </div>
       )
-    })
+    }) : () => (
+      <NoWebglError />
+    )
 
-    this.setState({showMap: true})
+    this.setState({
+      showMap: true
+    })
   }
 
   render() {

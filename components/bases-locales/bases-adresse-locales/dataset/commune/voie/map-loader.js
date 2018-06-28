@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 
+import {isWebGLSupported} from '../../../../../../lib/browser/webgl'
+
 import LoadingContent from '../../../../../loading-content'
+import NoWebglError from '../../../../../no-web-gl-error'
 
 const loadingStyle = {
   display: 'flex',
@@ -18,8 +21,8 @@ class NumerosMap extends React.Component {
     showMap: false
   }
 
-  componentWillMount() {
-    this.NumerosMap = dynamic(import('./numeros-map'), {
+  componentDidMount() {
+    this.NumerosMap = isWebGLSupported() ? dynamic(import('./numeros-map'), {
       ssr: false,
       loading: () => (
         <div style={loadingStyle}>
@@ -28,9 +31,13 @@ class NumerosMap extends React.Component {
           </LoadingContent>
         </div>
       )
-    })
+    }) : () => (
+      <NoWebglError />
+    )
 
-    this.setState({showMap: true})
+    this.setState({
+      showMap: true
+    })
   }
 
   render() {
