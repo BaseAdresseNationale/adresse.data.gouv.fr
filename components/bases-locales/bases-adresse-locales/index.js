@@ -10,7 +10,6 @@ import BaseAdresseLocale from './base-adresse-locale'
 class BasesAdresseLocales extends React.Component {
   render() {
     const {datasets} = this.props
-    console.log('​BasesAdresseLocales -> render -> datasets', datasets)
 
     return (
       <div>
