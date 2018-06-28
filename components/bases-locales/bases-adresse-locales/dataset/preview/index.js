@@ -1,33 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Head from './head'
+import Meta from '../../meta'
+
 import Map from './map'
-import List from './list'
 
 class Preview extends React.Component {
   static propTypes = {
-    counters: PropTypes.array.isRequired,
-    list: PropTypes.array.isRequired,
-    filter: PropTypes.func.isRequired,
-    toItem: PropTypes.func.isRequired,
-    geojson: PropTypes.object
+    infos: PropTypes.array.isRequired,
+    geojson: PropTypes.object.isRequired,
+    report: PropTypes.object
+  }
+
+  static defaultProps = {
+    report: null
   }
 
   render() {
-    const {counters, list, filter, toItem, geojson} = this.props
+    const {infos, report, geojson} = this.props
 
     return (
       <div className='container'>
-        <Head counters={counters} />
-
         <div className='content'>
-          <div className='list'>
-            <List
-              list={list}
-              filter={filter}
-              toItem={toItem} />
-          </div>
+          <Meta infos={infos} report={report} />
 
           <div className='map'>
             {geojson && <Map geojson={geojson} />}
@@ -36,16 +31,27 @@ class Preview extends React.Component {
 
         <style jsx>{`
           .container {
-            margin: 1em 0;
+            margin: 2em 0;
           }
 
           .content {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
           }
 
-          .communes {
-            width: 100%;
+          .content > div {
+            width: 50%;
+          }
+
+          @media (max-width: 680px) {
+            .content {
+              flex-direction: column;
+            }
+
+            .content > div {
+              width: 100%;
+              margin: 1em 0;
+            }
           }
         `}</style>
       </div>

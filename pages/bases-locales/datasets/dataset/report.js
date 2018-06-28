@@ -6,7 +6,7 @@ import {_get} from '../../../../lib/fetch'
 import Page from '../../../../layouts/main'
 import withErrors from '../../../../components/hoc/with-errors'
 
-import BalReport from '../../../../components/bases-locales/bases-adresse-locales/bal-report';
+import BalReport from '../../../../components/bases-locales/bases-adresse-locales/bal-report'
 
 class ReportPage extends React.Component {
   render() {

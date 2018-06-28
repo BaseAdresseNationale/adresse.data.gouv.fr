@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaAngleRight from 'react-icons/lib/fa/angle-right'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 class Item extends React.Component {
   static propTypes = {
@@ -16,14 +16,18 @@ class Item extends React.Component {
         PropTypes.node
       ])
     }).isRequired,
-    link: PropTypes.func.isRequired
+    link: PropTypes.func
+  }
+
+  static defaultProps = {
+    link: null
   }
 
   render() {
     const {id, name, info, link} = this.props
 
     return (
-      <div className='item' onClick={() => link(id)}>
+      <div className={`item ${link ? 'selectable' : ''}`} onClick={link ? () => link(id) : () => {}}>
         <div className='infos'>
           <div className='name'><b>{name}</b></div>
           {info.value ? (
@@ -59,7 +63,7 @@ class Item extends React.Component {
             font-size: 18px;
           }
 
-          .item:hover {
+          .selectable:hover {
             cursor: pointer;
             color: ${theme.colors.white};
             background-color: ${theme.primary};

@@ -59,8 +59,7 @@ class Map extends React.PureComponent {
         <style jsx>{`
           .map {
             width: 100%;
-            height: 500px;
-            margin: 1em 0;
+            height: 260px;
           }
         `}</style>
       </div>

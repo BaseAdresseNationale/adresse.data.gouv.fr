@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaSearch from 'react-icons/lib/fa/search'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 import Item from './item'
 
@@ -59,7 +59,7 @@ class Preview extends React.Component {
 
         <style jsx>{`
           input {
-            margin: 1em 0;
+            margin: 0.5em 0;
           }
 
           .search {
@@ -67,12 +67,12 @@ class Preview extends React.Component {
           }
 
           .search input {
-            text-indent: 30px;
+            text-indent: 22px;
           }
 
           span {
             position: absolute;
-            top: 30px;
+            top: 22px;
             left: 1em;
             font-size: 15px;
             color: ${theme.colors.darkGrey};

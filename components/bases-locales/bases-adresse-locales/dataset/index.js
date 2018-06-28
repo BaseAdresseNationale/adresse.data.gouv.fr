@@ -1,96 +1,96 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {withRouter} from 'next/router'
+import {deburr} from 'lodash'
+import MdFileDownload from 'react-icons/lib/md/file-download'
 
 import theme from '../../../../styles/theme'
 
-import Section from '../../../../components/section'
+import Section from '../../../section'
 
-import Meta from '../meta'
+import ButtonLink from '../../../button-link'
 
-import Links from '../links'
+import List from './list'
 
 import Header from './header'
 import Description from './description'
 import CommunesPreview from './communes-preview'
-import ReportContainer from './report-container'
 import ProducerDiscussion from './producer-discussion'
 
 class Dataset extends React.Component {
   static propTypes = {
-    report: PropTypes.object,
     dataset: PropTypes.shape({
-      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       url: PropTypes.string.isRequired,
-      lastUpdate: PropTypes.string.isRequired,
-      license: PropTypes.string.isRequired,
-      licenseLabel: PropTypes.string.isRequired,
       organization: PropTypes.object.isRequired,
-      page: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      valid: PropTypes.bool,
-      error: PropTypes.object
+      page: PropTypes.string.isRequired
     }).isRequired,
-    summary: PropTypes.object.isRequired
+    summary: PropTypes.object.isRequired,
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+      query: PropTypes.object.isRequired
+    }).isRequired
   }
 
-  static defaultProps = {
-    report: null
+  goto = codeCommune => {
+    const {router} = this.props
+    router.push(`/bases-locales/jeux-de-donnees/${router.query.id}/${codeCommune}`)
   }
 
   render() {
-    const {dataset, summary, report} = this.props
-    const {id, title, description, url, lastUpdate, status, licenseLabel, valid, organization, page, error} = dataset
+    const {dataset, summary} = this.props
+    const {title, description, url, organization, page} = dataset
 
     return (
       <div>
         <Section>
           <Header name={organization.name} logo={organization.logo} />
-          <Description title={title} description={description} />
-          <Meta
-            id={id}
-            status={status}
-            license={licenseLabel}
-            lastUpdate={lastUpdate}
-            valid={valid}
-            organization={organization}
-            error={error} />
+          <Description title={title} page={page} description={description} />
 
-          <CommunesPreview summary={summary} />
+          <div className='links'>
+            <ButtonLink href={url} >
+              Télécharger <MdFileDownload />
+            </ButtonLink>
+          </div>
 
-          <ReportContainer report={report} datasetId={id} />
-          <Links url={url} page={page} />
+          <CommunesPreview dataset={dataset} summary={summary} />
+
+          <div className='list'>
+            <h4>Liste des communes présentes dans le fichier</h4>
+            <List
+              list={summary.communes}
+              filter={(commune, input) => deburr(commune.nom.toLowerCase()).includes(input)}
+              toItem={commune => {
+                return {
+                  id: commune.code,
+                  name: commune.nom,
+                  link: this.goto,
+                  info: {title: 'habitants', value: commune.population}
+                }
+              }} />
+          </div>
         </Section>
 
         <ProducerDiscussion page={page} />
 
         <style jsx>{`
-          .head {
+          h4 {
+            background-color: ${theme.primary};
+            color: ${theme.colors.white};
+            padding: 1em;
+          }
+
+          .links {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
-
-          .head img {
-            width: 220px;
-          }
-
-          .container {
-            padding: 0 2em;
-            border-left: 5px solid ${theme.primary};
-          }
-
-          .base-adresse-locale {
-            display: flex;
-            justify-content: space-between;
             flex-flow: wrap;
             align-items: center;
+            font-size: 0.8em;
+            margin: 3em 0;
           }
 
-          .centered {
-            display: flex;
-            justify-content: center;
+          .links a {
+            margin: 1em 0;
           }
           `}</style>
       </div>
@@ -98,4 +98,4 @@ class Dataset extends React.Component {
   }
 }
 
-export default Dataset
+export default withRouter(Dataset)

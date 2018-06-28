@@ -24,10 +24,6 @@ class Info extends React.Component {
         <b>{title} : </b>
         <span className={type}>{children}</span>
         <style jsx>{`
-          .info {
-            margin 0.5em 0;
-          }
-
           span {
             display: inline-flex;
             border-radius: 3.75em;
