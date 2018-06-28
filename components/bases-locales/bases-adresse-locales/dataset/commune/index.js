@@ -34,7 +34,7 @@ class Commune extends React.Component {
             logo={organization.logo}
             info={{
               title: 'Dernière mise à jour',
-              children: dataset.lastUpdate ? dataset.lastUpdate : 'inconnue'}} />
+              children: commune.dateMAJ ? commune.dateMAJ : 'inconnue'}} />
 
           <CommunePreview commune={commune} />
         </Section>

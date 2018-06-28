@@ -18,7 +18,7 @@ class VoiePreview extends React.Component {
 
   render() {
     const {numeros, numerosCount} = this.props.voie
-    const counters = [{name: 'numeros', value: numerosCount}]
+    const counters = [{name: 'Adresses', value: numerosCount}]
 
     return (
       <div className='container'>

@@ -46,7 +46,7 @@ class Voie extends React.Component {
             logo={organization.logo}
             info={{
               title: 'Dernière mise à jour',
-              children: dataset.lastUpdate ? dataset.lastUpdate : 'inconnue'
+              children: voie.dateMAJ ? voie.dateMAJ : 'inconnue'
             }} />
 
           <VoiePreview voie={voie} />
