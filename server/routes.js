@@ -33,6 +33,12 @@ module.exports = app => {
     })
   })
 
+  router.get('/bases-locales/initialiser-nouvelle-base', (req, res) => {
+    app.render(req, res, '/bases-locales/init-new-base', {
+      ...req.query
+    })
+  })
+
   router.get('/bases-locales/jeux-de-donnees', (req, res) => {
     app.render(req, res, '/bases-locales/datasets', {
       ...req.query
