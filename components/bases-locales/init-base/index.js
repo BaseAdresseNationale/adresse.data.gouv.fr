@@ -30,7 +30,11 @@ class InitBase extends React.Component {
         communes.push(commune)
       }
 
-      return {communes, error: err}
+      return {
+        communes,
+        error: err,
+        csv: null
+      }
     })
   }
 
@@ -39,7 +43,10 @@ class InitBase extends React.Component {
       const communes = [...state.communes]
       remove(communes, current => current.code === commune.code)
 
-      return {communes}
+      return {
+        communes,
+        csv: null
+      }
     })
   }
 
