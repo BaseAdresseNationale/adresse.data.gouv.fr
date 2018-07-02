@@ -1,8 +1,7 @@
 import React from 'react'
 import {remove} from 'lodash'
+import {parse} from 'content-disposition'
 import MdFileDownload from 'react-icons/lib/md/file-download'
-
-import {_get} from '../../../lib/fetch'
 
 import Button from '../../button'
 import ButtonLink from '../../button-link'
@@ -16,6 +15,7 @@ class InitBase extends React.Component {
   state = {
     communes: [],
     csv: null,
+    filename: null,
     loading: false
   }
 
@@ -33,7 +33,8 @@ class InitBase extends React.Component {
       return {
         communes,
         error: err,
-        csv: null
+        csv: null,
+        filename: null
       }
     })
   }
@@ -45,7 +46,8 @@ class InitBase extends React.Component {
 
       return {
         communes,
-        csv: null
+        csv: null,
+        filename: null
       }
     })
   }
@@ -55,6 +57,7 @@ class InitBase extends React.Component {
       this.generate(state.communes)
       return {
         csv: null,
+        filename: null,
         loading: true
       }
     })
@@ -63,10 +66,23 @@ class InitBase extends React.Component {
   generate = async communes => {
     const url = 'https://adresse.data.gouv.fr/api-bal/ban/extract?communes=' + communes.map(c => c.code).join()
     let csv = null
+    let filename
     let error
 
     try {
-      const response = await _get(url)
+      const options = {
+        headers: {
+          Accept: 'text/csv',
+          'Access-Control-Request-Headers': 'Content-Type, Content-Disposition'
+        },
+        mode: 'cors',
+        method: 'GET'
+      }
+
+      const response = await fetch(url, options)
+      const cd = parse(response.headers.get('content-disposition'))
+      filename = cd.parameters.filename
+
       const blob = await response.blob()
       csv = URL.createObjectURL(blob)
     } catch (err) {
@@ -76,12 +92,13 @@ class InitBase extends React.Component {
     this.setState({
       csv,
       error,
+      filename,
       loading: false
     })
   }
 
   render() {
-    const {communes, loading, csv, error} = this.state
+    const {communes, loading, csv, filename, error} = this.state
 
     return (
       <div>
@@ -100,7 +117,7 @@ class InitBase extends React.Component {
 
         <div className='centered'>
           {csv ?
-            <ButtonLink href={csv} download='nouvelle-bal.csv'>
+            <ButtonLink href={csv} download={filename}>
               Télécharger <MdFileDownload />
             </ButtonLink> : (
               communes.length > 0 &&
