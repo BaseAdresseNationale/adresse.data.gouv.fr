@@ -1,28 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Meta from '../../meta'
-
 import Map from './map'
 
 class Preview extends React.Component {
   static propTypes = {
-    infos: PropTypes.array.isRequired,
     geojson: PropTypes.object.isRequired,
-    report: PropTypes.object
-  }
-
-  static defaultProps = {
-    report: null
+    children: PropTypes.node.isRequired
   }
 
   render() {
-    const {infos, report, geojson} = this.props
+    const {geojson, children} = this.props
 
     return (
       <div className='container'>
         <div className='content'>
-          <Meta infos={infos} report={report} />
+          {children}
 
           <div className='map'>
             {geojson && <Map geojson={geojson} />}

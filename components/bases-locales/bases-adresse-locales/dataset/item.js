@@ -8,14 +8,7 @@ class Item extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    info: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.node
-      ])
-    }).isRequired,
+    children: PropTypes.node.isRequired,
     link: PropTypes.func
   }
 
@@ -24,19 +17,17 @@ class Item extends React.Component {
   }
 
   render() {
-    const {id, name, info, link} = this.props
+    const {id, name, link, children} = this.props
 
     return (
       <div className={`item ${link ? 'selectable' : ''}`} onClick={link ? () => link(id) : () => {}}>
         <div className='infos'>
           <div className='name'><b>{name}</b></div>
-          {info.value ? (
-            <div><b>{info.value}</b> {info.title}</div>
-          ) : (
-            <div>Non renseigné</div>
-          )}
+          <div>
+            {children}
+          </div>
         </div>
-        <div className='link'><FaAngleRight /></div>
+        <div className='link'>{link && <FaAngleRight />}</div>
         <style jsx>{`
           .container {
             width: 100;
@@ -73,10 +64,10 @@ class Item extends React.Component {
             display: none;
           }
 
-          @media (max-width: 580px) {
+          @media (max-width: 700px) {
             .item {
               flex-direction: column;
-              aling-item: center;
+              align-items: center;
               flex-flow: wrap;
             }
 

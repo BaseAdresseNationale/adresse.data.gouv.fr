@@ -9,8 +9,10 @@ import theme from '../../../../styles/theme'
 import Section from '../../../section'
 
 import ButtonLink from '../../../button-link'
+import Tag from '../../../explorer/tag'
 
 import List from './list'
+import Item from './item'
 
 import Header from './header'
 import Description from './description'
@@ -61,14 +63,25 @@ class Dataset extends React.Component {
             <List
               list={summary.communes}
               filter={(commune, input) => deburr(commune.nom.toLowerCase()).includes(input)}
-              toItem={commune => {
-                return {
-                  id: commune.code,
-                  name: commune.nom,
-                  link: this.goto,
-                  info: {title: 'habitants', value: commune.population}
-                }
-              }} />
+              toItem={commune => (
+                <Item
+                  key={commune.code}
+                  id={commune.code}
+                  name={commune.nom}
+                  link={this.goto}>
+                  <div className='infos'>
+                    <div className='counter'>
+                      <b>{commune.voiesCount}</b> {commune.voiesCount > 1 ? 'voies' : 'voie'}
+                    </div>
+                    <div className='counter'>
+                      <b>{commune.numerosCount}</b> {commune.numerosCount > 1 ? 'numéros' : 'numéro'}
+                    </div>
+                    <div className='sources'>
+                      {commune.source.map(source => <Tag key={source} type={source} />)}
+                    </div>
+                  </div>
+                </Item>
+              )} />
           </div>
         </Section>
 
@@ -79,6 +92,7 @@ class Dataset extends React.Component {
             background-color: ${theme.primary};
             color: ${theme.colors.white};
             padding: 1em;
+            margin-bottom: 0;
           }
 
           .links {
@@ -91,6 +105,37 @@ class Dataset extends React.Component {
 
           .links a {
             margin: 1em 0;
+          }
+
+          .infos {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .counter {
+            margin: 0 1em;
+          }
+
+          .sources {
+            display: flex;
+          }
+
+          @media (max-width: 700px) {
+            .infos {
+              flex-direction: column;
+              flex-flow: end;
+              margin-top: 1em;
+            }
+
+            .counter {
+              margin: 0;
+            }
+
+            .sources {
+              margin-top: 0.5em;
+              margin-left: -2px;
+              flex-flow: wrap;
+            }
           }
           `}</style>
       </div>

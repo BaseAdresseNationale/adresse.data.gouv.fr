@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Tag from '../../explorer/tag'
+
 import Info from './info'
 import InfoReport from './info-report'
 
@@ -13,6 +15,7 @@ class Meta extends React.Component {
       })
     ).isRequired,
     report: PropTypes.object,
+    sources: PropTypes.array,
     column: PropTypes.bool
   }
 
@@ -21,7 +24,7 @@ class Meta extends React.Component {
   }
 
   render() {
-    const {infos, report, column} = this.props
+    const {infos, report, sources, column} = this.props
 
     return (
       <div className={`content ${column ? 'column' : ''}`}>
@@ -37,11 +40,27 @@ class Meta extends React.Component {
           <InfoReport {...report} />
         }
 
+        {sources &&
+          <div className='sources'>
+            <b>Source :</b>
+            <span>{sources.map(source => <Tag key={source} type={source} />)}</span>
+          </div>
+        }
+
         <style jsx>{`
           .content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 255px));
             grid-gap: 5px;
+          }
+
+          .sources {
+            display: flex;
+            align-items: center;
+          }
+
+          .sources span {
+            display: flex;
           }
           `}</style>
       </div>

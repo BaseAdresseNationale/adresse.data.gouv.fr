@@ -7,7 +7,6 @@ import {numerosToGeoJson} from '../../../../../../lib/geojson'
 import theme from '../../../../../../styles/theme'
 
 import MapboxGL from '../../../../../mapbox-gl'
-import Notification from '../../../../../notification'
 
 const circlePaint = {
   'circle-stroke-width': 1,
@@ -21,12 +20,24 @@ const circlePaint = {
 }
 
 class NumerosMap extends React.Component {
-  render() {
-    const {numeros} = this.props
-    const data = numerosToGeoJson(numeros)
+  static propTypes = {
+    numeros: PropTypes.array,
+    position: PropTypes.object
+  }
 
-    if (data.features.length === 0) {
-      return <Notification type='error' message='No position' />
+  render() {
+    const {numeros, position} = this.props
+    const data = numeros ? numerosToGeoJson(numeros) : {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: position.coords
+      },
+      properties: {
+        source: position.source,
+        type: position.type,
+        dateMAJ: position.dateMAJ
+      }
     }
 
     return (
@@ -42,27 +53,24 @@ class NumerosMap extends React.Component {
           type='circle'
           paint={circlePaint} />
 
-        <Layer
-          id='point-label'
-          type='symbol'
-          sourceId='numeros-map'
-          layout={{
-            'text-field': '{numero}',
-            'text-anchor': 'center',
-            'text-size': {
-              stops: [[12, 3], [22, 18]]
-            },
-            'text-font': [
-              'Noto Sans Regular'
-            ]
-          }} />
+        {numeros &&
+          <Layer
+            id='point-label'
+            type='symbol'
+            sourceId='numeros-map'
+            layout={{
+              'text-field': '{numero}',
+              'text-anchor': 'center',
+              'text-size': {
+                stops: [[12, 3], [22, 18]]
+              },
+              'text-font': [
+                'Noto Sans Regular'
+              ]
+            }} />}
       </MapboxGL>
     )
   }
-}
-
-NumerosMap.propTypes = {
-  numeros: PropTypes.array.isRequired
 }
 
 export default NumerosMap
