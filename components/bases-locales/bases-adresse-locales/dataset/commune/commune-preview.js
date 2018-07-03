@@ -5,10 +5,13 @@ import {spaceThousands} from '../../../../../lib/format-numbers'
 
 import Preview from '../preview'
 
+import Meta from '../../meta'
+
 class CommunesPreview extends React.Component {
   static propTypes = {
     commune: PropTypes.shape({
       dateMAJ: PropTypes.string.isRequired,
+      source: PropTypes.array.isRequired,
       voiesCount: PropTypes.number.isRequired,
       numerosCount: PropTypes.number.isRequired,
       population: PropTypes.number.isRequired,
@@ -29,12 +32,12 @@ class CommunesPreview extends React.Component {
   }
 
   render() {
-    const {contour} = this.props.commune
+    const {contour, source} = this.props.commune
 
     return (
-      <Preview
-        infos={this.infos}
-        geojson={contour} />
+      <Preview geojson={contour}>
+        <Meta infos={this.infos} sources={source} />
+      </Preview>
     )
   }
 }

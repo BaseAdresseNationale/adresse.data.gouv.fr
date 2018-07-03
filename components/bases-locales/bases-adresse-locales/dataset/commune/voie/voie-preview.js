@@ -3,6 +3,10 @@ import PropTypes from 'prop-types'
 
 import {spaceThousands} from '../../../../../../lib/format-numbers'
 
+import theme from '../../../../../../styles/theme'
+
+import Notification from '../../../../../notification'
+
 import Item from '../../item'
 
 import Tag from '../../../../../explorer/tag'
@@ -12,7 +16,8 @@ import MapLoader from './map-loader'
 class VoiePreview extends React.Component {
   static propTypes = {
     voie: PropTypes.shape({
-      numeros: PropTypes.array.isRequired,
+      numeros: PropTypes.array,
+      position: PropTypes.object,
       numerosCount: PropTypes.number.isRequired,
       dateMAJ: PropTypes.string.isRequired
     }).isRequired
@@ -29,45 +34,61 @@ class VoiePreview extends React.Component {
   }
 
   render() {
-    const {numeros} = this.props.voie
+    const {numeros, position} = this.props.voie
 
     return (
       <div className='container'>
 
-        <div className='map'>
-          <MapLoader numeros={numeros} />
-        </div>
-
-        <div>
-          <h4>Liste des numéros présents dans le fichier</h4>
-          <div className='table'>
-            {numeros.length ?
-              numeros.map(numero => {
-                const types = numero.positions.map(position => position.type)
-                return (
-                  <Item
-                    key={numero.id}
-                    id={numero.id}
-                    name={numero.numeroComplet}
-                    info={{
-                      title: types.length > 0 ? ' ' : 'Type non renseigné',
-                      value: types.map(type => {
-                        return (type && <Tag key={type} type={type} />)
-                      })
-                    }} />
-                )
-              }) :
-              <div>Aucun résultat</div>}
+        {(numeros || position) &&
+          <div className='map'>
+            <MapLoader numeros={numeros} position={position} />
           </div>
-        </div>
+        }
+
+        {numeros || position ?
+          <div>
+            {numeros && numeros.length &&
+              <div>
+                <h4>Liste des numéros présents dans le fichier</h4>
+                <div className='table'>
+                  {numeros.map(numero => {
+                    const types = numero.positions.map(position => position.type)
+                    return (
+                      <Item
+                        key={numero.id}
+                        id={numero.id}
+                        name={numero.numeroComplet}>
+                        <div className='infos'>
+                          <div className='sources'>
+                            {types.length > 0 ?
+                              types.map(type => {
+                                return (type && <Tag key={type} type={type} />)
+                              }) :
+                              'Type non renseigné'}
+                          </div>
+                          <div className='sources'>
+                            {numero.source.map(source => <Tag key={source} type={source} />)}
+                          </div>
+                        </div>
+                      </Item>
+                    )
+                  })}
+                </div>
+              </div>}
+          </div> :
+          <Notification type='warning' message='Ce lieu nommé ne possède pas encore de position renseignée.' />
+        }
 
         <style jsx>{`
           .container {
             margin: 1em 0;
           }
 
-          .communes {
-            width: 100%;
+          h4 {
+            background-color: ${theme.primary};
+            color: ${theme.colors.white};
+            padding: 1em;
+            margin-bottom: 0;
           }
 
           .map {
@@ -80,6 +101,28 @@ class VoiePreview extends React.Component {
             width: 100;
             display: flex;
             flex-direction: column;
+          }
+
+          .infos {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .sources {
+            display: flex;
+          }
+
+          @media (max-width: 700px) {
+            .infos {
+              flex-direction: column;
+              margin-top: 1em;
+            }
+
+            .sources {
+              margin-top: 0.5em;
+              margin-left: -2px;
+              flex-flow: wrap;
+            }
           }
         `}</style>
       </div>

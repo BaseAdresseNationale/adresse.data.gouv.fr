@@ -29,6 +29,8 @@ class Breadcrumb extends React.Component {
           .breadcrumb {
             display: flex;
             align-items: center;
+            flex-flow: wrap;
+            margin: 1em 0;
           }
 
           a {

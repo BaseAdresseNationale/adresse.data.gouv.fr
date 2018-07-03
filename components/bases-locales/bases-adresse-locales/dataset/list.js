@@ -43,17 +43,7 @@ class Preview extends React.Component {
 
         <div className='table'>
           {items.length ?
-            items.map(item => {
-              const {id, name, link, info} = toItem(item)
-              return (
-                <Item
-                  key={id}
-                  id={id}
-                  name={name}
-                  link={link}
-                  info={info} />
-              )
-            }) :
+            items.map(toItem) :
             <div>Aucun résultat</div>}
         </div>
 

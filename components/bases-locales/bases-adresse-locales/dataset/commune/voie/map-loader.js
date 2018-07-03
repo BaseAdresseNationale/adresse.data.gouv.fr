@@ -17,6 +17,11 @@ const loadingStyle = {
 }
 
 class NumerosMap extends React.Component {
+  static propTypes = {
+    numeros: PropTypes.array,
+    position: PropTypes.object
+  }
+
   state = {
     showMap: false
   }
@@ -42,15 +47,11 @@ class NumerosMap extends React.Component {
 
   render() {
     const {showMap} = this.state
-    const {numeros} = this.props
+    const {numeros, position} = this.props
     const {NumerosMap} = this
 
-    return showMap && <NumerosMap numeros={numeros} />
+    return showMap && <NumerosMap numeros={numeros} position={position} />
   }
-}
-
-NumerosMap.propTypes = {
-  numeros: PropTypes.array.isRequired
 }
 
 export default NumerosMap
