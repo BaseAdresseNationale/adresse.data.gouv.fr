@@ -65,7 +65,7 @@ class Geocoder extends React.Component {
         {status === 'pending' &&
           <Button>
             <div className='col'>
-              En cours de géocodage…<Loader />
+              En cours de géocodage…<Loader size='small' />
             </div>
           </Button>}
         {blob &&

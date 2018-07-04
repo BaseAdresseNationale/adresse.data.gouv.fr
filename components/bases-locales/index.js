@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
+import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
 import Section from '../section'
 import ButtonLink from '../button-link'
@@ -20,7 +21,7 @@ const BasesLocales = ({datasets}) => (
 
     <Section background='grey'>
       <h4>Qu’est-ce que le format BAL ?</h4>
-      <div className=''>
+      <div>
         <p>L’<a href='http://www.aitf.fr/'>Association des Ingénieurs Territoriaux de France</a> (AITF) a créé en avril 2015 un groupe de travail portant sur la Base Adresse Nationale.</p>
         <p>Les <a href='https://cms.geobretagne.fr/content/travaux-gt-ban-aitf'>travaux de ce groupe</a> ont abouti à la <a href='https://cms.geobretagne.fr/sites/default/files/documents/aitf-sig-topo-adresse-fichier-echange-simplifie-v_1.1_0.pdf'>spécification d’un format d’échange</a>, aujourd’hui en version 1.1.</p>
         <p>Le format <b>BAL 1.1</b> est aujourd’hui le format d’échange à privilégier pour les données Adresse produites localement.</p>
@@ -40,6 +41,19 @@ const BasesLocales = ({datasets}) => (
         </ButtonLink>
       </div>
     </Section>
+
+    <Section background='grey'>
+      <h4>Initialiser une nouvelle base locale au format BAL (beta)</h4>
+      <div>
+        <p>Les collectivités qui commencent une démarche de création de base Adresse peuvent utiliser les données de la <strong>Base Adresse Nationale</strong>.</p>
+        <p>Les données résultantes peuvent être republiées par la collectivité sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
+        <p>Cet outil permet de réaliser une extraction automatisée au format BAL.</p>
+      </div>
+      <div className='action'>
+        <ButtonLink href='/bases-locales/initialiser-nouvelle-base'>Initialiser une base locale <FaFileTextO /></ButtonLink>
+      </div>
+    </Section>
+
     <style jsx>{`
       .intro {
         text-align: left;

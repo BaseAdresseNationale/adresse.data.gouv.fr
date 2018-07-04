@@ -3,13 +3,11 @@ import PropTypes from 'prop-types'
 
 class Organization extends React.Component {
   render() {
-    const {page, logo, name, size} = this.props
+    const {logo, name, size} = this.props
     return (
       <div className='organization'>
-        <a href={page}>
-          <div className={size}><img src={logo} /></div>
-          <div>{name}</div>
-        </a>
+        <div className={size}><img src={logo} /></div>
+        <div>{name}</div>
 
         <style jsx>{`
           .organization {
@@ -36,7 +34,6 @@ class Organization extends React.Component {
 Organization.propTypes = {
   name: PropTypes.string.isRequired,
   logo: PropTypes.string.isRequired,
-  page: PropTypes.string.isRequired,
   size: PropTypes.oneOf([
     'standard',
     'big'

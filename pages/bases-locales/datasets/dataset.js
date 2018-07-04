@@ -10,12 +10,12 @@ import Dataset from '../../../components/bases-locales/bases-adresse-locales/dat
 
 class DatasetPage extends React.Component {
   render() {
-    const {dataset, report} = this.props
+    const {dataset, summary} = this.props
     const description = `${dataset.title} - ${dataset.organization.name}`
 
     return (
       <Page title={dataset.title} description={description}>
-        <Dataset dataset={dataset} report={report} />
+        <Dataset dataset={dataset} summary={summary} />
       </Page>
     )
   }
@@ -28,18 +28,16 @@ DatasetPage.propTypes = {
       name: PropTypes.string.isRequired
     }).isRequired
   }).isRequired,
-  report: PropTypes.object
-}
-
-DatasetPage.defaultProps = {
-  report: null
+  summary: PropTypes.object.isRequired
 }
 
 DatasetPage.getInitialProps = async ({query}) => {
+  const summary = await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}/data/summary`)
+
   return {
-    dataset: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}`),
-    report: query.report ? await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}/report`) : null
+    summary,
+    dataset: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}`)
   }
 }
 
-export default (withErrors(DatasetPage))
+export default withErrors(DatasetPage)

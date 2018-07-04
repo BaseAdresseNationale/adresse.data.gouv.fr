@@ -33,6 +33,12 @@ module.exports = app => {
     })
   })
 
+  router.get('/bases-locales/initialiser-nouvelle-base', (req, res) => {
+    app.render(req, res, '/bases-locales/init-new-base', {
+      ...req.query
+    })
+  })
+
   router.get('/bases-locales/jeux-de-donnees', (req, res) => {
     app.render(req, res, '/bases-locales/datasets', {
       ...req.query
@@ -43,6 +49,30 @@ module.exports = app => {
     app.render(req, res, '/bases-locales/datasets/dataset', {
       ...req.query,
       id: req.params.id
+    })
+  })
+
+  router.get('/bases-locales/jeux-de-donnees/:id/rapport', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets/dataset/report', {
+      ...req.query,
+      id: req.params.id
+    })
+  })
+
+  router.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets/dataset/commune', {
+      ...req.query,
+      id: req.params.id,
+      codeCommune: req.params.codeCommune
+    })
+  })
+
+  router.get('/bases-locales/jeux-de-donnees/:id/:codeCommune/:codeVoie', (req, res) => {
+    app.render(req, res, '/bases-locales/datasets/dataset/commune/voie', {
+      ...req.query,
+      id: req.params.id,
+      codeCommune: req.params.codeCommune,
+      codeVoie: req.params.codeVoie
     })
   })
 

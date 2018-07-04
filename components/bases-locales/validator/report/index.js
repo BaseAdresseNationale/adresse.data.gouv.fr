@@ -42,7 +42,6 @@ class Report extends React.Component {
             box-shadow: 0 1px 4px ${theme.boxShadow};
             background: ${theme.colors.white};
           }
-
           .items {
             margin-bottom: 2em;
             display: grid;

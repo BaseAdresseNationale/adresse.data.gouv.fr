@@ -8,6 +8,7 @@ const LoadingContent = ({loading, error, centered, children}) => {
     return (
       <div className={centered ? 'centered' : ''}>
         <Loader />
+        Chargement…
         <style jsx>{`
           .centered {
             margin: 1em;

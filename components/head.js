@@ -49,7 +49,7 @@ const Head = ({children, title, icon}) => (
 )
 
 Head.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   title: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired
 }

@@ -1,12 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
 import ButtonLink from '../../button-link'
 
 class Links extends React.Component {
+  static propTypes = {
+    url: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }
+
+  static defaultProps = {
+    link: null
+  }
+
   render() {
-    const {url, page} = this.props
+    const {url, link} = this.props
     const ButtonStyle = {
       fontSize: '1em',
       margin: '1em 0',
@@ -19,13 +29,19 @@ class Links extends React.Component {
         <ButtonLink href={url} style={ButtonStyle}>
           Télécharger <MdFileDownload />
         </ButtonLink>
-        <a href={page}>Voir sur data.gouv.fr</a>
+
+        {link &&
+        <Link href={link}>
+          <a>Consulter</a>
+        </Link>}
 
         <style jsx>{`
           .links {
             display: flex;
             flex-direction: column;
             align-items: center;
+            max-width: 212px;
+            margin: 0 auto;
           }
           `}</style>
       </div>
@@ -33,8 +49,4 @@ class Links extends React.Component {
   }
 }
 
-Links.propTypes = {
-  url: PropTypes.string.isRequired,
-  page: PropTypes.string.isRequired
-}
 export default Links

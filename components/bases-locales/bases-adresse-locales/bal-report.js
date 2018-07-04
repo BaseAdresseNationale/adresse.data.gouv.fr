@@ -5,24 +5,26 @@ import Section from '../../section'
 
 import Report from '../validator/report'
 
+import Header from './dataset/header'
+
 class BalReport extends React.Component {
   render() {
-    const {report} = this.props
+    const {report, organization} = this.props
     return (
-      <div>
-        <Section title={`Rapport d’analyse du fichier :`} />
+      <Section>
+        <Header name={organization.name} logo={organization.logo} />
         <Report report={report} />
-      </div>
+      </Section>
     )
   }
 }
 
 BalReport.propTypes = {
-  report: PropTypes.object
-}
-
-BalReport.defaultProps = {
-  report: null
+  organization: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    logo: PropTypes.string.isRequired
+  }).isRequired,
+  report: PropTypes.object.isRequired
 }
 
 export default BalReport

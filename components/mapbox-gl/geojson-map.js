@@ -45,11 +45,6 @@ const GeojsonMap = ({data, id, cluster}) => {
         linePaint={linePaint}
         fillPaint={fillPaint}
         polygonPaint={polygonPaint}
-        circlePaint={{
-          'circle-radius': 1,
-          'circle-color': '#3099df',
-          'circle-opacity': 0.6
-        }}
         circleOnMouseDown={this.markerClick} />
       {cluster && <ClusterLayers sourceId={id} />}
     </MapboxGL>
