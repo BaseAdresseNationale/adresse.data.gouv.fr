@@ -45,11 +45,11 @@ class Summary extends React.Component {
             <Meta infos={this.infos} report={{id, status, valid, error}} column />
           </div>
           <div className='links'>
-            <ButtonLink href={url} >
-              Télécharger <MdFileDownload />
+            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
+              Consulter
             </ButtonLink>
-            <Link href={`/bases-locales/jeux-de-donnees/${id}`}>
-              <a>Consulter</a>
+            <Link href={url}>
+              <a>Télécharger <MdFileDownload /></a>
             </Link>
           </div>
         </div>
