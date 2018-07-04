@@ -6,8 +6,8 @@ import Section from '../../components/section'
 
 import InitBase from '../../components/bases-locales/init-base'
 
-const title = 'Initialiser une nouvelle base'
-const description = 'Initialiser une nouvelle base à partir des données de la Base Adresse National.'
+const title = 'Initialiser une nouvelle base locale'
+const description = 'Cet outil permet de réaliser une extraction automatisée de la Base Adresse Nationale au format BAL.'
 
 export default () => (
   <Page>

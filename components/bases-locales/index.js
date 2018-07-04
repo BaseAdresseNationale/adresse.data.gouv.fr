@@ -43,9 +43,11 @@ const BasesLocales = ({datasets}) => (
     </Section>
 
     <Section background='grey'>
-      <h4>Initialiser une base locale</h4>
+      <h4>Initialiser une nouvelle base locale au format BAL (beta)</h4>
       <div>
-        <p>Initialiser une nouvelle base locale à partir des données de la Base Adresse Nationale.</p>
+        <p>Les collectivités qui commencent une démarche de création de base Adresse peuvent utiliser les données de la <strong>Base Adresse Nationale</strong>.</p>
+        <p>Les données résultantes peuvent être republiées par la collectivité sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
+        <p>Cet outil permet de réaliser une extraction automatisée au format BAL.</p>
       </div>
       <div className='action'>
         <ButtonLink href='/bases-locales/initialiser-nouvelle-base'>Initialiser une base locale <FaFileTextO /></ButtonLink>

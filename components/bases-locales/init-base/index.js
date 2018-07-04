@@ -102,7 +102,8 @@ class InitBase extends React.Component {
 
     return (
       <div>
-        <h3>Rechercher les communes</h3>
+        <p>Pour initialiser la base, vous devez sélectionner les communes concernées.</p>
+        <h3>Rechercher une commune</h3>
         <SearchCommune
           handleSelect={this.addCommune}
           handleChange={() => this.setState({error: null})}
