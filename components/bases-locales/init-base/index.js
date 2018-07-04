@@ -5,6 +5,7 @@ import MdFileDownload from 'react-icons/lib/md/file-download'
 
 import Button from '../../button'
 import ButtonLink from '../../button-link'
+import Notification from '../../notification'
 
 import Loader from '../../loader'
 
@@ -103,10 +104,7 @@ class InitBase extends React.Component {
     return (
       <div>
         <h3>Rechercher les communes</h3>
-        <SearchCommune
-          handleSelect={this.addCommune}
-          handleChange={() => this.setState({error: null})}
-          error={error} />
+        <SearchCommune handleSelect={this.addCommune} />
 
         {communes.length > 0 &&
           <div>
@@ -130,6 +128,8 @@ class InitBase extends React.Component {
             )
           }
         </div>
+
+        {error && <Notification style={{marginTop: '1em'}} type='error' message={error.message} />}
 
         <style jsx>{`
           .centered {

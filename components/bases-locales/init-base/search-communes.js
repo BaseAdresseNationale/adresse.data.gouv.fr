@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {throttle, debounce} from 'lodash'
+import {throttle} from 'lodash'
 
 import {_get} from '../../../lib/fetch'
 
@@ -12,7 +12,6 @@ import Notification from '../../notification'
 class SearchCommune extends React.Component {
   static propTypes = {
     handleSelect: PropTypes.func.isRequired,
-    handleChange: PropTypes.func.isRequired,
     error: PropTypes.instanceOf(Error)
   }
 
@@ -28,22 +27,14 @@ class SearchCommune extends React.Component {
   }
 
   handleSearchThrottled = throttle(this.handleSearch, 200)
-  handleSearchDebounced = debounce(this.handleSearch, 200)
 
   handleChange = input => {
-    const {handleChange} = this.props
-
     this.setState(() => {
-      handleChange()
       if (input) {
-        if (input.length < 5) {
-          this.handleSearchThrottled(input)
-        } else {
-          this.handleSearchDebounced(input)
-        }
+        this.handleSearchThrottled(input)
       }
 
-      return {input, results: [], loading: true, error: null}
+      return {input, loading: true, error: null}
     })
   }
 
@@ -70,9 +61,9 @@ class SearchCommune extends React.Component {
       error = err
     }
 
-    this.setState(() => {
+    this.setState(state => {
       return {
-        results,
+        results: results.length > 0 ? results : state.results,
         error,
         loading: false
       }
