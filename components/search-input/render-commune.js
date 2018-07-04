@@ -1,7 +1,7 @@
 import theme from '../../styles/theme'
 
 function RenderCommune(item, isHighlighted) {
-  const description = `${item.departement.nom} - ${item.departement.code}`
+  const description = item.departement ? `${item.departement.nom} - ${item.departement.code}` : 'Collectivité d’outre-mer'
 
   return (
     <div key={item.code} className={`item ${isHighlighted ? 'item-highlighted' : ''}`}>
