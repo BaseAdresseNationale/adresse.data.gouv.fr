@@ -46,7 +46,7 @@ class SearchCommune extends React.Component {
   }
 
   async handleSearch(input) {
-    const url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement`
+    const url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement&limit=5`
     let results = []
     let error
 
