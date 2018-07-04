@@ -4,8 +4,6 @@ import FaSearch from 'react-icons/lib/fa/search'
 
 import theme from '../../../../styles/theme'
 
-import Item from './item'
-
 class Preview extends React.Component {
   static propTypes = {
     list: PropTypes.array.isRequired,
