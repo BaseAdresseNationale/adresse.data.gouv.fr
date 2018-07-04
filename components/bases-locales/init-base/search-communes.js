@@ -94,15 +94,9 @@ class SearchCommune extends React.Component {
           onSelect={this.handleSelect}
           renderItem={RenderCommune}
           getItemValue={commune => commune.nom} />
+
         {error && <Notification style={{marginTop: '1em'}} type='error' message={error.message} />}
 
-        <style jsx>{`
-          @media (max-width: 400px) {
-            .search-input {
-              margin: 0 -20px;
-            }
-          }
-        `}</style>
       </div>
     )
   }

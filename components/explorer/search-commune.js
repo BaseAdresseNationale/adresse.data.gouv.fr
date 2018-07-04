@@ -139,12 +139,6 @@ class Explorer extends React.Component {
             .beta h2 {
               margin-right: 45px;
             }
-
-            @media (max-width: 400px) {
-              .input {
-                margin: 0 -20px;
-              }
-            }
           `}</style>
       </Section>
     )

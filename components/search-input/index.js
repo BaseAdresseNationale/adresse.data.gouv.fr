@@ -54,10 +54,10 @@ class SearchInput extends React.Component {
   }
 
   renderMenu(items, value) {
-    const {loading} = this.props
+    const {loading, fullscreen} = this.props
 
     return (
-      <div className={`menu ${value.length ? '' : 'hidden'}`}>
+      <div className={`menu ${value.length ? '' : 'hidden'} ${fullscreen ? 'fullscreen' : ''}`}>
         { loading && !items.length ? (
           <div className='item'><Loader size='small' /></div>
         ) : items.length === 0 ? (
@@ -85,6 +85,16 @@ class SearchInput extends React.Component {
 
           .hidden {
             display: none;
+          }
+
+          @media (max-width: 399px) {
+            .menu {
+              width: calc(100% - 40px);
+            }
+
+            .fullscreen {
+              width: 100%;
+            }
           }
         `}</style>
       </div>
@@ -116,10 +126,6 @@ class SearchInput extends React.Component {
               top: 98px;
             }
           }
-
-          .menu {
-            border-color: red;
-          }
           `}</style>
       </div>
     )
@@ -135,7 +141,8 @@ SearchInput.propTypes = {
   onSelect: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
-  getItemValue: PropTypes.func.isRequired
+  getItemValue: PropTypes.func.isRequired,
+  fullscreen: PropTypes.bool
 }
 
 SearchInput.defaultProps = {
@@ -143,7 +150,8 @@ SearchInput.defaultProps = {
   value: '',
   placeholder: '',
   loading: false,
-  wrapperStyle: null
+  wrapperStyle: null,
+  fullscreen: false
 }
 
 export default SearchInput
