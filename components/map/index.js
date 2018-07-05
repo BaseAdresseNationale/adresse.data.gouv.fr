@@ -183,7 +183,8 @@ class Map extends React.Component {
             onSelect={this.handleSelect}
             onSearch={this.handleInput}
             renderItem={renderAdresse}
-            getItemValue={item => item.properties.context} />
+            getItemValue={item => item.properties.context}
+            fullscreen />
         </div>
 
         {error &&
