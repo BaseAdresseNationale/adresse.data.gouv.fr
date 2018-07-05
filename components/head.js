@@ -44,6 +44,17 @@ const Head = ({children, title, icon}) => (
         font-style: italic;
         margin-bottom: 0;
       }
+
+      @media (max-width: 480px) {
+        .row {
+          flex-direction: column;
+          padding: 40px 20px;
+        }
+
+        .text {
+          padding-left: 0;
+        }
+      }
       `}</style>
   </div>
 )
