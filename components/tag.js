@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import {getType} from '../../lib/types'
+import {getType} from '../lib/types'
 
 const Tag = ({type, style}) => {
   const tag = getType(type)

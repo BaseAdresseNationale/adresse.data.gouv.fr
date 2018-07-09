@@ -6,10 +6,9 @@ import {spaceThousands} from '../../../../../../lib/format-numbers'
 import theme from '../../../../../../styles/theme'
 
 import Notification from '../../../../../notification'
+import Tag from '../../../../../tag'
 
 import Item from '../../item'
-
-import Tag from '../../../../../explorer/tag'
 
 import MapLoader from './map-loader'
 
@@ -76,7 +75,7 @@ class VoiePreview extends React.Component {
                 </div>
               </div>}
           </div> :
-          <Notification type='warning' message='Ce lieu nommé ne possède pas encore de position renseignée.' />
+          <Notification type='warning' message='Ce toponyme ne possède pas encore de position renseignée.' />
         }
 
         <style jsx>{`
