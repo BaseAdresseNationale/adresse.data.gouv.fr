@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Info from '../info'
 
-import Tag from '../../../explorer/tag'
+import Tag from '../../../tag'
 
 class Header extends React.Component {
   static propTypes = {

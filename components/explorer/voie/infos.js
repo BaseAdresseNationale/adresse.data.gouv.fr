@@ -7,7 +7,7 @@ import FaHome from 'react-icons/lib/fa/home'
 
 import {getTypeByPriority} from '../../../lib/types'
 
-import Tag from '../tag'
+import Tag from '../../tag'
 import theme from '../../../styles/theme'
 
 const Infos = ({voie}) => (

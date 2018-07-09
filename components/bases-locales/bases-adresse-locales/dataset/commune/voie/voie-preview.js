@@ -6,10 +6,9 @@ import {spaceThousands} from '../../../../../../lib/format-numbers'
 import theme from '../../../../../../styles/theme'
 
 import Notification from '../../../../../notification'
+import Tag from '../../../../../tag'
 
 import Item from '../../item'
-
-import Tag from '../../../../../explorer/tag'
 
 import MapLoader from './map-loader'
 

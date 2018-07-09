@@ -8,8 +8,7 @@ import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
 import theme from '../../../../../styles/theme'
 
 import Section from '../../../../section'
-
-import Tag from '../../../../explorer/tag'
+import Tag from '../../../../tag'
 
 import Header from '../header'
 import List from '../list'
