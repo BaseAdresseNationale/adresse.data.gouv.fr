@@ -26,6 +26,20 @@ class MapboxGL extends React.Component {
     this.bbox = bbox(props.data)
   }
 
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+    maxZoom: PropTypes.number,
+    onStyleLoad: PropTypes.func,
+    fullscreen: PropTypes.bool
+  }
+
+  static defaultProps = {
+    onStyleLoad: null,
+    maxZoom: 22,
+    fullscreen: false
+  }
+
   componentDidMount() {
     this.bbox = null
   }
@@ -53,31 +67,19 @@ class MapboxGL extends React.Component {
   }
 
   render() {
-    const {fullscreen, onStyleLoad, children} = this.props
+    const {maxZoom, fullscreen, onStyleLoad, children} = this.props
 
     return (
       <Map
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         fitBounds={this.getBounds()}
-        fitBoundsOptions={{padding: 20, linear: true}}
+        fitBoundsOptions={{padding: 20, linear: true, maxZoom}}
         containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
         {children}
       </Map>
     )
   }
-}
-
-MapboxGL.propTypes = {
-  data: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
-  onStyleLoad: PropTypes.func,
-  fullscreen: PropTypes.bool
-}
-
-MapboxGL.defaultProps = {
-  onStyleLoad: null,
-  fullscreen: false
 }
 
 export default MapboxGL
