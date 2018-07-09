@@ -40,18 +40,15 @@ class Header extends React.Component {
           }
 
           .head img {
-            width: 30%;
-            min-width: 160px;
-            max-width: 260px;
+            width: auto;
+            max-width: 200px;
+            height: auto;
+            max-height: 100px;
           }
 
-          @media (max-width: 520px) {
+          @media (max-width: 600px) {
             .head {
               flex-flow: column-reverse;
-            }
-
-            .head img {
-              width: 100%;
             }
           }
 
