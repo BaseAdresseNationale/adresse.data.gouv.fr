@@ -41,9 +41,9 @@ class Header extends React.Component {
 
           .head img {
             width: auto;
-            max-width: 200px;
+            max-width: 240px;
             height: auto;
-            max-height: 100px;
+            max-height: 140px;
           }
 
           @media (max-width: 600px) {
