@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Tag from '../../explorer/tag'
+import Tag from '../../tag'
 
 import Info from './info'
 import InfoReport from './info-report'

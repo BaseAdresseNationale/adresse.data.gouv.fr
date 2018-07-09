@@ -9,7 +9,7 @@ import theme from '../../../../styles/theme'
 import Section from '../../../section'
 
 import ButtonLink from '../../../button-link'
-import Tag from '../../../explorer/tag'
+import Tag from '../../../tag'
 
 import List from './list'
 import Item from './item'

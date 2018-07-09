@@ -8,8 +8,7 @@ import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
 import theme from '../../../../../styles/theme'
 
 import Section from '../../../../section'
-
-import Tag from '../../../../explorer/tag'
+import Tag from '../../../../tag'
 
 import Header from '../header'
 import List from '../list'
@@ -73,24 +72,28 @@ class Commune extends React.Component {
               filter={(voie, input) => deburr(voie.nomVoie.toLowerCase()).includes(input)}
               toItem={voie => {
                 const {numerosCount, codeVoie, nomVoie, source, position} = voie
-                const namedPlace = !position && numerosCount === 0
+                const namedPlace = numerosCount === 0
 
                 return (
                   <Item
                     key={codeVoie}
                     id={codeVoie}
                     name={nomVoie}
-                    link={namedPlace ? null : this.goto}>
+                    link={numerosCount > 0 || position ? this.goto : null}>
                     <div className='infos'>
-                      {namedPlace ?
+                      {namedPlace ? (
+                        !position &&
                         <div className='namedPlace'>
                           <FaExclamationTriangle /> <span>Ce lieu nommé ne possède pas encore de position renseignée.</span>
-                        </div> :
+                        </div>
+                      ) : (
                         <div className='counter'>
                           <b>{numerosCount}</b> {numerosCount > 1 ? 'numéros' : 'numéro'}
-                        </div>}
+                        </div>
+                      )}
 
                       <div className='sources'>
+                        {namedPlace && <Tag type='toponyme' />}
                         {source.map(source => <Tag key={source} type={source} />)}
                       </div>
                     </div>

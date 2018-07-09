@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import MdClose from 'react-icons/lib/md/close'
 
-import Tag from '../tag'
+import Tag from '../../tag'
 import Notification from '../../notification'
 
 import theme from '../../../styles/theme'
