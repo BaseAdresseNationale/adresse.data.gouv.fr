@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import Info from '../info'
 
+import Tag from '../../../explorer/tag'
+
 class Header extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
@@ -10,7 +12,8 @@ class Header extends React.Component {
     info: PropTypes.shape({
       title: PropTypes.string.isRequired,
       children: PropTypes.node.isRequired
-    })
+    }),
+    placeName: PropTypes.bool
   }
 
   static defaultProps = {
@@ -18,12 +21,12 @@ class Header extends React.Component {
   }
 
   render() {
-    const {name, logo, info} = this.props
+    const {name, logo, info, placeName} = this.props
 
     return (
       <div className='head'>
         <div>
-          <h1>{name}</h1>
+          <h1>{name} <span>{placeName && <Tag type='toponyme' />}</span></h1>
           {info && (
             <Info title={info.title}>
               {info.children}
@@ -37,6 +40,10 @@ class Header extends React.Component {
             display: flex;
             justify-content: space-between;
             align-items: center;
+          }
+
+          .head span {
+            display: inline-flex;
           }
 
           .head img {

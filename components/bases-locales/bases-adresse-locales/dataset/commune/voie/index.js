@@ -47,7 +47,8 @@ class Voie extends React.Component {
             info={{
               title: 'Dernière mise à jour',
               children: voie.dateMAJ ? voie.dateMAJ : 'inconnue'
-            }} />
+            }}
+            placeName={voie.numerosCount === 0} />
 
           <VoiePreview voie={voie} />
         </Section>
