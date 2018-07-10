@@ -44,15 +44,10 @@ class Commune extends React.Component {
     }).isRequired
   }
 
-  goto = codeVoie => {
-    const {router} = this.props
-    const {id, codeCommune} = router.query
-    router.push(`/bases-locales/jeux-de-donnees/${id}/${codeCommune}/${codeVoie}`)
-  }
-
   render() {
-    const {dataset, commune} = this.props
+    const {dataset, commune, router} = this.props
     const {id, title, organization, page} = dataset
+    const {query} = router
 
     return (
       <div>
@@ -79,7 +74,7 @@ class Commune extends React.Component {
                     key={codeVoie}
                     id={codeVoie}
                     name={nomVoie}
-                    link={numerosCount > 0 || position ? this.goto : null}>
+                    link={numerosCount > 0 || position ? `/bases-locales/jeux-de-donnees/${query.id}/${query.codeCommune}/${codeVoie}` : null}>
                     <div className='infos'>
                       {namedPlace ? (
                         !position &&

@@ -35,13 +35,8 @@ class Dataset extends React.Component {
     }).isRequired
   }
 
-  goto = codeCommune => {
-    const {router} = this.props
-    router.push(`/bases-locales/jeux-de-donnees/${router.query.id}/${codeCommune}`)
-  }
-
   render() {
-    const {dataset, summary} = this.props
+    const {dataset, summary, router} = this.props
     const {title, description, url, organization, page} = dataset
 
     return (
@@ -66,9 +61,8 @@ class Dataset extends React.Component {
               toItem={commune => (
                 <Item
                   key={commune.code}
-                  id={commune.code}
                   name={commune.nom}
-                  link={this.goto}>
+                  link={`/bases-locales/jeux-de-donnees/${router.query.id}/${commune.code}`}>
                   <div className='infos'>
                     <div className='counter'>
                       <b>{commune.voiesCount}</b> {commune.voiesCount > 1 ? 'voies' : 'voie'}
