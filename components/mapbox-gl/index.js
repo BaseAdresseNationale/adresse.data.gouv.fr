@@ -29,14 +29,14 @@ class MapboxGL extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
-    maxZoom: PropTypes.number,
+    fitBoundsMaxZoom: PropTypes.number,
     onStyleLoad: PropTypes.func,
     fullscreen: PropTypes.bool
   }
 
   static defaultProps = {
     onStyleLoad: null,
-    maxZoom: 22,
+    fitBoundsMaxZoom: 22,
     fullscreen: false
   }
 
@@ -67,14 +67,14 @@ class MapboxGL extends React.Component {
   }
 
   render() {
-    const {maxZoom, fullscreen, onStyleLoad, children} = this.props
+    const {fitBoundsMaxZoom, fullscreen, onStyleLoad, children} = this.props
 
     return (
       <Map
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         fitBounds={this.getBounds()}
-        fitBoundsOptions={{padding: 20, linear: true, maxZoom}}
+        fitBoundsOptions={{padding: 20, linear: true, maxZoom: fitBoundsMaxZoom}}
         containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
         {children}
       </Map>

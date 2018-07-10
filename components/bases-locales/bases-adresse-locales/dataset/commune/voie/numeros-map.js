@@ -41,7 +41,7 @@ class NumerosMap extends React.Component {
     }
 
     return (
-      <MapboxGL data={data} maxZoom={18}>
+      <MapboxGL data={data} fitBoundsMaxZoom={18}>
         <Source id='numeros-map' geoJsonSource={{
           type: 'geojson',
           data
