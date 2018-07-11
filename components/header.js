@@ -90,7 +90,7 @@ export default () => (
 
       .nav__links a:hover,
       .nav__links .dropdown:hover {
-        background: ${theme.lightGrey};
+        background-color: ${theme.colors.lightGrey};
         transition: background ease-out 0.5s;
       }
 

@@ -19,15 +19,11 @@ class Meta extends React.Component {
     column: PropTypes.bool
   }
 
-  static defaultProps = {
-    column: false
-  }
-
   render() {
-    const {infos, report, sources, column} = this.props
+    const {infos, report, sources} = this.props
 
     return (
-      <div className={`content ${column ? 'column' : ''}`}>
+      <div className='content'>
         {infos.map(info => (
           <div key={info.title}>
             <Info title={info.title}>
@@ -50,7 +46,7 @@ class Meta extends React.Component {
         <style jsx>{`
           .content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 255px));
+            grid-template-columns: repeat(auto-fit, minmax(170px, 100%));
             grid-gap: 5px;
           }
 

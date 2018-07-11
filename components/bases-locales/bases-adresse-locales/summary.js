@@ -42,7 +42,7 @@ class Summary extends React.Component {
             <Organization logo={organization.logo} name={organization.name} />
           </div>
           <div>
-            <Meta infos={this.infos} report={{id, status, valid, error}} column />
+            <Meta infos={this.infos} report={{id, status, valid, error}} />
           </div>
           <div className='links'>
             <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
