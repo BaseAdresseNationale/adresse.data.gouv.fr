@@ -4,8 +4,6 @@ import Dropzone from 'react-dropzone'
 import FaFile from 'react-icons/lib/fa/file'
 import FaPlus from 'react-icons/lib/fa/plus'
 
-import theme from '../../styles/theme'
-
 // Unable to pass the css by className, maybe a react-dropzone bug ¯\_(ツ)_/¯
 const style = {
   width: '100%',
@@ -70,8 +68,8 @@ class Holder extends React.Component {
               justify-content: center;
             }
 
-            .centered .dropzone-active {
-              background: ${theme.backgroundGrey}80;
+            .centered.dropzone-active {
+              background-color: #EBEFF380;
             }
 
             .centered:hover {
