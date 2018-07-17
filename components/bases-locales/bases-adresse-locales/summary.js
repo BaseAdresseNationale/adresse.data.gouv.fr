@@ -23,8 +23,16 @@ class Summary extends React.Component {
     error: PropTypes.object
   }
 
-  componentWillMount() {
-    const {count, licenseLabel, lastUpdate} = this.props
+  static defaultProps = {
+    valid: null,
+    error: null
+  }
+
+  constructor(props) {
+    super(props)
+
+    const {count, licenseLabel, lastUpdate} = props
+
     this.infos = [
       {title: 'Format', value: 'BAL 1.1'},
       {title: 'Licence', value: licenseLabel},
@@ -41,9 +49,11 @@ class Summary extends React.Component {
           <div>
             <Organization logo={organization.logo} name={organization.name} />
           </div>
+
           <div>
             <Meta infos={this.infos} report={{id, status, valid, error}} />
           </div>
+
           <div className='links'>
             <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
               Consulter
@@ -55,27 +65,27 @@ class Summary extends React.Component {
         </div>
 
         <style jsx>{`
-      .base-adresse-locale {
-        display: flex;
-        justify-content: space-between;
-        flex-flow: wrap;
-        align-items: center;
-      }
+          .base-adresse-locale {
+            display: flex;
+            justify-content: space-between;
+            flex-flow: wrap;
+            align-items: center;
+          }
 
-      .base-adresse-locale div {
-        margin: 1em auto;
-      }
+          .base-adresse-locale div {
+            margin: 1em auto;
+          }
 
-      .links {
-        display: flex;
-        flex-flow: column;
-        align-items: center;
-      }
+          .links {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+          }
 
-      .links a {
-        margin: 1em 0;
-      }
-      `}</style>
+          .links a {
+            margin: 1em 0;
+          }
+        `}</style>
       </div>
     )
   }

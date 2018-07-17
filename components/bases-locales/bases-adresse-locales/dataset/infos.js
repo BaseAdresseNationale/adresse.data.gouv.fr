@@ -12,6 +12,11 @@ class Infos extends React.Component {
     error: PropTypes.object
   }
 
+  static defaultProps = {
+    valid: null,
+    error: null
+  }
+
   render() {
     const {id, status, licenseLabel, valid, error} = this.props
 

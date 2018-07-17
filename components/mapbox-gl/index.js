@@ -44,7 +44,7 @@ class MapboxGL extends React.Component {
     this.bbox = null
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     const {data} = this.props
     this.bbox = null
 
@@ -75,7 +75,8 @@ class MapboxGL extends React.Component {
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         fitBounds={this.getBounds()}
         fitBoundsOptions={{padding: 20, linear: true, maxZoom: fitBoundsMaxZoom}}
-        containerStyle={fullscreen ? fullscreenStyle : containerStyle}>
+        containerStyle={fullscreen ? fullscreenStyle : containerStyle}
+      >
         {children}
       </Map>
     )

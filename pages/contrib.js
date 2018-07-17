@@ -1,3 +1,4 @@
+import React from 'react'
 import FaPencil from 'react-icons/lib/fa/pencil'
 import Page from '../layouts/main'
 

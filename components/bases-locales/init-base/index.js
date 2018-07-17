@@ -81,8 +81,9 @@ class InitBase extends React.Component {
       }
 
       const response = await fetch(url, options)
-      const cd = parse(response.headers.get('content-disposition'))
-      filename = cd.parameters.filename
+      const cd = parse(response.headers.get('content-disposition'));
+
+      ({filename} = cd.parameters)
 
       const blob = await response.blob()
       csv = URL.createObjectURL(blob)

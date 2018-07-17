@@ -48,20 +48,20 @@ const circlePaint = {
 }
 
 class AddressesMap extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.handleClick = this.handleClick.bind(this)
-    this.handleMouseEnter = this.handleMouseEnter.bind(this)
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
-    this.handleDragEnd = this.handleDragEnd.bind(this)
+  static propTypes = {
+    addresses: PropTypes.array.isRequired,
+    addrsAround: PropTypes.array.isRequired,
+    handleMove: PropTypes.func.isRequired,
+    selectedAddress: PropTypes.object,
+    handleSelect: PropTypes.func
   }
 
-  componentWillMount() {
-
+  static defaultProps = {
+    selectedAddress: null,
+    handleSelect: null
   }
 
-  handleClick(map, event) {
+  handleClick = (map, event) => {
     const {handleSelect} = this.props
     const [feature] = event.features
 
@@ -69,7 +69,7 @@ class AddressesMap extends React.Component {
     handleSelect(feature)
   }
 
-  handleMouseEnter(map, event) {
+  handleMouseEnter = (map, event) => {
     const canvas = event.originalEvent.target
     canvas.style.cursor = 'pointer'
 
@@ -79,14 +79,14 @@ class AddressesMap extends React.Component {
     map.setFilter('point-label', ['==', ['get', 'id'], feature.properties.id])
   }
 
-  handleMouseLeave(map, event) {
+  handleMouseLeave = (map, event) => {
     const canvas = event.originalEvent.target
     canvas.style.cursor = ''
 
     this.resetFilters(map)
   }
 
-  handleDragEnd(map) {
+  handleDragEnd = map => {
     const {handleMove} = this.props
     const bounds = map.getBounds().toArray()
     const bbox = [
@@ -213,18 +213,6 @@ class AddressesMap extends React.Component {
       </MapboxGL>
     )
   }
-}
-
-AddressesMap.propTypes = {
-  addresses: PropTypes.array.isRequired,
-  addrsAround: PropTypes.array.isRequired,
-  handleMove: PropTypes.func.isRequired,
-  selectedAddress: PropTypes.object,
-  handleSelect: PropTypes.func
-}
-
-AddressesMap.defaultProps = {
-  selectedAddress: null
 }
 
 export default AddressesMap

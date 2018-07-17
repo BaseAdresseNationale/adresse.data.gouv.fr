@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link'
 import Section from '../section'
 
@@ -6,26 +7,33 @@ import theme from '../../styles/theme'
 export default () => (
   <Section
     background='color'
-    title=''>
+    title=''
+  >
     <div className='main'>
       <Link href='/download'>
         <a>
-          <img src='/static/images/icons/download.svg' alt='Données Cadastre simplifié' />
-          Accéder aux données
+          <img
+            src='/static/images/icons/download.svg'
+            alt='Données Cadastre simplifié'
+          /> Accéder aux données
         </a>
       </Link>
 
       <Link href='/contrib'>
         <a>
-          <img src='/static/images/icons/contribute.svg' alt='Consulter le cadastre' />
-          Contribuer au projet
+          <img
+            src='/static/images/icons/contribute.svg'
+            alt='Consulter le cadastre'
+          /> Contribuer au projet
         </a>
       </Link>
 
       <Link href='/tools'>
         <a>
-          <img src='/static/images/icons/tools.svg' alt='Cartographie interactive' />
-          Découvrir les outils
+          <img
+            src='/static/images/icons/tools.svg'
+            alt='Cartographie interactive'
+          /> Découvrir les outils
         </a>
       </Link>
     </div>

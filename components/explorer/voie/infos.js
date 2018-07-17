@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import FaDotCircleO from 'react-icons/lib/fa/dot-circle-o'
@@ -91,6 +92,10 @@ Infos.propTypes = {
     entries: PropTypes.array.isRequired,
     codeVoie: PropTypes.string.isRequired
   })
+}
+
+Infos.defaultProps = {
+  voie: null
 }
 
 export default Infos

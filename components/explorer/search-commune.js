@@ -12,24 +12,14 @@ import renderAddok from '../search-input/render-addok'
 import BetaRibbon from '../beta-ribbon'
 
 class Explorer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      input: '',
-      results: [],
-      loading: false,
-      error: null
-    }
-
-    this.getFeatureValue = this.getFeatureValue.bind(this)
-    this.handleInput = this.handleInput.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-
-    this.handleSearch = debounce(this.handleSearch, 400)
+  state = {
+    input: '',
+    results: [],
+    loading: false,
+    error: null
   }
 
-  handleSelect(feature) {
+  handleSelect = feature => {
     const {citycode, id, housenumber, type} = feature.properties
     const streetCode = type === 'municipality' ? null : id.split('-')[1]
     this.setState({input: feature.name})
@@ -50,7 +40,7 @@ class Explorer extends React.Component {
     Router.push(href, as)
   }
 
-  handleInput(input) {
+  handleInput = input => {
     this.setState(() => {
       if (input) {
         this.handleSearch(input)
@@ -65,7 +55,7 @@ class Explorer extends React.Component {
     })
   }
 
-  async handleSearch(input) {
+  handleSearch = debounce(async input => {
     const url = 'https://sandbox.geo.api.gouv.fr/explore-addok/search?q=' + input
 
     try {
@@ -81,9 +71,9 @@ class Explorer extends React.Component {
         error: err
       })
     }
-  }
+  }, 400)
 
-  getFeatureValue(feature) {
+  getFeatureValue = feature => {
     return feature.header ? feature.header : feature.properties.name
   }
 
@@ -124,7 +114,7 @@ class Explorer extends React.Component {
           <div className='error'>
             <Notification message={error.message} type='error' />
           </div>
-          }
+        }
 
         <style jsx>{`
             .error {

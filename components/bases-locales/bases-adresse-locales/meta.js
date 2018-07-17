@@ -15,8 +15,12 @@ class Meta extends React.Component {
       })
     ).isRequired,
     report: PropTypes.object,
-    sources: PropTypes.array,
-    column: PropTypes.bool
+    sources: PropTypes.array
+  }
+
+  static defaultProps = {
+    report: null,
+    sources: null
   }
 
   render() {
@@ -58,7 +62,7 @@ class Meta extends React.Component {
           .sources span {
             display: flex;
           }
-          `}</style>
+        `}</style>
       </div>
     )
   }

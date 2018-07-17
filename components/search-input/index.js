@@ -7,27 +7,41 @@ import Loader from '../loader'
 import theme from '../../styles/theme'
 
 class SearchInput extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-
-    this.renderInput = this.renderInput.bind(this)
-    this.renderMenu = this.renderMenu.bind(this)
+  static propTypes = {
+    results: PropTypes.array,
+    value: PropTypes.string,
+    placeholder: PropTypes.string,
+    loading: PropTypes.bool,
+    wrapperStyle: PropTypes.object,
+    onSelect: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
+    renderItem: PropTypes.func.isRequired,
+    getItemValue: PropTypes.func.isRequired,
+    fullscreen: PropTypes.bool
   }
 
-  handleSearch(event) {
+  static defaultProps = {
+    results: [],
+    value: '',
+    placeholder: '',
+    loading: false,
+    wrapperStyle: null,
+    fullscreen: false
+  }
+
+  handleSearch = event => {
     const {onSearch} = this.props
+
     onSearch(event.target.value)
   }
 
-  handleSelect(itemName, item) {
+  handleSelect = (itemName, item) => {
     const {onSelect} = this.props
+
     onSelect(item)
   }
 
-  renderInput(props) {
+  renderInput = props => {
     const {placeholder} = this.props
 
     return (
@@ -53,7 +67,7 @@ class SearchInput extends React.Component {
     )
   }
 
-  renderMenu(items, value) {
+  renderMenu = (items, value) => {
     const {loading, fullscreen} = this.props
 
     return (
@@ -130,28 +144,6 @@ class SearchInput extends React.Component {
       </div>
     )
   }
-}
-
-SearchInput.propTypes = {
-  results: PropTypes.array,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  loading: PropTypes.bool,
-  wrapperStyle: PropTypes.object,
-  onSelect: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired,
-  renderItem: PropTypes.func.isRequired,
-  getItemValue: PropTypes.func.isRequired,
-  fullscreen: PropTypes.bool
-}
-
-SearchInput.defaultProps = {
-  results: [],
-  value: '',
-  placeholder: '',
-  loading: false,
-  wrapperStyle: null,
-  fullscreen: false
 }
 
 export default SearchInput

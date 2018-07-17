@@ -11,16 +11,17 @@ import {tagsList} from '../../../lib/table'
 import TableList from '../table-list'
 
 class VoiesTable extends React.Component {
-  constructor(props) {
-    super(props)
-    this.selectVoie = this.selectVoie.bind(this)
+  static propTypes = {
+    voies: PropTypes.array.isRequired,
+    onSelect: PropTypes.func.isRequired
   }
 
-  selectVoie(item) {
+  selectVoie = item => {
     const {voies, onSelect} = this.props
-    const voie = voies.find(voie => voie.idVoie === item.key)
 
-    onSelect(voie)
+    onSelect(
+      voies.find(voie => voie.idVoie === item.key)
+    )
   }
 
   render() {
@@ -69,11 +70,6 @@ class VoiesTable extends React.Component {
       </div>
     )
   }
-}
-
-VoiesTable.propTypes = {
-  voies: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired
 }
 
 export default VoiesTable

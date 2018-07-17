@@ -22,9 +22,10 @@ class VoiePreview extends React.Component {
     }).isRequired
   }
 
-  componentWillMount() {
-    const {voie} = this.props
-    const {numerosCount, dateMAJ} = voie
+  constructor(props) {
+    super(props)
+
+    const {numerosCount, dateMAJ} = props.voie
 
     this.infos = [
       {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
@@ -56,7 +57,8 @@ class VoiePreview extends React.Component {
                       <Item
                         key={numero.id}
                         id={numero.id}
-                        name={numero.numeroComplet}>
+                        name={numero.numeroComplet}
+                      >
                         <div className='infos'>
                           <div className='sources'>
                             {types.length > 0 ?

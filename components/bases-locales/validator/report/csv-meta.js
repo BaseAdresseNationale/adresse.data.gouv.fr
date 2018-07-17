@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import FaCheck from 'react-icons/lib/fa/check'
 import FaClose from 'react-icons/lib/fa/close'
@@ -35,6 +36,10 @@ CsvMeta.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isValid: PropTypes.bool.isRequired
+}
+
+CsvMeta.defaultProps = {
+  value: null
 }
 
 export default CsvMeta

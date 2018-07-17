@@ -6,35 +6,39 @@ import theme from '../../../../styles/theme'
 class LineValue extends React.Component {
   constructor(props) {
     super(props)
+
     const errors = props.value.errors || []
-    this.state = {error: errors.length > 0}
-    this.handleMouseOver = this.handleMouseOver.bind(this)
-    this.handleMouseOut = this.handleMouseOut.bind(this)
+    this.state = {
+      error: errors.length > 0
+    }
   }
 
-  handleMouseOver() {
+  handleMouseOver = () => {
     const {value, handleHover} = this.props
+
     handleHover(value)
   }
 
-  handleMouseOut() {
+  handleMouseOut = () => {
     const {handleHover} = this.props
+
     handleHover(null)
   }
 
   render() {
-    const {error} = this.state
     const {value} = this.props
+    const {error} = this.state
 
     return (
       <Fragment key={value.rawValue}>
-        {error ?
-          <td
-            className='error'
-            onMouseOver={this.handleMouseOver}
-            onMouseOut={this.handleMouseOut}>{value.rawValue}</td> :
+        {error ? (
+          <td className='error' onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+            {value.rawValue}
+          </td>
+        ) : (
           <td className='valid'>{value.rawValue}</td>
-        }
+        )}
+
         <style jsx>{`
           td {
             padding: 0.5em;
@@ -53,7 +57,7 @@ class LineValue extends React.Component {
           td.valid {
             background: ${theme.successBg};
           }
-          `}</style>
+        `}</style>
       </Fragment>
     )
   }

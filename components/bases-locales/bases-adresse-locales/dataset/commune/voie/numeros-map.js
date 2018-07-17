@@ -25,6 +25,11 @@ class NumerosMap extends React.Component {
     position: PropTypes.object
   }
 
+  static defaultProps = {
+    numeros: null,
+    position: null
+  }
+
   render() {
     const {numeros, position} = this.props
     const data = numeros ? numerosToGeoJson(numeros) : {
@@ -53,7 +58,7 @@ class NumerosMap extends React.Component {
           type='circle'
           paint={circlePaint} />
 
-        {numeros &&
+        {numeros && (
           <Layer
             id='point-label'
             type='symbol'
@@ -67,7 +72,8 @@ class NumerosMap extends React.Component {
               'text-font': [
                 'Noto Sans Regular'
               ]
-            }} />}
+            }} />
+        )}
       </MapboxGL>
     )
   }

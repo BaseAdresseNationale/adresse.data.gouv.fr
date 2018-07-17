@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Section from '../section'
 import Button from '../button'
 
@@ -10,7 +12,8 @@ export default () => (
       <Button type='submit' name='subscribe' style={{
         width: '100%',
         textTransform: 'uppercase'
-      }}>
+      }}
+      >
         Inscription
       </Button>
     </form>

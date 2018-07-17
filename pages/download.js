@@ -1,3 +1,4 @@
+import React from 'react'
 import DownloadIcon from 'react-icons/lib/fa/download'
 import Page from '../layouts/main'
 

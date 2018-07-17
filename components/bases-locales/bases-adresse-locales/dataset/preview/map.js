@@ -65,7 +65,6 @@ class Map extends React.PureComponent {
       </div>
     )
   }
-
 }
 
 export default Map

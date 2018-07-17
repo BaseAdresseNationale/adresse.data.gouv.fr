@@ -47,7 +47,7 @@ export default (mapStateWithProps, options) => Component => {
       }
     }
 
-    componentWillReceiveProps(newProps) {
+    UNSAFE_componentWillReceiveProps(newProps) {
       const {promise} = this.props
 
       if (newProps.promise && promise !== newProps.promise) {

@@ -23,7 +23,7 @@ class Description extends React.Component {
           <p>{description}</p>
           {page &&
             <a className='dgv-link' href={page}><FaArrowRight style={{marginRight: '5px'}} /> Consulter ce jeu de données sur data.gouv.fr</a>
-            }
+          }
         </div>
       </div>
     )

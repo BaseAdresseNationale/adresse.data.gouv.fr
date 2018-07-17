@@ -62,7 +62,8 @@ class Dataset extends React.Component {
                 <Item
                   key={commune.code}
                   name={commune.nom}
-                  link={`/bases-locales/jeux-de-donnees/${router.query.id}/${commune.code}`}>
+                  link={`/bases-locales/jeux-de-donnees/${router.query.id}/${commune.code}`}
+                >
                   <div className='infos'>
                     <div className='counter'>
                       <b>{commune.voiesCount}</b> {commune.voiesCount > 1 ? 'voies' : 'voie'}

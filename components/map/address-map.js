@@ -33,7 +33,9 @@ class AddressMap extends React.Component {
 
   static defaultProps = {
     address: true,
-    loading: false
+    loading: false,
+    center: null,
+    zoom: null
   }
 
   state = {
@@ -83,7 +85,8 @@ class AddressMap extends React.Component {
         onDrag={this.handleDrag}
         onZoom={this.handleZoom}
         onClick={this.handleClose}
-        fullscreen>
+        fullscreen
+      >
 
         {address &&
           <Marker

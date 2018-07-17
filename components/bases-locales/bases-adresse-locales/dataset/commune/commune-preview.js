@@ -19,9 +19,10 @@ class CommunesPreview extends React.Component {
     }).isRequired
   }
 
-  componentWillMount() {
-    const {commune} = this.props
-    const {voiesCount, numerosCount, population, dateMAJ} = commune
+  constructor(props) {
+    super(props)
+
+    const {voiesCount, numerosCount, population, dateMAJ} = props.commune
 
     this.infos = [
       {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},

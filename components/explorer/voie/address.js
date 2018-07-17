@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import MdClose from 'react-icons/lib/md/close'
 
@@ -18,19 +19,22 @@ const Address = ({voie, address, onClose}) => {
         <div className='close' onClick={() => onClose()}><MdClose /></div>
       </div>
 
-      {active && !pseudoNumero && <h5>{numero} {voie.nomVoie} - {voie.codeCommune} {voie.nomCommune}</h5>}
+      {active && !pseudoNumero && (
+        <h5>{numero} {voie.nomVoie} - {voie.codeCommune} {voie.nomCommune}</h5>
+      )}
 
       <div className='cats'>
         <div className='cat'>
           <div>Destination :</div>
-          {destination ?
+          {destination ? (
             <div className='flex-list'>
               {destination.map(dest => (
                 <Tag key={dest} type={dest} />
               ))}
-            </div> :
+            </div>
+          ) : (
             <div>Inconnu</div>
-          }
+          )}
         </div>
 
         <div className='cat'>
@@ -57,30 +61,31 @@ const Address = ({voie, address, onClose}) => {
         {entries.length > 0 &&
           <div>
             Positions :
-              {entries.map(entry => (
-                <div key={entry.source} className='position'>
-                  <div className='source'><h5>{entry.source}</h5></div>
-                  <div className='coordinates'>
-                    {entry.position &&
-                      entry.position.coordinates.map(coordinate => (
-                        <div key={coordinate} className='coordinate' >
-                          {coordinate}
-                        </div>
-                      ))
-                    }
-                  </div>
+            {entries.map(entry => (
+              <div key={entry.source} className='position'>
+                <div className='source'><h5>{entry.source}</h5></div>
+                <div className='coordinates'>
+                  {entry.position && (
+                    entry.position.coordinates.map(coordinate => (
+                      <div key={coordinate} className='coordinate' >
+                        {coordinate}
+                      </div>
+                    ))
+                  )}
                 </div>
+              </div>
             ))}
           </div>}
 
       </div>
 
-      {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ?
+      {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ? (
         <Notification
           type='warning'
-          message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`} /> :
-          null
-      }
+          message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`}
+        />
+      ) : null}
+
       <style jsx>{`
         .flex-list{
           display: flex;
@@ -129,7 +134,7 @@ const Address = ({voie, address, onClose}) => {
           grid-column: 1;
           text-align: center;
           background-color: ${theme.colors.lighterGrey};
-         }
+        }
 
         .coordinates {
           grid-column: 2;
@@ -137,7 +142,7 @@ const Address = ({voie, address, onClose}) => {
           grid-row-gap: 5px;
           grid-template-rows: 50%;
           text-align: center;
-         }
+        }
 
         .coordinate {
           align-self: center;
@@ -146,8 +151,8 @@ const Address = ({voie, address, onClose}) => {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-         }
-        `}</style>
+        }
+      `}</style>
     </div>
   )
 }
@@ -164,6 +169,10 @@ Address.propTypes = {
     sources: PropTypes.array.isRequired
   }).isRequired,
   onClose: PropTypes.func.isRequired
+}
+
+Address.defaultProps = {
+  voie: null
 }
 
 export default Address

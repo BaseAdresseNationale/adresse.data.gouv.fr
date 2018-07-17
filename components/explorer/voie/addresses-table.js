@@ -10,13 +10,23 @@ import {getTypeByPriority} from '../../../lib/types'
 import TableList from '../table-list'
 
 class AddressesTable extends React.Component {
-  constructor(props) {
-    super(props)
-    this.selectAddress = this.selectAddress.bind(this)
+  static propTypes = {
+    addresses: PropTypes.array.isRequired,
+    selected: PropTypes.shape({
+      numero: PropTypes.string.isRequired,
+      position: PropTypes.object.isRequired,
+      sources: PropTypes.array.isRequired
+    }),
+    onSelect: PropTypes.func.isRequired
   }
 
-  selectAddress(item) {
+  static defaultProps = {
+    selected: null
+  }
+
+  selectAddress = item => {
     const {onSelect} = this.props
+
     onSelect({numero: item.values[0]})
   }
 
@@ -55,20 +65,6 @@ class AddressesTable extends React.Component {
         handleSelect={this.selectAddress} />
     )
   }
-}
-
-AddressesTable.propTypes = {
-  addresses: PropTypes.array.isRequired,
-  selected: PropTypes.shape({
-    numero: PropTypes.string.isRequired,
-    position: PropTypes.object.isRequired,
-    sources: PropTypes.array.isRequired
-  }),
-  onSelect: PropTypes.func.isRequired
-}
-
-AddressesTable.defaultProps = {
-  selected: null
 }
 
 export default AddressesTable

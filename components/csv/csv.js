@@ -45,27 +45,17 @@ function getFileExtension(fileName) {
 }
 
 class Csv extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      file: null,
-      csv: null,
-      selectedColumns: [],
-      filtersMenu: false,
-      filter: null,
-      error: null,
-      encoding: null
-    }
-
-    this.handleFileDrop = this.handleFileDrop.bind(this)
-    this.parseFile = this.parseFile.bind(this)
-    this.handleAddColumn = this.handleAddColumn.bind(this)
-    this.handleRemoveColumn = this.handleRemoveColumn.bind(this)
-    this.handleFilterMenu = this.handleFilterMenu.bind(this)
-    this.handleFilter = this.handleFilter.bind(this)
+  state = {
+    file: null,
+    csv: null,
+    selectedColumns: [],
+    filtersMenu: false,
+    filter: null,
+    error: null,
+    encoding: null
   }
 
-  resetState() {
+  resetState = () => {
     this.setState({
       file: null,
       selectedColumns: [],
@@ -74,7 +64,7 @@ class Csv extends React.Component {
     })
   }
 
-  parseFile(file) {
+  parseFile = file => {
     detectEncoding(file)
       .then(({encoding}) => {
         this.setState({encoding})
@@ -92,7 +82,7 @@ class Csv extends React.Component {
       .catch(() => this.setState({error: 'Impossible de lire ce fichier.'}))
   }
 
-  handleFileDrop(fileList) {
+  handleFileDrop = fileList => {
     const file = fileList[0]
     const fileExtension = getFileExtension(file.name)
     if (file.type && !allowedTypes.includes(file.type)) {
@@ -115,28 +105,34 @@ class Csv extends React.Component {
     }
   }
 
-  handleAddColumn(column) {
-    const selectedColumns = [...this.state.selectedColumns]
-    selectedColumns.push(column)
-    this.setState({selectedColumns})
+  handleAddColumn = column => {
+    this.setState(state => ({
+      selectedColumns: [
+        ...state.selectedColumns,
+        column
+      ]
+    }))
   }
 
-  handleRemoveColumn(column) {
-    const selectedColumns = [...this.state.selectedColumns.filter(col => col !== column)]
-    this.setState({selectedColumns})
+  handleRemoveColumn = column => {
+    this.setState(state => ({
+      selectedColumns: state.selectedColumns.filter(
+        col => col !== column
+      )
+    }))
   }
 
-  handleFilterMenu() {
-    this.setState(state => {
-      return {
-        filtersMenu: !state.filtersMenu,
-        filter: null
-      }
+  handleFilterMenu = () => {
+    this.setState(state => ({
+      filtersMenu: !state.filtersMenu,
+      filter: null
+    }))
+  }
+
+  handleFilter = column => {
+    this.setState({
+      filter: column
     })
-  }
-
-  handleFilter(column) {
-    this.setState({filter: column})
   }
 
   render() {

@@ -74,7 +74,8 @@ class Commune extends React.Component {
                     key={codeVoie}
                     id={codeVoie}
                     name={nomVoie}
-                    link={numerosCount > 0 || position ? `/bases-locales/jeux-de-donnees/${query.id}/${query.codeCommune}/${codeVoie}` : null}>
+                    link={numerosCount > 0 || position ? `/bases-locales/jeux-de-donnees/${query.id}/${query.codeCommune}/${codeVoie}` : null}
+                  >
                     <div className='infos'>
                       {namedPlace ? (
                         !position &&

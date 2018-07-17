@@ -7,18 +7,23 @@ import Line from './line'
 import RowErrors from './row-errors'
 
 class Row extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {showErr: false, field: null}
-    this.handleError = this.handleError.bind(this)
-    this.handleField = this.handleField.bind(this)
+  static propTypes = {
+    row: PropTypes.object.isRequired
   }
 
-  handleError() {
-    this.setState({showErr: !this.state.showErr, field: null})
+  state = {
+    showErr: false,
+    field: null
   }
 
-  handleField(field) {
+  handleError = () => {
+    this.setState(state => ({
+      showErr: !state.showErr,
+      field: null
+    }))
+  }
+
+  handleField = field => {
     this.setState({field})
   }
 
@@ -34,10 +39,15 @@ class Row extends React.Component {
             <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
           </div>
           <div>
-            {errCount > 0 && (
-              errCount === 1 ? <span className='error' onClick={this.handleError}>{showErr ? 'Masquer' : 'Afficher'} l’anomalie</span> :
-              <span className='error' onClick={this.handleError}>{showErr ? 'Masquer' : 'Afficher'} les {errCount} anomalies</span>)
-            }
+            {errCount === 1 ? (
+              <span className='error' onClick={this.handleError}>
+                {showErr ? 'Masquer' : 'Afficher'} l’anomalie
+              </span>
+            ) : (
+              <span className='error' onClick={this.handleError}>
+                {showErr ? 'Masquer' : 'Afficher'} les {errCount} anomalies
+              </span>
+            )}
           </div>
         </div>
 
@@ -76,14 +86,10 @@ class Row extends React.Component {
             color: ${theme.darkText};
             text-decoration: italic;
           }
-          `}</style>
+        `}</style>
       </div>
     )
   }
-}
-
-Row.propTypes = {
-  row: PropTypes.object.isRequired
 }
 
 export default Row

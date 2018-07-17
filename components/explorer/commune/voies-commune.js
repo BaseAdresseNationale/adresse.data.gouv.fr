@@ -7,15 +7,19 @@ import withFetch from '../../hoc/with-fetch'
 import VoiesTable from './voies-table'
 
 class VoiesCommune extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleSelect = this.handleSelect.bind(this)
+  static propTypes = {
+    voies: PropTypes.array
   }
 
-  handleSelect(voie) {
+  static defaultProps = {
+    voies: []
+  }
+
+  handleSelect = voie => {
     Router.push(
       `/commune/voie?codeVoie=${voie.codeVoie}`,
-      `/explore/commune/${voie.codeCommune}/voie/${voie.codeVoie}`)
+      `/explore/commune/${voie.codeCommune}/voie/${voie.codeVoie}`
+    )
   }
 
   render() {
@@ -32,14 +36,6 @@ class VoiesCommune extends React.Component {
       </div>
     )
   }
-}
-
-VoiesCommune.propTypes = {
-  voies: PropTypes.array
-}
-
-VoiesCommune.defaultProps = {
-  voies: []
 }
 
 export default withFetch(data => ({

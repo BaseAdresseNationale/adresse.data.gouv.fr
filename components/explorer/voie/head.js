@@ -43,4 +43,8 @@ Head.propTypes = {
   nomVoie: PropTypes.string.isRequired
 }
 
+Head.defaultProps = {
+  commune: null
+}
+
 export default Head

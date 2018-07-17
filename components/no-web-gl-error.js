@@ -1,3 +1,4 @@
+import React from 'react'
 import Notification from './notification'
 
 const NoWebglError = () => (

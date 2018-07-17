@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import FaLightbulbO from 'react-icons/lib/fa/lightbulb-o'

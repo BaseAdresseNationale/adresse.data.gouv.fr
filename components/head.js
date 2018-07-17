@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '../styles/theme'
@@ -63,6 +64,10 @@ Head.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired
+}
+
+Head.defaultProps = {
+  children: null
 }
 
 export default Head

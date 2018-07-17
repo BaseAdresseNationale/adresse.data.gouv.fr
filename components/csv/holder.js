@@ -15,23 +15,29 @@ const style = {
 }
 
 class Holder extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {dropzoneActive: false}
-    this.handleOnDragEnter = this.handleOnDragEnter.bind(this)
-    this.handleOnDragLeave = this.handleOnDragLeave.bind(this)
-    this.handleOnDrop = this.handleOnDrop.bind(this)
+  static propTypes = {
+    file: PropTypes.object,
+    placeholder: PropTypes.string.isRequired,
+    onDrop: PropTypes.func.isRequired
   }
 
-  handleOnDragEnter() {
+  static defaultProps = {
+    file: null
+  }
+
+  state = {
+    dropzoneActive: false
+  }
+
+  handleOnDragEnter = () => {
     this.setState({dropzoneActive: true})
   }
 
-  handleOnDragLeave() {
+  handleOnDragLeave = () => {
     this.setState({dropzoneActive: false})
   }
 
-  handleOnDrop(files) {
+  handleOnDrop = files => {
     const {onDrop} = this.props
 
     this.setState({dropzoneActive: false})
@@ -48,7 +54,8 @@ class Holder extends React.Component {
         onDragLeave={this.handleOnDragLeave}
         onDrop={this.handleOnDrop}
         style={style}
-        multiple={false}>
+        multiple={false}
+      >
 
         <div className={`centered ${dropzoneActive ? 'dropzone-active' : ''}`}>
           <div>
@@ -75,17 +82,11 @@ class Holder extends React.Component {
               font-size: 72px;
               margin: 0.3em;
             }
-            `}</style>
+          `}</style>
         </div>
       </Dropzone>
     )
   }
-}
-
-Holder.propTypes = {
-  file: PropTypes.object,
-  placeholder: PropTypes.string.isRequired,
-  onDrop: PropTypes.func.isRequired
 }
 
 export default Holder

@@ -7,21 +7,38 @@ import Section from '../../section'
 import Notification from '../../notification'
 
 class FileHandler extends React.Component {
+  static propTypes = {
+    defaultValue: PropTypes.string,
+    file: PropTypes.object,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Error)
+    ]),
+    loading: PropTypes.bool,
+    onFileDrop: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    defaultValue: '',
+    file: null,
+    error: null,
+    loading: false
+  }
+
   constructor(props) {
     super(props)
     this.state = {inputValue: props.defaultValue}
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const {inputValue} = this.state
     const {onSubmit} = this.props
 
     onSubmit(inputValue)
   }
 
-  handleChange(inputValue) {
+  handleChange = inputValue => {
     this.setState({inputValue})
   }
 
@@ -33,13 +50,29 @@ class FileHandler extends React.Component {
       <Section>
         <div>
           <h2>Choisir un fichier</h2>
+
           <div className='container'>
-            <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={onFileDrop} />
+            <Holder
+              placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)'
+              file={file}
+              onDrop={onFileDrop}
+            />
             <div className='else'>ou</div>
-            <InputForm placeholder='Entrer une url vers un fichier CSV' value={inputValue} onChange={this.handleChange} onSubmit={this.handleSubmit} buttonText='Utiliser' loading={loading} />
+            <InputForm
+              placeholder='Entrer une url vers un fichier CSV'
+              value={inputValue}
+              onChange={this.handleChange}
+              onSubmit={this.handleSubmit}
+              buttonText='Utiliser'
+              loading={loading}
+            />
           </div>
-          {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+
+          {error && (
+            <Notification style={{marginTop: '1em'}} message={error} type='error' />
+          )}
         </div>
+
         <style jsx>{`
           .container {
             display: flex;
@@ -56,25 +89,6 @@ class FileHandler extends React.Component {
       </Section>
     )
   }
-}
-
-FileHandler.propTypes = {
-  defaultValue: PropTypes.string,
-  file: PropTypes.object,
-  error: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Error)
-  ]),
-  loading: PropTypes.bool,
-  onFileDrop: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
-}
-
-FileHandler.defaultProps = {
-  defaultValue: '',
-  file: null,
-  error: null,
-  loading: false
 }
 
 export default FileHandler
