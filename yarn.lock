@@ -7048,6 +7048,10 @@ regenerator-runtime@^0.11.1:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
 
+regenerator-runtime@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.0.tgz#8052ac952d85b10f3425192cd0c53f45cf65c6cb"
+
 regenerator-transform@^0.12.3:
   version "0.12.4"
   resolved "https://registry.yarnpkg.com/regenerator-transform/-/regenerator-transform-0.12.4.tgz#aa9b6c59f4b97be080e972506c560b3bccbfcff0"
