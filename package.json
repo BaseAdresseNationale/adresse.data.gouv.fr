@@ -14,7 +14,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@etalab/bal": "^0.3.5",
+    "@etalab/bal": "^0.7.0",
     "@turf/bbox": "^6.0.1",
     "blob-to-buffer": "^1.2.6",
     "compression": "^1.7.2",
