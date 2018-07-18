@@ -2,13 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class RadioInput extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
+  static propTypes = {
+    value: PropTypes.string.isRequired,
+    toggleInput: PropTypes.func.isRequired,
+    style: PropTypes.object,
+    checked: PropTypes.bool
   }
 
-  handleChange(event) {
+  static defaultProps = {
+    style: null,
+    checked: false
+  }
+
+  handleChange = event => {
     const {toggleInput} = this.props
+
     toggleInput(event.target.value)
   }
 
@@ -22,18 +30,6 @@ class RadioInput extends React.Component {
       </div>
     )
   }
-}
-
-RadioInput.propTypes = {
-  value: PropTypes.string.isRequired,
-  toggleInput: PropTypes.func.isRequired,
-  style: PropTypes.object,
-  checked: PropTypes.bool
-}
-
-RadioInput.defaultProps = {
-  style: null,
-  checked: false
 }
 
 export default RadioInput

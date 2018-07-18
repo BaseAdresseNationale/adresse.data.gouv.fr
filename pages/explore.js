@@ -1,3 +1,4 @@
+import React from 'react'
 import Page from '../layouts/main'
 
 import Explorer from '../components/explorer'

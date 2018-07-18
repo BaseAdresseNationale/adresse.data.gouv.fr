@@ -21,7 +21,7 @@ class Voie extends React.Component {
     commune: PropTypes.shape({
       code: PropTypes.string.isRequired,
       nom: PropTypes.string.isRequired
-    }),
+    }).isRequired,
     voie: PropTypes.shape({
       nomVoie: PropTypes.string.isRequired
     }).isRequired

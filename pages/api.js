@@ -1,3 +1,4 @@
+import React from 'react'
 import FaTerminal from 'react-icons/lib/fa/terminal'
 import Page from '../layouts/main'
 

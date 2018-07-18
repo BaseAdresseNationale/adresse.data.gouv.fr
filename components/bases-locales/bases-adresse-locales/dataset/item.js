@@ -11,6 +11,10 @@ class WithLink extends React.Component {
     children: PropTypes.node.isRequired
   }
 
+  static defaultProps = {
+    link: null
+  }
+
   render() {
     const {link, children} = this.props
 

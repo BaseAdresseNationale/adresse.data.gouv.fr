@@ -22,6 +22,11 @@ class NumerosMap extends React.Component {
     position: PropTypes.object
   }
 
+  static defaultProps = {
+    numeros: null,
+    position: null
+  }
+
   state = {
     showMap: false
   }

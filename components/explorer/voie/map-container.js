@@ -21,23 +21,30 @@ const AddressesMap = dynamic(import('./addresses-map'), {
 })
 
 class MapContainer extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      addrsAround: []
-    }
-
-    this.selectAddress = this.selectAddress.bind(this)
-    this.getAddrsAround = this.getAddrsAround.bind(this)
+  static propTypes = {
+    voie: PropTypes.object,
+    addresses: PropTypes.array,
+    selected: PropTypes.object,
+    onSelect: PropTypes.func.isRequired
   }
 
-  selectAddress(feature) {
+  static defaultProps = {
+    voie: null,
+    addresses: null,
+    selected: null
+  }
+
+  state = {
+    addrsAround: []
+  }
+
+  selectAddress = feature => {
     const {onSelect} = this.props
+
     onSelect({numero: feature.properties.numero})
   }
 
-  async getAddrsAround(bbox) {
+  getAddrsAround = async bbox => {
     const {voie, addresses} = this.props
     const url = `https://sandbox.geo.api.gouv.fr/explore/${voie.codeCommune}/numeros?bbox=${bbox}`
 
@@ -73,7 +80,7 @@ class MapContainer extends React.Component {
               handleMove={this.getAddrsAround}
               handleSelect={this.selectAddress} />
           </div>
-          }
+        }
 
         {selected &&
           <div className='selected-address'>
@@ -125,17 +132,6 @@ class MapContainer extends React.Component {
       </div>
     )
   }
-}
-
-MapContainer.propTypes = {
-  voie: PropTypes.object,
-  addresses: PropTypes.array,
-  selected: PropTypes.object,
-  onSelect: PropTypes.func.isRequired
-}
-
-MapContainer.defaultProps = {
-  addresses: null
 }
 
 export default MapContainer

@@ -19,10 +19,11 @@ class CommunePage extends React.Component {
 
   componentDidMount() {
     const {codeCommune} = this.props
+
     this.buildVoiesPromise(codeCommune)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const {codeCommune} = this.props
 
     if (nextProps.codeCommune !== codeCommune) {

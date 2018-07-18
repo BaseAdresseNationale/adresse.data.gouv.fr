@@ -5,20 +5,31 @@ import Button from './button'
 import Loader from './loader'
 
 class Input extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+  static propTypes = {
+    value: PropTypes.string,
+    placeholder: PropTypes.string,
+    loading: PropTypes.bool,
+    buttonText: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
   }
 
-  handleSubmit(event) {
+  static defaultProps = {
+    value: null,
+    placeholder: '',
+    loading: false
+  }
+
+  handleSubmit = event => {
     const {value, onSubmit} = this.props
+
     event.preventDefault()
     onSubmit(value)
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const {onChange} = this.props
+
     event.preventDefault()
     onChange(event.target.value)
   }
@@ -44,21 +55,6 @@ class Input extends React.PureComponent {
       </div>
     )
   }
-}
-
-Input.propTypes = {
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-  loading: PropTypes.bool,
-  buttonText: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired
-}
-
-Input.defaultProps = {
-  value: null,
-  placeholder: '',
-  loading: false
 }
 
 export default Input

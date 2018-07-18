@@ -1,3 +1,4 @@
+import React from 'react'
 import theme from '../../styles/theme'
 
 function RenderCommune(item, isHighlighted) {

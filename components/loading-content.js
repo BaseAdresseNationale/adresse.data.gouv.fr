@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import Loader from './loader'
@@ -20,7 +21,9 @@ const LoadingContent = ({loading, error, centered, children}) => {
         `}</style>
       </div>
     )
-  } else if (error) {
+  }
+
+  if (error) {
     return (
       <div className='error'>
         <Notification message={error.message} type='error' />

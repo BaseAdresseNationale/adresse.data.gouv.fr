@@ -9,6 +9,24 @@ import TableControl from './table-control'
 import Filters from './filters'
 
 class TableList extends React.Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    list: PropTypes.array.isRequired,
+    headers: PropTypes.array.isRequired,
+    genItems: PropTypes.func.isRequired,
+    subtitle: PropTypes.string,
+    initialSort: PropTypes.object,
+    selected: PropTypes.object,
+    handleSelect: PropTypes.func
+  }
+
+  static defaultProps = {
+    subtitle: '',
+    initialSort: null,
+    selected: null,
+    handleSelect: () => {}
+  }
+
   constructor(props) {
     super(props)
 
@@ -20,37 +38,34 @@ class TableList extends React.Component {
     }
 
     this.baseState = this.state
-
-    this.handleTextFilter = this.handleTextFilter.bind(this)
-    this.handleTags = this.handleTags.bind(this)
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     this.setState(this.baseState)
   }
 
-  handleTextFilter(text) {
+  handleTextFilter = text => {
     this.setState({
       text
     })
   }
 
-  handleTags(tag) {
-    const selectedTags = [...this.state.selectedTags]
+  handleTags = tag => {
+    this.setState(state => {
+      const selectedTags = [...state.selectedTags]
 
-    if (selectedTags.includes(tag)) {
-      const index = selectedTags.indexOf(tag)
-      selectedTags.splice(index, 1)
-    } else {
-      selectedTags.push(tag)
-    }
+      if (selectedTags.includes(tag)) {
+        const index = selectedTags.indexOf(tag)
+        selectedTags.splice(index, 1)
+      } else {
+        selectedTags.push(tag)
+      }
 
-    this.setState({
-      selectedTags
+      return {selectedTags}
     })
   }
 
-  filterList() {
+  filterList = () => {
     const {text, selectedTags} = this.state
     const list = [...this.props.list]
 
@@ -62,8 +77,10 @@ class TableList extends React.Component {
         tags = tags.concat(destination)
       }
 
-      return byTags(tags, selectedTags) && // Filter tags
-              byText((nomVoie || numero), text) // Filter text
+      return (
+        byTags(tags, selectedTags) && // Filter tags
+        byText((nomVoie || numero), text) // Filter text
+      )
     })
   }
 
@@ -86,46 +103,31 @@ class TableList extends React.Component {
           sources={availableSources}
           destinations={availableDestination}
           selectedTags={selectedTags}
-          onFilterTags={this.handleTags} />
+          onFilterTags={this.handleTags}
+        />
 
-        {filteredList.length === 0 ?
-          <div className='no-result'>Aucun résultat</div> :
+        {filteredList.length === 0 ? (
+          <div className='no-result'>Aucun résultat</div>
+        ) : (
           <TableControl
             list={filteredList}
             selected={selected}
             headers={headers}
             genItems={genItems}
             initialSort={initialSort}
-            handleSelect={handleSelect} />
-        }
+            handleSelect={handleSelect}
+          />
+        )}
 
         <style jsx>{`
-            .no-result {
-              text-align: center;
-              margin: 2em;
-            }
-            `}</style>
+          .no-result {
+            text-align: center;
+            margin: 2em;
+          }
+        `}</style>
       </div>
     )
   }
-}
-
-TableList.propTypes = {
-  title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired,
-  headers: PropTypes.array.isRequired,
-  genItems: PropTypes.func.isRequired,
-  subtitle: PropTypes.string,
-  initialSort: PropTypes.object,
-  selected: PropTypes.object,
-  handleSelect: PropTypes.func
-}
-
-TableList.defaultProps = {
-  subtitle: '',
-  initialSort: null,
-  selected: null,
-  handleSelect: () => {}
 }
 
 export default TableList

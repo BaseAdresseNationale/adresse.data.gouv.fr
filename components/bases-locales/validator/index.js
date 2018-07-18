@@ -42,19 +42,19 @@ const statusCodeMsg = {
 }
 
 class BALValidator extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      error: null,
-      file: null,
-      report: null,
-      loading: false,
-      inProgress: false
-    }
+  static propTypes = {
+    router: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+      query: PropTypes.object.isRequired
+    }).isRequired
+  }
 
-    this.handleFileDrop = this.handleFileDrop.bind(this)
-    this.handleInput = this.handleInput.bind(this)
-    this.parseFile = this.parseFile.bind(this)
+  state = {
+    error: null,
+    file: null,
+    report: null,
+    loading: false,
+    inProgress: false
   }
 
   componentDidMount() {
@@ -79,7 +79,7 @@ class BALValidator extends React.Component {
     })
   }
 
-  handleFileDrop(fileList) {
+  handleFileDrop = fileList => {
     const file = fileList[0] // Keep only the first file
     const fileExtension = getFileExtension(file.name)
 
@@ -97,7 +97,7 @@ class BALValidator extends React.Component {
     }
   }
 
-  async handleInput(input) {
+  handleInput = async input => {
     if (input) {
       this.setState({loading: true, error: null, url: input})
       const url = 'https://adressedgv-cors.now.sh/' + input
@@ -126,7 +126,7 @@ class BALValidator extends React.Component {
     this.setState({loading: false})
   }
 
-  parseFile() {
+  parseFile = () => {
     const {file} = this.state
 
     this.setState({inProgress: true})
@@ -177,13 +177,6 @@ class BALValidator extends React.Component {
       </div>
     )
   }
-}
-
-BALValidator.propTypes = {
-  router: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    query: PropTypes.object.isRequired
-  }).isRequired
 }
 
 export default (withRouter(BALValidator))

@@ -6,20 +6,32 @@ import theme from '../../../../styles/theme'
 import TagsInput from './tags-input'
 
 class TableList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
+  static propTypes = {
+    text: PropTypes.string,
+    sources: PropTypes.array,
+    destinations: PropTypes.array,
+    selectedTags: PropTypes.array,
+    onFilterTags: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
   }
 
-  handleChange(event) {
+  static defaultProps = {
+    text: '',
+    sources: null,
+    destinations: null,
+    selectedTags: []
+  }
+
+  handleChange = event => {
     const {onChange} = this.props
+
     event.preventDefault()
     onChange(event.target.value)
   }
 
-  handleSelect(event) {
+  handleSelect = event => {
     const {onFilterTags} = this.props
+
     event.preventDefault()
     onFilterTags(event.target.value)
   }
@@ -91,22 +103,6 @@ class TableList extends React.Component {
       </div>
     )
   }
-}
-
-TableList.propTypes = {
-  text: PropTypes.string,
-  sources: PropTypes.array,
-  destinations: PropTypes.array,
-  selectedTags: PropTypes.array,
-  onFilterTags: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired
-}
-
-TableList.defaultProps = {
-  text: '',
-  sources: null,
-  destinations: null,
-  selectedTags: []
 }
 
 export default TableList

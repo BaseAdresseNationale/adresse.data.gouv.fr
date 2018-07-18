@@ -17,7 +17,8 @@ class Header extends React.Component {
   }
 
   static defaultProps = {
-    info: null
+    info: null,
+    placeName: null
   }
 
   render() {

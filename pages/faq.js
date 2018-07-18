@@ -1,3 +1,4 @@
+import React from 'react'
 import FaQuestion from 'react-icons/lib/fa/question'
 import Page from '../layouts/main'
 

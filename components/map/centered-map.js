@@ -26,7 +26,8 @@ class Mapbox extends React.Component {
         onStyleLoad={onStyleLoad}
         style='https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
         center={center}
-        containerStyle={containerStyle}>
+        containerStyle={containerStyle}
+      >
         {children}
       </Map>
     )

@@ -1,4 +1,4 @@
-import {Fragment} from 'react'
+import React, {Fragment} from 'react'
 import prune from 'underscore.string/prune'
 import PropTypes from 'prop-types'
 import Head from 'next/head'

@@ -17,7 +17,8 @@ const Body = ({items, wrapped, selected, handleSelect}) => (
       <tr
         key={item.key}
         className={`${fadeOut(wrapped, idx)} ${isSelected(selected, item)}`}
-        onClick={() => handleSelect(item)}>
+        onClick={() => handleSelect(item)}
+      >
         {item.values.map((value, idx) =>
           <td key={idx}>{value}</td> // eslint-disable-line react/no-array-index-key
         )}

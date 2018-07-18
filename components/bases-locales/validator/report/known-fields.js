@@ -1,4 +1,4 @@
-import {Fragment} from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 
 import FaClose from 'react-icons/lib/fa/close'
@@ -34,16 +34,19 @@ const KnownFields = ({found, alias}) => (
         <tr key={field}>
           <td>{field}</td>
           {found.includes(field) ?
-            alias[field] ?
+            alias[field] ? (
               <Fragment>
                 <td className='warning'><FaExclamationTriangle /></td>
                 <td className='warning message'><b>{alias[field]}</b> n’est pas standard</td>
-              </Fragment> :
-              <td className='found'><FaCheck /></td> :
+              </Fragment>
+            ) : (
+              <td className='found'><FaCheck /></td>
+            ) : (
               <td className='not-found'><FaClose /></td>
+            )
           }
-        </tr>)
-      )}
+        </tr>
+      ))}
     </tbody>
     <style jsx>{`
       .container {

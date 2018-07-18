@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
@@ -5,15 +6,15 @@ import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 import Section from '../section'
 import ButtonLink from '../button-link'
 
-import BaseAdresseLocale from '../../components/bases-locales/bases-adresse-locales/base-adresse-locale'
+import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 
 const BasesLocales = ({datasets}) => (
   <div>
     <Section background='white'>
       <div className='intro'>
-        <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />
+        <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
         Cette compétence est <b>régulièrement déléguée à un EPCI</b>.</p>
-        <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe tout ou partie des adresses d’une collectivité.<br />
+        <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe tout ou partie des adresses d’une collectivité.<br />{}
         Elle est <b>publiée sous sa responsabilité</b>.</p>
         <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
       </div>

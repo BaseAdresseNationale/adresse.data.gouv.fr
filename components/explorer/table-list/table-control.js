@@ -8,16 +8,10 @@ import Head from './table/head'
 import Body from './table/body'
 
 class TableControl extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      order: 'desc',
-      actived: null,
-      wrap: true
-    }
-
-    this.sort = this.sort.bind(this)
-    this.handleWrap = this.handleWrap.bind(this)
+  state = {
+    order: 'desc',
+    actived: null,
+    wrap: true
   }
 
   componentDidMount() {
@@ -28,7 +22,7 @@ class TableControl extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const {initialSort} = nextProps
 
     if (initialSort) {
@@ -40,7 +34,7 @@ class TableControl extends React.Component {
     }
   }
 
-  sort(func, header) {
+  sort = (func, header) => {
     const {order} = this.state
     const {list} = this.props
     let sorted = sortBy(list, func)
@@ -56,10 +50,10 @@ class TableControl extends React.Component {
     })
   }
 
-  handleWrap() {
-    this.setState(state => {
-      return {wrap: !state.wrap}
-    })
+  handleWrap = () => {
+    this.setState(state => ({
+      wrap: !state.wrap
+    }))
   }
 
   render() {

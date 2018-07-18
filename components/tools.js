@@ -1,3 +1,4 @@
+import React from 'react'
 import FaTable from 'react-icons/lib/fa/table'
 import FaTerminal from 'react-icons/lib/fa/terminal'
 import FaMap from 'react-icons/lib/fa/map'
@@ -34,14 +35,15 @@ const titles = [
 
 const Tools = () => (
   <Section>
-    {titles.map(({title, href, description, icon}) =>
-    (<HeadLinkTitle
-      key={title}
-      title={title}
-      href={href}
-      subtitle={description}
-      icon={icon} />)
-    )}
+    {titles.map(({title, href, description, icon}) => (
+      <HeadLinkTitle
+        key={title}
+        title={title}
+        href={href}
+        subtitle={description}
+        icon={icon}
+      />
+    ))}
   </Section>
 )
 

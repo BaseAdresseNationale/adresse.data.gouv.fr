@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '../../../../styles/theme'
@@ -11,7 +12,7 @@ const RowErrors = ({errors, field}) => (
           {err}
         </div>))}
     </div>
-    <style>{`
+    <style jsx>{`
       .abnormalities {
         display: flex;
         flex-flow: wrap;
@@ -40,7 +41,7 @@ RowErrors.propTypes = {
   field: PropTypes.object
 }
 
-RowErrors.default = {
+RowErrors.defaultProps = {
   field: null
 }
 

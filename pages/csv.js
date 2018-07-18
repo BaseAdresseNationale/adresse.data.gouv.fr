@@ -1,3 +1,4 @@
+import React from 'react'
 import FaTable from 'react-icons/lib/fa/table'
 import Page from '../layouts/main'
 

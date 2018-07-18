@@ -1,4 +1,5 @@
 /* eslint react/no-unescaped-entities: off */
+import React from 'react'
 import theme from '../styles/theme'
 
 import Section from './section'
@@ -52,15 +53,15 @@ const Api = () => (
       },
       {
         'properties': {
-          'context': '34, H\u00e9rault, Languedoc-Roussillon',
+          'context': '34, H\u00E9rault, Languedoc-Roussillon',
           'housenumber': '8',
-          'label': '8 Boulevard du Port 34140 M\u00e8ze',
+          'label': '8 Boulevard du Port 34140 M\u00E8ze',
           'postcode': '34140',
           'citycode': '34157',
           'id': 'ADRNIVX_0000000284423783',
           'score': 0.3287575757575757,
           'name': '8 Boulevard du Port',
-          'city': 'M\u00e8ze',
+          'city': 'M\u00E8ze',
           'type': 'housenumber'
         },
         'geometry': {

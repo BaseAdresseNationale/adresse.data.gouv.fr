@@ -1,3 +1,5 @@
+import React from 'react'
+
 import FaWrench from 'react-icons/lib/fa/wrench'
 import Page from '../layouts/main'
 

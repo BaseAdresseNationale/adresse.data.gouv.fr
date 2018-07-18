@@ -26,8 +26,10 @@ class CommunesPreview extends React.Component {
     }).isRequired
   }
 
-  componentWillMount() {
-    const {dataset, summary} = this.props
+  constructor(props) {
+    super(props)
+
+    const {dataset, summary} = props
     const {communesCount, voiesCount, numerosCount} = summary
     const {licenseLabel, lastUpdate} = dataset
 

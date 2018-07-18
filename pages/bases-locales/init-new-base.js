@@ -1,3 +1,4 @@
+import React from 'react'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 import Page from '../../layouts/main'
 

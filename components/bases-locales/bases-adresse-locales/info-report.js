@@ -19,6 +19,11 @@ class InfoReport extends React.Component {
     valid: PropTypes.bool
   }
 
+  static defaultProps = {
+    error: null,
+    valid: null
+  }
+
   render() {
     const {id, status, error, valid} = this.props
 

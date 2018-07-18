@@ -18,7 +18,7 @@ class Map extends React.PureComponent {
     showMap: false
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.GeojsonMap = dynamic(import('../../mapbox-gl/geojson-map'), {
       ssr: false,
       loading: () => (
@@ -45,8 +45,7 @@ class Map extends React.PureComponent {
           contour ?
             <GeojsonMap data={contour} /> :
             <GeojsonMap />
-          )
-        }
+        )}
 
         <style jsx>{`
           .map {
@@ -57,7 +56,6 @@ class Map extends React.PureComponent {
       </div>
     )
   }
-
 }
 
 Map.propTypes = {

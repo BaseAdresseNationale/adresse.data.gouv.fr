@@ -55,10 +55,6 @@ class Events extends React.PureComponent {
     }
   }
 
-  componentWillUpdate() {
-    return false
-  }
-
   onClick(layer, event) {
     const {map} = this.context
     const {onClick} = this.props

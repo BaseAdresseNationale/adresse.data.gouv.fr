@@ -6,20 +6,32 @@ import geocodeMany from '../../lib/geocode/many'
 import Button from '../button'
 import Loader from '../loader'
 
+function geocodedFileName(originalFileName = 'file') {
+  if (originalFileName.toLowerCase().endsWith('.csv')) {
+    originalFileName = originalFileName.substr(0, originalFileName.length - 4)
+  }
+  return originalFileName + '.geocoded.csv'
+}
+
 class Geocoder extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      status: null,
-      error: null,
-      blob: null
-    }
-
-    this.handleGeocodeClick = this.handleGeocodeClick.bind(this)
+  static propTypes = {
+    file: PropTypes.object.isRequired,
+    columns: PropTypes.array.isRequired,
+    encoding: PropTypes.string.isRequired,
+    filter: PropTypes.string
   }
 
-  componentWillReceiveProps() {
+  static defaultProps = {
+    filter: null
+  }
+
+  state = {
+    status: null,
+    error: null,
+    blob: null
+  }
+
+  UNSAFE_componentWillReceiveProps() {
     this.setState({
       status: null,
       error: null,
@@ -27,7 +39,7 @@ class Geocoder extends React.Component {
     })
   }
 
-  handleGeocodeClick() {
+  handleGeocodeClick = () => {
     const {file, columns, filter, encoding} = this.props
     const filters = []
 
@@ -92,24 +104,6 @@ class Geocoder extends React.Component {
       </div>
     )
   }
-}
-
-Geocoder.propTypes = {
-  file: PropTypes.object.isRequired,
-  columns: PropTypes.array.isRequired,
-  encoding: PropTypes.string.isRequired,
-  filter: PropTypes.string
-}
-
-Geocoder.defaultProps = {
-  filter: null
-}
-
-function geocodedFileName(originalFileName = 'file') {
-  if (originalFileName.toLowerCase().endsWith('.csv')) {
-    originalFileName = originalFileName.substr(0, originalFileName.length - 4)
-  }
-  return originalFileName + '.geocoded.csv'
 }
 
 export default Geocoder

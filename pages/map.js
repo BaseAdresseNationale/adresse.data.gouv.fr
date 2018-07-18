@@ -9,7 +9,7 @@ import Loader from '../components/loader'
 const Map = dynamic(import('../components/map'), {
   ssr: false,
   loading: () => (
-    <div className={'centered'}>
+    <div className='centered'>
       <Loader />
       <p>Chargement…</p>
       <style jsx>{`
@@ -21,7 +21,7 @@ const Map = dynamic(import('../components/map'), {
           }
         `}</style>
     </div>
-    )
+  )
 })
 
 const title = 'Carte interactive'
