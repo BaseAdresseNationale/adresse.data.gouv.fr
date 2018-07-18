@@ -1,24 +1,37 @@
 # Environment config
-.env
+.env*
+!.env.example
 
-# Node.js
-node_modules
+# Runtime
+pids
+*.pid
+*.seed
+*.pid.lock
 
-# Build
-.next
-out
-bundle-stats
+# Logs
+logs
+*.log
+npm-debug.log*
+CHANGELOG.md
 
-# Apple stuff
-.DS_Store
+# Mac
+*.DS_Store
 .AppleDouble
 .LSOverride
 
-# Thumbnails
-._*
+# Build
+.next
+bundle-stats
 
-# Logs
-*.log
+# Cache
+.yarn-cache
+.npm
+.eslintcache
+.changelog
+
+# Node
+node_modules
 
 # Reports
+coverage
 reports
