@@ -9,8 +9,11 @@ set -e
 TARGET=${TARGET:-bundle-stats}
 mkdir -p $TARGET
 
-# Copy main bundle
-cp -r .next/main.js $TARGET
+# Copy every generated static
+for static in $(find .next/static -name "*.js"); do
+  clean=static-$(echo ${static#.next/static/} | tr '/' '-')
+  cp $static $TARGET/$clean
+done
 
 # Copy every page with a clean namespaced name
 # e.g.: pages/publication/producers => page-publication-producers
@@ -22,7 +25,7 @@ done
 # Copy every additional chunk
 # Remove generated hashes from the filenames
 for chunk in $(find .next/chunks -name "*.js"); do
-  clean=chunk-$(echo ${chunk#.next/chunks/} | sed 's/[_-]\([a-f0-9]\{20,64\}\)//g' | tr '/' '-')
+  clean=chunk-$(echo ${chunk#.next/chunks/components_} | sed 's/[_-]\([a-f0-9]\{20,64\}\)//g' | tr '/' '-')
   cp $chunk $TARGET/$clean
 done
 

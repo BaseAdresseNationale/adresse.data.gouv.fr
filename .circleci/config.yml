@@ -9,6 +9,15 @@ defaults:
     docker:
       - image: circleci/node:8-stretch
 
+  golang_container: &golang_container
+    working_directory: *workspace_root
+    docker:
+      - image: circleci/golang:1-stretch
+
+  filters: &default_filters
+    tags:
+      only: '/v[0-9]+(\.[0-9]+)*/'
+
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
@@ -69,6 +78,23 @@ jobs:
           name: Lint JavaScript
           command: yarn lint
 
+  test:
+    <<: *nodejs_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - run:
+          name: Run tests
+          command: yarn test
+
+      - store_test_results:
+          path: reports/tests/
+
+      - run:
+          name: Upload code coverage to codecov
+          command: yarn codecov
+
   build:
     <<: *nodejs_container
     steps:
@@ -92,21 +118,102 @@ jobs:
           name: Store built bundles for stats
           path: bundle-stats
 
+  changelog:
+    <<: *nodejs_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - restore_cache:
+          name: Restore changelog cache
+          keys:
+            - v1-adressedatagouv-changelog-{{ .BuildNum }}
+            - v1-adressedatagouv-changelog-
+
+      - run:
+          name: Generate changelog
+          command: |
+            if [ $CIRCLE_TAG ]; then
+              PREV_TAG=$(git describe --abbrev=0 --tags $CIRCLE_TAG^)
+
+              echo "[+] Running for range $PREV_TAG...$CIRCLE_TAG"
+
+              node_modules/.bin/lerna-changelog --from $PREV_TAG --to $CIRCLE_TAG > CHANGELOG.md
+            else
+              PREV_TAG=$(git describe --abbrev=0 --tags)
+
+              echo "[+] Running from $PREV_TAG"
+
+              node_modules/.bin/lerna-changelog --from $PREV_TAG > CHANGELOG.md
+            fi
+
+      - save_cache:
+          name: Save changelog cache
+          key: v1-adressedatagouv-changelog-{{ .BuildNum }}
+          paths:
+            - .changelog/
+
+      - run:
+          name: Display changelog
+          command: cat CHANGELOG.md
+
+      - persist_to_workspace:
+          name: Persist changelog
+          root: *workspace_root
+          paths:
+            - CHANGELOG.md
+
+  release:
+    <<: *golang_container
+    steps:
+      - *attach_workspace
+      - *restore_node_modules
+
+      - run:
+          name: Install github-release
+          command: go get github.com/aktau/github-release
+
+      - run:
+          name: Create GitHub release
+          command: github-release release --user $CIRCLE_PROJECT_USERNAME --repo $CIRCLE_PROJECT_REPONAME --tag $CIRCLE_TAG --description "$(cat CHANGELOG.md)" --name $CIRCLE_TAG
+
 workflows:
   version: 2
 
-  build_test_deploy:
+  push:
     jobs:
-      - checkout
+      - checkout:
+          filters: *default_filters
 
       - install:
           requires:
             - checkout
-
-      - build:
-          requires:
-            - install
+          filters: *default_filters
 
       - lint:
           requires:
             - install
+          filters: *default_filters
+
+      - test:
+          requires:
+            - install
+          filters: *default_filters
+
+      - build:
+          requires:
+            - install
+          filters: *default_filters
+
+      - changelog:
+          requires:
+            - install
+          filters: *default_filters
+
+      - release:
+          requires:
+            - changelog
+          filters:
+            <<: *default_filters
+            branches:
+              ignore: /.*/
