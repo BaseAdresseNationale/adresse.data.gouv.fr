@@ -12,7 +12,9 @@ const Head = ({children, title, icon}) => (
         <div className='icon'>{icon}</div>
         <div className='text'>
           <h1>{title}</h1>
-          <p className='description'>{children}</p>
+          <div className='description'>
+            {children}
+          </div>
         </div>
       </div>
     </Container>
