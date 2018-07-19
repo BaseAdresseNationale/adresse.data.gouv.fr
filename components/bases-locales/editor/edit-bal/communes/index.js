@@ -4,82 +4,76 @@ import FaPlus from 'react-icons/lib/fa/plus'
 
 import Button from '../../../../button'
 
-import Item from '../item'
-import ClosablePanel from '../closable-panel'
-import AddCommunes from './add-communes'
+import CommuneForm from './commune-form'
+import CommunesList from './communes-list'
 
 class Communes extends React.Component {
   state = {
-    addMode: false
+    displayForm: false,
+    error: null
   }
 
   static propTypes = {
     communes: PropTypes.array.isRequired,
     add: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired,
-    select: PropTypes.func.isRequired
+    itemActions: PropTypes.object.isRequired
   }
 
-  handleMode = event => {
-    event.preventDefault()
-
+  toggleForm = () => {
     this.setState(state => {
       return {
-        addMode: !state.addMode
+        displayForm: !state.displayForm
       }
     })
   }
 
-  handleSubmit = communes => {
-    const {add} = this.props
-    this.setState({addMode: false})
-    add(communes)
-  }
+  handleSubmit = commune => {
+    this.setState(() => {
+      const {communes, add} = this.props
+      let error = null
+      let displayForm = false
 
-  voies = commune => {
-    const {voiesCount} = commune
+      if (communes.find(current => current.code === commune.code)) {
+        error = new Error('Commune has already been added')
+        displayForm = true
+      } else {
+        add(commune)
+      }
 
-    if (voiesCount > 0) {
-      return `${voiesCount} voie${voiesCount > 1 ? 's' : ''}`
-    }
-
-    return 'Aucune voie'
+      return {
+        displayForm,
+        error
+      }
+    })
   }
 
   render() {
-    const {addMode} = this.state
-    const {communes, remove, select} = this.props
+    const {displayForm, error} = this.state
+    const {communes, itemActions} = this.props
 
     return (
       <div>
-        <h1>Liste des communes</h1>
+        {communes.length > 0 && (
+          <h2>Communes</h2>
+        )}
 
-        <div className='add-communes'>
-          {addMode ? (
-            <ClosablePanel title='Ajouter des communes' handleClose={this.handleMode}>
-              <AddCommunes
-                communesFile={communes}
-                onSubmit={this.handleSubmit}
-              />
-            </ClosablePanel>
+        <div className='form'>
+          {displayForm ? (
+            <CommuneForm
+              submit={this.handleSubmit}
+              close={this.toggleForm}
+              error={error}
+            />
           ) : (
-            <Button onClick={this.handleMode}>Ajouter des communes <FaPlus /></Button>
+            <Button onClick={this.toggleForm}><FaPlus /> Commune</Button>
           )}
         </div>
 
-        {communes.map(commune => (
-          <Item
-            key={commune.nom}
-            subitems={this.voies}
-            item={commune}
-            remove={() => remove('communes', commune)}
-            select={() => select('selectedCommune', commune)}
-          />
-        ))}
+        <CommunesList communes={communes} itemActions={itemActions} />
 
         <style jsx>{`
-          .add-communes {
-            margin-bottom: 2em;
+          .form {
+            margin: 1em 0;
           }
         `}</style>
       </div>

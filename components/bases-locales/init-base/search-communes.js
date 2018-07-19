@@ -12,10 +12,12 @@ import Notification from '../../notification'
 class SearchCommune extends React.Component {
   static propTypes = {
     handleSelect: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
     error: PropTypes.instanceOf(Error)
   }
 
   static defaultProps = {
+    placeholder: null,
     error: null
   }
 
@@ -46,7 +48,7 @@ class SearchCommune extends React.Component {
   }
 
   async handleSearch(input) {
-    const url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement&limit=5`
+    const url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement,contour&limit=5`
     let results = []
     let error
 
@@ -72,6 +74,7 @@ class SearchCommune extends React.Component {
 
   render() {
     const {input, results, loading} = this.state
+    const {placeholder} = this.props
     const error = this.props.error || this.state.error
 
     return (
@@ -79,7 +82,7 @@ class SearchCommune extends React.Component {
         <SearchInput
           value={input}
           results={results}
-          placeholder='Rechercher une commune'
+          placeholder={placeholder || 'Rechercher une commune'}
           loading={loading}
           onSearch={this.handleChange}
           onSelect={this.handleSelect}

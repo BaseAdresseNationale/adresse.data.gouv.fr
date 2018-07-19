@@ -2,40 +2,40 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {remove} from 'lodash'
 
-import Button from '../../../../button'
-import Notification from '../../../../notification'
-import SelectableItemList from '../../../../selectable-item-list'
+import Button from '../../../button'
+import Notification from '../../../notification'
+import SelectableItemList from '../../../selectable-item-list'
 
-import SearchCommune from '../../../init-base/search-communes'
+import SearchCommune from '../../init-base/search-communes'
 
-class AddCommune extends React.Component {
+class Communes extends React.Component {
   state = {
-    communes: [],
+    newCommunes: [],
     error: null
   }
 
   static propTypes = {
-    communesFile: PropTypes.array.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    communes: PropTypes.array.isRequired,
+    add: PropTypes.func.isRequired
   }
 
   addCommune = commune => {
-    const {communesFile} = this.props
+    const {communes} = this.props
 
     this.setState(state => {
-      const {communes} = state
+      const {newCommunes} = state
       let err = null
 
-      if (communes.find(current => current.code === commune.code)) {
+      if (newCommunes.find(current => current.code === commune.code)) {
         err = new Error('Commune has already been added')
-      } else if (communesFile.find(current => current.nom.toLowerCase() === commune.nom.toLowerCase())) {
+      } else if (communes.find(current => current.nom.toLowerCase() === commune.nom.toLowerCase())) {
         err = new Error('Commune has already been added')
       } else {
-        communes.push(commune)
+        newCommunes.push(commune)
       }
 
       return {
-        communes,
+        newCommunes,
         error: err
       }
     })
@@ -43,26 +43,26 @@ class AddCommune extends React.Component {
 
   removeCommune = item => {
     this.setState(state => {
-      const {communes} = state
-      remove(communes, commune => commune.code === item.key)
+      const {newCommunes} = state
+      remove(newCommunes, commune => commune.code === item.key)
 
       return {
-        communes
+        newCommunes
       }
     })
   }
 
   handleSave = event => {
-    const {communes} = this.state
-    const {onSubmit} = this.props
+    const {newCommunes} = this.state
+    const {add} = this.props
 
     event.preventDefault()
 
-    onSubmit(communes)
+    add(newCommunes)
   }
 
   render() {
-    const {communes, error} = this.state
+    const {newCommunes, error} = this.state
 
     return (
       <div>
@@ -72,11 +72,11 @@ class AddCommune extends React.Component {
           <Notification style={{marginTop: '1em'}} type='error' message={error.message} />
         )}
 
-        {communes.length > 0 &&
+        {newCommunes.length > 0 &&
           <div>
             <h3>Communes sélectionnées</h3>
             <SelectableItemList
-              list={communes.map(commune => {
+              list={newCommunes.map(commune => {
                 return {
                   key: commune.code,
                   value: commune.nom
@@ -93,4 +93,4 @@ class AddCommune extends React.Component {
   }
 }
 
-export default AddCommune
+export default Communes

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Holder from '../../csv/holder'
-import Section from '../../section'
-import Notification from '../../notification'
+import Holder from '../../../csv/holder'
+import Section from '../../../section'
+import Notification from '../../../notification'
 
 class FileHandler extends React.Component {
   render() {
@@ -23,6 +23,7 @@ class FileHandler extends React.Component {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
           }
 
           .else {
