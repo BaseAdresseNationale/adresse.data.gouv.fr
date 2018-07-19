@@ -4,7 +4,8 @@ import FaPlus from 'react-icons/lib/fa/plus'
 
 import Button from '../../../../button'
 
-import Commune from './commune'
+import Item from '../item'
+import ClosablePanel from '../closable-panel'
 import AddCommunes from './add-communes'
 
 class Communes extends React.Component {
@@ -15,9 +16,7 @@ class Communes extends React.Component {
   static propTypes = {
     communes: PropTypes.array.isRequired,
     add: PropTypes.func.isRequired,
-    rename: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
-    fix: PropTypes.func.isRequired,
     select: PropTypes.func.isRequired
   }
 
@@ -37,33 +36,46 @@ class Communes extends React.Component {
     add(communes)
   }
 
+  voies = commune => {
+    const {voiesCount} = commune
+
+    if (voiesCount > 0) {
+      return `${voiesCount} voie${voiesCount > 1 ? 's' : ''}`
+    }
+
+    return 'Aucune voie'
+  }
+
   render() {
     const {addMode} = this.state
-    const {communes, rename, fix, remove, select} = this.props
+    const {communes, remove, select} = this.props
 
     return (
       <div>
         <h1>Liste des communes</h1>
 
         <div className='add-communes'>
-          {addMode ?
-            <AddCommunes
-              communesFile={communes}
-              onSubmit={this.handleSubmit}
-              close={() => this.setState({addMode: false})} /> :
+          {addMode ? (
+            <ClosablePanel title='Ajouter des communes' handleClose={this.handleMode}>
+              <AddCommunes
+                communesFile={communes}
+                onSubmit={this.handleSubmit}
+              />
+            </ClosablePanel>
+          ) : (
             <Button onClick={this.handleMode}>Ajouter des communes <FaPlus /></Button>
-          }
+          )}
         </div>
 
         {communes.map(commune => (
-          <Commune
+          <Item
             key={commune.nom}
-            commune={commune}
-            rename={rename}
-            magic={fix}
-            remove={remove}
-            select={select} />
-          ))}
+            subitems={this.voies}
+            item={commune}
+            remove={() => remove('communes', commune)}
+            select={() => select('selectedCommune', commune)}
+          />
+        ))}
 
         <style jsx>{`
           .add-communes {

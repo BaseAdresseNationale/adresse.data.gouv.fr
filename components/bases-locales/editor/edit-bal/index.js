@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {startCase, remove} from 'lodash'
 
 import Communes from './communes'
+import Voies from './voies'
 
 const extractCommunes = csv => {
   return csv.communes.map(commune => {
@@ -15,6 +16,21 @@ const extractCommunes = csv => {
   }).sort((a, b) => a.nom.localeCompare(b.nom))
 }
 
+const extractVoies = communes => {
+  return [].concat([], ...communes.map(commune => {
+    return commune.voies.map(voie => {
+      return {
+        ...voie,
+        codeCommune: commune.code,
+        nom: voie.nomVoie,
+        removed: false,
+        created: false,
+        edited: null
+      }
+    })
+  }))
+}
+
 const formatName = name => {
   name.replace('_', ' ')
   const lower = name.toLowerCase()
@@ -24,6 +40,7 @@ const formatName = name => {
 class EditBal extends React.Component {
   state = {
     communes: null,
+    voies: null,
     selectedCommune: null
   }
 
@@ -35,13 +52,19 @@ class EditBal extends React.Component {
 
   componentDidMount() {
     const {csv} = this.props
-    this.setState({communes: extractCommunes(csv)})
+    const communes = extractCommunes(csv)
+    const voies = extractVoies(communes)
+
+    this.setState({
+      communes,
+      voies
+    })
   }
 
-  // Communes
   addCommunes = newCommunes => {
     this.setState(state => {
-      const communes = [...state.communes]
+      const {communes} = state
+
       newCommunes.map(commune =>
         communes.push({
           nom: commune.nom,
@@ -65,59 +88,93 @@ class EditBal extends React.Component {
     })
   }
 
-  renameCommune = (commune, newName) => {
+  addVoies = newVoies => {
     this.setState(state => {
-      commune.edited = newName
+      const {voies, selectedCommune} = state
+      newVoies.map(voie =>
+        voies.push({
+          nom: voie.nom,
+          code: voie.code,
+          codeCommune: selectedCommune.code,
+          dateMAJ: null,
+          numeros: [],
+          numerosCount: 0,
+          source: [],
+          removed: false,
+          created: true,
+          edited: null
+        })
+      )
+
+      voies.sort((a, b) => a.nom.localeCompare(b.nom))
 
       return {
-        communes: state.communes
+        voies
       }
     })
   }
 
-  removeCommune = commune => {
+  renameItem = (item, newName) => {
     this.setState(state => {
-      if (commune.created) {
-        remove(state.communes, commune)
+      item.edited = newName
+
+      return state
+    })
+  }
+
+  removeItem = (cat, item) => {
+    this.setState(state => {
+      if (item.created) {
+        remove(state[cat], item)
       } else {
-        commune.removed = !commune.removed
+        item.removed = !item.removed
       }
 
-      return {
-        communes: state.communes
-      }
+      return state
     })
   }
 
-  selectCommune = commune => {
-    this.setState({selectedCommune: commune})
-  }
+  fixItem = item => {
+    const newName = formatName(item.nom)
 
-  magic = commune => {
-    const newName = formatName(commune.nom)
-
-    if (newName !== commune.nom) {
-      this.renameCommune(commune, newName)
+    if (newName !== item.nom) {
+      this.renameItem(item, newName)
     }
   }
 
+  selectItem = (cat, item) => {
+    this.setState(state => {
+      state[cat] = item
+      return state
+    })
+  }
+
   render() {
-    const {communes, selectedCommune} = this.state
+    const {communes, voies, selectedCommune} = this.state
+
+    if (!communes && !voies) {
+      return <div>Chargement…</div>
+    }
 
     return (
       <div>
-        {selectedCommune ?
-          <h1>Voies</h1> :
-          communes ?
-            <Communes
-              communes={communes}
-              add={this.addCommunes}
-              rename={this.renameCommune}
-              fix={this.magic}
-              remove={this.removeCommune}
-              select={this.selectCommune} /> :
-            <h1>Numéros</h1>
-          }
+        {selectedCommune ? (
+          <Voies
+            commune={selectedCommune}
+            voies={voies.filter(voie => voie.codeCommune === selectedCommune.code)}
+            add={this.addVoies}
+            rename={this.renameItem}
+            remove={this.removeItem}
+            select={this.selectItem}
+          />
+        ) : (
+          <Communes
+            communes={communes}
+            add={this.addCommunes}
+            remove={this.removeItem}
+            select={this.selectItem}
+          />
+        )}
       </div>
     )
   }
