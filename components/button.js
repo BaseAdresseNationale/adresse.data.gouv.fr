@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '../styles/theme'
 
-const Button = ({children, ...props}) => (
-  <button className='button' {...props}>
+const Button = ({size, color, children, ...props}) => (
+  <button className={`button ${size} ${color}`} {...props}>
     {children}
 
     <style jsx>{`
@@ -14,15 +14,12 @@ const Button = ({children, ...props}) => (
       button.button:visited {
         display: inline-block;
         margin: 0 auto;
-        padding: 0.5em 3em;
         color: #fff;
         background-color: ${theme.secondary};
         border-radius: ${theme.borderRadius};
         box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
         border: 1px solid transparent;
         border-bottom: 2px solid ${theme.primaryDark};
-        font-family: "Evolventa", "Trebuchet MS", sans-serif;
-        font-size: 1.2em;
         position: relative;
         overflow: hidden;
         transition: box-shadow 0.25s;
@@ -39,15 +36,60 @@ const Button = ({children, ...props}) => (
         margin-bottom: 2px;
         box-shadow: none;
       }
+
+      button.button.small {
+        padding: 0.5em;
+        font-size: 1em;
+      }
+
+      button.button.regular {
+        padding: 0.5em 3em;
+        font-size: 1.2em;
+      }
+
+      button.button.big {
+        padding: 0.8em 3.5em;
+        font-size: 1.5em;
+      }
+
+      button.button.red {
+        background-color: ${theme.colors.red};
+        border-bottom-color: #bd254b;
+      }
+
+      button.button.red:hover {
+        background: #bd254b;
+      }
+
+      button.button.green {
+        background-color: ${theme.colors.green};
+        border-bottom-color: #07ad55;
+      }
+
+      button.button.green:hover {
+        background: #07ad55;
+      }
     `}</style>
   </button>
 )
 
 Button.propTypes = {
+  size: PropTypes.oneOf([
+    'small',
+    'regular',
+    'big'
+  ]),
+  color: PropTypes.oneOf([
+    'blue',
+    'red',
+    'green'
+  ]),
   children: PropTypes.node
 }
 
 Button.defaultProps = {
+  size: 'regular',
+  color: 'blue',
   children: null
 }
 
