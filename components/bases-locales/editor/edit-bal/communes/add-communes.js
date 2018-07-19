@@ -5,9 +5,9 @@ import FaClose from 'react-icons/lib/fa/close'
 
 import Button from '../../../../button'
 import Notification from '../../../../notification'
+import SelectableItemList from '../../../../selectable-item-list'
 
 import SearchCommune from '../../../init-base/search-communes'
-import SelectCommunes from '../../../init-base/select-communes'
 
 import theme from '../../../../../styles/theme'
 
@@ -45,10 +45,10 @@ class AddCommune extends React.Component {
     })
   }
 
-  removeCommune = commune => {
+  removeCommune = item => {
     this.setState(state => {
       const communes = [...state.communes]
-      remove(communes, current => current.code === commune.code)
+      remove(communes, commune => commune.code === item.key)
 
       return {
         communes
@@ -91,7 +91,16 @@ class AddCommune extends React.Component {
         {communes.length > 0 &&
           <div>
             <h3>Communes sélectionnées</h3>
-            <SelectCommunes communes={communes} handleRemove={this.removeCommune} />
+            <SelectableItemList
+              list={communes.map(commune => {
+                return {
+                  key: commune.code,
+                  value: commune.nom
+                }
+              })}
+              action={this.removeCommune}
+              buttonIcon='-'
+            />
             <Button onClick={this.handleSave}>Enregister</Button>
           </div>
         }
