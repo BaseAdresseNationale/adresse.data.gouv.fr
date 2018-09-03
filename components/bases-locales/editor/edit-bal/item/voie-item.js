@@ -19,64 +19,48 @@ const getStatus = item => {
 }
 
 const getNumeros = voie => {
-  switch (voie.numeros.length) {
+  const numeroCount = Object.keys(voie.numeros).length
+  switch (numeroCount) {
     case 0:
       return 'Aucun numéro'
     case 1:
       return '1 numéro'
     default:
-      return `${voie.numeros.length} numéros`
+      return `${numeroCount} numéros`
   }
 }
 
 class VoieItem extends React.Component {
   state = {
     editing: false,
-    input: '',
-    error: null
+    input: ''
   }
 
   static propTypes = {
-    commune: PropTypes.shape({
-      voies: PropTypes.array.isRequired
+    voie: PropTypes.shape({
+      numeros: PropTypes.object.isRequired
     }).isRequired,
-    voie: PropTypes.object.isRequired,
-    itemActions: PropTypes.shape({
-      changeContext: PropTypes.func.isRequired,
-      deleteItem: PropTypes.func.isRequired,
-      assignItem: PropTypes.func.isRequired,
-      renameItem: PropTypes.func.isRequired,
-      cancelChanges: PropTypes.func.isRequired
-    }).isRequired
+    select: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    renameItem: PropTypes.func.isRequired,
+    cancelChanges: PropTypes.func.isRequired,
+    error: PropTypes.string
   }
 
-  handleSubmit = () => {
+  static defaultProps = {
+    error: null
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+
+  handleSubmit = async () => {
     const {input} = this.state
-    const {voie, commune, itemActions} = this.props
-    const {renameItem} = itemActions
+    const {voie, renameItem} = this.props
 
-    this.setState(() => {
-      if (input.length > 0) {
-        if (commune.voies.find(voie => voie.voieNom === input)) {
-          return {
-            error: 'Ce nom de voie est déjà utilisé.'
-          }
-        }
-
-        if (input !== voie.nomVoie) {
-          renameItem(voie, input)
-        }
-
-        return {
-          input: '',
-          editing: false
-        }
-      }
-
-      return {
-        error: 'Indiquer le nom de la voie.'
-      }
-    })
+    await renameItem(voie, input)
+    this.setState({editing: false})
   }
 
   toggleEdit = () => {
@@ -93,8 +77,7 @@ class VoieItem extends React.Component {
 
   getActions = () => {
     const {editing} = this.state
-    const {voie, itemActions} = this.props
-    const {cancelChanges, deleteItem} = itemActions
+    const {voie, cancelChanges, deleteItem} = this.props
     const actions = [{type: 'edit', func: this.toggleEdit}]
 
     if (editing) {
@@ -114,18 +97,18 @@ class VoieItem extends React.Component {
   }
 
   render() {
-    const {input, editing, error} = this.state
-    const {voie, itemActions} = this.props
-    const {changeContext} = itemActions
+    const {input, editing} = this.state
+    const {voie, select, error} = this.props
     const actions = this.getActions()
+    const numeros = voie.numeros ? getNumeros(voie) : 'Toponyme'
 
     return (
       <Item
         name={voie.nomVoie}
         newName={voie.newName}
-        childs={voie.numeros ? getNumeros(voie) : 'Toponyme'}
+        childs={numeros}
         status={getStatus(voie)}
-        handleClick={() => changeContext(voie)}
+        handleClick={() => select(voie)}
         actions={actions}
       >
         {editing && (

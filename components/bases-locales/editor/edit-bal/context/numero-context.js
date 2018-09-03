@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import NumeroItem from '../item/numero-item'
 import ClosablePanel from '../closable-panel'
-import {ItemContext} from '..'
+import {FormContext} from '..'
 
 class numeroContext extends React.Component {
   static propTypes = {
@@ -19,7 +19,7 @@ class numeroContext extends React.Component {
 
     return (
       <div>
-        <ItemContext.Consumer>
+        <FormContext.Consumer>
           {actions => (
             <ClosablePanel title={numero.numeroComplet} handleClose={actions.previousContext}>
               <NumeroItem
@@ -30,7 +30,7 @@ class numeroContext extends React.Component {
               />
             </ClosablePanel>
           )}
-        </ItemContext.Consumer>
+        </FormContext.Consumer>
 
         <style jsx>{`
           .numeros {

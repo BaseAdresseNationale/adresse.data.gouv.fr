@@ -2,28 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import CommuneItem from '../item/commune-item'
+import {FormContext} from '..'
 
 class CommunesList extends React.Component {
   static propTypes = {
-    communes: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string.isRequired
-      })
-    ).isRequired,
-    itemActions: PropTypes.object.isRequired
+    communes: PropTypes.object.isRequired
   }
 
   render() {
-    const {communes, itemActions} = this.props
+    const {communes} = this.props
 
     return (
       <div>
-        {communes.map(commune => (
-          <CommuneItem
-            key={commune.code}
-            commune={commune}
-            itemActions={itemActions}
-          />
+        {Object.keys(communes).map(commune => (
+          <FormContext.Consumer key={communes[commune].code}>
+            {context => (
+              <CommuneItem
+                commune={communes[commune]}
+                {...context}
+              />
+            )}
+          </FormContext.Consumer>
         ))}
       </div>
     )

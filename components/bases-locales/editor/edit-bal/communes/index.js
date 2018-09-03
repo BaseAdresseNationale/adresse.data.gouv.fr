@@ -7,16 +7,16 @@ import Button from '../../../../button'
 import CommuneForm from './commune-form'
 import CommunesList from './communes-list'
 
+import {FormContext} from '..'
+
 class Communes extends React.Component {
   state = {
-    displayForm: false,
-    error: null
+    displayForm: false
   }
 
   static propTypes = {
-    communes: PropTypes.array.isRequired,
-    add: PropTypes.func.isRequired,
-    itemActions: PropTypes.object.isRequired
+    communes: PropTypes.object.isRequired,
+    add: PropTypes.func.isRequired
   }
 
   toggleForm = () => {
@@ -48,8 +48,8 @@ class Communes extends React.Component {
   }
 
   render() {
-    const {displayForm, error} = this.state
-    const {communes, itemActions} = this.props
+    const {displayForm} = this.state
+    const {communes} = this.props
 
     return (
       <div>
@@ -59,17 +59,21 @@ class Communes extends React.Component {
 
         <div className='form'>
           {displayForm ? (
-            <CommuneForm
-              submit={this.handleSubmit}
-              close={this.toggleForm}
-              error={error}
-            />
+            <FormContext.Consumer>
+              {context => (
+                <CommuneForm
+                  submit={this.handleSubmit}
+                  close={this.toggleForm}
+                  error={context.error}
+                />
+              )}
+            </FormContext.Consumer>
           ) : (
             <Button onClick={this.toggleForm}><FaPlus /> Commune</Button>
           )}
         </div>
 
-        <CommunesList communes={communes} itemActions={itemActions} />
+        <CommunesList communes={communes} />
 
         <style jsx>{`
           .form {

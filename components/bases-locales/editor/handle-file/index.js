@@ -34,7 +34,7 @@ class Editor extends React.Component {
   }
 
   static propTypes = {
-    handleCsv: PropTypes.func.isRequired
+    handleTree: PropTypes.func.isRequired
   }
 
   handleError = error => {
@@ -69,9 +69,9 @@ class Editor extends React.Component {
   }
 
   parseFile = async () => {
-    const {handleCsv} = this.props
+    const {handleTree} = this.props
     const {file} = this.state
-    let csv = null
+    let tree = null
     let report = null
     let error = null
     const inProgress = true
@@ -80,7 +80,7 @@ class Editor extends React.Component {
 
     try {
       report = await validate(file)
-      csv = extractAsTree(report.normalizedRows, true)
+      tree = extractAsTree(report.normalizedRows, true)
     } catch (err) {
       error = createBALValidationError(`Impossible d’analyser le fichier… [${err.message}]`)
     }
@@ -88,14 +88,14 @@ class Editor extends React.Component {
     try {
       detectEncoding(file)
     } catch (err) {
-      csv = null
+      tree = null
       error = 'Impossible de lire ce fichier.'
     }
 
     this.setState({report, error, inProgress: false})
 
-    if (csv) {
-      handleCsv(csv)
+    if (tree) {
+      handleTree(tree)
     }
   }
 

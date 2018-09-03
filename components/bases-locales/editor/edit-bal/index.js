@@ -1,63 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {forEach, remove, filter} from 'lodash'
+
+import BAL from '../../../../lib/bal/api'
 
 import Context from './context'
 
-import PositionsMap from './positions-map'
-import Communes from './communes'
-import PopUp from './pop-up'
-
-export const ItemContext = React.createContext()
-
-// Change types
-//   'created',
-//   'deleted',
-//   'edited: ',
-//          'renamed',
-//          'reposition',
-//          'extra' // When metadata like "source" is changed
-
-const createCommune = commune => {
-  return {
-    ...commune,
-    voies: [],
-    source: [],
-    dateMAJ: null,
-    created: true
-  }
-}
-
-const createVoie = voieName => {
-  return {
-    nomVoie: voieName,
-    idVoie: 'id', // TODO FANTOIR
-    numeros: [],
-    source: [],
-    dateMAJ: null,
-    created: true
-  }
-}
-
-const createNumero = (commune, voie, numero) => {
-  const codeCommune = commune.code
-  const {idVoie} = voie
-
-  return {
-    numero,
-    id: `${codeCommune}-${idVoie}-${numero}`,
-    numeroComplet: numero,
-    positions: [],
-    source: [],
-    suffixe: null,
-    dateMAJ: null,
-    created: true
-  }
-}
-
-const getName = item => {
-  return item.nom || item.nomVoie || item.numeroComplet
-}
+export const FormContext = React.createContext()
 
 const getType = item => {
   if (item.voies) {
@@ -71,384 +19,218 @@ const getType = item => {
   return 'numero'
 }
 
-const getChilds = item => {
-  return item.voies || item.numeros || null
-}
-
-const getFeature = numero => {
-  return {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: numero.positions[0].coords
-    },
-    properties: {
-      id: numero.id,
-      numero: numero.numero,
-      source: numero.source
-    }
-  }
-}
-
-const getFeaturesFromVoie = voie => {
-  const features = []
-
-  if (voie.numeros) {
-    forEach(voie.numeros, numero => {
-      features.push(getFeature(numero))
-    })
-  }
-
-  return features
-}
-
-const getFeaturesFromCommune = commune => {
-  const features = []
-
-  if (commune.voies) {
-    forEach(commune.voies, voie => {
-      const voieFeatures = getFeaturesFromVoie(voie)
-
-      forEach(voieFeatures, feature => {
-        features.push(feature)
-      })
-    })
-  }
-
-  return features
-}
-
-const getFeaturesFromCommunes = communes => {
-  const features = []
-
-  forEach(communes, commune => {
-    const communeFeatures = getFeaturesFromCommune(commune)
-
-    forEach(communeFeatures, feature => {
-      features.push(feature)
-    })
-  })
-
-  return features
-}
-
-const hasChanges = item => {
-  return item.created || item.deleted || item.edited
-}
-
-const getChanges = communes => {
-  const changes = {communes: {}, voies: {}, numeros: {}}
-
-  changes.communes = filter(communes, commune => hasChanges(commune))
-
-  forEach(communes, commune => {
-    if (commune.voies) {
-      forEach(commune.voies, voie => {
-        if (hasChanges(voie)) {
-          changes.voies.push(voie)
-        }
-
-        if (voie.numeros) {
-          forEach(voie.numeros, numero => {
-            if (hasChanges(numero)) {
-              changes.numeros.push(numero)
-            }
-          })
-        }
-      })
-    }
-  })
-
-  return changes
-}
-
-const getNumero = (communes, numeroId) => {
-  communes.forEach(commune => {
-    if (commune.voies) {
-      commune.voies.forEach(voie => {
-        if (voie && voie.numeros) {
-          const find = voie.numeros.find(numero => numero.id === numeroId)
-
-          if (find) {
-            return find
-          }
-        }
-      })
-    }
-  })
-
-  return null
-}
-
 class EditBal extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.bal = new BAL(props.tree)
+
+    this.state = {
+      selected: null,
+      type: null,
+      error: null
+    }
+  }
+
   static propTypes = {
-    csv: PropTypes.shape({
-      communes: PropTypes.object.isRequired
-    })
+    tree: PropTypes.object
   }
 
   static defaultProps = {
-    csv: null
+    tree: null
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      context: null,
-      warning: null,
-      communes: props.csv ? props.csv.communes : []
-      // positions: {
-      //   type: 'FeatureCollection',
-      //   features: props.csv ? getFeaturesFromCommunes(props.csv.communes) : []
-      // }
+  componentDidMount = async () => {
+    const {selected} = this.state
+
+    if (!selected) {
+      this.setState({
+        selected: await this.bal.getCommunes()
+      })
     }
   }
 
-  // ADD
-  addCommune = newCommune => {
-    this.setState(state => {
-      const commune = createCommune(newCommune)
-      state.communes.push(commune)
+  getCode = item => {
+    const {selected} = this.state
+    const type = getType(item)
+    let code = null
 
-      return {
-        communes: state.communes
-      }
-    })
+    switch (type) {
+      case 'commune':
+        code = item.code
+        break
+      case 'voie':
+        code = `${selected.code}-${item.codeVoie}`
+        break
+      default:
+        code = `${selected.idVoie}-${item.numero}`
+        break
+    }
+
+    return code
   }
 
-  addVoie = newVoie => {
-    this.setState(state => {
-      const {commune} = state.context
-      const voie = createVoie(newVoie)
+  addItem = async item => {
+    const type = getType(item)
+    let selected = null
+    let error = null
 
-      commune.voies.push(voie)
-
-      return {
-        communes: state.communes,
-        notAssigned: state.notAssigned
-      }
-    })
-  }
-
-  addNumeros = newNumeros => {
-    this.setState(state => {
-      newNumeros.forEach(newNumero => {
-        const {commune, voie} = state.context
-        const numero = createNumero(commune, voie, newNumero)
-
-        voie.numeros.push(numero)
-
-        return {
-          communes: state.communes
-        }
-      })
-    })
-  }
-
-  // CONTEXT
-  setContext = item => {
-    this.setState(state => {
-      if (!item) {
-        return {
-          context: null
-        }
-      }
-
-      const type = getType(item)
-      // Let features = null
-      let commune = null
-      let voie = null
-      let previousContext = null
-
+    try {
       switch (type) {
         case 'commune':
-          // Features = getFeaturesFromCommune(item)
-          commune = item
+          await this.bal.deleteCommune(item.code)
+          selected = await this.bal.getCommunes()
           break
         case 'voie':
-          // Features = getFeaturesFromVoie(item)
-          previousContext = state.context.commune
-          voie = item
-          break
-        case 'numero':
-          previousContext = state.context.voie
+          await this.bal.deleteVoie(item.idVoie)
+          selected = await this.bal.getCommune(item.idVoie.split('-')[0])
           break
         default:
-          // Features = [getFeature(item)]
+          await this.bal.deleteNumero(item.id)
+          selected = await this.bal.getVoie(`${item.id.split('-')[0]}-${item.id.split('-')[1]}`)
           break
       }
+    } catch (err) {
+      error = err
+    }
 
-      // Const positions = {
-      //   type: 'FeatureCollection',
-      //   features
-      // }
-
+    this.setState(state => {
       return {
-        context: {
-          item,
-          commune: state.context ? state.context.commune : commune,
-          voie: state.context ? state.context.voie : voie,
-          type,
-          name: getName(item),
-          childs: getChilds(item),
-          // Positions,
-          previousContext
-        }
+        selected: selected || state.selected,
+        error
       }
     })
   }
 
-  selectNumero = numeroId => {
-    const {communes} = this.state
-    const numero = getNumero(communes, numeroId)
+  renameItem = async (item, newName) => {
+    const type = getType(item)
+    const code = this.getCode(item)
+    let selected = null
+    let error = null
 
-    this.setContext(numero)
-  }
-
-  // DELETE
-  deleteItem = item => {
-    this.setState(state => {
-      const childs = item.voies || item.numeros || []
-      let warning = null
-
-      if (childs.length > 0 && state.warning === null) {
-        warning = {
-          item,
-          name: getName(item),
-          childs: getType(item) === 'commune' ? `${item.voies.length} voies` : `${item.numeros.length} numéros`
-        }
+    try {
+      if (type === 'voie') {
+        selected = await this.bal.renameVoie(code, newName)
       } else {
-        item.deleted = true
-        if (item.created) {
-          remove(state.communes, item)
-        }
+        selected = await this.bal.updateNumero(code, {type: 'rename', value: newName})
       }
+    } catch (err) {
+      error = err
+    }
 
-      return {
-        communes: state.communes,
-        warning
-      }
-    })
-  }
-
-  cancelDelete = () => {
-    this.setState({warning: null})
-  }
-
-  // RENAME
-  renameItem = (item, newName) => {
     this.setState(state => {
-      item.edited = 'renamed'
-      item.newName = newName
-
       return {
-        communes: state.communes
+        selected: selected || state.selected,
+        error
       }
     })
   }
 
-  // ASSIGN
-  handleAssign = item => {
-    console.log(item)
-  }
+  deleteItem = async item => {
+    const {changes} = {...this.state}
+    const type = getType(item)
+    const code = this.getCode(item)
+    let selected = null
+    let error = null
 
-  // CHANGES
-  cancelChanges = item => {
+    try {
+      switch (type) {
+        case 'commune':
+          await this.bal.deleteCommune(code)
+          selected = await this.bal.getCommunes()
+          changes[code] = {item, change: {type: 'delete', value: true}}
+          break
+        case 'voie':
+          selected = await this.bal.createVoie(code, item)
+          break
+        default:
+          selected = await this.bal.getNumero(code, item)
+          break
+      }
+    } catch (err) {
+      error = err
+    }
+
     this.setState(state => {
-      if (item.created) {
-        remove(state.communes, item)
-      } else {
-        item.edited = false
-        item.newName = null
-        item.deleted = false
-      }
-
       return {
-        warning: null,
-        communes: state.communes
+        selected: error ? state.selected : selected,
+        changes,
+        error
       }
     })
   }
 
-  previousContext = () => {
-    const {previousContext} = this.state.context
-    this.setContext(previousContext)
+  cancelChange = async item => {
+    const type = getType(item)
+    const code = this.getCode(item)
+    let error = null
+
+    try {
+      switch (type) {
+        case 'commune':
+          await this.bal.cancelCommuneChange(code)
+          break
+        case 'voie':
+          await this.bal.cancelVoieChange(code)
+          break
+        default:
+          await this.bal.cancelNumeroChange(code)
+          break
+      }
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({error})
+  }
+
+  select = async item => {
+    const type = item ? getType(item) : null
+    let selected
+
+    switch (type) {
+      case 'commune':
+        selected = await this.bal.getCommune(item.code)
+        break
+      case 'voie':
+        selected = await this.bal.getVoie(item.codeVoie)
+        break
+      case 'numero':
+        selected = await this.bal.getNumero(item.id)
+        break
+      default:
+        selected = await this.bal.getCommunes()
+        break
+    }
+
+    this.setState({selected, type})
   }
 
   render() {
-    const {context, warning, positions, communes} = this.state
-    const {csv} = this.props
-    const changes = communes ? getChanges(communes) : []
-    const itemActions = {
-      changeContext: this.setContext,
-      assignItem: this.handleAssign,
+    const {selected, type, error} = this.state
+    const actions = {
+      select: this.select,
+      addItem: this.addItem,
       deleteItem: this.deleteItem,
       renameItem: this.renameItem,
-      cancelChanges: this.cancelChanges,
+      cancelChanges: this.cancelChange,
       previousContext: this.previousContext
     }
 
     return (
       <div>
-        {/* {positions && (
-          <div className='map'>
-            <PositionsMap
-              positions={positions}
-              context={context ? context.positions : null}
-              selectNumero={this.selectNumero}
-            />
-          </div>
-        )} */}
-
-        {warning && (
-          <PopUp
-            {...warning}
-            accept={this.deleteItem}
-            close={this.cancelDelete}
-          />
-        )}
-
-        {context ? (
-          <ItemContext.Provider value={itemActions}>
+        {selected && (
+          <FormContext.Provider value={{error, ...actions}}>
             <Context
-              context={context}
-              communes={communes}
-              changes={csv ? changes : null}
+              selected={selected}
+              type={type}
+              changes={{}}
             />
-          </ItemContext.Provider>
-        ) : (
-          <Communes
-            communes={communes}
-            add={this.addCommune}
-            itemActions={itemActions}
-          />
+          </FormContext.Provider>
         )}
-
-        <style jsx>{`
-          .map {
-            width: 100%;
-            height: 500px;
-          }
-        `}</style>
       </div>
     )
   }
 }
 
 export default EditBal
-
-// // FLAT
-// const communes = [
-//   {voies: [
-//     numeros: [
-
-//     ]
-//   ]}
-// ]
-
-// // INDEX
-// const items = {
-//   communes: [{id: '123'}],
-//   voies: [{communeId: '123', id: '345'}],
-//   numeros: [{communeId: '123', voieId: '345', id: '678'}]
-// }

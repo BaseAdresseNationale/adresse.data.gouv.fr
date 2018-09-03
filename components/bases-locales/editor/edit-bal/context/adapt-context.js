@@ -1,40 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import CommunesList from '../communes/communes-list'
+
 import CommuneContext from './commune-context'
 import VoieContext from './voie-context'
 import NumeroContext from './numero-context'
 
 class AdaptContext extends React.Component {
   static propTypes = {
-    context: PropTypes.shape({
-      commune: PropTypes.object,
-      voie: PropTypes.object
-    }).isRequired,
-    type: PropTypes.oneOf(['commune', 'voie', 'numero']).isRequired,
-    item: PropTypes.object.isRequired
+    selected: PropTypes.object.isRequired,
+    type: PropTypes.oneOf(['commune', 'voie', 'numero'])
+  }
+
+  static defaultProps = {
+    type: null
   }
 
   render() {
-    const {context, type, item} = this.props
-    const {commune, voie} = context
+    const {selected, type} = this.props
 
     switch (type) {
       case 'commune':
         return (
-          <CommuneContext commune={item} />
+          <CommuneContext commune={selected} />
         )
       case 'voie':
         return (
-          <VoieContext commune={commune} voie={item} />
+          <VoieContext voie={selected} />
+        )
+      case 'numero':
+        return (
+          <NumeroContext numero={selected} />
         )
       default:
         return (
-          <NumeroContext
-            commune={commune}
-            voie={voie}
-            numero={item}
-          />
+          <CommunesList communes={selected} />
         )
     }
   }

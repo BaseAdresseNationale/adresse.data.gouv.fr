@@ -5,13 +5,13 @@ import CommuneItem from '../item/commune-item'
 import ClosablePanel from '../closable-panel'
 import VoiesList from '../voies-list'
 
-import {ItemContext} from '..'
+import {FormContext} from '..'
 
 class CommuneContext extends React.Component {
   static propTypes = {
     commune: PropTypes.shape({
       nom: PropTypes.string.isRequired,
-      voies: PropTypes.array.isRequired
+      voies: PropTypes.object.isRequired
     }).isRequired
   }
 
@@ -20,26 +20,23 @@ class CommuneContext extends React.Component {
 
     return (
       <div>
-        <h2>Contexte</h2>
-        <div>
-          <ItemContext.Consumer>
-            {actions => (
-              <ClosablePanel
-                title={`Commune de ${commune.nom}`}
-                handleClose={() => actions.previousContext(null)}
-              >
-                <CommuneItem commune={commune} itemActions={actions} />
-              </ClosablePanel>
-            )}
-          </ItemContext.Consumer>
+        <FormContext.Consumer>
+          {context => (
+            <ClosablePanel
+              title={`Commune de ${commune.nom}`}
+              handleClose={() => context.select(null)}
+            >
+              <CommuneItem commune={commune} {...context} />
+            </ClosablePanel>
+          )}
+        </FormContext.Consumer>
 
-          <div className='voies'>
-            <b>Voies de : {commune.nom}</b>
-            <VoiesList
-              commune={commune}
-              voies={commune.voies}
-            />
-          </div>
+        <div className='voies'>
+          <b>Voies de : {commune.nom}</b>
+          <VoiesList
+            commune={commune}
+            voies={commune.voies}
+          />
         </div>
 
         <style jsx>{`
