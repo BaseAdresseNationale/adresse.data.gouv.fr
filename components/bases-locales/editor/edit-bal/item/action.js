@@ -9,13 +9,13 @@ import FaCheck from 'react-icons/lib/fa/check'
 import Button from '../../../../button'
 
 const ACTIONS_TYPES = {
-  edit: {icon: <FaPencil />, backgroundColor: 'blue'},
-  cancel: {icon: <FaClose />, backgroundColor: 'red'},
-  delete: {icon: <FaTrash />, backgroundColor: 'red'},
-  valid: {icon: <FaCheck />, backgroundColor: 'green'}
+  edit: {IconComponent: FaPencil, backgroundColor: 'blue'},
+  cancel: {IconComponent: FaClose, backgroundColor: 'red'},
+  delete: {IconComponent: FaTrash, backgroundColor: 'red'},
+  valid: {IconComponent: FaCheck, backgroundColor: 'green'}
 }
 
-class Action extends React.Component {
+class Action extends React.PureComponent {
   static propTypes = {
     action: PropTypes.shape({
       type: PropTypes.oneOf(Object.keys(ACTIONS_TYPES)).isRequired,
@@ -25,21 +25,25 @@ class Action extends React.Component {
 
   handleClick = e => {
     const {func} = this.props.action
+
     e.preventDefault()
+
     func()
   }
 
   render() {
     const {type} = this.props.action
 
+    const {IconComponent, backgroundColor} = ACTIONS_TYPES[type]
+
     return (
       <Button
         style={{margin: '0 0.2em'}}
         size='small'
-        color={ACTIONS_TYPES[type].backgroundColor}
+        color={backgroundColor}
         onClick={this.handleClick}
       >
-        {ACTIONS_TYPES[type].icon}
+        <IconComponent />
       </Button>
     )
   }
