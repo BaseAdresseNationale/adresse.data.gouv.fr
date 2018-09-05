@@ -20,11 +20,11 @@ describe('BAL', () => {
   })
 
   describe('Create new BAL', () => {
-    test('should return null when create without tree', async () => {
+    test('should return an empty object when create without tree', async () => {
       const bal = new BAL(null)
       const communes = await bal.getCommunes()
 
-      expect(communes).toEqual(null)
+      expect(communes).toEqual({})
     })
 
     test('should return communes when create with tree', async () => {

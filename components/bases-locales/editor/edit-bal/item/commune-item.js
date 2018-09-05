@@ -16,6 +16,20 @@ const getVoies = commune => {
   }
 }
 
+const getStatus = commune => {
+  let status
+
+  if (commune.created) {
+    status = 'created'
+  }
+
+  if (commune.deleted) {
+    status = 'deleted'
+  }
+
+  return status
+}
+
 class CommuneItem extends React.Component {
   static propTypes = {
     commune: PropTypes.shape({
@@ -44,12 +58,13 @@ class CommuneItem extends React.Component {
   render() {
     const {commune, actions} = this.props
     const actionsAvailable = this.getActions()
+    const status = getStatus(commune)
 
     return (
       <Item
         name={commune.nom}
         childs={commune.voies ? getVoies(commune) : 'Toponyme'}
-        status={commune.deleted ? 'deleted' : null}
+        status={status}
         handleClick={() => actions.select(commune.code)}
         actions={actionsAvailable}
       />

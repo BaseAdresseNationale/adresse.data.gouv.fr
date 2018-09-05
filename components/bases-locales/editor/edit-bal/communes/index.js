@@ -7,16 +7,30 @@ import Button from '../../../../button'
 import CommuneForm from './commune-form'
 import CommunesList from './communes-list'
 
-import {FormContext} from '..'
-
 class Communes extends React.Component {
   state = {
     displayForm: false
   }
 
   static propTypes = {
-    communes: PropTypes.object.isRequired,
-    add: PropTypes.func.isRequired
+    actions: PropTypes.object.isRequired,
+    communes: PropTypes.object,
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Error)
+    ])
+  }
+
+  static defaultProps = {
+    communes: null,
+    error: null
+  }
+
+  componentDidMount = () => {
+    const {communes} = this.props
+    if (!communes) {
+      this.setState({displayForm: true})
+    }
   }
 
   toggleForm = () => {
@@ -28,52 +42,39 @@ class Communes extends React.Component {
   }
 
   handleSubmit = commune => {
-    this.setState(() => {
-      const {communes, add} = this.props
-      let error = null
-      let displayForm = false
+    const {communes, actions} = this.props
+    const {addItem} = actions
 
-      if (communes.find(current => current.code === commune.code)) {
-        error = new Error('Commune has already been added')
-        displayForm = true
-      } else {
-        add(commune)
-      }
+    if (Object.keys(communes).length === 0) {
+      this.setState({displayForm: false}) // Close form if it is first commune to be added
+    }
 
-      return {
-        displayForm,
-        error
-      }
-    })
+    addItem(commune)
   }
 
   render() {
     const {displayForm} = this.state
-    const {communes} = this.props
+    const {communes, actions, error} = this.props
 
     return (
       <div>
-        {communes.length > 0 && (
-          <h2>Communes</h2>
-        )}
+        <h2>Communes</h2>
 
         <div className='form'>
           {displayForm ? (
-            <FormContext.Consumer>
-              {context => (
-                <CommuneForm
-                  submit={this.handleSubmit}
-                  close={this.toggleForm}
-                  error={context.error}
-                />
-              )}
-            </FormContext.Consumer>
+            <CommuneForm
+              submit={this.handleSubmit}
+              close={this.toggleForm}
+              error={error}
+            />
           ) : (
             <Button onClick={this.toggleForm}><FaPlus /> Commune</Button>
           )}
         </div>
 
-        <CommunesList communes={communes} />
+        {communes && (
+          <CommunesList communes={communes} actions={actions} />
+        )}
 
         <style jsx>{`
           .form {

@@ -4,26 +4,33 @@ import PropTypes from 'prop-types'
 import Notification from '../../../../notification'
 
 import SearchCommune from '../../../init-base/search-communes'
-
 import ClosablePanel from '../closable-panel'
 
-class Commune extends React.Component {
+class CommuneForm extends React.Component {
   static propTypes = {
     submit: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired,
-    error: PropTypes.instanceOf(Error)
+    error: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(Error)
+    ])
   }
 
   static defaultProps = {
     error: null
   }
 
+  handleSave = commune => {
+    const {submit} = this.props
+    submit(commune)
+  }
+
   render() {
-    const {submit, close, error} = this.props
+    const {close, error} = this.props
 
     return (
-      <ClosablePanel title='Ajouter une commune' handleClose={close}>
-        <SearchCommune handleSelect={submit} />
+      <ClosablePanel title='Ajouter une nouvelle commune' handleClose={close}>
+        <SearchCommune handleSelect={this.handleSave} />
 
         {error && (
           <Notification style={{marginTop: '1em'}} type='error' message={error.message} />
@@ -33,4 +40,4 @@ class Commune extends React.Component {
   }
 }
 
-export default Commune
+export default CommuneForm

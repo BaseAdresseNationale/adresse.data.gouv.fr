@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 import BAL from '../../../../lib/bal/api'
 
 import Context from './context'
-import CommunesList from './communes/communes-list'
+import Communes from './communes'
 
 export const FormContext = React.createContext()
 
 const getType = item => {
-  if (item.voies) {
+  if (item.code) {
     return 'commune'
   }
 
-  if (item.numeros) {
+  if (item.codeVoie) {
     return 'voie'
   }
 
@@ -31,6 +31,7 @@ class EditBal extends React.Component {
       commune: null,
       voie: null,
       numero: null,
+      changes: {communes: {}, voies: {}, numeros: {}},
       error: null
     }
   }
@@ -53,37 +54,68 @@ class EditBal extends React.Component {
   }
 
   addItem = async item => {
-    const {code} = this.state.commune
-    const {codeVoie} = this.state.voie
-
     const type = getType(item)
-    let communes
-    let commune
+    const types = {
+      commune: this.addCommune,
+      voie: this.addVoie,
+      numero: this.addNumero
+    }
+
+    await types[type](item)
+  }
+
+  addCommune = async newCommune => {
+    const {changes} = this.state
+    let error
+
+    try {
+      const commune = await this.bal.createCommune(newCommune.code, newCommune)
+      changes.communes[commune.code] = commune
+    } catch (err) {
+      error = new Error(err)
+    }
+
+    this.setState({
+      changes,
+      error
+    })
+  }
+
+  addVoie = async newVoie => {
+    const {commune, changes} = this.state
     let voie
     let error
 
     try {
-      if (type === 'commune') {
-        await this.bal.deleteCommune(item.code)
-        communes = await this.bal.getCommunes()
-      } else if (type === 'voie') {
-        await this.bal.deleteVoie(code, item.idVoie)
-        commune = await this.bal.getCommune(code)
-      } else {
-        await this.bal.deleteNumero(code, codeVoie, item.numeroComplet)
-        voie = await this.bal.getVoie(code, codeVoie)
-      }
+      const voie = await this.bal.createVoie(commune.code, newVoie)
+      changes.voies[voie.codeVoie] = voie
     } catch (err) {
-      error = err
+      error = new Error(err)
     }
 
-    this.setState(() => {
-      return {
-        communes,
-        commune,
-        voie,
-        error
-      }
+    this.setState({
+      voie,
+      changes,
+      error
+    })
+  }
+
+  addNumero = async newNumero => {
+    const {commune, voie, changes} = this.state
+    let numero
+    let error
+
+    try {
+      numero = await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
+      changes.numeros[numero.numeroComplet] = numero
+    } catch (err) {
+      error = new Error(err)
+    }
+
+    this.setState({
+      numero,
+      changes,
+      error
     })
   }
 
@@ -100,7 +132,7 @@ class EditBal extends React.Component {
         await this.bal.updateNumero(commune.code, voie.codeVoie, item.numeroComplet, change)
       }
     } catch (err) {
-      error = err
+      error = new Error(err)
     }
 
     this.setState({error})
@@ -116,7 +148,7 @@ class EditBal extends React.Component {
         case 'commune':
           await this.bal.deleteCommune(item.code)
           await this.bal.getCommunes()
-          // changes[item.code] = {item, change: {type: 'delete', value: true}}
+          // Changes[item.code] = {item, change: {type: 'delete', value: true}}
           break
         case 'voie':
           await this.bal.deleteVoie(commune.code, item.codeVoie)
@@ -126,7 +158,7 @@ class EditBal extends React.Component {
           break
       }
     } catch (err) {
-      error = err
+      error = new Error(err)
     }
 
     this.setState(() => {
@@ -155,7 +187,7 @@ class EditBal extends React.Component {
           break
       }
     } catch (err) {
-      error = err
+      error = new Error(err)
     }
 
     this.setState({error})
@@ -186,19 +218,21 @@ class EditBal extends React.Component {
     return (
       <div>
         <FormContext.Provider value={{commune, voie, numero, error, actions}}>
-          {commune && (
+          {commune ? (
             <Context
               commune={commune}
               voie={voie}
               numero={numero}
               changes={{}}
             />
+          ) : (
+            <Communes
+              communes={communes}
+              actions={actions}
+              error={error}
+            />
           )}
         </FormContext.Provider>
-
-        {!commune && communes && (
-          <CommunesList communes={communes} actions={actions} />
-        )}
       </div>
     )
   }
