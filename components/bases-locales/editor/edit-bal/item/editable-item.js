@@ -22,7 +22,7 @@ class EditableItem extends React.Component {
     deleteItem: PropTypes.func.isRequired,
     assignItem: PropTypes.func.isRequired,
     renameItem: PropTypes.func.isRequired,
-    cancelChanges: PropTypes.func.isRequired
+    cancelChange: PropTypes.func.isRequired
   }
 
   handleValid = () => {
@@ -51,9 +51,9 @@ class EditableItem extends React.Component {
   }
 
   handleCancel = () => {
-    const {item, cancelChanges} = this.props
+    const {item, cancelChange} = this.props
 
-    cancelChanges(item)
+    cancelChange(item)
   }
 
   setNewName = newName => {

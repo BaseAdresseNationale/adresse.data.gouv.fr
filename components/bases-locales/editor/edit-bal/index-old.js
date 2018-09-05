@@ -206,7 +206,7 @@ class EditBal extends React.Component {
   }
 
   // CHANGES
-  cancelChanges = item => {
+  cancelChange = item => {
     this.setState(state => {
       if (item.created) {
         remove(state.communes, item)
@@ -237,7 +237,7 @@ class EditBal extends React.Component {
       assignItem: this.handleAssign,
       deleteItem: this.deleteItem,
       renameItem: this.renameItem,
-      cancelChanges: this.cancelChanges,
+      cancelChange: this.cancelChange,
       previousContext: this.previousContext
     }
 

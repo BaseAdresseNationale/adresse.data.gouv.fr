@@ -41,11 +41,11 @@ class ChangesItem extends React.Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     changeContext: PropTypes.func.isRequired,
-    cancelChanges: PropTypes.func.isRequired
+    cancelChange: PropTypes.func.isRequired
   }
 
   render() {
-    const {item, cancelChanges, changeContext} = this.props
+    const {item, cancelChange, changeContext} = this.props
 
     return (
       <Item
@@ -53,7 +53,7 @@ class ChangesItem extends React.Component {
         childs={hasChild(item) ? getChilds(item) : 'Toponyme'}
         status={getStatus(item)}
         handleClick={() => changeContext(item)}
-        actions={[{type: 'cancel', func: () => cancelChanges(item)}]}
+        actions={[{type: 'cancel', func: () => cancelChange(item)}]}
       />
     )
   }

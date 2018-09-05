@@ -21,54 +21,33 @@ const getStatus = item => {
 class NumeroItem extends React.Component {
   state = {
     editing: false,
-    input: '',
-    error: null
+    input: ''
   }
 
   static propTypes = {
-    commune: PropTypes.object.isRequired,
-    voie: PropTypes.shape({
-      numeros: PropTypes.array.isRequired
-    }).isRequired,
+    codeCommune: PropTypes.string.isRequired,
+    codeVoie: PropTypes.string.isRequired,
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired
     }).isRequired,
-    itemActions: PropTypes.shape({
-      changeContext: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
       deleteItem: PropTypes.func.isRequired,
-      assignItem: PropTypes.func.isRequired,
       renameItem: PropTypes.func.isRequired,
-      cancelChanges: PropTypes.func.isRequired
-    }).isRequired
+      select: PropTypes.func.isRequired
+    }).isRequired,
+    error: PropTypes.string
+  }
+
+  static defaultProps = {
+    error: null
   }
 
   handleSubmit = () => {
     const {input} = this.state
-    const {numero, voie, itemActions} = this.props
-    const {renameItem} = itemActions
+    const {numero, actions} = this.props
+    const {renameItem} = actions
 
-    this.setState(() => {
-      if (input.length > 0) {
-        if (numero.numeros.find(numero => numero.numeroComplet === input)) {
-          return {
-            error: 'Ce numéro est déjà utilisé.'
-          }
-        }
-
-        if (input !== numero.numeroComplet) {
-          renameItem(voie, input)
-        }
-
-        return {
-          input: '',
-          editing: false
-        }
-      }
-
-      return {
-        error: 'Indiquer le numéro.'
-      }
-    })
+    renameItem(numero, input)
   }
 
   toggleEdit = () => {
@@ -85,9 +64,9 @@ class NumeroItem extends React.Component {
 
   getActions = () => {
     const {editing} = this.state
-    const {numero, itemActions} = this.props
-    const {cancelChanges, deleteItem} = itemActions
-    const actions = [{type: 'edit', func: this.toggleEdit}]
+    const {numero, actions} = this.props
+    const {select, deleteItem} = actions
+    const actionList = [{type: 'edit', func: this.toggleEdit}]
 
     if (editing) {
       return [
@@ -97,27 +76,26 @@ class NumeroItem extends React.Component {
     }
 
     if (numero.deleted) {
-      actions.push({type: 'cancel', func: () => cancelChanges(numero)})
+      actionList.push({type: 'cancel', func: () => select(numero)})
     } else {
-      actions.push({type: 'delete', func: () => deleteItem(numero)})
+      actionList.push({type: 'delete', func: () => deleteItem(numero)})
     }
 
-    return actions
+    return actionList
   }
 
   render() {
-    const {input, editing, error} = this.state
-    const {numero, itemActions} = this.props
-    const {changeContext} = itemActions
-    const actions = this.getActions()
+    const {input, editing} = this.state
+    const {codeCommune, codeVoie, numero, actions, error} = this.props
+    const actionList = this.getActions()
 
     return (
       <Item
         name={numero.numeroComplet}
         newName={numero.newName}
         status={getStatus(numero)}
-        handleClick={() => changeContext(numero)}
-        actions={actions}
+        handleClick={() => actions.select(codeCommune, codeVoie, numero.numeroComplet)}
+        actions={actionList}
       >
         {editing && (
           <NumeroEditor

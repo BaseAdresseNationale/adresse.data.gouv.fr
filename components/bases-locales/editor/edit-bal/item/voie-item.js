@@ -37,22 +37,22 @@ class VoieItem extends React.Component {
   }
 
   static propTypes = {
+    codeCommune: PropTypes.string.isRequired,
     voie: PropTypes.shape({
+      codeVoie: PropTypes.string.isRequired,
       numeros: PropTypes.object.isRequired
     }).isRequired,
-    select: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-    renameItem: PropTypes.func.isRequired,
-    cancelChanges: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
+      select: PropTypes.func.isRequired,
+      deleteItem: PropTypes.func.isRequired,
+      renameItem: PropTypes.func.isRequired,
+      cancelChange: PropTypes.func.isRequired
+    }).isRequired,
     error: PropTypes.string
   }
 
   static defaultProps = {
     error: null
-  }
-
-  componentDidMount() {
-    console.log('componentDidMount')
   }
 
   handleSubmit = async () => {
@@ -77,8 +77,9 @@ class VoieItem extends React.Component {
 
   getActions = () => {
     const {editing} = this.state
-    const {voie, cancelChanges, deleteItem} = this.props
-    const actions = [{type: 'edit', func: this.toggleEdit}]
+    const {voie, actions} = this.props
+    const {cancelChange, deleteItem} = actions
+    const actionList = [{type: 'edit', func: this.toggleEdit}]
 
     if (editing) {
       return [
@@ -88,28 +89,28 @@ class VoieItem extends React.Component {
     }
 
     if (voie.deleted) {
-      actions.push({type: 'cancel', func: () => cancelChanges(voie)})
+      actionList.push({type: 'cancel', func: () => cancelChange(voie)})
     } else {
-      actions.push({type: 'delete', func: () => deleteItem(voie)})
+      actionList.push({type: 'delete', func: () => deleteItem(voie)})
     }
 
-    return actions
+    return actionList
   }
 
   render() {
     const {input, editing} = this.state
-    const {voie, select, error} = this.props
-    const actions = this.getActions()
+    const {codeCommune, voie, actions, error} = this.props
+    const actionList = this.getActions()
     const numeros = voie.numeros ? getNumeros(voie) : 'Toponyme'
 
     return (
       <Item
         name={voie.nomVoie}
-        newName={voie.newName}
+        newName={voie.change ? voie.change.value : null}
         childs={numeros}
         status={getStatus(voie)}
-        handleClick={() => select(voie)}
-        actions={actions}
+        handleClick={() => actions.select(codeCommune, voie.codeVoie)}
+        actions={actionList}
       >
         {editing && (
           <VoieEditor

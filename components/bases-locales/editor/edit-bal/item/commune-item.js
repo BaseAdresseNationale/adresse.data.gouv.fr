@@ -23,23 +23,26 @@ class CommuneItem extends React.Component {
       voies: PropTypes.object.isRequired,
       deleted: PropTypes.bool
     }).isRequired,
-    select: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-    cancelChanges: PropTypes.func.isRequired
+    actions: PropTypes.shape({
+      select: PropTypes.func.isRequired,
+      deleteItem: PropTypes.func.isRequired,
+      cancelChange: PropTypes.func.isRequired
+    }).isRequired
   }
 
   getActions = () => {
-    const {commune, deleteItem, cancelChanges} = this.props
+    const {commune, actions} = this.props
+    const {deleteItem, cancelChange} = actions
 
     if (commune.deleted) {
-      return [{type: 'cancel', func: () => cancelChanges(commune)}]
+      return [{type: 'cancel', func: () => cancelChange(commune)}]
     }
 
     return [{type: 'delete', func: () => deleteItem(commune)}]
   }
 
   render() {
-    const {commune, select} = this.props
+    const {commune, actions} = this.props
     const actionsAvailable = this.getActions()
 
     return (
@@ -47,7 +50,7 @@ class CommuneItem extends React.Component {
         name={commune.nom}
         childs={commune.voies ? getVoies(commune) : 'Toponyme'}
         status={commune.deleted ? 'deleted' : null}
-        handleClick={() => select(commune)}
+        handleClick={() => actions.select(commune.code)}
         actions={actionsAvailable}
       />
     )

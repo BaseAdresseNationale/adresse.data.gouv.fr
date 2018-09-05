@@ -2,38 +2,44 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Changes from '../changes'
-
-import AdaptContext from './adapt-context'
+import CommuneContext from './commune-context'
+import VoieContext from './voie-context'
+import NumeroContext from './numero-context'
 
 class Context extends React.Component {
   static propTypes = {
-    selected: PropTypes.object.isRequired,
-    type: PropTypes.string,
+    commune: PropTypes.object.isRequired,
+    voie: PropTypes.object,
+    numero: PropTypes.object,
     changes: PropTypes.object
   }
 
   static defaultProps = {
-    type: null,
+    voie: null,
+    numero: null,
     changes: null
   }
 
   render() {
-    const {selected, type, changes} = this.props
+    const {commune, voie, numero, changes} = this.props
 
     return (
       <div>
         <div>
           <h2>Contexte</h2>
-          <AdaptContext
-            selected={selected}
-            type={type}
-          />
+          {numero ? (
+            <NumeroContext numero={numero} />
+          ) : voie ? (
+            <VoieContext voie={voie} />
+          ) : (
+            <CommuneContext commune={commune} />
+          )}
         </div>
 
         {/* {changes && (
           <Changes
             changes={changes}
-            cancelChanges={actions.cancelChanges}
+            cancelChange={actions.cancelChange}
             changeContext={actions.changeContext}
           />
         )} */}

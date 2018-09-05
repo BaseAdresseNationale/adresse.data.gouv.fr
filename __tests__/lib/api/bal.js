@@ -38,14 +38,14 @@ describe('BAL', () => {
   describe('getCommune', () => {
     test('should return commune', async () => {
       const bal = new BAL(TREE)
-      const commune = await bal.getCommune(1)
+      const commune = await bal.getCommune('1')
 
       expect(commune).toBe(TREE.communes[1])
     })
 
     test('should return null when commune do not exist', async () => {
       const bal = new BAL(TREE)
-      const commune = await bal.getCommune(42)
+      const commune = await bal.getCommune('42')
 
       expect(commune).toBeNull()
     })
@@ -54,14 +54,14 @@ describe('BAL', () => {
   describe('getVoie', () => {
     test('should return voie', async () => {
       const bal = new BAL(TREE)
-      const voie = await bal.getVoie('1-1')
+      const voie = await bal.getVoie('1', '1')
 
       expect(voie).toBe(TREE.communes[1].voies[1])
     })
 
     test('should return null when voie do not exist', async () => {
       const bal = new BAL(TREE)
-      const voie = await bal.getVoie('1-42')
+      const voie = await bal.getVoie('1', '42')
 
       expect(voie).toBeNull()
     })
@@ -70,14 +70,14 @@ describe('BAL', () => {
   describe('getNumero', () => {
     test('should return numero', async () => {
       const bal = new BAL(TREE)
-      const numero = await bal.getNumero('1-1-1')
+      const numero = await bal.getNumero('1', '1', '1')
 
       expect(numero).toBe(TREE.communes[1].voies[1].numeros[1])
     })
 
     test('should return null when numero do not exist', async () => {
       const bal = new BAL(TREE)
-      const numero = await bal.getNumero('1-1-42')
+      const numero = await bal.getNumero('1', '1', '42')
 
       expect(numero).toBeNull()
     })
@@ -106,29 +106,28 @@ describe('BAL', () => {
   describe('createVoie', () => {
     test('should create a new voie and add it to BAL', async () => {
       const bal = new BAL(TREE)
-      const voie = {idVoie: '1-2', codeVoie: '2'}
-      const newVoie = {
-        ...voie,
+      const voie = {
+        codeVoie: '2',
         created: true,
         dateMAJ: null,
         source: [],
         numeros: {}
       }
 
-      expect(await bal.createVoie('1', voie)).toEqual(newVoie)
-      expect(await bal.getVoie('1-2')).toEqual(newVoie)
+      expect(await bal.createVoie('1', {codeVoie: '2'})).toEqual(voie)
+      expect(await bal.getVoie('1', '2')).toEqual(voie)
     })
 
     test('should throw an error when commune do not exist', async () => {
       const bal = new BAL(TREE)
-      const voie = {idVoie: '42-2', codeVoie: '2'}
+      const voie = {codeVoie: '2'}
 
       await expect(bal.createVoie('42', voie)).rejects.toThrow('La commune n’existe pas.')
     })
 
     test('should throw an error when voie already exist', async () => {
       const bal = new BAL(TREE)
-      const voie = {idVoie: '1-1', codeVoie: '1'}
+      const voie = {codeVoie: '1'}
 
       await expect(bal.createVoie('1', voie)).rejects.toThrow('La voie existe déjà.')
     })
@@ -137,30 +136,29 @@ describe('BAL', () => {
   describe('createNumero', () => {
     test('should create a new numero and add it to BAL', async () => {
       const bal = new BAL(TREE)
-      const numero = {id: '1-1-2', numeroComplet: '2'}
-      const newNumero = {
-        ...numero,
+      const numero = {
+        numeroComplet: '2',
         created: true,
         source: [],
         dateMAJ: null
       }
 
-      expect(await bal.createNumero('1-1', numero)).toEqual(newNumero)
-      expect(await bal.getNumero('1-1-2')).toEqual(newNumero)
+      expect(await bal.createNumero('1', '1', {numeroComplet: '2'})).toEqual(numero)
+      expect(await bal.getNumero('1', '1', '2')).toEqual(numero)
     })
 
     test('should throw an error when voie do not exist', async () => {
       const bal = new BAL(TREE)
-      const numero = {id: '1-1-2', numeroComplet: '2'}
+      const numero = {numeroComplet: '2'}
 
-      await expect(bal.createNumero('1-42', numero)).rejects.toThrow('La voie n’existe pas.')
+      await expect(bal.createNumero('1', '42', numero)).rejects.toThrow('La voie n’existe pas.')
     })
 
     test('should throw an error when numero already exist', async () => {
       const bal = new BAL(TREE)
-      const numero = {id: '1-1-1', numeroComplet: '1'}
+      const numero = {numeroComplet: '1'}
 
-      await expect(bal.createNumero('1-1', numero)).rejects.toThrow('Le numéro existe déjà.')
+      await expect(bal.createNumero('1', '1', numero)).rejects.toThrow('Le numéro existe déjà.')
     })
   })
 
@@ -193,7 +191,7 @@ describe('BAL', () => {
     test('should turn "delete" attribute to true', async () => {
       const bal = new BAL(TREE)
 
-      expect(await bal.deleteVoie('1-1')).toEqual({
+      expect(await bal.deleteVoie('1', '1')).toEqual({
         ...TREE.communes[1].voies[1],
         deleted: true
       })
@@ -201,17 +199,17 @@ describe('BAL', () => {
 
     test('should remove voie from BAL when "created" is true', async () => {
       const bal = new BAL(TREE)
-      const voie = {idVoie: '1-2', codeVoie: '2'}
+      const voie = {codeVoie: '2'}
       await bal.createVoie('1', voie)
 
-      expect(await bal.deleteVoie('1-2')).toBeTruthy()
-      expect(await bal.getVoie('1-2')).toBeNull()
+      expect(await bal.deleteVoie('1', '2')).toBeTruthy()
+      expect(await bal.getVoie('1', '2')).toBeNull()
     })
 
     test('should throw an error when commune do not exist', async () => {
       const bal = new BAL(TREE)
 
-      await expect(bal.deleteVoie('1-42')).rejects.toThrow('La voie n’existe pas.')
+      await expect(bal.deleteVoie('1', '42')).rejects.toThrow('La voie n’existe pas.')
     })
   })
 
@@ -219,7 +217,7 @@ describe('BAL', () => {
     test('should turn "delete" attribute to true', async () => {
       const bal = new BAL(TREE)
 
-      expect(await bal.deleteNumero('1-1-1')).toEqual({
+      expect(await bal.deleteNumero('1', '1', '1')).toEqual({
         ...TREE.communes[1].voies[1].numeros[1],
         deleted: true
       })
@@ -227,17 +225,17 @@ describe('BAL', () => {
 
     test('should remove numero from BAL when "created" is true', async () => {
       const bal = new BAL(TREE)
-      const numero = {id: '1-1-2', numeroComplet: '2'}
-      await bal.createNumero('1-1', numero)
+      const numero = {numeroComplet: '2'}
+      await bal.createNumero('1', '1', numero)
 
-      expect(await bal.deleteNumero('1-1-2')).toBeTruthy()
-      expect(await bal.getNumero('1-1-2')).toBeNull()
+      expect(await bal.deleteNumero('1', '1', '2')).toBeTruthy()
+      expect(await bal.getNumero('1', '1', '2')).toBeNull()
     })
 
     test('should throw an error when numero do not exist', async () => {
       const bal = new BAL(TREE)
 
-      await expect(bal.deleteNumero('1-1-42')).rejects.toThrow('Le numéro n’existe pas.')
+      await expect(bal.deleteNumero('1', '1', '42')).rejects.toThrow('Le numéro n’existe pas.')
     })
   })
 
@@ -245,7 +243,7 @@ describe('BAL', () => {
     test('should set changes to voie', async () => {
       const bal = new BAL(TREE)
 
-      expect(await bal.renameVoie('1-1', 'new name')).toEqual({
+      expect(await bal.renameVoie('1', '1', 'new name')).toEqual({
         ...TREE.communes[1].voies[1],
         edited: true,
         change: {
@@ -258,7 +256,7 @@ describe('BAL', () => {
     test('should throw an error when voie do not exist', async () => {
       const bal = new BAL(TREE)
 
-      await expect(bal.renameVoie('1-2', {})).rejects.toThrow('La voie n’existe pas.')
+      await expect(bal.renameVoie('1', '2', {})).rejects.toThrow('La voie n’existe pas.')
     })
   })
 
@@ -267,7 +265,7 @@ describe('BAL', () => {
       const bal = new BAL(TREE)
       const change = {type: 'rename', value: 'new name'}
 
-      expect(await bal.updateNumero('1-1-1', change)).toEqual({
+      expect(await bal.updateNumero('1', '1', '1', change)).toEqual({
         ...TREE.communes[1].voies[1].numeros[1],
         edited: true,
         change
@@ -277,7 +275,7 @@ describe('BAL', () => {
     test('should throw an error when numero do not exist', async () => {
       const bal = new BAL(TREE)
 
-      await expect(bal.updateNumero('1-1-2', {})).rejects.toThrow('Le numéro n’existe pas.')
+      await expect(bal.updateNumero('1', '1', '2', {})).rejects.toThrow('Le numéro n’existe pas.')
     })
   })
 
@@ -291,8 +289,8 @@ describe('BAL', () => {
         positions: [{coords: [0, 0]}]
       }
 
-      await bal.createNumero('1-1', numero)
-      const position = await bal.getNumeroPosition(numero.id)
+      await bal.createNumero('1', '1', numero)
+      const position = await bal.getNumeroPosition('1', '1', numero.numeroComplet)
 
       expect(position).toEqual({
         type: 'Feature',
@@ -301,16 +299,16 @@ describe('BAL', () => {
           coordinates: [0, 0]
         },
         properties: {
-          id: '1-1-2',
-          numero: '2',
-          source: []
+          id: numero.id,
+          numero: numero.numeroComplet,
+          numeroComplet: numero.numeroComplet
         }
       })
     })
 
     test('should return an error when numero do not exist', async () => {
       const bal = new BAL(TREE)
-      await expect(bal.getNumeroPosition('1-1-42')).rejects.toThrow('Le numéro n’existe pas.')
+      await expect(bal.getNumeroPosition('1', '1', '42')).rejects.toThrow('Le numéro n’existe pas.')
     })
   })
 
@@ -321,7 +319,7 @@ describe('BAL', () => {
 
     test('should return an error when voie do not exist', async () => {
       const bal = new BAL(TREE)
-      await expect(bal.getVoiePositions('1-42')).rejects.toThrow('La voie n’existe pas.')
+      await expect(bal.getVoiePositions('1', '42')).rejects.toThrow('La voie n’existe pas.')
     })
   })
 
@@ -359,9 +357,9 @@ describe('BAL', () => {
   describe('cancelVoieChanges', () => {
     test('should reset all voie changes', async () => {
       const bal = new BAL(TREE)
-      await bal.renameVoie('1-1', 'test')
+      await bal.renameVoie('1', '1', 'test')
 
-      expect(await bal.cancelVoieChange('1-1')).toEqual({
+      expect(await bal.cancelVoieChange('1', '1')).toEqual({
         numeros: {
           1: {}
         },
@@ -373,9 +371,7 @@ describe('BAL', () => {
 
     test('should remove voie when created by user', async () => {
       const bal = new BAL(TREE)
-      const idVoie = '1-2'
       const voie = {
-        idVoie,
         codeVoie: '2',
         created: true,
         dateMAJ: null,
@@ -385,7 +381,7 @@ describe('BAL', () => {
 
       await bal.createVoie('1', voie)
 
-      expect(await bal.cancelVoieChange(idVoie)).toBeTruthy()
+      expect(await bal.cancelVoieChange('1', '2')).toBeTruthy()
     })
   })
 
@@ -394,9 +390,9 @@ describe('BAL', () => {
       const bal = new BAL(TREE)
       const change = {type: 'rename', value: 'new name'}
 
-      await bal.updateNumero('1-1-1', change)
+      await bal.updateNumero('1', '1', '1', change)
 
-      expect(await bal.cancelNumeroChange('1-1-1')).toEqual({
+      expect(await bal.cancelNumeroChange('1', '1', '1')).toEqual({
         change: null,
         edited: false,
         deleted: false
@@ -406,15 +402,14 @@ describe('BAL', () => {
     test('should remove numero when created by user', async () => {
       const bal = new BAL(TREE)
       const numero = {
-        id: '1-1-2',
         numero: '2',
         numeroComplet: '2',
         positions: [{coords: [0, 0]}]
       }
 
-      await bal.createNumero('1-1', numero)
+      await bal.createNumero('1', '1', numero)
 
-      expect(await bal.cancelNumeroChange(numero.id)).toBeTruthy()
+      expect(await bal.cancelNumeroChange('1', '1', numero.numeroComplet)).toBeTruthy()
     })
   })
 })

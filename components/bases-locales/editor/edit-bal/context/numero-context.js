@@ -7,26 +7,24 @@ import {FormContext} from '..'
 
 class numeroContext extends React.Component {
   static propTypes = {
-    commune: PropTypes.object.isRequired,
-    voie: PropTypes.object.isRequired,
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired
     }).isRequired
   }
 
   render() {
-    const {commune, voie, numero} = this.props
+    const {numero} = this.props
 
     return (
       <div>
         <FormContext.Consumer>
-          {actions => (
-            <ClosablePanel title={numero.numeroComplet} handleClose={actions.previousContext}>
+          {context => (
+            <ClosablePanel title={numero.numeroComplet} handleClose={() => context.actions.select(context.commune.code, context.voie.codeVoie)}>
               <NumeroItem
-                commune={commune}
-                voie={voie}
+                codeCommune={context.commune.code}
+                codeVoie={context.voie.codeVoie}
                 numero={numero}
-                itemActions={actions}
+                actions={context.actions}
               />
             </ClosablePanel>
           )}

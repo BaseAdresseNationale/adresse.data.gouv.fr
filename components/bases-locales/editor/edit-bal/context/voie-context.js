@@ -1,43 +1,54 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 
 import VoieItem from '../item/voie-item'
 import ClosablePanel from '../closable-panel'
 import NumerosList from '../numeros-list'
 
+import {FormContext} from '..'
+
 class VoieContext extends React.Component {
   static propTypes = {
-    commune: PropTypes.object.isRequired,
     voie: PropTypes.shape({
       nomVoie: PropTypes.string.isRequired,
-      numeros: PropTypes.array
+      numeros: PropTypes.object
     }).isRequired
   }
 
   render() {
-    const {commune, voie} = this.props
+    const {voie} = this.props
+    const {numeros} = voie
 
     return (
       <div>
-        <ClosablePanel title={voie.nomVoie} handleClose={actions.previousContext}>
-          <VoieItem
-            commune={commune}
-            voie={voie}
-            itemActions={actions}
-          />
-        </ClosablePanel>
+        <FormContext.Consumer>
+          {context => (
+            <Fragment>
+              <ClosablePanel title={voie.nomVoie} handleClose={() => context.actions.select(context.commune.code)}>
+                <VoieItem
+                  codeCommune={context.commune.code}
+                  voie={voie}
+                  actions={context.actions}
+                  error={context.error}
+                />
+              </ClosablePanel>
 
-        {(voie.numeros && voie.numeros.length > 0) ? (
-          <div className='voies'>
-            <b>Numéros de : {voie.nomVoie}</b>
-            <NumerosList
-              numeros={voie.numeros}
-              itemActions={action}
-            />
-          </div>
-        ) : (
-          <div>Aucun numéro</div>
-        )}
+              {numeros && Object.keys(numeros).length > 0 ? (
+                <div className='voies'>
+                  <b>Numéros de : {voie.nomVoie}</b>
+                  <NumerosList
+                    codeCommune={context.commune.code}
+                    codeVoie={voie.codeVoie}
+                    numeros={numeros}
+                    actions={context.actions}
+                  />
+                </div>
+              ) : (
+                <div>Aucun numéro</div>
+              )}
+            </Fragment>
+          )}
+        </FormContext.Consumer>
 
         <style jsx>{`
             .voies {

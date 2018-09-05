@@ -6,22 +6,27 @@ import {FormContext} from '.'
 
 class VoiesList extends React.Component {
   static propTypes = {
+    codeCommune: PropTypes.string.isRequired,
     voies: PropTypes.object.isRequired
   }
 
   render() {
-    const {voies} = this.props
+    const {codeCommune, voies} = this.props
 
     return (
       <div>
         {Object.keys(voies).map(voie => (
-          <FormContext.Consumer key={voies[voie].idVoie}>
+          <FormContext.Consumer key={voie}>
             {context => (
               <VoieItem
+                key={voie.codeVoie}
                 voie={voies[voie]}
-                {...context}
+                codeCommune={codeCommune}
+                actions={context.actions}
+                error={context.error}
               />
             )}
+
           </FormContext.Consumer>
         ))}
       </div>

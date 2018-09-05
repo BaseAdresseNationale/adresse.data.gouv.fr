@@ -18,12 +18,12 @@ class Changes extends React.Component {
       voies: PropTypes.array.isRequired,
       numeros: PropTypes.array.isRequired
     }).isRequired,
-    cancelChanges: PropTypes.func.isRequired,
+    cancelChange: PropTypes.func.isRequired,
     changeContext: PropTypes.func.isRequired
   }
 
   render() {
-    const {changes, changeContext, cancelChanges} = this.props
+    const {changes, changeContext, cancelChange} = this.props
     const {communes, voies, numeros} = changes
 
     return (
@@ -38,7 +38,7 @@ class Changes extends React.Component {
                 key={getId(commune)}
                 item={commune}
                 changeContext={changeContext}
-                cancelChanges={cancelChanges}
+                cancelChange={cancelChange}
               />
             ))}
           </div>
@@ -52,7 +52,7 @@ class Changes extends React.Component {
                 key={getId(voie)}
                 item={voie}
                 changeContext={changeContext}
-                cancelChanges={cancelChanges}
+                cancelChange={cancelChange}
               />
             ))}
           </div>
@@ -66,7 +66,7 @@ class Changes extends React.Component {
                 key={getId(numero)}
                 item={numero}
                 changeContext={changeContext}
-                cancelChanges={cancelChanges}
+                cancelChange={cancelChange}
               />
             ))}
           </div>

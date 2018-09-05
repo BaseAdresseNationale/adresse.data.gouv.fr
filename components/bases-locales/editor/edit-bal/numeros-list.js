@@ -19,38 +19,38 @@ const getStatus = item => {
 
 class numerosList extends React.Component {
   static propTypes = {
-    numeros: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        numeroComplet: PropTypes.string.isRequired
-      })
-    ).isRequired,
-    itemActions: PropTypes.shape({
-      cancelChanges: PropTypes.func.isRequired,
+    codeCommune: PropTypes.string.isRequired,
+    codeVoie: PropTypes.string.isRequired,
+    numeros: PropTypes.object.isRequired,
+    actions: PropTypes.shape({
+      cancelChange: PropTypes.func.isRequired,
       deleteItem: PropTypes.func.isRequired,
-      changeContext: PropTypes.func.isRequired
+      select: PropTypes.func.isRequired
     }).isRequired
   }
 
   render() {
-    const {numeros, itemActions} = this.props
-    const {cancelChanges, deleteItem, changeContext} = itemActions
+    const {codeCommune, codeVoie, numeros, actions} = this.props
+    const {cancelChange, deleteItem, select} = actions
 
     return (
       <div>
-        {numeros.map(numero => (
-          <Item
-            key={numero.id}
-            name={numero.numeroComplet}
-            status={getStatus(numero)}
-            handleClick={() => changeContext(numero)}
-            actions={[
-              numero.deleted ?
-                {type: 'cancel', func: () => cancelChanges(numero)} :
-                {type: 'delete', func: () => deleteItem(numero)}
-            ]}
-          />
-        ))}
+        {Object.keys(numeros).map(n => {
+          const numero = numeros[n]
+          return (
+            <Item
+              key={n}
+              name={numero.numeroComplet}
+              status={getStatus(numero)}
+              handleClick={() => select(codeCommune, codeVoie, numero.numeroComplet)}
+              actions={[
+                numero.deleted ?
+                  {type: 'cancel', func: () => cancelChange(numero)} :
+                  {type: 'delete', func: () => deleteItem(numero)}
+              ]}
+            />
+          )
+        })}
       </div>
     )
   }

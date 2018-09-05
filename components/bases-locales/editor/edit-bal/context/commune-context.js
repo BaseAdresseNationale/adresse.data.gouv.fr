@@ -24,9 +24,9 @@ class CommuneContext extends React.Component {
           {context => (
             <ClosablePanel
               title={`Commune de ${commune.nom}`}
-              handleClose={() => context.select(null)}
+              handleClose={() => context.actions.select(null)}
             >
-              <CommuneItem commune={commune} {...context} />
+              <CommuneItem commune={commune} actions={context.actions} />
             </ClosablePanel>
           )}
         </FormContext.Consumer>
@@ -34,8 +34,8 @@ class CommuneContext extends React.Component {
         <div className='voies'>
           <b>Voies de : {commune.nom}</b>
           <VoiesList
-            commune={commune}
             voies={commune.voies}
+            codeCommune={commune.code}
           />
         </div>
 
