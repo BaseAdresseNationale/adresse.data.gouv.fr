@@ -94,7 +94,7 @@ class EditBal extends React.Component {
 
     try {
       if (type === 'voie') {
-        await this.bal.renameVoie(commune.code, voie.codeVoie, newName)
+        await this.bal.renameVoie(commune.code, item.codeVoie, newName)
       } else {
         const change = {type: 'rename', value: newName}
         await this.bal.updateNumero(commune.code, voie.codeVoie, item.numeroComplet, change)

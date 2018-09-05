@@ -57,9 +57,9 @@ class VoieItem extends React.Component {
 
   handleSubmit = async () => {
     const {input} = this.state
-    const {voie, renameItem} = this.props
+    const {voie, actions} = this.props
 
-    await renameItem(voie, input)
+    await actions.renameItem(voie, input)
     this.setState({editing: false})
   }
 
@@ -100,6 +100,7 @@ class VoieItem extends React.Component {
   render() {
     const {input, editing} = this.state
     const {codeCommune, voie, actions, error} = this.props
+    console.log('TCL: VoieItem -> render -> error', error);
     const actionList = this.getActions()
     const numeros = voie.numeros ? getNumeros(voie) : 'Toponyme'
 
