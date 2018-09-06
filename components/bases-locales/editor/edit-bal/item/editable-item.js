@@ -1,131 +1,97 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import FaPencil from 'react-icons/lib/fa/pencil'
+import FaClose from 'react-icons/lib/fa/close'
 
 import theme from '../../../../../styles/theme'
 
-import VoieEditor from './voie-editor'
-import NumberoEditor from './numero-editor'
+import Button from '../../../../button'
+
 import Item from '.'
 
 class EditableItem extends React.Component {
   state = {
-    editing: false,
-    newName: '',
-    error: null
+    displayForm: false
   }
 
   static propTypes = {
     item: PropTypes.shape({
-      type: PropTypes.oneOf(['commune', 'voie', 'numero']).isRequired
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      status: PropTypes.string,
+      handleClick: PropTypes.func.isRequired
     }).isRequired,
-    changeContext: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-    assignItem: PropTypes.func.isRequired,
-    renameItem: PropTypes.func.isRequired,
-    cancelChange: PropTypes.func.isRequired
+    checked: PropTypes.bool,
+    handleCheck: PropTypes.func,
+    children: PropTypes.node
   }
 
-  handleValid = () => {
-    const {newName} = this.state
-    const {item, renameItem} = this.props
-
-    renameItem(item, newName)
-
-    this.setState({
-      editing: false
-    })
+  static defaultProps = {
+    checked: false,
+    handleCheck: null,
+    children: null
   }
 
-  handleEdit = () => {
+  toggleForm = () => {
     this.setState(state => {
       return {
-        editing: !state.editing
+        displayForm: !state.displayForm
       }
     })
   }
 
-  handleDelete = () => {
-    const {item, deleteItem} = this.props
-
-    deleteItem(item)
-  }
-
-  handleCancel = () => {
-    const {item, cancelChange} = this.props
-
-    cancelChange(item)
-  }
-
-  setNewName = newName => {
-    this.setState({newName})
-  }
-
-  getActions = () => {
-    const {editing} = this.state
-    const {item} = this.props
-    const actions = []
-
-    if (editing) {
-      return [
-        {type: 'valid', func: this.handleValid},
-        {type: 'cancel', func: this.handleEdit}
-      ]
-    }
-
-    if (item.deleted) {
-      actions.push({type: 'cancel', func: this.handleCancel})
-    } else {
-      actions.push({type: 'delete', func: this.handleDelete})
-    }
-
-    if (item.type !== 'commune') {
-      actions.push({type: 'edit', func: this.handleEdit})
-    }
-
-    return actions
+  handleInputChange = e => {
+    const {item, handleCheck} = this.props
+    handleCheck(item.id, e.target.checked)
   }
 
   render() {
-    const {newName, editing, error} = this.state
-    const { item, assignItem} = this.props
-    const itemActions = this.getActions()
+    const {displayForm} = this.state
+    const {item, checked, handleCheck, children} = this.props
 
     return (
       <div>
-        {editing ? (
-          <Item
-            {...this.props}
-            actions={itemActions}
-          >
-            <div>
-              {item.type === 'voie' ? (
-                <VoieEditor
-                  item={item}
-                  name={newName}
-                  rename={this.setNewName}
-                  assign={assignItem} />
-              ) : (
-                <NumberoEditor
-                  item={item}
-                  name={newName}
-                  rename={this.setNewName} />
-              )}
+        <div>
+          {handleCheck && (
+            <input
+              name='selected'
+              type='checkbox'
+              checked={checked}
+              onChange={this.handleInputChange}
+            />
+          )}
 
-              {error && (
-                <div className='error'>{error}</div>
-              )}
+          <div className='editable-item'>
+            <Item {...item} />
+            <div className='edit-button'>
+              <Button size='small' onClick={this.toggleForm}>
+                {displayForm ? <FaClose /> : <FaPencil />}
+              </Button>
             </div>
-          </Item>
-        ) : (
-          <Item
-            {...this.props}
-            actions={itemActions}
-          />)}
+          </div>
+
+        </div>
+
+        {displayForm && (
+          <div className='form'>{children}</div>
+        )}
 
         <style jsx>{`
-          .error {
-            color: ${theme.colors.red};
-            margin-top: 2em;
+          .editable-item {
+            display: flex;
+            align-items: center;
+          }
+
+          .edit-button {
+            margin: 0.5em;
+          }
+
+          .form {
+            margin: -58px 0 0.2em;
+            padding: 1em;
+            padding-top: 70px;
+            border: 1px solid ${theme.border};
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
         `}</style>
       </div>
