@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CommuneItem from '../item/commune-item'
-import ClosablePanel from '../closable-panel'
+import Head from '.'
 import VoiesList from '../voies-list'
 
 import {FormContext} from '..'
@@ -22,12 +21,11 @@ class CommuneContext extends React.Component {
       <div>
         <FormContext.Consumer>
           {context => (
-            <ClosablePanel
-              title={`Commune de ${commune.nom}`}
-              handleClose={() => context.actions.select(null)}
-            >
-              <CommuneItem commune={commune} actions={context.actions} />
-            </ClosablePanel>
+            <Head
+              name={commune.nom}
+              parent='Communes'
+              previous={() => context.actions.select(null)}
+            />
           )}
         </FormContext.Consumer>
 

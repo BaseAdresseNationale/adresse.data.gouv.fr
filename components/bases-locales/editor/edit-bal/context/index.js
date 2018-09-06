@@ -22,22 +22,13 @@ class Context extends React.Component {
 
     return (
       <div>
-        <div>
-          <h2>Contexte</h2>
-          {numero ? (
-            <NumeroContext numero={numero} />
-          ) : voie ? (
-            <VoieContext voie={voie} />
-          ) : (
-            <CommuneContext commune={commune} />
-          )}
-        </div>
-
-        <style jsx>{`
-          .childs {
-            margin: 2em 0;
-          }
-        `}</style>
+        {numero ? (
+          <NumeroContext numero={numero} />
+        ) : voie ? (
+          <VoieContext voie={voie} />
+        ) : (
+          <CommuneContext commune={commune} />
+        )}
       </div>
     )
   }

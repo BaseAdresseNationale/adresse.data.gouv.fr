@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaPlus from 'react-icons/lib/fa/plus'
 
-import Button from '../../../../button'
+import Head from '../context/head'
 
 import CommuneForm from './commune-form'
 import CommunesList from './communes-list'
@@ -15,6 +14,7 @@ class Communes extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     communes: PropTypes.object,
+    reset: PropTypes.func.isRequired,
     error: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.instanceOf(Error)
@@ -26,13 +26,6 @@ class Communes extends React.Component {
     error: null
   }
 
-  componentDidMount = () => {
-    const {communes} = this.props
-    if (!communes) {
-      this.setState({displayForm: true})
-    }
-  }
-
   toggleForm = () => {
     this.setState(state => {
       return {
@@ -42,37 +35,36 @@ class Communes extends React.Component {
   }
 
   handleSubmit = commune => {
-    const {communes, actions} = this.props
+    const {actions} = this.props
     const {addItem} = actions
 
-    if (Object.keys(communes).length === 0) {
-      this.setState({displayForm: false}) // Close form if it is first commune to be added
-    }
-
     addItem(commune)
+    this.setState({displayForm: false})
   }
 
   render() {
     const {displayForm} = this.state
-    const {communes, actions, error} = this.props
+    const {communes, actions, reset, error} = this.props
+    const hasCommune = communes && Object.keys(communes).length > 0
 
     return (
       <div>
-        <h2>Communes</h2>
-
-        <div className='form'>
-          {displayForm ? (
+        <Head
+          name='Communes'
+          parent={null}
+          previous={() => reset()}
+          displayForm={displayForm || !hasCommune}
+          toggleForm={this.toggleForm}
+        >
+          <div className='form'>
             <CommuneForm
               submit={this.handleSubmit}
-              close={this.toggleForm}
               error={error}
             />
-          ) : (
-            <Button onClick={this.toggleForm}><FaPlus /> Commune</Button>
-          )}
-        </div>
+          </div>
+        </Head>
 
-        {communes && (
+        {hasCommune && (
           <CommunesList communes={communes} actions={actions} />
         )}
 
