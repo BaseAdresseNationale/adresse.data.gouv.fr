@@ -31,8 +31,11 @@ class Editor extends React.Component {
     this.setState({createMode: true})
   }
 
-  clearStorage = () => {
-    this.setState({tree: null})
+  reset = () => {
+    this.setState({
+      tree: null,
+      createMode: false
+    })
     localStorage.clear()
   }
 
@@ -42,7 +45,7 @@ class Editor extends React.Component {
     return (
       <div>
         {tree || createMode ? (
-          <EditBal tree={tree} />
+          <EditBal tree={tree} reset={this.reset} />
         ) : (
           <div className='centered'>
             <HandleFile handleTree={this.handleTree} />
@@ -52,7 +55,7 @@ class Editor extends React.Component {
         )}
 
         {tree && (
-          <Button onClick={this.clearStorage}>Clear</Button>
+          <Button style={{margin: '1em 50%'}} onClick={this.clearStorage}>Clear</Button>
         )}
 
         <style jsx>{`

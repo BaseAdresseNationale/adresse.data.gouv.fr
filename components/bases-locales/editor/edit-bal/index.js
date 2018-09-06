@@ -36,7 +36,8 @@ class EditBal extends React.Component {
   }
 
   static propTypes = {
-    tree: PropTypes.object
+    tree: PropTypes.object,
+    reset: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -196,6 +197,7 @@ class EditBal extends React.Component {
   }
 
   render() {
+    const {reset} = this.props
     const {communes, commune, voie, numero, error} = this.state
     const actions = {
       select: this.select,
@@ -218,6 +220,7 @@ class EditBal extends React.Component {
             <Communes
               communes={communes}
               actions={actions}
+              reset={reset}
               error={error}
             />
           )}
