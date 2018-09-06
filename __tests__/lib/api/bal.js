@@ -246,9 +246,8 @@ describe('BAL', () => {
       expect(await bal.renameVoie('1', '1', 'new name')).toEqual({
         ...TREE.communes[1].voies[1],
         edited: true,
-        change: {
-          type: 'rename',
-          value: 'new name'
+        modified: {
+          nomVoie: 'new name'
         }
       })
     })
@@ -263,12 +262,12 @@ describe('BAL', () => {
   describe('updateNumero', () => {
     test('should set changes to numero', async () => {
       const bal = new BAL(TREE)
-      const change = {type: 'rename', value: 'new name'}
+      const modified = {numeroComplet: '123'}
 
-      expect(await bal.updateNumero('1', '1', '1', change)).toEqual({
+      expect(await bal.updateNumero('1', '1', '1', modified)).toEqual({
         ...TREE.communes[1].voies[1].numeros[1],
         edited: true,
-        change
+        modified
       })
     })
 
@@ -363,9 +362,10 @@ describe('BAL', () => {
         numeros: {
           1: {}
         },
-        change: null,
+        modified: null,
         edited: false,
-        deleted: false
+        deleted: false,
+        created: false
       })
     })
 
@@ -393,9 +393,10 @@ describe('BAL', () => {
       await bal.updateNumero('1', '1', '1', change)
 
       expect(await bal.cancelNumeroChange('1', '1', '1')).toEqual({
-        change: null,
+        modified: null,
         edited: false,
-        deleted: false
+        deleted: false,
+        created: false
       })
     })
 

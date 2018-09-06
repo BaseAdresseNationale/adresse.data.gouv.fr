@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Changes from '../changes'
 import CommuneContext from './commune-context'
 import VoieContext from './voie-context'
 import NumeroContext from './numero-context'
@@ -10,18 +9,16 @@ class Context extends React.Component {
   static propTypes = {
     commune: PropTypes.object.isRequired,
     voie: PropTypes.object,
-    numero: PropTypes.object,
-    changes: PropTypes.object
+    numero: PropTypes.object
   }
 
   static defaultProps = {
     voie: null,
-    numero: null,
-    changes: null
+    numero: null
   }
 
   render() {
-    const {commune, voie, numero, changes} = this.props
+    const {commune, voie, numero} = this.props
 
     return (
       <div>
@@ -35,14 +32,6 @@ class Context extends React.Component {
             <CommuneContext commune={commune} />
           )}
         </div>
-
-        {/* {changes && (
-          <Changes
-            changes={changes}
-            cancelChange={actions.cancelChange}
-            changeContext={actions.changeContext}
-          />
-        )} */}
 
         <style jsx>{`
           .childs {

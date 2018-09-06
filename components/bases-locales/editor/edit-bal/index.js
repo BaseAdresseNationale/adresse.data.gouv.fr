@@ -31,7 +31,6 @@ class EditBal extends React.Component {
       commune: null,
       voie: null,
       numero: null,
-      changes: {communes: {}, voies: {}, numeros: {}},
       error: null
     }
   }
@@ -65,56 +64,49 @@ class EditBal extends React.Component {
   }
 
   addCommune = async newCommune => {
-    const {changes} = this.state
     let error
 
     try {
-      const commune = await this.bal.createCommune(newCommune.code, newCommune)
-      changes.communes[commune.code] = commune
+      await this.bal.createCommune(newCommune.code, newCommune)
     } catch (err) {
       error = new Error(err)
     }
 
     this.setState({
-      changes,
       error
     })
   }
 
   addVoie = async newVoie => {
-    const {commune, changes} = this.state
+    const {commune} = this.state
     let voie
     let error
 
     try {
-      const voie = await this.bal.createVoie(commune.code, newVoie)
-      changes.voies[voie.codeVoie] = voie
+      await this.bal.createVoie(commune.code, newVoie)
     } catch (err) {
       error = new Error(err)
     }
 
     this.setState({
       voie,
-      changes,
       error
     })
   }
 
   addNumero = async newNumero => {
-    const {commune, voie, changes} = this.state
+    const {commune, voie} = this.state
     let numero
     let error
 
     try {
       numero = await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
-      changes.numeros[numero.numeroComplet] = numero
     } catch (err) {
       error = new Error(err)
     }
 
     this.setState({
       numero,
-      changes,
       error
     })
   }
@@ -139,7 +131,7 @@ class EditBal extends React.Component {
   }
 
   deleteItem = async item => {
-    const {commune, voie, changes} = this.state
+    const {commune, voie} = this.state
     const type = getType(item)
     let error = null
 
@@ -148,7 +140,6 @@ class EditBal extends React.Component {
         case 'commune':
           await this.bal.deleteCommune(item.code)
           await this.bal.getCommunes()
-          // Changes[item.code] = {item, change: {type: 'delete', value: true}}
           break
         case 'voie':
           await this.bal.deleteVoie(commune.code, item.codeVoie)
@@ -163,7 +154,6 @@ class EditBal extends React.Component {
 
     this.setState(() => {
       return {
-        changes,
         error
       }
     })
@@ -223,7 +213,6 @@ class EditBal extends React.Component {
               commune={commune}
               voie={voie}
               numero={numero}
-              changes={{}}
             />
           ) : (
             <Communes
