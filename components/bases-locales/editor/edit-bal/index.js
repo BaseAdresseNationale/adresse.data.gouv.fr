@@ -93,16 +93,13 @@ class EditBal extends React.Component {
     const {commune, voie} = this.state
     const type = getType(item)
 
-    switch (type) {
-      case 'commune':
+    if (type === 'commune') {
         await this.bal.deleteCommune(item.code)
-        break
-      case 'voie':
+      this.setState({communes: await this.bal.getCommunes()})
+    } else if (type === 'voie') {
         await this.bal.deleteVoie(commune.code, item.codeVoie)
-        break
-      default:
+    } else {
         await this.bal.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
-        break
     }
   }
 
@@ -110,16 +107,13 @@ class EditBal extends React.Component {
     const {commune, voie} = this.state
     const type = getType(item)
 
-    switch (type) {
-      case 'commune':
+    if (type === 'commune') {
         await this.bal.cancelCommuneChange(item.code)
-        break
-      case 'voie':
+      this.setState({communes: await this.bal.getCommunes()})
+    } else if (type === 'voie') {
         await this.bal.cancelVoieChange(commune.code, item.codeVoie)
-        break
-      default:
+    } else {
         await this.bal.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
-        break
     }
   }
 
