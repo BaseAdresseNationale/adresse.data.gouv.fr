@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
-import BAL from '../../../../lib/bal/api'
+import BAL from '../../../../lib/bal/model'
 
 import Button from '../../../button'
 import ButtonLink from '../../../button-link'
