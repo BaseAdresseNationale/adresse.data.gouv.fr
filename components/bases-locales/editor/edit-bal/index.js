@@ -34,8 +34,7 @@ class EditBal extends React.Component {
       communes: null,
       commune: null,
       voie: null,
-      numero: null,
-      error: null
+      numero: null
     }
   }
 
@@ -82,17 +81,7 @@ class EditBal extends React.Component {
 
   addNumero = async newNumero => {
     const {commune, voie} = this.state
-    let error
-
-    try {
-      await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
-    } catch (err) {
-      error = new Error(err)
-    }
-
-    this.setState({
-      error
-    })
+    await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
   }
 
   renameVoie = async (item, newName) => {
@@ -120,25 +109,18 @@ class EditBal extends React.Component {
   cancelChange = async item => {
     const {commune, voie} = this.state
     const type = getType(item)
-    let error = null
 
-    try {
-      switch (type) {
-        case 'commune':
-          await this.bal.cancelCommuneChange(item.code)
-          break
-        case 'voie':
-          await this.bal.cancelVoieChange(commune.code, item.codeVoie)
-          break
-        default:
-          await this.bal.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
-          break
-      }
-    } catch (err) {
-      error = new Error(err)
+    switch (type) {
+      case 'commune':
+        await this.bal.cancelCommuneChange(item.code)
+        break
+      case 'voie':
+        await this.bal.cancelVoieChange(commune.code, item.codeVoie)
+        break
+      default:
+        await this.bal.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
+        break
     }
-
-    this.setState({error})
   }
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
@@ -154,8 +136,8 @@ class EditBal extends React.Component {
   }
 
   render() {
+    const {communes, commune, voie, numero} = this.state
     const {reset} = this.props
-    const {communes, commune, voie, numero, error} = this.state
     const actions = {
       select: this.select,
       addItem: this.addItem,
@@ -166,7 +148,7 @@ class EditBal extends React.Component {
 
     return (
       <div>
-        <FormContext.Provider value={{commune, voie, numero, actions, error}}>
+        <FormContext.Provider value={{commune, voie, numero, actions}}>
           {commune ? (
             <Context
               commune={commune}
