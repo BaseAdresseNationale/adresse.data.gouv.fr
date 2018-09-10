@@ -146,7 +146,6 @@ class EditBal extends React.Component {
   render() {
     const {communes, commune, voie, numero} = this.state
     const {reset, createBAL, csv, filename, loading, error} = this.props
-    console.log('TCL: EditBal -> render -> error', error);
     const actions = {
       select: this.select,
       addItem: this.addItem,
