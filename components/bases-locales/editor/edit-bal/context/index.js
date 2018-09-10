@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CommuneContext from './commune-context'
+import {FormContext} from '..'
+
+import CommuneContext from './commune/commune-context'
 import VoieContext from './voie-context'
 import NumeroContext from './numero-context'
 
@@ -21,15 +23,22 @@ class Context extends React.Component {
     const {commune, voie, numero} = this.props
 
     return (
-      <div>
-        {numero ? (
-          <NumeroContext numero={numero} />
-        ) : voie ? (
-          <VoieContext voie={voie} />
-        ) : (
-          <CommuneContext commune={commune} />
+      <FormContext.Consumer>
+        {context => (
+          <div>
+            {numero ? (
+              <NumeroContext numero={numero} />
+            ) : voie ? (
+              <VoieContext voie={voie} />
+            ) : (
+              <CommuneContext
+                commune={commune}
+                addVoie={context.actions.addItem}
+              />
+            )}
+          </div>
         )}
-      </div>
+      </FormContext.Consumer>
     )
   }
 }
