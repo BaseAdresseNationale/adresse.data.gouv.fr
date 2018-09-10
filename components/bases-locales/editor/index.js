@@ -8,10 +8,17 @@ import Button from '../../button'
 import HandleFile from './handle-file'
 import EditBal from './edit-bal'
 
+const exportTree = async tree => {
+  return new Blob('', {type: 'text/csv'})
+}
+
 class Editor extends React.Component {
   state = {
     tree: null,
-    createMode: false
+    csv: null,
+    loading: false,
+    createMode: false,
+    error: null
   }
 
   componentDidMount() {
@@ -39,13 +46,43 @@ class Editor extends React.Component {
     localStorage.clear()
   }
 
+  createBAL = async tree => {
+    let csv = null
+    let error = null
+
+    this.setState({loading: true})
+
+    try {
+      const response = await exportTree(tree)
+      const blob = await response.blob()
+
+      csv = URL.createObjectURL(blob)
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({
+      csv,
+      loading: false,
+      error
+    })
+  }
+
   render() {
-    const {tree, createMode} = this.state
+    const {tree, csv, createMode, loading, error} = this.state
 
     return (
       <div>
         {tree || createMode ? (
-          <EditBal tree={tree} reset={this.reset} />
+          <EditBal
+            tree={tree}
+            csv={csv}
+            filename='filename'
+            reset={this.reset}
+            createBAL={this.createBAL}
+            loading={loading}
+            error={error}
+          />
         ) : (
           <div className='centered'>
             <HandleFile handleTree={this.handleTree} />
@@ -55,7 +92,7 @@ class Editor extends React.Component {
         )}
 
         {tree && (
-          <Button style={{margin: '1em 50%'}} onClick={this.clearStorage}>Clear</Button>
+          <Button style={{display: 'flex', justifyContent: 'center'}} onClick={this.clearStorage}>Clear</Button>
         )}
 
         <style jsx>{`

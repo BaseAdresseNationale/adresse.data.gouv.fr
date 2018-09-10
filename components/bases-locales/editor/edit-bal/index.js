@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import MdFileDownload from 'react-icons/lib/md/file-download'
 
 import BAL from '../../../../lib/bal/api'
 
+import Button from '../../../button'
+import ButtonLink from '../../../button-link'
+
+import LoadingContent from '../../../loading-content'
 import Context from './context'
 import Communes from './communes'
 
@@ -40,11 +45,20 @@ class EditBal extends React.Component {
 
   static propTypes = {
     tree: PropTypes.object,
+    csv: PropTypes.string,
+    filename: PropTypes.string,
+    loading: PropTypes.bool,
+    error: PropTypes.instanceOf(Error),
+    createBAL: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    tree: null
+    tree: null,
+    filename: null,
+    loading: false,
+    csv: null,
+    error: null
   }
 
   componentDidMount = async () => {
@@ -94,12 +108,12 @@ class EditBal extends React.Component {
     const type = getType(item)
 
     if (type === 'commune') {
-        await this.bal.deleteCommune(item.code)
+      await this.bal.deleteCommune(item.code)
       this.setState({communes: await this.bal.getCommunes()})
     } else if (type === 'voie') {
-        await this.bal.deleteVoie(commune.code, item.codeVoie)
+      await this.bal.deleteVoie(commune.code, item.codeVoie)
     } else {
-        await this.bal.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
+      await this.bal.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
     }
   }
 
@@ -108,12 +122,12 @@ class EditBal extends React.Component {
     const type = getType(item)
 
     if (type === 'commune') {
-        await this.bal.cancelCommuneChange(item.code)
+      await this.bal.cancelCommuneChange(item.code)
       this.setState({communes: await this.bal.getCommunes()})
     } else if (type === 'voie') {
-        await this.bal.cancelVoieChange(commune.code, item.codeVoie)
+      await this.bal.cancelVoieChange(commune.code, item.codeVoie)
     } else {
-        await this.bal.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
+      await this.bal.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
     }
   }
 
@@ -131,7 +145,8 @@ class EditBal extends React.Component {
 
   render() {
     const {communes, commune, voie, numero} = this.state
-    const {reset} = this.props
+    const {reset, createBAL, csv, filename, loading, error} = this.props
+    console.log('TCL: EditBal -> render -> error', error);
     const actions = {
       select: this.select,
       addItem: this.addItem,
@@ -156,7 +171,26 @@ class EditBal extends React.Component {
               reset={reset}
             />
           )}
+
+          <LoadingContent loading={loading} error={error} centered>
+            <div className='button'>
+              {csv && filename && (
+                <ButtonLink href={csv} download={filename}>
+                Télécharger <MdFileDownload />
+                </ButtonLink>
+              )}
+            </div>
+          </LoadingContent>
+
+          <Button onClick={() => createBAL(this.bal)}>Exporter le fichier BAL</Button>
         </FormContext.Provider>
+
+        <style jsx>{`
+          .button {
+            display: flex;
+            justify-content: center;
+          }
+        `}</style>
       </div>
     )
   }
