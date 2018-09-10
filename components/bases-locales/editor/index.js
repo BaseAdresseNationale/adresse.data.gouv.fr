@@ -8,8 +8,9 @@ import Button from '../../button'
 import HandleFile from './handle-file'
 import EditBal from './edit-bal'
 
-const exportTree = async tree => {
-  return new Blob('', {type: 'text/csv'})
+async function getDownloadLink() {
+  const blob = new Blob(['foo'], {type: 'text/csv'})
+  return URL.createObjectURL(blob)
 }
 
 class Editor extends React.Component {
@@ -53,10 +54,7 @@ class Editor extends React.Component {
     this.setState({loading: true})
 
     try {
-      const response = await exportTree(tree)
-      const blob = await response.blob()
-
-      csv = URL.createObjectURL(blob)
+      csv = await getDownloadLink(tree)
     } catch (err) {
       error = err
     }
