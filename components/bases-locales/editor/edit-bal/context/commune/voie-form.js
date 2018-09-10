@@ -55,8 +55,9 @@ class VoieForm extends React.Component {
           <Notification
             style={{marginTop: '1em'}}
             type='error'
-            message={error.message}
-          />
+          >
+            {error.message}
+          </Notification>
         )}
 
         <div className='buttons'>

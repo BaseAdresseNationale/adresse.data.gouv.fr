@@ -14,16 +14,11 @@ class Communes extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     communes: PropTypes.object,
-    reset: PropTypes.func.isRequired,
-    error: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Error)
-    ])
+    reset: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    communes: null,
-    error: null
+    communes: null
   }
 
   toggleForm = () => {
@@ -34,17 +29,26 @@ class Communes extends React.Component {
     })
   }
 
-  handleSubmit = commune => {
+  handleSubmit = async commune => {
     const {actions} = this.props
     const {addItem} = actions
+    let error = null
 
-    addItem(commune)
-    this.setState({displayForm: false})
+    try {
+      await addItem(commune)
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({
+      displayForm: Boolean(error),
+      error
+    })
   }
 
   render() {
-    const {displayForm} = this.state
-    const {communes, actions, reset, error} = this.props
+    const {displayForm, error} = this.state
+    const {communes, actions, reset} = this.props
     const hasCommune = communes && Object.keys(communes).length > 0
 
     return (

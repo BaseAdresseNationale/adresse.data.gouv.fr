@@ -62,12 +62,13 @@ class VoieItem extends React.Component {
         await actions.renameVoie(voie, input)
       }
     } catch (err) {
-      error = new Error(err)
+      error = err
     }
 
     this.setState({
-      editing: Boolean(error === null),
-      input: error ? input : ''
+      editing: Boolean(error),
+      input: error ? input : '',
+      error
     })
   }
 
@@ -93,7 +94,7 @@ class VoieItem extends React.Component {
     try {
       await actions.cancelChange(voie)
     } catch (err) {
-      error = new Error(err)
+      error = err
     }
 
     this.setState({

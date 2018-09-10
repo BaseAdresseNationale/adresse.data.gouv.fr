@@ -79,8 +79,9 @@ class CreateVoie extends React.Component {
           <Notification
             style={{marginTop: '1em'}}
             type='error'
-            message={error.message}
-          />
+          >
+            {error.message}
+          </Notification>
         )}
 
         <style jsx>{`

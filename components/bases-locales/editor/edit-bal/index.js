@@ -69,17 +69,7 @@ class EditBal extends React.Component {
   }
 
   addCommune = async newCommune => {
-    let error
-
-    try {
-      await this.bal.createCommune(newCommune.code, newCommune)
-    } catch (err) {
-      error = new Error(err)
-    }
-
-    this.setState({
-      error
-    })
+    await this.bal.createCommune(newCommune.code, newCommune)
   }
 
   addVoie = async newVoie => {

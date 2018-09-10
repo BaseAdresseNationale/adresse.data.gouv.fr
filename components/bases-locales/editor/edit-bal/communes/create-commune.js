@@ -35,7 +35,9 @@ class CreateCommune extends React.Component {
         <SearchCommune handleSelect={this.handleSave} />
 
         {error && (
-          <Notification style={{marginTop: '1em'}} type='error' message={error.message} />
+          <Notification style={{marginTop: '1em'}} type='error'>
+            {error.message}
+          </Notification>
         )}
 
         <style jsx>{`

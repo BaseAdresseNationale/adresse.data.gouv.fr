@@ -38,7 +38,7 @@ class CommuneContext extends React.Component {
     try {
       await addVoie({nomVoie})
     } catch (err) {
-      error = new Error(error)
+      error = err
     }
 
     this.setState({
