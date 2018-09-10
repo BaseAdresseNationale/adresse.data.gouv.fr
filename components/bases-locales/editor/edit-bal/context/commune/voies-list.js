@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import VoieItem from './item/voie-item'
-import {FormContext} from '.'
+import VoieItem from '../../item/voie-item'
+import {FormContext} from '../..'
 
 class VoiesList extends React.Component {
   static propTypes = {
@@ -23,10 +23,8 @@ class VoiesList extends React.Component {
                 voie={voies[voie]}
                 codeCommune={codeCommune}
                 actions={context.actions}
-                error={context.error}
               />
             )}
-
           </FormContext.Consumer>
         ))}
       </div>

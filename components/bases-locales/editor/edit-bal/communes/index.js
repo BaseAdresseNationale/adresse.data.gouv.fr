@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Head from '../context/head'
 
-import CommuneForm from './commune-form'
+import CreateCommune from './create-commune'
 import CommunesList from './communes-list'
 
 class Communes extends React.Component {
@@ -53,26 +53,19 @@ class Communes extends React.Component {
           name='Communes'
           parent={null}
           previous={() => reset()}
-          displayForm={displayForm || !hasCommune}
           toggleForm={this.toggleForm}
         >
-          <div className='form'>
-            <CommuneForm
+          {(displayForm || !hasCommune) && (
+            <CreateCommune
               submit={this.handleSubmit}
               error={error}
             />
-          </div>
+          )}
         </Head>
 
         {hasCommune && (
           <CommunesList communes={communes} actions={actions} />
         )}
-
-        <style jsx>{`
-          .form {
-            margin: 1em 0;
-          }
-        `}</style>
       </div>
     )
   }

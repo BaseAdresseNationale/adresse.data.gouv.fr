@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '../../../../../styles/theme'
+
 import Notification from '../../../../notification'
 
 import SearchCommune from '../../../init-base/search-communes'
 
-class CommuneForm extends React.Component {
+class CreateCommune extends React.Component {
   static propTypes = {
     submit: PropTypes.func.isRequired,
     error: PropTypes.oneOfType([
@@ -27,15 +29,25 @@ class CommuneForm extends React.Component {
     const {error} = this.props
 
     return (
-      <div>
+      <div className='commune-form shadow-box'>
+        <h3>Ajout d’une nouvelle commune</h3>
+
         <SearchCommune handleSelect={this.handleSave} />
 
         {error && (
           <Notification style={{marginTop: '1em'}} type='error' message={error.message} />
         )}
+
+        <style jsx>{`
+          .shadow-box {
+            border: 1px solid ${theme.border};
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+            padding: 1em;
+          }
+        `}</style>
       </div>
     )
   }
 }
 
-export default CommuneForm
+export default CreateCommune

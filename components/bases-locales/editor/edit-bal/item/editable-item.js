@@ -10,10 +10,6 @@ import Button from '../../../../button'
 import Item from '.'
 
 class EditableItem extends React.Component {
-  state = {
-    displayForm: false
-  }
-
   static propTypes = {
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -21,6 +17,7 @@ class EditableItem extends React.Component {
       status: PropTypes.string,
       handleClick: PropTypes.func.isRequired
     }).isRequired,
+    toggleForm: PropTypes.func.isRequired,
     checked: PropTypes.bool,
     handleCheck: PropTypes.func,
     children: PropTypes.node
@@ -32,22 +29,13 @@ class EditableItem extends React.Component {
     children: null
   }
 
-  toggleForm = () => {
-    this.setState(state => {
-      return {
-        displayForm: !state.displayForm
-      }
-    })
-  }
-
   handleInputChange = e => {
     const {item, handleCheck} = this.props
     handleCheck(item.id, e.target.checked)
   }
 
   render() {
-    const {displayForm} = this.state
-    const {item, checked, handleCheck, children} = this.props
+    const {item, checked, handleCheck, toggleForm, children} = this.props
 
     return (
       <div>
@@ -63,16 +51,17 @@ class EditableItem extends React.Component {
 
           <div className='editable-item'>
             <Item {...item} />
+
             <div className='edit-button'>
-              <Button size='small' onClick={this.toggleForm}>
-                {displayForm ? <FaClose /> : <FaPencil />}
+              <Button size='small' onClick={toggleForm}>
+                {children ? <FaClose /> : <FaPencil />}
               </Button>
             </div>
           </div>
 
         </div>
 
-        {displayForm && (
+        {children && (
           <div className='form'>{children}</div>
         )}
 

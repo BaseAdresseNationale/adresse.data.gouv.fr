@@ -13,15 +13,13 @@ class CommunesList extends React.Component {
     const {communes, actions} = this.props
 
     return (
-      <div>
-        {Object.keys(communes).map(commune => (
-          <CommuneItem
-            key={communes[commune].code}
-            commune={communes[commune]}
-            actions={actions}
-          />
-        ))}
-      </div>
+      Object.keys(communes).map(commune => (
+        <CommuneItem
+          key={communes[commune].code}
+          commune={communes[commune]}
+          actions={actions}
+        />
+      ))
     )
   }
 }

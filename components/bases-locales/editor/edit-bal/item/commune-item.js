@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '../../../../button'
@@ -6,6 +6,10 @@ import Button from '../../../../button'
 import EditableItem from './editable-item'
 
 class CommuneItem extends React.Component {
+  state = {
+    editing: false
+  }
+
   static propTypes = {
     commune: PropTypes.shape({
       nom: PropTypes.string.isRequired,
@@ -17,6 +21,14 @@ class CommuneItem extends React.Component {
       deleteItem: PropTypes.func.isRequired,
       cancelChange: PropTypes.func.isRequired
     }).isRequired
+  }
+
+  toggleForm = () => {
+    this.setState(state => {
+      return {
+        editing: !state.editing
+      }
+    })
   }
 
   getVoies = () => {
@@ -59,6 +71,7 @@ class CommuneItem extends React.Component {
   }
 
   render() {
+    const {editing} = this.state
     const {commune, actions} = this.props
     const item = {
       id: commune.code,
@@ -69,21 +82,25 @@ class CommuneItem extends React.Component {
     }
 
     return (
-      <EditableItem item={item}>
-        <div className='form'>
-          {commune.deleted ? (
-            <Button onClick={this.cancel}>Annuler la suppression</Button>
-          ) : (
-            <Button color='red' onClick={this.delete}>Supprimer la commune</Button>
-          )}
-        </div>
+      <EditableItem item={item} toggleForm={this.toggleForm}>
+        {editing && (
+          <Fragment>
+            <div className='form'>
+              {commune.deleted ? (
+                <Button onClick={this.cancel}>Annuler la suppression</Button>
+              ) : (
+                <Button color='red' onClick={this.delete}>Supprimer la commune</Button>
+              )}
+            </div>
 
-        <style jsx>{`
-          .form {
-            display: flex;
-            justify-content: center;
-          }
-        `}</style>
+            <style jsx>{`
+              .form {
+                display: flex;
+                justify-content: center;
+              }
+            `}</style>
+          </Fragment>
+        )}
       </EditableItem>
     )
   }

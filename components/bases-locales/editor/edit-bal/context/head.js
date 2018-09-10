@@ -13,18 +13,16 @@ class Head extends React.Component {
     name: PropTypes.string.isRequired,
     previous: PropTypes.func.isRequired,
     toggleForm: PropTypes.func.isRequired,
-    displayForm: PropTypes.bool,
     parent: PropTypes.string,
     children: PropTypes.node.isRequired
   }
 
   static defaultProps = {
-    displayForm: false,
     parent: null
   }
 
   render() {
-    const {name, displayForm, parent, previous, toggleForm, children} = this.props
+    const {name, parent, previous, toggleForm, children} = this.props
 
     return (
       <div>
@@ -38,17 +36,21 @@ class Head extends React.Component {
           </div>
 
           <Button onClick={toggleForm}>
-            {displayForm ? (
+            {children ? (
               <FaClose />
             ) : (
               <div>
-                <FaPlus /> Ajouter
+                <FaPlus />
               </div>
             )}
           </Button>
         </div>
 
-        {displayForm && children}
+        {children && (
+          <div className='form'>
+            {children}
+          </div>
+        )}
 
         <style jsx>{`
           .context-head {
@@ -73,6 +75,10 @@ class Head extends React.Component {
           h2 {
             margin: 0 1em;
             flex: 1;
+          }
+
+          .form {
+            margin-top: -1em;
           }
         `}</style>
       </div>

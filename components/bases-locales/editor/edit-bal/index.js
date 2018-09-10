@@ -8,12 +8,16 @@ import Communes from './communes'
 
 export const FormContext = React.createContext()
 
+const genCode = () => {
+  return Math.floor((Math.random() * 9999) + 1000).toString()
+}
+
 const getType = item => {
   if (item.code) {
     return 'commune'
   }
 
-  if (item.codeVoie) {
+  if (item.nomVoie) {
     return 'voie'
   }
 
@@ -80,84 +84,47 @@ class EditBal extends React.Component {
 
   addVoie = async newVoie => {
     const {commune} = this.state
-    let voie
-    let error
 
-    try {
-      await this.bal.createVoie(commune.code, newVoie)
-    } catch (err) {
-      error = new Error(err)
-    }
-
-    this.setState({
-      voie,
-      error
-    })
+    newVoie.codeVoie = genCode() // TODO
+    newVoie.idVoie = `${commune.code}-${newVoie.codeVoie}`
+    await this.bal.createVoie(commune.code, newVoie)
   }
 
   addNumero = async newNumero => {
     const {commune, voie} = this.state
-    let numero
     let error
 
     try {
-      numero = await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
+      await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
     } catch (err) {
       error = new Error(err)
     }
 
     this.setState({
-      numero,
       error
     })
   }
 
-  renameItem = async (item, newName) => {
-    const {commune, voie} = this.state
-    const type = getType(item)
-    let error = null
-
-    try {
-      if (type === 'voie') {
-        await this.bal.renameVoie(commune.code, item.codeVoie, newName)
-      } else {
-        const change = {type: 'rename', value: newName}
-        await this.bal.updateNumero(commune.code, voie.codeVoie, item.numeroComplet, change)
-      }
-    } catch (err) {
-      error = new Error(err)
-    }
-
-    this.setState({error})
+  renameVoie = async (item, newName) => {
+    const {commune} = this.state
+    await this.bal.renameVoie(commune.code, item.codeVoie, newName)
   }
 
   deleteItem = async item => {
     const {commune, voie} = this.state
     const type = getType(item)
-    let error = null
 
-    try {
-      switch (type) {
-        case 'commune':
-          await this.bal.deleteCommune(item.code)
-          await this.bal.getCommunes()
-          break
-        case 'voie':
-          await this.bal.deleteVoie(commune.code, item.codeVoie)
-          break
-        default:
-          await this.bal.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
-          break
-      }
-    } catch (err) {
-      error = new Error(err)
+    switch (type) {
+      case 'commune':
+        await this.bal.deleteCommune(item.code)
+        break
+      case 'voie':
+        await this.bal.deleteVoie(commune.code, item.codeVoie)
+        break
+      default:
+        await this.bal.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
+        break
     }
-
-    this.setState(() => {
-      return {
-        error
-      }
-    })
   }
 
   cancelChange = async item => {
@@ -203,13 +170,13 @@ class EditBal extends React.Component {
       select: this.select,
       addItem: this.addItem,
       deleteItem: this.deleteItem,
-      renameItem: this.renameItem,
+      renameVoie: this.renameVoie,
       cancelChange: this.cancelChange
     }
 
     return (
       <div>
-        <FormContext.Provider value={{commune, voie, numero, error, actions}}>
+        <FormContext.Provider value={{commune, voie, numero, actions, error}}>
           {commune ? (
             <Context
               commune={commune}
@@ -221,7 +188,6 @@ class EditBal extends React.Component {
               communes={communes}
               actions={actions}
               reset={reset}
-              error={error}
             />
           )}
         </FormContext.Provider>

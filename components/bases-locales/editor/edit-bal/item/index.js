@@ -33,7 +33,7 @@ class Item extends React.PureComponent {
         <div className='infos' onClick={handleClick}>
           <div className='name'>
             {newName ? (
-              <div>
+              <div className='inline'>
                 <div className='line-through'>{name}</div>
                 <div><b>{newName}</b></div>
               </div>
@@ -75,6 +75,7 @@ class Item extends React.PureComponent {
 
           .line-through {
             text-decoration: line-through;
+            margin-right: 2em;
           }
 
           .infos {
@@ -86,6 +87,10 @@ class Item extends React.PureComponent {
 
           .link {
             margin-left: 1em;
+          }
+
+          .inline {
+            display: flex;
           }
 
           @media (max-width: 700px) {

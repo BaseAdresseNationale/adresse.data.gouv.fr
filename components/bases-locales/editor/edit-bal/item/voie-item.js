@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import VoieEditor from './voie-editor'
-import Item from '.'
+import VoieForm from '../context/commune/voie-form'
+
+import EditableItem from './editable-item'
 
 const getStatus = item => {
   let status = null
@@ -32,8 +33,9 @@ const getNumeros = voie => {
 
 class VoieItem extends React.Component {
   state = {
+    input: '',
     editing: false,
-    input: ''
+    error: null
   }
 
   static propTypes = {
@@ -45,25 +47,61 @@ class VoieItem extends React.Component {
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired,
       deleteItem: PropTypes.func.isRequired,
-      renameItem: PropTypes.func.isRequired,
+      renameVoie: PropTypes.func.isRequired,
       cancelChange: PropTypes.func.isRequired
-    }).isRequired,
-    error: PropTypes.string
-  }
-
-  static defaultProps = {
-    error: null
+    }).isRequired
   }
 
   handleSubmit = async () => {
     const {input} = this.state
     const {voie, actions} = this.props
+    let error
 
-    await actions.renameItem(voie, input)
-    this.setState({editing: false})
+    try {
+      if (input.length > 0) {
+        await actions.renameVoie(voie, input)
+      }
+    } catch (err) {
+      error = new Error(err)
+    }
+
+    this.setState({
+      editing: Boolean(error === null),
+      input: error ? input : ''
+    })
   }
 
-  toggleEdit = () => {
+  delete = async () => {
+    const {voie, actions} = this.props
+    let error
+
+    try {
+      await actions.deleteItem(voie)
+    } catch (err) {
+      error = new Error(err)
+    }
+
+    this.setState({
+      editing: !error
+    })
+  }
+
+  cancelChange = async () => {
+    const {voie, actions} = this.props
+    let error
+
+    try {
+      await actions.cancelChange(voie)
+    } catch (err) {
+      error = new Error(err)
+    }
+
+    this.setState({
+      editing: !error
+    })
+  }
+
+  toggleForm = () => {
     this.setState(state => {
       return {
         editing: !state.editing
@@ -75,54 +113,37 @@ class VoieItem extends React.Component {
     this.setState({input})
   }
 
-  getActions = () => {
-    const {editing} = this.state
-    const {voie, actions} = this.props
-    const {cancelChange, deleteItem} = actions
-    const actionList = [{type: 'edit', func: this.toggleEdit}]
-
-    if (editing) {
-      return [
-        {type: 'valid', func: this.handleSubmit},
-        {type: 'cancel', func: this.toggleEdit}
-      ]
-    }
-
-    if (voie.deleted) {
-      actionList.push({type: 'cancel', func: () => cancelChange(voie)})
-    } else {
-      actionList.push({type: 'delete', func: () => deleteItem(voie)})
-    }
-
-    return actionList
+  hasChange = () => {
+    const {voie} = this.props
+    return voie.deleted || voie.edited
   }
 
   render() {
-    const {input, editing} = this.state
-    const {codeCommune, voie, actions, error} = this.props
-    console.log('TCL: VoieItem -> render -> error', error);
-    const actionList = this.getActions()
-    const numeros = voie.numeros ? getNumeros(voie) : 'Toponyme'
+    const {input, editing, error} = this.state
+    const {codeCommune, voie, actions} = this.props
+    const item = {
+      id: voie.idVoie,
+      name: voie.nomVoie,
+      newName: voie.edited ? voie.modified.nomVoie : null,
+      meta: voie.numeros ? getNumeros(voie) : 'Toponyme',
+      status: getStatus(voie),
+      handleClick: () => actions.select(codeCommune, voie.codeVoie)
+    }
 
     return (
-      <Item
-        name={voie.nomVoie}
-        newName={voie.change ? voie.change.value : null}
-        childs={numeros}
-        status={getStatus(voie)}
-        handleClick={() => actions.select(codeCommune, voie.codeVoie)}
-        actions={actionList}
-      >
+      <EditableItem item={item} toggleForm={this.toggleForm}>
         {editing && (
-          <VoieEditor
+          <VoieForm
             input={input}
-            placeholder={voie.nomVoie}
+            voie={voie}
             handleInput={this.handleInput}
             submit={this.handleSubmit}
+            deleteVoie={this.delete}
+            cancelChange={this.hasChange() ? this.cancelChange : null}
             error={error}
           />
         )}
-      </Item>
+      </EditableItem>
     )
   }
 }
