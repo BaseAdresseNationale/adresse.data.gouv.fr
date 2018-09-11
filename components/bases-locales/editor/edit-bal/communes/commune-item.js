@@ -1,9 +1,8 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '../../../../button'
-
 import EditableItem from '../item/editable-item'
+import CommuneForm from '../context/commune/commune-form'
 
 class CommuneItem extends React.Component {
   state = {
@@ -62,16 +61,32 @@ class CommuneItem extends React.Component {
 
   delete = async () => {
     const {commune, actions} = this.props
-    await actions.deleteItem(commune)
+    let error
+
+    try {
+      await actions.deleteItem(commune)
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({error})
   }
 
   cancel = async () => {
     const {commune, actions} = this.props
-    await actions.cancelChange(commune)
+    let error
+
+    try {
+      await actions.cancelChange(commune)
+    } catch (err) {
+      error = err
+    }
+
+    this.setState({error})
   }
 
   render() {
-    const {editing} = this.state
+    const {editing, error} = this.state
     const {commune, actions} = this.props
     const item = {
       id: commune.code,
@@ -84,22 +99,12 @@ class CommuneItem extends React.Component {
     return (
       <EditableItem item={item} toggleForm={this.toggleForm}>
         {editing && (
-          <Fragment>
-            <div className='form'>
-              {commune.deleted ? (
-                <Button onClick={this.cancel}>Annuler la suppression</Button>
-              ) : (
-                <Button color='red' onClick={this.delete}>Supprimer la commune</Button>
-              )}
-            </div>
-
-            <style jsx>{`
-              .form {
-                display: flex;
-                justify-content: center;
-              }
-            `}</style>
-          </Fragment>
+          <CommuneForm
+            commune={commune}
+            deleteCommune={this.delete}
+            cancel={this.cancel}
+            error={error}
+          />
         )}
       </EditableItem>
     )

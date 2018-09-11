@@ -109,7 +109,6 @@ class EditBal extends React.Component {
 
     if (type === 'commune') {
       await this.bal.deleteCommune(item.code)
-      this.setState({communes: await this.bal.getCommunes()})
     } else if (type === 'voie') {
       await this.bal.deleteVoie(commune.code, item.codeVoie)
     } else {
@@ -123,7 +122,6 @@ class EditBal extends React.Component {
 
     if (type === 'commune') {
       await this.bal.cancelCommuneChange(item.code)
-      this.setState({communes: await this.bal.getCommunes()})
     } else if (type === 'voie') {
       await this.bal.cancelVoieChange(commune.code, item.codeVoie)
     } else {
