@@ -49,7 +49,7 @@ class EditBal extends React.Component {
     filename: PropTypes.string,
     loading: PropTypes.bool,
     error: PropTypes.instanceOf(Error),
-    exportBAL: PropTypes.func.isRequired,
+    exportBAL: PropTypes.func.isRequired
   }
 
   static defaultProps = {

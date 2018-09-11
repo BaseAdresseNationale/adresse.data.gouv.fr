@@ -13,7 +13,6 @@ class NumerosList extends React.Component {
 
   render() {
     const {codeCommune, codeVoie, numeros, actions} = this.props
-    console.log('TCL: NumerosList -> render -> this.props', this.props);
 
     return (
       <div>
