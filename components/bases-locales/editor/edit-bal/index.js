@@ -45,11 +45,11 @@ class EditBal extends React.Component {
 
   static propTypes = {
     tree: PropTypes.object,
-    csv: PropTypes.string,
+    downloadLink: PropTypes.string,
     filename: PropTypes.string,
     loading: PropTypes.bool,
     error: PropTypes.instanceOf(Error),
-    createBAL: PropTypes.func.isRequired,
+    exportBAL: PropTypes.func.isRequired,
     reset: PropTypes.func.isRequired
   }
 
@@ -57,7 +57,7 @@ class EditBal extends React.Component {
     tree: null,
     filename: null,
     loading: false,
-    csv: null,
+    downloadLink: null,
     error: null
   }
 
@@ -143,7 +143,7 @@ class EditBal extends React.Component {
 
   render() {
     const {communes, commune, voie, numero} = this.state
-    const {reset, createBAL, csv, filename, loading, error} = this.props
+    const {reset, exportBAL, downloadLink, filename, loading, error} = this.props
     const actions = {
       select: this.select,
       addItem: this.addItem,
@@ -171,15 +171,15 @@ class EditBal extends React.Component {
 
           <LoadingContent loading={loading} error={error} centered>
             <div className='button'>
-              {csv && filename && (
-                <ButtonLink href={csv} download={filename}>
+              {downloadLink && filename && (
+                <ButtonLink href={downloadLink} download={filename}>
                 Télécharger <MdFileDownload />
                 </ButtonLink>
               )}
             </div>
           </LoadingContent>
 
-          <Button onClick={() => createBAL(this.bal)}>Exporter le fichier BAL</Button>
+          <Button onClick={() => exportBAL(this.bal)}>Exporter le fichier BAL</Button>
         </FormContext.Provider>
 
         <style jsx>{`

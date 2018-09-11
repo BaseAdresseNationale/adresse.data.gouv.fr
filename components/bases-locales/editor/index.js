@@ -8,15 +8,15 @@ import Button from '../../button'
 import HandleFile from './handle-file'
 import EditBal from './edit-bal'
 
-async function getDownloadLink() {
-  const blob = new Blob(['foo'], {type: 'text/csv'})
+function getDownloadLink(csvContent) {
+  const blob = new Blob([csvContent], {type: 'text/csv'})
   return URL.createObjectURL(blob)
 }
 
 class Editor extends React.Component {
   state = {
     tree: null,
-    csv: null,
+    downloadLink: null,
     loading: false,
     createMode: false,
     error: null
@@ -47,37 +47,37 @@ class Editor extends React.Component {
     localStorage.clear()
   }
 
-  createBAL = async tree => {
-    let csv = null
-    let error = null
-
+  exportBAL = async bal => {
     this.setState({loading: true})
 
     try {
-      csv = await getDownloadLink(tree)
+      this.setState({
+        downloadLink: getDownloadLink(await bal.exportAsCsv()),
+        error: null,
+        loading: false
+      })
     } catch (err) {
-      error = err
+      console.log(err)
+      this.setState({
+        downloadLink: null,
+        error: err,
+        loading: false
+      })
     }
-
-    this.setState({
-      csv,
-      loading: false,
-      error
-    })
   }
 
   render() {
-    const {tree, csv, createMode, loading, error} = this.state
+    const {tree, downloadLink, createMode, loading, error} = this.state
 
     return (
       <div>
         {tree || createMode ? (
           <EditBal
             tree={tree}
-            csv={csv}
+            downloadLink={downloadLink}
             filename='filename'
             reset={this.reset}
-            createBAL={this.createBAL}
+            exportBAL={this.exportBAL}
             loading={loading}
             error={error}
           />
