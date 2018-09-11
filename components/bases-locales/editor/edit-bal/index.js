@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
-import BAL from '../../../../lib/bal/model'
-
 import Button from '../../../button'
 import ButtonLink from '../../../button-link'
 
@@ -33,8 +31,6 @@ class EditBal extends React.Component {
   constructor(props) {
     super(props)
 
-    this.bal = new BAL(props.tree)
-
     this.state = {
       communes: null,
       commune: null,
@@ -44,7 +40,7 @@ class EditBal extends React.Component {
   }
 
   static propTypes = {
-    tree: PropTypes.object,
+    model: PropTypes.object.isRequired,
     downloadLink: PropTypes.string,
     filename: PropTypes.string,
     loading: PropTypes.bool,
@@ -53,7 +49,6 @@ class EditBal extends React.Component {
   }
 
   static defaultProps = {
-    tree: null,
     filename: null,
     loading: false,
     downloadLink: null,
@@ -64,7 +59,7 @@ class EditBal extends React.Component {
     const {communes} = this.state
 
     if (!communes) {
-      const communes = await this.bal.getCommunes()
+      const communes = await this.props.model.getCommunes()
       this.setState({communes})
     }
   }
@@ -81,7 +76,7 @@ class EditBal extends React.Component {
   }
 
   addCommune = async newCommune => {
-    await this.bal.createCommune(newCommune.code, newCommune)
+    await this.props.model.createCommune(newCommune.code, newCommune)
   }
 
   addVoie = async newVoie => {
@@ -89,17 +84,17 @@ class EditBal extends React.Component {
 
     newVoie.codeVoie = genCode() // TODO
     newVoie.idVoie = `${commune.code}-${newVoie.codeVoie}`
-    await this.bal.createVoie(commune.code, newVoie)
+    await this.props.model.createVoie(commune.code, newVoie)
   }
 
   addNumero = async newNumero => {
     const {commune, voie} = this.state
-    await this.bal.createNumero(commune.code, voie.codeVoie, newNumero)
+    await this.props.model.createNumero(commune.code, voie.codeVoie, newNumero)
   }
 
   renameVoie = async (item, newName) => {
     const {commune} = this.state
-    await this.bal.renameVoie(commune.code, item.codeVoie, newName)
+    await this.props.model.renameVoie(commune.code, item.codeVoie, newName)
   }
 
   deleteItem = async item => {
@@ -107,11 +102,11 @@ class EditBal extends React.Component {
     const type = getType(item)
 
     if (type === 'commune') {
-      await this.bal.deleteCommune(item.code)
+      await this.props.model.deleteCommune(item.code)
     } else if (type === 'voie') {
-      await this.bal.deleteVoie(commune.code, item.codeVoie)
+      await this.props.model.deleteVoie(commune.code, item.codeVoie)
     } else {
-      await this.bal.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
+      await this.props.model.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
     }
   }
 
@@ -120,18 +115,18 @@ class EditBal extends React.Component {
     const type = getType(item)
 
     if (type === 'commune') {
-      await this.bal.cancelCommuneChange(item.code)
+      await this.props.model.cancelCommuneChange(item.code)
     } else if (type === 'voie') {
-      await this.bal.cancelVoieChange(commune.code, item.codeVoie)
+      await this.props.model.cancelVoieChange(commune.code, item.codeVoie)
     } else {
-      await this.bal.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
+      await this.props.model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
     }
   }
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
-    const commune = await this.bal.getCommune(codeCommune)
-    const voie = await this.bal.getVoie(codeCommune, codeVoie)
-    const numero = await this.bal.getNumero(codeCommune, codeVoie, numeroComplet)
+    const commune = await this.props.model.getCommune(codeCommune)
+    const voie = await this.props.model.getVoie(codeCommune, codeVoie)
+    const numero = await this.props.model.getNumero(codeCommune, codeVoie, numeroComplet)
 
     this.setState({
       commune,
@@ -177,7 +172,7 @@ class EditBal extends React.Component {
             </div>
           </LoadingContent>
 
-          <Button onClick={() => exportBAL(this.bal)}>Exporter le fichier BAL</Button>
+          <Button onClick={() => exportBAL(this.props.model)}>Exporter le fichier BAL</Button>
         </FormContext.Provider>
 
         <style jsx>{`

@@ -4,6 +4,7 @@ import React from 'react'
 import FaPencil from 'react-icons/lib/fa/pencil'
 
 import Button from '../../button'
+import BAL from '../../../lib/bal/model'
 
 import HandleFile from './handle-file'
 import EditBal from './edit-bal'
@@ -15,36 +16,24 @@ function getDownloadLink(csvContent) {
 
 class Editor extends React.Component {
   state = {
-    tree: null,
+    model: null,
     downloadLink: null,
     loading: false,
-    createMode: false,
     error: null
   }
 
-  componentDidMount() {
-    const tree = localStorage.getItem('tree')
-
-    if (tree) {
-      this.setState({tree: JSON.parse(tree)})
-    }
+  handleData = tree => {
+    this.setState({model: new BAL(tree)})
   }
 
-  handleTree = tree => {
-    this.setState({tree})
-    localStorage.setItem('tree', JSON.stringify(tree))
-  }
-
-  handleCreateMode = () => {
-    this.setState({createMode: true})
+  createNewFile = () => {
+    this.setState({model: new BAL()})
   }
 
   reset = () => {
     this.setState({
-      tree: null,
-      createMode: false
+      model: null
     })
-    localStorage.clear()
   }
 
   exportBAL = async bal => {
@@ -66,13 +55,13 @@ class Editor extends React.Component {
   }
 
   render() {
-    const {tree, downloadLink, createMode, loading, error} = this.state
+    const {model, downloadLink, loading, error} = this.state
 
     return (
       <div>
-        {tree || createMode ? (
+        {model ? (
           <EditBal
-            tree={tree}
+            model={model}
             downloadLink={downloadLink}
             filename='filename'
             exportBAL={this.exportBAL}
@@ -81,13 +70,13 @@ class Editor extends React.Component {
           />
         ) : (
           <div className='centered'>
-            <HandleFile handleTree={this.handleTree} />
+            <HandleFile onData={this.handleData} />
             <h2>Ou</h2>
-            <Button onClick={this.handleCreateMode}>Créer un fichier <FaPencil /></Button>
+            <Button onClick={this.createNewFile}>Créer un fichier <FaPencil /></Button>
           </div>
         )}
 
-        {tree && (
+        {model && (
           <Button style={{display: 'flex', justifyContent: 'center'}} onClick={this.reset}>Clear</Button>
         )}
 

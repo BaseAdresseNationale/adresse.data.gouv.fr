@@ -34,7 +34,7 @@ class Editor extends React.Component {
   }
 
   static propTypes = {
-    handleTree: PropTypes.func.isRequired
+    onData: PropTypes.func.isRequired
   }
 
   handleError = error => {
@@ -69,7 +69,7 @@ class Editor extends React.Component {
   }
 
   parseFile = async () => {
-    const {handleTree} = this.props
+    const {onData} = this.props
     const {file} = this.state
     let tree = null
     let report = null
@@ -95,7 +95,7 @@ class Editor extends React.Component {
     this.setState({report, error, inProgress: false})
 
     if (tree) {
-      handleTree(tree)
+      onData(tree)
     }
   }
 
