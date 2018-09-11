@@ -57,7 +57,6 @@ class Editor extends React.Component {
         loading: false
       })
     } catch (err) {
-      console.log(err)
       this.setState({
         downloadLink: null,
         error: err,
