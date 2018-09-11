@@ -11,7 +11,7 @@ import Button from '../../../../button'
 class Head extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    previous: PropTypes.func.isRequired,
+    previous: PropTypes.func,
     toggleForm: PropTypes.func,
     parent: PropTypes.string,
     children: PropTypes.node
@@ -20,7 +20,8 @@ class Head extends React.Component {
   static defaultProps = {
     parent: null,
     toggleForm: null,
-    children: null
+    children: null,
+    previous: null
   }
 
   render() {
@@ -30,9 +31,9 @@ class Head extends React.Component {
       <div>
         <div className='context-head shadow-box'>
           <div className='title'>
-            <Button size='small' onClick={previous}>
+            {previous ? <Button size='small' onClick={previous}>
               <FaAngleLeft /> {parent}
-            </Button>
+            </Button> : null}
 
             <h2>{name}</h2>
           </div>

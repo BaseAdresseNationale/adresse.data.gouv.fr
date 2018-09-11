@@ -56,7 +56,6 @@ class Communes extends React.Component {
         <Head
           name='Communes'
           parent={null}
-          previous={() => reset()}
           toggleForm={this.toggleForm}
         >
           {(displayForm || !hasCommune) && (
