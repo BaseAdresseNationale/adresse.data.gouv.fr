@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// import NumeroItem from '../item/numero-item'
-// import ClosablePanel from '../closable-panel'
 import {FormContext} from '..'
+
+import Head from './head'
 
 class NumeroContext extends React.Component {
   static propTypes = {
@@ -19,22 +19,18 @@ class NumeroContext extends React.Component {
       <div>
         <FormContext.Consumer>
           {context => (
-            <div>Numero context</div>
-            // <ClosablePanel title={numero.numeroComplet} handleClose={() => context.actions.select(context.commune.code, context.voie.codeVoie)}>
-            //   <NumeroItem
-            //     codeCommune={context.commune.code}
-            //     codeVoie={context.voie.codeVoie}
-            //     numero={numero}
-            //     actions={context.actions}
-            //   />
-            // </ClosablePanel>
+            <Head
+              name={numero.numeroComplet}
+              parent={context.voie.nomVoie}
+              previous={() => context.actions.select(context.commune.code)}
+            />
           )}
         </FormContext.Consumer>
 
         <style jsx>{`
-          .numeros {
-            margin: 2em 0;
-          }
+            .voies {
+              margin: 2em 0;
+            }
         `}</style>
       </div>
     )

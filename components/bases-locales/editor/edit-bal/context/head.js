@@ -12,13 +12,15 @@ class Head extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     previous: PropTypes.func.isRequired,
-    toggleForm: PropTypes.func.isRequired,
+    toggleForm: PropTypes.func,
     parent: PropTypes.string,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
   }
 
   static defaultProps = {
-    parent: null
+    parent: null,
+    toggleForm: null,
+    children: null
   }
 
   render() {
@@ -35,15 +37,17 @@ class Head extends React.Component {
             <h2>{name}</h2>
           </div>
 
-          <Button onClick={toggleForm}>
-            {children ? (
-              <FaClose />
-            ) : (
-              <div>
-                <FaPlus />
-              </div>
-            )}
-          </Button>
+          {toggleForm && (
+            <Button onClick={toggleForm}>
+              {children ? (
+                <FaClose />
+              ) : (
+                <div>
+                  <FaPlus />
+                </div>
+              )}
+            </Button>
+          )}
         </div>
 
         {children && (
