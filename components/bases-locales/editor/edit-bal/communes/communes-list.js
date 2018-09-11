@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CommuneItem from '../item/commune-item'
+import CommuneItem from './commune-item'
 
 class CommunesList extends React.Component {
   static propTypes = {

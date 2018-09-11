@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import VoieForm from '../context/commune/voie-form'
+import EditableItem from '../../item/editable-item'
 
-import EditableItem from './editable-item'
+import VoieForm from './voie-form'
 
 const getStatus = item => {
   let status = null

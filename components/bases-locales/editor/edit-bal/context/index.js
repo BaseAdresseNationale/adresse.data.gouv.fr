@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {FormContext} from '..'
 
 import CommuneContext from './commune/commune-context'
-import VoieContext from './voie-context'
+import VoieContext from './voie/voie-context'
 import NumeroContext from './numero-context'
 
 class Context extends React.Component {
@@ -29,7 +29,10 @@ class Context extends React.Component {
             {numero ? (
               <NumeroContext numero={numero} />
             ) : voie ? (
-              <VoieContext voie={voie} />
+              <VoieContext
+                voie={voie}
+                addNumero={context.actions.addItem}
+              />
             ) : (
               <CommuneContext
                 commune={commune}

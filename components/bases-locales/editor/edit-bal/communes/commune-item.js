@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Button from '../../../../button'
 
-import EditableItem from './editable-item'
+import EditableItem from '../item/editable-item'
 
 class CommuneItem extends React.Component {
   state = {
@@ -60,14 +60,14 @@ class CommuneItem extends React.Component {
     return status
   }
 
-  delete = () => {
+  delete = async () => {
     const {commune, actions} = this.props
-    actions.deleteItem(commune)
+    await actions.deleteItem(commune)
   }
 
-  cancel = () => {
+  cancel = async () => {
     const {commune, actions} = this.props
-    actions.cancelChange(commune)
+    await actions.cancelChange(commune)
   }
 
   render() {
