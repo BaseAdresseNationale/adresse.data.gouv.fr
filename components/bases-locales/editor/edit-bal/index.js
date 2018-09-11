@@ -50,7 +50,6 @@ class EditBal extends React.Component {
     loading: PropTypes.bool,
     error: PropTypes.instanceOf(Error),
     exportBAL: PropTypes.func.isRequired,
-    reset: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -143,7 +142,7 @@ class EditBal extends React.Component {
 
   render() {
     const {communes, commune, voie, numero} = this.state
-    const {reset, exportBAL, downloadLink, filename, loading, error} = this.props
+    const {exportBAL, downloadLink, filename, loading, error} = this.props
     const actions = {
       select: this.select,
       addItem: this.addItem,
@@ -165,7 +164,6 @@ class EditBal extends React.Component {
             <Communes
               communes={communes}
               actions={actions}
-              reset={reset}
             />
           )}
 

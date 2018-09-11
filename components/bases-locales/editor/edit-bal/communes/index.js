@@ -13,8 +13,7 @@ class Communes extends React.Component {
 
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    communes: PropTypes.object,
-    reset: PropTypes.func.isRequired
+    communes: PropTypes.object
   }
 
   static defaultProps = {
@@ -48,7 +47,7 @@ class Communes extends React.Component {
 
   render() {
     const {displayForm, error} = this.state
-    const {communes, actions, reset} = this.props
+    const {communes, actions} = this.props
     const hasCommune = communes && Object.keys(communes).length > 0
 
     return (

@@ -75,7 +75,6 @@ class Editor extends React.Component {
             tree={tree}
             downloadLink={downloadLink}
             filename='filename'
-            reset={this.reset}
             exportBAL={this.exportBAL}
             loading={loading}
             error={error}
@@ -89,7 +88,7 @@ class Editor extends React.Component {
         )}
 
         {tree && (
-          <Button style={{display: 'flex', justifyContent: 'center'}} onClick={this.clearStorage}>Clear</Button>
+          <Button style={{display: 'flex', justifyContent: 'center'}} onClick={this.reset}>Clear</Button>
         )}
 
         <style jsx>{`
