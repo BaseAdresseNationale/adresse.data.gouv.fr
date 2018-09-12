@@ -4,7 +4,6 @@ import FaPlus from 'react-icons/lib/fa/plus'
 
 import theme from '../../../../../../styles/theme'
 
-import FormPreventDefault from '../../../../../form-prevent-default'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
@@ -47,7 +46,7 @@ class CreateVoie extends React.Component {
       <div className='voie-form shadow-box'>
         <h3>Création d’une nouvelle voie</h3>
 
-        <FormPreventDefault submit={handleSubmit} focusInput={nameInputRef}>
+        <form onSubmit={handleSubmit}>
           <label>Nom</label>
 
           <div className='flex'>
@@ -73,7 +72,7 @@ class CreateVoie extends React.Component {
               <FaPlus />
             </Button>
           </div>
-        </FormPreventDefault>
+        </form>
 
         {error && (
           <Notification

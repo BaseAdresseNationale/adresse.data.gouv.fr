@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FormPreventDefault from '../../../../../form-prevent-default'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
@@ -37,7 +36,7 @@ class VoieForm extends React.Component {
     const {input, error, voie, submit, deleteVoie, cancelChange} = this.props
 
     return (
-      <FormPreventDefault submit={submit}>
+      <form onSubmit={submit}>
         <div>
           <label>Nom</label>
           <input
@@ -86,7 +85,7 @@ class VoieForm extends React.Component {
             margin: 1em 0;
           }
         `}</style>
-      </FormPreventDefault>
+      </form>
     )
   }
 }

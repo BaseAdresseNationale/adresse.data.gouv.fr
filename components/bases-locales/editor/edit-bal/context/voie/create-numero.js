@@ -4,7 +4,6 @@ import FaPlus from 'react-icons/lib/fa/plus'
 
 import theme from '../../../../../../styles/theme'
 
-import FormPreventDefault from '../../../../../form-prevent-default'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
@@ -41,13 +40,12 @@ class CreateNumero extends React.Component {
 
   render() {
     const {input, error, handleSubmit} = this.props
-    const nameInputRef = React.createRef()
 
     return (
       <div className='voie-form shadow-box'>
         <h3>Création d’un nouveau numéro</h3>
 
-        <FormPreventDefault submit={handleSubmit} focusInput={nameInputRef}>
+        <form onSubmit={handleSubmit}>
           <label>Numéro</label>
 
           <div className='flex'>
@@ -73,7 +71,7 @@ class CreateNumero extends React.Component {
               <FaPlus />
             </Button>
           </div>
-        </FormPreventDefault>
+        </form>
 
         {error && (
           <Notification
