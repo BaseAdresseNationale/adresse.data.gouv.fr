@@ -5,17 +5,17 @@ import PropTypes from 'prop-types'
 import {validate, extractAsTree} from '@etalab/bal'
 import FaClose from 'react-icons/lib/fa/close'
 
-import detectEncoding from '../../../../lib/detect-encoding'
-import {createBALValidationError} from '../../../../lib/error'
+import detectEncoding from '../../../lib/detect-encoding'
+import {createBALValidationError} from '../../../lib/error'
 
-import theme from '../../../../styles/theme'
+import theme from '../../../styles/theme'
 
-import Section from '../../../section'
-import Loader from '../../../loader'
+import Section from '../../section'
+import Loader from '../../loader'
+import Holder from '../../csv/holder'
+import Notification from '../../notification'
 
-import Report from '../../validator/report'
-
-import FileHander from './file-handler'
+import Report from '../validator/report'
 
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
@@ -25,7 +25,7 @@ function getFileExtension(fileName) {
   return null
 }
 
-class Editor extends React.Component {
+class Uploader extends React.Component {
   state = {
     error: null,
     file: null,
@@ -104,7 +104,15 @@ class Editor extends React.Component {
 
     return (
       <div>
-        <FileHander file={file} error={error} onFileDrop={this.handleFileDrop} />
+        <Section>
+          <div>
+            <h2>Choisir un fichier</h2>
+            <div className='container'>
+              <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
+            </div>
+            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+          </div>
+        </Section>
 
         {inProgress &&
           <div className='centered'>
@@ -153,10 +161,17 @@ class Editor extends React.Component {
             padding: 5px;
             margin-left: 1em;
           }
+
+          .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+          }
         `}</style>
       </div>
     )
   }
 }
 
-export default Editor
+export default Uploader

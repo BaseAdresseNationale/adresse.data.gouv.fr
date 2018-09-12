@@ -6,7 +6,7 @@ import FaPencil from 'react-icons/lib/fa/pencil'
 import Button from '../../button'
 import BAL from '../../../lib/bal/model'
 
-import HandleFile from './handle-file'
+import Uploader from './uploader'
 import EditBal from './edit-bal'
 
 function getDownloadLink(csvContent) {
@@ -70,7 +70,7 @@ class Editor extends React.Component {
           />
         ) : (
           <div className='centered'>
-            <HandleFile onData={this.handleData} />
+            <Uploader onData={this.handleData} />
             <h2>Ou</h2>
             <Button onClick={this.createNewFile}>Créer un fichier <FaPencil /></Button>
           </div>
