@@ -5,7 +5,7 @@ import theme from '../../../../../styles/theme'
 
 import Notification from '../../../../notification'
 
-import SearchCommune from '../../../init-base/search-communes'
+import SearchCommunes from '../../../init-base/search-communes'
 
 class CreateCommune extends React.Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class CreateCommune extends React.Component {
       <div className='commune-form shadow-box'>
         <h3>Ajout d’une nouvelle commune</h3>
 
-        <SearchCommune handleSelect={this.handleSave} />
+        <SearchCommunes handleSelect={this.handleSave} />
 
         {error && (
           <Notification style={{marginTop: '1em'}} type='error'>

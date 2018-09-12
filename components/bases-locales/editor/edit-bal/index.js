@@ -2,14 +2,25 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
+import {contoursToGeoJson} from '../../../../lib/geojson'
+
 import Button from '../../../button'
 import ButtonLink from '../../../button-link'
 
 import LoadingContent from '../../../loading-content'
+import ContourCommuneMap from './contour-commune-map'
 import Context from './context'
 import Communes from './communes'
 
 export const FormContext = React.createContext()
+
+const getContour = communes => {
+  if (communes && Object.keys(communes).length > 0) {
+    return contoursToGeoJson(Object.keys(communes).map(commune => communes[commune]))
+  }
+
+  return null
+}
 
 const getType = item => {
   if (item.code) {
@@ -131,6 +142,7 @@ class EditBal extends React.Component {
   render() {
     const {communes, commune, voie, numero} = this.state
     const {exportBAL, downloadLink, filename, loading, error} = this.props
+    const contour = getContour(communes)
     const actions = {
       select: this.select,
       addItem: this.addItem,
@@ -141,6 +153,12 @@ class EditBal extends React.Component {
 
     return (
       <div>
+        {contour && contour.features.length > 0 && (
+          <div className='map'>
+            <ContourCommuneMap data={contour} select={this.select} />
+          </div>
+        )}
+
         <FormContext.Provider value={{commune, voie, numero, actions}}>
           {commune ? (
             <Context
@@ -172,6 +190,10 @@ class EditBal extends React.Component {
           .button {
             display: flex;
             justify-content: center;
+          }
+
+          .map {
+            height: 600px;
           }
         `}</style>
       </div>
