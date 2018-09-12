@@ -11,10 +11,6 @@ import Communes from './communes'
 
 export const FormContext = React.createContext()
 
-const genCode = () => {
-  return Math.floor((Math.random() * 9999) + 1000).toString()
-}
-
 const getType = item => {
   if (item.code) {
     return 'commune'
@@ -81,9 +77,6 @@ class EditBal extends React.Component {
 
   addVoie = async newVoie => {
     const {commune} = this.state
-
-    newVoie.codeVoie = genCode() // TODO
-    newVoie.idVoie = `${commune.code}-${newVoie.codeVoie}`
     await this.props.model.createVoie(commune.code, newVoie)
   }
 
