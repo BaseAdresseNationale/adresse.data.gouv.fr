@@ -159,32 +159,31 @@ class EditBal extends React.Component {
           </div>
         )}
 
-        <FormContext.Provider value={{commune, voie, numero, actions}}>
-          {commune ? (
-            <Context
-              commune={commune}
-              voie={voie}
-              numero={numero}
-            />
-          ) : (
-            <Communes
-              communes={communes}
-              actions={actions}
-            />
-          )}
+        {commune ? (
+          <Context
+            commune={commune}
+            voie={voie}
+            numero={numero}
+            actions={actions}
+          />
+        ) : (
+          <Communes
+            communes={communes}
+            actions={actions}
+          />
+        )}
 
-          <LoadingContent loading={loading} error={error} centered>
-            <div className='button'>
-              {downloadLink && filename && (
-                <ButtonLink href={downloadLink} download={filename}>
-                Télécharger <MdFileDownload />
-                </ButtonLink>
-              )}
-            </div>
-          </LoadingContent>
+        <LoadingContent loading={loading} error={error} centered>
+          <div className='button'>
+            {downloadLink && filename && (
+              <ButtonLink href={downloadLink} download={filename}>
+              Télécharger <MdFileDownload />
+              </ButtonLink>
+            )}
+          </div>
+        </LoadingContent>
 
-          <Button onClick={() => exportBAL(this.props.model)}>Exporter le fichier BAL</Button>
-        </FormContext.Provider>
+        <Button onClick={() => exportBAL(this.props.model)}>Exporter le fichier BAL</Button>
 
         <style jsx>{`
           .button {

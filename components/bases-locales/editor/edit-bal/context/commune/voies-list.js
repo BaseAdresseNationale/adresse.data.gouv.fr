@@ -1,31 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {FormContext} from '../..'
-
 import VoieItem from './voie-item'
 
 class VoiesList extends React.Component {
   static propTypes = {
     codeCommune: PropTypes.string.isRequired,
-    voies: PropTypes.object.isRequired
+    voies: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
   }
 
   render() {
-    const {codeCommune, voies} = this.props
+    const {codeCommune, voies, actions} = this.props
 
     return (
       <div>
         {Object.keys(voies).map(voie => (
-          <FormContext.Consumer key={voie}>
-            {context => (
-              <VoieItem
-                voie={voies[voie]}
-                codeCommune={codeCommune}
-                actions={context.actions}
-              />
-            )}
-          </FormContext.Consumer>
+          <VoieItem
+            key={voie}
+            voie={voies[voie]}
+            codeCommune={codeCommune}
+            actions={actions}
+          />
         ))}
       </div>
     )

@@ -1,31 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {FormContext} from '..'
-
 import Head from './head'
 
 class NumeroContext extends React.Component {
   static propTypes = {
+    commune: PropTypes.shape({
+      code: PropTypes.string.isRequired
+    }).isRequired,
+    voie: PropTypes.shape({
+      nomVoie: PropTypes.string.isRequired
+    }).isRequired,
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired
+    }).isRequired,
+    actions: PropTypes.shape({
+      select: PropTypes.func.isRequired
     }).isRequired
   }
 
   render() {
-    const {numero} = this.props
+    const {commune, voie, numero, actions} = this.props
 
     return (
       <div>
-        <FormContext.Consumer>
-          {context => (
-            <Head
-              name={numero.numeroComplet}
-              parent={context.voie.nomVoie}
-              previous={() => context.actions.select(context.commune.code)}
-            />
-          )}
-        </FormContext.Consumer>
+        <Head
+          name={numero.numeroComplet}
+          parent={voie.nomVoie}
+          previous={() => actions.select(commune.code)}
+        />
 
         <style jsx>{`
             .voies {

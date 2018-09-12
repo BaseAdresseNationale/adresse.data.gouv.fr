@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {FormContext} from '../..'
-
 import Head from '../head'
 
 import VoiesList from './voies-list'
@@ -20,7 +18,10 @@ class CommuneContext extends React.Component {
       nom: PropTypes.string.isRequired,
       voies: PropTypes.object.isRequired
     }).isRequired,
-    addVoie: PropTypes.func.isRequired
+    actions: PropTypes.shape({
+      addItem: PropTypes.func.isRequired,
+      select: PropTypes.func.isRequired
+    }).isRequired
   }
 
   handleInput = input => {
@@ -32,11 +33,11 @@ class CommuneContext extends React.Component {
 
   addVoie = async () => {
     const {nomVoie} = this.state
-    const {addVoie} = this.props
+    const {actions} = this.props
     let error = null
 
     try {
-      await addVoie({nomVoie})
+      await actions.addItem({nomVoie})
     } catch (err) {
       error = err
     }
@@ -58,35 +59,33 @@ class CommuneContext extends React.Component {
 
   render() {
     const {nomVoie, displayForm, error} = this.state
-    const {commune} = this.props
+    const {commune, actions} = this.props
 
     return (
       <div>
-        <FormContext.Consumer>
-          {context => (
-            <Head
-              name={commune.nom}
-              parent='Communes'
-              toggleForm={this.toggleForm}
-              previous={() => context.actions.select(null)}
-            >
-              {displayForm && (
-                <CreateVoie
-                  input={nomVoie}
-                  handleInput={this.handleInput}
-                  handleSubmit={this.addVoie}
-                  error={error}
-                />
-              )}
-            </Head>
+        <Head
+          name={commune.nom}
+          parent='Communes'
+          toggleForm={this.toggleForm}
+          previous={() => actions.select(null)}
+        >
+          {displayForm && (
+            <CreateVoie
+              input={nomVoie}
+              handleInput={this.handleInput}
+              handleSubmit={this.addVoie}
+              actions={actions}
+              error={error}
+            />
           )}
-        </FormContext.Consumer>
+        </Head>
 
         <div className='voies'>
           <b>Voies de : {commune.nom}</b>
           <VoiesList
             voies={commune.voies}
             codeCommune={commune.code}
+            actions={actions}
           />
         </div>
 
