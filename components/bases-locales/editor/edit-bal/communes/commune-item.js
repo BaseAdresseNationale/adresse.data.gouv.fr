@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import EditableItem from '../item/editable-item'
-import CommuneForm from '../context/commune/commune-form'
+import FaTrash from 'react-icons/lib/fa/trash'
+import FaClose from 'react-icons/lib/fa/close'
+
+import Button from '../../../../button'
+import Notification from '../../../../notification'
+
+import Item from '../item'
 
 class CommuneItem extends React.Component {
   state = {
-    editing: false
+    error: null
   }
 
   static propTypes = {
@@ -86,7 +91,7 @@ class CommuneItem extends React.Component {
   }
 
   render() {
-    const {editing, error} = this.state
+    const {error} = this.state
     const {commune, actions} = this.props
     const item = {
       id: commune.code,
@@ -97,16 +102,46 @@ class CommuneItem extends React.Component {
     }
 
     return (
-      <EditableItem item={item} toggleForm={this.toggleForm}>
-        {editing && (
-          <CommuneForm
-            commune={commune}
-            deleteCommune={this.delete}
-            cancel={this.cancel}
-            error={error}
-          />
+      <div>
+        <div className='editable-item'>
+          <div className='item'>
+            <Item {...item} />
+          </div>
+
+          <div className='edit-button'>
+            {commune.deleted ? (
+              <Button size='small' onClick={this.cancel}>
+                <FaClose />
+              </Button>
+            ) : (
+              <Button size='small' color='red' onClick={this.delete}>
+                <FaTrash />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {error && (
+          <Notification type='error'>
+            {error.message}
+          </Notification>
         )}
-      </EditableItem>
+
+        <style jsx>{`
+          .editable-item {
+            display: flex;
+            align-items: center;
+          }
+
+          .item {
+            flex: 1;
+          }
+
+          .edit-button {
+            margin: 0.5em;
+          }
+        `}</style>
+      </div>
     )
   }
 }

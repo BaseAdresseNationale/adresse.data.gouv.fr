@@ -3,52 +3,29 @@ import PropTypes from 'prop-types'
 import FaPencil from 'react-icons/lib/fa/pencil'
 import FaClose from 'react-icons/lib/fa/close'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../../../styles/theme'
 
-import Button from '../../../../button'
+import Button from '../../../../../button'
 
-import Item from '.'
+import Item from '../../item'
 
-class EditableItem extends React.Component {
+class EditNumero extends React.Component {
   static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      status: PropTypes.string,
-      handleClick: PropTypes.func.isRequired
-    }).isRequired,
+    item: PropTypes.object.isRequired,
     toggleForm: PropTypes.func.isRequired,
-    checked: PropTypes.bool,
-    handleCheck: PropTypes.func,
     children: PropTypes.node
   }
 
   static defaultProps = {
-    checked: false,
-    handleCheck: null,
     children: null
   }
 
-  handleInputChange = e => {
-    const {item, handleCheck} = this.props
-    handleCheck(item.id, e.target.checked)
-  }
-
   render() {
-    const {item, checked, handleCheck, toggleForm, children} = this.props
+    const {item, toggleForm, children} = this.props
 
     return (
       <div>
         <div>
-          {handleCheck && (
-            <input
-              name='selected'
-              type='checkbox'
-              checked={checked}
-              onChange={this.handleInputChange}
-            />
-          )}
-
           <div className='editable-item'>
             <Item {...item} />
 
@@ -88,4 +65,4 @@ class EditableItem extends React.Component {
   }
 }
 
-export default EditableItem
+export default EditNumero

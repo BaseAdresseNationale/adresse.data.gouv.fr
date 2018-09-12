@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaAngleRight from 'react-icons/lib/fa/angle-right'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 const COLORS = {
   deleted: theme.errorBg,

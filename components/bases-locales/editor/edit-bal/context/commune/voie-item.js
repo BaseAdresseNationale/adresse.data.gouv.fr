@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import EditableItem from '../../item/editable-item'
-
+import EditVoie from './edit-voie'
 import VoieForm from './voie-form'
 
 const getStatus = item => {
@@ -79,11 +78,12 @@ class VoieItem extends React.Component {
     try {
       await actions.deleteItem(voie)
     } catch (err) {
-      error = new Error(err)
+      error = err
     }
 
     this.setState({
-      editing: !error
+      editing: !error,
+      error
     })
   }
 
@@ -98,7 +98,8 @@ class VoieItem extends React.Component {
     }
 
     this.setState({
-      editing: !error
+      editing: !error,
+      error
     })
   }
 
@@ -123,7 +124,6 @@ class VoieItem extends React.Component {
     const {input, editing, error} = this.state
     const {codeCommune, voie, actions} = this.props
     const item = {
-      id: voie.idVoie,
       name: voie.nomVoie,
       newName: voie.edited ? voie.modified.nomVoie : null,
       meta: voie.numeros ? getNumeros(voie) : 'Toponyme',
@@ -132,7 +132,7 @@ class VoieItem extends React.Component {
     }
 
     return (
-      <EditableItem item={item} toggleForm={this.toggleForm}>
+      <EditVoie item={item} toggleForm={this.toggleForm}>
         {editing && (
           <VoieForm
             input={input}
@@ -144,7 +144,7 @@ class VoieItem extends React.Component {
             error={error}
           />
         )}
-      </EditableItem>
+      </EditVoie>
     )
   }
 }
