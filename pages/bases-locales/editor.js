@@ -5,7 +5,6 @@ import FaEdit from 'react-icons/lib/fa/edit'
 import Page from '../../layouts/main'
 
 import Loader from '../../components/loader'
-// import Editor from '../../components/bases-locales/editor'
 import Head from '../../components/head'
 import Section from '../../components/section'
 

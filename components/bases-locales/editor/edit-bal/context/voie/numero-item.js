@@ -37,15 +37,7 @@ class NumeroItem extends React.Component {
 
   delete = async () => {
     const {numero, actions} = this.props
-    let error
-
-    try {
-      await actions.deleteItem(numero)
-    } catch (err) {
-      error = err
-    }
-
-    this.setState({error})
+    await actions.deleteItem(numero)
   }
 
   cancel = async () => {

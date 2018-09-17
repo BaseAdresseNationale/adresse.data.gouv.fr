@@ -66,15 +66,7 @@ class CommuneItem extends React.Component {
 
   delete = async () => {
     const {commune, actions} = this.props
-    let error
-
-    try {
-      await actions.deleteItem(commune)
-    } catch (err) {
-      error = err
-    }
-
-    this.setState({error})
+    await actions.deleteItem(commune)
   }
 
   cancel = async () => {

@@ -73,18 +73,7 @@ class VoieItem extends React.Component {
 
   delete = async () => {
     const {voie, actions} = this.props
-    let error
-
-    try {
-      await actions.deleteItem(voie)
-    } catch (err) {
-      error = err
-    }
-
-    this.setState({
-      editing: !error,
-      error
-    })
+    await actions.deleteItem(voie)
   }
 
   cancelChange = async () => {
