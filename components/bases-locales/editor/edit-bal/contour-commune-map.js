@@ -36,24 +36,27 @@ class ContourCommuneMap extends React.Component {
   }
 
   componentDidMount() {
-    const {data} = this.props
-    const bbox = computeBbox(data)
-
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json'
     })
 
     this.map.once('load', this.onLoad)
-
-    this.map.fitBounds(bbox, {
-      padding: 30,
-      linear: true,
-      duration: 0
-    })
+    this.fitBounds()
 
     for (const {event, layer, handler} of this.handlers) {
       this.map.on(event, layer, handler)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {data} = this.props
+
+    if (data !== prevProps.data) {
+      const source = this.map.getSource('data')
+
+      source.setData(data)
+      this.fitBounds()
     }
   }
 
@@ -63,6 +66,17 @@ class ContourCommuneMap extends React.Component {
     for (const {event, layer, handler} of this.handlers) {
       map.off(event, layer, handler)
     }
+  }
+
+  fitBounds = () => {
+    const {data} = this.props
+    const bbox = computeBbox(data)
+
+    this.map.fitBounds(bbox, {
+      padding: 30,
+      linear: true,
+      duration: 0
+    })
   }
 
   onLoad = () => {
