@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
+import PreventedDefaultForm from '../../prevented-default-form'
+
 class VoieForm extends React.Component {
   static propTypes = {
     voie: PropTypes.object,
@@ -36,7 +38,7 @@ class VoieForm extends React.Component {
     const {input, error, voie, submit, deleteVoie, cancelChange} = this.props
 
     return (
-      <form onSubmit={submit}>
+      <PreventedDefaultForm onSubmit={submit}>
         <div>
           <label>Nom</label>
           <input
@@ -85,7 +87,7 @@ class VoieForm extends React.Component {
             margin: 1em 0;
           }
         `}</style>
-      </form>
+      </PreventedDefaultForm>
     )
   }
 }

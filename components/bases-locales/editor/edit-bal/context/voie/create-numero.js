@@ -7,6 +7,8 @@ import theme from '../../../../../../styles/theme'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
+import PreventedDefaultForm from '../../prevented-default-form'
+
 class CreateNumero extends React.Component {
   static propTypes = {
     input: PropTypes.string,
@@ -45,7 +47,7 @@ class CreateNumero extends React.Component {
       <div className='voie-form shadow-box'>
         <h3>Création d’un nouveau numéro</h3>
 
-        <form onSubmit={handleSubmit}>
+        <PreventedDefaultForm onSubmit={handleSubmit}>
           <label>Numéro</label>
 
           <div className='flex'>
@@ -71,7 +73,7 @@ class CreateNumero extends React.Component {
               <FaPlus />
             </Button>
           </div>
-        </form>
+        </PreventedDefaultForm>
 
         {error && (
           <Notification

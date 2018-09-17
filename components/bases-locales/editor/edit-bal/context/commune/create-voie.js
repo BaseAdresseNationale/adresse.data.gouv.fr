@@ -6,6 +6,7 @@ import theme from '../../../../../../styles/theme'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
+import PreventedDefaultForm from '../../prevented-default-form'
 
 class CreateVoie extends React.Component {
   static propTypes = {
@@ -31,22 +32,14 @@ class CreateVoie extends React.Component {
     handleInput(e.target.value)
   }
 
-  formPreventDefault(e) {
-    const {handleSubmit} = this.props
-    e.preventDefault()
-
-    handleSubmit()
-  }
-
   render() {
     const {input, error, handleSubmit} = this.props
-    const nameInputRef = React.createRef()
 
     return (
       <div className='voie-form shadow-box'>
         <h3>Création d’une nouvelle voie</h3>
 
-        <form onSubmit={handleSubmit}>
+        <PreventedDefaultForm onSubmit={handleSubmit}>
           <label>Nom</label>
 
           <div className='flex'>
@@ -72,7 +65,7 @@ class CreateVoie extends React.Component {
               <FaPlus />
             </Button>
           </div>
-        </form>
+        </PreventedDefaultForm>
 
         {error && (
           <Notification
