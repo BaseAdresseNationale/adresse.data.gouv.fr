@@ -7,7 +7,6 @@ import {contoursToGeoJson} from '../../../../lib/geojson'
 import ButtonLink from '../../../button-link'
 import LoadingContent from '../../../loading-content'
 
-import InitBAL from './init-bal'
 import ContourCommuneMap from './contour-commune-map'
 import Context from './context'
 import Communes from './communes'
@@ -48,12 +47,7 @@ class EditBal extends React.Component {
 
   render() {
     const {communes, commune, voie, numero, actions, downloadLink, filename, loading, error} = this.props
-    const hasCommune = communes && Object.keys(communes).length > 0
     const contour = getContour(communes)
-
-    if (!hasCommune) {
-      return <InitBAL addCommune={actions.addItem} />
-    }
 
     return (
       <div>
@@ -95,6 +89,7 @@ class EditBal extends React.Component {
 
           .map {
             height: 600px;
+            margin: 1em 0;
           }
         `}</style>
       </div>

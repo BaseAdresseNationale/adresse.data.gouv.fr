@@ -3,6 +3,8 @@
 import React from 'react'
 import FaPencil from 'react-icons/lib/fa/pencil'
 
+import theme from '../../../styles/theme'
+
 import Button from '../../button'
 import BAL from '../../../lib/bal/model'
 
@@ -104,11 +106,15 @@ class Editor extends React.Component {
   addVoie = async newVoie => {
     const {model, commune} = this.state
     await model.createVoie(commune.code, newVoie)
+
+    this.setState({commune: await model.getCommune(commune.code)})
   }
 
   addNumero = async newNumero => {
-    const {commune, voie} = this.state
-    await this.state.model.createNumero(commune.code, voie.codeVoie, newNumero)
+    const {model, commune, voie} = this.state
+    await model.createNumero(commune.code, voie.codeVoie, newNumero)
+
+    this.setState({voie: await model.getVoie(commune.code, voie.codeVoie)})
   }
 
   renameVoie = async (item, newName) => {
@@ -219,7 +225,10 @@ class Editor extends React.Component {
             display: grid;
             grid-template-columns: 1fr;
             grid-row-gap: 0.5em;
-            margin: 1em 0;
+            border: 1px solid ${theme.border};
+            background-color: ${theme.colors.lighterGrey};
+            margin: 2em 0;
+            padding: 1em;
           }
         `}</style>
       </div>

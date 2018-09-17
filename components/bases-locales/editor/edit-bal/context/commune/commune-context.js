@@ -4,15 +4,9 @@ import PropTypes from 'prop-types'
 import Head from '../head'
 
 import VoiesList from './voies-list'
-import CreateVoie from './create-voie'
+import EmptyVoiesList from './empty-voies-list'
 
 class CommuneContext extends React.Component {
-  state = {
-    nomVoie: '',
-    displayForm: false,
-    error: null
-  }
-
   static propTypes = {
     commune: PropTypes.shape({
       nom: PropTypes.string.isRequired,
@@ -24,76 +18,28 @@ class CommuneContext extends React.Component {
     }).isRequired
   }
 
-  handleInput = input => {
-    this.setState({
-      nomVoie: input,
-      error: null
-    })
-  }
-
-  addVoie = async () => {
-    const {nomVoie} = this.state
-    const {actions} = this.props
-    let error = null
-
-    try {
-      await actions.addItem({nomVoie})
-    } catch (err) {
-      error = err
-    }
-
-    this.setState({
-      nomVoie: error ? nomVoie : '',
-      displayForm: Boolean(error),
-      error
-    })
-  }
-
-  toggleForm = () => {
-    this.setState(state => {
-      return {
-        displayForm: !state.displayForm
-      }
-    })
-  }
-
   render() {
-    const {nomVoie, displayForm, error} = this.state
     const {commune, actions} = this.props
+    const {voies} = commune
+    const hasVoies = voies && Object.keys(voies).length > 0
 
     return (
       <div>
         <Head
           name={commune.nom}
           parent='Communes'
-          toggleForm={this.toggleForm}
           previous={() => actions.select(null)}
-        >
-          {displayForm && (
-            <CreateVoie
-              input={nomVoie}
-              handleInput={this.handleInput}
-              handleSubmit={this.addVoie}
-              actions={actions}
-              error={error}
-            />
-          )}
-        </Head>
+        />
 
-        <div className='voies'>
-          <b>Voies de : {commune.nom}</b>
+        {hasVoies ? (
           <VoiesList
-            voies={commune.voies}
+            voies={voies}
             codeCommune={commune.code}
             actions={actions}
           />
-        </div>
-
-        <style jsx>{`
-          .voies {
-            margin: 2em 0;
-          }
-        `}</style>
+        ) : (
+          <EmptyVoiesList addVoie={actions.addItem} />
+        ) }
       </div>
     )
   }

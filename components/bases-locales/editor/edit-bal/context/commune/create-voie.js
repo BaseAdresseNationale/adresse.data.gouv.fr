@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaPlus from 'react-icons/lib/fa/plus'
 
-import theme from '../../../../../../styles/theme'
-
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 import PreventedDefaultForm from '../../prevented-default-form'
@@ -36,8 +34,8 @@ class CreateVoie extends React.Component {
     const {input, error, handleSubmit} = this.props
 
     return (
-      <div className='voie-form shadow-box'>
-        <h3>Création d’une nouvelle voie</h3>
+      <div>
+        <h4>Création d’une nouvelle voie</h4>
 
         <PreventedDefaultForm onSubmit={handleSubmit}>
           <label>Nom</label>
@@ -57,7 +55,7 @@ class CreateVoie extends React.Component {
               type='submit'
               size='small'
               style={{
-                margin: '0 1em',
+                marginLeft: '1em',
                 padding: '0.8em'
               }}
               onClick={handleSubmit}
@@ -77,16 +75,14 @@ class CreateVoie extends React.Component {
         )}
 
         <style jsx>{`
-            .shadow-box {
-              border: 1px solid ${theme.border};
-              box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-              padding: 1em;
-            }
+          h4 {
+            margin-bottom: 0.5em;
+          }
 
-            .flex {
-              display: flex;
-            }
-          `}</style>
+          .flex {
+            display: flex;
+          }
+        `}</style>
       </div>
     )
   }

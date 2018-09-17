@@ -44,7 +44,7 @@ class CreateNumero extends React.Component {
     const {input, error, handleSubmit} = this.props
 
     return (
-      <div className='voie-form shadow-box'>
+      <div className='voie-form'>
         <h3>Création d’un nouveau numéro</h3>
 
         <PreventedDefaultForm onSubmit={handleSubmit}>
@@ -85,12 +85,6 @@ class CreateNumero extends React.Component {
         )}
 
         <style jsx>{`
-            .shadow-box {
-              border: 1px solid ${theme.border};
-              box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-              padding: 1em;
-            }
-
             .flex {
               display: flex;
             }
