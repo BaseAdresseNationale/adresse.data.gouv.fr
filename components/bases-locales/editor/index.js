@@ -122,6 +122,11 @@ class Editor extends React.Component {
     await this.state.model.renameVoie(commune.code, item.codeVoie, newName)
   }
 
+  updateNumero = async (numero, modified) => {
+    const {model, commune, voie} = this.state
+    await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
+  }
+
   deleteItem = async item => {
     const {model, communes, commune, voie} = this.state
     const type = getType(item)
@@ -180,6 +185,7 @@ class Editor extends React.Component {
       addItem: this.addItem,
       deleteItem: this.deleteItem,
       renameVoie: this.renameVoie,
+      updateNumero: this.updateNumero,
       cancelChange: this.cancelChange
     }
 

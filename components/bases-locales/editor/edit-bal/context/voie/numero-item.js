@@ -20,7 +20,8 @@ const getStatus = item => {
 
 class NumeroItem extends React.Component {
   state = {
-    editing: false
+    editing: false,
+    position: null
   }
 
   static propTypes = {
@@ -31,6 +32,7 @@ class NumeroItem extends React.Component {
     }).isRequired,
     actions: PropTypes.shape({
       deleteItem: PropTypes.func.isRequired,
+      updateNumero: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
   }
@@ -42,15 +44,35 @@ class NumeroItem extends React.Component {
 
   cancel = async () => {
     const {numero, actions} = this.props
-    let error
 
     try {
       await actions.cancelChange(numero)
-    } catch (err) {
-      error = err
+    } catch (error) {
+      this.setState({error})
     }
+  }
 
-    this.setState({error})
+  handlePosition = position => {
+    this.setState({position})
+  }
+
+  edit = async () => {
+    const {position} = this.state
+    const {numero, actions} = this.props
+
+    try {
+      if (position) {
+        await actions.updateNumero(numero, {
+          positions: [{
+            coords: [position.lng, position.lat]
+          }]
+        })
+
+        this.setState({editing: false})
+      }
+    } catch (error) {
+      this.setState({error})
+    }
   }
 
   toggleEdit = () => {
@@ -75,8 +97,10 @@ class NumeroItem extends React.Component {
         {editing && (
           <NumeroForm
             numero={numero}
+            handlePosition={this.handlePosition}
+            updateNumero={this.edit}
             deleteNumero={this.delete}
-            cancel={this.cancel}
+            cancelChange={this.cancel}
             error={error}
           />
         )}
