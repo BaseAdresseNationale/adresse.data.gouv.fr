@@ -19,11 +19,16 @@ class VoieContext extends React.Component {
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    contour: PropTypes.object
+  }
+
+  static defaultProps = {
+    contour: null
   }
 
   render() {
-    const {commune, voie, actions} = this.props
+    const {commune, voie, contour, actions} = this.props
     const {numeros} = voie
     const hasNumero = numeros && Object.keys(numeros).length > 0
 
@@ -40,10 +45,14 @@ class VoieContext extends React.Component {
             codeCommune={commune.code}
             codeVoie={voie.codeVoie}
             numeros={numeros}
+            contour={contour}
             actions={actions}
           />
         ) : (
-          <EmptyNumeroList addNumero={actions.addItem} />
+          <EmptyNumeroList
+            contour={contour}
+            addNumero={actions.addItem}
+          />
         )}
       </div>
 

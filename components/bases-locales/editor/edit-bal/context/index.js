@@ -12,16 +12,18 @@ class Context extends React.Component {
       addItem: PropTypes.func.isRequired
     }).isRequired,
     voie: PropTypes.object,
-    numero: PropTypes.object
+    numero: PropTypes.object,
+    contour: PropTypes.object
   }
 
   static defaultProps = {
     voie: null,
-    numero: null
+    numero: null,
+    contour: null
   }
 
   render() {
-    const {commune, voie, numero, actions} = this.props
+    const {commune, voie, numero, contour, actions} = this.props
 
     return (
       <div>
@@ -36,6 +38,7 @@ class Context extends React.Component {
           <VoieContext
             commune={commune}
             voie={voie}
+            contour={contour}
             addNumero={actions.addItem}
             actions={actions}
           />

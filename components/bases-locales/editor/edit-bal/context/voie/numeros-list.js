@@ -9,6 +9,7 @@ import CreateNumero from './create-numero'
 class NumerosList extends React.Component {
   state = {
     numeroComplet: '',
+    position: null,
     displayForm: false,
     error: null
   }
@@ -17,10 +18,15 @@ class NumerosList extends React.Component {
     codeCommune: PropTypes.string.isRequired,
     codeVoie: PropTypes.string.isRequired,
     numeros: PropTypes.object.isRequired,
+    contour: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
+  }
+
+  static defaultProps = {
+    contour: null
   }
 
   handleInput = input => {
@@ -30,13 +36,33 @@ class NumerosList extends React.Component {
     })
   }
 
+  handlePosition = position => {
+    this.setState({
+      position,
+      error: null
+    })
+  }
+
   addNumero = async () => {
-    const {numeroComplet} = this.state
+    const {numeroComplet, position} = this.state
     const {actions} = this.props
     let error = null
 
     try {
-      await actions.addItem({numeroComplet})
+      if (numeroComplet === '') {
+        throw new Error('Indiquez le numéro complet.')
+      }
+
+      if (!position) {
+        throw new Error('Indiquez l’emplacement du numéro sur la carte.')
+      }
+
+      await actions.addItem({
+        numeroComplet,
+        positions: [{
+          coords: [position.lng, position.lat]
+        }]
+      })
     } catch (err) {
       error = err
     }
@@ -58,7 +84,7 @@ class NumerosList extends React.Component {
 
   render() {
     const {numeroComplet, displayForm, error} = this.state
-    const {codeCommune, codeVoie, numeros, actions} = this.props
+    const {codeCommune, codeVoie, numeros, contour, actions} = this.props
 
     return (
       <div className='numeros-list'>
@@ -70,7 +96,9 @@ class NumerosList extends React.Component {
           {displayForm && (
             <CreateNumero
               input={numeroComplet}
+              contour={contour}
               handleInput={this.handleInput}
+              handlePosition={this.handlePosition}
               handleSubmit={this.addNumero}
               error={error}
             />

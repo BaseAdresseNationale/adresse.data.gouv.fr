@@ -15,7 +15,11 @@ export const FormContext = React.createContext()
 
 const getContour = communes => {
   if (communes && Object.keys(communes).length > 0) {
-    return contoursToGeoJson(Object.keys(communes).map(commune => communes[commune]))
+    const geojson = contoursToGeoJson(Object.keys(communes).map(commune => communes[commune]))
+
+    if (geojson.features.length > 0) {
+      return geojson
+    }
   }
 
   return null
@@ -62,6 +66,7 @@ class EditBal extends React.Component {
             commune={commune}
             voie={voie}
             numero={numero}
+            contour={contour}
             actions={actions}
           />
         ) : (

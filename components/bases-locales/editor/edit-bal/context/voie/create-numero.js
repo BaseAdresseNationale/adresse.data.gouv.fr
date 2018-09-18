@@ -1,24 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaPlus from 'react-icons/lib/fa/plus'
-
-import theme from '../../../../../../styles/theme'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
 import PreventedDefaultForm from '../../prevented-default-form'
 
+import CreateNumeroMap from './create-numero-map'
+
 class CreateNumero extends React.Component {
   static propTypes = {
     input: PropTypes.string,
+    contour: PropTypes.object,
     error: PropTypes.instanceOf(Error),
     handleInput: PropTypes.func.isRequired,
+    handlePosition: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     input: '',
+    contour: null,
     error: null
   }
 
@@ -33,24 +35,16 @@ class CreateNumero extends React.Component {
     handleInput(e.target.value)
   }
 
-  formPreventDefault(e) {
-    const {handleSubmit} = this.props
-    e.preventDefault()
-
-    handleSubmit()
-  }
-
   render() {
-    const {input, error, handleSubmit} = this.props
+    const {input, contour, error, handlePosition, handleSubmit} = this.props
 
     return (
       <div className='voie-form'>
         <h3>Création d’un nouveau numéro</h3>
 
         <PreventedDefaultForm onSubmit={handleSubmit}>
-          <label>Numéro</label>
-
-          <div className='flex'>
+          <div className='input'>
+            <label>Numéro</label>
             <input
               ref={input => {
                 this.nameInput = input
@@ -60,17 +54,21 @@ class CreateNumero extends React.Component {
               value={input}
               onChange={this.handleInput}
             />
+          </div>
 
-            <Button
-              type='submit'
-              size='small'
-              style={{
-                margin: '0 1em',
-                padding: '0.8em'
-              }}
-              onClick={handleSubmit}
-            >
-              <FaPlus />
+          <div className='map'>
+            <label>
+              Faites glisser la carte pour indiquer la position du numéro.
+            </label>
+            <CreateNumeroMap
+              data={contour}
+              handlePosition={handlePosition}
+            />
+          </div>
+
+          <div className='submit'>
+            <Button type='submit' onClick={handleSubmit}>
+            Enregister
             </Button>
           </div>
         </PreventedDefaultForm>
@@ -85,10 +83,20 @@ class CreateNumero extends React.Component {
         )}
 
         <style jsx>{`
-            .flex {
-              display: flex;
-            }
-          `}</style>
+          .input {
+            margin: 1em 0;
+          }
+
+          .map {
+            margin: 1em 0;
+          }
+
+          .submit {
+            display: flex;
+            justify-content: center;
+            margin: 1em 0;
+          }
+        `}</style>
       </div>
     )
   }

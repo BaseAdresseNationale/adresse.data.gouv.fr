@@ -8,11 +8,17 @@ import CreateNumero from './create-numero'
 class EmptyVoiesList extends React.Component {
   state = {
     numeroComplet: '',
+    position: null,
     error: null
   }
 
   static propTypes = {
-    addNumero: PropTypes.func.isRequired
+    addNumero: PropTypes.func.isRequired,
+    contour: PropTypes.object
+  }
+
+  static defaultProps = {
+    contour: null
   }
 
   handleInput = input => {
@@ -22,21 +28,42 @@ class EmptyVoiesList extends React.Component {
     })
   }
 
+  handlePosition = position => {
+    this.setState({
+      position,
+      error: null
+    })
+  }
+
   addNumero = async () => {
-    const {numeroComplet} = this.state
+    const {numeroComplet, position} = this.state
     const {addNumero} = this.props
 
     try {
-      await addNumero({numeroComplet})
-    } catch (err) {
+      if (numeroComplet === '') {
+        throw new Error('Indiquez le numéro complet.')
+      }
+
+      if (!position) {
+        throw new Error('Indiquez l’emplacement du numéro sur la carte.')
+      }
+
+      await addNumero({
+        numeroComplet,
+        positions: [{
+          coords: [position.lng, position.lat]
+        }]
+      })
+    } catch (error) {
       this.setState({
-        error: err
+        error
       })
     }
   }
 
   render() {
-    const {numeroComplet, error} = this.state
+    const {numeroComplet, position, error} = this.state
+    const {contour} = this.props
 
     return (
       <div>
@@ -48,7 +75,10 @@ class EmptyVoiesList extends React.Component {
 
           <CreateNumero
             input={numeroComplet}
+            position={position}
+            contour={contour}
             handleInput={this.handleInput}
+            handlePosition={this.handlePosition}
             handleSubmit={this.addNumero}
             error={error}
           />
