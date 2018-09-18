@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import CreateItemWrapper from '../create-item-wrapper'
+
 import CommuneItem from './commune-item'
-import CreateCommuneWrapper from './create-commune-wrapper'
 import CreateCommune from './create-commune'
 
 class CommunesList extends React.Component {
@@ -46,22 +47,41 @@ class CommunesList extends React.Component {
 
     return (
       <div className='communes-list'>
-        <CreateCommuneWrapper toggleForm={this.toggleForm}>
+        <CreateItemWrapper
+          listName='Liste des communes'
+          buttonText='Ajouter une commune'
+          toggleForm={this.toggleForm}
+        >
           {displayForm && (
             <CreateCommune
               submit={this.handleSubmit}
               error={error}
             />
           )}
-        </CreateCommuneWrapper>
+        </CreateItemWrapper>
 
-        {Object.keys(communes).map(commune => (
-          <CommuneItem
-            key={communes[commune].code}
-            commune={communes[commune]}
-            actions={actions}
-          />
-        ))}
+        <div className='list'>
+          {Object.keys(communes).map(commune => (
+            <CommuneItem
+              key={communes[commune].code}
+              commune={communes[commune]}
+              actions={actions}
+            />
+          ))}
+        </div>
+
+        <style jsx>{`
+          .communes-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: content;
+          }
+
+          .list {
+            margin: 0.5em 0;
+          }
+        `}</style>
       </div>
     )
   }

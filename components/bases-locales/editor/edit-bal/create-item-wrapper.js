@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 import FaPlus from 'react-icons/lib/fa/plus'
 import FaClose from 'react-icons/lib/fa/close'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../styles/theme'
 
-import Button from '../../../../button'
+import Button from '../../../button'
 
-class CreateCommuneWrapper extends React.Component {
+class CreateItemWrapper extends React.Component {
   static propTypes = {
+    listName: PropTypes.string.isRequired,
+    buttonText: PropTypes.string.isRequired,
     toggleForm: PropTypes.func.isRequired,
     children: PropTypes.node
   }
@@ -18,13 +20,13 @@ class CreateCommuneWrapper extends React.Component {
   }
 
   render() {
-    const {toggleForm, children} = this.props
+    const {listName, buttonText, toggleForm, children} = this.props
 
     return (
       <div className='context-head'>
         <div className='shadow-box'>
           <div className='title'>
-            <h3>Liste des communes</h3>
+            <h3>{listName}</h3>
             {children ? (
               <Button
                 color='red'
@@ -35,11 +37,13 @@ class CreateCommuneWrapper extends React.Component {
               </Button>
             ) : (
               <Button onClick={toggleForm}>
-              Ajouter une commune <FaPlus />
+                {buttonText} <FaPlus />
               </Button>
             )}
           </div>
         </div>
+
+        <div className='divider' />
 
         {children && (
           <div className='form'>
@@ -53,23 +57,20 @@ class CreateCommuneWrapper extends React.Component {
             align-items: center;
           }
 
-          .shadow-box {
-            border: 1px solid ${theme.border};
-            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-            padding: 0 1em;
-            margin: 1em 0;
-          }
-
           h3 {
             flex: 1;
           }
 
+          .divider {
+            width: 100%;
+            border-bottom: 1px solid ${theme.border};
+            padding-bottom: 0.5em;
+            margin-bottom: 0.5em;
+          }
+
           .form {
-            margin: -81px 0 0.2em;
+            border: 2px dashed ${theme.border};
             padding: 1em;
-            padding-top: 70px;
-            border: 1px solid ${theme.border};
-            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
         `}</style>
       </div>
@@ -77,4 +78,4 @@ class CreateCommuneWrapper extends React.Component {
   }
 }
 
-export default CreateCommuneWrapper
+export default CreateItemWrapper

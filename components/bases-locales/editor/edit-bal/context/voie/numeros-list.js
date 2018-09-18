@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import CreateItemWrapper from '../../create-item-wrapper'
+
 import NumeroItem from './numero-item'
-import CreateNumeroWrapper from './create-numero-wrapper'
 import CreateNumero from './create-numero'
 
 class NumerosList extends React.Component {
@@ -61,7 +62,11 @@ class NumerosList extends React.Component {
 
     return (
       <div className='numeros-list'>
-        <CreateNumeroWrapper toggleForm={this.toggleForm}>
+        <CreateItemWrapper
+          listName='Liste des numéros'
+          buttonText='Ajouter un numéro'
+          toggleForm={this.toggleForm}
+        >
           {displayForm && (
             <CreateNumero
               input={numeroComplet}
@@ -70,20 +75,22 @@ class NumerosList extends React.Component {
               error={error}
             />
           )}
-        </CreateNumeroWrapper>
+        </CreateItemWrapper>
 
-        {Object.keys(numeros).map(n => {
-          const numero = numeros[n]
-          return (
-            <NumeroItem
-              key={n}
-              codeCommune={codeCommune}
-              codeVoie={codeVoie}
-              numero={numero}
-              actions={actions}
-            />
-          )
-        })}
+        <div className='list'>
+          {Object.keys(numeros).map(n => {
+            const numero = numeros[n]
+            return (
+              <NumeroItem
+                key={n}
+                codeCommune={codeCommune}
+                codeVoie={codeVoie}
+                numero={numero}
+                actions={actions}
+              />
+            )
+          })}
+        </div>
 
         <style jsx>{`
           .numeros-list {
@@ -91,6 +98,10 @@ class NumerosList extends React.Component {
             flex-direction: column;
             justify-content: space-between;
             align-items: content;
+          }
+
+          .list {
+            margin: 0.5em 0;
           }
         `}</style>
       </div>

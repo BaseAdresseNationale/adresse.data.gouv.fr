@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CreateVoieWrapper from './create-voie-wrapper'
+import CreateItemWrapper from '../../create-item-wrapper'
 
 import VoieItem from './voie-item'
 import CreateVoie from './create-voie'
@@ -58,7 +58,11 @@ class VoiesList extends React.Component {
 
     return (
       <div className='voies-list'>
-        <CreateVoieWrapper toggleForm={this.toggleForm}>
+        <CreateItemWrapper
+          listName='Liste des voies'
+          buttonText='Ajouter une voie'
+          toggleForm={this.toggleForm}
+        >
           {displayForm && (
             <CreateVoie
               input={nomVoie}
@@ -67,16 +71,18 @@ class VoiesList extends React.Component {
               error={error}
             />
           )}
-        </CreateVoieWrapper>
+        </CreateItemWrapper>
 
-        {Object.keys(voies).map(voie => (
-          <VoieItem
-            key={voie}
-            voie={voies[voie]}
-            codeCommune={codeCommune}
-            actions={actions}
-          />
-        ))}
+        <div className='list'>
+          {Object.keys(voies).map(voie => (
+            <VoieItem
+              key={voie}
+              voie={voies[voie]}
+              codeCommune={codeCommune}
+              actions={actions}
+            />
+          ))}
+        </div>
 
         <style jsx>{`
           .voies-list {
@@ -84,6 +90,10 @@ class VoiesList extends React.Component {
             flex-direction: column;
             justify-content: space-between;
             align-items: content;
+          }
+
+          .list {
+            margin: 0.5em 0;
           }
         `}</style>
       </div>
