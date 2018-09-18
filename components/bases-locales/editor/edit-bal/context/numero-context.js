@@ -27,7 +27,7 @@ class NumeroContext extends React.Component {
         <Head
           name={numero.numeroComplet}
           parent={voie.nomVoie}
-          previous={() => actions.select(commune.code)}
+          previous={() => actions.select(commune.code, voie.codeVoie)}
         />
 
         <style jsx>{`
