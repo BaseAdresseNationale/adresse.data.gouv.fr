@@ -19,16 +19,22 @@ const getStatus = item => {
 }
 
 class NumeroItem extends React.Component {
-  state = {
-    editing: false,
-    position: null
+  constructor(props) {
+    super(props)
+    const {numero} = props
+
+    this.state = {
+      editing: false,
+      position: numero.modified ? numero.modified.positions[0] : null
+    }
   }
 
   static propTypes = {
     codeCommune: PropTypes.string.isRequired,
     codeVoie: PropTypes.string.isRequired,
     numero: PropTypes.shape({
-      numeroComplet: PropTypes.string.isRequired
+      numeroComplet: PropTypes.string.isRequired,
+      modified: PropTypes.object
     }).isRequired,
     actions: PropTypes.shape({
       deleteItem: PropTypes.func.isRequired,
@@ -44,12 +50,8 @@ class NumeroItem extends React.Component {
 
   cancel = async () => {
     const {numero, actions} = this.props
-
-    try {
-      await actions.cancelChange(numero)
-    } catch (error) {
-      this.setState({error})
-    }
+    await actions.cancelChange(numero)
+    this.setState({position: null})
   }
 
   handlePosition = position => {
@@ -63,9 +65,7 @@ class NumeroItem extends React.Component {
     try {
       if (position) {
         await actions.updateNumero(numero, {
-          positions: [{
-            coords: [position.lng, position.lat]
-          }]
+          positions: [position]
         })
 
         this.setState({editing: false})
@@ -84,7 +84,7 @@ class NumeroItem extends React.Component {
   }
 
   render() {
-    const {editing, error} = this.state
+    const {editing, position, error} = this.state
     const {codeCommune, codeVoie, numero, actions} = this.props
     const item = {
       name: numero.numeroComplet,
@@ -97,6 +97,7 @@ class NumeroItem extends React.Component {
         {editing && (
           <NumeroForm
             numero={numero}
+            position={position}
             handlePosition={this.handlePosition}
             updateNumero={this.edit}
             deleteNumero={this.delete}

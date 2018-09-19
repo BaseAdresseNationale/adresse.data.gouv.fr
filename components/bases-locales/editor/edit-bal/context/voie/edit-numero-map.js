@@ -6,15 +6,6 @@ import computeBbox from '@turf/bbox'
 
 import theme from '../../../../../../styles/theme'
 
-function pointOnPos(position) {
-  const {lat, lng} = position
-
-  return {
-    type: 'Point',
-    coordinates: [lng, lat]
-  }
-}
-
 class EditNumeroMap extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -37,6 +28,20 @@ class EditNumeroMap extends React.Component {
     this.fitBounds()
   }
 
+  componentDidUpdate(prevProps) {
+    const {position} = this.props
+
+    if (prevProps.position !== position) {
+      const {map} = this
+
+      if (position) {
+        this.updateNewPosition()
+      } else {
+        map.removeLayer('new-point')
+      }
+    }
+  }
+
   componentWillUnmount() {
     const {map} = this
 
@@ -57,7 +62,7 @@ class EditNumeroMap extends React.Component {
 
   onLoad = () => {
     const {map} = this
-    const {data, position} = this.props
+    const {data} = this.props
 
     map.on('dragend', this.getCenter)
     map.on('zoomend', this.getCenter)
@@ -77,32 +82,42 @@ class EditNumeroMap extends React.Component {
       }
     })
 
-    map.addSource('new', {
-      type: 'geojson',
-      data: position || {
-        type: 'Point',
-        coordinates: [0, 0]
-      }
-    })
+    this.updateNewPosition()
+  }
 
-    map.addLayer({
-      id: 'new-point',
-      source: 'new',
-      type: 'circle',
-      paint: {
-        'circle-radius': 10,
-        'circle-color': '#03BD5B'
-      }
-    })
+  updateNewPosition = () => {
+    const {map} = this
+    const {position} = this.props
+    const sourceId = 'new'
+    const layerId = 'new-point'
+    const source = map.getSource(sourceId)
+
+    if (source) {
+      source.setData(position)
+    } else {
+      map.addSource(sourceId, {
+        type: 'geojson',
+        data: position
+      })
+    }
+
+    if (!map.getLayer(layerId)) {
+      map.addLayer({
+        id: layerId,
+        source: 'new',
+        type: 'circle',
+        paint: {
+          'circle-radius': 10,
+          'circle-color': '#03BD5B'
+        }
+      })
+    }
   }
 
   getCenter = () => {
     const {map} = this
     const {handlePosition} = this.props
     const center = map.getCenter()
-    const point = map.getSource('new')
-
-    point.setData(pointOnPos(center))
 
     handlePosition(center)
   }

@@ -28,6 +28,13 @@ class EmptyVoiesList extends React.Component {
     })
   }
 
+  handleCoords = coords => {
+    this.setState({
+      position: {coords: [coords.lng, coords.lat]},
+      error: null
+    })
+  }
+
   handlePosition = position => {
     this.setState({
       position,
@@ -50,9 +57,7 @@ class EmptyVoiesList extends React.Component {
 
       await addNumero({
         numeroComplet,
-        positions: [{
-          coords: [position.lng, position.lat]
-        }]
+        positions: [position]
       })
     } catch (error) {
       this.setState({
@@ -78,7 +83,7 @@ class EmptyVoiesList extends React.Component {
             position={position}
             contour={contour}
             handleInput={this.handleInput}
-            handlePosition={this.handlePosition}
+            handlePosition={this.handleCoords}
             handleSubmit={this.addNumero}
             error={error}
           />

@@ -7,7 +7,7 @@ import Notification from '../../../../../notification'
 import CreateNumeroMap from './edit-numero-map'
 
 const positionToGeoJson = (numero, position) => {
-  if (position && position && position.coords) {
+  if (position && position.coords) {
     return {
       type: 'FeatureCollection',
       features: [
@@ -33,9 +33,11 @@ class NumeroForm extends React.Component {
   static propTypes = {
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired,
+      edited: PropTypes.bool,
       modified: PropTypes.object,
       deleted: PropTypes.bool
     }).isRequired,
+    position: PropTypes.object,
     handlePosition: PropTypes.func.isRequired,
     updateNumero: PropTypes.func.isRequired,
     cancelChange: PropTypes.func.isRequired,
@@ -44,13 +46,19 @@ class NumeroForm extends React.Component {
   }
 
   static defaultProps = {
+    position: null,
     error: null
   }
 
+  handleCoords = coords => {
+    const {handlePosition} = this.props
+    handlePosition({coords: [coords.lng, coords.lat]})
+  }
+
   render() {
-    const {numero, handlePosition, updateNumero, deleteNumero, cancelChange, error} = this.props
+    const {numero, position, updateNumero, deleteNumero, cancelChange, error} = this.props
     const origalPos = positionToGeoJson(numero, numero.positions[0])
-    const newPos = numero.modified ? positionToGeoJson(numero, numero.modified.positions[0]) : null
+    const newPos = position ? positionToGeoJson(numero, position) : null
 
     return (
       <div>
@@ -62,7 +70,7 @@ class NumeroForm extends React.Component {
           <CreateNumeroMap
             data={origalPos}
             position={newPos}
-            handlePosition={handlePosition}
+            handlePosition={this.handleCoords}
           />
         </div>
 
@@ -75,25 +83,36 @@ class NumeroForm extends React.Component {
         <div className='buttons'>
           <Button
             color='red'
+
+            size='small'
             onClick={deleteNumero}
           >
-            Supprimer
+            Supprimer ce numéro
           </Button>
 
-          {cancelChange && (
-            <Button onClick={cancelChange}>
+          {(numero.edited || numero.deleted) && (
+            <Button
+              size='small'
+              onClick={cancelChange}
+            >
               Annuler les changements
             </Button>
           )}
 
-          <Button onClick={updateNumero}>
-            Enregistrer
-          </Button>
+          {position && (
+            <Button
+              size='small'
+              onClick={updateNumero}
+            >
+              Enregistrer la nouvelle position
+            </Button>
+          )}
         </div>
 
         <style jsx>{`
           .buttons {
             display: flex;
+            flex-flow: wrap;
             justify-content: space-between;
             align-items: center;
             margin: 1em;
