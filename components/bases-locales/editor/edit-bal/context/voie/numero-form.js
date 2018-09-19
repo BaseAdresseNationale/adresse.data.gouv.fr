@@ -63,9 +63,9 @@ class NumeroForm extends React.Component {
     return (
       <div>
         <div className='map'>
-          <label>
+          <Notification type='info'>
             Faites glisser la carte pour indiquer la nouvelle position du numéro.
-          </label>
+          </Notification>
 
           <CreateNumeroMap
             data={origalPos}

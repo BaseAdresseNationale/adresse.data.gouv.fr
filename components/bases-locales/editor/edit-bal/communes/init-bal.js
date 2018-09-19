@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../styles/theme'
 
+import Notification from '../../../../notification'
+
 import SearchCommunes from '../../../init-base/search-communes'
 
 class InitBAL extends React.Component {
@@ -21,7 +23,9 @@ class InitBAL extends React.Component {
       <div className='init-bal'>
         <div>
           <h4>Aucune commune</h4>
-          <p>Recherchez une commune et sélectionnez la afin de l’ajouter.</p>
+          <Notification type='info'>
+            Recherchez une commune et sélectionnez la afin de l’ajouter.
+          </Notification>
         </div>
 
         <SearchCommunes handleSelect={this.handleSubmit} />

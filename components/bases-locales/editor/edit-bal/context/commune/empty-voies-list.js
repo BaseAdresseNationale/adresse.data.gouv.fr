@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../../styles/theme'
 
+import Notification from '../../../../../notification'
+
 import CreateVoie from './create-voie'
 
 class EmptyVoiesList extends React.Component {
@@ -43,7 +45,9 @@ class EmptyVoiesList extends React.Component {
         <div className='no-voie'>
           <div>
             <h4>Aucune voie</h4>
-            <p>Entrez le nom de la voie que vous souhaitez ajouter à la commune.</p>
+            <Notification type='info'>
+              Entrez le nom de la voie que vous souhaitez ajouter à la commune.
+            </Notification>
           </div>
 
           <CreateVoie

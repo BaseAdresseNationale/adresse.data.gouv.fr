@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../../styles/theme'
 
+import Notification from '../../../../../notification'
+
 import CreateNumero from './create-numero'
 
 class EmptyVoiesList extends React.Component {
@@ -75,7 +77,9 @@ class EmptyVoiesList extends React.Component {
         <div className='no-voie'>
           <div>
             <h4>Aucun numéro</h4>
-            <p>Entrez le numéro complet que vous souhaitez ajouter à la voie.</p>
+            <Notification type='info'>
+              Entrez le numéro complet que vous souhaitez ajouter à la voie.
+            </Notification>
           </div>
 
           <CreateNumero
