@@ -49,8 +49,17 @@ class EditNumeroMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {data} = this.props
-    const bbox = computeBbox(data)
+    const {data, position} = this.props
+    const geojson = {
+      type: 'FeatureCollection',
+      features: [data.features[0]]
+    }
+
+    if (position) {
+      geojson.features.push(position.features[0])
+    }
+
+    const bbox = computeBbox(geojson)
 
     this.map.fitBounds(bbox, {
       padding: 30,
