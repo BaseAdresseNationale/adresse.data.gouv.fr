@@ -22,6 +22,12 @@ class Context extends React.Component {
     contour: null
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      window.scrollTo(0, 0)
+    }
+  }
+
   render() {
     const {commune, voie, numero, contour, actions} = this.props
 
