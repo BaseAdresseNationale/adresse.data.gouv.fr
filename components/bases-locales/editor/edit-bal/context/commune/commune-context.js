@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import getStatus from '../../../../../../lib/bal/item'
+
 import Head from '../head'
 
 import VoiesList from './voies-list'
@@ -27,6 +29,7 @@ class CommuneContext extends React.Component {
       <div>
         <Head
           name={commune.nom}
+          status={getStatus(commune)}
           parent='Communes'
           previous={() => actions.select(null)}
         />

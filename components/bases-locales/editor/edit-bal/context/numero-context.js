@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '../../../../../styles/theme'
+import getStatus from '../../../../../lib/bal/item'
 
 import Head from './head'
 import NumeroForm from './voie/numero-form'
@@ -74,6 +75,7 @@ class NumeroContext extends React.Component {
       <div>
         <Head
           name={numero.numeroComplet}
+          status={getStatus(numero)}
           parent={voie.nomVoie}
           previous={() => actions.select(codeCommune, voie.codeVoie)}
         />

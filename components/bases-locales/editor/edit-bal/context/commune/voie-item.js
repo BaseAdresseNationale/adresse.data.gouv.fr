@@ -1,22 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import getStatus from '../../../../../../lib/bal/item'
+
 import EditVoie from './edit-voie'
 import VoieForm from './voie-form'
-
-const getStatus = item => {
-  let status = null
-
-  if (item.deleted) {
-    status = 'deleted'
-  } else if (item.created) {
-    status = 'created'
-  } else if (item.edited) {
-    status = 'edited'
-  }
-
-  return status
-}
 
 const getNumeros = voie => {
   const numeroCount = Object.keys(voie.numeros).length

@@ -1,22 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import getStatus from '../../../../../../lib/bal/item';
+
 import NumeroForm from './numero-form'
 import EditNumero from './edit-numero'
-
-const getStatus = item => {
-  let status = null
-
-  if (item.deleted) {
-    status = 'deleted'
-  } else if (item.created) {
-    status = 'created'
-  } else if (item.edited) {
-    status = 'edited'
-  }
-
-  return status
-}
 
 class NumeroItem extends React.Component {
   state = {

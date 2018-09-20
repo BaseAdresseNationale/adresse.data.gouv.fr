@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import FaTrash from 'react-icons/lib/fa/trash'
 import FaClose from 'react-icons/lib/fa/close'
 
+import getStatus from '../../../../../lib/bal/item'
+
 import Button from '../../../../button'
 import Notification from '../../../../notification'
 
@@ -49,21 +51,6 @@ class CommuneItem extends React.Component {
     }
   }
 
-  getStatus = () => {
-    const {commune} = this.props
-    let status
-
-    if (commune.created) {
-      status = 'created'
-    }
-
-    if (commune.deleted) {
-      status = 'deleted'
-    }
-
-    return status
-  }
-
   delete = async () => {
     const {commune, actions} = this.props
     await actions.deleteItem(commune)
@@ -89,7 +76,7 @@ class CommuneItem extends React.Component {
       id: commune.code,
       name: commune.nom,
       meta: commune.voies ? this.getVoies(commune) : 'Toponyme',
-      status: this.getStatus(commune),
+      status: getStatus(commune),
       handleClick: () => actions.select(commune.code)
     }
 

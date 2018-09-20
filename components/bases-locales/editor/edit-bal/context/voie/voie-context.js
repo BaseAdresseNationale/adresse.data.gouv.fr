@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import getStatus from '../../../../../../lib/bal/item'
 import Head from '../head'
 
 import NumerosList from './numeros-list'
@@ -31,11 +32,13 @@ class VoieContext extends React.Component {
     const {commune, voie, contour, actions} = this.props
     const {numeros} = voie
     const hasNumero = numeros && Object.keys(numeros).length > 0
+    const newName = voie.modified && voie.modified.nomVoie
 
     return (
       <div>
         <Head
-          name={voie.nomVoie}
+          name={newName ? voie.modified.nomVoie : voie.nomVoie}
+          status={getStatus(voie)}
           parent={commune.nom}
           previous={() => actions.select(commune.code)}
         />
