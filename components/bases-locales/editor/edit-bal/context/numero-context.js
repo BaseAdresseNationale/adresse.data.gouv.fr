@@ -1,39 +1,105 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '../../../../../styles/theme'
+
 import Head from './head'
+import NumeroForm from './voie/numero-form'
 
 class NumeroContext extends React.Component {
+  state = {
+    position: null,
+    error: null
+  }
+
   static propTypes = {
-    commune: PropTypes.shape({
-      code: PropTypes.string.isRequired
-    }).isRequired,
+    codeCommune: PropTypes.string.isRequired,
     voie: PropTypes.shape({
-      nomVoie: PropTypes.string.isRequired
+      nomVoie: PropTypes.string.isRequired,
+      codeVoie: PropTypes.string.isRequired
     }).isRequired,
     numero: PropTypes.shape({
-      numeroComplet: PropTypes.string.isRequired
+      numeroComplet: PropTypes.string.isRequired,
+      modified: PropTypes.object
     }).isRequired,
     actions: PropTypes.shape({
+      deleteItem: PropTypes.func.isRequired,
+      updateNumero: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
+  delete = async () => {
+    const {numero, actions} = this.props
+    await actions.deleteItem(numero)
+  }
+
+  cancel = async () => {
+    const {numero, actions} = this.props
+    await actions.cancelChange(numero)
+    this.setState({position: null})
+  }
+
+  handlePosition = position => {
+    this.setState({position})
+  }
+
+  edit = async () => {
+    const {position} = this.state
+    const {numero, actions} = this.props
+
+    try {
+      if (position) {
+        await actions.updateNumero(numero, {
+          positions: [position]
+        })
+
+        this.setState({position: null})
+      }
+    } catch (error) {
+      this.setState({error})
+    }
+  }
+
   render() {
-    const {commune, voie, numero, actions} = this.props
+    const {position, error} = this.state
+    const {codeCommune, voie, numero, actions} = this.props
+    let pos = position
+
+    if (!pos && numero.modified) {
+      pos = numero.modified.positions[0]
+    }
 
     return (
       <div>
         <Head
           name={numero.numeroComplet}
           parent={voie.nomVoie}
-          previous={() => actions.select(commune.code, voie.codeVoie)}
+          previous={() => actions.select(codeCommune, voie.codeVoie)}
         />
 
+        <div className='shadow-box'>
+          <NumeroForm
+            numero={numero}
+            position={pos}
+            handlePosition={this.handlePosition}
+            updateNumero={position ? this.edit : null}
+            deleteNumero={this.delete}
+            cancelChange={this.cancel}
+            error={error}
+          />
+        </div>
+
         <style jsx>{`
-            .voies {
-              margin: 2em 0;
-            }
+          .voies {
+            margin: 2em 0;
+          }
+
+          .shadow-box {
+            border: 1px solid ${theme.border};
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+            padding: 1em;
+          }
         `}</style>
       </div>
     )

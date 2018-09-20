@@ -19,14 +19,9 @@ const getStatus = item => {
 }
 
 class NumeroItem extends React.Component {
-  constructor(props) {
-    super(props)
-    const {numero} = props
-
-    this.state = {
-      editing: false,
-      position: numero.modified ? numero.modified.positions[0] : null
-    }
+  state = {
+    editing: false,
+    position: null
   }
 
   static propTypes = {
@@ -68,7 +63,7 @@ class NumeroItem extends React.Component {
           positions: [position]
         })
 
-        this.setState({editing: false})
+        this.setState({editing: false, position: null})
       }
     } catch (error) {
       this.setState({error})
@@ -78,7 +73,8 @@ class NumeroItem extends React.Component {
   toggleEdit = () => {
     this.setState(state => {
       return {
-        editing: !state.editing
+        editing: !state.editing,
+        position: state.editing ? state.position : null
       }
     })
   }
@@ -91,15 +87,20 @@ class NumeroItem extends React.Component {
       status: getStatus(numero),
       handleClick: () => actions.select(codeCommune, codeVoie, numero.numeroComplet)
     }
+    let pos = position
+
+    if (!pos && numero.modified) {
+      pos = numero.modified.positions[0]
+    }
 
     return (
       <EditNumero item={item} toggleForm={this.toggleEdit}>
         {editing && (
           <NumeroForm
             numero={numero}
-            position={position}
+            position={pos}
             handlePosition={this.handlePosition}
-            updateNumero={this.edit}
+            updateNumero={position ? this.edit : null}
             deleteNumero={this.delete}
             cancelChange={this.cancel}
             error={error}

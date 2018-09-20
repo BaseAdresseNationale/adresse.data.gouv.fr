@@ -29,7 +29,7 @@ class Context extends React.Component {
       <div>
         {numero ? (
           <NumeroContext
-            commune={commune}
+            codeCommune={commune.code}
             voie={voie}
             numero={numero}
             actions={actions}

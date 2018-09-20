@@ -39,7 +39,7 @@ class NumeroForm extends React.Component {
     }).isRequired,
     position: PropTypes.object,
     handlePosition: PropTypes.func.isRequired,
-    updateNumero: PropTypes.func.isRequired,
+    updateNumero: PropTypes.func,
     cancelChange: PropTypes.func.isRequired,
     deleteNumero: PropTypes.func.isRequired,
     error: PropTypes.instanceOf(Error)
@@ -47,6 +47,7 @@ class NumeroForm extends React.Component {
 
   static defaultProps = {
     position: null,
+    updateNumero: null,
     error: null
   }
 
@@ -81,14 +82,16 @@ class NumeroForm extends React.Component {
         )}
 
         <div className='buttons'>
-          <Button
-            color='red'
+          {!numero.deleted && (
+            <Button
+              color='red'
 
-            size='small'
-            onClick={deleteNumero}
-          >
-            Supprimer ce numéro
-          </Button>
+              size='small'
+              onClick={deleteNumero}
+            >
+              Supprimer ce numéro
+            </Button>
+          )}
 
           {(numero.edited || numero.deleted) && (
             <Button
@@ -99,7 +102,7 @@ class NumeroForm extends React.Component {
             </Button>
           )}
 
-          {position && (
+          {updateNumero && (
             <Button
               size='small'
               onClick={updateNumero}
