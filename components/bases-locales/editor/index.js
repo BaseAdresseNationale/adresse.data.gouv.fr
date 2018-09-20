@@ -160,6 +160,7 @@ class Editor extends React.Component {
       await this.state.model.cancelCommuneChange(item.code)
     } else if (type === 'voie') {
       await this.state.model.cancelVoieChange(commune.code, item.codeVoie)
+      this.setState({voie})
     } else {
       await this.state.model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
     }

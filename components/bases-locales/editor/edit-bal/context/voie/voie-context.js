@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import getStatus from '../../../../../../lib/bal/item'
+import Notification from '../../../../../notification'
+import Button from '../../../../../button'
+
 import Head from '../head'
 
 import NumerosList from './numeros-list'
@@ -19,6 +22,7 @@ class VoieContext extends React.Component {
     }).isRequired,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
+      cancelChange: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired,
     contour: PropTypes.object
@@ -42,6 +46,20 @@ class VoieContext extends React.Component {
           parent={commune.nom}
           previous={() => actions.select(commune.code)}
         />
+
+        {newName && (
+          <Notification type='info'>
+            <div>
+              <p>Anciennement nommée <b>{voie.nomVoie}</b>, vous avez renommé cette voie.</p>
+              <Button
+                size='small'
+                onClick={() => actions.cancelChange(voie)}
+              >
+                Revenir au nom original
+              </Button>
+            </div>
+          </Notification>
+        )}
 
         {hasNumero ? (
           <NumerosList

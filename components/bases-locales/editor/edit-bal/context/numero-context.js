@@ -76,7 +76,7 @@ class NumeroContext extends React.Component {
         <Head
           name={numero.numeroComplet}
           status={getStatus(numero)}
-          parent={voie.nomVoie}
+          parent={voie.modified ? voie.modified.nomVoie : voie.nomVoie}
           previous={() => actions.select(codeCommune, voie.codeVoie)}
         />
 
