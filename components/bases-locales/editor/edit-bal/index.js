@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
@@ -8,13 +8,14 @@ import ButtonLink from '../../../button-link'
 import LoadingContent from '../../../loading-content'
 
 import ContourCommuneMap from './contour-commune-map'
+import AdressesCommuneMap from './adresses-commune-map'
 import Context from './context'
 import Communes from './communes'
 
 export const FormContext = React.createContext()
 
 const getContour = communes => {
-  if (communes && Object.keys(communes).length > 0) {
+  if (Object.keys(communes).length > 0) {
     const geojson = contoursToGeoJson(Object.keys(communes).map(commune => communes[commune]))
 
     if (geojson.features.length > 0) {
@@ -23,6 +24,41 @@ const getContour = communes => {
   }
 
   return null
+}
+
+const getAddresses = commune => {
+  const geojson = {
+    type: 'FeatureCollection',
+    features: []
+  }
+
+  Object.keys(commune.voies).forEach(voieIdx => {
+    const voie = commune.voies[voieIdx]
+    if (voie.numeros) {
+      Object.keys(voie.numeros).forEach(numeroIdx => {
+        const numero = commune.voies[voieIdx].numeros[numeroIdx]
+        if (numero.positions.length > 0 && numero.id) {
+          geojson.features.push({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: numero.positions[0].coords
+            },
+            properties: {
+              ...numero,
+              codeCommune: commune.code,
+              codeVoie: voie.codeVoie,
+              source: numero.positions[0].source,
+              type: numero.positions[0].type,
+              lastUpdate: numero.positions[0].dateMAJ
+            }
+          })
+        }
+      })
+    }
+  })
+
+  return geojson
 }
 
 class EditBal extends React.Component {
@@ -49,31 +85,58 @@ class EditBal extends React.Component {
     error: null
   }
 
+  communesContours = null
+
+  addresses = null
+
+  componentDidUpdate(prevProps) {
+    if (this.props.communes && prevProps.communes !== this.props.communes) {
+      this.communesContours = getContour(this.props.communes)
+    } else if (this.props.commune && prevProps.commune !== this.props.commune) {
+      this.addresses = getAddresses(this.props.commune)
+    }
+  }
+
   render() {
+    const {communesContours, addresses} = this
     const {communes, commune, voie, numero, actions, downloadLink, filename, loading, error} = this.props
-    const contour = getContour(communes)
 
     return (
       <div>
-        {contour && contour.features.length > 0 && (
-          <div className='map'>
-            <ContourCommuneMap data={contour} select={actions.select} />
-          </div>
-        )}
 
         {commune ? (
-          <Context
-            commune={commune}
-            voie={voie}
-            numero={numero}
-            contour={contour}
-            actions={actions}
-          />
+          <Fragment>
+            {addresses && addresses.features.length > 0 && (
+              <div className='map'>
+                <AdressesCommuneMap
+                  data={addresses}
+                  selected={numero}
+                  select={actions.select}
+                />
+              </div>
+            )}
+
+            <Context
+              commune={commune}
+              voie={voie}
+              numero={numero}
+              contour={communesContours}
+              actions={actions}
+            />
+          </Fragment>
         ) : (
-          <Communes
-            communes={communes}
-            actions={actions}
-          />
+          <Fragment>
+            {communesContours && communesContours.features.length > 0 && (
+              <div className='map'>
+                <ContourCommuneMap data={communesContours} select={actions.select} />
+              </div>
+            )}
+
+            <Communes
+              communes={communes}
+              actions={actions}
+            />
+          </Fragment>
         )}
 
         <LoadingContent loading={loading} error={error} centered>
