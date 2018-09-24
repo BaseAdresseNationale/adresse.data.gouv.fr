@@ -35,22 +35,7 @@ class AdressesCommuneMap extends React.Component {
     const {selected} = this.props
 
     if (selected !== prevProps.selected) {
-      const source = this.map.getSource('selected')
-
-      if (selected) {
-        source.setData({
-          type: 'Point',
-          coordinates: selected.positions[0].coords
-        })
-        this.map.setCenter(selected.positions[0].coords)
-        this.map.setZoom(16)
-      } else {
-        source.setData({
-          type: 'Point',
-          coordinates: null
-        })
-        this.fitBounds()
-      }
+      this.updateSelected()
     }
   }
 
@@ -83,14 +68,6 @@ class AdressesCommuneMap extends React.Component {
       data
     })
 
-    map.addSource('selected', {
-      type: 'geojson',
-      data: selected ? {
-        type: 'Point',
-        coordinates: selected.positions[0].coords
-      } : null
-    })
-
     map.addLayer({
       id: 'circle',
       type: 'circle',
@@ -114,7 +91,39 @@ class AdressesCommuneMap extends React.Component {
       }
     })
 
-    map.addLayer({
+    if (selected) {
+      this.addSelectedPoint()
+    }
+  }
+
+  updateSelected = () => {
+    const {map} = this
+    const {selected} = this.props
+
+    if (selected) {
+      this.addSelectedPoint()
+      this.map.setCenter(selected.positions[0].coords)
+      this.map.setZoom(16)
+    } else {
+      map.removeLayer('selected')
+      map.removeSource('selected')
+    }
+
+    this.fitBounds()
+  }
+
+  addSelectedPoint = () => {
+    const {selected} = this.props
+
+    this.map.addSource('selected', {
+      type: 'geojson',
+      data: selected ? {
+        type: 'Point',
+        coordinates: selected.positions[0].coords
+      } : null
+    })
+
+    this.map.addLayer({
       id: 'selected',
       type: 'circle',
       source: 'selected',
