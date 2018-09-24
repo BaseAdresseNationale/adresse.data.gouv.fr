@@ -32,10 +32,16 @@ class AdressesCommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {selected} = this.props
+    const {data, selected} = this.props
 
     if (selected !== prevProps.selected) {
       this.updateSelected()
+    }
+
+    if (data !== prevProps.data) {
+      const source = this.map.getSource('data')
+      source.setData(data)
+      this.fitBounds()
     }
   }
 

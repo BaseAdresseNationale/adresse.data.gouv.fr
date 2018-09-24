@@ -37,7 +37,7 @@ const getAddresses = commune => {
     if (voie.numeros) {
       Object.keys(voie.numeros).forEach(numeroIdx => {
         const numero = commune.voies[voieIdx].numeros[numeroIdx]
-        if (numero.positions.length > 0 && numero.id) {
+        if (numero.positions.length > 0) {
           geojson.features.push({
             type: 'Feature',
             geometry: {
