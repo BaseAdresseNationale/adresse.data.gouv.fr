@@ -85,21 +85,10 @@ class EditBal extends React.Component {
     error: null
   }
 
-  communesContours = null
-
-  addresses = null
-
-  componentDidUpdate(prevProps) {
-    if (this.props.communes && prevProps.communes !== this.props.communes) {
-      this.communesContours = getContour(this.props.communes)
-    } else if (this.props.commune && prevProps.commune !== this.props.commune) {
-      this.addresses = getAddresses(this.props.commune)
-    }
-  }
-
   render() {
-    const {communesContours, addresses} = this
     const {communes, commune, voie, numero, actions, downloadLink, filename, loading, error} = this.props
+    const communesContours = communes ? getContour(communes) : null
+    const addresses = commune ? getAddresses(commune) : null
 
     return (
       <div>
