@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../../styles/theme'
-
 import Notification from '../../../../notification'
 
 import SearchCommunes from '../../../init-base/search-communes'
