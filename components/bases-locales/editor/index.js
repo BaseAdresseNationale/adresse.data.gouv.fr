@@ -128,11 +128,12 @@ class Editor extends React.Component {
   }
 
   deleteItem = async item => {
-    const {model, communes, commune, voie} = this.state
+    const {model, communes, commune, numero, voie} = this.state
     const type = getType(item)
     let updatedCommunes = null
     let updatedCommune = null
     let updatedVoie = null
+    let updatedNumero = numero
 
     if (type === 'commune') {
       await model.deleteCommune(item.code)
@@ -142,13 +143,17 @@ class Editor extends React.Component {
       updatedCommune = await model.getCommune(commune.code)
     } else {
       await model.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
+      if (!await model.getNumero(commune.code, voie.codeVoie, item.numeroComplet)) {
+        updatedNumero = null
+      }
       updatedVoie = await model.getVoie(commune.code, voie.codeVoie)
     }
 
     this.setState({
       communes: updatedCommunes || communes,
       commune: updatedCommune || commune,
-      voie: updatedVoie || voie
+      voie: updatedVoie || voie,
+      numero: updatedNumero
     })
   }
 
