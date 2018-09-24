@@ -6,27 +6,20 @@ import computeBbox from '@turf/bbox'
 
 import theme from '../../../../../../styles/theme'
 
-function pointOnPos(position) {
-  const {lat, lng} = position
-
-  return {
-    type: 'Point',
-    coordinates: [lng, lat]
-  }
-}
+import {pointOnPos, pointOnCoords} from '../../../../../../lib/mapbox-gl'
 
 class CreateNumeroMap extends React.Component {
   static propTypes = {
-    data: PropTypes.object,
+    position: PropTypes.object,
     handlePosition: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    data: null
+    position: null
   }
 
   componentDidMount() {
-    const {data} = this.props
+    const {position} = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -37,8 +30,19 @@ class CreateNumeroMap extends React.Component {
 
     this.map.on('load', this.onLoad)
 
-    if (data) {
+    if (position) {
       this.fitBounds()
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.position !== this.props.position) {
+      const source = this.map.getSource('point')
+      source.setData(pointOnCoords(this.position))
+
+      if (this.props.position) {
+        this.fitBounds()
+      }
     }
   }
 
@@ -49,8 +53,8 @@ class CreateNumeroMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {data} = this.props
-    const bbox = computeBbox(data)
+    const {position} = this.props
+    const bbox = computeBbox(pointOnCoords(position))
 
     this.map.fitBounds(bbox, {
       padding: 30,
@@ -61,16 +65,14 @@ class CreateNumeroMap extends React.Component {
 
   onLoad = () => {
     const {map} = this
+    const {position} = this.props
 
     map.on('dragend', this.getCenter)
     map.on('zoomend', this.getCenter)
 
     map.addSource('point', {
       type: 'geojson',
-      data: {
-        type: 'Point',
-        coordinates: [0, 0]
-      }
+      data: pointOnCoords(position)
     })
 
     map.addLayer({

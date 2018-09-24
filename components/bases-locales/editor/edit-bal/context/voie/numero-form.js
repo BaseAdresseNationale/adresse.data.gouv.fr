@@ -4,40 +4,20 @@ import PropTypes from 'prop-types'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
-import CreateNumeroMap from './edit-numero-map'
-
-const positionToGeoJson = (numero, position) => {
-  if (position && position.coords) {
-    return {
-      type: 'FeatureCollection',
-      features: [
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: position.coords
-          },
-          properties: {
-            id: numero.id,
-            numero: numero.numeroComplet
-          }
-        }
-      ]
-    }
-  }
-
-  return null
-}
+import EditNumeroMap from './edit-numero-map'
 
 class NumeroForm extends React.Component {
   static propTypes = {
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired,
+      positions: PropTypes.array.isRequired,
       edited: PropTypes.bool,
       modified: PropTypes.object,
       deleted: PropTypes.bool
     }).isRequired,
-    position: PropTypes.object,
+    position: PropTypes.shape({
+      coords: PropTypes.array
+    }),
     handlePosition: PropTypes.func.isRequired,
     updateNumero: PropTypes.func,
     cancelChange: PropTypes.func.isRequired,
@@ -58,8 +38,6 @@ class NumeroForm extends React.Component {
 
   render() {
     const {numero, position, updateNumero, deleteNumero, cancelChange, error} = this.props
-    const origalPos = positionToGeoJson(numero, numero.positions[0])
-    const newPos = position ? positionToGeoJson(numero, position) : null
 
     return (
       <div>
@@ -68,9 +46,9 @@ class NumeroForm extends React.Component {
             Faites glisser la carte pour indiquer la nouvelle position du numéro.
           </Notification>
 
-          <CreateNumeroMap
-            data={origalPos}
-            position={newPos}
+          <EditNumeroMap
+            position={numero.positions[0].coords}
+            newPosition={position ? position.coords : null}
             handlePosition={this.handleCoords}
           />
         </div>

@@ -6,15 +6,17 @@ import computeBbox from '@turf/bbox'
 
 import theme from '../../../../../../styles/theme'
 
+import {pointOnCoords} from '../../../../../../lib/mapbox-gl'
+
 class EditNumeroMap extends React.Component {
   static propTypes = {
-    data: PropTypes.object.isRequired,
-    position: PropTypes.object,
+    position: PropTypes.array.isRequired,
+    newPosition: PropTypes.array,
     handlePosition: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    position: null
+    newPosition: null
   }
 
   componentDidMount() {
@@ -29,12 +31,17 @@ class EditNumeroMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {position} = this.props
+    const {position, newPosition} = this.props
+    const {map} = this
 
     if (prevProps.position !== position) {
-      const {map} = this
+      const source = map.getSource('original')
+      source.setData(pointOnCoords(position))
+      this.fitBounds()
+    }
 
-      if (position) {
+    if (prevProps.newPosition !== newPosition) {
+      if (newPosition) {
         this.updateNewPosition()
       } else {
         map.removeLayer('new-point')
@@ -49,14 +56,20 @@ class EditNumeroMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {data, position} = this.props
+    const {position, newPosition} = this.props
     const geojson = {
       type: 'FeatureCollection',
-      features: [data.features[0]]
+      features: [{
+        type: 'Feature',
+        geometry: pointOnCoords(position)
+      }]
     }
 
-    if (position) {
-      geojson.features.push(position.features[0])
+    if (newPosition) {
+      geojson.features.push({
+        type: 'Feature',
+        geometry: pointOnCoords(newPosition)
+      })
     }
 
     const bbox = computeBbox(geojson)
@@ -71,14 +84,14 @@ class EditNumeroMap extends React.Component {
 
   onLoad = () => {
     const {map} = this
-    const {data} = this.props
+    const {position} = this.props
 
     map.on('dragend', this.getCenter)
     map.on('zoomend', this.getCenter)
 
     map.addSource('original', {
       type: 'geojson',
-      data
+      data: pointOnCoords(position)
     })
 
     map.addLayer({
@@ -96,18 +109,19 @@ class EditNumeroMap extends React.Component {
 
   updateNewPosition = () => {
     const {map} = this
-    const {position} = this.props
+    const {newPosition} = this.props
     const sourceId = 'new'
     const layerId = 'new-point'
     const source = map.getSource(sourceId)
+    const data = {
+      type: 'geojson',
+      data: pointOnCoords(newPosition)
+    }
 
     if (source) {
-      source.setData(position)
+      source.setData(pointOnCoords(newPosition))
     } else {
-      map.addSource(sourceId, {
-        type: 'geojson',
-        data: position
-      })
+      map.addSource(sourceId, data)
     }
 
     if (!map.getLayer(layerId)) {

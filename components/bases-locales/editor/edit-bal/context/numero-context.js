@@ -9,7 +9,7 @@ import NumeroForm from './voie/numero-form'
 
 class NumeroContext extends React.Component {
   state = {
-    position: null,
+    newPosition: null,
     error: null
   }
 
@@ -38,24 +38,24 @@ class NumeroContext extends React.Component {
   cancel = async () => {
     const {numero, actions} = this.props
     await actions.cancelChange(numero)
-    this.setState({position: null})
+    this.setState({newPosition: null})
   }
 
   handlePosition = position => {
-    this.setState({position})
+    this.setState({newPosition: position})
   }
 
   edit = async () => {
-    const {position} = this.state
+    const {newPosition} = this.state
     const {numero, actions} = this.props
 
     try {
-      if (position) {
+      if (newPosition) {
         await actions.updateNumero(numero, {
-          positions: [position]
+          positions: [newPosition]
         })
 
-        this.setState({position: null})
+        this.setState({newPosition: null})
       }
     } catch (error) {
       this.setState({error})
@@ -63,13 +63,9 @@ class NumeroContext extends React.Component {
   }
 
   render() {
-    const {position, error} = this.state
+    const {newPosition, error} = this.state
     const {codeCommune, voie, numero, actions} = this.props
-    let pos = position
-
-    if (!pos && numero.modified) {
-      pos = numero.modified.positions[0]
-    }
+    const pos = numero.modified ? numero.modified.positions[0] : null
 
     return (
       <div>
@@ -83,9 +79,9 @@ class NumeroContext extends React.Component {
         <div className='shadow-box'>
           <NumeroForm
             numero={numero}
-            position={pos}
+            position={newPosition || pos}
             handlePosition={this.handlePosition}
-            updateNumero={position ? this.edit : null}
+            updateNumero={newPosition ? this.edit : null}
             deleteNumero={this.delete}
             cancelChange={this.cancel}
             error={error}
