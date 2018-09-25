@@ -60,7 +60,7 @@ class NumerosList extends React.Component {
       await actions.addItem({
         numeroComplet,
         positions: [{
-          coords: [position.lng, position.lat]
+          coords: position
         }]
       })
     } catch (err) {
@@ -69,6 +69,7 @@ class NumerosList extends React.Component {
 
     this.setState({
       numeroComplet: error ? numeroComplet : '',
+      position: error ? position : null,
       displayForm: Boolean(error),
       error
     })
@@ -83,7 +84,7 @@ class NumerosList extends React.Component {
   }
 
   render() {
-    const {numeroComplet, displayForm, error} = this.state
+    const {numeroComplet, position, displayForm, error} = this.state
     const {codeCommune, codeVoie, numeros, contour, actions} = this.props
 
     return (
@@ -97,6 +98,7 @@ class NumerosList extends React.Component {
             <CreateNumero
               input={numeroComplet}
               contour={contour}
+              position={position}
               handleInput={this.handleInput}
               handlePosition={this.handlePosition}
               handleSubmit={this.addNumero}

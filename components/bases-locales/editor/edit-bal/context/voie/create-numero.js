@@ -12,6 +12,7 @@ class CreateNumero extends React.Component {
   static propTypes = {
     input: PropTypes.string,
     contour: PropTypes.object,
+    position: PropTypes.array,
     error: PropTypes.instanceOf(Error),
     handleInput: PropTypes.func.isRequired,
     handlePosition: PropTypes.func.isRequired,
@@ -21,6 +22,7 @@ class CreateNumero extends React.Component {
   static defaultProps = {
     input: '',
     contour: null,
+    position: null,
     error: null
   }
 
@@ -36,7 +38,7 @@ class CreateNumero extends React.Component {
   }
 
   render() {
-    const {input, contour, error, handlePosition, handleSubmit} = this.props
+    const {input, contour, position, error, handleSubmit, handlePosition} = this.props
 
     return (
       <div className='voie-form'>
@@ -60,16 +62,19 @@ class CreateNumero extends React.Component {
             <Notification type='info'>
               Faites glisser la carte pour indiquer la position du numéro.
             </Notification>
+
             <CreateNumeroMap
-              data={contour}
+              contour={contour}
               handlePosition={handlePosition}
             />
           </div>
 
           <div className='submit'>
-            <Button type='submit' onClick={handleSubmit}>
-            Enregister
-            </Button>
+            {position && (
+              <Button type='submit' onClick={handleSubmit}>
+                Enregister
+              </Button>
+            )}
           </div>
         </PreventedDefaultForm>
 
@@ -88,6 +93,12 @@ class CreateNumero extends React.Component {
           }
 
           .map {
+            margin: 1em 0;
+          }
+
+          .button-marker {
+            display: flex;
+            justify-content: center;
             margin: 1em 0;
           }
 

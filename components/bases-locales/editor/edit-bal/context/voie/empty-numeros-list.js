@@ -30,13 +30,6 @@ class EmptyVoiesList extends React.Component {
     })
   }
 
-  handleCoords = coords => {
-    this.setState({
-      position: {coords: [coords.lng, coords.lat]},
-      error: null
-    })
-  }
-
   handlePosition = position => {
     this.setState({
       position,
@@ -47,6 +40,7 @@ class EmptyVoiesList extends React.Component {
   addNumero = async () => {
     const {numeroComplet, position} = this.state
     const {addNumero} = this.props
+    let error = null
 
     try {
       if (numeroComplet === '') {
@@ -59,13 +53,18 @@ class EmptyVoiesList extends React.Component {
 
       await addNumero({
         numeroComplet,
-        positions: [position]
+        positions: [{
+          coords: position
+        }]
       })
-    } catch (error) {
-      this.setState({
-        error
-      })
+    } catch (err) {
+      error = err
     }
+
+    this.setState({
+      numeroComplet: error ? numeroComplet : '',
+      error
+    })
   }
 
   render() {
@@ -84,10 +83,10 @@ class EmptyVoiesList extends React.Component {
 
           <CreateNumero
             input={numeroComplet}
-            position={position}
             contour={contour}
+            position={position}
             handleInput={this.handleInput}
-            handlePosition={this.handleCoords}
+            handlePosition={this.handlePosition}
             handleSubmit={this.addNumero}
             error={error}
           />

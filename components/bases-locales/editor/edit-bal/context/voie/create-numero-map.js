@@ -3,23 +3,23 @@ import PropTypes from 'prop-types'
 import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 import computeBbox from '@turf/bbox'
+import MapboxDraw from '@mapbox/mapbox-gl-draw'
+import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
-import theme from '../../../../../../styles/theme'
-
-import {pointOnPos, pointOnCoords} from '../../../../../../lib/mapbox-gl'
+import {pointOnCoords} from '../../../../../../lib/mapbox-gl'
 
 class CreateNumeroMap extends React.Component {
   static propTypes = {
-    position: PropTypes.object,
+    contour: PropTypes.object,
     handlePosition: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    position: null
+    contour: null
   }
 
   componentDidMount() {
-    const {position} = this.props
+    const {contour} = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -28,33 +28,35 @@ class CreateNumeroMap extends React.Component {
       zoom: 5
     })
 
-    this.map.on('load', this.onLoad)
-
-    if (position) {
-      this.fitBounds()
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.position !== this.props.position) {
-      const source = this.map.getSource('point')
-      source.setData(pointOnCoords(this.position))
-
-      if (this.props.position) {
-        this.fitBounds()
+    this.draw = new MapboxDraw({
+      displayControlsDefault: false,
+      controls: {
+        point: true,
+        trash: true
       }
+    })
+
+    this.map.on('load', this.onLoad)
+    this.map.addControl(this.draw)
+
+    this.map.on('draw.create', this.createPosition)
+    this.map.on('draw.delete', () => this.props.handlePosition(null))
+
+    if (contour) {
+      this.fitBounds()
     }
   }
 
   componentWillUnmount() {
     const {map} = this
 
-    map.off('dragend', this.dragEnd)
+    map.off('draw.create', this.createPosition)
+    map.off('draw.delete', () => this.props.handlePosition(null))
   }
 
   fitBounds = () => {
-    const {position} = this.props
-    const bbox = computeBbox(pointOnCoords(position))
+    const {contour} = this.props
+    const bbox = computeBbox(contour)
 
     this.map.fitBounds(bbox, {
       padding: 30,
@@ -65,14 +67,11 @@ class CreateNumeroMap extends React.Component {
 
   onLoad = () => {
     const {map} = this
-    const {position} = this.props
-
-    map.on('dragend', this.getCenter)
-    map.on('zoomend', this.getCenter)
+    const {contour} = this.props
 
     map.addSource('point', {
       type: 'geojson',
-      data: pointOnCoords(position)
+      data: pointOnCoords(contour)
     })
 
     map.addLayer({
@@ -86,15 +85,20 @@ class CreateNumeroMap extends React.Component {
     })
   }
 
-  getCenter = () => {
-    const {map} = this
+  createPosition = event => {
+    const {draw} = this
     const {handlePosition} = this.props
-    const center = map.getCenter()
-    const point = map.getSource('point')
+    const currentFeature = event.features[0]
+    const {features} = draw.getAll()
 
-    point.setData(pointOnPos(center))
+    Object.keys(features).forEach(key => {
+      const {id} = features[key]
+      if (id !== currentFeature.id) {
+        draw.delete(id)
+      }
+    })
 
-    handlePosition(center)
+    handlePosition(currentFeature.geometry.coordinates)
   }
 
   render() {
@@ -104,44 +108,13 @@ class CreateNumeroMap extends React.Component {
           this.mapContainer = el
         }} className='container' />
 
-        <div className='map-center' />
-
         <style
-          dangerouslySetInnerHTML={{__html: mapStyle}} // eslint-disable-line react/no-danger
+          dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger
         />
         <style jsx>{`
           .container {
             position: relative;
             height: 400px;
-            width: 100%;
-          }
-
-          .map-center {
-            position: absolute;
-            pointer-events: none;
-            top: calc(50% - 30px);
-            left: calc(50% - 30px);
-            color: white;
-            width: 60px;
-            height: 60px;
-          }
-
-          .map-center:before, .map-center:after {
-            content: "";
-            position: absolute;
-            z-index: 1;
-            background: ${theme.border};
-          }
-
-          .map-center:before {
-            left: 50%;
-            width: 2px;
-            height: 100%;
-          }
-
-          .map-center:after {
-            top: 50%;
-            height: 1px;
             width: 100%;
           }
         `}</style>
