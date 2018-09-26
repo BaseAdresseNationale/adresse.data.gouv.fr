@@ -60,11 +60,12 @@ class CreateNumero extends React.Component {
 
           <div className='map'>
             <Notification type='info'>
-              Faites glisser la carte pour indiquer la position du numéro.
+              Ajouter un marqueur à la position du numéro.
             </Notification>
 
             <CreateNumeroMap
               contour={contour}
+              position={position}
               handlePosition={handlePosition}
             />
           </div>

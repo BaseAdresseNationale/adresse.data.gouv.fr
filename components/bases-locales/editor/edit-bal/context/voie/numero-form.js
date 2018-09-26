@@ -33,7 +33,7 @@ class NumeroForm extends React.Component {
 
   handleCoords = coords => {
     const {handlePosition} = this.props
-    handlePosition({coords: [coords.lng, coords.lat]})
+    handlePosition({coords})
   }
 
   render() {
@@ -43,12 +43,11 @@ class NumeroForm extends React.Component {
       <div>
         <div className='map'>
           <Notification type='info'>
-            Faites glisser la carte pour indiquer la nouvelle position du numéro.
+              Sélectionnez le marqueur puis déplacez-le à la position souhaitée.
           </Notification>
 
           <EditNumeroMap
-            position={numero.positions[0].coords}
-            newPosition={position ? position.coords : null}
+            position={position ? position.coords : numero.positions[0].coords}
             handlePosition={this.handleCoords}
           />
         </div>

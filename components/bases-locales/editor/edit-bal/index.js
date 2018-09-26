@@ -109,7 +109,7 @@ class EditBal extends React.Component {
               commune={commune}
               voie={voie}
               numero={numero}
-              contour={communesContours}
+              contour={communesContours || addresses}
               actions={actions}
             />
           </Fragment>

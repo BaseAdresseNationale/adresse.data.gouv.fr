@@ -6,16 +6,18 @@ import computeBbox from '@turf/bbox'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
-import {pointOnCoords} from '../../../../../../lib/mapbox-gl'
+import {pointOnCoords, numeroPointStyles} from '../../../../../../lib/mapbox-gl'
 
 class CreateNumeroMap extends React.Component {
   static propTypes = {
     contour: PropTypes.object,
+    position: PropTypes.array,
     handlePosition: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    contour: null
+    contour: null,
+    position: null
   }
 
   componentDidMount() {
@@ -33,17 +35,37 @@ class CreateNumeroMap extends React.Component {
       controls: {
         point: true,
         trash: true
-      }
+      },
+      styles: numeroPointStyles
     })
 
     this.map.on('load', this.onLoad)
     this.map.addControl(this.draw)
 
     this.map.on('draw.create', this.createPosition)
+    this.map.on('draw.update', this.createPosition)
     this.map.on('draw.delete', () => this.props.handlePosition(null))
 
     if (contour) {
       this.fitBounds()
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {position} = this.props
+    const {draw} = this
+
+    if (prevProps.position !== position && position) {
+      if (position) {
+        draw.set({
+          type: 'FeatureCollection',
+          features: [{
+            type: 'Feature',
+            properties: {},
+            geometry: pointOnCoords(position)
+          }]
+        })
+      }
     }
   }
 
@@ -86,17 +108,8 @@ class CreateNumeroMap extends React.Component {
   }
 
   createPosition = event => {
-    const {draw} = this
     const {handlePosition} = this.props
     const currentFeature = event.features[0]
-    const {features} = draw.getAll()
-
-    Object.keys(features).forEach(key => {
-      const {id} = features[key]
-      if (id !== currentFeature.id) {
-        draw.delete(id)
-      }
-    })
 
     handlePosition(currentFeature.geometry.coordinates)
   }
