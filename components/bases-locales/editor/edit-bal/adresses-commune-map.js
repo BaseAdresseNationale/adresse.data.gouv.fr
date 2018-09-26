@@ -24,12 +24,14 @@ class AdressesCommuneMap extends React.Component {
     data: PropTypes.shape({
       features: PropTypes.array.isRequired
     }).isRequired,
+    voieBounds: PropTypes.object,
     select: PropTypes.func.isRequired,
     selected: PropTypes.object
   }
 
   static defaultProps = {
-    selected: null
+    selected: null,
+    voieBounds: null
   }
 
   componentDidMount() {
@@ -77,8 +79,8 @@ class AdressesCommuneMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {data} = this.props
-    const bbox = computeBbox(data)
+    const {data, voieBounds} = this.props
+    const bbox = computeBbox(voieBounds || data)
 
     this.map.fitBounds(bbox, {
       padding: 30,

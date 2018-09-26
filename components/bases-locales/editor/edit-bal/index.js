@@ -61,6 +61,37 @@ const getAddresses = commune => {
   return geojson
 }
 
+const getVoieAddresses = (codeCommune, voie) => {
+  const geojson = {
+    type: 'FeatureCollection',
+    features: []
+  }
+  if (voie.numeros) {
+    Object.keys(voie.numeros).forEach(numeroIdx => {
+      const numero = voie.numeros[numeroIdx]
+      if (numero.positions.length > 0) {
+        geojson.features.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: numero.edited ? numero.modified.positions[0].coords : numero.positions[0].coords
+          },
+          properties: {
+            ...numero,
+            codeCommune,
+            codeVoie: voie.codeVoie,
+            source: numero.positions[0].source,
+            type: numero.positions[0].type,
+            lastUpdate: numero.positions[0].dateMAJ
+          }
+        })
+      }
+    })
+  }
+
+  return geojson
+}
+
 class EditBal extends React.Component {
   static propTypes = {
     communes: PropTypes.object,
@@ -88,6 +119,7 @@ class EditBal extends React.Component {
   render() {
     const {communes, commune, voie, numero, actions, downloadLink, filename, loading, error} = this.props
     const communesContours = communes ? getContour(communes) : null
+    const voieAddresses = voie ? getVoieAddresses(commune.code, voie) : null
     const addresses = commune ? getAddresses(commune) : null
 
     return (
@@ -100,6 +132,7 @@ class EditBal extends React.Component {
                 <AdressesCommuneMap
                   data={addresses}
                   selected={numero}
+                  voieBounds={voieAddresses}
                   select={actions.select}
                 />
               </div>
@@ -109,7 +142,7 @@ class EditBal extends React.Component {
               commune={commune}
               voie={voie}
               numero={numero}
-              contour={communesContours || addresses}
+              contour={communesContours || voieAddresses || addresses}
               actions={actions}
             />
           </Fragment>
