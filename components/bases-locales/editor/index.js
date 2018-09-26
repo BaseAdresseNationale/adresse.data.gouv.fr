@@ -125,6 +125,7 @@ class Editor extends React.Component {
   updateNumero = async (numero, modified) => {
     const {model, commune, voie} = this.state
     await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
+    this.setState({numero})
   }
 
   deleteItem = async item => {
@@ -158,7 +159,7 @@ class Editor extends React.Component {
   }
 
   cancelChange = async item => {
-    const {commune, voie} = this.state
+    const {commune, voie, numero} = this.state
     const type = getType(item)
 
     if (type === 'commune') {
@@ -168,6 +169,7 @@ class Editor extends React.Component {
       this.setState({voie})
     } else {
       await this.state.model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
+      this.setState({numero})
     }
   }
 

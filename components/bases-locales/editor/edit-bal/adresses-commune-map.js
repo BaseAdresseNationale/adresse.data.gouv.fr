@@ -4,6 +4,21 @@ import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 import computeBbox from '@turf/bbox'
 
+import theme from '../../../../styles/theme'
+
+const circleColor = [
+  'case',
+  ['boolean', ['feature-state', 'hover'], false],
+  theme.secondaryDarken,
+  ['boolean', ['get', 'created'], false],
+  theme.successBorder,
+  ['boolean', ['get', 'edited'], false],
+  theme.warningBorder,
+  ['boolean', ['get', 'deleted'], false],
+  theme.errorBorder,
+  theme.primary
+]
+
 class AdressesCommuneMap extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -32,16 +47,24 @@ class AdressesCommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const {map} = this
     const {data, selected} = this.props
-
-    if (selected !== prevProps.selected) {
-      this.updateSelected()
-    }
 
     if (data !== prevProps.data) {
       const source = this.map.getSource('data')
+
       source.setData(data)
+    }
+
+    if (!selected) {
+      map.setFilter('selected', ['any'])
       this.fitBounds()
+    }
+
+    if (selected && selected !== prevProps.selected) {
+      map.setFilter('selected', ['==', ['get', 'id'], selected.id])
+      map.setCenter(selected.positions[0].coords)
+      map.setZoom(16)
     }
   }
 
@@ -60,13 +83,14 @@ class AdressesCommuneMap extends React.Component {
     this.map.fitBounds(bbox, {
       padding: 30,
       linear: true,
+      maxZoom: 16,
       duration: 0
     })
   }
 
   onLoad = () => {
     const {map} = this
-    const {data, selected} = this.props
+    const {data} = this.props
 
     map.addSource('data', {
       type: 'geojson',
@@ -79,63 +103,44 @@ class AdressesCommuneMap extends React.Component {
       type: 'circle',
       source: 'data',
       paint: {
-        'circle-color': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          '#2c3e50',
-          '#3099df'
-        ],
-        'circle-radius': [
-          'step',
-          ['get', 'point_count'],
-          30,
-          100,
-          40,
-          750,
-          50
-        ]
+        'circle-color': circleColor,
+        'circle-radius': {
+          'base': 1.75,
+          'stops': [[12, 2], [22, 150]]
+        }
       }
     })
 
-    if (selected) {
-      this.addSelectedPoint()
-    }
-  }
-
-  updateSelected = () => {
-    const {map} = this
-    const {selected} = this.props
-
-    if (selected) {
-      this.addSelectedPoint()
-      this.map.setCenter(selected.positions[0].coords)
-      this.map.setZoom(16)
-    } else {
-      map.removeLayer('selected')
-      map.removeSource('selected')
-    }
-
-    this.fitBounds()
-  }
-
-  addSelectedPoint = () => {
-    const {selected} = this.props
-
-    this.map.addSource('selected', {
-      type: 'geojson',
-      data: selected ? {
-        type: 'Point',
-        coordinates: selected.positions[0].coords
-      } : null
-    })
-
-    this.map.addLayer({
+    map.addLayer({
       id: 'selected',
       type: 'circle',
-      source: 'selected',
+      source: 'data',
+      filter: ['any'],
       paint: {
-        'circle-color': '#2c3e50',
-        'circle-radius': 10
+        'circle-color': circleColor,
+        'circle-radius': {
+          'base': 1.75,
+          'stops': [[12, 4], [22, 200]]
+        }
+      }
+    })
+
+    map.addLayer({
+      id: 'numero-symbol',
+      type: 'symbol',
+      source: 'data',
+      layout: {
+        'icon-image': 'road_1',
+        'text-field': '{numeroComplet}',
+        'text-font': ['Noto Sans Italic'],
+        'text-size': {
+          'base': 1.75,
+          'stops': [[12, 2], [22, 150]]
+        },
+        'text-anchor': 'center'
+      },
+      paint: {
+        'text-color': '#fff'
       }
     })
   }
@@ -166,10 +171,13 @@ class AdressesCommuneMap extends React.Component {
   }
 
   onClick = (layer, event) => {
+    const {map} = this
     const {select} = this.props
     const [feature] = event.features
-
     const {codeCommune, codeVoie, numeroComplet} = feature.properties
+
+    map.setCenter(event.lngLat)
+    map.setZoom(16)
 
     select(codeCommune, codeVoie, numeroComplet)
   }

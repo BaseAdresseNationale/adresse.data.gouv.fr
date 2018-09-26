@@ -42,7 +42,7 @@ const getAddresses = commune => {
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: numero.positions[0].coords
+              coordinates: numero.edited ? numero.modified.positions[0].coords : numero.positions[0].coords
             },
             properties: {
               ...numero,
