@@ -66,7 +66,8 @@ const getVoieAddresses = (codeCommune, voie) => {
     type: 'FeatureCollection',
     features: []
   }
-  if (voie.numeros) {
+
+  if (voie.numeros.length > 0) {
     Object.keys(voie.numeros).forEach(numeroIdx => {
       const numero = voie.numeros[numeroIdx]
       if (numero.positions.length > 0) {
@@ -87,6 +88,8 @@ const getVoieAddresses = (codeCommune, voie) => {
         })
       }
     })
+  } else {
+    return null
   }
 
   return geojson
