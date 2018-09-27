@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Head from '../context/head'
-
 import CommunesList from './communes-list'
 import InitBAL from './init-bal'
 
@@ -22,12 +20,6 @@ class Communes extends React.Component {
 
     return (
       <div>
-        <Head
-          name='Communes'
-          parent={null}
-          toggleForm={this.toggleForm}
-        />
-
         {hasCommune ? (
           <CommunesList communes={communes} actions={actions} />
         ) : (
