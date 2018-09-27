@@ -35,7 +35,6 @@ class CreateVoie extends React.Component {
 
     return (
       <div>
-        <h4>Création d’une nouvelle voie</h4>
 
         <PreventedDefaultForm onSubmit={handleSubmit}>
           <label>Nom</label>

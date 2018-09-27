@@ -42,8 +42,6 @@ class CreateNumero extends React.Component {
 
     return (
       <div className='voie-form'>
-        <h3>Création d’un nouveau numéro</h3>
-
         <PreventedDefaultForm onSubmit={handleSubmit}>
           <div className='input'>
             <label>Numéro</label>

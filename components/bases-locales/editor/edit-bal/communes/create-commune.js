@@ -28,8 +28,6 @@ class CreateCommune extends React.Component {
 
     return (
       <div>
-        <h4>Ajout d’une nouvelle commune</h4>
-
         <SearchCommunes handleSelect={this.handleSave} />
 
         {error && (

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '../../../../../../styles/theme'
+
 import CreateItemWrapper from '../../create-item-wrapper'
 
 import VoieItem from './voie-item'
@@ -53,24 +55,34 @@ class VoiesList extends React.Component {
   }
 
   render() {
-    const {displayForm, nomVoie, error} = this.state
+    const {nomVoie, displayForm, error} = this.state
     const {codeCommune, voies, actions} = this.props
 
     return (
       <div className='voies-list'>
+        <div className='context-head'>
+          <div className='shadow-box'>
+            <div className='title'>
+              <h3>Liste des voies</h3>
+            </div>
+          </div>
+
+          <div className='divider' />
+
+        </div>
+
         <CreateItemWrapper
-          listName='Liste des voies'
+          title='Création d’une voie'
           buttonText='Ajouter une voie'
+          displayForm={displayForm}
           toggleForm={this.toggleForm}
         >
-          {displayForm && (
-            <CreateVoie
-              input={nomVoie}
-              handleInput={this.handleInput}
-              handleSubmit={this.addVoie}
-              error={error}
-            />
-          )}
+          <CreateVoie
+            input={nomVoie}
+            handleInput={this.handleInput}
+            handleSubmit={this.addVoie}
+            error={error}
+          />
         </CreateItemWrapper>
 
         <div className='list'>
@@ -85,6 +97,22 @@ class VoiesList extends React.Component {
         </div>
 
         <style jsx>{`
+          .title {
+            display: flex;
+            align-items: center;
+          }
+
+          h3 {
+            flex: 1;
+          }
+
+          .divider {
+            width: 100%;
+            border-bottom: 1px solid ${theme.border};
+            padding-bottom: 0.5em;
+            margin-bottom: 0.5em;
+          }
+
           .voies-list {
             display: flex;
             flex-direction: column;

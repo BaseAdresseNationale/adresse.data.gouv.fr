@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '../../../../../styles/theme'
+
 import CreateItemWrapper from '../create-item-wrapper'
 
 import CommuneItem from './commune-item'
@@ -47,17 +49,22 @@ class CommunesList extends React.Component {
 
     return (
       <div className='communes-list'>
+        <div className='title'>
+          <h3>Liste des voies</h3>
+        </div>
+
+        <div className='divider' />
+
         <CreateItemWrapper
-          listName='Liste des communes'
+          title='Création d’une commune'
           buttonText='Ajouter une commune'
+          displayForm={displayForm}
           toggleForm={this.toggleForm}
         >
-          {displayForm && (
-            <CreateCommune
-              submit={this.handleSubmit}
-              error={error}
-            />
-          )}
+          <CreateCommune
+            submit={this.handleSubmit}
+            error={error}
+          />
         </CreateItemWrapper>
 
         <div className='list'>
@@ -71,6 +78,18 @@ class CommunesList extends React.Component {
         </div>
 
         <style jsx>{`
+          .title {
+            display: flex;
+            align-items: center;
+          }
+
+          .divider {
+            width: 100%;
+            border-bottom: 1px solid ${theme.border};
+            padding-bottom: 0.5em;
+            margin-bottom: 0.5em;
+          }
+
           .communes-list {
             display: flex;
             flex-direction: column;

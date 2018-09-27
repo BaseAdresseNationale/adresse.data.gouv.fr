@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '../../../../../../styles/theme'
+
 import CreateItemWrapper from '../../create-item-wrapper'
 
 import NumeroItem from './numero-item'
@@ -89,9 +91,16 @@ class NumerosList extends React.Component {
 
     return (
       <div className='numeros-list'>
+        <div className='title'>
+          <h3>Liste des numéros</h3>
+        </div>
+
+        <div className='divider' />
+
         <CreateItemWrapper
-          listName='Liste des numéros'
+          title='Création d’un nouveau numéro'
           buttonText='Ajouter un numéro'
+          displayForm={displayForm}
           toggleForm={this.toggleForm}
         >
           {displayForm && (
@@ -123,6 +132,18 @@ class NumerosList extends React.Component {
         </div>
 
         <style jsx>{`
+          .title {
+            display: flex;
+            align-items: center;
+          }
+
+          .divider {
+            width: 100%;
+            border-bottom: 1px solid ${theme.border};
+            padding-bottom: 0.5em;
+            margin-bottom: 0.5em;
+          }
+
           .numeros-list {
             display: flex;
             flex-direction: column;

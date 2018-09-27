@@ -9,25 +9,27 @@ import Button from '../../../button'
 
 class CreateItemWrapper extends React.Component {
   static propTypes = {
-    listName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     buttonText: PropTypes.string.isRequired,
     toggleForm: PropTypes.func.isRequired,
+    displayForm: PropTypes.bool,
     children: PropTypes.node
   }
 
   static defaultProps = {
+    displayForm: false,
     children: null
   }
 
   render() {
-    const {listName, buttonText, toggleForm, children} = this.props
+    const {title, buttonText, displayForm, toggleForm, children} = this.props
 
     return (
       <div className='context-head'>
-        <div className='shadow-box'>
-          <div className='title'>
-            <h3>{listName}</h3>
-            {children ? (
+        {displayForm ? (
+          <div className='form'>
+            <div className='close'>
+              <h4>{title}</h4>
               <Button
                 color='red'
                 size='small'
@@ -35,19 +37,13 @@ class CreateItemWrapper extends React.Component {
               >
                 <FaClose />
               </Button>
-            ) : (
-              <Button onClick={toggleForm}>
-                {buttonText} <FaPlus />
-              </Button>
-            )}
-          </div>
-        </div>
+            </div>
 
-        <div className='divider' />
-
-        {children && (
-          <div className='form'>
             {children}
+          </div>
+        ) : (
+          <div className='create' onClick={toggleForm}>
+            {buttonText} <span><FaPlus /></span>
           </div>
         )}
 
@@ -57,7 +53,7 @@ class CreateItemWrapper extends React.Component {
             align-items: center;
           }
 
-          h3 {
+          h4 {
             flex: 1;
           }
 
@@ -68,9 +64,41 @@ class CreateItemWrapper extends React.Component {
             margin-bottom: 0.5em;
           }
 
+          .create {
+            margin: 0.5em 0 0 0;
+            padding: 1.5em;
+            display: flex;
+            text-align: center;
+            color: ${theme.primary};
+            border: 1px dashed ${theme.primary};
+            background-color: ${theme.primary}0a;
+          }
+
+          .create:hover {
+            cursor: pointer;
+            background-color: ${theme.primary};
+            color: ${theme.colors.white};
+            border: 1px solid ${theme.colors.white};
+          }
+
+          .create > div {
+            display: flex;
+            align-items: center;
+          }
+
           .form {
             border: 2px dashed ${theme.border};
             padding: 1em;
+          }
+
+          span {
+            margin-left: 0.5em;
+          }
+
+          .close {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
           }
         `}</style>
       </div>
