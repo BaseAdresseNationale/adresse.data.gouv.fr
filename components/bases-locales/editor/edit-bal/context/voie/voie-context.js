@@ -6,9 +6,44 @@ import Notification from '../../../../../notification'
 import Button from '../../../../../button'
 
 import Head from '../head'
+import AdressesCommuneMap from '../adresses-commune-map'
 
 import NumerosList from './numeros-list'
 import EmptyNumeroList from './empty-numeros-list'
+
+const getVoieAddresses = (codeCommune, voie) => {
+  const geojson = {
+    type: 'FeatureCollection',
+    features: []
+  }
+
+  if (Object.keys(voie.numeros).length > 0) {
+    Object.keys(voie.numeros).forEach(numeroIdx => {
+      const numero = voie.numeros[numeroIdx]
+      if (numero.positions.length > 0) {
+        geojson.features.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: numero.edited ? numero.modified.positions[0].coords : numero.positions[0].coords
+          },
+          properties: {
+            ...numero,
+            codeCommune,
+            codeVoie: voie.codeVoie,
+            source: numero.positions[0].source,
+            type: numero.positions[0].type,
+            lastUpdate: numero.positions[0].dateMAJ
+          }
+        })
+      }
+    })
+  } else {
+    return null
+  }
+
+  return geojson
+}
 
 class VoieContext extends React.Component {
   static propTypes = {
@@ -20,23 +55,26 @@ class VoieContext extends React.Component {
       nomVoie: PropTypes.string.isRequired,
       numeros: PropTypes.object
     }).isRequired,
+    addresses: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       cancelChange: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired,
-    contour: PropTypes.object
+    bounds: PropTypes.object
   }
 
   static defaultProps = {
-    contour: null
+    addresses: null,
+    bounds: null
   }
 
   render() {
-    const {commune, voie, contour, actions} = this.props
+    const {commune, voie, addresses, bounds, actions} = this.props
     const {numeros} = voie
     const hasNumero = numeros && Object.keys(numeros).length > 0
     const newName = voie.modified && voie.modified.nomVoie
+    const voieAddresses = getVoieAddresses(commune.code, voie)
 
     return (
       <div>
@@ -61,22 +99,29 @@ class VoieContext extends React.Component {
           </Notification>
         )}
 
+        {addresses && addresses.features.length > 0 && (
+          <AdressesCommuneMap
+            data={addresses}
+            bounds={voieAddresses}
+            select={actions.select}
+          />
+        )}
+
         {hasNumero ? (
           <NumerosList
             codeCommune={commune.code}
             codeVoie={voie.codeVoie}
             numeros={numeros}
-            contour={contour}
+            bounds={bounds}
             actions={actions}
           />
         ) : (
           <EmptyNumeroList
-            contour={contour}
+            bounds={bounds}
             addNumero={actions.addItem}
           />
         )}
       </div>
-
     )
   }
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import getStatus from '../../../../../../lib/bal/item'
 
 import Head from '../head'
+import AdressesCommuneMap from '../adresses-commune-map'
 
 import VoiesList from './voies-list'
 import EmptyVoiesList from './empty-voies-list'
@@ -14,14 +15,19 @@ class CommuneContext extends React.Component {
       nom: PropTypes.string.isRequired,
       voies: PropTypes.object.isRequired
     }).isRequired,
+    addresses: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
+  static defaultProps = {
+    addresses: null
+  }
+
   render() {
-    const {commune, actions} = this.props
+    const {commune, addresses, actions} = this.props
     const {voies} = commune
     const hasVoies = voies && Object.keys(voies).length > 0
 
@@ -33,6 +39,13 @@ class CommuneContext extends React.Component {
           parent='Communes'
           previous={() => actions.select(null)}
         />
+
+        {addresses && addresses.features.length > 0 && (
+          <AdressesCommuneMap
+            data={addresses}
+            select={actions.select}
+          />
+        )}
 
         {hasVoies ? (
           <VoiesList

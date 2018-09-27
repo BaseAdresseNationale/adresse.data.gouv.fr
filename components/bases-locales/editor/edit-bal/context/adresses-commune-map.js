@@ -4,7 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 import computeBbox from '@turf/bbox'
 
-import theme from '../../../../styles/theme'
+import theme from '../../../../../styles/theme'
 
 const circleColor = [
   'case',
@@ -24,14 +24,14 @@ class AdressesCommuneMap extends React.Component {
     data: PropTypes.shape({
       features: PropTypes.array.isRequired
     }).isRequired,
-    voieBounds: PropTypes.object,
+    bounds: PropTypes.object,
     select: PropTypes.func.isRequired,
     selected: PropTypes.object
   }
 
   static defaultProps = {
     selected: null,
-    voieBounds: null
+    bounds: null
   }
 
   componentDidMount() {
@@ -79,8 +79,8 @@ class AdressesCommuneMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {data, voieBounds} = this.props
-    const bbox = computeBbox(voieBounds || data)
+    const {data, bounds} = this.props
+    const bbox = computeBbox(bounds || data)
 
     this.map.fitBounds(bbox, {
       padding: 30,
@@ -197,9 +197,11 @@ class AdressesCommuneMap extends React.Component {
         <style jsx>{`
           .container {
             position: relative;
-            height: 100%;
+            height: 600px;
+            margin: 1em 0;
             width: 100%;
           }
+
           .info {
             position: absolute;
             pointer-events: none;
