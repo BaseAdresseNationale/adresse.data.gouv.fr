@@ -52,7 +52,7 @@ const getVoieAddresses = (codeCommune, voie) => {
     features: []
   }
 
-  if (voie.numeros.length > 0) {
+  if (Object.keys(voie.numeros).length > 0) {
     Object.keys(voie.numeros).forEach(numeroIdx => {
       const numero = voie.numeros[numeroIdx]
       if (numero.positions.length > 0) {
