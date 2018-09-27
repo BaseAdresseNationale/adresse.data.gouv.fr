@@ -2,29 +2,14 @@ import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
-import {contoursToGeoJson} from '../../../../lib/geojson'
-
 import ButtonLink from '../../../button-link'
 import LoadingContent from '../../../loading-content'
 
-import ContourCommuneMap from './contour-commune-map'
 import AdressesCommuneMap from './adresses-commune-map'
 import Context from './context'
 import Communes from './communes'
 
 export const FormContext = React.createContext()
-
-const getContour = communes => {
-  if (Object.keys(communes).length > 0) {
-    const geojson = contoursToGeoJson(Object.keys(communes).map(commune => communes[commune]))
-
-    if (geojson.features.length > 0) {
-      return geojson
-    }
-  }
-
-  return null
-}
 
 const getAddresses = commune => {
   const geojson = {
@@ -121,7 +106,6 @@ class EditBal extends React.Component {
 
   render() {
     const {communes, commune, voie, numero, actions, downloadLink, filename, loading, error} = this.props
-    const communesContours = communes ? getContour(communes) : null
     const voieAddresses = voie ? getVoieAddresses(commune.code, voie) : null
     const addresses = commune ? getAddresses(commune) : null
 
@@ -145,23 +129,15 @@ class EditBal extends React.Component {
               commune={commune}
               voie={voie}
               numero={numero}
-              contour={communesContours || voieAddresses || addresses}
+              contour={voieAddresses || addresses}
               actions={actions}
             />
           </Fragment>
         ) : (
-          <Fragment>
-            {communesContours && communesContours.features.length > 0 && (
-              <div className='map'>
-                <ContourCommuneMap data={communesContours} select={actions.select} />
-              </div>
-            )}
-
-            <Communes
-              communes={communes}
-              actions={actions}
-            />
-          </Fragment>
+          <Communes
+            communes={communes}
+            actions={actions}
+          />
         )}
 
         <LoadingContent loading={loading} error={error} centered>
