@@ -4,12 +4,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {validate, extractAsTree} from '@etalab/bal'
 import FaClose from 'react-icons/lib/fa/close'
+import FaPencil from 'react-icons/lib/fa/pencil'
 
 import detectEncoding from '../../../lib/detect-encoding'
 import {createBALValidationError} from '../../../lib/error'
 
 import theme from '../../../styles/theme'
 
+import Button from '../../button'
 import Section from '../../section'
 import Loader from '../../loader'
 import Holder from '../../csv/holder'
@@ -34,7 +36,8 @@ class Uploader extends React.Component {
   }
 
   static propTypes = {
-    onData: PropTypes.func.isRequired
+    onData: PropTypes.func.isRequired,
+    newFile: PropTypes.func.isRequired
   }
 
   handleError = error => {
@@ -101,6 +104,7 @@ class Uploader extends React.Component {
 
   render() {
     const {error, file, report, inProgress} = this.state
+    const {newFile} = this.props
 
     return (
       <div>
@@ -114,11 +118,17 @@ class Uploader extends React.Component {
           </div>
         </Section>
 
-        {inProgress &&
+        {inProgress ? (
           <div className='centered'>
             <h4>Analyse en cours…</h4>
             <Loader />
-          </div>}
+          </div>
+        ) : (
+          <div>
+            <h2>Ou</h2>
+            <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+          </div>
+        )}
 
         {report && !report.isValid && !error && (
           <div>
@@ -131,6 +141,7 @@ class Uploader extends React.Component {
             </Section>
           </div>
         )}
+
         <style jsx>{`
           .centered {
             display: flex;

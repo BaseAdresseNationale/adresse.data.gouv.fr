@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-unassigned-import
 // import 'regenerator-runtime/runtime'
 import React from 'react'
-import FaPencil from 'react-icons/lib/fa/pencil'
 
 import theme from '../../../styles/theme'
 
@@ -213,9 +212,10 @@ class Editor extends React.Component {
           />
         ) : (
           <div className='centered'>
-            <Uploader onData={this.handleData} />
-            <h2>Ou</h2>
-            <Button onClick={this.createNewFile}>Créer un fichier <FaPencil /></Button>
+            <Uploader
+              newFile={this.createNewFile}
+              onData={this.handleData}
+            />
           </div>
         )}
 
