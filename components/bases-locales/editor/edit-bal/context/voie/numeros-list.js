@@ -20,7 +20,7 @@ class NumerosList extends React.Component {
     codeCommune: PropTypes.string.isRequired,
     codeVoie: PropTypes.string.isRequired,
     numeros: PropTypes.object.isRequired,
-    contour: PropTypes.object,
+    bounds: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
@@ -28,7 +28,7 @@ class NumerosList extends React.Component {
   }
 
   static defaultProps = {
-    contour: null
+    bounds: null
   }
 
   handleInput = input => {
@@ -87,7 +87,7 @@ class NumerosList extends React.Component {
 
   render() {
     const {numeroComplet, position, displayForm, error} = this.state
-    const {codeCommune, codeVoie, numeros, contour, actions} = this.props
+    const {codeCommune, codeVoie, numeros, bounds, actions} = this.props
 
     return (
       <div className='numeros-list'>
@@ -106,7 +106,7 @@ class NumerosList extends React.Component {
           {displayForm && (
             <CreateNumero
               input={numeroComplet}
-              contour={contour}
+              bounds={bounds}
               position={position}
               handleInput={this.handleInput}
               handlePosition={this.handlePosition}

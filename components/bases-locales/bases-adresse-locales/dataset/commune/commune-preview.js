@@ -15,7 +15,7 @@ class CommunesPreview extends React.Component {
       voiesCount: PropTypes.number.isRequired,
       numerosCount: PropTypes.number.isRequired,
       population: PropTypes.number.isRequired,
-      contour: PropTypes.object
+      bounds: PropTypes.object
     }).isRequired
   }
 
@@ -33,10 +33,10 @@ class CommunesPreview extends React.Component {
   }
 
   render() {
-    const {contour, source} = this.props.commune
+    const {bounds, source} = this.props.commune
 
     return (
-      <Preview geojson={contour}>
+      <Preview geojson={bounds}>
         <Meta infos={this.infos} sources={source} />
       </Preview>
     )

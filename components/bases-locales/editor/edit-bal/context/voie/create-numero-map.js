@@ -10,18 +10,18 @@ import {pointOnCoords, numeroPointStyles} from '../../../../../../lib/mapbox-gl'
 
 class CreateNumeroMap extends React.Component {
   static propTypes = {
-    contour: PropTypes.object,
+    bounds: PropTypes.object,
     position: PropTypes.array,
     handlePosition: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    contour: null,
+    bounds: null,
     position: null
   }
 
   componentDidMount() {
-    const {contour} = this.props
+    const {bounds} = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -46,7 +46,7 @@ class CreateNumeroMap extends React.Component {
     this.map.on('draw.update', this.createPosition)
     this.map.on('draw.delete', () => this.props.handlePosition(null))
 
-    if (contour) {
+    if (bounds) {
       this.fitBounds()
     }
   }
@@ -77,8 +77,8 @@ class CreateNumeroMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {contour} = this.props
-    const bbox = computeBbox(contour)
+    const {bounds} = this.props
+    const bbox = computeBbox(bounds)
 
     this.map.fitBounds(bbox, {
       padding: 30,
@@ -89,11 +89,11 @@ class CreateNumeroMap extends React.Component {
 
   onLoad = () => {
     const {map} = this
-    const {contour} = this.props
+    const {bounds} = this.props
 
     map.addSource('point', {
       type: 'geojson',
-      data: pointOnCoords(contour)
+      data: pointOnCoords(bounds)
     })
 
     map.addLayer({

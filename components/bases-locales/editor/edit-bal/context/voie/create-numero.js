@@ -11,7 +11,7 @@ import CreateNumeroMap from './create-numero-map'
 class CreateNumero extends React.Component {
   static propTypes = {
     input: PropTypes.string,
-    contour: PropTypes.object,
+    bounds: PropTypes.object,
     position: PropTypes.array,
     error: PropTypes.instanceOf(Error),
     handleInput: PropTypes.func.isRequired,
@@ -21,7 +21,7 @@ class CreateNumero extends React.Component {
 
   static defaultProps = {
     input: '',
-    contour: null,
+    bounds: null,
     position: null,
     error: null
   }
@@ -38,10 +38,10 @@ class CreateNumero extends React.Component {
   }
 
   render() {
-    const {input, contour, position, error, handleSubmit, handlePosition} = this.props
+    const {input, bounds, position, error, handleSubmit, handlePosition} = this.props
 
     return (
-      <div className='voie-form'>
+      <div className='numero-form'>
         <PreventedDefaultForm onSubmit={handleSubmit}>
           <div className='input'>
             <label>Numéro</label>
@@ -62,7 +62,7 @@ class CreateNumero extends React.Component {
             </Notification>
 
             <CreateNumeroMap
-              contour={contour}
+              bounds={bounds}
               position={position}
               handlePosition={handlePosition}
             />

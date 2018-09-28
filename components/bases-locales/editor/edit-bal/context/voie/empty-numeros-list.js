@@ -16,11 +16,11 @@ class EmptyVoiesList extends React.Component {
 
   static propTypes = {
     addNumero: PropTypes.func.isRequired,
-    contour: PropTypes.object
+    bounds: PropTypes.object
   }
 
   static defaultProps = {
-    contour: null
+    bounds: null
   }
 
   handleInput = input => {
@@ -69,7 +69,7 @@ class EmptyVoiesList extends React.Component {
 
   render() {
     const {numeroComplet, position, error} = this.state
-    const {contour} = this.props
+    const {bounds} = this.props
 
     return (
       <div>
@@ -83,7 +83,7 @@ class EmptyVoiesList extends React.Component {
 
           <CreateNumero
             input={numeroComplet}
-            contour={contour}
+            bounds={bounds}
             position={position}
             handleInput={this.handleInput}
             handlePosition={this.handlePosition}
