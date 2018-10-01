@@ -121,6 +121,11 @@ class Editor extends React.Component {
     await this.state.model.renameVoie(commune.code, item.codeVoie, newName)
   }
 
+  repositionVoie = async (item, position) => {
+    const {commune} = this.state
+    await this.state.model.repositionVoie(commune.code, item.codeVoie, position)
+  }
+
   updateNumero = async (numero, modified) => {
     const {model, commune, voie} = this.state
     await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
@@ -132,7 +137,7 @@ class Editor extends React.Component {
     const type = getType(item)
     let updatedCommunes = null
     let updatedCommune = null
-    let updatedVoie = null
+    let updatedVoie = voie
     let updatedNumero = numero
 
     if (type === 'commune') {
@@ -140,6 +145,10 @@ class Editor extends React.Component {
       updatedCommunes = await model.getCommunes()
     } else if (type === 'voie') {
       await model.deleteVoie(commune.code, item.codeVoie)
+      if (!await model.getVoie(commune.code, voie.codeVoie)) {
+        updatedVoie = null
+      }
+
       updatedCommune = await model.getCommune(commune.code)
     } else {
       await model.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
@@ -152,7 +161,7 @@ class Editor extends React.Component {
     this.setState({
       communes: updatedCommunes || communes,
       commune: updatedCommune || commune,
-      voie: updatedVoie || voie,
+      voie: updatedVoie || voie.numeros ? voie : null,
       numero: updatedNumero
     })
   }
@@ -192,6 +201,7 @@ class Editor extends React.Component {
       addItem: this.addItem,
       deleteItem: this.deleteItem,
       renameVoie: this.renameVoie,
+      repositionVoie: this.repositionVoie,
       updateNumero: this.updateNumero,
       cancelChange: this.cancelChange
     }

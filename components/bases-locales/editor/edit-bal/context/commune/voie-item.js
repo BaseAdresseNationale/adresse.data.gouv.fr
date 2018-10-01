@@ -29,7 +29,7 @@ class VoieItem extends React.Component {
     codeCommune: PropTypes.string.isRequired,
     voie: PropTypes.shape({
       codeVoie: PropTypes.string.isRequired,
-      numeros: PropTypes.object.isRequired
+      numeros: PropTypes.object
     }).isRequired,
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired,

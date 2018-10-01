@@ -10,6 +10,7 @@ import AdressesCommuneMap from '../adresses-commune-map'
 
 import NumerosList from './numeros-list'
 import EmptyNumeroList from './empty-numeros-list'
+import ToponymeContext from './toponyme-context'
 
 const getVoieAddresses = (codeCommune, voie) => {
   const geojson = {
@@ -53,7 +54,8 @@ class VoieContext extends React.Component {
     }).isRequired,
     voie: PropTypes.shape({
       nomVoie: PropTypes.string.isRequired,
-      numeros: PropTypes.object
+      numeros: PropTypes.object,
+      position: PropTypes.object
     }).isRequired,
     addresses: PropTypes.object,
     actions: PropTypes.shape({
@@ -72,9 +74,9 @@ class VoieContext extends React.Component {
   render() {
     const {commune, voie, addresses, bounds, actions} = this.props
     const {numeros} = voie
-    const hasNumero = numeros && Object.keys(numeros).length > 0
+    const hasNumeros = numeros && Object.keys(numeros).length > 0
     const newName = voie.modified && voie.modified.nomVoie
-    const voieAddresses = getVoieAddresses(commune.code, voie)
+    const voieAddresses = hasNumeros ? getVoieAddresses(commune.code, voie) : null
 
     return (
       <div>
@@ -99,27 +101,36 @@ class VoieContext extends React.Component {
           </Notification>
         )}
 
-        {addresses && addresses.features.length > 0 && (
-          <AdressesCommuneMap
-            data={addresses}
-            bounds={voieAddresses}
-            select={actions.select}
-          />
-        )}
-
-        {hasNumero ? (
-          <NumerosList
-            codeCommune={commune.code}
-            codeVoie={voie.codeVoie}
-            numeros={numeros}
-            bounds={bounds}
+        {voie.position ? (
+          <ToponymeContext
+            voie={voie}
             actions={actions}
           />
         ) : (
-          <EmptyNumeroList
-            bounds={bounds}
-            addNumero={actions.addItem}
-          />
+          <div>
+            {addresses && addresses.features.length > 0 && (
+              <AdressesCommuneMap
+                data={addresses}
+                bounds={voieAddresses}
+                select={actions.select}
+              />
+            )}
+
+            {hasNumeros ? (
+              <NumerosList
+                codeCommune={commune.code}
+                codeVoie={voie.codeVoie}
+                numeros={numeros}
+                bounds={bounds}
+                actions={actions}
+              />
+            ) : (
+              <EmptyNumeroList
+                bounds={bounds}
+                addNumero={actions.addItem}
+              />
+            )}
+          </div>
         )}
       </div>
     )

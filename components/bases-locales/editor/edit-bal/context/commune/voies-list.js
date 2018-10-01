@@ -7,18 +7,26 @@ import CreateItemWrapper from '../../create-item-wrapper'
 
 import VoieItem from './voie-item'
 import CreateVoie from './create-voie'
+import CreateToponyme from './create-toponyme'
 
 class VoiesList extends React.Component {
   state = {
     nomVoie: '',
-    displayForm: false,
+    position: null,
+    displayVoieForm: false,
+    displayToponymeForm: false,
     error: null
   }
 
   static propTypes = {
     codeCommune: PropTypes.string.isRequired,
     voies: PropTypes.object.isRequired,
+    bounds: PropTypes.object,
     actions: PropTypes.object.isRequired
+  }
+
+  static defaultProps = {
+    bounds: null
   }
 
   handleInput = input => {
@@ -28,35 +36,65 @@ class VoiesList extends React.Component {
     })
   }
 
+  handlePosition = position => {
+    console.log('TCL: VoiesList -> position', position);
+    this.setState({
+      position,
+      error: null
+    })
+  }
+
   addVoie = async () => {
-    const {nomVoie} = this.state
+    const {nomVoie, position, displayToponymeForm, displayVoieForm} = this.state
     const {actions} = this.props
     let error = null
 
     try {
-      await actions.addItem({nomVoie})
+      if (!nomVoie) {
+        throw new Error('Indiquez le nom.')
+      }
+
+      if (displayToponymeForm && !position) {
+        throw new Error('Indiquez l’emplacement du toponyme sur la carte.')
+      }
+
+      await actions.addItem({nomVoie, position})
     } catch (err) {
       error = err
     }
 
     this.setState({
       nomVoie: error ? nomVoie : '',
-      displayForm: Boolean(error),
+      position: error ? position : null,
+      displayVoieForm: displayToponymeForm ? false : Boolean(error),
+      displayToponymeForm: displayVoieForm ? false : Boolean(error),
       error
     })
   }
 
-  toggleForm = () => {
+  toggleVoieForm = () => {
     this.setState(state => {
       return {
-        displayForm: !state.displayForm
+        displayVoieForm: !state.displayVoieForm,
+        nomVoie: '',
+        position: null
+      }
+    })
+  }
+
+  toggleToponymeForm = () => {
+    this.setState(state => {
+      return {
+        displayToponymeForm: !state.displayToponymeForm,
+        nomVoie: '',
+        position: null
       }
     })
   }
 
   render() {
-    const {nomVoie, displayForm, error} = this.state
-    const {codeCommune, voies, actions} = this.props
+    const {nomVoie, position, displayVoieForm, displayToponymeForm, error} = this.state
+    const {codeCommune, voies, bounds, actions} = this.props
 
     return (
       <div className='voies-list'>
@@ -68,22 +106,48 @@ class VoiesList extends React.Component {
           </div>
 
           <div className='divider' />
-
         </div>
 
-        <CreateItemWrapper
-          title='Création d’une voie'
-          buttonText='Ajouter une voie'
-          displayForm={displayForm}
-          toggleForm={this.toggleForm}
-        >
-          <CreateVoie
-            input={nomVoie}
-            handleInput={this.handleInput}
-            handleSubmit={this.addVoie}
-            error={error}
-          />
-        </CreateItemWrapper>
+        <div className={`forms ${displayVoieForm === displayToponymeForm ? '' : 'open'}`}>
+          {!displayToponymeForm && (
+            <div>
+              <CreateItemWrapper
+                title='Création d’une voie'
+                buttonText='Ajouter une voie'
+                displayForm={displayVoieForm}
+                toggleForm={this.toggleVoieForm}
+              >
+                <CreateVoie
+                  input={nomVoie}
+                  handleInput={this.handleInput}
+                  handleSubmit={this.addVoie}
+                  error={error}
+                />
+              </CreateItemWrapper>
+            </div>
+          )}
+
+          {!displayVoieForm && (
+            <div>
+              <CreateItemWrapper
+                title='Création d’un toponyme'
+                buttonText='Ajouter un toponyme'
+                displayForm={displayToponymeForm}
+                toggleForm={this.toggleToponymeForm}
+              >
+                <CreateToponyme
+                  input={nomVoie}
+                  position={position}
+                  bounds={bounds}
+                  handleInput={this.handleInput}
+                  handlePosition={this.handlePosition}
+                  handleSubmit={this.addVoie}
+                  error={error}
+                />
+              </CreateItemWrapper>
+            </div>
+          )}
+        </div>
 
         <div className='list'>
           {Object.keys(voies).map(voie => (
@@ -120,8 +184,24 @@ class VoiesList extends React.Component {
             align-items: content;
           }
 
+          .forms {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-column-gap: 1em;
+          }
+
+          .forms.open {
+            grid-template-columns: repeat(1, 1fr);
+          }
+
           .list {
             margin: 0.5em 0;
+          }
+
+          @media (max-width: 700px) {
+            .forms {
+              grid-template-columns: repeat(1, 1fr);
+            }
           }
         `}</style>
       </div>

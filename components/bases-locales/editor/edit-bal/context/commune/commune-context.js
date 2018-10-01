@@ -51,6 +51,7 @@ class CommuneContext extends React.Component {
           <VoiesList
             voies={voies}
             codeCommune={commune.code}
+            bounds={addresses}
             actions={actions}
           />
         ) : (
