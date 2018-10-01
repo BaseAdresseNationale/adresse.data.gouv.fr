@@ -132,9 +132,7 @@ class AdressesCommuneMap extends React.Component {
       type: 'symbol',
       source: 'data',
       layout: {
-        'icon-image': 'road_1',
         'text-field': '{numeroComplet}',
-        'text-font': ['Noto Sans Italic'],
         'text-size': {
           'base': 1.75,
           'stops': [[12, 2], [22, 150]]
