@@ -89,10 +89,6 @@ class NumeroContext extends React.Component {
         </div>
 
         <style jsx>{`
-          .voies {
-            margin: 2em 0;
-          }
-
           .shadow-box {
             border: 1px solid ${theme.border};
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};

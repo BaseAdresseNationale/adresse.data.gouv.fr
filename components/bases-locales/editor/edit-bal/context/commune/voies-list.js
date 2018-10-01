@@ -37,7 +37,6 @@ class VoiesList extends React.Component {
   }
 
   handlePosition = position => {
-    console.log('TCL: VoiesList -> position', position);
     this.setState({
       position,
       error: null

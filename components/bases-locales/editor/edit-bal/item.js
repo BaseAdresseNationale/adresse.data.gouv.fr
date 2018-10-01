@@ -29,8 +29,8 @@ class Item extends React.PureComponent {
     const {name, newName, meta, status, handleClick} = this.props
 
     return (
-      <div className='item'>
-        <div className='infos' onClick={handleClick}>
+      <div className='item' onClick={handleClick}>
+        <div className='infos'>
           <div className='name'>
             {newName ? (
               <div className='inline'>

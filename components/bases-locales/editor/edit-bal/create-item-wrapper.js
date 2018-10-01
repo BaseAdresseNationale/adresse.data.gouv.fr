@@ -89,6 +89,7 @@ class CreateItemWrapper extends React.Component {
           .form {
             border: 2px dashed ${theme.border};
             padding: 1em;
+            margin: 0.5em 0;
           }
 
           span {
