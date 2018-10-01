@@ -5,6 +5,8 @@ import getStatus from '../../../../../../lib/bal/item'
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
 
+import {contoursToGeoJson} from '../../../../../../lib/geojson'
+
 import Head from '../head'
 import AdressesCommuneMap from '../adresses-commune-map'
 
@@ -62,17 +64,15 @@ class VoieContext extends React.Component {
       addItem: PropTypes.func.isRequired,
       cancelChange: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
-    }).isRequired,
-    bounds: PropTypes.object
+    }).isRequired
   }
 
   static defaultProps = {
-    addresses: null,
-    bounds: null
+    addresses: null
   }
 
   render() {
-    const {commune, voie, addresses, bounds, actions} = this.props
+    const {commune, voie, addresses, actions} = this.props
     const {numeros} = voie
     const hasNumeros = numeros && Object.keys(numeros).length > 0
     const newName = voie.modified && voie.modified.nomVoie
@@ -121,12 +121,12 @@ class VoieContext extends React.Component {
                 codeCommune={commune.code}
                 codeVoie={voie.codeVoie}
                 numeros={numeros}
-                bounds={bounds}
+                bounds={voieAddresses}
                 actions={actions}
               />
             ) : (
               <EmptyNumeroList
-                bounds={bounds}
+                bounds={contoursToGeoJson([commune])}
                 addNumero={actions.addItem}
               />
             )}

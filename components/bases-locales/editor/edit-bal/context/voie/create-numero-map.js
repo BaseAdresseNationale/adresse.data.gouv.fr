@@ -83,6 +83,7 @@ class CreateNumeroMap extends React.Component {
     this.map.fitBounds(bbox, {
       padding: 30,
       linear: true,
+      maxZoom: 16,
       duration: 0
     })
   }
