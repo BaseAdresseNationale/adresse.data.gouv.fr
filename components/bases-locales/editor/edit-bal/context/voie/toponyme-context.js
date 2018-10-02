@@ -27,7 +27,7 @@ class ToponymeContext extends React.Component {
 
   delete = async () => {
     const {voie, actions} = this.props
-    await actions.deleteItem(voie)
+    await actions.deleteItem(voie, true)
   }
 
   cancel = async () => {

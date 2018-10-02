@@ -32,7 +32,7 @@ class NumeroContext extends React.Component {
 
   delete = async () => {
     const {numero, actions} = this.props
-    await actions.deleteItem(numero)
+    await actions.deleteItem(numero, true)
   }
 
   cancel = async () => {

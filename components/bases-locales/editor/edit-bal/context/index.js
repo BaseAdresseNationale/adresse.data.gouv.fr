@@ -55,12 +55,6 @@ class Context extends React.Component {
     numero: null
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      window.scrollTo(0, 0)
-    }
-  }
-
   render() {
     const {commune, voie, numero, actions} = this.props
     const addresses = getAddresses(commune)

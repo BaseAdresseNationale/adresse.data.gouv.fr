@@ -132,7 +132,7 @@ class Editor extends React.Component {
     this.setState({numero})
   }
 
-  deleteItem = async item => {
+  deleteItem = async (item, scrollTop = false) => {
     const type = getType(item)
 
     if (type === 'commune') {
@@ -141,6 +141,10 @@ class Editor extends React.Component {
       this.deleteVoie(item)
     } else {
       this.deleteNumero(item)
+    }
+
+    if (scrollTop) {
+      this.scrollTop()
     }
   }
 
@@ -201,11 +205,17 @@ class Editor extends React.Component {
     const voie = await model.getVoie(codeCommune, codeVoie)
     const numero = await model.getNumero(codeCommune, codeVoie, numeroComplet)
 
+    this.scrollTop()
+
     this.setState({
       commune,
       voie,
       numero
     })
+  }
+
+  scrollTop = () => {
+    window.scrollTo(0, 270)
   }
 
   render() {
