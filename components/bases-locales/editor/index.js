@@ -133,37 +133,51 @@ class Editor extends React.Component {
   }
 
   deleteItem = async item => {
-    const {model, communes, commune, numero, voie} = this.state
     const type = getType(item)
-    let updatedCommunes = null
-    let updatedCommune = null
-    let updatedVoie = voie
-    let updatedNumero = numero
 
     if (type === 'commune') {
-      await model.deleteCommune(item.code)
-      updatedCommunes = await model.getCommunes()
+      this.deleteCommune(item)
     } else if (type === 'voie') {
-      await model.deleteVoie(commune.code, item.codeVoie)
-      if (!await model.getVoie(commune.code, voie.codeVoie)) {
-        updatedVoie = null
-      }
-
-      updatedCommune = await model.getCommune(commune.code)
+      this.deleteVoie(item)
     } else {
-      await model.deleteNumero(commune.code, voie.codeVoie, item.numeroComplet)
-      if (!await model.getNumero(commune.code, voie.codeVoie, item.numeroComplet)) {
-        updatedNumero = null
-      }
-      updatedVoie = await model.getVoie(commune.code, voie.codeVoie)
+      this.deleteNumero(item)
     }
+  }
+
+  deleteCommune = async commune => {
+    const {model} = this.state
+    await model.deleteCommune(commune.code)
 
     this.setState({
-      communes: updatedCommunes || communes,
-      commune: updatedCommune || commune,
-      voie: updatedVoie || voie.numeros ? voie : null,
-      numero: updatedNumero
+      communes: await model.getCommunes()
     })
+  }
+
+  deleteVoie = async voie => {
+    const {model, commune} = this.state
+    await model.deleteVoie(commune.code, voie.codeVoie)
+
+    this.setState({
+      voie: null
+    })
+  }
+
+  deleteNumero = async numero => {
+    const {model, commune, voie} = this.state
+
+    await model.deleteNumero(commune.code, voie.codeVoie, numero.numeroComplet)
+
+    const deletedNumero = await model.getNumero(commune.code, voie.codeVoie, numero.numeroComplet)
+
+    if (this.state.numero && deletedNumero) {
+      this.setState({
+        numero: deletedNumero
+      })
+    } else {
+      this.setState({
+        numero: null
+      })
+    }
   }
 
   cancelChange = async item => {

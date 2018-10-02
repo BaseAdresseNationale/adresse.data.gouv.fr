@@ -29,6 +29,7 @@ class NumeroItem extends React.Component {
   delete = async () => {
     const {numero, actions} = this.props
     await actions.deleteItem(numero)
+    this.setState({editing: false})
   }
 
   cancel = async () => {
