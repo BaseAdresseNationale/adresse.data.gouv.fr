@@ -112,6 +112,7 @@ class VoieContext extends React.Component {
               <AdressesCommuneMap
                 data={addresses}
                 bounds={voieAddresses}
+                codeVoie={voie.codeVoie}
                 select={actions.select}
               />
             )}

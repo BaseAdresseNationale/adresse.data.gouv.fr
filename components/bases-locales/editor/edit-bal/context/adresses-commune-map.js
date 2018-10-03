@@ -6,18 +6,47 @@ import computeBbox from '@turf/bbox'
 
 import theme from '../../../../../styles/theme'
 
-const circleColor = [
-  'case',
-  ['boolean', ['feature-state', 'hover'], false],
-  theme.secondaryDarken,
-  ['boolean', ['get', 'created'], false],
-  theme.successBorder,
-  ['boolean', ['get', 'edited'], false],
-  theme.warningBorder,
-  ['boolean', ['get', 'deleted'], false],
-  theme.errorBorder,
-  theme.primary
-]
+const getCircleColor = () => {
+  return [
+    'case',
+    ['boolean', ['feature-state', 'hover'], false],
+    theme.secondaryDarken,
+    ['boolean', ['get', 'created'], false],
+    theme.successBorder,
+    ['boolean', ['get', 'edited'], false],
+    theme.warningBorder,
+    ['boolean', ['get', 'deleted'], false],
+    theme.errorBorder,
+    theme.colors.lightGrey
+  ]
+}
+
+const getCircleColorFocus = () => {
+  return [
+    'case',
+    ['boolean', ['feature-state', 'hover'], false],
+    theme.secondaryDarken,
+    ['boolean', ['get', 'created'], false],
+    theme.successBorder,
+    ['boolean', ['get', 'edited'], false],
+    theme.warningBorder,
+    ['boolean', ['get', 'deleted'], false],
+    theme.errorBorder,
+    theme.primary
+  ]
+}
+
+const circleRadius = () => {
+  return {
+    stops: [
+      [10, 2],
+      [12, 4],
+      [15, 10],
+      [18, 16],
+      [22, 20]
+    ]
+  }
+}
 
 class AdressesCommuneMap extends React.Component {
   static propTypes = {
@@ -25,13 +54,15 @@ class AdressesCommuneMap extends React.Component {
       features: PropTypes.array.isRequired
     }).isRequired,
     bounds: PropTypes.object,
+    codeVoie: PropTypes.string,
     select: PropTypes.func.isRequired,
     selected: PropTypes.object
   }
 
   static defaultProps = {
     selected: null,
-    bounds: null
+    bounds: null,
+    codeVoie: null
   }
 
   componentDidMount() {
@@ -43,9 +74,13 @@ class AdressesCommuneMap extends React.Component {
     this.map.once('load', this.onLoad)
     this.fitBounds()
 
-    this.map.on('mousemove', 'circle', this.onMouseMove.bind(this, 'circle'))
-    this.map.on('mouseleave', 'circle', this.onMouseLeave.bind(this, 'circle'))
-    this.map.on('click', 'circle', this.onClick.bind(this, 'circle'))
+    this.map.on('mousemove', 'focus', this.onMouseMove.bind(this, 'focus'))
+    this.map.on('mouseleave', 'focus', this.onMouseLeave.bind(this, 'focus'))
+    this.map.on('click', 'focus', this.onClick.bind(this, 'focus'))
+
+    this.map.on('mousemove', 'unfocus', this.onMouseMove.bind(this, 'unfocus'))
+    this.map.on('mouseleave', 'unfocus', this.onMouseLeave.bind(this, 'unfocus'))
+    this.map.on('click', 'unfocus', this.onClick.bind(this, 'unfocus'))
   }
 
   componentDidUpdate(prevProps) {
@@ -73,9 +108,13 @@ class AdressesCommuneMap extends React.Component {
   componentWillUnmount() {
     const {map} = this
 
-    map.off('mousemove', 'circle', this.onMouseMove.bind(this, 'circle'))
-    map.off('mouseleave', 'circle', this.onMouseLeave.bind(this, 'circle'))
-    map.off('click', 'circle', this.onClick.bind(this, 'circle'))
+    map.off('mousemove', 'focus', this.onMouseMove.bind(this, 'focus'))
+    map.off('mouseleave', 'focus', this.onMouseLeave.bind(this, 'focus'))
+    map.off('click', 'focus', this.onClick.bind(this, 'focus'))
+
+    map.off('mousemove', 'unfocus', this.onMouseMove.bind(this, 'unfocus'))
+    map.off('mouseleave', 'unfocus', this.onMouseLeave.bind(this, 'unfocus'))
+    map.off('click', 'unfocus', this.onClick.bind(this, 'unfocus'))
   }
 
   fitBounds = () => {
@@ -92,7 +131,7 @@ class AdressesCommuneMap extends React.Component {
 
   onLoad = () => {
     const {map} = this
-    const {data} = this.props
+    const {data, codeVoie} = this.props
 
     map.addSource('data', {
       type: 'geojson',
@@ -100,18 +139,51 @@ class AdressesCommuneMap extends React.Component {
       data
     })
 
-    map.addLayer({
-      id: 'circle',
-      type: 'circle',
-      source: 'data',
-      paint: {
-        'circle-color': circleColor,
-        'circle-radius': {
-          'base': 1.75,
-          'stops': [[12, 2], [22, 150]]
+    if (codeVoie) {
+      map.addLayer({
+        id: 'focus',
+        type: 'circle',
+        source: 'data',
+        filter: [
+          'all',
+          ['has', 'codeVoie'],
+          ['==', ['get', 'codeVoie'], codeVoie]
+        ],
+        paint: {
+          'circle-color': getCircleColorFocus(),
+          'circle-stroke-width': 1,
+          'circle-stroke-color': theme.colors.darkBlue,
+          'circle-opacity': 1,
+          'circle-radius': circleRadius()
         }
-      }
-    })
+      })
+
+      map.addLayer({
+        id: 'unfocus',
+        type: 'circle',
+        source: 'data',
+        filter: ['!=', ['get', 'codeVoie'], codeVoie],
+        paint: {
+          'circle-color': getCircleColor(),
+          'circle-stroke-width': 1,
+          'circle-stroke-color': theme.colors.grey,
+          'circle-opacity': 0.5,
+          'circle-radius': circleRadius()
+        }
+      })
+    } else {
+      map.addLayer({
+        id: 'focus',
+        type: 'circle',
+        source: 'data',
+        paint: {
+          'circle-color': getCircleColorFocus(),
+          'circle-stroke-width': 1,
+          'circle-stroke-color': theme.colors.darkBlue,
+          'circle-radius': circleRadius()
+        }
+      })
+    }
 
     map.addLayer({
       id: 'selected',
@@ -119,11 +191,8 @@ class AdressesCommuneMap extends React.Component {
       source: 'data',
       filter: ['any'],
       paint: {
-        'circle-color': circleColor,
-        'circle-radius': {
-          'base': 1.75,
-          'stops': [[12, 4], [22, 200]]
-        }
+        'circle-color': getCircleColorFocus(),
+        'circle-radius': circleRadius()
       }
     })
 
@@ -134,13 +203,24 @@ class AdressesCommuneMap extends React.Component {
       layout: {
         'text-field': '{numeroComplet}',
         'text-size': {
-          'base': 1.75,
-          'stops': [[12, 2], [22, 150]]
+          stops: [
+            [8, 1],
+            [10, 2],
+            [12, 4],
+            [15, 10],
+            [18, 16],
+            [22, 20]
+          ]
         },
         'text-anchor': 'center'
       },
       paint: {
-        'text-color': '#fff'
+        'text-color': codeVoie ? [
+          'case',
+          ['==', ['get', 'codeVoie'], codeVoie],
+          '#fff',
+          '#000'
+        ] : '#fff'
       }
     })
   }
