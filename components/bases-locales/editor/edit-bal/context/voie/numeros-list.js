@@ -6,14 +6,11 @@ import theme from '../../../../../../styles/theme'
 import CreateItemWrapper from '../../create-item-wrapper'
 
 import NumeroItem from './numero-item'
-import CreateNumero from './create-numero'
+import CreateNumeroWrapper from './create-numero-wrapper'
 
 class NumerosList extends React.Component {
   state = {
-    numeroComplet: '',
-    position: null,
-    displayForm: false,
-    error: null
+    displayForm: false
   }
 
   static propTypes = {
@@ -31,50 +28,11 @@ class NumerosList extends React.Component {
     bounds: null
   }
 
-  handleInput = input => {
-    this.setState({
-      numeroComplet: input,
-      error: null
-    })
-  }
-
-  handlePosition = position => {
-    this.setState({
-      position,
-      error: null
-    })
-  }
-
-  addNumero = async () => {
-    const {numeroComplet, position} = this.state
+  addNumero = async numero => {
     const {actions} = this.props
-    let error = null
 
-    try {
-      if (numeroComplet === '') {
-        throw new Error('Indiquez le numéro complet.')
-      }
-
-      if (!position) {
-        throw new Error('Indiquez l’emplacement du numéro sur la carte.')
-      }
-
-      await actions.addItem({
-        numeroComplet,
-        positions: [{
-          coords: position
-        }]
-      })
-    } catch (err) {
-      error = err
-    }
-
-    this.setState({
-      numeroComplet: error ? numeroComplet : '',
-      position: error ? position : null,
-      displayForm: Boolean(error),
-      error
-    })
+    await actions.addItem(numero)
+    this.setState({displayForm: false})
   }
 
   toggleForm = () => {
@@ -86,7 +44,7 @@ class NumerosList extends React.Component {
   }
 
   render() {
-    const {numeroComplet, position, displayForm, error} = this.state
+    const {displayForm} = this.state
     const {codeCommune, codeVoie, numeros, bounds, actions} = this.props
 
     return (
@@ -104,14 +62,9 @@ class NumerosList extends React.Component {
           toggleForm={this.toggleForm}
         >
           {displayForm && (
-            <CreateNumero
-              input={numeroComplet}
+            <CreateNumeroWrapper
               bounds={bounds}
-              position={position}
-              handleInput={this.handleInput}
-              handlePosition={this.handlePosition}
-              handleSubmit={this.addNumero}
-              error={error}
+              submit={this.addNumero}
             />
           )}
         </CreateItemWrapper>

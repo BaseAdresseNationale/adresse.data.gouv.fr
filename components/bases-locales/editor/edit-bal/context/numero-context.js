@@ -5,14 +5,9 @@ import theme from '../../../../../styles/theme'
 import getStatus from '../../../../../lib/bal/item'
 
 import Head from './head'
-import NumeroForm from './voie/numero-form'
+import NumeroFormWrapper from './numero-form-wrapper'
 
 class NumeroContext extends React.Component {
-  state = {
-    newPosition: null,
-    error: null
-  }
-
   static propTypes = {
     codeCommune: PropTypes.string.isRequired,
     voie: PropTypes.shape({
@@ -24,48 +19,12 @@ class NumeroContext extends React.Component {
       modified: PropTypes.object
     }).isRequired,
     actions: PropTypes.shape({
-      deleteItem: PropTypes.func.isRequired,
-      updateNumero: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
-  delete = async () => {
-    const {numero, actions} = this.props
-    await actions.deleteItem(numero, true)
-  }
-
-  cancel = async () => {
-    const {numero, actions} = this.props
-    await actions.cancelChange(numero)
-    this.setState({newPosition: null})
-  }
-
-  handlePosition = position => {
-    this.setState({newPosition: position})
-  }
-
-  edit = async () => {
-    const {newPosition} = this.state
-    const {numero, actions} = this.props
-
-    try {
-      if (newPosition) {
-        await actions.updateNumero(numero, {
-          positions: [newPosition]
-        })
-
-        this.setState({newPosition: null})
-      }
-    } catch (error) {
-      this.setState({error})
-    }
-  }
-
   render() {
-    const {newPosition, error} = this.state
     const {codeCommune, voie, numero, actions} = this.props
-    const pos = numero.modified ? numero.modified.positions[0] : null
 
     return (
       <div>
@@ -77,14 +36,9 @@ class NumeroContext extends React.Component {
         />
 
         <div className='shadow-box'>
-          <NumeroForm
+          <NumeroFormWrapper
             numero={numero}
-            position={newPosition || pos}
-            handlePosition={this.handlePosition}
-            updateNumero={newPosition ? this.edit : null}
-            deleteNumero={this.delete}
-            cancelChange={this.cancel}
-            error={error}
+            actions={actions}
           />
         </div>
 

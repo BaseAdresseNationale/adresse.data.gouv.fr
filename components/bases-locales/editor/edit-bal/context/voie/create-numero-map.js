@@ -6,18 +6,22 @@ import computeBbox from '@turf/bbox'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
+import theme from '../../../../../../styles/theme'
+
 import {pointOnCoords, numeroPointStyles} from '../../../../../../lib/mapbox-gl'
 
 class CreateNumeroMap extends React.Component {
   static propTypes = {
     bounds: PropTypes.object,
     position: PropTypes.array,
-    handlePosition: PropTypes.func.isRequired
+    handlePosition: PropTypes.func.isRequired,
+    children: PropTypes.node
   }
 
   static defaultProps = {
     bounds: null,
-    position: null
+    position: null,
+    children: null
   }
 
   componentDidMount() {
@@ -116,6 +120,8 @@ class CreateNumeroMap extends React.Component {
   }
 
   render() {
+    const {children} = this.props
+
     return (
       <div className='container'>
         <div ref={el => {
@@ -125,11 +131,29 @@ class CreateNumeroMap extends React.Component {
         <style
           dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger
         />
+
+        {children && (
+          <div className='form'>
+            {children}
+          </div>
+        )}
+
         <style jsx>{`
           .container {
             position: relative;
             height: 400px;
             width: 100%;
+          }
+
+          .form {
+            width: 320px;
+            height: 300px;
+            padding: 1em;
+            position: absolute;
+            left: calc(50% - 160px);
+            top: calc(50% - 150px);
+            background-color: #ffffffc4;
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
         `}</style>
       </div>
