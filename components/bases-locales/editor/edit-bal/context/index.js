@@ -37,7 +37,7 @@ const getAddresses = commune => {
     }
   })
 
-  return geojson
+  return geojson.features.length > 0 ? geojson : null
 }
 
 class Context extends React.Component {
