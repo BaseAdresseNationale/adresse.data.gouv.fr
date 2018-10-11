@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
-import PositionMap from './position-map'
+import SinglePositionMap from './single-position-map'
 
 class PositionForm extends React.Component {
   static propTypes = {
@@ -37,7 +37,7 @@ class PositionForm extends React.Component {
             Sélectionnez le marqueur puis déplacez-le à la position souhaitée.
           </Notification>
 
-          <PositionMap
+          <SinglePositionMap
             coords={position.coords}
             handlePosition={this.handlePosition}
           />

@@ -6,7 +6,7 @@ import Notification from '../../../../../notification'
 
 import PreventedDefaultForm from '../../prevented-default-form'
 
-import PositionMap from '../voie/position-map'
+import SinglePositionMap from '../voie/single-position-map'
 
 class CreateToponyme extends React.Component {
   static propTypes = {
@@ -74,7 +74,7 @@ class CreateToponyme extends React.Component {
               Ajouter un marqueur à la position du toponyme.
             </Notification>
 
-            <PositionMap
+            <SinglePositionMap
               bounds={bounds}
               coords={position ? position.coords : null}
               handlePosition={this.handleCoords}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import getStatus from '../../../../../../lib/bal/item'
 
-import NumeroFormWrapper from '../numero-form-wrapper'
+import NumeroForm from './numero-form'
 import EditNumero from './edit-numero'
 
 class NumeroItem extends React.Component {
@@ -18,9 +18,14 @@ class NumeroItem extends React.Component {
       numeroComplet: PropTypes.string.isRequired,
       modified: PropTypes.object
     }).isRequired,
+    bounds: PropTypes.object,
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired
     }).isRequired
+  }
+
+  static defaultProps = {
+    bounds: null
   }
 
   toggleEdit = () => {
@@ -33,18 +38,21 @@ class NumeroItem extends React.Component {
 
   render() {
     const {editing} = this.state
-    const {codeCommune, codeVoie, numero, actions} = this.props
+    const {codeCommune, codeVoie, numero, bounds, actions} = this.props
+    const positions = numero.edited ? numero.modified.positions : numero.positions
     const item = {
       name: numero.numeroComplet,
       status: getStatus(numero),
+      warning: positions.length === 0 ? 'Ce numréro n’a pas de position' : null,
       handleClick: () => actions.select(codeCommune, codeVoie, numero.numeroComplet)
     }
 
     return (
       <EditNumero item={item} toggleForm={this.toggleEdit}>
         {editing && (
-          <NumeroFormWrapper
+          <NumeroForm
             numero={numero}
+            bounds={bounds}
             actions={actions}
           />
         )}

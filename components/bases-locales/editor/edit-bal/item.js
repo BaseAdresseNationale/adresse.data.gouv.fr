@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FaAngleRight from 'react-icons/lib/fa/angle-right'
+import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
 
 import theme from '../../../../styles/theme'
 
@@ -16,17 +17,19 @@ class Item extends React.PureComponent {
     newName: PropTypes.string,
     meta: PropTypes.string,
     status: PropTypes.string,
+    warning: PropTypes.string,
     handleClick: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     newName: null,
     status: null,
+    warning: null,
     meta: null
   }
 
   render() {
-    const {name, newName, meta, status, handleClick} = this.props
+    const {name, newName, meta, status, warning, handleClick} = this.props
 
     return (
       <div className='item' onClick={handleClick}>
@@ -44,6 +47,10 @@ class Item extends React.PureComponent {
 
           {meta && (
             <div className='meta'>{meta}</div>
+          )}
+
+          {warning && (
+            <div className='warning'><FaExclamationTriangle /> {warning}</div>
           )}
 
           <div className='link'><FaAngleRight /></div>
@@ -83,6 +90,10 @@ class Item extends React.PureComponent {
             flex-grow: 1;
             justify-content: space-between;
             align-items: center;
+          }
+
+          .warning {
+            color: ${theme.warningBorder};
           }
 
           .link {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../../styles/theme'
 
-import CreateNumeroWrapper from './create-numero-wrapper'
+import CreateNumero from './create-numero'
 
 class EmptyVoiesList extends React.Component {
   static propTypes = {
@@ -26,9 +26,9 @@ class EmptyVoiesList extends React.Component {
 
     return (
       <div className='no-voie'>
-        <CreateNumeroWrapper
+        <CreateNumero
           bounds={bounds}
-          submit={this.addNumero}
+          onSubmit={this.addNumero}
         />
 
         <style jsx>{`

@@ -1,12 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {isEqual} from 'lodash'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
-import EditNumeroMap from './edit-numero-map'
+import PositionsMap from './positions-map'
 
 class NumeroForm extends React.Component {
+  constructor(props) {
+    super(props)
+    const positions = props.numero.edited ? props.numero.modified.positions : props.numero.positions
+
+    this.state = {
+      positions: [...positions],
+      error: null
+
+    }
+  }
+
   static propTypes = {
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired,
@@ -15,38 +27,105 @@ class NumeroForm extends React.Component {
       modified: PropTypes.object,
       deleted: PropTypes.bool
     }).isRequired,
-    type: PropTypes.string,
-    position: PropTypes.shape({
-      coords: PropTypes.array
-    }),
-    handleType: PropTypes.func.isRequired,
-    handlePosition: PropTypes.func.isRequired,
-    updateNumero: PropTypes.func,
-    cancelChange: PropTypes.func.isRequired,
-    deleteNumero: PropTypes.func.isRequired,
-    error: PropTypes.instanceOf(Error)
+    bounds: PropTypes.object,
+    actions: PropTypes.shape({
+      deleteItem: PropTypes.func.isRequired,
+      cancelChange: PropTypes.func.isRequired,
+      updateNumero: PropTypes.func.isRequired
+    }).isRequired
   }
 
   static defaultProps = {
-    type: null,
-    position: null,
-    updateNumero: null,
-    error: null
+    bounds: null
   }
 
-  handleChange = e => {
-    const {handleType} = this.props
-    e.preventDefault()
-    handleType(e.target.value)
+  addPosition = feature => {
+    this.setState(state => {
+      const positions = [...state.positions]
+
+      positions.push({
+        _id: feature.id,
+        coords: feature.geometry.coordinates,
+        type: 'entrée',
+        source: [],
+        dateMAJ: null
+      })
+
+      return {
+        positions
+      }
+    })
   }
 
-  handleCoords = coords => {
-    const {handlePosition} = this.props
-    handlePosition({coords})
+  removePosition = feature => {
+    this.setState(state => {
+      const positions = [...state.positions]
+
+      positions.forEach((position, idx) => {
+        if (position._id === feature.id) {
+          positions.splice(idx, 1)
+        }
+      })
+
+      return {
+        positions
+      }
+    })
+  }
+
+  updatePosition = feature => {
+    this.setState(state => {
+      const positions = [...state.positions]
+
+      positions.forEach((position, idx) => {
+        if (position._id === feature.id) {
+          positions[idx] = {
+            _id: feature.id,
+            coords: feature.geometry.coordinates,
+            type: feature.properties.type,
+            source: [],
+            dateMAJ: null
+          }
+        }
+      })
+
+      return {
+        positions
+      }
+    })
+  }
+
+  delete = async () => {
+    const {numero, actions} = this.props
+    await actions.deleteItem(numero)
+  }
+
+  cancel = async () => {
+    const {numero, actions} = this.props
+    await actions.cancelChange(numero)
+
+    this.setState({
+      positions: numero.positions
+    })
+  }
+
+  handleSubmit = async () => {
+    const {positions} = this.state
+    const {numero, actions} = this.props
+
+    try {
+      await actions.updateNumero(numero, {
+        positions
+      })
+    } catch (error) {
+      this.setState({error})
+    }
   }
 
   render() {
-    const {numero, type, position, updateNumero, deleteNumero, cancelChange, error} = this.props
+    const {positions, error} = this.state
+    const {numero, bounds} = this.props
+    const numeroPositions = numero.edited ? numero.modified.positions : numero.positions
 
     return (
       <div>
@@ -55,39 +134,29 @@ class NumeroForm extends React.Component {
             Sélectionnez le marqueur puis déplacez-le à la position souhaitée.
           </Notification>
 
-          <div className='select-type'>
-            <label>Type</label>
-            <select value={type || numero.positions[0].type} onChange={this.handleChange}>
-              <option value='entrée'>Entrée</option>
-              <option value='délivrance postale'>Délivrance postale</option>
-              <option value='bâtiment'>Bâtiment</option>
-              <option value='cage d’escalier'>Cage d’escalier</option>
-              <option value='logement'>Logement</option>
-              <option value='parcelle'>Parcelle</option>
-              <option value='segment'>Segment</option>
-              <option value='service technique'>Service technique</option>
-            </select>
-          </div>
-
-          <EditNumeroMap
-            position={position ? position.coords : numero.positions[0].coords}
-            handlePosition={this.handleCoords}
+          <PositionsMap
+            positions={positions}
+            bounds={bounds}
+            addPosition={this.addPosition}
+            removePosition={this.removePosition}
+            updatePosition={this.updatePosition}
           />
         </div>
 
         {error && (
-          <Notification type='error'>
-            {error.message}
-          </Notification>
+          <div className='error'>
+            <Notification type='error'>
+              {error.message}
+            </Notification>
+          </div>
         )}
 
         <div className='buttons'>
           {!numero.deleted && (
             <Button
               color='red'
-
               size='small'
-              onClick={deleteNumero}
+              onClick={this.delete}
             >
               Supprimer ce numéro
             </Button>
@@ -96,16 +165,16 @@ class NumeroForm extends React.Component {
           {(numero.edited || numero.deleted) && (
             <Button
               size='small'
-              onClick={cancelChange}
+              onClick={this.cancel}
             >
               Annuler les changements
             </Button>
           )}
 
-          {updateNumero && (
+          {!isEqual(numeroPositions, positions) && (
             <Button
               size='small'
-              onClick={updateNumero}
+              onClick={this.handleSubmit}
             >
               Enregistrer
             </Button>
@@ -114,6 +183,10 @@ class NumeroForm extends React.Component {
 
         <style jsx>{`
           .select-type {
+            margin: 1em 0;
+          }
+
+          .error {
             margin: 1em 0;
           }
 

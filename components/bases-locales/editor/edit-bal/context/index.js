@@ -16,12 +16,14 @@ const getAddresses = commune => {
     if (voie.numeros) {
       Object.keys(voie.numeros).forEach(numeroIdx => {
         const numero = commune.voies[voieIdx].numeros[numeroIdx]
-        if (numero.positions.length > 0) {
+        const positions = numero.edited ? numero.modified.positions : numero.positions
+
+        if (positions.length > 0) {
           geojson.features.push({
             type: 'Feature',
             geometry: {
               type: 'Point',
-              coordinates: numero.edited ? numero.modified.positions[0].coords : numero.positions[0].coords
+              coordinates: positions[0].coords
             },
             properties: {
               ...numero,
@@ -66,6 +68,7 @@ class Context extends React.Component {
             codeCommune={commune.code}
             voie={voie}
             numero={numero}
+            addresses={addresses}
             actions={actions}
           />
         ) : voie ? (

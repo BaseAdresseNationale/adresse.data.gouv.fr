@@ -23,12 +23,14 @@ const getVoieAddresses = (codeCommune, voie) => {
   if (Object.keys(voie.numeros).length > 0) {
     Object.keys(voie.numeros).forEach(numeroIdx => {
       const numero = voie.numeros[numeroIdx]
-      if (numero.positions.length > 0) {
+      const positions = numero.edited ? numero.modified.positions : numero.positions
+
+      if (positions.length > 0) {
         geojson.features.push({
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: numero.edited ? numero.modified.positions[0].coords : numero.positions[0].coords
+            coordinates: positions[0].coords || positions[0].coordinates
           },
           properties: {
             ...numero,
@@ -77,6 +79,7 @@ class VoieContext extends React.Component {
     const hasNumeros = numeros && Object.keys(numeros).length > 0
     const newName = voie.modified && voie.modified.nomVoie
     const voieAddresses = hasNumeros ? getVoieAddresses(commune.code, voie) : null
+    const communeContour = commune.contour ? contoursToGeoJson([commune]) : null
 
     return (
       <div>
@@ -127,7 +130,7 @@ class VoieContext extends React.Component {
               />
             ) : (
               <EmptyNumeroList
-                bounds={contoursToGeoJson([commune])}
+                bounds={voieAddresses || addresses || communeContour}
                 addNumero={actions.addItem}
               />
             )}

@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import theme from '../../../../../styles/theme'
 import getStatus from '../../../../../lib/bal/item'
 
+import Notification from '../../../../notification'
+
 import Head from './head'
-import NumeroFormWrapper from './numero-form-wrapper'
+import NumeroForm from './voie/numero-form'
 
 class NumeroContext extends React.Component {
   static propTypes = {
@@ -18,13 +20,19 @@ class NumeroContext extends React.Component {
       numeroComplet: PropTypes.string.isRequired,
       modified: PropTypes.object
     }).isRequired,
+    addresses: PropTypes.object,
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
+  static defaultProps = {
+    addresses: null
+  }
+
   render() {
-    const {codeCommune, voie, numero, actions} = this.props
+    const {codeCommune, voie, numero, addresses, actions} = this.props
+    const positions = numero.edited ? numero.modified.positions : numero.positions
 
     return (
       <div>
@@ -35,9 +43,16 @@ class NumeroContext extends React.Component {
           previous={() => actions.select(codeCommune, voie.codeVoie)}
         />
 
+        {positions.length === 0 && (
+          <Notification type='warning'>
+            Ce numéro n’a pas de position.
+          </Notification>
+        )}
+
         <div className='shadow-box'>
-          <NumeroFormWrapper
+          <NumeroForm
             numero={numero}
+            bounds={addresses}
             actions={actions}
           />
         </div>

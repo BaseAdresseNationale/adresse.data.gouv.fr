@@ -6,7 +6,7 @@ import theme from '../../../../../../styles/theme'
 import CreateItemWrapper from '../../create-item-wrapper'
 
 import NumeroItem from './numero-item'
-import CreateNumeroWrapper from './create-numero-wrapper'
+import CreateNumero from './create-numero'
 
 class NumerosList extends React.Component {
   state = {
@@ -62,9 +62,9 @@ class NumerosList extends React.Component {
           toggleForm={this.toggleForm}
         >
           {displayForm && (
-            <CreateNumeroWrapper
+            <CreateNumero
               bounds={bounds}
-              submit={this.addNumero}
+              onSubmit={this.addNumero}
             />
           )}
         </CreateItemWrapper>
@@ -78,6 +78,7 @@ class NumerosList extends React.Component {
                 codeCommune={codeCommune}
                 codeVoie={codeVoie}
                 numero={numero}
+                bounds={bounds}
                 actions={actions}
               />
             )
