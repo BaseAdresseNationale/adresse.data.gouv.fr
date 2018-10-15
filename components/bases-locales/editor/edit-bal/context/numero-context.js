@@ -20,18 +20,18 @@ class NumeroContext extends React.Component {
       numeroComplet: PropTypes.string.isRequired,
       modified: PropTypes.object
     }).isRequired,
-    addresses: PropTypes.object,
+    bounds: PropTypes.object,
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
   static defaultProps = {
-    addresses: null
+    bounds: null
   }
 
   render() {
-    const {codeCommune, voie, numero, addresses, actions} = this.props
+    const {codeCommune, voie, numero, bounds, actions} = this.props
     const positions = numero.edited ? numero.modified.positions : numero.positions
 
     return (
@@ -52,7 +52,7 @@ class NumeroContext extends React.Component {
         <div className='shadow-box'>
           <NumeroForm
             numero={numero}
-            bounds={addresses}
+            bounds={bounds}
             actions={actions}
           />
         </div>

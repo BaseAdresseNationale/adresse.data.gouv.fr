@@ -16,6 +16,7 @@ class CommuneContext extends React.Component {
       voies: PropTypes.object.isRequired
     }).isRequired,
     addresses: PropTypes.object,
+    communeContour: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
@@ -23,25 +24,14 @@ class CommuneContext extends React.Component {
   }
 
   static defaultProps = {
-    addresses: null
+    addresses: null,
+    communeContour: null
   }
 
   render() {
-    const {commune, addresses, actions} = this.props
+    const {commune, addresses, communeContour, actions} = this.props
     const {voies} = commune
     const hasVoies = voies && Object.keys(voies).length > 0
-    const communeContour = commune.contour ? {
-      id: commune.code,
-      type: 'Feature',
-      geometry: {
-        type: commune.contour.type,
-        coordinates: commune.contour.coordinates
-      },
-      properties: {
-        code: commune.code,
-        nom: commune.nom
-      }
-    } : null
 
     return (
       <div>
@@ -55,6 +45,7 @@ class CommuneContext extends React.Component {
         {addresses && addresses.features.length > 0 && (
           <AdressesCommuneMap
             data={addresses}
+            bounds={communeContour}
             select={actions.select}
           />
         )}
@@ -63,7 +54,7 @@ class CommuneContext extends React.Component {
           <VoiesList
             voies={voies}
             codeCommune={commune.code}
-            bounds={addresses || communeContour}
+            bounds={communeContour || addresses}
             actions={actions}
           />
         ) : (

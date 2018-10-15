@@ -47,7 +47,7 @@ const getVoieAddresses = (codeCommune, voie) => {
     return null
   }
 
-  return geojson
+  return geojson.features.length > 0 ? geojson : null
 }
 
 class VoieContext extends React.Component {
@@ -80,6 +80,7 @@ class VoieContext extends React.Component {
     const newName = voie.modified && voie.modified.nomVoie
     const voieAddresses = hasNumeros ? getVoieAddresses(commune.code, voie) : null
     const communeContour = commune.contour ? contoursToGeoJson([commune]) : null
+    const bounds = voieAddresses || addresses || communeContour
 
     return (
       <div>
@@ -114,7 +115,7 @@ class VoieContext extends React.Component {
             {addresses && addresses.features.length > 0 && (
               <AdressesCommuneMap
                 data={addresses}
-                bounds={voieAddresses}
+                bounds={bounds}
                 codeVoie={voie.codeVoie}
                 select={actions.select}
               />
@@ -125,12 +126,12 @@ class VoieContext extends React.Component {
                 codeCommune={commune.code}
                 codeVoie={voie.codeVoie}
                 numeros={numeros}
-                bounds={voieAddresses}
+                bounds={bounds}
                 actions={actions}
               />
             ) : (
               <EmptyNumeroList
-                bounds={voieAddresses || addresses || communeContour}
+                bounds={bounds}
                 addNumero={actions.addItem}
               />
             )}

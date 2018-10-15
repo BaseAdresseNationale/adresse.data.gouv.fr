@@ -60,6 +60,18 @@ class Context extends React.Component {
   render() {
     const {commune, voie, numero, actions} = this.props
     const addresses = getAddresses(commune)
+    const communeContour = commune.contour ? {
+      id: commune.code,
+      type: 'Feature',
+      geometry: {
+        type: commune.contour.type,
+        coordinates: commune.contour.coordinates
+      },
+      properties: {
+        code: commune.code,
+        nom: commune.nom
+      }
+    } : null
 
     return (
       <div>
@@ -68,7 +80,7 @@ class Context extends React.Component {
             codeCommune={commune.code}
             voie={voie}
             numero={numero}
-            addresses={addresses}
+            bounds={addresses || communeContour}
             actions={actions}
           />
         ) : voie ? (
@@ -83,6 +95,7 @@ class Context extends React.Component {
           <CommuneContext
             commune={commune}
             addresses={addresses}
+            communeContour={communeContour}
             actions={actions}
           />
         )}
