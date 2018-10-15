@@ -34,7 +34,7 @@ class CreateNumero extends React.Component {
       const positions = [...state.positions]
 
       positions.push({
-        id: feature.id,
+        _id: feature.id,
         coords: feature.geometry.coordinates,
         source: [],
         type: 'entrée'
@@ -51,7 +51,7 @@ class CreateNumero extends React.Component {
       const positions = [...state.positions]
 
       positions.forEach((position, idx) => {
-        if (position.id === feature.id) {
+        if (position._id === feature.id) {
           positions.splice(idx, 1)
         }
       })
@@ -67,8 +67,14 @@ class CreateNumero extends React.Component {
       const positions = [...state.positions]
 
       positions.forEach((position, idx) => {
-        if (position.id === feature.id) {
-          positions[idx] = {...feature}
+        if (position._id === feature.id) {
+          positions[idx] = {
+            _id: feature.id,
+            coords: feature.geometry.coordinates,
+            type: feature.properties.type,
+            source: [],
+            dateMAJ: null
+          }
         }
       })
 
