@@ -36,9 +36,9 @@ const getVoieAddresses = (codeCommune, voie) => {
             ...numero,
             codeCommune,
             codeVoie: voie.codeVoie,
-            source: numero.positions[0].source,
-            type: numero.positions[0].type,
-            lastUpdate: numero.positions[0].dateMAJ
+            source: positions[0].source,
+            type: positions[0].type,
+            lastUpdate: positions[0].dateMAJ
           }
         })
       }

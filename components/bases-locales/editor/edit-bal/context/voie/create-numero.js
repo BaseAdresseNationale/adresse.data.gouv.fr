@@ -36,6 +36,7 @@ class CreateNumero extends React.Component {
       positions.push({
         id: feature.id,
         coords: feature.geometry.coordinates,
+        source: [],
         type: 'entrée'
       })
 
