@@ -26,7 +26,10 @@ class CreateNumero extends React.Component {
 
   handleInput = e => {
     e.preventDefault()
-    this.setState({input: e.target.value})
+    this.setState({
+      input: e.target.value,
+      error: null
+    })
   }
 
   addPosition = feature => {
@@ -89,13 +92,11 @@ class CreateNumero extends React.Component {
     const {onSubmit} = this.props
 
     try {
-      this.setState(async () => {
-        await onSubmit({
-          numeroComplet: input,
-          positions
-        })
+      this.setState(this.initialState)
 
-        return this.initialState
+      await onSubmit({
+        numeroComplet: input,
+        positions
       })
     } catch (err) {
       this.setState({
@@ -140,7 +141,7 @@ class CreateNumero extends React.Component {
 
           <div className='submit'>
             {input && (
-              <Button onClick={this.handleSubmit}>
+              <Button type='submit'>
                 Enregistrer
               </Button>
             )}
