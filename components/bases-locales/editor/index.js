@@ -1,7 +1,10 @@
 // eslint-disable-next-line import/no-unassigned-import
 // import 'regenerator-runtime/runtime'
 import React from 'react'
+import PropTypes from 'prop-types'
+import Router from 'next/router'
 
+import BALStorage from '../../../lib/bal/storage'
 import theme from '../../../styles/theme'
 
 import Button from '../../button'
@@ -29,11 +32,6 @@ const getType = item => {
 
 class Editor extends React.Component {
   initialState = {
-    model: null,
-    communes: null,
-    commune: null,
-    voie: null,
-    numero: null,
     downloadLink: null,
     loading: false,
     error: null
@@ -43,28 +41,50 @@ class Editor extends React.Component {
     ...this.initialState
   }
 
+  static propTypes = {
+    model: PropTypes.object,
+    commune: PropTypes.object,
+    voie: PropTypes.object,
+    numero: PropTypes.object
+  }
+
+  static defaultProps = {
+    model: null,
+    commune: null,
+    voie: null,
+    numero: null
+  }
+
   handleData = async tree => {
     const model = new BAL(tree)
-    const communes = await model.getCommunes()
+    BALStorage.set(model._id, model)
 
-    this.setState({
-      model,
-      communes
-    })
+    const href = `/bases-locales/editor?id=${model._id}`
+    const as = `/bases-locales/editor/${model._id}`
+
+    Router.push(href, as)
   }
 
   createNewFile = () => {
-    this.setState({model: new BAL()})
+    const model = new BAL()
+    BALStorage.set(model._id, model)
+
+    const href = `/bases-locales/editor?id=${model._id}`
+    const as = `/bases-locales/editor/${model._id}`
+
+    Router.push(href, as)
   }
 
   reset = () => {
     this.setState({
       ...this.initialState
     })
+
+    Router.push('/bases-locales/editor')
   }
 
   exportBAL = async () => {
-    const {model} = this.state
+    const {model} = this.props
     this.setState({loading: true})
 
     try {
@@ -94,42 +114,48 @@ class Editor extends React.Component {
   }
 
   addCommune = async newCommune => {
-    const {model} = this.state
-
+    const {model} = this.props
     await model.createCommune(newCommune.code, newCommune)
-    const communes = await model.getCommunes()
 
-    this.setState({communes})
+    const href = `/bases-locales/editor?id=${model._id}`
+    const as = `/bases-locales/editor/${model._id}`
+
+    Router.push(href, as)
   }
 
   addVoie = async newVoie => {
-    const {model, commune} = this.state
+    const {model, commune} = this.props
     await model.createVoie(commune.code, newVoie)
 
-    this.setState({commune: await model.getCommune(commune.code)})
+    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}`
+    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}`
+
+    Router.push(href, as)
   }
 
   addNumero = async newNumero => {
-    const {model, commune, voie} = this.state
+    const {model, commune, voie} = this.props
     await model.createNumero(commune.code, voie.codeVoie, newNumero)
 
-    this.setState({voie: await model.getVoie(commune.code, voie.codeVoie)})
+    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
+    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
+
+    Router.push(href, as)
   }
 
   renameVoie = async (item, newName) => {
-    const {commune} = this.state
-    await this.state.model.renameVoie(commune.code, item.codeVoie, newName)
+    const {model, commune} = this.props
+    await model.renameVoie(commune.code, item.codeVoie, newName)
   }
 
   repositionVoie = async (item, position) => {
-    const {commune} = this.state
-    await this.state.model.repositionVoie(commune.code, item.codeVoie, position)
+    const {model, commune} = this.props
+    await model.repositionVoie(commune.code, item.codeVoie, position)
   }
 
   updateNumero = async (numero, modified) => {
-    const {model, commune, voie} = this.state
+    const {model, commune, voie} = this.props
     await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
-    this.setState({numero})
   }
 
   deleteItem = async (item, scrollTop = false) => {
@@ -149,69 +175,90 @@ class Editor extends React.Component {
   }
 
   deleteCommune = async commune => {
-    const {model} = this.state
+    const {model} = this.props
     await model.deleteCommune(commune.code)
 
-    this.setState({
-      communes: await model.getCommunes()
-    })
+    const href = `/bases-locales/editor?id=${model._id}`
+    const as = `/bases-locales/editor/${model._id}`
+
+    Router.push(href, as)
   }
 
   deleteVoie = async voie => {
-    const {model, commune} = this.state
+    const {model, commune} = this.props
     await model.deleteVoie(commune.code, voie.codeVoie)
 
-    this.setState({
-      voie: null
-    })
+    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}`
+    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}`
+
+    Router.push(href, as)
   }
 
   deleteNumero = async numero => {
-    const {model, commune, voie} = this.state
+    const {model, commune, voie} = this.props
+    let href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
+    let as = `/bases-locales/editor/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
 
     await model.deleteNumero(commune.code, voie.codeVoie, numero.numeroComplet)
 
     const deletedNumero = await model.getNumero(commune.code, voie.codeVoie, numero.numeroComplet)
 
-    if (this.state.numero && deletedNumero) {
-      this.setState({
-        numero: deletedNumero
-      })
-    } else {
-      this.setState({
-        numero: null
-      })
+    if (this.props.numero && deletedNumero) {
+      href += `&idNumero=${numero.numeroComplet}`
+      as += `/numero/${numero.numeroComplet}`
     }
+
+    Router.push(href, as)
   }
 
   cancelChange = async item => {
-    const {commune, voie, numero} = this.state
+    const {model, commune, voie, numero} = this.props
     const type = getType(item)
+    let href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}`
+    let as = `/bases-locales/editor/${model._id}/commune/${commune.code}`
 
     if (type === 'commune') {
-      await this.state.model.cancelCommuneChange(item.code)
+      await model.cancelCommuneChange(item.code)
     } else if (type === 'voie') {
-      await this.state.model.cancelVoieChange(commune.code, item.codeVoie)
-      this.setState({voie})
+      await model.cancelVoieChange(commune.code, item.codeVoie)
+      href += `&codeVoie=${voie.codeVoie}`
+      as += `/voie/${voie.codeVoie}`
     } else {
-      await this.state.model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
-      this.setState({numero})
+      await model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
+      href += `&idNumero=${numero.numeroComplet}`
+      as += `/numero/${numero.numeroComplet}`
     }
+
+    Router.push(href, as)
   }
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
-    const {model} = this.state
+    const {model} = this.props
     const commune = await model.getCommune(codeCommune)
     const voie = await model.getVoie(codeCommune, codeVoie)
     const numero = await model.getNumero(codeCommune, codeVoie, numeroComplet)
 
-    this.scrollTop()
+    let href = `/bases-locales/editor?id=${model._id}`
+    let as = `/bases-locales/editor/${model._id}`
 
-    this.setState({
-      commune,
-      voie,
-      numero
-    })
+    if (commune) {
+      href += `&codeCommune=${commune.code}`
+      as += `/commune/${codeCommune}`
+    }
+
+    if (voie) {
+      href += `&codeVoie=${voie.codeVoie}`
+      as += `/voie/${voie.codeVoie}`
+    }
+
+    if (numero) {
+      href += `&idNumero=${numero.numeroComplet}`
+      as += `/numero/${numero.numeroComplet}`
+    }
+
+    Router.push(href, as)
+
+    this.scrollTop()
   }
 
   scrollTop = () => {
@@ -219,7 +266,8 @@ class Editor extends React.Component {
   }
 
   render() {
-    const {model, communes, commune, voie, numero, downloadLink, loading, error} = this.state
+    const {downloadLink, loading, error} = this.state
+    const {commune, voie, numero, model} = this.props
     const modelActions = {
       select: this.select,
       addItem: this.addItem,
@@ -234,7 +282,7 @@ class Editor extends React.Component {
       <div>
         {model ? (
           <EditBal
-            communes={communes}
+            communes={model.communes}
             commune={commune}
             voie={voie}
             numero={numero}
@@ -255,7 +303,7 @@ class Editor extends React.Component {
 
         {model && (
           <div className='buttons'>
-            {communes && (
+            {model.communes && (
               <Button onClick={this.exportBAL}>Exporter le fichier BAL</Button>
             )}
             <Button color='red' size='small' onClick={this.reset}>Tout annuler</Button>

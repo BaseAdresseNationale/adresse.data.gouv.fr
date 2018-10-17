@@ -39,6 +39,40 @@ module.exports = app => {
     })
   })
 
+  router.get('/bases-locales/editor/:id', (req, res) => {
+    app.render(req, res, '/bases-locales/editor', {
+      ...req.query,
+      id: req.params.id
+    })
+  })
+
+  router.get('/bases-locales/editor/:id/commune/:codeCommune', (req, res) => {
+    app.render(req, res, '/bases-locales/editor', {
+      ...req.query,
+      id: req.params.id,
+      codeCommune: req.params.codeCommune
+    })
+  })
+
+  router.get('/bases-locales/editor/:id/commune/:codeCommune/voie/:codeVoie', (req, res) => {
+    app.render(req, res, '/bases-locales/editor', {
+      ...req.query,
+      id: req.params.id,
+      codeCommune: req.params.codeCommune,
+      codeVoie: req.params.codeVoie
+    })
+  })
+
+  router.get('/bases-locales/editor/:id/commune/:codeCommune/voie/:codeVoie/numero/:idNumero', (req, res) => {
+    app.render(req, res, '/bases-locales/editor', {
+      ...req.query,
+      id: req.params.id,
+      codeCommune: req.params.codeCommune,
+      codeVoie: req.params.codeVoie,
+      idNumero: req.params.idNumero
+    })
+  })
+
   router.get('/bases-locales/initialiser-nouvelle-base', (req, res) => {
     app.render(req, res, '/bases-locales/init-new-base', {
       ...req.query
