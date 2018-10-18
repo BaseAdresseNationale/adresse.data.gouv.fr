@@ -48,7 +48,7 @@ const circleRadius = () => {
   }
 }
 
-class AdressesCommuneMap extends React.Component {
+class AddressesCommuneMap extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
       features: PropTypes.array.isRequired
@@ -294,4 +294,4 @@ class AdressesCommuneMap extends React.Component {
   }
 }
 
-export default AdressesCommuneMap
+export default AddressesCommuneMap

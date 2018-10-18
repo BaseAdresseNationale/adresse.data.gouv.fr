@@ -8,7 +8,7 @@ import Button from '../../../../../button'
 import {contoursToGeoJson} from '../../../../../../lib/geojson'
 
 import Head from '../head'
-import AdressesCommuneMap from '../adresses-commune-map'
+import AddressesCommuneMap from '../addresses-commune-map'
 
 import NumerosList from './numeros-list'
 import EmptyNumeroList from './empty-numeros-list'
@@ -113,7 +113,7 @@ class VoieContext extends React.Component {
         ) : (
           <div>
             {addresses && addresses.features.length > 0 && (
-              <AdressesCommuneMap
+              <AddressesCommuneMap
                 data={addresses}
                 bounds={bounds}
                 codeVoie={voie.codeVoie}

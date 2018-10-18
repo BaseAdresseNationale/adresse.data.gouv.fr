@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import getStatus from '../../../../../../lib/bal/item'
 
 import Head from '../head'
-import AdressesCommuneMap from '../adresses-commune-map'
+import AddressesCommuneMap from '../addresses-commune-map'
 
 import VoiesList from './voies-list'
 import EmptyVoiesList from './empty-voies-list'
@@ -43,7 +43,7 @@ class CommuneContext extends React.Component {
         />
 
         {addresses && addresses.features.length > 0 && (
-          <AdressesCommuneMap
+          <AddressesCommuneMap
             data={addresses}
             bounds={communeContour}
             select={actions.select}
