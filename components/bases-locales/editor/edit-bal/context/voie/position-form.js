@@ -22,9 +22,15 @@ class PositionForm extends React.Component {
     error: null
   }
 
-  handlePosition = position => {
+  handleCoords = coords => {
     const {handlePosition} = this.props
-    handlePosition(position)
+
+    handlePosition({
+      coords,
+      dateMAJ: null,
+      source: [],
+      type: 'entrée'
+    })
   }
 
   render() {
@@ -39,7 +45,7 @@ class PositionForm extends React.Component {
 
           <SinglePositionMap
             coords={position.coords}
-            handlePosition={this.handlePosition}
+            handlePosition={this.handleCoords}
           />
         </div>
 
