@@ -182,6 +182,10 @@ class NumeroForm extends React.Component {
         </div>
 
         <style jsx>{`
+          .map {
+              margin-bottom: 4em;
+          }
+
           .select-type {
             margin: 1em 0;
           }

@@ -50,6 +50,30 @@ class EditorPage extends React.Component {
     numero: null
   }
 
+  static getInitialProps = async ({res, query}) => {
+    if (query.id) {
+      const model = BALStorage.get(query.id)
+
+      if (model) {
+        return {
+          model,
+          commune: query.codeCommune ? await model.getCommune(query.codeCommune) : null,
+          voie: query.codeVoie ? await model.getVoie(query.codeCommune, query.codeVoie) : null,
+          numero: query.idNumero ? await model.getNumero(query.codeCommune, query.codeVoie, query.idNumero) : null
+        }
+      }
+
+      res.redirect('/bases-locales/editor')
+    }
+
+    return {
+      model: null,
+      commune: null,
+      voie: null,
+      nuemro: null
+    }
+  }
+
   render() {
     const {model, commune, voie, numero} = this.props
 
@@ -69,30 +93,6 @@ class EditorPage extends React.Component {
         </Section>
       </Page>
     )
-  }
-}
-
-EditorPage.getInitialProps = async ({query}) => {
-  if (query.id) {
-    const model = BALStorage.get(query.id)
-
-    if (model) {
-      return {
-        model,
-        commune: query.codeCommune ? await model.getCommune(query.codeCommune) : null,
-        voie: query.codeVoie ? await model.getVoie(query.codeCommune, query.codeVoie) : null,
-        numero: query.idNumero ? await model.getNumero(query.codeCommune, query.codeVoie, query.idNumero) : null
-      }
-    }
-
-    throw new Error('Aucun sauvegarde trouvée.')
-  }
-
-  return {
-    model: null,
-    commune: null,
-    voie: null,
-    nuemro: null
   }
 }
 

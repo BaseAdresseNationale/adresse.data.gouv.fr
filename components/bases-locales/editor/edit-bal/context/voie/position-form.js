@@ -70,6 +70,10 @@ class PositionForm extends React.Component {
         </div>
 
         <style jsx>{`
+          .map {
+            margin-bottom: 4em;
+          }
+
           .buttons {
             display: flex;
             flex-flow: wrap;

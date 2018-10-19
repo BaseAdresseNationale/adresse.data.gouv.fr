@@ -164,6 +164,7 @@ class CreateNumero extends React.Component {
 
           .map {
             margin: 1em 0;
+            margin-bottom: 4em;
           }
 
           .submit {

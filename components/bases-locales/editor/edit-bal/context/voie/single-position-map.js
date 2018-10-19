@@ -8,6 +8,28 @@ import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
 import {pointOnCoords, numeroPointStyles} from '../../../../../../lib/mapbox-gl'
 
+import SwitchInput from '../../../../../explorer/table-list/filters/switch-input'
+
+const STYLES = {
+  vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
+  ortho: {
+    version: 8,
+    glyphs: 'https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf',
+    sources: {
+      'raster-tiles': {
+        type: 'raster',
+        tiles: ['https://wxs.ign.fr/eop8s6g4hrpvxnxer1g6qu44/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
+        tileSize: 256,
+        attribution: '© IGN'
+      }},
+    layers: [{
+      id: 'simple-tiles',
+      type: 'raster',
+      source: 'raster-tiles'
+    }]
+  }
+}
+
 const createFeatureCollection = coords => {
   return {
     type: 'FeatureCollection',
@@ -20,6 +42,8 @@ const createFeatureCollection = coords => {
 }
 
 class PositionMap extends React.Component {
+  style = STYLES.vector
+
   static propTypes = {
     bounds: PropTypes.object,
     coords: PropTypes.array,
@@ -51,6 +75,8 @@ class PositionMap extends React.Component {
     this.map.on('load', this.onLoad)
     this.map.addControl(this.draw)
 
+    this.map.on('styledata', this.styleData)
+
     this.map.on('draw.create', this.createPosition)
     this.map.on('draw.update', this.createPosition)
     this.map.on('draw.delete', () => this.props.handlePosition(null))
@@ -70,6 +96,8 @@ class PositionMap extends React.Component {
   componentWillUnmount() {
     const {map} = this
 
+    map.off('styledata', this.styleData)
+
     map.off('draw.create', this.createPosition)
     map.off('draw.delete', () => this.props.handlePosition(null))
   }
@@ -85,6 +113,18 @@ class PositionMap extends React.Component {
       maxZoom: 16,
       duration: 0
     })
+  }
+
+  styleData = () => {
+    const {map} = this
+
+    if (map.isStyleLoaded()) {
+      if (!map.getSource('data')) {
+        this.onLoad()
+      }
+    } else {
+      setTimeout(this.styleData, 1000)
+    }
   }
 
   onLoad = () => {
@@ -107,12 +147,27 @@ class PositionMap extends React.Component {
     handlePosition(currentFeature.geometry.coordinates)
   }
 
+  switchLayer = () => {
+    const {map, style} = this
+    this.style = style === STYLES.vector ? STYLES.ortho : STYLES.vector
+
+    map.setStyle(this.style, {diff: false})
+  }
+
   render() {
+    const {style} = this
+
     return (
       <div className='container'>
         <div ref={el => {
           this.mapContainer = el
         }} className='container' />
+
+        <SwitchInput
+          handleChange={this.switchLayer}
+          label='Vue aérienne'
+          isChecked={style === STYLES.ortho}
+        />
 
         <style
           dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger

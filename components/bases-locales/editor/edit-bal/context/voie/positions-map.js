@@ -8,12 +8,35 @@ import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
 import theme from '../../../../../../styles/theme'
 
+import SwitchInput from '../../../../../explorer/table-list/filters/switch-input'
+
 import {positionsToGeoJson} from '../../../../../../lib/geojson'
 import {numeroIconStyles} from '../../../../../../lib/mapbox-gl'
 
 import SelectPositionType from './select-position-type'
 
+const STYLES = {
+  vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
+  ortho: {version: 8,
+    glyphs: 'https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf',
+    sources: {
+      'raster-tiles': {
+        type: 'raster',
+        tiles: ['https://wxs.ign.fr/eop8s6g4hrpvxnxer1g6qu44/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
+        tileSize: 256,
+        attribution: '© IGN'
+      }},
+    layers: [{
+      id: 'simple-tiles',
+      type: 'raster',
+      source: 'raster-tiles'
+    }]
+  }
+}
+
 class PositionsMap extends React.Component {
+  style = STYLES.vector
+
   state = {
     selectedPosition: null
   }
@@ -54,6 +77,8 @@ class PositionsMap extends React.Component {
     this.map.on('load', this.onLoad)
     this.map.addControl(this.draw)
 
+    this.map.on('styledata', this.styleData)
+
     this.map.on('draw.create', this.create)
     this.map.on('draw.update', this.update)
     this.map.on('draw.delete', this.remove)
@@ -83,6 +108,8 @@ class PositionsMap extends React.Component {
 
     map.off('load', this.onLoad)
 
+    map.off('styledata', this.styleData)
+
     map.off('draw.create', this.create)
     map.off('draw.click', this.test)
     map.off('draw.update', this.update)
@@ -101,6 +128,18 @@ class PositionsMap extends React.Component {
       maxZoom: 16,
       duration: 0
     })
+  }
+
+  styleData = () => {
+    const {map} = this
+
+    if (map.isStyleLoaded()) {
+      if (!map.getSource('data')) {
+        this.onLoad()
+      }
+    } else {
+      setTimeout(this.styleData, 1000)
+    }
   }
 
   onLoad = () => {
@@ -160,7 +199,15 @@ class PositionsMap extends React.Component {
     }
   }
 
+  switchLayer = () => {
+    const {map, style} = this
+    this.style = style === STYLES.vector ? STYLES.ortho : STYLES.vector
+
+    map.setStyle(this.style, {diff: false})
+  }
+
   render() {
+    const {style} = this
     const {selectedPosition} = this.state
 
     return (
@@ -177,6 +224,12 @@ class PositionsMap extends React.Component {
             />
           </div>
         )}
+
+        <SwitchInput
+          handleChange={this.switchLayer}
+          label='Vue aérienne'
+          isChecked={style === STYLES.ortho}
+        />
 
         <style
           dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger
