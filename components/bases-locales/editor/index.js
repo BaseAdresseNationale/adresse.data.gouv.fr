@@ -156,6 +156,11 @@ class Editor extends React.Component {
   updateNumero = async (numero, modified) => {
     const {model, commune, voie} = this.props
     await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
+
+    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}&idNumero=${numero.numeroComplet}`
+    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}/numero/${numero.numeroComplet}`
+
+    Router.push(href, as)
   }
 
   deleteItem = async (item, scrollTop = false) => {
@@ -225,8 +230,8 @@ class Editor extends React.Component {
       as += `/voie/${voie.codeVoie}`
     } else {
       await model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
-      href += `&idNumero=${numero.numeroComplet}`
-      as += `/numero/${numero.numeroComplet}`
+      href += `&codeVoie=${voie.codeVoie}&idNumero=${numero.numeroComplet}`
+      as += `/voie/${voie.codeVoie}/numero/${numero.numeroComplet}`
     }
 
     Router.push(href, as)
