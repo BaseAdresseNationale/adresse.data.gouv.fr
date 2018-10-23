@@ -6,8 +6,6 @@ import computeBbox from '@turf/bbox'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
-import theme from '../../../../../../styles/theme'
-
 import SwitchInput from '../../../../../explorer/table-list/filters/switch-input'
 
 import {positionsToGeoJson} from '../../../../../../lib/geojson'
@@ -111,7 +109,6 @@ class PositionsMap extends React.Component {
     map.off('styledata', this.styleData)
 
     map.off('draw.create', this.create)
-    map.off('draw.click', this.test)
     map.off('draw.update', this.update)
     map.off('draw.delete', this.remove)
     map.off('draw.selectionchange', this.selectionChange)
@@ -211,19 +208,28 @@ class PositionsMap extends React.Component {
     const {selectedPosition} = this.state
 
     return (
-      <div className='container'>
-        <div ref={el => {
-          this.mapContainer = el
-        }} className='container' />
+      <div>
+        <div className='map'>
+          {selectedPosition && (
+            <div className='select-type'>
+              <h3>Position sélectionnée</h3>
+              <SelectPositionType
+                type={selectedPosition.properties.type}
+                onSubmit={this.setType}
+              />
+            </div>
+          )}
 
-        {selectedPosition && (
-          <div className='select-type'>
-            <SelectPositionType
-              type={selectedPosition.properties.type}
-              onSubmit={this.setType}
+          <div className='container'>
+            <div ref={el => {
+              this.mapContainer = el
+            }} className='container' />
+
+            <style
+              dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger
             />
           </div>
-        )}
+        </div>
 
         <SwitchInput
           handleChange={this.switchLayer}
@@ -231,10 +237,12 @@ class PositionsMap extends React.Component {
           isChecked={style === STYLES.ortho}
         />
 
-        <style
-          dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger
-        />
         <style jsx>{`
+          .map {
+            display: flex;
+            align-items: center;
+          }
+
           .container {
             position: relative;
             height: 400px;
@@ -242,17 +250,8 @@ class PositionsMap extends React.Component {
           }
 
           .select-type {
-            position: absolute;
-            top: calc(75% - 40px);
-            left: calc(50% - 100px);
-            padding: 1em;
-            background: #fff;
-            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-          }
-
-          .select-type > div {
-            width: 200px;
-            height: 75px;
+            padding: 0 1em;
+            width: 40%;
           }
         `}</style>
       </div>

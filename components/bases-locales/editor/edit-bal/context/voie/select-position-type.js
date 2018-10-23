@@ -1,6 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Button from '../../../../../button'
+import Notification from '../../../../../notification'
+
+const TYPES = {
+  entrée: 'Identifie l’entrée principale d’un bâtiment ou un portail.',
+  'délivrance postale': 'Identifie un point de délivrance postale (boîte aux lettres)',
+  bâtiment: 'Identifie un bâtiment ou une partie de bâtiment.',
+  'cage d’escalier': 'identifie une cage d’escalier, en temps normal à l’intérieur d’un bâtiment.',
+  logement: 'identifie un logement ou une pièce à l’intérieur d’un bâtiment.',
+  parcelle: 'Identifie une parcelle cadastrale.',
+  segment: 'Position dérivée du segment de la voie de rattachement.',
+  'service technique': 'Identifie un point d’accès technique(ex: local disposant d’organe de coupure eau, électricité, gaz, etc)'
+}
+
 class SelectPositionType extends React.Component {
   static propTypes = {
     type: PropTypes.string,
@@ -11,51 +25,61 @@ class SelectPositionType extends React.Component {
     type: 'entrée'
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      type: props.type
+    }
+  }
+
   handleChange = e => {
-    const {onSubmit} = this.props
     e.preventDefault()
 
-    onSubmit(e.target.value)
+    this.setState({type: e.target.value})
   }
 
   render() {
-    const {type} = this.props
+    const {type} = this.state
+    const {onSubmit} = this.props
 
     return (
       <div>
         <div className='select'>
           <label>Type</label>
           <select value={type} onChange={this.handleChange}>
-            <option value='entrée'>Entrée</option>
-            <option value='délivrance postale'>Délivrance postale</option>
-            <option value='bâtiment'>Bâtiment</option>
-            <option value='cage d’escalier'>Cage d’escalier</option>
-            <option value='logement'>Logement</option>
-            <option value='parcelle'>Parcelle</option>
-            <option value='segment'>Segment</option>
-            <option value='service technique'>Service technique</option>
+            {Object.keys(TYPES).map(type => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
 
+        <Notification type='info'>
+          {TYPES[type]}
+        </Notification>
+
+        {type !== this.props.type && (
+          <div className='centered'>
+            <Button onClick={() => onSubmit(type)}>Appliquer</Button>
+          </div>
+        )}
+
         <style jsx>{`
-          .close {
+          .centered {
             display: flex;
-            justify-content: flex-end;
           }
 
-          .close-button {
-            padding: 0px 4px 4px 4px;
+          .select {
+            margin-bottom: 1em;
           }
 
-          .close-button:hover {
-            cursor: pointer;
-            background: whitesmoke;
+          select {
+            text-transform: capitalize;
           }
 
-          .button-marker {
-            display: flex;
-            justify-content: center;
-            margin: 1em 0;
+          select option::first-letter{
+            text-transform: uppercase;
           }
         `}</style>
       </div>
