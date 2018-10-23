@@ -10,7 +10,7 @@ const getNumeros = voie => {
   const numeroCount = Object.keys(voie.numeros).length
   switch (numeroCount) {
     case 0:
-      return 'Aucun numéro'
+      return 'Ajouter un numéro ➕'
     case 1:
       return '1 numéro'
     default:

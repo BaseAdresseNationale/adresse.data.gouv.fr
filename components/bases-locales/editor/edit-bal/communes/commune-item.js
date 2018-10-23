@@ -43,7 +43,7 @@ class CommuneItem extends React.Component {
 
     switch (voiesCount) {
       case 0:
-        return 'Aucune voie'
+        return 'Ajouter une voie ➕'
       case 1:
         return '1 voie'
       default:
