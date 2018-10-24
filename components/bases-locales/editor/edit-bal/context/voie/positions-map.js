@@ -165,8 +165,9 @@ class PositionsMap extends React.Component {
   }
 
   remove = event => {
+    const {selectedPosition} = this.state
     const {removePosition} = this.props
-    const currentFeature = event.features[0]
+    const currentFeature = event.features ? event.features[0] : selectedPosition
 
     this.setState({selectedPosition: null})
     removePosition(currentFeature)
@@ -216,6 +217,7 @@ class PositionsMap extends React.Component {
               <SelectPositionType
                 type={selectedPosition.properties.type}
                 onSubmit={this.setType}
+                remove={this.remove}
               />
             </div>
           )}

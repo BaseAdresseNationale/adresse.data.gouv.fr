@@ -18,7 +18,8 @@ const TYPES = {
 class SelectPositionType extends React.Component {
   static propTypes = {
     type: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -40,7 +41,7 @@ class SelectPositionType extends React.Component {
 
   render() {
     const {type} = this.state
-    const {onSubmit} = this.props
+    const {onSubmit, remove} = this.props
 
     return (
       <div>
@@ -59,15 +60,17 @@ class SelectPositionType extends React.Component {
           {TYPES[type]}
         </Notification>
 
-        {type !== this.props.type && (
-          <div className='centered'>
+        <div className='centered'>
+          {type !== this.props.type && (
             <Button onClick={() => onSubmit(type)}>Appliquer</Button>
-          </div>
-        )}
+          )}
+          <Button onClick={remove} color='red'>Supprimer</Button>
+        </div>
 
         <style jsx>{`
           .centered {
-            display: flex;
+            display: grid;
+            grid-row-gap: 0.5em;
           }
 
           .select {
