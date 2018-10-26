@@ -15,8 +15,7 @@ import Loader from '../../components/loader'
 import Head from '../../components/head'
 import Section from '../../components/section'
 
-const title = 'Éditer une fichier base locale'
-const description = 'Cet outil permet de réaliser de vérifier la conformité d’un fichier BAL et d’en éditer les champs.'
+const title = 'Créer ou modifier une Base Adresse Locale'
 
 const Editor = dynamic(import('../../components/bases-locales/editor'), {
   ssr: false,
@@ -81,7 +80,6 @@ class EditorPage extends React.Component {
     return (
       <Page>
         <Head title={title} icon={<FaEdit />}>
-          {description}
           <div className='beta'>
             <BetaRibbon />
           </div>

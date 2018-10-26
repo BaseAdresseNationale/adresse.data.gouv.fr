@@ -108,15 +108,16 @@ class Uploader extends React.Component {
 
     return (
       <div>
-        <Section>
-          <div>
-            <h2>Choisir un fichier</h2>
-            <div className='container'>
-              <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
-            </div>
-            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+        <h2>A. Je possède déjà un fichier au format BAL</h2>
+        <div className='border'>
+          <div className='container'>
+            <h3>
+              Commencez l’édition de votre fichier Base Adresse Locale
+            </h3>
+            <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
           </div>
-        </Section>
+          {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+        </div>
 
         {inProgress ? (
           <div className='centered'>
@@ -125,8 +126,13 @@ class Uploader extends React.Component {
           </div>
         ) : (
           <div>
-            <h2>Ou</h2>
-            <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+            <h2>B. Je n’ai pas de fichier au format BAL</h2>
+            <div className='border'>
+              <h3>
+                Construisez un nouveau fichier Base Adresse Locale
+              </h3>
+              <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+            </div>
           </div>
         )}
 
@@ -143,6 +149,15 @@ class Uploader extends React.Component {
         )}
 
         <style jsx>{`
+          .border {
+            padding: 5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+          }
+
           .centered {
             display: flex;
             align-items: center;

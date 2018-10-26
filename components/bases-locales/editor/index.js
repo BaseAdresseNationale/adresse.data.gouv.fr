@@ -298,12 +298,10 @@ class Editor extends React.Component {
             error={error}
           />
         ) : (
-          <div className='centered'>
-            <Uploader
-              newFile={this.createNewFile}
-              onData={this.handleData}
-            />
-          </div>
+          <Uploader
+            newFile={this.createNewFile}
+            onData={this.handleData}
+          />
         )}
 
         {model && (
@@ -316,12 +314,6 @@ class Editor extends React.Component {
         )}
 
         <style jsx>{`
-          .centered {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-          }
-
           .buttons {
             display: grid;
             grid-template-columns: 1fr;

@@ -8,7 +8,7 @@ import BetaRibbon from '../../components/beta-ribbon'
 
 import InitBase from '../../components/bases-locales/init-base'
 
-const title = 'Initialiser une nouvelle base locale'
+const title = 'Générer une Base Adresse Locale à partir de la BAN'
 const description = 'Cet outil permet de réaliser une extraction automatisée de la Base Adresse Nationale au format BAL.'
 
 export default () => (
