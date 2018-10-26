@@ -10,6 +10,7 @@ import Page from '../../layouts/main'
 import withErrors from '../../components/hoc/with-errors'
 import withWebGl from '../../components/hoc/with-web-gl'
 
+import BetaRibbon from '../../components/beta-ribbon'
 import Loader from '../../components/loader'
 import Head from '../../components/head'
 import Section from '../../components/section'
@@ -81,6 +82,9 @@ class EditorPage extends React.Component {
       <Page>
         <Head title={title} icon={<FaEdit />}>
           {description}
+          <div className='beta'>
+            <BetaRibbon />
+          </div>
         </Head>
 
         <Section>
@@ -91,6 +95,14 @@ class EditorPage extends React.Component {
             numero={numero}
           />
         </Section>
+
+        <style jsx>{`
+          .beta {
+            position: absolute;
+            top: 70px;
+            right: 0;
+          }
+        `}</style>
       </Page>
     )
   }

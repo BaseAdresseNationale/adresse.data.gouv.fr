@@ -4,6 +4,7 @@ import Page from '../../layouts/main'
 
 import Head from '../../components/head'
 import Section from '../../components/section'
+import BetaRibbon from '../../components/beta-ribbon'
 
 import InitBase from '../../components/bases-locales/init-base'
 
@@ -14,10 +15,21 @@ export default () => (
   <Page>
     <Head title={title} icon={<FaFileTextO />}>
       {description}
+      <div className='beta'>
+        <BetaRibbon />
+      </div>
     </Head>
 
     <Section>
       <InitBase />
     </Section>
+
+    <style jsx>{`
+      .beta {
+        position: absolute;
+        top: 70px;
+        right: 0;
+      }
+    `}</style>
   </Page>
 )
