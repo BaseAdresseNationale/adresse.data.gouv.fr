@@ -14,7 +14,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@etalab/bal": "^0.8.0",
+    "@etalab/bal": "^0.9.0",
     "@etalab/project-legal": "^0.3.2",
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "@turf/bbox": "^6.0.1",
