@@ -62,7 +62,7 @@ const BasesLocales = ({datasets}) => (
         <p>Ou créer de zéro votre Base Adresse Locale.</p>
       </div>
       <div className='action'>
-        <ButtonLink href='/bases-locales/editeur'>Créer une Base Adresse Locale <FaFileTextO /></ButtonLink>
+        <ButtonLink href='/bases-locales/editeur'>Éditer une Base Adresse Locale <FaFileTextO /></ButtonLink>
       </div>
     </Section>
 
