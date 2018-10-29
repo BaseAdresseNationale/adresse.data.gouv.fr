@@ -34,28 +34,28 @@ module.exports = app => {
   })
 
   router.get('/bases-locales/editeur', (req, res) => {
-    app.render(req, res, '/bases-locales/editor', {
+    app.render(req, res, '/bases-locales/editeur', {
       ...req.query
     })
   })
 
-  router.get('/bases-locales/editor/:id', (req, res) => {
-    app.render(req, res, '/bases-locales/editor', {
+  router.get('/bases-locales/editeur/:id', (req, res) => {
+    app.render(req, res, '/bases-locales/editeur', {
       ...req.query,
       id: req.params.id
     })
   })
 
-  router.get('/bases-locales/editor/:id/commune/:codeCommune', (req, res) => {
-    app.render(req, res, '/bases-locales/editor', {
+  router.get('/bases-locales/editeur/:id/commune/:codeCommune', (req, res) => {
+    app.render(req, res, '/bases-locales/editeur', {
       ...req.query,
       id: req.params.id,
       codeCommune: req.params.codeCommune
     })
   })
 
-  router.get('/bases-locales/editor/:id/commune/:codeCommune/voie/:codeVoie', (req, res) => {
-    app.render(req, res, '/bases-locales/editor', {
+  router.get('/bases-locales/editeur/:id/commune/:codeCommune/voie/:codeVoie', (req, res) => {
+    app.render(req, res, '/bases-locales/editeur', {
       ...req.query,
       id: req.params.id,
       codeCommune: req.params.codeCommune,
@@ -63,8 +63,8 @@ module.exports = app => {
     })
   })
 
-  router.get('/bases-locales/editor/:id/commune/:codeCommune/voie/:codeVoie/numero/:idNumero', (req, res) => {
-    app.render(req, res, '/bases-locales/editor', {
+  router.get('/bases-locales/editeur/:id/commune/:codeCommune/voie/:codeVoie/numero/:idNumero', (req, res) => {
+    app.render(req, res, '/bases-locales/editeur', {
       ...req.query,
       id: req.params.id,
       codeCommune: req.params.codeCommune,

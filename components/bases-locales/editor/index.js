@@ -59,8 +59,8 @@ class Editor extends React.Component {
     const model = new BAL(tree)
     BALStorage.set(model._id, model)
 
-    const href = `/bases-locales/editor?id=${model._id}`
-    const as = `/bases-locales/editor/${model._id}`
+    const href = `/bases-locales/editeur?id=${model._id}`
+    const as = `/bases-locales/editeur/${model._id}`
 
     Router.push(href, as)
   }
@@ -69,8 +69,8 @@ class Editor extends React.Component {
     const model = new BAL()
     BALStorage.set(model._id, model)
 
-    const href = `/bases-locales/editor?id=${model._id}`
-    const as = `/bases-locales/editor/${model._id}`
+    const href = `/bases-locales/editeur?id=${model._id}`
+    const as = `/bases-locales/editeur/${model._id}`
 
     Router.push(href, as)
   }
@@ -80,7 +80,7 @@ class Editor extends React.Component {
       ...this.initialState
     })
 
-    Router.push('/bases-locales/editor')
+    Router.push('/bases-locales/editeur')
   }
 
   exportBAL = async () => {
@@ -117,8 +117,8 @@ class Editor extends React.Component {
     const {model} = this.props
     await model.createCommune(newCommune.code, newCommune)
 
-    const href = `/bases-locales/editor?id=${model._id}`
-    const as = `/bases-locales/editor/${model._id}`
+    const href = `/bases-locales/editeur?id=${model._id}`
+    const as = `/bases-locales/editeur/${model._id}`
 
     Router.push(href, as)
   }
@@ -127,8 +127,8 @@ class Editor extends React.Component {
     const {model, commune} = this.props
     await model.createVoie(commune.code, newVoie)
 
-    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}`
-    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}`
+    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}`
+    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}`
 
     Router.push(href, as)
   }
@@ -137,8 +137,8 @@ class Editor extends React.Component {
     const {model, commune, voie} = this.props
     await model.createNumero(commune.code, voie.codeVoie, newNumero)
 
-    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
-    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
+    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
+    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
 
     Router.push(href, as)
   }
@@ -157,8 +157,8 @@ class Editor extends React.Component {
     const {model, commune, voie} = this.props
     await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
 
-    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}&idNumero=${numero.numeroComplet}`
-    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}/numero/${numero.numeroComplet}`
+    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}&idNumero=${numero.numeroComplet}`
+    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}/numero/${numero.numeroComplet}`
 
     Router.push(href, as)
   }
@@ -183,8 +183,8 @@ class Editor extends React.Component {
     const {model} = this.props
     await model.deleteCommune(commune.code)
 
-    const href = `/bases-locales/editor?id=${model._id}`
-    const as = `/bases-locales/editor/${model._id}`
+    const href = `/bases-locales/editeur?id=${model._id}`
+    const as = `/bases-locales/editeur/${model._id}`
 
     Router.push(href, as)
   }
@@ -193,16 +193,16 @@ class Editor extends React.Component {
     const {model, commune} = this.props
     await model.deleteVoie(commune.code, voie.codeVoie)
 
-    const href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}`
-    const as = `/bases-locales/editor/${model._id}/commune/${commune.code}`
+    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}`
+    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}`
 
     Router.push(href, as)
   }
 
   deleteNumero = async numero => {
     const {model, commune, voie} = this.props
-    let href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
-    let as = `/bases-locales/editor/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
+    let href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
+    let as = `/bases-locales/editeur/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
 
     await model.deleteNumero(commune.code, voie.codeVoie, numero.numeroComplet)
 
@@ -219,8 +219,8 @@ class Editor extends React.Component {
   cancelChange = async item => {
     const {model, commune, voie, numero} = this.props
     const type = getType(item)
-    let href = `/bases-locales/editor?id=${model._id}&codeCommune=${commune.code}`
-    let as = `/bases-locales/editor/${model._id}/commune/${commune.code}`
+    let href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}`
+    let as = `/bases-locales/editeur/${model._id}/commune/${commune.code}`
 
     if (type === 'commune') {
       await model.cancelCommuneChange(item.code)
@@ -243,8 +243,8 @@ class Editor extends React.Component {
     const voie = await model.getVoie(codeCommune, codeVoie)
     const numero = await model.getNumero(codeCommune, codeVoie, numeroComplet)
 
-    let href = `/bases-locales/editor?id=${model._id}`
-    let as = `/bases-locales/editor/${model._id}`
+    let href = `/bases-locales/editeur?id=${model._id}`
+    let as = `/bases-locales/editeur/${model._id}`
 
     if (commune) {
       href += `&codeCommune=${commune.code}`
