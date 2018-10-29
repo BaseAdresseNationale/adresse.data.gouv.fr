@@ -1,6 +1,7 @@
 import React from 'react'
 import Autocomplete from 'react-autocomplete'
 import PropTypes from 'prop-types'
+import FaSearch from 'react-icons/lib/fa/search'
 
 import Loader from '../loader'
 
@@ -45,10 +46,15 @@ class SearchInput extends React.Component {
     const {placeholder} = this.props
 
     return (
-      <div>
+      <div className='container'>
         {/* disable safari zoom in on focus with font-size at 16px */}
         <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} />
+        <span><FaSearch /></span>
         <style jsx>{`
+          .container {
+            position: relative;
+          }
+
           .search {
             background-color: ${theme.colors.white};
             border: 1px solid ${theme.border};
@@ -61,6 +67,18 @@ class SearchInput extends React.Component {
             height: 56px;
             padding: 7px;
             width: 100%;
+          }
+
+          input {
+            text-indent: 2em;
+          }
+
+          span {
+            position: absolute;
+            top: 15px;
+            left: 12px;
+            font-size: 20px;
+            color: ${theme.colors.darkGrey};
           }
         `}</style>
       </div>

@@ -8,9 +8,9 @@ import ButtonLink from '../../button-link'
 import Notification from '../../notification'
 
 import Loader from '../../loader'
+import SelectableItemList from '../../selectable-item-list'
 
 import SearchCommune from './search-communes'
-import SelectCommunes from './select-communes'
 
 class InitBase extends React.Component {
   state = {
@@ -40,10 +40,10 @@ class InitBase extends React.Component {
     })
   }
 
-  removeCommune = commune => {
+  removeCommune = communeCode => {
     this.setState(state => {
       const communes = [...state.communes]
-      remove(communes, current => current.code === commune.code)
+      remove(communes, current => current.code === communeCode)
 
       return {
         communes,
@@ -111,7 +111,16 @@ class InitBase extends React.Component {
         {communes.length > 0 &&
           <div>
             <h3>Communes sélectionnées</h3>
-            <SelectCommunes communes={communes} handleRemove={this.removeCommune} />
+            <SelectableItemList
+              list={communes.map(commune => {
+                return {
+                  key: commune.code,
+                  value: commune.nom
+                }
+              })}
+              buttonIcon='-'
+              action={item => this.removeCommune(item.key)}
+            />
           </div>
         }
 

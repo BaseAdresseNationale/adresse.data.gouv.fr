@@ -197,7 +197,7 @@ const MainStyle = () => (
           left: 3px;
           height: 14px;
           width: 14px;
-          background: url("../static/images/icons/tick.svg") center center no-repeat;
+          background: url("/static/images/icons/tick.svg") center center no-repeat;
         }
 
         input[type="checkbox"]:checked::before {
@@ -209,7 +209,7 @@ const MainStyle = () => (
 
         select {
           appearance: none;
-          background: ${theme.backgroundWhite} url("../static/images/icons/arrow-down.svg") no-repeat;
+          background: ${theme.backgroundWhite} url("/static/images/icons/arrow-down.svg") no-repeat;
           background-position: center right 1em;
           background-size: 15px;
           padding: 10px 35px 10px 15px;
