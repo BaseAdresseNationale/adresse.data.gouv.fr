@@ -26,12 +26,14 @@ function checkHeaders(headers) {
   const contentType = headers.get('Content-Type')
   const contentDisposition = headers.get('Content-Disposition')
 
-  if (contentType && contentDisposition) {
-    if (contentType.includes('csv') ||
-        (contentType.includes('application/octet-stream') && contentDisposition.includes('.csv'))) {
-      return true
-    }
+  if (contentType && contentType.includes('csv')) {
+    return true
   }
+
+  if (contentDisposition && contentDisposition.includes('.csv')) {
+    return true
+  }
+
   return false
 }
 
@@ -110,7 +112,7 @@ class BALValidator extends React.Component {
             this.setState({file, loading: false})
             this.parseFile()
           } else {
-            throw createBALValidationError('Le fichier n’est pas au format CSV')
+            throw createBALValidationError('Le fichier n’a pas été reconnu comme étant au format CSV')
           }
         } else if (response.status in statusCodeMsg) {
           throw createBALValidationError(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
