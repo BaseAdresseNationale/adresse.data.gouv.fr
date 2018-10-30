@@ -4,15 +4,6 @@ import PropTypes from 'prop-types'
 import theme from '../../../../styles/theme'
 
 class LineValue extends React.Component {
-  constructor(props) {
-    super(props)
-
-    const errors = props.value.errors || []
-    this.state = {
-      error: errors.length > 0
-    }
-  }
-
   handleMouseOver = () => {
     const {value, handleHover} = this.props
 
@@ -26,17 +17,19 @@ class LineValue extends React.Component {
   }
 
   render() {
-    const {value} = this.props
-    const {error} = this.state
+    const {value, unknownField} = this.props
+    const {rawValue, errors} = value
 
     return (
-      <Fragment key={value.rawValue}>
-        {error ? (
+      <Fragment key={rawValue}>
+        {errors && errors.length > 0 ? (
           <td className='error' onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
-            {value.rawValue}
+            {rawValue}
           </td>
         ) : (
-          <td className='valid'>{value.rawValue}</td>
+          <td className={`${unknownField ? 'unknown' : 'valid'}`}>
+            {rawValue}
+          </td>
         )}
 
         <style jsx>{`
@@ -57,6 +50,10 @@ class LineValue extends React.Component {
           td.valid {
             background: ${theme.successBg};
           }
+
+          td.unknown {
+            background: ${theme.backgroundGrey};
+          }
         `}</style>
       </Fragment>
     )
@@ -64,7 +61,11 @@ class LineValue extends React.Component {
 }
 
 LineValue.propTypes = {
-  value: PropTypes.object.isRequired,
+  value: PropTypes.shape({
+    rawValue: PropTypes.string,
+    errors: PropTypes.array
+  }).isRequired,
+  unknownField: PropTypes.bool.isRequired,
   handleHover: PropTypes.func.isRequired
 }
 

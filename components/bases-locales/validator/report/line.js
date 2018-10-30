@@ -5,7 +5,7 @@ import theme from '../../../../styles/theme'
 
 import LineValue from './line-value'
 
-const Line = ({line, onHover}) => {
+const Line = ({line, unknownFields, onHover}) => {
   return (
     <div className='container'>
       <table>
@@ -17,7 +17,12 @@ const Line = ({line, onHover}) => {
         <tbody>
           <tr>
             {Object.keys(line).map(key => !key.startsWith('_') &&
-              <LineValue key={`td-${key}`} value={line[key]} handleHover={onHover} />
+              <LineValue
+                key={`td-${key}`}
+                value={line[key]}
+                unknownField={unknownFields.includes(key)}
+                handleHover={onHover}
+              />
             )}
           </tr>
         </tbody>
@@ -49,6 +54,7 @@ const Line = ({line, onHover}) => {
 
 Line.propTypes = {
   line: PropTypes.object.isRequired,
+  unknownFields: PropTypes.array.isRequired,
   onHover: PropTypes.func.isRequired
 }
 

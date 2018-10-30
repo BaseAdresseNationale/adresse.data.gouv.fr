@@ -17,22 +17,45 @@ class Report extends React.Component {
             <div>
               <h3>Validation de la structure du fichier</h3>
               <div className='items'>
-                <CsvMeta name='Encodage des caractères' value={fileValidation.encoding.value} isValid={fileValidation.encoding.isValid} />
-                <CsvMeta name='Délimiteur' value={fileValidation.delimiter.localName} isValid={fileValidation.delimiter.isValid} />
-                <CsvMeta name='Nombre de lignes' value={parseMeta.rowsCount} isValid />
-                <CsvMeta name='Séparateur de ligne' value={fileValidation.linebreak.value} isValid={fileValidation.linebreak.isValid} />
+                <CsvMeta
+                  name='Encodage des caractères'
+                  value={fileValidation.encoding.value}
+                  isValid={fileValidation.encoding.isValid}
+                />
+                <CsvMeta
+                  name='Délimiteur'
+                  value={fileValidation.delimiter.localName}
+                  isValid={fileValidation.delimiter.isValid}
+                />
+                <CsvMeta
+                  name='Nombre de lignes'
+                  value={parseMeta.rowsCount} isValid
+                />
+                <CsvMeta
+                  name='Séparateur de ligne'
+                  value={fileValidation.linebreak.value}
+                  isValid={fileValidation.linebreak.isValid}
+                />
               </div>
             </div>}
         </div>
 
         <div className='container'>
           <h3>Validation des champs</h3>
-          <Rows rows={rowsWithErrors} rowsErrorsCount={rowsErrorsCount} />
+          <Rows
+            rows={rowsWithErrors}
+            rowsErrorsCount={rowsErrorsCount}
+            unknownFields={unknownFields}
+          />
         </div>
 
         <div className='container'>
           <h3>Champs existants</h3>
-          <Fields found={knownFields} unknown={unknownFields} alias={aliasedFields} />
+          <Fields
+            found={knownFields}
+            unknown={unknownFields}
+            alias={aliasedFields}
+          />
         </div>
 
         <style jsx>{`

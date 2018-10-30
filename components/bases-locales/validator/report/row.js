@@ -7,13 +7,14 @@ import Line from './line'
 import RowErrors from './row-errors'
 
 class Row extends React.Component {
-  static propTypes = {
-    row: PropTypes.object.isRequired
-  }
-
   state = {
     showErr: false,
     field: null
+  }
+
+  static propTypes = {
+    row: PropTypes.object.isRequired,
+    unknownFields: PropTypes.array.isRequired
   }
 
   handleError = () => {
@@ -29,7 +30,7 @@ class Row extends React.Component {
 
   render() {
     const {showErr, field} = this.state
-    const {row} = this.props
+    const {row, unknownFields} = this.props
     const errCount = row._errors.length
 
     return (
@@ -53,8 +54,15 @@ class Row extends React.Component {
 
         {showErr &&
           <div className='container'>
-            <Line line={row} onHover={this.handleField} />
-            {row._errors.length > 0 && <RowErrors errors={row._errors} field={field} />}
+            <Line
+              line={row}
+              unknownFields={unknownFields}
+              onHover={this.handleField}
+            />
+
+            {row._errors.length > 0 && (
+              <RowErrors errors={row._errors} field={field} />
+            )}
           </div>}
 
         <style jsx>{`
