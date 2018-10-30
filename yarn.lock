@@ -884,10 +884,10 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.9.0.tgz#b1b6b7ca8039f80b5e3d3891790c9ae4f55aa411"
-  integrity sha512-sdN+Kx6BvAg2M84Ui+EpsTg2u3CbNiSjjH2CQksZH5V3XICCMqju2ece7Waaf8nVropV5iKSYH3B1Zw6oJxfSA==
+"@etalab/bal@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.10.0.tgz#a21f6d625036d7cd8cdd81472773b6776d9fba5e"
+  integrity sha512-6tE46a5vPUE3bQ0h9WcqlzSjV/NDih0lG0Jn0/meQXtNh/VBL5t7GSRmn1Ok8n7VoxwbSuC7NAIqQPcm08Scpw==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
