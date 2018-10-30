@@ -230,8 +230,11 @@ class Editor extends React.Component {
       as += `/voie/${voie.codeVoie}`
     } else {
       await model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
-      href += `&codeVoie=${voie.codeVoie}&idNumero=${numero.numeroComplet}`
-      as += `/voie/${voie.codeVoie}/numero/${numero.numeroComplet}`
+    }
+
+    if (numero) {
+      href += `&codeVoie=${voie.codeVoie}&idNumero=${item.numeroComplet}`
+      as += `/voie/${voie.codeVoie}/numero/${item.numeroComplet}`
     }
 
     Router.push(href, as)
