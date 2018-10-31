@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Notification from '../../../../notification'
 
-import SearchCommunes from '../../../init-base/search-communes'
+import SearchCommunes from './search-communes'
 
 class CreateCommune extends React.Component {
   static propTypes = {

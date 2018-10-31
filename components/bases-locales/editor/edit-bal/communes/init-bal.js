@@ -5,7 +5,7 @@ import theme from '../../../../../styles/theme'
 
 import Notification from '../../../../notification'
 
-import SearchCommunes from '../../../init-base/search-communes'
+import SearchCommunes from './search-communes'
 
 class InitBAL extends React.Component {
   static propTypes = {
@@ -22,9 +22,9 @@ class InitBAL extends React.Component {
     return (
       <div className='init-bal'>
         <div>
-          <h4>Aucune commune</h4>
+          <h3>Rechercher une commune</h3>
           <Notification type='info'>
-            Recherchez une commune et sélectionnez la afin de l’ajouter.
+            Pour initialiser la base, vous devez sélectionner les communes concernées.
           </Notification>
         </div>
 
