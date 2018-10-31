@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {throttle} from 'lodash'
+import { throttle, debounce, uniqueId} from 'lodash'
 
 import {_get} from '../../../lib/fetch'
 
@@ -30,10 +30,16 @@ class SearchCommune extends React.Component {
 
   handleSearchThrottled = throttle(this.handleSearch, 200)
 
+  handleSearchDebounced = debounce(this.handleSearch, 200)
+
   handleChange = input => {
     this.setState(() => {
       if (input) {
-        this.handleSearchThrottled(input)
+        if (input.length < 5) {
+          this.handleSearchThrottled(input)
+        } else {
+          this.handleSearchDebounced(input)
+        }
       }
 
       return {input, loading: true, error: null}
@@ -48,28 +54,32 @@ class SearchCommune extends React.Component {
   }
 
   async handleSearch(input) {
+    const reqId = uniqueId('req_')
+    this.waitingFor = reqId
     const url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement,contour&limit=5`
-    let results = []
-    let error
 
     try {
-      const req = _get(url)
-      this.currentRequest = req
       const response = await _get(url)
-      if (this.currentRequest === req) {
-        results = response
+      if (reqId === this.waitingFor) {
+        this.setState(() => {
+          return {
+            results: response,
+            error: null,
+            loading: false
+          }
+        })
       }
     } catch (err) {
-      error = err
-    }
-
-    this.setState(state => {
-      return {
-        results: results.length > 0 ? results : state.results,
-        error,
-        loading: false
+      if (reqId === this.waitingFor) {
+        this.setState(() => {
+          return {
+            results: [],
+            error: new Error(err),
+            loading: false
+          }
+        })
       }
-    })
+    }
   }
 
   render() {
