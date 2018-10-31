@@ -19,6 +19,8 @@ import Notification from '../../notification'
 
 import Report from '../validator/report'
 
+import InitBase from './edit-bal/init-base'
+
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
   if (dotPosition > 0 && dotPosition < fileName.length - 1) {
@@ -71,6 +73,13 @@ class Uploader extends React.Component {
     }
   }
 
+  initFromBAN = file => {
+    this.setState({
+      file,
+      error: null
+    }, this.parseFile)
+  }
+
   parseFile = async () => {
     const {onData} = this.props
     const {file} = this.state
@@ -108,33 +117,39 @@ class Uploader extends React.Component {
 
     return (
       <div>
-        <h2>A. Je possède déjà un fichier au format BAL</h2>
-        <div className='border'>
-          <div className='container'>
-            <h3>
-              Commencez l’édition de votre fichier Base Adresse Locale
-            </h3>
-            <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
-          </div>
-          {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
-        </div>
-
-        {inProgress ? (
-          <div className='centered'>
-            <h4>Analyse en cours…</h4>
-            <Loader />
-          </div>
-        ) : (
-          <div>
-            <h2>B. Je n’ai pas de fichier au format BAL</h2>
-            <div className='border'>
-              <h3>
-                Construisez un nouveau fichier Base Adresse Locale
-              </h3>
-              <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+        <Section title='A. Éditer une Base Adresse Locale existante'>
+          <div className='border'>
+            <div className='container'>
+              {inProgress ? (
+                <div className='centered'>
+                  <h4>Analyse en cours…</h4>
+                  <Loader />
+                </div>
+              ) : (
+                <Holder placeholder='Sélectionnez ou glissez ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
+              )}
             </div>
+            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
           </div>
-        )}
+        </Section>
+
+        <Section
+          title='B. Créer une Base Adresse Locale à partir de la BAN'
+          background='grey'
+        >
+          <div>
+            <div className=''>
+              <InitBase handleSubmit={this.initFromBAN} />
+            </div>
+            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+          </div>
+        </Section>
+
+        <Section title='C. Créez une Base Adresse Locale vierge'>
+          <div className='centered'>
+            <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+          </div>
+        </Section>
 
         {report && !report.isValid && !error && (
           <div>
@@ -150,7 +165,7 @@ class Uploader extends React.Component {
 
         <style jsx>{`
           .border {
-            padding: 5em;
+            padding: 2em;
             display: flex;
             align-items: center;
             justify-content: center;

@@ -1,23 +1,23 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {remove} from 'lodash'
-import {parse} from 'content-disposition'
-import MdFileDownload from 'react-icons/lib/md/file-download'
 
-import Button from '../../button'
-import ButtonLink from '../../button-link'
-import Notification from '../../notification'
+import Button from '../../../button'
+import Notification from '../../../notification'
 
-import Loader from '../../loader'
-import SelectableItemList from '../../selectable-item-list'
+import Loader from '../../../loader'
+import SelectableItemList from '../../../selectable-item-list'
 
 import SearchCommune from './search-communes'
 
 class InitBase extends React.Component {
   state = {
     communes: [],
-    csv: null,
-    filename: null,
     loading: false
+  }
+
+  static propsTypes = {
+    handleSubmit: PropTypes.func.isRequired
   }
 
   addCommune = commune => {
@@ -65,9 +65,9 @@ class InitBase extends React.Component {
   }
 
   generate = async communes => {
+    const {handleSubmit} = this.props
     const url = 'https://adresse.data.gouv.fr/api-bal/ban/extract?communes=' + communes.map(c => c.code).join()
     let csv = null
-    let filename
     let error
 
     try {
@@ -81,31 +81,26 @@ class InitBase extends React.Component {
       }
 
       const response = await fetch(url, options)
-      const cd = parse(response.headers.get('content-disposition'));
 
-      ({filename} = cd.parameters)
-
-      const blob = await response.blob()
-      csv = URL.createObjectURL(blob)
+      csv = await response.blob()
     } catch (err) {
       error = new Error(err)
     }
 
     this.setState({
-      csv,
       error,
-      filename,
       loading: false
     })
+
+    handleSubmit(csv)
   }
 
   render() {
-    const {communes, loading, csv, filename, error} = this.state
+    const {communes, loading, error} = this.state
 
     return (
       <div>
-        <p>Pour initialiser la base, vous devez sélectionner les communes concernées.</p>
-        <h3>Rechercher une commune</h3>
+        <h3>Sélection des communes</h3>
         <SearchCommune handleSelect={this.addCommune} />
 
         {communes.length > 0 &&
@@ -125,19 +120,14 @@ class InitBase extends React.Component {
         }
 
         <div className='centered'>
-          {csv ?
-            <ButtonLink href={csv} download={filename}>
-              Télécharger <MdFileDownload />
-            </ButtonLink> : (
-              communes.length > 0 &&
-                <Button onClick={this.handleGenerate}>
-                  {loading ?
-                    <span>Génération en cours… <Loader size='small' /></span> :
-                    'Générer la base'
-                  }
-                </Button>
-            )
-          }
+          {communes.length > 0 && (
+            <Button onClick={this.handleGenerate}>
+              {loading ?
+                <span>Génération en cours… <Loader size='small' /></span> :
+                'Générer la base'
+              }
+            </Button>
+          )}
         </div>
 
         {error && <Notification style={{marginTop: '1em'}} type='error' message={error.message} />}

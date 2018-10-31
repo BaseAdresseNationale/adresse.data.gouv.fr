@@ -5,7 +5,7 @@ import theme from '../../../../../styles/theme'
 
 import Notification from '../../../../notification'
 
-import SearchCommunes from '../../../init-base/search-communes'
+import SearchCommunes from '../search-communes'
 
 class InitBAL extends React.Component {
   static propTypes = {
@@ -20,15 +20,19 @@ class InitBAL extends React.Component {
 
   render() {
     return (
-      <div className='init-bal'>
-        <div>
-          <h4>Aucune commune</h4>
-          <Notification type='info'>
-            Recherchez une commune et sélectionnez la afin de l’ajouter.
-          </Notification>
-        </div>
+      <div>
+        <h2>Création d’une Base Adresse Locale vierge</h2>
 
-        <SearchCommunes handleSelect={this.handleSubmit} />
+        <div className='init-bal'>
+          <div>
+            <h4>Ajoutez une première commune à votre Base Adresse Locale</h4>
+            <Notification type='info'>
+              Recherchez une commune et sélectionnez la afin de l’ajouter.
+            </Notification>
+          </div>
+
+          <SearchCommunes handleSelect={this.handleSubmit} />
+        </div>
 
         <style jsx>{`
           .init-bal {

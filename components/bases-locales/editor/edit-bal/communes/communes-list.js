@@ -5,8 +5,9 @@ import theme from '../../../../../styles/theme'
 
 import CreateItemWrapper from '../create-item-wrapper'
 
+import CreateCommune from '../create-commune'
+
 import CommuneItem from './commune-item'
-import CreateCommune from './create-commune'
 
 class CommunesList extends React.Component {
   state = {
