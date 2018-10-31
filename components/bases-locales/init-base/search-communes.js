@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { throttle, debounce, uniqueId} from 'lodash'
+import {throttle, debounce, uniqueId} from 'lodash'
 
 import {_get} from '../../../lib/fetch'
 
