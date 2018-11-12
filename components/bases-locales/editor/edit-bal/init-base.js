@@ -100,7 +100,7 @@ class InitBase extends React.Component {
 
     return (
       <div>
-        <h3>Sélection des communes</h3>
+        <h3>Ajoutez autant de communes que vous souhaitez</h3>
         <SearchCommune handleSelect={this.addCommune} />
 
         {communes.length > 0 &&
@@ -124,7 +124,7 @@ class InitBase extends React.Component {
             <Button onClick={this.handleGenerate}>
               {loading ?
                 <span>Génération en cours… <Loader size='small' /></span> :
-                'Générer la base'
+                'Créer la Base Adresse Locale'
               }
             </Button>
           )}

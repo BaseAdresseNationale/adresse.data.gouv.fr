@@ -117,7 +117,19 @@ class Uploader extends React.Component {
 
     return (
       <div>
-        <Section title='A. Éditer une Base Adresse Locale existante'>
+        <Section title='A. Créer une Base Adresse Locale à partir de la BAN'>
+          <p>Toutes les données de votre collectivités contenues dans la Base Adresse Nationale seront recopiées dans votre fichier Base Adresse Locale.</p>
+          <p>Vous pourrez dans quelques instants ajouter des voies, corriger des libellés, créer ou déplacer des numéros, et bien plus encore !</p>
+          <div>
+            <div className=''>
+              <InitBase handleSubmit={this.initFromBAN} />
+            </div>
+            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+          </div>
+        </Section>
+
+        <Section title='B. Éditer une Base Adresse Locale existante' background='grey'>
+          <p>Pour être éditable à l’aide de cet outil, votre fichier doit être conforme au modèle BAL 1.1 de l’AITF.</p>
           <div className='border'>
             <div className='container'>
               {inProgress ? (
@@ -133,21 +145,10 @@ class Uploader extends React.Component {
           </div>
         </Section>
 
-        <Section
-          title='B. Créer une Base Adresse Locale à partir de la BAN'
-          background='grey'
-        >
-          <div>
-            <div className=''>
-              <InitBase handleSubmit={this.initFromBAN} />
-            </div>
-            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
-          </div>
-        </Section>
-
-        <Section title='C. Créez une Base Adresse Locale vierge'>
+        <Section title='C. Créer une Base Adresse Locale vide'>
+          <p>Si vous ne souhaitez pas partir des données de la Base Adresse Nationale, vous pouvez partir d’un fichier vide.</p>
           <div className='centered'>
-            <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+            <Button onClick={newFile}><FaPencil /> Créer une Base Adresse Locale vide</Button>
           </div>
         </Section>
 
@@ -171,6 +172,7 @@ class Uploader extends React.Component {
             justify-content: center;
             flex-direction: column;
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+            background: ${theme.colors.white};
           }
 
           .centered {

@@ -20,7 +20,7 @@ const BasesLocales = ({datasets}) => (
       </div>
     </Section>
 
-    <Section background='grey'>
+    <Section background='white'>
       <h4>Qu’est-ce que le format BAL ?</h4>
       <div>
         <p>L’<a href='http://www.aitf.fr/'>Association des Ingénieurs Territoriaux de France</a> (AITF) a créé en avril 2015 un groupe de travail portant sur la Base Adresse Nationale.</p>
@@ -32,6 +32,18 @@ const BasesLocales = ({datasets}) => (
       </div>
     </Section>
 
+    <Section background='grey'>
+      <h4>Créer ou modifier une Base Adresse Locale (beta)</h4>
+      <div>
+        <p>Cet outil permet de générer une nouvelle Base Adresse Locale à partir de la BAN, ou d’éditer une Base Adresse Locale existante.</p>
+        <p>Il permet de gérer très simplement les <strong>voies</strong>, les <strong>numéros</strong> et les <strong>positions</strong> d’une commune ou d’une intercommunalité, mais aussi de gérer des <strong>toponymes</strong>.</p>
+        <p>Les données résultantes peuvent (et devraient) être republiées par la collectivité sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
+      </div>
+      <div className='action'>
+        <ButtonLink href='/bases-locales/editeur'>Éditer une Base Adresse Locale <FaFileTextO /></ButtonLink>
+      </div>
+    </Section>
+
     <Section title='Quelques bases locales déjà publiées' background='white'>
       {datasets.slice(0, 3).map(dataset => (
         <BaseAdresseLocale key={dataset.id} {...dataset} />
@@ -40,17 +52,6 @@ const BasesLocales = ({datasets}) => (
         <ButtonLink href='/bases-locales/jeux-de-donnees'>
           Voir toutes les bases locales
         </ButtonLink>
-      </div>
-    </Section>
-
-    <Section background='grey'>
-      <h4>Créer ou modifier une Base Adresse Locale (beta)</h4>
-      <div>
-        <p>Importer un fichier au format BAL et éditer ses communes, voies et numéros depuis l’interface.</p>
-        <p>Ou créer de zéro votre Base Adresse Locale.</p>
-      </div>
-      <div className='action'>
-        <ButtonLink href='/bases-locales/editeur'>Éditer une Base Adresse Locale <FaFileTextO /></ButtonLink>
       </div>
     </Section>
 
