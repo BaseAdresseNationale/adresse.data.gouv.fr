@@ -7,6 +7,7 @@ import Router from 'next/router'
 import BALStorage from '../../../lib/bal/storage'
 import theme from '../../../styles/theme'
 
+import Section from '../../section'
 import Button from '../../button'
 import BAL from '../../../lib/bal/model'
 
@@ -289,17 +290,19 @@ class Editor extends React.Component {
     return (
       <div>
         {model ? (
-          <EditBal
-            communes={model.communes}
-            commune={commune}
-            voie={voie}
-            numero={numero}
-            actions={modelActions}
-            downloadLink={downloadLink}
-            filename='filename'
-            loading={loading}
-            error={error}
-          />
+          <Section>
+            <EditBal
+              communes={model.communes}
+              commune={commune}
+              voie={voie}
+              numero={numero}
+              actions={modelActions}
+              downloadLink={downloadLink}
+              filename='filename'
+              loading={loading}
+              error={error}
+            />
+          </Section>
         ) : (
           <Uploader
             newFile={this.createNewFile}
@@ -308,12 +311,14 @@ class Editor extends React.Component {
         )}
 
         {model && (
-          <div className='buttons'>
-            {model.communes && (
-              <Button onClick={this.exportBAL}>Exporter le fichier BAL</Button>
-            )}
-            <Button color='red' size='small' onClick={this.reset}>Tout annuler</Button>
-          </div>
+          <Section>
+            <div className='buttons'>
+              {model.communes && (
+                <Button onClick={this.exportBAL}>Exporter le fichier BAL</Button>
+              )}
+              <Button color='red' size='small' onClick={this.reset}>Tout annuler</Button>
+            </div>
+          </Section>
         )}
 
         <style jsx>{`

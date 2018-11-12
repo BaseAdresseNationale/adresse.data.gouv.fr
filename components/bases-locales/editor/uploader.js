@@ -19,6 +19,8 @@ import Notification from '../../notification'
 
 import Report from '../validator/report'
 
+import InitBase from './edit-bal/init-base'
+
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
   if (dotPosition > 0 && dotPosition < fileName.length - 1) {
@@ -71,6 +73,13 @@ class Uploader extends React.Component {
     }
   }
 
+  initFromBAN = file => {
+    this.setState({
+      file,
+      error: null
+    }, this.parseFile)
+  }
+
   parseFile = async () => {
     const {onData} = this.props
     const {file} = this.state
@@ -108,33 +117,40 @@ class Uploader extends React.Component {
 
     return (
       <div>
-        <h2>A. Je possède déjà un fichier au format BAL</h2>
-        <div className='border'>
-          <div className='container'>
-            <h3>
-              Commencez l’édition de votre fichier Base Adresse Locale
-            </h3>
-            <Holder placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
-          </div>
-          {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
-        </div>
-
-        {inProgress ? (
-          <div className='centered'>
-            <h4>Analyse en cours…</h4>
-            <Loader />
-          </div>
-        ) : (
+        <Section title='A. Créer une Base Adresse Locale à partir de la BAN'>
+          <p>Toutes les données de votre collectivités contenues dans la Base Adresse Nationale seront recopiées dans votre fichier Base Adresse Locale.</p>
+          <p>Vous pourrez dans quelques instants ajouter des voies, corriger des libellés, créer ou déplacer des numéros, et bien plus encore !</p>
           <div>
-            <h2>B. Je n’ai pas de fichier au format BAL</h2>
-            <div className='border'>
-              <h3>
-                Construisez un nouveau fichier Base Adresse Locale
-              </h3>
-              <Button onClick={newFile}>Créer un fichier <FaPencil /></Button>
+            <div className=''>
+              <InitBase handleSubmit={this.initFromBAN} />
             </div>
+            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
           </div>
-        )}
+        </Section>
+
+        <Section title='B. Éditer une Base Adresse Locale existante' background='grey'>
+          <p>Pour être éditable à l’aide de cet outil, votre fichier doit être conforme au modèle BAL 1.1 de l’AITF.</p>
+          <div className='border'>
+            <div className='container'>
+              {inProgress ? (
+                <div className='centered'>
+                  <h4>Analyse en cours…</h4>
+                  <Loader />
+                </div>
+              ) : (
+                <Holder placeholder='Sélectionnez ou glissez ici votre fichier BAL au format CSV (maximum 100 Mo)' file={file} onDrop={this.handleFileDrop} />
+              )}
+            </div>
+            {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
+          </div>
+        </Section>
+
+        <Section title='C. Créer une Base Adresse Locale vide'>
+          <p>Si vous ne souhaitez pas partir des données de la Base Adresse Nationale, vous pouvez partir d’un fichier vide.</p>
+          <div className='centered'>
+            <Button onClick={newFile}><FaPencil /> Créer une Base Adresse Locale vide</Button>
+          </div>
+        </Section>
 
         {report && !report.isValid && !error && (
           <div>
@@ -150,12 +166,13 @@ class Uploader extends React.Component {
 
         <style jsx>{`
           .border {
-            padding: 5em;
+            padding: 2em;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+            background: ${theme.colors.white};
           }
 
           .centered {
