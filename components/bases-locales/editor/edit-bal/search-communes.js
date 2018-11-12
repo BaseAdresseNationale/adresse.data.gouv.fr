@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {throttle, debounce, uniqueId} from 'lodash'
 
-import {_get} from '../../../lib/fetch'
+import {_get} from '../../../../lib/fetch'
 
-import RenderCommune from '../../search-input/render-commune'
+import RenderCommune from '../../../search-input/render-commune'
 
-import SearchInput from '../../search-input'
-import Notification from '../../notification'
+import SearchInput from '../../../search-input'
+import Notification from '../../../notification'
 
 class SearchCommune extends React.Component {
   static propTypes = {

@@ -13,7 +13,6 @@ import withWebGl from '../../components/hoc/with-web-gl'
 import BetaRibbon from '../../components/beta-ribbon'
 import Loader from '../../components/loader'
 import Head from '../../components/head'
-import Section from '../../components/section'
 
 const title = 'Créer ou modifier une Base Adresse Locale'
 
@@ -85,14 +84,12 @@ class EditorPage extends React.Component {
           </div>
         </Head>
 
-        <Section>
-          <Editor
-            model={model}
-            commune={commune}
-            voie={voie}
-            numero={numero}
-          />
-        </Section>
+        <Editor
+          model={model}
+          commune={commune}
+          voie={voie}
+          numero={numero}
+        />
 
         <style jsx>{`
           .beta {

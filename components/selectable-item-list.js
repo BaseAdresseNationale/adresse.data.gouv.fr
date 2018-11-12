@@ -42,6 +42,7 @@ class SelectableItemList extends React.Component {
             border: 1px solid ${theme.colors.lightGrey};
             white-space: nowrap;
             width: 100%;
+            background: #fff;
           }
 
           .item:hover {
@@ -56,6 +57,7 @@ class SelectableItemList extends React.Component {
             margin: 2em 0;
             padding: 0.5em;
             border: 1px dashed #ccc;
+            background: #fff;
           }
 
           .button {
