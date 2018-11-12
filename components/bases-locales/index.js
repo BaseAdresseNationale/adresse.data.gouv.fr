@@ -44,18 +44,6 @@ const BasesLocales = ({datasets}) => (
     </Section>
 
     <Section background='grey'>
-      <h4>Générer une Base Adresse Locale à partir de la BAN (beta)</h4>
-      <div>
-        <p>Les collectivités qui commencent une démarche de création de base Adresse peuvent utiliser les données de la <strong>Base Adresse Nationale</strong>.</p>
-        <p>Les données résultantes peuvent être republiées par la collectivité sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
-        <p>Cet outil permet de réaliser une extraction automatisée au format BAL.</p>
-      </div>
-      <div className='action'>
-        <ButtonLink href='/bases-locales/initialiser-nouvelle-base'>Initialiser une Base Adresse Locale <FaFileTextO /></ButtonLink>
-      </div>
-    </Section>
-
-    <Section background='white'>
       <h4>Créer ou modifier une Base Adresse Locale (beta)</h4>
       <div>
         <p>Importer un fichier au format BAL et éditer ses communes, voies et numéros depuis l’interface.</p>
