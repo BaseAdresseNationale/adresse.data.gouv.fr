@@ -5,8 +5,12 @@ import Map from './map'
 
 class Preview extends React.Component {
   static propTypes = {
-    geojson: PropTypes.object.isRequired,
+    geojson: PropTypes.object,
     children: PropTypes.node.isRequired
+  }
+
+  static defaultProps = {
+    geojson: null
   }
 
   render() {
