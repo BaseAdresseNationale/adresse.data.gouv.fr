@@ -11,7 +11,7 @@ class CommunesPreview extends React.Component {
   static propTypes = {
     dataset: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      lastUpdate: PropTypes.string.isRequired,
+      lastUpdate: PropTypes.string,
       licenseLabel: PropTypes.string.isRequired,
       status: PropTypes.string.isRequired,
       valid: PropTypes.bool,
@@ -49,7 +49,7 @@ class CommunesPreview extends React.Component {
     const {communes, source} = summary
 
     return (
-      <Preview geojson={contoursToGeoJson(communes)}>
+      <Preview geojson={communes.length > 0 ? contoursToGeoJson(communes) : null}>
         <Meta
           infos={this.infos}
           report={{id, status, valid, error}}
