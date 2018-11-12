@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaArrowRight from 'react-icons/lib/fa/arrow-right'
 
+import Markdown from '../../../markdown'
+
 class Description extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -20,7 +22,7 @@ class Description extends React.Component {
       <div>
         <h3>{title}</h3>
         <div>
-          <p>{description}</p>
+          <Markdown markdown={description} />
           {page &&
             <a className='dgv-link' href={page}><FaArrowRight style={{marginRight: '5px'}} /> Consulter ce jeu de données sur data.gouv.fr</a>
           }
