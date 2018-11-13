@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {remove} from 'lodash'
 
+import {API_BAL_URL} from '../../../../lib/bal/api'
+
 import Button from '../../../button'
 import Notification from '../../../notification'
 
@@ -66,7 +68,7 @@ class InitBase extends React.Component {
 
   generate = async communes => {
     const {handleSubmit} = this.props
-    const url = 'https://adresse.data.gouv.fr/api-bal/ban/extract?communes=' + communes.map(c => c.code).join()
+    const url = `${API_BAL_URL}/ban/extract?communes=${communes.map(c => c.code).join()}`
     let csv = null
     let error
 

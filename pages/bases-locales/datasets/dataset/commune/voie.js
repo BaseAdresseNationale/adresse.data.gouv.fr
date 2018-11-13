@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {API_BAL_URL} from '../../../../../lib/bal/api'
 import {_get} from '../../../../../lib/fetch'
 
 import Page from '../../../../../layouts/main'
@@ -34,9 +35,9 @@ VoiePage.getInitialProps = async ({query}) => {
   const {id, codeCommune, codeVoie} = query
 
   return {
-    dataset: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${id}`),
-    commune: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${id}/data/${codeCommune}`),
-    voie: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${id}/data/${codeCommune}/${codeVoie}`)
+    dataset: await _get(`${API_BAL_URL}/datasets/${id}`),
+    commune: await _get(`${API_BAL_URL}/datasets/${id}/data/${codeCommune}`),
+    voie: await _get(`${API_BAL_URL}/datasets/${id}/data/${codeCommune}/${codeVoie}`)
   }
 }
 

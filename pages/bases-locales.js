@@ -4,6 +4,7 @@ import FaDatabase from 'react-icons/lib/fa/database'
 import Page from '../layouts/main'
 
 import {_get} from '../lib/fetch'
+import {API_BAL_URL} from '../lib/bal/api'
 import withErrors from '../components/hoc/with-errors'
 
 import Head from '../components/head'
@@ -31,7 +32,7 @@ BasesLocalesPage.propTypes = {
 
 BasesLocalesPage.getInitialProps = async () => {
   return {
-    datasets: await _get('https://adresse.data.gouv.fr/api-bal/datasets')
+    datasets: await _get(`${API_BAL_URL}/datasets`)
   }
 }
 

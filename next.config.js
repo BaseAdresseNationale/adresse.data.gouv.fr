@@ -1,5 +1,12 @@
 const {join} = require('path')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const nextRuntimeDotenv = require('next-runtime-dotenv')
+
+const withConfig = nextRuntimeDotenv({
+  public: [
+    'API_BAL_URL'
+  ]
+})
 
 const commonModules = [
   '/node_modules/fbjs/',
@@ -12,7 +19,7 @@ const commonModules = [
   '/pages/_error.js'
 ]
 
-module.exports = {
+module.exports = withConfig({
   webpack(config, {dev, isServer}) {
     if (!dev && !isServer) {
       config.optimization.splitChunks.cacheGroups.shared = {
@@ -36,4 +43,4 @@ module.exports = {
 
     return config
   }
-}
+})
