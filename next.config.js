@@ -2,8 +2,10 @@ const {join} = require('path')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
 const commonModules = [
+  '/node_modules/fbjs/',
   '/node_modules/next/',
   '/node_modules/lodash/',
+  '/node_modules/webpack/',
 
   '/components/hoc/',
 
