@@ -1,18 +1,13 @@
 {
   "name": "adresse.data.gouv.fr",
-  "scripts": {
-  },
-  "formation": {
-    "web": {
-      "quantity": 1
-    }
-  },
-  "addons": [
-
-  ],
   "buildpacks": [
     {
       "url": "heroku/nodejs"
     }
-  ]
+  ],
+  "env":{
+    "YARN_PRODUCTION": {
+      "required": true
+    }
+  }
 }
