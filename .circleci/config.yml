@@ -7,7 +7,7 @@ defaults:
   nodejs_container: &nodejs_container
     working_directory: *workspace_root
     docker:
-      - image: circleci/node:8-stretch
+      - image: circleci/node:10-stretch
 
   golang_container: &golang_container
     working_directory: *workspace_root
@@ -26,8 +26,9 @@ defaults:
     restore_cache:
       name: Restore node_modules cache
       keys:
-        - v1-adressedatagouv-node-{{ checksum "yarn.lock" }}
-        - v1-adressedatagouv-node-
+        - v1-adressedatagouv-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
+        - v1-adressedatagouv-node-master-{{ checksum "yarn.lock" }}
+        - v1-adressedatagouv-node-master-
 
 jobs:
   checkout:
@@ -54,7 +55,7 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: yarn
+          command: yarn --frozen-lockfile
 
       - save_cache:
           name: Save yarn cache
@@ -64,7 +65,7 @@ jobs:
 
       - save_cache:
           name: Save node_modules cache
-          key: v1-adressedatagouv-node-{{ checksum "yarn.lock" }}
+          key: v1-adressedatagouv-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - node_modules/
 
