@@ -28,13 +28,13 @@
     "lodash": "^4.17.5",
     "mapbox-gl": "^0.48.0",
     "marked": "^0.5.1",
-    "next": "^6.0.3",
+    "next": "^7.0.2",
     "papaparse": "^4.3.6",
     "piwik-react-router": "^0.10.0",
     "prop-types": "^15.6.0",
-    "react": "^16.4.1",
+    "react": "^16.6.3",
     "react-autocomplete": "^1.7.2",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.6.3",
     "react-dropzone": "^4.2.1",
     "react-icons": "^2.2.7",
     "react-mapbox-gl": "^3.8.0",
@@ -42,7 +42,7 @@
     "underscore.string": "^3.3.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.51",
+    "@babel/core": "^7.1.5",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.0",
@@ -55,7 +55,7 @@
     "jest": "^23.4.1",
     "jest-junit": "^5.1.0",
     "lerna-changelog": "^0.8.0",
-    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-bundle-analyzer": "^3.0.3",
     "xo": "^0.23.0"
   },
   "jest": {
