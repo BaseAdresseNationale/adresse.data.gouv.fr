@@ -56,7 +56,7 @@
     "jest-junit": "^5.1.0",
     "lerna-changelog": "^0.8.0",
     "webpack-bundle-analyzer": "^2.13.1",
-    "xo": "^0.21.1"
+    "xo": "^0.23.0"
   },
   "jest": {
     "verbose": true,
@@ -86,7 +86,8 @@
     "space": 2,
     "env": "browser",
     "rules": {
-      "camelcase": "warn"
+      "camelcase": "warn",
+      "unicorn/catch-error-name": "off"
     },
     "overrides": [
       {

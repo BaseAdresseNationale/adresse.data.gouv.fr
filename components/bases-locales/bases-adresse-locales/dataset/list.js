@@ -40,7 +40,7 @@ class Preview extends React.Component {
         </div>
 
         <div className='table'>
-          {items.length ?
+          {items.length > 0 ?
             items.map(toItem) :
             <div>Aucun résultat</div>}
         </div>

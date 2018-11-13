@@ -53,7 +53,7 @@ class InitBase extends React.Component {
     })
   }
 
-  handleGenerate = async () => {
+  handleGenerate = () => {
     this.setState(state => {
       this.generate(state.communes)
       return {

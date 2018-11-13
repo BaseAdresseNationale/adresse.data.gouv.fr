@@ -117,7 +117,7 @@ class BALValidator extends React.Component {
         } else if (response.status in statusCodeMsg) {
           throw createBALValidationError(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
         } else {
-          throw createBALValidationError(`Impossible de récupérer le fichier car une erreur est survenue.`)
+          throw createBALValidationError('Impossible de récupérer le fichier car une erreur est survenue.')
         }
       } catch (err) {
         this.handleError(err)

@@ -56,7 +56,7 @@ class Editor extends React.Component {
     numero: null
   }
 
-  handleData = async tree => {
+  handleData = tree => {
     const model = new BAL(tree)
     BALStorage.set(model._id, model)
 
@@ -164,7 +164,7 @@ class Editor extends React.Component {
     Router.push(href, as)
   }
 
-  deleteItem = async (item, scrollTop = false) => {
+  deleteItem = (item, scrollTop = false) => {
     const type = getType(item)
 
     if (type === 'commune') {
