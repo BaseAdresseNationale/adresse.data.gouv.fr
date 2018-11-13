@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import theme from '../../../../styles/theme'
 
 import Line from './line'
-import RowErrors from './row-errors'
+import RowIssues from './row-issues'
 
 class Row extends React.Component {
   state = {
-    showErr: false,
+    showIssues: false,
     field: null
   }
 
@@ -19,7 +19,7 @@ class Row extends React.Component {
 
   handleError = () => {
     this.setState(state => ({
-      showErr: !state.showErr,
+      showIssues: !state.showIssues,
       field: null
     }))
   }
@@ -29,9 +29,9 @@ class Row extends React.Component {
   }
 
   render() {
-    const {showErr, field} = this.state
+    const {showIssues, field} = this.state
     const {row, unknownFields} = this.props
-    const errCount = row._errors.length
+    const issuesCount = row._errors.length + row._warnings.length
 
     return (
       <div>
@@ -40,19 +40,19 @@ class Row extends React.Component {
             <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
           </div>
           <div>
-            {errCount === 1 ? (
+            {issuesCount === 1 ? (
               <span className='error' onClick={this.handleError}>
-                {showErr ? 'Masquer' : 'Afficher'} l’anomalie
+                {showIssues ? 'Masquer' : 'Afficher'} l’anomalie
               </span>
             ) : (
               <span className='error' onClick={this.handleError}>
-                {showErr ? 'Masquer' : 'Afficher'} les {errCount} anomalies
+                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies
               </span>
             )}
           </div>
         </div>
 
-        {showErr &&
+        {showIssues &&
           <div className='container'>
             <Line
               line={row}
@@ -60,8 +60,8 @@ class Row extends React.Component {
               onHover={this.handleField}
             />
 
-            {row._errors.length > 0 && (
-              <RowErrors errors={row._errors} field={field} />
+            {issuesCount > 0 && (
+              <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
             )}
           </div>}
 
