@@ -89,8 +89,8 @@ class SearchInput extends React.Component {
     const {loading, fullscreen} = this.props
 
     return (
-      <div className={`menu ${value.length ? '' : 'hidden'} ${fullscreen ? 'fullscreen' : ''}`}>
-        { loading && !items.length ? (
+      <div className={`menu ${value.length > 0 ? '' : 'hidden'} ${fullscreen ? 'fullscreen' : ''}`}>
+        { loading && items.length === 0 ? (
           <div className='item'><Loader size='small' /></div>
         ) : items.length === 0 ? (
           <div className='item'>Aucun résultat</div>
