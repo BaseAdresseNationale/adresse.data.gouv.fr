@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {API_BAL_URL} from '../../../../lib/bal/api'
 import {_get} from '../../../../lib/fetch'
 
 import Page from '../../../../layouts/main'
@@ -30,8 +31,8 @@ ReportPage.propTypes = {
 
 ReportPage.getInitialProps = async ({query}) => {
   return {
-    report: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}/report`),
-    dataset: await _get(`https://adresse.data.gouv.fr/api-bal/datasets/${query.id}`)
+    report: await _get(`${API_BAL_URL}/datasets/${query.id}/report`),
+    dataset: await _get(`${API_BAL_URL}/datasets/${query.id}`)
   }
 }
 

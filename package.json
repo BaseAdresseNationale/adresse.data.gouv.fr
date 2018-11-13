@@ -29,6 +29,7 @@
     "mapbox-gl": "^0.48.0",
     "marked": "^0.5.1",
     "next": "^7.0.2",
+    "next-runtime-dotenv": "^1.0.1",
     "papaparse": "^4.3.6",
     "piwik-react-router": "^0.10.0",
     "prop-types": "^15.6.0",
