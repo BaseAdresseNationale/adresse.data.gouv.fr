@@ -5,7 +5,7 @@
       "url": "heroku/nodejs"
     }
   ],
-  "env":{
+  "env": {
     "YARN_PRODUCTION": {
       "required": true
     }
