@@ -1,32 +1,14 @@
 {
+  "presets": ["next/babel"],
   "plugins": [
-    ["inline-import", {
-      "extensions": [".css"]
-    }],
-    "lodash"
-  ],
-
-  "env": {
-    "production": {
-      "presets": [
-        "next/babel"
-      ]
-    },
-
-    "development": {
-      "presets": [
-        "next/babel"
-      ]
-    },
-
-    "test": {
-      "presets": [
-        ["next/babel", {
-          "preset-env": {
-            "modules": "commonjs"
-          }
-        }]
-      ]
-    }
-  }
+    "lodash",
+    [
+      "inline-import",
+      {
+        "extensions": [
+          ".css"
+        ]
+      }
+    ]
+  ]
 }
