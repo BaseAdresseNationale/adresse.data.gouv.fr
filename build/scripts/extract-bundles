@@ -9,23 +9,23 @@ set -e
 TARGET=${TARGET:-bundle-stats}
 mkdir -p $TARGET
 
-# Copy every generated static
-for static in $(find .next/static -name "*.js"); do
-  clean=static-$(echo ${static#.next/static/} | tr '/' '-')
-  cp $static $TARGET/$clean
-done
+PAGES_BUILD_PATH=".next/static/$(cat .next/BUILD_ID)"
 
-# Copy every page with a clean namespaced name
-# e.g.: pages/publication/producers => page-publication-producers
-for page in $(find .next/bundles/pages -name "*.js"); do
-  clean=page-$(echo ${page#.next/bundles/pages/} | tr '/' '-')
+# Copy every generated pages
+for page in $(find $PAGES_BUILD_PATH/pages -name "*.js"); do
+  clean=page-$(echo ${page#$PAGES_BUILD_PATH/pages/} | tr '/' '-')
   cp $page $TARGET/$clean
 done
 
-# Copy every additional chunk
-# Remove generated hashes from the filenames
-for chunk in $(find .next/chunks -name "*.js"); do
-  clean=chunk-$(echo ${chunk#.next/chunks/components_} | sed 's/[_-]\([a-f0-9]\{20,64\}\)//g' | tr '/' '-')
+# Copy every runtime script
+for runtime in $(find .next/static/runtime -name "*.js"); do
+  clean=runtime-$(echo ${runtime#.next/static/runtime/} | tr '/' '-')
+  cp $runtime $TARGET/$clean
+done
+
+# Copy every chunk script
+for chunk in $(find .next/static/chunks -name "*.js"); do
+  clean=chunk-$(echo ${chunk#.next/static/chunks/} | tr '/' '-')
   cp $chunk $TARGET/$clean
 done
 

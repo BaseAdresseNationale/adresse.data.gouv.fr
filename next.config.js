@@ -1,9 +1,9 @@
 const {join} = require('path')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
-const commonDependencies = [
-  '/next/',
-  '/lodash/',
+const commonModules = [
+  '/node_modules/next/',
+  '/node_modules/lodash/',
 
   '/components/hoc/',
 
@@ -13,20 +13,11 @@ const commonDependencies = [
 module.exports = {
   webpack(config, {dev, isServer}) {
     if (!dev && !isServer) {
-      const commonPlugin = config.plugins.find(p =>
-        p.constructor.name === 'CommonsChunkPlugin' && p.filenameTemplate === 'static/commons/main-[chunkhash].js'
-      )
-
-      if (commonPlugin) {
-        const {minChunks} = commonPlugin
-
-        commonPlugin.minChunks = (module, count) => {
-          if (module.resource && commonDependencies.some(c => module.resource.includes(c))) {
-            return true
-          }
-
-          return minChunks(module, count)
-        }
+      config.optimization.splitChunks.cacheGroups.shared = {
+        name: 'commons',
+        test: m => m.resource && commonModules.some(c =>
+          m.resource.startsWith(join(__dirname, c))
+        )
       }
 
       config.plugins.push(new BundleAnalyzerPlugin({
