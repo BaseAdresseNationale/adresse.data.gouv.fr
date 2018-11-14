@@ -25,6 +25,10 @@ class Rows extends React.Component {
         {rowsWithIssuesCount === 0 && <h3>Aucune ligne avec anomalies trouvée <span className='valid'><FaCheck /></span></h3>}
         {rowsWithIssuesCount === 1 && <h3>{rowsWithIssuesCount} ligne avec anomalies trouvée</h3>}
         {rowsWithIssuesCount > 1 && <h3>{rowsWithIssuesCount} lignes avec anomalies trouvées</h3>}
+        {rowsWithIssuesCount > 1000 ?
+          <p>Seules les 1000 premières lignes avec anomalies sont affichées ici.</p> :
+          null
+        }
         <div>
           {rows.map(row => (
             <Row key={`row-${row._line}`} row={row} unknownFields={unknownFields} />
