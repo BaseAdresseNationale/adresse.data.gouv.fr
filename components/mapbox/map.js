@@ -27,10 +27,11 @@ const STYLES = {
   }
 }
 
+let currentStyle = 'vector'
+
 class Map extends React.Component {
   state = {
-    shouldRender: false,
-    style: STYLES.vector
+    shouldRender: false
   }
 
   static propTypes = {
@@ -45,7 +46,7 @@ class Map extends React.Component {
   componentDidMount() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: this.state.style,
+      style: STYLES[currentStyle],
       center: [1.7191, 46.7111]
     })
 
@@ -54,16 +55,13 @@ class Map extends React.Component {
 
   switchLayer = () => {
     const {map} = this
-    const {style} = this.state
 
-    const newStyle = style === STYLES.vector ? STYLES.ortho : STYLES.vector
+    currentStyle = currentStyle === 'vector' ? 'ortho' : 'vector'
 
-    map.setStyle(newStyle)
-    this.setState({style: newStyle})
+    map.setStyle(STYLES[currentStyle], {diff: true})
   }
 
   render() {
-    const {style} = this
     const {shouldRender} = this.state
     const {switchStyle, children} = this.props
 
@@ -81,7 +79,7 @@ class Map extends React.Component {
           <SwitchInput
             handleChange={this.switchLayer}
             label='Vue aérienne'
-            isChecked={style === STYLES.ortho}
+            isChecked={currentStyle === 'ortho'}
           />
         )}
 
