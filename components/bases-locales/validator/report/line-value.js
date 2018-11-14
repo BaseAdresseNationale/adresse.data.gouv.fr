@@ -18,12 +18,16 @@ class LineValue extends React.Component {
 
   render() {
     const {value, unknownField} = this.props
-    const {rawValue, errors} = value
+    const {rawValue, errors, warnings} = value
+    const hasErrors = errors && errors.length > 0
+    const hasWarnings = warnings && warnings.length > 0
+    const hasIssues = hasErrors || hasWarnings
+    const issuesType = hasErrors ? 'error' : 'warning'
 
     return (
       <Fragment key={rawValue}>
-        {errors && errors.length > 0 ? (
-          <td className='error' onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+        {hasIssues ? (
+          <td className={issuesType} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
             {rawValue}
           </td>
         ) : (
@@ -41,9 +45,19 @@ class LineValue extends React.Component {
             background: ${theme.errorBg};
           }
 
+          td.warning {
+            background: ${theme.warningBg};
+          }
+
           td.error:hover {
             cursor: pointer;
             background: ${theme.errorBorder};
+            color: ${theme.colors.white};
+          }
+
+          td.warning:hover {
+            cursor: pointer;
+            background: ${theme.warningBorder};
             color: ${theme.colors.white};
           }
 

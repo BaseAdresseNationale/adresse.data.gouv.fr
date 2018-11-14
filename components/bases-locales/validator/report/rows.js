@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {take} from 'lodash'
 import FaCheck from 'react-icons/lib/fa/check'
 
 import theme from '../../../../styles/theme'
@@ -9,7 +10,7 @@ import Row from './row'
 class Rows extends React.Component {
   static propTypes = {
     rows: PropTypes.array.isRequired,
-    rowsErrorsCount: PropTypes.number.isRequired,
+    rowsWithIssuesCount: PropTypes.number.isRequired,
     unknownFields: PropTypes.array
   }
 
@@ -18,15 +19,20 @@ class Rows extends React.Component {
   }
 
   render() {
-    const {rows, rowsErrorsCount, unknownFields} = this.props
+    const {rows, rowsWithIssuesCount, unknownFields} = this.props
+    const rowsToDisplay = take(rows, 1000)
 
     return (
       <div>
-        {rowsErrorsCount === 0 && <h3>Aucune anomalie trouvée <span className='valid'><FaCheck /></span></h3>}
-        {rowsErrorsCount === 1 && <h3>{rowsErrorsCount} anomalie trouvée</h3>}
-        {rowsErrorsCount > 1 && <h3>{rowsErrorsCount} anomalies trouvées</h3>}
+        {rowsWithIssuesCount === 0 && <h3>Aucune ligne avec anomalies trouvée <span className='valid'><FaCheck /></span></h3>}
+        {rowsWithIssuesCount === 1 && <h3>{rowsWithIssuesCount} ligne avec anomalies trouvée</h3>}
+        {rowsWithIssuesCount > 1 && <h3>{rowsWithIssuesCount} lignes avec anomalies trouvées</h3>}
+        {rowsWithIssuesCount > 1000 ?
+          <p>Seules les 1000 premières lignes avec anomalies sont affichées ici.</p> :
+          null
+        }
         <div>
-          {rows.map(row => (
+          {rowsToDisplay.map(row => (
             <Row key={`row-${row._line}`} row={row} unknownFields={unknownFields} />
           ))}
         </div>

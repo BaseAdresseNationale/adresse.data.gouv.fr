@@ -133,7 +133,10 @@ class BALValidator extends React.Component {
 
     this.setState({inProgress: true})
     validate(file)
-      .then(report => this.setState({report, inProgress: false}))
+      .then(report => {
+        report.rowsWithIssuesCount = report.rowsWithIssues.length
+        this.setState({report, inProgress: false})
+      })
       .then(() => {
         if (this.state.url) {
           this.pushEncodedUrl()

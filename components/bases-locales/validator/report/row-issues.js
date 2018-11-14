@@ -3,12 +3,16 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../styles/theme'
 
-const RowErrors = ({errors, field}) => (
+const RowErrors = ({errors, warnings, field}) => (
   <div className='abnormalities'>
-    <h3>Anomalie{errors.length > 1 ? 's' : ''} :</h3>
+    <h3>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h3>
     <div className='error-list'>
+      {warnings.map(err => (
+        <div key={err} className={`issue warning ${field && (field.warnings.includes(err)) ? 'select' : ''}`}>
+          {err}
+        </div>))}
       {errors.map(err => (
-        <div key={err} className={`field ${field && field.errors.includes(err) ? 'select' : ''}`}>
+        <div key={err} className={`issue error ${field && (field.warnings.includes(err)) ? 'select' : ''}`}>
           {err}
         </div>))}
     </div>
@@ -21,16 +25,30 @@ const RowErrors = ({errors, field}) => (
         margin: 1em 0;
       }
 
-      .field {
+      .issue {
         padding: 0.5em;
         margin: 0.5em 0;
         border-radius: 3px;
+      }
+
+      .error {
         background: ${theme.errorBg};
       }
 
-      .field.select {
-        background: ${theme.errorBorder};
+      .warning {
+        background: ${theme.warningBg};
+      }
+
+      .issue.select {
         color: ${theme.colors.white};
+      }
+
+      .error.select {
+        background: ${theme.errorBorder};
+      }
+
+      .warning.select {
+        background: ${theme.warningBorder};
       }
       `}</style>
   </div>
@@ -38,6 +56,7 @@ const RowErrors = ({errors, field}) => (
 
 RowErrors.propTypes = {
   errors: PropTypes.array.isRequired,
+  warnings: PropTypes.array.isRequired,
   field: PropTypes.object
 }
 

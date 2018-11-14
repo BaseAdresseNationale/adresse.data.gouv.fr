@@ -805,17 +805,18 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.10.0.tgz#a21f6d625036d7cd8cdd81472773b6776d9fba5e"
+"@etalab/bal@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.11.1.tgz#aabaa9bcac3c2fe93c1d5b22815c77fac457a0d8"
+  integrity sha512-Wm4mHHpgpeEoFOJFtWQOhw+yxYua1lwziNMrWV8D2Da9THcDEs8utbQ6Njjn4vj8pJm7oK82lk59dnbQbW6Xjg==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
-    debug "^3.1.0"
+    debug "^4.1.0"
     jschardet-french "^0.0.1"
-    lodash "^4.17.10"
-    papaparse "^4.5.0"
-    yargs "^12.0.1"
+    lodash "^4.17.11"
+    papaparse "^4.6.1"
+    yargs "^12.0.2"
 
 "@etalab/project-legal@^0.3.2":
   version "0.3.2"
@@ -2647,7 +2648,7 @@ debug@3.1.0, debug@^3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.1:
+debug@^4.0.1, debug@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
   integrity sha512-heNPJUJIqC+xB6ayLAMHaIrmN9HKa7aQO8MGqKpvCA+uJYVcvR6l5kgdrhRuwPFHU7P5/A1w0BjByPHwpfTDKg==
@@ -5523,6 +5524,11 @@ lodash@^4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
+lodash@^4.17.11:
+  version "4.17.11"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
+  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+
 lodash@^4.17.5:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
@@ -6503,9 +6509,10 @@ papaparse@^4.3.6:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.3.6.tgz#9566eda0ecab13afcb740a62381c699f486cb145"
 
-papaparse@^4.5.0:
+papaparse@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.6.1.tgz#7b3c5bdf4f0fd12374e2d37f987e9d74a1834ca8"
+  integrity sha512-X9Ws5tnEQKRCZRfoojX3KvRZbLY1BbL0wqSHF3CKGmxD8Zr4E0WaipUuFweffkCN8RSQzHKhb/F+ATYdNcz1rg==
 
 parallel-transform@^1.1.0:
   version "1.1.0"
@@ -9190,9 +9197,10 @@ yargs@^11.0.0:
     y18n "^3.2.1"
     yargs-parser "^9.0.2"
 
-yargs@^12.0.1:
+yargs@^12.0.2:
   version "12.0.2"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-12.0.2.tgz#fe58234369392af33ecbef53819171eff0f5aadc"
+  integrity sha512-e7SkEx6N6SIZ5c5H22RTZae61qtn3PYUE8JYbBFlK9sYmh3DMQ6E5ygtaG/2BW0JZi4WGgTR2IV5ChqlqrDGVQ==
   dependencies:
     cliui "^4.0.0"
     decamelize "^2.0.0"
