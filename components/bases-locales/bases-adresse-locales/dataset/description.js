@@ -6,7 +6,6 @@ import Markdown from '../../../markdown'
 
 class Description extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     page: PropTypes.string
   }
@@ -16,17 +15,14 @@ class Description extends React.Component {
   }
 
   render() {
-    const {title, description, page} = this.props
+    const {description, page} = this.props
 
     return (
       <div>
-        <h3>{title}</h3>
-        <div>
-          <Markdown markdown={description} />
-          {page &&
-            <a className='dgv-link' href={page}><FaArrowRight style={{marginRight: '5px'}} /> Consulter ce jeu de données sur data.gouv.fr</a>
-          }
-        </div>
+        <Markdown markdown={description} />
+        {page &&
+          <a className='dgv-link' href={page}><FaArrowRight style={{marginRight: '5px'}} /> Consulter ce jeu de données sur data.gouv.fr</a>
+        }
       </div>
     )
   }
