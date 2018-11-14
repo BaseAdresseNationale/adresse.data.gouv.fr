@@ -1,45 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import mapboxgl from 'mapbox-gl'
-import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 import computeBbox from '@turf/bbox'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
-
-import SwitchInput from '../../../../../explorer/table-list/filters/switch-input'
 
 import {positionsToGeoJson} from '../../../../../../lib/geojson'
 import {numeroIconStyles} from '../../../../../../lib/mapbox-gl'
 
 import SelectPositionType from './select-position-type'
 
-const STYLES = {
-  vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
-  ortho: {version: 8,
-    glyphs: 'https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf',
-    sources: {
-      'raster-tiles': {
-        type: 'raster',
-        tiles: ['https://wxs.ign.fr/eop8s6g4hrpvxnxer1g6qu44/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
-        tileSize: 256,
-        attribution: '© IGN'
-      }},
-    layers: [{
-      id: 'simple-tiles',
-      type: 'raster',
-      source: 'raster-tiles'
-    }]
-  }
-}
-
 class PositionsMap extends React.Component {
-  style = STYLES.vector
-
   state = {
     selectedPosition: null
   }
 
   static propTypes = {
+    map: PropTypes.object.isRequired,
     bounds: PropTypes.object,
     positions: PropTypes.array,
     addPosition: PropTypes.func.isRequired,
@@ -53,14 +29,9 @@ class PositionsMap extends React.Component {
   }
 
   componentDidMount() {
-    const {bounds, positions} = this.props
+    const {map, bounds, positions} = this.props
 
-    this.map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
-      center: [1.7191, 46.7111],
-      zoom: 5
-    })
+    map.setZoom(5)
 
     this.draw = new MapboxDraw({
       displayControlsDefault: false,
@@ -72,15 +43,15 @@ class PositionsMap extends React.Component {
       styles: numeroIconStyles
     })
 
-    this.map.on('load', this.onLoad)
-    this.map.addControl(this.draw)
+    map.on('load', this.onLoad)
+    map.addControl(this.draw)
 
-    this.map.on('styledata', this.styleData)
+    map.on('styledata', this.styleData)
 
-    this.map.on('draw.create', this.create)
-    this.map.on('draw.update', this.update)
-    this.map.on('draw.delete', this.remove)
-    this.map.on('draw.selectionchange', this.selectionChange)
+    map.on('draw.create', this.create)
+    map.on('draw.update', this.update)
+    map.on('draw.delete', this.remove)
+    map.on('draw.selectionchange', this.selectionChange)
 
     if (bounds || positions.length > 0) {
       this.fitBounds()
@@ -102,7 +73,7 @@ class PositionsMap extends React.Component {
   }
 
   componentWillUnmount() {
-    const {map} = this
+    const {map} = this.props
 
     map.off('load', this.onLoad)
 
@@ -115,11 +86,11 @@ class PositionsMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {bounds, positions} = this.props
+    const {map, bounds, positions} = this.props
     const toCompute = (positions.length > 0 ? positionsToGeoJson(positions) : null) || bounds
     const bbox = computeBbox(toCompute)
 
-    this.map.fitBounds(bbox, {
+    map.fitBounds(bbox, {
       padding: 30,
       linear: true,
       maxZoom: 16,
@@ -128,7 +99,7 @@ class PositionsMap extends React.Component {
   }
 
   styleData = () => {
-    const {map} = this
+    const {map} = this.props
 
     if (map.isStyleLoaded()) {
       if (!map.getSource('data')) {
@@ -197,63 +168,29 @@ class PositionsMap extends React.Component {
     }
   }
 
-  switchLayer = () => {
-    const {map, style} = this
-    this.style = style === STYLES.vector ? STYLES.ortho : STYLES.vector
-
-    map.setStyle(this.style, {diff: false})
-  }
-
   render() {
-    const {style} = this
     const {selectedPosition} = this.state
 
     return (
       <div>
-        <div className='map'>
-          {selectedPosition && (
-            <div className='select-type'>
-              <h3>Position sélectionnée</h3>
-              <SelectPositionType
-                type={selectedPosition.properties.type}
-                onSubmit={this.setType}
-                remove={this.remove}
-              />
-            </div>
-          )}
-
-          <div className='container'>
-            <div ref={el => {
-              this.mapContainer = el
-            }} className='container' />
-
-            <style
-              dangerouslySetInnerHTML={{__html: mapStyle + mapDrawStyle}} // eslint-disable-line react/no-danger
+        {selectedPosition && (
+          <div className='select-type'>
+            <h3>Position sélectionnée</h3>
+            <SelectPositionType
+              type={selectedPosition.properties.type}
+              onSubmit={this.setType}
+              remove={this.remove}
             />
           </div>
-        </div>
+        )}
 
-        <SwitchInput
-          handleChange={this.switchLayer}
-          label='Vue aérienne'
-          isChecked={style === STYLES.ortho}
+        <style
+          dangerouslySetInnerHTML={{__html: mapDrawStyle}} // eslint-disable-line react/no-danger
         />
 
         <style jsx>{`
-          .map {
-            display: flex;
-            align-items: center;
-          }
-
-          .container {
-            position: relative;
-            height: 400px;
-            width: 100%;
-          }
-
           .select-type {
             padding: 0 1em;
-            width: 40%;
           }
         `}</style>
       </div>

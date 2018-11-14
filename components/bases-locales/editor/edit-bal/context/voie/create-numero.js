@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
+import Mapbox from '../../../../../mapbox'
 
 import PreventedDefaultForm from '../../prevented-default-form'
 
@@ -130,13 +131,18 @@ class CreateNumero extends React.Component {
               Indiquez les différentes positions du numéro.
             </Notification>
 
-            <PositionsMap
-              bounds={bounds}
-              positions={positions}
-              addPosition={this.addPosition}
-              removePosition={this.removePosition}
-              updatePosition={this.updatePosition}
-            />
+            <Mapbox switchStyle>
+              {map => (
+                <PositionsMap
+                  map={map}
+                  bounds={bounds}
+                  positions={positions}
+                  addPosition={this.addPosition}
+                  removePosition={this.removePosition}
+                  updatePosition={this.updatePosition}
+                />
+              )}
+            </Mapbox>
           </div>
 
           <div className='submit'>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
+import Mapbox from '../../../../../mapbox'
 
 import PreventedDefaultForm from '../../prevented-default-form'
 
@@ -74,11 +75,16 @@ class CreateToponyme extends React.Component {
               Ajouter un marqueur à la position du toponyme.
             </Notification>
 
-            <SinglePositionMap
-              bounds={bounds}
-              coords={position ? position.coords : null}
-              handlePosition={this.handleCoords}
-            />
+            <Mapbox switchStyle>
+              {map => (
+                <SinglePositionMap
+                  map={map}
+                  bounds={bounds}
+                  coords={position ? position.coords : null}
+                  handlePosition={this.handleCoords}
+                />
+              )}
+            </Mapbox>
           </div>
 
           <div className='submit'>

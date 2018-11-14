@@ -1,38 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import dynamic from 'next/dynamic'
-import {flowRight} from 'lodash'
 import FaEdit from 'react-icons/lib/fa/edit'
 
 import BALStorage from '../../lib/bal/storage'
 
 import Page from '../../layouts/main'
 import withErrors from '../../components/hoc/with-errors'
-import withWebGl from '../../components/hoc/with-web-gl'
 
 import BetaRibbon from '../../components/beta-ribbon'
-import Loader from '../../components/loader'
 import Head from '../../components/head'
 
-const title = 'Créer ou modifier une Base Adresse Locale'
+import Editor from '../../components/bases-locales/editor'
 
-const Editor = dynamic(import('../../components/bases-locales/editor'), {
-  ssr: false,
-  loading: () => (
-    <div className='centered'>
-      <Loader />
-      <p>Chargement…</p>
-      <style jsx>{`
-          .centered {
-             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-        `}</style>
-    </div>
-  )
-})
+const title = 'Créer ou modifier une Base Adresse Locale'
 
 class EditorPage extends React.Component {
   static propTypes = {
@@ -103,7 +83,4 @@ class EditorPage extends React.Component {
   }
 }
 
-export default flowRight(
-  withErrors,
-  withWebGl
-)(EditorPage)
+export default withErrors(EditorPage)

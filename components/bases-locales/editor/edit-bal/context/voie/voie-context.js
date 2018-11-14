@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import getStatus from '../../../../../../lib/bal/item'
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
+import Mapbox from '../../../../../mapbox'
 
 import {contoursToGeoJson} from '../../../../../../lib/geojson'
 
@@ -113,12 +114,17 @@ class VoieContext extends React.Component {
         ) : (
           <div>
             {addresses && addresses.features.length > 0 && (
-              <AddressesCommuneMap
-                data={addresses}
-                bounds={bounds}
-                codeVoie={voie.codeVoie}
-                select={actions.select}
-              />
+              <Mapbox switchStyle>
+                {map => (
+                  <AddressesCommuneMap
+                    map={map}
+                    data={addresses}
+                    bounds={bounds}
+                    codeVoie={voie.codeVoie}
+                    select={actions.select}
+                  />
+                )}
+              </Mapbox>
             )}
 
             {hasNumeros ? (

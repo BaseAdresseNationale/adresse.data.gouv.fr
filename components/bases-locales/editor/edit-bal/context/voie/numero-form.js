@@ -4,6 +4,7 @@ import {isEqual} from 'lodash'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
+import Mapbox from '../../../../../mapbox'
 
 import PositionsMap from './positions-map'
 
@@ -134,13 +135,19 @@ class NumeroForm extends React.Component {
             Sélectionnez le marqueur puis déplacez-le à la position souhaitée.
           </Notification>
 
-          <PositionsMap
-            positions={positions}
-            bounds={bounds}
-            addPosition={this.addPosition}
-            removePosition={this.removePosition}
-            updatePosition={this.updatePosition}
-          />
+          <Mapbox switchStyle>
+            {map => (
+              <PositionsMap
+                map={map}
+                positions={positions}
+                bounds={bounds}
+                addPosition={this.addPosition}
+                removePosition={this.removePosition}
+                updatePosition={this.updatePosition}
+              />
+            )}
+          </Mapbox>
+
         </div>
 
         {error && (

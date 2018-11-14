@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import getStatus from '../../../../../../lib/bal/item'
 
+import Mapbox from '../../../../../mapbox'
+
 import Head from '../head'
 import AddressesCommuneMap from '../addresses-commune-map'
 
@@ -43,11 +45,16 @@ class CommuneContext extends React.Component {
         />
 
         {addresses && addresses.features.length > 0 && (
-          <AddressesCommuneMap
-            data={addresses}
-            bounds={communeContour}
-            select={actions.select}
-          />
+          <Mapbox switchStyle>
+            {map => (
+              <AddressesCommuneMap
+                map={map}
+                data={addresses}
+                bounds={communeContour}
+                select={actions.select}
+              />
+            )}
+          </Mapbox>
         )}
 
         {hasVoies ? (
