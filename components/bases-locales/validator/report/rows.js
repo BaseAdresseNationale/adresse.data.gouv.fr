@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {take} from 'lodash'
 import FaCheck from 'react-icons/lib/fa/check'
 
 import theme from '../../../../styles/theme'
@@ -19,6 +20,7 @@ class Rows extends React.Component {
 
   render() {
     const {rows, rowsWithIssuesCount, unknownFields} = this.props
+    const rowsToDisplay = take(rows, 1000)
 
     return (
       <div>
@@ -30,7 +32,7 @@ class Rows extends React.Component {
           null
         }
         <div>
-          {rows.map(row => (
+          {rowsToDisplay.map(row => (
             <Row key={`row-${row._line}`} row={row} unknownFields={unknownFields} />
           ))}
         </div>
