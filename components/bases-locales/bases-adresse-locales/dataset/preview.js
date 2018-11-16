@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import MapBox from '../../../mapbox'
 
-import GeojsonMap from '../../../mapbox-gl/geojson-map'
+import GeojsonMap from '../../../mapbox/geojson-map'
 
 class Preview extends React.Component {
   static propTypes = {

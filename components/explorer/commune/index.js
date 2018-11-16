@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import theme from '../../../styles/theme'
 
 import Mapbox from '../../mapbox'
-import GeojsonMap from '../../mapbox-gl/geojson-map'
+import GeojsonMap from '../../mapbox/geojson-map'
 
 import Head from './head'
 import Codes from './codes'
