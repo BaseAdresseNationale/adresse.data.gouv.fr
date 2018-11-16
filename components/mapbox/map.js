@@ -114,7 +114,6 @@ class Map extends React.Component {
             position: relative;
             min-width: 250px;
             height: 100%;
-            margin: 1em 0;
             flex: 1;
           }
 
