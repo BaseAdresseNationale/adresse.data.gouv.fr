@@ -273,9 +273,7 @@ class AddressesCommuneMap extends React.Component {
   }
 
   render() {
-    return (
-      <div />
-    )
+    return null
   }
 }
 

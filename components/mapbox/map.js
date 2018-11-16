@@ -36,10 +36,14 @@ class Map extends React.Component {
 
   static propTypes = {
     switchStyle: PropTypes.bool,
+    height: PropTypes.string,
+    fullscreen: PropTypes.bool,
     children: PropTypes.func.isRequired
   }
 
   static defaultProps = {
+    height: '600',
+    fullscreen: false,
     switchStyle: false
   }
 
@@ -49,6 +53,11 @@ class Map extends React.Component {
       style: STYLES[currentStyle],
       center: [1.7191, 46.7111]
     })
+
+    this.marker = new mapboxgl.Marker()
+    this.popUp = new mapboxgl.Popup()
+
+    this.marker.setPopup(this.popUp)
 
     this.setState({shouldRender: true})
   }
@@ -63,16 +72,16 @@ class Map extends React.Component {
 
   render() {
     const {shouldRender} = this.state
-    const {switchStyle, children} = this.props
+    const {switchStyle, height, fullscreen, children} = this.props
 
     return (
-      <div>
+      <div className='container'>
         <div className='tools'>
-          {shouldRender && children(this.map)}
+          {shouldRender && children(this.map, this.marker)}
 
           <div ref={el => {
             this.mapContainer = el
-          }} className='container' />
+          }} className='map-container' />
         </div>
 
         {switchStyle && (
@@ -90,15 +99,23 @@ class Map extends React.Component {
         </Head>
 
         <style jsx>{`
-          .tools {
-            display: flex;
+          .container {
+            width: 100%;
+            height: ${fullscreen ? '100vh' : `${height}px`};
           }
 
-          .container {
+          .tools {
+            display: flex;
+            flex-flow: wrap;
+            height: 100%;
+          }
+
+          .map-container {
             position: relative;
-            height: 600px;
+            min-width: 250px;
+            height: 100%;
             margin: 1em 0;
-            width: 100%;
+            flex: 1;
           }
 
         `}</style>

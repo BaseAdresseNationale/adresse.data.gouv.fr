@@ -1,12 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Source, Layer} from 'react-mapbox-gl'
-
-import {numerosToGeoJson} from '../../../../../../lib/geojson'
+import computeBbox from '@turf/bbox'
 
 import theme from '../../../../../../styles/theme'
-
-import MapboxGL from '../../../../../mapbox-gl'
 
 const circlePaint = {
   'circle-stroke-width': 1,
@@ -21,61 +17,87 @@ const circlePaint = {
 
 class NumerosMap extends React.Component {
   static propTypes = {
-    numeros: PropTypes.array,
-    position: PropTypes.object
+    map: PropTypes.object.isRequired,
+    data: PropTypes.shape({
+      features: PropTypes.array.isRequired
+    }).isRequired
   }
 
-  static defaultProps = {
-    numeros: null,
-    position: null
+  componentDidMount() {
+    const {map} = this.props
+
+    map.once('load', this.onLoad)
+
+    map.on('styledata', this.styleData)
+
+    this.fitBounds()
+  }
+
+  componentWillUnmount() {
+    const {map} = this.props
+
+    map.off('styledata', this.styleData)
+  }
+
+  styleData = () => {
+    const {map} = this.props
+
+    if (map.isStyleLoaded()) {
+      if (!map.getSource('numeros')) {
+        this.onLoad()
+      }
+    } else {
+      setTimeout(this.styleData, 1000)
+    }
+  }
+
+  fitBounds = () => {
+    const {map, data} = this.props
+    const bbox = computeBbox(data)
+
+    map.fitBounds(bbox, {
+      padding: 30,
+      linear: true,
+      maxZoom: 16,
+      duration: 0
+    })
+  }
+
+  onLoad = () => {
+    const {map, data} = this.props
+
+    map.addSource('numeros', {
+      type: 'geojson',
+      generateId: true,
+      data
+    })
+
+    map.addLayer({
+      id: 'point',
+      source: 'numeros',
+      type: 'circle',
+      paint: circlePaint
+    })
+
+    map.addLayer({
+      id: 'point-label',
+      source: 'numeros',
+      type: 'symbol',
+      layout: {
+        'text-field': '{numero}',
+        'text-anchor': 'center',
+        'text-size': {
+          stops: [[12, 3], [22, 18]]
+        },
+        'text-font': [
+          'Noto Sans Regular'
+        ]
+      }
+    })
   }
 
   render() {
-    const {numeros, position} = this.props
-    const data = numeros ? numerosToGeoJson(numeros) : {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: position.coords
-      },
-      properties: {
-        source: position.source,
-        type: position.type,
-        dateMAJ: position.dateMAJ
-      }
-    }
-
-    return (
-      <MapboxGL data={data} fitBoundsMaxZoom={18}>
-        <Source id='numeros-map' geoJsonSource={{
-          type: 'geojson',
-          data
-        }} />
-
-        <Layer
-          id='point'
-          sourceId='numeros-map'
-          type='circle'
-          paint={circlePaint} />
-
-        {numeros && (
-          <Layer
-            id='point-label'
-            type='symbol'
-            sourceId='numeros-map'
-            layout={{
-              'text-field': '{numero}',
-              'text-anchor': 'center',
-              'text-size': {
-                stops: [[12, 3], [22, 18]]
-              },
-              'text-font': [
-                'Noto Sans Regular'
-              ]
-            }} />
-        )}
-      </MapboxGL>
-    )
+    return null
   }
 }
 

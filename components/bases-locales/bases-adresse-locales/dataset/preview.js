@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Map from './map'
+import MapBox from '../../../mapbox'
+
+import GeojsonMap from '../../../mapbox-gl/geojson-map'
 
 class Preview extends React.Component {
   static propTypes = {
@@ -22,7 +24,16 @@ class Preview extends React.Component {
           {children}
 
           <div className='map'>
-            {geojson && <Map geojson={geojson} />}
+            {geojson && (
+              <MapBox height='300'>
+                {map => (
+                  <GeojsonMap
+                    map={map}
+                    data={geojson}
+                  />
+                )}
+              </MapBox>
+            )}
           </div>
         </div>
 
@@ -36,7 +47,7 @@ class Preview extends React.Component {
             justify-content: space-between;
           }
 
-          .content > div {
+          .map {
             width: 50%;
           }
 
@@ -45,7 +56,7 @@ class Preview extends React.Component {
               flex-direction: column;
             }
 
-            .content > div {
+            .map {
               width: 100%;
               margin: 1em 0;
             }

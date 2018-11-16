@@ -2,10 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {spaceThousands} from '../../../../../lib/format-numbers'
-
-import Preview from '../preview'
+import {contoursToGeoJson} from '../../../../../lib/geojson'
 
 import Meta from '../../meta'
+
+import Preview from '../preview'
 
 class CommunesPreview extends React.Component {
   static propTypes = {
@@ -15,7 +16,7 @@ class CommunesPreview extends React.Component {
       voiesCount: PropTypes.number.isRequired,
       numerosCount: PropTypes.number.isRequired,
       population: PropTypes.number.isRequired,
-      bounds: PropTypes.object
+      contour: PropTypes.object
     }).isRequired
   }
 
@@ -33,11 +34,11 @@ class CommunesPreview extends React.Component {
   }
 
   render() {
-    const {bounds, source} = this.props.commune
+    const {commune} = this.props
 
     return (
-      <Preview geojson={bounds}>
-        <Meta infos={this.infos} sources={source} />
+      <Preview geojson={contoursToGeoJson([this.props.commune])}>
+        <Meta infos={this.infos} sources={commune.source} />
       </Preview>
     )
   }

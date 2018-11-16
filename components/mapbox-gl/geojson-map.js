@@ -1,65 +1,138 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {GeoJSONLayer} from 'react-mapbox-gl'
+import computeBbox from '@turf/bbox'
 
-import ClusterLayers from './cluster-layers'
-import MapboxGL from '.'
-
-const lineLayout = {
-  'line-cap': 'round',
-  'line-join': 'round'
-}
-
-const linePaint = {
-  'line-color': '#4790E5',
-  'line-width': 2
-}
-
-const fillPaint = {
-  'fill-color': '#3099df',
-  'fill-opacity': 0.2
-}
-
-const polygonPaint = {
-  'fill-color': '#3099df',
-  'fill-outline-color': 'blue',
-  'fill-opacity': 0.3
-}
-
-const GeojsonMap = ({data, id, cluster}) => {
-  const options = {
-    cluster,
-    clusterMaxZoom: 14,
-    clusterRadius: 50,
-    tolerance: 0.5,
-    buffer: 60
+class GeojsonMap extends React.Component {
+  static propTypes = {
+    map: PropTypes.object.isRequired,
+    data: PropTypes.shape({
+      features: PropTypes.array.isRequired
+    }).isRequired
   }
 
-  return (
-    <MapboxGL data={data}>
-      <GeoJSONLayer
-        id={id}
-        sourceOptions={options}
-        data={data}
-        lineLayout={lineLayout}
-        linePaint={linePaint}
-        fillPaint={fillPaint}
-        polygonPaint={polygonPaint}
-      />
-      {cluster && <ClusterLayers sourceId={id} />}
-    </MapboxGL>
-  )
-}
+  componentDidMount() {
+    const {map} = this.props
 
-GeojsonMap.propTypes = {
-  data: PropTypes.object.isRequired,
-  id: PropTypes.string,
-  cluster: PropTypes.bool
-}
+    map.once('load', this.onLoad)
+    this.fitBounds()
 
-GeojsonMap.defaultProps = {
-  id: 'source_id',
-  cluster: false
+    map.on('styledata', this.styleData)
+  }
+
+  componentWillUnmount() {
+    const {map} = this.props
+
+    map.off('styledata', this.styleData)
+  }
+
+  fitBounds = () => {
+    const {map, data} = this.props
+    const bbox = computeBbox(data)
+
+    map.fitBounds(bbox, {
+      padding: 30,
+      linear: true,
+      maxZoom: 16,
+      duration: 0
+    })
+  }
+
+  styleData = () => {
+    const {map} = this.props
+
+    if (map.isStyleLoaded()) {
+      if (!map.getSource('data')) {
+        this.onLoad()
+      }
+    } else {
+      setTimeout(this.styleData, 1000)
+    }
+  }
+
+  onLoad = () => {
+    const {map, data} = this.props
+
+    map.addSource('data', {
+      type: 'geojson',
+      generateId: true,
+      data
+    })
+
+    map.addLayer({
+      id: 'point',
+      type: 'circle',
+      source: 'data',
+      paint: {
+        'circle-radius': 5,
+        'circle-color': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          '#2c3e50',
+          '#3099df'
+        ],
+        'circle-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          0.8,
+          0.6
+        ]
+      },
+      filter: ['==', '$type', 'Point']
+    })
+
+    map.addLayer({
+      id: 'polygon-fill',
+      type: 'fill',
+      source: 'data',
+      paint: {
+        'fill-color': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          '#2c3e50',
+          '#3099df'
+        ],
+        'fill-opacity': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          0.5,
+          0.3
+        ]
+      },
+      filter: ['==', '$type', 'Polygon']
+    })
+
+    map.addLayer({
+      id: 'polygon-outline',
+      type: 'line',
+      source: 'data',
+      paint: {
+        'line-color': '#4790E5',
+        'line-width': 2
+      },
+      filter: ['==', '$type', 'Polygon']
+    })
+
+    map.addLayer({
+      id: 'line',
+      type: 'line',
+      source: 'data',
+      paint: {
+        'line-color': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          '#2c3e50',
+          '#3099df'
+        ],
+        'line-width': 5,
+        'line-opacity': 0.8
+      },
+      filter: ['==', '$type', 'LineString']
+    })
+  }
+
+  render() {
+    return null
+  }
 }
 
 export default GeojsonMap
