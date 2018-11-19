@@ -28,7 +28,7 @@ class NumerosMap extends React.Component {
 
     map.once('load', this.onLoad)
 
-    map.on('styledata', this.styleData)
+    map.on('styledata', this.onStyleData)
 
     this.fitBounds()
   }
@@ -36,10 +36,10 @@ class NumerosMap extends React.Component {
   componentWillUnmount() {
     const {map} = this.props
 
-    map.off('styledata', this.styleData)
+    map.off('styledata', this.onStyleData)
   }
 
-  styleData = () => {
+  onStyleData = () => {
     const {map} = this.props
 
     if (map.isStyleLoaded()) {
@@ -47,7 +47,7 @@ class NumerosMap extends React.Component {
         this.onLoad()
       }
     } else {
-      setTimeout(this.styleData, 1000)
+      setTimeout(this.onStyleData, 1000)
     }
   }
 
