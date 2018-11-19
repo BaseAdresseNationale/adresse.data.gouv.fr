@@ -47,7 +47,7 @@ class PositionMap extends React.Component {
     map.on('load', this.onLoad)
     map.addControl(this.draw)
 
-    map.on('styledata', this.styleData)
+    map.on('styledata', this.onStyleData)
 
     map.on('draw.create', this.createPosition)
     map.on('draw.update', this.createPosition)
@@ -68,7 +68,7 @@ class PositionMap extends React.Component {
   componentWillUnmount() {
     const {map} = this.props
 
-    map.off('styledata', this.styleData)
+    map.off('styledata', this.onStyleData)
 
     map.off('draw.create', this.createPosition)
     map.off('draw.delete', () => this.props.handlePosition(null))
@@ -87,7 +87,7 @@ class PositionMap extends React.Component {
     })
   }
 
-  styleData = () => {
+  onStyleData = () => {
     const {map} = this.props
 
     if (map.isStyleLoaded()) {
@@ -95,7 +95,7 @@ class PositionMap extends React.Component {
         this.onLoad()
       }
     } else {
-      setTimeout(this.styleData, 1000)
+      setTimeout(this.onStyleData, 1000)
     }
   }
 

@@ -70,7 +70,7 @@ class AddressesCommuneMap extends React.Component {
     map.once('load', this.onLoad)
     this.fitBounds()
 
-    map.on('styledata', this.styleData)
+    map.on('styledata', this.onStyleData)
 
     map.on('mousemove', 'focus', this.onMouseMove.bind(this, 'focus'))
     map.on('mouseleave', 'focus', this.onMouseLeave.bind(this, 'focus'))
@@ -105,7 +105,7 @@ class AddressesCommuneMap extends React.Component {
   componentWillUnmount() {
     const {map} = this.props
 
-    map.off('styledata', this.styleData)
+    map.off('styledata', this.onStyleData)
 
     map.off('mousemove', 'focus', this.onMouseMove.bind(this, 'focus'))
     map.off('mouseleave', 'focus', this.onMouseLeave.bind(this, 'focus'))
@@ -128,7 +128,7 @@ class AddressesCommuneMap extends React.Component {
     })
   }
 
-  styleData = () => {
+  onStyleData = () => {
     const {map} = this.props
 
     if (map.isStyleLoaded()) {
@@ -136,7 +136,7 @@ class AddressesCommuneMap extends React.Component {
         this.onLoad()
       }
     } else {
-      setTimeout(this.styleData, 1000)
+      setTimeout(this.onStyleData, 1000)
     }
   }
 

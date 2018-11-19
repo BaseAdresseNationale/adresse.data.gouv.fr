@@ -16,13 +16,13 @@ class GeojsonMap extends React.PureComponent {
     map.once('load', this.onLoad)
     this.fitBounds()
 
-    map.on('styledata', this.styleData)
+    map.on('styledata', this.onStyleData)
   }
 
   componentWillUnmount() {
     const {map} = this.props
 
-    map.off('styledata', this.styleData)
+    map.off('styledata', this.onStyleData)
   }
 
   fitBounds = () => {
@@ -37,7 +37,7 @@ class GeojsonMap extends React.PureComponent {
     })
   }
 
-  styleData = () => {
+  onStyleData = () => {
     const {map} = this.props
 
     if (map.isStyleLoaded()) {
@@ -45,7 +45,7 @@ class GeojsonMap extends React.PureComponent {
         this.onLoad()
       }
     } else {
-      setTimeout(this.styleData, 1000)
+      setTimeout(this.onStyleData, 1000)
     }
   }
 

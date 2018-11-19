@@ -54,7 +54,7 @@ class AddressMap extends React.Component {
 
     map.once('load', this.onLoad)
 
-    map.on('styledata', this.styleData)
+    map.on('styledata', this.onStyleData)
 
     map.on('dragend', this.onDragEnd.bind(this))
     map.on('zoom', this.onZoom.bind(this))
@@ -79,13 +79,13 @@ class AddressMap extends React.Component {
   componentWillUnmount() {
     const {map} = this.props
 
-    map.off('styledata', this.styleData)
+    map.off('styledata', this.onStyleData)
 
     map.off('dragend', this.onDragEnd.bind(this))
     map.off('zoom', this.onZoom.bind(this))
   }
 
-  styleData = () => {
+  onStyleData = () => {
     const {map} = this.props
 
     if (map.isStyleLoaded()) {
@@ -93,7 +93,7 @@ class AddressMap extends React.Component {
         this.onLoad()
       }
     } else {
-      setTimeout(this.styleData, 1000)
+      setTimeout(this.onStyleData, 1000)
     }
   }
 
