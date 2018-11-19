@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
@@ -28,7 +29,9 @@ const BasesLocales = ({datasets}) => (
         <p>Le format <b>BAL 1.1</b> est aujourd’hui le format d’échange à privilégier pour les données Adresse produites localement.</p>
       </div>
       <div className='action'>
-        <ButtonLink href='/bases-locales/validateur'>Valider vos données au format BAL <FaCheckSquareO /></ButtonLink>
+        <Link href='/bases-locales/validateur'>
+          <ButtonLink>Valider vos données au format BAL <FaCheckSquareO /></ButtonLink>
+        </Link>
       </div>
     </Section>
 
@@ -40,7 +43,9 @@ const BasesLocales = ({datasets}) => (
         <p>Les données résultantes peuvent (et devraient) être republiées par la collectivité sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
       </div>
       <div className='action'>
-        <ButtonLink href='/bases-locales/editeur'>Éditer une Base Adresse Locale <FaFileTextO /></ButtonLink>
+        <Link href='/bases-locales/editeur'>
+          <ButtonLink>Éditer une Base Adresse Locale <FaFileTextO /></ButtonLink>
+        </Link>
       </div>
     </Section>
 
@@ -49,9 +54,11 @@ const BasesLocales = ({datasets}) => (
         <BaseAdresseLocale key={dataset.id} {...dataset} />
       ))}
       <div className='centered'>
-        <ButtonLink href='/bases-locales/jeux-de-donnees'>
-          Voir toutes les bases locales
-        </ButtonLink>
+        <Link href='/bases-locales/jeux-de-donnees'>
+          <ButtonLink>
+            Voir toutes les bases locales
+          </ButtonLink>
+        </Link>
       </div>
     </Section>
 
