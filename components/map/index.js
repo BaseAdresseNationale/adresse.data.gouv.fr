@@ -8,6 +8,7 @@ import {_get} from '../../lib/fetch'
 import Notification from '../notification'
 import renderAdresse from '../search-input/render-adresse'
 import SearchInput from '../search-input'
+import Mapbox from '../mapbox'
 
 import AddressMap from './address-map'
 
@@ -196,13 +197,20 @@ class Map extends React.Component {
             type='error' />
         }
 
-        <AddressMap
-          address={address}
-          center={center}
-          zoom={zoom}
-          loading={addressLoading}
-          mapUpdate={this.mapUpdate}
-          getNearestAddress={this.getNearestAddress} />
+        <Mapbox fullscreen>
+          {(map, marker) => (
+            <AddressMap
+              map={map}
+              marker={marker}
+              data={address}
+              center={center}
+              zoom={zoom}
+              loading={addressLoading}
+              mapUpdate={this.mapUpdate}
+              getNearestAddress={this.getNearestAddress}
+            />
+          )}
+        </Mapbox>
 
         <style jsx>{`
           .container {
@@ -220,11 +228,6 @@ class Map extends React.Component {
             top: 90px;
             left: 50%;
             transform: translate(-50%);
-          }
-
-          .map {
-            width: 100%;
-            height: 100%;
           }
 
           @media (max-width: 700px) {

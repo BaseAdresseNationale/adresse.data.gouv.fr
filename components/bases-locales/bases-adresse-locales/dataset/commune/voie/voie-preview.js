@@ -2,15 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {spaceThousands} from '../../../../../../lib/format-numbers'
+import {numerosToGeoJson} from '../../../../../../lib/geojson'
 
 import theme from '../../../../../../styles/theme'
 
 import Notification from '../../../../../notification'
 import Tag from '../../../../../tag'
+import Mapbox from '../../../../../mapbox'
 
 import Item from '../../item'
 
-import MapLoader from './map-loader'
+import NumerosMap from './numeros-map'
 
 class VoiePreview extends React.Component {
   static propTypes = {
@@ -35,13 +37,32 @@ class VoiePreview extends React.Component {
 
   render() {
     const {numeros, position} = this.props.voie
+    const data = numeros ? numerosToGeoJson(numeros) : {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: position.coords
+      },
+      properties: {
+        source: position.source,
+        type: position.type,
+        dateMAJ: position.dateMAJ
+      }
+    }
 
     return (
       <div className='container'>
 
         {(numeros || position) &&
           <div className='map'>
-            <MapLoader numeros={numeros} position={position} />
+            <Mapbox height='300'>
+              {map => (
+                <NumerosMap
+                  map={map}
+                  data={data}
+                />
+              )}
+            </Mapbox>
           </div>
         }
 
@@ -90,12 +111,6 @@ class VoiePreview extends React.Component {
             color: ${theme.colors.white};
             padding: 1em;
             margin-bottom: 0;
-          }
-
-          .map {
-            width: 100%;
-            height: 500px;
-            margin: 1em 0;
           }
 
           .table {
