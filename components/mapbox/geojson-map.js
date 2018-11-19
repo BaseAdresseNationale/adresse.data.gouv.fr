@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-class GeojsonMap extends React.Component {
+class GeojsonMap extends React.PureComponent {
   static propTypes = {
     map: PropTypes.object.isRequired,
     data: PropTypes.shape({

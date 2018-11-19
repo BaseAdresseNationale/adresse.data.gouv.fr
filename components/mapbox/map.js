@@ -29,7 +29,7 @@ const STYLES = {
 
 let currentStyle = 'vector'
 
-class Map extends React.Component {
+class Map extends React.PureComponent {
   state = {
     shouldRender: false
   }
