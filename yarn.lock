@@ -805,10 +805,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.11.1":
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.11.1.tgz#aabaa9bcac3c2fe93c1d5b22815c77fac457a0d8"
-  integrity sha512-Wm4mHHpgpeEoFOJFtWQOhw+yxYua1lwziNMrWV8D2Da9THcDEs8utbQ6Njjn4vj8pJm7oK82lk59dnbQbW6Xjg==
+"@etalab/bal@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.12.0.tgz#7fb2ecd04f4894c15b643022c881475019115b8e"
+  integrity sha512-MKlTY5c3PBB0wcaV3x239FGSOQhq9wnqyDNA5y7HKlcAYRsrCPQLP2kB2Q/DCnkBmmh4nrDBmszTe7JcUB79hA==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
