@@ -37,7 +37,7 @@ class CommunesPreview extends React.Component {
     const {commune} = this.props
 
     return (
-      <Preview geojson={contoursToGeoJson([this.props.commune])}>
+      <Preview geojson={contoursToGeoJson([commune])}>
         <Meta infos={this.infos} sources={commune.source} />
       </Preview>
     )
