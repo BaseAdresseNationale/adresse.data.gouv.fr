@@ -62,7 +62,7 @@ class EditorPage extends React.Component {
         }
       }
 
-      res.redirect('/bases-locales/editor')
+      res.redirect('/bases-locales/editeur')
     }
 
     return {
