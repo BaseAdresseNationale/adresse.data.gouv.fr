@@ -36,4 +36,4 @@ BasesLocalesPage.getInitialProps = async () => {
   }
 }
 
-export default (withErrors(BasesLocalesPage))
+export default withErrors(BasesLocalesPage)

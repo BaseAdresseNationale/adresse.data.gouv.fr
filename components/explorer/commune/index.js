@@ -1,11 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
+
+import Mapbox from '../../mapbox'
+import GeojsonMap from '../../mapbox/geojson-map'
 
 import Head from './head'
 import Codes from './codes'
 import Metrics from './metrics'
-import Map from './map'
 
 const Commune = props => (
   <div>
@@ -17,7 +20,14 @@ const Commune = props => (
 
     <div className='map'>
       <Metrics {...props} />
-      <Map {...props} />
+      <Mapbox>
+        {map => (
+          <GeojsonMap
+            map={map}
+            data={props.contour}
+          />
+        )}
+      </Mapbox>
     </div>
 
     <style jsx>{`
@@ -44,5 +54,9 @@ const Commune = props => (
       `}</style>
   </div>
 )
+
+Commune.propTypes = {
+  contour: PropTypes.object.isRequired
+}
 
 export default Commune

@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Source, Layer} from 'react-mapbox-gl'
+import computeBbox from '@turf/bbox'
+import {isEqual} from 'lodash'
 
-import MapboxGL from '../../mapbox-gl'
-import Events from '../../mapbox-gl/events'
-
-import {addressesToGeoJson, addressToGeoJson} from '../../../lib/geojson'
+import theme from '../../../styles/theme'
 
 import Notification from '../../notification'
+
+import Address from './address'
 
 const EMPTY_FILTER = ['==', 'non_existing_prop', 'non_existing_value']
 
@@ -47,29 +47,208 @@ const circlePaint = {
   'circle-opacity': 0.8
 }
 
+const labelLayout = {
+  'text-field': '{numero}',
+  'text-anchor': 'center',
+  'text-size': {
+    stops: [[12, 3], [22, 13]]
+  },
+  'text-font': [
+    'Noto Sans Regular'
+  ]
+}
+
 class AddressesMap extends React.Component {
   static propTypes = {
-    addresses: PropTypes.array.isRequired,
-    addrsAround: PropTypes.array.isRequired,
+    map: PropTypes.object.isRequired,
+    data: PropTypes.shape({
+      features: PropTypes.array.isRequired
+    }).isRequired,
+    selected: PropTypes.object,
+    voie: PropTypes.object.isRequired,
+    addrsAround: PropTypes.shape({
+      features: PropTypes.array.isRequired
+    }).isRequired,
+    onClose: PropTypes.func.isRequired,
     handleMove: PropTypes.func.isRequired,
-    selectedAddress: PropTypes.object,
     handleSelect: PropTypes.func
   }
 
   static defaultProps = {
-    selectedAddress: null,
+    selected: null,
     handleSelect: null
   }
 
-  handleClick = (map, event) => {
-    const {handleSelect} = this.props
+  componentDidMount() {
+    const {map} = this.props
+
+    map.once('load', this.onLoad)
+    this.fitBounds()
+
+    map.on('styledata', this.onStyleData)
+
+    map.on('mouseenter', 'point', this.onMouseEnter.bind(this, 'point'))
+    map.on('mouseleave', 'point', this.onMouseLeave.bind(this, 'point'))
+    map.on('click', 'point', this.onClick.bind(this, 'point'))
+    map.on('click', 'focus', this.onClick.bind(this, 'focus'))
+    map.on('click', 'unfocus', this.onClick.bind(this, 'unfocus'))
+
+    map.on('dragend', this.onDragEnd.bind(this))
+  }
+
+  componentDidUpdate(prevProps) {
+    const {map, data, selected, addrsAround} = this.props
+
+    if (!isEqual(addrsAround, prevProps.addrsAround)) {
+      const source = map.getSource('addresses-around')
+
+      source.setData(addrsAround)
+    }
+
+    if (!isEqual(data, prevProps.data)) {
+      const source = map.getSource('data')
+
+      source.setData(data)
+    }
+
+    if (selected || selected !== prevProps.selected) {
+      this.fitBounds()
+    }
+  }
+
+  componentWillUnmount() {
+    const {map} = this.props
+
+    map.off('styledata', this.onStyleData)
+
+    map.off('mouseenter', 'point', this.onMouseEnter.bind(this, 'point'))
+    map.off('mouseleave', 'point', this.onMouseLeave.bind(this, 'point'))
+
+    map.off('click', 'point', this.onClick.bind(this, 'point'))
+    map.off('click', 'focus', this.onClick.bind(this, 'focus'))
+    map.off('click', 'unfocus', this.onClick.bind(this, 'unfocus'))
+
+    map.off('dragend', this.onDragEnd.bind(this))
+  }
+
+  fitBounds = () => {
+    const {map, data} = this.props
+    const bbox = computeBbox(data)
+
+    map.fitBounds(bbox, {
+      padding: 30,
+      linear: true,
+      maxZoom: 19,
+      duration: 0
+    })
+  }
+
+  onStyleData = () => {
+    const {map} = this.props
+
+    if (map.isStyleLoaded()) {
+      if (!map.getSource('data')) {
+        this.onLoad()
+      }
+    } else {
+      setTimeout(this.onStyleData, 1000)
+    }
+  }
+
+  onLoad = () => {
+    const {map, data, addrsAround} = this.props
+
+    map.addSource('data', {
+      type: 'geojson',
+      generateId: true,
+      data
+    })
+
+    map.addSource('addresses-around', {
+      type: 'geojson',
+      generateId: true,
+      data: addrsAround
+    })
+
+    map.addLayer({
+      id: 'point',
+      source: 'data',
+      type: 'circle',
+      paint: circlePaint
+    })
+
+    map.addLayer({
+      id: 'point-around',
+      source: 'addresses-around',
+      type: 'circle',
+      paint: {
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#DDD',
+        'circle-radius': {
+          base: 1.6,
+          stops: [[12, 2], [22, 100]]
+        },
+        'circle-color': '#fff',
+        'circle-opacity': 0.2
+      }
+    })
+
+    map.addLayer({
+      id: 'point-hover',
+      source: 'data',
+      type: 'circle',
+      filter: EMPTY_FILTER,
+      paint: {
+        'circle-stroke-width': 2,
+        'circle-stroke-color': circlePaint['circle-color'],
+        'circle-radius': circlePaint['circle-radius'],
+        'circle-color': '#fff',
+        'circle-opacity': 1
+      }
+    })
+
+    map.addLayer({
+      id: 'point-label',
+      type: 'symbol',
+      source: 'data',
+      layout: labelLayout
+    })
+
+    map.addLayer({
+      id: 'around-label',
+      type: 'symbol',
+      source: 'addresses-around',
+      layout: labelLayout
+    })
+
+    map.addLayer({
+      id: 'point-source',
+      type: 'symbol',
+      source: 'data',
+      filter: ['has', 'source'],
+      layout: {
+        'text-field': '{source}',
+        'text-anchor': 'center',
+        'text-size': 12,
+        'text-font': [
+          'Noto Sans Regular'
+        ]
+      }
+    })
+
+    this.onDragEnd()
+  }
+
+  onClick = (layer, event) => {
+    const {map, handleSelect} = this.props
     const [feature] = event.features
 
     this.resetFilters(map)
     handleSelect(feature)
   }
 
-  handleMouseEnter = (map, event) => {
+  onMouseEnter = (layer, event) => {
+    const {map} = this.props
     const canvas = event.originalEvent.target
     canvas.style.cursor = 'pointer'
 
@@ -79,15 +258,15 @@ class AddressesMap extends React.Component {
     map.setFilter('point-label', ['==', ['get', 'id'], feature.properties.id])
   }
 
-  handleMouseLeave = (map, event) => {
+  onMouseLeave = (layer, event) => {
     const canvas = event.originalEvent.target
     canvas.style.cursor = ''
 
-    this.resetFilters(map)
+    this.resetFilters()
   }
 
-  handleDragEnd = map => {
-    const {handleMove} = this.props
+  onDragEnd = () => {
+    const {map, handleMove} = this.props
     const bounds = map.getBounds().toArray()
     const bbox = [
       bounds[0][0],
@@ -95,122 +274,47 @@ class AddressesMap extends React.Component {
       bounds[1][0],
       bounds[1][1]
     ]
+
     handleMove(bbox)
   }
 
-  resetFilters(map) {
+  resetFilters() {
+    const {map} = this.props
+
     map.setFilter('point-hover', EMPTY_FILTER)
     map.setFilter('point-label', null)
     map.setFilter('point', null)
   }
 
   render() {
-    const {addresses, addrsAround, selectedAddress} = this.props
-    const data = selectedAddress ?
-      addressToGeoJson(selectedAddress) :
-      addressesToGeoJson(addresses)
+    const {data, selected, voie, onClose} = this.props
 
     if (data.features.length === 0) {
       return <Notification type='error' message='No position' />
     }
 
     return (
-      <MapboxGL data={data} onStyleLoad={this.handleDragEnd}>
-        <Source id='addresses-map' geoJsonSource={{
-          type: 'geojson',
-          data
-        }} />
+      <div>
+        {selected && (
+          <div className='selected-address'>
+            <Address
+              voie={voie}
+              address={selected}
+              onClose={onClose}
+            />
+          </div>
+        )}
 
-        <Source id='addresses-around' geoJsonSource={{
-          type: 'geojson',
-          data: addressesToGeoJson(addrsAround)
-        }} />
-
-        <Layer
-          id='point'
-          sourceId='addresses-map'
-          type='circle'
-          paint={circlePaint} />
-
-        <Layer
-          id='point-around'
-          sourceId='addresses-around'
-          type='circle'
-          paint={{
-            'circle-stroke-width': 2,
-            'circle-stroke-color': '#DDD',
-            'circle-radius': {
-              base: 1.6,
-              stops: [[12, 2], [22, 100]]
-            },
-            'circle-color': '#fff',
-            'circle-opacity': 0.2
-          }} />
-
-        <Layer
-          id='point-hover'
-          sourceId='addresses-map'
-          type='circle'
-          filter={EMPTY_FILTER}
-          paint={{
-            'circle-stroke-width': 2,
-            'circle-stroke-color': circlePaint['circle-color'],
-            'circle-radius': circlePaint['circle-radius'],
-            'circle-color': '#fff',
-            'circle-opacity': 1
-          }} />
-
-        <Layer
-          id='point-label'
-          type='symbol'
-          sourceId='addresses-map'
-          layout={{
-            'text-field': '{numero}',
-            'text-anchor': 'center',
-            'text-size': {
-              stops: [[12, 3], [22, 18]]
-            },
-            'text-font': [
-              'Noto Sans Regular'
-            ]
-          }} />
-
-        <Layer
-          id='around-label'
-          type='symbol'
-          sourceId='addresses-around'
-          layout={{
-            'text-field': '{numero}',
-            'text-anchor': 'center',
-            'text-size': {
-              stops: [[12, 3], [22, 13]]
-            },
-            'text-font': [
-              'Noto Sans Regular'
-            ]
-          }} />
-
-        <Layer
-          id='point-source'
-          type='symbol'
-          sourceId='addresses-map'
-          filter={['has', 'source']}
-          layout={{
-            'text-field': '{source}',
-            'text-anchor': 'center',
-            'text-size': 12,
-            'text-font': [
-              'Noto Sans Regular'
-            ]
-          }} />
-
-        <Events
-          layers={['point']}
-          onClick={this.handleClick}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-          onDragEnd={this.handleDragEnd} />
-      </MapboxGL>
+        <style jsx>{`
+          .selected-address {
+            min-width: 200px;
+            padding: 0 2em;
+            overflow: scroll;
+            height: 100%;
+            box-shadow: 0 1px 4px ${theme.boxShadow};
+          }
+        `}</style>
+      </div>
     )
   }
 }

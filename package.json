@@ -38,7 +38,6 @@
     "react-dom": "^16.6.3",
     "react-dropzone": "^4.2.1",
     "react-icons": "^2.2.7",
-    "react-mapbox-gl": "^3.8.0",
     "regenerator-runtime": "^0.12.1",
     "underscore.string": "^3.3.4"
   },
