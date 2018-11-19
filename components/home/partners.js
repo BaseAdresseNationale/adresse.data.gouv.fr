@@ -7,17 +7,17 @@ export default () => (
     <div className='main'>
       <div>
         <a href='https://portail.dgfip.finances.gouv.fr/portail/accueilIAM.pl/'>
-          <a><img className='logo' src='/static/images/logos/dgfip.png' alt='DGFIP' /></a>
+          <img className='logo' src='/static/images/logos/dgfip.png' alt='DGFIP' />
         </a>
       </div>
       <div>
         <a href='http://ign.fr/'>
-          <a><img className='logo' src='/static/images/logos/IGN.jpg' alt='IGN' /></a>
+          <img className='logo' src='/static/images/logos/IGN.jpg' alt='IGN' />
         </a>
       </div>
       <div>
         <a href='http://openstreetmap.fr/'>
-          <a><img className='logo' src='/static/images/logos/OSM.png' alt='OpenStreetMap France' /></a>
+          <img className='logo' src='/static/images/logos/OSM.png' alt='OpenStreetMap France' />
         </a>
       </div>
       <div>
