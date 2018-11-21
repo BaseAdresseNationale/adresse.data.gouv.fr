@@ -27,18 +27,18 @@ class IssueRows extends React.Component {
 
   render() {
     const {issue, rows, type, selected} = this.props
-    const warningRows = issue.rows.length
+    const issuesRows = issue.rows.length
 
     return (
       <div className='issue' onClick={this.handleClick}>
         <div>
           <b>{
-            warningRows === rows.length ?
+            issuesRows === rows.length ?
               'Toutes les lignes' :
-              warningRows === 1 ?
+              issuesRows === 1 ?
                 `La ligne ${issue.rows[0]}` :
-                `${warningRows} lignes`
-          }</b> {warningRows === 1 ? 'comporte' : 'comportent'} l’avertissement :
+                `${issuesRows} lignes`
+          }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
           <span className='colored'> {issue.message}</span>
 
