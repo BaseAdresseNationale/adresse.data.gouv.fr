@@ -16,7 +16,7 @@ class ReportPage extends React.Component {
 
     return (
       <Page title={dataset.title} description={description}>
-        <BalReport report={report} organization={dataset.organization} />
+        <BalReport report={report} title={dataset.title} organization={dataset.organization} />
       </Page>
     )
   }
