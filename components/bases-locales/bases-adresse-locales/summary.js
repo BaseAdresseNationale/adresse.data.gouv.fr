@@ -55,9 +55,11 @@ class Summary extends React.Component {
           </div>
 
           <div className='links'>
-            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
-              Consulter
-            </ButtonLink>
+            <Link href={`/bases-locales/jeux-de-donnees/${id}`}>
+              <ButtonLink>
+                Consulter
+              </ButtonLink>
+            </Link>
             <Link href={url}>
               <a>Télécharger <MdFileDownload /></a>
             </Link>

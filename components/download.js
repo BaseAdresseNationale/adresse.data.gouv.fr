@@ -6,7 +6,6 @@ import ButtonLink from './button-link'
 
 const Download = () => (
   <Section>
-
     <div>
       <p>Les <strong>données</strong> issues de la Base Adresse Nationale <strong>peuvent être téléchargées gratuitement</strong>,
       et sont <strong>disponibles sous deux licences</strong>.</p>
@@ -38,9 +37,11 @@ const Download = () => (
           <div>
             <p>Pour connaître précisement le contenu de ces données, <Link href='/static/docs/description-contenu.pdf'><a>consultez le descriptif des données</a></Link>.</p>
             <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-            <ButtonLink href='/data/'>
-              Accéder aux données
-            </ButtonLink>
+            <Link href='/data'>
+              <ButtonLink>
+                Accéder aux données
+              </ButtonLink>
+            </Link>
           </div>
         </div>
       </div>
