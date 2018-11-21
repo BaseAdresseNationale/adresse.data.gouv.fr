@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {take} from 'lodash'
 import FaCheck from 'react-icons/lib/fa/check'
 
 import theme from '../../../../styles/theme'
 
-import Row from './row'
+import Summary from './summary'
 
 class Rows extends React.Component {
   static propTypes = {
     rows: PropTypes.array.isRequired,
+    issuesSummary: PropTypes.object.isRequired,
     rowsWithIssuesCount: PropTypes.number.isRequired,
     unknownFields: PropTypes.array
   }
@@ -19,28 +19,33 @@ class Rows extends React.Component {
   }
 
   render() {
-    const {rows, rowsWithIssuesCount, unknownFields} = this.props
-    const rowsToDisplay = take(rows, 1000)
+    const {rows, issuesSummary, rowsWithIssuesCount, unknownFields} = this.props
 
     return (
       <div>
-        {rowsWithIssuesCount === 0 && <h3>Aucune ligne avec anomalies trouvée <span className='valid'><FaCheck /></span></h3>}
-        {rowsWithIssuesCount === 1 && <h3>{rowsWithIssuesCount} ligne avec anomalies trouvée</h3>}
-        {rowsWithIssuesCount > 1 && <h3>{rowsWithIssuesCount} lignes avec anomalies trouvées</h3>}
-        {rowsWithIssuesCount > 1000 ?
-          <p>Seules les 1000 premières lignes avec anomalies sont affichées ici.</p> :
-          null
-        }
-        <div>
-          {rowsToDisplay.map(row => (
-            <Row key={`row-${row._line}`} row={row} unknownFields={unknownFields} />
-          ))}
-        </div>
+        {rowsWithIssuesCount === 0 ? (
+          <h3>Aucune ligne avec anomalies trouvée <span className='valid'><FaCheck /></span></h3>
+        ) : (
+          <>
+            {rowsWithIssuesCount > 1 ? (
+              <h3>{rowsWithIssuesCount} lignes avec anomalies trouvées</h3>
+            ) : (
+              <h3>{rowsWithIssuesCount} ligne avec anomalies trouvée</h3>
+            )}
+
+            <Summary
+              rows={rows}
+              issuesSummary={issuesSummary}
+              unknownFields={unknownFields}
+            />
+          </>
+        )}
+
         <style jsx>{`
-            .valid {
-              color: ${theme.successBorder};
-            }
-            `}</style>
+          .valid {
+            color: ${theme.successBorder};
+          }
+        `}</style>
       </div>
     )
   }

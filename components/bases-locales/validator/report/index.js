@@ -9,7 +9,8 @@ import Rows from './rows'
 
 class Report extends React.Component {
   render() {
-    const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithIssues, parseMeta, rowsWithIssuesCount} = this.props.report
+    const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithIssues, issuesSummary, parseMeta, rowsWithIssuesCount} = this.props.report
+
     return (
       <div>
         <div className='container'>
@@ -44,6 +45,7 @@ class Report extends React.Component {
           <h3>Validation des champs</h3>
           <Rows
             rows={rowsWithIssues}
+            issuesSummary={issuesSummary}
             rowsWithIssuesCount={rowsWithIssuesCount}
             unknownFields={unknownFields}
           />
@@ -83,6 +85,7 @@ Report.propTypes = {
     unknownFields: PropTypes.array.isRequired,
     aliasedFields: PropTypes.object.isRequired,
     rowsWithIssues: PropTypes.array.isRequired,
+    issuesSummary: PropTypes.object.isRequired,
     parseMeta: PropTypes.object.isRequired,
     rowsWithIssuesCount: PropTypes.number.isRequired,
     fileValidation: PropTypes.shape({
