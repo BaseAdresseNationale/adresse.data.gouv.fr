@@ -42,21 +42,21 @@ class Report extends React.Component {
         </div>
 
         <div className='container'>
+          <h3>Champs existants</h3>
+          <Fields
+            found={knownFields}
+            unknown={unknownFields}
+            alias={aliasedFields}
+          />
+        </div>
+
+        <div className='container'>
           <h3>Validation des champs</h3>
           <Rows
             rows={rowsWithIssues}
             issuesSummary={issuesSummary}
             rowsWithIssuesCount={rowsWithIssuesCount}
             unknownFields={unknownFields}
-          />
-        </div>
-
-        <div className='container'>
-          <h3>Champs existants</h3>
-          <Fields
-            found={knownFields}
-            unknown={unknownFields}
-            alias={aliasedFields}
           />
         </div>
 
