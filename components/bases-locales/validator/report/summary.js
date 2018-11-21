@@ -66,7 +66,7 @@ class Rows extends React.Component {
         {errors.length > 0 && (
           <>
             <h4>
-              Erreur{errors.count > 1 ? 's' : ''}
+              Erreur{errors.length > 1 ? 's' : ''}
               <div className='icon error'><FaClose /></div>
             </h4>
             <div className='list'>
@@ -87,7 +87,7 @@ class Rows extends React.Component {
         {warnings.length > 0 && (
           <>
             <h4>
-              Avertissement{warnings.count > 1 ? 's' : ''}
+              Avertissement{warnings.length > 1 ? 's' : ''}
               <div className='icon warning'><FaExclamationTriangle /></div>
             </h4>
 
