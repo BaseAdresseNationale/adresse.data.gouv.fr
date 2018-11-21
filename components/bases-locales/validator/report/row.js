@@ -7,14 +7,22 @@ import Line from './line'
 import RowIssues from './row-issues'
 
 class Row extends React.Component {
-  state = {
-    showIssues: false,
-    field: null
+  constructor(props) {
+    super(props)
+    this.state = {
+      showIssues: props.forceShowIssues,
+      field: null
+    }
   }
 
   static propTypes = {
     row: PropTypes.object.isRequired,
-    unknownFields: PropTypes.array.isRequired
+    unknownFields: PropTypes.array.isRequired,
+    forceShowIssues: PropTypes.bool
+  }
+
+  static defaultProps = {
+    forceShowIssues: false
   }
 
   handleError = () => {
@@ -30,7 +38,7 @@ class Row extends React.Component {
 
   render() {
     const {showIssues, field} = this.state
-    const {row, unknownFields} = this.props
+    const {row, unknownFields, forceShowIssues} = this.props
     const issuesCount = row._errors.length + row._warnings.length
 
     return (
@@ -60,7 +68,7 @@ class Row extends React.Component {
               onHover={this.handleField}
             />
 
-            {issuesCount > 0 && (
+            {(issuesCount > 0 || forceShowIssues) && (
               <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
             )}
           </div>}
