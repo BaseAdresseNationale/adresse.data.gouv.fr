@@ -51,7 +51,7 @@ class Report extends React.Component {
         </div>
 
         <div className='container'>
-          <h3>Validation des champs</h3>
+          <h3>Validation des données</h3>
           <Rows
             rows={rowsWithIssues}
             issuesSummary={issuesSummary}
