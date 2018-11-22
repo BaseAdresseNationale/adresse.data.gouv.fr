@@ -7,7 +7,6 @@ import BALStorage from '../../lib/bal/storage'
 import Page from '../../layouts/main'
 import withErrors from '../../components/hoc/with-errors'
 
-import BetaRibbon from '../../components/beta-ribbon'
 import Head from '../../components/head'
 
 import Editor from '../../components/bases-locales/editor'
@@ -58,11 +57,7 @@ class EditorPage extends React.Component {
 
     return (
       <Page>
-        <Head title={title} icon={<FaEdit />}>
-          <div className='beta'>
-            <BetaRibbon />
-          </div>
-        </Head>
+        <Head title={title} icon={<FaEdit />} />
 
         <Editor
           model={model}
@@ -70,14 +65,6 @@ class EditorPage extends React.Component {
           voie={voie}
           numero={numero}
         />
-
-        <style jsx>{`
-          .beta {
-            position: absolute;
-            top: 70px;
-            right: 0;
-          }
-        `}</style>
       </Page>
     )
   }

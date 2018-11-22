@@ -7,12 +7,9 @@ const BetaRibbon = () => (
       .ribbon:after {
         content: "beta";
         display: inline-block;
-        position: absolute;
         width: 50px;
         height: 20px;
         background-color: ${theme.colors.white};
-        top: 25px;
-        right: 0;
         text-align: center;
         font-size: 13px;
         text-transform: uppercase;
