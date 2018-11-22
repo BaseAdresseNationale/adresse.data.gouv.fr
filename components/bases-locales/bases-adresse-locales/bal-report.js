@@ -9,10 +9,10 @@ import Header from './dataset/header'
 
 class BalReport extends React.Component {
   render() {
-    const {report, organization} = this.props
+    const {report, organization, title} = this.props
     return (
       <Section>
-        <Header name={organization.name} logo={organization.logo} />
+        <Header name={title} logo={organization.logo} />
         <Report report={report} />
       </Section>
     )
@@ -24,7 +24,8 @@ BalReport.propTypes = {
     name: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired
   }).isRequired,
-  report: PropTypes.object.isRequired
+  report: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired
 }
 
 export default BalReport
