@@ -12,9 +12,7 @@ const description = 'Avec l’API d’adresse.data.gouv.fr, embarquez directemen
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaTerminal />}>
-      Avec l’API d’<strong>adresse.data.gouv.fr</strong>, embarquez directement les données ouvertes dans votre application.
-    </Head>
+    <Head title={title} icon={<FaTerminal />} />
 
     <Section>
       <div className='entrypoint' id='search'>

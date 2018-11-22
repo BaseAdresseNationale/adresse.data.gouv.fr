@@ -10,9 +10,7 @@ const description = 'Les différents outils à votre disposition pour contribuer
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaPencil />}>
-      {description}
-    </Head>
+    <Head title={title} icon={<FaPencil />} />
     <Contrib />
   </Page>
 )
