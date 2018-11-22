@@ -5,22 +5,32 @@ import theme from '../styles/theme'
 
 import Container from './container'
 
-const Head = ({children, title, icon}) => (
-  <div className='head'>
-    <Container>
-      <div className='row'>
-        <div className='icon'>{icon}</div>
-        <div className='text'>
-          <h1>{title}</h1>
-          <div className='description'>
-            {children}
+const Head = ({title, icon, children}) => (
+  <div>
+    <div className='head'>
+      <Container>
+        <div className='flex'>
+          <div className='row'>
+            <div className='icon'>{icon}</div>
+            <h1>{title}</h1>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
+
+    <div className='description'>
+      {children}
+    </div>
+
     <style jsx>{`
       .head {
-        background-color: ${theme.backgroundColor};
+        background-color: ${theme.primary};
+      }
+
+      .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
       .row {
@@ -28,44 +38,36 @@ const Head = ({children, title, icon}) => (
         align-items: center;
         max-width: 1400px;
         margin-top: 0;
-        color: ${theme.colors.white};
-        padding: 40px;
+        color: #fff;
+        padding-bottom: 0.5em;
       }
 
       .icon {
         font-size: 56px;
       }
 
-      .text {
-        padding-left: 40px;
+      h1 {
+        margin-left: 1em;
+        margin-top: 1em;
       }
 
       .description {
-        margin: 0 auto 2em;
-        max-width: 640px;
-        font-size: 1.1em;
+        text-align: center;
+        padding: 2em 10%;
+        padding-bottom: 0;
+        font-size: 20px;
         font-style: italic;
-        margin-bottom: 0;
+        color: ${theme.colors.darkGrey};
       }
 
-      @media (max-width: 480px) {
-        .row {
-          flex-direction: column;
-          padding: 40px 20px;
-        }
-
-        .text {
-          padding-left: 0;
-        }
-      }
-      `}</style>
+    `}</style>
   </div>
 )
 
 Head.propTypes = {
-  children: PropTypes.node,
   title: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired
+  icon: PropTypes.element.isRequired,
+  children: PropTypes.element
 }
 
 Head.defaultProps = {
