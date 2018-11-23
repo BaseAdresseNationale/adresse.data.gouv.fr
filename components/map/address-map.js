@@ -8,7 +8,7 @@ import theme from '../../styles/theme'
 import Loader from '../loader'
 
 const popupHTML = address => {
-  const {context, name, postcode, citycode, type, city} = address.properties
+  const {context, label, name, postcode, citycode, type, city} = address.properties
   const types = {
     locality: 'Lieu-dit',
     street: 'Voie',
@@ -24,6 +24,7 @@ const popupHTML = address => {
           <div>Code INSEE : ${citycode}</div>
         </p>
         <div>Contexte : ${context}</div>
+        <div>Label : ${label}</div>
       </div>
       `)
 }
