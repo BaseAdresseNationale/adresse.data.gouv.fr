@@ -7,6 +7,11 @@ import ButtonLink from './button-link'
 const Download = () => (
   <Section>
     <div>
+      <p><strong>adresse.data.gouv.fr</strong> met en place des outils pour une prise en main rapide des données adresses ouvertes.</p>
+      <p>Les données listées ci-dessous sont issues du rapprochement des données & traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
+    </div>
+
+    <div>
       <p>Les <strong>données</strong> issues de la Base Adresse Nationale <strong>peuvent être téléchargées gratuitement</strong>,
       et sont <strong>disponibles sous deux licences</strong>.</p>
     </div>

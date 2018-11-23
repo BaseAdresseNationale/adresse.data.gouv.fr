@@ -6,7 +6,7 @@ import theme from '../styles/theme'
 import Container from './container'
 import BetaRibbon from './beta-ribbon'
 
-const Head = ({title, icon, beta, children}) => (
+const Head = ({title, icon, beta}) => (
   <div>
     <div className='head'>
       <Container>
@@ -21,10 +21,6 @@ const Head = ({title, icon, beta, children}) => (
           )}
         </div>
       </Container>
-    </div>
-
-    <div className='description'>
-      {children}
     </div>
 
     <style jsx>{`
@@ -55,16 +51,6 @@ const Head = ({title, icon, beta, children}) => (
         margin-left: 1em;
         margin-top: 1em;
       }
-
-      .description {
-        text-align: center;
-        padding: 2em 10%;
-        padding-bottom: 0;
-        font-size: 20px;
-        font-style: italic;
-        color: ${theme.colors.darkGrey};
-      }
-
     `}</style>
   </div>
 )
@@ -72,13 +58,11 @@ const Head = ({title, icon, beta, children}) => (
 Head.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
-  beta: PropTypes.bool,
-  children: PropTypes.element
+  beta: PropTypes.bool
 }
 
 Head.defaultProps = {
-  beta: false,
-  children: null
+  beta: false
 }
 
 export default Head
