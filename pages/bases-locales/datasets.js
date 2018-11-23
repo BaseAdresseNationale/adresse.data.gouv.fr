@@ -21,9 +21,7 @@ class Datasets extends React.Component {
 
     return (
       <Page title={title} description={description}>
-        <Head title={title} icon={<FaDatabase />}>
-          {description}
-        </Head>
+        <Head title={title} icon={<FaDatabase />} />
         <Section>
           <BasesAdresseLocales datasets={datasets} />
         </Section>
