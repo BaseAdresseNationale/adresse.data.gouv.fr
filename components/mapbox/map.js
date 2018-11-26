@@ -57,13 +57,14 @@ class Map extends React.PureComponent {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: STYLES[currentStyle],
-      center: [1.7191, 46.7111]
+      center: [1.7, 46.9],
+      zoom: 5
     })
 
     this.marker = new mapboxgl.Marker()
     this.popUp = new mapboxgl.Popup()
 
-    this.marker.setPopup(this.popUp)
+    this.marker.setPopup(new mapboxgl.Popup())
 
     this.setState({shouldRender: true})
   }
@@ -88,7 +89,7 @@ class Map extends React.PureComponent {
     return (
       <div className='container'>
         <div className='tools'>
-          {shouldRender && children(this.map, this.marker)}
+          {shouldRender && children(this.map, this.marker, this.popUp)}
 
           <div ref={el => {
             this.mapContainer = el

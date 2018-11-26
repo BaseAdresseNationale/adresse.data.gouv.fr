@@ -12,13 +12,22 @@ import Notification from '../notification'
 import theme from '../../styles/theme'
 
 const MapLoader = () => (
-  <div className='centered'>
-    <Loader />
-    <p>Chargement…</p>
+  <div className='container'>
+    <div className='centered'>
+      <Loader />
+      <p>Chargement…</p>
+    </div>
     <style jsx>{`
+      .container {
+        width: 100%;
+        height: 100%;
+        min-height: 600px;
+        background: ${theme.backgroundGrey};
+      }
+
       .centered {
         position: absolute;
-        top: 50%;
+        top: 25%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
