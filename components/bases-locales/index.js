@@ -10,9 +10,16 @@ import Mapbox from '../mapbox'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalMap from './bal-map'
+import Pie from './pie'
+import Counter from './counter'
 
 import bal from './fake-bal.json'
 import regions from './fake-regions.json'
+
+const fakeData = {
+  'Standard AITF': 484,
+  'License Ouverte': 597
+}
 
 const BasesLocales = ({datasets}) => (
   <div>
@@ -28,6 +35,31 @@ const BasesLocales = ({datasets}) => (
         )}
       </Mapbox>
 
+      <div className='stats'>
+        <h1>Bases locales déjà publiées</h1>
+
+        <div className='pies'>
+          <div className='pie'>
+            <Counter
+              value={39}
+              color='green'
+              title='Bases locales déjà publiées'
+            />
+          </div>
+
+          <div className='pie'>
+            <Pie data={fakeData} />
+          </div>
+
+          <div className='pie'>
+            <Counter
+              value={2267620}
+              color='green'
+              title='Adresses gérées par les collectivités'
+            />
+          </div>
+        </div>
+      </div>
     </Section>
 
     <Section background='white'>
@@ -128,11 +160,26 @@ const BasesLocales = ({datasets}) => (
         justify-content: center;
       }
 
+      .stats {
+        text-align: center;
+      }
+
+      .pies {
+        display: flex;
+        justify-content: space-around;
+        flex-flow: wrap;
+      }
+
+      .pie {
+        margin: 0 0.5em;
+        min-width: 200px;
+      }
+
       a {
         text-align: center;
         text-decoration: underline;
       }
-      `}</style>
+    `}</style>
   </div>
 )
 
