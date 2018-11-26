@@ -6,11 +6,30 @@ import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
 import Section from '../section'
 import ButtonLink from '../button-link'
+import Mapbox from '../mapbox'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
+import BalMap from './bal-map'
+
+import bal from './fake-bal.json'
+import regions from './fake-regions.json'
 
 const BasesLocales = ({datasets}) => (
   <div>
+    <Section background='white'>
+      <Mapbox>
+        {(map, marker, popUp) => (
+          <BalMap
+            map={map}
+            popUp={popUp}
+            data={bal}
+            regions={regions}
+          />
+        )}
+      </Mapbox>
+
+    </Section>
+
     <Section background='white'>
       <div className='intro'>
         <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
