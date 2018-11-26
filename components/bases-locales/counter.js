@@ -16,6 +16,7 @@ const Counter = ({value, label, unit, size, color, title}) => (
         font-size: 2.2rem;
         line-height: 1;
       }
+
       .unit {
         font-size: 1rem;
         margin-left: 0.2rem;
@@ -24,9 +25,11 @@ const Counter = ({value, label, unit, size, color, title}) => (
       .success {
         color: ${theme.colors.green};
       }
+
       .warning {
-        color: ${theme.colors.yellow};
+        color: ${theme.colors.orange};
       }
+
       .error {
         color: ${theme.colors.red};
       }
@@ -46,7 +49,10 @@ const Counter = ({value, label, unit, size, color, title}) => (
 )
 
 Counter.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   label: PropTypes.string,
   unit: PropTypes.string,
   title: PropTypes.string,
