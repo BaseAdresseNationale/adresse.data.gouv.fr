@@ -17,7 +17,7 @@ import Counter from './counter'
 class BasesLocales extends React.PureComponent {
   render() {
     const {datasets, stats} = this.props
-    const conformBal = parseFloat(((100 / stats.balNb) * stats.conformNb).toPrecision(3))
+    const conformBal = (100 / stats.balNb) * stats.conformNb
 
     return (
       <div>
