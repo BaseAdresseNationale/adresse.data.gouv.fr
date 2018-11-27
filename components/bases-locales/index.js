@@ -36,34 +36,32 @@ class BasesLocales extends React.PureComponent {
 
         <Section title='Bases locales déjà publiées' background='white'>
           <div className='stats'>
-            <div className='pies'>
-              <div className='pie'>
-                <Counter
-                  value={stats.balNb}
-                  title='Bases locales déjà publiées'
-                />
+            <div className='stat'>
+              <Counter
+                value={stats.balNb}
+                title='Bases locales déjà publiées'
+              />
 
-                <Counter
-                  value={conformBal}
-                  unit='%'
-                  color={conformBal < 20 ? 'error' : conformBal < 50 ? 'warning' : 'success'}
-                  title='Bases locales conformes'
-                />
-              </div>
+              <Counter
+                value={conformBal}
+                unit='%'
+                color={conformBal < 20 ? 'error' : conformBal < 50 ? 'warning' : 'success'}
+                title='Bases locales conformes'
+              />
+            </div>
 
-              <div className='pie'>
-                <Pie data={{
-                  'Licence Ouverte': stats.loNb,
-                  ODbL: stats.odblNb
-                }} />
-              </div>
+            <div className='stat'>
+              <Pie data={{
+                'Licence Ouverte': stats.loNb,
+                ODbL: stats.odblNb
+              }} />
+            </div>
 
-              <div className='pie'>
-                <Counter
-                  value={2267620}
-                  title='Adresses gérées par les collectivités'
-                />
-              </div>
+            <div className='stat'>
+              <Counter
+                value={2267620}
+                title='Adresses gérées par les collectivités'
+              />
             </div>
           </div>
         </Section>
@@ -128,38 +126,6 @@ class BasesLocales extends React.PureComponent {
             text-align: left;
           }
 
-          .row {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: stretch;
-            width: 100%;
-          }
-
-          .row .column {
-            margin: 0 2em;
-            max-width: 50em;
-          }
-
-          .row .column + .column {
-            margin-left: 2em;
-          }
-
-          @media (max-width: 749px) {
-            .row {
-              flex-direction: column;
-            }
-
-            .row .column:not(:last-child) {
-              margin-bottom: 2em;
-            }
-
-            .row p + p {
-              text-align: center;
-              margin-top: 1em;
-            }
-          }
-
           .action {
             display: flex;
             margin-top: 3em;
@@ -171,18 +137,15 @@ class BasesLocales extends React.PureComponent {
           }
 
           .stats {
-            text-align: center;
-          }
-
-          .pies {
             display: flex;
+            text-align: center;
             justify-content: space-around;
             align-items: center;
             flex-flow: wrap;
             margin: 2em 0;
           }
 
-          .pie {
+          .stat {
             margin: 0 0.5em;
             min-width: 200px;
           }
