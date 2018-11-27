@@ -19,7 +19,7 @@ const balCreationProgress = {
   labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
   datasets: [
     {
-      label: 'Évolution de nombre de BAL crée en 2018',
+      label: 'Nombre de BAL',
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'rgba(75,192,192,0.4)',

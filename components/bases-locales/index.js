@@ -21,7 +21,7 @@ class BasesLocales extends React.PureComponent {
 
     return (
       <div>
-        <Section background='white'>
+        <Section title='Déploiement des bases locales'>
           <Mapbox>
             {(map, marker, popUp) => (
               <BalMap
@@ -32,10 +32,10 @@ class BasesLocales extends React.PureComponent {
               />
             )}
           </Mapbox>
+        </Section>
 
+        <Section title='Bases locales déjà publiées' background='white'>
           <div className='stats'>
-            <h1>Bases locales déjà publiées</h1>
-
             <div className='pies'>
               <div className='pie'>
                 <Counter
@@ -65,9 +65,11 @@ class BasesLocales extends React.PureComponent {
                 />
               </div>
             </div>
-
-            <Line data={stats.balCreationProgress} height={100} />
           </div>
+        </Section>
+
+        <Section title='Évolution du nombre de BAL crée en 2018'>
+          <Line data={stats.balCreationProgress} height={100} />
         </Section>
 
         <Section background='white'>

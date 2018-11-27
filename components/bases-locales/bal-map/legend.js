@@ -22,7 +22,7 @@ class Legend extends React.PureComponent {
             padding: 1em 1em;
             background: #ffffffc4;
             position: absolute;
-            top: calc(600px - 113px);
+            top: calc(600px - 32px);
             border-radius: 5px;
             right: 5px;
           }
