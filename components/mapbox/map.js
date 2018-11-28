@@ -27,27 +27,33 @@ const STYLES = {
   }
 }
 
-let currentStyle = 'vector'
-
 class Map extends React.PureComponent {
-  state = {
-    shouldRender: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentStyle: props.ortho ? 'ortho' : 'vector',
+      shouldRender: false
+    }
   }
 
   static propTypes = {
     switchStyle: PropTypes.bool,
     height: PropTypes.string,
+    ortho: PropTypes.bool,
     fullscreen: PropTypes.bool,
     children: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     height: '600',
+    ortho: false,
     fullscreen: false,
     switchStyle: false
   }
 
   componentDidMount() {
+    const {currentStyle} = this.state
+
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: STYLES[currentStyle],
@@ -65,13 +71,18 @@ class Map extends React.PureComponent {
   switchLayer = () => {
     const {map} = this
 
-    currentStyle = currentStyle === 'vector' ? 'ortho' : 'vector'
+    this.setState(state => {
+      const currentStyle = state.currentStyle === 'vector' ? 'ortho' : 'vector'
+      map.setStyle(STYLES[currentStyle], {diff: true})
 
-    map.setStyle(STYLES[currentStyle], {diff: true})
+      return {
+        currentStyle
+      }
+    })
   }
 
   render() {
-    const {shouldRender} = this.state
+    const {currentStyle, shouldRender} = this.state
     const {switchStyle, height, fullscreen, children} = this.props
 
     return (

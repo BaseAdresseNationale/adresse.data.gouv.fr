@@ -75,7 +75,7 @@ class CreateToponyme extends React.Component {
               Ajouter un marqueur à la position du toponyme.
             </Notification>
 
-            <Mapbox switchStyle>
+            <Mapbox ortho switchStyle>
               {map => (
                 <SinglePositionMap
                   map={map}
