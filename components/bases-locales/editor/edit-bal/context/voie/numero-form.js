@@ -135,7 +135,7 @@ class NumeroForm extends React.Component {
             Sélectionnez le marqueur puis déplacez-le à la position souhaitée.
           </Notification>
 
-          <Mapbox switchStyle>
+          <Mapbox ortho switchStyle>
             {map => (
               <PositionsMap
                 map={map}

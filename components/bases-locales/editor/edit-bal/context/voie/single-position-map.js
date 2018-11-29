@@ -33,7 +33,7 @@ class PositionMap extends React.Component {
   componentDidMount() {
     const {map} = this.props
 
-    map.zoom(5)
+    map.setZoom(5)
 
     this.draw = new MapboxDraw({
       displayControlsDefault: false,

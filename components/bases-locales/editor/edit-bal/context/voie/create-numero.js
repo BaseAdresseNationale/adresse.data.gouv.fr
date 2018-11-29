@@ -131,7 +131,7 @@ class CreateNumero extends React.Component {
               Indiquez les différentes positions du numéro.
             </Notification>
 
-            <Mapbox switchStyle>
+            <Mapbox ortho switchStyle>
               {map => (
                 <PositionsMap
                   map={map}
