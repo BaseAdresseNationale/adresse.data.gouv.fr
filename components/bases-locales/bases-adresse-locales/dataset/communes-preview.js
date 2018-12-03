@@ -26,8 +26,16 @@ class CommunesPreview extends React.Component {
     const {communes, communesCount, voiesCount, numerosCount} = summary
 
     const infos = [
-      {title: 'Format', value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique'},
-      {title: 'Licence', value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0'},
+      {
+        title: 'Format',
+        value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique',
+        type: model === 'bal-aitf' ? 'valid' : 'not-valid'
+      },
+      {
+        title: 'Licence',
+        value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0',
+        type: license === 'odb-odbl' ? 'not-valid' : 'valid'
+      },
       {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
       {title: 'Nombre de Communes', value: spaceThousands(communesCount)},
       {title: 'Nombre de Voies', value: spaceThousands(voiesCount)},
@@ -39,7 +47,7 @@ class CommunesPreview extends React.Component {
         <div className='meta'>
           {infos.map(info => (
             <div key={info.title}>
-              <Info title={info.title}>
+              <Info title={info.title} type={info.type}>
                 <span>{info.value}</span>
               </Info>
             </div>

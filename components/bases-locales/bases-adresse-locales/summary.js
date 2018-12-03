@@ -19,8 +19,16 @@ class Summary extends React.Component {
     const {dataset} = this.props
     const {id, organization, url, model, dateMAJ, numerosCount, license} = dataset
     const infos = [
-      {title: 'Format', value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique'},
-      {title: 'Licence', value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0'},
+      {
+        title: 'Format',
+        value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique',
+        type: model === 'bal-aitf' ? 'valid' : 'not-valid'
+      },
+      {
+        title: 'Licence',
+        value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0',
+        type: license === 'odc-odbl' ? 'not-valid' : 'valid'
+      },
       {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
       {title: 'Nombre d’adresses', value: typeof numerosCount === 'number' ? spaceThousands(numerosCount) : '???'}
     ]
@@ -32,7 +40,7 @@ class Summary extends React.Component {
           <div className='meta'>
             {infos.map(info => (
               <div key={info.title}>
-                <Info title={info.title}>
+                <Info title={info.title} type={info.type}>
                   <span>{info.value}</span>
                 </Info>
               </div>
