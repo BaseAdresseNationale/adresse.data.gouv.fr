@@ -51,7 +51,7 @@ const BasesLocales = ({datasets}) => (
 
     <Section title='Quelques bases locales déjà publiées' background='white'>
       {datasets.slice(0, 3).map(dataset => (
-        <BaseAdresseLocale key={dataset.id} {...dataset} />
+        <BaseAdresseLocale key={dataset.id} dataset={dataset} />
       ))}
       <div className='centered'>
         <Link href='/bases-locales/jeux-de-donnees'>

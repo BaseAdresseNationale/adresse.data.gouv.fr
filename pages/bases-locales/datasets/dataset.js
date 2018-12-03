@@ -12,10 +12,9 @@ import Dataset from '../../../components/bases-locales/bases-adresse-locales/dat
 class DatasetPage extends React.Component {
   render() {
     const {dataset, summary} = this.props
-    const description = `${dataset.title} - ${dataset.organization.name}`
 
     return (
-      <Page title={dataset.title} description={description}>
+      <Page title={dataset.title} description={dataset.title}>
         <Dataset dataset={dataset} summary={summary} />
       </Page>
     )
@@ -23,20 +22,13 @@ class DatasetPage extends React.Component {
 }
 
 DatasetPage.propTypes = {
-  dataset: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    organization: PropTypes.shape({
-      name: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired,
+  dataset: PropTypes.object.isRequired,
   summary: PropTypes.object.isRequired
 }
 
 DatasetPage.getInitialProps = async ({query}) => {
-  const summary = await _get(`${API_BAL_URL}/datasets/${query.id}/data/summary`)
-
   return {
-    summary,
+    summary: await _get(`${API_BAL_URL}/datasets/${query.id}/data/summary`),
     dataset: await _get(`${API_BAL_URL}/datasets/${query.id}`)
   }
 }

@@ -12,19 +12,9 @@ import VoiePreview from './voie-preview'
 
 class Voie extends React.Component {
   static propTypes = {
-    dataset: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      organization: PropTypes.object.isRequired,
-      page: PropTypes.string.isRequired
-    }).isRequired,
-    commune: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      nom: PropTypes.string.isRequired
-    }).isRequired,
-    voie: PropTypes.shape({
-      nomVoie: PropTypes.string.isRequired
-    }).isRequired
+    dataset: PropTypes.object.isRequired,
+    commune: PropTypes.object.isRequired,
+    voie: PropTypes.object.isRequired
   }
 
   render() {
@@ -43,7 +33,7 @@ class Voie extends React.Component {
 
           <Header
             name={voie.nomVoie}
-            logo={organization.logo}
+            logo={organization && organization.logo}
             info={{
               title: 'Dernière mise à jour',
               children: voie.dateMAJ ? voie.dateMAJ : 'inconnue'

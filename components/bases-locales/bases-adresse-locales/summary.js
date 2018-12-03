@@ -3,55 +3,44 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
+import ButtonLink from '../../button-link'
 import {spaceThousands} from '../../../lib/format-numbers'
 
-import ButtonLink from '../../button-link'
-
 import Organization from './organization'
-import Meta from './meta'
+import Info from './info'
+import InfoReport from './info-report'
 
 class Summary extends React.Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-    licenseLabel: PropTypes.string.isRequired,
-    organization: PropTypes.object.isRequired,
-    status: PropTypes.string.isRequired,
-    lastUpdate: PropTypes.string.isRequired,
-    valid: PropTypes.bool,
-    error: PropTypes.object
-  }
-
-  static defaultProps = {
-    valid: null,
-    error: null
-  }
-
-  constructor(props) {
-    super(props)
-
-    const {count, licenseLabel, lastUpdate} = props
-
-    this.infos = [
-      {title: 'Format', value: 'BAL 1.1'},
-      {title: 'Licence', value: licenseLabel},
-      {title: 'Dernière mise à jour', value: lastUpdate || 'inconnue'},
-      {title: 'Nombre d’adresses', value: spaceThousands(count)}
-    ]
+    dataset: PropTypes.object.isRequired
   }
 
   render() {
-    const {id, url, valid, status, organization, error} = this.props
+    const {dataset} = this.props
+    const {id, organization, url, model, dateMAJ, numerosCount, license} = dataset
+    const infos = [
+      {title: 'Format', value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique'},
+      {title: 'Licence', value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0'},
+      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
+      {title: 'Nombre d’adresses', value: typeof numerosCount === 'number' ? spaceThousands(numerosCount) : '???'}
+    ]
     return (
       <div>
         <div className='base-adresse-locale'>
-          <div>
-            <Organization logo={organization.logo} name={organization.name} />
-          </div>
+          {organization ? <Organization {...organization} /> : null}
 
-          <div>
-            <Meta infos={this.infos} report={{id, status, valid, error}} />
+          <div className='meta'>
+            {infos.map(info => (
+              <div key={info.title}>
+                <Info title={info.title}>
+                  <span>{info.value}</span>
+                </Info>
+              </div>
+            ))}
+
+            {model === 'bal-aitf' &&
+              <InfoReport dataset={dataset} />
+            }
           </div>
 
           <div className='links'>
@@ -60,9 +49,10 @@ class Summary extends React.Component {
                 Consulter
               </ButtonLink>
             </Link>
-            <Link href={url}>
-              <a>Télécharger <MdFileDownload /></a>
-            </Link>
+            {url &&
+              <Link href={url}>
+                <a>Télécharger <MdFileDownload /></a>
+              </Link>}
           </div>
         </div>
 
@@ -86,6 +76,12 @@ class Summary extends React.Component {
 
           .links a {
             margin: 1em 0;
+          }
+
+          .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 100%));
+            grid-gap: 5px;
           }
         `}</style>
       </div>

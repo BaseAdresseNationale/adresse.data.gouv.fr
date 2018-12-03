@@ -4,41 +4,42 @@ import PropTypes from 'prop-types'
 import {spaceThousands} from '../../../../../lib/format-numbers'
 import {contoursToGeoJson} from '../../../../../lib/geojson'
 
-import Meta from '../../meta'
+import Info from '../../info'
 
 import Preview from '../preview'
 
 class CommunesPreview extends React.Component {
   static propTypes = {
-    commune: PropTypes.shape({
-      dateMAJ: PropTypes.string.isRequired,
-      source: PropTypes.array.isRequired,
-      voiesCount: PropTypes.number.isRequired,
-      numerosCount: PropTypes.number.isRequired,
-      population: PropTypes.number.isRequired,
-      contour: PropTypes.object
-    }).isRequired
-  }
-
-  constructor(props) {
-    super(props)
-
-    const {voiesCount, numerosCount, population, dateMAJ} = props.commune
-
-    this.infos = [
-      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
-      {title: 'Nombre de Voies', value: spaceThousands(voiesCount)},
-      {title: 'Nombre d’adresses', value: spaceThousands(numerosCount)},
-      {title: 'Habitants', value: spaceThousands(population)}
-    ]
+    commune: PropTypes.object.isRequired
   }
 
   render() {
     const {commune} = this.props
-
+    const {voiesCount, numerosCount, population, dateMAJ} = commune
+    const infos = [
+      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
+      {title: 'Nombre de voies', value: spaceThousands(voiesCount)},
+      {title: 'Nombre d’adresses', value: spaceThousands(numerosCount)},
+      {title: 'Habitants', value: spaceThousands(population)}
+    ]
     return (
       <Preview geojson={contoursToGeoJson([commune])}>
-        <Meta infos={this.infos} sources={commune.source} />
+        <div className='meta'>
+          {infos.map(info => (
+            <div key={info.title}>
+              <Info title={info.title}>
+                <span>{info.value}</span>
+              </Info>
+            </div>
+          ))}
+        </div>
+        <style jsx>{`
+          .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 100%));
+            grid-gap: 5px;
+          }
+        `}</style>
       </Preview>
     )
   }

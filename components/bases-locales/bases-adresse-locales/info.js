@@ -7,9 +7,7 @@ class Info extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-    type: PropTypes.oneOf([
-      'valid', 'invalid'
-    ])
+    type: PropTypes.oneOf(['valid', 'not-valid'])
   }
 
   static defaultProps = {
@@ -41,7 +39,7 @@ class Info extends React.Component {
             color: ${theme.successBorder};
           }
 
-          span.invalid {
+          span.not-valid {
             padding: .4em .5em;
             background-color: ${theme.errorBg};
             color: ${theme.errorBorder};
