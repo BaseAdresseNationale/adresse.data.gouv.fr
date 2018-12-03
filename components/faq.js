@@ -10,10 +10,6 @@ const About = () => (
         <h3>La Base Adresse Nationale contient-elle des données personnelles ?</h3>
         <p>Non, cette base ne fait que référencer l’existence et la localisation géographique d’une adresse. Aucune information personnelle ne figure dans cette base de données.</p>
 
-        <h3>Comment signaler une erreur ou un manque dans les données ?</h3>
-        <p>La création et la mise à jour des voies et adresses est du ressort de la commune.<br />Tout signalement doit donc passer par elle, ou son délégataire (EPCI, …).</p>
-        <p>Des outils de signalement direct aux mairies existent et seront référencés sur ce site à moyen terme.</p>
-
         <h3>Quelle est la licence des données proposées par l’API de géocodage ?</h3>
         <p>Les données utilisées par <Link href='/api'><a>l’API disponible sur ce site</a></Link> sont celles sous licence ODbL.</p>
 
