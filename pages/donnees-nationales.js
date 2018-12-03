@@ -13,18 +13,19 @@ const description = 'Fichiers nationaux contenant les adresses du territoire.'
 export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />} />
-    <Section>
+    <Section title='Base Adresse Nationale' subtitle='Données de référence issues d’une coopération entre l’État, l’IGN, La Poste et OpenStreetMap France'>
       <div>
-        <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
+        <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN.</p>
         <p>Elles <strong>peuvent être téléchargées gratuitement</strong>,
-        et sont <strong>disponibles sous deux licences</strong>.</p>
+        et sont <strong>disponibles sous deux formes</strong>.</p>
       </div>
 
-      <h2>Données sous licence gratuite de repartage</h2>
+      <h3>Diffusion principale sans licence</h3>
       <div className='row'>
         <div>
-          <h3>Résumé de la licence</h3>
-          <p>La licence gratuite de repartage vous autorise à :</p>
+          <h4>Résumé des conditions d’utilisation</h4>
+          <p>En l’absence de licence, le Code des Relations entre le Public et l’Administration (CRPA) s’applique pleinement.</p>
+          <p>Vous êtes autorisé(e) à :</p>
           <ul>
             <li>copier, distribuer et utiliser la base de données ;</li>
             <li>produire des créations à partir de cette base de données ;</li>
@@ -32,16 +33,13 @@ export default () => (
           </ul>
           <p>Tant que :</p>
           <ul>
-            <li>vous mentionnez la source des données ;</li>
-            <li>vous ne commercialisez pas ces données ;</li>
-            <li>vous communiquez à l’IGN et à La Poste les bases de données dérivées ;</li>
-            <li>vous cédez à l’IGN et à La Poste, et à titre gratuit, les droits d’auteur et de propriété industrielle sur les bases de données dérivées.</li>
+            <li>vous mentionnez la source des données et sa date de millésime ;</li>
+            <li>vous ne dénaturez pas les données.</li>
           </ul>
-          <p>Pour plus de renseignements, consultez <Link href='/static/docs/licence-gratuite-repartage.pdf'><a>le texte de la licence</a></Link>.</p>
         </div>
 
         <div>
-          <h3>Données</h3>
+          <h4>Données</h4>
           <div>
             <div>
               <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
@@ -57,12 +55,10 @@ export default () => (
 
       </div>
 
-      <hr />
-
-      <h2>Données sous licence ODbL</h2>
+      <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
       <div className='row'>
         <div>
-          <h3>Résumé de la licence</h3>
+          <h4>Résumé de la licence</h4>
           <p>La licence ODbL vous autorise à :</p>
           <ul>
             <li>copier, distribuer et utiliser la base de données ;</li>
@@ -78,14 +74,13 @@ export default () => (
           <p>Pour plus de renseignements, consultez <a href='http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode' target='_blank' rel='noopener noreferrer'>la traduction française intégrale de la licence</a> ou le <a href='http://vvlibri.org/fr/licence/odbl/10/fr' target='_blank' rel='noopener noreferrer'>résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href='http://opendatacommons.org/licenses/odbl/summary/' target='_blank' rel='noopener noreferrer'>Open Data Commons</a>.</p>
         </div>
         <div>
-          <h3>Données</h3>
+          <h4>Données</h4>
           <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
           <ul>
             <li>le libellé à la norme AFNOR et le libellé d’acheminement ne sont pas disponibles ;</li>
-            <li>les données subissent <a href='http://openstreetmap.fr/ban'>des traitements qualité supplémentaires.</a></li>
+            <li>les données subissent <a href='https://github.com/etalab/ban-data/blob/master/scripts/clean.sql'>des traitements qualité supplémentaires.</a></li>
           </ul>
           <p>Données en téléchargement pour une commune, un département, ou la France entière, et disponibles aux formats CSV, Shapefile et JSON.</p>
-          <p>Pour plus de renseignements, consultez <a href='http://openstreetmap.fr/ban'>la page dédiée à la diffusion de ces données</a> sur le site d’OpenStreetMap France.</p>
           <ButtonLink href='http://bano.openstreetmap.fr/BAN_odbl'>
             Accéder aux données
           </ButtonLink>
