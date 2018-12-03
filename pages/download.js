@@ -92,19 +92,6 @@ export default () => (
         </div>
       </div>
 
-      <hr />
-
-      <h2>Offres commerciales des partenaires</h2>
-      <div className='row'>
-        <div>
-          <p>Si les licences ou les données ci-dessus <strong>ne vous conviennent pas</strong>, vous pouvez vous rapporter aux <strong>autres offres</strong> proposées
-            par les partenaires :</p>
-        </div>
-      </div>
-      <div className='row centered'>
-        <a href='http://professionnels.ign.fr/pointadresse'><img alt='IGN' src='/static/images/logos/IGN.jpg' /></a>
-        <a href='http://www.laposte.fr/entreprise/produits-et-services/sna-gamme-geographique'><img alt='La Poste' src='/static/images/logos/laposte.jpg' /></a>
-      </div>
       <style jsx>{`
         .row {
           display: flex;
@@ -115,17 +102,6 @@ export default () => (
 
         .row ul {
           list-style: circle;
-        }
-
-        .row.centered {
-          justify-content: center;
-          align-items: center;
-        }
-
-        .row img {
-          max-width: 150px;
-          max-height: 150px;
-          margin: 0 50px;
         }
 
         @media (min-width: 900px) {
