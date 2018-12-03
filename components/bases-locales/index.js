@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import {shuffle} from 'lodash'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
@@ -28,18 +29,6 @@ const BasesLocales = React.memo(({datasets}) => {
 
   return (
     <div>
-      <Section title='Déploiement des bases locales'>
-        <Mapbox>
-          {(map, marker, popUp) => (
-            <BalMap
-              map={map}
-              popUp={popUp}
-              data={mapData}
-            />
-          )}
-        </Mapbox>
-      </Section>
-
       <Section background='white'>
         <div className='intro'>
           <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
@@ -79,7 +68,7 @@ const BasesLocales = React.memo(({datasets}) => {
       </Section>
 
       <Section title='Quelques bases locales déjà publiées' background='white'>
-        {datasets.slice(0, 3).map(dataset => (
+        {shuffle(datasets.filter(d => d.model === 'bal-aitf')).slice(0, 3).map(dataset => (
           <BaseAdresseLocale key={dataset.id} dataset={dataset} />
         ))}
         <div className='centered'>
@@ -89,6 +78,18 @@ const BasesLocales = React.memo(({datasets}) => {
             </ButtonLink>
           </Link>
         </div>
+      </Section>
+
+      <Section title='État du déploiement des Bases Adresse Locales'>
+        <Mapbox>
+          {(map, marker, popUp) => (
+            <BalMap
+              map={map}
+              popUp={popUp}
+              data={mapData}
+            />
+          )}
+        </Mapbox>
       </Section>
 
       <style jsx>{`
@@ -134,6 +135,7 @@ const BasesLocales = React.memo(({datasets}) => {
         }
 
         .centered {
+          margin: 40px auto;
           display: flex;
           justify-content: center;
         }

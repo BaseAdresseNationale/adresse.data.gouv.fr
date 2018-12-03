@@ -12,9 +12,6 @@ class Legend extends React.PureComponent {
         <div>
           <i className='odbl' /> BAL disponible sous licence ODbL
         </div>
-        <div>
-          <i className='adressage' /> Démarche territoriale d’adressage
-        </div>
 
         <style jsx>{`
           .legend {
@@ -22,7 +19,7 @@ class Legend extends React.PureComponent {
             padding: 1em 1em;
             background: #ffffffc4;
             position: absolute;
-            top: calc(600px - 32px);
+            top: calc(600px - 20px);
             border-radius: 5px;
             right: 5px;
           }
@@ -41,10 +38,6 @@ class Legend extends React.PureComponent {
 
           .legend .odbl {
             background: ${theme.colors.orange};
-          }
-
-          .legend .adressage {
-            background: ${theme.colors.lightGrey};
           }
         `}</style>
       </div>
