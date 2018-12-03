@@ -25,10 +25,10 @@ export default () => (
         <div>
           <h4>Résumé des conditions d’utilisation</h4>
           <p>En l’absence de licence, le Code des Relations entre le Public et l’Administration (CRPA) s’applique pleinement.</p>
-          <p>Vous êtes autorisé(e) à :</p>
+          <p>Vous êtes autorisé(e) à :</p>
           <ul>
-            <li>copier, distribuer et utiliser la base de données ;</li>
-            <li>produire des créations à partir de cette base de données ;</li>
+            <li>copier, distribuer et utiliser la base de données ;</li>
+            <li>produire des créations à partir de cette base de données ;</li>
             <li>modifier, transformer et construire à partir de cette base de données.</li>
           </ul>
           <p>Tant que :</p>
@@ -49,6 +49,7 @@ export default () => (
                   Accéder aux données
                 </ButtonLink>
               </Link>
+              <p>NB : La licence gratuite de repartage mentionnée dans les fichiers téléchargés n’est plus en vigueur. Elle doit être ignorée.</p>
             </div>
           </div>
         </div>
@@ -59,23 +60,23 @@ export default () => (
       <div className='row'>
         <div>
           <h4>Résumé de la licence</h4>
-          <p>La licence ODbL vous autorise à :</p>
+          <p>La licence ODbL vous autorise à :</p>
           <ul>
-            <li>copier, distribuer et utiliser la base de données ;</li>
-            <li>produire des créations à partir de cette base de données ;</li>
+            <li>copier, distribuer et utiliser la base de données ;</li>
+            <li>produire des créations à partir de cette base de données ;</li>
             <li>modifier, transformer et construire à partir de cette base de données.</li>
           </ul>
           <p>Tant que :</p>
           <ul>
-            <li>vous mentionnez la source des données ;</li>
-            <li>vous partagez à l’identique les bases de données dérivées ;</li>
+            <li>vous mentionnez la source des données ;</li>
+            <li>vous partagez à l’identique les bases de données dérivées ;</li>
             <li>vous gardez ouvertes ces données.</li>
           </ul>
           <p>Pour plus de renseignements, consultez <a href='http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode' target='_blank' rel='noopener noreferrer'>la traduction française intégrale de la licence</a> ou le <a href='http://vvlibri.org/fr/licence/odbl/10/fr' target='_blank' rel='noopener noreferrer'>résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href='http://opendatacommons.org/licenses/odbl/summary/' target='_blank' rel='noopener noreferrer'>Open Data Commons</a>.</p>
         </div>
         <div>
           <h4>Données</h4>
-          <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
+          <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
           <ul>
             <li>le libellé à la norme AFNOR et le libellé d’acheminement ne sont pas disponibles ;</li>
             <li>les données subissent <a href='https://github.com/etalab/ban-data/blob/master/scripts/clean.sql'>des traitements qualité supplémentaires.</a></li>
