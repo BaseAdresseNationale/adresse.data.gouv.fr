@@ -34,7 +34,7 @@ class CommunesPreview extends React.Component {
       {
         title: 'Licence',
         value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0',
-        type: license === 'odb-odbl' ? 'not-valid' : 'valid'
+        type: license === 'odc-odbl' ? 'not-valid' : 'valid'
       },
       {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
       {title: 'Nombre de Communes', value: spaceThousands(communesCount)},
