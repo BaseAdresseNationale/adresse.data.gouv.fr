@@ -52,7 +52,7 @@ export default () => (
           </a>
         </Link>
 
-        <Link href='/contrib'>
+        <Link href='/contribuer'>
           <a>
             <img
               src='/static/images/icons/contribute.svg'
