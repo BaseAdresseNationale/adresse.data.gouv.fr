@@ -115,6 +115,11 @@ module.exports = app => {
     res.redirect('/donnees-nationales')
   })
 
+  // DO NOT REMOVE
+  router.get('/contrib', (req, res) => {
+    res.redirect('/contribuer')
+  })
+
   router.get('*', (req, res) => {
     app.render(req, res, req.params[0], req.query)
   })

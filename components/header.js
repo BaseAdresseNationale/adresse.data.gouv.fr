@@ -9,7 +9,7 @@ const links = [
   {text: 'Données nationales', href: '/donnees-nationales'},
   {text: 'Bases locales', href: '/bases-locales'},
   {text: 'API', href: '/api'},
-  {text: 'Contribuer', href: '/contrib'},
+  {text: 'Contribuer', href: '/contribuer'},
   {text: 'Outils', href: '/tools'},
   {text: 'FAQ', href: '/faq'}
 ]
