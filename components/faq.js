@@ -7,30 +7,17 @@ const About = () => (
   <Section>
     <div className='row'>
       <div className='prose'>
-        <h2>À propos du site</h2>
-        <h3>À quoi sert ce site ?</h3>
-        <p>Ce site est destiné à :</p>
-        <ul>
-          <li>fournir de l’information sur la Base Adresse Nationale,</li>
-          <li>accéder aux données composant cette base (téléchargement),</li>
-          <li>fournir des outils et services en ligne pour utiliser les données (géocodage),</li>
-          <li>ainsi que pour contribuer à l’amélioration de son contenu.</li>
-        </ul>
-        <h3>Qui gère ce site ?</h3>
-        <p>Le site adresse.data.gouv.fr est géré par la mission Etalab de la DINSIC.</p>
-
-        <h2>Les données</h2>
-
         <h3>La Base Adresse Nationale contient-elle des données personnelles ?</h3>
         <p>Non, cette base ne fait que référencer l’existence et la localisation géographique d’une adresse. Aucune information personnelle ne figure dans cette base de données.</p>
 
         <h3>Comment signaler une erreur ou un manque dans les données ?</h3>
-        <p>L’outil de signalement d’erreur est en cours de développement.<br />En attendant son ouverture, vous pouvez signaler une erreur avec l’outil <a href='https://espacecollaboratif.ign.fr/'>Espace Collaboratif de l’IGN</a> ou auprès du <a href='http://www.laposte.fr/sna'>Service National de l’Adresse</a> de La Poste.</p>
+        <p>La création et la mise à jour des voies et adresses est du ressort de la commune.<br />Tout signalement doit donc passer par elle, ou son délégataire (EPCI, …).</p>
+        <p>Des outils de signalement direct aux mairies existent et seront référencés sur ce site à moyen terme.</p>
 
-        <h2>Quelle est la licence des données proposées par l’API de géocodage ?</h2>
+        <h3>Quelle est la licence des données proposées par l’API de géocodage ?</h3>
         <p>Les données utilisées par <Link href='/api'><a>l’API disponible sur ce site</a></Link> sont celles sous licence ODbL.</p>
 
-        <h2>Quelle sont les limitations en vigueur sur l’API de géocodage ?</h2>
+        <h3>Quelle sont les limitations en vigueur sur l’API de géocodage ?</h3>
         <p>Les appels sont limités à :</p>
         <ul>
           <li>10 requêtes par seconde et par IP pour le géocodage simple ;</li>
