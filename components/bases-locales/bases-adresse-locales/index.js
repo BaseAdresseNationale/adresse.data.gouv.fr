@@ -18,7 +18,7 @@ class BasesAdresseLocales extends React.Component {
         </Notification>
         <div className='bases'>
           {datasets.map(dataset => (
-            <BaseAdresseLocale key={dataset.id} {...dataset} />
+            <BaseAdresseLocale key={dataset.id} dataset={dataset} />
           ))}
         </div>
         <style jsx>{`

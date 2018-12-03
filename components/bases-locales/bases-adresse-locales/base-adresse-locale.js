@@ -8,45 +8,21 @@ import Summary from './summary'
 
 class BaseAdresseLocale extends React.Component {
   static propTypes = {
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-    organization: PropTypes.object.isRequired,
-    status: PropTypes.string.isRequired,
-    lastUpdate: PropTypes.string.isRequired,
-    licenseLabel: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    error: PropTypes.string,
-    valid: PropTypes.bool
-  }
-
-  static defaultProps = {
-    valid: false,
-    error: null
+    dataset: PropTypes.object.isRequired
   }
 
   render() {
-    const {id, url, title, status, count, licenseLabel, valid, organization, error, lastUpdate} = this.props
+    const {dataset} = this.props
 
     return (
       <div className='container'>
         <h3>
-          <Link href={`/bases-locales/jeux-de-donnees/${id}`}>
-            <a>{title}</a>
+          <Link href={`/bases-locales/jeux-de-donnees/${dataset.id}`}>
+            <a>{dataset.title}</a>
           </Link>
         </h3>
 
-        <Summary
-          id={id}
-          url={url}
-          status={status}
-          count={count}
-          lastUpdate={lastUpdate}
-          licenseLabel={licenseLabel}
-          valid={valid}
-          organization={organization}
-          error={error}
-        />
+        <Summary dataset={dataset} />
 
         <style jsx>{`
           .container {

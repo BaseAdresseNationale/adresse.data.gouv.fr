@@ -4,19 +4,13 @@ import PropTypes from 'prop-types'
 import {contoursToGeoJson} from '../../../../lib/geojson'
 import {spaceThousands} from '../../../../lib/format-numbers'
 
-import Meta from '../meta'
+import InfoReport from '../info-report'
+import Info from '../info'
 import Preview from './preview'
 
 class CommunesPreview extends React.Component {
   static propTypes = {
-    dataset: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      lastUpdate: PropTypes.string,
-      licenseLabel: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      valid: PropTypes.bool,
-      error: PropTypes.object
-    }).isRequired,
+    dataset: PropTypes.object.isRequired,
     summary: PropTypes.shape({
       communes: PropTypes.array.isRequired,
       source: PropTypes.array.isRequired,
@@ -26,34 +20,42 @@ class CommunesPreview extends React.Component {
     }).isRequired
   }
 
-  constructor(props) {
-    super(props)
-
-    const {dataset, summary} = props
-    const {communesCount, voiesCount, numerosCount} = summary
-    const {licenseLabel, lastUpdate} = dataset
-
-    this.infos = [
-      {title: 'Format', value: 'BAL 1.1'},
-      {title: 'Licence', value: licenseLabel},
-      {title: 'Dernière mise à jour', value: lastUpdate || 'inconnue'},
-      {title: 'Nombre de Communes', value: spaceThousands(communesCount)},
-      {title: 'Nombre de Voies', value: spaceThousands(voiesCount)},
-      {title: 'Nombre d’adresses', value: spaceThousands(numerosCount)}
-    ]
-  }
-
   render() {
     const {dataset, summary} = this.props
-    const {id, status, valid, error} = dataset
-    const {communes, source} = summary
+    const {model, license, dateMAJ} = dataset
+    const {communes, communesCount, voiesCount, numerosCount} = summary
+
+    const infos = [
+      {title: 'Format', value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique'},
+      {title: 'Licence', value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0'},
+      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
+      {title: 'Nombre de Communes', value: spaceThousands(communesCount)},
+      {title: 'Nombre de Voies', value: spaceThousands(voiesCount)},
+      {title: 'Nombre d’adresses', value: typeof numerosCount === 'number' ? spaceThousands(numerosCount) : '???'}
+    ]
 
     return (
       <Preview geojson={communes.length > 0 ? contoursToGeoJson(communes) : null}>
-        <Meta
-          infos={this.infos}
-          report={{id, status, valid, error}}
-          sources={source} />
+        <div className='meta'>
+          {infos.map(info => (
+            <div key={info.title}>
+              <Info title={info.title}>
+                <span>{info.value}</span>
+              </Info>
+            </div>
+          ))}
+
+          {model === 'bal-aitf' &&
+            <InfoReport dataset={dataset} />
+          }
+        </div>
+        <style jsx>{`
+          .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 100%));
+            grid-gap: 5px;
+          }
+        `}</style>
       </Preview>
     )
   }

@@ -21,13 +21,7 @@ import ProducerDiscussion from './producer-discussion'
 
 class Dataset extends React.Component {
   static propTypes = {
-    dataset: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-      organization: PropTypes.object.isRequired,
-      page: PropTypes.string.isRequired
-    }).isRequired,
+    dataset: PropTypes.object.isRequired,
     summary: PropTypes.object.isRequired,
     router: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -42,14 +36,14 @@ class Dataset extends React.Component {
     return (
       <div>
         <Section>
-          <Header name={title} logo={organization.logo} />
+          <Header name={title} logo={organization && organization.logo} />
           <Description page={page} description={description} />
 
-          <div className='links'>
+          {url && <div className='links'>
             <ButtonLink href={url} >
               Télécharger <MdFileDownload />
             </ButtonLink>
-          </div>
+          </div>}
 
           <CommunesPreview dataset={dataset} summary={summary} />
 

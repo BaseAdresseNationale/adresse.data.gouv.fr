@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {spaceThousands} from '../../../../../../lib/format-numbers'
 import {numerosToGeoJson} from '../../../../../../lib/geojson'
 
 import theme from '../../../../../../styles/theme'
@@ -16,23 +15,7 @@ import NumerosMap from './numeros-map'
 
 class VoiePreview extends React.Component {
   static propTypes = {
-    voie: PropTypes.shape({
-      numeros: PropTypes.array,
-      position: PropTypes.object,
-      numerosCount: PropTypes.number.isRequired,
-      dateMAJ: PropTypes.string.isRequired
-    }).isRequired
-  }
-
-  constructor(props) {
-    super(props)
-
-    const {numerosCount, dateMAJ} = props.voie
-
-    this.infos = [
-      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
-      {title: 'Nombre d’adresses', value: spaceThousands(numerosCount)}
-    ]
+    voie: PropTypes.object.isRequired
   }
 
   render() {
