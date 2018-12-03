@@ -6,7 +6,7 @@ import theme from '../styles/theme'
 import HamburgerMenu from './hamburger-menu'
 
 const links = [
-  {text: 'Données', href: '/download'},
+  {text: 'Données nationales', href: '/donnees-nationales'},
   {text: 'Bases locales', href: '/bases-locales'},
   {text: 'API', href: '/api'},
   {text: 'Contribuer', href: '/contrib'},

@@ -7,15 +7,15 @@ import Head from '../components/head'
 import Section from '../components/section'
 import ButtonLink from '../components/button-link'
 
-const title = 'Données brutes'
-const description = 'adresse.data.gouv.fr met en place des outils pour une prise en main rapide des données adresses ouvertes.'
+const title = 'Données nationales'
+const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
 export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />} />
     <Section>
       <div>
-        <p>Les données listées ci-dessous sont issues du rapprochement des données &amp; traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
+        <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN : IGN, La Poste, DGFiP, Etalab et OpenStreetMap France.</p>
         <p>Elles <strong>peuvent être téléchargées gratuitement</strong>,
         et sont <strong>disponibles sous deux licences</strong>.</p>
       </div>

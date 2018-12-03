@@ -110,6 +110,11 @@ module.exports = app => {
     })
   })
 
+  // DO NOT REMOVE
+  router.get('/download', (req, res) => {
+    res.redirect('/donnees-nationales')
+  })
+
   router.get('*', (req, res) => {
     app.render(req, res, req.params[0], req.query)
   })
