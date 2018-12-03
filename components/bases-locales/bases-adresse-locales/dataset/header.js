@@ -8,7 +8,7 @@ import Tag from '../../../tag'
 class Header extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    logo: PropTypes.string.isRequired,
+    logo: PropTypes.string,
     info: PropTypes.shape({
       title: PropTypes.string.isRequired,
       children: PropTypes.node.isRequired
@@ -18,7 +18,8 @@ class Header extends React.Component {
 
   static defaultProps = {
     info: null,
-    placeName: null
+    placeName: null,
+    logo: null
   }
 
   render() {
@@ -34,7 +35,7 @@ class Header extends React.Component {
             </Info>
           )}
         </div>
-        <img src={logo} alt={`${name}-logo`} />
+        {logo && <img src={logo} alt={`${name}-logo`} />}
 
         <style jsx>{`
           .head {

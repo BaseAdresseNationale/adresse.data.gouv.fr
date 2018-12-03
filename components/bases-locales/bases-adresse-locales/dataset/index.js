@@ -37,7 +37,7 @@ class Dataset extends React.Component {
       <div>
         <Section>
           <Header name={title} logo={organization && organization.logo} />
-          <Description page={page} description={description} />
+          {description && page && <Description page={page} description={description} />}
 
           {url && <div className='links'>
             <ButtonLink href={url} >
