@@ -65,7 +65,7 @@ class Summary extends React.Component {
           }
 
           .base-adresse-locale div {
-            margin: 1em auto;
+            margin: 3px auto;
           }
 
           .links {
