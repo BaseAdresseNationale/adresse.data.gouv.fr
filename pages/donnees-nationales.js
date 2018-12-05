@@ -24,8 +24,8 @@ export default () => (
       <div className='row'>
         <div>
           <h4>Résumé des conditions d’utilisation</h4>
-          <p>En l’absence de licence, le Code des Relations entre le Public et l’Administration (CRPA) s’applique pleinement.</p>
-          <p>Vous êtes autorisé(e) à :</p>
+          <p>En l’absence de licence, ce sont les règles de droit commun du Code des Relations entre le Public et l’Administration (CRPA) qui s’appliquent.</p>
+          <p>Vous êtes notamment autorisé(e) à :</p>
           <ul>
             <li>copier, distribuer et utiliser la base de données ;</li>
             <li>produire des créations à partir de cette base de données ;</li>
@@ -49,7 +49,7 @@ export default () => (
                   Accéder aux données
                 </ButtonLink>
               </Link>
-              <p>NB : La licence gratuite de repartage mentionnée dans les fichiers téléchargés n’est plus en vigueur. Elle doit être ignorée.</p>
+              <p>NB : La licence gratuite de repartage mentionnée dans les fichiers téléchargés <strong>n’est plus en vigueur</strong>. Elle doit être ignorée.</p>
             </div>
           </div>
         </div>
