@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {shuffle, sumBy} from 'lodash'
+import {shuffle} from 'lodash'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
@@ -14,25 +14,8 @@ import BalMap from './bal-map'
 import Pie from './pie'
 import Counter from './counter'
 
-function getLicenseDivision(datasets) {
-  const division = {
-    lov2: 0,
-    'odc-odbl': 0
-  }
-
-  datasets.forEach(dataset => {
-    if (dataset.license === 'lov2') {
-      division.lov2 += 1
-    } else {
-      division['odc-odbl'] += 1
-    }
-  })
-
-  return division
-}
-
-const BasesLocales = React.memo(({datasets}) => {
-  const conformBal = (100 / datasets.length) * sumBy(datasets, dataset => dataset.isValid)
+const BasesLocales = React.memo(({datasets, stats}) => {
+  const conformBal = (100 / stats.count) * stats.model['bal-aitf']
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -116,7 +99,7 @@ const BasesLocales = React.memo(({datasets}) => {
         <div className='stats'>
           <div className='stat'>
             <Counter
-              value={datasets.length}
+              value={stats.count}
               title='Bases locales publiées'
             />
 
@@ -129,12 +112,12 @@ const BasesLocales = React.memo(({datasets}) => {
           </div>
 
           <div className='stat'>
-            <Pie data={getLicenseDivision(datasets)} />
+            <Pie data={stats.license} />
           </div>
 
           <div className='stat'>
             <Counter
-              value={sumBy(datasets, dataset => dataset.numerosCount)}
+              value={stats.numerosCount}
               title='Adresses gérées par les collectivités'
             />
           </div>
