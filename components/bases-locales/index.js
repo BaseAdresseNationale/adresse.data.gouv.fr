@@ -15,7 +15,7 @@ import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalMap from './bal-map'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
-  const conformBal = (stats.model['bal-aitf'] / 100) * stats.count
+  const conformBal = (stats.isValid / 100) * stats.count
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
