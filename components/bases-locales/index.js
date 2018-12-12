@@ -15,7 +15,7 @@ import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalMap from './bal-map'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
-  const conformBal = (stats.isValid / 100) * stats.count
+  const isValidRatio = (stats.isValid / stats.model['bal-aitf']) * 100
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -104,9 +104,9 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             />
 
             <Counter
-              value={conformBal}
+              value={isValidRatio}
               unit='%'
-              color={conformBal < 20 ? 'error' : conformBal < 50 ? 'warning' : 'success'}
+              color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
               title='Bases locales conformes'
             />
           </div>
