@@ -8,11 +8,11 @@ import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 import Mapbox from '../mapbox'
 import Section from '../section'
 import ButtonLink from '../button-link'
+import Pie from '../ui/metrics/pie'
+import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalMap from './bal-map'
-import Pie from './pie'
-import Counter from './counter'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
   const conformBal = (100 / stats.count) * stats.model['bal-aitf']

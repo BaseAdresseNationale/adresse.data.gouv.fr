@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 const MAX_SAFE_INTEGER = 9007199254740991
 
