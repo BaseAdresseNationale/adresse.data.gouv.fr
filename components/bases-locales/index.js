@@ -5,6 +5,8 @@ import {shuffle} from 'lodash'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
+import theme from '../../styles/theme'
+
 import Mapbox from '../mapbox'
 import Section from '../section'
 import ButtonLink from '../button-link'
@@ -112,7 +114,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           </div>
 
           <div className='stat'>
-            <Pie data={stats.license} />
+            <Pie data={stats.license} colors={[theme.colors.green, theme.colors.orange]} />
           </div>
 
           <div className='stat'>
