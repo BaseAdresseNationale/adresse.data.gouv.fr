@@ -97,12 +97,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </Mapbox>
       </Section>
 
-      <Section title='Bases locales déjà publiées' background='white'>
+      <Section title='Jeux de données publiés' background='white'>
         <div className='stats'>
           <div className='stat'>
             <Counter
               value={stats.count}
-              title='Bases locales publiées'
+              title='Jeux de données publiés'
             />
           </div>
 
@@ -111,7 +111,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
               value={isValidRatio}
               unit='%'
               color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
-              title='Pourcentage de BAL conformes à la spécification BAL 1.1'
+              title='Conformité à la spécification BAL 1.1'
             />
           </div>
 
@@ -124,7 +124,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='stat'>
             <Pie
-              title='Répartition des licenses'
+              title='Licences utilisées'
               data={{
                 'Licence Ouverte': stats.license.lov2,
                 'ODbL 1.0': stats.license['odc-odbl']
