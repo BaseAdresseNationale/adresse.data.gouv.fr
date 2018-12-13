@@ -216,8 +216,6 @@ class Map extends React.Component {
           .container {
             position: absolute;
             width: 100%;
-            height: calc(100% - 75px);
-            top: 75px;
           }
 
           .input {
@@ -231,12 +229,6 @@ class Map extends React.Component {
           }
 
           @media (max-width: 700px) {
-            .container {
-              display: flex;
-              flex-flow: column;
-              height: calc(100% - 130px);
-            }
-
             .input {
               position: initial;
               min-width: 100%;
@@ -244,12 +236,6 @@ class Map extends React.Component {
             }
           }
 
-          @media (max-width: 380px) {
-            .container {
-              top: 65px;
-              height: calc(100% - 120px);
-            }
-          }
         `}</style>
       </div >
     )

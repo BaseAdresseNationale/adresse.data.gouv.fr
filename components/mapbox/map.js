@@ -113,7 +113,19 @@ class Map extends React.PureComponent {
         <style jsx>{`
           .container {
             width: 100%;
-            height: ${fullscreen ? '100vh' : `${height}px`};
+            height: ${fullscreen ? 'calc(100vh - 75px)' : `${height}px`};
+          }
+
+          @media (max-width: 700px) {
+            .container {
+              height: ${fullscreen ? 'calc(100vh - 130px)' : `${height}px`};
+            }
+          }
+
+          @media (max-width: 380px) {
+            .container {
+              height: ${fullscreen ? 'calc(100vh - 120px)' : `${height}px`};
+            }
           }
 
           .tools {
