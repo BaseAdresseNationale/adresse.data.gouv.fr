@@ -17,7 +17,7 @@ import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalMap from './bal-map'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
-  const isValidRatio = (stats.isValid / stats.model['bal-aitf']) * 100
+  const isValidRatio = Math.round((stats.isValid / stats.model['bal-aitf']) * 100)
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -104,12 +104,21 @@ const BasesLocales = React.memo(({datasets, stats}) => {
               value={stats.count}
               title='Bases locales publiées'
             />
+          </div>
 
+          <div className='stat'>
             <Counter
               value={isValidRatio}
               unit='%'
               color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
-              title='Bases locales conformes'
+              title='Pourcentage de BAL conformes à la spécification BAL 1.1'
+            />
+          </div>
+
+          <div className='stat'>
+            <Counter
+              title='Adresses gérées par les collectivités'
+              value={stats.numerosCount}
             />
           </div>
 
@@ -121,12 +130,6 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             />
           </div>
 
-          <div className='stat'>
-            <Counter
-              value={stats.numerosCount}
-              title='Adresses gérées par les collectivités'
-            />
-          </div>
         </div>
       </Section>
 
@@ -156,8 +159,8 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         }
 
         .stat {
-          margin: 0 0.5em;
-          min-width: 200px;
+          margin: 1em 0.5em;
+          width: 300px;
         }
 
         a {
