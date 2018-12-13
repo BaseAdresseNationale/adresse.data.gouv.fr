@@ -5,14 +5,19 @@ import {shuffle} from 'lodash'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaFileTextO from 'react-icons/lib/fa/file-text-o'
 
+import theme from '../../styles/theme'
+
 import Mapbox from '../mapbox'
 import Section from '../section'
 import ButtonLink from '../button-link'
-import BalMap from './bal-map'
+import Pie from '../ui/metrics/pie'
+import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
+import BalMap from './bal-map'
 
-const BasesLocales = React.memo(({datasets}) => {
+const BasesLocales = React.memo(({datasets, stats}) => {
+  const isValidRatio = Math.round((stats.isValid / stats.model['bal-aitf']) * 100)
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -92,41 +97,48 @@ const BasesLocales = React.memo(({datasets}) => {
         </Mapbox>
       </Section>
 
+      <Section title='Bases locales déjà publiées' background='white'>
+        <div className='stats'>
+          <div className='stat'>
+            <Counter
+              value={stats.count}
+              title='Bases locales publiées'
+            />
+          </div>
+
+          <div className='stat'>
+            <Counter
+              value={isValidRatio}
+              unit='%'
+              color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
+              title='Pourcentage de BAL conformes à la spécification BAL 1.1'
+            />
+          </div>
+
+          <div className='stat'>
+            <Counter
+              title='Adresses gérées par les collectivités'
+              value={stats.numerosCount}
+            />
+          </div>
+
+          <div className='stat'>
+            <Pie
+              title='Répartition des licenses'
+              data={{
+                'Licence Ouverte': stats.license.lov2,
+                'ODbL 1.0': stats.license['odc-odbl']
+              }}
+              colors={[theme.colors.green, theme.colors.orange]}
+            />
+          </div>
+
+        </div>
+      </Section>
+
       <style jsx>{`
         .intro {
           text-align: left;
-        }
-
-        .row {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: stretch;
-          width: 100%;
-        }
-
-        .row .column {
-          margin: 0 2em;
-          max-width: 50em;
-        }
-
-        .row .column + .column {
-          margin-left: 2em;
-        }
-
-        @media (max-width: 749px) {
-          .row {
-            flex-direction: column;
-          }
-
-          .row .column:not(:last-child) {
-            margin-bottom: 2em;
-          }
-
-          .row p + p {
-            text-align: center;
-            margin-top: 1em;
-          }
         }
 
         .action {
@@ -138,6 +150,20 @@ const BasesLocales = React.memo(({datasets}) => {
           margin: 40px auto;
           display: flex;
           justify-content: center;
+        }
+
+        .stats {
+          display: flex;
+          text-align: center;
+          justify-content: space-around;
+          align-items: center;
+          flex-flow: wrap;
+          margin: 2em 0;
+        }
+
+        .stat {
+          margin: 1em 0.5em;
+          width: 300px;
         }
 
         a {

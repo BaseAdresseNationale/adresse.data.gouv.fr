@@ -15,24 +15,26 @@ const description = 'Bases de données Adresse de périmètre local, éditées s
 
 class BasesLocalesPage extends React.Component {
   render() {
-    const {datasets} = this.props
+    const {datasets, stats} = this.props
 
     return (
       <Page title={title} description={description}>
         <Head title={title} icon={<FaDatabase />} />
-        <BasesLocales datasets={datasets} />
+        <BasesLocales datasets={datasets} stats={stats} />
       </Page>
     )
   }
 }
 
 BasesLocalesPage.propTypes = {
-  datasets: PropTypes.array.isRequired
+  datasets: PropTypes.array.isRequired,
+  stats: PropTypes.object.isRequired
 }
 
 BasesLocalesPage.getInitialProps = async () => {
   return {
-    datasets: await _get(`${API_BAL_URL}/datasets`)
+    datasets: await _get(`${API_BAL_URL}/datasets`),
+    stats: await _get(`${API_BAL_URL}/datasets/stats`)
   }
 }
 
