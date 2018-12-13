@@ -114,7 +114,11 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           </div>
 
           <div className='stat'>
-            <Pie data={stats.license} colors={[theme.colors.green, theme.colors.orange]} />
+            <Pie
+              title='Répartition des licenses'
+              data={stats.license}
+              colors={[theme.colors.green, theme.colors.orange]}
+            />
           </div>
 
           <div className='stat'>

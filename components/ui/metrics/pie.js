@@ -16,7 +16,7 @@ const formatData = (data, colors) => {
   }
 }
 
-export const PieChart = ({data, colors}) => {
+export const PieChart = ({title, data, colors}) => {
   const formatedData = formatData(data, colors)
 
   if (formatedData.labels.length === 0) {
@@ -26,21 +26,29 @@ export const PieChart = ({data, colors}) => {
   }
 
   return (
-    <Pie
-      data={formatedData}
-      options={{
-        maintainAspectRatio: false
-      }}
-    />
+    <div>
+      {title && <h3>{title}</h3>}
+
+      <div>
+        <Pie
+          data={formatedData}
+          options={{
+            maintainAspectRatio: false
+          }}
+        />
+      </div>
+    </div>
   )
 }
 
 PieChart.propTypes = {
+  title: PropTypes.string,
   data: PropTypes.object,
   colors: PropTypes.array
 }
 
 PieChart.defaultProps = {
+  title: null,
   data: {},
   colors: [
     '#2185D0',
