@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import getStatus from '../../../../../../lib/bal/item'
+import {contoursToGeoJson} from '../../../../../../lib/geojson'
+
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
 import Mapbox from '../../../../../mapbox'
-
-import {contoursToGeoJson} from '../../../../../../lib/geojson'
 
 import Head from '../head'
 import AddressesCommuneMap from '../addresses-commune-map'

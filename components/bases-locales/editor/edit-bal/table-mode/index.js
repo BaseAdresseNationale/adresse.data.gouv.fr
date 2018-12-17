@@ -5,61 +5,25 @@ import CommuneContext from './commune/commune-context'
 import VoieContext from './voie/voie-context'
 import NumeroContext from './numero-context'
 
-const getAddresses = commune => {
-  const geojson = {
-    type: 'FeatureCollection',
-    features: []
-  }
-
-  Object.keys(commune.voies).forEach(voieIdx => {
-    const voie = commune.voies[voieIdx]
-    if (voie.numeros) {
-      Object.keys(voie.numeros).forEach(numeroIdx => {
-        const numero = commune.voies[voieIdx].numeros[numeroIdx]
-        const positions = numero.edited ? numero.modified.positions : numero.positions
-
-        if (positions.length > 0) {
-          geojson.features.push({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: positions[0].coords
-            },
-            properties: {
-              ...numero,
-              codeCommune: commune.code,
-              codeVoie: voie.codeVoie,
-              source: positions[0].source,
-              type: positions[0].type,
-              lastUpdate: positions[0].dateMAJ
-            }
-          })
-        }
-      })
-    }
-  })
-
-  return geojson.features.length > 0 ? geojson : null
-}
-
-class Context extends React.Component {
+class TableMode extends React.Component {
   static propTypes = {
     commune: PropTypes.object.isRequired,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired
     }).isRequired,
+    addresses: PropTypes.array,
     voie: PropTypes.object,
     numero: PropTypes.object
   }
 
   static defaultProps = {
+    addresses: null,
     voie: null,
     numero: null
   }
 
   render() {
-    const {commune, voie, numero, actions} = this.props
-    const addresses = getAddresses(commune)
+    const {addresses, commune, voie, numero, actions} = this.props
     const communeContour = commune.contour ? {
       id: commune.code,
       type: 'Feature',
@@ -104,4 +68,4 @@ class Context extends React.Component {
   }
 }
 
-export default Context
+export default TableMode
