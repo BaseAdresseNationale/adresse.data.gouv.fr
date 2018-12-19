@@ -3,7 +3,7 @@ import Router from 'next/router'
 import {debounce} from 'lodash'
 import FaSearch from 'react-icons/lib/fa/search'
 
-import {_get} from '../../lib/fetch'
+import {search} from '../../lib/explore/api'
 
 import Section from '../section'
 import SearchInput from '../search-input'
@@ -56,10 +56,8 @@ class Explorer extends React.Component {
   }
 
   handleSearch = debounce(async input => {
-    const url = 'https://sandbox.geo.api.gouv.fr/explore-addok/search?q=' + input
-
     try {
-      const results = await _get(url)
+      const results = await search(input)
       this.setState({
         results: results.features.splice(0, 5) || [],
         loading: false

@@ -4,7 +4,9 @@ const nextRuntimeDotenv = require('next-runtime-dotenv')
 
 const withConfig = nextRuntimeDotenv({
   public: [
-    'API_BAL_URL'
+    'API_BAL_URL',
+    'API_EXPLORE_URL',
+    'API_EXPLORE_SEARCH_URL'
   ]
 })
 
