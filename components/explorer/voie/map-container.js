@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {union} from 'lodash'
 
-import {_get} from '../../../lib/fetch'
+import {getNumerosBbox} from '../../../lib/explore/api'
 import {addressesToGeoJson, addressToGeoJson} from '../../../lib/geojson'
 
 import Notification from '../../notification'
@@ -36,10 +36,9 @@ class MapContainer extends React.Component {
 
   getAddrsAround = async bbox => {
     const {voie, addresses} = this.props
-    const url = `https://sandbox.geo.api.gouv.fr/explore/${voie.codeCommune}/numeros?bbox=${bbox}`
 
     try {
-      const results = await _get(url)
+      const results = await getNumerosBbox(voie.codeCommune, bbox)
       this.setState(state => {
         const withoutVoie = results
           .filter(add => !addresses.find(address => address.id === add.id))

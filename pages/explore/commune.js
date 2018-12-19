@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {_get} from '../../lib/fetch'
+import {getCommune} from '../../lib/explore/api'
 
 import Page from '../../layouts/main'
 import Section from '../../components/section'
@@ -31,7 +32,7 @@ class CommunePage extends React.Component {
 
   buildVoiesPromise(codeCommune) {
     this.setState(() => ({
-      communeVoiesPromise: _get(`https://sandbox.geo.api.gouv.fr/explore/${codeCommune}`)
+      communeVoiesPromise: getCommune(codeCommune)
     }))
   }
 

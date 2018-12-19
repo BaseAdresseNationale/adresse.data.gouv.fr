@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Page from '../../../layouts/main'
 
-import {_get} from '../../../lib/fetch'
+import {getVoie, getNumero} from '../../../lib/explore/api'
 
 import withErrors from '../../../components/hoc/with-errors'
 
@@ -72,13 +72,12 @@ VoiePage.defaultProps = {
 
 VoiePage.getInitialProps = async ({query}) => {
   const {codeCommune, codeVoie} = query
-  const exploreApi = 'https://sandbox.geo.api.gouv.fr/explore'
   const promises = [
-    _get(`${exploreApi}/${codeCommune}/${codeVoie}`)
+    getVoie(codeCommune, codeVoie)
   ]
 
   if (query.numero) {
-    promises.push(_get(`${exploreApi}/${codeCommune}/${codeVoie}/${query.numero}`))
+    promises.push(getNumero(codeCommune, codeVoie, query.numero))
   }
 
   const [voie, selected] = await Promise.all(promises)
