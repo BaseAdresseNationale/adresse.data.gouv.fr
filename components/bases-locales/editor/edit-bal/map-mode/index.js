@@ -112,7 +112,7 @@ class MapMode extends React.Component {
         <div className='head'>
           <h1>{voieFocused ? voieFocused.voieName : ''}</h1>
         </div>
-        <Mapbox>
+        <Mapbox switchStyle>
           {map => (
             <BalMap
               map={map}

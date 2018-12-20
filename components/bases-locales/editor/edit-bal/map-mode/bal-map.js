@@ -179,6 +179,7 @@ class BalMap extends React.Component {
         'text-opacity': opacityByZoom(15, 18)
       },
       layout: {
+        'text-font': ['Roboto Regular'],
         'text-field': '{numero}'
       }
     })
@@ -194,6 +195,7 @@ class BalMap extends React.Component {
         'text-opacity': opacityByZoom(15, 18)
       },
       layout: {
+        'text-font': ['Roboto Regular'],
         'text-field': '{numero}'
       }
     })
@@ -213,6 +215,9 @@ class BalMap extends React.Component {
       type: 'symbol',
       source: 'voies',
       paint: {
+        'text-color': '#000',
+        'text-halo-color': '#FFF',
+        'text-halo-width': 1,
         'text-opacity': opacityByZoom(15, 18, false)
       },
       layout: {
@@ -228,7 +233,7 @@ class BalMap extends React.Component {
           {'font-scale': 0.6}
         ],
         'text-anchor': 'top',
-        'text-font': ['Roboto bold']
+        'text-font': ['Roboto Regular']
       }
     })
   }
