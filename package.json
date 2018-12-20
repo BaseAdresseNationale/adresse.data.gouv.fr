@@ -19,6 +19,8 @@
     "@mapbox/mapbox-gl-draw": "^1.0.9",
     "@turf/bbox": "^6.0.1",
     "@turf/centroid": "^6.0.2",
+    "@turf/concave": "^6.0.5",
+    "@turf/distance": "^6.0.1",
     "blob-to-buffer": "^1.2.6",
     "chart.js": "^2.7.3",
     "compression": "^1.7.2",
