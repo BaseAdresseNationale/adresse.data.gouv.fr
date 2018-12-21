@@ -246,14 +246,14 @@ class BalMap extends React.Component {
 
   zoomEnd = () => {
     const {map, select} = this.props
-    const voie = getNearestVoie(map, 14, 200)
+    const voie = getNearestVoie(map, 16, 200)
 
     select(voie)
   }
 
   dragEnd = () => {
     const {map, select} = this.props
-    const voie = getNearestVoie(map, 14, 200)
+    const voie = getNearestVoie(map, 16, 200)
 
     select(voie)
   }
