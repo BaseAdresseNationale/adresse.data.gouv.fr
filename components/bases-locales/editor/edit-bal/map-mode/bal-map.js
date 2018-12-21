@@ -28,20 +28,26 @@ function createPoint(coordinates) {
   }
 }
 
-const getNearestVoie = (map, point, zoom, margin) => {
+const getNearestVoie = (map, zoom, margin) => {
+  const center = map.getCenter()
+  const viewPortCenter = map.project(center)
+
   let voie = null
 
   if (map.getZoom() >= zoom) {
+    // Area in the center of the screen where the elements can be detected
     const bbox = [
-      [point.x - margin, point.y - margin],
-      [point.x + margin, point.y + margin]
+      [viewPortCenter.x - margin, viewPortCenter.y - margin],
+      [viewPortCenter.x + margin, viewPortCenter.y + margin]
     ]
+
+    // Found items
     const features = uniqBy(map.queryRenderedFeatures(bbox, {layers: ['voies-concave']}), f => f.properties.id)
 
     if (features.length > 0) {
-      const center = map.getCenter()
       const centerPoint = createPoint([center.lng, center.lat])
 
+      // Order features by order of distance from the center of the map
       const orderByDistance = orderBy(features, feature => {
         const coordinates = feature.properties.coordinates.slice(0, -1).substr(1).split(',').map(str => parseFloat(str))
         const point = createPoint(coordinates)
@@ -238,30 +244,16 @@ class BalMap extends React.Component {
     })
   }
 
-  zoomEnd = e => {
+  zoomEnd = () => {
     const {map, select} = this.props
+    const voie = getNearestVoie(map, 14, 200)
 
-    if (e.originalEvent) {
-      const points = {
-        x: e.originalEvent.x,
-        y: e.originalEvent.y
-      }
-
-      const voie = getNearestVoie(map, points, 14, 400)
-
-      select(voie)
-    }
+    select(voie)
   }
 
-  dragEnd = e => {
+  dragEnd = () => {
     const {map, select} = this.props
-
-    const points = {
-      x: e.originalEvent.x,
-      y: e.originalEvent.y
-    }
-
-    const voie = getNearestVoie(map, points, 14, 400)
+    const voie = getNearestVoie(map, 14, 200)
 
     select(voie)
   }
