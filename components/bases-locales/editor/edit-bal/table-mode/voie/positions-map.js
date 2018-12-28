@@ -4,7 +4,7 @@ import computeBbox from '@turf/bbox'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import mapDrawStyle from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
-import {positionsToGeoJson} from '../../../../../../lib/geojson'
+import {coordinatesToGeoJson} from '../../../../../../lib/geojson'
 import {numeroIconStyles} from '../../../../../../lib/mapbox-gl'
 
 import SelectPositionType from './select-position-type'
@@ -66,7 +66,7 @@ class PositionsMap extends React.Component {
       if (positions.length === 0) {
         draw.deleteAll()
       } else {
-        const features = positionsToGeoJson(positions)
+        const features = coordinatesToGeoJson(positions)
         draw.set(features)
       }
     }
@@ -87,7 +87,7 @@ class PositionsMap extends React.Component {
 
   fitBounds = () => {
     const {map, bounds, positions} = this.props
-    const toCompute = (positions.length > 0 ? positionsToGeoJson(positions) : null) || bounds
+    const toCompute = (positions.length > 0 ? coordinatesToGeoJson(positions) : null) || bounds
     const bbox = computeBbox(toCompute)
 
     map.fitBounds(bbox, {
@@ -115,7 +115,7 @@ class PositionsMap extends React.Component {
     const {positions} = this.props
 
     if (positions.length > 0) {
-      draw.add(positionsToGeoJson(positions))
+      draw.add(coordinatesToGeoJson(positions))
     }
   }
 

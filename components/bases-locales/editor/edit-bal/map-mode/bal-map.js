@@ -4,6 +4,8 @@ import computeBbox from '@turf/bbox'
 import {uniqBy, orderBy} from 'lodash'
 import computeDistance from '@turf/distance'
 
+import {coordinatesToGeoJson} from '../../../../../lib/geojson'
+
 import theme from '../../../../../styles/theme'
 
 const opacityByZoom = (start, end, asc = true) => {
@@ -16,16 +18,6 @@ const opacityByZoom = (start, end, asc = true) => {
     end,
     asc ? 1 : 0
   ]
-}
-
-function createPoint(coordinates) {
-  return {
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates
-    }
-  }
 }
 
 const getNearestVoie = (map, zoom, margin) => {
@@ -45,12 +37,12 @@ const getNearestVoie = (map, zoom, margin) => {
     const features = uniqBy(map.queryRenderedFeatures(bbox, {layers: ['voies-concave']}), f => f.properties.id)
 
     if (features.length > 0) {
-      const centerPoint = createPoint([center.lng, center.lat])
+      const centerPoint = coordinatesToGeoJson([center.lng, center.lat])
 
       // Order features by order of distance from the center of the map
       const orderByDistance = orderBy(features, feature => {
         const coordinates = feature.properties.coordinates.slice(0, -1).substr(1).split(',').map(str => parseFloat(str))
-        const point = createPoint(coordinates)
+        const point = coordinatesToGeoJson(coordinates)
         const distance = computeDistance(centerPoint, point)
 
         return distance
