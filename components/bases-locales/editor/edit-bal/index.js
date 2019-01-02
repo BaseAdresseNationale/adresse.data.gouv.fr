@@ -132,10 +132,7 @@ class EditBal extends React.Component {
             )}
           </div>
         ) : (
-          <Communes
-            communes={communes}
-            actions={actions}
-          />
+          <Communes communes={communes} actions={actions} />
         )}
 
         <LoadingContent loading={loading} error={error} centered>

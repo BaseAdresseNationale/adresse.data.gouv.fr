@@ -90,38 +90,19 @@ class MapMode extends React.Component {
   }
 
   static propTypes = {
-    addresses: PropTypes.object,
-    actions: PropTypes.object.isRequired
+    addresses: PropTypes.object
   }
 
   static defaultProps = {
     addresses: null
   }
 
-  select = (voie, t = false) => {
-    const {mode} = this.state
-    const {actions} = this.props
-
-    if (t && voie) {
-      actions.select(voie.properties.codeCommune, voie.properties.codeVoie, null, false)
-      this.setState({voieFocused: voie ? voie.properties : null})
-    } else {
-      if (!mode) {
-        this.setState({voieFocused: voie ? voie.properties : null})
-      }
-
-      if (mode === 'delete') {
-        actions.deleteItem(voie)
-      }
-    }
-  }
-
-  handleMode = mode => {
-    this.setState({mode})
+  select = voie => {
+    this.setState({voieFocused: voie ? voie.properties : null})
   }
 
   render() {
-    const {voieFocused, mode} = this.state
+    const {voieFocused} = this.state
     const {addresses} = this.props
 
     const voies = groupBy(addresses.features, feature => feature.properties.codeVoie)
@@ -142,8 +123,6 @@ class MapMode extends React.Component {
               addresses={addresses}
               selected={voieFocused}
               select={this.select}
-              mode={mode}
-              changeMode={this.handleMode}
             />
           )}
         </Mapbox>
