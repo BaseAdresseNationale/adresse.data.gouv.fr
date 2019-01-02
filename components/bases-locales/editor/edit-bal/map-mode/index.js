@@ -69,6 +69,8 @@ const getConcaveVoie = voies => {
         id: voie,
         coordinates: createCentroid(numeroFeatures).geometry.coordinates,
         numerosCount: String(numeroFeatures.length),
+        codeCommune: numeroFeatures[0].properties.codeCommune,
+        codeVoie: numeroFeatures[0].properties.codeVoie,
         voieName: numeroFeatures[0].properties.nomVoie
       }
     }
@@ -88,19 +90,38 @@ class MapMode extends React.Component {
   }
 
   static propTypes = {
-    addresses: PropTypes.object
+    addresses: PropTypes.object,
+    actions: PropTypes.object.isRequired
   }
 
   static defaultProps = {
     addresses: null
   }
 
-  focusVoie = voie => {
-    this.setState({voieFocused: voie ? voie.properties : null})
+  select = (voie, t = false) => {
+    const {mode} = this.state
+    const {actions} = this.props
+
+    if (t && voie) {
+      actions.select(voie.properties.codeCommune, voie.properties.codeVoie, null, false)
+      this.setState({voieFocused: voie ? voie.properties : null})
+    } else {
+      if (!mode) {
+        this.setState({voieFocused: voie ? voie.properties : null})
+      }
+
+      if (mode === 'delete') {
+        actions.deleteItem(voie)
+      }
+    }
+  }
+
+  handleMode = mode => {
+    this.setState({mode})
   }
 
   render() {
-    const {voieFocused} = this.state
+    const {voieFocused, mode} = this.state
     const {addresses} = this.props
 
     const voies = groupBy(addresses.features, feature => feature.properties.codeVoie)
@@ -120,7 +141,9 @@ class MapMode extends React.Component {
               concaveVoie={concaveVoie}
               addresses={addresses}
               selected={voieFocused}
-              select={this.focusVoie}
+              select={this.select}
+              mode={mode}
+              changeMode={this.handleMode}
             />
           )}
         </Mapbox>

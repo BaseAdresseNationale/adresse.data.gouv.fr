@@ -11,7 +11,7 @@ class TableMode extends React.Component {
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired
     }).isRequired,
-    addresses: PropTypes.array,
+    addresses: PropTypes.object,
     voie: PropTypes.object,
     numero: PropTypes.object
   }

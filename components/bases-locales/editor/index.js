@@ -241,7 +241,7 @@ class Editor extends React.Component {
     Router.push(href, as)
   }
 
-  select = async (codeCommune, codeVoie, numeroComplet) => {
+  select = async (codeCommune, codeVoie, numeroComplet, scrollTop = true) => {
     const {model} = this.props
     const commune = await model.getCommune(codeCommune)
     const voie = await model.getVoie(codeCommune, codeVoie)
@@ -265,9 +265,11 @@ class Editor extends React.Component {
       as += `/numero/${numero.numeroComplet}`
     }
 
-    Router.push(href, as)
+    if (scrollTop) {
+      this.scrollTop()
+    }
 
-    this.scrollTop()
+    Router.push(href, as)
   }
 
   scrollTop = () => {

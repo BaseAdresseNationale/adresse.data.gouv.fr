@@ -6,6 +6,9 @@ import computeDistance from '@turf/distance'
 
 import {coordinatesToGeoJson} from '../../../../../lib/geojson'
 
+import ControlWrapper from '../../../../mapbox/controls/control-wrapper'
+import ControlGroup from '../../../../mapbox/controls/control-group'
+
 import theme from '../../../../../styles/theme'
 
 const opacityByZoom = (start, end, asc = true) => {
@@ -69,12 +72,15 @@ class BalMap extends React.Component {
     }).isRequired,
     bounds: PropTypes.object,
     select: PropTypes.func.isRequired,
-    selected: PropTypes.object
+    selected: PropTypes.object,
+    mode: PropTypes.string,
+    changeMode: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     selected: null,
-    bounds: null
+    bounds: null,
+    mode: null
   }
 
   componentDidMount() {
@@ -84,6 +90,14 @@ class BalMap extends React.Component {
     this.fitBounds()
 
     map.on('styledata', this.onStyleData)
+
+    // Numéro
+    map.on('click', 'numeros', this.onClick.bind(this))
+    map.on('click', 'selected-numeros', this.onClick.bind(this))
+    map.on('mouseleave', 'numeros', this.onMouseLeave.bind(this))
+    map.on('mouseleave', 'selected-numeros', this.onMouseLeave.bind(this))
+    map.on('mouseenter', 'numeros', this.onMouseEnter.bind(this))
+    map.on('mouseenter', 'selected-numeros', this.onMouseEnter.bind(this))
 
     // Voies
     map.on('click', 'voies', this.onClick.bind(this))
@@ -95,7 +109,15 @@ class BalMap extends React.Component {
   }
 
   componentDidUpdate() {
-    const {map, selected} = this.props
+    const {map, selected, mode} = this.props
+
+    if (mode === 'delete') {
+      map.getCanvas().style.cursor = 'pointer'
+    } else if (mode === 'create') {
+      map.getCanvas().style.cursor = 'crosshair'
+    } else {
+      map.getCanvas().style.cursor = 'default'
+    }
 
     if (map.isStyleLoaded()) {
       if (selected) {
@@ -111,7 +133,16 @@ class BalMap extends React.Component {
   componentWillUnmount() {
     const {map} = this.props
 
+    map.off('load', this.onLoad)
     map.off('styledata', this.onStyleData)
+
+    // Numéro
+    map.off('click', 'numeros', this.onClick.bind(this))
+    map.off('click', 'selected-numeros', this.onClick.bind(this))
+    map.off('mouseleave', 'numeros', this.onMouseLeave.bind(this))
+    map.off('mouseleave', 'selected-numeros', this.onMouseLeave.bind(this))
+    map.off('mouseenter', 'numeros', this.onMouseEnter.bind(this))
+    map.off('mouseenter', 'selected-numeros', this.onMouseEnter.bind(this))
 
     // Voies
     map.off('click', 'voies', this.onClick.bind(this))
@@ -247,7 +278,7 @@ class BalMap extends React.Component {
     const {map, select} = this.props
     const voie = getNearestVoie(map, 16, 200)
 
-    select(voie)
+    select(voie, true)
   }
 
   onMouseEnter = () => {
@@ -262,16 +293,32 @@ class BalMap extends React.Component {
 
   onClick = event => {
     const {map, select} = this.props
-    const voie = event.features[0]
+    const feature = event.features[0]
 
-    map.flyTo({center: voie.geometry.coordinates, zoom: 18})
-    select(voie)
+    select(feature)
+    map.flyTo({center: feature.geometry.coordinates, zoom: 18})
   }
 
   render() {
+    const {map, changeMode} = this.props
+
     return (
       <div>
         <div className='map-center centered' />
+
+        <ControlGroup
+          map={map}
+          buttons={[
+            {icon: '/static/images/icons/trash.svg', action: () => changeMode('delete')}
+          ]} />
+
+        <ControlWrapper
+          map={map}
+          buttons={[
+            {icon: 'Commune', action: () => changeMode('create')},
+            {icon: 'Voie', action: () => changeMode('create')},
+            {icon: 'Numéro', action: () => changeMode('create')}
+          ]} />
 
         <style jsx>{`
           .centered {

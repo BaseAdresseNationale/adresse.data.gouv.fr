@@ -31,6 +31,7 @@ const getAddresses = commune => {
         if (positions.length > 0) {
           geojson.features.push({
             type: 'Feature',
+            id: `${voie.codeVoie}-${numero.id}`,
             geometry: {
               type: 'Point',
               coordinates: positions[0].coords
@@ -124,7 +125,10 @@ class EditBal extends React.Component {
                 actions={actions}
               />
             ) : (
-              <MapMode addresses={addresses} />
+              <MapMode
+                addresses={addresses}
+                actions={actions}
+              />
             )}
           </div>
         ) : (
