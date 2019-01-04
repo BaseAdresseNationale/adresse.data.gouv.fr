@@ -3,10 +3,7 @@ import PropTypes from 'prop-types'
 
 import getStatus from '../../../../../../lib/bal/item'
 
-import Mapbox from '../../../../../mapbox'
-
 import Head from '../head'
-import AddressesCommuneMap from '../addresses-commune-map'
 
 import VoiesList from './voies-list'
 import EmptyVoiesList from './empty-voies-list'
@@ -22,45 +19,36 @@ class CommuneContext extends React.Component {
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    children: PropTypes.node
   }
 
   static defaultProps = {
     addresses: null,
-    communeContour: null
+    communeContour: null,
+    children: null
   }
 
   render() {
-    const {commune, addresses, communeContour, actions} = this.props
-    const {voies} = commune
+    const {commune, addresses, communeContour, actions, children} = this.props
+    const {voies, nom, code} = commune
     const hasVoies = voies && Object.keys(voies).length > 0
 
     return (
       <div>
         <Head
-          name={commune.nom}
+          name={nom}
           status={getStatus(commune)}
           parent='Communes'
           previous={() => actions.select(null)}
         />
 
-        {addresses && addresses.features.length > 0 && (
-          <Mapbox switchStyle>
-            {map => (
-              <AddressesCommuneMap
-                map={map}
-                data={addresses}
-                bounds={communeContour}
-                select={actions.select}
-              />
-            )}
-          </Mapbox>
-        )}
+        {children}
 
         {hasVoies ? (
           <VoiesList
             voies={voies}
-            codeCommune={commune.code}
+            codeCommune={code}
             bounds={communeContour || addresses}
             actions={actions}
           />
