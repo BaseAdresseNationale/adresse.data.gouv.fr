@@ -60,7 +60,7 @@ const numerosLayer = {
   },
   layout: {
     'text-font': ['Roboto Regular'],
-    'text-field': '{numero}'
+    'text-field': '{numeroComplet}'
   }
 }
 
@@ -71,12 +71,12 @@ const selectedNumerosLayer = {
   filter: ['==', ['get', 'codeVoie'], null],
   paint: {
     'text-color': '#fff',
-    'text-halo-color': 'theme.primaryDark',
+    'text-halo-color': theme.primaryDark,
     'text-halo-width': 2
   },
   layout: {
     'text-font': ['Roboto Regular'],
-    'text-field': '{numero}'
+    'text-field': '{numeroComplet}'
   }
 }
 
