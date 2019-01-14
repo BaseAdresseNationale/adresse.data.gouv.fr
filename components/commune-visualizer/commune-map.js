@@ -38,7 +38,10 @@ const numerosPointLayer = {
   type: 'circle',
   source: 'numeros',
   paint: {
-    'circle-color': theme.primary,
+    'circle-color': {
+      type: 'identity',
+      property: 'color'
+    },
     'circle-radius': 2
   }
 }
@@ -49,7 +52,10 @@ const numerosLayer = {
   source: 'numeros',
   paint: {
     'text-color': '#fff',
-    'text-halo-color': '#000',
+    'text-halo-color': {
+      type: 'identity',
+      property: 'color'
+    },
     'text-halo-width': 1
   },
   layout: {
@@ -65,7 +71,7 @@ const selectedNumerosLayer = {
   filter: ['==', ['get', 'codeVoie'], null],
   paint: {
     'text-color': '#fff',
-    'text-halo-color': theme.primaryDark,
+    'text-halo-color': 'theme.primaryDark',
     'text-halo-width': 2
   },
   layout: {
@@ -79,7 +85,10 @@ const numeroLayer = {
   type: 'circle',
   source: 'numeros',
   paint: {
-    'circle-color': theme.primary,
+    'circle-color': {
+      type: 'identity',
+      property: 'color'
+    },
     'circle-radius': 2
   }
 }
@@ -90,7 +99,10 @@ const numeroSourceLayer = {
   source: 'numero',
   paint: {
     'text-color': theme.primary,
-    'text-halo-color': '#fff',
+    'text-halo-color': {
+      type: 'identity',
+      property: 'color'
+    },
     'text-halo-width': 1
   },
   layout: {
@@ -122,7 +134,10 @@ const voiesLayer = {
   source: 'voies',
   paint: {
     'text-color': '#000',
-    'text-halo-color': '#FFF',
+    'text-halo-color': {
+      type: 'identity',
+      property: 'color'
+    },
     'text-halo-width': 1
   },
   layout: {

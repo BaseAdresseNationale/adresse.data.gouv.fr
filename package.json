@@ -36,6 +36,7 @@
     "papaparse": "^4.3.6",
     "piwik-react-router": "^0.10.0",
     "prop-types": "^15.6.0",
+    "randomcolor": "^0.5.3",
     "react": "^16.6.3",
     "react-autocomplete": "^1.7.2",
     "react-chartjs-2": "^2.7.4",

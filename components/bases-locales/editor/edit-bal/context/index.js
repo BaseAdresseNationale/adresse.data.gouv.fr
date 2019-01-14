@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {groupBy} from 'lodash'
+import {randomColor} from 'randomcolor'
 
 import {getNumerosByVoie, contoursToGeoJson} from '../../../../../lib/geojson'
 
@@ -37,7 +38,8 @@ const getAddresses = commune => {
               nomVoie: voie.nomVoie,
               source: positions[0].source,
               type: positions[0].type,
-              lastUpdate: positions[0].dateMAJ
+              lastUpdate: positions[0].dateMAJ,
+              color: randomColor({seed: voie.codeVoie})
             }
           })
         }
