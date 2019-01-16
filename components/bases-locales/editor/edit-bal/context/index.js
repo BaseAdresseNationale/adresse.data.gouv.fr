@@ -39,7 +39,10 @@ const getAddresses = commune => {
               source: positions[0].source,
               type: positions[0].type,
               lastUpdate: positions[0].dateMAJ,
-              color: randomColor({seed: voie.codeVoie})
+              color: randomColor({
+                seed: voie.codeVoie,
+                luminosity: 'dark'
+              })
             }
           })
         }
