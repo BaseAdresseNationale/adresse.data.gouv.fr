@@ -80,11 +80,11 @@ class CommuneVisualizer extends React.Component {
           .loading {
             z-index: 999;
             position: absolute;
-            background-color: #ffffffa8;
+            background-color: #ffffffCC;
             padding: 1em;
             border-radius: 4px;
-            top: calc(50% - 25px);
-            left: calc(50% - 68px);
+            top: 1em;
+            left: 1em;
           }
           `}</style>
       </div>
