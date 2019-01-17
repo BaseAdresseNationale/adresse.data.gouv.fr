@@ -107,7 +107,13 @@ const numeroLayer = {
       type: 'identity',
       property: 'color'
     },
-    'circle-radius': 2
+    'circle-radius': {
+      stops: [
+        [CLOSER_LOOK, 0],
+        [17, 4],
+        [20, 0]
+      ]
+    }
   }
 }
 
@@ -347,7 +353,6 @@ class CommuneMap extends React.Component {
     }
 
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'none')
-    map.setLayoutProperty(numeroLayer.id, 'visibility', 'none')
     map.setLayoutProperty(numeroSourceLayer.id, 'visibility', 'none')
     map.setLayoutProperty(numeroTypeLayer.id, 'visibility', 'none')
 
@@ -365,10 +370,6 @@ class CommuneMap extends React.Component {
     map.setLayoutProperty(numerosPointLayer.id, 'visibility', 'visible')
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
     map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
-
-    if (!this.closerLook) {
-      this.fitBounds()
-    }
 
     this.voieFitZoom = map.getZoom()
   }
