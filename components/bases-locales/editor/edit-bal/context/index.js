@@ -35,7 +35,7 @@ const getAddresses = commune => {
               ...numero,
               codeCommune: commune.code,
               codeVoie: voie.codeVoie,
-              nomVoie: voie.nomVoie,
+              nomVoie: voie.modified && voie.modified.nomVoie ? voie.modified.nomVoie : voie.nomVoie,
               source: positions[0].source,
               type: positions[0].type,
               lastUpdate: positions[0].dateMAJ,
