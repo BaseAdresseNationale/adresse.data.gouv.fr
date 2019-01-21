@@ -157,9 +157,8 @@ const voiesLayer = {
   type: 'symbol',
   source: 'voies',
   paint: {
-    'text-color': '#fff',
-    'text-halo-color': '#000',
-    'text-halo-width': 1
+    'text-halo-color': '#DDD',
+    'text-halo-width': 2
   },
   layout: {
     'text-field': [
