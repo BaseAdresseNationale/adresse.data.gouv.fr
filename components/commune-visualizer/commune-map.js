@@ -2,12 +2,14 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
+import {isEqual} from 'lodash'
 
 import {positionsToGeoJson} from '../../lib/geojson'
 
 import theme from '../../styles/theme'
 
-const CLOSER_LOOK = 16.5
+const NUMEROS_POINT_MIN = 12
+const NUMEROS_MIN = 17
 
 const popupAddress = ({properties}) => renderToString(
   <div>
@@ -40,22 +42,17 @@ const numerosPointLayer = {
   id: 'numeros-point',
   type: 'circle',
   source: 'numeros',
+  minzoom: NUMEROS_POINT_MIN,
+  maxzoom: NUMEROS_MIN,
   paint: {
     'circle-color': {
       type: 'identity',
       property: 'color'
     },
     'circle-radius': {
-      base: 1,
       stops: [
-        [10, 0],
-        [17, 4]
-      ]
-    },
-    'circle-opacity': {
-      stops: [
-        [16, 1],
-        [19, 0]
+        [NUMEROS_POINT_MIN, 0.5],
+        [NUMEROS_MIN, 4]
       ]
     }
   }
@@ -65,6 +62,7 @@ const numerosLayer = {
   id: 'numeros',
   type: 'symbol',
   source: 'numeros',
+  minzoom: NUMEROS_MIN,
   paint: {
     'text-color': '#fff',
     'text-halo-color': {
@@ -75,7 +73,8 @@ const numerosLayer = {
   },
   layout: {
     'text-font': ['Roboto Regular'],
-    'text-field': '{numeroComplet}'
+    'text-field': '{numeroComplet}',
+    'text-ignore-placement': true
   }
 }
 
@@ -94,26 +93,22 @@ const selectedNumerosLayer = {
   },
   layout: {
     'text-font': ['Roboto Regular'],
-    'text-field': '{numeroComplet}'
+    'text-field': '{numeroComplet}',
+    'text-ignore-placement': true
   }
 }
 
 const numeroLayer = {
   id: 'numero',
   type: 'circle',
-  source: 'numeros',
+  minzoom: NUMEROS_MIN,
+  source: 'numero',
   paint: {
     'circle-color': {
       type: 'identity',
       property: 'color'
     },
-    'circle-radius': {
-      stops: [
-        [CLOSER_LOOK, 0],
-        [17, 4],
-        [20, 0]
-      ]
-    }
+    'circle-radius': 4
   }
 }
 
@@ -121,6 +116,7 @@ const numeroSourceLayer = {
   id: 'numero-source',
   type: 'symbol',
   source: 'numero',
+  minzoom: NUMEROS_MIN,
   paint: {
     'text-color': theme.primary,
     'text-halo-color': {
@@ -141,6 +137,7 @@ const numeroTypeLayer = {
   id: 'numero-type',
   type: 'symbol',
   source: 'numero',
+  minzoom: NUMEROS_MIN,
   paint: {
     'text-color': theme.primary,
     'text-halo-color': '#fff',
@@ -156,6 +153,7 @@ const voiesLayer = {
   id: 'voies',
   type: 'symbol',
   source: 'voies',
+  maxzoom: NUMEROS_MIN,
   paint: {
     'text-halo-color': '#DDD',
     'text-halo-width': 2
@@ -204,15 +202,11 @@ class CommuneMap extends React.Component {
     const {map} = this.props
 
     this.voieFitZoom = null
-    this.closerLook = false // Avoid fitBound on voie when a numéro is clicked in "closer look" mode
 
     // Map
     map.once('load', this.onLoad)
-    map.once('styledata', this.onLoad)
     map.on('zoomend', this.zoomEnd)
     map.on('dataloading', this.onLoading)
-    map.on('styledataloading', this.onLoading)
-    map.on('sourcedataloading', this.onLoading)
 
     this.fitBounds()
 
@@ -234,9 +228,10 @@ class CommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {map, numero} = this.props
+    const {map, voies, numero, isLoading} = this.props
+
     const waiting = () => {
-      if (numero !== prevProps.numero) {
+      if (!isEqual(numero, prevProps.numero)) {
         const numeroSource = map.getSource('numero')
         numeroSource.setData({
           type: 'geojson',
@@ -244,7 +239,17 @@ class CommuneMap extends React.Component {
         })
       }
 
-      if (map.isStyleLoaded()) {
+      if (voies && !isEqual(voies, prevProps.voies)) {
+        const voiesSource = map.getSource('voies')
+        this.fitBounds()
+        voiesSource.setData({
+          type: 'geojson',
+          data: voies
+        })
+      }
+
+      if (map.isStyleLoaded() && map.areTilesLoaded()) {
+        isLoading(false)
         this.onLoad()
       } else {
         setTimeout(waiting, 200)
@@ -259,11 +264,8 @@ class CommuneMap extends React.Component {
 
     // Map
     map.off('load', this.onLoad)
-    map.off('styledata', this.onLoad)
     map.off('zoomend', this.zoomEnd)
     map.off('dataloading', this.onLoading)
-    map.off('styledataloading', this.onLoading)
-    map.off('sourcedataloading', this.onLoading)
 
     // Numéro
     map.off('click', 'numeros', this.onNumeroClick)
@@ -302,7 +304,7 @@ class CommuneMap extends React.Component {
   }
 
   onLoad = () => {
-    const {map, voies, voie, numeros, numero, isLoading} = this.props
+    const {map, voies, voie, numeros, numero} = this.props
 
     // Sources
     secureAddSource(map, 'voies', voies)
@@ -310,81 +312,58 @@ class CommuneMap extends React.Component {
     secureAddSource(map, 'numero', numero)
 
     // Layers
-    secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, numerosLayer)
     secureAddLayer(map, selectedNumerosLayer)
     secureAddLayer(map, numeroLayer)
     secureAddLayer(map, numeroSourceLayer)
     secureAddLayer(map, numeroTypeLayer)
+    secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, voiesLayer)
 
-    if (numero) {
+    if (numero && this.mode !== 'numero') {
       this.numeroMode()
-    } else if (voie) {
+    } else if (voie && this.mode !== 'voie') {
       this.voieMode()
-    } else {
-      this.resetFilters()
-      this.communeMode()
+    } else if (!voie && !numero) {
+      this.resetLayers()
     }
-
-    isLoading(false)
   }
 
-  resetFilters = () => {
+  resetLayers = () => {
     const {map} = this.props
 
     map.setFilter('numeros', null)
     map.setFilter('selected-numeros', null)
     map.setFilter('numeros-point', null)
-  }
-
-  communeMode = () => {
-    const {map} = this.props
-
-    if (this.closerLook) {
-      map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
-      map.setLayoutProperty(numerosLayer.id, 'visibility', 'visible')
-      map.setLayoutProperty(numerosPointLayer.id, 'visibility', 'none')
-    } else {
-      map.setLayoutProperty(voiesLayer.id, 'visibility', 'visible')
-      map.setLayoutProperty(numerosLayer.id, 'visibility', 'none')
-      map.setLayoutProperty(numerosPointLayer.id, 'visibility', 'visible')
-    }
 
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'none')
-    map.setLayoutProperty(numeroSourceLayer.id, 'visibility', 'none')
-    map.setLayoutProperty(numeroTypeLayer.id, 'visibility', 'none')
-
-    this.voieFitZoom = 0
+    map.setLayoutProperty(voiesLayer.id, 'visibility', 'visible')
   }
 
   voieMode = () => {
     const {map, voie} = this.props
 
-    map.setFilter('numeros', ['!=', ['get', 'codeVoie'], voie.codeVoie])
-    map.setFilter('selected-numeros', ['==', ['get', 'codeVoie'], voie.codeVoie])
+    if (voie) {
+      map.setFilter('numeros', ['!=', ['get', 'codeVoie'], voie.codeVoie])
+      map.setFilter('selected-numeros', ['==', ['get', 'codeVoie'], voie.codeVoie])
+      map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
+      map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
+      map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
 
-    map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
-    map.setLayoutProperty(numerosLayer.id, 'visibility', 'visible')
-    map.setLayoutProperty(numerosPointLayer.id, 'visibility', 'visible')
-    map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
-    map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
+      this.voieFitZoom = map.getZoom()
+    }
 
-    this.voieFitZoom = map.getZoom()
+    this.mode = 'voie'
   }
 
   numeroMode = () => {
     const {map, numero} = this.props
 
-    map.setLayoutProperty(numerosPointLayer.id, 'visibility', 'none')
-    map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
-
     map.setFilter('numeros', ['!=', ['get', 'id'], numero.properties.id])
     map.setFilter('numeros-point', ['!=', ['get', 'id'], numero.properties.id])
     map.setFilter('selected-numeros', ['!=', ['get', 'id'], numero.properties.id])
 
-    map.setLayoutProperty(numeroTypeLayer.id, 'visibility', 'visible')
-    map.setLayoutProperty(numeroSourceLayer.id, 'visibility', 'visible')
+    this.mode = 'numero'
   }
 
   zoomEnd = () => {
@@ -398,8 +377,6 @@ class CommuneMap extends React.Component {
     if (numero && currentZoom < this.voieFitZoom - 0.5) {
       selectNumero(null)
     }
-
-    this.closerLook = currentZoom > CLOSER_LOOK
   }
 
   onVoieClick = event => {
