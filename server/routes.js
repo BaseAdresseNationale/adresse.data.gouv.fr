@@ -46,6 +46,13 @@ module.exports = app => {
     })
   })
 
+  router.get('/bases-locales/editeur/commune/:codeCommune', (req, res) => {
+    app.render(req, res, '/bases-locales/editeur', {
+      ...req.query,
+      codeCommune: req.params.codeCommune
+    })
+  })
+
   router.get('/bases-locales/editeur/:id/commune/:codeCommune', (req, res) => {
     app.render(req, res, '/bases-locales/editeur', {
       ...req.query,

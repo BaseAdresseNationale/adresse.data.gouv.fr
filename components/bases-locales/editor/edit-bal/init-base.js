@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {remove} from 'lodash'
 
-import {API_BAL_URL} from '../../../../lib/bal/api'
+import {extractCommunes} from '../../../../lib/bal/api'
 
 import Button from '../../../button'
 import Notification from '../../../notification'
@@ -68,25 +68,13 @@ class InitBase extends React.Component {
 
   generate = async communes => {
     const {handleSubmit} = this.props
-    const url = `${API_BAL_URL}/ban/extract?communes=${communes.map(c => c.code).join()}`
     let csv = null
-    let error
+    let error = null
 
     try {
-      const options = {
-        headers: {
-          Accept: 'text/csv',
-          'Access-Control-Request-Headers': 'Content-Type, Content-Disposition'
-        },
-        mode: 'cors',
-        method: 'GET'
-      }
-
-      const response = await fetch(url, options)
-
-      csv = await response.blob()
+      csv = await extractCommunes(communes)
     } catch (err) {
-      error = new Error(err)
+      error = err
     }
 
     this.setState({
