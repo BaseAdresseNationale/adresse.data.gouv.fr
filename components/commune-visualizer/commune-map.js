@@ -11,6 +11,22 @@ import theme from '../../styles/theme'
 const NUMEROS_POINT_MIN = 12
 const NUMEROS_MIN = 17
 
+const DELETED_FILTER = ['!=', ['get', 'status'], 'deleted']
+const VDELETED_FILTER = ['!=', ['get', 'voieStatus'], 'deleted']
+
+const NUMEROS_FILTERS = [
+  'all',
+  DELETED_FILTER,
+  VDELETED_FILTER
+]
+
+const SELECTED_NUMEROS_FILTERS = [
+  'all',
+  ['==', ['get', 'codeVoie'], null],
+  DELETED_FILTER,
+  VDELETED_FILTER
+]
+
 const popupAddress = ({properties}) => renderToString(
   <div>
     <h4>{properties.numeroComplet} {properties.nomVoie}</h4>
@@ -44,6 +60,7 @@ const numerosPointLayer = {
   source: 'numeros',
   minzoom: NUMEROS_POINT_MIN,
   maxzoom: NUMEROS_MIN,
+  filter: NUMEROS_FILTERS,
   paint: {
     'circle-color': {
       type: 'identity',
@@ -63,6 +80,7 @@ const numerosLayer = {
   type: 'symbol',
   source: 'numeros',
   minzoom: NUMEROS_MIN,
+  filter: NUMEROS_FILTERS,
   paint: {
     'text-color': '#fff',
     'text-halo-color': {
@@ -82,7 +100,7 @@ const selectedNumerosLayer = {
   id: 'selected-numeros',
   type: 'symbol',
   source: 'numeros',
-  filter: ['==', ['get', 'codeVoie'], null],
+  filter: SELECTED_NUMEROS_FILTERS,
   paint: {
     'text-color': '#fff',
     'text-halo-color': {
@@ -103,6 +121,7 @@ const numeroLayer = {
   type: 'circle',
   minzoom: NUMEROS_MIN,
   source: 'numero',
+  filter: NUMEROS_FILTERS,
   paint: {
     'circle-color': {
       type: 'identity',
@@ -117,6 +136,7 @@ const numeroSourceLayer = {
   type: 'symbol',
   source: 'numero',
   minzoom: NUMEROS_MIN,
+  filter: NUMEROS_FILTERS,
   paint: {
     'text-color': theme.primary,
     'text-halo-color': {
@@ -138,6 +158,7 @@ const numeroTypeLayer = {
   type: 'symbol',
   source: 'numero',
   minzoom: NUMEROS_MIN,
+  filter: NUMEROS_FILTERS,
   paint: {
     'text-color': theme.primary,
     'text-halo-color': '#fff',
@@ -154,6 +175,7 @@ const voiesLayer = {
   type: 'symbol',
   source: 'voies',
   maxzoom: NUMEROS_MIN,
+  filter: DELETED_FILTER,
   paint: {
     'text-halo-color': '#DDD',
     'text-halo-width': 2
@@ -329,13 +351,29 @@ class CommuneMap extends React.Component {
     }
   }
 
+  setSelectedFilters = () => {
+    const {map, voie} = this.props
+    const numerosFilters = NUMEROS_FILTERS
+    const selectedFilters = [
+      'all',
+      DELETED_FILTER,
+      VDELETED_FILTER,
+      ['==', ['get', 'codeVoie'], voie.codeVoie]
+    ]
+
+    numerosFilters.push(['!=', ['get', 'codeVoie'], voie.codeVoie])
+
+    map.setFilter('numeros', numerosFilters)
+    map.setFilter('numeros-point', numerosFilters)
+    map.setFilter('selected-numeros', selectedFilters)
+  }
+
   resetLayers = () => {
     const {map} = this.props
 
-    map.setFilter('numeros', null)
-    map.setFilter('selected-numeros', null)
-    map.setFilter('numeros-point', null)
-    map.setFilter('numeros-point', null)
+    map.setFilter('numeros', NUMEROS_FILTERS)
+    map.setFilter('selected-numeros', SELECTED_NUMEROS_FILTERS)
+    map.setFilter('numeros-point', NUMEROS_FILTERS)
 
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'none')
     map.setLayoutProperty(voiesLayer.id, 'visibility', 'visible')
@@ -345,9 +383,8 @@ class CommuneMap extends React.Component {
     const {map, voie} = this.props
 
     if (voie) {
-      map.setFilter('numeros', ['!=', ['get', 'codeVoie'], voie.codeVoie])
-      map.setFilter('numeros-point', ['!=', ['get', 'codeVoie'], voie.codeVoie])
-      map.setFilter('selected-numeros', ['==', ['get', 'codeVoie'], voie.codeVoie])
+      this.setSelectedFilters()
+
       map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
       map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
       map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
