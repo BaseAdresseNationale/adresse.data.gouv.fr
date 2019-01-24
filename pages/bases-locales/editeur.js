@@ -8,6 +8,7 @@ import {validate, extractAsTree} from '@etalab/bal'
 import BALStorage from '../../lib/bal/storage'
 import {extractCommunes} from '../../lib/bal/api'
 import BAL from '../../lib/bal/model'
+import {_get} from '../../lib/fetch'
 
 import Page from '../../layouts/main'
 import withErrors from '../../components/hoc/with-errors'
@@ -88,23 +89,18 @@ class EditorPage extends React.Component {
       this.setState({loading: true})
 
       try {
+        await _get(`https://geo.api.gouv.fr/communes/${codeCommune}`)
         const model = await createBALStorage(codeCommune)
-        const commune = await model.getCommune(codeCommune)
+        const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}`
+        const url = `/bases-locales/editeur/${model._id}/commune/${codeCommune}`
 
-        if (commune) {
-          const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}`
-          const url = `/bases-locales/editeur/${model._id}/commune/${codeCommune}`
+        BALStorage.set(model._id, model)
 
-          BALStorage.set(model._id, model)
+        Router.push(href, url)
 
-          Router.push(href, url)
-
-          this.setState({
-            loading: false
-          })
-        } else {
-          throw new Error('codeCommune error')
-        }
+        this.setState({
+          loading: false
+        })
       } catch (error) {
         this.setState({
           error,
