@@ -12,7 +12,7 @@ class BalReport extends React.Component {
     const {report, organization, title} = this.props
     return (
       <Section>
-        <Header name={title} logo={organization.logo} />
+        <Header name={title} logo={organization && organization.logo} />
         <Report report={report} />
       </Section>
     )

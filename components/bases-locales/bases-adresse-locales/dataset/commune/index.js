@@ -56,7 +56,7 @@ class Commune extends React.Component {
 
           <Header
             name={commune.nom}
-            logo={organization.logo} />
+            logo={organization && organization.logo} />
 
           <CommunePreview commune={commune} />
 
