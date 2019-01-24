@@ -19,16 +19,12 @@ import Editor from '../../components/bases-locales/editor'
 
 const title = 'Créer ou modifier une Base Adresse Locale'
 
-const createBALStorage = async codeCommune => {
-  try {
-    const csv = await extractCommunes([{code: codeCommune}])
-    const report = await validate(csv)
-    const tree = extractAsTree(report.normalizedRows, true)
+async function createBALStorage(codeCommune) {
+  const csv = await extractCommunes([{code: codeCommune}])
+  const report = await validate(csv)
+  const tree = extractAsTree(report.normalizedRows, true)
 
-    return new BAL(tree)
-  } catch (error) {
-    throw new Error(error)
-  }
+  return new BAL(tree)
 }
 
 class EditorPage extends React.Component {
