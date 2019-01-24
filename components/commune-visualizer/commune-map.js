@@ -335,6 +335,7 @@ class CommuneMap extends React.Component {
     map.setFilter('numeros', null)
     map.setFilter('selected-numeros', null)
     map.setFilter('numeros-point', null)
+    map.setFilter('numeros-point', null)
 
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'none')
     map.setLayoutProperty(voiesLayer.id, 'visibility', 'visible')
@@ -345,6 +346,7 @@ class CommuneMap extends React.Component {
 
     if (voie) {
       map.setFilter('numeros', ['!=', ['get', 'codeVoie'], voie.codeVoie])
+      map.setFilter('numeros-point', ['!=', ['get', 'codeVoie'], voie.codeVoie])
       map.setFilter('selected-numeros', ['==', ['get', 'codeVoie'], voie.codeVoie])
       map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
       map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
