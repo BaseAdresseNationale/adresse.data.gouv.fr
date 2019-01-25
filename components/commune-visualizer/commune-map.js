@@ -426,15 +426,10 @@ class CommuneMap extends React.Component {
   }
 
   onNumeroClick = event => {
-    const {voies, voie, selectVoie, selectNumero} = this.props
+    const {selectNumero} = this.props
     const numero = event.features[0]
 
-    if (voie && voie.codeVoie === numero.properties.codeVoie) {
-      selectNumero(numero.properties.id)
-    } else {
-      const selectedVoie = voies.features.find(voie => voie.properties.codeVoie === numero.properties.codeVoie)
-      selectVoie(selectedVoie.properties)
-    }
+    selectNumero(numero.properties.id)
   }
 
   mouseEnter = () => {
