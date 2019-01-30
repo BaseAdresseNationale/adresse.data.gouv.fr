@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import getStatus from '../../../../../../lib/bal/item'
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
 
 import {contoursToGeoJson} from '../../../../../../lib/geojson'
-
-import Head from '../head'
 
 import NumerosList from './numeros-list'
 import EmptyNumeroList from './empty-numeros-list'
@@ -65,17 +62,15 @@ class VoieContext extends React.Component {
       addItem: PropTypes.func.isRequired,
       cancelChange: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
-    }).isRequired,
-    children: PropTypes.node
+    }).isRequired
   }
 
   static defaultProps = {
-    addresses: null,
-    children: null
+    addresses: null
   }
 
   render() {
-    const {commune, voie, addresses, actions, children} = this.props
+    const {commune, voie, addresses, actions} = this.props
     const {numeros} = voie
     const hasNumeros = numeros && Object.keys(numeros).length > 0
     const newName = voie.modified && voie.modified.nomVoie
@@ -85,13 +80,6 @@ class VoieContext extends React.Component {
 
     return (
       <div>
-        <Head
-          name={newName ? voie.modified.nomVoie : voie.nomVoie}
-          status={getStatus(voie)}
-          parent={commune.nom}
-          previous={() => actions.select(commune.code)}
-        />
-
         {newName && (
           <Notification type='info'>
             <div>
@@ -113,8 +101,6 @@ class VoieContext extends React.Component {
           />
         ) : (
           <div>
-            {children}
-
             {hasNumeros ? (
               <NumerosList
                 codeCommune={commune.code}

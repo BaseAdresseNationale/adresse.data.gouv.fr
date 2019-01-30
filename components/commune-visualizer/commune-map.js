@@ -348,6 +348,7 @@ class CommuneMap extends React.Component {
       this.voieMode()
     } else if (!voie && !numero) {
       this.resetLayers()
+      this.mode = 'commune'
     }
   }
 
@@ -389,6 +390,7 @@ class CommuneMap extends React.Component {
       map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
       map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
 
+      this.fitBounds()
       this.voieFitZoom = map.getZoom()
     }
 

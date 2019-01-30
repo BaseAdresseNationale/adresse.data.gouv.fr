@@ -2,20 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '../../../../../styles/theme'
-import getStatus from '../../../../../lib/bal/item'
 
 import Notification from '../../../../notification'
 
-import Head from './head'
 import NumeroForm from './voie/numero-form'
 
 class NumeroContext extends React.Component {
   static propTypes = {
-    codeCommune: PropTypes.string.isRequired,
-    voie: PropTypes.shape({
-      nomVoie: PropTypes.string.isRequired,
-      codeVoie: PropTypes.string.isRequired
-    }).isRequired,
     numero: PropTypes.shape({
       numeroComplet: PropTypes.string.isRequired,
       modified: PropTypes.object
@@ -31,18 +24,11 @@ class NumeroContext extends React.Component {
   }
 
   render() {
-    const {codeCommune, voie, numero, bounds, actions} = this.props
+    const {numero, bounds, actions} = this.props
     const positions = numero.edited ? numero.modified.positions : numero.positions
 
     return (
       <div>
-        <Head
-          name={numero.numeroComplet}
-          status={getStatus(numero)}
-          parent={voie.modified ? voie.modified.nomVoie : voie.nomVoie}
-          previous={() => actions.select(codeCommune, voie.codeVoie)}
-        />
-
         {positions.length === 0 && (
           <Notification type='warning'>
             Ce numéro n’a pas de position.
