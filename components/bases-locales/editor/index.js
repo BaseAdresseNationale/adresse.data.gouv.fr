@@ -260,7 +260,7 @@ class Editor extends React.Component {
   }
 
   scrollTop = () => {
-    window.scrollTo(0, 270)
+    window.scrollTo(0, 200)
   }
 
   render() {
