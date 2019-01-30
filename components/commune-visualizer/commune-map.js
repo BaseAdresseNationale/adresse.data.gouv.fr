@@ -354,7 +354,7 @@ class CommuneMap extends React.Component {
 
   setSelectedFilters = () => {
     const {map, voie} = this.props
-    const numerosFilters = NUMEROS_FILTERS
+    const numerosFilters = [...NUMEROS_FILTERS]
     const selectedFilters = [
       'all',
       DELETED_FILTER,
