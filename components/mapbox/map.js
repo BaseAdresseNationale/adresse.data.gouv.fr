@@ -114,6 +114,7 @@ class Map extends React.PureComponent {
           .container {
             width: 100%;
             height: ${fullscreen ? 'calc(100vh - 75px)' : `${height}px`};
+            margin-bottom: ${switchStyle ? '4em' : '1em'};
           }
 
           @media (max-width: 700px) {

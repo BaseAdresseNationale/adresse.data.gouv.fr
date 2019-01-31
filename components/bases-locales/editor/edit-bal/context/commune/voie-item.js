@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import getStatus from '../../../../../../lib/bal/item'
+import {getStatus} from '../../../../../../lib/bal/item'
 
 import EditVoie from './edit-voie'
 import VoieForm from './voie-form'

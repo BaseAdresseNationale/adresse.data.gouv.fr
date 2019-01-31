@@ -42,6 +42,7 @@ class EditBal extends React.Component {
 
         {commune ? (
           <Context
+            context={numero || voie || commune}
             commune={commune}
             voie={voie}
             numero={numero}

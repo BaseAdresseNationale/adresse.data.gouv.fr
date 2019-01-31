@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 
 import BALStorage from '../../../lib/bal/storage'
+import {getType} from '../../../lib/bal/item'
 import theme from '../../../styles/theme'
 
 import Section from '../../section'
@@ -17,18 +18,6 @@ import EditBal from './edit-bal'
 function getDownloadLink(csvContent) {
   const blob = new Blob([csvContent], {type: 'text/csv'})
   return URL.createObjectURL(blob)
-}
-
-const getType = item => {
-  if (item.code) {
-    return 'commune'
-  }
-
-  if (item.nomVoie) {
-    return 'voie'
-  }
-
-  return 'numero'
 }
 
 class Editor extends React.Component {
@@ -271,7 +260,7 @@ class Editor extends React.Component {
   }
 
   scrollTop = () => {
-    window.scrollTo(0, 270)
+    window.scrollTo(0, 200)
   }
 
   render() {

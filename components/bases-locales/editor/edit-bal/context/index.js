@@ -1,52 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {contoursToGeoJson, communeVoiesToGeoJson, communeNumerosToGeoJson} from '../../../../../lib/geojson'
+import {getStatus, getType, getName} from '../../../../../lib/bal/item'
+
+import CommuneVisualizer from '../../../../commune-visualizer'
+
+import Head from './head'
 import CommuneContext from './commune/commune-context'
 import VoieContext from './voie/voie-context'
 import NumeroContext from './numero-context'
 
-const getAddresses = commune => {
-  const geojson = {
-    type: 'FeatureCollection',
-    features: []
-  }
-
-  Object.keys(commune.voies).forEach(voieIdx => {
-    const voie = commune.voies[voieIdx]
-    if (voie.numeros) {
-      Object.keys(voie.numeros).forEach(numeroIdx => {
-        const numero = commune.voies[voieIdx].numeros[numeroIdx]
-        const positions = numero.edited ? numero.modified.positions : numero.positions
-
-        if (positions.length > 0) {
-          geojson.features.push({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: positions[0].coords
-            },
-            properties: {
-              ...numero,
-              codeCommune: commune.code,
-              codeVoie: voie.codeVoie,
-              source: positions[0].source,
-              type: positions[0].type,
-              lastUpdate: positions[0].dateMAJ
-            }
-          })
-        }
-      })
-    }
-  })
-
-  return geojson.features.length > 0 ? geojson : null
-}
-
 class Context extends React.Component {
   static propTypes = {
+    context: PropTypes.object.isRequired,
     commune: PropTypes.object.isRequired,
     actions: PropTypes.shape({
-      addItem: PropTypes.func.isRequired
+      addItem: PropTypes.func.isRequired,
+      select: PropTypes.func.isRequired
     }).isRequired,
     voie: PropTypes.object,
     numero: PropTypes.object
@@ -57,28 +28,63 @@ class Context extends React.Component {
     numero: null
   }
 
+  getParent = () => {
+    const {context, commune, voie} = this.props
+    const type = getType(context)
+
+    if (type === 'commune') {
+      return 'Commune'
+    }
+
+    if (type === 'voie') {
+      return commune.nom
+    }
+
+    if (type === 'numero') {
+      return getName(voie)
+    }
+  }
+
+  getPrevious = () => {
+    const {context, commune, voie, actions} = this.props
+    const type = getType(context)
+
+    if (type === 'commune') {
+      actions.select(null)
+    } else if (type === 'voie') {
+      actions.select(commune.code)
+    } else if (type === 'numero') {
+      actions.select(commune.code, voie.codeVoie)
+    }
+  }
+
   render() {
-    const {commune, voie, numero, actions} = this.props
-    const addresses = getAddresses(commune)
-    const communeContour = commune.contour ? {
-      id: commune.code,
-      type: 'Feature',
-      geometry: {
-        type: commune.contour.type,
-        coordinates: commune.contour.coordinates
-      },
-      properties: {
-        code: commune.code,
-        nom: commune.nom
-      }
-    } : null
+    const {context, commune, voie, numero, actions} = this.props
+    const addresses = communeNumerosToGeoJson(commune)
+    const voies = communeVoiesToGeoJson(commune)
+    const communeContour = commune.contour ? contoursToGeoJson([commune]) : null
 
     return (
       <div>
+        <Head
+          name={getName(context)}
+          status={getStatus(context)}
+          parent={this.getParent()}
+          previous={() => this.getPrevious()}
+        />
+
+        {addresses && !numero ? (
+          <CommuneVisualizer
+            codeCommune={commune.code}
+            voies={voies}
+            numeros={addresses}
+            voie={voie}
+            select={actions.select}
+          />
+        ) : null}
+
         {numero ? (
           <NumeroContext
-            codeCommune={commune.code}
-            voie={voie}
             numero={numero}
             bounds={addresses || communeContour}
             actions={actions}

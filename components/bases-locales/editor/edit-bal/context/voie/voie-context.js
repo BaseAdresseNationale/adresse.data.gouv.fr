@@ -1,15 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import getStatus from '../../../../../../lib/bal/item'
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
-import Mapbox from '../../../../../mapbox'
 
 import {contoursToGeoJson} from '../../../../../../lib/geojson'
-
-import Head from '../head'
-import AddressesCommuneMap from '../addresses-commune-map'
 
 import NumerosList from './numeros-list'
 import EmptyNumeroList from './empty-numeros-list'
@@ -85,13 +80,6 @@ class VoieContext extends React.Component {
 
     return (
       <div>
-        <Head
-          name={newName ? voie.modified.nomVoie : voie.nomVoie}
-          status={getStatus(voie)}
-          parent={commune.nom}
-          previous={() => actions.select(commune.code)}
-        />
-
         {newName && (
           <Notification type='info'>
             <div>
@@ -113,20 +101,6 @@ class VoieContext extends React.Component {
           />
         ) : (
           <div>
-            {addresses && addresses.features.length > 0 && (
-              <Mapbox switchStyle>
-                {map => (
-                  <AddressesCommuneMap
-                    map={map}
-                    data={addresses}
-                    bounds={bounds}
-                    codeVoie={voie.codeVoie}
-                    select={actions.select}
-                  />
-                )}
-              </Mapbox>
-            )}
-
             {hasNumeros ? (
               <NumerosList
                 codeCommune={commune.code}
