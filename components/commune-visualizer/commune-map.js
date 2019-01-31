@@ -34,7 +34,7 @@ const popupAddress = ({properties}) => renderToString(
       <div>Type: {properties.type}</div>
       <div>Source: {properties.source}</div>
     </p>
-    Mise à jour: {properties.lastUpdate}
+    Mise à jour: {properties.dateMAJ}
   </div>
 )
 

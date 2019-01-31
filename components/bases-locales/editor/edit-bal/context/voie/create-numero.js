@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {featureToPosition} from '../../../../../../lib/geojson'
+
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
 import Mapbox from '../../../../../mapbox'
@@ -72,13 +74,7 @@ class CreateNumero extends React.Component {
 
       positions.forEach((position, idx) => {
         if (position._id === feature.id) {
-          positions[idx] = {
-            _id: feature.id,
-            coords: feature.geometry.coordinates,
-            type: feature.properties.type,
-            source: [],
-            dateMAJ: null
-          }
+          positions[idx] = featureToPosition(feature)
         }
       })
 
