@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
-import {positionsToGeoJson} from '../../lib/geojson'
+import {positionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
 
 import theme from '../../styles/theme'
 
@@ -307,17 +307,36 @@ class CommuneMap extends React.Component {
 
   fitBounds = () => {
     const {map, voies, voie, numeros} = this.props
-    const bbox = computeBbox(voie ?
-      {type: 'FeatureCollection', features: numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)} :
-      voies
-    )
+    let bboxFeatures
 
-    map.fitBounds(bbox, {
-      padding: 30,
-      linear: true,
-      maxZoom: 16,
-      duration: 0
-    })
+    if (voie && numeros) {
+      if (voie.position) { // Toponyme
+        bboxFeatures = toponymeToGeoJson(voie).features
+      } else {
+        const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
+        const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
+
+        if (numerosVoieWithPos.length > 0) {
+          bboxFeatures = numerosVoie
+        }
+      }
+    } else if (voies && voies.features.filter(voie => voie.properties.positions)) {
+      bboxFeatures = voies.features
+    }
+
+    if (bboxFeatures) {
+      const bbox = computeBbox({
+        type: 'FeatureCollection',
+        features: bboxFeatures
+      })
+
+      map.fitBounds(bbox, {
+        padding: 30,
+        linear: true,
+        maxZoom: 16,
+        duration: 0
+      })
+    }
   }
 
   onLoading = () => {
