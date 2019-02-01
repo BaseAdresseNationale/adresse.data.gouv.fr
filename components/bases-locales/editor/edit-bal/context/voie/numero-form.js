@@ -44,12 +44,8 @@ class NumeroForm extends React.Component {
 
   addPosition = feature => {
     this.setState(state => {
-      const positions = [...state.positions]
-
-      positions.push(featureToPosition(feature))
-
       return {
-        positions
+        positions: [...state.positions, featureToPosition(feature)]
       }
     })
   }

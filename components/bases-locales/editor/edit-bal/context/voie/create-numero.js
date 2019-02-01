@@ -70,13 +70,9 @@ class CreateNumero extends React.Component {
 
   updatePosition = feature => {
     this.setState(state => {
-      const positions = [...state.positions]
-
-      positions.forEach((position, idx) => {
-        if (position._id === feature.id) {
-          positions[idx] = featureToPosition(feature)
-        }
-      })
+      const positions = state.positions
+        .filter(position => position._id === feature.id)
+        .map(feature => featureToPosition(feature))
 
       return {
         positions
