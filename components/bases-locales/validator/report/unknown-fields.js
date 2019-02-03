@@ -7,7 +7,7 @@ import theme from '../../../../styles/theme'
 
 const UnknownFields = ({fields}) => (
   <div className='container'>
-    {fields.length > 0 &&
+    {fields.length > 0 && (
       <table>
         <tbody>
           <tr>
@@ -17,10 +17,11 @@ const UnknownFields = ({fields}) => (
             <tr key={field}>
               <td>{field}</td>
               <td className='unknown'><FaQuestion /></td>
-            </tr>)
-          )}
+            </tr>
+          ))}
         </tbody>
-      </table>}
+      </table>
+    )}
     <style jsx>{`
       .unknown {
         color: ${theme.colors.darkerGrey};
@@ -37,7 +38,7 @@ const UnknownFields = ({fields}) => (
       td:nth-child(2n) {
         text-align: center;
       }
-      `}</style>
+    `}</style>
   </div>
 )
 
