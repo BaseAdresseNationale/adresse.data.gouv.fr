@@ -22,7 +22,7 @@
     "@turf/concave": "^6.0.5",
     "blob-to-buffer": "^1.2.6",
     "chart.js": "^2.7.3",
-    "compression": "^1.7.2",
+    "compression": "^1.7.3",
     "content-disposition": "^0.5.2",
     "express": "^4.16.2",
     "hoist-non-react-statics": "^2.5.0",
