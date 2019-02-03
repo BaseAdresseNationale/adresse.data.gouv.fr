@@ -4,47 +4,11 @@ import PropTypes from 'prop-types'
 import Notification from '../../../../../notification'
 import Button from '../../../../../button'
 
-import {contoursToGeoJson} from '../../../../../../lib/geojson'
+import {contoursToGeoJson, voieNumerosToGeoJson} from '../../../../../../lib/geojson'
 
 import NumerosList from './numeros-list'
 import EmptyNumeroList from './empty-numeros-list'
 import ToponymeContext from './toponyme-context'
-
-const getVoieAddresses = (codeCommune, voie) => {
-  const geojson = {
-    type: 'FeatureCollection',
-    features: []
-  }
-
-  if (Object.keys(voie.numeros).length > 0) {
-    Object.keys(voie.numeros).forEach(numeroIdx => {
-      const numero = voie.numeros[numeroIdx]
-      const positions = numero.edited ? numero.modified.positions : numero.positions
-
-      if (positions.length > 0) {
-        geojson.features.push({
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: positions[0].coords || positions[0].coordinates
-          },
-          properties: {
-            ...numero,
-            codeCommune,
-            codeVoie: voie.codeVoie,
-            source: positions[0].source,
-            type: positions[0].type,
-            lastUpdate: positions[0].dateMAJ
-          }
-        })
-      }
-    })
-  } else {
-    return null
-  }
-
-  return geojson.features.length > 0 ? geojson : null
-}
 
 class VoieContext extends React.Component {
   static propTypes = {
@@ -74,7 +38,7 @@ class VoieContext extends React.Component {
     const {numeros} = voie
     const hasNumeros = numeros && Object.keys(numeros).length > 0
     const newName = voie.modified && voie.modified.nomVoie
-    const voieAddresses = hasNumeros ? getVoieAddresses(commune.code, voie) : null
+    const voieAddresses = hasNumeros ? voieNumerosToGeoJson(voie) : null
     const communeContour = commune.contour ? contoursToGeoJson([commune]) : null
     const bounds = voieAddresses || addresses || communeContour
 

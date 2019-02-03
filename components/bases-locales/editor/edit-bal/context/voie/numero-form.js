@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {isEqual} from 'lodash'
 
+import {featureToPosition} from '../../../../../../lib/geojson'
+
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 import Mapbox from '../../../../../mapbox'
@@ -42,18 +44,8 @@ class NumeroForm extends React.Component {
 
   addPosition = feature => {
     this.setState(state => {
-      const positions = [...state.positions]
-
-      positions.push({
-        _id: feature.id,
-        coords: feature.geometry.coordinates,
-        type: 'entrée',
-        source: [],
-        dateMAJ: null
-      })
-
       return {
-        positions
+        positions: [...state.positions, featureToPosition(feature)]
       }
     })
   }
