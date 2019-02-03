@@ -95,7 +95,8 @@
     "env": "browser",
     "rules": {
       "camelcase": "warn",
-      "unicorn/catch-error-name": "off"
+      "unicorn/catch-error-name": "off",
+      "react/jsx-sort-props": "off"
     },
     "overrides": [
       {
