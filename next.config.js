@@ -1,5 +1,4 @@
 const {join} = require('path')
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 const nextRuntimeDotenv = require('next-runtime-dotenv')
 
 const withConfig = nextRuntimeDotenv({
@@ -26,6 +25,8 @@ const commonModules = [
 module.exports = withConfig({
   webpack(config, {dev, isServer}) {
     if (!dev && !isServer) {
+      const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+
       config.optimization.splitChunks.cacheGroups.shared = {
         name: 'commons',
         test: m => m.resource && commonModules.some(c =>
