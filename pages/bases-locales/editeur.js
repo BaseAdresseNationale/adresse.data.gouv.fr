@@ -1,4 +1,3 @@
-import 'regenerator-runtime/runtime' // eslint-disable-line import/no-unassigned-import
 import React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'

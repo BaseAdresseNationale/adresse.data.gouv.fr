@@ -672,6 +672,14 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime-corejs2@^7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.3.1.tgz#0c113242e2328f9674d42703a89bee6ebebe9a82"
+  integrity sha512-YpO13776h3e6Wy8dl2J8T9Qwlvopr+b4trCEhHE+yek6yIqV8sx6g3KozdHMbXeBpjosbPi+Ii5Z7X9oXFHUKA==
+  dependencies:
+    core-js "^2.5.7"
+    regenerator-runtime "^0.12.0"
+
 "@babel/runtime@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0.tgz#adeb78fedfc855aa05bc041640f3f6f98e85424c"
@@ -729,10 +737,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.14.0.tgz#a67efdeb7ba10c22da25e214a01ee04fe4fc3d95"
-  integrity sha512-gbt4xGUhbl51W7qn3J3ugwuJVKl7Pf1qbInbGNIFyjS3RopiSwnYbKQ1ArRlBcUQ5yPw8eOpAVohCecNad4VUw==
+"@etalab/bal@^0.14.2":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.14.2.tgz#09bc6fe3ac9ab221241f8eafcae7aee53b504c37"
+  integrity sha512-vTACWyiRQLo09nAP0edU1S9h41d/ORIn2u9+OfhP0+1Tk6BXu7ERbpCc+Tr+ykZA+X6k8Y09nZ9NUMUVlLRn5g==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
@@ -7171,11 +7179,6 @@ regenerator-runtime@^0.11.0:
 regenerator-runtime@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.0.tgz#8052ac952d85b10f3425192cd0c53f45cf65c6cb"
-
-regenerator-runtime@^0.13.1:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.1.tgz#522ea2aafd9200a00eee143dc14219a35a0f3991"
-  integrity sha512-5KzMIyPLvfdPmvsdlYsHqITrDfK9k7bmvf97HvHSN4810i254ponbxCQ1NukpRWlu6en2MBWzAlhDExEKISwAA==
 
 regenerator-transform@^0.13.3:
   version "0.13.3"
