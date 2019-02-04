@@ -805,10 +805,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.13.1.tgz#be1e1336ce97fb99514dfa6f763c401629fc05ec"
-  integrity sha512-yllFTXYaG60v4g315GV6fbCvIX3r8pZSvsVRygrbkn7uQSE/Vc/EIBuNjFbpELUco5sHHldo5efvB+H/uaM+PQ==
+"@etalab/bal@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.14.0.tgz#a67efdeb7ba10c22da25e214a01ee04fe4fc3d95"
+  integrity sha512-gbt4xGUhbl51W7qn3J3ugwuJVKl7Pf1qbInbGNIFyjS3RopiSwnYbKQ1ArRlBcUQ5yPw8eOpAVohCecNad4VUw==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
@@ -5520,22 +5520,10 @@ lodash.zip@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.zip/-/lodash.zip-4.2.0.tgz#ec6662e4896408ed4ab6c542a3990b72cc080020"
 
-lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-lodash@^4.17.10:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-
-lodash@^4.17.11:
+lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
-lodash@^4.17.5:
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
 log-symbols@^2.0.0:
   version "2.1.0"
@@ -6510,11 +6498,7 @@ pako@~1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
 
-papaparse@^4.3.6:
-  version "4.3.6"
-  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.3.6.tgz#9566eda0ecab13afcb740a62381c699f486cb145"
-
-papaparse@^4.6.1:
+papaparse@^4.3.6, papaparse@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-4.6.1.tgz#7b3c5bdf4f0fd12374e2d37f987e9d74a1834ca8"
   integrity sha512-X9Ws5tnEQKRCZRfoojX3KvRZbLY1BbL0wqSHF3CKGmxD8Zr4E0WaipUuFweffkCN8RSQzHKhb/F+ATYdNcz1rg==
