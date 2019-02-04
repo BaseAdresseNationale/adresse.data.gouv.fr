@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unassigned-import
-import 'regenerator-runtime/runtime'
 import React from 'react'
 import PropTypes from 'prop-types'
 import {validate, extractAsTree} from '@etalab/bal'
