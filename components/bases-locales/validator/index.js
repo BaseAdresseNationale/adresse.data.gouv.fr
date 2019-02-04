@@ -19,6 +19,7 @@ function getFileExtension(fileName) {
   if (dotPosition > 0 && dotPosition < fileName.length - 1) {
     return fileName.substr(dotPosition + 1).toLowerCase()
   }
+
   return null
 }
 
@@ -125,6 +126,7 @@ class BALValidator extends React.Component {
     } else {
       this.handleError(createBALValidationError('Le champ est vide.'))
     }
+
     this.setState({loading: false})
   }
 
