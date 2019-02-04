@@ -18,7 +18,7 @@ class InitBase extends React.Component {
     loading: false
   }
 
-  static propsTypes = {
+  static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
 

@@ -10,6 +10,7 @@ function geocodedFileName(originalFileName = 'file') {
   if (originalFileName.toLowerCase().endsWith('.csv')) {
     originalFileName = originalFileName.substr(0, originalFileName.length - 4)
   }
+
   return originalFileName + '.geocoded.csv'
 }
 

@@ -41,6 +41,7 @@ function getFileExtension(fileName) {
   if (dotPosition > 0 && dotPosition < fileName.length - 1) {
     return fileName.substr(dotPosition + 1).toLowerCase()
   }
+
   return null
 }
 

@@ -10,11 +10,13 @@ const RowErrors = ({errors, warnings, field}) => (
       {warnings.map(err => (
         <div key={err} className={`issue warning ${field && (field.warnings.includes(err)) ? 'select' : ''}`}>
           {err}
-        </div>))}
+        </div>
+      ))}
       {errors.map(err => (
         <div key={err} className={`issue error ${field && (field.warnings.includes(err)) ? 'select' : ''}`}>
           {err}
-        </div>))}
+        </div>
+      ))}
     </div>
     <style jsx>{`
       .abnormalities {

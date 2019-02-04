@@ -22,7 +22,6 @@ app.prepare().then(() => {
       throw err
     }
 
-    // eslint-disable-next-line no-console
     console.log(`> Ready on http://localhost:${port}`)
   })
 })
