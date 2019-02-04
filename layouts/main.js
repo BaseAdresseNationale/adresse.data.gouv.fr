@@ -1,8 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'next/router'
-
-import piwik from '../lib/piwik'
 
 import Meta from '../components/meta'
 import MainStyle from '../components/main-style'
@@ -10,14 +7,6 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 
 class Layout extends React.Component {
-  componentDidMount() {
-    const {router} = this.props
-
-    setTimeout(() => {
-      piwik.track(router)
-    }, 400)
-  }
-
   render() {
     const {title, description, children, showFooter} = this.props
 
@@ -43,17 +32,12 @@ class Layout extends React.Component {
             flex: 1;
           }
         `}</style>
-
-        <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.prototype.includes,modernizr:es6string,modernizr:es6array,Promise,fetch' />
       </div>
     )
   }
 }
 
 Layout.propTypes = {
-  router: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired,
   children: PropTypes.node,
   showFooter: PropTypes.bool,
   title: PropTypes.string,
@@ -67,4 +51,4 @@ Layout.defaultProps = {
   description: null
 }
 
-export default withRouter(Layout)
+export default Layout

@@ -10,13 +10,7 @@ const Meta = ({title, description}) => {
   return (
     <Fragment>
       <Head>
-        <meta charSet='utf-8' />
-        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-
         {title ? <title>{title} | {SITE_NAME}</title> : <title>{SITE_NAME}</title>}
-
-        <link rel='icon' href='/static/favicon.ico' />
 
         {/* Search Engine */}
         <meta name='description' content={description} />
