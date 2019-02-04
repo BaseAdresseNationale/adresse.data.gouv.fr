@@ -43,7 +43,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.6.3",
     "react-dropzone": "^4.2.1",
-    "react-icons": "^2.2.7",
+    "react-icons": "^3.3.0",
     "regenerator-runtime": "^0.13.1",
     "underscore.string": "^3.3.5"
   },
