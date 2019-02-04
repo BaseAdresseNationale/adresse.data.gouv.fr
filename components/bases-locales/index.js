@@ -176,7 +176,14 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 })
 
 BasesLocales.propTypes = {
-  datasets: PropTypes.array.isRequired
+  datasets: PropTypes.array.isRequired,
+  stats: PropTypes.shape({
+    isValid: PropTypes.number.isRequired,
+    model: PropTypes.object.isRequired,
+    count: PropTypes.number.isRequired,
+    numerosCount: PropTypes.number.isRequired,
+    license: PropTypes.object.isRequired
+  }).isRequired
 }
 
 export default BasesLocales
