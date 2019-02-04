@@ -6,7 +6,9 @@ const withConfig = nextRuntimeDotenv({
   public: [
     'API_BAL_URL',
     'API_EXPLORE_URL',
-    'API_EXPLORE_SEARCH_URL'
+    'API_EXPLORE_SEARCH_URL',
+    'PIWIK_URL',
+    'PIWIK_SITE_ID'
   ]
 })
 
