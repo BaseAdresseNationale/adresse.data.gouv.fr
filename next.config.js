@@ -24,6 +24,13 @@ const commonModules = [
 
 module.exports = withConfig({
   webpack(config, {dev, isServer}) {
+    // eslint-disable-next-line import/no-extraneous-dependencies
+    const {ContextReplacementPlugin} = require('webpack')
+
+    config.plugins.push(
+      new ContextReplacementPlugin(/moment[/\\]locale$/, /fr/)
+    )
+
     if (!dev && !isServer) {
       const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
