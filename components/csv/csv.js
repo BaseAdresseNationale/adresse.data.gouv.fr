@@ -34,7 +34,7 @@ const allowedExtensions = [
   'txt'
 ]
 
-const MAX_SIZE = '6000000'
+const MAX_SIZE = 6 * 1024 * 1024
 
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
@@ -147,7 +147,7 @@ class Csv extends React.Component {
             <h2>1. Choisir un fichier</h2>
             <Holder
               file={file}
-              placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`}
+              placeholder={`Glissez un fichier ici (max ${MAX_SIZE / (1024 * 1024)} Mo), ou cliquez pour choisir`}
               onDrop={this.handleFileDrop}
             />
             {error && <div className='error'>{error}</div>}
