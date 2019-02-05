@@ -12,7 +12,7 @@ function Holder({file, placeholder, onDrop}) {
         const inputProps = getInputProps()
 
         return (
-          <div {...rootProps} className={`dropzone ${isDragActive ? 'dropzone-active' : ''}`}>
+          <div {...rootProps} className={`dropzone ${isDragActive ? 'active' : ''}`}>
             <input {...inputProps} />
             <div className='drop-icon'>{file && !isDragActive ? <FaFile /> : <FaPlus />}</div>
             <div>{file ? file.name : placeholder}</div>
@@ -32,8 +32,8 @@ function Holder({file, placeholder, onDrop}) {
                 cursor: pointer;
               }
 
-              .dropzone-active {
-                background-color: #EBEFF380;
+              .active {
+                background-color: #ebeff3;
               }
 
               .drop-icon {
