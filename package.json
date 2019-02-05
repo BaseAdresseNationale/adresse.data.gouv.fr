@@ -117,7 +117,8 @@
       "documentation": ":memo: Documentation",
       "enhancement": ":rocket: Enhancement",
       "performance": ":racehorse: Performance",
-      "security": ":policeman: Security"
+      "security": ":policeman: Security",
+      "dependencies": ":arrow_up: Dependencies"
     },
     "repo": "etalab/adresse.data.gouv.fr"
   }
