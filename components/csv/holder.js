@@ -4,68 +4,58 @@ import Dropzone from 'react-dropzone'
 import FaFile from 'react-icons/lib/fa/file'
 import FaPlus from 'react-icons/lib/fa/plus'
 
-class Holder extends React.Component {
-  static propTypes = {
-    file: PropTypes.object,
-    placeholder: PropTypes.string.isRequired,
-    onDrop: PropTypes.func.isRequired
-  }
+function Holder({file, placeholder, onDrop}) {
+  return (
+    <Dropzone onDrop={onDrop} multiple={false}>
+      {({getRootProps, getInputProps, isDragActive}) => {
+        const rootProps = getRootProps()
+        const inputProps = getInputProps()
 
-  static defaultProps = {
-    file: null
-  }
+        return (
+          <div {...rootProps} className={`dropzone ${isDragActive ? 'dropzone-active' : ''}`}>
+            <input {...inputProps} />
+            <div className='drop-icon'>{file && !isDragActive ? <FaFile /> : <FaPlus />}</div>
+            <div>{file ? file.name : placeholder}</div>
 
-  onDrop = files => {
-    const {onDrop} = this.props
+            <style jsx>{`
+              .dropzone {
+                display: flex;
+                flex-flow: column;
+                justify-content: center;
+                width: 100%;
+                border: 1px dashed #ccc;
+                height: 200px;
+                text-align: center;
+              }
 
-    onDrop(files)
-  }
+              .dropzone:hover {
+                cursor: pointer;
+              }
 
-  render() {
-    const {file, placeholder} = this.props
+              .dropzone-active {
+                background-color: #EBEFF380;
+              }
 
-    return (
-      <Dropzone onDrop={this.onDrop} multiple={false}>
-        {({getRootProps, getInputProps, isDragActive}) => {
-          const rootProps = getRootProps()
-          const inputProps = getInputProps()
+              .drop-icon {
+                font-size: 72px;
+                margin-bottom: 0.3em;
+              }
+            `}</style>
+          </div>
+        )
+      }}
+    </Dropzone>
+  )
+}
 
-          return (
-            <div {...rootProps} className={`dropzone ${isDragActive ? 'dropzone-active' : ''}`}>
-              <input {...inputProps} />
-              <div className='drop-icon'>{file && !isDragActive ? <FaFile /> : <FaPlus />}</div>
-              <div>{file ? file.name : placeholder}</div>
+Holder.propTypes = {
+  file: PropTypes.object,
+  placeholder: PropTypes.string.isRequired,
+  onDrop: PropTypes.func.isRequired
+}
 
-              <style jsx>{`
-                .dropzone {
-                  display: flex;
-                  flex-flow: column;
-                  justify-content: center;
-                  width: 100%;
-                  border: 1px dashed #ccc;
-                  height: 200px;
-                  text-align: center;
-                }
-
-                .dropzone:hover {
-                  cursor: pointer;
-                }
-
-                .dropzone-active {
-                  background-color: #EBEFF380;
-                }
-
-                .drop-icon {
-                  font-size: 72px;
-                  margin-bottom: 0.3em;
-                }
-              `}</style>
-            </div>
-          )
-        }}
-      </Dropzone>
-    )
-  }
+Holder.defaultProps = {
+  file: null
 }
 
 export default Holder
