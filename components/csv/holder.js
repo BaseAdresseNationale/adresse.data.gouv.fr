@@ -4,14 +4,6 @@ import Dropzone from 'react-dropzone'
 import FaFile from 'react-icons/lib/fa/file'
 import FaPlus from 'react-icons/lib/fa/plus'
 
-// Unable to pass the css by className, maybe a react-dropzone bug ¯\_(ツ)_/¯
-const style = {
-  width: '100%',
-  border: '1px dashed #ccc',
-  height: '200px',
-  textAlign: 'center'
-}
-
 class Holder extends React.Component {
   static propTypes = {
     file: PropTypes.object,
@@ -23,65 +15,54 @@ class Holder extends React.Component {
     file: null
   }
 
-  state = {
-    dropzoneActive: false
-  }
-
-  handleOnDragEnter = () => {
-    this.setState({dropzoneActive: true})
-  }
-
-  handleOnDragLeave = () => {
-    this.setState({dropzoneActive: false})
-  }
-
-  handleOnDrop = files => {
+  onDrop = files => {
     const {onDrop} = this.props
 
-    this.setState({dropzoneActive: false})
     onDrop(files)
   }
 
   render() {
     const {file, placeholder} = this.props
-    const {dropzoneActive} = this.state
 
     return (
-      <Dropzone
-        onDragEnter={this.handleOnDragEnter}
-        onDragLeave={this.handleOnDragLeave}
-        onDrop={this.handleOnDrop}
-        style={style}
-        multiple={false}
-      >
+      <Dropzone onDrop={this.onDrop} multiple={false}>
+        {({getRootProps, getInputProps, isDragActive}) => {
+          const rootProps = getRootProps()
+          const inputProps = getInputProps()
 
-        <div className={`centered ${dropzoneActive ? 'dropzone-active' : ''}`}>
-          <div>
-            <div className='drop-icon'>{file && !dropzoneActive ? <FaFile /> : <FaPlus />}</div>
-            <div>{file ? file.name : placeholder}</div>
-          </div>
-          <style jsx>{`
-            .centered {
-              display: flex;
-              flex-flow: column;
-              height: 100%;
-              justify-content: center;
-            }
+          return (
+            <div {...rootProps} className={`dropzone ${isDragActive ? 'dropzone-active' : ''}`}>
+              <input {...inputProps} />
+              <div className='drop-icon'>{file && !isDragActive ? <FaFile /> : <FaPlus />}</div>
+              <div>{file ? file.name : placeholder}</div>
 
-            .centered.dropzone-active {
-              background-color: #EBEFF380;
-            }
+              <style jsx>{`
+                .dropzone {
+                  display: flex;
+                  flex-flow: column;
+                  justify-content: center;
+                  width: 100%;
+                  border: 1px dashed #ccc;
+                  height: 200px;
+                  text-align: center;
+                }
 
-            .centered:hover {
-              cursor: pointer;
-            }
+                .dropzone:hover {
+                  cursor: pointer;
+                }
 
-            .drop-icon {
-              font-size: 72px;
-              margin: 0.3em;
-            }
-          `}</style>
-        </div>
+                .dropzone-active {
+                  background-color: #EBEFF380;
+                }
+
+                .drop-icon {
+                  font-size: 72px;
+                  margin-bottom: 0.3em;
+                }
+              `}</style>
+            </div>
+          )
+        }}
       </Dropzone>
     )
   }
