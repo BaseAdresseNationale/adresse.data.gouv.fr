@@ -28,19 +28,11 @@ class Geocoder extends React.Component {
 
   state = {
     status: null,
-    error: null,
-    blob: null
+    blob: null,
+    error: null
   }
 
-  UNSAFE_componentWillReceiveProps() {
-    this.setState({
-      status: null,
-      error: null,
-      blob: null
-    })
-  }
-
-  handleGeocodeClick = () => {
+  handleGeocodeClick = async () => {
     const {file, columns, filter, encoding} = this.props
     const filters = []
 
@@ -53,40 +45,49 @@ class Geocoder extends React.Component {
 
     this.setState({status: 'pending'})
 
-    geocodeMany(file, encoding, filters, columns)
-      .then(resultBlob => {
-        this.setState({
-          status: 'done',
-          blob: resultBlob
-        })
+    try {
+      const blob = await geocodeMany(file, encoding, filters, columns)
+      this.setState({
+        status: 'done',
+        blob
       })
-      .catch(err => {
-        this.setState({
-          status: null,
-          error: err
-        })
+    } catch (error) {
+      this.setState({
+        status: null,
+        error
       })
+    }
   }
 
   render() {
-    const {status, error, blob} = this.state
+    const {status, blob, error} = this.state
     const {file} = this.props
 
     return (
       <div className='geocoder'>
-        {!status && <Button onClick={this.handleGeocodeClick}>Lancer le géocodage</Button>}
-        {status === 'pending' &&
+        {!status && (
+          <Button onClick={this.handleGeocodeClick}>Lancer le géocodage</Button>
+        )}
+
+        {status === 'pending' && (
           <Button>
             <div className='col'>
-              En cours de géocodage…<Loader size='small' />
+              En cours de géocodage…
+              <Loader size='small' />
             </div>
-          </Button>}
-        {blob &&
+          </Button>
+        )}
+
+        {status === 'done' && (
           <a href={URL.createObjectURL(blob)} download={geocodedFileName(file.name)}>
             <Button>Télécharger</Button>
           </a>
-        }
-        {error && <p className='error'>Une erreur est survenue: {error.message}</p>}
+        )}
+
+        {error && (
+          <p className='error'>Une erreur est survenue: {error.message}</p>
+        )}
+
         <style jsx>{`
           .geocoder {
             margin: 2em 0;
@@ -101,7 +102,7 @@ class Geocoder extends React.Component {
           .error {
             color: red;
           }
-          `}</style>
+        `}</style>
       </div>
     )
   }

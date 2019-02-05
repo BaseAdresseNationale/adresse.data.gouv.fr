@@ -145,7 +145,11 @@ class Csv extends React.Component {
         <div id='main' className='csvtogeocoder'>
           <div>
             <h2>1. Choisir un fichier</h2>
-            <Holder file={file} placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`} onDrop={this.handleFileDrop} />
+            <Holder
+              file={file}
+              placeholder={`Glissez un fichier ici (max ${MAX_SIZE / 1000000} Mo), ou cliquez pour choisir`}
+              onDrop={this.handleFileDrop}
+            />
             {error && <div className='error'>{error}</div>}
           </div>
 
@@ -157,31 +161,43 @@ class Csv extends React.Component {
             </div>
 
             <Step title='3. Choisir les colonnes à utiliser pour construire les adresses'>
-              {csv && <ColumnsSelect
-                columns={csv.data[0]}
-                selectedColumns={selectedColumns}
-                onAdd={this.handleAddColumn}
-                onRemove={this.handleRemoveColumn} />}
+              {csv && (
+                <ColumnsSelect
+                  columns={csv.data[0]}
+                  selectedColumns={selectedColumns}
+                  onAdd={this.handleAddColumn}
+                  onRemove={this.handleRemoveColumn}
+                />
+              )}
             </Step>
 
-            {csv &&
-              <div className='filters'>
-                <Button onClick={this.handleFilterMenu} style={{fontSize: '1em', padding: '0.4em 1em'}}>
-                  {filtersMenu ? <FaMinus /> : <FaPlus />} Paramètres avancés
-                </Button>
-                {filtersMenu &&
-                  <Filter
-                    selected={filter}
-                    columns={columns}
-                    onSelect={this.handleFilter} />}
-              </div>}
+            {csv && (
+              <>
+                <div className='filters'>
+                  <Button onClick={this.handleFilterMenu} style={{fontSize: '1em', padding: '0.4em 1em'}}>
+                    {filtersMenu ? <FaMinus /> : <FaPlus />} Paramètres avancés
+                  </Button>
 
-            {csv &&
-              <Geocoder
-                file={file}
-                encoding={encoding}
-                columns={selectedColumns}
-                filter={filter} />}
+                  {filtersMenu && (
+                    <Filter
+                      selected={filter}
+                      columns={columns}
+                      onSelect={this.handleFilter}
+                    />
+                  )}
+                </div>
+
+                <Geocoder
+                  // This key should be somehow unique: this means that we
+                  // will get a new state in Geocoder whenever file changes.
+                  key={`${file.name}-${file.size}`}
+                  file={file}
+                  encoding={encoding}
+                  columns={selectedColumns}
+                  filter={filter}
+                />
+              </>
+            )}
           </div>
         </div>
 
