@@ -801,10 +801,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@etalab/bal@^0.14.2":
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.14.2.tgz#09bc6fe3ac9ab221241f8eafcae7aee53b504c37"
-  integrity sha512-vTACWyiRQLo09nAP0edU1S9h41d/ORIn2u9+OfhP0+1Tk6BXu7ERbpCc+Tr+ykZA+X6k8Y09nZ9NUMUVlLRn5g==
+"@etalab/bal@^0.14.3":
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.14.3.tgz#d37021f297e2a26a26de055ec6ede62c09a03e82"
+  integrity sha512-8MLIm/3njVLc2VKCJifzuk/H/OcrAxjG0Kxni6gZL6fYbopv4SW5YcX9wAmjNTyivZF2ocNMT/HweMu6wpMYWQ==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
@@ -814,9 +814,10 @@
     papaparse "^4.6.1"
     yargs "^12.0.2"
 
-"@etalab/project-legal@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@etalab/project-legal/-/project-legal-0.3.2.tgz#810142a21306522ef144636295b471491a138059"
+"@etalab/project-legal@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@etalab/project-legal/-/project-legal-0.3.3.tgz#77f9cbfef4e91b55b101582d6035e238b30344c5"
+  integrity sha512-x6AMNofVzYUbJJohgRXggAeetJ9cxBRK9dfr0DgRr9Qk4LWN3a31odJWpsyRFkVyZFuMO8X9SN7upkyR93+MXg==
   dependencies:
     proj4 "^2.5.0"
 
