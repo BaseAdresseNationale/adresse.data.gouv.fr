@@ -7,7 +7,7 @@ import {isEqual} from 'lodash'
 import {positionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource} from '../mapbox/helpers'
-import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS} from '../mapbox/filters'
+import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
 import {
   numerosLayer,
   selectedNumerosLayer,
@@ -15,7 +15,9 @@ import {
   numeroSourceLayer,
   numeroTypeLayer,
   numerosPointLayer,
-  voiesLayer } from '../mapbox/layers'
+  voiesLayer} from '../mapbox/layers'
+
+import VoieMenu from './voie-menu'
 
 const popupAddress = ({properties}) => renderToString(
   <div>
@@ -29,6 +31,10 @@ const popupAddress = ({properties}) => renderToString(
 )
 
 class CommuneMap extends React.Component {
+  state = {
+    edited: null
+  }
+
   static propTypes = {
     map: PropTypes.object.isRequired,
     popup: PropTypes.object.isRequired,
@@ -42,7 +48,8 @@ class CommuneMap extends React.Component {
     numero: PropTypes.object,
     selectVoie: PropTypes.func.isRequired,
     selectNumero: PropTypes.func.isRequired,
-    isLoading: PropTypes.func.isRequired
+    isLoading: PropTypes.func.isRequired,
+    actions: PropTypes.object.isRequired
   }
 
   static defaultProps = {
@@ -58,6 +65,7 @@ class CommuneMap extends React.Component {
 
     // Map
     map.once('load', this.onLoad)
+    map.on('click', this.mapClick)
     map.on('zoomend', this.zoomEnd)
     map.on('dataloading', this.onLoading)
 
@@ -78,6 +86,7 @@ class CommuneMap extends React.Component {
     map.on('click', 'voies', this.onVoieClick)
     map.on('mouseenter', 'voies', this.mouseEnter)
     map.on('mouseleave', 'voies', this.mouseLeave)
+    map.on('contextmenu', 'voies', this.contextMenu)
   }
 
   componentDidUpdate(prevProps) {
@@ -117,6 +126,7 @@ class CommuneMap extends React.Component {
 
     // Map
     map.off('load', this.onLoad)
+    map.off('click', this.mapClick)
     map.off('zoomend', this.zoomEnd)
     map.off('dataloading', this.onLoading)
 
@@ -134,6 +144,7 @@ class CommuneMap extends React.Component {
     map.off('click', 'voies', this.onVoieClick)
     map.off('mouseenter', 'voies', this.mouseEnter)
     map.off('mouseleave', 'voies', this.mouseLeave)
+    map.off('contextmenu', 'voies', this.contextMenu)
   }
 
   fitBounds = () => {
@@ -321,8 +332,40 @@ class CommuneMap extends React.Component {
     selectNumero(null)
   }
 
+  contextMenu = event => {
+    const {voies} = this.props
+    const {codeVoie} = event.features[0].properties
+    const voie = voies.features.find(v => v.properties.codeVoie === codeVoie)
+    const {layerX, layerY} = event.originalEvent
+
+    this.setState({
+      edited: {
+        feature: voie,
+        layer: {layerX, layerY}
+      }
+    })
+  }
+
+  mapClick = () => {
+    this.closeContextMenu()
+  }
+
+  closeContextMenu = () => {
+    this.setState({edited: null})
+  }
+
   render() {
-    return null
+    const {edited} = this.state
+    const {actions} = this.props
+
+    return (edited && (
+      <VoieMenu
+        voie={edited.feature.properties}
+        position={edited.layer}
+        actions={actions}
+        close={() => this.closeContextMenu()}
+      />
+    ))
   }
 }
 

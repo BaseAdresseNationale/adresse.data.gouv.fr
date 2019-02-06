@@ -16,7 +16,9 @@ class CommuneVisualizer extends React.Component {
     numeros: PropTypes.object,
     voie: PropTypes.object,
     numero: PropTypes.object,
-    select: PropTypes.func.isRequired
+    actions: PropTypes.shape({
+      select: PropTypes.func.isRequired
+    }).isRequired
   }
 
   static defaultProps = {
@@ -27,21 +29,21 @@ class CommuneVisualizer extends React.Component {
   }
 
   selectVoie = voie => {
-    const {codeCommune, select} = this.props
+    const {codeCommune, actions} = this.props
 
     if (voie) {
-      select(voie.codeCommune, voie.codeVoie)
+      actions.select(voie.codeCommune, voie.codeVoie)
     } else {
-      select(codeCommune)
+      actions.select(codeCommune)
     }
   }
 
   selectNumero = numeroId => {
-    const {numeros, select} = this.props
+    const {numeros, actions} = this.props
     const numero = numeros.features.find(n => n.properties.id === numeroId)
     const {codeCommune, codeVoie, numeroComplet} = numero.properties
 
-    select(codeCommune, codeVoie, numeroComplet)
+    actions.select(codeCommune, codeVoie, numeroComplet)
   }
 
   isLoading = loading => {
@@ -52,7 +54,7 @@ class CommuneVisualizer extends React.Component {
 
   render() {
     const {loading} = this.state
-    const {voies, numeros, voie, numero} = this.props
+    const {voies, numeros, voie, numero, actions} = this.props
 
     return (
       <div style={{position: 'relative'}}>
@@ -72,6 +74,7 @@ class CommuneVisualizer extends React.Component {
               selectVoie={this.selectVoie}
               selectNumero={this.selectNumero}
               isLoading={this.isLoading}
+              actions={actions}
             />
           )}
         </Mapbox>

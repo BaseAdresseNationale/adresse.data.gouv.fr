@@ -79,7 +79,7 @@ class Context extends React.Component {
             voies={voies}
             numeros={addresses}
             voie={voie}
-            select={actions.select}
+            actions={actions}
           />
         ) : null}
 

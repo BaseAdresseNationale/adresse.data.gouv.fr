@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {getName} from '../../../../../../lib/bal/item'
+
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
@@ -46,7 +48,7 @@ class VoieForm extends React.Component {
               this.nameInput = input
             }}
             type='text'
-            placeholder={voie ? voie.nomVoie : 'Avenue Victor Hugo'}
+            placeholder={voie ? getName(voie) : 'Avenue Victor Hugo'}
             value={input}
             onChange={this.handleInput}
           />
