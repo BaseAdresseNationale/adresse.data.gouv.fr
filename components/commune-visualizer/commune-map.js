@@ -81,6 +81,10 @@ class CommuneMap extends React.Component {
     map.on('click', 'numero-type', this.unselectNumero)
     map.on('mouseenter', 'numero-type', this.mouseEnter)
     map.on('mouseleave', 'numero-type', this.mouseLeave)
+    map.on('touchstart', 'numeros', this.touchStart)
+    map.on('touchstart', 'selected-numeros', this.touchStart)
+    map.on('mousedown', 'numeros', this.mouseDown)
+    map.on('mousedown', 'selected-numeros', this.mouseDown)
 
     // Voies
     map.on('click', 'voies', this.onVoieClick)
@@ -139,6 +143,10 @@ class CommuneMap extends React.Component {
     map.off('click', 'numero-type', this.unselectNumero)
     map.off('mouseenter', 'numero-type', this.mouseEnter)
     map.off('mouseleave', 'numero-type', this.mouseLeave)
+    map.off('touchstart', 'numeros', this.touchStart)
+    map.off('touchstart', 'selected-numeros', this.touchStart)
+    map.off('mousedown', 'numeros', this.mouseDown)
+    map.off('mousedown', 'selected-numeros', this.mouseDown)
 
     // Voies
     map.off('click', 'voies', this.onVoieClick)
@@ -307,8 +315,8 @@ class CommuneMap extends React.Component {
 
   mouseEnterNumero = e => {
     const {map, popup, numeros} = this.props
-    const numeroId = e.features[0].properties.id
-    const numero = numeros.features.find(n => n.properties.id === numeroId)
+    const {id} = e.features[0].properties
+    const numero = numeros.features.find(n => n.properties.id === id)
     const coordinates = numero.geometry.coordinates.slice()
     const description = popupAddress(numero)
 
@@ -328,7 +336,6 @@ class CommuneMap extends React.Component {
 
   unselectNumero = () => {
     const {selectNumero} = this.props
-
     selectNumero(null)
   }
 
@@ -352,6 +359,77 @@ class CommuneMap extends React.Component {
 
   closeContextMenu = () => {
     this.setState({edited: null})
+  }
+
+  onMove = event => {
+    const {map, numeros} = this.props
+    const coords = event.lngLat
+
+    map.getCanvas().style.cursor = 'grabbing'
+
+    this.draggedNumero.geometry.coordinates = [coords.lng, coords.lat]
+    map.getSource('numeros').setData(numeros)
+  }
+
+  onUp = async () => {
+    const {map, actions} = this.props
+    map.getCanvas().style.cursor = ''
+
+    this.draggedNumero.properties.positions[0] = {
+      _id: this.draggedNumero.id,
+      coords: this.draggedNumero.geometry.coordinates,
+      type: this.draggedNumero.properties.type,
+      source: [],
+      dateMAJ: null
+    }
+
+    try {
+      await actions.updateNumero(this.draggedNumero.properties, {
+        positions: this.draggedNumero.positions
+      })
+    } catch (error) {
+      // TODO Display error
+    }
+
+    this.draggedNumero = null
+
+    map.off('mousemove', this.onMove)
+    map.off('mousemove', 'selected-numeros', this.onMove)
+    map.off('touchmove', 'numeros', this.onMove)
+    map.off('touchmove', 'selected-numeros', this.onMove)
+  }
+
+  mouseDown = event => {
+    const {map, popup, numeros} = this.props
+    const {id} = event.features[0].properties
+    this.draggedNumero = numeros.features.find(n => n.properties.id === id)
+
+    event.preventDefault()
+
+    popup.remove()
+
+    map.getCanvas().style.cursor = 'grab'
+
+    map.on('mousemove', this.onMove)
+    map.once('mouseup', this.onUp)
+
+    map.on('mousemove', this.onMove)
+    map.once('mouseup', this.onUp)
+  }
+
+  touchStart = event => {
+    const {map} = this.props
+    if (event.points.length !== 1) {
+      return
+    }
+
+    event.preventDefault()
+
+    map.on('touchmove', 'numeros', this.onMove)
+    map.once('touchend', this.onUp)
+
+    map.on('touchmove', 'selected-numeros', this.onMove)
+    map.once('touchend', this.onUp)
   }
 
   render() {
