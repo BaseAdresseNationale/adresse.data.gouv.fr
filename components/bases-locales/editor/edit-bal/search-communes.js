@@ -43,7 +43,7 @@ class SearchCommune extends React.Component {
   handleChange = input => {
     this.setState(() => {
       if (input) {
-        if (input.length < 5) {
+        if (input.length < 8) {
           this.handleSearchThrottled(input)
         } else {
           this.handleSearchDebounced(input)
@@ -67,7 +67,7 @@ class SearchCommune extends React.Component {
     this.waitingFor = reqId
     const codeDepFilter = codeDep ? `&codeDepartement=${codeDep}` : ''
     const q = codeDep ? input.split(' ').filter(t => !isCodeDepNaive(t)).join(' ') : input
-    const url = `https://geo.api.gouv.fr/communes?nom=${q}${codeDepFilter}&fields=departement,contour&limit=5`
+    const url = `https://geo.api.gouv.fr/communes?nom=${q}${codeDepFilter}&fields=departement,contour&limit=8`
 
     try {
       const response = await _get(url)
