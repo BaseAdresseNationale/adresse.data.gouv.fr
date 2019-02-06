@@ -374,18 +374,12 @@ class CommuneMap extends React.Component {
   onUp = async () => {
     const {map, actions} = this.props
     map.getCanvas().style.cursor = ''
-
-    this.draggedNumero.properties.positions[0] = {
-      _id: this.draggedNumero.id,
-      coords: this.draggedNumero.geometry.coordinates,
-      type: this.draggedNumero.properties.type,
-      source: [],
-      dateMAJ: null
-    }
+    const position = this.draggedNumero.properties.positions[0]
+    position.coords = this.draggedNumero.geometry.coordinates
 
     try {
       await actions.updateNumero(this.draggedNumero.properties, {
-        positions: this.draggedNumero.positions
+        positions: this.draggedNumero.properties.positions
       })
     } catch (error) {
       // TODO Display error

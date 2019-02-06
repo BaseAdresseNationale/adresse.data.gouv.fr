@@ -144,11 +144,6 @@ class Editor extends React.Component {
   updateNumero = async (numero, modified) => {
     const {model, commune, voie} = this.props
     await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
-
-    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}&idNumero=${numero.numeroComplet}`
-    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}/numero/${numero.numeroComplet}`
-
-    Router.push(href, as)
   }
 
   deleteItem = (item, scrollTop = false) => {

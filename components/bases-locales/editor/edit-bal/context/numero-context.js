@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../styles/theme'
 
+import {getNumeroPositions} from '../../../../../lib/bal/item'
+
 import Notification from '../../../../notification'
 
 import NumeroForm from './voie/numero-form'
@@ -25,11 +27,11 @@ class NumeroContext extends React.Component {
 
   render() {
     const {numero, bounds, actions} = this.props
-    const positions = numero.edited ? numero.modified.positions : numero.positions
+    const positions = getNumeroPositions(numero)
 
     return (
       <div>
-        {positions.length === 0 && (
+        {(!positions || positions.length === 0) && (
           <Notification type='warning'>
             Ce numéro n’a pas de position.
           </Notification>
