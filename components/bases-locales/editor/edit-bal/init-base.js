@@ -91,6 +91,7 @@ class InitBase extends React.Component {
     return (
       <div>
         <h3>Ajoutez autant de communes que vous souhaitez</h3>
+        <p><em>Il est possible de préciser le code département lorsque la commune a beaucoup d’homonymes. Exemple : Saint-Just 18</em></p>
         <SearchCommune handleSelect={this.addCommune} />
 
         {communes.length > 0 &&
