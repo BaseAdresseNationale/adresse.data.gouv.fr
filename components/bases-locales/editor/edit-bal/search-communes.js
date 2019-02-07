@@ -9,6 +9,14 @@ import RenderCommune from '../../../search-input/render-commune'
 import SearchInput from '../../../search-input'
 import Notification from '../../../notification'
 
+function isCodeDepNaive(token) {
+  if (['2A', '2B'].includes(token)) {
+    return true
+  }
+
+  return token.match(/^\d{2,3}$/)
+}
+
 class SearchCommune extends React.Component {
   static propTypes = {
     handleSelect: PropTypes.func.isRequired,
@@ -54,9 +62,12 @@ class SearchCommune extends React.Component {
   }
 
   async handleSearch(input) {
+    const codeDep = input.split(' ').find(isCodeDepNaive)
     const reqId = uniqueId('req_')
     this.waitingFor = reqId
-    const url = `https://geo.api.gouv.fr/communes?nom=${input}&fields=departement,contour&limit=5`
+    const codeDepFilter = codeDep ? `&codeDepartement=${codeDep}` : ''
+    const q = codeDep ? input.split(' ').filter(t => !isCodeDepNaive(t)).join(' ') : input
+    const url = `https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(q)}${codeDepFilter}&fields=departement,contour&limit=8`
 
     try {
       const response = await _get(url)
