@@ -43,7 +43,7 @@ class SearchCommune extends React.Component {
   handleChange = input => {
     this.setState(() => {
       if (input) {
-        if (input.length < 8) {
+        if (input.length < 5) {
           this.handleSearchThrottled(input)
         } else {
           this.handleSearchDebounced(input)
