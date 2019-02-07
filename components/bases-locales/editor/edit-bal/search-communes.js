@@ -67,7 +67,7 @@ class SearchCommune extends React.Component {
     this.waitingFor = reqId
     const codeDepFilter = codeDep ? `&codeDepartement=${codeDep}` : ''
     const q = codeDep ? input.split(' ').filter(t => !isCodeDepNaive(t)).join(' ') : input
-    const url = `https://geo.api.gouv.fr/communes?nom=${q}${codeDepFilter}&fields=departement,contour&limit=8`
+    const url = `https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(q)}${codeDepFilter}&fields=departement,contour&limit=8`
 
     try {
       const response = await _get(url)
