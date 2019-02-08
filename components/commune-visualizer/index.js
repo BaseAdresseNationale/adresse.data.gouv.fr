@@ -32,7 +32,7 @@ class CommuneVisualizer extends React.Component {
     const {codeCommune, actions} = this.props
 
     if (voie) {
-      actions.select(voie.codeCommune, voie.codeVoie)
+      actions.select(codeCommune, voie.codeVoie)
     } else {
       actions.select(codeCommune)
     }
