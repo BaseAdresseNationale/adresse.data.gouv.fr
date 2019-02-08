@@ -133,15 +133,20 @@ export const voiesLayer = {
   },
   layout: {
     'text-field': [
-      'format',
-      ['upcase', ['get', 'nomVoie']],
-      {'font-scale': 0.8},
-      '\n',
-      {},
-      ['downcase', ['get', 'numerosCount']],
-      {'font-scale': 0.6},
-      ' numéros',
-      {'font-scale': 0.6}
+      'case',
+      ['has', 'numerosCount'],
+      [
+        'format',
+        ['get', 'nomVoie'],
+        {'font-scale': 0.8},
+        '\n',
+        {},
+        ['get', 'numerosCount'],
+        {'font-scale': 0.6},
+        ' numéros',
+        {'font-scale': 0.6}
+      ],
+      ['get', 'nomVoie']
     ],
     'text-anchor': 'top',
     'text-font': ['Roboto Regular']
