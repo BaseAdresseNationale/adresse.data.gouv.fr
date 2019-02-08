@@ -123,10 +123,13 @@ class Editor extends React.Component {
 
   addNumero = async newNumero => {
     const {model, commune, voie} = this.props
-    await model.createNumero(commune.code, voie.codeVoie, newNumero)
+    const codeCommune = newNumero.codeCommune || commune.code
+    const codeVoie = newNumero.codeVoie || voie.codeVoie
 
-    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
-    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
+    await model.createNumero(codeCommune, codeVoie, newNumero)
+
+    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}&codeVoie=${codeVoie}`
+    const as = `/bases-locales/editeur/${model._id}/commune/${codeCommune}/voie/${codeVoie}`
 
     Router.push(href, as)
   }

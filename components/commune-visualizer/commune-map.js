@@ -17,7 +17,7 @@ import {
   numerosPointLayer,
   voiesLayer} from '../mapbox/layers'
 
-import VoieMenu from './voie-menu'
+import ContextMenu from './context-menu'
 
 const popupAddress = ({properties}) => renderToString(
   <div>
@@ -32,7 +32,7 @@ const popupAddress = ({properties}) => renderToString(
 
 class CommuneMap extends React.Component {
   state = {
-    edited: null
+    context: null
   }
 
   static propTypes = {
@@ -68,6 +68,7 @@ class CommuneMap extends React.Component {
     map.on('click', this.mapClick)
     map.on('zoomend', this.zoomEnd)
     map.on('dataloading', this.onLoading)
+    map.on('contextmenu', this.contextMenu)
 
     this.fitBounds()
 
@@ -90,7 +91,7 @@ class CommuneMap extends React.Component {
     map.on('click', 'voies', this.onVoieClick)
     map.on('mouseenter', 'voies', this.mouseEnter)
     map.on('mouseleave', 'voies', this.mouseLeave)
-    map.on('contextmenu', 'voies', this.contextMenu)
+    map.on('contextmenu', 'voies', this.editVoie)
   }
 
   componentDidUpdate(prevProps) {
@@ -133,6 +134,7 @@ class CommuneMap extends React.Component {
     map.off('click', this.mapClick)
     map.off('zoomend', this.zoomEnd)
     map.off('dataloading', this.onLoading)
+    map.off('contextmenu', this.contextMenu)
 
     // Numéro
     map.off('click', 'numeros', this.onNumeroClick)
@@ -152,7 +154,7 @@ class CommuneMap extends React.Component {
     map.off('click', 'voies', this.onVoieClick)
     map.off('mouseenter', 'voies', this.mouseEnter)
     map.off('mouseleave', 'voies', this.mouseLeave)
-    map.off('contextmenu', 'voies', this.contextMenu)
+    map.off('contextmenu', 'voies', this.editVoie)
   }
 
   fitBounds = () => {
@@ -340,14 +342,13 @@ class CommuneMap extends React.Component {
   }
 
   contextMenu = event => {
-    const {voies} = this.props
-    const {codeVoie} = event.features[0].properties
-    const voie = voies.features.find(v => v.properties.codeVoie === codeVoie)
     const {layerX, layerY} = event.originalEvent
+    const {lng, lat} = event.lngLat
 
     this.setState({
-      edited: {
-        feature: voie,
+      context: {
+        feature: null,
+        coordinates: [lng, lat],
         layer: {layerX, layerY}
       }
     })
@@ -357,8 +358,23 @@ class CommuneMap extends React.Component {
     this.closeContextMenu()
   }
 
+  editVoie = event => {
+    const {voies} = this.props
+    const {codeVoie} = event.features[0].properties
+    const voie = voies.features.find(v => v.properties.codeVoie === codeVoie)
+    const {layerX, layerY} = event.originalEvent
+
+    this.setState({
+      context: {
+        feature: voie,
+        coordinates: null,
+        layer: {layerX, layerY}
+      }
+    })
+  }
+
   closeContextMenu = () => {
-    this.setState({edited: null})
+    this.setState({context: null})
   }
 
   onMove = event => {
@@ -427,13 +443,16 @@ class CommuneMap extends React.Component {
   }
 
   render() {
-    const {edited} = this.state
-    const {actions} = this.props
+    const {context} = this.state
+    const {voies, voie, actions} = this.props
 
-    return (edited && (
-      <VoieMenu
-        voie={edited.feature.properties}
-        position={edited.layer}
+    return (context && (
+      <ContextMenu
+        feature={context.feature}
+        voie={voie}
+        voies={voies.features.map(voie => voie.properties)}
+        coordinates={context.coordinates}
+        layer={context.layer}
         actions={actions}
         close={() => this.closeContextMenu()}
       />

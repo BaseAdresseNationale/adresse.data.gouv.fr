@@ -1,6 +1,6 @@
 import theme from '../../styles/theme'
 
-import { NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER } from '../mapbox/filters'
+import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER} from './filters'
 
 const NUMEROS_POINT_MIN = 12
 const NUMEROS_MIN = 17
@@ -135,13 +135,13 @@ export const voiesLayer = {
     'text-field': [
       'format',
       ['upcase', ['get', 'nomVoie']],
-      { 'font-scale': 0.8 },
+      {'font-scale': 0.8},
       '\n',
       {},
       ['downcase', ['get', 'numerosCount']],
-      { 'font-scale': 0.6 },
+      {'font-scale': 0.6},
       ' numéros',
-      { 'font-scale': 0.6 }
+      {'font-scale': 0.6}
     ],
     'text-anchor': 'top',
     'text-font': ['Roboto Regular']

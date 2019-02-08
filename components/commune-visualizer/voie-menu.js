@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../styles/theme'
-
 import {hasChange} from '../../lib/bal/item'
 
 import VoieForm from '../bases-locales/editor/edit-bal/context/commune/voie-form'
@@ -16,10 +14,6 @@ class VoieMenu extends React.Component {
   static propTypes = {
     voie: PropTypes.shape({
       nomVoie: PropTypes.string.isRequired
-    }).isRequired,
-    position: PropTypes.shape({
-      layerX: PropTypes.number.isRequired,
-      layerY: PropTypes.number.isRequired
     }).isRequired,
     actions: PropTypes.shape({
       deleteItem: PropTypes.func.isRequired,
@@ -76,33 +70,18 @@ class VoieMenu extends React.Component {
 
   render() {
     const {input, error} = this.state
-    const {voie, position} = this.props
+    const {voie} = this.props
 
     return (
-      <div className='context-menu'>
-        <VoieForm
-          input={input}
-          voie={voie}
-          handleInput={this.handleInput}
-          submit={this.handleSubmit}
-          deleteVoie={this.delete}
-          cancelChange={hasChange(voie) ? this.cancelChange : null}
-          error={error}
-        />
-
-        <style jsx>{`
-          .context-menu {
-            z-index: 999;
-            position: absolute;
-            top: ${position.layerY}px;
-            left: ${position.layerX}px;
-            padding: 0.5em;
-            background: #fff;
-            border: 1px solid ${theme.border};
-            border-radius: 4px;
-          }
-          `}</style>
-      </div>
+      <VoieForm
+        input={input}
+        voie={voie}
+        handleInput={this.handleInput}
+        submit={this.handleSubmit}
+        deleteVoie={this.delete}
+        cancelChange={hasChange(voie) ? this.cancelChange : null}
+        error={error}
+      />
     )
   }
 }
