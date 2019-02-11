@@ -6,9 +6,6 @@ import {featureToPosition} from '../../../../../../lib/geojson'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
-import Mapbox from '../../../../../mapbox'
-
-import PositionsMap from './positions-map'
 
 class NumeroForm extends React.Component {
   constructor(props) {
@@ -30,16 +27,11 @@ class NumeroForm extends React.Component {
       modified: PropTypes.object,
       deleted: PropTypes.bool
     }).isRequired,
-    bounds: PropTypes.object,
     actions: PropTypes.shape({
       deleteItem: PropTypes.func.isRequired,
       cancelChange: PropTypes.func.isRequired,
       updateNumero: PropTypes.func.isRequired
     }).isRequired
-  }
-
-  static defaultProps = {
-    bounds: null
   }
 
   addPosition = feature => {
@@ -117,7 +109,7 @@ class NumeroForm extends React.Component {
 
   render() {
     const {positions, error} = this.state
-    const {numero, bounds} = this.props
+    const {numero} = this.props
     const numeroPositions = numero.edited ? numero.modified.positions : numero.positions
 
     return (
@@ -126,19 +118,6 @@ class NumeroForm extends React.Component {
           <Notification type='info'>
             Sélectionnez le marqueur puis déplacez-le à la position souhaitée.
           </Notification>
-
-          <Mapbox ortho switchStyle>
-            {map => (
-              <PositionsMap
-                map={map}
-                positions={positions}
-                bounds={bounds}
-                addPosition={this.addPosition}
-                removePosition={this.removePosition}
-                updatePosition={this.updatePosition}
-              />
-            )}
-          </Mapbox>
 
         </div>
 

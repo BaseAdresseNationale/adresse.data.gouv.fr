@@ -6,14 +6,12 @@ import {isEqual} from 'lodash'
 
 import {positionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
 
-import {secureAddLayer, secureAddSource} from '../mapbox/helpers'
+import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
 import {
   numerosLayer,
+  positionsPointLayer,
   selectedNumerosLayer,
-  numeroLayer,
-  numeroSourceLayer,
-  numeroTypeLayer,
   numerosPointLayer,
   voiesLayer} from '../mapbox/layers'
 
@@ -61,7 +59,7 @@ class CommuneMap extends React.Component {
   componentDidMount() {
     const {map} = this.props
 
-    this.voieFitZoom = null
+    this.fitZoom = null
 
     // Map
     map.once('load', this.onLoad)
@@ -95,18 +93,18 @@ class CommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {map, voies, numero, isLoading} = this.props
+    const {map, voies, voie, numero, isLoading} = this.props
+    let updater
 
-    const waiting = () => {
-      if (!isEqual(numero, prevProps.numero)) {
-        const numeroSource = map.getSource('numero')
-        numeroSource.setData({
-          type: 'geojson',
-          data: positionsToGeoJson(numero.properties.positions)
-        })
+    if (numero !== prevProps.numero) {
+      updater = () => {
+        const data = numero ? positionsToGeoJson(numero.positions) : null
+        secureUpdateData(map, 'positions', data)
       }
-
-      if (voies && !isEqual(voies, prevProps.voies)) {
+    } else if (voie !== prevProps.voie) {
+      updater = () => {}
+    } else if (!isEqual(voies, prevProps.voies)) {
+      updater = () => {
         const voiesSource = map.getSource('voies')
         this.fitBounds()
         voiesSource.setData({
@@ -114,10 +112,17 @@ class CommuneMap extends React.Component {
           data: voies
         })
       }
+    }
 
+    this.setMode()
+
+    const waiting = () => {
       if (map.isStyleLoaded() && map.areTilesLoaded()) {
         isLoading(false)
-        this.onLoad()
+        if (updater) {
+          updater()
+          this.onLoad()
+        }
       } else {
         setTimeout(waiting, 200)
       }
@@ -155,6 +160,18 @@ class CommuneMap extends React.Component {
     map.off('mouseenter', 'voies', this.mouseEnter)
     map.off('mouseleave', 'voies', this.mouseLeave)
     map.off('contextmenu', 'voies', this.editVoie)
+  }
+
+  setMode() {
+    const {voie, numero} = this.props
+
+    if (numero) {
+      this.mode = 'numero'
+    } else if (voie) {
+      this.mode = 'voie'
+    } else {
+      this.mode = 'commune'
+    }
   }
 
   fitBounds = () => {
@@ -197,29 +214,26 @@ class CommuneMap extends React.Component {
   }
 
   onLoad = () => {
-    const {map, voies, voie, numeros, numero} = this.props
+    const {map, voies, numeros} = this.props
 
     // Sources
     secureAddSource(map, 'voies', voies)
     secureAddSource(map, 'numeros', numeros)
-    secureAddSource(map, 'numero', numero)
+    secureAddSource(map, 'positions', null)
 
     // Layers
     secureAddLayer(map, numerosLayer)
     secureAddLayer(map, selectedNumerosLayer)
-    secureAddLayer(map, numeroLayer)
-    secureAddLayer(map, numeroSourceLayer)
-    secureAddLayer(map, numeroTypeLayer)
     secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, voiesLayer)
+    secureAddLayer(map, positionsPointLayer)
 
-    if (numero && this.mode !== 'numero') {
+    this.resetLayers()
+
+    if (this.mode === 'numero') {
       this.numeroMode()
-    } else if (voie && this.mode !== 'voie') {
+    } else if (this.mode === 'voie') {
       this.voieMode()
-    } else if (!voie && !numero) {
-      this.resetLayers()
-      this.mode = 'commune'
     }
   }
 
@@ -262,32 +276,35 @@ class CommuneMap extends React.Component {
       map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
 
       this.fitBounds()
-      this.voieFitZoom = map.getZoom()
+      this.fitZoom = map.getZoom()
     }
-
-    this.mode = 'voie'
   }
 
   numeroMode = () => {
-    const {map, numero} = this.props
+    const {map, voie, numero} = this.props
 
-    map.setFilter('numeros', ['!=', ['get', 'id'], numero.properties.id])
-    map.setFilter('numeros-point', ['!=', ['get', 'id'], numero.properties.id])
-    map.setFilter('selected-numeros', ['!=', ['get', 'id'], numero.properties.id])
+    map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
 
-    this.mode = 'numero'
+    map.setFilter('numeros', ['!=', ['get', 'id'], numero.id])
+    map.setFilter('numeros-point', ['!=', ['get', 'id'], numero.id])
+    map.setFilter('selected-numeros', [
+      'all',
+      ['!=', ['get', 'id'], numero.id],
+      ['==', ['get', 'codeVoie'], voie.codeVoie],
+      DELETED_FILTER,
+      VDELETED_FILTER
+    ])
+
+    this.fitZoom = map.getZoom()
   }
 
   zoomEnd = () => {
-    const {map, voie, numero, selectVoie, selectNumero} = this.props
+    const {map, voie, selectVoie} = this.props
     const currentZoom = map.getZoom()
 
-    if (voie && currentZoom < this.voieFitZoom - 0.5) {
-      selectVoie(null)
-    }
-
-    if (numero && currentZoom < this.voieFitZoom - 0.5) {
-      selectNumero(null)
+    if (currentZoom < this.fitZoom - 0.5) {
+      selectVoie(this.mode === 'numero' ? voie : null)
+      this.fitZoom = null
     }
   }
 

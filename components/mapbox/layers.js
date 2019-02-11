@@ -1,5 +1,3 @@
-import theme from '../../styles/theme'
-
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER} from './filters'
 
 const NUMEROS_POINT_MIN = 12
@@ -23,6 +21,19 @@ export const numerosPointLayer = {
         [NUMEROS_MIN, 4]
       ]
     }
+  }
+}
+
+export const positionsPointLayer = {
+  id: 'positions-point',
+  type: 'circle',
+  source: 'positions',
+  paint: {
+    'circle-color': {
+      type: 'identity',
+      property: 'color'
+    },
+    'circle-radius': 4
   }
 }
 
@@ -64,60 +75,6 @@ export const selectedNumerosLayer = {
     'text-font': ['Roboto Regular'],
     'text-field': '{numeroComplet}',
     'text-ignore-placement': true
-  }
-}
-
-export const numeroLayer = {
-  id: 'numero',
-  type: 'circle',
-  minzoom: NUMEROS_MIN,
-  source: 'numero',
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'circle-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'circle-radius': 4
-  }
-}
-
-export const numeroSourceLayer = {
-  id: 'numero-source',
-  type: 'symbol',
-  source: 'numero',
-  minzoom: NUMEROS_MIN,
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'text-color': theme.primary,
-    'text-halo-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'text-halo-width': 1
-  },
-  layout: {
-    'text-font': ['Roboto Regular'],
-    'text-field': '{source}',
-    'text-size': 10,
-    'text-offset': [0, 2]
-  }
-}
-
-export const numeroTypeLayer = {
-  id: 'numero-type',
-  type: 'symbol',
-  source: 'numero',
-  minzoom: NUMEROS_MIN,
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'text-color': theme.primary,
-    'text-halo-color': '#fff',
-    'text-halo-width': 1
-  },
-  layout: {
-    'text-font': ['Roboto Regular'],
-    'text-field': '{type}'
   }
 }
 

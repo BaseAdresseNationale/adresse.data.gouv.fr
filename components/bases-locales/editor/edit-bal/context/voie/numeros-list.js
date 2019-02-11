@@ -78,7 +78,6 @@ class NumerosList extends React.Component {
                 codeCommune={codeCommune}
                 codeVoie={codeVoie}
                 numero={numero}
-                bounds={bounds}
                 actions={actions}
               />
             )

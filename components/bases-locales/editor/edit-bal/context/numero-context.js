@@ -15,18 +15,13 @@ class NumeroContext extends React.Component {
       numeroComplet: PropTypes.string.isRequired,
       modified: PropTypes.object
     }).isRequired,
-    bounds: PropTypes.object,
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
-  static defaultProps = {
-    bounds: null
-  }
-
   render() {
-    const {numero, bounds, actions} = this.props
+    const {numero, actions} = this.props
     const positions = getNumeroPositions(numero)
 
     return (
@@ -40,7 +35,6 @@ class NumeroContext extends React.Component {
         <div className='shadow-box'>
           <NumeroForm
             numero={numero}
-            bounds={bounds}
             actions={actions}
           />
         </div>

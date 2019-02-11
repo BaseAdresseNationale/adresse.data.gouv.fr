@@ -73,12 +73,13 @@ class Context extends React.Component {
           previous={() => this.getPrevious()}
         />
 
-        {addresses && !numero ? (
+        {addresses ? (
           <CommuneVisualizer
             codeCommune={commune.code}
             voies={voies}
             numeros={addresses}
             voie={voie}
+            numero={numero}
             actions={actions}
           />
         ) : null}
@@ -86,7 +87,6 @@ class Context extends React.Component {
         {numero ? (
           <NumeroContext
             numero={numero}
-            bounds={addresses || communeContour}
             actions={actions}
           />
         ) : voie ? (

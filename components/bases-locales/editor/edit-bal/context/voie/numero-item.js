@@ -18,14 +18,9 @@ class NumeroItem extends React.Component {
       numeroComplet: PropTypes.string.isRequired,
       modified: PropTypes.object
     }).isRequired,
-    bounds: PropTypes.object,
     actions: PropTypes.shape({
       select: PropTypes.func.isRequired
     }).isRequired
-  }
-
-  static defaultProps = {
-    bounds: null
   }
 
   toggleEdit = () => {
@@ -38,7 +33,7 @@ class NumeroItem extends React.Component {
 
   render() {
     const {editing} = this.state
-    const {codeCommune, codeVoie, numero, bounds, actions} = this.props
+    const {codeCommune, codeVoie, numero, actions} = this.props
     const positions = numero.edited ? numero.modified.positions : numero.positions
     const item = {
       name: numero.numeroComplet,
@@ -52,7 +47,6 @@ class NumeroItem extends React.Component {
         {editing && (
           <NumeroForm
             numero={numero}
-            bounds={bounds}
             actions={actions}
           />
         )}
