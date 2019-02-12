@@ -130,6 +130,7 @@ class CreateFeatureMenu extends React.Component {
 
     return (
       <div className='form'>
+        <div className='title'>Nouvelle adresse</div>
         <PreventedDefaultForm onSubmit={this.handleSubmit} style={{display: 'grid', gridRowGap: '0.5em'}}>
           <input
             ref={input => {
@@ -176,6 +177,10 @@ class CreateFeatureMenu extends React.Component {
         </PreventedDefaultForm>
 
         <style jsx>{`
+          .title {
+            margin: 0.5em 0;
+          }
+
           .menu-item {
             padding: 1em;
           }
