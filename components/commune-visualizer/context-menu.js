@@ -6,7 +6,7 @@ import theme from '../../styles/theme'
 import {getType} from '../../lib/bal/item'
 
 import CreateFeatureMenu from './create-feature-menu'
-import VoieMenu from './voie-menu'
+import EditionMenu from './edition-menu'
 
 class ContextMenu extends React.Component {
   static propTypes = {
@@ -15,6 +15,7 @@ class ContextMenu extends React.Component {
     }),
     voies: PropTypes.array,
     voie: PropTypes.object,
+    numero: PropTypes.object,
     coordinates: PropTypes.array,
     layer: PropTypes.shape({
       layerX: PropTypes.number.isRequired,
@@ -28,23 +29,25 @@ class ContextMenu extends React.Component {
     feature: null,
     voies: null,
     voie: null,
+    numero: null,
     coordinates: null
   }
 
   render() {
-    const {feature, voies, voie, coordinates, layer, actions, close} = this.props
+    const {feature, voies, voie, numero, coordinates, layer, actions, close} = this.props
     const featureType = feature ? getType(feature.properties) : null
 
     return (
       <div className='context-menu'>
         {feature ? (
-          featureType === 'voie' && (
-            <VoieMenu
-              voie={feature.properties}
-              actions={actions}
-              close={close}
-            />
-          )) : (
+          <EditionMenu
+            type={featureType}
+            feature={feature}
+            numero={numero}
+            actions={actions}
+            close={close}
+          />
+        ) : (
           <CreateFeatureMenu
             voies={voies}
             voie={voie}

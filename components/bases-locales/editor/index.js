@@ -187,12 +187,15 @@ class Editor extends React.Component {
 
   deleteNumero = async numero => {
     const {model, commune, voie} = this.props
-    let href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}&codeVoie=${voie.codeVoie}`
-    let as = `/bases-locales/editeur/${model._id}/commune/${commune.code}/voie/${voie.codeVoie}`
+    const codeCommune = numero.codeCommune || commune.code
+    const codeVoie = numero.codeVoie || voie.codeVoie
 
-    await model.deleteNumero(commune.code, voie.codeVoie, numero.numeroComplet)
+    let href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}&codeVoie=${codeVoie}`
+    let as = `/bases-locales/editeur/${model._id}/commune/${codeCommune}/voie/${codeVoie}`
 
-    const deletedNumero = await model.getNumero(commune.code, voie.codeVoie, numero.numeroComplet)
+    await model.deleteNumero(codeCommune, codeVoie, numero.numeroComplet)
+
+    const deletedNumero = await model.getNumero(codeCommune, codeVoie, numero.numeroComplet)
 
     if (this.props.numero && deletedNumero) {
       href += `&idNumero=${numero.numeroComplet}`
