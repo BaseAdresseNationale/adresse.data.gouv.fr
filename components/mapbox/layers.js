@@ -24,16 +24,31 @@ export const numerosPointLayer = {
   }
 }
 
-export const positionsPointLayer = {
-  id: 'positions-point',
-  type: 'circle',
+export const positionsSymbolLayer = {
+  id: 'positions-symbol',
+  type: 'symbol',
   source: 'positions',
   paint: {
-    'circle-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'circle-radius': 4
+    'text-halo-color': '#DDD',
+    'text-halo-width': 2
+  },
+  layout: {
+    'text-field': [
+      'case',
+      ['has', 'source'],
+      [
+        'format',
+        ['get', 'type'],
+        {'font-scale': 0.8},
+        '\n',
+        {},
+        ['get', 'source'],
+        {'font-scale': 0.6}
+      ],
+      ['get', 'type']
+    ],
+    'text-anchor': 'top',
+    'text-font': ['Roboto Regular']
   }
 }
 

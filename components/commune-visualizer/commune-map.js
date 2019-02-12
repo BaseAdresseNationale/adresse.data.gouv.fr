@@ -5,13 +5,13 @@ import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
 import {getNumeroPosition} from '../../lib/bal/item'
-import {positionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
+import {numeroPositionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
 import {
   numerosLayer,
-  positionsPointLayer,
+  positionsSymbolLayer,
   selectedNumerosLayer,
   numerosPointLayer,
   voiesLayer
@@ -99,7 +99,7 @@ class CommuneMap extends React.Component {
 
     if (numero !== prevProps.numero) {
       updater = () => {
-        const data = numero ? positionsToGeoJson(numero.positions) : null
+        const data = numero ? numeroPositionsToGeoJson(numero) : null
         secureUpdateData(map, 'positions', data)
       }
     } else if (voie !== prevProps.voie) {
@@ -227,7 +227,7 @@ class CommuneMap extends React.Component {
     secureAddLayer(map, selectedNumerosLayer)
     secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, voiesLayer)
-    secureAddLayer(map, positionsPointLayer)
+    secureAddLayer(map, positionsSymbolLayer)
 
     this.resetLayers()
 
