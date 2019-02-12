@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
+import {getNumeroPosition} from '../../lib/bal/item'
 import {positionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
@@ -13,7 +14,8 @@ import {
   positionsPointLayer,
   selectedNumerosLayer,
   numerosPointLayer,
-  voiesLayer} from '../mapbox/layers'
+  voiesLayer
+} from '../mapbox/layers'
 
 import ContextMenu from './context-menu'
 
@@ -102,7 +104,7 @@ class CommuneMap extends React.Component {
         secureUpdateData(map, 'positions', data)
       }
     } else if (voie !== prevProps.voie) {
-      updater = () => {}
+      updater = () => { }
     } else if (!isEqual(voies, prevProps.voies)) {
       updater = () => {
         const voiesSource = map.getSource('voies')
@@ -407,15 +409,19 @@ class CommuneMap extends React.Component {
   onUp = async () => {
     const {map, actions} = this.props
     map.getCanvas().style.cursor = ''
-    const position = this.draggedNumero.properties.positions[0]
-    position.coords = this.draggedNumero.geometry.coordinates
 
-    try {
-      await actions.updateNumero(this.draggedNumero.properties, {
-        positions: this.draggedNumero.properties.positions
-      })
-    } catch (error) {
-      // TODO Display error
+    const numeroPosition = getNumeroPosition(this.draggedNumero.properties)
+    const {coordinates} = this.draggedNumero.geometry
+
+    if (numeroPosition.coords !== coordinates) {
+      numeroPosition.coords = coordinates
+      try {
+        await actions.updateNumero(this.draggedNumero.properties, {
+          positions: this.draggedNumero.properties.positions
+        })
+      } catch (error) {
+        // TODO Display error
+      }
     }
 
     this.draggedNumero = null
@@ -436,9 +442,6 @@ class CommuneMap extends React.Component {
     popup.remove()
 
     map.getCanvas().style.cursor = 'grab'
-
-    map.on('mousemove', this.onMove)
-    map.once('mouseup', this.onUp)
 
     map.on('mousemove', this.onMove)
     map.once('mouseup', this.onUp)
