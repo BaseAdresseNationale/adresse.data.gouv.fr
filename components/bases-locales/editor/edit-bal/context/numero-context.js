@@ -26,17 +26,14 @@ class NumeroContext extends React.Component {
 
     return (
       <div>
-        {(!positions || positions.length === 0) && (
+        {(!positions) && (
           <Notification type='warning'>
             Ce numéro n’a pas de position.
           </Notification>
         )}
 
         <div className='shadow-box'>
-          <NumeroForm
-            numero={numero}
-            actions={actions}
-          />
+          <NumeroForm numero={numero} actions={actions} />
         </div>
 
         <style jsx>{`

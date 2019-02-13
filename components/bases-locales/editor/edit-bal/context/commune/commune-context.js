@@ -9,21 +9,14 @@ class CommuneContext extends React.Component {
     commune: PropTypes.shape({
       voies: PropTypes.object.isRequired
     }).isRequired,
-    addresses: PropTypes.object,
-    communeContour: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
   }
 
-  static defaultProps = {
-    addresses: null,
-    communeContour: null
-  }
-
   render() {
-    const {commune, addresses, communeContour, actions} = this.props
+    const {commune, actions} = this.props
     const {voies, code} = commune
     const hasVoies = voies && Object.keys(voies).length > 0
 
@@ -33,7 +26,6 @@ class CommuneContext extends React.Component {
           <VoiesList
             voies={voies}
             codeCommune={code}
-            bounds={communeContour || addresses}
             actions={actions}
           />
         ) : (

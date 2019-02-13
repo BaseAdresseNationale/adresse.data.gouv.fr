@@ -5,7 +5,7 @@ import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
 import {getNumeroPositions, getNumeroPosition} from '../../lib/bal/item'
-import {numeroPositionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
+import {numeroPositionsToGeoJson, toponymeToGeoJson, hasFeatures} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
@@ -38,12 +38,13 @@ class CommuneMap extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
     popup: PropTypes.object.isRequired,
+    contourCommune: PropTypes.object,
     voies: PropTypes.shape({
       features: PropTypes.array.isRequired
     }),
     numeros: PropTypes.shape({
       features: PropTypes.array.isRequired
-    }).isRequired,
+    }),
     voie: PropTypes.object,
     numero: PropTypes.object,
     selectVoie: PropTypes.func.isRequired,
@@ -53,7 +54,9 @@ class CommuneMap extends React.Component {
   }
 
   static defaultProps = {
+    contourCommune: null,
     voies: null,
+    numeros: null,
     voie: null,
     numero: null
   }
@@ -186,22 +189,22 @@ class CommuneMap extends React.Component {
   }
 
   fitBounds = () => {
-    const {map, voies, voie, numeros} = this.props
-    let bboxFeatures
+    const {map, contourCommune, voies, voie, numeros} = this.props
+    let bboxFeatures = contourCommune // Commune contour bounds OR France bounds if undefined
 
-    if (voie && numeros) {
-      if (voie.position) { // Toponyme
+    if (voie && hasFeatures(numeros)) {
+      if (voie.position) { // Toponyme bounds
         bboxFeatures = toponymeToGeoJson(voie).features
       } else {
         const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
         const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
 
         if (numerosVoieWithPos.length > 0) {
-          bboxFeatures = numerosVoie
+          bboxFeatures = numerosVoie // Voie bounds
         }
       }
-    } else if (voies && voies.features.filter(voie => voie.properties.positions)) {
-      bboxFeatures = voies.features
+    } else if (voies && hasFeatures(voies) && voies.features.filter(voie => voie.properties.positions)) {
+      bboxFeatures = voies.features // Commune bounds
     }
 
     if (bboxFeatures) {

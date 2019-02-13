@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../../styles/theme'
 
+import Notification from '../../../../../notification'
+
 import CreateItemWrapper from '../../create-item-wrapper'
 
 import VoieItem from './voie-item'
 import CreateVoie from './create-voie'
-import CreateToponyme from './create-toponyme'
 
 class VoiesList extends React.Component {
   state = {
     nomVoie: '',
-    position: null,
     displayVoieForm: false,
     displayToponymeForm: false,
     error: null
@@ -21,24 +21,12 @@ class VoiesList extends React.Component {
   static propTypes = {
     codeCommune: PropTypes.string.isRequired,
     voies: PropTypes.object.isRequired,
-    bounds: PropTypes.object,
     actions: PropTypes.object.isRequired
-  }
-
-  static defaultProps = {
-    bounds: null
   }
 
   handleInput = input => {
     this.setState({
       nomVoie: input,
-      error: null
-    })
-  }
-
-  handlePosition = position => {
-    this.setState({
-      position,
       error: null
     })
   }
@@ -81,72 +69,43 @@ class VoiesList extends React.Component {
     })
   }
 
-  toggleToponymeForm = () => {
-    this.setState(state => {
-      return {
-        displayToponymeForm: !state.displayToponymeForm,
-        nomVoie: '',
-        position: null
-      }
-    })
-  }
-
   render() {
-    const {nomVoie, position, displayVoieForm, displayToponymeForm, error} = this.state
-    const {codeCommune, voies, bounds, actions} = this.props
+    const {nomVoie, displayVoieForm, displayToponymeForm, error} = this.state
+    const {codeCommune, voies, actions} = this.props
 
     return (
       <div className='voies-list'>
-        <div className='context-head'>
-          <div className='shadow-box'>
-            <div className='title'>
-              <h3>Liste des voies</h3>
-            </div>
+        <div>
+          <div className='title'>
+            <h3>Liste des voies</h3>
           </div>
 
           <div className='divider' />
         </div>
 
-        <div className={`forms ${displayVoieForm === displayToponymeForm ? '' : 'open'}`}>
-          {!displayToponymeForm && (
-            <div>
-              <CreateItemWrapper
-                title='Création d’une voie'
-                buttonText='Ajouter une voie'
-                displayForm={displayVoieForm}
-                toggleForm={this.toggleVoieForm}
-              >
+        {!displayToponymeForm && (
+          <div>
+            <CreateItemWrapper
+              title='Création d’une voie'
+              buttonText='Ajouter une voie'
+              displayForm={displayVoieForm}
+              toggleForm={this.toggleVoieForm}
+            >
+              <div className='form'>
                 <CreateVoie
                   input={nomVoie}
                   handleInput={this.handleInput}
                   handleSubmit={this.addVoie}
                   error={error}
                 />
-              </CreateItemWrapper>
-            </div>
-          )}
 
-          {!displayVoieForm && (
-            <div>
-              <CreateItemWrapper
-                title='Création d’un toponyme'
-                buttonText='Ajouter un toponyme'
-                displayForm={displayToponymeForm}
-                toggleForm={this.toggleToponymeForm}
-              >
-                <CreateToponyme
-                  input={nomVoie}
-                  position={position}
-                  bounds={bounds}
-                  handleInput={this.handleInput}
-                  handlePosition={this.handlePosition}
-                  handleSubmit={this.addVoie}
-                  error={error}
-                />
-              </CreateItemWrapper>
-            </div>
-          )}
-        </div>
+                <Notification type='info'>
+                  Vous pouvez également créer un toponyme directement depuis la carte en effectuant un clique droit.
+                </Notification>
+              </div>
+            </CreateItemWrapper>
+          </div>
+        )}
 
         <div className='list'>
           {Object.keys(voies).map(voie => (
@@ -183,24 +142,14 @@ class VoiesList extends React.Component {
             align-items: content;
           }
 
-          .forms {
+          .form {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-column-gap: 1em;
-          }
-
-          .forms.open {
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: 1fr;
+            grid-row-gap: 0.5em;
           }
 
           .list {
             margin: 0.5em 0;
-          }
-
-          @media (max-width: 700px) {
-            .forms {
-              grid-template-columns: repeat(1, 1fr);
-            }
           }
         `}</style>
       </div>

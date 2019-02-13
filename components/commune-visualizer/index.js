@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import Mapbox from '../mapbox'
 
+import {contoursToGeoJson, hasFeatures} from '../../lib/geojson'
+
 import CommuneMap from './commune-map'
 
 class CommuneVisualizer extends React.Component {
@@ -11,7 +13,10 @@ class CommuneVisualizer extends React.Component {
   }
 
   static propTypes = {
-    codeCommune: PropTypes.string.isRequired,
+    commune: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      contour: PropTypes.object.isRequired
+    }).isRequired,
     voies: PropTypes.object,
     numeros: PropTypes.object,
     voie: PropTypes.object,
@@ -29,12 +34,12 @@ class CommuneVisualizer extends React.Component {
   }
 
   selectVoie = voie => {
-    const {codeCommune, actions} = this.props
+    const {commune, actions} = this.props
 
     if (voie) {
-      actions.select(codeCommune, voie.codeVoie)
+      actions.select(commune.code, voie.codeVoie)
     } else {
-      actions.select(codeCommune)
+      actions.select(commune.code)
     }
   }
 
@@ -54,7 +59,8 @@ class CommuneVisualizer extends React.Component {
 
   render() {
     const {loading} = this.state
-    const {voies, numeros, voie, numero, actions} = this.props
+    const {commune, voies, numeros, voie, numero, actions} = this.props
+    const contourCommune = contoursToGeoJson([commune])
 
     return (
       <div style={{position: 'relative'}}>
@@ -67,6 +73,7 @@ class CommuneVisualizer extends React.Component {
             <CommuneMap
               map={map}
               popup={popup}
+              contourCommune={hasFeatures(contourCommune) ? contourCommune.features : null}
               voies={voies}
               numeros={numeros}
               voie={voie}

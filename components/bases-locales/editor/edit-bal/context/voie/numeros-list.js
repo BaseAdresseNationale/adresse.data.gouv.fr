@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../../../styles/theme'
 
+import Notification from '../../../../../notification'
+
 import CreateItemWrapper from '../../create-item-wrapper'
 
 import NumeroItem from './numero-item'
-import CreateNumero from './create-numero'
 
 class NumerosList extends React.Component {
   state = {
@@ -17,22 +18,10 @@ class NumerosList extends React.Component {
     codeCommune: PropTypes.string.isRequired,
     codeVoie: PropTypes.string.isRequired,
     numeros: PropTypes.object.isRequired,
-    bounds: PropTypes.object,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired,
       select: PropTypes.func.isRequired
     }).isRequired
-  }
-
-  static defaultProps = {
-    bounds: null
-  }
-
-  addNumero = async numero => {
-    const {actions} = this.props
-
-    await actions.addItem(numero)
-    this.setState({displayForm: false})
   }
 
   toggleForm = () => {
@@ -45,7 +34,7 @@ class NumerosList extends React.Component {
 
   render() {
     const {displayForm} = this.state
-    const {codeCommune, codeVoie, numeros, bounds, actions} = this.props
+    const {codeCommune, codeVoie, numeros, actions} = this.props
 
     return (
       <div className='numeros-list'>
@@ -61,12 +50,9 @@ class NumerosList extends React.Component {
           displayForm={displayForm}
           toggleForm={this.toggleForm}
         >
-          {displayForm && (
-            <CreateNumero
-              bounds={bounds}
-              onSubmit={this.addNumero}
-            />
-          )}
+          <Notification type='info'>
+            Vous pouvez ajouter un numéro à cette voie directement depuis la carte en effectuant un clique droit.
+          </Notification>
         </CreateItemWrapper>
 
         <div className='list'>
