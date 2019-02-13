@@ -72,6 +72,12 @@ class CommuneMap extends React.Component {
 
     this.fitBounds()
 
+    // Voies
+    map.on('click', 'voies', this.onVoieClick)
+    map.on('mouseenter', 'voies', this.mouseEnter)
+    map.on('mouseleave', 'voies', this.mouseLeave)
+    map.on('contextmenu', 'voies', this.editVoie)
+
     // Numéro
     map.on('click', 'selected-numeros', this.onNumeroClick)
     map.on('click', 'numeros', this.onNumeroClick)
@@ -86,11 +92,10 @@ class CommuneMap extends React.Component {
     map.on('mousedown', 'numeros', this.mouseDown)
     map.on('mousedown', 'selected-numeros', this.mouseDown)
 
-    // Voies
-    map.on('click', 'voies', this.onVoieClick)
-    map.on('mouseenter', 'voies', this.mouseEnter)
-    map.on('mouseleave', 'voies', this.mouseLeave)
-    map.on('contextmenu', 'voies', this.editVoie)
+    // Positions
+    map.on('mouseenter', 'positions-symbol', this.mouseEnter)
+    map.on('mouseleave', 'positions-symbol', this.mouseLeave)
+    map.on('contextmenu', 'positions-symbol', this.deletedPosition)
   }
 
   componentDidUpdate(prevProps) {
@@ -142,6 +147,12 @@ class CommuneMap extends React.Component {
     map.off('dataloading', this.onLoading)
     map.off('contextmenu', this.contextMenu)
 
+    // Voies
+    map.off('click', 'voies', this.onVoieClick)
+    map.off('mouseenter', 'voies', this.mouseEnter)
+    map.off('mouseleave', 'voies', this.mouseLeave)
+    map.off('contextmenu', 'voies', this.editVoie)
+
     // Numéro
     map.off('click', 'numeros', this.onNumeroClick)
     map.off('click', 'numero-type', this.unselectNumero)
@@ -156,11 +167,10 @@ class CommuneMap extends React.Component {
     map.off('mousedown', 'numeros', this.mouseDown)
     map.off('mousedown', 'selected-numeros', this.mouseDown)
 
-    // Voies
-    map.off('click', 'voies', this.onVoieClick)
-    map.off('mouseenter', 'voies', this.mouseEnter)
-    map.off('mouseleave', 'voies', this.mouseLeave)
-    map.off('contextmenu', 'voies', this.editVoie)
+    // Position
+    map.off('mouseenter', 'positions-symbols', this.mouseEnter)
+    map.off('mouseleave', 'positions-symbol', this.mouseLeave)
+    map.off('contextmenu', 'positions-symbol', this.deletedPosition)
   }
 
   setMode() {
@@ -365,7 +375,7 @@ class CommuneMap extends React.Component {
 
     this.setState({
       context: {
-        feature: null,
+        item: null,
         coordinates: [lng, lat],
         layer: {layerX, layerY}
       }
@@ -384,7 +394,7 @@ class CommuneMap extends React.Component {
 
     this.setState({
       context: {
-        feature: voie,
+        item: voie.properties,
         coordinates: null,
         layer: {layerX, layerY}
       }
@@ -399,7 +409,22 @@ class CommuneMap extends React.Component {
 
     this.setState({
       context: {
-        feature: numero,
+        item: numero.properties,
+        coordinates: null,
+        layer: {layerX, layerY}
+      }
+    })
+  }
+
+  deletedPosition = event => {
+    const {numero} = this.props
+    const {_id} = event.features[0].properties
+    const position = numero.positions.find(p => p._id === _id)
+    const {layerX, layerY} = event.originalEvent
+
+    this.setState({
+      context: {
+        item: position,
         coordinates: null,
         layer: {layerX, layerY}
       }
@@ -482,14 +507,14 @@ class CommuneMap extends React.Component {
 
     return (context && (
       <ContextMenu
-        feature={context.feature}
+        item={context.item}
         voie={voie}
         numero={numero}
         voies={voies.features.map(voie => voie.properties)}
         coordinates={context.coordinates}
         layer={context.layer}
         actions={actions}
-        close={() => this.closeContextMenu()}
+        close={this.closeContextMenu}
       />
     ))
   }

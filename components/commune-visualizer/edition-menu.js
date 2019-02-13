@@ -7,8 +7,8 @@ import VoieMenu from './voie-menu'
 
 class EditionMenu extends React.Component {
   static propTypes = {
-    type: PropTypes.bool.isRequired,
-    feature: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired,
+    item: PropTypes.object.isRequired,
     numero: PropTypes.shape({
       positions: PropTypes.array.isRequired
     }),
@@ -23,23 +23,32 @@ class EditionMenu extends React.Component {
   }
 
   deleteItem = async () => {
-    const {type, feature, actions, close} = this.props
+    const {type, item, numero, actions, close} = this.props
 
     if (type === 'numero') {
-      await actions.deleteItem(feature.properties)
+      await actions.deleteItem(item)
+    } else {
+      const positions = [...numero.positions]
+      positions.forEach((position, idx) => {
+        if (position._id === item._id) {
+          positions.splice(idx, 1)
+        }
+      })
+
+      await actions.updateNumero(numero, {positions})
     }
 
     close()
   }
 
   render() {
-    const {type, feature, actions} = this.props
+    const {type, item, actions} = this.props
 
     return (
       <div>
         {type === 'voie' ? (
           <VoieMenu
-            voie={feature.properties}
+            voie={item}
             actions={actions}
             close={close}
           />

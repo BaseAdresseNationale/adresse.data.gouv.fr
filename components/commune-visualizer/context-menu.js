@@ -10,9 +10,7 @@ import EditionMenu from './edition-menu'
 
 class ContextMenu extends React.Component {
   static propTypes = {
-    feature: PropTypes.shape({
-      properties: PropTypes.object.isRequired
-    }),
+    item: PropTypes.object,
     voies: PropTypes.array,
     voie: PropTypes.object,
     numero: PropTypes.object,
@@ -26,7 +24,7 @@ class ContextMenu extends React.Component {
   }
 
   static defaultProps = {
-    feature: null,
+    item: null,
     voies: null,
     voie: null,
     numero: null,
@@ -34,15 +32,15 @@ class ContextMenu extends React.Component {
   }
 
   render() {
-    const {feature, voies, voie, numero, coordinates, layer, actions, close} = this.props
-    const featureType = feature ? getType(feature.properties) : null
+    const {item, voies, voie, numero, coordinates, layer, actions, close} = this.props
+    const itemType = item ? getType(item) : null
 
     return (
       <div className='context-menu'>
-        {feature ? (
+        {item ? (
           <EditionMenu
-            type={featureType}
-            feature={feature}
+            type={itemType}
+            item={item}
             numero={numero}
             actions={actions}
             close={close}
