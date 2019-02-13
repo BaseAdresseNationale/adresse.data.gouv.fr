@@ -117,6 +117,13 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='stat'>
             <Counter
+              title='Communes représentées'
+              value={stats.communesCount}
+            />
+          </div>
+
+          <div className='stat'>
+            <Counter
               title='Adresses gérées par les collectivités'
               value={stats.numerosCount}
             />
