@@ -49,6 +49,7 @@ class ContextMenu extends React.Component {
           <CreateFeatureMenu
             voies={voies}
             voie={voie}
+            numero={numero}
             coordinates={coordinates}
             actions={actions}
             close={close}

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import Button from '../button'
 
+import {getNumeroPositions} from '../../lib/bal/item'
+
 import VoieMenu from './voie-menu'
 
 class EditionMenu extends React.Component {
@@ -28,7 +30,7 @@ class EditionMenu extends React.Component {
     if (type === 'numero') {
       await actions.deleteItem(item)
     } else {
-      const positions = [...numero.positions]
+      const positions = [...getNumeroPositions(numero)]
       positions.forEach((position, idx) => {
         if (position._id === item._id) {
           positions.splice(idx, 1)

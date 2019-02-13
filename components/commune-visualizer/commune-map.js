@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
-import {getNumeroPosition} from '../../lib/bal/item'
+import {getNumeroPositions, getNumeroPosition} from '../../lib/bal/item'
 import {numeroPositionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
@@ -419,7 +419,7 @@ class CommuneMap extends React.Component {
   deletedPosition = event => {
     const {numero} = this.props
     const {_id} = event.features[0].properties
-    const position = numero.positions.find(p => p._id === _id)
+    const position = getNumeroPositions(numero).find(p => p._id === _id)
     const {layerX, layerY} = event.originalEvent
 
     this.setState({

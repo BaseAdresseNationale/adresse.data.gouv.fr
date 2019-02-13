@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '../../../../../button'
+import Select from '../../../../../select'
 import Notification from '../../../../../notification'
 
 const TYPES = {
@@ -18,74 +18,33 @@ const TYPES = {
 class SelectPositionType extends React.Component {
   static propTypes = {
     type: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired,
-    remove: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired
   }
 
-  static defaultProps = {
+  static defaultProps= {
     type: 'entrée'
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      type: props.type
-    }
-  }
-
-  handleChange = e => {
-    e.preventDefault()
-
-    this.setState({type: e.target.value})
+  handleChange = value => {
+    const {onSubmit} = this.props
+    onSubmit(value)
   }
 
   render() {
-    const {type} = this.state
-    const {onSubmit, remove} = this.props
+    const {type} = this.props
 
     return (
-      <div>
-        <div className='select'>
-          <label>Type</label>
-          <select value={type} onChange={this.handleChange}>
-            {Object.keys(TYPES).map(type => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
+      <>
+        <Select
+          value={type}
+          options={Object.keys(TYPES)}
+          onSubmit={this.handleChange}
+        />
 
         <Notification type='info'>
           {TYPES[type]}
         </Notification>
-
-        <div className='centered'>
-          {type !== this.props.type && (
-            <Button onClick={() => onSubmit(type)}>Appliquer</Button>
-          )}
-          <Button onClick={remove} color='red'>Supprimer</Button>
-        </div>
-
-        <style jsx>{`
-          .centered {
-            display: grid;
-            grid-row-gap: 0.5em;
-          }
-
-          .select {
-            margin-bottom: 1em;
-          }
-
-          select {
-            text-transform: capitalize;
-          }
-
-          select option::first-letter{
-            text-transform: uppercase;
-          }
-        `}</style>
-      </div>
+      </>
     )
   }
 }
