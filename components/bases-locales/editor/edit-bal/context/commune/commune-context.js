@@ -21,7 +21,7 @@ class CommuneContext extends React.Component {
     const hasVoies = voies && Object.keys(voies).length > 0
 
     return (
-      <div>
+      <div className='commune-context'>
         {hasVoies ? (
           <VoiesList
             voies={voies}
@@ -31,6 +31,12 @@ class CommuneContext extends React.Component {
         ) : (
           <EmptyVoiesList addVoie={actions.addItem} />
         ) }
+
+        <style jsx>{`
+          .commune-context {
+            width: 100%;
+          }
+          `}</style>
       </div>
     )
   }

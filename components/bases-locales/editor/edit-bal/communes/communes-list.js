@@ -79,6 +79,13 @@ class CommunesList extends React.Component {
         </div>
 
         <style jsx>{`
+          .communes-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: content;
+          }
+
           .title {
             display: flex;
             align-items: center;
@@ -89,13 +96,6 @@ class CommunesList extends React.Component {
             border-bottom: 1px solid ${theme.border};
             padding-bottom: 0.5em;
             margin-bottom: 0.5em;
-          }
-
-          .communes-list {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: content;
           }
 
           .list {

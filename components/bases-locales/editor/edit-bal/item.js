@@ -52,17 +52,15 @@ class Item extends React.PureComponent {
           {warning && (
             <div className='warning'><FaExclamationTriangle /> {warning}</div>
           )}
-
-          <div className='link'><FaAngleRight /></div>
-
         </div>
+
+        <div className='link'><FaAngleRight /></div>
 
         <style jsx>{`
           .item {
             display: flex;
             flex: 1;
-            justify-content: space-between;
-            align-item: center;
+            align-items: center;
             border: 1px solid ${theme.border};
             background-color: ${COLORS[status] || '#fff'};
             padding: 1em;
@@ -88,8 +86,7 @@ class Item extends React.PureComponent {
           .infos {
             display: flex;
             flex-grow: 1;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
           }
 
           .warning {

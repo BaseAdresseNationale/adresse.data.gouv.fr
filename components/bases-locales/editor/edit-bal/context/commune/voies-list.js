@@ -76,35 +76,30 @@ class VoiesList extends React.Component {
     return (
       <div className='voies-list'>
         <div>
-          <div className='title'>
-            <h3>Liste des voies</h3>
-          </div>
-
+          <h3>Liste des voies</h3>
           <div className='divider' />
         </div>
 
         {!displayToponymeForm && (
-          <div>
-            <CreateItemWrapper
-              title='Création d’une voie'
-              buttonText='Ajouter une voie'
-              displayForm={displayVoieForm}
-              toggleForm={this.toggleVoieForm}
-            >
-              <div className='form'>
-                <CreateVoie
-                  input={nomVoie}
-                  handleInput={this.handleInput}
-                  handleSubmit={this.addVoie}
-                  error={error}
-                />
+          <CreateItemWrapper
+            title='Création d’une voie'
+            buttonText='Ajouter une voie'
+            displayForm={displayVoieForm}
+            toggleForm={this.toggleVoieForm}
+          >
+            <div className='form'>
+              <CreateVoie
+                input={nomVoie}
+                handleInput={this.handleInput}
+                handleSubmit={this.addVoie}
+                error={error}
+              />
 
-                <Notification type='info'>
-                  Vous pouvez également créer un toponyme directement depuis la carte en effectuant un clique droit.
-                </Notification>
-              </div>
-            </CreateItemWrapper>
-          </div>
+              <Notification type='info'>
+                Vous pouvez également créer un toponyme directement depuis la carte en effectuant un clique droit.
+              </Notification>
+            </div>
+          </CreateItemWrapper>
         )}
 
         <div className='list'>
@@ -119,37 +114,32 @@ class VoiesList extends React.Component {
         </div>
 
         <style jsx>{`
-          .title {
-            display: flex;
-            align-items: center;
-          }
-
-          h3 {
-            flex: 1;
-          }
-
-          .divider {
-            width: 100%;
-            border-bottom: 1px solid ${theme.border};
-            padding-bottom: 0.5em;
-            margin-bottom: 0.5em;
-          }
-
           .voies-list {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: content;
+            height: 100%;
+          }
+
+          h3 {
+            line-height: 0;
+          }
+
+          .divider {
+            width: 100%;
+            border-bottom: 1px solid ${theme.border};
+          }
+
+          .list {
+            flex: auto;
+            overflow: scroll;
           }
 
           .form {
             display: grid;
             grid-template-columns: 1fr;
             grid-row-gap: 0.5em;
-          }
-
-          .list {
-            margin: 0.5em 0;
           }
         `}</style>
       </div>

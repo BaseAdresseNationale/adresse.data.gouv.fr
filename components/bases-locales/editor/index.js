@@ -4,14 +4,14 @@ import Router from 'next/router'
 
 import BALStorage from '../../../lib/bal/storage'
 import {getType} from '../../../lib/bal/item'
-import theme from '../../../styles/theme'
 
 import Section from '../../section'
-import Button from '../../button'
 import BAL from '../../../lib/bal/model'
 
 import Uploader from './uploader'
 import EditBal from './edit-bal'
+import Communes from './edit-bal/communes'
+import ExportControls from './edit-bal/export-controls'
 
 function getDownloadLink(csvContent) {
   const blob = new Blob([csvContent], {type: 'text/csv'})
@@ -20,6 +20,7 @@ function getDownloadLink(csvContent) {
 
 class Editor extends React.Component {
   initialState = {
+    commune: null,
     downloadLink: null,
     loading: false,
     error: null
@@ -42,6 +43,15 @@ class Editor extends React.Component {
     codeCommune: null,
     codeVoie: null,
     idNumero: null
+  }
+
+  async componentDidUpdate(prevProps) {
+    const {model, codeCommune} = this.props
+
+    if (codeCommune !== prevProps.codeCommune) {
+      const commune = await model.getCommune(codeCommune)
+      this.setState({commune})
+    }
   }
 
   handleData = tree => {
@@ -218,7 +228,7 @@ class Editor extends React.Component {
   }
 
   render() {
-    const {downloadLink, loading, error} = this.state
+    const {commune, downloadLink, loading, error} = this.state
     const {model} = this.props
     const modelActions = {
       select: this.select,
@@ -230,48 +240,45 @@ class Editor extends React.Component {
       cancelChange: this.cancelChange
     }
 
+    const exportControls = (
+      <ExportControls
+        downloadLink={downloadLink}
+        filename='filename'
+        loading={loading}
+        error={error}
+        exportBAL={this.exportBAL}
+        reset={this.reset}
+      />
+    )
+
     return (
       <div>
         {model ? (
-          <Section>
-            <EditBal
-              {...this.props}
-              actions={modelActions}
-              downloadLink={downloadLink}
-              filename='filename'
-              loading={loading}
-              error={error}
-            />
-          </Section>
+          <>
+            {commune ? (
+              <EditBal
+                {...this.props}
+                commune={commune}
+                exportControls={exportControls}
+                actions={modelActions}
+              />
+            ) : (
+              <Section>
+                <Communes
+                  communes={model.communes}
+                  actions={modelActions}
+                />
+
+                {exportControls}
+              </Section>
+            )}
+          </>
         ) : (
           <Uploader
             newFile={this.createNewFile}
             onData={this.handleData}
           />
         )}
-
-        {model && (
-          <Section>
-            <div className='buttons'>
-              {model.communes && (
-                <Button onClick={this.exportBAL}>Exporter le fichier BAL</Button>
-              )}
-              <Button color='red' size='small' onClick={this.reset}>Tout annuler</Button>
-            </div>
-          </Section>
-        )}
-
-        <style jsx>{`
-          .buttons {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-row-gap: 0.5em;
-            border: 1px solid ${theme.border};
-            background-color: ${theme.colors.lighterGrey};
-            margin: 2em 0;
-            padding: 1em;
-          }
-        `}</style>
       </div>
     )
   }

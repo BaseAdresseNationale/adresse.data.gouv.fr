@@ -25,7 +25,7 @@ class CreateItemWrapper extends React.Component {
     const {title, buttonText, displayForm, toggleForm, children} = this.props
 
     return (
-      <div className='context-head'>
+      <div className='create-item-wrapper'>
         {displayForm ? (
           <div className='form'>
             <div className='close'>
@@ -48,9 +48,8 @@ class CreateItemWrapper extends React.Component {
         )}
 
         <style jsx>{`
-          .title {
-            display: flex;
-            align-items: center;
+          .create-item-wrapper {
+            margin: 0.5em 0;
           }
 
           h4 {
