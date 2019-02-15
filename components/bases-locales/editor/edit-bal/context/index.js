@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import CommuneContext from './commune/commune-context'
 import VoieContext from './voie/voie-context'
-import NumeroContext from './numero-context'
+import NumeroContext from './numero/numero-context'
 
 class Context extends React.Component {
   static propTypes = {

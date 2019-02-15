@@ -3,14 +3,9 @@ import PropTypes from 'prop-types'
 
 import {getStatus, getNumeroPositions} from '../../../../../../lib/bal/item'
 
-import NumeroForm from './numero-form'
 import EditNumero from './edit-numero'
 
 class NumeroItem extends React.Component {
-  state = {
-    editing: false
-  }
-
   static propTypes = {
     codeCommune: PropTypes.string.isRequired,
     codeVoie: PropTypes.string.isRequired,
@@ -23,16 +18,7 @@ class NumeroItem extends React.Component {
     }).isRequired
   }
 
-  toggleEdit = () => {
-    this.setState(state => {
-      return {
-        editing: !state.editing
-      }
-    })
-  }
-
   render() {
-    const {editing} = this.state
     const {codeCommune, codeVoie, numero, actions} = this.props
     const positions = getNumeroPositions(numero)
     const item = {
@@ -43,11 +29,7 @@ class NumeroItem extends React.Component {
     }
 
     return (
-      <EditNumero item={item} toggleForm={this.toggleEdit}>
-        {editing && (
-          <NumeroForm numero={numero} actions={actions} />
-        )}
-      </EditNumero>
+      <EditNumero numero={numero} item={item} actions={actions} />
     )
   }
 }

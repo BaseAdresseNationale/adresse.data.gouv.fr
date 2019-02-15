@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../../../styles/theme'
 
-import {getNumeroPositions} from '../../../../../lib/bal/item'
+import {getNumeroPositions} from '../../../../../../lib/bal/item'
 
-import Notification from '../../../../notification'
+import Notification from '../../../../../notification'
 
-import NumeroForm from './voie/numero-form'
+import NumeroForm from './numero-form'
 
 class NumeroContext extends React.Component {
   static propTypes = {
