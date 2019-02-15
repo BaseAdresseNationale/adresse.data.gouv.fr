@@ -9,7 +9,7 @@ import {getName, isToponyme} from '../../lib/bal/item'
 import Button from '../button'
 
 import SwitchInput from '../explorer/table-list/filters/switch-input'
-import PreventedDefaultForm from '../bases-locales/editor/edit-bal/prevented-default-form'
+import PreventedDefaultForm from '../prevented-default-form'
 
 class CreateVoieMenu extends React.Component {
   constructor(props) {

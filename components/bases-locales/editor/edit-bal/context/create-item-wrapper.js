@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import FaPlus from 'react-icons/lib/fa/plus'
 import FaClose from 'react-icons/lib/fa/close'
 
-import theme from '../../../../styles/theme'
+import theme from '../../../../../styles/theme'
 
-import Button from '../../../button'
+import Button from '../../../../button'
 
 class CreateItemWrapper extends React.Component {
   static propTypes = {

@@ -2,12 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {throttle, debounce, uniqueId} from 'lodash'
 
-import {_get} from '../../../../lib/fetch'
+import {_get} from '../../../lib/fetch'
 
-import RenderCommune from '../../../search-input/render-commune'
-
-import SearchInput from '../../../search-input'
-import Notification from '../../../notification'
+import SearchInput from '../../search-input'
+import RenderCommune from '../../search-input/render-commune'
+import Notification from '../../notification'
 
 function isCodeDepNaive(token) {
   if (['2A', '2B'].includes(token)) {
@@ -17,7 +16,7 @@ function isCodeDepNaive(token) {
   return token.match(/^\d{2,3}$/)
 }
 
-class SearchCommune extends React.Component {
+class SearchCommunes extends React.Component {
   static propTypes = {
     handleSelect: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
@@ -117,4 +116,4 @@ class SearchCommune extends React.Component {
   }
 }
 
-export default SearchCommune
+export default SearchCommunes

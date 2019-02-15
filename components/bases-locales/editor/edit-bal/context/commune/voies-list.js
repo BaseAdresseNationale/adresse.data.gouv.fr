@@ -5,7 +5,7 @@ import theme from '../../../../../../styles/theme'
 
 import Notification from '../../../../../notification'
 
-import CreateItemWrapper from '../../create-item-wrapper'
+import CreateItemWrapper from '../create-item-wrapper'
 
 import VoieItem from './voie-item'
 import CreateVoie from './create-voie'

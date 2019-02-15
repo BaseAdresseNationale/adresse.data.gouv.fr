@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import CommuneVisualizer from '../../../commune-visualizer'
-
 import {getName, getStatus} from '../../../../lib/bal/item'
 import {communeNumerosToGeoJson, communeVoiesToGeoJson} from '../../../../lib/geojson'
+
+import CommuneVisualizer from '../../../commune-visualizer'
 
 import SideMenu from './side-menu'
 import Context from './context'
@@ -61,7 +61,7 @@ class EditBal extends React.PureComponent {
       previous: () => actions.select(
         codeVoie ? commune.code : null,
         numero ? codeVoie : null
-        )
+      )
     }
   }
 

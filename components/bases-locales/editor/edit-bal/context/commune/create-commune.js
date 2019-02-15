@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Notification from '../../../notification'
+import Notification from '../../../../../notification'
 
-import SearchCommunes from './search-communes'
+import SearchCommunes from '../../../search-communes'
 
 class CreateCommune extends React.Component {
   static propTypes = {

@@ -4,14 +4,14 @@ import Router from 'next/router'
 
 import BALStorage from '../../../lib/bal/storage'
 import {getType} from '../../../lib/bal/item'
+import BAL from '../../../lib/bal/model'
 
 import Section from '../../section'
-import BAL from '../../../lib/bal/model'
 
 import Uploader from './uploader'
 import EditBal from './edit-bal'
-import Communes from './edit-bal/communes'
 import ExportControls from './edit-bal/export-controls'
+import Communes from './edit-bal/context/communes'
 
 function getDownloadLink(csvContent) {
   const blob = new Blob([csvContent], {type: 'text/csv'})

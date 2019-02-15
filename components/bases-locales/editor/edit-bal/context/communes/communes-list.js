@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../../../styles/theme'
 
 import CreateItemWrapper from '../create-item-wrapper'
-
-import CreateCommune from '../create-commune'
+import CreateCommune from '../commune/create-commune'
 
 import CommuneItem from './commune-item'
 
