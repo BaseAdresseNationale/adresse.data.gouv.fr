@@ -36,7 +36,7 @@
     "next": "^8.0.0",
     "next-runtime-dotenv": "^1.0.1",
     "papaparse": "^4.6.3",
-    "prop-types": "^15.7.1",
+    "prop-types": "^15.7.2",
     "randomcolor": "^0.5.3",
     "react": "^16.8.1",
     "react-autocomplete": "^1.7.2",
