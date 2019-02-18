@@ -155,7 +155,7 @@ class Editor extends React.Component {
     this.refreshModel()
   }
 
-  deleteItem = async (item, scrollTop = false) => {
+  deleteItem = async item => {
     const type = getType(item)
 
     if (type === 'commune') {
@@ -164,10 +164,6 @@ class Editor extends React.Component {
       await this.deleteVoie(item)
     } else {
       await this.deleteNumero(item)
-    }
-
-    if (scrollTop) {
-      this.scrollTop()
     }
   }
 
@@ -212,14 +208,7 @@ class Editor extends React.Component {
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
     const {updateModel} = this.props
-
-    this.scrollTop()
-
     updateModel(codeCommune, codeVoie, numeroComplet)
-  }
-
-  scrollTop = () => {
-    window.scrollTo(0, 200)
   }
 
   refreshModel() {
