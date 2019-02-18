@@ -44,7 +44,7 @@ class EditionMenu extends React.Component {
   }
 
   render() {
-    const {type, item, actions} = this.props
+    const {type, item, close, actions} = this.props
 
     return (
       <div>

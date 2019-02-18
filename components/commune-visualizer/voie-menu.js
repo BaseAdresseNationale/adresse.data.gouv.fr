@@ -30,8 +30,8 @@ class VoieMenu extends React.Component {
 
     try {
       if (input.length > 0) {
-        await actions.renameVoie(voie, input)
         close()
+        await actions.renameVoie(voie, input)
       }
     } catch (err) {
       error = err
@@ -46,8 +46,8 @@ class VoieMenu extends React.Component {
   delete = async () => {
     const {voie, actions, close} = this.props
 
-    await actions.deleteItem(voie)
     close()
+    await actions.deleteItem(voie)
   }
 
   cancelChange = async () => {
@@ -55,8 +55,8 @@ class VoieMenu extends React.Component {
     let error
 
     try {
-      await actions.cancelChange(voie)
       close()
+      await actions.cancelChange(voie)
     } catch (err) {
       error = err
     }
