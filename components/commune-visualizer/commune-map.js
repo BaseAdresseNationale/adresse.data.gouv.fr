@@ -104,10 +104,13 @@ class CommuneMap extends React.Component {
   componentDidUpdate(prevProps) {
     const {map, voies, numeros, voie, numero, isLoading} = this.props
     const sourceToUpdate = []
-
-    if (!isEqual(numero, prevProps.numero)) {
+    const updapteNumPos = () => {
       const positions = numero && !numero.deleted ? numeroPositionsToGeoJson(numero) : null
       sourceToUpdate.push({id: 'positions', data: positions})
+    }
+
+    if (!isEqual(numero, prevProps.numero)) {
+      updapteNumPos()
     }
 
     if (!isEqual(voies, prevProps.voies) || !isEqual(voie, prevProps.voie)) {
@@ -116,6 +119,10 @@ class CommuneMap extends React.Component {
 
     if (!isEqual(numeros, prevProps.numeros)) {
       sourceToUpdate.push({id: 'numeros', data: numeros})
+
+      if (numero) {
+        updapteNumPos()
+      }
     }
 
     this.setMode()
@@ -241,12 +248,14 @@ class CommuneMap extends React.Component {
     secureAddLayer(map, positionsSymbolLayer)
 
     this.resetLayers()
-    this.fitBounds()
 
     if (this.mode === 'numero') {
       this.numeroMode()
     } else if (this.mode === 'voie') {
       this.voieMode()
+      this.fitBounds()
+    } else {
+      this.fitBounds()
     }
   }
 
