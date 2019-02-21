@@ -14,8 +14,7 @@ class CommuneVisualizer extends React.Component {
 
   static propTypes = {
     commune: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      contour: PropTypes.object.isRequired
+      code: PropTypes.string.isRequired
     }).isRequired,
     voies: PropTypes.object,
     numeros: PropTypes.object,

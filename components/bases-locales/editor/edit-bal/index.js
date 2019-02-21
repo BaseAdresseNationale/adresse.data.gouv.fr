@@ -17,9 +17,9 @@ class EditBal extends React.PureComponent {
 
   static propTypes = {
     model: PropTypes.object.isRequired,
-    codeCommune: PropTypes.object,
-    codeVoie: PropTypes.object,
-    idNumero: PropTypes.object,
+    codeCommune: PropTypes.string,
+    codeVoie: PropTypes.string,
+    idNumero: PropTypes.string,
     downloadLink: PropTypes.string,
     filename: PropTypes.string,
     loading: PropTypes.bool,

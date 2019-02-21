@@ -38,7 +38,7 @@ class CommuneMap extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
     popup: PropTypes.object.isRequired,
-    contourCommune: PropTypes.object,
+    contourCommune: PropTypes.array,
     voies: PropTypes.shape({
       features: PropTypes.array.isRequired
     }),
