@@ -21,7 +21,7 @@ class Communes extends React.Component {
     return (
       <div>
         {hasCommune ? (
-          <CommunesList communes={communes} actions={actions} />
+          <CommunesList communes={Object.values(communes)} actions={actions} />
         ) : (
           <InitBAL addCommune={actions.addItem} />
         )}

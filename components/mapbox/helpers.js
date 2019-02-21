@@ -24,10 +24,7 @@ export function secureUpdateData(map, id, data) {
   const source = map.getSource(id)
 
   if (source) {
-    source.setData(data ? data : {
-      type: 'FeatureCollection',
-      features: []
-    })
+    source.setData(data)
   } else {
     secureAddSource(map, id, data)
   }

@@ -31,16 +31,17 @@ class Editor extends React.Component {
 
   static propTypes = {
     model: PropTypes.object,
-    commune: PropTypes.object,
-    voie: PropTypes.object,
-    numero: PropTypes.object
+    codeCommune: PropTypes.string,
+    codeVoie: PropTypes.string,
+    idNumero: PropTypes.string,
+    updateModel: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     model: null,
-    commune: null,
-    voie: null,
-    numero: null
+    codeCommune: null,
+    codeVoie: null,
+    idNumero: null
   }
 
   handleData = tree => {
@@ -99,172 +100,141 @@ class Editor extends React.Component {
     }
 
     await types[type](item)
+
+    this.refreshModel()
   }
 
   addCommune = async newCommune => {
     const {model} = this.props
     await model.createCommune(newCommune.code, newCommune)
-
-    const href = `/bases-locales/editeur?id=${model._id}`
-    const as = `/bases-locales/editeur/${model._id}`
-
-    Router.push(href, as)
   }
 
   addVoie = async newVoie => {
-    const {model, commune} = this.props
-    await model.createVoie(commune.code, newVoie)
-
-    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}`
-    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}`
-
-    Router.push(href, as)
+    const {model, codeCommune} = this.props
+    await model.createVoie(codeCommune, newVoie)
   }
 
   addNumero = async newNumero => {
-    const {model, commune, voie} = this.props
-    const codeCommune = newNumero.codeCommune || commune.code
-    const codeVoie = newNumero.codeVoie || voie.codeVoie
+    const {model, codeCommune, codeVoie} = this.props
 
-    await model.createNumero(codeCommune, codeVoie, newNumero)
-
-    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}&codeVoie=${codeVoie}`
-    const as = `/bases-locales/editeur/${model._id}/commune/${codeCommune}/voie/${codeVoie}`
-
-    Router.push(href, as)
+    await model.createNumero(
+      newNumero.codeCommune || codeCommune,
+      newNumero.codeVoie || codeVoie,
+      newNumero
+    )
   }
 
   renameVoie = async (item, newName) => {
-    const {model, commune} = this.props
-    await model.renameVoie(commune.code, item.codeVoie, newName)
+    const {model, codeCommune} = this.props
+    await model.renameVoie(codeCommune, item.codeVoie, newName)
+
+    this.refreshModel()
   }
 
   repositionVoie = async (item, position) => {
-    const {model, commune} = this.props
-    await model.repositionVoie(commune.code, item.codeVoie, position)
+    const {model, codeCommune} = this.props
+    await model.repositionVoie(codeCommune, item.codeVoie, position)
+
+    this.refreshModel()
   }
 
   updateNumero = async (numero, modified) => {
-    const {model, commune, voie} = this.props
-    await model.updateNumero(commune.code, voie.codeVoie, numero.numeroComplet, modified)
+    const {model, codeCommune, codeVoie} = this.props
+    await model.updateNumero(codeCommune, codeVoie, numero.numeroComplet, modified)
+
+    this.refreshModel()
   }
 
-  deleteItem = (item, scrollTop = false) => {
+  deleteItem = async (item, scrollTop = false) => {
     const type = getType(item)
 
     if (type === 'commune') {
-      this.deleteCommune(item)
+      await this.deleteCommune(item)
     } else if (type === 'voie') {
-      this.deleteVoie(item)
+      await this.deleteVoie(item)
     } else {
-      this.deleteNumero(item)
+      await this.deleteNumero(item)
     }
 
     if (scrollTop) {
       this.scrollTop()
     }
+
+    this.refreshModel()
   }
 
   deleteCommune = async commune => {
     const {model} = this.props
     await model.deleteCommune(commune.code)
-
-    const href = `/bases-locales/editeur?id=${model._id}`
-    const as = `/bases-locales/editeur/${model._id}`
-
-    Router.push(href, as)
   }
 
   deleteVoie = async voie => {
-    const {model, commune} = this.props
-    await model.deleteVoie(commune.code, voie.codeVoie)
-
-    const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}`
-    const as = `/bases-locales/editeur/${model._id}/commune/${commune.code}`
-
-    Router.push(href, as)
+    const {model, codeCommune} = this.props
+    await model.deleteVoie(codeCommune, voie.codeVoie)
   }
 
   deleteNumero = async numero => {
-    const {model, commune, voie} = this.props
-    const codeCommune = numero.codeCommune || commune.code
-    const codeVoie = numero.codeVoie || voie.codeVoie
+    const {model, codeCommune, codeVoie} = this.props
+    const cCommune = numero.codeCommune || codeCommune
+    const cVoie = numero.codeVoie || codeVoie
 
-    let href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}&codeVoie=${codeVoie}`
-    let as = `/bases-locales/editeur/${model._id}/commune/${codeCommune}/voie/${codeVoie}`
-
-    await model.deleteNumero(codeCommune, codeVoie, numero.numeroComplet)
-
-    const deletedNumero = await model.getNumero(codeCommune, codeVoie, numero.numeroComplet)
-
-    if (this.props.numero && deletedNumero) {
-      href += `&idNumero=${numero.numeroComplet}`
-      as += `/numero/${numero.numeroComplet}`
-    }
-
-    Router.push(href, as)
+    await model.deleteNumero(cCommune, cVoie, numero.numeroComplet)
   }
 
   cancelChange = async item => {
-    const {model, commune, voie, numero} = this.props
+    const {model, codeCommune, codeVoie} = this.props
     const type = getType(item)
-    let href = `/bases-locales/editeur?id=${model._id}&codeCommune=${commune.code}`
-    let as = `/bases-locales/editeur/${model._id}/commune/${commune.code}`
 
     if (type === 'commune') {
       await model.cancelCommuneChange(item.code)
     } else if (type === 'voie') {
-      await model.cancelVoieChange(commune.code, item.codeVoie)
-      href += `&codeVoie=${voie.codeVoie}`
-      as += `/voie/${voie.codeVoie}`
+      await model.cancelVoieChange(codeCommune, item.codeVoie)
     } else {
-      await model.cancelNumeroChange(commune.code, voie.codeVoie, item.numeroComplet)
+      await model.cancelNumeroChange(codeCommune, codeVoie, item.numeroComplet)
     }
 
-    if (numero) {
-      href += `&codeVoie=${voie.codeVoie}&idNumero=${item.numeroComplet}`
-      as += `/voie/${voie.codeVoie}/numero/${item.numeroComplet}`
-    }
-
-    Router.push(href, as)
+    this.refreshModel()
   }
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
-    const {model} = this.props
-    const commune = await model.getCommune(codeCommune)
-    const voie = await model.getVoie(codeCommune, codeVoie)
-    const numero = await model.getNumero(codeCommune, codeVoie, numeroComplet)
+    const {model, updateModel} = this.props
 
     let href = `/bases-locales/editeur?id=${model._id}`
     let as = `/bases-locales/editeur/${model._id}`
 
-    if (commune) {
-      href += `&codeCommune=${commune.code}`
+    if (codeCommune) {
+      href += `&codeCommune=${codeCommune}`
       as += `/commune/${codeCommune}`
     }
 
-    if (voie) {
-      href += `&codeVoie=${voie.codeVoie}`
-      as += `/voie/${voie.codeVoie}`
+    if (codeVoie) {
+      href += `&codeVoie=${codeVoie}`
+      as += `/voie/${codeVoie}`
     }
 
-    if (numero) {
-      href += `&idNumero=${numero.numeroComplet}`
-      as += `/numero/${numero.numeroComplet}`
+    if (numeroComplet) {
+      href += `&idNumero=${numeroComplet}`
+      as += `/numero/${numeroComplet}`
     }
 
-    Router.push(href, as)
-
+    Router.push(href, as, {shallow: true})
     this.scrollTop()
+
+    updateModel(codeCommune, codeVoie, numeroComplet)
   }
 
   scrollTop = () => {
     window.scrollTo(0, 200)
   }
 
+  refreshModel() {
+    const {codeCommune, codeVoie, idNumero, updateModel} = this.props
+    updateModel(codeCommune, codeVoie, idNumero)
+  }
+
   render() {
     const {downloadLink, loading, error} = this.state
-    const {commune, voie, numero, model} = this.props
+    const {model} = this.props
     const modelActions = {
       select: this.select,
       addItem: this.addItem,
@@ -280,10 +250,7 @@ class Editor extends React.Component {
         {model ? (
           <Section>
             <EditBal
-              communes={model.communes}
-              commune={commune}
-              voie={voie}
-              numero={numero}
+              {...this.props}
               actions={modelActions}
               downloadLink={downloadLink}
               filename='filename'

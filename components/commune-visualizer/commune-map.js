@@ -102,25 +102,20 @@ class CommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {map, voies, voie, numero, isLoading} = this.props
-    let updater
+    const {map, voies, numeros, voie, numero, isLoading} = this.props
+    const sourceToUpdate = []
 
-    if (numero !== prevProps.numero) {
-      updater = () => {
-        const data = numero ? numeroPositionsToGeoJson(numero) : null
-        secureUpdateData(map, 'positions', data)
-      }
-    } else if (voie !== prevProps.voie) {
-      updater = () => { }
-    } else if (!isEqual(voies, prevProps.voies)) {
-      updater = () => {
-        const voiesSource = map.getSource('voies')
-        this.fitBounds()
-        voiesSource.setData({
-          type: 'geojson',
-          data: voies
-        })
-      }
+    if (!isEqual(numero, prevProps.numero)) {
+      const positions = numero && !numero.deleted ? numeroPositionsToGeoJson(numero) : null
+      sourceToUpdate.push({id: 'positions', data: positions})
+    }
+
+    if (!isEqual(voies, prevProps.voies) || !isEqual(voie, prevProps.voie)) {
+      sourceToUpdate.push({id: 'voies', data: voies})
+    }
+
+    if (!isEqual(numeros, prevProps.numeros)) {
+      sourceToUpdate.push({id: 'numeros', data: numeros})
     }
 
     this.setMode()
@@ -128,8 +123,11 @@ class CommuneMap extends React.Component {
     const waiting = () => {
       if (map.isStyleLoaded() && map.areTilesLoaded()) {
         isLoading(false)
-        if (updater) {
-          updater()
+        if (sourceToUpdate.length > 0) {
+          sourceToUpdate.forEach(source => {
+            const {id, data} = source
+            secureUpdateData(map, id, data)
+          })
           this.onLoad()
         }
       } else {
@@ -236,13 +234,14 @@ class CommuneMap extends React.Component {
     secureAddSource(map, 'positions', null)
 
     // Layers
+    secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, numerosLayer)
     secureAddLayer(map, selectedNumerosLayer)
-    secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, voiesLayer)
     secureAddLayer(map, positionsSymbolLayer)
 
     this.resetLayers()
+    this.fitBounds()
 
     if (this.mode === 'numero') {
       this.numeroMode()
@@ -276,6 +275,7 @@ class CommuneMap extends React.Component {
     map.setFilter('numeros-point', NUMEROS_FILTERS)
 
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'none')
+    map.setLayoutProperty(positionsSymbolLayer.id, 'visibility', 'none')
     map.setLayoutProperty(voiesLayer.id, 'visibility', 'visible')
   }
 
@@ -289,7 +289,6 @@ class CommuneMap extends React.Component {
       map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
       map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
 
-      this.fitBounds()
       this.fitZoom = map.getZoom()
     }
   }
@@ -298,6 +297,7 @@ class CommuneMap extends React.Component {
     const {map, voie, numero} = this.props
 
     map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
+    map.setLayoutProperty(positionsSymbolLayer.id, 'visibility', 'visible')
 
     map.setFilter('numeros', ['!=', ['get', 'id'], numero.id])
     map.setFilter('numeros-point', ['!=', ['get', 'id'], numero.id])

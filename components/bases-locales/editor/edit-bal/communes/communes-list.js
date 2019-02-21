@@ -15,7 +15,7 @@ class CommunesList extends React.Component {
   }
 
   static propTypes = {
-    communes: PropTypes.object.isRequired,
+    communes: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
   }
 
@@ -69,10 +69,10 @@ class CommunesList extends React.Component {
         </CreateItemWrapper>
 
         <div className='list'>
-          {Object.keys(communes).map(commune => (
+          {communes.map(commune => (
             <CommuneItem
-              key={communes[commune].code}
-              commune={communes[commune]}
+              key={commune.code}
+              commune={commune}
               actions={actions}
             />
           ))}
