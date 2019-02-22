@@ -33,7 +33,7 @@ class Context extends React.Component {
     const type = getType(context)
 
     if (type === 'commune') {
-      return 'Commune'
+      return 'Communes'
     }
 
     if (type === 'voie') {

@@ -51,7 +51,7 @@ class CommunesList extends React.Component {
     return (
       <div className='communes-list'>
         <div className='title'>
-          <h3>Liste des voies</h3>
+          <h3>Liste des communes</h3>
         </div>
 
         <div className='divider' />
