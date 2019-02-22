@@ -195,7 +195,7 @@ class CommuneMap extends React.Component {
 
   fitBounds = () => {
     const {map, contourCommune, voies, voie, numeros} = this.props
-    let bboxFeatures = contourCommune // Commune contour bounds OR France bounds if undefined
+    let bboxFeatures = numeros && numeros.features ? numeros.features : contourCommune // Commune contour bounds OR France bounds if undefined
 
     if (voie) {
       if (voie.position) { // Toponyme bounds
@@ -253,8 +253,6 @@ class CommuneMap extends React.Component {
       this.numeroMode()
     } else if (this.mode === 'voie') {
       this.voieMode()
-      this.fitBounds()
-    } else {
       this.fitBounds()
     }
   }
