@@ -197,10 +197,10 @@ class CommuneMap extends React.Component {
     const {map, contourCommune, voies, voie, numeros} = this.props
     let bboxFeatures = contourCommune // Commune contour bounds OR France bounds if undefined
 
-    if (voie && hasFeatures(numeros)) {
+    if (voie) {
       if (voie.position) { // Toponyme bounds
         bboxFeatures = toponymeToGeoJson(voie).features
-      } else {
+      } else if (numeros && hasFeatures(numeros)) {
         const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
         const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
 
@@ -208,7 +208,7 @@ class CommuneMap extends React.Component {
           bboxFeatures = numerosVoie // Voie bounds
         }
       }
-    } else if (voies && hasFeatures(voies) && voies.features.filter(voie => voie.properties.positions)) {
+    } else if (voies && hasFeatures(voies) && voies.features.filter(voie => voie.properties.positions).length > 0) {
       bboxFeatures = voies.features // Commune bounds
     }
 
