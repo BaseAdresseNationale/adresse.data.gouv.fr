@@ -159,26 +159,30 @@ class Editor extends React.Component {
     if (scrollTop) {
       this.scrollTop()
     }
-
-    this.refreshModel()
   }
 
   deleteCommune = async commune => {
     const {model} = this.props
     await model.deleteCommune(commune.code)
+
+    this.refreshModel()
   }
 
   deleteVoie = async voie => {
-    const {model, codeCommune} = this.props
+    const {model, codeCommune, updateModel} = this.props
     await model.deleteVoie(codeCommune, voie.codeVoie)
+
+    updateModel(codeCommune)
   }
 
   deleteNumero = async numero => {
-    const {model, codeCommune, codeVoie} = this.props
+    const {model, codeCommune, codeVoie, updateModel} = this.props
     const cCommune = numero.codeCommune || codeCommune
     const cVoie = numero.codeVoie || codeVoie
 
     await model.deleteNumero(cCommune, cVoie, numero.numeroComplet)
+
+    updateModel(cCommune, cVoie, numero.id)
   }
 
   cancelChange = async item => {
