@@ -25,7 +25,11 @@ class CreateVoieMenu extends React.Component {
 
   static propTypes = {
     voies: PropTypes.array,
-    voie: PropTypes.object,
+    voie: PropTypes.shape({
+      idVoie: PropTypes.string.isRequired,
+      codeVoie: PropTypes.string.isRequired,
+      nomVoie: PropTypes.string.isRequired
+    }),
     coordinates: PropTypes.array.isRequired,
     actions: PropTypes.shape({
       addItem: PropTypes.func.isRequired
