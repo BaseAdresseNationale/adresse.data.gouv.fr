@@ -1,18 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
 
 import Mapbox from '../mapbox'
 
-import {contoursToGeoJson, hasFeatures} from '../../lib/geojson'
+import {contoursToGeoJson, hasFeatures, toponymeToGeoJson} from '../../lib/geojson'
 
 import CommuneMap from './commune-map'
 
-class CommuneVisualizer extends React.Component {
+class CommuneVisualizer extends React.PureComponent {
   state = {
+    bbox: null,
     loading: false
   }
 
+  componentDidMount() {
+    this.fitBounds()
+  }
+
+  componentDidUpdate(prevProps) {
+    const {context} = this.props
+
+    if (context !== prevProps.context) {
+      this.fitBounds()
+    }
+  }
+
   static propTypes = {
+    context: PropTypes.object.isRequired,
     commune: PropTypes.shape({
       code: PropTypes.string.isRequired
     }).isRequired,
@@ -30,6 +45,37 @@ class CommuneVisualizer extends React.Component {
     numeros: null,
     voie: null,
     numero: null
+  }
+
+  fitBounds = () => {
+    const {commune, voies, voie, numeros} = this.props
+    const contourCommune = contoursToGeoJson([commune])
+    const contourFeatures = hasFeatures(contourCommune) ? contourCommune.features : null
+    let bboxFeatures = numeros && numeros.features ? numeros.features : contourFeatures // Commune contour bounds OR France bounds if undefined
+
+    if (voie) {
+      if (voie.position) { // Toponyme bounds
+        bboxFeatures = toponymeToGeoJson(voie).features
+      } else if (numeros && hasFeatures(numeros)) {
+        const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
+        const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
+
+        if (numerosVoieWithPos.length > 0) {
+          bboxFeatures = numerosVoie // Voie bounds
+        }
+      }
+    } else if (voies && hasFeatures(voies) && voies.features.filter(voie => voie.properties.positions).length > 0) {
+      bboxFeatures = voies.features // Commune bounds
+    }
+
+    const bbox = bboxFeatures ?
+      computeBbox({
+        type: 'FeatureCollection',
+        features: bboxFeatures
+      }) :
+      null
+
+    this.setState({bbox})
   }
 
   selectVoie = voie => {
@@ -57,9 +103,8 @@ class CommuneVisualizer extends React.Component {
   }
 
   render() {
-    const {loading} = this.state
-    const {commune, voies, numeros, voie, numero, actions} = this.props
-    const contourCommune = contoursToGeoJson([commune])
+    const {bbox, loading} = this.state
+    const {voies, numeros, voie, numero, actions} = this.props
 
     return (
       <div style={{position: 'relative'}}>
@@ -67,12 +112,11 @@ class CommuneVisualizer extends React.Component {
           <div className='loading' onWheel={this.handleWheel}>Chargement…</div>
         )}
 
-        <Mapbox switchStyle>
+        <Mapbox bbox={bbox} switchStyle>
           {(map, marker, popup) => (
             <CommuneMap
               map={map}
               popup={popup}
-              contourCommune={hasFeatures(contourCommune) ? contourCommune.features : null}
               voies={voies}
               numeros={numeros}
               voie={voie}

@@ -38,6 +38,7 @@ class Map extends React.PureComponent {
 
   static propTypes = {
     switchStyle: PropTypes.bool,
+    bbox: PropTypes.array,
     height: PropTypes.string,
     ortho: PropTypes.bool,
     fullscreen: PropTypes.bool,
@@ -45,6 +46,7 @@ class Map extends React.PureComponent {
   }
 
   static defaultProps = {
+    bbox: null,
     height: '600',
     ortho: false,
     fullscreen: false,
@@ -53,6 +55,7 @@ class Map extends React.PureComponent {
 
   componentDidMount() {
     const {currentStyle} = this.state
+    const {bbox} = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -67,6 +70,28 @@ class Map extends React.PureComponent {
     this.marker.setPopup(new mapboxgl.Popup())
 
     this.setState({shouldRender: true})
+
+    if (bbox) {
+      this.fitBounds()
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {bbox} = this.props
+
+    if (bbox && bbox !== prevProps.bbox) {
+      this.fitBounds()
+    }
+  }
+
+  fitBounds = () => {
+    const {bbox} = this.props
+
+    this.map.fitBounds(bbox, {
+      padding: 30,
+      linear: true,
+      duration: 0
+    })
   }
 
   switchLayer = () => {

@@ -73,6 +73,7 @@ class Context extends React.Component {
         />
 
         <CommuneVisualizer
+          context={context}
           commune={commune}
           voies={voies}
           numeros={addresses}

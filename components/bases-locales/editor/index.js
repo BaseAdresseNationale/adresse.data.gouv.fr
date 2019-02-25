@@ -182,7 +182,7 @@ class Editor extends React.Component {
 
     await model.deleteNumero(cCommune, cVoie, numero.numeroComplet)
 
-    updateModel(cCommune, cVoie, numero.id)
+    updateModel(codeCommune, codeVoie)
   }
 
   cancelChange = async item => {

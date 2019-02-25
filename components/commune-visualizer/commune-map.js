@@ -38,7 +38,6 @@ class CommuneMap extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
     popup: PropTypes.object.isRequired,
-    contourCommune: PropTypes.array,
     voies: PropTypes.shape({
       features: PropTypes.array.isRequired
     }),
@@ -54,7 +53,6 @@ class CommuneMap extends React.Component {
   }
 
   static defaultProps = {
-    contourCommune: null,
     voies: null,
     numeros: null,
     voie: null,
@@ -72,8 +70,6 @@ class CommuneMap extends React.Component {
     map.on('zoomend', this.zoomEnd)
     map.on('dataloading', this.onLoading)
     map.on('contextmenu', this.contextMenu)
-
-    this.fitBounds()
 
     // Voies
     map.on('click', 'voies', this.onVoieClick)
@@ -193,40 +189,6 @@ class CommuneMap extends React.Component {
     }
   }
 
-  fitBounds = () => {
-    const {map, contourCommune, voies, voie, numeros} = this.props
-    let bboxFeatures = numeros && numeros.features ? numeros.features : contourCommune // Commune contour bounds OR France bounds if undefined
-
-    if (voie) {
-      if (voie.position) { // Toponyme bounds
-        bboxFeatures = toponymeToGeoJson(voie).features
-      } else if (numeros && hasFeatures(numeros)) {
-        const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
-        const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
-
-        if (numerosVoieWithPos.length > 0) {
-          bboxFeatures = numerosVoie // Voie bounds
-        }
-      }
-    } else if (voies && hasFeatures(voies) && voies.features.filter(voie => voie.properties.positions).length > 0) {
-      bboxFeatures = voies.features // Commune bounds
-    }
-
-    if (bboxFeatures) {
-      const bbox = computeBbox({
-        type: 'FeatureCollection',
-        features: bboxFeatures
-      })
-
-      map.fitBounds(bbox, {
-        padding: 30,
-        linear: true,
-        maxZoom: 16,
-        duration: 0
-      })
-    }
-  }
-
   onLoading = () => {
     const {isLoading} = this.props
     isLoading(true)
@@ -253,7 +215,6 @@ class CommuneMap extends React.Component {
       this.numeroMode()
     } else if (this.mode === 'voie') {
       this.voieMode()
-      this.fitBounds()
     }
   }
 
