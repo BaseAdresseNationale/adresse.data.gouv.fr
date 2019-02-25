@@ -1,11 +1,10 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
-import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
 import {getNumeroPositions, getNumeroPosition} from '../../lib/bal/item'
-import {numeroPositionsToGeoJson, toponymeToGeoJson, hasFeatures} from '../../lib/geojson'
+import {numeroPositionsToGeoJson} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
@@ -62,39 +61,36 @@ class CommuneMap extends React.Component {
   componentDidMount() {
     const {map} = this.props
 
-    this.fitZoom = null
-
     // Map
     map.once('load', this.onLoad)
     map.on('click', this.mapClick)
-    map.on('zoomend', this.zoomEnd)
     map.on('dataloading', this.onLoading)
     map.on('contextmenu', this.contextMenu)
 
     // Voies
-    map.on('click', 'voies', this.onVoieClick)
-    map.on('mouseenter', 'voies', this.mouseEnter)
-    map.on('mouseleave', 'voies', this.mouseLeave)
-    map.on('contextmenu', 'voies', this.editVoie)
+    map.on('click', voiesLayer.id, this.onVoieClick)
+    map.on('mouseenter', voiesLayer.id, this.mouseEnter)
+    map.on('mouseleave', voiesLayer.id, this.mouseLeave)
+    map.on('contextmenu', voiesLayer.id, this.editVoie)
 
     // Numéro
-    map.on('click', 'selected-numeros', this.onNumeroClick)
-    map.on('click', 'numeros', this.onNumeroClick)
-    map.on('contextmenu', 'numeros', this.deletedNumero)
-    map.on('contextmenu', 'selected-numeros', this.deletedNumero)
-    map.on('mouseenter', 'selected-numeros', this.mouseEnterNumero)
-    map.on('mouseenter', 'numeros', this.mouseEnterNumero)
-    map.on('mouseleave', 'selected-numeros', this.mouseLeaveNumero)
-    map.on('mouseleave', 'numeros', this.mouseLeaveNumero)
-    map.on('touchstart', 'numeros', this.touchStart)
-    map.on('touchstart', 'selected-numeros', this.touchStart)
-    map.on('mousedown', 'numeros', this.mouseDown)
-    map.on('mousedown', 'selected-numeros', this.mouseDown)
+    map.on('click', selectedNumerosLayer.id, this.onNumeroClick)
+    map.on('click', numerosLayer.id, this.onNumeroClick)
+    map.on('contextmenu', numerosLayer.id, this.deletedNumero)
+    map.on('contextmenu', selectedNumerosLayer.id, this.deletedNumero)
+    map.on('mouseenter', selectedNumerosLayer.id, this.mouseEnterNumero)
+    map.on('mouseenter', numerosLayer.id, this.mouseEnterNumero)
+    map.on('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
+    map.on('mouseleave', numerosLayer.id, this.mouseLeaveNumero)
+    map.on('touchstart', numerosLayer.id, this.touchStart)
+    map.on('touchstart', selectedNumerosLayer.id, this.touchStart)
+    map.on('mousedown', numerosLayer.id, this.mouseDown)
+    map.on('mousedown', selectedNumerosLayer.id, this.mouseDown)
 
     // Positions
-    map.on('mouseenter', 'positions-symbol', this.mouseEnter)
-    map.on('mouseleave', 'positions-symbol', this.mouseLeave)
-    map.on('contextmenu', 'positions-symbol', this.deletedPosition)
+    map.on('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
+    map.on('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
+    map.on('contextmenu', positionsSymbolLayer.id, this.deletedPosition)
   }
 
   componentDidUpdate(prevProps) {
@@ -147,34 +143,32 @@ class CommuneMap extends React.Component {
     // Map
     map.off('load', this.onLoad)
     map.off('click', this.mapClick)
-    map.off('zoomend', this.zoomEnd)
     map.off('dataloading', this.onLoading)
     map.off('contextmenu', this.contextMenu)
 
     // Voies
-    map.off('click', 'voies', this.onVoieClick)
-    map.off('mouseenter', 'voies', this.mouseEnter)
-    map.off('mouseleave', 'voies', this.mouseLeave)
-    map.off('contextmenu', 'voies', this.editVoie)
+    map.off('click', voiesLayer.id, this.onVoieClick)
+    map.off('mouseenter', voiesLayer.id, this.mouseEnter)
+    map.off('mouseleave', voiesLayer.id, this.mouseLeave)
+    map.off('contextmenu', voiesLayer.id, this.editVoie)
 
     // Numéro
-    map.off('click', 'numeros', this.onNumeroClick)
-    map.off('click', 'numero-type', this.unselectNumero)
-    map.off('contextmenu', 'numeros', this.deletedNumero)
-    map.off('contextmenu', 'selected-numeros', this.deletedNumero)
-    map.off('mouseenter', 'selected-numeros', this.mouseEnterNumero)
-    map.off('mouseenter', 'numeros', this.mouseEnterNumero)
-    map.off('mouseleave', 'selected-numeros', this.mouseLeaveNumero)
-    map.off('mouseleave', 'numeros', this.mouseLeaveNumero)
-    map.off('touchstart', 'numeros', this.touchStart)
-    map.off('touchstart', 'selected-numeros', this.touchStart)
-    map.off('mousedown', 'numeros', this.mouseDown)
-    map.off('mousedown', 'selected-numeros', this.mouseDown)
+    map.off('click', numerosLayer.id, this.onNumeroClick)
+    map.off('contextmenu', numerosLayer.id, this.deletedNumero)
+    map.off('contextmenu', selectedNumerosLayer.id, this.deletedNumero)
+    map.off('mouseenter', selectedNumerosLayer.id, this.mouseEnterNumero)
+    map.off('mouseenter', numerosLayer.id, this.mouseEnterNumero)
+    map.off('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
+    map.off('mouseleave', numerosLayer.id, this.mouseLeaveNumero)
+    map.off('touchstart', numerosLayer.id, this.touchStart)
+    map.off('touchstart', selectedNumerosLayer.id, this.touchStart)
+    map.off('mousedown', numerosLayer.id, this.mouseDown)
+    map.off('mousedown', selectedNumerosLayer.id, this.mouseDown)
 
     // Position
-    map.off('mouseenter', 'positions-symbols', this.mouseEnter)
-    map.off('mouseleave', 'positions-symbol', this.mouseLeave)
-    map.off('contextmenu', 'positions-symbol', this.deletedPosition)
+    map.off('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
+    map.off('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
+    map.off('contextmenu', positionsSymbolLayer.id, this.deletedPosition)
   }
 
   setMode() {
@@ -256,8 +250,6 @@ class CommuneMap extends React.Component {
       map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
       map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
       map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
-
-      this.fitZoom = map.getZoom()
     }
   }
 
@@ -276,18 +268,6 @@ class CommuneMap extends React.Component {
       DELETED_FILTER,
       VDELETED_FILTER
     ])
-
-    this.fitZoom = map.getZoom()
-  }
-
-  zoomEnd = () => {
-    const {map, voie, selectVoie} = this.props
-    const currentZoom = map.getZoom()
-
-    if (currentZoom < this.fitZoom - 0.5) {
-      selectVoie(this.mode === 'numero' ? voie : null)
-      this.fitZoom = null
-    }
   }
 
   onVoieClick = event => {
@@ -333,11 +313,6 @@ class CommuneMap extends React.Component {
 
     map.getCanvas().style.cursor = ''
     popup.remove()
-  }
-
-  unselectNumero = () => {
-    const {selectNumero} = this.props
-    selectNumero(null)
   }
 
   contextMenu = event => {
@@ -437,9 +412,9 @@ class CommuneMap extends React.Component {
     this.draggedNumero = null
 
     map.off('mousemove', this.onMove)
-    map.off('mousemove', 'selected-numeros', this.onMove)
-    map.off('touchmove', 'numeros', this.onMove)
-    map.off('touchmove', 'selected-numeros', this.onMove)
+    map.off('mousemove', selectedNumerosLayer.id, this.onMove)
+    map.off('touchmove', numerosLayer.id, this.onMove)
+    map.off('touchmove', selectedNumerosLayer.id, this.onMove)
   }
 
   mouseDown = event => {
@@ -465,10 +440,10 @@ class CommuneMap extends React.Component {
 
     event.preventDefault()
 
-    map.on('touchmove', 'numeros', this.onMove)
+    map.on('touchmove', numerosLayer.id, this.onMove)
     map.once('touchend', this.onUp)
 
-    map.on('touchmove', 'selected-numeros', this.onMove)
+    map.on('touchmove', selectedNumerosLayer.id, this.onMove)
     map.once('touchend', this.onUp)
   }
 

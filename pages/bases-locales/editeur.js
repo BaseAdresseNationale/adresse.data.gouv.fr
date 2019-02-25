@@ -96,6 +96,28 @@ class EditorPage extends React.Component {
   }
 
   updateModel = (codeCommune, codeVoie, idNumero) => {
+    const {model} = this.props
+
+    let href = `/bases-locales/editeur?id=${model._id}`
+    let as = `/bases-locales/editeur/${model._id}`
+
+    if (codeCommune) {
+      href += `&codeCommune=${codeCommune}`
+      as += `/commune/${codeCommune}`
+    }
+
+    if (codeVoie) {
+      href += `&codeVoie=${codeVoie}`
+      as += `/voie/${codeVoie}`
+    }
+
+    if (idNumero) {
+      href += `&idNumero=${idNumero}`
+      as += `/numero/${idNumero}`
+    }
+
+    Router.push(href, as, {shallow: true})
+
     this.setState({
       codeCommune,
       codeVoie,

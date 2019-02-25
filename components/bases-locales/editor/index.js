@@ -201,27 +201,8 @@ class Editor extends React.Component {
   }
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
-    const {model, updateModel} = this.props
+    const {updateModel} = this.props
 
-    let href = `/bases-locales/editeur?id=${model._id}`
-    let as = `/bases-locales/editeur/${model._id}`
-
-    if (codeCommune) {
-      href += `&codeCommune=${codeCommune}`
-      as += `/commune/${codeCommune}`
-    }
-
-    if (codeVoie) {
-      href += `&codeVoie=${codeVoie}`
-      as += `/voie/${codeVoie}`
-    }
-
-    if (numeroComplet) {
-      href += `&idNumero=${numeroComplet}`
-      as += `/numero/${numeroComplet}`
-    }
-
-    Router.push(href, as, {shallow: true})
     this.scrollTop()
 
     updateModel(codeCommune, codeVoie, numeroComplet)
