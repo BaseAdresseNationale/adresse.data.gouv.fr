@@ -17,6 +17,7 @@ class EditionMenu extends React.Component {
     actions: PropTypes.shape({
       deleteItem: PropTypes.func.isRequired
     }).isRequired,
+    selectItem: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired
   }
 
@@ -43,11 +44,17 @@ class EditionMenu extends React.Component {
     close()
   }
 
+  selectItem = () => {
+    const {selectItem, close} = this.props
+    selectItem()
+    close()
+  }
+
   render() {
     const {type, item, close, actions} = this.props
 
     return (
-      <div>
+      <div className='edition-menu'>
         {type === 'voie' ? (
           <VoieMenu
             voie={item}
@@ -62,6 +69,18 @@ class EditionMenu extends React.Component {
           Supprimer
           </Button>
         )}
+
+        {type !== 'position' && (
+          <Button onClick={this.selectItem}>Consulter</Button>
+        )}
+
+        <style jsx>{`
+          .edition-menu {
+            display: grid;
+            grid-template-columns: minmax(200px, 250px);
+            grid-row-gap: 1em;
+          }
+          `}</style>
       </div>
     )
   }

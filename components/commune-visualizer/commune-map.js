@@ -65,19 +65,15 @@ class CommuneMap extends React.Component {
     map.once('load', this.onLoad)
     map.on('click', this.mapClick)
     map.on('dataloading', this.onLoading)
-    map.on('contextmenu', this.contextMenu)
 
     // Voies
-    map.on('click', voiesLayer.id, this.onVoieClick)
+    map.on('click', voiesLayer.id, this.voieClick)
     map.on('mouseenter', voiesLayer.id, this.mouseEnter)
     map.on('mouseleave', voiesLayer.id, this.mouseLeave)
-    map.on('contextmenu', voiesLayer.id, this.editVoie)
 
     // Numéro
-    map.on('click', selectedNumerosLayer.id, this.onNumeroClick)
-    map.on('click', numerosLayer.id, this.onNumeroClick)
-    map.on('contextmenu', numerosLayer.id, this.deletedNumero)
-    map.on('contextmenu', selectedNumerosLayer.id, this.deletedNumero)
+    map.on('click', numerosLayer.id, this.numeroClick)
+    map.on('click', selectedNumerosLayer.id, this.numeroClick)
     map.on('mouseenter', selectedNumerosLayer.id, this.mouseEnterNumero)
     map.on('mouseenter', numerosLayer.id, this.mouseEnterNumero)
     map.on('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
@@ -88,9 +84,9 @@ class CommuneMap extends React.Component {
     map.on('mousedown', selectedNumerosLayer.id, this.mouseDown)
 
     // Positions
+    map.on('click', positionsSymbolLayer.id, this.clickPosition)
     map.on('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
     map.on('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
-    map.on('contextmenu', positionsSymbolLayer.id, this.deletedPosition)
   }
 
   componentDidUpdate(prevProps) {
@@ -144,18 +140,15 @@ class CommuneMap extends React.Component {
     map.off('load', this.onLoad)
     map.off('click', this.mapClick)
     map.off('dataloading', this.onLoading)
-    map.off('contextmenu', this.contextMenu)
 
     // Voies
-    map.off('click', voiesLayer.id, this.onVoieClick)
+    map.off('click', voiesLayer.id, this.voieClick)
     map.off('mouseenter', voiesLayer.id, this.mouseEnter)
     map.off('mouseleave', voiesLayer.id, this.mouseLeave)
-    map.off('contextmenu', voiesLayer.id, this.editVoie)
 
     // Numéro
-    map.off('click', numerosLayer.id, this.onNumeroClick)
-    map.off('contextmenu', numerosLayer.id, this.deletedNumero)
-    map.off('contextmenu', selectedNumerosLayer.id, this.deletedNumero)
+    map.off('click', numerosLayer.id, this.numeroClick)
+    map.off('click', selectedNumerosLayer.id, this.numeroClick)
     map.off('mouseenter', selectedNumerosLayer.id, this.mouseEnterNumero)
     map.off('mouseenter', numerosLayer.id, this.mouseEnterNumero)
     map.off('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
@@ -166,9 +159,9 @@ class CommuneMap extends React.Component {
     map.off('mousedown', selectedNumerosLayer.id, this.mouseDown)
 
     // Position
+    map.off('click', positionsSymbolLayer.id, this.clickPosition)
     map.off('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
     map.off('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
-    map.off('contextmenu', positionsSymbolLayer.id, this.deletedPosition)
   }
 
   setMode() {
@@ -270,20 +263,6 @@ class CommuneMap extends React.Component {
     ])
   }
 
-  onVoieClick = event => {
-    const {selectVoie} = this.props
-    const voie = event.features[0]
-
-    selectVoie(voie.properties)
-  }
-
-  onNumeroClick = event => {
-    const {selectNumero} = this.props
-    const numero = event.features[0]
-
-    selectNumero(numero.properties.id)
-  }
-
   mouseEnter = () => {
     const {map} = this.props
     map.getCanvas().style.cursor = 'pointer'
@@ -315,54 +294,58 @@ class CommuneMap extends React.Component {
     popup.remove()
   }
 
-  contextMenu = event => {
-    const {layerX, layerY} = event.originalEvent
-    const {lng, lat} = event.lngLat
+  mapClick = event => {
+    const {context} = this.state
 
-    this.setState({
-      context: {
-        item: null,
-        coordinates: [lng, lat],
-        layer: {layerX, layerY}
-      }
-    })
+    if (context) {
+      this.closeContextMenu()
+    } else {
+      const {layerX, layerY} = event.originalEvent
+      const {lng, lat} = event.lngLat
+
+      this.setState({
+        context: {
+          item: null,
+          coordinates: [lng, lat],
+          layer: {layerX, layerY}
+        }
+      })
+    }
   }
 
-  mapClick = () => {
-    this.closeContextMenu()
-  }
-
-  editVoie = event => {
-    const {voies} = this.props
+  voieClick = event => {
+    const {voies, selectVoie} = this.props
     const {codeVoie} = event.features[0].properties
-    const voie = voies.features.find(v => v.properties.codeVoie === codeVoie)
+    const voie = voies.features.find(v => v.properties.codeVoie === codeVoie).properties
     const {layerX, layerY} = event.originalEvent
 
     this.setState({
       context: {
-        item: voie.properties,
+        item: voie,
         coordinates: null,
-        layer: {layerX, layerY}
+        layer: {layerX, layerY},
+        selectItem: () => selectVoie(voie)
       }
     })
   }
 
-  deletedNumero = event => {
-    const {numeros} = this.props
+  numeroClick = event => {
+    const {numeros, selectNumero} = this.props
     const {id} = event.features[0].properties
-    const numero = numeros.features.find(n => n.properties.id === id)
+    const numero = numeros.features.find(n => n.properties.id === id).properties
     const {layerX, layerY} = event.originalEvent
 
     this.setState({
       context: {
-        item: numero.properties,
+        item: numero,
         coordinates: null,
-        layer: {layerX, layerY}
+        layer: {layerX, layerY},
+        selectItem: () => selectNumero(numero)
       }
     })
   }
 
-  deletedPosition = event => {
+  clickPosition = event => {
     const {numero} = this.props
     const {_id} = event.features[0].properties
     const position = getNumeroPositions(numero).find(p => p._id === _id)
@@ -372,7 +355,8 @@ class CommuneMap extends React.Component {
       context: {
         item: position,
         coordinates: null,
-        layer: {layerX, layerY}
+        layer: {layerX, layerY},
+        selectItem: () => null
       }
     })
   }
@@ -460,6 +444,7 @@ class CommuneMap extends React.Component {
         coordinates={context.coordinates}
         layer={context.layer}
         actions={actions}
+        selectItem={context.selectItem}
         close={this.closeContextMenu}
       />
     ))

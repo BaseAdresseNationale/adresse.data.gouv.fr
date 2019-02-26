@@ -20,6 +20,7 @@ class ContextMenu extends React.Component {
       layerY: PropTypes.number.isRequired
     }).isRequired,
     actions: PropTypes.object.isRequired,
+    selectItem: PropTypes.func.isRequired,
     close: PropTypes.func.isRequired
   }
 
@@ -32,7 +33,7 @@ class ContextMenu extends React.Component {
   }
 
   render() {
-    const {item, voies, voie, numero, coordinates, layer, actions, close} = this.props
+    const {item, voies, voie, numero, coordinates, layer, actions, selectItem, close} = this.props
     const itemType = item ? getType(item) : null
 
     return (
@@ -43,6 +44,7 @@ class ContextMenu extends React.Component {
             item={item}
             numero={numero}
             actions={actions}
+            selectItem={selectItem}
             close={close}
           />
         ) : (

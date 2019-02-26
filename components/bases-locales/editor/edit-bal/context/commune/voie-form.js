@@ -67,6 +67,12 @@ class VoieForm extends React.Component {
 
           <div className='buttons'>
             <div className='button'>
+              <Button onClick={submit}>
+              Enregistrer
+              </Button>
+            </div>
+
+            <div className='button'>
               <Button
                 color='red'
                 onClick={deleteVoie}
@@ -82,12 +88,6 @@ class VoieForm extends React.Component {
                 </Button>
               </div>
             )}
-
-            <div className='button'>
-              <Button onClick={submit}>
-              Enregistrer
-              </Button>
-            </div>
           </div>
         </div>
 

@@ -88,10 +88,10 @@ class CommuneVisualizer extends React.PureComponent {
     }
   }
 
-  selectNumero = numeroId => {
+  selectNumero = numero => {
     const {numeros, actions} = this.props
-    const numero = numeros.features.find(n => n.properties.id === numeroId)
-    const {codeCommune, codeVoie, numeroComplet} = numero.properties
+    const num = numeros.features.find(n => n.properties.id === numero.id)
+    const {codeCommune, codeVoie, numeroComplet} = num.properties
 
     actions.select(codeCommune, codeVoie, numeroComplet)
   }
