@@ -14,7 +14,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs2": "^7.3.4",
     "@etalab/bal": "^0.14.3",
     "@etalab/project-legal": "^0.3.3",
     "@mapbox/mapbox-gl-draw": "^1.0.9",
@@ -33,15 +33,15 @@
     "lodash": "^4.17.11",
     "mapbox-gl": "^0.48.0",
     "marked": "^0.6.1",
-    "next": "^8.0.0",
+    "next": "^8.0.3",
     "next-runtime-dotenv": "^1.0.1",
     "papaparse": "^4.6.3",
     "prop-types": "^15.7.2",
-    "randomcolor": "^0.5.3",
-    "react": "^16.8.1",
+    "randomcolor": "^0.5.4",
+    "react": "^16.8.3",
     "react-autocomplete": "^1.7.2",
     "react-chartjs-2": "^2.7.4",
-    "react-dom": "^16.8.1",
+    "react-dom": "^16.8.3",
     "react-dropzone": "^8.1.0",
     "react-icons": "^2.2.7",
     "underscore.string": "^3.3.5"
@@ -50,7 +50,7 @@
     "@turf/meta": "^6.x"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.3",
+    "@babel/core": "^7.3.4",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
     "babel-plugin-inline-import": "^3.0.0",
