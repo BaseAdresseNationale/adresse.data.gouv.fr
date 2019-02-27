@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import {isEqual} from 'lodash'
 
 import {getNumeroPositions, getNumeroPosition} from '../../lib/bal/item'
-import {numeroPositionsToGeoJson} from '../../lib/geojson'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
@@ -46,6 +45,7 @@ class CommuneMap extends React.Component {
     }),
     voie: PropTypes.object,
     numero: PropTypes.object,
+    positions: PropTypes.object,
     selectVoie: PropTypes.func.isRequired,
     selectNumero: PropTypes.func.isRequired,
     isLoading: PropTypes.func.isRequired,
@@ -56,7 +56,8 @@ class CommuneMap extends React.Component {
     voies: null,
     numeros: null,
     voie: null,
-    numero: null
+    numero: null,
+    positions: null
   }
 
   componentDidMount() {
@@ -90,10 +91,10 @@ class CommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {map, voies, numeros, voie, numero, isLoading} = this.props
+    const {map, voies, numeros, voie, numero, positions, isLoading} = this.props
     const sourceToUpdate = []
+
     const updapteNumPos = () => {
-      const positions = numero && !numero.deleted ? numeroPositionsToGeoJson(numero) : null
       sourceToUpdate.push({id: 'positions', data: positions})
     }
 
@@ -181,12 +182,12 @@ class CommuneMap extends React.Component {
   }
 
   onLoad = () => {
-    const {map, voies, numeros} = this.props
+    const {map, voies, numeros, positions} = this.props
 
     // Sources
     secureAddSource(map, 'voies', voies)
     secureAddSource(map, 'numeros', numeros)
-    secureAddSource(map, 'positions', null)
+    secureAddSource(map, 'positions', positions)
 
     // Layers
     secureAddLayer(map, numerosPointLayer)
@@ -366,7 +367,7 @@ class CommuneMap extends React.Component {
 
   onMove = event => {
     const {draggedPosition} = this.state
-    const {map, numero, numeros} = this.props
+    const {map, numeros, positions} = this.props
     const {feature} = draggedPosition
     const coords = event.lngLat
 
@@ -374,8 +375,7 @@ class CommuneMap extends React.Component {
 
     feature.geometry.coordinates = [coords.lng, coords.lat]
 
-    if (numero) {
-      const positions = map.getSource('positions')._data
+    if (positions) {
       map.getSource('positions').setData(positions)
     } else {
       map.getSource('numeros').setData(numeros)
@@ -385,7 +385,7 @@ class CommuneMap extends React.Component {
   onUp = async () => {
     const {draggedPosition} = this.state
     const {map, actions} = this.props
-    const {position, feature, numero} = draggedPosition
+    const {position, numero, feature} = draggedPosition
     const {coordinates} = feature.geometry
 
     map.getCanvas().style.cursor = ''
@@ -409,11 +409,11 @@ class CommuneMap extends React.Component {
   }
 
   mouseDown = event => {
-    const {map, numeros, numero, popup} = this.props
+    const {map, numeros, numero, positions, popup} = this.props
     const feature = event.features[0]
 
     if (numero) {
-      const positionFeature = map.getSource('positions')._data.features.find(p => p._id === feature._id)
+      const positionFeature = positions.features.find(p => p._id === feature._id)
       this.setState({
         draggedPosition: {
           feature: positionFeature,

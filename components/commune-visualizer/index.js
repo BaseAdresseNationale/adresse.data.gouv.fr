@@ -4,7 +4,7 @@ import computeBbox from '@turf/bbox'
 
 import Mapbox from '../mapbox'
 
-import {contoursToGeoJson, hasFeatures, toponymeToGeoJson} from '../../lib/geojson'
+import {contoursToGeoJson, hasFeatures, toponymeToGeoJson, numeroPositionsToGeoJson} from '../../lib/geojson'
 
 import CommuneMap from './commune-map'
 
@@ -105,6 +105,7 @@ class CommuneVisualizer extends React.PureComponent {
   render() {
     const {bbox, loading} = this.state
     const {voies, numeros, voie, numero, actions} = this.props
+    const positions = numero && !numero.deleted ? numeroPositionsToGeoJson(numero) : null
 
     return (
       <div style={{position: 'relative'}}>
@@ -121,6 +122,7 @@ class CommuneVisualizer extends React.PureComponent {
               numeros={numeros}
               voie={voie}
               numero={numero}
+              positions={positions}
               selectVoie={this.selectVoie}
               selectNumero={this.selectNumero}
               isLoading={this.isLoading}
