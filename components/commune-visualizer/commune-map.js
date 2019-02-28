@@ -1,31 +1,21 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
-import computeBbox from '@turf/bbox'
 import {isEqual} from 'lodash'
 
-import {positionsToGeoJson, toponymeToGeoJson} from '../../lib/geojson'
+import {getNumeroPositions, getNumeroPosition} from '../../lib/bal/item'
 
-import theme from '../../styles/theme'
+import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
+import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
+import {
+  numerosLayer,
+  positionsSymbolLayer,
+  selectedNumerosLayer,
+  numerosPointLayer,
+  voiesLayer
+} from '../mapbox/layers'
 
-const NUMEROS_POINT_MIN = 12
-const NUMEROS_MIN = 17
-
-const DELETED_FILTER = ['!=', ['get', 'status'], 'deleted']
-const VDELETED_FILTER = ['!=', ['get', 'voieStatus'], 'deleted']
-
-const NUMEROS_FILTERS = [
-  'all',
-  DELETED_FILTER,
-  VDELETED_FILTER
-]
-
-const SELECTED_NUMEROS_FILTERS = [
-  'all',
-  ['==', ['get', 'codeVoie'], null],
-  DELETED_FILTER,
-  VDELETED_FILTER
-]
+import ContextMenu from './context-menu'
 
 const popupAddress = ({properties}) => renderToString(
   <div>
@@ -38,166 +28,12 @@ const popupAddress = ({properties}) => renderToString(
   </div>
 )
 
-const secureAddLayer = (map, layer) => {
-  if (!map.getLayer(layer.id)) {
-    map.addLayer(layer)
-  }
-}
-
-const secureAddSource = (map, id, data) => {
-  if (!map.getSource(id)) {
-    map.addSource(id, {
-      type: 'geojson',
-      data
-    })
-  }
-}
-
-// LAYERS
-const numerosPointLayer = {
-  id: 'numeros-point',
-  type: 'circle',
-  source: 'numeros',
-  minzoom: NUMEROS_POINT_MIN,
-  maxzoom: NUMEROS_MIN,
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'circle-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'circle-radius': {
-      stops: [
-        [NUMEROS_POINT_MIN, 0.5],
-        [NUMEROS_MIN, 4]
-      ]
-    }
-  }
-}
-
-const numerosLayer = {
-  id: 'numeros',
-  type: 'symbol',
-  source: 'numeros',
-  minzoom: NUMEROS_MIN,
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'text-color': '#fff',
-    'text-halo-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'text-halo-width': 1
-  },
-  layout: {
-    'text-font': ['Roboto Regular'],
-    'text-field': '{numeroComplet}',
-    'text-ignore-placement': true
-  }
-}
-
-const selectedNumerosLayer = {
-  id: 'selected-numeros',
-  type: 'symbol',
-  source: 'numeros',
-  filter: SELECTED_NUMEROS_FILTERS,
-  paint: {
-    'text-color': '#fff',
-    'text-halo-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'text-halo-width': 2
-  },
-  layout: {
-    'text-font': ['Roboto Regular'],
-    'text-field': '{numeroComplet}',
-    'text-ignore-placement': true
-  }
-}
-
-const numeroLayer = {
-  id: 'numero',
-  type: 'circle',
-  minzoom: NUMEROS_MIN,
-  source: 'numero',
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'circle-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'circle-radius': 4
-  }
-}
-
-const numeroSourceLayer = {
-  id: 'numero-source',
-  type: 'symbol',
-  source: 'numero',
-  minzoom: NUMEROS_MIN,
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'text-color': theme.primary,
-    'text-halo-color': {
-      type: 'identity',
-      property: 'color'
-    },
-    'text-halo-width': 1
-  },
-  layout: {
-    'text-font': ['Roboto Regular'],
-    'text-field': '{source}',
-    'text-size': 10,
-    'text-offset': [0, 2]
-  }
-}
-
-const numeroTypeLayer = {
-  id: 'numero-type',
-  type: 'symbol',
-  source: 'numero',
-  minzoom: NUMEROS_MIN,
-  filter: NUMEROS_FILTERS,
-  paint: {
-    'text-color': theme.primary,
-    'text-halo-color': '#fff',
-    'text-halo-width': 1
-  },
-  layout: {
-    'text-font': ['Roboto Regular'],
-    'text-field': '{type}'
-  }
-}
-
-const voiesLayer = {
-  id: 'voies',
-  type: 'symbol',
-  source: 'voies',
-  maxzoom: NUMEROS_MIN,
-  filter: DELETED_FILTER,
-  paint: {
-    'text-halo-color': '#DDD',
-    'text-halo-width': 2
-  },
-  layout: {
-    'text-field': [
-      'format',
-      ['upcase', ['get', 'nomVoie']],
-      {'font-scale': 0.8},
-      '\n',
-      {},
-      ['downcase', ['get', 'numerosCount']],
-      {'font-scale': 0.6},
-      ' numéros',
-      {'font-scale': 0.6}
-    ],
-    'text-anchor': 'top',
-    'text-font': ['Roboto Regular']
-  }
-}
-
 class CommuneMap extends React.Component {
+  state = {
+    context: null,
+    draggedPosition: null
+  }
+
   static propTypes = {
     map: PropTypes.object.isRequired,
     popup: PropTypes.object.isRequired,
@@ -206,73 +42,90 @@ class CommuneMap extends React.Component {
     }),
     numeros: PropTypes.shape({
       features: PropTypes.array.isRequired
-    }).isRequired,
+    }),
     voie: PropTypes.object,
     numero: PropTypes.object,
+    positions: PropTypes.object,
     selectVoie: PropTypes.func.isRequired,
     selectNumero: PropTypes.func.isRequired,
-    isLoading: PropTypes.func.isRequired
+    isLoading: PropTypes.func.isRequired,
+    actions: PropTypes.object.isRequired
   }
 
   static defaultProps = {
     voies: null,
+    numeros: null,
     voie: null,
-    numero: null
+    numero: null,
+    positions: null
   }
 
   componentDidMount() {
     const {map} = this.props
 
-    this.voieFitZoom = null
-
     // Map
     map.once('load', this.onLoad)
-    map.on('zoomend', this.zoomEnd)
+    map.on('click', this.mapClick)
     map.on('dataloading', this.onLoading)
 
-    this.fitBounds()
+    // Voies
+    map.on('click', voiesLayer.id, this.voieClick)
+    map.on('mouseenter', voiesLayer.id, this.mouseEnter)
+    map.on('mouseleave', voiesLayer.id, this.mouseLeave)
 
     // Numéro
-    map.on('click', 'numeros', this.onNumeroClick)
-    map.on('click', 'selected-numeros', this.onNumeroClick)
-    map.on('mouseenter', 'selected-numeros', this.mouseEnterNumero)
-    map.on('mouseleave', 'selected-numeros', this.mouseLeaveNumero)
-    map.on('mouseenter', 'numeros', this.mouseEnterNumero)
-    map.on('mouseleave', 'numeros', this.mouseLeaveNumero)
-    map.on('click', 'numero-type', this.unselectNumero)
-    map.on('mouseenter', 'numero-type', this.mouseEnter)
-    map.on('mouseleave', 'numero-type', this.mouseLeave)
+    map.on('click', numerosLayer.id, this.numeroClick)
+    map.on('click', selectedNumerosLayer.id, this.numeroClick)
+    map.on('mouseenter', selectedNumerosLayer.id, this.mouseEnterNumero)
+    map.on('mouseenter', numerosLayer.id, this.mouseEnterNumero)
+    map.on('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
+    map.on('mouseleave', numerosLayer.id, this.mouseLeaveNumero)
+    map.on('mousedown', numerosLayer.id, this.mouseDown)
+    map.on('mousedown', selectedNumerosLayer.id, this.mouseDown)
 
-    // Voies
-    map.on('click', 'voies', this.onVoieClick)
-    map.on('mouseenter', 'voies', this.mouseEnter)
-    map.on('mouseleave', 'voies', this.mouseLeave)
+    // Positions
+    map.on('click', positionsSymbolLayer.id, this.clickPosition)
+    map.on('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
+    map.on('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
+    map.on('mousedown', positionsSymbolLayer.id, this.mouseDown)
   }
 
   componentDidUpdate(prevProps) {
-    const {map, voies, numero, isLoading} = this.props
+    const {map, voies, numeros, voie, numero, positions, isLoading} = this.props
+    const sourceToUpdate = []
+
+    const updapteNumPos = () => {
+      sourceToUpdate.push({id: 'positions', data: positions})
+    }
+
+    if (!isEqual(numero, prevProps.numero)) {
+      updapteNumPos()
+    }
+
+    if (!isEqual(voies, prevProps.voies) || !isEqual(voie, prevProps.voie)) {
+      sourceToUpdate.push({id: 'voies', data: voies})
+    }
+
+    if (!isEqual(numeros, prevProps.numeros)) {
+      sourceToUpdate.push({id: 'numeros', data: numeros})
+
+      if (numero) {
+        updapteNumPos()
+      }
+    }
+
+    this.setMode()
 
     const waiting = () => {
-      if (!isEqual(numero, prevProps.numero)) {
-        const numeroSource = map.getSource('numero')
-        numeroSource.setData({
-          type: 'geojson',
-          data: positionsToGeoJson(numero.properties.positions)
-        })
-      }
-
-      if (voies && !isEqual(voies, prevProps.voies)) {
-        const voiesSource = map.getSource('voies')
-        this.fitBounds()
-        voiesSource.setData({
-          type: 'geojson',
-          data: voies
-        })
-      }
-
       if (map.isStyleLoaded() && map.areTilesLoaded()) {
         isLoading(false)
-        this.onLoad()
+        if (sourceToUpdate.length > 0) {
+          sourceToUpdate.forEach(source => {
+            const {id, data} = source
+            secureUpdateData(map, id, data)
+          })
+          this.onLoad()
+        }
       } else {
         setTimeout(waiting, 200)
       }
@@ -286,56 +139,40 @@ class CommuneMap extends React.Component {
 
     // Map
     map.off('load', this.onLoad)
-    map.off('zoomend', this.zoomEnd)
+    map.off('click', this.mapClick)
     map.off('dataloading', this.onLoading)
 
-    // Numéro
-    map.off('click', 'numeros', this.onNumeroClick)
-    map.off('mouseenter', 'selected-numeros', this.mouseEnterNumero)
-    map.off('mouseleave', 'selected-numeros', this.mouseLeaveNumero)
-    map.off('mouseenter', 'numeros', this.mouseEnterNumero)
-    map.off('mouseleave', 'numeros', this.mouseLeaveNumero)
-    map.off('click', 'numero-type', this.unselectNumero)
-    map.off('mouseenter', 'numero-type', this.mouseEnter)
-    map.off('mouseleave', 'numero-type', this.mouseLeave)
-
     // Voies
-    map.off('click', 'voies', this.onVoieClick)
-    map.off('mouseenter', 'voies', this.mouseEnter)
-    map.off('mouseleave', 'voies', this.mouseLeave)
+    map.off('click', voiesLayer.id, this.voieClick)
+    map.off('mouseenter', voiesLayer.id, this.mouseEnter)
+    map.off('mouseleave', voiesLayer.id, this.mouseLeave)
+
+    // Numéro
+    map.off('click', numerosLayer.id, this.numeroClick)
+    map.off('click', selectedNumerosLayer.id, this.numeroClick)
+    map.off('mouseenter', selectedNumerosLayer.id, this.mouseEnterNumero)
+    map.off('mouseenter', numerosLayer.id, this.mouseEnterNumero)
+    map.off('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
+    map.off('mouseleave', numerosLayer.id, this.mouseLeaveNumero)
+    map.off('mousedown', numerosLayer.id, this.mouseDown)
+    map.off('mousedown', selectedNumerosLayer.id, this.mouseDown)
+
+    // Position
+    map.off('click', positionsSymbolLayer.id, this.clickPosition)
+    map.off('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
+    map.off('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
+    map.off('mousedown', positionsSymbolLayer.id, this.mouseDown)
   }
 
-  fitBounds = () => {
-    const {map, voies, voie, numeros} = this.props
-    let bboxFeatures
+  setMode() {
+    const {voie, numero} = this.props
 
-    if (voie && numeros) {
-      if (voie.position) { // Toponyme
-        bboxFeatures = toponymeToGeoJson(voie).features
-      } else {
-        const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
-        const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
-
-        if (numerosVoieWithPos.length > 0) {
-          bboxFeatures = numerosVoie
-        }
-      }
-    } else if (voies && voies.features.filter(voie => voie.properties.positions)) {
-      bboxFeatures = voies.features
-    }
-
-    if (bboxFeatures) {
-      const bbox = computeBbox({
-        type: 'FeatureCollection',
-        features: bboxFeatures
-      })
-
-      map.fitBounds(bbox, {
-        padding: 30,
-        linear: true,
-        maxZoom: 16,
-        duration: 0
-      })
+    if (numero) {
+      this.mode = 'numero'
+    } else if (voie) {
+      this.mode = 'voie'
+    } else {
+      this.mode = 'commune'
     }
   }
 
@@ -345,29 +182,26 @@ class CommuneMap extends React.Component {
   }
 
   onLoad = () => {
-    const {map, voies, voie, numeros, numero} = this.props
+    const {map, voies, numeros, positions} = this.props
 
     // Sources
     secureAddSource(map, 'voies', voies)
     secureAddSource(map, 'numeros', numeros)
-    secureAddSource(map, 'numero', numero)
+    secureAddSource(map, 'positions', positions)
 
     // Layers
+    secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, numerosLayer)
     secureAddLayer(map, selectedNumerosLayer)
-    secureAddLayer(map, numeroLayer)
-    secureAddLayer(map, numeroSourceLayer)
-    secureAddLayer(map, numeroTypeLayer)
-    secureAddLayer(map, numerosPointLayer)
     secureAddLayer(map, voiesLayer)
+    secureAddLayer(map, positionsSymbolLayer)
 
-    if (numero && this.mode !== 'numero') {
+    this.resetLayers()
+
+    if (this.mode === 'numero') {
       this.numeroMode()
-    } else if (voie && this.mode !== 'voie') {
+    } else if (this.mode === 'voie') {
       this.voieMode()
-    } else if (!voie && !numero) {
-      this.resetLayers()
-      this.mode = 'commune'
     }
   }
 
@@ -396,6 +230,7 @@ class CommuneMap extends React.Component {
     map.setFilter('numeros-point', NUMEROS_FILTERS)
 
     map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'none')
+    map.setLayoutProperty(positionsSymbolLayer.id, 'visibility', 'none')
     map.setLayoutProperty(voiesLayer.id, 'visibility', 'visible')
   }
 
@@ -408,49 +243,24 @@ class CommuneMap extends React.Component {
       map.setPaintProperty(numerosLayer.id, 'text-opacity', 0.4)
       map.setLayoutProperty(selectedNumerosLayer.id, 'visibility', 'visible')
       map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
-
-      this.fitBounds()
-      this.voieFitZoom = map.getZoom()
     }
-
-    this.mode = 'voie'
   }
 
   numeroMode = () => {
-    const {map, numero} = this.props
+    const {map, voie, numero} = this.props
 
-    map.setFilter('numeros', ['!=', ['get', 'id'], numero.properties.id])
-    map.setFilter('numeros-point', ['!=', ['get', 'id'], numero.properties.id])
-    map.setFilter('selected-numeros', ['!=', ['get', 'id'], numero.properties.id])
+    map.setLayoutProperty(voiesLayer.id, 'visibility', 'none')
+    map.setLayoutProperty(positionsSymbolLayer.id, 'visibility', 'visible')
 
-    this.mode = 'numero'
-  }
-
-  zoomEnd = () => {
-    const {map, voie, numero, selectVoie, selectNumero} = this.props
-    const currentZoom = map.getZoom()
-
-    if (voie && currentZoom < this.voieFitZoom - 0.5) {
-      selectVoie(null)
-    }
-
-    if (numero && currentZoom < this.voieFitZoom - 0.5) {
-      selectNumero(null)
-    }
-  }
-
-  onVoieClick = event => {
-    const {selectVoie} = this.props
-    const voie = event.features[0]
-
-    selectVoie(voie.properties)
-  }
-
-  onNumeroClick = event => {
-    const {selectNumero} = this.props
-    const numero = event.features[0]
-
-    selectNumero(numero.properties.id)
+    map.setFilter('numeros', ['!=', ['get', 'id'], numero.id])
+    map.setFilter('numeros-point', ['!=', ['get', 'id'], numero.id])
+    map.setFilter('selected-numeros', [
+      'all',
+      ['!=', ['get', 'id'], numero.id],
+      ['==', ['get', 'codeVoie'], voie.codeVoie],
+      DELETED_FILTER,
+      VDELETED_FILTER
+    ])
   }
 
   mouseEnter = () => {
@@ -465,8 +275,8 @@ class CommuneMap extends React.Component {
 
   mouseEnterNumero = e => {
     const {map, popup, numeros} = this.props
-    const numeroId = e.features[0].properties.id
-    const numero = numeros.features.find(n => n.properties.id === numeroId)
+    const {id} = e.features[0].properties
+    const numero = numeros.features.find(n => n.properties.id === id)
     const coordinates = numero.geometry.coordinates.slice()
     const description = popupAddress(numero)
 
@@ -484,14 +294,170 @@ class CommuneMap extends React.Component {
     popup.remove()
   }
 
-  unselectNumero = () => {
-    const {selectNumero} = this.props
+  mapClick = event => {
+    const {context} = this.state
 
-    selectNumero(null)
+    if (context) {
+      this.closeContextMenu()
+    } else {
+      const {layerX, layerY} = event.originalEvent
+      const {lng, lat} = event.lngLat
+
+      this.setState({
+        context: {
+          item: null,
+          coordinates: [lng, lat],
+          layer: {layerX, layerY}
+        }
+      })
+    }
+  }
+
+  voieClick = event => {
+    const {voies, selectVoie} = this.props
+    const {codeVoie} = event.features[0].properties
+    const voie = voies.features.find(v => v.properties.codeVoie === codeVoie).properties
+    const {layerX, layerY} = event.originalEvent
+
+    this.setState({
+      context: {
+        item: voie,
+        coordinates: null,
+        layer: {layerX, layerY},
+        selectItem: () => selectVoie(voie)
+      }
+    })
+  }
+
+  numeroClick = event => {
+    const {numeros, selectNumero} = this.props
+    const {id} = event.features[0].properties
+    const numero = numeros.features.find(n => n.properties.id === id).properties
+    const {layerX, layerY} = event.originalEvent
+
+    this.setState({
+      context: {
+        item: numero,
+        coordinates: null,
+        layer: {layerX, layerY},
+        selectItem: () => selectNumero(numero)
+      }
+    })
+  }
+
+  clickPosition = event => {
+    const {numero} = this.props
+    const {_id} = event.features[0].properties
+    const position = getNumeroPositions(numero).find(p => p._id === _id)
+    const {layerX, layerY} = event.originalEvent
+
+    this.setState({
+      context: {
+        item: position,
+        coordinates: null,
+        layer: {layerX, layerY},
+        selectItem: () => null
+      }
+    })
+  }
+
+  closeContextMenu = () => {
+    this.setState({context: null})
+  }
+
+  onMove = event => {
+    const {draggedPosition} = this.state
+    const {map, numeros, positions} = this.props
+    const {feature} = draggedPosition
+    const coords = event.lngLat
+
+    map.getCanvas().style.cursor = 'grabbing'
+
+    feature.geometry.coordinates = [coords.lng, coords.lat]
+
+    if (positions) {
+      map.getSource('positions').setData(positions)
+    } else {
+      map.getSource('numeros').setData(numeros)
+    }
+  }
+
+  onUp = async () => {
+    const {draggedPosition} = this.state
+    const {map, actions} = this.props
+    const {position, numero, feature} = draggedPosition
+    const {coordinates} = feature.geometry
+
+    map.getCanvas().style.cursor = ''
+
+    if (position.coords !== coordinates) {
+      position.coords = coordinates
+      const positions = getNumeroPositions(numero).filter(p => p._id !== position._id)
+      positions.push(position)
+
+      try {
+        await actions.updateNumero(numero, {positions})
+      } catch (error) {
+        // TODO Display error
+      }
+    }
+
+    this.setState({draggedPosition: null})
+
+    map.off('mousemove', this.onMove)
+    map.off('mousemove', selectedNumerosLayer.id, this.onMove)
+  }
+
+  mouseDown = event => {
+    const {map, numeros, numero, positions, popup} = this.props
+    const feature = event.features[0]
+
+    if (numero) {
+      const positionFeature = positions.features.find(p => p._id === feature._id)
+      this.setState({
+        draggedPosition: {
+          feature: positionFeature,
+          numero: numeros.features.find(f => f.properties.id === numero.id).properties,
+          position: positionFeature.properties
+        }
+      })
+    } else {
+      const numeroFeature = numeros.features.find(f => f.properties.id === feature.properties.id)
+      this.setState({
+        draggedPosition: {
+          feature: numeroFeature,
+          numero: numeroFeature.properties,
+          position: getNumeroPosition(numeroFeature.properties)
+        }
+      })
+    }
+
+    event.preventDefault()
+    popup.remove()
+
+    map.getCanvas().style.cursor = 'grab'
+
+    map.on('mousemove', this.onMove)
+    map.once('mouseup', this.onUp)
   }
 
   render() {
-    return null
+    const {context} = this.state
+    const {voies, voie, numero, actions} = this.props
+
+    return (context && (
+      <ContextMenu
+        item={context.item}
+        voie={voie}
+        numero={numero}
+        voies={voies.features.map(voie => voie.properties)}
+        coordinates={context.coordinates}
+        layer={context.layer}
+        actions={actions}
+        selectItem={context.selectItem}
+        close={this.closeContextMenu}
+      />
+    ))
   }
 }
 

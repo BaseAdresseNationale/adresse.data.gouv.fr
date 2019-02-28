@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {getStatus} from '../../../../../../lib/bal/item'
+import {getStatus, hasChange} from '../../../../../../lib/bal/item'
 
 import EditVoie from './edit-voie'
 import VoieForm from './voie-form'
@@ -92,11 +92,6 @@ class VoieItem extends React.Component {
     this.setState({input})
   }
 
-  hasChange = () => {
-    const {voie} = this.props
-    return voie.deleted || voie.edited
-  }
-
   render() {
     const {input, editing, error} = this.state
     const {codeCommune, voie, actions} = this.props
@@ -117,7 +112,7 @@ class VoieItem extends React.Component {
             handleInput={this.handleInput}
             submit={this.handleSubmit}
             deleteVoie={this.delete}
-            cancelChange={this.hasChange() ? this.cancelChange : null}
+            cancelChange={hasChange(voie) ? this.cancelChange : null}
             error={error}
           />
         )}

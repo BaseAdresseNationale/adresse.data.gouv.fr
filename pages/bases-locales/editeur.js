@@ -29,89 +29,105 @@ async function createBALStorage(codeCommune) {
 
 class EditorPage extends React.Component {
   state = {
+    codeCommune: null,
+    codeVoie: null,
+    idNumero: null,
     loading: false,
     error: null
   }
 
   static propTypes = {
-    codeCommune: PropTypes.string,
+    id: PropTypes.string,
     model: PropTypes.object,
-    commune: PropTypes.object,
-    voie: PropTypes.object,
-    numero: PropTypes.object
+    codeCommune: PropTypes.string
   }
 
   static defaultProps = {
-    codeCommune: null,
+    id: null,
     model: null,
-    commune: null,
-    voie: null,
-    numero: null
+    codeCommune: null
   }
 
   static getInitialProps = async ({res, query}) => {
-    const {id, codeCommune, codeVoie, idNumero} = query
+    const {id, codeCommune} = query
+    const model = BALStorage.get(id)
 
-    if (!id && codeCommune) {
-      return {
-        codeCommune
-      }
-    }
-
-    if (id) {
-      const model = BALStorage.get(id)
-
-      if (model) {
-        return {
-          model,
-          commune: codeCommune ? await model.getCommune(codeCommune) : null,
-          voie: codeVoie ? await model.getVoie(codeCommune, codeVoie) : null,
-          numero: idNumero ? await model.getNumero(codeCommune, codeVoie, idNumero) : null
-        }
-      }
-
+    if (id && !model && !codeCommune) {
       res.redirect('/bases-locales/editeur')
     }
 
-    return {
-      model: null,
-      commune: null,
-      voie: null,
-      nuemro: null
-    }
+    return {id, model, codeCommune}
   }
 
   async componentDidMount() {
-    const {codeCommune} = this.props
+    const {id, codeCommune} = this.props
 
-    if (codeCommune) {
-      this.setState({loading: true})
+    if (!id && codeCommune) {
+      await this.createModelFromCommune()
 
-      try {
-        await _get(`https://geo.api.gouv.fr/communes/${codeCommune}`)
-        const model = await createBALStorage(codeCommune)
-        const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}`
-        const url = `/bases-locales/editeur/${model._id}/commune/${codeCommune}`
-
-        BALStorage.set(model._id, model)
-
-        Router.push(href, url)
-
-        this.setState({
-          loading: false
-        })
-      } catch (error) {
-        this.setState({
-          error,
-          loading: false
-        })
-      }
+      this.setState({codeCommune})
     }
   }
 
+  createModelFromCommune = async () => {
+    const {codeCommune} = this.props
+
+    this.setState({loading: true})
+
+    try {
+      await _get(`https://geo.api.gouv.fr/communes/${codeCommune}`) // Check if commune code exist
+      const model = await createBALStorage(codeCommune)
+      const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}`
+      const url = `/bases-locales/editeur/${model._id}/commune/${codeCommune}`
+
+      BALStorage.set(model._id, model)
+
+      Router.push(href, url)
+
+      this.setState({
+        loading: false
+      })
+    } catch (error) {
+      this.setState({
+        error,
+        loading: false
+      })
+    }
+  }
+
+  updateModel = (codeCommune, codeVoie, idNumero) => {
+    const {model} = this.props
+
+    let href = `/bases-locales/editeur?id=${model._id}`
+    let as = `/bases-locales/editeur/${model._id}`
+
+    if (codeCommune) {
+      href += `&codeCommune=${codeCommune}`
+      as += `/commune/${codeCommune}`
+    }
+
+    if (codeVoie) {
+      href += `&codeVoie=${codeVoie}`
+      as += `/voie/${codeVoie}`
+    }
+
+    if (idNumero) {
+      href += `&idNumero=${idNumero}`
+      as += `/numero/${idNumero}`
+    }
+
+    Router.push(href, as, {shallow: true})
+
+    this.setState({
+      codeCommune,
+      codeVoie,
+      idNumero
+    })
+  }
+
   render() {
-    const {loading, error} = this.state
-    const {model, commune, voie, numero} = this.props
+    const {codeCommune, codeVoie, idNumero, loading, error} = this.state
+    const {model} = this.props
 
     return (
       <Page>
@@ -120,9 +136,10 @@ class EditorPage extends React.Component {
         <LoadingContent loading={loading} error={error} centered>
           <Editor
             model={model}
-            commune={commune}
-            voie={voie}
-            numero={numero}
+            codeCommune={codeCommune}
+            codeVoie={codeVoie}
+            idNumero={idNumero}
+            updateModel={this.updateModel}
           />
         </LoadingContent>
 

@@ -6,7 +6,12 @@ class PreventedDefaultForm extends React.Component {
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    style: PropTypes.object,
     children: PropTypes.node.isRequired
+  }
+
+  static defaultProps = {
+    style: null
   }
 
   componentDidMount() {
@@ -38,7 +43,7 @@ class PreventedDefaultForm extends React.Component {
   }
 
   render() {
-    const {children} = this.props
+    const {style, children} = this.props
 
     return (
       <form
@@ -46,6 +51,7 @@ class PreventedDefaultForm extends React.Component {
           this.form = form
         }}
         onSubmit={this.formPreventDefault}
+        style={style}
       >
         {children}
       </form>

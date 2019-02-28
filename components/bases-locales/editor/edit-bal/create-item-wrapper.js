@@ -66,7 +66,7 @@ class CreateItemWrapper extends React.Component {
 
           .create {
             margin: 0.5em 0 0 0;
-            padding: 1.5em;
+            padding: 1em;
             display: flex;
             text-align: center;
             color: ${theme.primary};

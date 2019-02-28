@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {contoursToGeoJson, communeVoiesToGeoJson, communeNumerosToGeoJson} from '../../../../../lib/geojson'
+import {communeVoiesToGeoJson, communeNumerosToGeoJson} from '../../../../../lib/geojson'
 import {getStatus, getType, getName} from '../../../../../lib/bal/item'
 
 import CommuneVisualizer from '../../../../commune-visualizer'
@@ -33,7 +33,7 @@ class Context extends React.Component {
     const type = getType(context)
 
     if (type === 'commune') {
-      return 'Commune'
+      return 'Communes'
     }
 
     if (type === 'voie') {
@@ -62,7 +62,6 @@ class Context extends React.Component {
     const {context, commune, voie, numero, actions} = this.props
     const addresses = communeNumerosToGeoJson(commune)
     const voies = communeVoiesToGeoJson(commune)
-    const communeContour = commune.contour ? contoursToGeoJson([commune]) : null
 
     return (
       <div>
@@ -73,37 +72,30 @@ class Context extends React.Component {
           previous={() => this.getPrevious()}
         />
 
-        {addresses && !numero ? (
-          <CommuneVisualizer
-            codeCommune={commune.code}
-            voies={voies}
-            numeros={addresses}
-            voie={voie}
-            select={actions.select}
-          />
-        ) : null}
+        <CommuneVisualizer
+          context={context}
+          commune={commune}
+          voies={voies}
+          numeros={addresses}
+          voie={voie}
+          numero={numero}
+          actions={actions}
+        />
 
         {numero ? (
           <NumeroContext
             numero={numero}
-            bounds={addresses || communeContour}
             actions={actions}
           />
         ) : voie ? (
           <VoieContext
             commune={commune}
             voie={voie}
-            addresses={addresses}
             addNumero={actions.addItem}
             actions={actions}
           />
         ) : (
-          <CommuneContext
-            commune={commune}
-            addresses={addresses}
-            communeContour={communeContour}
-            actions={actions}
-          />
+          <CommuneContext commune={commune} actions={actions} />
         )}
       </div>
     )

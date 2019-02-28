@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import {getName} from '../../../../../../lib/bal/item'
+
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
 
@@ -39,52 +41,67 @@ class VoieForm extends React.Component {
 
     return (
       <PreventedDefaultForm onSubmit={submit}>
-        <div>
-          <label>Nom</label>
-          <input
-            ref={input => {
-              this.nameInput = input
-            }}
-            type='text'
-            placeholder={voie ? voie.nomVoie : 'Avenue Victor Hugo'}
-            value={input}
-            onChange={this.handleInput}
-          />
-        </div>
+        <div className='voie-form'>
 
-        {error && (
-          <Notification
-            style={{marginTop: '1em'}}
-            type='error'
-          >
-            {error.message}
-          </Notification>
-        )}
+          <div>
+            <label>Nom</label>
+            <input
+              ref={input => {
+                this.nameInput = input
+              }}
+              type='text'
+              placeholder={voie ? getName(voie) : 'Avenue Victor Hugo'}
+              value={input}
+              onChange={this.handleInput}
+            />
+          </div>
 
-        <div className='buttons'>
-          <Button
-            color='red'
-            onClick={deleteVoie}
-          >
-            Supprimer
-          </Button>
-
-          {cancelChange && (
-            <Button onClick={cancelChange}>
-              Annuler les changements
-            </Button>
+          {error && (
+            <Notification
+              style={{marginTop: '1em'}}
+              type='error'
+            >
+              {error.message}
+            </Notification>
           )}
 
-          <Button onClick={submit}>
-            Enregistrer
-          </Button>
+          <div className='buttons'>
+            <div className='button'>
+              <Button onClick={submit}>
+              Enregistrer
+              </Button>
+            </div>
+
+            <div className='button'>
+              <Button
+                color='red'
+                onClick={deleteVoie}
+              >
+              Supprimer
+              </Button>
+            </div>
+
+            {cancelChange && (
+              <div className='button'>
+                <Button onClick={cancelChange}>
+                Annuler les changements
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
 
         <style jsx>{`
           .buttons {
             display: flex;
-            justify-content: space-between;
-            margin: 1em 0;
+            flex-flow: wrap;
+            align-items: center;
+            margin: 0.2em;
+          }
+
+          .buttons .button {
+            margin: 0.2em auto;
+            padding: 0.1em;
           }
         `}</style>
       </PreventedDefaultForm>

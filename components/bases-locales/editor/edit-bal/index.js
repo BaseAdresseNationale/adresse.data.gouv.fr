@@ -10,12 +10,16 @@ import Communes from './communes'
 
 export const FormContext = React.createContext()
 
-class EditBal extends React.Component {
+class EditBal extends React.PureComponent {
+  state = {
+    communes: null
+  }
+
   static propTypes = {
-    communes: PropTypes.object,
-    commune: PropTypes.object,
-    voie: PropTypes.object,
-    numero: PropTypes.object,
+    model: PropTypes.object.isRequired,
+    codeCommune: PropTypes.string,
+    codeVoie: PropTypes.string,
+    idNumero: PropTypes.string,
     downloadLink: PropTypes.string,
     filename: PropTypes.string,
     loading: PropTypes.bool,
@@ -24,18 +28,49 @@ class EditBal extends React.Component {
   }
 
   static defaultProps = {
-    communes: null,
-    commune: null,
-    voie: null,
-    numero: null,
+    codeCommune: null,
+    codeVoie: null,
+    idNumero: null,
     filename: null,
     loading: false,
     downloadLink: null,
     error: null
   }
 
+  async componentDidMount() {
+    const {model} = this.props
+
+    this.setState({
+      communes: await model.getCommunes()
+    })
+
+    this.updateContext()
+  }
+
+  async componentDidUpdate(prevProps) {
+    const {codeCommune, codeVoie, idNumero} = this.props
+
+    if (codeCommune !== prevProps.codeCommune ||
+      codeVoie !== prevProps.codeVoie ||
+      idNumero !== prevProps.idNumero
+    ) {
+      await this.updateContext()
+    }
+  }
+
+  updateContext = async () => {
+    const {model, codeCommune, codeVoie, idNumero} = this.props
+
+    this.setState({
+      commune: codeCommune ? await model.getCommune(codeCommune) : null,
+      voie: codeVoie ? await model.getVoie(codeCommune, codeVoie) : null,
+      numero: idNumero ? await model.getNumero(codeCommune, codeVoie, idNumero) : null
+    })
+  }
+
   render() {
-    const {communes, commune, voie, numero, actions, downloadLink, filename, loading, error} = this.props
+    const {communes, commune, voie, numero} = this.state
+    const {actions, downloadLink, filename, loading, error} = this.props
 
     return (
       <div>

@@ -1,22 +1,43 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
 
 import Mapbox from '../mapbox'
 
+import {contoursToGeoJson, hasFeatures, toponymeToGeoJson, numeroPositionsToGeoJson} from '../../lib/geojson'
+
 import CommuneMap from './commune-map'
 
-class CommuneVisualizer extends React.Component {
+class CommuneVisualizer extends React.PureComponent {
   state = {
+    bbox: null,
     loading: false
   }
 
+  componentDidMount() {
+    this.fitBounds()
+  }
+
+  componentDidUpdate(prevProps) {
+    const {context} = this.props
+
+    if (context !== prevProps.context) {
+      this.fitBounds()
+    }
+  }
+
   static propTypes = {
-    codeCommune: PropTypes.string.isRequired,
+    context: PropTypes.object.isRequired,
+    commune: PropTypes.shape({
+      code: PropTypes.string.isRequired
+    }).isRequired,
     voies: PropTypes.object,
     numeros: PropTypes.object,
     voie: PropTypes.object,
     numero: PropTypes.object,
-    select: PropTypes.func.isRequired
+    actions: PropTypes.shape({
+      select: PropTypes.func.isRequired
+    }).isRequired
   }
 
   static defaultProps = {
@@ -26,22 +47,53 @@ class CommuneVisualizer extends React.Component {
     numero: null
   }
 
-  selectVoie = voie => {
-    const {codeCommune, select} = this.props
+  fitBounds = () => {
+    const {commune, voies, voie, numeros} = this.props
+    const contourCommune = contoursToGeoJson([commune])
+    const contourFeatures = hasFeatures(contourCommune) ? contourCommune.features : null
+    let bboxFeatures = numeros && numeros.features ? numeros.features : contourFeatures // Commune contour bounds OR France bounds if undefined
 
     if (voie) {
-      select(voie.codeCommune, voie.codeVoie)
+      if (voie.position) { // Toponyme bounds
+        bboxFeatures = toponymeToGeoJson(voie).features
+      } else if (numeros && hasFeatures(numeros)) {
+        const numerosVoie = numeros.features.filter(n => n.properties.codeVoie === voie.codeVoie)
+        const numerosVoieWithPos = numerosVoie.filter(n => n.properties.positions.length > 0)
+
+        if (numerosVoieWithPos.length > 0) {
+          bboxFeatures = numerosVoie // Voie bounds
+        }
+      }
+    } else if (voies && hasFeatures(voies) && voies.features.filter(voie => voie.properties.positions).length > 0) {
+      bboxFeatures = voies.features // Commune bounds
+    }
+
+    const bbox = bboxFeatures ?
+      computeBbox({
+        type: 'FeatureCollection',
+        features: bboxFeatures
+      }) :
+      null
+
+    this.setState({bbox})
+  }
+
+  selectVoie = voie => {
+    const {commune, actions} = this.props
+
+    if (voie) {
+      actions.select(commune.code, voie.codeVoie)
     } else {
-      select(codeCommune)
+      actions.select(commune.code)
     }
   }
 
-  selectNumero = numeroId => {
-    const {numeros, select} = this.props
-    const numero = numeros.features.find(n => n.properties.id === numeroId)
-    const {codeCommune, codeVoie, numeroComplet} = numero.properties
+  selectNumero = numero => {
+    const {numeros, actions} = this.props
+    const num = numeros.features.find(n => n.properties.id === numero.id)
+    const {codeCommune, codeVoie, numeroComplet} = num.properties
 
-    select(codeCommune, codeVoie, numeroComplet)
+    actions.select(codeCommune, codeVoie, numeroComplet)
   }
 
   isLoading = loading => {
@@ -51,8 +103,9 @@ class CommuneVisualizer extends React.Component {
   }
 
   render() {
-    const {loading} = this.state
-    const {voies, numeros, voie, numero} = this.props
+    const {bbox, loading} = this.state
+    const {voies, numeros, voie, numero, actions} = this.props
+    const positions = numero && !numero.deleted ? numeroPositionsToGeoJson(numero) : null
 
     return (
       <div style={{position: 'relative'}}>
@@ -60,7 +113,7 @@ class CommuneVisualizer extends React.Component {
           <div className='loading' onWheel={this.handleWheel}>Chargement…</div>
         )}
 
-        <Mapbox switchStyle>
+        <Mapbox bbox={bbox} switchStyle>
           {(map, marker, popup) => (
             <CommuneMap
               map={map}
@@ -69,9 +122,11 @@ class CommuneVisualizer extends React.Component {
               numeros={numeros}
               voie={voie}
               numero={numero}
+              positions={positions}
               selectVoie={this.selectVoie}
               selectNumero={this.selectNumero}
               isLoading={this.isLoading}
+              actions={actions}
             />
           )}
         </Mapbox>
