@@ -141,7 +141,7 @@ class CreateVoieMenu extends React.Component {
               this.nameInput = input
             }}
             type='text'
-            placeholder='Adresse'
+            placeholder='Numéro'
             value={input}
             onChange={this.handleInput}
           />
