@@ -27,7 +27,7 @@ class CommuneVisualizer extends React.PureComponent {
   }
 
   static propTypes = {
-    context: PropTypes.object.isRequired,
+    context: PropTypes.string.isRequired,
     commune: PropTypes.shape({
       code: PropTypes.string.isRequired
     }).isRequired,

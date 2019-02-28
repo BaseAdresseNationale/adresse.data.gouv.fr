@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {getName, getStatus} from '../../../../lib/bal/item'
+import {getName, getStatus, getCode} from '../../../../lib/bal/item'
 import {communeNumerosToGeoJson, communeVoiesToGeoJson} from '../../../../lib/geojson'
 
 import CommuneVisualizer from '../../../commune-visualizer'
@@ -95,7 +95,7 @@ class EditBal extends React.PureComponent {
 
         <div className='map'>
           <CommuneVisualizer
-            context={context}
+            context={getCode(numero || voie || commune)}
             commune={commune}
             voies={voies}
             numeros={addresses}
