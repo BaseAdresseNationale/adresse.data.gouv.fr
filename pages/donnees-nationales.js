@@ -49,7 +49,6 @@ export default () => (
                   Accéder aux données
                 </ButtonLink>
               </Link>
-              <p>NB : La licence gratuite de repartage mentionnée dans les fichiers téléchargés <strong>n’est plus en vigueur</strong>. Elle doit être ignorée.</p>
             </div>
           </div>
         </div>
