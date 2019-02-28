@@ -45,15 +45,6 @@ class Editor extends React.Component {
     idNumero: null
   }
 
-  async componentDidUpdate(prevProps) {
-    const {model, codeCommune} = this.props
-
-    if (codeCommune !== prevProps.codeCommune) {
-      const commune = await model.getCommune(codeCommune)
-      this.setState({commune})
-    }
-  }
-
   handleData = tree => {
     const model = new BAL(tree)
     BALStorage.set(model._id, model)
@@ -217,8 +208,8 @@ class Editor extends React.Component {
   }
 
   render() {
-    const {commune, downloadLink, loading, error} = this.state
-    const {model} = this.props
+    const {downloadLink, loading, error} = this.state
+    const {model, codeCommune} = this.props
     const modelActions = {
       select: this.select,
       addItem: this.addItem,
@@ -244,10 +235,9 @@ class Editor extends React.Component {
       <div>
         {model ? (
           <>
-            {commune ? (
+            {codeCommune ? (
               <EditBal
                 {...this.props}
-                commune={commune}
                 exportControls={exportControls}
                 actions={modelActions}
               />

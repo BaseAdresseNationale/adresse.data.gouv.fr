@@ -19,10 +19,8 @@ class EditBal extends React.PureComponent {
 
   static propTypes = {
     model: PropTypes.object.isRequired,
-    commune: PropTypes.shape({
-      code: PropTypes.string.isRequired
-    }).isRequired,
     exportControls: PropTypes.node.isRequired,
+    codeCommune: PropTypes.string.isRequired,
     codeVoie: PropTypes.string,
     idNumero: PropTypes.string,
     actions: PropTypes.object.isRequired
@@ -31,6 +29,13 @@ class EditBal extends React.PureComponent {
   static defaultProps = {
     codeVoie: null,
     idNumero: null
+  }
+
+  async componentDidMount() {
+    const {model, codeCommune} = this.props
+    const commune = await model.getCommune(codeCommune)
+
+    this.setState({commune})
   }
 
   async componentDidUpdate(prevProps) {
@@ -42,32 +47,37 @@ class EditBal extends React.PureComponent {
   }
 
   updateContext = async () => {
-    const {model, commune, codeVoie, idNumero} = this.props
+    const {model, codeCommune, codeVoie, idNumero} = this.props
 
     this.setState({
-      voie: codeVoie ? await model.getVoie(commune.code, codeVoie) : null,
-      numero: idNumero ? await model.getNumero(commune.code, codeVoie, idNumero) : null
+      voie: codeVoie ? await model.getVoie(codeCommune, codeVoie) : null,
+      numero: idNumero ? await model.getNumero(codeCommune, codeVoie, idNumero) : null
     })
   }
 
   getContext = () => {
-    const {voie, numero} = this.state
-    const {commune, codeVoie, actions} = this.props
+    const {commune, voie, numero} = this.state
+    const {codeCommune, codeVoie, actions} = this.props
     const item = numero || voie || commune
 
     return {
       name: getName(item),
       status: getStatus(item),
       previous: () => actions.select(
-        codeVoie ? commune.code : null,
+        codeVoie ? codeCommune : null,
         numero ? codeVoie : null
       )
     }
   }
 
   render() {
-    const {voie, numero} = this.state
-    const {commune, exportControls, actions} = this.props
+    const {commune, voie, numero} = this.state
+    const {exportControls, actions} = this.props
+
+    if (!commune) {
+      return null
+    }
+
     const context = this.getContext()
     const voies = communeVoiesToGeoJson(commune)
     const addresses = communeNumerosToGeoJson(commune)
