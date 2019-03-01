@@ -28,7 +28,7 @@ const popupAddress = ({properties}) => renderToString(
   </div>
 )
 
-class CommuneMap extends React.Component {
+class CommuneMap extends React.PureComponent {
   state = {
     context: null
   }
@@ -48,6 +48,7 @@ class CommuneMap extends React.Component {
     selectVoie: PropTypes.func.isRequired,
     selectNumero: PropTypes.func.isRequired,
     isLoading: PropTypes.func.isRequired,
+    currentStyle: PropTypes.string.isRequired,
     actions: PropTypes.object.isRequired
   }
 
@@ -90,7 +91,7 @@ class CommuneMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {map, voies, numeros, voie, numero, positions, isLoading} = this.props
+    const {map, voies, numeros, voie, numero, positions, currentStyle, isLoading} = this.props
     const sourceToUpdate = []
 
     const updapteNumPos = () => {
@@ -118,7 +119,7 @@ class CommuneMap extends React.Component {
     const waiting = () => {
       if (map.isStyleLoaded() && map.areTilesLoaded()) {
         isLoading(false)
-        if (sourceToUpdate.length > 0) {
+        if (sourceToUpdate.length > 0 || currentStyle !== prevProps.currentStyle) {
           sourceToUpdate.forEach(source => {
             const {id, data} = source
             secureUpdateData(map, id, data)

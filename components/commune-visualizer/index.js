@@ -116,8 +116,8 @@ class CommuneVisualizer extends React.PureComponent {
           <div className='loading' onWheel={this.handleWheel}>Chargement…</div>
         )}
 
-        <Mapbox bbox={bbox} fullscreen>
-          {(map, marker, popup) => (
+        <Mapbox bbox={bbox} switchStyle fullscreen>
+          {(map, marker, popup, currentStyle) => (
             <CommuneMap
               map={map}
               popup={popup}
@@ -129,6 +129,7 @@ class CommuneVisualizer extends React.PureComponent {
               selectVoie={this.selectVoie}
               selectNumero={this.selectNumero}
               isLoading={this.isLoading}
+              currentStyle={currentStyle}
               actions={actions}
             />
           )}
