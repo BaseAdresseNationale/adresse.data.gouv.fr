@@ -4,7 +4,7 @@ import Autocomplete from 'react-autocomplete'
 
 import theme from '../../styles/theme'
 
-import {getName, isToponyme} from '../../lib/bal/item'
+import {getName, isToponyme, getStatus} from '../../lib/bal/item'
 
 import Button from '../button'
 
@@ -152,7 +152,11 @@ class CreateVoieMenu extends React.Component {
             <Autocomplete
               menuStyle={menu}
               getItemValue={voie => voie.idVoie}
-              items={voies.filter(voie => getName(voie).startsWith(voieInput) && !isToponyme(voie))}
+              items={voies.filter(voie =>
+                getName(voie).startsWith(voieInput) &&
+                !isToponyme(voie) &&
+                getStatus(voie) !== 'deleted'
+              )}
               inputProps={{placeholder: 'Voie'}}
               renderItem={(voie, isHighlighted) => (
                 <div
