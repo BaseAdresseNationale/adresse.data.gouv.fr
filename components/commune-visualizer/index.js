@@ -4,6 +4,7 @@ import computeBbox from '@turf/bbox'
 
 import Mapbox from '../mapbox'
 
+import {getNumeroPositions} from '../../lib/bal/item'
 import {contoursToGeoJson, hasFeatures, toponymeToGeoJson, numeroPositionsToGeoJson} from '../../lib/geojson'
 
 import CommuneMap from './commune-map'
@@ -48,12 +49,14 @@ class CommuneVisualizer extends React.PureComponent {
   }
 
   fitBounds = () => {
-    const {commune, voies, voie, numeros} = this.props
+    const {commune, voies, voie, numeros, numero} = this.props
     const contourCommune = contoursToGeoJson([commune])
     const contourFeatures = hasFeatures(contourCommune) ? contourCommune.features : null
     let bboxFeatures = numeros && numeros.features ? numeros.features : contourFeatures // Commune contour bounds OR France bounds if undefined
 
-    if (voie) {
+    if (numero && getNumeroPositions(numero).length > 0) {
+      bboxFeatures = numeroPositionsToGeoJson(numero).features // Numéro positions bounds
+    } else if (voie) {
       if (voie.position) { // Toponyme bounds
         bboxFeatures = toponymeToGeoJson(voie).features
       } else if (numeros && hasFeatures(numeros)) {

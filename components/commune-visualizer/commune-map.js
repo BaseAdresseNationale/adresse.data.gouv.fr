@@ -376,7 +376,7 @@ class CommuneMap extends React.Component {
     feature.geometry.coordinates = [coords.lng, coords.lat]
 
     if (positions) {
-      map.getSource('positions').setData(positions)
+      map.getSource('positions').setData({type: 'FeatureCollection', features: [feature]})
     } else {
       map.getSource('numeros').setData(numeros)
     }
@@ -414,6 +414,7 @@ class CommuneMap extends React.Component {
 
     if (numero) {
       const positionFeature = positions.features.find(p => p._id === feature._id)
+			console.log('TCL: CommuneMap -> positionFeature', positionFeature)
       this.setState({
         draggedPosition: {
           feature: positionFeature,
@@ -423,6 +424,7 @@ class CommuneMap extends React.Component {
       })
     } else {
       const numeroFeature = numeros.features.find(f => f.properties.id === feature.properties.id)
+			console.log('TCL: CommuneMap -> numeroFeature', numeroFeature)
       this.setState({
         draggedPosition: {
           feature: numeroFeature,
