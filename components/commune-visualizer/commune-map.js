@@ -28,7 +28,7 @@ const popupAddress = ({properties}) => renderToString(
   </div>
 )
 
-class CommuneMap extends React.PureComponent {
+class CommuneMap extends React.Component {
   state = {
     context: null
   }
