@@ -3,7 +3,7 @@ import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
 import {isEqual} from 'lodash'
 
-import {getNumeroPositions, getNumeroPosition} from '../../lib/bal/item'
+import {getNumeroPositions, getNumeroPosition, getType} from '../../lib/bal/item'
 
 import {secureAddLayer, secureAddSource, secureUpdateData} from '../mapbox/helpers'
 import {NUMEROS_FILTERS, SELECTED_NUMEROS_FILTERS, DELETED_FILTER, VDELETED_FILTER} from '../mapbox/filters'
@@ -30,8 +30,7 @@ const popupAddress = ({properties}) => renderToString(
 
 class CommuneMap extends React.Component {
   state = {
-    context: null,
-    draggedPosition: null
+    context: null
   }
 
   static propTypes = {
@@ -80,14 +79,14 @@ class CommuneMap extends React.Component {
     map.on('mouseenter', numerosLayer.id, this.mouseEnterNumero)
     map.on('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
     map.on('mouseleave', numerosLayer.id, this.mouseLeaveNumero)
-    map.on('mousedown', numerosLayer.id, this.mouseDown)
-    map.on('mousedown', selectedNumerosLayer.id, this.mouseDown)
+    map.on('mousedown', numerosLayer.id, this.mouseDownNumero)
+    map.on('mousedown', selectedNumerosLayer.id, this.mouseDownNumero)
 
     // Positions
     map.on('click', positionsSymbolLayer.id, this.clickPosition)
     map.on('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
     map.on('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
-    map.on('mousedown', positionsSymbolLayer.id, this.mouseDown)
+    map.on('mousedown', positionsSymbolLayer.id, this.mouseDownPosition)
   }
 
   componentDidUpdate(prevProps) {
@@ -154,14 +153,14 @@ class CommuneMap extends React.Component {
     map.off('mouseenter', numerosLayer.id, this.mouseEnterNumero)
     map.off('mouseleave', selectedNumerosLayer.id, this.mouseLeaveNumero)
     map.off('mouseleave', numerosLayer.id, this.mouseLeaveNumero)
-    map.off('mousedown', numerosLayer.id, this.mouseDown)
-    map.off('mousedown', selectedNumerosLayer.id, this.mouseDown)
+    map.off('mousedown', numerosLayer.id, this.mouseDownNumero)
+    map.off('mousedown', selectedNumerosLayer.id, this.mouseDownNumero)
 
     // Position
     map.off('click', positionsSymbolLayer.id, this.clickPosition)
     map.off('mouseenter', positionsSymbolLayer.id, this.mouseEnter)
     map.off('mouseleave', positionsSymbolLayer.id, this.mouseLeave)
-    map.off('mousedown', positionsSymbolLayer.id, this.mouseDown)
+    map.off('mousedown', positionsSymbolLayer.id, this.mouseDownPosition)
   }
 
   setMode() {
@@ -366,34 +365,35 @@ class CommuneMap extends React.Component {
   }
 
   onMove = event => {
-    const {draggedPosition} = this.state
+    const {feature} = this.draggedPosition
     const {map, numeros, positions} = this.props
-    const {feature} = draggedPosition
     const coords = event.lngLat
 
     map.getCanvas().style.cursor = 'grabbing'
-
     feature.geometry.coordinates = [coords.lng, coords.lat]
 
-    if (positions) {
-      map.getSource('positions').setData({type: 'FeatureCollection', features: [feature]})
+    if (positions && getType(feature.properties) === 'position') {
+      const f = positions.features.find(f => f.properties._id === feature.properties._id)
+      f.geometry.coordinates = [coords.lng, coords.lat]
+      map.getSource('positions').setData({
+        type: 'FeatureCollection',
+        features: positions.features
+      })
     } else {
       map.getSource('numeros').setData(numeros)
     }
   }
 
   onUp = async () => {
-    const {draggedPosition} = this.state
+    const {position, numero, feature} = this.draggedPosition
     const {map, actions} = this.props
-    const {position, numero, feature} = draggedPosition
     const {coordinates} = feature.geometry
 
     map.getCanvas().style.cursor = ''
 
     if (position.coords !== coordinates) {
-      position.coords = coordinates
-      const positions = getNumeroPositions(numero).filter(p => p._id !== position._id)
-      positions.push(position)
+      const positions = getNumeroPositions(numero)
+      positions.find(p => p._id === position._id).coords = coordinates
 
       try {
         await actions.updateNumero(numero, {positions})
@@ -402,38 +402,45 @@ class CommuneMap extends React.Component {
       }
     }
 
-    this.setState({draggedPosition: null})
+    this.draggedPosition = null
 
     map.off('mousemove', this.onMove)
     map.off('mousemove', selectedNumerosLayer.id, this.onMove)
+    map.off('mousemove', positionsSymbolLayer.id, this.onMove)
+  }
+
+  mouseDownPosition = event => {
+    const {numeros, numero} = this.props
+    const feature = event.features[0]
+    const {id, _id} = feature.properties
+
+    if (numero && _id && numero.id === id) { // Feature is a position and belongs to the selected numero
+      this.draggedPosition = {
+        feature,
+        numero: numeros.features.find(f => f.properties.id === numero.id).properties,
+        position: feature.properties
+      }
+
+      this.mouseDown(event)
+    }
+  }
+
+  mouseDownNumero = event => {
+    const {numeros} = this.props
+    const feature = event.features[0]
+    const numeroFeature = numeros.features.find(f => f.properties.id === feature.properties.id)
+
+    this.draggedPosition = {
+      feature: numeroFeature,
+      numero: numeroFeature.properties,
+      position: getNumeroPosition(numeroFeature.properties)
+    }
+
+    this.mouseDown(event)
   }
 
   mouseDown = event => {
-    const {map, numeros, numero, positions, popup} = this.props
-    const feature = event.features[0]
-
-    if (numero) {
-      const positionFeature = positions.features.find(p => p._id === feature._id)
-			console.log('TCL: CommuneMap -> positionFeature', positionFeature)
-      this.setState({
-        draggedPosition: {
-          feature: positionFeature,
-          numero: numeros.features.find(f => f.properties.id === numero.id).properties,
-          position: positionFeature.properties
-        }
-      })
-    } else {
-      const numeroFeature = numeros.features.find(f => f.properties.id === feature.properties.id)
-			console.log('TCL: CommuneMap -> numeroFeature', numeroFeature)
-      this.setState({
-        draggedPosition: {
-          feature: numeroFeature,
-          numero: numeroFeature.properties,
-          position: getNumeroPosition(numeroFeature.properties)
-        }
-      })
-    }
-
+    const {map, popup} = this.props
     event.preventDefault()
     popup.remove()
 
