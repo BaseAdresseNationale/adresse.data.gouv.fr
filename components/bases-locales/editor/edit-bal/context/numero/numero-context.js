@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../../../styles/theme'
 
-import {getNumeroPositions} from '../../../../../lib/bal/item'
+import {getNumeroPositions} from '../../../../../../lib/bal/item'
 
-import Notification from '../../../../notification'
+import Notification from '../../../../../notification'
 
-import NumeroForm from './voie/numero-form'
+import NumeroForm from './numero-form'
 
 class NumeroContext extends React.Component {
   static propTypes = {
@@ -25,7 +25,7 @@ class NumeroContext extends React.Component {
     const positions = getNumeroPositions(numero)
 
     return (
-      <div>
+      <div className='numero-context'>
         {(!positions) && (
           <Notification type='warning'>
             Ce numéro n’a pas de position.
@@ -37,6 +37,10 @@ class NumeroContext extends React.Component {
         </div>
 
         <style jsx>{`
+          .numero-context {
+            width: 100%;
+          }
+
           .shadow-box {
             border: 1px solid ${theme.border};
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};

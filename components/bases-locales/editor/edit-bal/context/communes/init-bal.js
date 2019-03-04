@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../../../styles/theme'
 
-import Notification from '../../../../notification'
+import Notification from '../../../../../notification'
 
-import SearchCommunes from '../search-communes'
+import SearchCommunes from '../../../search-communes'
 
 class InitBAL extends React.Component {
   static propTypes = {

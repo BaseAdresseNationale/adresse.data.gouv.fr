@@ -4,7 +4,7 @@ import Head from 'next/head'
 import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 
-import SwitchInput from '../explorer/table-list/filters/switch-input'
+import SwitchMapStyle from './switch-map-style'
 
 const STYLES = {
   vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
@@ -90,6 +90,7 @@ class Map extends React.PureComponent {
     this.map.fitBounds(bbox, {
       padding: 30,
       linear: true,
+      maxZoom: 19,
       duration: 0
     })
   }
@@ -99,7 +100,7 @@ class Map extends React.PureComponent {
 
     this.setState(state => {
       const currentStyle = state.currentStyle === 'vector' ? 'ortho' : 'vector'
-      map.setStyle(STYLES[currentStyle], {diff: true})
+      map.setStyle(STYLES[currentStyle], {diff: false})
 
       return {
         currentStyle
@@ -114,7 +115,7 @@ class Map extends React.PureComponent {
     return (
       <div className='container'>
         <div className='tools'>
-          {shouldRender && children(this.map, this.marker, this.popUp)}
+          {shouldRender && children(this.map, this.marker, this.popUp, currentStyle)}
 
           <div ref={el => {
             this.mapContainer = el
@@ -122,10 +123,9 @@ class Map extends React.PureComponent {
         </div>
 
         {switchStyle && (
-          <SwitchInput
+          <SwitchMapStyle
+            vector={currentStyle === 'vector'}
             handleChange={this.switchLayer}
-            label='Vue aérienne'
-            isChecked={currentStyle === 'ortho'}
           />
         )}
 

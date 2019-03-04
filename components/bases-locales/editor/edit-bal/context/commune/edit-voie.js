@@ -7,7 +7,7 @@ import theme from '../../../../../../styles/theme'
 
 import Button from '../../../../../button'
 
-import Item from '../../item'
+import Item from '../item'
 
 class EditVoie extends React.Component {
   static propTypes = {

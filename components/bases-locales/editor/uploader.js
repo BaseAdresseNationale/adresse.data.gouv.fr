@@ -17,7 +17,7 @@ import Notification from '../../notification'
 
 import Report from '../validator/report'
 
-import InitBase from './edit-bal/init-base'
+import InitBase from './init-base'
 
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')

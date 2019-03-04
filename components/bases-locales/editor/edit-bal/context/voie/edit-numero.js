@@ -1,46 +1,52 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaPencil from 'react-icons/lib/fa/pencil'
-import FaClose from 'react-icons/lib/fa/close'
-
-import theme from '../../../../../../styles/theme'
+import FaRefresh from 'react-icons/lib/fa/refresh'
+import FaTrash from 'react-icons/lib/fa/trash'
 
 import Button from '../../../../../button'
 
-import Item from '../../item'
+import Item from '../item'
 
 class EditNumero extends React.Component {
   static propTypes = {
+    numero: PropTypes.shape({
+      deleted: PropTypes.bool
+    }).isRequired,
     item: PropTypes.object.isRequired,
-    toggleForm: PropTypes.func.isRequired,
-    children: PropTypes.node
+    actions: PropTypes.shape({
+      deleteItem: PropTypes.func.isRequired,
+      cancelChange: PropTypes.func.isRequired
+    }).isRequired
   }
 
-  static defaultProps = {
-    children: null
+  delete = async () => {
+    const {numero, actions} = this.props
+    await actions.deleteItem(numero)
+  }
+
+  cancel = async () => {
+    const {numero, actions} = this.props
+    await actions.cancelChange(numero)
   }
 
   render() {
-    const {item, toggleForm, children} = this.props
+    const {numero, item} = this.props
 
     return (
-      <div>
-        <div>
-          <div className='editable-item'>
-            <Item {...item} />
+      <div className='editable-item'>
+        <Item {...item} />
 
-            <div className='edit-button'>
-              <Button size='small' onClick={toggleForm}>
-                {children ? <FaClose /> : <FaPencil />}
-              </Button>
-            </div>
-          </div>
-
+        <div className='edit-button'>
+          {numero.deleted ? (
+            <Button size='small' onClick={this.cancel}>
+              <FaRefresh />
+            </Button>
+          ) : (
+            <Button size='small' color='red' onClick={this.delete}>
+              <FaTrash />
+            </Button>
+          )}
         </div>
-
-        {children && (
-          <div className='form'>{children}</div>
-        )}
 
         <style jsx>{`
           .editable-item {
@@ -50,14 +56,6 @@ class EditNumero extends React.Component {
 
           .edit-button {
             margin: 0.5em;
-          }
-
-          .form {
-            margin: -58px 0 0.2em;
-            padding: 1em;
-            padding-top: 70px;
-            border: 1px solid ${theme.border};
-            box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
         `}</style>
       </div>

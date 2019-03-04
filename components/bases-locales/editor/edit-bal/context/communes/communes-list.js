@@ -1,11 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../../styles/theme'
+import theme from '../../../../../../styles/theme'
 
 import CreateItemWrapper from '../create-item-wrapper'
-
-import CreateCommune from '../create-commune'
+import CreateCommune from '../commune/create-commune'
 
 import CommuneItem from './commune-item'
 
@@ -79,6 +78,13 @@ class CommunesList extends React.Component {
         </div>
 
         <style jsx>{`
+          .communes-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: content;
+          }
+
           .title {
             display: flex;
             align-items: center;
@@ -89,13 +95,6 @@ class CommunesList extends React.Component {
             border-bottom: 1px solid ${theme.border};
             padding-bottom: 0.5em;
             margin-bottom: 0.5em;
-          }
-
-          .communes-list {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: content;
           }
 
           .list {

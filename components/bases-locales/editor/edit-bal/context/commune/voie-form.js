@@ -5,8 +5,7 @@ import {getName} from '../../../../../../lib/bal/item'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
-
-import PreventedDefaultForm from '../../prevented-default-form'
+import PreventedDefaultForm from '../../../../../prevented-default-form'
 
 class VoieForm extends React.Component {
   static propTypes = {

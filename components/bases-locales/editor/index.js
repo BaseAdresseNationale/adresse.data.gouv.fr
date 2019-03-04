@@ -4,14 +4,14 @@ import Router from 'next/router'
 
 import BALStorage from '../../../lib/bal/storage'
 import {getType} from '../../../lib/bal/item'
-import theme from '../../../styles/theme'
+import BAL from '../../../lib/bal/model'
 
 import Section from '../../section'
-import Button from '../../button'
-import BAL from '../../../lib/bal/model'
 
 import Uploader from './uploader'
 import EditBal from './edit-bal'
+import ExportControls from './edit-bal/export-controls'
+import Communes from './edit-bal/context/communes'
 
 function getDownloadLink(csvContent) {
   const blob = new Blob([csvContent], {type: 'text/csv'})
@@ -20,6 +20,7 @@ function getDownloadLink(csvContent) {
 
 class Editor extends React.Component {
   initialState = {
+    commune: null,
     downloadLink: null,
     loading: false,
     error: null
@@ -145,7 +146,7 @@ class Editor extends React.Component {
     this.refreshModel()
   }
 
-  deleteItem = async (item, scrollTop = false) => {
+  deleteItem = async item => {
     const type = getType(item)
 
     if (type === 'commune') {
@@ -154,10 +155,6 @@ class Editor extends React.Component {
       await this.deleteVoie(item)
     } else {
       await this.deleteNumero(item)
-    }
-
-    if (scrollTop) {
-      this.scrollTop()
     }
   }
 
@@ -202,14 +199,7 @@ class Editor extends React.Component {
 
   select = async (codeCommune, codeVoie, numeroComplet) => {
     const {updateModel} = this.props
-
-    this.scrollTop()
-
     updateModel(codeCommune, codeVoie, numeroComplet)
-  }
-
-  scrollTop = () => {
-    window.scrollTo(0, 200)
   }
 
   refreshModel() {
@@ -219,7 +209,7 @@ class Editor extends React.Component {
 
   render() {
     const {downloadLink, loading, error} = this.state
-    const {model} = this.props
+    const {model, codeCommune} = this.props
     const modelActions = {
       select: this.select,
       addItem: this.addItem,
@@ -230,48 +220,44 @@ class Editor extends React.Component {
       cancelChange: this.cancelChange
     }
 
+    const exportControls = (
+      <ExportControls
+        downloadLink={downloadLink}
+        filename='filename'
+        loading={loading}
+        error={error}
+        exportBAL={this.exportBAL}
+        reset={this.reset}
+      />
+    )
+
     return (
       <div>
         {model ? (
-          <Section>
-            <EditBal
-              {...this.props}
-              actions={modelActions}
-              downloadLink={downloadLink}
-              filename='filename'
-              loading={loading}
-              error={error}
-            />
-          </Section>
+          <>
+            {codeCommune ? (
+              <EditBal
+                {...this.props}
+                exportControls={exportControls}
+                actions={modelActions}
+              />
+            ) : (
+              <Section>
+                <Communes
+                  communes={model.communes}
+                  actions={modelActions}
+                />
+
+                {exportControls}
+              </Section>
+            )}
+          </>
         ) : (
           <Uploader
             newFile={this.createNewFile}
             onData={this.handleData}
           />
         )}
-
-        {model && (
-          <Section>
-            <div className='buttons'>
-              {model.communes && (
-                <Button onClick={this.exportBAL}>Exporter le fichier BAL</Button>
-              )}
-              <Button color='red' size='small' onClick={this.reset}>Tout annuler</Button>
-            </div>
-          </Section>
-        )}
-
-        <style jsx>{`
-          .buttons {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-row-gap: 0.5em;
-            border: 1px solid ${theme.border};
-            background-color: ${theme.colors.lighterGrey};
-            margin: 2em 0;
-            padding: 1em;
-          }
-        `}</style>
       </div>
     )
   }

@@ -4,7 +4,7 @@ import FaPlus from 'react-icons/lib/fa/plus'
 
 import Button from '../../../../../button'
 import Notification from '../../../../../notification'
-import PreventedDefaultForm from '../../prevented-default-form'
+import PreventedDefaultForm from '../../../../../prevented-default-form'
 
 class CreateVoie extends React.Component {
   static propTypes = {

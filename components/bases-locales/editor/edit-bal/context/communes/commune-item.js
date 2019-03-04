@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 import FaTrash from 'react-icons/lib/fa/trash'
 import FaClose from 'react-icons/lib/fa/close'
 
-import {getStatus} from '../../../../../lib/bal/item'
+import {getStatus} from '../../../../../../lib/bal/item'
 
-import Button from '../../../../button'
-import Notification from '../../../../notification'
+import Button from '../../../../../button'
+import Notification from '../../../../../notification'
 
 import Item from '../item'
 

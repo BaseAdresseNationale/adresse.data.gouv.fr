@@ -28,18 +28,16 @@ class Head extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     status: PropTypes.string,
-    previous: PropTypes.func,
-    parent: PropTypes.string
+    previous: PropTypes.func
   }
 
   static defaultProps = {
     status: null,
-    parent: null,
     previous: null
   }
 
   render() {
-    const {name, status, parent, previous} = this.props
+    const {name, status, previous} = this.props
 
     return (
       <div className='context-head shadow-box'>
@@ -47,7 +45,7 @@ class Head extends React.Component {
           {previous && (
             <div className='previous-button'>
               <Button size='small' onClick={previous}>
-                <FaAngleLeft /> {parent}
+                <FaAngleLeft />
               </Button>
             </div>
           )}
@@ -66,14 +64,14 @@ class Head extends React.Component {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin: 1em 0;
+          margin: 1em;
+          padding: 0.5em;
           background-color: ${status ? STATUS[status].color : '#fff'};
         }
 
         .shadow-box {
           border: 1px solid ${theme.border};
           box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-          padding: 1em;
         }
 
         .title {

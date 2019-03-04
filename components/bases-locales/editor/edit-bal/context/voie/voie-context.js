@@ -32,7 +32,7 @@ class VoieContext extends React.Component {
     const newName = voie.modified && voie.modified.nomVoie
 
     return (
-      <div>
+      <div className='voie-context'>
         {newName && (
           <Notification type='info'>
             <div>
@@ -52,22 +52,25 @@ class VoieContext extends React.Component {
             voie={voie}
             actions={actions}
           />
+        ) : (hasNumeros ? (
+          <NumerosList
+            codeCommune={commune.code}
+            codeVoie={voie.codeVoie}
+            numeros={numeros}
+            actions={actions}
+          />
         ) : (
-          <div>
-            {hasNumeros ? (
-              <NumerosList
-                codeCommune={commune.code}
-                codeVoie={voie.codeVoie}
-                numeros={numeros}
-                actions={actions}
-              />
-            ) : (
-              <Notification type='warning'>
+          <Notification type='warning'>
                 Cette voie ne possède aucune adresse. Vous pouvez ajouter une adresse depuis la carte.
-              </Notification>
-            )}
-          </div>
+          </Notification>
+        )
         )}
+
+        <style jsx>{`
+          .voie-context {
+            width: 100%;
+          }
+          `}</style>
       </div>
     )
   }

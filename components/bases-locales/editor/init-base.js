@@ -2,15 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {remove} from 'lodash'
 
-import {extractCommunes} from '../../../../lib/bal/api'
+import {extractCommunes} from '../../../lib/bal/api'
 
-import Button from '../../../button'
-import Notification from '../../../notification'
+import Button from '../../button'
+import Notification from '../../notification'
+import Loader from '../../loader'
+import SelectableItemList from '../../selectable-item-list'
 
-import Loader from '../../../loader'
-import SelectableItemList from '../../../selectable-item-list'
-
-import SearchCommune from './search-communes'
+import SearchCommunes from './search-communes'
 
 class InitBase extends React.Component {
   state = {
@@ -92,7 +91,7 @@ class InitBase extends React.Component {
       <div>
         <h3>Ajoutez autant de communes que vous souhaitez</h3>
         <p><em>Il est possible de préciser le code département lorsque la commune a beaucoup d’homonymes. Exemple : Saint-Just 18</em></p>
-        <SearchCommune handleSelect={this.addCommune} />
+        <SearchCommunes handleSelect={this.addCommune} />
 
         {communes.length > 0 &&
           <div>

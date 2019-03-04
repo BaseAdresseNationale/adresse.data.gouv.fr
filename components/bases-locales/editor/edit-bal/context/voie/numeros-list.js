@@ -5,7 +5,7 @@ import theme from '../../../../../../styles/theme'
 
 import Notification from '../../../../../notification'
 
-import CreateItemWrapper from '../../create-item-wrapper'
+import CreateItemWrapper from '../create-item-wrapper'
 
 import NumeroItem from './numero-item'
 
@@ -38,10 +38,7 @@ class NumerosList extends React.Component {
 
     return (
       <div className='numeros-list'>
-        <div className='title'>
-          <h3>Liste des numéros</h3>
-        </div>
-
+        <h3>Liste des numéros</h3>
         <div className='divider' />
 
         <CreateItemWrapper
@@ -71,27 +68,26 @@ class NumerosList extends React.Component {
         </div>
 
         <style jsx>{`
-          .title {
-            display: flex;
-            align-items: center;
-          }
-
-          .divider {
-            width: 100%;
-            border-bottom: 1px solid ${theme.border};
-            padding-bottom: 0.5em;
-            margin-bottom: 0.5em;
-          }
-
           .numeros-list {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: content;
+            height: 100%;
+          }
+
+          h3 {
+            line-height: 0;
+          }
+
+          .divider {
+            width: 100%;
+            border-bottom: 1px solid ${theme.border};
           }
 
           .list {
-            margin: 0.5em 0;
+            flex: auto;
+            overflow: scroll;
           }
         `}</style>
       </div>
