@@ -50,7 +50,7 @@ class Csv extends React.Component {
     file: null,
     csv: null,
     selectedColumns: [],
-    filtersMenu: false,
+    advancedPanel: false,
     filter: null,
     error: null,
     encoding: null
@@ -123,9 +123,9 @@ class Csv extends React.Component {
     }))
   }
 
-  handleFilterMenu = () => {
+  toggleAdvancedPanel = () => {
     this.setState(state => ({
-      filtersMenu: !state.filtersMenu,
+      advancedPanel: !state.advancedPanel,
       filter: null
     }))
   }
@@ -137,7 +137,7 @@ class Csv extends React.Component {
   }
 
   render() {
-    const {file, csv, selectedColumns, filtersMenu, filter, error, encoding} = this.state
+    const {file, csv, selectedColumns, advancedPanel, filter, error, encoding} = this.state
     const columns = csv ? csv.data[0] : []
 
     return (
@@ -174,11 +174,11 @@ class Csv extends React.Component {
             {csv && (
               <>
                 <div className='filters'>
-                  <Button onClick={this.handleFilterMenu} style={{fontSize: '1em', padding: '0.4em 1em'}}>
-                    {filtersMenu ? <FaMinus /> : <FaPlus />} Paramètres avancés
+                  <Button onClick={this.toggleAdvancedPanel} style={{fontSize: '1em', padding: '0.4em 1em'}}>
+                    {advancedPanel ? <FaMinus /> : <FaPlus />} Paramètres avancés
                   </Button>
 
-                  {filtersMenu && (
+                  {advancedPanel && (
                     <Filter
                       selected={filter}
                       columns={columns}
