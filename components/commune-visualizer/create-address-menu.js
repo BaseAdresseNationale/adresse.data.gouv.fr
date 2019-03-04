@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Autocomplete from 'react-autocomplete'
+import fuzzySet from 'fuzzyset.js'
+import deburr from 'lodash/deburr'
+import keyBy from 'lodash/keyBy'
 
 import theme from '../../styles/theme'
 
@@ -56,9 +59,9 @@ class CreateVoieMenu extends React.Component {
     })
   }
 
-  onSelectVoie = idVoie => {
+  onSelectVoie = nomVoie => {
     const {voies} = this.props
-    const voie = voies.find(voie => voie.idVoie === idVoie)
+    const voie = voies.find(voie => voie.nomVoie === nomVoie)
 
     this.setState({
       voie,
@@ -117,6 +120,19 @@ class CreateVoieMenu extends React.Component {
   render() {
     const {input, toponyme, voie, voieInput, error} = this.state
     const {voies} = this.props
+    const normalizedNomsVoiesIndex = keyBy(voies, v => deburr(v.nomVoie))
+    const nomsVoiesFuzzy = fuzzySet(voies.map(v => deburr(v.nomVoie)))
+
+    function autocompleteVoie(textInput = '') {
+      return nomsVoiesFuzzy.get(deburr(textInput), [], 0.2)
+        .slice(0, 10)
+        .map(([score, nNomVoie]) => {
+          return {
+            ...normalizedNomsVoiesIndex[nNomVoie],
+            score
+          }
+        })
+    }
 
     const menu = {
       zIndex: 999,
@@ -151,12 +167,9 @@ class CreateVoieMenu extends React.Component {
           {!toponyme && (
             <Autocomplete
               menuStyle={menu}
-              getItemValue={voie => voie.idVoie}
-              items={voies.filter(voie =>
-                getName(voie).startsWith(voieInput) &&
-                !isToponyme(voie) &&
-                getStatus(voie) !== 'deleted'
-              )}
+              getItemValue={voie => voie.nomVoie}
+              items={autocompleteVoie(voieInput).filter(voie => !isToponyme(voie) && getStatus(voie) !== 'deleted')}
+              sortItems={(a, b) => a.score < b.score ? 1 : -1}
               inputProps={{placeholder: 'Voie'}}
               renderItem={(voie, isHighlighted) => (
                 <div
