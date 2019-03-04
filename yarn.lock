@@ -3382,6 +3382,13 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
+file-selector@^0.1.8:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.1.10.tgz#5e39e07fb330de63143e4be90d207358ea39e28e"
+  integrity sha512-wr0KDRkIZPDUc5zHsBEbtIa0A5apzA15aYGdDFYzUnGFVF+uXO5izWTRtA3oj+HO7+RMi76XqKdcx66gNmsBcw==
+  dependencies:
+    tslib "^1.9.0"
+
 fileset@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/fileset/-/fileset-2.0.3.tgz#8e7548a96d3cc2327ee5e674168723a333bba2a0"
@@ -6396,6 +6403,14 @@ prop-types-exact@1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
+prop-types-extra@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/prop-types-extra/-/prop-types-extra-1.1.0.tgz#32609910ea2dcf190366bacd3490d5a6412a605f"
+  integrity sha512-QFyuDxvMipmIVKD2TwxLVPzMnO4e5oOf1vr3tJIomL8E7d0lr6phTHd5nkPhFIzTD1idBLLEPeylL9g+rrTzRg==
+  dependencies:
+    react-is "^16.3.2"
+    warning "^3.0.0"
+
 prop-types@15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
@@ -6588,13 +6603,15 @@ react-dom@^16.8.3:
     prop-types "^15.6.2"
     scheduler "^0.13.3"
 
-react-dropzone@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-8.1.0.tgz#be97dfbbe7ca57cf69becd07d321f61c52d7787b"
-  integrity sha512-engzi+Ov/3PC/Pzbi7k0LA5/agN6fdibb7quX7Hx7fWExoEnvpXi1EyQNCZZnEdkPiKNx5PYjWATlpn6PqTjXA==
+react-dropzone@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-9.0.0.tgz#4f5223cdcb4d3bd8a66e3298c4041eb0c75c4634"
+  integrity sha512-wZ2o9B2qkdE3RumWhfyZT9swgJYJPeU5qHEcMU8weYpmLex1eeWX0CC32/Y0VutB+BBi2D+iePV/YZIiB4kZGw==
   dependencies:
     attr-accept "^1.1.3"
+    file-selector "^0.1.8"
     prop-types "^15.6.2"
+    prop-types-extra "^1.1.0"
 
 react-error-overlay@4.0.0:
   version "4.0.0"
@@ -8118,6 +8135,13 @@ walker@~1.0.5:
   resolved "https://registry.yarnpkg.com/walker/-/walker-1.0.7.tgz#2f7f9b8fd10d677262b18a884e28d19618e028fb"
   dependencies:
     makeerror "1.0.x"
+
+warning@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  integrity sha1-MuU3fLVy3kqwR1O9+IIcAe1gW3w=
+  dependencies:
+    loose-envify "^1.0.0"
 
 watch@~0.18.0:
   version "0.18.0"
