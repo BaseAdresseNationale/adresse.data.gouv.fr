@@ -26,6 +26,7 @@
     "compression": "^1.7.3",
     "content-disposition": "^0.5.3",
     "express": "^4.16.4",
+    "fuzzyset.js": "^0.0.8",
     "hoist-non-react-statics": "^3.3.0",
     "isomorphic-unfetch": "^3.0.0",
     "jschardet-french": "^0.0.1",
