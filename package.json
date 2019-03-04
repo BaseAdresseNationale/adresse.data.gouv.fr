@@ -61,7 +61,7 @@
     "jest": "^24.1.0",
     "jest-junit": "^6.3.0",
     "lerna-changelog": "^0.8.2",
-    "webpack-bundle-analyzer": "^3.0.4",
+    "webpack-bundle-analyzer": "^3.1.0",
     "xo": "^0.24.0"
   },
   "jest": {
