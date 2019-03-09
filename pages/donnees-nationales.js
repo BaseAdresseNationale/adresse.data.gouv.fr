@@ -44,7 +44,7 @@ export default () => (
             <div>
               <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
               <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-              <Link href='/data'>
+              <Link href='/data/ban-v0'>
                 <ButtonLink>
                   Accéder aux données
                 </ButtonLink>
