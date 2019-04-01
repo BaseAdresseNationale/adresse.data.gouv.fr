@@ -40,7 +40,7 @@
     "randomcolor": "^0.5.4",
     "react": "^16.8.3",
     "react-autocomplete": "^1.7.2",
-    "react-chartjs-2": "^2.7.4",
+    "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.3",
     "react-dropzone": "^8.1.0",
     "react-icons": "^2.2.7",
