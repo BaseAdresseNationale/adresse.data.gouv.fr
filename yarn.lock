@@ -2757,10 +2757,10 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
-dotenv@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-5.0.1.tgz#a5317459bd3d79ab88cff6e44057a6a3fbb1fcef"
-  integrity sha512-4As8uPrjfwb7VXC+WnLCbXK7y+Ueb2B3zgNCePYfhxS1PYeaO1YTeplffTEcbfLhvFNGLAz90VvJs9yomG7bow==
+dotenv@^6.0.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
+  integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
 
 double-ended-queue@2.1.0-0:
   version "2.1.0-0"
@@ -5798,12 +5798,12 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
   integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
-next-runtime-dotenv@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/next-runtime-dotenv/-/next-runtime-dotenv-1.0.1.tgz#46c57b0d28c7788a79da8ae07fea0db243a2072e"
-  integrity sha1-RsV7DSjHeIp52orgf+oNskOiBy4=
+next-runtime-dotenv@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/next-runtime-dotenv/-/next-runtime-dotenv-1.1.1.tgz#ba5d4a544cdd5a88d92540dec851200c46809232"
+  integrity sha512-scsStSsjCMwK2zBvOhDP58tz8FV3Iw8xlVo0EuluxCzKGPJZoPxhV/7HLtsYrywagncZQ8bvF1dfKW0tXrfOMQ==
   dependencies:
-    dotenv "^5.0.1"
+    dotenv "^6.0.0"
 
 next-server@8.0.3:
   version "8.0.3"
