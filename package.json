@@ -22,7 +22,7 @@
     "@turf/concave": "^6.0.5",
     "@turf/helpers": "^6.1.4",
     "blob-to-buffer": "^1.2.8",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.8.0",
     "compression": "^1.7.3",
     "content-disposition": "^0.5.3",
     "express": "^4.16.4",
