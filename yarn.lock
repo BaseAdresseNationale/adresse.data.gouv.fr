@@ -775,10 +775,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@etalab/bal@^0.14.3":
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.14.3.tgz#d37021f297e2a26a26de055ec6ede62c09a03e82"
-  integrity sha512-8MLIm/3njVLc2VKCJifzuk/H/OcrAxjG0Kxni6gZL6fYbopv4SW5YcX9wAmjNTyivZF2ocNMT/HweMu6wpMYWQ==
+"@etalab/bal@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.15.0.tgz#6f0eda69adb0de9b3006bd4c0348236704cdc568"
+  integrity sha512-K/CZ4zFB3k4z4GEd3jupqcqF5isQcsj6m8APmF2dF2U1NdnxFesLtLMTeRpLlvYb3NiH+yqPhDRxHAtsZUDC0w==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^1.29.0"
