@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import InputForm from '../../input-form'
 import Holder from '../../csv/holder'
-import Section from '../../section'
 import Notification from '../../notification'
 
 class FileHandler extends React.Component {
@@ -47,7 +46,7 @@ class FileHandler extends React.Component {
     const {file, error, loading, onFileDrop} = this.props
 
     return (
-      <Section>
+      <>
         <div>
           <h2>Choisir un fichier</h2>
 
@@ -86,7 +85,7 @@ class FileHandler extends React.Component {
             font-size: larger;
           }
         `}</style>
-      </Section>
+      </>
     )
   }
 }
