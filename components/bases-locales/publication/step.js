@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaCheck from 'react-icons/lib/fa/check'
 
 import theme from '../../../styles/theme'
 
@@ -21,9 +20,9 @@ class Step extends React.Component {
   render() {
     const {index, title, validTitle, validate, disable} = this.props
     return (
-      <div className='badge step'>
+      <div className='step'>
         {validate ? (
-          <div className='badge valid'><FaCheck />✓</div>
+          <div className='badge valid'>✓</div>
         ) : (
           <div className='badge index'>{index}</div>
         )}
@@ -35,8 +34,6 @@ class Step extends React.Component {
         <style jsx>{`
           .step {
             display: flex;
-            flex: 1;
-            justify-content: space-between;
             align-items: center;
             opacity: ${disable ? 0.5 : 1};
           }

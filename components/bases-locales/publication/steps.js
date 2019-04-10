@@ -23,10 +23,18 @@ const Steps = React.memo(({step}) => {
 
       <Step
         index={3}
-        title='Demande de publication'
-        validTitle='Publié'
+        title='Authorisation de publication'
+        validTitle='Authorisé'
         validate={step > 3}
         disable={step < 3}
+      />
+
+      <Step
+        index={4}
+        title='Publication'
+        validTitle='Publiée'
+        validate={step > 4}
+        disable={step < 4}
       />
 
       <style jsx>{`
@@ -41,7 +49,7 @@ const Steps = React.memo(({step}) => {
 })
 
 Steps.propTypes = {
-  step: PropTypes.oneOf([1, 2, 3]).isRequired
+  step: PropTypes.oneOf([1, 2, 3, 4, 5]).isRequired
 }
 
 export default Steps

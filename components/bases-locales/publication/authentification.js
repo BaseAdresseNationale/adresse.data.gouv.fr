@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 import theme from '../../../styles/theme'
 
 import Button from '../../button'
 
-const Authentification = React.memo(({mail, sendMail, franceConnect, publicationRequest}) => {
+const Authentification = React.memo(({mail, sendMail, authenticationUrl, publicationRequest}) => {
   return (
     <div>
       <div>
@@ -22,7 +23,9 @@ const Authentification = React.memo(({mail, sendMail, franceConnect, publication
 
           <div className='action column'>
             <p>Je suis élu de la commune</p>
-            <Button onClick={franceConnect}>FranceConnect</Button>
+            <Link href={authenticationUrl}>
+              <a><img className='france-connect' src='/static/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
+            </Link>
           </div>
         </div>
       </div>
@@ -54,6 +57,10 @@ const Authentification = React.memo(({mail, sendMail, franceConnect, publication
           box-shadow: 0 1px 4px 0 ${theme.boxShadow};
         }
 
+        .france-connect:hover {
+          cursor: pointer;
+        }
+
         .disabled {
           color: ${theme.colors.grey};
           font-style: italic;
@@ -66,7 +73,7 @@ const Authentification = React.memo(({mail, sendMail, franceConnect, publication
 
 Authentification.propTypes = {
   mail: PropTypes.string,
-  franceConnect: PropTypes.func.isRequired,
+  authenticationUrl: PropTypes.string.isRequired,
   sendMail: PropTypes.func.isRequired,
   publicationRequest: PropTypes.func.isRequired
 }

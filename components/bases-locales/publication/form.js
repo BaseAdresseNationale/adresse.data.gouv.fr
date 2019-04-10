@@ -157,10 +157,7 @@ const Form = React.memo(({mail}) => {
 })
 
 Form.propTypes = {
-  mail: PropTypes.string,
-  franceConnect: PropTypes.func.isRequired,
-  sendMail: PropTypes.func.isRequired,
-  publicationRequest: PropTypes.func.isRequired
+  mail: PropTypes.string
 }
 
 Form.defaultProps = {
