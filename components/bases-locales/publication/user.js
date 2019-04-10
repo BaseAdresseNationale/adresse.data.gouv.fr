@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const User = React.memo(({user}) => {
-  const {nomNaissance, prenom, typeMandat} = user
+  const {nomNaissance, nomMarital, prenom, typeMandat} = user
 
   return (
     <div className='user'>
       <img src='/static/images/icons/elu.svg' />
-      <div>{prenom} {nomNaissance}</div>
+      <div>{prenom} {nomMarital || nomNaissance}</div>
       <div><b>{typeMandat}</b></div>
       <style jsx>{`
         .user {
@@ -23,6 +23,7 @@ const User = React.memo(({user}) => {
 User.propTypes = {
   user: PropTypes.shape({
     nomNaissance: PropTypes.string.isRequired,
+    nomMarital: PropTypes.string,
     prenom: PropTypes.string.isRequired,
     typeMandat: PropTypes.string.isRequired
   }).isRequired
