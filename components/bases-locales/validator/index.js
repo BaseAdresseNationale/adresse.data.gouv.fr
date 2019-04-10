@@ -5,42 +5,13 @@ import {validate} from '@etalab/bal'
 import {withRouter} from 'next/router'
 
 import {createBALValidationError} from '../../../lib/error'
+import {getFileExtension, checkHeaders, statusCodeMsg} from '../../../lib/bal/file'
 
 import Section from '../../section'
 import Loader from '../../loader'
 
 import Report from './report'
 import FileHander from './file-handler'
-
-function getFileExtension(fileName) {
-  const dotPosition = fileName.lastIndexOf('.')
-  if (dotPosition > 0 && dotPosition < fileName.length - 1) {
-    return fileName.substr(dotPosition + 1).toLowerCase()
-  }
-
-  return null
-}
-
-function checkHeaders(headers) {
-  const contentType = headers.get('Content-Type')
-  const contentDisposition = headers.get('Content-Disposition')
-
-  if (contentType && contentType.includes('csv')) {
-    return true
-  }
-
-  if (contentDisposition && contentDisposition.includes('.csv')) {
-    return true
-  }
-
-  return false
-}
-
-const statusCodeMsg = {
-  400: 'l’url n’est pas valide',
-  404: 'il n’a pas pu être trouvé',
-  500: 'le serveur ne répond pas'
-}
 
 class BALValidator extends React.Component {
   static propTypes = {
@@ -157,7 +128,7 @@ class BALValidator extends React.Component {
     const {error, file, report, inProgress, loading} = this.state
 
     return (
-      <div>
+      <Section>
         <FileHander defaultValue={router.query.url} file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} loading={loading} />
         {inProgress &&
         <div className='centered'>
@@ -179,7 +150,7 @@ class BALValidator extends React.Component {
             margin: 1em 0 2em;
           }
         `}</style>
-      </div>
+      </Section>
     )
   }
 }

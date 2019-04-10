@@ -7,7 +7,8 @@ const withConfig = nextRuntimeDotenv({
     'API_EXPLORE_URL',
     'API_EXPLORE_SEARCH_URL',
     'PIWIK_URL',
-    'PIWIK_SITE_ID'
+    'PIWIK_SITE_ID',
+    'BACKEND_PUBLICATION'
   ]
 })
 
