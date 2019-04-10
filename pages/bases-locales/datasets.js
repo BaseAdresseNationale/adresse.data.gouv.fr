@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import FaDatabase from 'react-icons/lib/fa/database'
 
-import {API_BAL_URL} from '../../lib/bal/api'
+import {BACKEND_URL} from '../../lib/bal/api'
 import {_get} from '../../lib/fetch'
 
 import Page from '../../layouts/main'
@@ -36,7 +36,7 @@ Datasets.propTypes = {
 
 Datasets.getInitialProps = async () => {
   return {
-    datasets: await _get(`${API_BAL_URL}/datasets`)
+    datasets: await _get(`${BACKEND_URL}/datasets`)
   }
 }
 
