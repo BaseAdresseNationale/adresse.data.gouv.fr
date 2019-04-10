@@ -21,7 +21,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const [step, setStep] = useState(bal ? 2 : 1)
   const [error, setError] = useState(null)
 
-  const handleValidBal = useCallback(file => {
+  const handleValidBal = useCallback(() => {
     setStep(2)
   })
 
