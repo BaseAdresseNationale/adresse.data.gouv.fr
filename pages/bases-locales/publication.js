@@ -152,7 +152,7 @@ PublicationPage.getInitialProps = async ({query}) => {
   if (submissionId) {
     bal = await getSubmissions(submissionId)
   } else if (url) {
-    bal = await submissionsBal(url)
+    bal = await submissionsBal(decodeURIComponent(url))
   }
 
   return {
