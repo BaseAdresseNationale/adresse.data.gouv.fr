@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '../styles/theme'
 
-const Button = ({size, color, children, ...props}) => (
-  <button className={`button ${size} ${color}`} {...props}>
+const Button = ({size, color, disabled, children, ...props}) => (
+  <button className={`button ${size} ${color} ${disabled ? 'disabled' : ''}`} {...props}>
     {children}
 
     <style jsx>{`
@@ -69,6 +69,13 @@ const Button = ({size, color, children, ...props}) => (
       button.button.green:hover {
         background: #07ad55;
       }
+
+      button.disabled,
+      button.disabled:hover {
+        background: #dadada;
+        border-bottom-color: #dadada;
+        cursor: not-allowed;
+      }
     `}</style>
   </button>
 )
@@ -84,12 +91,14 @@ Button.propTypes = {
     'red',
     'green'
   ]),
+  disabled: PropTypes.bool,
   children: PropTypes.node
 }
 
 Button.defaultProps = {
   size: 'regular',
   color: 'blue',
+  disabled: false,
   children: null
 }
 

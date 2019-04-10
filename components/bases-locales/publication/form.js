@@ -65,16 +65,15 @@ const Form = React.memo(({mail}) => {
         <h3>Envoyer la demande de publication</h3>
 
         <div className='columns'>
-          {mail && (
-            <div className='choice'>
-              <div>Au secrétariat</div>
-              <div>Adresse email de la mairie : <b>{mail}</b></div>
+          <div className='choice'>
+            <div>Au secrétariat</div>
+            {mail && <div>Adresse email de la mairie : <b>{mail}</b></div>}
 
-              <div className='button'>
-                <Button>Envoyer</Button>
-              </div>
+            <div className='button'>
+              <Button disabled>Envoyer</Button>
+              <div className='disabled'>Bientôt disponible</div>
             </div>
-          )}
+          </div>
 
           <div className='choice'>
             <div>À l’élu</div>
@@ -140,6 +139,12 @@ const Form = React.memo(({mail}) => {
         .choice {
           display: grid;
           grid-row-gap: 0.5em;
+        }
+
+        .disabled {
+          color: ${theme.colors.grey};
+          font-style: italic;
+          margin: 0.5em 0;
         }
 
         textarea {
