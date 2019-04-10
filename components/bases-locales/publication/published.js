@@ -10,12 +10,10 @@ const Published = React.memo(({publicationUrl}) => {
     <div className='published'>
       <h1>Votre Base Adresse Locale a bien été publiée !</h1>
       <div className='valid'>✓</div>
-      <ButtonLink
-        color='green'
-        href={publicationUrl}
-      >
-        Voir mes adresses
-      </ButtonLink>
+      {publicationUrl ?
+        <ButtonLink color='green' href={publicationUrl}>
+          Voir les adresses
+        </ButtonLink> : null}
 
       <style jsx>{`
         .published {
