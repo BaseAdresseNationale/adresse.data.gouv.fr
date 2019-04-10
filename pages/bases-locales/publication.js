@@ -96,7 +96,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   return (
     <Page>
       <Section>
-        <h1>Publication base adresses locales</h1>
+        <h1>Publication d’une Base Adresse Locale</h1>
         {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}
 
         <Steps step={step} />
