@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
 import {throttle, debounce} from 'lodash'
 
-import {_get} from '../../lib/fetch'
+import {search, reverse} from '../../lib/api-adresse'
 
 import Notification from '../notification'
 import renderAdresse from '../search-input/render-adresse'
@@ -115,18 +115,13 @@ class Map extends React.Component {
       'street',
       'housenumber'
     ]
-    let url = 'https://api-adresse.data.gouv.fr/search/?q=' + input
     let results = []
     let error
 
-    if (lng && lat) {
-      url += `&lon=${lng}&lat=${lat}`
-    }
-
     try {
-      const req = _get(url)
+      const req = search(input, lng, lat)
       this.currentRequest = req
-      const response = await _get(url)
+      const response = await search(input, lng, lat)
       if (this.currentRequest === req) {
         results = response.features.filter(address =>
           types.includes(address.properties.type) || [])
@@ -151,14 +146,13 @@ class Map extends React.Component {
   }
 
   getNearestAddress = async coordinates => {
-    const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${coordinates[0]}&lat=${coordinates[1]}`
     let address = null
     let error
 
     this.setState({addressLoading: true})
 
     try {
-      const results = await _get(url)
+      const results = await reverse(coordinates[0], coordinates[1])
       address = results.features.length > 0 ? results.features[0] : null
     } catch (err) {
       error = err
