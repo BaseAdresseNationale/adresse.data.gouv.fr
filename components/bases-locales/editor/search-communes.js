@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {throttle, debounce, uniqueId} from 'lodash'
 
-import {_get} from '../../../lib/fetch'
+import {getCommunes} from '../../../lib/api-geo'
 
 import SearchInput from '../../search-input'
 import RenderCommune from '../../search-input/render-commune'
@@ -66,10 +66,9 @@ class SearchCommunes extends React.Component {
     this.waitingFor = reqId
     const codeDepFilter = codeDep ? `&codeDepartement=${codeDep}` : ''
     const q = codeDep ? input.split(' ').filter(t => !isCodeDepNaive(t)).join(' ') : input
-    const url = `https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(q)}${codeDepFilter}&fields=departement,contour&limit=8`
 
     try {
-      const response = await _get(url)
+      const response = await getCommunes(encodeURIComponent(q), codeDepFilter, 'departement,contour', 8)
       if (reqId === this.waitingFor) {
         this.setState(() => {
           return {

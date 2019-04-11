@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {_get} from '../../lib/fetch'
-import {getCommune} from '../../lib/explore/api'
+import {getCommune} from '../../lib/api-geo'
 
 import Page from '../../layouts/main'
 import Section from '../../components/section'
@@ -112,9 +111,10 @@ const MLP = {
 CommunePage.getInitialProps = async ({query}) => {
   const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
   const codeCommune = query.codeCommune in MLP ? MLP[query.codeCommune] : query.codeCommune
+
   return {
     codeCommune: query.codeCommune,
-    commune: await _get(`https://geo.api.gouv.fr/communes/${codeCommune}?${fields}`)
+    commune: await getCommune(codeCommune, fields)
   }
 }
 
