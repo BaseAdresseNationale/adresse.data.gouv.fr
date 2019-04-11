@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {BACKEND_URL} from '../../../../lib/bal/api'
-import {_get} from '../../../../lib/fetch'
+import {getCommune, getDataset} from '../../../../lib/bal/api'
 
 import Page from '../../../../layouts/main'
 import withErrors from '../../../../components/hoc/with-errors'
@@ -34,8 +33,8 @@ CommunePage.getInitialProps = async ({query}) => {
   const {id, codeCommune} = query
 
   return {
-    dataset: await _get(`${BACKEND_URL}/datasets/${id}`),
-    commune: await _get(`${BACKEND_URL}/datasets/${id}/data/${codeCommune}`)
+    dataset: await getDataset(id),
+    commune: await getCommune(id, codeCommune)
   }
 }
 
