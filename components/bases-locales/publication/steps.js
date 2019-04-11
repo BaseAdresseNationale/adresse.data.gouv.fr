@@ -43,6 +43,15 @@ const Steps = React.memo(({step}) => {
           margin: 2em 0;
           justify-content: space-between;
         }
+
+        @media (max-width: 700px) {
+          .steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 0.5em;
+            align-self: center;
+          }
+        }
       `}</style>
     </div>
   )

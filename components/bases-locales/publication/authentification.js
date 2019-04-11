@@ -48,6 +48,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
 
         .section {
           display: flex;
+          flex-flow: wrap;
           justify-content: space-around;
           align-items: center;
           text-align: center;
