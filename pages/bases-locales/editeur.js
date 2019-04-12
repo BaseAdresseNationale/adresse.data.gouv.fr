@@ -7,7 +7,7 @@ import {validate, extractAsTree} from '@etalab/bal'
 import BALStorage from '../../lib/bal/storage'
 import {extractCommunes} from '../../lib/bal/api'
 import BAL from '../../lib/bal/model'
-import {_get} from '../../lib/fetch'
+import {getCommune} from '../../lib/api-geo'
 
 import Page from '../../layouts/main'
 import withErrors from '../../components/hoc/with-errors'
@@ -75,7 +75,7 @@ class EditorPage extends React.Component {
     this.setState({loading: true})
 
     try {
-      await _get(`https://geo.api.gouv.fr/communes/${codeCommune}`) // Check if commune code exist
+      await getCommune(codeCommune) // Check if commune code exist
       const model = await createBALStorage(codeCommune)
       const href = `/bases-locales/editeur?id=${model._id}&codeCommune=${codeCommune}`
       const url = `/bases-locales/editeur/${model._id}/commune/${codeCommune}`

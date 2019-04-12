@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {BACKEND_URL} from '../../../lib/bal/api'
-import {_get} from '../../../lib/fetch'
+import {getSummary, getDataset} from '../../../lib/bal/api'
 
 import Page from '../../../layouts/main'
 import withErrors from '../../../components/hoc/with-errors'
@@ -28,8 +27,8 @@ DatasetPage.propTypes = {
 
 DatasetPage.getInitialProps = async ({query}) => {
   return {
-    summary: await _get(`${BACKEND_URL}/datasets/${query.id}/data/summary`),
-    dataset: await _get(`${BACKEND_URL}/datasets/${query.id}`)
+    summary: await getSummary(query.id),
+    dataset: await getDataset(query.id)
   }
 }
 

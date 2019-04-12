@@ -4,6 +4,8 @@ const nextRuntimeDotenv = require('next-runtime-dotenv')
 const withConfig = nextRuntimeDotenv({
   public: [
     'BACKEND_URL',
+    'API_GEO_URL',
+    'API_ADRESSE',
     'API_EXPLORE_URL',
     'API_EXPLORE_SEARCH_URL',
     'PIWIK_URL',

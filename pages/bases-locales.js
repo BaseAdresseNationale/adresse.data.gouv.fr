@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import FaDatabase from 'react-icons/lib/fa/database'
 import Page from '../layouts/main'
 
-import {_get} from '../lib/fetch'
-import {BACKEND_URL} from '../lib/bal/api'
+import {getDatasets, getStats} from '../lib/bal/api'
 import withErrors from '../components/hoc/with-errors'
 
 import Head from '../components/head'
@@ -33,8 +32,8 @@ BasesLocalesPage.propTypes = {
 
 BasesLocalesPage.getInitialProps = async () => {
   return {
-    datasets: await _get(`${BACKEND_URL}/datasets`),
-    stats: await _get(`${BACKEND_URL}/datasets/stats`)
+    datasets: await getDatasets(),
+    stats: await getStats()
   }
 }
 
