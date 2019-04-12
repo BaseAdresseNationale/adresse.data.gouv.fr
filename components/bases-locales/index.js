@@ -38,7 +38,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         <div className='intro'>
           <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
           Cette compétence est <b>régulièrement déléguée à un EPCI</b>.</p>
-          <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe tout ou partie des adresses d’une collectivité.<br />{}
+          <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe toute les adresses d’une collectivité.<br />{}
           Elle est <b>publiée sous sa responsabilité</b>.</p>
           <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
         </div>
@@ -59,15 +59,15 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <Section background='grey'>
-        <h4>Créer ou modifier une Base Adresse Locale (beta)</h4>
+        <h4>Créer ou modifier une Base Adresse Locale</h4>
         <div>
           <p>Cet outil permet de générer une nouvelle Base Adresse Locale à partir de la BAN, ou d’éditer une Base Adresse Locale existante.</p>
-          <p>Il permet de gérer très simplement les <strong>voies</strong>, les <strong>numéros</strong> et les <strong>positions</strong> d’une commune ou d’une intercommunalité, mais aussi de gérer des <strong>toponymes</strong>.</p>
-          <p>Les données résultantes peuvent (et devraient) être republiées par la collectivité sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
+          <p>Il permet de gérer très simplement les <strong>voies</strong>, les <strong>numéros</strong> et les <strong>positions</strong> des adresses d’une commune ou d’une intercommunalité, mais aussi de gérer des <strong>toponymes</strong>.</p>
+          <p>Les données résultantes peuvent ensuite être publiées sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
         </div>
         <div className='action'>
           <Link href='/bases-locales/editeur'>
-            <ButtonLink>Éditer une Base Adresse Locale <FaFileTextO /></ButtonLink>
+            <ButtonLink>Créer ou modifier une Base Adresse Locale <FaFileTextO /></ButtonLink>
           </Link>
         </div>
       </Section>
@@ -79,7 +79,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         <div className='centered'>
           <Link href='/bases-locales/jeux-de-donnees'>
             <ButtonLink>
-              Voir toutes les bases locales
+              Voir toutes les Bases Adresse Locales
             </ButtonLink>
           </Link>
         </div>
