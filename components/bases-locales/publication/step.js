@@ -64,6 +64,15 @@ class Step extends React.Component {
             padding: 1em;
             text-align: center;
           }
+
+        @media (max-width: 700px) {
+          .title {
+            width: 100%;
+          }
+
+          .badge {
+            margin: 0 1em 0 0;
+          }
         `}</style>
       </div>
     )
