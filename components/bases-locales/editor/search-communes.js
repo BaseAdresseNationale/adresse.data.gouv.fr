@@ -2,19 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {throttle, debounce, uniqueId} from 'lodash'
 
-import {getCommunes} from '../../../lib/api-geo'
+import {getCommunes, isCodeDepNaive} from '../../../lib/api-geo'
 
 import SearchInput from '../../search-input'
 import RenderCommune from '../../search-input/render-commune'
 import Notification from '../../notification'
-
-function isCodeDepNaive(token) {
-  if (['2A', '2B'].includes(token)) {
-    return true
-  }
-
-  return token.match(/^\d{2,3}$/)
-}
 
 class SearchCommunes extends React.Component {
   static propTypes = {
@@ -61,14 +53,17 @@ class SearchCommunes extends React.Component {
   }
 
   async handleSearch(input) {
-    const codeDep = input.split(' ').find(isCodeDepNaive)
     const reqId = uniqueId('req_')
     this.waitingFor = reqId
-    const codeDepFilter = codeDep ? `&codeDepartement=${codeDep}` : ''
-    const q = codeDep ? input.split(' ').filter(t => !isCodeDepNaive(t)).join(' ') : input
 
     try {
-      const response = await getCommunes(encodeURIComponent(q), codeDepFilter, 'departement,contour', 8)
+      const codeDep = input.split(' ').find(isCodeDepNaive)
+      const response = await getCommunes({
+        q: input,
+        departement: codeDep,
+        fields: ['departement', 'contour'],
+        limit: 8
+      })
       if (reqId === this.waitingFor) {
         this.setState(() => {
           return {

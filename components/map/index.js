@@ -119,9 +119,10 @@ class Map extends React.Component {
     let error
 
     try {
-      const req = search(input, lng, lat)
+      const args = {q: input, lng, lat}
+      const req = search(args)
       this.currentRequest = req
-      const response = await search(input, lng, lat)
+      const response = await search(args)
       if (this.currentRequest === req) {
         results = response.features.filter(address =>
           types.includes(address.properties.type) || [])
@@ -152,7 +153,7 @@ class Map extends React.Component {
     this.setState({addressLoading: true})
 
     try {
-      const results = await reverse(coordinates[0], coordinates[1])
+      const results = await reverse(coordinates)
       address = results.features.length > 0 ? results.features[0] : null
     } catch (err) {
       error = err
