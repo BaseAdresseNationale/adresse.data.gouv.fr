@@ -139,8 +139,8 @@ export default () => (
             <p>Par défaut, toutes les colonnes sont concaténées pour constituer l’adresse qui sera géocodée. On peut définir les colonnes à utiliser via de multiples paramètres <b>columns</b>:</p>
             <pre><code>curl -X POST -F data=@path/to/file.csv -F columns=voie -F columns=ville https://api-adresse.data.gouv.fr/search/csv/</code></pre>
             <p>Il est possible de préciser le nom d’une colonne contenant le <b>code INSEE</b> ou le <b>code Postal</b> pour limiter les recherches, exemple :</p>
-            <pre><code>curl -X POST -F data=@path/to/file.csv -F columns=voie columns=ville -F citycode=ma_colonne_code_insee https://api-adresse.data.gouv.fr/search/csv/</code></pre>
-            <pre><code>curl -X POST -F data=@path/to/file.csv -F columns=voie columns=ville -F postcode=colonne_code_postal https://api-adresse.data.gouv.fr/search/csv/</code></pre>
+            <pre><code>curl -X POST -F data=@path/to/file.csv -F columns=voie -F columns=ville -F citycode=ma_colonne_code_insee https://api-adresse.data.gouv.fr/search/csv/</code></pre>
+            <pre><code>curl -X POST -F data=@path/to/file.csv -F columns=voie -F columns=ville -F postcode=colonne_code_postal https://api-adresse.data.gouv.fr/search/csv/</code></pre>
           </div>
         </div>
       </div>
