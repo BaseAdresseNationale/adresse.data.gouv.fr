@@ -90,10 +90,9 @@ const About = () => (
         <>
           <p>Les appels sont limités à :</p>
           <ul>
-            <li>10 requêtes par seconde et par IP pour le géocodage simple ;</li>
-            <li>1 requête simultanée par IP pour le géocodage de masse.</li>
+            <li>50 requêtes par seconde et par IP pour le géocodage simple ;</li>
+            <li>2 requêtes simultanées par IP pour le géocodage de masse (maximum 6 Mo par envoi de fichier).</li>
           </ul>
-          <p>Ces limites devraient évoluer à la hausse courant 2019.</p>
         </>
       </Question>
 
