@@ -105,7 +105,7 @@ class Uploader extends React.Component {
 
     this.setState({report, error, inProgress: false})
 
-    if (tree) {
+    if (tree && !report.hasErrors) {
       onData(tree)
     }
   }
@@ -142,6 +142,18 @@ class Uploader extends React.Component {
             </div>
             {error && <Notification style={{marginTop: '1em'}} message={error} type='error' />}
           </div>
+
+          {report && !report.isValid && !error && (
+            <div>
+              <div className='report-header'>
+                <h2>Le fichier n’est pas conforme <span><FaClose /></span></h2>
+                <h3>Voici le rapport d’erreurs présentent dans le fichier</h3>
+              </div>
+              <Section background='grey'>
+                <Report report={report} />
+              </Section>
+            </div>
+          )}
         </Section>
 
         <Section title='C. Créer une Base Adresse Locale vide'>
@@ -150,18 +162,6 @@ class Uploader extends React.Component {
             <Button onClick={newFile}><FaPencil /> Créer une Base Adresse Locale vide</Button>
           </div>
         </Section>
-
-        {report && !report.isValid && !error && (
-          <div>
-            <div className='report-header'>
-              <h2>Le fichier n’est pas conforme <span><FaClose /></span></h2>
-              <h3>Voici le rapport d’erreurs présentent dans le fichier</h3>
-            </div>
-            <Section background='grey'>
-              <Report report={report} />
-            </Section>
-          </div>
-        )}
 
         <style jsx>{`
           .border {
