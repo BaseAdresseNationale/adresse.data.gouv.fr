@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import {shuffle} from 'lodash'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
-import FaFileTextO from 'react-icons/lib/fa/file-text-o'
+import FaPlus from 'react-icons/lib/fa/plus'
+import FaEdit from 'react-icons/lib/fa/edit'
 
 import theme from '../../styles/theme'
 
@@ -66,9 +67,23 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           <p>Les données résultantes peuvent ensuite être publiées sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
         </div>
         <div className='action'>
-          <Link href='/bases-locales/editeur'>
-            <ButtonLink>Créer ou modifier une Base Adresse Locale <FaFileTextO /></ButtonLink>
-          </Link>
+
+          <div className='button-link'>
+            <ButtonLink
+              href='https://editeur.adresse.data.gouv.fr/new'
+            >
+              Créer une nouvelle Base Adresse Locale <FaPlus />
+            </ButtonLink>
+          </div>
+
+          <div className='button-link'>
+            <ButtonLink
+              href='https://editeur.adresse.data.gouv.fr/new/upload'
+            >
+              Modifier une Base Adresse Locale existante <FaEdit />
+            </ButtonLink>
+          </div>
+
         </div>
       </Section>
 
@@ -150,7 +165,14 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
         .action {
           display: flex;
+          flex-flow: row wrap;
+          justify-content: center;
           margin-top: 3em;
+        }
+
+        .button-link {
+          max-width: 400px;
+          margin: 0.5em 1em;
         }
 
         .centered {
