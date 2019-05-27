@@ -14,7 +14,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.4.4",
+    "@babel/runtime-corejs2": "^7.4.5",
     "@etalab/bal": "^0.17.0",
     "@etalab/project-legal": "^0.3.3",
     "@turf/bbox": "^6.0.1",
