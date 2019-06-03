@@ -14,7 +14,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.4.4",
+    "@babel/runtime-corejs2": "^7.4.5",
     "@etalab/bal": "^0.17.0",
     "@etalab/project-legal": "^0.3.3",
     "@turf/bbox": "^6.0.1",
@@ -25,7 +25,7 @@
     "chart.js": "^2.8.0",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.3",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "fuzzyset.js": "^0.0.8",
     "hoist-non-react-statics": "^3.3.0",
     "isomorphic-unfetch": "^3.0.0",
@@ -42,7 +42,7 @@
     "react-autocomplete": "^1.7.2",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
-    "react-dropzone": "^10.1.4",
+    "react-dropzone": "^10.1.5",
     "react-icons": "^2.2.7",
     "underscore.string": "^3.3.5"
   },
