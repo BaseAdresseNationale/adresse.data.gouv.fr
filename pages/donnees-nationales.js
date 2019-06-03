@@ -6,6 +6,8 @@ import Page from '../layouts/main'
 import Head from '../components/head'
 import Section from '../components/section'
 import ButtonLink from '../components/button-link'
+import Notification from '../components/notification'
+import Container from '../components/container'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
@@ -14,98 +16,91 @@ export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />} />
     <Section title='Base Adresse Nationale' subtitle='Données de référence issues d’une coopération entre l’État, l’IGN, La Poste et OpenStreetMap France'>
+      <Notification>
+        Conformément à la <a style={{'text-decoration': 'underline'}} href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>demande du Premier Ministre</a>, la Base Adresse Nationale passera sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{'text-decoration': 'underline'}}>1er janvier 2020</strong>.
+      </Notification>
       <div>
         <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN.</p>
         <p>Elles <strong>peuvent être téléchargées gratuitement</strong>,
         et sont <strong>disponibles sous deux formes</strong>.</p>
       </div>
+    </Section>
 
-      <h3>Diffusion principale sans licence</h3>
-      <div className='row'>
-        <div>
-          <h4>Résumé des conditions d’utilisation</h4>
-          <p>En l’absence de licence, ce sont les règles de droit commun du Code des Relations entre le Public et l’Administration (CRPA) qui s’appliquent.</p>
-          <p>Vous êtes notamment autorisé(e) à :</p>
-          <ul>
-            <li>copier, distribuer et utiliser la base de données ;</li>
-            <li>produire des créations à partir de cette base de données ;</li>
-            <li>modifier, transformer et construire à partir de cette base de données.</li>
-          </ul>
-          <p>Tant que :</p>
-          <ul>
-            <li>vous mentionnez la source des données et sa date de millésime ;</li>
-            <li>vous ne dénaturez pas les données.</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Données</h4>
+    <Container>
+      <div className='section'>
+        <h3>Diffusion sous “licence du produit gratuit issu de la BAN”</h3>
+        <div className='row'>
           <div>
+            <h4>Résumé de la licence</h4>
+            <p>La “licence du produit gratuit issu de la BAN” vous autorise à :</p>
+            <ul>
+              <li>copier, distribuer et utiliser la base de données ;</li>
+              <li>produire des créations à partir de cette base de données ;</li>
+              <li>modifier, transformer et construire à partir de cette base de données.</li>
+            </ul>
+            <p>Tant que :</p>
+            <ul>
+              <li>vous mentionnez la source des données ;</li>
+              <li>vous transmettez aux partenaires BAN une copie électronique de tous les enrichissements réalisés.</li>
+            </ul>
+            <p>Pour plus d’informations, consultez le <a href='/static/docs/licence-produit-gratuit-ban.pdf'>texte de la licence.</a></p>
+            <p style={{color: 'red'}}>NB : Cette licence est homologuée jusqu’au 31 décembre 2019.</p>
+          </div>
+
+          <div>
+            <h4>Données</h4>
             <div>
-              <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
-              <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-              <Link href='/data/ban-v0'>
-                <ButtonLink>
+              <div>
+                <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
+                <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
+                <Link href='/data/ban-v0'>
+                  <ButtonLink>
                   Accéder aux données
-                </ButtonLink>
-              </Link>
+                  </ButtonLink>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
+    </Container>
 
-      <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
-      <div className='row'>
-        <div>
-          <h4>Résumé de la licence</h4>
-          <p>La licence ODbL vous autorise à :</p>
-          <ul>
-            <li>copier, distribuer et utiliser la base de données ;</li>
-            <li>produire des créations à partir de cette base de données ;</li>
-            <li>modifier, transformer et construire à partir de cette base de données.</li>
-          </ul>
-          <p>Tant que :</p>
-          <ul>
-            <li>vous mentionnez la source des données ;</li>
-            <li>vous partagez à l’identique les bases de données dérivées ;</li>
-            <li>vous gardez ouvertes ces données.</li>
-          </ul>
-          <p>Pour plus de renseignements, consultez <a href='http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode' target='_blank' rel='noopener noreferrer'>la traduction française intégrale de la licence</a> ou le <a href='http://vvlibri.org/fr/licence/odbl/10/fr' target='_blank' rel='noopener noreferrer'>résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href='http://opendatacommons.org/licenses/odbl/summary/' target='_blank' rel='noopener noreferrer'>Open Data Commons</a>.</p>
-        </div>
-        <div>
-          <h4>Données</h4>
-          <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
-          <ul>
-            <li>le libellé à la norme AFNOR et le libellé d’acheminement ne sont pas disponibles ;</li>
-            <li>les données subissent <a href='https://github.com/etalab/ban-data/blob/master/scripts/clean.sql'>des traitements qualité supplémentaires.</a></li>
-          </ul>
-          <p>Données en téléchargement pour une commune, un département, ou la France entière, et disponibles aux formats CSV, Shapefile et JSON.</p>
-          <ButtonLink href='http://bano.openstreetmap.fr/BAN_odbl'>
+    <Container>
+      <div className='section'>
+        <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
+        <div className='row'>
+          <div>
+            <h4>Résumé de la licence</h4>
+            <p>La licence ODbL vous autorise à :</p>
+            <ul>
+              <li>copier, distribuer et utiliser la base de données ;</li>
+              <li>produire des créations à partir de cette base de données ;</li>
+              <li>modifier, transformer et construire à partir de cette base de données.</li>
+            </ul>
+            <p>Tant que :</p>
+            <ul>
+              <li>vous mentionnez la source des données ;</li>
+              <li>vous partagez à l’identique les bases de données dérivées ;</li>
+              <li>vous gardez ouvertes ces données.</li>
+            </ul>
+            <p>Pour plus de renseignements, consultez <a href='http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode' target='_blank' rel='noopener noreferrer'>la traduction française intégrale de la licence</a> ou le <a href='http://vvlibri.org/fr/licence/odbl/10/fr' target='_blank' rel='noopener noreferrer'>résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href='http://opendatacommons.org/licenses/odbl/summary/' target='_blank' rel='noopener noreferrer'>Open Data Commons</a>.</p>
+          </div>
+          <div>
+            <h4>Données</h4>
+            <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
+            <ul>
+              <li>le libellé à la norme AFNOR et le libellé d’acheminement ne sont pas disponibles ;</li>
+              <li>les données subissent <a href='https://github.com/etalab/ban-data/blob/master/scripts/clean.sql'>des traitements qualité supplémentaires.</a></li>
+            </ul>
+            <p>Données en téléchargement pour une commune, un département, ou la France entière, et disponibles aux formats CSV, Shapefile et JSON.</p>
+            <ButtonLink href='http://bano.openstreetmap.fr/BAN_odbl'>
             Accéder aux données
-          </ButtonLink>
+            </ButtonLink>
+          </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .row {
-          display: flex;
-          justify-content: space-between;
-          flex-flow: wrap;
-          margin-bottom: 20px;
-        }
-
-        .row ul {
-          list-style: circle;
-        }
-
-        @media (min-width: 900px) {
-          .row > div {
-            width: 48%;
-          }
-        }
-      `}</style>
-    </Section>
+    </Container>
 
     <Section title='En partenariat avec' subtitle=''>
       <div className='partners'>
@@ -130,8 +125,35 @@ export default () => (
           </a>
         </div>
       </div>
+    </Section>
 
-      <style jsx>{`
+    <style jsx>{`
+        .section {
+          margin: 2em 0;
+        }
+
+        .row {
+          display: flex;
+          justify-content: space-between;
+          flex-flow: wrap;
+          margin-bottom: 20px;
+        }
+
+        .row ul {
+          list-style: circle;
+        }
+
+        .alert {
+          border: 1px solid gray;
+          padding: 20px;
+        }
+
+        @media (min-width: 900px) {
+          .row > div {
+            width: 48%;
+          }
+        }
+
         .partners {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -144,6 +166,5 @@ export default () => (
           height: 130px;
         }
       `}</style>
-    </Section>
   </Page>
 )
