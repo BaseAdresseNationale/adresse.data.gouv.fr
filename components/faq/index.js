@@ -16,8 +16,8 @@ const About = () => (
       </Question>
 
       <Question question='La Base Adresse Nationale est-elle gratuite ?'>
-        <p>La Base Adresse Nationale est disponible sous <strong>licence ODbL</strong>, elle est donc gratuite.</p>
-        <p>Néanmoins la licence ODbL implique certaines restrictions à la réutilisation qui empêche son utilisation dans certains cas.</p>
+        <p>La Base Adresse Nationale est disponible sous <strong>licence spécifique</strong> ou sous <strong>licence ODbL</strong>, elle est donc gratuite.</p>
+        <p>Néanmoins ces licences impliquent certaines restrictions à la réutilisation qui empêche son utilisation dans certains cas.</p>
         <p>En mars 2019, le Premier Ministre a annoncé le passage de la Base Adresse Nationale sous Licence Ouverte, au plus tard pour le 1er janvier 2020. Ces contraintes à la réutilisation ne seront donc plus en vigueur, et la base de donnée deviendra donc gratuite et librement réutilisable pour tous.</p>
         <p>NB : Il n’existe pas de versions payantes de la Base Adresse Nationale. Il existe cependant des produits alternatifs proposés par certains de nos partenairs.</p>
       </Question>
