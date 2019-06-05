@@ -65,6 +65,7 @@ function BANDashboard({departements}) {
             communes={departement}
             loading={isLoading}
             selectDepartement={loadDepartement}
+            reset={() => setDepartement(null)}
           />
         )}
       </Mapbox>

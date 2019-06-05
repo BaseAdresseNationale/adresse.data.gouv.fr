@@ -77,7 +77,7 @@ const popupHTML = ({properties}) => {
 
 let hoveredStateId = null
 
-function BANMap({map, popUp, departements, communes, loading, selectDepartement}) {
+function BANMap({map, popUp, departements, communes, loading, selectDepartement, reset}) {
   map.once('load', () => {
     map.addSource('departements', {
       type: 'geojson',
@@ -175,6 +175,17 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
   map.on('mousemove', 'communes-fill', e => onHover(e, 'communes'))
   map.on('mouseleave', 'communes-fill', onLeave)
 
+  const unSelectDepartement = useCallback(() => {
+    map.getSource('communes').setData({
+      type: 'FeatureCollection',
+      features: []
+    })
+    map.setFilter('departements-fill', ['!=', ['get', 'code'], 0])
+    map.setCenter([1.7, 46.9])
+    map.setZoom(5)
+    reset()
+  })
+
   useEffect(() => {
     if (communes) {
       const source = map.getSource('communes')
@@ -191,17 +202,26 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
   return (
     <div>
       {loading && (
-        <div className='loading'>Chargement…</div>
+        <div className='tools'>Chargement…</div>
+      )}
+
+      {!loading && communes && (
+        <div className='tools reset' onClick={unSelectDepartement}>Départements</div>
       )}
 
       <style jsx>{`
-        .loading {
-            position: absolute;
-            z-index: 999;
-            background: #ffffffbb;
-            padding: 0.5em;
-            margin: 1em;
-            border-radius: 4px;
+        .tools {
+          position: absolute;
+          z-index: 999;
+          background: #ffffffbb;
+          padding: 0.5em;
+          margin: 1em;
+          border-radius: 4px;
+        }
+
+        .reset:hover {
+          cursor: pointer;
+          background: #fff;
         }
         `}</style>
     </div>
@@ -214,7 +234,8 @@ BANMap.propTypes = {
   departements: PropTypes.object,
   communes: PropTypes.object,
   loading: PropTypes.bool,
-  selectDepartement: PropTypes.func.isRequired
+  selectDepartement: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired
 }
 
 BANMap.defaultProps = {
