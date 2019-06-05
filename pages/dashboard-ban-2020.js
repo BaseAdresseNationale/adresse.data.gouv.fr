@@ -15,7 +15,17 @@ const title = 'Base Adresse National 2020 - Tableau de bord'
 const description = ''
 
 function generateId(feature) {
+  const {code} = feature.properties
   feature.id = feature.properties.code
+
+  // Corse
+  if (code === '2A') {
+    feature.id = 200
+  } else if (code === '2B') {
+    feature.id = 201
+  } else {
+    feature.id = code.replace(/[AB]/, 0)
+  }
 }
 
 function DashboardBan2020({departements}) {
