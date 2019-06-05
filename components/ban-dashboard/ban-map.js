@@ -209,6 +209,16 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
         <div className='tools reset' onClick={unSelectDepartement}>Départements</div>
       )}
 
+      <div className='tools legend'>
+        <div className='label' style={{marginRight: '5px'}}>BAN V1</div>
+        <div className='color' style={{backgroundColor: '#330143'}} />
+        <div className='color' style={{backgroundColor: '#ff2a2e'}} />
+        <div className='color' style={{backgroundColor: '#ffd100'}} />
+        <div className='color' style={{backgroundColor: '#ffff00'}} />
+        <div className='color' style={{backgroundColor: '#7fff7a'}} />
+        <div className='label' style={{marginLeft: '5px'}}>BAN V2</div>
+      </div>
+
       <style jsx>{`
         .tools {
           position: absolute;
@@ -217,6 +227,22 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
           padding: 0.5em;
           margin: 1em;
           border-radius: 4px;
+        }
+
+        .legend {
+          display: flex;
+          align-items: center;
+          bottom: 10px;
+          right: 0;
+        }
+
+        .legend .label {
+          font-size: x-small;
+        }
+
+        .legend .color {
+          height: 10px;
+          width: 30px;
         }
 
         .reset:hover {
