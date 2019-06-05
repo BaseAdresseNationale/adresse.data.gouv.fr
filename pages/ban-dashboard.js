@@ -14,6 +14,10 @@ import BANMap from '../components/ban-dashboard/ban-map'
 const title = 'Base Adresse National - Tableau de bord'
 const description = ''
 
+function generateId(feature) {
+  feature.id = feature.properties.code
+}
+
 function BANDashboard({departements}) {
   const [departement, setDepartement] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -24,6 +28,7 @@ function BANDashboard({departements}) {
 
     try {
       const departement = await getDepartementCommunes(codeDepartement)
+      departement.features.forEach(generateId)
       setDepartement(departement)
     } catch (error) {
       setError(error.message)
@@ -72,8 +77,11 @@ BANDashboard.propTypes = {
 }
 
 BANDashboard.getInitialProps = async () => {
+  const departements = await getDepartements()
+  departements.features.forEach(generateId)
+
   return {
-    departements: await getDepartements()
+    departements
   }
 }
 

@@ -81,7 +81,6 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
   map.once('load', () => {
     map.addSource('departements', {
       type: 'geojson',
-      generateId: true,
       data: departements
     })
 
@@ -101,7 +100,6 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
 
     map.addSource('communes', {
       type: 'geojson',
-      generateId: true,
       data: {
         type: 'FeatureCollection',
         features: []
@@ -134,7 +132,8 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
   const onHover = (e, source) => {
     if (e.features.length > 0) {
       if (hoveredStateId) {
-        map.setFeatureState({source, id: hoveredStateId}, {hover: false})
+        map.setFeatureState({source: 'communes', id: hoveredStateId}, {hover: false})
+        map.setFeatureState({source: 'departements', id: hoveredStateId}, {hover: false})
       }
 
       hoveredStateId = e.features[0].id
