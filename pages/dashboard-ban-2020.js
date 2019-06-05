@@ -11,14 +11,14 @@ import Notification from '../components/notification'
 
 import BANMap from '../components/ban-dashboard/ban-map'
 
-const title = 'Base Adresse National - Tableau de bord'
+const title = 'Base Adresse National 2020 - Tableau de bord'
 const description = ''
 
 function generateId(feature) {
   feature.id = feature.properties.code
 }
 
-function BANDashboard({departements}) {
+function DashboardBan2020({departements}) {
   const [departement, setDepartement] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -73,11 +73,11 @@ function BANDashboard({departements}) {
   )
 }
 
-BANDashboard.propTypes = {
+DashboardBan2020.propTypes = {
   departements: PropTypes.object.isRequired
 }
 
-BANDashboard.getInitialProps = async () => {
+DashboardBan2020.getInitialProps = async () => {
   const departements = await getDepartements()
   departements.features.forEach(generateId)
 
@@ -86,4 +86,4 @@ BANDashboard.getInitialProps = async () => {
   }
 }
 
-export default withErrors(BANDashboard)
+export default withErrors(DashboardBan2020)
