@@ -38,7 +38,7 @@ function BANDashboard({departements}) {
   })
 
   return (
-    <Page title={title} description={description}>
+    <Page title={title} description={description} showFooter={false}>
 
       {error &&
       <div className='error'>
