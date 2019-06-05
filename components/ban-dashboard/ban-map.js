@@ -79,6 +79,13 @@ let hoveredStateId = null
 
 function BANMap({map, popUp, departements, communes, loading, selectDepartement, reset}) {
   map.once('load', () => {
+    map.on('mousemove', 'departements-fill', e => onHover(e, 'departements'))
+    map.on('mouseleave', 'departements-fill', onLeave)
+    map.on('click', 'departements-fill', onClick)
+
+    map.on('mousemove', 'communes-fill', e => onHover(e, 'communes'))
+    map.on('mouseleave', 'communes-fill', onLeave)
+
     map.addSource('departements', {
       type: 'geojson',
       data: departements
@@ -167,13 +174,6 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
       duration: 0
     })
   })
-
-  map.on('mousemove', 'departements-fill', e => onHover(e, 'departements'))
-  map.on('mouseleave', 'departements-fill', onLeave)
-  map.on('click', 'departements-fill', onClick)
-
-  map.on('mousemove', 'communes-fill', e => onHover(e, 'communes'))
-  map.on('mouseleave', 'communes-fill', onLeave)
 
   const unSelectDepartement = useCallback(() => {
     map.getSource('communes').setData({
