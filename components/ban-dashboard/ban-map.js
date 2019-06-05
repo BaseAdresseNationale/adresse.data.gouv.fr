@@ -66,9 +66,9 @@ const popupHTML = ({properties}) => {
         <div><b>{total}</b> adresses</div>
       </p>
       <ul style={{padding: '1em'}}>
-        <li><b>{banV0Only}</b> uniques à la BAN v1 {banV0OnlyRatio && (<b>{banV0OnlyRatio}%</b>)}</li>
-        <li><b>{banLOOnly}</b> uniques à la BAN v2 (LO) {banLOOnlyRatio && (<b>{banLOOnlyRatio}%</b>)}</li>
-        <li><b>{both}</b> communes à la BAN V0 et BAN V2 (LO)</li>
+        <li><b>{banV0Only}</b> uniques à la BAN v0 {banV0OnlyRatio && (<b>{banV0OnlyRatio}%</b>)}</li>
+        <li><b>{banLOOnly}</b> uniques à la BAN LO {banLOOnlyRatio && (<b>{banLOOnlyRatio}%</b>)}</li>
+        <li><b>{both}</b> communes à la BAN v0 et BAN LO</li>
         <li><b>{pseudoAdresse}</b> pseudo adresses</li>
       </ul>
     </div>
@@ -212,13 +212,13 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
       <div className='tools legend'>
         <div className='title'>État de la Base Adresse Nationale sous Licence Ouverte</div>
         <div className='graduation'>
-          <div className='label' style={{marginRight: '5px'}}>BAN V1</div>
+          <div className='label' style={{marginRight: '5px'}}>BAN v0</div>
           <div className='color' style={{backgroundColor: '#330143'}} />
           <div className='color' style={{backgroundColor: '#ff2a2e'}} />
           <div className='color' style={{backgroundColor: '#ffd100'}} />
           <div className='color' style={{backgroundColor: '#ffff00'}} />
           <div className='color' style={{backgroundColor: '#7fff7a'}} />
-          <div className='label' style={{marginLeft: '5px'}}>BAN V2</div>
+          <div className='label' style={{marginLeft: '5px'}}>BAN LO</div>
         </div>
       </div>
 
