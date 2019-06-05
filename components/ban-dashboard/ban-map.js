@@ -65,12 +65,14 @@ const popupHTML = ({properties}) => {
       <p>
         <div><b>{total}</b> adresses</div>
       </p>
-      <ul style={{padding: '1em'}}>
-        <li><b>{banV0Only}</b> uniques à la BAN v0 {banV0OnlyRatio && (<b>{banV0OnlyRatio}%</b>)}</li>
-        <li><b>{banLOOnly}</b> uniques à la BAN LO {banLOOnlyRatio && (<b>{banLOOnlyRatio}%</b>)}</li>
-        <li><b>{both}</b> communes à la BAN v0 et BAN LO</li>
-        <li><b>{pseudoAdresse}</b> pseudo adresses</li>
-      </ul>
+      {properties.total > 0 && (
+        <ul style={{padding: '1em'}}>
+          <li><b>{banV0Only}</b> uniques à la BAN v0 {banV0OnlyRatio && (<b>{banV0OnlyRatio}%</b>)}</li>
+          <li><b>{banLOOnly}</b> uniques à la BAN LO {banLOOnlyRatio && (<b>{banLOOnlyRatio}%</b>)}</li>
+          <li><b>{both}</b> communes à la BAN v0 et BAN LO</li>
+          <li><b>{pseudoAdresse}</b> pseudo adresses</li>
+        </ul>
+      )}
     </div>
   )
 }
