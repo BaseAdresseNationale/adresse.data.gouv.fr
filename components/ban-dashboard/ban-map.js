@@ -210,13 +210,16 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
       )}
 
       <div className='tools legend'>
-        <div className='label' style={{marginRight: '5px'}}>BAN V1</div>
-        <div className='color' style={{backgroundColor: '#330143'}} />
-        <div className='color' style={{backgroundColor: '#ff2a2e'}} />
-        <div className='color' style={{backgroundColor: '#ffd100'}} />
-        <div className='color' style={{backgroundColor: '#ffff00'}} />
-        <div className='color' style={{backgroundColor: '#7fff7a'}} />
-        <div className='label' style={{marginLeft: '5px'}}>BAN V2</div>
+        <div className='title'>État de la Base Adresse Nationale sous Licence Ouverte</div>
+        <div className='graduation'>
+          <div className='label' style={{marginRight: '5px'}}>BAN V1</div>
+          <div className='color' style={{backgroundColor: '#330143'}} />
+          <div className='color' style={{backgroundColor: '#ff2a2e'}} />
+          <div className='color' style={{backgroundColor: '#ffd100'}} />
+          <div className='color' style={{backgroundColor: '#ffff00'}} />
+          <div className='color' style={{backgroundColor: '#7fff7a'}} />
+          <div className='label' style={{marginLeft: '5px'}}>BAN V2</div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -231,16 +234,28 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
 
         .legend {
           display: flex;
-          align-items: center;
+          flex-direction: column;
           bottom: 10px;
           right: 0;
+        }
+
+        .legend .title {
+          font-size: small;
+          margin-bottom: 5px;
         }
 
         .legend .label {
           font-size: x-small;
         }
 
+        .legend .graduation {
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+
         .legend .color {
+          flex: 1;
           height: 10px;
           width: 30px;
         }
