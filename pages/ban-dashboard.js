@@ -14,13 +14,6 @@ import BANMap from '../components/ban-dashboard/ban-map'
 const title = 'Base Adresse National - Tableau de bord'
 const description = ''
 
-function mockAPI(item) {
-  item.properties.banV0 = Math.floor(Math.random() * 100) + 0
-  item.properties.banLO = Math.floor(Math.random() * 100) + 0
-  item.properties.both = Math.floor(Math.random() * 100) + 0
-  item.properties.fake = Math.floor(Math.random() * 100) + 0
-}
-
 function BANDashboard({departements}) {
   const [departement, setDepartement] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -30,12 +23,7 @@ function BANDashboard({departements}) {
     setIsLoading(true)
 
     try {
-      const departement = await getDepartementCommunes(codeDepartement, {
-        geometry: 'contour',
-        format: 'geojson'
-      })
-      departement.features.forEach(mockAPI)
-
+      const departement = await getDepartementCommunes(codeDepartement)
       setDepartement(departement)
     } catch (error) {
       setError(error.message)
@@ -48,9 +36,19 @@ function BANDashboard({departements}) {
     <Page title={title} description={description}>
 
       {error &&
+      <div className='error'>
         <Notification
           message={error.message}
           type='error' />
+
+        <style jsx>{`
+          .error {
+            position: absolute;
+            z-index: 999;
+            margin: 1em;
+          }
+        `}</style>
+      </div>
       }
 
       <Mapbox fullscreen>
@@ -70,21 +68,12 @@ function BANDashboard({departements}) {
 }
 
 BANDashboard.propTypes = {
-  departements: PropTypes.object.isRequired,
-  defaultDepartement: PropTypes.object
-}
-
-BANDashboard.defaultProps = {
-  defaultDepartement: null
+  departements: PropTypes.object.isRequired
 }
 
 BANDashboard.getInitialProps = async () => {
-  const departements = await getDepartements()
-
-  departements.features.forEach(mockAPI)
-
   return {
-    departements
+    departements: await getDepartements()
   }
 }
 

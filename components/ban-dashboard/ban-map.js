@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import {renderToString} from 'react-dom/server'
 import computeBbox from '@turf/bbox'
 
-import colors from '../../styles/colors'
+function formatNumber(nb) {
+  return nb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}
+
+function roundNb(nb) {
+  return nb ? Math.round(nb * 100) : null
+}
 
 const lineLayerPaint = {
   'line-width': [
@@ -14,35 +20,60 @@ const lineLayerPaint = {
   ]
 }
 
+const fillColor = [
+  'step',
+  ['get', 'ban-v0-only-ratio'],
+  '#7fff7a',
+  0.05,
+  '#ffff00',
+  0.1,
+  '#ffd100',
+  0.2,
+  '#ff2a2e',
+  0.4,
+  '#330143',
+  1,
+  '#000'
+]
+
+const unSelectFillColor = [
+  'case',
+  ['boolean', ['feature-state', 'hover'], false],
+  fillColor,
+  '#000'
+]
+
 const fillLayerPaint = {
-  'fill-color': [
-    'interpolate',
-    ['exponential', 0.5],
-    ['get', 'banV0'],
-    0,
-    colors.green,
-    50,
-    colors.orange,
-    100,
-    colors.red
-  ],
+  'fill-color': fillColor,
   'fill-opacity': ['case',
     ['boolean', ['feature-state', 'hover'], false],
-    0.5,
-    0.2]
+    1,
+    0.5]
 }
 
-const popupHTML = ({nom, code, banV0}) => renderToString(
-  <div>
-    <p>
-      <b>{nom} - {code}</b>
-    </p>
-    <p>
-      <div><b>{banV0}%</b> d’adresses dans la BAN v1</div>
-      <div><b>{100 - banV0}%</b> d’adresses dans la BAN v2 (LO)</div>
-    </p>
-  </div>
-)
+const popupHTML = ({properties}) => {
+  const total = formatNumber(properties.total)
+  const banV0Only = formatNumber(properties['ban-v0-only'])
+  const banLOOnly = formatNumber(properties['ban-lo-only'])
+  const both = formatNumber(properties.both)
+  const pseudoAdresse = formatNumber(properties['pseudo-adresse'])
+  const banV0OnlyRatio = roundNb(properties['ban-v0-only-ratio'])
+  const banLOOnlyRatio = roundNb(properties['ban-lo-only-ratio'])
+  return renderToString(
+    <div>
+      <h3>{properties.nom} - {properties.code}</h3>
+      <p>
+        <div><b>{total}</b> adresses</div>
+      </p>
+      <ul style={{padding: '1em'}}>
+        <li><b>{banV0Only}</b> uniques à la BAN v1 {banV0OnlyRatio && (<b>{banV0OnlyRatio}%</b>)}</li>
+        <li><b>{banLOOnly}</b> uniques à la BAN v2 (LO) {banLOOnlyRatio && (<b>{banLOOnlyRatio}%</b>)}</li>
+        <li><b>{both}</b> communes à la BAN V0 et BAN V2 (LO)</li>
+        <li><b>{pseudoAdresse}</b> pseudo adresses</li>
+      </ul>
+    </div>
+  )
+}
 
 let hoveredStateId = null
 
@@ -90,13 +121,13 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
       type: 'line',
       paint: lineLayerPaint
     })
-
-    fitbounds(departements)
   })
 
   const onClick = e => {
     const departement = e.features[0].properties
     map.setFilter('departements-fill', ['!=', ['get', 'code'], departement.code])
+    map.setPaintProperty('departements-fill', 'fill-color', unSelectFillColor)
+
     selectDepartement(departement.code)
   }
 
@@ -108,7 +139,7 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
 
       hoveredStateId = e.features[0].id
       popUp.setLngLat(e.lngLat)
-        .setHTML(popupHTML(e.features[0].properties))
+        .setHTML(popupHTML(e.features[0]))
         .addTo(map)
 
       map.getCanvas().style.cursor = 'pointer'
@@ -153,6 +184,8 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement}
       }
 
       fitbounds(communes)
+    } else if (map.getSource('departements')) {
+      map.setPaintProperty('departements-fill', 'fill-color', fillColor)
     }
   }, [communes])
 
