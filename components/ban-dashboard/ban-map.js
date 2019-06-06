@@ -38,10 +38,33 @@ const unSelectFillColor = [
 
 const fillLayerPaint = {
   'fill-color': fillColor,
-  'fill-opacity': ['case',
-    ['boolean', ['feature-state', 'hover'], false],
+  'fill-opacity': [
+    'interpolate',
+    ['exponential', 0.1],
+    ['get', 'total'],
+    0,
+    0,
     1,
-    0.5]
+    0.1,
+    200,
+    0.2,
+    400,
+    0.3,
+    800,
+    0.4,
+    1000,
+    0.5,
+    5000,
+    0.6,
+    10000,
+    0.7,
+    50000,
+    0.8,
+    100000,
+    0.9,
+    200000,
+    1
+  ]
 }
 
 let hoveredStateId = null
@@ -103,6 +126,7 @@ function BANMap({map, departements, communes, loading, selectDepartement, reset}
     const departement = e.features[0].properties
     map.setFilter('departements-fill', ['!=', ['get', 'code'], departement.code])
     map.setPaintProperty('departements-fill', 'fill-color', unSelectFillColor)
+    map.setPaintProperty('departements-fill', 'fill-opacity', 0.4)
 
     selectDepartement(departement.code)
   }
