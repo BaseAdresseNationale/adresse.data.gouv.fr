@@ -20,11 +20,11 @@ const fillColor = [
   0.05,
   '#ffff00',
   0.1,
-  '#ffd100',
+  '#ff9900',
   0.2,
   '#ff2a2e',
   0.4,
-  '#330143',
+  '#6D029F',
   1,
   '#000'
 ]
@@ -213,9 +213,9 @@ function BANMap({map, departements, communes, loading, selectDepartement, reset}
         <div className='title'>État de la Base Adresse Nationale sous Licence Ouverte</div>
         <div className='graduation'>
           <div className='color-label' style={{marginRight: '5px'}}>BAN v0</div>
-          <div className='color' style={{backgroundColor: '#330143'}} />
+          <div className='color' style={{backgroundColor: '#5A0180'}} />
           <div className='color' style={{backgroundColor: '#ff2a2e'}} />
-          <div className='color' style={{backgroundColor: '#ffd100'}} />
+          <div className='color' style={{backgroundColor: '#ff9900'}} />
           <div className='color' style={{backgroundColor: '#ffff00'}} />
           <div className='color' style={{backgroundColor: '#7fff7a'}} />
           <div className='color-label' style={{marginLeft: '5px'}}>BAN LO</div>
