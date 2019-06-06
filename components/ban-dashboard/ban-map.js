@@ -22,7 +22,7 @@ const lineLayerPaint = {
 
 const fillColor = [
   'step',
-  ['get', 'ban-v0-only-ratio'],
+  ['get', 'ecart'],
   '#7fff7a',
   0.05,
   '#ffff00',
