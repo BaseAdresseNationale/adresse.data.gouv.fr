@@ -67,10 +67,9 @@ function DashboardBan2020({departements}) {
       }
 
       <Mapbox fullscreen>
-        {(map, marker, popUp) => (
+        {map => (
           <BANMap
             map={map}
-            popUp={popUp}
             departements={departements}
             communes={departement}
             loading={isLoading}
