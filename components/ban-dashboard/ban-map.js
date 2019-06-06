@@ -4,6 +4,15 @@ import computeBbox from '@turf/bbox'
 
 import BanStats from './ban-stats'
 
+const COLORS = {
+  green: '#7fff7a',
+  yellow: '#ffff00',
+  orange: '#ff9900',
+  red: '#ff2a2e',
+  purple: '#6D029F',
+  black: '#000'
+}
+
 const lineLayerPaint = {
   'line-width': [
     'case',
@@ -16,15 +25,15 @@ const lineLayerPaint = {
 const fillColor = [
   'step',
   ['get', 'ecart'],
-  '#7fff7a',
+  COLORS.green,
   0.05,
-  '#ffff00',
+  COLORS.yellow,
   0.1,
-  '#ff9900',
+  COLORS.orange,
   0.2,
-  '#ff2a2e',
+  COLORS.red,
   0.4,
-  '#6D029F',
+  COLORS.purple,
   1,
   '#000'
 ]
@@ -213,11 +222,12 @@ function BANMap({map, departements, communes, loading, selectDepartement, reset}
         <div className='title'>État de la Base Adresse Nationale sous Licence Ouverte</div>
         <div className='graduation'>
           <div className='color-label' style={{marginRight: '5px'}}>BAN v0</div>
-          <div className='color' style={{backgroundColor: '#5A0180'}} />
-          <div className='color' style={{backgroundColor: '#ff2a2e'}} />
-          <div className='color' style={{backgroundColor: '#ff9900'}} />
-          <div className='color' style={{backgroundColor: '#ffff00'}} />
-          <div className='color' style={{backgroundColor: '#7fff7a'}} />
+          <div className='color' style={{backgroundColor: COLORS.green}} />
+          <div className='color' style={{backgroundColor: COLORS.yellow}} />
+          <div className='color' style={{backgroundColor: COLORS.orange}} />
+          <div className='color' style={{backgroundColor: COLORS.red}} />
+          <div className='color' style={{backgroundColor: COLORS.purple}} />
+          <div className='color' style={{backgroundColor: COLORS.black}} />
           <div className='color-label' style={{marginLeft: '5px'}}>BAN LO</div>
         </div>
       </div>
