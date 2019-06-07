@@ -1,17 +1,17 @@
 export default ({
-  blue: '#0081D5',
-  lightBlue: '#1E90DA',
-  darkBlue: '#006CB0',
+  blue: '#0053B3',
+  lightBlue: '#006Be6',
+  darkBlue: '#003B80',
   lighterBlue: '#B4E1FA',
 
-  white: '#fff',
+  white: '#ffffff',
   lighterGrey: '#EBEFF3',
   lightGrey: '#C9D3DF',
-  grey: '#adb9c9',
+  grey: '#ADB9C9',
   darkGrey: '#8393A7',
   darkerGrey: '#53657D',
   almostBlack: '#26353f',
-  black: '#222',
+  black: '#1C1C1C',
 
   green: '#03BD5B',
   lightGreen: '#DAF5E7',
