@@ -101,7 +101,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <Section title='État du déploiement des Bases Adresse Locales'>
-        <Mapbox>
+        <Mapbox interactive={false}>
           {(map, marker, popUp) => (
             <BalMap
               map={map}

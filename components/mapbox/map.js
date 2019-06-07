@@ -41,6 +41,7 @@ class Map extends React.PureComponent {
     bbox: PropTypes.array,
     height: PropTypes.string,
     ortho: PropTypes.bool,
+    interactive: PropTypes.bool,
     fullscreen: PropTypes.bool,
     children: PropTypes.func.isRequired
   }
@@ -49,19 +50,21 @@ class Map extends React.PureComponent {
     bbox: null,
     height: '600',
     ortho: false,
+    interactive: true,
     fullscreen: false,
     switchStyle: false
   }
 
   componentDidMount() {
     const {currentStyle} = this.state
-    const {bbox} = this.props
+    const {bbox, interactive} = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: STYLES[currentStyle],
       center: [1.7, 46.9],
-      zoom: 5
+      zoom: 5,
+      interactive
     })
 
     this.marker = new mapboxgl.Marker()
