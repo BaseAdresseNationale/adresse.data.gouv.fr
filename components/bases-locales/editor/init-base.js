@@ -120,7 +120,13 @@ class InitBase extends React.Component {
           )}
         </div>
 
-        {error && <Notification style={{marginTop: '1em'}} type='error' message={error.message} />}
+        {error && (
+          <Notification
+            style={{marginTop: '1em'}}
+            type='error'
+            message={error.message}
+          />
+        )}
 
         <style jsx>{`
           .centered {

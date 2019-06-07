@@ -112,9 +112,7 @@ class Rows extends React.Component {
             <h4>{selectedIssue.message}</h4>
 
             {selectedIssue.rows.length > ROWS_LIMIT && (
-              <Notification type='info'>
-                Seules les {ROWS_LIMIT} premières lignes avec anomalies sont affichées ici
-              </Notification>
+              <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
             )}
 
             {rowsToDisplay.map(row => (

@@ -34,7 +34,7 @@ class VoieContext extends React.Component {
     return (
       <div className='voie-context'>
         {newName && (
-          <Notification type='info'>
+          <Notification>
             <div>
               <p>Anciennement nommée <b>{voie.nomVoie}</b>, vous avez renommé cette voie.</p>
               <Button
@@ -60,9 +60,10 @@ class VoieContext extends React.Component {
             actions={actions}
           />
         ) : (
-          <Notification type='warning'>
-                Cette voie ne possède aucune adresse. Vous pouvez ajouter une adresse depuis la carte.
-          </Notification>
+          <Notification
+            type='warning'
+            message='Cette voie ne possède aucune adresse. Vous pouvez ajouter une adresse depuis la carte.'
+          />
         )
         )}
 
