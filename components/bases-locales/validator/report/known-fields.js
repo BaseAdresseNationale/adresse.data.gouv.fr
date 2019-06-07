@@ -49,12 +49,6 @@ const KnownFields = ({found, alias}) => (
       ))}
     </tbody>
     <style jsx>{`
-      .container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(300px, 1fr));
-        grid-gap: 2em 1em;
-      }
-
       .found {
         color: ${theme.successBorder};
       }

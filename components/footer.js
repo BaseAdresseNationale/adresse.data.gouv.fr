@@ -5,7 +5,7 @@ import theme from '../styles/theme'
 
 const Footer = () => (
   <footer className='footer'>
-    <div className='container'>
+    <div className='footer-container'>
       <div className='footer__logo'>
         <img src='/static/images/logos/etalab.svg' />
         <ul className='footer__social'>
@@ -30,7 +30,7 @@ const Footer = () => (
         line-height: 2em;
       }
 
-      .footer .container {
+      .footer .footer-container {
         display: flex;
         flex-direction: row;
         justify-content: space-around;

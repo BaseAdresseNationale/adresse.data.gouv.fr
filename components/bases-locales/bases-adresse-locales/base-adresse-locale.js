@@ -15,7 +15,7 @@ class BaseAdresseLocale extends React.Component {
     const {dataset} = this.props
 
     return (
-      <div className='container'>
+      <div className='bal-container'>
         <h3>
           <Link href={`/bases-locales/jeux-de-donnees/${dataset.id}`}>
             <a>{dataset.title}</a>
@@ -25,7 +25,7 @@ class BaseAdresseLocale extends React.Component {
         <Summary dataset={dataset} />
 
         <style jsx>{`
-          .container {
+          .bal-container {
             padding: 0 2em;
             border-left: 5px solid ${theme.primary};
           }

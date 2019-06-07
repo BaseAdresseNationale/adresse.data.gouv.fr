@@ -27,7 +27,7 @@ export default () => (
     </Section>
 
     <Container>
-      <div className='section'>
+      <div className='donnees-nationales-section'>
         <h3>Diffusion sous “licence du produit gratuit issu de la BAN”</h3>
         <div className='row'>
           <div>
@@ -67,7 +67,7 @@ export default () => (
     </Container>
 
     <Container>
-      <div className='section'>
+      <div className='donnees-nationales-section'>
         <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
         <div className='row'>
           <div>
@@ -128,7 +128,7 @@ export default () => (
     </Section>
 
     <style jsx>{`
-        .section {
+        .donnees-nationales-section {
           margin: 2em 0;
         }
 

@@ -214,13 +214,13 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
       <div className='tools legend'>
         <div className='title'>État de la Base Adresse Nationale sous Licence Ouverte</div>
         <div className='graduation'>
-          <div className='label' style={{marginRight: '5px'}}>BAN v0</div>
+          <div className='color-label' style={{marginRight: '5px'}}>BAN v0</div>
           <div className='color' style={{backgroundColor: '#330143'}} />
           <div className='color' style={{backgroundColor: '#ff2a2e'}} />
           <div className='color' style={{backgroundColor: '#ffd100'}} />
           <div className='color' style={{backgroundColor: '#ffff00'}} />
           <div className='color' style={{backgroundColor: '#7fff7a'}} />
-          <div className='label' style={{marginLeft: '5px'}}>BAN LO</div>
+          <div className='color-label' style={{marginLeft: '5px'}}>BAN LO</div>
         </div>
       </div>
 
@@ -246,7 +246,7 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
           margin-bottom: 5px;
         }
 
-        .legend .label {
+        .legend .color-label {
           font-size: x-small;
         }
 

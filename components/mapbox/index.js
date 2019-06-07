@@ -12,13 +12,13 @@ import Notification from '../notification'
 import theme from '../../styles/theme'
 
 const MapLoader = () => (
-  <div className='container'>
+  <div className='map-loader-container'>
     <div className='centered'>
       <Loader />
       <p>Chargement…</p>
     </div>
     <style jsx>{`
-      .container {
+      .map-loader-container {
         width: 100%;
         height: 100%;
         min-height: 600px;

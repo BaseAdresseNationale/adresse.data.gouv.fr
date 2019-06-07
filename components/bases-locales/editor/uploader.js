@@ -130,7 +130,7 @@ class Uploader extends React.Component {
         <Section title='B. Éditer une Base Adresse Locale existante' background='grey'>
           <p>Pour être éditable à l’aide de cet outil, votre fichier doit être conforme au modèle BAL 1.1 de l’AITF.</p>
           <div className='border'>
-            <div className='container'>
+            <div className='uploader-container'>
               {inProgress ? (
                 <div className='centered'>
                   <h4>Analyse en cours…</h4>
@@ -204,7 +204,7 @@ class Uploader extends React.Component {
             margin-left: 1em;
           }
 
-          .container {
+          .uploader-container {
             display: flex;
             flex-direction: column;
             align-items: center;

@@ -57,12 +57,6 @@ class Item extends React.Component {
           </div>
           {link && <div className='link'><FaAngleRight /></div>}
           <style jsx>{`
-            .container {
-              width: 100;
-              display: flex;
-              flex-direction: column;
-            }
-
             .item {
               display: flex;
               justify-content: space-between;

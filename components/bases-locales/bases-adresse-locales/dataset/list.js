@@ -33,7 +33,7 @@ class Preview extends React.Component {
     const items = filteredItems || list
 
     return (
-      <div className='container'>
+      <div>
         <div className='search'>
           <input className='search' type='text' value={input} placeholder='Rechercher…' onChange={this.handleChange} />
           <span><FaSearch /></span>

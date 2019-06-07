@@ -46,12 +46,12 @@ class SearchInput extends React.Component {
     const {placeholder} = this.props
 
     return (
-      <div className='container'>
+      <div className='search-input-container'>
         {/* disable safari zoom in on focus with font-size at 16px */}
         <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} />
         <span><FaSearch /></span>
         <style jsx>{`
-          .container {
+          .search-input-container {
             position: relative;
           }
 
