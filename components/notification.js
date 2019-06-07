@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import {getErrorMsg} from '../lib/error'
+import FaClose from 'react-icons/lib/fa/close'
 
 import Button from './button'
 
 const Notification = ({message, type, fullWidth, onClose, children}) => {
   return (
     <div className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${fullWidth ? 'full-width' : ''}`}>
-      {children || (type === 'error' ? getErrorMsg(message) : message)}
+      {children || message}
       {onClose && (
         <Button className='close' aria-label='Fermer' onClick={onClose}><FaClose /></Button>
       )}
