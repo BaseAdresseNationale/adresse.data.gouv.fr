@@ -17,7 +17,7 @@ export default () => (
     <Head title={title} icon={<DownloadIcon />} />
     <Section title='Base Adresse Nationale' subtitle='Données de référence issues d’une coopération entre l’État, l’IGN, La Poste et OpenStreetMap France'>
       <Notification>
-        Conformément à la <a style={{'text-decoration': 'underline'}} href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>demande du Premier Ministre</a>, la Base Adresse Nationale passera sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{'text-decoration': 'underline'}}>1er janvier 2020</strong>.
+        Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>demande du Premier Ministre</a>, la Base Adresse Nationale passera sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
       </Notification>
       <div>
         <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN.</p>

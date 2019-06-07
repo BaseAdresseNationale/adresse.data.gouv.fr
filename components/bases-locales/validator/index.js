@@ -138,9 +138,11 @@ class BALValidator extends React.Component {
         </div>}
 
         {report &&
-          <Section title='Analyse terminée !' background='grey'>
-            <Report report={report} />
-          </Section>
+          <div style={{margin: '2em 0'}}>
+            <Section title='Analyse terminée !' background='grey'>
+              <Report report={report} />
+            </Section>
+          </div>
         }
         <style jsx>{`
           .centered {

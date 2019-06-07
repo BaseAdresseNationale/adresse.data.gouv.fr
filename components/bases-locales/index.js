@@ -88,9 +88,11 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <Section title='Quelques bases locales déjà publiées' background='white'>
-        {shuffle(datasets.filter(d => d.model === 'bal-aitf')).slice(0, 3).map(dataset => (
-          <BaseAdresseLocale key={dataset.id} dataset={dataset} />
-        ))}
+        <div className='bal-grid'>
+          {shuffle(datasets.filter(d => d.model === 'bal-aitf')).slice(0, 3).map(dataset => (
+            <BaseAdresseLocale key={dataset.id} dataset={dataset} />
+          ))}
+        </div>
         <div className='centered'>
           <Link href='/bases-locales/jeux-de-donnees'>
             <ButtonLink>
@@ -161,6 +163,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       <style jsx>{`
         .intro {
           text-align: left;
+        }
+
+        .bal-grid {
+          display: grid;
+          grid-row-gap: 2em;
+          margin: 4em 0;
         }
 
         .action {

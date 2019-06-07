@@ -60,7 +60,7 @@ class Preview extends React.Component {
 
           span {
             position: absolute;
-            top: 22px;
+            top: 18px;
             left: 1em;
             font-size: 15px;
             color: ${theme.colors.darkGrey};

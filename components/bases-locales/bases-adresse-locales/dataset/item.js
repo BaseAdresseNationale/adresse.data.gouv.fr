@@ -21,7 +21,7 @@ class WithLink extends React.Component {
     if (link) {
       return (
         <Link href={link}>
-          <a style={{color: 'black'}}>
+          <a style={{color: 'black', textDecoration: 'none'}}>
             {children}
           </a>
         </Link>
