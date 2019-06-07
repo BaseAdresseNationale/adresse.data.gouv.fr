@@ -66,7 +66,9 @@ class Dataset extends React.Component {
                       <b>{commune.numerosCount}</b> {commune.numerosCount > 1 ? 'numéros' : 'numéro'}
                     </div>
                     <div className='sources'>
-                      {commune.source.map(source => <Tag key={source} type={source} />)}
+                      {commune.source.lenght > 0 && (
+                        commune.source.map(source => <Tag key={source} type={source} />)
+                      )}
                     </div>
                   </div>
                 </Item>
