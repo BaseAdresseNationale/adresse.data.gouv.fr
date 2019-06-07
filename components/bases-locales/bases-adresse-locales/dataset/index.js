@@ -40,7 +40,7 @@ class Dataset extends React.Component {
           {description && page && <Description page={page} description={description} />}
 
           {url && <div className='links'>
-            <ButtonLink href={url} >
+            <ButtonLink href={url} size='large' >
               Télécharger <MdFileDownload />
             </ButtonLink>
           </div>}

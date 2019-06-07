@@ -13,15 +13,16 @@ class ProducerDiscussion extends React.Component {
     const {page} = this.props
 
     return (
-      <Section title='Un problème à signaler ?' subtitle='Ou une question à poser ?' background='dark' >
-        <div className='centered'>
-          <ButtonLink href={page}>Ouvrir une discussion avec le producteur</ButtonLink>
+      <Section title='Un problème à signaler ?' subtitle='Ou une question à poser ?' background='grey' >
+        <div style={{textAlign: 'center', marginTop: '2em'}}>
+          <ButtonLink
+            href={page}
+            size='large'
+            outlined
+          >
+              Ouvrir une discussion avec le producteur
+          </ButtonLink>
         </div>
-        <style jsx>{`
-          .centered {
-            text-align: center;
-          }
-        `}</style>
       </Section>
     )
   }

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
 import ButtonLink from '../../button-link'
@@ -52,15 +51,13 @@ class Summary extends React.Component {
           </div>
 
           <div className='links'>
-            <Link href={`/bases-locales/jeux-de-donnees/${id}`}>
-              <ButtonLink>
-                Consulter
-              </ButtonLink>
-            </Link>
+            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
+              Consulter
+            </ButtonLink>
             {url &&
-              <Link href={url}>
+              <ButtonLink href={url}>
                 <a>Télécharger <MdFileDownload /></a>
-              </Link>}
+              </ButtonLink>}
           </div>
         </div>
 

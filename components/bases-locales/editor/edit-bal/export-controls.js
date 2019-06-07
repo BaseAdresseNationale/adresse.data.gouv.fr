@@ -31,7 +31,7 @@ class ExportControls extends React.Component {
       <div className='export-controls'>
         <div className='buttons'>
           <Button onClick={exportBAL}>Enregistrer les changements</Button>
-          <Button color='red' size='small' onClick={reset}>Annuler et quitter</Button>
+          <Button color='warning' size='small' onClick={reset}>Annuler et quitter</Button>
         </div>
 
         <LoadingContent loading={loading} error={error} centered>

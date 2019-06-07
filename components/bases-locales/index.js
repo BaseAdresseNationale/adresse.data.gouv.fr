@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import {shuffle} from 'lodash'
 import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
 import FaPlus from 'react-icons/lib/fa/plus'
@@ -53,9 +52,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           <p>Le format <b>BAL 1.1</b> est aujourd’hui le format d’échange à privilégier pour les données Adresse produites localement.</p>
         </div>
         <div className='action'>
-          <Link href='/bases-locales/validateur'>
-            <ButtonLink>Valider vos données au format BAL <FaCheckSquareO /></ButtonLink>
-          </Link>
+          <ButtonLink
+            size='large'
+            href='/bases-locales/validateur'
+          >
+            Valider vos données au format BAL <FaCheckSquareO />
+          </ButtonLink>
         </div>
       </Section>
 
@@ -70,6 +72,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='button-link'>
             <ButtonLink
+              size='large'
               href='https://editeur.adresse.data.gouv.fr/new'
             >
               Créer une nouvelle Base Adresse Locale <FaPlus />
@@ -78,6 +81,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='button-link'>
             <ButtonLink
+              size='large'
               href='https://editeur.adresse.data.gouv.fr/new/upload'
             >
               Modifier une Base Adresse Locale existante <FaEdit />
@@ -94,11 +98,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           ))}
         </div>
         <div className='centered'>
-          <Link href='/bases-locales/jeux-de-donnees'>
-            <ButtonLink>
-              Voir toutes les Bases Adresse Locales
-            </ButtonLink>
-          </Link>
+          <ButtonLink
+            size='large'
+            href='/bases-locales/jeux-de-donnees'
+          >
+            Voir toutes les Bases Adresse Locales
+          </ButtonLink>
         </div>
       </Section>
 
@@ -174,13 +179,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         .action {
           display: flex;
           flex-flow: row wrap;
-          justify-content: center;
+          justify-content: space-around;
           margin-top: 3em;
         }
 
         .button-link {
-          max-width: 400px;
-          margin: 0.5em 1em;
+          margin: 0.5em 0;
         }
 
         .centered {

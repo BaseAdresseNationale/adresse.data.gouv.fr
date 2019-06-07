@@ -63,7 +63,7 @@ class EditionMenu extends React.Component {
           />
         ) : (
           <Button
-            color='red'
+            color='warning'
             onClick={this.deleteItem}
           >
           Supprimer

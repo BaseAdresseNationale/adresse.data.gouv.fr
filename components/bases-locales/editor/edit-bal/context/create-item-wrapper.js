@@ -31,7 +31,7 @@ class CreateItemWrapper extends React.Component {
             <div className='close'>
               <h4>{title}</h4>
               <Button
-                color='red'
+                color='warning'
                 size='small'
                 onClick={toggleForm}
               >

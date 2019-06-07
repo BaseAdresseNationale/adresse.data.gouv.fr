@@ -29,7 +29,7 @@ class CommuneForm extends React.Component {
           {commune.deleted ? (
             <Button onClick={cancel}>Annuler la suppression</Button>
           ) : (
-            <Button color='red' onClick={deleteCommune}>Supprimer la commune</Button>
+            <Button color='warning' onClick={deleteCommune}>Supprimer la commune</Button>
           )}
         </div>
 
