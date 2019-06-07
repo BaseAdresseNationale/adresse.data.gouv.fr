@@ -14,7 +14,7 @@ import Pie from '../ui/metrics/pie'
 import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
-import BalMap from './bal-map'
+import BalCoverMap from './bal-cover-map'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
   const isValidRatio = Math.round((stats.isValid / stats.model['bal-aitf']) * 100)
@@ -34,17 +34,16 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
   return (
     <div>
-      <Section background='white'>
-        <div className='intro'>
-          <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
+      <Section>
+        <h4>Bases Adresses Locales</h4>
+        <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
           Cette compétence est <b>régulièrement déléguée à un EPCI</b>.</p>
-          <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe toute les adresses d’une collectivité.<br />{}
+        <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe toute les adresses d’une collectivité.<br />{}
           Elle est <b>publiée sous sa responsabilité</b>.</p>
-          <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
-        </div>
+        <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
       </Section>
 
-      <Section background='white'>
+      <Section background='color'>
         <h4>Qu’est-ce que le format BAL ?</h4>
         <div>
           <p>L’<a href='http://www.aitf.fr/'>Association des Ingénieurs Territoriaux de France</a> (AITF) a créé en avril 2015 un groupe de travail portant sur la Base Adresse Nationale.</p>
@@ -107,69 +106,59 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
-      <Section title='État du déploiement des Bases Adresse Locales'>
+      <Section title='État du déploiement des Bases Adresse Locales' />
+      <div>
         <Mapbox interactive={false}>
           {(map, marker, popUp) => (
-            <BalMap
+            <BalCoverMap
               map={map}
               popUp={popUp}
               data={mapData}
             />
           )}
         </Mapbox>
-      </Section>
+      </div>
 
       <Section title='Jeux de données publiés' background='white'>
         <div className='stats'>
-          <div className='stat'>
-            <Counter
-              value={stats.count}
-              title='Jeux de données publiés'
-            />
+          <div style={{flex: 1}}>
+            <div className='grid' style={{marginTop: 0}}>
+              <Counter
+                value={stats.count}
+                title='Jeux de données publiés'
+              />
+
+              <Counter
+                value={isValidRatio}
+                unit='%'
+                color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
+                title='Conformité à la spécification BAL 1.1'
+              />
+
+              <Counter
+                title='Communes représentées'
+                value={stats.communesCount}
+              />
+
+              <Counter
+                title='Adresses gérées par les collectivités'
+                value={stats.numerosCount}
+              />
+            </div>
           </div>
 
-          <div className='stat'>
-            <Counter
-              value={isValidRatio}
-              unit='%'
-              color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
-              title='Conformité à la spécification BAL 1.1'
-            />
-          </div>
-
-          <div className='stat'>
-            <Counter
-              title='Communes représentées'
-              value={stats.communesCount}
-            />
-          </div>
-
-          <div className='stat'>
-            <Counter
-              title='Adresses gérées par les collectivités'
-              value={stats.numerosCount}
-            />
-          </div>
-
-          <div className='stat'>
-            <Pie
-              title='Licences utilisées'
-              data={{
-                'Licence Ouverte': stats.license.lov2,
-                'ODbL 1.0': stats.license['odc-odbl']
-              }}
-              colors={[theme.colors.green, theme.colors.orange]}
-            />
-          </div>
-
+          <Pie
+            title='Licences utilisées'
+            data={{
+              'Licence Ouverte': stats.license.lov2,
+              'ODbL 1.0': stats.license['odc-odbl']
+            }}
+            colors={[theme.colors.green, theme.colors.orange]}
+          />
         </div>
       </Section>
 
       <style jsx>{`
-        .intro {
-          text-align: left;
-        }
-
         .bal-grid {
           display: grid;
           grid-row-gap: 2em;
@@ -195,16 +184,9 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
         .stats {
           display: flex;
-          text-align: center;
-          justify-content: space-around;
           align-items: center;
           flex-flow: wrap;
-          margin: 2em 0;
-        }
-
-        .stat {
-          margin: 1em 0.5em;
-          width: 300px;
+          justify-content: center;
         }
 
         a {
