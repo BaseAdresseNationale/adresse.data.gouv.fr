@@ -249,8 +249,8 @@ function BANMap({map, departements, communes, loading, selectDepartement, reset}
         .legend {
           display: flex;
           flex-direction: column;
-          bottom: 10px;
-          right: 0;
+          bottom: -5px;
+          left: 0;
         }
 
         .legend .title {
@@ -277,6 +277,21 @@ function BANMap({map, departements, communes, loading, selectDepartement, reset}
         .reset:hover {
           cursor: pointer;
           background: #fff;
+        }
+
+        @media (max-width: 620px) {
+          .stats,
+          .legend {
+            left: 0;
+            width: calc(100% - 60px);
+          }
+          .stats {
+            bottom: 90px;
+          }
+
+          .legend {
+            bottom: -5px;
+          }
         }
         `}</style>
     </div>

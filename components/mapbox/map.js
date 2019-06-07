@@ -141,18 +141,12 @@ class Map extends React.PureComponent {
         <style jsx>{`
           .mapbox-container {
             width: 100%;
-            height: ${fullscreen ? 'calc(100vh - 75px)' : `${height}px`};
-          }
-
-          @media (max-width: 700px) {
-            .mapbox-container {
-              height: ${fullscreen ? 'calc(100vh - 130px)' : `${height}px`};
-            }
+            height: ${fullscreen ? 'calc(100vh - 73px)' : `${height}px`};
           }
 
           @media (max-width: 380px) {
             .mapbox-container {
-              height: ${fullscreen ? 'calc(100vh - 120px)' : `${height}px`};
+              height: ${fullscreen ? 'calc(100vh - 63px)' : `${height}px`};
             }
           }
 
