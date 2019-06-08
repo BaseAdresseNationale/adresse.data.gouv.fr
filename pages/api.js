@@ -25,14 +25,14 @@ export default () => (
             <p>Utiliser le paramètre <b>q</b> pour faire une recherche plein texte:</p>
             <pre><code>curl https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port</code></pre>
             <p>Avec <b>limit</b> on peut contrôler le nombre d’éléments retournés:</p>
-            <pre><code>curl https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&limit=15</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&limit=15"</code></pre>
             <p>Avec <b>autocomplete</b> on peut désactiver les traitements d’auto-complétion:</p>
-            <pre><code>curl https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&autocomplete=0</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&autocomplete=0"</code></pre>
             <p>Avec <b>lat</b> et <b>lon</b> on peut donner une priorité géographique:</p>
-            <pre><code>curl https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&lat=48.789&lon=2.789</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&lat=48.789&lon=2.789"</code></pre>
             <p>Les filtres <b>type</b>, <b>postcode</b> (code Postal) et <b>citycode</b> (code INSEE) permettent de restreindre la recherche:</p>
-            <pre><code>curl https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&postcode=44380</code></pre>
-            <pre><code>curl https://api-adresse.data.gouv.fr/search/?q=paris&type=street</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/search/?q=8+bd+du+port&postcode=44380"</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/search/?q=paris&type=street"</code></pre>
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href='https://github.com/yohanboniface/geocodejson-spec'>GeoCodeJSON</a>:</p>
             <pre>
               <code>{`{
@@ -120,9 +120,9 @@ export default () => (
           </div>
           <div className='details'>
             <p>Les paramètres <b>lat</b> et <b>lon</b> sont obligatoires:</p>
-            <pre><code>curl https://api-adresse.data.gouv.fr/reverse/?lon=2.37&lat=48.357</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/reverse/?lon=2.37&lat=48.357"</code></pre>
             <p>Le paramètre <b>type</b> permet forcer le type de retour:</p>
-            <pre><code>curl https://api-adresse.data.gouv.fr/reverse/?lon=2.37&lat=48.357&type=street</code></pre>
+            <pre><code>curl "https://api-adresse.data.gouv.fr/reverse/?lon=2.37&lat=48.357&type=street"</code></pre>
             <p>Même format de réponse que pour le point d’entrée <a href='#search'><b>/search/</b></a>.</p>
           </div>
         </div>
