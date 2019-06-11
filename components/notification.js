@@ -16,6 +16,7 @@ const Notification = ({message, type, fullWidth, onClose, children}) => {
 }
 
 Notification.defaultProps = {
+  message: null,
   type: null,
   onClose: null,
   fullWidth: false,
@@ -23,7 +24,7 @@ Notification.defaultProps = {
 }
 
 Notification.propTypes = {
-  message: PropTypes.node.isRequired,
+  message: PropTypes.node,
   type: PropTypes.oneOf(['success', 'warning', 'error']),
   fullWidth: PropTypes.bool,
   onClose: PropTypes.func,
