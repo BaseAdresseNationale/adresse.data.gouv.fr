@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import FaPencil from 'react-icons/lib/fa/pencil'
 import FaExternalLink from 'react-icons/lib/fa/external-link'
 import FaMagic from 'react-icons/lib/fa/magic'
