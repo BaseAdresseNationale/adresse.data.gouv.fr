@@ -25,7 +25,7 @@ class Preview extends React.Component {
 
           <div className='map'>
             {geojson && (
-              <MapBox height='300'>
+              <MapBox height='300' interactive={false}>
                 {map => (
                   <GeojsonMap
                     map={map}
