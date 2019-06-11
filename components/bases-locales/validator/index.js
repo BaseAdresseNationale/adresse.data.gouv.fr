@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
 import {withRouter} from 'next/router'
 
-import {createBALValidationError} from '../../../lib/error'
 import {getFileExtension, checkHeaders, statusCodeMsg} from '../../../lib/bal/file'
 
 import Section from '../../section'
@@ -59,9 +58,9 @@ class BALValidator extends React.Component {
     this.resetState()
 
     if (!fileExtension || fileExtension !== 'csv') {
-      this.handleError(createBALValidationError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.'))
+      this.handleError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
     } else if (file.size > 100 * 1024 * 1024) {
-      this.handleError(createBALValidationError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'))
+      this.handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
     } else {
       this.setState({
         file,
@@ -83,18 +82,18 @@ class BALValidator extends React.Component {
             this.setState({file, loading: false})
             this.parseFile()
           } else {
-            throw createBALValidationError('Le fichier n’a pas été reconnu comme étant au format CSV')
+            throw new Error('Le fichier n’a pas été reconnu comme étant au format CSV')
           }
         } else if (response.status in statusCodeMsg) {
-          throw createBALValidationError(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
+          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
         } else {
-          throw createBALValidationError('Impossible de récupérer le fichier car une erreur est survenue.')
+          throw new Error('Impossible de récupérer le fichier car une erreur est survenue.')
         }
       } catch (err) {
         this.handleError(err)
       }
     } else {
-      this.handleError(createBALValidationError('Le champ est vide.'))
+      this.handleError('Le champ est vide.')
     }
 
     this.setState({loading: false})
@@ -114,7 +113,7 @@ class BALValidator extends React.Component {
           this.pushEncodedUrl()
         }
       })
-      .catch(err => this.setState({error: createBALValidationError(`Impossible d’analyser le fichier… [${err.message}]`), inProgress: false}))
+      .catch(err => this.setState({error: `Impossible d’analyser le fichier… [${err.message}]`, inProgress: false}))
   }
 
   pushEncodedUrl() {
