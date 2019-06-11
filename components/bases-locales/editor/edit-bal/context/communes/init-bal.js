@@ -26,9 +26,7 @@ class InitBAL extends React.Component {
         <div className='init-bal'>
           <div>
             <h4>Ajoutez une première commune à votre Base Adresse Locale</h4>
-            <Notification type='info'>
-              Recherchez une commune et sélectionnez la afin de l’ajouter.
-            </Notification>
+            <Notification message='Recherchez une commune et sélectionnez la afin de l’ajouter.' />
           </div>
 
           <SearchCommunes handleSelect={this.handleSubmit} />

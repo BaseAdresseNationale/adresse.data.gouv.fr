@@ -5,7 +5,6 @@ import FaClose from 'react-icons/lib/fa/close'
 import FaPencil from 'react-icons/lib/fa/pencil'
 
 import detectEncoding from '../../../lib/detect-encoding'
-import {createBALValidationError} from '../../../lib/error'
 
 import theme from '../../../styles/theme'
 
@@ -61,9 +60,9 @@ class Uploader extends React.Component {
     this.resetState()
 
     if (!fileExtension || fileExtension !== 'csv') {
-      this.handleError(createBALValidationError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.'))
+      this.handleError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
     } else if (file.size > 100 * 1024 * 1024) {
-      this.handleError(createBALValidationError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'))
+      this.handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
     } else {
       this.setState({
         file,
@@ -93,7 +92,7 @@ class Uploader extends React.Component {
       report = await validate(file)
       tree = extractAsTree(report.normalizedRows, true)
     } catch (err) {
-      error = createBALValidationError(`Impossible d’analyser le fichier… [${err.message}]`)
+      error = `Impossible d’analyser le fichier… [${err.message}]`
     }
 
     try {
@@ -130,7 +129,7 @@ class Uploader extends React.Component {
         <Section title='B. Éditer une Base Adresse Locale existante' background='grey'>
           <p>Pour être éditable à l’aide de cet outil, votre fichier doit être conforme au modèle BAL 1.1 de l’AITF.</p>
           <div className='border'>
-            <div className='container'>
+            <div className='uploader-container'>
               {inProgress ? (
                 <div className='centered'>
                   <h4>Analyse en cours…</h4>
@@ -204,7 +203,7 @@ class Uploader extends React.Component {
             margin-left: 1em;
           }
 
-          .container {
+          .uploader-container {
             display: flex;
             flex-direction: column;
             align-items: center;

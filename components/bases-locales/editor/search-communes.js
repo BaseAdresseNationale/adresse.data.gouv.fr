@@ -103,7 +103,13 @@ class SearchCommunes extends React.Component {
           renderItem={RenderCommune}
           getItemValue={commune => commune.nom} />
 
-        {error && <Notification style={{marginTop: '1em'}} type='error' message={error.message} />}
+        {error && (
+          <Notification
+            style={{marginTop: '1em'}}
+            type='error'
+            message={error.message}
+          />
+        )}
 
       </div>
     )

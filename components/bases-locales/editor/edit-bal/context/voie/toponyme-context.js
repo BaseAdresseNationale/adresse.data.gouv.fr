@@ -39,7 +39,7 @@ class ToponymeContext extends React.Component {
           )}
 
           {!voie.deleted && (
-            <Button color='red' onClick={this.delete}>
+            <Button color='warning' onClick={this.delete}>
               Supprimer le toponyme
             </Button>
           )}

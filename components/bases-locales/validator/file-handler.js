@@ -50,7 +50,7 @@ class FileHandler extends React.Component {
         <div>
           <h2>Choisir un fichier</h2>
 
-          <div className='container'>
+          <div className='file-handler-container'>
             <Holder
               placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)'
               file={file}
@@ -73,7 +73,7 @@ class FileHandler extends React.Component {
         </div>
 
         <style jsx>{`
-          .container {
+          .file-handler-container {
             display: flex;
             flex-direction: column;
             align-items: center;

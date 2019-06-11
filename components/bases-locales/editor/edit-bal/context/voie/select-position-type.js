@@ -41,9 +41,7 @@ class SelectPositionType extends React.Component {
           onSubmit={this.handleChange}
         />
 
-        <Notification type='info'>
-          {TYPES[type]}
-        </Notification>
+        <Notification message={TYPES[type]} />
       </>
     )
   }

@@ -7,7 +7,6 @@ import Head from '../components/head'
 import Section from '../components/section'
 import ButtonLink from '../components/button-link'
 import Notification from '../components/notification'
-import Container from '../components/container'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
@@ -15,19 +14,21 @@ const description = 'Fichiers nationaux contenant les adresses du territoire.'
 export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />} />
-    <Section title='Base Adresse Nationale' subtitle='Données de référence issues d’une coopération entre l’État, l’IGN, La Poste et OpenStreetMap France'>
-      <Notification>
-        Conformément à la <a style={{'text-decoration': 'underline'}} href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>demande du Premier Ministre</a>, la Base Adresse Nationale passera sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{'text-decoration': 'underline'}}>1er janvier 2020</strong>.
-      </Notification>
-      <div>
+
+    <Notification fullWidth>
+      Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>demande du Premier Ministre</a>, la Base Adresse Nationale passera sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
+    </Notification>
+
+    <Section title='Base Adresse Nationale' subtitle='Données de référence issues d’une coopération entre l’État, l’IGN, La Poste et OpenStreetMap France' >
+      <div style={{textAlign: 'center'}}>
         <p>Les données listées ci-dessous sont issues du rapprochement des données et traitements adresses des partenaires de la BAN.</p>
         <p>Elles <strong>peuvent être téléchargées gratuitement</strong>,
         et sont <strong>disponibles sous deux formes</strong>.</p>
       </div>
     </Section>
 
-    <Container>
-      <div className='section'>
+    <Section background='color'>
+      <div className='donnees-nationales-section'>
         <h3>Diffusion sous “licence du produit gratuit issu de la BAN”</h3>
         <div className='row'>
           <div>
@@ -44,7 +45,6 @@ export default () => (
               <li>vous transmettez aux partenaires BAN une copie électronique de tous les enrichissements réalisés.</li>
             </ul>
             <p>Pour plus d’informations, consultez le <a href='/static/docs/licence-produit-gratuit-ban.pdf'>texte de la licence.</a></p>
-            <p style={{color: 'red'}}>NB : Cette licence est homologuée jusqu’au 31 décembre 2019.</p>
           </div>
 
           <div>
@@ -53,21 +53,20 @@ export default () => (
               <div>
                 <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
                 <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-                <Link href='/data/ban-v0'>
-                  <ButtonLink>
+                <ButtonLink href='/data/ban-v0'>
                   Accéder aux données
-                  </ButtonLink>
-                </Link>
+                </ButtonLink>
               </div>
             </div>
           </div>
 
         </div>
       </div>
-    </Container>
+    </Section>
+    <Notification message='NB : Cette licence est homologuée jusqu’au 31 décembre 2019.' type='error' fullWidth />
 
-    <Container>
-      <div className='section'>
+    <Section background='grey'>
+      <div className='donnees-nationales-section'>
         <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
         <div className='row'>
           <div>
@@ -100,9 +99,9 @@ export default () => (
           </div>
         </div>
       </div>
-    </Container>
+    </Section>
 
-    <Section title='En partenariat avec' subtitle=''>
+    <Section title='En partenariat avec'>
       <div className='partners'>
         <div>
           <a href='https://portail.dgfip.finances.gouv.fr/portail/accueilIAM.pl/'>
@@ -128,7 +127,7 @@ export default () => (
     </Section>
 
     <style jsx>{`
-        .section {
+        .donnees-nationales-section {
           margin: 2em 0;
         }
 

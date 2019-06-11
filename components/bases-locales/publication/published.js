@@ -11,7 +11,7 @@ const Published = React.memo(({publicationUrl}) => {
       <h1>Votre Base Adresse Locale a bien été publiée !</h1>
       <div className='valid'>✓</div>
       {publicationUrl ?
-        <ButtonLink color='green' href={publicationUrl}>
+        <ButtonLink href={publicationUrl}>
           Voir les adresses
         </ButtonLink> : null}
 

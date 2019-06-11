@@ -7,7 +7,7 @@ function RenderCommune(item, isHighlighted) {
   return (
     <div key={item.code} className={`item ${isHighlighted ? 'item-highlighted' : ''}`}>
       <div>
-        <div className='label'>{item.nom}</div>
+        <div className='item-label'>{item.nom}</div>
       </div>
       <div>{description}</div>
       <style jsx>{`
@@ -20,7 +20,7 @@ function RenderCommune(item, isHighlighted) {
           border-bottom: 1px solid whitesmoke;
         }
 
-        .item .label {
+        .item .item-label {
           font-weight: 600;
         }
 

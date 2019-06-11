@@ -26,8 +26,8 @@ export const PieChart = ({title, data, colors}) => {
   }
 
   return (
-    <div>
-      {title && <h3>{title}</h3>}
+    <div style={{textAlign: 'center'}}>
+      {title && <div style={{margin: '1em 0'}}>{title}</div>}
 
       <div>
         <Pie

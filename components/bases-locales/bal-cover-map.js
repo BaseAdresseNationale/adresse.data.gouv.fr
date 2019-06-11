@@ -4,9 +4,7 @@ import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import theme from '../../../styles/theme'
-
-import Legend from './legend'
+import theme from '../../styles/theme'
 
 const popupHTML = ({properties}) => renderToString(
   <div>
@@ -163,7 +161,41 @@ class AddressMap extends React.Component {
 
   render() {
     return (
-      <Legend />
+      <div className='legend'>
+        <div>
+          <i className='lov2' /> BAL disponible sous Licence Ouverte
+        </div>
+        <div>
+          <i className='odbl' /> BAL disponible sous licence ODbL
+        </div>
+
+        <style jsx>{`
+          .legend {
+            z-index: 1;
+            position: absolute;
+            padding: 1em;
+            margin: 1em;
+            background: #ffffffc4;
+            border-radius: 5px;
+          }
+
+          .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: .7;
+          }
+
+          .legend .lov2 {
+            background: ${theme.colors.green};
+          }
+
+          .legend .odbl {
+            background: ${theme.colors.orange};
+          }
+        `}</style>
+      </div>
     )
   }
 }

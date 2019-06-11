@@ -32,7 +32,7 @@ class NumeroForm extends React.Component {
       <div className='buttons'>
         {!numero.deleted && (
           <Button
-            color='red'
+            color='warning'
             size='small'
             onClick={this.delete}
           >

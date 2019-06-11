@@ -6,8 +6,8 @@ import theme from '../../../styles/theme'
 import {formatPercent, formatInteger} from '../../../lib/format-numbers'
 
 const Counter = ({value, label, unit, size, color, title}) => (
-  <div>
-    {title && <h3>{title}</h3>}
+  <div style={{textAlign: 'center'}}>
+    {title && <div style={{margin: '1em 0'}}>{title}</div>}
     <div className={`value ${color}`}>
       {unit && unit === '%' ?
         formatPercent(value) :
@@ -17,13 +17,13 @@ const Counter = ({value, label, unit, size, color, title}) => (
 
     <style jsx>{`
       .value {
-        font-size: 2.2rem;
+        font-size: 1.6rem;
         line-height: 1;
       }
 
       .unit {
-        font-size: 1rem;
-        margin-left: 0.2rem;
+        font-size: 0.5rem;
+        margin-left: 0.1rem;
       }
 
       .success {
@@ -39,13 +39,13 @@ const Counter = ({value, label, unit, size, color, title}) => (
       }
 
       .small {
-        font-size: 0.8rem;
+        font-size: 0.4rem;
         line-height: 1;
       }
 
       @media (max-width: 551px) {
         .small {
-          font-size: 0.6rem;
+          font-size: 0.3rem;
         }
       }
     `}</style>

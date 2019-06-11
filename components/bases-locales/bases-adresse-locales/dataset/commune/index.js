@@ -90,7 +90,9 @@ class Commune extends React.Component {
 
                       <div className='sources'>
                         {namedPlace && <Tag type='toponyme' />}
-                        {source.map(source => <Tag key={source} type={source} />)}
+                        {source.lenght > 0 && (
+                          source.map(source => <Tag key={source} type={source} />)
+                        )}
                       </div>
                     </div>
                   </Item>

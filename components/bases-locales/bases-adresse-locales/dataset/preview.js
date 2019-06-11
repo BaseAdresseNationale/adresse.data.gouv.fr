@@ -19,13 +19,13 @@ class Preview extends React.Component {
     const {geojson, children} = this.props
 
     return (
-      <div className='container'>
+      <div className='preview-container'>
         <div className='content'>
           {children}
 
           <div className='map'>
             {geojson && (
-              <MapBox height='300'>
+              <MapBox height='300' interactive={false}>
                 {map => (
                   <GeojsonMap
                     map={map}
@@ -38,7 +38,7 @@ class Preview extends React.Component {
         </div>
 
         <style jsx>{`
-          .container {
+          .preview-container {
             margin: 2em 0;
           }
 

@@ -40,7 +40,7 @@ class Input extends React.PureComponent {
     return (
       <div className='form'>
         <input type='text' defaultValue={value} placeholder={placeholder} onChange={this.handleChange} />
-        <Button type='submit' onClick={this.handleSubmit}>{loading ? <Loader /> : buttonText}</Button>
+        <Button type='submit' size='large' onClick={this.handleSubmit}>{loading ? <Loader /> : buttonText}</Button>
         <style jsx>{`
           .form {
             display: flex;

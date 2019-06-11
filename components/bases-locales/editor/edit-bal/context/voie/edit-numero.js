@@ -42,7 +42,7 @@ class EditNumero extends React.Component {
               <FaRefresh />
             </Button>
           ) : (
-            <Button size='small' color='red' onClick={this.delete}>
+            <Button size='small' color='warning' onClick={this.delete}>
               <FaTrash />
             </Button>
           )}

@@ -47,9 +47,9 @@ class NumerosList extends React.Component {
           displayForm={displayForm}
           toggleForm={this.toggleForm}
         >
-          <Notification type='info'>
-            Vous pouvez ajouter un numéro à cette voie directement depuis la carte en effectuant un clique droit.
-          </Notification>
+          <Notification
+            message='Vous pouvez ajouter un numéro à cette voie directement depuis la carte en effectuant un clique droit.'
+          />
         </CreateItemWrapper>
 
         <div className='list'>

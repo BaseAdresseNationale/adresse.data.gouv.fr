@@ -41,6 +41,7 @@ class Map extends React.PureComponent {
     bbox: PropTypes.array,
     height: PropTypes.string,
     ortho: PropTypes.bool,
+    interactive: PropTypes.bool,
     fullscreen: PropTypes.bool,
     children: PropTypes.func.isRequired
   }
@@ -49,19 +50,21 @@ class Map extends React.PureComponent {
     bbox: null,
     height: '600',
     ortho: false,
+    interactive: true,
     fullscreen: false,
     switchStyle: false
   }
 
   componentDidMount() {
     const {currentStyle} = this.state
-    const {bbox} = this.props
+    const {bbox, interactive} = this.props
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: STYLES[currentStyle],
       center: [1.7, 46.9],
-      zoom: 5
+      zoom: 5,
+      interactive
     })
 
     this.marker = new mapboxgl.Marker()
@@ -113,7 +116,7 @@ class Map extends React.PureComponent {
     const {switchStyle, height, fullscreen, children} = this.props
 
     return (
-      <div className='container'>
+      <div className='mapbox-container'>
         <div className='tools'>
           {shouldRender && children(this.map, this.marker, this.popUp, currentStyle)}
 
@@ -136,19 +139,19 @@ class Map extends React.PureComponent {
         </Head>
 
         <style jsx>{`
-          .container {
+          .mapbox-container {
             width: 100%;
             height: ${fullscreen ? 'calc(100vh - 75px)' : `${height}px`};
           }
 
           @media (max-width: 700px) {
-            .container {
+            .mapbox-container {
               height: ${fullscreen ? 'calc(100vh - 130px)' : `${height}px`};
             }
           }
 
           @media (max-width: 380px) {
-            .container {
+            .mapbox-container {
               height: ${fullscreen ? 'calc(100vh - 120px)' : `${height}px`};
             }
           }

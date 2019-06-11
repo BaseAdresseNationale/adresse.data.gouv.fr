@@ -4,21 +4,21 @@ import PropTypes from 'prop-types'
 import theme from '../../../../styles/theme'
 
 const SwitchInput = ({handleChange, label, isChecked}) => (
-  <div className='container'>
+  <div className='switch-input-container'>
     <label className='switch'>
       <input type='checkbox' onChange={handleChange} defaultChecked={isChecked} />
       <span className='slider round' />
     </label>
     <label>{label}</label>
     <style jsx>{`
-      .container {
+      .switch-input-container {
         display: flex;
         align-items: center;
         margin-top: 1em;
         justify-content: center;
       }
 
-      .container label {
+      .switch-input-container label {
         margin-left: 1em;
       }
 

@@ -3,7 +3,6 @@ import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
 
-import {createBALValidationError} from '../../../lib/error'
 import {getFileExtension, checkHeaders, statusCodeMsg} from '../../../lib/bal/file'
 
 import FileHander from '../validator/file-handler'
@@ -46,9 +45,9 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
     setLoading(true)
 
     if (!fileExtension || fileExtension !== 'csv') {
-      setError(createBALValidationError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.'))
+      setError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
     } else if (file.size > 100 * 1024 * 1024) {
-      setError(createBALValidationError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.'))
+      setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
     } else {
       setFile(file)
     }
@@ -64,7 +63,7 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
         setReport(report)
       }
     } catch (err) {
-      const error = createBALValidationError(`Impossible d’analyser le fichier… [${err.message}]`)
+      const error = `Impossible d’analyser le fichier… [${err.message}]`
       setError(error)
     }
   }, [file, setLoading, setError])
@@ -82,18 +81,18 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
             const file = await response.blob()
             setFile(file)
           } else {
-            throw createBALValidationError('Le fichier n’a pas été reconnu comme étant au format CSV')
+            throw new Error('Le fichier n’a pas été reconnu comme étant au format CSV')
           }
         } else if (response.status in statusCodeMsg) {
-          throw createBALValidationError(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
+          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
         } else {
-          throw createBALValidationError('Impossible de récupérer le fichier car une erreur est survenue.')
+          throw new Error('Impossible de récupérer le fichier car une erreur est survenue.')
         }
       } catch (err) {
         setError(err)
       }
     } else {
-      const error = createBALValidationError('Le champ est vide.')
+      const error = 'Le champ est vide.'
       setError(error)
     }
   }, [setLoading, setFile, setError])

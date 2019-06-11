@@ -93,7 +93,7 @@ class CommuneItem extends React.Component {
                 <FaClose />
               </Button>
             ) : (
-              <Button size='small' color='red' onClick={this.delete}>
+              <Button size='small' color='warning' onClick={this.delete}>
                 <FaTrash />
               </Button>
             )}

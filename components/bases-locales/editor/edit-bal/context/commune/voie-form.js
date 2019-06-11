@@ -73,7 +73,7 @@ class VoieForm extends React.Component {
 
             <div className='button'>
               <Button
-                color='red'
+                color='warning'
                 onClick={deleteVoie}
               >
               Supprimer

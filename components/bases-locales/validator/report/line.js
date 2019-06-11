@@ -7,7 +7,7 @@ import LineValue from './line-value'
 
 const Line = ({line, unknownFields, onHover}) => {
   return (
-    <div className='container'>
+    <div className='line-container'>
       <table>
         <thead>
           <tr>
@@ -28,7 +28,7 @@ const Line = ({line, unknownFields, onHover}) => {
         </tbody>
       </table>
       <style jsx>{`
-        .container {
+        .line-container {
           margin: 1em 0;
           overflow-x:auto;
         }

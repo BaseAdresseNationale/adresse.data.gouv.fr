@@ -5,11 +5,11 @@ import KnownFields from './known-fields'
 import UnknownFields from './unknown-fields'
 
 const Fields = ({found, unknown, alias}) => (
-  <div className='container'>
+  <div className='fields-container'>
     <KnownFields found={found} alias={alias} />
     <UnknownFields fields={unknown} />
     <style jsx>{`
-      .container {
+      .fields-container {
         display: grid;
         grid-template-columns: repeat(auto-fit,minmax(300px, 1fr));
         grid-gap: 2em 1em;

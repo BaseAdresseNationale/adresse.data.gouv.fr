@@ -6,7 +6,6 @@ import {getDatasets} from '../../lib/bal/api'
 
 import Page from '../../layouts/main'
 import Head from '../../components/head'
-import Section from '../../components/section'
 import withErrors from '../../components/hoc/with-errors'
 
 import BasesAdresseLocales from '../../components/bases-locales/bases-adresse-locales'
@@ -21,9 +20,7 @@ class Datasets extends React.Component {
     return (
       <Page title={title} description={description}>
         <Head title={title} icon={<FaDatabase />} />
-        <Section>
-          <BasesAdresseLocales datasets={datasets} />
-        </Section>
+        <BasesAdresseLocales datasets={datasets} />
       </Page>
     )
   }

@@ -85,6 +85,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     return (
       <Page>
         <Section>
+          <h1>Publication d’une Base Adresse Locale</h1>
           <Notification type='error'>
             {error}
           </Notification>

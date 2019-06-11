@@ -27,9 +27,7 @@ class NumeroContext extends React.Component {
     return (
       <div className='numero-context'>
         {(!positions) && (
-          <Notification type='warning'>
-            Ce numéro n’a pas de position.
-          </Notification>
+          <Notification type='warning' message='Ce numéro n’a pas de position.' />
         )}
 
         <div className='shadow-box'>

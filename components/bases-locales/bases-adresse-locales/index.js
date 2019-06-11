@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
+import Container from '../../container'
 import Notification from '../../notification'
 
 import BaseAdresseLocale from './base-adresse-locale'
@@ -12,15 +13,18 @@ class BasesAdresseLocales extends React.Component {
     const {datasets} = this.props
 
     return (
-      <div>
-        <Notification type='info'>
+      <>
+        <Notification fullWidth>
           <div>Ne sont répertoriés que les jeux de données référencés sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> provenant d’une organisation certifiée et comportant le tag <div className='tag'>base-adresse-locale</div>.</div>
         </Notification>
-        <div className='bases'>
-          {datasets.map(dataset => (
-            <BaseAdresseLocale key={dataset.id} dataset={dataset} />
-          ))}
-        </div>
+        <Container>
+          <div className='bases'>
+            {datasets.map(dataset => (
+              <BaseAdresseLocale key={dataset.id} dataset={dataset} />
+            ))}
+          </div>
+        </Container>
+
         <style jsx>{`
           .bases {
             display: grid;
@@ -46,7 +50,7 @@ class BasesAdresseLocales extends React.Component {
             border-radius: .25em;
           }
           `}</style>
-      </div>
+      </>
     )
   }
 }

@@ -35,7 +35,7 @@ class Summary extends React.Component {
     return (
       <div>
         <div className='base-adresse-locale'>
-          {organization ? <Organization {...organization} /> : null}
+          {organization ? <Organization {...organization} /> : <div />}
 
           <div className='meta'>
             {infos.map(info => (
@@ -52,11 +52,9 @@ class Summary extends React.Component {
           </div>
 
           <div className='links'>
-            <Link href={`/bases-locales/jeux-de-donnees/${id}`}>
-              <ButtonLink>
-                Consulter
-              </ButtonLink>
-            </Link>
+            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
+              Consulter
+            </ButtonLink>
             {url &&
               <Link href={url}>
                 <a>Télécharger <MdFileDownload /></a>
@@ -66,14 +64,11 @@ class Summary extends React.Component {
 
         <style jsx>{`
           .base-adresse-locale {
-            display: flex;
-            justify-content: space-between;
-            flex-flow: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-row-gap: 1em;
+            justify-items: center;
             align-items: center;
-          }
-
-          .base-adresse-locale div {
-            margin: 3px auto;
           }
 
           .links {
@@ -88,7 +83,7 @@ class Summary extends React.Component {
 
           .meta {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 100%));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             grid-gap: 5px;
           }
         `}</style>
