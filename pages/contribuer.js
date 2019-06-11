@@ -10,6 +10,7 @@ import theme from '../styles/theme'
 import Head from '../components/head'
 import Section from '../components/section'
 import ButtonLink from '../components/button-link'
+import Notification from '../components/notification'
 
 const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer à améliorer les données Adresse.'
@@ -18,22 +19,24 @@ export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<FaPencil />} />
     <Section title='En tant que collectivité locale'>
-      <section className='option'>
-        <h3>Créer une Base Adresse Locale</h3>
-        <p>Si vous souhaitez maîtriser pleinement la gestion de vos adresses, la mise en place d’une Base Adresse Locale est l’approche à privilégier.<br />Il s’agit de la méthode recommandée par l’AMF et l’AITF.</p>
-        <p>Des nombreux outils sont là pour vous aider.</p>
-        <Link href='/bases-locales'><ButtonLink><FaMagic /> Accéder à la page dédiée</ButtonLink></Link>
-      </section>
+      <div className='collectivites'>
+        <section>
+          <h3>Créer une Base Adresse Locale</h3>
+          <p>Si vous souhaitez maîtriser pleinement la gestion de vos adresses, la mise en place d’une Base Adresse Locale est l’approche à privilégier.<br />Il s’agit de la méthode recommandée par l’AMF et l’AITF.</p>
+          <p>Des nombreux outils sont là pour vous aider.</p>
+          <ButtonLink href='/bases-locales'><FaMagic /> Accéder à la page dédiée</ButtonLink>
+        </section>
 
-      <section className='option'>
-        <h3>Utiliser le Guichet Adresse de l’IGN et de La Poste</h3>
-        <p>Cet outil est destiné plus particulièrement aux mairies qui souhaitent avoir une assistance renforcée. Le processus est plus guidé, et vous n’avez aucun fichier à gérer.</p>
-        <div className='warning'>
-          <p>⚠ Attention : si vous souhaitez que les adresses de votre collectivité soient <strong>utilisables par le plus grand nombre</strong>, vous devez les publier sous <strong>Licence Ouverte</strong>.</p>
-          <p>Un formulaire sera très bientôt disponible pour vous permettre de le faire en quelques clics.<br />D’ici là, le plus simple est encore de <a href='mailto:adresse@data.gouv.fr'>nous contacter</a> et nous réaliserons cette action à votre place.</p>
-        </div>
-        <ButtonLink href='https://guichet-adresse.ign.fr'><FaExternalLink /> Accéder au Guichet Adresse</ButtonLink>
-      </section>
+        <section>
+          <h3>Utiliser le Guichet Adresse de l’IGN et de La Poste</h3>
+          <p>Cet outil est destiné plus particulièrement aux mairies qui souhaitent avoir une assistance renforcée. Le processus est plus guidé, et vous n’avez aucun fichier à gérer.</p>
+          <Notification type='warning'>
+            <p>Attention : si vous souhaitez que les adresses de votre collectivité soient <strong>utilisables par le plus grand nombre</strong>, vous devez les publier sous <strong>Licence Ouverte</strong>.</p>
+            <p>Un formulaire sera très bientôt disponible pour vous permettre de le faire en quelques clics.<br />D’ici là, le plus simple est encore de <a href='mailto:adresse@data.gouv.fr'>nous contacter</a> et nous réaliserons cette action à votre place.</p>
+          </Notification>
+          <ButtonLink href='https://guichet-adresse.ign.fr'><FaExternalLink /> Accéder au Guichet Adresse</ButtonLink>
+        </section>
+      </div>
     </Section>
 
     <Section title='En tant que citoyen' background='grey'>
@@ -45,8 +48,11 @@ export default () => (
       <p>Vous utilisez les données diffusées par ce site et vous avez identifié des anomalies récurrentes sur une typologie d’adresse particulière ou dans une zone, <a href='mailto:adresse@data.gouv.fr'>contactez-nous</a>.</p>
     </Section>
     <style jsx>{`
-      .option {
-        margin: 70px auto;
+      .collectivites {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+        grid-gap: 1em;
+        margin-top: 2em;
       }
 
       .warning {
