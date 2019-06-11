@@ -38,7 +38,7 @@ const About = () => (
         <Question
           question='Comment contribuer à la Base Adresse Nationale ?'
         >
-          <p>Les modes de contribution sont décrits sur <Link href='/contribuer'>cette page</Link>.</p>
+          <p>Les modes de contribution sont décrits sur <Link href='/contribuer'><a>cette page</a></Link>.</p>
         </Question>
 
         <Question
