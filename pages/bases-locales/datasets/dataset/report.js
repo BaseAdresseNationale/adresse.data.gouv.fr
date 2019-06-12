@@ -11,7 +11,7 @@ import BalReport from '../../../../components/bases-locales/bases-adresse-locale
 class ReportPage extends React.Component {
   render() {
     const {dataset, report} = this.props
-    const description = `${dataset.title} - ${dataset.organization.name}`
+    const description = dataset.organization ? `${dataset.title} - ${dataset.organization.name}` : dataset.title
 
     return (
       <Page title={dataset.title} description={description}>
@@ -23,7 +23,7 @@ class ReportPage extends React.Component {
 
 ReportPage.propTypes = {
   dataset: PropTypes.shape({
-    organization: PropTypes.object.isRequired
+    organization: PropTypes.object
   }).isRequired,
   report: PropTypes.object.isRequired
 }

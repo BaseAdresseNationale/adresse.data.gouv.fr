@@ -23,9 +23,13 @@ BalReport.propTypes = {
   organization: PropTypes.shape({
     name: PropTypes.string.isRequired,
     logo: PropTypes.string.isRequired
-  }).isRequired,
+  }),
   report: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired
+}
+
+BalReport.defaultProps = {
+  organization: null
 }
 
 export default BalReport
