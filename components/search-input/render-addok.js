@@ -34,7 +34,7 @@ function renderItem(item, isHighlighted) {
     <div>
       <div key={`${name}-${postcode}`} className={`item ${isHighlighted ? 'item-highlighted' : ''}`}>
         <div>
-          <div className='label'>{name}</div>
+          <div className='item-label'>{name}</div>
         </div>
         {type === 'municipality' ?
           <div>{context}</div> :
@@ -50,7 +50,7 @@ function renderItem(item, isHighlighted) {
           padding: 1em;
         }
 
-        .item .label {
+        .item .item-label {
           font-weight: 600;
         }
 

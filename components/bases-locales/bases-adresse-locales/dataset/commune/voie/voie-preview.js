@@ -34,10 +34,10 @@ class VoiePreview extends React.Component {
     }
 
     return (
-      <div className='container'>
+      <div className='voie-preview-container'>
 
         {(numeros || position) &&
-          <div className='map'>
+          <div className='voie-preview-map'>
             <Mapbox height='300'>
               {map => (
                 <NumerosMap
@@ -72,7 +72,9 @@ class VoiePreview extends React.Component {
                               'Type non renseigné'}
                           </div>
                           <div className='sources'>
-                            {numero.source.map(source => <Tag key={source} type={source} />)}
+                            {numero.source.length > 0 && (
+                              numero.source.map(source => source && <Tag key={source} type={source} />)
+                            )}
                           </div>
                         </div>
                       </Item>
@@ -85,7 +87,11 @@ class VoiePreview extends React.Component {
         }
 
         <style jsx>{`
-          .container {
+          .voie-preview-container {
+            margin: 1em 0;
+          }
+
+          .voie-preview-map {
             margin: 1em 0;
           }
 

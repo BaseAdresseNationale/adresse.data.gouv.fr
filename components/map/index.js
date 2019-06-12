@@ -171,7 +171,7 @@ class Map extends React.Component {
     const {results, input, address, center, zoom, error, loading, addressLoading} = this.state
 
     return (
-      <div className='container'>
+      <div>
         <div className='input'>
           <SearchInput
             value={input}
@@ -208,11 +208,6 @@ class Map extends React.Component {
         </Mapbox>
 
         <style jsx>{`
-          .container {
-            position: absolute;
-            width: 100%;
-          }
-
           .input {
             z-index: 10;
             width: 40%;
@@ -225,9 +220,17 @@ class Map extends React.Component {
 
           @media (max-width: 700px) {
             .input {
-              position: initial;
+              position: absolute;
               min-width: 100%;
+              top: 73px;
+              left: 0;
               transform: none;
+            }
+          }
+
+          @media (max-width: 380px) {
+            .input {
+              top: 63px;
             }
           }
 

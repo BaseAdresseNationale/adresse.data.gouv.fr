@@ -64,6 +64,10 @@ export default () => (
         padding: 1em;
       }
 
+      .nav__link:hover {
+        background-color: ${theme.colors.white};
+      }
+
       .nav__links {
         display: flex;
         flex-flow: wrap;
@@ -80,6 +84,7 @@ export default () => (
 
       .nav__links a,
       .nav__links .dropdown {
+        text-decoration: none;
         color: ${theme.colors.black};
         padding: 0.4em 0.8em;
         border-radius: 3px;

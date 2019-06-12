@@ -13,7 +13,7 @@ class Report extends React.Component {
 
     return (
       <div>
-        <div className='container'>
+        <div className='report-container'>
           {fileValidation &&
             <div>
               <h3>Validation de la structure du fichier</h3>
@@ -41,7 +41,7 @@ class Report extends React.Component {
             </div>}
         </div>
 
-        <div className='container'>
+        <div className='report-container'>
           <h3>Champs existants</h3>
           <Fields
             found={knownFields}
@@ -50,7 +50,7 @@ class Report extends React.Component {
           />
         </div>
 
-        <div className='container'>
+        <div className='report-container'>
           <h3>Validation des données</h3>
           <Rows
             rows={rowsWithIssues}
@@ -61,7 +61,7 @@ class Report extends React.Component {
         </div>
 
         <style jsx>{`
-          .container {
+          .report-container {
             margin: 2em 0;
             padding: 2em 1em;
             box-shadow: 0 1px 4px ${theme.boxShadow};

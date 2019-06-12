@@ -67,7 +67,7 @@ class Rows extends React.Component {
           <>
             <h4>
               Erreur{errors.length > 1 ? 's' : ''}
-              <div className='icon error'><FaClose /></div>
+              <div className='summary-icon error'><FaClose /></div>
             </h4>
             <div className='list'>
               {sortedErrors.map(error => (
@@ -88,7 +88,7 @@ class Rows extends React.Component {
           <>
             <h4>
               Avertissement{warnings.length > 1 ? 's' : ''}
-              <div className='icon warning'><FaExclamationTriangle /></div>
+              <div className='summary-icon warning'><FaExclamationTriangle /></div>
             </h4>
 
             <div className='list'>
@@ -112,9 +112,7 @@ class Rows extends React.Component {
             <h4>{selectedIssue.message}</h4>
 
             {selectedIssue.rows.length > ROWS_LIMIT && (
-              <Notification type='info'>
-                Seules les {ROWS_LIMIT} premières lignes avec anomalies sont affichées ici
-              </Notification>
+              <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
             )}
 
             {rowsToDisplay.map(row => (
@@ -153,9 +151,8 @@ class Rows extends React.Component {
               box-shadow: 0 1px 4px ${theme.boxShadow};;
             }
 
-            .icon {
-              margin-left: 0.5em;
-              padding-bottom: 0.1em;
+            .summary-icon {
+                margin-left: 0.5em;
             }
             `}</style>
       </div>

@@ -16,7 +16,7 @@ function RenderAdresse(item, isHighlighted) {
   return (
     <div key={id} className={`item ${isHighlighted ? 'item-highlighted' : ''}`}>
       <div>
-        <div className='label'>{label}</div>
+        <div className='item-label'>{label}</div>
         <div>{context}</div>
       </div>
       <div>{featuresTypes[type]}</div>
@@ -29,7 +29,7 @@ function RenderAdresse(item, isHighlighted) {
           padding: 1em;
         }
 
-        .item .label {
+        .item .item-label {
           font-weight: 600;
         }
 

@@ -1,14 +1,16 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {renderToString} from 'react-dom/server'
 import computeBbox from '@turf/bbox'
 
-function formatNumber(nb) {
-  return nb.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-}
+import BanStats from './ban-stats'
 
-function roundNb(nb) {
-  return nb ? Math.round(nb * 100) : null
+const COLORS = {
+  green: '#7fff7a',
+  yellow: '#ffff00',
+  orange: '#ff9900',
+  red: '#ff2a2e',
+  purple: '#6D029F',
+  black: '#000'
 }
 
 const lineLayerPaint = {
@@ -23,15 +25,15 @@ const lineLayerPaint = {
 const fillColor = [
   'step',
   ['get', 'ecart'],
-  '#7fff7a',
+  COLORS.green,
   0.05,
-  '#ffff00',
+  COLORS.yellow,
   0.1,
-  '#ffd100',
+  COLORS.orange,
   0.2,
-  '#ff2a2e',
+  COLORS.red,
   0.4,
-  '#330143',
+  COLORS.purple,
   1,
   '#000'
 ]
@@ -45,41 +47,40 @@ const unSelectFillColor = [
 
 const fillLayerPaint = {
   'fill-color': fillColor,
-  'fill-opacity': ['case',
-    ['boolean', ['feature-state', 'hover'], false],
+  'fill-opacity': [
+    'interpolate',
+    ['exponential', 0.1],
+    ['get', 'total'],
+    0,
+    0,
     1,
-    0.5]
-}
-
-const popupHTML = ({properties}) => {
-  const total = formatNumber(properties.total)
-  const banV0Only = formatNumber(properties['ban-v0-only'])
-  const banLOOnly = formatNumber(properties['ban-lo-only'])
-  const both = formatNumber(properties.both)
-  const pseudoAdresse = formatNumber(properties['pseudo-adresse'])
-  const banV0OnlyRatio = roundNb(properties['ban-v0-only-ratio'])
-  const banLOOnlyRatio = roundNb(properties['ban-lo-only-ratio'])
-  return renderToString(
-    <div>
-      <h3>{properties.nom} - {properties.code}</h3>
-      <p>
-        <div><b>{total}</b> adresses uniques</div>
-      </p>
-      {properties.total > 0 && (
-        <ul style={{padding: '1em'}}>
-          <li><b>{banV0Only}</b> présentes uniquement dans la BAN v0 {banV0OnlyRatio && (<b>{banV0OnlyRatio}%</b>)}</li>
-          <li><b>{banLOOnly}</b> présentes uniquement dans la BAN LO {banLOOnlyRatio && (<b>{banLOOnlyRatio}%</b>)}</li>
-          <li><b>{both}</b> présentes dans la BAN v0 et la BAN LO</li>
-          <li><b>{pseudoAdresse}</b> pseudo-adresses</li>
-        </ul>
-      )}
-    </div>
-  )
+    0.1,
+    200,
+    0.2,
+    400,
+    0.3,
+    800,
+    0.4,
+    1000,
+    0.5,
+    5000,
+    0.6,
+    10000,
+    0.7,
+    50000,
+    0.8,
+    100000,
+    0.9,
+    200000,
+    1
+  ]
 }
 
 let hoveredStateId = null
 
-function BANMap({map, popUp, departements, communes, loading, selectDepartement, reset}) {
+function BANMap({map, departements, communes, loading, selectDepartement, reset}) {
+  const [stats, setStats] = useState(null)
+
   map.once('load', () => {
     map.on('mousemove', 'departements-fill', e => onHover(e, 'departements'))
     map.on('mouseleave', 'departements-fill', onLeave)
@@ -134,6 +135,7 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
     const departement = e.features[0].properties
     map.setFilter('departements-fill', ['!=', ['get', 'code'], departement.code])
     map.setPaintProperty('departements-fill', 'fill-color', unSelectFillColor)
+    map.setPaintProperty('departements-fill', 'fill-opacity', 0.4)
 
     selectDepartement(departement.code)
   }
@@ -146,9 +148,8 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
       }
 
       hoveredStateId = e.features[0].id
-      popUp.setLngLat(e.lngLat)
-        .setHTML(popupHTML(e.features[0]))
-        .addTo(map)
+
+      setStats(e.features[0].properties)
 
       map.getCanvas().style.cursor = 'pointer'
       map.setFeatureState({source, id: hoveredStateId}, {hover: true})
@@ -162,7 +163,7 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
     }
 
     map.getCanvas().style.cursor = 'default'
-    popUp.remove()
+    setStats(null)
     hoveredStateId = null
   }
 
@@ -211,16 +212,23 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
         <div className='tools reset' onClick={unSelectDepartement}>Départements</div>
       )}
 
+      {stats && (
+        <div className='tools stats'>
+          <BanStats properties={stats} />
+        </div>
+      )}
+
       <div className='tools legend'>
         <div className='title'>État de la Base Adresse Nationale sous Licence Ouverte</div>
         <div className='graduation'>
-          <div className='label' style={{marginRight: '5px'}}>BAN v0</div>
-          <div className='color' style={{backgroundColor: '#330143'}} />
-          <div className='color' style={{backgroundColor: '#ff2a2e'}} />
-          <div className='color' style={{backgroundColor: '#ffd100'}} />
-          <div className='color' style={{backgroundColor: '#ffff00'}} />
-          <div className='color' style={{backgroundColor: '#7fff7a'}} />
-          <div className='label' style={{marginLeft: '5px'}}>BAN LO</div>
+          <div className='color-label' style={{marginRight: '5px'}}>BAN v0</div>
+          <div className='color' style={{backgroundColor: COLORS.green}} />
+          <div className='color' style={{backgroundColor: COLORS.yellow}} />
+          <div className='color' style={{backgroundColor: COLORS.orange}} />
+          <div className='color' style={{backgroundColor: COLORS.red}} />
+          <div className='color' style={{backgroundColor: COLORS.purple}} />
+          <div className='color' style={{backgroundColor: COLORS.black}} />
+          <div className='color-label' style={{marginLeft: '5px'}}>BAN LO</div>
         </div>
       </div>
 
@@ -234,11 +242,15 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
           border-radius: 4px;
         }
 
+        .stats {
+          right: 0;
+        }
+
         .legend {
           display: flex;
           flex-direction: column;
-          bottom: 10px;
-          right: 0;
+          bottom: -5px;
+          left: 0;
         }
 
         .legend .title {
@@ -246,7 +258,7 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
           margin-bottom: 5px;
         }
 
-        .legend .label {
+        .legend .color-label {
           font-size: x-small;
         }
 
@@ -266,6 +278,21 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
           cursor: pointer;
           background: #fff;
         }
+
+        @media (max-width: 620px) {
+          .stats,
+          .legend {
+            left: 0;
+            width: calc(100% - 60px);
+          }
+          .stats {
+            bottom: 90px;
+          }
+
+          .legend {
+            bottom: -5px;
+          }
+        }
         `}</style>
     </div>
   )
@@ -273,7 +300,6 @@ function BANMap({map, popUp, departements, communes, loading, selectDepartement,
 
 BANMap.propTypes = {
   map: PropTypes.object.isRequired,
-  popUp: PropTypes.object.isRequired,
   departements: PropTypes.object,
   communes: PropTypes.object,
   loading: PropTypes.bool,

@@ -11,7 +11,7 @@ const Head = ({title, icon, beta}) => (
     <div className='head'>
       <Container>
         <div className='flex'>
-          <div className='row'>
+          <div className='title'>
             <div className='icon'>{icon}</div>
             <h1>{title}</h1>
           </div>
@@ -34,7 +34,7 @@ const Head = ({title, icon, beta}) => (
         align-items: center;
       }
 
-      .row {
+      .title {
         display: flex;
         align-items: center;
         max-width: 1400px;

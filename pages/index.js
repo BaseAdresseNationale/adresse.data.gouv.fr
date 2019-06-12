@@ -96,6 +96,10 @@ export default () => (
           color: ${theme.backgroundWhite};
         }
 
+        a:hover {
+          background-color: ${theme.primary};
+        }
+
         img {
           height: 100px;
           width: auto;

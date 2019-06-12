@@ -61,7 +61,7 @@ class Row extends React.Component {
         </div>
 
         {showIssues &&
-          <div className='container'>
+          <div className='row-container'>
             <Line
               line={row}
               unknownFields={unknownFields}
@@ -92,7 +92,7 @@ class Row extends React.Component {
             text-decoration: underline;
           }
 
-          .container {
+          .row-container {
             margin: 1em 0;
             padding: 1em;
             box-shadow: 0 1px 4px ${theme.boxShadow};

@@ -26,7 +26,7 @@ class Links extends React.Component {
 
     return (
       <div className='links'>
-        <ButtonLink href={url} style={ButtonStyle}>
+        <ButtonLink href={url} size='large' style={ButtonStyle}>
           Télécharger <MdFileDownload />
         </ButtonLink>
 

@@ -23,31 +23,13 @@ class Select extends React.Component {
     const {value, options} = this.props
 
     return (
-      <div>
-        <div className='select'>
-          <select value={value} onChange={this.handleChange}>
-            {options.map(options => (
-              <option key={options} value={options}>
-                {options}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <style jsx>{`
-          .select {
-            margin-bottom: 1em;
-          }
-
-          select {
-            text-transform: capitalize;
-          }
-
-          select option::first-letter{
-            text-transform: uppercase;
-          }
-        `}</style>
-      </div>
+      <select value={value} onChange={this.handleChange}>
+        {options.map(options => (
+          <option key={options} value={options}>
+            {options}
+          </option>
+        ))}
+      </select>
     )
   }
 }

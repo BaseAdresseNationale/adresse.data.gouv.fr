@@ -33,53 +33,6 @@ module.exports = app => {
     })
   })
 
-  router.get('/bases-locales/editeur', (req, res) => {
-    app.render(req, res, '/bases-locales/editeur', {
-      ...req.query
-    })
-  })
-
-  router.get('/bases-locales/editeur/:id', (req, res) => {
-    app.render(req, res, '/bases-locales/editeur', {
-      ...req.query,
-      id: req.params.id
-    })
-  })
-
-  router.get('/bases-locales/editeur/commune/:codeCommune', (req, res) => {
-    app.render(req, res, '/bases-locales/editeur', {
-      ...req.query,
-      codeCommune: req.params.codeCommune
-    })
-  })
-
-  router.get('/bases-locales/editeur/:id/commune/:codeCommune', (req, res) => {
-    app.render(req, res, '/bases-locales/editeur', {
-      ...req.query,
-      id: req.params.id,
-      codeCommune: req.params.codeCommune
-    })
-  })
-
-  router.get('/bases-locales/editeur/:id/commune/:codeCommune/voie/:codeVoie', (req, res) => {
-    app.render(req, res, '/bases-locales/editeur', {
-      ...req.query,
-      id: req.params.id,
-      codeCommune: req.params.codeCommune,
-      codeVoie: req.params.codeVoie
-    })
-  })
-
-  router.get('/bases-locales/editeur/:id/commune/:codeCommune/voie/:codeVoie/numero/:idNumero', (req, res) => {
-    app.render(req, res, '/bases-locales/editeur', {
-      ...req.query,
-      id: req.params.id,
-      codeCommune: req.params.codeCommune,
-      codeVoie: req.params.codeVoie,
-      idNumero: req.params.idNumero
-    })
-  })
-
   router.get('/bases-locales/jeux-de-donnees', (req, res) => {
     app.render(req, res, '/bases-locales/datasets', {
       ...req.query
