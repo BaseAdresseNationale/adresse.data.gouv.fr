@@ -191,7 +191,6 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
         a {
           text-align: center;
-          text-decoration: underline;
         }
         `}</style>
     </div>
