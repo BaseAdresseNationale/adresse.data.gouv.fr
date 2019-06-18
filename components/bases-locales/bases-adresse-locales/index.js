@@ -32,10 +32,6 @@ class BasesAdresseLocales extends React.Component {
             margin: 4em 0;
           }
 
-          a {
-            text-decoration: underline;
-          }
-
           .tag {
             display: inline;
             background-color: ${theme.primary};
