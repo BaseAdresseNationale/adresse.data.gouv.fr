@@ -48,17 +48,21 @@ const Tool = ({title, icon, description, href}) => {
         <div className='article__author-img'>{icon}</div>
         <p className='article__author-description'>{description}</p>
         <style jsx>{`
-        .article__author:hover {
-          cursor: pointer;
-          border-color: ${theme.primary};
-        }
+          .article__author {
+            min-width: 270px;
+          }
 
-        .article__author-img {
-          display: inline-block;
-          float: right;
-          font-size: x-large;
-        }
-      `}</style>
+          .article__author:hover {
+            cursor: pointer;
+            border-color: ${theme.primary};
+          }
+
+          .article__author-img {
+            display: inline-block;
+            float: right;
+            font-size: x-large;
+          }
+        `}</style>
       </div>
     </Link>
   )

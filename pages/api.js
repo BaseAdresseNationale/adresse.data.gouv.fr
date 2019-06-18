@@ -182,8 +182,13 @@ export default () => (
           width: 100%;
         }
 
+        a {
+          color: ${theme.colors.lightBlue};
+        }
+
         .details code {
           color: ${theme.darkText};
+          width: 100%;
         }
 
         @media (min-width: 900px) {
