@@ -7,7 +7,7 @@ import Question from './question'
 const About = () => (
   <Section>
     <div className='faq-row'>
-      <Section>
+      <div className='theme'>
         <h3>Base Adresse Nationale</h3>
 
         <Question question='Qu’est-ce que la Base Adresse Nationale ?'>
@@ -46,9 +46,9 @@ const About = () => (
         >
           <p>Non, cette base ne fait que référencer l’existence et la localisation géographique d’une adresse. Aucune information personnelle ne figure dans cette base de données.</p>
         </Question>
-      </Section>
+      </div>
 
-      <Section>
+      <div className='theme'>
         <h3>Bases Adresse Locales</h3>
 
         <Question question='Qu’est-ce qu’une Base Adresse Locale ?'>
@@ -79,9 +79,9 @@ const About = () => (
           <p>Par ailleurs seule la Licence Ouverte permet d’alimenter la Base Adresse Nationale, le cadastre, l’INSEE et les principales solutions cartographiques et GPS du marché.</p>
           <p>Si une forme de protectionnisme peut être pertinente sur certaines données publiques, elle est exclus sur les adresses qui sont une donnée fondamentale.</p>
         </Question>
-      </Section>
+      </div>
 
-      <Section>
+      <div className='theme'>
         <h3>API de géocodage</h3>
 
         <Question
@@ -110,14 +110,17 @@ const About = () => (
             <p>Dans le cas contraire, vous pouvez aussi héberger notre API de géocodage chez vous, en suivant <a href='https://github.com/etalab/addok-docker'>ces instructions</a>.</p>
           </>
         </Question>
-      </Section>
+      </div>
 
       <style jsx>{`
-      .faq-row {
-        <section>
-        display: flex;
-        flex-direction: column;
-      }
+        .theme {
+          margin: 1em 0;
+        }
+
+        .faq-row {
+          display: flex;
+          flex-direction: column;
+        }
       `}</style>
     </div>
   </Section>
