@@ -31,7 +31,6 @@ const MapError = () => (
           }
 
           a {
-            text-decoration: underline;
             color: ${theme.warningBorder};
           }
         `}</style>
