@@ -63,7 +63,7 @@ export default () => (
         </div>
       </div>
     </Section>
-    <Notification message='NB : Cette licence est homologuée jusqu’au 31 décembre 2019.' type='error' fullWidth />
+    <Notification message='NB : La licence du produit gratuit issu de la BAN est homologuée jusqu’au 31 décembre 2019.' type='error' fullWidth />
 
     <Section background='grey'>
       <div className='donnees-nationales-section'>
