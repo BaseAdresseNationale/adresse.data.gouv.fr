@@ -5,8 +5,9 @@ import Page from '../layouts/main'
 
 import Head from '../components/head'
 import Section from '../components/section'
-import ButtonLink from '../components/button-link'
 import Notification from '../components/notification'
+
+import theme from '../styles/theme'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
@@ -25,79 +26,81 @@ export default () => (
         <p>Elles <strong>peuvent être téléchargées gratuitement</strong>,
         et sont <strong>disponibles sous deux formes</strong>.</p>
       </div>
-    </Section>
 
-    <Section background='color'>
-      <div className='donnees-nationales-section'>
-        <h3>Diffusion sous “licence du produit gratuit issu de la BAN”</h3>
-        <div className='row'>
-          <div>
-            <h4>Résumé de la licence</h4>
-            <p>La “licence du produit gratuit issu de la BAN” vous autorise à :</p>
+      <div className='datasets'>
+        <div className='dataset'>
+          <h3>Produit gratuit issu de la BAN</h3>
+
+          <div className='divider' />
+
+          <p className='block description'>
+            Export des données de l’API de gestion de la Base Adresse Nationale.
+          </p>
+
+          <div className='block characteristics'>
+            <h6>Caractéristiques</h6>
             <ul>
-              <li>copier, distribuer et utiliser la base de données ;</li>
-              <li>produire des créations à partir de cette base de données ;</li>
-              <li>modifier, transformer et construire à partir de cette base de données.</li>
+              <li>Producteur : <strong>IGN</strong></li>
+              <li>Licence : <a href='/static/docs/licence-produit-gratuit-ban.pdf'>licence spécifique</a></li>
+              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
+              <li>Identifiant : <strong>identifiant technique de l’API de gestion</strong></li>
             </ul>
-            <p>Tant que :</p>
             <ul>
-              <li>vous mentionnez la source des données ;</li>
-              <li>vous transmettez aux partenaires BAN une copie électronique de tous les enrichissements réalisés.</li>
+              <li><strong>1 ligne par position</strong></li>
+              <li>Table de passage identifiants IGN vers identifiants API</li>
             </ul>
-            <p>Pour plus d’informations, consultez le <a href='/static/docs/licence-produit-gratuit-ban.pdf'>texte de la licence.</a></p>
           </div>
 
-          <div>
-            <h4>Données</h4>
-            <div>
-              <div>
-                <p>Pour connaître précisement le contenu de ces données, <Link href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/ban-2015.md'><a>consultez le descriptif des données</a></Link>.</p>
-                <p>Données en téléchargement pour un département, ou la France entière, et disponibles exclusivement au format CSV.</p>
-                <ButtonLink href='/data/ban-v0'>
-                  Accéder aux données
-                </ButtonLink>
-              </div>
-            </div>
+          <div className='block downloads'>
+            <h6>Télécharger les données</h6>
+            <ul>
+              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)</a> <span className='new'>Nouveau !</span></li>
+            </ul>
           </div>
 
+          <div className='infos block' />
+
+          <Notification type='warning'>
+            NB : La licence du produit gratuit issu de la BAN est homologuée jusqu’au 31 décembre 2019.
+          </Notification>
         </div>
-      </div>
-    </Section>
-    <Notification message='NB : La licence du produit gratuit issu de la BAN est homologuée jusqu’au 31 décembre 2019.' type='error' fullWidth />
 
-    <Section background='grey'>
-      <div className='donnees-nationales-section'>
-        <h3>Diffusion alternative sous licence ODbL (assurée par OpenStreetMap France)</h3>
-        <div className='row'>
-          <div>
-            <h4>Résumé de la licence</h4>
-            <p>La licence ODbL vous autorise à :</p>
+        <div className='dataset'>
+          <h3>Adresses ODbL</h3>
+
+          <div className='divider' />
+
+          <p className='block description'>
+            Données prêtes à l’emploi, issues de la Base Adresse Nationale, retravaillées et enrichies des <Link href='/bases-locales'><a>Bases Adresses Locales</a></Link>
+          </p>
+
+          <div className='block characteristics'>
+            <h6>Caractéristiques</h6>
             <ul>
-              <li>copier, distribuer et utiliser la base de données ;</li>
-              <li>produire des créations à partir de cette base de données ;</li>
-              <li>modifier, transformer et construire à partir de cette base de données.</li>
+              <li>Producteur : <strong>Etalab</strong></li>
+              <li>Licence : <a href='https://opendatacommons.org/licenses/odbl/summary/'>Open Database License (ODbL) 1.0</a></li>
+              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
+              <li>Identifiant : <strong>clé d’interopérabilité</strong></li>
             </ul>
-            <p>Tant que :</p>
             <ul>
-              <li>vous mentionnez la source des données ;</li>
-              <li>vous partagez à l’identique les bases de données dérivées ;</li>
-              <li>vous gardez ouvertes ces données.</li>
+              <li><strong>1 ligne par adresse</strong></li>
+              <li>Environ 23,4 millions d’adresses</li>
+              <li>Libellés normalisés AFNOR</li>
+              <li>&nbsp;</li>
+              <li>Utilisé par le géocodeur adresse.data.gouv.fr <span className='soon'>Bientôt</span></li>
+              <li>Lien avec la parcelle cadastrale <span className='soon'>Bientôt</span></li>
             </ul>
-            <p>Pour plus de renseignements, consultez <a href='http://www.vvlibri.org/fr/licence/odbl/10/fr/legalcode' target='_blank' rel='noopener noreferrer'>la traduction française intégrale de la licence</a> ou le <a href='http://vvlibri.org/fr/licence/odbl/10/fr' target='_blank' rel='noopener noreferrer'>résumé en français</a> disponibles sur le site Veni Vidi Libri, ou bien le texte de référence en anglais sur <a href='http://opendatacommons.org/licenses/odbl/summary/' target='_blank' rel='noopener noreferrer'>Open Data Commons</a>.</p>
           </div>
-          <div>
-            <h4>Données</h4>
-            <p>Les données proposées sous cette licence sont similaires à celles proposées sous licence gratuite de repartage. Néanmoins :</p>
+
+          <div className='block downloads'>
+            <h6>Télécharger les données</h6>
             <ul>
-              <li>le libellé à la norme AFNOR et le libellé d’acheminement ne sont pas disponibles ;</li>
-              <li>les données subissent <a href='https://github.com/etalab/ban-data/blob/master/scripts/clean.sql'>des traitements qualité supplémentaires.</a></li>
+              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV</a> <span className='new'>Amélioré !</span></li>
+              <li>Exports historiques OSM <span className='soon'>Bientôt</span></li>
             </ul>
-            <p>Données en téléchargement pour une commune, un département, ou la France entière, et disponibles aux formats CSV, Shapefile et JSON.</p>
-            <ButtonLink href='http://bano.openstreetmap.fr/BAN_odbl'>
-            Accéder aux données
-            </ButtonLink>
           </div>
         </div>
+
       </div>
     </Section>
 
@@ -129,6 +132,14 @@ export default () => (
     <style jsx>{`
         .donnees-nationales-section {
           margin: 2em 0;
+        }
+
+        .datasets {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          grid-gap: 2em;
+          margin-top: 2em;
+          justify-content: center;
         }
 
         .row {
@@ -163,6 +174,61 @@ export default () => (
 
         .logo {
           height: 130px;
+        }
+
+        .dataset {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          padding: 1em;
+          box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+        }
+
+        .dataset ul {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          list-style-type: none;
+          padding: 0;
+        }
+
+        .block {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          min-height: 40px;
+          margin: 1em 0;
+        }
+
+        .general {
+          display: flex;
+          align-items: center;
+          flex-flow: wrap;
+        }
+
+        .general div {
+          display: flex;
+          flex-wrap: nowrap;
+          margin: 0.3em;
+          align-items: center;
+        }
+
+        .divider {
+          border-bottom: 4px solid ${theme.primary};
+          margin: 1em;
+        }
+
+        .new {
+          color: ${theme.successBorder}
+        }
+
+        .soon {
+          color: ${theme.primary}
+        }
+
+        h6 {
+          margin-bottom: 1em;
         }
       `}</style>
   </Page>
