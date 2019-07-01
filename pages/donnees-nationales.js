@@ -87,7 +87,7 @@ export default () => (
               <li>Environ 23,4 millions d’adresses</li>
               <li>Libellés normalisés AFNOR</li>
               <li>&nbsp;</li>
-              <li>Utilisé par le géocodeur adresse.data.gouv.fr <span className='soon'>Bientôt</span></li>
+              <li>Utilisé par le <Link href='/csv'>géocodeur adresse.data.gouv.fr</Link> <span className='soon'>Bientôt</span></li>
               <li>Lien avec la parcelle cadastrale <span className='soon'>Bientôt</span></li>
             </ul>
           </div>
@@ -95,7 +95,7 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV</a> <span className='new'>Amélioré !</span></li>
+              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV</a> [<a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/adresses-csv.md'>documentation</a>] <span className='new'>Amélioré !</span></li>
               <li>Exports historiques OSM <span className='soon'>Bientôt</span></li>
             </ul>
           </div>
