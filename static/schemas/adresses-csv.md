@@ -2,7 +2,7 @@
 
 Le séparateur point-virgule et l'encodage UTF-8 sont utilisés.
 
-Ce format est **largement compatible** avec l'[ancien format CSV](ban-2015.csv) qui a servi à la diffusion des données BAN de 2015 à fin 2018.
+Ce format est **largement compatible** avec l'[ancien format CSV](ban-2015.md) qui a servi à la diffusion des données BAN de 2015 à fin 2018.
 
 | Nom du champ | Description | Changements |
 | --- | --- | --- |
