@@ -64,26 +64,22 @@ class MapContainer extends React.Component {
 
     return (
       <div>
-        {error ? (
-          <Notification type='error' message={error} />
-        ) : (
-          <div className='map'>
-            <Mapbox>
-              {map => (
-                <AddressesMap
-                  map={map}
-                  data={data}
-                  selected={selected}
-                  voie={voie}
-                  addrsAround={addressesToGeoJson(addrsAround)}
-                  onClose={onSelect}
-                  handleMove={this.getAddrsAround}
-                  handleSelect={this.selectAddress}
-                />
-              )}
-            </Mapbox>
-          </div>
-        )}
+        <div className='map'>
+          <Mapbox error={error}>
+            {({...mapboxProps}) => (
+              <AddressesMap
+                {...mapboxProps}
+                data={data}
+                selected={selected}
+                voie={voie}
+                addrsAround={addressesToGeoJson(addrsAround)}
+                onClose={onSelect}
+                handleMove={this.getAddrsAround}
+                handleSelect={this.selectAddress}
+              />
+            )}
+          </Mapbox>
+        </div>
 
         <style jsx>{`
           .map {

@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
 
 import {numerosToGeoJson} from '../../../../../../lib/geojson'
 
 import theme from '../../../../../../styles/theme'
 
+import AddressesMap from '../../../../../mapbox/addresses-map'
 import Notification from '../../../../../notification'
 import Tag from '../../../../../tag'
 import Mapbox from '../../../../../mapbox'
 
 import Item from '../../item'
-
-import NumerosMap from './numeros-map'
 
 class VoiePreview extends React.Component {
   static propTypes = {
@@ -38,11 +38,11 @@ class VoiePreview extends React.Component {
 
         {(numeros || position) &&
           <div className='voie-preview-map'>
-            <Mapbox height='300'>
-              {map => (
-                <NumerosMap
-                  map={map}
-                  data={data}
+            <Mapbox bbox={computeBbox(data)}>
+              {({...mapboxProps}) => (
+                <AddressesMap
+                  {...mapboxProps}
+                  numeros={data}
                 />
               )}
             </Mapbox>
@@ -92,6 +92,7 @@ class VoiePreview extends React.Component {
           }
 
           .voie-preview-map {
+            height: 300px;
             margin: 1em 0;
           }
 

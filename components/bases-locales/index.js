@@ -107,13 +107,15 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <Section title='État du déploiement des Bases Adresse Locales' />
-      <div>
+      <div className='bal-cover-map-container'>
         <Mapbox>
-          {(map, marker, popUp) => (
+          {({map, popup, setSources, setLayers}) => (
             <BalCoverMap
               map={map}
-              popUp={popUp}
+              popup={popup}
               data={mapData}
+              setSources={setSources}
+              setLayers={setLayers}
             />
           )}
         </Mapbox>
@@ -187,6 +189,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           align-items: center;
           flex-flow: wrap;
           justify-content: center;
+        }
+
+        .bal-cover-map-container {
+          height: 500px;
         }
 
         a {

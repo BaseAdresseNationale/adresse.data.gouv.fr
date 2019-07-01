@@ -21,15 +21,13 @@ const MapLoader = () => (
       .map-loader-container {
         width: 100%;
         height: 100%;
-        min-height: 600px;
         background: ${theme.backgroundGrey};
       }
 
       .centered {
-        position: absolute;
-        top: 25%;
+        position: relative;
+        top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
       }
     `}</style>
   </div>

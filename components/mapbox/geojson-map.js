@@ -1,64 +1,16 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-import computeBbox from '@turf/bbox'
 
-class GeojsonMap extends React.PureComponent {
-  static propTypes = {
-    map: PropTypes.object.isRequired,
-    data: PropTypes.shape({
-      features: PropTypes.array.isRequired
-    }).isRequired
-  }
-
-  componentDidMount() {
-    const {map} = this.props
-
-    map.once('load', this.onLoad)
-    this.fitBounds()
-
-    map.on('styledata', this.onStyleData)
-  }
-
-  componentWillUnmount() {
-    const {map} = this.props
-
-    map.off('styledata', this.onStyleData)
-  }
-
-  fitBounds = () => {
-    const {map, data} = this.props
-    const bbox = computeBbox(data)
-
-    map.fitBounds(bbox, {
-      padding: 30,
-      linear: true,
-      maxZoom: 16,
-      duration: 0
-    })
-  }
-
-  onStyleData = () => {
-    const {map} = this.props
-
-    if (map.isStyleLoaded()) {
-      if (!map.getSource('data')) {
-        this.onLoad()
-      }
-    } else {
-      setTimeout(this.onStyleData, 1000)
-    }
-  }
-
-  onLoad = () => {
-    const {map, data} = this.props
-
-    map.addSource('data', {
+const GeojsonMap = ({data, setSources, setLayers}) => {
+  const sources = [
+    {
       type: 'geojson',
+      name: 'data',
       generateId: true,
       data
-    })
-
-    map.addLayer({
+    }
+  ]
+  const layers = [
+    {
       id: 'point',
       type: 'circle',
       source: 'data',
@@ -78,9 +30,8 @@ class GeojsonMap extends React.PureComponent {
         ]
       },
       filter: ['==', '$type', 'Point']
-    })
-
-    map.addLayer({
+    },
+    {
       id: 'polygon-fill',
       type: 'fill',
       source: 'data',
@@ -99,9 +50,8 @@ class GeojsonMap extends React.PureComponent {
         ]
       },
       filter: ['==', '$type', 'Polygon']
-    })
-
-    map.addLayer({
+    },
+    {
       id: 'polygon-outline',
       type: 'line',
       source: 'data',
@@ -110,9 +60,8 @@ class GeojsonMap extends React.PureComponent {
         'line-width': 2
       },
       filter: ['==', '$type', 'Polygon']
-    })
-
-    map.addLayer({
+    },
+    {
       id: 'line',
       type: 'line',
       source: 'data',
@@ -127,12 +76,21 @@ class GeojsonMap extends React.PureComponent {
         'line-opacity': 0.8
       },
       filter: ['==', '$type', 'LineString']
-    })
-  }
+    }
+  ]
 
-  render() {
-    return null
-  }
+  setSources(sources)
+  setLayers(layers)
+
+  return null
+}
+
+GeojsonMap.propTypes = {
+  data: PropTypes.shape({
+    features: PropTypes.array.isRequired
+  }).isRequired,
+  setSources: PropTypes.func.isRequired,
+  setLayers: PropTypes.func.isRequired
 }
 
 export default GeojsonMap

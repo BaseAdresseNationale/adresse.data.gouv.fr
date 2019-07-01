@@ -192,20 +192,24 @@ class Map extends React.Component {
             type='error' />
         }
 
-        <Mapbox fullscreen>
-          {(map, marker) => (
-            <AddressMap
-              map={map}
-              marker={marker}
-              data={address}
-              center={center}
-              zoom={zoom}
-              loading={addressLoading}
-              mapUpdate={this.mapUpdate}
-              getNearestAddress={this.getNearestAddress}
-            />
-          )}
-        </Mapbox>
+        <div className='map-container'>
+          <Mapbox>
+            {({map, marker, popup, setMarkerCoordinates}) => (
+              <AddressMap
+                map={map}
+                marker={marker}
+                popup={popup}
+                data={address}
+                center={center}
+                zoom={zoom}
+                loading={addressLoading}
+                mapUpdate={this.mapUpdate}
+                getNearestAddress={this.getNearestAddress}
+                setMarkerCoordinates={setMarkerCoordinates}
+              />
+            )}
+          </Mapbox>
+        </div>
 
         <style jsx>{`
           .input {
@@ -216,6 +220,17 @@ class Map extends React.Component {
             top: 90px;
             left: 50%;
             transform: translate(-50%);
+          }
+
+          .map-container {
+            width: 100%;
+            height: calc(100vh - 73px);
+          }
+
+          @media (max-width: 380px) {
+            .map-container {
+              height: calc(100vh - 63px);
+            }
           }
 
           @media (max-width: 700px) {

@@ -11,6 +11,18 @@ import SearchCommune from '../../components/explorer/search-commune'
 import Commune from '../../components/explorer/commune'
 import VoiesCommune from '../../components/explorer/commune/voies-commune'
 
+const contourToFeatureCollection = commune => {
+  return {
+    type: 'FeatureCollection',
+    features: [{
+      type: 'Feature',
+      geometry: commune.contour,
+      id: commune.code,
+      properties: {}
+    }]
+  }
+}
+
 class CommunePage extends React.Component {
   state = {
     communeVoiesPromise: null
@@ -112,10 +124,14 @@ const MLP = {
 CommunePage.getInitialProps = async ({query}) => {
   const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
   const codeCommune = query.codeCommune in MLP ? MLP[query.codeCommune] : query.codeCommune
+  const commune = await getCommune(codeCommune, fields)
+  
+  commune.contour = contourToFeatureCollection(commune)
+  console.log('TCL: CommunePage.getInitialProps -> commune', commune)
 
   return {
     codeCommune: query.codeCommune,
-    commune: await getCommune(codeCommune, fields)
+    commune
   }
 }
 
