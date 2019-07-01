@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import DownloadIcon from 'react-icons/lib/fa/download'
+import MdFileDownload from 'react-icons/lib/md/file-download'
+
 import Page from '../layouts/main'
 
 import Head from '../components/head'
@@ -54,7 +56,7 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)</a> <span className='new'>Nouveau !</span></li>
+              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<MdFileDownload /></a> <span className='new'>Nouveau !</span></li>
             </ul>
           </div>
 
@@ -95,7 +97,7 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV</a> [<a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/adresses-csv.md'>documentation</a>] <span className='new'>Amélioré !</span></li>
+              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV<MdFileDownload /></a> [<a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/adresses-csv.md'>documentation</a>] <span className='new'>Amélioré !</span></li>
               <li>Exports historiques OSM <span className='soon'>Bientôt</span></li>
             </ul>
           </div>
