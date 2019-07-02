@@ -51,6 +51,7 @@ export default () => (
               <li><strong>1 ligne par position</strong></li>
               <li>Table de passage identifiants IGN vers identifiants API</li>
             </ul>
+            <p><a href='/static/docs/BAN_Descriptif_Donnees.pdf'>Documentation produit</a></p>
           </div>
 
           <div className='block downloads'>
