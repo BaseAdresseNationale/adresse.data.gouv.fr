@@ -60,12 +60,6 @@ export default () => (
               <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<MdFileDownload /></a> <span className='new'>Nouveau !</span></li>
             </ul>
           </div>
-
-          <div className='infos block' />
-
-          <Notification type='warning'>
-            NB : La licence du produit gratuit issu de la BAN est homologuée jusqu’au 31 décembre 2019.
-          </Notification>
         </div>
 
         <div className='dataset'>
