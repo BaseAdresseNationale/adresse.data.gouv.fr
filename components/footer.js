@@ -24,7 +24,7 @@ const Footer = () => (
     </div>
     <style jsx>{`
       .footer {
-        background: ${theme.colors.almostBlack};
+        background-color: ${theme.colors.almostBlack};
         color: ${theme.colors.white};
         padding: 2em 0;
         line-height: 2em;

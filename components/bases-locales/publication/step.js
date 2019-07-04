@@ -50,12 +50,12 @@ class Step extends React.Component {
           }
 
           .index {
-            background: ${theme.colors.almostBlack};
+            background-color: ${theme.colors.almostBlack};
             color: ${theme.colors.white};
           }
 
           .valid {
-            background: ${theme.successBg};
+            background-color: ${theme.successBg};
             color: ${theme.successBorder};
           }
 

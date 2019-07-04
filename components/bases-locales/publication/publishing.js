@@ -22,7 +22,7 @@ const Publishing = React.memo(({user, commune, publication}) => {
       <style jsx>{`
         .message {
           text-align: center;
-          background: ${theme.colors.lighterGrey};
+          background-color: ${theme.colors.lighterGrey};
           margin: 1em 0;
           padding: 2em;
         }

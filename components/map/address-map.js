@@ -161,7 +161,7 @@ class AddressMap extends React.Component {
             content: "";
             position: absolute;
             z-index: 1;
-            background: ${theme.border};
+            background-color: ${theme.border};
           }
 
           .map-center:before {

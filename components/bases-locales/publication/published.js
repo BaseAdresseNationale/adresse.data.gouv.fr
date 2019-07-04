@@ -20,7 +20,7 @@ const Published = React.memo(({publicationUrl}) => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          background: ${theme.successBg};
+          background-color: ${theme.successBg};
           color: ${theme.successBorder};
           padding: 2em;
           text-align: center;
@@ -28,7 +28,7 @@ const Published = React.memo(({publicationUrl}) => {
 
         .valid {
           border-radius: 100%;
-          background: ${theme.successBorder};
+          background-color: ${theme.successBorder};
           margin: 1em;
           color: #fff;
           width: 80px;

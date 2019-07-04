@@ -54,7 +54,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
           text-align: center;
           border-radius: 2px;
           padding: 1em;
-          background: ${theme.colors.lighterGrey};
+          background-color: ${theme.colors.lighterGrey};
           box-shadow: 0 1px 4px 0 ${theme.boxShadow};
         }
 

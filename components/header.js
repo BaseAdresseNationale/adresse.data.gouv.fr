@@ -101,7 +101,7 @@ export default () => (
       }
 
       .nav__links a.active {
-        background: ${theme.primary};
+        background-color: ${theme.primary};
         color: ${theme.colors.white};
       }
 

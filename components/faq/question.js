@@ -49,7 +49,7 @@ class Question extends React.Component {
 
           .question-container:hover {
             cursor: pointer;
-            background: ${theme.primary};
+            background-color: ${theme.primary};
             color: #fff;
           }
 

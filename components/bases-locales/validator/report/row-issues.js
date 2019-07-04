@@ -34,11 +34,11 @@ const RowErrors = ({errors, warnings, field}) => (
       }
 
       .error {
-        background: ${theme.errorBg};
+        background-color: ${theme.errorBg};
       }
 
       .warning {
-        background: ${theme.warningBg};
+        background-color: ${theme.warningBg};
       }
 
       .issue.select {
@@ -46,11 +46,11 @@ const RowErrors = ({errors, warnings, field}) => (
       }
 
       .error.select {
-        background: ${theme.errorBorder};
+        background-color: ${theme.errorBorder};
       }
 
       .warning.select {
-        background: ${theme.warningBorder};
+        background-color: ${theme.warningBorder};
       }
       `}</style>
   </div>

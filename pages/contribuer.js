@@ -56,7 +56,7 @@ export default () => (
 
       .warning {
         color: ${theme.warningBorder};
-        background: ${theme.warningBg};
+        background-color: ${theme.warningBg};
         border: 1px solid ${theme.warningBorder};
         padding: 0px 20px;
         margin: 20px auto;

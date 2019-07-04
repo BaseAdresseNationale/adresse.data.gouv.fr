@@ -128,7 +128,7 @@ const Form = React.memo(({mail}) => {
           border-radius: 2px;
           padding: 1em;
           text-align: center;
-          background: ${theme.colors.lighterGrey};
+          background-color: ${theme.colors.lighterGrey};
           box-shadow: 0 1px 4px 0 ${theme.boxShadow};
         }
 

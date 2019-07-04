@@ -42,31 +42,31 @@ class LineValue extends React.Component {
           }
 
           td.error {
-            background: ${theme.errorBg};
+            background-color: ${theme.errorBg};
           }
 
           td.warning {
-            background: ${theme.warningBg};
+            background-color: ${theme.warningBg};
           }
 
           td.error:hover {
             cursor: pointer;
-            background: ${theme.errorBorder};
+            background-color: ${theme.errorBorder};
             color: ${theme.colors.white};
           }
 
           td.warning:hover {
             cursor: pointer;
-            background: ${theme.warningBorder};
+            background-color: ${theme.warningBorder};
             color: ${theme.colors.white};
           }
 
           td.valid {
-            background: ${theme.successBg};
+            background-color: ${theme.successBg};
           }
 
           td.unknown {
-            background: ${theme.backgroundGrey};
+            background-color: ${theme.backgroundGrey};
           }
         `}</style>
       </Fragment>

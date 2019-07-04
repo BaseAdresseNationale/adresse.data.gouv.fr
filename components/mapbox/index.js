@@ -22,7 +22,7 @@ const MapLoader = () => (
         width: 100%;
         height: 100%;
         min-height: 600px;
-        background: ${theme.backgroundGrey};
+        background-color: ${theme.backgroundGrey};
       }
 
       .centered {

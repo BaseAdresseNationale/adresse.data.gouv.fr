@@ -188,11 +188,11 @@ class AddressMap extends React.Component {
           }
 
           .legend .lov2 {
-            background: ${theme.colors.green};
+            background-color: ${theme.colors.green};
           }
 
           .legend .odbl {
-            background: ${theme.colors.orange};
+            background-color: ${theme.colors.orange};
           }
         `}</style>
       </div>

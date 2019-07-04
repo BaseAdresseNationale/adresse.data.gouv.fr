@@ -82,7 +82,7 @@ class HamburgerMenu extends React.Component {
             }
 
             a:hover {
-              background: ${theme.colors.lighterGrey};
+              background-color: ${theme.colors.lighterGrey};
               transition: background ease-out 0.5s;
             }
           }
