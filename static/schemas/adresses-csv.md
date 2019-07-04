@@ -25,4 +25,4 @@ Ce format est **largement compatible** avec l'[ancien format CSV](ban-2015.md) q
 | `nom_afnor` | Nom de la voie normalisé selon la norme postale | |
 | `libelle_acheminement` | Nom de la commune d’acheminement | |
 | `source_nom_voie` | Source du nom de la voie. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | Nouveau champ |
-| `source_position` | Source de la position géographique : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | Nouveau champ |
+| `source_position` | Source de la position géographique. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | Nouveau champ |
