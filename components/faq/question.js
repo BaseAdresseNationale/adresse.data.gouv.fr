@@ -29,7 +29,10 @@ class Question extends React.Component {
 
     return (
       <div>
-        <div className='question-container' onClick={this.toggle}>
+        <div
+          className={`question-container ${open ? 'is-open' : ''}`}
+          onClick={this.toggle}
+        >
           <div className='question'>{question}</div>
           <div>{open ? <FaAngleUp /> : <FaAngleDown />}</div>
         </div>
@@ -46,6 +49,11 @@ class Question extends React.Component {
             margin: 0.2em;
             border-radius: 3px;
           }
+          .question-container.is-open {
+            border-bottom: none;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+          }
 
           .question-container:hover {
             cursor: pointer;
@@ -59,7 +67,8 @@ class Question extends React.Component {
 
           .answer {
             padding: 1em;
-            border: 1px solid ${theme.colors.lightGrey};
+            border: 1px solid ${theme.primary};
+            border-top: none;
             background: ${theme.colors.lighterGrey};
             margin: -0.2em 0.2em 0.2em;
           }
