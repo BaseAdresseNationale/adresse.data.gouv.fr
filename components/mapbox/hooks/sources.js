@@ -1,6 +1,8 @@
 import {useMemo} from 'react'
 
-function useSources(contour, voies, numeros) {
+import {addressToGeoJson} from '../../../lib/geojson'
+
+function useSources(contour, voies, numeros, numero) {
   return useMemo(() => {
     const sources = []
 
@@ -21,15 +23,27 @@ function useSources(contour, voies, numeros) {
     }
 
     if (numeros && numeros.features.length > 0) {
+      const features = numero ?
+        numeros.features.filter(feature => feature.properties.id !== numero.id) :
+        numeros.features
+
+      sources.push({
+        name: 'numeros',
+        type: 'geojson',
+        data: {type: 'FeatureCollection', features}
+      })
+    }
+
+    if (numero) {
       sources.push({
         name: 'positions',
         type: 'geojson',
-        data: numeros
+        data: addressToGeoJson(numero)
       })
     }
 
     return sources
-  }, [contour, voies, numeros])
+  }, [contour, voies, numeros, numero])
 }
 
 export default useSources

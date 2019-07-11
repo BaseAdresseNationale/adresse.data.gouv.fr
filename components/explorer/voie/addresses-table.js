@@ -12,7 +12,7 @@ import TableList from '../table-list'
 class AddressesTable extends React.Component {
   static propTypes = {
     addresses: PropTypes.array.isRequired,
-    selected: PropTypes.shape({
+    numero: PropTypes.shape({
       numero: PropTypes.string.isRequired,
       position: PropTypes.object.isRequired,
       sources: PropTypes.array.isRequired
@@ -21,17 +21,17 @@ class AddressesTable extends React.Component {
   }
 
   static defaultProps = {
-    selected: null
+    numero: null
   }
 
   selectAddress = item => {
     const {onSelect} = this.props
 
-    onSelect({numero: item.values[0]})
+    onSelect(item.values[0])
   }
 
   render() {
-    const {addresses, selected} = this.props
+    const {addresses, numero} = this.props
     const headers = [
       {title: 'Numéro'},
       {title: 'Sources'},
@@ -61,7 +61,7 @@ class AddressesTable extends React.Component {
         list={addresses}
         headers={headers}
         genItems={genItems}
-        selected={selected}
+        select={numero}
         handleSelect={this.selectAddress} />
     )
   }

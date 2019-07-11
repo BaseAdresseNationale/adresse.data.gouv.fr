@@ -20,16 +20,18 @@ const Commune = props => (
       <Codes {...props} />
     </div>
 
-    <div className='explore-commune-map'>
+    <div className='preview'>
       <Metrics {...props} />
-      <Mapbox bbox={computeBbox(props.contour)}>
-        {({...mapboxProps}) => (
-          <AddressesMap
-            {...mapboxProps}
-            contour={props.contour}
-          />
-        )}
-      </Mapbox>
+      <div className='explore-commune-map'>
+        <Mapbox bbox={computeBbox(props.contour)} switchStyle>
+          {({...mapboxProps}) => (
+            <AddressesMap
+              {...mapboxProps}
+              contour={props.contour}
+            />
+          )}
+        </Mapbox>
+      </div>
     </div>
 
     <style jsx>{`
@@ -38,11 +40,14 @@ const Commune = props => (
         color: ${theme.colors.white};
       }
 
-      .explore-commune-map {
+      .preview {
         display: flex;
         flex-direction: row;
-        width: 100%;
-        height: 300px;
+      }
+
+      .explore-commune-map {
+        flex: 1;
+        height: 500px;
       }
 
       @media (max-width: 749px) {

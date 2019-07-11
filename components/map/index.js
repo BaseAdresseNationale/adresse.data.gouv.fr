@@ -193,7 +193,7 @@ class Map extends React.Component {
         }
 
         <div className='map-container'>
-          <Mapbox>
+          <Mapbox switchStyle>
             {({map, marker, popup, setMarkerCoordinates}) => (
               <AddressMap
                 map={map}

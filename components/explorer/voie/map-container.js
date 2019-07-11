@@ -1,94 +1,63 @@
-import React from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
-import {union} from 'lodash'
+import computeBbox from '@turf/bbox'
 
-import {getNumerosBbox} from '../../../lib/explore/api'
-import {addressesToGeoJson, addressToGeoJson} from '../../../lib/geojson'
+import {addressesToGeoJson} from '../../../lib/geojson'
 
-import Notification from '../../notification'
 import Mapbox from '../../mapbox'
 
-import AddressesMap from './addresses-map'
+import AddressesMap from '../../mapbox/addresses-map'
 
-class MapContainer extends React.Component {
-  static propTypes = {
-    voie: PropTypes.object,
-    addresses: PropTypes.array,
-    selected: PropTypes.object,
-    onSelect: PropTypes.func.isRequired
-  }
+const MapContainer = ({voie, addresses, numero, onSelect}) => {
+  const [bbox, setBbox] = useState(null)
+  const numeros = addresses ? addressesToGeoJson(addresses) : null
 
-  static defaultProps = {
-    voie: null,
-    addresses: null,
-    selected: null
-  }
+  const selectAddress = useCallback(feature => {
+    const numero = feature ? feature.properties.numero : null
+    onSelect(numero)
+  })
 
-  state = {
-    addrsAround: []
-  }
-
-  selectAddress = feature => {
-    const {onSelect} = this.props
-
-    onSelect({numero: feature.properties.numero})
-  }
-
-  getAddrsAround = async bbox => {
-    const {voie, addresses} = this.props
-
-    try {
-      const results = await getNumerosBbox(voie.codeCommune, bbox)
-      this.setState(state => {
-        const withoutVoie = results
-          .filter(add => !addresses.find(address => address.id === add.id))
-
-        return {
-          addrsAround: union(withoutVoie, state.addrsAround)
-        }
-      })
-    } catch (err) {
-      this.setState({
-        addrsAround: [],
-        error: err
-      })
+  useEffect(() => {
+    if (!bbox && addresses) {
+      setBbox(computeBbox(numeros))
     }
-  }
+  }, [bbox, addresses])
 
-  render() {
-    const {addrsAround, error} = this.state
-    const {voie, addresses, selected, onSelect} = this.props
-    const data = selected ?
-      addressToGeoJson(selected) :
-      addressesToGeoJson(addresses)
+  return (
+    <div className='explore-map-container'>
+      <Mapbox bbox={bbox} switchStyle>
+        {({...mapboxProps}) => (
+          <AddressesMap
+            {...mapboxProps}
+            voie={voie}
+            numeros={numeros}
+            numero={numero}
+            onSelectNumero={selectAddress}
+          />
+        )}
+      </Mapbox>
 
-    return (
-      <div>
-        <div className='map'>
-          <Mapbox error={error}>
-            {({...mapboxProps}) => (
-              <AddressesMap
-                {...mapboxProps}
-                data={data}
-                selected={selected}
-                voie={voie}
-                addrsAround={addressesToGeoJson(addrsAround)}
-                onClose={onSelect}
-                handleMove={this.getAddrsAround}
-                handleSelect={this.selectAddress}
-              />
-            )}
-          </Mapbox>
-        </div>
-
-        <style jsx>{`
-          .map {
+      <style jsx>{`
+          .explore-map-container {
+            height: 500px;
             border: 1px solid whitesmoke;
           }
         `}</style>
-      </div>
-    )
-  }
+    </div>
+  )
+}
+
+MapContainer.propTypes = {
+  voie: PropTypes.object,
+  addresses: PropTypes.array,
+  numero: PropTypes.object,
+  onSelect: PropTypes.func.isRequired
+}
+
+MapContainer.defaultProps = {
+  voie: null,
+  addresses: null,
+  numero: null
 }
 
 export default MapContainer

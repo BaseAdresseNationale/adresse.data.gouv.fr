@@ -10,6 +10,7 @@ import SwitchMapStyle from './switch-map-style'
 
 import useMarker from './hooks/marker'
 import usePopup from './hooks/popup'
+import useLoadData from './hooks/load-data'
 
 const STYLES = {
   vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
@@ -35,12 +36,14 @@ const STYLES = {
 const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
-  const [isFirstLoad, setIsFirstLoad] = useState(false)
   const [style, setStyle] = useState(defaultStyle)
   const [sources, setSources] = useState([])
   const [layers, setLayers] = useState([])
+  const [infos, setInfos] = useState(null)
   const [marker, setMarkerCoordinates] = useMarker(map)
   const [popup] = usePopup(marker)
+
+  const reloadData = useLoadData(map, sources, layers)
 
   const mapRef = useCallback(ref => {
     if (ref) {
@@ -64,23 +67,6 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
     )
   })
 
-  const loadSources = useCallback(() => {
-    sources.forEach(source => {
-      const {name, ...properties} = source
-      if (!map.getSource(name)) {
-        map.addSource(name, properties)
-      }
-    })
-  }, [sources])
-
-  const loadLayers = useCallback(() => {
-    layers.forEach(layer => {
-      if (!map.getLayer(layer.id)) {
-        map.addLayer(layer)
-      }
-    })
-  }, [layers])
-
   useEffect(() => {
     if (mapContainer) {
       const map = new mapboxgl.Map({
@@ -92,14 +78,12 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
       })
 
       setMap(map)
-      map.once('load', () => setIsFirstLoad(true))
     }
   }, [mapContainer])
 
   const onStyleData = () => {
     if (map.isStyleLoaded()) {
-      loadSources()
-      loadLayers()
+      reloadData()
     } else {
       setTimeout(onStyleData, 1000)
     }
@@ -112,47 +96,21 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
   }, [map, bbox])
 
   useEffect(() => {
-    if (isFirstLoad && sources && layers) {
-      loadSources()
-      loadLayers()
-    }
-  }, [isFirstLoad, sources, layers])
-
-  useEffect(() => {
     if (map) {
       map.setStyle(STYLES[style], {diff: false})
       map.on('styledata', onStyleData)
     }
   }, [style])
 
-  useEffect(() => {
-    if (sources.length > 0) {
-      sources.forEach(({name, data}) => {
-        const source = map.getSource(name)
-        if (source) {
-          source.setData(data)
-        }
-      })
-    }
-  }, [sources])
-
-  useEffect(() => {
-    if (isFirstLoad && map && sources.length > 0) {
-      loadSources()
-    }
-  }, [isFirstLoad, map, sources])
-
-  useEffect(() => {
-    if (isFirstLoad && map && layers.length > 0) {
-      loadLayers()
-    }
-  }, [isFirstLoad, map, layers])
-
   return (
     <div className='mapbox-container'>
       <div className='map'>
         {loading && (
           <div className='tools'>Chargement…</div>
+        )}
+
+        {infos && (
+          <div className='tools'>{infos}</div>
         )}
 
         {error && (
@@ -168,6 +126,7 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
           style,
           setSources,
           setLayers,
+          setInfos,
           setMarkerCoordinates
         })}
 
@@ -192,6 +151,7 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
 
       <style jsx>{`
           .mapbox-container {
+            position: relative;
             width: 100%;
             height: 100%;
           }
@@ -216,9 +176,7 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
           }
 
           .bottom {
-            display: flex;
-            flex-direction: column;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
           }
 

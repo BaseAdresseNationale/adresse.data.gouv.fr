@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {getCommune} from '../../lib/api-geo'
 import {getCommune as getCommuneExplore} from '../../lib/explore/api'
@@ -23,47 +23,23 @@ const contourToFeatureCollection = commune => {
   }
 }
 
-class CommunePage extends React.Component {
-  state = {
-    communeVoiesPromise: null
-  }
+const CommunePage = ({commune, codeCommune}) => {
+  const [communeVoiesPromise, setCommuneVoiesPromise] = useState(null)
 
-  componentDidMount() {
-    const {codeCommune} = this.props
+  useEffect(() => {
+    setCommuneVoiesPromise(getCommuneExplore(codeCommune))
+  }, [codeCommune])
 
-    this.buildVoiesPromise(codeCommune)
-  }
+  return (
+    <Page title={commune.nom} description={`Consulter les voies de ${commune.nom}`}>
+      <SearchCommune />
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const {codeCommune} = this.props
-
-    if (nextProps.codeCommune !== codeCommune) {
-      this.buildVoiesPromise(nextProps.codeCommune)
-    }
-  }
-
-  buildVoiesPromise(codeCommune) {
-    this.setState(() => ({
-      communeVoiesPromise: getCommuneExplore(codeCommune)
-    }))
-  }
-
-  render() {
-    const {communeVoiesPromise} = this.state
-    const {commune} = this.props
-    const description = `Consulter les voies de ${commune.nom}`
-
-    return (
-      <Page title={commune.nom} description={description}>
-        <SearchCommune />
-
-        <Section>
-          <Commune {...commune} />
-          <VoiesCommune promise={communeVoiesPromise} />
-        </Section>
-      </Page>
-    )
-  }
+      <Section>
+        <Commune {...commune} />
+        <VoiesCommune promise={communeVoiesPromise} />
+      </Section>
+    </Page>
+  )
 }
 
 CommunePage.propTypes = {
@@ -125,9 +101,8 @@ CommunePage.getInitialProps = async ({query}) => {
   const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
   const codeCommune = query.codeCommune in MLP ? MLP[query.codeCommune] : query.codeCommune
   const commune = await getCommune(codeCommune, fields)
-  
+
   commune.contour = contourToFeatureCollection(commune)
-  console.log('TCL: CommunePage.getInitialProps -> commune', commune)
 
   return {
     codeCommune: query.codeCommune,

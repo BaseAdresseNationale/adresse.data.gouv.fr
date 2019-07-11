@@ -1,5 +1,6 @@
 import React, {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import computeBbox from '@turf/bbox'
 
 import Page from '../layouts/main'
@@ -13,7 +14,7 @@ import SearchCommune from '../components/explorer/search-commune'
 const title = 'Consulter'
 const description = 'Consulter les adresses'
 
-function generateId(feature) {
+function generateDepartementId(feature) {
   const {code} = feature.properties
   feature.id = feature.properties.code
 
@@ -27,41 +28,48 @@ function generateId(feature) {
   }
 }
 
+function generateCommuneId(feature) {
+  feature.id = feature.properties.code
+}
+
 const Explore = ({departements}) => {
-  const [communes, setCommunes] = useState()
+  const [communes, setCommunes] = useState(null)
   const bbox = communes ? computeBbox(communes) : null
 
-  const selectDepartement = useCallback(async codeDepartement => {
+  const selectDepartement = async feature => {
+    const codeDepartement = feature.id
     const communes = await getDepartementCommunes(codeDepartement)
-    communes.features.forEach(feature => {
-      feature.id = feature.properties.code
-    })
-    setCommunes(communes)
-  })
 
-  const selectCommune = useCallback(codeCommune => {
-    console.log('TCL: Explore -> selectCommune', codeCommune)
-  })
+    communes.features.forEach(generateCommuneId)
+
+    setCommunes(communes)
+  }
+
+  const selectCommune = feature => {
+    const codeCommune = feature.id
+    const href = `/explore/commune/?codeCommune=${codeCommune}`
+    const as = `/explore/commune/${codeCommune}`
+
+    Router.push(href, as)
+  }
 
   return (
     <Page title={title} description={description} showFooter={false}>
       <SearchCommune />
-      <div className='map-container'>
+      <div className='explore-map-container'>
         <Mapbox bbox={bbox} switchStyle>
-          {({map, setSources, setLayers}) => (
+          {({...mapboxProps}) => (
             <AddressesMap
-              map={map}
+              {...mapboxProps}
               contour={communes || departements}
               onSelectContour={communes ? selectCommune : selectDepartement}
-              setSources={setSources}
-              setLayers={setLayers}
             />
           )}
         </Mapbox>
       </div>
 
       <style jsx>{`
-        .map-container {
+        .explore-map-container {
           height: calc(100vh - 350px);
         }
       `}</style>
@@ -75,7 +83,8 @@ Explore.propTypes = {
 
 Explore.getInitialProps = async () => {
   const departements = await getDepartements()
-  departements.features.forEach(generateId)
+
+  departements.features.forEach(generateDepartementId)
 
   return {
     departements

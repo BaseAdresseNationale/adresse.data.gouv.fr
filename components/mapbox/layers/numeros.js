@@ -5,7 +5,7 @@ export function getNumerosPointLayer(style) {
   const layer = {
     id: 'numeros-point',
     type: 'circle',
-    source: 'positions',
+    source: 'numeros',
     interactive: true,
     minzoom: NUMEROS_POINT_MIN,
     maxzoom: NUMEROS_MIN,
@@ -14,10 +14,12 @@ export function getNumerosPointLayer(style) {
         type: 'identity',
         property: 'color'
       },
-      'circle-opacity': {
-        type: 'identity',
-        property: 'opacity'
-      },
+      'circle-opacity': [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        1,
+        0.6
+      ],
       'circle-radius': {
         stops: [
           [12, 0.8],
@@ -45,7 +47,7 @@ export function getNumerosLabelLayer() {
   const layer = {
     id: 'numeros-label',
     type: 'symbol',
-    source: 'positions',
+    source: 'numeros',
     interactive: true,
     minzoom: NUMEROS_MIN,
     paint: {
@@ -60,10 +62,12 @@ export function getNumerosLabelLayer() {
           [18, 2]
         ]
       },
-      'text-opacity': {
-        type: 'identity',
-        property: 'opacity'
-      }
+      'text-opacity': [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        1,
+        0.6
+      ]
     },
     layout: {
       'text-font': ['Noto Sans Regular'],
