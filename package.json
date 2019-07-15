@@ -47,7 +47,7 @@
     "@turf/meta": "^6.x"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
+    "@babel/core": "^7.5.4",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
     "babel-plugin-inline-import": "^3.0.0",
