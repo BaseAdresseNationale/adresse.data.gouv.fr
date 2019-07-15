@@ -33,7 +33,7 @@
     "marked": "^0.6.2",
     "next": "8.0.4",
     "next-runtime-dotenv": "^1.1.1",
-    "papaparse": "^4.6.3",
+    "papaparse": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-autocomplete": "^1.7.2",
