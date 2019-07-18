@@ -33,7 +33,7 @@ const STYLES = {
   }
 }
 
-const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, children}) => {
+const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, interactive, loading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [style, setStyle] = useState(defaultStyle)
@@ -72,8 +72,8 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
       const map = new mapboxgl.Map({
         container: mapContainer,
         style: STYLES[style],
-        center: [1.7, 46.9],
-        zoom: 5,
+        center: defaultCenter,
+        zoom: defaultZoom,
         interactive
       })
 
@@ -109,7 +109,7 @@ const Map = ({switchStyle, bbox, defaultStyle, interactive, loading, error, chil
           <div className='tools'>Chargement…</div>
         )}
 
-        {infos && (
+        {infos && !loading && (
           <div className='tools'>{infos}</div>
         )}
 
@@ -198,6 +198,8 @@ Map.propTypes = {
     'ortho'
   ]),
   interactive: PropTypes.bool,
+  defaultCenter: PropTypes.array,
+  defaultZoom: PropTypes.number,
   loading: PropTypes.bool,
   error: PropTypes.object,
   children: PropTypes.func.isRequired
@@ -207,6 +209,8 @@ Map.defaultProps = {
   bbox: null,
   defaultStyle: 'vector',
   interactive: true,
+  defaultCenter: [1.7, 46.9],
+  defaultZoom: 5,
   loading: false,
   error: null,
   switchStyle: false

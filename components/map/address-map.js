@@ -4,83 +4,92 @@ import PropTypes from 'prop-types'
 
 import theme from '../../styles/theme'
 
-import Loader from '../loader'
-
-const popupHTML = address => {
-  const {id, context, label, name, postcode, citycode, type, city} = address.properties
+const Address = ({id, context, label, name, postcode, citycode, type, city}) => {
   const types = {
     locality: 'Lieu-dit',
     street: 'Voie',
     housenumber: 'Numéro'
   }
 
-  return (`
-      <div>
-        <h3>${types[type]}</h3>
-        <p>
-          <div>${name}</div>
-          <div>${postcode} ${city}</div>
-          <div>Code INSEE : ${citycode}</div>
-        </p>
-        <div>Contexte : ${context}</div>
-        <div>Label : ${label}</div>
-        <div>ID : ${id}</div>
-      </div>
-      `)
+  return (
+    <div>
+      <h3>{types[type]}</h3>
+      <p>
+        <div>{name}</div>
+        <div>{postcode} {city}</div>
+        <div>Code INSEE : {citycode}</div>
+      </p>
+      <div>Contexte : {context}</div>
+      <div>Label : {label}</div>
+      <div>ID : {id}</div>
+    </div>
+  )
 }
 
-const AddressMap = ({map, marker, popup, data, loading, center, zoom, mapUpdate, setMarkerCoordinates}) => {
+Address.propTypes = {
+  id: PropTypes.string.isRequired,
+  context: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  postcode: PropTypes.string.isRequired,
+  citycode: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired
+}
+
+const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordinates, setInfos}) => {
   const onDragEnd = useCallback(() => {
     const {lng, lat} = map.getCenter()
-    const zoom = map.getZoom()
-
-    mapUpdate([lng, lat], zoom, true)
+    handleDrag([lng, lat])
   })
 
   const onZoom = useCallback(() => {
-    const {lng, lat} = map.getCenter()
     const zoom = map.getZoom()
-
-    mapUpdate([lng, lat], zoom, false)
+    handleZoom(zoom)
   })
 
-  const onLoad = useCallback(() => {
+  const inBounds = useCallback(lnglat => {
+    const bounds = map.getBounds()
+    let lng
+
+    const multLng = (lnglat[0] - bounds._ne.lng) * (lnglat[0] - bounds._sw.lng)
+    if (bounds._ne.lng > bounds._sw.lng) {
+      lng = multLng < 0
+    } else {
+      lng = multLng > 0
+    }
+
+    const lat = (lnglat[1] - bounds._ne.lat) * (lnglat[1] - bounds._sw.lat) < 0
+    return lng && lat
+  }, [map])
+
+  useEffect(() => {
     map.on('dragend', onDragEnd)
-    map.on('zoom', onZoom)
-  })
-
-  map.once('load', onLoad)
+    map.on('zoomend', onZoom)
+  }, [])
 
   useEffect(() => {
     if (data) {
-      setMarkerCoordinates(data.geometry.coordinates)
-      popup.setHTML(popupHTML(data))
+      const center = data.geometry.coordinates
+      setMarkerCoordinates(center)
+
+      if (!inBounds(center)) {
+        map.setCenter(center)
+      }
+
+      setInfos(<Address {...data.properties} />)
     } else {
       setMarkerCoordinates(null)
+      setInfos(null)
     }
-  }, [data, marker, popup])
-
-  useEffect(() => {
-    if (center) {
-      map.setCenter(center)
-    }
-  }, [center])
-
-  useEffect(() => {
-    if (zoom) {
-      map.setZoom(zoom)
-    }
-  }, [zoom])
+  }, [data, marker])
 
   return (
     <div>
-      {loading ?
-        <div className='centered'><Loader /></div> :
-        <div className='map-center centered' />
-      }
-
+      <div className='map-center centered' />
       <style jsx>{`
         .centered {
+          z-index: 1;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -89,7 +98,6 @@ const AddressMap = ({map, marker, popup, data, loading, center, zoom, mapUpdate,
 
         .map-center {
           z-index: 1;
-          margin-top: 50px;
           width: 40px;
           height: 40px;
         }
@@ -97,7 +105,6 @@ const AddressMap = ({map, marker, popup, data, loading, center, zoom, mapUpdate,
         .map-center:before, .map-center:after {
           content: "";
           position: absolute;
-          z-index: 1;
           background: ${theme.border};
         }
 
@@ -120,20 +127,15 @@ const AddressMap = ({map, marker, popup, data, loading, center, zoom, mapUpdate,
 AddressMap.propTypes = {
   map: PropTypes.object.isRequired,
   marker: PropTypes.object.isRequired,
-  popup: PropTypes.object.isRequired,
   data: PropTypes.object,
-  loading: PropTypes.bool,
-  center: PropTypes.array,
-  zoom: PropTypes.number,
-  mapUpdate: PropTypes.func.isRequired,
-  setMarkerCoordinates: PropTypes.func.isRequired
+  handleDrag: PropTypes.func.isRequired,
+  handleZoom: PropTypes.func.isRequired,
+  setMarkerCoordinates: PropTypes.func.isRequired,
+  setInfos: PropTypes.func.isRequired
 }
 
 AddressMap.defaultProps = {
-  data: true,
-  loading: false,
-  center: null,
-  zoom: null
+  data: true
 }
 
 export default AddressMap
