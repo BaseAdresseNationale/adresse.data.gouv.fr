@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 import computeBbox from '@turf/bbox'

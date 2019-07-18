@@ -38,7 +38,7 @@ class VoiePreview extends React.Component {
 
         {(numeros || position) &&
           <div className='voie-preview-map'>
-            <Mapbox bbox={computeBbox(data)}>
+            <Mapbox bbox={computeBbox(data)} switchStyle>
               {({...mapboxProps}) => (
                 <AddressesMap
                   {...mapboxProps}
@@ -92,7 +92,7 @@ class VoiePreview extends React.Component {
           }
 
           .voie-preview-map {
-            height: 300px;
+            height: 500px;
             margin: 1em 0;
           }
 
