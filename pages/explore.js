@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 import computeBbox from '@turf/bbox'
@@ -8,7 +8,7 @@ import Page from '../layouts/main'
 import {getDepartements, getDepartementCommunes} from '../lib/api-ban'
 
 import Mapbox from '../components/mapbox'
-import AddressesMap from '../components/mapbox/addresses-map'
+import ContourMap from '../components/explorer/contour-map'
 import SearchCommune from '../components/explorer/search-commune'
 
 const title = 'Consulter'
@@ -34,19 +34,21 @@ function generateCommuneId(feature) {
 
 const Explore = ({departements}) => {
   const [communes, setCommunes] = useState(null)
+  const [selected, setSeleted] = useState(null)
   const [error, setError] = useState(null)
   const bbox = communes ? computeBbox(communes) : null
 
   const selectDepartement = async feature => {
     const codeDepartement = feature.id
     setError(null)
+    setSeleted(null)
 
     try {
       const communes = await getDepartementCommunes(codeDepartement)
       communes.features.forEach(generateCommuneId)
       setCommunes(communes)
     } catch (error) {
-      setError(error)
+      setError(error.message)
     }
   }
 
@@ -58,16 +60,36 @@ const Explore = ({departements}) => {
     Router.push(href, as)
   }
 
+  const reset = () => {
+    setCommunes(null)
+    setError(null)
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      await selectDepartement(selected)
+    }
+
+    if (selected) {
+      if (communes) {
+        selectCommune(selected)
+      } else {
+        fetchData()
+      }
+    }
+  }, [selected, communes])
+
   return (
     <Page title={title} description={description} showFooter={false}>
       <SearchCommune />
       <div className='explore-map-container'>
         <Mapbox error={error} bbox={bbox} switchStyle>
           {({...mapboxProps}) => (
-            <AddressesMap
+            <ContourMap
               {...mapboxProps}
               contour={communes || departements}
-              onSelectContour={communes ? selectCommune : selectDepartement}
+              onSelectContour={setSeleted}
+              reset={communes ? reset : null}
             />
           )}
         </Mapbox>
