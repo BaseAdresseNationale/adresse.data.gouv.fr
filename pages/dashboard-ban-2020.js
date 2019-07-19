@@ -1,5 +1,7 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
+
 import Page from '../layouts/main'
 
 import withErrors from '../components/hoc/with-errors'
@@ -30,6 +32,7 @@ function generateId(feature) {
 function DashboardBan2020({departements}) {
   const [departement, setDepartement] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [bbox, setBbox] = useState(null)
   const [error, setError] = useState(null)
 
   const loadDepartement = useCallback(async codeDepartement => {
@@ -52,17 +55,20 @@ function DashboardBan2020({departements}) {
     setError(null)
   })
 
+  useEffect(() => {
+    setBbox(departement ? computeBbox(departement) : null)
+  }, [departement])
+
   return (
     <Page title={title} description={description} showFooter={false}>
 
       <div className='ban-map-container'>
-        <Mapbox error={error} loading={isLoading} fullscreen>
+        <Mapbox error={error} loading={isLoading} bbox={bbox}>
           {({...mapboxProps}) => (
             <BANMap
               {...mapboxProps}
               departements={departements}
               communes={departement}
-              loading={isLoading}
               selectDepartement={loadDepartement}
               reset={reset}
             />

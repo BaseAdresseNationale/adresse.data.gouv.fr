@@ -43,6 +43,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   const [sources, setSources] = useState([])
   const [layers, setLayers] = useState([])
   const [infos, setInfos] = useState(null)
+  const [tools, setTools] = useState(null)
   const [marker, setMarkerCoordinates] = useMarker(map)
   const [popup] = usePopup(marker)
 
@@ -122,6 +123,10 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           <div className='tools'>{infos}</div>
         )}
 
+        {!loading && !error && tools && (
+          <div className='tools right'>{tools}</div>
+        )}
+
         {map && children({
           map,
           marker,
@@ -130,6 +135,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           setSources,
           setLayers,
           setInfos,
+          setTools,
           setMarkerCoordinates
         })}
 
@@ -176,6 +182,10 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
             margin: 1em;
             border-radius: 4px;
             background-color: #ffffffbb;
+          }
+
+          .right {
+            right: 0;
           }
 
           .bottom {
