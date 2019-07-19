@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import Router from 'next/router'
 import {debounce} from 'lodash'
 import FaSearch from 'react-icons/lib/fa/search'
