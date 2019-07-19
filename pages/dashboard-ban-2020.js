@@ -7,7 +7,6 @@ import withErrors from '../components/hoc/with-errors'
 import {getDepartements, getDepartementCommunes} from '../lib/api-ban'
 
 import Mapbox from '../components/mapbox'
-import Notification from '../components/notification'
 
 import BANMap from '../components/ban-dashboard/ban-map'
 
@@ -35,6 +34,7 @@ function DashboardBan2020({departements}) {
 
   const loadDepartement = useCallback(async codeDepartement => {
     setIsLoading(true)
+    setError(null)
 
     try {
       const departement = await getDepartementCommunes(codeDepartement)
@@ -47,37 +47,47 @@ function DashboardBan2020({departements}) {
     setIsLoading(false)
   })
 
+  const reset = useCallback(() => {
+    setDepartement(null)
+    setError(null)
+  })
+
   return (
     <Page title={title} description={description} showFooter={false}>
 
-      {error &&
-      <div className='error'>
-        <Notification
-          message={error.message}
-          type='error' />
-
-        <style jsx>{`
-          .error {
-            position: absolute;
-            z-index: 999;
-            margin: 1em;
-          }
-        `}</style>
+      <div className='ban-map-container'>
+        <Mapbox error={error} loading={isLoading} fullscreen>
+          {({...mapboxProps}) => (
+            <BANMap
+              {...mapboxProps}
+              departements={departements}
+              communes={departement}
+              loading={isLoading}
+              selectDepartement={loadDepartement}
+              reset={reset}
+            />
+          )}
+        </Mapbox>
       </div>
-      }
 
-      <Mapbox fullscreen>
-        {map => (
-          <BANMap
-            map={map}
-            departements={departements}
-            communes={departement}
-            loading={isLoading}
-            selectDepartement={loadDepartement}
-            reset={() => setDepartement(null)}
-          />
-        )}
-      </Mapbox>
+      <style jsx>{`
+        .error {
+          position: absolute;
+          z-index: 999;
+          margin: 1em;
+        }
+
+        .ban-map-container {
+          width: 100%;
+          height: calc(100vh - 73px);
+        }
+
+        @media (max-width: 380px) {
+          .ban-map-container {
+            height: calc(100vh - 63px);
+          }
+        }
+      `}</style>
     </Page>
   )
 }

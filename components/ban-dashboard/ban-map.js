@@ -204,10 +204,6 @@ function BANMap({map, departements, communes, loading, selectDepartement, reset}
 
   return (
     <div>
-      {loading && (
-        <div className='tools'>Chargement…</div>
-      )}
-
       {!loading && communes && (
         <div className='tools reset' onClick={unSelectDepartement}>Départements</div>
       )}

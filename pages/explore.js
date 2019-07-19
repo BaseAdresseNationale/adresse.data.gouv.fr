@@ -34,15 +34,20 @@ function generateCommuneId(feature) {
 
 const Explore = ({departements}) => {
   const [communes, setCommunes] = useState(null)
+  const [error, setError] = useState(null)
   const bbox = communes ? computeBbox(communes) : null
 
   const selectDepartement = async feature => {
     const codeDepartement = feature.id
-    const communes = await getDepartementCommunes(codeDepartement)
+    setError(null)
 
-    communes.features.forEach(generateCommuneId)
-
-    setCommunes(communes)
+    try {
+      const communes = await getDepartementCommunes(codeDepartement)
+      communes.features.forEach(generateCommuneId)
+      setCommunes(communes)
+    } catch (error) {
+      setError(error)
+    }
   }
 
   const selectCommune = feature => {
@@ -57,7 +62,7 @@ const Explore = ({departements}) => {
     <Page title={title} description={description} showFooter={false}>
       <SearchCommune />
       <div className='explore-map-container'>
-        <Mapbox bbox={bbox} switchStyle>
+        <Mapbox error={error} bbox={bbox} switchStyle>
           {({...mapboxProps}) => (
             <AddressesMap
               {...mapboxProps}

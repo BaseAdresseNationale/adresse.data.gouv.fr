@@ -108,18 +108,18 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   return (
     <div className='mapbox-container'>
       <div className='map'>
-        {loading && (
+        {error && (
+          <div className='tools error'>
+            <Notification type='error' message={error} />
+          </div>
+        )}
+
+        {!error && loading && (
           <div className='tools'>Chargement…</div>
         )}
 
-        {infos && !loading && (
+        {!loading && !error && infos && (
           <div className='tools'>{infos}</div>
-        )}
-
-        {error && (
-          <div className='tools'>
-            <Notification type='error' message={error} />
-          </div>
         )}
 
         {map && children({
