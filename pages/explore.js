@@ -35,6 +35,7 @@ function generateCommuneId(feature) {
 const Explore = ({departements}) => {
   const [communes, setCommunes] = useState(null)
   const [selected, setSeleted] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const bbox = communes ? computeBbox(communes) : null
 
@@ -42,6 +43,7 @@ const Explore = ({departements}) => {
     const codeDepartement = feature.id
     setError(null)
     setSeleted(null)
+    setLoading(true)
 
     try {
       const communes = await getDepartementCommunes(codeDepartement)
@@ -50,6 +52,8 @@ const Explore = ({departements}) => {
     } catch (error) {
       setError(error.message)
     }
+
+    setLoading(false)
   }
 
   const selectCommune = feature => {
@@ -63,6 +67,7 @@ const Explore = ({departements}) => {
   const reset = () => {
     setCommunes(null)
     setError(null)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -83,7 +88,7 @@ const Explore = ({departements}) => {
     <Page title={title} description={description} showFooter={false}>
       <SearchCommune />
       <div className='explore-map-container'>
-        <Mapbox error={error} bbox={bbox} switchStyle>
+        <Mapbox error={error} bbox={bbox} loading={loading} switchStyle>
           {({...mapboxProps}) => (
             <ContourMap
               {...mapboxProps}
