@@ -12,6 +12,9 @@ import useMarker from './hooks/marker'
 import usePopup from './hooks/popup'
 import useLoadData from './hooks/load-data'
 
+const DEFAULT_CENTER = [1.7, 46.9]
+const DEFAULT_ZOOM = 5
+
 const STYLES = {
   vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
   ortho: {
@@ -72,8 +75,8 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
       const map = new mapboxgl.Map({
         container: mapContainer,
         style: STYLES[style],
-        center: defaultCenter,
-        zoom: defaultZoom,
+        center: defaultCenter || DEFAULT_CENTER,
+        zoom: defaultZoom || DEFAULT_ZOOM,
         interactive
       })
 
@@ -209,8 +212,8 @@ Map.defaultProps = {
   bbox: null,
   defaultStyle: 'vector',
   interactive: true,
-  defaultCenter: [1.7, 46.9],
-  defaultZoom: 5,
+  defaultCenter: DEFAULT_CENTER,
+  defaultZoom: DEFAULT_ZOOM,
   loading: false,
   error: null,
   switchStyle: false

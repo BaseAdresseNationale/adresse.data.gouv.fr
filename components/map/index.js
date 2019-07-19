@@ -96,12 +96,14 @@ const Map = ({defaultCenter, defaultZoom}) => {
   }, [input])
 
   useEffect(() => {
-    const [lng, lat] = center
-    Router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
-    if (zoom >= 15) {
-      getNearestAddress()
-    } else {
-      setAddress(null)
+    if (center && zoom) {
+      const [lng, lat] = center
+      Router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
+      if (zoom >= 15) {
+        getNearestAddress()
+      } else {
+        setAddress(null)
+      }
     }
   }, [zoom, center])
 
