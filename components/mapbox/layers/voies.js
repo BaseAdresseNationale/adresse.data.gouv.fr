@@ -1,10 +1,10 @@
 export function getVoiesLabelLayer(style) {
   const layer = {
     id: 'voie-label',
-    interactive: true,
     type: 'symbol',
     source: 'voies',
     maxzoom: 17,
+    filter: ['==', ['get', 'isToponyme'], false],
     paint: {
       'text-color': [
         'case',
@@ -45,9 +45,8 @@ export function getVoiesLabelLayer(style) {
 export function getToponymesLabelLayer(style) {
   const layer = {
     id: 'toponyme-label',
-    interactive: true,
     type: 'symbol',
-    source: 'positions',
+    source: 'voies',
     paint: {
       'text-halo-color': '#f8f4f0',
       'text-halo-blur': 0.5,
@@ -58,11 +57,9 @@ export function getToponymesLabelLayer(style) {
         ]
       }
     },
-    filter: [
-      '==', ['get', 'type'], 'toponyme'
-    ],
+    filter: ['==', ['get', 'isToponyme'], true],
     layout: {
-      'text-field': '{nom}',
+      'text-field': '{nomVoie}',
       'text-anchor': 'top',
       'text-size': {
         base: 1,

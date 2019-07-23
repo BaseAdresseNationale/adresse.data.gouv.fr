@@ -1,92 +1,100 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-import {numerosToGeoJson} from '../../../../../../lib/geojson'
+import {numerosToGeoJson, positionToponymeToFeatureCollection} from '../../../../../../lib/geojson'
 
 import theme from '../../../../../../styles/theme'
 
 import AddressesMap from '../../../../../mapbox/addresses-map'
-import Notification from '../../../../../notification'
 import Tag from '../../../../../tag'
 import Mapbox from '../../../../../mapbox'
 
 import Item from '../../item'
 
-class VoiePreview extends React.Component {
-  static propTypes = {
-    voie: PropTypes.object.isRequired
-  }
+const VoiePreview = ({voie}) => {
+  const [toponyme, setToponyme] = useState(null)
+  const [numeros, setNumeros] = useState(null)
+  const [bbox, setBbox] = useState(null)
 
-  render() {
-    const {numeros, position} = this.props.voie
-    const data = numeros ? numerosToGeoJson(numeros) : {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: position.coords
-      },
-      properties: {
-        source: position.source,
-        type: position.type,
-        dateMAJ: position.dateMAJ
-      }
+  useEffect(() => {
+    if (voie.position) {
+      const toponyme = positionToponymeToFeatureCollection({...voie, ...voie.position})
+      setToponyme(toponyme)
     }
 
-    return (
-      <div className='voie-preview-container'>
+    if (voie.numeros) {
+      const numeros = numerosToGeoJson(voie.numeros)
+      setNumeros(numeros)
+    }
+  }, [voie])
 
-        {(numeros || position) &&
-          <div className='voie-preview-map'>
-            <Mapbox bbox={computeBbox(data)} switchStyle>
-              {({...mapboxProps}) => (
-                <AddressesMap
-                  {...mapboxProps}
-                  numeros={data}
-                />
-              )}
-            </Mapbox>
+  useEffect(() => {
+    setBbox(toponyme || numeros)
+  }, [numeros, toponyme])
+
+  return (
+    <div className='voie-preview-container'>
+
+      {(numeros || toponyme) &&
+      <div className='voie-preview-map'>
+        <Mapbox bbox={computeBbox(bbox)} switchStyle>
+          {({...mapboxProps}) => (
+            <AddressesMap
+              {...mapboxProps}
+              voies={toponyme}
+              numeros={numeros}
+            />
+          )}
+        </Mapbox>
+      </div>
+      }
+
+      {voie.position && !numeros && (
+        <>
+          <div><b>Sources</b> :</div>
+          <div className='sources'>
+            {voie.position.source.length > 0 && (
+              voie.position.source.map(source => source && <Tag key={source} type={source} />)
+            )}
           </div>
-        }
+        </>
+      )}
 
-        {numeros || position ?
-          <div>
-            {numeros && numeros.length &&
-              <div>
-                <h4>Liste des numéros présents dans le fichier</h4>
-                <div className='table'>
-                  {numeros.map(numero => {
-                    const types = numero.positions.map(position => position.type)
-                    return (
-                      <Item
-                        key={numero.id}
-                        id={numero.id}
-                        name={numero.numeroComplet}
-                      >
-                        <div className='infos'>
-                          <div className='sources'>
-                            {types.length > 0 ?
-                              types.map(type => {
-                                return (type && <Tag key={type} type={type} />)
-                              }) :
-                              'Type non renseigné'}
-                          </div>
-                          <div className='sources'>
-                            {numero.source.length > 0 && (
-                              numero.source.map(source => source && <Tag key={source} type={source} />)
-                            )}
-                          </div>
-                        </div>
-                      </Item>
-                    )
-                  })}
-                </div>
-              </div>}
-          </div> :
-          <Notification type='warning' message='Ce toponyme ne possède pas encore de position renseignée.' />
-        }
+      {voie.numeros && voie.numeros.length && (
+        <div>
+          <h4>Liste des numéros présents dans le fichier</h4>
+          <div className='table'>
+            {voie.numeros.map(numero => {
+              const types = numero.positions.map(position => position.type)
+              return (
+                <Item
+                  key={numero.id}
+                  id={numero.id}
+                  name={numero.numeroComplet}
+                >
+                  <div className='infos'>
+                    <div className='sources'>
+                      {types.length > 0 ?
+                        types.map(type => {
+                          return (type && <Tag key={type} type={type} />)
+                        }) :
+                        'Type non renseigné'}
+                    </div>
+                    <div className='sources'>
+                      {numero.source.length > 0 && (
+                        numero.source.map(source => source && <Tag key={source} type={source} />)
+                      )}
+                    </div>
+                  </div>
+                </Item>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
-        <style jsx>{`
+      <style jsx>{`
           .voie-preview-container {
             margin: 1em 0;
           }
@@ -131,9 +139,12 @@ class VoiePreview extends React.Component {
             }
           }
         `}</style>
-      </div>
-    )
-  }
+    </div>
+  )
+}
+
+VoiePreview.propTypes = {
+  voie: PropTypes.object.isRequired
 }
 
 export default VoiePreview
