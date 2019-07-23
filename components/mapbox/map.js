@@ -46,6 +46,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   const [tools, setTools] = useState(null)
   const [marker, setMarkerCoordinates] = useMarker(map)
   const [popup] = usePopup(marker)
+  const [mapError, setMapError] = useState(error)
 
   const reloadData = useLoadData(map, sources, layers)
 
@@ -56,12 +57,16 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   }, [])
 
   const fitBounds = useCallback(bbox => {
-    map.fitBounds(bbox, {
-      padding: 30,
-      linear: true,
-      maxZoom: 19,
-      duration: 0
-    })
+    try {
+      map.fitBounds(bbox, {
+        padding: 30,
+        linear: true,
+        maxZoom: 19,
+        duration: 0
+      })
+    } catch (error) {
+      setMapError('Aucune position n’est renseignée')
+    }
   })
 
   const switchLayer = useCallback(() => {
@@ -109,21 +114,21 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   return (
     <div className='mapbox-container'>
       <div className='map'>
-        {error && (
+        {mapError && (
           <div className='tools error'>
-            <Notification type='error' message={error} />
+            <Notification type='error' message={mapError} />
           </div>
         )}
 
-        {!error && loading && (
+        {!mapError && loading && (
           <div className='tools'>Chargement…</div>
         )}
 
-        {!loading && !error && infos && (
+        {!loading && !mapError && infos && (
           <div className='tools'>{infos}</div>
         )}
 
-        {!loading && !error && tools && (
+        {!loading && !mapError && tools && (
           <div className='tools right'>{tools}</div>
         )}
 
