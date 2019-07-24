@@ -1,243 +1,204 @@
-import React from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'next/router'
-import {throttle, debounce} from 'lodash'
+import Router from 'next/router'
+import {debounce} from 'lodash'
 
 import {search, reverse} from '../../lib/api-adresse'
 
-import Notification from '../notification'
 import renderAdresse from '../search-input/render-adresse'
 import SearchInput from '../search-input'
 import Mapbox from '../mapbox'
 
-import AddressMap from './address-map'
+import {useInput} from '../../hooks/input'
 
-const errorStyle = {
-  width: '40%',
-  minWidth: '260px',
-  position: 'absolute',
-  top: '206px',
-  left: '50%',
-  margin: '1em 0',
-  transform: 'translate(-50%)',
-  zIndex: 10
-}
+import AddressMap from './address-map'
 
 const zoomLevel = {
   street: 16,
   housenumber: 18,
   locality: 15
 }
+let currentRequest = null
 
-const DEFAULT_COORDS = [1.7191, 46.7111]
-const DEFAULT_ZOOM = 5
+const Map = ({defaultCenter, defaultZoom}) => {
+  const [input, setInput] = useInput('')
+  const [results, setResults] = useState([])
+  const [address, setAddress] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [center, setCenter] = useState(defaultCenter)
+  const [zoom, setZoom] = useState(defaultZoom)
+  const [error, setError] = useState(null)
 
-class Map extends React.Component {
-  static propTypes = {
-    router: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-      query: PropTypes.object.isRequired
-    }).isRequired
-  }
-
-  state = {
-    input: '',
-    results: [],
-    address: null,
-    loading: false,
-    center: DEFAULT_COORDS,
-    zoom: 5,
-    addressLoading: false,
-    error: null
-  }
-
-  constructor(props) {
-    super(props)
-
-    this.handleSearchThrottled = throttle(this.handleSearch, 200)
-    this.handleSearchDebounced = debounce(this.handleSearch, 200)
-  }
-
-  async componentDidMount() {
-    const {router} = this.props
-    const {lng, lat, z} = router.query
-
-    if (lng && lat) {
-      await this.getNearestAddress([lng, lat])
-      this.setState({
-        center: [Number(lng), Number(lat)],
-        zoom: Number(z)
-      })
-    }
-  }
-
-  replaceUrl = (coordinates, zoom) => {
-    const {router} = this.props
-    const lng = Number.parseFloat(coordinates[0]).toPrecision(6)
-    const lat = Number.parseFloat(coordinates[1]).toPrecision(6)
-
-    this.setState({
-      zoom,
-      center: [coordinates[0], coordinates[1]]
-    })
-
-    router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
-  }
-
-  handleSelect = address => {
+  const handleSelect = address => {
+    const input = address.properties.label
     const coords = address.geometry.coordinates
-    const zoom = zoomLevel[address.properties.type] || DEFAULT_ZOOM
+    const zoom = zoomLevel[address.properties.type]
 
-    this.replaceUrl(coords, zoom)
-
-    this.setState({
-      address,
-      input: address.properties.label
-    })
+    setInput(input)
+    setCenter(coords)
+    setZoom(zoom)
+    setAddress(address)
   }
 
-  handleInput = input => {
-    this.setState({input, results: [], loading: true, error: null})
-
-    if (input) {
-      if (input.length < 5) {
-        this.handleSearchThrottled(input)
-      } else {
-        this.handleSearchDebounced(input)
-      }
-    }
-  }
-
-  handleSearch = async input => {
-    const {lng, lat} = this.props.router.query
+  const handleSearch = debounce(async () => {
     const types = [
       'locality',
       'street',
       'housenumber'
     ]
-    let results = []
-    let error
 
     try {
-      const args = {q: input, lng, lat}
+      const args = {q: input}
+
+      if (center) {
+        const [lng, lat] = center
+        args.lng = lng
+        args.lat = lat
+      }
+
       const req = search(args)
-      this.currentRequest = req
+
+      currentRequest = req
+
       const response = await search(args)
-      if (this.currentRequest === req) {
-        results = response.features.filter(address =>
-          types.includes(address.properties.type) || [])
+      if (currentRequest === req) {
+        const results = response.features.filter(address =>
+          types.includes(address.properties.type) || []
+        )
+        setResults(results)
       }
     } catch (err) {
-      error = err
+      setError(err.message)
     }
 
-    this.setState({
-      results,
-      error,
-      loading: false
-    })
-  }
+    setLoading(false)
+  }, [input, center], 400)
 
-  mapUpdate = async (coordinates, zoom, getAddress = true) => {
-    this.replaceUrl(coordinates, zoom)
-
-    if (getAddress) {
-      await this.getNearestAddress(coordinates)
-    }
-  }
-
-  getNearestAddress = async coordinates => {
-    let address = null
-    let error
-
-    this.setState({addressLoading: true})
+  const getNearestAddress = useCallback(async () => {
+    setLoading(true)
 
     try {
-      const results = await reverse(coordinates)
-      address = results.features.length > 0 ? results.features[0] : null
+      const results = await reverse(center)
+      const address = results.features.length > 0 ? results.features[0] : null
+      setAddress(address)
     } catch (err) {
-      error = err
+      setError(error)
     }
 
-    this.setState({
-      address,
-      input: address ? address.properties.label : '',
-      addressLoading: false,
-      error
-    })
-  }
+    setLoading(false)
+  })
 
-  render() {
-    const {results, input, address, center, zoom, error, loading, addressLoading} = this.state
+  useEffect(() => {
+    setInput(address ? address.properties.label : '')
+  }, [address])
 
-    return (
-      <div>
-        <div className='input'>
-          <SearchInput
-            value={input}
-            results={results}
-            loading={loading}
-            placeholder='Ex. 6 quai de la tourelle cergy…'
-            onSelect={this.handleSelect}
-            onSearch={this.handleInput}
-            renderItem={renderAdresse}
-            getItemValue={item => item.properties.context}
-            fullscreen />
-        </div>
+  useEffect(() => {
+    if (input && input.length > 0) {
+      setResults([])
+      setLoading(true)
+      setError(null)
+      handleSearch()
+    }
+  }, [input])
 
-        {error &&
-          <Notification
-            style={errorStyle}
-            message={error.message}
-            type='error' />
-        }
+  useEffect(() => {
+    if (center && zoom) {
+      const [lng, lat] = center
+      Router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
+      if (zoom >= 15) {
+        getNearestAddress()
+      } else {
+        setAddress(null)
+      }
+    }
+  }, [zoom, center])
 
-        <Mapbox fullscreen>
-          {(map, marker) => (
+  return (
+    <div>
+      <div className='input'>
+        <SearchInput
+          value={input}
+          results={results}
+          loading={loading}
+          placeholder='Ex. 6 quai de la tourelle cergy…'
+          onSelect={handleSelect}
+          onSearch={setInput}
+          renderItem={renderAdresse}
+          getItemValue={item => item.properties.context}
+          fullscreen />
+      </div>
+
+      <div className='map-container'>
+        <Mapbox
+          defaultZoom={defaultZoom}
+          defaultCenter={defaultCenter}
+          error={error}
+          loading={loading}
+          switchStyle
+        >
+          {({...mapboxProps}) => (
             <AddressMap
-              map={map}
-              marker={marker}
+              {...mapboxProps}
               data={address}
-              center={center}
-              zoom={zoom}
-              loading={addressLoading}
-              mapUpdate={this.mapUpdate}
-              getNearestAddress={this.getNearestAddress}
+              handleDrag={setCenter}
+              handleZoom={setZoom}
+              getNearestAddress={getNearestAddress}
             />
           )}
         </Mapbox>
+      </div>
 
-        <style jsx>{`
+      <style jsx>{`
+        .input {
+          z-index: 10;
+          width: 40%;
+          min-width: 260px;
+          position: absolute;
+          top: 90px;
+          left: 50%;
+          transform: translate(-50%);
+        }
+
+        .map-container {
+          width: 100%;
+          height: calc(100vh - 73px);
+        }
+
+        @media (max-width: 380px) {
+          .map-container {
+            height: calc(100vh - 63px);
+          }
+        }
+
+        @media (max-width: 700px) {
           .input {
-            z-index: 10;
-            width: 40%;
-            min-width: 260px;
             position: absolute;
-            top: 90px;
-            left: 50%;
-            transform: translate(-50%);
+            min-width: 100%;
+            top: 73px;
+            left: 0;
+            transform: none;
           }
+        }
 
-          @media (max-width: 700px) {
-            .input {
-              position: absolute;
-              min-width: 100%;
-              top: 73px;
-              left: 0;
-              transform: none;
-            }
+        @media (max-width: 380px) {
+          .input {
+            top: 63px;
           }
+        }
 
-          @media (max-width: 380px) {
-            .input {
-              top: 63px;
-            }
-          }
-
-        `}</style>
-      </div >
-    )
-  }
+      `}</style>
+    </div >
+  )
 }
 
-export default (withRouter(Map))
+Map.defaultProps = {
+  defaultCenter: null,
+  defaultZoom: null
+}
+
+Map.propTypes = {
+  defaultCenter: PropTypes.array,
+  defaultZoom: PropTypes.number
+}
+
+export default Map

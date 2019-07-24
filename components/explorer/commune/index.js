@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
 
 import Mapbox from '../../mapbox'
-import GeojsonMap from '../../mapbox/geojson-map'
+
+import AddressesMap from '../../mapbox/addresses-map'
 
 import Head from './head'
 import Codes from './codes'
@@ -18,16 +20,18 @@ const Commune = props => (
       <Codes {...props} />
     </div>
 
-    <div className='map'>
+    <div className='preview'>
       <Metrics {...props} />
-      <Mapbox>
-        {map => (
-          <GeojsonMap
-            map={map}
-            data={props.contour}
-          />
-        )}
-      </Mapbox>
+      <div className='explore-commune-map'>
+        <Mapbox bbox={computeBbox(props.contour)} switchStyle>
+          {({...mapboxProps}) => (
+            <AddressesMap
+              {...mapboxProps}
+              contour={props.contour}
+            />
+          )}
+        </Mapbox>
+      </div>
     </div>
 
     <style jsx>{`
@@ -36,18 +40,18 @@ const Commune = props => (
         color: ${theme.colors.white};
       }
 
-      .map {
+      .preview {
         display: flex;
         flex-direction: row;
       }
 
-      .map > div {
-        width: 30%;
+      .explore-commune-map {
+        flex: 1;
+        height: 500px;
       }
 
       @media (max-width: 749px) {
-        .map {
-          display: flex;
+        .explore-commune-map {
           flex-direction: column;
         }
       }

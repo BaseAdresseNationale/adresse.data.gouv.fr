@@ -1,10 +1,19 @@
-import React from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 
+import Notification from '../notification'
+
 import SwitchMapStyle from './switch-map-style'
+
+import useMarker from './hooks/marker'
+import usePopup from './hooks/popup'
+import useLoadData from './hooks/load-data'
+
+const DEFAULT_CENTER = [1.7, 46.9]
+const DEFAULT_ZOOM = 5
 
 const STYLES = {
   vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
@@ -27,147 +36,206 @@ const STYLES = {
   }
 }
 
-class Map extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentStyle: props.ortho ? 'ortho' : 'vector',
-      shouldRender: false
+const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, interactive, loading, error, children}) => {
+  const [map, setMap] = useState(null)
+  const [mapContainer, setMapContainer] = useState(null)
+  const [style, setStyle] = useState(defaultStyle)
+  const [sources, setSources] = useState([])
+  const [layers, setLayers] = useState([])
+  const [infos, setInfos] = useState(null)
+  const [tools, setTools] = useState(null)
+  const [marker, setMarkerCoordinates] = useMarker(map)
+  const [popup] = usePopup(marker)
+  const [mapError, setMapError] = useState(error)
+
+  const reloadData = useLoadData(map, sources, layers)
+
+  const mapRef = useCallback(ref => {
+    if (ref) {
+      setMapContainer(ref)
+    }
+  }, [])
+
+  const fitBounds = useCallback(bbox => {
+    try {
+      map.fitBounds(bbox, {
+        padding: 30,
+        linear: true,
+        maxZoom: 19,
+        duration: 0
+      })
+    } catch (error) {
+      setMapError('Aucune position n’est renseignée')
+    }
+  })
+
+  const switchLayer = useCallback(() => {
+    setStyle(style === 'vector' ?
+      'ortho' :
+      'vector'
+    )
+  })
+
+  useEffect(() => {
+    if (mapContainer) {
+      const map = new mapboxgl.Map({
+        container: mapContainer,
+        style: STYLES[style],
+        center: defaultCenter || DEFAULT_CENTER,
+        zoom: defaultZoom || DEFAULT_ZOOM,
+        interactive
+      })
+
+      setMap(map)
+    }
+  }, [mapContainer])
+
+  const onStyleData = () => {
+    if (map.isStyleLoaded()) {
+      reloadData()
+    } else {
+      setTimeout(onStyleData, 1000)
     }
   }
 
-  static propTypes = {
-    switchStyle: PropTypes.bool,
-    bbox: PropTypes.array,
-    height: PropTypes.string,
-    ortho: PropTypes.bool,
-    interactive: PropTypes.bool,
-    fullscreen: PropTypes.bool,
-    children: PropTypes.func.isRequired
-  }
+  useEffect(() => {
+    setMapError(error)
+  }, [error])
 
-  static defaultProps = {
-    bbox: null,
-    height: '600',
-    ortho: false,
-    interactive: true,
-    fullscreen: false,
-    switchStyle: false
-  }
-
-  componentDidMount() {
-    const {currentStyle} = this.state
-    const {bbox, interactive} = this.props
-
-    this.map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: STYLES[currentStyle],
-      center: [1.7, 46.9],
-      zoom: 5,
-      interactive
-    })
-
-    this.marker = new mapboxgl.Marker()
-    this.popUp = new mapboxgl.Popup()
-
-    this.marker.setPopup(new mapboxgl.Popup())
-
-    this.setState({shouldRender: true})
-
-    if (bbox) {
-      this.fitBounds()
+  useEffect(() => {
+    if (bbox && map) {
+      fitBounds(bbox)
     }
-  }
+  }, [map, bbox])
 
-  componentDidUpdate(prevProps) {
-    const {bbox} = this.props
-
-    if (bbox && bbox !== prevProps.bbox) {
-      this.fitBounds()
+  useEffect(() => {
+    if (map) {
+      map.setStyle(STYLES[style], {diff: false})
+      map.on('styledata', onStyleData)
     }
-  }
+  }, [style])
 
-  fitBounds = () => {
-    const {bbox} = this.props
-
-    this.map.fitBounds(bbox, {
-      padding: 30,
-      linear: true,
-      maxZoom: 19,
-      duration: 0
-    })
-  }
-
-  switchLayer = () => {
-    const {map} = this
-
-    this.setState(state => {
-      const currentStyle = state.currentStyle === 'vector' ? 'ortho' : 'vector'
-      map.setStyle(STYLES[currentStyle], {diff: false})
-
-      return {
-        currentStyle
-      }
-    })
-  }
-
-  render() {
-    const {currentStyle, shouldRender} = this.state
-    const {switchStyle, height, fullscreen, children} = this.props
-
-    return (
-      <div className='mapbox-container'>
-        <div className='tools'>
-          {shouldRender && children(this.map, this.marker, this.popUp, currentStyle)}
-
-          <div ref={el => {
-            this.mapContainer = el
-          }} className='map-container' />
-        </div>
-
-        {switchStyle && (
-          <SwitchMapStyle
-            vector={currentStyle === 'vector'}
-            handleChange={this.switchLayer}
-          />
+  return (
+    <div className='mapbox-container'>
+      <div className='map'>
+        {mapError && (
+          <div className='tools error'>
+            <Notification type='error' message={mapError} />
+          </div>
         )}
 
-        <Head>
-          <style key='mapbox'
-            dangerouslySetInnerHTML={{__html: mapStyle}} // eslint-disable-line react/no-danger
-          />
-        </Head>
+        {!mapError && loading && (
+          <div className='tools'>Chargement…</div>
+        )}
 
-        <style jsx>{`
+        {!loading && !mapError && infos && (
+          <div className='tools'>{infos}</div>
+        )}
+
+        {!loading && !mapError && tools && (
+          <div className='tools right'>{tools}</div>
+        )}
+
+        {map && children({
+          map,
+          marker,
+          popup,
+          style,
+          setSources,
+          setLayers,
+          setInfos,
+          setTools,
+          setMarkerCoordinates
+        })}
+
+        <div ref={mapRef} className='map-container' />
+
+        {switchStyle && (
+          <div className='tools bottom switch'>
+            <SwitchMapStyle
+              vector={style === 'vector'}
+              handleChange={switchLayer}
+            />
+          </div>
+        )}
+
+      </div>
+
+      <Head>
+        <style key='mapbox'
+          dangerouslySetInnerHTML={{__html: mapStyle}} // eslint-disable-line react/no-danger
+        />
+      </Head>
+
+      <style jsx>{`
           .mapbox-container {
+            position: relative;
             width: 100%;
-            height: ${fullscreen ? 'calc(100vh - 73px)' : `${height}px`};
-          }
-
-          @media (max-width: 380px) {
-            .mapbox-container {
-              height: ${fullscreen ? 'calc(100vh - 63px)' : `${height}px`};
-            }
-          }
-
-          .tools {
-            display: flex;
-            flex-flow: wrap;
             height: 100%;
           }
 
           .map-container {
-            position: relative;
             min-width: 250px;
-            height: 100%;
             flex: 1;
           }
 
+          .map {
+            display: flex;
+            height: 100%;
+          }
+
+          .tools {
+            position: absolute;
+            z-index: 999;
+            padding: 0.5em;
+            margin: 1em;
+            border-radius: 4px;
+            background-color: #ffffffbb;
+          }
+
+          .right {
+            right: 0;
+          }
+
+          .bottom {
+            bottom: 0;
+            left: 0;
+          }
+
+          .switch {
+            background-color: none;
+            padding: 0;
+          }
         `}</style>
 
-      </div>
-    )
-  }
+    </div>
+  )
+}
+
+Map.propTypes = {
+  switchStyle: PropTypes.bool,
+  bbox: PropTypes.array,
+  defaultStyle: PropTypes.oneOf([
+    'vector',
+    'ortho'
+  ]),
+  interactive: PropTypes.bool,
+  defaultCenter: PropTypes.array,
+  defaultZoom: PropTypes.number,
+  loading: PropTypes.bool,
+  error: PropTypes.object,
+  children: PropTypes.func.isRequired
+}
+
+Map.defaultProps = {
+  bbox: null,
+  defaultStyle: 'vector',
+  interactive: true,
+  defaultCenter: DEFAULT_CENTER,
+  defaultZoom: DEFAULT_ZOOM,
+  loading: false,
+  error: null,
+  switchStyle: false
 }
 
 export default Map
