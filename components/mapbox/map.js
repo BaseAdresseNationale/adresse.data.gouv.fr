@@ -99,6 +99,10 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   }
 
   useEffect(() => {
+    setMapError(error)
+  }, [error])
+
+  useEffect(() => {
     if (bbox && map) {
       fitBounds(bbox)
     }
