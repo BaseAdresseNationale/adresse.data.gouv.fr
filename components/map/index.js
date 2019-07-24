@@ -48,8 +48,14 @@ const Map = ({defaultCenter, defaultZoom}) => {
     ]
 
     try {
-      const [lng, lat] = center
-      const args = {q: input, lng, lat}
+      const args = {q: input}
+
+      if (center) {
+        const [lng, lat] = center
+        args.lng = lng
+        args.lat = lat
+      }
+
       const req = search(args)
 
       currentRequest = req
@@ -62,7 +68,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         setResults(results)
       }
     } catch (err) {
-      setError(err)
+      setError(err.message)
     }
 
     setLoading(false)
@@ -126,7 +132,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         <Mapbox
           defaultZoom={defaultZoom}
           defaultCenter={defaultCenter}
-          error={error ? error.message : null}
+          error={error}
           loading={loading}
           switchStyle
         >

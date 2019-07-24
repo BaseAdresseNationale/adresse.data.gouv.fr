@@ -71,6 +71,12 @@ const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordin
   useEffect(() => {
     if (data) {
       const center = data.geometry.coordinates
+      const zoom = map.getZoom()
+
+      if (zoom < 15) {
+        map.setZoom(18)
+      }
+
       setMarkerCoordinates(center)
 
       if (!inBounds(center)) {

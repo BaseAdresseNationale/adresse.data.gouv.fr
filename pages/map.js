@@ -29,7 +29,7 @@ MapPage.getInitialProps = ({query}) => {
 
   return {
     center: lng && lat ? [Number(lng), Number(lat)] : null,
-    zoom: Number(z)
+    zoom: z ? Number(z) : null
   }
 }
 
