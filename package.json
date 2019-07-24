@@ -32,7 +32,7 @@
     "mapbox-gl": "^0.54.0",
     "marked": "^0.6.2",
     "next": "8.0.4",
-    "next-runtime-dotenv": "^1.1.1",
+    "next-runtime-dotenv": "^1.2.0",
     "papaparse": "^4.6.3",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.5.4",
