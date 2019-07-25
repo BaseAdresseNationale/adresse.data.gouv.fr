@@ -74,19 +74,22 @@ const fillLayerPaint = {
 
 export default function useLayers(departements, communes) {
   return useMemo(() => {
-    const layers = [{
-      id: 'departements-fill',
-      source: 'departements',
-      type: 'fill',
-      paint: fillLayerPaint
-    },
+    const layers = []
 
-    {
-      id: 'departements-line',
-      source: 'departements',
-      type: 'line',
-      paint: lineLayerPaint
-    }]
+    if (departements) {
+      layers.push({
+        id: 'departements-fill',
+        source: 'departements',
+        type: 'fill',
+        paint: fillLayerPaint
+      })
+      layers.push({
+        id: 'departements-line',
+        source: 'departements',
+        type: 'line',
+        paint: lineLayerPaint
+      })
+    }
 
     if (communes) {
       layers.push({

@@ -39,6 +39,7 @@ const STYLES = {
 const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, interactive, loading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
+  const [isFirstLoad, setIsFirstLoad] = useState(false)
   const [style, setStyle] = useState(defaultStyle)
   const [sources, setSources] = useState([])
   const [layers, setLayers] = useState([])
@@ -48,7 +49,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
   const [popup] = usePopup(marker)
   const [mapError, setMapError] = useState(error)
 
-  const reloadData = useLoadData(map, sources, layers)
+  const reloadData = useLoadData(map, isFirstLoad, sources, layers)
 
   const mapRef = useCallback(ref => {
     if (ref) {
@@ -67,14 +68,14 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
     } catch (error) {
       setMapError('Aucune position n’est renseignée')
     }
-  })
+  }, [map])
 
   const switchLayer = useCallback(() => {
     setStyle(style === 'vector' ?
       'ortho' :
       'vector'
     )
-  })
+  }, [style])
 
   useEffect(() => {
     if (mapContainer) {
@@ -86,17 +87,16 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
         interactive
       })
 
+      map.once('load', () => {
+        setIsFirstLoad(true)
+      })
+
       setMap(map)
     }
-  }, [mapContainer])
 
-  const onStyleData = () => {
-    if (map.isStyleLoaded()) {
-      reloadData()
-    } else {
-      setTimeout(onStyleData, 1000)
-    }
-  }
+    // Map should only be created when its container is ready
+    // and should not be re-created
+  }, [mapContainer]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setMapError(error)
@@ -106,14 +106,33 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
     if (bbox && map) {
       fitBounds(bbox)
     }
-  }, [map, bbox])
+  }, [map, bbox, fitBounds])
 
   useEffect(() => {
     if (map) {
       map.setStyle(STYLES[style], {diff: false})
-      map.on('styledata', onStyleData)
     }
-  }, [style])
+  }, [map, style])
+
+  useEffect(() => {
+    if (isFirstLoad) {
+      const onStyleData = () => {
+        if (map.isStyleLoaded()) {
+          reloadData()
+        } else {
+          setTimeout(onStyleData, 1000)
+        }
+      }
+
+      map.on('styledata', onStyleData)
+
+      return () => {
+        map.off('styledata', onStyleData)
+      }
+    }
+    // Event styledata should only be added when map exists
+    // and its first loading is completed.
+  }, [isFirstLoad]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='mapbox-container'>

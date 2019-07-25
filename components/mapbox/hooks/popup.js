@@ -8,7 +8,7 @@ function usePopup(marker) {
     if (marker) {
       marker.setPopup(popup)
     }
-  }, [marker])
+  }, [marker, popup])
 
   return [popup, setPopup]
 }

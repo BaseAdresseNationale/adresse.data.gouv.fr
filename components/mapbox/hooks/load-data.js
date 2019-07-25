@@ -1,14 +1,13 @@
 import {useState, useCallback, useEffect} from 'react'
 
-function useLoadData(map, sources, layers) {
-  const [isFirstLoad, setIsFirstLoad] = useState(false)
+function useLoadData(map, isFirstLoad, sources, layers) {
   const [loadedSources, setLoadedSources] = useState([])
   const [loadedLayers, setLoadedLayers] = useState([])
 
-  const addSource = source => {
+  const addSource = useCallback(source => {
     const {name, ...properties} = source
     map.addSource(name, properties)
-  }
+  }, [map])
 
   const updateSource = (source, properties) => {
     const {data} = properties
@@ -27,7 +26,7 @@ function useLoadData(map, sources, layers) {
     })
 
     setLoadedSources(sources)
-  }, [map, sources])
+  }, [addSource, map, sources])
 
   const loadLayers = useCallback(() => {
     layers.forEach(layer => {
@@ -64,7 +63,7 @@ function useLoadData(map, sources, layers) {
   const removeUnuseData = useCallback(() => {
     removeUnuseLayers()
     removeUnuseSources()
-  })
+  }, [removeUnuseLayers, removeUnuseSources])
 
   const reloadData = useCallback(() => {
     if (map && isFirstLoad && sources && layers) {
@@ -81,21 +80,13 @@ function useLoadData(map, sources, layers) {
         loadLayers()
       }
     }
-  }, [map, isFirstLoad, sources, layers, loadedSources, loadedLayers])
+  }, [map, isFirstLoad, sources, layers, loadedLayers.length, loadedSources.length, removeUnuseData, loadSources, loadLayers])
 
   useEffect(() => {
-    if (isFirstLoad && sources && layers) {
+    if (sources && layers) {
       reloadData()
     }
-  }, [isFirstLoad, sources, layers])
-
-  useEffect(() => {
-    if (map && !isFirstLoad) {
-      map.once('load', () => {
-        setIsFirstLoad(true)
-      })
-    }
-  }, [map, isFirstLoad])
+  }, [sources, layers, reloadData])
 
   return reloadData
 }
