@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {sortBy} from 'lodash'
 
@@ -67,14 +67,14 @@ class TableControl extends React.Component {
 
     return (
       <Table list={displayedList} wrap={wrap} disabledWrap={disabledWrap} onWrap={this.handleWrap}>
-        <Fragment>
+        <>
           <Head headers={headers} order={order} actived={actived} sort={this.sort} />
           <Body
             items={genItems(displayedList)}
             wrapped={wrap && !disabledWrap}
             selected={selected}
             handleSelect={handleSelect} />
-        </Fragment>
+        </>
       </Table>
     )
   }
