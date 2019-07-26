@@ -42,21 +42,27 @@ const ContourMap = ({map, contour, onSelectContour, reset, setSources, setLayers
   }
 
   useEffect(() => {
-    if (map) {
-      map.on('mousemove', 'contour-fill', e => onHover(e, 'contour'))
-      map.on('mouseleave', 'contour-fill', onLeave)
-      map.on('click', 'contour-fill', e => handleClick(e, onSelectContour))
+    map.on('mousemove', 'contour-fill', e => onHover(e, 'contour'))
+    map.on('mouseleave', 'contour-fill', onLeave)
+    map.on('click', 'contour-fill', e => handleClick(e, onSelectContour))
+
+    return () => {
+      map.off('mousemove', 'contour-fill', e => onHover(e, 'contour'))
+      map.off('mouseleave', 'contour-fill', onLeave)
+      map.off('click', 'contour-fill', e => handleClick(e, onSelectContour))
     }
-  }, [])
+
+    // No dependency in order to mock a didMount and avoid duplicating events.
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setSources(sources)
     setLayers(layers)
-  }, [sources, layers])
+  }, [sources, layers, setSources, setLayers])
 
   useEffect(() => {
     setInfos(reset ? <Back handleClick={reset} /> : null)
-  }, [reset])
+  }, [reset, setInfos])
 
   return null
 }

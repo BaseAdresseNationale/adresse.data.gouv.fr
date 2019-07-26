@@ -23,7 +23,8 @@ class ReportPage extends React.Component {
 
 ReportPage.propTypes = {
   dataset: PropTypes.shape({
-    organization: PropTypes.object
+    organization: PropTypes.object,
+    title: PropTypes.string.isRequired
   }).isRequired,
   report: PropTypes.object.isRequired
 }

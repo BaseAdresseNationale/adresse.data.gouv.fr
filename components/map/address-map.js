@@ -41,12 +41,12 @@ const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordin
   const onDragEnd = useCallback(() => {
     const {lng, lat} = map.getCenter()
     handleDrag([lng, lat])
-  })
+  }, [handleDrag, map])
 
   const onZoom = useCallback(() => {
     const zoom = map.getZoom()
     handleZoom(zoom)
-  })
+  }, [handleZoom, map])
 
   const inBounds = useCallback(lnglat => {
     const bounds = map.getBounds()
@@ -66,7 +66,14 @@ const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordin
   useEffect(() => {
     map.on('dragend', onDragEnd)
     map.on('zoomend', onZoom)
-  }, [])
+
+    return () => {
+      map.off('dragend', onDragEnd)
+      map.off('zoomend', onZoom)
+    }
+
+    // No dependency in order to mock a didMount and avoid duplicating events.
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (data) {
@@ -88,7 +95,7 @@ const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordin
       setMarkerCoordinates(null)
       setInfos(null)
     }
-  }, [data, marker])
+  }, [data, inBounds, map, marker, setInfos, setMarkerCoordinates])
 
   return (
     <div>

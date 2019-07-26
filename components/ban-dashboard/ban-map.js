@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
 
 import BanStats from './ban-stats'
@@ -57,13 +57,13 @@ function BANMap({map, departements, communes, selectDepartement, reset, setSourc
     }
   }
 
-  const unSelectDepartement = () => {
+  const unSelectDepartement = useCallback(() => {
     map.setFilter('departements-fill', ['!=', ['get', 'code'], 0])
     map.setCenter([1.7, 46.9])
     map.setZoom(5)
 
     reset()
-  }
+  }, [map, reset])
 
   useEffect(() => {
     if (map.getSource('departements') && !communes) {
@@ -78,18 +78,29 @@ function BANMap({map, departements, communes, selectDepartement, reset, setSourc
 
     map.on('mousemove', 'communes-fill', onHover)
     map.on('mouseleave', 'communes-fill', onLeave)
-  }, [])
+
+    return () => {
+      map.off('mousemove', 'departements-fill', onHover)
+      map.off('mouseleave', 'departements-fill', onLeave)
+      map.off('click', 'departements-fill', onClick)
+
+      map.off('mousemove', 'communes-fill', onHover)
+      map.off('mouseleave', 'communes-fill', onLeave)
+    }
+
+    // No dependency in order to mock a didMount and avoid duplicating events.
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setSources(sources)
     setLayers(layers)
-  }, [sources, layers])
+  }, [sources, layers, setSources, setLayers])
 
   useEffect(() => {
     setInfos(communes ? (
       <Back handleClick={unSelectDepartement} />
     ) : null)
-  }, [communes])
+  }, [communes, setInfos, unSelectDepartement])
 
   return <Legend colors={COLORS} />
 }

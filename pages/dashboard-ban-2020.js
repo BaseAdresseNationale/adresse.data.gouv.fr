@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
@@ -35,7 +35,7 @@ function DashboardBan2020({departements}) {
   const [bbox, setBbox] = useState(null)
   const [error, setError] = useState(null)
 
-  const loadDepartement = useCallback(async codeDepartement => {
+  const loadDepartement = async codeDepartement => {
     setIsLoading(true)
     setError(null)
 
@@ -48,12 +48,12 @@ function DashboardBan2020({departements}) {
     }
 
     setIsLoading(false)
-  })
+  }
 
-  const reset = useCallback(() => {
+  const reset = () => {
     setDepartement(null)
     setError(null)
-  })
+  }
 
   useEffect(() => {
     setBbox(departement ? computeBbox(departement) : null)

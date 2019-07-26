@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
@@ -12,16 +12,16 @@ const MapContainer = ({voie, addresses, numero, onSelect}) => {
   const [bbox, setBbox] = useState(null)
   const numeros = addresses ? addressesToGeoJson(addresses) : null
 
-  const selectAddress = useCallback(feature => {
+  const selectAddress = feature => {
     const numero = feature ? feature.properties.numero : null
     onSelect(numero)
-  })
+  }
 
   useEffect(() => {
     if (!bbox && addresses) {
       setBbox(computeBbox(numeros))
     }
-  }, [bbox, addresses])
+  }, [bbox, addresses, numeros])
 
   return (
     <div className='explore-map-container'>

@@ -42,24 +42,42 @@ const AddressesMap = ({map, contour, voies, voie, numeros, numero, onSelectConto
   }
 
   useEffect(() => {
-    if (map) {
+    if (onSelectContour) {
+      map.on('mousemove', 'contour-fill', e => onHover(e, 'contour'))
+      map.on('mouseleave', 'contour-fill', onLeave)
+      map.on('click', 'contour-fill', e => handleClick(e, onSelectContour))
+    }
+
+    if (onSelectNumero) {
+      map.on('mousemove', 'numeros-point', e => onHover(e, 'numeros'))
+      map.on('mouseleave', 'numeros-point', onLeave)
+      map.on('click', 'numeros-point', e => handleClick(e, onSelectNumero))
+
+      map.on('mousemove', 'numeros-label', e => onHover(e, 'numeros'))
+      map.on('mouseleave', 'numeros-label', onLeave)
+      map.on('click', 'numeros-label', e => handleClick(e, onSelectNumero))
+    }
+
+    return () => {
       if (onSelectContour) {
-        map.on('mousemove', 'contour-fill', e => onHover(e, 'contour'))
-        map.on('mouseleave', 'contour-fill', onLeave)
-        map.on('click', 'contour-fill', e => handleClick(e, onSelectContour))
+        map.off('mousemove', 'contour-fill', e => onHover(e, 'contour'))
+        map.off('mouseleave', 'contour-fill', onLeave)
+        map.off('click', 'contour-fill', e => handleClick(e, onSelectContour))
       }
 
       if (onSelectNumero) {
-        map.on('mousemove', 'numeros-point', e => onHover(e, 'numeros'))
-        map.on('mouseleave', 'numeros-point', onLeave)
-        map.on('click', 'numeros-point', e => handleClick(e, onSelectNumero))
+        map.off('mousemove', 'numeros-point', e => onHover(e, 'numeros'))
+        map.off('mouseleave', 'numeros-point', onLeave)
+        map.off('click', 'numeros-point', e => handleClick(e, onSelectNumero))
 
-        map.on('mousemove', 'numeros-label', e => onHover(e, 'numeros'))
-        map.on('mouseleave', 'numeros-label', onLeave)
-        map.on('click', 'numeros-label', e => handleClick(e, onSelectNumero))
+        map.off('mousemove', 'numeros-label', e => onHover(e, 'numeros'))
+        map.off('mouseleave', 'numeros-label', onLeave)
+        map.off('click', 'numeros-label', e => handleClick(e, onSelectNumero))
       }
     }
-  }, [])
+
+    // No dependency in order to mock a didMount and avoid duplicating events.
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (numero) {
@@ -74,12 +92,12 @@ const AddressesMap = ({map, contour, voies, voie, numeros, numero, onSelectConto
     } else {
       setInfos(null)
     }
-  }, [numero, sources])
+  }, [numero, onSelectNumero, setInfos, sources, voie])
 
   useEffect(() => {
     setSources(sources)
     setLayers(layers)
-  }, [sources, layers])
+  }, [sources, layers, setSources, setLayers])
 
   return null
 }

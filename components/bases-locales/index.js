@@ -210,6 +210,7 @@ BasesLocales.propTypes = {
     model: PropTypes.object.isRequired,
     count: PropTypes.number.isRequired,
     numerosCount: PropTypes.number.isRequired,
+    communesCount: PropTypes.number.isRequired,
     license: PropTypes.object.isRequired
   }).isRequired
 }

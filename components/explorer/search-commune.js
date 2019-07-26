@@ -79,7 +79,7 @@ const Explorer = () => {
       setError(null)
       handleSearch(input)
     }
-  }, [input])
+  }, [handleSearch, input])
 
   return (
     <Section background='color'>

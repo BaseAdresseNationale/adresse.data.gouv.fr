@@ -22,6 +22,7 @@ let currentRequest = null
 
 const Map = ({defaultCenter, defaultZoom}) => {
   const [input, setInput] = useInput('')
+  const [placeholder, setPlaceholder] = useInput('')
   const [results, setResults] = useState([])
   const [address, setAddress] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -82,24 +83,27 @@ const Map = ({defaultCenter, defaultZoom}) => {
       const address = results.features.length > 0 ? results.features[0] : null
       setAddress(address)
     } catch (err) {
-      setError(error)
+      setError(err.message)
     }
 
     setLoading(false)
-  })
+  }, [center])
 
   useEffect(() => {
-    setInput(address ? address.properties.label : '')
-  }, [address])
+    if (address) {
+      setPlaceholder(address.properties.label)
+      setInput('')
+    } else {
+      setPlaceholder('Ex. 6 quai de la tourelle cergy…')
+    }
+  }, [address, setInput, setPlaceholder])
 
   useEffect(() => {
     if (input && input.length > 0) {
-      setResults([])
-      setLoading(true)
       setError(null)
       handleSearch()
     }
-  }, [input])
+  }, [handleSearch, input])
 
   useEffect(() => {
     if (center && zoom) {
@@ -111,7 +115,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         setAddress(null)
       }
     }
-  }, [zoom, center])
+  }, [zoom, center, getNearestAddress])
 
   return (
     <div>
@@ -120,7 +124,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
           value={input}
           results={results}
           loading={loading}
-          placeholder='Ex. 6 quai de la tourelle cergy…'
+          placeholder={placeholder}
           onSelect={handleSelect}
           onSearch={setInput}
           renderItem={renderAdresse}
