@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
 
 import MapBox from '../../../mapbox'
 
-import GeojsonMap from '../../../mapbox/geojson-map'
+import AddressesMap from '../../../mapbox/addresses-map'
 
 class Preview extends React.Component {
   static propTypes = {
@@ -23,13 +24,13 @@ class Preview extends React.Component {
         <div className='content'>
           {children}
 
-          <div className='map'>
+          <div className='preview-map-container'>
             {geojson && (
-              <MapBox height='300' interactive={false}>
-                {map => (
-                  <GeojsonMap
-                    map={map}
-                    data={geojson}
+              <MapBox bbox={computeBbox(geojson)}>
+                {({...mapboxProps}) => (
+                  <AddressesMap
+                    {...mapboxProps}
+                    contour={geojson}
                   />
                 )}
               </MapBox>
@@ -47,8 +48,9 @@ class Preview extends React.Component {
             justify-content: space-between;
           }
 
-          .map {
+          .preview-map-container {
             width: 50%;
+            height: 300px;
           }
 
           @media (max-width: 680px) {

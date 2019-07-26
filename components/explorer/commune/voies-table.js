@@ -58,16 +58,14 @@ class VoiesTable extends React.Component {
     }
 
     return (
-      <div>
-        <TableList
-          title='Adresses de la voie'
-          subtitle={`${voies.length} voies répertoriées`}
-          list={voies}
-          headers={headers}
-          genItems={genItems}
-          initialSort={headers[0]}
-          handleSelect={this.selectVoie} />
-      </div>
+      <TableList
+        title='Adresses de la voie'
+        subtitle={`${voies.length} voies répertoriées`}
+        list={voies}
+        headers={headers}
+        genItems={genItems}
+        initialSort={headers[0]}
+        handleSelect={this.selectVoie} />
     )
   }
 }

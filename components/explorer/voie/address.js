@@ -15,13 +15,11 @@ const Address = ({voie, address, onClose}) => {
   return (
     <div>
       <div className='head flex-list'>
-        <h4>Numéro {numero}</h4>
+        <div className='address'>
+          <b>{numero}</b> {active && !pseudoNumero && voie.nomVoie}
+        </div>
         <div className='close' onClick={() => onClose()}><MdClose /></div>
       </div>
-
-      {active && !pseudoNumero && (
-        <h5>{numero} {voie.nomVoie} - {voie.codeCommune} {voie.nomCommune}</h5>
-      )}
 
       <div className='cats'>
         <div className='cat'>
@@ -35,15 +33,6 @@ const Address = ({voie, address, onClose}) => {
           ) : (
             <div>Inconnu</div>
           )}
-        </div>
-
-        <div className='cat'>
-          <div>Sources :</div>
-          <div className='flex-list'>
-            {entries.map(entry => (
-              <Tag key={entry.source} type={entry.source} />
-            ))}
-          </div>
         </div>
 
         {parcelles &&
@@ -60,10 +49,10 @@ const Address = ({voie, address, onClose}) => {
 
         {entries.length > 0 &&
           <div>
-            Positions :
+            Sources :
             {entries.map(entry => (
               <div key={entry.source} className='position'>
-                <div className='source'><h5>{entry.source}</h5></div>
+                <Tag key={entry.source} type={entry.source} />
                 <div className='coordinates'>
                   {entry.position && (
                     entry.position.coordinates.map(coordinate => (
@@ -98,9 +87,15 @@ const Address = ({voie, address, onClose}) => {
           border-bottom: 1px solid ${theme.colors.lighterGrey};
         }
 
+        .address {
+          font-size: large;
+          font-weight: 500;
+          padding: 0.5em;
+        }
+
         .close {
           font-size: 20px;
-          padding: 0px 2px;
+          padding: 0.5em;
         }
 
         .close:hover {
@@ -108,8 +103,14 @@ const Address = ({voie, address, onClose}) => {
           cursor: pointer;
         }
 
+        .cats {
+          margin-top: 1em;
+        }
+
         .cat {
-          margin: 1em 0;
+          display: grid;
+          grid-template-columns: 1fr max-content;
+          align-items: center;
         }
 
         .cat .flex-list{
@@ -125,29 +126,25 @@ const Address = ({voie, address, onClose}) => {
 
         .position {
           display: grid;
-          grid-column-gap: 5px;
-          margin: 10px 0;
-          grid-template-columns: 0.5fr 1fr;
+          margin: 5px 0;
+          grid-template-columns: 56px 1fr;
         }
 
         .source {
           grid-column: 1;
           text-align: center;
-          background-color: ${theme.colors.lighterGrey};
         }
 
         .coordinates {
           grid-column: 2;
           display: grid;
-          grid-row-gap: 5px;
-          grid-template-rows: 50%;
+          grid-row-gap: 2px;
           text-align: center;
         }
 
         .coordinate {
           align-self: center;
-          padding: 5px;
-          background-color: ${theme.colors.lightGrey};
+          background-color: ${theme.colors.lighterGrey};
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -159,14 +156,16 @@ const Address = ({voie, address, onClose}) => {
 
 Address.propTypes = {
   voie: PropTypes.shape({
-    nomVoie: PropTypes.string.isRequired,
-    codeCommune: PropTypes.string.isRequired,
-    nomCommune: PropTypes.string.isRequired
+    nomVoie: PropTypes.string.isRequired
   }),
   address: PropTypes.shape({
     numero: PropTypes.string.isRequired,
-    position: PropTypes.object.isRequired,
-    sources: PropTypes.array.isRequired
+    entries: PropTypes.array.isRequired,
+    destination: PropTypes.array,
+    active: PropTypes.bool.isRequired,
+    parcelles: PropTypes.array,
+    distanceMaxPositions: PropTypes.number,
+    pseudoNumero: PropTypes.bool
   }).isRequired,
   onClose: PropTypes.func.isRequired
 }

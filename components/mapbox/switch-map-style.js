@@ -24,11 +24,8 @@ class SwitchMapStyle extends React.Component {
         <div className='text'>{style}</div>
         <style jsx>{`
           .switch-style {
-            position: relative;
             width: 80px;
             height: 80px;
-            bottom: 100px;
-            left: 20px;
             border: 2px solid #fff;
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
@@ -44,7 +41,7 @@ class SwitchMapStyle extends React.Component {
 
           .text {
             position: relative;
-            bottom: 24px;
+            bottom: 26px;
             left: 4px;
             color: ${vector ? '#fff' : '#000'}
           }

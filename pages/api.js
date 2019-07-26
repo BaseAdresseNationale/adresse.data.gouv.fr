@@ -106,6 +106,8 @@ export default () => (
               <li><em>postcode</em> : code postal</li>
               <li><em>citycode</em> : code INSEE de la commune</li>
               <li><em>city</em> : nom de la commune</li>
+              <li><em>oldcitycode</em> : code INSEE de la commune ancienne (le cas échéant)</li>
+              <li><em>oldcity</em> : nom de la commune ancienne (le cas échéant)</li>
               <li><em>context</em> : n° de département, nom de département et de région</li>
               <li><em>label</em> : libellé complet de l’adresse</li>
             </ul>

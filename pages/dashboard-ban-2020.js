@@ -1,5 +1,7 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import computeBbox from '@turf/bbox'
+
 import Page from '../layouts/main'
 
 import withErrors from '../components/hoc/with-errors'
@@ -7,7 +9,6 @@ import withErrors from '../components/hoc/with-errors'
 import {getDepartements, getDepartementCommunes} from '../lib/api-ban'
 
 import Mapbox from '../components/mapbox'
-import Notification from '../components/notification'
 
 import BANMap from '../components/ban-dashboard/ban-map'
 
@@ -31,10 +32,12 @@ function generateId(feature) {
 function DashboardBan2020({departements}) {
   const [departement, setDepartement] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [bbox, setBbox] = useState(null)
   const [error, setError] = useState(null)
 
-  const loadDepartement = useCallback(async codeDepartement => {
+  const loadDepartement = async codeDepartement => {
     setIsLoading(true)
+    setError(null)
 
     try {
       const departement = await getDepartementCommunes(codeDepartement)
@@ -45,39 +48,52 @@ function DashboardBan2020({departements}) {
     }
 
     setIsLoading(false)
-  })
+  }
+
+  const reset = () => {
+    setDepartement(null)
+    setError(null)
+  }
+
+  useEffect(() => {
+    setBbox(departement ? computeBbox(departement) : null)
+  }, [departement])
 
   return (
     <Page title={title} description={description} showFooter={false}>
 
-      {error &&
-      <div className='error'>
-        <Notification
-          message={error.message}
-          type='error' />
-
-        <style jsx>{`
-          .error {
-            position: absolute;
-            z-index: 999;
-            margin: 1em;
-          }
-        `}</style>
+      <div className='ban-map-container'>
+        <Mapbox error={error} loading={isLoading} bbox={bbox}>
+          {({...mapboxProps}) => (
+            <BANMap
+              {...mapboxProps}
+              departements={departements}
+              communes={departement}
+              selectDepartement={loadDepartement}
+              reset={reset}
+            />
+          )}
+        </Mapbox>
       </div>
-      }
 
-      <Mapbox fullscreen>
-        {map => (
-          <BANMap
-            map={map}
-            departements={departements}
-            communes={departement}
-            loading={isLoading}
-            selectDepartement={loadDepartement}
-            reset={() => setDepartement(null)}
-          />
-        )}
-      </Mapbox>
+      <style jsx>{`
+        .error {
+          position: absolute;
+          z-index: 999;
+          margin: 1em;
+        }
+
+        .ban-map-container {
+          width: 100%;
+          height: calc(100vh - 73px);
+        }
+
+        @media (max-width: 380px) {
+          .ban-map-container {
+            height: calc(100vh - 63px);
+          }
+        }
+      `}</style>
     </Page>
   )
 }

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {sortBy} from 'lodash'
 
@@ -7,77 +7,62 @@ import Table from './table'
 import Head from './table/head'
 import Body from './table/body'
 
-class TableControl extends React.Component {
-  state = {
-    order: 'desc',
-    actived: null,
-    wrap: true
-  }
+const LIST_LIMIT = 10
 
-  componentDidMount() {
-    const {initialSort} = this.props
+const TableControl = ({list, headers, genItems, initialSort, selected, handleSelect}) => {
+  const [order, setOrder] = useState('desc')
+  const [actived, setActived] = useState(initialSort ? initialSort.title : null)
+  const [sortedList, setSortedList] = useState(list)
+  const [displayedList, setDisplayedList] = useState(sortedList)
+  const [wrap, setWrap] = useState(list.length > LIST_LIMIT)
 
-    if (initialSort) {
-      this.sort(initialSort.func, initialSort.title)
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const {initialSort} = nextProps
-
-    if (initialSort) {
-      this.setState(() => ({
-        sortedList: sortBy(nextProps.list, initialSort.func),
-        order: 'asc',
-        actived: initialSort.title
-      }))
-    }
-  }
-
-  sort = (func, header) => {
-    const {order} = this.state
-    const {list} = this.props
+  const sort = useCallback((func, header) => {
     let sorted = sortBy(list, func)
 
     if (order === 'asc') {
       sorted = sorted.reverse()
     }
 
-    this.setState({
-      sortedList: sorted,
-      actived: header,
-      order: order === 'asc' ? 'desc' : 'asc'
-    })
-  }
+    setSortedList(sorted)
+    setOrder(order === 'asc' ? 'desc' : 'asc')
+    setActived(header)
+  }, [list, order])
 
-  handleWrap = () => {
-    this.setState(state => ({
-      wrap: !state.wrap
-    }))
-  }
+  const handleWrap = useCallback(() => {
+    setWrap(!wrap)
+  }, [wrap])
 
-  render() {
-    const {wrap, order, sortedList, actived} = this.state
-    const {list, headers, genItems, selected, handleSelect} = this.props
-    const disabledWrap = list.length < 9
-    const orderedList = sortedList || list
-    const displayedList = wrap && !disabledWrap ?
-      orderedList.slice(0, 9) :
-      orderedList
+  useEffect(() => {
+    if (sortedList) {
+      setDisplayedList(sortedList)
+    }
+  }, [sortedList])
 
-    return (
-      <Table list={displayedList} wrap={wrap} disabledWrap={disabledWrap} onWrap={this.handleWrap}>
-        <Fragment>
-          <Head headers={headers} order={order} actived={actived} sort={this.sort} />
-          <Body
-            items={genItems(displayedList)}
-            wrapped={wrap && !disabledWrap}
-            selected={selected}
-            handleSelect={handleSelect} />
-        </Fragment>
-      </Table>
-    )
-  }
+  useEffect(() => {
+    setDisplayedList(wrap ? [...sortedList].slice(0, LIST_LIMIT) : sortedList)
+  }, [wrap, sortedList])
+
+  useEffect(() => {
+    if (list) {
+      setSortedList(initialSort ?
+        sortBy(list, initialSort.func) :
+        list
+      )
+    }
+  }, [initialSort, list])
+
+  return (
+    <Table wrap={wrap} disabledWrap={list.length < LIST_LIMIT} onWrap={handleWrap}>
+      <>
+        <Head headers={headers} order={order} actived={actived} sort={sort} />
+        <Body
+          items={genItems(displayedList)}
+          wrapped={wrap}
+          selected={selected}
+          handleSelect={handleSelect} />
+      </>
+    </Table>
+  )
 }
 
 TableControl.propTypes = {

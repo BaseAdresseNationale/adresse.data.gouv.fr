@@ -90,7 +90,8 @@ Infos.propTypes = {
   voie: PropTypes.shape({
     numeros: PropTypes.array.isRequired,
     entries: PropTypes.array.isRequired,
-    codeVoie: PropTypes.string.isRequired
+    codeVoie: PropTypes.string.isRequired,
+    destination: PropTypes.array.isRequired
   })
 }
 
