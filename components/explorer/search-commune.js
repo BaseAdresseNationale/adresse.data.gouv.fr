@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import Router from 'next/router'
 import {debounce} from 'lodash'
 import FaSearch from 'react-icons/lib/fa/search'
 
 import {search} from '../../lib/explore/api'
+import {useInput} from '../../hooks/input'
 
 import Section from '../section'
 import SearchInput from '../search-input'
@@ -11,18 +12,17 @@ import Notification from '../notification'
 import renderAddok from '../search-input/render-addok'
 import BetaRibbon from '../beta-ribbon'
 
-class Explorer extends React.Component {
-  state = {
-    input: '',
-    results: [],
-    loading: false,
-    error: null
-  }
+const Explorer = () => {
+  const [input, setInput] = useInput('')
+  const [results, setResults] = useState([])
+  const [orderResults, setOrderResults] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
 
-  handleSelect = feature => {
+  const handleSelect = feature => {
     const {citycode, id, housenumber, type} = feature.properties
     const streetCode = type === 'municipality' ? null : id.split('-')[1]
-    this.setState({input: feature.name})
+
     let href = ''
     let as = ''
 
@@ -40,99 +40,89 @@ class Explorer extends React.Component {
     Router.push(href, as)
   }
 
-  handleInput = input => {
-    this.setState(() => {
-      if (input) {
-        this.handleSearch(input)
-      }
-
-      return {
-        input,
-        results: [],
-        loading: true,
-        error: null
-      }
-    })
-  }
-
-  handleSearch = debounce(async input => {
+  const handleSearch = useCallback(debounce(async input => {
     try {
       const results = await search(input)
-      this.setState({
-        results: results.features.splice(0, 5) || [],
-        loading: false
-      })
+      setResults(results.features.splice(0, 5) || [])
     } catch (err) {
-      this.setState({
-        results: [],
-        loading: false,
-        error: err
-      })
+      setError(err)
     }
-  }, 400)
 
-  getFeatureValue = feature => {
+    setLoading(false)
+  }, 300), [])
+
+  const getFeatureValue = feature => {
     return feature.header ? feature.header : feature.properties.name
   }
 
-  render() {
-    const {input, results, loading, error} = this.state
-    let orderResults = []
-
-    orderResults = []
-    results.map(feature => {
-      if (!orderResults.find(item => item.header === feature.properties.type)) {
-        orderResults.push({
-          header: feature.properties.type
-        })
-      }
-
-      return orderResults.push(feature)
-    })
-
-    return (
-      <Section background='color'>
-        <div className='beta'>
-          <h2><FaSearch /> Rechercher une commune, une voie ou une adresse</h2>
-          <BetaRibbon />
-        </div>
-
-        <div className='input'>
-          <SearchInput
-            value={input}
-            results={orderResults}
-            loading={loading}
-            placeholder='Exemple : place du capitole toulouse'
-            onSelect={this.handleSelect}
-            onSearch={this.handleInput}
-            renderItem={renderAddok}
-            getItemValue={this.getFeatureValue} />
-        </div>
-
-        {error &&
-          <div className='error'>
-            <Notification message={error.message} type='error' />
-          </div>
+  useEffect(() => {
+    if (results && results.length > 0) {
+      const orderResults = []
+      results.map(feature => {
+        if (!orderResults.find(item => item.header === feature.properties.type)) {
+          orderResults.push({
+            header: feature.properties.type
+          })
         }
 
-        <style jsx>{`
-            .error {
-              margin: 1em 0;
-            }
+        return orderResults.push(feature)
+      })
 
-            .beta {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            }
+      setOrderResults(orderResults)
+    }
+  }, [results])
 
-            .beta h2 {
-              margin-right: 45px;
-            }
-          `}</style>
-      </Section>
-    )
-  }
+  useEffect(() => {
+    if (input) {
+      setResults([])
+      setLoading(true)
+      setError(null)
+      handleSearch(input)
+    }
+  }, [handleSearch, input])
+
+  return (
+    <Section background='color'>
+      <div className='beta'>
+        <h2><FaSearch /> Rechercher une commune, une voie ou une adresse</h2>
+        <BetaRibbon />
+      </div>
+
+      <div className='input'>
+        <SearchInput
+          value={input}
+          results={orderResults}
+          loading={loading}
+          placeholder='Exemple : place du capitole toulouse'
+          onSelect={handleSelect}
+          onSearch={setInput}
+          renderItem={renderAddok}
+          getItemValue={getFeatureValue} />
+      </div>
+
+      {error &&
+        <div className='error'>
+          <Notification message={error.message} type='error' />
+        </div>
+      }
+
+      <style jsx>{`
+          .error {
+            margin: 1em 0;
+          }
+
+          .beta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .beta h2 {
+            margin-right: 45px;
+          }
+        `}</style>
+    </Section>
+  )
 }
 
 export default Explorer

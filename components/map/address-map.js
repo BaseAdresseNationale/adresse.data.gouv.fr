@@ -1,184 +1,154 @@
 /* eslint react/no-danger: off */
-import React from 'react'
+import React, {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {isEqual} from 'lodash'
 
 import theme from '../../styles/theme'
 
-import Loader from '../loader'
-
-const popupHTML = address => {
-  const {id, context, label, name, postcode, citycode, type, city} = address.properties
+const Address = ({id, context, label, name, postcode, citycode, type, city}) => {
   const types = {
     locality: 'Lieu-dit',
     street: 'Voie',
     housenumber: 'Numéro'
   }
 
-  return (`
-      <div>
-        <h3>${types[type]}</h3>
-        <p>
-          <div>${name}</div>
-          <div>${postcode} ${city}</div>
-          <div>Code INSEE : ${citycode}</div>
-        </p>
-        <div>Contexte : ${context}</div>
-        <div>Label : ${label}</div>
-        <div>ID : ${id}</div>
-      </div>
-      `)
+  return (
+    <div>
+      <h3>{types[type]}</h3>
+      <p>
+        <div>{name}</div>
+        <div>{postcode} {city}</div>
+        <div>Code INSEE : {citycode}</div>
+      </p>
+      <div>Contexte : {context}</div>
+      <div>Label : {label}</div>
+      <div>ID : {id}</div>
+    </div>
+  )
 }
 
-class AddressMap extends React.Component {
-  static propTypes = {
-    map: PropTypes.object.isRequired,
-    marker: PropTypes.object.isRequired,
-    data: PropTypes.object,
-    loading: PropTypes.bool,
-    center: PropTypes.array,
-    zoom: PropTypes.number,
-    mapUpdate: PropTypes.func.isRequired
-  }
+Address.propTypes = {
+  id: PropTypes.string.isRequired,
+  context: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  postcode: PropTypes.string.isRequired,
+  citycode: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired
+}
 
-  static defaultProps = {
-    data: true,
-    loading: false,
-    center: null,
-    zoom: null
-  }
+const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordinates, setInfos}) => {
+  const onDragEnd = useCallback(() => {
+    const {lng, lat} = map.getCenter()
+    handleDrag([lng, lat])
+  }, [handleDrag, map])
 
-  componentDidMount() {
-    const {map, zoom, center} = this.props
+  const onZoom = useCallback(() => {
+    const zoom = map.getZoom()
+    handleZoom(zoom)
+  }, [handleZoom, map])
 
-    map.setZoom(zoom)
-    map.setCenter(center)
+  const inBounds = useCallback(lnglat => {
+    const bounds = map.getBounds()
+    let lng
 
-    map.once('load', this.onLoad)
-
-    map.on('styledata', this.onStyleData)
-
-    map.on('dragend', this.onDragEnd.bind(this))
-    map.on('zoom', this.onZoom.bind(this))
-  }
-
-  componentDidUpdate(prevProps) {
-    const {map, data, center, zoom} = this.props
-
-    if (!isEqual(data, prevProps.data)) {
-      this.updateMarker()
-    }
-
-    if (center !== prevProps.center) {
-      map.setCenter(center)
-    }
-
-    if (zoom !== prevProps.zoom) {
-      map.setZoom(zoom)
-    }
-  }
-
-  componentWillUnmount() {
-    const {map} = this.props
-
-    map.off('styledata', this.onStyleData)
-
-    map.off('dragend', this.onDragEnd.bind(this))
-    map.off('zoom', this.onZoom.bind(this))
-  }
-
-  onStyleData = () => {
-    const {map} = this.props
-
-    if (map.isStyleLoaded()) {
-      if (!map.getSource('data')) {
-        this.onLoad()
-      }
+    const multLng = (lnglat[0] - bounds._ne.lng) * (lnglat[0] - bounds._sw.lng)
+    if (bounds._ne.lng > bounds._sw.lng) {
+      lng = multLng < 0
     } else {
-      setTimeout(this.onStyleData, 1000)
+      lng = multLng > 0
     }
-  }
 
-  updateMarker = () => {
-    const {map, marker, data} = this.props
-    const popup = marker.getPopup()
+    const lat = (lnglat[1] - bounds._ne.lat) * (lnglat[1] - bounds._sw.lat) < 0
+    return lng && lat
+  }, [map])
 
+  useEffect(() => {
+    map.on('dragend', onDragEnd)
+    map.on('zoomend', onZoom)
+
+    return () => {
+      map.off('dragend', onDragEnd)
+      map.off('zoomend', onZoom)
+    }
+
+    // No dependency in order to mock a didMount and avoid duplicating events.
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     if (data) {
-      marker.setLngLat(data.geometry.coordinates)
-      popup.setHTML(popupHTML(data))
-      marker.addTo(map)
+      const center = data.geometry.coordinates
+      const zoom = map.getZoom()
+
+      if (zoom < 15) {
+        map.setZoom(18)
+      }
+
+      setMarkerCoordinates(center)
+
+      if (!inBounds(center)) {
+        map.setCenter(center)
+      }
+
+      setInfos(<Address {...data.properties} />)
     } else {
-      marker.setLngLat([0, 0])
+      setMarkerCoordinates(null)
+      setInfos(null)
     }
-  }
+  }, [data, inBounds, map, marker, setInfos, setMarkerCoordinates])
 
-  onLoad = () => {
-    this.updateMarker()
-  }
-
-  onDragEnd = () => {
-    const {map, mapUpdate} = this.props
-    const {lng, lat} = map.getCenter()
-    const zoom = map.getZoom()
-
-    mapUpdate([lng, lat], zoom, true)
-  }
-
-  onZoom = () => {
-    const {map, mapUpdate} = this.props
-    const {lng, lat} = map.getCenter()
-    const zoom = map.getZoom()
-
-    mapUpdate([lng, lat], zoom, false)
-  }
-
-  render() {
-    const {loading} = this.props
-
-    return (
-      <div>
-        {loading ?
-          <div className='centered'><Loader /></div> :
-          <div className='map-center centered' onClick={this.handleClick} />
+  return (
+    <div>
+      <div className='map-center centered' />
+      <style jsx>{`
+        .centered {
+          z-index: 1;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
 
-        <style jsx>{`
-          .centered {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
+        .map-center {
+          z-index: 1;
+          width: 40px;
+          height: 40px;
+        }
 
-          .map-center {
-            z-index: 1;
-            margin-top: 50px;
-            width: 40px;
-            height: 40px;
-          }
+        .map-center:before, .map-center:after {
+          content: "";
+          position: absolute;
+          background-color: ${theme.border};
+        }
 
-          .map-center:before, .map-center:after {
-            content: "";
-            position: absolute;
-            z-index: 1;
-            background-color: ${theme.border};
-          }
+        .map-center:before {
+          left: 50%;
+          width: 2px;
+          height: 100%;
+        }
 
-          .map-center:before {
-            left: 50%;
-            width: 2px;
-            height: 100%;
-          }
+        .map-center:after {
+          top: 50%;
+          height: 2px;
+          width: 100%;
+        }
+      `}</style>
+    </div>
+  )
+}
 
-          .map-center:after {
-            top: 50%;
-            height: 2px;
-            width: 100%;
-          }
-        `}</style>
-      </div>
-    )
-  }
+AddressMap.propTypes = {
+  map: PropTypes.object.isRequired,
+  marker: PropTypes.object.isRequired,
+  data: PropTypes.object,
+  handleDrag: PropTypes.func.isRequired,
+  handleZoom: PropTypes.func.isRequired,
+  setMarkerCoordinates: PropTypes.func.isRequired,
+  setInfos: PropTypes.func.isRequired
+}
+
+AddressMap.defaultProps = {
+  data: true
 }
 
 export default AddressMap

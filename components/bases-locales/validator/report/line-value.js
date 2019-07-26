@@ -77,7 +77,8 @@ class LineValue extends React.Component {
 LineValue.propTypes = {
   value: PropTypes.shape({
     rawValue: PropTypes.string,
-    errors: PropTypes.array
+    errors: PropTypes.array,
+    warnings: PropTypes.array
   }).isRequired,
   unknownField: PropTypes.bool.isRequired,
   handleHover: PropTypes.func.isRequired

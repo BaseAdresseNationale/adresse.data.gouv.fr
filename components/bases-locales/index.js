@@ -107,13 +107,15 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <Section title='État du déploiement des Bases Adresse Locales' />
-      <div>
+      <div className='bal-cover-map-container'>
         <Mapbox>
-          {(map, marker, popUp) => (
+          {({map, popup, setSources, setLayers}) => (
             <BalCoverMap
               map={map}
-              popUp={popUp}
+              popup={popup}
               data={mapData}
+              setSources={setSources}
+              setLayers={setLayers}
             />
           )}
         </Mapbox>
@@ -189,6 +191,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           justify-content: center;
         }
 
+        .bal-cover-map-container {
+          height: 500px;
+        }
+
         a {
           text-align: center;
         }
@@ -204,6 +210,7 @@ BasesLocales.propTypes = {
     model: PropTypes.object.isRequired,
     count: PropTypes.number.isRequired,
     numerosCount: PropTypes.number.isRequired,
+    communesCount: PropTypes.number.isRequired,
     license: PropTypes.object.isRequired
   }).isRequired
 }

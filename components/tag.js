@@ -10,11 +10,14 @@ const Tag = ({type, style}) => {
       {type}
       <style jsx>{`
         .tag {
+          display: flex;
           margin: 2px;
           color: ${tag.color};
           background-color: ${tag.background};
           padding: 2px 4px;
           border-radius: 2px;
+          justify-content: center;
+          align-items: center;
         }
 
         @media (min-width: 460px) {

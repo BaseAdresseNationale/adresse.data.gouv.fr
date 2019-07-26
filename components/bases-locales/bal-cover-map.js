@@ -1,4 +1,3 @@
-/* eslint react/no-danger: off */
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
@@ -20,29 +19,79 @@ const popupHTML = ({properties}) => renderToString(
   </div>
 )
 
-class AddressMap extends React.Component {
+class BalCoverMap extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
     data: PropTypes.object,
-    popUp: PropTypes.object
+    popup: PropTypes.object,
+    setSources: PropTypes.func.isRequired,
+    setLayers: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     data: null,
-    popUp: null
+    popup: null
   }
 
   componentDidMount() {
-    const {map} = this.props
+    const {map, data, setSources, setLayers} = this.props
+    const sources = [{
+      name: 'data',
+      type: 'geojson',
+      generateId: true,
+      data
+    }]
+    const layers = [
+      {
+        id: 'bal-polygon-fill',
+        type: 'fill',
+        source: 'data',
+        paint: {
+          'fill-color': [
+            'case',
+            ['==', ['get', 'license'], 'odc-odbl'],
+            theme.colors.orange,
+            ['==', ['get', 'license'], 'lov2'],
+            theme.colors.green,
+            theme.colors.red
+          ],
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            0.5,
+            0.1
+          ]
+        },
+        filter: ['==', '$type', 'Polygon']
+      },
+      {
+        id: 'bal-polygon-outline',
+        type: 'line',
+        source: 'data',
+        paint: {
+          'line-color': [
+            'case',
+            ['==', ['get', 'license'], 'odc-odbl'],
+            theme.colors.orange,
+            ['==', ['get', 'license'], 'lov2'],
+            theme.colors.green,
+            theme.colors.red
+          ],
+          'line-width': 2
+        },
+        filter: ['==', '$type', 'Polygon']
+      }
+    ]
 
-    map.once('load', this.onLoad)
+    setSources(sources)
+    setLayers(layers)
 
-    map.on('styledata', this.onStyleData)
+    map.once('load', () => {
+      map.on('mousemove', 'bal-polygon-fill', this.onMouseMove.bind(this, 'bal-polygon-fill'))
+      map.on('mouseleave', 'bal-polygon-fill', this.onMouseLeave.bind(this, 'bal-polygon-fill'))
 
-    map.on('mousemove', 'bal-polygon-fill', this.onMouseMove.bind(this, 'bal-polygon-fill'))
-    map.on('mouseleave', 'bal-polygon-fill', this.onMouseLeave.bind(this, 'bal-polygon-fill'))
-
-    map.on('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
+      map.on('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
+    })
   }
 
   componentWillUnmount() {
@@ -56,71 +105,8 @@ class AddressMap extends React.Component {
     map.off('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
   }
 
-  onStyleData = () => {
-    const {map} = this.props
-
-    if (map.isStyleLoaded()) {
-      if (!map.getSource('data')) {
-        this.onLoad()
-      }
-    } else {
-      setTimeout(this.onStyleData, 1000)
-    }
-  }
-
-  onLoad = () => {
-    const {map, data} = this.props
-
-    map.addSource('data', {
-      type: 'geojson',
-      generateId: true,
-      data
-    })
-
-    map.addLayer({
-      id: 'bal-polygon-fill',
-      type: 'fill',
-      source: 'data',
-      paint: {
-        'fill-color': [
-          'case',
-          ['==', ['get', 'license'], 'odc-odbl'],
-          theme.colors.orange,
-          ['==', ['get', 'license'], 'lov2'],
-          theme.colors.green,
-          theme.colors.red
-        ],
-        'fill-opacity': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          0.5,
-          0.1
-        ]
-      },
-      filter: ['==', '$type', 'Polygon']
-    })
-
-    map.addLayer({
-      id: 'bal-polygon-outline',
-      type: 'line',
-      source: 'data',
-      paint: {
-        'line-color': [
-          'case',
-          ['==', ['get', 'license'], 'odc-odbl'],
-          theme.colors.orange,
-          ['==', ['get', 'license'], 'lov2'],
-          theme.colors.green,
-          theme.colors.red
-        ],
-        'line-width': 2
-      },
-      filter: ['==', '$type', 'Polygon']
-    })
-  }
-
   onMouseMove = (layer, event) => {
-    const {map, popUp} = this.props
+    const {map, popup} = this.props
     const canvas = map.getCanvas()
     canvas.style.cursor = 'pointer'
 
@@ -133,13 +119,13 @@ class AddressMap extends React.Component {
     this.highlighted = feature.id
     map.setFeatureState({source: 'data', id: this.highlighted}, {hover: true})
 
-    popUp.setLngLat(event.lngLat)
+    popup.setLngLat(event.lngLat)
       .setHTML(popupHTML(feature))
       .addTo(map)
   }
 
   onMouseLeave = () => {
-    const {map, popUp} = this.props
+    const {map, popup} = this.props
     const canvas = map.getCanvas()
     canvas.style.cursor = ''
 
@@ -147,7 +133,7 @@ class AddressMap extends React.Component {
       map.setFeatureState({source: 'data', id: this.highlighted}, {hover: false})
     }
 
-    popUp.remove()
+    popup.remove()
   }
 
   onClick = (layer, event) => {
@@ -200,4 +186,4 @@ class AddressMap extends React.Component {
   }
 }
 
-export default AddressMap
+export default BalCoverMap

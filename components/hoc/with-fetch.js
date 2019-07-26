@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import hoist from 'hoist-non-react-statics'
 
@@ -8,63 +8,42 @@ export default (mapStateWithProps, options) => Component => {
   mapStateWithProps = mapStateWithProps || (state => state)
   options = options || {}
 
-  const Extended = class extends React.Component {
-    static propTypes = {
-      promise: PropTypes.instanceOf(Promise)
-    }
+  const Extended = ({promise, ...props}) => {
+    const [loading, setLoading] = useState(true)
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
 
-    static defaultProps = {
-      promise: null
-    }
+    useEffect(() => {
+      const resolvePromise = async promise => {
+        try {
+          const data = mapStateWithProps(await promise)
 
-    state = {
-      loading: true,
-      data: null,
-      error: null
-    }
+          setData(data)
+        } catch (err) {
+          setError(err)
+        }
 
-    async resolvePromise(promise) {
-      try {
-        const data = mapStateWithProps(await promise)
-
-        this.setState(() => ({
-          data,
-          loading: false
-        }))
-      } catch (err) {
-        this.setState(() => ({
-          error: err,
-          loading: false
-        }))
+        setLoading(false)
       }
-    }
-
-    componentDidMount() {
-      const {promise} = this.props
 
       if (promise) {
-        this.resolvePromise(promise)
+        resolvePromise(promise)
       }
-    }
+    }, [promise])
 
-    UNSAFE_componentWillReceiveProps(newProps) {
-      const {promise} = this.props
+    return (
+      <LoadingContent loading={loading} error={error}>
+        <Component {...data} {...props} />
+      </LoadingContent>
+    )
+  }
 
-      if (newProps.promise && promise !== newProps.promise) {
-        this.resolvePromise(newProps.promise)
-      }
-    }
+  Extended.propTypes = {
+    promise: PropTypes.instanceOf(Promise)
+  }
 
-    render() {
-      const {promise, ...props} = this.props
-      const {loading, data, error} = this.state
-
-      return (
-        <LoadingContent loading={loading} error={error}>
-          <Component {...data} {...props} />
-        </LoadingContent>
-      )
-    }
+  Extended.defaultProps = {
+    promise: null
   }
 
   return hoist(Extended, Component)

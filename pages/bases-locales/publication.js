@@ -21,16 +21,15 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const [step, setStep] = useState(bal ? 2 : 1)
   const [error, setError] = useState(null)
 
-  const handleValidBal = useCallback(() => {
+  const handleValidBal = () => {
     setStep(2)
-  })
+  }
 
-  const handlePublicationRequest = useCallback(() => {
+  const handlePublicationRequest = () => {
     setStep(3)
-  })
+  }
 
-  const handleSendMail = useCallback(() => {
-  })
+  const handleSendMail = () => {}
 
   const handlePublication = useCallback(async () => {
     try {
@@ -42,7 +41,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     } catch (error) {
       setError(error.message)
     }
-  })
+  }, [bal._id, submissionId])
 
   useEffect(() => {
     if (bal) {
@@ -79,7 +78,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     } else {
       setError('Aucune base adresses locales n’a été trouvée')
     }
-  }, [bal, error])
+  }, [bal, error, submissionId])
 
   if (error) {
     return (
