@@ -209,7 +209,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
 
           .tools {
             position: absolute;
-            z-index: 999;
+            z-index: 900;
             padding: 0.5em;
             margin: 1em;
             border-radius: 4px;
