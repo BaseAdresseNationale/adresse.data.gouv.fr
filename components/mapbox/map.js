@@ -36,7 +36,7 @@ const STYLES = {
   }
 }
 
-const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, interactive, loading, error, children}) => {
+const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, interactive, control, loading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
@@ -86,6 +86,10 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
         zoom: defaultZoom || DEFAULT_ZOOM,
         interactive
       })
+
+      if (control) {
+        map.addControl(new mapboxgl.NavigationControl({showCompass: false}))
+      }
 
       map.once('load', () => {
         setIsFirstLoad(true)
@@ -205,7 +209,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
 
           .tools {
             position: absolute;
-            z-index: 999;
+            z-index: 900;
             padding: 0.5em;
             margin: 1em;
             border-radius: 4px;
@@ -239,6 +243,7 @@ Map.propTypes = {
     'ortho'
   ]),
   interactive: PropTypes.bool,
+  control: PropTypes.bool,
   defaultCenter: PropTypes.array,
   defaultZoom: PropTypes.number,
   loading: PropTypes.bool,
@@ -250,6 +255,7 @@ Map.defaultProps = {
   bbox: null,
   defaultStyle: 'vector',
   interactive: true,
+  control: true,
   defaultCenter: DEFAULT_CENTER,
   defaultZoom: DEFAULT_ZOOM,
   loading: false,

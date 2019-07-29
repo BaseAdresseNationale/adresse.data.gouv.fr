@@ -118,7 +118,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
   }, [zoom, center, getNearestAddress])
 
   return (
-    <div>
+    <div className='interactive-map'>
       <div className='input'>
         <SearchInput
           value={input}
@@ -153,43 +153,41 @@ const Map = ({defaultCenter, defaultZoom}) => {
       </div>
 
       <style jsx>{`
+        .interactive-map {
+          position: relative;
+        }
+
         .input {
-          z-index: 10;
+          z-index: 999;
           width: 40%;
           min-width: 260px;
           position: absolute;
-          top: 90px;
+          top: 16px;
           left: 50%;
           transform: translate(-50%);
         }
 
         .map-container {
           width: 100%;
+          position: relative;
           height: calc(100vh - 73px);
-        }
-
-        @media (max-width: 380px) {
-          .map-container {
-            height: calc(100vh - 63px);
-          }
         }
 
         @media (max-width: 700px) {
           .input {
-            position: absolute;
             min-width: 100%;
-            top: 73px;
+            top: 0;
             left: 0;
             transform: none;
           }
-        }
 
-        @media (max-width: 380px) {
-          .input {
-            top: 63px;
+          .map-container {
+            width: 100%;
+            position: relative;
+            height: calc(100vh - 134px);
+            top: 56px;
           }
         }
-
       `}</style>
     </div >
   )
