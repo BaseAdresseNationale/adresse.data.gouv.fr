@@ -36,80 +36,68 @@ export default () => (
             <p>Le retour est un geojson <i>FeatureCollection</i> respectant la spec <a href='https://github.com/yohanboniface/geocodejson-spec'>GeoCodeJSON</a>:</p>
             <pre>
               <code>{`{
-  "attribution": "BAN",
-  "licence": "ODbL 1.0",
-  "query": "8 bd du port",
-  "type": "FeatureCollection",
-  "version": "draft",
-  "features": [
-    {
-      "properties": {
-        "context": "80, Somme, Picardie",
-        "housenumber": "8",
-        "label": "8 Boulevard du Port 80000 Amiens",
-        "postcode": "80000",
-        "citycode": "80021",
-        "id": "ADRNIVX_0000000260875032",
-        "score": 0.3351181818181818,
-        "name": "8 Boulevard du Port",
-        "city": "Amiens",
-        "type": "housenumber"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          2.29009,
-          49.897446
-        ]
-      },
-      "type": "Feature"
-    },
-    {
-      "properties": {
-        "context": "34, H\u00E9rault, Languedoc-Roussillon",
-        "housenumber": "8",
-        "label": "8 Boulevard du Port 34140 M\u00E8ze",
-        "postcode": "34140",
-        "citycode": "34157",
-        "id": "ADRNIVX_0000000284423783",
-        "score": 0.3287575757575757,
-        "name": "8 Boulevard du Port",
-        "city": "M\u00E8ze",
-        "type": "housenumber"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          3.605875,
-          43.425232
-        ]
-      },
-      "type": "Feature"
-    }
-  ]
+   "type":"FeatureCollection",
+   "version":"draft",
+   "features":[
+      {
+         "type":"Feature",
+         "geometry":{
+            "type":"Point",
+            "coordinates":[
+               2.290084,
+               49.897443
+            ]
+         },
+         "properties":{
+            "label":"8 Boulevard du Port 80000 Amiens",
+            "score":0.49159121588068583,
+            "housenumber":"8",
+            "id":"80021_6590_00008",
+            "type":"housenumber",
+            "name":"8 Boulevard du Port",
+            "postcode":"80000",
+            "citycode":"80021",
+            "x":648952.58,
+            "y":6977867.25,
+            "city":"Amiens",
+            "context":"80, Somme, Hauts-de-France",
+            "importance":0.6706612694243868,
+            "street":"Boulevard du Port"
+         }
+      }
+   ],
+   "attribution":"BAN",
+   "licence":"ODbL 1.0",
+   "query":"8 bd du port",
+   "limit":1
 }`}
               </code>
             </pre>
+            <p>Les coordonnées GeoJSON sont exprimées en WGS-84 (EPSG 4326)</p>
             <p>Les attributs retournés sont :</p>
             <ul>
-              <li><em>id</em> : identifiant de l’adresse (non stable: actuellement identifiant IGN)</li>
-              <li><em>type</em> : type de résultat trouvé</li>
+              <li><b>id</b> : identifiant de l’adresse (clef d’interopérabilité)</li>
+              <li><b>type</b> : type de résultat trouvé</li>
               <ul>
-                <li><em>housenumber</em> : numéro « à la plaque »</li>
-                <li><em>street</em> : position « à la voie », placé approximativement au centre de celle-ci</li>
-                <li><em>locality</em> : lieu-dit</li>
-                <li><em>municipality</em> : numéro « à la commune »</li>
+                <li><b>housenumber</b> : numéro « à la plaque »</li>
+                <li><b>street</b> : position « à la voie », placé approximativement au centre de celle-ci</li>
+                <li><b>locality</b> : lieu-dit</li>
+                <li><b>municipality</b> : numéro « à la commune »</li>
               </ul>
-              <li><em>score</em> : valeur de 0 à 1 indiquant la pertinence du résultat</li>
-              <li><em>housenumber</em> : numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
-              <li><em>name</em> : numéro éventuel et nom de voie ou lieu dit</li>
-              <li><em>postcode</em> : code postal</li>
-              <li><em>citycode</em> : code INSEE de la commune</li>
-              <li><em>city</em> : nom de la commune</li>
-              <li><em>oldcitycode</em> : code INSEE de la commune ancienne (le cas échéant)</li>
-              <li><em>oldcity</em> : nom de la commune ancienne (le cas échéant)</li>
-              <li><em>context</em> : n° de département, nom de département et de région</li>
-              <li><em>label</em> : libellé complet de l’adresse</li>
+              <li><b>score</b> : valeur de 0 à 1 indiquant la pertinence du résultat</li>
+              <li><b>housenumber</b> : numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
+              <li><b>name</b> : numéro éventuel et nom de voie ou lieu dit</li>
+              <li><b>postcode</b> : code postal</li>
+              <li><b>citycode</b> : code INSEE de la commune</li>
+              <li><b>city</b> : nom de la commune</li>
+              <li><b>district</b> : nom de l’arrondissement (Paris/Lyon/Marseille)</li>
+              <li><b>oldcitycode</b> : code INSEE de la commune ancienne (le cas échéant)</li>
+              <li><b>oldcity</b> : nom de la commune ancienne (le cas échéant)</li>
+              <li><b>context</b> : n° de département, nom de département et de région</li>
+              <li><b>label</b> : libellé complet de l’adresse</li>
+              <li><b>x</b> : coordonnées géographique en projection légale</li>
+              <li><b>y</b> : coordonnées géographique en projection légale</li>
+              <li><b>importance</b> : indicateur d’importance (champ technique)</li>
             </ul>
           </div>
         </div>
