@@ -57,7 +57,7 @@
     "eslint": "^6.1.0",
     "eslint-config-xo-nextjs": "^1.4.0",
     "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^1.6.1",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "lerna-changelog": "^0.8.2",
