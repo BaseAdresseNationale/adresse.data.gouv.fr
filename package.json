@@ -33,7 +33,7 @@
     "marked": "^0.6.2",
     "next": "^9.0.2",
     "next-runtime-dotenv": "^1.2.0",
-    "papaparse": "^4.6.3",
+    "papaparse": "^5.0.1",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.5.4",
     "react": "^16.8.6",
