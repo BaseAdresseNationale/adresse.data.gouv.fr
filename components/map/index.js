@@ -41,40 +41,6 @@ const Map = ({defaultCenter, defaultZoom}) => {
     setAddress(address)
   }
 
-  const handleSearch = debounce(async () => {
-    const types = [
-      'locality',
-      'street',
-      'housenumber'
-    ]
-
-    try {
-      const args = {q: input}
-
-      if (center) {
-        const [lng, lat] = center
-        args.lng = lng
-        args.lat = lat
-      }
-
-      const req = search(args)
-
-      currentRequest = req
-
-      const response = await search(args)
-      if (currentRequest === req) {
-        const results = response.features.filter(address =>
-          types.includes(address.properties.type) || []
-        )
-        setResults(results)
-      }
-    } catch (err) {
-      setError(err.message)
-    }
-
-    setLoading(false)
-  }, [input, center], 400)
-
   const getNearestAddress = useCallback(async () => {
     setLoading(true)
 
@@ -99,11 +65,45 @@ const Map = ({defaultCenter, defaultZoom}) => {
   }, [address, setInput, setPlaceholder])
 
   useEffect(() => {
-    if (input && input.length > 0) {
+    const handleSearch = debounce(async () => {
+      const types = [
+        'locality',
+        'street',
+        'housenumber'
+      ]
+
+      try {
+        const args = {q: input}
+
+        if (center) {
+          const [lng, lat] = center
+          args.lng = lng
+          args.lat = lat
+        }
+
+        const req = search(args)
+
+        currentRequest = req
+
+        const response = await search(args)
+        if (currentRequest === req) {
+          const results = response.features.filter(address =>
+            types.includes(address.properties.type) || []
+          )
+          setResults(results)
+        }
+      } catch (err) {
+        setError(err.message)
+      }
+
+      setLoading(false)
+    }, [input, center], 400)
+
+    if (input) {
       setError(null)
       handleSearch()
     }
-  }, [handleSearch, input])
+  }, [center, input])
 
   useEffect(() => {
     if (center && zoom) {
