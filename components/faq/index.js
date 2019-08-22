@@ -87,7 +87,7 @@ const About = () => (
         <Question
           question='Quelle est la licence des données proposées par l’API de géocodage ?'
         >
-          <p>Les données utilisées par <Link href='/api'><a>l’API disponible sur ce site</a></Link> sont celles sous licence ODbL.</p>
+          <p>Les données utilisées sont celle du jeu de données <Link href='/donnees-nationales'>Adresses ODbL</Link></p>
         </Question>
 
         <Question
