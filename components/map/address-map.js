@@ -15,17 +15,17 @@ const Address = ({id, context, label, name, postcode, citycode, type, city, dist
     <div>
       <h3>{types[type]}</h3>
       <p>
-        <div>{name}</div>
-        {district && <div>{district}</div>}
-        <div>{postcode} {city}</div>
+        <div><b>{name}</b></div>
+        {district && <div><b>{district}</b></div>}
+        <div><b>{postcode} - {city}</b></div>
         {oldcity && (
-          <div>Anciennement {oldcitycode} {oldcity}</div>
+          <div style={{fontStyle: 'italic'}}>(Anciennement {oldcitycode} - {oldcity})</div>
         )}
-        <div>Code INSEE : {citycode}</div>
+        <div>Code INSEE : <b>{citycode}</b></div>
       </p>
-      <div>Contexte : {context}</div>
-      <div>Label : {label}</div>
-      <div>ID : {id}</div>
+      <div>Contexte : <b>{context}</b></div>
+      <div>Label : <b>{label}</b></div>
+      <div>ID : <b>{id}</b></div>
     </div>
   )
 }
