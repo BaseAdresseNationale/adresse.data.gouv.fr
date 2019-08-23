@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import theme from '../../styles/theme'
 
-const Address = ({id, context, label, name, postcode, citycode, type, city}) => {
+const Address = ({id, context, label, name, postcode, citycode, type, city, district, oldcity, oldcitycode}) => {
   const types = {
     locality: 'Lieu-dit',
     street: 'Voie',
@@ -16,7 +16,11 @@ const Address = ({id, context, label, name, postcode, citycode, type, city}) => 
       <h3>{types[type]}</h3>
       <p>
         <div>{name}</div>
+        {district && <div>{district}</div>}
         <div>{postcode} {city}</div>
+        {oldcity && (
+          <div>Anciennement {oldcitycode} {oldcity}</div>
+        )}
         <div>Code INSEE : {citycode}</div>
       </p>
       <div>Contexte : {context}</div>
