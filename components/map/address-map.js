@@ -30,6 +30,12 @@ const Address = ({id, context, label, name, postcode, citycode, type, city, dist
   )
 }
 
+Address.defaultProps = {
+  district: null,
+  oldcity: null,
+  oldcitycode: null
+}
+
 Address.propTypes = {
   id: PropTypes.string.isRequired,
   context: PropTypes.string.isRequired,
@@ -38,7 +44,10 @@ Address.propTypes = {
   postcode: PropTypes.string.isRequired,
   citycode: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  district: PropTypes.string,
+  oldcity: PropTypes.string,
+  oldcitycode: PropTypes.string
 }
 
 const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordinates, setInfos}) => {
