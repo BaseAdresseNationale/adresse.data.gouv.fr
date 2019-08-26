@@ -79,23 +79,6 @@ jobs:
           name: Lint JavaScript
           command: yarn lint
 
-  test:
-    <<: *nodejs_container
-    steps:
-      - *attach_workspace
-      - *restore_node_modules
-
-      - run:
-          name: Run tests
-          command: yarn test
-
-      - store_test_results:
-          path: reports/tests/
-
-      - run:
-          name: Upload code coverage to codecov
-          command: yarn codecov
-
   build:
     <<: *nodejs_container
     steps:
@@ -192,11 +175,6 @@ workflows:
           filters: *default_filters
 
       - lint:
-          requires:
-            - install
-          filters: *default_filters
-
-      - test:
           requires:
             - install
           filters: *default_filters
