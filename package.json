@@ -59,7 +59,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
-    "jest-junit": "^6.4.0",
+    "jest-junit": "^7.0.0",
     "lerna-changelog": "^0.8.2",
     "webpack-bundle-analyzer": "^3.4.1",
     "xo": "^0.24.0"
