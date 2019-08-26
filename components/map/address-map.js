@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import theme from '../../styles/theme'
 
-const Address = ({id, context, label, name, postcode, citycode, type, city}) => {
+const Address = ({id, context, label, name, postcode, citycode, type, city, district, oldcity, oldcitycode}) => {
   const types = {
     locality: 'Lieu-dit',
     street: 'Voie',
@@ -15,15 +15,25 @@ const Address = ({id, context, label, name, postcode, citycode, type, city}) => 
     <div>
       <h3>{types[type]}</h3>
       <p>
-        <div>{name}</div>
-        <div>{postcode} {city}</div>
-        <div>Code INSEE : {citycode}</div>
+        <div><b>{name}</b></div>
+        {district && <div><b>{district}</b></div>}
+        <div><b>{postcode} - {city}</b></div>
+        {oldcity && (
+          <div style={{fontStyle: 'italic'}}>(Anciennement {oldcitycode} - {oldcity})</div>
+        )}
+        <div>Code INSEE : <b>{citycode}</b></div>
       </p>
-      <div>Contexte : {context}</div>
-      <div>Label : {label}</div>
-      <div>ID : {id}</div>
+      <div>Contexte : <b>{context}</b></div>
+      <div>Label : <b>{label}</b></div>
+      <div>ID : <b>{id}</b></div>
     </div>
   )
+}
+
+Address.defaultProps = {
+  district: null,
+  oldcity: null,
+  oldcitycode: null
 }
 
 Address.propTypes = {
@@ -34,7 +44,10 @@ Address.propTypes = {
   postcode: PropTypes.string.isRequired,
   citycode: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  district: PropTypes.string,
+  oldcity: PropTypes.string,
+  oldcitycode: PropTypes.string
 }
 
 const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordinates, setInfos}) => {

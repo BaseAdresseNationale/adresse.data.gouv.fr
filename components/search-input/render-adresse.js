@@ -8,7 +8,7 @@ const featuresTypes = {
   hamlet: 'hameau',
   village: 'village',
   city: 'ville',
-  commune: 'commune'
+  municipality: 'commune'
 }
 
 function RenderAdresse(item, isHighlighted) {
