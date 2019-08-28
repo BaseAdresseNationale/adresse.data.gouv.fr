@@ -49,6 +49,7 @@ class Input extends React.PureComponent {
           }
 
           input {
+            line-height: 1.7;
             margin-right: 1em;
           }
           `}</style>
