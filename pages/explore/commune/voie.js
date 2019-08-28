@@ -7,7 +7,7 @@ import {getVoie, getNumero} from '../../../lib/explore/api'
 
 import withErrors from '../../../components/hoc/with-errors'
 
-import SearchCommune from '../../../components/explorer/search-commune'
+import Header from '../../../components/explorer/header'
 import Voie from '../../../components/explorer/voie'
 
 class VoieError extends Error {
@@ -20,7 +20,7 @@ class VoieError extends Error {
 
 const VoiePage = ({commune, voie, numero}) => (
   <Page title={voie.nomVoie} description='Consulter les adresses'>
-    <SearchCommune />
+    <Header />
     <Voie commune={commune} voie={voie} numero={numero} />
   </Page>
 )

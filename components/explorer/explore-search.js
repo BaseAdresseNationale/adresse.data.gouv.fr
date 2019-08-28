@@ -1,18 +1,15 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import Router from 'next/router'
 import {debounce} from 'lodash'
-import FaSearch from 'react-icons/lib/fa/search'
 
 import {search} from '../../lib/explore/api'
 import {useInput} from '../../hooks/input'
 
-import Section from '../section'
 import SearchInput from '../search-input'
 import Notification from '../notification'
 import renderAddok from '../search-input/render-addok'
-import BetaRibbon from '../beta-ribbon'
 
-const Explorer = () => {
+const ExploreSearch = () => {
   const [input, setInput] = useInput('')
   const [results, setResults] = useState([])
   const [orderResults, setOrderResults] = useState([])
@@ -82,23 +79,16 @@ const Explorer = () => {
   }, [handleSearch, input])
 
   return (
-    <Section background='color'>
-      <div className='beta'>
-        <h2><FaSearch /> Rechercher une commune, une voie ou une adresse</h2>
-        <BetaRibbon />
-      </div>
-
-      <div className='input'>
-        <SearchInput
-          value={input}
-          results={orderResults}
-          loading={loading}
-          placeholder='Exemple : place du capitole toulouse'
-          onSelect={handleSelect}
-          onSearch={setInput}
-          renderItem={renderAddok}
-          getItemValue={getFeatureValue} />
-      </div>
+    <>
+      <SearchInput
+        value={input}
+        results={orderResults}
+        loading={loading}
+        placeholder='20 avenue de Ségur, Paris'
+        onSelect={handleSelect}
+        onSearch={setInput}
+        renderItem={renderAddok}
+        getItemValue={getFeatureValue} />
 
       {error &&
         <div className='error'>
@@ -110,19 +100,9 @@ const Explorer = () => {
           .error {
             margin: 1em 0;
           }
-
-          .beta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
-
-          .beta h2 {
-            margin-right: 45px;
-          }
         `}</style>
-    </Section>
+    </>
   )
 }
 
-export default Explorer
+export default ExploreSearch
