@@ -11,8 +11,8 @@ import Button from '../components/button'
 export default () => (
   <Page>
     <Hero
-      title='adresse.data.gouv.fr'
-      tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous' />
+      title='Le Point d’Accès National aux données d’adresse'
+      tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
 
     <Section background='dark'>
       <div className='pitch'>
@@ -23,6 +23,7 @@ export default () => (
           .pitch {
             color: ${theme.colors.grey};
             text-align: center;
+            margin-top: -2em;
             font-size: 1.2em;
             line-height: 1.2em;
           }
