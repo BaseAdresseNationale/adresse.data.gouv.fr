@@ -9,7 +9,7 @@ import {getDepartements, getDepartementCommunes} from '../lib/api-ban'
 
 import Mapbox from '../components/mapbox'
 import ContourMap from '../components/explorer/contour-map'
-import SearchCommune from '../components/explorer/search-commune'
+import Header from '../components/explorer/header'
 
 const title = 'Consulter'
 const description = 'Consulter les adresses'
@@ -86,7 +86,7 @@ const Explore = ({departements}) => {
 
   return (
     <Page title={title} description={description} showFooter={false}>
-      <SearchCommune />
+      <Header />
       <div className='explore-map-container'>
         <Mapbox error={error} bbox={bbox} loading={loading} switchStyle>
           {({...mapboxProps}) => (

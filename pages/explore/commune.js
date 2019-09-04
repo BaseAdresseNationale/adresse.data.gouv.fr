@@ -7,7 +7,7 @@ import Page from '../../layouts/main'
 import Section from '../../components/section'
 import withErrors from '../../components/hoc/with-errors'
 
-import SearchCommune from '../../components/explorer/search-commune'
+import Header from '../../components/explorer/header'
 import Commune from '../../components/explorer/commune'
 import VoiesCommune from '../../components/explorer/commune/voies-commune'
 
@@ -32,7 +32,7 @@ const CommunePage = ({commune, codeCommune}) => {
 
   return (
     <Page title={commune.nom} description={`Consulter les voies de ${commune.nom}`}>
-      <SearchCommune />
+      <Header />
 
       <Section>
         <Commune {...commune} />
