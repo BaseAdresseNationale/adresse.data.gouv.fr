@@ -209,6 +209,8 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
 
           .tools {
             position: absolute;
+            max-height: ${switchStyle ? 'calc(100% - 116px)' : '100%'};
+            overflow: ${switchStyle ? 'scroll' : 'initial'};
             z-index: 900;
             padding: 0.5em;
             margin: 1em;
