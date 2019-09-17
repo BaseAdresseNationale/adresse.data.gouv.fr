@@ -52,7 +52,7 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<MdFileDownload /></a> <span className='new'>Nouveau !</span></li>
+              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<MdFileDownload /></a></li>
             </ul>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV<MdFileDownload /></a> <span className='new'>Amélioré !</span></li>
+              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV<MdFileDownload /></a></li>
               <li><a href='/data/ban/adresses-odbl/latest/addok'>Format JSON pour Addok<MdFileDownload /></a></li>
             </ul>
           </div>
@@ -117,8 +117,8 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/adresses-lo/latest/csv'>Format CSV<MdFileDownload /></a> <span className='new'>Nouveau !</span></li>
-              <li><a href='/data/ban/adresses-lo/latest/addok'>Format JSON pour Addok<MdFileDownload /></a> <span className='new'>Nouveau !</span></li>
+              <li><a href='/data/ban/adresses-lo/latest/csv'>Format CSV<MdFileDownload /></a></li>
+              <li><a href='/data/ban/adresses-lo/latest/addok'>Format JSON pour Addok<MdFileDownload /></a></li>
             </ul>
           </div>
         </div>
