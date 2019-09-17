@@ -75,7 +75,7 @@ export default () => (
             </ul>
             <ul>
               <li><strong>1 ligne par adresse</strong></li>
-              <li>24 millions d’adresses</li>
+              <li>24,8 millions d’adresses</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
             <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/adresses-csv.md'>Schéma des données</a></p>
@@ -108,7 +108,7 @@ export default () => (
             </ul>
             <ul>
               <li><strong>1 ligne par adresse</strong></li>
-              <li>20,3 millions d’adresses</li>
+              <li>20,6 millions d’adresses</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
             <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/static/schemas/adresses-csv.md'>Schéma des données</a></p>
