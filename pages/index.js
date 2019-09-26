@@ -42,6 +42,37 @@ export default () => (
       </div>
     </Section>
 
+    <div className='events'>
+      <img className='screen' src='/static/events/mooc-adresse.png' />
+      <img className='mobile' src='/static/events/mooc-adresse-mobile.png' />
+      <style jsx>{`
+        .events img {
+          width: 100%;
+        }
+
+        @media (min-width: 700px) {
+          .screen {
+            display: block;
+            padding: 1em;
+          }
+
+          .mobile {
+            display: none;
+          }
+        }
+
+        @media (max-width: 700px) {
+          .screen {
+            display: none;
+          }
+
+          .mobile {
+            display: block;
+          }
+        }
+      `}</style>
+    </div>
+
     <Section background='color' title=''>
       <div className='data-tools'>
         <Link href='/download'>
