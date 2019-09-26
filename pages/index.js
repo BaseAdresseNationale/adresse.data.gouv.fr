@@ -43,8 +43,10 @@ export default () => (
     </Section>
 
     <div className='events'>
-      <img className='screen' src='/static/events/mooc-adresse.png' />
-      <img className='mobile' src='/static/events/mooc-adresse-mobile.png' />
+      <a href='https://www.fun-mooc.fr/courses/course-v1:CNFPT+87040+session01/about#'>
+        <img className='screen' src='/static/events/mooc-adresse.png' />
+        <img className='mobile' src='/static/events/mooc-adresse-mobile.png' />
+      </a>
       <style jsx>{`
         .events img {
           width: 100%;
