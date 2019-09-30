@@ -25,7 +25,7 @@ const titles = [
   },
   {
     title: 'L’API',
-    href: '/api',
+    href: 'https://geo.api.gouv.fr/adresse',
     description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
     icon: <FaTerminal />
   },
@@ -37,33 +37,42 @@ const titles = [
   }
 ]
 
+const toolStyle = {
+  display: 'inline-grid',
+  textDecoration: 'none',
+  color: '#26353f'
+}
+
 const Tool = ({title, icon, description, href}) => {
   return (
     <Link href={href}>
-      <div className='article__author panel'>
-        <div className='article__author-info'>
-          <div className='article__author-name'>{title}</div>
-          <div className='article__author-role'>Etalab</div>
-        </div>
-        <div className='article__author-img'>{icon}</div>
-        <p className='article__author-description'>{description}</p>
-        <style jsx>{`
-          .article__author {
-            min-width: 270px;
-          }
+      <a style={toolStyle}>
+        <div className='article__author panel'>
+          <div className='article__author-info'>
+            <div className='article__author-name'>{title}</div>
+            <div className='article__author-role'>Etalab</div>
+          </div>
+          <div className='article__author-img'>{icon}</div>
+          <p className='article__author-description'>{description}</p>
+          <style jsx>{`
+            .article__author {
+              min-width: 300px;
+              min-height: 160px;
+            }
 
-          .article__author:hover {
-            cursor: pointer;
-            border-color: ${theme.primary};
-          }
+            .article__author:hover {
+              cursor: pointer;
+              border-color: ${theme.primary};
+            }
 
-          .article__author-img {
-            display: inline-block;
-            float: right;
-            font-size: x-large;
-          }
+            .article__author-img {
+              display: inline-block;
+              float: right;
+              font-size: x-large;
+            }
         `}</style>
-      </div>
+        </div>
+      </a>
     </Link>
   )
 }
