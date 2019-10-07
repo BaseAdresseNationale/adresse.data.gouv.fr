@@ -51,7 +51,7 @@
     "babel-eslint": "^10.0.3",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-lodash": "^3.3.4",
-    "eslint": "^6.4.0",
+    "eslint": "^6.5.1",
     "eslint-config-xo-nextjs": "^1.4.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.1.1",
