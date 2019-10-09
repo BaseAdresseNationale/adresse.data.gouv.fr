@@ -62,7 +62,7 @@ class BALValidator extends React.Component {
     } else if (file.size > 100 * 1024 * 1024) {
       this.handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
     } else if (file.size === 0) {
-      this.handleError('Ce fichier est vierge.')
+      this.handleError('Ce fichier est vide.')
     } else {
       this.setState({
         file,
