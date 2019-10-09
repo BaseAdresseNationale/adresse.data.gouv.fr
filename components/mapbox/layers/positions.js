@@ -75,10 +75,8 @@ export function getPositionsLabelLayer(style) {
     layout: {
       'text-font': ['Noto Sans Regular'],
       'text-field': '{source}',
-      'text-anchor': 'left',
-      'text-justify': 'center',
-      'text-radial-offset': 1,
-      'text-ignore-placement': true
+      'text-variable-anchor': ['bottom', 'top', 'right', 'left'],
+      'text-radial-offset': 1
     }
   }
 
