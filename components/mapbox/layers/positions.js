@@ -1,11 +1,15 @@
 const POSITIONS_COLORS = [
   'case',
   ['==', ['get', 'source'], 'ban'],
-  '#FFDF51',
+  '#cf6783',
   ['==', ['get', 'source'], 'bano'],
   '#418864',
   ['==', ['get', 'source'], 'cadastre'],
   '#8C5FF5',
+  ['==', ['get', 'source'], 'bal'],
+  '#f47733',
+  ['==', ['get', 'source'], 'ftth'],
+  '#0c4cb2',
   ['==', ['get', 'destination'], 'habitation'],
   '#21BA45',
   ['==', ['get', 'destination'], 'commerce'],
@@ -75,10 +79,8 @@ export function getPositionsLabelLayer(style) {
     layout: {
       'text-font': ['Noto Sans Regular'],
       'text-field': '{source}',
-      'text-anchor': 'left',
-      'text-justify': 'center',
-      'text-radial-offset': 1,
-      'text-ignore-placement': true
+      'text-variable-anchor': ['bottom', 'top', 'right', 'left'],
+      'text-radial-offset': 1
     }
   }
 
