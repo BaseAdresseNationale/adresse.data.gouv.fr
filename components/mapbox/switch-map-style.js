@@ -28,7 +28,6 @@ class SwitchMapStyle extends React.Component {
             height: 80px;
             border: 2px solid #fff;
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-            overflow: hidden;
           }
 
           img {

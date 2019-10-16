@@ -230,6 +230,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           .switch {
             background-color: none;
             padding: 0;
+            overflow: hidden;
           }
         `}</style>
 
