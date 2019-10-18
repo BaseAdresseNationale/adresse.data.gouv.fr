@@ -112,16 +112,16 @@ class BalCoverMap extends React.Component {
 
     const [feature] = event.features
 
-    const _data = data.features.find(f =>
-      f.properties.id === feature.properties.id
-    )
-
     if (this.highlighted) {
       map.setFeatureState({source: 'data', id: this.highlighted}, {hover: false})
     }
 
     this.highlighted = feature.id
     map.setFeatureState({source: 'data', id: this.highlighted}, {hover: true})
+
+    const _data = data.features.find(f =>
+      f.properties.id === feature.properties.id
+    )
 
     popup.setLngLat(event.lngLat)
       .setHTML(popupHTML(_data.properties))
