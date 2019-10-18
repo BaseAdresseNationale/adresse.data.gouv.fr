@@ -5,16 +5,16 @@ import Router from 'next/router'
 
 import theme from '../../styles/theme'
 
-const popupHTML = ({properties}) => renderToString(
+const popupHTML = ({nom, organization, license}) => renderToString(
   <div>
     <p>
-      <b>{properties.nom}</b>
+      <b>{nom}</b>
     </p>
-    {properties.organization && (
-      <div>Producteur : {properties.organization}</div>
+    {organization && (
+      <div>Producteur : {organization}</div>
     )}
-    {properties.license && (
-      <div>Licence : {properties.license}</div>
+    {license && (
+      <div>Licence : {license}</div>
     )}
   </div>
 )
@@ -106,7 +106,7 @@ class BalCoverMap extends React.Component {
   }
 
   onMouseMove = (layer, event) => {
-    const {map, popup} = this.props
+    const {map, data, popup} = this.props
     const canvas = map.getCanvas()
     canvas.style.cursor = 'pointer'
 
@@ -119,8 +119,12 @@ class BalCoverMap extends React.Component {
     this.highlighted = feature.id
     map.setFeatureState({source: 'data', id: this.highlighted}, {hover: true})
 
+    const _data = data.features.find(f =>
+      f.properties.id === feature.properties.id
+    )
+
     popup.setLngLat(event.lngLat)
-      .setHTML(popupHTML(feature))
+      .setHTML(popupHTML(_data.properties))
       .addTo(map)
   }
 
