@@ -23,7 +23,7 @@ const STYLES = {
     sources: {
       'raster-tiles': {
         type: 'raster',
-        tiles: ['https://wxs.ign.fr/eop8s6g4hrpvxnxer1g6qu44/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
+        tiles: ['https://wxs.ign.fr/6njcwphuobi6vx0seroqdoza/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
         tileSize: 256,
         attribution: '© IGN'
       }
@@ -210,7 +210,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           .tools {
             position: absolute;
             max-height: ${switchStyle ? 'calc(100% - 116px)' : '100%'};
-            overflow: ${switchStyle ? 'scroll' : 'initial'};
+            overflow-y: ${switchStyle ? 'scroll' : 'initial'};
             z-index: 900;
             padding: 0.5em;
             margin: 1em;
@@ -230,6 +230,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           .switch {
             background-color: none;
             padding: 0;
+            overflow: hidden;
           }
         `}</style>
 
