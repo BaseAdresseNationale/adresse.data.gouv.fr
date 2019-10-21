@@ -82,7 +82,7 @@ export default () => (
             <p>La création des voies et des adresses est <strong>une compétence de la commune</strong>, via le conseil municipal.</p>
             <p>Mettre en place une Base Adresse Locale, qui contient toutes les adresses de la commune, est l’expression de cette compétence, et est désormais permise grâce à un écosystème d’outils simples à prendre en main.</p>
             <p>L’existence d’une Base Adresse Locale <strong>publiée et à jour</strong> garantit une meilleure prise en compte des adresses dans les différents systèmes d’information des acteurs, qu’ils soient privés ou publics.</p>
-            <p>Elle permet aussi une clarification des responsabilités en terme de mise à jour et d’exactitude des adresses, et permet d’accélérer les corrections d’erreurs.</p>
+            <p>Elle permet aussi une clarification des responsabilités en termes de mise à jour et d’exactitude des adresses, et permet d’accélérer les corrections d’erreurs.</p>
           </Question>
 
           <Question question='Avec quels outils peut-on créer ou gérer une Base Adresse Locale ?'>
