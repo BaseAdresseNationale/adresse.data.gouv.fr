@@ -17,19 +17,19 @@ class BalReport extends React.Component {
       </Section>
     )
   }
-}
 
-BalReport.propTypes = {
-  organization: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    logo: PropTypes.string.isRequired
-  }),
-  report: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired
-}
+  propTypes = {
+    organization: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      logo: PropTypes.string.isRequired
+    }),
+    report: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired
+  }
 
-BalReport.defaultProps = {
-  organization: null
+  static defaultProps = {
+    organization: null
+  }
 }
 
 export default BalReport
