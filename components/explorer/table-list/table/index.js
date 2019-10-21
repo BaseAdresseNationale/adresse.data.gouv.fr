@@ -69,11 +69,10 @@ class Table extends React.Component {
     children: PropTypes.node.isRequired,
     hasDisabledWrap: PropTypes.bool
   }
-  
-  defaultProps = {
+
+  static defaultProps = {
     hasDisabledWrap: false
   }
 }
-
 
 export default Table
