@@ -34,17 +34,16 @@ const KnownFields = ({found, alias}) => (
         <tr key={field}>
           <td>{field}</td>
           {found.includes(field) ?
-            alias[field] ? (
+            (alias[field] ? (
               <>
                 <td className='warning'><FaExclamationTriangle /></td>
                 <td className='warning message'><b>{alias[field]}</b> n’est pas standard</td>
               </>
             ) : (
               <td className='found'><FaCheck /></td>
-            ) : (
+            )) : (
               <td className='not-found'><FaClose /></td>
-            )
-          }
+            )}
         </tr>
       ))}
     </tbody>

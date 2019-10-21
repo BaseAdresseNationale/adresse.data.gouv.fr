@@ -54,8 +54,7 @@ class CommunesPreview extends React.Component {
           ))}
 
           {model === 'bal-aitf' &&
-            <InfoReport dataset={dataset} />
-          }
+            <InfoReport dataset={dataset} />}
         </div>
         <style jsx>{`
           .meta {

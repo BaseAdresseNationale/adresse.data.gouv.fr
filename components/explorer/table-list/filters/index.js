@@ -50,8 +50,7 @@ class TableList extends React.Component {
                 tags={sources}
                 selected={selectedTags}
                 toggleTag={onFilterTags} />
-            </div>
-          }
+            </div>}
         </div>
 
         <div className='destination'>

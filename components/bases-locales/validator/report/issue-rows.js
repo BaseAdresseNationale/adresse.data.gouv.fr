@@ -35,9 +35,9 @@ class IssueRows extends React.Component {
           <b>{
             issuesRows === rows.length ?
               'Toutes les lignes' :
-              issuesRows === 1 ?
+              (issuesRows === 1 ?
                 `La ligne ${issue.rows[0]}` :
-                `${issuesRows} lignes`
+                `${issuesRows} lignes`)
           }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
           <span className='colored'> {issue.message}</span>

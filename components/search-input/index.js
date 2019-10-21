@@ -92,9 +92,9 @@ class SearchInput extends React.Component {
       <div className={`menu ${value.length > 0 ? '' : 'hidden'} ${fullscreen ? 'fullscreen' : ''}`}>
         { loading && items.length === 0 ? (
           <div className='item'><Loader size='small' /></div>
-        ) : items.length === 0 ? (
+        ) : (items.length === 0 ? (
           <div className='item'>Aucun résultat</div>
-        ) : items}
+        ) : items)}
         <style jsx>{`
           .menu {
             position: absolute;
