@@ -8,34 +8,34 @@ class Step extends React.Component {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     validTitle: PropTypes.string.isRequired,
-    validate: PropTypes.bool,
-    disable: PropTypes.bool
+    isValid: PropTypes.bool,
+    isDisabled: PropTypes.bool
   }
 
   static defaultProps = {
-    validate: false,
-    disable: false
+    isValid: false,
+    isDisabled: false
   }
 
   render() {
-    const {index, title, validTitle, validate, disable} = this.props
+    const {index, title, validTitle, isValid, isDisabled} = this.props
     return (
       <div className='step'>
-        {validate ? (
+        {isValid ? (
           <div className='badge valid'>✓</div>
         ) : (
           <div className='badge index'>{index}</div>
         )}
 
         <div className='title'>
-          {validate ? validTitle : title}
+          {isValid ? validTitle : title}
         </div>
 
         <style jsx>{`
           .step {
             display: flex;
             align-items: center;
-            opacity: ${disable ? 0.5 : 1};
+            opacity: ${isDisabled ? 0.5 : 1};
           }
 
           .badge {
