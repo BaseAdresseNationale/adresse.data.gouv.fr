@@ -29,19 +29,19 @@ class Organization extends React.Component {
       </div>
     )
   }
-}
 
-Organization.propTypes = {
-  name: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
-  size: PropTypes.oneOf([
-    'standard',
-    'big'
-  ])
-}
+  propTypes = {
+    name: PropTypes.string.isRequired,
+    logo: PropTypes.string.isRequired,
+    size: PropTypes.oneOf([
+      'standard',
+      'big'
+    ])
+  }
 
-Organization.defaultProps = {
-  size: 'standard'
+  static defaultProps = {
+    size: 'standard'
+  }
 }
 
 export default Organization
