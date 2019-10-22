@@ -19,15 +19,15 @@ class VoiePage extends React.Component {
       </Page>
     )
   }
-}
 
-VoiePage.propTypes = {
-  voie: PropTypes.shape({
-    nomVoie: PropTypes.string.isRequired,
-    codeVoie: PropTypes.string.isRequired
-  }).isRequired,
-  commune: PropTypes.object.isRequired,
-  dataset: PropTypes.object.isRequired
+  static propTypes = {
+    voie: PropTypes.shape({
+      nomVoie: PropTypes.string.isRequired,
+      codeVoie: PropTypes.string.isRequired
+    }).isRequired,
+    commune: PropTypes.object.isRequired,
+    dataset: PropTypes.object.isRequired
+  }
 }
 
 VoiePage.getInitialProps = async ({query}) => {

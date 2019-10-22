@@ -19,14 +19,14 @@ class ReportPage extends React.Component {
       </Page>
     )
   }
-}
 
-ReportPage.propTypes = {
-  dataset: PropTypes.shape({
-    organization: PropTypes.object,
-    title: PropTypes.string.isRequired
-  }).isRequired,
-  report: PropTypes.object.isRequired
+  static propTypes = {
+    dataset: PropTypes.shape({
+      organization: PropTypes.object,
+      title: PropTypes.string.isRequired
+    }).isRequired,
+    report: PropTypes.object.isRequired
+  }
 }
 
 ReportPage.getInitialProps = async ({query}) => {

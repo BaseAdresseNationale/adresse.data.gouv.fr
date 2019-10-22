@@ -24,10 +24,10 @@ class Datasets extends React.Component {
       </Page>
     )
   }
-}
 
-Datasets.propTypes = {
-  datasets: PropTypes.array.isRequired
+  static propTypes = {
+    datasets: PropTypes.array.isRequired
+  }
 }
 
 Datasets.getInitialProps = async () => {

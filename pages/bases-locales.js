@@ -23,11 +23,11 @@ class BasesLocalesPage extends React.Component {
       </Page>
     )
   }
-}
 
-BasesLocalesPage.propTypes = {
-  datasets: PropTypes.array.isRequired,
-  stats: PropTypes.object.isRequired
+  static propTypes = {
+    datasets: PropTypes.array.isRequired,
+    stats: PropTypes.object.isRequired
+  }
 }
 
 BasesLocalesPage.getInitialProps = async () => {

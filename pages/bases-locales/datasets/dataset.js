@@ -18,11 +18,11 @@ class DatasetPage extends React.Component {
       </Page>
     )
   }
-}
 
-DatasetPage.propTypes = {
-  dataset: PropTypes.object.isRequired,
-  summary: PropTypes.object.isRequired
+  static propTypes = {
+    dataset: PropTypes.object.isRequired,
+    summary: PropTypes.object.isRequired
+  }
 }
 
 DatasetPage.getInitialProps = async ({query}) => {

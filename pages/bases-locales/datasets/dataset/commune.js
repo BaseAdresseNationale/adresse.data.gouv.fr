@@ -19,14 +19,14 @@ class CommunePage extends React.Component {
       </Page>
     )
   }
-}
 
-CommunePage.propTypes = {
-  commune: PropTypes.shape({
-    nom: PropTypes.string.isRequired,
-    code: PropTypes.string.isRequired
-  }).isRequired,
-  dataset: PropTypes.object.isRequired
+  static propTypes = {
+    commune: PropTypes.shape({
+      nom: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired
+    }).isRequired,
+    dataset: PropTypes.object.isRequired
+  }
 }
 
 CommunePage.getInitialProps = async ({query}) => {
