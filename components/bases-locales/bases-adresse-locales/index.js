@@ -49,10 +49,10 @@ class BasesAdresseLocales extends React.Component {
       </>
     )
   }
-}
 
-BasesAdresseLocales.propTypes = {
-  datasets: PropTypes.array.isRequired
+  static propTypes = {
+    datasets: PropTypes.array.isRequired
+  }
 }
 
 export default BasesAdresseLocales
