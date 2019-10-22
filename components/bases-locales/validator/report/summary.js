@@ -117,7 +117,7 @@ class Rows extends React.Component {
                 key={`row-${row._line}`}
                 row={row}
                 unknownFields={unknownFields}
-                forceShowIssues={rowsToDisplay.length === 1}
+                isForcedShowIssues={rowsToDisplay.length === 1}
               />
             ))}
           </div>

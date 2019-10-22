@@ -36,7 +36,7 @@ const STYLES = {
   }
 }
 
-const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, isInteractive, control, loading, error, children}) => {
+const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, isInteractive, hasControl, isLoading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
@@ -87,7 +87,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
         isInteractive
       })
 
-      if (control) {
+      if (hasControl) {
         map.addControl(new mapboxgl.NavigationControl({showCompass: false}))
       }
 
@@ -147,15 +147,15 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
           </div>
         )}
 
-        {!mapError && loading && (
+        {!mapError && isLoading && (
           <div className='tools'>Chargement…</div>
         )}
 
-        {!loading && !mapError && infos && (
+        {!isLoading && !mapError && infos && (
           <div className='tools'>{infos}</div>
         )}
 
-        {!loading && !mapError && tools && (
+        {!isLoading && !mapError && tools && (
           <div className='tools right'>{tools}</div>
         )}
 
@@ -246,10 +246,10 @@ Map.propTypes = {
     'ortho'
   ]),
   isInteractive: PropTypes.bool,
-  control: PropTypes.bool,
+  hasControl: PropTypes.bool,
   defaultCenter: PropTypes.array,
   defaultZoom: PropTypes.number,
-  loading: PropTypes.bool,
+  isLoading: PropTypes.bool,
   error: PropTypes.object,
   children: PropTypes.func.isRequired
 }
@@ -258,10 +258,10 @@ Map.defaultProps = {
   bbox: null,
   defaultStyle: 'vector',
   isInteractive: true,
-  control: true,
+  hasControl: true,
   defaultCenter: DEFAULT_CENTER,
   defaultZoom: DEFAULT_ZOOM,
-  loading: false,
+  isLoading: false,
   error: null,
   hasSwitchStyle: false
 }
