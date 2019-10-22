@@ -176,7 +176,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
         {hasSwitchStyle && (
           <div className='tools bottom switch'>
             <SwitchMapStyle
-              vector={style === 'vector'}
+              isVector={style === 'vector'}
               handleChange={switchLayer}
             />
           </div>
