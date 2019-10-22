@@ -6,12 +6,12 @@ class RadioInput extends React.Component {
     value: PropTypes.string.isRequired,
     toggleInput: PropTypes.func.isRequired,
     style: PropTypes.object,
-    checked: PropTypes.bool
+    isChecked: PropTypes.bool
   }
 
   static defaultProps = {
     style: null,
-    checked: false
+    isChecked: false
   }
 
   handleChange = event => {
@@ -21,11 +21,11 @@ class RadioInput extends React.Component {
   }
 
   render() {
-    const {value, checked, style} = this.props
+    const {value, isChecked, style} = this.props
 
     return (
       <div style={style} className='input'>
-        <input type='radio' id={`radio-${value}`} value={value} checked={checked} onClick={this.handleChange} />
+        <input type='radio' id={`radio-${value}`} value={value} checked={isChecked} onClick={this.handleChange} />
         <label className='label-inline'>{value}</label>
       </div>
     )

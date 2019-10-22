@@ -22,11 +22,11 @@ class Title extends React.Component {
       </div>
     )
   }
-}
 
-Title.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired
+  }
 }
 
 export default Title

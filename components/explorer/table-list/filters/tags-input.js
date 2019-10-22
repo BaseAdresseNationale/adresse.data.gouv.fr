@@ -15,7 +15,7 @@ class TagsInput extends React.Component {
               key={tag}
               style={{display: 'flex', alignItems: 'flex-start', margin: '5px 10px 0'}}
               value={tag}
-              checked={selected.includes(tag)}
+              isChecked={selected.includes(tag)}
               toggleInput={toggleTag} />
           ))}
         </div>
@@ -40,13 +40,13 @@ class TagsInput extends React.Component {
       </div>
     )
   }
-}
 
-TagsInput.propTypes = {
-  title: PropTypes.string.isRequired,
-  tags: PropTypes.array.isRequired,
-  selected: PropTypes.array.isRequired,
-  toggleTag: PropTypes.func.isRequired
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+    selected: PropTypes.array.isRequired,
+    toggleTag: PropTypes.func.isRequired
+  }
 }
 
 export default TagsInput
