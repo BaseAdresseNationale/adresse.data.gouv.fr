@@ -77,23 +77,23 @@ class Report extends React.Component {
       </div>
     )
   }
-}
 
-Report.propTypes = {
-  report: PropTypes.shape({
-    knownFields: PropTypes.array.isRequired,
-    unknownFields: PropTypes.array.isRequired,
-    aliasedFields: PropTypes.object.isRequired,
-    rowsWithIssues: PropTypes.array.isRequired,
-    issuesSummary: PropTypes.object.isRequired,
-    parseMeta: PropTypes.object.isRequired,
-    rowsWithIssuesCount: PropTypes.number.isRequired,
-    fileValidation: PropTypes.shape({
-      encoding: PropTypes.object.isRequired,
-      delimiter: PropTypes.object.isRequired,
-      linebreak: PropTypes.object.isRequired
-    })
-  }).isRequired
+  propTypes = {
+    report: PropTypes.shape({
+      knownFields: PropTypes.array.isRequired,
+      unknownFields: PropTypes.array.isRequired,
+      aliasedFields: PropTypes.object.isRequired,
+      rowsWithIssues: PropTypes.array.isRequired,
+      issuesSummary: PropTypes.object.isRequired,
+      parseMeta: PropTypes.object.isRequired,
+      rowsWithIssuesCount: PropTypes.number.isRequired,
+      fileValidation: PropTypes.shape({
+        encoding: PropTypes.object.isRequired,
+        delimiter: PropTypes.object.isRequired,
+        linebreak: PropTypes.object.isRequired
+      })
+    }).isRequired
+  }
 }
 
 export default Report
