@@ -18,7 +18,7 @@ class ProducerDiscussion extends React.Component {
           <ButtonLink
             href={page}
             size='large'
-            outlined
+            isOutlined
           >
               Ouvrir une discussion avec le producteur
           </ButtonLink>

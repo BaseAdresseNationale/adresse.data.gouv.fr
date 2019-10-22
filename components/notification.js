@@ -4,9 +4,9 @@ import FaClose from 'react-icons/lib/fa/close'
 
 import Button from './button'
 
-const Notification = ({message, type, style, fullWidth, onClose, children}) => {
+const Notification = ({message, type, style, isFullWidth, onClose, children}) => {
   return (
-    <div style={style} className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${fullWidth ? 'full-width' : ''}`}>
+    <div style={style} className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${isFullWidth ? 'full-width' : ''}`}>
       {children || message}
       {onClose && (
         <Button className='close' aria-label='Fermer' onClick={onClose}><FaClose /></Button>
@@ -20,7 +20,7 @@ Notification.defaultProps = {
   type: null,
   style: null,
   onClose: null,
-  fullWidth: false,
+  isFullWidth: false,
   children: null
 }
 
@@ -28,7 +28,7 @@ Notification.propTypes = {
   message: PropTypes.node,
   type: PropTypes.oneOf(['success', 'warning', 'error']),
   style: PropTypes.object,
-  fullWidth: PropTypes.bool,
+  isFullWidth: PropTypes.bool,
   onClose: PropTypes.func,
   children: PropTypes.node
 }
