@@ -42,13 +42,13 @@ class Layout extends React.Component {
     title: PropTypes.string,
     description: PropTypes.string
   }
-}
 
-Layout.defaultProps = {
-  children: null,
-  hasFooter: true,
-  title: null,
-  description: null
+  static defaultProps = {
+    children: null,
+    hasFooter: true,
+    title: null,
+    description: null
+  }
 }
 
 export default Layout
