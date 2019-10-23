@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 class Table extends React.Component {
   static propTypes = {
-    hasWrap: PropTypes.bool.isRequired,
+    isWrap: PropTypes.bool.isRequired,
     onWrap: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
     hasDisabledWrap: PropTypes.bool
@@ -14,17 +14,17 @@ class Table extends React.Component {
   }
 
   render() {
-    const {hasWrap, hasDisabledWrap, onWrap, children} = this.props
+    const {isWrap, hasDisabledWrap, onWrap, children} = this.props
 
     return (
       <div>
-        <table className={hasWrap && !hasDisabledWrap && 'wrapped'}>
+        <table className={isWrap && !hasDisabledWrap && 'wrapped'}>
           {children}
         </table>
 
         {!hasDisabledWrap &&
           <div className='wrap' onClick={onWrap}>
-            {hasWrap ? 'Tout afficher' : 'Réduire'}
+            {isWrap ? 'Tout afficher' : 'Réduire'}
           </div>}
 
         <style jsx>{`
