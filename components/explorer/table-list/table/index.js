@@ -2,6 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Table extends React.Component {
+  static propTypes = {
+    hasWrap: PropTypes.bool.isRequired,
+    onWrap: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    hasDisabledWrap: PropTypes.bool
+  }
+
+  static defaultProps = {
+    hasDisabledWrap: false
+  }
+
   render() {
     const {hasWrap, hasDisabledWrap, onWrap, children} = this.props
 
@@ -61,17 +72,6 @@ class Table extends React.Component {
       </div>
 
     )
-  }
-
-  propTypes = {
-    hasWrap: PropTypes.bool.isRequired,
-    onWrap: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-    hasDisabledWrap: PropTypes.bool
-  }
-
-  static defaultProps = {
-    hasDisabledWrap: false
   }
 }
 

@@ -4,6 +4,13 @@ import PropTypes from 'prop-types'
 import RadioInput from './radio-input'
 
 class TagsInput extends React.Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+    selected: PropTypes.array.isRequired,
+    toggleTag: PropTypes.func.isRequired
+  }
+
   render() {
     const {title, tags, selected, toggleTag} = this.props
     return (
@@ -39,13 +46,6 @@ class TagsInput extends React.Component {
           `}</style>
       </div>
     )
-  }
-
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
-    selected: PropTypes.array.isRequired,
-    toggleTag: PropTypes.func.isRequired
   }
 }
 

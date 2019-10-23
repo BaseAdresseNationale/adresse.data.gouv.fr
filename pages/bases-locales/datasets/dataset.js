@@ -9,6 +9,11 @@ import withErrors from '../../../components/hoc/with-errors'
 import Dataset from '../../../components/bases-locales/bases-adresse-locales/dataset'
 
 class DatasetPage extends React.Component {
+  static propTypes = {
+    dataset: PropTypes.object.isRequired,
+    summary: PropTypes.object.isRequired
+  }
+
   render() {
     const {dataset, summary} = this.props
 
@@ -17,11 +22,6 @@ class DatasetPage extends React.Component {
         <Dataset dataset={dataset} summary={summary} />
       </Page>
     )
-  }
-
-  static propTypes = {
-    dataset: PropTypes.object.isRequired,
-    summary: PropTypes.object.isRequired
   }
 }
 

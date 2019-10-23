@@ -9,6 +9,10 @@ import Notification from '../../notification'
 import BaseAdresseLocale from './base-adresse-locale'
 
 class BasesAdresseLocales extends React.Component {
+  static propTypes = {
+    datasets: PropTypes.array.isRequired
+  }
+
   render() {
     const {datasets} = this.props
 
@@ -48,10 +52,6 @@ class BasesAdresseLocales extends React.Component {
           `}</style>
       </>
     )
-  }
-
-  static propTypes = {
-    datasets: PropTypes.array.isRequired
   }
 }
 

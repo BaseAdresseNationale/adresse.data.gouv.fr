@@ -4,6 +4,16 @@ import PropTypes from 'prop-types'
 import theme from '../../../../styles/theme'
 
 class LineValue extends React.Component {
+  static propTypes = {
+    value: PropTypes.shape({
+      rawValue: PropTypes.string,
+      errors: PropTypes.array,
+      warnings: PropTypes.array
+    }).isRequired,
+    hasUnknownField: PropTypes.bool.isRequired,
+    handleHover: PropTypes.func.isRequired
+  }
+
   handleMouseOver = () => {
     const {value, handleHover} = this.props
 
@@ -71,16 +81,6 @@ class LineValue extends React.Component {
         `}</style>
       </Fragment>
     )
-  }
-
-  static propTypes = {
-    value: PropTypes.shape({
-      rawValue: PropTypes.string,
-      errors: PropTypes.array,
-      warnings: PropTypes.array
-    }).isRequired,
-    hasUnknownField: PropTypes.bool.isRequired,
-    handleHover: PropTypes.func.isRequired
   }
 }
 

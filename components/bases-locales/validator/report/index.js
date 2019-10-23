@@ -8,6 +8,23 @@ import CsvMeta from './csv-meta'
 import Rows from './rows'
 
 class Report extends React.Component {
+  static propTypes = {
+    report: PropTypes.shape({
+      knownFields: PropTypes.array.isRequired,
+      unknownFields: PropTypes.array.isRequired,
+      aliasedFields: PropTypes.object.isRequired,
+      rowsWithIssues: PropTypes.array.isRequired,
+      issuesSummary: PropTypes.object.isRequired,
+      parseMeta: PropTypes.object.isRequired,
+      rowsWithIssuesCount: PropTypes.number.isRequired,
+      fileValidation: PropTypes.shape({
+        encoding: PropTypes.object.isRequired,
+        delimiter: PropTypes.object.isRequired,
+        linebreak: PropTypes.object.isRequired
+      })
+    }).isRequired
+  }
+
   render() {
     const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithIssues, issuesSummary, parseMeta, rowsWithIssuesCount} = this.props.report
 
@@ -76,23 +93,6 @@ class Report extends React.Component {
         `}</style>
       </div>
     )
-  }
-
-  propTypes = {
-    report: PropTypes.shape({
-      knownFields: PropTypes.array.isRequired,
-      unknownFields: PropTypes.array.isRequired,
-      aliasedFields: PropTypes.object.isRequired,
-      rowsWithIssues: PropTypes.array.isRequired,
-      issuesSummary: PropTypes.object.isRequired,
-      parseMeta: PropTypes.object.isRequired,
-      rowsWithIssuesCount: PropTypes.number.isRequired,
-      fileValidation: PropTypes.shape({
-        encoding: PropTypes.object.isRequired,
-        delimiter: PropTypes.object.isRequired,
-        linebreak: PropTypes.object.isRequired
-      })
-    }).isRequired
   }
 }
 

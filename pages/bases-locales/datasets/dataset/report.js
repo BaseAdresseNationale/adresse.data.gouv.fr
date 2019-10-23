@@ -9,6 +9,14 @@ import withErrors from '../../../../components/hoc/with-errors'
 import BalReport from '../../../../components/bases-locales/bases-adresse-locales/bal-report'
 
 class ReportPage extends React.Component {
+  static propTypes = {
+    dataset: PropTypes.shape({
+      organization: PropTypes.object,
+      title: PropTypes.string.isRequired
+    }).isRequired,
+    report: PropTypes.object.isRequired
+  }
+
   render() {
     const {dataset, report} = this.props
     const description = dataset.organization ? `${dataset.title} - ${dataset.organization.name}` : dataset.title
@@ -18,14 +26,6 @@ class ReportPage extends React.Component {
         <BalReport report={report} title={dataset.title} organization={dataset.organization} />
       </Page>
     )
-  }
-
-  static propTypes = {
-    dataset: PropTypes.shape({
-      organization: PropTypes.object,
-      title: PropTypes.string.isRequired
-    }).isRequired,
-    report: PropTypes.object.isRequired
   }
 }
 
