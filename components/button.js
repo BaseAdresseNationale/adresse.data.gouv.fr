@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Button = ({size, color, isOutlined, children, ...props}) => (
-  <button type='button' className={`button${isOutlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
+  <button type='submit' className={`button${isOutlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
     {children}
   </button>
 )
