@@ -20,7 +20,7 @@ export default () => (
 
           <Question question='Qu’est-ce que la Base Adresse Nationale ?'>
             <p>La Base Adresse Nationale est une <strong>base de données</strong> ayant vocation à réunir <strong>l’ensemble des adresses géolocalisées du territoire national</strong>.</p>
-            <p>Elle est <strong>co-produite</strong> par la Direction Interministérielle du Numérique (DINSIC) et l’IGN, avec la participation des collectivités locales, de la Direction Générale des Finances Publiques (DGFiP) et de l’INSEE.</p>
+            <p>Elle est <strong>co-produite</strong> par la Direction Interministérielle du Numérique (DINUM) et l’IGN, avec la participation des collectivités locales, de la Direction Générale des Finances Publiques (DGFiP) et de l’INSEE.</p>
             <p>Elle fait partie du <a href='https://www.data.gouv.fr/fr/reference'>Service Public des Données de référence</a>.</p>
           </Question>
 
@@ -34,9 +34,9 @@ export default () => (
             <p>Les fichiers contenant les adresses de la Base Adresse Nationale sont diffusés de façon <strong>hebdomadaire</strong>.</p>
             <p>Ils suivent le processus de production indicatif suivant :</p>
             <ul>
-              <li>Chaque lundi, l’IGN réalise un export des données de la base de gestion qu’il opère et le transmet à la DINSIC. La DINSIC met en ligne ce fichier sans modification sous le nom <strong>produit gratuit issu de la BAN</strong>.</li>
-              <li>Chaque mardi, la DINSIC consolide les <strong>Bases Adresses Locales</strong> disponibles en un fichier national appelé <a href='https://www.data.gouv.fr/fr/datasets/adresses-locales/'>Adresses locales</a>.</li>
-              <li>Chaque mercredi, la DINSIC produit et diffuse les fichiers <strong>Adresses ODbL</strong> et <strong>Adresses LO</strong> qui sont issus du <strong>produit gratuit issu de la BAN</strong>, des <strong>Bases Adresses Locales</strong>, des <a href='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/'>adresses extraites du cadastre</a> et du <a href='https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/'>fichier de suivi des déploiements du très haut débit fixe</a>. Les services qui les utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
+              <li>Chaque lundi, l’IGN réalise un export des données de la base de gestion qu’il opère et le transmet à la DINUM. La DINUM met en ligne ce fichier sans modification sous le nom <strong>produit gratuit issu de la BAN</strong>.</li>
+              <li>Chaque mardi, la DINUM consolide les <strong>Bases Adresses Locales</strong> disponibles en un fichier national appelé <a href='https://www.data.gouv.fr/fr/datasets/adresses-locales/'>Adresses locales</a>.</li>
+              <li>Chaque mercredi, la DINUM produit et diffuse les fichiers <strong>Adresses ODbL</strong> et <strong>Adresses LO</strong> qui sont issus du <strong>produit gratuit issu de la BAN</strong>, des <strong>Bases Adresses Locales</strong>, des <a href='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/'>adresses extraites du cadastre</a> et du <a href='https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/'>fichier de suivi des déploiements du très haut débit fixe</a>. Les services qui les utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
             </ul>
           </Question>
 
@@ -98,7 +98,7 @@ export default () => (
           </Question>
 
           <Question question='Sous quelle licence publier une Base Adresse Locale ?'>
-            <p>La <strong>DINSIC</strong> et l’<strong>Association des maires de France (AMF)</strong> suggèrent activement de publier les Bases Adresses Locales sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, licence qui garantit leur utilisation la plus large.</p>
+            <p>La <strong>DINUM</strong> et l’<strong>Association des maires de France (AMF)</strong> suggèrent activement de publier les Bases Adresses Locales sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, licence qui garantit leur utilisation la plus large.</p>
             <p>Par ailleurs seule la <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a> permet d’alimenter la Base Adresse Nationale, le cadastre, l’INSEE et les principales solutions cartographiques et GPS du marché.</p>
             <p>Si une forme de protectionnisme peut être pertinente sur certaines données publiques, elle est exclue sur les adresses qui constituent une donnée fondamentale.</p>
           </Question>
