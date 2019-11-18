@@ -57,7 +57,7 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "lerna-changelog": "^0.8.3",
     "webpack-bundle-analyzer": "^3.6.0",
-    "xo": "^0.24.0"
+    "xo": "^0.25.3"
   },
   "xo": {
     "extends": "xo-nextjs",
