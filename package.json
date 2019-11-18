@@ -19,7 +19,7 @@
     "@turf/bbox": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "blob-to-buffer": "^1.2.8",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.3",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.3",
     "express": "^4.17.1",
