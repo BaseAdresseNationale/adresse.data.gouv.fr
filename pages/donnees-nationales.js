@@ -7,6 +7,7 @@ import Page from '../layouts/main'
 
 import Head from '../components/head'
 import Section from '../components/section'
+import Container from '../components/container'
 import Notification from '../components/notification'
 
 import theme from '../styles/theme'
@@ -31,19 +32,19 @@ export default () => (
           <div className='divider' />
 
           <p className='block description'>
-            Export des données de la Base Adresse Nationale.
+            Export brut des données de l’API de gestion IGN
           </p>
 
           <div className='block characteristics'>
             <h6>Caractéristiques</h6>
             <ul>
-              <li>Producteur : <strong>Partenaires BAN</strong></li>
+              <li>Producteur : <strong>IGN</strong></li>
               <li>Licence : <a href='/static/docs/licence-produit-gratuit-ban.pdf'>licence spécifique</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
-              <li><strong>1 ligne par position</strong></li>
-              <li>48 millions de positions</li>
+              <li><strong>1 ligne par position et par source</strong></li>
+              <li>49 millions de lignes</li>
               <li>Table de passage identifiants IGN</li>
             </ul>
             <p><a href='/static/docs/BAN_Descriptif_Donnees.pdf'>Documentation produit</a></p>
@@ -63,7 +64,7 @@ export default () => (
           <div className='divider' />
 
           <p className='block description'>
-            Adresses issues de la <strong>Base Adresse Nationale</strong>, <strong>retravaillées</strong> et enrichies des <Link href='/bases-locales'>Bases Adresses Locales</Link>.
+            Adresses normalisées issues des <Link href='/bases-locales'>Bases Adresses Locales</Link>, de l’API de gestion IGN et de sources complémentaires.<br /><strong>Toutes les données</strong>
           </p>
 
           <div className='block characteristics'>
@@ -75,7 +76,8 @@ export default () => (
             </ul>
             <ul>
               <li><strong>1 ligne par adresse</strong></li>
-              <li>24,8 millions d’adresses</li>
+              <li>24,3 millions d’adresses</li>
+              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
             <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/static/schemas/adresses-csv.md'>Schéma des données</a></p>
@@ -96,19 +98,20 @@ export default () => (
           <div className='divider' />
 
           <p className='block description'>
-            Adresses d’ores et déjà disponibles sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>.
+          Adresses normalisées issues des <Link href='/bases-locales'>Bases Adresses Locales</Link>, de l’API de gestion IGN et de sources complémentaires.<br /><strong>Uniquement les données sous Licence Ouverte</strong>
           </p>
 
           <div className='block characteristics'>
             <h6>Caractéristiques</h6>
             <ul>
               <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte 2.0</a></li>
+              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
               <li><strong>1 ligne par adresse</strong></li>
-              <li>20,6 millions d’adresses</li>
+              <li>20,2 millions d’adresses</li>
+              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
             <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/static/schemas/adresses-csv.md'>Schéma des données</a></p>
@@ -126,29 +129,26 @@ export default () => (
       </div>
     </Section>
 
-    <Section title='En partenariat avec'>
-      <div className='partners'>
-        <div>
-          <a href='https://portail.dgfip.finances.gouv.fr/portail/accueilIAM.pl/'>
-            <img className='logo' src='/static/images/logos/dgfip.png' alt='DGFIP' />
-          </a>
-        </div>
-        <div>
-          <a href='http://ign.fr/'>
-            <img className='logo' src='/static/images/logos/IGN.jpg' alt='IGN' />
-          </a>
-        </div>
-        <div>
-          <a href='http://openstreetmap.fr/'>
-            <img className='logo' src='/static/images/logos/OSM.png' alt='OpenStreetMap France' />
-          </a>
-        </div>
-        <div>
-          <a href='http://www.laposte.fr/'>
-            <img className='logo' src='/static/images/logos/laposte.jpg' alt='La Poste' />
-          </a>
-        </div>
-      </div>
+    <Section title='Que va-t’il se passer au 1er janvier 2020 ?'>
+      <Container>
+        <ul>
+          <li>Le <strong>produit gratuit issu de la BAN</strong> passera sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, <strong>en l’état</strong>.</li>
+          <li><strong>Adresses ODbL</strong> passera sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, <strong>en l’état</strong>, et sera renommé “Adresses”.</li>
+          <li><strong>Adresses LO</strong> sera rendu caduque et retiré de cette page.</li>
+        </ul>
+      </Container>
+    </Section>
+
+    <Section title='Quelles données retrouvent-on dans chacun de ces fichiers ?'>
+      <Container>
+        <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
+        <h5>Produit gratuit issu de la BAN</h5>
+        <img className='adjust-img' src='/static/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
+        <h5>Adresses ODbL</h5>
+        <img className='adjust-img' src='/static/images/donnees-nationales/schema-adresses-odbl.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses ODbL' />
+        <h5>Adresses LO</h5>
+        <img className='adjust-img' src='/static/images/donnees-nationales/schema-adresses-lo.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses LO' />
+      </Container>
     </Section>
 
     <style jsx>{`
@@ -188,18 +188,6 @@ export default () => (
 
         .description {
           font-size: 0.9em;
-        }
-
-        .partners {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          grid-row-gap: 0.6em;
-          text-align: center;
-          align-items: center;
-        }
-
-        .logo {
-          height: 130px;
         }
 
         .dataset {
@@ -253,6 +241,13 @@ export default () => (
 
         h6 {
           margin-bottom: 1em;
+        }
+
+        .adjust-img {
+          width: 100%;
+          height: auto;
+          max-width: 600px;
+          margin: 50px;
         }
       `}</style>
   </Page>
