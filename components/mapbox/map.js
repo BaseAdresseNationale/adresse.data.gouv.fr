@@ -23,7 +23,7 @@ const STYLES = {
     sources: {
       'raster-tiles': {
         type: 'raster',
-        tiles: ['https://wxs.ign.fr/6njcwphuobi6vx0seroqdoza/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
+        tiles: ['https://tiles.geo.api.gouv.fr/photographies-aeriennes/tiles/{z}/{x}/{y}'],
         tileSize: 256,
         attribution: '© IGN'
       }

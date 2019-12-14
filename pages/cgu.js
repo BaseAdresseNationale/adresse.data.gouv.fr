@@ -31,7 +31,7 @@ export default () => (
             En application de la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, les utilisateurs de la plateforme data.gouv.fr disposent notamment d’un droit d’accès et de rectification auprès de l’éditeur de la plateforme.
           </p>
           <p>
-            Ce droit s’exerce auprès de la Mission Etalab, Direction interministérielle du numérique et du système d’information et de communication de l’État (DINSIC), 20 avenue de Ségur, 75007 Paris.
+            Ce droit s’exerce auprès de la Mission Etalab, direction interministérielle du numérique (DINUM), 20 avenue de Ségur, 75007 Paris.
           </p>
           <p>
             La plateforme data.gouv.fr a été déclarée à la Commission Nationale de l’Informatique et des Libertés sous le numéro : eRa0876341t.
@@ -53,13 +53,13 @@ export default () => (
           <h2>Mentions légales</h2>
           <h4>Editeur</h4>
           <p>
-            Direction interministérielle du numérique et du système d’information et de communication de l’État (DINSIC)<br />{}
+            Direction interministérielle du numérique (DINUM)<br />{}
             20, avenue de Ségur<br />{}
             75007 Paris<br />{}
             dinsic-sec-directeur [à] modernisation.gouv.fr
           </p>
 
-          <p>Directeur de la publication : M. Nadi Bou Hanna, DINSIC</p>
+          <p>Directeur de la publication : M. Nadi Bou Hanna, DINUM</p>
 
           <h4>Hébergeur</h4>
           <p>
