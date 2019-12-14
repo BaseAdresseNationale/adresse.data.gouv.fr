@@ -14,6 +14,10 @@ const title = 'Bases adresse locales'
 const description = 'Liste des bases adresse locales'
 
 class Datasets extends React.Component {
+  static propTypes = {
+    datasets: PropTypes.array.isRequired
+  }
+
   render() {
     const {datasets} = this.props
 
@@ -24,10 +28,6 @@ class Datasets extends React.Component {
       </Page>
     )
   }
-}
-
-Datasets.propTypes = {
-  datasets: PropTypes.array.isRequired
 }
 
 Datasets.getInitialProps = async () => {

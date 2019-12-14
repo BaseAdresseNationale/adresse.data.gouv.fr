@@ -9,12 +9,16 @@ import Notification from '../../notification'
 import BaseAdresseLocale from './base-adresse-locale'
 
 class BasesAdresseLocales extends React.Component {
+  static propTypes = {
+    datasets: PropTypes.array.isRequired
+  }
+
   render() {
     const {datasets} = this.props
 
     return (
       <>
-        <Notification fullWidth>
+        <Notification isFullWidth>
           <p>Cette page recense toutes les <strong>Bases Adresses Locales</strong> connues à ce jour.</p>
           <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <div className='tag'>base-adresse-locale</div>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser notre <a href='https://editeur.adresse.data.gouv.fr'>éditeur de Base Adresse Locale</a>, qui dispose d’un outil de publication simplifié.</p>
         </Notification>
@@ -50,10 +54,6 @@ class BasesAdresseLocales extends React.Component {
       </>
     )
   }
-}
-
-BasesAdresseLocales.propTypes = {
-  datasets: PropTypes.array.isRequired
 }
 
 export default BasesAdresseLocales

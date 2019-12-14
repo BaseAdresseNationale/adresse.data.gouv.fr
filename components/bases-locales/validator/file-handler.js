@@ -13,7 +13,7 @@ class FileHandler extends React.Component {
       PropTypes.string,
       PropTypes.instanceOf(Error)
     ]),
-    loading: PropTypes.bool,
+    isLoading: PropTypes.bool,
     onFileDrop: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
   }
@@ -22,13 +22,10 @@ class FileHandler extends React.Component {
     defaultValue: '',
     file: null,
     error: null,
-    loading: false
+    isLoading: false
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {inputValue: props.defaultValue}
-  }
+  state = {inputValue: this.props.defaultValue}
 
   handleSubmit = () => {
     const {inputValue} = this.state
@@ -43,7 +40,7 @@ class FileHandler extends React.Component {
 
   render() {
     const {inputValue} = this.state
-    const {file, error, loading, onFileDrop} = this.props
+    const {file, error, isLoading, onFileDrop} = this.props
 
     return (
       <>
@@ -63,7 +60,7 @@ class FileHandler extends React.Component {
               onChange={this.handleChange}
               onSubmit={this.handleSubmit}
               buttonText='Utiliser'
-              loading={loading}
+              loading={isLoading}
             />
           </div>
 

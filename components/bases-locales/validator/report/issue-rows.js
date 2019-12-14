@@ -12,12 +12,12 @@ class IssueRows extends React.Component {
     }).isRequired,
     rows: PropTypes.array.isRequired,
     type: PropTypes.oneOf(['error', 'warning']).isRequired,
-    selected: PropTypes.bool,
+    isSelected: PropTypes.bool,
     onClick: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    selected: false
+    isSelected: false
   }
 
   handleClick = () => {
@@ -26,7 +26,7 @@ class IssueRows extends React.Component {
   }
 
   render() {
-    const {issue, rows, type, selected} = this.props
+    const {issue, rows, type, isSelected} = this.props
     const issuesRows = issue.rows.length
 
     return (
@@ -35,14 +35,14 @@ class IssueRows extends React.Component {
           <b>{
             issuesRows === rows.length ?
               'Toutes les lignes' :
-              issuesRows === 1 ?
+              (issuesRows === 1 ?
                 `La ligne ${issue.rows[0]}` :
-                `${issuesRows} lignes`
+                `${issuesRows} lignes`)
           }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
           <span className='colored'> {issue.message}</span>
 
-          {selected && (
+          {isSelected && (
             <span className='eye'><FaEye /></span>
           )}
         </div>

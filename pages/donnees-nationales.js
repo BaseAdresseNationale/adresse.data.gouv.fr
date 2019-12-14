@@ -19,7 +19,7 @@ export default () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<DownloadIcon />} />
 
-    <Notification fullWidth>
+    <Notification isFullWidth>
       Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier Ministre</a>, la Base Adresse Nationale passera intégralement sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
     </Notification>
 

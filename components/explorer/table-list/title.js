@@ -2,6 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Title extends React.Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired
+  }
+
   render() {
     const {title, subtitle} = this.props
 
@@ -22,11 +27,6 @@ class Title extends React.Component {
       </div>
     )
   }
-}
-
-Title.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
 }
 
 export default Title

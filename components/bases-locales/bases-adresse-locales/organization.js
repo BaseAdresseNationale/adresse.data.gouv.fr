@@ -2,6 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class Organization extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    logo: PropTypes.string.isRequired,
+    size: PropTypes.oneOf([
+      'standard',
+      'big'
+    ])
+  }
+
+  static defaultProps = {
+    size: 'standard'
+  }
+
   render() {
     const {logo, name, size} = this.props
     return (
@@ -29,19 +42,6 @@ class Organization extends React.Component {
       </div>
     )
   }
-}
-
-Organization.propTypes = {
-  name: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
-  size: PropTypes.oneOf([
-    'standard',
-    'big'
-  ])
-}
-
-Organization.defaultProps = {
-  size: 'standard'
 }
 
 export default Organization

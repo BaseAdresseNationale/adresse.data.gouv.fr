@@ -51,13 +51,13 @@
     "babel-eslint": "^10.0.3",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-lodash": "^3.3.4",
-    "eslint": "^6.6.0",
-    "eslint-config-xo-nextjs": "^1.4.0",
+    "eslint": "^6.5.1",
+    "eslint-config-xo-nextjs": "^1.5.0",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "lerna-changelog": "^0.8.3",
     "webpack-bundle-analyzer": "^3.6.0",
-    "xo": "^0.24.0"
+    "xo": "^0.25.3"
   },
   "xo": {
     "extends": "xo-nextjs",

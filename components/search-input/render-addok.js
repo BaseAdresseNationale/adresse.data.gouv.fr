@@ -38,8 +38,7 @@ function renderItem(item, isHighlighted) {
         </div>
         {type === 'municipality' ?
           <div>{context}</div> :
-          <div>{city} - {postcode}</div>
-        }
+          <div>{city} - {postcode}</div>}
       </div>
       <style jsx>{`
         .item {

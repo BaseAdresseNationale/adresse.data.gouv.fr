@@ -47,8 +47,7 @@ const VoiePreview = ({voie}) => {
             />
           )}
         </Mapbox>
-      </div>
-      }
+      </div>}
 
       {voie.position && !numeros && (
         <>

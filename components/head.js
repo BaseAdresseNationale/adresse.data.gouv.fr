@@ -6,7 +6,7 @@ import theme from '../styles/theme'
 import Container from './container'
 import BetaRibbon from './beta-ribbon'
 
-const Head = ({title, icon, beta}) => (
+const Head = ({title, icon, isBeta}) => (
   <div>
     <div className='head'>
       <Container>
@@ -16,7 +16,7 @@ const Head = ({title, icon, beta}) => (
             <h1>{title}</h1>
           </div>
 
-          {beta && (
+          {isBeta && (
             <BetaRibbon />
           )}
         </div>
@@ -58,11 +58,11 @@ const Head = ({title, icon, beta}) => (
 Head.propTypes = {
   title: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
-  beta: PropTypes.bool
+  isBeta: PropTypes.bool
 }
 
 Head.defaultProps = {
-  beta: false
+  isBeta: false
 }
 
 export default Head

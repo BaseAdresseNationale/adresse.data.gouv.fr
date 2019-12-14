@@ -13,6 +13,11 @@ const title = 'Bases locales'
 const description = 'Bases de données Adresse de périmètre local, éditées sous la responsabilité des collectivités locales.'
 
 class BasesLocalesPage extends React.Component {
+  static propTypes = {
+    datasets: PropTypes.array.isRequired,
+    stats: PropTypes.object.isRequired
+  }
+
   render() {
     const {datasets, stats} = this.props
 
@@ -23,11 +28,6 @@ class BasesLocalesPage extends React.Component {
       </Page>
     )
   }
-}
-
-BasesLocalesPage.propTypes = {
-  datasets: PropTypes.array.isRequired,
-  stats: PropTypes.object.isRequired
 }
 
 BasesLocalesPage.getInitialProps = async () => {

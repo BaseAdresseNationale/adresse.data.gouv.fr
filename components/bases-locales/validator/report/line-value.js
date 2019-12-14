@@ -4,6 +4,16 @@ import PropTypes from 'prop-types'
 import theme from '../../../../styles/theme'
 
 class LineValue extends React.Component {
+  static propTypes = {
+    value: PropTypes.shape({
+      rawValue: PropTypes.string,
+      errors: PropTypes.array,
+      warnings: PropTypes.array
+    }).isRequired,
+    hasUnknownField: PropTypes.bool.isRequired,
+    handleHover: PropTypes.func.isRequired
+  }
+
   handleMouseOver = () => {
     const {value, handleHover} = this.props
 
@@ -17,7 +27,7 @@ class LineValue extends React.Component {
   }
 
   render() {
-    const {value, unknownField} = this.props
+    const {value, hasUnknownField} = this.props
     const {rawValue, errors, warnings} = value
     const hasErrors = errors && errors.length > 0
     const hasWarnings = warnings && warnings.length > 0
@@ -31,7 +41,7 @@ class LineValue extends React.Component {
             {rawValue}
           </td>
         ) : (
-          <td className={`${unknownField ? 'unknown' : 'valid'}`}>
+          <td className={`${hasUnknownField ? 'unknown' : 'valid'}`}>
             {rawValue}
           </td>
         )}
@@ -72,16 +82,6 @@ class LineValue extends React.Component {
       </Fragment>
     )
   }
-}
-
-LineValue.propTypes = {
-  value: PropTypes.shape({
-    rawValue: PropTypes.string,
-    errors: PropTypes.array,
-    warnings: PropTypes.array
-  }).isRequired,
-  unknownField: PropTypes.bool.isRequired,
-  handleHover: PropTypes.func.isRequired
 }
 
 export default LineValue

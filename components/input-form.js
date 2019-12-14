@@ -8,7 +8,7 @@ class Input extends React.PureComponent {
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
-    loading: PropTypes.bool,
+    isLoading: PropTypes.bool,
     buttonText: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
@@ -17,7 +17,7 @@ class Input extends React.PureComponent {
   static defaultProps = {
     value: null,
     placeholder: '',
-    loading: false
+    isLoading: false
   }
 
   handleSubmit = event => {
@@ -35,12 +35,12 @@ class Input extends React.PureComponent {
   }
 
   render() {
-    const {value, placeholder, buttonText, loading} = this.props
+    const {value, placeholder, buttonText, isLoading} = this.props
 
     return (
       <div className='form'>
         <input type='text' defaultValue={value} placeholder={placeholder} onChange={this.handleChange} />
-        <Button type='submit' size='large' onClick={this.handleSubmit}>{loading ? <Loader /> : buttonText}</Button>
+        <Button type='submit' size='large' onClick={this.handleSubmit}>{isLoading ? <Loader /> : buttonText}</Button>
         <style jsx>{`
           .form {
             display: flex;

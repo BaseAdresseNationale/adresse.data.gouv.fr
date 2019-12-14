@@ -146,7 +146,7 @@ export default () => (
     </Section>
 
     <Section background='grey'>
-      <form action='https://gouv.us15.list-manage.com/subscribe/post?u=f4e80584578b65fde5aadffb6&amp;id=d33ef3dd55' method='post'name='mc-embedded-subscribe-form' target='_blank' noValidate>
+      <form action='https://gouv.us15.list-manage.com/subscribe/post?u=f4e80584578b65fde5aadffb6&amp;id=d33ef3dd55' method='post' name='mc-embedded-subscribe-form' target='_blank' noValidate>
         <h2>Pour être informé des nouveautés, inscrivez-vous à notre newsletter :</h2>
         <input type='email' name='EMAIL' placeholder='Votre adresse email' />
 

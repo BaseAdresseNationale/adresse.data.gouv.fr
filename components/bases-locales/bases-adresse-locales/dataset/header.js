@@ -13,22 +13,22 @@ class Header extends React.Component {
       title: PropTypes.string.isRequired,
       children: PropTypes.node.isRequired
     }),
-    placeName: PropTypes.bool
+    isPlaceName: PropTypes.bool
   }
 
   static defaultProps = {
     info: null,
-    placeName: null,
+    isPlaceName: null,
     logo: null
   }
 
   render() {
-    const {name, logo, info, placeName} = this.props
+    const {name, logo, info, isPlaceName} = this.props
 
     return (
       <div className='head'>
         <div>
-          <h1>{name} <span>{placeName && <Tag type='toponyme' />}</span></h1>
+          <h1>{name} <span>{isPlaceName && <Tag type='toponyme' />}</span></h1>
           {info && (
             <Info title={info.title}>
               {info.children}
