@@ -9,7 +9,6 @@ import theme from '../styles/theme'
 import Head from '../components/head'
 import Section from '../components/section'
 import ButtonLink from '../components/button-link'
-import Notification from '../components/notification'
 
 const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer à améliorer les données Adresse.'
