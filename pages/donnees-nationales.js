@@ -64,7 +64,7 @@ export default () => (
           <div className='divider' />
 
           <p className='block description'>
-            Adresses normalisées issues des <Link href='/bases-locales'>Bases Adresses Locales</Link>, de l’API de gestion IGN et de sources complémentaires.<br /><strong>Toutes les données</strong>
+            Adresses normalisées issues des <Link href='/bases-locales'><a>Bases Adresses Locales</a></Link>, de l’API de gestion IGN et de sources complémentaires.
           </p>
 
           <div className='block characteristics'>
@@ -92,40 +92,6 @@ export default () => (
           </div>
         </div>
 
-        <div className='dataset'>
-          <h3>Adresses LO</h3>
-
-          <div className='divider' />
-
-          <p className='block description'>
-          Adresses normalisées issues des <Link href='/bases-locales'>Bases Adresses Locales</Link>, de l’API de gestion IGN et de sources complémentaires.<br /><strong>Uniquement les données sous Licence Ouverte</strong>
-          </p>
-
-          <div className='block characteristics'>
-            <h6>Caractéristiques</h6>
-            <ul>
-              <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
-              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
-            </ul>
-            <ul>
-              <li><strong>1 ligne par adresse</strong></li>
-              <li>20,2 millions d’adresses</li>
-              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
-              <li>Contient les libellés normalisés AFNOR</li>
-            </ul>
-            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a></p>
-          </div>
-
-          <div className='block downloads'>
-            <h6>Télécharger les données</h6>
-            <ul>
-              <li><a href='/data/ban/adresses-lo/latest/csv'>Format CSV<MdFileDownload /></a></li>
-              <li><a href='/data/ban/adresses-lo/latest/addok'>Format JSON pour Addok<MdFileDownload /></a></li>
-            </ul>
-          </div>
-        </div>
-
       </div>
     </Section>
 
@@ -146,8 +112,6 @@ export default () => (
         <img className='adjust-img' src='/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
         <h5>Adresses ODbL</h5>
         <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-odbl.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses ODbL' />
-        <h5>Adresses LO</h5>
-        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-lo.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses LO' />
       </Container>
     </Section>
 
