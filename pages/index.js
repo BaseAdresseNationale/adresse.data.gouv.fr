@@ -44,8 +44,8 @@ export default () => (
 
     <div className='events'>
       <a href='https://www.fun-mooc.fr/courses/course-v1:CNFPT+87040+session01/about#'>
-        <img className='screen' src='/static/events/mooc-adresse.png' />
-        <img className='mobile' src='/static/events/mooc-adresse-mobile.png' />
+        <img className='screen' src='/events/mooc-adresse.png' />
+        <img className='mobile' src='/events/mooc-adresse-mobile.png' />
       </a>
       <style jsx>{`
         .events img {
@@ -80,7 +80,7 @@ export default () => (
         <Link href='/download'>
           <a>
             <img
-              src='/static/images/icons/download.svg'
+              src='/images/icons/download.svg'
             /> Accéder aux données
           </a>
         </Link>
@@ -88,7 +88,7 @@ export default () => (
         <Link href='/contribuer'>
           <a>
             <img
-              src='/static/images/icons/contribute.svg'
+              src='/images/icons/contribute.svg'
             /> Contribuer à la démarche
           </a>
         </Link>
@@ -96,7 +96,7 @@ export default () => (
         <Link href='/tools'>
           <a>
             <img
-              src='/static/images/icons/tools.svg'
+              src='/images/icons/tools.svg'
             /> Découvrir les outils
           </a>
         </Link>

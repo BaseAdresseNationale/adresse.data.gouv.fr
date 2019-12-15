@@ -11,7 +11,7 @@ class SwitchMapStyle extends React.Component {
 
   render() {
     const {isVector, handleChange} = this.props
-    const src = `/static/images/preview-${isVector ? 'ortho' : 'vector'}.png`
+    const src = `/images/preview-${isVector ? 'ortho' : 'vector'}.png`
     const style = isVector ? 'Satellite' : 'Vectoriel'
 
     return (

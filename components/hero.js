@@ -15,7 +15,7 @@ const Hero = ({title, tagline}) => (
         color: ${theme.colors.white};
         background-color: ${theme.backgroundWhite};
         background-blend-mode: darken;
-        background-image: url(/static/images/background.png);
+        background-image: url(/images/background.png);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;

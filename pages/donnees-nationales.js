@@ -39,7 +39,7 @@ export default () => (
             <h6>Caractéristiques</h6>
             <ul>
               <li>Producteur : <strong>IGN</strong></li>
-              <li>Licence : <a href='/static/docs/licence-produit-gratuit-ban.pdf'>licence spécifique</a></li>
+              <li>Licence : <a href='/docs/licence-produit-gratuit-ban.pdf'>licence spécifique</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
@@ -47,7 +47,7 @@ export default () => (
               <li>49 millions de lignes</li>
               <li>Table de passage identifiants IGN</li>
             </ul>
-            <p><a href='/static/docs/BAN_Descriptif_Donnees.pdf'>Documentation produit</a></p>
+            <p><a href='/docs/BAN_Descriptif_Donnees.pdf'>Documentation produit</a></p>
           </div>
 
           <div className='block downloads'>
@@ -80,7 +80,7 @@ export default () => (
               <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
-            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/static/schemas/adresses-csv.md'>Schéma des données</a></p>
+            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a></p>
           </div>
 
           <div className='block downloads'>
@@ -114,7 +114,7 @@ export default () => (
               <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
-            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/static/schemas/adresses-csv.md'>Schéma des données</a></p>
+            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a></p>
           </div>
 
           <div className='block downloads'>
@@ -143,11 +143,11 @@ export default () => (
       <Container>
         <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
         <h5>Produit gratuit issu de la BAN</h5>
-        <img className='adjust-img' src='/static/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
+        <img className='adjust-img' src='/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
         <h5>Adresses ODbL</h5>
-        <img className='adjust-img' src='/static/images/donnees-nationales/schema-adresses-odbl.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses ODbL' />
+        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-odbl.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses ODbL' />
         <h5>Adresses LO</h5>
-        <img className='adjust-img' src='/static/images/donnees-nationales/schema-adresses-lo.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses LO' />
+        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-lo.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses LO' />
       </Container>
     </Section>
 
