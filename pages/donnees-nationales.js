@@ -59,7 +59,7 @@ export default () => (
         </div>
 
         <div className='dataset'>
-          <h3>Adresses ODbL</h3>
+          <h3>Adresses</h3>
 
           <div className='divider' />
 
@@ -110,8 +110,8 @@ export default () => (
         <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
         <h5>Produit gratuit issu de la BAN</h5>
         <img className='adjust-img' src='/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
-        <h5>Adresses ODbL</h5>
-        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-odbl.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses ODbL' />
+        <h5>Adresses</h5>
+        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses' />
       </Container>
     </Section>
 
