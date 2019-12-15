@@ -95,16 +95,6 @@ export default () => (
       </div>
     </Section>
 
-    <Section title='Que va-t’il se passer au 1er janvier 2020 ?'>
-      <Container>
-        <ul>
-          <li>Le <strong>produit gratuit issu de la BAN</strong> passera sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, <strong>en l’état</strong>.</li>
-          <li><strong>Adresses ODbL</strong> passera sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, <strong>en l’état</strong>, et sera renommé “Adresses”.</li>
-          <li><strong>Adresses LO</strong> sera rendu caduque et retiré de cette page.</li>
-        </ul>
-      </Container>
-    </Section>
-
     <Section title='Quelles données retrouvent-on dans chacun de ces fichiers ?'>
       <Container>
         <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
