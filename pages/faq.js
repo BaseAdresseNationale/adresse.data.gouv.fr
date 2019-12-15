@@ -25,9 +25,8 @@ export default () => (
           </Question>
 
           <Question question='La Base Adresse Nationale est-elle gratuite ?'>
-            <p>Jusqu’au 31 décembre 2019, la Base Adresse Nationale est disponible sous <strong>licence spécifique</strong> ou sous <strong>licence ODbL</strong>. Elle est donc dans les deux cas gratuite.</p>
-            <p>Néanmoins ces licences impliquent certaines restrictions à la réutilisation des données qui peuvent interdire certains usages.</p>
-            <p><strong>À partir du 1er janvier 2020, la Base Adresse Nationale sera disponible sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a> exclusivement, suite à <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>une décision du Premier ministre</a>.</strong></p>
+            <p>La Base Adresse Nationale est disponible sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a> depuis le  <strong>1er janvier 2020</strong>.</p>
+            <p>Elle est donc <strong>gratuite</strong> et <strong>librement réutilisable</strong> (à condition de citer la source).</p>
           </Question>
 
           <Question question='À quelle fréquence la Base Adresse Nationale est-elle mise à jour ?'>
