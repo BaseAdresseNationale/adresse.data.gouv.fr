@@ -39,7 +39,7 @@ export default () => (
             <h6>Caractéristiques</h6>
             <ul>
               <li>Producteur : <strong>IGN</strong></li>
-              <li>Licence : <a href='/docs/licence-produit-gratuit-ban.pdf'>licence spécifique</a></li>
+              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
@@ -71,7 +71,7 @@ export default () => (
             <h6>Caractéristiques</h6>
             <ul>
               <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://opendatacommons.org/licenses/odbl/summary/'>Open Database License (ODbL) 1.0</a></li>
+              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
