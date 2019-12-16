@@ -20,7 +20,7 @@ export default () => (
     <Head title={title} icon={<DownloadIcon />} />
 
     <Notification isFullWidth>
-      Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier Ministre</a>, la Base Adresse Nationale passera intégralement sous <strong>Licence Ouverte</strong> au plus tard le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
+      Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier Ministre</a>, la Base Adresse Nationale est disponible intégralement sous <strong>Licence Ouverte</strong> depuis le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
     </Notification>
 
     <Section>
@@ -39,7 +39,7 @@ export default () => (
             <h6>Caractéristiques</h6>
             <ul>
               <li>Producteur : <strong>IGN</strong></li>
-              <li>Licence : <a href='/docs/licence-produit-gratuit-ban.pdf'>licence spécifique</a></li>
+              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
@@ -59,19 +59,19 @@ export default () => (
         </div>
 
         <div className='dataset'>
-          <h3>Adresses ODbL</h3>
+          <h3>Adresses</h3>
 
           <div className='divider' />
 
           <p className='block description'>
-            Adresses normalisées issues des <Link href='/bases-locales'>Bases Adresses Locales</Link>, de l’API de gestion IGN et de sources complémentaires.<br /><strong>Toutes les données</strong>
+            Adresses normalisées issues des <Link href='/bases-locales'><a>Bases Adresses Locales</a></Link>, de l’API de gestion IGN et de sources complémentaires.
           </p>
 
           <div className='block characteristics'>
             <h6>Caractéristiques</h6>
             <ul>
               <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://opendatacommons.org/licenses/odbl/summary/'>Open Database License (ODbL) 1.0</a></li>
+              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
               <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
             </ul>
             <ul>
@@ -92,51 +92,7 @@ export default () => (
           </div>
         </div>
 
-        <div className='dataset'>
-          <h3>Adresses LO</h3>
-
-          <div className='divider' />
-
-          <p className='block description'>
-          Adresses normalisées issues des <Link href='/bases-locales'>Bases Adresses Locales</Link>, de l’API de gestion IGN et de sources complémentaires.<br /><strong>Uniquement les données sous Licence Ouverte</strong>
-          </p>
-
-          <div className='block characteristics'>
-            <h6>Caractéristiques</h6>
-            <ul>
-              <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
-              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
-            </ul>
-            <ul>
-              <li><strong>1 ligne par adresse</strong></li>
-              <li>20,2 millions d’adresses</li>
-              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
-              <li>Contient les libellés normalisés AFNOR</li>
-            </ul>
-            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a></p>
-          </div>
-
-          <div className='block downloads'>
-            <h6>Télécharger les données</h6>
-            <ul>
-              <li><a href='/data/ban/adresses-lo/latest/csv'>Format CSV<MdFileDownload /></a></li>
-              <li><a href='/data/ban/adresses-lo/latest/addok'>Format JSON pour Addok<MdFileDownload /></a></li>
-            </ul>
-          </div>
-        </div>
-
       </div>
-    </Section>
-
-    <Section title='Que va-t’il se passer au 1er janvier 2020 ?'>
-      <Container>
-        <ul>
-          <li>Le <strong>produit gratuit issu de la BAN</strong> passera sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, <strong>en l’état</strong>.</li>
-          <li><strong>Adresses ODbL</strong> passera sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a>, <strong>en l’état</strong>, et sera renommé “Adresses”.</li>
-          <li><strong>Adresses LO</strong> sera rendu caduque et retiré de cette page.</li>
-        </ul>
-      </Container>
     </Section>
 
     <Section title='Quelles données retrouvent-on dans chacun de ces fichiers ?'>
@@ -144,10 +100,8 @@ export default () => (
         <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
         <h5>Produit gratuit issu de la BAN</h5>
         <img className='adjust-img' src='/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
-        <h5>Adresses ODbL</h5>
-        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-odbl.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses ODbL' />
-        <h5>Adresses LO</h5>
-        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses-lo.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses LO' />
+        <h5>Adresses</h5>
+        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses' />
       </Container>
     </Section>
 

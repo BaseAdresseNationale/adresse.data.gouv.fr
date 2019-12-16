@@ -25,9 +25,8 @@ export default () => (
           </Question>
 
           <Question question='La Base Adresse Nationale est-elle gratuite ?'>
-            <p>Jusqu’au 31 décembre 2019, la Base Adresse Nationale est disponible sous <strong>licence spécifique</strong> ou sous <strong>licence ODbL</strong>. Elle est donc dans les deux cas gratuite.</p>
-            <p>Néanmoins ces licences impliquent certaines restrictions à la réutilisation des données qui peuvent interdire certains usages.</p>
-            <p><strong>À partir du 1er janvier 2020, la Base Adresse Nationale sera disponible sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a> exclusivement, suite à <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>une décision du Premier ministre</a>.</strong></p>
+            <p>La Base Adresse Nationale est disponible sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a> depuis le  <strong>1er janvier 2020</strong>.</p>
+            <p>Elle est donc <strong>gratuite</strong> et <strong>librement réutilisable</strong> (à condition de citer la source).</p>
           </Question>
 
           <Question question='À quelle fréquence la Base Adresse Nationale est-elle mise à jour ?'>
@@ -36,7 +35,7 @@ export default () => (
             <ul>
               <li>Chaque lundi, l’IGN réalise un export des données de la base de gestion qu’il opère et le transmet à la DINUM. La DINUM met en ligne ce fichier sans modification sous le nom <strong>produit gratuit issu de la BAN</strong>.</li>
               <li>Chaque mardi, la DINUM consolide les <strong>Bases Adresses Locales</strong> disponibles en un fichier national appelé <a href='https://www.data.gouv.fr/fr/datasets/adresses-locales/'>Adresses locales</a>.</li>
-              <li>Chaque mercredi, la DINUM produit et diffuse les fichiers <strong>Adresses ODbL</strong> et <strong>Adresses LO</strong> qui sont issus du <strong>produit gratuit issu de la BAN</strong>, des <strong>Bases Adresses Locales</strong>, des <a href='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/'>adresses extraites du cadastre</a> et du <a href='https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/'>fichier de suivi des déploiements du très haut débit fixe</a>. Les services qui les utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
+              <li>Chaque mercredi, la DINUM produit et diffuse le fichier <strong>Adresses</strong> qui est issu du <strong>produit gratuit issu de la BAN</strong>, des <strong>Bases Adresses Locales</strong>, des <a href='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/'>adresses extraites du cadastre</a> et du <a href='https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/'>fichier de suivi des déploiements du très haut débit fixe</a>. Les services qui l’utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
             </ul>
           </Question>
 
