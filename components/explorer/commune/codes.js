@@ -39,6 +39,7 @@ const Codes = ({code, codesPostaux, departement, region, population}) => (
 
 Codes.propTypes = {
   codesPostaux: PropTypes.array.isRequired,
+  population: PropTypes.number.isRequired,
   code: PropTypes.string.isRequired,
   departement: PropTypes.shape({
     nom: PropTypes.string.isRequired,

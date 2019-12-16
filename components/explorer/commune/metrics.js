@@ -1,19 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaGroup from 'react-icons/lib/fa/group'
-import FaArrowsAlt from 'react-icons/lib/fa/arrows-alt'
-
-const Metrics = ({population, surface}) => (
+const Metrics = ({population}) => (
   <div className='metrics'>
-    {/* <div className='metric'>
-      <FaGroup size={30} />
+    <div className='metric'>
       <div>{population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} habitants</div>
-    </div> */}
-    {/* <div className='metric'>
-      <FaArrowsAlt size={30} />
-      <div>{(surface / 100).toFixed(5)} km²</div>
-    </div> */}
+    </div>
     <style jsx>{`
       .metrics {
         display: flex;
@@ -31,8 +23,7 @@ const Metrics = ({population, surface}) => (
 )
 
 Metrics.propTypes = {
-  population: PropTypes.number.isRequired,
-  surface: PropTypes.number.isRequired
+  population: PropTypes.number.isRequired
 }
 
 export default Metrics

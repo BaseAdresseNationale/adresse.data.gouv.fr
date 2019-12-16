@@ -29,7 +29,7 @@ const Commune = props => (
               {...mapboxProps}
               contour={props.contour}
             />
-            )}
+          )}
         </Mapbox>
       </div>
     </div>
