@@ -9,6 +9,14 @@ import withErrors from '../../../../components/hoc/with-errors'
 import Commune from '../../../../components/bases-locales/bases-adresse-locales/dataset/commune'
 
 class CommunePage extends React.Component {
+  static propTypes = {
+    commune: PropTypes.shape({
+      nom: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired
+    }).isRequired,
+    dataset: PropTypes.object.isRequired
+  }
+
   render() {
     const {dataset, commune} = this.props
     const description = `${commune.nom} - ${commune.code}`
@@ -19,14 +27,6 @@ class CommunePage extends React.Component {
       </Page>
     )
   }
-}
-
-CommunePage.propTypes = {
-  commune: PropTypes.shape({
-    nom: PropTypes.string.isRequired,
-    code: PropTypes.string.isRequired
-  }).isRequired,
-  dataset: PropTypes.object.isRequired
 }
 
 CommunePage.getInitialProps = async ({query}) => {

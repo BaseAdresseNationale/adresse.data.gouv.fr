@@ -39,7 +39,7 @@ const MAX_SIZE = 6 * 1024 * 1024
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
   if (dotPosition > 0 && dotPosition < fileName.length - 1) {
-    return fileName.substr(dotPosition + 1).toLowerCase()
+    return fileName.slice(dotPosition + 1).toLowerCase()
   }
 
   return null

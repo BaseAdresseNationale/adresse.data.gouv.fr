@@ -12,22 +12,22 @@ class SearchInput extends React.Component {
     results: PropTypes.array,
     value: PropTypes.string,
     placeholder: PropTypes.string,
-    loading: PropTypes.bool,
+    isLoading: PropTypes.bool,
     wrapperStyle: PropTypes.object,
     onSelect: PropTypes.func.isRequired,
     onSearch: PropTypes.func.isRequired,
     renderItem: PropTypes.func.isRequired,
     getItemValue: PropTypes.func.isRequired,
-    fullscreen: PropTypes.bool
+    isFullscreen: PropTypes.bool
   }
 
   static defaultProps = {
     results: [],
     value: '',
     placeholder: '',
-    loading: false,
+    isLoading: false,
     wrapperStyle: null,
-    fullscreen: false
+    isFullscreen: false
   }
 
   handleSearch = event => {
@@ -86,15 +86,15 @@ class SearchInput extends React.Component {
   }
 
   renderMenu = (items, value) => {
-    const {loading, fullscreen} = this.props
+    const {isLoading, isFullscreen} = this.props
 
     return (
-      <div className={`menu ${value.length > 0 ? '' : 'hidden'} ${fullscreen ? 'fullscreen' : ''}`}>
-        { loading && items.length === 0 ? (
+      <div className={`menu ${value.length > 0 ? '' : 'hidden'} ${isFullscreen ? 'fullscreen' : ''}`}>
+        { isLoading && items.length === 0 ? (
           <div className='item'><Loader size='small' /></div>
-        ) : items.length === 0 ? (
+        ) : (items.length === 0 ? (
           <div className='item'>Aucun résultat</div>
-        ) : items}
+        ) : items)}
         <style jsx>{`
           .menu {
             position: absolute;

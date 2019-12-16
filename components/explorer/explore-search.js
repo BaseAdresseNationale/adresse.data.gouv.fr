@@ -93,8 +93,7 @@ const ExploreSearch = () => {
       {error &&
         <div className='error'>
           <Notification message={error.message} type='error' />
-        </div>
-      }
+        </div>}
 
       <style jsx>{`
           .error {

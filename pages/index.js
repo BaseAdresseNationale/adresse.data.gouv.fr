@@ -43,45 +43,12 @@ export default () => (
       </div>
     </Section>
 
-    <div className='events'>
-      <a href='https://www.fun-mooc.fr/courses/course-v1:CNFPT+87040+session01/about#'>
-        <img className='screen' src='/static/events/mooc-adresse.png' />
-        <img className='mobile' src='/static/events/mooc-adresse-mobile.png' />
-      </a>
-      <style jsx>{`
-        .events img {
-          width: 100%;
-        }
-
-        @media (min-width: 700px) {
-          .screen {
-            display: block;
-            padding: 1em;
-          }
-
-          .mobile {
-            display: none;
-          }
-        }
-
-        @media (max-width: 700px) {
-          .screen {
-            display: none;
-          }
-
-          .mobile {
-            display: block;
-          }
-        }
-      `}</style>
-    </div>
-
     <Section background='color' title=''>
       <div className='data-tools'>
         <Link href='/download'>
           <a>
             <img
-              src='/static/images/icons/download.svg'
+              src='/images/icons/download.svg'
             /> Accéder aux données
           </a>
         </Link>
@@ -89,7 +56,7 @@ export default () => (
         <Link href='/contribuer'>
           <a>
             <img
-              src='/static/images/icons/contribute.svg'
+              src='/images/icons/contribute.svg'
             /> Contribuer à la démarche
           </a>
         </Link>
@@ -97,7 +64,7 @@ export default () => (
         <Link href='/tools'>
           <a>
             <img
-              src='/static/images/icons/tools.svg'
+              src='/images/icons/tools.svg'
             /> Découvrir les outils
           </a>
         </Link>
@@ -147,7 +114,7 @@ export default () => (
     </Section>
 
     <Section background='grey'>
-      <form action='https://gouv.us15.list-manage.com/subscribe/post?u=f4e80584578b65fde5aadffb6&amp;id=d33ef3dd55' method='post'name='mc-embedded-subscribe-form' target='_blank' noValidate>
+      <form action='https://gouv.us15.list-manage.com/subscribe/post?u=f4e80584578b65fde5aadffb6&amp;id=d33ef3dd55' method='post' name='mc-embedded-subscribe-form' target='_blank' noValidate>
         <h2>Pour être informé des nouveautés, inscrivez-vous à notre newsletter :</h2>
         <input type='email' name='EMAIL' placeholder='Votre adresse email' />
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = ({size, color, outlined, children, ...props}) => (
-  <button className={`button${outlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
+const Button = ({size, color, isOutlined, children, ...props}) => (
+  <button type='submit' className={`button${isOutlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
     {children}
   </button>
 )
@@ -18,14 +18,14 @@ Button.propTypes = {
     'warning',
     'secondary'
   ]),
-  outlined: PropTypes.bool,
+  isOutlined: PropTypes.bool,
   children: PropTypes.node
 }
 
 Button.defaultProps = {
   size: null,
   color: 'primary',
-  outlined: false,
+  isOutlined: false,
   children: null
 }
 

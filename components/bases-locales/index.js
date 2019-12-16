@@ -133,7 +133,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
               <Counter
                 value={isValidRatio}
                 unit='%'
-                color={isValidRatio < 20 ? 'error' : isValidRatio < 50 ? 'warning' : 'success'}
+                color={isValidRatio < 20 ? 'error' : (isValidRatio < 50 ? 'warning' : 'success')}
                 title='Conformité à la spécification BAL 1.1'
               />
 

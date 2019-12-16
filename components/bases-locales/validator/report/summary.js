@@ -14,12 +14,9 @@ import IssueRows from './issue-rows'
 const ROWS_LIMIT = 100
 
 class Rows extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selectedIssue: null,
-      rowsToDisplay: []
-    }
+  state = {
+    selectedIssue: null,
+    rowsToDisplay: []
   }
 
   static propTypes = {
@@ -120,7 +117,7 @@ class Rows extends React.Component {
                 key={`row-${row._line}`}
                 row={row}
                 unknownFields={unknownFields}
-                forceShowIssues={rowsToDisplay.length === 1}
+                isForcedShowIssues={rowsToDisplay.length === 1}
               />
             ))}
           </div>
@@ -161,4 +158,3 @@ class Rows extends React.Component {
 }
 
 export default Rows
-

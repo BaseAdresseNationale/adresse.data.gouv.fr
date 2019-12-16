@@ -5,14 +5,14 @@ import theme from '../../styles/theme'
 
 class SwitchMapStyle extends React.Component {
   static propTypes = {
-    vector: PropTypes.bool.isRequired,
+    isVector: PropTypes.bool.isRequired,
     handleChange: PropTypes.func.isRequired
   }
 
   render() {
-    const {vector, handleChange} = this.props
-    const src = `/static/images/preview-${vector ? 'ortho' : 'vector'}.png`
-    const style = vector ? 'Satellite' : 'Vectoriel'
+    const {isVector, handleChange} = this.props
+    const src = `/images/preview-${isVector ? 'ortho' : 'vector'}.png`
+    const style = isVector ? 'Satellite' : 'Vectoriel'
 
     return (
       <div className='switch-style'>
@@ -43,7 +43,7 @@ class SwitchMapStyle extends React.Component {
             position: relative;
             bottom: 26px;
             left: 4px;
-            color: ${vector ? '#fff' : '#000'}
+            color: ${isVector ? '#fff' : '#000'}
           }
           `}</style>
       </div>

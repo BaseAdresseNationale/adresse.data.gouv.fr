@@ -1,16 +1,27 @@
-const {Router} = require('express')
+const express = require('express')
+const next = require('next')
+const compression = require('compression')
 
-module.exports = app => {
-  const router = new Router()
+const port = process.env.PORT || 3000
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({dev})
+const handle = app.getRequestHandler()
 
-  router.get('/explore/commune/:code', (req, res) => {
+app.prepare().then(() => {
+  const server = express()
+
+  if (!dev) {
+    server.use(compression())
+  }
+
+  server.get('/explore/commune/:code', (req, res) => {
     app.render(req, res, '/explore/commune', {
       ...req.query,
       codeCommune: req.params.code
     })
   })
 
-  router.get('/explore/commune/:codeCommune/voie/:code', (req, res) => {
+  server.get('/explore/commune/:codeCommune/voie/:code', (req, res) => {
     app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,
@@ -18,7 +29,7 @@ module.exports = app => {
     })
   })
 
-  router.get('/explore/commune/:codeCommune/voie/:code/numero/:numero', (req, res) => {
+  server.get('/explore/commune/:codeCommune/voie/:code/numero/:numero', (req, res) => {
     app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,
@@ -27,33 +38,33 @@ module.exports = app => {
     })
   })
 
-  router.get('/bases-locales/validateur', (req, res) => {
+  server.get('/bases-locales/validateur', (req, res) => {
     app.render(req, res, '/bases-locales/validator', {
       ...req.query
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees', (req, res) => {
+  server.get('/bases-locales/jeux-de-donnees', (req, res) => {
     app.render(req, res, '/bases-locales/datasets', {
       ...req.query
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id', (req, res) => {
+  server.get('/bases-locales/jeux-de-donnees/:id', (req, res) => {
     app.render(req, res, '/bases-locales/datasets/dataset', {
       ...req.query,
       id: req.params.id
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id/rapport', (req, res) => {
+  server.get('/bases-locales/jeux-de-donnees/:id/rapport', (req, res) => {
     app.render(req, res, '/bases-locales/datasets/dataset/report', {
       ...req.query,
       id: req.params.id
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
+  server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
     app.render(req, res, '/bases-locales/datasets/dataset/commune', {
       ...req.query,
       id: req.params.id,
@@ -61,7 +72,7 @@ module.exports = app => {
     })
   })
 
-  router.get('/bases-locales/jeux-de-donnees/:id/:codeCommune/:codeVoie', (req, res) => {
+  server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune/:codeVoie', (req, res) => {
     app.render(req, res, '/bases-locales/datasets/dataset/commune/voie', {
       ...req.query,
       id: req.params.id,
@@ -71,18 +82,24 @@ module.exports = app => {
   })
 
   // DO NOT REMOVE
-  router.get('/download', (req, res) => {
+  server.get('/download', (req, res) => {
     res.redirect('/donnees-nationales')
   })
 
   // DO NOT REMOVE
-  router.get('/contrib', (req, res) => {
+  server.get('/contrib', (req, res) => {
     res.redirect('/contribuer')
   })
 
-  router.get('*', (req, res) => {
-    app.render(req, res, req.params[0], req.query)
+  server.get('*', (req, res) => {
+    return handle(req, res)
   })
 
-  return router
-}
+  server.listen(port, err => {
+    if (err) {
+      throw err
+    }
+
+    console.log(`> Ready on http://localhost:${port}`)
+  })
+})

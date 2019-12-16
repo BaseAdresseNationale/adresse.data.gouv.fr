@@ -9,7 +9,6 @@ import theme from '../styles/theme'
 import Head from '../components/head'
 import Section from '../components/section'
 import ButtonLink from '../components/button-link'
-import Notification from '../components/notification'
 
 const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer à améliorer les données Adresse.'
@@ -29,10 +28,6 @@ export default () => (
         <section>
           <h3>Utiliser le Guichet Adresse de l’IGN et de La Poste</h3>
           <p>Cet outil est destiné plus particulièrement aux mairies qui souhaitent avoir une assistance renforcée. Le processus est plus guidé, et vous n’avez aucun fichier à gérer.</p>
-          <Notification type='warning'>
-            <p>Attention : si vous souhaitez que les adresses de votre collectivité soient <strong>utilisables par le plus grand nombre</strong>, vous devez les publier sous <strong>Licence Ouverte</strong>.</p>
-            <p>Un formulaire sera très bientôt disponible pour vous permettre de le faire en quelques clics.<br />D’ici là, le plus simple est encore de <a href='mailto:adresse@data.gouv.fr'>nous contacter</a> et nous réaliserons cette action à votre place.</p>
-          </Notification>
           <ButtonLink href='https://guichet-adresse.ign.fr'><FaExternalLink /> Accéder au Guichet Adresse</ButtonLink>
         </section>
       </div>

@@ -23,7 +23,7 @@ const STYLES = {
     sources: {
       'raster-tiles': {
         type: 'raster',
-        tiles: ['https://wxs.ign.fr/eop8s6g4hrpvxnxer1g6qu44/geoportail/wmts?layer=ORTHOIMAGERY.ORTHOPHOTOS&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fjpeg&TileMatrix={z}&TileCol={x}&TileRow={y}'],
+        tiles: ['https://tiles.geo.api.gouv.fr/photographies-aeriennes/tiles/{z}/{x}/{y}'],
         tileSize: 256,
         attribution: '© IGN'
       }
@@ -36,7 +36,7 @@ const STYLES = {
   }
 }
 
-const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, interactive, control, loading, error, children}) => {
+const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, isInteractive, hasControl, isLoading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
@@ -65,7 +65,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
         maxZoom: 19,
         duration: 0
       })
-    } catch (error) {
+    } catch {
       setMapError('Aucune position n’est renseignée')
     }
   }, [map])
@@ -84,10 +84,10 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
         style: STYLES[style],
         center: defaultCenter || DEFAULT_CENTER,
         zoom: defaultZoom || DEFAULT_ZOOM,
-        interactive
+        isInteractive
       })
 
-      if (control) {
+      if (hasControl) {
         map.addControl(new mapboxgl.NavigationControl({showCompass: false}))
       }
 
@@ -147,15 +147,15 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           </div>
         )}
 
-        {!mapError && loading && (
+        {!mapError && isLoading && (
           <div className='tools'>Chargement…</div>
         )}
 
-        {!loading && !mapError && infos && (
+        {!isLoading && !mapError && infos && (
           <div className='tools'>{infos}</div>
         )}
 
-        {!loading && !mapError && tools && (
+        {!isLoading && !mapError && tools && (
           <div className='tools right'>{tools}</div>
         )}
 
@@ -173,10 +173,10 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
 
         <div ref={mapRef} className='map-container' />
 
-        {switchStyle && (
+        {hasSwitchStyle && (
           <div className='tools bottom switch'>
             <SwitchMapStyle
-              vector={style === 'vector'}
+              isVector={style === 'vector'}
               handleChange={switchLayer}
             />
           </div>
@@ -209,8 +209,8 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
 
           .tools {
             position: absolute;
-            max-height: ${switchStyle ? 'calc(100% - 116px)' : '100%'};
-            overflow: ${switchStyle ? 'scroll' : 'initial'};
+            max-height: ${hasSwitchStyle ? 'calc(100% - 116px)' : '100%'};
+            overflow-y: ${hasSwitchStyle ? 'scroll' : 'initial'};
             z-index: 900;
             padding: 0.5em;
             margin: 1em;
@@ -230,6 +230,7 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
           .switch {
             background-color: none;
             padding: 0;
+            overflow: hidden;
           }
         `}</style>
 
@@ -238,17 +239,17 @@ const Map = ({switchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, inter
 }
 
 Map.propTypes = {
-  switchStyle: PropTypes.bool,
+  hasSwitchStyle: PropTypes.bool,
   bbox: PropTypes.array,
   defaultStyle: PropTypes.oneOf([
     'vector',
     'ortho'
   ]),
-  interactive: PropTypes.bool,
-  control: PropTypes.bool,
+  isInteractive: PropTypes.bool,
+  hasControl: PropTypes.bool,
   defaultCenter: PropTypes.array,
   defaultZoom: PropTypes.number,
-  loading: PropTypes.bool,
+  isLoading: PropTypes.bool,
   error: PropTypes.object,
   children: PropTypes.func.isRequired
 }
@@ -256,13 +257,13 @@ Map.propTypes = {
 Map.defaultProps = {
   bbox: null,
   defaultStyle: 'vector',
-  interactive: true,
-  control: true,
+  isInteractive: true,
+  hasControl: true,
   defaultCenter: DEFAULT_CENTER,
   defaultZoom: DEFAULT_ZOOM,
-  loading: false,
+  isLoading: false,
   error: null,
-  switchStyle: false
+  hasSwitchStyle: false
 }
 
 export default Map

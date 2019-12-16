@@ -47,8 +47,7 @@ class Summary extends React.Component {
             ))}
 
             {model === 'bal-aitf' &&
-              <InfoReport dataset={dataset} />
-            }
+              <InfoReport dataset={dataset} />}
           </div>
 
           <div className='links'>

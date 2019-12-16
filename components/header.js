@@ -20,7 +20,7 @@ export default () => (
 
       <Link href='/'>
         <a className='nav__link'>
-          <img className='nav__logo' src='/static/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
+          <img className='nav__logo' src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
         </a>
       </Link>
 

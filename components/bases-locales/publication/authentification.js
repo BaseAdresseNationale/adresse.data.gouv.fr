@@ -24,7 +24,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
           <div className='action column'>
             <p>Je suis élu de la commune</p>
             <Link href={authenticationUrl}>
-              <a><img className='france-connect' src='/static/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
+              <a><img className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
             </Link>
           </div>
         </div>

@@ -37,8 +37,7 @@ const Infos = ({voie}) => (
               <Tag type={destination} />
             </div>
           )) :
-          <div>Aucune utilisation connue des adresses</div>
-        }
+          <div>Aucune utilisation connue des adresses</div>}
       </div>
     </div>
 

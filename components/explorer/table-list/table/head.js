@@ -29,7 +29,7 @@ const Head = ({headers, order, sort, actived}) => (
             title={title}
             icon={types[type][order]}
             sort={() => sort(func, title)}
-            actived={title === actived} /> :
+            isActived={title === actived} /> :
           <Header
             key={title}
             title={title} />

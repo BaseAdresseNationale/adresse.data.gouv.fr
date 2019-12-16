@@ -6,7 +6,7 @@ const User = React.memo(({user}) => {
 
   return (
     <div className='user'>
-      <img src='/static/images/icons/elu.svg' />
+      <img src='/images/icons/elu.svg' />
       <div>{prenom} {nomMarital || nomNaissance}</div>
       <div><b>{typeMandat}</b></div>
       <style jsx>{`

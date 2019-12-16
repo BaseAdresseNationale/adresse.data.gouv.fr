@@ -12,7 +12,7 @@ const Hero = ({title, tagline}) => (
     </div>
     <style jsx>{`
       .hero {
-        background: #fff url(/static/images/city-background.svg) bottom center no-repeat;
+        background: #fff url(/images/city-background.svg) bottom center no-repeat;
         background-size: cover;
       }
 

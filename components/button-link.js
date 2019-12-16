@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-const ButtonLink = ({size, color, href, outlined, children, ...props}) => {
+const ButtonLink = ({size, color, href, isOutlined, children, ...props}) => {
   return (
     <Link href={href}>
-      <a className={`button${outlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+      <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
         {children}
       </a>
     </Link>
@@ -24,14 +24,14 @@ ButtonLink.propTypes = {
     'secondary'
   ]),
   href: PropTypes.string.isRequired,
-  outlined: PropTypes.bool,
+  isOutlined: PropTypes.bool,
   children: PropTypes.node
 }
 
 ButtonLink.defaultProps = {
   size: null,
   color: 'primary',
-  outlined: false,
+  isOutlined: false,
   children: null
 }
 

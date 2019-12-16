@@ -13,8 +13,7 @@ const Codes = ({code, codesPostaux, departement, region}) => (
           {codesPostaux.join(', ')}
         </div>
       </div> :
-      <div><b>Code postal</b> : {codesPostaux[0]}</div>
-    }
+      <div><b>Code postal</b> : {codesPostaux[0]}</div>}
     <div><b>Département</b> : {departement.nom} ({departement.code})</div>
     <div><b>Région</b> : {region.nom} ({region.code})</div>
     <style jsx>{`

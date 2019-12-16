@@ -137,8 +137,8 @@ const Map = ({defaultCenter, defaultZoom}) => {
           defaultZoom={defaultZoom}
           defaultCenter={defaultCenter}
           error={error}
-          loading={loading}
-          switchStyle
+          isLoading={loading}
+          hasSwitchStyle
         >
           {({...mapboxProps}) => (
             <AddressMap

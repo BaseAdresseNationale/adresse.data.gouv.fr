@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../../styles/theme'
 
-const Header = ({title, sort, icon, actived}) => (
+const Header = ({title, sort, icon, isActived}) => (
   <th onClick={sort}>
     <div className='order-by'>
       <div>{title}</div>
-      {icon && <div className={`icon ${actived ? 'active' : ''}`}>
+      {icon && <div className={`icon ${isActived ? 'active' : ''}`}>
         {icon}
       </div>}
     </div>
@@ -57,13 +57,13 @@ Header.propTypes = {
   title: PropTypes.string.isRequired,
   sort: PropTypes.func,
   icon: PropTypes.node,
-  actived: PropTypes.bool
+  isActived: PropTypes.bool
 }
 
 Header.defaultProps = {
   sort: null,
   icon: null,
-  actived: false
+  isActived: false
 }
 
 export default Header
