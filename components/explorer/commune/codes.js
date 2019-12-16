@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-const Codes = ({code, codesPostaux, departement, region}) => (
+const Codes = ({code, codesPostaux, departement, region, population}) => (
   <div className='codes'>
     <div><b>Code commune</b> : {code}</div>
     {codesPostaux.length > 1 ?
@@ -16,11 +16,12 @@ const Codes = ({code, codesPostaux, departement, region}) => (
       <div><b>Code postal</b> : {codesPostaux[0]}</div>}
     <div><b>Département</b> : {departement.nom} ({departement.code})</div>
     <div><b>Région</b> : {region.nom} ({region.code})</div>
+    <div><b>Habitants</b> : {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}</div>
     <style jsx>{`
       .codes {
         display: grid;
         text-align: center;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         background-color: ${theme.primary};
         color: ${theme.colors.white};
         margin-top: -1em;

@@ -6,14 +6,14 @@ import FaArrowsAlt from 'react-icons/lib/fa/arrows-alt'
 
 const Metrics = ({population, surface}) => (
   <div className='metrics'>
-    <div className='metric'>
+    {/* <div className='metric'>
       <FaGroup size={30} />
       <div>{population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} habitants</div>
-    </div>
-    <div className='metric'>
+    </div> */}
+    {/* <div className='metric'>
       <FaArrowsAlt size={30} />
       <div>{(surface / 100).toFixed(5)} km²</div>
-    </div>
+    </div> */}
     <style jsx>{`
       .metrics {
         display: flex;

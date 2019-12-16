@@ -26,8 +26,8 @@ const Commune = props => (
         <Mapbox bbox={computeBbox(props.contour)} switchStyle>
           {({...mapboxProps}) => (
             <AddressesMap
-            {...mapboxProps}
-            contour={props.contour}
+              {...mapboxProps}
+              contour={props.contour}
             />
             )}
         </Mapbox>
