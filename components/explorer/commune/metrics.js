@@ -12,7 +12,7 @@ const Metrics = ({population, surface}) => (
     </div>
     <div className='metric'>
       <FaArrowsAlt size={40} />
-      <div>{surface / 100} km²</div>
+      <div>{(surface / 100).toFixed(5)} km²</div>
     </div>
     <style jsx>{`
       .metrics {
