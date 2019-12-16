@@ -14,12 +14,12 @@ import theme from '../../../styles/theme'
 const Infos = ({voie}) => (
   <div className='voie-infos'>
     <div className='infos'>
-      <h4><FaDotCircleO /> Nombre d’adresses</h4>
+      <div className='title'><div className='iconTitle'><FaDotCircleO /></div> Nombre d’adresses</div>
       <div>{voie.numeros.length}</div>
     </div>
 
     <div className='infos'>
-      <h4><FaTags /> Noms de la voie</h4>
+      <div className='title'><div className='iconTitle'><FaTags /></div> Noms de la voie</div>
       {voie.entries.map(entry => (
         <div key={entry.source} className='entries'>
           <Tag type={entry.source} />
@@ -29,7 +29,7 @@ const Infos = ({voie}) => (
     </div>
 
     <div className='infos'>
-      <h4><FaHome /> Destination</h4>
+      <div className='title'><div className='iconTitle'><FaHome /></div> Destination</div>
       <div className='destination'>
         {voie.destination.length > 0 ?
           getTypeByPriority(voie.destination).map(destination => (
@@ -42,7 +42,7 @@ const Infos = ({voie}) => (
     </div>
 
     <div className='infos'>
-      <h4><FaBarcode /> Code de la voie</h4>
+      <div className='title'><div className='iconTitle'><FaBarcode /></div> Code de la voie</div>
       <div>{voie.codeVoie}</div>
     </div>
     <style jsx>{`
@@ -67,6 +67,17 @@ const Infos = ({voie}) => (
         display: flex;
         justify-content: center;
         flex-flow: wrap;
+      }
+
+      .iconTitle {
+        display: inline-flex;
+        vertical-align: top;
+      }
+
+      .title {
+        font-size: 1.25em;
+        font-family: Evolventa, Trebuchet MS, sans-serif;
+        font-weight: bold
       }
 
       @media (max-width: 749px) {
