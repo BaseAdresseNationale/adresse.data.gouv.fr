@@ -26,11 +26,6 @@ const Metrics = ({population, surface}) => (
         padding: 1em;
       }
 
-      @media (max-width: 749px) {
-        .metrics {
-          flex-direction: row;
-        }
-      }
         `}</style>
   </div>
 )
