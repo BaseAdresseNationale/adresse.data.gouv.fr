@@ -18,18 +18,18 @@ const Commune = props => (
 
     <div className='head'>
       <Codes {...props} />
+      <Metrics {...props} />
     </div>
 
     <div className='preview'>
-      <Metrics {...props} />
       <div className='explore-commune-map'>
         <Mapbox bbox={computeBbox(props.contour)} switchStyle>
           {({...mapboxProps}) => (
             <AddressesMap
-              {...mapboxProps}
-              contour={props.contour}
+            {...mapboxProps}
+            contour={props.contour}
             />
-          )}
+            )}
         </Mapbox>
       </div>
     </div>
