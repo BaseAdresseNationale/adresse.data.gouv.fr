@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class RadioInput extends React.Component {
+class CheckboxInput extends React.Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     toggleInput: PropTypes.func.isRequired,
@@ -25,11 +25,11 @@ class RadioInput extends React.Component {
 
     return (
       <div style={style} className='input'>
-        <input type='radio' id={`radio-${value}`} value={value} checked={isChecked} onClick={this.handleChange} />
+        <input type='checkbox' id={`checkbox-${value}`} value={value} checked={isChecked} onClick={this.handleChange} />
         <label className='label-inline'>{value}</label>
       </div>
     )
   }
 }
 
-export default RadioInput
+export default CheckboxInput

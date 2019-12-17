@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import RadioInput from './radio-input'
+import CheckboxInput from './checkbox-input'
 
 class TagsInput extends React.Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class TagsInput extends React.Component {
         <div className='title'>{title}</div>
         <div className='tags'>
           {tags.map(tag => (
-            <RadioInput
+            <CheckboxInput
               key={tag}
               style={{display: 'flex', alignItems: 'flex-start', margin: '5px 10px 0'}}
               value={tag}
