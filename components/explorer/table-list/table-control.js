@@ -14,7 +14,7 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
   const [actived, setActived] = useState(initialSort ? initialSort.title : null)
   const [sortedList, setSortedList] = useState(list)
   const [displayedList, setDisplayedList] = useState(sortedList)
-  const [wrap, setWrap] = useState(list.length > LIST_LIMIT)
+  const [isWrap, setWrap] = useState(list.length > LIST_LIMIT)
 
   const sort = useCallback((func, header) => {
     let sorted = sortBy(list, func)
@@ -29,8 +29,8 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
   }, [list, order])
 
   const handleWrap = useCallback(() => {
-    setWrap(!wrap)
-  }, [wrap])
+    setWrap(!isWrap)
+  }, [isWrap])
 
   useEffect(() => {
     if (sortedList) {
@@ -39,8 +39,8 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
   }, [sortedList])
 
   useEffect(() => {
-    setDisplayedList(wrap ? [...sortedList].slice(0, LIST_LIMIT) : sortedList)
-  }, [wrap, sortedList])
+    setDisplayedList(isWrap ? [...sortedList].slice(0, LIST_LIMIT) : sortedList)
+  }, [isWrap, sortedList])
 
   useEffect(() => {
     if (list) {
@@ -52,12 +52,12 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
   }, [initialSort, list])
 
   return (
-    <Table wrap={wrap} disabledWrap={list.length < LIST_LIMIT} onWrap={handleWrap}>
+    <Table isWrap={isWrap} disabledWrap={list.length < LIST_LIMIT} onWrap={handleWrap}>
       <>
         <Head headers={headers} order={order} actived={actived} sort={sort} />
         <Body
           items={genItems(displayedList)}
-          wrapped={wrap}
+          wrapped={isWrap}
           selected={selected}
           handleSelect={handleSelect} />
       </>
