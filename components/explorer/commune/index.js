@@ -10,7 +10,6 @@ import AddressesMap from '../../mapbox/addresses-map'
 
 import Head from './head'
 import Codes from './codes'
-import Metrics from './metrics'
 
 const Commune = props => (
   <div>
@@ -18,7 +17,6 @@ const Commune = props => (
 
     <div className='head'>
       <Codes {...props} />
-      <Metrics {...props} />
     </div>
 
     <div className='preview'>

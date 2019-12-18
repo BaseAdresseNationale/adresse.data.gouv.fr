@@ -3,29 +3,32 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-const Codes = ({code, codesPostaux, departement, region, population}) => (
+const Codes = ({code, codesPostaux, population}) => (
   <div className='codes'>
     <div><b>Code commune</b> : {code}</div>
     {codesPostaux.length > 1 ?
-      <div>
+      <div id='codesFlex'>
         <b>Codes postaux</b> :
         <div>
           {codesPostaux.join(', ')}
         </div>
       </div> :
       <div><b>Code postal</b> : {codesPostaux[0]}</div>}
-    <div><b>Département</b> : {departement.nom} ({departement.code})</div>
-    <div><b>Région</b> : {region.nom} ({region.code})</div>
     <div><b>Habitants</b> : {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}</div>
     <style jsx>{`
       .codes {
-        display: grid;
-        text-align: center;
-        grid-template-columns: repeat(5, 1fr);
+        display: flex;
+        justify-content: space-between;
+        flex-flow: wrap;
+        align-items: center;
         background-color: ${theme.primary};
         color: ${theme.colors.white};
         margin-top: -1em;
         padding: 1em 2em;
+      }
+
+      #codesFlex {
+        text-align: center;
       }
 
       @media (max-width: 749px) {
@@ -40,15 +43,7 @@ const Codes = ({code, codesPostaux, departement, region, population}) => (
 Codes.propTypes = {
   codesPostaux: PropTypes.array.isRequired,
   population: PropTypes.number.isRequired,
-  code: PropTypes.string.isRequired,
-  departement: PropTypes.shape({
-    nom: PropTypes.string.isRequired,
-    code: PropTypes.string.isRequired
-  }).isRequired,
-  region: PropTypes.shape({
-    nom: PropTypes.string.isRequired,
-    code: PropTypes.string.isRequired
-  }).isRequired
+  code: PropTypes.string.isRequired
 }
 
 export default Codes
