@@ -95,7 +95,7 @@ export default () => (
       </div>
     </Section>
 
-    <Section title='Quelles données retrouvent-on dans chacun de ces fichiers ?'>
+    <Section title='Quelles données retrouve-t-on dans chacun de ces fichiers ?'>
       <Container>
         <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
         <h5>Produit gratuit issu de la BAN</h5>
