@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 import theme from '../styles/theme'
 
 import Container from './container'
-import BetaRibbon from './beta-ribbon'
 
-const Head = ({title, icon, isBeta}) => (
+const Head = ({title, icon}) => (
   <div>
     <div className='head'>
       <Container>
@@ -15,10 +14,6 @@ const Head = ({title, icon, isBeta}) => (
             <div className='icon'>{icon}</div>
             <h1>{title}</h1>
           </div>
-
-          {isBeta && (
-            <BetaRibbon />
-          )}
         </div>
       </Container>
     </div>
@@ -57,12 +52,7 @@ const Head = ({title, icon, isBeta}) => (
 
 Head.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired,
-  isBeta: PropTypes.bool
-}
-
-Head.defaultProps = {
-  isBeta: false
+  icon: PropTypes.element.isRequired
 }
 
 export default Head
