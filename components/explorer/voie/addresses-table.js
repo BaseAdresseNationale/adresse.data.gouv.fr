@@ -55,14 +55,23 @@ class AddressesTable extends React.Component {
     }
 
     return (
-      <TableList
-        title='Adresses de la voie'
-        subtitle={`${addresses.length} adresses répertoriées`}
-        list={addresses}
-        headers={headers}
-        genItems={genItems}
-        select={numero}
-        handleSelect={this.selectAddress} />
+      <div className='addresses-table-list'>
+        <TableList
+          title='Adresses de la voie'
+          subtitle={`${addresses.length} adresses répertoriées`}
+          list={addresses}
+          headers={headers}
+          genItems={genItems}
+          select={numero}
+          handleSelect={this.selectAddress} />
+
+        <style jsx>{`
+          .addresses-table-list{
+            margin-top: 2em;
+          }
+        `}
+        </style>
+      </div>
     )
   }
 }
