@@ -34,7 +34,7 @@ const allowedExtensions = [
   'txt'
 ]
 
-const MAX_SIZE = 6 * 1024 * 1024
+const MAX_SIZE = 50 * 1024 * 1024
 
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
