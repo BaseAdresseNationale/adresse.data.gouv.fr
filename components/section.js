@@ -13,7 +13,6 @@ const Section = ({title, subtitle, children, background}) => (
     <style jsx>{`
         #search-block {
           padding: 2em;
-          margin-bottom: 3em;
         }
       }
       `}</style>
