@@ -51,26 +51,16 @@ export function getNumerosLabelLayer() {
     interactive: true,
     minzoom: NUMEROS_MIN,
     paint: {
-      'text-color': '#ffffff',
-      'text-halo-color': {
+      'text-color': {
         type: 'identity',
         property: 'color'
       },
-      'text-halo-width': {
-        stops: [
-          [12, 1.5],
-          [18, 2]
-        ]
-      },
-      'text-opacity': [
-        'case',
-        ['boolean', ['feature-state', 'hover'], false],
-        1,
-        0.6
-      ]
+      'text-halo-color': 'rgb(250, 250, 250)',
+      'text-halo-width': 1
     },
     layout: {
-      'text-font': ['Noto Sans Regular'],
+      'text-font': ['Noto Sans Bold'],
+      'text-size': 18,
       'text-field': [
         'case',
         ['has', 'suffixe'],
