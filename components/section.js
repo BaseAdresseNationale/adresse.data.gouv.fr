@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import Container from './container'
 
 const Section = ({title, subtitle, children, background}) => (
-  <section id='search-block' className={`section section-${background}`}>
+  <section id='main-section' className={`section section-${background}`}>
     <Container>
       {title && <h2 className='section__title'>{title}</h2>}
       {subtitle && <p className='section__subtitle'>{subtitle}</p>}
       {children}
     </Container>
     <style jsx>{`
-        #search-block {
+        #main-section {
           padding: 2em;
         }
       }

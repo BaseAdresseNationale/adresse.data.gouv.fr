@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 
 import ExploreSearch from './explorer/explore-search'
 
-const Hero = ({title, tagline}) => (
+const Hero = ({title, tagline, noscript}) => (
   <div className='hero'>
     <div className='container'>
+      <noscript className='noscript'>{noscript}</noscript>
       <h1 className='hero__white-background'>{title}</h1>
       <p className='hero__white-background'>{tagline}</p>
       <ExploreSearch />
@@ -18,14 +19,23 @@ const Hero = ({title, tagline}) => (
 
       .container {
         height: 100vh;
-        top: 3em;
+        top: 2em;
         text-align: center;
+      }
+
+      .noscript{
+        color: red;
+        font-size: 20px;
+        font-weight: bold;
+        position: relative;
+        top: -0.5em;
       }
     `}</style>
   </div>
 )
 
 Hero.propTypes = {
+  noscript: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   tagline: PropTypes.string.isRequired
 }
