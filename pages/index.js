@@ -12,7 +12,7 @@ export default () => (
   <Page>
     <Hero
       noscript='Pour accéder à toutes les fonctionnalités de ce site, vous devez activer JavaScript.'
-      title='Le Point d’Accès National aux données d’adresse'
+      title='Le site national des adresses'
       tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
 
     <Section background='dark'>
