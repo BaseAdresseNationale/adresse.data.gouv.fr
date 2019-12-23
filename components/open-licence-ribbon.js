@@ -14,8 +14,6 @@ const OpenLicenceRibbon = () => (
       .ribbon{
         display: flex;
         background-color: rgb(180,225,250);
-        border-radius: 5px;
-        margin: auto;
         min-height: 50px;
       }
 
