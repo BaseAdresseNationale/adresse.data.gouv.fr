@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import ExploreSearch from './explorer/explore-search'
+import OpenLicenceRibbon from './open-licence-ribbon'
 
 const Hero = ({title, tagline, noscript}) => (
   <div className='hero'>
@@ -10,6 +11,7 @@ const Hero = ({title, tagline, noscript}) => (
       <h1 className='hero__white-background'>{title}</h1>
       <p className='hero__white-background'>{tagline}</p>
       <ExploreSearch />
+      <OpenLicenceRibbon />
     </div>
     <style jsx>{`
       .hero {
