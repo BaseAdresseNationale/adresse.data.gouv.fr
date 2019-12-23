@@ -6,12 +6,12 @@ import OpenLicenceRibbon from './open-licence-ribbon'
 
 const Hero = ({title, tagline, noscript}) => (
   <div className='hero'>
+    <OpenLicenceRibbon />
     <div className='container'>
       <noscript className='noscript'>{noscript}</noscript>
       <h1 className='hero__white-background'>{title}</h1>
       <p className='hero__white-background'>{tagline}</p>
       <ExploreSearch />
-      <OpenLicenceRibbon />
     </div>
     <style jsx>{`
       .hero {
