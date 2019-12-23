@@ -75,7 +75,9 @@ export function getNumerosLabelLayer() {
         ],
         ['get', 'numero']
       ],
-      'text-ignore-placement': true
+      'text-ignore-placement': false,
+      'text-variable-anchor': ['bottom', 'top', 'right', 'left'],
+      'text-radial-offset': 0.4
     }
   }
 
