@@ -55,7 +55,7 @@ export function getNumerosLabelLayer() {
         type: 'identity',
         property: 'color'
       },
-      'text-halo-color': 'rgb(250, 250, 250)',
+      'text-halo-color': '#ffffff',
       'text-halo-width': 1
     },
     layout: {
