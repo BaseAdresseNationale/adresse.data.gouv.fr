@@ -115,11 +115,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
   useEffect(() => {
     if (map) {
       map.setStyle(STYLES[style], {diff: false})
-    }
-  }, [map, style])
 
-  useEffect(() => {
-    if (isFirstLoad) {
       const onStyleData = () => {
         if (map.isStyleLoaded()) {
           reloadData()
@@ -134,9 +130,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
         map.off('styledata', onStyleData)
       }
     }
-    // Event styledata should only be added when map exists
-    // and its first loading is completed.
-  }, [isFirstLoad]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [style]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='mapbox-container'>
