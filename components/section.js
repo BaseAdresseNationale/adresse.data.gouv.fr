@@ -10,12 +10,6 @@ const Section = ({title, subtitle, children, background}) => (
       {subtitle && <p className='section__subtitle'>{subtitle}</p>}
       {children}
     </Container>
-    <style jsx>{`
-        .section-white {
-          margin: -3em 0;
-        }
-      }
-      `}</style>
   </section>
 )
 
