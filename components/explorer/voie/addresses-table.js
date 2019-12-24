@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaCheck from 'react-icons/lib/fa/check'
-import FaClose from 'react-icons/lib/fa/close'
-
 import {tagsList} from '../../../lib/table'
 import {getTypeByPriority} from '../../../lib/types'
 
@@ -35,8 +32,7 @@ class AddressesTable extends React.Component {
     const headers = [
       {title: 'Numéro'},
       {title: 'Sources'},
-      {title: 'Destination'},
-      {title: 'Active'}
+      {title: 'Destination'}
     ]
     const genItems = addresses => {
       return addresses.map(address => {
@@ -47,15 +43,14 @@ class AddressesTable extends React.Component {
           values: [
             address.numero,
             tagsList(getTypeByPriority(address.sources)),
-            tagsList(getTypeByPriority(destination)),
-            address.active ? <FaCheck /> : <FaClose />
+            tagsList(getTypeByPriority(destination))
           ]
         }
       })
     }
 
     return (
-      <div className='addresses-table-list'>
+      <div className='voies'>
         <TableList
           title='Adresses de la voie'
           subtitle={`${addresses.length} adresses répertoriées`}
@@ -66,11 +61,10 @@ class AddressesTable extends React.Component {
           handleSelect={this.selectAddress} />
 
         <style jsx>{`
-          .addresses-table-list{
+          .voies {
             margin-top: 2em;
           }
-        `}
-        </style>
+        `}</style>
       </div>
     )
   }

@@ -10,7 +10,8 @@ import AddressesMap from '../../mapbox/addresses-map'
 
 const MapContainer = ({voie, addresses, numero, onSelect}) => {
   const [bbox, setBbox] = useState(null)
-  const numeros = addresses ? addressesToGeoJson(addresses) : null
+  const [numeros, setNumeros] = useState(null)
+  const [currentVoie, setCurrentVoie] = useState(null)
 
   const selectAddress = feature => {
     const numero = feature ? feature.properties.numero : null
@@ -18,10 +19,13 @@ const MapContainer = ({voie, addresses, numero, onSelect}) => {
   }
 
   useEffect(() => {
-    if (!bbox && addresses) {
+    if (addresses && currentVoie !== voie.codeVoie) {
+      const numeros = addressesToGeoJson(addresses)
+      setCurrentVoie(voie.codeVoie)
+      setNumeros(numeros)
       setBbox(computeBbox(numeros))
     }
-  }, [bbox, addresses, numeros])
+  }, [addresses, currentVoie, voie])
 
   return (
     <div className='explore-map-container'>

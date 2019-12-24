@@ -6,22 +6,19 @@ import ExploreSearch from './explore-search'
 
 const Explorer = () => (
   <Section background='color'>
-    <div className='beta'>
-      <h2><FaSearch /> Rechercher une commune, une voie ou une adresse</h2>
+    <div className='header-section'>
+      <h2><div className='iconTitle'><FaSearch /></div> Rechercher une commune, une voie ou une adresse</h2>
     </div>
 
     <ExploreSearch />
 
     <style jsx>{`
-        .beta {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+        .header-section {
           margin-top: -3em;
         }
-
-        .beta h2 {
-          margin-right: 45px;
+        .iconTitle {
+          display: inline-flex;
+          vertical-align: top;
         }
       `}</style>
   </Section>

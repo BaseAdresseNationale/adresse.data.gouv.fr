@@ -17,21 +17,26 @@ const ExploreSearch = () => {
   const [error, setError] = useState(null)
 
   const handleSelect = feature => {
-    const {citycode, id, housenumber, type} = feature.properties
-    const streetCode = type === 'municipality' ? null : id.split('-')[1]
+    const {id, type} = feature.properties
+    const [rawCodeCommune, rawCodeVoie, rawNumero, rawSuffixe] = id.split('_')
+    const codeCommune = rawCodeCommune.toUpperCase()
+    const codeVoie = rawCodeVoie ? rawCodeVoie.toUpperCase() : null
+    const numero = rawNumero ? Number.parseInt(rawNumero, 10).toString() : null
+    const suffixe = rawSuffixe ? rawSuffixe.toUpperCase() : null
+    const numeroComplet = numero ? numero + (suffixe || '') : null
 
     let href = ''
     let as = ''
 
     if (type === 'municipality') {
-      href = `/explore/commune?codeCommune=${citycode}`
-      as = `/explore/commune/${citycode}`
+      href = `/explore/commune?codeCommune=${codeCommune}`
+      as = `/explore/commune/${codeCommune}`
     } else if (type === 'street') {
-      href = `/commune/voie?codeVoie=${streetCode}`
-      as = `/explore/commune/${citycode}/voie/${streetCode}`
+      href = `/commune/voie?codeVoie=${codeVoie}`
+      as = `/explore/commune/${codeCommune}/voie/${codeVoie}`
     } else if (type === 'housenumber') {
-      href = `/explore/commune/voie?codeCommune=${citycode}&codeVoie=${streetCode}&numero=${housenumber}`
-      as = `/explore/commune/${citycode}/voie/${streetCode}/numero/${housenumber}`
+      href = `/explore/commune/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}&numero=${numeroComplet}`
+      as = `/explore/commune/${codeCommune}/voie/${codeVoie}/numero/${numeroComplet}`
     }
 
     Router.push(href, as)
@@ -40,7 +45,9 @@ const ExploreSearch = () => {
   const handleSearch = useCallback(debounce(async input => {
     try {
       const results = await search(input)
-      setResults(results.features.splice(0, 5) || [])
+      setResults(
+        results.features.filter(f => f.properties.type !== 'locality').splice(0, 5) || []
+      )
     } catch (err) {
       setError(err)
     }

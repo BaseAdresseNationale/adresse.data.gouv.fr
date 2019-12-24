@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaCheck from 'react-icons/lib/fa/check'
-import FaClose from 'react-icons/lib/fa/close'
-
 import {getTypeByPriority} from '../../../lib/types'
 
 import {tagsList} from '../../../lib/table'
@@ -38,8 +35,7 @@ class VoiesTable extends React.Component {
         func: voie => voie.numeros
       },
       {title: 'Source'},
-      {title: 'Destination'},
-      {title: 'Active'}
+      {title: 'Destination'}
     ]
 
     const genItems = voies => {
@@ -50,8 +46,7 @@ class VoiesTable extends React.Component {
             voie.nomVoie,
             voie.numeros,
             tagsList(getTypeByPriority(voie.sources)),
-            tagsList(getTypeByPriority(voie.destination)),
-            voie.active ? <FaCheck /> : <FaClose />
+            tagsList(getTypeByPriority(voie.destination))
           ]
         }
       })
