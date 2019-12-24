@@ -20,7 +20,10 @@ const Voie = ({commune, voie, numero}) => {
 
   return (
     <Section>
-      <Head commune={commune} nomVoie={voie.nomVoie} />
+      <Head
+        commune={commune}
+        voie={voie}
+        numero={numero ? numero.numero : null} />
       <Infos voie={voie} />
       <MapContainer
         voie={voie}
