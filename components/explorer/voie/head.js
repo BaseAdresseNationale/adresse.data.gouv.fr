@@ -19,9 +19,8 @@ const Head = ({commune, nomVoie}) => {
           justify-content: space-between;
           flex-flow: wrap;
           align-items: center;
-          margin-top: -3em;
           border-bottom: 2px solid ${theme.colors.black};
-          margin-bottom: 2em;
+          margin: -3em 0 2em 0;
         }
 
         h4 {
