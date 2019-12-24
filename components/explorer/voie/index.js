@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Router, {withRouter} from 'next/router'
+import Router from 'next/router'
 
 import Section from '../../section'
 
@@ -9,9 +9,9 @@ import Infos from './infos'
 import MapContainer from './map-container'
 import AddressesTable from './addresses-table'
 
-const Voie = ({commune, voie, numero, router}) => {
+const Voie = ({commune, voie, numero}) => {
   const handleSelect = numero => {
-    const {codeCommune, codeVoie} = router.query
+    const {codeCommune, codeVoie} = Router.query
     const href = `/explore/commune/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}${numero ? `&numero=${numero}` : ''}`
     const as = `/explore/commune/${codeCommune}/voie/${codeVoie}${numero ? `/numero/${numero}` : ''}`
 
@@ -43,11 +43,7 @@ Voie.propTypes = {
     nomCommune: PropTypes.string.isRequired,
     numeros: PropTypes.array.isRequired
   }),
-  numero: PropTypes.object,
-  router: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    query: PropTypes.object.isRequired
-  }).isRequired
+  numero: PropTypes.object
 }
 
 Voie.defaultProps = {
@@ -56,4 +52,4 @@ Voie.defaultProps = {
   numero: null
 }
 
-export default (withRouter(Voie))
+export default Voie
