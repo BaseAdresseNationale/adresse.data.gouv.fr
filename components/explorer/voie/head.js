@@ -10,7 +10,7 @@ const Head = ({commune, voie, numero}) => {
     <div className='head'>
       <div className='breadcrumb'>
         {numero && <span>{numero}<span className='comma'>,</span></span>}
-        <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a> {voie.nomVoie}</a></Link>
+        <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a>{voie.nomVoie}</a></Link>
         <span className='comma'>,</span>
         <Link href={`/explore/commune/${code}`}><a>{nom}</a></Link>
       </div>
@@ -32,7 +32,7 @@ const Head = ({commune, voie, numero}) => {
         }
 
         .comma {
-          margin: 0px 5px 0px 5px;
+          margin: 0px 5px;
         }
 
         h4 {
