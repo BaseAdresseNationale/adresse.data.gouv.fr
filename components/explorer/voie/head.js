@@ -9,7 +9,7 @@ const Head = ({commune, nomVoie, voie, numero}) => {
   return (
     <div className='head'>
       <div className='breadcrumb'>
-        {numero && <b>{numero.numero}, &nbsp;</b>}
+        {numero && <b>{numero.numero} ,&nbsp;</b>}
         <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a><b> {nomVoie}</b></a></Link>
         <b> , </b>
         <Link href={`/explore/commune/${code}`}><a><b>{nom}</b></a></Link>
