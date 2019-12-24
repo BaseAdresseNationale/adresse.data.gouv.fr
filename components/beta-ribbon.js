@@ -32,7 +32,7 @@ const BetaRibbon = () => (
           line-height: 20px;
         }
       }
-      
+
       @media (max-width: 400px) {
         .ribbon:after {
           right: 25px;
