@@ -9,9 +9,9 @@ const Head = ({commune, nomVoie, voie, numero}) => {
   return (
     <div className='head'>
       <div className='breadcrumb'>
-        {numero && <b>{numero.numero} ,&nbsp;</b>}
+        {numero && <span><b>{numero.numero}</b><span className='comma'>,</span></span>}
         <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a><b> {nomVoie}</b></a></Link>
-        <b> , </b>
+        <span className='comma'>,</span>
         <Link href={`/explore/commune/${code}`}><a><b>{nom}</b></a></Link>
       </div>
       <h4>{departement.nom} ({departement.code})</h4>
@@ -28,6 +28,11 @@ const Head = ({commune, nomVoie, voie, numero}) => {
         .breadcrumb {
           font-size: 22px;
           margin-top: -1.3em;
+        }
+
+        .comma {
+          font-weight: bold;
+          margin: 0px 5px 0px 5px;
         }
 
         h4 {
