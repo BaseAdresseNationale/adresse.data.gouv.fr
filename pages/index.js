@@ -11,39 +11,8 @@ import Button from '../components/button'
 export default () => (
   <Page>
     <Hero
-      noscript='Pour accéder à toutes les fonctionnalités de ce site, vous devez activer JavaScript.'
       title='Le site national des adresses'
       tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
-
-    <Section background='dark'>
-      <div className='pitch'>
-        <p>
-          Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
-        </p>
-        <style jsx>{`
-          .pitch {
-            color: ${theme.colors.grey};
-            text-align: center;
-            margin-top: -2em;
-            font-size: 1.2em;
-            line-height: 1.2em;
-          }
-          .pitch strong {
-            color: ${theme.colors.white}
-          }
-          .pitch a {
-            color: ${theme.colors.white};
-            font-style: italic;
-          }
-          .pitch p {
-              margin-left: auto;
-              margin-right: auto;
-              max-width: 1000px;
-          }
-        `}</style>
-      </div>
-    </Section>
-
     <Section background='color' title=''>
       <div className='data-tools'>
         <Link href='/download'>
@@ -76,6 +45,11 @@ export default () => (
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
           grid-gap: 2em 1em;
+          margin: 25em 0;
+        }
+
+        .section-data-tools {
+          width: 100px;
         }
 
         .data-tools div {
@@ -112,6 +86,35 @@ export default () => (
           opacity: 0.4;
         }
       `}</style>
+    </Section>
+
+    <Section background='dark'>
+      <div className='pitch'>
+        <p>
+          Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
+        </p>
+        <style jsx>{`
+          .pitch {
+            color: ${theme.colors.grey};
+            text-align: center;
+            margin-top: -2em;
+            font-size: 1.2em;
+            line-height: 1.2em;
+          }
+          .pitch strong {
+            color: ${theme.colors.white}
+          }
+          .pitch a {
+            color: ${theme.colors.white};
+            font-style: italic;
+          }
+          .pitch p {
+              margin-left: auto;
+              margin-right: auto;
+              max-width: 1000px;
+          }
+        `}</style>
+      </div>
     </Section>
 
     <Section background='grey'>
