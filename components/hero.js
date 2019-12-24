@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import ExploreSearch from './explorer/explore-search'
+import OpenLicenceRibbon from './open-licence-ribbon'
 
 const Hero = ({title, tagline}) => (
   <div className='hero'>
+    <OpenLicenceRibbon />
     <div className='container'>
       <h1 className='hero__white-background'>{title}</h1>
       <p className='hero__white-background'>{tagline}</p>
@@ -18,7 +19,7 @@ const Hero = ({title, tagline}) => (
 
       .container {
         height: 100vh;
-        top: 3em;
+        top: 1em;
         text-align: center;
       }
     `}</style>

@@ -11,7 +11,8 @@ import Button from '../components/button'
 export default () => (
   <Page>
     <Hero
-      title='Le Point d’Accès National aux données d’adresse'
+      noscript='Pour accéder à toutes les fonctionnalités de ce site, vous devez activer JavaScript.'
+      title='Le site national des adresses'
       tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
 
     <Section background='dark'>

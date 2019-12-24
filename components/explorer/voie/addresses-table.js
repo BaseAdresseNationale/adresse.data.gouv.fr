@@ -59,6 +59,7 @@ class AddressesTable extends React.Component {
           genItems={genItems}
           select={numero}
           handleSelect={this.selectAddress} />
+
         <style jsx>{`
           .voies {
             margin-top: 2em;
