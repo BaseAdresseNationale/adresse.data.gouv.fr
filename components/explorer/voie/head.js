@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-const Head = ({commune, nomVoie, voie, numero}) => {
+const Head = ({commune, voie, numero}) => {
   const {nom, code, departement} = commune
   return (
     <div className='head'>
       <div className='breadcrumb'>
-        {numero && <span>{numero.numero}<span className='comma'>,</span></span>}
-        <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a> {nomVoie}</a></Link>
+        {numero && <span>{numero}<span className='comma'>,</span></span>}
+        <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a> {voie.nomVoie}</a></Link>
         <span className='comma'>,</span>
         <Link href={`/explore/commune/${code}`}><a>{nom}</a></Link>
       </div>
@@ -52,13 +52,13 @@ Head.propTypes = {
       code: PropTypes.string.isRequired
     }).isRequired
   }),
-  nomVoie: PropTypes.string.isRequired,
   voie: PropTypes.object.isRequired,
-  numero: PropTypes.object.isRequired
+  numero: PropTypes.string
 }
 
 Head.defaultProps = {
-  commune: null
+  commune: null,
+  numero: null
 }
 
 export default Head
