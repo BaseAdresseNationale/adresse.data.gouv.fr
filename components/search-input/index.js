@@ -49,7 +49,7 @@ class SearchInput extends React.Component {
       <div className='search-input-container'>
         {/* disable safari zoom in on focus with font-size at 16px */}
         <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} />
-        <span><FaSearch /></span>
+        <span className='iconTitle'><FaSearch /></span>
         <style jsx>{`
           .search-input-container {
             position: relative;
@@ -68,6 +68,11 @@ class SearchInput extends React.Component {
             padding: 7px;
             width: 100%;
           }
+
+        .iconTitle {
+          display: inline-flex;
+          vertical-align: top;
+        }
 
           input {
             text-indent: 2em;
