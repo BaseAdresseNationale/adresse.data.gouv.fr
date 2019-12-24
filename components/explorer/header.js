@@ -17,6 +17,7 @@ const Explorer = () => (
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-top: -3em;
         }
 
         .beta h2 {

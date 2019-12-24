@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import ExploreSearch from './explorer/explore-search'
 import OpenLicenceRibbon from './open-licence-ribbon'
 
@@ -21,7 +20,7 @@ const Hero = ({title, tagline, noscript}) => (
 
       .container {
         height: 100vh;
-        top: 2em;
+        top: 1em;
         text-align: center;
       }
 
