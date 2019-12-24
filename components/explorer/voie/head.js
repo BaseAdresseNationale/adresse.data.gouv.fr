@@ -9,10 +9,10 @@ const Head = ({commune, nomVoie, voie, numero}) => {
   return (
     <div className='head'>
       <div className='breadcrumb'>
-        {numero && <span><b>{numero.numero}</b><span className='comma'>,</span></span>}
-        <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a><b> {nomVoie}</b></a></Link>
+        {numero && <span>{numero.numero}<span className='comma'>,</span></span>}
+        <Link href={`/explore/commune/${code}/voie/${voie.codeVoie}`}><a> {nomVoie}</a></Link>
         <span className='comma'>,</span>
-        <Link href={`/explore/commune/${code}`}><a><b>{nom}</b></a></Link>
+        <Link href={`/explore/commune/${code}`}><a>{nom}</a></Link>
       </div>
       <h4>{departement.nom} ({departement.code})</h4>
       <style jsx>{`
@@ -27,11 +27,11 @@ const Head = ({commune, nomVoie, voie, numero}) => {
 
         .breadcrumb {
           font-size: 22px;
+          font-weight: bold;
           margin-top: -1.3em;
         }
 
         .comma {
-          font-weight: bold;
           margin: 0px 5px 0px 5px;
         }
 
@@ -53,8 +53,8 @@ Head.propTypes = {
     }).isRequired
   }),
   nomVoie: PropTypes.string.isRequired,
-  voie: PropTypes.string.isRequired,
-  numero: PropTypes.string.isRequired
+  voie: PropTypes.object.isRequired,
+  numero: PropTypes.object.isRequired
 }
 
 Head.defaultProps = {
