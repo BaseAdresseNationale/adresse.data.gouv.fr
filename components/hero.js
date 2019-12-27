@@ -41,7 +41,7 @@ const Hero = ({title, tagline}) => (
     </div>
     <style jsx>{`
       .hero {
-        background: #fff url(/images/city-background-v4.svg) bottom center no-repeat;
+        background: #fff url(/images/city-background-v2.svg) bottom center no-repeat;
         background-size: cover;
         margin-bottom: -20em;
       }
