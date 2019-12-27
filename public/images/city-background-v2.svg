@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1044 550" style="enable-background:new 0 0 1044 550;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.5;fill:#D8D8D8;enable-background:new    ;}
+	.st1{opacity:0.5;}
+	.st2{fill:#9B9B9B;}
+	.st3{fill:#1C1C1C;}
+	.st4{fill:#FFFFFF;}
+	.st5{fill-rule:evenodd;clip-rule:evenodd;fill:#BCD280;}
+	.st6{fill:#65402D;}
+	.st7{fill-rule:evenodd;clip-rule:evenodd;fill:#65402D;}
+	.st8{fill:#D8D8D8;}
+	.st9{fill-rule:evenodd;clip-rule:evenodd;fill:#82C376;}
+	.st10{fill-rule:evenodd;clip-rule:evenodd;fill:#FFB02F;}
+	.st11{fill:#FF9F00;}
+	.st12{fill-rule:evenodd;clip-rule:evenodd;fill:#FF9F00;}
+	.st13{fill-rule:evenodd;clip-rule:evenodd;fill:#4F5666;stroke:#FFFFFF;stroke-width:2;}
+	.st14{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:0.11;}
+	.st15{fill:none;stroke:#FFFFFF;stroke-linecap:square;}
+	.st16{fill-rule:evenodd;clip-rule:evenodd;fill:#8593A4;}
+	.st17{fill:#D8D8D8;stroke:#FFFFFF;stroke-width:2;}
+	.st18{fill:#4F5666;}
+	.st19{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:9.000000e-02;}
+	.st20{fill-rule:evenodd;clip-rule:evenodd;fill:#22B778;}
+	.st21{fill:#09894D;}
+	.st22{fill-rule:evenodd;clip-rule:evenodd;fill:#09894D;}
+	.st23{fill-rule:evenodd;clip-rule:evenodd;fill:#0B7F43;}
+	.st24{fill:#4F5666;stroke:#FFFFFF;stroke-width:2;}
+	.st25{fill:#5D5153;}
+	.st26{fill-rule:evenodd;clip-rule:evenodd;fill-opacity:0.12;}
+	.st27{fill:#D0021B;}
+	.st28{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+	.st29{fill:#655E56;}
+	.st30{fill:#4F5666;stroke:#FFFFFF;stroke-width:3;}
+	.st31{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:3.000000e-02;}
+	.st32{fill:#F4D894;}
+	.st33{fill:#E3D4A6;}
+	.st34{fill-rule:evenodd;clip-rule:evenodd;fill:#E04E4F;}
+	.st35{fill:#CF3536;}
+	.st36{fill-rule:evenodd;clip-rule:evenodd;fill:#A20A14;}
+	.st37{fill-rule:evenodd;clip-rule:evenodd;fill:#243655;}
+	.st38{fill:none;stroke:#2F4771;stroke-width:3;stroke-linecap:square;}
+	.st39{fill-rule:evenodd;clip-rule:evenodd;fill:#E04E4F;stroke:#2F4771;stroke-width:2;}
+	.st40{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:0.13;}
+	.st41{fill-rule:evenodd;clip-rule:evenodd;fill:#989CB8;}
+	.st42{fill:#989CB8;}
+	.st43{fill-rule:evenodd;clip-rule:evenodd;fill:#B1B5CE;}
+	.st44{fill:#878A9A;}
+	.st45{fill-rule:evenodd;clip-rule:evenodd;fill:#878A9A;}
+	.st46{fill-rule:evenodd;clip-rule:evenodd;fill:#6DB660;}
+	.st47{fill-rule:evenodd;clip-rule:evenodd;fill:#74B863;}
+	.st48{fill:#545665;}
+	.st49{fill-rule:evenodd;clip-rule:evenodd;fill:#D8D8D8;}
+	.st50{fill-rule:evenodd;clip-rule:evenodd;fill:#878A9A;stroke:#2F4771;stroke-width:2;}
+	.st51{fill-rule:evenodd;clip-rule:evenodd;fill:#9CB898;}
+	.st52{fill:#9CB898;}
+	.st53{fill-rule:evenodd;clip-rule:evenodd;fill:#82A18E;}
+	.st54{fill:#82A18E;}
+	.st55{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;stroke:#EAEAEA;}
+</style>
+<title>Plan de travail 1</title>
+<g id="building-grey">
+	<rect id="wall" class="st0" width="120.3" height="319"/>
+	<g id="windows" class="st1">
+		<g id="windows-line">
+			<g id="window-grey">
+				<rect id="Rectangle" x="7.5" y="15.6" class="st2" width="21.3" height="36.4"/>
+			</g>
+			<g id="window-grey-2">
+				<rect id="Rectangle-2" x="63.3" y="15.6" class="st2" width="21.3" height="36.4"/>
+			</g>
+			<g id="window-grey-3">
+				<rect id="Rectangle-3" x="35.4" y="15.6" class="st2" width="21.3" height="36.4"/>
+			</g>
+			<g id="window-grey-4">
+				<rect id="Rectangle-4" x="91.3" y="15.6" class="st2" width="21.3" height="36.4"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-2" class="st1">
+		<g id="windows-line-2">
+			<g id="window-grey-5">
+				<rect id="Rectangle-5" x="7.5" y="57.5" class="st2" width="21.3" height="36.4"/>
+			</g>
+			<g id="window-grey-6">
+				<rect id="Rectangle-6" x="63.3" y="57.5" class="st2" width="21.3" height="36.4"/>
+			</g>
+			<g id="window-grey-7">
+				<rect id="Rectangle-7" x="35.4" y="57.5" class="st2" width="21.3" height="36.4"/>
+			</g>
+			<g id="window-grey-8">
+				<rect id="Rectangle-8" x="91.3" y="57.5" class="st2" width="21.3" height="36.4"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-3" class="st1">
+		<g id="windows-line-3">
+			<g id="window-grey-9">
+				<rect id="Rectangle-9" x="7.5" y="99.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-10">
+				<rect id="Rectangle-10" x="63.3" y="99.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-11">
+				<rect id="Rectangle-11" x="35.4" y="99.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-12">
+				<rect id="Rectangle-12" x="91.3" y="99.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-4" class="st1">
+		<g id="windows-line-4">
+			<g id="window-grey-13">
+				<rect id="Rectangle-13" x="7.5" y="141.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-14">
+				<rect id="Rectangle-14" x="63.3" y="141.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-15">
+				<rect id="Rectangle-15" x="35.4" y="141.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-16">
+				<rect id="Rectangle-16" x="91.3" y="141.6" class="st2" width="21.3" height="36.5"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-5" class="st1">
+		<g id="windows-line-5">
+			<g id="window-grey-17">
+				<rect id="Rectangle-17" x="7.5" y="183.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-18">
+				<rect id="Rectangle-18" x="63.3" y="183.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-19">
+				<rect id="Rectangle-19" x="35.4" y="183.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-20">
+				<rect id="Rectangle-20" x="91.3" y="183.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-6" class="st1">
+		<g id="windows-line-6">
+			<g id="window-grey-21">
+				<rect id="Rectangle-21" x="7.5" y="225.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-22">
+				<rect id="Rectangle-22" x="63.3" y="225.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-23">
+				<rect id="Rectangle-23" x="35.4" y="225.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+			<g id="window-grey-24">
+				<rect id="Rectangle-24" x="91.3" y="225.5" class="st2" width="21.3" height="36.5"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="road">
+	<rect x="-1.5" y="345.2" class="st3" width="672.9" height="31.9"/>
+	<g id="Group">
+		<rect id="Rectangle-25" x="-1.5" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-26" x="70.8" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-27" x="143.1" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-28" x="215.3" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-29" x="287.6" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-30" x="359.9" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-31" x="432.2" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-32" x="504.5" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-33" x="576.8" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-34" x="649.1" y="358.5" class="st4" width="32.9" height="5.2"/>
+	</g>
+</g>
+<g id="tree">
+	<path id="Rectangle-35" class="st5" d="M28.7,214.5C5.3,255.2-2.5,281.3,5.3,293c11.7,17.5,35.1,17.5,46.8,0
+		C59.9,281.3,52.1,255.2,28.7,214.5z"/>
+	<rect id="Rectangle-36" x="26.1" y="263.8" class="st6" width="4.2" height="75.5"/>
+	<polygon id="Rectangle-37" class="st7" points="19.7,269 16.3,270.7 26.1,281.5 29.6,279.8 	"/>
+	<polygon id="Rectangle-38" class="st7" points="36.5,285.1 40,286.8 30.1,297.7 26.6,296 	"/>
+</g>
+<g id="tree-2">
+	<path id="Rectangle-39" class="st5" d="M67.1,241.9C86.5,272.4,93,292,86.5,300.8c-7.8,10.7-22.9,13.1-33.6,5.2
+		c-2-1.5-3.8-3.2-5.2-5.2C41.2,292,47.6,272.4,67.1,241.9z"/>
+	<rect id="Rectangle-40" x="65.8" y="278.9" class="st6" width="3.4" height="56.6"/>
+	<polygon id="Rectangle-41" class="st7" points="74.5,282.8 77.4,284 69.2,292.2 66.3,290.9 	"/>
+	<polygon id="Rectangle-42" class="st7" points="60.5,294.9 57.7,296.2 65.9,304.3 68.7,303 	"/>
+</g>
+<rect id="trottoire" x="-0.2" y="340.7" class="st8" width="690.4" height="4.5"/>
+<path id="Combined-Shape" class="st9" d="M558.9,306c6.5-8.4,20.6-14.2,36.8-14.2c20.2,0,37,8.9,40.2,20.7
+	c12.2,0.4,21.9,6.7,21.9,14.5s-9.9,14.2-22.3,14.5H558c-1.6,0-3.2-0.1-4.8-0.2c-16.9-1.1-29.7-5.9-29.7-15.5
+	C523.5,315.1,539.2,306.5,558.9,306z"/>
+<g id="yellow-short-house">
+	<polygon id="Rectangle-43" class="st10" points="281.3,251.2 347.6,251.2 347.6,341.3 281.3,341.3 	"/>
+	<rect id="Rectangle-44" x="286" y="252.3" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-45" x="289.4" y="255" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-46" x="321.2" y="252.3" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-47" x="318.5" y="255" class="st11" width="6.1" height="2.2"/>
+	<polygon id="Rectangle-48" class="st12" points="281.3,320.1 347.6,320.1 347.6,341.3 281.3,341.3 	"/>
+	<polygon id="Rectangle-49" class="st12" points="281.3,248.5 347.6,248.5 347.6,251.2 281.3,251.2 	"/>
+	<polygon id="Rectangle-50" class="st12" points="281.3,288.6 347.6,288.6 347.6,291.4 281.3,291.4 	"/>
+	<g id="window-4">
+		<path id="Rectangle-51" class="st13" d="M321.5,301v17.7h16.9V301C333.2,298.6,326.8,298.6,321.5,301z"/>
+		<path id="Rectangle-52" class="st14" d="M321.9,301c5-2.7,11.3-2.7,16.2,0l-16.2,18V301z"/>
+		<path id="Line-2" class="st15" d="M321.9,312h15.9"/>
+		<path id="Line-2-2" class="st15" d="M321.7,307.1h16.8"/>
+		<rect id="Rectangle-53" x="318.5" y="318.9" class="st4" width="23" height="1.6"/>
+		<path id="Line-3" class="st15" d="M330,299.2l0.1,19.8"/>
+	</g>
+	<g id="window-4-2">
+		<path id="Rectangle-54" class="st13" d="M321.5,260.8v17.7h16.9v-17.7C333.2,258.3,326.8,258.3,321.5,260.8z"/>
+		<path id="Rectangle-55" class="st14" d="M321.9,260.8c5-2.7,11.3-2.7,16.2,0l-16.2,18V260.8z"/>
+		<path id="Line-2-3" class="st15" d="M321.9,271.9h15.9"/>
+		<path id="Line-2-4" class="st15" d="M321.7,267h16.8"/>
+		<rect id="Rectangle-56" x="318.5" y="278.8" class="st4" width="23" height="1.6"/>
+		<path id="Line-3-2" class="st15" d="M330,259l0.1,19.8"/>
+	</g>
+	<g id="window-4-3">
+		<path id="Rectangle-57" class="st13" d="M290.4,260.8v17.7h16.9v-17.7C302,258.3,295.7,258.3,290.4,260.8z"/>
+		<path id="Rectangle-58" class="st14" d="M290.7,260.8c5-2.7,11.3-2.7,16.2,0l-16.2,18V260.8z"/>
+		<path id="Line-2-5" class="st15" d="M290.7,271.9h15.9"/>
+		<path id="Line-2-6" class="st15" d="M290.6,267h16.8"/>
+		<rect id="Rectangle-59" x="287.4" y="278.8" class="st4" width="23" height="1.6"/>
+		<path id="Line-3-3" class="st15" d="M298.9,259l0.1,19.8"/>
+	</g>
+	<polygon id="Rectangle-60" class="st16" points="280.6,245.8 347.6,245.8 347.6,248.5 280.6,248.5 	"/>
+	<g id="door">
+		<rect id="Rectangle-61" x="288.4" y="298.7" class="st17" width="21" height="42"/>
+		<rect id="Rectangle-62" x="290.7" y="299.5" class="st18" width="16.2" height="20.4"/>
+		<polygon id="Rectangle-63" class="st19" points="290.7,299.5 307,299.5 290.7,319.9 		"/>
+		<rect id="Rectangle-64" x="290.7" y="322.7" class="st4" width="16.2" height="18.3"/>
+	</g>
+	<rect id="Rectangle-65" x="311.7" y="282.2" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-66" x="318.5" y="285.4" class="st11" width="6.1" height="2.2"/>
+</g>
+<g id="green-short-house">
+	<polygon id="Rectangle-67" class="st20" points="534,250.4 600.3,250.4 600.3,340.5 534,340.5 	"/>
+	<rect id="Rectangle-68" x="538.7" y="251.5" class="st21" width="6.1" height="2.2"/>
+	<rect id="Rectangle-69" x="580" y="282.5" class="st21" width="6.1" height="2.2"/>
+	<rect id="Rectangle-70" x="588.2" y="252.1" class="st21" width="6.1" height="2.2"/>
+	<rect id="Rectangle-71" x="583.4" y="254.2" class="st21" width="6.1" height="2.2"/>
+	<polygon id="Rectangle-72" class="st22" points="534,319.4 600.3,319.4 600.3,340.5 534,340.5 	"/>
+	<polygon id="Rectangle-73" class="st22" points="534,247.7 600.3,247.7 600.3,250.4 534,250.4 	"/>
+	<polygon id="Rectangle-74" class="st23" points="534,287.9 600.3,287.9 600.3,290.6 534,290.6 	"/>
+	<g id="window-3">
+		<rect id="Rectangle-75" x="541.8" y="299" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-76" class="st19" points="542.1,299.3 558.4,299.3 542.1,317.4 		"/>
+		<path id="Line-2-7" class="st15" d="M542.1,310.9H558"/>
+		<rect id="Rectangle-77" x="539.4" y="297.1" class="st4" width="21.7" height="1.1"/>
+		<rect id="Rectangle-78" x="538.7" y="318" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-2">
+		<rect id="Rectangle-79" x="574.3" y="258.8" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-80" class="st19" points="574.6,259.2 590.8,259.2 574.6,277.3 		"/>
+		<path id="Line-2-8" class="st15" d="M574.6,270.7h15.9"/>
+		<rect id="Rectangle-81" x="571.9" y="257" class="st4" width="21.7" height="1.1"/>
+		<rect id="Rectangle-82" x="571.2" y="277.9" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-3">
+		<rect id="Rectangle-83" x="543.1" y="258.8" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-84" class="st19" points="543.5,259.2 559.7,259.2 543.5,277.3 		"/>
+		<path id="Line-2-9" class="st15" d="M543.5,270.7h15.9"/>
+		<rect id="Rectangle-85" x="540.8" y="257" class="st4" width="21.7" height="1.1"/>
+		<rect id="Rectangle-86" x="540.1" y="277.9" class="st4" width="23" height="1.7"/>
+	</g>
+	<polygon id="Rectangle-87" class="st16" points="533.3,245 600.3,245 600.3,247.7 533.3,247.7 	"/>
+	<g id="door-2">
+		<rect id="Rectangle-88" x="572.2" y="297.9" class="st17" width="21" height="42"/>
+		<rect id="Rectangle-89" x="574.6" y="298.7" class="st18" width="16.2" height="20.4"/>
+		<polygon id="Rectangle-90" class="st19" points="574.6,298.7 590.8,298.7 574.6,319.2 		"/>
+		<rect id="Rectangle-91" x="574.6" y="321.9" class="st4" width="16.2" height="18.3"/>
+	</g>
+	<rect id="Rectangle-92" x="544.8" y="281.4" class="st21" width="6.1" height="2.2"/>
+	<rect id="Rectangle-93" x="551.6" y="284.6" class="st21" width="6.1" height="2.2"/>
+</g>
+<g id="store">
+	<rect id="Rectangle-94" x="347.4" y="295.3" class="st25" width="189.9" height="45.4"/>
+	<polygon id="Rectangle-95" class="st26" points="537.3,295.3 537.3,323 478.8,314.5 444.2,309.5 405.4,303.8 383.7,300.7 
+		369.6,298.6 347.4,295.3 	"/>
+	<g id="rayure">
+		<rect id="Rectangle-96" x="347.4" y="278.5" class="st27" width="189.9" height="17.3"/>
+		<path id="Rectangle-97" class="st28" d="M357.5,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-98" class="st28" d="M375.1,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-99" class="st28" d="M392.7,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-100" class="st28" d="M410.3,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-101" class="st28" d="M427.8,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-102" class="st28" d="M445.4,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-103" class="st28" d="M463,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-104" class="st28" d="M480.5,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-105" class="st28" d="M499.5,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+		<path id="Rectangle-106" class="st28" d="M518.4,278.5h8.8v17.3c-2.9,0.6-5.9,0.6-8.8,0V278.5z"/>
+	</g>
+	<rect id="Rectangle-107" x="347.4" y="322.5" class="st29" width="189.9" height="18.7"/>
+	<g id="door-3">
+		<rect id="Rectangle-108" x="424.1" y="304.5" class="st17" width="38" height="36.7"/>
+		<rect id="Rectangle-109" x="429" y="305.2" class="st18" width="28.2" height="17.8"/>
+		<polygon id="Rectangle-110" class="st19" points="429,305.2 457.2,305.2 429,323 		"/>
+		<rect id="Rectangle-111" x="429" y="325.4" class="st4" width="28.2" height="16"/>
+	</g>
+	<g id="big-window">
+		<rect id="Rectangle-112" x="373.9" y="304.9" class="st30" width="27" height="17.3"/>
+		<polygon id="Rectangle-113" class="st31" points="373.9,304.9 400.9,304.9 373.9,322.2 		"/>
+	</g>
+	<g id="big-window-2">
+		<rect id="Rectangle-114" x="482.7" y="304.9" class="st30" width="27" height="17.3"/>
+		<polygon id="Rectangle-115" class="st31" points="482.7,304.9 509.7,304.9 482.7,322.2 		"/>
+	</g>
+	<g id="_1-floor">
+		<rect id="Rectangle-116" x="347.4" y="243.9" class="st32" width="189.9" height="34.7"/>
+		<g id="window-3-4">
+			<rect id="Rectangle-117" x="434.2" y="253.1" class="st24" width="16.9" height="16.1"/>
+			<polygon id="Rectangle-118" class="st19" points="434.6,253.2 450.8,253.2 434.6,268.9 			"/>
+			<path id="Line-2-10" class="st15" d="M434.6,263.2h15.9"/>
+			<rect id="Rectangle-119" x="431.9" y="251.3" class="st4" width="21.6" height="0.9"/>
+			<rect id="Rectangle-120" x="431.2" y="269.4" class="st4" width="23" height="1.5"/>
+		</g>
+	</g>
+	<g id="_2-floor">
+		<rect id="Rectangle-121" x="347.4" y="206.4" class="st32" width="189.9" height="34.7"/>
+		<g id="window-3-5">
+			<rect id="Rectangle-122" x="434.2" y="215.5" class="st24" width="16.9" height="16.1"/>
+			<polygon id="Rectangle-123" class="st19" points="434.6,215.8 450.8,215.8 434.6,231.4 			"/>
+			<path id="Line-2-11" class="st15" d="M434.6,225.7h15.9"/>
+			<rect id="Rectangle-124" x="431.9" y="213.9" class="st4" width="21.6" height="0.9"/>
+			<rect id="Rectangle-125" x="431.2" y="231.9" class="st4" width="23" height="1.5"/>
+		</g>
+	</g>
+	<rect id="Rectangle-126" x="343.4" y="238.7" class="st33" width="198" height="5.1"/>
+	<rect id="Rectangle-127" x="343.4" y="201.3" class="st33" width="198" height="5.1"/>
+	<g id="double-window">
+		<rect id="Rectangle-128" x="360.6" y="215.7" class="st24" width="17.1" height="16.1"/>
+		<path id="Line-2-12" class="st15" d="M361,226h16"/>
+		<rect id="Rectangle-129" x="358.2" y="214.2" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-130" x="357.5" y="232.1" class="st4" width="23.2" height="1.5"/>
+		<rect id="Rectangle-131" x="378.3" y="215.7" class="st24" width="17.1" height="16.1"/>
+		<polygon id="Rectangle-132" class="st19" points="361,216.1 395.1,216.1 361,231.6 		"/>
+		<path id="Line-2-13" class="st15" d="M378.7,226h16"/>
+		<rect id="Rectangle-133" x="376" y="214.2" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-134" x="375.3" y="232.1" class="st4" width="23.2" height="1.5"/>
+	</g>
+	<g id="double-window-2">
+		<rect id="Rectangle-135" x="360.6" y="253.1" class="st24" width="17.1" height="16.1"/>
+		<path id="Line-2-14" class="st15" d="M361,263.2h16"/>
+		<rect id="Rectangle-136" x="358.2" y="251.3" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-137" x="357.5" y="269.4" class="st4" width="23.2" height="1.5"/>
+		<rect id="Rectangle-138" x="378.3" y="253.1" class="st24" width="17.1" height="16.1"/>
+		<polygon id="Rectangle-139" class="st19" points="361,253.2 395.1,253.2 361,268.9 		"/>
+		<path id="Line-2-15" class="st15" d="M378.7,263.2h16"/>
+		<rect id="Rectangle-140" x="376" y="251.3" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-141" x="375.3" y="269.4" class="st4" width="23.2" height="1.5"/>
+	</g>
+	<g id="double-window-3">
+		<rect id="Rectangle-142" x="490.3" y="215.5" class="st24" width="17.1" height="16.1"/>
+		<path id="Line-2-16" class="st15" d="M490.7,225.7h16"/>
+		<rect id="Rectangle-143" x="488" y="213.9" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-144" x="487.3" y="231.9" class="st4" width="23.2" height="1.5"/>
+		<rect id="Rectangle-145" x="508.1" y="215.5" class="st24" width="17.1" height="16.1"/>
+		<polygon id="Rectangle-146" class="st19" points="490.7,215.8 524.8,215.8 490.7,231.4 		"/>
+		<path id="Line-2-17" class="st15" d="M508.4,225.7h16"/>
+		<rect id="Rectangle-147" x="505.7" y="213.9" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-148" x="505" y="231.9" class="st4" width="23.2" height="1.5"/>
+	</g>
+	<g id="double-window-4">
+		<rect id="Rectangle-149" x="490.3" y="253.1" class="st24" width="17.1" height="16.1"/>
+		<path id="Line-2-18" class="st15" d="M490.7,263.2h16"/>
+		<rect id="Rectangle-150" x="488" y="251.3" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-151" x="487.3" y="269.4" class="st4" width="23.2" height="1.5"/>
+		<rect id="Rectangle-152" x="508.1" y="253.1" class="st24" width="17.1" height="16.1"/>
+		<polygon id="Rectangle-153" class="st19" points="490.7,253.2 524.8,253.2 490.7,268.9 		"/>
+		<path id="Line-2-19" class="st15" d="M508.4,263.2h16"/>
+		<rect id="Rectangle-154" x="505.7" y="251.3" class="st4" width="21.8" height="0.9"/>
+		<rect id="Rectangle-155" x="505" y="269.4" class="st4" width="23.2" height="1.5"/>
+	</g>
+</g>
+<g id="red-long-house">
+	<polygon id="Rectangle-156" class="st34" points="185.4,250.5 281.7,250.5 281.7,341.2 185.4,341.2 	"/>
+	<rect id="Rectangle-157" x="192.9" y="257.1" class="st35" width="6.1" height="2.2"/>
+	<polygon id="Rectangle-158" class="st36" points="185.4,319.9 281.7,319.9 281.7,341.2 185.4,341.2 	"/>
+	<polygon id="Rectangle-159" class="st36" points="185.4,247.8 281.7,247.8 281.7,250.5 185.4,250.5 	"/>
+	<g id="window-3-6">
+		<rect id="Rectangle-160" x="225.1" y="299.4" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-161" class="st19" points="225.4,299.7 241.7,299.7 225.4,317.9 		"/>
+		<path id="Line-2-20" class="st15" d="M225.4,311.3h15.9"/>
+		<rect id="Rectangle-162" x="222.7" y="297.6" class="st4" width="21.6" height="1.1"/>
+		<rect id="Rectangle-163" x="222.1" y="318.5" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-7">
+		<rect id="Rectangle-164" x="256.3" y="299.4" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-165" class="st19" points="256.6,299.7 272.9,299.7 256.6,317.9 		"/>
+		<path id="Line-2-21" class="st15" d="M256.6,311.3h15.9"/>
+		<rect id="Rectangle-166" x="253.9" y="297.6" class="st4" width="21.6" height="1.1"/>
+		<rect id="Rectangle-167" x="253.2" y="318.5" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-8">
+		<rect id="Rectangle-168" x="225.1" y="265.1" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-169" class="st19" points="225.4,265.3 241.7,265.3 225.4,283.5 		"/>
+		<path id="Line-2-22" class="st15" d="M225.4,276.8h15.9"/>
+		<rect id="Rectangle-170" x="222.7" y="263.1" class="st4" width="21.6" height="1.1"/>
+		<rect id="Rectangle-171" x="222.1" y="284" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-9">
+		<rect id="Rectangle-172" x="193.9" y="265.1" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-173" class="st19" points="194.2,265.3 210.5,265.3 194.2,283.5 		"/>
+		<path id="Line-2-23" class="st15" d="M194.2,276.8h15.9"/>
+		<rect id="Rectangle-174" x="191.5" y="263.1" class="st4" width="21.6" height="1.1"/>
+		<rect id="Rectangle-175" x="190.9" y="284" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-10">
+		<rect id="Rectangle-176" x="256.3" y="265.1" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-177" class="st19" points="256.6,265.3 272.9,265.3 256.6,283.5 		"/>
+		<path id="Line-2-24" class="st15" d="M256.6,276.8h15.9"/>
+		<rect id="Rectangle-178" x="253.9" y="263.1" class="st4" width="21.6" height="1.1"/>
+		<rect id="Rectangle-179" x="253.2" y="284" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="door-4">
+		<rect id="Rectangle-180" x="191.9" y="298.3" class="st17" width="21" height="42.8"/>
+		<rect id="Rectangle-181" x="194.2" y="299.1" class="st18" width="16.2" height="20.8"/>
+		<polygon id="Rectangle-182" class="st19" points="194.2,299.1 210.5,299.1 194.2,320 		"/>
+		<rect id="Rectangle-183" x="194.2" y="322.7" class="st4" width="16.2" height="18.6"/>
+	</g>
+	<g id="Line-_-Line-_-Line-_-Line-_-Line-Mask">
+		<g id="Mask-11">
+			<polygon id="path-1-6" class="st37" points="202.4,215.1 264.8,215.1 281.7,247.8 185.4,247.8 			"/>
+		</g>
+		<g>
+			<path id="Line" class="st38" d="M198,220.2h71.2"/>
+		</g>
+		<g>
+			<path id="Line-2-25" class="st38" d="M198.3,225.4h71.2"/>
+		</g>
+		<g>
+			<path id="Line-3-4" class="st38" d="M193.1,230.3h81.7"/>
+		</g>
+		<g>
+			<path id="Line-4" class="st38" d="M190.5,235.2h90.2"/>
+		</g>
+		<g>
+			<path id="Line-5" class="st38" d="M188.5,240.2h90.9"/>
+		</g>
+	</g>
+	<polygon id="Rectangle-184" class="st16" points="184.1,245.1 283.1,245.1 283.1,247.8 184.1,247.8 	"/>
+	<polygon id="Triangle" class="st39" points="233.6,218.8 249.2,243.4 218,243.4 	"/>
+	<g id="tiny-window">
+		<rect id="Rectangle-185" x="229.1" y="230.1" class="st24" width="9" height="12.1"/>
+		<polygon id="Rectangle-186" class="st40" points="229.5,230.3 237.8,230.3 229.5,241.9 		"/>
+	</g>
+	<rect id="Rectangle-187" x="251.9" y="253.8" class="st35" width="6.1" height="2.2"/>
+	<rect id="Rectangle-188" x="255.3" y="256.6" class="st35" width="6.1" height="2.2"/>
+	<rect id="Rectangle-189" x="210.5" y="288.3" class="st35" width="6.1" height="2.2"/>
+	<rect id="Rectangle-190" x="217.3" y="292.6" class="st35" width="6.1" height="2.2"/>
+	<rect id="Rectangle-191" x="258" y="292.6" class="st35" width="6.1" height="2.2"/>
+	<rect id="Rectangle-192" x="255.9" y="290.4" class="st35" width="6.1" height="2.2"/>
+	<rect id="Rectangle-193" x="258.7" y="253.8" class="st35" width="6.1" height="2.2"/>
+</g>
+<g id="blue-long-house">
+	<polygon id="wall-2" class="st41" points="89.3,293.2 185.6,293.2 185.6,341.2 89.3,341.2 	"/>
+	<g id="floor">
+		<rect id="Rectangle-194" x="89.3" y="253.5" class="st42" width="96.3" height="37"/>
+		<polygon id="Rectangle-195" class="st43" points="89.3,250.7 185.6,250.7 185.6,253.5 89.3,253.5 		"/>
+		<polygon id="Rectangle-196" class="st43" points="89.3,290.5 185.6,290.5 185.6,293.2 89.3,293.2 		"/>
+		<g id="window-4-4">
+			<path id="Rectangle-197" class="st13" d="M128.9,266.3V284h16.9v-17.7C140.6,263.9,134.2,263.9,128.9,266.3z"/>
+			<path id="Rectangle-198" class="st14" d="M129.3,266.3c5-2.7,11.3-2.7,16.2,0l-16.2,18V266.3z"/>
+			<path id="Line-2-26" class="st15" d="M129.3,277.4h15.9"/>
+			<path id="Line-2-27" class="st15" d="M129.1,272.5h16.7"/>
+			<rect id="Rectangle-199" x="125.9" y="284.3" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-5" class="st15" d="M137.4,264.6l0.1,19.8"/>
+		</g>
+		<g id="window-4-5">
+			<path id="Rectangle-200" class="st13" d="M97.7,266.3V284h16.9v-17.7c-2.6-1.1-5.5-1.7-8.5-1.8
+				C103.2,264.6,100.4,265.2,97.7,266.3z"/>
+			<path id="Rectangle-201" class="st14" d="M98.1,266.3c2.5-1.2,5.3-1.9,8.1-2c2.9,0.1,5.7,0.7,8.1,2l-16.2,18
+				C98.1,284.4,98.1,266.3,98.1,266.3z"/>
+			<path id="Line-2-28" class="st15" d="M98.1,277.4H114"/>
+			<path id="Line-2-29" class="st15" d="M97.9,272.5h16.7"/>
+			<rect id="Rectangle-202" x="94.7" y="284.3" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-6" class="st15" d="M106.2,264.6l0.1,19.8"/>
+		</g>
+		<g id="window-4-6">
+			<path id="Rectangle-203" class="st13" d="M160.1,266.3V284H177v-17.7C171.8,263.9,165.4,263.9,160.1,266.3z"/>
+			<path id="Rectangle-204" class="st14" d="M160.5,266.3c5-2.7,11.3-2.7,16.2,0l-16.2,18V266.3z"/>
+			<path id="Line-2-30" class="st15" d="M160.5,277.4h15.9"/>
+			<path id="Line-2-31" class="st15" d="M160.3,272.5H177"/>
+			<rect id="Rectangle-205" x="157.1" y="284.3" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-7" class="st15" d="M168.6,264.6l0.1,19.8"/>
+		</g>
+	</g>
+	<g id="floor-2">
+		<rect id="Rectangle-206" x="89.3" y="253.5" class="st42" width="96.3" height="37"/>
+		<polygon id="Rectangle-207" class="st43" points="89.3,250.7 185.6,250.7 185.6,253.5 89.3,253.5 		"/>
+		<polygon id="Rectangle-208" class="st43" points="89.3,290.5 185.6,290.5 185.6,293.2 89.3,293.2 		"/>
+		<g id="window-4-7">
+			<path id="Rectangle-209" class="st13" d="M128.9,266.3V284h16.9v-17.7C140.6,263.9,134.2,263.9,128.9,266.3z"/>
+			<path id="Rectangle-210" class="st14" d="M129.3,266.3c5-2.7,11.3-2.7,16.2,0l-16.2,18V266.3z"/>
+			<path id="Line-2-32" class="st15" d="M129.3,277.4h15.9"/>
+			<path id="Line-2-33" class="st15" d="M129.1,272.5h16.7"/>
+			<rect id="Rectangle-211" x="125.9" y="284.3" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-8" class="st15" d="M137.4,264.6l0.1,19.8"/>
+		</g>
+		<g id="window-4-8">
+			<path id="Rectangle-212" class="st13" d="M97.7,266.3V284h16.9v-17.7c-2.6-1.1-5.5-1.7-8.5-1.8
+				C103.2,264.6,100.4,265.2,97.7,266.3z"/>
+			<path id="Rectangle-213" class="st14" d="M98.1,266.3c2.5-1.2,5.3-1.9,8.1-2c2.9,0.1,5.7,0.7,8.1,2l-16.2,18
+				C98.1,284.4,98.1,266.3,98.1,266.3z"/>
+			<path id="Line-2-34" class="st15" d="M98.1,277.4H114"/>
+			<path id="Line-2-35" class="st15" d="M97.9,272.5h16.7"/>
+			<rect id="Rectangle-214" x="94.7" y="284.3" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-9" class="st15" d="M106.2,264.6l0.1,19.8"/>
+		</g>
+		<g id="window-4-9">
+			<path id="Rectangle-215" class="st13" d="M160.1,266.3V284H177v-17.7C171.8,263.9,165.4,263.9,160.1,266.3z"/>
+			<path id="Rectangle-216" class="st14" d="M160.5,266.3c5-2.7,11.3-2.7,16.2,0l-16.2,18V266.3z"/>
+			<path id="Line-2-36" class="st15" d="M160.5,277.4h15.9"/>
+			<path id="Line-2-37" class="st15" d="M160.3,272.5H177"/>
+			<rect id="Rectangle-217" x="157.1" y="284.3" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-10" class="st15" d="M168.6,264.6l0.1,19.8"/>
+		</g>
+	</g>
+	<g id="floor-3">
+		<rect id="Rectangle-218" x="89.3" y="213.7" class="st42" width="96.3" height="37"/>
+		<polygon id="Rectangle-219" class="st43" points="89.3,210.9 185.6,210.9 185.6,213.7 89.3,213.7 		"/>
+		<polygon id="Rectangle-220" class="st43" points="89.3,250.7 185.6,250.7 185.6,253.5 89.3,253.5 		"/>
+		<g id="window-4-10">
+			<path id="Rectangle-221" class="st13" d="M128.9,226.6v17.7h16.9v-17.7C140.6,224.2,134.2,224.2,128.9,226.6z"/>
+			<path id="Rectangle-222" class="st14" d="M129.3,226.6c5-2.7,11.3-2.7,16.2,0l-16.2,18V226.6z"/>
+			<path id="Line-2-38" class="st15" d="M129.3,237.6h15.9"/>
+			<path id="Line-2-39" class="st15" d="M129.1,232.7h16.7"/>
+			<rect id="Rectangle-223" x="125.9" y="244.5" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-11" class="st15" d="M137.4,224.8l0.1,19.8"/>
+		</g>
+		<g id="window-4-11">
+			<path id="Rectangle-224" class="st13" d="M97.7,226.6v17.7h16.9v-17.7c-2.6-1.1-5.5-1.7-8.5-1.8
+				C103.2,224.8,100.4,225.5,97.7,226.6z"/>
+			<path id="Rectangle-225" class="st14" d="M98.1,226.6c2.5-1.2,5.3-1.9,8.1-2c2.9,0.1,5.7,0.7,8.1,2l-16.2,18
+				C98.1,244.6,98.1,226.6,98.1,226.6z"/>
+			<path id="Line-2-40" class="st15" d="M98.1,237.6H114"/>
+			<path id="Line-2-41" class="st15" d="M97.9,232.7h16.7"/>
+			<rect id="Rectangle-226" x="94.7" y="244.5" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-12" class="st15" d="M106.2,224.8l0.1,19.8"/>
+		</g>
+		<g id="window-4-12">
+			<path id="Rectangle-227" class="st13" d="M160.1,226.6v17.7H177v-17.7C171.8,224.2,165.4,224.2,160.1,226.6z"/>
+			<path id="Rectangle-228" class="st14" d="M160.5,226.6c5-2.7,11.3-2.7,16.2,0l-16.2,18V226.6z"/>
+			<path id="Line-2-42" class="st15" d="M160.5,237.6h15.9"/>
+			<path id="Line-2-43" class="st15" d="M160.3,232.7H177"/>
+			<rect id="Rectangle-229" x="157.1" y="244.5" class="st4" width="23" height="1.6"/>
+			<path id="Line-3-13" class="st15" d="M168.6,224.8l0.1,19.8"/>
+		</g>
+	</g>
+	<g id="bricks">
+		<rect id="Rectangle-230" x="162.5" y="257.2" class="st44" width="6.1" height="2.2"/>
+		<rect id="Rectangle-231" x="109.6" y="257.2" class="st44" width="6.1" height="2.2"/>
+		<rect id="Rectangle-232" x="106.2" y="260" class="st44" width="6.1" height="2.2"/>
+		<rect id="Rectangle-233" x="117.8" y="306.3" class="st44" width="6.1" height="2.2"/>
+		<rect id="Rectangle-234" x="102.8" y="257.2" class="st44" width="6.1" height="2.2"/>
+	</g>
+	<polygon id="wall-down" class="st45" points="89.3,319.9 185.6,319.9 185.6,341.2 89.3,341.2 	"/>
+	<g id="window-3-11">
+		<rect id="Rectangle-235" x="97.7" y="298.9" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-236" class="st19" points="98.1,299.2 114.3,299.2 98.1,317.4 		"/>
+		<path id="Line-2-44" class="st15" d="M98.1,310.8H114"/>
+		<rect id="Rectangle-237" x="95.4" y="297" class="st4" width="21.7" height="1.1"/>
+		<rect id="Rectangle-238" x="94.7" y="318" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="window-3-12">
+		<rect id="Rectangle-239" x="160.1" y="299.5" class="st24" width="16.9" height="18.8"/>
+		<polygon id="Rectangle-240" class="st19" points="160.5,299.8 176.7,299.8 160.5,318 		"/>
+		<path id="Line-2-45" class="st15" d="M160.5,311.4h15.9"/>
+		<rect id="Rectangle-241" x="157.8" y="297.6" class="st4" width="21.6" height="1.1"/>
+		<rect id="Rectangle-242" x="157.1" y="318.5" class="st4" width="23" height="1.7"/>
+	</g>
+	<g id="door-5">
+		<rect id="Rectangle-243" x="126.9" y="298.4" class="st17" width="21" height="42.8"/>
+		<rect id="Rectangle-244" x="129.3" y="299.2" class="st18" width="16.2" height="20.8"/>
+		<polygon id="Rectangle-245" class="st19" points="129.3,299.2 145.5,299.2 129.3,320 		"/>
+		<rect id="Rectangle-246" x="129.3" y="322.8" class="st4" width="16.2" height="18.6"/>
+	</g>
+	<rect id="Rectangle-247" x="150.3" y="235.5" class="st44" width="6.1" height="2.2"/>
+	<rect id="Rectangle-248" x="119.8" y="221.9" class="st44" width="6.1" height="2.2"/>
+	<rect id="Rectangle-249" x="121.8" y="219.1" class="st44" width="6.1" height="2.2"/>
+	<g id="floor-4">
+		<polygon id="Rectangle-250" class="st41" points="89.3,203.4 137.4,190.3 185.6,203.4 185.6,213.7 89.3,213.7 		"/>
+		<polygon id="Rectangle-251" class="st45" points="89.3,200.3 137.4,187 185.6,200.3 185.6,203.4 137.4,190.7 89.3,203.4 		"/>
+		<polygon id="Rectangle-252" class="st43" points="89.3,213.1 185.6,213.1 185.6,215.9 89.3,215.9 		"/>
+	</g>
+	<rect id="Rectangle-253" x="156.4" y="204.9" class="st44" width="6.1" height="2.2"/>
+	<rect id="Rectangle-254" x="163.2" y="204.9" class="st44" width="6.1" height="2.2"/>
+	<rect id="Rectangle-255" x="158.4" y="202.3" class="st44" width="6.1" height="2.2"/>
+	<g id="oval-window">
+		<ellipse id="Oval" class="st24" cx="137.2" cy="202.3" rx="10" ry="8.2"/>
+		<path id="Oval-2" class="st19" d="M129.6,208.7c9.2-5.5,13.8-9.7,13.8-12.5c0-4.2-0.9-1.6-6.1-1.6c-5.1-0.1-9.2,3.3-9.3,7.6l0,0
+			C127.9,205.1,128.5,207.2,129.6,208.7z"/>
+	</g>
+</g>
+<g id="bushes">
+	<path id="Combined-Shape-2" class="st46" d="M652.8,321c4.4-5.2,13.9-8.7,25-8.7c13.7,0,25,5.4,27.2,12.5
+		c8.3,0.2,14.8,4.1,14.8,8.7c0,4.7-6.8,8.7-15.2,8.7h-52.3c-1,0-2.1,0-3.1-0.1c-11.6-0.6-20.4-3.5-20.4-9.3
+		C628.8,326.5,639.5,321.3,652.8,321z"/>
+	<path id="Combined-Shape-3" class="st9" d="M73.6,314.5c-4-7.1-12.5-11.6-21.8-11.4c-12,0-21.9,7.1-23.5,16.4
+		c-7.2,0.3-12.9,5-12.9,10.9c0,6,6,10.9,13.5,10.9h45c0.8,0,1.7,0,2.5-0.1c10.2-0.7,18-4.4,18-11.7
+		C94.3,321.4,85.1,314.9,73.6,314.5z"/>
+	<path id="Combined-Shape-4" class="st47" d="M-26.1,319.9c3.6-5.2,11.6-8.7,20.8-8.7c11.4,0,20.8,5.4,22.6,12.5
+		c6.8,0.2,12.2,4.1,12.2,8.7s-5.6,8.6-12.5,8.7h-43.5c-0.8,0-1.6,0-2.4-0.1c-9.7-0.6-17.1-3.5-17.1-9.3
+		C-46.1,325.4-37.2,320.2-26.1,319.9z"/>
+</g>
+<g id="lamps">
+	<g id="lamp">
+		<rect id="Rectangle-256" x="78.2" y="303.4" class="st48" width="4.1" height="40.1"/>
+		<polygon id="Rectangle-257" class="st49" points="74.1,295.3 86.3,295.3 83.6,303.4 77.5,303.4 		"/>
+		<ellipse id="Oval-3" class="st48" cx="80.2" cy="295.3" rx="7.4" ry="1.1"/>
+	</g>
+	<g id="lamp-2">
+		<rect id="Rectangle-258" x="282" y="302.9" class="st48" width="4.1" height="40.1"/>
+		<polygon id="Rectangle-259" class="st49" points="277.9,294.8 290.1,294.8 287.4,302.9 281.3,302.9 		"/>
+		<ellipse id="Oval-4" class="st48" cx="284" cy="294.8" rx="7.5" ry="1.1"/>
+	</g>
+</g>
+<g id="building-grey-2">
+	<rect id="wall-3" x="905.9" y="21.2" class="st0" width="138" height="299.1"/>
+	<g id="windows-7" class="st1">
+		<g id="windows-line-7">
+			<g id="window-grey-25">
+				<rect id="Rectangle-260" x="1010.2" y="35.8" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-26">
+				<rect id="Rectangle-261" x="946.2" y="35.8" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-27">
+				<rect id="Rectangle-262" x="978.2" y="35.8" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-28">
+				<rect id="Rectangle-263" x="914.1" y="35.8" class="st2" width="25" height="33.8"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-8" class="st1">
+		<g id="windows-line-8">
+			<g id="window-grey-29">
+				<rect id="Rectangle-264" x="1010.2" y="75.1" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-30">
+				<rect id="Rectangle-265" x="946.2" y="75.1" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-31">
+				<rect id="Rectangle-266" x="978.2" y="75.1" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-32">
+				<rect id="Rectangle-267" x="914.1" y="75.1" class="st2" width="25" height="33.8"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-9" class="st1">
+		<g id="windows-line-9">
+			<g id="window-grey-33">
+				<rect id="Rectangle-268" x="1010.2" y="114.6" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-34">
+				<rect id="Rectangle-269" x="946.2" y="114.6" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-35">
+				<rect id="Rectangle-270" x="978.2" y="114.6" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-36">
+				<rect id="Rectangle-271" x="914.1" y="114.6" class="st2" width="25" height="33.8"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-10" class="st1">
+		<g id="windows-line-10">
+			<g id="window-grey-37">
+				<rect id="Rectangle-272" x="1010.2" y="153.9" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-38">
+				<rect id="Rectangle-273" x="946.2" y="153.9" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-39">
+				<rect id="Rectangle-274" x="978.2" y="153.9" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-40">
+				<rect id="Rectangle-275" x="914.1" y="153.9" class="st2" width="25" height="33.8"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-11" class="st1">
+		<g id="windows-line-11">
+			<g id="window-grey-41">
+				<rect id="Rectangle-276" x="1010.2" y="193.3" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-42">
+				<rect id="Rectangle-277" x="946.2" y="193.3" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-43">
+				<rect id="Rectangle-278" x="978.2" y="193.3" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-44">
+				<rect id="Rectangle-279" x="914.1" y="193.3" class="st2" width="25" height="33.8"/>
+			</g>
+		</g>
+	</g>
+	<g id="windows-12" class="st1">
+		<g id="windows-line-12">
+			<g id="window-grey-45">
+				<rect id="Rectangle-280" x="1010.2" y="232.6" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-46">
+				<rect id="Rectangle-281" x="946.2" y="232.6" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-47">
+				<rect id="Rectangle-282" x="978.2" y="232.6" class="st2" width="25" height="33.8"/>
+			</g>
+			<g id="window-grey-48">
+				<rect id="Rectangle-283" x="914.1" y="232.6" class="st2" width="25" height="33.8"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="road-2">
+	<rect x="372.2" y="345.2" class="st3" width="672.9" height="31.9"/>
+	<g id="Group-2">
+		<rect id="Rectangle-284" x="1012.3" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-285" x="940" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-286" x="867.7" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-287" x="795.4" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-288" x="723.1" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-289" x="650.8" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-290" x="578.6" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-291" x="506.3" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-292" x="434" y="358.5" class="st4" width="32.9" height="5.2"/>
+		<rect id="Rectangle-293" x="361.7" y="358.5" class="st4" width="32.9" height="5.2"/>
+	</g>
+</g>
+<g id="tree-3">
+	<path id="Rectangle-294" class="st5" d="M1012.2,214.5c23.4,40.7,31.2,66.8,23.4,78.5c-11.7,17.5-35.1,17.5-46.8,0
+		C981,281.3,988.8,255.2,1012.2,214.5z"/>
+	<rect id="Rectangle-295" x="1010.6" y="263.8" class="st6" width="4.2" height="75.5"/>
+	<polygon id="Rectangle-296" class="st7" points="1021.2,269 1024.6,270.7 1014.8,281.5 1011.3,279.8 	"/>
+	<polygon id="Rectangle-297" class="st7" points="1004.3,285.1 1000.9,286.8 1010.8,297.7 1014.2,296 	"/>
+</g>
+<g id="tree-4">
+	<path id="Rectangle-298" class="st5" d="M973.8,241.9c-19.4,30.5-25.9,50.1-19.4,58.9c7.8,10.7,22.9,13.1,33.6,5.2
+		c2-1.5,3.8-3.2,5.2-5.2C999.7,292,993.2,272.4,973.8,241.9z"/>
+	<rect id="Rectangle-299" x="971.7" y="278.9" class="st6" width="3.5" height="56.6"/>
+	<polygon id="Rectangle-300" class="st7" points="966.4,282.8 963.5,284 971.7,292.2 974.6,290.9 	"/>
+	<polygon id="Rectangle-301" class="st7" points="980.3,294.9 983.2,296.2 975,304.3 972.1,303 	"/>
+</g>
+<rect id="trottoire-2" x="353.6" y="340.7" class="st8" width="690.4" height="4.5"/>
+<path id="Rectangle-302" class="st5" d="M627.6,233c-19.4,35.3-25.9,58-19.4,68.1c9.7,15.2,29.1,15.2,38.8,0
+	C653.5,291,647,268.3,627.6,233z"/>
+<rect id="Rectangle-303" x="625.4" y="275.7" class="st6" width="3.5" height="65.5"/>
+<polygon id="Rectangle-304" class="st7" points="620.1,280.2 617.3,281.7 625.5,291.2 628.3,289.6 "/>
+<polygon id="Rectangle-305" class="st7" points="634.1,294.2 637,295.8 628.8,305.2 625.9,303.7 "/>
+<g id="yellow-short-house-2">
+	<polygon id="Rectangle-306" class="st10" points="884.3,251.2 950.6,251.2 950.6,341.3 884.3,341.3 	"/>
+	<rect id="Rectangle-307" x="889" y="252.3" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-308" x="892.4" y="255" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-309" x="924.2" y="252.3" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-310" x="921.5" y="255" class="st11" width="6.1" height="2.2"/>
+	<polygon id="Rectangle-311" class="st12" points="884.3,320.1 950.6,320.1 950.6,341.3 884.3,341.3 	"/>
+	<polygon id="Rectangle-312" class="st12" points="884.3,248.5 950.6,248.5 950.6,251.2 884.3,251.2 	"/>
+	<polygon id="Rectangle-313" class="st12" points="884.3,288.6 950.6,288.6 950.6,291.4 884.3,291.4 	"/>
+	<g id="window-4-13">
+		<path id="Rectangle-314" class="st13" d="M924.5,301v17.7h17V301C936.2,298.6,929.9,298.6,924.5,301z"/>
+		<path id="Rectangle-315" class="st14" d="M924.9,301c5-2.7,11.3-2.7,16.2,0l-16.2,18V301z"/>
+		<path id="Line-2-46" class="st15" d="M924.9,312h15.9"/>
+		<path id="Line-2-47" class="st15" d="M924.7,307.1h16.7"/>
+		<rect id="Rectangle-316" x="921.5" y="318.9" class="st4" width="23" height="1.6"/>
+		<path id="Line-3-14" class="st15" d="M933,299.2l0.1,19.8"/>
+	</g>
+	<g id="window-4-14">
+		<path id="Rectangle-317" class="st13" d="M924.5,260.8v17.7h17v-17.7C936.2,258.3,929.9,258.3,924.5,260.8z"/>
+		<path id="Rectangle-318" class="st14" d="M924.9,260.8c5-2.7,11.3-2.7,16.2,0l-16.2,18V260.8z"/>
+		<path id="Line-2-48" class="st15" d="M924.9,271.9h15.9"/>
+		<path id="Line-2-49" class="st15" d="M924.7,267h16.7"/>
+		<rect id="Rectangle-319" x="921.5" y="278.8" class="st4" width="23" height="1.6"/>
+		<path id="Line-3-15" class="st15" d="M933,259l0.1,19.8"/>
+	</g>
+	<g id="window-4-15">
+		<path id="Rectangle-320" class="st13" d="M893.4,260.8v17.7h16.9v-17.7C905.1,258.3,898.7,258.3,893.4,260.8z"/>
+		<path id="Rectangle-321" class="st14" d="M893.8,260.8c5-2.7,11.3-2.7,16.2,0l-16.2,18V260.8z"/>
+		<path id="Line-2-50" class="st15" d="M893.8,271.9h15.9"/>
+		<path id="Line-2-51" class="st15" d="M893.6,267h16.7"/>
+		<rect id="Rectangle-322" x="890.4" y="278.8" class="st4" width="23" height="1.6"/>
+		<path id="Line-3-16" class="st15" d="M901.9,259l0.1,19.8"/>
+	</g>
+	<polygon id="Rectangle-323" class="st16" points="883.6,245.8 950.6,245.8 950.6,248.5 883.6,248.5 	"/>
+	<g id="door-6">
+		<rect id="Rectangle-324" x="891.4" y="298.7" class="st17" width="21" height="42"/>
+		<rect id="Rectangle-325" x="893.8" y="299.5" class="st18" width="16.2" height="20.4"/>
+		<polygon id="Rectangle-326" class="st19" points="893.8,299.5 910,299.5 893.8,319.9 		"/>
+		<rect id="Rectangle-327" x="893.8" y="322.7" class="st4" width="16.2" height="18.3"/>
+	</g>
+	<rect id="Rectangle-328" x="914.8" y="282.2" class="st11" width="6.1" height="2.2"/>
+	<rect id="Rectangle-329" x="921.5" y="285.4" class="st11" width="6.1" height="2.2"/>
+</g>
+<g id="red-long-house-copy">
+	<polygon id="Rectangle-330" class="st41" points="788.5,265.9 884.8,265.9 884.8,341.2 788.5,341.2 	"/>
+	<rect id="Rectangle-331" x="866.5" y="271.4" class="st44" width="6.1" height="1.8"/>
+	<polygon id="Rectangle-332" class="st45" points="788.5,323.5 884.8,323.5 884.8,341.2 788.5,341.2 	"/>
+	<polygon id="Rectangle-333" class="st45" points="788.5,263.6 884.8,263.6 884.8,265.9 788.5,265.9 	"/>
+	<g id="window-4-16">
+		<path id="Rectangle-334" class="st13" d="M828.1,307.5v14.7H845v-14.7C839.8,305.5,833.4,305.5,828.1,307.5z"/>
+		<path id="Rectangle-335" class="st14" d="M828.5,307.5c5-2.2,11.3-2.2,16.2,0l-16.2,15V307.5z"/>
+		<path id="Line-2-52" class="st15" d="M828.5,316.6h15.9"/>
+		<path id="Line-2-53" class="st15" d="M828.3,312.6H845"/>
+		<rect id="Rectangle-336" x="825.1" y="322.4" class="st4" width="23" height="1.3"/>
+		<path id="Line-3-17" class="st15" d="M836.6,306l0.1,16.5"/>
+	</g>
+	<g id="window-4-17">
+		<path id="Rectangle-337" class="st13" d="M859.3,307.5v14.7h16.9v-14.7C871,305.5,864.6,305.5,859.3,307.5z"/>
+		<path id="Rectangle-338" class="st14" d="M859.7,307.5c5-2.2,11.3-2.2,16.2,0l-16.2,15V307.5z"/>
+		<path id="Line-2-54" class="st15" d="M859.7,316.6h15.9"/>
+		<path id="Line-2-55" class="st15" d="M859.5,312.6h16.8"/>
+		<rect id="Rectangle-339" x="856.3" y="322.4" class="st4" width="23" height="1.3"/>
+		<path id="Line-3-18" class="st15" d="M867.8,306l0.1,16.5"/>
+	</g>
+	<g id="window-4-18">
+		<path id="Rectangle-340" class="st13" d="M828.1,278.9v14.7H845v-14.7C839.8,276.9,833.4,276.9,828.1,278.9z"/>
+		<path id="Rectangle-341" class="st14" d="M828.5,278.9c5-2.2,11.3-2.2,16.2,0l-16.2,15V278.9z"/>
+		<path id="Line-2-56" class="st15" d="M828.5,288.1h15.9"/>
+		<path id="Line-2-57" class="st15" d="M828.3,284H845"/>
+		<rect id="Rectangle-342" x="825.1" y="293.9" class="st4" width="23" height="1.3"/>
+		<path id="Line-3-19" class="st15" d="M836.6,277.4l0.1,16.5"/>
+	</g>
+	<g id="window-4-19">
+		<path id="Rectangle-343" class="st13" d="M796.9,278.9v14.7h16.9v-14.7C808.6,276.9,802.2,276.9,796.9,278.9z"/>
+		<path id="Rectangle-344" class="st14" d="M797.3,278.9c5-2.2,11.3-2.2,16.2,0l-16.2,15V278.9z"/>
+		<path id="Line-2-58" class="st15" d="M797.3,288.1h15.9"/>
+		<path id="Line-2-59" class="st15" d="M797.1,284h16.7"/>
+		<rect id="Rectangle-345" x="793.9" y="293.9" class="st4" width="23" height="1.3"/>
+		<path id="Line-3-20" class="st15" d="M805.4,277.4l0.1,16.5"/>
+	</g>
+	<g id="window-4-20">
+		<path id="Rectangle-346" class="st13" d="M859.3,278.9v14.7h16.9v-14.7C871,276.9,864.6,276.9,859.3,278.9z"/>
+		<path id="Rectangle-347" class="st14" d="M859.7,278.9c5-2.2,11.3-2.2,16.2,0l-16.2,15V278.9z"/>
+		<path id="Line-2-60" class="st15" d="M859.7,288.1h15.9"/>
+		<path id="Line-2-61" class="st15" d="M859.5,284h16.8"/>
+		<rect id="Rectangle-348" x="856.3" y="293.9" class="st4" width="23" height="1.3"/>
+		<path id="Line-3-21" class="st15" d="M867.8,277.4l0.1,16.5"/>
+	</g>
+	<g id="door-7">
+		<rect id="Rectangle-349" x="794.9" y="305.6" class="st17" width="21" height="35.6"/>
+		<rect id="Rectangle-350" x="797.3" y="306.3" class="st18" width="16.2" height="17.3"/>
+		<polygon id="Rectangle-351" class="st19" points="797.3,306.3 813.5,306.3 797.3,323.6 		"/>
+		<rect id="Rectangle-352" x="797.3" y="325.9" class="st4" width="16.2" height="15.5"/>
+	</g>
+	<g id="Line-_-Line-_-Line-_-Line-_-Line-Mask-2">
+		<g id="Mask-12">
+			<polygon id="path-3-6" class="st37" points="805.4,236.4 867.8,236.4 884.8,263.6 788.5,263.6 			"/>
+		</g>
+		<g>
+			<path id="Line-6" class="st38" d="M801,240.7h71.2"/>
+		</g>
+		<g>
+			<path id="Line-7" class="st38" d="M801.4,245h71.2"/>
+		</g>
+		<g>
+			<path id="Line-8" class="st38" d="M796.1,249.1h81.7"/>
+		</g>
+		<g>
+			<path id="Line-9" class="st38" d="M793.6,253.2h90.2"/>
+		</g>
+		<g>
+			<path id="Line-10" class="st38" d="M791.5,257.3h90.9"/>
+		</g>
+	</g>
+	<polygon id="Rectangle-353" class="st16" points="787.1,261.4 886.1,261.4 886.1,263.6 787.1,263.6 	"/>
+	<polygon id="Triangle-2" class="st50" points="836.6,239.5 852.2,260 821,260 	"/>
+	<g id="oval-window-2">
+		<ellipse id="Oval-5" class="st24" cx="836.7" cy="252.7" rx="5.5" ry="5.5"/>
+		<path id="Oval-6" class="st19" d="M832.5,257c5-3.7,7.5-6.5,7.5-8.4c0-2.8-0.5-1-3.3-1s-5.1,2.3-5.1,5.2
+			C831.4,254.1,831.8,255.6,832.5,257z"/>
+	</g>
+	<rect id="Rectangle-354" x="807.5" y="268.6" class="st44" width="6.1" height="1.8"/>
+	<rect id="Rectangle-355" x="804.1" y="270.9" class="st44" width="6.1" height="1.8"/>
+	<rect id="Rectangle-356" x="848.8" y="297.3" class="st44" width="6.1" height="1.8"/>
+	<rect id="Rectangle-357" x="842" y="300.8" class="st44" width="6.1" height="1.8"/>
+	<rect id="Rectangle-358" x="801.4" y="300.8" class="st44" width="6.1" height="1.8"/>
+	<rect id="Rectangle-359" x="803.4" y="299" class="st44" width="6.1" height="1.8"/>
+	<rect id="Rectangle-360" x="800.7" y="268.6" class="st44" width="6.1" height="1.8"/>
+</g>
+<g id="purple-long-house">
+	<polygon id="wall-4" class="st51" points="692.3,297.9 788.6,297.9 788.6,341.2 692.3,341.2 	"/>
+	<g id="floor-5">
+		<rect id="Rectangle-361" x="692.3" y="262.1" class="st42" width="96.3" height="33.4"/>
+		<polygon id="Rectangle-362" class="st43" points="692.3,259.6 788.6,259.6 788.6,262.1 692.3,262.1 		"/>
+		<polygon id="Rectangle-363" class="st43" points="692.3,295.5 788.6,295.5 788.6,297.9 692.3,297.9 		"/>
+		<g id="window-4-21">
+			<path id="Rectangle-364" class="st13" d="M732,273.7v16h16.9v-16C743.6,271.5,737.3,271.5,732,273.7L732,273.7z"/>
+			<path id="Rectangle-365" class="st14" d="M732.3,273.7c5-2.4,11.3-2.4,16.2,0l-16.2,16.2V273.7z"/>
+			<path id="Line-2-62" class="st15" d="M732.3,283.7h15.9"/>
+			<path id="Line-2-63" class="st15" d="M732.1,279.2h16.8"/>
+			<rect id="Rectangle-366" x="728.9" y="289.9" class="st4" width="23" height="1.4"/>
+			<path id="Line-3-22" class="st15" d="M740.4,272.1l0.1,17.9"/>
+		</g>
+		<g id="window-4-22">
+			<path id="Rectangle-367" class="st13" d="M700.8,273.7v16h16.9v-16C712.4,271.5,706.1,271.5,700.8,273.7z"/>
+			<path id="Rectangle-368" class="st14" d="M701.1,273.7c5-2.4,11.3-2.4,16.2,0l-16.2,16.2V273.7z"/>
+			<path id="Line-2-64" class="st15" d="M701.1,283.7H717"/>
+			<path id="Line-2-65" class="st15" d="M701,279.2h16.7"/>
+			<rect id="Rectangle-369" x="697.7" y="289.9" class="st4" width="23" height="1.4"/>
+			<path id="Line-3-23" class="st15" d="M709.2,272.1l0.1,17.9"/>
+		</g>
+		<g id="window-4-23">
+			<path id="Rectangle-370" class="st13" d="M763.2,273.7v16h16.9v-16C774.8,271.5,768.4,271.5,763.2,273.7z"/>
+			<path id="Rectangle-371" class="st14" d="M763.5,273.7c5-2.4,11.3-2.4,16.2,0l-16.2,16.2V273.7z"/>
+			<path id="Line-2-66" class="st15" d="M763.5,283.7h15.9"/>
+			<path id="Line-2-67" class="st15" d="M763.3,279.2H780"/>
+			<rect id="Rectangle-372" x="760.1" y="289.9" class="st4" width="23" height="1.4"/>
+			<path id="Line-3-24" class="st15" d="M771.6,272.1l0.1,17.9"/>
+		</g>
+	</g>
+	<g id="floor-6">
+		<rect id="Rectangle-373" x="692.3" y="262.1" class="st52" width="96.3" height="33.4"/>
+		<polygon id="Rectangle-374" class="st43" points="692.3,259.6 788.6,259.6 788.6,262.1 692.3,262.1 		"/>
+		<polygon id="Rectangle-375" class="st53" points="692.3,295.5 788.6,295.5 788.6,297.9 692.3,297.9 		"/>
+		<g id="window-3-13">
+			<rect id="Rectangle-376" x="732" y="272.6" class="st24" width="16.9" height="17"/>
+			<polygon id="Rectangle-377" class="st19" points="732.3,272.9 748.5,272.9 732.3,289.4 			"/>
+			<path id="Line-2-68" class="st15" d="M732.3,283.3h15.9"/>
+			<rect id="Rectangle-378" x="729.6" y="270.9" class="st4" width="21.7" height="1"/>
+			<rect id="Rectangle-379" x="728.9" y="289.8" class="st4" width="23" height="1.5"/>
+		</g>
+		<g id="window-3-14">
+			<rect id="Rectangle-380" x="700.8" y="272.6" class="st24" width="16.9" height="17"/>
+			<polygon id="Rectangle-381" class="st19" points="701.1,272.9 717.4,272.9 701.1,289.4 			"/>
+			<path id="Line-2-69" class="st15" d="M701.1,283.3H717"/>
+			<rect id="Rectangle-382" x="698.4" y="270.9" class="st4" width="21.7" height="1"/>
+			<rect id="Rectangle-383" x="697.7" y="289.8" class="st4" width="23" height="1.5"/>
+		</g>
+		<g id="window-3-15">
+			<rect id="Rectangle-384" x="763.2" y="272.6" class="st24" width="16.9" height="17"/>
+			<polygon id="Rectangle-385" class="st19" points="763.5,272.9 779.7,272.9 763.5,289.4 			"/>
+			<path id="Line-2-70" class="st15" d="M763.5,283.3h15.9"/>
+			<rect id="Rectangle-386" x="760.8" y="270.9" class="st4" width="21.7" height="1"/>
+			<rect id="Rectangle-387" x="760.1" y="289.8" class="st4" width="23" height="1.5"/>
+		</g>
+	</g>
+	<g id="floor-7">
+		<rect id="Rectangle-388" x="692.3" y="226.2" class="st52" width="96.3" height="33.4"/>
+		<polygon id="Rectangle-389" class="st43" points="692.3,223.7 788.6,223.7 788.6,226.2 692.3,226.2 		"/>
+		<polygon id="Rectangle-390" class="st53" points="692.3,259.6 788.6,259.6 788.6,262.1 692.3,262.1 		"/>
+		<g id="window-3-16">
+			<rect id="Rectangle-391" x="732" y="236.8" class="st24" width="16.9" height="17"/>
+			<polygon id="Rectangle-392" class="st19" points="732.3,237 748.5,237 732.3,253.4 			"/>
+			<path id="Line-2-71" class="st15" d="M732.3,247.4h15.9"/>
+			<rect id="Rectangle-393" x="729.6" y="235" class="st4" width="21.7" height="1"/>
+			<rect id="Rectangle-394" x="728.9" y="253.9" class="st4" width="23" height="1.5"/>
+		</g>
+		<g id="window-3-17">
+			<rect id="Rectangle-395" x="700.8" y="236.8" class="st24" width="16.9" height="17"/>
+			<polygon id="Rectangle-396" class="st19" points="701.1,237 717.4,237 701.1,253.4 			"/>
+			<path id="Line-2-72" class="st15" d="M701.1,247.4H717"/>
+			<rect id="Rectangle-397" x="698.4" y="235" class="st4" width="21.7" height="1"/>
+			<rect id="Rectangle-398" x="697.7" y="253.9" class="st4" width="23" height="1.5"/>
+		</g>
+		<g id="window-3-18">
+			<rect id="Rectangle-399" x="763.2" y="236.8" class="st24" width="16.9" height="17"/>
+			<polygon id="Rectangle-400" class="st19" points="763.5,237 779.7,237 763.5,253.4 			"/>
+			<path id="Line-2-73" class="st15" d="M763.5,247.4h15.9"/>
+			<rect id="Rectangle-401" x="760.8" y="235" class="st4" width="21.7" height="1"/>
+			<rect id="Rectangle-402" x="760.1" y="253.9" class="st4" width="23" height="1.5"/>
+		</g>
+	</g>
+	<g id="bricks-2">
+		<rect id="Rectangle-403" x="765.5" y="265.4" class="st54" width="6.1" height="2"/>
+		<rect id="Rectangle-404" x="712.7" y="265.4" class="st54" width="6.1" height="2"/>
+		<rect id="Rectangle-405" x="709.3" y="268" class="st54" width="6.1" height="2"/>
+		<rect id="Rectangle-406" x="720.8" y="309.7" class="st54" width="6.1" height="2"/>
+		<rect id="Rectangle-407" x="705.9" y="265.4" class="st54" width="6.1" height="2"/>
+	</g>
+	<polygon id="wall-down-2" class="st53" points="692.3,322 788.6,322 788.6,341.2 692.3,341.2 	"/>
+	<g id="window-4-24">
+		<path id="Rectangle-408" class="st13" d="M700.8,304.1v16h16.9v-16C712.4,302,706.1,302,700.8,304.1z"/>
+		<path id="Rectangle-409" class="st14" d="M701.1,304.1c5-2.4,11.3-2.4,16.2,0l-16.2,16.2V304.1z"/>
+		<path id="Line-2-74" class="st15" d="M701.1,314.2H717"/>
+		<path id="Line-2-75" class="st15" d="M701,309.7h16.7"/>
+		<rect id="Rectangle-410" x="697.7" y="320.4" class="st4" width="23" height="1.4"/>
+		<path id="Line-3-25" class="st15" d="M709.2,302.5l0.1,17.9"/>
+	</g>
+	<g id="window-4-25">
+		<path id="Rectangle-411" class="st13" d="M763.2,304.7v16h16.9v-16C774.8,302.4,768.4,302.4,763.2,304.7z"/>
+		<path id="Rectangle-412" class="st14" d="M763.5,304.6c5-2.4,11.3-2.4,16.2,0l-16.2,16.2V304.6z"/>
+		<path id="Line-2-76" class="st15" d="M763.5,314.6h15.9"/>
+		<path id="Line-2-77" class="st15" d="M763.3,310.3H780"/>
+		<rect id="Rectangle-413" x="760.1" y="320.8" class="st4" width="23" height="1.4"/>
+		<path id="Line-3-26" class="st15" d="M771.6,303l0.1,17.9"/>
+	</g>
+	<g id="door-8">
+		<rect id="Rectangle-414" x="729.9" y="302.6" class="st17" width="21" height="38.6"/>
+		<rect id="Rectangle-415" x="732.3" y="303.3" class="st18" width="16.2" height="18.8"/>
+		<polygon id="Rectangle-416" class="st19" points="732.3,303.3 748.5,303.3 732.3,322.1 		"/>
+		<rect id="Rectangle-417" x="732.3" y="324.6" class="st4" width="16.2" height="16.8"/>
+	</g>
+	<rect id="Rectangle-418" x="753.3" y="245.9" class="st54" width="6.1" height="2"/>
+	<rect id="Rectangle-419" x="722.8" y="233.6" class="st54" width="6.1" height="2"/>
+	<rect id="Rectangle-420" x="724.9" y="231.1" class="st54" width="6.1" height="2"/>
+	<g id="floor-8">
+		<polygon id="Rectangle-421" class="st51" points="692.3,216.9 740.5,205.1 788.6,216.9 788.6,226.2 692.3,226.2 		"/>
+		<polygon id="Rectangle-422" class="st53" points="692.3,214.1 740.5,202.1 788.6,214.1 788.6,216.9 740.5,205.5 692.3,216.9 		"/>
+		<polygon id="Rectangle-423" class="st53" points="692.3,225.7 788.6,225.7 788.6,228.2 692.3,228.2 		"/>
+	</g>
+	<rect id="Rectangle-424" x="759.4" y="218.3" class="st54" width="6.1" height="2"/>
+	<rect id="Rectangle-425" x="766.2" y="218.3" class="st54" width="6.1" height="2"/>
+	<rect id="Rectangle-426" x="761.5" y="215.9" class="st54" width="6.1" height="2"/>
+	<g id="tiny-window-2">
+		<rect id="Rectangle-427" x="733.3" y="209.2" class="st24" width="14" height="13.9"/>
+		<polygon id="Rectangle-428" class="st40" points="734.3,209.7 746.3,209.7 734.3,222.5 		"/>
+	</g>
+</g>
+<g id="bushes-2">
+	<path id="Combined-Shape-5" class="st9" d="M963.3,310.5c4-8.3,12.5-13.6,21.8-13.5c12,0,21.9,8.3,23.5,19.1
+		c7.2,0.3,13,5.9,13,12.7c0,7-6,12.8-13.5,12.8h-45c-0.8,0-1.7,0-2.5-0.2c-10.2-0.9-18-5.1-18-13.7
+		C942.6,318.5,951.7,311,963.3,310.5z"/>
+	<path id="Combined-Shape-6" class="st47" d="M1062.9,316.8c-3.6-6-11.6-10.2-20.8-10.2c-11.4,0-20.8,6.4-22.6,14.7
+		c-6.8,0.2-12.2,4.7-12.2,10.2s5.6,10.1,12.5,10.2h43.5c0.8,0,1.6,0,2.4-0.1c9.8-0.7,17.2-4.1,17.2-10.9
+		C1082.9,323.2,1074.1,317.1,1062.9,316.8z"/>
+</g>
+<g id="lamps-2">
+	<g id="lamp-3">
+		<rect id="Rectangle-429" x="525.5" y="303.2" class="st48" width="4.1" height="40.1"/>
+		<polygon id="Rectangle-430" class="st49" points="533.6,295.1 521.4,295.1 524.1,303.2 530.2,303.2 		"/>
+		<ellipse id="Oval-7" class="st48" cx="527.5" cy="295.1" rx="7.5" ry="1.1"/>
+	</g>
+	<g id="lamp-4">
+		<rect id="Rectangle-431" x="916.6" y="303.4" class="st48" width="4.1" height="40.1"/>
+		<polygon id="Rectangle-432" class="st49" points="924.8,295.3 912.6,295.3 915.3,303.4 921.4,303.4 		"/>
+		<ellipse id="Oval-8" class="st48" cx="918.7" cy="295.3" rx="7.5" ry="1.1"/>
+	</g>
+	<g id="lamp-5">
+		<rect id="Rectangle-433" x="712.8" y="302.9" class="st48" width="4.1" height="40.1"/>
+		<polygon id="Rectangle-434" class="st49" points="720.9,294.8 708.8,294.8 711.5,302.9 717.5,302.9 		"/>
+		<ellipse id="Oval-9" class="st48" cx="714.8" cy="294.8" rx="7.5" ry="1.1"/>
+	</g>
+</g>
+<path id="Combined-Shape-7" class="st55" d="M86.8,50.1c3.6-6.1,11.6-10.3,20.8-10.3c11.3,0,20.8,6.4,22.5,14.8
+	c6.7,0.2,12,4.6,12.2,9.9c2.4,0.3,4.2,2.4,9.8,4.2c1,0.3,7.4,1.6,8.3,1.8c8.1,2,13.6,4.2,12,4.5c-3.3,0.6-19.6,0-26.7,0
+	c-3.8,0-10.3,0.2-15.4,0H86.4c-0.6,0-1.2,0-1.7-0.1c-9.6,0-43.5,0.3-46.6-0.2c-2.8-0.5,22.2-3.5,28.4-6.2c0.4-0.2,0.8-0.4,1.2-0.7
+	c-0.6-1.2-1-2.5-0.9-3.9C66.8,56.6,75.7,50.4,86.8,50.1z"/>
+<g id="Cloud">
+	<path id="Combined-Shape-8" class="st55" d="M951.6,66.7c-3.6-5.6-11.5-9.5-20.8-9.5c-11.3,0-20.8,5.9-22.5,13.7
+		c-6.7,0.2-12,4.2-12.2,9.2c-2.5,0.3-4.2,2.2-9.8,3.9c-1,0.3-7.4,1.5-8.3,1.7c-8,1.9-13.6,3.9-12,4.2c3.3,0.6,19.6,0,26.7,0
+		c3.8,0,10.3,0.2,15.4,0H952c0.6,0,1.2,0,1.7-0.1c9.6,0,43.5,0.3,46.6-0.2c2.8-0.5-22.2-3.2-28.5-5.8c-0.4-0.2-0.8-0.4-1.2-0.6
+		c0.6-1.1,1-2.3,0.9-3.6C971.6,72.6,962.8,67,951.6,66.7z"/>
+</g>
+</svg>
