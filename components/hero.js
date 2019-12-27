@@ -61,6 +61,7 @@ const Hero = ({title, tagline}) => (
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         grid-gap: 2em 1em;
         margin: 2em 0;
+        background-color: white;
       }
 
       img {
@@ -80,11 +81,6 @@ const Hero = ({title, tagline}) => (
         color: ${theme.darkText};
       }
 
-      @media (max-width: 1035px) {
-        .data-tools {
-          padding-bottom: 2em;
-        }
-      }
     `}</style>
   </div>
 )

@@ -27,7 +27,7 @@ const ToolsIcon = ({color, size}) => (
 
 ToolsIcon.defaultProps = {
   color: '#000',
-  size: 72
+  size: 48
 }
 
 ToolsIcon.propTypes = {

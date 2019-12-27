@@ -21,15 +21,19 @@ const DownloadIcon = ({color, size}) => (
       <line x1='12' y1='15' x2='12' y2='3' />
     </svg>
 
-    <style jsx>{`
-      .circle {}
+    <style jsx global>{`
+      .circle {
+        border: 2px solid black;
+        padding: 0.8em;
+        border-radius: 50%;
+      }
       `}</style>
   </div>
 )
 
 DownloadIcon.defaultProps = {
   color: '#000',
-  size: 72
+  size: 48
 }
 
 DownloadIcon.propTypes = {
