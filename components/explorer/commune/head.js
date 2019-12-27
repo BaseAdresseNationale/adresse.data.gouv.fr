@@ -15,7 +15,7 @@ const Head = ({nom, code, region, departement}) => (
         flex-flow: wrap;
         align-items: center;
         border-bottom: 2px solid ${theme.colors.black};
-        margin: -8em 0 2em 0;
+        margin: -6em 0 2em 0;
       }
       `}</style>
   </div>
