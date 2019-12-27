@@ -3,75 +3,71 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 
 import theme from '../styles/theme'
+import DownloadIcon from './icons/download'
+import ContributeIcon from './icons/contribute'
+import ToolsIcon from './icons/tools'
 import ExploreSearch from './explorer/explore-search'
 
-import Section from './section'
+import Container from './container'
 
 const Hero = ({title, tagline}) => (
   <div className='hero'>
-    <div className='container'>
-      <h1 className='hero__white-background'>{title}</h1>
-      <p className='hero__white-background'>{tagline}</p>
+    <div className='hero-container'>
+      <Container>
+        <div style={{textAlign: 'center'}}>
+          <h1 className='hero__white-background'>{title}</h1>
+          <p className='hero__white-background'>{tagline}</p>
+        </div>
 
-      <Section>
         <div className='data-tools'>
           <Link href='/download'>
             <a>
-              <img
-                src='/images/icons/download-2.svg'
-              /> Accéder aux données
+              <DownloadIcon /> Accéder aux données
             </a>
           </Link>
           <Link href='/contribuer'>
             <a>
-              <img
-                src='/images/icons/contribute-2.svg'
-              /> Contribuer à la démarche
+              <ContributeIcon />Contribuer à la démarche
             </a>
           </Link>
           <Link href='/tools'>
             <a>
-              <img
-                src='/images/icons/tools-2.svg'
-              /> Découvrir les outils
+              <ToolsIcon /> Découvrir les outils
             </a>
           </Link>
         </div>
-      </Section>
 
-      <div className='search-bar-home'>
-        <ExploreSearch />
-      </div>
+        <div className='search-bar-home'>
+          <ExploreSearch />
+        </div>
+      </Container>
+
     </div>
     <style jsx>{`
       .hero {
-        background: #fff url(/images/city-background-2.svg) bottom center no-repeat;
+        height: 100vh;
+        background: #fff url(/images/city-background.svg) bottom center no-repeat;
         background-size: cover;
-        margin-top: 2em;
-        margin-bottom: -21em;
+        background-position-y: 80px;s
+      }
+
+      .hero-container {
+        position: relative;
+        top: 2em;
       }
 
       .data-tools {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         grid-gap: 2em 1em;
-        margin: -4em 0;
-      }
-
-      .search-bar-home {
-        margin-top: -2em;
-      }
-
-      .container {
-        height: 100vh;
-        top: 1em;
-        text-align: center;
+        margin: 2em 0;
       }
 
       img {
         height: 50px;
         width: auto;
         margin-bottom: 15px;
+        color: black;
       }
 
       a, .muted {
