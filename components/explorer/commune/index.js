@@ -1,38 +1,51 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
 
-import Mapbox from '../../mapbox'
+import {getCommuneStats} from '../../../lib/explore/api'
 
+import Mapbox from '../../mapbox'
 import AddressesMap from '../../mapbox/addresses-map'
+
+import Statistics from './statistics'
 
 import Head from './head'
 import Codes from './codes'
 
-const Commune = props => (
-  <div>
-    <Head {...props} />
+const Commune = ({commune}) => {
+  const [statsPromise, setStatsPromise] = useState(null)
 
-    <div className='head'>
-      <Codes {...props} />
-    </div>
+  useEffect(() => {
+    setStatsPromise(getCommuneStats(commune.code))
+  }, [commune])
 
-    <div className='preview'>
-      <div className='explore-commune-map'>
-        <Mapbox bbox={computeBbox(props.contour)} switchStyle>
-          {({...mapboxProps}) => (
-            <AddressesMap
-              {...mapboxProps}
-              contour={props.contour}
-            />
-          )}
-        </Mapbox>
+  return (
+    <div>
+      <Head {...commune} />
+
+      <div className='head'>
+        <Codes {...commune} />
       </div>
-    </div>
 
-    <style jsx>{`
+      <div className='preview'>
+        <div className='explore-commune-map'>
+          <Mapbox bbox={computeBbox(commune.contour)} switchStyle>
+            {({...mapboxProps}) => (
+              <AddressesMap
+                {...mapboxProps}
+                contour={commune.contour}
+              />
+            )}
+          </Mapbox>
+        </div>
+        <div style={{minWidth: '300px'}}>
+          <Statistics promise={statsPromise} />
+        </div>
+      </div>
+
+      <style jsx>{`
       .head {
         background-color: ${theme.primary};
         color: ${theme.colors.white};
@@ -52,13 +65,22 @@ const Commune = props => (
         .explore-commune-map {
           flex-direction: column;
         }
+
+        .preview {
+          flex-direction: column;
+        }
       }
       `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Commune.propTypes = {
-  contour: PropTypes.object.isRequired
+  commune: PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    contour: PropTypes.object.isRequired
+  }).isRequired,
+  stats: PropTypes.object.isRequired
 }
 
 export default Commune
