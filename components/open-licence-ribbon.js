@@ -15,7 +15,7 @@ const OpenLicenceRibbon = () => (
         margin-left: 0.5em;
         align-content: center;
       }
-      
+
       .ribbon{
         display: flex;
         align-items: center;
@@ -24,10 +24,17 @@ const OpenLicenceRibbon = () => (
         min-height: 80px;
         color: ${theme.colors.almostBlack};
         font-size: 19px;
+        padding: 1em;
       }
-      
+
       .ribbon-content{
         text-align: center;
+      }
+
+      @media (max-width: 700px) {
+        img {
+          display: none;
+        }
       }
     `}</style>
   </div>
