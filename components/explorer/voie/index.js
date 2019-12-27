@@ -5,7 +5,6 @@ import Router from 'next/router'
 import Section from '../../section'
 
 import Head from './head'
-import Infos from './infos'
 import MapContainer from './map-container'
 import AddressesTable from './addresses-table'
 
@@ -24,7 +23,6 @@ const Voie = ({commune, voie, numero}) => {
         commune={commune}
         voie={voie}
         numero={numero ? numero.numero : null} />
-      <Infos voie={voie} />
       <MapContainer
         voie={voie}
         addresses={voie.numeros}
