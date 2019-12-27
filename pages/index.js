@@ -1,92 +1,19 @@
 import React from 'react'
-import Link from 'next/link'
 
 import theme from '../styles/theme'
 
 import Page from '../layouts/main'
 import Hero from '../components/hero'
+import OpenLicenceRibbon from '../components/open-licence-ribbon'
 import Section from '../components/section'
 import Button from '../components/button'
 
 export default () => (
   <Page>
+    <OpenLicenceRibbon />
     <Hero
       title='Le site national des adresses'
       tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
-    <Section background='color' title=''>
-      <div className='data-tools'>
-        <Link href='/download'>
-          <a>
-            <img
-              src='/images/icons/download.svg'
-            /> Accéder aux données
-          </a>
-        </Link>
-
-        <Link href='/contribuer'>
-          <a>
-            <img
-              src='/images/icons/contribute.svg'
-            /> Contribuer à la démarche
-          </a>
-        </Link>
-
-        <Link href='/tools'>
-          <a>
-            <img
-              src='/images/icons/tools.svg'
-            /> Découvrir les outils
-          </a>
-        </Link>
-      </div>
-
-      <style jsx>{`
-        .data-tools {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-          grid-gap: 2em 1em;
-          margin: 25em 0;
-        }
-
-        .section-data-tools {
-          width: 100px;
-        }
-
-        .data-tools div {
-          text-align: center;
-          font-size: 1.2em;
-          padding: 0 2em;
-        }
-
-        i {
-          color: ${theme.colors.white};
-        }
-
-        a, .muted {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-transform: uppercase;
-          text-decoration: none;
-          font-weight: 700;
-          color: ${theme.backgroundWhite};
-        }
-
-        a:hover {
-          background-color: ${theme.primary};
-        }
-
-        img {
-          height: 100px;
-          width: auto;
-          margin-bottom: 15px;
-        }
-
-        .muted {
-          opacity: 0.4;
-        }
-      `}</style>
-    </Section>
 
     <Section background='dark'>
       <div className='pitch'>
