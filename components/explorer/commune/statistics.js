@@ -5,6 +5,7 @@ import withFetch from '../../hoc/with-fetch'
 
 import {getType} from '../../../lib/types'
 
+import Notification from '../../notification'
 import Pie from '../../ui/metrics/pie'
 import Counter from '../../ui/metrics/counter'
 
@@ -13,38 +14,68 @@ const getColors = items => {
 }
 
 const Statistics = ({sources, destinations, citizensPerAddress}) => {
+  const noData = !sources && !destinations && !citizensPerAddress
+
   return (
     <div className='statistics'>
-      <Pie
-        title='Répartition des sources'
-        data={sources}
-        colors={getColors(sources)}
-      />
+      {noData && (
+        <div className='no-data'>
+          <Notification message='Aucune donnée disponible' />
+        </div>
+      )}
 
-      <Counter title='Habitants par adresse' value={citizensPerAddress} />
+      {sources && (
+        <Pie
+          title='Répartition des sources'
+          data={sources}
+          colors={getColors(sources)}
+        />
+      )}
 
-      <Pie
-        title='Répartition des libellés de voies'
-        data={destinations}
-        colors={getColors(destinations)}
-      />
+      {citizensPerAddress && (
+        <Counter title='Habitants par adresse' value={citizensPerAddress} />
+      )}
+
+      {destinations && (
+        <Pie
+          title='Répartition des libellés de voies'
+          data={destinations}
+          colors={getColors(destinations)}
+        />
+      )}
 
       <style jsx>{`
         .statistics {
           display: flex;
           flex-direction: column;
           justify-content: space-around;
+          height: 100%;
         }
 
+        .no-data {
+          margin: 1em;
+        }
+
+        @media (max-width: 749px) {
+          .no-data {
+            display: none;
+          }
+        }
         `}</style>
     </div>
   )
 }
 
+Statistics.defaultProps = {
+  sources: null,
+  destinations: null,
+  citizensPerAddress: null
+}
+
 Statistics.propTypes = {
-  sources: PropTypes.object.isRequired,
-  destinations: PropTypes.object.isRequired,
-  citizensPerAddress: PropTypes.number.isRequired
+  sources: PropTypes.object,
+  destinations: PropTypes.object,
+  citizensPerAddress: PropTypes.number
 }
 
 export default withFetch(data => ({
