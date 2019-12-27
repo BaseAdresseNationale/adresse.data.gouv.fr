@@ -17,21 +17,21 @@ const Hero = ({title, tagline}) => (
           <Link href='/download'>
             <a>
               <img
-                src='/images/icons/download-v2.svg'
+                src='/images/icons/download-2.svg'
               /> Accéder aux données
             </a>
           </Link>
           <Link href='/contribuer'>
             <a>
               <img
-                src='/images/icons/contribute-v2.svg'
+                src='/images/icons/contribute-2.svg'
               /> Contribuer à la démarche
             </a>
           </Link>
           <Link href='/tools'>
             <a>
               <img
-                src='/images/icons/tools-v2.svg'
+                src='/images/icons/tools-2.svg'
               /> Découvrir les outils
             </a>
           </Link>
@@ -41,7 +41,7 @@ const Hero = ({title, tagline}) => (
     </div>
     <style jsx>{`
       .hero {
-        background: #fff url(/images/city-background-v2.svg) bottom center no-repeat;
+        background: #fff url(/images/city-background-2.svg) bottom center no-repeat;
         background-size: cover;
         margin-bottom: -20em;
       }
