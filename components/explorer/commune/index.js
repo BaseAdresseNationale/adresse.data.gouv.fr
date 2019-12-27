@@ -77,8 +77,7 @@ Commune.propTypes = {
   commune: PropTypes.shape({
     code: PropTypes.string.isRequired,
     contour: PropTypes.object.isRequired
-  }).isRequired,
-  stats: PropTypes.object.isRequired
+  }).isRequired
 }
 
 export default Commune
