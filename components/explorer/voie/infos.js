@@ -52,7 +52,7 @@ const Infos = ({voie}) => (
         grid-template-columns: repeat(4, 1fr);
         background-color: ${theme.primary};
         color: ${theme.colors.white};
-        margin-top: -1em;
+        margin-top: 1em;
         padding: 1em 2em;
       }
 
