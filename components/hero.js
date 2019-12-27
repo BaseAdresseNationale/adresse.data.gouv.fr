@@ -12,6 +12,7 @@ const Hero = ({title, tagline}) => (
     <div className='container'>
       <h1 className='hero__white-background'>{title}</h1>
       <p className='hero__white-background'>{tagline}</p>
+
       <Section>
         <div className='data-tools'>
           <Link href='/download'>
@@ -37,13 +38,17 @@ const Hero = ({title, tagline}) => (
           </Link>
         </div>
       </Section>
-      <ExploreSearch />
+
+      <div className='search-bar-home'>
+        <ExploreSearch />
+      </div>
     </div>
     <style jsx>{`
       .hero {
         background: #fff url(/images/city-background-2.svg) bottom center no-repeat;
         background-size: cover;
-        margin-bottom: -20em;
+        margin-top: 2em;
+        margin-bottom: -21em;
       }
 
       .data-tools {
@@ -51,6 +56,10 @@ const Hero = ({title, tagline}) => (
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         grid-gap: 2em 1em;
         margin: -4em 0;
+      }
+
+      .search-bar-home {
+        margin-top: -2em;
       }
 
       .container {
@@ -75,6 +84,11 @@ const Hero = ({title, tagline}) => (
         color: ${theme.darkText};
       }
 
+      @media (max-width: 1035px) {
+        .data-tools {
+          padding-bottom: 2em;
+        }
+      }
     `}</style>
   </div>
 )

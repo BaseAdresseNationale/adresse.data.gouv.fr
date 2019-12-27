@@ -11,6 +11,7 @@ import Button from '../components/button'
 export default () => (
   <Page>
     <OpenLicenceRibbon />
+
     <Hero
       title='Le site national des adresses'
       tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />

@@ -9,13 +9,12 @@ const OpenLicenceRibbon = () => (
       <img src='/images/logos/logo-licence-ouverte.svg' title='Licence Ouverte' alt='Logo Licence Ouverte' />
     </div>
     <style jsx>{`
-
       .ribbon img{
         width: 30px;
         margin-left: 0.5em;
         align-content: center;
       }
-      
+
       .ribbon{
         display: flex;
         align-items: center;
@@ -25,7 +24,7 @@ const OpenLicenceRibbon = () => (
         color: ${theme.colors.almostBlack};
         font-size: 19px;
       }
-      
+
       .ribbon-content{
         text-align: center;
       }
