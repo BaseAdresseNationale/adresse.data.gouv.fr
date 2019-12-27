@@ -8,7 +8,7 @@ export default (mapStateWithProps, options) => Component => {
   mapStateWithProps = mapStateWithProps || (state => state)
   options = options || {}
 
-  const Extended = ({promise, ...props}) => {
+  const Extended = ({promise, style, ...props}) => {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
@@ -32,18 +32,25 @@ export default (mapStateWithProps, options) => Component => {
     }, [promise])
 
     return (
-      <LoadingContent loading={loading} error={error}>
-        <Component {...data} {...props} />
-      </LoadingContent>
+      <div style={loading ? style : null}>
+        <LoadingContent
+          loading={loading}
+          error={error}
+        >
+          <Component {...data} {...props} />
+        </LoadingContent>
+      </div>
     )
   }
 
   Extended.propTypes = {
-    promise: PropTypes.instanceOf(Promise)
+    promise: PropTypes.instanceOf(Promise),
+    style: PropTypes.object
   }
 
   Extended.defaultProps = {
-    promise: null
+    promise: null,
+    style: null
   }
 
   return hoist(Extended, Component)

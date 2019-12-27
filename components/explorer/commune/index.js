@@ -40,9 +40,7 @@ const Commune = ({commune}) => {
             )}
           </Mapbox>
         </div>
-        <div style={{minWidth: '300px'}}>
-          <Statistics promise={statsPromise} />
-        </div>
+        <Statistics promise={statsPromise} style={{width: '300px'}} />
       </div>
 
       <style jsx>{`
