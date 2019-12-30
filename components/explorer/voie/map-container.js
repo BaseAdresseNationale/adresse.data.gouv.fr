@@ -19,9 +19,9 @@ const MapContainer = ({voie, addresses, numero, onSelect}) => {
   }
 
   useEffect(() => {
-    if (addresses && currentVoie !== voie.codeVoie) {
+    if (addresses && currentVoie !== voie.idVoie) {
       const numeros = addressesToGeoJson(addresses)
-      setCurrentVoie(voie.codeVoie)
+      setCurrentVoie(voie.idVoie)
       setNumeros(numeros)
       setBbox(computeBbox(numeros))
     }

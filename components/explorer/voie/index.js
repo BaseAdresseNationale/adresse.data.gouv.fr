@@ -10,9 +10,9 @@ import AddressesTable from './addresses-table'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = numero => {
-    const {codeCommune, codeVoie} = Router.query
-    const href = `/explore/commune/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}${numero ? `&numero=${numero}` : ''}`
-    const as = `/explore/commune/${codeCommune}/voie/${codeVoie}${numero ? `/numero/${numero}` : ''}`
+    const {codeCommune, idVoie} = Router.query
+    const href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}${numero ? `&numero=${numero}` : ''}`
+    const as = `/explore/commune/${codeCommune}/voie/${idVoie}${numero ? `/numero/${numero}` : ''}`
 
     Router.push(href, as)
   }

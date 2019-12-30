@@ -21,19 +21,19 @@ app.prepare().then(() => {
     })
   })
 
-  server.get('/explore/commune/:codeCommune/voie/:code', (req, res) => {
+  server.get('/explore/commune/:codeCommune/voie/:idVoie', (req, res) => {
     app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,
-      codeVoie: req.params.code
+      idVoie: req.params.idVoie
     })
   })
 
-  server.get('/explore/commune/:codeCommune/voie/:code/numero/:numero', (req, res) => {
+  server.get('/explore/commune/:codeCommune/voie/:idVoie/numero/:numero', (req, res) => {
     app.render(req, res, '/explore/commune/voie', {
       ...req.query,
       codeCommune: req.params.codeCommune,
-      codeVoie: req.params.code,
+      idVoie: req.params.idVoie,
       numero: req.params.numero
     })
   })

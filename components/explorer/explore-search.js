@@ -17,14 +17,9 @@ const ExploreSearch = () => {
   const [error, setError] = useState(null)
 
   const handleSelect = feature => {
-    const {id, type} = feature.properties
-    const [rawCodeCommune, rawCodeVoie, rawNumero, rawSuffixe] = id.split('_')
-    const codeCommune = rawCodeCommune.toUpperCase()
-    const codeVoie = rawCodeVoie ? rawCodeVoie.toUpperCase() : null
-    const numero = rawNumero ? Number.parseInt(rawNumero, 10).toString() : null
-    const suffixe = rawSuffixe ? rawSuffixe.toUpperCase() : null
-    const numeroComplet = numero ? numero + (suffixe || '') : null
-
+    const {id, type, citycode, numero} = feature.properties
+    const codeCommune = citycode
+    const idVoie = id.split('_').slice(0, 2).join('_')
     let href = ''
     let as = ''
 
@@ -32,11 +27,11 @@ const ExploreSearch = () => {
       href = `/explore/commune?codeCommune=${codeCommune}`
       as = `/explore/commune/${codeCommune}`
     } else if (type === 'street') {
-      href = `/commune/voie?codeVoie=${codeVoie}`
-      as = `/explore/commune/${codeCommune}/voie/${codeVoie}`
+      href = `/commune/voie?idVoie=${idVoie}`
+      as = `/explore/commune/${codeCommune}/voie/${idVoie}`
     } else if (type === 'housenumber') {
-      href = `/explore/commune/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}&numero=${numeroComplet}`
-      as = `/explore/commune/${codeCommune}/voie/${codeVoie}/numero/${numeroComplet}`
+      href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numero}`
+      as = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numero}`
     }
 
     Router.push(href, as)

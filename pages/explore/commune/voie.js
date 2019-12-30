@@ -43,13 +43,13 @@ VoiePage.defaultProps = {
 }
 
 VoiePage.getInitialProps = async ({query}) => {
-  const {codeCommune, codeVoie} = query
+  const {idVoie} = query
   const promises = [
-    getVoie(codeCommune, codeVoie)
+    getVoie(idVoie)
   ]
 
   if (query.numero) {
-    promises.push(getNumero(codeCommune, codeVoie, query.numero))
+    promises.push(getNumero(idVoie, query.numero))
   }
 
   const [voie, numero] = await Promise.all(promises)

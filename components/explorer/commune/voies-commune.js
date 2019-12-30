@@ -17,8 +17,8 @@ class VoiesCommune extends React.Component {
 
   handleSelect = voie => {
     Router.push(
-      `/commune/voie?codeVoie=${voie.codeVoie}`,
-      `/explore/commune/${voie.codeCommune}/voie/${voie.codeVoie}`
+      `/commune/voie?idVoie=${voie.idVoie}`,
+      `/explore/commune/${voie.codeCommune}/voie/${voie.idVoie}`
     )
   }
 
