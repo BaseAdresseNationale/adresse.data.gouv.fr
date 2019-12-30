@@ -22,7 +22,7 @@ const Hero = ({title, tagline}) => (
         <div className='data-tools'>
           <Link href='/download'>
             <a>
-              <DownloadIcon /> Accéder aux données
+              <DownloadIcon />Accéder aux données
             </a>
           </Link>
           <Link href='/contribuer'>
@@ -32,7 +32,7 @@ const Hero = ({title, tagline}) => (
           </Link>
           <Link href='/tools'>
             <a>
-              <ToolsIcon /> Découvrir les outils
+              <ToolsIcon />Découvrir les outils
             </a>
           </Link>
         </div>
@@ -48,7 +48,7 @@ const Hero = ({title, tagline}) => (
         height: 100vh;
         background: #fff url(/images/city-background.svg) bottom center no-repeat;
         background-size: cover;
-        background-position-y: 80px;s
+        margin-bottom: -0.1em;
       }
 
       .hero-container {
@@ -61,14 +61,8 @@ const Hero = ({title, tagline}) => (
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         grid-gap: 2em 1em;
         margin: 2em 0;
+        padding: 1em;
         background-color: white;
-      }
-
-      img {
-        height: 50px;
-        width: auto;
-        margin-bottom: 15px;
-        color: black;
       }
 
       a, .muted {
@@ -81,6 +75,28 @@ const Hero = ({title, tagline}) => (
         color: ${theme.darkText};
       }
 
+      @media (max-width: 700px) {
+        .hero-container {
+          position: absolute;
+          top: 200px;
+        }
+
+        .hero {
+          height: 145vh;
+        }
+      }
+
+      @media (max-width: 288px) {
+        .hero-container {
+          margin-top: 6em;
+        }
+      }
+
+      @media (max-width: 166px) {
+        .hero-container {
+          margin-top: 15em;
+        }
+      }
     `}</style>
   </div>
 )

@@ -25,7 +25,6 @@ export default () => (
           .pitch {
             color: ${theme.colors.grey};
             text-align: center;
-            margin-top: -2em;
             font-size: 1.2em;
             line-height: 1.2em;
           }
