@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import MdClose from 'react-icons/lib/md/close'
+import FaAngleUp from 'react-icons/lib/fa/angle-up'
+import FaAngleDown from 'react-icons/lib/fa/angle-down'
 
 import Tag from '../../tag'
 import Notification from '../../notification'
@@ -9,16 +10,14 @@ import theme from '../../../styles/theme'
 
 const DISTANCE_MAX_POSITION = 15
 
-const Address = ({address, onClose}) => {
+const Address = ({address}) => {
   const {entries, destination, parcelles, distanceMaxPositions} = address
   const [displayDetail, setDisplayDetail] = useState(false)
   return (
     <div>
-      <div className='head flex-list'>
-        <div className='close' onClick={() => onClose()}><MdClose /></div>
-        <div className='more' onClick={() => setDisplayDetail(!displayDetail)}>
-          {displayDetail ? 'Masquer' : 'Afficher'} les informations
-        </div>
+      <div className='head flex-list' onClick={() => setDisplayDetail(!displayDetail)}>
+        <div>{displayDetail ? 'Masquer' : 'Afficher'} les informations</div>
+        <div>{displayDetail ? <FaAngleDown size={24} /> : <FaAngleUp size={24} />}</div>
       </div>
 
       {displayDetail && (<div className='details'>
@@ -86,17 +85,17 @@ const Address = ({address, onClose}) => {
         }
 
         .head {
-          align-items: center;
+          align-items: flex-end;
+          justify-content: space-between;
           border-bottom: ${displayDetail ? `1px solid ${theme.colors.lighterGrey}` : 'none'};
-        }
-
-        .head > div {
           padding: 0.5em;
-
         }
 
-        .more:hover,
-        .close:hover {
+        .head > div:first-child {
+          margin-right: 0.2em;
+        }
+
+        .head:hover {
           cursor: pointer;
         }
 
@@ -149,10 +148,10 @@ const Address = ({address, onClose}) => {
         }
 
         @media (max-width: 380px) {
-            .head > div {
-              padding: 0.2em;
-            }
+          .head {
+            padding: 0.2em;
           }
+        }
       `}</style>
     </div>
   )
@@ -164,8 +163,7 @@ Address.propTypes = {
     destination: PropTypes.array,
     parcelles: PropTypes.array,
     distanceMaxPositions: PropTypes.number
-  }).isRequired,
-  onClose: PropTypes.func.isRequired
+  }).isRequired
 }
 
 export default Address
