@@ -5,10 +5,9 @@ const OpenLicenceRibbon = () => (
   <div>
     <div className='ribbon'>
       <div>La Base Adresse Nationale est désormais disponible sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></div>
-      <img src='/images/logos/logo-licence-ouverte.svg' title='Logo Licence Ouverte' alt='Logo Licence Ouverte' />
+      <img src='/images/logos/logo-licence-ouverte.svg' title='Licence Ouverte' alt='Logo Licence Ouverte' />
     </div>
     <style jsx>{`
-
       .ribbon img{
         width: 30px;
         margin-left: 0.5em;

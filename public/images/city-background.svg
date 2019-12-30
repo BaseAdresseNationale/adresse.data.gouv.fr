@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="1044px" height="550px" viewBox="0 0 1044 550" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="1044px" height="630px" viewBox="0 0 1044 630" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
     <title>city-background</title>
     <desc>Created with Sketch.</desc>
@@ -8,7 +8,7 @@
         <polygon id="path-3" points="16.9520548 0 79.3356164 0 96.2876712 40.6034483 0 40.6034483"></polygon>
     </defs>
     <g id="city-background" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="city" transform="translate(-46.000000, 67.000000)">
+        <g id="city" transform="translate(-46.000000, 165.000000)">
             <g id="building-grey" transform="translate(18.000000, 30.000000)">
                 <g transform="translate(1.312500, 0.000000)">
                     <rect id="wall" fill="#D8D8D8" opacity="0.504487537" x="0" y="0" width="147" height="368"></rect>
@@ -859,7 +859,7 @@
                 </g>
             </g>
         </g>
-        <g id="city" transform="translate(695.500000, 309.500000) scale(-1, 1) translate(-695.500000, -309.500000) translate(308.000000, 67.000000)">
+        <g id="city" transform="translate(695.500000, 407.500000) scale(-1, 1) translate(-695.500000, -407.500000) translate(308.000000, 165.000000)">
             <g id="building-grey" transform="translate(37.838767, 54.460189)">
                 <g transform="translate(1.232143, 0.000000)">
                     <rect id="wall" fill="#D8D8D8" opacity="0.504487537" x="0" y="0" width="138" height="345"></rect>
