@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 
-import {addressToGeoJson} from '../../../lib/geojson'
+import {adresseToPositionsGeoJson} from '../../../lib/geojson'
 
 function useSources(contour, voies, numeros, numero) {
   return useMemo(() => {
@@ -38,7 +38,7 @@ function useSources(contour, voies, numeros, numero) {
       sources.push({
         name: 'positions',
         type: 'geojson',
-        data: addressToGeoJson(numero)
+        data: adresseToPositionsGeoJson(numero)
       })
     }
 
