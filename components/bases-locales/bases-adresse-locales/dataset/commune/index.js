@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
-import {deburr} from 'lodash'
 
 import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
+import {byText} from '../../../../../lib/filters'
 
 import theme from '../../../../../styles/theme'
 
@@ -64,7 +64,7 @@ class Commune extends React.Component {
             <h4>Liste des voies présentes dans le fichier</h4>
             <List
               list={commune.voies}
-              filter={(voie, input) => deburr(voie.nomVoie.toLowerCase()).includes(input)}
+              filter={(voie, input) => byText(voie.nomVoie, input)}
               toItem={voie => {
                 const {numerosCount, codeVoie, nomVoie, source, position} = voie
                 const namedPlace = numerosCount === 0

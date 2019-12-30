@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
-import {deburr} from 'lodash'
 import MdFileDownload from 'react-icons/lib/md/file-download'
 
 import theme from '../../../../styles/theme'
+import {byText} from '../../../../lib/filters'
 
 import Section from '../../../section'
 
@@ -51,7 +51,7 @@ class Dataset extends React.Component {
             <h4>Liste des communes présentes dans le fichier</h4>
             <List
               list={summary.communes}
-              filter={(commune, input) => deburr(commune.nom.toLowerCase()).includes(input)}
+              filter={(commune, input) => byText(commune.nom, input)}
               toItem={commune => (
                 <Item
                   key={commune.code}
