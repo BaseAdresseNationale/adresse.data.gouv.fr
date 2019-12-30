@@ -14,8 +14,10 @@ import theme from '../../styles/theme'
 const MapLoader = () => (
   <div className='map-loader-container'>
     <div className='centered'>
-      <Loader />
-      <p>Chargement…</p>
+      <div className='loading'>
+        <Loader />
+        Chargement…
+      </div>
     </div>
     <style jsx>{`
       .map-loader-container {
@@ -27,7 +29,12 @@ const MapLoader = () => (
       .centered {
         position: relative;
         top: 50%;
-        left: 50%;
+      }
+
+      .loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
     `}</style>
   </div>

@@ -4,21 +4,29 @@ import PropTypes from 'prop-types'
 import Loader from './loader'
 import Notification from './notification'
 
-const LoadingContent = ({loading, error, centered, children}) => {
+const LoadingContent = ({loading, error, children}) => {
   if (loading) {
     return (
-      <div className={centered ? 'centered' : ''}>
-        <Loader />
-        Chargement…
+      <div className='loading-content'>
+        <div className='loading'>
+          <Loader />
+          Chargement…
+        </div>
         <style jsx>{`
-          .centered {
-            margin: 1em;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-        `}</style>
+            .loading-content {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+              width: 100%;
+            }
+
+            .loading {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+          `}</style>
       </div>
     )
   }
@@ -41,13 +49,11 @@ const LoadingContent = ({loading, error, centered, children}) => {
 
 LoadingContent.propTypes = {
   loading: PropTypes.bool,
-  centered: PropTypes.bool,
   error: PropTypes.object,
   children: PropTypes.node.isRequired
 }
 
 LoadingContent.defaultProps = {
-  centered: false,
   loading: false,
   error: null
 }
