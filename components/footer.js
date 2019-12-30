@@ -9,9 +9,9 @@ const Footer = () => (
       <div className='footer__logo'>
         <img src='/images/logos/etalab.svg' />
         <ul className='footer__social'>
-          <li><Link href='https://twitter.com/AdresseDataGouv'><a><img src='/images/medias/twitter.svg' alt='Twitter' /></a></Link></li>
-          <li><Link href='https://github.com/etalab/adresse.data.gouv.fr'><a><img src='/images/medias/github.svg' alt='Github' /></a></Link></li>
-          <li><Link href='https://blog.geo.data.gouv.fr'><a><img src='/images/medias/medium.svg' alt='Medium' /></a></Link></li>
+          <li><a href='https://twitter.com/AdresseDataGouv'><img src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
+          <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><img src='/images/medias/github.svg' alt='Github' /></a></li>
+          <li><a href='https://blog.geo.data.gouv.fr'><img src='/images/medias/medium.svg' alt='Medium' /></a></li>
           <li><a href='mailto:adresse@data.gouv.fr'><img src='/images/medias/envelop.svg' alt='Contact' /></a></li>
         </ul>
       </div>
