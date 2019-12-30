@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import MdClose from 'react-icons/lib/md/close'
+import FaAngleUp from 'react-icons/lib/fa/angle-up'
+import FaAngleDown from 'react-icons/lib/fa/angle-down'
 
 import Tag from '../../tag'
 import Notification from '../../notification'
@@ -9,35 +10,34 @@ import theme from '../../../styles/theme'
 
 const DISTANCE_MAX_POSITION = 15
 
-const Address = ({voie, address, onClose}) => {
-  const {numero, entries, destination, active, parcelles, distanceMaxPositions, pseudoNumero} = address
-
+const Address = ({address}) => {
+  const {entries, destination, parcelles, distanceMaxPositions} = address
+  const [displayDetail, setDisplayDetail] = useState(false)
   return (
     <div>
-      <div className='head flex-list'>
-        <div className='address'>
-          <b>{numero}</b> {active && !pseudoNumero && voie.nomVoie}
-        </div>
-        <div className='close' onClick={() => onClose()}><MdClose /></div>
+      <div className='head flex-list' onClick={() => setDisplayDetail(!displayDetail)}>
+        <div>{displayDetail ? 'Masquer' : 'Afficher'} les informations</div>
+        <div>{displayDetail ? <FaAngleDown size={24} /> : <FaAngleUp size={24} />}</div>
       </div>
 
-      <div className='cats'>
-        <div className='cat'>
-          <div>Destination :</div>
-          {destination ? (
-            <div className='flex-list'>
-              {destination.map(dest => (
-                <Tag key={dest} type={dest} />
-              ))}
-            </div>
-          ) : (
-            <div>Inconnu</div>
-          )}
-        </div>
-
-        {parcelles &&
+      {displayDetail && (<div className='details'>
+        <div className='cats'>
           <div className='cat'>
-            <div>Parcelles :</div>
+            <div>Destination&nbsp;:</div>
+            {destination ? (
+              <div className='flex-list'>
+                {destination.map(dest => (
+                  <Tag key={dest} type={dest} />
+                ))}
+              </div>
+            ) : (
+              <div>Inconnu</div>
+            )}
+          </div>
+
+          {parcelles &&
+          <div className='cat'>
+            <div>Parcelles&nbsp;:</div>
             <div className='flex-list'>
               {parcelles.map(parcelle => (
                 <div key={parcelle} className='parcelle'>
@@ -47,7 +47,7 @@ const Address = ({voie, address, onClose}) => {
             </div>
           </div>}
 
-        {entries.length > 0 &&
+          {entries.length > 0 &&
           <div>
             Sources :
             {entries.map(entry => (
@@ -66,50 +66,47 @@ const Address = ({voie, address, onClose}) => {
             ))}
           </div>}
 
-      </div>
+        </div>
 
-      {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ? (
-        <Notification
-          type='warning'
-          message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`}
-        />
-      ) : null}
+        {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ? (
+          <Notification
+            type='warning'
+            message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`}
+          />
+        ) : null}
+      </div>
+      )}
 
       <style jsx>{`
         .flex-list{
           display: flex;
+          align-items: center;
           flex-flow: wrap;
-          justify-content: space-between;
         }
 
         .head {
-          align-items: baseline;
-          border-bottom: 1px solid ${theme.colors.lighterGrey};
-        }
-
-        .address {
-          font-size: large;
-          font-weight: 500;
+          align-items: flex-end;
+          justify-content: space-between;
+          border-bottom: ${displayDetail ? `1px solid ${theme.colors.lighterGrey}` : 'none'};
           padding: 0.5em;
         }
 
-        .close {
-          font-size: 20px;
-          padding: 0.5em;
+        .head > div:first-child {
+          margin-right: 0.2em;
         }
 
-        .close:hover {
-          color:  ${theme.primary};
+        .head:hover {
           cursor: pointer;
         }
+
 
         .cats {
           margin-top: 1em;
         }
 
         .cat {
-          display: grid;
-          grid-template-columns: 1fr max-content;
+          display: flex;
+          flex-flow: wrap;
           align-items: center;
         }
 
@@ -149,29 +146,24 @@ const Address = ({voie, address, onClose}) => {
           overflow: hidden;
           text-overflow: ellipsis;
         }
+
+        @media (max-width: 380px) {
+          .head {
+            padding: 0.2em;
+          }
+        }
       `}</style>
     </div>
   )
 }
 
 Address.propTypes = {
-  voie: PropTypes.shape({
-    nomVoie: PropTypes.string.isRequired
-  }),
   address: PropTypes.shape({
-    numero: PropTypes.string.isRequired,
     entries: PropTypes.array.isRequired,
     destination: PropTypes.array,
-    active: PropTypes.bool.isRequired,
     parcelles: PropTypes.array,
-    distanceMaxPositions: PropTypes.number,
-    pseudoNumero: PropTypes.bool
-  }).isRequired,
-  onClose: PropTypes.func.isRequired
-}
-
-Address.defaultProps = {
-  voie: null
+    distanceMaxPositions: PropTypes.number
+  }).isRequired
 }
 
 export default Address

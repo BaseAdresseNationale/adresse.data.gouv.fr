@@ -210,6 +210,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
             margin: 1em;
             border-radius: 4px;
             background-color: #ffffffbb;
+            max-width: 80%;
           }
 
           .right {
@@ -225,6 +226,12 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
             background-color: none;
             padding: 0;
             overflow: hidden;
+          }
+
+          @media (max-width: 380px) {
+            .tools {
+              margin: 0.5em;
+            }
           }
         `}</style>
 

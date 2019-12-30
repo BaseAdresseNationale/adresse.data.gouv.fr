@@ -81,14 +81,7 @@ const AddressesMap = ({map, contour, voies, voie, numeros, numero, onSelectConto
 
   useEffect(() => {
     if (numero) {
-      setInfos(<Address
-        voie={voie}
-        address={numero}
-        onClose={() => {
-          setInfos(null)
-          onSelectNumero(null)
-        }}
-      />)
+      setInfos(<Address address={numero} />)
     } else {
       setInfos(null)
     }

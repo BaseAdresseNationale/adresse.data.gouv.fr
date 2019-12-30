@@ -7,7 +7,6 @@ const Loader = ({size}) => (
   <div className={`loader ${size}`}>
     <style jsx>{`
       .loader {
-        margin-left: 20px;
         border-radius: 50%;
         animation: spin 2s linear infinite;
       }
