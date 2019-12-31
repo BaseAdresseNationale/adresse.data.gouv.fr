@@ -9,7 +9,6 @@ class TableList extends React.Component {
   static propTypes = {
     text: PropTypes.string,
     sources: PropTypes.array,
-    destinations: PropTypes.array,
     selectedTags: PropTypes.array,
     onFilterTags: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired
@@ -18,7 +17,6 @@ class TableList extends React.Component {
   static defaultProps = {
     text: '',
     sources: null,
-    destinations: null,
     selectedTags: []
   }
 
@@ -37,7 +35,7 @@ class TableList extends React.Component {
   }
 
   render() {
-    const {text, sources, destinations, selectedTags, onFilterTags} = this.props
+    const {text, sources, selectedTags, onFilterTags} = this.props
 
     return (
       <div>
@@ -53,18 +51,6 @@ class TableList extends React.Component {
             </div>}
         </div>
 
-        <div className='destination'>
-          {destinations && (
-            <div className='tags'>
-              <TagsInput
-                title='Destination'
-                tags={destinations}
-                selected={selectedTags}
-                toggleTag={onFilterTags} />
-            </div>
-          )}
-        </div>
-
         <style jsx>{`
             .filter-1 {
               display: flex;
@@ -77,10 +63,6 @@ class TableList extends React.Component {
             .tags {
               width: 100%;
               border: 1px solid ${theme.colors.lightGrey};
-            }
-
-            .destination {
-              margin: 5px 0;
             }
 
             @media (max-width: 700px) {

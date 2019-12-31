@@ -13,8 +13,8 @@ const getColors = items => {
   return Object.keys(items).map(i => getType(i).background)
 }
 
-const Statistics = ({sources, destinations, citizensPerAddress}) => {
-  const noData = !sources && !destinations && !citizensPerAddress
+const Statistics = ({sources, citizensPerAddress}) => {
+  const noData = !sources && !citizensPerAddress
 
   return (
     <div className='statistics'>
@@ -34,14 +34,6 @@ const Statistics = ({sources, destinations, citizensPerAddress}) => {
 
       {citizensPerAddress && (
         <Counter title='Habitants par adresse' value={citizensPerAddress} />
-      )}
-
-      {destinations && (
-        <Pie
-          title='Répartition des libellés de voies'
-          data={destinations}
-          colors={getColors(destinations)}
-        />
       )}
 
       <style jsx>{`
@@ -68,13 +60,11 @@ const Statistics = ({sources, destinations, citizensPerAddress}) => {
 
 Statistics.defaultProps = {
   sources: null,
-  destinations: null,
   citizensPerAddress: null
 }
 
 Statistics.propTypes = {
   sources: PropTypes.object,
-  destinations: PropTypes.object,
   citizensPerAddress: PropTypes.number
 }
 

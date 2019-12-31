@@ -10,22 +10,6 @@ const POSITIONS_COLORS = [
   '#f47733',
   ['==', ['get', 'source'], 'ftth'],
   '#0c4cb2',
-  ['==', ['get', 'destination'], 'habitation'],
-  '#21BA45',
-  ['==', ['get', 'destination'], 'commerce'],
-  '#53DD9E',
-  ['==', ['get', 'destination'], 'site-touristique'],
-  '#A1003C',
-  ['==', ['get', 'destination'], 'site-industriel'],
-  '#a5673f',
-  ['==', ['get', 'destination'], 'dependance-batie-isolee'],
-  '#FBBD08',
-  ['==', ['get', 'destination'], 'installations-techniques'],
-  '#F2711C',
-  ['==', ['get', 'destination'], 'local-commun'],
-  '#00B5AD',
-  ['==', ['get', 'destination'], 'divers'],
-  '#DDDDDD',
   '#53657D'
 ]
 

@@ -12,15 +12,10 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
   const [text, setText] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
   const [sources, setSources] = useState([])
-  const [destinations, setDestinations] = useState([])
   const [filteredList, setFilteredList] = useState([])
 
   const getSources = sources => {
     return getTypeByPriority(unionTypes(sources))
-  }
-
-  const getDestinations = destinations => {
-    return getTypeByPriority(unionTypes(destinations))
   }
 
   const handleTextFilter = text => {
@@ -42,15 +37,10 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
 
   const filterList = useCallback(() => {
     return list.filter(item => {
-      const {sources, destination, nomVoie, numero} = item
-      let tags = sources
-
-      if (destination) {
-        tags = tags.concat(destination)
-      }
+      const {sources, nomVoie, numero} = item
 
       return (
-        byTags(tags, selectedTags) && // Filter tags
+        byTags(sources, selectedTags) && // Filter tags
         byText((nomVoie || numero), text) // Filter text
       )
     })
@@ -64,9 +54,7 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
   useEffect(() => {
     if (filteredList) {
       const sources = getSources(filteredList.map(({sources}) => sources))
-      const destinations = getDestinations(filteredList.map(({destination}) => destination))
       setSources(sources)
-      setDestinations(destinations)
     }
   }, [filteredList])
 
@@ -78,7 +66,6 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
         text={text}
         onChange={handleTextFilter}
         sources={sources}
-        destinations={destinations}
         selectedTags={selectedTags}
         onFilterTags={handleTags}
       />

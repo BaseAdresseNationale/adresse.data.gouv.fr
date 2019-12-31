@@ -34,8 +34,7 @@ class VoiesTable extends React.Component {
         type: 'numeric',
         func: voie => voie.numeros
       },
-      {title: 'Source'},
-      {title: 'Destination'}
+      {title: 'Source'}
     ]
 
     const genItems = voies => {
@@ -45,8 +44,7 @@ class VoiesTable extends React.Component {
           values: [
             voie.nomVoie,
             voie.numeros,
-            tagsList(getTypeByPriority(voie.sources)),
-            tagsList(getTypeByPriority(voie.destination))
+            tagsList(getTypeByPriority(voie.sources))
           ]
         }
       })

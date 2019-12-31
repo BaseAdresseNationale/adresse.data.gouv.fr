@@ -11,7 +11,7 @@ import theme from '../../../styles/theme'
 const DISTANCE_MAX_POSITION = 15
 
 const Address = ({address}) => {
-  const {entries, destination, parcelles, distanceMaxPositions} = address
+  const {entries, parcelles, distanceMaxPositions} = address
   const [displayDetail, setDisplayDetail] = useState(false)
   return (
     <div>
@@ -20,61 +20,50 @@ const Address = ({address}) => {
         <div>{displayDetail ? <FaAngleDown size={24} /> : <FaAngleUp size={24} />}</div>
       </div>
 
-      {displayDetail && (<div className='details'>
-        <div className='cats'>
-          <div className='cat'>
-            <div>Destination&nbsp;:</div>
-            {destination ? (
-              <div className='flex-list'>
-                {destination.map(dest => (
-                  <Tag key={dest} type={dest} />
-                ))}
-              </div>
-            ) : (
-              <div>Inconnu</div>
-            )}
-          </div>
+      {displayDetail && (
+        <div className='details'>
+          <div className='cats'>
 
-          {parcelles &&
-          <div className='cat'>
-            <div>Parcelles&nbsp;:</div>
-            <div className='flex-list'>
-              {parcelles.map(parcelle => (
-                <div key={parcelle} className='parcelle'>
-                  {parcelle}
+            {parcelles && (
+              <div className='cat'>
+                <div>Parcelles&nbsp;:</div>
+                <div className='flex-list'>
+                  {parcelles.map(parcelle => (
+                    <div key={parcelle} className='parcelle'>
+                      {parcelle}
+                    </div>
+                  ))}
+                </div>
+              </div>)}
+
+            {entries.length > 0 &&
+            <div>
+            Sources :
+              {entries.map(entry => (
+                <div key={entry.source} className='position'>
+                  <Tag key={entry.source} type={entry.source} />
+                  <div className='coordinates'>
+                    {entry.position && (
+                      entry.position.coordinates.map(coordinate => (
+                        <div key={coordinate} className='coordinate' >
+                          {coordinate}
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               ))}
-            </div>
-          </div>}
+            </div>}
 
-          {entries.length > 0 &&
-          <div>
-            Sources :
-            {entries.map(entry => (
-              <div key={entry.source} className='position'>
-                <Tag key={entry.source} type={entry.source} />
-                <div className='coordinates'>
-                  {entry.position && (
-                    entry.position.coordinates.map(coordinate => (
-                      <div key={coordinate} className='coordinate' >
-                        {coordinate}
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>}
+          </div>
 
+          {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ? (
+            <Notification
+              type='warning'
+              message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`}
+            />
+          ) : null}
         </div>
-
-        {distanceMaxPositions && distanceMaxPositions > DISTANCE_MAX_POSITION ? (
-          <Notification
-            type='warning'
-            message={`Les positions de cette adresse sont éloignées de ${Math.round(distanceMaxPositions, 2)}m`}
-          />
-        ) : null}
-      </div>
       )}
 
       <style jsx>{`
@@ -160,7 +149,6 @@ const Address = ({address}) => {
 Address.propTypes = {
   address: PropTypes.shape({
     entries: PropTypes.array.isRequired,
-    destination: PropTypes.array,
     parcelles: PropTypes.array,
     distanceMaxPositions: PropTypes.number
   }).isRequired

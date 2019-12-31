@@ -31,19 +31,15 @@ class AddressesTable extends React.Component {
     const {addresses, numero} = this.props
     const headers = [
       {title: 'Numéro'},
-      {title: 'Sources'},
-      {title: 'Destination'}
+      {title: 'Sources'}
     ]
     const genItems = addresses => {
       return addresses.map(address => {
-        const destination = address.destination ? address.destination : []
-
         return {
           key: address.id,
           values: [
             address.numero,
-            tagsList(getTypeByPriority(address.sources)),
-            tagsList(getTypeByPriority(destination))
+            tagsList(getTypeByPriority(address.sources))
           ]
         }
       })
