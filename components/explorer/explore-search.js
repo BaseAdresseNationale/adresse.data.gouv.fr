@@ -20,8 +20,6 @@ const ExploreSearch = () => {
     const {id, type, citycode, housenumber} = feature.properties
     const codeCommune = citycode
     const idVoie = id.split('_').slice(0, 2).join('_')
-    const [numero, suffixe] = housenumber.split(' ')
-    const numeroComplet = `${numero}${suffixe}`
     let href = ''
     let as = ''
 
@@ -32,6 +30,8 @@ const ExploreSearch = () => {
       href = `/commune/voie?idVoie=${idVoie}`
       as = `/explore/commune/${codeCommune}/voie/${idVoie}`
     } else if (type === 'housenumber') {
+      const [numero, suffixe] = housenumber.split(' ')
+      const numeroComplet = `${numero}${suffixe || ''}`
       href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numeroComplet}`
       as = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
     }
