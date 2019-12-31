@@ -71,7 +71,8 @@ Head.propTypes = {
 
 Head.defaultProps = {
   commune: null,
-  numero: null
+  numero: null,
+  suffixe: null
 }
 
 export default Head
