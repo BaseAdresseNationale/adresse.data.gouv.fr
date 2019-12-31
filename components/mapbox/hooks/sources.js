@@ -24,7 +24,7 @@ function useSources(contour, voies, numeros, numero) {
 
     if (numeros && numeros.features.length > 0) {
       const features = numero ?
-        numeros.features.filter(feature => feature.properties.id !== numero.id) :
+        numeros.features.filter(feature => feature.properties.cleInterop !== numero.cleInterop) :
         numeros.features
 
       sources.push({

@@ -36,7 +36,7 @@ class AddressesTable extends React.Component {
     const genItems = addresses => {
       return addresses.map(address => {
         return {
-          key: address.id,
+          key: address.cleInterop,
           values: [
             address.numero,
             tagsList(getTypeByPriority(address.sources))
