@@ -9,11 +9,23 @@ const Head = ({commune, voie, numero}) => {
   return (
     <div className='head'>
       <div className='breadcrumb'>
-        {numero && <span>{numero}<span className='comma'>,</span></span>}
-        <Link href={`/explore/commune/${code}/voie/${voie.idVoie}`}><a>{voie.nomVoie}</a></Link>
+        {numero ? (
+          <>
+            <span>{numero}<span className='comma'>,</span></span>
+            <Link
+              href={`/explore/commune/voie?codeCommune=${code}&idVoie=${voie.idVoie}`}
+              as={`/explore/commune/${code}/voie/${voie.idVoie}`}
+            >
+              <a>{voie.nomVoie}</a>
+            </Link>
+          </>
+        ) : (
+          <span>{voie.nomVoie}</span>
+        )}
         <span className='comma'>,</span>
         <Link href={`/explore/commune/${code}`}><a>{nom}</a></Link>
       </div>
+
       <h4>{departement.nom} ({departement.code})</h4>
       <style jsx>{`
         .head {
