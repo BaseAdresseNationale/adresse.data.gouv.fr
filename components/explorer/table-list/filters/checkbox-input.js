@@ -25,7 +25,7 @@ class CheckboxInput extends React.Component {
 
     return (
       <div style={style} className='input'>
-        <input type='checkbox' id={`checkbox-${value}`} value={value} checked={isChecked} onClick={this.handleChange} />
+        <input type='checkbox' id={`checkbox-${value}`} value={value} checked={isChecked} onChange={this.handleChange} />
         <label className='label-inline'>{value}</label>
       </div>
     )
