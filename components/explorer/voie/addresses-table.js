@@ -38,7 +38,7 @@ class AddressesTable extends React.Component {
         return {
           key: address.cleInterop,
           values: [
-            address.numero,
+            `${address.numero}${address.suffixe || ''}`,
             tagsList(getTypeByPriority(address.sources))
           ]
         }
