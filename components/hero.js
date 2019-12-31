@@ -8,33 +8,40 @@ import ContributeIcon from './icons/contribute'
 import ToolsIcon from './icons/tools'
 import ExploreSearch from './explorer/explore-search'
 
+import Container from './container'
+
 const Hero = ({title, tagline}) => (
   <div className='hero'>
     <div className='hero-container'>
-      <div style={{textAlign: 'center'}}>
-        <h1 className='hero__white-background'>{title}</h1>
-        <p className='hero__white-background'>{tagline}</p>
-      </div>
+      <Container>
+        <div style={{textAlign: 'center'}}>
+          <h1 className='hero__white-background'>{title}</h1>
+          <p className='hero__white-background'>{tagline}</p>
+        </div>
 
-      <div className='data-tools'>
-        <Link href='/download'>
-          <a>
-            <DownloadIcon />Accéder aux données
-          </a>
-        </Link>
-        <Link href='/contribuer'>
-          <a>
-            <ContributeIcon />Contribuer à la démarche
-          </a>
-        </Link>
-        <Link href='/tools'>
-          <a>
-            <ToolsIcon />Découvrir les outils
-          </a>
-        </Link>
-      </div>
+        <div className='data-tools'>
+          <Link href='/download'>
+            <a>
+              <DownloadIcon />Accéder aux données
+            </a>
+          </Link>
+          <Link href='/contribuer'>
+            <a>
+              <ContributeIcon />Contribuer à la démarche
+            </a>
+          </Link>
+          <Link href='/tools'>
+            <a>
+              <ToolsIcon />Découvrir les outils
+            </a>
+          </Link>
+        </div>
 
-      <ExploreSearch />
+        <div className='search-bar-home'>
+          <ExploreSearch />
+        </div>
+      </Container>
+
     </div>
     <style jsx>{`
       .hero {
@@ -45,9 +52,8 @@ const Hero = ({title, tagline}) => (
       }
 
       .hero-container {
-        margin: auto;
-        padding-top: 2em;
-        max-width: 1000px;
+        position: relative;
+        top: 2em;
       }
 
       .data-tools {
