@@ -4,7 +4,7 @@ import computeBbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
 
-import {getCommuneStats} from '../../../lib/explore/api'
+import {getCommune} from '../../../lib/explore/api'
 
 import Mapbox from '../../mapbox'
 import AddressesMap from '../../mapbox/addresses-map'
@@ -18,7 +18,7 @@ const Commune = ({commune}) => {
   const [statsPromise, setStatsPromise] = useState(null)
 
   useEffect(() => {
-    setStatsPromise(getCommuneStats(commune.code))
+    setStatsPromise(getCommune(commune.code))
   }, [commune])
 
   return (

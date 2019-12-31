@@ -7,14 +7,13 @@ import {getType} from '../../../lib/types'
 
 import Notification from '../../notification'
 import Pie from '../../ui/metrics/pie'
-import Counter from '../../ui/metrics/counter'
 
 const getColors = items => {
   return Object.keys(items).map(i => getType(i).background)
 }
 
-const Statistics = ({sources, citizensPerAddress}) => {
-  const noData = !sources && !citizensPerAddress
+const Statistics = ({sourcesNomsVoies, sourcesPositions}) => {
+  const noData = !sourcesNomsVoies && !sourcesPositions
 
   return (
     <div className='statistics'>
@@ -24,16 +23,20 @@ const Statistics = ({sources, citizensPerAddress}) => {
         </div>
       )}
 
-      {sources && (
+      {sourcesNomsVoies && (
         <Pie
-          title='Répartition des sources'
-          data={sources}
-          colors={getColors(sources)}
+          title='Origine des libellés de voie'
+          data={sourcesNomsVoies}
+          colors={getColors(sourcesNomsVoies)}
         />
       )}
 
-      {citizensPerAddress && (
-        <Counter title='Habitants par adresse' value={citizensPerAddress} />
+      {sourcesPositions && (
+        <Pie
+          title='Origine des positions des adresses'
+          data={sourcesPositions}
+          colors={getColors(sourcesPositions)}
+        />
       )}
 
       <style jsx>{`
@@ -59,16 +62,16 @@ const Statistics = ({sources, citizensPerAddress}) => {
 }
 
 Statistics.defaultProps = {
-  sources: null,
-  citizensPerAddress: null
+  sourcesNomsVoies: null,
+  sourcesPositions: null
 }
 
 Statistics.propTypes = {
-  sources: PropTypes.object,
-  citizensPerAddress: PropTypes.number
+  sourcesNomsVoies: PropTypes.object,
+  sourcesPositions: PropTypes.object
 }
 
-export default withFetch(data => ({
-  ...data
-}))(Statistics)
-
+export default withFetch(data => {
+  const {sourcesNomsVoies, sourcesPositions} = data
+  return {sourcesNomsVoies, sourcesPositions}
+})(Statistics)
