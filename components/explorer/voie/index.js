@@ -22,7 +22,8 @@ const Voie = ({commune, voie, numero}) => {
       <Head
         commune={commune}
         voie={voie}
-        numero={numero ? numero.numero : null} />
+        numero={numero ? numero.numero : null}
+        suffixe={numero ? numero.suffixe : null} />
       <MapContainer
         voie={voie}
         addresses={voie.numeros}

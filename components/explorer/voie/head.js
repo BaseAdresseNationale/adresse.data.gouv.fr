@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-const Head = ({commune, voie, numero}) => {
+const Head = ({commune, voie, numero, suffixe}) => {
   const {nom, code, departement} = commune
   return (
     <div className='head'>
       <div className='breadcrumb'>
         {numero ? (
           <>
-            <span>{numero}<span className='comma'>,</span></span>
+            <span>{numero}{suffixe || ''}<span className='comma'>,</span></span>
             <Link
               href={`/explore/commune/voie?codeCommune=${code}&idVoie=${voie.idVoie}`}
               as={`/explore/commune/${code}/voie/${voie.idVoie}`}
@@ -65,7 +65,8 @@ Head.propTypes = {
     }).isRequired
   }),
   voie: PropTypes.object.isRequired,
-  numero: PropTypes.string
+  numero: PropTypes.string,
+  suffixe: PropTypes.string
 }
 
 Head.defaultProps = {
