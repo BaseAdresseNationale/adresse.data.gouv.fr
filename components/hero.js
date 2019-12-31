@@ -82,19 +82,7 @@ const Hero = ({title, tagline}) => (
         }
 
         .hero {
-          height: 145vh;
-        }
-      }
-
-      @media (max-width: 288px) {
-        .hero-container {
-          margin-top: 6em;
-        }
-      }
-
-      @media (max-width: 166px) {
-        .hero-container {
-          margin-top: 15em;
+          height: 800px;
         }
       }
     `}</style>
