@@ -15,7 +15,8 @@ const MapContainer = ({voie, addresses, numero, onSelect}) => {
 
   const selectAddress = feature => {
     const numero = feature ? feature.properties.numero : null
-    onSelect(numero)
+    const suffixe = feature ? feature.properties.suffixe : null
+    onSelect(numero, suffixe)
   }
 
   useEffect(() => {
