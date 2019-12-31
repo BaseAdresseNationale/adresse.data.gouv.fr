@@ -1,14 +1,12 @@
-import React, {useCallback, useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-
-import Address from '../explorer/voie/address'
 
 import useSources from './hooks/sources'
 import useLayers from './hooks/layers'
 
 let hoveredStateId = null
 
-const AddressesMap = ({map, contour, voies, voie, numeros, numero, onSelectContour, onSelectNumero, setSources, setLayers, setInfos}) => {
+const AddressesMap = ({map, contour, voies, numeros, numero, onSelectContour, onSelectNumero, setSources, setLayers}) => {
   const sources = useSources(contour, voies, numeros, numero)
   const layers = useLayers(contour, voies, numeros, numero)
 
@@ -78,14 +76,6 @@ const AddressesMap = ({map, contour, voies, voie, numeros, numero, onSelectConto
 
     // No dependency in order to mock a didMount and avoid duplicating events.
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (numero) {
-      setInfos(<Address address={numero} />)
-    } else {
-      setInfos(null)
-    }
-  }, [numero, onSelectNumero, setInfos, sources, voie])
 
   useEffect(() => {
     setSources(sources)
