@@ -38,7 +38,7 @@ const Hero = ({title, tagline}) => (
     </div>
     <style jsx>{`
       .hero {
-        height: 100vh;
+        min-height: 100vh;
         background: #fff url(/images/city-background.svg) bottom center no-repeat;
         background-size: cover;
         margin-bottom: -0.1em;
@@ -69,9 +69,9 @@ const Hero = ({title, tagline}) => (
         color: ${theme.darkText};
       }
 
-      @media (max-width: 700px) {
+      @media (max-width: 812px) {
         .hero {
-          height: 145vh;
+          height: 800px;
         }
       }
     `}</style>
