@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import geocodeMany from '../../lib/geocode/many'
+import {geocodeCsv} from '../../lib/api-adresse'
 
 import Button from '../button'
 import Loader from '../loader'
@@ -18,7 +18,6 @@ class Geocoder extends React.Component {
   static propTypes = {
     file: PropTypes.object.isRequired,
     columns: PropTypes.array.isRequired,
-    encoding: PropTypes.string.isRequired,
     filter: PropTypes.string
   }
 
@@ -33,7 +32,7 @@ class Geocoder extends React.Component {
   }
 
   handleGeocodeClick = async () => {
-    const {file, columns, filter, encoding} = this.props
+    const {file, columns, filter} = this.props
     const filters = []
 
     if (filter) {
@@ -46,7 +45,7 @@ class Geocoder extends React.Component {
     this.setState({status: 'pending'})
 
     try {
-      const blob = await geocodeMany(file, encoding, filters, columns)
+      const blob = await geocodeCsv(file, filters, columns)
       this.setState({
         status: 'done',
         blob

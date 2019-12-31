@@ -34,7 +34,7 @@ const allowedExtensions = [
   'txt'
 ]
 
-const MAX_SIZE = 6 * 1024 * 1024
+const MAX_SIZE = 50 * 1024 * 1024
 
 function getFileExtension(fileName) {
   const dotPosition = fileName.lastIndexOf('.')
@@ -52,23 +52,20 @@ class Csv extends React.Component {
     selectedColumns: [],
     advancedPanel: false,
     filter: null,
-    error: null,
-    encoding: null
+    error: null
   }
 
   resetState = () => {
     this.setState({
       file: null,
       selectedColumns: [],
-      csv: null,
-      encoding: null
+      csv: null
     })
   }
 
   parseFile = file => {
     detectEncoding(file)
       .then(({encoding}) => {
-        this.setState({encoding})
         Papa.parse(file, {
           skipEmptyLines: true,
           encoding,
@@ -137,7 +134,7 @@ class Csv extends React.Component {
   }
 
   render() {
-    const {file, csv, selectedColumns, advancedPanel, filter, error, encoding} = this.state
+    const {file, csv, selectedColumns, advancedPanel, filter, error} = this.state
     const columns = csv ? csv.data[0] : []
 
     return (
@@ -192,7 +189,6 @@ class Csv extends React.Component {
                   // will get a new state in Geocoder whenever file changes.
                   key={`${file.name}-${file.size}`}
                   file={file}
-                  encoding={encoding}
                   columns={selectedColumns}
                   filter={filter}
                 />
