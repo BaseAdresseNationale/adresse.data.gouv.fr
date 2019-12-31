@@ -5,6 +5,7 @@ import colors from '../../styles/colors'
 
 const DownloadIcon = ({color, size}) => (
   <div className='circle'>
+    {/* Source SVG : https://feathericons.com */}
     <svg
       xmlns='http://www.w3.org/2000/svg'
       width={size}
@@ -24,8 +25,12 @@ const DownloadIcon = ({color, size}) => (
     <style jsx global>{`
       .circle {
         border: 3px solid black;
-        padding: 0.8em;
         border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       `}</style>
   </div>
