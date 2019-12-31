@@ -17,7 +17,7 @@ class Table extends React.Component {
     const {isWrap, hasDisabledWrap, onWrap, children} = this.props
 
     return (
-      <div>
+      <div className='table-container'>
         <table className={isWrap && !hasDisabledWrap && 'wrapped'}>
           {children}
         </table>
@@ -28,6 +28,10 @@ class Table extends React.Component {
           </div>}
 
         <style jsx>{`
+          .table-container {
+            margin: 1em 0;
+          }
+
           table {
             border-collapse: collapse;
             width: 100%;

@@ -43,7 +43,7 @@ class VoiesTable extends React.Component {
           key: voie.idVoie,
           values: [
             voie.nomVoie,
-            voie.numeros,
+            voie.numerosCount,
             tagsList(getTypeByPriority(voie.sources))
           ]
         }
@@ -52,7 +52,7 @@ class VoiesTable extends React.Component {
 
     return (
       <TableList
-        title='Adresses de la voie'
+        title='Voies de la commune'
         subtitle={`${voies.length} voies répertoriées`}
         list={voies}
         headers={headers}
