@@ -5,6 +5,7 @@ import colors from '../../styles/colors'
 
 const ContributeIcon = ({color, size}) => (
   <div className='circle'>
+    {/* Source : https://feathericons.com */}
     <svg xmlns='http://www.w3.org/2000/svg'
       width={size}
       height={size}
