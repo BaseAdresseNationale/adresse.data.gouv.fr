@@ -24,8 +24,13 @@ const DownloadIcon = ({color, size}) => (
     <style jsx global>{`
       .circle {
         border: 3px solid black;
-        padding: 0.8em;
         border-radius: 50%;
+        text-align: center;
+        display: inline-block;
+      }
+
+      .circle svg {
+        margin: 10px;
       }
       `}</style>
   </div>

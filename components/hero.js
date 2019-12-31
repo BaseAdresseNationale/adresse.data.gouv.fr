@@ -8,40 +8,33 @@ import ContributeIcon from './icons/contribute'
 import ToolsIcon from './icons/tools'
 import ExploreSearch from './explorer/explore-search'
 
-import Container from './container'
-
 const Hero = ({title, tagline}) => (
   <div className='hero'>
     <div className='hero-container'>
-      <Container>
-        <div style={{textAlign: 'center'}}>
-          <h1 className='hero__white-background'>{title}</h1>
-          <p className='hero__white-background'>{tagline}</p>
-        </div>
+      <div style={{textAlign: 'center'}}>
+        <h1 className='hero__white-background'>{title}</h1>
+        <p className='hero__white-background'>{tagline}</p>
+      </div>
 
-        <div className='data-tools'>
-          <Link href='/download'>
-            <a>
-              <DownloadIcon />Accéder aux données
-            </a>
-          </Link>
-          <Link href='/contribuer'>
-            <a>
-              <ContributeIcon />Contribuer à la démarche
-            </a>
-          </Link>
-          <Link href='/tools'>
-            <a>
-              <ToolsIcon />Découvrir les outils
-            </a>
-          </Link>
-        </div>
+      <div className='data-tools'>
+        <Link href='/download'>
+          <a>
+            <DownloadIcon />Accéder aux données
+          </a>
+        </Link>
+        <Link href='/contribuer'>
+          <a>
+            <ContributeIcon />Contribuer à la démarche
+          </a>
+        </Link>
+        <Link href='/tools'>
+          <a>
+            <ToolsIcon />Découvrir les outils
+          </a>
+        </Link>
+      </div>
 
-        <div className='search-bar-home'>
-          <ExploreSearch />
-        </div>
-      </Container>
-
+      <ExploreSearch />
     </div>
     <style jsx>{`
       .hero {
@@ -52,8 +45,9 @@ const Hero = ({title, tagline}) => (
       }
 
       .hero-container {
-        position: relative;
-        top: 2em;
+        margin: auto;
+        padding-top: 2em;
+        max-width: 1000px;
       }
 
       .data-tools {
@@ -76,25 +70,8 @@ const Hero = ({title, tagline}) => (
       }
 
       @media (max-width: 700px) {
-        .hero-container {
-          position: absolute;
-          top: 200px;
-        }
-
         .hero {
           height: 145vh;
-        }
-      }
-
-      @media (max-width: 288px) {
-        .hero-container {
-          margin-top: 6em;
-        }
-      }
-
-      @media (max-width: 166px) {
-        .hero-container {
-          margin-top: 15em;
         }
       }
     `}</style>
