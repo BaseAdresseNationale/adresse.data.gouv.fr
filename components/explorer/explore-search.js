@@ -17,9 +17,11 @@ const ExploreSearch = () => {
   const [error, setError] = useState(null)
 
   const handleSelect = feature => {
-    const {id, type, citycode, numero} = feature.properties
+    const {id, type, citycode, housenumber} = feature.properties
     const codeCommune = citycode
     const idVoie = id.split('_').slice(0, 2).join('_')
+    const [numero, suffixe] = housenumber.split(' ')
+    const numeroComplet = `${numero}${suffixe}`
     let href = ''
     let as = ''
 
@@ -30,8 +32,8 @@ const ExploreSearch = () => {
       href = `/commune/voie?idVoie=${idVoie}`
       as = `/explore/commune/${codeCommune}/voie/${idVoie}`
     } else if (type === 'housenumber') {
-      href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numero}`
-      as = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numero}`
+      href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numeroComplet}`
+      as = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
     }
 
     Router.push(href, as)
