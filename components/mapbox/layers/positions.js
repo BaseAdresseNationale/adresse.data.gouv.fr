@@ -1,15 +1,21 @@
+import {getType} from '../../../lib/types'
+
 const POSITIONS_COLORS = [
   'case',
-  ['==', ['get', 'source'], 'ban'],
-  '#cf6783',
-  ['==', ['get', 'source'], 'bano'],
-  '#418864',
+  ['==', ['get', 'source'], 'commune'],
+  getType('commune').background,
+  ['==', ['get', 'source'], 'insee'],
+  getType('insee').background,
+  ['==', ['get', 'source'], 'sdis'],
+  getType('sdis').background,
+  ['==', ['get', 'source'], 'laposte'],
+  getType('laposte').background,
+  ['==', ['get', 'source'], 'ign'],
+  getType('ign').background,
   ['==', ['get', 'source'], 'cadastre'],
-  '#8C5FF5',
-  ['==', ['get', 'source'], 'bal'],
-  '#f47733',
-  ['==', ['get', 'source'], 'ftth'],
-  '#0c4cb2',
+  getType('cadastre').background,
+  ['==', ['get', 'source'], 'arcep'],
+  getType('arcep').background,
   '#53657D'
 ]
 
