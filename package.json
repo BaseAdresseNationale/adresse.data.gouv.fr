@@ -23,6 +23,7 @@
     "compression": "^1.7.4",
     "content-disposition": "^0.5.3",
     "express": "^4.17.1",
+    "feather-icons": "^4.25.0",
     "fuzzyset.js": "^0.0.8",
     "hoist-non-react-statics": "^3.3.0",
     "isomorphic-unfetch": "^3.0.0",
