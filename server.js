@@ -82,6 +82,11 @@ app.prepare().then(() => {
   })
 
   // DO NOT REMOVE
+  server.get('/api', (req, res) => {
+    res.redirect('https://geo.api.gouv.fr/adresse')
+  })
+
+  // DO NOT REMOVE
   server.get('/download', (req, res) => {
     res.redirect('/donnees-nationales')
   })
