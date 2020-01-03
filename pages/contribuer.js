@@ -1,7 +1,5 @@
 import React from 'react'
-import FaPencil from 'react-icons/lib/fa/pencil'
-import FaExternalLink from 'react-icons/lib/fa/external-link'
-import FaMagic from 'react-icons/lib/fa/magic'
+import {Edit2, ExternalLink, Database} from 'react-feather'
 
 import Page from '../layouts/main'
 import theme from '../styles/theme'
@@ -15,20 +13,20 @@ const description = 'Les différents outils à votre disposition pour contribuer
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaPencil />} />
+    <Head title={title} icon={<Edit2 size={56} />} />
     <Section title='En tant que collectivité locale'>
       <div className='collectivites'>
         <section>
           <h3>Créer une Base Adresse Locale</h3>
           <p>Si vous souhaitez maîtriser pleinement la gestion de vos adresses, la mise en place d’une Base Adresse Locale est l’approche à privilégier.<br />Il s’agit de la méthode recommandée par l’AMF et l’AITF.</p>
           <p>Des nombreux outils sont là pour vous aider.</p>
-          <ButtonLink href='/bases-locales'><FaMagic /> Accéder à la page dédiée</ButtonLink>
+          <ButtonLink href='/bases-locales'><Database style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder à la page dédiée</ButtonLink>
         </section>
 
         <section>
           <h3>Utiliser le Guichet Adresse de l’IGN et de La Poste</h3>
           <p>Cet outil est destiné plus particulièrement aux mairies qui souhaitent avoir une assistance renforcée. Le processus est plus guidé, et vous n’avez aucun fichier à gérer.</p>
-          <ButtonLink href='https://guichet-adresse.ign.fr'><FaExternalLink /> Accéder au Guichet Adresse</ButtonLink>
+          <ButtonLink href='https://guichet-adresse.ign.fr'><ExternalLink style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder au Guichet Adresse</ButtonLink>
         </section>
       </div>
     </Section>

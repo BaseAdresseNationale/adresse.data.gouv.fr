@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaCheck from 'react-icons/lib/fa/check'
+import {Check} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -24,7 +24,7 @@ class Rows extends React.Component {
     return (
       <div>
         {rowsWithIssuesCount === 0 ? (
-          <h3>Aucune ligne avec anomalies trouvée <span className='valid'><FaCheck /></span></h3>
+          <h3>Aucune ligne avec anomalies trouvée <span className='valid'><Check /></span></h3>
         ) : (
           <>
             {rowsWithIssuesCount > 1 ? (

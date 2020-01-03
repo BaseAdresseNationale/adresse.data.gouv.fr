@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaClose from 'react-icons/lib/fa/close'
+import {X} from 'react-feather'
 
 import Button from './button'
 
@@ -9,7 +9,7 @@ const Notification = ({message, type, style, isFullWidth, onClose, children}) =>
     <div style={style} className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${isFullWidth ? 'full-width' : ''}`}>
       {children || message}
       {onClose && (
-        <Button className='close' aria-label='Fermer' onClick={onClose}><FaClose /></Button>
+        <Button className='close' aria-label='Fermer' onClick={onClose}><X /></Button>
       )}
     </div >
   )

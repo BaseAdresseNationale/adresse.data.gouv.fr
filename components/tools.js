@@ -2,9 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import FaTable from 'react-icons/lib/fa/table'
-import FaTerminal from 'react-icons/lib/fa/terminal'
-import FaMap from 'react-icons/lib/fa/map'
+import {Map, Terminal, FileText} from 'react-feather'
 
 import theme from '../styles/theme'
 
@@ -15,25 +13,25 @@ const titles = [
     title: 'Carte interactive',
     href: '/map',
     description: <span>Cherchez des adresses et lieux-dits.</span>,
-    icon: <FaMap />
+    icon: <Map />
   },
   {
     title: 'Le géocodeur CSV',
     href: '/csv',
     description: <span>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</span>,
-    icon: <FaTable />
+    icon: <FileText />
   },
   {
     title: 'L’API',
     href: 'https://geo.api.gouv.fr/adresse',
     description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
-    icon: <FaTerminal />
+    icon: <Terminal />
   },
   {
     title: 'Le validateur BAL',
     href: '/bases-locales/validateur',
     description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
-    icon: <FaTable />
+    icon: <FileText />
   }
 ]
 

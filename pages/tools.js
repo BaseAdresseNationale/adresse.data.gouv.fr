@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FaWrench from 'react-icons/lib/fa/wrench'
+import {Sliders} from 'react-feather'
 import Page from '../layouts/main'
 
 import Head from '../components/head'
@@ -11,7 +11,7 @@ const description = 'adresse.data.gouv.fr met en place des outils pour une prise
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaWrench />} />
+    <Head title={title} icon={<Sliders size={56} />} />
     <Tools />
   </Page>
 )

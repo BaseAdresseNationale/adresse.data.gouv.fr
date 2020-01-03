@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
 
-import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
+import {AlertTriangle} from 'react-feather'
 import {byText} from '../../../../../lib/filters'
 
 import theme from '../../../../../styles/theme'
@@ -80,7 +80,7 @@ class Commune extends React.Component {
                       {namedPlace ? (
                         !position &&
                         <div className='namedPlace'>
-                          <FaExclamationTriangle /> <span>Ce lieu nommé ne possède pas encore de position renseignée.</span>
+                          <AlertTriangle /> <span>Ce lieu nommé ne possède pas encore de position renseignée.</span>
                         </div>
                       ) : (
                         <div className='counter'>

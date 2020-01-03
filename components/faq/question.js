@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaAngleDown from 'react-icons/lib/fa/angle-down'
-import FaAngleUp from 'react-icons/lib/fa/angle-up'
+import {ChevronUp, ChevronDown} from 'react-feather'
 
 import theme from '../../styles/theme'
 
@@ -34,7 +33,7 @@ class Question extends React.Component {
           onClick={this.toggle}
         >
           <div className='question'>{question}</div>
-          <div>{open ? <FaAngleUp /> : <FaAngleDown />}</div>
+          <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} /> : <ChevronDown style={{verticalAlign: 'middle'}} />}</div>
         </div>
         {open && (
           <div className='answer'>{children}</div>

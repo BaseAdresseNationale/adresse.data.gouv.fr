@@ -1,8 +1,7 @@
 import React from 'react'
 import Papa from 'papaparse'
 
-import FaPlus from 'react-icons/lib/fa/plus'
-import FaMinus from 'react-icons/lib/fa/minus'
+import {Plus, Minus} from 'react-feather'
 
 import detectEncoding from '../../lib/detect-encoding'
 
@@ -172,7 +171,7 @@ class Csv extends React.Component {
               <>
                 <div className='filters'>
                   <Button onClick={this.toggleAdvancedPanel} style={{fontSize: '1em', padding: '0.4em 1em'}}>
-                    {advancedPanel ? <FaMinus /> : <FaPlus />} Paramètres avancés
+                    {advancedPanel ? <Minus style={{verticalAlign: 'middle'}} /> : <Plus style={{verticalAlign: 'middle'}} />} Paramètres avancés
                   </Button>
 
                   {advancedPanel && (

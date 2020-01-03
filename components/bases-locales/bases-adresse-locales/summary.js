@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import MdFileDownload from 'react-icons/lib/md/file-download'
+import {Download} from 'react-feather'
 
 import ButtonLink from '../../button-link'
 import {spaceThousands} from '../../../lib/format-numbers'
@@ -56,7 +56,7 @@ class Summary extends React.Component {
             </ButtonLink>
             {url &&
               <Link href={url}>
-                <a>Télécharger <MdFileDownload /></a>
+                <a>Télécharger <Download size={18} style={{verticalAlign: 'middle', marginLeft: '3px'}} /></a>
               </Link>}
           </div>
         </div>

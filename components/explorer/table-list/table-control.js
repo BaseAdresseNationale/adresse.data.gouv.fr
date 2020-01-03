@@ -10,7 +10,7 @@ import Body from './table/body'
 const LIST_LIMIT = 10
 
 const TableControl = ({list, headers, genItems, initialSort, selected, handleSelect}) => {
-  const [order, setOrder] = useState('desc')
+  const [order, setOrder] = useState('asc')
   const [actived, setActived] = useState(initialSort ? initialSort.title : null)
   const [sortedList, setSortedList] = useState(list)
   const [displayedList, setDisplayedList] = useState(sortedList)

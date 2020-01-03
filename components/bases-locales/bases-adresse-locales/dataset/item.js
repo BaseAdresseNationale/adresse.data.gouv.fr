@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import FaAngleRight from 'react-icons/lib/fa/angle-right'
+import {ChevronRight} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -55,7 +55,7 @@ class Item extends React.Component {
               {children}
             </div>
           </div>
-          {link && <div className='link'><FaAngleRight /></div>}
+          {link && <div className='link'><ChevronRight style={{verticalAlign: 'middle'}} /></div>}
           <style jsx>{`
             .item {
               display: flex;

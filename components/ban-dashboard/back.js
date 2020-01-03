@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaAngleLeft from 'react-icons/lib/fa/angle-left'
+import {ChevronLeft} from 'react-feather'
 
 const Back = ({handleClick}) => (
   <>
     <div className='back' onClick={handleClick}>
-      <FaAngleLeft size={26} /> Départements
+      <ChevronLeft size={26} /> Départements
     </div>
 
     <style jsx>{`
