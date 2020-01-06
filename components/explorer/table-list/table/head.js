@@ -5,69 +5,35 @@ import {ArrowDown} from 'react-feather'
 
 import Header from './header'
 
-const typesStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  fontSize: '14px',
-  lineHeight: '14px',
-  marginLeft: '3px',
-  marginTop: '-2px'
+const order = (icon, a, b) => (
+  <div style={{display: 'inline-flex'}}>
+    {icon}
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      fontSize: '14px',
+      lineHeight: '14px',
+      marginLeft: '3px',
+      marginTop: '-2px'
+    }}
+    >
+      <div>{a}</div>
+      <div>{b}</div>
+    </div>
+  </div>
+)
+
+const alphabetical = {
+  asc: order(<ArrowDown />, 'A', 'Z'),
+  desc: order(<ArrowDown />, 'Z', 'A')
 }
 
-const types = {
-  alphabetical: {
-    asc: (
-      <div style={{
-        display: 'inline-flex'
-      }}
-      >
-        <ArrowDown />
-        <div style={typesStyle}>
-          <div>A</div>
-          <div>Z</div>
-        </div>
-      </div>
-    ),
-    desc: (
-      <div style={{
-        display: 'inline-flex'
-      }}
-      >
-        <ArrowDown />
-        <div style={typesStyle}>
-          <div>Z</div>
-          <div>A</div>
-        </div>
-      </div>
-    )
-  },
-  numeric: {
-    asc: (
-      <div style={{
-        display: 'inline-flex'
-      }}
-      >
-        <ArrowDown />
-        <div style={typesStyle}>
-          <div>1</div>
-          <div>9</div>
-        </div>
-      </div>
-    ),
-    desc: (
-      <div style={{
-        display: 'inline-flex'
-      }}
-      >
-        <ArrowDown />
-        <div style={typesStyle}>
-          <div>9</div>
-          <div>1</div>
-        </div>
-      </div>
-    )
-  }
+const numeric = {
+  asc: order(<ArrowDown />, '1', '9'),
+  desc: order(<ArrowDown />, '9', '1')
 }
+
+const types = {alphabetical, numeric}
 
 const Head = ({headers, order, sort, actived}) => (
   <tbody>

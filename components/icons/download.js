@@ -22,17 +22,6 @@ const DownloadIcon = ({color, size}) => (
       <line x1='12' y1='15' x2='12' y2='3' />
     </svg>
 
-    <style jsx global>{`
-      .circle {
-        border: 3px solid black;
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      `}</style>
   </div>
 )
 
