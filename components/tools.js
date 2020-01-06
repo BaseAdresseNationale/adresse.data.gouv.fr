@@ -25,7 +25,7 @@ const titles = [
   },
   {
     title: 'L’API',
-    href: 'https://geo.api.gouv.fr/adresse',
+    href: '/api',
     description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
     icon: <FaTerminal />
   },
