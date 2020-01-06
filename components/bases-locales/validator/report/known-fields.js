@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaClose from 'react-icons/lib/fa/close'
-import FaCheck from 'react-icons/lib/fa/check'
-import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
+import {Check, X, AlertTriangle} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -36,13 +34,13 @@ const KnownFields = ({found, alias}) => (
           {found.includes(field) ?
             (alias[field] ? (
               <>
-                <td className='warning'><FaExclamationTriangle /></td>
+                <td className='warning'><AlertTriangle /></td>
                 <td className='warning message'><b>{alias[field]}</b> n’est pas standard</td>
               </>
             ) : (
-              <td className='found'><FaCheck /></td>
+              <td className='found'><Check /></td>
             )) : (
-              <td className='not-found'><FaClose /></td>
+              <td className='not-found'><X /></td>
             )}
         </tr>
       ))}

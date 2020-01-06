@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {shuffle} from 'lodash'
-import FaCheckSquareO from 'react-icons/lib/fa/check-square-o'
-import FaPlus from 'react-icons/lib/fa/plus'
-import FaEdit from 'react-icons/lib/fa/edit'
+import {CheckSquare, Plus, Edit} from 'react-feather'
 
 import theme from '../../styles/theme'
 
@@ -55,7 +53,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             size='large'
             href='/bases-locales/validateur'
           >
-            Valider vos données au format BAL <FaCheckSquareO />
+            Valider vos données au format BAL <CheckSquare style={{verticalAlign: 'middle', marginLeft: '3px'}} />
           </ButtonLink>
         </div>
       </Section>
@@ -74,7 +72,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
               size='large'
               href='https://editeur.adresse.data.gouv.fr/new'
             >
-              Créer une nouvelle Base Adresse Locale <FaPlus />
+              Créer une nouvelle Base Adresse Locale <Plus style={{verticalAlign: 'middle', marginLeft: '3px'}} />
             </ButtonLink>
           </div>
 
@@ -83,7 +81,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
               size='large'
               href='https://editeur.adresse.data.gouv.fr/new/upload'
             >
-              Modifier une Base Adresse Locale existante <FaEdit />
+              Modifier une Base Adresse Locale existante <Edit style={{verticalAlign: 'middle', marginLeft: '3px'}} />
             </ButtonLink>
           </div>
 

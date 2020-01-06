@@ -2,9 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 
+import {Download, Edit3} from 'react-feather'
 import theme from '../styles/theme'
-import DownloadIcon from './icons/download'
-import ContributeIcon from './icons/contribute'
 import ToolsIcon from './icons/tools'
 import ExploreSearch from './explorer/explore-search'
 
@@ -22,17 +21,26 @@ const Hero = ({title, tagline}) => (
         <div className='data-tools'>
           <Link href='/download'>
             <a>
-              <DownloadIcon />Accéder aux données
+              <div className='circle'>
+                <Download size={48} />
+              </div>
+              Accéder aux données
             </a>
           </Link>
           <Link href='/contribuer'>
             <a>
-              <ContributeIcon />Contribuer à la démarche
+              <div className='circle'>
+                <Edit3 size={48} />
+              </div>
+              Contribuer à la démarche
             </a>
           </Link>
           <Link href='/tools'>
             <a>
-              <ToolsIcon />Découvrir les outils
+              <div className='circle'>
+                <ToolsIcon />
+              </div>
+              Découvrir les outils
             </a>
           </Link>
         </div>
@@ -63,6 +71,16 @@ const Hero = ({title, tagline}) => (
         margin: 2em 0;
         padding: 1em;
         background-color: white;
+      }
+
+      .circle {
+        border: 3px solid black;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       a, .muted {

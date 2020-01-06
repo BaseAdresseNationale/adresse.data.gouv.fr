@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {take, sortBy} from 'lodash'
-import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
-import FaClose from 'react-icons/lib/fa/close'
+import {AlertTriangle, X} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -64,7 +63,7 @@ class Rows extends React.Component {
           <>
             <h4>
               Erreur{errors.length > 1 ? 's' : ''}
-              <div className='summary-icon error'><FaClose /></div>
+              <div className='summary-icon error'><X /></div>
             </h4>
             <div className='list'>
               {sortedErrors.map(error => (
@@ -85,7 +84,7 @@ class Rows extends React.Component {
           <>
             <h4>
               Avertissement{warnings.length > 1 ? 's' : ''}
-              <div className='summary-icon warning'><FaExclamationTriangle /></div>
+              <div className='summary-icon warning'><AlertTriangle /></div>
             </h4>
 
             <div className='list'>

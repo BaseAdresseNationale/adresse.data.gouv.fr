@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaEye from 'react-icons/lib/fa/eye'
+import {Eye} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -43,7 +43,7 @@ class IssueRows extends React.Component {
           <span className='colored'> {issue.message}</span>
 
           {isSelected && (
-            <span className='eye'><FaEye /></span>
+            <span className='eye'><Eye /></span>
           )}
         </div>
 

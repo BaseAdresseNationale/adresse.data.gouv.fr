@@ -1,5 +1,5 @@
 import React from 'react'
-import FaTable from 'react-icons/lib/fa/table'
+import {UserCheck} from 'react-feather'
 import Page from '../../layouts/main'
 
 import Head from '../../components/head'
@@ -9,7 +9,7 @@ const title = 'Le validateur BAL'
 
 export default () => (
   <Page>
-    <Head title={title} icon={<FaTable />} />
+    <Head title={title} icon={<UserCheck size={56} />} />
     <Validator />
   </Page>
 )

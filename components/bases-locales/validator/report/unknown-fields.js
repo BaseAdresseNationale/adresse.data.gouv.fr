@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaQuestion from 'react-icons/lib/fa/question'
+import {HelpCircle} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -16,7 +16,7 @@ const UnknownFields = ({fields}) => (
           {fields.map(field => (
             <tr key={field}>
               <td>{field}</td>
-              <td className='unknown'><FaQuestion /></td>
+              <td className='unknown'><HelpCircle /></td>
             </tr>
           ))}
         </tbody>

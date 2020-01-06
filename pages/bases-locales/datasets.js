@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaDatabase from 'react-icons/lib/fa/database'
+import {Database} from 'react-feather'
 
 import {getDatasets} from '../../lib/bal/api'
 
@@ -23,7 +23,7 @@ class Datasets extends React.Component {
 
     return (
       <Page title={title} description={description}>
-        <Head title={title} icon={<FaDatabase />} />
+        <Head title={title} icon={<Database size={56} />} />
         <BasesAdresseLocales datasets={datasets} />
       </Page>
     )
