@@ -17,6 +17,7 @@ import ProducerDiscussion from '../producer-discussion'
 
 import Breadcrumb from './breadcrumb'
 import CommunePreview from './commune-preview'
+import VoiesCommuneBases from './voies-commune-bases'
 
 class Commune extends React.Component {
   static propTypes = {
@@ -61,7 +62,9 @@ class Commune extends React.Component {
           <CommunePreview commune={commune} />
 
           <div className='list'>
-            <h4>Liste des voies présentes dans le fichier</h4>
+            <div className='voies'>
+              <VoiesCommuneBases voies={commune.voies} />
+            </div>
             <List
               list={commune.voies}
               filter={(voie, input) => byText(voie.nomVoie, input)}
@@ -108,6 +111,10 @@ class Commune extends React.Component {
             color: ${theme.colors.white};
             padding: 1em;
             margin-bottom: 0;
+          }
+
+          .voies {
+            margin-top: 2em;
           }
 
           .infos {
