@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
+import withFetch from '../../../../hoc/with-fetch'
 import VoiesTableBases from './voies-table-bases'
 
 class VoiesCommuneBases extends React.Component {
@@ -37,4 +38,6 @@ class VoiesCommuneBases extends React.Component {
   }
 }
 
-export default VoiesCommuneBases
+export default withFetch(data => ({
+  voies: data.voies
+}))(VoiesCommuneBases)
