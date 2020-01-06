@@ -37,7 +37,10 @@ const Hero = ({title, tagline}) => (
           </Link>
           <Link href='/tools'>
             <a>
-              <ToolsIcon />Découvrir les outils
+              <div className='circle'>
+                <ToolsIcon />
+              </div>
+              Découvrir les outils
             </a>
           </Link>
         </div>
@@ -68,6 +71,16 @@ const Hero = ({title, tagline}) => (
         margin: 2em 0;
         padding: 1em;
         background-color: white;
+      }
+
+      .circle {
+        border: 3px solid black;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       a, .muted {
