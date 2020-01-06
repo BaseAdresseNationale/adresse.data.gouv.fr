@@ -2,17 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
 
-import FaExclamationTriangle from 'react-icons/lib/fa/exclamation-triangle'
-import {byText} from '../../../../../lib/filters'
-
 import theme from '../../../../../styles/theme'
 
 import Section from '../../../../section'
-import Tag from '../../../../tag'
 
 import Header from '../header'
-import List from '../list'
-import Item from '../item'
 import ProducerDiscussion from '../producer-discussion'
 
 import Breadcrumb from './breadcrumb'
@@ -65,42 +59,6 @@ class Commune extends React.Component {
             <div className='voies'>
               <VoiesCommuneBases voies={commune.voies} query={query} />
             </div>
-            <List
-              list={commune.voies}
-              filter={(voie, input) => byText(voie.nomVoie, input)}
-              toItem={voie => {
-                const {numerosCount, codeVoie, nomVoie, source, position} = voie
-                const namedPlace = numerosCount === 0
-
-                return (
-                  <Item
-                    key={codeVoie}
-                    id={codeVoie}
-                    name={nomVoie}
-                    link={numerosCount > 0 || position ? `/bases-locales/jeux-de-donnees/${query.id}/${query.codeCommune}/${codeVoie}` : null}
-                  >
-                    <div className='infos'>
-                      {namedPlace ? (
-                        !position &&
-                        <div className='namedPlace'>
-                          <FaExclamationTriangle /> <span>Ce lieu nommé ne possède pas encore de position renseignée.</span>
-                        </div>
-                      ) : (
-                        <div className='counter'>
-                          <b>{numerosCount}</b> {numerosCount > 1 ? 'numéros' : 'numéro'}
-                        </div>
-                      )}
-
-                      <div className='sources'>
-                        {namedPlace && <Tag type='toponyme' />}
-                        {source.lenght > 0 && (
-                          source.map(source => <Tag key={source} type={source} />)
-                        )}
-                      </div>
-                    </div>
-                  </Item>
-                )
-              }} />
           </div>
         </Section>
 
