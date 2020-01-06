@@ -1,5 +1,5 @@
 import React from 'react'
-import {FileText} from 'react-feather'
+import {UserCheck} from 'react-feather'
 import Page from '../../layouts/main'
 
 import Head from '../../components/head'
@@ -9,7 +9,7 @@ const title = 'Le validateur BAL'
 
 export default () => (
   <Page>
-    <Head title={title} icon={<FileText size={56} />} />
+    <Head title={title} icon={<UserCheck size={56} />} />
     <Validator />
   </Page>
 )

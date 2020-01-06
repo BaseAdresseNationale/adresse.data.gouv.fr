@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import {Map, Terminal, FileText} from 'react-feather'
+import {Map, Terminal, FileText, UserCheck} from 'react-feather'
 
 import theme from '../styles/theme'
 
@@ -31,7 +31,7 @@ const titles = [
     title: 'Le validateur BAL',
     href: '/bases-locales/validateur',
     description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
-    icon: <FileText />
+    icon: <UserCheck />
   }
 ]
 

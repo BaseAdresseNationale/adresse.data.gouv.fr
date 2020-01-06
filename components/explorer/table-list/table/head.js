@@ -5,6 +5,15 @@ import {ArrowDown} from 'react-feather'
 
 import Header from './header'
 
+const typesStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  fontSize: '14px',
+  lineHeight: '14px',
+  marginLeft: '3px',
+  marginTop: '-2px'
+}
+
 const types = {
   alphabetical: {
     asc: (
@@ -13,15 +22,7 @@ const types = {
       }}
       >
         <ArrowDown />
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontSize: '14px',
-          lineHeight: '14px',
-          marginLeft: '3px',
-          marginTop: '-2px'
-        }}
-        >
+        <div style={typesStyle}>
           <div>A</div>
           <div>Z</div>
         </div>
@@ -33,15 +34,7 @@ const types = {
       }}
       >
         <ArrowDown />
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontSize: '14px',
-          lineHeight: '14px',
-          marginLeft: '3px',
-          marginTop: '-2px'
-        }}
-        >
+        <div style={typesStyle}>
           <div>Z</div>
           <div>A</div>
         </div>
@@ -55,15 +48,7 @@ const types = {
       }}
       >
         <ArrowDown />
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontSize: '14px',
-          lineHeight: '14px',
-          marginLeft: '3px',
-          marginTop: '-2px'
-        }}
-        >
+        <div style={typesStyle}>
           <div>1</div>
           <div>9</div>
         </div>
@@ -75,15 +60,7 @@ const types = {
       }}
       >
         <ArrowDown />
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontSize: '14px',
-          lineHeight: '14px',
-          marginLeft: '3px',
-          marginTop: '-2px'
-        }}
-        >
+        <div style={typesStyle}>
           <div>9</div>
           <div>1</div>
         </div>
