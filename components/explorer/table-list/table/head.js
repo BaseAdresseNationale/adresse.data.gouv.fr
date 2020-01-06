@@ -5,9 +5,9 @@ import {ArrowDown} from 'react-feather'
 
 import Header from './header'
 
-const order = (icon, a, b) => (
+const order = (a, b) => (
   <div style={{display: 'inline-flex'}}>
-    {icon}
+    <ArrowDown />
     <div style={{
       display: 'flex',
       flexDirection: 'column',
@@ -24,13 +24,13 @@ const order = (icon, a, b) => (
 )
 
 const alphabetical = {
-  asc: order(<ArrowDown />, 'A', 'Z'),
-  desc: order(<ArrowDown />, 'Z', 'A')
+  asc: order('A', 'Z'),
+  desc: order('Z', 'A')
 }
 
 const numeric = {
-  asc: order(<ArrowDown />, '1', '9'),
-  desc: order(<ArrowDown />, '9', '1')
+  asc: order('1', '9'),
+  desc: order('9', '1')
 }
 
 const types = {alphabetical, numeric}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import colors from '../../styles/colors'
 
+// No "tools" icon provided by react-feather
 const ToolsIcon = ({color, size}) => (
   <div className='circle'>
     {/* Source SVG : https://feathericons.com */}
