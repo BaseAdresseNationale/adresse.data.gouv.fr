@@ -27,7 +27,6 @@ class VoiesCommune extends React.Component {
 
     return (
       <div className='voies'>
-        {console.log(voies)}
         <VoiesTable voies={voies} onSelect={this.handleSelect} />
         <style jsx>{`
           .voies {

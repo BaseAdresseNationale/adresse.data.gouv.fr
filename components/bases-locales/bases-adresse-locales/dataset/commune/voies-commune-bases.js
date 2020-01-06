@@ -1,25 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 
 import VoiesTableBases from './voies-table-bases'
 
 class VoiesCommuneBases extends React.Component {
   static propTypes = {
-    voies: PropTypes.array
+    voies: PropTypes.array,
+    query: PropTypes.object
   }
 
   static defaultProps = {
-    voies: []
+    voies: [],
+    query: []
+  }
+
+  handleSelect = voie => {
+    Router.push(
+      `/bases-locales/jeux-de-donnees/${this.props.query.id}/${this.props.query.codeCommune}/${voie.codeVoie}`
+    )
   }
 
   render() {
-    console.log(this.props)
     const {voies} = this.props
 
     return (
       <div className='voies'>
-        {console.log(voies)}
-        <VoiesTableBases voies={voies} />
+        <VoiesTableBases voies={voies} onSelect={this.handleSelect} />
         <style jsx>{`
           .voies {
             margin-top: 2em;

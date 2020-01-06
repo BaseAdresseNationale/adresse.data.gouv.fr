@@ -63,7 +63,7 @@ class Commune extends React.Component {
 
           <div className='list'>
             <div className='voies'>
-              <VoiesCommuneBases voies={commune.voies} />
+              <VoiesCommuneBases voies={commune.voies} query={query} />
             </div>
             <List
               list={commune.voies}
