@@ -32,12 +32,11 @@ class CommunePage extends React.Component {
   render() {
     const {dataset, commune} = this.props
     const description = `${commune.nom} - ${commune.code}`
-    console.log(commune)
     return (
       <Page title={`Commune de ${commune.nom}`} description={description}>
         <Section>
           <Commune dataset={dataset} commune={commune} />
-          <VoiesCommuneBases promise={commune} voies={commune.voies} query={dataset} />
+          <VoiesCommuneBases voies={commune.voies} query={dataset} />
         </Section>
         <ProducerDiscussion page={dataset.page} />
       </Page>

@@ -66,9 +66,9 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
 }
 
 TableControl.propTypes = {
-  list: PropTypes.array.isRequired,
   headers: PropTypes.array.isRequired,
   genItems: PropTypes.func.isRequired,
+  list: PropTypes.array,
   initialSort: PropTypes.object,
   selected: PropTypes.object,
   handleSelect: PropTypes.func
@@ -76,6 +76,7 @@ TableControl.propTypes = {
 
 TableControl.defaultProps = {
   initialSort: null,
+  list: null,
   selected: null,
   handleSelect: () => {}
 }

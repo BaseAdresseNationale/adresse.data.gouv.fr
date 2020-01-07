@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import {byTags, byText} from '../../../../../../lib/filters'
 
+import LoadingContent from '../../../../../loading-content'
 import Title from './title'
 import TableControl from './table-control'
 import Filters from './filters'
@@ -10,7 +11,7 @@ import Filters from './filters'
 const TableList = ({title, list, headers, genItems, subtitle, initialSort, selected, handleSelect}) => {
   const [text, setText] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
-  const [filteredList, setFilteredList] = useState([])
+  const [filteredList, setFilteredList] = useState(null)
 
   const handleTextFilter = text => {
     setText(text)
@@ -43,6 +44,11 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
   useEffect(() => {
     const filteredList = filterList()
     setFilteredList(filteredList)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const filteredList = filterList()
+    setFilteredList(filteredList)
   }, [filterList, list, selectedTags])
 
   return (
@@ -56,18 +62,20 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
         onFilterTags={handleTags}
       />
 
-      {filteredList.length === 0 ? (
-        <div className='no-result'>Aucun résultat</div>
-      ) : (
-        <TableControl
-          list={filteredList}
-          selected={selected}
-          headers={headers}
-          genItems={genItems}
-          initialSort={initialSort}
-          handleSelect={handleSelect}
-        />
-      )}
+      <LoadingContent loading={!filteredList}>
+        {filteredList !== null && filteredList.length === 0 ? (
+          <div className='no-result'>Aucun résultat</div>
+        ) : (
+          <TableControl
+            list={filteredList}
+            selected={selected}
+            headers={headers}
+            genItems={genItems}
+            initialSort={initialSort}
+            handleSelect={handleSelect}
+          />
+        )}
+      </LoadingContent>
 
       <style jsx>{`
         .no-result {
@@ -81,9 +89,9 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
 
 TableList.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired,
   headers: PropTypes.array.isRequired,
   genItems: PropTypes.func.isRequired,
+  list: PropTypes.array,
   subtitle: PropTypes.string,
   initialSort: PropTypes.object,
   selected: PropTypes.object,
@@ -94,6 +102,7 @@ TableList.defaultProps = {
   subtitle: '',
   initialSort: null,
   selected: null,
+  list: null,
   handleSelect: () => { }
 }
 
