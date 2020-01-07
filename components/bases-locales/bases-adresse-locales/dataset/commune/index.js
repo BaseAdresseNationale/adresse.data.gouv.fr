@@ -4,14 +4,10 @@ import {withRouter} from 'next/router'
 
 import theme from '../../../../../styles/theme'
 
-import Section from '../../../../section'
-
 import Header from '../header'
-import ProducerDiscussion from '../producer-discussion'
 
 import Breadcrumb from './breadcrumb'
 import CommunePreview from './commune-preview'
-import VoiesCommuneBases from './voies-commune-bases'
 
 class Commune extends React.Component {
   static propTypes = {
@@ -40,29 +36,18 @@ class Commune extends React.Component {
   }
 
   render() {
-    const {dataset, commune, router} = this.props
-    const {id, title, organization, page} = dataset
-    const {query} = router
+    const {dataset, commune} = this.props
+    const {id, title, organization} = dataset
 
     return (
       <div>
-        <Section>
-          <Breadcrumb links={[{link: title, href: `/bases-locales/jeux-de-donnees/${id}`}]} current={commune.nom} />
+        <Breadcrumb links={[{link: title, href: `/bases-locales/jeux-de-donnees/${id}`}]} current={commune.nom} />
 
-          <Header
-            name={commune.nom}
-            logo={organization && organization.logo} />
+        <Header
+          name={commune.nom}
+          logo={organization && organization.logo} />
 
-          <CommunePreview commune={commune} />
-
-          <div className='list'>
-            <div className='voies'>
-              <VoiesCommuneBases promise={this.props.commune} voies={commune.voies} query={query} />
-            </div>
-          </div>
-        </Section>
-
-        <ProducerDiscussion page={page} />
+        <CommunePreview commune={commune} />
         <style jsx>{`
           h4 {
             background-color: ${theme.primary};

@@ -18,11 +18,12 @@ class VoiesCommuneBases extends React.Component {
 
   handleSelect = voie => {
     Router.push(
-      `/bases-locales/jeux-de-donnees/${this.props.query.id}/${this.props.query.codeCommune}/${voie.codeVoie}`
+      `/bases-locales/jeux-de-donnees/${this.props.query.id}/${this.props.query.communes[0]}/${voie.codeVoie}`
     )
   }
 
   render() {
+    console.log(this.props)
     const {voies} = this.props
 
     return (
@@ -37,6 +38,7 @@ class VoiesCommuneBases extends React.Component {
     )
   }
 }
+// export default VoiesCommuneBases
 
 export default withFetch(data => ({
   voies: data.voies
