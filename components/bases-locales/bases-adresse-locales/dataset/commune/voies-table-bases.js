@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Tag from '../../../../tag'
 import TableList from './table-list'
 
 class VoiesTableBases extends React.Component {
@@ -38,7 +39,7 @@ class VoiesTableBases extends React.Component {
           key: voie.idVoie,
           values: [
             voie.nomVoie,
-            voie.numerosCount
+            voie.numerosCount === 0 ? <Tag type='toponyme' /> : voie.numerosCount
           ]
         }
       })
