@@ -15,16 +15,7 @@ class CommunePage extends React.Component {
   static propTypes = {
     commune: PropTypes.shape({
       nom: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired,
-      voies: PropTypes.arrayOf(
-        PropTypes.shape({
-          numerosCount: PropTypes.number.isRequired,
-          codeVoie: PropTypes.string.isRequired,
-          nomVoie: PropTypes.string.isRequired,
-          source: PropTypes.array.isRequired,
-          position: PropTypes.object
-        })
-      ).isRequired
+      code: PropTypes.string.isRequired
     }).isRequired,
     dataset: PropTypes.object.isRequired
   }

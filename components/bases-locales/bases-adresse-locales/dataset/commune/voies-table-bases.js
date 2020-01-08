@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Tag from '../../../../tag'
 import TableList from './table-list'
+import NoPositionWarning from './no-position-warning'
 
 class VoiesTableBases extends React.Component {
   static propTypes = {
@@ -20,6 +20,7 @@ class VoiesTableBases extends React.Component {
 
   render() {
     const {voies} = this.props
+    const noPosition = 'Ce lieu nommé ne possède pas encore de position renseignée.'
     const headers = [
       {
         title: 'Nom de voie',
@@ -39,7 +40,7 @@ class VoiesTableBases extends React.Component {
           key: voie.idVoie,
           values: [
             voie.nomVoie,
-            voie.numerosCount === 0 ? <Tag type='toponyme' /> : voie.numerosCount
+            voie.numerosCount === 0 ? (<NoPositionWarning check={voie.position} text={noPosition} />) : voie.numerosCount
           ]
         }
       })

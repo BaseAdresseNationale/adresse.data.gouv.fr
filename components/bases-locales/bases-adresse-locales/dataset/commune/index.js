@@ -17,18 +17,7 @@ class Commune extends React.Component {
       organization: PropTypes.object.isRequired,
       page: PropTypes.string.isRequired
     }).isRequired,
-    commune: PropTypes.shape({
-      nom: PropTypes.string.isRequired,
-      voies: PropTypes.arrayOf(
-        PropTypes.shape({
-          numerosCount: PropTypes.number.isRequired,
-          codeVoie: PropTypes.string.isRequired,
-          nomVoie: PropTypes.string.isRequired,
-          source: PropTypes.array.isRequired,
-          position: PropTypes.object
-        })
-      ).isRequired
-    }).isRequired,
+    commune: PropTypes.object.isRequired,
     router: PropTypes.shape({
       push: PropTypes.func.isRequired,
       query: PropTypes.object.isRequired
