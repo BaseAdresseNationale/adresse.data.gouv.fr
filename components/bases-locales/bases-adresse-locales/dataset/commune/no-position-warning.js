@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {AlertTriangle} from 'react-feather'
+import theme from '../../../../../styles/theme'
 import Tag from '../../../../tag'
 
 const NoPositionWarning = ({check, text}) => {
@@ -15,7 +16,7 @@ const NoPositionWarning = ({check, text}) => {
   if (!check) {
     return (
       <div className='no-position-container'>
-        <AlertTriangle className='alert-icon' color='red' />
+        <AlertTriangle className='alert-icon' />
         <span className='noPosition'>{text}</span>
         <Tag type='toponyme' />
         <style jsx>{`
@@ -23,14 +24,11 @@ const NoPositionWarning = ({check, text}) => {
             display: flex;
             justify-content: center;
             align-items: center;
+            color: ${theme.errorBorder};
           }
 
           .alert-icon, .noPosition {
             margin: 0 1em;
-          }
-
-          .noPosition {
-            color: red;
           }
         `}</style>
       </div>
