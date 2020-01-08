@@ -6,23 +6,23 @@ import VoiesTableBases from './voies-table-bases'
 
 class VoiesCommuneBases extends React.Component {
   static propTypes = {
-    voies: PropTypes.array,
-    query: PropTypes.object
+    query: PropTypes.object,
+    commune: PropTypes.object
   }
 
   static defaultProps = {
-    voies: [],
-    query: []
+    query: [],
+    commune: []
   }
 
   handleSelect = voie => {
     Router.push(
-      `/bases-locales/jeux-de-donnees/${this.props.query.id}/${this.props.query.communes[0]}/${voie.codeVoie}`
+      `/bases-locales/jeux-de-donnees/${this.props.query.id}/${this.props.commune.code}/${voie.codeVoie}`
     )
   }
 
   render() {
-    const {voies} = this.props
+    const {voies} = this.props.commune
 
     return (
       <div className='voies'>

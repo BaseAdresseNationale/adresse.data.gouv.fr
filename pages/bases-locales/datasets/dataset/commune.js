@@ -36,7 +36,7 @@ class CommunePage extends React.Component {
       <Page title={`Commune de ${commune.nom}`} description={description}>
         <Section>
           <Commune dataset={dataset} commune={commune} />
-          <VoiesCommuneBases voies={commune.voies} query={dataset} />
+          <VoiesCommuneBases query={dataset} commune={commune} />
         </Section>
         <ProducerDiscussion page={dataset.page} />
       </Page>
