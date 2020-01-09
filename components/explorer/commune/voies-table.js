@@ -32,7 +32,7 @@ class VoiesTable extends React.Component {
       {
         title: 'Nombre d’adresses',
         type: 'numeric',
-        func: voie => voie.numeros
+        func: voie => voie.numerosCount
       },
       {title: 'Source'}
     ]
