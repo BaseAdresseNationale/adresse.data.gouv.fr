@@ -16,6 +16,10 @@ class VoiesCommuneBases extends React.Component {
   }
 
   handleSelect = voie => {
+    if (voie.numerosCount === 0 && !voie.position) {
+      return null
+    }
+
     Router.push(
       `/bases-locales/jeux-de-donnees/${this.props.query.id}/${this.props.commune.code}/${voie.codeVoie}`
     )

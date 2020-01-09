@@ -37,8 +37,8 @@ const NoPositionWarning = ({check, text}) => {
 }
 
 NoPositionWarning.propTypes = {
-  text: PropTypes.string.isRequired,
-  check: PropTypes.object.isRequired
+  check: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired
 }
 
 export default NoPositionWarning
