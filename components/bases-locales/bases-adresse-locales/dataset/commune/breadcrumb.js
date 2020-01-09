@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import FaAngleRight from 'react-icons/lib/fa/angle-right'
+import {ChevronRight} from 'react-feather'
 
 import theme from '../../../../../styles/theme'
 
@@ -21,7 +21,7 @@ class Breadcrumb extends React.Component {
             <Link href={link.href}>
               <a>{link.link}</a>
             </Link>
-            {idx < links.length && <FaAngleRight />}
+            {idx < links.length && <ChevronRight />}
           </Fragment>
         ))}
         {current}

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import FaCheck from 'react-icons/lib/fa/check'
-import FaClose from 'react-icons/lib/fa/close'
+import {Check, X} from 'react-feather'
 
 import Info from './info'
 
@@ -16,7 +15,7 @@ class InfoReport extends React.Component {
 
     return (
       <Info title='Conformité' type={isValid ? 'valid' : 'not-valid'}>
-        {isValid ? <FaCheck /> : <FaClose />}
+        {isValid ? <Check /> : <X size={14} />}
 
         <div className='info-report'>
           <Link href={`/bases-locales/jeux-de-donnees/${id}/rapport`}>

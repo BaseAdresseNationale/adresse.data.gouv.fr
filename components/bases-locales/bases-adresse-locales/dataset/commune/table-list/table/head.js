@@ -1,21 +1,71 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaSortAlphaAsc from 'react-icons/lib/fa/sort-alpha-asc'
-import FaSortAlphaDesc from 'react-icons/lib/fa/sort-alpha-desc'
-import FaSortNumericAsc from 'react-icons/lib/fa/sort-numeric-asc'
-import FaSortNumericDesc from 'react-icons/lib/fa/sort-numeric-desc'
+import {ArrowDown} from 'react-feather'
 
 import Header from './header'
 
+const arrowStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  fontSize: '14px',
+  lineHeight: '14px',
+  marginLeft: '3px',
+  marginTop: '-2px'
+}
+
 const types = {
   alphabetical: {
-    asc: <FaSortAlphaAsc />,
-    desc: <FaSortAlphaDesc />
+    asc: (
+      <div style={{
+        display: 'inline-flex'
+      }}
+      >
+        <ArrowDown />
+        <div style={arrowStyle}>
+          <div>A</div>
+          <div>Z</div>
+        </div>
+      </div>
+    ),
+    desc: (
+      <div style={{
+        display: 'inline-flex'
+      }}
+      >
+        <ArrowDown />
+        <div style={arrowStyle}>
+          <div>Z</div>
+          <div>A</div>
+        </div>
+      </div>
+    )
   },
   numeric: {
-    asc: <FaSortNumericAsc />,
-    desc: <FaSortNumericDesc />
+    asc: (
+      <div style={{
+        display: 'inline-flex'
+      }}
+      >
+        <ArrowDown />
+        <div style={arrowStyle}>
+          <div>1</div>
+          <div>9</div>
+        </div>
+      </div>
+    ),
+    desc: (
+      <div style={{
+        display: 'inline-flex'
+      }}
+      >
+        <ArrowDown />
+        <div style={arrowStyle}>
+          <div>9</div>
+          <div>1</div>
+        </div>
+      </div>
+    )
   }
 }
 

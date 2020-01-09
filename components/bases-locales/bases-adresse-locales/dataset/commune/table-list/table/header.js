@@ -6,7 +6,7 @@ const Header = ({title, sort, icon, isActived}) => (
   <th onClick={sort}>
     <div className='order-by'>
       <div>{title}</div>
-      {icon && <div className={`icon ${isActived ? 'active' : ''}`}>
+      {icon && <div className={`icon-head ${isActived ? 'active' : ''}`}>
         {icon}
       </div>}
     </div>
@@ -34,12 +34,12 @@ const Header = ({title, sort, icon, isActived}) => (
         align-items: center;
       }
 
-      .icon {
+      .icon-head {
         font-size: 25px;
         color: #ffffff8f;
       }
 
-      .icon.active {
+      .icon-head.active {
         color: white;
       }
 
