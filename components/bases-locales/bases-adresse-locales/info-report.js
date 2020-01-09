@@ -15,7 +15,7 @@ class InfoReport extends React.Component {
 
     return (
       <Info title='Conformité' type={isValid ? 'valid' : 'not-valid'}>
-        {isValid ? <Check /> : <X size={14} />}
+        {isValid ? <Check size={14} /> : <X size={14} />}
 
         <div className='info-report'>
           <Link href={`/bases-locales/jeux-de-donnees/${id}/rapport`}>

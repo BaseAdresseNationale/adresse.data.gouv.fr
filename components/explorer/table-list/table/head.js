@@ -1,23 +1,39 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FaSortAlphaAsc from 'react-icons/lib/fa/sort-alpha-asc'
-import FaSortAlphaDesc from 'react-icons/lib/fa/sort-alpha-desc'
-import FaSortNumericAsc from 'react-icons/lib/fa/sort-numeric-asc'
-import FaSortNumericDesc from 'react-icons/lib/fa/sort-numeric-desc'
+import {ArrowDown} from 'react-feather'
 
 import Header from './header'
 
-const types = {
-  alphabetical: {
-    asc: <FaSortAlphaAsc />,
-    desc: <FaSortAlphaDesc />
-  },
-  numeric: {
-    asc: <FaSortNumericAsc />,
-    desc: <FaSortNumericDesc />
-  }
+const order = (a, b) => (
+  <div style={{display: 'inline-flex'}}>
+    <ArrowDown />
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      fontSize: '14px',
+      lineHeight: '14px',
+      marginLeft: '3px',
+      marginTop: '-2px'
+    }}
+    >
+      <div>{a}</div>
+      <div>{b}</div>
+    </div>
+  </div>
+)
+
+const alphabetical = {
+  asc: order('A', 'Z'),
+  desc: order('Z', 'A')
 }
+
+const numeric = {
+  asc: order('1', '9'),
+  desc: order('9', '1')
+}
+
+const types = {alphabetical, numeric}
 
 const Head = ({headers, order, sort, actived}) => (
   <tbody>

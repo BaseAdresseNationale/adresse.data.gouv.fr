@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaCheck from 'react-icons/lib/fa/check'
-import FaClose from 'react-icons/lib/fa/close'
+import {Check, X} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -10,7 +9,7 @@ const CsvMeta = ({name, value, isValid}) => {
     <div>
       <div className='item'>
         <div><b>{name}</b></div>
-        {isValid ? <div className='check'><FaCheck /></div> : <div className='error'><FaClose /></div>}
+        {isValid ? <div className='check'><Check /></div> : <div className='error'><X /></div>}
       </div>
       <div>{value}</div>
       <style jsx>{`

@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
-import FaFile from 'react-icons/lib/fa/file'
-import FaPlus from 'react-icons/lib/fa/plus'
+import {Plus, File} from 'react-feather'
 
 function Holder({file, placeholder, onDrop}) {
   return (
@@ -14,7 +13,7 @@ function Holder({file, placeholder, onDrop}) {
         return (
           <div {...rootProps} className={`dropzone ${isDragActive ? 'active' : ''}`}>
             <input {...inputProps} />
-            <div className='drop-icon'>{file && !isDragActive ? <FaFile /> : <FaPlus />}</div>
+            <div className='drop-icon'>{file && !isDragActive ? <File size={72} /> : <Plus size={72} />}</div>
             <div>{file ? file.name : placeholder}</div>
 
             <style jsx>{`

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import FaSearch from 'react-icons/lib/fa/search'
+import {Search} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -36,7 +36,7 @@ class Preview extends React.Component {
       <div>
         <div className='search'>
           <input className='search' type='text' value={input} placeholder='Rechercher…' onChange={this.handleChange} />
-          <span><FaSearch /></span>
+          <span><Search style={{marginLeft: '-3px', verticalAlign: 'middle'}} /></span>
         </div>
 
         <div className='table'>

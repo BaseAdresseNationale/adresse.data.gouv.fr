@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import DownloadIcon from 'react-icons/lib/fa/download'
-import MdFileDownload from 'react-icons/lib/md/file-download'
+import {Download} from 'react-feather'
 
 import Page from '../layouts/main'
 
@@ -17,7 +16,7 @@ const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<DownloadIcon />} />
+    <Head title={title} icon={<Download size={56} />} />
 
     <Notification isFullWidth>
       Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier Ministre</a>, la Base Adresse Nationale est disponible intégralement sous <strong>Licence Ouverte</strong> depuis le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
@@ -53,7 +52,7 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<MdFileDownload /></a></li>
+              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<span className='icon'><Download size={16} /></span></a></li>
             </ul>
           </div>
         </div>
@@ -86,8 +85,8 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV<MdFileDownload /></a></li>
-              <li><a href='/data/ban/adresses-odbl/latest/addok'>Format JSON pour Addok<MdFileDownload /></a></li>
+              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV<span className='icon'><Download size={16} /></span></a></li>
+              <li><a href='/data/ban/adresses-odbl/latest/addok'>Format JSON pour Addok<span className='icon'><Download size={16} /></span></a></li>
             </ul>
           </div>
         </div>
@@ -202,6 +201,11 @@ export default () => (
           height: auto;
           max-width: 600px;
           margin: 50px;
+        }
+
+        .icon {
+          vertical-align: sub;
+          margin-left: 5px;
         }
       `}</style>
   </Page>

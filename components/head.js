@@ -44,7 +44,7 @@ const Head = ({title, icon, isBeta}) => (
       }
 
       .icon {
-        font-size: 56px;
+        font-size: 50px;
       }
 
       h1 {

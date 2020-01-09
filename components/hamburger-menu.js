@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import FaBars from 'react-icons/lib/md/menu'
-import FaClose from 'react-icons/lib/md/close'
+import {Menu, X} from 'react-feather'
 
 import theme from '../styles/theme'
 
@@ -34,7 +33,7 @@ class HamburgerMenu extends React.Component {
     return (
       <div className='dropdown'>
         <div onClick={this.handleMenu}>
-          {visible ? <FaClose size={22} /> : <FaBars size={22} />}
+          {visible ? <X size={22} /> : <Menu size={22} />}
         </div>
 
         {visible && (

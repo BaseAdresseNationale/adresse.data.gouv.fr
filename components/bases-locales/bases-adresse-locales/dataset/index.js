@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withRouter} from 'next/router'
-import MdFileDownload from 'react-icons/lib/md/file-download'
+import {Download} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 import {byText} from '../../../../lib/filters'
@@ -41,7 +41,7 @@ class Dataset extends React.Component {
 
           {url && <div className='links'>
             <ButtonLink href={url} size='large' >
-              Télécharger <MdFileDownload />
+              Télécharger <Download style={{verticalAlign: 'middle', marginLeft: '3px'}} />
             </ButtonLink>
           </div>}
 

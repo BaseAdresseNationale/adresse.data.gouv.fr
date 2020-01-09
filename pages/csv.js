@@ -1,5 +1,5 @@
 import React from 'react'
-import FaTable from 'react-icons/lib/fa/table'
+import {FileText} from 'react-feather'
 import Page from '../layouts/main'
 
 import Head from '../components/head'
@@ -10,7 +10,7 @@ const description = 'adresse.data.gouv.fr met en place des outils pour une prise
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaTable />} />
+    <Head title={title} icon={<FileText size={56} />} />
     <Csv />
   </Page>
 )

@@ -1,5 +1,5 @@
 import React from 'react'
-import FaQuestion from 'react-icons/lib/fa/question'
+import {HelpCircle} from 'react-feather'
 import Link from 'next/link'
 
 import Page from '../layouts/main'
@@ -12,7 +12,7 @@ const description = 'Questions les plus fréquemment posées.'
 
 export default () => (
   <Page title={title} description={description}>
-    <Head title={title} icon={<FaQuestion />} />
+    <Head title={title} icon={<HelpCircle size={56} />} />
     <Section>
       <div className='faq-row'>
         <div className='theme'>
