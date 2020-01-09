@@ -17,7 +17,6 @@ import Item from './item'
 import Header from './header'
 import Description from './description'
 import CommunesPreview from './communes-preview'
-import ProducerDiscussion from './producer-discussion'
 
 class Dataset extends React.Component {
   static propTypes = {
@@ -75,8 +74,6 @@ class Dataset extends React.Component {
               )} />
           </div>
         </Section>
-
-        <ProducerDiscussion page={page} />
 
         <style jsx>{`
           h4 {

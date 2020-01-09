@@ -7,7 +7,6 @@ import Page from '../../../../layouts/main'
 import withErrors from '../../../../components/hoc/with-errors'
 
 import Commune from '../../../../components/bases-locales/bases-adresse-locales/dataset/commune'
-import ProducerDiscussion from '../../../../components/bases-locales/bases-adresse-locales/dataset/producer-discussion'
 import VoiesCommuneBases from '../../../../components/bases-locales/bases-adresse-locales/dataset/commune/voies-commune-bases'
 import Section from '../../../../components/section'
 
@@ -29,7 +28,6 @@ class CommunePage extends React.Component {
           <Commune dataset={dataset} commune={commune} />
           <VoiesCommuneBases query={dataset} commune={commune} />
         </Section>
-        <ProducerDiscussion page={dataset.page} />
       </Page>
     )
   }

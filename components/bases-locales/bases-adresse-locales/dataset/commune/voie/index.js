@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import Section from '../../../../../section'
 
 import Header from '../../header'
-import ProducerDiscussion from '../../producer-discussion'
 
 import Breadcrumb from '../breadcrumb'
 
@@ -19,7 +18,7 @@ class Voie extends React.Component {
 
   render() {
     const {dataset, commune, voie} = this.props
-    const {id, title, organization, page} = dataset
+    const {id, title, organization} = dataset
 
     return (
       <div>
@@ -42,8 +41,6 @@ class Voie extends React.Component {
 
           <VoiePreview voie={voie} />
         </Section>
-
-        <ProducerDiscussion page={page} />
       </div>
     )
   }
