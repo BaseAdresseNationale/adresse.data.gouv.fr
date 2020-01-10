@@ -5,7 +5,7 @@ import {getTypeByPriority} from '../../../lib/types'
 
 import {tagsList} from '../../../lib/table'
 
-import TableList from '../table-list'
+import TableList from '../../table-list'
 
 class VoiesTable extends React.Component {
   static propTypes = {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../styles/theme'
+import theme from '../../../styles/theme'
 
 function fadeOut(wrapped, idx) {
   return wrapped && idx === 8 ? 'fade-out' : ''

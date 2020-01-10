@@ -1,8 +1,8 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 
-import {byTags, byText} from '../../../lib/filters'
-import {getTypeByPriority, unionTypes} from '../../../lib/types'
+import {byTags, byText} from '../../lib/filters'
+import {getTypeByPriority, unionTypes} from '../../lib/types'
 
 import Title from './title'
 import TableControl from './table-control'

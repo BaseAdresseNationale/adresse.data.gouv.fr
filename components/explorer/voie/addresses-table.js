@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {tagsList} from '../../../lib/table'
 import {getTypeByPriority} from '../../../lib/types'
 
-import TableList from '../table-list'
+import TableList from '../../table-list'
 
 class AddressesTable extends React.Component {
   static propTypes = {
