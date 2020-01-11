@@ -8,7 +8,8 @@ import VoiesTable from './voies-table'
 
 class VoiesCommune extends React.Component {
   static propTypes = {
-    voies: PropTypes.array
+    voies: PropTypes.array,
+    code: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -18,7 +19,7 @@ class VoiesCommune extends React.Component {
   handleSelect = voie => {
     Router.push(
       `/commune/voie?idVoie=${voie.idVoie}`,
-      `/explore/commune/${voie.codeCommune}/voie/${voie.idVoie}`
+      `/explore/commune/${this.props.code}/voie/${voie.idVoie}`
     )
   }
 
