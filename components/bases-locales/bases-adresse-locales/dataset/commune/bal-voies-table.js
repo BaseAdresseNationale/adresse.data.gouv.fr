@@ -1,15 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
+import TableList from '../../../../table-list'
 
-import {getTypeByPriority} from '../../../lib/types'
+const BalVoiesTable = ({commune, voies}) => {
+  const handleSelect = voie => {
+    Router.push(
+      `/commune/voie?idVoie=${voie.idVoie}`,
+      `/explore/commune/${commune.code}/voie/${voie.idVoie}`
+    )
+  }
 
-import {tagsList} from '../../../lib/table'
-
-import TableList from '../../table-list'
-
-const VoiesTable = ({voies, onSelect}) => {
   const selectVoie = item => {
-    onSelect(
+    handleSelect(
       voies.find(voie => voie.idVoie === item.key)
     )
   }
@@ -24,18 +27,15 @@ const VoiesTable = ({voies, onSelect}) => {
       title: 'Nombre d’adresses',
       type: 'numeric',
       func: voie => voie.numerosCount
-    },
-    {title: 'Source'}
+    }
   ]
-
   const genItems = voies => {
     return voies.map(voie => {
       return {
         key: voie.idVoie,
         values: [
           voie.nomVoie,
-          voie.numerosCount,
-          tagsList(getTypeByPriority(voie.sources))
+          voie.numerosCount
         ]
       }
     })
@@ -53,9 +53,9 @@ const VoiesTable = ({voies, onSelect}) => {
   )
 }
 
-VoiesTable.propTypes = {
-  voies: PropTypes.array.isRequired,
-  onSelect: PropTypes.func.isRequired
+BalVoiesTable.propTypes = {
+  commune: PropTypes.object.isRequired,
+  voies: PropTypes.array.isRequired
 }
 
-export default VoiesTable
+export default BalVoiesTable

@@ -36,12 +36,11 @@ class TableList extends React.Component {
 
   render() {
     const {text, sources, selectedTags, onFilterTags} = this.props
-
     return (
       <div>
         <div className='filter-1'>
           <input className='search' type='text' value={text} placeholder='Rechercher…' onChange={this.handleChange} />
-          {sources &&
+          {sources.length >= 2 &&
             <div className='tags'>
               <TagsInput
                 title='Sources'
