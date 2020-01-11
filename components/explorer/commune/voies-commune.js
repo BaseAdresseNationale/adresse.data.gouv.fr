@@ -6,37 +6,33 @@ import withFetch from '../../hoc/with-fetch'
 
 import VoiesTable from './voies-table'
 
-class VoiesCommune extends React.Component {
-  static propTypes = {
-    voies: PropTypes.array,
-    code: PropTypes.string.isRequired
-  }
-
-  static defaultProps = {
-    voies: []
-  }
-
-  handleSelect = voie => {
+const VoiesCommune = ({voies, code}) => {
+  const handleSelect = voie => {
     Router.push(
       `/commune/voie?idVoie=${voie.idVoie}`,
-      `/explore/commune/${this.props.code}/voie/${voie.idVoie}`
+      `/explore/commune/${code}/voie/${voie.idVoie}`
     )
   }
 
-  render() {
-    const {voies} = this.props
+  return (
+    <div className='voies'>
+      <VoiesTable voies={voies} onSelect={handleSelect} />
+      <style jsx>{`
+        .voies {
+          margin-top: 2em;
+        }
+        `}</style>
+    </div>
+  )
+}
 
-    return (
-      <div className='voies'>
-        <VoiesTable voies={voies} onSelect={this.handleSelect} />
-        <style jsx>{`
-          .voies {
-            margin-top: 2em;
-          }
-          `}</style>
-      </div>
-    )
-  }
+VoiesCommune.propTypes = {
+  voies: PropTypes.array,
+  code: PropTypes.string.isRequired
+}
+
+VoiesCommune.defaultProps = {
+  voies: []
 }
 
 export default withFetch(data => ({

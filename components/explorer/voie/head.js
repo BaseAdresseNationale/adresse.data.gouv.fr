@@ -65,7 +65,7 @@ Head.propTypes = {
     }).isRequired
   }),
   voie: PropTypes.object.isRequired,
-  numero: PropTypes.string,
+  numero: PropTypes.number,
   suffixe: PropTypes.string
 }
 

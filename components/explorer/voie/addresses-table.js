@@ -10,7 +10,7 @@ class AddressesTable extends React.Component {
   static propTypes = {
     addresses: PropTypes.array.isRequired,
     numero: PropTypes.shape({
-      numero: PropTypes.string.isRequired,
+      numero: PropTypes.number.isRequired,
       position: PropTypes.object.isRequired,
       sources: PropTypes.array.isRequired
     }),
