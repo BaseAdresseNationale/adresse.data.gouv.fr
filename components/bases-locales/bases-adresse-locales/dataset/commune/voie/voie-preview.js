@@ -11,11 +11,32 @@ import Tag from '../../../../../tag'
 import Mapbox from '../../../../../mapbox'
 
 import Item from '../../item'
+import TableList from '../../../../../table-list'
+import BalTypes from './bal-types'
+import BalSources from './bal-sources'
 
 const VoiePreview = ({voie}) => {
   const [toponyme, setToponyme] = useState(null)
   const [numeros, setNumeros] = useState(null)
   const [bbox, setBbox] = useState(null)
+  const headers = [
+    {title: 'Numéro'},
+    {title: 'Type'},
+    {title: 'Sources'}
+  ]
+
+  const genItems = numeros => {
+    return numeros.map(numero => {
+      return {
+        key: numero.id,
+        values: [
+          numero.numeroComplet,
+          <BalTypes positions={numero.positions} /> ? <BalTypes positions={numero.positions} /> : 'numero.positions',
+          <BalSources sources={numero.source} /> ? <BalSources sources={numero.source} /> : 'null source'
+        ]
+      }
+    })
+  }
 
   useEffect(() => {
     if (voie.position) {
@@ -48,6 +69,12 @@ const VoiePreview = ({voie}) => {
           )}
         </Mapbox>
       </div>}
+      <TableList
+        title='Adresses de la voie'
+        subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : (voie.numerosCount === 0 ? 'aucune adresse répertoriée' : `${voie.numerosCount} adresses répertoriées`)}
+        list={voie.numeros}
+        headers={headers}
+        genItems={genItems} />
 
       {voie.position && !numeros && (
         <>

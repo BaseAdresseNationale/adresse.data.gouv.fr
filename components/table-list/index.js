@@ -95,20 +95,21 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
 
 TableList.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired,
   headers: PropTypes.array.isRequired,
   genItems: PropTypes.func.isRequired,
   subtitle: PropTypes.string,
   initialSort: PropTypes.object,
   selected: PropTypes.object,
-  handleSelect: PropTypes.func
+  handleSelect: PropTypes.func,
+  list: PropTypes.array
 }
 
 TableList.defaultProps = {
   subtitle: '',
   initialSort: null,
   selected: null,
-  handleSelect: () => { }
+  handleSelect: () => { },
+  list: []
 }
 
 export default TableList
