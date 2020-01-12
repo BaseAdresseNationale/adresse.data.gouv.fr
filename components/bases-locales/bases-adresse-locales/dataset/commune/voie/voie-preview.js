@@ -31,8 +31,8 @@ const VoiePreview = ({voie}) => {
         key: numero.id,
         values: [
           numero.numeroComplet,
-          <BalTypes positions={numero.positions} /> ? <BalTypes positions={numero.positions} /> : 'numero.positions',
-          <BalSources sources={numero.source} /> ? <BalSources sources={numero.source} /> : 'null source'
+          <BalTypes key={numero.id} positions={numero.positions} />,
+          <BalSources key={numero.id} sources={numero.source} />
         ]
       }
     })
