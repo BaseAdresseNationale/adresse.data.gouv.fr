@@ -49,7 +49,7 @@ class AddressesTable extends React.Component {
       <div className='voies'>
         <TableList
           title='Adresses de la voie'
-          subtitle={`${addresses.length} adresses répertoriées`}
+          subtitle={addresses.length === 1 ? `${addresses.length} adresse répertoriée` : `${addresses.length} adresses répertoriées`}
           list={addresses}
           headers={headers}
           genItems={genItems}

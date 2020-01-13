@@ -69,12 +69,14 @@ const VoiePreview = ({voie}) => {
           )}
         </Mapbox>
       </div>}
-      <TableList
-        title='Adresses de la voie'
-        subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : (voie.numerosCount === 0 ? 'aucune adresse répertoriée' : `${voie.numerosCount} adresses répertoriées`)}
-        list={voie.numeros}
-        headers={headers}
-        genItems={genItems} />
+      {voie.numerosCount > 0 && (
+        <TableList
+          title='Adresses de la voie'
+          subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
+          list={voie.numeros}
+          headers={headers}
+          genItems={genItems} />
+      )}
 
       {voie.position && !numeros && (
         <>

@@ -52,7 +52,7 @@ const VoiesCommune = ({voies, commune}) => {
     <div className='voies'>
       <TableList
         title='Voies de la commune'
-        subtitle={`${voies.length} voies répertoriées`}
+        subtitle={voies.length === 1 ? `${voies.length} adresse répertoriée` : `${voies.length} adresses répertoriées`}
         list={voies}
         headers={headers}
         genItems={genItems}
