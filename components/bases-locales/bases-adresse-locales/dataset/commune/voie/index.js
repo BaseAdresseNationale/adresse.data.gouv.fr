@@ -37,7 +37,7 @@ class Voie extends React.Component {
             logo={organization && organization.logo}
             info={{
               title: 'Dernière mise à jour',
-              children: localDate ? localDate : 'inconnue'
+              children: voie.dateMAJ ? (new Date(voie.dateMAJ).toLocaleDateString().split('/').join('-')) : 'inconnue'
             }}
             isPlaceName={voie.numerosCount === 0} />
 
