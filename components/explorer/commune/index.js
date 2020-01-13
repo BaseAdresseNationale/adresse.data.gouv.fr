@@ -65,6 +65,7 @@ const Commune = ({commune}) => {
         }
 
         .preview {
+          display: inherit;
           flex-direction: column;
         }
       }
