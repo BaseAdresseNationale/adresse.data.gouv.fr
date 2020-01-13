@@ -52,7 +52,7 @@ class BalCoverMap extends React.Component {
             'case',
             ['boolean', ['feature-state', 'hover'], false],
             0.5,
-            0.1
+            0.2
           ]
         },
         filter: ['==', '$type', 'Polygon']
@@ -63,7 +63,7 @@ class BalCoverMap extends React.Component {
         source: 'data',
         paint: {
           'line-color': theme.colors.green,
-          'line-width': 2
+          'line-width': 1
         },
         filter: ['==', '$type', 'Polygon']
       }
