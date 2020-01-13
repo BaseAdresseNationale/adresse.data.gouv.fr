@@ -47,14 +47,7 @@ class BalCoverMap extends React.Component {
         type: 'fill',
         source: 'data',
         paint: {
-          'fill-color': [
-            'case',
-            ['==', ['get', 'license'], 'odc-odbl'],
-            theme.colors.orange,
-            ['==', ['get', 'license'], 'lov2'],
-            theme.colors.green,
-            theme.colors.red
-          ],
+          'fill-color': theme.colors.green,
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'hover'], false],
@@ -69,14 +62,7 @@ class BalCoverMap extends React.Component {
         type: 'line',
         source: 'data',
         paint: {
-          'line-color': [
-            'case',
-            ['==', ['get', 'license'], 'odc-odbl'],
-            theme.colors.orange,
-            ['==', ['get', 'license'], 'lov2'],
-            theme.colors.green,
-            theme.colors.red
-          ],
+          'line-color': theme.colors.green,
           'line-width': 2
         },
         filter: ['==', '$type', 'Polygon']
@@ -153,10 +139,7 @@ class BalCoverMap extends React.Component {
     return (
       <div className='legend'>
         <div>
-          <i className='lov2' /> BAL disponible sous Licence Ouverte
-        </div>
-        <div>
-          <i className='odbl' /> BAL disponible sous licence ODbL
+          <i className='bal' /> Communes couvertes par une Base Adresse Locale
         </div>
 
         <style jsx>{`
@@ -177,12 +160,8 @@ class BalCoverMap extends React.Component {
             opacity: .7;
           }
 
-          .legend .lov2 {
+          .legend .bal {
             background: ${theme.colors.green};
-          }
-
-          .legend .odbl {
-            background: ${theme.colors.orange};
           }
         `}</style>
       </div>
