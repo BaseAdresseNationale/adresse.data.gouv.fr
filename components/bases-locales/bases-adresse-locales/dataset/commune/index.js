@@ -17,6 +17,18 @@ const Commune = ({commune, voies, dataset}) => {
   const {id, title, organization} = dataset
   const {query, push} = useRouter()
   const noPosition = 'Ce lieu nommé ne possède pas encore de position renseignée.'
+  const headers = [
+    {
+      title: 'Nom de voie',
+      type: 'alphabetical',
+      func: voie => voie.nomVoie
+    },
+    {
+      title: 'Nombre d’adresses',
+      type: 'numeric',
+      func: voie => voie.numerosCount
+    }
+  ]
 
   const selectVoie = item => {
     voies.find(voie => voie.idVoie === item.key)
@@ -33,25 +45,13 @@ const Commune = ({commune, voies, dataset}) => {
     )
   }
 
-  const headers = [
-    {
-      title: 'Nom de voie',
-      type: 'alphabetical',
-      func: voie => voie.nomVoie
-    },
-    {
-      title: 'Nombre d’adresses',
-      type: 'numeric',
-      func: voie => voie.numerosCount
-    }
-  ]
   const genItems = voies => {
     return voies.map(voie => {
       return {
         key: voie.codeVoie,
         values: [
           voie.nomVoie,
-          voie.numerosCount === 0 ? (<NoPositionWarning check={voie.position} text={noPosition} />) : voie.numerosCount
+          voie.numerosCount === 0 ? <NoPositionWarning check={voie.position} text={noPosition} /> : voie.numerosCount
         ]
       }
     })
@@ -67,18 +67,15 @@ const Commune = ({commune, voies, dataset}) => {
           logo={organization && organization.logo} />
 
         <CommunePreview commune={commune} />
-        <div className='list'>
 
-          <TableList
-            title='Voies de la commune'
-            subtitle={`${voies.length} voies répertoriées`}
-            list={voies}
-            headers={headers}
-            genItems={genItems}
-            initialSort={headers[0]}
-            handleSelect={selectVoie} />
-
-        </div>
+        <TableList
+          title='Voies de la commune'
+          subtitle={`${voies.length} voies répertoriées`}
+          list={voies}
+          headers={headers}
+          genItems={genItems}
+          initialSort={headers[0]}
+          handleSelect={selectVoie} />
       </Section>
       <style jsx>{`
         h4 {

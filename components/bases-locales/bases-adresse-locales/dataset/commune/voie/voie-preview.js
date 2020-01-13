@@ -12,6 +12,7 @@ import Mapbox from '../../../../../mapbox'
 
 import Item from '../../item'
 import TableList from '../../../../../table-list'
+import LoadingContent from '../../../../../loading-content'
 import BalTypes from './bal-types'
 import BalSources from './bal-sources'
 
@@ -19,6 +20,7 @@ const VoiePreview = ({voie}) => {
   const [toponyme, setToponyme] = useState(null)
   const [numeros, setNumeros] = useState(null)
   const [bbox, setBbox] = useState(null)
+  const [loading, setLoading] = useState(true)
   const headers = [
     {title: 'Numéro'},
     {title: 'Type'},
@@ -52,6 +54,7 @@ const VoiePreview = ({voie}) => {
 
   useEffect(() => {
     setBbox(toponyme || numeros)
+    setLoading(false)
   }, [numeros, toponyme])
 
   return (
@@ -70,12 +73,14 @@ const VoiePreview = ({voie}) => {
         </Mapbox>
       </div>}
       {voie.numerosCount > 0 && (
-        <TableList
-          title='Adresses de la voie'
-          subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
-          list={voie.numeros}
-          headers={headers}
-          genItems={genItems} />
+        <LoadingContent loading={loading}>
+          <TableList
+            title='Adresses de la voie'
+            subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
+            list={voie.numeros}
+            headers={headers}
+            genItems={genItems} />
+        </LoadingContent>
       )}
 
       {voie.position && !numeros && (
