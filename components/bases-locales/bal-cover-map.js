@@ -138,14 +138,14 @@ class BalCoverMap extends React.Component {
   render() {
     return (
       <div className='legend'>
-        <div>
-          <i className='bal' /> Communes couvertes par une Base Adresse Locale
-        </div>
+        <i className='bal' /> Communes couvertes par une Base Adresse Locale
 
         <style jsx>{`
           .legend {
             z-index: 1;
             position: absolute;
+            display: flex;
+            align-items: center;
             padding: 1em;
             margin: 1em;
             background: #ffffffc4;
