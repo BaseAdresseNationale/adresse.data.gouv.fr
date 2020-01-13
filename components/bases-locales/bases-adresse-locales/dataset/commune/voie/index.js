@@ -19,6 +19,8 @@ class Voie extends React.Component {
   render() {
     const {dataset, commune, voie} = this.props
     const {id, title, organization} = dataset
+    const dateObj = new Date(voie.dateMAJ)
+    const localDate = dateObj.toLocaleDateString().split('/').join('-')
 
     return (
       <div>
@@ -35,7 +37,7 @@ class Voie extends React.Component {
             logo={organization && organization.logo}
             info={{
               title: 'Dernière mise à jour',
-              children: voie.dateMAJ ? voie.dateMAJ : 'inconnue'
+              children: localDate ? localDate : 'inconnue'
             }}
             isPlaceName={voie.numerosCount === 0} />
 

@@ -16,8 +16,10 @@ class CommunesPreview extends React.Component {
   render() {
     const {commune} = this.props
     const {voiesCount, numerosCount, population, dateMAJ} = commune
+    const dateObj = new Date(dateMAJ)
+    const localDate = dateObj.toLocaleDateString().split('/').join('-')
     const infos = [
-      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
+      {title: 'Dernière mise à jour', value: localDate || 'inconnue'},
       {title: 'Nombre de voies', value: spaceThousands(voiesCount)},
       {title: 'Nombre d’adresses', value: spaceThousands(numerosCount)},
       {title: 'Habitants', value: spaceThousands(population)}

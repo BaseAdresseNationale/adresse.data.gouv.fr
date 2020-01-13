@@ -16,7 +16,7 @@ const Body = ({items, isWrapped, selected, handleSelect}) => (
     {items.map((item, idx) => (
       <tr
         key={item.key}
-        className={`${fadeOut(isWrapped, idx)} ${isSelected(selected, item)}`}
+        className={`${fadeOut(isWrapped, idx)} ${selected ? isSelected(selected, item) : null}`}
         onClick={() => handleSelect(item)}
       >
         {item.values.map((value, idx) =>
