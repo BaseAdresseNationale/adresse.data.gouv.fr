@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import computeBbox from '@turf/bbox'
 
 import {numerosToGeoJson, positionToponymeToFeatureCollection} from '../../../../../../lib/geojson'
@@ -7,14 +8,11 @@ import {numerosToGeoJson, positionToponymeToFeatureCollection} from '../../../..
 import theme from '../../../../../../styles/theme'
 
 import AddressesMap from '../../../../../mapbox/addresses-map'
-import Tag from '../../../../../tag'
 import Mapbox from '../../../../../mapbox'
 
-import Item from '../../item'
 import TableList from '../../../../../table-list'
 import LoadingContent from '../../../../../loading-content'
 import BalTypes from './bal-types'
-import BalSources from './bal-sources'
 
 const VoiePreview = ({voie}) => {
   const [toponyme, setToponyme] = useState(null)
@@ -23,9 +21,15 @@ const VoiePreview = ({voie}) => {
   const [loading, setLoading] = useState(true)
   const headers = [
     {title: 'Numéro'},
-    {title: 'Type'},
-    {title: 'Sources'}
+    {title: 'Type'}
   ]
+
+  const handleSelect = voie => {
+    const {id, codeCommune, codeVoie} = Router.query
+    const href = `/bases-locales/jeux-de-donnees/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}${voie.values[0]}`
+    const as = `/bases-locales/jeux-de-donnees/${id}/${codeCommune}/${codeVoie}/numero/${voie.values[0]}`
+    Router.push(href, as)
+  }
 
   const genItems = numeros => {
     return numeros.map(numero => {
@@ -33,8 +37,7 @@ const VoiePreview = ({voie}) => {
         key: numero.id,
         values: [
           numero.numeroComplet,
-          <BalTypes key={numero.id} positions={numero.positions} />,
-          <BalSources key={numero.id} sources={numero.source} />
+          <BalTypes key={numero.id} positions={numero.positions} />
         ]
       }
     })
@@ -68,6 +71,7 @@ const VoiePreview = ({voie}) => {
               {...mapboxProps}
               voies={toponyme}
               numeros={numeros}
+              onSelectNumero={handleSelect}
             />
           )}
         </Mapbox>
@@ -79,54 +83,10 @@ const VoiePreview = ({voie}) => {
             subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
             list={voie.numeros}
             headers={headers}
+            handleSelect={handleSelect}
             genItems={genItems} />
         </LoadingContent>
       )}
-
-      {voie.position && !numeros && (
-        <>
-          <div><b>Sources</b> :</div>
-          <div className='sources'>
-            {voie.position.source.length > 0 && (
-              voie.position.source.map(source => source && <Tag key={source} type={source} />)
-            )}
-          </div>
-        </>
-      )}
-
-      {voie.numeros && voie.numeros.length && (
-        <div>
-          <h4>Liste des numéros présents dans le fichier</h4>
-          <div className='table'>
-            {voie.numeros.map(numero => {
-              const types = numero.positions.map(position => position.type)
-              return (
-                <Item
-                  key={numero.id}
-                  id={numero.id}
-                  name={numero.numeroComplet}
-                >
-                  <div className='infos'>
-                    <div className='sources'>
-                      {types.length > 0 ?
-                        types.map(type => {
-                          return (type && <Tag key={type} type={type} />)
-                        }) :
-                        'Type non renseigné'}
-                    </div>
-                    <div className='sources'>
-                      {numero.source.length > 0 && (
-                        numero.source.map(source => source && <Tag key={source} type={source} />)
-                      )}
-                    </div>
-                  </div>
-                </Item>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
       <style jsx>{`
           .voie-preview-container {
             margin: 1em 0;

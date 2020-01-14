@@ -11,7 +11,7 @@ function isSelected(selected, item) {
   return selected && selected.id === item.key ? 'isSelected' : ''
 }
 
-const Body = ({items, isWrapped, selected, handleSelect}) => (
+const Body = ({items, isWrapped, selected, handleSelect, isPointer}) => (
   <tbody>
     {items.map((item, idx) => (
       <tr
@@ -35,8 +35,8 @@ const Body = ({items, isWrapped, selected, handleSelect}) => (
       }
 
       tr:hover {
-        cursor: pointer;
-        background-color: ${theme.colors.lightGrey};
+        cursor: ${isPointer ? 'pointer' : 'auto'};
+        background-color: ${isPointer ? theme.colors.lightGrey : null}
       }
 
       tr.fade-out {
@@ -61,6 +61,7 @@ Body.propTypes = {
   selected: PropTypes.shape({
     id: PropTypes.string.isRequired
   }),
+  isPointer: PropTypes.bool.isRequired,
   isWrapped: PropTypes.bool
 }
 

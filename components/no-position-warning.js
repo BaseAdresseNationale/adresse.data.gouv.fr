@@ -9,7 +9,9 @@ import Tag from './tag'
 const NoPositionWarning = ({check, text}) => {
   if (check) {
     return (
-      <Tag type='toponyme' />
+      <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        <Tag type='toponyme' />
+      </div>
     )
   }
 

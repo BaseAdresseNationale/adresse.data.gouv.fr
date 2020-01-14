@@ -9,7 +9,7 @@ import Body from './table/body'
 
 const LIST_LIMIT = 10
 
-const TableControl = ({list, headers, genItems, initialSort, selected, handleSelect}) => {
+const TableControl = ({list, headers, genItems, initialSort, selected, handleSelect, isPointer}) => {
   const [order, setOrder] = useState('asc')
   const [actived, setActived] = useState(initialSort ? initialSort.title : null)
   const [sortedList, setSortedList] = useState(list)
@@ -59,7 +59,8 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
           items={genItems(displayedList)}
           wrapped={isWrap}
           selected={selected}
-          handleSelect={handleSelect} />
+          handleSelect={handleSelect}
+          isPointer={isPointer} />
       </>
     </Table>
   )
@@ -69,6 +70,7 @@ TableControl.propTypes = {
   list: PropTypes.array.isRequired,
   headers: PropTypes.array.isRequired,
   genItems: PropTypes.func.isRequired,
+  isPointer: PropTypes.bool.isRequired,
   initialSort: PropTypes.object,
   selected: PropTypes.object,
   handleSelect: PropTypes.func

@@ -1,21 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {tagsList} from '../../../../../../lib/table'
 
 const BalTypes = ({positions}) => {
   const checkTypes = Object.prototype.hasOwnProperty.call(positions[0], 'type')
 
-  const types = positions => {
-    const typesArray = positions.map(position => position.type)
-    return typesArray.filter((item, index, inputArray) => {
-      return inputArray.indexOf(item) === index
-    })
+  if (checkTypes) {
+    const types = positions.map(position => position.type)
+    return (
+      <>
+        {tagsList(types)}
+      </>
+    )
   }
 
-  return (
-    <>
-      {checkTypes ? types(positions).toString() : null}
-    </>
-  )
+  return null
 }
 
 BalTypes.propTypes = {

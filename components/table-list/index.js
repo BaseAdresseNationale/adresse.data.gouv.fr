@@ -13,6 +13,7 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
   const [selectedTags, setSelectedTags] = useState([])
   const [sources, setSources] = useState([])
   const [filteredList, setFilteredList] = useState([])
+  const pointer = handleSelect !== null
 
   const getSources = sources => {
     return getTypeByPriority(unionTypes(sources))
@@ -80,6 +81,7 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
           genItems={genItems}
           initialSort={initialSort}
           handleSelect={handleSelect}
+          isPointer={pointer}
         />
       )}
 
@@ -108,7 +110,7 @@ TableList.defaultProps = {
   subtitle: '',
   initialSort: null,
   selected: null,
-  handleSelect: () => { },
+  handleSelect: null,
   list: []
 }
 

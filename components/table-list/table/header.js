@@ -18,7 +18,7 @@ const Header = ({title, sort, icon, isActived}) => (
       }
 
       th:hover {
-        cursor: pointer;
+        cursor: ${sort ? 'pointer' : 'auto'};
       }
 
       th {

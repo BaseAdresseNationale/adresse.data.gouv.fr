@@ -9,18 +9,6 @@ import {getTypeByPriority} from '../../../lib/types'
 import TableList from '../../table-list'
 
 const VoiesCommune = ({voies, commune}) => {
-  const selectVoie = item => {
-    voies.find(voie => voie.idVoie === item.key)
-    handleSelect(item.key)
-  }
-
-  const handleSelect = idVoie => {
-    Router.push(
-      `/commune/voie?idVoie=${idVoie}`,
-      `/explore/commune/${commune.codeCommune}/voie/${idVoie}`
-    )
-  }
-
   const headers = [
     {
       title: 'Nom de voie',
@@ -34,6 +22,18 @@ const VoiesCommune = ({voies, commune}) => {
     },
     {title: 'Source'}
   ]
+
+  const selectVoie = item => {
+    voies.find(voie => voie.idVoie === item.key)
+    handleSelect(item.key)
+  }
+
+  const handleSelect = idVoie => {
+    Router.push(
+      `/commune/voie?idVoie=${idVoie}`,
+      `/explore/commune/${commune.codeCommune}/voie/${idVoie}`
+    )
+  }
 
   const genItems = voies => {
     return voies.map(voie => {
