@@ -38,11 +38,11 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
 
   const filterList = useCallback(() => {
     return list.filter(item => {
-      const {sources, nomVoie, numero} = item
+      const {sources, nomVoie, numero, nom} = item
 
       return (
         byTags(sources, selectedTags) && // Filter tags
-        byText((nomVoie || numero), text) // Filter text
+        byText((nomVoie || numero || nom), text) // Filter text
       )
     })
   }, [list, selectedTags, text])
