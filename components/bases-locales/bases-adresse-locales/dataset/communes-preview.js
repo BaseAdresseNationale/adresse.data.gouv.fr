@@ -36,7 +36,7 @@ class CommunesPreview extends React.Component {
         value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0',
         type: license === 'odc-odbl' ? 'not-valid' : 'valid'
       },
-      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
+      {title: 'Dernière mise à jour', value: dateMAJ ? dateMAJ.split('-').reverse().join('-') : 'inconnue'},
       {title: 'Nombre de Communes', value: spaceThousands(communesCount)},
       {title: 'Nombre de Voies', value: spaceThousands(voiesCount)},
       {title: 'Nombre d’adresses', value: typeof numerosCount === 'number' ? spaceThousands(numerosCount) : '???'}
