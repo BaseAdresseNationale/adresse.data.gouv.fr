@@ -85,8 +85,8 @@ export default () => (
           <div className='block downloads'>
             <h6>Télécharger les données</h6>
             <ul>
-              <li><a href='/data/ban/adresses-odbl/latest/csv'>Format CSV<span className='icon'><Download size={16} /></span></a></li>
-              <li><a href='/data/ban/adresses-odbl/latest/addok'>Format JSON pour Addok<span className='icon'><Download size={16} /></span></a></li>
+              <li><a href='/data/ban/adresses/latest/csv'>Format CSV<span className='icon'><Download size={16} /></span></a></li>
+              <li><a href='/data/ban/adresses/latest/addok'>Format JSON pour Addok<span className='icon'><Download size={16} /></span></a></li>
             </ul>
           </div>
         </div>
