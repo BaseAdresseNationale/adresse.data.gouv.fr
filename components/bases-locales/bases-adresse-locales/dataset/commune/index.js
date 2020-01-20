@@ -101,7 +101,8 @@ class Commune extends React.Component {
           </div>
         </Section>
 
-        <ProducerDiscussion page={page} />
+        {page && <ProducerDiscussion page={page} />}
+
         <style jsx>{`
           h4 {
             background-color: ${theme.primary};

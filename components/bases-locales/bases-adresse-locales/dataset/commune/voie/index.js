@@ -43,7 +43,7 @@ class Voie extends React.Component {
           <VoiePreview voie={voie} />
         </Section>
 
-        <ProducerDiscussion page={page} />
+        {page && <ProducerDiscussion page={page} />}
       </div>
     )
   }
