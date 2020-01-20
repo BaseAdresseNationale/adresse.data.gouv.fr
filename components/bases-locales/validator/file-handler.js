@@ -60,7 +60,7 @@ class FileHandler extends React.Component {
               onChange={this.handleChange}
               onSubmit={this.handleSubmit}
               buttonText='Utiliser'
-              loading={isLoading}
+              isLoading={isLoading}
             />
           </div>
 
