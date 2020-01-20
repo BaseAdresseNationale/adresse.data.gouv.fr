@@ -17,8 +17,25 @@ import Form from '../../components/bases-locales/publication/form'
 import Publishing from '../../components/bases-locales/publication/publishing'
 import Published from '../../components/bases-locales/publication/published'
 
+const getStep = bal => {
+  if (bal) {
+    switch (bal.status) {
+      case 'created':
+        return 2
+      case 'pending':
+        return 4
+      case 'published':
+        return 5
+      default:
+        break
+    }
+  } else {
+    return 1
+  }
+}
+
 const PublicationPage = React.memo(({bal, submissionId}) => {
-  const [step, setStep] = useState(bal ? 2 : 1)
+  const [step, setStep] = useState(getStep(bal))
   const [error, setError] = useState(null)
 
   const handleValidBal = () => {
@@ -44,23 +61,8 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   }, [bal._id, submissionId])
 
   useEffect(() => {
-    if (bal) {
-      switch (bal.status) {
-        case 'created':
-          setStep(2)
-          break
-        case 'pending':
-          setStep(4)
-          break
-        case 'published':
-          setStep(5)
-          break
-        default:
-          break
-      }
-    } else {
-      setStep(1)
-    }
+    const step = getStep(bal)
+    setStep(step)
   }, [bal])
 
   useEffect(() => {
