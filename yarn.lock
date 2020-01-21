@@ -931,10 +931,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@etalab/bal@^0.20.0":
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.20.0.tgz#e8142fcac019016797d52d317134e98266d0ff67"
-  integrity sha512-gLhlvZy1Zdx+Jxoe5dGuGOXMcqtmzNiZBm5baul05KnDKeQhjNvfZjH+0oidyZgjUNPT0DMTFcY5h8InDpd2eg==
+"@etalab/bal@^0.20.3":
+  version "0.20.3"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.20.3.tgz#9414a656aa5ff4937df04dd4b9122ce65d89753b"
+  integrity sha512-NRTrepkmT0wPMSsaxQ95QLGvbsCBzzNWIfli2y1+lwz58icjRPdp4WC4QbJZ7GD+6dKJDtRp3UmxfTyDBkmM5w==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^2.9.0"
