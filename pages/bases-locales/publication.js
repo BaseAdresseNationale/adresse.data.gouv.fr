@@ -38,8 +38,10 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const [step, setStep] = useState(getStep(bal))
   const [error, setError] = useState(null)
 
-  const handleValidBal = () => {
-    setStep(2)
+  const handleValidBal = balReport => {
+    // TODO Allow uploading a file with submissionsBal
+    setError('La fonctionnalitée de téléversement n’est pas encore disponible. Merci de bien vouloir réessayer utltérieurement.')
+    // SetStep(2)
   }
 
   const handlePublicationRequest = () => {
@@ -58,7 +60,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     } catch (error) {
       setError(error.message)
     }
-  }, [bal._id, submissionId])
+  }, [bal, submissionId])
 
   useEffect(() => {
     const step = getStep(bal)
@@ -77,28 +79,20 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
       if (bal.authenticationError) {
         setError(bal.authenticationError)
       }
-    } else {
-      setError('Aucune base adresses locales n’a été trouvée')
     }
   }, [bal, error, submissionId])
-
-  if (error) {
-    return (
-      <Page>
-        <Section>
-          <h1>Publication d’une Base Adresse Locale</h1>
-          <Notification type='error'>
-            {error}
-          </Notification>
-        </Section>
-      </Page>
-    )
-  }
 
   return (
     <Page>
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
+
+        {error && (
+          <Notification type='error'>
+            {error}
+          </Notification>
+        )}
+
         {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}
 
         <Steps step={step} />

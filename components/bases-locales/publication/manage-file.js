@@ -16,28 +16,6 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
   const [report, setReport] = useState(null)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    if (file) {
-      setError(null)
-      setReport(null)
-      parseFile(file)
-    }
-  }, [file, parseFile])
-
-  useEffect(() => {
-    if (error) {
-      setFile(null)
-      setLoading(false)
-      setReport(null)
-    }
-  }, [error])
-
-  useEffect(() => {
-    if (report) {
-      setLoading(false)
-    }
-  }, [report])
-
   const handleFileDrop = useCallback(fileList => {
     const file = fileList[0] // Keep only the first file
     const fileExtension = getFileExtension(file.name)
@@ -48,6 +26,8 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
       setError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
     } else if (file.size > 100 * 1024 * 1024) {
       setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
+    } else if (file.size === 0) {
+      setError('Ce fichier est vide.')
     } else {
       setFile(file)
     }
@@ -56,11 +36,11 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
   const parseFile = useCallback(async file => {
     try {
       const report = await validate(file)
-
-      if (report.rowsWithIssues.length === 0) {
-        handleValidBal(report)
-      } else {
+      setLoading(false)
+      if (report.hasErrors) {
         setReport(report)
+      } else {
+        handleValidBal(report)
       }
     } catch (err) {
       const error = `Impossible d’analyser le fichier… [${err.message}]`
@@ -97,6 +77,22 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
     }
   }, [setLoading, setFile, setError])
 
+  useEffect(() => {
+    if (file) {
+      setError(null)
+      setReport(null)
+      parseFile(file)
+    }
+  }, [file, parseFile])
+
+  useEffect(() => {
+    if (error) {
+      setFile(null)
+      setLoading(false)
+      setReport(null)
+    }
+  }, [error])
+
   return (
     <>
       <FileHander
@@ -105,12 +101,12 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
         error={error}
         onFileDrop={handleFileDrop}
         onSubmit={handleInput}
-        loading={loading}
+        isLoading={loading}
       />
 
       {report && (
         <>
-          <h3 style={{color: theme.colors.red}}>Base adresses locales non conforme</h3>
+          <h3 style={{color: theme.colors.red, marginTop: '1em'}}>Base adresses locales non conforme</h3>
           <Report report={report} />
         </>
       )}
