@@ -84,6 +84,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
         style: STYLES[style],
         center: defaultCenter || DEFAULT_CENTER,
         zoom: defaultZoom || DEFAULT_ZOOM,
+        hash: true,
         isInteractive
       })
 
