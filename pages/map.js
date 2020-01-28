@@ -15,7 +15,7 @@ const MapPage = () => {
 
     if (hash) {
       const [z, lat, lng] = hash.slice(1, hash.lenght).split('/')
-      setHash({zoom: z, center: [lat, lng]})
+      setHash({zoom: z, center: [lng, lat]})
     }
   }, [])
 
