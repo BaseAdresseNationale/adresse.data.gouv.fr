@@ -22,7 +22,7 @@ Ce format est **largement compatible** avec l'[ancien format CSV](ban-2015.md) q
 | `lat` | Latitude en WGS-84 | |
 | `alias` | _Vide_ | Mis à vide |
 | `nom_ld` | _Vide_ | Mis à vide |
-| `nom_afnor` | Nom de la voie normalisé selon la norme postale | |
 | `libelle_acheminement` | Nom de la commune d’acheminement | |
-| `source_nom_voie` | Source du nom de la voie. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | Nouveau champ |
+| `nom_afnor` | Nom de la voie normalisé selon la norme postale | |
 | `source_position` | Source de la position géographique. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | Nouveau champ |
+| `source_nom_voie` | Source du nom de la voie. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | Nouveau champ |
