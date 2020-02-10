@@ -944,12 +944,12 @@
     papaparse "^5.1.1"
     yargs "^15.1.0"
 
-"@etalab/project-legal@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@etalab/project-legal/-/project-legal-0.3.3.tgz#77f9cbfef4e91b55b101582d6035e238b30344c5"
-  integrity sha512-x6AMNofVzYUbJJohgRXggAeetJ9cxBRK9dfr0DgRr9Qk4LWN3a31odJWpsyRFkVyZFuMO8X9SN7upkyR93+MXg==
+"@etalab/project-legal@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@etalab/project-legal/-/project-legal-0.4.0.tgz#55b8ea93ea8cb2645a8da960eff5b8412325f0cf"
+  integrity sha512-JroSIoNVqOe9wdEL5imkH29jctnWn+O27hCmnsBfb3VZugKk9f7mftn2CLnU9TiPTchoAh0lBtlL0/pC2s4xXw==
   dependencies:
-    proj4 "^2.5.0"
+    proj4 "^2.6.0"
 
 "@mapbox/geojson-area@0.2.2":
   version "0.2.2"
@@ -6783,7 +6783,7 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-proj4@^2.5.0:
+proj4@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/proj4/-/proj4-2.6.0.tgz#154c0e8eeb1aaae9914ec387753396cbc003ae72"
   integrity sha512-ll2WyehUFOyzEZtN8hAiOTmZpuDCN5V+4A/HjhPbhlwVwlsFKnIHSZ3l3uhzgDndHjoL2MyERFGe9VmXN4rYUg==

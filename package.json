@@ -15,7 +15,7 @@
   "dependencies": {
     "@babel/runtime-corejs2": "^7.8.3",
     "@etalab/bal": "^0.20.4",
-    "@etalab/project-legal": "^0.3.3",
+    "@etalab/project-legal": "^0.4.0",
     "@turf/bbox": "^6.0.1",
     "@turf/helpers": "^6.1.4",
     "blob-to-buffer": "^1.2.8",
