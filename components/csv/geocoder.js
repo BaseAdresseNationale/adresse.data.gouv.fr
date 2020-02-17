@@ -8,7 +8,7 @@ import Loader from '../loader'
 
 function geocodedFileName(originalFileName = 'file') {
   if (originalFileName.toLowerCase().endsWith('.csv')) {
-    originalFileName = originalFileName.slice(0, originalFileName.length - 4)
+    originalFileName = originalFileName.slice(0, -4)
   }
 
   return originalFileName + '.geocoded.csv'

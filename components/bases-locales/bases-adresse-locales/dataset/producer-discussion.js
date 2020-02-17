@@ -20,7 +20,7 @@ class ProducerDiscussion extends React.Component {
             size='large'
             isOutlined
           >
-              Ouvrir une discussion avec le producteur
+            Ouvrir une discussion avec le producteur
           </ButtonLink>
         </div>
       </Section>
