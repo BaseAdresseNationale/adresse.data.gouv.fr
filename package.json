@@ -54,7 +54,6 @@
     "eslint-config-xo-nextjs": "^1.5.0",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.4.0",
-    "lerna-changelog": "^1.0.0",
     "webpack-bundle-analyzer": "^3.6.0",
     "xo": "^0.26.1"
   },
@@ -68,20 +67,5 @@
       "unicorn/catch-error-name": "off",
       "react/jsx-sort-props": "off"
     }
-  },
-  "changelog": {
-    "cacheDir": ".changelog",
-    "labels": {
-      "bug": ":bug: Bug Fix",
-      "build": ":building_construction: Build Process",
-      "cleanup": ":shower: Cleanup",
-      "design": ":rainbow: Design",
-      "documentation": ":memo: Documentation",
-      "enhancement": ":rocket: Enhancement",
-      "performance": ":racehorse: Performance",
-      "security": ":policeman: Security",
-      "dependencies": ":arrow_up: Dependencies"
-    },
-    "repo": "etalab/adresse.data.gouv.fr"
   }
 }
