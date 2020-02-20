@@ -53,10 +53,6 @@ module.exports = withConfig({
       }))
     }
 
-    // Fix jsonlint error when importing mapbox-gl-draw
-    // https://github.com/mapbox/mapbox-gl-draw/issues/626
-    config.node = {...config.node, fs: 'empty'}
-
     return config
   }
 })

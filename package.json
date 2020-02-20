@@ -17,7 +17,6 @@
     "@etalab/bal": "^0.20.4",
     "@etalab/project-legal": "^0.4.0",
     "@turf/bbox": "^6.0.1",
-    "@turf/helpers": "^6.1.4",
     "blob-to-buffer": "^1.2.8",
     "chart.js": "^2.9.2",
     "compression": "^1.7.4",
@@ -43,9 +42,6 @@
     "react-feather": "^2.0.3",
     "underscore.string": "^3.3.5"
   },
-  "resolutions": {
-    "@turf/meta": "^6.x"
-  },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "babel-eslint": "^10.0.3",
@@ -55,7 +51,6 @@
     "eslint-config-xo-nextjs": "^1.5.0",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.4.0",
-    "lerna-changelog": "^1.0.0",
     "webpack-bundle-analyzer": "^3.6.0",
     "xo": "^0.26.1"
   },
@@ -69,20 +64,5 @@
       "unicorn/catch-error-name": "off",
       "react/jsx-sort-props": "off"
     }
-  },
-  "changelog": {
-    "cacheDir": ".changelog",
-    "labels": {
-      "bug": ":bug: Bug Fix",
-      "build": ":building_construction: Build Process",
-      "cleanup": ":shower: Cleanup",
-      "design": ":rainbow: Design",
-      "documentation": ":memo: Documentation",
-      "enhancement": ":rocket: Enhancement",
-      "performance": ":racehorse: Performance",
-      "security": ":policeman: Security",
-      "dependencies": ":arrow_up: Dependencies"
-    },
-    "repo": "etalab/adresse.data.gouv.fr"
   }
 }
