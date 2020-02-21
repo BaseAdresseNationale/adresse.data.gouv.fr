@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {sortBy} from 'lodash'
+import {sortBy, find} from 'lodash'
 
 import Table from './table'
 
@@ -9,58 +9,58 @@ import Body from './table/body'
 
 const LIST_LIMIT = 10
 
-const TableControl = ({list, headers, genItems, initialSort, selected, handleSelect, isPointer}) => {
-  const [order, setOrder] = useState('asc')
-  const [actived, setActived] = useState(initialSort ? initialSort.title : null)
-  const [sortedList, setSortedList] = useState(list)
-  const [displayedList, setDisplayedList] = useState(sortedList)
+const TableControl = ({list, cols, selected, handleSelect}) => {
+  const [orderedList, setOrderedList] = useState(list)
+  const [order, setOrder] = useState('desc')
+  const [sortedColumn, setSortedColumn] = useState()
   const [isWrap, setWrap] = useState(list.length > LIST_LIMIT)
 
-  const sort = useCallback((func, header) => {
-    let sorted = sortBy(list, func)
+  const sort = useCallback(() => {
+    const {getValue} = find(cols, ({title}) => title === sortedColumn)
+    let ordered = sortBy(list, getValue)
 
     if (order === 'asc') {
-      sorted = sorted.reverse()
+      ordered = ordered.reverse()
     }
 
-    setSortedList(sorted)
-    setOrder(order === 'asc' ? 'desc' : 'asc')
-    setActived(header)
-  }, [list, order])
+    return ordered
+  }, [cols, list, order, sortedColumn])
+
+  const selectColumn = useCallback(columTitle => {
+    if (columTitle === sortedColumn) {
+      setOrder(order === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortedColumn(columTitle)
+    }
+  }, [order, sortedColumn])
 
   const handleWrap = useCallback(() => {
     setWrap(!isWrap)
   }, [isWrap])
 
   useEffect(() => {
-    if (sortedList) {
-      setDisplayedList(sortedList)
+    if (sortedColumn) {
+      const orderedList = sort()
+      setOrderedList(orderedList)
     }
-  }, [sortedList])
+  }, [list, sort, sortedColumn])
 
   useEffect(() => {
-    setDisplayedList(isWrap ? [...sortedList].slice(0, LIST_LIMIT) : sortedList)
-  }, [isWrap, sortedList])
-
-  useEffect(() => {
-    if (list) {
-      setSortedList(initialSort ?
-        sortBy(list, initialSort.func) :
-        list
-      )
-    }
-  }, [initialSort, list])
+    const {title} = cols[Object.keys(cols)[0]]
+    setSortedColumn(title)
+    // Initial sort
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Table isWrap={isWrap} disabledWrap={list.length < LIST_LIMIT} onWrap={handleWrap}>
+    <Table isWrap={isWrap} hasDisabledWrap={list.length < LIST_LIMIT} onWrap={handleWrap}>
       <>
-        <Head headers={headers} order={order} actived={actived} sort={sort} />
+        <Head headers={cols} order={order} actived={sortedColumn} selectColumn={selectColumn} />
         <Body
-          items={genItems(displayedList)}
-          wrapped={isWrap}
+          list={isWrap ? orderedList.slice(0, LIST_LIMIT) : orderedList}
+          cols={cols}
           selected={selected}
           handleSelect={handleSelect}
-          isPointer={isPointer} />
+        />
       </>
     </Table>
   )
@@ -68,16 +68,14 @@ const TableControl = ({list, headers, genItems, initialSort, selected, handleSel
 
 TableControl.propTypes = {
   list: PropTypes.array.isRequired,
-  headers: PropTypes.array.isRequired,
-  genItems: PropTypes.func.isRequired,
-  isPointer: PropTypes.bool.isRequired,
-  initialSort: PropTypes.object,
+  cols: PropTypes.shape({
+    getValue: PropTypes.func.isRequired
+  }).isRequired,
   selected: PropTypes.object,
   handleSelect: PropTypes.func
 }
 
 TableControl.defaultProps = {
-  initialSort: null,
   selected: null,
   handleSelect: () => {}
 }

@@ -3,21 +3,22 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-import TagsInput from './tags-input'
+import PropsFilterInput from './props-filter-input'
 
-class TableList extends React.Component {
+class Filters extends React.Component {
   static propTypes = {
     text: PropTypes.string,
-    sources: PropTypes.array,
-    selectedTags: PropTypes.array,
-    onFilterTags: PropTypes.func.isRequired,
+    hasTextFilter: PropTypes.bool.isRequired,
+    propsToFilter: PropTypes.array,
+    selectedPropsFilter: PropTypes.object,
+    onFilterProp: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     text: '',
-    sources: null,
-    selectedTags: []
+    propsToFilter: null,
+    selectedPropsFilter: {}
   }
 
   handleChange = event => {
@@ -27,27 +28,24 @@ class TableList extends React.Component {
     onChange(event.target.value)
   }
 
-  handleSelect = event => {
-    const {onFilterTags} = this.props
-
-    event.preventDefault()
-    onFilterTags(event.target.value)
-  }
-
   render() {
-    const {text, sources, selectedTags, onFilterTags} = this.props
+    const {text, hasTextFilter, propsToFilter, selectedPropsFilter, onFilterProp} = this.props
     return (
       <div>
         <div className='filter-1'>
-          <input className='search' type='text' value={text} placeholder='Rechercher…' onChange={this.handleChange} />
-          {sources.length >= 2 &&
-            <div className='tags'>
-              <TagsInput
-                title='Sources'
-                tags={sources}
-                selected={selectedTags}
-                toggleTag={onFilterTags} />
-            </div>}
+          {hasTextFilter && <input className='search' type='text' value={text} placeholder='Rechercher…' onChange={this.handleChange} />}
+          {propsToFilter && (
+            <div className='props'>
+              {propsToFilter.map(propFilter => propFilter.values.length >= 2 && (
+                <PropsFilterInput
+                  key={propFilter.title}
+                  title={propFilter.title}
+                  propFilter={propFilter}
+                  selectedPropsFilter={selectedPropsFilter}
+                  toggleProp={onFilterProp} />
+              ))}
+            </div>
+          )}
         </div>
 
         <style jsx>{`
@@ -55,11 +53,11 @@ class TableList extends React.Component {
               display: flex;
             }
 
-            .filter-1 .tags {
+            .filter-1 .props {
               margin-left: 1em;
             }
 
-            .tags {
+            .props {
               width: 100%;
               border: 1px solid ${theme.colors.lightGrey};
             }
@@ -70,11 +68,11 @@ class TableList extends React.Component {
                 flex-direction: column;
               }
 
-              .filter-1 .tags {
+              .filter-1 .props {
                 margin: 5px 0 0 0;
               }
 
-              .tags {
+              .props {
                 width: 100%;
                 margin: 5px 0;
               }
@@ -85,4 +83,4 @@ class TableList extends React.Component {
   }
 }
 
-export default TableList
+export default Filters

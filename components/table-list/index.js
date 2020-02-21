@@ -1,87 +1,86 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {union} from 'lodash'
 
-import {byTags, byText} from '../../lib/filters'
-import {getTypeByPriority, unionTypes} from '../../lib/types'
+import {byProps, byText} from '../../lib/filters'
 
 import Title from './title'
 import TableControl from './table-control'
 import Filters from './filters'
 
-const TableList = ({title, list, headers, genItems, subtitle, initialSort, selected, handleSelect}) => {
-  const [text, setText] = useState('')
-  const [selectedTags, setSelectedTags] = useState([])
-  const [sources, setSources] = useState([])
-  const [filteredList, setFilteredList] = useState([])
-  const pointer = handleSelect !== null
+const getPropsToFilter = (list, filters) => {
+  return Object.keys(filters).map(prop => {
+    return {
+      title: filters[prop],
+      name: prop,
+      values: union(list.map(item => item[prop]))
+    }
+  })
+}
 
-  const getSources = sources => {
-    return getTypeByPriority(unionTypes(sources))
-  }
+const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, handleSelect}) => {
+  const [text, setText] = useState('')
+  const [propsFilter] = useState(getPropsToFilter(list, filters))
+  const [selectedPropsFilter, setSelectedPropsFilter] = useState({})
+  const [filteredList, setFilteredList] = useState([])
 
   const handleTextFilter = text => {
     setText(text)
   }
 
-  const handleTags = useCallback(tag => {
-    const tags = [...selectedTags]
+  const handlePropfilter = propFilter => {
+    const propsFilter = {...selectedPropsFilter}
 
-    if (tags.includes(tag)) {
-      const index = tags.indexOf(tag)
-      tags.splice(index, 1)
+    const propValues = propsFilter[propFilter.name]
+
+    if (propValues) {
+      if (propValues.includes(propFilter.value)) {
+        const index = propValues.indexOf(propFilter.value)
+        propValues.splice(index, 1)
+      } else {
+        propValues.push(propFilter.value)
+      }
     } else {
-      tags.push(tag)
+      propsFilter[propFilter.name] = [propFilter.value]
     }
 
-    setSelectedTags(tags)
-  }, [selectedTags])
+    setSelectedPropsFilter(propsFilter)
+  }
 
-  const filterList = useCallback(() => {
-    return list.filter(item => {
-      const {sources, nomVoie, numero, nom} = item
-
+  useEffect(() => {
+    const filteredList = list.filter(item => {
       return (
-        byTags(sources, selectedTags) && // Filter tags
-        byText((nomVoie || numero || nom), text) // Filter text
+        byText(textFilter(item), text) &&
+        byProps(item, selectedPropsFilter)
       )
     })
-  }, [list, selectedTags, text])
 
-  useEffect(() => {
-    const filteredList = filterList()
     setFilteredList(filteredList)
-  }, [filterList, list, selectedTags])
-
-  useEffect(() => {
-    if (filteredList) {
-      const sources = getSources(filteredList.map(({sources}) => sources))
-      setSources(sources)
-    }
-  }, [filteredList])
+  }, [text, selectedPropsFilter, list, textFilter])
 
   return (
     <div>
       <Title title={title} subtitle={subtitle} />
 
-      <Filters
-        text={text}
-        onChange={handleTextFilter}
-        sources={sources}
-        selectedTags={selectedTags}
-        onFilterTags={handleTags}
-      />
+      {(textFilter || filters) && (
+        <Filters
+          text={text}
+          hasTextFilter={Boolean(textFilter)}
+          propsToFilter={propsFilter}
+          onChange={handleTextFilter}
+          selectedPropsFilter={selectedPropsFilter}
+          onFilterProp={handlePropfilter}
+        />
+      )}
 
       {filteredList.length === 0 ? (
         <div className='no-result'>Aucun résultat</div>
       ) : (
         <TableControl
           list={filteredList}
+          cols={cols}
           selected={selected}
-          headers={headers}
-          genItems={genItems}
-          initialSort={initialSort}
           handleSelect={handleSelect}
-          isPointer={pointer}
         />
       )}
 
@@ -97,21 +96,21 @@ const TableList = ({title, list, headers, genItems, subtitle, initialSort, selec
 
 TableList.propTypes = {
   title: PropTypes.string.isRequired,
-  headers: PropTypes.array.isRequired,
-  genItems: PropTypes.func.isRequired,
   subtitle: PropTypes.string,
-  initialSort: PropTypes.object,
+  list: PropTypes.array.isRequired,
+  textFilter: PropTypes.func,
+  filters: PropTypes.object,
+  cols: PropTypes.object.isRequired,
   selected: PropTypes.object,
-  handleSelect: PropTypes.func,
-  list: PropTypes.array
+  handleSelect: PropTypes.func
 }
 
 TableList.defaultProps = {
   subtitle: '',
-  initialSort: null,
+  textFilter: null,
+  filters: null,
   selected: null,
-  handleSelect: null,
-  list: []
+  handleSelect: null
 }
 
 export default TableList

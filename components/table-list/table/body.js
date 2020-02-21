@@ -3,28 +3,24 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-function fadeOut(wrapped, idx) {
-  return wrapped && idx === 8 ? 'fade-out' : ''
-}
+const Body = ({list, cols, selected, handleSelect}) => {
+  return (
+    <tbody>
+      {list.map((item, idx) => (
+        <tr
+          key={`tr-${idx}`} // eslint-disable-line react/no-array-index-key
+          className={`${selected === item ? 'selected' : null}`}
+          onClick={() => handleSelect(item)}
+        >
+          {Object.keys(cols).map(col => (
+            <td key={`${col}-${cols[col].getValue(item)}`}>
+              {cols[col].getValue(item)}
+            </td>
+          ))}
+        </tr>
+      ))}
 
-function isSelected(selected, item) {
-  return selected && selected.id === item.key ? 'isSelected' : ''
-}
-
-const Body = ({items, isWrapped, selected, handleSelect, isPointer}) => (
-  <tbody>
-    {items.map((item, idx) => (
-      <tr
-        key={item.key}
-        className={`${fadeOut(isWrapped, idx)} ${selected ? isSelected(selected, item) : null}`}
-        onClick={() => handleSelect(item)}
-      >
-        {item.values.map((value, idx) =>
-          <td key={idx}>{value}</td> // eslint-disable-line react/no-array-index-key
-        )}
-      </tr>
-    ))}
-    <style jsx>{`
+      <style jsx>{`
       td {
         border: 1px solid ${theme.border};
         padding: 8px;
@@ -35,8 +31,8 @@ const Body = ({items, isWrapped, selected, handleSelect, isPointer}) => (
       }
 
       tr:hover {
-        cursor: ${isPointer ? 'pointer' : 'auto'};
-        background-color: ${isPointer ? theme.colors.lightGrey : null}
+        cursor: ${handleSelect ? 'pointer' : 'auto'};
+        background-color: ${handleSelect ? theme.colors.lightGrey : null}
       }
 
       tr.fade-out {
@@ -47,21 +43,24 @@ const Body = ({items, isWrapped, selected, handleSelect, isPointer}) => (
         border: 1px dotted ${theme.border};
       }
 
-      tr.isSelected {
+      tr.selected {
         background-color: ${theme.primaryDark};
         color: ${theme.colors.white};
       }
       `}</style>
-  </tbody>
-)
+    </tbody>
+  )
+}
 
 Body.propTypes = {
-  items: PropTypes.array.isRequired,
+  list: PropTypes.array.isRequired,
+  cols: PropTypes.shape({
+    getValue: PropTypes.func.isRequired
+  }).isRequired,
   handleSelect: PropTypes.func.isRequired,
   selected: PropTypes.shape({
     id: PropTypes.string.isRequired
   }),
-  isPointer: PropTypes.bool.isRequired,
   isWrapped: PropTypes.bool
 }
 
