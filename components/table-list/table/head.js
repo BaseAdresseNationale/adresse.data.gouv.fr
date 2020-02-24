@@ -24,13 +24,13 @@ const order = (a, b) => (
 )
 
 const alphabetical = {
-  asc: order('A', 'Z'),
-  desc: order('Z', 'A')
+  asc: order('Z', 'A'),
+  desc: order('A', 'Z')
 }
 
 const numeric = {
-  asc: order('1', '9'),
-  desc: order('9', '1')
+  asc: order('9', '1'),
+  desc: order('1', '9')
 }
 
 const sortTypes = {alphabetical, numeric}
