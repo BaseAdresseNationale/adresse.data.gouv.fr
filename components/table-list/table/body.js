@@ -60,13 +60,11 @@ Body.propTypes = {
   handleSelect: PropTypes.func.isRequired,
   selected: PropTypes.shape({
     id: PropTypes.string.isRequired
-  }),
-  isWrapped: PropTypes.bool
+  })
 }
 
 Body.defaultProps = {
-  selected: null,
-  isWrapped: false
+  selected: null
 }
 
 export default Body

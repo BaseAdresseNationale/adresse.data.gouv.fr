@@ -4,48 +4,27 @@ import Router from 'next/router'
 
 import withFetch from '../../hoc/with-fetch'
 
-import {tagsList} from '../../../lib/table'
-import {getTypeByPriority} from '../../../lib/types'
 import TableList from '../../table-list'
 
 const VoiesCommune = ({voies, commune}) => {
-  const headers = [
-    {
+  const cols = {
+    nomVoie: {
       title: 'Nom de voie',
-      type: 'alphabetical',
-      func: voie => voie.nomVoie
+      getValue: voie => voie.nomVoie,
+      sortBy: 'alphabetical'
     },
-    {
+    numerosCount: {
       title: 'Nombre d’adresses',
-      type: 'numeric',
-      func: voie => voie.numerosCount
-    },
-    {title: 'Source'}
-  ]
-
-  const selectVoie = item => {
-    voies.find(voie => voie.idVoie === item.key)
-    handleSelect(item.key)
+      getValue: voie => voie.numerosCount,
+      sortBy: 'numeric'
+    }
   }
 
-  const handleSelect = idVoie => {
+  const handleSelect = ({idVoie}) => {
     Router.push(
       `/commune/voie?idVoie=${idVoie}`,
       `/explore/commune/${commune.codeCommune}/voie/${idVoie}`
     )
-  }
-
-  const genItems = voies => {
-    return voies.map(voie => {
-      return {
-        key: voie.idVoie,
-        values: [
-          voie.nomVoie,
-          voie.numerosCount,
-          tagsList(getTypeByPriority(voie.sources))
-        ]
-      }
-    })
   }
 
   return (
@@ -54,10 +33,10 @@ const VoiesCommune = ({voies, commune}) => {
         title='Voies de la commune'
         subtitle={voies.length === 1 ? `${voies.length} adresse répertoriée` : `${voies.length} adresses répertoriées`}
         list={voies}
-        headers={headers}
-        genItems={genItems}
-        initialSort={headers[0]}
-        handleSelect={selectVoie} />
+        textFilter={item => item.nomVoie}
+        filters={{sourceNomVoie: 'Sources'}}
+        cols={cols}
+        handleSelect={handleSelect} />
 
       <style jsx>{`
         .voies {

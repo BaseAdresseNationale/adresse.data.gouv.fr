@@ -20,7 +20,7 @@ const getPropsToFilter = (list, filters) => {
 
 const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, handleSelect}) => {
   const [text, setText] = useState('')
-  const [propsFilter] = useState(getPropsToFilter(list, filters))
+  const [propsFilter] = useState(filters ? getPropsToFilter(list, filters) : null)
   const [selectedPropsFilter, setSelectedPropsFilter] = useState({})
   const [filteredList, setFilteredList] = useState([])
 
