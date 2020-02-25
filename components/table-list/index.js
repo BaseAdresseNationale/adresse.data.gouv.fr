@@ -20,7 +20,7 @@ const getPropsToFilter = (list, filters) => {
 
 const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, handleSelect}) => {
   const [text, setText] = useState('')
-  const [propsFilter] = useState(filters ? getPropsToFilter(list, filters) : null)
+  const [propsFilter, setPropsFilter] = useState()
   const [selectedPropsFilter, setSelectedPropsFilter] = useState({})
   const [filteredList, setFilteredList] = useState([])
 
@@ -46,6 +46,13 @@ const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, 
 
     setSelectedPropsFilter(propsFilter)
   }
+
+  useEffect(() => {
+    if (filters) {
+      const propsFilter = getPropsToFilter(list, filters)
+      setPropsFilter(propsFilter)
+    }
+  }, [list, filters])
 
   useEffect(() => {
     const filteredList = list.filter(item => {

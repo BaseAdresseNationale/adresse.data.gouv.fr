@@ -17,6 +17,11 @@ const VoiesCommune = ({voies, commune}) => {
       title: 'Nombre d’adresses',
       getValue: voie => voie.numerosCount,
       sortBy: 'numeric'
+    },
+    sources: {
+      title: 'Source',
+      getValue: voie => voie.sources,
+      sortBy: 'alphabetical'
     }
   }
 
