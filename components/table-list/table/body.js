@@ -10,7 +10,7 @@ const Body = ({list, cols, selected, handleSelect}) => {
         <tr
           key={`tr-${idx}`} // eslint-disable-line react/no-array-index-key
           className={`${selected === item ? 'selected' : null}`}
-          onClick={() => handleSelect(item)}
+          onClick={handleSelect ? () => handleSelect(item) : null}
         >
           {Object.keys(cols).map(col => (
             <td key={`${col}-${cols[col].getValue(item)}`}>
