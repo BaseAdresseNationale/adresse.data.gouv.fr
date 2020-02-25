@@ -41,7 +41,7 @@ const Voie = ({commune, voie, numero}) => {
         voie={voie}
         addresses={voie.numeros}
         numero={numero}
-        onSelect={handleSelect} />
+        onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
       <TableList
         title='Adresses de la voie'
         subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
