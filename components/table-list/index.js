@@ -24,10 +24,6 @@ const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, 
   const [selectedPropsFilter, setSelectedPropsFilter] = useState({})
   const [filteredList, setFilteredList] = useState([])
 
-  const handleTextFilter = text => {
-    setText(text)
-  }
-
   const handlePropfilter = propFilter => {
     const propsFilter = {...selectedPropsFilter}
 
@@ -74,7 +70,7 @@ const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, 
           text={text}
           hasTextFilter={Boolean(textFilter)}
           propsToFilter={propsFilter}
-          onChange={handleTextFilter}
+          onChange={setText}
           selectedPropsFilter={selectedPropsFilter}
           onFilterProp={handlePropfilter}
         />

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 import computeBbox from '@turf/bbox'
 
 import {numerosToGeoJson, positionToponymeToFeatureCollection} from '../../../../../../lib/geojson'
@@ -19,29 +18,18 @@ const VoiePreview = ({voie}) => {
   const [numeros, setNumeros] = useState(null)
   const [bbox, setBbox] = useState(null)
   const [loading, setLoading] = useState(true)
-  const headers = [
-    {title: 'Numéro'},
-    {title: 'Type'}
+  const cols = [
+    {
+      title: 'Numéro',
+      sortBy: 'numeric',
+      getValue: item => item.numero
+    },
+    {
+      title: 'Type',
+      sortBy: 'alphabetical',
+      getValue: numero => <BalTypes key={numero.id} positions={numero.positions} />
+    }
   ]
-
-  const handleSelect = voie => {
-    const {id, codeCommune, codeVoie} = Router.query
-    const href = `/bases-locales/jeux-de-donnees/voie?codeCommune=${codeCommune}&codeVoie=${codeVoie}${voie.values[0]}`
-    const as = `/bases-locales/jeux-de-donnees/${id}/${codeCommune}/${codeVoie}/numero/${voie.values[0]}`
-    Router.push(href, as)
-  }
-
-  const genItems = numeros => {
-    return numeros.map(numero => {
-      return {
-        key: numero.id,
-        values: [
-          numero.numeroComplet,
-          <BalTypes key={numero.id} positions={numero.positions} />
-        ]
-      }
-    })
-  }
 
   useEffect(() => {
     if (voie.position) {
@@ -71,7 +59,6 @@ const VoiePreview = ({voie}) => {
               {...mapboxProps}
               voies={toponyme}
               numeros={numeros}
-              onSelectNumero={handleSelect}
             />
           )}
         </Mapbox>
@@ -82,9 +69,10 @@ const VoiePreview = ({voie}) => {
             title='Adresses de la voie'
             subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
             list={voie.numeros}
-            headers={headers}
-            handleSelect={handleSelect}
-            genItems={genItems} />
+            filters={{Type: 'Type'}}
+            textFilter={item => item.numero}
+            cols={cols}
+          />
         </LoadingContent>
       )}
       <style jsx>{`

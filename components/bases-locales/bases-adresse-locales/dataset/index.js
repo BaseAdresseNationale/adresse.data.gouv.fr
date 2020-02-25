@@ -17,46 +17,33 @@ import CommunesPreview from './communes-preview'
 const Dataset = ({dataset, summary}) => {
   const {title, description, url, organization, page} = dataset
   const {query, push} = useRouter()
-  const headers = [
+  const cols = [
     {
       title: 'Nom de la commune',
-      type: 'alphabetical',
-      func: commune => commune.nom
+      sortBy: 'alphabetical',
+      getValue: commune => commune.nom
     },
     {
       title: 'Nombre de voie',
-      type: 'numeric',
-      func: commune => commune.voiesCount
+      sortBy: 'numeric',
+      getValue: commune => commune.voiesCount
     },
     {
       title: 'Nombre de numéro',
-      type: 'numeric',
-      func: commune => commune.numerosCount
+      sortBy: 'numeric',
+      getValue: commune => commune.numerosCount
     }
   ]
 
   const selectCommune = item => {
-    summary.communes.find(commune => commune.code === item.key)
-    handleSelect(item.key)
+    summary.communes.find(commune => commune.code === item.code)
+    handleSelect(item.code)
   }
 
   const handleSelect = code => {
     push(
       `/bases-locales/jeux-de-donnees/${query.id}/${code}`
     )
-  }
-
-  const genItems = communes => {
-    return communes.map(commune => {
-      return {
-        key: commune.code,
-        values: [
-          commune.nom,
-          commune.voiesCount,
-          commune.numerosCount
-        ]
-      }
-    })
   }
 
   return (
@@ -78,9 +65,8 @@ const Dataset = ({dataset, summary}) => {
             title={summary.communesCount === 1 ? 'Commune' : 'Communes'}
             subtitle={summary.communesCount === 1 ? `${summary.communesCount} commune répertoriée` : `${summary.communesCount} communes répertoriées`}
             list={summary.communes}
-            headers={headers}
-            genItems={genItems}
-            initialSort={headers[0]}
+            textFilter={item => item.nom}
+            cols={cols}
             handleSelect={selectCommune} />
         </div>
       </Section>

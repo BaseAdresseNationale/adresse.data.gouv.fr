@@ -17,44 +17,27 @@ const Commune = ({commune, voies, dataset}) => {
   const {id, title, organization} = dataset
   const {query, push} = useRouter()
   const noPosition = 'Ce lieu nommé ne possède pas encore de position renseignée.'
-  const headers = [
+  const cols = [
     {
       title: 'Nom de voie',
-      type: 'alphabetical',
-      func: voie => voie.nomVoie
+      sortBy: 'alphabetical',
+      getValue: voie => voie.nomVoie
     },
     {
       title: 'Nombre d’adresses',
-      type: 'numeric',
-      func: voie => voie.numerosCount
+      sortBy: 'numeric',
+      getValue: voie => voie.numerosCount === 0 ? <NoPositionWarning check={voie.position} text={noPosition} /> : voie.numerosCount
     }
   ]
 
-  const selectVoie = item => {
-    voies.find(voie => voie.idVoie === item.key)
-    if (typeof item.values[1] === 'number') {
-      handleSelect(item.key)
-    } else if (item.values[1].props.check) {
-      handleSelect(item.key)
+  const selectVoie = voie => {
+    const {codeVoie, numerosCount, position} = voie
+
+    if (numerosCount > 0 || position) {
+      push(
+        `/bases-locales/jeux-de-donnees/${query.id}/${commune.code}/${codeVoie}`
+      )
     }
-  }
-
-  const handleSelect = codeVoie => {
-    push(
-      `/bases-locales/jeux-de-donnees/${query.id}/${commune.code}/${codeVoie}`
-    )
-  }
-
-  const genItems = voies => {
-    return voies.map(voie => {
-      return {
-        key: voie.codeVoie,
-        values: [
-          voie.nomVoie,
-          voie.numerosCount === 0 ? <NoPositionWarning check={voie.position} text={noPosition} /> : voie.numerosCount
-        ]
-      }
-    })
   }
 
   return (
@@ -72,9 +55,8 @@ const Commune = ({commune, voies, dataset}) => {
           title='Voies de la commune'
           subtitle={`${voies.length} voies répertoriées`}
           list={voies}
-          headers={headers}
-          genItems={genItems}
-          initialSort={headers[0]}
+          cols={cols}
+          textFilter={item => item.nomVoie}
           handleSelect={selectVoie} />
       </Section>
       <style jsx>{`
