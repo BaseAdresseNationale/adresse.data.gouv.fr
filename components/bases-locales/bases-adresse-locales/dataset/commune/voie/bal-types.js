@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {tagsList} from '../../../../../../lib/table'
 
+import Tag from '../../../../../tag'
+
 const BalTypes = ({positions}) => {
   const checkTypes = Object.prototype.hasOwnProperty.call(positions[0], 'type')
 
@@ -14,7 +16,11 @@ const BalTypes = ({positions}) => {
     )
   }
 
-  return null
+  return (
+    <div style={{display: 'flex', flexWrap: 'wrap'}}>
+      <Tag type='Non renseigné' />
+    </div>
+  )
 }
 
 BalTypes.propTypes = {
