@@ -34,7 +34,7 @@ class Filters extends React.Component {
       <div>
         <div className='filter-1'>
           {hasTextFilter && <input className='search' type='text' value={text} placeholder='Rechercher…' onChange={this.handleChange} />}
-          {propsToFilter && (
+          {propsToFilter && propsToFilter[0].values.length > 1 && (
             <div className='props'>
               {propsToFilter.map(propFilter => propFilter.values.length >= 2 && (
                 <PropsFilterInput
