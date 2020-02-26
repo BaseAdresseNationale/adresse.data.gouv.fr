@@ -5,6 +5,7 @@ import Router from 'next/router'
 import withFetch from '../../hoc/with-fetch'
 
 import TableList from '../../table-list'
+import {tagsList} from '../../../lib/table'
 
 const VoiesCommune = ({voies, commune}) => {
   const cols = {
@@ -20,7 +21,7 @@ const VoiesCommune = ({voies, commune}) => {
     },
     sources: {
       title: 'Source',
-      getValue: voie => voie.sources,
+      getValue: voie => tagsList(voie.sources),
       sortBy: 'alphabetical'
     }
   }

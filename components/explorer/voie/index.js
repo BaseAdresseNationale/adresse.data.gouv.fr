@@ -5,6 +5,7 @@ import Router from 'next/router'
 import Section from '../../section'
 
 import TableList from '../../table-list'
+import {tagsList} from '../../../lib/table'
 import Head from './head'
 import MapContainer from './map-container'
 
@@ -25,7 +26,7 @@ const Voie = ({commune, voie, numero}) => {
     },
     sourcePosition: {
       title: 'Sources',
-      getValue: voie => voie.sourcePosition,
+      getValue: voie => tagsList(voie.sources),
       sortBy: 'alphabetical'
     }
   }
@@ -63,7 +64,7 @@ Voie.propTypes = {
     numeros: PropTypes.array.isRequired,
     numerosCount: PropTypes.number.isRequired,
     numero: PropTypes.number,
-    sourcePosition: PropTypes.array
+    sources: PropTypes.array
   }),
   numero: PropTypes.object
 }
