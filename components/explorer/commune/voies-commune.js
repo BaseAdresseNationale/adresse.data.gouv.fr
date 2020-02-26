@@ -5,7 +5,9 @@ import Router from 'next/router'
 import withFetch from '../../hoc/with-fetch'
 
 import TableList from '../../table-list'
-import {tagsList} from '../../../lib/table'
+import Tag from '../../tag'
+
+import {getTypeByPriority} from '../../../lib/types'
 
 const VoiesCommune = ({voies, commune}) => {
   const cols = {
@@ -21,7 +23,9 @@ const VoiesCommune = ({voies, commune}) => {
     },
     sources: {
       title: 'Source',
-      getValue: voie => tagsList(voie.sources),
+      getValue: ({sources}) => getTypeByPriority(sources).map(source => (
+        <Tag key={source} type={source} style={{display: 'inline-flex'}} />
+      )),
       sortBy: 'alphabetical'
     }
   }
@@ -40,7 +44,7 @@ const VoiesCommune = ({voies, commune}) => {
         subtitle={voies.length === 1 ? `${voies.length} adresse répertoriée` : `${voies.length} adresses répertoriées`}
         list={voies}
         textFilter={item => item.nomVoie}
-        filters={{sourceNomVoie: 'Sources'}}
+        filters={{sources: 'Sources'}}
         cols={cols}
         handleSelect={handleSelect} />
 

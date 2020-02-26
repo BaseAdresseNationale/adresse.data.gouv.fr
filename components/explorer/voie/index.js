@@ -5,7 +5,8 @@ import Router from 'next/router'
 import Section from '../../section'
 
 import TableList from '../../table-list'
-import {tagsList} from '../../../lib/table'
+import Tag from '../../tag'
+
 import Head from './head'
 import MapContainer from './map-container'
 
@@ -24,9 +25,11 @@ const Voie = ({commune, voie, numero}) => {
       getValue: voie => voie.numero,
       sortBy: 'numeric'
     },
-    sourcePosition: {
+    sources: {
       title: 'Sources',
-      getValue: voie => tagsList(voie.sources),
+      getValue: ({sources}) => sources.map(source => (
+        <Tag key={source} type={source} style={{display: 'inline-flex'}} />
+      )),
       sortBy: 'alphabetical'
     }
   }
@@ -47,7 +50,7 @@ const Voie = ({commune, voie, numero}) => {
         title='Adresses de la voie'
         subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
         textFilter={item => item.numero}
-        filters={{sourcePosition: 'Sources'}}
+        filters={{sources: 'Sources'}}
         list={voie.numeros}
         cols={cols}
         handleSelect={handleSelect} />

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {union} from 'lodash'
+import {flattenDeep, union} from 'lodash'
 
 import {byProps, byText} from '../../lib/filters'
 
@@ -13,7 +13,9 @@ const getPropsToFilter = (list, filters) => {
     return {
       title: filters[prop],
       name: prop,
-      values: union(list.map(item => item[prop]))
+      values: union(flattenDeep(list.map(item => { // FlattenDeep deal with array
+        return item[prop]
+      })))
     }
   })
 }
