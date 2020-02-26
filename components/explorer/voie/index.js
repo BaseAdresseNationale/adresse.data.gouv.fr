@@ -53,6 +53,7 @@ const Voie = ({commune, voie, numero}) => {
         filters={{sources: 'Sources'}}
         list={voie.numeros}
         cols={cols}
+        isSelected={numero ? item => item.numero === numero.numero : null}
         handleSelect={handleSelect} />
     </Section>
   )

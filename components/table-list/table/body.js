@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
 
-const Body = ({list, cols, selected, handleSelect}) => {
+const Body = ({list, cols, isSelected, handleSelect}) => {
   return (
     <tbody>
       {list.map((item, idx) => (
         <tr
           key={`tr-${idx}`} // eslint-disable-line react/no-array-index-key
-          className={`${selected === item ? 'selected' : null}`}
+          className={`${isSelected && isSelected(item) ? 'selected' : null}`}
           onClick={handleSelect ? () => handleSelect(item) : null}
         >
           {Object.keys(cols).map(col => (
@@ -58,13 +58,13 @@ Body.propTypes = {
     getValue: PropTypes.func.isRequired
   }).isRequired,
   handleSelect: PropTypes.func.isRequired,
-  selected: PropTypes.shape({
+  isSelected: PropTypes.shape({
     id: PropTypes.string.isRequired
   })
 }
 
 Body.defaultProps = {
-  selected: null
+  isSelected: null
 }
 
 export default Body
