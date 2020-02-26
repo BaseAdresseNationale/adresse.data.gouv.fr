@@ -61,6 +61,11 @@ const TableList = ({title, subtitle, list, textFilter, filters, cols, selected, 
     setFilteredList(filteredList)
   }, [text, selectedPropsFilter, list, textFilter])
 
+  useEffect(() => {
+    setText('')
+    setSelectedPropsFilter({})
+  }, [list])
+
   return (
     <div>
       <Title title={title} subtitle={subtitle} />
