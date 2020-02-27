@@ -68,9 +68,7 @@ const TableControl = ({list, cols, isSelected, handleSelect}) => {
 
 TableControl.propTypes = {
   list: PropTypes.array.isRequired,
-  cols: PropTypes.shape({
-    getValue: PropTypes.func.isRequired
-  }).isRequired,
+  cols: PropTypes.object.isRequired,
   isSelected: PropTypes.object,
   handleSelect: PropTypes.func
 }

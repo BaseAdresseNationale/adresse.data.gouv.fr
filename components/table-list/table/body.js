@@ -54,9 +54,7 @@ const Body = ({list, cols, isSelected, handleSelect}) => {
 
 Body.propTypes = {
   list: PropTypes.array.isRequired,
-  cols: PropTypes.shape({
-    getValue: PropTypes.func.isRequired
-  }).isRequired,
+  cols: PropTypes.object.isRequired,
   handleSelect: PropTypes.func.isRequired,
   isSelected: PropTypes.shape({
     id: PropTypes.string.isRequired
