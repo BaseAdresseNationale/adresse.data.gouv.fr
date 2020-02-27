@@ -11,6 +11,8 @@ import Mapbox from '../../../../../mapbox'
 
 import TableList from '../../../../../table-list'
 import LoadingContent from '../../../../../loading-content'
+import Tag from '../../../../../tag'
+
 import BalTypes from './bal-types'
 
 const VoiePreview = ({voie}) => {
@@ -18,18 +20,23 @@ const VoiePreview = ({voie}) => {
   const [numeros, setNumeros] = useState(null)
   const [bbox, setBbox] = useState(null)
   const [loading, setLoading] = useState(true)
-  const cols = [
-    {
+  const cols = {
+    numero: {
       title: 'Numéro',
       sortBy: 'numeric',
       getValue: item => item.numero
     },
-    {
+    type: {
       title: 'Type',
       sortBy: 'alphabetical',
       getValue: numero => <BalTypes key={numero.id} positions={numero.positions} />
+    },
+    sources: {
+      title: 'Source',
+      getValue: numero => <Tag key={numero.source} type={numero.source} style={{display: 'inline-flex'}} />,
+      sortBy: 'alphabetical'
     }
-  ]
+  }
 
   useEffect(() => {
     if (voie.position) {
@@ -69,7 +76,7 @@ const VoiePreview = ({voie}) => {
             title='Adresses de la voie'
             subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
             list={voie.numeros}
-            filters={{Type: 'Type'}}
+            filters={{type: 'Type', source: 'Source'}}
             textFilter={item => item.numero}
             cols={cols}
           />
@@ -125,7 +132,11 @@ const VoiePreview = ({voie}) => {
 }
 
 VoiePreview.propTypes = {
-  voie: PropTypes.object.isRequired
+  voie: PropTypes.shape({
+    position: PropTypes.object,
+    numeros: PropTypes.array.isRequired,
+    numerosCount: PropTypes.number.isRequired
+  }).isRequired
 }
 
 export default VoiePreview
