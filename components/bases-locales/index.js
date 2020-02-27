@@ -69,6 +69,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='button-link'>
             <ButtonLink
+              isExternal
               size='large'
               href='https://editeur.adresse.data.gouv.fr/new'
             >
@@ -78,6 +79,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='button-link'>
             <ButtonLink
+              isExternal
               size='large'
               href='https://editeur.adresse.data.gouv.fr/new/upload'
             >

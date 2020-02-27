@@ -26,7 +26,7 @@ export default () => (
         <section>
           <h3>Utiliser le Guichet Adresse de l’IGN et de La Poste</h3>
           <p>Cet outil est destiné plus particulièrement aux mairies qui souhaitent avoir une assistance renforcée. Le processus est plus guidé, et vous n’avez aucun fichier à gérer.</p>
-          <ButtonLink href='https://guichet-adresse.ign.fr'><ExternalLink style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder au Guichet Adresse</ButtonLink>
+          <ButtonLink isExternal href='https://guichet-adresse.ign.fr'><ExternalLink style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder au Guichet Adresse</ButtonLink>
         </section>
       </div>
     </Section>
