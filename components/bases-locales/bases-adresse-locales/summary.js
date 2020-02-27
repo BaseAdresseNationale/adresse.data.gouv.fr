@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import {Download} from 'react-feather'
 
 import ButtonLink from '../../button-link'
@@ -55,9 +54,7 @@ class Summary extends React.Component {
               Consulter
             </ButtonLink>
             {url &&
-              <Link href={url}>
-                <a>Télécharger <Download size={18} style={{verticalAlign: 'middle', marginLeft: '3px'}} /></a>
-              </Link>}
+              <a href={url}>Télécharger <Download size={18} style={{verticalAlign: 'middle', marginLeft: '3px'}} /></a>}
           </div>
         </div>
 

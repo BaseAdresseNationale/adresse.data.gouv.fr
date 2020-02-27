@@ -2,13 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
+const regex = /^http?/
+
 const ButtonLink = ({size, color, href, isOutlined, children, ...props}) => {
   return (
-    <Link href={href}>
-      <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
-        {children}
-      </a>
-    </Link>
+    <>
+      {regex.test(href) ? (
+        <a href={href} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+          {children}
+        </a>
+      ) : (
+        <Link href={href}>
+          <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+            {children}
+          </a>
+        </Link>
+      )}
+    </>
   )
 }
 
