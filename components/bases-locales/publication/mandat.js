@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const User = React.memo(({user}) => {
-  const {nomNaissance, nomMarital, prenom, typeMandat} = user
+const Mandat = React.memo(({mandat}) => {
+  const {nomNaissance, nomMarital, prenom, typeMandat} = mandat
 
   return (
-    <div className='user'>
+    <div className='mandat'>
       <img src='/images/icons/elu.svg' />
       <div>{prenom} {nomMarital || nomNaissance}</div>
       <div><b>{typeMandat}</b></div>
       <style jsx>{`
-        .user {
+        .mandat {
           display: flex;
           flex-direction: column;
           text-align: center;
@@ -20,8 +20,8 @@ const User = React.memo(({user}) => {
   )
 })
 
-User.propTypes = {
-  user: PropTypes.shape({
+Mandat.propTypes = {
+  mandat: PropTypes.shape({
     nomNaissance: PropTypes.string.isRequired,
     nomMarital: PropTypes.string,
     prenom: PropTypes.string.isRequired,
@@ -29,4 +29,4 @@ User.propTypes = {
   }).isRequired
 }
 
-export default User
+export default Mandat

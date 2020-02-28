@@ -8,7 +8,7 @@ import withErrors from '../../components/hoc/with-errors'
 import Section from '../../components/section'
 import Notification from '../../components/notification'
 
-import {submissionsBal, getSubmissions, submitBal} from '../../lib/bal/api'
+import {BACKEND_URL, submissionsBal, getSubmissions, getMandat, submitBal} from '../../lib/bal/api'
 
 import Steps from '../../components/bases-locales/publication/steps'
 import ManageFile from '../../components/bases-locales/publication/manage-file'
@@ -17,26 +17,10 @@ import Form from '../../components/bases-locales/publication/form'
 import Publishing from '../../components/bases-locales/publication/publishing'
 import Published from '../../components/bases-locales/publication/published'
 
-const getStep = submission => {
-  if (submission) {
-    switch (submission.status) {
-      case 'created':
-        return 2
-      case 'pending':
-        return 4
-      case 'published':
-        return 5
-      default:
-        break
-    }
-  } else {
-    return 1
-  }
-}
-
-const PublicationPage = React.memo(({submission, submissionId}) => {
-  const [step, setStep] = useState(getStep(submission))
+const PublicationPage = React.memo(({submissionId, submission}) => {
+  const [step, setStep] = useState(null)
   const [error, setError] = useState(null)
+  const [mandat, setMandat] = useState(null)
 
   const handleValidBal = balReport => {
     // TODO Allow uploading a file with submissionsBal
@@ -63,9 +47,28 @@ const PublicationPage = React.memo(({submission, submissionId}) => {
   }, [submission, submissionId])
 
   useEffect(() => {
-    const step = getStep(submission)
-    setStep(step)
+    async function getCurrentMandat() {
+      const mandat = await getMandat(submission.commune.code)
+      setMandat(mandat)
+    }
+
+    getCurrentMandat()
   }, [submission])
+
+  useEffect(() => {
+    let step = 1
+
+    if (submission) {
+      const {status} = submission
+      if (status === 'published') {
+        step = 5
+      }
+
+      step = mandat ? 4 : 2
+    }
+
+    setStep(step)
+  }, [mandat, submission])
 
   useEffect(() => {
     if (submission) {
@@ -74,10 +77,6 @@ const PublicationPage = React.memo(({submission, submissionId}) => {
         const as = href
 
         Router.push(href, as, {shallow: true})
-      }
-
-      if (submission.authenticationError) {
-        setError(submission.authenticationError)
       }
     }
   }, [error, submission, submissionId])
@@ -108,7 +107,7 @@ const PublicationPage = React.memo(({submission, submissionId}) => {
           {step === 2 && (
             <Authentification
               mail={null}
-              authenticationUrl={submission.authenticationUrl}
+              authenticationUrl={`${BACKEND_URL}/publication/fc/authenticate`}
               sendMail={handleSendMail}
               publicationRequest={handlePublicationRequest}
             />
@@ -120,7 +119,7 @@ const PublicationPage = React.memo(({submission, submissionId}) => {
 
           {step === 4 && (
             <Publishing
-              user={submission.authentication}
+              mandat={mandat}
               commune={submission.commune}
               publication={handlePublication}
             />
@@ -153,27 +152,29 @@ PublicationPage.getInitialProps = async ({query}) => {
 
   return {
     submission,
-    submissionId,
-    user: submission && submission.authentication ? submission.authentication : null
+    submissionId
   }
+}
+
+PublicationPage.defaultProps = {
+  submissionId: null,
+  submission: null
 }
 
 PublicationPage.propTypes = {
   submission: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    commune: PropTypes.object.isRequired,
-    authentication: PropTypes.string,
-    authenticationError: PropTypes.string,
-    authenticationUrl: PropTypes.string,
+    status: PropTypes.oneOf([
+      'pending',
+      'published'
+    ]).isRequired,
+    commune: PropTypes.shape({
+      nom: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired
+    }).isRequired,
     publicationUrl: PropTypes.string
   }),
   submissionId: PropTypes.string
-}
-
-PublicationPage.defaultProps = {
-  submission: null,
-  submissionId: null
 }
 
 export default withErrors(PublicationPage)

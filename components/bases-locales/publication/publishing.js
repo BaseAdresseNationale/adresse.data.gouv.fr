@@ -5,12 +5,12 @@ import theme from '../../../styles/theme'
 
 import Button from '../../button'
 
-import User from './user'
+import Mandat from './mandat'
 
-const Publishing = React.memo(({user, commune, publication}) => {
+const Publishing = React.memo(({mandat, commune, publication}) => {
   return (
     <div>
-      <User user={user} />
+      <Mandat mandat={mandat} />
 
       <div className='message'>
         <p>La Base Adresse Locale de votre commune</p>
@@ -32,7 +32,7 @@ const Publishing = React.memo(({user, commune, publication}) => {
 })
 
 Publishing.propTypes = {
-  user: PropTypes.object.isRequired,
+  mandat: PropTypes.object.isRequired,
   commune: PropTypes.shape({
     nom: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired
