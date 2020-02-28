@@ -24,27 +24,29 @@ const order = (a, b) => (
 )
 
 const alphabetical = {
-  asc: order('A', 'Z'),
-  desc: order('Z', 'A')
+  asc: order('Z', 'A'),
+  desc: order('A', 'Z')
 }
 
 const numeric = {
-  asc: order('1', '9'),
-  desc: order('9', '1')
+  asc: order('9', '1'),
+  desc: order('1', '9')
 }
 
-const types = {alphabetical, numeric}
+const sortTypes = {alphabetical, numeric}
 
-const Head = ({headers, order, sort, actived}) => (
+const Head = ({headers, order, selectColumn, actived}) => (
   <tbody>
     <tr>
-      {headers.map(({title, type, func}) => {
-        return func ?
+      {Object.keys(headers).map(header => {
+        const {title, sortBy, getValue} = headers[header]
+
+        return getValue ?
           <Header
             key={title}
             title={title}
-            icon={types[type][order]}
-            sort={() => sort(func, title)}
+            icon={sortTypes[sortBy][order]}
+            handleSelect={selectColumn}
             isActived={title === actived} /> :
           <Header
             key={title}
@@ -55,8 +57,8 @@ const Head = ({headers, order, sort, actived}) => (
 )
 
 Head.propTypes = {
-  headers: PropTypes.array.isRequired,
-  sort: PropTypes.func.isRequired,
+  headers: PropTypes.object.isRequired,
+  selectColumn: PropTypes.func.isRequired,
   actived: PropTypes.string,
   order: PropTypes.oneOf(['asc', 'desc'])
 }

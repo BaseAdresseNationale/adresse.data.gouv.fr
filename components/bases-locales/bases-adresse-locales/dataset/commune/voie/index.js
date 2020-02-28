@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import Section from '../../../../../section'
 
 import Header from '../../header'
-import ProducerDiscussion from '../../producer-discussion'
 
 import Breadcrumb from '../breadcrumb'
 
@@ -19,7 +18,7 @@ class Voie extends React.Component {
 
   render() {
     const {dataset, commune, voie} = this.props
-    const {id, title, organization, page} = dataset
+    const {id, title, organization} = dataset
 
     return (
       <div>
@@ -36,14 +35,12 @@ class Voie extends React.Component {
             logo={organization && organization.logo}
             info={{
               title: 'Dernière mise à jour',
-              children: voie.dateMAJ ? voie.dateMAJ : 'inconnue'
+              children: voie.dateMAJ ? voie.dateMAJ.split('-').reverse().join('-') : 'inconnue'
             }}
             isPlaceName={voie.numerosCount === 0} />
 
           <VoiePreview voie={voie} />
         </Section>
-
-        {page && <ProducerDiscussion page={page} />}
       </div>
     )
   }

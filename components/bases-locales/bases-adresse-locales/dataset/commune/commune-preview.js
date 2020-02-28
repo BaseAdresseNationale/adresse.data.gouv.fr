@@ -17,7 +17,7 @@ class CommunesPreview extends React.Component {
     const {commune} = this.props
     const {voiesCount, numerosCount, population, dateMAJ} = commune
     const infos = [
-      {title: 'Dernière mise à jour', value: dateMAJ || 'inconnue'},
+      {title: 'Dernière mise à jour', value: dateMAJ ? dateMAJ.split('-').reverse().join('-') : 'inconnue'},
       {title: 'Nombre de voies', value: spaceThousands(voiesCount)},
       {title: 'Nombre d’adresses', value: spaceThousands(numerosCount)},
       {title: 'Habitants', value: spaceThousands(population)}

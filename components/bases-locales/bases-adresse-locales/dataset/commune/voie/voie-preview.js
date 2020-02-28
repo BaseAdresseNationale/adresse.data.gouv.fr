@@ -7,15 +7,36 @@ import {numerosToGeoJson, positionToponymeToFeatureCollection} from '../../../..
 import theme from '../../../../../../styles/theme'
 
 import AddressesMap from '../../../../../mapbox/addresses-map'
-import Tag from '../../../../../tag'
 import Mapbox from '../../../../../mapbox'
 
-import Item from '../../item'
+import TableList from '../../../../../table-list'
+import LoadingContent from '../../../../../loading-content'
+import Tag from '../../../../../tag'
+
+import BalTypes from './bal-types'
 
 const VoiePreview = ({voie}) => {
   const [toponyme, setToponyme] = useState(null)
   const [numeros, setNumeros] = useState(null)
   const [bbox, setBbox] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const cols = {
+    numero: {
+      title: 'Numéro',
+      sortBy: 'numeric',
+      getValue: item => item.numero
+    },
+    type: {
+      title: 'Type',
+      sortBy: 'alphabetical',
+      getValue: numero => <BalTypes key={numero.id} positions={numero.positions} />
+    },
+    sources: {
+      title: 'Source',
+      getValue: numero => <Tag key={numero.source} type={numero.source} style={{display: 'inline-flex'}} />,
+      sortBy: 'alphabetical'
+    }
+  }
 
   useEffect(() => {
     if (voie.position) {
@@ -31,6 +52,7 @@ const VoiePreview = ({voie}) => {
 
   useEffect(() => {
     setBbox(toponyme || numeros)
+    setLoading(false)
   }, [numeros, toponyme])
 
   return (
@@ -48,51 +70,18 @@ const VoiePreview = ({voie}) => {
           )}
         </Mapbox>
       </div>}
-
-      {voie.position && !numeros && (
-        <>
-          <div><b>Sources</b> :</div>
-          <div className='sources'>
-            {voie.position.source.length > 0 && (
-              voie.position.source.map(source => source && <Tag key={source} type={source} />)
-            )}
-          </div>
-        </>
+      {voie.numerosCount > 0 && (
+        <LoadingContent loading={loading}>
+          <TableList
+            title='Adresses de la voie'
+            subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
+            list={voie.numeros}
+            filters={{type: 'Type', source: 'Source'}}
+            textFilter={item => item.numero}
+            cols={cols}
+          />
+        </LoadingContent>
       )}
-
-      {voie.numeros && voie.numeros.length && (
-        <div>
-          <h4>Liste des numéros présents dans le fichier</h4>
-          <div className='table'>
-            {voie.numeros.map(numero => {
-              const types = numero.positions.map(position => position.type)
-              return (
-                <Item
-                  key={numero.id}
-                  id={numero.id}
-                  name={numero.numeroComplet}
-                >
-                  <div className='infos'>
-                    <div className='sources'>
-                      {types.length > 0 ?
-                        types.map(type => {
-                          return (type && <Tag key={type} type={type} />)
-                        }) :
-                        'Type non renseigné'}
-                    </div>
-                    <div className='sources'>
-                      {numero.source.length > 0 && (
-                        numero.source.map(source => source && <Tag key={source} type={source} />)
-                      )}
-                    </div>
-                  </div>
-                </Item>
-              )
-            })}
-          </div>
-        </div>
-      )}
-
       <style jsx>{`
           .voie-preview-container {
             margin: 1em 0;
@@ -143,7 +132,11 @@ const VoiePreview = ({voie}) => {
 }
 
 VoiePreview.propTypes = {
-  voie: PropTypes.object.isRequired
+  voie: PropTypes.shape({
+    position: PropTypes.object,
+    numeros: PropTypes.array.isRequired,
+    numerosCount: PropTypes.number.isRequired
+  }).isRequired
 }
 
 export default VoiePreview

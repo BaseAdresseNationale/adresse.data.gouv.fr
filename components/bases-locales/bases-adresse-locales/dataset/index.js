@@ -1,137 +1,134 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {withRouter} from 'next/router'
+import {withRouter, useRouter} from 'next/router'
 import {Download} from 'react-feather'
 
 import theme from '../../../../styles/theme'
-import {byText} from '../../../../lib/filters'
 
 import Section from '../../../section'
 
 import ButtonLink from '../../../button-link'
-import Tag from '../../../tag'
-
-import List from './list'
-import Item from './item'
+import TableList from '../../../table-list'
 
 import Header from './header'
 import Description from './description'
 import CommunesPreview from './communes-preview'
-import ProducerDiscussion from './producer-discussion'
 
-class Dataset extends React.Component {
-  static propTypes = {
-    dataset: PropTypes.object.isRequired,
-    summary: PropTypes.object.isRequired,
-    router: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-      query: PropTypes.object.isRequired
-    }).isRequired
+const Dataset = ({dataset, summary}) => {
+  const {title, description, url, organization, page} = dataset
+  const {query, push} = useRouter()
+  const cols = [
+    {
+      title: 'Nom de la commune',
+      sortBy: 'alphabetical',
+      getValue: commune => commune.nom
+    },
+    {
+      title: 'Nombre de voie',
+      sortBy: 'numeric',
+      getValue: commune => commune.voiesCount
+    },
+    {
+      title: 'Nombre de numéro',
+      sortBy: 'numeric',
+      getValue: commune => commune.numerosCount
+    }
+  ]
+
+  const selectCommune = item => {
+    summary.communes.find(commune => commune.code === item.code)
+    handleSelect(item.code)
   }
 
-  render() {
-    const {dataset, summary, router} = this.props
-    const {title, description, url, organization, page} = dataset
+  const handleSelect = code => {
+    push(
+      `/bases-locales/jeux-de-donnees/${query.id}/${code}`
+    )
+  }
 
-    return (
-      <div>
-        <Section>
-          <Header name={title} logo={organization && organization.logo} />
-          {description && page && <Description page={page} description={description} />}
+  return (
+    <div>
+      <Section>
+        <Header name={title} logo={organization && organization.logo} />
+        {description && page && <Description page={page} description={description} />}
 
-          {url && <div className='links'>
-            <ButtonLink href={url} size='large' >
-              Télécharger <Download style={{verticalAlign: 'middle', marginLeft: '3px'}} />
-            </ButtonLink>
-          </div>}
+        {url && <div className='links'>
+          <ButtonLink href={url} size='large' >
+            Télécharger <Download style={{verticalAlign: 'middle', marginLeft: '3px'}} />
+          </ButtonLink>
+        </div>}
 
-          <CommunesPreview dataset={dataset} summary={summary} />
+        <CommunesPreview dataset={dataset} summary={summary} />
 
-          <div className='list'>
-            <h4>Liste des communes présentes dans le fichier</h4>
-            <List
-              list={summary.communes}
-              filter={(commune, input) => byText(commune.nom, input)}
-              toItem={commune => (
-                <Item
-                  key={commune.code}
-                  name={commune.nom}
-                  link={`/bases-locales/jeux-de-donnees/${router.query.id}/${commune.code}`}
-                >
-                  <div className='infos'>
-                    <div className='counter'>
-                      <b>{commune.voiesCount}</b> {commune.voiesCount > 1 ? 'voies' : 'voie'}
-                    </div>
-                    <div className='counter'>
-                      <b>{commune.numerosCount}</b> {commune.numerosCount > 1 ? 'numéros' : 'numéro'}
-                    </div>
-                    <div className='sources'>
-                      {commune.source.lenght > 0 && (
-                        commune.source.map(source => <Tag key={source} type={source} />)
-                      )}
-                    </div>
-                  </div>
-                </Item>
-              )} />
-          </div>
-        </Section>
+        <div className='list'>
+          <TableList
+            title={summary.communesCount === 1 ? 'Commune' : 'Communes'}
+            subtitle={summary.communesCount === 1 ? `${summary.communesCount} commune répertoriée` : `${summary.communesCount} communes répertoriées`}
+            list={summary.communes}
+            textFilter={item => item.nom}
+            cols={cols}
+            handleSelect={selectCommune} />
+        </div>
+      </Section>
 
-        {page && <ProducerDiscussion page={page} />}
+      <style jsx>{`
+        h4 {
+          background-color: ${theme.primary};
+          color: ${theme.colors.white};
+          padding: 1em;
+          margin-bottom: 0;
+        }
 
-        <style jsx>{`
-          h4 {
-            background-color: ${theme.primary};
-            color: ${theme.colors.white};
-            padding: 1em;
-            margin-bottom: 0;
-          }
+        .links {
+          display: flex;
+          flex-flow: wrap;
+          align-items: center;
+          font-size: 0.8em;
+          margin: 3em 0;
+        }
 
-          .links {
-            display: flex;
-            flex-flow: wrap;
-            align-items: center;
-            font-size: 0.8em;
-            margin: 3em 0;
-          }
+        .links a {
+          margin: 1em 0;
+        }
 
-          .links a {
-            margin: 1em 0;
-          }
+        .infos {
+          display: flex;
+          justify-content: space-between;
+        }
 
+        .counter {
+          margin: 0 1em;
+        }
+
+        .sources {
+          display: flex;
+        }
+
+        @media (max-width: 700px) {
           .infos {
-            display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            flex-flow: end;
+            margin-top: 1em;
           }
 
           .counter {
-            margin: 0 1em;
+            margin: 0;
           }
 
           .sources {
-            display: flex;
+            margin-top: 0.5em;
+            margin-left: -2px;
+            flex-flow: wrap;
           }
+        }
+        `}</style>
+    </div>
+  )
+}
 
-          @media (max-width: 700px) {
-            .infos {
-              flex-direction: column;
-              flex-flow: end;
-              margin-top: 1em;
-            }
-
-            .counter {
-              margin: 0;
-            }
-
-            .sources {
-              margin-top: 0.5em;
-              margin-left: -2px;
-              flex-flow: wrap;
-            }
-          }
-          `}</style>
-      </div>
-    )
-  }
+Dataset.propTypes = {
+  dataset: PropTypes.object.isRequired,
+  summary: PropTypes.object.isRequired
 }
 
 export default withRouter(Dataset)

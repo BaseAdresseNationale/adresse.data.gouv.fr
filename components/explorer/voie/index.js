@@ -4,17 +4,34 @@ import Router from 'next/router'
 
 import Section from '../../section'
 
+import TableList from '../../table-list'
+import Tag from '../../tag'
+
 import Head from './head'
 import MapContainer from './map-container'
-import AddressesTable from './addresses-table'
 
 const Voie = ({commune, voie, numero}) => {
-  const handleSelect = (numero, suffixe) => {
+  const handleSelect = ({numero, suffixe}) => {
     const {codeCommune, idVoie} = Router.query
     const href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}${numero ? `&numero=${numero}${suffixe || ''}` : ''}`
     const as = `/explore/commune/${codeCommune}/voie/${idVoie}${numero ? `/numero/${numero}${suffixe || ''}` : ''}`
 
     Router.push(href, as)
+  }
+
+  const cols = {
+    numero: {
+      title: 'Numéro',
+      getValue: voie => voie.numero,
+      sortBy: 'numeric'
+    },
+    sources: {
+      title: 'Sources',
+      getValue: ({sources}) => sources.map(source => (
+        <Tag key={source} type={source} style={{display: 'inline-flex'}} />
+      )),
+      sortBy: 'alphabetical'
+    }
   }
 
   return (
@@ -28,11 +45,16 @@ const Voie = ({commune, voie, numero}) => {
         voie={voie}
         addresses={voie.numeros}
         numero={numero}
-        onSelect={handleSelect} />
-      <AddressesTable
-        addresses={voie.numeros}
-        numero={numero}
-        onSelect={handleSelect} />
+        onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
+      <TableList
+        title='Adresses de la voie'
+        subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
+        textFilter={item => item.numero}
+        filters={{sources: 'Sources'}}
+        list={voie.numeros}
+        cols={cols}
+        isSelected={numero ? item => item.numero === numero.numero : null}
+        handleSelect={handleSelect} />
     </Section>
   )
 }
@@ -43,7 +65,10 @@ Voie.propTypes = {
     nomVoie: PropTypes.string.isRequired,
     codeCommune: PropTypes.string.isRequired,
     nomCommune: PropTypes.string.isRequired,
-    numeros: PropTypes.array.isRequired
+    numeros: PropTypes.array.isRequired,
+    numerosCount: PropTypes.number.isRequired,
+    numero: PropTypes.number,
+    sources: PropTypes.array
   }),
   numero: PropTypes.object
 }

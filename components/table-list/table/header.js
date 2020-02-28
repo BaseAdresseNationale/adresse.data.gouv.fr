@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../styles/theme'
+import theme from '../../../styles/theme'
 
-const Header = ({title, sort, icon, isActived}) => (
-  <th onClick={sort}>
+const Header = ({title, handleSelect, icon, isActived}) => (
+  <th onClick={() => handleSelect(title)}>
     <div className='order-by'>
       <div>{title}</div>
       {icon && <div className={`icon-head ${isActived ? 'active' : ''}`}>
@@ -18,7 +18,7 @@ const Header = ({title, sort, icon, isActived}) => (
       }
 
       th:hover {
-        cursor: pointer;
+        cursor: ${handleSelect ? 'pointer' : 'auto'};
       }
 
       th {
@@ -55,13 +55,13 @@ const Header = ({title, sort, icon, isActived}) => (
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  sort: PropTypes.func,
+  handleSelect: PropTypes.func,
   icon: PropTypes.node,
   isActived: PropTypes.bool
 }
 
 Header.defaultProps = {
-  sort: null,
+  handleSelect: null,
   icon: null,
   isActived: false
 }

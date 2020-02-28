@@ -4,40 +4,70 @@ import Router from 'next/router'
 
 import withFetch from '../../hoc/with-fetch'
 
-import VoiesTable from './voies-table'
+import TableList from '../../table-list'
+import Tag from '../../tag'
 
-class VoiesCommune extends React.Component {
-  static propTypes = {
-    voies: PropTypes.array
+import {getTypeByPriority} from '../../../lib/types'
+
+const VoiesCommune = ({voies, commune}) => {
+  const cols = {
+    nomVoie: {
+      title: 'Nom de voie',
+      getValue: voie => voie.nomVoie,
+      sortBy: 'alphabetical'
+    },
+    numerosCount: {
+      title: 'Nombre d’adresses',
+      getValue: voie => voie.numerosCount,
+      sortBy: 'numeric'
+    },
+    sources: {
+      title: 'Source',
+      getValue: ({sources}) => getTypeByPriority(sources).map(source => (
+        <Tag key={source} type={source} style={{display: 'inline-flex'}} />
+      )),
+      sortBy: 'alphabetical'
+    }
   }
 
-  static defaultProps = {
-    voies: []
-  }
-
-  handleSelect = voie => {
+  const handleSelect = ({idVoie}) => {
     Router.push(
-      `/commune/voie?idVoie=${voie.idVoie}`,
-      `/explore/commune/${voie.codeCommune}/voie/${voie.idVoie}`
+      `/commune/voie?idVoie=${idVoie}`,
+      `/explore/commune/${commune.codeCommune}/voie/${idVoie}`
     )
   }
 
-  render() {
-    const {voies} = this.props
+  return (
+    <div className='voies'>
+      <TableList
+        title='Voies de la commune'
+        subtitle={voies.length === 1 ? `${voies.length} adresse répertoriée` : `${voies.length} adresses répertoriées`}
+        list={voies}
+        textFilter={item => item.nomVoie}
+        filters={{sources: 'Sources'}}
+        cols={cols}
+        handleSelect={handleSelect} />
 
-    return (
-      <div className='voies'>
-        <VoiesTable voies={voies} onSelect={this.handleSelect} />
-        <style jsx>{`
-          .voies {
-            margin-top: 2em;
-          }
-          `}</style>
-      </div>
-    )
-  }
+      <style jsx>{`
+        .voies {
+          margin-top: 2em;
+        }
+        `}</style>
+    </div>
+  )
+}
+
+VoiesCommune.propTypes = {
+  voies: PropTypes.array,
+  commune: PropTypes.object
+}
+
+VoiesCommune.defaultProps = {
+  voies: [],
+  commune: {}
 }
 
 export default withFetch(data => ({
-  voies: data.voies
+  voies: data.voies,
+  commune: data
 }))(VoiesCommune)
