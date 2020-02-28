@@ -53,7 +53,7 @@ const Dataset = ({dataset, summary}) => {
         {description && page && <Description page={page} description={description} />}
 
         {url && <div className='links'>
-          <ButtonLink href={url} size='large' >
+          <ButtonLink isExternal href={url} size='large' >
             Télécharger <Download style={{verticalAlign: 'middle', marginLeft: '3px'}} />
           </ButtonLink>
         </div>}
