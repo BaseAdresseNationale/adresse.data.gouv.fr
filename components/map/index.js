@@ -143,6 +143,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
           error={error}
           isLoading={loading}
           hasSwitchStyle
+          hasHash
         >
           {({...mapboxProps}) => (
             <AddressMap

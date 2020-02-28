@@ -36,7 +36,7 @@ const STYLES = {
   }
 }
 
-const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, isInteractive, hasControl, isLoading, error, children}) => {
+const Map = ({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaultZoom, isInteractive, hasControl, isLoading, error, children}) => {
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
@@ -84,7 +84,7 @@ const Map = ({hasSwitchStyle, bbox, defaultStyle, defaultCenter, defaultZoom, is
         style: STYLES[style],
         center: defaultCenter || DEFAULT_CENTER,
         zoom: defaultZoom || DEFAULT_ZOOM,
-        hash: true,
+        hash: hasHash,
         isInteractive
       })
 
@@ -249,6 +249,7 @@ Map.propTypes = {
   ]),
   isInteractive: PropTypes.bool,
   hasControl: PropTypes.bool,
+  hasHash: PropTypes.bool,
   defaultCenter: PropTypes.array,
   defaultZoom: PropTypes.number,
   isLoading: PropTypes.bool,
@@ -261,6 +262,7 @@ Map.defaultProps = {
   defaultStyle: 'vector',
   isInteractive: true,
   hasControl: true,
+  hasHash: false,
   defaultCenter: DEFAULT_CENTER,
   defaultZoom: DEFAULT_ZOOM,
   isLoading: false,

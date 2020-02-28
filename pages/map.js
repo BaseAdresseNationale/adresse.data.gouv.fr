@@ -21,7 +21,7 @@ const MapPage = () => {
 
   return (
     <Page title={title} description={description} showFooter={false} >
-      <Map defaultCenter={hash.center} defaultZoom={hash.zoom} />
+      <Map hasHash defaultCenter={hash.center} defaultZoom={hash.zoom} />
     </Page>
   )
 }
