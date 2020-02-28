@@ -104,7 +104,7 @@ class SearchInput extends React.Component {
           .menu {
             position: absolute;
             box-shadow: 0 1px 4px ${theme.boxShadow};
-            z-index: 1;
+            z-index: 5;
             width: 100%;
             background-color: ${theme.colors.white};
             border: 1px solid ${theme.border};
