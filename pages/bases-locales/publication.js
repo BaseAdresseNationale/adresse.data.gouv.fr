@@ -17,9 +17,9 @@ import Form from '../../components/bases-locales/publication/form'
 import Publishing from '../../components/bases-locales/publication/publishing'
 import Published from '../../components/bases-locales/publication/published'
 
-const getStep = bal => {
-  if (bal) {
-    switch (bal.status) {
+const getStep = submission => {
+  if (submission) {
+    switch (submission.status) {
       case 'created':
         return 2
       case 'pending':
@@ -34,8 +34,8 @@ const getStep = bal => {
   }
 }
 
-const PublicationPage = React.memo(({bal, submissionId}) => {
-  const [step, setStep] = useState(getStep(bal))
+const PublicationPage = React.memo(({submission, submissionId}) => {
+  const [step, setStep] = useState(getStep(submission))
   const [error, setError] = useState(null)
 
   const handleValidBal = balReport => {
@@ -53,34 +53,34 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
-      const href = `/bases-locales/publication?submissionId=${bal._id}`
+      const href = `/bases-locales/publication?submissionId=${submission._id}`
       const as = href
 
       Router.push(href, as)
     } catch (error) {
       setError(error.message)
     }
-  }, [bal, submissionId])
+  }, [submission, submissionId])
 
   useEffect(() => {
-    const step = getStep(bal)
+    const step = getStep(submission)
     setStep(step)
-  }, [bal])
+  }, [submission])
 
   useEffect(() => {
-    if (bal) {
+    if (submission) {
       if (!submissionId) {
-        const href = `/bases-locales/publication?submissionId=${bal._id}`
+        const href = `/bases-locales/publication?submissionId=${submission._id}`
         const as = href
 
         Router.push(href, as, {shallow: true})
       }
 
-      if (bal.authenticationError) {
-        setError(bal.authenticationError)
+      if (submission.authenticationError) {
+        setError(submission.authenticationError)
       }
     }
-  }, [bal, error, submissionId])
+  }, [error, submission, submissionId])
 
   return (
     <Page>
@@ -93,7 +93,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
           </Notification>
         )}
 
-        {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}
+        {submission && <h3>{submission.commune.nom} - {submission.commune.code}</h3>}
 
         <Steps step={step} />
 
@@ -108,7 +108,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
           {step === 2 && (
             <Authentification
               mail={null}
-              authenticationUrl={bal.authenticationUrl}
+              authenticationUrl={submission.authenticationUrl}
               sendMail={handleSendMail}
               publicationRequest={handlePublicationRequest}
             />
@@ -120,14 +120,14 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
           {step === 4 && (
             <Publishing
-              user={bal.authentication}
-              commune={bal.commune}
+              user={submission.authentication}
+              commune={submission.commune}
               publication={handlePublication}
             />
           )}
 
           {step === 5 && (
-            <Published publicationUrl={bal.publicationUrl} />
+            <Published publicationUrl={submission.publicationUrl} />
           )}
         </div>
       </Section>
@@ -143,23 +143,23 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
 PublicationPage.getInitialProps = async ({query}) => {
   const {url, submissionId} = query
-  let bal
+  let submission
 
   if (submissionId) {
-    bal = await getSubmissions(submissionId)
+    submission = await getSubmissions(submissionId)
   } else if (url) {
-    bal = await submissionsBal(decodeURIComponent(url))
+    submission = await submissionsBal(decodeURIComponent(url))
   }
 
   return {
-    bal,
+    submission,
     submissionId,
-    user: bal && bal.authentication ? bal.authentication : null
+    user: submission && submission.authentication ? submission.authentication : null
   }
 }
 
 PublicationPage.propTypes = {
-  bal: PropTypes.shape({
+  submission: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     commune: PropTypes.object.isRequired,
@@ -172,7 +172,7 @@ PublicationPage.propTypes = {
 }
 
 PublicationPage.defaultProps = {
-  bal: null,
+  submission: null,
   submissionId: null
 }
 
