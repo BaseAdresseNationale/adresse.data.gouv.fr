@@ -105,7 +105,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
   }, [center, input])
 
   useEffect(() => {
-    if (center && zoom) {
+    if (center && zoom >= 15) {
       if (zoom >= 15) {
         getNearestAddress()
       } else {
