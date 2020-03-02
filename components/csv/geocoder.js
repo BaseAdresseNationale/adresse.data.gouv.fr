@@ -46,10 +46,14 @@ class Geocoder extends React.Component {
 
     try {
       const blob = await geocodeCsv(file, filters, columns)
-      this.setState({
-        status: 'done',
-        blob
-      })
+      if (blob.type === 'text/csv; charset=utf-8') {
+        this.setState({
+          status: 'done',
+          blob
+        })
+      } else {
+        throw new Error(blob)
+      }
     } catch (error) {
       this.setState({
         status: null,
