@@ -954,13 +954,13 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@etalab/bal@^0.20.4":
-  version "0.20.4"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.20.4.tgz#6104bd3c44a9f2eb8386ab00e38c328b6865f00c"
-  integrity sha512-PZYk3yHSPPmsPAwsaoUUJI1QzNkCbCOap9BANE4LuuSE/Jr2bBlgpIE5jVgfnKysz8zO1C/3AFQ2l9UpRtdleA==
+"@etalab/bal@^0.21.0":
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.21.0.tgz#8d706d732e367068af632853d06e6b784112617e"
+  integrity sha512-x9zL1tD7Io8Ct8DHN0h9UCNtGdWc2sJKdnmlpWquoL7Ywb8UqNyoPw+GVZWn3i7EZIEcCNHTVrQuMeuMFxBB/A==
   dependencies:
     blob-to-buffer "^1.2.8"
-    date-fns "^2.9.0"
+    date-fns "^2.10.0"
     debug "^4.1.1"
     jschardet-french "^0.0.1"
     lodash "^4.17.15"
@@ -2710,10 +2710,10 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
-date-fns@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.9.0.tgz#d0b175a5c37ed5f17b97e2272bbc1fa5aec677d2"
-  integrity sha512-khbFLu/MlzLjEzy9Gh8oY1hNt/Dvxw3J6Rbc28cVoYWQaC1S3YI4xwkF9ZWcjDLscbZlY9hISMr66RFzZagLsA==
+date-fns@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.10.0.tgz#abd10604d8bafb0bcbd2ba2e9b0563b922ae4b6b"
+  integrity sha512-EhfEKevYGWhWlZbNeplfhIU/+N+x0iCIx7VzKlXma2EdQyznVlZhCptXUY+BegNpPW2kjdx15Rvq503YcXXrcA==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
