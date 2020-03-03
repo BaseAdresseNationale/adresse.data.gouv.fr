@@ -19,6 +19,14 @@ const Voie = ({commune, voie, numero}) => {
     Router.push(href, as)
   }
 
+  const isSelected = item => {
+    if (numero) {
+      return item.cleInterop === numero.cleInterop
+    }
+
+    return null
+  }
+
   const cols = {
     numero: {
       title: 'Numéro',
@@ -53,7 +61,7 @@ const Voie = ({commune, voie, numero}) => {
         filters={{sources: 'Sources'}}
         list={voie.numeros}
         cols={cols}
-        isSelected={numero ? item => item.numero === numero.numero : null}
+        isSelected={isSelected}
         handleSelect={handleSelect} />
     </Section>
   )
