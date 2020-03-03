@@ -22,7 +22,7 @@ const Voie = ({commune, voie, numero}) => {
   const cols = {
     numero: {
       title: 'Numéro',
-      getValue: voie => voie.numero,
+      getValue: voie => voie.numero + (voie.suffixe ? voie.suffixe : ''),
       sortBy: 'numeric'
     },
     sources: {
@@ -68,6 +68,7 @@ Voie.propTypes = {
     numeros: PropTypes.array.isRequired,
     numerosCount: PropTypes.number.isRequired,
     numero: PropTypes.number,
+    suffixe: PropTypes.string,
     sources: PropTypes.array
   }),
   numero: PropTypes.object
