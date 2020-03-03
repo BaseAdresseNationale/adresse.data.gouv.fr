@@ -46,14 +46,10 @@ class Geocoder extends React.Component {
 
     try {
       const blob = await geocodeCsv(file, filters, columns)
-      if (blob.type === 'text/csv; charset=utf-8') {
-        this.setState({
-          status: 'done',
-          blob
-        })
-      } else {
-        throw new Error(blob)
-      }
+      this.setState({
+        status: 'done',
+        blob
+      })
     } catch (error) {
       this.setState({
         status: null,
@@ -88,7 +84,7 @@ class Geocoder extends React.Component {
         )}
 
         {error && (
-          <p className='error'>Une erreur est survenue: {error.message}</p>
+          <p className='error'> <b>{error.message}</b> <br /> <i>Code erreur: {error.httpCode}</i></p>
         )}
 
         <style jsx>{`
