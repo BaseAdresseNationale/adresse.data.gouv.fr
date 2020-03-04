@@ -19,10 +19,18 @@ const Voie = ({commune, voie, numero}) => {
     Router.push(href, as)
   }
 
+  const isSelected = item => {
+    if (numero) {
+      return item.cleInterop === numero.cleInterop
+    }
+
+    return null
+  }
+
   const cols = {
     numero: {
       title: 'Numéro',
-      getValue: voie => voie.numero,
+      getValue: voie => voie.numero + (voie.suffixe ? voie.suffixe : ''),
       sortBy: 'numeric'
     },
     sources: {
@@ -53,7 +61,7 @@ const Voie = ({commune, voie, numero}) => {
         filters={{sources: 'Sources'}}
         list={voie.numeros}
         cols={cols}
-        isSelected={numero ? item => item.numero === numero.numero : null}
+        isSelected={isSelected}
         handleSelect={handleSelect} />
     </Section>
   )
@@ -68,6 +76,7 @@ Voie.propTypes = {
     numeros: PropTypes.array.isRequired,
     numerosCount: PropTypes.number.isRequired,
     numero: PropTypes.number,
+    suffixe: PropTypes.string,
     sources: PropTypes.array
   }),
   numero: PropTypes.object
