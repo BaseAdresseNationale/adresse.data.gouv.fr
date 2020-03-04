@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 import {debounce} from 'lodash'
 
 import {search, reverse} from '../../lib/api-adresse'
@@ -106,9 +105,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
   }, [center, input])
 
   useEffect(() => {
-    if (center && zoom) {
-      const [lng, lat] = center
-      Router.replace(`/map?lng=${lng}&lat=${lat}&z=${Math.round(zoom)}`)
+    if (center && zoom >= 15) {
       if (zoom >= 15) {
         getNearestAddress()
       } else {
@@ -116,6 +113,13 @@ const Map = ({defaultCenter, defaultZoom}) => {
       }
     }
   }, [zoom, center, getNearestAddress])
+
+  useEffect(() => {
+    if (defaultCenter && defaultZoom) {
+      setCenter(defaultCenter)
+      setZoom(defaultZoom)
+    }
+  }, [defaultCenter, defaultZoom])
 
   return (
     <div className='interactive-map'>
@@ -139,6 +143,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
           error={error}
           isLoading={loading}
           hasSwitchStyle
+          hasHash
         >
           {({...mapboxProps}) => (
             <AddressMap
