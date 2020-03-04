@@ -9,6 +9,7 @@ import Tag from '../../tag'
 
 import Head from './head'
 import MapContainer from './map-container'
+import SourcesVoie from './sources-voie'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
@@ -54,6 +55,7 @@ const Voie = ({commune, voie, numero}) => {
         addresses={voie.numeros}
         numero={numero}
         onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
+      <SourcesVoie voie={voie} />
       <TableList
         title='Adresses de la voie'
         subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
