@@ -6,6 +6,7 @@ import Tag from '../../tag'
 
 const SourcesVoie = ({voie}) => {
   const {sourceNomVoie} = voie
+
   return (
     <div>
       <h3>Origine du nom de la voie</h3>
@@ -73,8 +74,10 @@ const SourcesVoie = ({voie}) => {
 }
 
 SourcesVoie.propTypes = {
-  voie: PropTypes.object.isRequired,
-  sourceNomVoie: PropTypes.object.isRequired
+  voie: PropTypes.shape({
+    sourceNomVoie: PropTypes.string.isRequired,
+    nomsVoie: PropTypes.array.isRequired
+  }).isRequired
 }
 
 export default SourcesVoie
