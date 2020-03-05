@@ -22,7 +22,7 @@ const PublicationPage = React.memo(({submissionId, submission}) => {
   const [error, setError] = useState(null)
   const [mandat, setMandat] = useState(null)
 
-  const handleValidBal = balReport => {
+  const handleValidBal = () => {
     // TODO Allow uploading a file with submissionsBal
     setError('La fonctionnalitée de téléversement n’est pas encore disponible. Merci de bien vouloir réessayer utltérieurement.')
     // SetStep(2)
