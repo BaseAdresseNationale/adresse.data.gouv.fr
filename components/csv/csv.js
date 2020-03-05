@@ -90,6 +90,10 @@ class Csv extends React.Component {
       this.setState({
         error: `Cette extension de fichier n’est pas supportée : ${fileExtension}.`
       }, this.resetState())
+    } else if (file.size === 0) {
+      this.setState({
+        error: 'Ce fichier est vide.'
+      }, this.resetState())
     } else if (file.size > MAX_SIZE) {
       this.setState({
         error: 'Ce fichier est trop volumineux.'
