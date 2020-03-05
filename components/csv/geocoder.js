@@ -84,7 +84,7 @@ class Geocoder extends React.Component {
         )}
 
         {error && (
-          <p className='error'>Une erreur est survenue: {error.message}</p>
+          <p className='error'><b>{error.message}</b><br /><i>Code erreur : {error.httpCode}</i></p>
         )}
 
         <style jsx>{`
