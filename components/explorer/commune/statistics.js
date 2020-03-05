@@ -13,11 +13,15 @@ const getColors = items => {
 }
 
 const Statistics = ({sourcesNomsVoies, sourcesPositions}) => {
-  const noData = !sourcesNomsVoies && !sourcesPositions
   const bal = Object.keys(sourcesNomsVoies)[0] === 'commune-bal'
+  const noData = !sourcesNomsVoies && !sourcesPositions
+
+  if (bal) {
+    return null
+  }
 
   return (
-    <div className='statistics' style={bal ? {display: 'none', width: '0'} : null}>
+    <div className='statistics'>
       {noData && (
         <div className='no-data'>
           <Notification message='Aucune donnée disponible' />
