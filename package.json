@@ -13,7 +13,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.8.4",
+    "@babel/runtime-corejs2": "^7.8.7",
     "@etalab/bal": "^0.21.0",
     "@etalab/project-legal": "^0.4.0",
     "@turf/bbox": "^6.0.1",
@@ -35,16 +35,16 @@
     "papaparse": "^5.1.1",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.5.4",
-    "react": "^16.11.0",
+    "react": "^16.13.0",
     "react-autocomplete": "^1.7.2",
     "react-chartjs-2": "^2.9.0",
-    "react-dom": "^16.11.0",
+    "react-dom": "^16.13.0",
     "react-dropzone": "^10.1.10",
     "react-feather": "^2.0.3",
     "underscore.string": "^3.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
+    "@babel/core": "^7.8.7",
     "babel-eslint": "^10.1.0",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-lodash": "^3.3.4",
