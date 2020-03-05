@@ -5,7 +5,7 @@ import {Check} from 'react-feather'
 import Tag from '../../tag'
 
 const SourcesVoie = ({voie}) => {
-  const sourceNom = voie.sourceNomVoie
+  const {sourceNomVoie} = voie
   return (
     <div>
       <h3>Origine du nom de la voie</h3>
@@ -19,9 +19,9 @@ const SourcesVoie = ({voie}) => {
         </tr>
         {voie.nomsVoie.map(nom => {
           return (
-            <tr key={nom.index} className='sources' style={sourceNom === nom.source ? {backgroundColor: '#d6f5d6'} : null} >
+            <tr key={nom.index} className={sourceNomVoie === nom.source ? 'highlighted' : ''} >
               <td className='centered'>
-                {sourceNom === nom.source && (
+                {sourceNomVoie === nom.source && (
                   <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
                 )}
               </td>
@@ -63,13 +63,18 @@ const SourcesVoie = ({voie}) => {
           text-align: center;
         }
 
+        .highlighted {
+          background-color: #d6f5d6;
+        }
+
         `}</style>
     </div>
   )
 }
 
 SourcesVoie.propTypes = {
-  voie: PropTypes.object.isRequired
+  voie: PropTypes.object.isRequired,
+  sourceNomVoie: PropTypes.object.isRequired
 }
 
 export default SourcesVoie
