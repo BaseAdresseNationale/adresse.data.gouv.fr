@@ -79,6 +79,8 @@ function useLoadData(map, isFirstLoad, sources, layers) {
       if (layers.length > 0) {
         loadLayers()
       }
+
+      map.resize()
     }
   }, [map, isFirstLoad, sources, layers, loadedLayers.length, loadedSources.length, removeUnuseData, loadSources, loadLayers])
 
