@@ -35,7 +35,7 @@ const CommunePage = ({commune, codeCommune}) => {
       <Header />
 
       <Section>
-        <Commune commune={commune} />
+        <Commune commune={commune} promise={communeVoiesPromise} />
         <VoiesCommune promise={communeVoiesPromise} style={{height: '300px'}} />
       </Section>
     </Page>

@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
 
-import {getCommune} from '../../../lib/explore/api'
+import withFetch from '../../hoc/with-fetch'
 
 import Mapbox from '../../mapbox'
 import AddressesMap from '../../mapbox/addresses-map'
@@ -14,12 +14,8 @@ import Statistics from './statistics'
 import Head from './head'
 import Codes from './codes'
 
-const Commune = ({commune}) => {
-  const [statsPromise, setStatsPromise] = useState(null)
-
-  useEffect(() => {
-    setStatsPromise(getCommune(commune.code))
-  }, [commune])
+const Commune = ({commune, sourcesNomsVoies, sourcesPositions}) => {
+  const isBal = Object.keys(sourcesNomsVoies)[0] === 'commune-bal'
 
   return (
     <div>
@@ -40,7 +36,12 @@ const Commune = ({commune}) => {
             )}
           </Mapbox>
         </div>
-        <Statistics promise={statsPromise} style={{display: 'none'}} />
+        <div className={isBal ? 'bal' : 'notBal'}>
+          {!isBal &&
+            <Statistics
+              sources={{sourcesNomsVoies, sourcesPositions}}
+            />}
+        </div>
       </div>
 
       <style jsx>{`
@@ -57,6 +58,12 @@ const Commune = ({commune}) => {
       .explore-commune-map {
         flex: 1;
         height: 500px;
+      }
+
+      .bal {
+        position: relative;
+        display: none;
+        width: 0;
       }
 
       @media (max-width: 749px) {
@@ -78,7 +85,12 @@ Commune.propTypes = {
   commune: PropTypes.shape({
     code: PropTypes.string.isRequired,
     contour: PropTypes.object.isRequired
-  }).isRequired
+  }).isRequired,
+  sourcesNomsVoies: PropTypes.objectisRequired,
+  sourcesPositions: PropTypes.objectisRequired
 }
 
-export default Commune
+export default withFetch(data => {
+  const {sourcesNomsVoies, sourcesPositions} = data
+  return {sourcesNomsVoies, sourcesPositions}
+})(Commune)
