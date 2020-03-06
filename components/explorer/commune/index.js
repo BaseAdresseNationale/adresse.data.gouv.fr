@@ -4,8 +4,6 @@ import computeBbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
 
-import withFetch from '../../hoc/with-fetch'
-
 import Mapbox from '../../mapbox'
 import AddressesMap from '../../mapbox/addresses-map'
 
@@ -14,7 +12,8 @@ import Statistics from './statistics'
 import Head from './head'
 import Codes from './codes'
 
-const Commune = ({commune, sourcesNomsVoies, sourcesPositions}) => {
+const Commune = ({commune, voiesInfos}) => {
+  const {sourcesNomsVoies, sourcesPositions} = voiesInfos
   const isBal = Object.keys(sourcesNomsVoies)[0] === 'commune-bal'
 
   return (
@@ -36,12 +35,9 @@ const Commune = ({commune, sourcesNomsVoies, sourcesPositions}) => {
             )}
           </Mapbox>
         </div>
-        <div className={isBal ? 'bal' : 'notBal'}>
-          {!isBal &&
-            <Statistics
-              sources={{sourcesNomsVoies, sourcesPositions}}
-            />}
-        </div>
+        {!isBal && (
+          <Statistics sources={{sourcesNomsVoies, sourcesPositions}} />
+        )}
       </div>
 
       <style jsx>{`
@@ -58,12 +54,6 @@ const Commune = ({commune, sourcesNomsVoies, sourcesPositions}) => {
       .explore-commune-map {
         flex: 1;
         height: 500px;
-      }
-
-      .bal {
-        position: relative;
-        display: none;
-        width: 0;
       }
 
       @media (max-width: 749px) {
@@ -86,11 +76,10 @@ Commune.propTypes = {
     code: PropTypes.string.isRequired,
     contour: PropTypes.object.isRequired
   }).isRequired,
-  sourcesNomsVoies: PropTypes.objectisRequired,
-  sourcesPositions: PropTypes.objectisRequired
+  voiesInfos: PropTypes.shape({
+    sourcesNomsVoies: PropTypes.object.isRequired,
+    sourcesPositions: PropTypes.object.isRequired
+  }).isRequired
 }
 
-export default withFetch(data => {
-  const {sourcesNomsVoies, sourcesPositions} = data
-  return {sourcesNomsVoies, sourcesPositions}
-})(Commune)
+export default Commune
