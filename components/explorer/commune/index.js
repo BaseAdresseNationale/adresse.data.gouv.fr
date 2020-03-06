@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
 import theme from '../../../styles/theme'
-
-import {getCommune} from '../../../lib/explore/api'
 
 import Mapbox from '../../mapbox'
 import AddressesMap from '../../mapbox/addresses-map'
@@ -14,12 +12,9 @@ import Statistics from './statistics'
 import Head from './head'
 import Codes from './codes'
 
-const Commune = ({commune}) => {
-  const [statsPromise, setStatsPromise] = useState(null)
-
-  useEffect(() => {
-    setStatsPromise(getCommune(commune.code))
-  }, [commune])
+const Commune = ({commune, voiesInfos}) => {
+  const {sourcesNomsVoies, sourcesPositions} = voiesInfos
+  const isBal = Object.keys(sourcesNomsVoies)[0] === 'commune-bal'
 
   return (
     <div>
@@ -40,7 +35,9 @@ const Commune = ({commune}) => {
             )}
           </Mapbox>
         </div>
-        <Statistics promise={statsPromise} style={{width: '200px'}} />
+        {!isBal && (
+          <Statistics sources={{sourcesNomsVoies, sourcesPositions}} />
+        )}
       </div>
 
       <style jsx>{`
@@ -78,6 +75,10 @@ Commune.propTypes = {
   commune: PropTypes.shape({
     code: PropTypes.string.isRequired,
     contour: PropTypes.object.isRequired
+  }).isRequired,
+  voiesInfos: PropTypes.shape({
+    sourcesNomsVoies: PropTypes.object.isRequired,
+    sourcesPositions: PropTypes.object.isRequired
   }).isRequired
 }
 

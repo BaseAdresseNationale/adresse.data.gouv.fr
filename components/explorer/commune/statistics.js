@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import withFetch from '../../hoc/with-fetch'
-
 import {getType} from '../../../lib/types'
 
 import Notification from '../../notification'
@@ -12,7 +10,8 @@ const getColors = items => {
   return Object.keys(items).map(i => getType(i).background)
 }
 
-const Statistics = ({sourcesNomsVoies, sourcesPositions}) => {
+const Statistics = ({sources}) => {
+  const {sourcesNomsVoies, sourcesPositions} = sources
   const noData = !sourcesNomsVoies && !sourcesPositions
 
   return (
@@ -62,16 +61,17 @@ const Statistics = ({sourcesNomsVoies, sourcesPositions}) => {
 }
 
 Statistics.defaultProps = {
-  sourcesNomsVoies: null,
-  sourcesPositions: null
+  sources: PropTypes.shape({
+    sourcesNomsVoies: null,
+    sourcesPositions: null
+  })
 }
 
 Statistics.propTypes = {
-  sourcesNomsVoies: PropTypes.object,
-  sourcesPositions: PropTypes.object
+  sources: PropTypes.shape({
+    sourcesNomsVoies: PropTypes.object,
+    sourcesPositions: PropTypes.object
+  })
 }
 
-export default withFetch(data => {
-  const {sourcesNomsVoies, sourcesPositions} = data
-  return {sourcesNomsVoies, sourcesPositions}
-})(Statistics)
+export default Statistics

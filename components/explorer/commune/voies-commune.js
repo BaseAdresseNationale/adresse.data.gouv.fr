@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import withFetch from '../../hoc/with-fetch'
-
 import TableList from '../../table-list'
 import Tag from '../../tag'
 
@@ -67,7 +65,4 @@ VoiesCommune.defaultProps = {
   commune: {}
 }
 
-export default withFetch(data => ({
-  voies: data.voies,
-  commune: data
-}))(VoiesCommune)
+export default VoiesCommune

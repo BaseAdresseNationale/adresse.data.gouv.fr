@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {getCommune} from '../../lib/api-geo'
 import {getCommune as getCommuneExplore} from '../../lib/explore/api'
@@ -23,28 +23,29 @@ const contourToFeatureCollection = commune => {
   }
 }
 
-const CommunePage = ({commune, codeCommune}) => {
-  const [communeVoiesPromise, setCommuneVoiesPromise] = useState(null)
-
-  useEffect(() => {
-    setCommuneVoiesPromise(getCommuneExplore(codeCommune))
-  }, [codeCommune])
+const CommunePage = ({commune, voiesInfos}) => {
+  const {voies} = voiesInfos
 
   return (
     <Page title={commune.nom} description={`Consulter les voies de ${commune.nom}`}>
       <Header />
 
       <Section>
-        <Commune commune={commune} />
-        <VoiesCommune promise={communeVoiesPromise} style={{height: '300px'}} />
+        <Commune commune={commune} voiesInfos={voiesInfos} />
+        <VoiesCommune voies={voies} style={{height: '300px'}} />
       </Section>
     </Page>
   )
 }
 
 CommunePage.propTypes = {
-  commune: PropTypes.object.isRequired,
-  codeCommune: PropTypes.string.isRequired
+  commune: PropTypes.shape({
+    nom: PropTypes.string.isRequired,
+    contour: PropTypes.object.isRequired
+  }).isRequired,
+  voiesInfos: PropTypes.shape({
+    voies: PropTypes.array.isRequired
+  }).isRequired
 }
 
 const MLP = {
@@ -101,12 +102,13 @@ CommunePage.getInitialProps = async ({query}) => {
   const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
   const codeCommune = query.codeCommune in MLP ? MLP[query.codeCommune] : query.codeCommune
   const commune = await getCommune(codeCommune, fields)
+  const voiesInfos = await getCommuneExplore(codeCommune)
 
   commune.contour = contourToFeatureCollection(commune)
 
   return {
-    codeCommune: query.codeCommune,
-    commune
+    commune,
+    voiesInfos
   }
 }
 
