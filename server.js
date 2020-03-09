@@ -1,11 +1,6 @@
 const express = require('express')
 const next = require('next')
 const compression = require('compression')
-const HttpProxy = require('http-proxy')
-
-const BACKEND_PROXY_URL = process.env.BACKEND_PROXY_URL || 'https://backend.adresse.data.gouv.fr'
-
-const proxy = new HttpProxy()
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -18,10 +13,6 @@ app.prepare().then(() => {
   if (!dev) {
     server.use(compression())
   }
-
-  server.use('/backend', (req, res) => {
-    proxy.web(req, res, {target: BACKEND_PROXY_URL, changeOrigin: true})
-  })
 
   server.get('/explore/commune/:code', (req, res) => {
     app.render(req, res, '/explore/commune', {
