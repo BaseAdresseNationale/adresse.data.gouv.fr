@@ -11,6 +11,7 @@ const links = [
   {text: 'API', href: '/api'},
   {text: 'Contribuer', href: '/contribuer'},
   {text: 'Outils', href: '/tools'},
+  {text: 'Contact', href: '/contact'},
   {text: 'FAQ', href: '/faq'}
 ]
 
@@ -109,7 +110,7 @@ export default () => (
         display: none;
       }
 
-      @media (max-width: 800px) {
+      @media (max-width: 960px) {
         .nav__links {
           display: none;
         }
