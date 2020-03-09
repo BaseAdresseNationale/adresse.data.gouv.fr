@@ -34,7 +34,7 @@ class Summary extends React.Component {
     return (
       <div>
         <div className='base-adresse-locale'>
-          {organization ? <Organization {...organization} /> : <img src='../../images/no-img.png' />}
+          <Organization {...organization} />
 
           <div className='meta'>
             {infos.map(info => (
@@ -65,10 +65,6 @@ class Summary extends React.Component {
             grid-row-gap: 1em;
             justify-items: center;
             align-items: center;
-          }
-
-          img {
-            max-width: 9em;
           }
 
           .links {
