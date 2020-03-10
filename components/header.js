@@ -11,8 +11,8 @@ const links = [
   {text: 'API', href: '/api'},
   {text: 'Contribuer', href: '/contribuer'},
   {text: 'Outils', href: '/tools'},
-  {text: 'Nous contacter', href: '/nous-contacter'},
-  {text: 'FAQ', href: '/faq'}
+  {text: 'FAQ', href: '/faq'},
+  {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
 export default () => (
