@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 class Organization extends React.Component {
   static propTypes = {
-    name: PropTypes.string.isRequired,
-    logo: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    logo: PropTypes.string,
     size: PropTypes.oneOf([
       'standard',
       'big'
@@ -12,7 +12,9 @@ class Organization extends React.Component {
   }
 
   static defaultProps = {
-    size: 'standard'
+    size: 'standard',
+    name: null,
+    logo: '/images/no-img.png'
   }
 
   render() {

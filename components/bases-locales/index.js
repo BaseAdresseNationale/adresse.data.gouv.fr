@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {shuffle} from 'lodash'
 import {CheckSquare, Plus, Edit} from 'react-feather'
@@ -16,6 +16,7 @@ import BalCoverMap from './bal-cover-map'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
   const isValidRatio = Math.round((stats.isValid / stats.model['bal-aitf']) * 100)
+  const [balSamples, setBalSamples] = useState([])
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -29,6 +30,13 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       geometry: dataset.contour
     }))
   }
+
+  useEffect(() => {
+    if (datasets) {
+      const shuffleBalSamples = () => shuffle(datasets.filter(d => d.model === 'bal-aitf')).slice(0, 3)
+      setBalSamples(shuffleBalSamples)
+    }
+  }, [datasets])
 
   return (
     <div>
@@ -92,7 +100,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
       <Section title='Quelques bases locales déjà publiées' background='white'>
         <div className='bal-grid'>
-          {shuffle(datasets.filter(d => d.model === 'bal-aitf')).slice(0, 3).map(dataset => (
+          {balSamples.map(dataset => (
             <BaseAdresseLocale key={dataset.id} dataset={dataset} />
           ))}
         </div>

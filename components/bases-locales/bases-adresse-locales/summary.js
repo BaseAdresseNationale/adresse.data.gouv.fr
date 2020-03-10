@@ -34,7 +34,7 @@ class Summary extends React.Component {
     return (
       <div>
         <div className='base-adresse-locale'>
-          {organization ? <Organization {...organization} /> : <div />}
+          <Organization {...organization} />
 
           <div className='meta'>
             {infos.map(info => (
