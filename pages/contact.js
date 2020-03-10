@@ -48,7 +48,7 @@ export default () => (
         <Question question='Pour toute autre demande ou pour plus d’informations.' isBold>
           <div>
             <p>
-              Si vous ne trouvez pas les réponses à vos questions sur notre <Link href='/faq'><a>FAQ</a></Link>, vous pouvez nous contacter à l’adresse suivante : <a href='adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.
+              Si vous ne trouvez pas les réponses à vos questions ce site ou dans la <Link href='/faq'><a>FAQ</a></Link>, vous pouvez nous contacter à l’adresse suivante : <a href='adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.
             </p>
             <p>
               Notre équipe fera le nécessaire pour vous répondre dans les plus brefs délais, dans la limite de sa disponibilité.
