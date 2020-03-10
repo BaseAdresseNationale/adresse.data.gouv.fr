@@ -10,6 +10,7 @@ import Tag from '../../tag'
 import Head from './head'
 import MapContainer from './map-container'
 import SourcesVoie from './sources-voie'
+import SourcePosition from './source-position'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
@@ -55,7 +56,17 @@ const Voie = ({commune, voie, numero}) => {
         addresses={voie.numeros}
         numero={numero}
         onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
-      <SourcesVoie voie={voie} />
+      <div className='source-container'>
+        <SourcesVoie voie={voie} />
+        {numero && (
+          <SourcePosition numero={numero} />
+        )}
+      </div>
+      {numero ? (
+        <div style={{textAlign: 'center', paddingBottom: '15px'}}><i>Les tableaux ci-dessus listent tous les libellés et positions rencontrés dans les différentes sources ayant permis de produire le fichier Adresses, ainsi que le nombre d’occurences. Le libellé retenu par l’algorithme est indiqué en vert.</i></div>
+      ) : (
+        <div style={{textAlign: 'center', paddingBottom: '15px'}}><i>Le tableau ci-dessus liste tous les libellés rencontrés dans les différentes sources ayant permis de produire le fichier Adresses, ainsi que le nombre d’occurences. Le libellé retenu par l’algorithme est indiqué en vert.</i></div>
+      )}
       <TableList
         title='Adresses de la voie'
         subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
@@ -65,6 +76,12 @@ const Voie = ({commune, voie, numero}) => {
         cols={cols}
         isSelected={isSelected}
         handleSelect={handleSelect} />
+      <style jsx>{`
+        .source-container {
+          display: inline-flex;
+          width: 100%;
+        }
+      `}</style>
     </Section>
   )
 }

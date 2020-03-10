@@ -4,31 +4,29 @@ import {Check} from 'react-feather'
 
 import Tag from '../../tag'
 
-const SourcesVoie = ({voie}) => {
-  const {sourceNomVoie} = voie
+const SourcesVoie = ({numero}) => {
+  const {adressesOriginales} = numero
 
   return (
     <div className='source-container'>
-      <h3>Origine du nom de la voie</h3>
-      {/* <div className='resume centered'><i>Le tableau suivant liste tous les libellés rencontrés dans les différentes sources ayant permis de produire le fichier Adresses, ainsi que le nombre d’occurences. Le libellé retenu par l’algorithme est indiqué en vert.</i></div> */}
+      <h3>Origine de la position</h3>
+      {/* <div className='resume centered'></div> */}
       <tbody className='table-container'>
         <tr>
           <th />
-          <th>Libellé</th>
           <th>Source</th>
-          <th>Nombre d’occurences</th>
+          <th>Type de position</th>
         </tr>
-        {voie.nomsVoie.map(nom => {
+        {adressesOriginales.map(adresse => {
           return (
-            <tr key={nom.index} className={sourceNomVoie === nom.source ? 'highlighted' : ''} >
+            <tr key={adresse.index} className={numero.sourcePosition === adresse.sourcePosition ? 'highlighted' : ''}>
               <td className='centered'>
-                {sourceNomVoie === nom.source && (
+                {numero.sourcePosition === adresse.sourcePosition && (
                   <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
                 )}
               </td>
-              <td>{nom.nomVoie}</td>
-              <td><Tag key={nom.source} type={nom.source} style={{display: 'inline-flex'}} /></td>
-              <td>{nom.count}</td>
+              <td><Tag key={adresse.source} type={adresse.source} style={{display: 'inline-flex'}} /></td>
+              <td>{adresse.positionType || adresse.typePosition || 'inconnu'}</td>
             </tr>
           )
         })}
@@ -47,11 +45,12 @@ const SourcesVoie = ({voie}) => {
         td, th {
           padding: .5em;
           border: .5px solid lightgrey;
+          text-align: center;
         }
 
         .source-container {
+          width: 50%;
           padding: 15px;
-          width: 100%;
         }
 
         .table-container {
@@ -79,9 +78,9 @@ const SourcesVoie = ({voie}) => {
 }
 
 SourcesVoie.propTypes = {
-  voie: PropTypes.shape({
-    sourceNomVoie: PropTypes.string.isRequired,
-    nomsVoie: PropTypes.array.isRequired
+  numero: PropTypes.shape({
+    sourcePosition: PropTypes.string.isRequired,
+    adressesOriginales: PropTypes.array.isRequired
   }).isRequired
 }
 
