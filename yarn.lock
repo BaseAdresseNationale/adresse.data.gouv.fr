@@ -4010,10 +4010,10 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fuzzyset.js@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/fuzzyset.js/-/fuzzyset.js-0.0.8.tgz#398311fb54a5f84221db2cb143ac8cf1e523ae50"
-  integrity sha512-wymI6DYJgCBDFUrIyA/M2gIjJPEWj40pnCf04+Dma0PaprQRrTRh9/Cmz1wl9jCJxA+iqrCqNrGYuq7lVOtzXQ==
+fuzzyset.js@^0.0.91:
+  version "0.0.91"
+  resolved "https://registry.yarnpkg.com/fuzzyset.js/-/fuzzyset.js-0.0.91.tgz#afb2b006747d0fcc3352f7e0b579293cc47bb377"
+  integrity sha512-xywf1FmNf527kOl1urhh/GW3TcQsDlQVdcavBRB05cljrk8WpvPg6Qi23D72RdP1i9z7Lm8Wcnavi+H2lg9bHw==
 
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.1"
