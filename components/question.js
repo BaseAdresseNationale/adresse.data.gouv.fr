@@ -2,15 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {ChevronUp, ChevronDown} from 'react-feather'
 
-import theme from '../../styles/theme'
+import theme from '../styles/theme'
 
 class Question extends React.Component {
   state = {
     open: false
   }
 
+  static defaultProps = {
+    isBold: false
+  }
+
   static propTypes = {
     question: PropTypes.string.isRequired,
+    isBold: PropTypes.bool,
     children: PropTypes.node.isRequired
   }
 
@@ -24,7 +29,7 @@ class Question extends React.Component {
 
   render() {
     const {open} = this.state
-    const {question, children} = this.props
+    const {question, isBold, children} = this.props
 
     return (
       <div>
@@ -44,10 +49,11 @@ class Question extends React.Component {
             justify-content: space-between;
             align-items: center;
             border: 1px solid ${theme.primary};
-            padding: 1em;
+            padding: ${isBold ? '1em' : '1.5em'};
             margin: 0.2em;
             border-radius: 3px;
           }
+
           .question-container.is-open {
             border-bottom: none;
             border-bottom-right-radius: 0;
@@ -61,7 +67,8 @@ class Question extends React.Component {
           }
 
           .question {
-            font-size: large;
+            font-size: ${isBold ? '20px' : 'large'};
+            font-weight: ${isBold ? '600' : 'initial'};
           }
 
           .answer {
