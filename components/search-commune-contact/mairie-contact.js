@@ -15,8 +15,14 @@ const MairieContact = ({nom, horaires, email, telephone}) => {
     <div className='mairie-contact'>
       <div><b>{nom}</b></div>
       <div className='infos'>
-        <div><Mail style={{marginRight: '3px'}} /> Email: {email || defaultValue}</div>
-        <div><Phone style={{marginRight: '3px'}} /> Téléphone: {telephone || defaultValue}</div>
+        <div>
+          <Mail style={{marginRight: '3px'}} />
+          Email: {email ? <a href={`mailto:${email}`}>{email}</a> : defaultValue}
+        </div>
+        <div>
+          <Phone style={{marginRight: '3px'}} />
+          Téléphone: {telephone ? <a href={`tel:+33${telephone}`}>{telephone}</a> : defaultValue}
+        </div>
 
         <div className='horaires'>
           Horaires d’ouverture :
@@ -59,6 +65,11 @@ const MairieContact = ({nom, horaires, email, telephone}) => {
 
         .infos > div {
           display: flex;
+          margin: 0.5em 0;
+        }
+
+        .infos a {
+          margin: 0 0.2em;
         }
 
         .horaires {

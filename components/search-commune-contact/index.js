@@ -51,7 +51,7 @@ const SearchCommuneContact = () => {
   }, [commune, fetchCommuneContact])
 
   return (
-    <div>
+    <div className='search-commune-contact'>
       <SearchInput
         value={input}
         results={results}
@@ -68,6 +68,12 @@ const SearchCommuneContact = () => {
         </div>}
 
       {mairie && <MairieContact {...mairie} />}
+
+      <style jsx>{`
+        .search-commune-contact {
+          position: relative;
+        }
+        `}</style>
     </div>
   )
 }
