@@ -31,7 +31,7 @@ const MairieContact = ({nom, horaires, email, telephone}) => {
               horaires.map(horaire => (
                 <div key={`${horaire.du}-${horaire.au}`}>
                   <div>
-                    <b>{horaire.du === horaire.au ? `Le ${horaire.du}` : `Du ${horaire.du} au ${horaire.au}}`}</b> :
+                    <b>{horaire.du === horaire.au ? `Le ${horaire.du}` : `Du ${horaire.du} au ${horaire.au}`}</b> :
                   </div>
                   <ul>
                     {horaire.heures.map(heure => (
