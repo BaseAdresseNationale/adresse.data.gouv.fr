@@ -19,9 +19,9 @@ const SourcesVoie = ({numero}) => {
         </tr>
         {adressesOriginales.map(adresse => {
           return (
-            <tr key={adresse.index} className={numero.sourcePosition === adresse.sourcePosition ? 'highlighted' : ''}>
+            <tr key={adresse.index} className={numero.sourcePosition === adresse.source ? 'highlighted' : ''}>
               <td className='centered'>
-                {numero.sourcePosition === adresse.sourcePosition && (
+                {numero.sourcePosition === adresse.source && (
                   <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
                 )}
               </td>
