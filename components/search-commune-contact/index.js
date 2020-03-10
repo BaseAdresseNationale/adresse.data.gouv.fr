@@ -21,7 +21,13 @@ const SearchCommuneContact = () => {
 
   const fetchCommuneContact = useCallback(async () => {
     const results = await getMairie(commune.code)
-    setMarie(results.features[0].properties)
+    const mairie = results.features[0]
+    if (mairie) {
+      setMarie(results.features[0].properties)
+    } else {
+      const error = new Error(`Aucune information disponible pour la mairie de ${commune.nom}.`)
+      setError(error)
+    }
   }, [commune])
 
   const handleSearch = useCallback(debounce(async input => {
@@ -46,6 +52,7 @@ const SearchCommuneContact = () => {
 
   useEffect(() => {
     if (commune) {
+      setError(null)
       fetchCommuneContact()
     }
   }, [commune, fetchCommuneContact])
@@ -72,6 +79,10 @@ const SearchCommuneContact = () => {
       <style jsx>{`
         .search-commune-contact {
           position: relative;
+        }
+
+        .error {
+          margin: 1em 0;
         }
         `}</style>
     </div>
