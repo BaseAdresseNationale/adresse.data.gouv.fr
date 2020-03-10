@@ -5,7 +5,7 @@ import Page from '../layouts/main'
 
 import Head from '../components/head'
 
-const title = 'Contact'
+const title = 'Nous contacter'
 const description = 'Contactez l’équipe de adresse.data.gouv.fr'
 
 export default () => (

@@ -14,6 +14,10 @@ app.prepare().then(() => {
     server.use(compression())
   }
 
+  server.get('/nous-contacter', (req, res) => {
+    app.render(req, res, '/contact')
+  })
+
   server.get('/explore/commune/:code', (req, res) => {
     app.render(req, res, '/explore/commune', {
       ...req.query,
