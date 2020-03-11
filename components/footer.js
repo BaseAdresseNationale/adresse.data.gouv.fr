@@ -12,7 +12,7 @@ const Footer = () => (
           <li><a href='https://twitter.com/AdresseDataGouv'><img src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
           <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><img src='/images/medias/github.svg' alt='Github' /></a></li>
           <li><a href='https://blog.geo.data.gouv.fr'><img src='/images/medias/medium.svg' alt='Medium' /></a></li>
-          <li><a href='mailto:adresse@data.gouv.fr'><img src='/images/medias/envelop.svg' alt='Nous contacter' /></a></li>
+          <li><Link href='/nous-contacter'><a><img src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
         </ul>
       </div>
       <ul className='footer__links'>
