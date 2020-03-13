@@ -11,6 +11,7 @@ import Head from './head'
 import MapContainer from './map-container'
 import SourcesVoie from './sources-voie'
 import SourcePosition from './source-position'
+import Sources from './sources'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
@@ -44,6 +45,32 @@ const Voie = ({commune, voie, numero}) => {
     }
   }
 
+  const colsSourcesVoie = {
+    nomVoie: {
+      title: 'Libellé',
+      getValue: data => data.nomVoie
+    },
+    source: {
+      title: 'Source',
+      getValue: data => <Tag key={data.source} type={data.source} style={{display: 'inline-flex'}} />
+    },
+    count: {
+      title: 'Nombre d’occurence',
+      getValue: data => data.count
+    }
+  }
+
+  const colsSourcesNumero = {
+    source: {
+      title: 'Source',
+      getValue: data => <Tag key={data.source} type={data.source} style={{ display: 'inline-flex' }} />
+    },
+    position: {
+      title: 'Type de position',
+      getValue: data => data.typePosition || data.positionType
+    }
+  }
+
   return (
     <Section>
       <Head
@@ -57,9 +84,13 @@ const Voie = ({commune, voie, numero}) => {
         numero={numero}
         onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
       <div className='source-container'>
-        <SourcesVoie voie={voie} />
+        <Sources data={voie.nomsVoie} cols={colsSourcesVoie} title='Origine du nom de la voie' />
+        {/* <SourcesVoie voie={voie} /> */}
         {numero && (
-          <SourcePosition numero={numero} />
+          <>
+          <Sources data={numero.adressesOriginales} cols={colsSourcesNumero} title='Origine de la position' />
+          {/* <SourcePosition numero={numero} /> */}
+          </>
         )}
       </div>
       {numero ? (
