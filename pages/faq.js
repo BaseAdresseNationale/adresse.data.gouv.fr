@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Page from '../layouts/main'
 import Head from '../components/head'
 import Section from '../components/section'
-import Question from '../components/faq/question'
+import Question from '../components/question'
 
 const title = 'Foire aux questions'
 const description = 'Questions les plus fréquemment posées.'
