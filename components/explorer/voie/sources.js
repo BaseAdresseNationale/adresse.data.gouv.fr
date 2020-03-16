@@ -3,7 +3,7 @@ import React from 'react'
 import {Check} from 'react-feather'
 
 const Sources = ({data, cols, title}) => {
-  console.log(data)
+  //console.log('data:', data)
   return (
     <div className='source-container'>
       <h3>{title}</h3>
@@ -16,11 +16,15 @@ const Sources = ({data, cols, title}) => {
         </tr>
         {data.map(item => (
           <tr>
-            <td className='centered'>
-              <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
-            </td>
+            {item.isChecked ? (
+              <td className={item.isChecked ? 'highlighted centered' : ''}>
+                <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
+              </td>) : (
+                <td />
+            )}
+
             {Object.keys(cols).map(col => (
-              <td>{cols[col].getValue(item)}</td>
+              <td className={item.isChecked ? 'highlighted' : ''} >{cols[col].getValue(item)}</td>
             ))}
           </tr>
         ))}

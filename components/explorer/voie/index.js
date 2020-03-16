@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 
 import Section from '../../section'
+import {Check} from 'react-feather'
 
 import TableList from '../../table-list'
 import Tag from '../../tag'
@@ -45,6 +46,18 @@ const Voie = ({commune, voie, numero}) => {
     }
   }
 
+  const {nomsVoie, sourceNomVoie} = voie
+
+  const dataVoie = nomsVoie.map(data => {
+    const r = {...data, isChecked: false}
+    if (data.source === sourceNomVoie) {
+      r.isChecked = true
+      return r
+    }
+
+    return r
+  })
+
   const colsSourcesVoie = {
     nomVoie: {
       title: 'Libellé',
@@ -63,7 +76,7 @@ const Voie = ({commune, voie, numero}) => {
   const colsSourcesNumero = {
     source: {
       title: 'Source',
-      getValue: data => <Tag key={data.source} type={data.source} style={{ display: 'inline-flex' }} />
+      getValue: data => <Tag key={data.source} type={data.source} style={{display: 'inline-flex'}} />
     },
     position: {
       title: 'Type de position',
@@ -84,7 +97,7 @@ const Voie = ({commune, voie, numero}) => {
         numero={numero}
         onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
       <div className='source-container'>
-        <Sources data={voie.nomsVoie} cols={colsSourcesVoie} title='Origine du nom de la voie' />
+        <Sources data={dataVoie} cols={colsSourcesVoie} title='Origine du nom de la voie' />
         {/* <SourcesVoie voie={voie} /> */}
         {numero && (
           <>

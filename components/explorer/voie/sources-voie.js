@@ -10,7 +10,6 @@ const SourcesVoie = ({voie}) => {
   return (
     <div className='source-container'>
       <h3>Origine du nom de la voie</h3>
-      {/* <div className='resume centered'><i>Le tableau suivant liste tous les libellés rencontrés dans les différentes sources ayant permis de produire le fichier Adresses, ainsi que le nombre d’occurences. Le libellé retenu par l’algorithme est indiqué en vert.</i></div> */}
       <tbody className='table-container'>
         <tr>
           <th />
