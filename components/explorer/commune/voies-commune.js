@@ -31,7 +31,7 @@ const VoiesCommune = ({voies, commune}) => {
   const handleSelect = ({idVoie}) => {
     Router.push(
       `/commune/voie?idVoie=${idVoie}`,
-      `/explore/commune/${commune.codeCommune}/voie/${idVoie}`
+      `/explore/commune/${commune.code}/voie/${idVoie}`
     )
   }
 

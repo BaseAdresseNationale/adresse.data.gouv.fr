@@ -32,7 +32,7 @@ const CommunePage = ({commune, voiesInfos}) => {
 
       <Section>
         <Commune commune={commune} voiesInfos={voiesInfos} />
-        <VoiesCommune voies={voies} style={{height: '300px'}} />
+        <VoiesCommune voies={voies} commune={commune} style={{height: '300px'}} />
       </Section>
     </Page>
   )
