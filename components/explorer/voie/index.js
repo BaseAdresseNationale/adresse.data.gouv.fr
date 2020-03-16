@@ -9,7 +9,7 @@ import Tag from '../../tag'
 
 import Head from './head'
 import MapContainer from './map-container'
-import SourcesVoie from './sources-voie'
+import SourcesTable from '../../sources-table'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
@@ -43,6 +43,32 @@ const Voie = ({commune, voie, numero}) => {
     }
   }
 
+  const colsSourcesVoie = {
+    nomVoie: {
+      title: 'Libellé',
+      getValue: data => data.nomVoie
+    },
+    source: {
+      title: 'Source',
+      getValue: data => <Tag key={data.source} type={data.source} style={{display: 'inline-flex'}} />
+    },
+    count: {
+      title: 'Nombre d’occurence',
+      getValue: data => data.count
+    }
+  }
+
+  const colsSourcesNumero = {
+    source: {
+      title: 'Source',
+      getValue: data => <Tag key={data.source} type={data.source} style={{display: 'inline-flex'}} />
+    },
+    position: {
+      title: 'Type de position',
+      getValue: data => data.typePosition || data.positionType || 'inconnu'
+    }
+  }
+
   return (
     <Section>
       <Head
@@ -55,7 +81,29 @@ const Voie = ({commune, voie, numero}) => {
         addresses={voie.numeros}
         numero={numero}
         onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
-      <SourcesVoie voie={voie} />
+      <div className='source-container'>
+        <SourcesTable
+          data={voie.nomsVoie}
+          checkIsHighlighted={item => item.source === voie.sourceNomVoie}
+          cols={colsSourcesVoie}
+          title='Origine du nom de la voie'
+          getId={item => item.source}
+        />
+        {numero && (
+          <SourcesTable
+            data={numero.adressesOriginales}
+            checkIsHighlighted={item => item.source === numero.sourcePosition}
+            cols={colsSourcesNumero}
+            title='Origine de la position'
+            getId={item => item.idPosition}
+          />
+        )}
+      </div>
+      {numero ? (
+        <div style={{textAlign: 'center', paddingBottom: '15px'}}><i>Les tableaux ci-dessus listent tous les libellés et positions rencontrés dans les différentes sources ayant permis de produire le fichier Adresses, ainsi que le nombre d’occurences. Le libellé retenu par l’algorithme est indiqué en vert.</i></div>
+      ) : (
+        <div style={{textAlign: 'center', paddingBottom: '15px'}}><i>Le tableau ci-dessus liste tous les libellés rencontrés dans les différentes sources ayant permis de produire le fichier Adresses, ainsi que le nombre d’occurences. Le libellé retenu par l’algorithme est indiqué en vert.</i></div>
+      )}
       <TableList
         title='Adresses de la voie'
         subtitle={voie.numerosCount === 1 ? `${voie.numerosCount} adresse répertoriée` : `${voie.numerosCount} adresses répertoriées`}
@@ -65,6 +113,16 @@ const Voie = ({commune, voie, numero}) => {
         cols={cols}
         isSelected={isSelected}
         handleSelect={handleSelect} />
+      <style jsx>{`
+        .source-container {
+          display: flex;
+          flex: 1;
+        }
+        @media (max-width: 800px) {
+        .source-container {
+          flex-direction: column;
+        }
+      `}</style>
     </Section>
   )
 }
@@ -79,7 +137,9 @@ Voie.propTypes = {
     numerosCount: PropTypes.number.isRequired,
     numero: PropTypes.number,
     suffixe: PropTypes.string,
-    sources: PropTypes.array
+    sources: PropTypes.array,
+    sourceNomVoie: PropTypes.array,
+    nomsVoie: PropTypes.array
   }),
   numero: PropTypes.object
 }
