@@ -1,9 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {Check} from 'react-feather'
 
-const Sources = ({data, cols, title}) => {
-  //console.log('data:', data)
+const SourcesTable = ({data, cols, title, checkIsHighlighted, getId}) => {
   return (
     <div className='source-container'>
       <h3>{title}</h3>
@@ -11,20 +11,18 @@ const Sources = ({data, cols, title}) => {
         <tr>
           <th />
           {Object.keys(cols).map(col => (
-            <th>{cols[col].title}</th>
+            <th key={cols[col].title}>{cols[col].title}</th>
           ))}
         </tr>
         {data.map(item => (
-          <tr>
-            {item.isChecked ? (
-              <td className={item.isChecked ? 'highlighted centered' : ''}>
+          <tr key={getId(item)}>
+            {checkIsHighlighted(item) ? (
+              <td className='highlighted centered'>
                 <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
-              </td>) : (
-                <td />
-            )}
+              </td>) : (<td />)}
 
             {Object.keys(cols).map(col => (
-              <td className={item.isChecked ? 'highlighted' : ''} >{cols[col].getValue(item)}</td>
+              <td key={getId(col)} className={checkIsHighlighted(item) ? 'highlighted' : ''} >{cols[col].getValue(item)}</td>
             ))}
           </tr>
         ))}
@@ -74,5 +72,17 @@ const Sources = ({data, cols, title}) => {
   )
 }
 
-export default Sources
+SourcesTable.propTypes = {
+  data: PropTypes.object.isRequired,
+  cols: PropTypes.object.isRequired,
+  title: PropTypes.string,
+  checkIsHighlighted: PropTypes.func.isRequired,
+  getId: PropTypes.func.isRequired
+}
+
+SourcesTable.defaultProps = {
+  title: null
+}
+
+export default SourcesTable
 

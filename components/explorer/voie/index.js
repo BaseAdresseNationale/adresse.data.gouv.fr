@@ -3,16 +3,13 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 
 import Section from '../../section'
-import {Check} from 'react-feather'
 
 import TableList from '../../table-list'
 import Tag from '../../tag'
 
 import Head from './head'
 import MapContainer from './map-container'
-import SourcesVoie from './sources-voie'
-import SourcePosition from './source-position'
-import Sources from './sources'
+import SourcesTable from '../../sources-table'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
@@ -46,18 +43,6 @@ const Voie = ({commune, voie, numero}) => {
     }
   }
 
-  const {nomsVoie, sourceNomVoie} = voie
-
-  const dataVoie = nomsVoie.map(data => {
-    const r = {...data, isChecked: false}
-    if (data.source === sourceNomVoie) {
-      r.isChecked = true
-      return r
-    }
-
-    return r
-  })
-
   const colsSourcesVoie = {
     nomVoie: {
       title: 'Libellé',
@@ -80,7 +65,7 @@ const Voie = ({commune, voie, numero}) => {
     },
     position: {
       title: 'Type de position',
-      getValue: data => data.typePosition || data.positionType
+      getValue: data => data.typePosition || data.positionType || 'inconnu'
     }
   }
 
@@ -97,13 +82,21 @@ const Voie = ({commune, voie, numero}) => {
         numero={numero}
         onSelect={(numero, suffixe) => handleSelect({numero, suffixe})} />
       <div className='source-container'>
-        <Sources data={dataVoie} cols={colsSourcesVoie} title='Origine du nom de la voie' />
-        {/* <SourcesVoie voie={voie} /> */}
+        <SourcesTable
+          data={voie.nomsVoie}
+          checkIsHighlighted={item => item.source === voie.sourceNomVoie}
+          cols={colsSourcesVoie}
+          title='Origine du nom de la voie'
+          getId={item => item.source}
+        />
         {numero && (
-          <>
-          <Sources data={numero.adressesOriginales} cols={colsSourcesNumero} title='Origine de la position' />
-          {/* <SourcePosition numero={numero} /> */}
-          </>
+          <SourcesTable
+            data={numero.adressesOriginales}
+            checkIsHighlighted={item => item.source === numero.sourcePosition}
+            cols={colsSourcesNumero}
+            title='Origine de la position'
+            getId={item => item.idPosition}
+          />
         )}
       </div>
       {numero ? (
@@ -140,7 +133,9 @@ Voie.propTypes = {
     numerosCount: PropTypes.number.isRequired,
     numero: PropTypes.number,
     suffixe: PropTypes.string,
-    sources: PropTypes.array
+    sources: PropTypes.array,
+    sourceNomVoie: PropTypes.array,
+    nomsVoie: PropTypes.array
   }),
   numero: PropTypes.object
 }
