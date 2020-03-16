@@ -46,6 +46,7 @@ const SourcesTable = ({data, cols, title, checkIsHighlighted, getId}) => {
         .source-container {
           padding: 15px;
           width: 100%;
+          margin-top: auto;
         }
 
         .table-container {

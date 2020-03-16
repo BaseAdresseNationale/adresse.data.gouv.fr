@@ -115,8 +115,15 @@ const Voie = ({commune, voie, numero}) => {
         handleSelect={handleSelect} />
       <style jsx>{`
         .source-container {
-          display: inline-flex;
           width: 100%;
+          display: flex;
+          flex-direction: row;
+        }
+        @media (max-width: 800px) {
+        .source-container {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
         }
       `}</style>
     </Section>
