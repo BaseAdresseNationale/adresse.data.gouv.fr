@@ -57,7 +57,9 @@ const VoiesCommune = ({voies, commune}) => {
 
 VoiesCommune.propTypes = {
   voies: PropTypes.array,
-  commune: PropTypes.object
+  commune: PropTypes.shape({
+    code: PropTypes.string.isRequired
+  })
 }
 
 VoiesCommune.defaultProps = {
