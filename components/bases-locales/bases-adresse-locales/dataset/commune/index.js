@@ -24,6 +24,11 @@ const Commune = ({commune, voies, dataset}) => {
       getValue: voie => voie.nomVoie
     },
     {
+      title: 'Code de la voie',
+      sortBy: 'alphabetical',
+      getValue: voie => voie.idVoie.replace(commune.code + '-', '')
+    },
+    {
       title: 'Nombre d’adresses',
       sortBy: 'numeric',
       getValue: voie => voie.numerosCount === 0 ? <NoPositionWarning check={voie.position} text={noPosition} /> : voie.numerosCount
