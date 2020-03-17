@@ -16,7 +16,7 @@ const VoiesCommune = ({voies, commune}) => {
     },
     idVoie: {
       title: 'Code de la voie',
-      getValue: voie => voie.idVoie.slice(6, voie.idVoie.length),
+      getValue: voie => voie.idVoie,
       sortBy: 'alphabetical'
     },
     numerosCount: {

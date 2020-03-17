@@ -26,7 +26,7 @@ const Commune = ({commune, voies, dataset}) => {
     {
       title: 'Code de la voie',
       sortBy: 'alphabetical',
-      getValue: voie => voie.idVoie.slice(6, voie.idVoie.length)
+      getValue: voie => voie.idVoie
     },
     {
       title: 'Nombre d’adresses',
