@@ -4,6 +4,10 @@ import {ChevronUp, ChevronDown} from 'react-feather'
 
 import theme from '../styles/theme'
 
+const onSpaceOrEnterKey = (onClick) => ({ key }) {
+  [' ', 'Spacebar', 'Enter'].includes(key) && onClick()
+}
+
 class Question extends React.Component {
   state = {
     open: false
@@ -36,6 +40,8 @@ class Question extends React.Component {
         <div
           className={`question-container ${open ? 'is-open' : ''}`}
           onClick={this.toggle}
+          onKeyPress={onSpaceOrEnterKey(this.toggle)}
+          tabIndex={0}
         >
           <div className='question'>{question}</div>
           <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} /> : <ChevronDown style={{verticalAlign: 'middle'}} />}</div>
