@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ChevronUp, ChevronDown} from 'react-feather'
+import kebabCase from 'lodash/kebabCase'
 
 import theme from '../styles/theme'
 
@@ -10,11 +11,13 @@ class Question extends React.Component {
   }
 
   static defaultProps = {
+    slug: null,
     isBold: false
   }
 
   static propTypes = {
     question: PropTypes.string.isRequired,
+    slug: PropTypes.string,
     isBold: PropTypes.bool,
     children: PropTypes.node.isRequired
   }
@@ -30,9 +33,10 @@ class Question extends React.Component {
   render() {
     const {open} = this.state
     const {question, isBold, children} = this.props
+    const slug = this.props.slug || kebabCase(question)
 
     return (
-      <div>
+      <div id={slug}>
         <div
           className={`question-container ${open ? 'is-open' : ''}`}
           onClick={this.toggle}
