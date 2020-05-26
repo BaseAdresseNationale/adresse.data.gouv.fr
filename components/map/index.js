@@ -127,7 +127,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         <SearchInput
           value={input}
           results={results}
-          loading={loading}
+          isLoading={loading}
           placeholder={placeholder}
           onSelect={handleSelect}
           onSearch={setInput}
