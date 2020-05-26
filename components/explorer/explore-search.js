@@ -87,7 +87,7 @@ const ExploreSearch = () => {
       <SearchInput
         value={input}
         results={orderResults}
-        loading={loading}
+        isLoading={loading}
         placeholder='20 avenue de Ségur, Paris'
         onSelect={handleSelect}
         onSearch={setInput}

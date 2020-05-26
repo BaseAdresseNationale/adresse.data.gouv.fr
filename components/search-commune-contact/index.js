@@ -62,7 +62,7 @@ const SearchCommuneContact = () => {
       <SearchInput
         value={input}
         results={results}
-        loading={loading}
+        isLoading={loading}
         placeholder='Recherchez votre commune'
         onSelect={setCommune}
         onSearch={setInput}
