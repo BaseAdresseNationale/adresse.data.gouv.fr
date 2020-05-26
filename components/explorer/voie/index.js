@@ -20,7 +20,7 @@ const Voie = ({commune, voie, numero}) => {
     Router.push(href, as)
   }
 
-  const isSelected = item => {
+  const checkIsSelected = item => {
     if (numero) {
       return item.cleInterop === numero.cleInterop
     }
@@ -111,7 +111,7 @@ const Voie = ({commune, voie, numero}) => {
         filters={{sources: 'Sources'}}
         list={voie.numeros}
         cols={cols}
-        isSelected={isSelected}
+        checkIsSelected={checkIsSelected}
         handleSelect={handleSelect} />
       <style jsx>{`
         .source-container {
@@ -138,7 +138,7 @@ Voie.propTypes = {
     numero: PropTypes.number,
     suffixe: PropTypes.string,
     sources: PropTypes.array,
-    sourceNomVoie: PropTypes.array,
+    sourceNomVoie: PropTypes.string,
     nomsVoie: PropTypes.array
   }),
   numero: PropTypes.object
