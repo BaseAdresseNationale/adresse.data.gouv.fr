@@ -7,30 +7,39 @@ const SourcesTable = ({data, cols, title, checkIsHighlighted, getId}) => {
   return (
     <div className='source-container'>
       <h3>{title}</h3>
-      <tbody className='table-container'>
-        <tr>
-          <th />
-          {Object.keys(cols).map(col => (
-            <th key={cols[col].title}>{cols[col].title}</th>
-          ))}
-        </tr>
-        {data.map(item => (
-          <tr key={getId(item)}>
-            {checkIsHighlighted(item) ? (
-              <td className='highlighted centered'>
-                <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
-              </td>) : (<td />)}
-
+      <table>
+        <tbody className='table-container'>
+          <tr>
+            <th />
             {Object.keys(cols).map(col => (
-              <td key={getId(col)} className={checkIsHighlighted(item) ? 'highlighted' : ''} >{cols[col].getValue(item)}</td>
+              <th key={cols[col].title}>{cols[col].title}</th>
             ))}
           </tr>
-        ))}
-      </tbody>
+          {data.map(item => (
+            <tr key={getId(item)}>
+              {checkIsHighlighted(item) ? (
+                <td className='highlighted centered'>
+                  <Check style={{verticalAlign: 'middle', margin: 'auto'}} />
+                </td>) : (<td />)}
+
+              {Object.keys(cols).map(col => (
+                <td key={col} className={checkIsHighlighted(item) ? 'highlighted' : ''} >{cols[col].getValue(item)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <style jsx>{`
          h3 {
           margin-top: 1em;
           margin-bottom: 0;
+        }
+
+        table {
+          display: block;
+          border-collapse: collapse;
+          border-spacing: 0;
+          border-color: white;
         }
 
         th {
@@ -74,7 +83,7 @@ const SourcesTable = ({data, cols, title, checkIsHighlighted, getId}) => {
 }
 
 SourcesTable.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   cols: PropTypes.object.isRequired,
   title: PropTypes.string,
   checkIsHighlighted: PropTypes.func.isRequired,
