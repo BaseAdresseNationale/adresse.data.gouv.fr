@@ -32,7 +32,7 @@ const SearchCommuneContact = () => {
 
   const handleSearch = useCallback(debounce(async input => {
     try {
-      const results = await getCommunes({q: input})
+      const results = await getCommunes({q: input, limit: 10, boost: 'population'})
       setResults(results)
     } catch (err) {
       setError(err)
