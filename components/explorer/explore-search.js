@@ -92,6 +92,7 @@ const ExploreSearch = () => {
         onSelect={handleSelect}
         onSearch={setInput}
         renderItem={renderAddok}
+        wrapperStyle={{position: 'relative'}}
         getItemValue={getFeatureValue} />
 
       {error &&

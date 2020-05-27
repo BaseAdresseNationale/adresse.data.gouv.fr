@@ -17,18 +17,18 @@ const Commune = ({commune, voies, dataset}) => {
   const {id, title, organization} = dataset
   const {query, push} = useRouter()
   const noPosition = 'Ce lieu nommé ne possède pas encore de position renseignée.'
-  const cols = [
-    {
+  const cols = {
+    voie: {
       title: 'Nom de voie',
       sortBy: 'alphabetical',
       getValue: voie => voie.nomVoie
     },
-    {
+    adresses: {
       title: 'Nombre d’adresses',
       sortBy: 'numeric',
       getValue: voie => voie.numerosCount === 0 ? <NoPositionWarning check={voie.position} text={noPosition} /> : voie.numerosCount
     }
-  ]
+  }
 
   const selectVoie = voie => {
     const {codeVoie, numerosCount, position} = voie

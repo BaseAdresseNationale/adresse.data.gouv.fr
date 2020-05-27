@@ -2,13 +2,16 @@ import React, {useState, useCallback, useEffect} from 'react'
 import {debounce} from 'lodash'
 
 import {getCommunes} from '../../lib/api-geo'
+import {getMairie} from '../../lib/api-etablissements-public'
+
+import {useInput} from '../../hooks/input'
 
 import SearchInput from '../search-input'
 import RenderCommune from '../search-input/render-commune'
 
-import {useInput} from '../../hooks/input'
 import Notification from '../notification'
-import {getMairie} from '../../lib/api-etablissements-public'
+import Loader from '../loader'
+
 import MairieContact from './mairie-contact'
 
 const SearchCommuneContact = () => {
@@ -17,22 +20,27 @@ const SearchCommuneContact = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [commune, setCommune] = useState(null)
-  const [mairie, setMarie] = useState(null)
+  const [mairie, setMairie] = useState(null)
 
   const fetchCommuneContact = useCallback(async () => {
+    setLoading(true)
+    setMairie(null)
+
     const results = await getMairie(commune.code)
     const mairie = results.features[0]
     if (mairie) {
-      setMarie(results.features[0].properties)
+      setMairie(results.features[0].properties)
     } else {
       const error = new Error(`Aucune information disponible pour la mairie de ${commune.nom}.`)
       setError(error)
     }
+
+    setLoading(false)
   }, [commune])
 
   const handleSearch = useCallback(debounce(async input => {
     try {
-      const results = await getCommunes({q: input})
+      const results = await getCommunes({q: input, limit: 10, boost: 'population'})
       setResults(results)
     } catch (err) {
       setError(err)
@@ -67,6 +75,7 @@ const SearchCommuneContact = () => {
         onSelect={setCommune}
         onSearch={setInput}
         renderItem={RenderCommune}
+        wrapperStyle={{position: 'relative'}}
         getItemValue={commune => commune.nom} />
 
       {error &&
@@ -74,11 +83,23 @@ const SearchCommuneContact = () => {
           <Notification message={error.message} type='error' />
         </div>}
 
+      {commune && loading && !mairie && (
+        <div className='loading'>
+          <Loader />
+          <div>Chargement…</div>
+        </div>
+      )}
+
       {mairie && <MairieContact {...mairie} />}
 
       <style jsx>{`
-        .search-commune-contact {
-          position: relative;
+        .loading {
+          display: flex;
+          width: 100%;
+          height: 150px;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
         }
 
         .error {

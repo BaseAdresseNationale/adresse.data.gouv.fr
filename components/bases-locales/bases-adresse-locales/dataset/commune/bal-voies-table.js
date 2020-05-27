@@ -17,18 +17,18 @@ const BalVoiesTable = ({commune, voies}) => {
     )
   }
 
-  const headers = [
-    {
+  const headers = {
+    nomVoie: {
       title: 'Nom de voie',
       type: 'alphabetical',
       func: voie => voie.nomVoie
     },
-    {
+    numerosCount: {
       title: 'Nombre d’adresses',
       type: 'numeric',
       func: voie => voie.numerosCount
     }
-  ]
+  }
   const genItems = voies => {
     return voies.map(voie => {
       return {

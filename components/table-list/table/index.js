@@ -18,7 +18,7 @@ class Table extends React.Component {
 
     return (
       <div className='table-container'>
-        <table className={isWrap && !hasDisabledWrap && 'wrapped'}>
+        <table>
           {children}
         </table>
 
@@ -37,18 +37,6 @@ class Table extends React.Component {
             width: 100%;
           }
 
-          table.wrapped:after {
-            position: absolute;
-            bottom: 35px;
-            height: 3%;
-            width: 100%;
-            content: "";
-            background: linear-gradient(to top,
-               rgba(255,255,255, 1) 20%,
-               rgba(255,255,255, 0) 80%
-            );
-          }
-
           .wrap {
             width: 100%;
             text-align: center;
@@ -64,12 +52,6 @@ class Table extends React.Component {
           @media (max-width: 460px) {
             table {
               font-size: x-small;
-            }
-          }
-
-          @media (max-width: 400px) {
-            table.wrapped:after {
-              width: 90%;
             }
           }
           `}</style>

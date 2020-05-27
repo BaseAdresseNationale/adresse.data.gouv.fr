@@ -65,6 +65,7 @@ const MairieContact = ({nom, horaires, email, telephone}) => {
 
         .infos > div {
           display: flex;
+          flex-wrap: wrap;
           margin: 0.5em 0;
         }
 

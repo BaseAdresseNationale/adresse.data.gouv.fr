@@ -17,23 +17,23 @@ import CommunesPreview from './communes-preview'
 const Dataset = ({dataset, summary}) => {
   const {title, description, url, organization, page} = dataset
   const {query, push} = useRouter()
-  const cols = [
-    {
+  const cols = {
+    nomCommune: {
       title: 'Nom de la commune',
       sortBy: 'alphabetical',
       getValue: commune => commune.nom
     },
-    {
+    nomVoie: {
       title: 'Nombre de voie',
       sortBy: 'numeric',
       getValue: commune => commune.voiesCount
     },
-    {
+    numerosCount: {
       title: 'Nombre de numéro',
       sortBy: 'numeric',
       getValue: commune => commune.numerosCount
     }
-  ]
+  }
 
   const selectCommune = item => {
     summary.communes.find(commune => commune.code === item.code)

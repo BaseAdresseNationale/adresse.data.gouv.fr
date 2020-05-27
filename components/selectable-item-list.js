@@ -50,7 +50,9 @@ class SelectableItemList extends React.Component {
           }
 
           .text {
-            margin: 0 1em;
+            overflow: auto;
+            text-overflow: ellipsis;
+            margin-left: 0.5em;
           }
 
           .selection {
@@ -64,7 +66,7 @@ class SelectableItemList extends React.Component {
             font-size: larger;
             font-weight: bold;
             text-align: center;
-            width: 20px;
+            min-width: 20px;
             color: ${theme.colors.white};
             background-color: ${theme.backgroundColor};
           }
