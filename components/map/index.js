@@ -133,7 +133,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
           onSearch={setInput}
           renderItem={renderAdresse}
           getItemValue={item => item.properties.context}
-          fullscreen />
+        />
       </div>
 
       <div className='map-container'>

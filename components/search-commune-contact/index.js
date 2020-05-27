@@ -75,6 +75,7 @@ const SearchCommuneContact = () => {
         onSelect={setCommune}
         onSearch={setInput}
         renderItem={RenderCommune}
+        wrapperStyle={{position: 'relative'}}
         getItemValue={commune => commune.nom} />
 
       {error &&
@@ -92,10 +93,6 @@ const SearchCommuneContact = () => {
       {mairie && <MairieContact {...mairie} />}
 
       <style jsx>{`
-        .search-commune-contact {
-          position: relative;
-        }
-
         .loading {
           display: flex;
           width: 100%;

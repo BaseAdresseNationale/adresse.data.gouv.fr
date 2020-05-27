@@ -45,9 +45,7 @@ const Hero = ({title, tagline}) => (
           </Link>
         </div>
 
-        <div className='search-bar-home'>
-          <ExploreSearch />
-        </div>
+        <ExploreSearch />
       </Container>
 
     </div>
