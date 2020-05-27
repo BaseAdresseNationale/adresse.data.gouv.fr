@@ -163,7 +163,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         }
 
         .input {
-          z-index: 999;
+          z-index: 3;
           width: 40%;
           min-width: 260px;
           position: absolute;
