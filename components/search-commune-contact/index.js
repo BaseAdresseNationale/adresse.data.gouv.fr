@@ -20,16 +20,16 @@ const SearchCommuneContact = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [commune, setCommune] = useState(null)
-  const [mairie, setMarie] = useState(null)
+  const [mairie, setMairie] = useState(null)
 
   const fetchCommuneContact = useCallback(async () => {
     setLoading(true)
-    setMarie(null)
+    setMairie(null)
 
     const results = await getMairie(commune.code)
     const mairie = results.features[0]
     if (mairie) {
-      setMarie(results.features[0].properties)
+      setMairie(results.features[0].properties)
     } else {
       const error = new Error(`Aucune information disponible pour la mairie de ${commune.nom}.`)
       setError(error)
