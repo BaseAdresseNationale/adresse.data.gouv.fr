@@ -23,12 +23,11 @@ const Commune = ({commune, voies, dataset}) => {
       sortBy: 'alphabetical',
       getValue: voie => voie.nomVoie
     },
-    codeVoie: {
+    idVoie: {
       title: 'Code de la voie',
       sortBy: 'alphabetical',
       getValue: voie => voie.idVoie
     },
-    {
     adresses: {
       title: 'Nombre d’adresses',
       sortBy: 'numeric',
