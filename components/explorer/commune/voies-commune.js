@@ -14,6 +14,11 @@ const VoiesCommune = ({voies, commune}) => {
       getValue: voie => voie.nomVoie,
       sortBy: 'alphabetical'
     },
+    idVoie: {
+      title: 'Code de la voie',
+      getValue: voie => voie.idVoie,
+      sortBy: 'alphabetical'
+    },
     numerosCount: {
       title: 'Nombre d’adresses',
       getValue: voie => voie.numerosCount,
