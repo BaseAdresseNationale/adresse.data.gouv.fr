@@ -5,12 +5,12 @@ import theme from '../../styles/theme'
 
 const Step = ({title, children}) => {
   return (
-    <div>
+    <div style={{margin: '1em 0'}}>
       <h2 className={`${children ? '' : 'disabled'}`}>{title}</h2>
       {children}
       <style jsx>{`
         .disabled {
-          color: ${theme.colors.lightGrey}
+          color: ${theme.colors.lightGrey};
         }
       `}</style>
     </div>

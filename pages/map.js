@@ -20,7 +20,7 @@ const MapPage = () => {
   }, [])
 
   return (
-    <Page title={title} description={description} showFooter={false} >
+    <Page title={title} description={description} hasFooter={false}>
       <Map defaultCenter={hash.center} defaultZoom={hash.zoom} />
     </Page>
   )

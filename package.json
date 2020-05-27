@@ -43,14 +43,14 @@
     "underscore.string": "^3.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
+    "@babel/core": "^7.9.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-lodash": "^3.3.4",
     "eslint": "^6.8.0",
     "eslint-config-xo-nextjs": "^1.5.0",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "xo": "^0.27.2"
   },

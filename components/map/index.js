@@ -127,13 +127,13 @@ const Map = ({defaultCenter, defaultZoom}) => {
         <SearchInput
           value={input}
           results={results}
-          loading={loading}
+          isLoading={loading}
           placeholder={placeholder}
           onSelect={handleSelect}
           onSearch={setInput}
           renderItem={renderAdresse}
           getItemValue={item => item.properties.context}
-          fullscreen />
+        />
       </div>
 
       <div className='map-container'>
@@ -163,7 +163,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         }
 
         .input {
-          z-index: 999;
+          z-index: 3;
           width: 40%;
           min-width: 260px;
           position: absolute;
