@@ -43,7 +43,9 @@ const ExploreSearch = () => {
     try {
       const results = await search(input)
       setResults(
-        results.features.filter(f => f.properties.type !== 'locality').splice(0, 5) || []
+        results.features
+          .filter(({properties}) => !['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
+          .filter(f => f.properties.type !== 'locality').splice(0, 5) || []
       )
     } catch (err) {
       setError(err)
