@@ -1015,10 +1015,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@etalab/bal@^0.21.0":
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.21.0.tgz#8d706d732e367068af632853d06e6b784112617e"
-  integrity sha512-x9zL1tD7Io8Ct8DHN0h9UCNtGdWc2sJKdnmlpWquoL7Ywb8UqNyoPw+GVZWn3i7EZIEcCNHTVrQuMeuMFxBB/A==
+"@etalab/bal@^0.22.0":
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-0.22.0.tgz#51ca28ed6a706436e5ce4d38accfd33617751474"
+  integrity sha512-FKtTckVTAVnsZzjz8xZp5Q1rTWGxNdpoliO6bWkDrZpIfwg2f/2RUsonD+kXQCAqLkXjP5X4HHJuGkEAYG0O3g==
   dependencies:
     blob-to-buffer "^1.2.8"
     date-fns "^2.10.0"
