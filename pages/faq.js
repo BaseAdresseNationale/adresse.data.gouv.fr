@@ -103,9 +103,21 @@ export default () => (
           </Question>
         </div>
 
+        <div className='end'>
+          <p>Vous n’avez pas trouvé de réponse à votre question ?</p>
+          <p>Consultez le <a>Guide Base Adresse Locale</a></p>
+        </div>
+
         <style jsx>{`
           .theme {
             margin: 1em 0;
+          }
+
+          .end {
+            font-size: 1.2em;
+            background-color: rgb(180,225,250);
+            text-align: center;
+            border-radius: 5px;
           }
 
           .faq-row {

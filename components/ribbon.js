@@ -1,23 +1,20 @@
 import React from 'react'
 import theme from '../styles/theme'
 
-const OpenLicenceRibbon = () => (
+const Ribbon = () => (
   <div>
     <div className='ribbon'>
-      <div>La Base Adresse Nationale est désormais disponible sous <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></div>
-      <img src='/images/logos/logo-licence-ouverte.svg' title='Licence Ouverte' alt='Logo Licence Ouverte' />
+      <div>Le guide Base Adresse Nationale est désormais disponible :</div>
+      <div>
+        <a href='https://adresse.data.gouv.fr/data/docs/guide-bal-v1.0.pdf' target='_blank' rel='noopener noreferrer' >Téléchargez</a>
+      </div>
     </div>
     <style jsx>{`
-      .ribbon img{
-        width: 30px;
-        margin-left: 0.5em;
-        align-content: center;
-      }
-
       .ribbon{
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         background-color: rgb(180,225,250);
         min-height: 80px;
         color: ${theme.colors.almostBlack};
@@ -25,8 +22,9 @@ const OpenLicenceRibbon = () => (
         padding: 1em;
       }
 
-      .ribbon-content{
+      .ribbon div {
         text-align: center;
+        margin: .2em;
       }
 
       @media (max-width: 700px) {
@@ -38,4 +36,4 @@ const OpenLicenceRibbon = () => (
   </div>
 )
 
-export default OpenLicenceRibbon
+export default Ribbon
