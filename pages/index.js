@@ -2,7 +2,7 @@ import React from 'react'
 
 import theme from '../styles/theme'
 
-import OpenLicenceRibbon from '../components/open-licence-ribbon'
+import Ribbon from '../components/ribbon'
 
 import Page from '../layouts/main'
 import Hero from '../components/hero'
@@ -11,7 +11,7 @@ import Button from '../components/button'
 
 export default () => (
   <Page>
-    <OpenLicenceRibbon />
+    <Ribbon />
     <Hero
       title='Le site national des adresses'
       tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />

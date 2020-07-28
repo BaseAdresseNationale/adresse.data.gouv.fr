@@ -19,7 +19,7 @@ export default () => (
         <section>
           <h3>Créer une Base Adresse Locale</h3>
           <p>Si vous souhaitez maîtriser pleinement la gestion de vos adresses, la mise en place d’une Base Adresse Locale est l’approche à privilégier.<br />Il s’agit de la méthode recommandée par l’AMF et l’AITF.</p>
-          <p>Des nombreux outils sont là pour vous aider.</p>
+          <p>De nombreux outils sont là pour vous aider.</p>
           <ButtonLink href='/bases-locales'><Zap style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder à la page dédiée</ButtonLink>
         </section>
 

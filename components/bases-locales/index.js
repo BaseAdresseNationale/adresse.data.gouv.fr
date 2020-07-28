@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {shuffle} from 'lodash'
-import {CheckSquare, Plus, Edit} from 'react-feather'
+import {CheckSquare, Plus, Edit, Book} from 'react-feather'
 
 import theme from '../../styles/theme'
 
@@ -47,6 +47,16 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe toute les adresses d’une collectivité.<br />{}
           Elle est <b>publiée sous sa responsabilité</b>.</p>
         <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
+        <div className='action'>
+          <ButtonLink
+            isExternal
+            size='large'
+            href='https://adresse.data.gouv.fr/data/docs/guide-bal-v1.0.pdf'
+          >
+            Voir le guide de la Base Adresse Locale<Book style={{verticalAlign: 'middle', marginLeft: '5px'}} />
+          </ButtonLink>
+        </div>
+
       </Section>
 
       <Section background='color'>
