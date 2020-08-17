@@ -34,7 +34,7 @@
     "papaparse": "^5.1.1",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.5.4",
-    "react": "^16.13.0",
+    "react": "^16.13.1",
     "react-autocomplete": "^1.7.2",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.0",
