@@ -105,6 +105,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             </ButtonLink>
           </div>
 
+          <div style={{width: '100%', textAlign: 'center'}}>
+            <a href='https://editeur.adresse.data.gouv.fr/new?test=1'>Essayer l’éditeur de Base Adresse Locale</a>
+          </div>
+
         </div>
       </Section>
 
