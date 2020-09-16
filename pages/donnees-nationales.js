@@ -75,7 +75,7 @@ export default () => (
             </ul>
             <ul>
               <li><strong>1 ligne par adresse</strong></li>
-              <li>24,6 millions d’adresses</li>
+              <li>24,9 millions d’adresses</li>
               <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
