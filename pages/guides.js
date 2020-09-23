@@ -10,7 +10,7 @@ import Head from '../components/head'
 const Guides = () => {
   return (
     <Page>
-      <Head title='Télécharger les Guides' icon={<Book size={56} />} />
+      <Head title='Guides de l’adressage' icon={<Book size={56} />} />
       <div>
         <div className='sub-title'>
           <p>

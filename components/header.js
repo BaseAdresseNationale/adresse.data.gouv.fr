@@ -12,7 +12,8 @@ const links = [
   {text: 'Contribuer', href: '/contribuer'},
   {text: 'Outils', href: '/tools'},
   {text: 'FAQ', href: '/faq'},
-  {text: 'Nous contacter', href: '/nous-contacter'}
+  {text: 'Nous contacter', href: '/nous-contacter'},
+  {text: 'Guides', href: '/guides'}
 ]
 
 export default () => (
