@@ -67,9 +67,10 @@ const Guides = () => {
           </div>
         </div>
       </Section>
-      <Section>
-        <p>Avec le soutien de :</p>
-        <img src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
+      <Section title='En partenariat avec : '>
+        <div style={{width: '100%', textAlign: 'center'}}>
+          <img src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
+        </div>
       </Section>
       <style jsx>{`
         .align {
