@@ -6,22 +6,31 @@ import theme from '../styles/theme'
 
 import Page from '../layouts/main'
 import Head from '../components/head'
+import Section from '../components/section'
 
 const Guides = () => {
   return (
     <Page>
       <Head title='Guides de l’adressage' icon={<Book size={56} />} />
-      <div>
+      <Section>
         <div className='sub-title'>
           <p>
-            Pour vous accompagner dans votre <b>adressage</b>, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.<br />Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.<br />Pour être tenu informé des mises à jour, adresser vos remarques, suggérer des évolutions, n’hésitez-pas à adresser un message à <a>adresse@data.gouv.fr</a>.
+            Pour vous accompagner dans votre <b>adressage</b>, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.
+          </p>
+          <p>
+            Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.
+          </p>
+          <p>
+            Pour être tenu informé des mises à jour, adresser vos remarques, suggérer des évolutions, n’hésitez-pas à adresser un message à <a>adresse@data.gouv.fr</a>.
           </p>
         </div>
-        <section className='align grey'>
+      </Section>
+      <Section background='grey'>
+        <section className='align'>
           <div className='resume'>
             <h3>Le Guide pour vous aider à modifier vos adresses en ligne</h3>
             <p>
-              Un outil en ligne vous permet de créer votre Base Adresse Locale, de la modifier et de la publier. Il est accessible sans compétence technique et ce guide vous permet d’utiliser directement les fonctionnalités qui vous intéressent.
+              Un outil en ligne vous permet de créer votre Base Adresse Locale, de la modifier et de la publier. <br />Il est accessible sans compétence technique et ce guide vous permet d’utiliser directement les fonctionnalités qui vous intéressent.
             </p>
           </div>
           <div className='img-container'>
@@ -36,6 +45,8 @@ const Guides = () => {
             </div>
           </div>
         </section>
+      </Section>
+      <Section>
         <section className='align reverse'>
           <div className='img-container'>
             <img src='/images/previews/bonnes-pratiques-preview.png' />
@@ -51,33 +62,21 @@ const Guides = () => {
           <div className='resume'>
             <h3>Le Guide des bonnes pratiques à respecter</h3>
             <p>
-              Les communes sont responsables de leurs adresses. Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
+              Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
             </p>
           </div>
         </section>
-      </div>
+      </Section>
       <style jsx>{`
-        .sub-title {
-          padding: 2em;
-          font-size: 1.2em;
-        }
-
-        .grey {
-          background-color: ${theme.backgroundGrey};
-        }
-
         .align {
           display: flex;
           justify-content: space-between;
-          padding: 0 2em;
-          border-bottom: 1px solid grey;
         }
 
         .resume {
           display: flex;
           flex-direction: column;
           justify-content: center;
-          margin: 2em;
         }
 
         .img-container {
@@ -88,7 +87,7 @@ const Guides = () => {
         .img-container img {
           width: 100%;
           height: auto;
-          max-width: 350px;
+          max-width: 300px;
           border: 1px solid ${theme.border};
           display: flex;
           flex-direction: column;
