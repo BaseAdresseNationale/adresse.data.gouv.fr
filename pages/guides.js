@@ -36,7 +36,7 @@ const Guides = () => {
           <div className='img-container'>
             <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du Guides Bases Locales' />
             <div className='link'>
-              <Link href='/data/docs/20200921%20Guide%20editeur%20Base%20Adresse%20Locale%201.2.pdf'>
+              <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Guide%20éditeur%20Base%20Adresse%20Locale%201.2.pdf'>
                 <a>
                   <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
                   Télécharger le Guide
@@ -51,7 +51,7 @@ const Guides = () => {
           <div className='img-container'>
             <img src='/images/previews/bonnes-pratiques-preview.png' alt='Couverture du Guides des bonnes pratiques' />
             <div className='link'>
-              <Link href='/data/docs/20200921%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
+              <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
                 <a>
                   <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
                   Télécharger le Guide
