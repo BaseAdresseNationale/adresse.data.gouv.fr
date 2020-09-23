@@ -14,7 +14,7 @@ const Guides = () => {
       <div>
         <div className='sub-title'>
           <p>
-            Pour vous accompagner dans votre démarche, vous trouverez sur cette page des guides régulièrement mis à jour.<br />Placés sous le régime de la <i>licence ouverte</i>, ils sont diffusables et réutilisables sans restriction.<br />Pour être tenu informé des mises à jour, adresser vos remarques, suggérer des évolutions, n’hésitez-pas à adresser un message à <a>adresse@data.gouv.fr</a>.
+            Pour vous accompagner dans votre <b>adressage</b>, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.<br />Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.<br />Pour être tenu informé des mises à jour, adresser vos remarques, suggérer des évolutions, n’hésitez-pas à adresser un message à <a>adresse@data.gouv.fr</a>.
           </p>
         </div>
         <section className='align grey'>
@@ -60,7 +60,6 @@ const Guides = () => {
         .sub-title {
           padding: 2em;
           font-size: 1.2em;
-          font-weight: bold;
         }
 
         .grey {

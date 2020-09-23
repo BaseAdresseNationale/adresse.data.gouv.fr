@@ -111,7 +111,7 @@ export default () => (
         display: none;
       }
 
-      @media (max-width: 1000px) {
+      @media (max-width: 1075px) {
         .nav__links {
           display: none;
         }
