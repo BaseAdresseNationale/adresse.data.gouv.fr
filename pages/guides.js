@@ -26,7 +26,7 @@ const Guides = () => {
         </div>
       </Section>
       <Section background='grey'>
-        <section className='align'>
+        <div className='align'>
           <div className='resume'>
             <h3>Le Guide pour vous aider à modifier vos adresses en ligne</h3>
             <p>
@@ -34,7 +34,7 @@ const Guides = () => {
             </p>
           </div>
           <div className='img-container'>
-            <img src='/images/previews/guide-bases-locales-preview.png' />
+            <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du Guides Bases Locales' />
             <div className='link'>
               <Link href='/data/docs/20200921%20Guide%20editeur%20Base%20Adresse%20Locale%201.2.pdf'>
                 <a>
@@ -44,12 +44,12 @@ const Guides = () => {
               </Link>
             </div>
           </div>
-        </section>
+        </div>
       </Section>
       <Section>
-        <section className='align reverse'>
+        <div className='align reverse'>
           <div className='img-container'>
-            <img src='/images/previews/bonnes-pratiques-preview.png' />
+            <img src='/images/previews/bonnes-pratiques-preview.png' alt='Couverture du Guides des bonnes pratiques' />
             <div className='link'>
               <Link href='/data/docs/20200921%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
                 <a>
@@ -65,7 +65,11 @@ const Guides = () => {
               Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
             </p>
           </div>
-        </section>
+        </div>
+      </Section>
+      <Section>
+        <p>Avec le soutien de :</p>
+        <img src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
       </Section>
       <style jsx>{`
         .align {
@@ -77,11 +81,13 @@ const Guides = () => {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          width: 70%;
         }
 
         .img-container {
           position: relative;
           padding: 2em;
+          width: 30%;
         }
 
         .img-container img {
@@ -106,6 +112,14 @@ const Guides = () => {
 
           .reverse {
             flex-direction: column-reverse;
+          }
+
+          .resume {
+            width: 100%;
+          }
+
+          .img-container {
+            width: 100%;
           }
         }
       `}</style>
