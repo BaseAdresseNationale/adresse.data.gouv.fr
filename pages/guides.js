@@ -36,7 +36,7 @@ const Guides = () => {
             </div>
           </div>
         </section>
-        <section className='align'>
+        <section className='align reverse'>
           <div className='img-container'>
             <img src='/images/previews/bonnes-pratiques-preview.png' />
             <div className='link'>
@@ -104,6 +104,10 @@ const Guides = () => {
         @media only screen and (max-width: 768px) {
           .align {
             flex-direction: column;
+          }
+
+          .reverse {
+            flex-direction: column-reverse;
           }
         }
       `}</style>
