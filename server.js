@@ -2,6 +2,28 @@ const express = require('express')
 const next = require('next')
 const compression = require('compression')
 
+const {check} = require('express-validator')
+const bcrypt = require('bcrypt')
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy
+const mongoose = require('mongoose')
+const morgan = require('morgan')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+const {User} = require('./lib/api-user/models')
+const {
+  connexion,
+  createUser,
+  emailVerification,
+  tokenRenewal,
+  renewPasswordToken,
+  passwordRenewal,
+  userEdition,
+  showUser,
+  logout,
+  w
+} = require('./lib/api-user/user-functions')
+
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
