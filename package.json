@@ -17,11 +17,13 @@
     "@etalab/bal": "^0.22.0",
     "@etalab/project-legal": "^0.4.0",
     "@turf/bbox": "^6.0.1",
+    "bcrypt": "^5.0.0",
     "blob-to-buffer": "^1.2.8",
     "chart.js": "^2.9.2",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.3",
     "express": "^4.17.1",
+    "express-validator": "^6.6.1",
     "fuzzyset.js": "^0.0.8",
     "hoist-non-react-statics": "^3.3.2",
     "isomorphic-unfetch": "^3.0.0",
@@ -41,7 +43,8 @@
     "react-dom": "^16.13.0",
     "react-dropzone": "^10.1.10",
     "react-feather": "^2.0.3",
-    "underscore.string": "^3.3.5"
+    "underscore.string": "^3.3.5",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
