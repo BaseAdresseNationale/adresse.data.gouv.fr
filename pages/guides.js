@@ -36,12 +36,10 @@ const Guides = () => {
           <div className='img-container'>
             <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du Guides Bases Locales' />
             <div className='link'>
-              <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Guide%20éditeur%20Base%20Adresse%20Locale%201.2.pdf'>
-                <a>
-                  <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                  Télécharger le guide
-                </a>
-              </Link>
+              <a href='https://adresse.data.gouv.fr/data/docs/20200923%20Guide%20éditeur%20Base%20Adresse%20Locale%201.2.pdf'>
+                <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+                Télécharger le guide
+              </a>
             </div>
           </div>
         </div>
@@ -51,12 +49,10 @@ const Guides = () => {
           <div className='img-container'>
             <img src='/images/previews/bonnes-pratiques-preview.png' alt='Couverture du Guides des bonnes pratiques' />
             <div className='link'>
-              <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
-                <a>
-                  <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                  Télécharger le guide
-                </a>
-              </Link>
+              <a href='https://adresse.data.gouv.fr/data/docs/20200923%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
+                <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+                Télécharger le guide
+              </a>
             </div>
           </div>
           <div className='resume'>
