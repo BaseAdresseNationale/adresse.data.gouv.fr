@@ -8,12 +8,11 @@ import HamburgerMenu from './hamburger-menu'
 const links = [
   {text: 'Données nationales', href: '/donnees-nationales'},
   {text: 'Bases locales', href: '/bases-locales'},
+  {text: 'Guides', href: '/guides'},
   {text: 'API', href: '/api'},
-  {text: 'Contribuer', href: '/contribuer'},
   {text: 'Outils', href: '/tools'},
   {text: 'FAQ', href: '/faq'},
-  {text: 'Nous contacter', href: '/nous-contacter'},
-  {text: 'Guides', href: '/guides'}
+  {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
 export default () => (
