@@ -49,11 +49,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
         <div className='action'>
           <ButtonLink
-            isExternal
             size='large'
-            href='https://adresse.data.gouv.fr/data/docs/guide-bal-v1.0.pdf'
+            href='/guides'
           >
-            Voir le guide de la Base Adresse Locale<Book style={{verticalAlign: 'middle', marginLeft: '5px'}} />
+            Consulter les guides de l’adressage <Book style={{verticalAlign: 'middle', marginLeft: '5px'}} />
           </ButtonLink>
         </div>
 

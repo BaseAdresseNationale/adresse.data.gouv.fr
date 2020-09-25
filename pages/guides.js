@@ -15,22 +15,22 @@ const Guides = () => {
       <Section>
         <div className='sub-title'>
           <p>
-            Pour vous accompagner dans votre <b>adressage</b>, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.
+            Pour vous accompagner dans la <b>gestion des adresses</b> de votre commune, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.
           </p>
           <p>
             Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.
           </p>
           <p>
-            Pour être tenu informé des mises à jour, adresser vos remarques, suggérer des évolutions, n’hésitez-pas à adresser un message à <a>adresse@data.gouv.fr</a>.
+            Pour être tenu informé des mises à jour ou suggérer des évolutions, n’hésitez-pas à <Link href='/nous-contacter'>nous contacter</Link>.
           </p>
         </div>
       </Section>
       <Section background='grey'>
         <div className='align'>
           <div className='resume'>
-            <h3>Le Guide pour vous aider à modifier vos adresses en ligne</h3>
+            <h3>Le guide de l’éditeur de Base Adresse Locale</h3>
             <p>
-              Un outil en ligne vous permet de créer votre Base Adresse Locale, de la modifier et de la publier. <br />Il est accessible sans compétence technique et ce guide vous permet d’utiliser directement les fonctionnalités qui vous intéressent.
+              Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
             </p>
           </div>
           <div className='img-container'>
@@ -39,7 +39,7 @@ const Guides = () => {
               <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Guide%20éditeur%20Base%20Adresse%20Locale%201.2.pdf'>
                 <a>
                   <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                  Télécharger le Guide
+                  Télécharger le guide
                 </a>
               </Link>
             </div>
@@ -54,13 +54,13 @@ const Guides = () => {
               <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
                 <a>
                   <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                  Télécharger le Guide
+                  Télécharger le guide
                 </a>
               </Link>
             </div>
           </div>
           <div className='resume'>
-            <h3>Le Guide des bonnes pratiques à respecter</h3>
+            <h3>Le guide des bonnes pratiques</h3>
             <p>
               Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
             </p>
