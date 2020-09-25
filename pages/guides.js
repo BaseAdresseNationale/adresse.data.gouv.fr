@@ -15,57 +15,62 @@ const Guides = () => {
       <Section>
         <div className='sub-title'>
           <p>
-            Pour vous accompagner dans votre <b>adressage</b>, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.
+            Pour vous accompagner dans la <b>gestion des adresses</b> de votre commune, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.
           </p>
           <p>
             Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.
           </p>
           <p>
-            Pour être tenu informé des mises à jour, adresser vos remarques, suggérer des évolutions, n’hésitez-pas à adresser un message à <a>adresse@data.gouv.fr</a>.
+            Pour être tenu informé des mises à jour ou suggérer des évolutions, n’hésitez-pas à <Link href='/nous-contacter'>nous contacter</Link>.
           </p>
         </div>
       </Section>
       <Section background='grey'>
-        <section className='align'>
+        <div className='align'>
           <div className='resume'>
-            <h3>Le Guide pour vous aider à modifier vos adresses en ligne</h3>
+            <h3>Le guide de l’éditeur de Base Adresse Locale</h3>
             <p>
-              Un outil en ligne vous permet de créer votre Base Adresse Locale, de la modifier et de la publier. <br />Il est accessible sans compétence technique et ce guide vous permet d’utiliser directement les fonctionnalités qui vous intéressent.
+              Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
             </p>
           </div>
           <div className='img-container'>
-            <img src='/images/previews/guide-bases-locales-preview.png' />
+            <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du Guides Bases Locales' />
             <div className='link'>
-              <Link href='/data/docs/20200921%20Guide%20editeur%20Base%20Adresse%20Locale%201.2.pdf'>
+              <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Guide%20éditeur%20Base%20Adresse%20Locale%201.2.pdf'>
                 <a>
                   <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                  Télécharger le Guide
+                  Télécharger le guide
                 </a>
               </Link>
             </div>
           </div>
-        </section>
+        </div>
       </Section>
       <Section>
-        <section className='align reverse'>
+        <div className='align reverse'>
           <div className='img-container'>
-            <img src='/images/previews/bonnes-pratiques-preview.png' />
+            <img src='/images/previews/bonnes-pratiques-preview.png' alt='Couverture du Guides des bonnes pratiques' />
             <div className='link'>
-              <Link href='/data/docs/20200921%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
+              <Link href='https://adresse.data.gouv.fr/data/docs/20200923%20Bonnes%20pratiques%20de%20l%27adresse.pdf'>
                 <a>
                   <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                  Télécharger le Guide
+                  Télécharger le guide
                 </a>
               </Link>
             </div>
           </div>
           <div className='resume'>
-            <h3>Le Guide des bonnes pratiques à respecter</h3>
+            <h3>Le guide des bonnes pratiques</h3>
             <p>
               Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
             </p>
           </div>
-        </section>
+        </div>
+      </Section>
+      <Section title='En partenariat avec : '>
+        <div style={{width: '100%', textAlign: 'center'}}>
+          <img src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
+        </div>
       </Section>
       <style jsx>{`
         .align {
@@ -77,11 +82,13 @@ const Guides = () => {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          width: 70%;
         }
 
         .img-container {
           position: relative;
           padding: 2em;
+          width: 30%;
         }
 
         .img-container img {
@@ -106,6 +113,14 @@ const Guides = () => {
 
           .reverse {
             flex-direction: column-reverse;
+          }
+
+          .resume {
+            width: 100%;
+          }
+
+          .img-container {
+            width: 100%;
           }
         }
       `}</style>

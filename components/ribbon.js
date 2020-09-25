@@ -1,10 +1,11 @@
 import React from 'react'
+import Link from 'next/link'
 import theme from '../styles/theme'
 
 const Ribbon = () => (
   <div>
     <div className='ribbon'>
-      Le <a href='https://adresse.data.gouv.fr/data/docs/guide-bal-v1.0.pdf' target='_blank' rel='noopener noreferrer' >Guide de la Base Adresse Locale</a> est désormais disponible.
+      <strong>Nouveautés</strong> : consultez nos <Link href='/guides'>guides de l’adressage</Link> à destination des collectivités.
     </div>
     <style jsx>{`
       .ribbon {
