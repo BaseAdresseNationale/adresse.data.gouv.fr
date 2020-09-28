@@ -15,9 +15,9 @@ const {
   login,
   createUser,
   emailVerification,
-  tokenRenewal,
+  renewEmailToken,
   renewPasswordToken,
-  passwordRenewal,
+  renewPassword,
   userEdition,
   showUser,
   logout,
@@ -89,7 +89,7 @@ app.prepare().then(() => {
   server.use(passport.initialize())
   server.use(passport.session())
 
-  // - - - - - || Api-user : || - - - - - //
+  // - - - - - [| Api-user : |] - - - - - //
 
   server.get('/api-users/me', showUser)
 
@@ -115,7 +115,21 @@ app.prepare().then(() => {
 
   server.get('/api-users/confirmation/:token', w(emailVerification))
 
-  // - - - - - || End Api-user || - - - - - //
+  server.post('/api-users/renew-email-token', w(renewEmailToken))
+
+  server.post('/api-users/renew-password-token',
+    [
+      check('email', 'Une adresse électronique valide est nécessaire').isEmail()
+    ],
+    w(renewPasswordToken))
+
+  server.post('/api-users/renew-password',
+    [
+      check('password', 'Un mot de passe de cinq caractères ou plus est nécessaire').isLength({min: 5})
+    ],
+    w(renewPassword))
+
+  // - - - - - [| End Api-user |] - - - - - //
 
   server.get('/nous-contacter', (req, res) => {
     app.render(req, res, '/contact')
