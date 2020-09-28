@@ -89,7 +89,7 @@ app.prepare().then(() => {
   server.use(passport.initialize())
   server.use(passport.session())
 
-  // - - - - - [| Api-user : |] - - - - - //
+  // - - - - - [| Api-users : |] - - - - - //
 
   server.get('/api-users/me', showUser)
 
@@ -129,7 +129,14 @@ app.prepare().then(() => {
     ],
     w(renewPassword))
 
-  // - - - - - [| End Api-user |] - - - - - //
+  server.post('/api-users/edit',
+    [
+      check('name').not().isEmpty().withMessage('Le nom est nécessaire'),
+      check('email', 'Une adresse électronique valide est nécessaire').isEmail()
+    ],
+    w(userEdition))
+
+  // - - - - - [| End Api-users |] - - - - - //
 
   server.get('/nous-contacter', (req, res) => {
     app.render(req, res, '/contact')
