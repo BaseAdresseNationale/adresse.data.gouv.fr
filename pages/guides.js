@@ -26,7 +26,7 @@ const Guides = () => {
         </div>
       </Section>
       <Section background='grey'>
-        <div className='align'>
+        <div className='align' id='guide-adressage'>
           <div className='resume'>
             <h3>Le guide de l’éditeur de Base Adresse Locale</h3>
             <p>
@@ -45,7 +45,7 @@ const Guides = () => {
         </div>
       </Section>
       <Section>
-        <div className='align reverse'>
+        <div className='align reverse' id='guide-bonnes-pratiques'>
           <div className='img-container'>
             <img src='/images/previews/bonnes-pratiques-preview.png' alt='Couverture du guide des bonnes pratiques' />
             <div className='link'>
