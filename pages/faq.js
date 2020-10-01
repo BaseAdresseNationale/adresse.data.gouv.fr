@@ -105,7 +105,7 @@ export default () => (
 
         <div className='end'>
           <p>Vous n’avez pas trouvé de réponse à votre question ?</p>
-          <p>Consultez le <a>Guide de Base Adresse Locale</a></p>
+          <p>Consultez <Link href='/guides'><a>nos guides</a></Link></p>
         </div>
 
         <style jsx>{`
