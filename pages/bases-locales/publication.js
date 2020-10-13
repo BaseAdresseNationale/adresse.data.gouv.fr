@@ -2,6 +2,8 @@ import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
+import {ArrowLeft} from 'react-feather'
+
 import Page from '../../layouts/main'
 
 import withErrors from '../../components/hoc/with-errors'
@@ -10,6 +12,7 @@ import Notification from '../../components/notification'
 
 import {submissionsBal, getSubmissions, submitBal} from '../../lib/bal/api'
 
+import ButtonLink from '../../components/button-link'
 import Steps from '../../components/bases-locales/publication/steps'
 import ManageFile from '../../components/bases-locales/publication/manage-file'
 import Authentification from '../../components/bases-locales/publication/authentification'
@@ -97,6 +100,12 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
   return (
     <Page>
+      <Section background='color' style={{padding: '1em 0'}}>
+        <ButtonLink href='https://editeur.adresse.data.gouv.fr/' color='white' isOutlined isExternal>
+          <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à l’éditeur de Base Adresse Locale
+        </ButtonLink>
+      </Section>
+
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
         {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}
