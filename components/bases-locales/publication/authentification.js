@@ -8,7 +8,7 @@ import Button from '../../button'
 
 const Authentification = React.memo(({mail, sendMail, authenticationUrl, publicationRequest}) => {
   return (
-    <div>
+    <div className='auth-container'>
       <div>
         <h3>Vous êtes habilité</h3>
         <div className='section'>
@@ -40,6 +40,10 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
       </div>
 
       <style jsx>{`
+        .auth-container > div {
+          margin: 1em 0;
+        }
+
         .column {
           display: flex;
           flex-direction: column;
