@@ -24,7 +24,7 @@ const GererMesAdresses = () => {
         </p>
 
         <p>
-          Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permette de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>.
+          Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>, que vous soyez élu ou agent municipal habilité.
         </p>
 
         <p>
@@ -79,7 +79,7 @@ const GererMesAdresses = () => {
         </div>
       </Section>
 
-      <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémenter la spécification BAL 1.1 et connectez vous à la Base Adresse Nationale' background='color'>
+      <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL 1.1 et connectez vous à la Base Adresse Nationale' background='color'>
         <div className='grid-links'>
           <div className='action-links'>
             <ButtonLink
