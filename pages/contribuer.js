@@ -18,7 +18,7 @@ export default () => (
     <Section title='En tant que commune' subtitle='Créer une Base Adresse Locale'>
       <div style={{textAlign: 'center'}}>
         <p>
-          La <b>création des voies et des adresses</b> est une compétence de la commune, via le conseil municipal. <br />
+          La <b>création des voies et des adresses</b> est une compétence de la commune, via le conseil municipal.<br />{}
           Les communes sont donc considérées comme les <b>productrices</b> de la donnée Adresse à l’échelle de leur territoire, et sont à même de lui conférer un <b>caractère officiel</b>.
         </p>
         <p>
