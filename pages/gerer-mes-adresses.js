@@ -67,7 +67,7 @@ const GererMesAdresses = () => {
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
-            Des <a>guides</a> sont à votre disposition afin de bien débuter, ainsi que le <a>mode démonstration</a> de l’éditeur qui vous permet de le découvrir en toute liberté.
+            Des <Link href='/guides'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://editeur.adresse.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de l’éditeur qui vous permet de le découvrir en toute liberté.
           </div>
         </Notification>
 

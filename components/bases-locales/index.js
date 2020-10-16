@@ -57,7 +57,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         <Notification style={{margin: '2em 0 -1em 0'}}>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
-            Vous êtes une commune et souhaitez mettre en place une Base Adresse Locale ? <Link href='/gerer-mes-adresses'><a>C’est par ici</a></Link>.
+            Vous êtes une commune et souhaitez mettre en place une Base Adresse Locale à l’aide d’outils existants ? <Link href='/gerer-mes-adresses'><a>C’est par ici</a></Link>.
           </div>
         </Notification>
       </Section>
