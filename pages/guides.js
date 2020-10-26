@@ -28,13 +28,13 @@ const Guides = () => {
       <Section background='grey'>
         <div className='align' id='guide-adressage'>
           <div className='resume'>
-            <h3>Le guide de l’éditeur de Base Adresse Locale</h3>
+            <h3>Le guide de Mes Adresses</h3>
             <p>
               Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
             </p>
           </div>
           <div className='img-container'>
-            <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du guide de l’éditeur de Base Adresse Locale' />
+            <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du guide de Mes Adresses' />
             <div className='link'>
               <a href='https://adresse.data.gouv.fr/data/docs/guide-editeur-bal-v1.2.pdf'>
                 <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
