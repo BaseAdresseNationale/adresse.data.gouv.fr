@@ -28,7 +28,7 @@
     "jschardet-french": "^0.0.1",
     "lodash": "^4.17.20",
     "mapbox-gl": "^1.8.1",
-    "marked": "^0.8.0",
+    "marked": "^1.2.2",
     "next": "^9.2.2",
     "next-runtime-dotenv": "^1.2.0",
     "papaparse": "^5.1.1",
