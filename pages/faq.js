@@ -85,7 +85,7 @@ export default () => (
           </Question>
 
           <Question question='Avec quels outils peut-on créer ou gérer une Base Adresse Locale ?'>
-            <p>L’<a href='https://editeur.adresse.data.gouv.fr'>éditeur de Base Adresse Locale</a> développé par la mission Etalab est un outil simple, gratuit et accessible à tous.</p>
+            <p>Le site <a href='https://editeur.adresse.data.gouv.fr'>Mes adresses</a> développé par Etalab est un outil simple, gratuit et accessible à tous.</p>
             <p>Pour les usages les plus courants, tels que la création de voies ou de numéros, et les modifications de noms de rues, nul besoin de compétences techniques expertes sur cet outil. Des tutoriels sont à disposition pour guider les communes.</p>
             <p>Les communautés d’agglomération, communautés urbaines, métropole, voire départements disposent bien souvent d’une gestion des adresses intégrées à leur système d’information ou d’outils spécifiques. Il leur suffit alors de produire un fichier au <Link href='/bases-locales'><a>format BAL 1.1</a></Link> et de le publier.</p>
             <p>Plusieurs éditeurs logiciels travaillent au support du format d’échange BAL 1.1, ils seront référencés sur ce site à l’issue de leurs travaux.</p>
@@ -93,7 +93,7 @@ export default () => (
 
           <Question question='Comment publier une Base Adresse Locale ?'>
             <p>Pour publier une Base Adresse Locale, vous devez la référencer sur <a href='https://www.data.gouv.fr/fr/'>data.gouv.fr</a>. Elle doit être publiée au format CSV BAL 1.1, dans une organisation certifiée, et avec un mot-clé “base-adresse-locale”.</p>
-            <p>Conscients que cette méthode est trop complexe pour la plupart des collectivités, nous développons un module de publication simplifié qui sera disponible d’ici la fin de l’année. La fonctionnalité de publication est d’ores-et-déjà disponible pour les utilisateurs de notre éditeur de Base Adresse Locale.</p>
+            <p>Conscients que cette méthode est trop complexe pour la plupart des collectivités, nous développons un module de publication simplifié qui sera disponible d’ici la fin de l’année. La fonctionnalité de publication est d’ores-et-déjà disponible pour les utilisateurs de <a href='https://editeur.adresse.data.gouv.fr/'>Mes Adresses</a>.</p>
           </Question>
 
           <Question question='Sous quelle licence publier une Base Adresse Locale ?'>
