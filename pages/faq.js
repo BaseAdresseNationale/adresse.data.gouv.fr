@@ -85,7 +85,7 @@ export default () => (
           </Question>
 
           <Question question='Avec quels outils peut-on créer ou gérer une Base Adresse Locale ?'>
-            <p>Le site <a href='https://editeur.adresse.data.gouv.fr'>Mes adresses</a> développé par la mission Etalab est un outil simple, gratuit et accessible à tous.</p>
+            <p>Le site <a href='https://editeur.adresse.data.gouv.fr'>Mes adresses</a> développé par Etalab est un outil simple, gratuit et accessible à tous.</p>
             <p>Pour les usages les plus courants, tels que la création de voies ou de numéros, et les modifications de noms de rues, nul besoin de compétences techniques expertes sur cet outil. Des tutoriels sont à disposition pour guider les communes.</p>
             <p>Les communautés d’agglomération, communautés urbaines, métropole, voire départements disposent bien souvent d’une gestion des adresses intégrées à leur système d’information ou d’outils spécifiques. Il leur suffit alors de produire un fichier au <Link href='/bases-locales'><a>format BAL 1.1</a></Link> et de le publier.</p>
             <p>Plusieurs éditeurs logiciels travaillent au support du format d’échange BAL 1.1, ils seront référencés sur ce site à l’issue de leurs travaux.</p>
