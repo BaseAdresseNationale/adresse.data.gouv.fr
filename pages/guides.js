@@ -34,9 +34,9 @@ const Guides = () => {
             </p>
           </div>
           <div className='img-container'>
-            <img src='/images/previews/guide-bases-locales-preview.png' alt='Couverture du guide de Mes Adresses' />
+            <img src='/images/previews/guide-mes-adresses-preview.png' alt='Couverture du guide de Mes Adresses' />
             <div className='link'>
-              <a href='https://adresse.data.gouv.fr/data/docs/guide-editeur-bal-v1.2.pdf'>
+              <a href='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v1.3.pdf'>
                 <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
                 Télécharger le guide
               </a>
