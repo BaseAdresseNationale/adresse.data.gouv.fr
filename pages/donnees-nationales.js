@@ -76,7 +76,7 @@ export default () => (
             <ul>
               <li><strong>1 ligne par adresse</strong></li>
               <li>24,9 millions d’adresses</li>
-              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
+              <li>200 000 lieux-dits (<span className='new'><i>beta</i></span>)</li>
               <li>Contient les libellés normalisés AFNOR</li>
             </ul>
             <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a></p>
@@ -185,7 +185,7 @@ export default () => (
         }
 
         .new {
-          color: ${theme.successBorder}
+          color: ${theme.lightBlue}
         }
 
         .soon {
