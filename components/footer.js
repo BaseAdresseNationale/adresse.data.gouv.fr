@@ -7,7 +7,7 @@ const Footer = () => (
   <footer className='footer'>
     <div className='footer-container'>
       <div className='footer__logo'>
-        <img src='/images/logos/etalab.svg' />
+        <img src='/images/logos/etalab.svg' alt='Etalab' />
         <ul className='footer__social'>
           <li><a href='https://twitter.com/AdresseDataGouv'><img src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
           <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><img src='/images/medias/github.svg' alt='Github' /></a></li>

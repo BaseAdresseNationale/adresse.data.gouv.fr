@@ -46,7 +46,7 @@ class SearchInput extends React.Component {
     return (
       <div className='search-input-container'>
         {/* disable safari zoom in on focus with font-size at 16px */}
-        <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} />
+        <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} aria-label='Recherche' />
         <span className='iconTitle'><Search /></span>
         <style jsx>{`
           .search-input-container {
