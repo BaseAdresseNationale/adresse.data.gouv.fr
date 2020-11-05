@@ -63,7 +63,7 @@ class Rows extends React.Component {
           <>
             <h4>
               Erreur{errors.length > 1 ? 's' : ''}
-              <div className='summary-icon error'><X /></div>
+              <div className='summary-icon error'><X style={{verticalAlign: 'bottom'}} /></div>
             </h4>
             <div className='list'>
               {sortedErrors.map(error => (
@@ -72,7 +72,7 @@ class Rows extends React.Component {
                   issue={error}
                   rows={rows}
                   type='error'
-                  selected={error === selectedIssue}
+                  isSelected={error === selectedIssue}
                   onClick={this.selectIssue}
                 />
               ))}
@@ -84,7 +84,7 @@ class Rows extends React.Component {
           <>
             <h4>
               Avertissement{warnings.length > 1 ? 's' : ''}
-              <div className='summary-icon warning'><AlertTriangle /></div>
+              <div className='summary-icon warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></div>
             </h4>
 
             <div className='list'>
@@ -94,7 +94,7 @@ class Rows extends React.Component {
                   issue={warning}
                   rows={rows}
                   type='warning'
-                  selected={warning === selectedIssue}
+                  isSelected={warning === selectedIssue}
                   onClick={this.selectIssue}
                 />
               ))}
@@ -103,7 +103,7 @@ class Rows extends React.Component {
         )}
 
         {selectedIssue && (
-          <div className='issues-list'>
+          <div>
             <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
             <h4>{selectedIssue.message}</h4>
 
@@ -131,9 +131,9 @@ class Rows extends React.Component {
               color: ${theme.warningBorder};
             }
 
-            h4 {
+            h3, h4 {
               display: flex;
-              align-items: center;
+              margin: 1em 0;
             }
 
             .list {

@@ -34,13 +34,13 @@ const KnownFields = ({found, alias}) => (
           {found.includes(field) ?
             (alias[field] ? (
               <>
-                <td className='warning'><AlertTriangle /></td>
+                <td className='warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></td>
                 <td className='warning message'><b>{alias[field]}</b> n’est pas standard</td>
               </>
             ) : (
-              <td className='found'><Check /></td>
+              <td className='found'><Check style={{verticalAlign: 'bottom'}} /></td>
             )) : (
-              <td className='not-found'><X /></td>
+              <td className='not-found'><X style={{verticalAlign: 'bottom'}} /></td>
             )}
         </tr>
       ))}

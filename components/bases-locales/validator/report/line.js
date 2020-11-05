@@ -30,7 +30,7 @@ const Line = ({line, unknownFields, onHover}) => {
       <style jsx>{`
         .line-container {
           margin: 1em 0;
-          overflow-x:auto;
+          overflow-x: scroll;
         }
 
         table {
