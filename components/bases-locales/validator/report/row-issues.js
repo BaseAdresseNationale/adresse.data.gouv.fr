@@ -8,12 +8,12 @@ const RowErrors = ({errors, warnings, field}) => (
     <h3>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h3>
     <div className='error-list'>
       {warnings.map(err => (
-        <div key={err} className={`issue warning ${field && (field.warnings.includes(err)) ? 'select' : ''}`}>
+        <div key={err} className={`issue warning ${field && field.warnings && (field.warnings.includes(err)) ? 'select' : ''}`}>
           {err}
         </div>
       ))}
       {errors.map(err => (
-        <div key={err} className={`issue error ${field && (field.warnings.includes(err)) ? 'select' : ''}`}>
+        <div key={err} className={`issue error ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
           {err}
         </div>
       ))}

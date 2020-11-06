@@ -5,6 +5,7 @@ import theme from '../../../../styles/theme'
 
 import Line from './line'
 import RowIssues from './row-issues'
+import {ChevronDown, ChevronUp} from 'react-feather'
 
 class Row extends React.Component {
   state = {
@@ -47,18 +48,18 @@ class Row extends React.Component {
           <div>
             {issuesCount === 1 ? (
               <span className='error' onClick={this.handleError}>
-                {showIssues ? 'Masquer' : 'Afficher'} l’anomalie
+                {showIssues ? 'Masquer' : 'Afficher'} l’anomalie {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
               </span>
             ) : (
               <span className='error' onClick={this.handleError}>
-                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies
+                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
               </span>
             )}
           </div>
         </div>
 
         {showIssues &&
-          <div className='row-container'>
+          <div>
             <Line
               line={row}
               unknownFields={unknownFields}
