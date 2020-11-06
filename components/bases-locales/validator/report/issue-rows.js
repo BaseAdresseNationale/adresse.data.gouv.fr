@@ -56,12 +56,12 @@ class IssueRows extends React.Component {
 
             .issue {
               padding: .5em;
-              background-color: ${isSelected ? theme.backgroundGrey : ''};
+              background-color: ${isSelected ? '#f8f8f8' : ''};
             }
 
             .issue:hover {
               cursor: pointer;
-              background-color: ${theme.backgroundGrey};
+              background-color: #f8f8f8;
             }
 
             .icon {
