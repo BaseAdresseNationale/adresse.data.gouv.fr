@@ -103,7 +103,7 @@ class Rows extends React.Component {
         )}
 
         {selectedIssue && (
-          <div>
+          <div className='selected-issue'>
             <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
             <h4>{selectedIssue.message}</h4>
 
@@ -123,6 +123,11 @@ class Rows extends React.Component {
         )}
 
         <style jsx>{`
+            .selected-issue {
+              background-color: #eff2f5;
+              padding: 0 .5em;
+            }
+
             .error {
               color: ${theme.errorBorder};
             }
@@ -139,12 +144,6 @@ class Rows extends React.Component {
             .list {
               display: grid;
               grid-row-gap: 0.5em;
-            }
-
-            .issues-list {
-              padding: 1em;
-              margin: 1em 0;
-              box-shadow: 0 1px 4px ${theme.boxShadow};;
             }
 
             .summary-icon {

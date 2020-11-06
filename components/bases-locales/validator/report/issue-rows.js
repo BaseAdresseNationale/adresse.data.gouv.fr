@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ChevronDown, ChevronUp} from 'react-feather'
+import {Eye, X} from 'react-feather'
 
 import theme from '../../../../styles/theme'
 
@@ -43,9 +43,9 @@ class IssueRows extends React.Component {
           <span className='colored'> {issue.message}</span>
 
           {isSelected ? (
-            <span className='eye'><ChevronUp style={{verticalAlign: 'middle'}} /></span>
+            <span className='icon'><X style={{verticalAlign: 'middle'}} /></span>
           ) : (
-            <span className='eye'><ChevronDown style={{verticalAlign: 'middle'}} /></span>
+            <span className='icon'><Eye style={{verticalAlign: 'middle'}} /></span>
           )}
         </div>
 
@@ -54,12 +54,16 @@ class IssueRows extends React.Component {
               color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
             }
 
-            .issue:hover {
-              cursor: pointer;
-              text-decoration: underline;
+            .issue {
+              background-color: ${isSelected ? theme.backgroundGrey : ''};
             }
 
-            .eye {
+            .issue:hover {
+              cursor: pointer;
+              background-color: ${theme.backgroundGrey};
+            }
+
+            .icon {
               margin-left: .5em;
             }
         `}</style>
