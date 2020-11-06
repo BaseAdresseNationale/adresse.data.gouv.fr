@@ -55,6 +55,7 @@ class IssueRows extends React.Component {
             }
 
             .issue {
+              padding: .5em;
               background-color: ${isSelected ? theme.backgroundGrey : ''};
             }
 

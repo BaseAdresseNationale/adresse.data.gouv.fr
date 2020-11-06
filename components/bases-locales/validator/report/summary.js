@@ -124,7 +124,7 @@ class Rows extends React.Component {
 
         <style jsx>{`
             .selected-issue {
-              background-color: #eff2f5;
+              background-color: #f8f8f8;
               padding: 0 .5em;
             }
 
