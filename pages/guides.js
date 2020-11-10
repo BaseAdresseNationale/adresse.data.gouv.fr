@@ -29,8 +29,8 @@ const Guides = () => {
           id='guide-adressage'
           title='Le guide de Mes Adresses'
           link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v1.3.pdf'
-          imgSrc='/images/previews/guide-mes-adresses-preview.png'
-          imgAlt='miniature du guide Mes Adresses'
+          src='/images/previews/guide-mes-adresses-preview.png'
+          alt='miniature du guide Mes Adresses'
         >
           <p>
             Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
@@ -42,8 +42,8 @@ const Guides = () => {
           id='guide-bonnes-pratiques'
           title='Le guide des bonnes pratiques'
           isReverse='true'
-          imgSrc='/images/previews/bonnes-pratiques-preview.png'
-          imgAlt='miniature du guide bonne pratique'
+          src='/images/previews/bonnes-pratiques-preview.png'
+          alt='miniature du guide bonne pratique'
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v1.0.pdf'
         >
           <p>
@@ -54,8 +54,8 @@ const Guides = () => {
       <Section background='grey'>
         <DocDownload
           title='La fibre arrive dans la commune'
-          imgSrc='/images/previews/obligations-adresse-preview.png'
-          imgAlt='miniature du document obligations-adresse'
+          src='/images/previews/obligations-adresse-preview.png'
+          alt='miniature du document obligations-adresse'
           link='#'
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>

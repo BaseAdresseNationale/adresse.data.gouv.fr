@@ -4,14 +4,14 @@ import {Book} from 'react-feather'
 
 import theme from '../styles/theme'
 
-const DocDownload = ({children, isReverse, imgSrc, link, title, imgAlt}) => (
+const DocDownload = ({title, link, src, alt, isReverse, children}) => (
   <div className='doc-container'>
     <div className='text-container'>
       <h3>{title}</h3>
       {children}
     </div>
     <div className='img-container'>
-      <img src={imgSrc} alt={imgAlt} />
+      <img src={src} alt={alt} />
       <a href={link}>
         <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
         Télécharger
@@ -52,8 +52,8 @@ DocDownload.propTypes = {
   children: PropTypes.node,
   link: PropTypes.string,
   title: PropTypes.string,
-  imgSrc: PropTypes.string,
-  imgAlt: PropTypes.string
+  src: PropTypes.string,
+  alt: PropTypes.string
 }
 
 DocDownload.defaultProps = {
@@ -61,8 +61,8 @@ DocDownload.defaultProps = {
   children: null,
   link: null,
   title: null,
-  imgSrc: null,
-  imgAlt: null
+  src: null,
+  alt: null
 }
 
 export default DocDownload

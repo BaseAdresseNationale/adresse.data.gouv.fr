@@ -47,8 +47,8 @@ export default () => (
 
     <Section title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
       <DocDownload
-        imgSrc='/images/previews/obligations-adresse-preview.png'
-        imgAlt='miniature du document obligations-adresse'
+        src='/images/previews/obligations-adresse-preview.png'
+        alt='miniature du document obligations-adresse'
         link='#'
       >
         <p>
