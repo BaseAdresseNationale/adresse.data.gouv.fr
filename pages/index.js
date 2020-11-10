@@ -8,6 +8,7 @@ import Page from '../layouts/main'
 import Hero from '../components/hero'
 import Section from '../components/section'
 import Button from '../components/button'
+import DocDownload from '../components/doc-download'
 
 export default () => (
   <Page>
@@ -42,6 +43,18 @@ export default () => (
           }
         `}</style>
       </div>
+    </Section>
+
+    <Section title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
+      <DocDownload
+        src='/images/previews/obligations-adresse-preview.png'
+        alt='miniature du document obligations-adresse'
+        link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
+      >
+        <p>
+          Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
+        </p>
+      </DocDownload>
     </Section>
 
     <Section background='grey'>
