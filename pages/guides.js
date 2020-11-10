@@ -56,7 +56,7 @@ const Guides = () => {
           title='La fibre arrive dans la commune'
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
-          link='#'
+          link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
           <p>

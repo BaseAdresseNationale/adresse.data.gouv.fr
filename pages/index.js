@@ -49,7 +49,7 @@ export default () => (
       <DocDownload
         src='/images/previews/obligations-adresse-preview.png'
         alt='miniature du document obligations-adresse'
-        link='#'
+        link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
       >
         <p>
           Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
