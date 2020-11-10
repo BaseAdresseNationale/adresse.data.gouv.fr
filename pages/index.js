@@ -8,6 +8,7 @@ import Page from '../layouts/main'
 import Hero from '../components/hero'
 import Section from '../components/section'
 import Button from '../components/button'
+import DocDownload from '../components/doc-download'
 
 export default () => (
   <Page>
@@ -42,6 +43,13 @@ export default () => (
           }
         `}</style>
       </div>
+    </Section>
+
+    <Section title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
+      <DocDownload
+        imgSrc='/images/previews/obligations-adresse-preview.png'
+        text='Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.'
+      />
     </Section>
 
     <Section background='grey'>
