@@ -2,18 +2,17 @@ import React from 'react'
 import Link from 'next/link'
 import {Book} from 'react-feather'
 
-import theme from '../styles/theme'
-
 import Page from '../layouts/main'
 import Head from '../components/head'
 import Section from '../components/section'
+import DocDownload from '../components/doc-download'
 
 const Guides = () => {
   return (
     <Page>
       <Head title='Guides de l’adressage' icon={<Book size={56} />} />
       <Section>
-        <div className='sub-title'>
+        <div>
           <p>
             Pour vous accompagner dans la <b>gestion des adresses</b> de votre commune, vous trouverez sur cette page des <b>guides régulièrement mis à jour</b>.
           </p>
@@ -26,100 +25,50 @@ const Guides = () => {
         </div>
       </Section>
       <Section background='grey'>
-        <div className='align' id='guide-adressage'>
-          <div className='resume'>
-            <h3>Le guide de Mes Adresses</h3>
-            <p>
-              Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
-            </p>
-          </div>
-          <div className='img-container'>
-            <img src='/images/previews/guide-mes-adresses-preview.png' alt='Couverture du guide de Mes Adresses' />
-            <div className='link'>
-              <a href='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v1.3.pdf'>
-                <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                Télécharger le guide
-              </a>
-            </div>
-          </div>
-        </div>
+        <DocDownload
+          id='guide-adressage'
+          title='Le guide de Mes Adresses'
+          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v1.3.pdf'
+          imgSrc='/images/previews/guide-mes-adresses-preview.png'
+          imgAlt='miniature du guide Mes Adresses'
+        >
+          <p>
+            Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
+          </p>
+        </DocDownload>
       </Section>
       <Section>
-        <div className='align reverse' id='guide-bonnes-pratiques'>
-          <div className='img-container'>
-            <img src='/images/previews/bonnes-pratiques-preview.png' alt='Couverture du guide des bonnes pratiques' />
-            <div className='link'>
-              <a href='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v1.0.pdf'>
-                <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-                Télécharger le guide
-              </a>
-            </div>
-          </div>
-          <div className='resume'>
-            <h3>Le guide des bonnes pratiques</h3>
-            <p>
-              Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
-            </p>
-          </div>
-        </div>
+        <DocDownload
+          id='guide-bonnes-pratiques'
+          title='Le guide des bonnes pratiques'
+          isReverse='true'
+          imgSrc='/images/previews/bonnes-pratiques-preview.png'
+          imgAlt='miniature du guide bonne pratique'
+          link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v1.0.pdf'
+        >
+          <p>
+            Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
+          </p>
+        </DocDownload>
+      </Section>
+      <Section background='grey'>
+        <DocDownload
+          title='La fibre arrive dans la commune'
+          imgSrc='/images/previews/obligations-adresse-preview.png'
+          imgAlt='miniature du document obligations-adresse'
+          link='#'
+        >
+          <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
+          <p>
+            Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
+          </p>
+        </DocDownload>
       </Section>
       <Section title='En partenariat avec : '>
         <div style={{width: '100%', textAlign: 'center'}}>
           <img src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
         </div>
       </Section>
-      <style jsx>{`
-        .align {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .resume {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          width: 70%;
-        }
-
-        .img-container {
-          position: relative;
-          padding: 2em;
-          width: 30%;
-        }
-
-        .img-container img {
-          width: 100%;
-          height: auto;
-          max-width: 300px;
-          border: 1px solid ${theme.border};
-          display: flex;
-          flex-direction: column;
-          margin: auto;
-        }
-
-        .link {
-          text-align: center;
-          margin: .5em;
-        }
-
-        @media only screen and (max-width: 768px) {
-          .align {
-            flex-direction: column;
-          }
-
-          .reverse {
-            flex-direction: column-reverse;
-          }
-
-          .resume {
-            width: 100%;
-          }
-
-          .img-container {
-            width: 100%;
-          }
-        }
-      `}</style>
     </Page>
   )
 }

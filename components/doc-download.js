@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Book} from 'react-feather'
 
+import theme from '../styles/theme'
+
 const DocDownload = ({children, isReverse, imgSrc, link, title, imgAlt}) => (
-  <div className='align'>
+  <div className='doc-container'>
     <div className='text-container'>
       <h3>{title}</h3>
       {children}
@@ -16,31 +18,30 @@ const DocDownload = ({children, isReverse, imgSrc, link, title, imgAlt}) => (
       </a>
     </div>
     <style jsx>{`
-        .align {
+        .doc-container {
           display: flex;
           flex-wrap: wrap;
-          flex-direction: ${isReverse ? 'row-reverse' : 'row'}
+          flex-direction: ${isReverse ? 'row-reverse' : 'row'};
+          margin: 1em 0;
         }
+
         .text-container {
           flex: 2;
           margin: auto;
           min-width: 250px;
         }
+
         .img-container {
           flex: 1;
-          min-width: 200px;
           display: flex;
           flex-direction: column;
+          align-items: center;
         }
+
         .img-container img {
-          max-width: 200px;
-          height: auto;
-          width: 100%;
-          margin: 1em auto;
-          border: 1px solid #ADB9C9;
-        }
-        .img-container a {
-          margin: auto;
+          margin: 1em;
+          width: 200px;
+          border: 1px solid ${theme.border};
         }
       `}</style>
   </div>
