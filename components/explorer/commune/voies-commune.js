@@ -44,7 +44,7 @@ const VoiesCommune = ({voies, commune}) => {
     <div className='voies'>
       <TableList
         title='Voies de la commune'
-        subtitle={voies.length === 1 ? `${voies.length} adresse répertoriée` : `${voies.length} adresses répertoriées`}
+        subtitle={voies.length === 1 ? `${voies.length} voie répertoriée` : `${voies.length} voies répertoriées`}
         list={voies}
         textFilter={item => item.nomVoie}
         filters={{sources: 'Sources'}}
