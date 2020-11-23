@@ -1,4 +1,3 @@
-import 'isomorphic-unfetch' // eslint-disable-line import/no-unassigned-import
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'

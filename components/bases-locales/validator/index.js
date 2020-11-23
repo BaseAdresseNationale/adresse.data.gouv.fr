@@ -1,5 +1,4 @@
 import {format} from 'url'
-import 'isomorphic-unfetch' // eslint-disable-line import/no-unassigned-import
 import React from 'react'
 import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
