@@ -1,11 +1,8 @@
 import React from 'react'
 import App from 'next/app'
-import getConfig from 'next/config'
 
-const {publicRuntimeConfig: {
-  PIWIK_URL,
-  PIWIK_SITE_ID
-}} = getConfig()
+const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
+const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID
 
 class MyApp extends App {
   static async getInitialProps({Component, ctx}) {

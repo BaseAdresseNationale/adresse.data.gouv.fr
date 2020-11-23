@@ -1,19 +1,4 @@
 const {join} = require('path')
-const nextRuntimeDotenv = require('next-runtime-dotenv')
-
-const withConfig = nextRuntimeDotenv({
-  public: [
-    'BACKEND_URL',
-    'API_GEO_URL',
-    'BAN_DASHBOARD_URL',
-    'API_ADRESSE',
-    'API_EXPLORE_URL',
-    'API_EXPLORE_SEARCH_URL',
-    'PIWIK_URL',
-    'PIWIK_SITE_ID',
-    'BACKEND_PUBLICATION'
-  ]
-})
 
 const commonModules = [
   '/node_modules/fbjs/',
@@ -26,7 +11,7 @@ const commonModules = [
   '/pages/_error.js'
 ]
 
-module.exports = withConfig({
+module.exports = {
   webpack(config, {dev, isServer}) {
     // eslint-disable-next-line import/no-extraneous-dependencies
     const {ContextReplacementPlugin} = require('webpack')
@@ -55,4 +40,4 @@ module.exports = withConfig({
 
     return config
   }
-})
+}

@@ -1,11 +1,8 @@
 import React from 'react'
 import Document, {Head, Main, NextScript} from 'next/document'
-import getConfig from 'next/config'
 
-const {publicRuntimeConfig: {
-  PIWIK_URL,
-  PIWIK_SITE_ID
-}} = getConfig()
+const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
+const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
