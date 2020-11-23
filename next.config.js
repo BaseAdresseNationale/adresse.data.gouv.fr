@@ -1,4 +1,7 @@
 const {join} = require('path')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
 
 const commonModules = [
   '/node_modules/fbjs/',
@@ -11,7 +14,7 @@ const commonModules = [
   '/pages/_error.js'
 ]
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   webpack(config, {dev, isServer}) {
     // eslint-disable-next-line import/no-extraneous-dependencies
     const {ContextReplacementPlugin} = require('webpack')
@@ -21,23 +24,14 @@ module.exports = {
     )
 
     if (!dev && !isServer) {
-      const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
-
       config.optimization.splitChunks.cacheGroups.shared = {
         name: 'commons',
         test: m => m.resource && commonModules.some(c =>
           m.resource.startsWith(join(__dirname, c))
         )
       }
-
-      config.plugins.push(new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
-        openAnalyzer: false,
-        reportFilename: join(__dirname, 'reports/bundles.html'),
-        defaultSizes: 'gzip'
-      }))
     }
 
     return config
   }
-}
+})
