@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {getCommune} from '../../lib/api-geo'
-import {getCommune as getCommuneExplore} from '../../lib/explore/api'
+import {getCommune} from '../../../../lib/api-geo'
+import {getCommune as getCommuneExplore} from '../../../../lib/explore/api'
 
-import Page from '../../layouts/main'
-import Section from '../../components/section'
-import withErrors from '../../components/hoc/with-errors'
+import Page from '../../../../layouts/main'
+import Section from '../../../../components/section'
+import withErrors from '../../../../components/hoc/with-errors'
 
-import Header from '../../components/explorer/header'
-import Commune from '../../components/explorer/commune'
-import VoiesCommune from '../../components/explorer/commune/voies-commune'
+import Header from '../../../../components/explorer/header'
+import Commune from '../../../../components/explorer/commune'
+import VoiesCommune from '../../../../components/explorer/commune/voies-commune'
 
 const contourToFeatureCollection = commune => {
   return {
