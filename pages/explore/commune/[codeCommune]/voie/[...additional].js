@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Page from '../../../layouts/main'
+import Page from '../../../../../layouts/main'
 
-import {getVoie, getNumero} from '../../../lib/explore/api'
+import {getVoie, getNumero} from '../../../../../lib/explore/api'
 
-import withErrors from '../../../components/hoc/with-errors'
+import withErrors from '../../../../../components/hoc/with-errors'
 
-import Header from '../../../components/explorer/header'
-import Voie from '../../../components/explorer/voie'
+import Header from '../../../../../components/explorer/header'
+import Voie from '../../../../../components/explorer/voie'
 
 class VoieError extends Error {
   constructor(message) {
@@ -43,13 +43,18 @@ VoiePage.defaultProps = {
 }
 
 VoiePage.getInitialProps = async ({query}) => {
-  const {idVoie} = query
+  const {additional} = query
+  const [idVoie] = additional
   const promises = [
     getVoie(idVoie)
   ]
 
-  if (query.numero) {
-    promises.push(getNumero(idVoie, query.numero))
+  if (additional.length === 2 || additional.length > 3 || (additional.length > 1 && additional[1] !== 'numero')) {
+    throw new VoieError()
+  }
+
+  if (additional[1] === 'numero' && additional[2]) {
+    promises.push(getNumero(idVoie, additional[2]))
   }
 
   const [voie, numero] = await Promise.all(promises)
