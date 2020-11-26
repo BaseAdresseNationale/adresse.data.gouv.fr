@@ -1,5 +1,5 @@
 import React from 'react'
-import Document, {Head, Main, NextScript} from 'next/document'
+import Document, {Head, Html, Main, NextScript} from 'next/document'
 
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
 const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID
@@ -12,9 +12,8 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <html lang='fr'>
+      <Html lang='fr'>
         <Head>
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta httpEquiv='x-ua-compatible' content='ie=edge' />
 
           <link href='https://unpkg.com/template.data.gouv.fr@1.2.1/dist/main.min.css' rel='stylesheet' />
@@ -28,7 +27,7 @@ class MyDocument extends Document {
           {PIWIK_URL && PIWIK_SITE_ID && <script defer async src={`${PIWIK_URL}/piwik.js`} />}
           <NextScript />
         </body>
-      </html>
+      </Html>
     )
   }
 }

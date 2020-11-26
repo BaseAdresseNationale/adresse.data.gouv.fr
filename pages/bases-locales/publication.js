@@ -54,10 +54,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
-      const href = `/bases-locales/publication?submissionId=${bal._id}`
-      const as = href
-
-      Router.push(href, as)
+      Router.push(`/bases-locales/publication?submissionId=${bal._id}`)
     } catch (error) {
       setError(error.message)
     }
@@ -72,9 +69,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     if (bal) {
       if (!submissionId) {
         const href = `/bases-locales/publication?submissionId=${bal._id}`
-        const as = href
-
-        Router.push(href, as, {shallow: true})
+        Router.push(href, {shallow: true})
       }
 
       if (bal.authenticationError) {

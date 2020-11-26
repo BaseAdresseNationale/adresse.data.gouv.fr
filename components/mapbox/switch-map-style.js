@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Image from 'next/image'
 
 import theme from '../../styles/theme'
 
@@ -16,7 +17,9 @@ class SwitchMapStyle extends React.Component {
 
     return (
       <div className='switch-style'>
-        <img
+        <Image
+          width={80}
+          height={80}
           alt={style}
           src={src}
           onClick={handleChange}
@@ -30,12 +33,7 @@ class SwitchMapStyle extends React.Component {
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
 
-          img {
-            width: 100%;
-            height: 100%;
-          }
-
-          img:hover {
+          .switch-style:hover {
             cursor: pointer;
           }
 

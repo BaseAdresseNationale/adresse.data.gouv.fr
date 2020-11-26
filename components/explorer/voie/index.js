@@ -14,10 +14,8 @@ import SourcesTable from '../../sources-table'
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
     const {codeCommune, idVoie} = Router.query
-    const href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}${numero ? `&numero=${numero}${suffixe || ''}` : ''}`
-    const as = `/explore/commune/${codeCommune}/voie/${idVoie}${numero ? `/numero/${numero}${suffixe || ''}` : ''}`
 
-    Router.push(href, as)
+    Router.push(`/explore/commune/${codeCommune}/voie/${idVoie}${numero ? `/numero/${numero}${suffixe || ''}` : ''}`)
   }
 
   const checkIsSelected = item => {

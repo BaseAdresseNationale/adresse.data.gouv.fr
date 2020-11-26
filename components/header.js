@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import theme from '../styles/theme'
 
@@ -15,13 +16,15 @@ const links = [
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
-export default () => (
+const Header = () => (
   <nav className='nav'>
     <div className='nav__container'>
 
       <Link href='/'>
         <a className='nav__link'>
-          <img className='nav__logo' src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
+          <div className='nav__logo'>
+            <Image layout='fill' src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
+          </div>
         </a>
       </Link>
 
@@ -61,8 +64,10 @@ export default () => (
       }
 
       .nav__logo {
+        position: relative;
+        width: 305px;
         height: 70px;
-        padding: 1em;
+        margin: 0.2em 1em;
       }
 
       .nav__link:hover {
@@ -123,9 +128,12 @@ export default () => (
 
       @media (max-width: 380px) {
         .nav__logo {
+          width: 230px;
           height: 60px;
         }
       }
   `}</style>
   </nav>
 )
+
+export default Header

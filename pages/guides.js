@@ -6,6 +6,7 @@ import Page from '../layouts/main'
 import Head from '../components/head'
 import Section from '../components/section'
 import DocDownload from '../components/doc-download'
+import Image from 'next/image'
 
 const Guides = () => {
   return (
@@ -65,8 +66,8 @@ const Guides = () => {
         </DocDownload>
       </Section>
       <Section title='En partenariat avec : '>
-        <div style={{width: '100%', textAlign: 'center'}}>
-          <img src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <Image width={190} height={80} src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
         </div>
       </Section>
     </Page>

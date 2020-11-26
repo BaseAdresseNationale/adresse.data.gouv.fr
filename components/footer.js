@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import theme from '../styles/theme'
 
@@ -7,12 +8,12 @@ const Footer = () => (
   <footer className='footer'>
     <div className='footer-container'>
       <div className='footer__logo'>
-        <img src='/images/logos/etalab.svg' alt='Etalab' />
+        <Image width={160} height={46} src='/images/logos/etalab.svg' alt='Etalab' />
         <ul className='footer__social'>
-          <li><a href='https://twitter.com/AdresseDataGouv'><img src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
-          <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><img src='/images/medias/github.svg' alt='Github' /></a></li>
-          <li><a href='https://blog.geo.data.gouv.fr'><img src='/images/medias/medium.svg' alt='Medium' /></a></li>
-          <li><Link href='/nous-contacter'><a><img src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
+          <li><a href='https://twitter.com/AdresseDataGouv'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
+          <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
+          <li><a href='https://blog.geo.data.gouv.fr'><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a></li>
+          <li><Link href='/nous-contacter'><a><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
         </ul>
       </div>
       <ul className='footer__links'>
@@ -37,10 +38,6 @@ const Footer = () => (
         flex-wrap: wrap;
       }
 
-      .footer__logo img {
-        width: 160px;
-      }
-
       .footer ul {
         list-style-type: none;
         padding: 0;
@@ -53,10 +50,6 @@ const Footer = () => (
       .footer__social li {
         display: inline;
         margin-right: 1em;
-      }
-
-      .footer__social img {
-        width: 25px;
       }
 
       .footer__links {

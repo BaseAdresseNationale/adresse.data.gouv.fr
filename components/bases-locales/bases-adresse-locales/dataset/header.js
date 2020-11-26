@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Image from 'next/image'
 
 import Info from '../info'
 
@@ -35,7 +36,7 @@ class Header extends React.Component {
             </Info>
           )}
         </div>
-        {logo && <img src={logo} alt={`${name}-logo`} />}
+        {logo && <Image width={240} height={140} src={logo} alt={`${name}-logo`} />}
 
         <style jsx>{`
           .head {
@@ -46,13 +47,6 @@ class Header extends React.Component {
 
           .head span {
             display: inline-flex;
-          }
-
-          .head img {
-            width: auto;
-            max-width: 240px;
-            height: auto;
-            max-height: 140px;
           }
 
           @media (max-width: 600px) {
