@@ -21,22 +21,18 @@ const ExploreSearch = () => {
     const codeCommune = citycode
     const idVoie = id.split('_').slice(0, 2).join('_')
     let href = ''
-    let as = ''
 
     if (type === 'municipality') {
-      href = `/explore/commune?codeCommune=${codeCommune}`
-      as = `/explore/commune/${codeCommune}`
+      href = `/explore/commune/${codeCommune}`
     } else if (type === 'street') {
-      href = `/commune/voie?idVoie=${idVoie}`
-      as = `/explore/commune/${codeCommune}/voie/${idVoie}`
+      href = `/explore/commune/${codeCommune}/voie/${idVoie}`
     } else if (type === 'housenumber') {
       const [numero, suffixe] = housenumber.split(' ')
       const numeroComplet = `${numero}${suffixe || ''}`
-      href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numeroComplet}`
-      as = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
+      href = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
     }
 
-    Router.push(href, as)
+    Router.push(href)
   }
 
   const handleSearch = useCallback(debounce(async input => {
