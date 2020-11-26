@@ -13,7 +13,7 @@ import ButtonLink from '../components/button-link'
 const title = 'Nous contacter'
 const description = 'Contactez l’équipe de adresse.data.gouv.fr'
 
-export default () => (
+const Contact = () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<Mail size={56} />} />
     <Section>
@@ -66,3 +66,5 @@ export default () => (
       `}</style>
   </Page>
 )
+
+export default Contact

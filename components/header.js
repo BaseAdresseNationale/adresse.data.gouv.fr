@@ -15,7 +15,7 @@ const links = [
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
-export default () => (
+const Header = () => (
   <nav className='nav'>
     <div className='nav__container'>
 
@@ -129,3 +129,5 @@ export default () => (
   `}</style>
   </nav>
 )
+
+export default Header

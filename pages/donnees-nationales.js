@@ -6,9 +6,11 @@ import Head from '../components/head'
 import Section from '../components/section'
 import Card from '../components/card'
 import theme from '../styles/theme'
+
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
-export default () => (
+
+const DonneesNatioales = () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<Download size={56} />} />
     <Section title='Base Adresse Nationale' subtitle='Base de données de référence pour les adresses en France'>
@@ -184,3 +186,5 @@ export default () => (
       `}</style>
   </Page >
 )
+
+export default DonneesNatioales

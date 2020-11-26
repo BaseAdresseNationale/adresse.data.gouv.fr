@@ -11,7 +11,7 @@ import ButtonLink from '../components/button-link'
 const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer à améliorer les données Adresse.'
 
-export default () => (
+const Contribuer = () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<Edit2 size={56} />} />
     <Section subtitle='Que vous soyez une commune, une entreprise ou un simple citoyen, vous pouvez contribuer à la Base Adresse Nationale' background='grey' />
@@ -48,3 +48,5 @@ export default () => (
     `}</style>
   </Page>
 )
+
+export default Contribuer

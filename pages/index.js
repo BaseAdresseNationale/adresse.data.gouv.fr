@@ -10,7 +10,7 @@ import Section from '../components/section'
 import DocDownload from '../components/doc-download'
 import Infolettre from '../components/infolettre'
 
-export default () => {
+const Home = () => {
   return (
     <Page>
       <Ribbon />
@@ -61,3 +61,5 @@ export default () => {
     </Page>
   )
 }
+
+export default Home

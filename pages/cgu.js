@@ -4,7 +4,7 @@ import Page from '../layouts/main'
 
 import Section from '../components/section'
 
-export default () => (
+const Cgu = () => (
   <Page title='Mentions légales'>
     <Section>
       <div className='row'>
@@ -86,3 +86,5 @@ export default () => (
     </Section>
   </Page>
 )
+
+export default Cgu

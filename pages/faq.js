@@ -8,10 +8,9 @@ import Section from '../components/section'
 import Question from '../components/question'
 
 const title = 'Foire aux questions'
-const description = 'Questions les plus fréquemment posées.'
 
-export default () => (
-  <Page title={title} description={description}>
+const Faq = () => (
+  <Page title={title} description='Questions les plus fréquemment posées.'>
     <Head title={title} icon={<HelpCircle size={56} />} />
     <Section>
       <div className='faq-row'>
@@ -128,3 +127,5 @@ export default () => (
     </Section>
   </Page>
 )
+
+export default Faq
