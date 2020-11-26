@@ -13,9 +13,9 @@ import SourcesTable from '../../sources-table'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {
-    const {codeCommune, idVoie} = Router.query
+    const {codeCommune, additional} = Router.query
 
-    Router.push(`/explore/commune/${codeCommune}/voie/${idVoie}${numero ? `/numero/${numero}${suffixe || ''}` : ''}`)
+    Router.push(`/explore/commune/${codeCommune}/voie/${additional[0]}/numero/${suffixe ? `${numero}${suffixe}` : numero}`)
   }
 
   const checkIsSelected = item => {
