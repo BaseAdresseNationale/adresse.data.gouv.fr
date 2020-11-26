@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Image from 'next/image'
 import {Book} from 'react-feather'
 
 import theme from '../styles/theme'
@@ -11,7 +12,9 @@ const DocDownload = ({title, link, src, alt, isReverse, children}) => (
       {children}
     </div>
     <div className='img-container'>
-      <img src={src} alt={alt} />
+      <div className='preview'>
+        <Image width={200} height={280} layout='fixed' src={src} alt={alt} />
+      </div>
       <a href={link}>
         <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
         Télécharger
@@ -38,9 +41,8 @@ const DocDownload = ({title, link, src, alt, isReverse, children}) => (
           align-items: center;
         }
 
-        .img-container img {
+        .preview {
           margin: 1em;
-          width: 200px;
           border: 1px solid ${theme.border};
         }
       `}</style>

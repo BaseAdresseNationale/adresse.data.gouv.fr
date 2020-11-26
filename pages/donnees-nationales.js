@@ -1,11 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {Download} from 'react-feather'
+
+import theme from '../styles/theme'
+
 import Page from '../layouts/main'
+
 import Head from '../components/head'
 import Section from '../components/section'
 import Card from '../components/card'
-import theme from '../styles/theme'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
@@ -90,7 +94,9 @@ const DonneesNatioales = () => (
         </ul>
       </p>
 
-      <img className='adjust-img' src='/images/donnees-nationales/schema-donnees-ban.svg' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
+      <div className='adjust-img'>
+        <Image width={1000} height={386} src='/images/donnees-nationales/schema-donnees-ban.svg' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
+      </div>
 
     </Section>
     <Section title='Autres fichiers nationaux' background='grey'>
@@ -179,9 +185,8 @@ const DonneesNatioales = () => (
       }
       .adjust-img {
         display: flex;
-        width: 100%;
-        max-width: 1000px;
-        margin: 1em auto;
+        justify-content: center;
+        margin: 1em;
       }
       `}</style>
   </Page >
