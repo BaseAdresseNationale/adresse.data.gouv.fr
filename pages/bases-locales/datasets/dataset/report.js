@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {getDataset, getReport} from '../../../../lib/bal/api'
+import {getDataset, getReport} from '@/lib/bal/api'
 
-import Page from '../../../../layouts/main'
-import withErrors from '../../../../components/hoc/with-errors'
+import Page from '@/layouts/main'
+import withErrors from '@/components/hoc/with-errors'
 
-import BalReport from '../../../../components/bases-locales/bases-adresse-locales/bal-report'
+import BalReport from '@/components/bases-locales/bases-adresse-locales/bal-report'
 
 class ReportPage extends React.Component {
   static propTypes = {

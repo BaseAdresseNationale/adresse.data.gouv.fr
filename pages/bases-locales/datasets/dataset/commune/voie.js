@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {getDataset, getCommune, getVoie} from '../../../../../lib/bal/api'
+import {getDataset, getCommune, getVoie} from '@/lib/bal/api'
 
-import Page from '../../../../../layouts/main'
-import withErrors from '../../../../../components/hoc/with-errors'
+import Page from '@/layouts/main'
+import withErrors from '@/components/hoc/with-errors'
 
-import Voie from '../../../../../components/bases-locales/bases-adresse-locales/dataset/commune/voie'
+import Voie from '@/components/bases-locales/bases-adresse-locales/dataset/commune/voie'
 
 class VoiePage extends React.Component {
   static propTypes = {
