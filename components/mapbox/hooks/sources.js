@@ -28,6 +28,7 @@ function useSources(contour, voies, numeros, numero) {
         numeros.features
 
       sources.push({
+        generateId: true,
         name: 'numeros',
         type: 'geojson',
         data: {type: 'FeatureCollection', features}
