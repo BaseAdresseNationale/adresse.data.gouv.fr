@@ -49,7 +49,7 @@
     "eslint": "^6.8.0",
     "eslint-config-xo-nextjs": "^1.5.0",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^2.5.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "xo": "^0.27.2"
   },
   "xo": {
