@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Page from '../layouts/main'
+import Page from '@/layouts/main'
 
-import Section from '../components/section'
+import Section from '@/components/section'
 
 const Cgu = () => (
   <Page title='Mentions légales'>

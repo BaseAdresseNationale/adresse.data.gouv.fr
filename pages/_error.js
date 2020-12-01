@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
-import Meta from '../components/meta'
-import Page from '../layouts/main'
+import Meta from '@/components/meta'
+import Page from '@/layouts/main'
 
 const messages = {
   500: 'Une erreur imprévue s’est produite',

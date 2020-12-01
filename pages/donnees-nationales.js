@@ -3,13 +3,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {Download} from 'react-feather'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
-import Page from '../layouts/main'
+import Page from '@/layouts/main'
 
-import Head from '../components/head'
-import Section from '../components/section'
-import Card from '../components/card'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import Card from '@/components/card'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
