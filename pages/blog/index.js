@@ -48,8 +48,8 @@ const Blog = props => {
             </div>
           ))) : (
             <div>
-              <h2>Oupss...</h2>
-              <h6>Les actualités semblent injoingnables.</h6>
+              <h6>Les actualités sont actuellement indisponibles</h6>
+              <h6>Merci d’essayer ultérieurement</h6>
             </div>
           )}
         </div>
