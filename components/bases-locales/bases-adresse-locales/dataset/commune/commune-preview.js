@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {spaceThousands} from '@/lib/format-numbers'
 import {contoursToGeoJson} from '@/lib/geojson'
 
-import Info from '@/components/info'
+import Info from '../../info'
 
 import Preview from '../preview'
 
