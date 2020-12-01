@@ -1,11 +1,11 @@
 import React from 'react'
 import {getSinglePost} from '../../ghost/posts'
-import Link from 'next/link'
-import {Rss} from 'react-feather'
+import {Rss, ArrowLeft} from 'react-feather'
 
 import Page from '../../layouts/main'
 import Section from '../../components/section'
 import Head from '../../components/head'
+import ButtonLink from '../../components/button-link'
 
 import colors from '../../styles/colors'
 
@@ -27,9 +27,9 @@ const Slug = props => {
               __html: post.html.replaceAll('<img ', `<img ${styleImg} `)
             }}
           />
-          <Link href='/blog'>
-            <a> retour </a>
-          </Link>
+          <ButtonLink href='/blog' isOutlined>
+            <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour
+          </ButtonLink>
         </Section>
         <style jsx>{`
           div {
