@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
 const Footer = () => (
   <footer className='footer'>

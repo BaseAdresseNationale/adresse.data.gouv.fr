@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import Button from '../../button'
+import Button from '@/components/button'
 
 import User from './user'
 

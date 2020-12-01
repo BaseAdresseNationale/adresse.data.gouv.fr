@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {spaceThousands} from '../../../../../lib/format-numbers'
-import {contoursToGeoJson} from '../../../../../lib/geojson'
+import {spaceThousands} from '@/lib/format-numbers'
+import {contoursToGeoJson} from '@/lib/geojson'
 
-import Info from '../../info'
+import Info from '@/components/info'
 
 import Preview from '../preview'
 

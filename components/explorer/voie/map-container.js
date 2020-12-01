@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-import {addressesToGeoJson} from '../../../lib/geojson'
+import {addressesToGeoJson} from '@/lib/geojson'
 
-import Mapbox from '../../mapbox'
+import Mapbox from '@/components/mapbox'
 
-import AddressesMap from '../../mapbox/addresses-map'
+import AddressesMap from '@/components/mapbox/addresses-map'
 
 const MapContainer = ({voie, addresses, numero, onSelect}) => {
   const [bbox, setBbox] = useState(null)

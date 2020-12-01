@@ -2,11 +2,11 @@ import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {debounce} from 'lodash'
 
-import {search, reverse} from '../../lib/api-adresse'
+import {search, reverse} from '@/lib/api-adresse'
 
-import renderAdresse from '../search-input/render-adresse'
-import SearchInput from '../search-input'
-import Mapbox from '../mapbox'
+import renderAdresse from '@/components/search-input/render-adresse'
+import SearchInput from '@/components/search-input'
+import Mapbox from '@/components/mapbox'
 
 import {useInput} from '../../hooks/input'
 

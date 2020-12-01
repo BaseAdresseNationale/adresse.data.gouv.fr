@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 
-import theme from '../../../../../styles/theme'
+import theme from '@/styles/theme'
 
 import Header from '../header'
 
-import Section from '../../../../section'
-import withFetch from '../../../../hoc/with-fetch'
-import TableList from '../../../../table-list'
-import NoPositionWarning from '../../../../no-position-warning'
+import Section from '@/components/section'
+import withFetch from '@/components/hoc/with-fetch'
+import TableList from '@/components/table-list'
+import NoPositionWarning from '@/components/no-position-warning'
 import Breadcrumb from './breadcrumb'
 import CommunePreview from './commune-preview'
 

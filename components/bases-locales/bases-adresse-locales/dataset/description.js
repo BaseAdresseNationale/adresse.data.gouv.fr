@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {ArrowRight} from 'react-feather'
 
-import Markdown from '../../../markdown'
+import Markdown from '@/components/markdown'
 
 class Description extends React.Component {
   static propTypes = {

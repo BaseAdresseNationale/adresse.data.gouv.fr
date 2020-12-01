@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Section from '../../section'
+import Section from '@/components/section'
 
 import Report from '../validator/report'
 

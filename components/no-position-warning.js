@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {AlertTriangle} from 'react-feather'
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 import Tag from './tag'
 
 const NoPositionWarning = ({check, text}) => {

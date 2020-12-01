@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Eye, X} from 'react-feather'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
 class IssueRows extends React.Component {
   static propTypes = {

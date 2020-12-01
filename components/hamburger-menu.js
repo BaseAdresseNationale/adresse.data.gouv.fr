@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import {Menu, X} from 'react-feather'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
 class HamburgerMenu extends React.Component {
   static propTypes = {

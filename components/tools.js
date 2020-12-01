@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import {Map, Terminal, FileText, UserCheck} from 'react-feather'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
 import Section from './section'
 

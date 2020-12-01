@@ -5,7 +5,7 @@ import {Search} from 'react-feather'
 
 import Loader from '../loader'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 class SearchInput extends React.Component {
   static propTypes = {

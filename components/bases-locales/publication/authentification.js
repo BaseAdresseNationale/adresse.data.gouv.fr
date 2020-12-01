@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import Button from '../../button'
+import Button from '@/components/button'
 
 const Authentification = React.memo(({mail, sendMail, authenticationUrl, publicationRequest}) => {
   return (

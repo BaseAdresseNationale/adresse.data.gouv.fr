@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Section from '../section'
+import Section from '@/components/section'
 import ExploreSearch from './explore-search'
 
 const Explorer = () => (

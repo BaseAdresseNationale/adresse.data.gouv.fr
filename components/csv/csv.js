@@ -3,10 +3,10 @@ import Papa from 'papaparse'
 
 import {Plus, Minus} from 'react-feather'
 
-import detectEncoding from '../../lib/detect-encoding'
+import detectEncoding from '@/lib/detect-encoding'
 
-import Section from '../section'
-import Button from '../button'
+import Section from '@/components/section'
+import Button from '@/components/button'
 
 import Step from './step'
 import ColumnsSelect from './columns-select'
@@ -14,7 +14,7 @@ import Filter from './filter'
 import Holder from './holder'
 import Table from './table'
 import Geocoder from './geocoder'
-import Loader from '../loader'
+import Loader from '@/components/loader'
 
 const allowedTypes = [
   'text/plain',

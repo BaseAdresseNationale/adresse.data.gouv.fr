@@ -1,16 +1,16 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import {debounce} from 'lodash'
 
-import {getCommunes} from '../../lib/api-geo'
-import {getMairie} from '../../lib/api-etablissements-public'
+import {getCommunes} from '@/lib/api-geo'
+import {getMairie} from '@/lib/api-etablissements-public'
 
 import {useInput} from '../../hooks/input'
 
-import SearchInput from '../search-input'
-import RenderCommune from '../search-input/render-commune'
+import SearchInput from '@/components/search-input'
+import RenderCommune from '@/components/search-input/render-commune'
 
-import Notification from '../notification'
-import Loader from '../loader'
+import Notification from '@/components/notification'
+import Loader from '@/components/loader'
 
 import MairieContact from './mairie-contact'
 

@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 const Address = ({id, context, label, name, postcode, citycode, type, city, district, oldcity, oldcitycode}) => {
   const types = {

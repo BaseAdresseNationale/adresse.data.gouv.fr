@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import Mapbox from '../../mapbox'
-import AddressesMap from '../../mapbox/addresses-map'
+import Mapbox from '@/components/mapbox'
+import AddressesMap from '@/components/mapbox/addresses-map'
 
 import Statistics from './statistics'
 

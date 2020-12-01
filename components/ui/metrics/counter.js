@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import {formatPercent, formatInteger} from '../../../lib/format-numbers'
+import {formatPercent, formatInteger} from '@/lib/format-numbers'
 
 const Counter = ({value, label, unit, size, color, title}) => (
   <div style={{textAlign: 'center'}}>

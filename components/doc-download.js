@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Image from 'next/image'
 import {Book} from 'react-feather'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
 const DocDownload = ({title, link, src, alt, isReverse, children}) => (
   <div className='doc-container'>

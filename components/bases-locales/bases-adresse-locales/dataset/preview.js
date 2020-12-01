@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-import MapBox from '../../../mapbox'
+import MapBox from '@/components/mapbox'
 
-import AddressesMap from '../../../mapbox/addresses-map'
+import AddressesMap from '@/components/mapbox/addresses-map'
 
 class Preview extends React.Component {
   static propTypes = {

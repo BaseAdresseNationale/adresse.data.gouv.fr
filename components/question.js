@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {ChevronUp, ChevronDown} from 'react-feather'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
 class Question extends React.Component {
   state = {
