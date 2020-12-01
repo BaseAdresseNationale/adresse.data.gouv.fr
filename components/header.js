@@ -13,7 +13,8 @@ const links = [
   {text: 'API', href: '/api'},
   {text: 'Outils', href: '/tools'},
   {text: 'FAQ', href: '/faq'},
-  {text: 'Nous contacter', href: '/nous-contacter'}
+  {text: 'Nous contacter', href: '/nous-contacter'},
+  {text: 'Blog', href: '/blog'}
 ]
 
 function Header() {
