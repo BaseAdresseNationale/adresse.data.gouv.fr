@@ -68,21 +68,8 @@ app.prepare().then(() => {
     })
   })
 
-  server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (request, res) => {
-    app.render(request, res, '/bases-locales/datasets/dataset/commune', {
-      ...request.query,
-      id: request.params.id,
-      codeCommune: request.params.codeCommune
-    })
-  })
-
-  server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune/:codeVoie', (request, res) => {
-    app.render(request, res, '/bases-locales/datasets/dataset/commune/voie', {
-      ...request.query,
-      id: request.params.id,
-      codeCommune: request.params.codeCommune,
-      codeVoie: request.params.codeVoie
-    })
+  server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
+    res.redirect(`/explore/commune/${req.params.codeCommune}`)
   })
 
   // DO NOT REMOVE

@@ -16,7 +16,7 @@ import CommunesPreview from './communes-preview'
 
 function Dataset({dataset, summary}) {
   const {title, description, url, organization, page} = dataset
-  const {query, push} = useRouter()
+  const {push} = useRouter()
   const cols = {
     nomCommune: {
       title: 'Nom de la commune',
@@ -42,7 +42,7 @@ function Dataset({dataset, summary}) {
 
   const handleSelect = code => {
     push(
-      `/bases-locales/jeux-de-donnees/${query.id}/${code}`
+      `/explore/commune/${code}`
     )
   }
 
