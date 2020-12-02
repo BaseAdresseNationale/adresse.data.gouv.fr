@@ -1,4 +1,4 @@
-import {getType} from '../../../lib/types'
+import {getType} from '@/lib/types'
 
 const POSITIONS_COLORS = [
   'case',

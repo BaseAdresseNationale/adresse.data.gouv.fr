@@ -1,14 +1,13 @@
 import {format} from 'url'
-import 'isomorphic-unfetch' // eslint-disable-line import/no-unassigned-import
 import React from 'react'
 import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
 import {withRouter} from 'next/router'
 
-import {getFileExtension, checkHeaders, statusCodeMsg} from '../../../lib/bal/file'
+import {getFileExtension, checkHeaders, statusCodeMsg} from '@/lib/bal/file'
 
-import Section from '../../section'
-import Loader from '../../loader'
+import Section from '@/components/section'
+import Loader from '@/components/loader'
 
 import Report from './report'
 import FileHander from './file-handler'

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 
 import Container from './container'
 import BetaRibbon from './beta-ribbon'

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SelectableItemList from '../selectable-item-list'
+import SelectableItemList from '@/components/selectable-item-list'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 const ColumnsSelect = ({columns, selectedColumns, onAdd, onRemove}) => (
   <div>

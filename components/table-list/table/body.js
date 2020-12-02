@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-const Body = ({list, cols, isSelected, handleSelect}) => {
+const Body = ({list, cols, checkIsSelected, handleSelect}) => {
   return (
     <tbody>
       {list.map((item, idx) => (
         <tr
           key={`tr-${idx}`} // eslint-disable-line react/no-array-index-key
-          className={`${isSelected && isSelected(item) ? 'selected' : null}`}
+          className={`${checkIsSelected && checkIsSelected(item) ? 'selected' : null}`}
           onClick={handleSelect ? () => handleSelect(item) : null}
         >
           {Object.keys(cols).map(col => (
@@ -55,14 +55,13 @@ const Body = ({list, cols, isSelected, handleSelect}) => {
 Body.propTypes = {
   list: PropTypes.array.isRequired,
   cols: PropTypes.object.isRequired,
-  handleSelect: PropTypes.func.isRequired,
-  isSelected: PropTypes.shape({
-    id: PropTypes.string.isRequired
-  })
+  handleSelect: PropTypes.func,
+  checkIsSelected: PropTypes.func
 }
 
 Body.defaultProps = {
-  isSelected: null
+  checkIsSelected: null,
+  handleSelect: null
 }
 
 export default Body

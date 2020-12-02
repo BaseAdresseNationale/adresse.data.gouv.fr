@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 
-import theme from '../../../../../styles/theme'
+import theme from '@/styles/theme'
 
 import Header from '../header'
 
-import Section from '../../../../section'
-import withFetch from '../../../../hoc/with-fetch'
-import TableList from '../../../../table-list'
-import NoPositionWarning from '../../../../no-position-warning'
+import Section from '@/components/section'
+import withFetch from '@/components/hoc/with-fetch'
+import TableList from '@/components/table-list'
+import NoPositionWarning from '@/components/no-position-warning'
 import Breadcrumb from './breadcrumb'
 import CommunePreview from './commune-preview'
 
@@ -17,18 +17,23 @@ const Commune = ({commune, voies, dataset}) => {
   const {id, title, organization} = dataset
   const {query, push} = useRouter()
   const noPosition = 'Ce lieu nommé ne possède pas encore de position renseignée.'
-  const cols = [
-    {
+  const cols = {
+    voie: {
       title: 'Nom de voie',
       sortBy: 'alphabetical',
       getValue: voie => voie.nomVoie
     },
-    {
+    idVoie: {
+      title: 'Code de la voie',
+      sortBy: 'alphabetical',
+      getValue: voie => voie.idVoie
+    },
+    adresses: {
       title: 'Nombre d’adresses',
       sortBy: 'numeric',
       getValue: voie => voie.numerosCount === 0 ? <NoPositionWarning check={voie.position} text={noPosition} /> : voie.numerosCount
     }
-  ]
+  }
 
   const selectVoie = voie => {
     const {codeVoie, numerosCount, position} = voie

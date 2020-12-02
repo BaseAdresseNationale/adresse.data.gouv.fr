@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Database} from 'react-feather'
-import Page from '../layouts/main'
+import Page from '@/layouts/main'
 
-import {getDatasets, getStats} from '../lib/bal/api'
-import withErrors from '../components/hoc/with-errors'
+import {getDatasets, getStats} from '@/lib/bal/api'
+import withErrors from '@/components/hoc/with-errors'
 
-import Head from '../components/head'
-import BasesLocales from '../components/bases-locales'
+import Head from '@/components/head'
+import BasesLocales from '@/components/bases-locales'
 
-const title = 'Bases locales'
+const title = 'Bases Adresses Locales'
 const description = 'Bases de données Adresse de périmètre local, éditées sous la responsabilité des collectivités locales.'
 
-class BasesLocalesPage extends React.Component {
+class BasesAdressesLocalesPage extends React.Component {
   static propTypes = {
     datasets: PropTypes.array.isRequired,
     stats: PropTypes.object.isRequired
@@ -30,11 +30,11 @@ class BasesLocalesPage extends React.Component {
   }
 }
 
-BasesLocalesPage.getInitialProps = async () => {
+BasesAdressesLocalesPage.getInitialProps = async () => {
   return {
     datasets: await getDatasets(),
     stats: await getStats()
   }
 }
 
-export default withErrors(BasesLocalesPage)
+export default withErrors(BasesAdressesLocalesPage)

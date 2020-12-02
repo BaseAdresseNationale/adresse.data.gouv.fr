@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {flattenDeep, union} from 'lodash'
 
-import {byProps, byText} from '../../lib/filters'
+import {byProps, byText} from '@/lib/filters'
 
 import Title from './title'
 import TableControl from './table-control'
@@ -20,7 +20,7 @@ const getPropsToFilter = (list, filters) => {
   })
 }
 
-const TableList = ({title, subtitle, list, textFilter, filters, cols, isSelected, handleSelect}) => {
+const TableList = ({title, subtitle, list, textFilter, filters, cols, checkIsSelected, handleSelect}) => {
   const [text, setText] = useState('')
   const [propsFilter, setPropsFilter] = useState()
   const [selectedPropsFilter, setSelectedPropsFilter] = useState({})
@@ -89,7 +89,7 @@ const TableList = ({title, subtitle, list, textFilter, filters, cols, isSelected
         <TableControl
           list={filteredList}
           cols={cols}
-          isSelected={isSelected}
+          checkIsSelected={checkIsSelected}
           handleSelect={handleSelect}
         />
       )}
@@ -111,7 +111,7 @@ TableList.propTypes = {
   textFilter: PropTypes.func,
   filters: PropTypes.object,
   cols: PropTypes.object.isRequired,
-  isSelected: PropTypes.object,
+  checkIsSelected: PropTypes.func,
   handleSelect: PropTypes.func
 }
 
@@ -119,7 +119,7 @@ TableList.defaultProps = {
   subtitle: '',
   textFilter: null,
   filters: null,
-  isSelected: null,
+  checkIsSelected: null,
   handleSelect: null
 }
 

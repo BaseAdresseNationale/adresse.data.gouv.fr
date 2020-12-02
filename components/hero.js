@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 
-import {Download, Edit3} from 'react-feather'
-import theme from '../styles/theme'
+import {Download, Edit3, Database} from 'react-feather'
+import theme from '@/styles/theme'
 import ToolsIcon from './icons/tools'
 import ExploreSearch from './explorer/explore-search'
 
@@ -35,6 +35,14 @@ const Hero = ({title, tagline}) => (
               Contribuer à la démarche
             </a>
           </Link>
+          <Link href='/bases-locales'>
+            <a>
+              <div className='circle'>
+                <Database size={48} />
+              </div>
+              Bases Adresses Locales
+            </a>
+          </Link>
           <Link href='/tools'>
             <a>
               <div className='circle'>
@@ -45,9 +53,7 @@ const Hero = ({title, tagline}) => (
           </Link>
         </div>
 
-        <div className='search-bar-home'>
-          <ExploreSearch />
-        </div>
+        <ExploreSearch />
       </Container>
 
     </div>

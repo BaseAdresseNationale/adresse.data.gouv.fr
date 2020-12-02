@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import hoist from 'hoist-non-react-statics'
 
-import LoadingContent from '../loading-content'
+import LoadingContent from '@/components/loading-content'
 
 export default (mapStateWithProps, options) => Component => {
   mapStateWithProps = mapStateWithProps || (state => state)

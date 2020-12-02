@@ -5,7 +5,7 @@ import {Search} from 'react-feather'
 
 import Loader from '../loader'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 class SearchInput extends React.Component {
   static propTypes = {
@@ -17,8 +17,7 @@ class SearchInput extends React.Component {
     onSelect: PropTypes.func.isRequired,
     onSearch: PropTypes.func.isRequired,
     renderItem: PropTypes.func.isRequired,
-    getItemValue: PropTypes.func.isRequired,
-    isFullscreen: PropTypes.bool
+    getItemValue: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -26,8 +25,7 @@ class SearchInput extends React.Component {
     value: '',
     placeholder: '',
     isLoading: false,
-    wrapperStyle: null,
-    isFullscreen: false
+    wrapperStyle: null
   }
 
   handleSearch = event => {
@@ -48,7 +46,7 @@ class SearchInput extends React.Component {
     return (
       <div className='search-input-container'>
         {/* disable safari zoom in on focus with font-size at 16px */}
-        <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} />
+        <input style={{fontSize: '16px'}} className='search' {...props} placeholder={placeholder} aria-label='Recherche' />
         <span className='iconTitle'><Search /></span>
         <style jsx>{`
           .search-input-container {
@@ -91,10 +89,10 @@ class SearchInput extends React.Component {
   }
 
   renderMenu = (items, value) => {
-    const {isLoading, isFullscreen} = this.props
+    const {isLoading} = this.props
 
     return (
-      <div className={`menu ${value.length > 0 ? '' : 'hidden'} ${isFullscreen ? 'fullscreen' : ''}`}>
+      <div className={`menu ${value.length > 0 ? '' : 'hidden'}`}>
         { isLoading && items.length === 0 ? (
           <div className='item'><Loader size='small' /></div>
         ) : (items.length === 0 ? (
@@ -123,16 +121,6 @@ class SearchInput extends React.Component {
           .hidden {
             display: none;
           }
-
-          @media (max-width: 399px) {
-            .menu {
-              width: calc(100% - 40px);
-            }
-
-            .fullscreen {
-              width: 100%;
-            }
-          }
         `}</style>
       </div>
     )
@@ -142,29 +130,18 @@ class SearchInput extends React.Component {
     const {value, results, renderItem, getItemValue, wrapperStyle} = this.props
 
     return (
-      <div className='wrap'>
-        <Autocomplete
-          inputProps={{onFocus: this.onFocus}}
-          value={value}
-          wrapperStyle={wrapperStyle}
-          items={results}
-          getItemValue={getItemValue}
-          isItemSelectable={item => !item.header}
-          onSelect={this.handleSelect}
-          onChange={this.handleSearch}
-          renderItem={renderItem}
-          renderInput={this.renderInput}
-          renderMenu={this.renderMenu} />
-
-        <style jsx>{`
-          @media (max-width: 550px) {
-            .wrap {
-              width: 100%;
-              top: 98px;
-            }
-          }
-          `}</style>
-      </div>
+      <Autocomplete
+        inputProps={{onFocus: this.onFocus}}
+        value={value}
+        wrapperStyle={wrapperStyle}
+        items={results}
+        getItemValue={getItemValue}
+        isItemSelectable={item => !item.header}
+        onSelect={this.handleSelect}
+        onChange={this.handleSearch}
+        renderItem={renderItem}
+        renderInput={this.renderInput}
+        renderMenu={this.renderMenu} />
     )
   }
 }

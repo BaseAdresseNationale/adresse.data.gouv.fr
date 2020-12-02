@@ -1,33 +1,30 @@
 import React from 'react'
-import {Edit2, ExternalLink, Zap} from 'react-feather'
+import {Edit2, MapPin} from 'react-feather'
 
-import Page from '../layouts/main'
-import theme from '../styles/theme'
+import Page from '@/layouts/main'
+import theme from '@/styles/theme'
 
-import Head from '../components/head'
-import Section from '../components/section'
-import ButtonLink from '../components/button-link'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import ButtonLink from '@/components/button-link'
 
 const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer à améliorer les données Adresse.'
 
-export default () => (
+const Contribuer = () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<Edit2 size={56} />} />
-    <Section title='En tant que collectivité locale'>
-      <div className='collectivites'>
-        <section>
-          <h3>Créer une Base Adresse Locale</h3>
-          <p>Si vous souhaitez maîtriser pleinement la gestion de vos adresses, la mise en place d’une Base Adresse Locale est l’approche à privilégier.<br />Il s’agit de la méthode recommandée par l’AMF et l’AITF.</p>
-          <p>Des nombreux outils sont là pour vous aider.</p>
-          <ButtonLink href='/bases-locales'><Zap style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder à la page dédiée</ButtonLink>
-        </section>
-
-        <section>
-          <h3>Utiliser le Guichet Adresse de l’IGN et de La Poste</h3>
-          <p>Cet outil est destiné plus particulièrement aux mairies qui souhaitent avoir une assistance renforcée. Le processus est plus guidé, et vous n’avez aucun fichier à gérer.</p>
-          <ButtonLink isExternal href='https://guichet-adresse.ign.fr'><ExternalLink style={{verticalAlign: 'bottom', marginRight: '5px'}} /> Accéder au Guichet Adresse</ButtonLink>
-        </section>
+    <Section subtitle='Que vous soyez une commune, une entreprise ou un simple citoyen, vous pouvez contribuer à la Base Adresse Nationale' background='grey' />
+    <Section title='En tant que commune' subtitle='Créer une Base Adresse Locale'>
+      <div style={{textAlign: 'center'}}>
+        <p>
+          La <b>création des voies et des adresses</b> est une compétence de la commune, via le conseil municipal.<br />{}
+          Les communes sont donc considérées comme les <b>productrices</b> de la donnée Adresse à l’échelle de leur territoire, et sont à même de lui conférer un <b>caractère officiel</b>.
+        </p>
+        <p>
+          <b>Plusieurs outils</b> existent leur permettant d’exercer cette compétence essentielle.
+        </p>
+        <ButtonLink size='large' href='/gerer-mes-adresses'>Gérer mes adresses <MapPin style={{verticalAlign: 'bottom', marginRight: '5px'}} /></ButtonLink>
       </div>
     </Section>
 
@@ -40,12 +37,6 @@ export default () => (
       <p>Vous utilisez les données diffusées par ce site et vous avez identifié des anomalies récurrentes sur une typologie d’adresse particulière ou dans une zone, <a href='mailto:adresse@data.gouv.fr'>contactez-nous</a>.</p>
     </Section>
     <style jsx>{`
-      .collectivites {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-        grid-gap: 1em;
-        margin-top: 2em;
-      }
 
       .warning {
         color: ${theme.warningBorder};
@@ -57,3 +48,5 @@ export default () => (
     `}</style>
   </Page>
 )
+
+export default Contribuer

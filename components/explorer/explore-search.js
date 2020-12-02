@@ -2,12 +2,12 @@ import React, {useState, useCallback, useEffect} from 'react'
 import Router from 'next/router'
 import {debounce} from 'lodash'
 
-import {search} from '../../lib/explore/api'
+import {search} from '@/lib/explore/api'
 import {useInput} from '../../hooks/input'
 
-import SearchInput from '../search-input'
-import Notification from '../notification'
-import renderAddok from '../search-input/render-addok'
+import SearchInput from '@/components/search-input'
+import Notification from '@/components/notification'
+import renderAddok from '@/components/search-input/render-addok'
 
 const ExploreSearch = () => {
   const [input, setInput] = useInput('')
@@ -21,29 +21,27 @@ const ExploreSearch = () => {
     const codeCommune = citycode
     const idVoie = id.split('_').slice(0, 2).join('_')
     let href = ''
-    let as = ''
 
     if (type === 'municipality') {
-      href = `/explore/commune?codeCommune=${codeCommune}`
-      as = `/explore/commune/${codeCommune}`
+      href = `/explore/commune/${codeCommune}`
     } else if (type === 'street') {
-      href = `/commune/voie?idVoie=${idVoie}`
-      as = `/explore/commune/${codeCommune}/voie/${idVoie}`
+      href = `/explore/commune/${codeCommune}/voie/${idVoie}`
     } else if (type === 'housenumber') {
       const [numero, suffixe] = housenumber.split(' ')
       const numeroComplet = `${numero}${suffixe || ''}`
-      href = `/explore/commune/voie?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numeroComplet}`
-      as = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
+      href = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
     }
 
-    Router.push(href, as)
+    Router.push(href)
   }
 
   const handleSearch = useCallback(debounce(async input => {
     try {
       const results = await search(input)
       setResults(
-        results.features.filter(f => f.properties.type !== 'locality').splice(0, 5) || []
+        results.features
+          .filter(({properties}) => !['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
+          .filter(f => f.properties.type !== 'locality').splice(0, 5) || []
       )
     } catch (err) {
       setError(err)
@@ -87,11 +85,12 @@ const ExploreSearch = () => {
       <SearchInput
         value={input}
         results={orderResults}
-        loading={loading}
+        isLoading={loading}
         placeholder='20 avenue de Ségur, Paris'
         onSelect={handleSelect}
         onSearch={setInput}
         renderItem={renderAddok}
+        wrapperStyle={{position: 'relative'}}
         getItemValue={getFeatureValue} />
 
       {error &&

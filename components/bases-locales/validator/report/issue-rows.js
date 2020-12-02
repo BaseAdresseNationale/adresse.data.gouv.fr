@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Eye} from 'react-feather'
+import {Eye, X} from 'react-feather'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
 class IssueRows extends React.Component {
   static propTypes = {
@@ -42,8 +42,10 @@ class IssueRows extends React.Component {
 
           <span className='colored'> {issue.message}</span>
 
-          {isSelected && (
-            <span className='eye'><Eye /></span>
+          {isSelected ? (
+            <span className='icon'><X style={{verticalAlign: 'middle'}} /></span>
+          ) : (
+            <span className='icon'><Eye style={{verticalAlign: 'middle'}} /></span>
           )}
         </div>
 
@@ -52,14 +54,18 @@ class IssueRows extends React.Component {
               color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
             }
 
-            .issue:hover {
-              cursor: pointer;
-              text-decoration: underline;
+            .issue {
+              padding: .5em;
+              background-color: ${isSelected ? '#f8f8f8' : ''};
             }
 
-            .eye {
-              margin-left: 1em;
-              font-size: 20px;
+            .issue:hover {
+              cursor: pointer;
+              background-color: #f8f8f8;
+            }
+
+            .icon {
+              margin-left: .5em;
             }
         `}</style>
       </div>

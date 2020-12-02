@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
 import LineValue from './line-value'
 
@@ -30,7 +30,7 @@ const Line = ({line, unknownFields, onHover}) => {
       <style jsx>{`
         .line-container {
           margin: 1em 0;
-          overflow-x:auto;
+          overflow-x: scroll;
         }
 
         table {

@@ -2,16 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import TableList from '../../table-list'
-import Tag from '../../tag'
+import TableList from '@/components/table-list'
+import Tag from '@/components/tag'
 
-import {getTypeByPriority} from '../../../lib/types'
+import {getTypeByPriority} from '@/lib/types'
 
 const VoiesCommune = ({voies, commune}) => {
   const cols = {
     nomVoie: {
       title: 'Nom de voie',
       getValue: voie => voie.nomVoie,
+      sortBy: 'alphabetical'
+    },
+    idVoie: {
+      title: 'Code de la voie',
+      getValue: voie => voie.idVoie,
       sortBy: 'alphabetical'
     },
     numerosCount: {
@@ -39,7 +44,7 @@ const VoiesCommune = ({voies, commune}) => {
     <div className='voies'>
       <TableList
         title='Voies de la commune'
-        subtitle={voies.length === 1 ? `${voies.length} adresse répertoriée` : `${voies.length} adresses répertoriées`}
+        subtitle={voies.length === 1 ? `${voies.length} voie répertoriée` : `${voies.length} voies répertoriées`}
         list={voies}
         textFilter={item => item.nomVoie}
         filters={{sources: 'Sources'}}

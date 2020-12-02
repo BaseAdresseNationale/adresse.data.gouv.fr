@@ -2,16 +2,15 @@ import React from 'react'
 import {HelpCircle} from 'react-feather'
 import Link from 'next/link'
 
-import Page from '../layouts/main'
-import Head from '../components/head'
-import Section from '../components/section'
-import Question from '../components/question'
+import Page from '@/layouts/main'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import Question from '@/components/question'
 
 const title = 'Foire aux questions'
-const description = 'Questions les plus fréquemment posées.'
 
-export default () => (
-  <Page title={title} description={description}>
+const Faq = () => (
+  <Page title={title} description='Questions les plus fréquemment posées.'>
     <Head title={title} icon={<HelpCircle size={56} />} />
     <Section>
       <div className='faq-row'>
@@ -20,7 +19,6 @@ export default () => (
 
           <Question question='Qu’est-ce que la Base Adresse Nationale ?'>
             <p>La Base Adresse Nationale est une <strong>base de données</strong> ayant vocation à réunir <strong>l’ensemble des adresses géolocalisées du territoire national</strong>.</p>
-            <p>Elle est <strong>co-produite</strong> par la Direction Interministérielle du Numérique (DINUM) et l’IGN, avec la participation des collectivités locales, de la Direction Générale des Finances Publiques (DGFiP) et de l’INSEE.</p>
             <p>Elle fait partie du <a href='https://www.data.gouv.fr/fr/reference'>Service Public des Données de référence</a>.</p>
           </Question>
 
@@ -33,9 +31,9 @@ export default () => (
             <p>Les fichiers contenant les adresses de la Base Adresse Nationale sont diffusés de façon <strong>hebdomadaire</strong>.</p>
             <p>Ils suivent le processus de production indicatif suivant :</p>
             <ul>
-              <li>Chaque lundi, l’IGN réalise un export des données de la base de gestion qu’il opère et le transmet à la DINUM. La DINUM met en ligne ce fichier sans modification sous le nom <strong>produit gratuit issu de la BAN</strong>.</li>
+              <li>Chaque lundi, l’IGN réalise un export des données de la base de gestion qu’il opère et le transmet à la DINUM.</li>
               <li>Chaque mardi, la DINUM consolide les <strong>Bases Adresses Locales</strong> disponibles en un fichier national appelé <a href='https://www.data.gouv.fr/fr/datasets/adresses-locales/'>Adresses locales</a>.</li>
-              <li>Chaque mercredi, la DINUM produit et diffuse le fichier <strong>Adresses</strong> qui est issu du <strong>produit gratuit issu de la BAN</strong>, des <strong>Bases Adresses Locales</strong>, des <a href='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/'>adresses extraites du cadastre</a> et du <a href='https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/'>fichier de suivi des déploiements du très haut débit fixe</a>. Les services qui l’utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
+              <li>Chaque mercredi, la DINUM produit et diffuse le fichier <strong>Base Adresse Nationale</strong>. Les services qui l’utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
             </ul>
           </Question>
 
@@ -85,15 +83,15 @@ export default () => (
           </Question>
 
           <Question question='Avec quels outils peut-on créer ou gérer une Base Adresse Locale ?'>
-            <p>L’<a href='https://editeur.adresse.data.gouv.fr'>éditeur de Base Adresse Locale</a> développé par la mission Etalab est un outil simple, gratuit et accessible à tous.</p>
+            <p>Le site <a href='https://editeur.adresse.data.gouv.fr'>Mes adresses</a> développé par Etalab est un outil simple, gratuit et accessible à tous.</p>
             <p>Pour les usages les plus courants, tels que la création de voies ou de numéros, et les modifications de noms de rues, nul besoin de compétences techniques expertes sur cet outil. Des tutoriels sont à disposition pour guider les communes.</p>
-            <p>Les communautés d’agglomération, communautés urbaines, métropole, voire départements disposent bien souvent d’une gestion des adresses intégrées à leur système d’information ou d’outils spécifiques. Il leur suffit alors de produire un fichier au <Link href='/bases-locales'>format BAL 1.1</Link> et de le publier.</p>
+            <p>Les communautés d’agglomération, communautés urbaines, métropole, voire départements disposent bien souvent d’une gestion des adresses intégrées à leur système d’information ou d’outils spécifiques. Il leur suffit alors de produire un fichier au <Link href='/bases-locales'><a>format BAL 1.1</a></Link> et de le publier.</p>
             <p>Plusieurs éditeurs logiciels travaillent au support du format d’échange BAL 1.1, ils seront référencés sur ce site à l’issue de leurs travaux.</p>
           </Question>
 
           <Question question='Comment publier une Base Adresse Locale ?'>
             <p>Pour publier une Base Adresse Locale, vous devez la référencer sur <a href='https://www.data.gouv.fr/fr/'>data.gouv.fr</a>. Elle doit être publiée au format CSV BAL 1.1, dans une organisation certifiée, et avec un mot-clé “base-adresse-locale”.</p>
-            <p>Conscients que cette méthode est trop complexe pour la plupart des collectivités, nous développons un module de publication simplifié qui sera disponible d’ici la fin de l’année. La fonctionnalité de publication est d’ores-et-déjà disponible pour les utilisateurs de notre éditeur de Base Adresse Locale.</p>
+            <p>Conscients que cette méthode est trop complexe pour la plupart des collectivités, nous développons un module de publication simplifié qui sera disponible d’ici la fin de l’année. La fonctionnalité de publication est d’ores-et-déjà disponible pour les utilisateurs de <a href='https://editeur.adresse.data.gouv.fr/'>Mes Adresses</a>.</p>
           </Question>
 
           <Question question='Sous quelle licence publier une Base Adresse Locale ?'>
@@ -103,9 +101,21 @@ export default () => (
           </Question>
         </div>
 
+        <div className='end'>
+          <p>Vous n’avez pas trouvé de réponse à votre question ?</p>
+          <p>Consultez <Link href='/guides'><a>nos guides</a></Link></p>
+        </div>
+
         <style jsx>{`
           .theme {
             margin: 1em 0;
+          }
+
+          .end {
+            font-size: 1.2em;
+            background-color: rgb(180,225,250);
+            text-align: center;
+            border-radius: 5px;
           }
 
           .faq-row {
@@ -117,3 +127,5 @@ export default () => (
     </Section>
   </Page>
 )
+
+export default Faq

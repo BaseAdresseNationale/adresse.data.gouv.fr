@@ -1,14 +1,13 @@
-import 'isomorphic-unfetch' // eslint-disable-line import/no-unassigned-import
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {validate} from '@etalab/bal'
 
-import {getFileExtension, checkHeaders, statusCodeMsg} from '../../../lib/bal/file'
+import {getFileExtension, checkHeaders, statusCodeMsg} from '@/lib/bal/file'
 
 import FileHander from '../validator/file-handler'
 import Report from '../validator/report'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
 const ManageFile = React.memo(({url, handleValidBal}) => {
   const [file, setFile] = useState(null)

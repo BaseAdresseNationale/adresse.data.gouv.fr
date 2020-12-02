@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import {shuffle} from 'lodash'
-import {CheckSquare, Plus, Edit} from 'react-feather'
+import {CheckSquare, HelpCircle} from 'react-feather'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 import Mapbox from '../mapbox'
 import Section from '../section'
@@ -13,6 +14,7 @@ import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalCoverMap from './bal-cover-map'
+import Notification from '../notification'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
   const isValidRatio = Math.round((stats.isValid / stats.model['bal-aitf']) * 100)
@@ -41,12 +43,23 @@ const BasesLocales = React.memo(({datasets, stats}) => {
   return (
     <div>
       <Section>
-        <h4>Bases Adresses Locales</h4>
-        <p>La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
-          Cette compétence est <b>régulièrement déléguée à un EPCI</b>.</p>
-        <p>Une <b>base Adresse locale</b> est donc l’expression de cette compétence, et regroupe toute les adresses d’une collectivité.<br />{}
-          Elle est <b>publiée sous sa responsabilité</b>.</p>
-        <p>Ces bases de données ont vocation à <b>alimenter les bases nationales</b>, et en particulier la Base Adresse Nationale.</p>
+        <div style={{textAlign: 'center'}}>
+          <p>
+            La <b>création des voies et des adresses</b> en France est du ressort des <b>communes</b>, via le conseil municipal.<br />{}
+            Les communes peuvent néanmoins être accompagnées par une structure de mutualisation (EPCI, département, …).
+          </p>
+          <p>
+            Une <b>Base Adresse Locale</b> regroupe toutes les adresses d’une ou plusieurs communes et est <b>publiée sous leur responsabilité</b>.
+          </p>
+          <p><b>Elles alimentent la Base Adresse Nationale</b>.</p>
+        </div>
+
+        <Notification style={{margin: '2em 0 -1em 0'}}>
+          <div>
+            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
+            Vous êtes une commune et souhaitez mettre en place une Base Adresse Locale à l’aide d’outils existants ? <Link href='/gerer-mes-adresses'><a>C’est par ici</a></Link>.
+          </div>
+        </Notification>
       </Section>
 
       <Section background='color'>
@@ -66,39 +79,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
-      <Section background='grey'>
-        <h4>Créer ou modifier une Base Adresse Locale</h4>
-        <div>
-          <p>Cet outil permet de générer une nouvelle Base Adresse Locale à partir de la BAN, ou d’éditer une Base Adresse Locale existante.</p>
-          <p>Il permet de gérer très simplement les <strong>voies</strong>, les <strong>numéros</strong> et les <strong>positions</strong> des adresses d’une commune ou d’une intercommunalité, mais aussi de gérer des <strong>toponymes</strong>.</p>
-          <p>Les données résultantes peuvent ensuite être publiées sous <a href='https://www.etalab.gouv.fr/licence-version-2-0-de-la-licence-ouverte-suite-a-la-consultation-et-presentation-du-decret'>Licence Ouverte</a>.</p>
-        </div>
-        <div className='action'>
-
-          <div className='button-link'>
-            <ButtonLink
-              isExternal
-              size='large'
-              href='https://editeur.adresse.data.gouv.fr/new'
-            >
-              Créer une nouvelle Base Adresse Locale <Plus style={{verticalAlign: 'middle', marginLeft: '3px'}} />
-            </ButtonLink>
-          </div>
-
-          <div className='button-link'>
-            <ButtonLink
-              isExternal
-              size='large'
-              href='https://editeur.adresse.data.gouv.fr/new/upload'
-            >
-              Modifier une Base Adresse Locale existante <Edit style={{verticalAlign: 'middle', marginLeft: '3px'}} />
-            </ButtonLink>
-          </div>
-
-        </div>
-      </Section>
-
-      <Section title='Quelques bases locales déjà publiées' background='white'>
+      <Section title='Quelques Bases Adresses Locales déjà publiées' background='white'>
         <div className='bal-grid'>
           {balSamples.map(dataset => (
             <BaseAdresseLocale key={dataset.id} dataset={dataset} />
@@ -109,12 +90,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             size='large'
             href='/bases-locales/jeux-de-donnees'
           >
-            Voir toutes les Bases Adresse Locales
+            Voir toutes les Bases Adresses Locales
           </ButtonLink>
         </div>
       </Section>
 
-      <Section title='État du déploiement des Bases Adresse Locales' />
+      <Section title='État du déploiement des Bases Adresses Locales' />
       <div className='bal-cover-map-container'>
         <Mapbox>
           {({map, popup, setSources, setLayers}) => (

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import {withRouter, useRouter} from 'next/router'
 import {Download} from 'react-feather'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
-import Section from '../../../section'
+import Section from '@/components/section'
 
-import ButtonLink from '../../../button-link'
-import TableList from '../../../table-list'
+import ButtonLink from '@/components/button-link'
+import TableList from '@/components/table-list'
 
 import Header from './header'
 import Description from './description'
@@ -17,23 +17,23 @@ import CommunesPreview from './communes-preview'
 const Dataset = ({dataset, summary}) => {
   const {title, description, url, organization, page} = dataset
   const {query, push} = useRouter()
-  const cols = [
-    {
+  const cols = {
+    nomCommune: {
       title: 'Nom de la commune',
       sortBy: 'alphabetical',
       getValue: commune => commune.nom
     },
-    {
+    nomVoie: {
       title: 'Nombre de voie',
       sortBy: 'numeric',
       getValue: commune => commune.voiesCount
     },
-    {
+    numerosCount: {
       title: 'Nombre de numéro',
       sortBy: 'numeric',
       getValue: commune => commune.numerosCount
     }
-  ]
+  }
 
   const selectCommune = item => {
     summary.communes.find(commune => commune.code === item.code)

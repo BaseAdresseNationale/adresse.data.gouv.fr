@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-import {numerosToGeoJson, positionToponymeToFeatureCollection} from '../../../../../../lib/geojson'
+import {numerosToGeoJson, positionToponymeToFeatureCollection} from '@/lib/geojson'
 
-import theme from '../../../../../../styles/theme'
+import theme from '@/styles/theme'
 
-import AddressesMap from '../../../../../mapbox/addresses-map'
-import Mapbox from '../../../../../mapbox'
+import AddressesMap from '@/components/mapbox/addresses-map'
+import Mapbox from '@/components/mapbox'
 
-import TableList from '../../../../../table-list'
-import LoadingContent from '../../../../../loading-content'
-import Tag from '../../../../../tag'
+import TableList from '@/components/table-list'
+import LoadingContent from '@/components/loading-content'
+import Tag from '@/components/tag'
 
 import BalTypes from './bal-types'
 

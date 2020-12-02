@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 
-import {adresseToPositionsGeoJson} from '../../../lib/geojson'
+import {adresseToPositionsGeoJson} from '@/lib/geojson'
 
 function useSources(contour, voies, numeros, numero) {
   return useMemo(() => {
@@ -28,6 +28,7 @@ function useSources(contour, voies, numeros, numero) {
         numeros.features
 
       sources.push({
+        generateId: true,
         name: 'numeros',
         type: 'geojson',
         data: {type: 'FeatureCollection', features}
@@ -36,6 +37,7 @@ function useSources(contour, voies, numeros, numero) {
 
     if (numero) {
       sources.push({
+        generateId: true,
         name: 'positions',
         type: 'geojson',
         data: adresseToPositionsGeoJson(numero)

@@ -2,18 +2,18 @@ import React from 'react'
 import Link from 'next/link'
 import {Mail} from 'react-feather'
 
-import Page from '../layouts/main'
+import Page from '@/layouts/main'
 
-import Head from '../components/head'
-import Section from '../components/section'
-import SearchCommuneContact from '../components/search-commune-contact'
-import Question from '../components/question'
-import ButtonLink from '../components/button-link'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import SearchCommuneContact from '@/components/search-commune-contact'
+import Question from '@/components/question'
+import ButtonLink from '@/components/button-link'
 
 const title = 'Nous contacter'
 const description = 'Contactez l’équipe de adresse.data.gouv.fr'
 
-export default () => (
+const Contact = () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<Mail size={56} />} />
     <Section>
@@ -33,7 +33,7 @@ export default () => (
               La gestion des adresses est la compétence des communes, mais elle est quelque fois exercée avec le soutien technique d’un EPCI.
             </p>
             <p>
-              Cette gestion est simplifiée par l’existence d’outils officiels et gratuits, tels que <a href='https://editeur.adresse.data.gouv.fr/'>l’éditeur de Base Adresse Locale</a>.
+              Cette gestion est simplifiée par l’existence d’outils officiels et gratuits, tels que <a href='https://editeur.adresse.data.gouv.fr/'>Mes Adresses</a>.
             </p>
             <p>
               Vous pouvez en quelque clics créer la Base Adresse Locale de votre commune, y apporter des modifications, et publier les changements pour que ceux-ci soient pris en compte par un maximum d’acteurs.
@@ -66,3 +66,5 @@ export default () => (
       `}</style>
   </Page>
 )
+
+export default Contact

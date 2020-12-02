@@ -9,7 +9,7 @@ import Body from './table/body'
 
 const LIST_LIMIT = 10
 
-const TableControl = ({list, cols, isSelected, handleSelect}) => {
+const TableControl = ({list, cols, checkIsSelected, handleSelect}) => {
   const [orderedList, setOrderedList] = useState(list)
   const [order, setOrder] = useState('desc')
   const [sortedColumn, setSortedColumn] = useState()
@@ -58,7 +58,7 @@ const TableControl = ({list, cols, isSelected, handleSelect}) => {
         <Body
           list={isWrap ? orderedList.slice(0, LIST_LIMIT) : orderedList}
           cols={cols}
-          isSelected={isSelected}
+          checkIsSelected={checkIsSelected}
           handleSelect={handleSelect}
         />
       </>
@@ -69,12 +69,12 @@ const TableControl = ({list, cols, isSelected, handleSelect}) => {
 TableControl.propTypes = {
   list: PropTypes.array.isRequired,
   cols: PropTypes.object.isRequired,
-  isSelected: PropTypes.object,
+  checkIsSelected: PropTypes.func,
   handleSelect: PropTypes.func
 }
 
 TableControl.defaultProps = {
-  isSelected: null,
+  checkIsSelected: null,
   handleSelect: () => {}
 }
 

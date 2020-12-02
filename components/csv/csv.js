@@ -3,10 +3,10 @@ import Papa from 'papaparse'
 
 import {Plus, Minus} from 'react-feather'
 
-import detectEncoding from '../../lib/detect-encoding'
+import detectEncoding from '@/lib/detect-encoding'
 
-import Section from '../section'
-import Button from '../button'
+import Section from '@/components/section'
+import Button from '@/components/button'
 
 import Step from './step'
 import ColumnsSelect from './columns-select'
@@ -14,6 +14,7 @@ import Filter from './filter'
 import Holder from './holder'
 import Table from './table'
 import Geocoder from './geocoder'
+import Loader from '@/components/loader'
 
 const allowedTypes = [
   'text/plain',
@@ -48,6 +49,7 @@ class Csv extends React.Component {
   state = {
     file: null,
     csv: null,
+    loading: false,
     selectedColumns: [],
     advancedPanel: false,
     filter: null,
@@ -63,6 +65,7 @@ class Csv extends React.Component {
   }
 
   parseFile = file => {
+    this.setState({loading: true})
     detectEncoding(file)
       .then(({encoding}) => {
         Papa.parse(file, {
@@ -70,13 +73,19 @@ class Csv extends React.Component {
           encoding,
           preview: 20,
           complete: res => {
-            this.setState({csv: res, selectedColumns: []})
+            this.setState({csv: res, selectedColumns: [], loading: false})
             window.location.href = '#preview'
           },
-          error: () => this.setState({error: 'Impossible de lire ce fichier.'})
+          error: () => this.setState({
+            error: 'Impossible de lire ce fichier.',
+            loading: false
+          })
         })
       })
-      .catch(() => this.setState({error: 'Impossible de lire ce fichier.'}))
+      .catch(() => this.setState({
+        error: 'Impossible de lire ce fichier.',
+        loading: false
+      }))
   }
 
   handleFileDrop = fileList => {
@@ -137,7 +146,7 @@ class Csv extends React.Component {
   }
 
   render() {
-    const {file, csv, selectedColumns, advancedPanel, filter, error} = this.state
+    const {file, csv, loading, selectedColumns, advancedPanel, filter, error} = this.state
     const columns = csv ? csv.data[0] : []
 
     return (
@@ -150,6 +159,14 @@ class Csv extends React.Component {
               placeholder={`Glissez un fichier ici (max ${MAX_SIZE / (1024 * 1024)} Mo), ou cliquez pour choisir`}
               onDrop={this.handleFileDrop}
             />
+
+            {loading && (
+              <div className='loading'>
+                <h4>Analyse du fichier en cours…</h4>
+                <Loader />
+              </div>
+            )}
+
             {error && <div className='error'>{error}</div>}
           </div>
 
@@ -202,6 +219,13 @@ class Csv extends React.Component {
 
         <style jsx>{`
           .filters {
+            margin: 1em 0;
+          }
+
+          .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 1em 0;
           }
 

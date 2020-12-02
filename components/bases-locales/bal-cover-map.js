@@ -3,7 +3,7 @@ import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 const popupHTML = ({nom, organization, license}) => renderToString(
   <div>

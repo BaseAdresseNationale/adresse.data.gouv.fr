@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 
-import Page from '../layouts/main'
+import Page from '@/layouts/main'
 
-import Map from '../components/map'
+import Map from '@/components/map'
 
 const title = 'Carte interactive'
 const description = 'Cherchez des adresses et lieux-dits.'
@@ -20,7 +20,7 @@ const MapPage = () => {
   }, [])
 
   return (
-    <Page title={title} description={description} showFooter={false} >
+    <Page title={title} description={description} hasFooter={false}>
       <Map defaultCenter={hash.center} defaultZoom={hash.zoom} />
     </Page>
   )

@@ -1,15 +1,15 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 
-import {isWebGLSupported} from '../../lib/browser/webgl'
+import {isWebGLSupported} from '@/lib/browser/webgl'
 
-import Meta from '../meta'
-import MainPage from '../../layouts/main'
+import Meta from '@/components/meta'
+import MainPage from '@/layouts/main'
 
-import Loader from '../loader'
-import Notification from '../notification'
+import Loader from '@/components/loader'
+import Notification from '@/components/notification'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 const MapLoader = () => (
   <div className='map-loader-container'>

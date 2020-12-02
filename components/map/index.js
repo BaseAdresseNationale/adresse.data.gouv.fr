@@ -2,11 +2,11 @@ import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {debounce} from 'lodash'
 
-import {search, reverse} from '../../lib/api-adresse'
+import {search, reverse} from '@/lib/api-adresse'
 
-import renderAdresse from '../search-input/render-adresse'
-import SearchInput from '../search-input'
-import Mapbox from '../mapbox'
+import renderAdresse from '@/components/search-input/render-adresse'
+import SearchInput from '@/components/search-input'
+import Mapbox from '@/components/mapbox'
 
 import {useInput} from '../../hooks/input'
 
@@ -127,13 +127,13 @@ const Map = ({defaultCenter, defaultZoom}) => {
         <SearchInput
           value={input}
           results={results}
-          loading={loading}
+          isLoading={loading}
           placeholder={placeholder}
           onSelect={handleSelect}
           onSearch={setInput}
           renderItem={renderAdresse}
           getItemValue={item => item.properties.context}
-          fullscreen />
+        />
       </div>
 
       <div className='map-container'>
@@ -163,7 +163,7 @@ const Map = ({defaultCenter, defaultZoom}) => {
         }
 
         .input {
-          z-index: 999;
+          z-index: 3;
           width: 40%;
           min-width: 260px;
           position: absolute;

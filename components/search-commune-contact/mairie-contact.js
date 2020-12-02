@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {Mail, Phone} from 'react-feather'
-import colors from '../../styles/colors'
+import colors from '@/styles/colors'
 
 const getHours = time => {
   return new Date('1970-01-01T' + time + 'Z').getHours()
@@ -65,6 +65,7 @@ const MairieContact = ({nom, horaires, email, telephone}) => {
 
         .infos > div {
           display: flex;
+          flex-wrap: wrap;
           margin: 0.5em 0;
         }
 

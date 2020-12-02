@@ -2,20 +2,23 @@ import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import Page from '../../layouts/main'
+import {ArrowLeft} from 'react-feather'
 
-import withErrors from '../../components/hoc/with-errors'
-import Section from '../../components/section'
-import Notification from '../../components/notification'
+import Page from '@/layouts/main'
 
-import {submissionsBal, getSubmissions, submitBal} from '../../lib/bal/api'
+import withErrors from '@/components/hoc/with-errors'
+import Section from '@/components/section'
+import Notification from '@/components/notification'
 
-import Steps from '../../components/bases-locales/publication/steps'
-import ManageFile from '../../components/bases-locales/publication/manage-file'
-import Authentification from '../../components/bases-locales/publication/authentification'
-import Form from '../../components/bases-locales/publication/form'
-import Publishing from '../../components/bases-locales/publication/publishing'
-import Published from '../../components/bases-locales/publication/published'
+import {submissionsBal, getSubmissions, submitBal} from '@/lib/bal/api'
+
+import ButtonLink from '@/components/button-link'
+import Steps from '@/components/bases-locales/publication/steps'
+import ManageFile from '@/components/bases-locales/publication/manage-file'
+import Authentification from '@/components/bases-locales/publication/authentification'
+import Form from '@/components/bases-locales/publication/form'
+import Publishing from '@/components/bases-locales/publication/publishing'
+import Published from '@/components/bases-locales/publication/published'
 
 const getStep = bal => {
   if (bal) {
@@ -51,10 +54,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
-      const href = `/bases-locales/publication?submissionId=${bal._id}`
-      const as = href
-
-      Router.push(href, as)
+      Router.push(`/bases-locales/publication?submissionId=${bal._id}`)
     } catch (error) {
       setError(error.message)
     }
@@ -69,9 +69,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     if (bal) {
       if (!submissionId) {
         const href = `/bases-locales/publication?submissionId=${bal._id}`
-        const as = href
-
-        Router.push(href, as, {shallow: true})
+        Router.push(href, {shallow: true})
       }
 
       if (bal.authenticationError) {
@@ -97,6 +95,12 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
   return (
     <Page>
+      <Section background='color' style={{padding: '1em 0'}}>
+        <ButtonLink href='https://editeur.adresse.data.gouv.fr/' color='white' isOutlined isExternal>
+          <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
+        </ButtonLink>
+      </Section>
+
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
         {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}

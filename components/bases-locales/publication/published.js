@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import ButtonLink from '../../button-link'
+import ButtonLink from '@/components/button-link'
 
 const Published = React.memo(({publicationUrl}) => {
   return (

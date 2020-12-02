@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
 const Head = ({commune, voie, numero, suffixe}) => {
   const {nom, code, departement} = commune

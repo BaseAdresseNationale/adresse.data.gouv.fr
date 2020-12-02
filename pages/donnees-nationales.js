@@ -1,212 +1,195 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {Download} from 'react-feather'
 
-import Page from '../layouts/main'
+import theme from '@/styles/theme'
 
-import Head from '../components/head'
-import Section from '../components/section'
-import Container from '../components/container'
-import Notification from '../components/notification'
+import Page from '@/layouts/main'
 
-import theme from '../styles/theme'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import Card from '@/components/card'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
-export default () => (
+const DonneesNatioales = () => (
   <Page title={title} description={description}>
     <Head title={title} icon={<Download size={56} />} />
-
-    <Notification isFullWidth>
-      Conformément à la <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier Ministre</a>, la Base Adresse Nationale est disponible intégralement sous <strong>Licence Ouverte</strong> depuis le <strong style={{textDecoration: 'underline'}}>1er janvier 2020</strong>.
-    </Notification>
-
-    <Section>
-      <div className='datasets'>
-
-        <div className='dataset'>
-          <h3>Produit gratuit issu de la BAN</h3>
-
-          <div className='divider' />
-
-          <p className='block description'>
-            Export brut des données de l’API de gestion IGN
+    <Section title='Base Adresse Nationale' subtitle='Base de données de référence pour les adresses en France'>
+      <div className='section-container'>
+        <div className='ban'>
+          <p>
+            La <b>Base Adresse Nationale</b> est l’une des neuf bases de données du <a href='https://www.data.gouv.fr/fr/reference'>service public des données de référence</a>. Elle est la seule base de données d’adresses <b>officiellement reconnue par l’administration</b>.
           </p>
 
-          <div className='block characteristics'>
-            <h6>Caractéristiques</h6>
-            <ul>
-              <li>Producteur : <strong>IGN</strong></li>
-              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
-              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
-            </ul>
-            <ul>
-              <li><strong>1 ligne par position et par source</strong></li>
-              <li>49 millions de lignes</li>
-              <li>Table de passage identifiants IGN</li>
-            </ul>
-            <p><a href='/docs/BAN_Descriptif_Donnees.pdf'>Documentation produit</a></p>
-          </div>
+          <p><b>Service numérique d’usage partagé</b> et <b>infrastructure socle</b> sur laquelle sont adossées de nombreuses politiques publiques, elle fait partie du <b>système d’information et de communication de l’État</b> et est à ce titre placée sous la <b>responsabilité du Premier ministre</b>.</p>
 
-          <div className='block downloads'>
-            <h6>Télécharger les données</h6>
-            <ul>
-              <li><a href='/data/ban/export-api-gestion/latest/'>Format CSV (3 fichiers)<span className='icon'><Download size={16} /></span></a></li>
-            </ul>
-          </div>
-        </div>
+          <p>Son <b>pilotage</b> est assuré par la <a href='https://www.numerique.gouv.fr/dinum/'>Direction Interministérielle du Numérique</a> (DINUM), qui est chargée d’en définir les modalités de gouvernance et de fonctionnement (à la suite d’une <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier ministre</a>).</p>
 
-        <div className='dataset'>
-          <h3>Adresses</h3>
-
-          <div className='divider' />
-
-          <p className='block description'>
-            Adresses normalisées issues des <Link href='/bases-locales'><a>Bases Adresses Locales</a></Link>, de l’API de gestion IGN et de sources complémentaires.
+          <p>
+            Sa <b>construction</b> est assurée grâce à de nombreux partenaires, et en premier lieu par les communes, <b>seules autorités compétentes en terme d’adressage</b>.
           </p>
 
-          <div className='block characteristics'>
-            <h6>Caractéristiques</h6>
-            <ul>
-              <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
-              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
-            </ul>
-            <ul>
-              <li><strong>1 ligne par adresse</strong></li>
-              <li>24,6 millions d’adresses</li>
-              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
-              <li>Contient les libellés normalisés AFNOR</li>
-            </ul>
-            <p><a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a></p>
-          </div>
-
-          <div className='block downloads'>
-            <h6>Télécharger les données</h6>
-            <ul>
-              <li><a href='/data/ban/adresses/latest/csv'>Format CSV<span className='icon'><Download size={16} /></span></a></li>
-              <li><a href='/data/ban/adresses/latest/addok'>Format JSON pour Addok<span className='icon'><Download size={16} /></span></a></li>
-            </ul>
-          </div>
+          <p>
+            La <b>Base Adresse Nationale</b> est accessible sous forme de <b>fichiers</b> et d’<b>API</b>.
+          </p>
         </div>
-
+        <div className='characteristics'>
+          <h6>Caractéristiques</h6>
+          <ul>
+            <li>Producteur : <strong>Etalab</strong></li>
+            <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
+            <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
+            <li>Couverture : <b>France métropolitaine et DROM</b></li>
+          </ul>
+          <h6>Chiffres clés</h6>
+          <ul>
+            <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
+            <li>24,9 millions d’adresses</li>
+          </ul>
+        </div>
       </div>
     </Section>
+    <Section background='grey' title='Télécharger les données'>
+      <div className='card-container'>
+        <Card title='Format CSV' link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'>
+          <div className='card-text'>
+            Fichier d’usage général recommandé dans la majorité des cas
+          </div>
+          <div className='card-list'>
+            <div>1 position par adresse</div>
+          </div>
 
-    <Section title='Quelles données retrouve-t-on dans chacun de ces fichiers ?'>
-      <Container>
-        <p>Les schémas suivant décrivent de façon succinctes les sources de données mobilisées dans les différents fichiers.</p>
-        <h5>Produit gratuit issu de la BAN</h5>
-        <img className='adjust-img' src='/images/donnees-nationales/schema-export-api-gestion.png' alt='Schéma représentant les sources de données présentes dans le fichier produit gratuit issu de la BAN' />
-        <h5>Adresses</h5>
-        <img className='adjust-img' src='/images/donnees-nationales/schema-adresses.png' alt='Schéma représentant les sources de données présentes dans le fichier Adresses' />
-      </Container>
+          <div className='card-links'>
+            <a href='https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'>Schéma des données</a>
+          </div>
+        </Card>
+        <Card title='Format Addok' link='https://adresse.data.gouv.fr/data/ban/adresses/latest/addok'>
+          <div className='card-text'>
+            Fichier spécifique pour le géocodeur Addok
+          </div>
+          <div className='card-list'>
+            <div>1 position par adresse</div>
+          </div>
+        </Card>
+        <Card title='Format JSON expert'>
+          <div className='card-text'>
+            Fichier contenant l’intégralité des données et métadonnées contenues dans la plateforme
+          </div>
+          <div className='card-list'>
+            <div>Plusieurs positions par adresse</div>
+            <div>Plusieurs sources par adresse</div>
+          </div>
+        </Card>
+      </div>
     </Section>
+    <Section title='Comment est construite la Base Adresse Nationale ?' background='color'>
+      <p>
+        La Base Adresse Nationale est <b>constituée commune par commune</b>, sur le principe suivant :
+        <ul>
+          <li>si la commune dispose d’une <Link href='/bases-locales'><a>Base Adresse Locale</a></Link>, ce sont ces adresses qui sont incluses dans la Base Adresse Nationale ;</li>
+          <li>dans le cas contraire, la liste des adresses est générée par défaut à partir des <b>meilleures sources disponibles</b> (DGFiP, IGN, La Poste, ARCEP, Guichet Adresse, SDIS…).</li>
+        </ul>
+      </p>
 
+      <div className='adjust-img'>
+        <Image width={1000} height={386} src='/images/donnees-nationales/schema-donnees-ban.svg' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
+      </div>
+
+    </Section>
+    <Section title='Autres fichiers nationaux' background='grey'>
+      <div className='card-container'>
+        <Card title='Adresses locales' link='https://www.data.gouv.fr/fr/datasets/adresses-locales/' action='Voir sur data.gouv.fr'>
+          <div className='card-text'>
+            Ce jeu de données est l’agrégation de toutes les Bases Adresses Locales et assimilées, disponibles en Open Data.
+          </div>
+        </Card>
+        <Card title='Export de l’API de gestion IGN' link='https://adresse.data.gouv.fr/data/ban/export-api-gestion/latest/'>
+          <div className='card-text'>
+            Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.
+          </div>
+        </Card>
+        <Card title='Adresses extraites du cadastre' link='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/' action='Voir sur data.gouv.fr'>
+          <div className='card-text'>
+            Ce jeu de données contient toutes les adresses extraites des fichiers du cadastre (plan et fichier des parcelles bâties).
+          </div>
+        </Card>
+      </div >
+    </Section >
     <style jsx>{`
-        .donnees-nationales-section {
-          margin: 2em 0;
-        }
-
-        .datasets {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-          grid-gap: 2em;
-          margin-top: 2em;
-          justify-content: center;
-        }
-
-        .row {
-          display: flex;
-          justify-content: space-between;
-          flex-flow: wrap;
-          margin-bottom: 20px;
-        }
-
-        .row ul {
-          list-style: circle;
-        }
-
-        .alert {
-          border: 1px solid gray;
-          padding: 20px;
-        }
-
-        @media (min-width: 900px) {
-          .row > div {
-            width: 48%;
-          }
-        }
-
-        .description {
-          font-size: 0.9em;
-        }
-
-        .dataset {
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          padding: 1em;
-          box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-        }
-
-        .dataset ul {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          list-style-type: none;
-          padding: 0;
-        }
-
-        .block {
-          align-items: center;
-          justify-content: center;
-          min-height: 40px;
-          margin: 1em 0;
-        }
-
-        .general {
-          display: flex;
-          align-items: center;
-          flex-flow: wrap;
-        }
-
-        .general div {
-          display: flex;
-          flex-wrap: nowrap;
-          margin: 0.3em;
-          align-items: center;
-        }
-
-        .divider {
-          border-bottom: 4px solid ${theme.primary};
-          margin: 1em;
-        }
-
-        .new {
-          color: ${theme.successBorder}
-        }
-
-        .soon {
-          color: ${theme.primary}
-        }
-
-        h6 {
-          margin-bottom: 1em;
-        }
-
-        .adjust-img {
-          width: 100%;
-          height: auto;
-          max-width: 600px;
-          margin: 50px;
-        }
-
-        .icon {
-          vertical-align: sub;
-          margin-left: 5px;
-        }
+      .icon {
+        vertical-align: sub;
+        margin-left: 5px;
+      }
+      .section-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin: 1em 0;
+      }
+      .ban {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        flex: 2;
+        margin: 1em;
+        margin-right: 2em;
+        min-width: 200px;
+      }
+      .characteristics {
+        border: 1px solid whitesmoke;
+        flex: 1;
+        min-width: 200px;
+        padding: 1.5em;
+        margin: auto;
+        margin-top: 1em;
+        box-shadow: 0 1px 4px ${theme.boxShadow};
+        border-radius: ${theme.borderRadius};
+      }
+      h6 {
+        margin-bottom: 1em;
+      }
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      .card-container .title {
+        font-weight: 600;
+      }
+      .card-text {
+        height: 120px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: .5em;
+      }
+      .card-list {
+        font-weight: bold;
+        display: grid;
+        grid-columns: 1fr;
+        grid-rows: 1fr 1fr;
+        grid-gap: .2em;
+        padding-bottom: .4em;
+      }
+      .card-links {
+        display: grid;
+        grid-columns: 1fr;
+        grid-rows: 1fr 1fr;
+        grid-gap: .2em;
+        padding-bottom: .4em;
+      }
+      .new {
+        color: ${theme.successBorder}
+      }
+      .adjust-img {
+        display: flex;
+        justify-content: center;
+        margin: 1em;
+      }
       `}</style>
-  </Page>
+  </Page >
 )
+
+export default DonneesNatioales

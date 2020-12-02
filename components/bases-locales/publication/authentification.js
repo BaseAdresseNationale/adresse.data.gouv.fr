@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Image from 'next/image'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import Button from '../../button'
+import Button from '@/components/button'
 
 const Authentification = React.memo(({mail, sendMail, authenticationUrl, publicationRequest}) => {
   return (
-    <div>
+    <div className='auth-container'>
       <div>
         <h3>Vous êtes habilité</h3>
         <div className='section'>
@@ -24,7 +25,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
           <div className='action column'>
             <p>Je suis élu de la commune</p>
             <Link href={authenticationUrl}>
-              <a><img className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
+              <a><Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
             </Link>
           </div>
         </div>
@@ -40,6 +41,10 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
       </div>
 
       <style jsx>{`
+        .auth-container > div {
+          margin: 1em 0;
+        }
+
         .column {
           display: flex;
           flex-direction: column;

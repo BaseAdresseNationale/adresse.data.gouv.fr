@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {contoursToGeoJson} from '../../../../lib/geojson'
-import {spaceThousands} from '../../../../lib/format-numbers'
+import {contoursToGeoJson} from '@/lib/geojson'
+import {spaceThousands} from '@/lib/format-numbers'
 
 import InfoReport from '../info-report'
 import Info from '../info'
