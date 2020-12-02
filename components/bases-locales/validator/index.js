@@ -66,7 +66,7 @@ class BALValidator extends React.Component {
       this.setState({
         file,
         error: null
-      }, this.parseFile)
+      }, () => this.parseFile())
     }
   }
 
@@ -81,7 +81,7 @@ class BALValidator extends React.Component {
           if (checkHeaders(response.headers)) {
             const file = await response.blob()
             this.setState({file, loading: false})
-            this.parseFile()
+            await this.parseFile()
           } else {
             throw new Error('Le fichier n’a pas été reconnu comme étant au format CSV')
           }
@@ -100,21 +100,23 @@ class BALValidator extends React.Component {
     this.setState({loading: false})
   }
 
-  parseFile = () => {
+  parseFile = async () => {
     const {file} = this.state
 
     this.setState({inProgress: true})
-    validate(file)
-      .then(report => {
-        report.rowsWithIssuesCount = report.rowsWithIssues.length
-        this.setState({report, inProgress: false})
+    try {
+      const report = await validate(file)
+      report.rowsWithIssuesCount = report.rowsWithIssues.length
+      this.setState({report, inProgress: false})
+      if (this.state.url) {
+        this.pushEncodedUrl()
+      }
+    } catch (error) {
+      this.setState({
+        error: `Impossible d’analyser le fichier… [${error.message}]`,
+        inProgress: false
       })
-      .then(() => {
-        if (this.state.url) {
-          this.pushEncodedUrl()
-        }
-      })
-      .catch(err => this.setState({error: `Impossible d’analyser le fichier… [${err.message}]`, inProgress: false}))
+    }
   }
 
   pushEncodedUrl() {

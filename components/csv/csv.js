@@ -64,28 +64,29 @@ class Csv extends React.Component {
     })
   }
 
-  parseFile = file => {
+  parseFile = async file => {
     this.setState({loading: true})
-    detectEncoding(file)
-      .then(({encoding}) => {
-        Papa.parse(file, {
-          skipEmptyLines: true,
-          encoding,
-          preview: 20,
-          complete: res => {
-            this.setState({csv: res, selectedColumns: [], loading: false})
-            window.location.href = '#preview'
-          },
-          error: () => this.setState({
-            error: 'Impossible de lire ce fichier.',
-            loading: false
-          })
+    try {
+      const {encoding} = await detectEncoding(file)
+      Papa.parse(file, {
+        skipEmptyLines: true,
+        encoding,
+        preview: 20,
+        complete: res => {
+          this.setState({csv: res, selectedColumns: [], loading: false})
+          window.location.href = '#preview'
+        },
+        error: () => this.setState({
+          error: 'Impossible de lire ce fichier.',
+          loading: false
         })
       })
-      .catch(() => this.setState({
+    } catch {
+      this.setState({
         error: 'Impossible de lire ce fichier.',
         loading: false
-      }))
+      })
+    }
   }
 
   handleFileDrop = fileList => {
@@ -111,7 +112,7 @@ class Csv extends React.Component {
       this.setState({
         file,
         error: null
-      }, this.parseFile(file))
+      }, () => this.parseFile(file))
     }
   }
 
