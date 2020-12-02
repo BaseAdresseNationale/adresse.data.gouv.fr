@@ -46,3 +46,7 @@ Le style de code utilisé est [xo](https://github.com/xojs/xo).
 ```bash
 yarn lint
 ```
+
+# Licence
+
+Le code de ce logiciel est soumis à la licence MIT.
