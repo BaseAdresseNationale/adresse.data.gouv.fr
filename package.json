@@ -26,7 +26,7 @@
     "hoist-non-react-statics": "^3.3.2",
     "jschardet-french": "^0.0.1",
     "lodash": "^4.17.20",
-    "mapbox-gl": "^1.8.1",
+    "mapbox-gl": "^1.13.0",
     "marked": "^0.8.0",
     "next": "^10.0.3",
     "papaparse": "^5.3.0",
@@ -56,7 +56,9 @@
     "extends": "xo-nextjs",
     "semicolon": false,
     "space": 2,
-    "envs": ["browser"],
+    "envs": [
+      "browser"
+    ],
     "rules": {
       "camelcase": "warn",
       "unicorn/catch-error-name": "off",
