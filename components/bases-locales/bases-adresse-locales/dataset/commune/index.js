@@ -13,7 +13,7 @@ import NoPositionWarning from '@/components/no-position-warning'
 import Breadcrumb from './breadcrumb'
 import CommunePreview from './commune-preview'
 
-const Commune = ({commune, voies, dataset}) => {
+function Commune({commune, voies, dataset}) {
   const {id, title, organization} = dataset
   const {query, push} = useRouter()
   const noPosition = 'Ce lieu nommé ne possède pas encore de position renseignée.'

@@ -39,22 +39,22 @@ function useLoadData(map, isFirstLoad, sources, layers) {
   }, [map, layers])
 
   const removeUnuseSources = useCallback(() => {
-    const prevSourceNames = loadedSources.map(({name}) => name)
-    const sourceNames = sources.map(({name}) => name)
+    const previousSourceNames = loadedSources.map(({name}) => name)
+    const sourceNames = new Set(sources.map(({name}) => name))
 
-    prevSourceNames.forEach(sourceName => {
-      if (!sourceNames.includes(sourceName)) {
+    previousSourceNames.forEach(sourceName => {
+      if (!sourceNames.has(sourceName)) {
         map.removeSource(sourceName)
       }
     })
   }, [map, sources, loadedSources])
 
   const removeUnuseLayers = useCallback(() => {
-    const prevLayerNames = loadedLayers.map(({id}) => id)
-    const layerNames = layers.map(({id}) => id)
+    const previousLayerNames = loadedLayers.map(({id}) => id)
+    const layerNames = new Set(layers.map(({id}) => id))
 
-    prevLayerNames.forEach(layerName => {
-      if (!layerNames.includes(layerName)) {
+    previousLayerNames.forEach(layerName => {
+      if (!layerNames.has(layerName)) {
         map.removeLayer(layerName)
       }
     })

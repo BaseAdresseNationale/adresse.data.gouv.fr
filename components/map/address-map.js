@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Address = ({id, context, label, name, postcode, citycode, type, city, district, oldcity, oldcitycode}) => {
+function Address({id, context, label, name, postcode, citycode, type, city, district, oldcity, oldcitycode}) {
   const types = {
     locality: 'Lieu-dit',
     street: 'Voie',
@@ -50,7 +50,7 @@ Address.propTypes = {
   oldcitycode: PropTypes.string
 }
 
-const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordinates, setInfos}) => {
+function AddressMap({map, marker, data, handleDrag, handleZoom, setMarkerCoordinates, setInfos}) {
   const onDragEnd = useCallback(() => {
     const {lng, lat} = map.getCenter()
     handleDrag([lng, lat])
@@ -63,14 +63,8 @@ const AddressMap = ({map, marker, data, handleDrag, handleZoom, setMarkerCoordin
 
   const inBounds = useCallback(lnglat => {
     const bounds = map.getBounds()
-    let lng
-
     const multLng = (lnglat[0] - bounds._ne.lng) * (lnglat[0] - bounds._sw.lng)
-    if (bounds._ne.lng > bounds._sw.lng) {
-      lng = multLng < 0
-    } else {
-      lng = multLng > 0
-    }
+    const lng = bounds._ne.lng > bounds._sw.lng ? multLng < 0 : multLng > 0
 
     const lat = (lnglat[1] - bounds._ne.lat) * (lnglat[1] - bounds._sw.lat) < 0
     return lng && lat

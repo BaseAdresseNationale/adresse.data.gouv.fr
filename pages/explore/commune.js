@@ -23,7 +23,7 @@ const contourToFeatureCollection = commune => {
   }
 }
 
-const CommunePage = ({commune, voiesInfos}) => {
+function CommunePage({commune, voiesInfos}) {
   const {voies} = voiesInfos
 
   return (

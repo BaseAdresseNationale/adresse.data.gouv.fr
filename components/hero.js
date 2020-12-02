@@ -9,55 +9,56 @@ import ExploreSearch from './explorer/explore-search'
 
 import Container from './container'
 
-const Hero = ({title, tagline}) => (
-  <div className='hero'>
-    <div className='hero-container'>
-      <Container>
-        <div style={{textAlign: 'center'}}>
-          <h1 className='hero__white-background'>{title}</h1>
-          <p className='hero__white-background'>{tagline}</p>
-        </div>
+function Hero({title, tagline}) {
+  return (
+    <div className='hero'>
+      <div className='hero-container'>
+        <Container>
+          <div style={{textAlign: 'center'}}>
+            <h1 className='hero__white-background'>{title}</h1>
+            <p className='hero__white-background'>{tagline}</p>
+          </div>
 
-        <div className='data-tools'>
-          <Link href='/download'>
-            <a>
-              <div className='circle'>
-                <Download size={48} />
-              </div>
-              Accéder aux données
-            </a>
-          </Link>
-          <Link href='/contribuer'>
-            <a>
-              <div className='circle'>
-                <Edit3 size={48} />
-              </div>
-              Contribuer à la démarche
-            </a>
-          </Link>
-          <Link href='/bases-locales'>
-            <a>
-              <div className='circle'>
-                <Database size={48} />
-              </div>
-              Bases Adresses Locales
-            </a>
-          </Link>
-          <Link href='/tools'>
-            <a>
-              <div className='circle'>
-                <ToolsIcon />
-              </div>
-              Découvrir les outils
-            </a>
-          </Link>
-        </div>
+          <div className='data-tools'>
+            <Link href='/download'>
+              <a>
+                <div className='circle'>
+                  <Download size={48} />
+                </div>
+                Accéder aux données
+              </a>
+            </Link>
+            <Link href='/contribuer'>
+              <a>
+                <div className='circle'>
+                  <Edit3 size={48} />
+                </div>
+                Contribuer à la démarche
+              </a>
+            </Link>
+            <Link href='/bases-locales'>
+              <a>
+                <div className='circle'>
+                  <Database size={48} />
+                </div>
+                Bases Adresses Locales
+              </a>
+            </Link>
+            <Link href='/tools'>
+              <a>
+                <div className='circle'>
+                  <ToolsIcon />
+                </div>
+                Découvrir les outils
+              </a>
+            </Link>
+          </div>
 
-        <ExploreSearch />
-      </Container>
+          <ExploreSearch />
+        </Container>
 
-    </div>
-    <style jsx>{`
+      </div>
+      <style jsx>{`
       .hero {
         min-height: 100vh;
         background: #fff url(/images/city-background.svg) bottom center no-repeat;
@@ -105,8 +106,9 @@ const Hero = ({title, tagline}) => (
         }
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Hero.propTypes = {
   title: PropTypes.string.isRequired,

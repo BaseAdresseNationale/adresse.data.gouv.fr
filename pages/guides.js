@@ -8,7 +8,7 @@ import Section from '@/components/section'
 import DocDownload from '@/components/doc-download'
 import Image from 'next/image'
 
-const Guides = () => {
+function Guides() {
   return (
     <Page>
       <Head title='Guides de l’adressage' icon={<Book size={56} />} />

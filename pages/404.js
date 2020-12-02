@@ -5,18 +5,19 @@ import theme from '@/styles/theme'
 import Meta from '@/components/meta'
 import Page from '@/layouts/main'
 
-const ErrorPage = () => (
-  <Page>
-    <Meta title='Erreur 404' description='La page demandée n’a pas pu être trouvée' />
+function ErrorPage() {
+  return (
+    <Page>
+      <Meta title='Erreur 404' description='La page demandée n’a pas pu être trouvée' />
 
-    <div>
-      <section>
-        <h1>Erreur 404</h1>
-        <h2>La page demandée n’a pas pu être trouvée</h2>
-      </section>
-    </div>
+      <div>
+        <section>
+          <h1>Erreur 404</h1>
+          <h2>La page demandée n’a pas pu être trouvée</h2>
+        </section>
+      </div>
 
-    <style jsx>{`
+      <style jsx>{`
         div {
           margin: 7em 15px 2em;
           text-align: center;
@@ -58,7 +59,8 @@ const ErrorPage = () => (
           }
         }
       `}</style>
-  </Page>
-)
+    </Page>
+  )
+}
 
 export default ErrorPage

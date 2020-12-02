@@ -21,31 +21,32 @@ const fieldToFind = [
   'date_der_maj'
 ]
 
-const KnownFields = ({found, alias}) => (
-  <table id='fieldToFind'>
-    <tbody>
-      <tr>
-        <th>Champs obligatoire</th>
-        <th>Présent</th>
-      </tr>
-      {fieldToFind.map(field => (
-        <tr key={field}>
-          <td>{field}</td>
-          {found.includes(field) ?
-            (alias[field] ? (
-              <>
-                <td className='warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></td>
-                <td className='warning message'><b>{alias[field]}</b> n’est pas standard</td>
-              </>
-            ) : (
-              <td className='found'><Check style={{verticalAlign: 'bottom'}} /></td>
-            )) : (
-              <td className='not-found'><X style={{verticalAlign: 'bottom'}} /></td>
-            )}
+function KnownFields({found, alias}) {
+  return (
+    <table id='fieldToFind'>
+      <tbody>
+        <tr>
+          <th>Champs obligatoire</th>
+          <th>Présent</th>
         </tr>
-      ))}
-    </tbody>
-    <style jsx>{`
+        {fieldToFind.map(field => (
+          <tr key={field}>
+            <td>{field}</td>
+            {found.includes(field) ?
+              (alias[field] ? (
+                <>
+                  <td className='warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></td>
+                  <td className='warning message'><b>{alias[field]}</b> n’est pas standard</td>
+                </>
+              ) : (
+                <td className='found'><Check style={{verticalAlign: 'bottom'}} /></td>
+              )) : (
+                <td className='not-found'><X style={{verticalAlign: 'bottom'}} /></td>
+              )}
+          </tr>
+        ))}
+      </tbody>
+      <style jsx>{`
       .found {
         color: ${theme.successBorder};
       }
@@ -74,8 +75,9 @@ const KnownFields = ({found, alias}) => (
         text-align: center;
       }
       `}</style>
-  </table>
-)
+    </table>
+  )
+}
 
 KnownFields.propTypes = {
   found: PropTypes.array,

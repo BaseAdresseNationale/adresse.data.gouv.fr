@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {getType} from '@/lib/types'
 
-const Tag = ({type, style}) => {
+function Tag({type, style}) {
   const tag = getType(type)
   return (
     <div className={`tag ${type}`} style={style}>

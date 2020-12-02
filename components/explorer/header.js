@@ -3,20 +3,22 @@ import React from 'react'
 import Section from '@/components/section'
 import ExploreSearch from './explore-search'
 
-const Explorer = () => (
-  <Section>
-    <div className='header-section'>
-      <h2>Rechercher une commune, une voie ou une adresse</h2>
-    </div>
+function Explorer() {
+  return (
+    <Section>
+      <div className='header-section'>
+        <h2>Rechercher une commune, une voie ou une adresse</h2>
+      </div>
 
-    <ExploreSearch />
+      <ExploreSearch />
 
-    <style jsx>{`
+      <style jsx>{`
         .header-section {
           margin-top: -3em;
         }
       `}</style>
-  </Section>
-)
+    </Section>
+  )
+}
 
 export default Explorer

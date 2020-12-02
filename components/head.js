@@ -6,24 +6,25 @@ import theme from '@/styles/theme'
 import Container from './container'
 import BetaRibbon from './beta-ribbon'
 
-const Head = ({title, icon, isBeta}) => (
-  <div>
-    <div className='head'>
-      <Container>
-        <div className='flex'>
-          <div className='title'>
-            <div className='icon'>{icon}</div>
-            <h1>{title}</h1>
+function Head({title, icon, isBeta}) {
+  return (
+    <div>
+      <div className='head'>
+        <Container>
+          <div className='flex'>
+            <div className='title'>
+              <div className='icon'>{icon}</div>
+              <h1>{title}</h1>
+            </div>
+
+            {isBeta && (
+              <BetaRibbon />
+            )}
           </div>
+        </Container>
+      </div>
 
-          {isBeta && (
-            <BetaRibbon />
-          )}
-        </div>
-      </Container>
-    </div>
-
-    <style jsx>{`
+      <style jsx>{`
       .head {
         background-color: ${theme.primary};
       }
@@ -52,8 +53,9 @@ const Head = ({title, icon, isBeta}) => (
         margin-top: 1em;
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Head.propTypes = {
   title: PropTypes.string.isRequired,

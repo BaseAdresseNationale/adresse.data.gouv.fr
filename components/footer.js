@@ -4,26 +4,27 @@ import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
-const Footer = () => (
-  <footer className='footer'>
-    <div className='footer-container'>
-      <div className='footer__logo'>
-        <Image width={160} height={46} src='/images/logos/etalab.svg' alt='Etalab' />
-        <ul className='footer__social'>
-          <li><a href='https://twitter.com/AdresseDataGouv'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
-          <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
-          <li><a href='https://blog.geo.data.gouv.fr'><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a></li>
-          <li><Link href='/nous-contacter'><a><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
+function Footer() {
+  return (
+    <footer className='footer'>
+      <div className='footer-container'>
+        <div className='footer__logo'>
+          <Image width={160} height={46} src='/images/logos/etalab.svg' alt='Etalab' />
+          <ul className='footer__social'>
+            <li><a href='https://twitter.com/AdresseDataGouv'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
+            <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
+            <li><a href='https://blog.geo.data.gouv.fr'><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a></li>
+            <li><Link href='/nous-contacter'><a><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
+          </ul>
+        </div>
+        <ul className='footer__links'>
+          <li><h2>adresse.data.gouv.fr</h2></li>
+          <li><Link href='/cgu'><a>Mentions légales et CGU</a></Link></li>
+          <li><Link href='/faq'><a>FAQ</a></Link></li>
+          <li><Link href='/nous-contacter'><a>Nous contacter</a></Link></li>
         </ul>
       </div>
-      <ul className='footer__links'>
-        <li><h2>adresse.data.gouv.fr</h2></li>
-        <li><Link href='/cgu'><a>Mentions légales et CGU</a></Link></li>
-        <li><Link href='/faq'><a>FAQ</a></Link></li>
-        <li><Link href='/nous-contacter'><a>Nous contacter</a></Link></li>
-      </ul>
-    </div>
-    <style jsx>{`
+      <style jsx>{`
       .footer {
         background: ${theme.colors.almostBlack};
         color: ${theme.colors.white};
@@ -66,7 +67,8 @@ const Footer = () => (
         margin-bottom: 0.5em;
       }
       `}</style>
-  </footer>
-)
+    </footer>
+  )
+}
 
 export default Footer

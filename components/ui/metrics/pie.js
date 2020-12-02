@@ -16,7 +16,7 @@ const formatData = (data, colors) => {
   }
 }
 
-export const PieChart = ({title, data, colors}) => {
+export function PieChart({title, data, colors}) {
   const formatedData = formatData(data, colors)
 
   if (formatedData.labels.length === 0) {

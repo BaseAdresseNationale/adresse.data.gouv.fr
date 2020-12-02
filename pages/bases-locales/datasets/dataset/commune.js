@@ -8,7 +8,7 @@ import withErrors from '@/components/hoc/with-errors'
 
 import Commune from '@/components/bases-locales/bases-adresse-locales/dataset/commune'
 
-const CommunePage = ({commune, dataset}) => {
+function CommunePage({commune, dataset}) {
   const [communePromise, setCommunePromise] = useState(null)
 
   useEffect(() => {

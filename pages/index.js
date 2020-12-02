@@ -10,7 +10,7 @@ import Section from '@/components/section'
 import DocDownload from '@/components/doc-download'
 import Infolettre from '@/components/infolettre'
 
-const Home = () => {
+function Home() {
   return (
     <Page>
       <Ribbon />

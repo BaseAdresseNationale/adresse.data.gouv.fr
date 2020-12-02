@@ -31,16 +31,16 @@ class ErrorPage extends React.Component {
   render() {
     const {code, message} = this.props
     const title = `Erreur ${code}`
-    const msg = code === 500 ? messages[500] : message || messages[code]
+    const message_ = code === 500 ? messages[500] : message || messages[code]
 
     return (
       <Page>
-        <Meta title={title} description={msg} />
+        <Meta title={title} description={message_} />
 
         <div>
           <section>
             <h1>{title}</h1>
-            <h2>{msg}</h2>
+            <h2>{message_}</h2>
           </section>
         </div>
 

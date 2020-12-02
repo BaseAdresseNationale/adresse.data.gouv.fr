@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Body = ({list, cols, checkIsSelected, handleSelect}) => {
+function Body({list, cols, checkIsSelected, handleSelect}) {
   return (
     <tbody>
       {list.map((item, idx) => (

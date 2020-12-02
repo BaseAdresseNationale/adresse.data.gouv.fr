@@ -3,19 +3,20 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Codes = ({code, codesPostaux, population}) => (
-  <div className='codes'>
-    <div><b>Code commune</b> : {code}</div>
-    {codesPostaux.length > 1 ?
-      <div id='codesFlex'>
-        <b>Codes postaux</b> :
-        <div>
-          {codesPostaux.join(', ')}
-        </div>
-      </div> :
-      <div><b>Code postal</b> : {codesPostaux[0]}</div>}
-    <div><b>Habitants</b> : {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}</div>
-    <style jsx>{`
+function Codes({code, codesPostaux, population}) {
+  return (
+    <div className='codes'>
+      <div><b>Code commune</b> : {code}</div>
+      {codesPostaux.length > 1 ?
+        <div id='codesFlex'>
+          <b>Codes postaux</b> :
+          <div>
+            {codesPostaux.join(', ')}
+          </div>
+        </div> :
+        <div><b>Code postal</b> : {codesPostaux[0]}</div>}
+      <div><b>Habitants</b> : {population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')}</div>
+      <style jsx>{`
       .codes {
         display: flex;
         justify-content: space-between;
@@ -37,8 +38,9 @@ const Codes = ({code, codesPostaux, population}) => (
         }
       }
       `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Codes.propTypes = {
   codesPostaux: PropTypes.array.isRequired,

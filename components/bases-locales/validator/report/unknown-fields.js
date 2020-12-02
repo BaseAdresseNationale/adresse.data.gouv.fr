@@ -5,24 +5,25 @@ import {HelpCircle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-const UnknownFields = ({fields}) => (
-  <div className='container'>
-    {fields.length > 0 && (
-      <table>
-        <tbody>
-          <tr>
-            <th>Champs non reconnus</th>
-          </tr>
-          {fields.map(field => (
-            <tr key={field}>
-              <td>{field}</td>
-              <td className='unknown'><HelpCircle /></td>
+function UnknownFields({fields}) {
+  return (
+    <div className='container'>
+      {fields.length > 0 && (
+        <table>
+          <tbody>
+            <tr>
+              <th>Champs non reconnus</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    )}
-    <style jsx>{`
+            {fields.map(field => (
+              <tr key={field}>
+                <td>{field}</td>
+                <td className='unknown'><HelpCircle /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <style jsx>{`
       .unknown {
         color: ${theme.colors.darkerGrey};
       }
@@ -39,8 +40,9 @@ const UnknownFields = ({fields}) => (
         text-align: center;
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 UnknownFields.propTypes = {
   fields: PropTypes.array

@@ -11,15 +11,16 @@ import Notification from '@/components/notification'
 
 import theme from '@/styles/theme'
 
-const MapLoader = () => (
-  <div className='map-loader-container'>
-    <div className='centered'>
-      <div className='loading'>
-        <Loader />
-        Chargement…
+function MapLoader() {
+  return (
+    <div className='map-loader-container'>
+      <div className='centered'>
+        <div className='loading'>
+          <Loader />
+          Chargement…
+        </div>
       </div>
-    </div>
-    <style jsx>{`
+      <style jsx>{`
       .map-loader-container {
         width: 100%;
         height: 100%;
@@ -37,24 +38,26 @@ const MapLoader = () => (
         align-items: center;
       }
     `}</style>
-  </div>
-)
-
-const NoWebglError = () => (
-  <MainPage>
-    <Meta title='Attention' description='L’accélération matérielle n’est pas activée sur votre navigateur' />
-
-    <div className='webgl-error'>
-      <Notification type='warning'>
-        <div>
-          <p>L’accélération matérielle n’est pas activée sur votre navigateur, or celle-ci est nécessaire à l’affichage de cette page.</p>
-          <p>La plupart du temps cela signifie que vous utilisez un navigateur obsolète ou que cette fonctionnalité a été désactivée volontairement.</p>
-          <p>Nous sommes désolés pour le désagrément. N’hésitez pas à <a href='mailto:adresse@data.gouv.fr'>nous contacter</a> pour plus d’informations.</p>
-        </div>
-      </Notification>
     </div>
+  )
+}
 
-    <style jsx>{`
+function NoWebglError() {
+  return (
+    <MainPage>
+      <Meta title='Attention' description='L’accélération matérielle n’est pas activée sur votre navigateur' />
+
+      <div className='webgl-error'>
+        <Notification type='warning'>
+          <div>
+            <p>L’accélération matérielle n’est pas activée sur votre navigateur, or celle-ci est nécessaire à l’affichage de cette page.</p>
+            <p>La plupart du temps cela signifie que vous utilisez un navigateur obsolète ou que cette fonctionnalité a été désactivée volontairement.</p>
+            <p>Nous sommes désolés pour le désagrément. N’hésitez pas à <a href='mailto:adresse@data.gouv.fr'>nous contacter</a> pour plus d’informations.</p>
+          </div>
+        </Notification>
+      </div>
+
+      <style jsx>{`
         .webgl-error {
           margin: 100px auto;
           width: 80%;
@@ -64,8 +67,9 @@ const NoWebglError = () => (
           color: ${theme.warningBorder};
         }
       `}</style>
-  </MainPage>
-)
+    </MainPage>
+  )
+}
 
 class MapWrapper extends React.PureComponent {
   state = {

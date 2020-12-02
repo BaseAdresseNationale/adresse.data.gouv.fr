@@ -12,7 +12,7 @@ import Statistics from './statistics'
 import Head from './head'
 import Codes from './codes'
 
-const Commune = ({commune, voiesInfos}) => {
+function Commune({commune, voiesInfos}) {
   const {sourcesNomsVoies, sourcesPositions} = voiesInfos
   const isBal = Object.keys(sourcesNomsVoies)[0] === 'commune-bal'
 

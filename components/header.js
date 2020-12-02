@@ -16,33 +16,34 @@ const links = [
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
-const Header = () => (
-  <nav className='nav'>
-    <div className='nav__container'>
+function Header() {
+  return (
+    <nav className='nav'>
+      <div className='nav__container'>
 
-      <Link href='/'>
-        <a className='nav__link'>
-          <div className='nav__logo'>
-            <Image layout='fill' src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
-          </div>
-        </a>
-      </Link>
+        <Link href='/'>
+          <a className='nav__link'>
+            <div className='nav__logo'>
+              <Image layout='fill' src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
+            </div>
+          </a>
+        </Link>
 
-      <ul className='nav__links'>
-        {links.map(link => (
-          <li key={link.text}>
-            <Link href={link.href}><a>{link.text}</a></Link>
-          </li>
-        ))}
-      </ul>
+        <ul className='nav__links'>
+          {links.map(link => (
+            <li key={link.text}>
+              <Link href={link.href}><a>{link.text}</a></Link>
+            </li>
+          ))}
+        </ul>
 
-      <div className='hamburger-menu'>
-        <HamburgerMenu links={links} />
+        <div className='hamburger-menu'>
+          <HamburgerMenu links={links} />
+        </div>
+
       </div>
 
-    </div>
-
-    <style jsx>{`
+      <style jsx>{`
       .nav {
         border-bottom: 1px solid ${theme.boxShadow};
         box-shadow: 0 1px 4px ${theme.boxShadow};
@@ -133,7 +134,8 @@ const Header = () => (
         }
       }
   `}</style>
-  </nav>
-)
+    </nav>
+  )
+}
 
 export default Header

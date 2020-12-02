@@ -9,7 +9,7 @@ import SearchInput from '@/components/search-input'
 import Notification from '@/components/notification'
 import renderAddok from '@/components/search-input/render-addok'
 
-const ExploreSearch = () => {
+function ExploreSearch() {
   const [input, setInput] = useInput('')
   const [results, setResults] = useState([])
   const [orderResults, setOrderResults] = useState([])

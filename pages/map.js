@@ -7,7 +7,7 @@ import Map from '@/components/map'
 const title = 'Carte interactive'
 const description = 'Cherchez des adresses et lieux-dits.'
 
-const MapPage = () => {
+function MapPage() {
   const [hash, setHash] = useState({z: null, center: null})
 
   useEffect(() => {

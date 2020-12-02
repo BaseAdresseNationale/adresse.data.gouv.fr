@@ -2,22 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 
-const Card = ({title, children, link, action}) => (
-  <div className='card-container'>
-    <div className='title'>{title}</div>
-    <div className='text-container'>
-      {children}
-    </div>
-    {link ? (
-      <a className='download-link' href={link}>
-        {action}
-      </a>
-    ) : (
-      <div className='no-link'>
-        Bientôt disponible
+function Card({title, children, link, action}) {
+  return (
+    <div className='card-container'>
+      <div className='title'>{title}</div>
+      <div className='text-container'>
+        {children}
       </div>
-    )}
-    <style jsx>{`
+      {link ? (
+        <a className='download-link' href={link}>
+          {action}
+        </a>
+      ) : (
+        <div className='no-link'>
+          Bientôt disponible
+        </div>
+      )}
+      <style jsx>{`
       .card-container {
         margin: 1em;
         display: flex;
@@ -60,8 +61,9 @@ const Card = ({title, children, link, action}) => (
           margin: .5em auto;
         }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Card.propTypes = {
   title: PropTypes.string,

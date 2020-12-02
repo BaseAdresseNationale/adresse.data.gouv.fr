@@ -5,22 +5,23 @@ import {Book} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-const DocDownload = ({title, link, src, alt, isReverse, children}) => (
-  <div className='doc-container'>
-    <div className='text-container'>
-      <h3>{title}</h3>
-      {children}
-    </div>
-    <div className='img-container'>
-      <div className='preview'>
-        <Image width={200} height={280} layout='fixed' src={src} alt={alt} />
+function DocDownload({title, link, src, alt, isReverse, children}) {
+  return (
+    <div className='doc-container'>
+      <div className='text-container'>
+        <h3>{title}</h3>
+        {children}
       </div>
-      <a href={link}>
-        <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-        Télécharger
-      </a>
-    </div>
-    <style jsx>{`
+      <div className='img-container'>
+        <div className='preview'>
+          <Image width={200} height={280} layout='fixed' src={src} alt={alt} />
+        </div>
+        <a href={link}>
+          <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+          Télécharger
+        </a>
+      </div>
+      <style jsx>{`
         .doc-container {
           display: flex;
           flex-wrap: wrap;
@@ -46,8 +47,9 @@ const DocDownload = ({title, link, src, alt, isReverse, children}) => (
           border: 1px solid ${theme.border};
         }
       `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 DocDownload.propTypes = {
   isReverse: PropTypes.bool,

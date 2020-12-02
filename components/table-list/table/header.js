@@ -3,15 +3,16 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Header = ({title, handleSelect, icon, isActived}) => (
-  <th onClick={() => handleSelect(title)}>
-    <div className='order-by'>
-      <div>{title}</div>
-      {icon && <div className={`icon-head ${isActived ? 'active' : ''}`}>
-        {icon}
-      </div>}
-    </div>
-    <style jsx>{`
+function Header({title, handleSelect, icon, isActived}) {
+  return (
+    <th onClick={() => handleSelect(title)}>
+      <div className='order-by'>
+        <div>{title}</div>
+        {icon && <div className={`icon-head ${isActived ? 'active' : ''}`}>
+          {icon}
+        </div>}
+      </div>
+      <style jsx>{`
       th {
         border: 1px solid ${theme.border};
         padding: 8px;
@@ -50,8 +51,9 @@ const Header = ({title, handleSelect, icon, isActived}) => (
         }
       }
       `}</style>
-  </th>
-)
+    </th>
+  )
+}
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,

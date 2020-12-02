@@ -35,26 +35,28 @@ const numeric = {
 
 const sortTypes = {alphabetical, numeric}
 
-const Head = ({headers, order, selectColumn, actived}) => (
-  <tbody>
-    <tr>
-      {Object.keys(headers).map(header => {
-        const {title, sortBy, getValue} = headers[header]
+function Head({headers, order, selectColumn, actived}) {
+  return (
+    <tbody>
+      <tr>
+        {Object.keys(headers).map(header => {
+          const {title, sortBy, getValue} = headers[header]
 
-        return getValue ?
-          <Header
-            key={title}
-            title={title}
-            icon={sortTypes[sortBy][order]}
-            handleSelect={selectColumn}
-            isActived={title === actived} /> :
-          <Header
-            key={title}
-            title={title} />
-      })}
-    </tr>
-  </tbody>
-)
+          return getValue ?
+            <Header
+              key={title}
+              title={title}
+              icon={sortTypes[sortBy][order]}
+              handleSelect={selectColumn}
+              isActived={title === actived} /> :
+            <Header
+              key={title}
+              title={title} />
+        })}
+      </tr>
+    </tbody>
+  )
+}
 
 Head.propTypes = {
   headers: PropTypes.object.isRequired,

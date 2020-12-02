@@ -11,7 +11,7 @@ import Head from './head'
 import MapContainer from './map-container'
 import SourcesTable from '@/components/sources-table'
 
-const Voie = ({commune, voie, numero}) => {
+function Voie({commune, voie, numero}) {
   const handleSelect = ({numero, suffixe}) => {
     const {codeCommune, idVoie} = Router.query
 

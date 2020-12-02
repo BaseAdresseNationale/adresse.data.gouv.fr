@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Head = ({commune, voie, numero, suffixe}) => {
+function Head({commune, voie, numero, suffixe}) {
   const {nom, code, departement} = commune
   return (
     <div className='head'>

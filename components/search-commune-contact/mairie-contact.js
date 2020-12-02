@@ -8,7 +8,7 @@ const getHours = time => {
   return new Date('1970-01-01T' + time + 'Z').getHours()
 }
 
-const MairieContact = ({nom, horaires, email, telephone}) => {
+function MairieContact({nom, horaires, email, telephone}) {
   const defaultValue = 'Non renseigné'
 
   return (

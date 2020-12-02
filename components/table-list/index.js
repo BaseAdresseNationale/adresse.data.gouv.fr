@@ -20,7 +20,7 @@ const getPropsToFilter = (list, filters) => {
   })
 }
 
-const TableList = ({title, subtitle, list, textFilter, filters, cols, checkIsSelected, handleSelect}) => {
+function TableList({title, subtitle, list, textFilter, filters, cols, checkIsSelected, handleSelect}) {
   const [text, setText] = useState('')
   const [propsFilter, setPropsFilter] = useState()
   const [selectedPropsFilter, setSelectedPropsFilter] = useState({})

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {Check} from 'react-feather'
 
-const SourcesTable = ({data, cols, title, checkIsHighlighted, getId}) => {
+function SourcesTable({data, cols, title, checkIsHighlighted, getId}) {
   return (
     <div className='source-container'>
       <h3>{title}</h3>

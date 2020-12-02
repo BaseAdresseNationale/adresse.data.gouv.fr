@@ -9,7 +9,7 @@ import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Notification from '@/components/notification'
 
-const GererMesAdresses = () => {
+function GererMesAdresses() {
   return (
     <Page>
       <Head title='Gérer mes adresses' icon={<MapPin size={56} />} />

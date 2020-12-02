@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Step = ({title, children}) => {
+function Step({title, children}) {
   return (
     <div style={{margin: '1em 0'}}>
       <h2 className={`${children ? '' : 'disabled'}`}>{title}</h2>

@@ -2,21 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-const ButtonLink = ({size, color, href, isOutlined, isExternal, children, ...props}) => {
-  return (
-    <>
-      {isExternal ? (
-        <a href={href} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
-          {children}
-        </a>
-      ) : (
-        <Link href={href}>
-          <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
-            {children}
-          </a>
-        </Link>
-      )}
-    </>
+function ButtonLink({size, color, href, isOutlined, isExternal, children, ...props}) {
+  return isExternal ? (
+    <a href={href} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+      {children}
+    </a>
+  ) : (
+    <Link href={href}>
+      <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+        {children}
+      </a>
+    </Link>
   )
 }
 

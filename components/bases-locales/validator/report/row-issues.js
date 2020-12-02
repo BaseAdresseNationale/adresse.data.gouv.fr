@@ -3,22 +3,23 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const RowErrors = ({errors, warnings, field}) => (
-  <div className='abnormalities'>
-    <h3>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h3>
-    <div className='error-list'>
-      {warnings.map(err => (
-        <div key={err} className={`issue warning ${field && field.warnings && (field.warnings.includes(err)) ? 'select' : ''}`}>
-          {err}
-        </div>
-      ))}
-      {errors.map(err => (
-        <div key={err} className={`issue error ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
-          {err}
-        </div>
-      ))}
-    </div>
-    <style jsx>{`
+function RowErrors({errors, warnings, field}) {
+  return (
+    <div className='abnormalities'>
+      <h3>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h3>
+      <div className='error-list'>
+        {warnings.map(err => (
+          <div key={err} className={`issue warning ${field && field.warnings && (field.warnings.includes(err)) ? 'select' : ''}`}>
+            {err}
+          </div>
+        ))}
+        {errors.map(err => (
+          <div key={err} className={`issue error ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
+            {err}
+          </div>
+        ))}
+      </div>
+      <style jsx>{`
       .abnormalities {
         display: flex;
         flex-flow: wrap;
@@ -53,8 +54,9 @@ const RowErrors = ({errors, warnings, field}) => (
         background: ${theme.warningBorder};
       }
       `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 RowErrors.propTypes = {
   errors: PropTypes.array.isRequired,

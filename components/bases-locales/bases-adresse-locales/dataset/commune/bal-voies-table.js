@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 import TableList from '@/components/table-list'
 
-const BalVoiesTable = ({commune, voies}) => {
+function BalVoiesTable({commune, voies}) {
   const handleSelect = voie => {
     Router.push(
       `/commune/voie?idVoie=${voie.idVoie}`,

@@ -9,7 +9,7 @@ import Body from './table/body'
 
 const LIST_LIMIT = 10
 
-const TableControl = ({list, cols, checkIsSelected, handleSelect}) => {
+function TableControl({list, cols, checkIsSelected, handleSelect}) {
   const [orderedList, setOrderedList] = useState(list)
   const [order, setOrder] = useState('desc')
   const [sortedColumn, setSortedColumn] = useState()

@@ -5,28 +5,29 @@ import SelectableItemList from '@/components/selectable-item-list'
 
 import theme from '@/styles/theme'
 
-const ColumnsSelect = ({columns, selectedColumns, onAdd, onRemove}) => (
-  <div>
-    <SelectableItemList
-      list={columns.filter(col => !selectedColumns.includes(col)).map(col => {
-        return {
-          key: col,
-          value: col
-        }
-      })}
-      buttonIcon='+'
-      action={item => onAdd(item.value)} />
+function ColumnsSelect({columns, selectedColumns, onAdd, onRemove}) {
+  return (
+    <div>
+      <SelectableItemList
+        list={columns.filter(col => !selectedColumns.includes(col)).map(col => {
+          return {
+            key: col,
+            value: col
+          }
+        })}
+        buttonIcon='+'
+        action={item => onAdd(item.value)} />
 
-    <SelectableItemList
-      list={selectedColumns.map(col => {
-        return {
-          key: col,
-          value: col
-        }
-      })}
-      buttonIcon='-'
-      action={item => onRemove(item.value)} />
-    <style jsx>{`
+      <SelectableItemList
+        list={selectedColumns.map(col => {
+          return {
+            key: col,
+            value: col
+          }
+        })}
+        buttonIcon='-'
+        action={item => onRemove(item.value)} />
+      <style jsx>{`
         .columns {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
@@ -63,8 +64,9 @@ const ColumnsSelect = ({columns, selectedColumns, onAdd, onRemove}) => (
           background-color: ${theme.backgroundColor};
         }
       `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 ColumnsSelect.propTypes = {
   columns: PropTypes.array.isRequired,
