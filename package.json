@@ -55,7 +55,8 @@
     "semicolon": false,
     "space": 2,
     "envs": [
-      "browser"
+      "browser",
+      "es2020"
     ],
     "rules": {
       "camelcase": "warn",
