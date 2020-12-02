@@ -57,6 +57,13 @@ app.prepare().then(() => {
     })
   })
 
+  server.get('/base-adresse-nationale/commune/:codeCommune', (request, res) => {
+    app.render(request, res, '/base-adresse-nationale', {
+      ...request.query,
+      codeCommune: request.params.codeCommune
+    })
+  })
+
   server.get('/bases-locales/jeux-de-donnees', (request, res) => {
     app.render(request, res, '/bases-locales/datasets', {
       ...request.query
