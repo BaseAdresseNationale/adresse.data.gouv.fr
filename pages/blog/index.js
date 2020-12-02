@@ -18,7 +18,7 @@ const Blog = props => {
       <Head title='Actualités' icon={<Rss size={56} />} />
       <Section>
         <div className='articles-list'>
-          {props.posts ? (props.posts.map(post => (
+          {props.posts.map(post => (
             <div className='article' key={post.id}>
               <div>
                 <div>
@@ -46,12 +46,7 @@ const Blog = props => {
                 </div>
               </div>
             </div>
-          ))) : (
-            <div>
-              <h6>Les actualités sont actuellement indisponibles</h6>
-              <h6>Merci d’essayer ultérieurement</h6>
-            </div>
-          )}
+          ))}
         </div>
       </Section>
       <style jsx>{`
@@ -121,13 +116,21 @@ const Blog = props => {
   )
 }
 
-Blog.getInitialProps = async () => {
+export async function getStaticProps() {
   const posts = await getPosts()
-  return {posts}
+  if (posts) {
+    return {props: {posts}}
+  }
+
+  return {notFound: true}
 }
 
 Blog.propTypes = {
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array
+}
+
+Blog.defaultProps = {
+  posts: null
 }
 
 export default Blog
