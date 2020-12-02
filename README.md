@@ -1,21 +1,48 @@
-# adresse.data.gouv.fr [![CircleCI](https://circleci.com/gh/etalab/adresse.data.gouv.fr.svg?style=svg)](https://circleci.com/gh/etalab/adresse.data.gouv.fr)
+# adresse.data.gouv.fr
 
-Site officiel de la Base Adresse Nationale
+> Le site officiel de l'Adresse
+
+Ce dépôt regroupe le code relatif à l'interface frontend du site adresse.data.gouv.fr.
+
+Il utilise [React](https://reactjs.org), [Next.js](https://nextjs.org) et [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/).
 
 ## Développement
 
-Cette application utilise [Next.js](https://github.com/zeit/next.js).
+### Pré-requis
 
-1. Installer les dépendances
+* Node.js version 12 ou supérieure
+* yarn (ou npm)
 
-   ```bash
-   yarn
-   ```
+### Installation des dépendances
 
-2. Lancer le serveur de développement
+```bash
+yarn
+```
 
-   ```bash
-   yarn dev
-   ```
+### Lancer en mode développement
 
-   Par défaut, il écoutera sur le port `3000`, pour changer, utiliser `yarn dev -p 4242`.
+```bash
+yarn dev
+```
+
+### Générer les assets pour la production
+
+```bash
+yarn build
+```
+
+### Lancer en mode production
+
+Les assets doivent être générés au préalable.
+
+```bash
+yarn start
+```
+
+### Contrôler le style du code
+
+Le style de code utilisé est [xo](https://github.com/xojs/xo).
+
+```bash
+yarn lint
+```

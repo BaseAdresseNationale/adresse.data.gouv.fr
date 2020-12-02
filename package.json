@@ -2,8 +2,7 @@
   "name": "adresse.data.gouv.fr",
   "private": true,
   "version": "1.0.0",
-  "description": "Site officiel de la Base Adresse Nationale",
-  "main": "index.js",
+  "description": "Le site officiel de l’Adresse",
   "license": "MIT",
   "scripts": {
     "dev": "node server",
@@ -65,5 +64,8 @@
       "import/no-anonymous-default-export": "off",
       "unicorn/prevent-abbreviations": "off"
     }
+  },
+  "engines": {
+    "node": ">= 12"
   }
 }
