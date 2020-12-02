@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import Section from '../../section'
+import Section from '@/components/section'
 
-import TableList from '../../table-list'
-import Tag from '../../tag'
+import TableList from '@/components/table-list'
+import Tag from '@/components/tag'
 
 import Head from './head'
 import MapContainer from './map-container'
-import SourcesTable from '../../sources-table'
+import SourcesTable from '@/components/sources-table'
 
 const Voie = ({commune, voie, numero}) => {
   const handleSelect = ({numero, suffixe}) => {

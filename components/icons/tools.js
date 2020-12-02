@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import colors from '../../styles/colors'
+import colors from '@/styles/colors'
 
 // No "tools" icon provided by react-feather
 const ToolsIcon = ({color, size}) => (

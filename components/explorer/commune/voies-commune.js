@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
 
-import TableList from '../../table-list'
-import Tag from '../../tag'
+import TableList from '@/components/table-list'
+import Tag from '@/components/tag'
 
-import {getTypeByPriority} from '../../../lib/types'
+import {getTypeByPriority} from '@/lib/types'
 
 const VoiesCommune = ({voies, commune}) => {
   const cols = {

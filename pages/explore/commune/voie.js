@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Page from '../../../layouts/main'
+import Page from '@/layouts/main'
 
-import {getVoie, getNumero} from '../../../lib/explore/api'
+import {getVoie, getNumero} from '@/lib/explore/api'
 
-import withErrors from '../../../components/hoc/with-errors'
+import withErrors from '@/components/hoc/with-errors'
 
-import Header from '../../../components/explorer/header'
-import Voie from '../../../components/explorer/voie'
+import Header from '@/components/explorer/header'
+import Voie from '@/components/explorer/voie'
 
 class VoieError extends Error {
   constructor(message) {

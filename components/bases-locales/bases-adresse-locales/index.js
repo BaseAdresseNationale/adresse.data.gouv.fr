@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
-import Container from '../../container'
-import Notification from '../../notification'
+import Container from '@/components/container'
+import Notification from '@/components/notification'
 
 import BaseAdresseLocale from './base-adresse-locale'
 

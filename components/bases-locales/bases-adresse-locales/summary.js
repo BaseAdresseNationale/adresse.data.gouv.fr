@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Download} from 'react-feather'
 
-import ButtonLink from '../../button-link'
-import {spaceThousands} from '../../../lib/format-numbers'
+import ButtonLink from '@/components/button-link'
+import {spaceThousands} from '@/lib/format-numbers'
 
 import Organization from './organization'
 import Info from './info'

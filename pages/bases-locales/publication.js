@@ -4,21 +4,21 @@ import Router from 'next/router'
 
 import {ArrowLeft} from 'react-feather'
 
-import Page from '../../layouts/main'
+import Page from '@/layouts/main'
 
-import withErrors from '../../components/hoc/with-errors'
-import Section from '../../components/section'
-import Notification from '../../components/notification'
+import withErrors from '@/components/hoc/with-errors'
+import Section from '@/components/section'
+import Notification from '@/components/notification'
 
-import {submissionsBal, getSubmissions, submitBal} from '../../lib/bal/api'
+import {submissionsBal, getSubmissions, submitBal} from '@/lib/bal/api'
 
-import ButtonLink from '../../components/button-link'
-import Steps from '../../components/bases-locales/publication/steps'
-import ManageFile from '../../components/bases-locales/publication/manage-file'
-import Authentification from '../../components/bases-locales/publication/authentification'
-import Form from '../../components/bases-locales/publication/form'
-import Publishing from '../../components/bases-locales/publication/publishing'
-import Published from '../../components/bases-locales/publication/published'
+import ButtonLink from '@/components/button-link'
+import Steps from '@/components/bases-locales/publication/steps'
+import ManageFile from '@/components/bases-locales/publication/manage-file'
+import Authentification from '@/components/bases-locales/publication/authentification'
+import Form from '@/components/bases-locales/publication/form'
+import Publishing from '@/components/bases-locales/publication/publishing'
+import Published from '@/components/bases-locales/publication/published'
 
 const getStep = bal => {
   if (bal) {

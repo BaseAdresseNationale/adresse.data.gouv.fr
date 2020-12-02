@@ -2,10 +2,10 @@ import React from 'react'
 import {HelpCircle} from 'react-feather'
 import Link from 'next/link'
 
-import Page from '../layouts/main'
-import Head from '../components/head'
-import Section from '../components/section'
-import Question from '../components/question'
+import Page from '@/layouts/main'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import Question from '@/components/question'
 
 const title = 'Foire aux questions'
 

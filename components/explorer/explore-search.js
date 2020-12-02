@@ -2,12 +2,12 @@ import React, {useState, useCallback, useEffect} from 'react'
 import Router from 'next/router'
 import {debounce} from 'lodash'
 
-import {search} from '../../lib/explore/api'
+import {search} from '@/lib/explore/api'
 import {useInput} from '../../hooks/input'
 
-import SearchInput from '../search-input'
-import Notification from '../notification'
-import renderAddok from '../search-input/render-addok'
+import SearchInput from '@/components/search-input'
+import Notification from '@/components/notification'
+import renderAddok from '@/components/search-input/render-addok'
 
 const ExploreSearch = () => {
   const [input, setInput] = useInput('')

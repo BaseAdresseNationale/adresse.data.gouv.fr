@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {getType} from '../../../lib/types'
+import {getType} from '@/lib/types'
 
-import Notification from '../../notification'
-import Pie from '../../ui/metrics/pie'
+import Notification from '@/components/notification'
+import Pie from '@/components/ui/metrics/pie'
 
 const getColors = items => {
   return Object.keys(items).map(i => getType(i).background)

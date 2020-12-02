@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {flattenDeep, union} from 'lodash'
 
-import {byProps, byText} from '../../lib/filters'
+import {byProps, byText} from '@/lib/filters'
 
 import Title from './title'
 import TableControl from './table-control'

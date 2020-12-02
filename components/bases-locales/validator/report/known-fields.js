@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {Check, X, AlertTriangle} from 'react-feather'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
 const fieldToFind = [
   'cle_interop',

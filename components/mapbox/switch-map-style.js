@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 class SwitchMapStyle extends React.Component {
   static propTypes = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {take, sortBy} from 'lodash'
 import {AlertTriangle, X} from 'react-feather'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
 import Notification from '../../../notification'
 

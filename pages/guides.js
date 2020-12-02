@@ -2,10 +2,10 @@ import React from 'react'
 import Link from 'next/link'
 import {Book} from 'react-feather'
 
-import Page from '../layouts/main'
-import Head from '../components/head'
-import Section from '../components/section'
-import DocDownload from '../components/doc-download'
+import Page from '@/layouts/main'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import DocDownload from '@/components/doc-download'
 import Image from 'next/image'
 
 const Guides = () => {

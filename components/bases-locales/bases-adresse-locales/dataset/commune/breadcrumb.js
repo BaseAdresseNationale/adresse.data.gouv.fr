@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import {ChevronRight} from 'react-feather'
 
-import theme from '../../../../../styles/theme'
+import theme from '@/styles/theme'
 
 class Breadcrumb extends React.Component {
   static propTypes = {

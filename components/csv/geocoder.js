@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {geocodeCsv} from '../../lib/api-adresse'
+import {geocodeCsv} from '@/lib/api-adresse'
 
-import Button from '../button'
-import Loader from '../loader'
+import Button from '@/components/button'
+import Loader from '@/components/loader'
 
 function geocodedFileName(originalFileName = 'file') {
   if (originalFileName.toLowerCase().endsWith('.csv')) {

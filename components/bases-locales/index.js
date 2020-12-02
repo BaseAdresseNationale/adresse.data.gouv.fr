@@ -4,7 +4,7 @@ import Link from 'next/link'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
-import theme from '../../styles/theme'
+import theme from '@/styles/theme'
 
 import Mapbox from '../mapbox'
 import Section from '../section'

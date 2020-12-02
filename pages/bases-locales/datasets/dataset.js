@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {getSummary, getDataset} from '../../../lib/bal/api'
+import {getSummary, getDataset} from '@/lib/bal/api'
 
-import Page from '../../../layouts/main'
-import withErrors from '../../../components/hoc/with-errors'
+import Page from '@/layouts/main'
+import withErrors from '@/components/hoc/with-errors'
 
-import Dataset from '../../../components/bases-locales/bases-adresse-locales/dataset'
+import Dataset from '@/components/bases-locales/bases-adresse-locales/dataset'
 
 class DatasetPage extends React.Component {
   static propTypes = {

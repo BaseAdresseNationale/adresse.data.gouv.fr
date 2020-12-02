@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../../styles/theme'
-import Button from '../../button'
+import theme from '@/styles/theme'
+import Button from '@/components/button'
 
 const Form = React.memo(({mail}) => {
   const [applicant, setApplicant] = useState('')

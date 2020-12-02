@@ -3,7 +3,7 @@ import Link from 'next/link'
 import PropTypes from 'prop-types'
 
 import {Download, Edit3, Database} from 'react-feather'
-import theme from '../styles/theme'
+import theme from '@/styles/theme'
 import ToolsIcon from './icons/tools'
 import ExploreSearch from './explorer/explore-search'
 

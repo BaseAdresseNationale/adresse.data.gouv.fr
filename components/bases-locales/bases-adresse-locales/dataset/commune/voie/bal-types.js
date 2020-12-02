@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {tagsList} from '../../../../../../lib/table'
+import {tagsList} from '@/lib/table'
 
-import Tag from '../../../../../tag'
+import Tag from '@/components/tag'
 
 const BalTypes = ({positions}) => {
   const checkTypes = Object.prototype.hasOwnProperty.call(positions[0], 'type')

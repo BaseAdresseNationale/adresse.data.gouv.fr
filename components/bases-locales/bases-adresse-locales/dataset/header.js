@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import Info from '../info'
 
-import Tag from '../../../tag'
+import Tag from '@/components/tag'
 
 class Header extends React.Component {
   static propTypes = {

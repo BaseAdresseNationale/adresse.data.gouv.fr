@@ -1,12 +1,12 @@
 import React from 'react'
 import {Edit2, MapPin} from 'react-feather'
 
-import Page from '../layouts/main'
-import theme from '../styles/theme'
+import Page from '@/layouts/main'
+import theme from '@/styles/theme'
 
-import Head from '../components/head'
-import Section from '../components/section'
-import ButtonLink from '../components/button-link'
+import Head from '@/components/head'
+import Section from '@/components/section'
+import ButtonLink from '@/components/button-link'
 
 const title = 'Contribuer'
 const description = 'Les différents outils à votre disposition pour contribuer à améliorer les données Adresse.'
