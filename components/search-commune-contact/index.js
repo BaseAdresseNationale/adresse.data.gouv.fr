@@ -14,7 +14,7 @@ import Loader from '@/components/loader'
 
 import MairieContact from './mairie-contact'
 
-const SearchCommuneContact = () => {
+function SearchCommuneContact() {
   const [input, setInput] = useInput('')
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(false)

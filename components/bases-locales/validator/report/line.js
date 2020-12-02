@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 
 import LineValue from './line-value'
 
-const Line = ({line, unknownFields, onHover}) => {
+function Line({line, unknownFields, onHover}) {
   return (
     <div className='line-container'>
       <table>

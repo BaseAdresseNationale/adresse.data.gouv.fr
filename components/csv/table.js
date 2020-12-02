@@ -2,19 +2,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Table = ({headers, rows}) => (
-  <table>
-    <tbody>
-      <tr>
-        {headers.map(header => <th key={header} className='header'>{header}</th>)}
-      </tr>
-      {rows.map((row, idx) => (
-        <tr key={`row-${idx}`}>
-          {row.map((item, index) => <th key={`row-${idx}-${index}`}>{item}</th>)}
+function Table({headers, rows}) {
+  return (
+    <table>
+      <tbody>
+        <tr>
+          {headers.map(header => <th key={header} className='header'>{header}</th>)}
         </tr>
-      ))}
-    </tbody>
-    <style jsx>{`
+        {rows.map((row, idx) => (
+          <tr key={`row-${idx}`}>
+            {row.map((item, index) => <th key={`row-${idx}-${index}`}>{item}</th>)}
+          </tr>
+        ))}
+      </tbody>
+      <style jsx>{`
         table {
           display: block;
           overflow: scroll;
@@ -33,8 +34,9 @@ const Table = ({headers, rows}) => (
           font-weight: 700;
         }
         `}</style>
-  </table>
-)
+    </table>
+  )
+}
 
 Table.propTypes = {
   headers: PropTypes.array.isRequired,

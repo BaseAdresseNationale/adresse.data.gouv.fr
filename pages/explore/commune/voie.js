@@ -18,12 +18,14 @@ class VoieError extends Error {
   }
 }
 
-const VoiePage = ({commune, voie, numero}) => (
-  <Page title={voie.nomVoie} description='Consulter les adresses'>
-    <Header />
-    <Voie commune={commune} voie={voie} numero={numero} />
-  </Page>
-)
+function VoiePage({commune, voie, numero}) {
+  return (
+    <Page title={voie.nomVoie} description='Consulter les adresses'>
+      <Header />
+      <Voie commune={commune} voie={voie} numero={numero} />
+    </Page>
+  )
+}
 
 VoiePage.propTypes = {
   commune: PropTypes.object,

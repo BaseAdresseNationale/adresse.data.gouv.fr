@@ -8,7 +8,7 @@ import Mapbox from '@/components/mapbox'
 
 import AddressesMap from '@/components/mapbox/addresses-map'
 
-const MapContainer = ({voie, addresses, numero, onSelect}) => {
+function MapContainer({voie, addresses, numero, onSelect}) {
   const [bbox, setBbox] = useState(null)
   const [numeros, setNumeros] = useState(null)
   const [currentVoie, setCurrentVoie] = useState(null)

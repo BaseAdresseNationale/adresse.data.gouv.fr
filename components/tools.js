@@ -41,7 +41,7 @@ const toolStyle = {
   color: '#26353f'
 }
 
-const Tool = ({title, icon, description, href}) => {
+function Tool({title, icon, description, href}) {
   return (
     <Link href={href}>
       <a style={toolStyle}>
@@ -82,20 +82,22 @@ Tool.propTypes = {
   href: PropTypes.string.isRequired
 }
 
-const Tools = () => (
-  <Section>
-    <div className='grid'>
-      {titles.map(({title, href, description, icon}) => (
-        <Tool
-          key={title}
-          title={title}
-          href={href}
-          description={description}
-          icon={icon}
-        />
-      ))}
-    </div>
-  </Section>
-)
+function Tools() {
+  return (
+    <Section>
+      <div className='grid'>
+        {titles.map(({title, href, description, icon}) => (
+          <Tool
+            key={title}
+            title={title}
+            href={href}
+            description={description}
+            icon={icon}
+          />
+        ))}
+      </div>
+    </Section>
+  )
+}
 
 export default Tools

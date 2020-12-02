@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Loader = ({size}) => (
-  <div className={`loader ${size}`}>
-    <style jsx>{`
+function Loader({size}) {
+  return (
+    <div className={`loader ${size}`}>
+      <style jsx>{`
       .loader {
         border-radius: 50%;
         animation: spin 2s linear infinite;
@@ -39,8 +40,9 @@ const Loader = ({size}) => (
         100% { transform: rotate(360deg); }
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Loader.propTypes = {
   size: PropTypes.oneOf([

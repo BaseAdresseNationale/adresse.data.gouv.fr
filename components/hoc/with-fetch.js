@@ -8,7 +8,7 @@ export default (mapStateWithProps, options) => Component => {
   mapStateWithProps = mapStateWithProps || (state => state)
   options = options || {}
 
-  const Extended = ({promise, style, ...props}) => {
+  function Extended({promise, style, ...props}) {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)

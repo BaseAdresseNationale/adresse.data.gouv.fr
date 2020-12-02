@@ -7,7 +7,7 @@ import Tag from '@/components/tag'
 
 import {getTypeByPriority} from '@/lib/types'
 
-const VoiesCommune = ({voies, commune}) => {
+function VoiesCommune({voies, commune}) {
   const cols = {
     nomVoie: {
       title: 'Nom de voie',

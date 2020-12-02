@@ -2,12 +2,13 @@ import React from 'react'
 import Link from 'next/link'
 import theme from '@/styles/theme'
 
-const Ribbon = () => (
-  <div>
-    <div className='ribbon'>
-      <strong>Nouveautés</strong> : consultez nos <Link href='/guides'>guides de l’adressage</Link> à destination des collectivités.
-    </div>
-    <style jsx>{`
+function Ribbon() {
+  return (
+    <div>
+      <div className='ribbon'>
+        <strong>Nouveautés</strong> : consultez nos <Link href='/guides'>guides de l’adressage</Link> à destination des collectivités.
+      </div>
+      <style jsx>{`
       .ribbon {
         text-align: center;
         background-color: rgb(180,225,250);
@@ -22,7 +23,8 @@ const Ribbon = () => (
         }
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 export default Ribbon

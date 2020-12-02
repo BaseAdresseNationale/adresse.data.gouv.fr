@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = ({size, color, isOutlined, children, ...props}) => (
-  <button type='submit' className={`button${isOutlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
-    {children}
-  </button>
-)
+function Button({size, color, isOutlined, children, ...props}) {
+  return (
+    <button type='submit' className={`button${isOutlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
+      {children}
+    </button>
+  )
+}
 
 Button.propTypes = {
   size: PropTypes.oneOf([

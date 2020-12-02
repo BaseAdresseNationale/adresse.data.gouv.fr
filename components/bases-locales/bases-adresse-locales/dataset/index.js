@@ -14,7 +14,7 @@ import Header from './header'
 import Description from './description'
 import CommunesPreview from './communes-preview'
 
-const Dataset = ({dataset, summary}) => {
+function Dataset({dataset, summary}) {
   const {title, description, url, organization, page} = dataset
   const {query, push} = useRouter()
   const cols = {

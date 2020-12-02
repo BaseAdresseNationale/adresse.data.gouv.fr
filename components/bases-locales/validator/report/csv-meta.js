@@ -4,7 +4,7 @@ import {Check, X} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-const CsvMeta = ({name, value, isValid}) => {
+function CsvMeta({name, value, isValid}) {
   return (
     <div>
       <div className='item'>

@@ -5,17 +5,18 @@ import theme from '@/styles/theme'
 
 import {formatPercent, formatInteger} from '@/lib/format-numbers'
 
-const Counter = ({value, label, unit, size, color, title}) => (
-  <div style={{textAlign: 'center'}}>
-    {title && <div style={{margin: '1em 0'}}>{title}</div>}
-    <div className={`value ${color}`}>
-      {unit && unit === '%' ?
-        formatPercent(value) :
-        formatInteger(value) || 0}{unit && <span className='unit'>{unit}</span>}
-    </div>
-    {label && <div className={size}>{label}</div>}
+function Counter({value, label, unit, size, color, title}) {
+  return (
+    <div style={{textAlign: 'center'}}>
+      {title && <div style={{margin: '1em 0'}}>{title}</div>}
+      <div className={`value ${color}`}>
+        {unit && unit === '%' ?
+          formatPercent(value) :
+          formatInteger(value) || 0}{unit && <span className='unit'>{unit}</span>}
+      </div>
+      {label && <div className={size}>{label}</div>}
 
-    <style jsx>{`
+      <style jsx>{`
       .value {
         font-size: 1.6rem;
         line-height: 1;
@@ -49,8 +50,9 @@ const Counter = ({value, label, unit, size, color, title}) => (
         }
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Counter.propTypes = {
   value: PropTypes.oneOfType([

@@ -7,11 +7,13 @@ import Validator from '@/components/bases-locales/validator'
 
 const title = 'Le validateur BAL'
 
-const ValidatorPage = () => (
-  <Page>
-    <Head title={title} icon={<UserCheck size={56} />} />
-    <Validator />
-  </Page>
-)
+function ValidatorPage() {
+  return (
+    <Page>
+      <Head title={title} icon={<UserCheck size={56} />} />
+      <Validator />
+    </Page>
+  )
+}
 
 export default ValidatorPage

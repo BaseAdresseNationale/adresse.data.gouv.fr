@@ -10,7 +10,7 @@ const getColors = items => {
   return Object.keys(items).map(i => getType(i).background)
 }
 
-const Statistics = ({sources}) => {
+function Statistics({sources}) {
   const {sourcesNomsVoies, sourcesPositions} = sources
   const noData = !sourcesNomsVoies && !sourcesPositions
 

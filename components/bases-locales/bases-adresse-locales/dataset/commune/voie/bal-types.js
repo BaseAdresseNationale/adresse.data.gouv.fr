@@ -4,7 +4,7 @@ import {tagsList} from '@/lib/table'
 
 import Tag from '@/components/tag'
 
-const BalTypes = ({positions}) => {
+function BalTypes({positions}) {
   const checkTypes = Object.prototype.hasOwnProperty.call(positions[0], 'type')
 
   if (checkTypes) {

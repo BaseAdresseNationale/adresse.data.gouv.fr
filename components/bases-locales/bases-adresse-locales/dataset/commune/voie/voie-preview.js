@@ -15,7 +15,7 @@ import Tag from '@/components/tag'
 
 import BalTypes from './bal-types'
 
-const VoiePreview = ({voie}) => {
+function VoiePreview({voie}) {
   const [toponyme, setToponyme] = useState(null)
   const [numeros, setNumeros] = useState(null)
   const [bbox, setBbox] = useState(null)

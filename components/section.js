@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 
 import Container from './container'
 
-const Section = ({title, subtitle, children, style, background}) => (
-  <section style={style} className={`section section-${background}`}>
-    <Container>
-      {title && <h2 className='section__title'>{title}</h2>}
-      {subtitle && <p className='section__subtitle'>{subtitle}</p>}
-      {children}
-    </Container>
-  </section>
-)
+function Section({title, subtitle, children, style, background}) {
+  return (
+    <section style={style} className={`section section-${background}`}>
+      <Container>
+        {title && <h2 className='section__title'>{title}</h2>}
+        {subtitle && <p className='section__subtitle'>{subtitle}</p>}
+        {children}
+      </Container>
+    </section>
+  )
+}
 
 Section.propTypes = {
   title: PropTypes.string,

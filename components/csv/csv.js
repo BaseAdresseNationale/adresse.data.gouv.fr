@@ -16,7 +16,7 @@ import Table from './table'
 import Geocoder from './geocoder'
 import Loader from '@/components/loader'
 
-const allowedTypes = [
+const allowedTypes = new Set([
   'text/plain',
   'text/csv',
   'text/x-csv',
@@ -26,13 +26,13 @@ const allowedTypes = [
   'text/comma-separated-values',
   'text/x-comma-separated-value',
   'text/tab-separated-values'
-]
+])
 
-const allowedExtensions = [
+const allowedExtensions = new Set([
   'csv',
   'tsv',
   'txt'
-]
+])
 
 const MAX_SIZE = 50 * 1024 * 1024
 
@@ -91,11 +91,11 @@ class Csv extends React.Component {
   handleFileDrop = fileList => {
     const file = fileList[0]
     const fileExtension = getFileExtension(file.name)
-    if (file.type && !allowedTypes.includes(file.type)) {
+    if (file.type && !allowedTypes.has(file.type)) {
       this.setState({
         error: `Ce type de fichier n’est pas supporté : ${file.type}.`
       }, this.resetState())
-    } else if (fileExtension && !allowedExtensions.includes(fileExtension)) {
+    } else if (fileExtension && !allowedExtensions.has(fileExtension)) {
       this.setState({
         error: `Cette extension de fichier n’est pas supportée : ${fileExtension}.`
       }, this.resetState())

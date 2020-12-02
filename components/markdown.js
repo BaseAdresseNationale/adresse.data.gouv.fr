@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import marked from 'marked'
 
-const Markdown = ({markdown}) => {
+function Markdown({markdown}) {
   const md = marked(markdown)
 
   return (

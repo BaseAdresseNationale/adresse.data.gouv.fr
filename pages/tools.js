@@ -8,11 +8,13 @@ import Tools from '@/components/tools'
 
 const title = 'Outils'
 
-const ToolsPage = () => (
-  <Page title={title} description='adresse.data.gouv.fr met en place des outils pour une prise en main rapide des données adresses ouvertes.'>
-    <Head title={title} icon={<ToolsIcon color='white' size={56} />} />
-    <Tools />
-  </Page>
-)
+function ToolsPage() {
+  return (
+    <Page title={title} description='adresse.data.gouv.fr met en place des outils pour une prise en main rapide des données adresses ouvertes.'>
+      <Head title={title} icon={<ToolsIcon color='white' size={56} />} />
+      <Tools />
+    </Page>
+  )
+}
 
 export default ToolsPage

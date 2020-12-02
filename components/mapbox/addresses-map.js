@@ -6,7 +6,7 @@ import useLayers from './hooks/layers'
 
 let hoveredStateId = null
 
-const AddressesMap = ({map, contour, voies, numeros, numero, onSelectContour, onSelectNumero, setSources, setLayers}) => {
+function AddressesMap({map, contour, voies, numeros, numero, onSelectContour, onSelectNumero, setSources, setLayers}) {
   const sources = useSources(contour, voies, numeros, numero)
   const layers = useLayers(contour, voies, numeros, numero)
 

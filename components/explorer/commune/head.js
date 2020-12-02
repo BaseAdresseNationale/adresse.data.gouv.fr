@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-const Head = ({nom, code, region, departement}) => (
-  <div className='head'>
-    <h2>{nom} - {code}</h2>
-    <h4>Région : {region.nom}</h4>
-    <h4>Département : {departement.nom} ({departement.code})</h4>
-    <style jsx>{`
+function Head({nom, code, region, departement}) {
+  return (
+    <div className='head'>
+      <h2>{nom} - {code}</h2>
+      <h4>Région : {region.nom}</h4>
+      <h4>Département : {departement.nom} ({departement.code})</h4>
+      <style jsx>{`
       .head {
         display: flex;
         justify-content: space-between;
@@ -18,8 +19,9 @@ const Head = ({nom, code, region, departement}) => (
         margin: -6em 0 2em 0;
       }
       `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 Head.propTypes = {
   nom: PropTypes.string.isRequired,

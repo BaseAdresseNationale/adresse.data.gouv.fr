@@ -4,7 +4,7 @@ import {X} from 'react-feather'
 
 import Button from './button'
 
-const Notification = ({message, type, style, isFullWidth, onClose, children}) => {
+function Notification({message, type, style, isFullWidth, onClose, children}) {
   return (
     <div style={style} className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${isFullWidth ? 'full-width' : ''}`}>
       {children || message}

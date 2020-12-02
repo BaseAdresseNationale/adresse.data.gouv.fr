@@ -19,7 +19,7 @@ const zoomLevel = {
 }
 let currentRequest = null
 
-const Map = ({defaultCenter, defaultZoom}) => {
+function Map({defaultCenter, defaultZoom}) {
   const [input, setInput] = useInput('')
   const [placeholder, setPlaceholder] = useInput('')
   const [results, setResults] = useState([])
@@ -65,11 +65,11 @@ const Map = ({defaultCenter, defaultZoom}) => {
 
   useEffect(() => {
     const handleSearch = debounce(async () => {
-      const types = [
+      const types = new Set([
         'locality',
         'street',
         'housenumber'
-      ]
+      ])
 
       try {
         const args = {q: input}
@@ -80,14 +80,14 @@ const Map = ({defaultCenter, defaultZoom}) => {
           args.lat = lat
         }
 
-        const req = search(args)
+        const request = search(args)
 
-        currentRequest = req
+        currentRequest = request
 
         const response = await search(args)
-        if (currentRequest === req) {
+        if (currentRequest === request) {
           const results = response.features.filter(address =>
-            types.includes(address.properties.type) || []
+            types.has(address.properties.type) || []
           )
           setResults(results)
         }
