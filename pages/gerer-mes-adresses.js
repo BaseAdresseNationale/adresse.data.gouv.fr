@@ -53,6 +53,8 @@ function GererMesAdresses() {
           <ButtonLink
             isExternal
             size='large'
+            target='_blank'
+            rel='noreferrer'
             href='https://editeur.adresse.data.gouv.fr/new'
           >
             Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} />
@@ -60,7 +62,7 @@ function GererMesAdresses() {
 
           <div className='already-done'>
             <div>Vous avez déjà créé une Base Adresse Locale ?</div>
-            <a href='https://editeur.adresse.data.gouv.fr'>Retrouvez-la ici</a>
+            <a target='_blank' rel='noreferrer' href='https://editeur.adresse.data.gouv.fr'>Retrouvez-la ici</a>
           </div>
         </div>
 
