@@ -11,7 +11,7 @@ import colors from '../../styles/colors'
 
 const Slug = props => {
   const styleImg = 'style="width: 100%; height: auto; margin: auto;"'
-  const post = props.post
+  const {post} = props
 
   if (post) {
     return (
