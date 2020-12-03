@@ -96,7 +96,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   return (
     <Page>
       <Section background='color' style={{padding: '1em 0'}}>
-        <ButtonLink href='https://editeur.adresse.data.gouv.fr/' color='white' isOutlined isExternal>
+        <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
           <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
         </ButtonLink>
       </Section>

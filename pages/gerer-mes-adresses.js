@@ -55,21 +55,21 @@ function GererMesAdresses() {
             size='large'
             target='_blank'
             rel='noreferrer'
-            href='https://editeur.adresse.data.gouv.fr/new'
+            href='https://mes-adresses.data.gouv.fr/new'
           >
             Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} />
           </ButtonLink>
 
           <div className='already-done'>
             <div>Vous avez déjà créé une Base Adresse Locale ?</div>
-            <a target='_blank' rel='noreferrer' href='https://editeur.adresse.data.gouv.fr'>Retrouvez-la ici</a>
+            <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Retrouvez-la ici</a>
           </div>
         </div>
 
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
-            Des <Link href='/guides'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://editeur.adresse.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
+            Des <Link href='/guides'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
           </div>
         </Notification>
 
