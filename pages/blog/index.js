@@ -12,7 +12,7 @@ import Head from '../../components/head'
 import theme from '../../styles/theme'
 import colors from '../../styles/colors'
 
-const Blog = props => {
+function Blog(props) {
   return (
     <Page>
       <Head title='Actualités' icon={<Rss size={56} />} />
