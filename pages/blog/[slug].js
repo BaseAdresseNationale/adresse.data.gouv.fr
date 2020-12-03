@@ -1,5 +1,5 @@
 import React from 'react'
-import {getSinglePost} from '../../ghost/posts'
+import {getSinglePost, getPosts} from '../../ghost/posts'
 import {Rss, ArrowLeft} from 'react-feather'
 
 import Page from '../../layouts/main'
@@ -24,7 +24,7 @@ const Slug = props => {
           <div
             className='dangerous-html'
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-              __html: post.html.replaceAll('<img ', `<img ${styleImg} `)
+              __html: post.html.replace(/<img/g, `<img ${styleImg} `)
             }}
           />
           <ButtonLink href='/blog' isOutlined>
@@ -63,9 +63,29 @@ const Slug = props => {
   }
 }
 
-Slug.getInitialProps = async params => {
-  const post = await getSinglePost(params.query.slug)
-  return {post}
+export async function getStaticPaths() {
+  const posts = await getPosts()
+  if (posts) {
+    const paths = posts.map(post => ({
+      params: {slug: post.slug}
+    }))
+
+    return {paths, fallback: false}
+  }
+
+  return {paths: [], fallback: false}
+}
+
+export async function getStaticProps(params) {
+  const post = await getSinglePost(params.params.slug)
+  if (post) {
+    return {
+      props: {post},
+      revalidate: 1
+    }
+  }
+
+  return {notFound: true}
 }
 
 export default Slug
