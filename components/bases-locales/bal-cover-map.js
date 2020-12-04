@@ -2,6 +2,7 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import {AlertTriangle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -31,6 +32,11 @@ class BalCoverMap extends React.Component {
   static defaultProps = {
     data: null,
     popup: null
+  }
+
+  state = {
+    zoomActivated: false,
+    warningZoom: false
   }
 
   componentDidMount() {
@@ -73,11 +79,32 @@ class BalCoverMap extends React.Component {
     setLayers(layers)
 
     map.once('load', () => {
+      map.doubleClickZoom.disable()
+
       map.on('mousemove', 'bal-polygon-fill', this.onMouseMove.bind(this, 'bal-polygon-fill'))
       map.on('mouseleave', 'bal-polygon-fill', this.onMouseLeave.bind(this, 'bal-polygon-fill'))
+      map.on('wheel', this.onWheel.bind(this))
 
+      map.on('dblclick', this.onDblClick.bind(this))
       map.on('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
     })
+  }
+
+  componentDidUpdate() {
+    const {map} = this.props
+
+    if (this.state.zoomActivated) {
+      map.scrollZoom.enable()
+    } else {
+      map.scrollZoom.disable()
+    }
+
+    if (this.state.warningZoom) {
+      const timer = setTimeout(() => this.setState({warningZoom: false}), 2000)
+      return () => {
+        clearTimeout(timer)
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -87,7 +114,9 @@ class BalCoverMap extends React.Component {
 
     map.off('mousemove', 'bal-polygon-fill', this.onMouseMove.bind(this, 'bal-polygon-fill'))
     map.off('mouseleave', 'bal-polygon-fill', this.onMouseLeave.bind(this, 'bal-polygon-fill'))
+    map.off('wheel', this.onWheel.bind(this))
 
+    map.off('dblclick', this.onDblClick.bind(this))
     map.off('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
   }
 
@@ -135,13 +164,34 @@ class BalCoverMap extends React.Component {
     )
   }
 
+  onWheel = () => {
+    if (this.state.zoomActivated) {
+      this.setState({warningZoom: false})
+    } else {
+      this.setState({warningZoom: true})
+    }
+  }
+
+  onDblClick = () => {
+    this.setState(state => ({
+      zoomActivated: !state.zoomActivated
+    }))
+  }
+
   render() {
     return (
-      <div className='legend'>
-        <i className='bal' /> Communes couvertes par une Base Adresse Locale
+      <div>
+        {this.state.warningZoom && (
+          <div className='warning'>
+            <AlertTriangle color='orange' />
+            <div className='warning-text'>
+              Double-cliquez sur la carte pour activer le zoom
+            </div>
+          </div>
+        )}
 
         <style jsx>{`
-          .legend {
+          .warning {
             z-index: 1;
             position: absolute;
             display: flex;
@@ -149,19 +199,10 @@ class BalCoverMap extends React.Component {
             padding: 1em;
             margin: 1em;
             background: #ffffffc4;
-            border-radius: 5px;
           }
 
-          .legend i {
-            width: 18px;
-            height: 18px;
-            float: left;
-            margin-right: 8px;
-            opacity: .7;
-          }
-
-          .legend .bal {
-            background: ${theme.colors.green};
+          .warning-text {
+            margin-left: 1em;
           }
         `}</style>
       </div>
