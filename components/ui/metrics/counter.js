@@ -8,7 +8,7 @@ import {formatPercent, formatInteger} from '@/lib/format-numbers'
 function Counter({value, label, unit, size, color, title}) {
   return (
     <div style={{textAlign: 'center'}}>
-      {title && <div style={{margin: '1em 0', fontSize: '2em', lineHeight: '1em'}}>{title}</div>}
+      {title && <div className='title'>{title}</div>}
       <div className={`value ${color}`}>
         {unit && unit === '%' ?
           formatPercent(value) :
@@ -17,6 +17,12 @@ function Counter({value, label, unit, size, color, title}) {
       {label && <div className={size}>{label}</div>}
 
       <style jsx>{`
+      .title {
+        margin: 1em 0;
+        font-size: 2em;
+        line-height: 1em;
+      }
+
       .value {
         font-size: 2rem;
         font-weight: bold;
