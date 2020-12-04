@@ -6,8 +6,6 @@ import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 
 import Notification from '../notification'
 
-import SwitchMapStyle from './switch-map-style'
-
 import useMarker from './hooks/marker'
 import usePopup from './hooks/popup'
 import useLoadData from './hooks/load-data'
@@ -40,7 +38,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
-  const [style, setStyle] = useState(defaultStyle)
   const [sources, setSources] = useState([])
   const [layers, setLayers] = useState([])
   const [infos, setInfos] = useState(null)
@@ -70,18 +67,11 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
     }
   }, [map])
 
-  const switchLayer = useCallback(() => {
-    setStyle(style === 'vector' ?
-      'ortho' :
-      'vector'
-    )
-  }, [style])
-
   useEffect(() => {
     if (mapContainer) {
       const map = new mapboxgl.Map({
         container: mapContainer,
-        style: STYLES[style],
+        style: STYLES[defaultStyle],
         center: defaultCenter || DEFAULT_CENTER,
         zoom: defaultZoom || DEFAULT_ZOOM,
         hash: hasHash,
@@ -115,7 +105,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
 
   useEffect(() => {
     if (map) {
-      map.setStyle(STYLES[style], {diff: false})
+      map.setStyle(STYLES[defaultStyle], {diff: false})
 
       const onStyleData = () => {
         if (map.isStyleLoaded()) {
@@ -131,7 +121,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         map.off('styledata', onStyleData)
       }
     }
-  }, [style]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [defaultStyle]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='mapbox-container'>
@@ -158,7 +148,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
           map,
           marker,
           popup,
-          style,
           setSources,
           setLayers,
           setInfos,
@@ -167,15 +156,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         })}
 
         <div ref={mapRef} className='map-container' />
-
-        {hasSwitchStyle && (
-          <div className='tools bottom switch'>
-            <SwitchMapStyle
-              isVector={style === 'vector'}
-              handleChange={switchLayer}
-            />
-          </div>
-        )}
 
       </div>
 
