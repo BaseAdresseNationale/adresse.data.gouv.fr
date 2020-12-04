@@ -11,7 +11,7 @@ import usePopup from './hooks/popup'
 import useLoadData from './hooks/load-data'
 
 const DEFAULT_CENTER = [1.7, 46.9]
-const DEFAULT_ZOOM = 5
+const DEFAULT_ZOOM = 4.4
 
 const STYLES = {
   vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
