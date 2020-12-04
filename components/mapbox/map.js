@@ -267,7 +267,7 @@ Map.defaultProps = {
   defaultZoom: DEFAULT_ZOOM,
   isLoading: false,
   error: null,
-  hasSwitchStyle: true
+  hasSwitchStyle: false
 }
 
 export default Map
