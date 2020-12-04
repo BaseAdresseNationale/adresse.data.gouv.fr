@@ -7,7 +7,6 @@ import {spaceThousands} from '@/lib/format-numbers'
 
 import Organization from './organization'
 import Info from './info'
-import InfoReport from './info-report'
 
 class Summary extends React.Component {
   static propTypes = {
@@ -44,9 +43,6 @@ class Summary extends React.Component {
                 </Info>
               </div>
             ))}
-
-            {model === 'bal-aitf' &&
-              <InfoReport dataset={dataset} />}
           </div>
 
           <div className='links'>
