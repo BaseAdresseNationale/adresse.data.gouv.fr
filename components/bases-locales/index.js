@@ -149,7 +149,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
         .map-stats-container {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
           margin: 4em 0;
         }
 
@@ -168,11 +168,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           text-align: center;
         }
 
-        @media (max-width: 1075px) {
-          .map-stats-container {
-            grid-template-columns: 1fr;
-          }
-
+        @media (max-width: 1016px) {
           .bal-cover-map-container {
             margin-top: 2em;
           }
