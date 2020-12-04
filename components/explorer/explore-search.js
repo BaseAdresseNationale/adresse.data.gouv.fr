@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
 import theme from '@/styles/theme'
@@ -18,23 +18,29 @@ function ExploreSearch() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const router = useRouter()
+
   const handleSelect = feature => {
     const {id, type, citycode, housenumber} = feature.properties
     const codeCommune = citycode
     const idVoie = id.split('_').slice(0, 2).join('_')
     let href = ''
+    let as = ''
 
     if (type === 'municipality') {
-      href = `/explore/commune/${codeCommune}`
+      href = `/base-adresse-nationale?codeCommune=${codeCommune}`
+      as = `/base-adresse-nationale/commune/${codeCommune}`
     } else if (type === 'street') {
-      href = `/explore/commune/${codeCommune}/voie/${idVoie}`
+      href = `/base-adresse-nationale?codeCommune=${codeCommune}&idVoie=${idVoie}`
+      as = `/base-adresse-nationale/commune/${codeCommune}/voie/${idVoie}`
     } else if (type === 'housenumber') {
       const [numero, suffixe] = housenumber.split(' ')
       const numeroComplet = `${numero}${suffixe || ''}`
-      href = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
+      href = `/base-adresse-nationale?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numeroComplet}`
+      as = `/base-adresse-nationale/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
     }
 
-    Router.push(href)
+    router.push(href, as)
   }
 
   const handleSearch = useCallback(debounce(async input => {
