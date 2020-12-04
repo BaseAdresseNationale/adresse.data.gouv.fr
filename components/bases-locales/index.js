@@ -4,12 +4,9 @@ import Link from 'next/link'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
-import theme from '@/styles/theme'
-
 import Mapbox from '../mapbox'
 import Section from '../section'
 import ButtonLink from '../button-link'
-import Pie from '../ui/metrics/pie'
 import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
@@ -17,7 +14,6 @@ import BalCoverMap from './bal-cover-map'
 import Notification from '../notification'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
-  const isValidRatio = Math.round((stats.isValid / stats.model['bal-aitf']) * 100)
   const [balSamples, setBalSamples] = useState([])
   const mapData = {
     type: 'FeatureCollection',
@@ -95,57 +91,35 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
-      <Section title='État du déploiement des Bases Adresses Locales' />
-      <div className='bal-cover-map-container'>
-        <Mapbox>
-          {({map, popup, setSources, setLayers}) => (
-            <BalCoverMap
-              map={map}
-              popup={popup}
-              data={mapData}
-              setSources={setSources}
-              setLayers={setLayers}
+      <Section title='État du déploiement des Bases Adresses Locales'>
+        <div className='map-stats-container'>
+          <div className='stats'>
+            <Counter
+              value={stats.count}
+              title='Jeux de données publiés'
             />
-          )}
-        </Mapbox>
-      </div>
-
-      <Section title='Jeux de données publiés' background='white'>
-        <div className='stats'>
-          <div style={{flex: 1}}>
-            <div className='grid' style={{marginTop: 0}}>
-              <Counter
-                value={stats.count}
-                title='Jeux de données publiés'
-              />
-
-              <Counter
-                value={isValidRatio}
-                unit='%'
-                color={isValidRatio < 20 ? 'error' : (isValidRatio < 50 ? 'warning' : 'success')}
-                title='Conformité à la spécification BAL 1.1'
-              />
-
-              <Counter
-                title='Communes représentées'
-                value={stats.communesCount}
-              />
-
-              <Counter
-                title='Adresses gérées par les collectivités'
-                value={stats.numerosCount}
-              />
-            </div>
+            <Counter
+              title='Communes représentées'
+              value={stats.communesCount}
+            />
+            <Counter
+              title='Adresses gérées par les collectivités'
+              value={stats.numerosCount}
+            />
           </div>
-
-          <Pie
-            title='Licences utilisées'
-            data={{
-              'Licence Ouverte': stats.license.lov2,
-              'ODbL 1.0': stats.license['odc-odbl']
-            }}
-            colors={[theme.colors.green, theme.colors.orange]}
-          />
+          <div className='bal-cover-map-container'>
+            <Mapbox>
+              {({map, popup, setSources, setLayers}) => (
+                <BalCoverMap
+                  map={map}
+                  popup={popup}
+                  data={mapData}
+                  setSources={setSources}
+                  setLayers={setLayers}
+                />
+              )}
+            </Mapbox>
+          </div>
         </div>
       </Section>
 
@@ -173,11 +147,17 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           justify-content: center;
         }
 
+        .map-stats-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          margin: 4em 0;
+        }
+
         .stats {
           display: flex;
-          align-items: center;
-          flex-flow: wrap;
-          justify-content: center;
+          flex-direction: column;
+          justify-content: space-around;
+          margin-right: 1em;
         }
 
         .bal-cover-map-container {
@@ -186,6 +166,16 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
         a {
           text-align: center;
+        }
+
+        @media (max-width: 1075px) {
+          .map-stats-container {
+            grid-template-columns: 1fr;
+          }
+
+          .bal-cover-map-container {
+            margin-top: 2em;
+          }
         }
         `}</style>
     </div>
