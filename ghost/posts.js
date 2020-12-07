@@ -22,6 +22,7 @@ export async function getSinglePost(postSlug) {
   if (process.env.NEXT_PUBLIC_GHOST_URL && process.env.NEXT_PUBLIC_GHOST_KEY) {
     return new GhostContentAPI(apiInfos).posts
       .read({
+        include: 'authors',
         slug: postSlug
       })
       .catch(err => {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {getSinglePost, getPosts} from '../../ghost/posts'
 import {Rss, ArrowLeft} from 'react-feather'
+import {format} from 'date-fns'
 
 import Page from '../../layouts/main'
 import Section from '../../components/section'
@@ -27,9 +28,18 @@ const Slug = props => {
               __html: post.html.replace(/<img/g, `<img ${styleImg} `)
             }}
           />
-          <ButtonLink href='/blog' isOutlined>
-            <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour
-          </ButtonLink>
+          <div className='article-footer'>
+            <div>
+              <ButtonLink href='/blog' isOutlined>
+                <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour
+              </ButtonLink>
+            </div>
+            <div>
+              <span><i>Article publié le</i> <b>{format(new Date(post.created_at), 'dd/MM/yyyy')}</b></span>
+              <span><i>par</i> <b>{post.authors[0].name}</b></span>
+              <span><b>- <i>{post.authors[0].bio}</i> -</b></span>
+            </div>
+          </div>
         </Section>
         <style jsx>{`
           div {
@@ -50,6 +60,12 @@ const Slug = props => {
             margin: auto;
             padding: 1.5em;
             border-bottom: 1px solid ${colors.grey};
+          }
+
+          .article-footer {
+            flex-direction: row;
+            justify-content: space-between;
+            margin: auto;
           }
 
           @media (max-width: 950px) {
