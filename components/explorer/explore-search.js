@@ -84,7 +84,7 @@ function ExploreSearch() {
 
   return (
     <>
-      <small className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</small>
+      <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
 
       <SearchInput
         value={input}
@@ -104,8 +104,8 @@ function ExploreSearch() {
 
       <style jsx>{`
           .example {
-            color: ${theme.colors.darkerGrey};
-            font-style: italic;
+            font-size: 1.5em;
+            text-align: center;
             background-color: ${theme.colors.white};
           }
 
