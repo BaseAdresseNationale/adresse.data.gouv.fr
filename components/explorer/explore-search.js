@@ -2,6 +2,8 @@ import React, {useState, useCallback, useEffect} from 'react'
 import Router from 'next/router'
 import {debounce} from 'lodash'
 
+import theme from '@/styles/theme'
+
 import {search} from '@/lib/explore/api'
 import {useInput} from '../../hooks/input'
 
@@ -82,6 +84,8 @@ function ExploreSearch() {
 
   return (
     <>
+      <small className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</small>
+
       <SearchInput
         value={input}
         results={orderResults}
@@ -99,6 +103,12 @@ function ExploreSearch() {
         </div>}
 
       <style jsx>{`
+          .example {
+            color: ${theme.colors.darkerGrey};
+            font-style: italic;
+            background-color: ${theme.colors.white};
+          }
+
           .error {
             margin: 1em 0;
           }
