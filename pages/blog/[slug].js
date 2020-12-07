@@ -72,6 +72,11 @@ const Slug = props => {
             .dangerous-html {
               padding: .3em;
             }
+
+            .article-footer {
+              flex-direction: column-reverse;
+              align-items: center;
+            }
         }
       `}</style>
       </Page>
