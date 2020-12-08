@@ -100,11 +100,6 @@ function Hero({title, tagline}) {
         color: ${theme.darkText};
       }
 
-      @media (max-width: 812px) {
-        .hero {
-          height: 800px;
-        }
-      }
     `}</style>
     </div>
   )
