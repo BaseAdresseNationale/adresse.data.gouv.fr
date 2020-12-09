@@ -6,8 +6,8 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
   const Icon = icon
   return (
     <div className={`layout ${isSelected ? 'selected' : ''}`} onClick={() => handleClick(value)}>
-      <div>{name}</div>
       <div><Icon /></div>
+      <div>{name}</div>
 
       <style jsx>{`
         .layout {
@@ -15,11 +15,12 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: 1em;
+          padding-top: 0.5em;
         }
 
         .layout.selected {
           font-weight: bolder;
+          margin-top: -4px;
           border-top: 4px solid ${theme.primary};
         }
         `}</style>

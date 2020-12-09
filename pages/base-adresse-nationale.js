@@ -1,21 +1,43 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useCallback, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
+import {useRouter} from 'next/router'
 
-import {getCommune} from '@/lib/api-geo'
-import {getCommune as getCommuneExplore} from '@/lib/explore/api'
+import {getCommune, getVoie, getNumero} from '@/lib/explore/api'
 
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 
 const MOBILE_WIDTH = 800
 
-function BaseAdresseNationale(props) {
+function BaseAdresseNationale({commune, voie, numero}) {
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const Layout = isMobileDevice ? Mobile : Desktop
+
+  const router = useRouter()
+
+  const bbox = useMemo(() => {
+    const context = numero || voie || commune || {}
+    return context.displayBBox
+  }, [commune, voie, numero])
 
   const handleResize = () => {
     setIsMobileDevice(window.innerWidth < MOBILE_WIDTH)
   }
+
+  const selectAddress = useCallback(address => {
+    const {id, voie} = address
+    const idVoie = address.id || voie.idVoie
+    const [codeCommune] = idVoie.split('_')
+    let href = `${router.pathname}?codeCommune=${codeCommune}&idVoie=${idVoie}`
+    let as = `${router.pathname}/commune/${codeCommune}/voie/${idVoie}`
+
+    if (voie) {
+      href += `&idNumero=${id}`
+      as += `/numero/${id}`
+    }
+
+    router.push(href, as)
+  }, [router])
 
   useEffect(() => {
     if (window.innerWidth < MOBILE_WIDTH) {
@@ -31,7 +53,13 @@ function BaseAdresseNationale(props) {
 
   return (
     <Page title='Base Adresse Nationale' description='Consultez les adresses de la Base Adresse Nationale' hasFooter={false}>
-      <Layout {...props} />
+      <Layout
+        commune={commune}
+        voie={voie}
+        numero={numero}
+        bbox={bbox}
+        handleSelect={selectAddress}
+      />
     </Page>
   )
 }
@@ -42,93 +70,36 @@ BaseAdresseNationale.propTypes = {
   numero: PropTypes.object
 }
 
-const MLP = {
-  75101: '75056',
-  75102: '75056',
-  75103: '75056',
-  75104: '75056',
-  75105: '75056',
-  75106: '75056',
-  75107: '75056',
-  75108: '75056',
-  75109: '75056',
-  75110: '75056',
-  75111: '75056',
-  75112: '75056',
-  75113: '75056',
-  75114: '75056',
-  75115: '75056',
-  75116: '75056',
-  75117: '75056',
-  75118: '75056',
-  75119: '75056',
-  75120: '75056',
-
-  69381: '69123',
-  69382: '69123',
-  69383: '69123',
-  69384: '69123',
-  69385: '69123',
-  69386: '69123',
-  69387: '69123',
-  69388: '69123',
-  69389: '69123',
-
-  13201: '13055',
-  13202: '13055',
-  13203: '13055',
-  13204: '13055',
-  13205: '13055',
-  13206: '13055',
-  13207: '13055',
-  13208: '13055',
-  13209: '13055',
-  13210: '13055',
-  13211: '13055',
-  13212: '13055',
-  13213: '13055',
-  13214: '13055',
-  13215: '13055',
-  13216: '13055'
-}
-
-const contourToFeatureCollection = commune => {
-  return {
-    type: 'FeatureCollection',
-    features: [{
-      type: 'Feature',
-      geometry: commune.contour,
-      id: commune.code,
-      properties: {}
-    }]
-  }
-}
-
 export async function getServerSideProps({query}) {
-  if (!query.codeCommune) {
+  const {codeCommune, idVoie, idNumero} = query
+
+  if (!codeCommune) {
     return {props: {}}
   }
 
-  const fields = 'fields=code,nom,codesPostaux,surface,population,centre,contour,departement,region'
-  const codeCommune = query.codeCommune in MLP ? MLP[query.codeCommune] : query.codeCommune
-  const commune = await getCommune(codeCommune, fields)
-  const voiesInfos = await getCommuneExplore(codeCommune)
+  try {
+    const promises = [getCommune(codeCommune)]
 
-  commune.contour = contourToFeatureCollection(commune)
-  commune.voiesInfos = voiesInfos
+    if (idVoie) {
+      promises.push(getVoie(idVoie))
 
-  if (query.idVoie) {
+      if (idNumero) {
+        promises.push(getNumero(idNumero))
+      }
+    }
+
+    const [commune, voie, numero] = await Promise.all(promises)
+
     return {
       props: {
         commune,
-        voie: {nom: query.idVoie}
+        voie: voie || null,
+        numero: numero || null
       }
     }
-  }
-
-  return {
-    props: {
-      commune
+  } catch {
+    return {
+      notFound: true
     }
   }
 }

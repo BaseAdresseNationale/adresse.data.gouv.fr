@@ -11,7 +11,9 @@ function useLoadData(map, isFirstLoad, sources, layers) {
 
   const updateSource = (source, properties) => {
     const {data} = properties
-    source.setData(data)
+    if (data) {
+      source.setData(data)
+    }
   }
 
   const loadSources = useCallback(() => {
