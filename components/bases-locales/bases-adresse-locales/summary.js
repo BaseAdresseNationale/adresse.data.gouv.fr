@@ -19,7 +19,7 @@ class Summary extends React.Component {
     const infos = [
       {
         title: 'Format',
-        value: model === 'bal-aitf' ? 'BAL 1.1 (AITF)' : 'Spécifique',
+        value: model === 'bal-aitf' ? 'BAL (AITF)' : 'Spécifique',
         type: model === 'bal-aitf' ? 'valid' : 'not-valid'
       },
       {

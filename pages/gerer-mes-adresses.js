@@ -81,7 +81,7 @@ function GererMesAdresses() {
         </div>
       </Section>
 
-      <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL 1.1 et connectez vous à la Base Adresse Nationale' background='color'>
+      <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL et connectez vous à la Base Adresse Nationale' background='color'>
         <div className='grid-links'>
           <div className='action-links'>
             <ButtonLink
