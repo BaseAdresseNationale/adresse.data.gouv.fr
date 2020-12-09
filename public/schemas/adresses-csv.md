@@ -6,7 +6,7 @@ Ce format est **largement compatible** avec l'[ancien format CSV](ban-2015.md) q
 
 | Nom du champ | Description | Changements |
 | --- | --- | --- |
-| `id` | Clé d’interopérabilité telle que définie dans la [spécification du format d'échange BAL 1.1](https://cms.geobretagne.fr/sites/default/files/documents/aitf-sig-topo-adresse-fichier-echange-simplifie-v_1.1_0.pdf). Lorsqu'aucun code FANTOIR n'est connu, un code transitoire composé de 6 caractères alpha-numériques est généré. | Passage de l'identifiant BDUNI à la clé d'interopérabilité|
+| `id` | Clé d’interopérabilité telle que définie dans la [spécification du format d'échange BAL 1.2](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.2.pdf). Lorsqu'aucun code FANTOIR n'est connu, un code transitoire composé de 6 caractères alpha-numériques est généré. | Passage de l'identifiant BDUNI à la clé d'interopérabilité|
 | `id_fantoir` | Identifiant FANTOIR de la voie, le cas échant | L'identifiant est préfixé par la commune de rattachement FANTOIR (commune actuelle ou commune ancienne) |
 | `numero` | Numéro de l’adresse dans la voie | |
 | `rep` | Indice de répétition associé au numéro (par exemple `bis`, `a`…) | |
