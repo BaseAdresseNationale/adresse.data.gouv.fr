@@ -45,12 +45,6 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     setStep(2)
   }
 
-  const handlePublicationRequest = () => {
-    setStep(3)
-  }
-
-  const handleSendMail = () => {}
-
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
@@ -117,10 +111,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
           {step === 2 && (
             <Authentification
-              mail={null}
               authenticationUrl={bal.authenticationUrl}
-              sendMail={handleSendMail}
-              publicationRequest={handlePublicationRequest}
             />
           )}
 

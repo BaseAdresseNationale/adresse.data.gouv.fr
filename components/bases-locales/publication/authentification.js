@@ -5,9 +5,7 @@ import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
-import Button from '@/components/button'
-
-const Authentification = React.memo(({mail, sendMail, authenticationUrl, publicationRequest}) => {
+const Authentification = React.memo(({authenticationUrl}) => {
   return (
     <div className='auth-container'>
       <div>
@@ -73,14 +71,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
 })
 
 Authentification.propTypes = {
-  mail: PropTypes.string,
-  authenticationUrl: PropTypes.string.isRequired,
-  sendMail: PropTypes.func.isRequired,
-  publicationRequest: PropTypes.func.isRequired
-}
-
-Authentification.defaultProps = {
-  mail: null
+  authenticationUrl: PropTypes.string.isRequired
 }
 
 export default Authentification
