@@ -15,11 +15,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
         <div className='section'>
           <div className='action column'>
             <p>Je suis un agent de la commune</p>
-            {mail && (
-              <p>Adresse email de la mairie : <b>{mail}</b></p>
-            )}
-            <Button onClick={sendMail} disabled>Recevoir l’email de validation</Button>
-            <div className='disabled'>Bientôt disponible</div>
+            <p>Merci de contacter <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.</p>
           </div>
 
           <div className='action column'>
@@ -35,8 +31,7 @@ const Authentification = React.memo(({mail, sendMail, authenticationUrl, publica
         <h3>Vous n’êtes pas habilité</h3>
         <div className='section column'>
           <p>Je n’ai pas d’habilitation mais je suis en contact avec un élu ou le secrétariat de la commune</p>
-          <Button onClick={publicationRequest} disabled>Demander la publication</Button>
-          <div className='disabled'>Bientôt disponible</div>
+          <p>Merci de contacter <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.</p>
         </div>
       </div>
 
