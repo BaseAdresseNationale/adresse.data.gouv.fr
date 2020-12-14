@@ -48,7 +48,7 @@
     "eslint-config-xo-nextjs": "^1.6.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "xo": "^0.35.0"
+    "xo": "^0.36.1"
   },
   "xo": {
     "extends": "xo-nextjs",
