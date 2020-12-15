@@ -21,26 +21,8 @@ function ExploreSearch() {
   const router = useRouter()
 
   const handleSelect = feature => {
-    const {id, type, citycode, housenumber} = feature.properties
-    const codeCommune = citycode
-    const idVoie = id.split('_').slice(0, 2).join('_')
-    let href = ''
-    let as = ''
-
-    if (type === 'municipality') {
-      href = `/base-adresse-nationale?codeCommune=${codeCommune}`
-      as = `/base-adresse-nationale/commune/${codeCommune}`
-    } else if (type === 'street') {
-      href = `/base-adresse-nationale?codeCommune=${codeCommune}&idVoie=${idVoie}`
-      as = `/base-adresse-nationale/commune/${codeCommune}/voie/${idVoie}`
-    } else if (type === 'housenumber') {
-      const [numero, suffixe] = housenumber.split(' ')
-      const numeroComplet = `${numero}${suffixe || ''}`
-      href = `/base-adresse-nationale?codeCommune=${codeCommune}&idVoie=${idVoie}&numero=${numeroComplet}`
-      as = `/base-adresse-nationale/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
-    }
-
-    router.push(href, as)
+    const {id} = feature.properties
+    router.push(`/base-adresse-nationale/${id}`)
   }
 
   const handleSearch = useCallback(debounce(async input => {

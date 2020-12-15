@@ -42,24 +42,9 @@ app.prepare().then(() => {
     })
   })
 
-  server.get('/base-adresse-nationale/commune/:codeCommune/voie/:idVoie', (request, res) => {
-    app.render(request, res, '/base-adresse-nationale', {
-      ...request.query,
-      codeCommune: request.params.codeCommune,
-      idVoie: request.params.idVoie
-    })
-  })
-
   server.get('/bases-locales/validateur', (request, res) => {
     app.render(request, res, '/bases-locales/validator', {
       ...request.query
-    })
-  })
-
-  server.get('/base-adresse-nationale/commune/:codeCommune', (request, res) => {
-    app.render(request, res, '/base-adresse-nationale', {
-      ...request.query,
-      codeCommune: request.params.codeCommune
     })
   })
 

@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {orderBy} from 'lodash'
-import {Map, Folder, ArrowUp} from 'react-feather'
+import {Map, Folder} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -9,42 +8,19 @@ import Mapbox from '@/components/mapbox'
 import ExploreSearch from '@/components/explorer/explore-search'
 import BanMap from '@/components/mapbox/ban-map'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
-import Commune from '@/components/base-adresse-nationale/commune'
-import VoiesList from '@/components/base-adresse-nationale/voies-list'
+import Explorer from '@/components/base-adresse-nationale/explorer'
 
 const defaultProps = {
-  commune: null,
-  voie: null,
-  numero: null
+  address: null
 }
 
 const propTypes = {
-  commune: PropTypes.object,
-  voie: PropTypes.object,
-  numero: PropTypes.object,
+  address: PropTypes.object,
   bbox: PropTypes.array.isRequired,
   handleSelect: PropTypes.func.isRequired
 }
 
-function SearchMessage() {
-  return (
-    <div className='search-message'>
-      <ArrowUp />
-      <h4>Rechercher une adresse</h4>
-      <style jsx>{`
-        .search-message {
-          display: flex;
-          flex: 1;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        `}</style>
-    </div>
-  )
-}
-
-export function Mobile({commune, voie, numero, bbox, handleSelect}) {
+export function Mobile({address, bbox, handleSelect}) {
   const [showOverlay, setShowOverlay] = useState(false)
   const [selectedLayout, setSelectedLayout] = useState('map')
 
@@ -62,12 +38,7 @@ export function Mobile({commune, voie, numero, bbox, handleSelect}) {
       )}
 
       <div className='explorer'>
-        {commune ? (
-          <>
-            <Commune {...commune} isShowDetails={!voie} />
-            <VoiesList voies={orderBy(commune.voies, 'nomVoie', 'asc')} nbVoies={commune.nbVoies} selectedVoie={voie} />
-          </>
-        ) : <SearchMessage />}
+        <Explorer address={address} handleSelect={handleSelect} />
       </div>
 
       <div className='layouts-selector'>
@@ -92,7 +63,7 @@ export function Mobile({commune, voie, numero, bbox, handleSelect}) {
           position: relative;
           display: flex;
           flex-direction: column;
-          height: calc(100vh - 73px);
+          height: calc(100vh - 77px);
         }
 
         .overlay {
@@ -130,22 +101,14 @@ export function Mobile({commune, voie, numero, bbox, handleSelect}) {
 Mobile.defaultProps = defaultProps
 Mobile.propTypes = propTypes
 
-export function Desktop({commune, voie, numero, bbox, handleSelect}) {
+export function Desktop({address, bbox, handleSelect}) {
   return (
     <div className='ban-container'>
       <div className='sidebar'>
         <div className='search'>
           <ExploreSearch />
         </div>
-        {commune ? (
-          <>
-            <Commune {...commune} isShowDetails={!voie} />
-            <VoiesList voies={orderBy(commune.voies, 'nomVoie', 'asc')} nbVoies={commune.nbVoies} selectedVoie={voie} />
-          </>
-        ) : (
-          <SearchMessage />
-        )}
-
+        <Explorer address={address} handleSelect={handleSelect} />
         <div className='footer' />
       </div>
 
@@ -159,7 +122,7 @@ export function Desktop({commune, voie, numero, bbox, handleSelect}) {
         .ban-container {
           position: relative;
           display: flex;
-          height: calc(100vh - 73px);
+          height: calc(100vh - 77px);
         }
 
         .sidebar {
@@ -168,7 +131,6 @@ export function Desktop({commune, voie, numero, bbox, handleSelect}) {
           z-index: 1;
           min-width: 400px;
           box-shadow: 2px 0px 10px #0000008a;
-          height: calc(100vh - 73px);
           padding: 0 0.5em;
         }
 

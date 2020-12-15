@@ -1,11 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {orderBy} from 'lodash'
 import {Users} from 'react-feather'
 
-import PostalCodes from './postal-codes'
-import Certification from './certification'
+import PostalCodes from '../postal-codes'
+import Certification from '../certification'
+import AddressesList from '../addresses-list'
 
-function Commune({nomCommune, codeCommune, region, departement, typeComposition, population, codesPostaux, isShowDetails}) {
+import VoiesList from './voies-list'
+import Voie from './voie'
+
+function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, population, codesPostaux, handleSelect}) {
   return (
     <div>
       <div className='heading'>
@@ -18,14 +23,25 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         </div>
       </div>
 
-      {isShowDetails && (
-        <div className='details'>
-          <PostalCodes codes={codesPostaux} />
-          <div className='with-icon'>
-            <Users /> <div><b>{population}</b> habitants</div>
-          </div>
+      <div className='details'>
+        <PostalCodes codes={codesPostaux} />
+        <div className='with-icon'>
+          <Users /> <div><b>{population}</b> habitants</div>
         </div>
-      )}
+      </div>
+
+      <AddressesList
+        title='Voie de la commune'
+        subtitle={`${nbVoies} voies répertoriées`}
+        placeholder={`Rechercher une voie à ${nomCommune}`}
+        addresses={voies}
+        filterProp='nomVoie'
+        addressComponent={voie => (
+          <Voie {...voie} handleSelect={handleSelect} />
+        )}
+      />
+
+      <VoiesList voies={orderBy(voies, 'nomVoie', 'asc')} nbVoies={nbVoies} selectVoie={handleSelect} />
 
       <style jsx>{`
         .heading {
@@ -61,6 +77,8 @@ Commune.propTypes = {
   nomCommune: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   typeComposition: PropTypes.string.isRequired,
+  voies: PropTypes.array.isRequired,
+  nbVoies: PropTypes.number.isRequired,
   region: PropTypes.shape({
     nom: PropTypes.string.isRequired
   }).isRequired,
@@ -70,7 +88,7 @@ Commune.propTypes = {
   }).isRequired,
   population: PropTypes.number.isRequired,
   codesPostaux: PropTypes.array.isRequired,
-  isShowDetails: PropTypes.bool.isRequired
+  handleSelect: PropTypes.func.isRequired
 }
 
 export default Commune

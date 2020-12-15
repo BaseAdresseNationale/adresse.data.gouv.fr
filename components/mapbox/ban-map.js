@@ -52,6 +52,7 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
     map.on('mouseleave', 'adresse-label', onLeave)
 
     map.on('click', 'adresse', e => handleClick(e, onSelect))
+    map.on('click', 'adresse-label', e => handleClick(e, onSelect))
     map.on('click', 'voie', e => handleClick(e, onSelect))
     map.on('click', 'toponyme', e => handleClick(e, onSelect))
 
@@ -63,6 +64,9 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
       map.off('mouseleave', 'adresse-label', onLeave)
 
       map.off('click', 'adresse', e => handleClick(e, onSelect))
+      map.off('click', 'adresse-label', e => handleClick(e, onSelect))
+      map.off('click', 'voie', e => handleClick(e, onSelect))
+      map.off('click', 'toponyme', e => handleClick(e, onSelect))
     }
 
     // No dependency in order to mock a didMount and avoid duplicating events.

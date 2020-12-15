@@ -1,26 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {orderBy} from 'lodash'
+import {ArrowUp} from 'react-feather'
 
 import Commune from './commune'
-import VoiesList from './voies-list'
+import Voie from './voie'
+import Numero from './numero'
 
-function Explorer({commune, voie, numero}) {
-  const {voies, nbVoies} = commune
+const ADDRESSTYPES = {
+  commune: Commune,
+  voie: Voie,
+  'lieu-dit': Voie
+}
 
-  if (!commune) {
-    return null
+function SearchMessage() {
+  return (
+    <div className='search-message'>
+      <ArrowUp />
+      <h4>Rechercher une adresse</h4>
+      <style jsx>{`
+        .search-message {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        `}</style>
+    </div>
+  )
+}
+
+function Explorer({address, handleSelect}) {
+  if (!address) {
+    return <SearchMessage />
   }
+
+  const Address = ADDRESSTYPES[address.type] || Numero
 
   return (
     <div className='explorer-container'>
-      <Commune {...commune} isShowDetails={!voie} />
-      <VoiesList voies={orderBy(voies, 'nomVoie', 'asc')} nbVoies={nbVoies} selectedVoie={voie} />
+      <Address {...address} handleSelect={handleSelect} />
 
       <style jsx>{`
         .explorer-container {
           height: 100%;
-          padding: 0.5em;
+          overflow-y: auto;
         }
       `}</style>
     </div>
@@ -28,15 +52,16 @@ function Explorer({commune, voie, numero}) {
 }
 
 Explorer.defaultProps = {
-  commune: null,
-  voie: null,
-  numero: null
+  address: null
 }
 
 Explorer.propTypes = {
-  commune: PropTypes.object,
-  voie: PropTypes.object,
-  numero: PropTypes.object
+  address: PropTypes.shape({
+    type: PropTypes.oneOf(['commune', 'voie', 'numero']),
+    voies: PropTypes.array,
+    nbVoies: PropTypes.number
+  }),
+  handleSelect: PropTypes.func.isRequired
 }
 
 export default Explorer

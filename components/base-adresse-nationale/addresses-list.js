@@ -1,6 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 import {Search} from 'react-feather'
 
@@ -10,61 +9,34 @@ import {byText} from '@/lib/filters'
 
 import Loader from '@/components/loader'
 
-import Voie from './voie'
-
-function VoiesList({voies, nbVoies, selectedVoie}) {
+function AddressesList({title, subtitle, placeholder, addresses, filterProp, addressComponent}) {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [filteredList, setFilteredList] = useState(voies)
-
-  const router = useRouter()
-
-  const handleSelect = idVoie => {
-    const [codeCommune] = idVoie.split('_')
-    let href = `/base-adresse-nationale?codeCommune=${codeCommune}`
-    let as = `/base-adresse-nationale/commune/${codeCommune}`
-
-    if (selectedVoie && selectedVoie.idVoie === idVoie) {
-      setInput('')
-      router.push(href, as)
-    } else {
-      href += `&idVoie=${idVoie}`
-      as += `/voie/${idVoie}`
-
-      router.push(href, as)
-    }
-  }
+  const [filteredList, setFilteredList] = useState(addresses)
 
   const debounceSearch = useCallback(debounce(input => {
-    const filteredList = voies.filter(({nomVoie}) => byText(nomVoie, input))
+    const filteredList = addresses.filter(address => byText(address[filterProp], input))
     setFilteredList(filteredList)
     setIsLoading(false)
-  }, 300), [voies])
+  }, 300), [addresses])
 
   useEffect(() => {
     setIsLoading(true)
     debounceSearch(input)
-  }, [voies, input, debounceSearch])
-
-  useEffect(() => {
-    if (selectedVoie) {
-      window.location.href = `${router.asPath}#${selectedVoie.idVoie}`
-      history.replaceState(null, null, router.asPath)
-    }
-  }, [router, selectedVoie])
+  }, [addresses, input, debounceSearch])
 
   return (
-    <div className='voies'>
-      <div className='voies-heading'>
+    <div className='addresses'>
+      <div className='addresses-heading'>
         <div className='title'>
-          <h5>Voies de la commune</h5>
-          <div>{nbVoies} voies répertoriées</div>
+          <h5>{title}</h5>
+          <div>{subtitle}</div>
         </div>
         <div className='search-input'>
           <div className='search-icon'><Search size={18} /></div>
           <input
             type='text'
-            placeholder='Rechercher une voie'
+            placeholder={placeholder || 'Recherche'}
             value={input}
             onChange={e => setInput(e.target.value)}
           />
@@ -72,36 +44,30 @@ function VoiesList({voies, nbVoies, selectedVoie}) {
         </div>
       </div>
 
-      <div className='voies-list'>
+      <div className='addresses-list'>
         {filteredList.length > 0 ?
-          filteredList.map(voie => (
-            <div key={voie.idVoie} className='voie-list'>
-              <Voie
-                {...voie}
-                numeros={selectedVoie && selectedVoie.idVoie === voie.idVoie ? selectedVoie.numeros : null}
-                handleClick={() => handleSelect(voie.idVoie)}
-              />
+          filteredList.map(address => (
+            <div key={address.id} className='address-list'>
+              {addressComponent(address)}
             </div>
           )) : (
-            <div className='no-result'>Aucune voie trouvée</div>
+            <div className='no-result'>Aucun résultat</div>
           )}
       </div>
 
       <style jsx>{`
-        .voies {
+        .addresses {
           flex: 1;
           display: flex;
           flex-direction: column;
-          overflow: auto;
         }
 
-        .voies-list {
+        .addresses-list {
           display: flex;
           flex-direction: column;
-          overflow-y: auto;
         }
 
-        .voies-heading {
+        .addresses-heading {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -113,7 +79,7 @@ function VoiesList({voies, nbVoies, selectedVoie}) {
           justify-content: space-between;
         }
 
-        .voies-heading h5 {
+        .addresses-heading h5 {
           margin-bottom: 0.5em;
         }
 
@@ -130,11 +96,7 @@ function VoiesList({voies, nbVoies, selectedVoie}) {
           color: ${theme.colors.darkGrey};
         }
 
-        .voies-list {
-          overflow-y: auto;
-        }
-
-        .voie-list:nth-child(even) {
+        .address-list:nth-child(even) {
           background-color: ${theme.backgroundGrey};
         }
 
@@ -158,14 +120,13 @@ function VoiesList({voies, nbVoies, selectedVoie}) {
   )
 }
 
-VoiesList.propTypes = {
-  selectedVoie: null
+AddressesList.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  addresses: PropTypes.array.isRequired,
+  filterProp: PropTypes.string.isRequired,
+  addressComponent: PropTypes.func.isRequired
 }
 
-VoiesList.propTypes = {
-  voies: PropTypes.array.isRequired,
-  nbVoies: PropTypes.number.isRequired,
-  selectedVoie: PropTypes.object
-}
-
-export default VoiesList
+export default AddressesList

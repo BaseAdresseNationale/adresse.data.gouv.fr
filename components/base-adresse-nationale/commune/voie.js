@@ -1,24 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import NumerosList from './numeros-list'
+import Tag from '@/components/tag'
 
-function Voie({idVoie, nomVoie, nbNumeros, numeros, handleClick}) {
+function Voie({type, nomVoie, nbNumeros, handleClick}) {
   return (
-    <div id={idVoie} onClick={handleClick}>
-      <div className={`voie ${numeros ? 'selected' : ''}`}>
-        <div><b>{nomVoie}</b></div>
-        <div>{nbNumeros} numéros</div>
-        <div>{numeros ? <ChevronDown /> : <ChevronUp />}</div>
-      </div>
-      {numeros && (
-        <div className='numeros-list'>
-          <NumerosList numeros={numeros} />
+    <div onClick={handleClick}>
+      <div className='voie'>
+        <div>
+          <div><b>{nomVoie}</b></div>
+          <div className='numeros'>{nbNumeros} numéros</div>
         </div>
-      )}
+        {type === 'lieu-dit' && <Tag type='lieu-dit' />}
+      </div>
 
       <style jsx>{`
         .voie {
@@ -30,9 +26,13 @@ function Voie({idVoie, nomVoie, nbNumeros, numeros, handleClick}) {
           cursor: pointer;
         }
 
-        .voie:hover, .selected {
+        .voie:hover {
           background-color: ${theme.primary};
           color: #fff;
+        }
+
+        .numeros {
+          font-size: small;
         }
 
         .numeros-list {
@@ -45,14 +45,9 @@ function Voie({idVoie, nomVoie, nbNumeros, numeros, handleClick}) {
 }
 
 Voie.propTypes = {
-  numeros: null
-}
-
-Voie.propTypes = {
-  idVoie: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['voie', 'lieu-dit']),
   nomVoie: PropTypes.string.isRequired,
   nbNumeros: PropTypes.number.isRequired,
-  numeros: PropTypes.array,
   handleClick: PropTypes.func.isRequired
 }
 
