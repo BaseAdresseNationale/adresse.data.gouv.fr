@@ -4,6 +4,8 @@ import Head from 'next/head'
 import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 
+import vector from './styles/vector.json'
+
 import Notification from '../notification'
 
 import SwitchMapStyle from './switch-map-style'
@@ -16,7 +18,7 @@ const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 4.4
 
 const STYLES = {
-  vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
+  vector,
   ortho: {
     version: 8,
     glyphs: 'https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf',
