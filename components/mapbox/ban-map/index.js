@@ -1,40 +1,23 @@
-import React, {useCallback, useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {renderToString} from 'react-dom/server'
 
-import {sources, adresseCircleLayer, adresseLabelLayer, voieLayer, toponymeLayer} from '@/components/base-adresse-nationale/layers'
-
-const popupHTML = ({numero, suffixe, nomVoie, nomCommune, codeCommune, sourcePosition, sourceNomVoie}) => {
-  const position = sources[sourcePosition]
-  const nom = sources[sourceNomVoie]
-  return renderToString(
-    <div>
-      <p>
-        <b>{numero}{suffixe} {nomVoie}, {nomCommune} {codeCommune}</b>
-      </p>
-      <div>Nom : <span style={{color: nom.color}}>{nom.name}</span></div>
-      <div>Position : <span style={{color: position.color}}>{position.name}</span></div>
-    </div>
-  )
-}
-
-const numeros = features => {
-  return features.map(({properties}) => popupHTML(properties))
-}
+import {adresseCircleLayer, adresseLabelLayer, voieLayer, toponymeLayer} from './layers'
+import popupFeatures from './popups'
 
 function BanMap({map, popup, setSources, setLayers, onSelect}) {
   const onLeave = useCallback(() => {
     popup.remove()
-  }, [popup])
+    map.getCanvas().style.cursor = 'grab'
+  }, [map, popup])
 
   const onHover = useCallback(e => {
     if (e.features.length > 0) {
       map.getCanvas().style.cursor = 'pointer'
       popup.setLngLat(e.lngLat)
-        .setHTML(numeros(e.features))
+        .setHTML(popupFeatures(e.features))
         .addTo(map)
     } else {
-      map.getCanvas().style.cursor = 'default'
+      map.getCanvas().style.cursor = 'grab'
       popup.remove()
     }
   }, [map, popup])
@@ -46,10 +29,14 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
 
   useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
-    map.on('mouseleave', 'adresse', onLeave)
-
     map.on('mousemove', 'adresse-label', onHover)
+    map.on('mousemove', 'voie', onHover)
+    map.on('mousemove', 'toponyme', onHover)
+
+    map.on('mouseleave', 'adresse', onLeave)
     map.on('mouseleave', 'adresse-label', onLeave)
+    map.on('mouseleave', 'voie', onLeave)
+    map.on('mouseleave', 'toponyme', onLeave)
 
     map.on('click', 'adresse', e => handleClick(e, onSelect))
     map.on('click', 'adresse-label', e => handleClick(e, onSelect))
@@ -58,9 +45,13 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
 
     return () => {
       map.off('mousemove', 'adresse', onHover)
-      map.off('mouseleave', 'adresse', onLeave)
-
       map.off('mousemove', 'adresse-label', onHover)
+      map.off('mousemove', 'voie', onHover)
+      map.off('mousemove', 'toponyme', onHover)
+
+      map.off('mouseleave', 'adresse', onLeave)
+      map.off('mouseleave', 'adresse-label', onLeave)
+      map.off('mouseleave', 'adresse', onLeave)
       map.off('mouseleave', 'adresse-label', onLeave)
 
       map.off('click', 'adresse', e => handleClick(e, onSelect))
