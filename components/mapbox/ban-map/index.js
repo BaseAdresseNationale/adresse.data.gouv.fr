@@ -67,7 +67,12 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
     setSources([{
       name: 'ban-adresse-nationale',
       type: 'vector',
-      url: 'https://openmaptiles.geo.data.gouv.fr/data/adresses.json',
+      format: 'pbf',
+      tiles: [
+        'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
+      ],
+      minzoom: 10,
+      maxzoom: 14,
       generateId: true
     }])
     setLayers([
