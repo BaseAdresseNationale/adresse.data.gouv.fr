@@ -2,7 +2,7 @@ import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 
-import {getAddress} from '@/lib/explore/api'
+import {getAddress} from '@/lib/api-ban'
 
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'

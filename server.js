@@ -18,30 +18,6 @@ app.prepare().then(() => {
     app.render(request, res, '/contact')
   })
 
-  server.get('/explore/commune/:code', (request, res) => {
-    app.render(request, res, '/explore/commune', {
-      ...request.query,
-      codeCommune: request.params.code
-    })
-  })
-
-  server.get('/explore/commune/:codeCommune/voie/:idVoie', (request, res) => {
-    app.render(request, res, '/explore/commune/voie', {
-      ...request.query,
-      codeCommune: request.params.codeCommune,
-      idVoie: request.params.idVoie
-    })
-  })
-
-  server.get('/explore/commune/:codeCommune/voie/:idVoie/numero/:numero', (request, res) => {
-    app.render(request, res, '/explore/commune/voie', {
-      ...request.query,
-      codeCommune: request.params.codeCommune,
-      idVoie: request.params.idVoie,
-      numero: request.params.numero
-    })
-  })
-
   server.get('/bases-locales/validateur', (request, res) => {
     app.render(request, res, '/bases-locales/validator', {
       ...request.query

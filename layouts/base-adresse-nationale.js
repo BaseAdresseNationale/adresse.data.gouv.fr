@@ -5,7 +5,7 @@ import {Map, Folder} from 'react-feather'
 import theme from '@/styles/theme'
 
 import Mapbox from '@/components/mapbox'
-import ExploreSearch from '@/components/explorer/explore-search'
+import BanSearch from '@/components/ban-search'
 import BanMap from '@/components/mapbox/ban-map'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
@@ -26,7 +26,7 @@ export function Mobile({address, bbox, handleSelect}) {
 
   return (
     <div className='ban-container'>
-      <ExploreSearch />
+      <BanSearch />
 
       <Mapbox bbox={bbox} switchStyle>
         {({...mapboxProps}) => (
@@ -106,7 +106,7 @@ export function Desktop({address, bbox, handleSelect}) {
     <div className='ban-container'>
       <div className='sidebar'>
         <div className='search'>
-          <ExploreSearch />
+          <BanSearch />
         </div>
         <Explorer address={address} handleSelect={handleSelect} />
         <div className='footer' />

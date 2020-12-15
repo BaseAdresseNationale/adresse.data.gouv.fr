@@ -4,14 +4,14 @@ import {debounce} from 'lodash'
 
 import theme from '@/styles/theme'
 
-import {search} from '@/lib/explore/api'
-import {useInput} from '../../hooks/input'
+import {search} from '@/lib/api-adresse'
+import {useInput} from '../hooks/input'
 
 import SearchInput from '@/components/search-input'
 import Notification from '@/components/notification'
 import renderAddok from '@/components/search-input/render-addok'
 
-function ExploreSearch() {
+function BanSearch() {
   const [input, setInput] = useInput('')
   const [results, setResults] = useState([])
   const [orderResults, setOrderResults] = useState([])
@@ -27,7 +27,7 @@ function ExploreSearch() {
 
   const handleSearch = useCallback(debounce(async input => {
     try {
-      const results = await search(input)
+      const results = await search({q: input})
       setResults(
         results.features
           .filter(({properties}) => !['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
@@ -105,4 +105,4 @@ function ExploreSearch() {
   )
 }
 
-export default ExploreSearch
+export default BanSearch
