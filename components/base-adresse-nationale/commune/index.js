@@ -18,7 +18,11 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           <div>{region.nom} - {departement.nom} ({departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
-          <Certification isCertified={typeComposition === 'bal'} subject='Les adresses' />
+          <Certification
+            isCertified={typeComposition === 'bal'}
+            certifiedMessage='Les adresses sont certifiées par la commune'
+            notCertifiedMessage='Les adresses ne sont pas certifiées par la commune'
+          />
         </div>
       </div>
 

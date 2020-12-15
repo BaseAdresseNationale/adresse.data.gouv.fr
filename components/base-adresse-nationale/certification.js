@@ -4,18 +4,18 @@ import {CheckCircle, XOctagon} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function Certification({isCertified, iconSize, subject}) {
+function Certification({isCertified, certifiedMessage, notCertifiedMessage, iconSize}) {
   return (
     <>
       {isCertified ? (
         <div className='certified tooltip'>
           <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.successBorder} size={iconSize} />
-          <span className='tooltip-text'>{subject} de cette commune sont certifiées</span>
+          <span className='tooltip-text'>{certifiedMessage}</span>
         </div >
       ) : (
         <div className='certified tooltip'>
           <XOctagon style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.warningBorder} size={iconSize} />
-          <span className='tooltip-text'>{subject} de cette commune ne sont pas certifiées</span>
+          <span className='tooltip-text'>{notCertifiedMessage}</span>
         </div>
       )}
       <style jsx>{`
@@ -71,7 +71,8 @@ Certification.propTypes = {
 
 Certification.propTypes = {
   isCertified: PropTypes.bool.isRequired,
-  subject: PropTypes.string.isRequired,
+  certifiedMessage: PropTypes.string.isRequired,
+  notCertifiedMessage: PropTypes.string.isRequired,
   iconSize: PropTypes.number
 }
 

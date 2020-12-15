@@ -14,7 +14,11 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
           <div>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
-          <Certification isCertified={sourcePosition === 'bal'} subject='Les adresses' />
+          <Certification
+            isCertified={sourcePosition === 'bal'}
+            certifiedMessage='Ce numéro est certifié par la commune'
+            notCertifiedMessage='Ce numéro n’est pas certifié par la commune'
+          />
         </div>
       </div>
 
