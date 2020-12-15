@@ -30,7 +30,7 @@ function SearchMessage() {
   )
 }
 
-function Explorer({address, handleSelect}) {
+function Explorer({address}) {
   if (!address) {
     return <SearchMessage />
   }
@@ -39,7 +39,7 @@ function Explorer({address, handleSelect}) {
 
   return (
     <div className='explorer-container'>
-      <Address {...address} handleSelect={handleSelect} />
+      <Address {...address} />
 
       <style jsx>{`
         .explorer-container {
@@ -57,11 +57,10 @@ Explorer.defaultProps = {
 
 Explorer.propTypes = {
   address: PropTypes.shape({
-    type: PropTypes.oneOf(['commune', 'voie', 'numero']),
+    type: PropTypes.oneOf(['commune', 'voie', 'lieu-dit', 'numero']),
     voies: PropTypes.array,
     nbVoies: PropTypes.number
-  }),
-  handleSelect: PropTypes.func.isRequired
+  })
 }
 
 export default Explorer

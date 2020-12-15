@@ -7,10 +7,9 @@ import PostalCodes from '../postal-codes'
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
 
-import VoiesList from './voies-list'
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, population, codesPostaux, handleSelect}) {
+function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, population, codesPostaux}) {
   return (
     <div>
       <div className='heading'>
@@ -34,14 +33,12 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         title='Voie de la commune'
         subtitle={`${nbVoies} voies répertoriées`}
         placeholder={`Rechercher une voie à ${nomCommune}`}
-        addresses={voies}
+        addresses={orderBy(voies, 'nomVoie', 'asc')}
         filterProp='nomVoie'
         addressComponent={voie => (
-          <Voie {...voie} handleSelect={handleSelect} />
+          <Voie {...voie} />
         )}
       />
-
-      <VoiesList voies={orderBy(voies, 'nomVoie', 'asc')} nbVoies={nbVoies} selectVoie={handleSelect} />
 
       <style jsx>{`
         .heading {
@@ -87,8 +84,7 @@ Commune.propTypes = {
     nom: PropTypes.string.isRequired
   }).isRequired,
   population: PropTypes.number.isRequired,
-  codesPostaux: PropTypes.array.isRequired,
-  handleSelect: PropTypes.func.isRequired
+  codesPostaux: PropTypes.array.isRequired
 }
 
 export default Commune

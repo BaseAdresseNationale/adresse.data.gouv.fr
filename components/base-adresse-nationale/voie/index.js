@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 import Tag from '@/components/tag'
 
 import AddressesList from '../addresses-list'
 import Numero from './numero'
 
-function Voie({idVoie, type, nomVoie, commune, numeros, nbNumeros, handleSelect}) {
+function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
@@ -15,7 +16,7 @@ function Voie({idVoie, type, nomVoie, commune, numeros, nbNumeros, handleSelect}
       <div className='heading'>
         <div>
           <h2>{nomVoie}</h2>
-          {commune && <h4>{commune.nom} {commune.code}</h4>}
+          {commune && <h4><Link href={`${commune.id}`}><a>{commune.nom} {commune.code}</a></Link></h4>}
           {region && departement && (
             <div>{region.nom} - {departement.nom} ({departement.code})</div>
           )}
@@ -33,7 +34,7 @@ function Voie({idVoie, type, nomVoie, commune, numeros, nbNumeros, handleSelect}
             placeholder='Rechercher un numéro'
             filterProp='numero'
             addressComponent={numero => (
-              <Numero numero={numero} handleSelect={handleSelect} />
+              <Numero {...numero} />
             )}
           />
         </div>
@@ -57,24 +58,22 @@ function Voie({idVoie, type, nomVoie, commune, numeros, nbNumeros, handleSelect}
 
 Voie.propTypes = {
   commune: null,
-  region: null,
-  departement: null,
-  numeros: null
+  numeros: null,
+  nbNumeros: null
 }
 
 Voie.propTypes = {
-  idVoie: PropTypes.string.isRequired,
-  idVoie: PropTypes.string.isRequired,
   nomVoie: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['voie', 'lieu-dit']),
   commune: PropTypes.shape({
+    id: PropTypes.string,
     nom: PropTypes.string,
     code: PropTypes.string,
     region: PropTypes.object,
     departement: PropTypes.object
   }),
-  nbNumeros: PropTypes.number.isRequired,
-  numeros: PropTypes.array,
-  handleSelect: PropTypes.func.isRequired
+  nbNumeros: PropTypes.number,
+  numeros: PropTypes.array
 }
 
 export default Voie

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 import Certification from '../certification'
 
@@ -8,8 +9,8 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
     <div>
       <div className='heading'>
         <div>
-          <h2>{numero}{suffixe} {voie.nomVoie}</h2>
-          <h4>{commune.nom} - {commune.code}</h4>
+          <h2>{numero}{suffixe} <Link href={`${voie.id}`}><a>{voie.nomVoie}</a></Link></h2>
+          {commune && <h4><Link href={`${commune.id}`}><a>{commune.nom} {commune.code}</a></Link></h4>}
           <div>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
@@ -52,12 +53,14 @@ Numero.propTypes = {
   suffixe: PropTypes.string,
   sourcePosition: PropTypes.string.isRequired,
   commune: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired,
     region: PropTypes.object,
     departement: PropTypes.object
   }).isRequired,
   voie: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired
   })
 }
