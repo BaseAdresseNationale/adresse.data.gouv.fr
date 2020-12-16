@@ -6,7 +6,7 @@ import Certification from '../certification'
 
 function Numero({numero, suffixe, sourcePosition, commune, voie}) {
   return (
-    <div>
+    <>
       <div className='heading'>
         <div>
           <h2>{numero}{suffixe} <Link href={`${voie.id}`}><a>{voie.nomVoie}</a></Link></h2>
@@ -24,7 +24,8 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
 
       <style jsx>{`
         .heading {
-          display: flex;
+          display: grid;
+          grid-template-columns: 3fr 1fr;
           justify-content: space-between;
           align-items: center;
           margin: 1.2em 0;
@@ -33,22 +34,8 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
         .heading h2 {
           margin-bottom: 0.2em;
         }
-
-        .details {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 1em;
-        }
-
-        .with-icon {
-          display: flex;
-        }
-
-        .with-icon > div {
-          margin-left: 0.4em;
-        }
       `}</style>
-    </div>
+    </>
   )
 }
 

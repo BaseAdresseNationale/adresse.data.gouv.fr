@@ -45,6 +45,7 @@ function Explorer({address}) {
         .explorer-container {
           height: 100%;
           overflow-y: auto;
+          overflow-x: hidden;
         }
       `}</style>
     </div>

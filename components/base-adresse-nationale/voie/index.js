@@ -12,7 +12,7 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
   const {region, departement} = commune
 
   return (
-    <div>
+    <>
       <div className='heading'>
         <div>
           <h2>{nomVoie}</h2>
@@ -52,7 +52,7 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
           margin-bottom: 0.2em;
         }
         `}</style>
-    </div>
+    </>
   )
 }
 

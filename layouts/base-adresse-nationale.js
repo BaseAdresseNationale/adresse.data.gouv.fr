@@ -17,10 +17,11 @@ const defaultProps = {
 const propTypes = {
   address: PropTypes.object,
   bbox: PropTypes.array.isRequired,
+  viewHeight: PropTypes.string.isRequired,
   handleSelect: PropTypes.func.isRequired
 }
 
-export function Mobile({address, bbox, handleSelect}) {
+export function Mobile({address, bbox, viewHeight, handleSelect}) {
   const [showOverlay, setShowOverlay] = useState(false)
   const [selectedLayout, setSelectedLayout] = useState('map')
 
@@ -28,17 +29,21 @@ export function Mobile({address, bbox, handleSelect}) {
     <div className='ban-container'>
       <BanSearch />
 
-      <Mapbox bbox={bbox} switchStyle>
-        {({...mapboxProps}) => (
-          <BanMap {...mapboxProps} onSelect={handleSelect} />
+      <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
+        <Mapbox bbox={bbox} switchStyle>
+          {({...mapboxProps}) => (
+            <BanMap {...mapboxProps} onSelect={handleSelect} />
+          )}
+        </Mapbox>
+        {showOverlay && (
+          <div className='overlay' />
         )}
-      </Mapbox>
-      {showOverlay && (
-        <div className='overlay' />
-      )}
+      </div>
 
-      <div className='explorer'>
-        <Explorer address={address} handleSelect={handleSelect} />
+      <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
+        <div className='explorer'>
+          <Explorer address={address} handleSelect={handleSelect} />
+        </div>
       </div>
 
       <div className='layouts-selector'>
@@ -60,10 +65,32 @@ export function Mobile({address, bbox, handleSelect}) {
 
       <style jsx>{`
         .ban-container {
-          position: relative;
+          position: absolute;
+          top: 77px;
+          bottom: 0;
           display: flex;
           flex-direction: column;
-          height: calc(100vh - 77px);
+          width: 100%;
+          height: ${viewHeight};
+        }
+
+        @media (max-width: 380px) {
+          .ban-container {
+            top: 67px;
+          }
+        }
+
+        .mobile-container {
+          width: 100%;
+          height: calc(${viewHeight} + 79px);
+        }
+
+        .show {
+          display: block;
+        }
+
+        .hidden {
+          display: none;
         }
 
         .overlay {
@@ -71,17 +98,11 @@ export function Mobile({address, bbox, handleSelect}) {
         }
 
         .explorer {
-          z-index: 998;
-          height: calc(100vh - 188px);
-          position: absolute;
-          top: 56px; // Searchbar height
-          bottom: 62px;
-          visibility: ${selectedLayout === 'map' ? 'hidden' : 'visible'};
           display: flex;
           flex-direction: column;
-          flex: 1;
-          padding: 0 0.5em;
-          overflow: auto;
+          width: 100%;
+          height: 100%;
+          padding: 1em 0.5em;
           background-color: #fff;
         }
 
@@ -120,7 +141,6 @@ export function Desktop({address, bbox, handleSelect}) {
 
       <style jsx>{`
         .ban-container {
-          position: relative;
           display: flex;
           height: calc(100vh - 77px);
         }

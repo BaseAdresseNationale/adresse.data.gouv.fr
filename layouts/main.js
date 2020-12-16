@@ -25,7 +25,7 @@ class Layout extends React.Component {
     const {title, description, children, hasFooter} = this.props
 
     return (
-      <div>
+      <>
         <Meta title={title} description={description} />
         <IEWarning />
         <Header />
@@ -35,18 +35,12 @@ class Layout extends React.Component {
         {hasFooter && <Footer />}
 
         <style jsx>{`
-          div {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #fff;
-          }
-
           main {
             flex: 1;
+            background-color: #fff;
           }
         `}</style>
-      </div>
+      </>
     )
   }
 }

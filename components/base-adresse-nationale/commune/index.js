@@ -11,7 +11,7 @@ import Voie from './voie'
 
 function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, population, codesPostaux}) {
   return (
-    <div>
+    <>
       <div className='heading'>
         <div>
           <h2>{nomCommune} - {codeCommune}</h2>
@@ -70,7 +70,7 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           margin-left: 0.4em;
         }
       `}</style>
-    </div>
+    </>
   )
 }
 

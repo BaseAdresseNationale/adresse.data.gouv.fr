@@ -10,12 +10,14 @@ import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 const MOBILE_WIDTH = 800
 
 function BaseAdresseNationale({address}) {
+  const [viewHeight, setViewHeight] = useState('100vh')
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
 
   const handleResize = () => {
+    setViewHeight(`${window.innerWidth}px`)
     setIsMobileDevice(window.innerWidth < MOBILE_WIDTH)
   }
 
@@ -24,11 +26,8 @@ function BaseAdresseNationale({address}) {
   }, [router])
 
   useEffect(() => {
-    if (window.innerWidth < MOBILE_WIDTH) {
-      setIsMobileDevice(true)
-    }
-
     window.addEventListener('resize', handleResize)
+    handleResize()
 
     return () => {
       window.removeEventListener('resize', handleResize)
@@ -37,7 +36,12 @@ function BaseAdresseNationale({address}) {
 
   return (
     <Page title='Base Adresse Nationale' description='Consultez les adresses de la Base Adresse Nationale' hasFooter={false}>
-      <Layout address={address} bbox={address ? address.displayBBox : null} handleSelect={selectAddress} />
+      <Layout
+        address={address}
+        bbox={address ? address.displayBBox : null}
+        viewHeight={viewHeight}
+        handleSelect={selectAddress}
+      />
     </Page>
   )
 }
