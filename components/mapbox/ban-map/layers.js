@@ -1,3 +1,5 @@
+import theme from '@/styles/theme'
+
 export const sources = {
   bal: {name: 'Base Adresse Locale (Commune)', color: '#4dac26'},
   cadastre: {name: 'Cadastre (DGFiP)', color: '#2c7bb6'},
@@ -34,6 +36,18 @@ export const adresseCircleLayer = {
         return [key, color]
       })
     },
+    'circle-stroke-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ],
+    'circle-stroke-width': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      2,
+      0
+    ],
     'circle-radius': {
       stops: [
         [12, 0.8],
@@ -58,15 +72,20 @@ export const adresseLabelLayer = {
         return [key, color]
       })
     },
-    'text-halo-color': '#ffffff',
+    'text-halo-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ],
     'text-halo-width': 1
   },
   layout: {
     'text-font': ['Noto Sans Bold'],
     'text-size': {
       stops: [
-        [NUMEROS_MIN, 10],
-        [20, 15]
+        [NUMEROS_MIN, 13],
+        [19, 16]
       ]
     },
     'text-field': [
@@ -98,9 +117,19 @@ export const voieLayer = {
   minzoom: VOIE_MIN,
   maxzoom: VOIE_MAX,
   paint: {
-    'text-color': VOIE_COLOR,
-    'text-halo-color': '#ffffff',
-    'text-halo-width': 2
+    'text-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      '#fff',
+      VOIE_COLOR
+    ],
+    'text-halo-width': 2,
+    'text-halo-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ]
   },
   layout: {
     'text-font': ['Noto Sans Bold'],

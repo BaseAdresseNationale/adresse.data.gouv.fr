@@ -3,15 +3,49 @@ import PropTypes from 'prop-types'
 
 import {adresseCircleLayer, adresseLabelLayer, voieLayer, toponymeLayer} from './layers'
 import popupFeatures from './popups'
+import {forEach} from 'lodash'
+
+let hoveredVoieId = null
+const layersSources = [
+  adresseCircleLayer,
+  adresseLabelLayer,
+  voieLayer,
+  toponymeLayer
+]
+
+const SOURCES = ['adresses', 'toponymes']
 
 function BanMap({map, popup, setSources, setLayers, onSelect}) {
   const onLeave = useCallback(() => {
+    if (hoveredVoieId) {
+      highLightVoie(false)
+    }
+
     popup.remove()
     map.getCanvas().style.cursor = 'grab'
-  }, [map, popup])
+    hoveredVoieId = null
+  }, [map, popup, highLightVoie])
+
+  const highLightVoie = useCallback(isHovered => {
+    forEach(SOURCES, sourceLayer => {
+      forEach(map.querySourceFeatures('base-adresse-nationale', {
+        sourceLayer,
+        filter: ['in', hoveredVoieId, ['get', 'id']]
+      }), ({id}) => {
+        map.setFeatureState({source: 'base-adresse-nationale', sourceLayer, id}, {hover: isHovered})
+      })
+    })
+  }, [])
 
   const onHover = useCallback(e => {
     if (e.features.length > 0) {
+      if (hoveredVoieId) {
+        highLightVoie(false)
+      }
+
+      hoveredVoieId = e.features[0].id.split('_').slice(0, 2).join('_')
+      highLightVoie(true)
+
       map.getCanvas().style.cursor = 'pointer'
       popup.setLngLat(e.lngLat)
         .setHTML(popupFeatures(e.features))
@@ -20,7 +54,7 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
       map.getCanvas().style.cursor = 'grab'
       popup.remove()
     }
-  }, [map, popup])
+  }, [map, popup, highLightVoie])
 
   const handleClick = (e, cb) => {
     const feature = e.features[0]
@@ -73,14 +107,9 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
       ],
       minzoom: 10,
       maxzoom: 14,
-      generateId: true
+      promoteId: 'id'
     }])
-    setLayers([
-      adresseCircleLayer,
-      adresseLabelLayer,
-      voieLayer,
-      toponymeLayer
-    ])
+    setLayers(layersSources)
   }, [setSources, setLayers])
 
   return null
