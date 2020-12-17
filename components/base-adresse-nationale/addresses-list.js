@@ -85,7 +85,7 @@ function AddressesList({title, subtitle, placeholder, addresses, filterProp, add
 
         input {
           height: 32px;
-          text-indent: 2em;
+          text-indent: 1.2em;
         }
 
         .search-icon {

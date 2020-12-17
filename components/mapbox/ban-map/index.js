@@ -65,7 +65,7 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
 
   useEffect(() => {
     setSources([{
-      name: 'ban-adresse-nationale',
+      name: 'base-adresse-nationale',
       type: 'vector',
       format: 'pbf',
       tiles: [

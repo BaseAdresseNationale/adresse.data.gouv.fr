@@ -86,6 +86,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         style: STYLES[style],
         center: defaultCenter || DEFAULT_CENTER,
         zoom: defaultZoom || DEFAULT_ZOOM,
+        maxZoom: 19,
         hash: hasHash,
         isInteractive
       })
