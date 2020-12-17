@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 
 function Numero({id, numero}) {
   return (
-    <Link href={`${id}`}>
+    <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
       <a>
         <div className='numero'>
           <b>{numero}</b>

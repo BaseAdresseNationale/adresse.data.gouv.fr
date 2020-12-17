@@ -9,8 +9,8 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
     <>
       <div className='heading'>
         <div>
-          <h2>{numero}{suffixe} <Link href={`${voie.id}`}><a>{voie.nomVoie}</a></Link></h2>
-          {commune && <h4><Link href={`${commune.id}`}><a>{commune.nom} {commune.code}</a></Link></h4>}
+          <h2>{numero}{suffixe} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link></h2>
+          {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} {commune.code}</a></Link></h4>}
           <div>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>

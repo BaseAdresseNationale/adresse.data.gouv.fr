@@ -22,7 +22,7 @@ function BaseAdresseNationale({address}) {
   }
 
   const selectAddress = useCallback(({id}) => {
-    router.push(`/base-adresse-nationale/${id}`)
+    router.push(`/base-adresse-nationale?id=${id}`, `/base-adresse-nationale/${id}`)
   }, [router])
 
   useEffect(() => {
@@ -56,8 +56,8 @@ BaseAdresseNationale.propTypes = {
   })
 }
 
-export async function getServerSideProps({params}) {
-  const {id} = params
+export async function getServerSideProps({query}) {
+  const {id} = query
 
   if (!id) {
     return {props: {}}

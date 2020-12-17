@@ -8,7 +8,7 @@ import Tag from '@/components/tag'
 
 function Voie({id, type, nomVoie, nbNumeros}) {
   return (
-    <Link href={`${id}`}>
+    <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
       <a>
         <div className='voie'>
           <div>

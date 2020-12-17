@@ -22,7 +22,7 @@ function BanSearch() {
 
   const handleSelect = feature => {
     const {id} = feature.properties
-    router.push(`/base-adresse-nationale/${id}`)
+    router.push(`/base-adresse-nationale?id=${id}`, `/base-adresse-nationale/${id}`)
   }
 
   const handleSearch = useCallback(debounce(async input => {

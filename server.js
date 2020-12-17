@@ -23,6 +23,12 @@ app.prepare().then(() => {
       ...request.query
     })
   })
+  server.get('/base-adresse-nationale/:id', (request, res) => {
+    app.render(request, res, '/base-adresse-nationale', {
+      ...request.query,
+      id: request.params.id
+    })
+  })
 
   server.get('/bases-locales/jeux-de-donnees', (request, res) => {
     app.render(request, res, '/bases-locales/datasets', {
