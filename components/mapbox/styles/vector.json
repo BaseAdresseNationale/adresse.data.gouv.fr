@@ -50,10 +50,6 @@
     "openmaptiles": {
       "type": "vector",
       "url": "https://openmaptiles.geo.data.gouv.fr/data/france-vector.json"
-    },
-    "base-adresse-nationale": {
-      "type": "vector",
-      "url": "https://openmaptiles.geo.data.gouv.fr/data/adresses.json"
     }
   },
   "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
