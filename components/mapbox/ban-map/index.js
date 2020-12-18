@@ -1,21 +1,15 @@
 import {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 
-import {adresseCircleLayer, adresseLabelLayer, voieLayer, toponymeLayer} from './layers'
+import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer} from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
 let hoveredVoieId = null
-const layersSources = [
-  adresseCircleLayer,
-  adresseLabelLayer,
-  voieLayer,
-  toponymeLayer
-]
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({map, popup, setSources, setLayers, onSelect}) {
+function BanMap({map, loadedLayers, popup, address, setSources, setLayers, onSelect}) {
   const onLeave = useCallback(() => {
     if (hoveredVoieId) {
       highLightVoie(false)
@@ -109,23 +103,53 @@ function BanMap({map, popup, setSources, setLayers, onSelect}) {
       maxzoom: 14,
       promoteId: 'id'
     }])
-    setLayers(layersSources)
+    setLayers([
+      adresseCircleLayer,
+      adresseLabelLayer,
+      adresseCompletLabelLayer,
+      voieLayer,
+      toponymeLayer
+    ])
   }, [setSources, setLayers])
+
+  useEffect(() => {
+    if (loadedLayers.find(({id}) => id === 'adresse-complet-label') && loadedLayers.find(({id}) => id === 'adresse-label')) {
+      if (address && address.type === 'numero') {
+        const {id} = address
+        map.setFilter('adresse-complet-label', [
+          '==', ['get', 'id'], id
+        ])
+        map.setFilter('adresse-label', [
+          '!=', ['get', 'id'], id
+        ])
+      } else {
+        map.setFilter('adresse-complet-label', [
+          '==', ['get', 'id'], ''
+        ])
+        map.setFilter('adresse-label', [
+          '!=', ['get', 'id'], ''
+        ])
+      }
+    }
+  }, [map, loadedLayers, address, setLayers])
 
   return null
 }
 
 BanMap.defaultProps = {
-  onSelectContour: null,
+  address: null,
   onSelect: () => {}
 }
 
 BanMap.propTypes = {
+  address: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    position: PropTypes.object.isRequired
+  }),
   map: PropTypes.object.isRequired,
   contour: PropTypes.shape({
     features: PropTypes.array.isRequired
   }),
-  onSelectContour: PropTypes.func,
   onSelect: PropTypes.func,
   setSources: PropTypes.func.isRequired,
   setLayers: PropTypes.func.isRequired

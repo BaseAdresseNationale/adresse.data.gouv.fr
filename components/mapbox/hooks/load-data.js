@@ -92,7 +92,7 @@ function useLoadData(map, isFirstLoad, sources, layers) {
     }
   }, [sources, layers, reloadData])
 
-  return reloadData
+  return [reloadData, loadedLayers]
 }
 
 export default useLoadData

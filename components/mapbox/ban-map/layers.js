@@ -26,7 +26,6 @@ export const adresseCircleLayer = {
   'source-layer': 'adresses',
   type: 'circle',
   minzoom: NUMEROS_POINT_MIN,
-  maxzoom: NUMEROS_MIN,
   paint: {
     'circle-color': {
       type: 'categorical',
@@ -103,8 +102,70 @@ export const adresseLabelLayer = {
       ['get', 'numero']
     ],
     'text-ignore-placement': false,
-    'text-variable-anchor': ['bottom', 'top', 'right', 'left'],
-    'text-radial-offset': 0.1
+    'text-variable-anchor': ['bottom'],
+    'text-radial-offset': 1
+  }
+}
+
+export const adresseCompletLabelLayer = {
+  id: 'adresse-complet-label',
+  source: 'base-adresse-nationale',
+  'source-layer': 'adresses',
+  type: 'symbol',
+  minzoom: NUMEROS_MIN,
+  filter: ['==', ['get', 'id'], ''],
+  paint: {
+    'text-color': {
+      type: 'categorical',
+      property: 'sourcePosition',
+      stops: Object.keys(sources).map(key => {
+        const {color} = sources[key]
+        return [key, color]
+      })
+    },
+    'text-halo-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ],
+    'text-halo-width': 1
+  },
+  layout: {
+    'text-font': ['Noto Sans Bold'],
+    'text-size': {
+      stops: [
+        [NUMEROS_MIN, 13],
+        [19, 16]
+      ]
+    },
+    'text-field': [
+      'case',
+      ['has', 'suffixe'],
+      [
+        'format',
+        ['get', 'numero'],
+        {},
+        ' ',
+        {},
+        ['get', 'suffixe'],
+        {},
+        ' ',
+        {},
+        ['get', 'nomVoie']
+      ],
+      [
+        'format',
+        ['get', 'numero'],
+        {},
+        ' ',
+        {},
+        ['get', 'nomVoie']
+      ]
+    ],
+    'text-ignore-placement': false,
+    'text-variable-anchor': ['bottom'],
+    'text-radial-offset': 1
   }
 }
 

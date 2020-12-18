@@ -51,7 +51,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   const [popup] = usePopup(marker)
   const [mapError, setMapError] = useState(error)
 
-  const reloadData = useLoadData(map, isFirstLoad, sources, layers)
+  const [reloadData, loadedLayers] = useLoadData(map, isFirstLoad, sources, layers)
 
   const mapRef = useCallback(ref => {
     if (ref) {
@@ -163,6 +163,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
           popup,
           style,
           setSources,
+          loadedLayers,
           setLayers,
           setInfos,
           setTools,

@@ -32,7 +32,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
         <Mapbox bbox={bbox} switchStyle>
           {({...mapboxProps}) => (
-            <BanMap {...mapboxProps} onSelect={handleSelect} />
+            <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
         </Mapbox>
         {showOverlay && (
@@ -135,7 +135,7 @@ export function Desktop({address, bbox, handleSelect}) {
 
       <Mapbox bbox={bbox} switchStyle>
         {({...mapboxProps}) => (
-          <BanMap {...mapboxProps} onSelect={handleSelect} />
+          <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
         )}
       </Mapbox>
 
