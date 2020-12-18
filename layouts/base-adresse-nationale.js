@@ -29,7 +29,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
       <BanSearch />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <Mapbox bbox={bbox} switchStyle>
+        <Mapbox bbox={bbox} hasSwitchStyle>
           {({...mapboxProps}) => (
             <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
@@ -125,7 +125,7 @@ export function Desktop({address, bbox, handleSelect}) {
         <div className='footer' />
       </div>
 
-      <Mapbox bbox={bbox} switchStyle>
+      <Mapbox bbox={bbox} hasSwitchStyle>
         {({...mapboxProps}) => (
           <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
         )}
