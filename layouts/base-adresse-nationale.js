@@ -22,7 +22,6 @@ const propTypes = {
 }
 
 export function Mobile({address, bbox, viewHeight, handleSelect}) {
-  const [showOverlay, setShowOverlay] = useState(false)
   const [selectedLayout, setSelectedLayout] = useState('map')
 
   return (
@@ -35,9 +34,6 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
             <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
         </Mapbox>
-        {showOverlay && (
-          <div className='overlay' />
-        )}
       </div>
 
       <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
@@ -91,10 +87,6 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
 
         .hidden {
           display: none;
-        }
-
-        .overlay {
-          height: 60%;
         }
 
         .explorer {
