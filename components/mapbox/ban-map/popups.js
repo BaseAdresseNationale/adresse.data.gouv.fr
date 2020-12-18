@@ -32,22 +32,31 @@ function popupNumero({numero, suffixe, nomVoie, nomCommune, codeCommune, sourceP
   )
 }
 
-function popupVoie({nomVoie, nomCommune, codeCommune, type}) {
+function popupVoie({nomVoie, nomCommune, codeCommune, nbNumeros, type}) {
   return renderToString(
     <div>
       <div className='heading'>
-        <div><b>{nomVoie}</b></div>
+        <div className='address'>
+          <div><b>{nomVoie}</b></div>
+          <div>{nomCommune} {codeCommune}</div>
+        </div>
         <Tag type={type || 'lieu-dit'} />
       </div>
-      <div>{nomCommune} {codeCommune}</div>
+      {nbNumeros && (
+        <div>Cette voie contient <b>{nbNumeros} numéro{nbNumeros > 1 ? 's' : ''}</b></div>
+      )}
 
       <style jsx>{`
         .heading {
           display: grid;
           grid-template-columns: 3fr 1fr;
           grid-gap: .5em;
-          align-items: center;
           margin-bottom: 1em;
+        }
+
+        .address {
+          display: flex;
+          flex-direction: column;
         }
       `}</style>
     </div>
