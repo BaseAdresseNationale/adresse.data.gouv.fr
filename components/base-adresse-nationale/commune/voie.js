@@ -13,7 +13,7 @@ function Voie({id, type, nomVoie, nbNumeros}) {
         <div className='voie'>
           <div>
             <div><b>{nomVoie}</b></div>
-            <div className='numeros'>{nbNumeros} numéros</div>
+            {nbNumeros > 0 && <div className='numeros'>{nbNumeros} numéros</div>}
           </div>
           {type === 'lieu-dit' && <Tag type='lieu-dit' />}
         </div>

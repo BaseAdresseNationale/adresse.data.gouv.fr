@@ -77,10 +77,12 @@ function AddressesList({title, subtitle, placeholder, addresses, filterProp, add
         .title {
           display: flex;
           justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.2em;
         }
 
         .addresses-heading h5 {
-          margin-bottom: 0.5em;
+          margin: 0;
         }
 
         input {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
-import {Users} from 'react-feather'
+import {MapPin, Users} from 'react-feather'
 
 import PostalCodes from '../postal-codes'
 import Certification from '../certification'
@@ -9,7 +9,7 @@ import AddressesList from '../addresses-list'
 
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, population, codesPostaux}) {
+function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, population, codesPostaux}) {
   return (
     <>
       <div className='heading'>
@@ -31,18 +31,38 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         <div className='with-icon'>
           <Users /> <div><b>{population}</b> habitants</div>
         </div>
+        {nbLieuxDits > 0 && (
+          <a href='#lieux-dits'>
+            <div className='with-icon'>
+              <MapPin /> <div><b>{nbLieuxDits}</b> {nbLieuxDits > 1 ? 'lieux-dits' : 'lieu-dit'}</div>
+            </div>
+          </a>
+        )}
       </div>
 
       <AddressesList
         title='Voie de la commune'
         subtitle={`${nbVoies} voies répertoriées`}
         placeholder={`Rechercher une voie à ${nomCommune}`}
-        addresses={orderBy(voies, 'nomVoie', 'asc')}
+        addresses={orderBy(voies.filter(({type}) => type === 'voie'), 'nomVoie', 'asc')}
         filterProp='nomVoie'
         addressComponent={voie => (
           <Voie {...voie} />
         )}
       />
+
+      <div id='lieux-dits' className='lieux-dits-list'>
+        <AddressesList
+          title='Lieux-dits de la commune'
+          subtitle={nbLieuxDits > 1 ? `${nbLieuxDits} lieux-dits répertoriés` : '1 lieu-dit répertorié'}
+          placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
+          addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
+          filterProp='nomVoie'
+          addressComponent={voie => (
+            <Voie {...voie} />
+          )}
+        />
+      </div>
 
       <style jsx>{`
         .heading {
@@ -69,6 +89,10 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         .with-icon > div {
           margin-left: 0.4em;
         }
+
+        .lieux-dits-list {
+          margin: 2em 0;
+        }
       `}</style>
     </>
   )
@@ -80,6 +104,7 @@ Commune.propTypes = {
   typeComposition: PropTypes.string.isRequired,
   voies: PropTypes.array.isRequired,
   nbVoies: PropTypes.number.isRequired,
+  nbLieuxDits: PropTypes.number.isRequired,
   region: PropTypes.shape({
     nom: PropTypes.string.isRequired
   }).isRequired,
