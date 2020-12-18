@@ -9,13 +9,13 @@ import {byText} from '@/lib/filters'
 
 import Loader from '@/components/loader'
 
-function AddressesList({title, subtitle, placeholder, addresses, filterProp, addressComponent}) {
+function AddressesList({title, subtitle, placeholder, addresses, getLabel, addressComponent}) {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [filteredList, setFilteredList] = useState(addresses)
 
   const debounceSearch = useCallback(debounce(input => {
-    const filteredList = addresses.filter(address => byText(address[filterProp], input))
+    const filteredList = addresses.filter(address => byText(getLabel(address), input))
     setFilteredList(filteredList)
     setIsLoading(false)
   }, 300), [addresses])
@@ -127,7 +127,7 @@ AddressesList.propTypes = {
   subtitle: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   addresses: PropTypes.array.isRequired,
-  filterProp: PropTypes.string.isRequired,
+  getLabel: PropTypes.func.isRequired,
   addressComponent: PropTypes.func.isRequired
 }
 

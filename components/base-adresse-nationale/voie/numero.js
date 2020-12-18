@@ -4,12 +4,14 @@ import Link from 'next/link'
 
 import theme from '@/styles/theme'
 
-function Numero({id, numero}) {
+import {getNumeroComplet} from '@/lib/ban'
+
+function Numero({id, numero, suffixe}) {
   return (
     <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
       <a>
         <div className='numero'>
-          <b>{numero}</b>
+          <b>{getNumeroComplet({numero, suffixe})}</b>
         </div>
 
         <style jsx>{`
@@ -38,7 +40,12 @@ function Numero({id, numero}) {
 }
 
 Numero.propTypes = {
+  suffixe: null
+}
+
+Numero.propTypes = {
   id: PropTypes.string.isRequired,
+  suffixe: PropTypes.string,
   numero: PropTypes.string.isRequired
 }
 

@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
+import {getNumeroComplet} from '@/lib/ban'
+
 import Certification from '../certification'
 
 function Numero({numero, suffixe, sourcePosition, commune, voie}) {
@@ -9,7 +11,7 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
     <>
       <div className='heading'>
         <div>
-          <h2>{numero}{suffixe} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
+          <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
           <div>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
         </div>

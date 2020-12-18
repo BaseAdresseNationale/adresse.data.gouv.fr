@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import {orderBy} from 'lodash'
+
+import {getNumeroComplet} from '@/lib/ban'
 
 import Tag from '@/components/tag'
 
@@ -32,7 +35,7 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
             subtitle={nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : ''}
             addresses={numeros}
             placeholder='Rechercher un numéro'
-            filterProp='numero'
+            getLabel={getNumeroComplet}
             addressComponent={numero => (
               <Numero {...numero} />
             )}

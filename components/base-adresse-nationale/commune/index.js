@@ -45,7 +45,7 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         subtitle={`${nbVoies} voies répertoriées`}
         placeholder={`Rechercher une voie à ${nomCommune}`}
         addresses={orderBy(voies.filter(({type}) => type === 'voie'), 'nomVoie', 'asc')}
-        filterProp='nomVoie'
+        getLabel={({nomVoie}) => nomVoie}
         addressComponent={voie => (
           <Voie {...voie} />
         )}
@@ -57,7 +57,7 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           subtitle={nbLieuxDits > 1 ? `${nbLieuxDits} lieux-dits répertoriés` : '1 lieu-dit répertorié'}
           placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
           addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
-          filterProp='nomVoie'
+          getLabel={({nomVoie}) => nomVoie}
           addressComponent={voie => (
             <Voie {...voie} />
           )}
