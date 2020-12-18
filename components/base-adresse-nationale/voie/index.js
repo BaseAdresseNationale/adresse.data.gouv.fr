@@ -16,7 +16,7 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
       <div className='heading'>
         <div>
           <h2>{nomVoie}</h2>
-          {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} {commune.code}</a></Link></h4>}
+          {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
           {region && departement && (
             <div>{region.nom} - {departement.nom} ({departement.code})</div>
           )}
