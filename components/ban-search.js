@@ -2,8 +2,6 @@ import React, {useState, useCallback, useEffect} from 'react'
 import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
-import theme from '@/styles/theme'
-
 import {search} from '@/lib/api-adresse'
 import {useInput} from '../hooks/input'
 
@@ -72,8 +70,6 @@ function BanSearch() {
 
   return (
     <>
-      <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
-
       <SearchInput
         value={input}
         results={orderResults}
@@ -91,12 +87,6 @@ function BanSearch() {
         </div>}
 
       <style jsx>{`
-          .example {
-            font-size: 1.5em;
-            text-align: center;
-            background-color: ${theme.colors.white};
-          }
-
           .error {
             margin: 1em 0;
           }
