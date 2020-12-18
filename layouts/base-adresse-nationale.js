@@ -149,7 +149,7 @@ export function Desktop({address, bbox, handleSelect}) {
           display: flex;
           flex-direction: column;
           z-index: 1;
-          min-width: 400px;
+          min-width: 460px;
           box-shadow: 2px 0px 10px #0000008a;
           padding: 0 0.5em;
         }

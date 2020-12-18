@@ -7,7 +7,7 @@ import {getAddress} from '@/lib/api-ban'
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 
-const MOBILE_WIDTH = 800
+const MOBILE_WIDTH = 900
 
 function BaseAdresseNationale({address}) {
   const [viewHeight, setViewHeight] = useState('100vh')
