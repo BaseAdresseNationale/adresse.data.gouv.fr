@@ -32,7 +32,7 @@ function Certification({isCertified, certifiedMessage, notCertifiedMessage, icon
 
         .tooltip .tooltip-text {
           visibility: hidden;
-          width: 180px;
+          width: 154px;
           background-color: #000000d1;
           color: #fff;
           text-align: center;
