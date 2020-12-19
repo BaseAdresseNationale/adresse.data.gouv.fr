@@ -1,45 +1,31 @@
 import React, {useState, useCallback, useEffect} from 'react'
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
-import theme from '@/styles/theme'
-
-import {search} from '@/lib/explore/api'
-import {useInput} from '../../hooks/input'
+import {search} from '@/lib/api-adresse'
+import {useInput} from '../hooks/input'
 
 import SearchInput from '@/components/search-input'
 import Notification from '@/components/notification'
 import renderAddok from '@/components/search-input/render-addok'
 
-function ExploreSearch() {
+function BanSearch() {
   const [input, setInput] = useInput('')
   const [results, setResults] = useState([])
   const [orderResults, setOrderResults] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const router = useRouter()
+
   const handleSelect = feature => {
-    const {id, type, citycode, housenumber} = feature.properties
-    const codeCommune = citycode
-    const idVoie = id.split('_').slice(0, 2).join('_')
-    let href = ''
-
-    if (type === 'municipality') {
-      href = `/explore/commune/${codeCommune}`
-    } else if (type === 'street') {
-      href = `/explore/commune/${codeCommune}/voie/${idVoie}`
-    } else if (type === 'housenumber') {
-      const [numero, suffixe] = housenumber.split(' ')
-      const numeroComplet = `${numero}${suffixe || ''}`
-      href = `/explore/commune/${codeCommune}/voie/${idVoie}/numero/${numeroComplet}`
-    }
-
-    Router.push(href)
+    const {id} = feature.properties
+    router.push(`/base-adresse-nationale?id=${id}`, `/base-adresse-nationale/${id}`)
   }
 
   const handleSearch = useCallback(debounce(async input => {
     try {
-      const results = await search(input)
+      const results = await search({q: input})
       setResults(
         results.features
           .filter(({properties}) => !['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
@@ -84,8 +70,6 @@ function ExploreSearch() {
 
   return (
     <>
-      <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
-
       <SearchInput
         value={input}
         results={orderResults}
@@ -103,12 +87,6 @@ function ExploreSearch() {
         </div>}
 
       <style jsx>{`
-          .example {
-            font-size: 1.5em;
-            text-align: center;
-            background-color: ${theme.colors.white};
-          }
-
           .error {
             margin: 1em 0;
           }
@@ -117,4 +95,4 @@ function ExploreSearch() {
   )
 }
 
-export default ExploreSearch
+export default BanSearch

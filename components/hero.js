@@ -1,13 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import {Download, Edit3, Database, Map} from 'react-feather'
 
-import {Download, Edit3, Database} from 'react-feather'
 import theme from '@/styles/theme'
-import ToolsIcon from './icons/tools'
-import ExploreSearch from './explorer/explore-search'
 
+import ToolsIcon from './icons/tools'
+import BanSearch from './ban-search'
 import Container from './container'
+import ButtonLink from './button-link'
 
 function Hero({title, tagline}) {
   return (
@@ -54,7 +55,17 @@ function Hero({title, tagline}) {
             </Link>
           </div>
 
-          <ExploreSearch />
+          <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
+
+          <div className='search-bar'>
+            <BanSearch />
+            <div className='map-button'>
+              <ButtonLink href='/base-adresse-nationale'>
+                <Map size={32} />
+              </ButtonLink>
+            </div>
+          </div>
+
         </Container>
 
       </div>
@@ -100,6 +111,25 @@ function Hero({title, tagline}) {
         color: ${theme.darkText};
       }
 
+      .search-bar {
+        display: grid;
+        grid-template-columns: 6fr 1fr;
+        grid-gap: 0.5em;
+      }
+
+      .map-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        overflow: visible;
+      }
+
+      .example {
+        font-size: 1.5em;
+        text-align: center;
+        background-color: ${theme.colors.white};
+      }
     `}</style>
     </div>
   )

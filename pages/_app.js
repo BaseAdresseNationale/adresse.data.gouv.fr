@@ -28,6 +28,19 @@ function MyApp({Component, pageProps}) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
       <Component {...pageProps} />
+
+      <style global jsx>{`
+        body,
+        html,
+        #__next {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        `}</style>
     </>
   )
 }

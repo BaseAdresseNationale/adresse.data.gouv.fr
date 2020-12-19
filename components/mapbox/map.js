@@ -4,19 +4,20 @@ import Head from 'next/head'
 import mapboxgl from 'mapbox-gl'
 import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
 
+import vector from './styles/vector.json'
+
 import Notification from '../notification'
 
 import SwitchMapStyle from './switch-map-style'
 
 import useMarker from './hooks/marker'
 import usePopup from './hooks/popup'
-import useLoadData from './hooks/load-data'
 
 const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 4.4
 
 const STYLES = {
-  vector: 'https://openmaptiles.geo.data.gouv.fr/styles/osm-bright/style.json',
+  vector,
   ortho: {
     version: 8,
     glyphs: 'https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf',
@@ -40,6 +41,8 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
+  const [isStyleLoaded, setIsStyleLoaded] = useState(true)
+  const [isSourceLoaded, setIsSourceLoaded] = useState(false)
   const [style, setStyle] = useState(defaultStyle)
   const [sources, setSources] = useState([])
   const [layers, setLayers] = useState([])
@@ -48,8 +51,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   const [marker, setMarkerCoordinates] = useMarker(map)
   const [popup] = usePopup(marker)
   const [mapError, setMapError] = useState(error)
-
-  const reloadData = useLoadData(map, isFirstLoad, sources, layers)
 
   const mapRef = useCallback(ref => {
     if (ref) {
@@ -77,6 +78,31 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
     )
   }, [style])
 
+  const loadData = useCallback(() => {
+    if (map && isStyleLoaded && isFirstLoad) {
+      sources.forEach(source => {
+        const {name, ...props} = source
+        if (!map.getSource(name)) {
+          map.addSource(name, props)
+        }
+      })
+
+      layers.forEach(layer => {
+        if (!map.getLayer(layer.id)) {
+          map.addLayer(layer)
+        }
+      })
+    }
+  }, [map, isFirstLoad, isStyleLoaded, layers, sources])
+
+  const onSourceData = useCallback(event => {
+    setIsSourceLoaded(event.isSourceLoaded)
+  }, [])
+
+  useEffect(() => {
+    loadData()
+  }, [sources, layers, style, isStyleLoaded, loadData])
+
   useEffect(() => {
     if (mapContainer) {
       const map = new mapboxgl.Map({
@@ -84,6 +110,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         style: STYLES[style],
         center: defaultCenter || DEFAULT_CENTER,
         zoom: defaultZoom || DEFAULT_ZOOM,
+        maxZoom: 19,
         hash: hasHash,
         isInteractive
       })
@@ -92,11 +119,18 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         map.addControl(new mapboxgl.NavigationControl({showCompass: false}))
       }
 
+      map.on('load', loadData)
+      map.on('sourcedata', onSourceData)
       map.once('load', () => {
         setIsFirstLoad(true)
       })
 
       setMap(map)
+
+      return () => {
+        map.off('load', loadData)
+        map.off('sourcedata', onSourceData)
+      }
     }
 
     // Map should only be created when its container is ready
@@ -115,13 +149,14 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
 
   useEffect(() => {
     if (map) {
-      map.setStyle(STYLES[style], {diff: false})
+      map.setStyle(STYLES[style])
 
       const onStyleData = () => {
-        if (map.isStyleLoaded()) {
-          reloadData()
+        setIsStyleLoaded(false)
+        if (map.isStyleLoaded) {
+          setIsStyleLoaded(true)
         } else {
-          setTimeout(onStyleData, 1000)
+          setTimeout(onStyleData, 200)
         }
       }
 
@@ -159,6 +194,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
           marker,
           popup,
           style,
+          isSourceLoaded,
           setSources,
           setLayers,
           setInfos,
