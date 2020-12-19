@@ -51,7 +51,7 @@ app.prepare().then(() => {
   })
 
   server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
-    res.redirect(`/explore/commune/${req.params.codeCommune}`)
+    res.redirect(`/base-adresse-nationale/${req.params.codeCommune}`)
   })
 
   // DO NOT REMOVE

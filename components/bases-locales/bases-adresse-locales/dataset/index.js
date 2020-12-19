@@ -42,7 +42,7 @@ function Dataset({dataset, summary}) {
 
   const handleSelect = code => {
     push(
-      `/explore/commune/${code}`
+      `/base-adresse-nationale/${code}`
     )
   }
 
