@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {orderBy} from 'lodash'
 
 import {getNumeroComplet} from '@/lib/ban'
 
