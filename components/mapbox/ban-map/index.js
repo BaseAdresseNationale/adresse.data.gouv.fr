@@ -9,7 +9,7 @@ let hoveredVoieId = null
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({map, loadedLayers, popup, address, setSources, setLayers, onSelect}) {
+function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
   const onLeave = useCallback(() => {
     if (hoveredVoieId) {
       highLightVoie(false)
@@ -113,7 +113,7 @@ function BanMap({map, loadedLayers, popup, address, setSources, setLayers, onSel
   }, [setSources, setLayers])
 
   useEffect(() => {
-    if (loadedLayers.find(({id}) => id === 'adresse-complet-label') && loadedLayers.find(({id}) => id === 'adresse-label')) {
+    if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
       if (address && address.type === 'numero') {
         const {id} = address
         map.setFilter('adresse-complet-label', [
@@ -131,7 +131,7 @@ function BanMap({map, loadedLayers, popup, address, setSources, setLayers, onSel
         ])
       }
     }
-  }, [map, loadedLayers, address, setLayers])
+  }, [map, isSourceLoaded, address, setLayers])
 
   return null
 }
