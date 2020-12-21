@@ -25,7 +25,7 @@
     "jschardet-french": "^0.0.1",
     "lodash": "^4.17.20",
     "mapbox-gl": "^1.13.0",
-    "marked": "^0.8.0",
+    "marked": "^1.2.7",
     "next": "^10.0.3",
     "papaparse": "^5.3.0",
     "prop-types": "^15.7.2",
