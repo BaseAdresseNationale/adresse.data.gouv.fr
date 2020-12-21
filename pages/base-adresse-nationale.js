@@ -34,11 +34,11 @@ function BaseAdresseNationale({address}) {
       } else if (type === 'voie') {
         const {nomVoie, commune, nbNumeros} = address
         title = `${nomVoie}, ${commune.nom} (${commune.code}) - Base Adresse Nationale`
-        description = `Consultez les ${nbNumeros > 1 ? `${nbNumeros} ` : ''}adresses de la voie "${nomVoie}" de la commune de {nomCommune}`
+        description = `Consultez les ${nbNumeros > 1 ? `${nbNumeros} ` : ''}adresses de la voie "${nomVoie}" de la commune de ${commune.nom}`
       } else if (type === 'lieu-dit') {
         const {nomVoie, commune} = address
         title = `${nomVoie}, ${commune.nom} (${commune.code}) - Base Adresse Nationale`
-        description = `${nomVoie}, lieu-dit de la commune de {nomCommune}`
+        description = `${nomVoie}, lieu-dit de la commune de ${commune.nom}`
       } else if (type === 'numero') {
         const {numero, voie, commune} = address
         const suffixe = address.suffixe || ''
