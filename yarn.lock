@@ -288,12 +288,12 @@
     papaparse "^5.1.1"
     yargs "^15.1.0"
 
-"@etalab/project-legal@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@etalab/project-legal/-/project-legal-0.4.0.tgz#55b8ea93ea8cb2645a8da960eff5b8412325f0cf"
-  integrity sha512-JroSIoNVqOe9wdEL5imkH29jctnWn+O27hCmnsBfb3VZugKk9f7mftn2CLnU9TiPTchoAh0lBtlL0/pC2s4xXw==
+"@etalab/project-legal@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@etalab/project-legal/-/project-legal-0.4.1.tgz#45588249552ebb1d129fea8e8e3309cf814b16d7"
+  integrity sha512-/GMuRVGprAo8MNXwvSk7dFa89iH985pwVjO4op/rE7FwBAgTSlmJZzDnAyrnBqPC4Z5kSxFoGyuTzEauE7pMHQ==
   dependencies:
-    proj4 "^2.6.0"
+    proj4 "^2.6.3"
 
 "@hapi/accept@5.0.1":
   version "5.0.1"
@@ -5744,13 +5744,13 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-proj4@^2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/proj4/-/proj4-2.6.0.tgz#154c0e8eeb1aaae9914ec387753396cbc003ae72"
-  integrity sha512-ll2WyehUFOyzEZtN8hAiOTmZpuDCN5V+4A/HjhPbhlwVwlsFKnIHSZ3l3uhzgDndHjoL2MyERFGe9VmXN4rYUg==
+proj4@^2.6.3:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/proj4/-/proj4-2.6.3.tgz#2ba3b32f45fe84e35e794b5dc940e3b7f7e72b86"
+  integrity sha512-XRqnLmHWlvi7jqKNTqaOUrVy72JEtOUrnlLki99yZUOSvcSeBaZ1I/EGnQ2LzplSbjSrebGAdikqCLeCxC/YEg==
   dependencies:
     mgrs "1.0.0"
-    wkt-parser "^1.2.0"
+    wkt-parser "^1.2.4"
 
 promise-inflight@^1.0.1:
   version "1.0.1"
@@ -7618,10 +7618,10 @@ widest-line@^3.1.0:
   dependencies:
     string-width "^4.0.0"
 
-wkt-parser@^1.2.0:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/wkt-parser/-/wkt-parser-1.2.3.tgz#240fe1dacc816bfe5674b66180041059eaa9a9ba"
-  integrity sha512-s7zrOedGuHbbzMaQOuf8HacuCYp3LmmrHjkkN//7UEAzsYz7xJ6J+j/84ZWZkQcrRqi3xXyuc4odPHj7PEB0bw==
+wkt-parser@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/wkt-parser/-/wkt-parser-1.2.4.tgz#e42ba7b96f13aef82a2da9056e2d87da0fec5393"
+  integrity sha512-ZzKnc7ml/91fOPh5bANBL4vUlWPIYYv11waCtWTkl2TRN+LEmBg60Q1MA8gqV4hEp4MGfSj9JiHz91zw/gTDXg==
 
 word-wrap@^1.2.3:
   version "1.2.3"
