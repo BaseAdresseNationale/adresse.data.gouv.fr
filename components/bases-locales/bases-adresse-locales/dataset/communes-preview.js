@@ -1,12 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {contoursToGeoJson} from '@/lib/geojson'
 import {spaceThousands} from '@/lib/format-numbers'
 
 import InfoReport from '../info-report'
 import Info from '../info'
 import Preview from './preview'
+
+function communeContour(commune) {
+  const {contour, code, nom} = commune
+  return {
+    id: code,
+    type: 'Feature',
+    geometry: contour,
+    properties: {
+      code,
+      nom
+    }
+  }
+}
+
+function contoursToGeoJson(communes) {
+  const communesWithCtr = communes.filter(commune => commune.contour)
+
+  return {
+    type: 'FeatureCollection',
+    features: communesWithCtr.map(commune => communeContour(commune))
+  }
+}
 
 class CommunesPreview extends React.Component {
   static propTypes = {
