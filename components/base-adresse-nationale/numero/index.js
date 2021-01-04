@@ -23,11 +23,9 @@ function Numero({numero, suffixe, sourcePosition, commune, voie, libelleAchemine
           />
         </div>
       </div>
-      <div className='address-details'>
-        <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
-        <div>Code postal : <b>{codePostal}</b></div>
-        <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
-      </div>
+      <div>Code postal : <b>{codePostal}</b></div>
+      <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
+      <div style={{margin: '1.2em 0'}}>Clé d’interopérabilité : <b>{cleInterop}</b></div>
 
       <style jsx>{`
         .heading {
@@ -35,14 +33,11 @@ function Numero({numero, suffixe, sourcePosition, commune, voie, libelleAchemine
           grid-template-columns: 3fr 1fr;
           justify-content: space-between;
           align-items: center;
+          margin: 1.2em 0;
         }
 
         .heading h2 {
           margin-bottom: 0.2em;
-        }
-
-        .heading, .address-details > div {
-          margin: 1.2em 0;
         }
       `}</style>
     </>
