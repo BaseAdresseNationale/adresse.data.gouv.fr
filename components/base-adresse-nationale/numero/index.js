@@ -6,7 +6,7 @@ import {getNumeroComplet} from '@/lib/ban'
 
 import Certification from '../certification'
 
-function Numero({numero, suffixe, sourcePosition, commune, voie}) {
+function Numero({numero, suffixe, sourcePosition, commune, voie, libelleAcheminement, codePostal, cleInterop}) {
   return (
     <>
       <div className='heading'>
@@ -23,6 +23,9 @@ function Numero({numero, suffixe, sourcePosition, commune, voie}) {
           />
         </div>
       </div>
+      <div>Code postal : <b>{codePostal}</b></div>
+      <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
+      <div style={{margin: '1.2em 0'}}>Clé d’interopérabilité : <b>{cleInterop}</b></div>
 
       <style jsx>{`
         .heading {
@@ -55,7 +58,10 @@ Numero.propTypes = {
   voie: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired
-  })
+  }),
+  libelleAcheminement: PropTypes.string.isRequired,
+  codePostal: PropTypes.string.isRequired,
+  cleInterop: PropTypes.string.isRequired
 }
 
 export default Numero
