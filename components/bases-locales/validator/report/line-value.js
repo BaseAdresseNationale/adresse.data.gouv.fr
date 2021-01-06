@@ -3,89 +3,74 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-class LineValue extends React.Component {
-  static propTypes = {
-    value: PropTypes.shape({
-      rawValue: PropTypes.string,
-      errors: PropTypes.array,
-      warnings: PropTypes.array
-    }).isRequired,
-    hasUnknownField: PropTypes.bool,
-    handleHover: PropTypes.func.isRequired
-  }
+function LineValue({value, hasUnknownField, handleHover}) {
+  const {rawValue, errors, warnings} = value
+  const hasErrors = errors && errors.length > 0
+  const hasWarnings = warnings && warnings.length > 0
+  const hasIssues = hasErrors || hasWarnings
+  const issuesType = hasErrors ? 'error' : 'warning'
 
-  static defaultProps = {
-    hasUnknownField: false
-  }
+  return (
+    <Fragment key={rawValue}>
+      {hasIssues ? (
+        <td className={issuesType} onMouseOver={() => handleHover(value)} onMouseOut={() => handleHover(null)}>
+          {rawValue}
+        </td>
+      ) : (
+        <td className={`${hasUnknownField ? 'unknown' : 'valid'}`}>
+          {rawValue}
+        </td>
+      )}
 
-  handleMouseOver = () => {
-    const {value, handleHover} = this.props
+      <style jsx>{`
+        td {
+          padding: 0.5em;
+        }
 
-    handleHover(value)
-  }
+        td.error {
+          background: ${theme.errorBg};
+        }
 
-  handleMouseOut = () => {
-    const {handleHover} = this.props
+        td.warning {
+          background: ${theme.warningBg};
+        }
 
-    handleHover(null)
-  }
+        td.error:hover {
+          cursor: pointer;
+          background: ${theme.errorBorder};
+          color: ${theme.colors.white};
+        }
 
-  render() {
-    const {value, hasUnknownField} = this.props
-    const {rawValue, errors, warnings} = value
-    const hasErrors = errors && errors.length > 0
-    const hasWarnings = warnings && warnings.length > 0
-    const hasIssues = hasErrors || hasWarnings
-    const issuesType = hasErrors ? 'error' : 'warning'
+        td.warning:hover {
+          cursor: pointer;
+          background: ${theme.warningBorder};
+          color: ${theme.colors.white};
+        }
 
-    return (
-      <Fragment key={rawValue}>
-        {hasIssues ? (
-          <td className={issuesType} onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
-            {rawValue}
-          </td>
-        ) : (
-          <td className={`${hasUnknownField ? 'unknown' : 'valid'}`}>
-            {rawValue}
-          </td>
-        )}
+        td.valid {
+          background: ${theme.successBg};
+        }
 
-        <style jsx>{`
-          td {
-            padding: 0.5em;
-          }
+        td.unknown {
+          background: ${theme.backgroundGrey};
+        }
+      `}</style>
+    </Fragment>
+  )
+}
 
-          td.error {
-            background: ${theme.errorBg};
-          }
+LineValue.propTypes = {
+  value: PropTypes.shape({
+    rawValue: PropTypes.string,
+    errors: PropTypes.array,
+    warnings: PropTypes.array
+  }).isRequired,
+  hasUnknownField: PropTypes.bool,
+  handleHover: PropTypes.func.isRequired
+}
 
-          td.warning {
-            background: ${theme.warningBg};
-          }
-
-          td.error:hover {
-            cursor: pointer;
-            background: ${theme.errorBorder};
-            color: ${theme.colors.white};
-          }
-
-          td.warning:hover {
-            cursor: pointer;
-            background: ${theme.warningBorder};
-            color: ${theme.colors.white};
-          }
-
-          td.valid {
-            background: ${theme.successBg};
-          }
-
-          td.unknown {
-            background: ${theme.backgroundGrey};
-          }
-        `}</style>
-      </Fragment>
-    )
-  }
+LineValue.defaultProps = {
+  hasUnknownField: false
 }
 
 export default LineValue
