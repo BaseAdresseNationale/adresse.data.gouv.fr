@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
 import CsvMeta from './csv-meta'
-import Rows from './rows'
 import Fields from './fields'
+import Summary from './summary'
 
 import {ChevronDown, ChevronUp} from 'react-feather'
 import theme from '@/styles/theme'
@@ -67,11 +67,11 @@ function Report({report}) {
 
       <div className='report-container'>
         <h3>Validation des données</h3>
-        <Rows
+        <Summary
           rows={rowsWithIssues}
           issuesSummary={issuesSummary}
-          rowsWithIssuesCount={rowsWithIssuesCount}
           unknownFields={unknownFields}
+          rowsWithIssuesCount={rowsWithIssuesCount}
         />
       </div>
 
@@ -98,6 +98,10 @@ function Report({report}) {
           display: grid;
           grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
           grid-gap: 2em 1em;
+        }
+
+        .valid {
+          color: ${theme.successBorder};
         }
 
         h3 {
