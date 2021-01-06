@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
@@ -7,104 +7,91 @@ import Line from './line'
 import RowIssues from './row-issues'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
-class Row extends React.Component {
-  state = {
-    showIssues: this.isForcedShowIssues,
-    field: null
+function Row({row, unknownFields, isForcedShowIssues}) {
+  const [showIssues, setShowIssues] = useState()
+  const [field, setField] = useState()
+  const issuesCount = row._errors.length + row._warnings.length
+
+  const handleError = () => {
+    setShowIssues(!showIssues)
+    setField(null)
   }
 
-  static propTypes = {
-    row: PropTypes.object.isRequired,
-    unknownFields: PropTypes.array.isRequired,
-    isForcedShowIssues: PropTypes.bool
-  }
-
-  static defaultProps = {
-    isForcedShowIssues: false
-  }
-
-  handleError = () => {
-    this.setState(state => ({
-      showIssues: !state.showIssues,
-      field: null
-    }))
-  }
-
-  handleField = field => {
-    this.setState({field})
-  }
-
-  render() {
-    const {showIssues, field} = this.state
-    const {row, unknownFields, isForcedShowIssues} = this.props
-    const issuesCount = row._errors.length + row._warnings.length
-
-    return (
-      <div>
-        <div className='line' onClick={this.handleError}>
-          <div className='col'>
-            <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
-          </div>
-          <div>
-            {issuesCount === 1 ? (
-              <span className='error'>
-                {showIssues ? 'Masquer' : 'Afficher'} l’anomalie {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
-              </span>
-            ) : (
-              <span className='error'>
-                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
-              </span>
-            )}
-          </div>
+  return (
+    <div>
+      <div className='line' onClick={handleError}>
+        <div className='col'>
+          <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
         </div>
-
-        {showIssues &&
-          <div>
-            {(issuesCount > 0 || isForcedShowIssues) && (
-              <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
-            )}
-
-            <Line
-              line={row}
-              unknownFields={unknownFields}
-              onHover={this.handleField}
-            />
-          </div>}
-
-        <style jsx>{`
-          .line {
-            display: flex;
-            align-items: center;
-            padding: 0 1em;
-          }
-
-          .col {
-            margin: 0.5em 1em 0.5em 0;
-          }
-
-          .error {
-            color: ${theme.errorBorder};
-          }
-
-          .line:hover {
-            cursor: pointer;
-            background-color: #f8f8f8;
-          }
-
-          .row-container {
-            margin: 1em 0;
-            padding: 1em;
-            box-shadow: 0 1px 4px ${theme.boxShadow};
-          }
-
-          span {
-            color: ${theme.darkText};
-            text-decoration: italic;
-          }
-        `}</style>
+        <div>
+          {issuesCount === 1 ? (
+            <span className='error'>
+              {showIssues ? 'Masquer' : 'Afficher'} l’anomalie {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
+            </span>
+          ) : (
+            <span className='error'>
+              {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
+            </span>
+          )}
+        </div>
       </div>
-    )
-  }
+
+      {showIssues &&
+        <div>
+          {(issuesCount > 0 || isForcedShowIssues) && (
+            <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
+          )}
+
+          <Line
+            line={row}
+            unknownFields={unknownFields}
+            onHover={field => setField(field)}
+          />
+        </div>}
+
+      <style jsx>{`
+        .line {
+          display: flex;
+          align-items: center;
+          padding: 0 1em;
+        }
+
+        .col {
+          margin: 0.5em 1em 0.5em 0;
+        }
+
+        .error {
+          color: ${theme.errorBorder};
+        }
+
+        .line:hover {
+          cursor: pointer;
+          background-color: #f8f8f8;
+        }
+
+        .row-container {
+          margin: 1em 0;
+          padding: 1em;
+          box-shadow: 0 1px 4px ${theme.boxShadow};
+        }
+
+        span {
+          color: ${theme.darkText};
+          text-decoration: italic;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+Row.propTypes = {
+  row: PropTypes.object.isRequired,
+  unknownFields: PropTypes.array.isRequired,
+  isForcedShowIssues: PropTypes.bool
+}
+
+Row.defaultProps = {
+  isForcedShowIssues: false
 }
 
 export default Row
