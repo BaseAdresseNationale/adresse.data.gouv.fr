@@ -7,8 +7,8 @@ import UnknownFields from './unknown-fields'
 function Fields({found, unknown, alias}) {
   return (
     <div className='fields-container'>
-      <KnownFields found={found} alias={alias} />
-      <UnknownFields fields={unknown} />
+      {found.length > 0 && <KnownFields found={found} alias={alias} />}
+      {unknown.length > 0 && <UnknownFields fields={unknown} />}
       <style jsx>{`
       .fields-container {
         display: grid;

@@ -7,7 +7,7 @@ import theme from '@/styles/theme'
 
 function UnknownFields({fields}) {
   return (
-    <div className='container'>
+    <div>
       {fields.length > 0 && (
         <table>
           <tbody>
@@ -26,6 +26,10 @@ function UnknownFields({fields}) {
       <style jsx>{`
       .unknown {
         color: ${theme.colors.darkerGrey};
+      }
+
+      table {
+        width: 100%;
       }
 
       th, td {

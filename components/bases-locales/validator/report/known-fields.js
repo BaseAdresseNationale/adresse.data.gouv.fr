@@ -23,7 +23,7 @@ const fieldToFind = [
 
 function KnownFields({found, alias}) {
   return (
-    <table id='fieldToFind'>
+    <table>
       <tbody>
         <tr>
           <th>Champs obligatoire</th>
@@ -61,6 +61,10 @@ function KnownFields({found, alias}) {
 
       .message {
         background-color: ${theme.colors.white};
+      }
+
+      table {
+        width: 100%;
       }
 
       th, td {

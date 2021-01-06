@@ -12,7 +12,7 @@ import IssueRows from './issue-rows'
 
 const ROWS_LIMIT = 100
 
-class Rows extends React.Component {
+class Summary extends React.Component {
   state = {
     selectedIssue: null,
     rowsToDisplay: []
@@ -57,12 +57,11 @@ class Rows extends React.Component {
 
     return (
       <div>
-        <h3>Résumé</h3>
 
         {errors.length > 0 && (
           <>
             <h4>
-              Erreur{errors.length > 1 ? 's' : ''}
+              {errors.length} Erreur{errors.length > 1 ? 's' : ''}
               <div className='summary-icon error'><X style={{verticalAlign: 'bottom'}} /></div>
             </h4>
             <div className='list'>
@@ -83,7 +82,7 @@ class Rows extends React.Component {
         {warnings.length > 0 && (
           <>
             <h4>
-              Avertissement{warnings.length > 1 ? 's' : ''}
+              {warnings.length} Avertissement{warnings.length > 1 ? 's' : ''}
               <div className='summary-icon warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></div>
             </h4>
 
@@ -155,4 +154,4 @@ class Rows extends React.Component {
   }
 }
 
-export default Rows
+export default Summary
