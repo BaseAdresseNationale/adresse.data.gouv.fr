@@ -41,17 +41,17 @@ class Row extends React.Component {
 
     return (
       <div>
-        <div className='line'>
+        <div className='line' onClick={this.handleError}>
           <div className='col'>
             <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
           </div>
           <div>
             {issuesCount === 1 ? (
-              <span className='error' onClick={this.handleError}>
+              <span className='error'>
                 {showIssues ? 'Masquer' : 'Afficher'} l’anomalie {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
               </span>
             ) : (
-              <span className='error' onClick={this.handleError}>
+              <span className='error'>
                 {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
               </span>
             )}
@@ -60,21 +60,22 @@ class Row extends React.Component {
 
         {showIssues &&
           <div>
+            {(issuesCount > 0 || isForcedShowIssues) && (
+              <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
+            )}
+
             <Line
               line={row}
               unknownFields={unknownFields}
               onHover={this.handleField}
             />
-
-            {(issuesCount > 0 || isForcedShowIssues) && (
-              <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
-            )}
           </div>}
 
         <style jsx>{`
           .line {
             display: flex;
             align-items: center;
+            padding: 0 1em;
           }
 
           .col {
@@ -85,9 +86,9 @@ class Row extends React.Component {
             color: ${theme.errorBorder};
           }
 
-          .error:hover {
+          .line:hover {
             cursor: pointer;
-            text-decoration: underline;
+            background-color: #f8f8f8;
           }
 
           .row-container {

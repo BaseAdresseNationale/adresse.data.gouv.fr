@@ -22,9 +22,8 @@ function RowErrors({errors, warnings, field}) {
       <style jsx>{`
       .abnormalities {
         display: flex;
-        flex-flow: wrap;
-        align-items: center;
-        justify-content: space-around;
+        flex-direction: column;
+        padding: 1em;
         margin: 1em 0;
       }
 

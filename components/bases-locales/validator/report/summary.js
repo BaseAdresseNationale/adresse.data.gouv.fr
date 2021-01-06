@@ -90,28 +90,61 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
 
       {selectedIssue && (
         <div className='selected-issue'>
-          <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
-          <h4>{selectedIssue.message}</h4>
+          <div className='dialog'>
+            <div className='flex-container'>
+              <div>
+                <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
+                <h4>{selectedIssue.message}</h4>
+              </div>
+              <X size={40} onClick={() => setSelectedIssue(null)} />
+            </div>
+            <div className='scroll'>
 
-          {selectedIssue.rows.length > ROWS_LIMIT && (
-            <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
-          )}
+              {selectedIssue.rows.length > ROWS_LIMIT && (
+                <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
+              )}
 
-          {rowsToDisplay.map(row => (
-            <Row
-              key={`row-${row._line}`}
-              row={row}
-              unknownFields={unknownFields}
-              isForcedShowIssues={rowsToDisplay.length === 1}
-            />
-          ))}
+              {rowsToDisplay.map(row => (
+                <Row
+                  key={`row-${row._line}`}
+                  row={row}
+                  unknownFields={unknownFields}
+                  isForcedShowIssues={rowsToDisplay.length === 1}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
       <style jsx>{`
+        .scroll {
+          max-height: 80vh;
+          overflow: auto;
+        }
+
+        .dialog {
+          background-color: #fff;
+          margin: auto;
+          padding: 2em;
+          height: 100%;
+        }
+
+        .flex-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
         .selected-issue {
-          background-color: #f8f8f8;
-          padding: 0 .5em;
+          background-color: rgba(0,0,0,0.5);
+          padding: 1em;
+          position: fixed;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 1000;
         }
 
         .error {
@@ -147,7 +180,7 @@ Summary.propTypes = {
     warnings: PropTypes.array.isRequired
   }).isRequired,
   unknownFields: PropTypes.array,
-  rowsWithIssuesCount: PropTypes.string.isRequired
+  rowsWithIssuesCount: PropTypes.number.isRequired
 }
 
 Summary.defaultProps = {
