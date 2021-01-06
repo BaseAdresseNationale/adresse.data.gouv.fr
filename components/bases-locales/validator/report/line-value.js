@@ -10,8 +10,12 @@ class LineValue extends React.Component {
       errors: PropTypes.array,
       warnings: PropTypes.array
     }).isRequired,
-    hasUnknownField: PropTypes.bool.isRequired,
+    hasUnknownField: PropTypes.bool,
     handleHover: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    hasUnknownField: false
   }
 
   handleMouseOver = () => {
