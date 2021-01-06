@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-function RowErrors({errors, warnings, field}) {
+function RowIssues({errors, warnings, field}) {
   return (
     <div className='abnormalities'>
       <h3>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h3>
@@ -57,14 +57,14 @@ function RowErrors({errors, warnings, field}) {
   )
 }
 
-RowErrors.propTypes = {
+RowIssues.propTypes = {
   errors: PropTypes.array.isRequired,
   warnings: PropTypes.array.isRequired,
   field: PropTypes.object
 }
 
-RowErrors.defaultProps = {
+RowIssues.defaultProps = {
   field: null
 }
 
-export default RowErrors
+export default RowIssues
