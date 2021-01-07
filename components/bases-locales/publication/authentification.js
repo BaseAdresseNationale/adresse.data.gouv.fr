@@ -16,7 +16,7 @@ const Authentification = React.memo(({communeEmail, authenticationUrl, handleCod
           <div className='action column'>
             <p>Je suis un agent de la commune</p>
             <div className='code-button'>
-              <Button disabled={!communeEmail} onClick={handleCodeAuthentification}>Recevoir un code d’identification</Button>
+              <Button disabled={!communeEmail} onClick={handleCodeAuthentification}>Recevoir un code d’authentification</Button>
             </div>
             <div className='info'>
               {communeEmail ? (
@@ -70,7 +70,7 @@ const Authentification = React.memo(({communeEmail, authenticationUrl, handleCod
 
         .code-button {
           margin: 1em 0;
-          max-width: 300px;
+          max-width: 302px;
         }
 
         .info {

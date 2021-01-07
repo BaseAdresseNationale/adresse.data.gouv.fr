@@ -37,7 +37,7 @@ function CodeAuthentification({balId, email, handleValidCode, sendBackCode, canc
   return (
     <>
       <div className='code-container'>
-        <h3>Entrer le code qui vous a été envoyé à l’adresse : {email}</h3>
+        <h3>Entrez le code qui vous a été envoyé à l’adresse : {email}</h3>
 
         <div className='form'>
           <div className='input-container'>
