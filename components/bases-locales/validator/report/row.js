@@ -37,7 +37,7 @@ function Row({row, unknownFields, isForcedShowIssues}) {
       </div>
 
       {showIssues &&
-        <div>
+        <div className='issue'>
           {(issuesCount > 0 || isForcedShowIssues) && (
             <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
           )}
@@ -50,10 +50,15 @@ function Row({row, unknownFields, isForcedShowIssues}) {
         </div>}
 
       <style jsx>{`
+        .issue {
+          background-color: #f8f8f8;
+        }
+
         .line {
           display: flex;
           align-items: center;
           padding: 0 1em;
+          background-color: ${showIssues ? '#f8f8f8' : ''}
         }
 
         .col {

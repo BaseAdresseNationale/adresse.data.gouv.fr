@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 function RowIssues({errors, warnings, field}) {
   return (
     <div className='abnormalities'>
-      <h3>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h3>
+      <h4>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h4>
       <div className='error-list'>
         {warnings.map(err => (
           <div key={err} className={`issue warning ${field && field.warnings && (field.warnings.includes(err)) ? 'select' : ''}`}>
@@ -24,7 +24,6 @@ function RowIssues({errors, warnings, field}) {
         display: flex;
         flex-direction: column;
         padding: 1em;
-        margin: 1em 0;
       }
 
       .issue {

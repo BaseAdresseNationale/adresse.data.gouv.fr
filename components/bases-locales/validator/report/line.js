@@ -31,6 +31,7 @@ function Line({line, unknownFields, onHover}) {
         .line-container {
           margin: 1em 0;
           overflow-x: scroll;
+          background-color: white;
         }
 
         table {

@@ -96,7 +96,7 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
                 <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
                 <h4>{selectedIssue.message}</h4>
               </div>
-              <X size={40} onClick={() => setSelectedIssue(null)} />
+              <X size={40} style={{cursor: 'pointer'}} onClick={() => setSelectedIssue(null)} />
             </div>
             <div className='scroll'>
 
@@ -119,15 +119,19 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
 
       <style jsx>{`
         .scroll {
-          max-height: 80vh;
+          max-height: 80%;
           overflow: auto;
+          padding-top: .5em;
+          border-top: 1px solid black;
         }
 
         .dialog {
           background-color: #fff;
           margin: auto;
           padding: 2em;
-          height: 100%;
+          height: 80%;
+          box-shadow: 0 1px 4px ${theme.boxShadow};
+          background: ${theme.colors.white};
         }
 
         .flex-container {
@@ -137,8 +141,8 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
         }
 
         .selected-issue {
-          background-color: rgba(0,0,0,0.5);
-          padding: 1em;
+          background-color: rgba(0,0,0,0.2);
+          padding: 3em;
           position: fixed;
           top: 0;
           bottom: 0;
