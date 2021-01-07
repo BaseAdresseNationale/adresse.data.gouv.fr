@@ -10,7 +10,7 @@ import withErrors from '@/components/hoc/with-errors'
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {submissionsBal, getSubmissions, submitBal} from '@/lib/bal/api'
+import {submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
 
 import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
@@ -19,6 +19,7 @@ import Authentification from '@/components/bases-locales/publication/authentific
 import Form from '@/components/bases-locales/publication/form'
 import Publishing from '@/components/bases-locales/publication/publishing'
 import Published from '@/components/bases-locales/publication/published'
+import CodeAuthentification from '@/components/bases-locales/publication/code-authentification'
 
 const getStep = bal => {
   if (bal) {
@@ -39,10 +40,22 @@ const getStep = bal => {
 
 const PublicationPage = React.memo(({bal, submissionId}) => {
   const [step, setStep] = useState(getStep(bal))
+  const [authType, setAuthType] = useState()
   const [error, setError] = useState(null)
 
   const handleValidBal = () => {
     setStep(2)
+  }
+
+  const handleCodeAuthentification = async () => {
+    const isMailSend = await askAuthentificationCode(bal._id)
+
+    if (isMailSend) {
+      setAuthType('code')
+      setStep(3)
+    } else {
+      setError('Une erreur s’est produite. Merci de réessayer ultérieurement.')
+    }
   }
 
   const handlePublication = useCallback(async () => {
@@ -111,12 +124,22 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
           {step === 2 && (
             <Authentification
+              communeEmail={bal.commune.email}
+              handleCodeAuthentification={handleCodeAuthentification}
               authenticationUrl={bal.authenticationUrl}
             />
           )}
 
           {step === 3 && (
-            <Form mail='' />
+            authType === 'code' ? (
+              <CodeAuthentification
+                balId={bal._id}
+                email={bal.commune.email}
+                handleValidCode={() => setStep(4)}
+                sendBackCode={handleCodeAuthentification}
+                cancel={() => setStep(2)}
+              />
+            ) : <Form mail='' />
           )}
 
           {step === 4 && (
