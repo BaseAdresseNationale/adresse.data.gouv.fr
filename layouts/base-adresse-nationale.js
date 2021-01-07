@@ -18,10 +18,11 @@ const propTypes = {
   address: PropTypes.object,
   bbox: PropTypes.array.isRequired,
   viewHeight: PropTypes.string.isRequired,
-  handleSelect: PropTypes.func.isRequired
+  handleSelect: PropTypes.func.isRequired,
+  hash: PropTypes.object.isRequired
 }
 
-export function Mobile({address, bbox, viewHeight, handleSelect}) {
+export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
   const [selectedLayout, setSelectedLayout] = useState('map')
 
   return (
@@ -29,7 +30,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
       <BanSearch />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <Mapbox bbox={bbox} hasSwitchStyle>
+        <Mapbox defaultCenter={hash.center} defaultZoom={hash.zoom} bbox={bbox} hasSwitchStyle hasHash>
           {({...mapboxProps}) => (
             <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
@@ -114,7 +115,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
 Mobile.defaultProps = defaultProps
 Mobile.propTypes = propTypes
 
-export function Desktop({address, bbox, handleSelect}) {
+export function Desktop({address, bbox, handleSelect, hash}) {
   return (
     <div className='ban-container'>
       <div className='sidebar'>
@@ -125,7 +126,7 @@ export function Desktop({address, bbox, handleSelect}) {
         <div className='footer' />
       </div>
 
-      <Mapbox bbox={bbox} hasSwitchStyle>
+      <Mapbox defaultCenter={hash.center} defaultZoom={hash.zoom} bbox={bbox} hasSwitchStyle hasHash>
         {({...mapboxProps}) => (
           <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
         )}
