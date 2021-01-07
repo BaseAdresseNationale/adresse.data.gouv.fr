@@ -5,7 +5,7 @@ import {AlertTriangle, X, Check} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import Notification from '../../../notification'
+import Notification from '../../../../notification'
 
 import Row from './row'
 import IssueRows from './issue-rows'
