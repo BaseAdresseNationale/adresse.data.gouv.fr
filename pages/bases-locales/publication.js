@@ -61,11 +61,11 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
-      Router.push(`/bases-locales/publication?submissionId=${bal._id}`)
+      Router.push(`/bases-locales/publication?submissionId=${submissionId}`)
     } catch (error) {
       setError(error.message)
     }
-  }, [bal._id, submissionId])
+  }, [submissionId])
 
   useEffect(() => {
     const step = getStep(bal)
