@@ -1,19 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import KnownFields from './known-fields'
-import UnknownFields from './unknown-fields'
+import FoundFields from './found-fields'
+import UnfoundFields from './unfound-fields'
 
-function Fields({found, unknown, alias}) {
+function Fields({fields, notFound}) {
   return (
     <div className='fields-container'>
-      {found.length > 0 && <KnownFields found={found} alias={alias} />}
-      {unknown.length > 0 && <UnknownFields fields={unknown} />}
+      {fields.length > 0 && <FoundFields fields={fields} />}
+      {notFound.length > 0 && <UnfoundFields fields={notFound} />}
       <style jsx>{`
       .fields-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(300px, 1fr));
-        grid-gap: 2em 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
       }
       `}</style>
     </div>
@@ -21,14 +21,13 @@ function Fields({found, unknown, alias}) {
 }
 
 Fields.propTypes = {
-  found: PropTypes.array,
-  unknown: PropTypes.array,
-  alias: PropTypes.object.isRequired
+  fields: PropTypes.array,
+  notFound: PropTypes.array
 }
 
 Fields.defaultProps = {
-  found: [],
-  unknown: []
+  fields: [],
+  notFound: []
 }
 
 export default Fields

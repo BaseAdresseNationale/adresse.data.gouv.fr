@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import CsvMeta from './csv-meta'
@@ -9,12 +9,7 @@ import {ChevronDown, ChevronUp} from 'react-feather'
 import theme from '@/styles/theme'
 
 function Report({report}) {
-  const {knownFields, unknownFields, aliasedFields, fileValidation, rowsWithIssues, issuesSummary, parseMeta, rowsWithIssuesCount} = report
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleClick = open => {
-    setIsOpen(open)
-  }
+  const {fileValidation, rows, fields, originalFields, notFoundFields} = report
 
   return (
     <div>
@@ -30,12 +25,12 @@ function Report({report}) {
               />
               <CsvMeta
                 name='Délimiteur'
-                value={fileValidation.delimiter.localName}
+                value={fileValidation.delimiter.value}
                 isValid={fileValidation.delimiter.isValid}
               />
               <CsvMeta
                 name='Nombre de lignes'
-                value={parseMeta.rowsCount}
+                value={rows.length}
                 isValid
               />
               <CsvMeta
@@ -48,24 +43,14 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <div className='flex-container' onClick={() => handleClick(!isOpen)}>
-          <h3>Champs existants</h3>
-          {isOpen ? (
-            <ChevronUp size={40} />
-          ) : (
-            <ChevronDown size={40} />
-          )}
-        </div>
-        {isOpen && (
-          <Fields
-            found={knownFields}
-            unknown={unknownFields}
-            alias={aliasedFields}
-          />
-        )}
+        <Fields
+          fields={fields}
+          original={originalFields}
+          notFound={notFoundFields}
+        />
       </div>
 
-      <div className='report-container'>
+      {/* <div className='report-container'>
         <h3>Validation des données</h3>
         <Summary
           rows={rowsWithIssues}
@@ -73,7 +58,7 @@ function Report({report}) {
           unknownFields={unknownFields}
           rowsWithIssuesCount={rowsWithIssuesCount}
         />
-      </div>
+      </div> */}
 
       <style jsx>{`
         .flex-container {
@@ -114,13 +99,12 @@ function Report({report}) {
 
 Report.propTypes = {
   report: PropTypes.shape({
-    knownFields: PropTypes.array.isRequired,
-    unknownFields: PropTypes.array.isRequired,
-    aliasedFields: PropTypes.object.isRequired,
-    rowsWithIssues: PropTypes.array.isRequired,
-    issuesSummary: PropTypes.object.isRequired,
-    parseMeta: PropTypes.object.isRequired,
-    rowsWithIssuesCount: PropTypes.number.isRequired,
+    fields: PropTypes.array.isRequired,
+    originalFields: PropTypes.array.isRequired,
+    rows: PropTypes.array.isRequired,
+    notFoundFields: PropTypes.array.isRequired,
+    // issuesSummary: PropTypes.object.isRequired,
+    // rowsWithIssuesCount: PropTypes.number.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,

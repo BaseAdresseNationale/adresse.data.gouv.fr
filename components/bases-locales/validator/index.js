@@ -27,7 +27,6 @@ function BALValidator() {
     setInProgress(true)
     try {
       const report = await validate(file)
-      report.rowsWithIssuesCount = report.rowsWithIssues.length
       setReport(report)
       setInProgress(false)
     } catch (err) {
