@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Image from 'next/image'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
@@ -47,7 +48,22 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           <p>
             Une <b>Base Adresse Locale</b> regroupe toutes les adresses d’une ou plusieurs communes et est <b>publiée sous leur responsabilité</b>.
           </p>
-          <p><b>Elles alimentent la Base Adresse Nationale</b>.</p>
+
+          <p>
+            Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent comme « <b>certifiées par la commune</b> » dans l’<Link href='/base-adresse-nationale'><a>explorateur de la Base Adresse Nationale</a></Link>.
+          </p>
+
+          <div className='parters'>
+            <div className='partner'>
+              <div><Image src='/images/logos/logo_ANCT.svg' alt='logo ANCT' width={190} height={80} layout='fixed' /></div>
+              <div><b>Le Programme Base Adresse Nationale de l’Agence nationale des territoires (ANCT)</b> est en place pour faciliter le déploiement des Bases Adresses Locales.</div>
+            </div>
+
+            <div className='partner'>
+              <div><Image src='/images/logos/logo-AMF.jpg' alt='Logo de l’Association des Maires' width={201} height={106} layout='fixed' /></div>
+              <div><b>L’Association des Maires de France soutient la démarche.</b></div>
+            </div>
+          </div>
         </div>
 
         <Notification style={{margin: '2em 0 -1em 0'}}>
@@ -124,6 +140,20 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <style jsx>{`
+        .parters {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          justify-content: space-around;
+          margin: 2em 0;
+          align-items: center;
+          grid-gap: 1em;
+        }
+
+        .partner {
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+        }
+
         .bal-grid {
           display: grid;
           grid-row-gap: 2em;
