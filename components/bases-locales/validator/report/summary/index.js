@@ -130,6 +130,7 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
           margin: auto;
           padding: 2em;
           height: 80%;
+          max-width: 1400px;
           box-shadow: 0 1px 4px ${theme.boxShadow};
           background: ${theme.colors.white};
         }

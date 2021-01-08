@@ -38,15 +38,15 @@ function Row({row, unknownFields, isForcedShowIssues}) {
 
       {showIssues &&
         <div className='issue'>
-          {(issuesCount > 0 || isForcedShowIssues) && (
-            <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
-          )}
-
           <Line
             line={row}
             unknownFields={unknownFields}
             onHover={field => setField(field)}
           />
+
+          {(issuesCount > 0 || isForcedShowIssues) && (
+            <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
+          )}
         </div>}
 
       <style jsx>{`

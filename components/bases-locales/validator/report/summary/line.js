@@ -29,7 +29,6 @@ function Line({line, unknownFields, onHover}) {
       </table>
       <style jsx>{`
         .line-container {
-          margin: 1em 0;
           overflow-x: scroll;
           background-color: white;
         }
