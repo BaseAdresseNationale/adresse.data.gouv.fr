@@ -10,7 +10,7 @@ import withErrors from '@/components/hoc/with-errors'
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {submissionsBal, getSubmissions, submitBal} from '@/lib/bal/api'
+import {submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
 
 import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
@@ -19,6 +19,7 @@ import Authentification from '@/components/bases-locales/publication/authentific
 import Form from '@/components/bases-locales/publication/form'
 import Publishing from '@/components/bases-locales/publication/publishing'
 import Published from '@/components/bases-locales/publication/published'
+import CodeAuthentification from '@/components/bases-locales/publication/code-authentification'
 
 const getStep = bal => {
   if (bal) {
@@ -39,20 +40,33 @@ const getStep = bal => {
 
 const PublicationPage = React.memo(({bal, submissionId}) => {
   const [step, setStep] = useState(getStep(bal))
+  const [authType, setAuthType] = useState()
   const [error, setError] = useState(null)
 
   const handleValidBal = () => {
     setStep(2)
   }
 
+  const handleCodeAuthentification = async () => {
+    const response = await askAuthentificationCode(bal._id)
+
+    if (response.ok) {
+      setAuthType('code')
+      setStep(3)
+    } else {
+      const {message} = await response.json()
+      setError(message)
+    }
+  }
+
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
-      Router.push(`/bases-locales/publication?submissionId=${bal._id}`)
+      Router.push(`/bases-locales/publication?submissionId=${submissionId}`)
     } catch (error) {
       setError(error.message)
     }
-  }, [bal._id, submissionId])
+  }, [submissionId])
 
   useEffect(() => {
     const step = getStep(bal)
@@ -74,19 +88,6 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     }
   }, [bal, error, submissionId])
 
-  if (error) {
-    return (
-      <Page>
-        <Section>
-          <h1>Publication d’une Base Adresse Locale</h1>
-          <Notification type='error'>
-            {error}
-          </Notification>
-        </Section>
-      </Page>
-    )
-  }
-
   return (
     <Page>
       <Section background='color' style={{padding: '1em 0'}}>
@@ -101,6 +102,12 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
         <Steps step={step} />
 
+        {error && (
+          <Notification type='error' onClose={() => setError(null)}>
+            {error}
+          </Notification>
+        )}
+
         <div className='current-step'>
           {step === 1 && (
             <ManageFile
@@ -111,12 +118,22 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
           {step === 2 && (
             <Authentification
+              communeEmail={bal.commune.email}
+              handleCodeAuthentification={handleCodeAuthentification}
               authenticationUrl={bal.authenticationUrl}
             />
           )}
 
           {step === 3 && (
-            <Form mail='' />
+            authType === 'code' ? (
+              <CodeAuthentification
+                balId={bal._id}
+                email={bal.commune.email}
+                handleValidCode={() => setStep(4)}
+                sendBackCode={handleCodeAuthentification}
+                cancel={() => setStep(2)}
+              />
+            ) : <Form mail='' />
           )}
 
           {step === 4 && (

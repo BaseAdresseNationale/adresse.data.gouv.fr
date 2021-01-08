@@ -15,6 +15,21 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
   const [report, setReport] = useState(null)
   const [error, setError] = useState(null)
 
+  const parseFile = useCallback(async file => {
+    try {
+      const report = await validate(file)
+
+      if (report.rowsWithIssues.length === 0) {
+        handleValidBal(report)
+      } else {
+        setReport(report)
+      }
+    } catch (err) {
+      const error = `Impossible d’analyser le fichier… [${err.message}]`
+      setError(error)
+    }
+  }, [handleValidBal])
+
   useEffect(() => {
     if (file) {
       setError(null)
@@ -51,21 +66,6 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
       setFile(file)
     }
   }, [setLoading, setError])
-
-  const parseFile = useCallback(async file => {
-    try {
-      const report = await validate(file)
-
-      if (report.rowsWithIssues.length === 0) {
-        handleValidBal(report)
-      } else {
-        setReport(report)
-      }
-    } catch (err) {
-      const error = `Impossible d’analyser le fichier… [${err.message}]`
-      setError(error)
-    }
-  }, [handleValidBal])
 
   const handleInput = useCallback(async input => {
     setError(null)

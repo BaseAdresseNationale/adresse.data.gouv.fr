@@ -5,22 +5,33 @@ import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
-const Authentification = React.memo(({authenticationUrl}) => {
+import Button from '@/components/button'
+
+const Authentification = React.memo(({communeEmail, authenticationUrl, handleCodeAuthentification}) => {
   return (
     <div className='auth-container'>
       <div>
         <h3>Vous êtes habilité</h3>
         <div className='section'>
           <div className='action column'>
-            <p>Je suis un agent de la commune</p>
-            <p>Merci de contacter <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.</p>
-          </div>
-
-          <div className='action column'>
-            <p>Je suis élu de la commune</p>
+            <p>M’authentifier comme élu de la commune</p>
             <Link href={authenticationUrl}>
               <a><Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
             </Link>
+          </div>
+
+          <div className='action column'>
+            <p>Authentifier la mairie de la commune</p>
+            <div className='code-button'>
+              <Button disabled={!communeEmail} onClick={handleCodeAuthentification}>Recevoir un code d’authentification</Button>
+            </div>
+            <div className='info'>
+              {communeEmail ? (
+                <>Un code d’authentification vous sera envoyé à l’adresse : <b>{communeEmail}</b></>
+              ) : (
+                'Cette option est indisponible car aucune adresse email pour votre mairie n’a pu être trouvée'
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -28,8 +39,8 @@ const Authentification = React.memo(({authenticationUrl}) => {
       <div>
         <h3>Vous n’êtes pas habilité</h3>
         <div className='section column'>
-          <p>Je n’ai pas d’habilitation mais je suis en contact avec un élu ou le secrétariat de la commune</p>
-          <p>Merci de contacter <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.</p>
+          <b>Prestataires et délégataires</b>
+          <p>Contactez la mairie pour qu’elle puisse authentifier les adresses selon les modalités définies ci-dessus. Pour rappel, la commune reste responsable de ses adresses, même en cas de délégation de la réalisation technique de l’adressage.</p>
         </div>
       </div>
 
@@ -42,6 +53,7 @@ const Authentification = React.memo(({authenticationUrl}) => {
           display: flex;
           flex-direction: column;
           justify-content: center;
+          align-items: center;
         }
 
         .section {
@@ -54,6 +66,15 @@ const Authentification = React.memo(({authenticationUrl}) => {
           padding: 1em;
           background: ${theme.colors.lighterGrey};
           box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+        }
+
+        .code-button {
+          margin: 1em 0;
+          max-width: 302px;
+        }
+
+        .info {
+          font-style: italic;
         }
 
         .france-connect:hover {
@@ -70,8 +91,14 @@ const Authentification = React.memo(({authenticationUrl}) => {
   )
 })
 
+Authentification.defaultProps = {
+  communeEmail: null
+}
+
 Authentification.propTypes = {
-  authenticationUrl: PropTypes.string.isRequired
+  communeEmail: PropTypes.string,
+  authenticationUrl: PropTypes.string.isRequired,
+  handleCodeAuthentification: PropTypes.func.isRequired
 }
 
 export default Authentification

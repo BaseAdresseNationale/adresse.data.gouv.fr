@@ -3,12 +3,16 @@ import PropTypes from 'prop-types'
 import Image from 'next/image'
 
 const User = React.memo(({user}) => {
-  const {nomNaissance, nomMarital, prenom, typeMandat} = user
+  const {nomNaissance, nomMarital, prenom, typeMandat} = user || {}
 
   return (
     <div className='user'>
-      <Image width={88} height={88} src='/images/icons/elu.svg' alt='elu' />
-      <div>{prenom} {nomMarital || nomNaissance}</div>
+      <Image width={88} height={88} src={`/images/icons/${user ? 'elu' : 'commune'}.svg`} alt='elu' />
+      {user ? (
+        <div>{prenom} {nomMarital || nomNaissance}</div>
+      ) : (
+        <div>Mairie de Breux-sur-Avre</div>
+      )}
       <div><b>{typeMandat}</b></div>
       <style jsx>{`
         .user {
