@@ -6,6 +6,7 @@ import theme from '@/styles/theme'
 function FoundFields({fields}) {
   return (
     <table>
+      <h4>Champs présents</h4>
       <tbody>
         <tr>
           <th>Nom du champ dans le fichier</th>
@@ -13,7 +14,7 @@ function FoundFields({fields}) {
           <th>Version de la spécification</th>
         </tr>
         {fields.map(field => (
-          <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : '')}>
+          <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
             <td>{field.name}</td>
             <td>{field.schemaName}</td>
             <td>{field.version}</td>
@@ -27,6 +28,10 @@ function FoundFields({fields}) {
 
       .background-red {
         background-color: ${theme.warningBg};
+      }
+
+      .background-grey {
+        background-color: ${theme.borderLighter};
       }
 
       table {
