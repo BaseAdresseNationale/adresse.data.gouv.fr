@@ -14,7 +14,14 @@ const Authentification = React.memo(({communeEmail, authenticationUrl, handleCod
         <h3>Vous êtes habilité</h3>
         <div className='section'>
           <div className='action column'>
-            <p>Je suis un agent de la commune</p>
+            <p>M’authentifier comme élu de la commune</p>
+            <Link href={authenticationUrl}>
+              <a><Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
+            </Link>
+          </div>
+
+          <div className='action column'>
+            <p>Authentifier la mairie de la commune</p>
             <div className='code-button'>
               <Button disabled={!communeEmail} onClick={handleCodeAuthentification}>Recevoir un code d’authentification</Button>
             </div>
@@ -26,21 +33,14 @@ const Authentification = React.memo(({communeEmail, authenticationUrl, handleCod
               )}
             </div>
           </div>
-
-          <div className='action column'>
-            <p>Je suis élu de la commune</p>
-            <Link href={authenticationUrl}>
-              <a><Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
-            </Link>
-          </div>
         </div>
       </div>
 
       <div>
         <h3>Vous n’êtes pas habilité</h3>
         <div className='section column'>
-          <p>Je n’ai pas d’habilitation mais je suis en contact avec un élu ou le secrétariat de la commune</p>
-          <p>Merci de contacter <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.</p>
+          <b>Prestataires et délégataires</b>
+          <p>Contactez la mairie pour qu’elle puisse authentifier les adresses selon les modalités définies ci-dessus. Pour rappel, la commune reste responsable de ses adresses, même en cas de délégation de la réalisation technique de l’adressage.</p>
         </div>
       </div>
 
