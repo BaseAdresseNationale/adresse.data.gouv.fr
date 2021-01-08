@@ -42,13 +42,13 @@ function DonneesNatioales() {
             <ul>
               <li>Producteur : <strong>Etalab</strong></li>
               <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
-              <li>Fréquence de mise à jour : <strong>hebdomadaire</strong></li>
+              <li>Fréquence de mise à jour : <strong>quotidienne</strong></li>
               <li>Couverture : <b>France métropolitaine et DROM</b></li>
             </ul>
             <h6>Chiffres clés</h6>
             <ul>
-              <li>200 000 lieux-dits (<span className='new'>beta</span>)</li>
-              <li>24,9 millions d’adresses</li>
+              <li>250 000 lieux-dits (<span className='new'>beta</span>)</li>
+              <li>25 millions d’adresses</li>
             </ul>
           </div>
         </div>
