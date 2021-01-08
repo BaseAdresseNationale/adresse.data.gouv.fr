@@ -48,13 +48,14 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   }
 
   const handleCodeAuthentification = async () => {
-    const isMailSend = await askAuthentificationCode(bal._id)
+    const response = await askAuthentificationCode(bal._id)
 
-    if (isMailSend) {
+    if (response.ok) {
       setAuthType('code')
       setStep(3)
     } else {
-      setError('Une erreur s’est produite. Merci de réessayer ultérieurement.')
+      const {message} = await response.json()
+      setError(message)
     }
   }
 
@@ -87,19 +88,6 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
     }
   }, [bal, error, submissionId])
 
-  if (error) {
-    return (
-      <Page>
-        <Section>
-          <h1>Publication d’une Base Adresse Locale</h1>
-          <Notification type='error'>
-            {error}
-          </Notification>
-        </Section>
-      </Page>
-    )
-  }
-
   return (
     <Page>
       <Section background='color' style={{padding: '1em 0'}}>
@@ -113,6 +101,12 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
         {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}
 
         <Steps step={step} />
+
+        {error && (
+          <Notification type='error' onClose={() => setError(null)}>
+            {error}
+          </Notification>
+        )}
 
         <div className='current-step'>
           {step === 1 && (
