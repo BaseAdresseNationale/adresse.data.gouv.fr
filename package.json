@@ -12,8 +12,9 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.12.5",
     "@etalab/bal": "1.0.0-0",
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
     "@etalab/project-legal": "^0.4.0",
     "@turf/bbox": "^6.0.1",
     "blob-to-buffer": "^1.2.9",
@@ -38,7 +39,6 @@
     "underscore.string": "^3.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
     "@next/bundle-analyzer": "^10.0.3",
     "babel-eslint": "^10.1.0",
     "babel-plugin-inline-import": "^3.0.0",
