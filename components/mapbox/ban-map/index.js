@@ -1,5 +1,7 @@
-import {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
+
+import CenterControl from '../center-control'
 
 import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer} from './layers'
 import popupFeatures from './popups'
@@ -53,6 +55,10 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const handleClick = (e, cb) => {
     const feature = e.features[0]
     cb(feature.properties)
+  }
+
+  const centerAddress = () => {
+    map.fitBounds(address.displayBBox)
   }
 
   useEffect(() => {
@@ -133,7 +139,9 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
   }, [map, isSourceLoaded, address, setLayers])
 
-  return null
+  return (
+    <CenterControl handleClick={centerAddress} />
+  )
 }
 
 BanMap.defaultProps = {
