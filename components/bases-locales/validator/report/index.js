@@ -5,11 +5,11 @@ import CsvMeta from './csv-meta'
 import Fields from './fields'
 import Summary from './summary'
 
-import {ChevronDown, ChevronUp} from 'react-feather'
+import {Check, X} from 'react-feather'
 import theme from '@/styles/theme'
 
 function Report({report}) {
-  const {fileValidation, rows, fields, originalFields, notFoundFields} = report
+  const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
 
   return (
     <div>
@@ -50,6 +50,27 @@ function Report({report}) {
         />
       </div>
 
+      <div className='report-container'>
+        <h4>Validation par profile</h4>
+        <table>
+          <tbody>
+            <tr>
+              <th>Nom</th>
+              <th>Profile</th>
+              <th>Valide</th>
+            </tr>
+            {Object.keys(profilesValidation).map(key => (
+              <tr key={key} className={profilesValidation[key].isValid ? 'background-green' : 'background-red'}>
+                <td>{profilesValidation[key].name}</td>
+                <td>{profilesValidation[key].code}</td>
+                <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
+              </tr>
+            ))}
+
+          </tbody>
+        </table>
+      </div>
+
       {/* <div className='report-container'>
         <h3>Validation des données</h3>
         <Summary
@@ -61,6 +82,15 @@ function Report({report}) {
       </div> */}
 
       <style jsx>{`
+        table {
+          width: 100%;
+        }
+
+        th, td {
+          padding: 0.5em;
+          text-align: center;
+        }
+
         .flex-container {
           display: flex;
           margin: auto;
@@ -89,6 +119,14 @@ function Report({report}) {
           color: ${theme.successBorder};
         }
 
+        .background-green {
+          background-color: ${theme.successBg};
+        }
+
+        .background-red {
+          background-color: ${theme.errorBg};
+        }
+
         h3 {
           padding: 0 .5em;
         }
@@ -105,6 +143,7 @@ Report.propTypes = {
     notFoundFields: PropTypes.array.isRequired,
     // issuesSummary: PropTypes.object.isRequired,
     // rowsWithIssuesCount: PropTypes.number.isRequired,
+    profilesValidation: PropTypes.object.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,
