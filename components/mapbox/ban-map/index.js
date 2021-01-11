@@ -146,15 +146,20 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
 BanMap.defaultProps = {
   address: null,
+  isSourceLoaded: false,
   onSelect: () => {}
 }
 
 BanMap.propTypes = {
   address: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    position: PropTypes.object.isRequired
+    position: PropTypes.object.isRequired,
+    displayBBox: PropTypes.array.isRequired
   }),
   map: PropTypes.object.isRequired,
+  isSourceLoaded: PropTypes.bool,
+  popup: PropTypes.object.isRequired,
   contour: PropTypes.shape({
     features: PropTypes.array.isRequired
   }),
