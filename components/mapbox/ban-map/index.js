@@ -59,8 +59,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
   const centerAddress = () => {
     if (address) {
-    map.fitBounds(address.displayBBox)
-  }
+      map.fitBounds(address.displayBBox)
+    }
   }
 
   useEffect(() => {
