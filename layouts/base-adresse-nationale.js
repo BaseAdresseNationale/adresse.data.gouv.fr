@@ -11,7 +11,8 @@ import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
 const defaultProps = {
-  address: null
+  address: null,
+  hash: null
 }
 
 const propTypes = {
@@ -19,7 +20,16 @@ const propTypes = {
   bbox: PropTypes.array.isRequired,
   viewHeight: PropTypes.string.isRequired,
   handleSelect: PropTypes.func.isRequired,
-  hash: PropTypes.object.isRequired
+  hash: PropTypes.string
+}
+
+const parseHash = hash => {
+  if (hash) {
+    const [z, lat, lng] = hash.slice(1, hash.lenght).split('/')
+    return {zoom: Number(z), center: [lng, lat]}
+  }
+
+  return {zoom: null, center: null}
 }
 
 export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
@@ -30,7 +40,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
       <BanSearch />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <Mapbox defaultCenter={hash.center} defaultZoom={hash.zoom} bbox={bbox} hasSwitchStyle hasHash>
+        <Mapbox defaultCenter={parseHash(hash).center} defaultZoom={parseHash(hash).zoom} bbox={bbox} hasSwitchStyle hasHash>
           {({...mapboxProps}) => (
             <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
@@ -126,7 +136,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='footer' />
       </div>
 
-      <Mapbox defaultCenter={hash.center} defaultZoom={hash.zoom} bbox={bbox} hasSwitchStyle hasHash>
+      <Mapbox defaultCenter={parseHash(hash).center} defaultZoom={parseHash(hash).zoom} bbox={bbox} hasSwitchStyle hasHash>
         {({...mapboxProps}) => (
           <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
         )}
