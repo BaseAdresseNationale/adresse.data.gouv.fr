@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Maximize} from 'react-feather'
+import {Crosshair} from 'react-feather'
 
 function CenterControl({handleClick}) {
   return (
     <div>
       <a title='Recentrer la carte sur l’adresse' onClick={handleClick}>
         <div className='mapboxgl-ctrl-group mapboxgl-ctrl center-control'>
-          <Maximize size={18} color='black' />
+          <Crosshair size={18} color='black' />
         </div>
       </a>
 
