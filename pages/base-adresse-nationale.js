@@ -12,6 +12,7 @@ const MOBILE_WIDTH = 900
 function BaseAdresseNationale({address}) {
   const [viewHeight, setViewHeight] = useState('100vh')
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const [initialHash, setInitialHash] = useState(null)
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
@@ -55,6 +56,23 @@ function BaseAdresseNationale({address}) {
   }, [router])
 
   useEffect(() => {
+    const {hash} = window.location
+
+    if (hash) {
+      setInitialHash(hash)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (address && initialHash) {
+      const {hash} = window.location
+      if (hash !== initialHash) {
+        setInitialHash(null)
+      }
+    }
+  }, [address, initialHash])
+
+  useEffect(() => {
     window.addEventListener('resize', handleResize)
     handleResize()
 
@@ -67,9 +85,10 @@ function BaseAdresseNationale({address}) {
     <Page title={title} description={description} hasFooter={false}>
       <Layout
         address={address}
-        bbox={address ? address.displayBBox : null}
+        bbox={!initialHash && address ? address.displayBBox : null}
         viewHeight={viewHeight}
         handleSelect={selectAddress}
+        hash={initialHash}
       />
     </Page>
   )

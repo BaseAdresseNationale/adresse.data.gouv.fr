@@ -1,5 +1,7 @@
-import {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
+
+import CenterControl from '../center-control'
 
 import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer} from './layers'
 import popupFeatures from './popups'
@@ -53,6 +55,12 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const handleClick = (e, cb) => {
     const feature = e.features[0]
     cb(feature.properties)
+  }
+
+  const centerAddress = () => {
+    if (address) {
+      map.fitBounds(address.displayBBox)
+    }
   }
 
   useEffect(() => {
@@ -133,20 +141,27 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
   }, [map, isSourceLoaded, address, setLayers])
 
-  return null
+  return (
+    <CenterControl handleClick={centerAddress} />
+  )
 }
 
 BanMap.defaultProps = {
   address: null,
+  isSourceLoaded: false,
   onSelect: () => {}
 }
 
 BanMap.propTypes = {
   address: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    position: PropTypes.object.isRequired
+    position: PropTypes.object.isRequired,
+    displayBBox: PropTypes.array.isRequired
   }),
   map: PropTypes.object.isRequired,
+  isSourceLoaded: PropTypes.bool,
+  popup: PropTypes.object.isRequired,
   contour: PropTypes.shape({
     features: PropTypes.array.isRequired
   }),

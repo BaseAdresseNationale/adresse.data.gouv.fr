@@ -11,25 +11,37 @@ import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
 const defaultProps = {
-  address: null
+  address: null,
+  hash: null
 }
 
 const propTypes = {
   address: PropTypes.object,
   bbox: PropTypes.array.isRequired,
   viewHeight: PropTypes.string.isRequired,
-  handleSelect: PropTypes.func.isRequired
+  handleSelect: PropTypes.func.isRequired,
+  hash: PropTypes.string
 }
 
-export function Mobile({address, bbox, viewHeight, handleSelect}) {
+const parseHash = hash => {
+  if (hash) {
+    const [z, lat, lng] = hash.slice(1, hash.lenght).split('/')
+    return {zoom: Number(z), center: [lng, lat]}
+  }
+
+  return {zoom: null, center: null}
+}
+
+export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
   const [selectedLayout, setSelectedLayout] = useState('map')
+  const {zoom, center} = parseHash(hash)
 
   return (
     <div className='ban-container'>
       <BanSearch />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <Mapbox bbox={bbox} hasSwitchStyle>
+        <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
           {({...mapboxProps}) => (
             <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
@@ -114,7 +126,9 @@ export function Mobile({address, bbox, viewHeight, handleSelect}) {
 Mobile.defaultProps = defaultProps
 Mobile.propTypes = propTypes
 
-export function Desktop({address, bbox, handleSelect}) {
+export function Desktop({address, bbox, handleSelect, hash}) {
+  const {zoom, center} = parseHash(hash)
+
   return (
     <div className='ban-container'>
       <div className='sidebar'>
@@ -125,7 +139,7 @@ export function Desktop({address, bbox, handleSelect}) {
         <div className='footer' />
       </div>
 
-      <Mapbox bbox={bbox} hasSwitchStyle>
+      <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
         {({...mapboxProps}) => (
           <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
         )}
