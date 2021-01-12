@@ -34,13 +34,14 @@ const parseHash = hash => {
 
 export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
   const [selectedLayout, setSelectedLayout] = useState('map')
+  const {zoom, center} = parseHash(hash)
 
   return (
     <div className='ban-container'>
       <BanSearch />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <Mapbox defaultCenter={parseHash(hash).center} defaultZoom={parseHash(hash).zoom} bbox={bbox} hasSwitchStyle hasHash>
+        <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
           {({...mapboxProps}) => (
             <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
           )}
@@ -126,6 +127,8 @@ Mobile.defaultProps = defaultProps
 Mobile.propTypes = propTypes
 
 export function Desktop({address, bbox, handleSelect, hash}) {
+  const {zoom, center} = parseHash(hash)
+
   return (
     <div className='ban-container'>
       <div className='sidebar'>
@@ -136,7 +139,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='footer' />
       </div>
 
-      <Mapbox defaultCenter={parseHash(hash).center} defaultZoom={parseHash(hash).zoom} bbox={bbox} hasSwitchStyle hasHash>
+      <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
         {({...mapboxProps}) => (
           <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
         )}
