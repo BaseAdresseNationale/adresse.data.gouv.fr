@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {getValidationErrorLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
@@ -10,7 +11,7 @@ function RowIssues({errors, field}) {
       <div className='error-list'>
         {errors.map(err => (
           <div key={err} className={`issue error ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
-            {err}
+            {getValidationErrorLabel(err)}
           </div>
         ))}
       </div>

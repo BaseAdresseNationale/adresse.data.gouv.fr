@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Eye, X} from 'react-feather'
+import {getValidationErrorLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
@@ -22,7 +23,7 @@ function IssueRows({issue, rows, type, isSelected, onClick}) {
                 `${issuesRows} lignes`)
           }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
-          <span className='colored'> {issue.message}</span>
+          <span className='colored'> {getValidationErrorLabel(issue.message)}</span>
 
           {isSelected ? (
             <span className='icon'><X style={{verticalAlign: 'middle'}} /></span>

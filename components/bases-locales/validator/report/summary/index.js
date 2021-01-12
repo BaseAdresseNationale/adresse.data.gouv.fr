@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {take, sortBy} from 'lodash'
 import {X, Check} from 'react-feather'
+import {getValidationErrorLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
@@ -71,7 +72,7 @@ function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
             <div className='flex-container'>
               <div>
                 <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
-                <h4>{selectedIssue.message}</h4>
+                <h4>{getValidationErrorLabel(selectedIssue.message)}</h4>
               </div>
               <X size={40} style={{cursor: 'pointer'}} onClick={() => setSelectedIssue(null)} />
             </div>
