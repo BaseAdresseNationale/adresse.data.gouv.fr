@@ -16,8 +16,8 @@ function CenterControl({handleClick}) {
           position: absolute;
           padding: 0.3em 0.3em 0 0.3em;
           z-index: 2;
-          right: 0.7em;
-          top: 5.5em;
+          right: 10px;
+          top: 80px;
         }
       `}
       </style>
