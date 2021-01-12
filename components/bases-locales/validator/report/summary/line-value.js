@@ -3,24 +3,16 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-function LineValue({value, hasUnknownField, handleHover}) {
-  const {rawValue, errors, warnings} = value
+function LineValue({value, handleHover}) {
+  const {rawValue, errors} = value
   const hasErrors = errors && errors.length > 0
-  const hasWarnings = warnings && warnings.length > 0
-  const hasIssues = hasErrors || hasWarnings
-  const issuesType = hasErrors ? 'error' : 'warning'
+  const issuesType = hasErrors ? 'error' : ''
 
   return (
     <Fragment key={rawValue}>
-      {hasIssues ? (
-        <td className={issuesType} onMouseOver={() => handleHover(value)} onMouseOut={() => handleHover(null)}>
-          {rawValue}
-        </td>
-      ) : (
-        <td className={`${hasUnknownField ? 'unknown' : 'valid'}`}>
-          {rawValue}
-        </td>
-      )}
+      <td className={issuesType} onMouseOver={() => handleHover(value)} onMouseOut={() => handleHover(null)}>
+        {rawValue}
+      </td>
 
       <style jsx>{`
         td {
@@ -65,12 +57,7 @@ LineValue.propTypes = {
     errors: PropTypes.array,
     warnings: PropTypes.array
   }).isRequired,
-  hasUnknownField: PropTypes.bool,
   handleHover: PropTypes.func.isRequired
-}
-
-LineValue.defaultProps = {
-  hasUnknownField: false
 }
 
 export default LineValue

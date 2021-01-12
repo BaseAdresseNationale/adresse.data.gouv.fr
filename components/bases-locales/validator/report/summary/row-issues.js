@@ -3,16 +3,11 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-function RowIssues({errors, warnings, field}) {
+function RowIssues({errors, field}) {
   return (
     <div className='abnormalities'>
-      <h4>Anomalie{(errors.length + warnings.length) > 1 ? 's' : ''} :</h4>
+      <h4>Anomalie{(errors.length) > 1 ? 's' : ''} :</h4>
       <div className='error-list'>
-        {warnings.map(err => (
-          <div key={err} className={`issue warning ${field && field.warnings && (field.warnings.includes(err)) ? 'select' : ''}`}>
-            {err}
-          </div>
-        ))}
         {errors.map(err => (
           <div key={err} className={`issue error ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
             {err}
@@ -58,7 +53,6 @@ function RowIssues({errors, warnings, field}) {
 
 RowIssues.propTypes = {
   errors: PropTypes.array.isRequired,
-  warnings: PropTypes.array.isRequired,
   field: PropTypes.object
 }
 

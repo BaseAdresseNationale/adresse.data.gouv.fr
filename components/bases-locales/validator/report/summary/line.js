@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 
 import LineValue from './line-value'
 
-function Line({line, unknownFields, onHover}) {
+function Line({line, onHover}) {
   return (
     <div className='line-container'>
       <table>
@@ -20,7 +20,6 @@ function Line({line, unknownFields, onHover}) {
               <LineValue
                 key={`td-${key}`}
                 value={line[key]}
-                unknownField={unknownFields.includes(key)}
                 handleHover={onHover}
               />
             )}
@@ -54,7 +53,6 @@ function Line({line, unknownFields, onHover}) {
 
 Line.propTypes = {
   line: PropTypes.object.isRequired,
-  unknownFields: PropTypes.array.isRequired,
   onHover: PropTypes.func.isRequired
 }
 

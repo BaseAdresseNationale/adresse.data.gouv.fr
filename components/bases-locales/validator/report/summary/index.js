@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {take, sortBy} from 'lodash'
-import {AlertTriangle, X, Check} from 'react-feather'
+import {X, Check} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -12,12 +12,11 @@ import IssueRows from './issue-rows'
 
 const ROWS_LIMIT = 50
 
-function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
+function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
   const [rowsToDisplay, setRowsToDisplay] = useState()
-  const {errors, warnings} = issuesSummary
+  const {errors} = issuesSummary
   const sortedErrors = sortBy(errors, error => error.rows.length)
-  const sortedWarnings = sortBy(warnings, warning => warning.rows.length)
 
   const selectIssue = issue => {
     if (issue === selectedIssue) {
@@ -66,28 +65,6 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
         </>
       )}
 
-      {warnings.length > 0 && (
-        <>
-          <h4>
-            {warnings.length} Avertissement{warnings.length > 1 ? 's' : ''}
-            <div className='summary-icon warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></div>
-          </h4>
-
-          <div className='list'>
-            {sortedWarnings.map(warning => (
-              <IssueRows
-                key={warning.message}
-                issue={warning}
-                rows={rows}
-                type='warning'
-                isSelected={warning === selectedIssue}
-                onClick={selectIssue}
-              />
-            ))}
-          </div>
-        </>
-      )}
-
       {selectedIssue && (
         <div className='selected-issue'>
           <div className='dialog'>
@@ -108,7 +85,6 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
                 <Row
                   key={`row-${row._line}`}
                   row={row}
-                  unknownFields={unknownFields}
                   isForcedShowIssues={rowsToDisplay.length === 1}
                 />
               ))}
@@ -129,7 +105,7 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
           background-color: #fff;
           margin: auto;
           padding: 2em;
-          height: 80%;
+          height: 100%;
           max-width: 1400px;
           box-shadow: 0 1px 4px ${theme.boxShadow};
           background: ${theme.colors.white};
@@ -181,15 +157,9 @@ function Summary({rows, issuesSummary, unknownFields, rowsWithIssuesCount}) {
 Summary.propTypes = {
   rows: PropTypes.array.isRequired,
   issuesSummary: PropTypes.shape({
-    errors: PropTypes.array.isRequired,
-    warnings: PropTypes.array.isRequired
+    errors: PropTypes.array.isRequired
   }).isRequired,
-  unknownFields: PropTypes.array,
   rowsWithIssuesCount: PropTypes.number.isRequired
-}
-
-Summary.defaultProps = {
-  unknownFields: []
 }
 
 export default Summary

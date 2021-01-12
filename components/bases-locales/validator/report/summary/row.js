@@ -7,10 +7,10 @@ import Line from './line'
 import RowIssues from './row-issues'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
-function Row({row, unknownFields, isForcedShowIssues}) {
+function Row({row, isForcedShowIssues}) {
   const [showIssues, setShowIssues] = useState()
   const [field, setField] = useState()
-  const issuesCount = row._errors.length + row._warnings.length
+  const issuesCount = row._errors.length // + row._warnings.length
 
   const handleError = () => {
     setShowIssues(!showIssues)
@@ -40,12 +40,11 @@ function Row({row, unknownFields, isForcedShowIssues}) {
         <div className='issue'>
           <Line
             line={row}
-            unknownFields={unknownFields}
             onHover={field => setField(field)}
           />
 
           {(issuesCount > 0 || isForcedShowIssues) && (
-            <RowIssues errors={row._errors} warnings={row._warnings} field={field} />
+            <RowIssues errors={row._errors} field={field} />
           )}
         </div>}
 
@@ -91,7 +90,6 @@ function Row({row, unknownFields, isForcedShowIssues}) {
 
 Row.propTypes = {
   row: PropTypes.object.isRequired,
-  unknownFields: PropTypes.array.isRequired,
   isForcedShowIssues: PropTypes.bool
 }
 

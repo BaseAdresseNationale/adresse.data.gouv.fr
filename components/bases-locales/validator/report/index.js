@@ -9,7 +9,25 @@ import {Check, X} from 'react-feather'
 import theme from '@/styles/theme'
 
 function Report({report}) {
-  const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
+  const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation, uniqueErrors} = report
+  const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
+  const rowsWithIssuesCount = rowsWithIssues.length
+  const errors = []
+
+  uniqueErrors.map(e => {
+    const rowsWithErrors = []
+    rows.map(r => {
+      if (r._errors.includes(e)) {
+        rowsWithErrors.push(r._line)
+      }
+
+      return null
+    })
+    errors.push({message: e, rows: rowsWithErrors})
+    return null
+  })
+
+  const issuesSummary = {errors}
 
   return (
     <div>
@@ -71,15 +89,14 @@ function Report({report}) {
         </table>
       </div>
 
-      {/* <div className='report-container'>
+      <div className='report-container'>
         <h3>Validation des données</h3>
         <Summary
           rows={rowsWithIssues}
           issuesSummary={issuesSummary}
-          unknownFields={unknownFields}
           rowsWithIssuesCount={rowsWithIssuesCount}
         />
-      </div> */}
+      </div>
 
       <style jsx>{`
         table {
@@ -141,14 +158,15 @@ Report.propTypes = {
     originalFields: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     notFoundFields: PropTypes.array.isRequired,
-    // issuesSummary: PropTypes.object.isRequired,
-    // rowsWithIssuesCount: PropTypes.number.isRequired,
+    issuesSummary: PropTypes.object.isRequired,
+    rowsWithIssuesCount: PropTypes.number.isRequired,
     profilesValidation: PropTypes.object.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,
       linebreak: PropTypes.object.isRequired
-    })
+    }),
+    uniqueErrors: PropTypes.array.isRequired
   }).isRequired
 }
 
