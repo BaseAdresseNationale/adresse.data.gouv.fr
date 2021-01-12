@@ -158,8 +158,6 @@ Report.propTypes = {
     originalFields: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     notFoundFields: PropTypes.array.isRequired,
-    issuesSummary: PropTypes.object.isRequired,
-    rowsWithIssuesCount: PropTypes.number.isRequired,
     profilesValidation: PropTypes.object.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,

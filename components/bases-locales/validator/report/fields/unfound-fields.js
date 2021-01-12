@@ -7,30 +7,31 @@ function UnfoundFields({fields}) {
   return (
     <>
       {fields.length > 0 && (
-        <table>
+        <>
           <h4>Champs non trouvés</h4>
-          <tbody>
-            <tr>
-              <th>Nom du champ</th>
-              <th>Version de la spécification</th>
-            </tr>
-            {fields.map(field => (
-              <tr key={field.schemaName}>
-                <td>{field.schemaName}</td>
-                <td>{field.schemaVersion}</td>
+          <table>
+            <tbody>
+              <tr>
+                <th>Nom du champ</th>
+                <th>Version de la spécification</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+              {fields.map(field => (
+                <tr key={field.schemaName}>
+                  <td>{field.schemaName}</td>
+                  <td>{field.schemaVersion}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
       <style jsx>{`
-      .unknown {
-        color: ${theme.colors.darkerGrey};
+      h4 {
+        margin-top: 1em;
       }
 
       table {
         width: 100%;
-        margin-top: 1em;
       }
 
       th {

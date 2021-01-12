@@ -5,45 +5,47 @@ import theme from '@/styles/theme'
 
 function FoundFields({fields}) {
   return (
-    <table>
+    <>
       <h4>Champs présents</h4>
-      <tbody>
-        <tr>
-          <th>Nom du champ dans le fichier</th>
-          <th>Nom du champ dans la spécification</th>
-          <th>Version de la spécification</th>
-        </tr>
-        {fields.map(field => (
-          <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
-            <td>{field.name}</td>
-            <td>{field.schemaName}</td>
-            <td>{field.version}</td>
+      <table>
+        <tbody>
+          <tr>
+            <th>Nom du champ dans le fichier</th>
+            <th>Nom du champ dans la spécification</th>
+            <th>Version de la spécification</th>
           </tr>
-        ))}
-      </tbody>
-      <style jsx>{`
-      .background-green {
-        background-color: ${theme.successBg};
-      }
+          {fields.map(field => (
+            <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
+              <td>{field.name}</td>
+              <td>{field.schemaName}</td>
+              <td>{field.version}</td>
+            </tr>
+          ))}
+        </tbody>
+        <style jsx>{`
+        .background-green {
+          background-color: ${theme.successBg};
+        }
 
-      .background-red {
-        background-color: ${theme.warningBg};
-      }
+        .background-red {
+          background-color: ${theme.warningBg};
+        }
 
-      .background-grey {
-        background-color: ${theme.borderLighter};
-      }
+        .background-grey {
+          background-color: ${theme.borderLighter};
+        }
 
-      table {
-        width: 100%;
-      }
+        table {
+          width: 100%;
+        }
 
-      th, td {
-        padding: 0.5em;
-      }
+        th, td {
+          padding: 0.5em;
+        }
 
-      `}</style>
-    </table>
+        `}</style>
+      </table>
+    </>
   )
 }
 
