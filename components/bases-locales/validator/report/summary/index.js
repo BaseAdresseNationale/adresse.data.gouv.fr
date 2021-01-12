@@ -15,7 +15,7 @@ const ROWS_LIMIT = 50
 function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
   const [rowsToDisplay, setRowsToDisplay] = useState()
-  const {errors} = issuesSummary
+  const errors = issuesSummary.errors.filter(err => !err.message.includes('field'))
   const sortedErrors = sortBy(errors, error => error.rows.length)
 
   const selectIssue = issue => {
