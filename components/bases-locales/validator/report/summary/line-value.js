@@ -67,6 +67,7 @@ LineValue.propTypes = {
     errors: PropTypes.array,
     warnings: PropTypes.array
   }).isRequired,
+  handleHover: PropTypes.func.isRequired,
   profile: PropTypes.string.isRequired
 }
 
