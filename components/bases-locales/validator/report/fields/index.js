@@ -21,13 +21,8 @@ function Fields({fields, notFound}) {
 }
 
 Fields.propTypes = {
-  fields: PropTypes.array,
-  notFound: PropTypes.array
-}
-
-Fields.defaultProps = {
-  fields: [],
-  notFound: []
+  fields: PropTypes.array.isRequired,
+  notFound: PropTypes.array.isRequired
 }
 
 export default Fields

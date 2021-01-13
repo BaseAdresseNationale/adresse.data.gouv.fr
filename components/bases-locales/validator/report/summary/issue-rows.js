@@ -64,7 +64,6 @@ IssueRows.propTypes = {
     rows: PropTypes.array.isRequired
   }).isRequired,
   rows: PropTypes.array.isRequired,
-  type: PropTypes.oneOf(['error']).isRequired,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func.isRequired
 }

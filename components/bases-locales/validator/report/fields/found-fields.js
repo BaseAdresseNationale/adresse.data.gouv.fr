@@ -50,11 +50,7 @@ function FoundFields({fields}) {
 }
 
 FoundFields.propTypes = {
-  fields: PropTypes.array
-}
-
-FoundFields.defaultProps = {
-  fields: []
+  fields: PropTypes.array.isRequired
 }
 
 export default FoundFields

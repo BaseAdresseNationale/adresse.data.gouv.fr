@@ -49,11 +49,7 @@ function UnfoundFields({fields}) {
 }
 
 UnfoundFields.propTypes = {
-  fields: PropTypes.array
-}
-
-UnfoundFields.defaultProps = {
-  fields: []
+  fields: PropTypes.array.isRequired
 }
 
 export default UnfoundFields

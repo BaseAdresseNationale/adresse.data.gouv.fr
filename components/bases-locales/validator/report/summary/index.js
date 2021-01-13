@@ -157,9 +157,7 @@ function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
 
 Summary.propTypes = {
   rows: PropTypes.array.isRequired,
-  issuesSummary: PropTypes.shape({
-    errors: PropTypes.array.isRequired
-  }).isRequired,
+  errors: PropTypes.array.isRequired,
   rowsWithIssuesCount: PropTypes.number.isRequired
 }
 
