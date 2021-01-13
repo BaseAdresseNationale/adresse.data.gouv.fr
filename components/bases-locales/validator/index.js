@@ -14,7 +14,7 @@ function BALValidator() {
   const router = useRouter()
   const [file, setFile] = useState()
   const [error, setError] = useState()
-  const [inProgress, setInProgress] = useState()
+  const [inProgress, setInProgress] = useState(false)
   const [report, setReport] = useState()
 
   const handleError = error => {
