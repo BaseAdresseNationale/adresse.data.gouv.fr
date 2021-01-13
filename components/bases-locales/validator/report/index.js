@@ -90,6 +90,7 @@ function Report({report}) {
         <h3>Validation des données</h3>
         <Summary
           rows={rowsWithIssues}
+          errors={errors.filter(err => !err.message.includes('field'))}
           rowsWithIssuesCount={rowsWithIssues.length}
         />
       </div>

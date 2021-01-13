@@ -13,10 +13,9 @@ import IssueRows from './issue-rows'
 
 const ROWS_LIMIT = 50
 
-function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
+function Summary({rows, errors, rowsWithIssuesCount}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
-  const [rowsToDisplay, setRowsToDisplay] = useState()
-  const errors = issuesSummary.errors.filter(err => !err.message.includes('field'))
+  const [rowsToDisplay, setRowsToDisplay] = useState([])
   const sortedErrors = sortBy(errors, error => error.rows.length)
 
   const selectIssue = useCallback(issue => {
