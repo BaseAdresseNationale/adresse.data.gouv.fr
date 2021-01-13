@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
@@ -12,10 +12,10 @@ function Row({row, isForcedShowIssues}) {
   const [field, setField] = useState()
   const issuesCount = row._errors.length
 
-  const handleError = () => {
+  const handleError = useCallback(() => {
     setShowIssues(!showIssues)
     setField(null)
-  }
+  }, [showIssues])
 
   return (
     <div>

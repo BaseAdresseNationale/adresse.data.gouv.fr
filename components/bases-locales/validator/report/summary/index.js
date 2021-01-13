@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {take, sortBy} from 'lodash'
 import {X, Check} from 'react-feather'
@@ -19,7 +19,7 @@ function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
   const errors = issuesSummary.errors.filter(err => !err.message.includes('field'))
   const sortedErrors = sortBy(errors, error => error.rows.length)
 
-  const selectIssue = issue => {
+  const selectIssue = useCallback(issue => {
     if (issue === selectedIssue) {
       setSelectedIssue(null)
       setRowsToDisplay([])
@@ -28,7 +28,7 @@ function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
       setSelectedIssue(issue)
       setRowsToDisplay(take(filteredRows, ROWS_LIMIT))
     }
-  }
+  }, [selectedIssue, rows])
 
   return (
     <div>
