@@ -1,8 +1,8 @@
 import React, {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {take, sortBy} from 'lodash'
-import {X, Check} from 'react-feather'
-import {getValidationErrorLabel} from '@etalab/bal'
+import {X, Check, AlertTriangle} from 'react-feather'
+import {getValidationErrorLabel, getValidationErrorSeverity} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
@@ -17,6 +17,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
   const [rowsToDisplay, setRowsToDisplay] = useState([])
   const sortedErrors = sortBy(errors, error => error.rows.length)
+  const sortedWarnings = sortBy(warnings, warning => warning.rows.length)
 
   const selectIssue = useCallback(issue => {
     if (issue === selectedIssue) {
@@ -56,7 +57,29 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
                 key={error.message}
                 issue={error}
                 rows={rows}
+                type='error'
                 isSelected={error === selectedIssue}
+                onClick={selectIssue}
+              />
+            ))}
+          </div>
+        </>
+      )}
+
+      {warnings.length > 0 && (
+        <>
+          <h4>
+            {warnings.length} Avertissement{warnings.length > 1 ? 's' : ''}
+            <div className='summary-icon warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></div>
+          </h4>
+          <div className='list'>
+            {sortedWarnings.map(warning => (
+              <IssueRows
+                key={warning.message}
+                issue={warning}
+                rows={rows}
+                type='warning'
+                isSelected={warning === selectedIssue}
                 onClick={selectIssue}
               />
             ))}
@@ -85,6 +108,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
                   key={`row-${row._line}`}
                   row={row}
                   profile={profile}
+                  isWarning={getValidationErrorSeverity(selectedIssue.message, profile) === 'W'}
                   isForcedShowIssues={rowsToDisplay.length === 1}
                 />
               ))}
@@ -157,6 +181,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
 Summary.propTypes = {
   rows: PropTypes.array.isRequired,
   errors: PropTypes.array.isRequired,
+  warnings: PropTypes.array.isRequired,
   profile: PropTypes.string.isRequired,
   rowsWithIssuesCount: PropTypes.number.isRequired
 }

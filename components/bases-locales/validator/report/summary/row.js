@@ -7,7 +7,7 @@ import Line from './line'
 import RowIssues from './row-issues'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
-function Row({row, isForcedShowIssues}) {
+function Row({row, isForcedShowIssues, isWarning, profile}) {
   const [showIssues, setShowIssues] = useState()
   const [field, setField] = useState()
   const issuesCount = row._errors.length
@@ -25,11 +25,11 @@ function Row({row, isForcedShowIssues}) {
         </div>
         <div>
           {issuesCount === 1 ? (
-            <span className='error'>
+            <span className={isWarning ? 'warning' : 'error'}>
               {showIssues ? 'Masquer' : 'Afficher'} l’anomalie {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
             </span>
           ) : (
-            <span className='error'>
+            <span className={isWarning ? 'warning' : 'error'}>
               {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
             </span>
           )}
@@ -68,6 +68,10 @@ function Row({row, isForcedShowIssues}) {
           color: ${theme.errorBorder};
         }
 
+        .warning {
+          color: ${theme.warningBorder};
+        }
+
         .line:hover {
           cursor: pointer;
           background-color: #f8f8f8;
@@ -90,7 +94,7 @@ function Row({row, isForcedShowIssues}) {
 
 Row.propTypes = {
   row: PropTypes.object.isRequired,
-  isForcedShowIssues: PropTypes.bool
+  isWarning: PropTypes.bool.isRequired,
 }
 
 Row.defaultProps = {

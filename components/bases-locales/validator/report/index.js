@@ -12,6 +12,7 @@ function Report({report}) {
   const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation, uniqueErrors} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
   const errors = []
+  const warnings = []
   const [profile, setProfile] = useState('1.x-comprehensive')
 
   report.profilesValidation[profile].errors.map(row => {
@@ -23,7 +24,26 @@ function Report({report}) {
 
       return null
     })
-    errors.push({message: e, rows: rowsWithErrors})
+    if (rowsWithErrors.length > 0) {
+      errors.push({message: row, rows: rowsWithErrors})
+    }
+
+    return null
+  })
+
+  report.profilesValidation[profile].warnings.map(row => {
+    const rowsWithWarnings = []
+    rows.map(r => {
+      if (r._errors.includes(row)) {
+        rowsWithWarnings.push(r._line)
+      }
+
+      return null
+    })
+    if (rowsWithWarnings.length > 0) {
+      warnings.push({message: row, rows: rowsWithWarnings})
+    }
+
     return null
   })
 
@@ -99,6 +119,8 @@ function Report({report}) {
         <Summary
           rows={rowsWithIssues}
           profile={profile}
+          errors={errors}
+          warnings={warnings}
           rowsWithIssuesCount={rowsWithIssues.length}
         />
       </div>
