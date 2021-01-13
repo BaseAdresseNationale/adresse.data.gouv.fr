@@ -10,7 +10,7 @@ import {ChevronDown, ChevronUp} from 'react-feather'
 function Row({row, isForcedShowIssues}) {
   const [showIssues, setShowIssues] = useState()
   const [field, setField] = useState()
-  const issuesCount = row._errors.length // + row._warnings.length
+  const issuesCount = row._errors.length
 
   const handleError = () => {
     setShowIssues(!showIssues)

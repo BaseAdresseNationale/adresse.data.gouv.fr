@@ -11,7 +11,6 @@ import theme from '@/styles/theme'
 function Report({report}) {
   const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation, uniqueErrors} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
-  const rowsWithIssuesCount = rowsWithIssues.length
   const errors = []
 
   uniqueErrors.map(e => {
@@ -26,8 +25,6 @@ function Report({report}) {
     errors.push({message: e, rows: rowsWithErrors})
     return null
   })
-
-  const issuesSummary = {errors}
 
   return (
     <div>
@@ -93,8 +90,7 @@ function Report({report}) {
         <h3>Validation des données</h3>
         <Summary
           rows={rowsWithIssues}
-          issuesSummary={issuesSummary}
-          rowsWithIssuesCount={rowsWithIssuesCount}
+          rowsWithIssuesCount={rowsWithIssues.length}
         />
       </div>
 

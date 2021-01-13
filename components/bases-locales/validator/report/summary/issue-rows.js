@@ -5,10 +5,10 @@ import {getValidationErrorLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function IssueRows({issue, rows, type, isSelected, onClick}) {
+function IssueRows({issue, rows, isSelected, onClick}) {
   const issuesRows = issue.rows.length
   const handleClick = () => {
-    onClick(issue, type)
+    onClick(issue, 'error')
   }
 
   if (issuesRows > 0) {

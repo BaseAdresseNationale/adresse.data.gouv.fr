@@ -57,7 +57,6 @@ function Summary({rows, issuesSummary, rowsWithIssuesCount}) {
                 key={error.message}
                 issue={error}
                 rows={rows}
-                type='error'
                 isSelected={error === selectedIssue}
                 onClick={selectIssue}
               />

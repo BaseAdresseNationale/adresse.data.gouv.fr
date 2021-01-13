@@ -6,11 +6,10 @@ import theme from '@/styles/theme'
 function LineValue({value, handleHover}) {
   const {rawValue, errors} = value
   const hasErrors = errors && errors.length > 0
-  const issuesType = hasErrors ? 'error' : ''
 
   return (
     <Fragment key={rawValue}>
-      <td className={issuesType} onMouseOver={() => handleHover(value)} onMouseOut={() => handleHover(null)}>
+      <td className={hasErrors ? 'error' : ''} onMouseOver={() => handleHover(value)} onMouseOut={() => handleHover(null)}>
         {rawValue}
       </td>
 

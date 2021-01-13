@@ -18,7 +18,7 @@ function BALValidator() {
   const [report, setReport] = useState()
 
   const handleError = error => {
-    setError(error.toString())
+    setError(error)
     setFile(null)
     setReport(null)
   }
