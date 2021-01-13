@@ -9,7 +9,7 @@ import {Check, X} from 'react-feather'
 import theme from '@/styles/theme'
 
 function Report({report}) {
-  const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation, uniqueErrors} = report
+  const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
   const errors = []
   const warnings = []
@@ -190,8 +190,7 @@ Report.propTypes = {
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,
       linebreak: PropTypes.object.isRequired
-    }),
-    uniqueErrors: PropTypes.array.isRequired
+    })
   }).isRequired
 }
 
