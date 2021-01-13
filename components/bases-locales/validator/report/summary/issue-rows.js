@@ -5,10 +5,10 @@ import {getValidationErrorLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function IssueRows({issue, rows, isSelected, onClick}) {
+function IssueRows({issue, rows, isSelected, onClick, type}) {
   const issuesRows = issue.rows.length
   const handleClick = () => {
-    onClick(issue, 'error')
+    onClick(issue, type)
   }
 
   if (!issuesRows || issuesRows === 0) {
@@ -36,23 +36,23 @@ function IssueRows({issue, rows, isSelected, onClick}) {
       </div>
 
       <style jsx>{`
-            .colored {
-              color: ${theme.errorBorder};
-            }
-  
-            .issue {
-              padding: .5em;
-              background-color: ${isSelected ? '#f8f8f8' : ''};
-            }
-  
-            .issue:hover {
-              cursor: pointer;
-              background-color: #f8f8f8;
-            }
-  
-            .icon {
-              margin-left: .5em;
-            }
+        .colored {
+          color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
+        }
+
+        .issue {
+          padding: .5em;
+          background-color: ${isSelected ? '#f8f8f8' : ''};
+        }
+
+        .issue:hover {
+          cursor: pointer;
+          background-color: #f8f8f8;
+        }
+
+        .icon {
+          margin-left: .5em;
+        }
         `}</style>
     </div>
   )
@@ -64,6 +64,7 @@ IssueRows.propTypes = {
     rows: PropTypes.array.isRequired
   }).isRequired,
   rows: PropTypes.array.isRequired,
+  type: PropTypes.oneOf(['error', 'warning']).isRequired,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func.isRequired
 }
