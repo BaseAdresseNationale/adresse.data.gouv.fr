@@ -13,7 +13,7 @@ import IssueRows from './issue-rows'
 
 const ROWS_LIMIT = 50
 
-function Summary({rows, errors, rowsWithIssuesCount}) {
+function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
   const [rowsToDisplay, setRowsToDisplay] = useState([])
   const sortedErrors = sortBy(errors, error => error.rows.length)
@@ -84,6 +84,7 @@ function Summary({rows, errors, rowsWithIssuesCount}) {
                 <Row
                   key={`row-${row._line}`}
                   row={row}
+                  profile={profile}
                   isForcedShowIssues={rowsToDisplay.length === 1}
                 />
               ))}
@@ -156,6 +157,7 @@ function Summary({rows, errors, rowsWithIssuesCount}) {
 Summary.propTypes = {
   rows: PropTypes.array.isRequired,
   errors: PropTypes.array.isRequired,
+  profile: PropTypes.string.isRequired,
   rowsWithIssuesCount: PropTypes.number.isRequired
 }
 

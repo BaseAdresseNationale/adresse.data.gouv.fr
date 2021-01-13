@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
 import CsvMeta from './csv-meta'
@@ -12,11 +12,12 @@ function Report({report}) {
   const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation, uniqueErrors} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
   const errors = []
+  const [profile, setProfile] = useState('1.x-comprehensive')
 
-  uniqueErrors.map(e => {
+  report.profilesValidation[profile].errors.map(row => {
     const rowsWithErrors = []
     rows.map(r => {
-      if (r._errors.includes(e)) {
+      if (r._errors.includes(row)) {
         rowsWithErrors.push(r._line)
       }
 
@@ -79,6 +80,13 @@ function Report({report}) {
                 <td>{profilesValidation[key].name}</td>
                 <td>{profilesValidation[key].code}</td>
                 <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
+                <td>
+                  <input
+                    type='checkbox'
+                    checked={profilesValidation[key].code === profile}
+                    onChange={() => setProfile(profilesValidation[key].code)}
+                  />
+                </td>
               </tr>
             ))}
 
@@ -90,7 +98,7 @@ function Report({report}) {
         <h3>Validation des données</h3>
         <Summary
           rows={rowsWithIssues}
-          errors={errors.filter(err => !err.message.includes('field'))}
+          profile={profile}
           rowsWithIssuesCount={rowsWithIssues.length}
         />
       </div>

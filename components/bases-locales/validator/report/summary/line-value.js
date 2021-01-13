@@ -1,17 +1,28 @@
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
+import {getValidationErrorSeverity} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function LineValue({value, handleHover}) {
+function LineValue({value, handleHover, profile}) {
   const {rawValue, errors} = value
   const hasErrors = errors && errors.length > 0
 
   return (
     <Fragment key={rawValue}>
-      <td className={hasErrors ? 'error' : ''} onMouseOver={() => handleHover(value)} onMouseOut={() => handleHover(null)}>
-        {rawValue}
-      </td>
+      {hasErrors ? (
+        <td
+          className={getValidationErrorSeverity(errors[0], profile) === 'E' ? 'error' : 'warning'}
+          onMouseOver={() => handleHover(value)}
+          onMouseOut={() => handleHover(null)}
+        >
+          {rawValue}
+        </td>
+      ) : (
+        <td className='valid'>
+          {rawValue}
+        </td>
+      )}
 
       <style jsx>{`
         td {
@@ -56,7 +67,7 @@ LineValue.propTypes = {
     errors: PropTypes.array,
     warnings: PropTypes.array
   }).isRequired,
-  handleHover: PropTypes.func.isRequired
+  profile: PropTypes.string.isRequired
 }
 
 export default LineValue
