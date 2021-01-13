@@ -1,19 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {getValidationErrorLabel} from '@etalab/bal'
+import {getValidationErrorLabel, getValidationErrorSeverity} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function RowIssues({errors, field}) {
+function RowIssues({errors, field, profile}) {
   return (
     <div className='abnormalities'>
       <h4>Anomalie{(errors.length) > 1 ? 's' : ''} :</h4>
       <div className='error-list'>
-        {errors.map(err => (
-          <div key={err} className={`issue error ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
-            {getValidationErrorLabel(err)}
-          </div>
-        ))}
+        {errors.map(err => {
+          return (
+            <div key={err} className={`issue ${getValidationErrorSeverity(err, profile) === 'E' ? 'error' : 'warning'} ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
+              {getValidationErrorLabel(err)}
+            </div>
+          )
+        })}
       </div>
       <style jsx>{`
       .abnormalities {
@@ -54,6 +56,7 @@ function RowIssues({errors, field}) {
 
 RowIssues.propTypes = {
   errors: PropTypes.array.isRequired,
+  profile: PropTypes.string.isRequired,
   field: PropTypes.object
 }
 

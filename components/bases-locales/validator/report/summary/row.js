@@ -40,11 +40,12 @@ function Row({row, isForcedShowIssues, isWarning, profile}) {
         <div className='issue'>
           <Line
             line={row}
+            profile={profile}
             onHover={field => setField(field)}
           />
 
           {(issuesCount > 0 || isForcedShowIssues) && (
-            <RowIssues errors={row._errors} field={field} />
+            <RowIssues errors={row._errors} field={field} profile={profile} />
           )}
         </div>}
 
@@ -94,7 +95,9 @@ function Row({row, isForcedShowIssues, isWarning, profile}) {
 
 Row.propTypes = {
   row: PropTypes.object.isRequired,
+  isForcedShowIssues: PropTypes.bool,
   isWarning: PropTypes.bool.isRequired,
+  profile: PropTypes.string.isRequired
 }
 
 Row.defaultProps = {
