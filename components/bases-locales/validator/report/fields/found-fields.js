@@ -14,13 +14,17 @@ function FoundFields({fields}) {
             <th>Nom du champ dans la spécification</th>
             <th>Version de la spécification</th>
           </tr>
-          {fields.map(field => (
+          {fields.length > 0 ? fields.map(field => (
             <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
               <td>{field.name}</td>
               <td>{field.schemaName}</td>
               <td>{field.version}</td>
             </tr>
-          ))}
+          )) : (
+            <tr>
+              <td className='background-red'>Aucun champ présent</td>
+            </tr>
+          )}
         </tbody>
         <style jsx>{`
         .background-green {

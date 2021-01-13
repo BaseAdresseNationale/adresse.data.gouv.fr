@@ -11,30 +11,33 @@ function IssueRows({issue, rows, isSelected, onClick}) {
     onClick(issue, 'error')
   }
 
-  if (issuesRows > 0) {
-    return (
-      <div className='issue' onClick={handleClick}>
-        <div>
-          <b>{
-            issuesRows === rows.length ?
-              'Toutes les lignes' :
-              (issuesRows === 1 ?
-                `La ligne ${issue.rows[0]}` :
-                `${issuesRows} lignes`)
-          }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
+  if (!issuesRows || issuesRows === 0) {
+    return null
+  }
 
-          <span className='colored'> {getValidationErrorLabel(issue.message)}</span>
+  return (
+    <div className='issue' onClick={handleClick}>
+      <div>
+        <b>{
+          issuesRows === rows.length ?
+            'Toutes les lignes' :
+            (issuesRows === 1 ?
+              `La ligne ${issue.rows[0]}` :
+              `${issuesRows} lignes`)
+        }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
-          {isSelected ? (
-            <span className='icon'><X style={{verticalAlign: 'middle'}} /></span>
-          ) : (
-            <span className='icon'><Eye style={{verticalAlign: 'middle'}} /></span>
-          )}
-        </div>
+        <span className='colored'> {getValidationErrorLabel(issue.message)}</span>
 
-        <style jsx>{`
+        {isSelected ? (
+          <span className='icon'><X style={{verticalAlign: 'middle'}} /></span>
+        ) : (
+          <span className='icon'><Eye style={{verticalAlign: 'middle'}} /></span>
+        )}
+      </div>
+
+      <style jsx>{`
             .colored {
-              color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
+              color: ${theme.errorBorder};
             }
   
             .issue {
@@ -51,11 +54,8 @@ function IssueRows({issue, rows, isSelected, onClick}) {
               margin-left: .5em;
             }
         `}</style>
-      </div>
-    )
-  }
-
-  return null
+    </div>
+  )
 }
 
 IssueRows.propTypes = {
