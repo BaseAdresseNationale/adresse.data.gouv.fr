@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 
 import CenterControl from '../center-control'
@@ -12,6 +12,8 @@ let hoveredVoieId = null
 const SOURCES = ['adresses', 'toponymes']
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
+  const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
+
   const onLeave = useCallback(() => {
     if (hoveredVoieId) {
       highLightVoie(false)
@@ -58,12 +60,48 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }
 
   const centerAddress = () => {
-    if (address) {
+    if (address && !isCenterControlDisabled) {
       map.fitBounds(address.displayBBox, {
         padding: 30
       })
     }
   }
+
+  const hasVisibleRenderedFeatures = useCallback(() => {
+    const featuresQuery = map.queryRenderedFeatures({layers: [
+      adresseCircleLayer.id,
+      adresseLabelLayer.id,
+      adresseCompletLabelLayer.id,
+      voieLayer.id,
+      toponymeLayer.id
+    ]})
+
+    const hasFeatures = featuresQuery.some(({id}) => {
+      if (address) {
+        return id === address.id
+      }
+
+      return false
+    })
+
+    setIsCenterControlDisabled(address ? hasFeatures : true)
+  }, [map, address])
+
+  useEffect(() => {
+    if (isSourceLoaded) {
+      setTimeout(hasVisibleRenderedFeatures, 100)
+    }
+  }, [isSourceLoaded, address, hasVisibleRenderedFeatures])
+
+  useEffect(() => {
+    if (!address) {
+      setIsCenterControlDisabled(true)
+    }
+
+    map.on('moveend', () => {
+      hasVisibleRenderedFeatures()
+    })
+  }, [map, address, hasVisibleRenderedFeatures, isCenterControlDisabled])
 
   useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
@@ -144,7 +182,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [map, isSourceLoaded, address, setLayers])
 
   return (
-    <CenterControl handleClick={centerAddress} />
+    <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
   )
 }
 
