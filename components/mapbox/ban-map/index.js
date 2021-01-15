@@ -59,13 +59,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     cb(feature.properties)
   }
 
-  const centerAddress = () => {
+  const centerAddress = useCallback(() => {
     if (address && !isCenterControlDisabled) {
       map.fitBounds(address.displayBBox, {
         padding: 30
       })
     }
-  }
+  }, [address, isCenterControlDisabled, map])
 
   const hasVisibleRenderedFeatures = useCallback(() => {
     const featuresQuery = map.queryRenderedFeatures({layers: [
