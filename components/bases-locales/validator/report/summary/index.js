@@ -59,7 +59,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
                 rows={rows}
                 type='error'
                 isSelected={error === selectedIssue}
-                onClick={selectIssue}
+                onClick={() => selectIssue(error)}
               />
             ))}
           </div>
@@ -80,7 +80,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
                 rows={rows}
                 type='warning'
                 isSelected={warning === selectedIssue}
-                onClick={selectIssue}
+                onClick={() => selectIssue(warning)}
               />
             ))}
           </div>

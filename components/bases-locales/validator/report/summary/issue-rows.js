@@ -7,16 +7,13 @@ import theme from '@/styles/theme'
 
 function IssueRows({issue, rows, isSelected, onClick, type}) {
   const issuesRows = issue.rows.length
-  const handleClick = () => {
-    onClick(issue, type)
-  }
 
   if (!issuesRows || issuesRows === 0) {
     return null
   }
 
   return (
-    <div className='issue' onClick={handleClick}>
+    <div className='issue' onClick={onClick}>
       <div>
         <b>{
           issuesRows === rows.length ?
