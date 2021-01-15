@@ -5,20 +5,34 @@ import {Crosshair} from 'react-feather'
 function CenterControl({isDisabled, handleClick}) {
   return (
     <div>
-      <a title='Recentrer la carte sur l’adresse' onClick={handleClick}>
-        <div className='mapboxgl-ctrl-group mapboxgl-ctrl center-control'>
-          <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} />
-        </div>
-      </a>
+      <button
+        disabled={isDisabled}
+        type='button'
+        className='mapboxgl-ctrl-group mapboxgl-ctrl center-control'
+        title='Recentrer la carte sur l’adresse'
+        onClick={handleClick}
+      >
+        <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} />
+      </button>
 
       <style jsx>{`
         .center-control {
           position: absolute;
-          padding: 0.3em 0.3em 0 0.3em;
+          box-shadow: none;
+          border: 2px solid #dcd8d5;
           z-index: 2;
-          right: 10px;
+          padding: 4px 5px 2px 5px;
+          right: 8px;
           top: 80px;
           cursor: ${isDisabled ? 'not-allowed' : 'pointer'};
+        }
+
+        .center-control:focus {
+          outline: none;
+        }
+
+        .center-control:not(:disabled):hover {
+          background-color: #f2f2f2
         }
       `}
       </style>
