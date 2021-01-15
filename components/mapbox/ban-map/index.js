@@ -67,7 +67,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
   }, [address, isCenterControlDisabled, map])
 
-  const hasVisibleRenderedFeatures = useCallback(() => {
+  const isAddressVisible = useCallback(() => {
     const featuresQuery = map.queryRenderedFeatures({layers: [
       adresseCircleLayer.id,
       adresseLabelLayer.id,
@@ -76,15 +76,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       toponymeLayer.id
     ]})
 
-    const hasFeatures = featuresQuery.some(({id}) => {
-      if (address) {
-        return id === address.id
-      }
-
-      return false
-    })
-
-    setIsCenterControlDisabled(address ? hasFeatures : true)
+    return featuresQuery.some(({id}) => id === address.id)
   }, [map, address])
 
   useEffect(() => {
