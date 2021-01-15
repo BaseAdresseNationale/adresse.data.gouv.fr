@@ -10,8 +10,9 @@ function RowIssues({errors, field, profile}) {
       <h4>Anomalie{(errors.length) > 1 ? 's' : ''} :</h4>
       <div className='error-list'>
         {errors.map(err => {
+          const color = getValidationErrorSeverity(err, profile) === 'E' ? 'error' : 'warning'
           return (
-            <div key={err} className={`issue ${getValidationErrorSeverity(err, profile) === 'E' ? 'error' : 'warning'} ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
+            <div key={err} className={`issue ${color} ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
               {getValidationErrorLabel(err)}
             </div>
           )
@@ -56,7 +57,7 @@ function RowIssues({errors, field, profile}) {
 
 RowIssues.propTypes = {
   errors: PropTypes.array.isRequired,
-  profile: PropTypes.string.isRequired,
+  profile: PropTypes.oneOf(['1.1-strict', '1.x-comprehensive']).isRequired,
   field: PropTypes.object
 }
 

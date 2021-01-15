@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {getValidationErrorSeverity} from '@etalab/bal'
 
@@ -9,7 +9,7 @@ function LineValue({value, handleHover, profile}) {
   const hasErrors = errors && errors.length > 0
 
   return (
-    <Fragment key={rawValue}>
+    <>
       {hasErrors ? (
         <td
           className={getValidationErrorSeverity(errors[0], profile) === 'E' ? 'error' : 'warning'}
@@ -57,7 +57,7 @@ function LineValue({value, handleHover, profile}) {
           background: ${theme.backgroundGrey};
         }
       `}</style>
-    </Fragment>
+    </>
   )
 }
 

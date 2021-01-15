@@ -28,11 +28,11 @@ function BALValidator() {
     try {
       const report = await validate(file)
       setReport(report)
-      setInProgress(false)
     } catch (err) {
       setError(`Impossible d’analyser le fichier... [${err.message}]`)
-      setInProgress(false)
     }
+
+    setInProgress(false)
   }
 
   const handleFileDrop = fileList => {
