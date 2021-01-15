@@ -86,14 +86,28 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [isSourceLoaded, address, hasVisibleRenderedFeatures])
 
   useEffect(() => {
-    if (!address) {
+    if (address) {
+      const isVisible = isAddressVisible()
+      setIsCenterControlDisabled(isVisible)
+    } else {
       setIsCenterControlDisabled(true)
     }
+  }, [address, isAddressVisible])
 
-    map.on('moveend', () => {
-      hasVisibleRenderedFeatures()
-    })
-  }, [map, address, hasVisibleRenderedFeatures, isCenterControlDisabled])
+  useEffect(() => {
+    if (address) {
+      map.on('moveend', () => {
+        const isVisible = isAddressVisible()
+        setIsCenterControlDisabled(isVisible)
+      })
+
+      return () => {
+        map.off('moveend', isAddressVisible)
+      }
+    }
+
+    setIsCenterControlDisabled(true)
+  }, [map, address, isAddressVisible])
 
   useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
