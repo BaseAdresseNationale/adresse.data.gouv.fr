@@ -30,6 +30,8 @@ function BALValidator() {
       setReport(report)
     } catch (err) {
       setError(`Impossible d’analyser le fichier... [${err.message}]`)
+      setFile(null)
+      setReport(null)
     }
 
     setInProgress(false)
