@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useMemo, useCallback} from 'react'
 import PropTypes from 'prop-types'
 
 import CsvMeta from './csv-meta'
@@ -11,41 +11,33 @@ import theme from '@/styles/theme'
 function Report({report}) {
   const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
-  const errors = []
-  const warnings = []
   const [profile, setProfile] = useState('1.x-comprehensive')
 
-  report.profilesValidation[profile].errors.map(row => {
-    const rowsWithErrors = []
-    rows.map(r => {
-      if (r._errors.includes(row)) {
-        rowsWithErrors.push(r._line)
+  const getIssues = useCallback(issuesRows => {
+    const issues = []
+    issuesRows.forEach(issue => {
+      const rowsWithIssues = []
+      rows.forEach(row => {
+        if (row._errors.includes(issue)) {
+          rowsWithIssues.push(row._line)
+        }
+      })
+
+      if (rowsWithIssues.length > 0) {
+        issues.push({message: issue, rows: rowsWithIssues})
       }
-
-      return null
     })
-    if (rowsWithErrors.length > 0) {
-      errors.push({message: row, rows: rowsWithErrors})
-    }
 
-    return null
-  })
+    return issues
+  }, [rows])
 
-  report.profilesValidation[profile].warnings.map(row => {
-    const rowsWithWarnings = []
-    rows.map(r => {
-      if (r._errors.includes(row)) {
-        rowsWithWarnings.push(r._line)
-      }
+  const errors = useMemo(() => {
+    return getIssues(report.profilesValidation[profile].errors)
+  }, [profile, report, getIssues])
 
-      return null
-    })
-    if (rowsWithWarnings.length > 0) {
-      warnings.push({message: row, rows: rowsWithWarnings})
-    }
-
-    return null
-  })
+  const warnings = useMemo(() => {
+    return getIssues(report.profilesValidation[profile].warnings)
+  }, [profile, report, getIssues])
 
   return (
     <div>
