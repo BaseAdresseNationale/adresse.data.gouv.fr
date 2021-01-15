@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useCallback} from 'react'
+import React, {useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 
 import CsvMeta from './csv-meta'
@@ -8,36 +8,36 @@ import Summary from './summary'
 import {Check, X} from 'react-feather'
 import theme from '@/styles/theme'
 
+const getIssues = (issuesRows, rows) => {
+  const issues = []
+  issuesRows.forEach(issue => {
+    const rowsWithIssues = []
+    rows.forEach(row => {
+      if (row._errors.includes(issue)) {
+        rowsWithIssues.push(row._line)
+      }
+    })
+
+    if (rowsWithIssues.length > 0) {
+      issues.push({message: issue, rows: rowsWithIssues})
+    }
+  })
+
+  return issues
+}
+
 function Report({report}) {
   const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
   const [profile, setProfile] = useState('1.x-comprehensive')
 
-  const getIssues = useCallback(issuesRows => {
-    const issues = []
-    issuesRows.forEach(issue => {
-      const rowsWithIssues = []
-      rows.forEach(row => {
-        if (row._errors.includes(issue)) {
-          rowsWithIssues.push(row._line)
-        }
-      })
-
-      if (rowsWithIssues.length > 0) {
-        issues.push({message: issue, rows: rowsWithIssues})
-      }
-    })
-
-    return issues
-  }, [rows])
-
   const errors = useMemo(() => {
-    return getIssues(report.profilesValidation[profile].errors)
-  }, [profile, report, getIssues])
+    return getIssues(report.profilesValidation[profile].errors, rows)
+  }, [profile, report, rows])
 
   const warnings = useMemo(() => {
-    return getIssues(report.profilesValidation[profile].warnings)
-  }, [profile, report, getIssues])
+    return getIssues(report.profilesValidation[profile].warnings, rows)
+  }, [profile, report, rows])
 
   return (
     <div>
