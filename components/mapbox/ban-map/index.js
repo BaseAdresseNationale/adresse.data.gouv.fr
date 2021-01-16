@@ -1,5 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import bboxPolygon from '@turf/bbox-polygon'
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
 
 import CenterControl from '../center-control'
 
@@ -10,6 +12,26 @@ import {forEach} from 'lodash'
 let hoveredVoieId = null
 
 const SOURCES = ['adresses', 'toponymes']
+
+const ZOOM_RANGE = {
+  commune: {
+    min: 12,
+    max: 13
+  },
+  voie: {
+    min: 15,
+    max: 18
+  },
+  numero: {
+    min: 17,
+    max: 20
+  }
+}
+
+const isPointInBBox = (point, bbox) => {
+  const polygon = bboxPolygon(bbox)
+  return booleanPointInPolygon(point, polygon)
+}
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
@@ -68,22 +90,15 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [address, isCenterControlDisabled, map])
 
   const isAddressVisible = useCallback(() => {
-    const featuresQuery = map.queryRenderedFeatures({layers: [
-      adresseCircleLayer.id,
-      adresseLabelLayer.id,
-      adresseCompletLabelLayer.id,
-      voieLayer.id,
-      toponymeLayer.id
-    ]})
+    const {lng, lat} = map.getCenter()
+    const currentZoom = map.getZoom()
+    const isCurrentCenterInBBox = isPointInBBox([lng, lat], address.displayBBox)
 
-    return featuresQuery.some(({id}) => id === address.id)
+    const maxRange = currentZoom < ZOOM_RANGE[address.type].max
+    const minRange = currentZoom > ZOOM_RANGE[address.type].min
+
+    return isCurrentCenterInBBox && maxRange && minRange
   }, [map, address])
-
-  useEffect(() => {
-    if (isSourceLoaded) {
-      setTimeout(hasVisibleRenderedFeatures, 100)
-    }
-  }, [isSourceLoaded, address, hasVisibleRenderedFeatures])
 
   useEffect(() => {
     if (address) {
