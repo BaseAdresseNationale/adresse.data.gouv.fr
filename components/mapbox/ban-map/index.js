@@ -106,10 +106,10 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     const currentZoom = map.getZoom()
     const isAddressInCurrentBBox = isPointInBBox(address.displayBBox, currentBBox)
 
-    const maxRange = currentZoom < ZOOM_RANGE[address.type].max
-    const minRange = currentZoom > ZOOM_RANGE[address.type].min
+    const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
+    const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
 
-    return isAddressInCurrentBBox && maxRange && minRange
+    return isAddressInCurrentBBox && isZoomSmallerThanMax && isZoomGreaterThanMin
   }, [map, address])
 
   useEffect(() => {
