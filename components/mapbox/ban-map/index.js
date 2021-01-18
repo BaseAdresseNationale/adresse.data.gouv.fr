@@ -12,19 +12,24 @@ import {forEach} from 'lodash'
 let hoveredVoieId = null
 
 const SOURCES = ['adresses', 'toponymes']
+const MAX_ZOOM = 19 // Zoom maximum de la carte
 
 const ZOOM_RANGE = {
   commune: {
-    min: 12,
-    max: 13
+    min: adresseCircleLayer.minzoom,
+    max: MAX_ZOOM
   },
   voie: {
-    min: 15,
-    max: 18
+    min: voieLayer.minzoom,
+    max: voieLayer.maxzoom
   },
   numero: {
-    min: 17,
-    max: 20
+    min: adresseLabelLayer.minzoom,
+    max: MAX_ZOOM
+  },
+  'lieu-dit': {
+    min: toponymeLayer.minzoom,
+    max: toponymeLayer.maxzoom
   }
 }
 
