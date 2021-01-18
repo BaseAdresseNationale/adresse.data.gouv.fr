@@ -117,21 +117,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [address, isAddressVisible])
 
   useEffect(() => {
-    if (address) {
-      map.on('moveend', () => {
-        const isVisible = isAddressVisible()
-        setIsCenterControlDisabled(isVisible)
-      })
-
-      return () => {
-        map.off('moveend', isAddressVisible)
-      }
-    }
-
-    setIsCenterControlDisabled(true)
-  }, [map, address, isAddressVisible])
-
-  useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
     map.on('mousemove', 'adresse-label', onHover)
     map.on('mousemove', 'voie', onHover)
@@ -146,6 +131,19 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     map.on('click', 'adresse-label', e => handleClick(e, onSelect))
     map.on('click', 'voie', e => handleClick(e, onSelect))
     map.on('click', 'toponyme', e => handleClick(e, onSelect))
+
+    if (address) {
+      map.on('moveend', () => {
+        const isVisible = isAddressVisible()
+        setIsCenterControlDisabled(isVisible)
+      })
+
+      return () => {
+        map.off('moveend', isAddressVisible)
+      }
+    }
+
+    setIsCenterControlDisabled(true)
 
     return () => {
       map.off('mousemove', 'adresse', onHover)
@@ -165,7 +163,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
 
     // No dependency in order to mock a didMount and avoid duplicating events.
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isAddressVisible]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setSources([{
