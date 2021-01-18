@@ -1,9 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
-import {Plus, File} from 'react-feather'
+import {Plus, FileText, RefreshCcw} from 'react-feather'
+
+function formatFileSize(bytes) {
+  if (bytes === 0) {
+    return '0 Bytes'
+  }
+
+  const k = 1000
+  const sizes = ['Bytes', 'KB', 'Myar B']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+  return Number.parseFloat((bytes / (k ** i)).toFixed(2)) + ' ' + sizes[i]
+}
 
 function Holder({file, placeholder, onDrop}) {
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
     <Dropzone onDrop={onDrop} multiple={false}>
       {({getRootProps, getInputProps, isDragActive}) => {
@@ -11,10 +24,31 @@ function Holder({file, placeholder, onDrop}) {
         const inputProps = getInputProps()
 
         return (
-          <div {...rootProps} className={`dropzone ${isDragActive ? 'active' : ''}`}>
+          <div
+            {...rootProps}
+            className={`dropzone ${file ? 'file' : ''} ${isDragActive ? 'active' : ''}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
             <input {...inputProps} />
-            <div className='drop-icon'>{file && !isDragActive ? <File size={72} /> : <Plus size={72} />}</div>
-            <div>{file ? file.name : placeholder}</div>
+            <div>{!file && <Plus size={72} />}</div>
+            <div className='file-container'>{file ? (
+              <div className='file-sumup'>
+                <div className='file-details'>
+                  <FileText size={42} />
+                  <div>
+                    <div>{file.name}</div>
+                    <div>{formatFileSize(file.size)}</div>
+                  </div>
+                </div>
+                <RefreshCcw
+                  size={32}
+                  style={{
+                    display: isHovered || isDragActive ? 'block' : 'none',
+                    margin: '0 1em'
+                  }} />
+              </div>
+            ) : placeholder}</div>
 
             <style jsx>{`
               .dropzone {
@@ -25,19 +59,39 @@ function Holder({file, placeholder, onDrop}) {
                 border: 1px dashed #ccc;
                 height: 200px;
                 text-align: center;
+                cursor: pointer;
+                border-radius: 4px;
               }
 
               .dropzone:hover {
-                cursor: pointer;
+                background-color: #ebeff3;
+              }
+
+              .dropzone.file {
+                display: flex;
+                flex-flow: column;
+                height: auto;
+                border: none;
+              }
+
+              .file-container {
+                width: 100%;
+              }
+
+              .file-sumup {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+              }
+
+              .file-details {
+                display: flex;
+                align-items: center;
               }
 
               .active {
                 background-color: #ebeff3;
-              }
-
-              .drop-icon {
-                font-size: 72px;
-                margin-bottom: 0.3em;
               }
             `}</style>
           </div>

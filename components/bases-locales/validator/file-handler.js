@@ -25,7 +25,7 @@ class FileHandler extends React.Component {
     return (
       <>
         <div>
-          <h2>Choisir un fichier</h2>
+          {file ? <h4>Votre fichier</h4> : <h2>Choisir un fichier</h2> }
 
           <div className='file-handler-container'>
             <Holder
