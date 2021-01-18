@@ -90,14 +90,21 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [address, isCenterControlDisabled, map])
 
   const isAddressVisible = useCallback(() => {
-    const {lng, lat} = map.getCenter()
+    const bounds = map.getBounds()
+    const currentBBox = [
+      bounds._sw.lng,
+      bounds._sw.lat,
+      bounds._ne.lng,
+      bounds._ne.lat
+    ]
+
     const currentZoom = map.getZoom()
-    const isCurrentCenterInBBox = isPointInBBox([lng, lat], address.displayBBox)
+    const isAddressInCurrentBBox = isPointInBBox(address.displayBBox, currentBBox)
 
     const maxRange = currentZoom < ZOOM_RANGE[address.type].max
     const minRange = currentZoom > ZOOM_RANGE[address.type].min
 
-    return isCurrentCenterInBBox && maxRange && minRange
+    return isAddressInCurrentBBox && maxRange && minRange
   }, [map, address])
 
   useEffect(() => {
