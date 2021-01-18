@@ -8,7 +8,7 @@ import theme from '@/styles/theme'
 function IssueRows({issue, rows, isSelected, onClick, type}) {
   const issuesRows = issue.rows.length
 
-  if (!issuesRows || issuesRows === 0) {
+  if (issuesRows === 0) {
     return null
   }
 
