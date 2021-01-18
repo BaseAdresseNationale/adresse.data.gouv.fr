@@ -71,15 +71,7 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <Fields
-          fields={fields}
-          original={originalFields}
-          notFound={notFoundFields}
-        />
-      </div>
-
-      <div className='report-container'>
-        <h4>Validation par profile</h4>
+        <h4>Validation par version de spécification</h4>
         <table>
           <tbody>
             <tr>
@@ -92,22 +84,31 @@ function Report({report}) {
                 <td>{profilesValidation[key].name}</td>
                 <td>{profilesValidation[key].code}</td>
                 <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
-                <td>
-                  <input
-                    type='checkbox'
-                    checked={profilesValidation[key].code === profile}
-                    onChange={() => setProfile(profilesValidation[key].code)}
-                  />
-                </td>
               </tr>
             ))}
-
           </tbody>
         </table>
       </div>
 
       <div className='report-container'>
-        <h3>Validation des données</h3>
+        <Fields
+          fields={fields}
+          original={originalFields}
+          notFound={notFoundFields}
+        />
+      </div>
+
+      <div className='report-container'>
+        <h4>Validation des données</h4>
+        <div className='profil-selector'>
+          <label>Version de la spécification :</label>
+          <select name='profil' onChange={e => setProfile(e.target.value)}>
+            {Object.keys(profilesValidation).map(key => (
+              <option key={key} value={key}>{profilesValidation[key].name}</option>
+            ))}
+          </select>
+        </div>
+
         <Summary
           rows={rowsWithIssues}
           profile={profile}
@@ -125,6 +126,16 @@ function Report({report}) {
         th, td {
           padding: 0.5em;
           text-align: center;
+        }
+
+        .profil-selector {
+          display: flex;
+          align-items: center;
+        }
+
+        select {
+          margin-left: 1em;
+          background-size: 2em 1em;
         }
 
         .flex-container {
