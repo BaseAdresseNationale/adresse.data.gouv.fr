@@ -83,6 +83,7 @@ function Holder({file, placeholder, onDrop}) {
                 align-items: center;
                 justify-content: space-between;
                 text-align: left;
+                padding: .5em;
               }
 
               .file-details {

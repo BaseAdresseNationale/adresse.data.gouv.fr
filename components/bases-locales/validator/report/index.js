@@ -44,7 +44,7 @@ function Report({report}) {
       <div className='report-container'>
         {fileValidation &&
           <div>
-            <h3>Validation de la structure du fichier</h3>
+            <h4>Validation de la structure du fichier</h4>
             <div className='items'>
               <CsvMeta
                 name='Encodage des caractères'
@@ -80,7 +80,7 @@ function Report({report}) {
               <th>Valide</th>
             </tr>
             {Object.keys(profilesValidation).map(key => (
-              <tr key={key} className={profilesValidation[key].isValid ? 'background-green' : 'background-red'}>
+              <tr key={key} style={{backgroundColor: profilesValidation[key].isValid ? theme.successBg : theme.errorBg}}>
                 <td>{profilesValidation[key].name}</td>
                 <td>{profilesValidation[key].code}</td>
                 <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
@@ -138,16 +138,6 @@ function Report({report}) {
           background-size: 2em 1em;
         }
 
-        .flex-container {
-          display: flex;
-          margin: auto;
-        }
-
-        .flex-container:hover {
-          cursor: pointer;
-          background-color: #f8f8f8;
-        }
-
         .report-container {
           margin: 2em 0;
           padding: 2em 1em;
@@ -160,22 +150,6 @@ function Report({report}) {
           display: grid;
           grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
           grid-gap: 2em 1em;
-        }
-
-        .valid {
-          color: ${theme.successBorder};
-        }
-
-        .background-green {
-          background-color: ${theme.successBg};
-        }
-
-        .background-red {
-          background-color: ${theme.errorBg};
-        }
-
-        h3 {
-          padding: 0 .5em;
         }
       `}</style>
     </div>

@@ -20,20 +20,28 @@ function Row({row, isForcedShowIssues, isWarning, profile}) {
   return (
     <div>
       <div className='line' onClick={handleError}>
-        <div className='col'>
-          <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
-        </div>
         <div>
-          {issuesCount === 1 ? (
-            <span className={isWarning ? 'warning' : 'error'}>
-              {showIssues ? 'Masquer' : 'Afficher'} l’anomalie {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
-            </span>
-          ) : (
-            <span className={isWarning ? 'warning' : 'error'}>
-              {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies {showIssues ? <ChevronUp style={{verticalAlign: 'middle', color: 'black'}} /> : <ChevronDown style={{verticalAlign: 'middle', color: 'black'}} />}
-            </span>
-          )}
+          <div className='col'>
+            <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
+          </div>
+          <div>
+            {issuesCount === 1 ? (
+              <div className={isWarning ? 'warning' : 'error'}>
+                {showIssues ? 'Masquer' : 'Afficher'} l’anomalie
+              </div>
+            ) : (
+              <div className={isWarning ? 'warning' : 'error'}>
+                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies
+              </div>
+            )}
+          </div>
         </div>
+
+        {showIssues ? (
+          <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} />
+        ) : (
+          <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} />
+        )}
       </div>
 
       {showIssues &&
@@ -51,14 +59,20 @@ function Row({row, isForcedShowIssues, isWarning, profile}) {
 
       <style jsx>{`
         .issue {
-          background-color: #f8f8f8;
+          padding: 1em;
         }
 
         .line {
           display: flex;
+          justify-content: space-between;
           align-items: center;
           padding: 0 1em;
           background-color: ${showIssues ? '#f8f8f8' : ''}
+        }
+
+        .line > div {
+          display: flex;
+          align-items: center;
         }
 
         .col {

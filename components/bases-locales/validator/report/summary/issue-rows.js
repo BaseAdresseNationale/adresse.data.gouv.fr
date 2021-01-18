@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Eye, X} from 'react-feather'
+import {ZoomIn} from 'react-feather'
 import {getValidationErrorLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
@@ -24,31 +24,25 @@ function IssueRows({issue, rows, isSelected, onClick, type}) {
         }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
         <span className='colored'> {getValidationErrorLabel(issue.message)}</span>
-
-        {isSelected ? (
-          <span className='icon'><X style={{verticalAlign: 'middle'}} /></span>
-        ) : (
-          <span className='icon'><Eye style={{verticalAlign: 'middle'}} /></span>
-        )}
       </div>
 
+      <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} /></div>
+
       <style jsx>{`
-        .colored {
-          color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
+        .issue {
+          padding: 0.4em 0;
+          background-color: ${isSelected ? '#f8f8f8' : ''};
+          display: flex;
+          justify-content: space-between;
         }
 
-        .issue {
-          padding: .5em;
-          background-color: ${isSelected ? '#f8f8f8' : ''};
+        .colored {
+          color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
         }
 
         .issue:hover {
           cursor: pointer;
           background-color: #f8f8f8;
-        }
-
-        .icon {
-          margin-left: .5em;
         }
         `}</style>
     </div>

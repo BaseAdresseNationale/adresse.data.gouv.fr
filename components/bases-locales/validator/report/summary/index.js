@@ -46,7 +46,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
       )}
 
       {errors.length > 0 && (
-        <>
+        <div className='issues-container'>
           <h4>
             {errors.length} Erreur{errors.length > 1 ? 's' : ''}
             <div className='summary-icon error'><X style={{verticalAlign: 'bottom'}} /></div>
@@ -63,11 +63,11 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
               />
             ))}
           </div>
-        </>
+        </div>
       )}
 
       {warnings.length > 0 && (
-        <>
+        <div className='issues-container'>
           <h4>
             {warnings.length} Avertissement{warnings.length > 1 ? 's' : ''}
             <div className='summary-icon warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></div>
@@ -84,7 +84,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
               />
             ))}
           </div>
-        </>
+        </div>
       )}
 
       {selectedIssue && (
@@ -141,15 +141,20 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
           justify-content: space-between;
         }
 
+        .issues-container {
+          border-left: 4px solid whitesmoke;
+          padding-left: 1em;
+        }
+
         .selected-issue {
           background-color: rgba(0,0,0,0.2);
-          padding: 3em;
+          padding: 2em;
           position: fixed;
           top: 0;
           bottom: 0;
           left: 0;
           right: 0;
-          z-index: 1000;
+          z-index: 999;
         }
 
         .error {
@@ -167,11 +172,10 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
 
         .list {
           display: grid;
-          grid-row-gap: 0.5em;
         }
 
         .summary-icon {
-            margin-left: 0.5em;
+          margin-left: 0.5em;
         }
         `}</style>
     </div>
