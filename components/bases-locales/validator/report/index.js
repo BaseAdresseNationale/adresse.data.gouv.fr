@@ -104,7 +104,7 @@ function Report({report}) {
           <label>Version de la spécification :</label>
           <select name='profil' onChange={e => setProfile(e.target.value)}>
             {Object.keys(profilesValidation).map(key => (
-              <option key={key} value={key}>{profilesValidation[key].name}</option>
+              <option key={key} selected={profilesValidation[key].code === profile} value={key}>{profilesValidation[key].name}</option>
             ))}
           </select>
         </div>
