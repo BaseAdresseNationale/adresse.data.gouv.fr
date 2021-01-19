@@ -22,7 +22,7 @@ function Row({row, isForcedShowIssues, isWarning, profile}) {
       <div className='line' onClick={handleError}>
         <div>
           <div className='col'>
-            <b>Ligne {row._line}</b> {row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
+            <b>Ligne {row._line}</b> {row.cle_interop && row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
           </div>
           <div>
             {issuesCount === 1 ? (
