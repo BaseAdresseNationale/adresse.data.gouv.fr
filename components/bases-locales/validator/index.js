@@ -27,7 +27,13 @@ function BALValidator() {
     setInProgress(true)
     try {
       const report = await validate(file)
-      setReport(report)
+      if (report.parseOk) {
+        setReport(report)
+      } else {
+        setError(`Impossible d’analyser le fichier... [${report.parseErrors[0].message}]`)
+        setFile(null)
+        setReport(null)
+      }
     } catch (err) {
       setError(`Impossible d’analyser le fichier... [${err.message}]`)
       setFile(null)
