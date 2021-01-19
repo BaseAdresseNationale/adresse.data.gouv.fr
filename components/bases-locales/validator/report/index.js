@@ -102,9 +102,9 @@ function Report({report}) {
         <h4>Validation des données</h4>
         <div className='profil-selector'>
           <label>Version de la spécification :</label>
-          <select name='profil' onChange={e => setProfile(e.target.value)}>
+          <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
             {Object.keys(profilesValidation).map(key => (
-              <option key={key} selected={profilesValidation[key].code === profile} value={key}>{profilesValidation[key].name}</option>
+              <option key={key} value={key}>{profilesValidation[key].name}</option>
             ))}
           </select>
         </div>
