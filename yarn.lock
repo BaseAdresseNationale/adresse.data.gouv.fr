@@ -464,10 +464,37 @@
     "@turf/helpers" "6.x"
     "@turf/meta" "6.x"
 
+"@turf/bbox@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.2.0.tgz#ae75ab6b111478863dd34c4e63dbb36e613e6854"
+  integrity sha512-8KR//ruA/hhCvDiBzxBTUJ/G3hm9+tuCyeZA81hvdsooDpeq0PK/jSJjlwYjS//UK5c2deBeNNJx7NvL/PLEwg==
+  dependencies:
+    "@turf/helpers" "^6.2.0"
+    "@turf/meta" "^6.2.0"
+
+"@turf/boolean-contains@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-contains/-/boolean-contains-6.2.0.tgz#e1143227558eb4bd684502557b24f089d915eba9"
+  integrity sha512-EVB8VTbLxo632KvtxwYB9oQ4HDZpGx3v9dURkFvD7HeevIgCC/MYlOQ66eW8JQMcThZaWtep1EZpA+zxH/VL1g==
+  dependencies:
+    "@turf/bbox" "^6.2.0"
+    "@turf/boolean-point-in-polygon" "^6.2.0"
+    "@turf/boolean-point-on-line" "^6.2.0"
+    "@turf/helpers" "^6.2.0"
+    "@turf/invariant" "^6.2.0"
+
 "@turf/boolean-point-in-polygon@^6.2.0":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-6.2.0.tgz#b9f4984535a4d0cb98959ff6e402b82df14f3015"
   integrity sha512-oYL8nuz+MeIEuJgX8IhnQstLNmqU6cARNd8Wgkn5FgWmMGJn+7j4ajMY/SPAmBUq4il45VO3X03lxftxTCCsog==
+  dependencies:
+    "@turf/helpers" "^6.2.0"
+    "@turf/invariant" "^6.2.0"
+
+"@turf/boolean-point-on-line@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-point-on-line/-/boolean-point-on-line-6.2.0.tgz#1c75fa72042077249b8716c77a0e502a016517f9"
+  integrity sha512-vZ2tEH4TK0i62fRBW12WNK2le70Y9VG33EIze9RvDCf2JQ2qpnU4XjZH3zcVmfQcZ537dZ2kgsDTIVA9yqgG2A==
   dependencies:
     "@turf/helpers" "^6.2.0"
     "@turf/invariant" "^6.2.0"
@@ -490,6 +517,13 @@
   integrity sha512-VA7HJkx7qF1l3+GNGkDVn2oXy4+QoLP6LktXAaZKjuT1JI0YESat7quUkbCMy4zP9lAUuvS4YMslLyTtr919FA==
   dependencies:
     "@turf/helpers" "6.x"
+
+"@turf/meta@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.2.0.tgz#a225477fd8b5a4166d98e2e70cc4ed843db0f48d"
+  integrity sha512-8bM69hzRYKNfpZ+cyLxXZLw1IqCxm3cBcyEkVBHROFsQJb1o1Ghv2cd4iCSIuvkc1xSWD+qQvUjYr40XSNsyOQ==
+  dependencies:
+    "@turf/helpers" "^6.2.0"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"

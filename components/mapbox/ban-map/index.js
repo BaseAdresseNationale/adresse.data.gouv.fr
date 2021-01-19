@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
-import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
+import booleanContains from '@turf/boolean-contains'
 
 import CenterControl from '../center-control'
 
@@ -33,9 +33,10 @@ const ZOOM_RANGE = {
   }
 }
 
-const isPointInBBox = (point, bbox) => {
-  const polygon = bboxPolygon(bbox)
-  return booleanPointInPolygon(point, polygon)
+const isFeatureContained = (container, content) => {
+  const polygonA = bboxPolygon(container)
+  const polygonB = bboxPolygon(content)
+  return booleanContains(polygonA, polygonB)
 }
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
@@ -98,7 +99,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const isAddressVisible = useCallback(() => {
     if (address) {
       const {_sw, _ne} = map.getBounds()
-      const currentBBox = [
+      const mapBBox = [
         _sw.lng,
         _sw.lat,
         _ne.lng,
@@ -106,11 +107,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       ]
 
       const currentZoom = map.getZoom()
-      const isAddressInCurrentBBox = isPointInBBox(address.displayBBox, currentBBox)
+      const isAddressInMapBBox = isFeatureContained(mapBBox, address.displayBBox)
 
       const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
       const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
-      setIsCenterControlDisabled(isAddressInCurrentBBox && isZoomSmallerThanMax && isZoomGreaterThanMin)
+      setIsCenterControlDisabled(isAddressInMapBBox && isZoomSmallerThanMax && isZoomGreaterThanMin)
     } else {
       setIsCenterControlDisabled(true)
     }
@@ -119,6 +120,19 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   useEffect(() => {
     isAddressVisible()
   }, [address, isAddressVisible])
+
+  useEffect(() => {
+    map.off('dragend', isAddressVisible)
+    map.off('zoomend', isAddressVisible)
+
+    map.on('dragend', isAddressVisible)
+    map.on('zoomend', isAddressVisible)
+
+    return () => {
+      map.off('dragend', isAddressVisible)
+      map.off('zoomend', isAddressVisible)
+    }
+  }, [map, address, isAddressVisible])
 
   useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
@@ -136,9 +150,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     map.on('click', 'voie', e => handleClick(e, onSelect))
     map.on('click', 'toponyme', e => handleClick(e, onSelect))
 
-    map.on('dragend', isAddressVisible)
-    map.on('zoomend', isAddressVisible)
-
     return () => {
       map.off('mousemove', 'adresse', onHover)
       map.off('mousemove', 'adresse-label', onHover)
@@ -154,9 +165,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       map.off('click', 'adresse-label', e => handleClick(e, onSelect))
       map.off('click', 'voie', e => handleClick(e, onSelect))
       map.off('click', 'toponyme', e => handleClick(e, onSelect))
-
-      map.off('dragend', isAddressVisible)
-      map.off('zoomend', isAddressVisible)
     }
 
     // No dependency in order to mock a didMount and avoid duplicating events.
