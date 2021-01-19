@@ -91,34 +91,33 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       map.fitBounds(address.displayBBox, {
         padding: 30
       })
+      setIsCenterControlDisabled(true)
     }
   }, [address, isCenterControlDisabled, map])
 
   const isAddressVisible = useCallback(() => {
-    const bounds = map.getBounds()
-    const currentBBox = [
-      bounds._sw.lng,
-      bounds._sw.lat,
-      bounds._ne.lng,
-      bounds._ne.lat
-    ]
-
-    const currentZoom = map.getZoom()
-    const isAddressInCurrentBBox = isPointInBBox(address.displayBBox, currentBBox)
-
-    const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
-    const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
-
-    return isAddressInCurrentBBox && isZoomSmallerThanMax && isZoomGreaterThanMin
-  }, [map, address])
-
-  useEffect(() => {
     if (address) {
-      const isVisible = isAddressVisible()
-      setIsCenterControlDisabled(isVisible)
+      const {_sw, _ne} = map.getBounds()
+      const currentBBox = [
+        _sw.lng,
+        _sw.lat,
+        _ne.lng,
+        _ne.lat
+      ]
+
+      const currentZoom = map.getZoom()
+      const isAddressInCurrentBBox = isPointInBBox(address.displayBBox, currentBBox)
+
+      const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
+      const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
+      setIsCenterControlDisabled(isAddressInCurrentBBox && isZoomSmallerThanMax && isZoomGreaterThanMin)
     } else {
       setIsCenterControlDisabled(true)
     }
+  }, [map, address])
+
+  useEffect(() => {
+    isAddressVisible()
   }, [address, isAddressVisible])
 
   useEffect(() => {
@@ -137,18 +136,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     map.on('click', 'voie', e => handleClick(e, onSelect))
     map.on('click', 'toponyme', e => handleClick(e, onSelect))
 
-    if (address) {
-      map.on('moveend', () => {
-        const isVisible = isAddressVisible()
-        setIsCenterControlDisabled(isVisible)
-      })
-
-      return () => {
-        map.off('moveend', isAddressVisible)
-      }
-    }
-
-    setIsCenterControlDisabled(true)
+    map.on('dragend', isAddressVisible)
+    map.on('zoomend', isAddressVisible)
 
     return () => {
       map.off('mousemove', 'adresse', onHover)
@@ -165,10 +154,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       map.off('click', 'adresse-label', e => handleClick(e, onSelect))
       map.off('click', 'voie', e => handleClick(e, onSelect))
       map.off('click', 'toponyme', e => handleClick(e, onSelect))
+
+      map.off('dragend', isAddressVisible)
+      map.off('zoomend', isAddressVisible)
     }
 
     // No dependency in order to mock a didMount and avoid duplicating events.
-  }, [isAddressVisible]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setSources([{
@@ -227,7 +219,7 @@ BanMap.propTypes = {
   address: PropTypes.shape({
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    position: PropTypes.object.isRequired,
+    position: PropTypes.object,
     displayBBox: PropTypes.array.isRequired
   }),
   map: PropTypes.object.isRequired,
