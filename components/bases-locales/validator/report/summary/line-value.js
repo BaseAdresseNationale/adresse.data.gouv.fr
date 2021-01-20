@@ -4,7 +4,7 @@ import {getValidationErrorSeverity} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function LineValue({value, handleHover, profile}) {
+function LineValue({value, handleHover, profile, hasUnknowFields}) {
   const {rawValue, errors} = value
   const hasErrors = errors && errors.length > 0
 
@@ -19,7 +19,7 @@ function LineValue({value, handleHover, profile}) {
           {rawValue}
         </td>
       ) : (
-        <td className='valid'>
+        <td className={`${hasUnknowFields ? 'unknown' : 'valid'}`}>
           {rawValue}
         </td>
       )}
@@ -68,6 +68,7 @@ LineValue.propTypes = {
     warnings: PropTypes.array
   }).isRequired,
   handleHover: PropTypes.func.isRequired,
+  hasUnknowFields: PropTypes.bool.isRequired,
   profile: PropTypes.string.isRequired
 }
 

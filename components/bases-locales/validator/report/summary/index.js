@@ -13,7 +13,7 @@ import IssueRows from './issue-rows'
 
 const ROWS_LIMIT = 50
 
-function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
+function Summary({rows, errors, rowsWithIssuesCount, warnings, profile, unknowFields}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
   const [rowsToDisplay, setRowsToDisplay] = useState([])
   const sortedErrors = sortBy(errors, error => error.rows.length)
@@ -108,6 +108,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile}) {
                   key={`row-${row._line}`}
                   row={row}
                   profile={profile}
+                  unknowFields={unknowFields}
                   isWarning={getValidationErrorSeverity(selectedIssue.message, profile) === 'W'}
                   isForcedShowIssues={rowsToDisplay.length === 1}
                 />
@@ -187,7 +188,8 @@ Summary.propTypes = {
   errors: PropTypes.array.isRequired,
   warnings: PropTypes.array.isRequired,
   profile: PropTypes.string.isRequired,
-  rowsWithIssuesCount: PropTypes.number.isRequired
+  rowsWithIssuesCount: PropTypes.number.isRequired,
+  unknowFields: PropTypes.array.isRequired
 }
 
 export default Summary

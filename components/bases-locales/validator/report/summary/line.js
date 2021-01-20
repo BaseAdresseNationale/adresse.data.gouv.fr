@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 
 import LineValue from './line-value'
 
-function Line({line, onHover, profile}) {
+function Line({line, onHover, profile, unknowFields}) {
   return (
     <div className='line-container'>
       <table>
@@ -22,6 +22,7 @@ function Line({line, onHover, profile}) {
                 value={line[key]}
                 profile={profile}
                 handleHover={onHover}
+                hasUnknowFields={unknowFields.includes(key)}
               />
             )}
           </tr>
@@ -55,6 +56,7 @@ function Line({line, onHover, profile}) {
 Line.propTypes = {
   line: PropTypes.object.isRequired,
   onHover: PropTypes.func.isRequired,
+  unknowFields: PropTypes.isRequired,
   profile: PropTypes.string.isRequired
 }
 

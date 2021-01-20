@@ -7,7 +7,7 @@ import Line from './line'
 import RowIssues from './row-issues'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
-function Row({row, isForcedShowIssues, isWarning, profile}) {
+function Row({row, isForcedShowIssues, isWarning, profile, unknowFields}) {
   const [showIssues, setShowIssues] = useState(false)
   const [field, setField] = useState()
   const issuesCount = row._errors.length
@@ -50,6 +50,7 @@ function Row({row, isForcedShowIssues, isWarning, profile}) {
             line={row}
             profile={profile}
             onHover={setField}
+            unknowFields={unknowFields}
           />
 
           {(issuesCount > 0 || isForcedShowIssues) && (

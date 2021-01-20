@@ -39,6 +39,14 @@ function Report({report}) {
     return getIssues(report.profilesValidation[profile].warnings, rows)
   }, [profile, report, rows])
 
+  const unknowFields = []
+
+  report.fields.forEach(field => {
+    if (!field.schemaName) {
+      unknowFields.push(field.name)
+    }
+  })
+
   return (
     <div>
       <div className='report-container'>
@@ -114,6 +122,7 @@ function Report({report}) {
           profile={profile}
           errors={errors}
           warnings={warnings}
+          unknowFields={unknowFields}
           rowsWithIssuesCount={rowsWithIssues.length}
         />
       </div>
