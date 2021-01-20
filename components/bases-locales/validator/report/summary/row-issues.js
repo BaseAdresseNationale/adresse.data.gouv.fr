@@ -57,7 +57,7 @@ function RowIssues({errors, field, profile}) {
 
 RowIssues.propTypes = {
   errors: PropTypes.array.isRequired,
-  profile: PropTypes.oneOf(['1.1-strict', '1.x-comprehensive']).isRequired,
+  profile: PropTypes.string.isRequired,
   field: PropTypes.object
 }
 

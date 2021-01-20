@@ -29,7 +29,7 @@ const getIssues = (issuesRows, rows) => {
 function Report({report}) {
   const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
   const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
-  const [profile, setProfile] = useState('1.x-comprehensive')
+  const [profile, setProfile] = useState('1.2-etalab')
 
   const errors = useMemo(() => {
     return getIssues(report.profilesValidation[profile].errors, rows)
