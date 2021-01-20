@@ -112,6 +112,7 @@ Row.propTypes = {
   row: PropTypes.object.isRequired,
   isForcedShowIssues: PropTypes.bool,
   isWarning: PropTypes.bool.isRequired,
+  unknowFields: PropTypes.array.isRequired,
   profile: PropTypes.string.isRequired
 }
 
