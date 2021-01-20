@@ -49,6 +49,35 @@ function Report({report}) {
 
   return (
     <div>
+      <div className='profil-selector'>
+        <label>Version de la spécification :</label>
+        <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
+          {Object.keys(profilesValidation).map(key => (
+            <option key={key} value={key}>{profilesValidation[key].name}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className='report-container'>
+        <h4>Validation par version de spécification</h4>
+        <table>
+          <tbody>
+            <tr>
+              <th>Nom</th>
+              <th>Profile</th>
+              <th>Valide</th>
+            </tr>
+            {Object.keys(profilesValidation).map(key => (
+              <tr key={key} style={{backgroundColor: profilesValidation[key].isValid ? theme.successBg : theme.errorBg}}>
+                <td>{profilesValidation[key].name}</td>
+                <td>{profilesValidation[key].code}</td>
+                <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <div className='report-container'>
         {fileValidation &&
           <div>
@@ -79,26 +108,6 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <h4>Validation par version de spécification</h4>
-        <table>
-          <tbody>
-            <tr>
-              <th>Nom</th>
-              <th>Profile</th>
-              <th>Valide</th>
-            </tr>
-            {Object.keys(profilesValidation).map(key => (
-              <tr key={key} style={{backgroundColor: profilesValidation[key].isValid ? theme.successBg : theme.errorBg}}>
-                <td>{profilesValidation[key].name}</td>
-                <td>{profilesValidation[key].code}</td>
-                <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className='report-container'>
         <Fields
           fields={fields}
           original={originalFields}
@@ -110,15 +119,6 @@ function Report({report}) {
 
       <div className='report-container'>
         <h4>Validation des données</h4>
-        <div className='profil-selector'>
-          <label>Version de la spécification :</label>
-          <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
-            {Object.keys(profilesValidation).map(key => (
-              <option key={key} value={key}>{profilesValidation[key].name}</option>
-            ))}
-          </select>
-        </div>
-
         <Summary
           rows={rowsWithIssues}
           profile={profile}
@@ -142,6 +142,7 @@ function Report({report}) {
         .profil-selector {
           display: flex;
           align-items: center;
+          margin: 1em;
         }
 
         select {

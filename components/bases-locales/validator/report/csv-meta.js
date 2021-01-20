@@ -15,6 +15,7 @@ function CsvMeta({name, value, isValid}) {
       <style jsx>{`
         .item {
           display: flex;
+          justify-content: center;
         }
 
         .check {
