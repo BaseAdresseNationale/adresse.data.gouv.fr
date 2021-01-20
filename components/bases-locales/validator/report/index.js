@@ -103,6 +103,8 @@ function Report({report}) {
           fields={fields}
           original={originalFields}
           notFound={notFoundFields}
+          profile={profile}
+          uniqueErrors={report.uniqueErrors}
         />
       </div>
 
@@ -172,6 +174,7 @@ Report.propTypes = {
     rows: PropTypes.array.isRequired,
     notFoundFields: PropTypes.array.isRequired,
     profilesValidation: PropTypes.object.isRequired,
+    uniqueErrors: PropTypes.array.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,
