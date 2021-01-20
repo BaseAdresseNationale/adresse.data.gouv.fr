@@ -9,7 +9,7 @@ function formatFileSize(bytes) {
   }
 
   const k = 1000
-  const sizes = ['Bytes', 'KB', 'Myar B']
+  const sizes = ['Bytes', 'KB', 'MB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return Number.parseFloat((bytes / (k ** i)).toFixed(2)) + ' ' + sizes[i]
 }
