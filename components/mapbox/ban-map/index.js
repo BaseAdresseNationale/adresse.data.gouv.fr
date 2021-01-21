@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'
 
-import CenterControl from '../center-control'
+import theme from '@/styles/theme'
 
-import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer} from './layers'
+import CenterControl from '../center-control'
+import SwitchPaintLayer from '../switch-paint-layer'
+
+import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer, sources} from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
@@ -33,6 +36,22 @@ const ZOOM_RANGE = {
   }
 }
 
+const sourcesLayerPaint = {
+  type: 'categorical',
+  property: 'sourcePosition',
+  stops: Object.keys(sources).map(key => {
+    const {color} = sources[key]
+    return [key, color]
+  })
+}
+
+const defaultLayerPaint = [
+  'case',
+  ['==', ['get', 'sourcePosition'], 'bal'],
+  theme.successBorder,
+  theme.warningBorder
+]
+
 const isFeatureContained = (container, content) => {
   const polygonA = bboxPolygon(container)
   const polygonB = bboxPolygon(content)
@@ -41,6 +60,7 @@ const isFeatureContained = (container, content) => {
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
+  const [isSourcesLegendActive, setIsSourcesLegendActive] = useState(false)
 
   const onLeave = useCallback(() => {
     if (hoveredVoieId) {
@@ -117,9 +137,27 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
   }, [map, address])
 
+  const editPaintProperties = useCallback(() => {
+    if (isSourcesLegendActive) {
+      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', sourcesLayerPaint)
+      map.setPaintProperty(adresseLabelLayer.id, 'text-color', sourcesLayerPaint)
+      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', sourcesLayerPaint)
+    } else {
+      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', defaultLayerPaint)
+      map.setPaintProperty(adresseLabelLayer.id, 'text-color', defaultLayerPaint)
+      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', defaultLayerPaint)
+    }
+  }, [map, isSourcesLegendActive])
+
   useEffect(() => {
     isAddressVisible()
   }, [address, isAddressVisible])
+
+  useEffect(() => {
+    if (isSourceLoaded) {
+      editPaintProperties()
+    }
+  }, [isSourceLoaded, editPaintProperties])
 
   useEffect(() => {
     map.off('dragend', isAddressVisible)
@@ -213,7 +251,10 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [map, isSourceLoaded, address, setLayers])
 
   return (
-    <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+    <>
+      <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+      <SwitchPaintLayer isActive={isSourcesLegendActive} handleClick={() => setIsSourcesLegendActive(!isSourcesLegendActive)} />
+    </>
   )
 }
 
