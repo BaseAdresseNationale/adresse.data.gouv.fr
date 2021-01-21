@@ -10,7 +10,7 @@ import User from './user'
 const Publishing = React.memo(({user, commune, publication}) => {
   return (
     <div>
-      <User user={user} />
+      <User user={user} commune={commune} />
 
       <div className='message'>
         <p>La Base Adresse Locale de votre commune</p>
