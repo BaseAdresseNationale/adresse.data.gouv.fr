@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 
-const User = React.memo(({user}) => {
+const User = React.memo(({user, commune}) => {
   const {nomNaissance, nomMarital, prenom, typeMandat} = user || {}
 
   return (
@@ -11,7 +11,7 @@ const User = React.memo(({user}) => {
       {user ? (
         <div>{prenom} {nomMarital || nomNaissance}</div>
       ) : (
-        <div>Mairie de Breux-sur-Avre</div>
+        <div>Mairie de {commune.nom}</div>
       )}
       <div><b>{typeMandat}</b></div>
       <style jsx>{`
@@ -31,6 +31,9 @@ User.propTypes = {
     nomMarital: PropTypes.string,
     prenom: PropTypes.string.isRequired,
     typeMandat: PropTypes.string.isRequired
+  }).isRequired,
+  commune: PropTypes.shape({
+    nom: PropTypes.string.isRequired
   }).isRequired
 }
 
