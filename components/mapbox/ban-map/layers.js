@@ -27,14 +27,12 @@ export const adresseCircleLayer = {
   type: 'circle',
   minzoom: NUMEROS_POINT_MIN,
   paint: {
-    'circle-color': {
-      type: 'categorical',
-      property: 'sourcePosition',
-      stops: Object.keys(sources).map(key => {
-        const {color} = sources[key]
-        return [key, color]
-      })
-    },
+    'circle-color': [
+      'case',
+      ['==', ['get', 'sourcePosition'], 'bal'],
+      theme.successBorder,
+      theme.warningBorder
+    ],
     'circle-stroke-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -63,14 +61,12 @@ export const adresseLabelLayer = {
   type: 'symbol',
   minzoom: NUMEROS_MIN,
   paint: {
-    'text-color': {
-      type: 'categorical',
-      property: 'sourcePosition',
-      stops: Object.keys(sources).map(key => {
-        const {color} = sources[key]
-        return [key, color]
-      })
-    },
+    'text-color': [
+      'case',
+      ['==', ['get', 'sourcePosition'], 'bal'],
+      theme.successBorder,
+      theme.warningBorder
+    ],
     'text-halo-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -115,14 +111,12 @@ export const adresseCompletLabelLayer = {
   minzoom: NUMEROS_MIN,
   filter: ['==', ['get', 'id'], ''],
   paint: {
-    'text-color': {
-      type: 'categorical',
-      property: 'sourcePosition',
-      stops: Object.keys(sources).map(key => {
-        const {color} = sources[key]
-        return [key, color]
-      })
-    },
+    'text-color': [
+      'case',
+      ['==', ['get', 'sourcePosition'], 'bal'],
+      theme.successBorder,
+      theme.warningBorder
+    ],
     'text-halo-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
