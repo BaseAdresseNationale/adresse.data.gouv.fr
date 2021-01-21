@@ -7,6 +7,7 @@ import theme from '@/styles/theme'
 
 import CenterControl from '../center-control'
 import SwitchPaintLayer from '../switch-paint-layer'
+import MapLegends from '../map-legends'
 
 import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer, sources} from './layers'
 import popupFeatures from './popups'
@@ -34,6 +35,11 @@ const ZOOM_RANGE = {
     min: toponymeLayer.minzoom,
     max: toponymeLayer.maxzoom
   }
+}
+
+const certificationLegend = {
+  certified: {name: 'Certifié', color: theme.successBorder},
+  notCertified: {name: 'Non certifié', color: theme.warningBorder}
 }
 
 const sourcesLayerPaint = {
@@ -254,6 +260,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     <>
       <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
       <SwitchPaintLayer isActive={isSourcesLegendActive} handleClick={() => setIsSourcesLegendActive(!isSourcesLegendActive)} />
+      {isSourcesLegendActive ? (
+        <MapLegends title='Ces adresses sont transmises par les organismes suivants :' legend={sources} />
+      ) : (
+        <MapLegends title='Conformité' legend={certificationLegend} />
+      )}
     </>
   )
 }
