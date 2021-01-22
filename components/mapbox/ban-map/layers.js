@@ -11,6 +11,22 @@ export const sources = {
   'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse (Commune)', color: '#a6611a'}
 }
 
+export const defaultLayerPaint = [
+  'case',
+  ['==', ['get', 'sourcePosition'], 'bal'],
+  theme.successBorder,
+  theme.warningBorder
+]
+
+export const sourcesLayerPaint = {
+  type: 'categorical',
+  property: 'sourcePosition',
+  stops: Object.keys(sources).map(key => {
+    const {color} = sources[key]
+    return [key, color]
+  })
+}
+
 const NUMEROS_POINT_MIN = 12
 const NUMEROS_MIN = 17
 const VOIE_COLOR = '#4a4a4a'
@@ -27,12 +43,7 @@ export const adresseCircleLayer = {
   type: 'circle',
   minzoom: NUMEROS_POINT_MIN,
   paint: {
-    'circle-color': [
-      'case',
-      ['==', ['get', 'sourcePosition'], 'bal'],
-      theme.successBorder,
-      theme.warningBorder
-    ],
+    'circle-color': defaultLayerPaint,
     'circle-stroke-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -61,12 +72,7 @@ export const adresseLabelLayer = {
   type: 'symbol',
   minzoom: NUMEROS_MIN,
   paint: {
-    'text-color': [
-      'case',
-      ['==', ['get', 'sourcePosition'], 'bal'],
-      theme.successBorder,
-      theme.warningBorder
-    ],
+    'text-color': defaultLayerPaint,
     'text-halo-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -111,12 +117,7 @@ export const adresseCompletLabelLayer = {
   minzoom: NUMEROS_MIN,
   filter: ['==', ['get', 'id'], ''],
   paint: {
-    'text-color': [
-      'case',
-      ['==', ['get', 'sourcePosition'], 'bal'],
-      theme.successBorder,
-      theme.warningBorder
-    ],
+    'text-color': defaultLayerPaint,
     'text-halo-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],

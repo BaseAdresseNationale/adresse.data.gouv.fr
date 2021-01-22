@@ -9,7 +9,16 @@ import CenterControl from '../center-control'
 import SwitchPaintLayer from '../switch-paint-layer'
 import MapLegends from '../map-legends'
 
-import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer, sources} from './layers'
+import {
+  adresseCircleLayer,
+  adresseLabelLayer,
+  adresseCompletLabelLayer,
+  voieLayer,
+  toponymeLayer,
+  sources,
+  sourcesLayerPaint,
+  defaultLayerPaint
+} from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
@@ -41,22 +50,6 @@ const certificationLegend = {
   certified: {name: 'Certifié', color: theme.successBorder},
   notCertified: {name: 'Non certifié', color: theme.warningBorder}
 }
-
-const sourcesLayerPaint = {
-  type: 'categorical',
-  property: 'sourcePosition',
-  stops: Object.keys(sources).map(key => {
-    const {color} = sources[key]
-    return [key, color]
-  })
-}
-
-const defaultLayerPaint = [
-  'case',
-  ['==', ['get', 'sourcePosition'], 'bal'],
-  theme.successBorder,
-  theme.warningBorder
-]
 
 const isFeatureContained = (container, content) => {
   const polygonA = bboxPolygon(container)
