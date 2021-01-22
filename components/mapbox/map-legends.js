@@ -8,7 +8,7 @@ function MapLegends({title, legend}) {
   return (
     <div className='circle-color-legend'>
       <div className='legend-header'>
-        <h6>{title}</h6>
+        <div className='legend-title'>{title}</div>
         <div className='wrap-icons' onClick={() => setIsWrap(!isWrap)}>
           {isWrap ? (
             <Minimize2 size={18} />
@@ -43,9 +43,8 @@ function MapLegends({title, legend}) {
           align-items: center;
         }
 
-        h6 {
-          text-align: center;
-          margin: 0;
+        .legend-title {
+          font-weight: bold;
         }
 
         .wrap-icons {
