@@ -137,15 +137,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [map, address])
 
   const editPaintProperties = useCallback(() => {
-    if (isSourcesLegendActive) {
-      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', sourcesLayerPaint)
-      map.setPaintProperty(adresseLabelLayer.id, 'text-color', sourcesLayerPaint)
-      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', sourcesLayerPaint)
-    } else {
-      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', defaultLayerPaint)
-      map.setPaintProperty(adresseLabelLayer.id, 'text-color', defaultLayerPaint)
-      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', defaultLayerPaint)
-    }
+    const layerPaint = isSourcesLegendActive ? sourcesLayerPaint : defaultLayerPaint
+
+    map.setPaintProperty(adresseCircleLayer.id, 'circle-color', layerPaint)
+    map.setPaintProperty(adresseLabelLayer.id, 'text-color', layerPaint)
+    map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', layerPaint)
   }, [map, isSourcesLegendActive])
 
   useEffect(() => {
