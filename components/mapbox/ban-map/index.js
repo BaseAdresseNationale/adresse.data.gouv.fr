@@ -6,7 +6,7 @@ import booleanContains from '@turf/boolean-contains'
 import theme from '@/styles/theme'
 
 import CenterControl from '../center-control'
-import SwitchPaintLayer from '../switch-paint-layer'
+import SelectPaintLayer from '../select-paint-layer'
 import MapLegends from '../map-legends'
 
 import {
@@ -51,6 +51,25 @@ const certificationLegend = {
   notCertified: {name: 'Non certifiée', color: theme.warningBorder}
 }
 
+const paintLayers = {
+  certification: {
+    name: 'Certification',
+    legend: {
+      title: 'Certification',
+      content: certificationLegend
+    },
+    paint: defaultLayerPaint
+  },
+  sources: {
+    name: 'Sources',
+    legend: {
+      title: 'Ces adresses sont transmises par les organismes suivants :',
+      content: sources
+    },
+    paint: sourcesLayerPaint
+  }
+}
+
 const isFeatureContained = (container, content) => {
   const polygonA = bboxPolygon(container)
   const polygonB = bboxPolygon(content)
@@ -59,7 +78,7 @@ const isFeatureContained = (container, content) => {
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
-  const [isSourcesLegendActive, setIsSourcesLegendActive] = useState(false)
+  const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
 
   const onLeave = useCallback(() => {
     if (hoveredVoieId) {
@@ -142,13 +161,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
   useEffect(() => {
     if (isSourceLoaded) {
-      const layerPaint = isSourcesLegendActive ? sourcesLayerPaint : defaultLayerPaint
-
-      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', layerPaint)
-      map.setPaintProperty(adresseLabelLayer.id, 'text-color', layerPaint)
-      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', layerPaint)
+      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', paintLayers[selectedPaintLayer].paint)
+      map.setPaintProperty(adresseLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
+      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
     }
-  }, [isSourceLoaded, isSourcesLegendActive, map])
+  }, [isSourceLoaded, selectedPaintLayer, map])
 
   useEffect(() => {
     map.off('dragend', isAddressVisible)
@@ -244,12 +261,16 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   return (
     <>
       <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
-      <SwitchPaintLayer isActive={isSourcesLegendActive} handleClick={() => setIsSourcesLegendActive(!isSourcesLegendActive)} />
-      {isSourcesLegendActive ? (
-        <MapLegends title='Ces adresses sont transmises par les organismes suivants :' legend={sources} />
-      ) : (
-        <MapLegends title='Conformité' legend={certificationLegend} />
-      )}
+      <SelectPaintLayer
+        options={paintLayers}
+        selected={selectedPaintLayer}
+        handleSelect={setSelectedPaintLayer}
+      >
+        <MapLegends
+          title={paintLayers[selectedPaintLayer].legend.title}
+          legend={paintLayers[selectedPaintLayer].legend.content}
+        />
+      </SelectPaintLayer>
     </>
   )
 }
