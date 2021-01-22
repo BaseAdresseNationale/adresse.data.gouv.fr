@@ -47,8 +47,8 @@ const ZOOM_RANGE = {
 }
 
 const certificationLegend = {
-  certified: {name: 'Certifié', color: theme.successBorder},
-  notCertified: {name: 'Non certifié', color: theme.warningBorder}
+  certified: {name: 'Certifiée', color: theme.successBorder},
+  notCertified: {name: 'Non certifiée', color: theme.warningBorder}
 }
 
 const isFeatureContained = (container, content) => {
