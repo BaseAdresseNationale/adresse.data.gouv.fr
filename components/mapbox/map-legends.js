@@ -14,6 +14,8 @@ function MapLegends({title, legend}) {
       <style jsx>{`
         .legend-title {
           font-weight: bold;
+          width: 80%;
+          margin-bottom: 0.5em;
         }
 
         .legend-container {
@@ -22,9 +24,8 @@ function MapLegends({title, legend}) {
         }
 
         .legend-color {
-          width: 10px;
-          height: 10px;
-          border: 1px solid black;
+          width: 15px;
+          height: 15px;
           border-radius: 50%;
           margin-right: 0.5em;
         }
