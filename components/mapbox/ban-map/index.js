@@ -160,12 +160,12 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [address, isAddressVisible])
 
   useEffect(() => {
-    if (isSourceLoaded) {
+    if (map.isStyleLoaded()) {
       map.setPaintProperty(adresseCircleLayer.id, 'circle-color', paintLayers[selectedPaintLayer].paint)
       map.setPaintProperty(adresseLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
       map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
     }
-  }, [isSourceLoaded, selectedPaintLayer, map])
+  }, [map, selectedPaintLayer])
 
   useEffect(() => {
     map.off('dragend', isAddressVisible)
