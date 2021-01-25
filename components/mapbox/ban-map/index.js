@@ -63,7 +63,7 @@ const paintLayers = {
   sources: {
     name: 'Sources',
     legend: {
-      title: 'Ces adresses sont transmises par les organismes suivants :',
+      title: 'Adresses transmises par :',
       content: sources
     },
     paint: sourcesLayerPaint
