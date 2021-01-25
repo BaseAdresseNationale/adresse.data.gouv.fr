@@ -76,7 +76,7 @@ const isFeatureContained = (container, content) => {
   return booleanContains(polygonA, polygonB)
 }
 
-function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
+function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
 
@@ -265,6 +265,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         options={paintLayers}
         selected={selectedPaintLayer}
         handleSelect={setSelectedPaintLayer}
+        isMobile={isMobile}
       >
         <MapLegends
           title={paintLayers[selectedPaintLayer].legend.title}
@@ -278,7 +279,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 BanMap.defaultProps = {
   address: null,
   isSourceLoaded: false,
-  onSelect: () => {}
+  onSelect: () => {},
+  isMobile: false
 }
 
 BanMap.propTypes = {
@@ -296,7 +298,8 @@ BanMap.propTypes = {
   }),
   onSelect: PropTypes.func,
   setSources: PropTypes.func.isRequired,
-  setLayers: PropTypes.func.isRequired
+  setLayers: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool
 }
 
 export default BanMap
