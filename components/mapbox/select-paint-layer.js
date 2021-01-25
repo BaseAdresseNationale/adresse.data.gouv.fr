@@ -8,32 +8,33 @@ function SelectPaintLayer({options, selected, handleSelect, children}) {
   return (
     <div className='select-paint-container' >
       <div className='select-wrap'>
-        <div>
-          <label htmlFor='paint-layer'>Choix du thème</label>
-          {isWrap && (
-            <select
-              value={selected}
-              className='select-paint-layer'
-              name='paint-layer'
-              id='paint-layer'
-              onChange={e => handleSelect(e.target.value)}
-            >
-              {Object.keys(options).map(index => (
-                <option key={index} value={index}>{options[index].name}</option>
-              ))}
-            </select>
+        <label htmlFor='paint-layer'>Choix du thème</label>
+        <div className='wrap-icons' onClick={() => setIsWrap(!isWrap)}>
+          {isWrap ? (
+            <div className='icon'>
+              <Minimize2 />
+            </div>
+          ) : (
+            <div className='icon'>
+              <Maximize2 />
+            </div>
           )}
         </div>
-        <div>
-          <div className='wrap-icons' onClick={() => setIsWrap(!isWrap)}>
-            {isWrap ? (
-              <Minimize2 size={18} />
-            ) : (
-              <Maximize2 size={18} />
-            )}
-          </div>
-        </div>
       </div>
+
+      {isWrap && (
+        <select
+          value={selected}
+          className='select-paint-layer'
+          name='paint-layer'
+          id='paint-layer'
+          onChange={e => handleSelect(e.target.value)}
+        >
+          {Object.keys(options).map(index => (
+            <option key={index} value={index}>{options[index].name}</option>
+          ))}
+        </select>
+      )}
       {isWrap && (
         [children]
       )}
@@ -41,32 +42,40 @@ function SelectPaintLayer({options, selected, handleSelect, children}) {
         .select-paint-container {
           position: absolute;
           box-shadow: none;
+          width: 300px;
           border: 2px solid #dcd8d5;
           border-radius: 4px;
-          z-index: 2;
-          padding: 4px 5px 2px 5px;
-          right: 50px;
+          z-index: 1;
+          padding: 1em;
+          margin-left: 1em;
           top: 8px;
-          background-color: rgba(255, 255, 255, 0.8)
+          background-color: rgba(255, 255, 255, 0.9)
         }
 
         .select-wrap {
           display: flex;
           justify-content: space-between;
-          align-items: start;
+          align-items: center;
         }
 
         label {
           margin: 0;
-        }
-
-        .select-paint-layer {
-          margin: 0.5em 0;
+          font-weight: bold;
         }
 
         .wrap-icons {
           margin-left: 1em;
           cursor: pointer;
+        }
+
+        .icon {
+          display: flex;
+          align-items: center;
+          font-size: 1.2em;
+        }
+
+        .select-paint-layer {
+          margin: 0.5em 0;
         }
       `}
       </style>
