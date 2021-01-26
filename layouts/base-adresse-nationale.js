@@ -43,7 +43,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
         <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
           {({...mapboxProps}) => (
-            <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
+            <BanMap address={address} {...mapboxProps} onSelect={handleSelect} isMobile />
           )}
         </Mapbox>
       </div>
