@@ -6,7 +6,6 @@ import {ArrowLeft} from 'react-feather'
 
 import Page from '@/layouts/main'
 
-import withErrors from '@/components/hoc/with-errors'
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
@@ -38,10 +37,10 @@ const getStep = bal => {
   }
 }
 
-const PublicationPage = React.memo(({bal, submissionId}) => {
+const PublicationPage = React.memo(({bal, initialError, submissionId}) => {
   const [step, setStep] = useState(getStep(bal))
   const [authType, setAuthType] = useState()
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(initialError)
 
   const handleValidBal = () => {
     setStep(2)
@@ -83,10 +82,10 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
       if (bal.authenticationError) {
         setError(bal.authenticationError)
       }
-    } else {
+    } else if (step > 1) {
       setError('Aucune base adresses locales n’a été trouvée')
     }
-  }, [bal, error, submissionId])
+  }, [step, bal, error, submissionId])
 
   return (
     <Page>
@@ -166,7 +165,13 @@ PublicationPage.getInitialProps = async ({query}) => {
   if (submissionId) {
     bal = await getSubmissions(submissionId)
   } else if (url) {
-    bal = await submissionsBal(decodeURIComponent(url))
+    try {
+      bal = await submissionsBal(decodeURIComponent(url))
+    } catch {
+      return {
+        initialError: 'Une erreur est survenu lors de la récupération du fichier'
+      }
+    }
   }
 
   return {
@@ -186,12 +191,14 @@ PublicationPage.propTypes = {
     authenticationUrl: PropTypes.string,
     publicationUrl: PropTypes.string
   }),
-  submissionId: PropTypes.string
+  submissionId: PropTypes.string,
+  initialError: PropTypes.string
 }
 
 PublicationPage.defaultProps = {
   bal: null,
-  submissionId: null
+  submissionId: null,
+  initialError: null
 }
 
-export default withErrors(PublicationPage)
+export default PublicationPage
