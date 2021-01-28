@@ -145,7 +145,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
           )}
 
           {step === 5 && (
-            <Published publicationUrl={bal.publicationUrl} />
+            <Published {...bal} />
           )}
         </div>
       </Section>
