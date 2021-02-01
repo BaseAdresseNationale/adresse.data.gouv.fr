@@ -2,9 +2,10 @@ import React from 'react'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
+import DocDownload from '@/components/doc-download'
 import {FileText} from 'react-feather'
 
-const title = 'Chartre de la base adresse locale'
+const title = 'Chartre de la Base Adresse Locale'
 
 function charte() {
   return (
@@ -32,7 +33,20 @@ function charte() {
               .charte-list li {
                 margin-top:2em
               }
+              .charte-list li:last-child {
+                margin-bottom:2em
+              }
             `}</style>
+      </Section>
+
+      <Section background='grey' >
+        <DocDownload
+          title='Télécharger la chartre de la Base Adresse Locale'
+          src='/images/previews/charte.png'
+          alt='miniature du document charte'
+          link='https://livingdata-chat.slack.com/files/UP06LNQGY/F01LW2NB933/20210129_charte_bal_ideo-bfc.pdf'
+          isVersionLight='true'
+        />
       </Section>
     </Page>
   )
