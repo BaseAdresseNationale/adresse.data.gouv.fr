@@ -32,28 +32,32 @@ function AddressesList({title, subtitle, placeholder, addresses, getLabel, addre
           <h5>{title}</h5>
           <div>{subtitle}</div>
         </div>
-        <div className='search-input'>
-          <div className='search-icon'><Search size={18} /></div>
-          <input
-            type='text'
-            placeholder={placeholder || 'Recherche'}
-            value={input}
-            onChange={e => setInput(e.target.value)}
-          />
-          {isLoading && <div className='loading'><Loader size='small' /></div>}
-        </div>
+        {addresses.length > 0 && (
+          <div className='search-input'>
+            <div className='search-icon'><Search size={18} /></div>
+            <input
+              type='text'
+              placeholder={placeholder || 'Recherche'}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+            />
+            {isLoading && <div className='loading'><Loader size='small' /></div>}
+          </div>
+        )}
       </div>
 
-      <div className='addresses-list'>
-        {filteredList.length > 0 ?
-          filteredList.map(address => (
-            <div key={address.id} className='address-list'>
-              {addressComponent(address)}
-            </div>
-          )) : (
-            <div className='no-result'>Aucun résultat</div>
-          )}
-      </div>
+      {addresses.length > 0 && (
+        <div className='addresses-list'>
+          {filteredList.length > 0 ?
+            filteredList.map(address => (
+              <div key={address.id} className='address-list'>
+                {addressComponent(address)}
+              </div>
+            )) : (
+              <div className='no-result'>Aucun résultat</div>
+            )}
+        </div>
+      )}
 
       <style jsx>{`
         .addresses {
