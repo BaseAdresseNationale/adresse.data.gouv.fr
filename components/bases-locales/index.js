@@ -91,6 +91,18 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
+      <Section background='grey' title='Adoptez la Charte de la Base Adresse Locale'>
+        <p>La Charte de la Base Adresse Locale rassemble les organismes qui privilégient le format <b>Base Adresse Locale</b> et s’engagent en matière de gouvernance. L’enjeu pour la communes, autorité responsable de l’adresse, est d’identifier un référent en capacité de l’assister au besoin. Les organismes partenaires présentent <b>la Charte</b> sur leur site Internet.</p>
+        <div className='centered'>
+          <ButtonLink
+            size='large'
+            href='/bases-locales/charte'
+          >
+            Découvrir la charte
+          </ButtonLink>
+        </div>
+      </Section>
+
       <Section title='Quelques Bases Adresses Locales déjà publiées' background='white'>
         <div className='bal-grid'>
           {balSamples.map(dataset => (

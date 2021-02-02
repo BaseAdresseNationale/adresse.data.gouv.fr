@@ -28,7 +28,7 @@ function Partner({link, name, ...props}) {
 }
 
 Partner.propTypes = {
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
   name: PropTypes.string.isRequired
 }
 
