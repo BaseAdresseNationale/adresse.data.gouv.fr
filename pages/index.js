@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 import theme from '@/styles/theme'
 
@@ -22,6 +23,9 @@ function Home() {
         <div className='pitch'>
           <p>
             Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
+          </p>
+          <p style={{marginTop: '3em'}}>
+            Administrée par <strong>la DINUM</strong>, <strong>la Base Adresse Nationale</strong> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>. <Link href='/bases-locales/charte'>Une Charte</Link> encourage le partage des bonnes pratiques, permet aux <strong>organismes</strong> qui promeuvent activement <strong>le format Base Adresse Locale</strong> d’être identifiés et aux communes de se repérer.
           </p>
           <style jsx>{`
           .pitch {
