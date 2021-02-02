@@ -1,17 +1,22 @@
 import React from 'react'
+import Image from 'next/image'
+
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
-import DocDownload from '@/components/doc-download'
-import {FileText} from 'react-feather'
+import Partner from '@/components/partner'
+import {Download, Book} from 'react-feather'
 
-const title = 'Chartre de la Base Adresse Locale'
+import theme from '@/styles/theme'
 
-function charte() {
+const title = 'Charte et organismes partenaires'
+
+function Charte() {
   return (
     <Page>
-      <Head title={title} icon={<FileText size={56} />} />
-      <Section background='white'>
+      <Head title={title} icon={<Download size={56} />} />
+
+      <Section background='white' title='Charte de la Base Adresse Locale'>
         <div className='charte-container'>
           <p>La présence de cette <b>Charte de la Base Adresse Locale</b> sur le site Internet d’un organisme signifie qu’il privilégie le format <b>Base Adresse Locale</b> pour la transmission des adresses communales à la <b>Base Adresse Nationale</b>. Cet organisme est donc référencé sur <b>adresse.data.gouv.fr</b>.</p>
           <p>Cette charte vise à fédérer le plus grand nombre d’acteurs qui ont en commun le souhait d’utiliser et de promouvoir <b>les Bases Adresses Locales</b> à travers plusieurs actions dédiées.</p>
@@ -30,26 +35,68 @@ function charte() {
           <p>Cette Charte est éditée le 29 janvier 2021 à Paris et <b>valable pour une durée d’un an</b>.</p>
         </div>
         <style jsx>{`
-              .charte-list li {
-                margin-top:2em
+              .charte-container {
+                margin-top: 3em;
               }
-              .charte-list li:last-child {
-                margin-bottom:2em
+
+              .charte-list li {
+                margin-top: 0.5em;
               }
             `}</style>
       </Section>
 
-      <Section background='grey' >
-        <DocDownload
-          title='Télécharger la chartre de la Base Adresse Locale'
-          src='/images/previews/charte.png'
-          alt='miniature du document charte'
-          link='https://livingdata-chat.slack.com/files/UP06LNQGY/F01LW2NB933/20210129_charte_bal_ideo-bfc.pdf'
-          isVersionLight='true'
-        />
+      <Section background='grey' title='Télécharger la charte' >
+        <div className='charte-download-section'>
+          <div className='charte-preview'>
+            <Image
+              src='/images/previews/charte.png'
+              alt='miniature de la charte'
+              width={150}
+              height={200}
+            />
+          </div>
+          <a href='https://adresse.data.gouv.fr/data/docs/charte-bal-v1.0.pdf' target='_blank' rel='noreferrer'>
+            <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+            Télécharger
+          </a>
+        </div>
+
+        <style jsx>{`
+              .charte-download-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 1.5em;
+              }
+
+              .charte-preview {
+                margin: 1.5em;
+                border: 1px solid ${theme.border};
+              }
+            `}</style>
+      </Section>
+
+      <Section background='white' title='Organismes partenaires'>
+        <div className='partners'>
+          <Partner link='https://ideo.ternum-bfc.fr/' src='/images/logos/partners/IDeO.svg' alt='partenaire ideo bfc' name='IDéO BFC' height={200} width={140} />
+          <Partner link='https://www.crige.normandie.fr/crige' src='/images/logos/partners/Crige.jpg' alt='partenaire crige' name='CRIGE Normandie' height={200} width={356} />
+          <Partner link='https://www.communaute-paysbasque.fr/' src='/images/logos/partners/commupb.png' alt='partenaire communauté pays basques' name='Communauté d’Agglomération du Pays Basque' height={200} width={200} />
+          <Partner link='https://geo.compiegnois.fr/portail/' src='/images/logos/partners/Geocompiegnois.png' alt='partenaire geocompiegnois' name='GéoCompiégnois' height={50} width={409} />
+        </div>
+        <style jsx>{`
+        .partners {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+          justify-content: space-around;
+          margin-top: 12em;
+          align-items: center;
+          grid-gap: 1em;
+        }
+        `}</style>
       </Section>
     </Page>
   )
 }
 
-export default charte
+export default Charte

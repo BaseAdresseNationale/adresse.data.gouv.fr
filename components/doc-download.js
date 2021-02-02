@@ -5,7 +5,7 @@ import {Book} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function DocDownload({title, link, src, alt, isReverse, isVersionLight, children}) {
+function DocDownload({title, link, src, alt, isReverse, children}) {
   return (
     <div className='doc-container'>
       <div className='text-container'>
@@ -25,7 +25,7 @@ function DocDownload({title, link, src, alt, isReverse, isVersionLight, children
         .doc-container {
           display: flex;
           flex-wrap: wrap;
-          flex-direction: ${isReverse ? 'row-reverse' : (isVersionLight ? 'column' : 'row')};
+          flex-direction: ${isReverse ? 'row-reverse' : 'row'};
           margin: 1em 0;
         }
 
@@ -53,7 +53,6 @@ function DocDownload({title, link, src, alt, isReverse, isVersionLight, children
 
 DocDownload.propTypes = {
   isReverse: PropTypes.bool,
-  isVersionLight: PropTypes.bool,
   children: PropTypes.node,
   link: PropTypes.string,
   title: PropTypes.string,
@@ -63,7 +62,6 @@ DocDownload.propTypes = {
 
 DocDownload.defaultProps = {
   isReverse: false,
-  isVersionLight: false,
   children: null,
   link: null,
   title: null,
