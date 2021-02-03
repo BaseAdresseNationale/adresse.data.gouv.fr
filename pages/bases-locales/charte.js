@@ -5,7 +5,7 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import Partners from '@/components/partners'
-import {Download, Book} from 'react-feather'
+import {Download} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -56,7 +56,7 @@ function Charte() {
             />
           </div>
           <a href='https://adresse.data.gouv.fr/data/docs/charte-bal-v1.0.pdf' target='_blank' rel='noreferrer'>
-            <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+            <Download style={{verticalAlign: 'bottom', marginRight: '5px'}} />
             Télécharger
           </a>
         </div>
@@ -75,6 +75,7 @@ function Charte() {
                 border: 1px solid ${theme.border};
               }
             `}</style>
+
       </Section>
 
       <Section background='white' title='Organismes partenaires'>

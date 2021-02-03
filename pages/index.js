@@ -50,7 +50,7 @@ function Home() {
       </Section>
 
       <Section background='grey' title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
-        <div style={{marginTop: '3em', textAlign: 'center'}} >
+        <div className='charte-section' >
           <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
           <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.
           </p>
@@ -66,6 +66,11 @@ function Home() {
           </div>
 
           <style jsx>{`
+            .charte-section{
+              margin-top: 3em;
+              text-align: center;
+            }
+
             .centered {
               margin: 40px auto;
               display: flex;
@@ -77,7 +82,9 @@ function Home() {
             }
             `}
           </style>
+
         </div>
+
       </Section>
 
       <Section title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
