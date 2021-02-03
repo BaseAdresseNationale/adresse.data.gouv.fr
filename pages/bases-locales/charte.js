@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
-import Partner from '@/components/partner'
+import Partners from '@/components/partners'
 import {Download, Book} from 'react-feather'
 
 import theme from '@/styles/theme'
@@ -78,22 +78,7 @@ function Charte() {
       </Section>
 
       <Section background='white' title='Organismes partenaires'>
-        <div className='partners'>
-          <Partner link='https://ideo.ternum-bfc.fr/' src='/images/logos/partners/IDeO.svg' alt='partenaire ideo bfc' name='IDéO BFC' height={200} width={140} />
-          <Partner link='https://www.crige.normandie.fr/crige' src='/images/logos/partners/Crige.jpg' alt='partenaire crige' name='CRIGE Normandie' height={200} width={356} />
-          <Partner link='https://www.communaute-paysbasque.fr/' src='/images/logos/partners/commupb.png' alt='partenaire communauté pays basques' name='Communauté d’Agglomération du Pays Basque' height={200} width={200} />
-          <Partner link='https://geo.compiegnois.fr/portail/' src='/images/logos/partners/Geocompiegnois.png' alt='partenaire geocompiegnois' name='GéoCompiégnois' height={50} width={409} />
-        </div>
-        <style jsx>{`
-        .partners {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-          justify-content: space-around;
-          margin-top: 12em;
-          align-items: center;
-          grid-gap: 1em;
-        }
-        `}</style>
+        <Partners />
       </Section>
     </Page>
   )

@@ -10,6 +10,8 @@ import Hero from '@/components/hero'
 import Section from '@/components/section'
 import DocDownload from '@/components/doc-download'
 import Infolettre from '@/components/infolettre'
+import Partners from '@/components/partners'
+import ButtonLink from '@/components/button-link'
 
 function Home() {
   return (
@@ -23,9 +25,6 @@ function Home() {
         <div className='pitch'>
           <p>
             Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
-          </p>
-          <p style={{marginTop: '3em'}}>
-            Administrée par <strong>la DINUM</strong>, <strong>la Base Adresse Nationale</strong> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>. <Link href='/bases-locales/charte'>Une Charte</Link> encourage le partage des bonnes pratiques, permet aux <strong>organismes</strong> qui promeuvent activement <strong>le format Base Adresse Locale</strong> d’être identifiés et aux communes de se repérer.
           </p>
           <style jsx>{`
           .pitch {
@@ -47,6 +46,37 @@ function Home() {
               max-width: 1000px;
           }
         `}</style>
+        </div>
+      </Section>
+
+      <Section background='grey' title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
+        <div style={{marginTop: '3em', textAlign: 'center'}} >
+          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
+          <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.
+          </p>
+          <div className='centered'>
+            <ButtonLink size='large' href='/bases-locales/charte'>
+              Découvrir la charte
+            </ButtonLink>
+          </div>
+
+          <div className='organismes-container'>
+            <h3>Organismes partenaires</h3>
+            <Partners />
+          </div>
+
+          <style jsx>{`
+            .centered {
+              margin: 40px auto;
+              display: flex;
+              justify-content: center;
+            }
+            .organismes-container{
+              text-align: center;
+              margin-top: 6em;
+            }
+            `}
+          </style>
         </div>
       </Section>
 

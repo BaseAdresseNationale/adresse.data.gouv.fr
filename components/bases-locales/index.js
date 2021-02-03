@@ -8,6 +8,7 @@ import {CheckSquare, HelpCircle} from 'react-feather'
 import Mapbox from '../mapbox'
 import Section from '../section'
 import ButtonLink from '../button-link'
+import Partners from '@/components/partners'
 import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
@@ -91,8 +92,8 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
-      <Section background='grey' title='Adoptez la Charte de la Base Adresse Locale'>
-        <p>La Charte de la Base Adresse Locale rassemble les organismes qui privilégient le format <b>Base Adresse Locale</b> et s’engagent en matière de gouvernance. L’enjeu pour la communes, autorité responsable de l’adresse, est d’identifier un référent en capacité de l’assister au besoin. Les organismes partenaires présentent <b>la Charte</b> sur leur site Internet.</p>
+      <Section background='grey' title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
+        <p style={{textAlign: 'center'}} >La Charte de la Base Adresse Locale rassemble les organismes qui privilégient le format <b>Base Adresse Locale</b> et s’engagent en matière de gouvernance. L’enjeu pour la communes, autorité responsable de l’adresse, est d’identifier un référent en capacité de l’assister au besoin. Les organismes partenaires présentent <b>la Charte</b> sur leur site Internet.</p>
         <div className='centered'>
           <ButtonLink
             size='large'
@@ -100,6 +101,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           >
             Découvrir la charte
           </ButtonLink>
+        </div>
+        <div className='organismes-container'>
+          <h3>Organismes partenaires</h3>
+          <Partners />
         </div>
       </Section>
 
@@ -187,6 +192,11 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           margin: 40px auto;
           display: flex;
           justify-content: center;
+        }
+
+        .organismes-container{
+          text-align: center;
+          margin-top: 6em;
         }
 
         .map-stats-container {
