@@ -22,7 +22,6 @@ function Partners() {
           grid-gap: 1em;
         }
         `}</style>
-
     </div>
   )
 }

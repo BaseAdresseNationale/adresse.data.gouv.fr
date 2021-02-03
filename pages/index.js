@@ -76,15 +76,14 @@ function Home() {
               display: flex;
               justify-content: center;
             }
+
             .organismes-container{
               text-align: center;
               margin-top: 6em;
             }
             `}
           </style>
-
         </div>
-
       </Section>
 
       <Section title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>

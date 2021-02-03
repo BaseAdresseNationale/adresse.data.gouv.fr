@@ -18,28 +18,29 @@ function Partner({link, name, ...props}) {
           display: grid;
           grid-template-rows: 150px 50px;
         }
+
         .partner:hover {
           text-decoration: underline;
         }
+
         .logo {
           display: flex;
           justify-content: center;
           align-items: center;
-          
         }
+
         .name {
           text-align: center; 
           color: ${colors.black};
           font-size: 1.1em;
         }
         `}</style>
-
     </a>
   )
 }
 
 Partner.propTypes = {
-  link: PropTypes.string,
+  link: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
 }
 
