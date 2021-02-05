@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Lorem Salu bissame !",
+        "preview": "Hopla vous savez que la mamsell Huguette, la miss Miss Dahlias du messti de Bischheim",
+        "picture": "/images/testimonies/test.jpg",
+        "alt": "Logo de trucmuch",
+        "date": "14 décembre 2020",
+        "article_url": "tinyurl.com/yca3rge7"
+    },
+    {
+        "title": "Salu bissame !",
+        "preview": "Hopla vous savez que la mamsell Huguette, la miss Miss Dahlias du messti de Bischheim",
+        "picture": "/images/testimonies/test.png",
+        "alt": "Logo de trucmuch",
+        "date": "14 décembre 2020",
+        "article_url": "tinyurl.com/yca3rge7"
+    },
+    {
+        "title": "Lorem Salu bissame",
+        "preview": "Hopla vous savez que la mamsell Huguette, la miss Miss Dahlias du messti de Bischheim",
+        "picture": "/images/testimonies/test.jpg",
+        "alt": "Logo de trucmuch",
+        "date": "14 décembre 2020",
+        "article_url": "tinyurl.com/yca3rge7"
+    }
+]
