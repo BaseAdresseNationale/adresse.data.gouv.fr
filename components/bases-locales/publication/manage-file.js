@@ -67,35 +67,6 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
     }
   }, [setLoading, setError])
 
-  const handleInput = useCallback(async input => {
-    setError(null)
-    if (input) {
-      const url = 'https://adressedgv-cors.now.sh/' + input
-
-      try {
-        setLoading(true)
-        const response = await fetch(url)
-        if (response.ok) {
-          if (checkHeaders(response.headers)) {
-            const file = await response.blob()
-            setFile(file)
-          } else {
-            throw new Error('Le fichier n’a pas été reconnu comme étant au format CSV')
-          }
-        } else if (response.status in statusCodeMsg) {
-          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
-        } else {
-          throw new Error('Impossible de récupérer le fichier car une erreur est survenue.')
-        }
-      } catch (err) {
-        setError(err)
-      }
-    } else {
-      const error = 'Le champ est vide.'
-      setError(error)
-    }
-  }, [setLoading, setFile, setError])
-
   return (
     <>
       <FileHander
@@ -103,7 +74,6 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
         file={file}
         error={error}
         onFileDrop={handleFileDrop}
-        onSubmit={handleInput}
         loading={loading}
       />
 
