@@ -90,7 +90,7 @@ const PublicationPage = React.memo(({defaultBal, initialError, submissionId}) =>
         setError(bal.authenticationError)
       }
     } else if (step > 1) {
-      setError('Aucune base adresses locales n’a été trouvée')
+      setError('Aucune Base Adresse Locale n’a été trouvée')
     }
   }, [step, bal, error, submissionId])
 
@@ -176,7 +176,7 @@ PublicationPage.getInitialProps = async ({query}) => {
       bal = await submissionsBal(decodeURIComponent(url))
     } catch {
       return {
-        initialError: 'Une erreur est survenu lors de la récupération du fichier'
+        initialError: 'Une erreur est survenue lors de la récupération du fichier'
       }
     }
   }
