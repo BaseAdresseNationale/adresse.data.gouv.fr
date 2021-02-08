@@ -34,11 +34,14 @@ function Temoignage({temoignage}) {
             display: grid;
             grid-template-rows: 1fr 150px 15% 1fr 5%;
             text-align: left;
+            margin-top: 1.5em;
           }
 
           .temoignage-title{
             font-size: 1.2em;
             margin-bottom: 0.5em;
+            display: flex;
+            align-items: flex-end;
           }
 
           .temoignage-image-container{
