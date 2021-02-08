@@ -9,7 +9,7 @@ import Page from '@/layouts/main'
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
+import {uploadCSV, submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
 
 import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
@@ -37,13 +37,20 @@ const getStep = bal => {
   }
 }
 
-const PublicationPage = React.memo(({bal, initialError, submissionId}) => {
+const PublicationPage = React.memo(({defaultBal, initialError, submissionId}) => {
+  const [bal, setBal] = useState(defaultBal)
   const [step, setStep] = useState(getStep(bal))
   const [authType, setAuthType] = useState()
   const [error, setError] = useState(initialError)
 
-  const handleValidBal = () => {
-    setStep(2)
+  const handleFile = async file => {
+    try {
+      const bal = await uploadCSV(file)
+      setBal(bal)
+      setStep(2)
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   const handleCodeAuthentification = async () => {
@@ -111,7 +118,7 @@ const PublicationPage = React.memo(({bal, initialError, submissionId}) => {
           {step === 1 && (
             <ManageFile
               url=''
-              handleValidBal={handleValidBal}
+              handleFile={handleFile}
             />
           )}
 
@@ -182,7 +189,7 @@ PublicationPage.getInitialProps = async ({query}) => {
 }
 
 PublicationPage.propTypes = {
-  bal: PropTypes.shape({
+  defaultBal: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     commune: PropTypes.object.isRequired,
@@ -196,7 +203,7 @@ PublicationPage.propTypes = {
 }
 
 PublicationPage.defaultProps = {
-  bal: null,
+  defaultBal: null,
   submissionId: null,
   initialError: null
 }
