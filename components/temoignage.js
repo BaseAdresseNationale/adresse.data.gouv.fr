@@ -8,7 +8,7 @@ function Temoignage({temoignage}) {
     <div className='temoignage-container'>
       <h4 className='temoignage-title'>{temoignage.title}</h4>
       <div className='temoignage-image-container'>
-        <Image src={temoignage.picture} alt={temoignage.alt} layout='fill' className='temoignage-image-radius' />
+        <Image src={temoignage.picture} alt={temoignage.alt} layout='fill' className='temoignage-image' />
       </div>
       <div className='date-container'>
         <p>{temoignage.date}</p>
@@ -18,6 +18,14 @@ function Temoignage({temoignage}) {
       <div>
         <a href={temoignage.article_url} target='_blank' rel='noreferrer'>Lire le témoignage</a>
       </div>
+
+      {/* Issue en cours sur GH NextJS : impossible de passer la classe d'un composant Image en dehors d'une balise style jsx globale ===> https://github.com/vercel/next.js/issues/18585 */}
+      <style global jsx>{`
+          .temoignage-image{
+            border-radius: 4px;
+          }
+      `}</style>
+      {/* ------------------------------------------ */}
 
       <style jsx>{`
           .temoignage-container{
@@ -35,10 +43,6 @@ function Temoignage({temoignage}) {
 
           .temoignage-image-container{
             position: relative;
-          }
-
-          .temoignage-image-radius{
-            border-radius: 4px;
           }
 
          .date-container{
