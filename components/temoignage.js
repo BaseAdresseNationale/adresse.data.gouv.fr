@@ -4,6 +4,7 @@ import Image from 'next/image'
 import PropTypes from 'prop-types'
 
 function Temoignage({temoignage}) {
+  const localDate = new Date(temoignage.date).toLocaleDateString('fr-FR')
   return (
     <div className='temoignage-container'>
       <h4 className='temoignage-title'>{temoignage.title}</h4>
@@ -11,11 +12,11 @@ function Temoignage({temoignage}) {
         <Image src={temoignage.picture} alt={temoignage.alt} layout='fill' className='temoignage-image' />
       </div>
       <div className='date-container'>
-        <p>{temoignage.date}</p>
+        <p>Le {localDate}</p>
         <div className='separator' />
       </div>
       <p className='preview'>{temoignage.preview}</p>
-      <div>
+      <div className='blog-link-container'>
         <a href={temoignage.article_url} target='_blank' rel='noreferrer'>Lire le témoignage</a>
       </div>
 
@@ -23,6 +24,7 @@ function Temoignage({temoignage}) {
       <style global jsx>{`
           .temoignage-image{
             border-radius: 4px;
+            object-fit: cover;
           }
       `}</style>
       {/* ------------------------------------------ */}
@@ -31,14 +33,12 @@ function Temoignage({temoignage}) {
           .temoignage-container{
             display: grid;
             grid-template-rows: 1fr 150px 15% 1fr 5%;
+            text-align: left;
           }
 
           .temoignage-title{
             font-size: 1.2em;
             margin-bottom: 0.5em;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
           }
 
           .temoignage-image-container{
@@ -48,7 +48,7 @@ function Temoignage({temoignage}) {
          .date-container{
             display: flex;
             flex-direction: column;
-            align-items: center;
+            text-align: right;
           }
 
           .date-container p {
@@ -59,7 +59,7 @@ function Temoignage({temoignage}) {
 
           .separator{
             border: 1px solid #2053B3;
-            width: 80%;
+            width: 100%;
           }
 
           .preview{
@@ -67,8 +67,8 @@ function Temoignage({temoignage}) {
               text-align: left;
           }
 
-          a{
-              margin: 0;
+         .blog-link-container {
+              margin-top: 0.6em;
           }
         `}</style>
     </div>
