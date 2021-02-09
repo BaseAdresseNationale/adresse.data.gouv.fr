@@ -31,7 +31,7 @@ function Temoignage({temoignage}) {
       <style jsx>{`
           .temoignage-container {
             display: grid;
-            grid-template-rows: 1fr 150px 15% 1fr 5%;
+            grid-template-rows: 0.5fr 150px 10% 0.5fr 10%;
             text-align: left;
             margin-top: 1.5em;
           }
@@ -68,6 +68,7 @@ function Temoignage({temoignage}) {
           .preview {
               margin: 0;
               text-align: left;
+              font-style: italic;
           }
 
          .blog-link-container {
