@@ -37,7 +37,7 @@ const getStep = bal => {
   }
 }
 
-const PublicationPage = React.memo(({defaultBal, initialError, submissionId}) => {
+const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, submissionId}) => {
   const [bal, setBal] = useState(defaultBal)
   const [step, setStep] = useState(getStep(bal))
   const [authType, setAuthType] = useState()
@@ -80,6 +80,10 @@ const PublicationPage = React.memo(({defaultBal, initialError, submissionId}) =>
   }, [bal])
 
   useEffect(() => {
+    setError(null)
+  }, [step])
+
+  useEffect(() => {
     if (bal) {
       if (!submissionId) {
         const href = `/bases-locales/publication?submissionId=${bal._id}`
@@ -96,11 +100,13 @@ const PublicationPage = React.memo(({defaultBal, initialError, submissionId}) =>
 
   return (
     <Page>
-      <Section background='color' style={{padding: '1em 0'}}>
-        <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
-          <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
-        </ButtonLink>
-      </Section>
+      {isRedirected && (
+        <Section background='color' style={{padding: '1em 0'}}>
+          <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
+            <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
+          </ButtonLink>
+        </Section>
+      )}
 
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
@@ -182,13 +188,15 @@ PublicationPage.getInitialProps = async ({query}) => {
   }
 
   return {
-    bal,
+    isRedirected: Boolean(url),
+    defaultBal: bal,
     submissionId,
     user: bal && bal.authentication ? bal.authentication : null
   }
 }
 
 PublicationPage.propTypes = {
+  isRedirected: PropTypes.bool,
   defaultBal: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
@@ -203,6 +211,7 @@ PublicationPage.propTypes = {
 }
 
 PublicationPage.defaultProps = {
+  isRedirected: false,
   defaultBal: null,
   submissionId: null,
   initialError: null
