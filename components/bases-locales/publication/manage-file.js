@@ -80,7 +80,7 @@ const ManageFile = React.memo(({url, handleFile}) => {
         file={file}
         error={error}
         onFileDrop={handleFileDrop}
-        loading={loading}
+        isLoading={loading}
       />
 
       {report && (

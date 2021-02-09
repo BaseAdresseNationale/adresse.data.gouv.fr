@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 import {Plus, File} from 'react-feather'
 
-function Holder({file, placeholder, onDrop}) {
+import Loader from '@/components/loader'
+
+function Holder({file, placeholder, isLoading, onDrop}) {
   return (
     <Dropzone onDrop={onDrop} multiple={false}>
       {({getRootProps, getInputProps, isDragActive}) => {
@@ -15,6 +17,9 @@ function Holder({file, placeholder, onDrop}) {
             <input {...inputProps} />
             <div className='drop-icon'>{file && !isDragActive ? <File size={72} /> : <Plus size={72} />}</div>
             <div>{file ? file.name : placeholder}</div>
+            {isLoading && (
+              <div className='loading'>Chargement du fichier… <Loader /></div>
+            )}
 
             <style jsx>{`
               .dropzone {
@@ -39,6 +44,13 @@ function Holder({file, placeholder, onDrop}) {
                 font-size: 72px;
                 margin-bottom: 0.3em;
               }
+
+              .loading {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-style: italic;
+              }
             `}</style>
           </div>
         )
@@ -50,11 +62,13 @@ function Holder({file, placeholder, onDrop}) {
 Holder.propTypes = {
   file: PropTypes.object,
   placeholder: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
   onDrop: PropTypes.func.isRequired
 }
 
 Holder.defaultProps = {
-  file: null
+  file: null,
+  isLoading: false
 }
 
 export default Holder
