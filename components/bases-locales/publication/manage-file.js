@@ -66,8 +66,8 @@ const ManageFile = React.memo(({url, handleFile}) => {
 
     if (!fileExtension || fileExtension !== 'csv') {
       setError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
-    } else if (file.size > 100 * 1024 * 1024) {
-      setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
+    } else if (file.size > 10 * 1024 * 1024) {
+      setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
     } else {
       setFile(file)
     }
