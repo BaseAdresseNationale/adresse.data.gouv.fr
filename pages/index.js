@@ -63,7 +63,7 @@ function Home() {
       <Section title='Les communes témoignent !' background='grey'>
         <Temoignages limit={3} />
         <div className='centered'>
-          <ButtonLink href='/bases-locales/temoignages' isExternal target='_blank' rel='noreferrer'>Lire tous les témoignages</ButtonLink>
+          <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
         </div>
 
         <style jsx>{`
