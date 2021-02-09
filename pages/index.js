@@ -63,7 +63,7 @@ function Home() {
       <Section title='Les communes témoignent !' background='grey'>
         <Temoignages isLimited />
         <div className='centered'>
-          <ButtonLink href='https://blog.geo.data.gouv.fr/' isExternal target='_blank' rel='noreferrer'>Lire tous les témoignages</ButtonLink>
+          <ButtonLink href='/bases-locales/temoignages' isExternal target='_blank' rel='noreferrer'>Lire tous les témoignages</ButtonLink>
         </div>
 
         <style jsx>{`

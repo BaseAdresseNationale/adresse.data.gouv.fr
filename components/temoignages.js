@@ -53,8 +53,8 @@ function Temoignages({isLimited}) {
             margin-top: 4em;
             text-align: center;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 4em
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 6em
           }
         `}</style>
     </div>
