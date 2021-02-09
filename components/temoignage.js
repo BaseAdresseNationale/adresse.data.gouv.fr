@@ -31,7 +31,7 @@ function Temoignage({temoignage}) {
       <style jsx>{`
           .temoignage-container {
             display: grid;
-            grid-template-rows: 0.5fr 150px 10% 0.5fr 10%;
+            grid-template-rows: 1fr 150px 0.5fr 1fr 0.5fr;
             text-align: left;
             margin-top: 1.5em;
           }
