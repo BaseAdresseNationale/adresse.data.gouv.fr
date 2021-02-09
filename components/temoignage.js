@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 import PropTypes from 'prop-types'
 
-function Temoignage({temoignage}) {
-  const {title, picture, alt, preview, articleUrl, date} = temoignage
+function Temoignage({testimony}) {
+  const {title, picture, alt, preview, articleUrl, date} = testimony
   const localDate = new Date(date).toLocaleDateString('fr-FR')
 
   return (
@@ -81,7 +81,7 @@ function Temoignage({temoignage}) {
 }
 
 Temoignage.propTypes = {
-  temoignage: PropTypes.shape({
+  testimony: PropTypes.shape({
     title: PropTypes.string,
     picture: PropTypes.string,
     alt: PropTypes.string,

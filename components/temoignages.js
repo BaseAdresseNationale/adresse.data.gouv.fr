@@ -19,8 +19,8 @@ function Temoignages({limit}) {
 
   return (
     <div className='temoignages-section'>
-      {sortedTestimonies.map(temoignage => (
-        <Temoignage key={temoignage.title} temoignage={temoignage} />
+      {sortedTestimonies.map(testimony => (
+        <Temoignage key={testimony.title} testimony={testimony} />
       ))}
 
       <style jsx>{`
