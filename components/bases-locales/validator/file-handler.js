@@ -15,14 +15,15 @@ class FileHandler extends React.Component {
     ]),
     isLoading: PropTypes.bool,
     onFileDrop: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func
   }
 
   static defaultProps = {
     defaultValue: '',
     file: null,
     error: null,
-    isLoading: false
+    isLoading: false,
+    onSubmit: null
   }
 
   state = {inputValue: this.props.defaultValue}
@@ -49,19 +50,24 @@ class FileHandler extends React.Component {
 
           <div className='file-handler-container'>
             <Holder
-              placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)'
+              placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 10 Mo)'
               file={file}
+              isLoading={isLoading}
               onDrop={onFileDrop}
             />
-            <div className='else'>ou</div>
-            <InputForm
-              placeholder='Entrer une url vers un fichier CSV'
-              value={inputValue}
-              onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-              buttonText='Utiliser'
-              loading={isLoading}
-            />
+            {this.props.onSubmit && (
+              <>
+                <div className='else'>ou</div>
+                <InputForm
+                  placeholder='Entrer une url vers un fichier CSV'
+                  value={inputValue}
+                  onChange={this.handleChange}
+                  onSubmit={this.handleSubmit}
+                  buttonText='Utiliser'
+                  loading={isLoading}
+                />
+              </>
+            )}
           </div>
 
           {error && (

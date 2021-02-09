@@ -132,12 +132,12 @@ class BALValidator extends React.Component {
 
     return (
       <Section>
-        <FileHander defaultValue={router.query.url} file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} loading={loading} />
+        <FileHander defaultValue={router.query.url} file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} isLoading={loading} />
         {inProgress &&
-        <div className='centered'>
-          <h4>Analyse en cours…</h4>
-          <Loader />
-        </div>}
+          <div className='centered'>
+            <h4>Analyse en cours…</h4>
+            <Loader />
+          </div>}
 
         {report &&
           <div style={{margin: '2em 0'}}>

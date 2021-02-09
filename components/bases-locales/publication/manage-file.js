@@ -1,15 +1,16 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {uniq} from 'lodash'
 import {validate} from '@etalab/bal'
 
-import {getFileExtension, checkHeaders, statusCodeMsg} from '@/lib/bal/file'
+import {getFileExtension} from '@/lib/bal/file'
 
 import FileHander from '../validator/file-handler'
 import Report from '../validator/report'
 
 import theme from '@/styles/theme'
 
-const ManageFile = React.memo(({url, handleValidBal}) => {
+const ManageFile = React.memo(({url, handleFile}) => {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [report, setReport] = useState(null)
@@ -18,17 +19,22 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
   const parseFile = useCallback(async file => {
     try {
       const report = await validate(file)
+      const communes = uniq(report.normalizedRows.map(r => r.codeCommune))
 
-      if (report.rowsWithIssues.length === 0) {
-        handleValidBal(report)
-      } else {
+      if (communes.length !== 1) {
+        throw new Error('Fichier BAL vide ou contenant plusieurs communes')
+      }
+
+      if (report.hasErrors) {
         setReport(report)
+      } else {
+        handleFile(file)
       }
     } catch (err) {
       const error = `Impossible d’analyser le fichier… [${err.message}]`
       setError(error)
     }
-  }, [handleValidBal])
+  }, [handleFile])
 
   useEffect(() => {
     if (file) {
@@ -60,41 +66,12 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
 
     if (!fileExtension || fileExtension !== 'csv') {
       setError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
-    } else if (file.size > 100 * 1024 * 1024) {
-      setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
+    } else if (file.size > 10 * 1024 * 1024) {
+      setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
     } else {
       setFile(file)
     }
   }, [setLoading, setError])
-
-  const handleInput = useCallback(async input => {
-    setError(null)
-    if (input) {
-      const url = 'https://adressedgv-cors.now.sh/' + input
-
-      try {
-        setLoading(true)
-        const response = await fetch(url)
-        if (response.ok) {
-          if (checkHeaders(response.headers)) {
-            const file = await response.blob()
-            setFile(file)
-          } else {
-            throw new Error('Le fichier n’a pas été reconnu comme étant au format CSV')
-          }
-        } else if (response.status in statusCodeMsg) {
-          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
-        } else {
-          throw new Error('Impossible de récupérer le fichier car une erreur est survenue.')
-        }
-      } catch (err) {
-        setError(err)
-      }
-    } else {
-      const error = 'Le champ est vide.'
-      setError(error)
-    }
-  }, [setLoading, setFile, setError])
 
   return (
     <>
@@ -103,8 +80,7 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
         file={file}
         error={error}
         onFileDrop={handleFileDrop}
-        onSubmit={handleInput}
-        loading={loading}
+        isLoading={loading}
       />
 
       {report && (
@@ -119,7 +95,7 @@ const ManageFile = React.memo(({url, handleValidBal}) => {
 
 ManageFile.propTypes = {
   url: PropTypes.string,
-  handleValidBal: PropTypes.func.isRequired
+  handleFile: PropTypes.func.isRequired
 }
 
 ManageFile.defaultProps = {
