@@ -4,21 +4,22 @@ import Image from 'next/image'
 import PropTypes from 'prop-types'
 
 function Temoignage({temoignage}) {
-  const localDate = new Date(temoignage.date).toLocaleDateString('fr-FR')
+  const {title, picture, alt, preview, articleUrl, date} = temoignage
+  const localDate = new Date(date).toLocaleDateString('fr-FR')
 
   return (
     <div className='temoignage-container'>
-      <h4 className='temoignage-title'>{temoignage.title}</h4>
+      <h4 className='temoignage-title'>{title}</h4>
       <div className='temoignage-image-container'>
-        <Image src={temoignage.picture} alt={temoignage.alt} layout='fill' className='temoignage-image' />
+        <Image src={picture} alt={alt} layout='fill' className='temoignage-image' />
       </div>
       <div className='date-container'>
         <p>Le {localDate}</p>
         <div className='separator' />
       </div>
-      <p className='preview'>{temoignage.preview}</p>
+      <p className='preview'>{preview}</p>
       <div className='blog-link-container'>
-        <a href={temoignage.article_url} target='_blank' rel='noreferrer'>Lire le témoignage</a>
+        <a href={articleUrl} target='_blank' rel='noreferrer'>Lire le témoignage</a>
       </div>
 
       <style global jsx>{` // Issue en cours sur GH NextJS : impossible de passer la classe d'un composant Image en dehors d'une balise style jsx globale ===> https://github.com/vercel/next.js/issues/18585
@@ -80,7 +81,14 @@ function Temoignage({temoignage}) {
 }
 
 Temoignage.propTypes = {
-  temoignage: PropTypes.object.isRequired
+  temoignage: PropTypes.shape({
+    title: PropTypes.string,
+    picture: PropTypes.string,
+    alt: PropTypes.string,
+    preview: PropTypes.string,
+    articleUrl: PropTypes.string,
+    date: PropTypes.string
+  }).isRequired
 }
 
 export default Temoignage
