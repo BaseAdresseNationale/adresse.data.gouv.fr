@@ -12,7 +12,7 @@ function Infolettre() {
         {isShown ? (
           <iframe height='660' width='100%' src='https://8d772127.sibforms.com/serve/MUIEALrUjwg3nxBK1Ebb_ndriJHjVhfoNqqr55eXe4id-Y3eYMbnHY6fabW8qNi5S55CjKgwWuwYbpWbQamoes1zxUi4vYJGeXwkygSrYFFz0Yg644JK8Bb2VY1Q23vp4b22CmKNIWbjSccP3x1RTOsdV3EjJkWc_o-mXUxWg9Hjx8gbmzkyUeSgKAinMeoI33kqpDssnQxeeorN' />
         ) : (
-          <Button type='button' isOutlined onClick={() => setIsShown(!isShown)}>M’inscrire</Button>
+          <Button type='button' isOutlined color='white' onClick={() => setIsShown(!isShown)}>M’inscrire</Button>
         )}
       </div>
 
