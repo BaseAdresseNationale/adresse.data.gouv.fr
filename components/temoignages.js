@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Temoignage from '@/components/temoignage'
 
-function Temoignages({isLimited}) {
+function Temoignages({limit}) {
   const temoignages = testimoniesData
 
   const sortByDate = (a, b) => {
@@ -24,19 +24,8 @@ function Temoignages({isLimited}) {
   }
 
   const renderedTestimonies = () => {
-    const size = 3
-    if (isLimited) {
-      return (
-        sortedTestimonies(temoignages).slice(0, size).map(temoignage => {
-          return (
-            <Temoignage key={temoignage.title} temoignage={temoignage} />
-          )
-        })
-      )
-    }
-
     return (
-      sortedTestimonies(temoignages).map(temoignage => {
+      sortedTestimonies(temoignages).slice(0, limit).map(temoignage => {
         return (
           <Temoignage key={temoignage.title} temoignage={temoignage} />
         )
@@ -62,11 +51,10 @@ function Temoignages({isLimited}) {
 }
 
 Temoignages.propTypes = {
-  isLimited: PropTypes.bool
+  limit: PropTypes.number
 }
 
 Temoignages.defaultProps = {
-  isLimited: false
+  limit: undefined
 }
-
 export default Temoignages
