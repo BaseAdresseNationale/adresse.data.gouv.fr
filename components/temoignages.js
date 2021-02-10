@@ -25,11 +25,10 @@ function Temoignages({limit}) {
 
       <style jsx>{`
           .temoignages-section {
-            margin-top: 4em;
             text-align: center;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 6em;
+            grid-column-gap: 6em;
           }
         `}</style>
     </div>
