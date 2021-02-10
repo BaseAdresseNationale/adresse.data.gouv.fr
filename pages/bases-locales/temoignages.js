@@ -5,13 +5,13 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import TemoignagesComponent from '@/components/temoignages'
 
-import {MoreHorizontal} from 'react-feather'
+import {MessageCircle} from 'react-feather'
 
 function Temoignages() {
   return (
     <Page>
-      <Head title='Témoignages sur la Base d’adresses locales' icon={<MoreHorizontal size={56} />} />
-      <Section title='Retrouvez l’avis des communes ayant adopté la BAL' >
+      <Head title='Bonnes pratiques des Bases Adresses Locales' icon={<MessageCircle size={56} />} />
+      <Section title='Élus et agents apportent leurs témoignages' >
         <TemoignagesComponent />
       </Section>
     </Page>
