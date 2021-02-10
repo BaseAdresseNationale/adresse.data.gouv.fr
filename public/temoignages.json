@@ -1,11 +1,11 @@
 [
     {
-        "title": "Le Pays compiégnois.",
+        "title": "Le Pays compiégnois",
         "preview": "GeoCompiegnois a développé son propre outil sur mesure : un cercle vertueux est en place de longue date pour faciliter la mise à jour des adresses de 61 communes.",
         "picture": "/images/testimonies/pays-compiegnois.jpg",
         "alt": "Cliché Communauté d’Agglomération de la Région de Compiègne",
         "date": "2021-01-29",
-        "article_url": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-le-pays-compi%C3%A9gnois-c1fb177029f2"
+        "articleUrl": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-le-pays-compi%C3%A9gnois-c1fb177029f2"
     },
     {
         "title": "Commune de Planès",
@@ -13,7 +13,7 @@
         "picture": "/images/testimonies/planes.jpg",
         "alt": "Paysage de Planès. Cliché Thierry llansades",
         "date": "2021-01-11",
-        "article_url": "https://www.banquedesterritoires.fr/planes-cree-en-toute-autonomie-sa-base-adresse-locale-et-accelere-larrivee-de-la-fibre-66"
+        "articleUrl": "https://www.banquedesterritoires.fr/planes-cree-en-toute-autonomie-sa-base-adresse-locale-et-accelere-larrivee-de-la-fibre-66"
     },
     {
         "title": "Communauté d’Agglomération du Pays Basque",
@@ -21,7 +21,7 @@
         "picture": "/images/testimonies/pays-basque.jpg",
         "alt": "Paysage du Pays basque. Cliché Chantal Arruti",
         "date": "2020-11-30",
-        "article_url": "https://blog.geo.data.gouv.fr/communaut%C3%A9-dagglom%C3%A9ration-du-pays-basque-164dffa34fbd"
+        "articleUrl": "https://blog.geo.data.gouv.fr/communaut%C3%A9-dagglom%C3%A9ration-du-pays-basque-164dffa34fbd"
     },
     {
         "title": "Theizé-en-Beaujolais",
@@ -29,14 +29,22 @@
         "picture": "/images/testimonies/theize-en-beaujolais.jpg",
         "alt": "Paysage de Theizé-en-Beaujolais. Cliché Yves Kensicher",
         "date": "2020-11-13",
-        "article_url": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-theiz%C3%A9-en-beaujolais-382a9f566a2c"
+        "articleUrl": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-theiz%C3%A9-en-beaujolais-382a9f566a2c"
     },
     {
         "title": "Communes des Hautes-Alpes",
         "preview": "Une dynamique est engagée réunissant petites communes, Préfecture et Département, dans l’optique d’utiliser les outils libres et gratuits pour mettre à jour les adresses.",
         "picture": "/images/testimonies/hautes-alpes.jpg",
-        "alt": "Paysage de Le Mônetier-les-Bains. Cliché Gilles Guillamot",
+        "alt": "Paysage de commune sous la neige de Villar d’Arêne. Cliché Séverine Da Silva",
         "date": "2020-12-18",
-        "article_url": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-communes-des-hautes-alpes-9e77c4fe82da"
+        "articleUrl": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-communes-des-hautes-alpes-9e77c4fe82da"
+    },
+    {
+        "title": "Breux-sur-Avre",
+        "preview": "Ce billet est le premier d’une série sur l’adresse, et commence par l’échelon de l’habitant et du terrain.",
+        "picture": "/images/testimonies/breux-sur-avre.jpg",
+        "alt": "Photographie du panneau de circulation du Chemin des Foins. Cliché Théophile Merlière",
+        "date": "2019-11-05",
+        "articleUrl": "https://blog.geo.data.gouv.fr/comment-un-simple-citoyen-peut-il-contribuer-%C3%A0-r%C3%A9soudre-les-probl%C3%A8mes-dadresse-de-sa-commune-6e5cb7238b0e"
     }
 ]
