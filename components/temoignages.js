@@ -1,5 +1,5 @@
 import React from 'react'
-import testimonies from 'public/temoignages.json'
+import testimonies from 'temoignages.json'
 import PropTypes from 'prop-types'
 
 import Temoignage from '@/components/temoignage'
