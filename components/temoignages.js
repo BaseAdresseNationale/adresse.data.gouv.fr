@@ -6,13 +6,11 @@ import Temoignage from '@/components/temoignage'
 
 function Temoignages({limit}) {
   const sortByDate = (a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
-    if (dateA === dateB) {
+    if (a.date === b.date) {
       return 0
     }
 
-    return dateA < dateB ? 1 : -1
+    return a.date < b.date ? 1 : -1
   }
 
   const sortedTestimonies = limit ? testimonies.sort(sortByDate).slice(0, limit) : testimonies.sort(sortByDate)
