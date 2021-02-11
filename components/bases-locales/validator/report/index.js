@@ -53,29 +53,13 @@ function Report({report}) {
         <label>Version de la spécification :</label>
         <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
           {Object.keys(profilesValidation).map(key => (
-            <option key={key} value={key}>{profilesValidation[key].name}</option>
+            <option key={key} value={key}>
+              {profilesValidation[key].isValid ? '✅' : '❌'}
+              {' '}
+              {profilesValidation[key].name}
+            </option>
           ))}
         </select>
-      </div>
-
-      <div className='report-container'>
-        <h4>Validation par version de spécification</h4>
-        <table>
-          <tbody>
-            <tr>
-              <th>Nom</th>
-              <th>Profile</th>
-              <th>Valide</th>
-            </tr>
-            {Object.keys(profilesValidation).map(key => (
-              <tr key={key} style={{backgroundColor: profilesValidation[key].isValid ? theme.successBg : theme.errorBg}}>
-                <td>{profilesValidation[key].name}</td>
-                <td>{profilesValidation[key].code}</td>
-                <td>{profilesValidation[key].isValid ? <Check size={25} /> : <X size={25} />}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
 
       <div className='report-container'>
