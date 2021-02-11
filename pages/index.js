@@ -7,7 +7,9 @@ import Ribbon from '@/components/ribbon'
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
+import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
+import Temoignages from '@/components/temoignages'
 import Infolettre from '@/components/infolettre'
 
 function Home() {
@@ -56,6 +58,27 @@ function Home() {
             Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
           </p>
         </DocDownload>
+      </Section>
+
+      <Section title='Les communes témoignent !' background='grey'>
+        <Temoignages limit={3} />
+        <div className='centered'>
+          <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
+        </div>
+
+        <style jsx>{`
+        .centered {
+          margin-top: 5em;
+          display: flex;
+          justify-content: center;
+        }
+
+        .centered a {
+          text-decoration: none;
+          color: white;
+        }
+        `}
+        </style>
       </Section>
       <Infolettre />
     </Page>

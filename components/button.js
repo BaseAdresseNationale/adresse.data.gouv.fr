@@ -5,7 +5,7 @@ import colors from '@/styles/colors'
 
 function Button({size, color, isOutlined, children, ...props}) {
   return (
-    <button type='submit' className={`button${isOutlined ? '-outlined' : ''} ${size} ${color}`} {...props}>
+    <button type='submit' className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
       {children}
 
       <style global jsx>{`
@@ -31,7 +31,8 @@ Button.propTypes = {
     'primary',
     'warning-light',
     'warning',
-    'secondary'
+    'secondary',
+    'white'
   ]),
   isOutlined: PropTypes.bool,
   children: PropTypes.node
