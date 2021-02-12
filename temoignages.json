@@ -46,5 +46,13 @@
         "alt": "Photographie du panneau de circulation du Chemin des Foins. Cliché Théophile Merlière",
         "date": "2019-11-05",
         "articleUrl": "https://blog.geo.data.gouv.fr/comment-un-simple-citoyen-peut-il-contribuer-%C3%A0-r%C3%A9soudre-les-probl%C3%A8mes-dadresse-de-sa-commune-6e5cb7238b0e"
+    },
+    {
+        "title": "Bréau-Mars",
+        "preview": "La commune de Bréau-Mars, a utilisé l’éditeur en ligne Mes Adresses pour conserver la richesses des adresses en dépit de deux fusions successives.",
+        "picture": "/images/testimonies/breau-mars.jpg",
+        "alt": "Paysage de la commune de Bréau-Mars",
+        "date": "2021-02-11",
+        "articleUrl": "https://www.amenagement-numerique.gouv.fr/fr/actualite/adressage-breau-mars-communes-fusionnees-arrivee-fibre"
     }
 ]
