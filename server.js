@@ -69,6 +69,10 @@ app.prepare().then(() => {
     res.redirect('/contribuer')
   })
 
+  server.get('/map', (request, res) => {
+    res.redirect('/base-adresse-nationale')
+  })
+
   server.get('*', (request, res) => {
     return handle(request, res)
   })

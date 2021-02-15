@@ -17,6 +17,8 @@
     "@etalab/bal": "^1.0.0-4",
     "@etalab/project-legal": "^0.4.0",
     "@turf/bbox": "^6.0.1",
+    "@turf/bbox-polygon": "^6.2.0",
+    "@turf/boolean-contains": "^6.2.0",
     "blob-to-buffer": "^1.2.9",
     "chart.js": "^2.9.4",
     "compression": "^1.7.4",

@@ -158,6 +158,7 @@ class Csv extends React.Component {
             <Holder
               file={file}
               placeholder={`Glissez un fichier ici (max ${MAX_SIZE / (1024 * 1024)} Mo), ou cliquez pour choisir`}
+              isLoading={loading}
               onDrop={this.handleFileDrop}
             />
 

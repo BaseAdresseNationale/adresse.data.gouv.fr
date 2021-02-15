@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 import {Plus, FileText, RefreshCcw} from 'react-feather'
 
+import Loader from '@/components/loader'
+
 function formatFileSize(bytes) {
   if (bytes === 0) {
     return '0 Bytes'
@@ -14,7 +16,7 @@ function formatFileSize(bytes) {
   return Number.parseFloat((bytes / (k ** i)).toFixed(2)) + ' ' + sizes[i]
 }
 
-function Holder({file, placeholder, onDrop}) {
+function Holder({file, placeholder, isLoading, onDrop}) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -41,12 +43,17 @@ function Holder({file, placeholder, onDrop}) {
                     <div>{formatFileSize(file.size)}</div>
                   </div>
                 </div>
-                <RefreshCcw
-                  size={32}
-                  style={{
-                    display: isHovered || isDragActive ? 'block' : 'none',
-                    margin: '0 1em'
-                  }} />
+                {isLoading ? (
+                  <div className='loading'>Chargement du fichier… <span><Loader /></span></div>
+                ) : (
+                  <RefreshCcw
+                    size={32}
+                    style={{
+                      display: isHovered || isDragActive ? 'block' : 'none',
+                      margin: '0 1em'
+                    }} />
+                )}
+
               </div>
             ) : placeholder}</div>
 
@@ -94,6 +101,16 @@ function Holder({file, placeholder, onDrop}) {
               .active {
                 background-color: #ebeff3;
               }
+
+              .loading {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                font-style: italic;
+              }
+              .loading span {
+                margin-left: 1em;
+              }
             `}</style>
           </div>
         )
@@ -105,11 +122,13 @@ function Holder({file, placeholder, onDrop}) {
 Holder.propTypes = {
   file: PropTypes.object,
   placeholder: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
   onDrop: PropTypes.func.isRequired
 }
 
 Holder.defaultProps = {
-  file: null
+  file: null,
+  isLoading: false
 }
 
 export default Holder

@@ -10,9 +10,9 @@ import Section from './section'
 
 const titles = [
   {
-    title: 'Carte interactive',
-    href: '/map',
-    description: <span>Cherchez des adresses et lieux-dits.</span>,
+    title: 'L’explorateur BAN',
+    href: '/base-adresse-nationale',
+    description: <span>Cherchez des adresses dans la Base Adresse Nationale.</span>,
     icon: <Map />
   },
   {

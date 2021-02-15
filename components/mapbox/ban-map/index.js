@@ -1,17 +1,85 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import bboxPolygon from '@turf/bbox-polygon'
+import booleanContains from '@turf/boolean-contains'
+
+import theme from '@/styles/theme'
 
 import CenterControl from '../center-control'
+import SelectPaintLayer from '../select-paint-layer'
+import MapLegends from '../map-legends'
 
-import {adresseCircleLayer, adresseLabelLayer, adresseCompletLabelLayer, voieLayer, toponymeLayer} from './layers'
+import {
+  adresseCircleLayer,
+  adresseLabelLayer,
+  adresseCompletLabelLayer,
+  voieLayer,
+  toponymeLayer,
+  sources,
+  sourcesLayerPaint,
+  defaultLayerPaint
+} from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
 let hoveredVoieId = null
 
 const SOURCES = ['adresses', 'toponymes']
+const MAX_ZOOM = 19 // Zoom maximum de la carte
 
-function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect}) {
+const ZOOM_RANGE = {
+  commune: {
+    min: adresseCircleLayer.minzoom,
+    max: MAX_ZOOM
+  },
+  voie: {
+    min: voieLayer.minzoom,
+    max: voieLayer.maxzoom
+  },
+  numero: {
+    min: adresseLabelLayer.minzoom,
+    max: MAX_ZOOM
+  },
+  'lieu-dit': {
+    min: toponymeLayer.minzoom,
+    max: toponymeLayer.maxzoom
+  }
+}
+
+const certificationLegend = {
+  certified: {name: 'Certifiée', color: theme.successBorder},
+  notCertified: {name: 'Non certifiée', color: theme.warningBorder}
+}
+
+const paintLayers = {
+  certification: {
+    name: 'Certification',
+    legend: {
+      title: 'Certification',
+      content: certificationLegend
+    },
+    paint: defaultLayerPaint
+  },
+  sources: {
+    name: 'Sources',
+    legend: {
+      title: 'Adresses transmises par :',
+      content: sources
+    },
+    paint: sourcesLayerPaint
+  }
+}
+
+const isFeatureContained = (container, content) => {
+  const polygonA = bboxPolygon(container)
+  const polygonB = bboxPolygon(content)
+  return booleanContains(polygonA, polygonB)
+}
+
+function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
+  const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
+  const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
+
   const onLeave = useCallback(() => {
     if (hoveredVoieId) {
       highLightVoie(false)
@@ -57,11 +125,60 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     cb(feature.properties)
   }
 
-  const centerAddress = () => {
-    if (address) {
-      map.fitBounds(address.displayBBox)
+  const centerAddress = useCallback(() => {
+    if (address && !isCenterControlDisabled) {
+      map.fitBounds(address.displayBBox, {
+        padding: 30
+      })
+      setIsCenterControlDisabled(true)
     }
-  }
+  }, [address, isCenterControlDisabled, map])
+
+  const isAddressVisible = useCallback(() => {
+    if (address) {
+      const {_sw, _ne} = map.getBounds()
+      const mapBBox = [
+        _sw.lng,
+        _sw.lat,
+        _ne.lng,
+        _ne.lat
+      ]
+
+      const currentZoom = map.getZoom()
+      const isAddressInMapBBox = isFeatureContained(mapBBox, address.displayBBox)
+
+      const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
+      const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
+      setIsCenterControlDisabled(isAddressInMapBBox && isZoomSmallerThanMax && isZoomGreaterThanMin)
+    } else {
+      setIsCenterControlDisabled(true)
+    }
+  }, [map, address])
+
+  useEffect(() => {
+    isAddressVisible()
+  }, [address, isAddressVisible])
+
+  useEffect(() => {
+    if (map.isStyleLoaded()) {
+      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', paintLayers[selectedPaintLayer].paint)
+      map.setPaintProperty(adresseLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
+      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
+    }
+  }, [map, selectedPaintLayer])
+
+  useEffect(() => {
+    map.off('dragend', isAddressVisible)
+    map.off('zoomend', isAddressVisible)
+
+    map.on('dragend', isAddressVisible)
+    map.on('zoomend', isAddressVisible)
+
+    return () => {
+      map.off('dragend', isAddressVisible)
+      map.off('zoomend', isAddressVisible)
+    }
+  }, [map, address, isAddressVisible])
 
   useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
@@ -142,21 +259,35 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [map, isSourceLoaded, address, setLayers])
 
   return (
-    <CenterControl handleClick={centerAddress} />
+    <>
+      <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+      <SelectPaintLayer
+        options={paintLayers}
+        selected={selectedPaintLayer}
+        handleSelect={setSelectedPaintLayer}
+        isMobile={isMobile}
+      >
+        <MapLegends
+          title={paintLayers[selectedPaintLayer].legend.title}
+          legend={paintLayers[selectedPaintLayer].legend.content}
+        />
+      </SelectPaintLayer>
+    </>
   )
 }
 
 BanMap.defaultProps = {
   address: null,
   isSourceLoaded: false,
-  onSelect: () => {}
+  onSelect: () => {},
+  isMobile: false
 }
 
 BanMap.propTypes = {
   address: PropTypes.shape({
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    position: PropTypes.object.isRequired,
+    position: PropTypes.object,
     displayBBox: PropTypes.array.isRequired
   }),
   map: PropTypes.object.isRequired,
@@ -167,7 +298,8 @@ BanMap.propTypes = {
   }),
   onSelect: PropTypes.func,
   setSources: PropTypes.func.isRequired,
-  setLayers: PropTypes.func.isRequired
+  setLayers: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool
 }
 
 export default BanMap

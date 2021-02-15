@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {validate} from '@etalab/bal'
-import {useRouter} from 'next/router'
 
 import {getFileExtension} from '@/lib/bal/file'
 
@@ -11,7 +10,6 @@ import Report from './report'
 import FileHander from './file-handler'
 
 function BALValidator() {
-  const router = useRouter()
   const [file, setFile] = useState()
   const [error, setError] = useState()
   const [inProgress, setInProgress] = useState(false)
@@ -63,8 +61,8 @@ function BALValidator() {
   return (
     <Section>
       <FileHander
-        defaultValue={router.query.url}
         file={file}
+        isLoading={inProgress}
         error={error}
         onFileDrop={handleFileDrop}
       />
@@ -79,6 +77,7 @@ function BALValidator() {
         <div>
           <Report report={report} />
         </div>}
+
       <style jsx>{`
         .centered {
           display: flex;

@@ -3,12 +3,28 @@ import theme from '@/styles/theme'
 export const sources = {
   bal: {name: 'Base Adresse Locale (Commune)', color: '#4dac26'},
   cadastre: {name: 'Cadastre (DGFiP)', color: '#2c7bb6'},
-  ftth: {name: 'IPE (Arcep / opérateurs)', color: '#118571'},
+  ftth: {name: 'IPE (Arcep / Opérateurs)', color: '#118571'},
   'insee-ril': {name: 'RIL(INSEE)', color: '#7b3294'},
   'ign-api-gestion-ign': {name: 'BD TOPO (IGN)', color: '#fdae61'},
   'ign-api-gestion-laposte': {name: 'La Poste', color: '#feffbf'},
-  'ign-api-gestion-sdis': {name: 'SDIS (pompiers)', color: '#d7191c'},
-  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse (commune)', color: '#a6611a'}
+  'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#d7191c'},
+  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse (Commune)', color: '#a6611a'}
+}
+
+export const defaultLayerPaint = [
+  'case',
+  ['==', ['get', 'sourcePosition'], 'bal'],
+  theme.successBorder,
+  theme.warningBorder
+]
+
+export const sourcesLayerPaint = {
+  type: 'categorical',
+  property: 'sourcePosition',
+  stops: Object.keys(sources).map(key => {
+    const {color} = sources[key]
+    return [key, color]
+  })
 }
 
 const NUMEROS_POINT_MIN = 12
@@ -27,14 +43,7 @@ export const adresseCircleLayer = {
   type: 'circle',
   minzoom: NUMEROS_POINT_MIN,
   paint: {
-    'circle-color': {
-      type: 'categorical',
-      property: 'sourcePosition',
-      stops: Object.keys(sources).map(key => {
-        const {color} = sources[key]
-        return [key, color]
-      })
-    },
+    'circle-color': defaultLayerPaint,
     'circle-stroke-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -63,14 +72,7 @@ export const adresseLabelLayer = {
   type: 'symbol',
   minzoom: NUMEROS_MIN,
   paint: {
-    'text-color': {
-      type: 'categorical',
-      property: 'sourcePosition',
-      stops: Object.keys(sources).map(key => {
-        const {color} = sources[key]
-        return [key, color]
-      })
-    },
+    'text-color': defaultLayerPaint,
     'text-halo-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -115,14 +117,7 @@ export const adresseCompletLabelLayer = {
   minzoom: NUMEROS_MIN,
   filter: ['==', ['get', 'id'], ''],
   paint: {
-    'text-color': {
-      type: 'categorical',
-      property: 'sourcePosition',
-      stops: Object.keys(sources).map(key => {
-        const {color} = sources[key]
-        return [key, color]
-      })
-    },
+    'text-color': defaultLayerPaint,
     'text-halo-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
