@@ -5,7 +5,6 @@ import CsvMeta from './csv-meta'
 import Fields from './fields'
 import Summary from './summary'
 
-import {Check, X} from 'react-feather'
 import theme from '@/styles/theme'
 
 const getIssues = (issuesRows, rows) => {
