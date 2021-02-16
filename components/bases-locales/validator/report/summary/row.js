@@ -93,17 +93,6 @@ function Row({row, isForcedShowIssues, unknowFields}) {
           cursor: pointer;
           background-color: #f8f8f8;
         }
-
-        .row-container {
-          margin: 1em 0;
-          padding: 1em;
-          box-shadow: 0 1px 4px ${theme.boxShadow};
-        }
-
-        span {
-          color: ${theme.darkText};
-          text-decoration: italic;
-        }
       `}</style>
     </div>
   )

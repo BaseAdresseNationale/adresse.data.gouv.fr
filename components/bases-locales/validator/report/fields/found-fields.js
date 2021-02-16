@@ -27,26 +27,25 @@ function FoundFields({fields}) {
           )}
         </tbody>
         <style jsx>{`
-        .background-green {
-          background-color: ${theme.successBg};
-        }
+          .background-green {
+            background-color: ${theme.successBg};
+          }
 
-        .background-red {
-          background-color: ${theme.warningBg};
-        }
+          .background-red {
+            background-color: ${theme.warningBg};
+          }
 
-        .background-grey {
-          background-color: ${theme.borderLighter};
-        }
+          .background-grey {
+            background-color: ${theme.borderLighter};
+          }
 
-        table {
-          width: 100%;
-        }
+          table {
+            width: 100%;
+          }
 
-        th, td {
-          padding: 0.5em;
-        }
-
+          th, td {
+            padding: 0.5em;
+          }
         `}</style>
       </table>
     </>

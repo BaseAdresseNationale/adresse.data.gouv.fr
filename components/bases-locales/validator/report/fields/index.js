@@ -9,12 +9,13 @@ function Fields({fields, notFound}) {
     <div className='fields-container'>
       {fields.length > 0 && <FoundFields fields={fields} />}
       {notFound.length > 0 && <UnfoundFields fields={notFound} />}
+
       <style jsx>{`
-      .fields-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-      }
+        .fields-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+        }
       `}</style>
     </div>
   )

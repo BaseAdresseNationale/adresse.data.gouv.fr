@@ -84,15 +84,6 @@ function Report({report}) {
       </div>
 
       <style jsx>{`
-        table {
-          width: 100%;
-        }
-
-        th, td {
-          padding: 0.5em;
-          text-align: center;
-        }
-
         .profil-selector {
           display: flex;
           align-items: center;
