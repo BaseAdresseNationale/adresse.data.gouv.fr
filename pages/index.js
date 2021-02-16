@@ -1,17 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
-
 import theme from '@/styles/theme'
 
 import Ribbon from '@/components/ribbon'
-
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
 import DocDownload from '@/components/doc-download'
 import Infolettre from '@/components/infolettre'
-import Partners from '@/components/partners'
 import ButtonLink from '@/components/button-link'
+import Partners from '@/components/partners'
 
 function Home() {
   return (
@@ -59,27 +57,29 @@ function Home() {
               Découvrir la charte
             </ButtonLink>
           </div>
-
-          <div className='organismes-container'>
-            <h3>Organismes partenaires</h3>
+          <div className='partners'>
+            <h3>Nos partenaires</h3>
             <Partners />
           </div>
 
           <style jsx>{`
-            .charte-section{
+            .charte-section {
               margin-top: 3em;
               text-align: center;
+            }
+
+            .organismes-container {
+              margin-top: 4em;
+            }
+
+            .partners {
+              margin-top: 4em;
             }
 
             .centered {
               margin: 40px auto;
               display: flex;
               justify-content: center;
-            }
-
-            .organismes-container{
-              text-align: center;
-              margin-top: 6em;
             }
             `}
           </style>

@@ -1,30 +1,41 @@
 import React from 'react'
-
+import partners from 'partners.json'
+import PropTypes from 'prop-types'
 import Partner from '@/components/partner'
 
-function Partners() {
+function Partners({isChartePage}) {
+  const displayPartners = partners.map(partner => {
+    return isChartePage ? <Partner key={partner.name} partnerInfos={partner} isChartePage /> : <Partner key={partner.name} partnerInfos={partner} />
+  })
+
   return (
-    <div>
-      <div className='partners'>
-        <Partner link='https://ideo.ternum-bfc.fr/' src='/images/logos/partners/ideo.svg' alt='Logo partenaire IDéO Bourgogne-Franche-Comté' name='IDéO BFC' height={90} width={63} />
-        <Partner link='https://www.crige.normandie.fr/crige' src='/images/logos/partners/crige.jpg' alt='Logo partenaire CRIGE Normandie' name='CRIGE Normandie' height={90} width={160} />
-        <Partner link='https://www.communaute-paysbasque.fr/' src='/images/logos/partners/paysbasque.png' alt='Logo partenaire communauté d’agglomération Pays Basque' name='Communauté d’Agglomération du Pays Basque' height={90} width={90} />
-        <Partner link='https://geo.compiegnois.fr/portail/' src='/images/logos/partners/geocompiegnois.png' alt='Logo partenaire Géocompiégnois' name='GéoCompiégnois' height={35} width={286} />
-      </div>
+    <div className={isChartePage ? 'partners-container' : 'light-partners-container'}>
+      {displayPartners}
 
       <style jsx>{`
-        .partners {
+        .partners-container {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(286px, 1fr));
-          justify-content: space-around;
-          margin-top: 3em;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          align-items: start;
+          justify-items: center;
+          margin-top: 5em;
+          gap: 6em 5em;
+        }
+
+        .light-partners-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           align-items: center;
-          grid-gap: 1em;
+          margin-top: 1em;
+          row-gap: 3em;
         }
         `}</style>
     </div>
   )
 }
 
-export default Partners
+Partners.propTypes = {
+  isChartePage: PropTypes.bool
+}
 
+export default Partners

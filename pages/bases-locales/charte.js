@@ -9,11 +9,11 @@ import {Download} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-const title = 'Charte et organismes partenaires'
-
 function Charte() {
+  const title = 'Charte et organismes partenaires'
+  const description = 'Page vous permettant de consultez et téléchargez la charte Base Adresse Locale et de découvrir les organismes partenaires'
   return (
-    <Page>
+    <Page title={title} description={description} >
       <Head title={title} icon={<Download size={56} />} />
 
       <Section background='white' title='Charte de la Base Adresse Locale'>
@@ -34,6 +34,7 @@ function Charte() {
         <div>
           <p>Cette Charte est éditée le 29 janvier 2021 à Paris et <b>valable pour une durée d’un an</b>.</p>
         </div>
+
         <style jsx>{`
               .charte-container {
                 margin-top: 3em;
@@ -78,8 +79,8 @@ function Charte() {
 
       </Section>
 
-      <Section background='white' title='Organismes partenaires'>
-        <Partners />
+      <Section background='white' title='Organismes partenaires' >
+        <Partners isChartePage />
       </Section>
     </Page>
   )
