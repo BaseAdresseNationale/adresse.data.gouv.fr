@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 import FoundFields from './found-fields'
 import UnfoundFields from './unfound-fields'
 
-function Fields({fields, notFound, uniqueErrors, profile}) {
+function Fields({fields, notFound}) {
   return (
     <div className='fields-container'>
       {fields.length > 0 && <FoundFields fields={fields} />}
-      {notFound.length > 0 && <UnfoundFields fields={notFound} uniqueErrors={uniqueErrors} profile={profile} />}
+      {notFound.length > 0 && <UnfoundFields fields={notFound} />}
       <style jsx>{`
       .fields-container {
         display: flex;
@@ -22,9 +22,7 @@ function Fields({fields, notFound, uniqueErrors, profile}) {
 
 Fields.propTypes = {
   fields: PropTypes.array.isRequired,
-  notFound: PropTypes.array.isRequired,
-  uniqueErrors: PropTypes.array.isRequired,
-  profile: PropTypes.string.isRequired
+  notFound: PropTypes.array.isRequired
 }
 
 export default Fields

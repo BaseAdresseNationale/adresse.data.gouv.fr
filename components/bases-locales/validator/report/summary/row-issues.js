@@ -1,19 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {getValidationErrorLabel, getValidationErrorSeverity} from '@etalab/bal'
+import {getLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function RowIssues({errors, field, profile}) {
+function RowIssues({errors, hoveredFieldErrors}) {
   return (
     <div className='abnormalities'>
       <h4>Anomalie{(errors.length) > 1 ? 's' : ''} :</h4>
       <div className='error-list'>
-        {errors.map(err => {
-          const color = getValidationErrorSeverity(err, profile) === 'E' ? 'error' : 'warning'
+        {errors.map(error => {
+          const {code, level} = error
+          const color = level === 'E' ? 'error' : 'warning'
           return (
-            <div key={err} className={`issue ${color} ${field && field.errors && (field.errors.includes(err)) ? 'select' : ''}`}>
-              {getValidationErrorLabel(err)}
+            <div key={code} className={`issue ${color} ${hoveredFieldErrors && (hoveredFieldErrors.includes(error)) ? 'select' : ''}`}>
+              {getLabel(code)}
             </div>
           )
         })}
@@ -57,12 +58,11 @@ function RowIssues({errors, field, profile}) {
 
 RowIssues.propTypes = {
   errors: PropTypes.array.isRequired,
-  profile: PropTypes.string.isRequired,
-  field: PropTypes.object
+  hoveredFieldErrors: PropTypes.array
 }
 
 RowIssues.defaultProps = {
-  field: null
+  hoveredFieldErrors: null
 }
 
 export default RowIssues

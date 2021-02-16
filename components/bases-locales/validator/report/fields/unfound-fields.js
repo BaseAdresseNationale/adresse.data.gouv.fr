@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
-import {getValidationErrorSeverity} from '@etalab/bal'
 
-function UnfoundFields({fields, uniqueErrors, profile}) {
+function UnfoundFields({fields}) {
   return (
     <>
       {fields.length > 0 && (
@@ -18,10 +17,7 @@ function UnfoundFields({fields, uniqueErrors, profile}) {
               </tr>
               {fields.map(field => {
                 return (
-                  <tr
-                    key={field.schemaName}
-                    className={uniqueErrors.includes(`field.${field.schemaName}.missing`) && getValidationErrorSeverity(`field.${field.schemaName}.missing`, profile) === 'E' ? 'error' : 'warning'}
-                  >
+                  <tr key={field.schemaName} className='warning'>
                     <td>{field.schemaName}</td>
                     <td>{field.schemaVersion}</td>
                   </tr>
@@ -32,39 +28,28 @@ function UnfoundFields({fields, uniqueErrors, profile}) {
         </>
       )}
       <style jsx>{`
-      h4 {
-        margin-top: 1em;
-      }
+        h4 {
+          margin-top: 1em;
+        }
 
-      table {
-        width: 100%;
-      }
+        table {
+          width: 100%;
+        }
 
-      th {
-        padding: 0.5em;
-      }
+        th, td {
+          padding: 0.5em;
+        }
 
-      td {
-        padding: 0.5em;
-      }
-
-      .error {
-        background-color: ${theme.errorBg};
-      }
-
-      .warning {
-        background-color: ${theme.warningBg};
-      }
-
+        .warning {
+          background-color: ${theme.warningBg};
+        }
     `}</style>
     </>
   )
 }
 
 UnfoundFields.propTypes = {
-  fields: PropTypes.array.isRequired,
-  uniqueErrors: PropTypes.array.isRequired,
-  profile: PropTypes.string.isRequired
+  fields: PropTypes.array.isRequired
 }
 
 export default UnfoundFields

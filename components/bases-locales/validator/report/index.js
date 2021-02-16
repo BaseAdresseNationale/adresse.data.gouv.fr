@@ -1,5 +1,8 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {validateProfile} from '@etalab/bal'
+
+import Loader from '@/components/loader'
 
 import CsvMeta from './csv-meta'
 import Fields from './fields'
@@ -7,44 +10,21 @@ import Summary from './summary'
 
 import theme from '@/styles/theme'
 
-const getIssues = (issuesRows, rows) => {
-  const issues = []
-  issuesRows.forEach(issue => {
-    const rowsWithIssues = []
-    rows.forEach(row => {
-      if (row._errors.includes(issue)) {
-        rowsWithIssues.push(row._line)
-      }
-    })
-
-    if (rowsWithIssues.length > 0) {
-      issues.push({message: issue, rows: rowsWithIssues})
-    }
-  })
-
-  return issues
-}
-
 function Report({report}) {
-  const {fileValidation, rows, fields, originalFields, notFoundFields, profilesValidation} = report
-  const rowsWithIssues = rows.filter(row => row._errors && row._errors.length > 0)
+  const {fileValidation, rows, fields, notFoundFields, profilesValidation} = report
   const [profile, setProfile] = useState('1.2-etalab')
+  const [profileReport, setProfileReport] = useState(null)
 
-  const errors = useMemo(() => {
-    return getIssues(report.profilesValidation[profile].errors, rows)
-  }, [profile, report, rows])
-
-  const warnings = useMemo(() => {
-    return getIssues(report.profilesValidation[profile].warnings, rows)
-  }, [profile, report, rows])
-
-  const unknowFields = []
-
-  report.fields.forEach(field => {
-    if (!field.schemaName) {
-      unknowFields.push(field.name)
+  useEffect(() => {
+    const getProfileReport = async () => {
+      const profileReport = await validateProfile(report, profile)
+      setProfileReport(profileReport)
     }
-  })
+
+    if (profile) {
+      getProfileReport()
+    }
+  }, [report, profile])
 
   return (
     <div>
@@ -91,25 +71,16 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <Fields
-          fields={fields}
-          original={originalFields}
-          notFound={notFoundFields}
-          profile={profile}
-          uniqueErrors={report.uniqueErrors}
-        />
+        <Fields fields={fields} notFound={notFoundFields} />
       </div>
 
       <div className='report-container'>
         <h4>Validation des données</h4>
-        <Summary
-          rows={rowsWithIssues}
-          profile={profile}
-          errors={errors}
-          warnings={warnings}
-          unknowFields={unknowFields}
-          rowsWithIssuesCount={rowsWithIssues.length}
-        />
+        {profileReport ? (
+          <Summary rows={profileReport.rows} fields={profileReport.fields} />
+        ) : (
+          <Loader size='big' />
+        )}
       </div>
 
       <style jsx>{`
@@ -154,7 +125,6 @@ function Report({report}) {
 Report.propTypes = {
   report: PropTypes.shape({
     fields: PropTypes.array.isRequired,
-    originalFields: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     notFoundFields: PropTypes.array.isRequired,
     profilesValidation: PropTypes.object.isRequired,

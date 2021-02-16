@@ -7,14 +7,15 @@ import Line from './line'
 import RowIssues from './row-issues'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
-function Row({row, isForcedShowIssues, isWarning, profile, unknowFields}) {
+function Row({row, isForcedShowIssues, unknowFields}) {
   const [showIssues, setShowIssues] = useState(false)
-  const [field, setField] = useState()
-  const issuesCount = row._errors.length
+  const [hoveredFieldErrors, setHoveredFieldErrors] = useState()
+  const issuesCount = row.errors.length
+  const issueLevel = row.errors.map(({level}) => level).includes('E') ? 'error' : 'warning'
 
   const handleError = useCallback(() => {
     setShowIssues(!showIssues)
-    setField(null)
+    setHoveredFieldErrors(null)
   }, [showIssues])
 
   return (
@@ -22,15 +23,15 @@ function Row({row, isForcedShowIssues, isWarning, profile, unknowFields}) {
       <div className='line' onClick={handleError}>
         <div>
           <div className='col'>
-            <b>Ligne {row._line}</b> {row.cle_interop && row.cle_interop.rawValue && `[${row.cle_interop.rawValue}]`}
+            <b>Ligne {row.line}</b>
           </div>
           <div>
             {issuesCount === 1 ? (
-              <div className={isWarning ? 'warning' : 'error'}>
+              <div className={issueLevel}>
                 {showIssues ? 'Masquer' : 'Afficher'} l’anomalie
               </div>
             ) : (
-              <div className={isWarning ? 'warning' : 'error'}>
+              <div className={issueLevel}>
                 {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies
               </div>
             )}
@@ -47,14 +48,14 @@ function Row({row, isForcedShowIssues, isWarning, profile, unknowFields}) {
       {showIssues &&
         <div className='issue'>
           <Line
-            line={row}
-            profile={profile}
-            onHover={setField}
+            line={row.rawValues}
+            errors={row.errors}
+            onHover={setHoveredFieldErrors}
             unknowFields={unknowFields}
           />
 
           {(issuesCount > 0 || isForcedShowIssues) && (
-            <RowIssues errors={row._errors} field={field} profile={profile} />
+            <RowIssues errors={row.errors} hoveredFieldErrors={hoveredFieldErrors} />
           )}
         </div>}
 
@@ -111,9 +112,7 @@ function Row({row, isForcedShowIssues, isWarning, profile, unknowFields}) {
 Row.propTypes = {
   row: PropTypes.object.isRequired,
   isForcedShowIssues: PropTypes.bool,
-  isWarning: PropTypes.bool.isRequired,
-  unknowFields: PropTypes.array.isRequired,
-  profile: PropTypes.string.isRequired
+  unknowFields: PropTypes.array.isRequired
 }
 
 Row.defaultProps = {

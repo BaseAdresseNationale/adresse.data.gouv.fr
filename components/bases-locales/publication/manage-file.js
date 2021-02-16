@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {validate} from '@etalab/bal'
+import {uniq} from 'lodash'
+import {prevalidate} from '@etalab/bal'
 
 import {getFileExtension} from '@/lib/bal/file'
 
@@ -17,9 +18,12 @@ const ManageFile = React.memo(({handleFile}) => {
 
   const parseFile = useCallback(async file => {
     try {
-      const report = await validate(file)
+      const report = await prevalidate(file)
+      const communes = uniq(report.rows.map(r => r.additionalValues.cle_interop.codeCommune))
 
-      // TODO Vérifier que le fichier ne contient qu’une seule commune
+      if (communes.length !== 1) {
+        throw new Error('Fichier BAL vide ou contenant plusieurs communes')
+      }
 
       if (report.parseOk) {
         if (report.profilesValidation['1.2-etalab'].isValid) {

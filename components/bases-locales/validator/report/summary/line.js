@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 
 import LineValue from './line-value'
 
-function Line({line, onHover, profile, unknowFields}) {
+function Line({line, errors, onHover, unknowFields}) {
   return (
     <div className='line-container'>
       <table>
@@ -20,7 +20,7 @@ function Line({line, onHover, profile, unknowFields}) {
               <LineValue
                 key={`td-${key}`}
                 value={line[key]}
-                profile={profile}
+                errors={errors.filter(({schemaName}) => schemaName === key)}
                 handleHover={onHover}
                 hasUnknowFields={unknowFields.includes(key)}
               />
@@ -55,9 +55,9 @@ function Line({line, onHover, profile, unknowFields}) {
 
 Line.propTypes = {
   line: PropTypes.object.isRequired,
+  errors: PropTypes.array.isRequired,
   onHover: PropTypes.func.isRequired,
-  unknowFields: PropTypes.isRequired,
-  profile: PropTypes.string.isRequired
+  unknowFields: PropTypes.array.isRequired
 }
 
 export default Line

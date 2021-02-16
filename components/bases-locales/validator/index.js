@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {validate} from '@etalab/bal'
+import {prevalidate} from '@etalab/bal'
 
 import {getFileExtension} from '@/lib/bal/file'
 
@@ -24,7 +24,7 @@ function BALValidator() {
   const parseFile = async file => {
     setInProgress(true)
     try {
-      const report = await validate(file)
+      const report = await prevalidate(file)
       if (report.parseOk) {
         setReport(report)
       } else {

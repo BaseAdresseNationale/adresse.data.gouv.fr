@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ZoomIn} from 'react-feather'
-import {getValidationErrorLabel} from '@etalab/bal'
+import {getLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function IssueRows({issue, rows, isSelected, onClick, type}) {
-  const issuesRows = issue.rows.length
-
-  if (issuesRows === 0) {
+function IssueRows({issue, rows, isOnAllLines, isSelected, onClick, type}) {
+  const rowsCount = rows.length
+  if (rowsCount === 0) {
     return null
   }
 
@@ -16,14 +15,14 @@ function IssueRows({issue, rows, isSelected, onClick, type}) {
     <div className='issue' onClick={onClick}>
       <div>
         <b>{
-          issuesRows === rows.length ?
+          isOnAllLines ?
             'Toutes les lignes' :
-            (issuesRows === 1 ?
-              `La ligne ${issue.rows[0]}` :
-              `${issuesRows} lignes`)
-        }</b> {issuesRows === 1 ? 'comporte' : 'comportent'} l’anomalie :
+            (rowsCount === 1 ?
+              `La ligne ${rows[0].line}` :
+              `${rowsCount} lignes`)
+        }</b> {rowsCount === 1 ? 'comporte' : 'comportent'} l’anomalie :
 
-        <span className='colored'> {getValidationErrorLabel(issue.message)}</span>
+        <span className='colored'> {getLabel(issue)}</span>
       </div>
 
       <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} /></div>
@@ -50,11 +49,13 @@ function IssueRows({issue, rows, isSelected, onClick, type}) {
 }
 
 IssueRows.propTypes = {
-  issue: PropTypes.shape({
-    message: PropTypes.string.isRequired,
-    rows: PropTypes.array.isRequired
-  }).isRequired,
-  rows: PropTypes.array.isRequired,
+  issue: PropTypes.string.isRequired,
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      line: PropTypes.number.isRequired
+    })
+  ).isRequired,
+  isOnAllLines: PropTypes.bool.isRequired,
   type: PropTypes.oneOf(['error', 'warning']).isRequired,
   isSelected: PropTypes.bool,
   onClick: PropTypes.func.isRequired

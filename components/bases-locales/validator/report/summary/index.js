@@ -1,8 +1,8 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {take, sortBy} from 'lodash'
+import {take} from 'lodash'
 import {X, Check, AlertTriangle} from 'react-feather'
-import {getValidationErrorLabel, getValidationErrorSeverity} from '@etalab/bal'
+import {getLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
@@ -13,22 +13,43 @@ import IssueRows from './issue-rows'
 
 const ROWS_LIMIT = 50
 
-function Summary({rows, errors, rowsWithIssuesCount, warnings, profile, unknowFields}) {
+function Summary({rows, fields}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
-  const [rowsToDisplay, setRowsToDisplay] = useState([])
-  const sortedErrors = sortBy(errors, error => error.rows.length)
-  const sortedWarnings = sortBy(warnings, warning => warning.rows.length)
 
-  const selectIssue = useCallback(issue => {
-    if (issue === selectedIssue) {
-      setSelectedIssue(null)
-      setRowsToDisplay([])
-    } else {
-      const filteredRows = rows.filter(row => issue.rows.includes(row._line))
-      setSelectedIssue(issue)
-      setRowsToDisplay(take(filteredRows, ROWS_LIMIT))
+  const rowsWithIssuesCount = rows.filter(row => row.errors && row.errors.length > 0).length
+  const errorsGroups = {}
+  const warningsGroups = {}
+
+  rows.forEach(row => {
+    row.errors.forEach(({code, level}) => {
+      if (level === 'W') {
+        if (!warningsGroups[code]) {
+          warningsGroups[code] = []
+        }
+
+        warningsGroups[code].push(row)
+      }
+
+      if (level === 'E') {
+        if (!errorsGroups[code]) {
+          errorsGroups[code] = []
+        }
+
+        errorsGroups[code].push(row)
+      }
+    })
+  })
+
+  const errorsCount = Object.keys(errorsGroups).length
+  const warningsCount = Object.keys(warningsGroups).length
+
+  const unknowFields = []
+
+  fields.forEach(field => {
+    if (!field.schemaName) {
+      unknowFields.push(field.name)
     }
-  }, [selectedIssue, rows])
+  })
 
   return (
     <div>
@@ -45,42 +66,44 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile, unknowFi
         </div>
       )}
 
-      {errors.length > 0 && (
+      {errorsCount > 0 && (
         <div className='issues-container'>
           <h4>
-            {errors.length} Erreur{errors.length > 1 ? 's' : ''}
+            {errorsCount} Erreur{errorsCount > 1 ? 's' : ''}
             <div className='summary-icon error'><X style={{verticalAlign: 'bottom'}} /></div>
           </h4>
           <div className='list'>
-            {sortedErrors.map(error => (
+            {Object.keys(errorsGroups).map(error => (
               <IssueRows
-                key={error.message}
+                key={error}
                 issue={error}
-                rows={rows}
+                rows={errorsGroups[error]}
+                isOnAllLines={errorsGroups[error].length === rows.length}
                 type='error'
                 isSelected={error === selectedIssue}
-                onClick={() => selectIssue(error)}
+                onClick={() => setSelectedIssue({code: error, rows: errorsGroups[error]})}
               />
             ))}
           </div>
         </div>
       )}
 
-      {warnings.length > 0 && (
+      {warningsCount > 0 && (
         <div className='issues-container'>
           <h4>
-            {warnings.length} Avertissement{warnings.length > 1 ? 's' : ''}
+            {warningsCount} Avertissement{warningsCount > 1 ? 's' : ''}
             <div className='summary-icon warning'><AlertTriangle style={{verticalAlign: 'bottom'}} /></div>
           </h4>
           <div className='list'>
-            {sortedWarnings.map(warning => (
+            {Object.keys(warningsGroups).map(warning => (
               <IssueRows
-                key={warning.message}
+                key={warning}
                 issue={warning}
-                rows={rows}
+                rows={warningsGroups[warning]}
                 type='warning'
+                isOnAllLines={warningsGroups[warning].length === rows.length}
                 isSelected={warning === selectedIssue}
-                onClick={() => selectIssue(warning)}
+                onClick={() => setSelectedIssue({code: warning, rows: warningsGroups[warning]})}
               />
             ))}
           </div>
@@ -93,7 +116,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile, unknowFi
             <div className='flex-container'>
               <div>
                 <h3>Ligne{selectedIssue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
-                <h4>{getValidationErrorLabel(selectedIssue.message)}</h4>
+                <h4>{getLabel(selectedIssue.code)}</h4>
               </div>
               <X size={40} style={{cursor: 'pointer'}} onClick={() => setSelectedIssue(null)} />
             </div>
@@ -103,14 +126,12 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile, unknowFi
                 <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
               )}
 
-              {rowsToDisplay.map(row => (
+              {take(selectedIssue.rows, ROWS_LIMIT).map(row => (
                 <Row
-                  key={`row-${row._line}`}
+                  key={`row-${row.line}`}
                   row={row}
-                  profile={profile}
                   unknowFields={unknowFields}
-                  isWarning={getValidationErrorSeverity(selectedIssue.message, profile) === 'W'}
-                  isForcedShowIssues={rowsToDisplay.length === 1}
+                  isForcedShowIssues={selectedIssue.rows.length === 1}
                 />
               ))}
             </div>
@@ -185,11 +206,7 @@ function Summary({rows, errors, rowsWithIssuesCount, warnings, profile, unknowFi
 
 Summary.propTypes = {
   rows: PropTypes.array.isRequired,
-  errors: PropTypes.array.isRequired,
-  warnings: PropTypes.array.isRequired,
-  profile: PropTypes.string.isRequired,
-  rowsWithIssuesCount: PropTypes.number.isRequired,
-  unknowFields: PropTypes.array.isRequired
+  fields: PropTypes.array.isRequired
 }
 
 export default Summary

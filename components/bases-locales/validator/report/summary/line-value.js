@@ -1,26 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {getValidationErrorSeverity} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function LineValue({value, handleHover, profile, hasUnknowFields}) {
-  const {rawValue, errors} = value
+function LineValue({value, errors, handleHover, hasUnknowFields}) {
   const hasErrors = errors && errors.length > 0
 
   return (
     <>
       {hasErrors ? (
         <td
-          className={getValidationErrorSeverity(errors[0], profile) === 'E' ? 'error' : 'warning'}
-          onMouseOver={() => handleHover(value)}
+          className={errors[0].level === 'E' ? 'error' : 'warning'}
+          onMouseOver={() => handleHover(errors)}
           onMouseOut={() => handleHover(null)}
         >
-          {rawValue}
+          {value}
         </td>
       ) : (
         <td className={`${hasUnknowFields ? 'unknown' : 'valid'}`}>
-          {rawValue}
+          {value}
         </td>
       )}
 
@@ -62,14 +60,10 @@ function LineValue({value, handleHover, profile, hasUnknowFields}) {
 }
 
 LineValue.propTypes = {
-  value: PropTypes.shape({
-    rawValue: PropTypes.string,
-    errors: PropTypes.array,
-    warnings: PropTypes.array
-  }).isRequired,
+  value: PropTypes.string,
+  errors: PropTypes.array,
   handleHover: PropTypes.func.isRequired,
-  hasUnknowFields: PropTypes.bool.isRequired,
-  profile: PropTypes.string.isRequired
+  hasUnknowFields: PropTypes.bool.isRequired
 }
 
 export default LineValue
