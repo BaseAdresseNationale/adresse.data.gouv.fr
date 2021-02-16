@@ -5,7 +5,7 @@ import {getLabel} from '@etalab/bal'
 
 import theme from '@/styles/theme'
 
-function IssueRows({issue, rows, isOnAllLines, isSelected, onClick, type}) {
+function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
   const rowsCount = rows.length
   if (rowsCount === 0) {
     return null
@@ -30,7 +30,6 @@ function IssueRows({issue, rows, isOnAllLines, isSelected, onClick, type}) {
       <style jsx>{`
         .issue {
           padding: 0.4em 0;
-          background-color: ${isSelected ? '#f8f8f8' : ''};
           display: flex;
           justify-content: space-between;
         }
@@ -57,12 +56,7 @@ IssueRows.propTypes = {
   ).isRequired,
   isOnAllLines: PropTypes.bool.isRequired,
   type: PropTypes.oneOf(['error', 'warning']).isRequired,
-  isSelected: PropTypes.bool,
   onClick: PropTypes.func.isRequired
-}
-
-IssueRows.defaultProps = {
-  isSelected: false
 }
 
 export default IssueRows

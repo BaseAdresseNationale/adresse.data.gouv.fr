@@ -11,12 +11,12 @@ function Line({line, errors, onHover, unknowFields}) {
       <table>
         <thead>
           <tr>
-            {Object.keys(line).map(key => !key.startsWith('_') && <th key={`th-${key}`}>{key}</th>)}
+            {Object.keys(line).map(key => <th key={`th-${key}`}>{key}</th>)}
           </tr>
         </thead>
         <tbody>
           <tr>
-            {Object.keys(line).map(key => !key.startsWith('_') &&
+            {Object.keys(line).map(key => (
               <LineValue
                 key={`td-${key}`}
                 value={line[key]}
@@ -24,6 +24,7 @@ function Line({line, errors, onHover, unknowFields}) {
                 handleHover={onHover}
                 hasUnknowFields={unknowFields.includes(key)}
               />
+            )
             )}
           </tr>
         </tbody>
@@ -48,7 +49,7 @@ function Line({line, errors, onHover, unknowFields}) {
         tr:nth-child(2n) {
           background-color: ${theme.backgroundGrey};
         }
-        `}</style>
+      `}</style>
     </div>
   )
 }
