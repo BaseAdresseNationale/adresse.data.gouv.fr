@@ -122,10 +122,7 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
 
         <div className='current-step'>
           {step === 1 && (
-            <ManageFile
-              url=''
-              handleFile={handleFile}
-            />
+            <ManageFile handleFile={handleFile} />
           )}
 
           {step === 2 && (

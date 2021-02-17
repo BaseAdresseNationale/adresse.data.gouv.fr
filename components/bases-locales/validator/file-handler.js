@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import InputForm from '../../input-form'
 import Holder from '../../csv/holder'
 import Notification from '../../notification'
 
 class FileHandler extends React.Component {
   static propTypes = {
-    defaultValue: PropTypes.string,
     file: PropTypes.object,
     error: PropTypes.oneOfType([
       PropTypes.string,
@@ -19,14 +17,11 @@ class FileHandler extends React.Component {
   }
 
   static defaultProps = {
-    defaultValue: '',
     file: null,
     error: null,
     isLoading: false,
     onSubmit: null
   }
-
-  state = {inputValue: this.props.defaultValue}
 
   handleSubmit = () => {
     const {inputValue} = this.state
@@ -40,13 +35,12 @@ class FileHandler extends React.Component {
   }
 
   render() {
-    const {inputValue} = this.state
-    const {file, error, isLoading, onFileDrop} = this.props
+    const {file, isLoading, error, onFileDrop} = this.props
 
     return (
       <>
         <div>
-          <h2>Choisir un fichier</h2>
+          {file ? <h4>Votre fichier</h4> : <h2>Choisir un fichier</h2> }
 
           <div className='file-handler-container'>
             <Holder
@@ -55,19 +49,6 @@ class FileHandler extends React.Component {
               isLoading={isLoading}
               onDrop={onFileDrop}
             />
-            {this.props.onSubmit && (
-              <>
-                <div className='else'>ou</div>
-                <InputForm
-                  placeholder='Entrer une url vers un fichier CSV'
-                  value={inputValue}
-                  onChange={this.handleChange}
-                  onSubmit={this.handleSubmit}
-                  buttonText='Utiliser'
-                  loading={isLoading}
-                />
-              </>
-            )}
           </div>
 
           {error && (
@@ -80,12 +61,6 @@ class FileHandler extends React.Component {
             display: flex;
             flex-direction: column;
             align-items: center;
-          }
-
-          .else {
-            margin: 1em 0;
-            font-weight: 600;
-            font-size: larger;
           }
         `}</style>
       </>

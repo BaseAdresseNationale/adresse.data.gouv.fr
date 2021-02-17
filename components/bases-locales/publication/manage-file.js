@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {uniq} from 'lodash'
-import {validate} from '@etalab/bal'
+import {prevalidate} from '@etalab/bal'
 
 import {getFileExtension} from '@/lib/bal/file'
 
@@ -10,7 +10,7 @@ import Report from '../validator/report'
 
 import theme from '@/styles/theme'
 
-const ManageFile = React.memo(({url, handleFile}) => {
+const ManageFile = React.memo(({handleFile}) => {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [report, setReport] = useState(null)
@@ -18,17 +18,21 @@ const ManageFile = React.memo(({url, handleFile}) => {
 
   const parseFile = useCallback(async file => {
     try {
-      const report = await validate(file)
-      const communes = uniq(report.normalizedRows.map(r => r.codeCommune))
+      const report = await prevalidate(file)
+      const communes = uniq(report.rows.map(r => r.additionalValues.cle_interop.codeCommune))
 
       if (communes.length !== 1) {
         throw new Error('Fichier BAL vide ou contenant plusieurs communes')
       }
 
-      if (report.hasErrors) {
-        setReport(report)
+      if (report.parseOk) {
+        if (report.profilesValidation['1.2-etalab'].isValid) {
+          handleFile(file)
+        } else {
+          setReport(report)
+        }
       } else {
-        handleFile(file)
+        setError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
       }
     } catch (err) {
       const error = `Impossible d’analyser le fichier… [${err.message}]`
@@ -76,7 +80,6 @@ const ManageFile = React.memo(({url, handleFile}) => {
   return (
     <>
       <FileHander
-        defaultValue={url}
         file={file}
         error={error}
         onFileDrop={handleFileDrop}
@@ -94,12 +97,7 @@ const ManageFile = React.memo(({url, handleFile}) => {
 })
 
 ManageFile.propTypes = {
-  url: PropTypes.string,
   handleFile: PropTypes.func.isRequired
-}
-
-ManageFile.defaultProps = {
-  url: null
 }
 
 export default ManageFile
