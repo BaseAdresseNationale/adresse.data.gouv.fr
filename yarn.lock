@@ -267,14 +267,14 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@etalab/bal@^1.0.0-4":
-  version "1.0.0-4"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-1.0.0-4.tgz#6c89fb7eec600b6103df8479faf1072f92e5a76b"
-  integrity sha512-PDZqr6J2vAgx5/ote9RTrQcSosLTnagOZ6/lDlhrDUJiKilmC40v2xmgvEXMq+VYKckpDzq/e6CeJF9Rhg5nkg==
+"@etalab/bal@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-1.0.0.tgz#c4bc486a03f154de1a9bc382c14a77fee97d2cc2"
+  integrity sha512-6gucPaQj/o3yYS+7wZICeMm1P6YzKDXYonTV/BcvoPNW+rF7YPj0VnaaL9yc/fQEdx+x6+l44CMHJivIdSUBpw==
   dependencies:
     blob-to-buffer "^1.2.9"
     chalk "^4.1.0"
-    date-fns "^2.16.1"
+    date-fns "^2.17.0"
     iconv-lite "^0.6.2"
     jschardet-french "^0.0.1"
     lodash "^4.17.20"
@@ -2126,10 +2126,10 @@ data-uri-to-buffer@3.0.0:
   dependencies:
     buffer-from "^1.1.1"
 
-date-fns@^2.16.1:
-  version "2.16.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
-  integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+date-fns@^2.17.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.17.0.tgz#afa55daea539239db0a64e236ce716ef3d681ba1"
+  integrity sha512-ZEhqxUtEZeGgg9eHNSOAJ8O9xqSgiJdrL0lzSSfMF54x6KXWJiOH/xntSJ9YomJPrYH/p08t6gWjGWq1SDJlSA==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   version "2.6.9"
