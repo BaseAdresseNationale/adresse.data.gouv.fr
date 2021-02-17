@@ -14,7 +14,7 @@ import Header from './header'
 import Description from './description'
 import CommunesPreview from './communes-preview'
 
-function Dataset({dataset, summary}) {
+function Dataset({dataset}) {
   const {title, description, url, organization, page} = dataset
   const {push} = useRouter()
   const cols = {
@@ -23,20 +23,15 @@ function Dataset({dataset, summary}) {
       sortBy: 'alphabetical',
       getValue: commune => commune.nom
     },
-    nomVoie: {
-      title: 'Nombre de voie',
-      sortBy: 'numeric',
-      getValue: commune => commune.voiesCount
-    },
     numerosCount: {
-      title: 'Nombre de numéro',
+      title: 'Nombre d’adresses',
       sortBy: 'numeric',
-      getValue: commune => commune.numerosCount
+      getValue: commune => commune.rowsCount
     }
   }
 
   const selectCommune = item => {
-    summary.communes.find(commune => commune.code === item.code)
+    dataset.communes.find(commune => commune.code === item.code)
     handleSelect(item.code)
   }
 
@@ -58,13 +53,13 @@ function Dataset({dataset, summary}) {
           </ButtonLink>
         </div>}
 
-        <CommunesPreview dataset={dataset} summary={summary} />
+        <CommunesPreview dataset={dataset} />
 
         <div className='list'>
           <TableList
-            title={summary.communesCount === 1 ? 'Commune' : 'Communes'}
-            subtitle={summary.communesCount === 1 ? `${summary.communesCount} commune répertoriée` : `${summary.communesCount} communes répertoriées`}
-            list={summary.communes}
+            title={dataset.communes.length === 1 ? 'Commune' : 'Communes'}
+            subtitle={dataset.communes.length === 1 ? '1 commune répertoriée' : `${dataset.communes.length} communes répertoriées`}
+            list={dataset.communes}
             textFilter={item => item.nom}
             cols={cols}
             handleSelect={selectCommune} />
@@ -127,8 +122,7 @@ function Dataset({dataset, summary}) {
 }
 
 Dataset.propTypes = {
-  dataset: PropTypes.object.isRequired,
-  summary: PropTypes.object.isRequired
+  dataset: PropTypes.object.isRequired
 }
 
 export default withRouter(Dataset)
