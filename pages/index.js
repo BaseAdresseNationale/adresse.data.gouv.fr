@@ -10,7 +10,6 @@ import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import Infolettre from '@/components/infolettre'
-import ButtonLink from '@/components/button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
 function Home() {
