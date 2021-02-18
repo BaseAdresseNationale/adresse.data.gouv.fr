@@ -62,7 +62,7 @@ function Charte() {
           </a>
         </div>
 
-        <style jsx>{`
+      <style jsx>{`
               .charte-download-section {
                 display: flex;
                 flex-direction: column;
@@ -76,7 +76,7 @@ function Charte() {
                 border: 1px solid ${theme.border};
               }
             `}</style>
-
+    
       </Section>
 
       <Section background='white' title='Organismes partenaires' >
