@@ -8,7 +8,7 @@ import {CheckSquare, HelpCircle} from 'react-feather'
 import Mapbox from '../mapbox'
 import Section from '../section'
 import ButtonLink from '../button-link'
-import Partners from '@/components/partners'
+import Partners from '@/components/bases-locales/charte/partners'
 import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
