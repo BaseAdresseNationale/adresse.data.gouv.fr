@@ -34,16 +34,6 @@ function Charte() {
         <div>
           <p>Cette Charte est éditée le 29 janvier 2021 à Paris et <b>valable pour une durée d’un an</b>.</p>
         </div>
-
-        <style jsx>{`
-              .charte-container {
-                margin-top: 3em;
-              }
-
-              .charte-list li {
-                margin-top: 0.5em;
-              }
-            `}</style>
       </Section>
 
       <Section background='grey' title='Télécharger la charte' >
@@ -62,6 +52,12 @@ function Charte() {
           </a>
         </div>
 
+      </Section>
+
+      <Section background='white' title='Organismes partenaires' >
+        <Partners isDetailed />
+      </Section>
+
       <style jsx>{`
               .charte-download-section {
                 display: flex;
@@ -75,13 +71,15 @@ function Charte() {
                 margin: 1.5em;
                 border: 1px solid ${theme.border};
               }
-            `}</style>
     
-      </Section>
+              .charte-container {
+                margin-top: 3em;
+              }
 
-      <Section background='white' title='Organismes partenaires' >
-        <Partners isChartePage />
-      </Section>
+              .charte-list li {
+                margin-top: 0.5em;
+              }
+            `}</style>
     </Page>
   )
 }
