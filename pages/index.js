@@ -9,7 +9,7 @@ import Section from '@/components/section'
 import DocDownload from '@/components/doc-download'
 import Infolettre from '@/components/infolettre'
 import ButtonLink from '@/components/button-link'
-import Partners from '@/components/partners'
+import Partners from '@/components/bases-locales/charte/partners'
 
 function Home() {
   return (

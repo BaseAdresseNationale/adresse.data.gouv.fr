@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
-import Partners from '@/components/partners'
+import Partners from '@/components/bases-locales/charte/partners'
 import {Download} from 'react-feather'
 
 import theme from '@/styles/theme'
@@ -56,7 +56,7 @@ function Charte() {
               height={200}
             />
           </div>
-          <a href='https://adresse.data.gouv.fr/data/docs/charte-bal-v1.0.pdf' target='_blank' rel='noreferrer'>
+          <a href='https://adresse.data.gouv.fr/data/docs/charte-bal-v1.0.pdf'>
             <Download style={{verticalAlign: 'bottom', marginRight: '5px'}} />
             Télécharger
           </a>
