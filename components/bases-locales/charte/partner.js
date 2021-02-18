@@ -5,24 +5,15 @@ import PropTypes from 'prop-types'
 
 import {ChevronDown, ChevronUp} from 'react-feather'
 
+const formatService = service => {
+  return `#${service.split(' ').map(word =>
+    word[0].toUpperCase() + word.slice(1, word.length)
+  ).join('')}`
+}
+
 function Partner({partnerInfos, isDetailed}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const {name, link, alt, infos, perimeter, services, picture, height, width} = partnerInfos
-
-  const servicesList = array => {
-    const result = []
-    array.forEach(element => {
-      if (element.length > 0) {
-        const words = element.split(' ')
-        let eachWord = '#'
-        words.forEach(word => {
-          eachWord += word.slice(0, 1).toUpperCase() + word.slice(1, word.length)
-        })
-        result.push(eachWord)
-      }
-    })
-    return result
-  }
 
   return (
     <div className='partner'>
@@ -65,8 +56,8 @@ function Partner({partnerInfos, isDetailed}) {
         </div>
         <div className='services'>
           <div className='title'>Offres de services</div>
-          {servicesList(services).map(service => {
-            return <p key={service}>{service}</p>
+          {services.map(service => {
+            return <p key={service}>{formatService(service)}</p>
           })}
         </div>
       </div>
