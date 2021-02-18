@@ -137,7 +137,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             />
             <Counter
               title='Adresses gérées par les collectivités'
-              value={stats.numerosCount}
+              value={stats.rowsCount}
             />
           </div>
           <div className='bal-cover-map-container'>
@@ -233,12 +233,9 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 BasesLocales.propTypes = {
   datasets: PropTypes.array.isRequired,
   stats: PropTypes.shape({
-    isValid: PropTypes.number.isRequired,
-    model: PropTypes.object.isRequired,
     count: PropTypes.number.isRequired,
-    numerosCount: PropTypes.number.isRequired,
-    communesCount: PropTypes.number.isRequired,
-    license: PropTypes.object.isRequired
+    rowsCount: PropTypes.number.isRequired,
+    communesCount: PropTypes.number.isRequired
   }).isRequired
 }
 

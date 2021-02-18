@@ -7,44 +7,25 @@ import InfoReport from '../info-report'
 import Info from '../info'
 import Preview from './preview'
 
-function communeContour(commune) {
-  const {contour, code, nom} = commune
-  return {
-    id: code,
-    type: 'Feature',
-    geometry: contour,
-    properties: {
-      code,
-      nom
-    }
-  }
-}
-
-function contoursToGeoJson(communes) {
-  const communesWithCtr = communes.filter(commune => commune.contour)
-
+function contoursToGeoJson(contour) {
   return {
     type: 'FeatureCollection',
-    features: communesWithCtr.map(commune => communeContour(commune))
+    features: [{
+      type: 'Feature',
+      geometry: contour,
+      properties: {}
+    }]
   }
 }
 
 class CommunesPreview extends React.Component {
   static propTypes = {
-    dataset: PropTypes.object.isRequired,
-    summary: PropTypes.shape({
-      communes: PropTypes.array.isRequired,
-      source: PropTypes.array.isRequired,
-      communesCount: PropTypes.number.isRequired,
-      voiesCount: PropTypes.number.isRequired,
-      numerosCount: PropTypes.number.isRequired
-    }).isRequired
+    dataset: PropTypes.object.isRequired
   }
 
   render() {
-    const {dataset, summary} = this.props
-    const {model, license, dateMAJ} = dataset
-    const {communes, communesCount, voiesCount, numerosCount} = summary
+    const {dataset} = this.props
+    const {communes, model, license, dateMAJ, rowsCount} = dataset
 
     const infos = [
       {
@@ -58,13 +39,12 @@ class CommunesPreview extends React.Component {
         type: license === 'odc-odbl' ? 'not-valid' : 'valid'
       },
       {title: 'Dernière mise à jour', value: dateMAJ ? dateMAJ.split('-').reverse().join('-') : 'inconnue'},
-      {title: 'Nombre de Communes', value: spaceThousands(communesCount)},
-      {title: 'Nombre de Voies', value: spaceThousands(voiesCount)},
-      {title: 'Nombre d’adresses', value: typeof numerosCount === 'number' ? spaceThousands(numerosCount) : '???'}
+      {title: 'Nombre de Communes', value: spaceThousands(communes.length)},
+      {title: 'Nombre d’adresses', value: typeof rowsCount === 'number' ? spaceThousands(rowsCount) : '???'}
     ]
 
     return (
-      <Preview geojson={communes.length > 0 ? contoursToGeoJson(communes) : null}>
+      <Preview geojson={contoursToGeoJson(dataset.contour)}>
         <div className='meta'>
           {infos.map(info => (
             <div key={info.title}>

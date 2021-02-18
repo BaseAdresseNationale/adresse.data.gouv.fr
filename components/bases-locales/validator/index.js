@@ -1,10 +1,7 @@
-import {format} from 'url'
-import React from 'react'
-import PropTypes from 'prop-types'
-import {validate} from '@etalab/bal'
-import {withRouter} from 'next/router'
+import React, {useState} from 'react'
+import {prevalidate} from '@etalab/bal'
 
-import {getFileExtension, checkHeaders, statusCodeMsg} from '@/lib/bal/file'
+import {getFileExtension} from '@/lib/bal/file'
 
 import Section from '@/components/section'
 import Loader from '@/components/loader'
@@ -12,151 +9,86 @@ import Loader from '@/components/loader'
 import Report from './report'
 import FileHander from './file-handler'
 
-class BALValidator extends React.Component {
-  static propTypes = {
-    router: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-      query: PropTypes.object.isRequired
-    }).isRequired
+function BALValidator() {
+  const [file, setFile] = useState()
+  const [error, setError] = useState()
+  const [inProgress, setInProgress] = useState(false)
+  const [report, setReport] = useState()
+
+  const handleError = error => {
+    setError(error)
+    setFile(null)
+    setReport(null)
   }
 
-  state = {
-    error: null,
-    file: null,
-    report: null,
-    loading: false,
-    inProgress: false
-  }
-
-  componentDidMount() {
-    const {router} = this.props
-
-    if (router.query.url) {
-      this.handleInput(decodeURIComponent(router.query.url))
+  const parseFile = async file => {
+    setInProgress(true)
+    try {
+      const report = await prevalidate(file)
+      if (report.parseOk) {
+        setReport(report)
+      } else {
+        setError(`Impossible d’analyser le fichier... [${report.parseErrors[0].message}]`)
+        setFile(null)
+        setReport(null)
+      }
+    } catch (err) {
+      setError(`Impossible d’analyser le fichier... [${err.message}]`)
+      setFile(null)
+      setReport(null)
     }
+
+    setInProgress(false)
   }
 
-  handleError(error) {
-    this.setState({error, file: null, report: null, url: null})
-  }
-
-  resetState() {
-    this.setState({
-      file: null,
-      error: null,
-      report: null,
-      url: null,
-      inProgress: false
-    })
-  }
-
-  handleFileDrop = fileList => {
-    const file = fileList[0] // Keep only the first file
+  const handleFileDrop = fileList => {
+    const file = fileList[0]
     const fileExtension = getFileExtension(file.name)
 
-    this.resetState()
-
     if (!fileExtension || fileExtension !== 'csv') {
-      this.handleError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
-    } else if (file.size > 100 * 1024 * 1024) {
-      this.handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 100 Mo.')
+      handleError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
+    } else if (file.size > 10 * 1024 * 1024) {
+      handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
     } else if (file.size === 0) {
-      this.handleError('Ce fichier est vide.')
+      handleError('Ce fichier est vide.')
     } else {
-      this.setState({
-        file,
-        error: null
-      }, () => this.parseFile())
+      setError(null)
+      setFile(file)
+      parseFile(file)
     }
   }
 
-  handleInput = async input => {
-    if (input) {
-      this.setState({loading: true, error: null, url: input})
-      const url = 'https://adressedgv-cors.now.sh/' + input
+  return (
+    <Section>
+      <FileHander
+        file={file}
+        isLoading={inProgress}
+        error={error}
+        onFileDrop={handleFileDrop}
+      />
+      {inProgress &&
+        <Section title='Analyse en cours'>
+          <div className='centered'>
+            <Loader size='big' />
+          </div>
+        </Section>}
 
-      try {
-        const response = await fetch(url)
-        if (response.ok) {
-          if (checkHeaders(response.headers)) {
-            const file = await response.blob()
-            this.setState({file, loading: false})
-            await this.parseFile()
-          } else {
-            throw new Error('Le fichier n’a pas été reconnu comme étant au format CSV')
-          }
-        } else if (response.status in statusCodeMsg) {
-          throw new Error(`Impossible de récupérer le fichier car ${statusCodeMsg[response.status]}.`)
-        } else {
-          throw new Error('Impossible de récupérer le fichier car une erreur est survenue.')
-        }
-      } catch (err) {
-        this.handleError(err)
-      }
-    } else {
-      this.handleError('Le champ est vide.')
-    }
-
-    this.setState({loading: false})
-  }
-
-  parseFile = async () => {
-    const {file} = this.state
-
-    this.setState({inProgress: true})
-    try {
-      const report = await validate(file)
-      report.rowsWithIssuesCount = report.rowsWithIssues.length
-      this.setState({report, inProgress: false})
-      if (this.state.url) {
-        this.pushEncodedUrl()
-      }
-    } catch (error) {
-      this.setState({
-        error: `Impossible d’analyser le fichier… [${error.message}]`,
-        inProgress: false
-      })
-    }
-  }
-
-  pushEncodedUrl() {
-    const {router} = this.props
-    const query = {...router.query, url: encodeURI(this.state.url)}
-    const url = format({pathname: '/bases-locales/validateur', query})
-    this.props.router.push(url)
-  }
-
-  render() {
-    const {router} = this.props
-    const {error, file, report, inProgress, loading} = this.state
-
-    return (
-      <Section>
-        <FileHander defaultValue={router.query.url} file={file} error={error} onFileDrop={this.handleFileDrop} onSubmit={this.handleInput} loading={loading} />
-        {inProgress &&
-        <div className='centered'>
-          <h4>Analyse en cours…</h4>
-          <Loader />
+      {report &&
+        <div>
+          <Report report={report} />
         </div>}
 
-        {report &&
-          <div style={{margin: '2em 0'}}>
-            <Section title='Analyse terminée !' background='grey'>
-              <Report report={report} />
-            </Section>
-          </div>}
-        <style jsx>{`
-          .centered {
-            display: flex;
-            align-items: center;
-            justify-conten: center;
-            flex-direction: column;
-            margin: 1em 0 2em;
-          }
-        `}</style>
-      </Section>
-    )
-  }
+      <style jsx>{`
+        .centered {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin: 1em 0 2em;
+        }
+      `}</style>
+    </Section>
+  )
 }
 
-export default (withRouter(BALValidator))
+export default BALValidator

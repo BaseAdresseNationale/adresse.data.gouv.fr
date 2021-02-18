@@ -1,0 +1,58 @@
+[
+    {
+        "title": "Le Pays compiégnois",
+        "preview": "GeoCompiegnois a développé son propre outil sur mesure : un cercle vertueux est en place de longue date pour faciliter la mise à jour des adresses de 61 communes.",
+        "picture": "/images/testimonies/pays-compiegnois.jpg",
+        "alt": "Cliché Communauté d’Agglomération de la Région de Compiègne",
+        "date": "2021-01-29",
+        "articleUrl": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-le-pays-compi%C3%A9gnois-c1fb177029f2"
+    },
+    {
+        "title": "Planès",
+        "preview": "À l’automne 2020, le petit village de Planès a créé en quelques clics sa base adresse locale. La secrétaire de mairie a eu recours au service gratuit adresse.gouv.fr initié par l’État. ",
+        "picture": "/images/testimonies/planes.jpg",
+        "alt": "Paysage de Planès. Cliché Thierry llansades",
+        "date": "2021-01-11",
+        "articleUrl": "https://www.banquedesterritoires.fr/planes-cree-en-toute-autonomie-sa-base-adresse-locale-et-accelere-larrivee-de-la-fibre-66"
+    },
+    {
+        "title": "La Communauté d’Agglomération du Pays Basque",
+        "preview": "140 communes bénéficient d’un accompagnement sur mesure pour réaliser des adresses respectueuses des langues et des noms de lieux.",
+        "picture": "/images/testimonies/pays-basque.jpg",
+        "alt": "Paysage du Pays basque. Cliché Chantal Arruti",
+        "date": "2020-11-30",
+        "articleUrl": "https://blog.geo.data.gouv.fr/communaut%C3%A9-dagglom%C3%A9ration-du-pays-basque-164dffa34fbd"
+    },
+    {
+        "title": "Theizé-en-Beaujolais",
+        "preview": "Cette petite commune rurale de 1 285 habitants a créé sa Base Adresse Locale le 14 septembre 2020 et l’a publiée trois jours plus tard sans assistance extérieure.",
+        "picture": "/images/testimonies/theize-en-beaujolais.jpg",
+        "alt": "Paysage de Theizé-en-Beaujolais. Cliché Yves Kensicher",
+        "date": "2020-11-13",
+        "articleUrl": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-theiz%C3%A9-en-beaujolais-382a9f566a2c"
+    },
+    {
+        "title": "Communes des Hautes-Alpes",
+        "preview": "Une dynamique est engagée réunissant petites communes, Préfecture et Département, dans l’optique d’utiliser les outils libres et gratuits pour mettre à jour les adresses.",
+        "picture": "/images/testimonies/hautes-alpes.jpg",
+        "alt": "Paysage de commune sous la neige de Villar d’Arêne. Cliché Séverine Da Silva",
+        "date": "2020-12-18",
+        "articleUrl": "https://blog.geo.data.gouv.fr/t%C3%A9moignage-sur-ladresse-communes-des-hautes-alpes-9e77c4fe82da"
+    },
+    {
+        "title": "Breux-sur-Avre",
+        "preview": "Comment un simple citoyen peut-il contribuer à résoudre les problèmes d’adresse de sa commune ? Ce billet est le premier d’une série sur l’adresse, et commence par l’échelon de l’habitant et du terrain.",
+        "picture": "/images/testimonies/breux-sur-avre.jpg",
+        "alt": "Photographie du panneau de circulation du Chemin des Foins. Cliché Théophile Merlière",
+        "date": "2019-11-05",
+        "articleUrl": "https://blog.geo.data.gouv.fr/comment-un-simple-citoyen-peut-il-contribuer-%C3%A0-r%C3%A9soudre-les-probl%C3%A8mes-dadresse-de-sa-commune-6e5cb7238b0e"
+    },
+    {
+        "title": "Bréau-Mars",
+        "preview": "La commune de Bréau-Mars, a utilisé l’éditeur en ligne Mes Adresses pour conserver la richesses des adresses en dépit de deux fusions successives.",
+        "picture": "/images/testimonies/breau-mars.jpg",
+        "alt": "Paysage de la commune de Bréau-Mars",
+        "date": "2021-02-11",
+        "articleUrl": "https://www.amenagement-numerique.gouv.fr/fr/actualite/adressage-breau-mars-communes-fusionnees-arrivee-fibre"
+    }
+]

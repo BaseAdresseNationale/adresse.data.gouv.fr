@@ -11,15 +11,24 @@ function CsvMeta({name, value, isValid}) {
         <div><b>{name}</b></div>
         {isValid ? <div className='check'><Check /></div> : <div className='error'><X /></div>}
       </div>
-      <div>{value}</div>
+      <div className='item-value'>{value}</div>
       <style jsx>{`
         .item {
           display: flex;
+          justify-content: center;
         }
 
         .check {
           margin-left: 1em;
           color: ${theme.colors.green};
+        }
+
+        .item-value {
+          text-align: center;
+          font-weight: 600;
+          border-radius: 4px;
+          font-size: medium;
+          background-color: whitesmoke;
         }
 
         .error {

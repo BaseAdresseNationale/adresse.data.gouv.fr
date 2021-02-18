@@ -6,11 +6,10 @@ import {ArrowLeft} from 'react-feather'
 
 import Page from '@/layouts/main'
 
-import withErrors from '@/components/hoc/with-errors'
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
+import {uploadCSV, submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
 
 import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
@@ -38,13 +37,20 @@ const getStep = bal => {
   }
 }
 
-const PublicationPage = React.memo(({bal, submissionId}) => {
+const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, submissionId}) => {
+  const [bal, setBal] = useState(defaultBal)
   const [step, setStep] = useState(getStep(bal))
   const [authType, setAuthType] = useState()
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(initialError)
 
-  const handleValidBal = () => {
-    setStep(2)
+  const handleFile = async file => {
+    try {
+      const bal = await uploadCSV(file)
+      setBal(bal)
+      setStep(2)
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   const handleCodeAuthentification = async () => {
@@ -74,6 +80,10 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
   }, [bal])
 
   useEffect(() => {
+    setError(null)
+  }, [step])
+
+  useEffect(() => {
     if (bal) {
       if (!submissionId) {
         const href = `/bases-locales/publication?submissionId=${bal._id}`
@@ -83,18 +93,20 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
       if (bal.authenticationError) {
         setError(bal.authenticationError)
       }
-    } else {
-      setError('Aucune base adresses locales n’a été trouvée')
+    } else if (step > 1) {
+      setError('Aucune Base Adresse Locale n’a été trouvée')
     }
-  }, [bal, error, submissionId])
+  }, [step, bal, error, submissionId])
 
   return (
     <Page>
-      <Section background='color' style={{padding: '1em 0'}}>
-        <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
-          <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
-        </ButtonLink>
-      </Section>
+      {isRedirected && (
+        <Section background='color' style={{padding: '1em 0'}}>
+          <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
+            <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
+          </ButtonLink>
+        </Section>
+      )}
 
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
@@ -110,10 +122,7 @@ const PublicationPage = React.memo(({bal, submissionId}) => {
 
         <div className='current-step'>
           {step === 1 && (
-            <ManageFile
-              url=''
-              handleValidBal={handleValidBal}
-            />
+            <ManageFile handleFile={handleFile} />
           )}
 
           {step === 2 && (
@@ -166,18 +175,26 @@ PublicationPage.getInitialProps = async ({query}) => {
   if (submissionId) {
     bal = await getSubmissions(submissionId)
   } else if (url) {
-    bal = await submissionsBal(decodeURIComponent(url))
+    try {
+      bal = await submissionsBal(decodeURIComponent(url))
+    } catch {
+      return {
+        initialError: 'Une erreur est survenue lors de la récupération du fichier'
+      }
+    }
   }
 
   return {
-    bal,
+    isRedirected: Boolean(url),
+    defaultBal: bal,
     submissionId,
     user: bal && bal.authentication ? bal.authentication : null
   }
 }
 
 PublicationPage.propTypes = {
-  bal: PropTypes.shape({
+  isRedirected: PropTypes.bool,
+  defaultBal: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     commune: PropTypes.object.isRequired,
@@ -186,12 +203,15 @@ PublicationPage.propTypes = {
     authenticationUrl: PropTypes.string,
     publicationUrl: PropTypes.string
   }),
-  submissionId: PropTypes.string
+  submissionId: PropTypes.string,
+  initialError: PropTypes.string
 }
 
 PublicationPage.defaultProps = {
-  bal: null,
-  submissionId: null
+  isRedirected: false,
+  defaultBal: null,
+  submissionId: null,
+  initialError: null
 }
 
-export default withErrors(PublicationPage)
+export default PublicationPage

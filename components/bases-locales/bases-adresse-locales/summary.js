@@ -15,7 +15,7 @@ class Summary extends React.Component {
 
   render() {
     const {dataset} = this.props
-    const {id, organization, url, model, dateMAJ, numerosCount, license} = dataset
+    const {id, organization, url, model, dateMAJ, rowsCount, license} = dataset
     const infos = [
       {
         title: 'Format',
@@ -28,7 +28,7 @@ class Summary extends React.Component {
         type: license === 'odc-odbl' ? 'not-valid' : 'valid'
       },
       {title: 'Dernière mise à jour', value: dateMAJ ? dateMAJ.split('-').reverse().join('-') : 'inconnue'},
-      {title: 'Nombre d’adresses', value: typeof numerosCount === 'number' ? spaceThousands(numerosCount) : '???'}
+      {title: 'Nombre d’adresses', value: typeof rowsCount === 'number' ? spaceThousands(rowsCount) : '???'}
     ]
     return (
       <div>
