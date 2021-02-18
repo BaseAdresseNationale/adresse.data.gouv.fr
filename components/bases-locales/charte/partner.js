@@ -9,6 +9,20 @@ function Partner({partnerInfos, isDetailed}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const {name, link, alt, infos, perimeter, services, picture, height, width} = partnerInfos
 
+  const servicesList = array => {
+    const result = []
+    array.forEach(element => {
+      if (element.length > 0) {
+        const words = element.split(' ')
+        let eachWord = '#'
+        words.forEach(word => {
+          eachWord += word.slice(0, 1).toUpperCase() + word.slice(1, word.length)
+        })
+        result.push(eachWord)
+      }
+    })
+    return result
+  }
 
   return (
     <div className='partner'>
@@ -48,6 +62,12 @@ function Partner({partnerInfos, isDetailed}) {
         <div className='perimeter'>
           <div className='title'>Périmètre</div>
           <p>{perimeter}</p>
+        </div>
+        <div className='services'>
+          <div className='title'>Offres de services</div>
+          {servicesList(services).map(service => {
+            return <p key={service}>{service}</p>
+          })}
         </div>
       </div>
       <style jsx>{`
