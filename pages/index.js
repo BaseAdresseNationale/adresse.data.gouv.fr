@@ -1,9 +1,8 @@
 import React from 'react'
-
+import Link from 'next/link'
 import theme from '@/styles/theme'
 
 import Ribbon from '@/components/ribbon'
-
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
@@ -11,6 +10,7 @@ import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import Infolettre from '@/components/infolettre'
+import Partners from '@/components/bases-locales/charte/partners'
 
 function Home() {
   return (
@@ -48,7 +48,46 @@ function Home() {
         </div>
       </Section>
 
-      <Section title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
+      <Section title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
+        <div className='charte-section' >
+          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
+          <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.
+          </p>
+          <div className='centered'>
+            <ButtonLink size='large' href='/bases-locales/charte'>
+              Découvrir la charte
+            </ButtonLink>
+          </div>
+          <div className='partners'>
+            <h3>Nos partenaires</h3>
+            <Partners isDetailed={false} />
+          </div>
+
+          <style jsx>{`
+            .charte-section {
+              margin-top: 3em;
+              text-align: center;
+            }
+
+            .organismes-container {
+              margin-top: 4em;
+            }
+
+            .partners {
+              margin-top: 4em;
+            }
+
+            .centered {
+              margin: 40px auto;
+              display: flex;
+              justify-content: center;
+            }
+            `}
+          </style>
+        </div>
+      </Section>
+
+      <Section background='grey' title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
         <DocDownload
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'

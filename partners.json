@@ -1,0 +1,78 @@
+[
+    {
+        "name": "CRIGE PACA",
+        "link": "https://www.crige-paca.org/projets/adresse/",
+        "infos": "Le Centre de Ressources en Information Géographique en Provence-Alpes-Côte d’Azur est le centre de ressources en géomatique au service des organismes publics de la région.",
+        "perimeter": "Région PACA",
+        "services": [
+            "formation",
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/crige.jpg",
+        "height": 89,
+        "width": 214,
+        "alt": "Logo du Centre de Ressources en Information Géographique en Provence-Alpes-Côte d’Azur"
+    },
+    {
+        "name": "ATD24",
+        "link": "http://www.atd24.fr/174-cartographie-numerique.html",
+        "infos": "L’Agence Technique Départementale de la Dordogne a développé une Base Adresse Locale sur Périgéo, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
+        "perimeter": "Dordogne",
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de Bases Adresse Locales",
+            "mise à disposition outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/atd24.png",
+        "height": 100,
+        "width": 151,
+        "alt": "Logo de L’Agence Technique Départementale de la Dordogne"
+    },
+    {
+        "name": "SiiG",
+        "link": "http://carto.siig.fr/adresse/",
+        "infos": "Le Syndicat Intercommunal d’Information Géographique met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement une cinquantaine dans le Gard).",
+        "perimeter": "Gard et départements limitrophes - Vaucluse - Ardèche - Drôme",
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation Bases Adresse Locales",
+            "mise à disposition outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/siig.png",
+        "height": 130,
+        "width": 130,
+        "alt": "Logo du Syndicat Intercommunal d’Information Géographique"
+    },
+    {
+        "name": "SMICA",
+        "link": "https://www.smica.fr/fr/metiers-services/information-geographique",
+        "infos": "Syndicat mixte pour la Modernisation et l’Ingénierie informatique des Collectivités ou établissements publics Adhérents met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement 282 communes et 19 EPCI).",
+        "perimeter": "Aveyron et alentour",
+        "services": [
+            "animation",
+            "acculturation",
+            "accompagnement technique",
+            "Réalisation BAL aveyronnaise",
+            "diffusion"
+        ],
+        "picture": "/images/logos/partners/smica.png",
+        "height": 70,
+        "width": 251,
+        "alt": "Logo du Syndicat pour la Modernisation et l'Ingénierie des Collectivités"
+    },
+    {
+        "name": "Imaginà-Coworking Balagna",
+        "link": "https://www.imagina-coworkingbalagna.fr",
+        "infos": "Régi bénévolement par une association, cet espace de coworking situé dans le village de Speluncatu dans la vallée du Reginu, au cœur de la micro-région de la Balagne a une convention avec la municipalité pour gérer cet espace de travail communal. En vingtaine de profil différents se côtoient et s'entraident dans se coworking rural du piedmont balanin tout au long de l'année.",
+        "perimeter": "Balagne",
+        "services": [
+            "réalisation Bases Adresses Locales"
+        ],
+        "picture": "/images/logos/partners/imagina.png",
+        "height": 90,
+        "width": 219,
+        "alt": "Logo Imaginà-Coworking Balagna"
+    }
+]
