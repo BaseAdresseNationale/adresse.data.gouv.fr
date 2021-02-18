@@ -167,7 +167,7 @@ Partner.propTypes = {
     link: PropTypes.string,
     infos: PropTypes.string,
     perimeter: PropTypes.string,
-    services: PropTypes.string,
+    services: PropTypes.array,
     picture: PropTypes.string,
     height: PropTypes.number,
     width: PropTypes.number,

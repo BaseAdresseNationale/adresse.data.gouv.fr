@@ -60,7 +60,7 @@ function Home() {
           </div>
           <div className='partners'>
             <h3>Nos partenaires</h3>
-            <Partners />
+            <Partners isDetailed={false} />
           </div>
 
           <style jsx>{`
