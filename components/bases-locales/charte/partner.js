@@ -100,6 +100,7 @@ function Partner({partnerInfos, isDetailed}) {
           }
 
           .button-container {
+            margin-top: 4em;
             display: grid;
             grid-template-columns: 1fr 0.1fr;
             align-items: center;
