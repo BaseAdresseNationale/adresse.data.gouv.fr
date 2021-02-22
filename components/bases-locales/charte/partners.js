@@ -14,10 +14,9 @@ function Partners({isDetailed}) {
         .partners-container {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(${isDetailed ? '250px' : '200px'}, 1fr));
-          align-items: ${isDetailed ? 'start' : 'center'}
           justify-items: center;
           margin-top: 2em;
-          gap: ${isDetailed ? '6em 5em' : '3em 0'};
+          gap: ${isDetailed ? '6em 5em' : '3em 1em'};
         }
         `}</style>
     </div>

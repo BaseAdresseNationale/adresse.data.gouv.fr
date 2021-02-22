@@ -74,5 +74,21 @@
         "height": 90,
         "width": 219,
         "alt": "Logo Imaginà-Coworking Balagna"
+    },
+    {
+        "name": "IDéO BFC",
+        "link": "https://ideo.ternum-bfc.fr/",
+        "infos": "IDéO BFC est un dispositif partenarial dédié au partage des données et de la connaissance en Bourgogne-Franche-Comté. Il est piloté par l'État (SGAR et DREAL BFC), la Région Bourgogne-Franche-Comté et le Groupement d'Intérêt Public Territoires Numériques BFC.",
+        "perimeter": "Bourgogne-Franche-Comté",
+        "services": [
+            "animation",
+            "formation",
+            "formation technique",
+            "diffusion"
+        ],
+        "picture": "/images/logos/partners/ideo.png",
+        "height": 134,
+        "width": 90,
+        "alt": "Logo de IDéO BFC"
     }
 ]
