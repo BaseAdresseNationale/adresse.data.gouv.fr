@@ -99,7 +99,7 @@ function Home() {
         </DocDownload>
       </Section>
 
-      <Section title='Témoignages sur les Bases Adresses Locales' background='grey'>
+      <Section title='Témoignages sur les Bases Adresses Locales'>
         <Temoignages limit={3} />
         <div className='centered'>
           <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
