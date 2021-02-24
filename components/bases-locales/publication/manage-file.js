@@ -10,11 +10,10 @@ import Report from '../validator/report'
 
 import theme from '@/styles/theme'
 
-const ManageFile = React.memo(({handleFile}) => {
+const ManageFile = React.memo(({error, handleError, handleFile}) => {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [report, setReport] = useState(null)
-  const [error, setError] = useState(null)
 
   const parseFile = useCallback(async file => {
     try {
@@ -32,21 +31,21 @@ const ManageFile = React.memo(({handleFile}) => {
           setReport(report)
         }
       } else {
-        setError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
+        handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
       }
     } catch (err) {
       const error = `Impossible d’analyser le fichier… [${err.message}]`
-      setError(error)
+      handleError(error)
     }
-  }, [handleFile])
+  }, [handleError, handleFile])
 
   useEffect(() => {
     if (file) {
-      setError(null)
+      handleError(null)
       setReport(null)
       parseFile(file)
     }
-  }, [file, parseFile])
+  }, [file, parseFile, handleError])
 
   useEffect(() => {
     if (error) {
@@ -69,19 +68,18 @@ const ManageFile = React.memo(({handleFile}) => {
     setLoading(true)
 
     if (!fileExtension || fileExtension !== 'csv') {
-      setError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
+      handleError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
     } else if (file.size > 10 * 1024 * 1024) {
-      setError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
+      handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
     } else {
       setFile(file)
     }
-  }, [setLoading, setError])
+  }, [setLoading, handleError])
 
   return (
     <>
       <FileHander
         file={file}
-        error={error}
         onFileDrop={handleFileDrop}
         isLoading={loading}
       />
@@ -96,7 +94,13 @@ const ManageFile = React.memo(({handleFile}) => {
   )
 })
 
+ManageFile.defaultProps = {
+  error: null
+}
+
 ManageFile.propTypes = {
+  error: PropTypes.object,
+  handleError: PropTypes.func.isRequired,
   handleFile: PropTypes.func.isRequired
 }
 
