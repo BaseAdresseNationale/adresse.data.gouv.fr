@@ -68,9 +68,9 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
   const handlePublication = useCallback(async () => {
     try {
       await submitBal(submissionId)
-      Router.push(`/bases-locales/publication?submissionId=${submissionId}`)
+      setStep(5)
     } catch (error) {
-      setError(error.message)
+      setError('Impossible de publier la Base Adresse Locale :', error.message)
     }
   }, [submissionId])
 
@@ -122,7 +122,7 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
 
         <div className='current-step'>
           {step === 1 && (
-            <ManageFile handleFile={handleFile} />
+            <ManageFile handleFile={handleFile} error={error} handleError={setError} />
           )}
 
           {step === 2 && (
@@ -188,7 +188,7 @@ PublicationPage.getInitialProps = async ({query}) => {
     isRedirected: Boolean(url),
     defaultBal: bal,
     submissionId,
-    user: bal && bal.authentication ? bal.authentication : null
+    user: {}
   }
 }
 
