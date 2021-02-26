@@ -106,5 +106,23 @@
         "height": 134,
         "width": 159,
         "alt": "Logo du Département du Calvados"
+    },
+    {
+        "name": "ATD16",
+        "link": "https://www.atd16.fr/",
+        "infos": "L’Agence Technique Départementale de la Charente met à disposition ses compétences, services et outils. Un espace de travail développé sur Géo16, son SIG mutualisé, permet aux communes adhérentes de créer et gérer leurs voies et adresses, dans une Base Adresse Locale.",
+        "perimeter": "Charente",
+        "services": [
+            "animation",
+            "formation",
+            "accompagnement technique",
+            "réalisation Bases Adresse Locales",
+            "mise à disposition outils mutualisés",
+            "diffusion"
+        ],
+        "picture": "/images/logos/partners/atd16.jpg",
+        "height": 134,
+        "width": 133,
+        "alt": "Logo de L’Agence Technique Départementale de la Charente"
     }
 ]
