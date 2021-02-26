@@ -267,10 +267,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@etalab/bal@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-1.1.0.tgz#5e5882194b6777559bb184a5ff52d509f005b311"
-  integrity sha512-brAU3kxxGz5XOHNYLGO2Lac7i0LudIQPfNRu6EWGH3lnWRhZcYfbyhOEoczqTRXpvBPnfnqJvj/ufKvjV+hbHw==
+"@etalab/bal@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-1.1.1.tgz#cb7478fe4b41fc715a7e9edb6ebfcd0176bb8151"
+  integrity sha512-qv+Mn0CL5/9DByi5CjdPhK+4uZ0OACqLeA5xFheHUcV+FsisqSwC3qSfRfWI7ukKk6FSCKIk7dyJ5HvU1pJNWQ==
   dependencies:
     blob-to-buffer "^1.2.9"
     chalk "^4.1.0"
