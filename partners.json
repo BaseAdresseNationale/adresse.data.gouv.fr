@@ -90,5 +90,21 @@
         "height": 134,
         "width": 90,
         "alt": "Logo de IDéO BFC"
+    },
+    {
+        "name": "Département du Calvados",
+        "link": "https://mapeo-calvados.fr/ban",
+        "infos": "Le Département du Calvados propose un accompagnement des communes dans leur démarche d'adressage. Une méthodologie et une application cartographique sont notamment mises à leur disposition pour la construction des Bases Adresses Locales.",
+        "perimeter": "Calvados",
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation Bases Adresse Locales",
+            "mise à disposition outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/calvados.png",
+        "height": 134,
+        "width": 159,
+        "alt": "Logo du Département du Calvados"
     }
 ]
