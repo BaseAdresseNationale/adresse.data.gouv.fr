@@ -47,8 +47,8 @@ function BALValidator() {
 
     if (!fileExtension || fileExtension !== 'csv') {
       handleError('Ce type de fichier n’est pas supporté. Vous devez déposer un fichier *.csv.')
-    } else if (file.size > 10 * 1024 * 1024) {
-      handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
+    } else if (file.size > 50 * 1024 * 1024) {
+      handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 50 Mo.')
     } else if (file.size === 0) {
       handleError('Ce fichier est vide.')
     } else {
