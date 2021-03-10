@@ -20,10 +20,13 @@ function IncendieOvh() {
             <b>10/03/2021 à 9h06 :</b> L’API Adresse (géocodage) et l’API Découpage administratif n’ont pas été impactées.
           </li>
           <li>
-            <b>10/03/2021 à 14h05 :</b> Le fond de carte "Photographies aériennes" est à nouveau disponible.
+            <b>10/03/2021 à 14h05 :</b> Le fond de carte “Photographies aériennes” est à nouveau disponible.
           </li>
           <li>
             <b>10/03/2021 à 18h45 :</b> Le fond de carte OpenMapTiles a été rétabli. #MesAdresses et la page dédiée aux Bases Adresses Locales restent inaccessibles.
+          </li>
+          <li>
+            <b>10/03/2021 à 21h50 :</b> La page dédiée aux Bases Adresses Locales est de retour. Les processus d’alimentation restent suspendus à ce stade.
           </li>
         </ul>
 
