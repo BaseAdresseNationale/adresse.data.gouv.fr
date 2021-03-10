@@ -19,6 +19,9 @@ function IncendieOvh() {
           <li>
             <b>Mise à jour 10/03/2021 à 9h06 :</b> L’API Adresse (géocodage) et l’API Géo Découpage administratif n’ont pas été impactées.
           </li>
+          <li>
+            <b>Mise à jour 10/03/2021 à 14h05 :</b> Le fond de carte photographies aériennes est à nouveau disponible.
+          </li>
         </ul>
 
         <div className='tweeter'>
