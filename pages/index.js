@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import theme from '@/styles/theme'
 
-import Ribbon from '@/components/ribbon'
+import IncendieOvh from '@/components/incendie-ovh'
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
@@ -15,7 +15,8 @@ import Partners from '@/components/bases-locales/charte/partners'
 function Home() {
   return (
     <Page>
-      <Ribbon />
+      <IncendieOvh />
+
       <Hero
         title='Le site national des adresses'
         tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
