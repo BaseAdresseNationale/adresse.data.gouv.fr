@@ -9,7 +9,7 @@ function IncendieOvh() {
           <h4>Incident en cours</h4>
           <div>
             <b>Plusieurs de nos outils et services sont actuellement injoignables en raison d’un incendie majeur chez notre hébergeur.
-              Nous travaillons à rétablir les rétablir par ordre de priorité.</b>
+              Nous travaillons à les rétablir par ordre de priorité.</b>
           </div>
         </div>
         <ul>
