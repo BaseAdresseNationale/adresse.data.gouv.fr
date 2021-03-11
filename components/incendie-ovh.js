@@ -17,7 +17,6 @@ function IncendieOvh() {
         <div className='bold'>Services indisponibles :</div>
         <ul>
           <li>Éditeur de Bases Adresses Locales mes-adresses.data.gouv.fr</li>
-          <li>Formulaire de dépôt d’une Base Adresse Locale</li>
           <li>Moissonnage et consolidation automatique des Bases Adresses Locales</li>
           <li>Mise à jour en continu de la Base Adresse Nationale</li>
         </ul>
