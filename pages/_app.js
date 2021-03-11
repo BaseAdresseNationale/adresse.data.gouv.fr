@@ -40,6 +40,16 @@ function MyApp({Component, pageProps}) {
           margin: 0;
           padding: 0;
         }
+
+        // Incident OVH
+        a.disabled {
+          color: #53657D;
+          text-decoration: line-through;
+        }
+        a.disabled:hover {
+          color: #53657D;
+          background: none;
+        }
         `}</style>
     </>
   )

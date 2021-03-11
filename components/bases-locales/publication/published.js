@@ -46,7 +46,7 @@ const Published = React.memo(({_id, commune}) => {
           </p>
 
           <div className='centered'>
-            <ButtonLink href={`https://mes-adresses.data.gouv.fr/${_id}/communes/${commune.code}?published=1`} isExternal>
+            <ButtonLink isDisabled href={`https://mes-adresses.data.gouv.fr/${_id}/communes/${commune.code}?published=1`} isExternal>
               Continuer l’amélioration de mes adresses <Map style={{marginLeft: '.5em', verticalAlign: 'middle'}} />
             </ButtonLink>
           </div>
