@@ -124,5 +124,37 @@
         "height": 134,
         "width": 133,
         "alt": "Logo de L’Agence Technique Départementale de la Charente"
+    },
+    {
+        "name": "Communauté de Communes du Pont du Gard",
+        "link": "https://www.atd16.fr/",
+        "infos": "La Communauté de Communes du Pont du Gard se compose de 17 communes, et s’est doté d’un SIG propre pour gérer et mettre à jour ses données géographiques.",
+        "perimeter": "Communauté de Communes du Pont du Gard (17 communes du Gard)",
+        "services": [
+            "animation",
+            "formation",
+            "accompagnement technique",
+            "réalisation Bases Adresse Locales",
+            "mise à disposition outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/ccpg.jpg",
+        "height": 64,
+        "width": 133,
+        "alt": "Logo de la Communauté de Communes du Pont du Gard"
+    },
+    {
+        "name": "SOGEFI Ingéniérie géomatique",
+        "link": "https://www.sogefi-sig.com/",
+        "infos": "Nous vous proposons de vous accompagner dans la mise en conformité de votre Base Adresse Locale avec la Base Adresse Nationale et de vous former à sa mise à jour en toute autonomie, au fur et à mesure des créations de nouvelles adresses. En complément, si toutes les voies de votre commune ne sont pas nommées et que toutes les habitations ne sont pas numérotées, nous sommes également en mesure de vous conseiller et de vous accompagner sur ce point.",
+        "perimeter": "France entière",
+        "services": [
+            "formation",
+            "accompagnement",
+            "réalisation Bases Adresse Locales"
+        ],
+        "picture": "/images/logos/partners/sogefi.png",
+        "height": 47,
+        "width": 133,
+        "alt": "Logo de la SOGEFI Ingéniérie géomatique"
     }
 ]

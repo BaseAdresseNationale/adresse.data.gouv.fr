@@ -82,7 +82,7 @@ function Partner({partnerInfos, isDetailed}) {
 
           .name {
             margin: 0;
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: bold;
             font-style: normal;
           }
