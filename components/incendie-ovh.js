@@ -4,35 +4,28 @@ import theme from '@/styles/theme'
 function IncendieOvh() {
   return (
     <div>
-      <div className='incendie-ovh-alt'>
+      <div className='incendie-ovh'>
         <div className='intro'>
           <h4>Incident en cours</h4>
           <div>
-            <b>Plusieurs de nos outils et services sont actuellement injoignables en raison d’un incendie majeur chez notre hébergeur.
-              Nous travaillons à les rétablir par ordre de priorité.</b>
+            <b>
+              Plusieurs de nos outils et services sont actuellement indisponibles suite à un incendie majeur chez notre hébergeur.
+              Nous travaillons à les rétablir dans les meilleurs délais.
+            </b>
           </div>
         </div>
+        <div className='bold'>Services indisponibles :</div>
         <ul>
-          <li>
-            <b>10/03/2021 à 8h50 :</b> Actuellement nous pouvons dire que #MesAdresses et les fonds de carte sont touchés.
-          </li>
-          <li>
-            <b>10/03/2021 à 9h06 :</b> L’API Adresse (géocodage) et l’API Découpage administratif n’ont pas été impactées.
-          </li>
-          <li>
-            <b>10/03/2021 à 14h05 :</b> Le fond de carte “Photographies aériennes” est à nouveau disponible.
-          </li>
-          <li>
-            <b>10/03/2021 à 18h45 :</b> Le fond de carte OpenMapTiles a été rétabli. #MesAdresses et la page dédiée aux Bases Adresses Locales restent inaccessibles.
-          </li>
-          <li>
-            <b>10/03/2021 à 21h50 :</b> La page dédiée aux Bases Adresses Locales est de retour. Les processus d’alimentation restent suspendus à ce stade.
-          </li>
+          <li>Éditeur de Bases Adresses Locales mes-adresses.data.gouv.fr</li>
+          <li>Formulaire de dépôt d’une Base Adresse Locale</li>
+          <li>Moissonnage et consolidation automatique des Bases Adresses Locales</li>
+          <li>Mise à jour en continu de la Base Adresse Nationale</li>
         </ul>
 
-        <p>
-          <b>Notre outil « Mes Adresses » étant également touché par cet incendie, celui-ci est temporairement indisponible. Merci de votre patience.</b>
-        </p>
+        <div className='bold'>
+          L’API Adresse (géocodage) et l’API Découpage administratif n’ont pas été impactées.
+          Les fonds de carte, indisponibles une partie de la journée du 10 mars, ont été rétablis.
+        </div>
 
         <div className='tweeter'>
           Suivre la résolution de l’incident : <a href='https://twitter.com/AdresseDataGouv'>https://twitter.com/AdresseDataGouv</a>
@@ -41,23 +34,18 @@ function IncendieOvh() {
 
       <style jsx>{`
       .incendie-ovh {
-        color: ${theme.colors.almostBlack};
-        font-size: 19px;
-        padding: 1em;
-        border: 1px solid ${theme.colors.orange};
-        background-color: ${theme.colors.lightOrange};
-        color: ${theme.colors.orange};
-      }
-
-      .incendie-ovh-alt {
         font-size: 19px;
         padding: 1em;
         color: ${theme.colors.almostBlack};
         background-color: ${theme.colors.lighterBlue};
       }
 
+      .bold {
+        font-weight: 600;
+        font-size: smaller;
+      }
+
       ul {
-        margin: 2em 0;
         font-size: medium;
       }
 
@@ -66,7 +54,7 @@ function IncendieOvh() {
       }
 
       .tweeter {
-        margin-top: 1em;
+        margin-top: 2em;
         font-size: medium;
       }
     `}</style>
