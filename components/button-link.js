@@ -2,17 +2,43 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-function ButtonLink({size, color, href, isOutlined, isExternal, children, ...props}) {
-  return isExternal ? (
-    <a href={href} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
-      {children}
-    </a>
-  ) : (
-    <Link href={href}>
-      <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+import colors from '@/styles/colors'
+
+function ButtonLink({size, color, href, isDisabled, isOutlined, isExternal, children, ...props}) {
+  if (isDisabled) {
+    return (
+      <>
+        <a alt='nopnop' className={`button ${size} secondary`} {...props}>
+          {children}
+        </a>
+        <div className='unavailable'>(Temporairement indisponible)</div>
+
+        <style jsx>{`
+          a.button:hover {
+            background-color: ${colors.darkerGrey};
+          }
+
+          .unavailable {
+            font-size: small;
+            font-style: italic;
+          }
+        `}</style>
+      </>
+    )
+  }
+
+  return (
+    isExternal ? (
+      <a href={href} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
         {children}
       </a>
-    </Link>
+    ) : (
+      <Link href={href}>
+        <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
+          {children}
+        </a>
+      </Link>
+    )
   )
 }
 
@@ -30,6 +56,7 @@ ButtonLink.propTypes = {
   href: PropTypes.string.isRequired,
   isOutlined: PropTypes.bool,
   isExternal: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   children: PropTypes.node
 }
 
@@ -38,6 +65,7 @@ ButtonLink.defaultProps = {
   color: 'primary',
   isOutlined: false,
   isExternal: false,
+  isDisabled: false,
   children: null
 }
 
