@@ -52,6 +52,7 @@ function GererMesAdresses() {
         <div className='action-links'>
           <ButtonLink
             isExternal
+            isDisabled
             size='large'
             target='_blank'
             rel='noreferrer'
@@ -62,7 +63,7 @@ function GererMesAdresses() {
 
           <div className='already-done'>
             <div>Vous avez déjà créé une Base Adresse Locale ?</div>
-            <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Retrouvez-la ici</a>
+            <a className='disabled'>Retrouvez-la ici</a>
           </div>
         </div>
 
