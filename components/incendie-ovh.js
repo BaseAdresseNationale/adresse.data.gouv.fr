@@ -30,6 +30,10 @@ function IncendieOvh() {
           </li>
         </ul>
 
+        <p>
+          <b>Notre outil « Mes Adresses » étant également touché par cet incendie, celui-ci est temporairement indisponible. Merci de votre patience.</b>
+        </p>
+
         <div className='tweeter'>
           Suivre la résolution de l’incident : <a href='https://twitter.com/AdresseDataGouv'>https://twitter.com/AdresseDataGouv</a>
         </div>
