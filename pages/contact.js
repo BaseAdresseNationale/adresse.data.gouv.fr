@@ -34,13 +34,13 @@ function Contact() {
                 La gestion des adresses est la compétence des communes, mais elle est quelque fois exercée avec le soutien technique d’un EPCI.
               </p>
               <p>
-                Cette gestion est simplifiée par l’existence d’outils officiels et gratuits, tels que <a className='disabled'>Mes Adresses</a>.
+                Cette gestion est simplifiée par l’existence d’outils officiels et gratuits, tels que <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr/'>Mes Adresses</a>.
               </p>
               <p>
                 Vous pouvez en quelque clics créer la Base Adresse Locale de votre commune, y apporter des modifications, et publier les changements pour que ceux-ci soient pris en compte par un maximum d’acteurs.
                 La prise en main est très simple, et ne nécessite pas de compétences informatiques particulières.
               </p>
-              <ButtonLink isDisabled target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr/' isExternal>Créer une Base Adresse Locale</ButtonLink>
+              <ButtonLink target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr/' isExternal>Créer une Base Adresse Locale</ButtonLink>
             </div>
           </Question>
         </div>

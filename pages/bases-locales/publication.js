@@ -102,7 +102,7 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
     <Page>
       {isRedirected && (
         <Section background='color' style={{padding: '1em 0'}}>
-          <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal isDisabled>
+          <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
             <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
           </ButtonLink>
         </Section>
