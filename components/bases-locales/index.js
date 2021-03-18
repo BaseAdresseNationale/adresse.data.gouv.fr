@@ -125,7 +125,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       </Section>
 
       <Section title='État du déploiement des Bases Adresses Locales'>
-        <div className='map-stats-container' id='anchor-dashboard'>
+        <div className='map-stats-container' id='map-stat'>
           <div className='stats'>
             <Counter
               value={stats.count}
