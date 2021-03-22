@@ -6,12 +6,12 @@ import theme from '@/styles/theme'
 
 import {getNumeroComplet} from '@/lib/ban'
 
-function Numero({id, numero, suffixe}) {
+function Numero({id, numero, suffixe, lieuDitComplementNom}) {
   return (
     <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
       <a>
         <div className='numero'>
-          <b>{getNumeroComplet({numero, suffixe})}</b>
+          <b>{getNumeroComplet({numero, suffixe})}</b> {lieuDitComplementNom}
         </div>
 
         <style jsx>{`
@@ -40,13 +40,15 @@ function Numero({id, numero, suffixe}) {
 }
 
 Numero.propTypes = {
-  suffixe: null
+  suffixe: null,
+  lieuDitComplementNom: null
 }
 
 Numero.propTypes = {
   id: PropTypes.string.isRequired,
   suffixe: PropTypes.string,
-  numero: PropTypes.string.isRequired
+  numero: PropTypes.string.isRequired,
+  lieuDitComplementNom: PropTypes.string,
 }
 
 export default Numero
