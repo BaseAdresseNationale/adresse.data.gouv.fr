@@ -48,7 +48,7 @@ Numero.propTypes = {
   id: PropTypes.string.isRequired,
   suffixe: PropTypes.string,
   numero: PropTypes.string.isRequired,
-  lieuDitComplementNom: PropTypes.string,
+  lieuDitComplementNom: PropTypes.string
 }
 
 export default Numero
