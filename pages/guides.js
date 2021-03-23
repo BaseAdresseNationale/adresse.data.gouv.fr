@@ -29,7 +29,7 @@ function Guides() {
         <DocDownload
           id='guide-adressage'
           title='Le guide de Mes Adresses'
-          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v1.3.pdf'
+          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v2.0.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
           alt='miniature du guide Mes Adresses'
         >
@@ -45,7 +45,7 @@ function Guides() {
           isReverse='true'
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
-          link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v1.0.pdf'
+          link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v2.0.pdf'
         >
           <p>
             Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
