@@ -61,7 +61,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         }
 
         .numero-details {
-          height: 50%;
+          height: 40%;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
