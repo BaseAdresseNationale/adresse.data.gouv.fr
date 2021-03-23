@@ -5,14 +5,14 @@ import Tag from '@/components/tag'
 
 import {sources} from './layers'
 
-function popupNumero({numero, suffixe, nomVoie, nomCommune, codeCommune, sourcePosition, sourceNomVoie}) {
+function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition, sourceNomVoie}) {
   const position = sources[sourcePosition]
   const nom = sources[sourceNomVoie]
 
   return renderToString(
     <div>
       <div className='heading'>
-        <b>{numero}{suffixe} {nomVoie}</b>
+        <b>{numero}{suffixe} {nomVoie} {lieuDitComplementNom ? `(${lieuDitComplementNom})` : ''}</b>
         <Tag type='numero' />
       </div>
       <div>{nomCommune} {codeCommune}</div>
