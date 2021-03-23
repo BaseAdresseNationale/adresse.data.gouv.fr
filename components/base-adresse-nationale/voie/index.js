@@ -16,22 +16,25 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
   return (
     <>
       <div className='heading'>
-        <div>
-          <h2>{nomVoie}</h2>
+        <div style={{width: '100%'}}>
+          <div className='title-container'>
+            <h2>{nomVoie}</h2>
+            <div>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
+          </div>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
           {region && departement && (
-            <div>{region.nom} - {departement.nom} ({departement.code})</div>
+            <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
           )}
         </div>
-      </div>
 
+      </div>
+      <div className='separator' />
       {isToponyme ? (
         <Tag type='lieu-dit' />
       ) : (
         <div className='numeros-list'>
           <AddressesList
             title='Numéros de la voie'
-            subtitle={nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : ''}
             addresses={numeros}
             placeholder='Rechercher un numéro'
             getLabel={getNumeroComplet}
@@ -52,6 +55,26 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
 
         .heading h2, h4 {
           margin-bottom: 0.2em;
+        }
+
+        .title-container{
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }
+
+        .region {
+          margin-top: 1em;
+          font-style: italic;
+          font-size: 17px;
+          color: rgba(0, 0, 0, 0.81);
+        }
+
+        .separator{
+          width: 100%;
+          height: 0px;
+          margin: 2em 0 1em 0;
+          border: 1px solid rgba(32, 83, 179, 0.13);
         }
         `}</style>
     </>
