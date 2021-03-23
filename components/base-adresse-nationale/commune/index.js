@@ -1,15 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
-import {MapPin, Users} from 'react-feather'
+import {Users} from 'react-feather'
 
 import PostalCodes from '../postal-codes'
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
+import Button from '@/components/button'
 
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, population, codesPostaux}) {
+function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
+  const activeTabStates = {
+    voies: 'VOIES',
+    lieuxdits: 'LIEUXDITS'
+  }
+  const [activeTab, setActiveTab] = useState(activeTabStates.voies)
   return (
     <>
       <div className='heading'>
@@ -27,41 +33,71 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
       </div>
 
       <div className='details'>
-        <PostalCodes codes={codesPostaux} />
-        <div className='with-icon'>
-          <Users /> <div><b>{population}</b> habitants</div>
-        </div>
-        {nbLieuxDits > 0 && (
-          <a href='#lieux-dits'>
-            <div className='with-icon'>
-              <MapPin /> <div><b>{nbLieuxDits}</b> {nbLieuxDits > 1 ? 'lieux-dits' : 'lieu-dit'}</div>
+        <div className='numberOf-wrapper'>
+          <div className='details-separator' />
+          <div className='numberOf-container'>
+            <div>
+              {nbVoies > 0 ? (nbVoies > 1 ? `${nbVoies} voies répertoriées` : '1 voie répertoriée') : 'Aucune voie répertoriée'}
             </div>
-          </a>
-        )}
+            <div>
+              {nbLieuxDits > 0 ? (nbLieuxDits > 1 ? `${nbLieuxDits} lieux-dits répertoriés` : '1 lieu-dit répertorié') : 'Aucun lieu-dit répertorié'}
+            </div>
+            <div>
+              {nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}
+            </div>
+          </div>
+        </div>
+
+        <div className='commune-general'>
+          <PostalCodes codes={codesPostaux} />
+          <div className='with-icon'>
+            <Users /> <div><b>{population}</b> habitants</div>
+          </div>
+        </div>
       </div>
 
-      <AddressesList
-        title='Voie de la commune'
-        subtitle={nbVoies > 0 ? (nbVoies > 1 ? `${nbVoies} voies répertoriées` : '1 voie répertoriée') : 'Aucune voie répertoriée'}
-        placeholder={`Rechercher une voie à ${nomCommune}`}
-        addresses={orderBy(voies.filter(({type}) => type === 'voie'), 'nomVoie', 'asc')}
-        getLabel={({nomVoie}) => nomVoie}
-        addressComponent={voie => (
-          <Voie {...voie} />
-        )}
-      />
+      <div>
+        <div className='tab-separator' />
+        <div className='tab-container'>
+          <Button isOutlined={activeTab !== activeTabStates.voies && true} style={{width: '45%'}}
+            onClick={() => {
+              setActiveTab(activeTabStates.voies)
+            }}
+          >
+            Voies
+          </Button>
 
-      <div id='lieux-dits' className='lieux-dits-list'>
-        <AddressesList
-          title='Lieux-dits de la commune'
-          subtitle={nbLieuxDits > 0 ? (nbLieuxDits > 1 ? `${nbLieuxDits} lieux-dits répertoriés` : '1 lieu-dit répertorié') : 'Aucun lieu-dit répertorié'}
-          placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
-          addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
-          getLabel={({nomVoie}) => nomVoie}
-          addressComponent={voie => (
-            <Voie {...voie} />
-          )}
-        />
+          <Button type='button' isOutlined={activeTab !== activeTabStates.lieuxdits && true} style={{width: '45%'}}
+            onClick={() => {
+              setActiveTab(activeTabStates.lieuxdits)
+            }}
+          >
+            Lieux-dits
+          </Button>
+        </div>
+        <div className={activeTab === activeTabStates.voies ? 'active' : 'inactive'}>
+          <AddressesList
+            title='Voie de la commune'
+            placeholder={`Rechercher une voie à ${nomCommune}`}
+            addresses={orderBy(voies.filter(({type}) => type === 'voie'), 'nomVoie', 'asc')}
+            getLabel={({nomVoie}) => nomVoie}
+            addressComponent={voie => (
+              <Voie {...voie} />
+            )}
+          />
+        </div>
+
+        <div id='lieux-dits' className={activeTab === activeTabStates.lieuxdits ? 'active' : 'inactive'}>
+          <AddressesList
+            title='Lieux-dits de la commune'
+            placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
+            addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
+            getLabel={({nomVoie}) => nomVoie}
+            addressComponent={voie => (
+              <Voie {...voie} />
+            )}
+          />
+        </div>
       </div>
 
       <style jsx>{`
@@ -78,7 +114,6 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
 
         .details {
           display: grid;
-          grid-template-columns: 1fr 1fr;
           grid-gap: 1em;
         }
 
@@ -90,8 +125,52 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           margin-left: 0.4em;
         }
 
-        .lieux-dits-list {
-          margin: 2em 0;
+        .numberOf-wrapper {
+          display: flex;
+          margin: 1em 0 1em 0;
+        }
+
+        .details-separator {
+          width: 0px;
+          height: 100%;
+          border: 2px solid rgba(32, 83, 179, 0.41);
+        }
+
+        .numberOf-container {
+          display: flex;
+          flex-direction: column;
+          padding-left: 10px;
+        }
+
+        .numberOf-container > div {
+          font-style: italic;
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.75);
+        }
+
+        .tab-separator {
+          margin-top: 2em;
+          height: 0px;
+          border: 1px solid rgba(0, 0, 0, 0.13);
+        }
+
+        .commune-general {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .tab-container {
+          display: flex;
+          justify-content: space-around;
+          margin: 1em 0 2em 0;
+        }
+
+        .active {
+          display: block;
+        }
+
+        .inactive {
+          display: none;
         }
       `}</style>
     </>
@@ -105,6 +184,7 @@ Commune.propTypes = {
   voies: PropTypes.array.isRequired,
   nbVoies: PropTypes.number.isRequired,
   nbLieuxDits: PropTypes.number.isRequired,
+  nbNumeros: PropTypes.number.isRequired,
   region: PropTypes.shape({
     nom: PropTypes.string.isRequired
   }).isRequired,
