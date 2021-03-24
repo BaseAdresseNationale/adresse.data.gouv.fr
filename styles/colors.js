@@ -1,9 +1,11 @@
 export default ({
   blue: '#0053B3',
   lightBlue: '#006Be6',
+  separatorBlue: 'rgba(32, 83, 179, 0.41)',
   darkBlue: '#003B80',
   lighterBlue: '#B4E1FA',
 
+  almostTransparent: 'rgba(0, 0, 0, 0.13)',
   white: '#ffffff',
   lighterGrey: '#EBEFF3',
   lightGrey: '#C9D3DF',

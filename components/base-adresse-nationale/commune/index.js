@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
 import {Users} from 'react-feather'
+import colors from '@/styles/colors'
 
 import PostalCodes from '../postal-codes'
 import Certification from '../certification'
@@ -21,7 +22,7 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
       <div className='heading'>
         <div>
           <h2>{nomCommune} - {codeCommune}</h2>
-          <div>{region.nom} - {departement.nom} ({departement.code})</div>
+          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -112,6 +113,13 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           margin-bottom: 0.2em;
         }
 
+        .region {
+          margin-top: 0.5em;
+          font-style: italic;
+          font-size: 17px;
+          color: ${colors.almostBlack};
+        }
+
         .details {
           display: grid;
           grid-gap: 1em;
@@ -133,7 +141,7 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         .details-separator {
           width: 0px;
           height: 100%;
-          border: 2px solid rgba(32, 83, 179, 0.41);
+          border: 2px solid ${colors.separatorBlue};
         }
 
         .numberOf-container {
@@ -145,13 +153,13 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         .numberOf-container > div {
           font-style: italic;
           font-size: 16px;
-          color: rgba(0, 0, 0, 0.75);
+          color: ${colors.almostBlack};
         }
 
         .tab-separator {
           margin-top: 2em;
           height: 0px;
-          border: 1px solid rgba(0, 0, 0, 0.13);
+          border: 1px solid ${colors.almostTransparent};
         }
 
         .commune-general {

@@ -1,5 +1,6 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
+import colors from '@/styles/colors'
 
 import Tag from '@/components/tag'
 
@@ -34,7 +35,7 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
 
         .commune {
           font-style: italic;
-          color: rgba(0, 0, 0, 0.81);
+          color: ${colors.almostBlack};
           margin-bottom: 2em;
         }
 
@@ -46,7 +47,7 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
 
         .separator {
           width: 0px;
-          border: 1px solid rgba(32, 83, 179, 0.36);
+          border: 1px solid ${colors.separatorBlue};
         }
 
         .infos {

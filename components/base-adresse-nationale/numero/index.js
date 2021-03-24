@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import colors from '@/styles/colors'
 
 import {getNumeroComplet} from '@/lib/ban'
 
@@ -47,17 +48,17 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         }
 
         .region {
-          margin-top: 1em;
+          margin-top: 0.5em;
           font-style: italic;
           font-size: 17px;
-          color: rgba(0, 0, 0, 0.81);
+          color: ${colors.almostBlack};
         }
 
         .separator{
           width: 100%;
           height: 0px;
           margin: 2em 0 1em 0;
-          border: 1px solid rgba(32, 83, 179, 0.13);
+          border: 1px solid ${colors.separatorBlue};
         }
 
         .numero-details {
@@ -71,7 +72,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         .numero-details > div {
           font-size: 1.1em;
           font-style: italic;
-          color: rgba(0, 0, 0, 0.76);
+          color: ${colors.almostBlack};
         }
       `}</style>
     </>
