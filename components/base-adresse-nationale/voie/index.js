@@ -18,16 +18,13 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
     <>
       <div className='heading'>
         <div style={{width: '100%'}}>
-          <div className='title-container'>
-            <h2>{nomVoie}</h2>
-            <div>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
-          </div>
+          <h2>{nomVoie}</h2>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
           {region && departement && (
             <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
           )}
+          <div className='numberOf-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
         </div>
-
       </div>
       <div className='separator' />
       {isToponyme ? (
@@ -58,12 +55,6 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
           margin-bottom: 0.2em;
         }
 
-        .title-container{
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-        }
-
         .region {
           margin-top: 0.5em;
           font-style: italic;
@@ -71,10 +62,15 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
           color: ${colors.almostBlack};
         }
 
+        .numberOf-numeros {
+          font-weight: bolder;
+          margin-top: 1em;
+        }
+
         .separator{
           width: 100%;
           height: 0px;
-          margin: 2em 0 1em 0;
+          margin-bottom: 1em;
           border: 1px solid ${colors.separatorBlue};
         }
         `}</style>
