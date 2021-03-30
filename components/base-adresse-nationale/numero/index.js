@@ -24,7 +24,6 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
           />
         </div>
       </div>
-      <div className='separator' />
       <div className='numero-details'>
         {lieuDitComplementNom && (
           <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
@@ -41,6 +40,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
           justify-content: space-between;
           align-items: center;
           margin: 1.2em 0;
+          border-bottom: 1px solid ${colors.lighterGrey};
         }
 
         .heading h2 {
@@ -48,21 +48,13 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         }
 
         .region {
-          margin-top: 0.5em;
+          margin: 2em 0 0.7em 0;
           font-style: italic;
           font-size: 17px;
           color: ${colors.almostBlack};
         }
 
-        .separator{
-          width: 100%;
-          height: 0px;
-          margin: 2em 0 1em 0;
-          border: 1px solid ${colors.separatorBlue};
-        }
-
         .numero-details {
-          height: 40%;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
@@ -70,6 +62,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         }
 
         .numero-details > div {
+          margin: 0.5em 0 0.5em 0;
           font-size: 1.1em;
           font-style: italic;
           color: ${colors.almostBlack};
