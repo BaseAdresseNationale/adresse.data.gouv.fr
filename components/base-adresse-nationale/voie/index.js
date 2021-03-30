@@ -22,7 +22,7 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
         {region && departement && (
           <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
         )}
-          <div className='numberOf-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
+        <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
       </div>
       {isToponyme ? (
         <Tag type='lieu-dit' />

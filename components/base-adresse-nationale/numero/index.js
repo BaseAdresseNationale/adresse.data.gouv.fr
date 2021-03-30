@@ -30,7 +30,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         )}
         <div>Code postal : <b>{codePostal}</b></div>
         <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
-        <div style={{margin: '1.2em 0'}}>Clé d’interopérabilité : <b>{cleInterop}</b></div>
+        <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
       </div>
 
       <style jsx>{`
