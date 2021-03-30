@@ -1,7 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-
 import PropTypes from 'prop-types'
+
+import colors from '@/styles/colors'
 
 function Temoignage({testimony}) {
   const {title, picture, alt, preview, articleUrl, date} = testimony
@@ -46,7 +47,7 @@ function Temoignage({testimony}) {
 
           .temoignage-image-container {
             position: relative;
-            box-shadow: 38px 24px 50px -21px rgba(119,117,117,0.30);
+            box-shadow: 38px 24px 50px -21px ${colors.lightGrey};
           }
 
          .date-container {
@@ -59,11 +60,7 @@ function Temoignage({testimony}) {
               margin: 0;
               font-size: 0.8em;
               font-style: italic;
-          }
-
-          .separator {
-            border: 1px solid #2053B3;
-            width: 100%;
+              border-bottom: 2px solid ${colors.blue};
           }
 
           .preview {
