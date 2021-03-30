@@ -11,11 +11,7 @@ import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Voie from './voie'
 
 function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
-  const activeTabStates = {
-    voies: 'VOIES',
-    lieuxdits: 'LIEUXDITS'
-  }
-  const [activeTab, setActiveTab] = useState(activeTabStates.voies)
+  const [activeTab, setActiveTab] = useState('VOIES')
   return (
     <>
       <div className='heading'>
