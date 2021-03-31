@@ -1,5 +1,6 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
+import colors from '@/styles/colors'
 
 import Tag from '@/components/tag'
 
@@ -15,9 +16,14 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
         <b>{numero}{suffixe} {nomVoie} {lieuDitComplementNom ? `(${lieuDitComplementNom})` : ''}</b>
         <Tag type='numero' />
       </div>
-      <div>{nomCommune} {codeCommune}</div>
-      <div>Nom : <span style={{color: nom.color}}>{nom.name}</span></div>
-      <div>Position : <span style={{color: position.color}}>{position.name}</span></div>
+      <div className='commune'>{nomCommune} - {codeCommune}</div>
+      <div className='infos-container'>
+        <div className='separator' />
+        <div className='infos'>
+          <div>Nom : <b style={{color: nom.color}}>{nom.name}</b></div>
+          <div>Position : <b style={{color: position.color}}>{position.name}</b></div>
+        </div>
+      </div>
 
       <style jsx>{`
         .heading {
@@ -25,7 +31,29 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
           grid-template-columns: 3fr 1fr;
           grid-gap: .5em;
           align-items: center;
-          margin-bottom: 1em;
+        }
+
+        .commune {
+          font-style: italic;
+          color: ${colors.almostBlack};
+          margin-bottom: 2em;
+        }
+
+        .infos-container {
+          
+          display: grid;
+          grid-template-columns: 10px 1fr;
+        }
+
+        .separator {
+          width: 0px;
+          border: 1px solid ${colors.separatorBlue};
+        }
+
+        .infos {
+          display: grid;
+          align-items: center;
+          grid-template-rows: 1fr 1fr;
         }
       `}</style>
     </div>

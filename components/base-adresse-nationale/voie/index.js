@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import colors from '@/styles/colors'
 
 import {getNumeroComplet} from '@/lib/ban'
 
@@ -16,22 +17,19 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
   return (
     <>
       <div className='heading'>
-        <div>
-          <h2>{nomVoie}</h2>
-          {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-          {region && departement && (
-            <div>{region.nom} - {departement.nom} ({departement.code})</div>
-          )}
-        </div>
+        <h2>{nomVoie}</h2>
+        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
+        {region && departement && (
+          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
+        )}
+        <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
       </div>
-
       {isToponyme ? (
         <Tag type='lieu-dit' />
       ) : (
         <div className='numeros-list'>
           <AddressesList
             title='Numéros de la voie'
-            subtitle={nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : ''}
             addresses={numeros}
             placeholder='Rechercher un numéro'
             getLabel={getNumeroComplet}
@@ -45,13 +43,26 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
       <style jsx>{`
         .heading {
           display: flex;
+          flex-direction: column;
           justify-content: space-between;
-          align-items: center;
           margin: 1.2em 0;
+          border-bottom: solid 1px ${colors.lightGrey}
         }
 
         .heading h2, h4 {
           margin-bottom: 0.2em;
+        }
+
+        .region {
+          margin-top: 0.5em;
+          font-style: italic;
+          font-size: 17px;
+          color: ${colors.almostBlack};
+        }
+
+        .number-of-numeros {
+          font-weight: bolder;
+          margin: 2em 0 0.7em 0;
         }
         `}</style>
     </>

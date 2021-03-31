@@ -1,21 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
-import {MapPin, Users} from 'react-feather'
 
-import PostalCodes from '../postal-codes'
+import colors from '@/styles/colors'
+
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
-
+import Details from '@/components/base-adresse-nationale/commune/details'
+import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, population, codesPostaux}) {
+function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
+  const [activeTab, setActiveTab] = useState('VOIES')
+
   return (
     <>
       <div className='heading'>
         <div>
           <h2>{nomCommune} - {codeCommune}</h2>
-          <div>{region.nom} - {departement.nom} ({departement.code})</div>
+          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -25,43 +28,40 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           />
         </div>
       </div>
-
-      <div className='details'>
-        <PostalCodes codes={codesPostaux} />
-        <div className='with-icon'>
-          <Users /> <div><b>{population}</b> habitants</div>
-        </div>
-        {nbLieuxDits > 0 && (
-          <a href='#lieux-dits'>
-            <div className='with-icon'>
-              <MapPin /> <div><b>{nbLieuxDits}</b> {nbLieuxDits > 1 ? 'lieux-dits' : 'lieu-dit'}</div>
-            </div>
-          </a>
-        )}
-      </div>
-
-      <AddressesList
-        title='Voie de la commune'
-        subtitle={nbVoies > 0 ? (nbVoies > 1 ? `${nbVoies} voies répertoriées` : '1 voie répertoriée') : 'Aucune voie répertoriée'}
-        placeholder={`Rechercher une voie à ${nomCommune}`}
-        addresses={orderBy(voies.filter(({type}) => type === 'voie'), 'nomVoie', 'asc')}
-        getLabel={({nomVoie}) => nomVoie}
-        addressComponent={voie => (
-          <Voie {...voie} />
-        )}
+      <Details
+        nbVoies={nbVoies}
+        nbLieuxDits={nbLieuxDits}
+        nbNumeros={nbNumeros}
+        codesPostaux={codesPostaux}
+        population={population}
       />
-
-      <div id='lieux-dits' className='lieux-dits-list'>
-        <AddressesList
-          title='Lieux-dits de la commune'
-          subtitle={nbLieuxDits > 0 ? (nbLieuxDits > 1 ? `${nbLieuxDits} lieux-dits répertoriés` : '1 lieu-dit répertorié') : 'Aucun lieu-dit répertorié'}
-          placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
-          addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
-          getLabel={({nomVoie}) => nomVoie}
-          addressComponent={voie => (
-            <Voie {...voie} />
-          )}
+      <div>
+        <Tabs
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
         />
+        {activeTab === 'VOIES' ? (
+          <AddressesList
+            title='Voie de la commune'
+            placeholder={`Rechercher une voie à ${nomCommune}`}
+            addresses={orderBy(voies.filter(({type}) => type === 'voie'), 'nomVoie', 'asc')}
+            getLabel={({nomVoie}) => nomVoie}
+            addressComponent={voie => (
+              <Voie {...voie} />
+            )}
+          />
+        ) : (
+          <div id='lieux-dits'>
+            <AddressesList
+              title='Lieux-dits de la commune'
+              placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
+              addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
+              getLabel={({nomVoie}) => nomVoie}
+              addressComponent={voie => (
+                <Voie {...voie} />
+              )}
+            />
+          </div>) }
       </div>
 
       <style jsx>{`
@@ -76,22 +76,11 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
           margin-bottom: 0.2em;
         }
 
-        .details {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 1em;
-        }
-
-        .with-icon {
-          display: flex;
-        }
-
-        .with-icon > div {
-          margin-left: 0.4em;
-        }
-
-        .lieux-dits-list {
-          margin: 2em 0;
+        .region {
+          margin-top: 0.5em;
+          font-style: italic;
+          font-size: 17px;
+          color: ${colors.almostBlack};
         }
       `}</style>
     </>
@@ -105,6 +94,7 @@ Commune.propTypes = {
   voies: PropTypes.array.isRequired,
   nbVoies: PropTypes.number.isRequired,
   nbLieuxDits: PropTypes.number.isRequired,
+  nbNumeros: PropTypes.number.isRequired,
   region: PropTypes.shape({
     nom: PropTypes.string.isRequired
   }).isRequired,

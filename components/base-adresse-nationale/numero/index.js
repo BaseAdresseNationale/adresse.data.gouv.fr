@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import colors from '@/styles/colors'
 
 import {getNumeroComplet} from '@/lib/ban'
 
@@ -13,7 +14,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         <div>
           <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-          <div>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
+          <div className='region'>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -23,12 +24,14 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
           />
         </div>
       </div>
-      {lieuDitComplementNom && (
-        <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
-      )}
-      <div>Code postal : <b>{codePostal}</b></div>
-      <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
-      <div style={{margin: '1.2em 0'}}>Clé d’interopérabilité : <b>{cleInterop}</b></div>
+      <div className='numero-details'>
+        {lieuDitComplementNom && (
+          <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
+        )}
+        <div>Code postal : <b>{codePostal}</b></div>
+        <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
+        <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
+      </div>
 
       <style jsx>{`
         .heading {
@@ -37,10 +40,32 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
           justify-content: space-between;
           align-items: center;
           margin: 1.2em 0;
+          border-bottom: 1px solid ${colors.lighterGrey};
         }
 
         .heading h2 {
           margin-bottom: 0.2em;
+        }
+
+        .region {
+          margin: 2em 0 0.7em 0;
+          font-style: italic;
+          font-size: 17px;
+          color: ${colors.almostBlack};
+        }
+
+        .numero-details {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: start;
+        }
+
+        .numero-details > div {
+          margin: 0.5em 0 0.5em 0;
+          font-size: 1.1em;
+          font-style: italic;
+          color: ${colors.almostBlack};
         }
       `}</style>
     </>
