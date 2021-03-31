@@ -22,17 +22,12 @@ function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
           </div>
         </div>
       </div>
-      <div className='commune-general'>
-        <PostalCodes codes={codesPostaux} />
-        <div className='with-icon'>
-          <Users /> <div><b>{population}</b> habitants</div>
-        </div>
-      </div>
 
       <style jsx>{`
-        .details {
-          display: grid;
-          grid-gap: 1em;
+        .commune-general {
+          padding-bottom: 1em;
+          display: flex;
+          justify-content: space-between;
         }
 
         .with-icon {
@@ -44,15 +39,14 @@ function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
         }
 
         .number-of-wrapper {
-          display: flex;
-          margin: 1em 0 1em 0;
-          border-left: solid 3px ${colors.lightBlue}
+          margin: 1em 0;
+          border-left: solid 3px ${colors.lightBlue};
         }
 
         .number-of-container {
           display: flex;
           flex-direction: column;
-          padding-left: 10px;
+          padding-left: 1em;
         }
 
         .number-of-container > div {
@@ -60,13 +54,8 @@ function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
           font-size: 16px;
           color: ${colors.almostBlack};
         }
-
-        .commune-general {
-          display: flex;
-          justify-content: space-between;
-        }
       `}</style>
-    </div>
+    </>
   )
 }
 
