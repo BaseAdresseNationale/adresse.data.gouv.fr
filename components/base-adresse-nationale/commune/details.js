@@ -8,7 +8,13 @@ import PostalCodes from '../postal-codes'
 
 function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
   return (
-    <div className='details'>
+    <>
+      <div className='commune-general'>
+        <PostalCodes codes={codesPostaux} />
+        <div className='with-icon'>
+          <Users /> <div><b>{population}</b> habitants</div>
+        </div>
+      </div>
       <div className='number-of-wrapper'>
         <div className='number-of-container'>
           <div>
