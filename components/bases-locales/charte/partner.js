@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Image from 'next/image'
 import PropTypes from 'prop-types'
 
+import colors from '@/styles/colors'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
 const formatService = service => {
@@ -39,9 +40,9 @@ function Partner({partnerInfos, isDetailed}) {
             )}
             <div className='chevron'>
               {isDisplay ? (
-                <ChevronUp size={18} color='rgba(10, 58, 231, 0.7)' />
+                <ChevronUp size={18} color={`${colors.lightBlue}`} />
               ) : (
-                <ChevronDown size={18} color='rgba(10, 58, 231, 0.7)' />
+                <ChevronDown size={18} color={`${colors.lightBlue}`} />
               )}
             </div>
           </button>
@@ -88,7 +89,7 @@ function Partner({partnerInfos, isDetailed}) {
           }
 
           a {
-            color: rgb(0,0,0,0.7)
+            color: ${colors.darkGrey};
           }
 
           .display-info-container {
@@ -96,7 +97,7 @@ function Partner({partnerInfos, isDetailed}) {
             display: grid;
             grid-template-rows: 1fr 0.5fr;
             font-style: italic;
-            color: rgba(0, 0, 0, 0.66);
+            color: ${colors.darkerGrey};
           }
 
           .button-container {
@@ -107,17 +108,12 @@ function Partner({partnerInfos, isDetailed}) {
             justify-items: self-start;
             border-style: none;
             background-color: transparent;
+            border-bottom: 1px solid ${colors.lightBlue};
           }
 
           .chevron {
             justify-self: end;
             padding-top: 0.4em;
-          }
-
-          .separator {
-            width: 100%;
-            height: 0;
-            border: 1px solid rgba(10, 58, 231, 0.17);
           }
 
           .infos-container {
@@ -131,7 +127,7 @@ function Partner({partnerInfos, isDetailed}) {
 
           p {
             font-style: italic;
-            color:rgb(0,0,0,0.6)
+            color:${colors.darkGrey};
           }
 
           .title {
@@ -139,14 +135,14 @@ function Partner({partnerInfos, isDetailed}) {
             font-weight: normal;
             margin: 0;
             font-style: italic;
-            color: rgba(0, 0, 0, 0.82);
+            color: ${colors.almostBlack};
           }
 
           .perimeter p, .services p {
             margin: 0;
             font-size: 0.9em;
             font-weight: bold;
-            color: rgba(0, 0, 0, 0.8);
+            color: ${colors.almostBlack};
           }
 
           .hidden {
