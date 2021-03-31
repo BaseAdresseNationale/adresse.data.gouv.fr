@@ -1,17 +1,18 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
+
 import colors from '@/styles/colors'
 
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
-
 import Voie from './voie'
 
 function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
   const [activeTab, setActiveTab] = useState('VOIES')
+
   return (
     <>
       <div className='heading'>

@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Users} from 'react-feather'
 
 import colors from '@/styles/colors'
-import {Users} from 'react-feather'
 
 import PostalCodes from '../postal-codes'
 
