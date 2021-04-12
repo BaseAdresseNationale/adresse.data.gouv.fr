@@ -9,16 +9,16 @@ import partners from 'partners.json'
 import Partners from '@/components/bases-locales/charte/partners'
 import Searchbar from '@/components/bases-locales/charte/searchbar'
 
-function PartnersSearchbar() {
-  const labels = [
-    {id: 'accompagnement technique', value: 'Accompagnement technique'},
-    {id: 'diffusion', value: 'Diffusion'},
-    {id: 'mise à disposition outils mutualisés', value: 'Mise à disposition d’outils mutualisés'},
-    {id: 'formation', value: 'Formation'},
-    {id: 'réalisation de bases adresse locales', value: 'Réalisation de Base Adresse Locales'},
-    {id: 'animation', value: 'Animation'}
-  ]
+const labels = [
+  {id: 'accompagnement technique', value: 'Accompagnement technique'},
+  {id: 'diffusion', value: 'Diffusion'},
+  {id: 'mise à disposition outils mutualisés', value: 'Mise à disposition d’outils mutualisés'},
+  {id: 'formation', value: 'Formation'},
+  {id: 'réalisation de bases adresse locales', value: 'Réalisation de Base Adresse Locales'},
+  {id: 'animation', value: 'Animation'}
+]
 
+function PartnersSearchbar() {
   const [input, setInput] = useState('')
   const [results, setResults] = useState([])
   const [commune, setCommune] = useState(null)
