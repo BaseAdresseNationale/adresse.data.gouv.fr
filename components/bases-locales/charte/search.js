@@ -25,6 +25,7 @@ function PartnersSearchbar() {
   const [filteredPartners, setFilteredPartners] = useState([])
   const [selectedLabels, setSelectedLabels] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleLabels = label => {
     setSelectedLabels(prevLabels => {
@@ -53,8 +54,9 @@ function PartnersSearchbar() {
     try {
       const results = await getCommunes({q: input, fields: ['departement'], limit: 5, boost: 'population'})
       setResults(results)
-    } catch (err) {
-      console.log('err', err)
+      setError(null)
+    } catch {
+      setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
     }
 
     setIsLoading(false)
@@ -97,8 +99,7 @@ function PartnersSearchbar() {
           )
         })}
       </div>
-
-      <Partners partners={filteredPartners} isDetailed isSearched />
+      {error ? <div className='error'>{error}</div> : <Partners partners={filteredPartners} isDetailed isSearched />}
 
       <style jsx>{`
         .results {
@@ -118,6 +119,12 @@ function PartnersSearchbar() {
 
         .label {
           cursor: pointer;
+        }
+
+        .error {
+          text-align: center;
+          font-style: italic;
+          color: ${theme.colors.red}
         }
         `}</style>
     </div>
