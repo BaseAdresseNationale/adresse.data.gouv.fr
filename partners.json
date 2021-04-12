@@ -4,6 +4,15 @@
         "link": "https://www.crige-paca.org/projets/adresse/",
         "infos": "Le Centre de Ressources en Information Géographique en Provence-Alpes-Côte d’Azur est le centre de ressources en géomatique au service des organismes publics de la région.",
         "perimeter": "Région PACA",
+        "codeDepartement": [
+            "04",
+            "05",
+            "06",
+            "13",
+            "83",
+            "84"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "formation",
             "accompagnement technique"
@@ -18,10 +27,14 @@
         "link": "http://www.atd24.fr/174-cartographie-numerique.html",
         "infos": "L’Agence Technique Départementale de la Dordogne a développé une Base Adresse Locale sur Périgéo, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
         "perimeter": "Dordogne",
+        "codeDepartement": [
+            "24"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "formation",
             "accompagnement technique",
-            "réalisation de Bases Adresse Locales",
+            "réalisation de bases adresse locales",
             "mise à disposition outils mutualisés"
         ],
         "picture": "/images/logos/partners/atd24.png",
@@ -34,10 +47,17 @@
         "link": "http://carto.siig.fr/adresse/",
         "infos": "Le Syndicat Intercommunal d’Information Géographique met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement une cinquantaine dans le Gard).",
         "perimeter": "Gard et départements limitrophes - Vaucluse - Ardèche - Drôme",
+        "codeDepartement": [
+            "30",
+            "84",
+            "07",
+            "26"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "formation",
             "accompagnement technique",
-            "réalisation Bases Adresse Locales",
+            "réalisation de bases adresse locales",
             "mise à disposition outils mutualisés"
         ],
         "picture": "/images/logos/partners/siig.png",
@@ -49,12 +69,16 @@
         "name": "SMICA",
         "link": "https://www.smica.fr/fr/metiers-services/information-geographique",
         "infos": "Syndicat mixte pour la Modernisation et l’Ingénierie informatique des Collectivités ou établissements publics Adhérents met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement 282 communes et 19 EPCI).",
-        "perimeter": "Aveyron et alentour",
+        "perimeter": "Aveyron et alentours",
+        "codeDepartement": [
+            "08"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "animation",
             "acculturation",
             "accompagnement technique",
-            "Réalisation BAL aveyronnaise",
+            "Réalisation de BAL aveyronnaise",
             "diffusion"
         ],
         "picture": "/images/logos/partners/smica.png",
@@ -67,8 +91,12 @@
         "link": "https://www.imagina-coworkingbalagna.fr",
         "infos": "Régi bénévolement par une association, cet espace de coworking situé dans le village de Speluncatu dans la vallée du Reginu, au cœur de la micro-région de la Balagne a une convention avec la municipalité pour gérer cet espace de travail communal. En vingtaine de profil différents se côtoient et s'entraident dans se coworking rural du piedmont balanin tout au long de l'année.",
         "perimeter": "Balagne",
+        "codeDepartement": [
+            "2B"
+        ],
+        "isPerimeterFrance": false,
         "services": [
-            "réalisation Bases Adresses Locales"
+            "réalisation de bases adresses locales"
         ],
         "picture": "/images/logos/partners/imagina.png",
         "height": 90,
@@ -80,6 +108,17 @@
         "link": "https://ideo.ternum-bfc.fr/",
         "infos": "IDéO BFC est un dispositif partenarial dédié au partage des données et de la connaissance en Bourgogne-Franche-Comté. Il est piloté par l'État (SGAR et DREAL BFC), la Région Bourgogne-Franche-Comté et le Groupement d'Intérêt Public Territoires Numériques BFC.",
         "perimeter": "Bourgogne-Franche-Comté",
+        "codeDepartement": [
+            "21",
+            "25",
+            "39",
+            "58",
+            "70",
+            "71",
+            "89",
+            "90"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "animation",
             "formation",
@@ -96,10 +135,14 @@
         "link": "https://mapeo-calvados.fr/ban",
         "infos": "Le Département du Calvados propose un accompagnement des communes dans leur démarche d'adressage. Une méthodologie et une application cartographique sont notamment mises à leur disposition pour la construction des Bases Adresses Locales.",
         "perimeter": "Calvados",
+        "codeDepartement": [
+            "14"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "formation",
             "accompagnement technique",
-            "réalisation Bases Adresse Locales",
+            "réalisation de bases adresse locales",
             "mise à disposition outils mutualisés"
         ],
         "picture": "/images/logos/partners/calvados.png",
@@ -112,11 +155,15 @@
         "link": "https://www.atd16.fr/",
         "infos": "L’Agence Technique Départementale de la Charente met à disposition ses compétences, services et outils. Un espace de travail développé sur Géo16, son SIG mutualisé, permet aux communes adhérentes de créer et gérer leurs voies et adresses, dans une Base Adresse Locale.",
         "perimeter": "Charente",
+        "codeDepartement": [
+            "16"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "animation",
             "formation",
             "accompagnement technique",
-            "réalisation Bases Adresse Locales",
+            "réalisation de bases adresse locales",
             "mise à disposition outils mutualisés",
             "diffusion"
         ],
@@ -130,11 +177,15 @@
         "link": "https://www.atd16.fr/",
         "infos": "La Communauté de Communes du Pont du Gard se compose de 17 communes, et s’est doté d’un SIG propre pour gérer et mettre à jour ses données géographiques.",
         "perimeter": "Communauté de Communes du Pont du Gard (17 communes du Gard)",
+        "codeDepartement": [
+            "30"
+        ],
+        "isPerimeterFrance": false,
         "services": [
             "animation",
             "formation",
             "accompagnement technique",
-            "réalisation Bases Adresse Locales",
+            "réalisation de bases adresse locales",
             "mise à disposition outils mutualisés"
         ],
         "picture": "/images/logos/partners/ccpg.jpg",
@@ -147,10 +198,12 @@
         "link": "https://www.sogefi-sig.com/adresse/",
         "infos": "Nous vous proposons de vous accompagner dans la mise en conformité de votre Base Adresse Locale avec la Base Adresse Nationale et de vous former à sa mise à jour en toute autonomie, au fur et à mesure des créations de nouvelles adresses. En complément, si toutes les voies de votre commune ne sont pas nommées et que toutes les habitations ne sont pas numérotées, nous sommes également en mesure de vous conseiller et de vous accompagner sur ce point.",
         "perimeter": "France entière",
+        "codeDepartement": [],
+        "isPerimeterFrance": true,
         "services": [
             "formation",
-            "accompagnement",
-            "réalisation Bases Adresse Locales"
+            "accompagnement technique",
+            "réalisation de bases adresse locales"
         ],
         "picture": "/images/logos/partners/sogefi.png",
         "height": 47,
