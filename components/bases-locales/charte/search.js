@@ -99,7 +99,7 @@ function PartnersSearchbar() {
           )
         })}
       </div>
-      {error ? <div className='error'>{error}</div> : <Partners partners={filteredPartners} isDetailed isSearched />}
+      {error ? <div className='error'>{error}</div> : <Partners searchedPartners={filteredPartners} isDetailed isSearched />}
 
       <style jsx>{`
         .results {

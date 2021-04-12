@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
-function Partners({isDetailed, partners, isSearched}) {
+function Partners({isDetailed, searchedPartners}) {
   return (
     <div className='partners-container'>
       {partners && partners.map(partner => {
