@@ -51,7 +51,7 @@ function PartnersSearchbar() {
   const handleSearch = useCallback(debounce(async input => {
     setIsLoading(true)
     try {
-      const results = await getCommunes({q: input, fields: 'departement', limit: 5, boost: 'population'})
+      const results = await getCommunes({q: input, fields: ['departement'], limit: 5, boost: 'population'})
       setResults(results)
     } catch (err) {
       console.log('err', err)
