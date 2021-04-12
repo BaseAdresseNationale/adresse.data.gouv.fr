@@ -76,7 +76,7 @@ function GererMesAdresses() {
 
       </Section>
 
-      <Section title='Utiliser un outil territorial' subtitle='De nombreuses structures de mutualisation proposent des outils adaptés à votre territoire' background='grey'>
+      <Section title='Utiliser un outil territorial' subtitle='De nombreuses structures de mutualisation proposent un accompagnement et/ou des outils adaptés à votre territoire' background='grey'>
         <div>
           <Search />
         </div>
