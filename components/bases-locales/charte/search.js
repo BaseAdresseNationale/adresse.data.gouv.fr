@@ -112,6 +112,14 @@ function PartnersSearchbar() {
           grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         }
 
+        .label {
+          font-size: 1.1em;
+          background-color: ${theme.colors.lightGrey};
+          box-shadow: 5px 5px 2px -9px ${theme.colors.grey};
+          border-radius: 4px;
+          font-style: italic;
+        }
+
         .label-active {
           color: ${theme.colors.white};
           background-color: ${theme.colors.blue};
