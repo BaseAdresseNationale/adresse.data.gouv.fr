@@ -73,19 +73,17 @@ function PartnersSearchbar() {
   }, [handleSearch, input])
 
   return (
-    <div className='search-section-wrapper'>
+    <div style={{marginTop: '2em'}}>
       <SearchInput
         value={input}
         results={results}
         isLoading={isLoading}
-        placeholder='Recherchez votre commune'
+        placeholder='Recherchez une structure de mutualisation sur votre territoire'
         onSelect={setCommune}
         onSearch={setInput}
         renderItem={RenderCommune}
         getItemValue={commune => commune.nom}
       />
-
-      <div className='results'>Résultats : <b>{filteredPartners.length}</b></div>
       <div className='labels-container'>
         {labels.map(label => {
           return (
@@ -101,16 +99,22 @@ function PartnersSearchbar() {
           )
         })}
       </div>
+      {commune && <div className='results'>
+        <b>{filteredPartners.length} </b>
+        {filteredPartners.length > 1 || filteredPartners.length === 0 ?
+          'structures de mutualisation ont été trouvées sur votre territoire' :
+          'structure de mutualisation a été trouvée sur votre territoire'}
+      </div>}
+
       {error ? <div className='error'>{error}</div> : <Partners searchedPartners={filteredPartners} isDetailed isSearched />}
 
       <style jsx>{`
         .results {
           margin-top: 0.5em;
-          text-align: right;
         }
 
         .labels-container {
-          margin: 1.5em 0 2em 0;
+          margin: 1.5em 0 1em 0;
           grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
         }
 
