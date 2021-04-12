@@ -5,7 +5,7 @@ import Partner from '@/components/bases-locales/charte/partner'
 import allPartners from 'partners.json'
 
 function Partners({isDetailed, searchedPartners}) {
-  const partners = searchedPartners ? searchedPartners : allPartners
+  const partners = searchedPartners || allPartners
   return (
     <div className='partners-container'>
       {partners.map(partner => {
