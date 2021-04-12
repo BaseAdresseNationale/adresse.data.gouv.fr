@@ -73,15 +73,24 @@ function PartnersSearchbar() {
 
   return (
     <div className='search-section-wrapper'>
-      <Searchbar results={results} setInput={setInput} input={input} handleSelect={setCommune} isLoading={isLoading} />
+      <Searchbar
+        results={results}
+        setInput={setInput}
+        input={input}
+        handleSelect={setCommune}
+        isLoading={isLoading}
+      />
 
       <div className='results'>Résultats : <b>{filteredPartners.length}</b></div>
       <div className='labels-container'>
         {labels.map(label => {
           return (
-            <div onClick={() => {
-              handleLabels(label.id)
-            }} key={label.id} className={selectedLabels.includes(label.id) ? 'label label-active' : 'label'}
+            <div
+              onClick={() => {
+                handleLabels(label.id)
+              }}
+              key={label.id}
+              className={selectedLabels.includes(label.id) ? 'label label-active' : 'label'}
             >
               {label.value}
             </div>
@@ -100,15 +109,6 @@ function PartnersSearchbar() {
         .labels-container {
           margin: 1.5em 0 2em 0;
           grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        }
-
-        .label {
-          font-size: 1.1em;
-          background-color: ${theme.colors.lightGrey};
-          border: 1px solid ${theme.colors.lightGrey};
-          box-shadow: 5px 5px 2px -9px ${theme.colors.grey};
-          border-radius: 4px;
-          font-style: italic;
         }
 
         .label-active {
