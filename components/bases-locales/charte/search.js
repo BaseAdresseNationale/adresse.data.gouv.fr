@@ -51,11 +51,11 @@ function PartnersSearchbar() {
   }, [commune])
 
   const handleSearch = useCallback(debounce(async input => {
+    setError(null)
     setIsLoading(true)
     try {
       const results = await getCommunes({q: input, fields: ['departement'], limit: 5, boost: 'population'})
       setResults(results)
-      setError(null)
     } catch {
       setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
     }
