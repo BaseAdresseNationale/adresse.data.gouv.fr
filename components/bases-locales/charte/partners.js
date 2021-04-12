@@ -2,11 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
+import allPartners from 'partners.json'
+
 function Partners({isDetailed, searchedPartners}) {
+  const partners = searchedPartners ? searchedPartners : allPartners
   return (
     <div className='partners-container'>
-      {partners && partners.map(partner => {
-        return <Partner key={partner.name} partnerInfos={partner} isDetailed={isDetailed} isSearched={isSearched} />
+      {partners.map(partner => {
+        return <Partner key={partner.name} partnerInfos={partner} isDetailed={isDetailed} />
       })}
 
       <style jsx>{`
@@ -24,8 +27,11 @@ function Partners({isDetailed, searchedPartners}) {
 
 Partners.propTypes = {
   isDetailed: PropTypes.bool,
-  partners: PropTypes.array.isRequired,
-  isSearched: PropTypes.bool.isRequired
+  searchedPartners: PropTypes.array
+}
+
+Partners.defaultProps = {
+  searchedPartners: null
 }
 
 export default Partners
