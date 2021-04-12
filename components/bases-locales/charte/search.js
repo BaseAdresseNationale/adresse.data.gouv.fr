@@ -65,9 +65,7 @@ function PartnersSearchbar() {
   useEffect(() => {
     if (input) {
       handleSearch(input)
-    }
-
-    if (!input) {
+    } else {
       setCommune(null)
       setFilteredPartners([])
     }
