@@ -12,7 +12,7 @@ const formatService = service => {
   ).join('')}`
 }
 
-function Partner({partnerInfos, isDetailed}) {
+function Partner({partnerInfos, isDetailed, isSearched}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const {name, link, alt, infos, perimeter, services, picture, height, width} = partnerInfos
 
@@ -66,6 +66,7 @@ function Partner({partnerInfos, isDetailed}) {
           .partner {
             width: 100%;
             grid-template-rows: ${isDetailed && '0.5fr auto'};
+            grid-template-columns: ${isSearched ? '300px' : '1fr'};
             display: grid;
             flex-direction: column;
             align-items: ${isDetailed ? 'start' : 'center'};
@@ -170,7 +171,8 @@ Partner.propTypes = {
     width: PropTypes.number,
     alt: PropTypes.string
   }).isRequired,
-  isDetailed: PropTypes.bool.isRequired
+  isDetailed: PropTypes.bool.isRequired,
+  isSearched: PropTypes.bool.isRequired
 }
 
 export default Partner
