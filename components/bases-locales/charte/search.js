@@ -7,7 +7,8 @@ import theme from '@/styles/theme'
 import partners from 'partners.json'
 
 import Partners from '@/components/bases-locales/charte/partners'
-import Searchbar from '@/components/bases-locales/charte/searchbar'
+import SearchInput from '@/components/search-input'
+import RenderCommune from '@/components/search-input/render-commune'
 
 const labels = [
   {id: 'accompagnement technique', value: 'Accompagnement technique'},
@@ -73,12 +74,15 @@ function PartnersSearchbar() {
 
   return (
     <div className='search-section-wrapper'>
-      <Searchbar
+      <SearchInput
+        value={input}
         results={results}
-        setInput={setInput}
-        input={input}
-        handleSelect={setCommune}
         isLoading={isLoading}
+        placeholder='Recherchez votre commune'
+        onSelect={setCommune}
+        onSearch={setInput}
+        renderItem={RenderCommune}
+        getItemValue={commune => commune.nom}
       />
 
       <div className='results'>Résultats : <b>{filteredPartners.length}</b></div>
