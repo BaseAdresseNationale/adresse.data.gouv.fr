@@ -74,11 +74,12 @@ function PartnersSearchbar() {
 
   return (
     <div style={{marginTop: '2em'}}>
+      <p className='searchbar-label'>Recherchez une structure de mutualisation sur votre territoire</p>
       <SearchInput
         value={input}
         results={results}
         isLoading={isLoading}
-        placeholder='Recherchez une structure de mutualisation sur votre territoire'
+        placeholder='Recherchez une commune'
         onSelect={setCommune}
         onSearch={setInput}
         renderItem={RenderCommune}
@@ -109,6 +110,11 @@ function PartnersSearchbar() {
       {error ? <div className='error'>{error}</div> : <Partners searchedPartners={filteredPartners} isDetailed isSearched />}
 
       <style jsx>{`
+        .searchbar-label {
+          font-size: 1.1em;
+          margin-bottom: 5px;
+        }
+
         .results {
           margin-top: 0.5em;
         }
