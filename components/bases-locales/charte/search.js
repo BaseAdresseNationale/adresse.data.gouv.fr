@@ -100,12 +100,17 @@ function PartnersSearchbar() {
           )
         })}
       </div>
-      {commune && <div className='results'>
-        <b>{filteredPartners.length} </b>
-        {filteredPartners.length > 1 || filteredPartners.length === 0 ?
-          'structures de mutualisation ont été trouvées sur votre territoire' :
-          'structure de mutualisation a été trouvée sur votre territoire'}
-      </div>}
+      {commune && (
+        filteredPartners.length === 0 ? (
+          <div className='results'>Aucune structure n’a été trouvée sur votre territoire </div>
+        ) : (
+          <div className='results'> <b>{filteredPartners.length} </b>
+            {filteredPartners.length === 1 ?
+              'structure de mutualisation a été trouvée sur votre territoire' :
+              'structures de mutualisation ont été trouvées sur votre territoire'}
+          </div>
+        )
+      )}
 
       {error ? <div className='error'>{error}</div> : <Partners searchedPartners={filteredPartners} isDetailed isSearched />}
 
