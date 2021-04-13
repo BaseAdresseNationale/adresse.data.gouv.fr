@@ -8,6 +8,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Notification from '@/components/notification'
+import Search from '@/components/bases-locales/charte/search'
 
 function GererMesAdresses() {
   return (
@@ -75,9 +76,9 @@ function GererMesAdresses() {
 
       </Section>
 
-      <Section title='Utiliser un outil territorial' subtitle='De nombreuses structures de mutualisation proposent des outils adaptés à votre territoire' background='grey'>
-        <div className='indispo'>
-          Nous travaillons à recenser outils et initiatives. Cette fonctionnalité sera bientôt disponible.
+      <Section title='Utiliser un outil territorial' subtitle='De nombreuses structures de mutualisation proposent un accompagnement et/ou des outils adaptés à votre territoire' background='grey'>
+        <div>
+          <Search />
         </div>
       </Section>
 

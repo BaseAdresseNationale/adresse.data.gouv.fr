@@ -1,9 +1,11 @@
 import React from 'react'
-import partners from 'partners.json'
 import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
-function Partners({isDetailed}) {
+import allPartners from 'partners.json'
+
+function Partners({isDetailed, searchedPartners}) {
+  const partners = searchedPartners || allPartners
   return (
     <div className='partners-container'>
       {partners.map(partner => {
@@ -24,7 +26,12 @@ function Partners({isDetailed}) {
 }
 
 Partners.propTypes = {
-  isDetailed: PropTypes.bool
+  isDetailed: PropTypes.bool,
+  searchedPartners: PropTypes.array
+}
+
+Partners.defaultProps = {
+  searchedPartners: null
 }
 
 export default Partners
