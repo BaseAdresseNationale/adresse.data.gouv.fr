@@ -1,7 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import {debounce, intersection} from 'lodash'
 
-import {getCommunes} from '@/lib/api-geo'
+import {getCommunes, getByCode} from '@/lib/api-geo'
 import theme from '@/styles/theme'
 
 import partners from 'partners.json'
@@ -39,7 +39,7 @@ function PartnersSearchbar() {
   useEffect(() => {
     if (commune) {
       setFilteredPartners(partners.filter(({codeDepartement, isPerimeterFrance}) => (
-        codeDepartement.includes(commune.departement.code) || isPerimeterFrance)
+        codeDepartement.includes(commune.code) || isPerimeterFrance)
       ).filter(({services}) => intersection(selectedLabels, services).length === selectedLabels.length))
     } else {
       setFilteredPartners([])
@@ -54,8 +54,12 @@ function PartnersSearchbar() {
     setError(null)
     setIsLoading(true)
     try {
-      const results = await getCommunes({q: input, fields: ['departement'], limit: 5, boost: 'population'})
-      setResults(results)
+      const inputToNumber = Number.parseInt(input, 10)
+      if (Number.isNaN(inputToNumber)) {
+        setResults(await getCommunes({q: input, limit: 5, boost: 'population'}))
+      } else {
+        setResults(await getByCode({postalCode: input}))
+      }
     } catch {
       setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
     }
