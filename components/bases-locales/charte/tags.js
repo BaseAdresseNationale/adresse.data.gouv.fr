@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
-import {uniqueId, uniq} from 'lodash'
+import {uniq} from 'lodash'
 
 import theme from '@/styles/theme'
 
@@ -57,7 +57,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
             onClick={() => {
               onSelectTags(tag)
             }}
-            key={uniqueId()}
+            key={tag}
             className={handleTagClassname(tag)}
           >
             {formatService(tag)}
