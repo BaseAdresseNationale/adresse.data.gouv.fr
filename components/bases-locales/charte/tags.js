@@ -10,7 +10,7 @@ const formatService = service => {
   ).join('')}`
 }
 
-function Tags({onSelectLabels, selectedLabels, filteredPartners, allPartners}) {
+function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
   const [listOfTags, setListOfTags] = useState([])
 
   const handleListOfTags = useCallback(
@@ -26,18 +26,18 @@ function Tags({onSelectLabels, selectedLabels, filteredPartners, allPartners}) {
     [allPartners]
   )
 
-  const handleTagClassname = label => {
+  const handleTagClassname = tag => {
     const matchingTags = []
     filteredPartners.forEach(partner => {
-      if (partner.services.includes(label)) {
-        matchingTags.push(label)
+      if (partner.services.includes(tag)) {
+        matchingTags.push(tag)
       }
     })
-    if (selectedLabels.includes(label)) {
+    if (selectedTags.includes(tag)) {
       return 'label label-active'
     }
 
-    if (!matchingTags.includes(label)) {
+    if (!matchingTags.includes(tag)) {
       return 'label label-inactive'
     }
 
@@ -54,7 +54,7 @@ function Tags({onSelectLabels, selectedLabels, filteredPartners, allPartners}) {
         return (
           <div
             onClick={() => {
-              onSelectLabels(tag)
+              onSelectTags(tag)
             }}
             key={uniqueId()}
             className={handleTagClassname(tag)}
@@ -105,12 +105,12 @@ function Tags({onSelectLabels, selectedLabels, filteredPartners, allPartners}) {
 export default Tags
 
 Tags.propTypes = {
-  onSelectLabels: PropTypes.func.isRequired,
+  onSelectTags: PropTypes.func.isRequired,
   filteredPartners: PropTypes.array.isRequired,
   allPartners: PropTypes.array.isRequired,
-  selectedLabels: PropTypes.array
+  selectedTags: PropTypes.array
 }
 
 Tags.defaultProps = {
-  selectedLabels: []
+  selectedTags: []
 }

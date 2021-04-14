@@ -16,15 +16,15 @@ function PartnersSearchbar() {
   const [results, setResults] = useState([])
   const [commune, setCommune] = useState(null)
   const [filteredPartners, setFilteredPartners] = useState([])
-  const [selectedLabels, setSelectedLabels] = useState([])
+  const [selectedTags, setSelectedTags] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleLabels = label => {
-    setSelectedLabels(prevLabels => {
-      return selectedLabels.includes(label) ?
-        selectedLabels.filter(selectedLabel => selectedLabel !== label) :
-        [...prevLabels, label]
+  const handleSelectedTags = tag => {
+    setSelectedTags(prevTags => {
+      return selectedTags.includes(tag) ?
+        selectedTags.filter(selectedTag => selectedTag !== tag) :
+        [...prevTags, tag]
     })
   }
 
@@ -32,11 +32,11 @@ function PartnersSearchbar() {
     if (commune) {
       setFilteredPartners(partners.filter(({codeDepartement, isPerimeterFrance}) => (
         codeDepartement.includes(commune.codeDepartement) || isPerimeterFrance)
-      ).filter(({services}) => intersection(selectedLabels, services).length === selectedLabels.length))
+      ).filter(({services}) => intersection(selectedTags, services).length === selectedTags.length))
     } else {
       setFilteredPartners([])
     }
-  }, [selectedLabels, commune])
+  }, [selectedTags, commune])
 
   useEffect(() => {
     setInput(commune ? commune.nom : '')
@@ -83,7 +83,7 @@ function PartnersSearchbar() {
         getItemValue={commune => commune.nom}
       />
 
-      {commune && <Tags onSelectLabels={handleLabels} selectedLabels={selectedLabels} filteredPartners={filteredPartners} allPartners={partners} />}
+      {commune && <Tags onSelectTags={handleSelectedTags} selectedTags={selectedTags} filteredPartners={filteredPartners} allPartners={partners} />}
 
       {commune && (
         filteredPartners.length === 0 ? (
