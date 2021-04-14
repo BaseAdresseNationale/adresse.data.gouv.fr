@@ -11,38 +11,29 @@ const formatService = service => {
 }
 
 const handleListOfTags = partners => {
-      const tags = []
+  const tags = []
   partners.forEach(partner => {
-        partner.services.forEach(service => {
-          tags.push(service)
-        })
-      })
+    partner.services.forEach(service => {
+      tags.push(service)
+    })
+  })
   return uniq(tags)
 }
 
 function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
   const handleTagClassname = tag => {
-    const matchingTags = []
-    filteredPartners.forEach(partner => {
-      if (partner.services.includes(tag)) {
-        matchingTags.push(tag)
-      }
-    })
+    const filteredPartnersTags = uniq(filteredPartners.map(({services}) => services).flat())
 
     if (selectedTags.includes(tag)) {
       return 'label label-active'
     }
 
-    if (!matchingTags.includes(tag)) {
+    if (!filteredPartnersTags.includes(tag)) {
       return 'label label-inactive'
     }
 
     return 'label'
   }
-
-  useEffect(() => {
-    handleListOfTags()
-  }, [handleListOfTags])
 
   return (
     <div className='labels-container'>
