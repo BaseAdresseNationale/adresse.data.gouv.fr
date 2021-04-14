@@ -8,16 +8,8 @@ import partners from 'partners.json'
 
 import Partners from '@/components/bases-locales/charte/partners'
 import SearchInput from '@/components/search-input'
+import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
-
-const labels = [
-  {id: 'accompagnement technique', value: 'Accompagnement technique'},
-  {id: 'diffusion', value: 'Diffusion'},
-  {id: 'mise à disposition outils mutualisés', value: 'Mise à disposition d’outils mutualisés'},
-  {id: 'formation', value: 'Formation'},
-  {id: 'réalisation de bases adresse locales', value: 'Réalisation de Base Adresse Locales'},
-  {id: 'animation', value: 'Animation'}
-]
 
 function PartnersSearchbar() {
   const [input, setInput] = useState('')
@@ -39,7 +31,7 @@ function PartnersSearchbar() {
   useEffect(() => {
     if (commune) {
       setFilteredPartners(partners.filter(({codeDepartement, isPerimeterFrance}) => (
-        codeDepartement.includes(commune.code) || isPerimeterFrance)
+        codeDepartement.includes(commune.codeDepartement) || isPerimeterFrance)
       ).filter(({services}) => intersection(selectedLabels, services).length === selectedLabels.length))
     } else {
       setFilteredPartners([])
@@ -89,21 +81,9 @@ function PartnersSearchbar() {
         renderItem={RenderCommune}
         getItemValue={commune => commune.nom}
       />
-      <div className='labels-container'>
-        {labels.map(label => {
-          return (
-            <div
-              onClick={() => {
-                handleLabels(label.id)
-              }}
-              key={label.id}
-              className={selectedLabels.includes(label.id) ? 'label label-active' : 'label'}
-            >
-              {label.value}
-            </div>
-          )
-        })}
-      </div>
+
+      {commune && <Tags onSelectLabels={handleLabels} selectedLabels={selectedLabels} filteredPartners={filteredPartners} allPartners={partners} />}
+
       {commune && (
         filteredPartners.length === 0 ? (
           <div className='results'>Aucune structure n’a été trouvée sur votre territoire </div>
@@ -125,29 +105,7 @@ function PartnersSearchbar() {
         }
 
         .results {
-          margin-top: 0.5em;
-        }
-
-        .labels-container {
-          margin: 1.5em 0 1em 0;
-          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        }
-
-        .label {
-          font-size: 1.1em;
-          background-color: ${theme.colors.lightGrey};
-          box-shadow: 5px 5px 2px -9px ${theme.colors.grey};
-          border-radius: 4px;
-          font-style: italic;
-        }
-
-        .label-active {
-          color: ${theme.colors.white};
-          background-color: ${theme.colors.blue};
-        }
-
-        .label {
-          cursor: pointer;
+          margin: 0.5em 0 4em 0;
         }
 
         .error {
