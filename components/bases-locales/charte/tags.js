@@ -21,9 +21,9 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
           tags.push(service)
         })
       })
+
       setListOfTags(uniq(tags))
-    },
-    [allPartners]
+    }, [allPartners]
   )
 
   const handleTagClassname = tag => {
@@ -33,6 +33,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
         matchingTags.push(tag)
       }
     })
+
     if (selectedTags.includes(tag)) {
       return 'label label-active'
     }
