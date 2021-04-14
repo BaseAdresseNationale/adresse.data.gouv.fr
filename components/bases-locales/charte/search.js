@@ -65,6 +65,7 @@ function PartnersSearchbar() {
     } else {
       setCommune(null)
       setFilteredPartners([])
+      setSelectedTags([])
     }
   }, [handleSearch, input])
 
