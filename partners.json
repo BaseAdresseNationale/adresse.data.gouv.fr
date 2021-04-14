@@ -35,7 +35,7 @@
             "formation",
             "accompagnement technique",
             "réalisation de bases adresse locales",
-            "mise à disposition outils mutualisés"
+            "mise à disposition doutils mutualisés"
         ],
         "picture": "/images/logos/partners/atd24.png",
         "height": 100,
@@ -58,7 +58,7 @@
             "formation",
             "accompagnement technique",
             "réalisation de bases adresse locales",
-            "mise à disposition outils mutualisés"
+            "mise à disposition doutils mutualisés"
         ],
         "picture": "/images/logos/partners/siig.png",
         "height": 130,
@@ -69,16 +69,16 @@
         "name": "SMICA",
         "link": "https://www.smica.fr/fr/metiers-services/information-geographique",
         "infos": "Syndicat mixte pour la Modernisation et l’Ingénierie informatique des Collectivités ou établissements publics Adhérents met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement 282 communes et 19 EPCI).",
-        "perimeter": "Aveyron et alentours",
+        "perimeter": "Aveyron",
         "codeDepartement": [
-            "08"
+            "12"
         ],
         "isPerimeterFrance": false,
         "services": [
             "animation",
             "acculturation",
             "accompagnement technique",
-            "Réalisation de BAL aveyronnaise",
+            "Réalisation de bases adresse locales aveyronnaise",
             "diffusion"
         ],
         "picture": "/images/logos/partners/smica.png",
@@ -96,7 +96,7 @@
         ],
         "isPerimeterFrance": false,
         "services": [
-            "réalisation de bases adresses locales"
+            "réalisation de bases adresse locales"
         ],
         "picture": "/images/logos/partners/imagina.png",
         "height": 90,
@@ -143,7 +143,7 @@
             "formation",
             "accompagnement technique",
             "réalisation de bases adresse locales",
-            "mise à disposition outils mutualisés"
+            "mise à disposition doutils mutualisés"
         ],
         "picture": "/images/logos/partners/calvados.png",
         "height": 134,
@@ -164,7 +164,7 @@
             "formation",
             "accompagnement technique",
             "réalisation de bases adresse locales",
-            "mise à disposition outils mutualisés",
+            "mise à disposition doutils mutualisés",
             "diffusion"
         ],
         "picture": "/images/logos/partners/atd16.jpg",
@@ -186,7 +186,7 @@
             "formation",
             "accompagnement technique",
             "réalisation de bases adresse locales",
-            "mise à disposition outils mutualisés"
+            "mise à disposition doutils mutualisés"
         ],
         "picture": "/images/logos/partners/ccpg.jpg",
         "height": 64,
