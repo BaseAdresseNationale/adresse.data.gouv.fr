@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {uniq} from 'lodash'
 
@@ -10,22 +10,17 @@ const formatService = service => {
   ).join('')}`
 }
 
-function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
-  const [listOfTags, setListOfTags] = useState([])
-
-  const handleListOfTags = useCallback(
-    () => {
+const handleListOfTags = partners => {
       const tags = []
-      allPartners.forEach(partner => {
+  partners.forEach(partner => {
         partner.services.forEach(service => {
           tags.push(service)
         })
       })
+  return uniq(tags)
+}
 
-      setListOfTags(uniq(tags))
-    }, [allPartners]
-  )
-
+function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
   const handleTagClassname = tag => {
     const matchingTags = []
     filteredPartners.forEach(partner => {
@@ -51,7 +46,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
 
   return (
     <div className='labels-container'>
-      {listOfTags.map(tag => {
+      {handleListOfTags(allPartners).map(tag => {
         return (
           <div
             onClick={() => {
