@@ -209,5 +209,25 @@
         "height": 47,
         "width": 133,
         "alt": "Logo de la SOGEFI Ingéniérie géomatique"
+    },
+    {
+        "name": "RGD Savoie Mont Blanc",
+        "link": "https://www.rgd.fr/grands-projets/adressage/",
+        "infos": "La RGD est un centre de ressources et d’expertise pour mutualiser les compétences en bases de données, au service des acteurs publics de Savoie et de Haute-Savoie.",
+        "perimeter": "Savoie et Haute-Savoie",
+        "codeDepartement": [
+            "73",
+            "74"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/rgdsavoie.png",
+        "height": 125,
+        "width": 133,
+        "alt": "Logo de la RGD Savoie Mont Blanc"
     }
 ]
