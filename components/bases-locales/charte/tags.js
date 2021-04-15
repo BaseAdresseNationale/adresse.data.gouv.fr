@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 
 const formatService = service => {
   if (service.includes('’')) {
-    service = service.replace(/’/, ' ')
+    service = service.replace('’', ' ')
   }
 
   return `#${service.split(' ').map(word =>
