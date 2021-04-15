@@ -7,8 +7,8 @@ import colors from '@/styles/colors'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
 const formatService = service => {
-  if (service.includes('\'')) {
-    service = service.replace(/'/, ' ')
+  if (service.includes('’')) {
+    service = service.replace(/’/, ' ')
   }
 
   return `#${service.split(' ').map(word =>

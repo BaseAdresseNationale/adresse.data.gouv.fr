@@ -5,8 +5,8 @@ import {uniq} from 'lodash'
 import theme from '@/styles/theme'
 
 const formatService = service => {
-  if (service.includes('\'')) {
-    service = service.replace(/'/, ' ')
+  if (service.includes('’')) {
+    service = service.replace(/’/, ' ')
   }
 
   return `#${service.split(' ').map(word =>
