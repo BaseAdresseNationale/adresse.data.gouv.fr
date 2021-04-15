@@ -83,12 +83,14 @@ function PartnersSearchbar() {
         getItemValue={commune => commune.nom}
       />
 
-      {commune && <Tags
-        onSelectTags={handleSelectedTags}
-        selectedTags={selectedTags}
-        filteredPartners={filteredPartners}
-        allPartners={partners}
-      />}
+      {commune && (
+        <Tags
+          onSelectTags={handleSelectedTags}
+          selectedTags={selectedTags}
+          filteredPartners={filteredPartners}
+          allPartners={partners}
+        />
+      )}
 
       {commune && (
         filteredPartners.length === 0 ? (
