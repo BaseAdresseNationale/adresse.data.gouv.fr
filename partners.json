@@ -229,5 +229,27 @@
         "height": 125,
         "width": 133,
         "alt": "Logo de la RGD Savoie Mont Blanc"
+    },
+    {
+        "name": "MEGALIS Bretagne",
+        "link": "https://www.megalis.bretagne.bzh/jcms/dmw_5567/le-projet-ambition-et-principes",
+        "infos": "Pour faciliter le déploiement de la fibre, MEGALIS BRETAGNE souhaite contribuer à la promotion et à la constitution de Bases Adresse Locales consolidées et certifiées par les communes. Ses actions d'accompagnement technique à l'utilisation d'outils mutualisés (tels que https://mes-adresses.data.gouv.fr), participent à l'édification d'une Base Adresse Nationale fiabilisée et partagée par tous. Cet accompagnement est proposé hors zone AMII.",
+        "perimeter": "Bretagne",
+        "codeDepartement": [
+            "22",
+            "29",
+            "56",
+            "35"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "Mise à disposition d’outil mutualisé",
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/megalis_bretagne.png",
+        "height": 60,
+        "width": 133,
+        "alt": "Logo de MEGALIS Bretagne"
     }
 ]
