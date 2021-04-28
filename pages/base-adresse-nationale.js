@@ -115,7 +115,7 @@ BaseAdresseNationale.propTypes = {
     voie: PropTypes.shape({
       nomVoie: PropTypes.string
     }),
-    displayBBox: PropTypes.array.isRequired
+    displayBBox: PropTypes.array
   })
 }
 
