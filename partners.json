@@ -90,8 +90,9 @@
         "name": "Imaginà-Coworking Balagna",
         "link": "https://www.imagina-coworkingbalagna.fr",
         "infos": "Régi bénévolement par une association, cet espace de coworking situé dans le village de Speluncatu dans la vallée du Reginu, au cœur de la micro-région de la Balagne a une convention avec la municipalité pour gérer cet espace de travail communal. En vingtaine de profil différents se côtoient et s'entraident dans se coworking rural du piedmont balanin tout au long de l'année.",
-        "perimeter": "Balagne",
+        "perimeter": "Ensemble de la Corse",
         "codeDepartement": [
+            "2A",
             "2B"
         ],
         "isPerimeterFrance": false,
