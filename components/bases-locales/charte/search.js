@@ -98,8 +98,8 @@ function PartnersSearchbar() {
         ) : (
           <div className='results'> <b>{filteredPartners.length} </b>
             {filteredPartners.length === 1 ?
-              'structure de mutualisation a été trouvée sur votre territoire' :
-              'structures de mutualisation ont été trouvées sur votre territoire'}
+              'partenaire de la Charte de la Base Adresse Locale trouvé sur votre territoire' :
+              'partenaires de la Charte de la Base Adresse Locale trouvés sur votre territoire'}
           </div>
         )
       )}
