@@ -145,7 +145,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       ]
 
       const currentZoom = map.getZoom()
-      const isAddressInMapBBox = isFeatureContained(mapBBox, address.displayBBox)
+      const isAddressInMapBBox = address.displayBBox ? isFeatureContained(mapBBox, address.displayBBox) : false
 
       const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
       const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
@@ -288,7 +288,7 @@ BanMap.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
-    displayBBox: PropTypes.array.isRequired
+    displayBBox: PropTypes.array
   }),
   map: PropTypes.object.isRequired,
   isSourceLoaded: PropTypes.bool,

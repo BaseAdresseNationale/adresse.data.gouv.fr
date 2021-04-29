@@ -9,8 +9,9 @@ import Tag from '@/components/tag'
 
 import AddressesList from '../addresses-list'
 import Numero from './numero'
+import Notification from '@/components/notification'
 
-function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
+function Voie({type, nomVoie, commune, numeros, displayBBox, nbNumeros}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
@@ -24,6 +25,9 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
         )}
         <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
       </div>
+      {!displayBBox && (
+        <Notification type='warning' message='Aucune position n’est connue pour cette adresse, elle ne peut donc pas être affichée sur la carte.' />
+      )}
       {isToponyme ? (
         <Tag type='lieu-dit' />
       ) : (
@@ -72,7 +76,8 @@ function Voie({type, nomVoie, commune, numeros, nbNumeros}) {
 Voie.propTypes = {
   commune: null,
   numeros: null,
-  nbNumeros: null
+  nbNumeros: null,
+  displayBBox: null
 }
 
 Voie.propTypes = {
@@ -85,6 +90,7 @@ Voie.propTypes = {
     region: PropTypes.object,
     departement: PropTypes.object
   }),
+  displayBBox: PropTypes.array,
   nbNumeros: PropTypes.number,
   numeros: PropTypes.array
 }
