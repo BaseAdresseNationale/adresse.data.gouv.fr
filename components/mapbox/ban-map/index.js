@@ -22,8 +22,7 @@ import {
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
-let hoveredVoieId = null
-let hoveredToponymeNom = null
+let hoveredFeature = null
 
 const SOURCES = ['adresses', 'toponymes']
 const MAX_ZOOM = 19 // Zoom maximum de la carte
@@ -82,25 +81,25 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
 
   const onLeave = useCallback(() => {
-    if (hoveredVoieId) {
-      highLightAdressesByProperties(false, hoveredVoieId, 'id')
-    }
-
-    if (hoveredToponymeNom) {
-      highLightAdressesByProperties(false, hoveredToponymeNom, 'lieuDitComplementNom')
+    if (hoveredFeature) {
+      highLightAdressesByProperties(false, hoveredFeature)
     }
 
     popup.remove()
     map.getCanvas().style.cursor = 'grab'
-    hoveredVoieId = null
-    hoveredToponymeNom = null
+    hoveredFeature = null
   }, [map, popup, highLightAdressesByProperties])
 
-  const highLightAdressesByProperties = useCallback((isHovered, filter, prop) => {
+  const highLightAdressesByProperties = useCallback((isHovered, hoveredFeature) => {
+    const {nom, id} = hoveredFeature
     forEach(SOURCES, sourceLayer => {
       forEach(map.querySourceFeatures('base-adresse-nationale', {
         sourceLayer,
-        filter: ['in', filter, ['get', prop]]
+        filter: [
+          'any',
+          ['in', nom, ['get', 'lieuDitComplementNom']],
+          ['in', id, ['get', 'id']]
+        ]
       }), ({id}) => {
         map.setFeatureState({source: 'base-adresse-nationale', sourceLayer, id}, {hover: isHovered})
       })
@@ -109,15 +108,15 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
   const onHover = useCallback(e => {
     if (e.features.length > 0) {
-      hoveredToponymeNom = e.features[0].properties.nomVoie
-      highLightAdressesByProperties(true, hoveredToponymeNom, 'lieuDitComplementNom')
-
-      if (hoveredVoieId) {
-        highLightAdressesByProperties(false, hoveredVoieId, 'id')
+      if (hoveredFeature) {
+        highLightAdressesByProperties(false, hoveredFeature)
       }
 
-      hoveredVoieId = e.features[0].id.split('_').slice(0, 2).join('_')
-      highLightAdressesByProperties(true, hoveredVoieId, 'id')
+      hoveredFeature = {
+        id: e.features[0].id.split('_').slice(0, 2).join('_'),
+        nom: e.features[0].properties.nomVoie
+      }
+      highLightAdressesByProperties(true, hoveredFeature)
 
       map.getCanvas().style.cursor = 'pointer'
       popup.setLngLat(e.lngLat)
