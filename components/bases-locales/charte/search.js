@@ -32,7 +32,9 @@ function PartnersSearchbar() {
     if (commune) {
       setFilteredPartners(partners.filter(({codeDepartement, isPerimeterFrance}) => (
         codeDepartement.includes(commune.codeDepartement) || isPerimeterFrance)
-      ).filter(({services}) => intersection(selectedTags, services).length === selectedTags.length))
+      ).filter(({services}) => intersection(selectedTags, services).length === selectedTags.length).sort((a, b) => {
+        return a.isPerimeterFrance - b.isPerimeterFrance
+      }))
     } else {
       setFilteredPartners([])
     }
