@@ -213,15 +213,19 @@ export const toponymeLayer = {
   minzoom: TOPONYME_MIN,
   maxzoom: TOPONYME_MAX,
   paint: {
-    'text-color': TOPONYME_COLOR,
-    'text-halo-color': '#ffffff',
-    'text-halo-width': 2,
-    'text-opacity': {
-      stops: [
-        [11, 0],
-        [13, 1]
-      ]
-    }
+    'text-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      '#fff',
+      TOPONYME_COLOR
+    ],
+    'text-halo-width': 1,
+    'text-halo-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ]
   },
   layout: {
     'text-font': ['Noto Sans Bold'],

@@ -22,7 +22,7 @@ import {
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
-let hoveredVoieId = null
+let hoveredFeature = null
 
 const SOURCES = ['adresses', 'toponymes']
 const MAX_ZOOM = 19 // Zoom maximum de la carte
@@ -81,34 +81,42 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
 
   const onLeave = useCallback(() => {
-    if (hoveredVoieId) {
-      highLightVoie(false)
+    if (hoveredFeature) {
+      highLightAdressesByProperties(false, hoveredFeature)
     }
 
     popup.remove()
     map.getCanvas().style.cursor = 'grab'
-    hoveredVoieId = null
-  }, [map, popup, highLightVoie])
+    hoveredFeature = null
+  }, [map, popup, highLightAdressesByProperties])
 
-  const highLightVoie = useCallback(isHovered => {
+  const highLightAdressesByProperties = useCallback((isHovered, hoveredFeature) => {
+    const {nom, id} = hoveredFeature
     forEach(SOURCES, sourceLayer => {
       forEach(map.querySourceFeatures('base-adresse-nationale', {
         sourceLayer,
-        filter: ['in', hoveredVoieId, ['get', 'id']]
+        filter: [
+          'any',
+          ['in', nom, ['get', 'lieuDitComplementNom']],
+          ['in', id, ['get', 'id']]
+        ]
       }), ({id}) => {
         map.setFeatureState({source: 'base-adresse-nationale', sourceLayer, id}, {hover: isHovered})
       })
     })
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const onHover = useCallback(e => {
     if (e.features.length > 0) {
-      if (hoveredVoieId) {
-        highLightVoie(false)
+      if (hoveredFeature) {
+        highLightAdressesByProperties(false, hoveredFeature)
       }
 
-      hoveredVoieId = e.features[0].id.split('_').slice(0, 2).join('_')
-      highLightVoie(true)
+      hoveredFeature = {
+        id: e.features[0].id.split('_').slice(0, 2).join('_'),
+        nom: e.features[0].properties.nomVoie
+      }
+      highLightAdressesByProperties(true, hoveredFeature)
 
       map.getCanvas().style.cursor = 'pointer'
       popup.setLngLat(e.lngLat)
@@ -118,7 +126,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       map.getCanvas().style.cursor = 'grab'
       popup.remove()
     }
-  }, [map, popup, highLightVoie])
+  }, [map, popup, highLightAdressesByProperties])
 
   const handleClick = (e, cb) => {
     const feature = e.features[0]
