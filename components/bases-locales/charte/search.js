@@ -71,7 +71,7 @@ function PartnersSearchbar() {
 
   return (
     <div style={{marginTop: '2em'}}>
-      <p className='searchbar-label'>Recherchez une structure de mutualisation sur votre territoire</p>
+      <p className='searchbar-label'>Recherchez un partenaire de la Charte de la Base Adresse Locale sur votre territoire</p>
       <SearchInput
         value={input}
         results={results}
