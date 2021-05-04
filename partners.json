@@ -252,5 +252,22 @@
         "height": 60,
         "width": 133,
         "alt": "Logo de MEGALIS Bretagne"
+    },
+    {
+        "name": "Département de l'Yonne",
+        "link": "https://www.yonne.fr/Territoire/Amenagement-numerique",
+        "infos": "Le Conseil Départemental de l'Yonne, pilote du Schéma Directeur Territorial d'Aménagement Numérique, accompagne ses territoires dans la fiabilisation de leur adressage en vue notamment du raccordement à la fibre. Suite à l'information globale des communes réalisée en avril, nous sommes à votre disposition pour vous accompagner dans la création de votre Base d'Adresse Locale. Contactez-nous sur ant@yonne.fr et retrouvez nous sur https://www.yonne.fr/Territoire/Amenagement-numerique.",
+        "perimeter": "Yonne",
+        "codeDepartement": [
+            "89"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/yonne.png",
+        "height": 133,
+        "width": 133,
+        "alt": "Logo du Conseil Départemental de l'Yonne"
     }
 ]
