@@ -75,11 +75,10 @@
         ],
         "isPerimeterFrance": false,
         "services": [
-            "animation",
-            "acculturation",
+            "formation",
             "accompagnement technique",
-            "Réalisation de bases adresses locales aveyronnaise",
-            "diffusion"
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
         ],
         "picture": "/images/logos/partners/smica.png",
         "height": 70,
