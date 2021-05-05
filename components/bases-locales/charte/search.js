@@ -28,19 +28,23 @@ function PartnersSearchbar() {
     })
   }
 
-  const sortedPartners = partners.sort((a, b) => {
-    return a.isPerimeterFrance - b.isPerimeterFrance
-  })
+  const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
+    const filteredByPerimeter = partners.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
+
+    return filteredByTags.sort((a, b) => {
+      return a.isPerimeterFrance - b.isPerimeterFrance
+    })
+  }, [])
 
   useEffect(() => {
     if (commune) {
-      setFilteredPartners(sortedPartners.filter(({codeDepartement, isPerimeterFrance}) => (
-        codeDepartement.includes(commune.codeDepartement) || isPerimeterFrance)
-      ).filter(({services}) => intersection(selectedTags, services).length === selectedTags.length))
+      const availablePartners = getAvailablePartners(commune.codeDepartement, selectedTags)
+      setFilteredPartners(availablePartners)
     } else {
       setFilteredPartners([])
     }
-  }, [selectedTags, sortedPartners, commune])
+  }, [selectedTags, getAvailablePartners, commune])
 
   useEffect(() => {
     setInput(commune ? commune.nom : '')
