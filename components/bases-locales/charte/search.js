@@ -28,15 +28,23 @@ function PartnersSearchbar() {
     })
   }
 
+  const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
+    const filteredByPerimeter = partners.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
+
+    return filteredByTags.sort((a, b) => {
+      return a.isPerimeterFrance - b.isPerimeterFrance
+    })
+  }, [])
+
   useEffect(() => {
     if (commune) {
-      setFilteredPartners(partners.filter(({codeDepartement, isPerimeterFrance}) => (
-        codeDepartement.includes(commune.codeDepartement) || isPerimeterFrance)
-      ).filter(({services}) => intersection(selectedTags, services).length === selectedTags.length))
+      const availablePartners = getAvailablePartners(commune.codeDepartement, selectedTags)
+      setFilteredPartners(availablePartners)
     } else {
       setFilteredPartners([])
     }
-  }, [selectedTags, commune])
+  }, [selectedTags, getAvailablePartners, commune])
 
   useEffect(() => {
     setInput(commune ? commune.nom : '')
@@ -71,7 +79,7 @@ function PartnersSearchbar() {
 
   return (
     <div style={{marginTop: '2em'}}>
-      <p className='searchbar-label'>Recherchez une structure de mutualisation sur votre territoire</p>
+      <p className='searchbar-label'>Recherchez un partenaire de la Charte de la Base Adresse Locale sur votre territoire</p>
       <SearchInput
         value={input}
         results={results}
