@@ -268,5 +268,22 @@
         "height": 133,
         "width": 133,
         "alt": "Logo du Conseil Départemental de l'Yonne"
+    },
+    {
+        "name": "SIGEO 3D",
+        "link": "https://sigeo3d.fr/adressage.html",
+        "infos": "Nous vous accompagnons ou réalisons pour vous l'adressage complet de votre commune, nécessaire pour l'arrivée de la Fibre mais aussi pour les services de secours, livraisons, navigation GPS. Nous prenons en charge l'intégralité du process si vous le désirez : recensement des voies existantes, création des nouvelles voies, des nouveaux numéros, publication de votre Base Adresse Locale, diffusion auprès des organismes compétents...",
+        "perimeter": "Cher (18), Indre (36), Gironde (33) et France Entière en solution 100% digitale",
+        "codeDepartement": [],
+        "isPerimeterFrance": true,
+        "services": [
+            "réalisation de bases adresses locales",
+            "accompagnement technique",
+            "diffusion"
+        ],
+        "picture": "/images/logos/partners/sigeo.png",
+        "height": 70,
+        "width": 228,
+        "alt": "Logo de SIGEO 3D"
     }
 ]
