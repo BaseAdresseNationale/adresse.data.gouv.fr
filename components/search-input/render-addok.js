@@ -46,7 +46,7 @@ function renderItem(item, isHighlighted) {
           flex-flow: row;
           justify-content: space-between;
           align-items: center;
-          padding: 1em;
+          padding: 0.5em;
         }
 
         .item .item-label {

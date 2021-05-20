@@ -25,11 +25,10 @@ function BanSearch() {
 
   const handleSearch = useCallback(debounce(async input => {
     try {
-      const results = await search({q: input})
+      const results = await search({q: input, limit: 7})
       setResults(
         results.features
           .filter(({properties}) => !['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
-          .splice(0, 5) || []
       )
     } catch (err) {
       setError(err)
