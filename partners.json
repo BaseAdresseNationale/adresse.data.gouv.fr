@@ -262,5 +262,22 @@
         "height": 70,
         "width": 228,
         "alt": "Logo de SIGEO 3D"
+    },
+    {
+        "name": "Egliseneuve des Liards",
+        "link": "http://www.mairie-egliseneuvedesliards.fr/",
+        "infos": "La commune a réalisé une Base Adresse Locale sur l'éditeur en ligne Mes Adresses. Elle a mis en ligne la Charte de la Base Adresse Locale comme outil indispensable d'adhésion",
+        "perimeter": "Egliseneuve-des-Liards",
+        "codeDepartement": [
+            "63"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "information communale"
+        ],
+        "picture": "/images/logos/partners/egliseneuve.jpg",
+        "height": 91,
+        "width": 228,
+        "alt": "Logo de Egliseneuve des Liards"
     }
 ]
