@@ -5,6 +5,7 @@ import booleanContains from '@turf/boolean-contains'
 
 import theme from '@/styles/theme'
 
+import CadastreLayerControl from '../cadastre-layer-control'
 import CenterControl from '../center-control'
 import SelectPaintLayer from '../select-paint-layer'
 import MapLegends from '../map-legends'
@@ -17,7 +18,8 @@ import {
   toponymeLayer,
   sources,
   sourcesLayerPaint,
-  defaultLayerPaint
+  defaultLayerPaint,
+  cadastreLayers
 } from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
@@ -79,6 +81,7 @@ const isFeatureContained = (container, content) => {
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
+  const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -172,8 +175,26 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       map.setPaintProperty(adresseCircleLayer.id, 'circle-color', paintLayers[selectedPaintLayer].paint)
       map.setPaintProperty(adresseLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
       map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
+
+      if (isCadastreLayersShown) {
+        cadastreLayers.map(({id}) => (
+          map.setLayoutProperty(
+            id,
+            'visibility',
+            'visible'
+          )
+        ))
+      } else {
+        cadastreLayers.map(({id}) => (
+          map.setLayoutProperty(
+            id,
+            'visibility',
+            'none'
+          )
+        ))
+      }
     }
-  }, [map, selectedPaintLayer])
+  }, [map, selectedPaintLayer, isCadastreLayersShown])
 
   useEffect(() => {
     map.off('dragend', isAddressVisible)
@@ -235,8 +256,14 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       minzoom: 10,
       maxzoom: 14,
       promoteId: 'id'
+    },
+    {
+      name: 'cadastre',
+      type: 'vector',
+      url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
     }])
     setLayers([
+      ...cadastreLayers,
       adresseCircleLayer,
       adresseLabelLayer,
       adresseCompletLabelLayer,
@@ -280,6 +307,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
           legend={paintLayers[selectedPaintLayer].legend.content}
         />
       </SelectPaintLayer>
+      <CadastreLayerControl isActived={isCadastreLayersShown} handleClick={cadastreDisplay} />
     </>
   )
 }
