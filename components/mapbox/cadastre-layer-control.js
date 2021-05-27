@@ -19,7 +19,7 @@ function CadastreLayerControl({isActived, handleClick}) {
 
 CadastreLayerControl.propTypes = {
   isActived: PropTypes.bool.isRequired,
-  handleClick: PropTypes
+  handleClick: PropTypes.func.isRequired
 }
 
 export default CadastreLayerControl
