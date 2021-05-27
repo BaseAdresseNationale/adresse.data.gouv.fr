@@ -36,18 +36,17 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
         .commune {
           font-style: italic;
           color: ${colors.almostBlack};
-          margin-bottom: 2em;
         }
 
         .infos-container {
-          
           display: grid;
           grid-template-columns: 10px 1fr;
+          margin-top: 2em;
         }
 
         .separator {
           width: 0px;
-          border: 1px solid ${colors.separatorBlue};
+          border: 1px solid ${colors.blue};
         }
 
         .infos {
