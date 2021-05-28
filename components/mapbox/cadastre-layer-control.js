@@ -4,20 +4,24 @@ import {Layout} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function CadastreLayerControl({isActived, handleClick}) {
+function CadastreLayerControl({isDisabled, isActived, handleClick}) {
   return (
     <button
+      disabled={isDisabled}
       type='button'
       className='mapboxgl-ctrl'
       title={`${isActived ? 'Masquer' : 'Afficher'} le cadastre`}
       onClick={handleClick}
     >
-      <Layout color={isActived ? theme.primary : theme.darkText} size={18} />
+      <Layout color={isDisabled ? '#cdcdcd' : (
+        isActived ? theme.primary : theme.darkText
+      )} size={18} />
     </button>
   )
 }
 
 CadastreLayerControl.propTypes = {
+  isDisabled: PropTypes.bool.isRequired,
   isActived: PropTypes.bool.isRequired,
   handleClick: PropTypes.func.isRequired
 }

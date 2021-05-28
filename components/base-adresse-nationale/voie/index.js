@@ -8,10 +8,11 @@ import {getNumeroComplet} from '@/lib/ban'
 import Tag from '@/components/tag'
 
 import AddressesList from '../addresses-list'
+import ParcellesList from '../parcelles-list'
 import Numero from './numero'
 import Notification from '@/components/notification'
 
-function Voie({type, nomVoie, commune, numeros, displayBBox, nbNumeros}) {
+function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumeros}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
@@ -25,9 +26,11 @@ function Voie({type, nomVoie, commune, numeros, displayBBox, nbNumeros}) {
         )}
         <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
       </div>
+
       {!displayBBox && (
         <Notification type='warning' message='Aucune position n’est connue pour cette adresse, elle ne peut donc pas être affichée sur la carte.' />
       )}
+
       {isToponyme ? (
         <Tag type='lieu-dit' />
       ) : (
@@ -43,6 +46,8 @@ function Voie({type, nomVoie, commune, numeros, displayBBox, nbNumeros}) {
           />
         </div>
       )}
+
+      {parcelles && <div style={{marginTop: '1em'}}>Parcelles cadastrale : <ParcellesList parcelles={parcelles} /></div>}
 
       <style jsx>{`
         .heading {
@@ -77,6 +82,7 @@ Voie.propTypes = {
   commune: null,
   numeros: null,
   nbNumeros: null,
+  parcelles: null,
   displayBBox: null
 }
 
@@ -92,7 +98,8 @@ Voie.propTypes = {
   }),
   displayBBox: PropTypes.array,
   nbNumeros: PropTypes.number,
-  numeros: PropTypes.array
+  numeros: PropTypes.array,
+  parcelles: PropTypes.array
 }
 
 export default Voie

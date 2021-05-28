@@ -35,6 +35,7 @@ const VOIE_MAX = NUMEROS_MIN
 const TOPONYME_MIN = 10
 const TOPONYME_MAX = NUMEROS_MIN + 2
 const TOPONYME_COLOR = '#7c5050'
+export const PARCELLES_MINZOOM = 14
 
 export const adresseCircleLayer = {
   id: 'adresse',
@@ -248,7 +249,7 @@ export const cadastreLayers = [{
   type: 'fill',
   source: 'cadastre',
   'source-layer': 'batiments',
-  minzoom: 16,
+  minzoom: PARCELLES_MINZOOM,
   paint: {
     'fill-opacity': 0.3
   },
@@ -261,7 +262,7 @@ export const cadastreLayers = [{
   type: 'line',
   source: 'cadastre',
   'source-layer': 'batiments',
-  minzoom: 16,
+  minzoom: PARCELLES_MINZOOM,
   maxzoom: 22,
   layout: {
     visibility: 'none'
@@ -276,7 +277,7 @@ export const cadastreLayers = [{
   type: 'line',
   source: 'cadastre',
   'source-layer': 'parcelles',
-  minzoom: 16,
+  minzoom: PARCELLES_MINZOOM,
   maxzoom: 24,
   layout: {
     visibility: 'none'
@@ -299,27 +300,38 @@ export const cadastreLayers = [{
   }
 },
 {
-  id: 'parcelles-fill',
+  id: 'parcelle-highlighted',
   type: 'fill',
   source: 'cadastre',
   'source-layer': 'parcelles',
+  filter: ['==', ['get', 'id'], ''],
+  minzoom: PARCELLES_MINZOOM,
   layout: {
     visibility: 'none'
   },
   paint: {
-    'fill-color': 'rgba(129, 123, 0, 1)',
-    'fill-opacity': [
-      'case',
-      [
-        'boolean',
-        [
-          'feature-state',
-          'hover'
-        ],
-        false
-      ],
-      0.7,
-      0.1
-    ]
+    'fill-color': '#0053b3',
+    'fill-opacity': 0.5
+  }
+},
+{
+  id: 'code-parcelles',
+  type: 'symbol',
+  source: 'cadastre',
+  'source-layer': 'parcelles',
+  minzoom: PARCELLES_MINZOOM,
+  layout: {
+    visibility: 'none',
+    'text-field': '{numero}',
+    'text-font': [
+      'Noto Sans Bold'
+    ],
+    'text-allow-overlap': false,
+    'text-size': 16
+  },
+  paint: {
+    'text-halo-color': '#fff6f1',
+    'text-halo-width': 1.5,
+    'text-translate-anchor': 'map'
   }
 }]

@@ -104,6 +104,7 @@ BaseAdresseNationale.propTypes = {
     nomVoie: PropTypes.string,
     numero: PropTypes.string,
     suffixe: PropTypes.string,
+    parcelles: PropTypes.array,
     nomCommune: PropTypes.string,
     codeCommune: PropTypes.string,
     nbNumeros: PropTypes.number,
