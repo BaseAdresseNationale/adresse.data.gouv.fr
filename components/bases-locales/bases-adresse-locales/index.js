@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import {deburr} from 'lodash'
 
 import theme from '@/styles/theme'
 
@@ -7,30 +8,57 @@ import Container from '@/components/container'
 import Notification from '@/components/notification'
 
 import BaseAdresseLocale from './base-adresse-locale'
+import SearchBAL from './search-bal'
 
-class BasesAdresseLocales extends React.Component {
-  static propTypes = {
-    datasets: PropTypes.array.isRequired
-  }
+function BasesAdresseLocales({datasets}) {
+  const [search, setSearch] = useState('')
+  const [results, setResults] = useState(datasets)
 
-  render() {
-    const {datasets} = this.props
+  const handleSearch = useCallback(event => {
+    const {value} = event.currentTarget
+    setSearch(value)
+  }, [])
 
-    return (
-      <>
-        <Notification isFullWidth>
-          <p>Cette page recense toutes les <strong>Bases Adresses Locales</strong> connues à ce jour.</p>
-          <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
-        </Notification>
-        <Container>
+  const getFilteredDatasets = useCallback(() => {
+    return datasets.filter(({title}) => {
+      const titleFormatted = deburr(title.toLowerCase())
+      const searchFormatted = deburr(search.toLowerCase())
+
+      return titleFormatted.includes(searchFormatted)
+    })
+  }, [search, datasets])
+
+  useEffect(() => {
+    if (search === '') {
+      setResults(datasets)
+    } else {
+      const filteredDatasets = getFilteredDatasets()
+      setResults(filteredDatasets)
+    }
+  }, [search, datasets, getFilteredDatasets])
+
+  return (
+    <>
+      <Notification isFullWidth>
+        <p>Cette page recense toutes les <strong>Bases Adresses Locales</strong> connues à ce jour.</p>
+        <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
+      </Notification>
+      <Container>
+        <SearchBAL value={search} onChange={handleSearch} />
+        {results.length > 0 ? (
           <div className='bases'>
-            {datasets.map(dataset => (
+            {results.map(dataset => (
               <BaseAdresseLocale key={dataset.id} dataset={dataset} />
             ))}
           </div>
-        </Container>
+        ) : (
+          <div className='no-result'>
+            Aucun résultat
+          </div>
+        )}
+      </Container>
 
-        <style jsx>{`
+      <style jsx>{`
           .bases {
             display: grid;
             grid-row-gap: 2em;
@@ -50,10 +78,17 @@ class BasesAdresseLocales extends React.Component {
             vertical-align: baseline;
             border-radius: .25em;
           }
+
+          .no-result {
+            margin-top: 1em;
+          }
           `}</style>
-      </>
-    )
-  }
+    </>
+  )
+}
+
+BasesAdresseLocales.propTypes = {
+  datasets: PropTypes.array.isRequired
 }
 
 export default BasesAdresseLocales
