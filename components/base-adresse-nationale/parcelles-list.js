@@ -18,11 +18,12 @@ function ParcellesList({parcelles}) {
         .parcelles {
           display: flex;
           justify-content: space-between;
+          flex-flow: wrap;
         }
 
         .parcelle {
           padding: 0 8px;
-          margin-right: 8px;
+          margin: 2px 4px;
           background-color: ${theme.colors.lightGreen};
           color: ${theme.colors.green};
           border-radius: 4px;

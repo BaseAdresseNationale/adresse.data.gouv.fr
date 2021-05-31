@@ -70,7 +70,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
           display: flex;
           justify-content: space-between;
           align-items: center;
-          min-width: 142px;
+          min-width: 150px;
         }
 
         .close-icon {
