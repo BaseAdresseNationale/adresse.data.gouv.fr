@@ -6,9 +6,9 @@ import theme from '@/styles/theme'
 
 import Container from '@/components/container'
 import Notification from '@/components/notification'
+import SearchBar from '@/components/search-bar'
 
 import BaseAdresseLocale from './base-adresse-locale'
-import SearchBAL from './search-bal'
 
 function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
@@ -40,7 +40,13 @@ function BasesAdresseLocales({datasets}) {
         <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
       </Notification>
       <Container>
-        <SearchBAL value={search} onChange={e => setSearch(e.target.value)} />
+        <SearchBar
+          label='Rechercher une Base adresse locale'
+          placeholder='Hémevez'
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+
         {results.length > 0 ? (
           <div className='bases'>
             {results.map(dataset => (

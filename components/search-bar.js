@@ -4,23 +4,27 @@ import {Search} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function SearchBAL({value, onChange}) {
+const SearchBar = React.forwardRef((props, ref) => {
+  const {label} = props
+
   return (
-    <div className='search-input-container'>
-      {/* disable safari zoom in on focus with font-size at 16px */}
-      <input
-        value={value}
-        onChange={onChange}
-        style={{fontSize: '16px'}}
-        className='search'
-        placeholder='Rechercher une Base adresse locale'
-        aria-label='Recherche'
-      />
-      <span className='iconTitle'><Search /></span>
-      <style jsx>{`
+    <>
+      {label && (
+        <div style={{marginTop: '1em'}}>{label}</div>
+      )}
+      <div className='search-input-container'>
+        {/* disable safari zoom in on focus with font-size at 16px */}
+        <input
+          {...props}
+          ref={ref}
+          style={{fontSize: '16px'}}
+          className='search'
+          aria-label='Recherche'
+        />
+        <span className='icon-title'><Search /></span>
+        <style jsx>{`
           .search-input-container {
             position: relative;
-            margin-top: 1em;
           }
 
           .search {
@@ -37,7 +41,7 @@ function SearchBAL({value, onChange}) {
             width: 100%;
           }
 
-          .iconTitle {
+          .icon-title {
             display: inline-flex;
             vertical-align: top;
           }
@@ -54,17 +58,17 @@ function SearchBAL({value, onChange}) {
             color: ${theme.colors.darkGrey};
           }
         `}</style>
-    </div>
+      </div>
+    </>
   )
+})
+
+SearchBar.propTypes = {
+  label: PropTypes.string
 }
 
-SearchBAL.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+SearchBar.defaultProps = {
+  label: null
 }
 
-SearchBAL.defaultProps = {
-  value: ''
-}
-
-export default SearchBAL
+export default SearchBar
