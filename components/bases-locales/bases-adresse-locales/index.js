@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import {deburr} from 'lodash'
+import {debounce, deburr} from 'lodash'
 
 import theme from '@/styles/theme'
 
@@ -14,28 +14,24 @@ function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState(datasets)
 
-  const handleSearch = useCallback(event => {
-    const {value} = event.currentTarget
-    setSearch(value)
-  }, [])
-
-  const getFilteredDatasets = useCallback(() => {
-    return datasets.filter(({title}) => {
+  const getFilteredDatasets = useCallback(debounce(value => {
+    const filteredDatasets = datasets.filter(({title}) => {
       const titleFormatted = deburr(title.toLowerCase())
-      const searchFormatted = deburr(search.toLowerCase())
+      const searchFormatted = deburr(value.toLowerCase())
 
       return titleFormatted.includes(searchFormatted)
     })
-  }, [search, datasets])
+
+    setResults(filteredDatasets)
+  }, 300), [datasets])
 
   useEffect(() => {
     if (search === '') {
       setResults(datasets)
     } else {
-      const filteredDatasets = getFilteredDatasets()
-      setResults(filteredDatasets)
+      getFilteredDatasets(search)
     }
-  }, [search, datasets, getFilteredDatasets])
+  }, [search, setResults, datasets, getFilteredDatasets])
 
   return (
     <>
@@ -44,7 +40,7 @@ function BasesAdresseLocales({datasets}) {
         <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
       </Notification>
       <Container>
-        <SearchBAL value={search} onChange={handleSearch} />
+        <SearchBAL value={search} onChange={e => setSearch(e.target.value)} />
         {results.length > 0 ? (
           <div className='bases'>
             {results.map(dataset => (
