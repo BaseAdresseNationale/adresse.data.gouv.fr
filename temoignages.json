@@ -70,5 +70,13 @@
         "alt": "Vue sur l’église en granit, extrait des carrières locales. Cliché Christophe Vezon",
         "date": "2021-03-17",
         "articleUrl": "https://blog.geo.data.gouv.fr/%C3%A9gliseneuve-des-liards-les-adresses-au-c%C5%93ur-dun-projet-collaboratif-667e33e888e4"
+    },
+    {
+        "title": "Megalis Bretagne",
+        "preview": "Syndicat mixte de coopération territoriale, Megalis Bretagne a mis en place un système d’information autour de l’adresse pour suivre le déploiement de la fibre.",
+        "picture": "/images/testimonies/megalis-bretagne.png",
+        "alt": "Image cartographie générale. Source : Mégalis Bretagne",
+        "date": "2021-03-17",
+        "articleUrl": "https://www.amenagement-numerique.gouv.fr/fr/actualite/megalis-bretagne-piloter-chantier-fibre-autour-ladresse"
     }
 ]
