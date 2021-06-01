@@ -194,6 +194,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
       if (address?.parcelles) {
         map.setFilter('parcelle-highlighted', ['any', ...address.parcelles.map(id => ['==', ['get', 'id'], id])])
+      } else {
+        map.setFilter('parcelle-highlighted', ['==', ['get', 'id'], ''])
       }
     }
   }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
