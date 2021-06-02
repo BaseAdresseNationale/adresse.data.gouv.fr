@@ -49,7 +49,7 @@ function BasesAdresseLocales({datasets}) {
 
         {results.length > 0 ? (
           <div className='bases'>
-            {results.map(dataset => (
+            {results.slice(0, 10).map(dataset => (
               <BaseAdresseLocale key={dataset.id} dataset={dataset} />
             ))}
           </div>
