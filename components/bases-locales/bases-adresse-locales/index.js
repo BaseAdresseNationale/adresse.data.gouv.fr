@@ -50,7 +50,7 @@ function BasesAdresseLocales({datasets}) {
       <Container>
         <SearchBar
           label='Rechercher une Base adresse locale'
-          placeholder='Hémevez'
+          placeholder='Nancy'
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
