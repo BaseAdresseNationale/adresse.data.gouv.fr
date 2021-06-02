@@ -52,6 +52,7 @@ function BasesAdresseLocales({datasets}) {
         <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
       </Notification>
       <Container>
+        <h3 className='bal-subtitle'>Les 10 dernières Bases Adresses Locales publiées</h3>
         <SearchBar
           label='Rechercher une Base adresse locale'
           placeholder='Nancy'
@@ -73,6 +74,11 @@ function BasesAdresseLocales({datasets}) {
       </Container>
 
       <style jsx>{`
+          .bal-subtitle {
+            margin-top: 0.5em;
+            text-align: center;
+          }
+
           .bases {
             display: grid;
             grid-row-gap: 2em;
