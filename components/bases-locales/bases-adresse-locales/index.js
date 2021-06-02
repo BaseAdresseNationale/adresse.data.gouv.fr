@@ -31,7 +31,7 @@ function BasesAdresseLocales({datasets}) {
     } else {
       getFilteredDatasets(search)
     }
-  }, [search, setResults, datasets, getFilteredDatasets])
+  }, [search, datasets, getFilteredDatasets])
 
   return (
     <>
