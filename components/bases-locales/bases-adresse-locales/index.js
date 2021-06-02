@@ -10,6 +10,8 @@ import SearchBar from '@/components/search-bar'
 
 import BaseAdresseLocale from './base-adresse-locale'
 
+const DATASETS_COUNT = 10
+
 const sortByDateMAJ = datasets => (
   datasets.sort((a, b) => a.dateMAJ < b.dateMAJ ? 1 : -1)
 )
@@ -52,7 +54,6 @@ function BasesAdresseLocales({datasets}) {
         <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
       </Notification>
       <Container>
-        <h3 className='bal-subtitle'>Les 10 dernières Bases Adresses Locales publiées</h3>
         <SearchBar
           label='Rechercher une Base adresse locale'
           placeholder='Nancy'
@@ -60,9 +61,13 @@ function BasesAdresseLocales({datasets}) {
           onChange={e => setSearch(e.target.value)}
         />
 
+        {results.length > 1 && (
+          <h3 className='bal-subtitle'>Les {results.length < DATASETS_COUNT ? results.length : DATASETS_COUNT} dernières Bases Adresses Locales publiées</h3>
+        )}
+
         {results.length > 0 ? (
           <div className='bases'>
-            {sortByDateMAJ(results).slice(0, 10).map(dataset => (
+            {sortByDateMAJ(results).slice(0, DATASETS_COUNT).map(dataset => (
               <BaseAdresseLocale key={dataset.id} dataset={dataset} />
             ))}
           </div>
