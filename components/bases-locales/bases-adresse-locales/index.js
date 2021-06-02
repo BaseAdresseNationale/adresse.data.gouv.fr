@@ -10,6 +10,10 @@ import SearchBar from '@/components/search-bar'
 
 import BaseAdresseLocale from './base-adresse-locale'
 
+const sortByDateMAJ = datasets => (
+  datasets.sort((a, b) => a.dateMAJ < b.dateMAJ ? 1 : -1)
+)
+
 function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState(datasets)
@@ -57,7 +61,7 @@ function BasesAdresseLocales({datasets}) {
 
         {results.length > 0 ? (
           <div className='bases'>
-            {results.slice(0, 10).map(dataset => (
+            {sortByDateMAJ(results).slice(0, 10).map(dataset => (
               <BaseAdresseLocale key={dataset.id} dataset={dataset} />
             ))}
           </div>
