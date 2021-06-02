@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {debounce, deburr} from 'lodash'
 
@@ -14,24 +14,32 @@ function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
   const [results, setResults] = useState(datasets)
 
-  const getFilteredDatasets = useCallback(debounce(value => {
-    const filteredDatasets = datasets.filter(({title}) => {
+  const filterDatasets = useCallback(search => {
+    const filterDatasets = datasets.filter(({title}) => {
       const titleFormatted = deburr(title.toLowerCase())
-      const searchFormatted = deburr(value.toLowerCase())
-
+      const searchFormatted = deburr(search.toLowerCase())
       return titleFormatted.includes(searchFormatted)
     })
+    setResults(filterDatasets)
+  }, [datasets])
 
-    setResults(filteredDatasets)
-  }, 300), [datasets])
+  const debouncedSearch = useMemo(
+    () => debounce(filterDatasets, 300)
+    , [filterDatasets])
 
   useEffect(() => {
     if (search === '') {
       setResults(datasets)
     } else {
-      getFilteredDatasets(search)
+      debouncedSearch(search)
     }
-  }, [search, datasets, getFilteredDatasets])
+  }, [search, datasets, debouncedSearch])
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel()
+    }
+  }, [debouncedSearch])
 
   return (
     <>
