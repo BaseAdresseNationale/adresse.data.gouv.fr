@@ -47,7 +47,7 @@ function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumero
         </div>
       )}
 
-      {parcelles && <div style={{marginTop: '1em'}}>Parcelles cadastrale : <ParcellesList parcelles={parcelles} /></div>}
+      {parcelles && <div style={{marginTop: '1em'}}>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>}
 
       <style jsx>{`
         .heading {

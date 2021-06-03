@@ -32,7 +32,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         <div>Code postal : <b>{codePostal}</b></div>
         <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
-        <div>Parcelles cadastrale : <ParcellesList parcelles={parcelles} /></div>
+        <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
       </div>
 
       <style jsx>{`
