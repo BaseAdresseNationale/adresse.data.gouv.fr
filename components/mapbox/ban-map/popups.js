@@ -3,10 +3,11 @@ import {renderToString} from 'react-dom/server'
 import colors from '@/styles/colors'
 
 import Tag from '@/components/tag'
+import ParcellesList from '@/components/base-adresse-nationale/parcelles-list'
 
 import {sources} from './layers'
 
-function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition, sourceNomVoie}) {
+function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition, sourceNomVoie}) {
   const position = sources[sourcePosition]
   const nom = sources[sourceNomVoie]
 
@@ -17,6 +18,9 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
         <Tag type='numero' />
       </div>
       <div className='commune'>{nomCommune} - {codeCommune}</div>
+
+      {parcelles && <ParcellesList parcelles={parcelles.split('|')} />}
+
       <div className='infos-container'>
         <div className='separator' />
         <div className='infos'>
@@ -59,7 +63,7 @@ function popupNumero({numero, suffixe, lieuDitComplementNom, nomVoie, nomCommune
   )
 }
 
-function popupVoie({nomVoie, nomCommune, codeCommune, nbNumeros, type}) {
+function popupVoie({nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type}) {
   return renderToString(
     <div>
       <div className='heading'>
@@ -69,6 +73,9 @@ function popupVoie({nomVoie, nomCommune, codeCommune, nbNumeros, type}) {
         </div>
         <Tag type={type || 'lieu-dit'} />
       </div>
+
+      {parcelles && <ParcellesList parcelles={parcelles.split('|')} />}
+
       {nbNumeros && (
         <div>Cette voie contient <b>{nbNumeros} numéro{nbNumeros > 1 ? 's' : ''}</b></div>
       )}
