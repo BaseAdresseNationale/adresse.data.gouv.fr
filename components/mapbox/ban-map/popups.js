@@ -24,7 +24,11 @@ function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie,
       <div className='infos-container'>
         <div className='separator' />
         <div className='infos'>
-          <div>Nom : <b style={{color: nom.color}}>{nom.name}</b></div>
+          {nom ? (
+            <div>Nom : <b style={{color: nom.color}}>{nom.name}</b></div>
+          ) : (
+            <div>Nom : <i>source inconnue</i></div>
+          )}
           <div>Position : <b style={{color: position.color}}>{position.name}</b></div>
         </div>
       </div>

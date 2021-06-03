@@ -262,5 +262,26 @@
         "height": 70,
         "width": 228,
         "alt": "Logo de SIGEO 3D"
+    },
+    {
+        "name": "Agglomération de la Région de Compiègne",
+        "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/31/adresse-le-compiegnois-sur-la-bonne-voie/",
+        "infos": "Dans le cadre du partenariat local d’information géographique, les intercommunalités du compiégnois se sont engagées dès 2017 dans un programme d’accompagnement complet des communes.",
+        "perimeter": "Agglomération de la Région de Compiègne",
+        "codeDepartement": [
+            "60"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "formation",
+            "réalisation de bases adresses locales",
+            "accompagnement technique",
+            "diffusion",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/compiegne.png",
+        "height": 67,
+        "width": 150,
+        "alt": "Logo de l’Agglomération de la Région de Compiègne"
     }
 ]
