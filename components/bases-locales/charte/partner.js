@@ -18,13 +18,13 @@ const formatService = service => {
 
 function Partner({partnerInfos}) {
   const [isDisplay, setIsDisplay] = useState(false)
-  const {name, link, alt, infos, perimeter, services, picture, height, width} = partnerInfos
+  const {name, link, alt, infos, perimeter, services, picture, height, width, isCompany} = partnerInfos
 
   return (
     <div className='partner'>
       <div className='general-partner-infos'>
         <p className='name'>
-          <b><a href={link}>{name}</a></b>
+          <b><a href={link}>{`${name} ${isCompany === true ? '(société)' : ''}`}</a></b>
         </p>
         <div className='logo'>
           <Image
@@ -172,7 +172,8 @@ Partner.propTypes = {
     picture: PropTypes.string,
     height: PropTypes.number,
     width: PropTypes.number,
-    alt: PropTypes.string
+    alt: PropTypes.string,
+    isCompany: PropTypes.bool.isRequired
   }).isRequired
 }
 
