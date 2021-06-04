@@ -272,6 +272,7 @@
             "63"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "information communale"
         ],
