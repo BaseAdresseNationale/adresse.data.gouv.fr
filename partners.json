@@ -8,6 +8,7 @@
             "24"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "formation",
             "accompagnement technique",
@@ -31,6 +32,7 @@
             "26"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "formation",
             "accompagnement technique",
@@ -51,6 +53,7 @@
             "12"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "formation",
             "accompagnement technique",
@@ -72,6 +75,7 @@
             "2B"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "réalisation de bases adresses locales"
         ],
@@ -96,6 +100,7 @@
             "90"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "animation",
             "formation",
@@ -116,6 +121,7 @@
             "14"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "formation",
             "accompagnement technique",
@@ -136,6 +142,7 @@
             "16"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "animation",
             "formation",
@@ -158,6 +165,7 @@
             "30"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "animation",
             "formation",
@@ -177,6 +185,7 @@
         "perimeter": "France entière",
         "codeDepartement": [],
         "isPerimeterFrance": true,
+        "isCompany": true,
         "services": [
             "formation",
             "accompagnement technique",
@@ -197,6 +206,7 @@
             "74"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "formation",
             "accompagnement technique",
@@ -219,6 +229,7 @@
             "35"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "mise à disposition d’outils mutualisés",
             "accompagnement technique",
@@ -238,6 +249,7 @@
             "89"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "accompagnement technique"
         ],
@@ -253,6 +265,7 @@
         "perimeter": "Cher (18), Indre (36), Gironde (33) et France Entière en solution 100% digitale",
         "codeDepartement": [],
         "isPerimeterFrance": true,
+        "isCompany": true,
         "services": [
             "réalisation de bases adresses locales",
             "accompagnement technique",
@@ -272,6 +285,7 @@
             "60"
         ],
         "isPerimeterFrance": false,
+        "isCompany": false,
         "services": [
             "formation",
             "réalisation de bases adresses locales",
