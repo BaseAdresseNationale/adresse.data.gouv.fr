@@ -1,5 +1,28 @@
 [
     {
+        "name": "CRIGE PACA",
+        "link": "https://www.crige-paca.org/projets/adresse/",
+        "infos": "Le Centre de Ressources en Information Géographique en Provence-Alpes-Côte d’Azur est le centre de ressources en géomatique au service des organismes publics de la région.",
+        "perimeter": "Région PACA",
+        "codeDepartement": [
+            "04",
+            "05",
+            "06",
+            "13",
+            "83",
+            "84"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "formation",
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/crige.jpg",
+        "height": 89,
+        "width": 214,
+        "alt": "Logo du Centre de Ressources en Information Géographique en Provence-Alpes-Côte d’Azur"
+    },
+    {
         "name": "ATD24",
         "link": "http://www.atd24.fr/174-cartographie-numerique.html",
         "infos": "L’Agence Technique Départementale de la Dordogne a développé une Base Adresse Locale sur Périgéo, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
@@ -280,5 +303,26 @@
         "height": 91,
         "width": 228,
         "alt": "Logo de Égliseneuve-des-Liards"
+    },
+    {
+        "name": "Agglomération de la Région de Compiègne",
+        "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/31/adresse-le-compiegnois-sur-la-bonne-voie/",
+        "infos": "Dans le cadre du partenariat local d’information géographique, les intercommunalités du compiégnois se sont engagées dès 2017 dans un programme d’accompagnement complet des communes.",
+        "perimeter": "Agglomération de la Région de Compiègne",
+        "codeDepartement": [
+            "60"
+        ],
+        "isPerimeterFrance": false,
+        "services": [
+            "formation",
+            "réalisation de bases adresses locales",
+            "accompagnement technique",
+            "diffusion",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/compiegne.png",
+        "height": 67,
+        "width": 150,
+        "alt": "Logo de l’Agglomération de la Région de Compiègne"
     }
 ]

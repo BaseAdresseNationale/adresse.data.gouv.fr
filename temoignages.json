@@ -62,5 +62,21 @@
         "alt": "Paysage de la commune de Speluncatu",
         "date": "2021-02-23",
         "articleUrl": "https://www.amenagement-numerique.gouv.fr/fr/actualite/tiers-lieu-corse-anime-ladressage-balagne"
+    },
+    {
+        "title": "Égliseneuve-des-Liards",
+        "preview": "Dans le Puy-de-Dôme, la commune d’Égliseneuve-des-Liards a profité de la mise à jour des adresses pour ancrer son projet collaboratif avec la population. Bien décidé à faire école, son maire est le premier élu à placer la Charte de la Base Adresse Locale sur le site de la commune.",
+        "picture": "/images/testimonies/egliseneuve.jpg",
+        "alt": "Vue sur l’église en granit, extrait des carrières locales. Cliché Christophe Vezon",
+        "date": "2021-03-17",
+        "articleUrl": "https://blog.geo.data.gouv.fr/%C3%A9gliseneuve-des-liards-les-adresses-au-c%C5%93ur-dun-projet-collaboratif-667e33e888e4"
+    },
+    {
+        "title": "Mégalis Bretagne",
+        "preview": "Syndicat mixte de coopération territoriale, Mégalis Bretagne a mis en place un système d’information autour de l’adresse pour suivre le déploiement de la fibre.",
+        "picture": "/images/testimonies/megalis-bretagne.png",
+        "alt": "Image cartographie générale. Source : Mégalis Bretagne",
+        "date": "2021-03-17",
+        "articleUrl": "https://www.amenagement-numerique.gouv.fr/fr/actualite/megalis-bretagne-piloter-chantier-fibre-autour-ladresse"
     }
 ]
