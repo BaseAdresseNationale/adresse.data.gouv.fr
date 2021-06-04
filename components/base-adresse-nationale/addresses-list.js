@@ -32,7 +32,7 @@ function AddressesList({title, subtitle, placeholder, addresses, getLabel, addre
           <h5>{title}</h5>
           <div>{subtitle}</div>
         </div>
-        {addresses.length > 0 && (
+        {addresses.length > 0 ? (
           <div className='search-input'>
             <div className='search-icon'><Search size={18} /></div>
             <input
@@ -42,6 +42,10 @@ function AddressesList({title, subtitle, placeholder, addresses, getLabel, addre
               onChange={e => setInput(e.target.value)}
             />
             {isLoading && <div className='loading'><Loader size='small' /></div>}
+          </div>
+        ) : (
+          <div className='no-addresse'>
+            Aucune adresse
           </div>
         )}
       </div>
@@ -106,7 +110,7 @@ function AddressesList({title, subtitle, placeholder, addresses, getLabel, addre
           background-color: ${theme.backgroundGrey};
         }
 
-        .no-result {
+        .no-result, .no-addresse {
           text-align: center;
           margin: 1em;
           font-weight: bold;
