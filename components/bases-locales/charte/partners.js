@@ -4,29 +4,28 @@ import Partner from '@/components/bases-locales/charte/partner'
 
 import allPartners from 'partners.json'
 
-function Partners({isDetailed, searchedPartners}) {
+function Partners({searchedPartners}) {
   const partners = searchedPartners || allPartners
   return (
     <div className='partners-container'>
       {partners.map(partner => {
-        return <Partner key={partner.name} partnerInfos={partner} isDetailed={isDetailed} />
+        return <Partner key={partner.name} partnerInfos={partner} />
       })}
 
       <style jsx>{`
         .partners-container {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(${isDetailed ? '250px' : '200px'}, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           justify-items: center;
           margin-top: 2em;
-          gap: ${isDetailed ? '6em 5em' : '3em 1em'};
+          gap: 6em 5em;
         }
-        `}</style>
+      `}</style>
     </div>
   )
 }
 
 Partners.propTypes = {
-  isDetailed: PropTypes.bool,
   searchedPartners: PropTypes.array
 }
 
