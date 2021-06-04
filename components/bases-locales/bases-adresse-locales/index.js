@@ -26,7 +26,9 @@ function BasesAdresseLocales({datasets}) {
       const searchFormatted = deburr(search.toLowerCase())
       return titleFormatted.includes(searchFormatted)
     })
-    setResults(filterDatasets)
+
+    const sortedDatasets = sortByDateMAJ(filterDatasets)
+    setResults(sortedDatasets)
   }, [datasets])
 
   const debouncedSearch = useMemo(
@@ -67,7 +69,7 @@ function BasesAdresseLocales({datasets}) {
 
         {results.length > 0 ? (
           <div className='bases'>
-            {sortByDateMAJ(results).slice(0, DATASETS_COUNT).map(dataset => (
+            {results.slice(0, DATASETS_COUNT).map(dataset => (
               <BaseAdresseLocale key={dataset.id} dataset={dataset} />
             ))}
           </div>
