@@ -51,7 +51,6 @@ function Charte() {
             Télécharger
           </a>
         </div>
-
       </Section>
 
       <Section background='white' title='Organismes partenaires' >
@@ -59,27 +58,27 @@ function Charte() {
       </Section>
 
       <style jsx>{`
-              .charte-download-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                margin: 1.5em;
-              }
+        .charte-download-section {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          margin: 1.5em;
+        }
 
-              .charte-preview {
-                margin: 1.5em;
-                border: 1px solid ${theme.border};
-              }
-    
-              .charte-container {
-                margin-top: 3em;
-              }
+        .charte-preview {
+          margin: 1.5em;
+          border: 1px solid ${theme.border};
+        }
 
-              .charte-list li {
-                margin-top: 0.5em;
-              }
-            `}</style>
+        .charte-container {
+          margin-top: 3em;
+        }
+
+        .charte-list li {
+          margin-top: 0.5em;
+        }
+      `}</style>
     </Page>
   )
 }
