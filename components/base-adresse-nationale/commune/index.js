@@ -12,6 +12,7 @@ import Voie from './voie'
 
 function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
   const [activeTab, setActiveTab] = useState('VOIES')
+  const lieuxDits = voies.filter(({type}) => type === 'lieu-dit')
 
   return (
     <>
@@ -53,9 +54,9 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         ) : (
           <div id='lieux-dits'>
             <AddressesList
-              title='Lieux-dits de la commune'
+              title={lieuxDits.length > 0 ? 'Lieux-dits de la commune' : 'Aucun lieu-dit'}
               placeholder={`Rechercher un lieu-dit à ${nomCommune}`}
-              addresses={orderBy(voies.filter(({type}) => type === 'lieu-dit'), 'nomVoie', 'asc')}
+              addresses={orderBy(lieuxDits, 'nomVoie', 'asc')}
               getLabel={({nomVoie}) => nomVoie}
               addressComponent={voie => (
                 <Voie {...voie} />
