@@ -6,8 +6,9 @@ import colors from '@/styles/colors'
 import {getNumeroComplet} from '@/lib/ban'
 
 import Certification from '../certification'
+import ParcellesList from '../parcelles-list'
 
-function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, codePostal, cleInterop}) {
+function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop}) {
   return (
     <>
       <div className='heading'>
@@ -31,6 +32,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         <div>Code postal : <b>{codePostal}</b></div>
         <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
+        <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
       </div>
 
       <style jsx>{`
@@ -77,6 +79,7 @@ Numero.propTypes = {
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
   sourcePosition: PropTypes.string.isRequired,
+  parcelles: PropTypes.array.isRequired,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,

@@ -5,6 +5,7 @@ import booleanContains from '@turf/boolean-contains'
 
 import theme from '@/styles/theme'
 
+import CadastreLayerControl from '../cadastre-layer-control'
 import CenterControl from '../center-control'
 import SelectPaintLayer from '../select-paint-layer'
 import MapLegends from '../map-legends'
@@ -17,7 +18,9 @@ import {
   toponymeLayer,
   sources,
   sourcesLayerPaint,
-  defaultLayerPaint
+  defaultLayerPaint,
+  cadastreLayers,
+  PARCELLES_MINZOOM
 } from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
@@ -77,8 +80,10 @@ const isFeatureContained = (container, content) => {
 }
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
-  const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(false)
+  const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
+  const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
+  const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -163,32 +168,45 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
   }, [map, address])
 
-  useEffect(() => {
+  const handleZoom = useCallback(() => {
     isAddressVisible()
-  }, [address, isAddressVisible])
+    const zoom = map.getZoom()
+    setIsCadastreDisplayble(zoom < PARCELLES_MINZOOM)
+  }, [map, isAddressVisible])
+
+  useEffect(() => {
+    handleZoom()
+  }, [address, isAddressVisible, handleZoom])
 
   useEffect(() => {
     if (map.isStyleLoaded()) {
       map.setPaintProperty(adresseCircleLayer.id, 'circle-color', paintLayers[selectedPaintLayer].paint)
       map.setPaintProperty(adresseLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
       map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
+
+      cadastreLayers.map(({id}) => (
+        map.setLayoutProperty(
+          id,
+          'visibility',
+          isCadastreLayersShown ? 'visible' : 'none'
+        )
+      ))
+
+      if (address?.parcelles) {
+        map.setFilter('parcelle-highlighted', ['any', ...address.parcelles.map(id => ['==', ['get', 'id'], id])])
+      } else {
+        map.setFilter('parcelle-highlighted', ['==', ['get', 'id'], ''])
+      }
     }
-  }, [map, selectedPaintLayer])
+  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
 
   useEffect(() => {
-    map.off('dragend', isAddressVisible)
-    map.off('zoomend', isAddressVisible)
+    map.off('dragend', handleZoom)
+    map.off('zoomend', handleZoom)
 
-    map.on('dragend', isAddressVisible)
-    map.on('zoomend', isAddressVisible)
+    map.on('dragend', handleZoom)
+    map.on('zoomend', handleZoom)
 
-    return () => {
-      map.off('dragend', isAddressVisible)
-      map.off('zoomend', isAddressVisible)
-    }
-  }, [map, address, isAddressVisible])
-
-  useEffect(() => {
     map.on('mousemove', 'adresse', onHover)
     map.on('mousemove', 'adresse-label', onHover)
     map.on('mousemove', 'voie', onHover)
@@ -205,6 +223,9 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     map.on('click', 'toponyme', e => handleClick(e, onSelect))
 
     return () => {
+      map.off('dragend', handleZoom)
+      map.off('zoomend', handleZoom)
+
       map.off('mousemove', 'adresse', onHover)
       map.off('mousemove', 'adresse-label', onHover)
       map.off('mousemove', 'voie', onHover)
@@ -235,8 +256,14 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       minzoom: 10,
       maxzoom: 14,
       promoteId: 'id'
+    },
+    {
+      name: 'cadastre',
+      type: 'vector',
+      url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
     }])
     setLayers([
+      ...cadastreLayers,
       adresseCircleLayer,
       adresseLabelLayer,
       adresseCompletLabelLayer,
@@ -268,7 +295,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
   return (
     <>
-      <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+      <div className='mapboxgl-ctrl-group mapboxgl-ctrl'>
+        <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+        <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
+      </div>
+
       <SelectPaintLayer
         options={paintLayers}
         selected={selectedPaintLayer}
@@ -280,6 +311,17 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
           legend={paintLayers[selectedPaintLayer].legend.content}
         />
       </SelectPaintLayer>
+
+      <style jsx>{`
+        .mapboxgl-ctrl-group {
+          position: absolute;
+          box-shadow: none;
+          border: 2px solid #dcd8d5;
+          z-index: 2;
+          right: 8px;
+          top: 80px;
+        }
+        `}</style>
     </>
   )
 }
@@ -296,6 +338,7 @@ BanMap.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
+    parcelles: PropTypes.array,
     displayBBox: PropTypes.array
   }),
   map: PropTypes.object.isRequired,
