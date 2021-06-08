@@ -24,7 +24,7 @@ function Partner({partnerInfos}) {
     <div className='partner'>
       <div className='general-partner-infos'>
         <p className='name'>
-          <b><a href={link}>{`${name} ${isCompany === true ? '(société)' : ''}`}</a></b>
+          <b><a href={link}>{`${name} ${isCompany ? '(société)' : ''}`}</a></b>
         </p>
         <div className='logo'>
           <Image
