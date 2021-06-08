@@ -9,7 +9,6 @@ import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import Infolettre from '@/components/infolettre'
-import Partners from '@/components/bases-locales/charte/partners'
 
 function Home() {
   return (
@@ -56,10 +55,6 @@ function Home() {
               Découvrir la charte
             </ButtonLink>
           </div>
-          <div className='partners'>
-            <h3>Nos partenaires</h3>
-            <Partners isDetailed={false} />
-          </div>
 
           <style jsx>{`
             .charte-section {
@@ -71,16 +66,12 @@ function Home() {
               margin-top: 4em;
             }
 
-            .partners {
-              margin-top: 4em;
-            }
-
             .centered {
               margin: 40px auto;
               display: flex;
               justify-content: center;
             }
-            `}
+          `}
           </style>
         </div>
       </Section>
@@ -104,16 +95,16 @@ function Home() {
         </div>
 
         <style jsx>{`
-        .centered {
-          margin-top: 5em;
-          display: flex;
-          justify-content: center;
-        }
+          .centered {
+            margin-top: 5em;
+            display: flex;
+            justify-content: center;
+          }
 
-        .centered a {
-          text-decoration: none;
-          color: white;
-        }
+          .centered a {
+            text-decoration: none;
+            color: white;
+          }
         `}
         </style>
       </Section>
