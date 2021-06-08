@@ -1,18 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {X, AlertTriangle} from 'react-feather'
+import {flattenDeep, groupBy} from 'lodash'
 
 import theme from '@/styles/theme'
 
 import IssueRows from './issue-rows'
 
+const isFloatNumber = value => {
+  return value % 1 !== 0
+}
+
 function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
-  const issuesCount = Object.keys(issues).length
+  const issuesRows = Object.keys(issues).map(issue => {
+    return issues[issue]
+  })
+
+  const issuesFlatten = flattenDeep(issuesRows)
+  const issuesRowsCount = issuesFlatten.length
+  const issuesGroupedByLine = groupBy(issuesFlatten, 'line')
+  const issuesCount = Object.keys(issuesGroupedByLine).length
+  const percentageIssues = (issuesCount * 100) / totalRowsCount
+  const percentageRounded = isFloatNumber(percentageIssues) ? percentageIssues.toFixed(2) : percentageIssues
 
   return (
     <div className='issues-container'>
       <h4>
-        {issuesCount} {issueType === 'error' ? 'Erreur' : 'Avertissement'}{issuesCount > 1 ? 's' : ''}
+        {issuesRowsCount} {issueType === 'error' ? 'Erreur' : 'Avertissement'}{issuesRowsCount > 1 ? 's' : ''}
+        &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) - {percentageRounded} %
         <div className={`summary-icon ${issueType}`}>
           {issueType === 'error' ? (
             <X style={{verticalAlign: 'bottom'}} />
