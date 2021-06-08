@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
 import colors from '@/styles/colors'
-import partners from 'partners.json'
+import allPartners from 'partners.json'
 
 function Partners({searchedPartners}) {
-  const compagnyPartners = partners.filter(partner => partner.isCompany === true)
-  const notCompanyPartners = partners.filter(partner => partner.isCompany === false)
+  const companyPartners = allPartners.filter(partner => partner.isCompany === true)
+  const partners = allPartners.filter(partner => partner.isCompany === false)
 
   return (
     <>
@@ -18,12 +18,12 @@ function Partners({searchedPartners}) {
       ) : (
         <div>
           <div className='partners-container'>
-            {notCompanyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+            {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
           <div className='compagny'>
             <h3 className='subtitle'>Sociétés</h3>
             <div className='partners-container'>
-              {compagnyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+              {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
             </div>
           </div>
         </div>
