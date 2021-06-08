@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
 import colors from '@/styles/colors'
-import allPartners from 'partners.json'
+import partners from 'partners.json'
 
 function Partners({searchedPartners}) {
-  const compagnyPartners = allPartners.filter(partner => partner.isCompany === true)
-  const notCompanyPartners = allPartners.filter(partner => partner.isCompany === false)
+  const compagnyPartners = partners.filter(partner => partner.isCompany === true)
+  const notCompanyPartners = partners.filter(partner => partner.isCompany === false)
 
   return (
     <>
