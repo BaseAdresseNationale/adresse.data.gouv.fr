@@ -7,10 +7,6 @@ import theme from '@/styles/theme'
 
 import IssueRows from './issue-rows'
 
-const isFloatNumber = value => {
-  return value % 1 !== 0
-}
-
 function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
   const issuesRows = Object.keys(issues).map(issue => {
     return issues[issue]
@@ -21,7 +17,7 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
   const issuesGroupedByLine = groupBy(issuesFlatten, 'line')
   const issuesCount = Object.keys(issuesGroupedByLine).length
   const percentageIssues = (issuesCount * 100) / totalRowsCount
-  const percentageRounded = isFloatNumber(percentageIssues) ? percentageIssues.toFixed(2) : percentageIssues
+  const percentageRounded = Number.isInteger(percentageIssues) ? percentageIssues : percentageIssues.toFixed(2)
 
   return (
     <div className='issues-container'>
