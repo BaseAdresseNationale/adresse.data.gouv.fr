@@ -23,7 +23,7 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
     <div className='issues-container'>
       <h4>
         {issuesRowsCount} {issueType === 'error' ? 'Erreur' : 'Avertissement'}{issuesRowsCount > 1 ? 's' : ''}
-        &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) - {percentageRounded} %
+        &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) {percentageRounded}%
         <div className={`summary-icon ${issueType}`}>
           {issueType === 'error' ? (
             <X style={{verticalAlign: 'bottom'}} />
