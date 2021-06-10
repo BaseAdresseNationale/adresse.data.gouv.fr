@@ -7,10 +7,10 @@ import Button from './button'
 function Notification({message, type, style, isFullWidth, onClose, children}) {
   return (
     <div style={style} className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${isFullWidth ? 'full-width' : ''}`}>
-      {children || message}
       {onClose && (
         <Button className='close' aria-label='Fermer' onClick={onClose}><X /></Button>
       )}
+      {children || message}
     </div >
   )
 }
