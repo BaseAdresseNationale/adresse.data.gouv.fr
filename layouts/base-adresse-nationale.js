@@ -50,7 +50,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
 
       <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
         <div className='explorer'>
-          <Explorer address={address} handleSelect={handleSelect} />
+          <Explorer address={address} handleSelect={handleSelect} isMobile />
         </div>
       </div>
 
