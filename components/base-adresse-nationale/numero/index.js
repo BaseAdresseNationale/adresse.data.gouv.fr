@@ -67,7 +67,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
               Vous les trouverez ci-dessous :
             </p>
             <p>
-              <b>{lat}, {lon}</b>
+              <b>{lat},{lon}</b>
             </p>
           </Notification>
         )}

@@ -8,7 +8,7 @@ function CoordinatesCopy({lat, lon, setCopyError, setIsCopySucceded, setIsCopyAv
   const handleClick = async () => {
     if (navigator.clipboard) {
       try {
-        await navigator.clipboard.writeText(`${lat}, ${lon}`)
+        await navigator.clipboard.writeText(`${lat},${lon}`)
         setIsCopySucceded(true)
       } catch (error) {
         setCopyError(error)
@@ -32,7 +32,7 @@ function CoordinatesCopy({lat, lon, setCopyError, setIsCopySucceded, setIsCopyAv
     <div>
       {isMobile ? (
         <div className='mobile-button'>
-          <a className='text-button' href={`geo:${lat}, ${lon}`}>
+          <a className='text-button' href={`geo:${lat},${lon}`}>
             <Button
               type='button'
               style={{marginRight: 1, borderRadius: '3px 0 0 3px', width: '99.5%'}}

@@ -5,7 +5,7 @@ import {MapPin} from 'react-feather'
 
 function OpenGPS({lat, lon}) {
   return (
-    <Link href={`geo:${lat}, ${lon}`} passHref>
+    <Link href={`geo:${lat},${lon}`} passHref>
       <button
         type='button'
         className='mapboxgl-ctrl'
