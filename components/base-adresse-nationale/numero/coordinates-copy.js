@@ -4,7 +4,9 @@ import {Clipboard} from 'react-feather'
 
 import Button from '@/components/button'
 
-function CoordinatesCopy({lat, lon, setCopyError, setIsCopySucceded, setIsCopyAvailable, isMobile}) {
+function CoordinatesCopy({lat, lon, setCopyError, setIsCopySucceded, setIsCopyAvailable, isMobile, isSafariBrowser}) {
+  const href = isSafariBrowser ? 'http://maps.apple.com/?address=' : 'geo:'
+
   const handleClick = async () => {
     if (navigator.clipboard) {
       try {
@@ -32,7 +34,7 @@ function CoordinatesCopy({lat, lon, setCopyError, setIsCopySucceded, setIsCopyAv
     <div>
       {isMobile ? (
         <div className='mobile-button'>
-          <a className='text-button' href={`geo:${lat},${lon}`}>
+          <a className='text-button' href={`${href}${lat},${lon}`}>
             <Button
               type='button'
               style={{marginRight: 1, borderRadius: '3px 0 0 3px', width: '99.5%'}}
@@ -84,7 +86,8 @@ CoordinatesCopy.propTypes = {
   setCopyError: PropTypes.func.isRequired,
   setIsCopySucceded: PropTypes.func.isRequired,
   setIsCopyAvailable: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  isSafariBrowser: PropTypes.bool.isRequired
 }
 
 export default CoordinatesCopy

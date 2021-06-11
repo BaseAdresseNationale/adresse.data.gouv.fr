@@ -9,7 +9,7 @@ import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 
 const MOBILE_WIDTH = 900
 
-function BaseAdresseNationale({address}) {
+function BaseAdresseNationale({address, isSafariBrowser}) {
   const [viewHeight, setViewHeight] = useState('100vh')
   const [isMobileDevice, setIsMobileDevice] = useState(false)
   const [initialHash, setInitialHash] = useState(null)
@@ -89,6 +89,7 @@ function BaseAdresseNationale({address}) {
         viewHeight={viewHeight}
         handleSelect={selectAddress}
         hash={initialHash}
+        isSafariBrowser={isSafariBrowser}
       />
     </Page>
   )
@@ -117,11 +118,15 @@ BaseAdresseNationale.propTypes = {
       nomVoie: PropTypes.string
     }),
     displayBBox: PropTypes.array
-  })
+  }),
+  isSafariBrowser: PropTypes.bool.isRequired
 }
 
-export async function getServerSideProps({query}) {
+export async function getServerSideProps({query, req}) {
   const {id} = query
+  const {headers} = req
+  const userAgent = headers['user-agent']
+  const isSafariBrowser = userAgent.toLowerCase().includes('safari')
 
   if (!id) {
     return {props: {}}
@@ -137,7 +142,7 @@ export async function getServerSideProps({query}) {
     }
 
     return {
-      props: {address}
+      props: {address, isSafariBrowser}
     }
   } catch {
     return {

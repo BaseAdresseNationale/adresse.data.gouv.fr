@@ -80,7 +80,7 @@ const isFeatureContained = (container, content) => {
   return booleanContains(polygonA, polygonB)
 }
 
-function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
+function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile, isSafariBrowser}) {
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
@@ -301,7 +301,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
         {isMobile && lat && lon && (
-          <OpenGPS lat={lat} lon={lon} />
+          <OpenGPS lat={lat} lon={lon} isSafariBrowser={isSafariBrowser} />
         )}
       </div>
 
@@ -335,7 +335,8 @@ BanMap.defaultProps = {
   address: null,
   isSourceLoaded: false,
   onSelect: () => {},
-  isMobile: false
+  isMobile: false,
+  isSafariBrowser: false
 }
 
 BanMap.propTypes = {
@@ -357,7 +358,8 @@ BanMap.propTypes = {
   onSelect: PropTypes.func,
   setSources: PropTypes.func.isRequired,
   setLayers: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  isSafariBrowser: PropTypes.bool
 }
 
 export default BanMap

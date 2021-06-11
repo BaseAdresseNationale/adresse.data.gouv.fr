@@ -30,7 +30,7 @@ function SearchMessage() {
   )
 }
 
-function Explorer({address, isMobile}) {
+function Explorer({address, isMobile, isSafariBrowser}) {
   if (!address) {
     return <SearchMessage />
   }
@@ -39,7 +39,7 @@ function Explorer({address, isMobile}) {
 
   return (
     <div className='explorer-container'>
-      <Address {...address} isMobile={isMobile} />
+      <Address {...address} isMobile={isMobile} isSafariBrowser={isSafariBrowser} />
 
       <style jsx>{`
         .explorer-container {
@@ -54,7 +54,8 @@ function Explorer({address, isMobile}) {
 
 Explorer.defaultProps = {
   address: null,
-  isMobile: false
+  isMobile: false,
+  isSafariBrowser: false
 }
 
 Explorer.propTypes = {
@@ -63,7 +64,8 @@ Explorer.propTypes = {
     voies: PropTypes.array,
     nbVoies: PropTypes.number
   }),
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  isSafariBrowser: PropTypes.bool
 }
 
 export default Explorer

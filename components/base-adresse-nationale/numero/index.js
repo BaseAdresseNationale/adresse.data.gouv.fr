@@ -11,7 +11,7 @@ import ParcellesList from '../parcelles-list'
 
 import CoordinateCopy from './coordinates-copy'
 
-function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile, isSafariBrowser}) {
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
@@ -44,6 +44,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
 
       <CoordinateCopy
         isMobile={isMobile}
+        isSafariBrowser={isSafariBrowser}
         lat={lat}
         lon={lon}
         setCopyError={setCopyError}
@@ -141,7 +142,8 @@ Numero.propTypes = {
   cleInterop: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  isSafariBrowser: PropTypes.bool.isRequired
 }
 
 export default Numero

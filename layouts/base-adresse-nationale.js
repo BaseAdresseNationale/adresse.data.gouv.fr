@@ -20,7 +20,8 @@ const propTypes = {
   bbox: PropTypes.array.isRequired,
   viewHeight: PropTypes.string.isRequired,
   handleSelect: PropTypes.func.isRequired,
-  hash: PropTypes.string
+  hash: PropTypes.string,
+  isSafariBrowser: PropTypes.bool.isRequired
 }
 
 const parseHash = hash => {
@@ -32,7 +33,7 @@ const parseHash = hash => {
   return {zoom: null, center: null}
 }
 
-export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
+export function Mobile({address, bbox, viewHeight, handleSelect, hash, isSafariBrowser}) {
   const [selectedLayout, setSelectedLayout] = useState('map')
   const {zoom, center} = parseHash(hash)
 
@@ -43,14 +44,14 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
         <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
           {({...mapboxProps}) => (
-            <BanMap address={address} {...mapboxProps} onSelect={handleSelect} isMobile />
+            <BanMap address={address} {...mapboxProps} onSelect={handleSelect} isMobile isSafariBrowser={isSafariBrowser} />
           )}
         </Mapbox>
       </div>
 
       <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
         <div className='explorer'>
-          <Explorer address={address} handleSelect={handleSelect} isMobile />
+          <Explorer address={address} handleSelect={handleSelect} isMobile isSafariBrowser={isSafariBrowser} />
         </div>
       </div>
 
