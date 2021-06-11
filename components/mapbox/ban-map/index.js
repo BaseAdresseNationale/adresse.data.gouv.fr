@@ -9,6 +9,7 @@ import CadastreLayerControl from '../cadastre-layer-control'
 import CenterControl from '../center-control'
 import SelectPaintLayer from '../select-paint-layer'
 import MapLegends from '../map-legends'
+import OpenGPS from '../open-gps'
 
 import {
   adresseCircleLayer,
@@ -84,6 +85,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
+  const {lat, lon} = address
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -298,6 +300,9 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       <div className='mapboxgl-ctrl-group mapboxgl-ctrl'>
         <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
+        {isMobile && lat && lon && (
+          <OpenGPS lat={lat} lon={lon} />
+        )}
       </div>
 
       <SelectPaintLayer
@@ -339,7 +344,9 @@ BanMap.propTypes = {
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
     parcelles: PropTypes.array,
-    displayBBox: PropTypes.array
+    displayBBox: PropTypes.array,
+    lat: PropTypes.number,
+    lon: PropTypes.number
   }),
   map: PropTypes.object.isRequired,
   isSourceLoaded: PropTypes.bool,
