@@ -61,6 +61,7 @@ function CoordinatesCopy({coordinates, setCopyError, setIsCopySucceded, setIsCop
           onClick={handleClick}
         >
           Copier la position GPS
+          <Clipboard style={{marginLeft: '1em', verticalAlign: 'middle'}} />
         </Button>
       )}
       <style jsx>{`
