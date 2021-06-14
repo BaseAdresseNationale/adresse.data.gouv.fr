@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {MapPin} from 'react-feather'
+import {Navigation} from 'react-feather'
 
 function OpenGPS({lat, lon, isSafariBrowser}) {
   const href = isSafariBrowser ? 'http://maps.apple.com/?address=' : 'geo:'
@@ -12,7 +12,7 @@ function OpenGPS({lat, lon, isSafariBrowser}) {
         type='button'
         className='mapboxgl-ctrl'
       >
-        <MapPin size={18} />
+        <Navigation size={18} />
       </button>
     </Link>
   )
