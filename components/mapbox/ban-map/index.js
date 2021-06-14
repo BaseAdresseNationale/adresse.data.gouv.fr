@@ -85,7 +85,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
-  const {lat, lon} = address
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -300,8 +299,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       <div className='mapboxgl-ctrl-group mapboxgl-ctrl'>
         <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
-        {isMobile && lat && lon && (
-          <OpenGPS lat={lat} lon={lon} isSafariBrowser={isSafariBrowser} />
+        {isMobile && address && (
+          <OpenGPS coordinates={{lat: address.lat, lon: address.lon}} isSafariBrowser={isSafariBrowser} />
         )}
       </div>
 

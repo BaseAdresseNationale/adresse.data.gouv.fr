@@ -15,6 +15,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
+  const coordinates = {lat, lon}
 
   return (
     <>
@@ -45,8 +46,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
       <CoordinateCopy
         isMobile={isMobile}
         isSafariBrowser={isSafariBrowser}
-        lat={lat}
-        lon={lon}
+        coordinates={coordinates}
         setCopyError={setCopyError}
         setIsCopySucceded={setIsCopySucceded}
         setIsCopyAvailable={setIsCopyAvailable}
