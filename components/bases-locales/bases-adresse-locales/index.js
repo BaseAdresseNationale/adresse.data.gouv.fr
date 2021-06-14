@@ -13,16 +13,13 @@ import BaseAdresseLocale from './base-adresse-locale'
 const DATASETS_COUNT = 10
 
 const sortByDateMAJ = datasets => {
-  const orderedDatasets = []
   const datasetsWithDateMAJ = datasets.filter(data => data.dateMAJ)
   const datasetsWithoutDateMAJ = datasets.filter(data => !data.dateMAJ)
 
-  orderedDatasets.push(
+  return [
     ...datasetsWithDateMAJ.sort((a, b) => a.dateMAJ < b.dateMAJ ? 1 : -1),
     ...datasetsWithoutDateMAJ
-  )
-
-  return orderedDatasets
+  ]
 }
 
 function BasesAdresseLocales({datasets}) {
