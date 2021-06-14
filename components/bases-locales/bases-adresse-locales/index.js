@@ -24,7 +24,8 @@ const sortByDateMAJ = datasets => {
 
 function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
-  const [results, setResults] = useState(datasets)
+  const orderedResults = sortByDateMAJ(datasets)
+  const [results, setResults] = useState(orderedResults)
 
   const filterDatasets = useCallback(search => {
     const filterDatasets = datasets.filter(({title}) => {
