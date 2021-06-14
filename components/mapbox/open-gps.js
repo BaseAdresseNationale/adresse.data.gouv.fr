@@ -11,7 +11,6 @@ function OpenGPS({lat, lon, isSafariBrowser}) {
       <button
         type='button'
         className='mapboxgl-ctrl'
-        title='Ouvrir le GPS'
       >
         <MapPin size={18} />
       </button>
