@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import {Navigation} from 'react-feather'
 
-function OpenGPS({coordinates, isSafariBrowser}) {
+import {DeviceContext} from 'pages/base-adresse-nationale'
+
+function OpenGPS({coordinates}) {
+  const {isSafariBrowser} = useContext(DeviceContext)
   const {lat, lon} = coordinates
   const href = isSafariBrowser ? 'http://maps.apple.com/?address=' : 'geo:'
 
@@ -23,8 +26,7 @@ OpenGPS.propTypes = {
   coordinates: PropTypes.shape({
     lat: PropTypes.number.isRequired,
     lon: PropTypes.number.isRequired
-  }).isRequired,
-  isSafariBrowser: PropTypes.bool.isRequired
+  }).isRequired
 }
 
 export default OpenGPS

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import colors from '@/styles/colors'
@@ -11,7 +11,10 @@ import ParcellesList from '../parcelles-list'
 
 import CoordinateCopy from './coordinates-copy'
 
-function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile, isSafariBrowser}) {
+import {DeviceContext} from 'pages/base-adresse-nationale'
+
+function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+  const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
@@ -142,8 +145,7 @@ Numero.propTypes = {
   cleInterop: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  isMobile: PropTypes.bool,
-  isSafariBrowser: PropTypes.bool.isRequired
+  isMobile: PropTypes.bool
 }
 
 export default Numero

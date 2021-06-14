@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useMemo} from 'react'
+import React, {useState, useCallback, useEffect, useMemo, createContext} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 
@@ -6,6 +6,8 @@ import {getAddress} from '@/lib/api-ban'
 
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
+
+export const DeviceContext = createContext()
 
 const MOBILE_WIDTH = 900
 
@@ -83,14 +85,18 @@ function BaseAdresseNationale({address, isSafariBrowser}) {
 
   return (
     <Page title={title} description={description} hasFooter={false}>
-      <Layout
-        address={address}
-        bbox={!initialHash && address ? address.displayBBox : null}
-        viewHeight={viewHeight}
-        handleSelect={selectAddress}
-        hash={initialHash}
-        isSafariBrowser={isSafariBrowser}
-      />
+      <DeviceContext.Provider value={{
+        viewHeight,
+        isSafariBrowser
+      }}
+      >
+        <Layout
+          address={address}
+          bbox={!initialHash && address ? address.displayBBox : null}
+          handleSelect={selectAddress}
+          hash={initialHash}
+        />
+      </DeviceContext.Provider>
     </Page>
   )
 }

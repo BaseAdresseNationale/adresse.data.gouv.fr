@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'
@@ -25,6 +25,8 @@ import {
 } from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
+
+import {DeviceContext} from 'pages/base-adresse-nationale'
 
 let hoveredFeature = null
 
@@ -80,7 +82,8 @@ const isFeatureContained = (container, content) => {
   return booleanContains(polygonA, polygonB)
 }
 
-function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile, isSafariBrowser}) {
+function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
+  const {isSafariBrowser} = useContext(DeviceContext)
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
@@ -334,8 +337,7 @@ BanMap.defaultProps = {
   address: null,
   isSourceLoaded: false,
   onSelect: () => {},
-  isMobile: false,
-  isSafariBrowser: false
+  isMobile: false
 }
 
 BanMap.propTypes = {
@@ -357,8 +359,7 @@ BanMap.propTypes = {
   onSelect: PropTypes.func,
   setSources: PropTypes.func.isRequired,
   setLayers: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool,
-  isSafariBrowser: PropTypes.bool
+  isMobile: PropTypes.bool
 }
 
 export default BanMap
