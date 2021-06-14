@@ -29,13 +29,9 @@ function Faq() {
             </Question>
 
             <Question question='À quelle fréquence la Base Adresse Nationale est-elle mise à jour ?'>
-              <p>Les fichiers contenant les adresses de la Base Adresse Nationale sont diffusés de façon <strong>hebdomadaire</strong>.</p>
-              <p>Ils suivent le processus de production indicatif suivant :</p>
-              <ul>
-                <li>Chaque lundi, l’IGN réalise un export des données de la base de gestion qu’il opère et le transmet à la DINUM.</li>
-                <li>Chaque mardi, la DINUM consolide les <strong>Bases Adresses Locales</strong> disponibles en un fichier national appelé <a href='https://www.data.gouv.fr/fr/datasets/adresses-locales/'>Adresses locales</a>.</li>
-                <li>Chaque mercredi, la DINUM produit et diffuse le fichier <strong>Base Adresse Nationale</strong>. Les services qui l’utilisent sont mis à jour dans les minutes qui suivent (géocodeur, API Adresse…).</li>
-              </ul>
+              <p>Chaque jour, les <strong>Bases Adresses Locales</strong> sont collectées et intégrées dans la <strong>Base Adresse Nationale</strong>.</p>
+              <p>Chaque lundi, l’IGN réalise un export des données du <a href='http://guichet-adresse.ign.fr'>Guichet Adresse</a> et le transmet à la DINUM qui l’intègre.</p>
+              <p>Les <Link href='/donnees-nationales'>fichiers à télécharger</Link> sont quant à eux produits plusieurs fois par semaine. Une version est archivée chaque mercredi.</p>
             </Question>
 
             <Question question='Pourquoi contribuer à la Base Adresse Nationale ?'>
