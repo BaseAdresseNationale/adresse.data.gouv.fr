@@ -9,7 +9,7 @@ import {getNumeroComplet} from '@/lib/ban'
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
 
-import CoordinateCopy from './coordinates-copy'
+import CoordinatesCopy from './coordinates-copy'
 
 import {DeviceContext} from 'pages/base-adresse-nationale'
 
@@ -46,7 +46,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
       </div>
 
-      <CoordinateCopy
+      <CoordinatesCopy
         isMobile={isMobile}
         isSafariBrowser={isSafariBrowser}
         coordinates={coordinates}
