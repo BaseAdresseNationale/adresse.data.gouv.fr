@@ -12,13 +12,20 @@ import BaseAdresseLocale from './base-adresse-locale'
 
 const DATASETS_COUNT = 10
 
-const sortByDateMAJ = datasets => (
-  datasets.sort((a, b) => a.dateMAJ < b.dateMAJ ? 1 : -1)
-)
+const sortByDateMAJ = datasets => {
+  const datasetsWithDateMAJ = datasets.filter(data => data.dateMAJ)
+  const datasetsWithoutDateMAJ = datasets.filter(data => !data.dateMAJ)
+
+  return [
+    ...datasetsWithDateMAJ.sort((a, b) => a.dateMAJ < b.dateMAJ ? 1 : -1),
+    ...datasetsWithoutDateMAJ
+  ]
+}
 
 function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
-  const [results, setResults] = useState(datasets)
+  const orderedResults = sortByDateMAJ(datasets)
+  const [results, setResults] = useState(orderedResults)
 
   const filterDatasets = useCallback(search => {
     const filterDatasets = datasets.filter(({title}) => {
@@ -69,7 +76,7 @@ function BasesAdresseLocales({datasets}) {
 
         {results.length > 0 ? (
           <div className='bases'>
-            {results.slice(0, DATASETS_COUNT).map(dataset => (
+            {sortByDateMAJ(results).slice(0, DATASETS_COUNT).map(dataset => (
               <BaseAdresseLocale key={dataset.id} dataset={dataset} />
             ))}
           </div>
