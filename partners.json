@@ -321,5 +321,26 @@
         "height": 67,
         "width": 150,
         "alt": "Logo de l’Agglomération de la Région de Compiègne"
+    },
+    {
+        "name": "TIGEO",
+        "link": "https://www.tigeo.fr/outils-thematiques/adressage/accueil-voies-adresses",
+        "infos": "TIGEO (Tarn Information Géographique) est une association Loi 1901 dont l’objet principal sont la promotion et le développement de l’usage de l’information géographique sur le territoire du Tarn. Elle propose dans ce cadre aux collectivités tarnaises différents services liés à l'adressage.",
+        "perimeter": "Tarn",
+        "codeDepartement": [
+            "81"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "réalisation de bases adresses locales",
+            "accompagnement technique",
+            "diffusion",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/tigeo.png",
+        "height": 67,
+        "width": 220,
+        "alt": "Logo de Tarn Information Géographique"
     }
 ]
