@@ -30,6 +30,7 @@ function MyApp({Component, pageProps, isSafariBrowser}) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
       <DeviceContextProvider isSafariBrowser={isSafariBrowser}>
+        <div id='alert-root' />
         <Component {...pageProps} />
       </DeviceContextProvider>
       <style global jsx>{`
