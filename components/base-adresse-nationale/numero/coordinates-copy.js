@@ -19,16 +19,6 @@ function CoordinatesCopy({coordinates, setCopyError, setIsCopySucceded, setIsCop
     } else {
       setIsCopyAvailable(false)
     }
-
-    const copyAlertElement = document.querySelector('#copy-alert')
-
-    if (copyAlertElement) {
-      setTimeout(() => {
-        copyAlertElement.scrollIntoView({
-          behavior: 'smooth'
-        })
-      }, 100)
-    }
   }
 
   return (
