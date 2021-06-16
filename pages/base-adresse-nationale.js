@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useMemo, createContext} from 'react'
+import React, {useState, useCallback, useEffect, useMemo, useContext} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 
@@ -7,22 +7,14 @@ import {getAddress} from '@/lib/api-ban'
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 
-export const DeviceContext = createContext()
+import {DeviceContext} from './_app'
 
-const MOBILE_WIDTH = 900
-
-function BaseAdresseNationale({address, isSafariBrowser}) {
-  const [viewHeight, setViewHeight] = useState('100vh')
-  const [isMobileDevice, setIsMobileDevice] = useState(false)
+function BaseAdresseNationale({address}) {
+  const {isMobileDevice} = useContext(DeviceContext)
   const [initialHash, setInitialHash] = useState(null)
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
-
-  const handleResize = () => {
-    setViewHeight(`${window.innerWidth}px`)
-    setIsMobileDevice(window.innerWidth < MOBILE_WIDTH)
-  }
 
   const {title, description} = useMemo(() => {
     let title = 'Base Adresse Nationale'
@@ -74,29 +66,14 @@ function BaseAdresseNationale({address, isSafariBrowser}) {
     }
   }, [address, initialHash])
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    handleResize()
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
   return (
     <Page title={title} description={description} hasFooter={false}>
-      <DeviceContext.Provider value={{
-        viewHeight,
-        isSafariBrowser
-      }}
-      >
-        <Layout
-          address={address}
-          bbox={!initialHash && address ? address.displayBBox : null}
-          handleSelect={selectAddress}
-          hash={initialHash}
-        />
-      </DeviceContext.Provider>
+      <Layout
+        address={address}
+        bbox={!initialHash && address ? address.displayBBox : null}
+        handleSelect={selectAddress}
+        hash={initialHash}
+      />
     </Page>
   )
 }
@@ -124,15 +101,11 @@ BaseAdresseNationale.propTypes = {
       nomVoie: PropTypes.string
     }),
     displayBBox: PropTypes.array
-  }),
-  isSafariBrowser: PropTypes.bool.isRequired
+  })
 }
 
-export async function getServerSideProps({query, req}) {
+export async function getServerSideProps({query}) {
   const {id} = query
-  const {headers} = req
-  const userAgent = headers['user-agent']
-  const isSafariBrowser = userAgent.toLowerCase().includes('safari')
 
   if (!id) {
     return {props: {}}
@@ -148,7 +121,7 @@ export async function getServerSideProps({query, req}) {
     }
 
     return {
-      props: {address, isSafariBrowser}
+      props: {address}
     }
   } catch {
     return {

@@ -26,7 +26,7 @@ import {
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
 
-import {DeviceContext} from 'pages/base-adresse-nationale'
+import {DeviceContext} from 'pages/_app'
 
 let hoveredFeature = null
 

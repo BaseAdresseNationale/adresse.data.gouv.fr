@@ -10,7 +10,7 @@ import BanMap from '@/components/mapbox/ban-map'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
-import {DeviceContext} from 'pages/base-adresse-nationale'
+import {DeviceContext} from 'pages/_app'
 
 const defaultProps = {
   address: null,

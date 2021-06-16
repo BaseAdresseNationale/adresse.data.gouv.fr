@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import {Navigation} from 'react-feather'
 
-import {DeviceContext} from 'pages/base-adresse-nationale'
+import {DeviceContext} from 'pages/_app'
 
 function OpenGPS({coordinates}) {
   const {isSafariBrowser} = useContext(DeviceContext)
