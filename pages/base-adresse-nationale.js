@@ -18,7 +18,7 @@ function BaseAdresseNationale({address}) {
   const router = useRouter()
 
   const handleResize = () => {
-    setViewHeight(`${window.innerWidth}px`)
+    setViewHeight(`${window.innerHeight}px`)
     setIsMobileDevice(window.innerWidth < MOBILE_WIDTH)
   }
 
