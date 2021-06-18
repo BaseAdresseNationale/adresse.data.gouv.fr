@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import {Mail} from 'react-feather'
 
 import Page from '@/layouts/main'
@@ -49,7 +48,7 @@ function Contact() {
           <Question question='Pour toute autre demande ou pour plus d’informations.' isBold>
             <div>
               <p>
-                Si vous ne trouvez pas les réponses à vos questions ce site ou dans la <Link href='/faq'><a>FAQ</a></Link>, vous pouvez nous contacter à l’adresse suivante : <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.
+                Si vous ne trouvez pas les réponses à vos questions ce site ou dans la <a href='https://doc.adresse.data.gouv.fr/'>documentation</a>, vous pouvez nous contacter à l’adresse suivante : <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>.
               </p>
               <p>
                 Notre équipe fera le nécessaire pour vous répondre dans les plus brefs délais, dans la limite de sa disponibilité.
