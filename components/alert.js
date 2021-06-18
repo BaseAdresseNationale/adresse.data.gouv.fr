@@ -26,6 +26,9 @@ function Alert({type, message, duration, onClose}) {
 
     const timeout = setTimeout(() => {
       setAlertRoot(null)
+      if (onClose) {
+        onClose()
+      }
     }, duration)
 
     return () => {
