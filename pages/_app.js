@@ -55,10 +55,17 @@ MyApp.propTypes = {
 }
 
 MyApp.getInitialProps = async ({ctx}) => {
+  let isSafariBrowser
   const {req} = ctx
-  const {headers} = req
-  const userAgent = headers['user-agent']
-  const isSafariBrowser = userAgent.toLowerCase().includes('safari')
+
+  if (req) {
+    const {headers} = req
+    const userAgent = headers['user-agent']
+    isSafariBrowser = userAgent.toLowerCase().includes('safari')
+    return {isSafariBrowser}
+  }
+
+  isSafariBrowser = navigator.userAgent.toLowerCase().includes('safari')
 
   return {isSafariBrowser}
 }
