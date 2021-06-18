@@ -12,7 +12,7 @@ const links = [
   {text: 'Guides', href: '/guides'},
   {text: 'API', href: '/api'},
   {text: 'Outils', href: '/tools'},
-  {text: 'FAQ', href: '/faq'},
+  {text: 'Documentation', href: 'https://doc.adresse.data.gouv.fr/', isExternal: true},
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
@@ -32,7 +32,11 @@ function Header() {
         <ul className='nav__links'>
           {links.map(link => (
             <li key={link.text}>
-              <Link href={link.href}><a>{link.text}</a></Link>
+              {link.isExternal ? (
+                <a href={link.href}>{link.text}</a>
+              ) : (
+                <Link href={link.href}><a>{link.text}</a></Link>
+              )}
             </li>
           ))}
         </ul>

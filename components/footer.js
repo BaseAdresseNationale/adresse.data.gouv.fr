@@ -20,7 +20,7 @@ function Footer() {
         <ul className='footer__links'>
           <li><h2>adresse.data.gouv.fr</h2></li>
           <li><Link href='/cgu'><a>Mentions légales et CGU</a></Link></li>
-          <li><Link href='/faq'><a>FAQ</a></Link></li>
+          <li><a href='https://doc.adresse.data.gouv.fr/'>Documentation</a></li>
           <li><Link href='/nous-contacter'><a>Nous contacter</a></Link></li>
         </ul>
       </div>
