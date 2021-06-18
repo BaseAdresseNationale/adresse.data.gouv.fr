@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import {Mail} from 'react-feather'
 
 import Page from '@/layouts/main'
