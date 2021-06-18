@@ -79,7 +79,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
           display: flex;
           flex-direction: column;
           width: 100%;
-          height: calc(${viewHeight} - 67px); // Max heigth available - header height
+          height: calc(${viewHeight} - 77px); // Max heigth available - header height
         }
 
         @media (max-width: 380px) {
