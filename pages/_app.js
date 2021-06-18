@@ -55,7 +55,7 @@ MyApp.propTypes = {
 }
 
 MyApp.getInitialProps = async ({ctx}) => {
-  let isSafariBrowser
+  let isSafariBrowser = false
   const {req} = ctx
 
   if (req) {
