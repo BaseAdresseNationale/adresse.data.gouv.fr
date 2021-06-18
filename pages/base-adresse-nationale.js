@@ -7,7 +7,7 @@ import {getAddress} from '@/lib/api-ban'
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 
-import {DeviceContext} from './_app'
+import DeviceContext from '@/contexts/device'
 
 function BaseAdresseNationale({address}) {
   const {isMobileDevice} = useContext(DeviceContext)

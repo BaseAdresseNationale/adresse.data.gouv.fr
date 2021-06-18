@@ -11,7 +11,7 @@ import ParcellesList from '../parcelles-list'
 
 import CoordinatesCopy from './coordinates-copy'
 
-import {DeviceContext} from 'pages/_app'
+import DeviceContext from '@/contexts/device'
 
 function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
