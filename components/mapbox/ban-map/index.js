@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'
@@ -9,6 +9,7 @@ import CadastreLayerControl from '../cadastre-layer-control'
 import CenterControl from '../center-control'
 import SelectPaintLayer from '../select-paint-layer'
 import MapLegends from '../map-legends'
+import OpenGPS from '../open-gps'
 
 import {
   adresseCircleLayer,
@@ -24,6 +25,8 @@ import {
 } from './layers'
 import popupFeatures from './popups'
 import {forEach} from 'lodash'
+
+import DeviceContext from '@/contexts/device'
 
 let hoveredFeature = null
 
@@ -80,6 +83,7 @@ const isFeatureContained = (container, content) => {
 }
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
+  const {isSafariBrowser} = useContext(DeviceContext)
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
@@ -298,6 +302,9 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       <div className='mapboxgl-ctrl-group mapboxgl-ctrl'>
         <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
+        {isMobile && address && (
+          <OpenGPS coordinates={{lat: address.lat, lon: address.lon}} isSafariBrowser={isSafariBrowser} />
+        )}
       </div>
 
       <SelectPaintLayer
@@ -339,7 +346,9 @@ BanMap.propTypes = {
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
     parcelles: PropTypes.array,
-    displayBBox: PropTypes.array
+    displayBBox: PropTypes.array,
+    lat: PropTypes.number,
+    lon: PropTypes.number
   }),
   map: PropTypes.object.isRequired,
   isSourceLoaded: PropTypes.bool,

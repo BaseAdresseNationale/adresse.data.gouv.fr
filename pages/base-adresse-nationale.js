@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useMemo} from 'react'
+import React, {useState, useCallback, useEffect, useMemo, useContext} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 
@@ -7,20 +7,14 @@ import {getAddress} from '@/lib/api-ban'
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
 
-const MOBILE_WIDTH = 900
+import DeviceContext from '@/contexts/device'
 
 function BaseAdresseNationale({address}) {
-  const [viewHeight, setViewHeight] = useState('100vh')
-  const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const {isMobileDevice} = useContext(DeviceContext)
   const [initialHash, setInitialHash] = useState(null)
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
-
-  const handleResize = () => {
-    setViewHeight(`${window.innerHeight}px`)
-    setIsMobileDevice(window.innerWidth < MOBILE_WIDTH)
-  }
 
   const {title, description} = useMemo(() => {
     let title = 'Base Adresse Nationale'
@@ -72,21 +66,11 @@ function BaseAdresseNationale({address}) {
     }
   }, [address, initialHash])
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    handleResize()
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
   return (
     <Page title={title} description={description} hasFooter={false}>
       <Layout
         address={address}
         bbox={!initialHash && address ? address.displayBBox : null}
-        viewHeight={viewHeight}
         handleSelect={selectAddress}
         hash={initialHash}
       />

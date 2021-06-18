@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Map, Folder} from 'react-feather'
 
@@ -10,6 +10,8 @@ import BanMap from '@/components/mapbox/ban-map'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
+import DeviceContext from '@/contexts/device'
+
 const defaultProps = {
   address: null,
   hash: null
@@ -18,7 +20,6 @@ const defaultProps = {
 const propTypes = {
   address: PropTypes.object,
   bbox: PropTypes.array.isRequired,
-  viewHeight: PropTypes.string.isRequired,
   handleSelect: PropTypes.func.isRequired,
   hash: PropTypes.string
 }
@@ -32,7 +33,8 @@ const parseHash = hash => {
   return {zoom: null, center: null}
 }
 
-export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
+export function Mobile({address, bbox, handleSelect, hash}) {
+  const {viewHeight} = useContext(DeviceContext)
   const [selectedLayout, setSelectedLayout] = useState('map')
   const {zoom, center} = parseHash(hash)
 
@@ -50,7 +52,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
 
       <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
         <div className='explorer'>
-          <Explorer address={address} handleSelect={handleSelect} />
+          <Explorer address={address} handleSelect={handleSelect} isMobile />
         </div>
       </div>
 

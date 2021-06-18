@@ -2,10 +2,12 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 
+import {DeviceContextProvider} from '@/contexts/device'
+
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
 const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID
 
-function MyApp({Component, pageProps}) {
+function MyApp({Component, pageProps, isSafariBrowser}) {
   const logPageView = () => {
     if (window.Piwik) {
       const tracker = window.Piwik.getTracker(`${PIWIK_URL}/piwik.php`, PIWIK_SITE_ID)
@@ -27,8 +29,9 @@ function MyApp({Component, pageProps}) {
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
-      <Component {...pageProps} />
-
+      <DeviceContextProvider isSafariBrowser={isSafariBrowser}>
+        <Component {...pageProps} />
+      </DeviceContextProvider>
       <style global jsx>{`
         body,
         html,
@@ -47,7 +50,24 @@ function MyApp({Component, pageProps}) {
 
 MyApp.propTypes = {
   Component: PropTypes.func.isRequired,
-  pageProps: PropTypes.object.isRequired
+  pageProps: PropTypes.object.isRequired,
+  isSafariBrowser: PropTypes.bool.isRequired
+}
+
+MyApp.getInitialProps = async ({ctx}) => {
+  let isSafariBrowser = false
+  const {req} = ctx
+
+  if (req) {
+    const {headers} = req
+    const userAgent = headers['user-agent']
+    isSafariBrowser = userAgent.toLowerCase().includes('safari')
+    return {isSafariBrowser}
+  }
+
+  isSafariBrowser = navigator.userAgent.toLowerCase().includes('safari')
+
+  return {isSafariBrowser}
 }
 
 export default MyApp

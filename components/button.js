@@ -8,7 +8,7 @@ function Button({size, color, isOutlined, children, ...props}) {
     <button type='submit' className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
       {children}
 
-      <style global jsx>{`
+      <style jsx>{`
         button:disabled {
           background-color: ${colors.darkGrey};
         }
