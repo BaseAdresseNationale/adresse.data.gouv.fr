@@ -79,7 +79,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
           display: flex;
           flex-direction: column;
           width: 100%;
-          height: calc(${viewHeight} - 67px); // Max heigth available - header
+          height: calc(${viewHeight} - 67px); // Max heigth available - header height
         }
 
         @media (max-width: 380px) {
@@ -90,7 +90,7 @@ export function Mobile({address, bbox, viewHeight, handleSelect, hash}) {
 
         .mobile-container {
           width: 100%;
-          height: calc(${viewHeight} - 190px); // Max heigth available - header - searchbar - layout selector
+          height: calc(${viewHeight} - 190px); // Max heigth available - sum of header, searchbar and layout selector heights
         }
 
         .show {
