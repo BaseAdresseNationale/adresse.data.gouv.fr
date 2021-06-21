@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
+import App from 'next/app'
 
 import {DeviceContextProvider} from '@/contexts/device'
 
@@ -54,20 +55,19 @@ MyApp.propTypes = {
   isSafariBrowser: PropTypes.bool.isRequired
 }
 
-MyApp.getInitialProps = async ({ctx}) => {
-  let isSafariBrowser = false
-  const {req} = ctx
+MyApp.getInitialProps = async appContext => {
+  const appProps = await App.getInitialProps(appContext)
+  const {req} = appContext.ctx
 
   if (req) {
     const {headers} = req
     const userAgent = headers['user-agent']
-    isSafariBrowser = userAgent.toLowerCase().includes('safari')
-    return {isSafariBrowser}
+    appProps.isSafariBrowser = userAgent.toLowerCase().includes('safari')
+  } else {
+    appProps.isSafariBrowser = navigator.userAgent.toLowerCase().includes('safari')
   }
 
-  isSafariBrowser = navigator.userAgent.toLowerCase().includes('safari')
-
-  return {isSafariBrowser}
+  return appProps
 }
 
 export default MyApp
