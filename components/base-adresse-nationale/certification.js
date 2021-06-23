@@ -65,7 +65,7 @@ function Certification({isCertified, certifiedMessage, notCertifiedMessage, icon
   )
 }
 
-Certification.propTypes = {
+Certification.defaultProps = {
   iconSize: 34
 }
 
