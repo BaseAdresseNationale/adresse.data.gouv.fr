@@ -34,7 +34,7 @@ function Guides() {
           alt='miniature du guide Mes Adresses'
         >
           <p>
-            Un outil en ligne vous permettre de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. <br />Il est accessible sans compétences techniques.
+            &quot;Mes Adresses&quot; est un outil en ligne qui vous permet de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. Il est accessible sans compétences techniques et dispose d’un tutoriel embarqué.<br /> Le Guide de Mes Adresses est disponible dans un <a href='https://guide.mes-adresses.data.gouv.fr/'>format texte en ligne</a> ou en PDF.
           </p>
         </DocDownload>
       </Section>
@@ -48,7 +48,7 @@ function Guides() {
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v2.1.pdf'
         >
           <p>
-            Les communes sont responsables de leurs adresses. <br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
+            Les communes sont responsables de leurs adresses.<br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
           </p>
         </DocDownload>
       </Section>
