@@ -342,5 +342,27 @@
         "height": 67,
         "width": 220,
         "alt": "Logo de Tarn Information Géographique"
+    },
+    {
+        "name": "Pays de Brest",
+        "link": "https://geo.pays-de-brest.fr/actualites/Pages/public/Adressage.aspx",
+        "infos": "Le service SIG du Pôle métropolitain du Pays de Brest assure l’harmonisation, l’intégration et la diffusion des données géographiques en lien avec les collectivités de ce territoire.",
+        "perimeter": "Pays de Brest",
+        "codeDepartement": [
+            "29"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "animation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés",
+            "diffusion"
+        ],
+        "picture": "/images/logos/partners/paysBrest.png",
+        "height": 90,
+        "width": 220,
+        "alt": "Logo du Pays de Brest"
     }
 ]
