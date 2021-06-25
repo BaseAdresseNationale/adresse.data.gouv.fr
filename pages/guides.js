@@ -48,7 +48,7 @@ function Guides() {
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v2.1.pdf'
         >
           <p>
-            Les communes sont responsables de leurs adresses.<br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.
+            Les communes sont responsables de leurs adresses.<br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.<br /> Le Guide des Bonnes pratiques est disponible dans un <a href='https://guide-bonnes-pratiques.adresse.data.gouv.fr/'>format texte en ligne</a> ou en PDF.
           </p>
         </DocDownload>
       </Section>
