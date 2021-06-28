@@ -78,5 +78,13 @@
         "alt": "Image cartographie générale. Source : Mégalis Bretagne",
         "date": "2021-03-17",
         "articleUrl": "https://www.amenagement-numerique.gouv.fr/fr/actualite/megalis-bretagne-piloter-chantier-fibre-autour-ladresse"
+    },
+    {
+        "title": "Somme Numérique et AMF80",
+        "preview": "Aux côtés des communes depuis l’été 2020 pour les aider à mettre à jour leurs Bases Adresses Locales, Somme Numérique a contacté l’AMF80 pour amplifier son action. Six semaines plus tard, une première formation a réuni une centaine de maires. Et mi-juin près des deux tiers des communes du département. Témoignages sur une « mobilisation-éclair ».",
+        "picture": "/images/testimonies/somme-AMF80.jpg",
+        "alt": "Photo de la salle de réunion de la Somme Numérique",
+        "date": "2021-06-04",
+        "articleUrl": "https://www.amenagement-numerique.gouv.fr/index.php/fr/actualite/somme-numerique-amf80-complementarite-ladresse"
     }
 ]
