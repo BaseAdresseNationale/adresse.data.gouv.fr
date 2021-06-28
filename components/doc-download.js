@@ -43,6 +43,7 @@ function DocDownload({title, link, src, alt, isReverse, children}) {
         }
 
         .preview {
+          display: flex;
           margin: 1em;
           border: 1px solid ${theme.border};
         }
