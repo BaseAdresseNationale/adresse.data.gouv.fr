@@ -36,11 +36,7 @@ function Alert({type, message, duration, onClose}) {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!alertRoot) {
-    return null
-  }
-
-  if (!document) {
+  if (!alertRoot || !document) {
     return null
   }
 
