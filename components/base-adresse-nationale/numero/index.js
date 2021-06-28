@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import colors from '@/styles/colors'
 
-import Notification from '@/components/notification'
+import Alert from '@/components/alert'
 import {getNumeroComplet} from '@/lib/ban'
 
 import Certification from '../certification'
@@ -19,6 +19,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
   const coordinates = {lat, lon}
+  const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
 
   return (
     <>
@@ -55,27 +56,30 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         setIsCopyAvailable={setIsCopyAvailable}
       />
 
-      <div id='copy-alert' className='copy-alert'>
-        {isCopySucceded && (
-          <Notification type='success' message='Coordonnées GPS copiées' onClose={() => setIsCopySucceded(false)} />
-        )}
+      {isCopySucceded && (
+        <Alert
+          type='success'
+          message='Coordonnées GPS copiées'
+          onClose={() => setIsCopySucceded(false)}
+        />
+      )}
 
-        {copyError && (
-          <Notification type='error' message={copyError} onClose={() => setCopyError(null)} />
-        )}
+      {copyError && (
+        <Alert
+          type='error'
+          message={copyError}
+          onClose={() => setCopyError(null)}
+        />
+      )}
 
-        {!isCopyAvailable && (
-          <Notification type='warning' onClose={() => setIsCopyAvailable(true)}>
-            <p>
-              Votre navigateur est incompatible avec la copie des coordonnées GPS.<br />{}
-              Vous les trouverez ci-dessous :
-            </p>
-            <p>
-              <b>{lat},{lon}</b>
-            </p>
-          </Notification>
-        )}
-      </div>
+      {!isCopyAvailable && (
+        <Alert
+          type='warning'
+          duration={10000}
+          message={copyUnvailableMessage}
+          onClose={() => setIsCopyAvailable(true)}
+        />
+      )}
       <style jsx>{`
         .heading {
           display: grid;
@@ -109,10 +113,6 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
           font-size: 1.1em;
           font-style: italic;
           color: ${colors.almostBlack};
-        }
-
-        .copy-alert {
-          margin-top: 1em;
         }
       `}</style>
     </>
