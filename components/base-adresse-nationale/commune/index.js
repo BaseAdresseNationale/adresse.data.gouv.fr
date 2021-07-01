@@ -10,7 +10,7 @@ import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, typeComposition, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
+function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifies, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
   const [activeTab, setActiveTab] = useState('VOIES')
 
   return (
@@ -22,9 +22,9 @@ function Commune({nomCommune, codeCommune, region, departement, typeComposition,
         </div>
         <div style={{padding: '1em'}}>
           <Certification
-            isCertified={typeComposition === 'bal'}
-            certifiedMessage='Les adresses sont certifiées par la commune'
-            notCertifiedMessage='Les adresses ne sont pas certifiées par la commune'
+            isCertified={nbNumeros === nbNumerosCertifies}
+            certifiedMessage='Toutes les adresses sont certifiées par la commune'
+            notCertifiedMessage='Certaines adresses ne sont pas certifiées par la commune'
           />
         </div>
       </div>
@@ -95,6 +95,7 @@ Commune.propTypes = {
   nbVoies: PropTypes.number.isRequired,
   nbLieuxDits: PropTypes.number.isRequired,
   nbNumeros: PropTypes.number.isRequired,
+  nbNumerosCertifies: PropTypes.number.isRequired,
   region: PropTypes.shape({
     nom: PropTypes.string.isRequired
   }).isRequired,

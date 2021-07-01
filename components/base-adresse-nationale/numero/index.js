@@ -13,7 +13,7 @@ import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 
-function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, certifie, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -31,7 +31,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, sourcePosition, commune,
         </div>
         <div style={{padding: '1em'}}>
           <Certification
-            isCertified={sourcePosition === 'bal'}
+            isCertified={certifie}
             certifiedMessage='Ce numéro est certifié par la commune'
             notCertifiedMessage='Ce numéro n’est pas certifié par la commune'
           />
@@ -127,7 +127,7 @@ Numero.propTypes = {
   numero: PropTypes.string.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
-  sourcePosition: PropTypes.string.isRequired,
+  certifie: PropTypes.bool.isRequired,
   parcelles: PropTypes.array.isRequired,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,
