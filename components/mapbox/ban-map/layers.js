@@ -13,7 +13,7 @@ export const sources = {
 
 export const defaultLayerPaint = [
   'case',
-  ['==', ['get', 'sourcePosition'], 'bal'],
+  ['boolean', ['get', 'certifie'], true],
   theme.successBorder,
   theme.warningBorder
 ]
