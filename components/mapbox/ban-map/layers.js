@@ -5,10 +5,10 @@ export const sources = {
   cadastre: {name: 'Cadastre (DGFiP)', color: '#2c7bb6'},
   ftth: {name: 'IPE (Arcep / Opérateurs)', color: '#118571'},
   'insee-ril': {name: 'RIL(INSEE)', color: '#7b3294'},
-  'ign-api-gestion-ign': {name: 'BD TOPO (IGN)', color: '#fdae61'},
-  'ign-api-gestion-laposte': {name: 'La Poste', color: '#feffbf'},
+  'ign-api-gestion-ign': {name: 'BD TOPO (IGN)', color: '#455d7a'},
+  'ign-api-gestion-laposte': {name: 'La Poste', color: '#fecd51'},
   'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#d7191c'},
-  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse (Commune)', color: '#a6611a'}
+  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse (Commune)', color: '#38598b'}
 }
 
 export const defaultLayerPaint = [
