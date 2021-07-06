@@ -390,6 +390,27 @@
         "picture": "/images/logos/partners/geopal.png",
         "height": 90,
         "width": 220,
-        "alt": "Logo de GEOPAL "
+        "alt": "Logo de GÉOPAL"
+    },
+    {
+        "name": "Communauté d'Agglomération Gaillac Graulhet",
+        "link": "http://www.ted.fr/actualites/charte-de-la-base-adresse-locale",
+        "infos": "Engagée depuis de nombreuses années auprès de ses communes membres dans leurs projets d'adressage, la Communauté d'Agglomération Gaillac Graulhet leur propose un accompagnement méthodologique et technique par le biais d'ateliers, de cartes et d'outils webcarto.",
+        "perimeter": "Communauté d'Agglomération Gaillac Graulhet et ses 61 communes",
+        "codeDepartement": [
+            "81"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/gaillac.png",
+        "height": 90,
+        "width": 232,
+        "alt": "Logo de la Communauté d'Agglomération Gaillac Graulhet"
     }
 ]
