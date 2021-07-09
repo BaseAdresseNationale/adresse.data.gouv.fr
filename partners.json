@@ -412,5 +412,26 @@
         "height": 90,
         "width": 232,
         "alt": "Logo de la Communauté d'Agglomération Gaillac Graulhet"
+    },
+    {
+        "name": "Communauté d'Agglomération Plaine Vallée",
+        "link": "https://www.agglo-plainevallee.fr/actualites/les-bases-adresses-locales-bal/",
+        "infos": "La Communauté d’Agglomération sensibilise et accompagne ses communes dans la prise en main de leur Base Adresse Locale. Elle apporte son savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+        "perimeter": "Communauté d’Agglomération Plaine Vallée et ses 18 communes.",
+        "codeDepartement": [
+            "95"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/plaine-vallee.png",
+        "height": 90,
+        "width": 201,
+        "alt": "Logo de la Communauté d'Agglomération Plaine Vallée"
     }
 ]
