@@ -86,5 +86,13 @@
         "alt": "Photo de la salle de réunion de la Somme Numérique",
         "date": "2021-06-04",
         "articleUrl": "https://www.amenagement-numerique.gouv.fr/index.php/fr/actualite/somme-numerique-amf80-complementarite-ladresse"
+    },
+    {
+        "title": "Les adresses dans le Gers",
+        "preview": "Maire de la commune de Traversères (70 habitants), membre de la Communauté de communes de Val de Gers et géomaticien au Département du Gers, Olivier Barasz détaille une démarche d’adressage en cohérence à plusieurs échelles. Les Bases Adresses Locales progressent de proche en proche et d’autres partenaires s’associent à la démarche.",
+        "picture": "/images/testimonies/gers.jpg",
+        "alt": "Paysage de près de Traversères dans le Gars. Photographié par Olivier Barasz",
+        "date": "2021-07-02",
+        "articleUrl": "https://blog.geo.data.gouv.fr/de-la-commune-au-d%C3%A9partement-la-collaboration-sur-les-adresses-dans-le-gers-c0d83fb20950"
     }
 ]
