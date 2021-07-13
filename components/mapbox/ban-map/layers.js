@@ -6,7 +6,7 @@ export const sources = {
   ftth: {name: 'Opérateur THD', color: '#118571'},
   'insee-ril': {name: 'INSEE', color: '#a6611a'},
   'ign-api-gestion-ign': {name: 'IGN', color: '#455d7a'},
-  'ign-api-gestion-laposte': {name: 'La Poste', color: '#feffbf'},
+  'ign-api-gestion-laposte': {name: 'La Poste', color: '#fecd51'},
   'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#d7191c'},
   'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse', color: '#7b3294'}
 }
