@@ -1,14 +1,14 @@
 import theme from '@/styles/theme'
 
 export const sources = {
-  bal: {name: 'Base Adresse Locale (Commune)', color: '#4dac26'},
-  cadastre: {name: 'Cadastre (DGFiP)', color: '#2c7bb6'},
-  ftth: {name: 'IPE (Arcep / Opérateurs)', color: '#118571'},
-  'insee-ril': {name: 'RIL(INSEE)', color: '#7b3294'},
-  'ign-api-gestion-ign': {name: 'BD TOPO (IGN)', color: '#fdae61'},
-  'ign-api-gestion-laposte': {name: 'La Poste', color: '#feffbf'},
+  bal: {name: 'Base Adresse Locale', color: '#4dac26'},
+  cadastre: {name: 'Cadastre', color: '#2c7bb6'},
+  ftth: {name: 'Opérateur THD', color: '#118571'},
+  'insee-ril': {name: 'INSEE', color: '#a6611a'},
+  'ign-api-gestion-ign': {name: 'IGN', color: '#455d7a'},
+  'ign-api-gestion-laposte': {name: 'La Poste', color: '#fecd51'},
   'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#d7191c'},
-  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse (Commune)', color: '#a6611a'}
+  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse', color: '#7b3294'}
 }
 
 export const defaultLayerPaint = [
