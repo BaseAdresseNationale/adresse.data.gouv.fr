@@ -7,9 +7,8 @@ import ParcellesList from '@/components/base-adresse-nationale/parcelles-list'
 
 import {sources} from './layers'
 
-function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition, sourceNomVoie}) {
+function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition}) {
   const position = sources[sourcePosition]
-  const nom = sources[sourceNomVoie]
 
   return renderToString(
     <div>
@@ -24,12 +23,7 @@ function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie,
       <div className='infos-container'>
         <div className='separator' />
         <div className='infos'>
-          {nom ? (
-            <div>Nom : <b style={{color: nom.color}}>{nom.name}</b></div>
-          ) : (
-            <div>Nom : <i>source inconnue</i></div>
-          )}
-          <div>Position : <b style={{color: position.color}}>{position.name}</b></div>
+          <div>Source de l’adresse : <b style={{color: position.color}}>{position.name}</b></div>
         </div>
       </div>
 
