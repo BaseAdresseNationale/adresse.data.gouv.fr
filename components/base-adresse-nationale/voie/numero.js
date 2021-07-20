@@ -17,8 +17,8 @@ function Numero({id, numero, suffixe, lieuDitComplementNom, certifie}) {
         <div className='certification'>
           <Certification
             isCertified={certifie}
-            certifiedMessage='Ce numéro est certifié par la commune'
-            notCertifiedMessage='Ce numéro n’est pas certifié par la commune'
+            certifiedMessage='Cette adresse est certifiée par la commune'
+            notCertifiedMessage='Cette adresse n’est pas certifiée par la commune'
             iconSize={18}
             tooltipDirection='left'
           />

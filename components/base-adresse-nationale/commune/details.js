@@ -20,11 +20,11 @@ function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, code
           <div>
             {certificationPercentage === 0 ? (
               <div>
-                Aucun numéro certifié par la commune
+                Aucune adresse n’est certifiée par la commune
               </div>
             ) : (
               <div>
-                {certificationPercentage}% de numéros certifiés par la commune
+                {certificationPercentage}% des adresses sont certifiées par la commune
               </div>
             )}
           </div>
