@@ -7,7 +7,7 @@ import theme from '@/styles/theme'
 import {getNumeroComplet} from '@/lib/ban'
 import Certification from '../certification'
 
-function Numero({id, numero, suffixe, lieuDitComplementNom, certifie}) {
+function Numero({id, numero, suffixe, lieuDitComplementNom, isCertified}) {
   return (
     <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
       <a>
@@ -16,7 +16,7 @@ function Numero({id, numero, suffixe, lieuDitComplementNom, certifie}) {
         </div>
         <div className='certification'>
           <Certification
-            isCertified={certifie}
+            isCertified={isCertified}
             certifiedMessage='Cette adresse est certifiée par la commune'
             iconSize={18}
             tooltipDirection='left'
@@ -65,7 +65,7 @@ Numero.propTypes = {
   suffixe: PropTypes.string,
   numero: PropTypes.string.isRequired,
   lieuDitComplementNom: PropTypes.string,
-  certifie: PropTypes.bool.isRequired
+  isCertified: PropTypes.bool.isRequired
 }
 
 export default Numero

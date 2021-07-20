@@ -41,7 +41,7 @@ function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumero
             placeholder='Rechercher un numéro'
             getLabel={getNumeroComplet}
             addressComponent={numero => (
-              <Numero {...numero} />
+              <Numero isCertified={numero.certifie} {...numero} />
             )}
           />
         </div>
