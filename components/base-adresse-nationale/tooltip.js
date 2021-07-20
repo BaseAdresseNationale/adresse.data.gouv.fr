@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Tooltip({isCertified, message, direction, children}) {
+function Tooltip({message, direction, children}) {
   return (
     <div className={`tooltip tooltip-${direction}`}>
       {children}
@@ -55,7 +55,7 @@ function Tooltip({isCertified, message, direction, children}) {
 
       .tooltip-left .tooltip-text::after {
         left: 100%;  /* At the right of the tooltip */
-        bottom: ${isCertified ? '' : '50%'};
+        bottom: 50%;
         border-color: transparent transparent transparent black;
       }
 
@@ -68,12 +68,10 @@ function Tooltip({isCertified, message, direction, children}) {
 }
 
 Tooltip.defaultProps = {
-  isCertified: null,
   direction: 'bottom'
 }
 
 Tooltip.propTypes = {
-  isCertified: PropTypes.bool,
   message: PropTypes.string.isRequired,
   direction: PropTypes.oneOf([
     'bottom',

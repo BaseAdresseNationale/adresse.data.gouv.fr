@@ -10,7 +10,7 @@ function Certification({isCertified, certifiedMessage, notCertifiedMessage, icon
   return (
     <div>
       {isCertified ? (
-        <Tooltip isCertified message={certifiedMessage} direction={tooltipDirection}>
+        <Tooltip message={certifiedMessage} direction={tooltipDirection}>
           <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.successBorder} size={iconSize} />
         </Tooltip>
       ) : (
