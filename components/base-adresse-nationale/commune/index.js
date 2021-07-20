@@ -9,9 +9,11 @@ import AddressesList from '../addresses-list'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Voie from './voie'
+import {formatPercent} from '@/lib/format-numbers'
 
 function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifies, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
   const [activeTab, setActiveTab] = useState('VOIES')
+  const certificationPercentage = (nbNumerosCertifies * 100) / nbNumeros
 
   return (
     <>
@@ -29,6 +31,7 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
         </div>
       </div>
       <Details
+        certificationPercentage={formatPercent(certificationPercentage)}
         nbVoies={nbVoies}
         nbLieuxDits={nbLieuxDits}
         nbNumeros={nbNumeros}

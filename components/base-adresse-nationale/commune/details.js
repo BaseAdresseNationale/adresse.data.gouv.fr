@@ -6,7 +6,7 @@ import colors from '@/styles/colors'
 
 import PostalCodes from '../postal-codes'
 
-function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
+function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
   return (
     <>
       <div className='commune-general'>
@@ -17,6 +17,17 @@ function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
       </div>
       <div className='number-of-wrapper'>
         <div className='number-of-container'>
+          <div>
+            {certificationPercentage === 0 ? (
+              <div>
+                Aucun numéro certifié par la commune
+              </div>
+            ) : (
+              <div>
+                {certificationPercentage}% de numéros certifiés par la commune
+              </div>
+            )}
+          </div>
           <div>
             {nbVoies > 0 ? (nbVoies > 1 ? `${nbVoies} voies répertoriées` : '1 voie répertoriée') : 'Aucune voie répertoriée'}
           </div>
@@ -66,6 +77,7 @@ function Details({nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
 }
 
 Details.propTypes = {
+  certificationPercentage: PropTypes.number.isRequired,
   nbVoies: PropTypes.number.isRequired,
   nbLieuxDits: PropTypes.number.isRequired,
   nbNumeros: PropTypes.number.isRequired,
