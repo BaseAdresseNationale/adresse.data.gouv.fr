@@ -9,11 +9,13 @@ import Tooltip from './tooltip'
 function Certification({isCertified, certifiedMessage, notCertifiedMessage, iconSize, tooltipDirection}) {
   return (
     <div>
-      {isCertified ? (
+      {isCertified && (
         <Tooltip message={certifiedMessage} direction={tooltipDirection}>
           <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.successBorder} size={iconSize} />
         </Tooltip>
-      ) : (
+      )}
+
+      {!isCertified && notCertifiedMessage && (
         <Tooltip message={notCertifiedMessage} direction={tooltipDirection}>
           <XOctagon style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.warningBorder} size={iconSize} />
         </Tooltip>
@@ -24,13 +26,14 @@ function Certification({isCertified, certifiedMessage, notCertifiedMessage, icon
 
 Certification.defaultProps = {
   iconSize: 34,
-  tooltipDirection: 'bottom'
+  tooltipDirection: 'bottom',
+  notCertifiedMessage: null
 }
 
 Certification.propTypes = {
   isCertified: PropTypes.bool.isRequired,
   certifiedMessage: PropTypes.string.isRequired,
-  notCertifiedMessage: PropTypes.string.isRequired,
+  notCertifiedMessage: PropTypes.string,
   iconSize: PropTypes.number,
   tooltipDirection: PropTypes.oneOf([
     'bottom',
