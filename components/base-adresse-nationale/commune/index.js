@@ -14,7 +14,7 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
   const [activeTab, setActiveTab] = useState('VOIES')
   const certificationPercentage = useMemo(() => {
     const percentage = (nbNumerosCertifies * 100) / nbNumeros
-    return Math.round(percentage)
+    return Math.ceil(percentage)
   }, [nbNumerosCertifies, nbNumeros])
 
   return (
