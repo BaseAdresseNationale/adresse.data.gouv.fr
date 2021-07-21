@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
 
@@ -9,11 +9,13 @@ import AddressesList from '../addresses-list'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Voie from './voie'
-import {formatPercent} from '@/lib/format-numbers'
 
 function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifies, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
   const [activeTab, setActiveTab] = useState('VOIES')
-  const certificationPercentage = (nbNumerosCertifies * 100) / nbNumeros
+  const certificationPercentage = useMemo(() => {
+    const percentage = (nbNumerosCertifies * 100) / nbNumeros
+    return Math.round(percentage)
+  }, [nbNumerosCertifies, nbNumeros])
 
   return (
     <>
@@ -31,7 +33,7 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
         </div>
       </div>
       <Details
-        certificationPercentage={formatPercent(certificationPercentage)}
+        certificationPercentage={certificationPercentage}
         nbVoies={nbVoies}
         nbLieuxDits={nbLieuxDits}
         nbNumeros={nbNumeros}
