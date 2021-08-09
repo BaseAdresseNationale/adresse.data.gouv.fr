@@ -18,7 +18,7 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
   const parseFile = useCallback(async file => {
     try {
       const report = await prevalidate(file)
-      const communes = uniq(report.rows.map(r => r.additionalValues.cle_interop.codeCommune))
+      const communes = uniq(report.rows.map(r => r.parsedValues.commune_insee || r.additionalValues.cle_interop.codeCommune))
 
       if (communes.length !== 1) {
         throw new Error('Fichier BAL vide ou contenant plusieurs communes')
