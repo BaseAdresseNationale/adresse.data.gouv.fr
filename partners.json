@@ -433,5 +433,32 @@
         "height": 90,
         "width": 201,
         "alt": "Logo de la Communauté d'Agglomération Plaine Vallée"
+    },
+    {
+        "name": "Do.TeRR GéoCentre - Réseau Régional des Données Territoriales et Géographiques en Centre-Val de Loire",
+        "link": "https://www.doterr.fr/accueil/les_ressources/creer_sa_base_adresse_locale",
+        "infos": "Do.TeRR GéoCentre est un dispositif partenarial soutenu par l’Etat (SGAR & DREAL Centre-Val de Loire), le Conseil régional et les collectivités en Centre-Val de Loire au service des organismes publics de la région. Centre de ressources et d’expertise, il œuvre pour le partage des données géographiques et ouvertes. Sa mission d’animation est confiée au GIP RECIA.",
+        "perimeter": "Région Centre-Val de Loire",
+        "codeDepartement": [
+            "18",
+            "28",
+            "36",
+            "37",
+            "41",
+            "45"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "animation",
+            "formation",
+            "accompagnement technique",
+            "mise à disposition d’outils mutualisés",
+            "diffusion"
+        ],
+        "picture": "/images/logos/partners/doterr_geocentre.png",
+        "height": 90,
+        "width": 201,
+        "alt": "Logo du Réseau Régional des Données Territoriales et Géographiques en Centre-Val de Loire"
     }
 ]
