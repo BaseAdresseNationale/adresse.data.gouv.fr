@@ -14,7 +14,7 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
   const [activeTab, setActiveTab] = useState('VOIES')
   const certificationPercentage = useMemo(() => {
     const percentage = (nbNumerosCertifies * 100) / nbNumeros
-    const roundedPercentage = Math.round(percentage * 10) / 10
+    const roundedPercentage = Math.floor(percentage * 10) / 10
     return roundedPercentage ? String(roundedPercentage).replace('.', ',') : roundedPercentage
   }, [nbNumerosCertifies, nbNumeros])
 
