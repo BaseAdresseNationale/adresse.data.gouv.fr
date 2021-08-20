@@ -22,7 +22,7 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
         </div>
         <div style={{padding: '1em'}}>
           <Certification
-            isCertified={nbNumeros === nbNumerosCertifies}
+            isCertified={nbNumeros > 0 && nbNumeros === nbNumerosCertifies}
             certifiedMessage='Toutes les adresses sont certifiées par la commune'
             notCertifiedMessage='Certaines adresses ne sont pas certifiées par la commune'
           />
