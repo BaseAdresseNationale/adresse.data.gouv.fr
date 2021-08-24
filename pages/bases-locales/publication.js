@@ -70,7 +70,7 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
       await submitBal(submissionId)
       setStep(5)
     } catch (error) {
-      setError('Impossible de publier la Base Adresse Locale :', error.message)
+      setError(`Impossible de publier la Base Adresse Locale: ${error.message}`)
     }
   }, [submissionId])
 
