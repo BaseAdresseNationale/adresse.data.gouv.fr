@@ -14,12 +14,11 @@ function CodeAuthentification({balId, email, handleValidCode, sendBackCode, canc
   const [error, setError] = useState(null)
 
   const submitCode = useCallback(async () => {
-    const response = await submitAuthentificationCode(balId, code)
-
-    if (response.error) {
-      setError(response.error)
-    } else {
+    try {
+      await submitAuthentificationCode(balId, code)
       handleValidCode()
+    } catch (error) {
+      setError(error.message)
     }
   }, [balId, code, handleValidCode])
 
