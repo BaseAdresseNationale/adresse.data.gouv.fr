@@ -6,12 +6,12 @@ import theme from '@/styles/theme'
 
 import Tooltip from './tooltip'
 
-function Certification({isCertified, certifiedMessage, notCertifiedMessage, iconSize, tooltipDirection}) {
+function Certification({isCertified, certifiedMessage, notCertifiedMessage, iconSize, validIconColor, tooltipDirection}) {
   return (
     <div>
       {isCertified && (
         <Tooltip message={certifiedMessage} direction={tooltipDirection}>
-          <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.successBorder} size={iconSize} />
+          <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={validIconColor} size={iconSize} />
         </Tooltip>
       )}
 
@@ -26,6 +26,7 @@ function Certification({isCertified, certifiedMessage, notCertifiedMessage, icon
 
 Certification.defaultProps = {
   iconSize: 34,
+  validIconColor: theme.successBorder,
   tooltipDirection: 'bottom',
   notCertifiedMessage: null
 }
@@ -35,6 +36,7 @@ Certification.propTypes = {
   certifiedMessage: PropTypes.string.isRequired,
   notCertifiedMessage: PropTypes.string,
   iconSize: PropTypes.number,
+  validIconColor: PropTypes.string,
   tooltipDirection: PropTypes.oneOf([
     'bottom',
     'left'
