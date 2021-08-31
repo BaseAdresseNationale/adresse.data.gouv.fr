@@ -15,7 +15,7 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
   const certificationPercentage = useMemo(() => {
     const percentage = (nbNumerosCertifies * 100) / nbNumeros
     const roundedPercentage = Math.floor(percentage * 10) / 10
-    return roundedPercentage ? String(roundedPercentage).replace('.', ',') : roundedPercentage
+    return (roundedPercentage ? String(roundedPercentage).replace('.', ',') : roundedPercentage) || 0
   }, [nbNumerosCertifies, nbNumeros])
 
   return (
