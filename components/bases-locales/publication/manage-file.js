@@ -43,9 +43,8 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
     if (file) {
       handleError(null)
       setReport(null)
-      parseFile(file)
     }
-  }, [file, parseFile, handleError])
+  }, [file, handleError])
 
   useEffect(() => {
     if (error) {
@@ -73,8 +72,9 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
       handleError('Ce fichier est trop volumineux. Vous devez déposer un fichier de moins de 10 Mo.')
     } else {
       setFile(file)
+      parseFile(file)
     }
-  }, [setLoading, handleError])
+  }, [setLoading, handleError, parseFile])
 
   return (
     <>

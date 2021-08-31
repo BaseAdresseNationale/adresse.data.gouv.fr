@@ -94,5 +94,13 @@
         "alt": "Paysage de près de Traversères dans le Gars. Photographié par Olivier Barasz",
         "date": "2021-07-02",
         "articleUrl": "https://blog.geo.data.gouv.fr/de-la-commune-au-d%C3%A9partement-la-collaboration-sur-les-adresses-dans-le-gers-c0d83fb20950"
+    },
+    {
+        "title": "Azay-sur-Cher",
+        "preview": "Aux portes de Tours en Indre-et-Loire, Azay-sur-Cher a publié une Base Adresse Locale qui respecte la richesse des adresses : 143 voies, 1566 numéros et 86 hameaux et lieux-dits géolocalisés pour 3073 habitants. Claude Ablitzer, adjoint au cadre de vie, aux bâtiments et à la voirie explique la démarche.",
+        "picture": "/images/testimonies/azay-sur-cher.jpeg",
+        "alt": "La Baronnie (premier plan) et le bourg (second plan). Photographie Jean-Claude Ablitzer",
+        "date": "2021-08-19",
+        "articleUrl": "https://blog.geo.data.gouv.fr/azay-sur-cher-des-adresses-d%C3%A9taill%C3%A9es-hameau-par-hameau-et-rue-par-rue-6ba16cd18738"
     }
 ]

@@ -1,3 +1,4 @@
+
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
@@ -20,9 +21,9 @@ import Publishing from '@/components/bases-locales/publication/publishing'
 import Published from '@/components/bases-locales/publication/published'
 import CodeAuthentification from '@/components/bases-locales/publication/code-authentification'
 
-const getStep = bal => {
-  if (bal) {
-    switch (bal.status) {
+const getStep = submission => {
+  if (submission) {
+    switch (submission.status) {
       case 'created':
         return 2
       case 'pending':
@@ -37,16 +38,16 @@ const getStep = bal => {
   }
 }
 
-const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, submissionId}) => {
-  const [bal, setBal] = useState(defaultBal)
-  const [step, setStep] = useState(getStep(bal))
+const PublicationPage = React.memo(({isRedirected, defaultSubmission, initialError, submissionId}) => {
+  const [submission, setSubmission] = useState(defaultSubmission)
+  const [step, setStep] = useState(getStep(submission))
   const [authType, setAuthType] = useState()
   const [error, setError] = useState(initialError)
 
   const handleFile = async file => {
     try {
-      const bal = await uploadCSV(file)
-      setBal(bal)
+      const submission = await uploadCSV(file)
+      setSubmission(submission)
       setStep(2)
     } catch (error) {
       setError(error.message)
@@ -54,7 +55,7 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
   }
 
   const handleCodeAuthentification = async () => {
-    const response = await askAuthentificationCode(bal._id)
+    const response = await askAuthentificationCode(submission._id)
 
     if (response.ok) {
       setAuthType('code')
@@ -70,33 +71,33 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
       await submitBal(submissionId)
       setStep(5)
     } catch (error) {
-      setError('Impossible de publier la Base Adresse Locale :', error.message)
+      setError(`Impossible de publier la Base Adresse Locale: ${error.message}`)
     }
   }, [submissionId])
 
   useEffect(() => {
-    const step = getStep(bal)
+    const step = getStep(submission)
     setStep(step)
-  }, [bal])
+  }, [submission])
 
   useEffect(() => {
     setError(null)
   }, [step])
 
   useEffect(() => {
-    if (bal) {
+    if (submission) {
       if (!submissionId) {
-        const href = `/bases-locales/publication?submissionId=${bal._id}`
+        const href = `/bases-locales/publication?submissionId=${submission._id}`
         Router.push(href, {shallow: true})
       }
 
-      if (bal.authenticationError) {
-        setError(bal.authenticationError)
+      if (submission.authenticationError) {
+        setError(submission.authenticationError)
       }
     } else if (step > 1) {
       setError('Aucune Base Adresse Locale n’a été trouvée')
     }
-  }, [step, bal, error, submissionId])
+  }, [step, submission, error, submissionId])
 
   return (
     <Page>
@@ -110,7 +111,7 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
 
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
-        {bal && <h3>{bal.commune.nom} - {bal.commune.code}</h3>}
+        {submission && <h3>{submission.commune.nom} - {submission.commune.code}</h3>}
 
         <Steps step={step} />
 
@@ -127,17 +128,17 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
 
           {step === 2 && (
             <Authentification
-              communeEmail={bal.commune.email}
+              communeEmail={submission.commune.email}
               handleCodeAuthentification={handleCodeAuthentification}
-              authenticationUrl={bal.authenticationUrl}
+              authenticationUrl={submission.authenticationUrl}
             />
           )}
 
           {step === 3 && (
             authType === 'code' ? (
               <CodeAuthentification
-                balId={bal._id}
-                email={bal.commune.email}
+                submissionId={submission._id}
+                email={submission.commune.email}
                 handleValidCode={() => setStep(4)}
                 sendBackCode={handleCodeAuthentification}
                 cancel={() => setStep(2)}
@@ -147,14 +148,14 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
 
           {step === 4 && (
             <Publishing
-              user={bal.authentication}
-              commune={bal.commune}
+              user={submission.authentication}
+              commune={submission.commune}
               publication={handlePublication}
             />
           )}
 
           {step === 5 && (
-            <Published {...bal} />
+            <Published {...submission} />
           )}
         </div>
       </Section>
@@ -170,13 +171,13 @@ const PublicationPage = React.memo(({isRedirected, defaultBal, initialError, sub
 
 PublicationPage.getInitialProps = async ({query}) => {
   const {url, submissionId} = query
-  let bal
+  let submission
 
   if (submissionId) {
-    bal = await getSubmissions(submissionId)
+    submission = await getSubmissions(submissionId)
   } else if (url) {
     try {
-      bal = await submissionsBal(decodeURIComponent(url))
+      submission = await submissionsBal(decodeURIComponent(url))
     } catch {
       return {
         initialError: 'Une erreur est survenue lors de la récupération du fichier'
@@ -186,7 +187,7 @@ PublicationPage.getInitialProps = async ({query}) => {
 
   return {
     isRedirected: Boolean(url),
-    defaultBal: bal,
+    defaultSubmission: submission,
     submissionId,
     user: {}
   }
@@ -194,7 +195,7 @@ PublicationPage.getInitialProps = async ({query}) => {
 
 PublicationPage.propTypes = {
   isRedirected: PropTypes.bool,
-  defaultBal: PropTypes.shape({
+  defaultSubmission: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     commune: PropTypes.object.isRequired,
@@ -209,7 +210,7 @@ PublicationPage.propTypes = {
 
 PublicationPage.defaultProps = {
   isRedirected: false,
-  defaultBal: null,
+  defaultSubmission: null,
   submissionId: null,
   initialError: null
 }

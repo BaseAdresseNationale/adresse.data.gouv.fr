@@ -9,19 +9,18 @@ import theme from '@/styles/theme'
 import Button from '@/components/button'
 import Notification from '@/components/notification'
 
-function CodeAuthentification({balId, email, handleValidCode, sendBackCode, cancel}) {
+function CodeAuthentification({submissionId, email, handleValidCode, sendBackCode, cancel}) {
   const [code, setCode] = useState('')
   const [error, setError] = useState(null)
 
   const submitCode = useCallback(async () => {
-    const response = await submitAuthentificationCode(balId, code)
-
-    if (response.error) {
-      setError(response.error)
-    } else {
+    try {
+      await submitAuthentificationCode(submissionId, code)
       handleValidCode()
+    } catch (error) {
+      setError(error.message)
     }
-  }, [balId, code, handleValidCode])
+  }, [submissionId, code, handleValidCode])
 
   const handleInput = event => {
     const {value} = event.target
@@ -122,7 +121,7 @@ function CodeAuthentification({balId, email, handleValidCode, sendBackCode, canc
 }
 
 CodeAuthentification.propTypes = {
-  balId: PropTypes.string.isRequired,
+  submissionId: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   handleValidCode: PropTypes.func.isRequired,
   sendBackCode: PropTypes.func.isRequired,
