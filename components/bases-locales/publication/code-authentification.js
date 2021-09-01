@@ -15,7 +15,12 @@ function CodeAuthentification({submissionId, email, handleValidCode, sendBackCod
 
   const submitCode = useCallback(async () => {
     try {
-      await submitAuthentificationCode(submissionId, code)
+      const response = await submitAuthentificationCode(submissionId, code)
+
+      if (response.error) {
+        throw new Error(response.error)
+      }
+
       handleValidCode()
     } catch (error) {
       setError(error.message)
