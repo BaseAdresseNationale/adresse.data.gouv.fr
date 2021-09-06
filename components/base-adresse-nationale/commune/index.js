@@ -34,7 +34,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
         </div>
         <div style={{padding: '1em'}}>
           <Certification
-            isCertified={nbNumerosCertifies > 0}
+            isCertified={typeComposition === 'bal'}
             validIconColor={certificationInProgress ? theme.border : theme.successBorder}
             certifiedMessage={
               isAllCertified ?
