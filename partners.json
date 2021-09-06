@@ -460,5 +460,24 @@
         "height": 102,
         "width": 212,
         "alt": "Logo du Réseau Régional des Données Territoriales et Géographiques en Centre-Val de Loire"
+    },
+    {
+        "name": "Somme Numérique",
+        "link": "https://www.sommenumerique.fr/amenagement-numerique/creer-sa-base-dadresse-locale-en-quelques-clics",
+        "infos": "Somme numérique accompagne gratuitement ses membres et leurs communes dans le but de faciliter le déploiement de la fibre.",
+        "perimeter": "Somme et 7 communes frontalières de Seine-Maritime.",
+        "codeDepartement": [
+            "80"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/somme-numerique.jpg",
+        "height": 68,
+        "width": 268,
+        "alt": "Logo de Somme Numérique"
     }
 ]
