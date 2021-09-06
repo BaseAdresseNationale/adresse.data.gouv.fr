@@ -51,7 +51,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           </p>
 
           <p>
-            Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent comme « <b>certifiées par la commune</b> » dans l’<Link href='/base-adresse-nationale'><a>explorateur de la Base Adresse Nationale</a></Link>.
+            Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent dans l’<Link href='/base-adresse-nationale'>explorateur de la Base Adresse Nationale</Link> comme « <b>certifiées par la commune</b> » ou « <b>en cours de certification par la commune</b> ».
           </p>
 
           <div className='parters'>

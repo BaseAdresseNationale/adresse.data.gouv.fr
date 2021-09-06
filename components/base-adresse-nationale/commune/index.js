@@ -1,17 +1,29 @@
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
+import {CheckCircle} from 'react-feather'
 
 import colors from '@/styles/colors'
+import theme from '@/styles/theme'
 
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
+import Notification from '@/components/notification'
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifies, voies, nbVoies, nbLieuxDits, nbNumeros, population, codesPostaux}) {
+function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, nbNumeros, nbNumerosCertifies, nbLieuxDits, population, codesPostaux, typeComposition}) {
   const [activeTab, setActiveTab] = useState('VOIES')
+
+  const isAllCertified = nbNumeros > 0 && nbNumeros === nbNumerosCertifies
+  const certificationInProgress = typeComposition === 'bal' && !isAllCertified
+
+  const certificationPercentage = useMemo(() => {
+    const percentage = (nbNumerosCertifies * 100) / nbNumeros
+    const roundedPercentage = Math.floor(percentage * 10) / 10
+    return (roundedPercentage ? String(roundedPercentage).replace('.', ',') : roundedPercentage) || 0
+  }, [nbNumerosCertifies, nbNumeros])
 
   return (
     <>
@@ -22,19 +34,37 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
         </div>
         <div style={{padding: '1em'}}>
           <Certification
-            isCertified={nbNumeros > 0 && nbNumeros === nbNumerosCertifies}
-            certifiedMessage='Toutes les adresses sont certifiées par la commune'
-            notCertifiedMessage='Certaines adresses ne sont pas certifiées par la commune'
+            isCertified={nbNumerosCertifies > 0}
+            validIconColor={certificationInProgress ? theme.border : theme.successBorder}
+            certifiedMessage={
+              isAllCertified ?
+                'Toutes les adresses sont certifiées par la commune' :
+                'Les adresses sont en cours de certification par la commune'
+            }
+            notCertifiedMessage={
+              nbNumerosCertifies > 0 ?
+                'Certaines adresses ne sont pas certifiées par la commune' :
+                'Aucune adresse n’est certifiée par la commune'
+            }
           />
         </div>
       </div>
       <Details
+        certificationPercentage={certificationPercentage}
         nbVoies={nbVoies}
         nbLieuxDits={nbLieuxDits}
         nbNumeros={nbNumeros}
         codesPostaux={codesPostaux}
         population={population}
       />
+
+      {certificationInProgress && nbNumeros > 0 && (
+        <Notification style={{marginTop: '1em'}} type='info'>
+          Les adresses sont en <b>cours de certification</b> par la commune.<br />{}
+          Actuellement, <span className='non-breaking'><b>{nbNumerosCertifies} / {nbNumeros} adresses ({certificationPercentage}%) sont certifiées</b> <CheckCircle style={{verticalAlign: 'middle'}} color={theme.successBorder} size={26} /></span>.
+        </Notification>
+      )}
+
       <div>
         <Tabs
           setActiveTab={setActiveTab}
@@ -81,6 +111,10 @@ function Commune({nomCommune, codeCommune, region, departement, nbNumerosCertifi
           font-style: italic;
           font-size: 17px;
           color: ${colors.almostBlack};
+        }
+
+        .non-breaking {
+          white-space: nowrap;
         }
       `}</style>
     </>
