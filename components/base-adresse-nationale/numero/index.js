@@ -1,7 +1,9 @@
 import React, {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+
 import colors from '@/styles/colors'
+import theme from '@/styles/theme'
 
 import Alert from '@/components/alert'
 import {getNumeroComplet} from '@/lib/ban'
@@ -13,7 +15,7 @@ import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, certifie, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -31,9 +33,14 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, commune, voie,
         </div>
         <div style={{padding: '1em'}}>
           <Certification
-            isCertified={certifie}
-            certifiedMessage='Ce numéro est certifié par la commune'
-            notCertifiedMessage='Ce numéro n’est pas certifié par la commune'
+            isCertified={certifie || sourcePosition === 'bal'}
+            validIconColor={certifie ? theme.successBorder : theme.border}
+            certifiedMessage={
+              certifie ?
+                'Cette adresse est certifiée par la commune' :
+                'Cette adresse est en cours de certification par la commune'
+            }
+            notCertifiedMessage='Cette adresse n’est pas certifiée par la commune'
           />
         </div>
       </div>
@@ -128,6 +135,7 @@ Numero.propTypes = {
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
   certifie: PropTypes.bool.isRequired,
+  sourcePosition: PropTypes.string.isRequired,
   parcelles: PropTypes.array.isRequired,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,

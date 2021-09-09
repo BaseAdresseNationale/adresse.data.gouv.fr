@@ -54,6 +54,7 @@ const ZOOM_RANGE = {
 
 const certificationLegend = {
   certified: {name: 'Certifiée', color: theme.successBorder},
+  certificationInProgress: {name: 'Certification cours', color: theme.border},
   notCertified: {name: 'Non certifiée', color: theme.warningBorder}
 }
 
