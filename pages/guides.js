@@ -29,7 +29,7 @@ function Guides() {
         <DocDownload
           id='guide-adressage'
           title='Le guide de Mes Adresses'
-          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v4.0.pdf'
+          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v4.1.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
           alt='miniature du guide Mes Adresses'
         >
