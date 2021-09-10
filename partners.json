@@ -182,7 +182,7 @@
     },
     {
         "name": "Communauté de Communes du Pont du Gard",
-        "link": "http://www.cc-pontdugard.fr",
+        "link": "https://sig.cc-pontdugard.fr/donnee_publiee/reg_plu/carte%20umap.htm",
         "infos": "La Communauté de Communes du Pont du Gard se compose de 17 communes, et s’est doté d’un SIG propre pour gérer et mettre à jour ses données géographiques.",
         "perimeter": "Communauté de Communes du Pont du Gard (17 communes du Gard)",
         "codeDepartement": [
