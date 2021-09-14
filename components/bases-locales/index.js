@@ -110,7 +110,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           <Partners partnersList={shufflePartners} />
         </div>
         <div className='centered'>
-          <ButtonLink href='/bases-locales/charte'>
+          <ButtonLink href='/bases-locales/charte#partenaires'>
             Voir tous les partenaires
           </ButtonLink>
         </div>
