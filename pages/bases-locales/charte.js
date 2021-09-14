@@ -54,7 +54,7 @@ function Charte() {
       </Section>
 
       <Section background='white' title='Organismes partenaires' >
-        <Partners isDetailed />
+        <Partners />
       </Section>
 
       <style jsx>{`
