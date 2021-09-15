@@ -479,5 +479,27 @@
         "height": 68,
         "width": 268,
         "alt": "Logo de Somme Numérique"
+    },
+    {
+        "name": "Communauté de Communes des Lisières de l’Oise",
+        "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/30/adresse-le-compiegnois-sur-la-bonne-voie/",
+        "infos": "Dans le cadre du partenariat local d’information géographique, les intercommunalités du compiégnois se sont engagées dès 2017 dans un programme d’accompagnement complet des communes.",
+        "perimeter": "Communauté de Communes des Lisières de l’Oise",
+        "codeDepartement": [
+            "60"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "réalisation de bases adresses locales",
+            "accompagnement technique",
+            "diffusion",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/lisieres-de-oise.png",
+        "height": 164,
+        "width": 200,
+        "alt": "Logo de la Communauté de Communes des Lisières de l’Oise"
     }
 ]
