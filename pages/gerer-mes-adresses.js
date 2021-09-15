@@ -8,7 +8,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Notification from '@/components/notification'
-import Search from '@/components/bases-locales/charte/search'
+import PartnersSearchbar from '@/components/bases-locales/charte/partners-searchbar'
 
 function GererMesAdresses() {
   return (
@@ -78,7 +78,7 @@ function GererMesAdresses() {
 
       <Section title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire' background='grey'>
         <div>
-          <Search />
+          <PartnersSearchbar />
         </div>
       </Section>
 

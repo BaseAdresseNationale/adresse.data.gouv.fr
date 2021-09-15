@@ -5,15 +5,15 @@ import Partner from '@/components/bases-locales/charte/partner'
 import colors from '@/styles/colors'
 import allPartners from 'partners.json'
 
-function Partners({searchedPartners}) {
+function Partners({partnersList}) {
   const companyPartners = allPartners.filter(partner => partner.isCompany === true)
   const partners = allPartners.filter(partner => partner.isCompany === false)
 
   return (
     <>
-      {searchedPartners ? (
+      {partnersList ? (
         <div className='partners-container'>
-          {searchedPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+          {partnersList.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
         </div>
       ) : (
         <div>
@@ -57,11 +57,11 @@ function Partners({searchedPartners}) {
 }
 
 Partners.propTypes = {
-  searchedPartners: PropTypes.array
+  partnersList: PropTypes.array
 }
 
 Partners.defaultProps = {
-  searchedPartners: null
+  partnersList: null
 }
 
 export default Partners

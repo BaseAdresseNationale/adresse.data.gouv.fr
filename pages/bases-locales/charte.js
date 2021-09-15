@@ -53,8 +53,8 @@ function Charte() {
         </div>
       </Section>
 
-      <Section background='white' title='Organismes partenaires' >
-        <Partners isDetailed />
+      <Section id='partenaires' background='white' title='Organismes partenaires' >
+        <Partners />
       </Section>
 
       <style jsx>{`

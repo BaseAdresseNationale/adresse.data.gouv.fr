@@ -14,9 +14,12 @@ import Counter from '../ui/metrics/counter'
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import BalCoverMap from './bal-cover-map'
 import Notification from '../notification'
+import allPartners from '../../partners.json'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
   const [balSamples, setBalSamples] = useState([])
+  const shufflePartners = shuffle(allPartners).slice(0, 3)
+
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -103,8 +106,13 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           </ButtonLink>
         </div>
         <div className='organismes-container'>
-          <h3>Organismes partenaires</h3>
-          <Partners />
+          <h3>Quelques partenaires :</h3>
+          <Partners partnersList={shufflePartners} />
+        </div>
+        <div className='centered'>
+          <ButtonLink href='/bases-locales/charte#partenaires'>
+            Voir tous les partenaires
+          </ButtonLink>
         </div>
       </Section>
 
