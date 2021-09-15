@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 import Container from './container'
 
-function Section({title, subtitle, children, style, background}) {
+function Section({title, subtitle, children, background, ...props}) {
   return (
-    <section style={style} className={`section section-${background}`}>
+    <section {...props} className={`section section-${background}`}>
       <Container>
         {title && <h2 className='section__title'>{title}</h2>}
         {subtitle && <p className='section__subtitle'>{subtitle}</p>}
