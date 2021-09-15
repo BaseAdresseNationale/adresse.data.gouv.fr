@@ -102,5 +102,13 @@
         "alt": "La Baronnie (premier plan) et le bourg (second plan). Photographie Jean-Claude Ablitzer",
         "date": "2021-08-19",
         "articleUrl": "https://blog.geo.data.gouv.fr/azay-sur-cher-des-adresses-d%C3%A9taill%C3%A9es-hameau-par-hameau-et-rue-par-rue-6ba16cd18738"
+    },
+    {
+        "title": "Terres de Provence",
+        "preview": "Terre de Provence dans les Bouches-du-Rhône : le géomaticien de l’alglomération a développé un SIG à partir de l’outil libre Qgis et accompagne les 13 communes sur l’adresse. Frédéric Seisson explique la démarche et l’importance de certifier chaque adresse.",
+        "picture": "/images/testimonies/terres-de-provence.jpg",
+        "alt": "Paysage des Terres de Provence",
+        "date": "2021-09-10",
+        "articleUrl": "https://blog.geo.data.gouv.fr/terres-de-provence-un-outil-sur-mesure-et-des-adresses-certifi%C3%A9es-df42b802e46b"
     }
 ]
