@@ -479,5 +479,44 @@
         "height": 68,
         "width": 268,
         "alt": "Logo de Somme Numérique"
+    },
+    {
+        "name": "Communauté de Communes des Lisières de l’Oise",
+        "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/30/adresse-le-compiegnois-sur-la-bonne-voie/",
+        "infos": "Dans le cadre du partenariat local d’information géographique, les intercommunalités du compiégnois se sont engagées dès 2017 dans un programme d’accompagnement complet des communes.",
+        "perimeter": "Communauté de Communes des Lisières de l’Oise",
+        "codeDepartement": [
+            "60"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "réalisation de bases adresses locales",
+            "accompagnement technique",
+            "diffusion",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/lisieres-de-oise.png",
+        "height": 164,
+        "width": 200,
+        "alt": "Logo de la Communauté de Communes des Lisières de l’Oise"
+    },
+    {
+        "name": "La Poste Solutions business",
+        "link": "https://www.laposte.fr/entreprise/produit-entreprise/adn",
+        "infos": "La Poste propose une offre de solutions modulables pour accompagner votre commune dans la fiabilisation de l'adressage de son territoire. Cette prestation vous permet de diagnostiquer la qualité des adresses de votre commune et vous aide à résoudre tous les problèmes complexes d'adressage (création, modification, suppression et numérotation des voies). En complément de la mise en œuvre de votre projet d’adressage, La Poste vous accompagne dans la communication auprès des citoyens, la création de votre Base Adresse Locale, et la fourniture de la signalétique.",
+        "perimeter": "France entière",
+        "codeDepartement": [],
+        "isPerimeterFrance": true,
+        "isCompany": true,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/la-poste.png",
+        "height": 105,
+        "width": 90,
+        "alt": "Logo de la Poste"
     }
 ]
