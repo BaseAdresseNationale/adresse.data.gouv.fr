@@ -16,14 +16,13 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
   const issuesRowsCount = issuesFlatten.length
   const issuesGroupedByLine = groupBy(issuesFlatten, 'line')
   const issuesCount = Object.keys(issuesGroupedByLine).length
-  const percentageIssues = (issuesCount * 100) / totalRowsCount
-  const percentageRounded = Number.isInteger(percentageIssues) ? percentageIssues : percentageIssues.toFixed(2)
+  const percentageIssues = Math.floor((issuesCount * 100) / totalRowsCount)
 
   return (
     <div className='issues-container'>
       <h4>
         {issuesRowsCount} {issueType === 'error' ? 'Erreur' : 'Avertissement'}{issuesRowsCount > 1 ? 's' : ''}
-        &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) {percentageRounded}%
+        &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) {percentageIssues}%
         <div className={`summary-icon ${issueType}`}>
           {issueType === 'error' ? (
             <X style={{verticalAlign: 'bottom'}} />
