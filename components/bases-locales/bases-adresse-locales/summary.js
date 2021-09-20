@@ -24,7 +24,7 @@ class Summary extends React.Component {
       },
       {title: 'Dernière mise à jour', value: dateMAJ ? dateMAJ.split('-').reverse().join('-') : 'inconnue'},
       {title: 'Nombre d’adresses', value: typeof rowsCount === 'number' ? spaceThousands(rowsCount) : '???'},
-      {title: 'Nombre de communes', value: communes.length}
+      {title: 'Communes couvertes', value: communes.length}
     ]
 
     return (
