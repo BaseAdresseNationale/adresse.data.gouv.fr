@@ -108,7 +108,7 @@ function ByAddressName({title, id, icon}) {
           results={list}
           tips='Il est possible d’utiliser la recherche par nom pour faire de l’autocomplétion.'
           side='right'
-          loading={loading}
+          isLoading={loading}
         />
 
         <TryContainer error={error}>
