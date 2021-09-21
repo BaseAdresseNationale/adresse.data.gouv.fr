@@ -10,6 +10,7 @@ function Loader({size}) {
       .loader {
         border-radius: 50%;
         animation: spin 2s linear infinite;
+        margin: auto;
       }
 
       .small {

@@ -71,7 +71,10 @@ class Result extends React.Component {
           .loading-code {
             width: 100%;
             height: 360px;
-            background: ${theme.backgroundGrey}
+            background: ${theme.backgroundGrey};
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
         `}</style>
       </div>
