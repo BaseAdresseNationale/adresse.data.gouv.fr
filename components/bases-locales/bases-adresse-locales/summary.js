@@ -15,21 +15,18 @@ class Summary extends React.Component {
 
   render() {
     const {dataset} = this.props
-    const {id, organization, url, model, dateMAJ, rowsCount, license} = dataset
+    const {id, organization, url, model, dateMAJ, rowsCount, communes} = dataset
     const infos = [
       {
         title: 'Format',
         value: model === 'bal-aitf' ? 'BAL (AITF)' : 'Spécifique',
         type: model === 'bal-aitf' ? 'valid' : 'not-valid'
       },
-      {
-        title: 'Licence',
-        value: license === 'odc-odbl' ? 'ODbL 1.0' : 'Licence Ouverte 2.0',
-        type: license === 'odc-odbl' ? 'not-valid' : 'valid'
-      },
       {title: 'Dernière mise à jour', value: dateMAJ ? dateMAJ.split('-').reverse().join('-') : 'inconnue'},
-      {title: 'Nombre d’adresses', value: typeof rowsCount === 'number' ? spaceThousands(rowsCount) : '???'}
+      {title: 'Nombre d’adresses', value: typeof rowsCount === 'number' ? spaceThousands(rowsCount) : '???'},
+      {title: 'Communes couvertes', value: communes.length}
     ]
+
     return (
       <div>
         <div className='base-adresse-locale'>
