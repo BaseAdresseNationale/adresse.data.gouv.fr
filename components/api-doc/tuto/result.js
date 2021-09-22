@@ -48,4 +48,18 @@ function Result({example, results, isLoading}) {
   )
 }
 
+Result.propTypes = {
+  example: PropTypes.string.isRequired,
+  results: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]),
+  isLoading: PropTypes.bool
+}
+
+Result.defaultProps = {
+  isLoading: true,
+  results: null
+}
+
 export default Result
