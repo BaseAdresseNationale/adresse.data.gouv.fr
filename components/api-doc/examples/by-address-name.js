@@ -104,7 +104,7 @@ function ByAddressName({title, id, icon}) {
           title={title}
           description='La variable q vous permet d’effectuer une recherche par nom.'
           icon={icon}
-          exemple={url}
+          example={url}
           results={list}
           tips='Il est possible d’utiliser la recherche par nom pour faire de l’autocomplétion.'
           side='right'
