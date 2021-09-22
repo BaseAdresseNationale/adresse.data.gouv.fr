@@ -14,7 +14,7 @@ import Section from '../../section'
 
 import Tuto from '../tuto'
 import TryContainer from '../try-container'
-import SearchInputApi from '../search-input-api'
+import SearchInput from '../../search-input'
 import SwitchInput from '../switch-input'
 
 const TYPES = ['housenumber', 'street', 'locality', 'municipality']
@@ -112,17 +112,16 @@ function ByAddressName({title, id, icon}) {
         />
 
         <TryContainer error={error}>
-          <SearchInputApi
-            value={input}
-            items={list}
-            loading={loading}
-            placeholder='Chercher une adresse…'
-            onSelect={item => setInput(item.label)}
+          <SearchInput
             onSearch={setInput}
+            onSelect={item => setInput(item.label)}
+            placeholder='Chercher une adresse...'
+            isLoading={loading}
+            value={input}
             renderItem={renderAdresse}
             getItemValue={item => item.label}
+            results={list}
           />
-
           <SwitchInput handleChange={() => setAutocomplete(!autocomplete)} label='Autocomplétion' isChecked={autocomplete} />
 
           <div>
