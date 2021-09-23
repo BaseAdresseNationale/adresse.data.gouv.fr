@@ -1,14 +1,13 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {debounce} from 'lodash'
+import _fetch from '../../../lib/fetch'
 
 import theme from '../../../styles/theme'
 
 import {search} from '../../../lib/api-search'
 
 import {useInput} from '../../../hooks/input'
-import {useFetch} from '../../../hooks/fetch'
-import {useQuery} from '../../../hooks/query'
-import {useListItem} from '../../../hooks/list-items'
 
 import Section from '../../section'
 
@@ -89,13 +88,59 @@ function ByAddressName({title, id, icon}) {
   const [input, setInput] = useInput('20 avenue de Ségur, Paris')
   const [type, setType] = useState('housenumber')
   const [autocomplete, setAutocomplete] = useInput(true)
-  const [url, options] = useQuery({input, type, autocomplete}, renderQuery)
-  const [response, loading, error] = useFetch(url, options, true)
-  const list = useListItem(response, renderList)
+  const [list, setList] = useState()
+  const [url, setUrl] = useState('')
+  const [options, setOptions] = useState(null)
+  const [response, setResponse] = useState(null)
+  const [isLoading, setIsLoading] = useState(Boolean(url))
+  const [error, setError] = useState(null)
 
   const handleType = useCallback(_type => {
     setType(_type === type ? null : _type)
   }, [setType, type])
+
+  const _search = useCallback(debounce(async () => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const searchResponse = await _fetch(url, options)
+      setResponse(searchResponse)
+    } catch (error) {
+      setError(error)
+    }
+  }, 200), [url])
+
+  useEffect(() => {
+    if (url) {
+      _search()
+    }
+  }, [url, _search])
+
+  useEffect(() => {
+    if (input && type) {
+      const rendered = renderQuery({input, type, autocomplete})
+      setUrl(rendered.url)
+      setOptions(rendered.options)
+    }
+  }, [input, type, autocomplete])
+
+  useEffect(() => {
+    if (response) {
+      let list = response
+      if (renderList) {
+        list = renderList(response)
+      }
+
+      setList(list)
+    }
+  }, [response])
+
+  useEffect(() => {
+    if (response || error) {
+      setIsLoading(false)
+    }
+  }, [response, error])
 
   return (
     <Section background='grey'>
@@ -108,7 +153,7 @@ function ByAddressName({title, id, icon}) {
           results={list}
           tips='Il est possible d’utiliser la recherche par nom pour faire de l’autocomplétion.'
           side='right'
-          isLoading={loading}
+          isLoading={isLoading}
         />
 
         <TryContainer error={error}>
@@ -116,7 +161,7 @@ function ByAddressName({title, id, icon}) {
             onSearch={setInput}
             onSelect={item => setInput(item.label)}
             placeholder='Chercher une adresse...'
-            isLoading={loading}
+            isLoading={isLoading}
             value={input}
             renderItem={renderAdresse}
             getItemValue={item => item.label}
