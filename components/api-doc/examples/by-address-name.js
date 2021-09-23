@@ -1,13 +1,11 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {debounce} from 'lodash'
-import _fetch from '../../../lib/fetch'
 
 import theme from '../../../styles/theme'
 
-import {search} from '../../../lib/api-search'
-
-import {useInput} from '../../../hooks/input'
+import {search} from '@/lib/api-search'
+import {useInput} from '@/hooks/input'
 
 import Section from '../../section'
 
@@ -90,10 +88,17 @@ function ByAddressName({title, id, icon}) {
   const [autocomplete, setAutocomplete] = useInput(true)
   const [list, setList] = useState()
   const [url, setUrl] = useState('')
-  const [options, setOptions] = useState(null)
   const [response, setResponse] = useState(null)
   const [isLoading, setIsLoading] = useState(Boolean(url))
   const [error, setError] = useState(null)
+
+  const options = {
+    mode: 'cors',
+    method: 'GET',
+    headers: {
+      Accept: 'application/json'
+    }
+  }
 
   const handleType = useCallback(_type => {
     setType(_type === type ? null : _type)
@@ -104,8 +109,9 @@ function ByAddressName({title, id, icon}) {
     setError(null)
 
     try {
-      const searchResponse = await _fetch(url, options)
-      setResponse(searchResponse)
+      await fetch(url, options)
+        .then(response => response.json())
+        .then(data => setResponse(data))
     } catch (error) {
       setError(error)
     }
@@ -121,7 +127,6 @@ function ByAddressName({title, id, icon}) {
     if (input && type) {
       const rendered = renderQuery({input, type, autocomplete})
       setUrl(rendered.url)
-      setOptions(rendered.options)
     }
   }, [input, type, autocomplete])
 
