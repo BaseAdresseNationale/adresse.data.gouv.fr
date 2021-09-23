@@ -32,7 +32,7 @@ function Result({example, results, isLoading}) {
           border-radius: 5px;
           width: 100%;
           padding: 1em;
-          margin-bottom: 1em;
+          margin: 1em 0;
         }
 
         .loading-code {
