@@ -33,6 +33,7 @@ const renderQuery = ({input, autocomplete, type}) => {
       type,
       autocomplete: autocomplete ? 1 : 0
     })
+
     return query
   }
 
@@ -75,11 +76,13 @@ const renderAdresse = (item, isHighlighted) => {
 }
 
 const renderList = response => {
-  return response.features.map(feature => {
-    return {
-      ...feature.properties
-    }
-  })
+  if (response?.features) {
+    return response.features.map(feature => {
+      return {
+        ...feature.properties
+      }
+    })
+  }
 }
 
 function ByAddressName({title, id, icon}) {
@@ -88,64 +91,34 @@ function ByAddressName({title, id, icon}) {
   const [autocomplete, setAutocomplete] = useInput(true)
   const [list, setList] = useState()
   const [url, setUrl] = useState('')
-  const [response, setResponse] = useState(null)
   const [isLoading, setIsLoading] = useState(Boolean(url))
   const [error, setError] = useState(null)
-
-  const options = {
-    mode: 'cors',
-    method: 'GET',
-    headers: {
-      Accept: 'application/json'
-    }
-  }
 
   const handleType = useCallback(_type => {
     setType(_type === type ? null : _type)
   }, [setType, type])
 
-  const _search = useCallback(debounce(async () => {
+  const fetchApi = useCallback(debounce(async () => {
     setIsLoading(true)
     setError(null)
 
-    try {
-      await fetch(url, options)
-        .then(response => response.json())
-        .then(data => setResponse(data))
-    } catch (error) {
-      setError(error)
-    }
-  }, 200), [url])
-
-  useEffect(() => {
-    if (url) {
-      _search()
-    }
-  }, [url, _search])
-
-  useEffect(() => {
     if (input && type) {
       const rendered = renderQuery({input, type, autocomplete})
       setUrl(rendered.url)
-    }
-  }, [input, type, autocomplete])
+      await fetch(rendered.url)
+        .then(response => response.json())
+        .then(data => {
+          const updatedList = renderList(data)
+          setList(updatedList)
+        }).catch(error => setError(error))
 
-  useEffect(() => {
-    if (response) {
-      let list = response
-      if (renderList) {
-        list = renderList(response)
-      }
-
-      setList(list)
-    }
-  }, [response])
-
-  useEffect(() => {
-    if (response || error) {
       setIsLoading(false)
     }
-  }, [response, error])
+  }, 300), [input, type, autocomplete])
+
+  useEffect(() => {
+    fetchApi()
+  }, [fetchApi])
 
   return (
     <Section background='grey'>
