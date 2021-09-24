@@ -76,11 +76,13 @@ const renderAdresse = (item, isHighlighted) => {
 }
 
 const renderList = response => {
-  return response.features.map(feature => {
-    return {
-      ...feature.properties
-    }
-  })
+  if (response?.features) {
+    return response.features.map(feature => {
+      return {
+        ...feature.properties
+      }
+    })
+  }
 }
 
 function ByAddressName({title, id, icon}) {
@@ -96,27 +98,28 @@ function ByAddressName({title, id, icon}) {
     setType(_type === type ? null : _type)
   }, [setType, type])
 
+  const fetchApi = useCallback(debounce(async input => {
+    setIsLoading(true)
+    setError(null)
+
+    const rendered = renderQuery({input, type, autocomplete})
+    setUrl(rendered.url)
+
+    await fetch(rendered.url)
+      .then(response => response.json())
+      .then(data => {
+        const updatedList = renderList(data)
+        setList(updatedList)
+      }).catch(error => setError(error))
+
+    setIsLoading(false)
+  }, 300), [])
+
   useEffect(() => {
-    const fetchApi = debounce(async () => {
-      setIsLoading(true)
-      setError(null)
-
-      if (input && type) {
-        const rendered = renderQuery({input, type, autocomplete})
-        setUrl(rendered.url)
-        await fetch(rendered.url)
-          .then(response => response.json())
-          .then(data => {
-            const updatedList = renderList(data)
-            setList(updatedList)
-          }).catch(error => setError(error))
-
-        setIsLoading(false)
-      }
-    }, 300)
-
-    fetchApi()
-  }, [autocomplete, input, type])
+    if (input) {
+      fetchApi(input)
+    }
+  }, [input])
 
   return (
     <Section background='grey'>
