@@ -16,7 +16,9 @@ function Result({example, results, isLoading}) {
       {isLoading ?
         <div className='loading-pre'>
           <div className='loading-code'>
-            <Loader />
+            <div className='centered'>
+              <Loader />
+            </div>
           </div>
         </div> :
         <Code code={JSON.stringify(results, null, 2)} />}
@@ -24,6 +26,10 @@ function Result({example, results, isLoading}) {
         .result-container {
           display: flex;
           flex-direction: column;
+        }
+
+        .centered {
+          margin: auto;
         }
 
         .loading-pre {
@@ -40,7 +46,6 @@ function Result({example, results, isLoading}) {
           height: 360px;
           background: ${theme.backgroundGrey};
           display: flex;
-          flex-direction: column;
           justify-content: center;
         }
       `}</style>
