@@ -22,9 +22,9 @@ const titles = [
     icon: <FileText />
   },
   {
-    title: 'L’API',
+    title: 'Les API',
     href: '/api',
-    description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
+    description: <span>Découvrez l’API Adresse, l’API Base Adresse Locale et l’API de dépôt...</span>,
     icon: <Terminal />
   },
   {
