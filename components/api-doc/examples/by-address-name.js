@@ -119,7 +119,7 @@ function ByAddressName({title, id, icon}) {
     if (input) {
       fetchApi(input)
     }
-  }, [input])
+  }, [fetchApi, input])
 
   return (
     <Section background='grey'>
