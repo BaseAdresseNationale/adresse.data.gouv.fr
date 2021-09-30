@@ -5,7 +5,7 @@ import {debounce} from 'lodash'
 import theme from '../../../styles/theme'
 
 import {search} from '@/lib/api-search'
-import {useInput} from '../../../hooks/input'
+import {useInput} from '@/hooks/input'
 
 import Section from '../../section'
 

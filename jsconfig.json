@@ -6,7 +6,8 @@
       "@/lib/*": ["lib/*"],
       "@/layouts/*": ["layouts/*"],
       "@/styles/*": ["styles/*"],
-      "@/contexts/*": ["contexts/*"]
+      "@/contexts/*": ["contexts/*"],
+      "@/hooks/*": ["hooks/*"]
     }
   }
 }

@@ -6,7 +6,7 @@ import theme from '../../../styles/theme'
 
 import Code from '../code'
 
-import Loader from '../../loader'
+import Loader from '@/components/loader'
 import InputExample from './input-example'
 
 function Result({example, results, isLoading}) {

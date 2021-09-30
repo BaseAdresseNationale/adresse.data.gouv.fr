@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Book} from 'react-feather'
 
-import Section from '../../section'
+import Section from '@/components/section'
 
 import Attributs from './attributs'
 import Path from './path'

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Button from '../../button'
+import Button from '@/components/button'
 
 function InputExample({value, copy}) {
   const handleClick = () => {
