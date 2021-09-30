@@ -6,11 +6,12 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Apis from '@/components/apis'
 
-const title = 'API Documentation'
+const title = 'Documentation des APIs'
+const description = 'Découvrez l’API Adresse, l’API Base Adresse Locale et l’API de dépôt'
 
 function ApiPage() {
   return (
-    <Page title={title} description='Documentations des APIs'>
+    <Page title={title} description={description}>
       <Head title={title} icon={<Compass color='white' size={56} />} />
       <Apis />
     </Page>
