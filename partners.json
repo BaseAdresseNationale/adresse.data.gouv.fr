@@ -518,5 +518,25 @@
         "height": 105,
         "width": 90,
         "alt": "Logo de la Poste"
+    },
+    {
+        "name": "Syndicat Départemental d’Aménagement et d’Ingénierie du Lot",
+        "link": "https://lot.fr/soutien-collectivites/amenagement-ingenierie",
+        "infos": "Le Syndicat Départemental d’Aménagement et d’Ingénierie du Lot propose aux communes adhérentes un accompagnement aux projets d’adressage sur convention méthodologie, conseils pour le nommage des voies, numérotation, normalisation des adresses au format BAL et publication.",
+        "perimeter": "Lot",
+        "codeDepartement": [
+            "46"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/lot.jpg",
+        "height": 134,
+        "width": 113,
+        "alt": "Logo du Syndicat Départemental d’Aménagement et d’Ingénierie du Lot"
     }
 ]
