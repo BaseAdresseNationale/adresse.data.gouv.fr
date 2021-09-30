@@ -98,7 +98,7 @@ function ByAddressName({title, id, icon}) {
     setType(_type === type ? null : _type)
   }, [setType, type])
 
-  const fetchApi = useCallback(debounce(async input => {
+  const fetchApi = useCallback(debounce(async (input, type, autocomplete) => {
     setIsLoading(true)
     setError(null)
 
@@ -117,9 +117,9 @@ function ByAddressName({title, id, icon}) {
 
   useEffect(() => {
     if (input) {
-      fetchApi(input)
+      fetchApi(input, type, autocomplete)
     }
-  }, [fetchApi, input])
+  }, [fetchApi, input, type, autocomplete])
 
   return (
     <Section background='grey'>
