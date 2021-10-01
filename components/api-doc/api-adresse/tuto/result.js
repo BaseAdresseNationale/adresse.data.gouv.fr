@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import copy from 'copy-to-clipboard'
 
-import theme from '../../../styles/theme'
+import theme from '../../../../styles/theme'
 
 import Code from '../code'
 

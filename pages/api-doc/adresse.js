@@ -4,12 +4,12 @@ import {Compass, Search} from 'react-feather'
 import Page from '@/layouts/main'
 
 import Head from '@/components/head'
-import TechnicalDoc from '@/components/api-doc/technical-doc'
+import TechnicalDoc from '@/components/api-doc/api-adresse/technical-doc'
 
-import doc from '@/components/api-doc/doc'
+import doc from '@/components/api-doc/api-adresse/doc'
 
-import ByAddressName from '@/components/api-doc/examples/by-address-name'
-import CurlDoc from '@/components/api-doc/curl-doc'
+import ByAddressName from '@/components/api-doc/api-adresse/examples/by-address-name'
+import CurlDoc from '@/components/api-doc/api-adresse/curl-doc'
 
 const title = 'API Adresse'
 const description = 'Cherchez des adresses et lieux-dits.'

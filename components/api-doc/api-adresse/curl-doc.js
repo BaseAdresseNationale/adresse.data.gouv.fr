@@ -1,7 +1,7 @@
 import React from 'react'
-import Section from '../section'
+import Section from '@/components/section'
 
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 function CurlDoc() {
   return (

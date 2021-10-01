@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 function SwitchInput({handleChange, label, isChecked}) {
   return (

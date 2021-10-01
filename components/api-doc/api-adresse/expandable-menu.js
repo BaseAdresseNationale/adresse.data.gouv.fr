@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 function ExpandableMenu({title, children}) {
   const [isExpanded, setIsExpanded] = useState(false)

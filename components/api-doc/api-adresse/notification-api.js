@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import {HelpCircle, AlertTriangle, Check, X} from 'react-feather'
 
-import theme from '../../styles/theme'
+import theme from '../../../styles/theme'
 
 const types = {
   info: {icon: <HelpCircle />, title: 'Bon à savoir'},
