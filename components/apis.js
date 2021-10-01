@@ -18,7 +18,7 @@ const titles = [
   {
     title: 'API Gestion d’une Base Adresse Locale',
     href: 'https://github.com/etalab/api-bal/wiki/Documentation-de-l\'API',
-    description: <span>API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par <a href="https://mes-adresses.data.gouv.fr">mes-adresses.data.gouv.fr</a>.</span>,
+    description: <span>API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par <a href='https://mes-adresses.data.gouv.fr'>mes-adresses.data.gouv.fr</a>.</span>,
     icon: <Map />
   },
   {
