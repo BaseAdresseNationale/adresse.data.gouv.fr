@@ -79,8 +79,9 @@ function Partner({partnerInfos}) {
         .general-partner-infos {
           text-align: left;
           display: grid;
-          grid-template-rows: 1fr 150px 20px;
+          grid-template-rows: 40px 150px 20px;
           grid-template-columns: 1fr;
+          gap: 1em;
           align-items: center;
           width: 100%;
         }

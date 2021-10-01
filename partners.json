@@ -498,8 +498,8 @@
             "mise à disposition d’outils mutualisés"
         ],
         "picture": "/images/logos/partners/lisieres-de-oise.png",
-        "height": 164,
-        "width": 200,
+        "height": 105,
+        "width": 128,
         "alt": "Logo de la Communauté de Communes des Lisières de l’Oise"
     },
     {
@@ -518,5 +518,50 @@
         "height": 105,
         "width": 90,
         "alt": "Logo de la Poste"
+    },
+    {
+        "name": "Syndicat Départemental d’Aménagement et d’Ingénierie du Lot",
+        "link": "https://lot.fr/soutien-collectivites/amenagement-ingenierie",
+        "infos": "Le Syndicat Départemental d’Aménagement et d’Ingénierie du Lot propose aux communes adhérentes un accompagnement aux projets d’adressage sur convention méthodologie, conseils pour le nommage des voies, numérotation, normalisation des adresses au format BAL et publication.",
+        "perimeter": "Lot",
+        "codeDepartement": [
+            "46"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/lot.jpg",
+        "height": 134,
+        "width": 113,
+        "alt": "Logo du Syndicat Départemental d’Aménagement et d’Ingénierie du Lot"
+    },
+    {
+        "name": "LOSANGE",
+        "link": "https://www.losange-fibre.fr/collectivites/referencement-dune-adresse/",
+        "infos": "Pour faciliter le déploiement de la fibre et pour que chaque utilisateur puisse souscrire aisément un abonnement auprès du Fournisseur d’Accès à Internet de son choix, LOSANGE promeut la création et la mise à jour de bases adresses locales auprès des 3404 communes concernées par ce déploiement du Très Haut Débit sur la Région Grand Est. LOSANGE accompagne techniquement les collectivités pour la création et la mise à jour des Bases Adresses Locales.",
+        "perimeter": "Région Grand Est hors zones AMII et communes disposant d’une offre Très Haut Débit",
+        "codeDepartement": [
+            "08",
+            "10",
+            "51",
+            "52",
+            "54",
+            "55",
+            "88"
+        ],
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/losange.jpg",
+        "height": 69,
+        "width": 320,
+        "alt": "Logo de LOSANGE"
     }
 ]
