@@ -10,21 +10,21 @@ import Section from './section'
 
 const titles = [
   {
-    title: 'L’API Adresse',
+    title: 'API Adresse',
     href: '/api-doc/adresse',
-    description: <span>Géocodez vos adresses grâce à l’API en ligne…</span>,
+    description: <span>Rechercher, normaliser des adresses à l’unité ou en lot. Géocodage direct ou inversée.</span>,
     icon: <Terminal />
   },
   {
-    title: 'L’API Base Adresse Locale',
+    title: 'API Gestion d’une Base Adresse Locale',
     href: 'https://github.com/etalab/api-bal/wiki/Documentation-de-l\'API',
-    description: <span>API de gestion de Bases Adresses à l’échelon local</span>,
+    description: <span>API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par <a href="https://mes-adresses.data.gouv.fr">mes-adresses.data.gouv.fr</a>.</span>,
     icon: <Map />
   },
   {
-    title: 'l’API de dépôt',
+    title: 'API Dépôt d’une Base Adresse Locale',
     href: 'https://github.com/etalab/ban-api-depot/wiki/Documentation',
-    description: <span>API de soumission de Bases Adresses Locale de périmètre communal</span>,
+    description: <span>API premettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.</span>,
     icon: <Folder />
   }
 ]
@@ -48,7 +48,7 @@ function Api({title, icon, description, href}) {
           <p className='article__author-description'>{description}</p>
           <style jsx>{`
             .article__author {
-              min-width: 300px;
+              min-width: 320px;
               min-height: 160px;
             }
 
