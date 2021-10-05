@@ -62,7 +62,10 @@
       "unicorn/catch-error-name": "off",
       "react/jsx-sort-props": "off",
       "import/no-anonymous-default-export": "off",
-      "unicorn/prevent-abbreviations": "off"
+      "unicorn/prevent-abbreviations": "off",
+      "comma-dangle": "off",
+      "import/extensions": "off",
+      "node/prefer-global/process": "off"
     }
   },
   "engines": {
