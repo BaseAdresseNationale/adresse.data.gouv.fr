@@ -1,4 +1,4 @@
-import {useEffect, createContext, useState} from 'react'
+import {useEffect, createContext, useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 
 const MOBILE_WIDTH = 900
@@ -23,13 +23,17 @@ export function DeviceContextProvider({isSafariBrowser, ...props}) {
     }
   }, [])
 
+  const value = useMemo(() => {
+    return {
+      viewHeight,
+      isMobileDevice,
+      isSafariBrowser
+    }
+  }, [viewHeight, isMobileDevice, isSafariBrowser])
+
   return (
     <DeviceContext.Provider
-      value={{
-        viewHeight,
-        isMobileDevice,
-        isSafariBrowser
-      }}
+      value={value}
       {...props}
     />
   )
