@@ -1,11 +1,9 @@
-import React from 'react'
+import {MessageCircle} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import TemoignagesComponent from '@/components/temoignages'
-
-import {MessageCircle} from 'react-feather'
 
 function Temoignages() {
   const title = 'Témoignages sur les Bases Adresses Locales'

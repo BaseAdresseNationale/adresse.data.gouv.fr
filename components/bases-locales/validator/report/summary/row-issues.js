@@ -1,7 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {getLabel} from '@etalab/bal'
-
 import theme from '@/styles/theme'
 
 function RowIssues({errors, hoveredFieldErrors}) {

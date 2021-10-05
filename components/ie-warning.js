@@ -1,5 +1,3 @@
-import React from 'react'
-
 function IEWarning() {
   return (
     <div className='ie-warning'>

@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint no-irregular-whitespace: off */
 import Section from '@/components/section'
 
 import theme from '../../../styles/theme'
@@ -147,14 +147,14 @@ function CurlDoc() {
           .entrypoint + .entrypoint {
             border-top: 1px solid ${theme.borderLighter};
           }
-  
+
           .row {
             display: flex;
             flex-flow: wrap;
             justify-content: space-between;
             padding: 40px 0;
           }
-  
+
           .details {
             background-color: ${theme.colors.almostBlack};
             color: ${theme.colors.white};
@@ -164,25 +164,25 @@ function CurlDoc() {
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
             width: 100%;
           }
-  
+
           a {
             color: ${theme.colors.lightBlue};
           }
-  
+
           .details code {
             color: ${theme.darkText};
             width: 100%;
           }
-  
+
           @media (min-width: 900px) {
             .row {
               flex-flow: row;
             }
-  
+
             .details {
               width: 70%;
             }
-  
+
             .description {
               width: 25%;
             }

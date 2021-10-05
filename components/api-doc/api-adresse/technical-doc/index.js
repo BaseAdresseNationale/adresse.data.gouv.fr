@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {Book} from 'react-feather'
 
@@ -35,11 +34,11 @@ function TechnicalDoc({paths, defaultModel, defaultAttributs, optionAttributs}) 
           display: flex;
           align-items: center;
         }
-  
+
         .title > svg {
           margin-right: 1em;
         }
-  
+
         .feather-icon {
           font-size: 25px;
           margin-right: 0.31em;

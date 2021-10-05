@@ -1,8 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
 import theme from '@/styles/theme'
-
 import {formatPercent, formatInteger} from '@/lib/format-numbers'
 
 function Counter({value, label, unit, size, color, title}) {

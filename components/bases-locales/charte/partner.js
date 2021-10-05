@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react'
+import {useState} from 'react'
 import Image from 'next/image'
 import PropTypes from 'prop-types'
 

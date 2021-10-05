@@ -1,4 +1,3 @@
-import React from 'react'
 import Document, {Head, Html, Main, NextScript} from 'next/document'
 
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL

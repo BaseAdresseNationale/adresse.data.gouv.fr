@@ -1,7 +1,6 @@
-import React from 'react'
 import {FileText} from 'react-feather'
-import Page from '@/layouts/main'
 
+import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Csv from '@/components/csv/csv'
 

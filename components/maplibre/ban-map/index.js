@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import {useCallback, useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'

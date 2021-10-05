@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '../../../../styles/theme'
@@ -63,39 +62,39 @@ function ParamsTable({label, params}) {
           color: ${theme.darkText};
           margin: 0.5em 0;
         }
-  
+
         table {
           text-align: left;
           width: 100%;
         }
-  
+
         table tr:nth-child(odd) td {
           background-color: ${theme.colors.lighterGrey};
         }
-  
+
         table td {
           padding: 0.5em;
         }
-  
+
         tr.sub > td:nth-child(1) {
           text-align: right;
         }
-  
+
         tr.sub td {
           background-color: whitesmoke !important;
         }
-  
+
         .data {
           background-color: ${theme.colors.lighterBlue} !important;
         }
-  
+
         @media (max-width: 549px) {
           table {
             display: block;
             overflow: scroll;
           }
         }
-  
+
         `}</style>
     </div>
   )

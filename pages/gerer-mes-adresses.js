@@ -1,9 +1,7 @@
-import React from 'react'
 import Link from 'next/link'
 import {MapPin, Book, Edit2, HelpCircle} from 'react-feather'
 
 import Page from '@/layouts/main'
-
 import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'

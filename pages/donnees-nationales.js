@@ -1,12 +1,9 @@
-import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {Download} from 'react-feather'
 
 import theme from '@/styles/theme'
-
 import Page from '@/layouts/main'
-
 import Head from '@/components/head'
 import Section from '@/components/section'
 import Card from '@/components/card'

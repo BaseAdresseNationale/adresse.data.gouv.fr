@@ -1,7 +1,6 @@
-import React from 'react'
 import Link from 'next/link'
-import theme from '@/styles/theme'
 
+import theme from '@/styles/theme'
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'

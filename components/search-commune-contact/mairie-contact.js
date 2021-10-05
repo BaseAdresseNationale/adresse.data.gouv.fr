@@ -1,6 +1,4 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
 import {Mail, Phone} from 'react-feather'
 import colors from '@/styles/colors'
 

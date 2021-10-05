@@ -1,4 +1,3 @@
-import React from 'react'
 import testimonies from 'temoignages.json'
 import PropTypes from 'prop-types'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {take} from 'lodash'
 import {X} from 'react-feather'

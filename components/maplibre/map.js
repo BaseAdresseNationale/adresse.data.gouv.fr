@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import maplibregl from 'maplibre-gl'

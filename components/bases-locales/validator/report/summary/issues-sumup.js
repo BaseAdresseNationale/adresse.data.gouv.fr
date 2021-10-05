@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {X, AlertTriangle} from 'react-feather'
 import {flattenDeep, groupBy} from 'lodash'

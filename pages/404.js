@@ -1,7 +1,4 @@
-import React from 'react'
-
 import theme from '@/styles/theme'
-
 import Meta from '@/components/meta'
 import Page from '@/layouts/main'
 

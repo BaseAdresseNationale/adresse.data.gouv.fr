@@ -7,8 +7,10 @@ function useLayers(contour) {
     const layers = []
 
     if (contour) {
-      layers.push(getContourFillLayer())
-      layers.push(getContourLineLayer())
+      layers.push(
+        getContourFillLayer(),
+        getContourLineLayer()
+      )
     }
 
     return layers

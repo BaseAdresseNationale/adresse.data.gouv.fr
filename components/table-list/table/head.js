@@ -1,8 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
 import {ArrowDown} from 'react-feather'
-
 import Header from './header'
 
 const order = (a, b) => (
