@@ -18,6 +18,7 @@
     "@turf/bbox": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
     "@turf/boolean-contains": "^6.5.0",
+    "babel-plugin-lodash": "^3.3.4",
     "blob-to-buffer": "^1.2.9",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.3",
