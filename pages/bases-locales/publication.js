@@ -178,9 +178,9 @@ PublicationPage.getInitialProps = async ({query}) => {
   } else if (url) {
     try {
       submission = await submissionsBal(decodeURIComponent(url))
-    } catch {
+    } catch (error) {
       return {
-        initialError: 'Une erreur est survenue lors de la récupération du fichier'
+        initialError: error.message
       }
     }
   }
