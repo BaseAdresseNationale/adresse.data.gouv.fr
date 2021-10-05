@@ -56,7 +56,7 @@ app.prepare().then(() => {
 
   // DO NOT REMOVE
   server.get('/api', (request, res) => {
-    res.redirect('api-doc')
+    res.redirect('/api-doc')
   })
 
   // DO NOT REMOVE
