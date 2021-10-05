@@ -12,7 +12,7 @@ const titles = [
   {
     title: 'API Adresse',
     href: '/api-doc/adresse',
-    description: <span>Rechercher, normaliser des adresses à l’unité ou en lot. Géocodage direct ou inversée.</span>,
+    description: <span>Rechercher ou normaliser des adresses à l’unité ou en lot. Géocodage direct ou inversé.</span>,
     icon: <Terminal />
   },
   {
@@ -24,7 +24,7 @@ const titles = [
   {
     title: 'API Dépôt d’une Base Adresse Locale',
     href: 'https://github.com/etalab/ban-api-depot/wiki/Documentation',
-    description: <span>API premettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.</span>,
+    description: <span>API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.</span>,
     icon: <Folder />
   }
 ]
