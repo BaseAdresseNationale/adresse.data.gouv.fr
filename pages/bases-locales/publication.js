@@ -38,11 +38,11 @@ const getStep = submission => {
   }
 }
 
-const PublicationPage = React.memo(({isRedirected, defaultSubmission, initialError, submissionId}) => {
+const PublicationPage = React.memo(({isRedirected, defaultSubmission, submissionError, submissionId}) => {
   const [submission, setSubmission] = useState(defaultSubmission)
   const [step, setStep] = useState(getStep(submission))
   const [authType, setAuthType] = useState()
-  const [error, setError] = useState(initialError)
+  const [error, setError] = useState(submissionError)
 
   const handleFile = async file => {
     try {
@@ -81,7 +81,10 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, initialErr
   }, [submission])
 
   useEffect(() => {
-    setError(null)
+    // Prevent reset submissionError at first render
+    if (step !== 1) {
+      setError(null)
+    }
   }, [step])
 
   useEffect(() => {
@@ -122,7 +125,8 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, initialErr
         )}
 
         <div className='current-step'>
-          {step === 1 && (
+          {/* Hide file handler to prevent the submitmission of a different file from the original */}
+          {!submissionError && step === 1 && (
             <ManageFile handleFile={handleFile} error={error} handleError={setError} />
           )}
 
@@ -171,6 +175,7 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, initialErr
 
 PublicationPage.getInitialProps = async ({query}) => {
   const {url, submissionId} = query
+  const isRedirected = Boolean(url)
   let submission
 
   if (submissionId) {
@@ -180,13 +185,14 @@ PublicationPage.getInitialProps = async ({query}) => {
       submission = await submissionsBal(decodeURIComponent(url))
     } catch (error) {
       return {
-        initialError: error.message
+        isRedirected,
+        submissionError: error.message
       }
     }
   }
 
   return {
-    isRedirected: Boolean(url),
+    isRedirected,
     defaultSubmission: submission,
     submissionId,
     user: {}
@@ -205,14 +211,14 @@ PublicationPage.propTypes = {
     publicationUrl: PropTypes.string
   }),
   submissionId: PropTypes.string,
-  initialError: PropTypes.string
+  submissionError: PropTypes.string
 }
 
 PublicationPage.defaultProps = {
   isRedirected: false,
   defaultSubmission: null,
   submissionId: null,
-  initialError: null
+  submissionError: null
 }
 
 export default PublicationPage
