@@ -1,13 +1,13 @@
 import {useEffect, createContext, useState, useMemo} from 'react'
-import PropTypes from 'prop-types'
 
 const MOBILE_WIDTH = 900
 
 const DeviceContext = createContext()
 
-export function DeviceContextProvider({isSafariBrowser, ...props}) {
+export function DeviceContextProvider(props) {
   const [viewHeight, setViewHeight] = useState('100vh')
   const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const [isSafariBrowser, setIsSafariBrowser] = useState(false)
 
   const handleResize = () => {
     setViewHeight(`${window.innerHeight}px`)
@@ -15,6 +15,7 @@ export function DeviceContextProvider({isSafariBrowser, ...props}) {
   }
 
   useEffect(() => {
+    setIsSafariBrowser(navigator.vendor.toLowerCase().includes('apple'))
     window.addEventListener('resize', handleResize)
     handleResize()
 
@@ -37,10 +38,6 @@ export function DeviceContextProvider({isSafariBrowser, ...props}) {
       {...props}
     />
   )
-}
-
-DeviceContextProvider.propTypes = {
-  isSafariBrowser: PropTypes.bool.isRequired
 }
 
 export default DeviceContext
