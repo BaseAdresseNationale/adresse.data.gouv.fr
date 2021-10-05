@@ -12,7 +12,6 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/core": "^7.15.5",
     "@babel/runtime": "^7.15.4",
     "@etalab/bal": "^1.5.1",
     "@etalab/project-legal": "^0.4.1",
@@ -41,21 +40,22 @@
     "underscore.string": "^3.3.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/eslint-parser": "^7.15.7",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@next/bundle-analyzer": "^11.1.2",
-    "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
-    "eslint-config-xo-nextjs": "^1.6.0",
-    "eslint-plugin-react": "^7.26.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "xo": "^0.35.0"
+    "eslint-config-xo-nextjs": "^3.2.0",
+    "xo": "^0.39.1"
   },
   "xo": {
     "extends": "xo-nextjs",
+    "parser": "@babel/eslint-parser",
     "semicolon": false,
     "space": 2,
     "envs": [
       "browser",
-      "es2020"
+      "es2021"
     ],
     "rules": {
       "camelcase": "warn",
