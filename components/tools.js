@@ -23,7 +23,7 @@ const titles = [
   },
   {
     title: 'Les API',
-    href: '/api',
+    href: '/api-doc',
     description: <span>Découvrez l’API Adresse, l’API Base Adresse Locale et l’API de dépôt...</span>,
     icon: <Terminal />
   },
