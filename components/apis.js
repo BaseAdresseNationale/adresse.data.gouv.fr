@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import {Map, Terminal, FileText, UserCheck} from 'react-feather'
+import {Map, Terminal, Folder} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -10,41 +10,35 @@ import Section from './section'
 
 const titles = [
   {
-    title: 'L’explorateur BAN',
-    href: '/base-adresse-nationale',
-    description: <span>Cherchez des adresses dans la Base Adresse Nationale.</span>,
-    icon: <Map />
-  },
-  {
-    title: 'Le géocodeur CSV',
-    href: '/csv',
-    description: <span>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</span>,
-    icon: <FileText />
-  },
-  {
-    title: 'Les API',
-    href: '/api',
-    description: <span>Découvrez l’API Adresse, l’API Base Adresse Locale et l’API de dépôt...</span>,
+    title: 'API Adresse',
+    href: '/api-doc/adresse',
+    description: <span>Rechercher ou normaliser des adresses à l’unité ou en lot. Géocodage direct ou inversé.</span>,
     icon: <Terminal />
   },
   {
-    title: 'Le validateur BAL',
-    href: '/bases-locales/validateur',
-    description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
-    icon: <UserCheck />
+    title: 'API Gestion d’une Base Adresse Locale',
+    href: 'https://github.com/etalab/api-bal/wiki/Documentation-de-l\'API',
+    description: <span>API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par <a href='https://mes-adresses.data.gouv.fr'>mes-adresses.data.gouv.fr</a>.</span>,
+    icon: <Map />
+  },
+  {
+    title: 'API Dépôt d’une Base Adresse Locale',
+    href: 'https://github.com/etalab/ban-api-depot/wiki/Documentation',
+    description: <span>API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.</span>,
+    icon: <Folder />
   }
 ]
 
-const toolStyle = {
+const apiStyle = {
   display: 'inline-grid',
   textDecoration: 'none',
   color: '#26353f'
 }
 
-function Tool({title, icon, description, href}) {
+function Api({title, icon, description, href}) {
   return (
     <Link href={href}>
-      <a style={toolStyle}>
+      <a style={apiStyle}>
         <div className='article__author panel'>
           <div className='article__author-info'>
             <div className='article__author-name'>{title}</div>
@@ -54,7 +48,7 @@ function Tool({title, icon, description, href}) {
           <p className='article__author-description'>{description}</p>
           <style jsx>{`
             .article__author {
-              min-width: 300px;
+              min-width: 320px;
               min-height: 160px;
             }
 
@@ -75,19 +69,19 @@ function Tool({title, icon, description, href}) {
   )
 }
 
-Tool.propTypes = {
+Api.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.node.isRequired,
   icon: PropTypes.node.isRequired,
   href: PropTypes.string.isRequired
 }
 
-function Tools() {
+function Apis() {
   return (
     <Section>
       <div className='grid'>
         {titles.map(({title, href, description, icon}) => (
-          <Tool
+          <Api
             key={title}
             title={title}
             href={href}
@@ -100,4 +94,4 @@ function Tools() {
   )
 }
 
-export default Tools
+export default Apis

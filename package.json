@@ -23,6 +23,7 @@
     "chart.js": "^2.9.4",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.3",
+    "copy-to-clipboard": "^3.3.1",
     "express": "^4.17.1",
     "hoist-non-react-statics": "^3.3.2",
     "jschardet-french": "^0.0.1",
