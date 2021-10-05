@@ -10,7 +10,7 @@ Il utilise [React](https://reactjs.org), [Next.js](https://nextjs.org) et [MapLi
 
 ### Pré-requis
 
-* Node.js version 12 ou supérieure
+* Node.js version 14 ou supérieure
 * yarn (ou npm)
 
 ### Installation des dépendances
