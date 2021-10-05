@@ -591,81 +591,66 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@turf/bbox-polygon@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/bbox-polygon/-/bbox-polygon-6.2.0.tgz#53f87b2865949d01ab78752510a649e638bf5cd1"
-  integrity sha512-07madHnOzuB6XYeHVCEyYbg7Wta1tFkbGZ6zXUXIjCoq/eVXYtBoh8Q2uyFRuUhAODwBVYCA2iSNk6bsMPJhxw==
+"@turf/bbox-polygon@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox-polygon/-/bbox-polygon-6.5.0.tgz#f18128b012eedfa860a521d8f2b3779cc0801032"
+  integrity sha512-+/r0NyL1lOG3zKZmmf6L8ommU07HliP4dgYToMoTxqzsWzyLjaj/OzgQ8rBmv703WJX+aS6yCmLuIhYqyufyuw==
   dependencies:
-    "@turf/helpers" "^6.2.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/bbox@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.0.1.tgz#b966075771475940ee1c16be2a12cf389e6e923a"
-  integrity sha512-EGgaRLettBG25Iyx7VyUINsPpVj1x3nFQFiGS3ER8KCI1MximzNLsam3eXRabqQDjyAKyAE1bJ4EZEpGvspQxw==
+"@turf/bbox@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.5.0.tgz#bec30a744019eae420dac9ea46fb75caa44d8dc5"
+  integrity sha512-RBbLaao5hXTYyyg577iuMtDB8ehxMlUqHEJiMs8jT1GHkFhr6sYre3lmLsPeYEi/ZKj5TP5tt7fkzNdJ4GIVyw==
   dependencies:
-    "@turf/helpers" "6.x"
-    "@turf/meta" "6.x"
+    "@turf/helpers" "^6.5.0"
+    "@turf/meta" "^6.5.0"
 
-"@turf/bbox@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/bbox/-/bbox-6.2.0.tgz#ae75ab6b111478863dd34c4e63dbb36e613e6854"
-  integrity sha512-8KR//ruA/hhCvDiBzxBTUJ/G3hm9+tuCyeZA81hvdsooDpeq0PK/jSJjlwYjS//UK5c2deBeNNJx7NvL/PLEwg==
+"@turf/boolean-contains@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-contains/-/boolean-contains-6.5.0.tgz#f802e7432fb53109242d5bf57393ef2f53849bbf"
+  integrity sha512-4m8cJpbw+YQcKVGi8y0cHhBUnYT+QRfx6wzM4GI1IdtYH3p4oh/DOBJKrepQyiDzFDaNIjxuWXBh0ai1zVwOQQ==
   dependencies:
-    "@turf/helpers" "^6.2.0"
-    "@turf/meta" "^6.2.0"
+    "@turf/bbox" "^6.5.0"
+    "@turf/boolean-point-in-polygon" "^6.5.0"
+    "@turf/boolean-point-on-line" "^6.5.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-contains@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/boolean-contains/-/boolean-contains-6.2.0.tgz#e1143227558eb4bd684502557b24f089d915eba9"
-  integrity sha512-EVB8VTbLxo632KvtxwYB9oQ4HDZpGx3v9dURkFvD7HeevIgCC/MYlOQ66eW8JQMcThZaWtep1EZpA+zxH/VL1g==
+"@turf/boolean-point-in-polygon@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-6.5.0.tgz#6d2e9c89de4cd2e4365004c1e51490b7795a63cf"
+  integrity sha512-DtSuVFB26SI+hj0SjrvXowGTUCHlgevPAIsukssW6BG5MlNSBQAo70wpICBNJL6RjukXg8d2eXaAWuD/CqL00A==
   dependencies:
-    "@turf/bbox" "^6.2.0"
-    "@turf/boolean-point-in-polygon" "^6.2.0"
-    "@turf/boolean-point-on-line" "^6.2.0"
-    "@turf/helpers" "^6.2.0"
-    "@turf/invariant" "^6.2.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-point-in-polygon@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-6.2.0.tgz#b9f4984535a4d0cb98959ff6e402b82df14f3015"
-  integrity sha512-oYL8nuz+MeIEuJgX8IhnQstLNmqU6cARNd8Wgkn5FgWmMGJn+7j4ajMY/SPAmBUq4il45VO3X03lxftxTCCsog==
+"@turf/boolean-point-on-line@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-point-on-line/-/boolean-point-on-line-6.5.0.tgz#a8efa7bad88760676f395afb9980746bc5b376e9"
+  integrity sha512-A1BbuQ0LceLHvq7F/P7w3QvfpmZqbmViIUPHdNLvZimFNLo4e6IQunmzbe+8aSStH9QRZm3VOflyvNeXvvpZEQ==
   dependencies:
-    "@turf/helpers" "^6.2.0"
-    "@turf/invariant" "^6.2.0"
+    "@turf/helpers" "^6.5.0"
+    "@turf/invariant" "^6.5.0"
 
-"@turf/boolean-point-on-line@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/boolean-point-on-line/-/boolean-point-on-line-6.2.0.tgz#1c75fa72042077249b8716c77a0e502a016517f9"
-  integrity sha512-vZ2tEH4TK0i62fRBW12WNK2le70Y9VG33EIze9RvDCf2JQ2qpnU4XjZH3zcVmfQcZ537dZ2kgsDTIVA9yqgG2A==
+"@turf/helpers@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-6.5.0.tgz#f79af094bd6b8ce7ed2bd3e089a8493ee6cae82e"
+  integrity sha512-VbI1dV5bLFzohYYdgqwikdMVpe7pJ9X3E+dlr425wa2/sMJqYDhTO++ec38/pcPvPE6oD9WEEeU3Xu3gza+VPw==
+
+"@turf/invariant@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-6.5.0.tgz#970afc988023e39c7ccab2341bd06979ddc7463f"
+  integrity sha512-Wv8PRNCtPD31UVbdJE/KVAWKe7l6US+lJItRR/HOEW3eh+U/JwRCSUl/KZ7bmjM/C+zLNoreM2TU6OoLACs4eg==
   dependencies:
-    "@turf/helpers" "^6.2.0"
-    "@turf/invariant" "^6.2.0"
+    "@turf/helpers" "^6.5.0"
 
-"@turf/helpers@6.x", "@turf/helpers@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-6.2.0.tgz#dc770ce3b35b230f6a661824f3f87591378e379b"
-  integrity sha512-ANcZ0LFpnrza52y3um8KXgbpF1l7qmJXEqY1Bv5RovdQH+kUvMrZsb4SO3q4VH4eQqlsxDLxxXl7hkjjFbDtHg==
-
-"@turf/invariant@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/invariant/-/invariant-6.2.0.tgz#91c732b7c53e95afdbea944be3316bb8afd6a118"
-  integrity sha512-kyhKp3rW1tDe78xFkgq9+zC6dkBJyvEwP4HNNculIXRyN4Xoo7GJECE1wPyujQppj3Lmu63GtE6B68coEZ0Gqw==
+"@turf/meta@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.5.0.tgz#b725c3653c9f432133eaa04d3421f7e51e0418ca"
+  integrity sha512-RrArvtsV0vdsCBegoBtOalgdSOfkBrTJ07VkpiCnq/491W67hnMWmDu7e6Ztw0C3WldRYTXkg3SumfdzZxLBHA==
   dependencies:
-    "@turf/helpers" "^6.2.0"
-
-"@turf/meta@6.x":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.0.2.tgz#eb92951126d24a613ac1b7b99d733fcc20fd30cf"
-  integrity sha512-VA7HJkx7qF1l3+GNGkDVn2oXy4+QoLP6LktXAaZKjuT1JI0YESat7quUkbCMy4zP9lAUuvS4YMslLyTtr919FA==
-  dependencies:
-    "@turf/helpers" "6.x"
-
-"@turf/meta@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@turf/meta/-/meta-6.2.0.tgz#a225477fd8b5a4166d98e2e70cc4ed843db0f48d"
-  integrity sha512-8bM69hzRYKNfpZ+cyLxXZLw1IqCxm3cBcyEkVBHROFsQJb1o1Ghv2cd4iCSIuvkc1xSWD+qQvUjYr40XSNsyOQ==
-  dependencies:
-    "@turf/helpers" "^6.2.0"
+    "@turf/helpers" "^6.5.0"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
