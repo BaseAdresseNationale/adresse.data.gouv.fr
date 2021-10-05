@@ -65,7 +65,9 @@
       "unicorn/prevent-abbreviations": "off",
       "comma-dangle": "off",
       "import/extensions": "off",
-      "node/prefer-global/process": "off"
+      "node/prefer-global/process": "off",
+      "unicorn/no-array-for-each": "off",
+      "unicorn/prefer-switch": "off"
     }
   },
   "engines": {

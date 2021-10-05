@@ -159,7 +159,7 @@ function ByAddressName({title, id, icon}) {
                       value={t}
                       checked={type === t}
                       onClick={e => handleType(e.target.value)}
-                      onChange={() => { }}
+                      onChange={() => {}}
                     />
                     <label className='label-inline'>{featuresTypes[t]}</label>
                   </div>
