@@ -5,7 +5,7 @@ import Image from 'next/image'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
-import Mapbox from '../mapbox'
+import MapLibre from '../maplibre'
 import Section from '../section'
 import ButtonLink from '../button-link'
 import Partners from '@/components/bases-locales/charte/partners'
@@ -149,7 +149,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             />
           </div>
           <div className='bal-cover-map-container'>
-            <Mapbox>
+            <MapLibre>
               {({map, popup, setSources, setLayers}) => (
                 <BalCoverMap
                   map={map}
@@ -159,7 +159,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
                   setLayers={setLayers}
                 />
               )}
-            </Mapbox>
+            </MapLibre>
           </div>
         </div>
       </Section>

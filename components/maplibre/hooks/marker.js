@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react'
-import mapboxgl from 'mapbox-gl'
+import maplibregl from 'maplibre-gl'
 
 function useMarker(map) {
-  const [marker, setMarker] = useState(new mapboxgl.Marker())
+  const [marker, setMarker] = useState(new maplibregl.Marker())
   const [markerCoordinates, setMarkerCoordinates] = useState(null)
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function useMarker(map) {
         marker.setLngLat(markerCoordinates)
         marker.addTo(map)
       } else {
-        setMarker(new mapboxgl.Marker())
+        setMarker(new maplibregl.Marker())
       }
     } else {
       marker.remove()

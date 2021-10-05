@@ -14,7 +14,7 @@ function OpenGPS({coordinates}) {
     <Link href={`${href}${lat},${lon}`} passHref>
       <button
         type='button'
-        className='mapboxgl-ctrl'
+        className='maplibregl-ctrl'
       >
         <Navigation size={18} />
       </button>

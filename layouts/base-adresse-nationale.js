@@ -4,9 +4,9 @@ import {Map, Folder} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import Mapbox from '@/components/mapbox'
+import MapLibre from '@/components/maplibre'
 import BanSearch from '@/components/ban-search'
-import BanMap from '@/components/mapbox/ban-map'
+import BanMap from '@/components/maplibre/ban-map'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
@@ -43,11 +43,11 @@ export function Mobile({address, bbox, handleSelect, hash}) {
       <BanSearch />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-          {({...mapboxProps}) => (
-            <BanMap address={address} {...mapboxProps} onSelect={handleSelect} isMobile />
+        <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
+          {({...maplibreProps}) => (
+            <BanMap address={address} {...maplibreProps} onSelect={handleSelect} isMobile />
           )}
-        </Mapbox>
+        </MapLibre>
       </div>
 
       <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
@@ -141,11 +141,11 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='footer' />
       </div>
 
-      <Mapbox defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-        {({...mapboxProps}) => (
-          <BanMap address={address} {...mapboxProps} onSelect={handleSelect} />
+      <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
+        {({...maplibreProps}) => (
+          <BanMap address={address} {...maplibreProps} onSelect={handleSelect} />
         )}
-      </Mapbox>
+      </MapLibre>
 
       <style jsx>{`
         .ban-container {

@@ -300,7 +300,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
   return (
     <>
-      <div className='mapboxgl-ctrl-group mapboxgl-ctrl'>
+      <div className='maplibregl-ctrl-group maplibregl-ctrl'>
         <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
         {isMobile && address && (
@@ -321,7 +321,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       </SelectPaintLayer>
 
       <style jsx>{`
-        .mapboxgl-ctrl-group {
+        .maplibregl-ctrl-group {
           position: absolute;
           box-shadow: none;
           border: 2px solid #dcd8d5;

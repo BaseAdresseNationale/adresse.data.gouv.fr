@@ -7,7 +7,7 @@ function CenterControl({isDisabled, handleClick}) {
     <button
       disabled={isDisabled}
       type='button'
-      className='mapboxgl-ctrl'
+      className='maplibregl-ctrl'
       title='Recentrer la carte sur l’adresse'
       onClick={handleClick}
     >
