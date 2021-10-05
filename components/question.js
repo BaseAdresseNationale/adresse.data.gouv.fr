@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ChevronUp, ChevronDown} from 'react-feather'
-import kebabCase from 'lodash/kebabCase'
+import {kebabCase} from 'lodash'
 
 import theme from '@/styles/theme'
 
