@@ -1,8 +1,8 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-import mapboxgl from 'mapbox-gl'
-import mapStyle from 'mapbox-gl/dist/mapbox-gl.css'
+import maplibregl from 'maplibre-gl'
+import mapStyle from 'maplibre-gl/dist/maplibre-gl.css'
 
 import vector from './styles/vector.json'
 
@@ -105,7 +105,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
 
   useEffect(() => {
     if (mapContainer) {
-      const map = new mapboxgl.Map({
+      const map = new maplibregl.Map({
         container: mapContainer,
         style: STYLES[style],
         center: defaultCenter || DEFAULT_CENTER,
@@ -116,7 +116,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
       })
 
       if (hasControl) {
-        map.addControl(new mapboxgl.NavigationControl({showCompass: false}))
+        map.addControl(new maplibregl.NavigationControl({showCompass: false}))
       }
 
       map.on('load', loadData)
@@ -169,7 +169,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   }, [style]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className='mapbox-container'>
+    <div className='maplibre-container'>
       <div className='map'>
         {mapError && (
           <div className='tools error'>
@@ -216,13 +216,13 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
       </div>
 
       <Head>
-        <style key='mapbox'
+        <style key='maplibre'
           dangerouslySetInnerHTML={{__html: mapStyle}} // eslint-disable-line react/no-danger
         />
       </Head>
 
       <style jsx>{`
-          .mapbox-container {
+          .maplibre-container {
             position: relative;
             width: 100%;
             height: 100%;

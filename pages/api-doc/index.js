@@ -1,8 +1,6 @@
-import React from 'react'
-
 import {Compass} from 'react-feather'
-import Page from '@/layouts/main'
 
+import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Apis from '@/components/apis'
 

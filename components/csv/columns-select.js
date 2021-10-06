@@ -1,8 +1,5 @@
-import React from 'react'
 import PropTypes from 'prop-types'
-
 import SelectableItemList from '@/components/selectable-item-list'
-
 import theme from '@/styles/theme'
 
 function ColumnsSelect({columns, selectedColumns, onAdd, onRemove}) {

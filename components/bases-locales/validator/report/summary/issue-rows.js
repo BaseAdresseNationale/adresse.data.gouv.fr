@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {ZoomIn} from 'react-feather'
 import {getLabel} from '@etalab/bal'

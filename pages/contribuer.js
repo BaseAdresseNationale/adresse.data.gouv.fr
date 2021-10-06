@@ -1,9 +1,7 @@
-import React from 'react'
 import {Edit2, MapPin} from 'react-feather'
 
 import Page from '@/layouts/main'
 import theme from '@/styles/theme'
-
 import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'

@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {Crosshair} from 'react-feather'
 
@@ -7,7 +6,7 @@ function CenterControl({isDisabled, handleClick}) {
     <button
       disabled={isDisabled}
       type='button'
-      className='mapboxgl-ctrl'
+      className='maplibregl-ctrl'
       title='Recentrer la carte sur l’adresse'
       onClick={handleClick}
     >

@@ -1,8 +1,6 @@
-import React from 'react'
 import {Mail} from 'react-feather'
 
 import Page from '@/layouts/main'
-
 import Head from '@/components/head'
 import Section from '@/components/section'
 import SearchCommuneContact from '@/components/search-commune-contact'

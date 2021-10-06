@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {prevalidate} from '@etalab/bal'
 
 import {getFileExtension} from '@/lib/bal/file'

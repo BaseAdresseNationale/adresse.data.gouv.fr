@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint react/jsx-no-target-blank: off */
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 

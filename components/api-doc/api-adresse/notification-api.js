@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import {HelpCircle, AlertTriangle, Check, X} from 'react-feather'
@@ -23,7 +22,7 @@ function NotificationApi({message, type}) {
           display: flex;
           align-items: center;
         }
-  
+
         .notification {
           color: ${theme.infoBorder};
           background: ${theme.infoBg};
@@ -33,30 +32,30 @@ function NotificationApi({message, type}) {
           margin-bottom: 1em;
           position: relative;
         }
-  
+
         .notification.success {
           color: ${theme.successBorder};
           background: ${theme.successBg};
           border: 1px solid ${theme.successBorder};
         }
-  
+
         .notification.warning {
           color: ${theme.warningBorder};
           background: ${theme.warningBg};
           border: 1px solid ${theme.warningBorder};
         }
-  
+
         .notification.error {
           color: ${theme.errorBorder};
           background: ${theme.errorBg};
           border: 1px solid ${theme.errorBorder};
         }
-  
+
         .feather-icon {
           display: flex;
           margin-right: 0.18em;
         }
-  
+
         `}</style>
     </div>
   )

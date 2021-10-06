@@ -1,13 +1,9 @@
-import React from 'react'
 import {Compass, Search} from 'react-feather'
 
 import Page from '@/layouts/main'
-
 import Head from '@/components/head'
 import TechnicalDoc from '@/components/api-doc/api-adresse/technical-doc'
-
 import doc from '@/components/api-doc/api-adresse/doc'
-
 import ByAddressName from '@/components/api-doc/api-adresse/examples/by-address-name'
 import CurlDoc from '@/components/api-doc/api-adresse/curl-doc'
 

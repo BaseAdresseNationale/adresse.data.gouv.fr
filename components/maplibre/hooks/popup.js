@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react'
-import mapboxgl from 'mapbox-gl'
+import maplibregl from 'maplibre-gl'
 
 function usePopup(marker) {
-  const [popup, setPopup] = useState(new mapboxgl.Popup({
+  const [popup, setPopup] = useState(new maplibregl.Popup({
     closeButton: false,
     closeOnClick: false
   }))

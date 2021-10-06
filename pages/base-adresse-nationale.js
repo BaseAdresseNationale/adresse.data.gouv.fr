@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, useMemo, useContext} from 'react'
+import {useState, useCallback, useEffect, useMemo, useContext} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 

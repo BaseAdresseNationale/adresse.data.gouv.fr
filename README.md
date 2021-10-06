@@ -4,13 +4,13 @@
 
 Ce dépôt regroupe le code relatif à l'interface frontend du site adresse.data.gouv.fr.
 
-Il utilise [React](https://reactjs.org), [Next.js](https://nextjs.org) et [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/).
+Il utilise [React](https://reactjs.org), [Next.js](https://nextjs.org) et [MapLibre](https://maplibre.org).
 
 ## Développement
 
 ### Pré-requis
 
-* Node.js version 12 ou supérieure
+* Node.js version 14 ou supérieure
 * yarn (ou npm)
 
 ### Installation des dépendances

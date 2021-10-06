@@ -1,7 +1,4 @@
-import React from 'react'
-
 import Page from '@/layouts/main'
-
 import Section from '@/components/section'
 
 function Cgu() {

@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import {Layout} from 'react-feather'
 
@@ -9,7 +8,7 @@ function CadastreLayerControl({isDisabled, isActived, handleClick}) {
     <button
       disabled={isDisabled}
       type='button'
-      className='mapboxgl-ctrl'
+      className='maplibregl-ctrl'
       title={`${isActived ? 'Masquer' : 'Afficher'} le cadastre`}
       onClick={handleClick}
     >

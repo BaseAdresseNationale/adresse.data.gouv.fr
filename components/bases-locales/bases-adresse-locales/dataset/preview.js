@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
-import MapBox from '@/components/mapbox'
+import MapLibre from '@/components/maplibre'
 
-import AddressesMap from '@/components/mapbox/addresses-map'
+import AddressesMap from '@/components/maplibre/addresses-map'
 
 class Preview extends React.Component {
   static propTypes = {
@@ -26,14 +26,14 @@ class Preview extends React.Component {
 
           <div className='preview-map-container'>
             {geojson && (
-              <MapBox bbox={computeBbox(geojson)}>
-                {({...mapboxProps}) => (
+              <MapLibre bbox={computeBbox(geojson)}>
+                {({...maplibreProps}) => (
                   <AddressesMap
-                    {...mapboxProps}
+                    {...maplibreProps}
                     contour={geojson}
                   />
                 )}
-              </MapBox>
+              </MapLibre>
             )}
           </div>
         </div>

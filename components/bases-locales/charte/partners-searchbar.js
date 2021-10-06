@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import {debounce, intersection} from 'lodash'
 
 import {getCommunes, getByCode} from '@/lib/api-geo'

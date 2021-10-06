@@ -12,10 +12,10 @@ const popupHTML = ({nom, organization, license}) => renderToString(
       <b>{nom}</b>
     </p>
     {organization && (
-      <div>Producteur : {organization}</div>
+      <div>Producteur : {organization}</div>
     )}
     {license && (
-      <div>Licence : {license}</div>
+      <div>Licence : {license}</div>
     )}
   </div>
 )

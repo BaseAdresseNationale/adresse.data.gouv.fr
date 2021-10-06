@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '../../../styles/theme'
@@ -21,11 +20,11 @@ function TryContainer({error, children}) {
           border-radius: 4px;
           box-shadow: 2px 4px 30px -3px ${theme.boxShadow};
         }
-  
+
         .error {
           margin: 1em 0;
         }
-  
+
         h3 {
           text-align: center;
         }

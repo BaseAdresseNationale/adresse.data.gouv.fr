@@ -1,4 +1,3 @@
-import React from 'react'
 import Document, {Head, Html, Main, NextScript} from 'next/document'
 
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
@@ -23,7 +22,6 @@ class MyDocument extends Document {
 
         <body>
           <Main />
-          <script src='https://cdn.polyfill.io/v2/polyfill.min.js?features=Array.prototype.includes,modernizr:es6string,modernizr:es6array,Promise,fetch' />
           {PIWIK_URL && PIWIK_SITE_ID && <script defer async src={`${PIWIK_URL}/piwik.js`} />}
           <NextScript />
         </body>

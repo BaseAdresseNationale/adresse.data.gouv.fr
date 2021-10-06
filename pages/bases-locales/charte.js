@@ -1,12 +1,10 @@
-import React from 'react'
 import Image from 'next/image'
+import {Download} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import Partners from '@/components/bases-locales/charte/partners'
-import {Download} from 'react-feather'
-
 import theme from '@/styles/theme'
 
 function Charte() {

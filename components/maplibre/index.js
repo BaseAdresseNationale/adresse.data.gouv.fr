@@ -78,7 +78,7 @@ class MapWrapper extends React.PureComponent {
 
   componentDidMount() {
     /* eslint node/no-unsupported-features/es-syntax: off */
-    this.MapComponent = isWebGLSupported() ? dynamic(import('./map' /* webpackChunkName: "mapbox-gl" */), {
+    this.MapComponent = isWebGLSupported() ? dynamic(import('./map' /* webpackChunkName: "maplibre-gl" */), {
       ssr: false,
       loading: () => (
         <MapLoader />

@@ -20,7 +20,7 @@ class SelectableItemList extends React.Component {
 
     return (
       <div>
-        <div className={`${list.length && 'list selection'}`}>
+        <div className={`${list.length > 0 && 'list selection'}`}>
           {list.map(item => (
             <div key={item.key} className='item' onClick={() => action(item)}>
               <div className='text'>{item.value}</div>

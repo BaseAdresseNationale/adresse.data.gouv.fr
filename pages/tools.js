@@ -1,8 +1,5 @@
-import React from 'react'
-
-import ToolsIcon from '@/components/icons/tools'
 import Page from '@/layouts/main'
-
+import ToolsIcon from '@/components/icons/tools'
 import Head from '@/components/head'
 import Tools from '@/components/tools'
 

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
@@ -45,7 +45,7 @@ function BanSearch() {
     if (results && results.length > 0) {
       const orderResults = []
       results.map(feature => {
-        if (!orderResults.find(item => item.header === feature.properties.type)) {
+        if (!orderResults.some(item => item.header === feature.properties.type)) {
           orderResults.push({
             header: feature.properties.type
           })
