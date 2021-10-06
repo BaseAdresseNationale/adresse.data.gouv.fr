@@ -43,12 +43,14 @@ app.prepare().then(() => {
           ],
           'img-src': [
             '\'self\'',
-            'data:'
+            'data:',
+            'blob:'
           ],
           'script-src': [
             '\'self\'',
             'stats.data.gouv.fr'
           ],
+          'script-src-attr': null,
           'style-src': [
             '\'self\'',
             '\'unsafe-inline\''
