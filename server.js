@@ -15,6 +15,46 @@ app.prepare().then(() => {
     server.use(compression())
 
     server.use(helmet({
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'default-src': [
+            '\'self\''
+          ],
+          'child-src': [
+            '\'self\'',
+            'data:',
+            'blob:'
+          ],
+          'connect-src': [
+            'api-adresse.data.gouv.fr',
+            'backend.adresse.data.gouv.fr',
+            'plateforme.adresse.data.gouv.fr',
+            'etablissements-publics.api.gouv.fr',
+            'geo.api.gouv.fr',
+            'openmaptiles.geo.data.gouv.fr',
+            'openmaptiles.github.io',
+            'wxs.ign.fr',
+            'orangemug.github.io',
+            'stats.data.gouv.fr'
+          ],
+          'font-src': [
+            '\'self\''
+          ],
+          'img-src': [
+            '\'self\'',
+            'data:'
+          ],
+          'script-src': [
+            '\'self\'',
+            'stats.data.gouv.fr'
+          ],
+          'style-src': [
+            '\'self\'',
+            '\'unsafe-inline\''
+          ]
+        }
+      },
       hsts: false,
       dnsPrefetchControl: false
     }))
