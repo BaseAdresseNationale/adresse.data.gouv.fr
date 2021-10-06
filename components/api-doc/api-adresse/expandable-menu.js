@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import PropTypes from 'prop-types'
+import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '../../../styles/theme'
 
@@ -10,7 +11,9 @@ function ExpandableMenu({title, children}) {
     <div className='expandable-menu-container' onClick={() => setIsExpanded(!isExpanded)}>
       <div className='head'>
         <div className='title'>{title}</div>
-        <img className={`${isExpanded ? 'reverse' : ''}`} src='/images/icons/arrow-down.svg' />
+        <div style={{paddingLeft: '.5em'}}>
+          {isExpanded ? <ChevronUp style={{verticalAlign: 'middle'}} size={38} /> : <ChevronDown style={{verticalAlign: 'middle'}} size={38} />}
+        </div>
       </div>
 
       {isExpanded && children}
@@ -36,21 +39,10 @@ function ExpandableMenu({title, children}) {
           min-height: 2em;
         }
 
-        .head img {
-          width: 20px;
-          margin: 3px 0.5em 0 1em;
-          display: inline-block;
-        }
-
         .title {
           font-size: 16px;
           font-weight: 600;
           width: 100%;
-        }
-
-        img.reverse {
-          -webkit-transform: scaleY(-1);
-          transform: scaleY(-1);
         }
         `}</style>
     </div>
