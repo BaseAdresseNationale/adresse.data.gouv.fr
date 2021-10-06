@@ -14,9 +14,6 @@ class MyDocument extends Document {
       <Html lang='fr'>
         <Head>
           <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-
-          <link href='https://unpkg.com/template.data.gouv.fr@1.2.1/dist/main.min.css' rel='stylesheet' />
-
           <link rel='icon' href='/favicon.ico' />
         </Head>
 

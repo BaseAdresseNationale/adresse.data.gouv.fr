@@ -6377,6 +6377,11 @@ tar-stream@^2.1.4:
     inherits "^2.0.3"
     readable-stream "^3.1.1"
 
+template.data.gouv.fr@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/template.data.gouv.fr/-/template.data.gouv.fr-1.2.1.tgz#e5a7acfb9de287d571258733ccffb7292ff1decd"
+  integrity sha512-GD+KgjKmEXf3md749u5AB78raZ3OWPuizQ09Bj0aLF+j1YhlU+5aIKECQ/OyrxxuTesuVwoLxhWAPdF481atTg==
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
