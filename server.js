@@ -1,6 +1,7 @@
 const express = require('express')
 const next = require('next')
 const compression = require('compression')
+const helmet = require('helmet')
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -12,6 +13,11 @@ app.prepare().then(() => {
 
   if (!dev) {
     server.use(compression())
+
+    server.use(helmet({
+      hsts: false,
+      dnsPrefetchControl: false
+    }))
   }
 
   server.get('/nous-contacter', (request, res) => {
