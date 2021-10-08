@@ -59,7 +59,7 @@ function Hero({title, tagline}) {
           <BanSearch />
           <div className='map-button'>
             <ButtonLink href='/base-adresse-nationale'>
-              Consulter la Base Adresse Nationale
+              Accéder directement à la carte
             </ButtonLink>
           </div>
 
