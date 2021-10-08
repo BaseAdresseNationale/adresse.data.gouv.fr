@@ -120,6 +120,7 @@ function Hero({title, tagline}) {
       .example {
         font-size: 1.5em;
         text-align: center;
+        padding: .5em;
         background-color: ${theme.colors.white};
       }
     `}</style>
