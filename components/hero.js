@@ -115,6 +115,7 @@ function Hero({title, tagline}) {
         height: 100%;
         overflow: visible;
         margin: .5em;
+        text-align: center;
       }
 
       .example {
