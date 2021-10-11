@@ -54,7 +54,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
           left: 0;
           width: 100%;
           height: 100%;
-          z-index: 999;
+          z-index: 11;
         }
 
         select {

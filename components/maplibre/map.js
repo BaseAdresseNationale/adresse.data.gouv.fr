@@ -242,7 +242,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
             position: absolute;
             max-height: ${hasSwitchStyle ? 'calc(100% - 116px)' : '100%'};
             overflow-y: ${hasSwitchStyle ? 'scroll' : 'initial'};
-            z-index: 900;
+            z-index: 10;
             padding: 0.5em;
             margin: 1em;
             border-radius: 4px;
