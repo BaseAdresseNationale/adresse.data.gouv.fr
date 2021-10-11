@@ -136,17 +136,19 @@ function ByAddressName({title, id, icon}) {
         />
 
         <TryContainer error={error}>
-          <SearchInput
-            onSearch={setInput}
-            onSelect={item => setInput(item.label)}
-            placeholder='Chercher une adresse...'
-            isLoading={isLoading}
-            value={input}
-            renderItem={renderAdresse}
-            getItemValue={item => item.label}
-            results={list}
-          />
-          <SwitchInput handleChange={() => setAutocomplete(!autocomplete)} label='Autocomplétion' isChecked={autocomplete} />
+          <div className='search-input-container'>
+            <SearchInput
+              onSearch={setInput}
+              onSelect={item => setInput(item.label)}
+              placeholder='Chercher une adresse...'
+              isLoading={isLoading}
+              value={input}
+              renderItem={renderAdresse}
+              getItemValue={item => item.label}
+              results={list}
+            />
+            <SwitchInput handleChange={() => setAutocomplete(!autocomplete)} label='Autocomplétion' isChecked={autocomplete} />
+          </div>
 
           <div>
             <div key='type' className='cat'>
@@ -182,6 +184,10 @@ function ByAddressName({title, id, icon}) {
           .field {
             display: flex;
             margin: 0 1em;
+          }
+
+          .search-input-container {
+            position: relative;
           }
           `}</style>
     </Section>
