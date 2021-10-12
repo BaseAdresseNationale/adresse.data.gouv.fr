@@ -99,11 +99,6 @@ function DonneesNatioales() {
       </Section>
       <Section title='Autres fichiers nationaux' background='grey'>
         <div className='card-container'>
-          <Card title='Adresses locales' link='https://www.data.gouv.fr/fr/datasets/adresses-locales/' action='Voir sur data.gouv.fr'>
-            <div className='card-text'>
-              Ce jeu de données est l’agrégation de toutes les Bases Adresses Locales et assimilées, disponibles en Open Data.
-            </div>
-          </Card>
           <Card title='Export de l’API de gestion IGN' link='https://adresse.data.gouv.fr/data/ban/export-api-gestion/latest/'>
             <div className='card-text'>
               Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.
