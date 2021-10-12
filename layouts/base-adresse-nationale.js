@@ -113,7 +113,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
         }
 
         .layouts-selector {
-          z-index: 999;
+          z-index: 997;
           display: grid;
           grid-template-columns: 1fr 1fr;
           grid-gap: 1em;

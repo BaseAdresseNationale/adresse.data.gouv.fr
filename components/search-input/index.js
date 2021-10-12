@@ -34,9 +34,9 @@ function SearchInput({onSearch, onSelect, placeholder, isLoading, value, results
         ) : items)}
         <style jsx>{`
           .menu {
-            position: relative;
+            position: absolute;
             box-shadow: 0 1px 4px ${theme.boxShadow};
-            z-index: 5;
+            z-index: 999;
             width: 100%;
             background-color: ${theme.colors.white};
             border: 1px solid ${theme.border};
