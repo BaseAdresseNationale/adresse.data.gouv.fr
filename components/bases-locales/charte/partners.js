@@ -4,29 +4,23 @@ import Partner from '@/components/bases-locales/charte/partner'
 import colors from '@/styles/colors'
 import allPartners from 'partners.json'
 
-function Partners({partnersList}) {
+function Partners() {
   const companyPartners = allPartners.filter(partner => partner.isCompany === true)
   const partners = allPartners.filter(partner => partner.isCompany === false)
 
   return (
     <>
-      {partnersList ? (
+      <div>
         <div className='partners-container'>
-          {partnersList.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+          {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
         </div>
-      ) : (
-        <div>
+        <div className='compagny'>
+          <h3 className='subtitle'>Sociétés</h3>
           <div className='partners-container'>
-            {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-          </div>
-          <div className='compagny'>
-            <h3 className='subtitle'>Sociétés</h3>
-            <div className='partners-container'>
-              {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-            </div>
+            {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
         </div>
-      )}
+      </div>
 
       <style jsx>{`
         .partners-container {
