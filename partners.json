@@ -12,6 +12,7 @@
             "83",
             "84"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -31,6 +32,7 @@
         "codeDepartement": [
             "24"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -55,6 +57,7 @@
             "07",
             "26"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -76,6 +79,7 @@
         "codeDepartement": [
             "12"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -98,6 +102,7 @@
             "2A",
             "2B"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -123,6 +128,7 @@
             "89",
             "90"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -144,6 +150,7 @@
         "codeDepartement": [
             "14"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -165,6 +172,7 @@
         "codeDepartement": [
             "16"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -188,6 +196,7 @@
         "codeDepartement": [
             "30"
         ],
+        "echelon": 1,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -208,6 +217,7 @@
         "infos": "Nous vous proposons de vous accompagner dans la mise en conformité de votre Base Adresse Locale avec la Base Adresse Nationale et de vous former à sa mise à jour en toute autonomie, au fur et à mesure des créations de nouvelles adresses. En complément, si toutes les voies de votre commune ne sont pas nommées et que toutes les habitations ne sont pas numérotées, nous sommes également en mesure de vous conseiller et de vous accompagner sur ce point.",
         "perimeter": "France entière",
         "codeDepartement": [],
+        "echelon": null,
         "isPerimeterFrance": true,
         "isCompany": true,
         "services": [
@@ -229,6 +239,7 @@
             "73",
             "74"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -252,6 +263,7 @@
             "56",
             "35"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -272,6 +284,7 @@
         "codeDepartement": [
             "89"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -288,6 +301,7 @@
         "infos": "Nous vous accompagnons ou réalisons pour vous l'adressage complet de votre commune, nécessaire pour l'arrivée de la Fibre mais aussi pour les services de secours, livraisons, navigation GPS. Nous prenons en charge l'intégralité du process si vous le désirez : recensement des voies existantes, création des nouvelles voies, des nouveaux numéros, publication de votre Base Adresse Locale, diffusion auprès des organismes compétents...",
         "perimeter": "Cher (18), Indre (36), Gironde (33) et France Entière en solution 100% digitale",
         "codeDepartement": [],
+        "echelon": null,
         "isPerimeterFrance": true,
         "isCompany": true,
         "services": [
@@ -308,6 +322,7 @@
         "codeDepartement": [
             "60"
         ],
+        "echelon": 1,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -330,6 +345,7 @@
         "codeDepartement": [
             "81"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -351,6 +367,7 @@
         "codeDepartement": [
             "29"
         ],
+        "echelon": 1,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -377,6 +394,7 @@
             "72",
             "85"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -400,6 +418,7 @@
         "codeDepartement": [
             "81"
         ],
+        "echelon": 1,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -421,6 +440,7 @@
         "codeDepartement": [
             "95"
         ],
+        "echelon": 1,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -447,6 +467,7 @@
             "41",
             "45"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -469,6 +490,7 @@
         "codeDepartement": [
             "80"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -488,6 +510,7 @@
         "codeDepartement": [
             "60"
         ],
+        "echelon": 1,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -508,6 +531,7 @@
         "infos": "La Poste propose une offre de solutions modulables pour accompagner votre commune dans la fiabilisation de l'adressage de son territoire. Cette prestation vous permet de diagnostiquer la qualité des adresses de votre commune et vous aide à résoudre tous les problèmes complexes d'adressage (création, modification, suppression et numérotation des voies). En complément de la mise en œuvre de votre projet d’adressage, La Poste vous accompagne dans la communication auprès des citoyens, la création de votre Base Adresse Locale, et la fourniture de la signalétique.",
         "perimeter": "France entière",
         "codeDepartement": [],
+        "echelon": null,
         "isPerimeterFrance": true,
         "isCompany": true,
         "services": [
@@ -527,6 +551,7 @@
         "codeDepartement": [
             "46"
         ],
+        "echelon": 2,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
@@ -553,6 +578,7 @@
             "55",
             "88"
         ],
+        "echelon": 3,
         "isPerimeterFrance": false,
         "isCompany": false,
         "services": [
