@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 
 import partners from 'partners.json'
 
-import Partners from '@/components/bases-locales/charte/partners'
+import SearchedPartners from '@/components/bases-locales/charte/searched-partners'
 import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
@@ -20,6 +20,15 @@ function PartnersSearchbar() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const [isCompaniesVisible, setIsCompaniesVisible] = useState(false)
+
+  const companyPartners = filteredPartners.filter(partner => partner.isCompany)
+  const organizationPartners = filteredPartners.filter(partner => !partner.isCompany)
+
+  const onCompaniesVisible = () => {
+    setIsCompaniesVisible(!isCompaniesVisible)
+  }
+
   const handleSelectedTags = tag => {
     setSelectedTags(prevTags => {
       return selectedTags.includes(tag) ?
@@ -31,6 +40,13 @@ function PartnersSearchbar() {
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
     const filteredByPerimeter = partners.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
+
+    const organizationsLength = filteredByTags.filter(partner => !partner.isCompany).length
+    if (organizationsLength === 0) {
+      setIsCompaniesVisible(true)
+    } else {
+      setIsCompaniesVisible(false)
+    }
 
     return filteredByTags.sort((a, b) => {
       return a.isPerimeterFrance - b.isPerimeterFrance
@@ -104,15 +120,26 @@ function PartnersSearchbar() {
         filteredPartners.length === 0 ? (
           <div className='results'>Aucune structure n’a été trouvée sur votre territoire </div>
         ) : (
-          <div className='results'> <b>{filteredPartners.length} </b>
-            {filteredPartners.length === 1 ?
-              'partenaire de la Charte de la Base Adresse Locale trouvé sur votre territoire' :
-              'partenaires de la Charte de la Base Adresse Locale trouvés sur votre territoire'}
+          <div className='results'>
+            <div> <b>{filteredPartners.length} </b>
+              {filteredPartners.length === 1 ?
+                'partenaire de la Charte de la Base Adresse Locale trouvé sur votre territoire' :
+                'partenaires de la Charte de la Base Adresse Locale trouvés sur votre territoire'}
+            </div>
+
+            <div className='organizations'>
+              <div><b>{organizationPartners.length}</b> {`${organizationPartners.length > 1 ? 'organismes' : 'organisme'} de mutualisation`}</div>
+              <div><b>{companyPartners.length}</b> {companyPartners.length > 1 ? 'entreprises' : 'entreprises'}</div>
+            </div>
           </div>
         )
       )}
 
-      {error ? <div className='error'>{error}</div> : <Partners partnersList={filteredPartners} />}
+      {error ? (
+        <div className='error'>{error}</div>
+      ) : (
+        filteredPartners.length > 0 && <SearchedPartners companies={companyPartners} organizations={organizationPartners} isCompaniesVisible={isCompaniesVisible} onCompaniesVisible={onCompaniesVisible} />
+      )}
 
       <style jsx>{`
         .searchbar-label {
@@ -122,6 +149,12 @@ function PartnersSearchbar() {
 
         .results {
           margin: 0.5em 0 4em 0;
+        }
+
+        .organizations {
+          margin-top: 5px;
+          padding-left: 10px;
+          border-left: ${theme.border} solid 3px;
         }
 
         .error {
