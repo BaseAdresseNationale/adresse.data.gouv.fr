@@ -49,7 +49,7 @@ function PartnersSearchbar() {
     }
 
     return filteredByTags.sort((a, b) => {
-      return a.isPerimeterFrance - b.isPerimeterFrance
+      return a.echelon - b.echelon
     })
   }, [])
 
