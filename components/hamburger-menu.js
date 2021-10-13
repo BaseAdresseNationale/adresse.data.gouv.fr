@@ -55,6 +55,13 @@ class HamburgerMenu extends React.Component {
 
           a {
             color: ${theme.colors.black};
+            padding: 0.4em 0.8em;
+            border-radius: 3px;
+          }
+
+          a:hover {
+            background: ${theme.colors.lighterGrey};
+            transition: background ease-out 0.5s;
           }
 
           .content {
@@ -72,18 +79,6 @@ class HamburgerMenu extends React.Component {
 
           .content div:hover {
             background-color: ${theme.backgroundGrey};
-          }
-
-          @media (min-width: 552px) {
-            a {
-              padding: 0.4em 0.8em;
-              border-radius: 3px;
-            }
-
-            a:hover {
-              background: ${theme.colors.lighterGrey};
-              transition: background ease-out 0.5s;
-            }
           }
         `}</style>
       </div>
