@@ -31,7 +31,7 @@ function Partners({partnersList}) {
       <style jsx>{`
         .partners-container {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           justify-items: center;
           margin-top: 4em;
           gap: 6em 5em;
