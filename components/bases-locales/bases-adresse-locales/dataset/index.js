@@ -66,13 +66,6 @@ function Dataset({dataset}) {
       </Section>
 
       <style jsx>{`
-        h4 {
-          background-color: ${theme.primary};
-          color: ${theme.colors.white};
-          padding: 1em;
-          margin-bottom: 0;
-        }
-
         .links {
           display: flex;
           flex-flow: wrap;
@@ -83,37 +76,6 @@ function Dataset({dataset}) {
 
         .links a {
           margin: 1em 0;
-        }
-
-        .infos {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .counter {
-          margin: 0 1em;
-        }
-
-        .sources {
-          display: flex;
-        }
-
-        @media (max-width: 700px) {
-          .infos {
-            flex-direction: column;
-            flex-flow: end;
-            margin-top: 1em;
-          }
-
-          .counter {
-            margin: 0;
-          }
-
-          .sources {
-            margin-top: 0.5em;
-            margin-left: -2px;
-            flex-flow: wrap;
-          }
         }
         `}</style>
     </div>

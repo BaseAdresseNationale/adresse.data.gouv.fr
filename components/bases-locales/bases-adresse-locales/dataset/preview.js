@@ -57,11 +57,6 @@ class Preview extends React.Component {
             .content {
               flex-direction: column;
             }
-
-            .map {
-              width: 100%;
-              margin: 1em 0;
-            }
           }
         `}</style>
       </div>
