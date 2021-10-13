@@ -41,7 +41,7 @@ const Steps = React.memo(({step}) => {
         .steps {
           display: flex;
           margin: 2em 0;
-          justify-content: space-between;
+          justify-content: space-around;
         }
 
         @media (max-width: 768px) {
