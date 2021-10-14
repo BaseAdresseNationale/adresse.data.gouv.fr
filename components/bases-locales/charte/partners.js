@@ -20,13 +20,13 @@ function PartnersSearchbar() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const [areCompaniesVisible, setAreCompaniesVisible] = useState(false)
+  const [isCompaniesVisible, setIsCompaniesVisible] = useState(false)
 
   const companyPartners = filteredPartners.filter(partner => partner.isCompany)
   const organizationPartners = filteredPartners.filter(partner => !partner.isCompany)
 
   const onCompaniesVisible = () => {
-    setAreCompaniesVisible(!areCompaniesVisible)
+    setIsCompaniesVisible(!isCompaniesVisible)
   }
 
   const handleSelectedTags = tag => {
@@ -43,9 +43,9 @@ function PartnersSearchbar() {
 
     const organizationsLength = filteredByTags.filter(partner => !partner.isCompany).length
     if (organizationsLength === 0) {
-      setAreCompaniesVisible(true)
+      setIsCompaniesVisible(true)
     } else {
-      setAreCompaniesVisible(false)
+      setIsCompaniesVisible(false)
     }
 
     return filteredByTags.sort((a, b) => {
@@ -138,7 +138,7 @@ function PartnersSearchbar() {
       {error ? (
         <div className='error'>{error}</div>
       ) : (
-        filteredPartners.length > 0 && <SearchedPartners companies={companyPartners} organizations={organizationPartners} areCompaniesVisible={areCompaniesVisible} onCompaniesVisible={onCompaniesVisible} />
+        filteredPartners.length > 0 && <SearchedPartners companies={companyPartners} organizations={organizationPartners} isCompaniesVisible={isCompaniesVisible} onCompaniesVisible={onCompaniesVisible} />
       )}
 
       <style jsx>{`
