@@ -91,8 +91,6 @@ function SearchPartnersResults({companies, organizations}) {
 SearchPartnersResults.propTypes = {
   companies: PropTypes.array.isRequired,
   organizations: PropTypes.array.isRequired,
-  isCompaniesVisible: PropTypes.bool.isRequired,
-  onCompaniesVisible: PropTypes.func.isRequired,
 }
 
 export default SearchPartnersResults
