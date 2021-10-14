@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import theme from '../../../../styles/theme'
+import theme from '@/styles/theme'
 
 import Code from '../code'
 
@@ -88,7 +88,7 @@ function ParamsTable({label, params}) {
           background-color: ${theme.colors.lighterBlue} !important;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           table {
             display: block;
             overflow: scroll;

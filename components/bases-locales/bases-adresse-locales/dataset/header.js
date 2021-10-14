@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 
+import theme from '@/styles/theme'
+
 import Info from '../info'
 
 import Tag from '@/components/tag'
@@ -49,7 +51,7 @@ class Header extends React.Component {
             display: inline-flex;
           }
 
-          @media (max-width: 768px) {
+          @media (max-width: ${theme.breakPoints.laptop}) {
             .head {
               flex-flow: column-reverse;
             }

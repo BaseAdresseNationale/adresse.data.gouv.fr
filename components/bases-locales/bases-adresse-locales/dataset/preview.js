@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import computeBbox from '@turf/bbox'
 
+import theme from '@/styles/theme'
+
 import MapLibre from '@/components/maplibre'
 
 import AddressesMap from '@/components/maplibre/addresses-map'
@@ -53,7 +55,7 @@ class Preview extends React.Component {
             height: 300px;
           }
 
-          @media (max-width: 480px) {
+          @media (max-width: ${theme.breakPoints.tablet}) {
             .content {
               flex-direction: column;
             }

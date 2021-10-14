@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '@/styles/theme'
+
 class Table extends React.Component {
   static propTypes = {
     isWrap: PropTypes.bool.isRequired,
@@ -49,7 +51,7 @@ class Table extends React.Component {
             text-decoration: none;
           }
 
-          @media (max-width: 460px) {
+          @media (max-width: ${theme.breakPoints.tablet}) {
             table {
               font-size: x-small;
             }

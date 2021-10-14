@@ -75,7 +75,7 @@ function Cgu() {
           margin-left: 3em;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           .row > div:nth-child(2) {
             margin-left: 0;
           }

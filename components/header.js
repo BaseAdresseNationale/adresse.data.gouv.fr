@@ -124,7 +124,7 @@ function Header() {
         display: none;
       }
 
-      @media (max-width: 1024px) {
+      @media (max-width: ${theme.breakPoints.desktop}) {
         .nav__links {
           display: none;
         }

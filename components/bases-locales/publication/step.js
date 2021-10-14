@@ -65,7 +65,7 @@ class Step extends React.Component {
             text-align: center;
           }
 
-        @media (max-width: 768px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           .title {
             width: 100%;
           }

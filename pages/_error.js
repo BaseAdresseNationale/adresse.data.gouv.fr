@@ -66,7 +66,7 @@ class ErrorPage extends React.Component {
             font-weight: normal;
           }
 
-          @media (min-width: 480px) {
+          @media (min-width: ${theme.breakPoints.tablet}) {
             div {
               display: flex;
               flex: 1;
