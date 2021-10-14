@@ -20,14 +20,8 @@ function PartnersSearchbar() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const [isCompaniesVisible, setIsCompaniesVisible] = useState(false)
-
   const companyPartners = filteredPartners.filter(partner => partner.isCompany)
   const organizationPartners = filteredPartners.filter(partner => !partner.isCompany)
-
-  const onCompaniesVisible = () => {
-    setIsCompaniesVisible(!isCompaniesVisible)
-  }
 
   const handleSelectedTags = tag => {
     setSelectedTags(prevTags => {
@@ -40,13 +34,6 @@ function PartnersSearchbar() {
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
     const filteredByPerimeter = partners.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
-
-    const organizationsLength = filteredByTags.filter(partner => !partner.isCompany).length
-    if (organizationsLength === 0) {
-      setIsCompaniesVisible(true)
-    } else {
-      setIsCompaniesVisible(false)
-    }
 
     return filteredByTags.sort((a, b) => {
       return a.echelon - b.echelon
@@ -137,7 +124,7 @@ function PartnersSearchbar() {
       {error ? (
         <div className='error'>{error}</div>
       ) : (
-        filteredPartners.length > 0 && <SearchedPartners companies={companyPartners} organizations={organizationPartners} isCompaniesVisible={isCompaniesVisible} onCompaniesVisible={onCompaniesVisible} />
+        filteredPartners.length > 0 && <SearchedPartners companies={companyPartners} organizations={organizationPartners} />
       )}
 
       <style jsx>{`

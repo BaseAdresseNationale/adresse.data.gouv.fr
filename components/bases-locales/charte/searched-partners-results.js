@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {HelpCircle, ChevronDown, ChevronRight} from 'react-feather'
 
@@ -5,7 +6,21 @@ import Partner from './partner'
 import Notification from '@/components/notification'
 import theme from '@/styles/theme'
 
-function SearchPartnersResults({companies, organizations, isCompaniesVisible, onCompaniesVisible}) {
+function SearchPartnersResults({companies, organizations}) {
+  const [isCompaniesVisible, setIsCompaniesVisible] = useState(false)
+
+  const onCompaniesVisible = () => {
+    setIsCompaniesVisible(!isCompaniesVisible)
+  }
+
+  useEffect(() => {
+    if (organizations.length === 0) {
+      setIsCompaniesVisible(true)
+    } else {
+      setIsCompaniesVisible(false)
+    }
+  }, [organizations])
+
   return (
     <div>
       <div>
