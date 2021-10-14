@@ -18,7 +18,7 @@ class Info extends React.Component {
     const {title, type, children} = this.props
 
     return (
-      <div className='info'>
+      <div>
         <b>{title} : </b>
         <span className={type}>{children}</span>
         <style jsx>{`

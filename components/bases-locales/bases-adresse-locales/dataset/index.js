@@ -52,7 +52,7 @@ function Dataset({dataset}) {
 
         <CommunesPreview dataset={dataset} />
 
-        <div className='list'>
+        <div>
           <TableList
             title={dataset.communes.length === 1 ? 'Commune' : 'Communes'}
             subtitle={dataset.communes.length === 1 ? '1 commune répertoriée' : `${dataset.communes.length} communes répertoriées`}
