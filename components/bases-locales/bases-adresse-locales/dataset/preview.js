@@ -57,6 +57,10 @@ class Preview extends React.Component {
             .content {
               flex-direction: column;
             }
+
+            .preview-map-container {
+              width: 100%;
+            }
           }
         `}</style>
       </div>
