@@ -71,11 +71,10 @@ function PartnersSearchbar() {
     setIsLoading(true)
     try {
       const inputToNumber = Number.parseInt(input, 10)
-      if (Number.isNaN(inputToNumber)) {
-        setResults(await getCommunes({q: input, limit: 5, boost: 'population'}))
-      } else {
-        setResults(await getByCode({postalCode: input}))
-      }
+      let communes = []
+      communes = await (Number.isNaN(inputToNumber) ? getCommunes({q: input, limit: 5, boost: 'population'}) : getByCode({postalCode: input}))
+
+      setResults(communes)
     } catch {
       setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
     }
