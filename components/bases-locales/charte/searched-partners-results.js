@@ -6,7 +6,7 @@ import Partner from './partner'
 import Notification from '@/components/notification'
 import theme from '@/styles/theme'
 
-function SearchPartnersResults({companies, organizations}) {
+function SearchedPartnersResults({companies, organizations}) {
   const [isCompaniesVisible, setIsCompaniesVisible] = useState(organizations.length === 0)
 
   const onCompaniesVisible = () => {
@@ -84,9 +84,9 @@ function SearchPartnersResults({companies, organizations}) {
   )
 }
 
-SearchPartnersResults.propTypes = {
+SearchedPartnersResults.propTypes = {
   companies: PropTypes.array.isRequired,
   organizations: PropTypes.array.isRequired,
 }
 
-export default SearchPartnersResults
+export default SearchedPartnersResults
