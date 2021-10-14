@@ -1,6 +1,8 @@
 import Page from '@/layouts/main'
 import Section from '@/components/section'
 
+import theme from '@/styles/theme'
+
 function Cgu() {
   return (
     <Page title='Mentions légales'>
