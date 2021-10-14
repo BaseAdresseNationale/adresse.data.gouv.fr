@@ -7,18 +7,14 @@ import Notification from '@/components/notification'
 import theme from '@/styles/theme'
 
 function SearchPartnersResults({companies, organizations}) {
-  const [isCompaniesVisible, setIsCompaniesVisible] = useState(false)
+  const [isCompaniesVisible, setIsCompaniesVisible] = useState(organizations.length === 0)
 
   const onCompaniesVisible = () => {
     setIsCompaniesVisible(!isCompaniesVisible)
   }
 
   useEffect(() => {
-    if (organizations.length === 0) {
-      setIsCompaniesVisible(true)
-    } else {
-      setIsCompaniesVisible(false)
-    }
+    setIsCompaniesVisible(organizations.length === 0)
   }, [organizations])
 
   return (
