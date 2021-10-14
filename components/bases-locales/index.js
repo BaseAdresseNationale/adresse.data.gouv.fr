@@ -5,6 +5,8 @@ import Image from 'next/image'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
+import theme from '@/styles/theme'
+
 import MapLibre from '../maplibre'
 import Section from '../section'
 import ButtonLink from '../button-link'
@@ -227,7 +229,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           text-align: center;
         }
 
-        @media (max-width: 1016px) {
+        @media (max-width: ${theme.breakPoints.desktop}) {
           .bal-cover-map-container {
             margin-top: 2em;
           }

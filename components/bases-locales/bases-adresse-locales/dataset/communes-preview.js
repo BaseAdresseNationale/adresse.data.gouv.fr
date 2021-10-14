@@ -62,6 +62,7 @@ class CommunesPreview extends React.Component {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 100%));
             grid-gap: 5px;
+            padding-bottom: 1em;
           }
         `}</style>
       </Preview>

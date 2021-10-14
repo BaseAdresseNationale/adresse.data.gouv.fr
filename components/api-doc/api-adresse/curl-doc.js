@@ -1,7 +1,7 @@
 /* eslint no-irregular-whitespace: off */
 import Section from '@/components/section'
 
-import theme from '../../../styles/theme'
+import theme from '@/styles/theme'
 
 function CurlDoc() {
   return (
@@ -174,7 +174,7 @@ function CurlDoc() {
             width: 100%;
           }
 
-          @media (min-width: 900px) {
+          @media (min-width: ${theme.breakPoints.desktop}) {
             .row {
               flex-flow: row;
             }

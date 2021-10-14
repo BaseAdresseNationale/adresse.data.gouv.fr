@@ -11,20 +11,13 @@ function Tag({type, style}) {
         .tag {
           display: flex;
           margin: 2px;
+          font-size: 12px;
           color: ${tag.color};
           background-color: ${tag.background};
           padding: 2px 4px;
           border-radius: 2px;
           justify-content: center;
           align-items: center;
-        }
-
-        @media (min-width: 460px) {
-          font-size: 12px;
-        }
-
-        @media (max-width: 460px) {
-          font-size: x-small;
         }
         `}</style>
     </div>

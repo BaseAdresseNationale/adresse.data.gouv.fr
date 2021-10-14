@@ -81,12 +81,6 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
         .label:hover {
           cursor: pointer;
         }
-
-        @media (max-width: 400px) {
-          .label {
-            font-size: 1em;
-          }
-         }
       `}</style>
     </div>
   )

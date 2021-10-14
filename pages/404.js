@@ -36,7 +36,7 @@ function ErrorPage() {
           font-weight: normal;
         }
 
-        @media (min-width: 552px) {
+        @media (min-width: ${theme.breakPoints.tablet}) {
           div {
             display: flex;
             flex: 1;

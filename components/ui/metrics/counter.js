@@ -47,12 +47,6 @@ function Counter({value, label, unit, size, color, title}) {
         font-size: 0.4rem;
         line-height: 1;
       }
-
-      @media (max-width: 551px) {
-        .small {
-          font-size: 0.3rem;
-        }
-      }
     `}</style>
     </div>
   )

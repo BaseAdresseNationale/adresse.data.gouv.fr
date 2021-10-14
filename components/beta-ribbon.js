@@ -22,20 +22,14 @@ function BetaRibbon() {
         transform:rotate(45deg);
       }
 
-      @media (max-width: 420px) {
+      @media (max-width: ${theme.breakPoints.tablet}) {
         .ribbon:after {
           width: 40px;
           height: 20px;
           top: 50px;
-          right: 20px;
+          right: 25px;
           font-size: 12px;
           line-height: 20px;
-        }
-      }
-
-      @media (max-width: 400px) {
-        .ribbon:after {
-          right: 25px;
         }
       }
       `}</style>
