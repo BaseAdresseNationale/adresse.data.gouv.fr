@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 
 import partners from 'partners.json'
 
-import SearchedPartners from '@/components/bases-locales/charte/searched-partners'
+import SearchedPartners from '@/components/bases-locales/charte/searched-partners-results'
 import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
