@@ -8,16 +8,14 @@ function Partners() {
   const partners = allPartners.filter(partner => partner.isCompany === false)
 
   return (
-    <>
-      <div>
+    <div>
+      <div className='partners-container'>
+        {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+      </div>
+      <div className='compagny'>
+        <h3 className='subtitle'>Sociétés</h3>
         <div className='partners-container'>
-          {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-        </div>
-        <div className='compagny'>
-          <h3 className='subtitle'>Sociétés</h3>
-          <div className='partners-container'>
-            {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-          </div>
+          {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
         </div>
       </div>
 
@@ -42,7 +40,7 @@ function Partners() {
           align-self: center;
         }
       `}</style>
-    </>
+    </div>
   )
 }
 
