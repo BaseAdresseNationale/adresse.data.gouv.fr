@@ -2,8 +2,6 @@ import PropTypes from 'prop-types'
 import {withRouter, useRouter} from 'next/router'
 import {Download} from 'react-feather'
 
-import theme from '@/styles/theme'
-
 import Section from '@/components/section'
 
 import ButtonLink from '@/components/button-link'

@@ -22,9 +22,7 @@ function Header() {
 
         <Link href='/'>
           <a className='nav__link'>
-            {/*<div className='nav__logo'>*/}
-              <Image layout='responsive' width={305} height={70} src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
-            {/*</div>*/}
+            <Image layout='responsive' width={305} height={70} src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
           </a>
         </Link>
 
