@@ -58,10 +58,11 @@ function PartnersSearchbar() {
     setIsLoading(true)
     try {
       const inputToNumber = Number.parseInt(input, 10)
-      let communes = []
-      communes = await (Number.isNaN(inputToNumber) ? getCommunes({q: input, limit: 5, boost: 'population'}) : getByCode({postalCode: input}))
+      const isInputNumber = !Number.isNaN(inputToNumber)
 
-      setResults(communes)
+      const commune = await (isInputNumber ? getByCode({postalCode: input}) : getCommunes({q: input, limit: 5, boost: 'population'}))
+
+      setResults(commune)
     } catch {
       setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
     }
