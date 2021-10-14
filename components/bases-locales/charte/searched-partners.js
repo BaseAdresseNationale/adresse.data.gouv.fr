@@ -25,11 +25,11 @@ function SearchedPartners({companies, organizations, isCompaniesVisible, onCompa
         )}
       </div>
       <div className='organizations-container'>
-        <div className='companies-dropdown'>
+        <div className='companies-dropdown' onClick={onCompaniesVisible}>
           {isCompaniesVisible ? (
-            <ChevronDown color={theme.primary} onClick={onCompaniesVisible} />
+            <ChevronDown color={theme.primary} />
           ) : (
-            <ChevronRight color={theme.primary} onClick={onCompaniesVisible} />
+            <ChevronRight color={theme.primary} />
           )}
           <div>Entreprises</div>
         </div>
@@ -62,9 +62,11 @@ function SearchedPartners({companies, organizations, isCompaniesVisible, onCompa
         }
 
         .companies-dropdown {
+          width: fit-content;
           display: flex;
           font-size: 1.5em;
           gap: 15px;
+          cursor: pointer;
         }
       `}</style>
     </div>
