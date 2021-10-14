@@ -65,7 +65,7 @@ class Step extends React.Component {
             text-align: center;
           }
 
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
           .title {
             width: 100%;
           }

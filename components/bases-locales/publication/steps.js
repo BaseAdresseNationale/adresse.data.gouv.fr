@@ -44,7 +44,7 @@ const Steps = React.memo(({step}) => {
           justify-content: space-between;
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
           .steps {
             display: grid;
             grid-template-columns: 1fr;

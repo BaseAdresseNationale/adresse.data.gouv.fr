@@ -227,7 +227,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           text-align: center;
         }
 
-        @media (max-width: 1016px) {
+        @media (max-width: 1024px) {
           .bal-cover-map-container {
             margin-top: 2em;
           }

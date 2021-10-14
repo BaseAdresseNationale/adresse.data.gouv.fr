@@ -49,7 +49,7 @@ class Header extends React.Component {
             display: inline-flex;
           }
 
-          @media (max-width: 600px) {
+          @media (max-width: 768px) {
             .head {
               flex-flow: column-reverse;
             }

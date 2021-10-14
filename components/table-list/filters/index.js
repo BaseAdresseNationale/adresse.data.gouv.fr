@@ -62,7 +62,7 @@ class Filters extends React.Component {
               border: 1px solid ${theme.colors.lightGrey};
             }
 
-            @media (max-width: 700px) {
+            @media (max-width: 768px) {
               .filter-1 {
                 display: flex;
                 flex-direction: column;

@@ -75,7 +75,7 @@ function Cgu() {
           margin-left: 3em;
         }
 
-        @media (max-width: 749px) {
+        @media (max-width: 768px) {
           .row > div:nth-child(2) {
             margin-left: 0;
           }

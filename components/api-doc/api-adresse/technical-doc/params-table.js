@@ -88,7 +88,7 @@ function ParamsTable({label, params}) {
           background-color: ${theme.colors.lighterBlue} !important;
         }
 
-        @media (max-width: 549px) {
+        @media (max-width: 768px) {
           table {
             display: block;
             overflow: scroll;

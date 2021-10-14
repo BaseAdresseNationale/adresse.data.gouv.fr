@@ -66,7 +66,7 @@ class ErrorPage extends React.Component {
             font-weight: normal;
           }
 
-          @media (min-width: 552px) {
+          @media (min-width: 480px) {
             div {
               display: flex;
               flex: 1;

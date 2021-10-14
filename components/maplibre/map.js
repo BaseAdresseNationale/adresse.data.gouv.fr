@@ -265,7 +265,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
             overflow: hidden;
           }
 
-          @media (max-width: 380px) {
+          @media (max-width: 320px) {
             .tools {
               margin: 0.5em;
             }

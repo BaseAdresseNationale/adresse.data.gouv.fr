@@ -53,7 +53,7 @@ class Preview extends React.Component {
             height: 300px;
           }
 
-          @media (max-width: 680px) {
+          @media (max-width: 480px) {
             .content {
               flex-direction: column;
             }

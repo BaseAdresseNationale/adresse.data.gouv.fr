@@ -174,7 +174,7 @@ function CurlDoc() {
             width: 100%;
           }
 
-          @media (min-width: 900px) {
+          @media (min-width: 1024px) {
             .row {
               flex-flow: row;
             }
