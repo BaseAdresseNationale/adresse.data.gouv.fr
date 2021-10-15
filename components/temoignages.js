@@ -24,7 +24,7 @@ function Temoignages({limit}) {
           .temoignages-section {
             text-align: center;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             grid-column-gap: 6em;
           }
         `}</style>

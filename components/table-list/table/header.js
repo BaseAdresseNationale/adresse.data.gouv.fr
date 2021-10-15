@@ -43,7 +43,7 @@ function Header({title, handleSelect, icon, isActived}) {
         color: white;
       }
 
-      @media (max-width: 460px) {
+      @media (max-width: ${theme.breakPoints.tablet}) {
         .icon {
           display: none;
         }

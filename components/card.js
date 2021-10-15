@@ -54,11 +54,6 @@ function Card({title, children, link, action}) {
         text-decoration: none;
         text-align: center;
       }
-      @media screen and (max-width: 992px) {
-        .other {
-          width: 100%;
-          margin: .5em auto;
-        }
     `}</style>
     </div>
   )

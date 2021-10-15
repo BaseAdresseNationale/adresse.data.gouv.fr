@@ -22,9 +22,7 @@ function Header() {
 
         <Link href='/'>
           <a className='nav__link'>
-            <div className='nav__logo'>
-              <Image layout='fill' src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
-            </div>
+            <Image layout='responsive' width={305} height={70} src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
           </a>
         </Link>
 
@@ -68,10 +66,17 @@ function Header() {
       }
 
       .nav__logo {
-        position: relative;
-        width: 305px;
-        height: 70px;
+        display: block;
+        width: 40%;
+        max-width: 305px;
         margin: 0.2em 1em;
+      }
+
+      .nav__link {
+        width: 40%;
+        margin: .2em 1em;
+        min-width: 220px;
+        max-width: 305px;
       }
 
       .nav__link:hover {
@@ -119,7 +124,7 @@ function Header() {
         display: none;
       }
 
-      @media (max-width: 1075px) {
+      @media (max-width: ${theme.breakPoints.desktop}) {
         .nav__links {
           display: none;
         }
@@ -127,13 +132,6 @@ function Header() {
         .hamburger-menu {
           display: block;
           margin: 1em;
-        }
-      }
-
-      @media (max-width: 380px) {
-        .nav__logo {
-          width: 230px;
-          height: 60px;
         }
       }
   `}</style>

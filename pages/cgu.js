@@ -1,6 +1,8 @@
 import Page from '@/layouts/main'
 import Section from '@/components/section'
 
+import theme from '@/styles/theme'
+
 function Cgu() {
   return (
     <Page title='Mentions légales'>
@@ -75,7 +77,7 @@ function Cgu() {
           margin-left: 3em;
         }
 
-        @media (max-width: 749px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           .row > div:nth-child(2) {
             margin-left: 0;
           }

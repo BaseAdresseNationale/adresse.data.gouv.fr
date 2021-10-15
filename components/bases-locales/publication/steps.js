@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '@/styles/theme'
+
 import Step from './step'
 
 const Steps = React.memo(({step}) => {
@@ -41,10 +43,10 @@ const Steps = React.memo(({step}) => {
         .steps {
           display: flex;
           margin: 2em 0;
-          justify-content: space-between;
+          justify-content: space-around;
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           .steps {
             display: grid;
             grid-template-columns: 1fr;

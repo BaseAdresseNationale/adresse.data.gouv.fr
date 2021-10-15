@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 
+import theme from '@/styles/theme'
+
 import Result from './result'
 import Presentation from './presentation'
 
@@ -33,7 +35,7 @@ function Tuto({title, description, icon, example, results, tips, warning, side, 
           margin-right: 1em;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           .tuto-container {
             flex-direction: column;
           }

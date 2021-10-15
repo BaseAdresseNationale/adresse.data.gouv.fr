@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import theme from '@/styles/theme'
+
 class Title extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -22,6 +24,10 @@ class Title extends React.Component {
               display: flex;
               justify-content: space-between;
               align-items: center;
+            }
+
+            @media (max-width: ${theme.breakPoints.tablet}) {
+              flex-direction: column;
             }
             `}</style>
       </div>

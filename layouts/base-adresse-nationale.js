@@ -84,7 +84,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
           height: calc(${viewHeight} - 77px); // Max heigth available - header height
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: ${theme.breakPoints.laptop}) {
           .ban-container {
             top: 67px;
           }

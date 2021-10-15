@@ -1,8 +1,17 @@
 import colors from './colors'
 
+const breakPoints = {
+  desktop: '1024px',
+  laptop: '768px',
+  tablet: '480px',
+  mobile: '320px'
+}
+
 export default ({
   // Expose colors
   colors,
+
+  breakPoints,
 
   primary: colors.blue,
   primaryLight: colors.lightBlue,

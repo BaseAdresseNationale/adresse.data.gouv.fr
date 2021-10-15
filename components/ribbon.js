@@ -15,12 +15,6 @@ function Ribbon() {
         font-size: 19px;
         padding: 1em;
       }
-
-      @media (max-width: 700px) {
-        img {
-          display: none;
-        }
-      }
     `}</style>
     </div>
   )

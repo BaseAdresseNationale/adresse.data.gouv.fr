@@ -47,7 +47,7 @@ function Api({title, icon, description, href}) {
           <p className='article__author-description'>{description}</p>
           <style jsx>{`
             .article__author {
-              min-width: 320px;
+              min-width: 300px;
               min-height: 160px;
             }
 
