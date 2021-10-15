@@ -1,22 +1,10 @@
-import {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {HelpCircle, ChevronDown, ChevronRight} from 'react-feather'
+import {HelpCircle} from 'react-feather'
 
 import Partner from './partner'
 import Notification from '@/components/notification'
-import theme from '@/styles/theme'
 
 function SearchPartnersResults({companies, organizations}) {
-  const [isCompaniesVisible, setIsCompaniesVisible] = useState(organizations.length === 0)
-
-  const onCompaniesVisible = () => {
-    setIsCompaniesVisible(!isCompaniesVisible)
-  }
-
-  useEffect(() => {
-    setIsCompaniesVisible(organizations.length === 0)
-  }, [organizations])
-
   return (
     <div>
       <div>
@@ -36,20 +24,12 @@ function SearchPartnersResults({companies, organizations}) {
         )}
       </div>
       <div className='organizations-container'>
-        <div className='companies-dropdown' onClick={onCompaniesVisible}>
-          {isCompaniesVisible ? (
-            <ChevronDown color={theme.primary} />
-          ) : (
-            <ChevronRight color={theme.primary} />
-          )}
-          <div>Entreprises</div>
+        <div className='title'>Entreprises</div>
+
+        <div className='partners-container'>
+          {companies.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
         </div>
 
-        {isCompaniesVisible && (
-          <div className='partners-container companies-container'>
-            {companies.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-          </div>
-        )}
       </div>
 
       <style jsx>{`
@@ -63,7 +43,7 @@ function SearchPartnersResults({companies, organizations}) {
         }
 
         .organizations-container {
-          margin-top: 8em;
+          margin-top: 4em;
         }
 
         .no-found {
@@ -72,12 +52,9 @@ function SearchPartnersResults({companies, organizations}) {
           font-style: italic;
         }
 
-        .companies-dropdown {
-          width: fit-content;
-          display: flex;
+        .title {
           font-size: 1.5em;
-          gap: 15px;
-          cursor: pointer;
+          font-weight: bold;
         }
       `}</style>
     </div>
