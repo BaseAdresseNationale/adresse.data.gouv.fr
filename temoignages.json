@@ -110,5 +110,13 @@
         "alt": "Paysage des Terres de Provence",
         "date": "2021-09-10",
         "articleUrl": "https://blog.geo.data.gouv.fr/terres-de-provence-un-outil-sur-mesure-et-des-adresses-certifi%C3%A9es-df42b802e46b"
+    },
+    {
+        "title": "La mission régionale IDéO BFC",
+        "preview": "IDéO BFC accompagne les communes de Bourgogne-Franche-Comté sur l’adresse : de la formation au support, en recherchant des relais de terrain, la mission s'assure d’une garantie d’efficacité pour l’amélioration en continu des adresses.",
+        "picture": "/images/testimonies/ideo-bfc.png",
+        "alt": "Capture de l’éditeur de Base Adresse Locale",
+        "date" : "2021-10-14",
+        "articleUrl" : "https://blog.geo.data.gouv.fr/id%C3%A9o-bfc-engag%C3%A9-dans-la-formation-des-communes-483b463b26c7"
     }
 ]
