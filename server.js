@@ -24,7 +24,8 @@ app.prepare().then(() => {
           'child-src': [
             '\'self\'',
             'data:',
-            'blob:'
+            'blob:',
+            '*.sibforms.com'
           ],
           'connect-src': [
             'api-adresse.data.gouv.fr',
