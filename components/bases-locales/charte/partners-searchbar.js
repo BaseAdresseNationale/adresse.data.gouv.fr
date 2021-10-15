@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 
 import partners from 'partners.json'
 
-import SearchedPartners from '@/components/bases-locales/charte/searched-partners-results'
+import SearchPartnersResults from '@/components/bases-locales/charte/search-partners-results'
 import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
@@ -125,7 +125,7 @@ function PartnersSearchbar() {
       {error ? (
         <div className='error'>{error}</div>
       ) : (
-        filteredPartners.length > 0 && <SearchedPartners companies={companyPartners} organizations={organizationPartners} />
+        filteredPartners.length > 0 && <SearchPartnersResults companies={companyPartners} organizations={organizationPartners} />
       )}
 
       <style jsx>{`
