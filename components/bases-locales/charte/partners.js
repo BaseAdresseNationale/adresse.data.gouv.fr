@@ -1,23 +1,32 @@
+import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
 import colors from '@/styles/colors'
 import allPartners from 'partners.json'
 
-function Partners() {
+function Partners({partnersList}) {
   const companyPartners = allPartners.filter(partner => partner.isCompany === true)
   const partners = allPartners.filter(partner => partner.isCompany === false)
 
   return (
     <div>
-      <div className='partners-container'>
-        {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-      </div>
-      <div className='compagny'>
-        <h3 className='subtitle'>Sociétés</h3>
+      {partnersList ? (
         <div className='partners-container'>
-          {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+          {partnersList.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
         </div>
-      </div>
+      ) : (
+        <>
+          <div className='partners-container'>
+            {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+          </div>
+          <div className='compagny'>
+            <h3 className='subtitle'>Sociétés</h3>
+            <div className='partners-container'>
+              {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+            </div>
+          </div>
+        </>
+      )}
 
       <style jsx>{`
         .partners-container {
@@ -42,6 +51,14 @@ function Partners() {
       `}</style>
     </div>
   )
+}
+
+Partners.propTypes = {
+  partnersList: PropTypes.array,
+}
+
+Partner.defaultProps = {
+  partnersList: null,
 }
 
 export default Partners
