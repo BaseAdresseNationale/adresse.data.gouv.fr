@@ -589,5 +589,36 @@
         "height": 69,
         "width": 320,
         "alt": "Logo de LOSANGE"
+    },
+    {
+        "name": "OPenIG",
+        "link": "https://www.openig.org/groupes-de-travail/adresse",
+        "infos": " En Occitanie, OPenIG, la plateforme régionale associative pour l'information géographique a adopté cette charte et contribue à l'amélioration des adresses. OPenIG appuie cette démarche à travers l'information et l'accompagnement technique de ses communes adhérentes ou ayants-droit ainsi que de leurs chefs de files.",
+        "perimeter": "Occitanie",
+        "codeDepartement": [
+            "09",
+            "11",
+            "12",
+            "30",
+            "31",
+            "32",
+            "34",
+            "46",
+            "48",
+            "65",
+            "66",
+            "81",
+            "82"
+        ],
+        "echelon": 3,
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/openig.png",
+        "height": 110,
+        "width": 114,
+        "alt": "Logo de OPENIG"
     }
 ]
