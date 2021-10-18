@@ -116,7 +116,15 @@
         "preview": "IDéO BFC accompagne les communes de Bourgogne-Franche-Comté sur l’adresse : de la formation au support, en recherchant des relais de terrain, la mission s'assure d’une garantie d’efficacité pour l’amélioration en continu des adresses.",
         "picture": "/images/testimonies/ideo-bfc.png",
         "alt": "Capture de l’éditeur de Base Adresse Locale",
-        "date" : "2021-10-14",
-        "articleUrl" : "https://blog.geo.data.gouv.fr/id%C3%A9o-bfc-engag%C3%A9-dans-la-formation-des-communes-483b463b26c7"
+        "date": "2021-10-14",
+        "articleUrl": "https://blog.geo.data.gouv.fr/id%C3%A9o-bfc-engag%C3%A9-dans-la-formation-des-communes-483b463b26c7"
+    },
+    {
+        "title": "L’Association des Maires du Morbihan",
+        "preview": "L’Association des Maires du Morbihan s’est saisie du sujet de l’adresse de longue date. Son idée force : les maires doivent s’occuper des adresses des communes sans intermédiaire.",
+        "picture": "/images/testimonies/AMR56.jpg",
+        "alt": "Joël Marivain, maire de Kerfourn et président de l’AMR56 devant le plan de sa commune. Cliché Joël Marivain",
+        "date": "2021-10-05",
+        "articleUrl": "https://blog.geo.data.gouv.fr/lassociation-des-maires-du-morbihan-mobilise-les-communes-sur-leurs-adresses-90a87d272daf"
     }
 ]
