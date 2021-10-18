@@ -9,13 +9,13 @@ function Partners({partnersList}) {
   const partners = allPartners.filter(partner => partner.isCompany === false)
 
   return (
-    <>
+    <div>
       {partnersList ? (
         <div className='partners-container'>
           {partnersList.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
         </div>
       ) : (
-        <div>
+        <>
           <div className='partners-container'>
             {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
@@ -25,7 +25,7 @@ function Partners({partnersList}) {
               {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
             </div>
           </div>
-        </div>
+        </>
       )}
 
       <style jsx>{`
@@ -36,14 +36,12 @@ function Partners({partnersList}) {
           margin-top: 4em;
           gap: 6em 5em;
         }
-
         .compagny {
           margin-top: 8em;
           border-top: ${colors.lighterGrey} solid;
           display: grid;
           grid-template-rows: 50px 1fr;
         }
-
         .subtitle {
           margin-top: 2em;
           color: ${colors.black};
@@ -51,16 +49,16 @@ function Partners({partnersList}) {
           align-self: center;
         }
       `}</style>
-    </>
+    </div>
   )
 }
 
 Partners.propTypes = {
-  partnersList: PropTypes.array
+  partnersList: PropTypes.array,
 }
 
-Partners.defaultProps = {
-  partnersList: null
+Partner.defaultProps = {
+  partnersList: null,
 }
 
 export default Partners

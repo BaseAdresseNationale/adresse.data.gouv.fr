@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 
 import partners from 'partners.json'
 
-import Partners from '@/components/bases-locales/charte/partners'
+import SearchPartnersResults from '@/components/bases-locales/charte/search-partners-results'
 import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
@@ -19,6 +19,9 @@ function PartnersSearchbar() {
   const [selectedTags, setSelectedTags] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const companyPartners = filteredPartners.filter(partner => partner.isCompany)
+  const organizationPartners = filteredPartners.filter(partner => !partner.isCompany)
 
   const handleSelectedTags = tag => {
     setSelectedTags(prevTags => {
@@ -33,7 +36,7 @@ function PartnersSearchbar() {
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
 
     return filteredByTags.sort((a, b) => {
-      return a.isPerimeterFrance - b.isPerimeterFrance
+      return a.echelon - b.echelon
     })
   }, [])
 
@@ -55,11 +58,11 @@ function PartnersSearchbar() {
     setIsLoading(true)
     try {
       const inputToNumber = Number.parseInt(input, 10)
-      if (Number.isNaN(inputToNumber)) {
-        setResults(await getCommunes({q: input, limit: 5, boost: 'population'}))
-      } else {
-        setResults(await getByCode({postalCode: input}))
-      }
+      const isInputNumber = !Number.isNaN(inputToNumber)
+
+      const commune = await (isInputNumber ? getByCode({postalCode: input}) : getCommunes({q: input, limit: 5, boost: 'population'}))
+
+      setResults(commune)
     } catch {
       setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
     }
@@ -104,15 +107,26 @@ function PartnersSearchbar() {
         filteredPartners.length === 0 ? (
           <div className='results'>Aucune structure n’a été trouvée sur votre territoire </div>
         ) : (
-          <div className='results'> <b>{filteredPartners.length} </b>
-            {filteredPartners.length === 1 ?
-              'partenaire de la Charte de la Base Adresse Locale trouvé sur votre territoire' :
-              'partenaires de la Charte de la Base Adresse Locale trouvés sur votre territoire'}
+          <div className='results'>
+            <div> <b>{filteredPartners.length} </b>
+              {filteredPartners.length === 1 ?
+                'partenaire de la Charte de la Base Adresse Locale trouvé sur votre territoire' :
+                'partenaires de la Charte de la Base Adresse Locale trouvés sur votre territoire'}
+            </div>
+
+            <div className='organizations'>
+              <div><b>{organizationPartners.length}</b> {`${organizationPartners.length > 1 ? 'organismes' : 'organisme'} de mutualisation`}</div>
+              <div><b>{companyPartners.length}</b> {companyPartners.length > 1 ? 'entreprises' : 'entreprises'}</div>
+            </div>
           </div>
         )
       )}
 
-      {error ? <div className='error'>{error}</div> : <Partners partnersList={filteredPartners} />}
+      {error ? (
+        <div className='error'>{error}</div>
+      ) : (
+        filteredPartners.length > 0 && <SearchPartnersResults companies={companyPartners} organizations={organizationPartners} />
+      )}
 
       <style jsx>{`
         .searchbar-label {
@@ -122,6 +136,12 @@ function PartnersSearchbar() {
 
         .results {
           margin: 0.5em 0 4em 0;
+        }
+
+        .organizations {
+          margin-top: 5px;
+          padding-left: 10px;
+          border-left: ${theme.border} solid 3px;
         }
 
         .error {
