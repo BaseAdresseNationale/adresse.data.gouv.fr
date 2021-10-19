@@ -1,7 +1,6 @@
 
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 
 import {ArrowLeft} from 'react-feather'
 
@@ -38,7 +37,7 @@ const getStep = submission => {
   }
 }
 
-const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionError, submissionId}) => {
+const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionError}) => {
   const [submission, setSubmission] = useState(defaultSubmission)
 
   const [step, setStep] = useState(getStep(submission))
@@ -69,12 +68,12 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
 
   const handlePublication = useCallback(async () => {
     try {
-      await submitBal(submissionId)
+      await submitBal(submission._id)
       setStep(5)
     } catch (error) {
       setError(`Impossible de publier la Base Adresse Locale: ${error.message}`)
     }
-  }, [submissionId])
+  }, [submission])
 
   useEffect(() => {
     const step = getStep(submission)
@@ -192,7 +191,6 @@ PublicationPage.getInitialProps = async ({query}) => {
   return {
     redirectUrl,
     defaultSubmission: submission,
-    submissionId: submissionId || submission?._id,
   }
 }
 
@@ -207,14 +205,12 @@ PublicationPage.propTypes = {
     authenticationUrl: PropTypes.string,
     publicationUrl: PropTypes.string
   }),
-  submissionId: PropTypes.string,
   submissionError: PropTypes.string
 }
 
 PublicationPage.defaultProps = {
   redirectUrl: null,
   defaultSubmission: null,
-  submissionId: null,
   submissionError: null
 }
 
