@@ -7,7 +7,7 @@ import theme from '@/styles/theme'
 
 import ButtonLink from '@/components/button-link'
 
-const Published = React.memo(({_id, commune}) => {
+const Published = React.memo(({_id, commune, redirectUrl}) => {
   return (
     <div className='published'>
       <div className='header'>
@@ -45,11 +45,13 @@ const Published = React.memo(({_id, commune}) => {
             Les changements seront <b>enregistrés automatiquement</b> et transmis à la Base Adresse Nationale.
           </p>
 
-          <div className='centered'>
-            <ButtonLink href={`https://mes-adresses.data.gouv.fr/bal/${_id}/communes/${commune.code}?published=1`} isExternal>
-              Continuer l’amélioration de mes adresses <Map style={{marginLeft: '.5em', verticalAlign: 'middle'}} />
-            </ButtonLink>
-          </div>
+          {redirectUrl && (
+            <div className='centered'>
+              <ButtonLink href={`${redirectUrl}?published=1`} isExternal>
+                Continuer l’amélioration de mes adresses <Map style={{marginLeft: '.5em', verticalAlign: 'middle'}} />
+              </ButtonLink>
+            </div>
+          )}
         </section>
 
         <section>
@@ -119,7 +121,12 @@ const Published = React.memo(({_id, commune}) => {
 })
 
 Published.propTypes = {
+  redirectUrl: null
+}
+
+Published.propTypes = {
   _id: PropTypes.string.isRequired,
+  redirectUrl: PropTypes.string,
   commune: PropTypes.shape({
     code: PropTypes.string.isRequired
   }).isRequired
