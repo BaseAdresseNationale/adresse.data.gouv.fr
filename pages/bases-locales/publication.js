@@ -89,19 +89,10 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
   }, [step])
 
   useEffect(() => {
-    if (submission) {
-      if (!submissionId) {
-        const href = `/bases-locales/publication?submissionId=${submission._id}`
-        Router.push(href, {shallow: true})
-      }
-
-      if (submission.authenticationError) {
-        setError(submission.authenticationError)
-      }
-    } else if (step > 1) {
-      setError('Aucune Base Adresse Locale n’a été trouvée')
+    if (submission?.authenticationError) {
+      setError(submission.authenticationError)
     }
-  }, [step, submission, error, submissionId])
+  }, [step, submission])
 
   return (
     <Page>
