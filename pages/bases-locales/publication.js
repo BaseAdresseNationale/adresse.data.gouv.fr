@@ -1,7 +1,6 @@
 
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 
 import {ArrowLeft} from 'react-feather'
 
@@ -38,8 +37,9 @@ const getStep = submission => {
   }
 }
 
-const PublicationPage = React.memo(({isRedirected, defaultSubmission, submissionError, submissionId}) => {
+const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionError}) => {
   const [submission, setSubmission] = useState(defaultSubmission)
+
   const [step, setStep] = useState(getStep(submission))
   const [authType, setAuthType] = useState()
   const [error, setError] = useState(submissionError)
@@ -68,12 +68,12 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, submission
 
   const handlePublication = useCallback(async () => {
     try {
-      await submitBal(submissionId)
+      await submitBal(submission._id)
       setStep(5)
     } catch (error) {
       setError(`Impossible de publier la Base Adresse Locale: ${error.message}`)
     }
-  }, [submissionId])
+  }, [submission])
 
   useEffect(() => {
     const step = getStep(submission)
@@ -88,25 +88,16 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, submission
   }, [step])
 
   useEffect(() => {
-    if (submission) {
-      if (!submissionId) {
-        const href = `/bases-locales/publication?submissionId=${submission._id}`
-        Router.push(href, {shallow: true})
-      }
-
-      if (submission.authenticationError) {
-        setError(submission.authenticationError)
-      }
-    } else if (step > 1) {
-      setError('Aucune Base Adresse Locale n’a été trouvée')
+    if (submission?.authenticationError) {
+      setError(submission.authenticationError)
     }
-  }, [step, submission, error, submissionId])
+  }, [step, submission])
 
   return (
     <Page>
-      {isRedirected && (
+      {redirectUrl && (
         <Section background='color' style={{padding: '1em 0'}}>
-          <ButtonLink href='https://mes-adresses.data.gouv.fr/' color='white' isOutlined isExternal>
+          <ButtonLink href={redirectUrl} color='white' isOutlined isExternal>
             <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
           </ButtonLink>
         </Section>
@@ -159,7 +150,7 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, submission
           )}
 
           {step === 5 && (
-            <Published {...submission} />
+            <Published {...submission} redirectUrl={redirectUrl} />
           )}
         </div>
       </Section>
@@ -174,33 +165,37 @@ const PublicationPage = React.memo(({isRedirected, defaultSubmission, submission
 })
 
 PublicationPage.getInitialProps = async ({query}) => {
-  const {url, submissionId} = query
-  const isRedirected = Boolean(url)
+  const {url, redirectUrl, submissionId} = query
   let submission
 
   if (submissionId) {
-    submission = await getSubmissions(submissionId)
+    try {
+      submission = await getSubmissions(submissionId)
+    } catch {
+      return {
+        redirectUrl,
+        submissionError: 'Aucune demande de publication n’a été trouvée'
+      }
+    }
   } else if (url) {
     try {
       submission = await submissionsBal(decodeURIComponent(url))
     } catch (error) {
       return {
-        isRedirected,
+        redirectUrl,
         submissionError: error.message
       }
     }
   }
 
   return {
-    isRedirected,
+    redirectUrl,
     defaultSubmission: submission,
-    submissionId,
-    user: {}
   }
 }
 
 PublicationPage.propTypes = {
-  isRedirected: PropTypes.bool,
+  redirectUrl: PropTypes.string,
   defaultSubmission: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
@@ -210,14 +205,12 @@ PublicationPage.propTypes = {
     authenticationUrl: PropTypes.string,
     publicationUrl: PropTypes.string
   }),
-  submissionId: PropTypes.string,
   submissionError: PropTypes.string
 }
 
 PublicationPage.defaultProps = {
-  isRedirected: false,
+  redirectUrl: null,
   defaultSubmission: null,
-  submissionId: null,
   submissionError: null
 }
 
