@@ -174,7 +174,7 @@ PublicationPage.getInitialProps = async ({query}) => {
     } catch {
       return {
         redirectUrl,
-        submissionError: 'Aucune Base Adresse Locale n’a été trouvée'
+        submissionError: 'Aucune demande de publication n’a été trouvée'
       }
     }
   } else if (url) {
