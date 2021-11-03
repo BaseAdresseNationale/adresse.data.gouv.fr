@@ -9,6 +9,28 @@ import ToolsIcon from './icons/tools'
 import Container from './container'
 
 function Hero({title, tagline}) {
+  const changeBackground = useCallback(() => {
+    const date = new Date()
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+
+    if ((month >= 3 && day >= 20) || (month <= 6 && day < 21)) {
+      return '/images/spring-background.svg'
+    }
+
+    if ((month >= 6 && day >= 21) || (month <= 9 && day < 23)) {
+      return '/images/summer-background.svg'
+    }
+
+    if ((month >= 9 && day >= 22) || (month <= 12 && day < 21)) {
+      return '/images/automn-background.svg'
+    }
+
+    if ((month >= 12 && day >= 21) || (month <= 3 && day < 20)) {
+      return '/images/winter-background.svg'
+    }
+  }, [])
+
   return (
     <div className='hero'>
       <div className='hero-container'>
@@ -47,14 +69,11 @@ function Hero({title, tagline}) {
         </Container>
       </div>
 
-        </Container>
-
-      </div>
       <style jsx>{`
       .hero {
         min-height: 100vh;
-        background: #fff url(/images/city-background.svg) bottom center no-repeat;
-        background-size: cover;
+        background: #fff url(${changeBackground()}) bottom no-repeat;
+        background-size: 100%;
         margin-bottom: -0.1em;
       }
 
