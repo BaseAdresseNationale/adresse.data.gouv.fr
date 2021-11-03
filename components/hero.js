@@ -1,13 +1,12 @@
+import {useCallback} from 'react'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import {Download, Edit3, Database} from 'react-feather'
+import {Download, Edit3} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import ToolsIcon from './icons/tools'
-import BanSearch from './ban-search'
 import Container from './container'
-import ButtonLink from './button-link'
 
 function Hero({title, tagline}) {
   return (
@@ -20,48 +19,33 @@ function Hero({title, tagline}) {
           </div>
 
           <div className='data-tools'>
-            <Link href='/download'>
-              <a>
-                <div className='circle'>
-                  <Download size={48} />
-                </div>
-                Accéder aux données
-              </a>
-            </Link>
             <Link href='/contribuer'>
               <a>
                 <div className='circle'>
-                  <Edit3 size={48} />
+                  <Edit3 size={48} color={theme.colors.white} />
                 </div>
                 Contribuer à la démarche
-              </a>
-            </Link>
-            <Link href='/bases-locales'>
-              <a>
-                <div className='circle'>
-                  <Database size={48} />
-                </div>
-                Bases Adresses Locales
               </a>
             </Link>
             <Link href='/tools'>
               <a>
                 <div className='circle'>
-                  <ToolsIcon />
+                  <ToolsIcon color={theme.colors.white} />
                 </div>
                 Découvrir les outils
               </a>
             </Link>
+            <Link href='/download'>
+              <a>
+                <div className='circle'>
+                  <Download size={48} color={theme.colors.white} />
+                </div>
+                Accéder aux données
+              </a>
+            </Link>
           </div>
-
-          <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
-
-          <BanSearch />
-          <div className='map-button'>
-            <ButtonLink href='/base-adresse-nationale'>
-              Accéder directement à la carte
-            </ButtonLink>
-          </div>
+        </Container>
+      </div>
 
         </Container>
 
@@ -80,16 +64,24 @@ function Hero({title, tagline}) {
       }
 
       .data-tools {
+        min-height: 300px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        align-items: center;
         grid-gap: 2em 1em;
-        margin: 2em 0;
         padding: 1em;
         background-color: white;
       }
 
+      a {
+        display: flex;
+        gap: 10px;
+        height: fit-content;
+        padding: 10px 0;
+      }
+
       .circle {
-        border: 3px solid black;
+        background: ${theme.primary};
         border-radius: 50%;
         width: 80px;
         height: 80px;
