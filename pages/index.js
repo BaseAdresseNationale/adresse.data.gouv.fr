@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import theme from '@/styles/theme'
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
@@ -8,6 +6,7 @@ import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import Infolettre from '@/components/infolettre'
+import HomepageTools from './homepage-tools'
 
 function Home() {
   return (
@@ -41,6 +40,20 @@ function Home() {
               max-width: 1000px;
           }
         `}</style>
+        </div>
+      </Section>
+
+      <Section title='Les communes certifient leurs adresses dans la Base Adresse Nationale'>
+        <div className='tools-section'>
+          <p>Grâce à la diffusion de leur Base Adresse Adresse Locale</p>
+          <HomepageTools />
+
+          <style jsx>{`
+            .tools-section {
+              text-align: center;
+              font-weight: bold;
+            }
+         `}</style>
         </div>
       </Section>
 
