@@ -13,8 +13,6 @@ function HomepageTools() {
         <BanSearch />
       </div>
 
-      <div className='separator' />
-
       <div className='tool-container'>
         <p>Vous pouvez également...</p>
         <div className='tools-link'>
@@ -48,6 +46,7 @@ function HomepageTools() {
       <style jsx>{`
         .tools-wrapper {
           display: flex;
+          flex-direction: column;
           padding: 2em 0;
           gap: 3em;
         }
@@ -55,20 +54,14 @@ function HomepageTools() {
         .tool-container {
           display: flex;
           flex-direction: column;
-          justify-content: flex-start;
-          flex: 1em;
-          gap: 2em;
+          font-weight: bold;
+          font-size: 17px;
         }
-
-         .separator {
-           width: 3px;
-           background: ${theme.primary};
-         }
 
         .tools-link {
           display: flex;
-          justify-content: space-between;
-          gap: 2em;
+          justify-content: space-around;
+          gap: 1em;
         }
 
         .circle {
@@ -89,23 +82,15 @@ function HomepageTools() {
           text-transform: uppercase;
           text-decoration: none;
           font-weight: 700;
-          font-size: 0.6em;
+          font-size: 12px;
+          padding: 10px;
+          gap: 5px;
           color: ${theme.darkText};
-        }
-
-        @media (max-width: ${theme.breakPoints.desktop}) {
-          .separator {
-            display: none;
-          }
-
-          .tools-wrapper {
-            flex-direction: column;
-          }
         }
 
         @media (max-width: ${theme.breakPoints.tablet}) {
           .tools-link {
-          flex-direction: column;
+            flex-direction: column;
           }
         }
       `}</style>

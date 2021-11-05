@@ -51,7 +51,6 @@ function Home() {
           <style jsx>{`
             .tools-section {
               text-align: center;
-              font-weight: bold;
             }
          `}</style>
         </div>
