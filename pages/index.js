@@ -6,7 +6,7 @@ import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import Infolettre from '@/components/infolettre'
-import HomepageTools from './homepage-tools'
+import HomepageTools from '../components/homepage-tools'
 
 function Home() {
   return (

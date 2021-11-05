@@ -1,9 +1,9 @@
 import Link from 'next/link'
+import {Database, FileText, MapPin} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import BanSearch from '@/components/ban-search'
-import {Database, FileText, MapPin} from 'react-feather'
 
 function HomepageTools() {
   return (
