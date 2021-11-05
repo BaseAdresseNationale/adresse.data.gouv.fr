@@ -44,9 +44,7 @@ function Hero({title, tagline}) {
         </div>
       </Container>
 
-      <div className='frise'>
-        background
-      </div>
+      <div className='frise' />
 
       <style jsx>{`
         .hero {
@@ -61,6 +59,7 @@ function Hero({title, tagline}) {
           background: #fff url('/images/automn-background.svg') bottom no-repeat;
           background-size: cover;
           height: 430px;
+          margin-bottom: -0.2em;
           flex: 1;
         }
 
