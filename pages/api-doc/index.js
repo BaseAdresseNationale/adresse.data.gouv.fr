@@ -1,5 +1,7 @@
 import {Compass} from 'react-feather'
 
+import apis from '../../apis.json'
+
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Apis from '@/components/apis'
@@ -11,7 +13,7 @@ function ApiPage() {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Compass color='white' size={56} />} />
-      <Apis />
+      <Apis apis={apis} />
     </Page>
   )
 }
