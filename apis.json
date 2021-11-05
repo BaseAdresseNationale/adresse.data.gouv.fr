@@ -1,0 +1,106 @@
+{
+  "userApis": [
+    {
+      "title": "Explorateur BAN",
+      "description": "Cherchez des adresses dans la Base Adresse Nationale.",
+      "github": "https://github.com/BaseAdresseNationale/adresse.data.gouv.fr",
+      "documentation": "",
+      "href": "https://adresse.data.gouv.fr/base-adresse-nationale#4.4/46.9/1.7"
+    },
+    {
+      "title": "API Adresse",
+      "description": "Rechercher ou normaliser des adresses à l’unité ou en lot. Géocodage direct ou inversé.",
+      "github": "",
+      "documentation": "https://doc.adresse.data.gouv.fr/naviguer-sur-le-site/les-api#lapi-adresse",
+      "href": "https://adresse.data.gouv.fr/api-doc/adresse"
+    },
+    {
+      "title": "Géocodeur CSV",
+      "description": "Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…",
+      "github": "https://github.com/BaseAdresseNationale/api-geocode",
+      "documentation": "",
+      "href": "https://adresse.data.gouv.fr/csv"
+    }
+  ],
+  "creatorApis": [
+    {
+      "title": "Mes Adresses",
+      "description": "L'éditeur national pour gérer votre Base Adresse Locale",
+      "github": "https://github.com/BaseAdresseNationale/mes-adresses",
+      "documentation": "https://guide.mes-adresses.data.gouv.fr/",
+      "href": "https://mes-adresses.data.gouv.fr/"
+    },
+    {
+      "title": "Validateur BAL",
+      "description": "Vérifier la conformité de votre fichier Base Adresse Locale.",
+      "github": "https://github.com/BaseAdresseNationale/bal",
+      "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
+      "href": "https://adresse.data.gouv.fr/bases-locales/validateur"
+    },
+    {
+      "title": "Publication CSV",
+      "description": "Publiez votre Base Adresse Locale avec un fichier CSV.",
+      "github": "",
+      "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
+      "href": "https://adresse.data.gouv.fr/bases-locales/publication"
+    },
+    {
+      "title": "API Gestion",
+      "description": "API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par Mes Adresses.",
+      "github": "https://github.com/BaseAdresseNationale/api-bal",
+      "documentation": "https://github.com/BaseAdresseNationale/api-bal/wiki/Documentation-de-l'API",
+      "href": "https://github.com/BaseAdresseNationale/api-bal"
+    },
+    {
+      "title": "API Dépot",
+      "description": "API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.",
+      "github": "https://github.com/BaseAdresseNationale/api-depot",
+      "documentation": "https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation",
+      "href": "https://github.com/BaseAdresseNationale/api-depot"
+    },
+    {
+      "title": "Dashboard Mes Adresses",
+      "description": "Tableau de bord de l'éditeur Mes Adresses.",
+      "github": "",
+      "documentation": "",
+      "href": "https://mes-adresses.data.gouv.fr/dashboard"
+    },
+    {
+      "title": "Explorateur BAL",
+      "description": "Recherchez une BAL de l'éditeur Mes Adresses.",
+      "github": "",
+      "documentation": "",
+      "href": "https://mes-adresses.data.gouv.fr/all"
+    }
+  ],
+  "communityApis": [
+    {
+      "title": "BanR",
+      "description": "Module R pour l'API Adresse.",
+      "github": "https://github.com/joelgombin/banR",
+      "documentation": "",
+      "href": "https://joelgombin.github.io/banR/"
+    },
+    {
+      "title": "Geocoder BAN Python",
+      "description": "Module Python pour l'API Adresse.",
+      "github": "https://github.com/atao/BANO-Geocoder",
+      "documentation": "",
+      "href": "https://github.com/atao/BANO-Geocoder"
+    },
+    {
+      "title": "Plugin Qgis",
+      "description": "Ajoute un géocodeur au filtre de localisation de QGIS, en utilisant l'API Adresse.",
+      "github": "https://gitlab.com/Oslandia/qgis/french_locator_filter/",
+      "documentation": "",
+      "href": "https://oslandia.gitlab.io/qgis/french_locator_filter/"
+    },
+    {
+      "title": "Plugin SPIP",
+      "description": "Ajoute sur les cartes GIS un moteur de recherche pour la base BAN (Base d’Adresse Nationale) française et recentrer la carte sur l’adresse demandée.",
+      "github": "https://git.spip.net/spip-contrib-extensions/gisban.git",
+      "documentation": "",
+      "href": "https://contrib.spip.net/GIS-BAN"
+    }
+  ]
+}
