@@ -56,7 +56,7 @@ function Hero({title, tagline}) {
         }
 
         .frise {
-          background: #fff url('/images/automn-background.svg') bottom no-repeat;
+          background: url('/images/automn-background.svg') bottom no-repeat;
           background-size: cover;
           height: 430px;
           margin-bottom: -0.2em;
