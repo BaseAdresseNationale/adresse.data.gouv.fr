@@ -50,7 +50,7 @@ function Hero({title, tagline}) {
       .hero {
         min-height: 100vh;
         background: #fff url('/images/automn-background.svg') bottom no-repeat;
-        background-size: 100%;
+        background-size: contain;
         margin-bottom: -0.1em;
       }
 
@@ -61,10 +61,11 @@ function Hero({title, tagline}) {
 
       .data-tools {
         min-height: 260px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
         align-items: center;
-        grid-gap: 2em 1em;
+        gap: 3em;
         background-color: white;
       }
 
