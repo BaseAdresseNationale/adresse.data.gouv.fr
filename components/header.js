@@ -9,7 +9,6 @@ const links = [
   {text: 'Données nationales', href: '/donnees-nationales'},
   {text: 'Contribuer', href: '/contribuer'},
   {text: 'Guides', href: '/guides'},
-  {text: 'API', href: '/api-doc'},
   {text: 'Outils', href: '/tools'},
   {text: 'Documentation', href: 'https://doc.adresse.data.gouv.fr/', isExternal: true},
   {text: 'Nous contacter', href: '/nous-contacter'}

@@ -104,11 +104,6 @@ app.prepare().then(() => {
   })
 
   // DO NOT REMOVE
-  server.get('/api', (request, res) => {
-    res.redirect('/api-doc')
-  })
-
-  // DO NOT REMOVE
   server.get('/download', (request, res) => {
     res.redirect('/donnees-nationales')
   })
