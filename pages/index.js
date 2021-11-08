@@ -21,26 +21,35 @@ function Home() {
           <p>
             Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
           </p>
+          <ButtonLink href='/donnees-nationales'>Découvrir la BAN et accèder aux données</ButtonLink>
+
           <style jsx>{`
-          .pitch {
-            color: ${theme.colors.grey};
-            text-align: center;
-            font-size: 1.2em;
-            line-height: 1.2em;
-          }
-          .pitch strong {
-            color: ${theme.colors.white}
-          }
-          .pitch a {
-            color: ${theme.colors.white};
-            font-style: italic;
-          }
-          .pitch p {
+            .pitch {
+              color: ${theme.colors.grey};
+              text-align: center;
+              font-size: 1.2em;
+              line-height: 1.2em;
+            }
+
+            .pitch strong {
+              color: ${theme.colors.white}
+            }
+
+            .pitch a {
+              color: ${theme.colors.white};
+              font-style: italic;
+            }
+
+            .pitch p {
+              margin-bottom: 4em;
               margin-left: auto;
               margin-right: auto;
+              padding-left: 1em;
               max-width: 1000px;
-          }
-        `}</style>
+              text-align: start;
+              border-left: solid 3px ${theme.colors.white};
+            }
+          `}</style>
         </div>
       </Section>
 
