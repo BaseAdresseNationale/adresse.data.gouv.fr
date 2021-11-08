@@ -16,20 +16,20 @@ function SocialMedia() {
       <div className='socials'>
         <Link href='https://blog.geo.data.gouv.fr/'>
           <a>
-            <Image src='/images/logos/blog.svg' height={48} width={48} />
+            <Image src='/images/logos/blog.svg' height={88} width={88} />
             <div>En lisant notre blog</div>
           </a>
         </Link>
 
         <Link href='https://twitter.com/adressedatagouv?lang=fr'>
           <a>
-            <Image src='/images/logos/twitter.svg' height={48} width={48} />
+            <Image src='/images/logos/twitter.svg' height={88} width={88} />
             <div>Sur notre fil Twitter</div>
           </a>
         </Link>
 
         <div onClick={handleNewsletter} className='newsletter'>
-          <Image src='/images/logos/newsletter.svg' height={48} width={48} />
+          <Image src='/images/logos/newsletter.svg' height={88} width={88} />
           <div className='dropdown'>
             {isShown ? <ChevronDown /> : <ChevronRight />}
             En s’inscrivant à l’infolettre
@@ -58,12 +58,14 @@ function SocialMedia() {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
             text-align: center;
             gap: 10px;
             padding: 1em;
             text-decoration: underline;
             font-weight: bold;
             font-size: 16px;
+            flex: 1;
           }
 
           .newsletter:hover {
