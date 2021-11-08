@@ -6,7 +6,7 @@ import Hero from '@/components/hero'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Temoignages from '@/components/temoignages'
-import Infolettre from '@/components/infolettre'
+import SocialMedia from '@/components/social-media'
 
 function Home() {
   return (
@@ -94,7 +94,10 @@ function Home() {
         `}
         </style>
       </Section>
-      <Infolettre />
+
+      <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv'>
+        <SocialMedia />
+      </Section>
     </Page>
   )
 }
