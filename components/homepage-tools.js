@@ -55,12 +55,12 @@ function HomepageTools() {
           display: flex;
           flex-direction: column;
           font-weight: bold;
-          font-size: 17px;
+          font-size: 19px;
         }
 
         .tools-link {
           display: flex;
-          justify-content: space-around;
+          justify-content: space-between;
           gap: 1em;
         }
 
@@ -82,7 +82,7 @@ function HomepageTools() {
           text-transform: uppercase;
           text-decoration: none;
           font-weight: 700;
-          font-size: 12px;
+          font-size: 13px;
           padding: 10px;
           gap: 5px;
           color: ${theme.darkText};
