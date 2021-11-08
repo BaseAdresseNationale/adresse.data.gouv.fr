@@ -53,6 +53,7 @@ function SocialMedia() {
           }
 
           a, .newsletter {
+            width: 280px;
             color: #0053b3;
             cursor: pointer;
             display: flex;
@@ -65,7 +66,6 @@ function SocialMedia() {
             text-decoration: underline;
             font-weight: bold;
             font-size: 16px;
-            flex: 1;
           }
 
           .newsletter:hover {
