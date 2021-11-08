@@ -53,6 +53,7 @@ function Api({title, href, description, github, documentation}) {
         }
 
         .description-container p {
+          padding-top: 2em;
           text-align: left;
           font-size: 15px;
         }
