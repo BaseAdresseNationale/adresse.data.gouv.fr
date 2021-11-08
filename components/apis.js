@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {BookOpen, GitHub} from 'react-feather'
+import {BookOpen, GitHub, HelpCircle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import Section from './section'
+import Notification from '@/components/notification'
 
 function Api({title, href, description, github, documentation}) {
   return (
@@ -113,6 +114,13 @@ function Apis({apis}) {
         <div className='apis-container'>
           {communityApis.map(api => <Api key={api.name} {...api} />)}
         </div>
+
+        <Notification style={{margin: '2em 0 -1em 0'}}>
+          <div>
+            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
+            Vous avez créé un outil libre et Open Source qui intègre les données de la BAN et souhaitez être référencer sur cette page ? <Link href='/nous-contacter'><a>Contactez-nous !</a></Link>.
+          </div>
+        </Notification>
       </Section>
 
       <style jsx>{`
