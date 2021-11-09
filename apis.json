@@ -12,7 +12,7 @@
       "description": "Recherchez ou normalisez des adresses à l’unité ou en lot. Géocodage direct ou inversé.",
       "github": "",
       "documentation": "https://doc.adresse.data.gouv.fr/naviguer-sur-le-site/les-api#lapi-adresse",
-      "href": "https://adresse.data.gouv.fr/api-doc/adresse"
+      "href": "/api-doc-adresse"
     },
     {
       "title": "Géocodeur CSV",
@@ -57,20 +57,6 @@
       "github": "https://github.com/BaseAdresseNationale/api-depot",
       "documentation": "https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation",
       "href": "https://github.com/BaseAdresseNationale/api-depot"
-    },
-    {
-      "title": "Dashboard Mes Adresses",
-      "description": "Tableau de bord de l'éditeur Mes Adresses.",
-      "github": "https://github.com/BaseAdresseNationale/mes-adresses/tree/master/components/dashboard",
-      "documentation": "",
-      "href": "https://mes-adresses.data.gouv.fr/dashboard"
-    },
-    {
-      "title": "Explorateur BAL",
-      "description": "Recherchez une BAL de l'éditeur Mes Adresses.",
-      "github": "",
-      "documentation": "",
-      "href": "https://mes-adresses.data.gouv.fr/all"
     }
   ],
   "communityApis": [
