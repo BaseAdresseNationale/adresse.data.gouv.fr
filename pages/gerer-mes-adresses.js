@@ -1,11 +1,13 @@
 import Link from 'next/link'
-import {MapPin, Book, Edit2, HelpCircle} from 'react-feather'
+import Image from 'next/image'
+import {MapPin, Book, BookOpen} from 'react-feather'
+
+import theme from '@/styles/theme'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
-import Notification from '@/components/notification'
 import PartnersSearchbar from '@/components/bases-locales/charte/partners-searchbar'
 import theme from '@/styles/theme'
 
@@ -51,30 +53,21 @@ function GererMesAdresses() {
           </div>
         </div>
 
-        <div className='action-links'>
-          <ButtonLink
-            isExternal
-            size='large'
-            target='_blank'
-            rel='noreferrer'
-            href='https://mes-adresses.data.gouv.fr/new'
-          >
-            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} />
-          </ButtonLink>
-
-          <div className='already-done'>
-            <div>Vous avez déjà créé une Base Adresse Locale ?</div>
-            <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Retrouvez-la ici</a>
-          </div>
+      <Section title='Nos guides et la documentation en ligne vous accompagnent tout au long de votre adressage'>
+        <div className='guides-doc-container'>
+          <Link href='/guides'>
+            <a>
+              <BookOpen size={49} />
+              Guides
+            </a>
+          </Link>
+          <Link href='https://doc.adresse.data.gouv.fr/'>
+            <a>
+              <Image src='/images/logos/doc.png' height={60} width={49} />
+              Documentation
+            </a>
+          </Link>
         </div>
-
-        <Notification isFullWidth>
-          <div>
-            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
-            Des <Link href='/guides'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
-          </div>
-        </Notification>
-
       </Section>
 
       <Section title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire' background='grey'>
@@ -150,11 +143,40 @@ function GererMesAdresses() {
           margin: 2em 0;
         }
 
-        .indispo {
+        .already-done {
+          margin-top: 1em;
+        }
+
+        .guides-doc-container {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 2em;
+          margin-top: 5em;
+        }
+
+        .guides-doc-container a {
+          width: 400px;
+          min-width: 280px;
+          height: 80px;
+          border-radius: ${theme.borderRadius};
+          background: ${theme.primary};
+          color: ${theme.colors.white};
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 26px;
+          gap: 10px;
+        }
+
+        .action-links {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
           text-align: center;
-          font-size: larger;
-          font-style: italic;
-          margin: 1em;
+          margin: 2em 0;
         }
 
         .already-done {
