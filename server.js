@@ -67,6 +67,10 @@ app.prepare().then(() => {
     app.render(request, res, '/contact')
   })
 
+  server.get('/outils', (request, res) => {
+    app.render(request, res, '/tools')
+  })
+
   server.get('/bases-locales/validateur', (request, res) => {
     app.render(request, res, '/bases-locales/validator', {
       ...request.query
@@ -101,6 +105,23 @@ app.prepare().then(() => {
 
   server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
     res.redirect(`/base-adresse-nationale/${req.params.codeCommune}`)
+  })
+
+  // DO NOT REMOVE
+  server.get('/tools', (request, res) => {
+    res.redirect('/outils')
+  })
+
+  server.get('/api', (request, res) => {
+    res.redirect('/outils')
+  })
+
+  server.get('/apis', (request, res) => {
+    res.redirect('/outils')
+  })
+
+  server.get('/api-doc', (request, res) => {
+    res.redirect('/outils')
   })
 
   // DO NOT REMOVE

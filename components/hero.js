@@ -44,7 +44,7 @@ function Hero({title, tagline}) {
                 Bases Adresses Locales
               </a>
             </Link>
-            <Link href='/tools'>
+            <Link href='/outils'>
               <a>
                 <div className='circle'>
                   <ToolsIcon />
