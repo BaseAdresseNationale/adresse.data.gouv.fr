@@ -7,6 +7,7 @@ import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Notification from '@/components/notification'
 import PartnersSearchbar from '@/components/bases-locales/charte/partners-searchbar'
+import theme from '@/styles/theme'
 
 function GererMesAdresses() {
   return (
@@ -14,23 +15,24 @@ function GererMesAdresses() {
       <Head title='Gérer mes adresses' icon={<MapPin size={56} />} />
 
       <Section title='Pourquoi et comment gérer les adresses de ma commune ?' subtitle='Un véritable enjeu de souveraineté pour la France et ses territoires'>
-        <p>
-          La <b>création des voies et des adresses</b> en France est du <b>ressort des communes</b>, via le conseil municipal.
-        </p>
+        <div className='description'>
+          <p>
+            La <b>création des voies et des adresses</b> en France est du <b>ressort des communes</b>, via le conseil municipal.
+          </p>
 
-        <p>
-          Pour qu’elles puissent exprimer pleinement cette compétence, il est proposé aux communes de mettre en place un <b>fichier répertoriant l’intégralité des voies et des adresses</b> présentes sur leur territoire, une <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>.
-        </p>
+          <p>
+            Pour qu’elles puissent exprimer pleinement cette compétence, il est proposé aux communes de mettre en place un <b>fichier répertoriant l’intégralité des voies et des adresses</b> présentes sur leur territoire, une <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>.
+          </p>
 
-        <p>
-          Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>, que vous soyez élu ou agent municipal habilité.
-        </p>
+          <p>
+            Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>, que vous soyez élu ou agent municipal habilité.
+          </p>
 
-        <p>
-          Ces adresses sont celles que l’on retrouvera dans la <b>Base Adresse Nationale</b>, <a href='https://www.data.gouv.fr/fr/reference'>base de données de référence</a> pour les adresses en France.<br />{}
-          Elles seront conformes aux besoins des <b>différents acteurs</b>, comme par exemple <b>les secours</b> ou les opérateurs en charge du <b>déploiement de la fibre optique</b>.
-        </p>
-
+          <p>
+            Ces adresses sont celles que l’on retrouvera dans la <b>Base Adresse Nationale</b>, <a href='https://www.data.gouv.fr/fr/reference'>base de données de référence</a> pour les adresses en France.<br />{}
+            Elles seront conformes aux besoins des <b>différents acteurs</b>, comme par exemple <b>les secours</b> ou les opérateurs en charge du <b>déploiement de la fibre optique</b>.
+          </p>
+        </div>
       </Section>
 
       <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !'>
@@ -92,6 +94,13 @@ function GererMesAdresses() {
       </Section>
 
       <style jsx>{`
+        .description {
+          text-align: left;
+          border-left: 3px solid ${theme.primary};
+          padding-left: 1em;
+          margin-top: 3em;
+        }
+
         .easy-step {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
