@@ -5,7 +5,7 @@
       "description": "Cherchez des adresses dans la Base Adresse Nationale.",
       "github": "https://github.com/BaseAdresseNationale/adresse.data.gouv.fr",
       "documentation": "",
-      "href": "https://adresse.data.gouv.fr/base-adresse-nationale#4.4/46.9/1.7"
+      "href": "/base-adresse-nationale#4.4/46.9/1.7"
     },
     {
       "title": "API Adresse",
@@ -19,7 +19,7 @@
       "description": "Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage.",
       "github": "https://github.com/BaseAdresseNationale/api-geocode",
       "documentation": "",
-      "href": "https://adresse.data.gouv.fr/csv"
+      "href": "/csv"
     }
   ],
   "creatorApis": [
@@ -35,14 +35,14 @@
       "description": "Vérifiez la conformité de votre fichier Base Adresse Locale.",
       "github": "https://github.com/BaseAdresseNationale/bal",
       "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
-      "href": "https://adresse.data.gouv.fr/bases-locales/validateur"
+      "href": "/bases-locales/validateur"
     },
     {
       "title": "Publication CSV",
       "description": "Publiez votre Base Adresse Locale avec un fichier CSV.",
       "github": "",
       "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
-      "href": "https://adresse.data.gouv.fr/bases-locales/publication"
+      "href": "/bases-locales/publication"
     },
     {
       "title": "API Gestion",
