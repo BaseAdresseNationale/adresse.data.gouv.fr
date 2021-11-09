@@ -5,9 +5,8 @@ import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
-import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
-import Infolettre from '@/components/infolettre'
+import SocialMedia from '@/components/social-media'
 
 function Home() {
   return (
@@ -84,19 +83,7 @@ function Home() {
         </div>
       </Section>
 
-      <Section background='grey' title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
-        <DocDownload
-          src='/images/previews/obligations-adresse-preview.png'
-          alt='miniature du document obligations-adresse'
-          link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
-        >
-          <p>
-            Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
-          </p>
-        </DocDownload>
-      </Section>
-
-      <Section title='Témoignages sur les Bases Adresses Locales'>
+      <Section title='Témoignages sur les Bases Adresses Locales' background='grey'>
         <Temoignages limit={3} />
         <div className='centered'>
           <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
@@ -116,7 +103,10 @@ function Home() {
         `}
         </style>
       </Section>
-      <Infolettre />
+
+      <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv'>
+        <SocialMedia />
+      </Section>
     </Page>
   )
 }
