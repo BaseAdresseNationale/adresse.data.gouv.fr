@@ -49,7 +49,7 @@ function GererMesAdresses() {
               Guides
             </a>
           </Link>
-          <Link href='https://doc.adresse.data.gouv.fr/'>
+          <Link href='https://guide.mes-adresses.data.gouv.fr/'>
             <a>
               <Image src='/images/logos/doc.png' height={60} width={49} />
               Documentation
