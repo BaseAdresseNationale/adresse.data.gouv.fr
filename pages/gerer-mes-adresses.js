@@ -35,16 +35,19 @@ function GererMesAdresses() {
         </div>
       </Section>
 
-      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !'>
+      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !' background='grey'>
         <div className='easy-step'>
           <div className='subtitled-img'>
-            <p><b>1.</b> Créer votre Base Adresse Locale</p>
+            <div>1</div>
+            <p> Créer votre Base Adresse Locale</p>
           </div>
           <div className='subtitled-img'>
-            <p><b>2.</b> Gérer vos adresses directement en ligne</p>
+            <div>2</div>
+            <p> Gérer vos adresses directement en ligne</p>
           </div>
           <div className='subtitled-img'>
-            <p><b>3.</b> Partager vos adresses dans la Base Adresse Nationale 🇫🇷</p>
+            <div>3</div>
+            <p>Partager vos adresses dans la Base Adresse Nationale</p>
           </div>
         </div>
 
@@ -106,7 +109,8 @@ function GererMesAdresses() {
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           grid-gap: 1em;
           align-items: center;
-          margin: 2em 1em;
+          justify-content: flex-start;
+          margin: 3em 1em 1em 1em;
         }
 
         .subtitled-img {
@@ -115,23 +119,26 @@ function GererMesAdresses() {
           justify-content: center;
           align-items: center;
           text-align: center;
+          height: 150px;
+          justify-content: flex-start;
+        }
+
+        .subtitled-img div {
+          height: 60px;
+          width: 60px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: ${theme.primary};
+          color: ${theme.colors.white};
+          font-size: 35px;
         }
 
         .subtitled-img p {
-          width: 200px;
+          font-weight: bold;
           font-style: italic;
-        }
-
-        .subtitled-img b {
-          font-size: xx-large;
-        }
-
-
-        .subtitled-img img {
-          width: 100%;
-          max-width: 250px;
-          background: whitesmoke;
-          box-shadow: 0 3px 10px -5px #C9D3DF;
+          font-size: 15px;
         }
 
         .action-links {
