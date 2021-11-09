@@ -33,8 +33,6 @@ function GererMesAdresses() {
 
       </Section>
 
-      <Section title='Plusieurs solutions s’offrent à vous' background='color' />
-
       <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !'>
         <div className='easy-step'>
           <div className='subtitled-img'>
