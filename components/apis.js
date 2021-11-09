@@ -6,6 +6,7 @@ import theme from '@/styles/theme'
 
 import Section from './section'
 import Notification from '@/components/notification'
+import ButtonLink from './button-link'
 
 function Api({title, href, description, github, documentation}) {
   return (
@@ -95,6 +96,14 @@ Api.propTypes = {
 
 function Apis({apis}) {
   const {userApis, creatorApis, communityApis} = apis
+  const notificationStyle = {
+    margin: '2em 0 -1em 0',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1em'
+  }
 
   return (
     <>
@@ -115,11 +124,12 @@ function Apis({apis}) {
           {communityApis.map(api => <Api key={api.name} {...api} />)}
         </div>
 
-        <Notification style={{margin: '2em 0 -1em 0'}}>
-          <div>
+        <Notification style={notificationStyle}>
+          <div className='notification-text'>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
-            Vous avez créé un outil libre et Open Source qui intègre les données de la BAN et souhaitez être référencer sur cette page ? <Link href='/nous-contacter'><a>Contactez-nous !</a></Link>.
+            Vous avez créé un <b>outil libre</b> et <b>Open Source</b> qui intègre les données de la <b>BAN</b> et souhaitez être référencé sur cette page ?
           </div>
+          <ButtonLink size='small' href='/nous-contacter'>Contactez-nous !</ButtonLink>
         </Notification>
       </Section>
 
@@ -129,6 +139,10 @@ function Apis({apis}) {
           grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           gap: 4em;
           padding: 2em 0;
+        }
+
+        .notification-text {
+          text-align: center;
         }
       `}</style>
     </>
