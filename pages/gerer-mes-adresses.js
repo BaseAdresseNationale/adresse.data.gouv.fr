@@ -59,9 +59,7 @@ function GererMesAdresses() {
       </Section>
 
       <Section title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire' background='grey'>
-        <div>
-          <PartnersSearchbar />
-        </div>
+        <PartnersSearchbar />
       </Section>
 
       <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL et connectez vous à la Base Adresse Nationale' background='color'>
