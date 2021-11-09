@@ -9,7 +9,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import PartnersSearchbar from '@/components/bases-locales/charte/partners-searchbar'
-import theme from '@/styles/theme'
+import NationalTool from '@/components/gerer-mes-adresses/national-tool'
 
 function GererMesAdresses() {
   return (
@@ -38,20 +38,8 @@ function GererMesAdresses() {
       </Section>
 
       <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !' background='grey'>
-        <div className='easy-step'>
-          <div className='subtitled-img'>
-            <div>1</div>
-            <p> Créer votre Base Adresse Locale</p>
-          </div>
-          <div className='subtitled-img'>
-            <div>2</div>
-            <p> Gérer vos adresses directement en ligne</p>
-          </div>
-          <div className='subtitled-img'>
-            <div>3</div>
-            <p>Partager vos adresses dans la Base Adresse Nationale</p>
-          </div>
-        </div>
+        <NationalTool />
+      </Section>
 
       <Section title='Nos guides et la documentation en ligne vous accompagnent tout au long de votre adressage'>
         <div className='guides-doc-container'>
@@ -95,56 +83,6 @@ function GererMesAdresses() {
           border-left: 3px solid ${theme.primary};
           padding-left: 1em;
           margin-top: 3em;
-        }
-
-        .easy-step {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          grid-gap: 1em;
-          align-items: center;
-          justify-content: flex-start;
-          margin: 3em 1em 1em 1em;
-        }
-
-        .subtitled-img {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          height: 150px;
-          justify-content: flex-start;
-        }
-
-        .subtitled-img div {
-          height: 60px;
-          width: 60px;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: ${theme.primary};
-          color: ${theme.colors.white};
-          font-size: 35px;
-        }
-
-        .subtitled-img p {
-          font-weight: bold;
-          font-style: italic;
-          font-size: 15px;
-        }
-
-        .action-links {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          margin: 2em 0;
-        }
-
-        .already-done {
-          margin-top: 1em;
         }
 
         .guides-doc-container {
