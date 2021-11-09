@@ -61,7 +61,7 @@
     {
       "title": "Dashboard Mes Adresses",
       "description": "Tableau de bord de l'éditeur Mes Adresses.",
-      "github": "",
+      "github": "https://github.com/BaseAdresseNationale/mes-adresses/tree/master/components/dashboard",
       "documentation": "",
       "href": "https://mes-adresses.data.gouv.fr/dashboard"
     },
