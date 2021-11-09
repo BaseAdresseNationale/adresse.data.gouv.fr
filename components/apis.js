@@ -8,29 +8,26 @@ import Section from './section'
 import Notification from '@/components/notification'
 import ButtonLink from './button-link'
 
-function Api({title, href, description, github, documentation}) {
+function Api({title, description, links}) {
   return (
     <div className='api-container'>
       <div className='description-container'>
-        <Link href={href}>
-          <a>{title}</a>
-        </Link>
-
+        <div>{title}</div>
         <p>{description}</p>
       </div>
-      <div className='links-container'>
-        <Link href={github}>
-          <a className={github.length === 0 ? 'disable' : ''}>
-            <GitHub size={38} color={theme.colors.white} />
-          </a>
-        </Link>
-
-        <Link href={documentation}>
-          <a className={documentation.length === 0 ? 'disable' : ''}>
-            <BookOpen size={38} color={theme.colors.white} />
-          </a>
-        </Link>
-      </div>
+      <ul>
+        {links.map(link => {
+          return (
+            <li key={link.title} className={link.href.length === 0 ? 'disable' : ''}>
+              <Link href={link.href}>
+                <a>
+                  {link.title}
+                </a>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
 
       <style jsx>{`
         .api-container {
@@ -46,35 +43,29 @@ function Api({title, href, description, github, documentation}) {
         .description-container {
           border-bottom: solid 3px ${theme.borderSeparator};
           text-align: center;
+          color: ${theme.darkText};
         }
 
-        .description-container a {
+        .description-container div {
           font-size: 20px;
-          color: ${theme.darkText};
           font-weight: bold;
         }
 
         .description-container p {
-          padding-top: 2em;
           text-align: left;
           font-size: 15px;
         }
 
-        .links-container {
+        ul {
           display: flex;
-          justify-content: space-around;
-          align-items: center;
-          padding-top: 1em;
+          flex-direction: column;
+          font-weight: bold;
+          color: ${theme.primary};
+          gap: 10px;
         }
 
-        .links-container a {
-          height: 60px;
-          width: 60px;
-          border-radius: 50%;
-          background: ${theme.colors.almostBlack};
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        a {
+          color: ${theme.darkText};
         }
 
         .disable {
@@ -89,9 +80,7 @@ function Api({title, href, description, github, documentation}) {
 Api.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.node.isRequired,
-  href: PropTypes.string.isRequired,
-  github: PropTypes.string,
-  documentation: PropTypes.string
+  links: PropTypes.array.isRequired
 }
 
 function Apis({apis}) {

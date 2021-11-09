@@ -3,90 +3,222 @@
     {
       "title": "Explorateur BAN",
       "description": "Cherchez des adresses dans la Base Adresse Nationale.",
-      "github": "https://github.com/BaseAdresseNationale/adresse.data.gouv.fr",
-      "documentation": "",
-      "href": "/base-adresse-nationale#4.4/46.9/1.7"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/base-adresse-nationale#4.4/46.9/1.7"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": ""
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/adresse.data.gouv.fr"
+        }
+      ]
     },
     {
       "title": "API Adresse",
       "description": "Recherchez ou normalisez des adresses à l’unité ou en lot. Géocodage direct ou inversé.",
-      "github": "",
-      "documentation": "https://doc.adresse.data.gouv.fr/naviguer-sur-le-site/les-api#lapi-adresse",
-      "href": "/api-doc-adresse"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/api-doc-adresse"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://doc.adresse.data.gouv.fr/naviguer-sur-le-site/les-api#lapi-adresse"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": ""
+        }
+      ]
     },
     {
       "title": "Géocodeur CSV",
       "description": "Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage.",
-      "github": "https://github.com/BaseAdresseNationale/api-geocode",
-      "documentation": "",
-      "href": "/csv"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/csv"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": ""
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/api-geocode"
+        }
+      ]
     }
   ],
   "creatorApis": [
     {
       "title": "Mes Adresses",
       "description": "L'éditeur national pour gérer votre Base Adresse Locale",
-      "github": "https://github.com/BaseAdresseNationale/mes-adresses",
-      "documentation": "https://guide.mes-adresses.data.gouv.fr/",
-      "href": "https://mes-adresses.data.gouv.fr/"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "https://mes-adresses.data.gouv.fr/"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://guide.mes-adresses.data.gouv.fr/"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/mes-adresses"
+        }
+      ]
     },
     {
       "title": "Validateur BAL",
       "description": "Vérifiez la conformité de votre fichier Base Adresse Locale.",
-      "github": "https://github.com/BaseAdresseNationale/bal",
-      "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
-      "href": "/bases-locales/validateur"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/bases-locales/validateur"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/bal"
+        }
+      ]
     },
     {
       "title": "Publication CSV",
       "description": "Publiez votre Base Adresse Locale avec un fichier CSV.",
-      "github": "",
-      "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
-      "href": "/bases-locales/publication"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/bases-locales/publication"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": ""
+        }
+      ]
     },
     {
       "title": "API Gestion",
       "description": "API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par Mes Adresses.",
-      "github": "https://github.com/BaseAdresseNationale/api-bal",
-      "documentation": "https://github.com/BaseAdresseNationale/api-bal/wiki/Documentation-de-l'API",
-      "href": "https://github.com/BaseAdresseNationale/api-bal"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": ""
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://github.com/BaseAdresseNationale/api-bal/wiki/Documentation-de-l'API"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/api-bal"
+        }
+      ]
     },
     {
       "title": "API Dépot",
       "description": "API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.",
-      "github": "https://github.com/BaseAdresseNationale/api-depot",
-      "documentation": "https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation",
-      "href": "https://github.com/BaseAdresseNationale/api-depot"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": ""
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/api-depot"
+        }
+      ]
     }
   ],
   "communityApis": [
     {
       "title": "BanR",
       "description": "Module R pour l'API Adresse.",
-      "github": "https://github.com/joelgombin/banR",
-      "documentation": "",
-      "href": "https://joelgombin.github.io/banR/"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": ""
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://joelgombin.github.io/banR/"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/joelgombin/banR"
+        }
+      ]
     },
     {
       "title": "Geocoder BAN Python",
       "description": "Module Python pour l'API Adresse.",
-      "github": "https://github.com/atao/BANO-Geocoder",
-      "documentation": "",
-      "href": "https://github.com/atao/BANO-Geocoder"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": ""
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": ""
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/atao/BANO-Geocoder"
+        }
+      ]
     },
     {
       "title": "Plugin Qgis",
       "description": "Ajoute un géocodeur au filtre de localisation de QGIS, en utilisant l'API Adresse.",
-      "github": "https://gitlab.com/Oslandia/qgis/french_locator_filter/",
-      "documentation": "",
-      "href": "https://oslandia.gitlab.io/qgis/french_locator_filter/"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": ""
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://oslandia.gitlab.io/qgis/french_locator_filter/"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://gitlab.com/Oslandia/qgis/french_locator_filter/"
+        }
+      ]
     },
     {
       "title": "Plugin SPIP",
       "description": "Ajoute sur les cartes GIS un moteur de recherche pour la base BAN (Base d’Adresse Nationale) française et recentre la carte sur l’adresse demandée.",
-      "github": "https://git.spip.net/spip-contrib-extensions/gisban.git",
-      "documentation": "",
-      "href": "https://contrib.spip.net/GIS-BAN"
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": ""
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://contrib.spip.net/GIS-BAN"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://git.spip.net/spip-contrib-extensions/gisban.git"
+        }
+      ]
     }
   ]
 }
