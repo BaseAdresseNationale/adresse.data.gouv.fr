@@ -9,14 +9,14 @@
     },
     {
       "title": "API Adresse",
-      "description": "Rechercher ou normaliser des adresses à l’unité ou en lot. Géocodage direct ou inversé.",
+      "description": "Recherchez ou normalisez des adresses à l’unité ou en lot. Géocodage direct ou inversé.",
       "github": "",
       "documentation": "https://doc.adresse.data.gouv.fr/naviguer-sur-le-site/les-api#lapi-adresse",
       "href": "https://adresse.data.gouv.fr/api-doc/adresse"
     },
     {
       "title": "Géocodeur CSV",
-      "description": "Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…",
+      "description": "Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage.",
       "github": "https://github.com/BaseAdresseNationale/api-geocode",
       "documentation": "",
       "href": "https://adresse.data.gouv.fr/csv"
@@ -32,7 +32,7 @@
     },
     {
       "title": "Validateur BAL",
-      "description": "Vérifier la conformité de votre fichier Base Adresse Locale.",
+      "description": "Vérifiez la conformité de votre fichier Base Adresse Locale.",
       "github": "https://github.com/BaseAdresseNationale/bal",
       "documentation": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale",
       "href": "https://adresse.data.gouv.fr/bases-locales/validateur"
@@ -97,7 +97,7 @@
     },
     {
       "title": "Plugin SPIP",
-      "description": "Ajoute sur les cartes GIS un moteur de recherche pour la base BAN (Base d’Adresse Nationale) française et recentrer la carte sur l’adresse demandée.",
+      "description": "Ajoute sur les cartes GIS un moteur de recherche pour la base BAN (Base d’Adresse Nationale) française et recentre la carte sur l’adresse demandée.",
       "github": "https://git.spip.net/spip-contrib-extensions/gisban.git",
       "documentation": "",
       "href": "https://contrib.spip.net/GIS-BAN"
