@@ -116,6 +116,10 @@ app.prepare().then(() => {
     res.redirect('/outils')
   })
 
+  server.get('/api-doc/adresse', (request, res) => {
+    res.redirect('/api-doc-adresse')
+  })
+
   server.get('/apis', (request, res) => {
     res.redirect('/outils')
   })
