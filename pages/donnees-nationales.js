@@ -8,6 +8,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import Card from '@/components/card'
 import BanSearch from '@/components/ban-search'
+import Intro from '@/components/donnees-nationales/intro'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
@@ -22,41 +23,10 @@ function DonneesNatioales() {
         </div>
       </Section>
 
-      <Section title='Base Adresse Nationale' subtitle='Base de données de référence pour les adresses en France'>
-        <div className='section-container'>
-          <div className='ban'>
-            <p>
-              La <b>Base Adresse Nationale</b> est l’une des neuf bases de données du <a href='https://www.data.gouv.fr/fr/reference'>service public des données de référence</a>. Elle est la seule base de données d’adresses <b>officiellement reconnue par l’administration</b>.
-            </p>
-
-            <p><b>Service numérique d’usage partagé</b> et <b>infrastructure socle</b> sur laquelle sont adossées de nombreuses politiques publiques, elle fait partie du <b>système d’information et de communication de l’État</b> et est à ce titre placée sous la <b>responsabilité du Premier ministre</b>.</p>
-
-            <p>Son <b>pilotage</b> est assuré par la <a href='https://www.numerique.gouv.fr/dinum/'>Direction Interministérielle du Numérique</a> (DINUM), qui est chargée d’en définir les modalités de gouvernance et de fonctionnement (à la suite d’une <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier ministre</a>).</p>
-
-            <p>
-              Sa <b>construction</b> est assurée grâce à de nombreux partenaires, et en premier lieu par les communes, <b>seules autorités compétentes en terme d’adressage</b>.
-            </p>
-
-            <p>
-              La <b>Base Adresse Nationale</b> est accessible sous forme de <b>fichiers</b> et d’<b>API</b>.
-            </p>
-          </div>
-          <div className='characteristics'>
-            <h6>Caractéristiques</h6>
-            <ul>
-              <li>Producteur : <strong>Etalab</strong></li>
-              <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
-              <li>Fréquence de mise à jour : <strong>quotidienne</strong></li>
-              <li>Couverture : <b>France métropolitaine et DROM</b></li>
-            </ul>
-            <h6>Chiffres clés</h6>
-            <ul>
-              <li>250 000 lieux-dits (<span className='new'>beta</span>)</li>
-              <li>25 millions d’adresses</li>
-            </ul>
-          </div>
-        </div>
+      <Section title='Base Adresse Nationale' subtitle='Base de données de référence pour les adresses en France' background='grey'>
+        <Intro />
       </Section>
+
       <Section background='grey' title='Télécharger les données'>
         <div className='card-container'>
           <Card title='Format CSV' link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'>
