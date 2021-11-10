@@ -1,9 +1,11 @@
 import {useState} from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import {ChevronDown, ChevronRight} from 'react-feather'
 
+import theme from '@/styles/theme'
+
 import Container from '@/components/container'
+import CircleLink from './circle-link'
 
 function SocialMedia() {
   const [isShown, setIsShown] = useState(false)
@@ -14,19 +16,19 @@ function SocialMedia() {
   return (
     <>
       <div className='socials'>
-        <Link href='https://blog.geo.data.gouv.fr/'>
-          <a>
-            <Image src='/images/logos/blog.svg' height={88} width={88} />
-            <div>En lisant notre blog</div>
-          </a>
-        </Link>
+        <CircleLink
+          href='https://blog.geo.data.gouv.fr/'
+          icon={<Image src='/images/logos/blog.svg' height={88} width={88} />}
+        >
+          En lisant notre blog
+        </CircleLink>
 
-        <Link href='https://twitter.com/adressedatagouv?lang=fr'>
-          <a>
-            <Image src='/images/logos/twitter.svg' height={88} width={88} />
-            <div>Sur notre fil Twitter</div>
-          </a>
-        </Link>
+        <CircleLink
+          href='https://twitter.com/adressedatagouv?lang=fr'
+          icon={<Image src='/images/logos/twitter.svg' height={88} width={88} />}
+        >
+          Sur notre fil Twitter
+        </CircleLink>
 
         <div onClick={handleNewsletter} className='newsletter'>
           <Image src='/images/logos/newsletter.svg' height={88} width={88} />
@@ -44,43 +46,41 @@ function SocialMedia() {
       )}
 
       <style jsx>{`
-          .socials {
-            margin: 5em 0 1em 0;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 2em;
-          }
+        .socials {
+          margin: 5em 0 1em 0;
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          gap: 2em;
+        }
 
-          a, .newsletter {
-            width: 280px;
-            color: #0053b3;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            gap: 10px;
-            padding: 1em;
-            text-decoration: underline;
-            font-weight: bold;
-            font-size: 16px;
-          }
+        .newsletter {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          height: fit-content;
+          cursor: pointer;
+          text-align: center;
+          gap: 10px;
+          padding: 1em;
+          text-decoration: underline;
+        }
 
-          .newsletter:hover {
-            background: #EBEFF3;
-          }
+        .newsletter:hover {
+          background: ${theme.colors.lighterGrey};
+        }
 
-          iframe {
-            border: none;
-          }
+        iframe {
+          border: none;
+        }
 
-          .dropdown {
-            display: flex;
-            align-items: center;
-          }
-        `}</style>
+        .dropdown {
+          display: flex;
+          align-items: center;
+        }
+      `}</style>
     </>
   )
 }
