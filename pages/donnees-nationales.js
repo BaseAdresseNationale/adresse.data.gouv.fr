@@ -17,7 +17,7 @@ import {Api} from '@/components/apis'
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
-function DonneesNatioales() {
+function DonneesNationales() {
   const {userApis} = apis
 
   return (
@@ -112,4 +112,4 @@ function DonneesNatioales() {
   )
 }
 
-export default DonneesNatioales
+export default DonneesNationales
