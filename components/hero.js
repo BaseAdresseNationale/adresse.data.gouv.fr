@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {Download, Edit3} from 'react-feather'
 
@@ -6,6 +5,7 @@ import theme from '@/styles/theme'
 
 import ToolsIcon from './icons/tools'
 import Container from './container'
+import CircleLink from './circle-link'
 
 function Hero({title, tagline}) {
   return (
@@ -17,30 +17,32 @@ function Hero({title, tagline}) {
         </div>
 
         <div className='data-tools'>
-          <Link href='/contribuer'>
-            <a>
-              <div className='circle'>
-                <Edit3 size={48} color={theme.colors.white} />
-              </div>
-              Contribuer à la démarche
-            </a>
-          </Link>
-          <Link href='/tools'>
-            <a>
-              <div className='circle'>
-                <ToolsIcon color={theme.colors.white} />
-              </div>
-              Découvrir les outils
-            </a>
-          </Link>
-          <Link href='/download'>
-            <a>
-              <div className='circle'>
-                <Download size={48} color={theme.colors.white} />
-              </div>
-              Accéder aux données
-            </a>
-          </Link>
+          <CircleLink
+            href='/contribuer'
+            icon={<Edit3 size={48} color={theme.colors.white} />}
+            isImportant
+            size='80'
+          >
+            Contribuer à la démarche
+          </CircleLink>
+
+          <CircleLink
+            href='/tools'
+            icon={<ToolsIcon size={48} color={theme.colors.white} />}
+            isImportant
+            size='80'
+          >
+            Découvrir les outils
+          </CircleLink>
+
+          <CircleLink
+            href='/download'
+            icon={<Download size={48} color={theme.colors.white} />}
+            isImportant
+            size='80'
+          >
+            Accéder aux données
+          </CircleLink>
         </div>
       </Container>
 
@@ -70,33 +72,6 @@ function Hero({title, tagline}) {
           justify-content: space-around;
           align-items: center;
           gap: 3em;
-        }
-
-        a {
-          display: flex;
-          gap: 10px;
-          height: fit-content;
-          padding: 10px 0;
-        }
-
-        .circle {
-          background: ${theme.primary};
-          border-radius: 50%;
-          width: 80px;
-          height: 80px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a, .muted {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-transform: uppercase;
-          text-decoration: none;
-          font-weight: 700;
-          color: ${theme.darkText};
         }
 
         .map-button {
