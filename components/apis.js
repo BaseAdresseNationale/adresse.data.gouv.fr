@@ -8,7 +8,7 @@ import Section from './section'
 import Notification from '@/components/notification'
 import ButtonLink from './button-link'
 
-function Api({title, description, links}) {
+export function Api({title, description, links}) {
   return (
     <div className='api-container'>
       <div className='description-container'>
@@ -83,7 +83,7 @@ Api.propTypes = {
   links: PropTypes.array.isRequired
 }
 
-function Apis({apis}) {
+export function Apis({apis}) {
   const {userApis, creatorApis, communityApis} = apis
   const notificationStyle = {
     margin: '2em 0 -1em 0',
@@ -142,4 +142,3 @@ Apis.propTypes = {
   apis: PropTypes.object.isRequired
 }
 
-export default Apis

@@ -3,7 +3,7 @@ import apis from '../apis.json'
 import Page from '@/layouts/main'
 import ToolsIcon from '@/components/icons/tools'
 import Head from '@/components/head'
-import Apis from '@/components/apis'
+import {Apis} from '@/components/apis'
 
 const title = 'Outils'
 
