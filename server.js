@@ -67,6 +67,10 @@ app.prepare().then(() => {
     app.render(request, res, '/contact')
   })
 
+  server.get('/outils', (request, res) => {
+    app.render(request, res, '/tools')
+  })
+
   server.get('/bases-locales/validateur', (request, res) => {
     app.render(request, res, '/bases-locales/validator', {
       ...request.query
@@ -104,8 +108,24 @@ app.prepare().then(() => {
   })
 
   // DO NOT REMOVE
+  server.get('/tools', (request, res) => {
+    res.redirect('/outils')
+  })
+
   server.get('/api', (request, res) => {
-    res.redirect('/api-doc')
+    res.redirect('/outils')
+  })
+
+  server.get('/api-doc/adresse', (request, res) => {
+    res.redirect('/api-doc-adresse')
+  })
+
+  server.get('/apis', (request, res) => {
+    res.redirect('/outils')
+  })
+
+  server.get('/api-doc', (request, res) => {
+    res.redirect('/outils')
   })
 
   // DO NOT REMOVE

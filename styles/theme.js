@@ -22,6 +22,7 @@ export default ({
   border: colors.grey,
   borderLighter: colors.lightGrey,
   borderActive: colors.lightBlue,
+  borderSeparator: colors.transparentBlue,
   borderRadius: '5px',
 
   backgroundWhite: colors.white,

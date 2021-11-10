@@ -14,7 +14,7 @@ const examples = [
   {title: 'Recherche par texte', id: 'text', icon: <Search />}
 ]
 
-function Adresse() {
+function ApiDocAdresse() {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Compass color='white' size={56} />}>
@@ -31,4 +31,4 @@ function Adresse() {
   )
 }
 
-export default Adresse
+export default ApiDocAdresse
