@@ -4,7 +4,7 @@ import Hero from '@/components/hero'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Temoignages from '@/components/temoignages'
-import HomepageTools from '../components/homepage-tools'
+import HomepageTools from '@/components/homepage-tools'
 import SocialMedia from '@/components/social-media'
 
 function Home() {
