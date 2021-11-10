@@ -44,7 +44,9 @@ function Card({title, children, href, action, list, links}) {
           background-color: white;
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
           gap: 1em;
+          min-height: 300px;
         }
 
         .title {
