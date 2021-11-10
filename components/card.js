@@ -3,7 +3,6 @@ import theme from '@/styles/theme'
 import {DownloadCloud} from 'react-feather'
 
 function Card({title, children, href, action, list, links}) {
-  console.log(list)
   return (
     <div className='card-container'>
       <div className='title'>{title}</div>
