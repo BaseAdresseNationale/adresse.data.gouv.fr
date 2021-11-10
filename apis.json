@@ -1,7 +1,7 @@
 {
   "userApis": [
     {
-      "title": "Explorateur BAN",
+      "title": "Explorateur de la Base Adresse Nationale",
       "description": "Cherchez des adresses dans la Base Adresse Nationale.",
       "links": [
         {
@@ -75,43 +75,7 @@
       ]
     },
     {
-      "title": "Validateur BAL",
-      "description": "Vérifiez la conformité de votre fichier Base Adresse Locale.",
-      "links": [
-        {
-          "title": "Accéder à l'outil",
-          "href": "/bases-locales/validateur"
-        },
-        {
-          "title": "Accéder à la documentation",
-          "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale"
-        },
-        {
-          "title": "Accéder au code source",
-          "href": "https://github.com/BaseAdresseNationale/bal"
-        }
-      ]
-    },
-    {
-      "title": "Publication CSV",
-      "description": "Publiez votre Base Adresse Locale avec un fichier CSV.",
-      "links": [
-        {
-          "title": "Accéder à l'outil",
-          "href": "/bases-locales/publication"
-        },
-        {
-          "title": "Accéder à la documentation",
-          "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale"
-        },
-        {
-          "title": "Accéder au code source",
-          "href": ""
-        }
-      ]
-    },
-    {
-      "title": "API Gestion",
+      "title": "API Gestion d'une Base Adresse Locale",
       "description": "API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par Mes Adresses.",
       "links": [
         {
@@ -129,7 +93,7 @@
       ]
     },
     {
-      "title": "API Dépot",
+      "title": "API Dépot d'une Base Adresse Locale",
       "description": "API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.",
       "links": [
         {
@@ -143,6 +107,42 @@
         {
           "title": "Accéder au code source",
           "href": "https://github.com/BaseAdresseNationale/api-depot"
+        }
+      ]
+    },
+    {
+      "title": "Validateur du format Base Adresse Locale",
+      "description": "Vérifiez la conformité de votre fichier Base Adresse Locale.",
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/bases-locales/validateur"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": "https://github.com/BaseAdresseNationale/bal"
+        }
+      ]
+    },
+    {
+      "title": "Formulaire de publication d'une Base Adresse Locale ",
+      "description": "Publiez votre Base Adresse Locale avec un fichier CSV.",
+      "links": [
+        {
+          "title": "Accéder à l'outil",
+          "href": "/bases-locales/publication"
+        },
+        {
+          "title": "Accéder à la documentation",
+          "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale"
+        },
+        {
+          "title": "Accéder au code source",
+          "href": ""
         }
       ]
     }
@@ -204,7 +204,7 @@
     },
     {
       "title": "Plugin SPIP",
-      "description": "Ajoute sur les cartes GIS un moteur de recherche pour la base BAN (Base d’Adresse Nationale) française et recentre la carte sur l’adresse demandée.",
+      "description": "Plugin permettant d’ajouter sur les cartes GIS un moteur de recherche pour la base Base d’Adresse Nationale.",
       "links": [
         {
           "title": "Accéder à l'outil",
