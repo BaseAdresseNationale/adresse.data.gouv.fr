@@ -44,14 +44,18 @@ function GererMesAdresses() {
       <Section title='Nos guides et la documentation en ligne vous accompagnent tout au long de votre adressage'>
         <div className='guides-doc-container'>
           <Link href='/guides'>
-            <a>
-              <BookOpen size={49} />
+            <a className='link-container'>
+              <div className='circle'>
+                <BookOpen size={49} />
+              </div>
               Guides
             </a>
           </Link>
           <Link href='https://guide.mes-adresses.data.gouv.fr/'>
-            <a>
-              <Image src='/images/logos/doc.png' height={60} width={49} />
+            <a className='link-container'>
+              <div className='circle'>
+                <Image src='/images/logos/doc.png' height={60} width={49} />
+              </div>
               Documentation
             </a>
           </Link>
@@ -92,18 +96,27 @@ function GererMesAdresses() {
           margin-top: 5em;
         }
 
-        .guides-doc-container a {
-          width: 400px;
-          min-width: 280px;
-          height: 80px;
-          border-radius: ${theme.borderRadius};
-          background: ${theme.primary};
-          color: ${theme.colors.white};
+        .link-container {
           display: flex;
-          align-items: center;
+          flex-direction: column;
           justify-content: center;
-          font-size: 26px;
+          align-items: center;
           gap: 10px;
+          font-size: 18px;
+          color: ${theme.darkText};
+          font-weight: bold;
+          padding: 1em;
+        }
+
+        .circle {
+          color: ${theme.colors.white};
+          background: ${theme.primary};
+          border-radius: 50%;
+          width: 120px;
+          height: 120px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .action-links {
@@ -113,10 +126,6 @@ function GererMesAdresses() {
           align-items: center;
           text-align: center;
           margin: 2em 0;
-        }
-
-        .already-done {
-          margin-top: 1em;
         }
       `}</style>
     </Page>
