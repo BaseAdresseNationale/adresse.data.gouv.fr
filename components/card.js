@@ -18,9 +18,9 @@ function Card({title, children, href, action, list, links}) {
             )}
 
             {links && (
-              <ul>
-                {links.map(link => <li key={link.title}><a href={link.href}>{link.title}</a></li>)}
-              </ul>
+              <>
+                {links.map(link => <div className='link' key={link.title}><a href={link.href}>{link.title}</a></div>)}
+              </>
             )}
           </>
         )}
@@ -59,6 +59,11 @@ function Card({title, children, href, action, list, links}) {
         .card-content {
           flex: 1;
           text-align: start;
+        }
+
+        .link {
+          text-align: center;
+          font-weight: 700;
         }
 
         .download-link {
