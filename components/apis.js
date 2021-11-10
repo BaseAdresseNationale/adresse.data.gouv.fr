@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {BookOpen, GitHub, HelpCircle} from 'react-feather'
+import {HelpCircle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
