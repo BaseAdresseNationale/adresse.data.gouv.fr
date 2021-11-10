@@ -7,6 +7,7 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import Card from '@/components/card'
+import BanSearch from '@/components/ban-search'
 
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
@@ -15,6 +16,12 @@ function DonneesNatioales() {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Download size={56} />} />
+      <Section title='Rechercher les adresses d’une commune' subtitle='Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale.'>
+        <div className='searchbar'>
+          <BanSearch />
+        </div>
+      </Section>
+
       <Section title='Base Adresse Nationale' subtitle='Base de données de référence pour les adresses en France'>
         <div className='section-container'>
           <div className='ban'>
