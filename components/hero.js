@@ -8,6 +8,7 @@ import ToolsIcon from './icons/tools'
 import BanSearch from './ban-search'
 import Container from './container'
 import ButtonLink from './button-link'
+import CircleLink from './circle-link'
 
 function Hero({title, tagline}) {
   return (
@@ -20,38 +21,38 @@ function Hero({title, tagline}) {
           </div>
 
           <div className='data-tools'>
-            <Link href='/download'>
-              <a>
-                <div className='circle'>
-                  <Download size={48} />
-                </div>
-                Accéder aux données
-              </a>
-            </Link>
-            <Link href='/contribuer'>
-              <a>
-                <div className='circle'>
-                  <Edit3 size={48} />
-                </div>
-                Contribuer à la démarche
-              </a>
-            </Link>
-            <Link href='/bases-locales'>
-              <a>
-                <div className='circle'>
-                  <Database size={48} />
-                </div>
-                Bases Adresses Locales
-              </a>
-            </Link>
-            <Link href='/tools'>
-              <a>
-                <div className='circle'>
-                  <ToolsIcon />
-                </div>
-                Découvrir les outils
-              </a>
-            </Link>
+            <CircleLink
+              href='/download'
+              icon={<Download size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Accéder aux données
+            </CircleLink>
+            <CircleLink
+              href='/contribuer'
+              icon={<Edit3 size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Contribuer à la démarche
+            </CircleLink>
+            <CircleLink
+              href='/bases-locales'
+              icon={<Database size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Bases Adresses Locales
+            </CircleLink>
+            <CircleLink
+              href='/tools'
+              icon={<ToolsIcon size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Découvrir les outils
+            </CircleLink>
           </div>
 
           <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
