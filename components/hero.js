@@ -63,69 +63,67 @@ function Hero({title, tagline}) {
               Accéder directement à la carte
             </ButtonLink>
           </div>
-
         </Container>
-
       </div>
+
+      <div className='frise' />
+
       <style jsx>{`
-      .hero {
-        min-height: 100vh;
-        background: #fff url(/images/city-background.svg) bottom center no-repeat;
-        background-size: cover;
-        margin-bottom: -0.1em;
-      }
+        .hero {
+          padding-top: 2em;
+          min-height: 100vh;
+          background: ${theme.colors.white};
+          display: flex;
+          flex-direction: column;
+        }
 
-      .hero-container {
-        position: relative;
-        top: 2em;
-      }
+        .hero-container {
+          position: relative;
+          top: 2em;
+        }
 
-      .data-tools {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        grid-gap: 2em 1em;
-        margin: 2em 0;
-        padding: 1em;
-        background-color: white;
-      }
+        .data-tools {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+          grid-gap: 2em 1em;
+          margin: 2em 0;
+          padding: 1em;
+          background-color: white;
+        }
 
-      .circle {
-        border: 3px solid black;
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        a {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-transform: uppercase;
+          text-decoration: none;
+          font-weight: 700;
+          color: ${theme.darkText};
+        }
 
-      a, .muted {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: 700;
-        color: ${theme.darkText};
-      }
+        .map-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          overflow: visible;
+          margin: 2em;
+          text-align: center;
+        }
 
-      .map-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        overflow: visible;
-        margin: .5em;
-        text-align: center;
-      }
+        .example {
+          font-size: 1.1em;
+          text-align: center;
+          padding: .5em;
+        }
 
-      .example {
-        font-size: 1.5em;
-        text-align: center;
-        padding: .5em;
-        background-color: ${theme.colors.white};
-      }
-    `}</style>
+        .frise {
+          background: url('/images/automn-background.svg') bottom no-repeat;
+          background-size: cover;
+          height: 505px;
+          margin-bottom: -0.2em;
+        }
+      `}</style>
     </div>
   )
 }
