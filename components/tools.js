@@ -1,102 +1,100 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import {Map, Terminal, FileText, UserCheck} from 'react-feather'
-
 import theme from '@/styles/theme'
+import Container from './container'
 
-import Section from './section'
-
-const titles = [
-  {
-    title: 'L’explorateur BAN',
-    href: '/base-adresse-nationale',
-    description: <span>Cherchez des adresses dans la Base Adresse Nationale.</span>,
-    icon: <Map />
-  },
-  {
-    title: 'Le géocodeur CSV',
-    href: '/csv',
-    description: <span>Uploadez un fichier CSV, définissez les colonnes à utiliser pour le géocodage…</span>,
-    icon: <FileText />
-  },
-  {
-    title: 'Les API',
-    href: '/api-doc',
-    description: <span>Découvrez l’API Adresse, l’API Base Adresse Locale et l’API de dépôt...</span>,
-    icon: <Terminal />
-  },
-  {
-    title: 'Le validateur BAL',
-    href: '/bases-locales/validateur',
-    description: <span>Vérifier la conformité de votre fichier Base Adresse Locale.</span>,
-    icon: <UserCheck />
-  }
-]
-
-const toolStyle = {
-  display: 'inline-grid',
-  textDecoration: 'none',
-  color: '#26353f'
-}
-
-function Tool({title, icon, description, href}) {
+export function ToolCard({title, description, links}) {
   return (
-    <Link href={href}>
-      <a style={toolStyle}>
-        <div className='article__author panel'>
-          <div className='article__author-info'>
-            <div className='article__author-name'>{title}</div>
-            <div className='article__author-role'>Etalab</div>
-          </div>
-          <div className='article__author-img'>{icon}</div>
-          <p className='article__author-description'>{description}</p>
-          <style jsx>{`
-            .article__author {
-              min-width: 300px;
-              min-height: 160px;
-            }
+    <div className='api-container'>
+      <div className='description-container'>
+        <div>{title}</div>
+        <p>{description}</p>
+      </div>
+      <ul>
+        {links.map(link => {
+          return (
+            <li key={link.title}>
+              <Link href={link.href}>
+                <a>
+                  {link.title}
+                </a>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
 
-            .article__author:hover {
-              cursor: pointer;
-              border-color: ${theme.primary};
-            }
+      <style jsx>{`
+        .api-container {
+          background: ${theme.colors.white};
+          border-radius: ${theme.borderRadius};
+          border: solid 1px ${theme.border};
+          padding: 1.5em;
+          display: grid;
+          grid-template-rows: 1fr 100px;
+          gap: 1.5em;
+        }
 
-            .article__author-img {
-              display: inline-block;
-              float: right;
-              font-size: x-large;
-            }
-        `}</style>
-        </div>
-      </a>
-    </Link>
+        .description-container {
+          border-bottom: solid 3px ${theme.primary};
+          padding-bottom: 1em;
+          text-align: center;
+          color: ${theme.darkText};
+        }
+
+        .description-container div {
+          font-weight: bold;
+        }
+
+        .description-container p {
+          text-align: left;
+          font-size: 15px;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          font-weight: bold;
+          color: ${theme.primary};
+          gap: 10px;
+        }
+
+        a {
+          color: ${theme.darkText};
+        }
+    `}</style>
+    </div>
   )
 }
 
-Tool.propTypes = {
+ToolCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.node.isRequired,
-  icon: PropTypes.node.isRequired,
-  href: PropTypes.string.isRequired
+  links: PropTypes.array.isRequired
 }
 
-function Tools() {
+export function Tools({items}) {
   return (
-    <Section>
-      <div className='grid'>
-        {titles.map(({title, href, description, icon}) => (
-          <Tool
-            key={title}
-            title={title}
-            href={href}
-            description={description}
-            icon={icon}
-          />
-        ))}
+    <Container>
+      <div className='apis-container'>
+        {items.map(item => <ToolCard key={item.name} {...item} />)}
+
+        <style jsx>{`
+        .apis-container {
+          margin: 4em 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 4em;
+          padding: 2em 0;
+        }
+      `}</style>
       </div>
-    </Section>
+    </Container>
   )
 }
 
-export default Tools
+Tools.propTypes = {
+  items: PropTypes.array.isRequired
+}
+

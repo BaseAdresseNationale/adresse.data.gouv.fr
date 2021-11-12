@@ -1,0 +1,48 @@
+[
+  {
+    "title": "API Adresse",
+    "description": "Recherchez ou normalisez des adresses à l’unité ou en lot. Géocodage direct ou inversé.",
+    "links": [
+      {
+        "title": "Utilisez l'API",
+        "href": "/api-doc/adresse"
+      },
+      {
+        "title": "Accéder à la documentation",
+        "href": "https://doc.adresse.data.gouv.fr/naviguer-sur-le-site/les-api#lapi-adresse"
+      },
+      {
+        "title": "Accéder au code source",
+        "href": ""
+      }
+    ]
+  },
+  {
+    "title": "API Gestion d'une Base Adresse Locale",
+    "description": "API permettant de créer une Base Adresse Locale et d’en gérer les adresses. Utilisée par Mes Adresses.",
+    "links": [
+      {
+        "title": "Accéder à la documentation",
+        "href": "https://github.com/BaseAdresseNationale/api-bal/wiki/Documentation-de-l'API"
+      },
+      {
+        "title": "Accéder au code source",
+        "href": "https://github.com/BaseAdresseNationale/api-bal"
+      }
+    ]
+  },
+  {
+    "title": "API Dépot d'une Base Adresse Locale",
+    "description": "API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.",
+    "links": [
+      {
+        "title": "Accéder à la documentation",
+        "href": "https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation"
+      },
+      {
+        "title": "Accéder au code source",
+        "href": "https://github.com/BaseAdresseNationale/api-depot"
+      }
+    ]
+  }
+]
