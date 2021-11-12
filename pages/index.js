@@ -4,6 +4,7 @@ import theme from '@/styles/theme'
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
+import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
@@ -18,39 +19,40 @@ function Home() {
 
       <Section background='dark'>
         <div className='pitch'>
-          <p>
-            Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
-          </p>
-          <style jsx>{`
+          <SectionText color='secondary'>
+            <p>
+              Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
+            </p>
+          </SectionText>
+          <ButtonLink href='/donnees-nationales'>Découvrir la BAN et accèder aux données</ButtonLink>
+        </div>
+
+        <style jsx>{`
           .pitch {
             color: ${theme.colors.grey};
             text-align: center;
-            font-size: 1.2em;
-            line-height: 1.2em;
           }
-          .pitch strong {
-            color: ${theme.colors.white}
-          }
+
           .pitch a {
-            color: ${theme.colors.white};
             font-style: italic;
           }
+
           .pitch p {
-              margin-left: auto;
-              margin-right: auto;
-              max-width: 1000px;
+            margin-bottom: 4em;
+            text-align: start;
           }
         `}</style>
-        </div>
       </Section>
 
       <Section title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
         <div className='charte-section' >
-          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
-          <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.
-          </p>
+          <SectionText>
+            <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
+            <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.</p>
+          </SectionText>
+
           <div className='centered'>
-            <ButtonLink size='large' href='/bases-locales/charte'>
+            <ButtonLink href='/bases-locales/charte'>
               Découvrir la charte
             </ButtonLink>
           </div>
@@ -58,11 +60,6 @@ function Home() {
           <style jsx>{`
             .charte-section {
               margin-top: 3em;
-              text-align: center;
-            }
-
-            .organismes-container {
-              margin-top: 4em;
             }
 
             .centered {
@@ -81,9 +78,11 @@ function Home() {
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
         >
-          <p>
-            Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
-          </p>
+          <SectionText>
+            <p>
+              Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
+            </p>
+          </SectionText>
         </DocDownload>
       </Section>
 
