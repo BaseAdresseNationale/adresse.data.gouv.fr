@@ -8,6 +8,7 @@ import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
+import SocialMedia from '@/components/social-media'
 import Infolettre from '@/components/infolettre'
 
 function Home() {
@@ -105,6 +106,10 @@ function Home() {
           }
         `}
         </style>
+      </Section>
+
+      <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
+        <SocialMedia />
       </Section>
       <Infolettre />
     </Page>
