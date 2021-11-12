@@ -1,11 +1,10 @@
-import Link from 'next/link'
-
 import theme from '@/styles/theme'
 import Page from '@/layouts/main'
 import Hero from '@/components/hero'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Temoignages from '@/components/temoignages'
+import HomepageTools from '@/components/homepage-tools'
 import SocialMedia from '@/components/social-media'
 
 function Home() {
@@ -52,34 +51,16 @@ function Home() {
         </div>
       </Section>
 
-      <Section title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
-        <div className='charte-section' >
-          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
-          <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.
-          </p>
-          <div className='centered'>
-            <ButtonLink size='large' href='/bases-locales/charte'>
-              Découvrir la charte
-            </ButtonLink>
-          </div>
+      <Section title='Les communes certifient leurs adresses dans la Base Adresse Nationale'>
+        <div className='tools-section'>
+          <p>Grâce à la diffusion de leur Base Adresse Adresse Locale</p>
+          <HomepageTools />
 
           <style jsx>{`
-            .charte-section {
-              margin-top: 3em;
+            .tools-section {
               text-align: center;
             }
-
-            .organismes-container {
-              margin-top: 4em;
-            }
-
-            .centered {
-              margin: 40px auto;
-              display: flex;
-              justify-content: center;
-            }
-          `}
-          </style>
+         `}</style>
         </div>
       </Section>
 
