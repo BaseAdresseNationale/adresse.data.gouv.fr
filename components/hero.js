@@ -8,6 +8,7 @@ import ToolsIcon from './icons/tools'
 import BanSearch from './ban-search'
 import Container from './container'
 import ButtonLink from './button-link'
+import CircleLink from './circle-link'
 
 function Hero({title, tagline}) {
   return (
@@ -20,38 +21,38 @@ function Hero({title, tagline}) {
           </div>
 
           <div className='data-tools'>
-            <Link href='/download'>
-              <a>
-                <div className='circle'>
-                  <Download size={48} />
-                </div>
-                Accéder aux données
-              </a>
-            </Link>
-            <Link href='/contribuer'>
-              <a>
-                <div className='circle'>
-                  <Edit3 size={48} />
-                </div>
-                Contribuer à la démarche
-              </a>
-            </Link>
-            <Link href='/bases-locales'>
-              <a>
-                <div className='circle'>
-                  <Database size={48} />
-                </div>
-                Bases Adresses Locales
-              </a>
-            </Link>
-            <Link href='/tools'>
-              <a>
-                <div className='circle'>
-                  <ToolsIcon />
-                </div>
-                Découvrir les outils
-              </a>
-            </Link>
+            <CircleLink
+              href='/download'
+              icon={<Download size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Accéder aux données
+            </CircleLink>
+            <CircleLink
+              href='/contribuer'
+              icon={<Edit3 size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Contribuer à la démarche
+            </CircleLink>
+            <CircleLink
+              href='/bases-locales'
+              icon={<Database size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Bases Adresses Locales
+            </CircleLink>
+            <CircleLink
+              href='/tools'
+              icon={<ToolsIcon size={48} color={theme.colors.white} />}
+              isImportant
+              size='80'
+            >
+              Découvrir les outils
+            </CircleLink>
           </div>
 
           <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
@@ -62,69 +63,67 @@ function Hero({title, tagline}) {
               Accéder directement à la carte
             </ButtonLink>
           </div>
-
         </Container>
-
       </div>
+
+      <div className='frise' />
+
       <style jsx>{`
-      .hero {
-        min-height: 100vh;
-        background: #fff url(/images/city-background.svg) bottom center no-repeat;
-        background-size: cover;
-        margin-bottom: -0.1em;
-      }
+        .hero {
+          padding-top: 2em;
+          min-height: 100vh;
+          background: ${theme.colors.white};
+          display: flex;
+          flex-direction: column;
+        }
 
-      .hero-container {
-        position: relative;
-        top: 2em;
-      }
+        .hero-container {
+          position: relative;
+          top: 2em;
+        }
 
-      .data-tools {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-        grid-gap: 2em 1em;
-        margin: 2em 0;
-        padding: 1em;
-        background-color: white;
-      }
+        .data-tools {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+          grid-gap: 2em 1em;
+          margin: 2em 0;
+          padding: 1em;
+          background-color: white;
+        }
 
-      .circle {
-        border: 3px solid black;
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        a {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-transform: uppercase;
+          text-decoration: none;
+          font-weight: 700;
+          color: ${theme.darkText};
+        }
 
-      a, .muted {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: 700;
-        color: ${theme.darkText};
-      }
+        .map-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          overflow: visible;
+          margin: 2em;
+          text-align: center;
+        }
 
-      .map-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        overflow: visible;
-        margin: .5em;
-        text-align: center;
-      }
+        .example {
+          font-size: 1.1em;
+          text-align: center;
+          padding: .5em;
+        }
 
-      .example {
-        font-size: 1.5em;
-        text-align: center;
-        padding: .5em;
-        background-color: ${theme.colors.white};
-      }
-    `}</style>
+        .frise {
+          background: url('/images/automn-background.svg') bottom no-repeat;
+          background-size: cover;
+          height: 505px;
+          margin-bottom: -0.2em;
+        }
+      `}</style>
     </div>
   )
 }

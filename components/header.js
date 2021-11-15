@@ -11,7 +11,6 @@ const links = [
   {text: 'Guides', href: '/guides'},
   {text: 'API', href: '/api-doc'},
   {text: 'Outils', href: '/tools'},
-  {text: 'Documentation', href: 'https://doc.adresse.data.gouv.fr/', isExternal: true},
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 
@@ -22,7 +21,7 @@ function Header() {
 
         <Link href='/'>
           <a className='nav__link'>
-            <Image layout='responsive' width={305} height={70} src='/images/logos/logo-adresse.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
+            <Image layout='responsive' width={424} height={100} src='/images/logos/logo-rf.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
           </a>
         </Link>
 
@@ -76,7 +75,7 @@ function Header() {
         width: 40%;
         margin: .2em 1em;
         min-width: 220px;
-        max-width: 305px;
+        max-width: 424px;
       }
 
       .nav__link:hover {
@@ -95,6 +94,7 @@ function Header() {
       .nav__links li {
         padding: 0;
         display: inline;
+        font-size: 1.1em;
       }
 
       .nav__links a,

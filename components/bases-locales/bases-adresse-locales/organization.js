@@ -17,8 +17,8 @@ class Organization extends React.Component {
     const {logo, name} = this.props
     return (
       <div className='organization'>
-        <Image width={100} height={100} objectFit='scale-down' src={logo} alt={name} />
-        <div>{name}</div>
+        <Image width={100} height={100} objectFit='contain' src={logo} alt={name} />
+        <div className='name'>{name}</div>
 
         <style jsx>{`
           .organization {
@@ -27,6 +27,13 @@ class Organization extends React.Component {
             justify-content: center;
             text-align: center;
             max-width: 200px;
+            gap: 10px;
+          }
+
+          .name {
+            font-size: 0.7em;
+            font-style: italic;
+            line-height: 1.5em;
           }
           `}</style>
       </div>
