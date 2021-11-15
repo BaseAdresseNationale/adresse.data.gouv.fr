@@ -15,7 +15,6 @@ import Metric from '@/components/metric'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import SocialMedia from '@/components/social-media'
-import Infolettre from '@/components/infolettre'
 
 function Home({stats}) {
   const populationCouvertePercent = Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
@@ -157,7 +156,6 @@ function Home({stats}) {
       <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
         <SocialMedia />
       </Section>
-      <Infolettre />
     </Page>
   )
 }
