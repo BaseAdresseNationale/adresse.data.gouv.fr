@@ -5,37 +5,18 @@ import Image from 'next/image'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
-import theme from '@/styles/theme'
-
-import MapLibre from '../maplibre'
 import Section from '../section'
 import ButtonLink from '../button-link'
 import Partners from '@/components/bases-locales/charte/partners'
-import Counter from '../ui/metrics/counter'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
-import BalCoverMap from './bal-cover-map'
 import Notification from '../notification'
 import allPartners from '../../partners.json'
 import SectionText from '../section-text'
 
-const BasesLocales = React.memo(({datasets, stats}) => {
+const BasesLocales = React.memo(({datasets}) => {
   const [balSamples, setBalSamples] = useState([])
   const shufflePartners = shuffle(allPartners).slice(0, 3)
-
-  const mapData = {
-    type: 'FeatureCollection',
-    features: datasets.map(dataset => ({
-      type: 'Feature',
-      properties: {
-        id: dataset.id,
-        nom: dataset.title,
-        license: dataset.license,
-        organization: dataset.organization ? dataset.organization.name : null
-      },
-      geometry: dataset.contour
-    }))
-  }
 
   useEffect(() => {
     if (datasets) {
@@ -141,38 +122,6 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
-      <Section title='État du déploiement des Bases Adresses Locales'>
-        <div className='map-stats-container' id='map-stat'>
-          <div className='stats'>
-            <Counter
-              value={stats.count}
-              title='Jeux de données publiés'
-            />
-            <Counter
-              title='Communes représentées'
-              value={stats.communesCount}
-            />
-            <Counter
-              title='Adresses gérées par les collectivités'
-              value={stats.rowsCount}
-            />
-          </div>
-          <div className='bal-cover-map-container'>
-            <MapLibre>
-              {({map, popup, setSources, setLayers}) => (
-                <BalCoverMap
-                  map={map}
-                  popup={popup}
-                  data={mapData}
-                  setSources={setSources}
-                  setLayers={setLayers}
-                />
-              )}
-            </MapLibre>
-          </div>
-        </div>
-      </Section>
-
       <style jsx>{`
         .notification-content {
           display: flex;
@@ -225,43 +174,16 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           margin-top: 4em;
         }
 
-        .map-stats-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          margin: 2em 0;
-        }
-
-        .stats {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-        }
-
-        .bal-cover-map-container {
-          height: 500px;
-        }
-
         a {
           text-align: center;
         }
-
-        @media (max-width: ${theme.breakPoints.desktop}) {
-          .bal-cover-map-container {
-            margin-top: 2em;
-          }
-        }
-        `}</style>
+      `}</style>
     </div>
   )
 })
 
 BasesLocales.propTypes = {
-  datasets: PropTypes.array.isRequired,
-  stats: PropTypes.shape({
-    count: PropTypes.number.isRequired,
-    rowsCount: PropTypes.number.isRequired,
-    communesCount: PropTypes.number.isRequired
-  }).isRequired
+  datasets: PropTypes.array.isRequired
 }
 
 export default BasesLocales
