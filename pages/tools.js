@@ -1,3 +1,4 @@
+import tools from '../tools.json'
 import Page from '@/layouts/main'
 import {Map, FileText, Terminal, UserPlus} from 'react-feather'
 
