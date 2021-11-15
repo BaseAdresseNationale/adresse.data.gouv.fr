@@ -64,7 +64,7 @@ function EtatDeploiement({datasets, stats}) {
   const dataAdressesGereesBAL = toCounterData(adressesGereesBALPercent, allAdressesGereesBALPercent)
 
   // Calcul adresses certifiees
-  const adressesCertifieesPercent = Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.bal.nbAdresses)
+  const adressesCertifieesPercent = Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
   const allAdressesCertifieesPercent = 100 - Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
   const dataAdressesCertifiees = toCounterData(adressesCertifieesPercent, allAdressesCertifieesPercent)
 
@@ -91,7 +91,7 @@ function EtatDeploiement({datasets, stats}) {
             <DoughnutCounter
               title='Adresses issues des BAL'
               valueUp={numFormater(stats.bal.nbAdresses)}
-              valueDown={`${adressesGereesBALPercent}% sur un total de ${numFormater(stats.ban.nbAdresses)} adresses de la BAN`}
+              valueDown={`${adressesGereesBALPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
               data={dataAdressesGereesBAL}
               options={options}
             />
@@ -112,7 +112,7 @@ function EtatDeploiement({datasets, stats}) {
             <DoughnutCounter
               title='Adresses certifiées'
               valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
-              valueDown={`${adressesCertifieesPercent}% sur un total de ${numFormater(stats.ban.nbAdresses)} de la BAN`}
+              valueDown={`${adressesCertifieesPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
               data={dataAdressesCertifiees}
               options={options}
             />
