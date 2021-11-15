@@ -4,74 +4,68 @@ import Link from 'next/link'
 import theme from '@/styles/theme'
 import Container from './container'
 
-export function ToolCard({title, description, links}) {
+export function ToolCard({title, href, description, icon}) {
   return (
-    <div className='api-container'>
-      <div className='description-container'>
-        <div>{title}</div>
+    <Link href={href}>
+      <a className='api-container'>
+        <div className='title'>
+          <div className='circle'>{icon}</div>
+          <div>{title}</div>
+        </div>
         <p>{description}</p>
-      </div>
-      <ul>
-        {links.map(link => {
-          return (
-            <li key={link.title}>
-              <Link href={link.href}>
-                <a>
-                  {link.title}
-                </a>
-              </Link>
-            </li>
-          )
-        })}
-      </ul>
 
-      <style jsx>{`
-        .api-container {
-          background: ${theme.colors.white};
-          border-radius: ${theme.borderRadius};
-          border: solid 1px ${theme.border};
-          padding: 1.5em;
-          display: grid;
-          grid-template-rows: 1fr 100px;
-          gap: 1.5em;
-        }
+        <style jsx>{`
+          .api-container {
+            background: ${theme.colors.white};
+            border-radius: ${theme.borderRadius};
+            border: solid 1px ${theme.border};
+            text-decoration: none;
+            color: ${theme.darkText};
+            display: grid;
+            grid-template-rows: 50px 1fr;
+            padding: 1em;
+            gap: 1em;
+            box-shadow: 0px 5px 8px 1px ${theme.boxShadow};
+          }
 
-        .description-container {
-          border-bottom: solid 3px ${theme.primary};
-          padding-bottom: 1em;
-          text-align: center;
-          color: ${theme.darkText};
-        }
+          .title {
+            font-weight: 700;
+            font-size: 17px;
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            align-items: center;
+            gap: 10px;
+          }
 
-        .description-container div {
-          font-weight: bold;
-        }
+          .circle {
+            height: 40px;
+            width: 40px;
+            background: ${theme.primary};
+            color: ${theme.colors.white};
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
 
-        .description-container p {
-          text-align: left;
-          font-size: 15px;
-        }
-
-        ul {
-          display: flex;
-          flex-direction: column;
-          font-weight: bold;
-          color: ${theme.primary};
-          gap: 10px;
-        }
-
-        a {
-          color: ${theme.darkText};
-        }
-    `}</style>
-    </div>
+          p {
+            margin: 0;
+            line-height: 30px;
+            border-top: solid 3px ${theme.primary};
+            padding: 1em 0;
+            font-style: italic;
+          }
+        `}</style>
+      </a>
+    </Link>
   )
 }
 
 ToolCard.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.node.isRequired,
-  links: PropTypes.array.isRequired
+  icon: PropTypes.object.isRequired,
+  href: PropTypes.string.isRequired
 }
 
 export function Tools({items}) {
@@ -84,8 +78,8 @@ export function Tools({items}) {
         .apis-container {
           margin: 4em 0;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 4em;
+          grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+          gap: 2em;
           padding: 2em 0;
         }
       `}</style>
