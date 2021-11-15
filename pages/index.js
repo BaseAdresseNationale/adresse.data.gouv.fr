@@ -84,7 +84,7 @@ function Home({stats}) {
             <Metric metric={numFormater(stats.bal.nbAdresses)}> d’adresses issues des BAL</Metric>
             <Metric metric={communesCouvertesPercent} isPercent>de communes couvertes</Metric>
           </div>
-          <ButtonLink href='' isOutlined color='white'>Carte de couverture des BAL</ButtonLink>
+          <ButtonLink href='/deploiement-bal' isOutlined color='white'>Carte de couverture des BAL</ButtonLink>
         </div>
         <style jsx>{`
           .deployement-container {
