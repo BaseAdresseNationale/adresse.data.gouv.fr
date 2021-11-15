@@ -8,6 +8,7 @@ function SectionText({color, children}) {
 
       <style jsx>{`
         .text-container {
+          text-align: left;
           font-size: 1em;
           line-height: 1.5em;
           padding-left: 1em;
