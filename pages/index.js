@@ -39,38 +39,31 @@ function Home() {
           }
 
           .pitch p {
-            margin-bottom: 4em;
             text-align: start;
           }
         `}</style>
       </Section>
 
       <Section title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
-        <div className='charte-section' >
-          <SectionText>
-            <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
-            <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.</p>
-          </SectionText>
+        <SectionText>
+          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
+          <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.</p>
+        </SectionText>
 
-          <div className='centered'>
-            <ButtonLink href='/bases-locales/charte'>
-              Découvrir la charte
-            </ButtonLink>
-          </div>
+        <div className='centered'>
+          <ButtonLink href='/bases-locales/charte'>
+            Découvrir la charte
+          </ButtonLink>
+        </div>
 
-          <style jsx>{`
-            .charte-section {
-              margin-top: 3em;
-            }
-
+        <style jsx>{`
             .centered {
               margin: 40px auto;
               display: flex;
               justify-content: center;
             }
           `}
-          </style>
-        </div>
+        </style>
       </Section>
 
       <Section background='grey' title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>

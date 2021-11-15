@@ -46,17 +46,16 @@ function DonneesNatioales() {
       </Section>
 
       <Section title='Comment est construite la Base Adresse Nationale ?' background='color'>
-        <div className='schema-description'>
-          <SectionText color='secondary'>
-            <p>
-              La Base Adresse Nationale est <b>constituée commune par commune</b>, sur le principe suivant :
-              <ul>
-                <li>si la commune dispose d’une <Link href='/bases-locales'><a>Base Adresse Locale</a></Link>, ce sont ces adresses qui sont incluses dans la Base Adresse Nationale ;</li>
-                <li>dans le cas contraire, la liste des adresses est générée par défaut à partir des <b>meilleures sources disponibles</b> (DGFiP, IGN, La Poste, ARCEP, Guichet Adresse, SDIS…).</li>
-              </ul>
-            </p>
-          </SectionText>
-        </div>
+
+        <SectionText color='secondary'>
+          <p>
+            La Base Adresse Nationale est <b>constituée commune par commune</b>, sur le principe suivant :
+            <ul>
+              <li>si la commune dispose d’une <Link href='/bases-locales'><a>Base Adresse Locale</a></Link>, ce sont ces adresses qui sont incluses dans la Base Adresse Nationale ;</li>
+              <li>dans le cas contraire, la liste des adresses est générée par défaut à partir des <b>meilleures sources disponibles</b> (DGFiP, IGN, La Poste, ARCEP, Guichet Adresse, SDIS…).</li>
+            </ul>
+          </p>
+        </SectionText>
         <div className='adjust-img'>
           <Image width={1000} height={386} src='/images/donnees-nationales/schema-donnees-ban.svg' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
         </div>
@@ -84,10 +83,6 @@ function DonneesNatioales() {
           margin-top: 3em;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-        }
-
-        .schema-description {
-          margin: 3em 0;
         }
       `}</style>
     </Page >

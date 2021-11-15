@@ -40,7 +40,7 @@ function Contribuer() {
 
       <Section title='En tant qu’utilisateur des données'>
         <div style={{textAlign: 'center'}}>
-          <p>Vous utilisez les données diffusées par ce site et vous avez identifié des anomalies récurrentes sur une typologie d’adresse particulière ou dans une zone ?</p>
+          <p style={{margin: '3em 0'}}>Vous utilisez les données diffusées par ce site et vous avez identifié des anomalies récurrentes sur une typologie d’adresse particulière ou dans une zone ?</p>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
             <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} />

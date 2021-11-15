@@ -51,7 +51,7 @@ function Intro() {
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;
-          margin-top: 3em;
+          align-items: center;
           gap: 4em;
         }
 
@@ -67,7 +67,7 @@ function Intro() {
           flex: 1;
           min-width: 270px;
           padding: 1.5em;
-          height: 400px;
+          height: fit-content;
           box-shadow: 0 1px 4px ${theme.boxShadow};
           border-radius: ${theme.borderRadius};
           display: flex;
