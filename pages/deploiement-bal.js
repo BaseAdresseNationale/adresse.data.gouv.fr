@@ -6,6 +6,7 @@ import theme from '@/styles/theme'
 import {Database} from 'react-feather'
 
 import {getDatasets, getBALStats} from '@/lib/bal/api'
+import {numFormater} from '@/lib/format-numbers'
 
 import MapLibre from '@/components/maplibre'
 import DoughnutCounter from '@/components/doughnut-counter'
@@ -30,15 +31,6 @@ function toCounterData(percent, total) {
       },
     ]
   }
-}
-
-function numFormater(num) {
-  if (num.toString().length > 5) {
-    const formatedNumber = (Math.round(num / 10000) / 100)
-    return `${new Intl.NumberFormat().format(formatedNumber)} million${formatedNumber > 1.99 ? 's' : ''}`
-  }
-
-  return new Intl.NumberFormat().format(num)
 }
 
 const options = {
