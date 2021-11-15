@@ -74,6 +74,7 @@ function Hero({title, tagline}) {
           background: ${theme.colors.white};
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
         }
 
         .hero-container {
