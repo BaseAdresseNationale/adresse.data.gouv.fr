@@ -18,7 +18,7 @@ import SocialMedia from '@/components/social-media'
 import Infolettre from '@/components/infolettre'
 
 function Home({stats}) {
-  const communesCouvertesPercent = Math.round((stats.bal.nbCommunesCouvertes * 100) / stats.france.nbCommunes)
+  const populationCouvertePercent = Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
 
   return (
     <Page>
@@ -77,12 +77,16 @@ function Home({stats}) {
       <Section background='color' title='État du déploiement des Bases Adresses Locales'>
         <div className='deployement-container'>
           <div className='map-illustration'>
-            <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} />
+            <Link href='/deploiement-bal'>
+              <a>
+                <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} />
+              </a>
+            </Link>
           </div>
           <div className='metrics-container'>
-            <Metric metric={numFormater(stats.bal.populationCouverte)}>de la population couverte</Metric>
+            <Metric metric={populationCouvertePercent} isPercent>de la population couverte</Metric>
             <Metric metric={numFormater(stats.bal.nbAdresses)}> d’adresses issues des BAL</Metric>
-            <Metric metric={communesCouvertesPercent} isPercent>de communes couvertes</Metric>
+            <Metric metric={stats.bal.nbCommunesCouvertes}> communes couvertes</Metric>
           </div>
           <ButtonLink href='/deploiement-bal' isOutlined color='white'>Carte de couverture des BAL</ButtonLink>
         </div>
