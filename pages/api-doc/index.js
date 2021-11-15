@@ -1,7 +1,5 @@
 import {Compass, Terminal, Map, Folder} from 'react-feather'
 
-import apis from '../../apis.json'
-
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import {Tools} from '@/components/tools'
