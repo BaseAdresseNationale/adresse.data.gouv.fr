@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {Download, Edit3, Database} from 'react-feather'
 

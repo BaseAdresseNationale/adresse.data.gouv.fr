@@ -77,7 +77,7 @@ function Guides() {
         <DocDownload
           id='guide-bonnes-pratiques'
           title='Le guide des bonnes pratiques'
-          isReverse='true'
+          isReverse
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v2.1.pdf'

@@ -51,7 +51,8 @@ ButtonLink.propTypes = {
     'primary',
     'warning-light',
     'warning',
-    'secondary'
+    'secondary',
+    'white'
   ]),
   href: PropTypes.string.isRequired,
   isOutlined: PropTypes.bool,

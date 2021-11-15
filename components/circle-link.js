@@ -68,10 +68,10 @@ function CircleLink({size, href, isExternal, icon, fontSize, isImportant, isDisa
 }
 
 CircleLink.propTypes = {
-  size: PropTypes.number.isRequired,
+  size: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
   icon: PropTypes.object.isRequired,
-  fontSize: PropTypes.number.isRequired,
+  fontSize: PropTypes.string,
   children: PropTypes.node,
   isExternal: PropTypes.bool,
   isDisable: PropTypes.bool,
@@ -79,6 +79,7 @@ CircleLink.propTypes = {
 }
 
 CircleLink.defaultProps = {
+  fontSize: '1em',
   children: null,
   isExternal: false,
   isDisable: false,

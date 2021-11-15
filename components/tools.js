@@ -72,7 +72,7 @@ export function Tools({items}) {
   return (
     <Container>
       <div className='apis-container'>
-        {items.map(item => <ToolCard key={item.name} {...item} />)}
+        {items.map(item => <ToolCard key={item.title} {...item} />)}
 
         <style jsx>{`
         .apis-container {
