@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import Page from '@/layouts/main'
@@ -6,13 +5,77 @@ import Head from '@/components/head'
 import theme from '@/styles/theme'
 import {Database} from 'react-feather'
 
-import {getDatasets, getStats} from '@/lib/bal/api'
+import {getDatasets, getBALStats} from '@/lib/bal/api'
 
 import MapLibre from '@/components/maplibre'
+import DoughnutCounter from '@/components/doughnut-counter'
 
 import BalCoverMap from '@/components/bases-locales/bal-cover-map'
 
-const EtatDeploiement = React.memo(({datasets, stats}) => {
+function toCounterData(percent, total) {
+  return {
+    labels: [],
+    datasets: [
+      {
+        data: [percent, total],
+        backgroundColor: [
+          'rgba(0, 83, 179, 1)',
+          'rgba(0, 0, 0, 0)'
+        ],
+        borderColor: [
+          'rgba(1, 1, 1, 0)',
+          'rgba(1, 1, 1, 0.3)'
+        ],
+        borderWidth: 1,
+      },
+    ]
+  }
+}
+
+function numFormater(num) {
+  if (num.toString().length > 5) {
+    const formatedNumber = (Math.round(num / 10000) / 100)
+    return `${new Intl.NumberFormat().format(formatedNumber)} million${formatedNumber > 1.99 ? 's' : ''}`
+  }
+
+  return new Intl.NumberFormat().format(num)
+}
+
+const options = {
+  height: 200,
+  width: 200,
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      enabled: false
+    }
+  }
+}
+
+function EtatDeploiement({datasets, stats}) {
+  // Calcul population couverte
+  const populationCouvertePercent = Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
+  const allPopulationCouverte = 100 - Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
+  const dataPopulationCouverte = toCounterData(populationCouvertePercent, allPopulationCouverte)
+
+  // Calcul communes couvertes
+  const communesCouvertesPercent = Math.round((stats.bal.nbCommunesCouvertes * 100) / stats.france.nbCommunes)
+  const allCommunesCouvertesPercent = 100 - Math.round((stats.bal.nbCommunesCouvertes * 100) / stats.france.nbCommunes)
+  const dataCommunesCouvertes = toCounterData(communesCouvertesPercent, allCommunesCouvertesPercent)
+
+  // Calcul adresses gerees dans la BAL
+  const adressesGereesBALPercent = Math.round((stats.bal.nbAdresses * 100) / stats.ban.nbAdresses)
+  const allAdressesGereesBALPercent = 100 - Math.round((stats.bal.nbAdresses * 100) / stats.ban.nbAdresses)
+  const dataAdressesGereesBAL = toCounterData(adressesGereesBALPercent, allAdressesGereesBALPercent)
+
+  // Calcul adresses certifiees
+  const adressesCertifieesPercent = Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.bal.nbAdresses)
+  const allAdressesCertifieesPercent = 100 - Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
+  const dataAdressesCertifiees = toCounterData(adressesCertifieesPercent, allAdressesCertifieesPercent)
+
   const mapData = {
     type: 'FeatureCollection',
     features: datasets.map(dataset => ({
@@ -33,10 +96,34 @@ const EtatDeploiement = React.memo(({datasets, stats}) => {
         <Head title='État du déploiement des Bases Adresses Locales' icon={<Database size={56} />} />
         <div className='map-stats-container' id='map-stat'>
           <div className='stats'>
-            <div className='stat'>Population couverte : <div className='value'>11%</div></div>
-            <div className='stat'>Communes couvertes : <div className='value'>11%</div></div>
-            <div className='stat'>Adresses gérées dans la BAL : <div className='value'>16%</div></div>
-            <div className='stat'>Adresses certifiées : <div className='value'>24%</div></div>
+            <DoughnutCounter
+              title='Adresses issues des BAL'
+              valueUp={numFormater(stats.bal.nbAdresses)}
+              valueDown={`${adressesGereesBALPercent}% sur un total de ${numFormater(stats.ban.nbAdresses)} adresses de la BAN`}
+              data={dataAdressesGereesBAL}
+              options={options}
+            />
+            <DoughnutCounter
+              title='Communes couvertes'
+              valueUp={numFormater(stats.bal.nbCommunesCouvertes)}
+              valueDown={`${communesCouvertesPercent}% des ${numFormater(stats.france.nbCommunes)} communes françaises`}
+              data={dataCommunesCouvertes}
+              options={options}
+            />
+            <DoughnutCounter
+              title='Population couverte'
+              valueUp={numFormater(stats.bal.populationCouverte)}
+              valueDown={`${Math.round((stats.bal.populationCouverte * 100) / stats.france.population)}% des ${numFormater(stats.france.population)} d’habitants`}
+              data={dataPopulationCouverte}
+              options={options}
+            />
+            <DoughnutCounter
+              title='Adresses certifiées'
+              valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
+              valueDown={`${adressesCertifieesPercent}% sur un total de ${numFormater(stats.ban.nbAdresses)} de la BAN`}
+              data={dataAdressesCertifiees}
+              options={options}
+            />
           </div>
           <div className='bal-cover-map-container'>
             <MapLibre>
@@ -71,36 +158,17 @@ const EtatDeploiement = React.memo(({datasets, stats}) => {
           .stats {
             flex: 1;
             display: grid;
-            grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
-            font-size: 1.2em;
-            font-weight: bold;
-          }
-
-          .stat {
-            align-self: stretch;
-            display: grid;
-            align-content: center;
-            padding: .5em;
-          }
-
-          .value {
-            font-size: 1.5em;
+            grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
           }
 
           .bal-cover-map-container {
             height: 100%;
             min-height: 400px;
-            flex: 3;
+            flex: 1;
           }
 
           .bal-cover-map-container children {
             width: 100%;
-          }
-
-          .side-btn {
-            position: absolute;
-            z-index: 3;
-            background-color: #fff;
           }
 
           @media (max-width: ${theme.breakPoints.desktop}) {
@@ -116,21 +184,21 @@ const EtatDeploiement = React.memo(({datasets, stats}) => {
       </div>
     </Page>
   )
-})
+}
 
 EtatDeploiement.getInitialProps = async () => {
   return {
     datasets: await getDatasets(),
-    stats: await getStats(),
+    stats: await getBALStats(),
   }
 }
 
 EtatDeploiement.propTypes = {
   datasets: PropTypes.array.isRequired,
   stats: PropTypes.shape({
-    count: PropTypes.number.isRequired,
-    rowsCount: PropTypes.number.isRequired,
-    communesCount: PropTypes.number.isRequired
+    france: PropTypes.object.isRequired,
+    bal: PropTypes.object.isRequired,
+    ban: PropTypes.object.isRequired
   }).isRequired
 }
 
