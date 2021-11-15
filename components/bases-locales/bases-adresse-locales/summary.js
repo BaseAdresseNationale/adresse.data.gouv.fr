@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Download} from 'react-feather'
+import {DownloadCloud} from 'react-feather'
 
 import ButtonLink from '@/components/button-link'
 import {spaceThousands} from '@/lib/format-numbers'
@@ -47,7 +47,7 @@ class Summary extends React.Component {
               Consulter
             </ButtonLink>
             {url &&
-              <a href={url}>Télécharger <Download size={18} style={{verticalAlign: 'middle', marginLeft: '3px'}} /></a>}
+              <a href={url}><DownloadCloud size={18} style={{verticalAlign: 'middle', marginRight: '5px'}} />Télécharger </a>}
           </div>
         </div>
 
@@ -55,7 +55,7 @@ class Summary extends React.Component {
           .base-adresse-locale {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            grid-row-gap: 1em;
+            grid-row-gap: 3em;
             justify-items: center;
             align-items: center;
           }

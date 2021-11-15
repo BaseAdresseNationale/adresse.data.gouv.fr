@@ -16,18 +16,27 @@ class BaseAdresseLocale extends React.Component {
 
     return (
       <div className='bal-container'>
-        <h3>
+        <div className='link-title'>
           <Link href={`/bases-locales/jeux-de-donnees/${dataset.id}`}>
             <a>{dataset.title}</a>
           </Link>
-        </h3>
+        </div>
 
         <Summary dataset={dataset} />
 
         <style jsx>{`
+          .link-title {
+            font-size: 1.5em;
+            margin-bottom: 2em;
+            text-align: center;
+          }
+
           .bal-container {
-            padding: 0 2em;
-            border-left: 5px solid ${theme.primary};
+            padding: 1em;
+            border-left: 3px solid ${theme.primary};
+            border-radius: 0 5px 5px 0;
+            background: ${theme.colors.white};
+            box-shadow: 0px 5px 8px 1px ${theme.boxShadow};
           }
         `}</style>
       </div>
