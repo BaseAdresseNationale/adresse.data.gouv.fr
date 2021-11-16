@@ -46,7 +46,6 @@ function Header() {
       <style jsx>{`
       .nav {
         border-bottom: 1px solid ${theme.boxShadow};
-        box-shadow: 0 1px 4px ${theme.boxShadow};
         width: 100%;
         background: #fff;
         z-index: 100;
