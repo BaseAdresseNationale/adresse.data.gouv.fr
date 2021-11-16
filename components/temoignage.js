@@ -32,9 +32,9 @@ function Temoignage({testimony}) {
       <style jsx>{`
           .temoignage-container {
             display: grid;
-            grid-template-rows: 1fr 150px 0.5fr 1fr 0.5fr;
+            grid-template-rows: 50px 150px 35px 1fr 0.5fr;
             text-align: left;
-            margin-top: 1.5em;
+            margin-top: 3em;
           }
 
           .temoignage-title {
