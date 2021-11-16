@@ -77,6 +77,7 @@ function CurlDoc() {
               </ul>
               <li><b>score</b> : valeur de 0 à 1 indiquant la pertinence du résultat</li>
               <li><b>housenumber</b> : numéro avec indice de répétition éventuel (bis, ter, A, B)</li>
+              <li><b>street</b> : nom de la voie</li>
               <li><b>name</b> : numéro éventuel et nom de voie ou lieu dit</li>
               <li><b>postcode</b> : code postal</li>
               <li><b>citycode</b> : code INSEE de la commune</li>

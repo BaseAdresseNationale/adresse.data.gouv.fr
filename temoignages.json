@@ -126,5 +126,13 @@
         "alt": "Joël Marivain, maire de Kerfourn et président de l’AMR56 devant le plan de sa commune. Cliché Joël Marivain",
         "date": "2021-10-05",
         "articleUrl": "https://blog.geo.data.gouv.fr/lassociation-des-maires-du-morbihan-mobilise-les-communes-sur-leurs-adresses-90a87d272daf"
+    },
+    {
+        "title": "Service d’information géographique du SDIS64",
+        "preview": "Le SIG du SDIS64 est le seul utilisateur de la BAN à nous adresser des commentaires sur les adresses et à alerter les communes. Témoignage d'Adrien Carpentier sur ce cercle vertueux permettant d'accélérer l'arrivée des secours et d'améliorer les adresses pour tous.",
+        "picture": "/images/testimonies/sdis64.jpg",
+        "alt": "Visuel de SDIS64 d'un opérateur devant un ordinateur",
+        "date": "2021-10-21",
+        "articleUrl": "https://blog.geo.data.gouv.fr/utilisation-et-enrichissement-de-la-base-adresse-nationale-le-sdis64-a25914281c86"
     }
 ]
