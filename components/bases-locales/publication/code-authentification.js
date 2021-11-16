@@ -2,7 +2,7 @@ import {useCallback, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Check, ArrowLeft} from 'react-feather'
 
-import {submitAuthentificationCode} from '@/lib/bal/api'
+import {submitAuthentificationCode} from '@/lib/api-backend-publication'
 
 import theme from '@/styles/theme'
 

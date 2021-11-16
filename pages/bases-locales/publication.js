@@ -9,7 +9,7 @@ import Page from '@/layouts/main'
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {uploadCSV, submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/bal/api'
+import {uploadCSV, submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/api-backend-publication'
 
 import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
