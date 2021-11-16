@@ -13,8 +13,9 @@ import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import Notification from '../notification'
 import allPartners from '../../partners.json'
 import SectionText from '../section-text'
+import MapBalSection from '../map-bal-section'
 
-const BasesLocales = React.memo(({datasets}) => {
+const BasesLocales = React.memo(({datasets, stats}) => {
   const [balSamples, setBalSamples] = useState([])
   const shufflePartners = shuffle(allPartners).slice(0, 3)
 
@@ -122,6 +123,10 @@ const BasesLocales = React.memo(({datasets}) => {
         </div>
       </Section>
 
+      <Section background='color' title='État du déploiement des Bases Adresses Locales'>
+        <MapBalSection stats={stats} />
+      </Section>
+
       <style jsx>{`
         .notification-content {
           display: flex;
@@ -183,7 +188,8 @@ const BasesLocales = React.memo(({datasets}) => {
 })
 
 BasesLocales.propTypes = {
-  datasets: PropTypes.array.isRequired
+  datasets: PropTypes.array.isRequired,
+  stats: PropTypes.object.isRequired
 }
 
 export default BasesLocales
