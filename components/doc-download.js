@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import {Book} from 'react-feather'
+import {DownloadCloud} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -16,7 +16,7 @@ function DocDownload({title, link, src, alt, isReverse, children}) {
           <Image width={200} height={280} layout='fixed' src={src} alt={alt} />
         </div>
         <a href={link}>
-          <Book style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '5px'}} />
           Télécharger
         </a>
       </div>
@@ -44,7 +44,8 @@ function DocDownload({title, link, src, alt, isReverse, children}) {
         .preview {
           display: flex;
           margin: 1em;
-          border: 1px solid ${theme.border};
+          border: 5px solid ${theme.colors.whiteBlue};
+          border-radius: ${theme.borderRadius};
         }
       `}</style>
     </div>

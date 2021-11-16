@@ -1428,6 +1428,11 @@ chalk@^4.1.1:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chart.js@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.6.0.tgz#a87fce8431d4e7c5523d721f487f53aada1e42fe"
+  integrity sha512-iOzzDKePL+bj+ccIsVAgWQehCXv8xOKGbaU2fO/myivH736zcx535PGJzQGanvcSGVOqX6yuLZsN3ygcQ35UgQ==
+
 chokidar@3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
@@ -5410,6 +5415,11 @@ react-autocomplete@^1.7.2:
   dependencies:
     dom-scroll-into-view "1.0.1"
     prop-types "^15.5.10"
+
+react-chartjs-2@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-3.3.0.tgz#3f62681645acccc1ab27a9186c70f79d6d417f73"
+  integrity sha512-4Mt0SR2aiUbWi/4762odRBYSnbNKSs4HWc0o3IW43py5bMfmfpeZU95w6mbvtuLZH/M3GsPJMU8DvDc+5U9blQ==
 
 react-dom@^17.0.2:
   version "17.0.2"
