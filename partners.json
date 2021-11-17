@@ -620,5 +620,35 @@
         "height": 110,
         "width": 114,
         "alt": "Logo de OPENIG"
+    },
+    {
+        "name": "SIGNA.CONCEPT",
+        "link": "https://www.signaconcept.fr/charte-de-la-base-adresse-locale/",
+        "infos": "Assistance complète de la mairie au cours de toutes les étapes, travail de recensement sur le terrain avec des GPS de précision, reportage photo-numérique de la future implantation des panneaux, création d'une BAL, présentation au vérificateur, transmission du fichier à la mairie avec le lien vers l'éditeur Mes Adresses pour enregistrement dans la Base Adresse Nationale.",
+        "perimeter": "Couvre les départements 26, 07, 04, 03, 63, 05, 84, 43, 30, 2A, 2B",
+        "codeDepartement": [
+            "26",
+            "07",
+            "04",
+            "03",
+            "63",
+            "05",
+            "84",
+            "43",
+            "30",
+            "2A",
+            "2B"
+        ],
+        "echelon": 2,
+        "isPerimeterFrance": false,
+        "isCompany": true,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/signa.jpg",
+        "height": 119,
+        "width": 200,
+        "alt": "Logo de Signa.Concept"
     }
 ]
