@@ -68,6 +68,7 @@ function Partner({partnerInfos}) {
       </div>
       <style jsx>{`
         .partner {
+          max-width: 300px;
           width: 100%;
           grid-template-rows: 0.5fr auto;
           grid-template-columns: 1fr;
@@ -79,7 +80,7 @@ function Partner({partnerInfos}) {
         .general-partner-infos {
           text-align: left;
           display: grid;
-          grid-template-rows: 40px 150px 20px;
+          grid-template-rows: 40px 100px 20px;
           grid-template-columns: 1fr;
           gap: 1em;
           align-items: center;
