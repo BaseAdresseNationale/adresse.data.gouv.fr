@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -16,15 +16,7 @@ import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
-  const [balSamples, setBalSamples] = useState([])
   const shufflePartners = shuffle(allPartners).slice(0, 3)
-
-  useEffect(() => {
-    if (datasets) {
-      const shuffleBalSamples = () => shuffle(datasets.filter(d => d.model === 'bal-aitf')).slice(0, 3)
-      setBalSamples(shuffleBalSamples)
-    }
-  }, [datasets])
 
   return (
     <div>
@@ -110,7 +102,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
       <Section title='Quelques Bases Adresses Locales déjà publiées' background='grey'>
         <div className='bal-grid'>
-          {balSamples.map(dataset => (
+          {datasets.map(dataset => (
             <BaseAdresseLocale key={dataset.id} dataset={dataset} />
           ))}
         </div>
