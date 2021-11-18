@@ -4,7 +4,8 @@ import {Database} from 'react-feather'
 
 import Page from '@/layouts/main'
 
-import {getDatasets, getBALStats} from '@/lib/bal/api'
+import {getDatasets} from '@/lib/bal/api'
+import {getStats} from '@/lib/api-ban'
 import withErrors from '@/components/hoc/with-errors'
 
 import Head from '@/components/head'
@@ -34,7 +35,7 @@ class BasesAdressesLocalesPage extends React.Component {
 BasesAdressesLocalesPage.getInitialProps = async () => {
   return {
     datasets: await getDatasets(),
-    stats: await getBALStats()
+    stats: await getStats()
   }
 }
 
