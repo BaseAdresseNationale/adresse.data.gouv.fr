@@ -32,7 +32,7 @@ class Datasets extends React.Component {
 
 Datasets.getInitialProps = async () => {
   return {
-    datasets: await getDatasets()
+    datasets: await getDatasets({noContour: true})
   }
 }
 
