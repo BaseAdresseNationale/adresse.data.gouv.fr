@@ -8,6 +8,7 @@ import BanSearch from './ban-search'
 import Container from './container'
 import ButtonLink from './button-link'
 import CircleLink from './circle-link'
+import Frise from './frise'
 
 function Hero({title, tagline}) {
   return (
@@ -65,7 +66,7 @@ function Hero({title, tagline}) {
         </Container>
       </div>
 
-      <div className='frise' />
+      <Frise />
 
       <style jsx>{`
         .hero {
@@ -115,13 +116,6 @@ function Hero({title, tagline}) {
           font-size: 1.1em;
           text-align: center;
           padding: .5em;
-        }
-
-        .frise {
-          background: url('/images/automn-background.svg') bottom no-repeat;
-          background-size: cover;
-          height: 505px;
-          margin-bottom: -0.2em;
         }
       `}</style>
     </div>
