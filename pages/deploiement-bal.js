@@ -5,7 +5,8 @@ import Head from '@/components/head'
 import theme from '@/styles/theme'
 import {Database} from 'react-feather'
 
-import {getDatasets, getBALStats} from '@/lib/bal/api'
+import {getDatasets} from '@/lib/bal/api'
+import {getStats} from '@/lib/api-ban'
 import {numFormater} from '@/lib/format-numbers'
 
 import MapLibre from '@/components/maplibre'
@@ -181,7 +182,7 @@ function EtatDeploiement({datasets, stats}) {
 EtatDeploiement.getInitialProps = async () => {
   return {
     datasets: await getDatasets(),
-    stats: await getBALStats(),
+    stats: await getStats(),
   }
 }
 

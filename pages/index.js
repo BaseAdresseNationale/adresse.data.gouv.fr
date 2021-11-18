@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-import {getBALStats} from '@/lib/bal/api'
+import {getStats} from '@/lib/api-ban'
 
 import theme from '@/styles/theme'
 import Page from '@/layouts/main'
@@ -116,7 +116,7 @@ function Home({stats}) {
 }
 
 Home.getInitialProps = async () => {
-  const stats = await getBALStats()
+  const stats = await getStats()
   return {
     stats
   }
