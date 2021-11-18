@@ -2,35 +2,24 @@ function Frise() {
   const changeSeason = () => {
     const date = new Date()
     const month = date.getMonth() + 1
-    const day = date.getDate()
 
-    const winterMonth = [12, 1, 2, 3]
-    const springMonth = [3, 4, 5, 6]
-    const summerMonth = [6, 7, 8, 9]
+    const winterMonth = [1, 2, 3]
+    const springMonth = [4, 5, 6]
+    const summerMonth = [7, 8, 9]
 
     if (winterMonth.includes(month)) {
-      if ((month === 12 && day < 21) || (month === 3 && day > 20)) {
-        return
-      }
-
       return 'winter'
     }
 
     if (springMonth.includes(month)) {
-      if ((month === 3 && day < 20) || (month === 6 && day > 21)) {
-        return
-      }
-
       return 'spring'
     }
 
     if (summerMonth.includes(month)) {
-      if ((month === 6 && day < 21) || (month === 9 && day > 23)) {
-        return
-      }
-
       return 'summer'
     }
+
+    return 'fall'
   }
 
   return (
