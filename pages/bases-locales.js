@@ -34,7 +34,7 @@ class BasesAdressesLocalesPage extends React.Component {
 
 BasesAdressesLocalesPage.getInitialProps = async () => {
   return {
-    datasets: await getDatasets(),
+    datasets: await getDatasets({noContour: true, sample: 3}),
     stats: await getStats()
   }
 }
