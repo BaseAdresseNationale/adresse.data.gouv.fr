@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import dynamic from 'next/dynamic'
 import {Download, Edit3, Database} from 'react-feather'
 
 import theme from '@/styles/theme'
@@ -8,7 +9,9 @@ import BanSearch from './ban-search'
 import Container from './container'
 import ButtonLink from './button-link'
 import CircleLink from './circle-link'
-import Frise from './frise'
+
+/* eslint node/no-unsupported-features/es-syntax: off */
+const Frise = dynamic(import('@/components/frise'), {ssr: false})
 
 function Hero({title, tagline}) {
   return (
