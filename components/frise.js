@@ -3,28 +3,29 @@
 import {useEffect, useState} from 'react'
 
 const getSeasonColors = () => {
-  const currentDate = new Date()
-  const month = currentDate.getMonth() + 1
+  const now = new Date()
+  const year = now.getFullYear()
 
-  const winter = [1, 2, 3]
-  const spring = [4, 5, 6]
-  const summer = [7, 8, 9]
+  const winter = new Date(`${year}-12-23`)
+  const spring = new Date(`${year}-03-20`)
+  const summer = new Date(`${year}-06-20`)
+  const fall = new Date(`${year}-09-23`)
 
   const winterColors = ['#008DFF', '#8BF7DC', '#638BFC', '#ABD7FC', '#3FDEFF', '#05BDC2', '#B3FFF3', '#74BFFC', '#77F9FF', '#43B5F3', '#C4F6D8', '#9FF9E1', '#D3ECEA', '#76ADC3', '#BBD6E9', '#74BFFC']
   const springColors = ['#87D6A6', '#93F78B', '#027A00', '#FCABD8', '#F9D8FF', '#23BE65', '#F5B3FF', '#60B7B6', '#64A46A', '#3C634B', '#D29EC7', '#D8ADFF', '#BBF99F', '#C0E9BB', '#60B7B6', '#C71EA3']
   const summerColors = ['#88FF00', '#10705C', '#D4FC63', '#5AA342', '#D6FF3F', '#10705C', '#2E9E00', '#D8FFA8', '#A9BA96', '#7CC376', '#9E9D00', '#85F343', '#24EC64', '#2C884C', '#7CC376', '#C3E94F']
   const fallColors = []
 
-  if (winter.includes(month)) {
-    return winterColors
-  }
-
-  if (spring.includes(month)) {
+  if (now >= spring && now < summer) {
     return springColors
   }
 
-  if (summer.includes(month)) {
+  if (now >= summer && now < fall) {
     return summerColors
+  }
+
+  if (now >= winter && now < spring) {
+    return winterColors
   }
 
   return fallColors
