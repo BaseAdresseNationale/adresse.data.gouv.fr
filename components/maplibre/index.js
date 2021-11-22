@@ -77,7 +77,7 @@ class MapWrapper extends React.PureComponent {
   }
 
   componentDidMount() {
-    /* eslint node/no-unsupported-features/es-syntax: off */
+    /* eslint-disable node/no-unsupported-features/es-syntax */
     this.MapComponent = isWebGLSupported() ? dynamic(import('./map' /* webpackChunkName: "maplibre-gl" */), {
       ssr: false,
       loading: () => (
@@ -91,6 +91,7 @@ class MapWrapper extends React.PureComponent {
       showMap: true
     })
   }
+  /* eslint-enable node/no-unsupported-features/es-syntax */
 
   render() {
     const {...props} = this.props
