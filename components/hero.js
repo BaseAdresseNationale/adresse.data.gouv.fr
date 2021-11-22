@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import dynamic from 'next/dynamic'
 import {Download, Edit3, Database} from 'react-feather'
 
 import theme from '@/styles/theme'
@@ -8,6 +9,8 @@ import BanSearch from './ban-search'
 import Container from './container'
 import ButtonLink from './button-link'
 import CircleLink from './circle-link'
+
+const Frise = dynamic(import('@/components/frise'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 function Hero({title, tagline}) {
   return (
@@ -65,7 +68,7 @@ function Hero({title, tagline}) {
         </Container>
       </div>
 
-      <div className='frise' />
+      <Frise />
 
       <style jsx>{`
         .hero {
@@ -115,13 +118,6 @@ function Hero({title, tagline}) {
           font-size: 1.1em;
           text-align: center;
           padding: .5em;
-        }
-
-        .frise {
-          background: url('/images/automn-background.svg') bottom no-repeat;
-          background-size: cover;
-          height: 505px;
-          margin-bottom: -0.2em;
         }
       `}</style>
     </div>
