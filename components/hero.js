@@ -10,8 +10,7 @@ import Container from './container'
 import ButtonLink from './button-link'
 import CircleLink from './circle-link'
 
-/* eslint node/no-unsupported-features/es-syntax: off */
-const Frise = dynamic(import('@/components/frise'), {ssr: false})
+const Frise = dynamic(import('@/components/frise'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 function Hero({title, tagline}) {
   return (
