@@ -12,7 +12,7 @@
     "heroku-postbuild": "next build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.16.3",
     "@etalab/bal": "^1.5.1",
     "@etalab/project-legal": "^0.4.1",
     "@turf/bbox": "^6.5.0",
@@ -45,9 +45,9 @@
     "underscore.string": "^3.3.5"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/eslint-parser": "^7.15.7",
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@next/bundle-analyzer": "^11.1.2",
     "eslint": "^7.32.0",
     "eslint-config-xo-nextjs": "^3.2.0",
