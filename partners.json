@@ -650,5 +650,27 @@
         "height": 119,
         "width": 200,
         "alt": "Logo de Signa.Concept"
+    },
+    {
+        "name": "Communauté de communes Pays de Forcalquier - Montagne de Lure",
+        "link": "https://www.forcalquier-lure.com/",
+        "infos": "Le service SIG accompagne les 13 communes du territoire dans le cadre de la création et de la mise à jour de la base adresse nationale sur adresse.data.gouv.fr.",
+        "perimeter": "Communauté de communes Pays de Forcalquier - Montagne de Lure",
+        "codeDepartement": [
+            "04"
+        ],
+        "echelon": 1,
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/forcalquier-lure.jpg",
+        "height": 103,
+        "width": 200,
+        "alt": "Logo de Communauté de communes Pays de Forcalquier et Montagne de Lure"
     }
 ]
