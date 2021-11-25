@@ -80,7 +80,7 @@ function Partner({partnerInfos}) {
         .general-partner-infos {
           text-align: left;
           display: grid;
-          grid-template-rows: 75px 100px 20px;
+          grid-template-rows: 40px 100px 20px;
           grid-template-columns: 1fr;
           gap: 1em;
           align-items: center;
@@ -99,6 +99,10 @@ function Partner({partnerInfos}) {
           color: ${colors.darkGrey};
         }
 
+        .logo {
+          margin-top: 2em;
+        }
+
         .display-info-container {
           width: 100%;
           display: grid;
@@ -108,7 +112,7 @@ function Partner({partnerInfos}) {
         }
 
         .button-container {
-          margin-top: 4em;
+          margin-top: 7em;
           display: grid;
           grid-template-columns: 1fr 0.1fr;
           align-items: center;
