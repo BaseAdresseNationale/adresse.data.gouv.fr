@@ -80,7 +80,7 @@ function Partner({partnerInfos}) {
         .general-partner-infos {
           text-align: left;
           display: grid;
-          grid-template-rows: 40px 100px 20px;
+          grid-template-rows: 75px 100px 20px;
           grid-template-columns: 1fr;
           gap: 1em;
           align-items: center;
@@ -92,6 +92,7 @@ function Partner({partnerInfos}) {
           font-size: 1em;
           font-weight: bold;
           font-style: normal;
+          align-self: flex-start;
         }
 
         a {
