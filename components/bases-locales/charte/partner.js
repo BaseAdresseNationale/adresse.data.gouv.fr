@@ -92,10 +92,15 @@ function Partner({partnerInfos}) {
           font-size: 1em;
           font-weight: bold;
           font-style: normal;
+          align-self: flex-start;
         }
 
         a {
           color: ${colors.darkGrey};
+        }
+
+        .logo {
+          margin-top: 2em;
         }
 
         .display-info-container {
@@ -107,7 +112,7 @@ function Partner({partnerInfos}) {
         }
 
         .button-container {
-          margin-top: 4em;
+          margin-top: 7em;
           display: grid;
           grid-template-columns: 1fr 0.1fr;
           align-items: center;
