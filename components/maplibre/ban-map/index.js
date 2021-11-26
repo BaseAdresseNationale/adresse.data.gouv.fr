@@ -350,7 +350,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   return (
     <>
       <div className='maplibregl-ctrl-group maplibregl-ctrl'>
-        <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+        <CenterControl
+          isDisabled={isCenterControlDisabled}
+          handleClick={centerAddress}
+          isMultiPositions={isMultiPositions}
+        />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
         {isMobile && address && (
           <OpenGPS coordinates={{lat: address.lat, lon: address.lon}} isSafariBrowser={isSafariBrowser} />
