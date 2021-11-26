@@ -48,6 +48,50 @@ const getColors = () => {
 
   return [...array]
 }
+
+export const positionsCircleLayer = {
+  id: 'positions',
+  source: 'positions',
+  type: 'circle',
+  paint: {
+    'circle-color': ['match', ['get', 'type'], ...getColors(), '#000'],
+    'circle-stroke-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ],
+    'circle-stroke-width': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      3,
+      1
+    ],
+    'circle-radius': {
+      stops: [
+        [12, 0.8],
+        [17, 6]
+      ]
+    }
+  }
+}
+
+export const positionsLabelLayer = {
+  id: 'positions-label',
+  source: 'positions',
+  type: 'symbol',
+  paint: {
+    'text-color': ['match', ['get', 'type'], ...getColors(), '#000']
+  },
+  layout: {
+    'text-font': ['Noto Sans Bold'],
+    'text-field': ['get', 'type'],
+    'text-ignore-placement': false,
+    'text-variable-anchor': ['bottom'],
+    'text-radial-offset': 1
+  }
+}
+
 export const adresseCircleLayer = {
   id: 'adresse',
   source: 'base-adresse-nationale',
