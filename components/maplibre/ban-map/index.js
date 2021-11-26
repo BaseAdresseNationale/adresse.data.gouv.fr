@@ -303,7 +303,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [setSources, setLayers])
 
   useEffect(() => {
-    if (map && address?.type === 'numero' && isSourceLoaded) {
+    if (map && address?.type === 'numero' && isSourceLoaded && isMultiPositions) {
       const positionsSource = map.getSource('positions')
 
       if (positionsSource) {
@@ -324,7 +324,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         })
       }
     }
-  }, [map, address])
+  }, [map, address, isMultiPositions])
 
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
