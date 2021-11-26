@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const positionsColors = {
+export const positionsColors = {
   entrée: {name: 'Entrée', color: '#00CED1'},
   'délivrance postale': {name: 'Délivrance postale', color: '#9370DB'},
   bâtiment: {name: 'Bâtiment', color: '#CD5C5C'},

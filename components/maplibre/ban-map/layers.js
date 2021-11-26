@@ -1,4 +1,5 @@
 import theme from '@/styles/theme'
+import {positionsColors} from '@/components/base-adresse-nationale/positions'
 
 export const sources = {
   bal: {name: 'Base Adresse Locale', color: '#4dac26'},
@@ -39,6 +40,14 @@ const TOPONYME_MAX = NUMEROS_MIN + 2
 const TOPONYME_COLOR = '#7c5050'
 export const PARCELLES_MINZOOM = 14
 
+const getColors = () => {
+  const array = []
+  Object.keys(positionsColors).forEach(key => {
+    array.push(key, positionsColors[key].color)
+  })
+
+  return [...array]
+}
 export const adresseCircleLayer = {
   id: 'adresse',
   source: 'base-adresse-nationale',
