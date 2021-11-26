@@ -672,5 +672,28 @@
         "height": 103,
         "width": 200,
         "alt": "Logo de Communauté de communes Pays de Forcalquier et Montagne de Lure"
+    },
+    {
+        "name": "Colmar Agglomération",
+        "link": "https://www.agglo-colmar.fr/",
+        "infos": "Le service SIG de Colmar Agglomération assure l’harmonisation, l’intégration et la diffusion des données géographiques ainsi que l'animation et le conseil autour de cette thématique auprès des différentes collectivités du territoire.",
+        "perimeter": "Communes de l'agglomération de Colmar",
+        "codeDepartement": [
+            "68"
+        ],
+        "echelon": 1,
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "diffusion",
+            "animation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/colmar.jpg",
+        "height": 115,
+        "width": 200,
+        "alt": "Logo de Colmar Agglomération"
     }
 ]
