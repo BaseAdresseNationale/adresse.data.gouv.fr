@@ -12,6 +12,8 @@ import MapLegends from '../map-legends'
 import OpenGPS from '../open-gps'
 
 import {
+  positionsCircleLayer,
+  positionsLabelLayer,
   adresseCircleLayer,
   adresseLabelLayer,
   adresseCompletLabelLayer,
@@ -89,6 +91,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
+  const isMultiPositions = address?.positions?.length > 1
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -202,8 +205,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       } else {
         map.setFilter('parcelle-highlighted', ['==', ['get', 'id'], ''])
       }
+
+      if (isMultiPositions) {
+        map.setFilter('adresse', ['!=', ['get', 'id'], address.id])
+        map.setFilter('adresse-label', ['!=', ['get', 'id'], address.id])
+      }
     }
-  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
+  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded, isMultiPositions])
 
   useEffect(() => {
     map.off('dragend', handleZoom)
@@ -283,7 +291,9 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       adresseLabelLayer,
       adresseCompletLabelLayer,
       voieLayer,
-      toponymeLayer
+      toponymeLayer,
+      positionsLabelLayer,
+      positionsCircleLayer
     ])
   }, [setSources, setLayers])
 
@@ -313,13 +323,19 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
       if (address && address.type === 'numero') {
-        const {id} = address
-        map.setFilter('adresse-complet-label', [
-          '==', ['get', 'id'], id
-        ])
-        map.setFilter('adresse-label', [
-          '!=', ['get', 'id'], id
-        ])
+        if (isMultiPositions) {
+          const {id} = address
+          map.setFilter('positions', ['==', ['get', 'id'], id])
+          map.setFilter('positions-label', ['==', ['get', 'id'], id])
+        } else {
+          const {id} = address
+          map.setFilter('adresse-complet-label', [
+            '==', ['get', 'id'], id
+          ])
+          map.setFilter('adresse-label', [
+            '!=', ['get', 'id'], id
+          ])
+        }
       } else {
         map.setFilter('adresse-complet-label', [
           '==', ['get', 'id'], ''
@@ -329,7 +345,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         ])
       }
     }
-  }, [map, isSourceLoaded, address, setLayers])
+  }, [map, isSourceLoaded, address, setLayers, isMultiPositions])
 
   return (
     <>
