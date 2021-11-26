@@ -207,8 +207,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       }
 
       if (isMultiPositions) {
+        map.setFilter('positions', ['==', ['get', 'id'], address.id])
+        map.setFilter('positions-label', ['==', ['get', 'id'], address.id])
         map.setFilter('adresse', ['!=', ['get', 'id'], address.id])
         map.setFilter('adresse-label', ['!=', ['get', 'id'], address.id])
+      } else {
+        map.setFilter('positions', ['==', ['get', 'id'], ''])
+        map.setFilter('positions-label', ['==', ['get', 'id'], ''])
       }
     }
   }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded, isMultiPositions])
@@ -300,6 +305,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   useEffect(() => {
     if (map && address?.type === 'numero' && isSourceLoaded) {
       const positionsSource = map.getSource('positions')
+
       if (positionsSource) {
         positionsSource.setData({
           type: 'FeatureCollection',
@@ -323,19 +329,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
       if (address && address.type === 'numero') {
-        if (isMultiPositions) {
-          const {id} = address
-          map.setFilter('positions', ['==', ['get', 'id'], id])
-          map.setFilter('positions-label', ['==', ['get', 'id'], id])
-        } else {
-          const {id} = address
-          map.setFilter('adresse-complet-label', [
-            '==', ['get', 'id'], id
-          ])
-          map.setFilter('adresse-label', [
-            '!=', ['get', 'id'], id
-          ])
-        }
+        const {id} = address
+        map.setFilter('adresse-complet-label', [
+          '==', ['get', 'id'], id
+        ])
+        map.setFilter('adresse-label', [
+          '!=', ['get', 'id'], id
+        ])
       } else {
         map.setFilter('adresse-complet-label', [
           '==', ['get', 'id'], ''
@@ -345,7 +345,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         ])
       }
     }
-  }, [map, isSourceLoaded, address, setLayers, isMultiPositions])
+  }, [map, isSourceLoaded, address, setLayers])
 
   return (
     <>
