@@ -251,22 +251,32 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setSources([{
-      name: 'base-adresse-nationale',
-      type: 'vector',
-      format: 'pbf',
-      tiles: [
-        'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
-      ],
-      minzoom: 10,
-      maxzoom: 14,
-      promoteId: 'id'
-    },
-    {
-      name: 'cadastre',
-      type: 'vector',
-      url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
-    }])
+    setSources([
+      {
+        name: 'base-adresse-nationale',
+        type: 'vector',
+        format: 'pbf',
+        tiles: [
+          'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
+        ],
+        minzoom: 10,
+        maxzoom: 14,
+        promoteId: 'id'
+      },
+      {
+        name: 'cadastre',
+        type: 'vector',
+        url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
+      },
+      {
+        name: 'positions',
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: []
+        }
+      }
+    ])
     setLayers([
       ...cadastreLayers,
       adresseCircleLayer,
@@ -276,6 +286,29 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       toponymeLayer
     ])
   }, [setSources, setLayers])
+
+  useEffect(() => {
+    if (map && address?.type === 'numero' && isSourceLoaded) {
+      const positionsSource = map.getSource('positions')
+      if (positionsSource) {
+        positionsSource.setData({
+          type: 'FeatureCollection',
+          features: address.positions.map(p => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: p.position.coordinates
+            },
+            properties: {
+              ...address,
+              type: p.positionType,
+              nomVoie: address.voie.nomVoie
+            }
+          }))
+        })
+      }
+    }
+  }, [map, address])
 
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
@@ -346,10 +379,12 @@ BanMap.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
+    positions: PropTypes.object,
     parcelles: PropTypes.array,
     displayBBox: PropTypes.array,
     lat: PropTypes.number,
-    lon: PropTypes.number
+    lon: PropTypes.number,
+    voie: PropTypes.object
   }),
   map: PropTypes.object.isRequired,
   isSourceLoaded: PropTypes.bool,
