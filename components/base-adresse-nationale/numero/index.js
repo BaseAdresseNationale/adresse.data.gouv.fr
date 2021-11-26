@@ -10,12 +10,13 @@ import {getNumeroComplet} from '@/lib/ban'
 
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
+import Positions from '../positions'
 
 import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -52,6 +53,9 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, sourcePosition
         <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
+        {positions?.length > 1 && (
+          <Positions positions={positions} />
+        )}
       </div>
 
       <CoordinatesCopy
@@ -137,6 +141,7 @@ Numero.propTypes = {
   certifie: PropTypes.bool.isRequired,
   sourcePosition: PropTypes.string.isRequired,
   parcelles: PropTypes.array.isRequired,
+  positions: PropTypes.array,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,
