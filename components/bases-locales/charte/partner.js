@@ -1,10 +1,9 @@
-
 import {useState} from 'react'
 import Image from 'next/image'
 import PropTypes from 'prop-types'
-
-import colors from '@/styles/colors'
 import {ChevronDown, ChevronUp} from 'react-feather'
+
+import theme from '@/styles/theme'
 
 const formatService = service => {
   if (service.includes('’')) {
@@ -44,13 +43,12 @@ function Partner({partnerInfos}) {
             )}
             <div className='chevron'>
               {isDisplay ? (
-                <ChevronUp size={18} color={`${colors.lightBlue}`} />
+                <ChevronUp size={18} color={`${theme.colors.lightBlue}`} />
               ) : (
-                <ChevronDown size={18} color={`${colors.lightBlue}`} />
+                <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
               )}
             </div>
           </button>
-          <div className='separator' />
         </div>
       </div>
       <div className={isDisplay ? 'infos-container' : 'hidden'}>
@@ -66,6 +64,7 @@ function Partner({partnerInfos}) {
           })}
         </div>
       </div>
+
       <style jsx>{`
         .partner {
           max-width: 300px;
@@ -80,10 +79,9 @@ function Partner({partnerInfos}) {
         .general-partner-infos {
           text-align: left;
           display: grid;
-          grid-template-rows: 40px 100px 20px;
+          grid-template-rows: 40px 124px 20px;
           grid-template-columns: 1fr;
-          gap: 1em;
-          align-items: center;
+          gap: 1.5em;
           width: 100%;
         }
 
@@ -96,11 +94,11 @@ function Partner({partnerInfos}) {
         }
 
         a {
-          color: ${colors.darkGrey};
+          color: ${theme.colors.darkerGrey};
         }
 
         .logo {
-          margin-top: 2em;
+          align-self: center;
         }
 
         .display-info-container {
@@ -108,23 +106,23 @@ function Partner({partnerInfos}) {
           display: grid;
           grid-template-rows: 1fr 0.5fr;
           font-style: italic;
-          color: ${colors.darkerGrey};
+          color: ${theme.colors.darkerGrey};
         }
 
         .button-container {
-          margin-top: 7em;
           display: grid;
           grid-template-columns: 1fr 0.1fr;
           align-items: center;
           justify-items: self-start;
           border-style: none;
           background-color: transparent;
-          border-bottom: 1px solid ${colors.lightBlue};
+          border-bottom: 2px solid ${theme.colors.lightBlue};
+          box-shadow: 0px 14px 21px -11px ${theme.boxShadow};
         }
 
         .chevron {
           justify-self: end;
-            padding-top: 0.4em;
+          padding-top: 0.4em;
         }
 
         .infos-container {
@@ -132,13 +130,13 @@ function Partner({partnerInfos}) {
           display: grid;
           grid-template-rows: 1fr auto;
           gap: 0.5em;
-          margin-top: 1em;
           animation: fadeIn ease 1s;
+          margin-top: 20px;
         }
 
         p {
           font-style: italic;
-          color:${colors.darkGrey};
+          color:${theme.colors.darkerGrey};
         }
 
         .title {
@@ -146,14 +144,14 @@ function Partner({partnerInfos}) {
           font-weight: normal;
           margin: 0;
           font-style: italic;
-          color: ${colors.almostBlack};
+          color: ${theme.colors.almostBlack};
         }
 
         .perimeter p, .services p {
           margin: 0;
           font-size: 0.9em;
           font-weight: bold;
-          color: ${colors.almostBlack};
+          color: ${theme.colors.almostBlack};
         }
 
         .hidden {
