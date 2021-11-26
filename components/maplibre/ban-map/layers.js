@@ -80,11 +80,18 @@ export const positionsLabelLayer = {
   id: 'positions-label',
   source: 'positions',
   type: 'symbol',
+  minzoom: NUMEROS_MIN,
   paint: {
     'text-color': ['match', ['get', 'type'], ...getColors(), '#000']
   },
   layout: {
     'text-font': ['Noto Sans Bold'],
+    'text-size': {
+      stops: [
+        [NUMEROS_MIN, 13],
+        [19, 16]
+      ]
+    },
     'text-field': ['get', 'type'],
     'text-ignore-placement': false,
     'text-variable-anchor': ['bottom'],
