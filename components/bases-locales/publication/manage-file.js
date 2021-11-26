@@ -25,7 +25,7 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
       }
 
       if (report.parseOk) {
-        if (report.profilesValidation['1.2-etalab'].isValid) {
+        if (report.profilesValidation['1.3-etalab'].isValid) {
           handleFile(file)
         } else {
           setReport(report)

@@ -12,7 +12,7 @@ import FileValidation from './file-validation'
 
 function Report({report}) {
   const {fileValidation, rows, fields, notFoundFields, profilesValidation} = report
-  const [profile, setProfile] = useState('1.2-etalab')
+  const [profile, setProfile] = useState('1.3-etalab')
   const [profileReport, setProfileReport] = useState(null)
 
   useEffect(() => {
