@@ -246,8 +246,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
       map.off('mouseleave', 'adresse', onLeave)
       map.off('mouseleave', 'adresse-label', onLeave)
-      map.off('mouseleave', 'adresse', onLeave)
-      map.off('mouseleave', 'adresse-label', onLeave)
+      map.off('mouseleave', 'voie', onLeave)
+      map.off('mouseleave', 'toponyme', onLeave)
 
       map.off('click', 'adresse', e => handleClick(e, onSelect))
       map.off('click', 'adresse-label', e => handleClick(e, onSelect))
