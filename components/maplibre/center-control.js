@@ -7,7 +7,7 @@ function CenterControl({isDisabled, handleClick, isMultiPositions}) {
       disabled={isDisabled}
       type='button'
       className='maplibregl-ctrl'
-      title={`Recentrer la carte sur ${isMultiPositions ? `la position principale` : `l’adresse`}`}
+      title={`Recentrer la carte sur ${isMultiPositions ? 'la position principale' : 'l’adresse'}`}
       onClick={handleClick}
     >
       <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} />
@@ -17,11 +17,13 @@ function CenterControl({isDisabled, handleClick, isMultiPositions}) {
 
 CenterControl.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  isMultiPositions: PropTypes.bool
 }
 
 CenterControl.defaultProps = {
-  isDisabled: false
+  isDisabled: false,
+  isMultiPositions: false
 }
 
 export default CenterControl
