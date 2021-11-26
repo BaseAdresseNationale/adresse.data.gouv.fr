@@ -12,6 +12,7 @@ import DeviceContext from '@/contexts/device'
 function BaseAdresseNationale({address}) {
   const {isMobileDevice} = useContext(DeviceContext)
   const [initialHash, setInitialHash] = useState(null)
+  const [bBox, setBBox] = useState()
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
@@ -66,11 +67,25 @@ function BaseAdresseNationale({address}) {
     }
   }, [address, initialHash])
 
+  useEffect(() => {
+    if (!initialHash && address) {
+      if (address?.positions?.length > 1) {
+        const coordinates = []
+        address.positions.forEach(p => {
+          coordinates.push(...p.position.coordinates)
+        })
+        setBBox(coordinates)
+      } else {
+        setBBox(address.displayBBox)
+      }
+    }
+  }, [initialHash, address])
+
   return (
     <Page title={title} description={description} hasFooter={false}>
       <Layout
         address={address}
-        bbox={!initialHash && address ? address.displayBBox : null}
+        bbox={bBox || null}
         handleSelect={selectAddress}
         hash={initialHash}
       />
@@ -93,6 +108,7 @@ BaseAdresseNationale.propTypes = {
     codeCommune: PropTypes.string,
     nbNumeros: PropTypes.number,
     nbVoies: PropTypes.number,
+    positions: PropTypes.object,
     commune: PropTypes.shape({
       nom: PropTypes.string,
       code: PropTypes.string
