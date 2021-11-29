@@ -286,7 +286,18 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: []
+          features: isMultiPositions ? address.positions.map(p => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: p.position.coordinates
+            },
+            properties: {
+              ...address,
+              type: p.positionType,
+              nomVoie: address.voie.nomVoie
+            }
+          })) : []
         }
       }
     ])
@@ -300,31 +311,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       positionsLabelLayer,
       positionsCircleLayer
     ])
-  }, [setSources, setLayers])
-
-  useEffect(() => {
-    if (map && address?.type === 'numero' && isSourceLoaded && isMultiPositions) {
-      const positionsSource = map.getSource('positions')
-
-      if (positionsSource) {
-        positionsSource.setData({
-          type: 'FeatureCollection',
-          features: address.positions.map(p => ({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: p.position.coordinates
-            },
-            properties: {
-              ...address,
-              type: p.positionType,
-              nomVoie: address.voie.nomVoie
-            }
-          }))
-        })
-      }
-    }
-  }, [map, address, isMultiPositions])
+  }, [setSources, setLayers, address, isMultiPositions])
 
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
