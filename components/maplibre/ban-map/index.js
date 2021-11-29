@@ -85,6 +85,23 @@ const isFeatureContained = (container, content) => {
   return booleanContains(polygonA, polygonB)
 }
 
+const getPositionsFeatures = address => {
+  if (address?.positions?.length > 1) {
+    return address.positions.map(p => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: p.position.coordinates
+      },
+      properties: {
+        ...address,
+        type: p.positionType,
+        nomVoie: address.voie.nomVoie
+      }
+    }))
+  }
+}
+
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
@@ -92,6 +109,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
   const isMultiPositions = address?.positions?.length > 1
+  const positionsSource = map.getSource('positions')
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -286,18 +304,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: isMultiPositions ? address.positions.map(p => ({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: p.position.coordinates
-            },
-            properties: {
-              ...address,
-              type: p.positionType,
-              nomVoie: address.voie.nomVoie
-            }
-          })) : []
+          features: []
         }
       }
     ])
@@ -311,7 +318,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       positionsLabelLayer,
       positionsCircleLayer
     ])
-  }, [setSources, setLayers, address, isMultiPositions])
+  }, [setSources, setLayers])
 
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
@@ -333,6 +340,15 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       }
     }
   }, [map, isSourceLoaded, address, setLayers])
+
+  useEffect(() => {
+    if (map && address?.type === 'numero' && positionsSource) {
+      positionsSource.setData({
+        type: 'FeatureCollection',
+        features: getPositionsFeatures(address)
+      })
+    }
+  }, [map, address, positionsSource])
 
   return (
     <>
