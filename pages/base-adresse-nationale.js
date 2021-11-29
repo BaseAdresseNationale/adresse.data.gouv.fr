@@ -1,6 +1,7 @@
 import {useState, useCallback, useEffect, useMemo, useContext} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
+import maplibregl from 'maplibre-gl'
 
 import {getAddress} from '@/lib/api-ban'
 
@@ -72,9 +73,11 @@ function BaseAdresseNationale({address}) {
       if (address?.positions?.length > 1) {
         const coordinates = []
         address.positions.forEach(p => {
-          coordinates.push(...p.position.coordinates)
+          coordinates.push(p.position.coordinates)
         })
-        setBBox(coordinates)
+
+        const llb = new maplibregl.LngLatBounds(coordinates)
+        setBBox(llb)
       } else {
         setBBox(address.displayBBox)
       }
