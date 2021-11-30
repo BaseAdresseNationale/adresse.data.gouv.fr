@@ -108,7 +108,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
-  const isMultiPositions = address?.positions?.length > 1
   const positionsSource = map.getSource('positions')
 
   const onLeave = useCallback(() => {
@@ -224,7 +223,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         map.setFilter('parcelle-highlighted', ['==', ['get', 'id'], ''])
       }
 
-      if (isMultiPositions) {
+      if (address?.positions?.length > 1) {
         map.setFilter('positions', ['==', ['get', 'id'], address.id])
         map.setFilter('positions-label', ['==', ['get', 'id'], address.id])
         map.setFilter('adresse', ['!=', ['get', 'id'], address.id])
@@ -234,7 +233,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         map.setFilter('positions-label', ['==', ['get', 'id'], ''])
       }
     }
-  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded, isMultiPositions])
+  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
 
   useEffect(() => {
     map.off('dragend', handleZoom)
@@ -356,7 +355,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         <CenterControl
           isDisabled={isCenterControlDisabled}
           handleClick={centerAddress}
-          isMultiPositions={isMultiPositions}
+          isMultiPositions={address?.positions?.length > 1}
         />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
         {isMobile && address && (
