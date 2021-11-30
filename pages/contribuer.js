@@ -4,6 +4,7 @@ import Page from '@/layouts/main'
 import theme from '@/styles/theme'
 import Head from '@/components/head'
 import Section from '@/components/section'
+import SearchCommuneContact from '@/components/search-commune-contact'
 import ButtonLink from '@/components/button-link'
 import SectionText from '@/components/section-text'
 
@@ -35,6 +36,7 @@ function Contribuer() {
         <SectionText >
           <p>Il n’existe pas encore de <strong>dispositif national</strong> permettant aux citoyens de contribuer directement, mais de nombreux guichets de signalement existent à l’échelon local. Ce site a vocation à les référencer à moyen terme.</p>
           <p>En attendant, <strong>contactez votre mairie ou votre EPCI</strong>, et parlez-leur de nous !</p>
+          <SearchCommuneContact />
         </SectionText>
       </Section>
 
