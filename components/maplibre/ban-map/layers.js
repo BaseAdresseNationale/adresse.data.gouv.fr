@@ -49,12 +49,14 @@ const getColors = () => {
   return [...array]
 }
 
+const colors = getColors()
+
 export const positionsCircleLayer = {
   id: 'positions',
   source: 'positions',
   type: 'circle',
   paint: {
-    'circle-color': ['match', ['get', 'type'], ...getColors(), '#000'],
+    'circle-color': ['match', ['get', 'type'], ...colors, '#000'],
     'circle-stroke-color': [
       'case',
       ['boolean', ['feature-state', 'hover'], false],
@@ -82,7 +84,7 @@ export const positionsLabelLayer = {
   type: 'symbol',
   minzoom: NUMEROS_MIN,
   paint: {
-    'text-color': ['match', ['get', 'type'], ...getColors(), '#000']
+    'text-color': ['match', ['get', 'type'], ...colors, '#000']
   },
   layout: {
     'text-font': ['Noto Sans Bold'],
