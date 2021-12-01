@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {uniqueId} from 'lodash'
 
 export const positionsColors = {
   entrée: {name: 'Entrée', color: '#00CED1'},
@@ -17,7 +18,7 @@ function PositionsTypes({positions}) {
     <div className='positions'>
       <div className='title'>Types de positions : </div>
       {positions.map(p => (
-        <span key={`${p.position.coordinates[0]}-${p.position.coordinates[1]}`} className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
+        <span key={uniqueId('_position')} className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
           {positionsColors[p.positionType].name}
         </span>
       ))}
