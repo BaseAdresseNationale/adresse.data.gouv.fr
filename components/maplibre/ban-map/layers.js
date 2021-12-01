@@ -94,7 +94,12 @@ export const positionsLabelLayer = {
         [19, 16]
       ]
     },
-    'text-field': ['get', 'type'],
+    'text-field': [
+      'format',
+      ['get', 'type'],
+      ' - ',
+      ['get', 'numero'],
+    ],
     'text-ignore-placement': false,
     'text-variable-anchor': ['bottom'],
     'text-radial-offset': 1
