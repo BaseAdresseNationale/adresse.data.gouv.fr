@@ -46,7 +46,10 @@ function PositionsTypes({positions}) {
 }
 
 PositionsTypes.propTypes = {
-  positions: PropTypes.arrayOf(PropTypes.object).isRequired
+  positions: PropTypes.arrayOf(PropTypes.shape({
+    position: PropTypes.object.isRequired,
+    positionType: PropTypes.string.isRequired
+  })).isRequired
 }
 
 export default PositionsTypes
