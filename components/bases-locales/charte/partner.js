@@ -117,7 +117,7 @@ function Partner({partnerInfos}) {
           border-style: none;
           background-color: transparent;
           border-bottom: 2px solid ${theme.colors.lightBlue};
-          box-shadow: 0px 14px 21px -11px ${theme.boxShadow};
+          box-shadow: 0px 14px 21px -15px ${theme.boxShadow};
         }
 
         .chevron {
