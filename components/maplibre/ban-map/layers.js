@@ -1,5 +1,5 @@
 import theme from '@/styles/theme'
-import {positionsColors} from '@/components/base-adresse-nationale/positions'
+import {positionsColors} from '@/components/base-adresse-nationale/positions-types'
 
 export const sources = {
   bal: {name: 'Base Adresse Locale', color: '#4dac26'},

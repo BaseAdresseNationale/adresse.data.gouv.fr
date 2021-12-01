@@ -108,7 +108,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
-  const positionsSource = map.getSource('positions')
+  const [positionsSource, setPositionsSource] = useState()
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -348,6 +348,12 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       })
     }
   }, [map, address, positionsSource])
+
+  useEffect(() => {
+    if (isSourceLoaded) {
+      setPositionsSource(map.getSource('positions'))
+    }
+  }, [map, isSourceLoaded])
 
   return (
     <>
