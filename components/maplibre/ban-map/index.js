@@ -224,13 +224,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       }
 
       if (address?.positions?.length > 1) {
-        map.setFilter('positions', ['==', ['get', 'id'], address.id])
-        map.setFilter('positions-label', ['==', ['get', 'id'], address.id])
         map.setFilter('adresse', ['!=', ['get', 'id'], address.id])
         map.setFilter('adresse-label', ['!=', ['get', 'id'], address.id])
-      } else {
-        map.setFilter('positions', ['==', ['get', 'id'], ''])
-        map.setFilter('positions-label', ['==', ['get', 'id'], ''])
       }
     }
   }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
