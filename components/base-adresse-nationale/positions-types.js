@@ -12,7 +12,7 @@ export const positionsColors = {
   inconnue: {name: 'Inconnu', color: '#FF6347'}
 }
 
-function Positions({positions}) {
+function PositionsTypes({positions}) {
   return (
     <div className='positions'>
       <div className='title'>Types de positions : </div>
@@ -44,8 +44,8 @@ function Positions({positions}) {
   )
 }
 
-Positions.propTypes = {
+PositionsTypes.propTypes = {
   positions: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
-export default Positions
+export default PositionsTypes

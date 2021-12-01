@@ -10,7 +10,7 @@ import {getNumeroComplet} from '@/lib/ban'
 
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
-import Positions from '../positions'
+import PositionsTypes from '../positions-types'
 
 import CoordinatesCopy from './coordinates-copy'
 
@@ -54,7 +54,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, sou
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
         {positions?.length > 1 && (
-          <Positions positions={positions} />
+          <PositionsTypes positions={positions} />
         )}
       </div>
 
