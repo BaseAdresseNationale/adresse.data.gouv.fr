@@ -13,7 +13,7 @@ import DeviceContext from '@/contexts/device'
 function BaseAdresseNationale({address}) {
   const {isMobileDevice} = useContext(DeviceContext)
   const [initialHash, setInitialHash] = useState(null)
-  const [bBox, setBBox] = useState()
+  const [bBox, setBBox] = useState(null)
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
@@ -81,6 +81,8 @@ function BaseAdresseNationale({address}) {
       } else {
         setBBox(address.displayBBox)
       }
+    } else {
+      setBBox(null)
     }
   }, [initialHash, address])
 
@@ -88,7 +90,7 @@ function BaseAdresseNationale({address}) {
     <Page title={title} description={description} hasFooter={false}>
       <Layout
         address={address}
-        bbox={bBox || null}
+        bbox={bBox}
         handleSelect={selectAddress}
         hash={initialHash}
       />
