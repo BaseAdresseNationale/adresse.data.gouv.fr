@@ -695,5 +695,27 @@
         "height": 124,
         "width": 216,
         "alt": "Logo de Colmar Agglomération"
+    },
+    {
+        "name": "Clermont Auvergne Métropole",
+        "link": "https://www.clermontmetropole.eu/accueil/",
+        "infos": "Clermont Auvergne Métropole accompagne les communes sur un outil mutualisé sur QGIS et Postgis, et assure la publication de leurs Bases Adresses Locales.",
+        "perimeter": "Communes de Clermont Auvergne Métropole",
+        "codeDepartement": [
+            "63"
+        ],
+        "echelon": 1,
+        "isPerimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/clermont.png",
+        "height": 124,
+        "width": 195,
+        "alt": "Logo de Clermont Auvergne Métropole"
     }
 ]
