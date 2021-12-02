@@ -2,30 +2,24 @@ import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
 
 import colors from '@/styles/colors'
-import allPartners from 'partners.json'
 
-function Partners({partnersList}) {
-  const companyPartners = allPartners.filter(partner => partner.isCompany === true)
-  const partners = allPartners.filter(partner => partner.isCompany === false)
+function Partners({partnersList, isAllPartners}) {
+  const companyPartners = partnersList.filter(partner => partner.isCompany === true)
+  const partners = isAllPartners ? partnersList.filter(partner => partner.isCompany === false) : partnersList
 
   return (
-    <div>
-      {partnersList ? (
-        <div className='partners-container'>
-          {partnersList.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-        </div>
-      ) : (
-        <>
+    <>
+      <div className='partners-container'>
+        {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+      </div>
+
+      {isAllPartners && (
+        <div className='compagny'>
+          <h3 className='subtitle'>Sociétés</h3>
           <div className='partners-container'>
-            {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+            {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
-          <div className='compagny'>
-            <h3 className='subtitle'>Sociétés</h3>
-            <div className='partners-container'>
-              {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-            </div>
-          </div>
-        </>
+        </div>
       )}
 
       <style jsx>{`
@@ -36,12 +30,14 @@ function Partners({partnersList}) {
           margin-top: 4em;
           gap: 8em;
         }
+
         .compagny {
           margin-top: 8em;
           border-top: ${colors.lighterGrey} solid;
           display: grid;
           grid-template-rows: 50px 1fr;
         }
+
         .subtitle {
           margin-top: 2em;
           color: ${colors.black};
@@ -49,16 +45,18 @@ function Partners({partnersList}) {
           align-self: center;
         }
       `}</style>
-    </div>
+    </>
   )
 }
 
 Partners.propTypes = {
   partnersList: PropTypes.array,
+  isAllPartners: PropTypes.bool
 }
 
 Partner.defaultProps = {
   partnersList: null,
+  isAllPartners: false
 }
 
 export default Partners
