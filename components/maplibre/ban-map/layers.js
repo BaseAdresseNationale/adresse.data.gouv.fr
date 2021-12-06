@@ -96,9 +96,9 @@ export const positionsLabelLayer = {
     },
     'text-field': [
       'format',
-      ['get', 'type'],
-      ' - ',
       ['get', 'numero'],
+      ' - ',
+      ['get', 'type'],
     ],
     'text-ignore-placement': false,
     'text-variable-anchor': ['bottom'],
