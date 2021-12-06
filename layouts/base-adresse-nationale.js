@@ -7,6 +7,7 @@ import theme from '@/styles/theme'
 import MapLibre from '@/components/maplibre'
 import BanSearch from '@/components/ban-search'
 import BanMap from '@/components/maplibre/ban-map'
+import ButtonLink from '@/components/button-link'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
@@ -130,7 +131,10 @@ export function Desktop({address, bbox, handleSelect, hash}) {
           <BanSearch />
         </div>
         <Explorer address={address} handleSelect={handleSelect} />
-        <div className='footer' />
+        <div className='footer'>
+          <p>Pour mettre à jour vos adresses, cliquez ici : </p>
+          <ButtonLink href='https://mes-adresses.data.gouv.fr'>mes-adresses.data.gouv.fr</ButtonLink>
+        </div>
       </div>
 
       <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
@@ -162,6 +166,9 @@ export function Desktop({address, bbox, handleSelect, hash}) {
 
         .footer {
           margin: 0 -0.5em;
+          padding: 1em;
+          text-align: center;
+          font-size: .8em;
         }
         `}</style>
     </div>
