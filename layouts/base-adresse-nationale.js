@@ -133,7 +133,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <Explorer address={address} handleSelect={handleSelect} />
         <div className='footer'>
           <p>Pour mettre à jour vos adresses, cliquez ici : </p>
-          <ButtonLink href='https://mes-adresses.data.gouv.fr'>mes-adresses.data.gouv.fr</ButtonLink>
+          <ButtonLink href='https://adresse.data.gouv.fr/gerer-mes-adresses'>Gérer mes adresses</ButtonLink>
         </div>
       </div>
 
