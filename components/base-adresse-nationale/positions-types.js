@@ -18,7 +18,7 @@ function PositionsTypes({positions}) {
     <div className='positions'>
       <div className='title'>Types de positions : </div>
       {positions.map(p => (
-        <span key={uniqueId('_position')} className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
+        <span key={uniqueId()} className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
           {positionsColors[p.positionType].name}
         </span>
       ))}
