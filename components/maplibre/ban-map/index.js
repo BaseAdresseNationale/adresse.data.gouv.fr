@@ -108,7 +108,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
-  const [positionsSource, setPositionsSource] = useState()
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -298,7 +297,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: []
+          features: getPositionsFeatures(address)
         }
       }
     ])
@@ -312,7 +311,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       positionsLabelLayer,
       positionsCircleLayer
     ])
-  }, [setSources, setLayers])
+  }, [setSources, setLayers, address])
 
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
@@ -336,19 +335,15 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, [map, isSourceLoaded, address, setLayers])
 
   useEffect(() => {
+    const positionsSource = map.getSource('positions')
+
     if (map && address?.type === 'numero' && positionsSource) {
       positionsSource.setData({
         type: 'FeatureCollection',
         features: getPositionsFeatures(address)
       })
     }
-  }, [map, address, positionsSource])
-
-  useEffect(() => {
-    if (isSourceLoaded) {
-      setPositionsSource(map.getSource('positions'))
-    }
-  }, [map, isSourceLoaded])
+  }, [map, address])
 
   return (
     <>
