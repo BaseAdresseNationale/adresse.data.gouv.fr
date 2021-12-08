@@ -166,7 +166,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
 
         .footer {
           margin: 0 -0.5em;
-          padding: 1em;
+          padding: .5em;
           text-align: center;
         }
 
