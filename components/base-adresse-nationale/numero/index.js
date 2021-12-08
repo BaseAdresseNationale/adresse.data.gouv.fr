@@ -53,19 +53,27 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, sou
         <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
-        {positions?.length > 1 && (
-          <PositionsTypes positions={positions} />
-        )}
       </div>
 
-      <CoordinatesCopy
-        isMobile={isMobile}
-        isSafariBrowser={isSafariBrowser}
-        coordinates={coordinates}
-        setCopyError={setCopyError}
-        setIsCopySucceded={setIsCopySucceded}
-        setIsCopyAvailable={setIsCopyAvailable}
-      />
+      {positions?.length > 1 ? (
+        <PositionsTypes
+          positions={positions}
+          isMobile={isMobile}
+          isSafariBrowser={isSafariBrowser}
+          setCopyError={setCopyError}
+          setIsCopySucceded={setIsCopySucceded}
+          setIsCopyAvailable={setIsCopyAvailable}
+        />
+      ) : (
+        <CoordinatesCopy
+          isMobile={isMobile}
+          isSafariBrowser={isSafariBrowser}
+          coordinates={coordinates}
+          setCopyError={setCopyError}
+          setIsCopySucceded={setIsCopySucceded}
+          setIsCopyAvailable={setIsCopyAvailable}
+        />
+      )}
 
       {isCopySucceded && (
         <Alert

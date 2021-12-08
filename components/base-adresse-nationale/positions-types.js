@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import {uniqueId} from 'lodash'
 
+import CoordinatesCopy from './numero/coordinates-copy'
+
 export const positionsColors = {
   entrée: {name: 'Entrée', color: '#00CED1'},
   'délivrance postale': {name: 'Délivrance postale', color: '#9370DB'},
@@ -13,15 +15,27 @@ export const positionsColors = {
   inconnue: {name: 'Inconnu', color: '#FF6347'}
 }
 
-function PositionsTypes({positions}) {
+function PositionsTypes({positions, isMobile, isSafariBrowser, setCopyError, setIsCopySucceded, setIsCopyAvailable}) {
   return (
     <div className='positions'>
       <div className='title'>Types de positions : </div>
-      {positions.map(p => (
-        <span key={uniqueId()} className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
-          {positionsColors[p.positionType].name}
-        </span>
-      ))}
+      <div>
+        {positions.map(p => (
+          <div key={uniqueId()} className='array-positions'>
+            <span className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
+              {positionsColors[p.positionType].name}
+            </span>
+            <CoordinatesCopy
+              isMobile={isMobile}
+              isSafariBrowser={isSafariBrowser}
+              coordinates={{lat: p.position.coordinates[1], lon: p.position.coordinates[0]}}
+              setCopyError={setCopyError}
+              setIsCopySucceded={setIsCopySucceded}
+              setIsCopyAvailable={setIsCopyAvailable}
+            />
+          </div>
+        ))}
+      </div>
       <style jsx>{`
         .title {
           margin: 5px 0;
@@ -31,25 +45,42 @@ function PositionsTypes({positions}) {
           font-style: italic;
           font-size: 17px;
           margin: .5em 0 1em 0;
+          width: 100%;
         }
 
         .position {
           color: #FFF;
-          padding: 2px 10px;
-          margin: 2px 4px;
+          padding: 3px 10px;
+          margin: auto .5em;
           border-radius: 4px;
           font-weight: 600;
+          text-align: center;
+          flex: 1;
+        }
+
+        .array-positions {
+          display: ${isMobile ? 'block' : 'flex'};
+          padding: ${isMobile ? '.5em 0' : '.5em'};
         }
       `}</style>
     </div>
   )
 }
 
+PositionsTypes.defaultProps = {
+  isMobile: false
+}
+
 PositionsTypes.propTypes = {
   positions: PropTypes.arrayOf(PropTypes.shape({
     position: PropTypes.object.isRequired,
     positionType: PropTypes.string.isRequired
-  })).isRequired
+  })).isRequired,
+  setCopyError: PropTypes.func.isRequired,
+  setIsCopySucceded: PropTypes.func.isRequired,
+  setIsCopyAvailable: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool,
+  isSafariBrowser: PropTypes.bool.isRequired
 }
 
 export default PositionsTypes
