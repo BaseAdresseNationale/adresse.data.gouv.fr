@@ -4,7 +4,7 @@ Le séparateur point-virgule et l'encodage UTF-8 sont utilisés.
 
 | Nom du champ | Description | Changements |
 | --- | --- | --- |
-| `id` | Clé d’interopérabilité telle que définie dans la [spécification du format d'échange BAL 1.2](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.2.pdf). Lorsqu'aucun code FANTOIR n'est connu, un code transitoire composé de 6 caractères alpha-numériques est généré. | |
+| `id` | Clé d’interopérabilité telle que définie dans la [spécification du format d'échange BAL 1.3](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf). Lorsqu'aucun code FANTOIR n'est connu, un code transitoire composé de 6 caractères alpha-numériques est généré. | |
 | `id_fantoir` | Identifiant FANTOIR de la voie, le cas échant. L'identifiant est préfixé par la commune de rattachement FANTOIR (commune actuelle ou commune ancienne) | |
 | `numero` | Numéro de l’adresse dans la voie | |
 | `rep` | Indice de répétition associé au numéro (par exemple `bis`, `a`…) | |
@@ -18,7 +18,7 @@ Le séparateur point-virgule et l'encodage UTF-8 sont utilisés.
 | `y` | Coordonnées cartographique en projection légale | |
 | `lon` | Longitude en WGS-84 | |
 | `lat` | Latitude en WGS-84 | |
-| `type_position` | Type de position telle que définie dans la [spécification du format d'échange BAL 1.2](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.2.pdf). Peut-être vide si inconnu ou non renseigné. | Nouveau champ |
+| `type_position` | Type de position telle que définie dans la [spécification du format d'échange BAL 1.3](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf). Peut-être vide si inconnu ou non renseigné. | Nouveau champ |
 | `alias` | _Vide_ | |
 | `nom_ld` | Nom du lieu-dit de rattachement (ou autre type de toponyme) | |
 | `libelle_acheminement` | Nom de la commune d’acheminement | |

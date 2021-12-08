@@ -512,16 +512,17 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@etalab/bal@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-1.7.1.tgz#3af2f83ccfb76440b26fb3f4e5292c84c26caacf"
-  integrity sha512-GJJbLNcWhBvHR3ii+Oor4zkq1mGd5Ym+36Zf2wwsx2ziYh4g/GHKxBmyNl/wypzHlFU59xG5hCoVrqfCBxYJ4g==
+"@etalab/bal@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@etalab/bal/-/bal-1.8.0.tgz#9a33f6849c4f574404477d10ba7fdc3167d9fd93"
+  integrity sha512-fz6Rs+YFjwmAcd4zvkbI4ZHixnSYaOjxpGsc4OUMJCN1imsEOz8PsJX9w4oLo1dBr7bBqxWqfR59pbH3Xsw0rA==
   dependencies:
     blob-to-buffer "^1.2.9"
     chalk "^4.1.2"
+    chardet "^1.4.0"
     date-fns "^2.26.0"
+    file-type "^12.4.2"
     iconv-lite "^0.6.3"
-    jschardet-french "^0.0.1"
     lodash "^4.17.21"
     papaparse "^5.3.1"
     yargs "^17.2.1"
@@ -1641,6 +1642,11 @@ chalk@^4.1.2:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chardet@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/chardet/-/chardet-1.4.0.tgz#278748f260219990fb2167dbfb1b253ca26b41ea"
+  integrity sha512-NpwMDdSIprbYx1CLnfbxEIarI0Z+s9MssEgggMNheGM+WD68yOhV7IEA/3r6tr0yTRgQD0HuZJDw32s99i6L+A==
 
 chart.js@^3.6.0:
   version "3.6.0"
@@ -2978,6 +2984,11 @@ file-selector@^0.2.2:
   integrity sha512-ZDsQNbrv6qRi1YTDOEWzf5J2KjZ9KMI1Q2SGeTkCJmNNW25Jg4TW4UMcmoqcg4WrAyKRcpBXdbWRxkfrOzVRbA==
   dependencies:
     tslib "^2.0.3"
+
+file-type@^12.4.2:
+  version "12.4.2"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-12.4.2.tgz#a344ea5664a1d01447ee7fb1b635f72feb6169d9"
+  integrity sha512-UssQP5ZgIOKelfsaB5CuGAL+Y+q7EmONuiwF3N5HAH0t27rvrttgi6Ra9k/+DVaY9UF6+ybxu5pOXLUdA8N7Vg==
 
 fill-range@^4.0.0:
   version "4.0.0"
