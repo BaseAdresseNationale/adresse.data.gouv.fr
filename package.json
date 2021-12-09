@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "@etalab/bal": "^1.7.1",
+    "@etalab/bal": "^1.8.0",
     "@etalab/project-legal": "^0.4.1",
     "@turf/bbox": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",

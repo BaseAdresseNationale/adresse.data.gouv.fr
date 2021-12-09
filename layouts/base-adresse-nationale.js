@@ -75,24 +75,16 @@ export function Mobile({address, bbox, handleSelect, hash}) {
 
       <style jsx>{`
         .ban-container {
-          position: absolute;
-          top: 77px;
+          position: relative;
           bottom: 0;
           display: flex;
           flex-direction: column;
           width: 100%;
-          height: calc(${viewHeight} - 77px); // Max heigth available - header height
-        }
-
-        @media (max-width: ${theme.breakPoints.laptop}) {
-          .ban-container {
-            top: 67px;
-          }
         }
 
         .mobile-container {
           width: 100%;
-          height: calc(${viewHeight} - 190px); // Max heigth available - sum of header, searchbar and layout selector heights
+          height: calc(${viewHeight} - 202px); // Max heigth available - sum of header, searchbar and layout selector heights
         }
 
         .show {
@@ -108,7 +100,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
           flex-direction: column;
           width: 100%;
           height: 100%;
-          padding: 1em 0.5em;
+          padding: 0 0.5em;
           background-color: #fff;
         }
 
@@ -150,7 +142,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
       <style jsx>{`
         .ban-container {
           display: flex;
-          height: calc(100vh - 77px);
+          height: calc(100vh - 107px);
         }
 
         .sidebar {

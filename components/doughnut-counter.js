@@ -13,7 +13,7 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
       <div className='value-down'>{valueDown}</div>
       <style jsx>{`
         .donut {
-          width: 50%;
+          max-width: 35%;
           margin: auto;
         }
 
