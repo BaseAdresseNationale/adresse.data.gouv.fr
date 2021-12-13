@@ -14,6 +14,7 @@ function Report({report}) {
   const {fileValidation, rows, fields, notFoundFields, profilesValidation} = report
   const [profile, setProfile] = useState('1.3-etalab')
   const [profileReport, setProfileReport] = useState(null)
+  const [infosDisplayed, setInfosDisplayed] = useState(false)
 
   useEffect(() => {
     const getProfileReport = async () => {
@@ -28,6 +29,18 @@ function Report({report}) {
 
   return (
     <div>
+      {infosDisplayed && (
+        <ValidationInfos handleClose={() => setInfosDisplayed(false)} />
+      )}
+      <Notification style={{margin: '1em'}}>
+        <div className='infos-notification'>
+          <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
+          Quels sont les champs de validation et comment est validé votre fichier ?
+          <Button onClick={() => setInfosDisplayed(true)}>
+            Afficher les informations sur la validation
+          </Button>
+        </div>
+      </Notification>
       <div className='profil-selector'>
         <label>Version de la spécification :</label>
         <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
@@ -75,6 +88,19 @@ function Report({report}) {
           padding: 2em 1em;
           box-shadow: 0 1px 4px ${theme.boxShadow};
           background: ${theme.colors.white};
+        }
+
+        .infos-notification {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        @media (max-width: ${theme.breakPoints.tablet}) {
+          .infos-notification {
+            flex-direction: column;
+            gap: .5em;
+          }
         }
       `}</style>
     </div>
