@@ -64,7 +64,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
       <Section background='color' title='Qu’est-ce que le format BAL ?'>
         <SectionText color='secondary'>
           <p>L’<a href='http://www.aitf.fr/'>Association des Ingénieurs Territoriaux de France</a> (AITF) a créé en avril 2015 un groupe de travail portant sur la Base Adresse Nationale.</p>
-          <p>Les <a href='https://aitf-sig-topo.github.io/voies-adresses/'>travaux de ce groupe</a> ont abouti à la <a href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.2.pdf'>spécification d’un format d’échange</a>, aujourd’hui en version 1.2.</p>
+          <p>Les <a href='https://aitf-sig-topo.github.io/voies-adresses/'>travaux de ce groupe</a> ont abouti à la <a href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf'>spécification d’un format d’échange</a>, aujourd’hui en version 1.3.</p>
           <p>Le format <b>BAL</b> est aujourd’hui le format d’échange à privilégier pour les données Adresse produites localement.</p>
         </SectionText>
         <div className='action'>
