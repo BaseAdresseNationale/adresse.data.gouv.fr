@@ -1,13 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import {Map} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import ButtonLink from '@/components/button-link'
-
-const Published = React.memo(({_id, commune, redirectUrl}) => {
+const Published = React.memo(({commune}) => {
   return (
     <div className='published'>
       <div className='header'>
@@ -44,14 +41,6 @@ const Published = React.memo(({_id, commune, redirectUrl}) => {
             Si vous souhaitez <b>mettre à jour</b> vos adresses ou effecter des <b>corrections</b>, continuer simplement l‘édition de cette Base Adresse Locale.<br />{}
             Les changements seront <b>enregistrés automatiquement</b> et transmis à la Base Adresse Nationale.
           </p>
-
-          {redirectUrl && (
-            <div className='centered'>
-              <ButtonLink href={`${redirectUrl}?published=1`} isExternal>
-                Continuer l’amélioration de mes adresses <Map style={{marginLeft: '.5em', verticalAlign: 'middle'}} />
-              </ButtonLink>
-            </div>
-          )}
         </section>
 
         <section>
@@ -121,12 +110,6 @@ const Published = React.memo(({_id, commune, redirectUrl}) => {
 })
 
 Published.propTypes = {
-  redirectUrl: null
-}
-
-Published.propTypes = {
-  _id: PropTypes.string.isRequired,
-  redirectUrl: PropTypes.string,
   commune: PropTypes.shape({
     code: PropTypes.string.isRequired
   }).isRequired

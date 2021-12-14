@@ -2,16 +2,13 @@
 import React, {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 
-import {ArrowLeft} from 'react-feather'
-
 import Page from '@/layouts/main'
 
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {uploadCSV, submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/api-backend-publication'
+import {uploadCSV, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/api-backend-publication'
 
-import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
 import ManageFile from '@/components/bases-locales/publication/manage-file'
 import Authentification from '@/components/bases-locales/publication/authentification'
@@ -37,7 +34,7 @@ const getStep = submission => {
   }
 }
 
-const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionError}) => {
+const PublicationPage = React.memo(({defaultSubmission, submissionError}) => {
   const [submission, setSubmission] = useState(defaultSubmission)
 
   const [step, setStep] = useState(getStep(submission))
@@ -95,14 +92,6 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
 
   return (
     <Page>
-      {redirectUrl && (
-        <Section background='color' style={{padding: '1em 0'}}>
-          <ButtonLink href={redirectUrl} color='white' isOutlined isExternal>
-            <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
-          </ButtonLink>
-        </Section>
-      )}
-
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
         {submission && <h3>{submission.commune.nom} - {submission.commune.code}</h3>}
@@ -150,7 +139,7 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
           )}
 
           {step === 5 && (
-            <Published {...submission} redirectUrl={redirectUrl} />
+            <Published commune={submission.commune} />
           )}
         </div>
       </Section>
@@ -165,7 +154,7 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
 })
 
 PublicationPage.getInitialProps = async ({query}) => {
-  const {url, redirectUrl, submissionId} = query
+  const {submissionId} = query
   let submission
 
   if (submissionId) {
@@ -173,29 +162,17 @@ PublicationPage.getInitialProps = async ({query}) => {
       submission = await getSubmissions(submissionId)
     } catch {
       return {
-        redirectUrl,
         submissionError: 'Aucune demande de publication n’a été trouvée'
-      }
-    }
-  } else if (url) {
-    try {
-      submission = await submissionsBal(decodeURIComponent(url))
-    } catch (error) {
-      return {
-        redirectUrl,
-        submissionError: error.message
       }
     }
   }
 
   return {
-    redirectUrl,
     defaultSubmission: submission,
   }
 }
 
 PublicationPage.propTypes = {
-  redirectUrl: PropTypes.string,
   defaultSubmission: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
@@ -209,7 +186,6 @@ PublicationPage.propTypes = {
 }
 
 PublicationPage.defaultProps = {
-  redirectUrl: null,
   defaultSubmission: null,
   submissionError: null
 }
