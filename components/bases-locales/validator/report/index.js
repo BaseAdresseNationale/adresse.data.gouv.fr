@@ -1,8 +1,12 @@
 import {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {validateProfile} from '@etalab/bal'
+import {Info} from 'react-feather'
 
 import Loader from '@/components/loader'
+import Notification from '@/components/notification'
+import Button from '@/components/button'
+import ValidationInfos from './summary/validation-infos'
 
 import Fields from './fields'
 import Summary from './summary'
@@ -29,18 +33,20 @@ function Report({report}) {
 
   return (
     <div>
-      {infosDisplayed && (
+      {infosDisplayed ? (
         <ValidationInfos handleClose={() => setInfosDisplayed(false)} />
+      ) : (
+        <Notification style={{margin: '1em'}}>
+          <div className='infos-notification'>
+            <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
+            Quels sont les champs de validation et comment est validé votre fichier ?
+            <Button onClick={() => setInfosDisplayed(true)}>
+              Afficher les informations sur la validation
+            </Button>
+          </div>
+        </Notification>
       )}
-      <Notification style={{margin: '1em'}}>
-        <div className='infos-notification'>
-          <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
-          Quels sont les champs de validation et comment est validé votre fichier ?
-          <Button onClick={() => setInfosDisplayed(true)}>
-            Afficher les informations sur la validation
-          </Button>
-        </div>
-      </Notification>
+
       <div className='profil-selector'>
         <label>Version de la spécification :</label>
         <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
