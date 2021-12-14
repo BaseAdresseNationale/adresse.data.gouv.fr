@@ -1,8 +1,12 @@
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import {X} from 'react-feather'
+import ExpandableDiv from '@/components/expandable-div'
 import theme from '@/styles/theme'
 
 function ValidationInfos({handleClose}) {
+  const [isShown, setIsShown] = useState(null)
+
   return (
     <div className='selected-issue'>
       <div className='dialog'>
@@ -10,36 +14,59 @@ function ValidationInfos({handleClose}) {
           <h3>Informations sur la validation : </h3>
           <X size={40} style={{cursor: 'pointer'}} onClick={handleClose} />
         </div>
-        <div className='scroll'>
-          <div className='title'>Validation de la Base Adresse Locale</div>
+        <ExpandableDiv
+          string='bal'
+          title='Validation de la Base Adresse Locale'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <ul>
             <li>Le nom de Base Adresse Locale est obligatoire</li>
             <li>Une adresse mail est obligatoire</li>
             <li>La Base Adresses Locale doit comporter une commune</li>
-            <li>Une adresse doit avoir <code>numero</code>, <code>nomVoie</code> et <code>nomVoie</code> doit être valide</li>
+            <li>Une adresse doit comporter des champs <code>numero</code>, <code>voie_nom</code> et <code>commune_nom</code> valides</li>
           </ul>
-          <div className='sub-title'>Validation du fichier</div>
+        </ExpandableDiv>
+
+        <ExpandableDiv
+          string='fichier'
+          title='Validation du fichier'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <ul>
             <li>Le fichier doit être encodé en UTF-8</li>
             <li>Les lignes doivent être délimitées par des points-virgules <code>;</code></li>
-            <li>Les sauts de ligne doivent correspondre à <code>/n</code> ou <code>/r/n2</code></li>
+            <li>Les sauts de ligne doivent correspondre à <code>/n</code> ou <code>/r/n</code></li>
           </ul>
           <div className='sub-title'>date de dernière mise à jour</div>
           <ul>
             <li>La date doit avoir un format <code>yyyy-MM-dd</code></li>
             <li>La date doit être valide (<code>parseISO</code>)</li>
           </ul>
+        </ExpandableDiv>
 
-          <div className='sub-title'>cle_interop</div>
+        <ExpandableDiv
+          string='cle-interop'
+          title='Clé d’interopérabilité'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <ul>
             <li>La clé d’interopérabilité est obligatoire</li>
-            <li>La clé d’interopérabilité doit contenir son numéro</li>
+            <li>La clé d’interopérabilité doit contenir ls numéro auquel elle est rattachée</li>
             <li>La clé d’interopérabilité doit être en minuscules</li>
             <li>La structure de la clé doit comporter au moins deux underscores / au moins trois segments</li>
             <li>La partie numéro de la clé d’interopérabilité doit contenir 5 caractères</li>
           </ul>
+        </ExpandableDiv>
 
-          <div className='title'>Numéro :</div>
+        <ExpandableDiv
+          string='numero'
+          title='Numéro, suffixe, positions, parcelles'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <div className='sub-title'>numero</div>
           <ul>
             <li>La valeur du champ numéro doit être un nombre entier</li>
@@ -78,8 +105,14 @@ function ValidationInfos({handleClose}) {
             <li>Ne peut pas être vide</li>
             <li>Ce champs doit contenir 14 ou 15 caractères</li>
           </ul>
+        </ExpandableDiv>
 
-          <div className='title'>Voie :</div>
+        <ExpandableDiv
+          string='voie'
+          title='Voie'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <div className='sub-title'>voie_nom</div>
           <ul>
             <li>Le nom de la voie doit comprendre entre 4 et 200 caractères</li>
@@ -87,13 +120,25 @@ function ValidationInfos({handleClose}) {
             <li>Le nom de la voie ne peux pas contenir un caractère tiret bas <code>_</code></li>
             <li>Le nom de voie doit commencer par une lettre</li>
           </ul>
+        </ExpandableDiv>
 
-          <div className='title'>Lieux-dits :</div>
+        <ExpandableDiv
+          string='lieu-dit'
+          title='Lieux-dits'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <ul>
             <li>Les lieux-dits doivent avoir un numéro supérieur à <code>5000</code></li>
           </ul>
+        </ExpandableDiv>
 
-          <div className='title'>Commune :</div>
+        <ExpandableDiv
+          string='commune'
+          title='Commune'
+          isShown={isShown}
+          setIsShown={setIsShown}
+        >
           <div className='sub-title'>commune_insee</div>
           <ul>
             <li>Le code INSEE de la commune n’est pas un code valide de commune actuelle.</li>
@@ -105,21 +150,9 @@ function ValidationInfos({handleClose}) {
             <li>Le code doit être présent dans le base de communes anciennes</li>
             <li>Le code INSEE de la commune n’est pas un code valide de commune ancienne (déléguée, associées ou périmée)</li>
           </ul>
-
-        </div>
+        </ExpandableDiv>
       </div>
       <style jsx>{`
-        .selected-issue {
-          background-color: rgba(0,0,0,0.2);
-          padding: 2em;
-          position: fixed;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          z-index: 999;
-        }
-
         .dialog {
           background-color: #fff;
           margin: auto;
@@ -136,24 +169,11 @@ function ValidationInfos({handleClose}) {
           justify-content: space-between;
         }
 
-        .title {
-          margin: 1em 0;
-          font-size: 1.2em;
-          font-weight: bolder;
-        }
-
         .sub-title {
           margin: .5em;
           font-size: 1em;
           font-weight: bolder;
           border-bottom: 1px solid grey;
-        }
-
-        .scroll {
-          max-height: 85%;
-          overflow: auto;
-          padding: 1em;
-          border: 1px solid grey;
         }
 
         @media (max-width: ${theme.breakPoints.tablet}) {
