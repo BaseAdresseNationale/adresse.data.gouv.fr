@@ -70,6 +70,16 @@ function Report({report}) {
 
       <div className='report-container'>
         <h4>Validation des données</h4>
+        <Notification type='warning'>
+          <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+              <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
+            </div>
+            <div>
+              <div><b>Vous avez des avertissements ou des anomalies dans votre fichier ?</b><br /> Il s’agit d’un écart avec la spécification BAL 1.3. Cela ne pose pas de problème pour la publication, votre Base Adresse Locale reste valide.</div>
+            </div>
+          </div>
+        </Notification>
         {profileReport ? (
           <Summary rows={profileReport.rows} fields={profileReport.fields} />
         ) : (
