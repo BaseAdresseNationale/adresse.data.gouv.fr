@@ -717,5 +717,25 @@
         "height": 124,
         "width": 195,
         "alt": "Logo de Clermont Auvergne Métropole"
+    },
+    {
+        "name": "Tarn-et-Garonne Numérique",
+        "link": "https://www.82numerique.fr/collectivites/connecter-les-collectivites/les-outils/l-adressage",
+        "infos": "Dans le cadre de son programme 100% FTTH, Tarn-et-Garonne Numérique propose à ses communes membres une formation et un accompagnement technique dans leur démarche d’adressage : de la création de la Base Adresse Locale jusqu’à sa mise à jour.",
+        "perimeter": "Tarn-et-Garonne (82)",
+        "codeDepartement": [
+            "82"
+        ],
+        "echelon": 2,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique"
+        ],
+        "picture" : "/images/logos/partners/tarn-garonne-numerique.png",
+        "height": 124,
+        "width": 121,
+        "alt": "Logo de Tarn et Garonne Numérique"
     }
 ]
