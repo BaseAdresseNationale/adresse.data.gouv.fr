@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -11,12 +11,18 @@ import Partners from '@/components/bases-locales/charte/partners'
 
 import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import Notification from '../notification'
-import allPartners from '../../partners.json'
+import partners from '../../partners.json'
 import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
 const BasesLocales = React.memo(({datasets, stats}) => {
-  const shufflePartners = shuffle(allPartners).slice(0, 3)
+  const [shuffledPartners, setShuffledPartners] = useState([])
+
+  // Utilisation d'un useEffect afin d'éviter les mélanges de rendus de valeurs au render lors du shuffle
+  useEffect(() => {
+    const randomizedPartners = shuffle(partners).slice(0, 3)
+    setShuffledPartners(randomizedPartners)
+  }, [])
 
   return (
     <div>
@@ -91,7 +97,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
         <div className='organismes-container'>
           <h3>Quelques partenaires :</h3>
-          <Partners partnersList={shufflePartners} />
+          <Partners partnersList={shuffledPartners} />
         </div>
         <div className='centered'>
           <ButtonLink href='/bases-locales/charte#partenaires'>

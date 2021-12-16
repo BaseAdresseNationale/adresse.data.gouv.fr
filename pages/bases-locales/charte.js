@@ -1,15 +1,19 @@
 import Image from 'next/image'
 import {Download} from 'react-feather'
 
+import theme from '@/styles/theme'
+
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import Partners from '@/components/bases-locales/charte/partners'
-import theme from '@/styles/theme'
+
+import partners from 'partners.json'
 
 function Charte() {
   const title = 'Charte et organismes partenaires'
   const description = 'Page vous permettant de consultez et téléchargez la charte Base Adresse Locale et de découvrir les organismes partenaires'
+
   return (
     <Page title={title} description={description} >
       <Head title={title} icon={<Download size={56} />} />
@@ -52,7 +56,7 @@ function Charte() {
       </Section>
 
       <Section id='partenaires' background='white' title='Organismes partenaires' >
-        <Partners />
+        <Partners partnersList={partners} isAllPartners />
       </Section>
 
       <style jsx>{`
