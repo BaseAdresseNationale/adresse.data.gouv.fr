@@ -20,7 +20,7 @@
     "@turf/boolean-contains": "^6.5.0",
     "babel-plugin-lodash": "^3.3.4",
     "blob-to-buffer": "^1.2.9",
-    "chart.js": "^3.6.0",
+    "chart.js": "^3.6.2",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.4",
     "copy-to-clipboard": "^3.3.1",
