@@ -100,6 +100,8 @@ const getPositionsFeatures = address => {
       }
     }))
   }
+
+  return []
 }
 
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
@@ -227,7 +229,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
         map.setFilter('adresse-label', ['!=', ['get', 'id'], address.id])
       }
     }
-  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
+  }, [map, selectedPaintLayer, isCadastreLayersShown, address])
 
   useEffect(() => {
     map.off('dragend', handleZoom)
@@ -333,17 +335,6 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       }
     }
   }, [map, isSourceLoaded, address, setLayers])
-
-  useEffect(() => {
-    const positionsSource = map.getSource('positions')
-
-    if (map && address?.type === 'numero' && positionsSource) {
-      positionsSource.setData({
-        type: 'FeatureCollection',
-        features: getPositionsFeatures(address)
-      })
-    }
-  }, [map, address])
 
   return (
     <>

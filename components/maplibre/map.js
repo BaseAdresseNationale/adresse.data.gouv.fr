@@ -43,7 +43,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   const [map, setMap] = useState(null)
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
-  const [isStyleLoaded, setIsStyleLoaded] = useState(true)
   const [isSourceLoaded, setIsSourceLoaded] = useState(false)
   const [style, setStyle] = useState(defaultStyle)
   const [sources, setSources] = useState([])
@@ -81,11 +80,15 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   }, [style])
 
   const loadData = useCallback(() => {
-    if (map && isStyleLoaded && isFirstLoad) {
+    if (map && isFirstLoad) {
       sources.forEach(source => {
-        const {name, ...props} = source
-        if (!map.getSource(name)) {
-          map.addSource(name, props)
+        const {name, ...properties} = source
+        const src = map.getSource(name)
+
+        if (src && properties.data) {
+          src.setData(properties.data)
+        } else if (!src) {
+          map.addSource(name, properties)
         }
       })
 
@@ -95,7 +98,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         }
       })
     }
-  }, [map, isFirstLoad, isStyleLoaded, layers, sources])
+  }, [map, isFirstLoad, layers, sources])
 
   const onSourceData = useCallback(event => {
     setIsSourceLoaded(event.isSourceLoaded)
@@ -103,7 +106,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
 
   useEffect(() => {
     loadData()
-  }, [sources, layers, style, isStyleLoaded, loadData])
+  }, [sources, layers, style, loadData])
 
   useEffect(() => {
     if (mapContainer) {
@@ -148,27 +151,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
       fitBounds(bbox)
     }
   }, [map, bbox, fitBounds])
-
-  useEffect(() => {
-    if (map) {
-      map.setStyle(STYLES[style])
-
-      const onStyleData = () => {
-        setIsStyleLoaded(false)
-        if (map.isStyleLoaded) {
-          setIsStyleLoaded(true)
-        } else {
-          setTimeout(onStyleData, 200)
-        }
-      }
-
-      map.on('styledata', onStyleData)
-
-      return () => {
-        map.off('styledata', onStyleData)
-      }
-    }
-  }, [style]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='maplibre-container'>
