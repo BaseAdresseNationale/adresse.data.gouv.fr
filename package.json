@@ -20,14 +20,15 @@
     "@turf/boolean-contains": "^6.5.0",
     "babel-plugin-lodash": "^3.3.4",
     "blob-to-buffer": "^1.2.9",
+    "chardet": "^1.4.0",
     "chart.js": "^3.6.2",
     "compression": "^1.7.4",
     "content-disposition": "^0.5.4",
     "copy-to-clipboard": "^3.3.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "helmet": "^4.6.0",
     "hoist-non-react-statics": "^3.3.2",
-    "jschardet-french": "^0.0.1",
     "lodash": "^4.17.21",
     "maplibre-gl": "^1.15.2",
     "marked": "^3.0.4",
@@ -76,6 +77,6 @@
     }
   },
   "engines": {
-    "node": ">=14 <17"
+    "node": ">=16 <17"
   }
 }

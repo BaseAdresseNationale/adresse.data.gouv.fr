@@ -2251,6 +2251,11 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+dotenv@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+  integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
@@ -4214,11 +4219,6 @@ js-yaml@^3.13.1:
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
-
-jschardet-french@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/jschardet-french/-/jschardet-french-0.0.1.tgz#4881d2168d99653931bd5e5a2d48a94b42201e43"
-  integrity sha512-27NXHpYg8dqIiIS4a8u9LDqtepi56NZ4MpgphVfbWOgN50pnEjcb1OX9zUaF7djXbTom55r0kXKiS82nrVtYTg==
 
 jsesc@^2.5.1:
   version "2.5.2"
