@@ -69,21 +69,17 @@ function BaseAdresseNationale({address}) {
   }, [address, initialHash])
 
   useEffect(() => {
-    if (!initialHash && address) {
-      if (address?.positions?.length > 1) {
-        const coordinates = []
-        address.positions.forEach(p => {
-          coordinates.push(p.position.coordinates)
-        })
+    let bbox = address?.displayBBox
 
-        const llb = new maplibregl.LngLatBounds(coordinates)
-        setBBox(llb)
-      } else {
-        setBBox(address.displayBBox)
-      }
-    } else {
-      setBBox(null)
+    if (!initialHash && address?.positions?.length > 1) {
+      const coordinates = address.positions.map(p => {
+        return p.position.coordinates
+      })
+
+      bbox = new maplibregl.LngLatBounds(coordinates).toArray()
     }
+
+    setBBox(bbox)
   }, [initialHash, address])
 
   return (
