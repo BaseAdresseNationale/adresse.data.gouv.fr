@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import {Crosshair} from 'react-feather'
 
-function CenterControl({isDisabled, handleClick, isMultiPositions}) {
+function CenterControl({isDisabled, handleClick}) {
   return (
     <button
       disabled={isDisabled}
@@ -17,13 +17,11 @@ function CenterControl({isDisabled, handleClick, isMultiPositions}) {
 
 CenterControl.propTypes = {
   handleClick: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool,
-  isMultiPositions: PropTypes.bool
+  isDisabled: PropTypes.bool
 }
 
 CenterControl.defaultProps = {
-  isDisabled: false,
-  isMultiPositions: false
+  isDisabled: false
 }
 
 export default CenterControl
