@@ -7,6 +7,7 @@ const helmet = require('helmet')
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
+const enableHelmet = process.env.ENABLE_HELMET === '1'
 const app = next({dev})
 const handle = app.getRequestHandler()
 
@@ -15,7 +16,9 @@ app.prepare().then(() => {
 
   if (!dev) {
     server.use(compression())
+  }
 
+  if (enableHelmet) {
     server.use(helmet({
       contentSecurityPolicy: {
         useDefaults: true,
