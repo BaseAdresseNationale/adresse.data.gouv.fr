@@ -147,7 +147,7 @@ function Frise() {
 
   return (
     <div className='frise'>
-      <svg id='background' height='542' viewBox='0 0 1020 264' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
+      <svg id='background' viewBox='0 0 1020 264' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
         <title>Group 5</title>
         <defs>
           <polygon id='path-1' points='13.8916531 -0.0970873786 64.4268644 -0.0970873786 78.1592587 32.9029126 0.159258749 32.9029126' />
@@ -658,11 +658,52 @@ function Frise() {
         }
 
         svg {
+          height: 542px;
           margin-left: -1px;
+        }
+
+        @media screen and (min-width: 2088px) {
+          .frise {
+            height: 740px;
+          }
+
+          svg {
+            height: 765px;
+          }
+        }
+
+        @media screen and (min-width: 2949px) {
+          .frise {
+            height: 1015px;
+          }
+
+          svg {
+            height: 1055px;
+          }
         }
       `}</style>
     </div>
   )
 }
+
+// @media screen and (min-width: 2088px) {
+//   .frise {
+//     height: 740px;
+//   }
+
+//   svg {
+//     height: 765px;
+//   }
+// }
+
+// @media screen and (min-width: 2949px) {
+//   .frise {
+//     height: 1015px;
+//   }
+
+//   svg {
+//     height: 1055px;
+//   }
+// }
 
 export default Frise
