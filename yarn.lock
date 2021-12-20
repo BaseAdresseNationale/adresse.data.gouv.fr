@@ -4215,11 +4215,6 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jschardet-french@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/jschardet-french/-/jschardet-french-0.0.1.tgz#4881d2168d99653931bd5e5a2d48a94b42201e43"
-  integrity sha512-27NXHpYg8dqIiIS4a8u9LDqtepi56NZ4MpgphVfbWOgN50pnEjcb1OX9zUaF7djXbTom55r0kXKiS82nrVtYTg==
-
 jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
