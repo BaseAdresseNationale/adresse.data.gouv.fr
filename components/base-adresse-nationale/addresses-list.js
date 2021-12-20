@@ -9,7 +9,7 @@ import {byText} from '@/lib/filters'
 
 import Loader from '@/components/loader'
 
-function AddressesList({title, subtitle, placeholder, addresses, getLabel, addressComponent}) {
+function AddressesList({title, placeholder, addresses, getLabel, addressComponent}) {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [filteredList, setFilteredList] = useState(addresses)
@@ -30,7 +30,6 @@ function AddressesList({title, subtitle, placeholder, addresses, getLabel, addre
       <div className='addresses-heading'>
         <div className='title'>
           <h5>{title}</h5>
-          <div>{subtitle}</div>
         </div>
         {addresses.length > 0 ? (
           <div className='search-input'>
@@ -132,7 +131,6 @@ function AddressesList({title, subtitle, placeholder, addresses, getLabel, addre
 
 AddressesList.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   addresses: PropTypes.array.isRequired,
   getLabel: PropTypes.func.isRequired,
