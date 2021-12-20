@@ -4,6 +4,21 @@ const express = require('express')
 const next = require('next')
 const compression = require('compression')
 const helmet = require('helmet')
+const cors = require('cors')
+
+const w = require('./lib/w')
+const {
+  getHabilitation,
+  createHabilitation,
+  sendPinCode,
+  validatePinCode,
+  getRevision,
+  getRevisions,
+  createRevision,
+  uploadFile,
+  validateRevision,
+  publishRevision
+} = require('./lib/api-depot-proxy')
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -13,6 +28,9 @@ const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
   const server = express()
+
+  // Enable CORS headers and routes
+  server.use(cors({origin: true}))
 
   if (!dev) {
     server.use(compression())
@@ -108,6 +126,20 @@ app.prepare().then(() => {
   server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
     res.redirect(`/base-adresse-nationale/${req.params.codeCommune}`)
   })
+
+  // Habilitations
+  server.get('/habilitations/:habilitationId', w(getHabilitation))
+  server.post('/communes/:codeCommune/habilitations', w(createHabilitation))
+  server.post('/habilitations/:habilitationId/authentication/email/send-pin-code', w(sendPinCode))
+  server.post('/habilitations/:habilitationId/authentication/email/validate-pin-code', w(validatePinCode))
+
+  // Revisions
+  server.get('/revisions/:revisionId', express.json(), w(getRevision))
+  server.get('/communes/:codeCommune/revisions', express.json(), w(getRevisions))
+  server.post('/communes/:codeCommune/revisions', express.json(), w(createRevision))
+  server.put('/revisions/:revisionId/files/bal', w(uploadFile))
+  server.post('/revisions/:revisionId/compute', express.json(), w(validateRevision))
+  server.post('/revisions/:revisionId/publish', w(publishRevision))
 
   // DO NOT REMOVE
   server.get('/api', (request, res) => {
