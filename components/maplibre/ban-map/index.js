@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom'
 import {useCallback, useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
@@ -150,8 +151,10 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       highLightAdressesByProperties(true, hoveredFeature)
 
       map.getCanvas().style.cursor = 'pointer'
+      const popupNode = document.createElement('div')
+      ReactDOM.render(popupFeatures(e.features), popupNode)
       popup.setLngLat(e.lngLat)
-        .setHTML(popupFeatures(e.features))
+        .setDOMContent(popupNode)
         .addTo(map)
     } else {
       map.getCanvas().style.cursor = 'grab'
