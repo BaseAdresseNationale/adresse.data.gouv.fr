@@ -1,13 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import Image from 'next/image'
+import Router from 'next/router'
+
+const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://mes-adresses.data.gouv.fr'
 
 import theme from '@/styles/theme'
 
 import Button from '@/components/button'
 
-const Authentification = React.memo(({communeEmail, authenticationUrl, handleCodeAuthentification}) => {
+const Authentification = React.memo(({communeEmail, revisionId, habilitationId, authenticationUrl, handleCodeAuthentification}) => {
+  const redirectToFranceConnect = () => {
+    const redirectUrl = encodeURIComponent(
+      `${ADRESSE_URL}${Router.asPath}?revisionId=${revisionId}&habilitationId=${habilitationId}`
+    )
+
+    Router.push(encodeURIComponent(`${authenticationUrl}?redirectUrl=${redirectUrl}`))
+  }
+
   return (
     <div className='auth-container'>
       <div>
@@ -15,9 +25,9 @@ const Authentification = React.memo(({communeEmail, authenticationUrl, handleCod
         <div className='section'>
           <div className='action column'>
             <p>M’authentifier comme élu de la commune</p>
-            <Link href={authenticationUrl}>
-              <a><Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' /></a>
-            </Link>
+            <div onClick={redirectToFranceConnect}>
+              <Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' />
+            </div>
           </div>
 
           <div className='action column'>
@@ -97,6 +107,8 @@ Authentification.defaultProps = {
 
 Authentification.propTypes = {
   communeEmail: PropTypes.string,
+  revisionId: PropTypes.string.isRequired,
+  habilitationId: PropTypes.string.isRequired,
   authenticationUrl: PropTypes.string.isRequired,
   handleCodeAuthentification: PropTypes.func.isRequired
 }

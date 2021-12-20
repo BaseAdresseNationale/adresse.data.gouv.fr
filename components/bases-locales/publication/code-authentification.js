@@ -2,30 +2,35 @@ import {useCallback, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Check, ArrowLeft} from 'react-feather'
 
-import {submitAuthentificationCode} from '@/lib/api-backend-publication'
+import {submitAuthentificationCode} from '@/lib/api-depot'
 
 import theme from '@/styles/theme'
 
 import Button from '@/components/button'
 import Notification from '@/components/notification'
 
-function CodeAuthentification({submissionId, email, handleValidCode, sendBackCode, cancel}) {
+function CodeAuthentification({habilitationId, email, handleValidCode, sendBackCode, cancel}) {
   const [code, setCode] = useState('')
   const [error, setError] = useState(null)
 
   const submitCode = useCallback(async () => {
     try {
-      const response = await submitAuthentificationCode(submissionId, code)
+      const habilitation = await submitAuthentificationCode(habilitationId, code)
 
-      if (response.error) {
-        throw new Error(response.error)
+      if (habilitation?.validated === false) {
+        const {error, remainingAttempts} = habilitation
+        if (remainingAttempts > 0) {
+          throw new Error(`${error}. Tentative restantes : ${remainingAttempts}`)
+        }
+
+        throw new Error(error)
       }
 
-      handleValidCode()
+      handleValidCode(habilitation)
     } catch (error) {
       setError(error.message)
     }
-  }, [submissionId, code, handleValidCode])
+  }, [habilitationId, code, handleValidCode])
 
   const handleInput = event => {
     const {value} = event.target
@@ -126,7 +131,7 @@ function CodeAuthentification({submissionId, email, handleValidCode, sendBackCod
 }
 
 CodeAuthentification.propTypes = {
-  submissionId: PropTypes.string.isRequired,
+  habilitationId: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   handleValidCode: PropTypes.func.isRequired,
   sendBackCode: PropTypes.func.isRequired,

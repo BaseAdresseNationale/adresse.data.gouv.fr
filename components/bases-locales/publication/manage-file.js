@@ -26,7 +26,7 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
 
       if (report.parseOk) {
         if (report.profilesValidation['1.3-etalab'].isValid) {
-          handleFile(file)
+          handleFile(file, communes[0])
         } else {
           setReport(report)
         }
@@ -99,7 +99,7 @@ ManageFile.defaultProps = {
 }
 
 ManageFile.propTypes = {
-  error: PropTypes.object,
+  error: PropTypes.string,
   handleError: PropTypes.func.isRequired,
   handleFile: PropTypes.func.isRequired
 }

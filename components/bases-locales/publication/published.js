@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import theme from '@/styles/theme'
 
-const Published = React.memo(({commune}) => {
+const Published = React.memo(({codeCommune}) => {
   return (
     <div className='published'>
       <div className='header'>
@@ -31,7 +31,7 @@ const Published = React.memo(({commune}) => {
           <h4>🔍 Où consulter vos adresses ?</h4>
           <p>
             Vos adresses seront intégrées à la Base Adresse Nationale et disponibles dans un délai de <b>24 heures</b>.<br />{}
-            Elles seront consultables directement depuis notre <Link href={`/base-adresse-nationale/${commune.code}`}><a>carte interactive</a></Link>.
+            Elles seront consultables directement depuis notre <Link href={`/base-adresse-nationale/${codeCommune}`}><a>carte interactive</a></Link>.
           </p>
         </section>
 
@@ -110,9 +110,7 @@ const Published = React.memo(({commune}) => {
 })
 
 Published.propTypes = {
-  commune: PropTypes.shape({
-    code: PropTypes.string.isRequired
-  }).isRequired
+  codeCommune: PropTypes.string.isRequired
 }
 
 export default Published
