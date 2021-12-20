@@ -25,6 +25,7 @@
     "compression": "^1.7.4",
     "content-disposition": "^0.5.4",
     "copy-to-clipboard": "^3.3.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "helmet": "^4.6.0",
     "hoist-non-react-statics": "^3.3.2",
