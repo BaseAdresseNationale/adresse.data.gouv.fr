@@ -106,14 +106,14 @@ BaseAdresseNationale.propTypes = {
   address: PropTypes.shape({
     type: PropTypes.oneOf(['commune', 'voie', 'lieu-dit', 'numero']).isRequired,
     nomVoie: PropTypes.string,
-    numero: PropTypes.string,
+    numero: PropTypes.number,
     suffixe: PropTypes.string,
     parcelles: PropTypes.array,
     nomCommune: PropTypes.string,
     codeCommune: PropTypes.string,
     nbNumeros: PropTypes.number,
     nbVoies: PropTypes.number,
-    positions: PropTypes.object,
+    positions: PropTypes.array,
     commune: PropTypes.shape({
       nom: PropTypes.string,
       code: PropTypes.string

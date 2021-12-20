@@ -76,7 +76,10 @@ function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, code
 }
 
 Details.propTypes = {
-  certificationPercentage: PropTypes.number.isRequired,
+  certificationPercentage: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   nbVoies: PropTypes.number.isRequired,
   nbLieuxDits: PropTypes.number.isRequired,
   nbNumeros: PropTypes.number.isRequired,

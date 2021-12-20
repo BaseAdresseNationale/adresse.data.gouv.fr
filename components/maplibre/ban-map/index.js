@@ -397,7 +397,7 @@ BanMap.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
-    positions: PropTypes.object,
+    positions: PropTypes.array,
     parcelles: PropTypes.array,
     displayBBox: PropTypes.array,
     lat: PropTypes.number,

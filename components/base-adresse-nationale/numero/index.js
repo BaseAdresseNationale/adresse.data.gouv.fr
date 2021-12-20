@@ -143,7 +143,7 @@ Numero.defaultProps = {
 }
 
 Numero.propTypes = {
-  numero: PropTypes.string.isRequired,
+  numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
   certifie: PropTypes.bool.isRequired,

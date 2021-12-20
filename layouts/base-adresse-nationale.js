@@ -20,7 +20,7 @@ const defaultProps = {
 
 const propTypes = {
   address: PropTypes.object,
-  bbox: PropTypes.array.isRequired,
+  bbox: PropTypes.array,
   handleSelect: PropTypes.func.isRequired,
   hash: PropTypes.string
 }
