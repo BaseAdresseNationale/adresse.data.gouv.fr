@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom'
 import {useCallback, useContext, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
@@ -12,6 +13,8 @@ import MapLegends from '../map-legends'
 import OpenGPS from '../open-gps'
 
 import {
+  positionsCircleLayer,
+  positionsLabelLayer,
   adresseCircleLayer,
   adresseLabelLayer,
   adresseCompletLabelLayer,
@@ -83,6 +86,25 @@ const isFeatureContained = (container, content) => {
   return booleanContains(polygonA, polygonB)
 }
 
+const getPositionsFeatures = address => {
+  if (address?.positions?.length > 1) {
+    return address.positions.map(p => ({
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: p.position.coordinates
+      },
+      properties: {
+        ...address,
+        type: p.positionType,
+        nomVoie: address.voie.nomVoie
+      }
+    }))
+  }
+
+  return []
+}
+
 function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
@@ -129,8 +151,10 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       highLightAdressesByProperties(true, hoveredFeature)
 
       map.getCanvas().style.cursor = 'pointer'
+      const popupNode = document.createElement('div')
+      ReactDOM.render(popupFeatures(e.features), popupNode)
       popup.setLngLat(e.lngLat)
-        .setHTML(popupFeatures(e.features))
+        .setDOMContent(popupNode)
         .addTo(map)
     } else {
       map.getCanvas().style.cursor = 'grab'
@@ -202,8 +226,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       } else {
         map.setFilter('parcelle-highlighted', ['==', ['get', 'id'], ''])
       }
+
+      if (address?.positions?.length > 1) {
+        map.setFilter('adresse', ['!=', ['get', 'id'], address.id])
+        map.setFilter('adresse-label', ['!=', ['get', 'id'], address.id])
+      }
     }
-  }, [map, selectedPaintLayer, isCadastreLayersShown, address, isSourceLoaded])
+  }, [map, selectedPaintLayer, isCadastreLayersShown, address])
 
   useEffect(() => {
     map.off('dragend', handleZoom)
@@ -238,8 +267,8 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
 
       map.off('mouseleave', 'adresse', onLeave)
       map.off('mouseleave', 'adresse-label', onLeave)
-      map.off('mouseleave', 'adresse', onLeave)
-      map.off('mouseleave', 'adresse-label', onLeave)
+      map.off('mouseleave', 'voie', onLeave)
+      map.off('mouseleave', 'toponyme', onLeave)
 
       map.off('click', 'adresse', e => handleClick(e, onSelect))
       map.off('click', 'adresse-label', e => handleClick(e, onSelect))
@@ -251,31 +280,43 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    setSources([{
-      name: 'base-adresse-nationale',
-      type: 'vector',
-      format: 'pbf',
-      tiles: [
-        'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
-      ],
-      minzoom: 10,
-      maxzoom: 14,
-      promoteId: 'id'
-    },
-    {
-      name: 'cadastre',
-      type: 'vector',
-      url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
-    }])
+    setSources([
+      {
+        name: 'base-adresse-nationale',
+        type: 'vector',
+        format: 'pbf',
+        tiles: [
+          'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
+        ],
+        minzoom: 10,
+        maxzoom: 14,
+        promoteId: 'id'
+      },
+      {
+        name: 'cadastre',
+        type: 'vector',
+        url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
+      },
+      {
+        name: 'positions',
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: getPositionsFeatures(address)
+        }
+      }
+    ])
     setLayers([
       ...cadastreLayers,
       adresseCircleLayer,
       adresseLabelLayer,
       adresseCompletLabelLayer,
       voieLayer,
-      toponymeLayer
+      toponymeLayer,
+      positionsLabelLayer,
+      positionsCircleLayer
     ])
-  }, [setSources, setLayers])
+  }, [setSources, setLayers, address])
 
   useEffect(() => {
     if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
@@ -301,7 +342,11 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   return (
     <>
       <div className='maplibregl-ctrl-group maplibregl-ctrl'>
-        <CenterControl isDisabled={isCenterControlDisabled} handleClick={centerAddress} />
+        <CenterControl
+          isDisabled={isCenterControlDisabled}
+          handleClick={centerAddress}
+          isMultiPositions={address?.positions?.length > 1}
+        />
         <CadastreLayerControl isDisabled={isCadastreDisplayable} isActived={isCadastreLayersShown} handleClick={() => setIsCadastreLayersShown(!isCadastreLayersShown)} />
         {isMobile && address && (
           <OpenGPS coordinates={{lat: address.lat, lon: address.lon}} isSafariBrowser={isSafariBrowser} />
@@ -346,10 +391,12 @@ BanMap.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     position: PropTypes.object,
+    positions: PropTypes.array,
     parcelles: PropTypes.array,
     displayBBox: PropTypes.array,
     lat: PropTypes.number,
-    lon: PropTypes.number
+    lon: PropTypes.number,
+    voie: PropTypes.object
   }),
   map: PropTypes.object.isRequired,
   isSourceLoaded: PropTypes.bool,

@@ -1,4 +1,5 @@
 import theme from '@/styles/theme'
+import {positionsColors} from '@/components/base-adresse-nationale/positions-types'
 
 export const sources = {
   bal: {name: 'Base Adresse Locale', color: '#4dac26'},
@@ -38,6 +39,72 @@ const TOPONYME_MIN = 10
 const TOPONYME_MAX = NUMEROS_MIN + 2
 const TOPONYME_COLOR = '#7c5050'
 export const PARCELLES_MINZOOM = 14
+
+const getColors = () => {
+  const array = []
+  Object.keys(positionsColors).forEach(key => {
+    array.push(key, positionsColors[key].color)
+  })
+
+  return [...array]
+}
+
+const colors = getColors()
+
+export const positionsCircleLayer = {
+  id: 'positions',
+  source: 'positions',
+  type: 'circle',
+  paint: {
+    'circle-color': ['match', ['get', 'type'], ...colors, '#000'],
+    'circle-stroke-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      theme.primary,
+      '#fff'
+    ],
+    'circle-stroke-width': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      3,
+      1
+    ],
+    'circle-radius': {
+      stops: [
+        [12, 0.8],
+        [17, 6]
+      ]
+    }
+  }
+}
+
+export const positionsLabelLayer = {
+  id: 'positions-label',
+  source: 'positions',
+  type: 'symbol',
+  minzoom: NUMEROS_MIN,
+  paint: {
+    'text-color': ['match', ['get', 'type'], ...colors, '#000']
+  },
+  layout: {
+    'text-font': ['Noto Sans Bold'],
+    'text-size': {
+      stops: [
+        [NUMEROS_MIN, 13],
+        [19, 16]
+      ]
+    },
+    'text-field': [
+      'format',
+      ['get', 'numero'],
+      ' - ',
+      ['get', 'type'],
+    ],
+    'text-ignore-placement': false,
+    'text-variable-anchor': ['bottom'],
+    'text-radial-offset': 1
+  }
+}
 
 export const adresseCircleLayer = {
   id: 'adresse',

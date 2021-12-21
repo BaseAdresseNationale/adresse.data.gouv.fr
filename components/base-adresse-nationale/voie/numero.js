@@ -68,7 +68,7 @@ Numero.propTypes = {
 Numero.propTypes = {
   id: PropTypes.string.isRequired,
   suffixe: PropTypes.string,
-  numero: PropTypes.string.isRequired,
+  numero: PropTypes.number.isRequired,
   lieuDitComplementNom: PropTypes.string,
   isCertified: PropTypes.bool.isRequired,
   sourcePosition: PropTypes.string.isRequired
