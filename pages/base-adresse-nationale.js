@@ -1,6 +1,7 @@
 import {useState, useCallback, useEffect, useMemo, useContext} from 'react'
 import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
+import maplibregl from 'maplibre-gl'
 
 import {getAddress} from '@/lib/api-ban'
 
@@ -12,6 +13,7 @@ import DeviceContext from '@/contexts/device'
 function BaseAdresseNationale({address}) {
   const {isMobileDevice} = useContext(DeviceContext)
   const [initialHash, setInitialHash] = useState(null)
+  const [bBox, setBBox] = useState(null)
   const Layout = isMobileDevice ? Mobile : Desktop
 
   const router = useRouter()
@@ -66,11 +68,25 @@ function BaseAdresseNationale({address}) {
     }
   }, [address, initialHash])
 
+  useEffect(() => {
+    let bbox = address?.displayBBox
+
+    if (!initialHash && address?.positions?.length > 1) {
+      const coordinates = address.positions.map(p => {
+        return p.position.coordinates
+      })
+
+      bbox = new maplibregl.LngLatBounds(coordinates).toArray()
+    }
+
+    setBBox(bbox)
+  }, [initialHash, address])
+
   return (
     <Page title={title} description={description} hasFooter={false}>
       <Layout
         address={address}
-        bbox={!initialHash && address ? address.displayBBox : null}
+        bbox={bBox}
         handleSelect={selectAddress}
         hash={initialHash}
       />
@@ -86,13 +102,14 @@ BaseAdresseNationale.propTypes = {
   address: PropTypes.shape({
     type: PropTypes.oneOf(['commune', 'voie', 'lieu-dit', 'numero']).isRequired,
     nomVoie: PropTypes.string,
-    numero: PropTypes.string,
+    numero: PropTypes.number,
     suffixe: PropTypes.string,
     parcelles: PropTypes.array,
     nomCommune: PropTypes.string,
     codeCommune: PropTypes.string,
     nbNumeros: PropTypes.number,
     nbVoies: PropTypes.number,
+    positions: PropTypes.array,
     commune: PropTypes.shape({
       nom: PropTypes.string,
       code: PropTypes.string

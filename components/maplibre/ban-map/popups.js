@@ -1,4 +1,5 @@
-import {renderToString} from 'react-dom/server'
+import PropTypes from 'prop-types'
+
 import colors from '@/styles/colors'
 
 import Tag from '@/components/tag'
@@ -6,10 +7,10 @@ import ParcellesList from '@/components/base-adresse-nationale/parcelles-list'
 
 import {sources} from './layers'
 
-function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition}) {
+function PopupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition}) {
   const position = sources[sourcePosition]
 
-  return renderToString(
+  return (
     <div>
       <div className='heading'>
         <b>{numero}{suffixe} {nomVoie} {lieuDitComplementNom ? `(${lieuDitComplementNom})` : ''}</b>
@@ -60,8 +61,19 @@ function popupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie,
   )
 }
 
-function popupVoie({nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type}) {
-  return renderToString(
+PopupNumero.propTypes = {
+  numero: PropTypes.number.isRequired,
+  suffixe: PropTypes.string,
+  parcelles: PropTypes.string,
+  lieuDitComplementNom: PropTypes.string,
+  nomVoie: PropTypes.string.isRequired,
+  nomCommune: PropTypes.string.isRequired,
+  codeCommune: PropTypes.string.isRequired,
+  sourcePosition: PropTypes.string.isRequired,
+}
+
+function PopupVoie({nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type}) {
+  return (
     <div>
       <div className='heading'>
         <div className='address'>
@@ -94,8 +106,23 @@ function popupVoie({nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type
   )
 }
 
+PopupVoie.propTypes = {
+  nomVoie: PropTypes.string.isRequired,
+  nomCommune: PropTypes.string.isRequired,
+  codeCommune: PropTypes.string.isRequired,
+  parcelles: PropTypes.string,
+  nbNumeros: PropTypes.number.isRequired,
+  type: PropTypes.string
+}
+
 export default function popupFeatures(features) {
-  return features.map(({properties}) => {
-    return properties.type ? popupVoie(properties) : popupNumero(properties)
-  })
+  return features.map(({properties}) => (
+    <div key={properties.id}>
+      {properties.type ? (
+        <PopupVoie {...properties} />
+      ) : (
+        <PopupNumero {...properties} />
+      )}
+    </div>
+  ))
 }
