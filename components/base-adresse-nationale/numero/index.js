@@ -10,12 +10,13 @@ import {getNumeroComplet} from '@/lib/ban'
 
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
+import PositionsTypes from '../positions-types'
 
 import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -54,14 +55,25 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, sourcePosition
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
       </div>
 
-      <CoordinatesCopy
-        isMobile={isMobile}
-        isSafariBrowser={isSafariBrowser}
-        coordinates={coordinates}
-        setCopyError={setCopyError}
-        setIsCopySucceded={setIsCopySucceded}
-        setIsCopyAvailable={setIsCopyAvailable}
-      />
+      {positions?.length > 1 ? (
+        <PositionsTypes
+          positions={positions}
+          isMobile={isMobile}
+          isSafariBrowser={isSafariBrowser}
+          setCopyError={setCopyError}
+          setIsCopySucceded={setIsCopySucceded}
+          setIsCopyAvailable={setIsCopyAvailable}
+        />
+      ) : (
+        <CoordinatesCopy
+          isMobile={isMobile}
+          isSafariBrowser={isSafariBrowser}
+          coordinates={coordinates}
+          setCopyError={setCopyError}
+          setIsCopySucceded={setIsCopySucceded}
+          setIsCopyAvailable={setIsCopyAvailable}
+        />
+      )}
 
       {isCopySucceded && (
         <Alert
@@ -131,12 +143,13 @@ Numero.defaultProps = {
 }
 
 Numero.propTypes = {
-  numero: PropTypes.string.isRequired,
+  numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
   certifie: PropTypes.bool.isRequired,
   sourcePosition: PropTypes.string.isRequired,
   parcelles: PropTypes.array.isRequired,
+  positions: PropTypes.array,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,

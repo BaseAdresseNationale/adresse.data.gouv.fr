@@ -7,7 +7,7 @@ function CenterControl({isDisabled, handleClick}) {
       disabled={isDisabled}
       type='button'
       className='maplibregl-ctrl'
-      title='Recentrer la carte sur l’adresse'
+      title='Recentrer la carte'
       onClick={handleClick}
     >
       <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} />
