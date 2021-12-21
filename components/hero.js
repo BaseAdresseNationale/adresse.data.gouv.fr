@@ -78,6 +78,7 @@ function Hero({title, tagline}) {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          gap: 1em;
         }
 
         .hero-container {
