@@ -33,6 +33,7 @@ function Home({stats}) {
 
         <style jsx>{`
           .pitch {
+            margin: -4em 0;
             color: ${theme.colors.grey};
             text-align: center;
           }

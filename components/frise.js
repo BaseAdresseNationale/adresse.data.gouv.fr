@@ -147,7 +147,7 @@ function Frise() {
 
   return (
     <div className='frise'>
-      <svg id='background' height='542' viewBox='0 0 1020 264' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
+      <svg id='background' viewBox='0 0 1020 264' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
         <title>Group 5</title>
         <defs>
           <polygon id='path-1' points='13.8916531 -0.0970873786 64.4268644 -0.0970873786 78.1592587 32.9029126 0.159258749 32.9029126' />
@@ -652,13 +652,14 @@ function Frise() {
 
       <style jsx>{`
         .frise {
-          height: 542px;
-          margin-bottom: -5em;
+          width: 100%;
+          margin-bottom: -1em;
           overflow: hidden;
         }
 
         svg {
-          margin-left: -1px;
+          margin-left: -10px;
+          margin-right: -10px;
         }
       `}</style>
     </div>
