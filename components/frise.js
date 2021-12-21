@@ -655,31 +655,30 @@ function Frise() {
           height: 542px;
           margin-bottom: -5em;
           overflow: hidden;
-          position: relative;
         }
 
         svg {
-          height: 100%;
+          height: 542px;
           margin-left: -1px;
-          position: absolute;
-          bottom: 0;
-          left: -15%;
         }
 
-         @media screen and (min-width: 1815px) {
+        @media screen and (min-width: 2088px) {
           .frise {
-            height: 795px;
-          }
-
-        }
-
-        @media screen and (min-width: 2665px) {
-          .frise {
-            height: 1055px;
+            height: 740px;
           }
 
           svg {
-            left: 0;
+            height: 765px;
+          }
+        }
+
+        @media screen and (min-width: 2949px) {
+          .frise {
+            height: 1015px;
+          }
+
+          svg {
+            height: 1055px;
           }
         }
       `}</style>
@@ -688,4 +687,3 @@ function Frise() {
 }
 
 export default Frise
-
