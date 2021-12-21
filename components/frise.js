@@ -686,24 +686,4 @@ function Frise() {
   )
 }
 
-// @media screen and (min-width: 2088px) {
-//   .frise {
-//     height: 740px;
-//   }
-
-//   svg {
-//     height: 765px;
-//   }
-// }
-
-// @media screen and (min-width: 2949px) {
-//   .frise {
-//     height: 1015px;
-//   }
-
-//   svg {
-//     height: 1055px;
-//   }
-// }
-
 export default Frise
