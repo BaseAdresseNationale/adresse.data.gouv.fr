@@ -652,34 +652,14 @@ function Frise() {
 
       <style jsx>{`
         .frise {
-          height: 542px;
-          margin-bottom: -5em;
+          width: 100%;
+          margin-bottom: -1em;
           overflow: hidden;
         }
 
         svg {
-          height: 542px;
-          margin-left: -1px;
-        }
-
-        @media screen and (min-width: 2088px) {
-          .frise {
-            height: 740px;
-          }
-
-          svg {
-            height: 765px;
-          }
-        }
-
-        @media screen and (min-width: 2949px) {
-          .frise {
-            height: 1015px;
-          }
-
-          svg {
-            height: 1055px;
-          }
+          margin-left: -10px;
+          margin-right: -10px;
         }
       `}</style>
     </div>
