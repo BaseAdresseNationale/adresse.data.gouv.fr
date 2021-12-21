@@ -44,6 +44,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   const [mapContainer, setMapContainer] = useState(null)
   const [isFirstLoad, setIsFirstLoad] = useState(false)
   const [isSourceLoaded, setIsSourceLoaded] = useState(false)
+  const [isStyleLoaded, setIsStyleLoaded] = useState(true)
   const [style, setStyle] = useState(defaultStyle)
   const [sources, setSources] = useState([])
   const [layers, setLayers] = useState([])
@@ -80,7 +81,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
   }, [style])
 
   const loadData = useCallback(() => {
-    if (map && isFirstLoad) {
+    if (map && isStyleLoaded && isFirstLoad) {
       sources.forEach(source => {
         const {name, ...properties} = source
         const src = map.getSource(name)
@@ -98,7 +99,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
         }
       })
     }
-  }, [map, isFirstLoad, layers, sources])
+  }, [map, isFirstLoad, isStyleLoaded, layers, sources])
 
   const onSourceData = useCallback(event => {
     setIsSourceLoaded(event.isSourceLoaded)
@@ -106,7 +107,28 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
 
   useEffect(() => {
     loadData()
-  }, [sources, layers, style, loadData])
+  }, [sources, layers, style, isStyleLoaded, loadData])
+
+  useEffect(() => {
+    if (map) {
+      map.setStyle(STYLES[style])
+
+      const onStyleData = () => {
+        if (map.isStyleLoaded()) {
+          setIsStyleLoaded(true)
+        } else {
+          setIsStyleLoaded(false)
+          setTimeout(onStyleData, 200)
+        }
+      }
+
+      map.on('style.load', onStyleData)
+
+      return () => {
+        map.off('style.load', onStyleData)
+      }
+    }
+  }, [style]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (mapContainer) {
