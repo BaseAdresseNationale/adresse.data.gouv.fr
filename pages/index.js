@@ -70,9 +70,11 @@ function Home({stats}) {
         </style>
       </Section>
 
-      <Section background='color' title='État du déploiement des Bases Adresses Locales'>
-        <MapBalSection stats={stats} />
-      </Section>
+      {stats && (
+        <Section background='color' title='État du déploiement des Bases Adresses Locales'>
+          <MapBalSection stats={stats} />
+        </Section>
+      )}
 
       <Section background='grey' title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
         <DocDownload
@@ -117,18 +119,21 @@ function Home({stats}) {
 }
 
 Home.getInitialProps = async () => {
-  const stats = await getStats()
+  try {
+    return {
+      stat: await getStats()
+    }
+  } catch (error) {
+    console.log('Erreur lors de la récupération des stats BAN:', error)
+  }
+
   return {
-    stats
+    stat: null
   }
 }
 
 Home.propTypes = {
-  stats: PropTypes.shape({
-    france: PropTypes.object.isRequired,
-    bal: PropTypes.object.isRequired,
-    ban: PropTypes.object.isRequired
-  }).isRequired
+  stats: PropTypes.object.isRequired
 }
 
 export default Home
