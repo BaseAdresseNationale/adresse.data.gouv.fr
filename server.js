@@ -127,6 +127,10 @@ app.prepare().then(() => {
     res.redirect('/base-adresse-nationale')
   })
 
+  server.get('/validateur', (request, res) => {
+    res.redirect('/bases-locales/validateur')
+  })
+
   server.get('*', (request, res) => {
     return handle(request, res)
   })
