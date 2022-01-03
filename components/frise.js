@@ -7,6 +7,7 @@ const getSeasonColors = () => {
   const year = now.getFullYear()
 
   const winter = new Date(`${year}-12-21`)
+  const lastYearWinter = new Date(`${year - 1}-03-20`)
   const spring = new Date(`${year}-03-20`)
   const nextYearSpring = new Date(`${year + 1}-03-20`)
   const summer = new Date(`${year}-06-21`)
@@ -25,7 +26,7 @@ const getSeasonColors = () => {
     return fallColors
   }
 
-  if (now >= winter && now < nextYearSpring) {
+  if ((now >= winter || now >= lastYearWinter) && (now < nextYearSpring || now < spring)) {
     return winterColors
   }
 
