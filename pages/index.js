@@ -121,14 +121,14 @@ function Home({stats}) {
 Home.getInitialProps = async () => {
   try {
     return {
-      stat: await getStats()
+      stats: await getStats()
     }
   } catch (error) {
     console.log('Erreur lors de la récupération des stats BAN:', error)
   }
 
   return {
-    stat: null
+    stats: null
   }
 }
 
