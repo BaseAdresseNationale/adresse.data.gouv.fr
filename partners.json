@@ -733,9 +733,53 @@
             "formation",
             "accompagnement technique"
         ],
-        "picture" : "/images/logos/partners/tarn-garonne-numerique.png",
+        "picture": "/images/logos/partners/tarn-garonne-numerique.png",
         "height": 124,
         "width": 121,
         "alt": "Logo de Tarn et Garonne Numérique"
+    },
+    {
+        "name": "Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
+        "link": "https://opendata.agglo-pau.fr/contact2.html",
+        "infos": "La Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques accompagne l’ensemble de ses communes membres dans la mise en œuvre et le suivi d’une Base Adresse Locale propre à chacune. L’ensemble des communes a été rencontré, les élus et le personnel municipal concerné sensibilisés, un diagnostic précis de l’adresse a été réalisé pour chaque commune et ainsi de nombreuses adresses ont été régularisées, corrigées ou créées. En même temps que la BAL est publiée, un agent municipal et un élu sont formés sur l’outil « mes-adresses » qui devient l’outil unique de gestion de l’adresse sur le territoire communautaire.",
+        "perimeter": "Communes de la Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
+        "codeDepartement": [
+            "64"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "animation",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/pau.jpg",
+        "height": 124,
+        "width": 261,
+        "alt": "Logo de la Communauté d’Agglomération Pau Béarn Pyrénées"
+    },
+    {
+        "name": "Communauté de Communes de la Plaine d’Estrées",
+        "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/30/adresse-le-compiegnois-sur-la-bonne-voie/",
+        "infos": "La Communauté de Communes sensibilise et accompagne ses communes dans la prise en main de leur Base Adresse Locale. Elle apporte son savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+        "perimeter": "Communauté de Communes de la Plaine d’Estrées",
+        "codeDepartement": [
+            "60"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/ccpe.png",
+        "height": 124,
+        "width": 246,
+        "alt": "Logo de la Communauté de Communes de la Plaine d’Estrées"
     }
 ]
