@@ -737,5 +737,28 @@
         "height": 124,
         "width": 121,
         "alt": "Logo de Tarn et Garonne Numérique"
+    },
+    {
+        "name": "Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
+        "link": "https://opendata.agglo-pau.fr/contact2.html",
+        "infos": "La Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques accompagne l’ensemble de ses communes membres dans la mise en œuvre et le suivi d’une Base Adresse Locale propre à chacune. L’ensemble des communes a été rencontré, les élus et le personnel municipal concerné sensibilisés, un diagnostic précis de l’adresse a été réalisé pour chaque commune et ainsi de nombreuses adresses ont été régularisées, corrigées ou créées. En même temps que la BAL est publiée, un agent municipal et un élu sont formés sur l’outil « mes-adresses » qui devient l’outil unique de gestion de l’adresse sur le territoire communautaire.",
+        "perimeter": "Communes de la Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
+        "codeDepartement": [
+            "64"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "animation",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/pau.jpg",
+        "height": 124,
+        "width": 261,
+        "alt": "Logo de la Communauté d’Agglomération Pau Béarn Pyrénées"
+    },
     }
 ]
