@@ -760,5 +760,26 @@
         "width": 261,
         "alt": "Logo de la Communauté d’Agglomération Pau Béarn Pyrénées"
     },
+    {
+        "name": "Communauté de Communes de la Plaine d’Estrées",
+        "link": "https://opendata.agglo-pau.fr/contact2.html",
+        "infos": "La Communauté de Communes sensibilise et accompagne ses communes dans la prise en main de leur Base Adresse Locale. Elle apporte son savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+        "perimeter": "Communauté de Communes de la Plaine d’Estrées",
+        "codeDepartement": [
+            "60"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "formation",
+            "accompagnement technique",
+            "réalisation de bases adresses locales",
+            "mise à disposition d’outils mutualisés"
+        ],
+        "picture": "/images/logos/partners/ccpe.png",
+        "height": 124,
+        "width": 246,
+        "alt": "Logo de la Communauté de Communes de la Plaine d’Estrées"
     }
 ]
