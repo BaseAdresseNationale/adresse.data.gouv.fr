@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import {Doughnut} from 'react-chartjs-2'
 
-import theme from '@/styles/theme'
-
 function DoughnutCounter({title, valueUp, valueDown, data, options}) {
   return (
     <div className='stat'>
@@ -44,8 +42,6 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
           padding: .5em 0;
           align-self: flex-start;
         }
-
-
       `}</style>
     </div>
   )
