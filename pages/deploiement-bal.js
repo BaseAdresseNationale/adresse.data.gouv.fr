@@ -152,7 +152,7 @@ function EtatDeploiement({datasets, stats}) {
             height: fit-content;
             flex: 1;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
           }
 
           .bal-cover-map-container {

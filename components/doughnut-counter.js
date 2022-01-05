@@ -20,14 +20,14 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
         }
 
         .stat {
-          height: 300px;
-          display: flex;
-          flex-direction: column;
+          display: grid;
+          grid-template-rows: 24px 45px 1fr 70px;
           margin: 1em;
-          padding: .5em;
+          padding: 1em;
           border: 1px solid lightgrey;
           border-radius: 5px;
-          box-shadow: 1px 1px 5px lightgrey;
+          margin-top: 0.5em;
+          gap: 1em;
         }
 
         .title {
@@ -42,14 +42,10 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
 
         .value-down {
           padding: .5em 0;
-          margin-top: .5em;
+          align-self: flex-start;
         }
 
-        @media (max-width: ${theme.breakPoints.desktop}) {
-            .stat {
-              padding: 1em;
-            }
-          }
+
       `}</style>
     </div>
   )
