@@ -149,9 +149,10 @@ function EtatDeploiement({datasets, stats}) {
           }
 
           .stats {
+            height: fit-content;
             flex: 1;
             display: grid;
-            grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
           }
 
           .bal-cover-map-container {
@@ -167,10 +168,6 @@ function EtatDeploiement({datasets, stats}) {
           @media (max-width: ${theme.breakPoints.desktop}) {
             .map-stats-container {
               flex-direction: column;
-            }
-
-            .stat {
-              padding: 1em;
             }
           }
           `}</style>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-
 import {Doughnut} from 'react-chartjs-2'
+
+import theme from '@/styles/theme'
 
 function DoughnutCounter({title, valueUp, valueDown, data, options}) {
   return (
@@ -11,6 +12,7 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
         <Doughnut data={data} options={options} />
       </div>
       <div className='value-down'>{valueDown}</div>
+
       <style jsx>{`
         .donut {
           max-width: 35%;
@@ -18,11 +20,10 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
         }
 
         .stat {
-          align-self: stretch;
+          height: 300px;
           display: flex;
           flex-direction: column;
           margin: 1em;
-          justify-content: space-around;
           padding: .5em;
           border: 1px solid lightgrey;
           border-radius: 5px;
@@ -43,6 +44,12 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
           padding: .5em 0;
           margin-top: .5em;
         }
+
+        @media (max-width: ${theme.breakPoints.desktop}) {
+            .stat {
+              padding: 1em;
+            }
+          }
       `}</style>
     </div>
   )
