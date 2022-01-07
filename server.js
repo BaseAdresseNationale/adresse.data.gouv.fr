@@ -77,6 +77,11 @@ app.prepare().then(() => {
       ...request.query
     })
   })
+
+  server.get('/outils', (request, res) => {
+    app.render(request, res, '/tools')
+  })
+
   server.get('/base-adresse-nationale/:id', (request, res) => {
     app.render(request, res, '/base-adresse-nationale', {
       ...request.query,
