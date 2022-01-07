@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-
 import {Doughnut} from 'react-chartjs-2'
 
 function DoughnutCounter({title, valueUp, valueDown, data, options}) {
@@ -11,6 +10,7 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
         <Doughnut data={data} options={options} />
       </div>
       <div className='value-down'>{valueDown}</div>
+
       <style jsx>{`
         .donut {
           max-width: 35%;
@@ -18,15 +18,13 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
         }
 
         .stat {
-          align-self: stretch;
+          max-height: 300px;
           display: flex;
           flex-direction: column;
-          margin: 1em;
-          justify-content: space-around;
           padding: .5em;
           border: 1px solid lightgrey;
           border-radius: 5px;
-          box-shadow: 1px 1px 5px lightgrey;
+          gap: 10px;
         }
 
         .title {
@@ -35,13 +33,7 @@ function DoughnutCounter({title, valueUp, valueDown, data, options}) {
         }
 
         .value-up {
-          font-size: 1.5em;
-          padding: .5em;
-        }
-
-        .value-down {
-          padding: .5em 0;
-          margin-top: .5em;
+          font-size: 1.3em;
         }
       `}</style>
     </div>
