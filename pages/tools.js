@@ -1,5 +1,5 @@
 import Page from '@/layouts/main'
-import {Map, FileText, Terminal, UserPlus} from 'react-feather'
+import {Map, FileText, Terminal, UserPlus, Archive} from 'react-feather'
 
 import ToolsIcon from '@/components/icons/tools'
 import Head from '@/components/head'
@@ -32,6 +32,12 @@ function ToolsPage() {
       description: 'Découvrez l‘API Adresse, l‘API Base Adresse Locale et l‘API de dépôt...',
       href: '/api-doc',
       icon: <Terminal />
+    },
+    {
+      title: 'L’explorateur FANTOIR',
+      description: 'Naviguez dans les données FANTOIR',
+      href: '/fantoir',
+      icon: <Archive />
     }
   ]
 
