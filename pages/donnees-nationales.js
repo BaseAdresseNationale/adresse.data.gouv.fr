@@ -52,12 +52,12 @@ function DonneesNatioales() {
             La Base Adresse Nationale est <b>constituée commune par commune</b>, sur le principe suivant :
             <ul>
               <li>si la commune dispose d’une <Link href='/bases-locales'><a>Base Adresse Locale</a></Link>, ce sont ces adresses qui sont incluses dans la Base Adresse Nationale ;</li>
-              <li>dans le cas contraire, la liste des adresses est générée par défaut à partir des <b>meilleures sources disponibles</b> (DGFiP, IGN, La Poste, ARCEP, Guichet Adresse, SDIS…).</li>
+              <li>dans le cas contraire, la liste des adresses est générée par défaut à partir des <b>meilleures sources disponibles</b> (DGFiP, IGN, ARCEP, Guichet Adresse).</li>
             </ul>
           </div>
         </SectionText>
         <div className='adjust-img'>
-          <Image width={1000} height={386} src='/images/donnees-nationales/schema-donnees-ban.svg' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
+          <Image width={800} height={500}  src='/images/donnees-nationales/schema-donnees-ban.png' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
         </div>
       </Section>
 
