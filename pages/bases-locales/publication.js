@@ -1,6 +1,7 @@
 
 import React, {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
+import Image from 'next/image'
 
 import Page from '@/layouts/main'
 
@@ -131,9 +132,15 @@ const PublicationPage = React.memo(({defaultRevision, defaultHabilitation, defau
     <Page>
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
-        {commune && <h3>{commune.nom} - {commune.code}</h3>}
 
         <Steps step={step} />
+
+        {commune && (
+          <div className='commune-infos'>
+            <Image src='/images/icons/commune.svg' height={60} width={60} />
+            <div>{commune.nom} - {commune.code}</div>
+          </div>
+        )}
 
         {error && (
           <Notification type='error' onClose={() => setError(null)}>
@@ -189,6 +196,19 @@ const PublicationPage = React.memo(({defaultRevision, defaultHabilitation, defau
       <style jsx>{`
         .current-step {
           margin: 4em 0;
+        }
+
+        .commune-infos {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 2em 0;
+        }
+
+        .commune-infos div {
+          font-weight: bold;
+          font-size: 24px;
+          text-align: center;
         }
 
         .loading {

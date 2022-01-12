@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import {ArrowUpCircle, AlertOctagon} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -16,14 +17,12 @@ const Publishing = React.memo(({user, commune, hasConflit, publication}) => {
       <User user={user} commune={commune} />
 
       <div className='message'>
-        <p>La Base Adresse Locale de votre commune</p>
-        <p><b>{commune.nom} - {commune.code}</b></p>
-        <p>est prête à être publiée</p>
+        <p className='publish-message'>La Base Adresse Locale de votre commune <b>{commune.nom} ({commune.code})</b> est maintenant <b className='ready-to-publish'>prête à être publiée</b></p>
 
         {hasConflit && (
-          <Notification type='error'>
-            <div>
-              <p>Une autre Base Adresses Locale est <b>déjà synchronisée avec la Base Adresses Nationale</b>.</p>
+          <Notification type='warning'>
+            <div className='alert-content'>
+              <h4><AlertOctagon /> Une autre Base Adresses Locale est déjà synchronisée avec la Base Adresses Nationale.</h4>
               <p>En choisissant de publier, votre Base Adresse Locale <b>remplacera celle actuellement en place</b>.</p>
             </div>
           </Notification>
@@ -36,7 +35,10 @@ const Publishing = React.memo(({user, commune, hasConflit, publication}) => {
               <label>Je comprend que ma Base Adresse Locale remplacera celle actuellement synchronisée avec la Base Adresses Nationale</label>
             </div>
           )}
-          <Button disabled={hasConflit && !isConfirmed} onClick={publication}>Publier</Button>
+
+          <Button size='large' disabled={hasConflit && !isConfirmed} onClick={publication}>
+            <div className='publish-button-content'><ArrowUpCircle size={25} /> Publier</div>
+          </Button>
         </div>
       </div>
 
@@ -48,11 +50,40 @@ const Publishing = React.memo(({user, commune, hasConflit, publication}) => {
           padding: 2em;
         }
 
+        .publish-message {
+          font-size: 18px;
+        }
+
+        .ready-to-publish {
+          color: ${theme.primary};
+          text-decoration: underline;
+          font-size: 20px;
+        }
+
         .confirm-publication {
           display: flex;
           justify-content: center;
+          margin-bottom: 2em;
         }
-        `}</style>
+
+        .publish-button-content {
+          display: flex;
+          gap: 1em;
+        }
+
+        .alert-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        h4 {
+          color: ${theme.warningBorder};
+          display: flex;
+          gap: 10px;
+          margin: 0;
+        }
+      `}</style>
     </div>
   )
 })

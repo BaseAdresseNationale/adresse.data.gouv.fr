@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import Router from 'next/router'
+import {ChevronRight, ChevronDown, Info, Mail, Users, Clock, LogIn} from 'react-feather'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://mes-adresses.data.gouv.fr'
 
@@ -10,6 +11,9 @@ import theme from '@/styles/theme'
 import Button from '@/components/button'
 
 const Authentification = React.memo(({communeEmail, revisionId, habilitationId, authenticationUrl, handleCodeAuthentification}) => {
+  const [isHabilitedOpen, setIsHabilitedOpen] = useState(true)
+  const [isNonHabilitedOpen, setIsNonHabilitedOpen] = useState(false)
+
   const redirectToFranceConnect = () => {
     const redirectUrl = encodeURIComponent(
       `${ADRESSE_URL}${Router.asPath}?revisionId=${revisionId}&habilitationId=${habilitationId}`
@@ -18,85 +22,184 @@ const Authentification = React.memo(({communeEmail, revisionId, habilitationId, 
     Router.push(encodeURIComponent(`${authenticationUrl}?redirectUrl=${redirectUrl}`))
   }
 
+  const handleOpen = type => {
+    if (type === 'habilited') {
+      setIsHabilitedOpen(!isHabilitedOpen)
+    } else {
+      setIsNonHabilitedOpen(!isNonHabilitedOpen)
+    }
+  }
+
   return (
     <div className='auth-container'>
-      <div>
-        <h3>Vous êtes habilité</h3>
-        <div className='section'>
-          <div className='action column'>
-            <p>M’authentifier comme élu de la commune</p>
-            <div onClick={redirectToFranceConnect}>
-              <Image width={280} height={82} className='france-connect' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' />
-            </div>
-          </div>
-
-          <div className='action column'>
-            <p>Authentifier la mairie de la commune</p>
-            <div className='code-button'>
-              <Button disabled={!communeEmail} onClick={handleCodeAuthentification}>Recevoir un code d’authentification</Button>
-            </div>
-            <div className='info'>
-              {communeEmail ? (
-                <>Un code d’authentification vous sera envoyé à l’adresse : <b>{communeEmail}</b></>
-              ) : (
-                'Cette option est indisponible car aucune adresse email pour votre mairie n’a pu être trouvée'
-              )}
-            </div>
-          </div>
+      <div className='dropdown-container'>
+        <div
+          className='dropdown-title'
+          onClick={() => {
+            handleOpen('habilited')
+          }}
+        >
+          <h3>Vous êtes habilité(e)</h3>
+          {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
         </div>
+
+        {isHabilitedOpen && (
+          <div className='content'>
+            <div className='authentification-choice'>
+              <h4>M’authentifier comme élu de la commune</h4>
+              <div className='france-connect' onClick={redirectToFranceConnect}>
+                <Image width={280} height={82} layout='fixed' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' />
+              </div>
+              <p className='alert-personal-data'>
+                Aucune donnée personnelle ne nous sera transmise durant ce processus d’authentification
+              </p>
+            </div>
+
+            <div className='authentification-choice'>
+              <h4>Authentifier la mairie de la commune</h4>
+              <Button size='large' disabled={!communeEmail} onClick={handleCodeAuthentification}>
+                <div className='mail-button'>
+                  <Mail size={40} /> Recevoir un code d’authentification
+                </div>
+              </Button>
+              <p className='email-info'>
+                {communeEmail ? (
+                  <>Un code d’authentification vous sera envoyé à l’adresse : <br /> <b>{communeEmail}</b></>
+                ) : (
+                  'Cette option est indisponible car aucune adresse email pour votre mairie n’a pu être trouvée'
+                )}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div>
-        <h3>Vous n’êtes pas habilité</h3>
-        <div className='section column'>
-          <b>Prestataires et délégataires</b>
-          <p>Contactez la mairie pour qu’elle puisse authentifier les adresses selon les modalités définies ci-dessus. Pour rappel, la commune reste responsable de ses adresses, même en cas de délégation de la réalisation technique de l’adressage.</p>
+      <div className='habilitation-explanation'>
+        <div>Comprendre l’habilitation en quelques points</div>
+        <p className='intro'>Afin de pouvoir publier vos adresses dans la <b>Base Adresse Nationale</b>, votre <b>Base Adresse Locale</b> doit obtenir une <b>habilitation</b>.</p>
+        <ul>
+          <li><Users size={15} /> <p>Permet à <b>toute personne aillant accès à l’édition</b> de cette Base Adresse Locale de <b>mettre à jour</b> les adresses de sa commune.</p></li>
+          <li><Clock size={15} /> <p>Elle est valable <b>6 mois</b>.</p></li>
+          <li><LogIn size={15} /> <p>Pour l’obtenir, <b>un(e) élu(e)</b> de la commune ou <b>un(e) employé(e)</b> de la mairie doit <b>s’authentifier</b>.</p></li>
+        </ul>
+      </div>
+
+      <div className='dropdown-container'>
+        <div
+          className='dropdown-title'
+          onClick={() => {
+            handleOpen('nonHabilited')
+          }}
+        >
+          <h3>Vous n’êtes pas habilité(e)</h3>
+          {isNonHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
         </div>
+
+        {isNonHabilitedOpen && (
+          <div className='content'>
+            <div className='infos-habilitation'>
+              <h4><Info /><b>Prestataires et délégataires</b></h4>
+              <p>Contactez la mairie pour qu’elle puisse <b>authentifier </b>les adresses selon les modalités définies ci-dessus. Pour rappel, la commune <b>reste responsable de ses adresses</b>, même en cas de délégation de la <b>réalisation technique de l’adressage</b>.</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <style jsx>{`
-        .auth-container > div {
-          margin: 1em 0;
+        .intro {
+          text-align: center;
         }
 
-        .column {
+        .habilitation-explanation, .mail-button, .authentification-choice, .content {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          gap: 1em;
         }
 
-        .section {
-          display: flex;
-          flex-flow: wrap;
-          justify-content: space-around;
-          align-items: center;
-          text-align: center;
-          border-radius: 2px;
-          padding: 1em;
-          background: ${theme.colors.lighterGrey};
-          box-shadow: 0 1px 4px 0 ${theme.boxShadow};
+        .habilitation-explanation div {
+          font-size: 20px;
+          font-weight: bold;
+          color: ${theme.primary};
         }
 
-        .code-button {
+        ul li {
+          display: grid;
+          grid-template-columns: 15px 1fr;
+          align-items: baseline;
+          gap: 10px;
+        }
+
+        p, h3, h4 {
+          margin: 0;
+        }
+
+        .dropdown-container {
+          border: solid 1px ${theme.border};
+          box-sizing: border-box;
+          box-shadow: 0px 4px 22px -5px rgba(0, 0, 0, 0.45);
+          border-radius: 8px;
           margin: 1em 0;
-          max-width: 302px;
+          padding: 1em;
         }
 
-        .info {
-          font-style: italic;
+        .dropdown-title {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
 
-        .france-connect:hover {
+        h4 {
+          display: flex;
+          gap: 10px;
+        }
+
+        .content {
+          border-top: 2px solid ${theme.borderLighter};
+          margin-top: 1em;
+          flex-flow: row wrap;
+          justify-content: space-around;
+          text-align: center;
+        }
+
+        .france-connect {
           cursor: pointer;
         }
 
-        .disabled {
-          color: ${theme.colors.grey};
-          font-style: italic;
-          margin: 0.5em 0;
+        .infos-habilitation, .authentification-choice {
+          padding: 1em;
+          border-radius: 8px;
+          margin-top: 1em;
         }
-        `}</style>
+
+        .infos-habilitation {
+          background: ${theme.colors.lighterBlue};
+          color: ${theme.primary};
+        }
+
+        .authentification-choice {
+          min-height: 304px;
+          flex: 1;
+          justify-content: space-between;
+          background: ${theme.colors.lighterGrey};
+          gap: 1em;
+        }
+
+        .alert-personal-data {
+          text-align: center;
+          font-weight: bolder;
+          text-decoration: underline;
+        }
+
+        .mail-button {
+          gap: 10px;
+        }
+
+        .email-info {
+          font-style: italic;
+        }
+      `}</style>
     </div>
   )
 })

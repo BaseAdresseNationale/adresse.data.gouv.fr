@@ -14,6 +14,7 @@ export default ({
   almostBlack: '#26353f',
   black: '#1C1C1C',
 
+  darkGreen: '#0F6F00',
   green: '#03BD5B',
   lightGreen: '#DAF5E7',
   orange: '#FF9947',
