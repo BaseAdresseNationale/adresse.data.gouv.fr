@@ -12,10 +12,10 @@ const getHours = time => {
 
 function MairieContact({nom, horaires, email, telephone}) {
   const defaultValue = 'Non renseigné'
-  const [areHorairesVisible, setAreHorairesVisible] = useState(false)
+  const [areSchedulesVisible, setAreSchedulesVisible] = useState(false)
 
-  const handleHoraireShown = () => {
-    setAreHorairesVisible(!areHorairesVisible)
+  const toggleSchedules = () => {
+    setAreSchedulesVisible(!areSchedulesVisible)
   }
 
   return (
@@ -37,13 +37,13 @@ function MairieContact({nom, horaires, email, telephone}) {
         </div>
 
         <div className='horaires'>
-          <div className='horaire-dropdown' onClick={handleHoraireShown}>Horaires d’ouverture
-            {areHorairesVisible ? <ChevronDown style={{marginTop: '2px'}} /> : <ChevronRight style={{marginTop: '2px'}} />}
+          <div className='horaire-dropdown' onClick={toggleSchedules}>Horaires d’ouverture
+            {areSchedulesVisible ? <ChevronDown style={{marginTop: '2px'}} /> : <ChevronRight style={{marginTop: '2px'}} />}
           </div>
 
           <div className='horaires-list'>
             {horaires ? (
-              areHorairesVisible && (
+              areSchedulesVisible && (
                 horaires.map(horaire => (
                   <div key={`${horaire.du}-${horaire.au}`}>
                     <div>
