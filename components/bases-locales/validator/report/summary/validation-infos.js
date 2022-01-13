@@ -1,39 +1,26 @@
-import {useState} from 'react'
 import PropTypes from 'prop-types'
 import {X} from 'react-feather'
-import ExpandableDiv from '@/components/expandable-div'
+import ExpandableMenu from '@/components/api-doc/api-adresse/expandable-menu'
 import theme from '@/styles/theme'
 
 function ValidationInfos({handleClose}) {
-  const [isShown, setIsShown] = useState(null)
-
   return (
-    <div className='selected-issue'>
+    <div>
       <div className='dialog'>
         <div className='flex-container'>
           <h3>Informations sur la validation : </h3>
           <X size={40} style={{cursor: 'pointer'}} onClick={handleClose} />
         </div>
-        <ExpandableDiv
-          string='bal'
-          title='Validation de la Base Adresse Locale'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Validation de la Base Adresse Locale'>
           <ul>
             <li>Le nom de Base Adresse Locale est obligatoire</li>
             <li>Une adresse mail est obligatoire</li>
             <li>La Base Adresses Locale doit comporter une commune</li>
             <li>Une adresse doit comporter des champs <code>numero</code>, <code>voie_nom</code> et <code>commune_nom</code> valides</li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
 
-        <ExpandableDiv
-          string='fichier'
-          title='Validation du fichier'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Validation du fichier'>
           <ul>
             <li>Le fichier doit être encodé en UTF-8</li>
             <li>Les lignes doivent être délimitées par des points-virgules <code>;</code></li>
@@ -44,14 +31,9 @@ function ValidationInfos({handleClose}) {
             <li>La date doit avoir un format <code>yyyy-MM-dd</code></li>
             <li>La date doit être valide (<code>parseISO</code>)</li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
 
-        <ExpandableDiv
-          string='cle-interop'
-          title='Clé d’interopérabilité'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Clé d’interopérabilité'>
           <ul>
             <li>La clé d’interopérabilité est obligatoire</li>
             <li>La clé d’interopérabilité doit contenir ls numéro auquel elle est rattachée</li>
@@ -59,14 +41,9 @@ function ValidationInfos({handleClose}) {
             <li>La structure de la clé doit comporter au moins deux underscores / au moins trois segments</li>
             <li>La partie numéro de la clé d’interopérabilité doit contenir 5 caractères</li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
 
-        <ExpandableDiv
-          string='numero'
-          title='Numéro, suffixe, positions, parcelles'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Numéro, suffixe, positions, parcelles'>
           <div className='sub-title'>numero</div>
           <ul>
             <li>La valeur du champ numéro doit être un nombre entier</li>
@@ -105,14 +82,9 @@ function ValidationInfos({handleClose}) {
             <li>Ne peut pas être vide</li>
             <li>Ce champs doit contenir 14 ou 15 caractères</li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
 
-        <ExpandableDiv
-          string='voie'
-          title='Voie'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Voie'>
           <div className='sub-title'>voie_nom</div>
           <ul>
             <li>Le nom de la voie doit comprendre entre 4 et 200 caractères</li>
@@ -120,25 +92,15 @@ function ValidationInfos({handleClose}) {
             <li>Le nom de la voie ne peux pas contenir un caractère tiret bas <code>_</code></li>
             <li>Le nom de voie doit commencer par une lettre</li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
 
-        <ExpandableDiv
-          string='lieu-dit'
-          title='Lieux-dits'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Lieux-dits'>
           <ul>
             <li>Les lieux-dits doivent avoir un numéro supérieur à <code>5000</code></li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
 
-        <ExpandableDiv
-          string='commune'
-          title='Commune'
-          isShown={isShown}
-          setIsShown={setIsShown}
-        >
+        <ExpandableMenu title='Commune'>
           <div className='sub-title'>commune_insee</div>
           <ul>
             <li>Le code INSEE de la commune n’est pas un code valide de commune actuelle.</li>
@@ -150,17 +112,17 @@ function ValidationInfos({handleClose}) {
             <li>Le code doit être présent dans le base de communes anciennes</li>
             <li>Le code INSEE de la commune n’est pas un code valide de commune ancienne (déléguée, associées ou périmée)</li>
           </ul>
-        </ExpandableDiv>
+        </ExpandableMenu>
       </div>
       <style jsx>{`
         .dialog {
-          background-color: #fff;
+          color: #fff;
           margin: auto;
           padding: 2em;
           height: 100%;
           max-width: 1400px;
           box-shadow: 0 1px 4px ${theme.boxShadow};
-          background: ${theme.colors.white};
+          background: ${theme.primary};
         }
 
         .flex-container {
