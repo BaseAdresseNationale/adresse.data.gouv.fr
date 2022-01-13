@@ -18,7 +18,7 @@ function Report({report}) {
   const {fileValidation, rows, fields, notFoundFields, profilesValidation} = report
   const [profile, setProfile] = useState('1.3-etalab')
   const [profileReport, setProfileReport] = useState(null)
-  const [infosDisplayed, setInfosDisplayed] = useState(false)
+  const [isInfosDisplayed, setIsInfosDisplayed] = useState(false)
 
   useEffect(() => {
     const getProfileReport = async () => {
@@ -33,14 +33,14 @@ function Report({report}) {
 
   return (
     <div>
-      {infosDisplayed ? (
-        <ValidationInfos handleClose={() => setInfosDisplayed(false)} />
+      {isInfosDisplayed ? (
+        <ValidationInfos handleClose={() => setIsInfosDisplayed(false)} />
       ) : (
         <Notification style={{margin: '1em'}}>
           <div className='infos-notification'>
             <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
             Quels sont les champs de validation et comment est validé votre fichier ?
-            <Button onClick={() => setInfosDisplayed(true)}>
+            <Button onClick={() => setIsInfosDisplayed(true)}>
               Afficher les informations sur la validation
             </Button>
           </div>
@@ -70,16 +70,6 @@ function Report({report}) {
 
       <div className='report-container'>
         <h4>Validation des données</h4>
-        <Notification type='warning'>
-          <div style={{display: 'flex'}}>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
-            </div>
-            <div>
-              <div><b>Vous avez des avertissements ou des anomalies dans votre fichier ?</b><br /> Il s’agit d’un écart avec la spécification BAL 1.3. Cela ne pose pas de problème pour la publication, votre Base Adresse Locale reste valide.</div>
-            </div>
-          </div>
-        </Notification>
         {profileReport ? (
           <Summary rows={profileReport.rows} fields={profileReport.fields} />
         ) : (

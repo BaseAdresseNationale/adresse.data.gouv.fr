@@ -1,9 +1,11 @@
 import {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Check} from 'react-feather'
+import {Check, Info} from 'react-feather'
 
 import IssueDialog from './issue-dialog'
 import IssuesSumup from './issues-sumup'
+
+import Notification from '@/components/notification'
 
 function Summary({rows, fields}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
@@ -45,7 +47,18 @@ function Summary({rows, fields}) {
 
   return (
     <div>
-
+      {warningsCount > 1 && (
+        <Notification>
+          <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+              <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} />
+            </div>
+            <div>
+              <div><b>Vous avez des avertissements ou des anomalies dans votre fichier ?</b><br /> Il s’agit d’un écart avec la spécification BAL 1.3. Cela ne pose pas de problème pour la publication, votre Base Adresse Locale reste valide.</div>
+            </div>
+          </div>
+        </Notification>
+      )}
       {rowsWithIssuesCount === 0 ? (
         <h4>Aucune ligne avec anomalies trouvée <span className='valid'><Check /></span></h4>
       ) : (
