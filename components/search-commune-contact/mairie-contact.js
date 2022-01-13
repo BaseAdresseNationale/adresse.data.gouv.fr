@@ -51,7 +51,7 @@ function MairieContact({nom, horaires, email, telephone}) {
                     </div>
                     <ul>
                       {horaire.heures.map(heure => (
-                        <li key={`${heure.de}-${heure.a}`}>
+                        <li key={`${horaire.du}-${horaire.au}&${heure.de}-${heure.a}`}>
                           De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b>
                         </li>
                       ))}
