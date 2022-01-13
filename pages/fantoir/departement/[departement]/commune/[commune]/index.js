@@ -16,7 +16,7 @@ import SearchBar from '@/components/search-bar'
 import HeaderListFantoir from '@/components/fantoir/header-list-fantoir'
 import VoieInformation from '@/components/fantoir/voie-information'
 
-const voieHeader = ['Nom de la  voie', 'type', 'Code Fantoir']
+const voieHeader = ['Nom de la voie', 'type', 'Code FANTOIR']
 
 function VoiesList({voies, nomCommune}) {
   const sortedVoies = useMemo(() => {
@@ -32,9 +32,9 @@ function VoiesList({voies, nomCommune}) {
   }, 300)
 
   return (
-    <Page title='Fantoir'>
-      <Head title={`Fantoir : ${nomCommune}`} icon={<Database size={56} />} />
-      <Section title={`Liste des voies de ${nomCommune}`}>
+    <Page title='FANTOIR'>
+      <Head title={`FANTOIR : ${nomCommune}`} icon={<Database size={56} />} />
+      <Section title={`Liste des voies - ${nomCommune}`}>
         <div className='search'>
           <SearchBar
             placeholder='Chercher une voie'

@@ -35,7 +35,7 @@ function ToolsPage() {
     },
     {
       title: 'L’explorateur FANTOIR',
-      description: 'Naviguez dans les données FANTOIR',
+      description: 'Consultez la base FANTOIR de la DGFiP en quelques clics',
       href: '/fantoir',
       icon: <Archive />
     }

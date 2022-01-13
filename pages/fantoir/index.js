@@ -15,7 +15,7 @@ import SearchBar from '@/components/search-bar'
 import HeaderListFantoir from '@/components/fantoir/header-list-fantoir'
 import BodyListFantoir from '@/components/fantoir/body-list-fantoir'
 
-const title = 'Fantoir'
+const title = 'FANTOIR'
 const departementHeader = ['Département', 'Code département']
 const departementInfos = ['nom', 'code']
 
