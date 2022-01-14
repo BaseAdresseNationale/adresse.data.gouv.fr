@@ -57,7 +57,7 @@ function DonneesNatioales() {
           </div>
         </SectionText>
         <div className='adjust-img'>
-          <Image width={800} height={500}  src='/images/donnees-nationales/schema-donnees-ban.png' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
+          <Image width={800} height={500} src='/images/donnees-nationales/schema-donnees-ban.png' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
         </div>
       </Section>
 
