@@ -77,6 +77,7 @@ app.prepare().then(() => {
       ...request.query
     })
   })
+
   server.get('/base-adresse-nationale/:id', (request, res) => {
     app.render(request, res, '/base-adresse-nationale', {
       ...request.query,
@@ -129,6 +130,11 @@ app.prepare().then(() => {
 
   server.get('/validateur', (request, res) => {
     res.redirect('/bases-locales/validateur')
+  })
+
+  // DO NOT REMOVE
+  server.get('/tools', (request, res) => {
+    res.redirect('/outils')
   })
 
   server.get('*', (request, res) => {

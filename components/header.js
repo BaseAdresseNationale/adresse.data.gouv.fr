@@ -10,7 +10,7 @@ const links = [
   {text: 'Contribuer', href: '/contribuer'},
   {text: 'Guides', href: '/guides'},
   {text: 'API', href: '/api-doc'},
-  {text: 'Outils', href: '/tools'},
+  {text: 'Outils', href: '/outils'},
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 

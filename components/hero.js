@@ -48,7 +48,7 @@ function Hero({title, tagline}) {
               Bases Adresses Locales
             </CircleLink>
             <CircleLink
-              href='/tools'
+              href='/outils'
               icon={<ToolsIcon size={48} color={theme.colors.white} />}
               isImportant
               size='80'
