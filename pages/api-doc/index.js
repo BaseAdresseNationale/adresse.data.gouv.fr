@@ -26,6 +26,12 @@ function ApiPage() {
       description: 'API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale. Gestion des habilitations.',
       href: 'https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation',
       icon: <Folder />
+    },
+    {
+      title: 'API FANTOIR',
+      description: 'API permettant consulter la base FANTOIR de la DGFiP.',
+      href: 'https://github.com/BaseAdresseNationale/api-fantoir/blob/master/README.md#api',
+      icon: <Folder />
     }
   ]
 
