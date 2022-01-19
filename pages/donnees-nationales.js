@@ -57,7 +57,7 @@ function DonneesNatioales() {
           </div>
         </SectionText>
         <div className='adjust-img'>
-          <Image width={800} height={500} src='/images/donnees-nationales/schema-donnees-ban.png' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
+          <Image width={1000} height={600} src='/images/donnees-nationales/schema-donnees-ban.svg' alt='Schéma représentant les sources de données présentes dans la Base Adresse Nationale' />
         </div>
       </Section>
 
@@ -83,6 +83,9 @@ function DonneesNatioales() {
           margin-top: 3em;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        }
+        .adjust-img {
+          text-align: center;
         }
       `}</style>
     </Page >
