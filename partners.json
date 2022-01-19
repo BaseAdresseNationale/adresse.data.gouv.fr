@@ -781,5 +781,28 @@
         "height": 124,
         "width": 246,
         "alt": "Logo de la Communauté de Communes de la Plaine d’Estrées"
+    },
+    {
+        "name": "Anne Légaut",
+        "link": "http://anne-legaut.com/services/",
+        "infos": "Simple mise à jour des adresses ou prestation complète, avec recensement des voies existantes, création des nouvelles et des numéros, fourniture d'un modèle de délibération, d'un fichier publipostage pour les courriers à envoyer aux habitants avec certificat d'adresse, remplissage du tableau pour la DGFiP, aide à la publication de la Base Adresse Locale, diffusion auprès des organismes compétents.",
+        "perimeter": "Drôme, Ardèche, Hautes Alpes, Vaucluse",
+        "codeDepartement": [
+            "26",
+            "07",
+            "05",
+            "84"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": true,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/legaut.jpg",
+        "height": 124,
+        "width": 248,
+        "alt": "Logo du partenaire Anne Légaut"
     }
 ]
