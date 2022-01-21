@@ -10,6 +10,7 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import CommuneInfos from '@/components/bases-locales/commune/commune-infos'
 import BALState from '@/components/bases-locales/commune/bal-state'
+import Historique from '@/components/bases-locales/commune/historique'
 
 function Commune({communeInfos, mairieContact, revisions}) {
   const currentRevision = revisions.find(revision => revision.current)
@@ -26,6 +27,7 @@ function Commune({communeInfos, mairieContact, revisions}) {
         mairieContact={mairieContact}
         revision={currentRevision}
       />
+      <Historique revisions={revisions} communeName={communeInfos.nomCommune} />
     </Page>
   )
 }
@@ -39,7 +41,7 @@ Commune.getInitialProps = async ({query}) => {
   const {telephone, email} = mairie.features[0].properties
 
   const revisions = await getRevisions(codeCommune)
-  console.log(revisions)
+
   return {
     communeInfos: commune,
     mairieContact: {telephone, email},
