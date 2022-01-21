@@ -6,7 +6,7 @@ const compression = require('compression')
 const helmet = require('helmet')
 const cors = require('cors')
 
-const w = require('./lib/w')
+const w = require('./w')
 const {
   getHabilitation,
   createHabilitation,
@@ -18,7 +18,7 @@ const {
   uploadFile,
   validateRevision,
   publishRevision
-} = require('./lib/api-depot-proxy')
+} = require('./api-depot-proxy')
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
