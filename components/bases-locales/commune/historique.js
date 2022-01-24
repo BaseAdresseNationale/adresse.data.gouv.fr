@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import {RefreshCw, Edit2} from 'react-feather'
+import {RefreshCw} from 'react-feather'
 
 import Section from '@/components/section'
-import ButtonLink from '@/components/button-link'
 import HistoriqueItem from './historique-item'
 
 function Historique({revisions, communeName}) {
@@ -13,7 +12,7 @@ function Historique({revisions, communeName}) {
   })
 
   return (
-    <Section color='grey' title='Historiques des dépôts et révisions de la BAL'>
+    <Section title='Historiques des dépôts et révisions de la BAL'>
       {revisions.length > 0 ? (
         <div className='historique-wrapper'>
           <h4><RefreshCw size={25} /> Retrouvez les cinq dernières mise à jour</h4>
@@ -24,15 +23,6 @@ function Historique({revisions, communeName}) {
       ) : (
         <div className='unavailable'>
           <p>Il n’y a pas d’historique pour cette commune.</p>
-          <ButtonLink
-            isExternal
-            size='large'
-            target='_blank'
-            rel='noreferrer'
-            href='https://mes-adresses.data.gouv.fr/new'
-          >
-            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} />
-          </ButtonLink>
         </div>
       )}
 
@@ -55,15 +45,9 @@ function Historique({revisions, communeName}) {
           gap: 1em;
         }
 
-        .unavailable {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 1em;
-        }
-
         .unavailable p {
           font-style: italic;
+          text-align: center;
         }
       `}</style>
     </Section>

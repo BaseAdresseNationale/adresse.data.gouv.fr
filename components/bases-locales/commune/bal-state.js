@@ -93,9 +93,10 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieContact, re
           <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)} %</b> de la totalité des adresses de la commune sont certifiées.</p>
         </div>
       </div>
+
       <div className='contact-wrapper'>
         <SectionText color='secondary'>
-          Il n’existe pas encore de dispositif national permettant aux citoyens de contribuer directement, mais de <b>nombreux guichets de signalement</b> existent à l’échelon local. Ce site a vocation à les référencer à moyen terme. En attendant, <b>contactez votre mairie</b> et parlez-leur de nous !
+          Il n’existe pas encore de dispositif national permettant aux citoyens de contribuer directement à la Base Adresse Locale, mais de <b>nombreux guichets de signalement</b> existent à l’échelon local. Ce site a vocation à les référencer à moyen terme. En attendant, <b>contactez votre mairie</b> et parlez-leur de nous !
         </SectionText>
         <div className='contacts-container'>
           <div className='contact'><Phone /><a href={`tel:${mairieContact.telephone}`}>{mairieContact.telephone || 'non renseigné'}</a></div>

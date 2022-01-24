@@ -10,9 +10,10 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import CommuneInfos from '@/components/bases-locales/commune/commune-infos'
 import BALState from '@/components/bases-locales/commune/bal-state'
+import BALDownload from '@/components/bases-locales/commune/bal-download'
 import Historique from '@/components/bases-locales/commune/historique'
 
-function Commune({communeInfos, mairieContact, revisions}) {
+function Commune({communeInfos, mairieContact, revisions, codeCommune}) {
   const currentRevision = revisions.find(revision => revision.current)
 
   return (
@@ -26,7 +27,9 @@ function Commune({communeInfos, mairieContact, revisions}) {
         nbNumerosCertifies={communeInfos.nbNumerosCertifies}
         mairieContact={mairieContact}
         revision={currentRevision}
+        codeCommune={codeCommune}
       />
+      <BALDownload communeName={communeInfos.nomCommune} codeCommune={codeCommune} isFileAvailable={Boolean(currentRevision)} />
       <Historique revisions={revisions} communeName={communeInfos.nomCommune} />
     </Page>
   )
@@ -43,6 +46,7 @@ Commune.getInitialProps = async ({query}) => {
   const revisions = await getRevisions(codeCommune)
 
   return {
+    codeCommune,
     communeInfos: commune,
     mairieContact: {telephone, email},
     revisions
@@ -52,7 +56,8 @@ Commune.getInitialProps = async ({query}) => {
 Commune.propTypes = {
   communeInfos: PropTypes.object.isRequired,
   mairieContact: PropTypes.object.isRequired,
-  revisions: PropTypes.array
+  codeCommune: PropTypes.string.isRequired,
+  revisions: PropTypes.array,
 }
 
 Commune.defaultType = {
