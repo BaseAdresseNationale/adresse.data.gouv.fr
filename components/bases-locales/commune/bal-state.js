@@ -198,7 +198,7 @@ BALState.propTypes = {
 }
 
 BALState.defaultType = {
-  revision: {}
+  revision: null
 }
 
 export default BALState
