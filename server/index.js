@@ -4,7 +4,6 @@ const express = require('express')
 const next = require('next')
 const compression = require('compression')
 const helmet = require('helmet')
-const cors = require('cors')
 
 const w = require('./w')
 const {
@@ -28,9 +27,6 @@ const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
   const server = express()
-
-  // Enable CORS headers and routes
-  server.use(cors({origin: true}))
 
   if (!dev) {
     server.use(compression())
