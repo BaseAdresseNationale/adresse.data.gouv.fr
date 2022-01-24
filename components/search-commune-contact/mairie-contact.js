@@ -67,6 +67,7 @@ function MairieContact({nom, horaires, email, telephone}) {
       <style jsx>{`
         .mairie-infos {
           margin-top: 1em;
+          padding: 1em;
           background-color: ${colors.lighterGrey};
         }
 

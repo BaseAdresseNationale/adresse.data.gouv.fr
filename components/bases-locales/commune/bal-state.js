@@ -1,12 +1,13 @@
-import {useMemo} from 'react'
+import {useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Doughnut} from 'react-chartjs-2'
-import {Mail, Phone} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
+import ContactModal from './contact-modal'
+import Button from '@/components/button'
 
 function toCounterData(percent, total) {
   return {
@@ -41,7 +42,9 @@ const options = {
   }
 }
 
-function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieContact, revision}) {
+function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieInfos, revision}) {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
+
   const certifiedPercent = (nbNumerosCertifies / nbNumeros) * 100
   const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent))
   const updatedDate = revision ? `le ${new Date(revision.updatedAt).toLocaleDateString('fr-FR')}` : 'non renseigné'
@@ -69,6 +72,10 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieContact, re
       }
     }
   }, [revision, userName])
+
+  const handleModalOpen = () => {
+    setIsContactModalOpen(!isContactModalOpen)
+  }
 
   return (
     <Section title='État de la Base Adresse Nationale' background='color' subtitle={subtitle}>
@@ -98,10 +105,8 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieContact, re
         <SectionText color='secondary'>
           Il n’existe pas encore de dispositif national permettant aux citoyens de contribuer directement à la Base Adresse Locale, mais de <b>nombreux guichets de signalement</b> existent à l’échelon local. Ce site a vocation à les référencer à moyen terme. En attendant, <b>contactez votre mairie</b> et parlez-leur de nous !
         </SectionText>
-        <div className='contacts-container'>
-          <div className='contact'><Phone /><a href={`tel:${mairieContact.telephone}`}>{mairieContact.telephone || 'non renseigné'}</a></div>
-          <div className='contact'><Mail /> <a href={`mailto:${mairieContact.email}`}>{mairieContact.email || 'non renseigné'}</a></div>
-        </div>
+        <Button color='white' isOutlined onClick={handleModalOpen}>Contactez la mairie de {communeName}</Button>
+        {isContactModalOpen && <ContactModal mairieInfos={mairieInfos} onModalClose={handleModalOpen} />}
       </div>
 
       <style jsx>{`
@@ -191,7 +196,7 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieContact, re
 
 BALState.propTypes = {
   communeName: PropTypes.string.isRequired,
-  mairieContact: PropTypes.object.isRequired,
+  mairieInfos: PropTypes.object.isRequired,
   nbNumeros: PropTypes.number.isRequired,
   nbNumerosCertifies: PropTypes.number.isRequired,
   revision: PropTypes.object

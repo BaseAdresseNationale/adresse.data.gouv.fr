@@ -13,7 +13,7 @@ import BALState from '@/components/bases-locales/commune/bal-state'
 import BALDownload from '@/components/bases-locales/commune/bal-download'
 import Historique from '@/components/bases-locales/commune/historique'
 
-function Commune({communeInfos, mairieContact, revisions, codeCommune, currentRevision}) {
+function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision}) {
   return (
     <Page id='page' title={`Informations sur la commune de ${communeInfos.nomCommune}`}>
       <Head title={`Informations sur la commune de ${communeInfos.nomCommune}`} icon={<Home size={56} />} />
@@ -23,7 +23,7 @@ function Commune({communeInfos, mairieContact, revisions, codeCommune, currentRe
         nbNumeros={communeInfos.nbNumeros}
         communeName={communeInfos.nomCommune}
         nbNumerosCertifies={communeInfos.nbNumerosCertifies}
-        mairieContact={mairieContact}
+        mairieInfos={mairieInfos}
         revision={currentRevision}
         codeCommune={codeCommune}
       />
@@ -40,7 +40,6 @@ Commune.getInitialProps = async ({query}) => {
   const mairie = await getMairie(codeCommune)
   const revisions = await getRevisions(codeCommune)
   let currentRevision
-  const {telephone, email} = mairie.features[0].properties
 
   try {
     currentRevision = await getCurrentRevision(codeCommune)
@@ -51,7 +50,7 @@ Commune.getInitialProps = async ({query}) => {
   return {
     codeCommune,
     communeInfos: commune,
-    mairieContact: {telephone, email},
+    mairieInfos: mairie.features[0].properties,
     revisions,
     currentRevision
   }
@@ -59,7 +58,7 @@ Commune.getInitialProps = async ({query}) => {
 
 Commune.propTypes = {
   communeInfos: PropTypes.object.isRequired,
-  mairieContact: PropTypes.object.isRequired,
+  mairieInfos: PropTypes.object.isRequired,
   codeCommune: PropTypes.string.isRequired,
   currentRevision: PropTypes.object,
   revisions: PropTypes.array,
