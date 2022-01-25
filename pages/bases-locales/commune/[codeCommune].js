@@ -10,8 +10,8 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import CommuneInfos from '@/components/bases-locales/commune/commune-infos'
 import BALState from '@/components/bases-locales/commune/bal-state'
-import BALDownload from '@/components/bases-locales/commune/bal-download'
 import Historique from '@/components/bases-locales/commune/historique'
+import BalQuality from '@/components/bases-locales/commune/bal-quality'
 
 function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision}) {
   return (
@@ -27,7 +27,7 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
         revision={currentRevision}
         codeCommune={codeCommune}
       />
-      <BALDownload communeName={communeInfos.nomCommune} codeCommune={codeCommune} isFileAvailable={Boolean(currentRevision)} />
+      <BalQuality currentRevision={currentRevision} communeName={communeInfos.nomCommune} codeCommune={codeCommune} />
       <Historique revisions={revisions} communeName={communeInfos.nomCommune} />
     </Page>
   )

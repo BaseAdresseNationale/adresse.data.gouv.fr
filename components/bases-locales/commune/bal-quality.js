@@ -1,24 +1,18 @@
 import PropTypes from 'prop-types'
 import {Edit2} from 'react-feather'
 
-import {getCurrentBal} from '@/lib/api-ban'
-
 import Section from '@/components/section'
-import DownloadCard from '@/components/bases-locales/commune/download-card'
+import BalAnomalies from './bal-anomalies'
 import ButtonLink from '@/components/button-link'
 
-function BALDownload({communeName, codeCommune, isFileAvailable}) {
-  const csvUrl = getCurrentBal(codeCommune)
-
+function BalQuality({currentRevision, communeName, codeCommune}) {
   return (
-    <Section background='grey' title={`Télécharger le fichier CSV de la Base Adresse Locale de ${communeName}`}>
-      {isFileAvailable ? (
-        <div className='download-bal-container'>
-          <DownloadCard format='CSV' url={csvUrl} isAvailable color='primary' />
-        </div>
+    <Section background='grey' title='Qualité des adresses' subtitle='Liste des principales anomalies'>
+      {currentRevision ? (
+        <BalAnomalies errors={currentRevision.validation.errors} communeName={communeName} codeCommune={codeCommune} />
       ) : (
-        <div className='download-bal-container'>
-          <p>Aucun fichier n’est actuellement disponible pour cette commune</p>
+        <div className='unavailable-container'>
+          <p>La commune de {communeName} ne dispose d‘aucune Base Adresse Locale.</p>
 
           <ButtonLink
             isExternal
@@ -33,7 +27,7 @@ function BALDownload({communeName, codeCommune, isFileAvailable}) {
       )}
 
       <style jsx>{`
-        .download-bal-container {
+        .unavailable-container {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -50,10 +44,14 @@ function BALDownload({communeName, codeCommune, isFileAvailable}) {
   )
 }
 
-BALDownload.propTypes = {
+BalQuality.propTypes = {
+  currentRevision: PropTypes.object,
   communeName: PropTypes.string.isRequired,
-  codeCommune: PropTypes.string.isRequired,
-  isFileAvailable: PropTypes.bool.isRequired
+  codeCommune: PropTypes.string.isRequired
 }
 
-export default BALDownload
+BalQuality.defaultTypes = {
+  currentRevision: null
+}
+
+export default BalQuality
