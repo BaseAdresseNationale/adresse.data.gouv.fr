@@ -109,19 +109,21 @@ function CommuneInfos({communeInfos}) {
 
         .number-card {
           background: ${theme.backgroundGrey};
-          padding: 1em;
+          padding: 2em;
           border-radius: 5px;
           font-weight: bold;
+          display: flex;
+          flex-direction: column;
+          gap: 2em;
         }
 
         .number-card div:first-child {
-          font-size: 22px;
+          font-size: 27px;
         }
 
         .number-card div:last-child {
-          font-size: 28px;
+          font-size: 3em;
           color: ${theme.primary};
-          margin-top: 1em;
         }
       `}</style>
     </Section>
