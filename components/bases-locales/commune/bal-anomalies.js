@@ -2,10 +2,11 @@ import PropTypes from 'prop-types'
 
 import {getCurrentBal} from '@/lib/api-ban'
 
+import theme from '@/styles/theme'
+
 import Anomaly from './anomaly'
 import Notification from '@/components/notification'
 import DownloadCard from './download-card'
-import theme from '@/styles/theme'
 import SectionText from '@/components/section-text'
 
 function BalAnomalies({errors, communeName, codeCommune}) {
@@ -36,7 +37,6 @@ function BalAnomalies({errors, communeName, codeCommune}) {
             <DownloadCard format='CSV' url={csvUrl} isAvailable color='primary' />
           </div>
         </>
-
       )}
 
       <style jsx>{`
