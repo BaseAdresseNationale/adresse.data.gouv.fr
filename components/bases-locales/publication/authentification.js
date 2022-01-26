@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Router from 'next/router'
 import {ChevronRight, ChevronDown, Info, Mail, Users, Clock, LogIn} from 'react-feather'
 
-const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://mes-adresses.data.gouv.fr'
+const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data.gouv.fr'
 
 import theme from '@/styles/theme'
 
