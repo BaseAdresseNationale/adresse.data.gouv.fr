@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import {useCallback, useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import Router from 'next/router'
@@ -10,7 +10,7 @@ import theme from '@/styles/theme'
 
 import Button from '@/components/button'
 
-const Authentification = React.memo(({communeEmail, revisionId, habilitationId, authenticationUrl, handleCodeAuthentification}) => {
+function Authentification({communeEmail, revisionId, habilitationId, authenticationUrl, handleCodeAuthentification}) {
   const [isHabilitedOpen, setIsHabilitedOpen] = useState(true)
   const [isNonHabilitedOpen, setIsNonHabilitedOpen] = useState(false)
 
@@ -190,7 +190,7 @@ const Authentification = React.memo(({communeEmail, revisionId, habilitationId, 
       `}</style>
     </div>
   )
-})
+}
 
 Authentification.defaultProps = {
   communeEmail: null

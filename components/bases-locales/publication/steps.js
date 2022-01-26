@@ -1,11 +1,10 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
 import Step from './step'
 
-const Steps = React.memo(({step}) => {
+function Steps({step}) {
   return (
     <div className='steps'>
       <Step
@@ -61,7 +60,7 @@ const Steps = React.memo(({step}) => {
       `}</style>
     </div>
   )
-})
+}
 
 Steps.propTypes = {
   step: PropTypes.oneOf([1, 2, 3, 4, 5]).isRequired

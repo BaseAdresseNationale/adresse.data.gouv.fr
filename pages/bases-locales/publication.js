@@ -1,5 +1,5 @@
 
-import React, {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 
@@ -53,7 +53,7 @@ const getStep = (revision, habilitation) => {
   return 1
 }
 
-const PublicationPage = React.memo(({defaultRevision, defaultHabilitation, defaultCommune, revisionError}) => {
+function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, revisionError}) {
   const [habilitation, setHabilitation] = useState(defaultHabilitation)
   const [revision, setRevision] = useState(defaultRevision)
   const [commune, setCommune] = useState(defaultCommune)
@@ -223,7 +223,7 @@ const PublicationPage = React.memo(({defaultRevision, defaultHabilitation, defau
       `}</style>
     </Page>
   )
-})
+}
 
 PublicationPage.getInitialProps = async ({query}) => {
   const {habilitationId, revisionId} = query

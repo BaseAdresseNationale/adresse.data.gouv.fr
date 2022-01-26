@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import {ArrowLeft, Check} from 'react-feather'
@@ -7,7 +6,7 @@ import theme from '@/styles/theme'
 import Button from '@/components/button'
 import router from 'next/router'
 
-const Published = React.memo(({codeCommune}) => {
+function Published({codeCommune}) {
   return (
     <div>
       <div className='published'>
@@ -130,7 +129,7 @@ const Published = React.memo(({codeCommune}) => {
       `}</style>
     </div>
   )
-})
+}
 
 Published.propTypes = {
   codeCommune: PropTypes.string.isRequired

@@ -1,9 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import theme from '@/styles/theme'
 
-const User = React.memo(({user, commune}) => {
+function User({user, commune}) {
   const {nomNaissance, nomMarital, prenom, typeMandat} = user || {}
 
   return (
@@ -48,7 +47,7 @@ const User = React.memo(({user, commune}) => {
       `}</style>
     </div>
   )
-})
+}
 
 User.propTypes = {
   user: PropTypes.shape({

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import {ArrowUpCircle, AlertOctagon} from 'react-feather'
 
@@ -9,7 +9,7 @@ import Button from '@/components/button'
 
 import User from './user'
 
-const Publishing = React.memo(({user, commune, hasConflit, publication}) => {
+function Publishing({user, commune, hasConflit, publication}) {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   return (
@@ -86,7 +86,7 @@ const Publishing = React.memo(({user, commune, hasConflit, publication}) => {
       `}</style>
     </div>
   )
-})
+}
 
 Publishing.propTypes = {
   user: PropTypes.object.isRequired,

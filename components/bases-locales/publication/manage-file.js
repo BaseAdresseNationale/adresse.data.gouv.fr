@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {uniq} from 'lodash'
 import {prevalidate} from '@etalab/bal'
@@ -10,7 +10,7 @@ import Report from '../validator/report'
 
 import theme from '@/styles/theme'
 
-const ManageFile = React.memo(({error, handleError, handleFile}) => {
+function ManageFile({error, handleError, handleFile}) {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [report, setReport] = useState(null)
@@ -94,7 +94,7 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
       )}
     </>
   )
-})
+}
 
 ManageFile.defaultProps = {
   error: null
