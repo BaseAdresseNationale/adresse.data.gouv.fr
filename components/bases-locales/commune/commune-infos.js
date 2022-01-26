@@ -18,7 +18,7 @@ function CommuneInfos({communeInfos}) {
         <div className='general-infos-container'>
           <div>
             <div className='label'>Région</div>
-            <div className='value'>{region.nom} ({region.code})</div>
+            <div className='value'>{region.nom}</div>
           </div>
           <div>
             <div className='label'>Département</div>

@@ -28,7 +28,7 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
         revision={currentRevision}
         codeCommune={codeCommune}
       />
-      <BalQuality currentRevision={currentRevision} communeName={communeInfos.nomCommune} codeCommune={codeCommune} />
+      <BalQuality currentRevision={currentRevision} codeCommune={codeCommune} />
       <Historique revisions={revisions} communeName={communeInfos.nomCommune} />
     </Page>
   )

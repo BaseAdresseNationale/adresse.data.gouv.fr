@@ -5,14 +5,14 @@ import Section from '@/components/section'
 import BalAnomalies from './bal-anomalies'
 import ButtonLink from '@/components/button-link'
 
-function BalQuality({currentRevision, communeName, codeCommune}) {
+function BalQuality({currentRevision, codeCommune}) {
   return (
     <Section background='grey' title='Qualité des adresses' subtitle='Liste des principales anomalies'>
       {currentRevision ? (
-        <BalAnomalies errors={currentRevision.validation.errors} communeName={communeName} codeCommune={codeCommune} />
+        <BalAnomalies errors={currentRevision.validation.errors} codeCommune={codeCommune} />
       ) : (
         <div className='unavailable-container'>
-          <p>La commune de {communeName} ne dispose d‘aucune Base Adresse Locale.</p>
+          <p>La commune ne dispose d‘aucune Base Adresse Locale.</p>
 
           <ButtonLink
             isExternal
@@ -46,7 +46,6 @@ function BalQuality({currentRevision, communeName, codeCommune}) {
 
 BalQuality.propTypes = {
   currentRevision: PropTypes.object,
-  communeName: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired
 }
 

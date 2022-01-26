@@ -47,7 +47,6 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieInfos, revi
 
   const certifiedPercent = (nbNumerosCertifies / nbNumeros) * 100
   const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent))
-  const updatedDate = revision ? `le ${new Date(revision.updatedAt).toLocaleDateString('fr-FR')}` : 'non renseigné'
 
   let userName = revision && (revision.context.nomComplet || revision.context.organisation)
 
@@ -84,7 +83,6 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieInfos, revi
           <div className='bal-states-container'>
             <div className='doughnut'>
               <Doughnut data={doughnutData} options={options} />
-              <div className='update'>Dernières mises à jour des données : <b>{updatedDate}</b></div>
             </div>
             <div className='numbers'>
               <div className='addresses-number'>
@@ -105,7 +103,7 @@ function BALState({communeName, nbNumeros, nbNumerosCertifies, mairieInfos, revi
         <SectionText color='secondary'>
           Il n’existe pas encore de dispositif national permettant aux citoyens de contribuer directement à la Base Adresse Locale, mais de <b>nombreux guichets de signalement</b> existent à l’échelon local. Ce site a vocation à les référencer à moyen terme. En attendant, <b>contactez votre mairie</b> et parlez-leur de nous !
         </SectionText>
-        <Button color='white' isOutlined onClick={handleModalOpen}>Contactez la mairie de {communeName}</Button>
+        <Button color='white' isOutlined onClick={handleModalOpen}>Contactez la mairie</Button>
         {isContactModalOpen && <ContactModal mairieInfos={mairieInfos} onModalClose={handleModalOpen} />}
       </div>
 
