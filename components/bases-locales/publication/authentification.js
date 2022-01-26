@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import Router from 'next/router'
@@ -14,30 +14,20 @@ const Authentification = React.memo(({communeEmail, revisionId, habilitationId, 
   const [isHabilitedOpen, setIsHabilitedOpen] = useState(true)
   const [isNonHabilitedOpen, setIsNonHabilitedOpen] = useState(false)
 
-  const redirectToFranceConnect = () => {
+  const redirectToFranceConnect = useCallback(() => {
     const redirectUrl = encodeURIComponent(
-      `${ADRESSE_URL}${Router.asPath}?revisionId=${revisionId}&habilitationId=${habilitationId}`
+      `${ADRESSE_URL}/bases-locales/publication?revisionId=${revisionId}&habilitationId=${habilitationId}`
     )
 
     Router.push(encodeURIComponent(`${authenticationUrl}?redirectUrl=${redirectUrl}`))
-  }
-
-  const handleOpen = type => {
-    if (type === 'habilited') {
-      setIsHabilitedOpen(!isHabilitedOpen)
-    } else {
-      setIsNonHabilitedOpen(!isNonHabilitedOpen)
-    }
-  }
+  }, [revisionId, habilitationId, authenticationUrl])
 
   return (
     <div className='auth-container'>
       <div className='dropdown-container'>
         <div
           className='dropdown-title'
-          onClick={() => {
-            handleOpen('habilited')
-          }}
+          onClick={() => setIsHabilitedOpen(!isHabilitedOpen)}
         >
           <h3>Vous êtes habilité(e)</h3>
           {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
@@ -87,9 +77,7 @@ const Authentification = React.memo(({communeEmail, revisionId, habilitationId, 
       <div className='dropdown-container'>
         <div
           className='dropdown-title'
-          onClick={() => {
-            handleOpen('nonHabilited')
-          }}
+          onClick={() => setIsNonHabilitedOpen(!isNonHabilitedOpen)}
         >
           <h3>Vous n’êtes pas habilité(e)</h3>
           {isNonHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
