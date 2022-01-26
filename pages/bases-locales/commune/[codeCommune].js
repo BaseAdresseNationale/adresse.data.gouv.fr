@@ -2,7 +2,8 @@
 import PropTypes from 'prop-types'
 import {Home} from 'react-feather'
 
-import {getCommune, getRevisions, getCurrentRevision} from '@/lib/api-ban'
+import {getCommune} from '@/lib/api-ban'
+import {getRevisions, getCurrentRevision} from '@/lib/api-depot'
 import {getMairie} from '@/lib/api-etablissements-public'
 import withErrors from '@/components/hoc/with-errors'
 

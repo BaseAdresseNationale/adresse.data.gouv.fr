@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import {getCurrentBal} from '@/lib/api-ban'
+import {getCurrentBal} from '@/lib/api-depot'
 
 import theme from '@/styles/theme'
 
