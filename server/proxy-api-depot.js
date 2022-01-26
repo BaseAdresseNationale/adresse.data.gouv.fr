@@ -20,6 +20,16 @@ function forward(gotResponse, res) {
   res.status(gotResponse.status).send(gotResponse.body)
 }
 
+function addIdToSession(id, req) {
+  if (req.session.knownIds) {
+    req.session.knownIds.push(id)
+  } else {
+    req.session.knownIds = [id]
+  }
+
+  req.session.save()
+}
+
 async function getHabilitation(req, res) {
   const {habilitationId} = req.params
 
@@ -31,6 +41,11 @@ async function createHabilitation(req, res) {
   const {codeCommune} = req.params
 
   const response = await client.post(`/communes/${codeCommune}/habilitations`)
+
+  if (response.status === 201) {
+    addIdToSession(response.body._id, req)
+  }
+
   forward(response, res)
 }
 
@@ -58,6 +73,10 @@ async function createRevision(req, res) {
   const response = await client.post(`/communes/${codeCommune}/revisions`, {
     json: {context: {}}
   })
+
+  if (response.status === 201) {
+    addIdToSession(response.body._id, req)
+  }
 
   forward(response, res)
 }
@@ -98,6 +117,18 @@ app.use(ironSession({
     path: '/proxy-api-depot'
   }
 }))
+
+app.use((req, res, next) => {
+  const {habilitationId, revisionId} = req.params;
+
+  [habilitationId, revisionId].filter(Boolean).forEach(id => {
+    if (!req.session.knownIds || !req.session.knownIds.includes(id)) {
+      return res.status(403).send({code: 403, message: 'Vous n’avez pas les droits nécessaires pour réaliser cette action.'})
+    }
+  })
+
+  next()
+})
 
 // Habilitations
 app.post('/communes/:codeCommune/habilitations', w(createHabilitation))
