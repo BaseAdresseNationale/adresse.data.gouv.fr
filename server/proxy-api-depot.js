@@ -1,5 +1,6 @@
 const express = require('express')
 const got = require('got')
+const {ironSession} = require('iron-session/express')
 
 const w = require('./w')
 
@@ -89,6 +90,14 @@ async function publishRevision(req, res) {
 const app = new express.Router()
 
 app.use(express.json())
+app.use(ironSession({
+  cookieName: 'proxy-api-depot-session',
+  ttl: 6 * 3600, // 6 heures
+  password: process.env.SESSION_SECRET,
+  cookieOptions: {
+    path: '/proxy-api-depot'
+  }
+}))
 
 // Habilitations
 app.post('/communes/:codeCommune/habilitations', w(createHabilitation))
