@@ -69,7 +69,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
       const habilitation = await createHabilitation(codeCommune)
       setHabilitation(habilitation)
 
-      const revision = await createRevision(codeCommune, {context: {}}, file) // Gérer le cas où la révision n'est pas valide
+      const revision = await createRevision(codeCommune, file) // Gérer le cas où la révision n'est pas valide
       setRevision(revision)
 
       setStep(2)
