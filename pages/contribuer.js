@@ -35,9 +35,9 @@ function Contribuer() {
       <Section title='En tant que citoyen' background='grey'>
         <SectionText >
           <p>Il n’existe pas encore de <strong>dispositif national</strong> permettant aux citoyens de contribuer directement, mais de nombreux guichets de signalement existent à l’échelon local. Ce site a vocation à les référencer à moyen terme.</p>
-          <p>En attendant, <strong>contactez votre mairie ou votre EPCI</strong>, et parlez-leur de nous !</p>
-          <SearchCommuneContact />
+          <p>En attendant, <strong>contactez votre mairie</strong>, et parlez-leur de nous !</p>
         </SectionText>
+        <SearchCommuneContact />
       </Section>
 
       <Section title='En tant qu’utilisateur des données'>

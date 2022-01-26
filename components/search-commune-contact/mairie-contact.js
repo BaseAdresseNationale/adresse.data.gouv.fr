@@ -1,6 +1,10 @@
+import {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Mail, Phone} from 'react-feather'
+import Image from 'next/image'
+import {Mail, Phone, ChevronRight, ChevronDown} from 'react-feather'
+
 import colors from '@/styles/colors'
+import theme from '@/styles/theme'
 
 const getHours = time => {
   return new Date('1970-01-01T' + time + 'Z').getHours()
@@ -8,72 +12,103 @@ const getHours = time => {
 
 function MairieContact({nom, horaires, email, telephone}) {
   const defaultValue = 'Non renseigné'
+  const [areSchedulesVisible, setAreSchedulesVisible] = useState(false)
+
+  const toggleSchedules = () => {
+    setAreSchedulesVisible(!areSchedulesVisible)
+  }
 
   return (
-    <div className='mairie-contact'>
-      <div><b>{nom}</b></div>
-      <div className='infos'>
-        <div>
-          <Mail style={{marginRight: '3px'}} />
-          Email: {email ? <a href={`mailto:${email}`}>{email}</a> : defaultValue}
-        </div>
-        <div>
-          <Phone style={{marginRight: '3px'}} />
-          Téléphone: {telephone ? <a href={`tel:+33${telephone}`}>{telephone}</a> : defaultValue}
+    <div className='mairie-infos'>
+      <div className='mairie-name'>
+        <Image src='/images/icons/commune.svg' height={80} width={80} />
+        <b>{nom}</b>
+      </div>
+      <div>
+        <div className='contact-infos'>
+          <div className='contact-info'>
+            <Mail style={{marginRight: '10px'}} />
+            {email ? <a href={`mailto:${email}`}>{email}</a> : defaultValue}
+          </div>
+          <div className='contact-info'>
+            <Phone style={{marginRight: '10px'}} />
+            {telephone ? <a href={`tel:+33${telephone}`}>{telephone}</a> : defaultValue}
+          </div>
         </div>
 
         <div className='horaires'>
-          Horaires d’ouverture :
-          <div>
+          <div className='horaire-dropdown' onClick={toggleSchedules}>Horaires d’ouverture
+            {areSchedulesVisible ? <ChevronDown style={{marginTop: '2px'}} /> : <ChevronRight style={{marginTop: '2px'}} />}
+          </div>
+
+          <div className='horaires-list'>
             {horaires ? (
-              horaires.map(horaire => (
-                <div key={`${horaire.du}-${horaire.au}`}>
-                  <div>
-                    <b>{horaire.du === horaire.au ? `Le ${horaire.du}` : `Du ${horaire.du} au ${horaire.au}`}</b> :
+              areSchedulesVisible && (
+                horaires.map(horaire => (
+                  <div key={`${horaire.du}-${horaire.au}`}>
+                    <div>
+                      <b>{horaire.du === horaire.au ? `Le ${horaire.du}` : `Du ${horaire.du} au ${horaire.au}`}</b> :
+                    </div>
+                    <ul>
+                      {horaire.heures.map(heure => (
+                        <li key={`${horaire.du}-${horaire.au}&${heure.de}-${heure.a}`}>
+                          De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul>
-                    {horaire.heures.map(heure => (
-                      <li key={`${heure.de}-${heure.a}`}>
-                        De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))
+                ))
+              )
             ) : defaultValue}
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        .mairie-contact {
-          margin: 1em 0;
+        .mairie-infos {
+          margin-top: 1em;
           background-color: ${colors.lighterGrey};
         }
 
-        .mairie-contact > div {
+        .mairie-infos > div {
+          margin-top: 1em;
           display: flex;
           flex-direction: column;
+          align-items: center;
         }
 
-        .infos {
+        .mairie-name {
+          font-size: 26px;
+        }
+
+        .contact-infos {
           display: flex;
-          padding: 1em;
+          flex-direction: column;
+          padding-bottom: 1em;
+          gap: 1em;
         }
 
-        .infos > div {
+        .contact-info {
           display: flex;
-          flex-wrap: wrap;
-          margin: 0.5em 0;
-        }
-
-        .infos a {
-          margin: 0 0.2em;
         }
 
         .horaires {
+          width: 80%;
           display: flex;
           flex-direction: column;
+          align-items: center;
+          padding-top: 1em;
+          gap: 1em;
+          border-top: 2px solid ${theme.borderLighter};
+        }
+
+        .horaire-dropdown {
+          font-size: 17px;
+          font-weight: bolder;
+          display: flex;
+          gap: 5px;
+          cursor: pointer;
+          text-decoration: underline;
         }
 
         .horaires > div {
