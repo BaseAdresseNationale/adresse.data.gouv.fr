@@ -10,13 +10,12 @@ import Notification from '@/components/notification'
 
 import {
   getHabilitation,
-  getRevision,
-  getRevisions,
   createRevision,
   publishRevision,
   createHabilitation,
   sendAuthenticationCode
-} from '@/lib/api-depot'
+} from '@/lib/proxy-api-depot'
+import {getRevision, getCurrentRevision} from '@/lib/api-depot'
 import {getCommune} from '@/lib/api-geo'
 
 import Steps from '@/components/bases-locales/publication/steps'
@@ -89,9 +88,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
   }
 
   const fetchCurrentRevision = useCallback(async () => {
-    const revisions = await getRevisions(commune.code)
-    const currentRevision = revisions.find(({current}) => current === true)
-
+    const currentRevision = await getCurrentRevision(commune.code)
     setCurrentRevision(currentRevision)
   }, [commune])
 

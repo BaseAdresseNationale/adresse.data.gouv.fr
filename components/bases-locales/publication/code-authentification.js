@@ -2,7 +2,7 @@ import {useCallback, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Check, ArrowLeft, Mail} from 'react-feather'
 
-import {submitAuthentificationCode} from '@/lib/api-depot'
+import {submitAuthentificationCode} from '@/lib/proxy-api-depot'
 
 import theme from '@/styles/theme'
 
