@@ -1,151 +1,109 @@
+const express = require('express')
 const got = require('got')
 
-function getApiDepotURL() {
-  return process.env.NEXT_PUBLIC_API_DEPOT_URL || 'https://plateforme.adresse.data.gouv.fr/api-depot'
+const w = require('./w')
+
+const API_DEPOT_URL = process.env.NEXT_PUBLIC_API_DEPOT_URL || 'https://plateforme.adresse.data.gouv.fr/api-depot'
+const {API_DEPOT_TOKEN} = process.env
+
+const client = got.extend({
+  prefixUrl: API_DEPOT_URL,
+  headers: {
+    authorization: `Token ${API_DEPOT_TOKEN}`
+  },
+  throwHttpErrors: false,
+  responseType: 'json'
+})
+
+function forward(gotResponse, res) {
+  res.status(gotResponse.status).send(gotResponse.body)
 }
 
 async function getHabilitation(req, res) {
   const {habilitationId} = req.params
 
-  const data = await got.get(`${getApiDepotURL()}/habilitations/${habilitationId}`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    }
-  }).json()
-
-  res.send(data)
+  const response = await client.get(`/habilitations/${habilitationId}`)
+  forward(response, res)
 }
 
 async function createHabilitation(req, res) {
   const {codeCommune} = req.params
 
-  const data = await got.post(`${getApiDepotURL()}/communes/${codeCommune}/habilitations`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    },
-  }).json()
-
-  res.send(data)
+  const response = await client.post(`/communes/${codeCommune}/habilitations`)
+  forward(response, res)
 }
 
 async function sendPinCode(req, res) {
   const {habilitationId} = req.params
 
-  const data = await got.post(`${getApiDepotURL()}/habilitations/${habilitationId}/authentication/email/send-pin-code`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    },
-  }).json()
+  const response = await client
+    .post(`/habilitations/${habilitationId}/authentication/email/send-pin-code`)
 
-  res.send(data)
+  forward(response, res)
 }
 
 async function validatePinCode(req, res) {
-  const {habilitationId, code} = req.params
-  const data = await got.post(`${getApiDepotURL()}/habilitations/${habilitationId}/authentication/email/validate-pin-code`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    },
-    json: {code},
-  }).json()
+  const {habilitationId} = req.params
 
-  res.send(data)
-}
+  const response = await client
+    .post(`/habilitations/${habilitationId}/authentication/email/validate-pin-code`, {json: req.body})
 
-async function getRevision(req, res) {
-  const {revisionId} = req.params
-
-  const data = await got.get(`${getApiDepotURL()}/revisions/${revisionId}`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    }
-  }).json()
-
-  res.send(data)
-}
-
-async function getRevisions(req, res) {
-  const {codeCommune} = req.params
-
-  const data = await got.get(`${getApiDepotURL()}/communes/${codeCommune}/revisions`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    }
-  }).json()
-
-  res.send(data)
+  forward(response, res)
 }
 
 async function createRevision(req, res) {
   const {codeCommune} = req.params
 
-  const response = await got.post(`${getApiDepotURL()}/communes/${codeCommune}/revisions`, {
-    throwHttpErrors: false,
-    responseType: 'json',
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    },
-    json: req.body
+  const response = await client.post(`/communes/${codeCommune}/revisions`, {
+    json: {context: {}}
   })
 
-  res.send(response.body)
+  forward(response, res)
 }
 
 async function uploadFile(req, res) {
   const {revisionId} = req.params
-  const pipe = req.pipe(got.put(`${getApiDepotURL()}/revisions/${revisionId}/files/bal`, {
-    responseType: 'text',
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-      ContentLength: req.get('Content-Length'),
-      ContentMD5: req.get('Content-MD5'),
-    }
-  }))
-    .on('error', error => {
-      console.log('🚀 ~ error', error)
-    })
-    .on('end', () => {
-      console.log('🚀 ~ end')
-      const res2 = pipe.response
-      res.send(res2)
-    })
-}
 
-async function validateRevision(req, res) {
-  const {revisionId} = req.params
-
-  const data = await got.post(`${getApiDepotURL()}/revisions/${revisionId}/compute`, {
-    throwHttpErrors: false,
-    responseType: 'json',
+  const response = await client.put(`/revisions/${revisionId}/files/bal`, {
+    body: req.body,
     headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
+      'Content-Type': 'text/csv'
     }
   })
 
-  res.send(data)
+  forward(response, res)
+}
+
+async function computeRevision(req, res) {
+  const {revisionId} = req.params
+  const response = await client.post(`/revisions/${revisionId}/compute`)
+  forward(response, res)
 }
 
 async function publishRevision(req, res) {
   const {revisionId} = req.params
-
-  const data = await got.post(`${getApiDepotURL()}/revisions/${revisionId}/publish`, {
-    headers: {
-      authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
-    }
-  }).json()
-
-  res.send(data)
+  const response = await client.post(`/revisions/${revisionId}/publish`, {json: req.body})
+  forward(response, res)
 }
 
-module.exports = {
-  getHabilitation,
-  createHabilitation,
-  sendPinCode,
-  validatePinCode,
-  getRevision,
-  getRevisions,
-  createRevision,
-  uploadFile,
-  validateRevision,
-  publishRevision
-}
+const app = new express.Router()
+
+app.use(express.json())
+
+// Habilitations
+app.post('/communes/:codeCommune/habilitations', w(createHabilitation))
+app.get('/habilitations/:habilitationId', w(getHabilitation))
+app.post('/habilitations/:habilitationId/authentication/email/send-pin-code', w(sendPinCode))
+app.post('/habilitations/:habilitationId/authentication/email/validate-pin-code', w(validatePinCode))
+
+// Revisions
+app.post('/communes/:codeCommune/revisions', w(createRevision))
+app.put(
+  '/revisions/:revisionId/files/bal',
+  express.raw({limit: '10mb', type: 'text/csv'}),
+  w(uploadFile)
+)
+app.post('/revisions/:revisionId/compute', w(computeRevision))
+app.post('/revisions/:revisionId/publish', w(publishRevision))
+
+module.exports = app

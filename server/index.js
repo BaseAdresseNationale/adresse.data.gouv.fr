@@ -5,20 +5,6 @@ const next = require('next')
 const compression = require('compression')
 const helmet = require('helmet')
 
-const w = require('./w')
-const {
-  getHabilitation,
-  createHabilitation,
-  sendPinCode,
-  validatePinCode,
-  getRevision,
-  getRevisions,
-  createRevision,
-  uploadFile,
-  validateRevision,
-  publishRevision
-} = require('./api-depot-proxy')
-
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const enableHelmet = process.env.ENABLE_HELMET === '1'
@@ -123,19 +109,7 @@ app.prepare().then(() => {
     res.redirect(`/base-adresse-nationale/${req.params.codeCommune}`)
   })
 
-  // Habilitations
-  server.get('/habilitations/:habilitationId', w(getHabilitation))
-  server.post('/communes/:codeCommune/habilitations', w(createHabilitation))
-  server.post('/habilitations/:habilitationId/authentication/email/send-pin-code', w(sendPinCode))
-  server.post('/habilitations/:habilitationId/authentication/email/validate-pin-code', w(validatePinCode))
-
-  // Revisions
-  server.get('/revisions/:revisionId', express.json(), w(getRevision))
-  server.get('/communes/:codeCommune/revisions', express.json(), w(getRevisions))
-  server.post('/communes/:codeCommune/revisions', express.json(), w(createRevision))
-  server.put('/revisions/:revisionId/files/bal', w(uploadFile))
-  server.post('/revisions/:revisionId/compute', express.json(), w(validateRevision))
-  server.post('/revisions/:revisionId/publish', w(publishRevision))
+  server.use('/proxy-api-depot', require('./proxy-api-depot'))
 
   // DO NOT REMOVE
   server.get('/api', (request, res) => {
