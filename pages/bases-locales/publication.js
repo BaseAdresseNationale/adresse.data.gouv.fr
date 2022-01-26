@@ -97,7 +97,9 @@ const PublicationPage = React.memo(({defaultRevision, defaultHabilitation, defau
 
   const handlePublication = async () => {
     try {
-      const publishedRevision = await publishRevision(revision._id)
+      const publishedRevision = await publishRevision(revision._id, {
+        habilitationId: habilitation._id
+      })
       setRevision(publishedRevision)
     } catch (error) {
       setError(`Impossible de publier la Base Adresse Locale: ${error.message}`)
