@@ -70,7 +70,7 @@ const PublicationPage = React.memo(({defaultRevision, defaultHabilitation, defau
       const habilitation = await createHabilitation(codeCommune)
       setHabilitation(habilitation)
 
-      const revision = await createRevision(codeCommune, {context: {}}, file) // Gérer le cas où la révison n'est pas valide
+      const revision = await createRevision(codeCommune, {context: {}}, file) // Gérer le cas où la révision n'est pas valide
       setRevision(revision)
 
       setStep(2)
@@ -235,7 +235,7 @@ PublicationPage.getInitialProps = async ({query}) => {
       commune = await getCommune(revision.codeCommune)
     } catch {
       return {
-        revisionError: 'Aucune demande de publication n’a été trouvée'
+        revisionError: 'Le contexte du formulaire est incorrect ou a été perdu. Merci de réessayer.'
       }
     }
   }
@@ -245,7 +245,7 @@ PublicationPage.getInitialProps = async ({query}) => {
       habilitation = await getHabilitation(habilitationId)
     } catch {
       return {
-        revisionError: 'Aucune demande de publication n’a été trouvée'
+        revisionError: 'Le contexte du formulaire est incorrect ou a été perdu. Merci de réessayer.'
       }
     }
   }
