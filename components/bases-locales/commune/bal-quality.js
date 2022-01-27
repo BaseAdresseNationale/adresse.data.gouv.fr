@@ -1,43 +1,21 @@
 import PropTypes from 'prop-types'
-import {Edit2} from 'react-feather'
 
 import Section from '@/components/section'
 import BalAnomalies from './bal-anomalies'
-import ButtonLink from '@/components/button-link'
 
-function BalQuality({currentRevision, codeCommune}) {
+function BalQuality({currentRevision, typeComposition}) {
   return (
     <Section background='grey' title='Qualité des adresses' subtitle='Liste des principales anomalies'>
-      {currentRevision ? (
-        <BalAnomalies errors={currentRevision.validation.errors} codeCommune={codeCommune} />
+      {typeComposition === 'bal' ? (
+        <BalAnomalies errors={currentRevision.validation.errors} />
       ) : (
-        <div className='unavailable-container'>
-          <p>La commune ne dispose d‘aucune Base Adresse Locale.</p>
-
-          <ButtonLink
-            isExternal
-            size='large'
-            target='_blank'
-            rel='noreferrer'
-            href='https://mes-adresses.data.gouv.fr/new'
-          >
-            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} />
-          </ButtonLink>
-        </div>
+        <p>Retrouvez bientôt la qualité des adresses La Base Adresse Locale de la commune.</p>
       )}
 
       <style jsx>{`
-        .unavailable-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 3em;
-          margin-top: 3em;
-        }
-
         p {
           font-style: italic;
-          margin: 0;
+          text-align: center;
         }
       `}</style>
     </Section>
@@ -46,7 +24,7 @@ function BalQuality({currentRevision, codeCommune}) {
 
 BalQuality.propTypes = {
   currentRevision: PropTypes.object,
-  codeCommune: PropTypes.string.isRequired
+  typeComposition: PropTypes.string.isRequired
 }
 
 BalQuality.defaultTypes = {

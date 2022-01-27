@@ -1,8 +1,10 @@
 import theme from '@/styles/theme'
 import PropTypes from 'prop-types'
-import {Circle} from 'react-feather'
+import {Circle, Download} from 'react-feather'
 
-function HistoriqueItem({balData, communeName}) {
+import {getCurrentBal} from '@/lib/api-depot'
+
+function HistoriqueItem({balData, communeName, codeCommune}) {
   const {updatedAt, habilitation, client, current} = balData
   let userName = balData.context.nomComplet || balData.context.organisation
 
@@ -27,12 +29,13 @@ function HistoriqueItem({balData, communeName}) {
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client?.nom ? client.nom : 'non renseigné'}</b></div>
+        {current && <a href={getCurrentBal(codeCommune)}><Download /></a>}
       </div>
 
       <style jsx>{`
         .item-container {
           display: grid;
-          grid-template-columns: .5fr 1fr;
+          grid-template-columns: ${current ? '.5fr 1fr' : '.5fr 1fr .5fr'};
           gap: 1em;
           padding: 1em;
           background: ${theme.colors.lighterGrey};
@@ -74,9 +77,9 @@ function HistoriqueItem({balData, communeName}) {
 
           .user-infos {
             flex-direction: column;
-            align-items: self-start;
             padding-left: 1em;
             gap: 10px;
+            align-items: center;
           }
         }
     `}</style>
@@ -86,7 +89,8 @@ function HistoriqueItem({balData, communeName}) {
 
 HistoriqueItem.propTypes = {
   balData: PropTypes.object.isRequired,
-  communeName: PropTypes.string.isRequired
+  communeName: PropTypes.string.isRequired,
+  codeCommune: PropTypes.string.isRequired
 }
 
 export default HistoriqueItem

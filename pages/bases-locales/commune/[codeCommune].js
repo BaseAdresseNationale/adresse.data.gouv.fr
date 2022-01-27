@@ -14,22 +14,24 @@ import BALState from '@/components/bases-locales/commune/bal-state'
 import Historique from '@/components/bases-locales/commune/historique'
 import BalQuality from '@/components/bases-locales/commune/bal-quality'
 
-function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision}) {
+function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision, typeCompositionAdresses}) {
   return (
     <Page id='page' title={`Informations sur la commune de ${communeInfos.nomCommune}`}>
       <Head title={`Informations sur la commune de ${communeInfos.nomCommune}`} icon={<Home size={56} />} />
 
       <CommuneInfos communeInfos={communeInfos} />
       <BALState
-        nbNumeros={communeInfos.nbNumeros}
-        communeName={communeInfos.nomCommune}
-        nbNumerosCertifies={communeInfos.nbNumerosCertifies}
+        communeInfos={communeInfos}
         mairieInfos={mairieInfos}
         revision={currentRevision}
         codeCommune={codeCommune}
+        typeComposition={typeCompositionAdresses}
       />
-      <BalQuality currentRevision={currentRevision} codeCommune={codeCommune} />
-      <Historique revisions={revisions} communeName={communeInfos.nomCommune} />
+      {typeCompositionAdresses !== 'assemblage' && (
+        <>
+          <BalQuality currentRevision={currentRevision} typeComposition={typeCompositionAdresses} />
+          <Historique revisions={revisions} communeName={communeInfos.nomCommune} codeCommune={codeCommune} typeComposition={typeCompositionAdresses} />
+        </>)}
     </Page>
   )
 }
@@ -41,6 +43,7 @@ Commune.getInitialProps = async ({query}) => {
   const mairie = await getMairie(codeCommune)
   const revisions = await getRevisions(codeCommune)
   let currentRevision
+  let typeCompositionAdresses
 
   try {
     currentRevision = await getCurrentRevision(codeCommune)
@@ -48,12 +51,21 @@ Commune.getInitialProps = async ({query}) => {
     currentRevision = null
   }
 
+  if (commune.typeComposition === 'assemblage') {
+    typeCompositionAdresses = 'assemblage'
+  } else if (commune.typeComposition === 'bal' && !currentRevision) {
+    typeCompositionAdresses = 'transitory'
+  } else {
+    typeCompositionAdresses = 'bal'
+  }
+
   return {
     codeCommune,
     communeInfos: commune,
     mairieInfos: mairie.features[0].properties,
     revisions,
-    currentRevision
+    currentRevision,
+    typeCompositionAdresses
   }
 }
 
@@ -61,6 +73,7 @@ Commune.propTypes = {
   communeInfos: PropTypes.object.isRequired,
   mairieInfos: PropTypes.object.isRequired,
   codeCommune: PropTypes.string.isRequired,
+  typeCompositionAdresses: PropTypes.string.isRequired,
   currentRevision: PropTypes.object,
   revisions: PropTypes.array,
 }

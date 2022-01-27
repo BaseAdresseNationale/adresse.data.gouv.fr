@@ -4,7 +4,7 @@ import {RefreshCw} from 'react-feather'
 import Section from '@/components/section'
 import HistoriqueItem from './historique-item'
 
-function Historique({revisions, communeName}) {
+function Historique({revisions, communeName, codeCommune, typeComposition}) {
   const sortRevisionsByDate = revisions && revisions.sort((a, b) => {
     a = new Date(a.updatedAt)
     b = new Date(b.updatedAt)
@@ -13,17 +13,15 @@ function Historique({revisions, communeName}) {
 
   return (
     <Section title='Historiques des dépôts et révisions de la BAL'>
-      {revisions.length > 0 ? (
+      {typeComposition === 'bal' ? (
         <div className='historique-wrapper'>
           <h4><RefreshCw size={25} /> Retrouvez les cinq dernières mise à jour</h4>
           <div className='historique-items'>
-            {sortRevisionsByDate.slice(0, 5).map(revision => <HistoriqueItem key={revision._id} balData={revision} communeName={communeName} />)}
+            {sortRevisionsByDate.slice(0, 5).map(revision => <HistoriqueItem key={revision._id} balData={revision} communeName={communeName} codeCommune={codeCommune} />)}
           </div>
         </div>
       ) : (
-        <div className='unavailable'>
-          <p>Il n’y a pas d’historique pour cette commune.</p>
-        </div>
+        <p>Retrouvez bientôt l’historique des dépôts et révisions de la Base Adresse Locale de la commune.</p>
       )}
 
       <style jsx>{`
@@ -45,7 +43,7 @@ function Historique({revisions, communeName}) {
           gap: 1em;
         }
 
-        .unavailable p {
+        p {
           font-style: italic;
           text-align: center;
         }
@@ -56,7 +54,9 @@ function Historique({revisions, communeName}) {
 
 Historique.propTypes = {
   revisions: PropTypes.array,
-  communeName: PropTypes.string.isRequired
+  communeName: PropTypes.string.isRequired,
+  typeComposition: PropTypes.string.isRequired,
+  codeCommune: PropTypes.string.isRequired
 }
 
 Historique.defaultType = {

@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types'
 
-import {getCurrentBal} from '@/lib/api-depot'
-
 import theme from '@/styles/theme'
 
 import Anomaly from './anomaly'
 import Notification from '@/components/notification'
-import DownloadCard from './download-card'
 import SectionText from '@/components/section-text'
 
-function BalAnomalies({errors, codeCommune}) {
-  const csvUrl = getCurrentBal(codeCommune)
-
+function BalAnomalies({errors}) {
   return (
     <div className='bal-anomalies-types-container'>
       {errors.length === 0 ? (
@@ -19,9 +14,6 @@ function BalAnomalies({errors, codeCommune}) {
           <Notification type='success'>
             <p className='conform-text'>La Base Adresse Locale ne comprend aucune anomalie ! 🎉</p>
           </Notification>
-
-          <h4>Télécharger le fichier CSV de la Base Adresse Locale</h4>
-          <DownloadCard format='CSV' url={csvUrl} isAvailable color='primary' />
         </div>
       ) : (
         <>
@@ -33,8 +25,6 @@ function BalAnomalies({errors, codeCommune}) {
             <SectionText>
               La Base Adresse Locale comporte des <b>anomalies</b>. Pour obtenir plus de détails concernant les alertes, vous avez la possibilité de <b>télécharger le fichier de la BAL</b> au format CSV et utiliser l’outils <a href='/bases-locales/validateur'>Validateur Base Adresse Locale</a>.
             </SectionText>
-            <h4>Télécharger le fichier CSV de la Base Adresse Locale</h4>
-            <DownloadCard format='CSV' url={csvUrl} isAvailable color='primary' />
           </div>
         </>
       )}
@@ -82,8 +72,7 @@ function BalAnomalies({errors, codeCommune}) {
 }
 
 BalAnomalies.propTypes = {
-  errors: PropTypes.array.isRequired,
-  codeCommune: PropTypes.string.isRequired
+  errors: PropTypes.array.isRequired
 }
 
 export default BalAnomalies
