@@ -9,10 +9,10 @@ import withErrors from '@/components/hoc/with-errors'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
-import CommuneInfos from '@/components/bases-locales/commune/commune-infos'
-import BALState from '@/components/bases-locales/commune/bal-state'
-import Historique from '@/components/bases-locales/commune/historique'
-import BalQuality from '@/components/bases-locales/commune/bal-quality'
+import CommuneInfos from '@/components/commune/commune-infos'
+import BALState from '@/components/commune/bal-state'
+import Historique from '@/components/commune/historique'
+import BalQuality from '@/components/commune/bal-quality'
 
 function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision, typeCompositionAdresses}) {
   return (
