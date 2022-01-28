@@ -134,5 +134,13 @@
         "alt": "Visuel de SDIS64 d'un opérateur devant un ordinateur",
         "date": "2021-10-21",
         "articleUrl": "https://blog.geo.data.gouv.fr/utilisation-et-enrichissement-de-la-base-adresse-nationale-le-sdis64-a25914281c86"
+    },
+    {
+        "title": "La commune d'Entre-Deux",
+        "preview": "La commune d’Entre-Deux est la première de La Réunion à avoir publié une Base Adresse Locale sur Mes Adresses. Daniel Martin, géomaticien, détaille deux enjeux : la fibre et la mise à jour des fonds de plans.",
+        "picture": "/images/testimonies/entredeux.jpg",
+        "alt": "Paysage de la commune d'Entre-Deux",
+        "date": "2022-01-28 ",
+        "articleUrl": "https://blog.geo.data.gouv.fr/enjeux-de-ladresse-%C3%A0-la-r%C3%A9union-l-exemple-d-entre-deux-e41eaab2f6e5"
     }
 ]
