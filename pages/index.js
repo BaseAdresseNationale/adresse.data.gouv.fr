@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import {getStats} from '@/lib/api-ban'
 
@@ -13,6 +14,7 @@ import MapBalSection from '@/components/map-bal-section'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import SocialMedia from '@/components/social-media'
+import CommuneSearch from '@/components/commune/commune-search'
 
 function Home({stats}) {
   return (
@@ -75,6 +77,22 @@ function Home({stats}) {
           <MapBalSection stats={stats} />
         </Section>
       )}
+
+      <Section title='Obtenez des informations sur les adresses d’une commune'>
+        <div className='commune-search-section'>
+          <Image src='/images/icons/commune.svg' height={200} width={200} />
+          <CommuneSearch />
+
+          <style jsx>{`
+            .commune-search-section {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+          `}</style>
+        </div>
+      </Section>
 
       <Section background='grey' title='La fibre arrive dans la commune' subtitle='Communes et opérateurs, vous pouvez gagner du temps'>
         <DocDownload
