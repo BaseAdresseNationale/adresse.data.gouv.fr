@@ -81,6 +81,9 @@ function Home({stats}) {
       <Section title='Obtenez des informations sur les adresses d’une commune'>
         <div className='commune-search-section'>
           <Image src='/images/icons/commune.svg' height={200} width={200} />
+          <SectionText>
+            Recherchez une commune afin d’obtenir les <b>informations disponibles sur ses adresses</b>, leur composition, leur degré d’achèvement et de certification, et de <b>télécharger ses fichiers adresses</b>.
+          </SectionText>
           <CommuneSearch />
 
           <style jsx>{`

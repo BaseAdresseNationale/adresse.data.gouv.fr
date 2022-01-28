@@ -67,7 +67,7 @@ function DownloadCard({format, url, isAvailable, color}) {
 DownloadCard.propTypes = {
   format: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  isAvailable: PropTypes.bool.isRequired,
+  isAvailable: PropTypes.bool,
   color: PropTypes.oneOf([
     'primary',
     'secondary'
@@ -75,7 +75,8 @@ DownloadCard.propTypes = {
 }
 
 DownloadCard.defaultType = {
-  color: 'primary'
+  color: 'primary',
+  isAvailable: true
 }
 
 export default DownloadCard

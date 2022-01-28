@@ -1,30 +1,26 @@
 import PropTypes from 'prop-types'
 
-import {getCommuneCSVBAL, getAddressCSVLegacy, getLieuxDitsCSVLegacy} from '@/lib/api-ban'
+import {getAddressCSVLegacy, getLieuxDitsCSVLegacy} from '@/lib/api-ban'
 
 import DownloadCard from './download-card'
+import SectionText from '../section-text'
 
-function DownloadAdresses({typeComposition, revision, codeCommune}) {
-  const balUrl = getCommuneCSVBAL(codeCommune)
+function DownloadAdresses({codeCommune}) {
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
 
   return (
     <div className='download-adresses-container'>
-      <h4>Télécharger les adresses de la commune</h4>
+      <h4>Télécharger les adresses de la commune dans la Base Adresse Nationale</h4>
 
-      {typeComposition === 'assemblage' ? (
-        <div className='cards-container'>
-          <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' />
-          <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' />
-        </div>
-      ) : (
-        <div className='cards-container'>
-          <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' />
-          <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' />
-          <DownloadCard format='BAL enrichie' url={balUrl} isAvailable={Boolean(revision)} color='secondary' />
-        </div>
-      )}
+      <SectionText color='secondary'>
+        Voici les adresses des communes dans la <b>Base Adresse Nationale</b>. Ce fichier de référence présente la liste des voies avec les <b>libellés enrichis</b> (minuscules accentuées), mais aussi les libellés à la norme <b>AFNOR</b>, les codes <b>FANTOIR</b> mis à jour par la <b>DGFiP</b>, les points adresses géocodés, ainsi que leur lien avec les parcelles s’ils sont renseignés, la source des adresses et leur <b>certification</b>. Pour plus d’information sur la structure des informations, consultez la documentation des <a href='https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/les-fichiers-de-la-base-adresse-nationale'>fichiers de la Base Adresse Nationale</a>.
+      </SectionText>
+
+      <div className='cards-container'>
+        <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' />
+        <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' />
+      </div>
 
       <style jsx>{`
         .download-adresses-container {
@@ -35,8 +31,8 @@ function DownloadAdresses({typeComposition, revision, codeCommune}) {
           text-align: center;
         }
 
-        .h4 {
-          margin-top: 2em;
+        h4 {
+          margin: 2em 0 0 0;
           text-align: center;
         }
 
@@ -52,9 +48,7 @@ function DownloadAdresses({typeComposition, revision, codeCommune}) {
 }
 
 DownloadAdresses.propTypes = {
-  typeComposition: PropTypes.string.isRequired,
-  codeCommune: PropTypes.string.isRequired,
-  revision: PropTypes.object
+  codeCommune: PropTypes.string.isRequired
 }
 
 DownloadAdresses.defaultType = {

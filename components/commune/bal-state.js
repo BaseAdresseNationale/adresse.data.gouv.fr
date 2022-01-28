@@ -1,6 +1,5 @@
 import {useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
-import {Doughnut} from 'react-chartjs-2'
 import {uniq} from 'lodash'
 import {Edit2} from 'react-feather'
 
@@ -13,39 +12,7 @@ import Button from '@/components/button'
 import DownloadAdresses from './download-adresses'
 import Notification from '@/components/notification'
 import ButtonLink from '@/components/button-link'
-
-function toCounterData(percent, total) {
-  return {
-    labels: [],
-    datasets: [
-      {
-        data: [percent, total],
-        backgroundColor: [
-          '#0054B3',
-          '#FCB955'
-        ],
-        borderColor: [
-          '#FFFFFF',
-        ],
-        borderWidth: 3,
-      },
-    ]
-  }
-}
-
-const options = {
-  height: 50,
-  width: 50,
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      enabled: false
-    }
-  }
-}
+import Statistics from './statistics'
 
 function sanitedSources(adressesSources) {
   const sources =
@@ -74,9 +41,6 @@ function sanitedSources(adressesSources) {
 function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const {codeCommune, nomCommune, nbNumeros, nbNumerosCertifies, voies} = communeInfos
-
-  const certifiedPercent = (nbNumerosCertifies / nbNumeros) * 100
-  const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent))
 
   const adressesSources = uniq(voies.map(voie => voie.sources).flat())
   let userName = revision && (revision.context.nomComplet || revision.context.organisation)
@@ -115,26 +79,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
 
   return (
     <Section title='État de la Base Adresse Nationale' background='color' subtitle={subtitle}>
-      <div className='bal-state-wrapper'>
-        <div className='statistiques-container'>
-          <div className='bal-states-container'>
-            <div className='doughnut'>
-              <Doughnut data={doughnutData} options={options} />
-            </div>
-            <div className='numbers'>
-              <div className='addresses-number'>
-                <div className='certified-number'>{nbNumerosCertifies}</div>
-                adresses certifiées.
-              </div>
-              <div className='addresses-number'>
-                <div className='uncertified-number'>{nbNumeros - nbNumerosCertifies}</div>
-                adresses non certifiées (ou en attente).
-              </div>
-            </div>
-          </div>
-          <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)} %</b> de la totalité des adresses de la commune sont certifiées.</p>
-        </div>
-      </div>
+      <Statistics nbNumeros={nbNumeros} nbNumerosCertifies={nbNumerosCertifies} />
 
       {typeComposition === 'assemblage' && (
         <Notification type='warning'>
@@ -153,79 +98,22 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
         </Notification>
       )}
 
-      <DownloadAdresses typeComposition={typeComposition} revision={revision} codeCommune={codeCommune} />
+      <DownloadAdresses codeCommune={codeCommune} />
 
       <div className='contact-wrapper'>
+        <h4>Contacter la commune</h4>
+
         <SectionText color='secondary'>
-          Il n’existe pas encore de dispositif national permettant aux citoyens de contribuer directement à la Base Adresse Locale, mais de <b>nombreux guichets de signalement</b> existent à l’échelon local. Ce site a vocation à les référencer à moyen terme. En attendant, <b>contactez votre mairie</b> et parlez-leur de nous !
+          En attendant, en cas de problème d’adresse sur une commune, voici comment la contacter. La commune est l’échelon de compétence pour mettre à jour les adresses et vous pouvez lui indiquer notre contact (<a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>) au besoin.
         </SectionText>
         <Button color='white' isOutlined onClick={handleModalOpen}>Contactez la mairie</Button>
         {isContactModalOpen && <ContactModal mairieInfos={mairieInfos} onModalClose={handleModalOpen} />}
       </div>
 
       <style jsx>{`
-        .bal-state-wrapper {
-          margin: 3em 0;
-        }
-
-        .statistiques-container, .numbers, .addresses-number, .unaivalable-bal, .contact-wrapper {
+        .unaivalable-bal, .contact-wrapper {
           display: flex;
           flex-direction: column;
-        }
-
-        .statistiques-container {
-          text-align: center;
-          background: ${theme.colors.white};
-          color: ${theme.darkText};
-          border-radius: 8px;
-          padding: 2em;
-          gap: 1em;
-        }
-
-        .bal-states-container {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-around;
-          align-items: center;
-          gap: 2em;
-        }
-
-        .doughnut {
-          max-width: 250px;
-        }
-
-        .numbers {
-          min-width: 250px;
-          gap: 2em;
-          font-weight: bold;
-          font-size: x-large;
-        }
-
-        .addresses-number {
-          gap: 1em;
-        }
-
-        .certified-number, .uncertified-number {
-          font-size: xxx-large;
-        }
-
-        .certified-number {
-          color: ${theme.primary};
-        }
-
-        .uncertified-number {
-          color: #FCB955;
-        }
-
-        .percent {
-          font-size: x-large;
-          margin: 0;
-          padding-top: 1em;
-          border-top: solid 3px ${theme.border};
-        }
-
-        .percent b {
-          color: ${theme.primary};
         }
 
         .unaivalable-bal {
@@ -248,6 +136,11 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
           display: flex;
           gap: 10px;
           margin: 1em 0;
+        }
+
+        h4 {
+          margin: 2em 0 0 0;
+          text-align: center;
         }
       `}</style>
     </Section>
