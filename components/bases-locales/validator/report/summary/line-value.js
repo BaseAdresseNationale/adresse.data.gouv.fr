@@ -4,12 +4,11 @@ import theme from '@/styles/theme'
 
 function LineValue({value, errors, handleHover, hasUnknowFields}) {
   const hasErrors = errors && errors.length > 0
-
   return (
     <>
       {hasErrors ? (
         <td
-          className={errors[0].level === 'E' ? 'error' : 'warning'}
+          className={errors[0].level === 'E' ? 'error' : (errors[0].level === 'W' ? 'warning' : 'information')}
           onMouseOver={() => handleHover(errors)}
           onMouseOut={() => handleHover(null)}
         >
@@ -32,6 +31,10 @@ function LineValue({value, errors, handleHover, hasUnknowFields}) {
 
         td.warning {
           background: ${theme.warningBg};
+        }
+
+        td.information {
+          background: ${theme.infoBg};
         }
 
         td.error:hover {

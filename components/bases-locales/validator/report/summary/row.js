@@ -7,11 +7,12 @@ import Line from './line'
 import RowIssues from './row-issues'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
-function Row({row, isForcedShowIssues, unknowFields}) {
+function Row({row, isForcedShowIssues, unknowFields, issueType}) {
   const [showIssues, setShowIssues] = useState(false)
   const [hoveredFieldErrors, setHoveredFieldErrors] = useState()
-  const issuesCount = row.errors.length
-  const issueLevel = row.errors.map(({level}) => level).includes('E') ? 'error' : 'warning'
+  const sanitedIssueType = issueType === 'error' ? 'E' : (issueType === 'warning' ? 'W' : 'I')
+  const filteredErrors = row.errors.filter(error => error.level === sanitedIssueType)
+  const issuesCount = filteredErrors.length
 
   const handleError = useCallback(() => {
     setShowIssues(!showIssues)
@@ -27,11 +28,11 @@ function Row({row, isForcedShowIssues, unknowFields}) {
           </div>
           <div>
             {issuesCount === 1 ? (
-              <div className={issueLevel}>
+              <div className={issueType}>
                 {showIssues ? 'Masquer' : 'Afficher'} l’anomalie
               </div>
             ) : (
-              <div className={issueLevel}>
+              <div className={issueType}>
                 {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies
               </div>
             )}
@@ -49,13 +50,13 @@ function Row({row, isForcedShowIssues, unknowFields}) {
         <div className='issue'>
           <Line
             line={row.rawValues}
-            errors={row.errors}
+            errors={filteredErrors}
             onHover={setHoveredFieldErrors}
             unknowFields={unknowFields}
           />
 
           {(issuesCount > 0 || isForcedShowIssues) && (
-            <RowIssues errors={row.errors} hoveredFieldErrors={hoveredFieldErrors} />
+            <RowIssues errors={filteredErrors} hoveredFieldErrors={hoveredFieldErrors} />
           )}
         </div>}
 
@@ -89,6 +90,10 @@ function Row({row, isForcedShowIssues, unknowFields}) {
           color: ${theme.warningBorder};
         }
 
+        .information {
+          color: ${theme.infoBorder};
+        }
+
         .line:hover {
           cursor: pointer;
           background-color: #f8f8f8;
@@ -101,7 +106,8 @@ function Row({row, isForcedShowIssues, unknowFields}) {
 Row.propTypes = {
   row: PropTypes.object.isRequired,
   isForcedShowIssues: PropTypes.bool,
-  unknowFields: PropTypes.array.isRequired
+  unknowFields: PropTypes.array.isRequired,
+  issueType: PropTypes.string.isRequired
 }
 
 Row.defaultProps = {

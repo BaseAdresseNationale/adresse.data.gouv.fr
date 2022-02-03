@@ -31,6 +31,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
           {take(issue.rows, ROWS_LIMIT).map(row => (
             <Row
               key={`row-${row.line}`}
+              issueType={issue.type}
               row={row}
               unknowFields={unknowFields}
               isForcedShowIssues={issue.rows.length === 1}
@@ -86,6 +87,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
 IssueDialog.propTypes = {
   issue: PropTypes.shape({
     code: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     rows: PropTypes.array.isRequired
   }),
   unknowFields: PropTypes.array.isRequired,
