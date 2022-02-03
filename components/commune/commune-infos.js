@@ -26,7 +26,7 @@ function CommuneInfos({communeInfos}) {
           </div>
           <div>
             <div className='label'>Code Postal</div>
-            <div>{codesPostaux.map(code => <span className='value' key={code}>{code}</span>)}</div>
+            <span className='value'>{codesPostaux[0]}</span>
           </div>
           <div>
             <div className='label'>Population</div>
