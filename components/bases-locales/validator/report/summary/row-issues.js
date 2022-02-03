@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 function RowIssues({errors, hoveredFieldErrors}) {
   return (
     <div className='abnormalities'>
-      <h4>Anomalie{(errors.length) > 1 ? 's' : ''} :</h4>
+      <h4>Alerte{(errors.length) > 1 ? 's' : ''} :</h4>
       <div className='error-list'>
         {errors.map(error => {
           const {code, level} = error

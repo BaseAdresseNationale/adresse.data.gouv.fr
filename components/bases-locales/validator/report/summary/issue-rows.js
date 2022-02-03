@@ -19,7 +19,7 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
             (rowsCount === 1 ?
               `La ligne ${rows[0].line}` :
               `${rowsCount} lignes`)
-        }</b> {rowsCount === 1 ? 'comporte' : 'comportent'} l’anomalie :
+        }</b> {rowsCount === 1 ? 'comporte' : 'comportent'} l’alerte :
 
         <span className='colored'> {getLabel(issue)}</span>
       </div>

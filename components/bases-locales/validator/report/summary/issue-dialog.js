@@ -17,7 +17,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
       <div className='dialog'>
         <div className='flex-container'>
           <div>
-            <h3>Ligne{issue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
+            <h3>Ligne{issue.rows.length > 1 ? 's' : ''} avec l’alerte :</h3>
             <h4>{getLabel(issue.code)}</h4>
           </div>
           <X size={40} style={{cursor: 'pointer'}} onClick={handleClose} />
