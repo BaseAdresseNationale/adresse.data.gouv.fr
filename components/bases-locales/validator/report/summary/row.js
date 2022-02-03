@@ -29,11 +29,11 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
           <div>
             {issuesCount === 1 ? (
               <div className={issueType}>
-                {showIssues ? 'Masquer' : 'Afficher'} l’anomalie
+                {showIssues ? 'Masquer' : 'Afficher'} l’alerte
               </div>
             ) : (
               <div className={issueType}>
-                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} anomalies
+                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} alertes
               </div>
             )}
           </div>

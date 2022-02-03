@@ -25,7 +25,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
         <div className='scroll'>
 
           {issue.rows.length > ROWS_LIMIT && (
-            <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
+            <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec des alertes sont affichées ici`} />
           )}
 
           {take(issue.rows, ROWS_LIMIT).map(row => (

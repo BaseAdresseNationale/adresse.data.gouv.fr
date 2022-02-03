@@ -56,13 +56,13 @@ function Summary({rows, fields}) {
   return (
     <div>
       {rowsWithIssuesCount === 0 ? (
-        <h4>Aucune ligne avec anomalies trouvée <span className='valid'><Check /></span></h4>
+        <h4>Aucune ligne comprenant des alertes n’a été trouvée <span className='valid'><Check /></span></h4>
       ) : (
         <div>
           {rowsWithIssuesCount > 1 ? (
-            <h4>{rowsWithIssuesCount} lignes avec anomalies trouvées</h4>
+            <h4>{rowsWithIssuesCount} lignes comprenant des alertes</h4>
           ) : (
-            <h4>{rowsWithIssuesCount} ligne avec anomalies trouvée</h4>
+            <h4>{rowsWithIssuesCount} ligne comprenant des alertes</h4>
           )}
         </div>
       )}
