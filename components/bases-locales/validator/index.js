@@ -24,7 +24,7 @@ function BALValidator() {
   const parseFile = async file => {
     setInProgress(true)
     try {
-      const report = await prevalidate(file)
+      const report = await prevalidate(file, {relaxFieldsDetection: true})
       if (report.parseOk) {
         setReport(report)
       } else {
