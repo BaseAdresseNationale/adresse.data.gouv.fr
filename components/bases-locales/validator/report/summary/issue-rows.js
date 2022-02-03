@@ -34,7 +34,7 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
         }
 
         .colored {
-          color: ${type === 'error' ? theme.errorBorder : theme.warningBorder};
+          color: ${type === 'error' ? theme.errorBorder : (type === 'warning' ? theme.warningBorder : theme.infoBorder)};
         }
 
         .issue:hover {
@@ -54,7 +54,7 @@ IssueRows.propTypes = {
     })
   ).isRequired,
   isOnAllLines: PropTypes.bool.isRequired,
-  type: PropTypes.oneOf(['error', 'warning']).isRequired,
+  type: PropTypes.oneOf(['error', 'warning', 'information']).isRequired,
   onClick: PropTypes.func.isRequired
 }
 

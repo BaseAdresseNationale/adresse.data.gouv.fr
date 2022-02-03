@@ -9,7 +9,7 @@ function RowIssues({errors, hoveredFieldErrors}) {
       <div className='error-list'>
         {errors.map(error => {
           const {code, level} = error
-          const color = level === 'E' ? 'error' : 'warning'
+          const color = level === 'E' ? 'error' : (level === 'W' ? 'warning' : 'information')
           return (
             <div key={code} className={`issue ${color} ${hoveredFieldErrors && (hoveredFieldErrors.includes(error)) ? 'select' : ''}`}>
               {getLabel(code)}
@@ -17,6 +17,7 @@ function RowIssues({errors, hoveredFieldErrors}) {
           )
         })}
       </div>
+
       <style jsx>{`
       .abnormalities {
         display: flex;
@@ -38,6 +39,10 @@ function RowIssues({errors, hoveredFieldErrors}) {
         background: ${theme.warningBg};
       }
 
+      .information {
+        background: ${theme.infoBg};
+      }
+
       .issue.select {
         color: ${theme.colors.white};
       }
@@ -48,6 +53,10 @@ function RowIssues({errors, hoveredFieldErrors}) {
 
       .warning.select {
         background: ${theme.warningBorder};
+      }
+
+      .information.select {
+        background: ${theme.infoBorder};
       }
       `}</style>
     </div>
