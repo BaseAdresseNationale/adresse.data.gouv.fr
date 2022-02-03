@@ -84,7 +84,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
       {typeComposition === 'assemblage' && (
         <Notification type='warning'>
           <div className='unaivalable-bal'>
-            <p>La commune de Beauvoir-sur-Mer ne dispose d’aucune Base Adresse Locale.</p>
+            <p>La commune ne dispose d’aucune Base Adresse Locale.</p>
             <ButtonLink
               isExternal
               size='large'
