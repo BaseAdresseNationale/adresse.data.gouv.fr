@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types'
 import {RefreshCw} from 'react-feather'
+import {orderBy} from 'lodash'
 
 import Section from '@/components/section'
 import HistoriqueItem from './historique-item'
 
 function Historique({revisions, communeName, codeCommune, typeComposition}) {
-  const sortRevisionsByDate = revisions && revisions.sort((a, b) => {
-    a = new Date(a.updatedAt)
-    b = new Date(b.updatedAt)
-    return a > b ? -1 : (a < b ? 1 : 0)
-  })
+  const sortRevisionsByDate = revisions && orderBy(revisions, [
+    function (revision) {
+      return new Date(revision.updatedAt)
+    }
+  ], ['desc'])
 
   return (
     <Section title='Historiques des dépôts et révisions de la BAL'>
