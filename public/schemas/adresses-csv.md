@@ -26,4 +26,4 @@ Le séparateur point-virgule et l'encodage UTF-8 sont utilisés.
 | `source_position` | Source de la position géographique. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | |
 | `source_nom_voie` | Source du nom de la voie. Valeurs possibles : (`commune`, `cadastre`, `arcep`, `laposte`, `insee`, `sdis`, `inconnue`) | |
 | `certification_commune` | Indique si l’adresse a été certifiée par la commune. Valeurs possibles : (`1` pour oui, `0` pour non) | Nouveau champ |
-| `cad_parcelles` | Liste les identifiants des parcelles cadastrales auxquelles l’adresse est rattachée, si l'information est connue. Codage de l’identifiant sur 14 caractères. Donnée en cours de fiabilisation | Nouveau champ. **Expérimental** |
+| `cad_parcelles` | Liste les identifiants des parcelles cadastrales auxquelles l’adresse est rattachée, si l'information est connue. Codage de l’identifiant sur 14 caractères. Séparateur `|`. Donnée en cours de fiabilisation | Nouveau champ. **Expérimental** |
