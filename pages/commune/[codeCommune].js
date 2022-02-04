@@ -31,7 +31,8 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
         <>
           <BalQuality currentRevision={currentRevision} typeComposition={typeCompositionAdresses} />
           <Historique revisions={revisions} communeName={communeInfos.nomCommune} codeCommune={codeCommune} typeComposition={typeCompositionAdresses} />
-        </>)}
+        </>
+      )}
     </Page>
   )
 }
