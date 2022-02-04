@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 
 import Notification from '@/components/notification'
-import AlertRows from './alert-rows'
+import BalAlert from './bal-alert'
 
 function BalAlerts({errors, warnings, infos}) {
   const hasAlerts = Boolean(warnings.length > 0 || errors.length > 0 || infos.length > 0)
@@ -16,15 +16,24 @@ function BalAlerts({errors, warnings, infos}) {
       {hasAlerts ? (
         <div className='alerts-container'>
           {numberOfErrors > 0 && (
-            <AlertRows alerts={errors} alertType='error' alertsLength={numberOfErrors} />
+            <div className='alerts-type-container'>
+              <h4>{numberOfErrors > 1 ? `${numberOfErrors} erreurs détectées` : `${numberOfErrors} erreur détectée`}</h4>
+              {errors.map(error => <BalAlert key={error} alert={error} type='error' />)}
+            </div>
           )}
 
           {numberOfWarnings > 0 && (
-            <AlertRows alerts={warnings} alertType='warning' alertsLength={numberOfWarnings} />
+            <div className='alerts-type-container'>
+              <h4>{numberOfWarnings > 1 ? `${numberOfWarnings} avertissements détectés` : `${numberOfWarnings} avertissement détecté`}</h4>
+              {warnings.map(warning => <BalAlert key={warning} alert={warning} type='warning' />)}
+            </div>
           )}
 
           {numberOfInfos > 0 && (
-            <AlertRows alerts={infos} alertType='information' alertsLength={numberOfInfos} />
+            <div className='alerts-type-container'>
+              <h4>{numberOfInfos > 1 ? `${numberOfInfos} informations détectées` : `${numberOfInfos} information détectée`}</h4>
+              {infos.map(info => <BalAlert key={info} alert={info} type='information' />)}
+            </div>
           )}
         </div>
       ) : (
@@ -59,6 +68,13 @@ function BalAlerts({errors, warnings, infos}) {
           display: flex;
           flex-direction: column;
           gap: 2em;
+        }
+
+        .alerts-type-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1em;
         }
       `}</style>
     </div>

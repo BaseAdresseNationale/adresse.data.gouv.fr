@@ -19,6 +19,7 @@ function BalAlert({alert, type}) {
           min-width: 290px;
           display: flex;
           justify-content: space-between;
+          align-items: center;
           font-weight: bold;
           text-align: center;
           gap: 1em;
