@@ -5,7 +5,7 @@ import BalAlerts from './bal-alerts'
 
 function BalQuality({currentRevision, typeComposition}) {
   const errors = currentRevision && currentRevision.validation.errors ? currentRevision.validation.errors : []
-  const warnings = currentRevision && currentRevision.validation.warnings ? currentRevision.validation.warning : []
+  const warnings = currentRevision && currentRevision.validation.warnings ? currentRevision.validation.warnings : []
   const infos = currentRevision && currentRevision.validation.infos ? currentRevision.validation.infos : []
 
   return (
