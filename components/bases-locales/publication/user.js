@@ -1,29 +1,53 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
+import theme from '@/styles/theme'
 
-const User = React.memo(({user, commune}) => {
+function User({user, commune}) {
   const {nomNaissance, nomMarital, prenom, typeMandat} = user || {}
 
   return (
     <div className='user'>
-      <Image width={88} height={88} src={`/images/icons/${user ? 'elu' : 'commune'}.svg`} alt='elu' />
+      <div className='avatar'>
+        <Image width={60} height={60} src={`/images/icons/${user ? 'elu' : 'commune'}.svg`} alt='elu' />
+      </div>
       {user ? (
-        <div>{prenom} {nomMarital || nomNaissance}</div>
+        <div className='user-infos'>{prenom} {nomMarital || nomNaissance}</div>
       ) : (
-        <div>Mairie de {commune.nom}</div>
+        <div className='commune-infos'>Mairie de {commune.nom}</div>
       )}
-      <div><b>{typeMandat}</b></div>
+      <div className='mandat'><b>{typeMandat}</b></div>
       <style jsx>{`
         .user {
           display: flex;
           flex-direction: column;
+          align-items: center;
           text-align: center;
         }
-        `}</style>
+
+        .avatar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 5px;
+          border-radius: 50%;
+          height: 100px;
+          width: 100px;
+          border: solid 3px ${theme.colors.whiteBlue};
+        }
+
+        .user-infos, .commune-infos {
+          font-size: 20px;
+          font-weight: bolder;
+        }
+
+        .mandat {
+          color: ${theme.primary};
+          font-size: 18px;
+        }
+      `}</style>
     </div>
   )
-})
+}
 
 User.propTypes = {
   user: PropTypes.shape({

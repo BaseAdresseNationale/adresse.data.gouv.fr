@@ -8,6 +8,7 @@ class Step extends React.Component {
     index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     validTitle: PropTypes.string.isRequired,
+    isActif: PropTypes.bool.isRequired,
     isValid: PropTypes.bool,
     isDisabled: PropTypes.bool
   }
@@ -18,7 +19,7 @@ class Step extends React.Component {
   }
 
   render() {
-    const {index, title, validTitle, isValid, isDisabled} = this.props
+    const {index, title, validTitle, isActif, isValid, isDisabled} = this.props
     return (
       <div className='step'>
         {isValid ? (
@@ -27,12 +28,13 @@ class Step extends React.Component {
           <div className='badge index'>{index}</div>
         )}
 
-        <div className='title'>
+        <div className={`title ${isActif ? 'actif-title' : ''}`}>
           {isValid ? validTitle : title}
         </div>
 
         <style jsx>{`
           .step {
+            flex: 1;
             display: flex;
             align-items: center;
             opacity: ${isDisabled ? 0.5 : 1};
@@ -40,8 +42,8 @@ class Step extends React.Component {
 
           .badge {
             display: flex;
-            width: 1em;
-            height: 1em;
+            width: 1.1em;
+            height: 1.1em;
             padding: 1em;
             align-items: center;
             justify-content: center;
@@ -50,24 +52,38 @@ class Step extends React.Component {
           }
 
           .index {
-            background: ${theme.colors.almostBlack};
+            background: ${theme.primary};
             color: ${theme.colors.white};
+            font-weight: bold;
           }
 
           .valid {
-            background: ${theme.successBg};
-            color: ${theme.successBorder};
+            background: ${theme.colors.whiteBlue};
+            color: ${theme.colors.primary};
           }
 
           .title {
             border: 1px solid ${theme.border};
-            padding: 1em;
+            border-radius: 5px;
             text-align: center;
+            width: 100%;
+            min-height: 85px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .actif-title {
+            font-weight: bold;
+            background: ${theme.primary};
+            color: ${theme.colors.white};
           }
 
         @media (max-width: ${theme.breakPoints.laptop}) {
           .title {
             width: 100%;
+            min-height: 100%;
           }
 
           .badge {

@@ -109,6 +109,8 @@ app.prepare().then(() => {
     res.redirect(`/base-adresse-nationale/${req.params.codeCommune}`)
   })
 
+  server.use('/proxy-api-depot', require('./proxy-api-depot'))
+
   // DO NOT REMOVE
   server.get('/api', (request, res) => {
     res.redirect('/api-doc')

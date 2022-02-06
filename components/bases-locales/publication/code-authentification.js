@@ -1,36 +1,54 @@
 import {useCallback, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {Check, ArrowLeft} from 'react-feather'
+import {Check, ArrowLeft, Mail} from 'react-feather'
 
-import {submitAuthentificationCode} from '@/lib/api-backend-publication'
+import {submitAuthentificationCode} from '@/lib/proxy-api-depot'
 
 import theme from '@/styles/theme'
 
 import Button from '@/components/button'
 import Notification from '@/components/notification'
 
-function CodeAuthentification({submissionId, email, handleValidCode, sendBackCode, cancel}) {
+function CodeAuthentification({habilitationId, email, handleValidCode, sendBackCode, cancel}) {
   const [code, setCode] = useState('')
+  const [codeMask, setCodeMask] = useState('______')
   const [error, setError] = useState(null)
 
   const submitCode = useCallback(async () => {
     try {
-      const response = await submitAuthentificationCode(submissionId, code)
+      const habilitation = await submitAuthentificationCode(habilitationId, code)
 
-      if (response.error) {
-        throw new Error(response.error)
+      if (habilitation?.validated === false) {
+        const {error, remainingAttempts} = habilitation
+        if (remainingAttempts > 0) {
+          throw new Error(`${error}. Tentative restantes : ${remainingAttempts}`)
+        }
+
+        throw new Error(error)
       }
 
-      handleValidCode()
+      handleValidCode(habilitation)
     } catch (error) {
       setError(error.message)
     }
-  }, [submissionId, code, handleValidCode])
+  }, [habilitationId, code, handleValidCode])
 
   const handleInput = event => {
+    // Récupérer la valeur de l'input
     const {value} = event.target
-    if (value.length <= 6) {
-      setCode(event.target.value)
+
+    // Supprimer tout ce qui n'est pas un chiffre dans l'input (lettres et caractères spéciaux)
+    const input = value.replaceAll('_', '').replace(/\D/, '')
+
+    if (input.length < 7) {
+      // Si on efface, supprimer la dernière valeur de l'input
+      const hasMissingNumbers = value.length < 6 && code.length < 6
+      const newCode = input.slice(0, hasMissingNumbers ? -1 : 6)
+
+      // On set code avec la bonne valeur, cleané de tout caractères spéciaux
+      setCode(newCode)
+      // On set codeMask avec les bonnes valeurs + les underscores pour les chiffres encore manquants
+      setCodeMask(newCode.padEnd(6, '_'))
     }
   }
 
@@ -41,15 +59,19 @@ function CodeAuthentification({submissionId, email, handleValidCode, sendBackCod
   return (
     <>
       <div className='code-container'>
-        <h3>Entrez le code qui vous a été envoyé à l’adresse : {email}</h3>
+        <h3>Entrez le code qui vous a été envoyé à l’adresse : </h3>
+        <div className='email-info'>
+          <Mail size={50} color={theme.primary} />
+          {email}
+        </div>
 
         <div className='form'>
           <div className='input-container'>
             <input
               autoFocus
               name='code'
-              type='number'
-              value={code}
+              type='text'
+              value={codeMask}
               placeholder='Entrez votre code ici'
               onChange={handleInput}
             />
@@ -73,13 +95,24 @@ function CodeAuthentification({submissionId, email, handleValidCode, sendBackCod
           margin: 2em 0;
           padding: 1em;
           background-color: ${theme.backgroundGrey};
+          text-align: center;
+        }
+
+        .email-info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 5px;
+          margin-bottom: 2em;
+          font-size: 20px;
+          font-weight: bolder;
+          font-style: italic;
         }
 
         .form {
           display: flex;
           flex-direction: column;
           align-items: center;
-          text-align: center;
           max-width: 100%;
         }
 
@@ -95,6 +128,12 @@ function CodeAuthentification({submissionId, email, handleValidCode, sendBackCod
           font-size: x-large;
           border-radius: 3px 0 0 3px;
           border-right-width: 0;
+          color: ${theme.primary};
+          letter-spacing: 10px;
+          text-align: center;
+          font-weight: bold;
+          font-size: 30px;
+          caret-color: transparent;
         }
 
         /* Chrome, Safari, Edge, Opera */
@@ -120,13 +159,17 @@ function CodeAuthentification({submissionId, email, handleValidCode, sendBackCod
         .input-container button:disabled {
           background-color: ${theme.borderLighter};
         }
+
+        a {
+          font-style: italic;
+        }
         `}</style>
     </>
   )
 }
 
 CodeAuthentification.propTypes = {
-  submissionId: PropTypes.string.isRequired,
+  habilitationId: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   handleValidCode: PropTypes.func.isRequired,
   sendBackCode: PropTypes.func.isRequired,

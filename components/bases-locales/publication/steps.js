@@ -1,17 +1,17 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
 import Step from './step'
 
-const Steps = React.memo(({step}) => {
+function Steps({step}) {
   return (
     <div className='steps'>
       <Step
         index={1}
         title='Dépôt des adresses'
         validTitle='Adresses conformes'
+        isActif={step === 1}
         isValid={step > 1}
       />
 
@@ -19,6 +19,7 @@ const Steps = React.memo(({step}) => {
         index={2}
         title='Choix de la méthode d’habilitation'
         validTitle='Méthode d’habilitation sélectionnée'
+        isActif={step === 2}
         isValid={step > 2}
         isDisabled={step < 2}
       />
@@ -27,6 +28,7 @@ const Steps = React.memo(({step}) => {
         index={3}
         title='Obtention de l’habilitation'
         validTitle='Habilitation obtenue'
+        isActif={step === 3}
         isValid={step > 3}
         isDisabled={step < 3}
       />
@@ -35,6 +37,7 @@ const Steps = React.memo(({step}) => {
         index={4}
         title='Publication des adresses'
         validTitle='Adresses publiées'
+        isActif={step === 4}
         isValid={step > 4}
         isDisabled={step < 4}
       />
@@ -57,7 +60,7 @@ const Steps = React.memo(({step}) => {
       `}</style>
     </div>
   )
-})
+}
 
 Steps.propTypes = {
   step: PropTypes.oneOf([1, 2, 3, 4, 5]).isRequired

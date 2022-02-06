@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {uniq} from 'lodash'
 import {prevalidate} from '@etalab/bal'
@@ -10,7 +10,7 @@ import Report from '../validator/report'
 
 import theme from '@/styles/theme'
 
-const ManageFile = React.memo(({error, handleError, handleFile}) => {
+function ManageFile({error, handleError, handleFile}) {
   const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const [report, setReport] = useState(null)
@@ -18,20 +18,22 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
   const parseFile = useCallback(async file => {
     try {
       const report = await prevalidate(file, {relaxFieldsDetection: true})
+
+      if (!report.parseOk) {
+        handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
+        return
+      }
+
       const communes = uniq(report.rows.map(r => r.parsedValues.commune_insee || r.additionalValues.cle_interop.codeCommune))
 
       if (communes.length !== 1) {
         throw new Error('Fichier BAL vide ou contenant plusieurs communes')
       }
 
-      if (report.parseOk) {
-        if (report.profilesValidation['1.3-etalab'].isValid) {
-          handleFile(file)
-        } else {
-          setReport(report)
-        }
+      if (report.profilesValidation['1.3-etalab'].isValid) {
+        handleFile(file, communes[0])
       } else {
-        handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
+        setReport(report)
       }
     } catch (err) {
       const error = `Impossible d’analyser le fichier… [${err.message}]`
@@ -92,14 +94,14 @@ const ManageFile = React.memo(({error, handleError, handleFile}) => {
       )}
     </>
   )
-})
+}
 
 ManageFile.defaultProps = {
   error: null
 }
 
 ManageFile.propTypes = {
-  error: PropTypes.object,
+  error: PropTypes.string,
   handleError: PropTypes.func.isRequired,
   handleFile: PropTypes.func.isRequired
 }
