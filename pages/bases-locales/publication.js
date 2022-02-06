@@ -11,11 +11,12 @@ import Notification from '@/components/notification'
 import {
   getHabilitation,
   createRevision,
+  getRevision,
   publishRevision,
   createHabilitation,
   sendAuthenticationCode
 } from '@/lib/proxy-api-depot'
-import {getRevision, getCurrentRevision} from '@/lib/api-depot'
+import {getCurrentRevision} from '@/lib/api-depot'
 import {getCommune} from '@/lib/api-geo'
 
 import Steps from '@/components/bases-locales/publication/steps'
@@ -179,7 +180,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
 
           {step === 4 && (
             <Publishing
-              user={revision.authentication}
+              user={habilitation.strategy.mandat}
               commune={commune}
               hasConflit={Boolean(currentRevision)}
               publication={handlePublication}

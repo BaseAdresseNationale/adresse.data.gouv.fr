@@ -81,6 +81,13 @@ async function createRevision(req, res) {
   forward(response, res)
 }
 
+async function getRevision(req, res) {
+  const {revisionId} = req.params
+
+  const response = await client.get(`revisions/${revisionId}`)
+  forward(response, res)
+}
+
 async function uploadFile(req, res) {
   const {revisionId} = req.params
 
@@ -138,6 +145,7 @@ app.post('/habilitations/:habilitationId/authentication/email/validate-pin-code'
 
 // Revisions
 app.post('/communes/:codeCommune/revisions', w(createRevision))
+app.get('/revisions/:revisionId', w(getRevision))
 app.put(
   '/revisions/:revisionId/files/bal',
   express.raw({limit: '10mb', type: 'text/csv'}),
