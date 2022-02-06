@@ -1,7 +1,6 @@
-import {useCallback, useState} from 'react'
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import Router from 'next/router'
 import {ChevronRight, ChevronDown, Info, Mail, Users, Clock, LogIn} from 'react-feather'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data.gouv.fr'
@@ -14,13 +13,8 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
   const [isHabilitedOpen, setIsHabilitedOpen] = useState(true)
   const [isNonHabilitedOpen, setIsNonHabilitedOpen] = useState(false)
 
-  const redirectToFranceConnect = useCallback(() => {
-    const redirectUrl = encodeURIComponent(
-      `${ADRESSE_URL}/bases-locales/publication?revisionId=${revisionId}&habilitationId=${habilitationId}`
-    )
-
-    Router.push(encodeURIComponent(`${authenticationUrl}?redirectUrl=${redirectUrl}`))
-  }, [revisionId, habilitationId, authenticationUrl])
+  const redirectUrl = `${ADRESSE_URL}/bases-locales/publication?revisionId=${revisionId}&habilitationId=${habilitationId}`
+  const fcButtonUrl = `${authenticationUrl}?redirectUrl=${redirectUrl}`
 
   return (
     <div className='auth-container'>
@@ -37,9 +31,9 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
           <div className='content'>
             <div className='authentification-choice'>
               <h4>M’authentifier comme élu de la commune</h4>
-              <div className='france-connect' onClick={redirectToFranceConnect}>
+              <a href={fcButtonUrl}>
                 <Image width={280} height={82} layout='fixed' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' />
-              </div>
+              </a>
               <p className='alert-personal-data'>
                 Aucune donnée personnelle ne nous sera transmise durant ce processus d’authentification
               </p>
@@ -149,10 +143,6 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
           flex-flow: row wrap;
           justify-content: space-around;
           text-align: center;
-        }
-
-        .france-connect {
-          cursor: pointer;
         }
 
         .infos-habilitation, .authentification-choice {
