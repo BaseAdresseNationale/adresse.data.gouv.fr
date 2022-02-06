@@ -33,14 +33,14 @@ function addIdToSession(id, req) {
 async function getHabilitation(req, res) {
   const {habilitationId} = req.params
 
-  const response = await client.get(`/habilitations/${habilitationId}`)
+  const response = await client.get(`habilitations/${habilitationId}`)
   forward(response, res)
 }
 
 async function createHabilitation(req, res) {
   const {codeCommune} = req.params
 
-  const response = await client.post(`/communes/${codeCommune}/habilitations`)
+  const response = await client.post(`communes/${codeCommune}/habilitations`)
 
   if (response.status === 201) {
     addIdToSession(response.body._id, req)
@@ -53,7 +53,7 @@ async function sendPinCode(req, res) {
   const {habilitationId} = req.params
 
   const response = await client
-    .post(`/habilitations/${habilitationId}/authentication/email/send-pin-code`)
+    .post(`habilitations/${habilitationId}/authentication/email/send-pin-code`)
 
   forward(response, res)
 }
@@ -62,7 +62,7 @@ async function validatePinCode(req, res) {
   const {habilitationId} = req.params
 
   const response = await client
-    .post(`/habilitations/${habilitationId}/authentication/email/validate-pin-code`, {json: req.body})
+    .post(`habilitations/${habilitationId}/authentication/email/validate-pin-code`, {json: req.body})
 
   forward(response, res)
 }
@@ -70,7 +70,7 @@ async function validatePinCode(req, res) {
 async function createRevision(req, res) {
   const {codeCommune} = req.params
 
-  const response = await client.post(`/communes/${codeCommune}/revisions`, {
+  const response = await client.post(`communes/${codeCommune}/revisions`, {
     json: {context: {}}
   })
 
@@ -84,7 +84,7 @@ async function createRevision(req, res) {
 async function uploadFile(req, res) {
   const {revisionId} = req.params
 
-  const response = await client.put(`/revisions/${revisionId}/files/bal`, {
+  const response = await client.put(`revisions/${revisionId}/files/bal`, {
     body: req.body,
     headers: {
       'Content-Type': 'text/csv'
@@ -96,13 +96,13 @@ async function uploadFile(req, res) {
 
 async function computeRevision(req, res) {
   const {revisionId} = req.params
-  const response = await client.post(`/revisions/${revisionId}/compute`)
+  const response = await client.post(`revisions/${revisionId}/compute`)
   forward(response, res)
 }
 
 async function publishRevision(req, res) {
   const {revisionId} = req.params
-  const response = await client.post(`/revisions/${revisionId}/publish`, {json: req.body})
+  const response = await client.post(`revisions/${revisionId}/publish`, {json: req.body})
   forward(response, res)
 }
 
