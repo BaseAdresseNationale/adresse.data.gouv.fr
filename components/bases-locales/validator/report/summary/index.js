@@ -11,6 +11,7 @@ function Summary({rows, fields}) {
   const rowsWithIssuesCount = rows.filter(row => row.errors && row.errors.length > 0).length
   const errorsGroups = {}
   const warningsGroups = {}
+  const infosGroups = {}
 
   rows.forEach(row => {
     row.errors.forEach(({code, level}) => {
@@ -29,11 +30,20 @@ function Summary({rows, fields}) {
 
         errorsGroups[code].push(row)
       }
+
+      if (level === 'I') {
+        if (!infosGroups[code]) {
+          infosGroups[code] = []
+        }
+
+        infosGroups[code].push(row)
+      }
     })
   })
 
   const errorsCount = Object.keys(errorsGroups).length
   const warningsCount = Object.keys(warningsGroups).length
+  const infosCount = Object.keys(infosGroups).length
 
   const unknowFields = []
 
@@ -45,15 +55,14 @@ function Summary({rows, fields}) {
 
   return (
     <div>
-
       {rowsWithIssuesCount === 0 ? (
-        <h4>Aucune ligne avec anomalies trouvée <span className='valid'><Check /></span></h4>
+        <h4>Aucune ligne comprenant des alertes n’a été trouvée <span className='valid'><Check /></span></h4>
       ) : (
         <div>
           {rowsWithIssuesCount > 1 ? (
-            <h4>{rowsWithIssuesCount} lignes avec anomalies trouvées</h4>
+            <h4>{rowsWithIssuesCount} lignes comprenant des alertes</h4>
           ) : (
-            <h4>{rowsWithIssuesCount} ligne avec anomalies trouvée</h4>
+            <h4>{rowsWithIssuesCount} ligne comprenant des alertes</h4>
           )}
         </div>
       )}
@@ -71,6 +80,15 @@ function Summary({rows, fields}) {
         <IssuesSumup
           issues={warningsGroups}
           issueType='warning'
+          totalRowsCount={rows.length}
+          handleSelect={setSelectedIssue}
+        />
+      )}
+
+      {infosCount > 0 && (
+        <IssuesSumup
+          issues={infosGroups}
+          issueType='information'
           totalRowsCount={rows.length}
           handleSelect={setSelectedIssue}
         />

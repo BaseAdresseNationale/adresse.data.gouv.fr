@@ -5,6 +5,7 @@ import theme from '@/styles/theme'
 import LineValue from './line-value'
 
 function Line({line, errors, onHover, unknowFields}) {
+  console.log(errors)
   return (
     <div className='line-container'>
       <table>

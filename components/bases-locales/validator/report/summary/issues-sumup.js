@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {X, AlertTriangle} from 'react-feather'
+import {X, AlertTriangle, Info} from 'react-feather'
 import {flattenDeep, groupBy} from 'lodash'
 
 import theme from '@/styles/theme'
@@ -20,13 +20,17 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
   return (
     <div className='issues-container'>
       <h4>
-        {issuesRowsCount} {issueType === 'error' ? 'Erreur' : 'Avertissement'}{issuesRowsCount > 1 ? 's' : ''}
+        {issuesRowsCount} {issueType === 'error' ? 'Erreur' : (issueType === 'warning' ? 'Avertissement' : 'Information')}{issuesRowsCount > 1 ? 's' : ''}
         &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) {percentageIssues}%
         <div className={`summary-icon ${issueType}`}>
           {issueType === 'error' ? (
             <X style={{verticalAlign: 'bottom'}} />
           ) : (
-            <AlertTriangle style={{verticalAlign: 'bottom'}} />
+            issueType === 'warning' ? (
+              <AlertTriangle style={{verticalAlign: 'bottom'}} />
+            ) : (
+              <Info style={{verticalAlign: 'bottom'}} />
+            )
           )}
         </div>
       </h4>
@@ -38,7 +42,7 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
             rows={issues[issue]}
             isOnAllLines={issues[issue].length === totalRowsCount}
             type={issueType}
-            onClick={() => handleSelect({code: issue, rows: issues[issue]})}
+            onClick={() => handleSelect({code: issue, type: issueType, rows: issues[issue]})}
           />
         ))}
       </div>
@@ -62,6 +66,10 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
           color: ${theme.warningBorder};
         }
 
+        .information {
+          color: ${theme.infoBorder};
+        }
+
         .list {
           display: grid;
         }
@@ -76,7 +84,7 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
 
 IssuesSumup.propTypes = {
   issues: PropTypes.object.isRequired,
-  issueType: PropTypes.oneOf(['error', 'warning']).isRequired,
+  issueType: PropTypes.oneOf(['error', 'warning', 'information']).isRequired,
   totalRowsCount: PropTypes.number.isRequired,
   handleSelect: PropTypes.func.isRequired
 }

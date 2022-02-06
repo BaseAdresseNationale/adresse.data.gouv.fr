@@ -134,5 +134,21 @@
         "alt": "Visuel de SDIS64 d'un opérateur devant un ordinateur",
         "date": "2021-10-21",
         "articleUrl": "https://blog.geo.data.gouv.fr/utilisation-et-enrichissement-de-la-base-adresse-nationale-le-sdis64-a25914281c86"
+    },
+    {
+        "title": "La commune d'Entre-Deux",
+        "preview": "La commune d’Entre-Deux est la première de La Réunion à avoir publié une Base Adresse Locale sur Mes Adresses. Daniel Martin, géomaticien, détaille deux enjeux : la fibre et la mise à jour des fonds de plans.",
+        "picture": "/images/testimonies/entredeux.jpg",
+        "alt": "Paysage de la commune d'Entre-Deux",
+        "date": "2022-01-28",
+        "articleUrl": "https://blog.geo.data.gouv.fr/enjeux-de-ladresse-%C3%A0-la-r%C3%A9union-l-exemple-d-entre-deux-e41eaab2f6e5"
+    },
+    {
+        "title": "Rennes métropole : plan de ville et animation sur les adresses",
+        "preview": "Les plans de ville ont permis à Rennes Métropole d’impulser une dynamique sur l’adresse en 2012, d’installer une marque de territoire et d’offrir une routine de mise à jour. Témoignage de Mael Reboux et Gaétan Danet sur des résultats spectaculaires.",
+        "picture": "/images/testimonies/rennes.jpg",
+        "alt": "Extrait du plan de Rennes Métropole. Source : Rennes Métropole",
+        "date": "2021-12-09",
+        "articleUrl": "https://blog.geo.data.gouv.fr/rennes-m%C3%A9tropole-plan-de-ville-et-animation-sur-les-adresses-b1d4c46f6f56"
     }
 ]

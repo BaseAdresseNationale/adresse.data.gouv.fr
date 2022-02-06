@@ -17,7 +17,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
       <div className='dialog'>
         <div className='flex-container'>
           <div>
-            <h3>Ligne{issue.rows.length > 1 ? 's' : ''} avec l’anomalie :</h3>
+            <h3>Ligne{issue.rows.length > 1 ? 's' : ''} avec l’alerte :</h3>
             <h4>{getLabel(issue.code)}</h4>
           </div>
           <X size={40} style={{cursor: 'pointer'}} onClick={handleClose} />
@@ -25,12 +25,13 @@ function IssueDialog({issue, unknowFields, handleClose}) {
         <div className='scroll'>
 
           {issue.rows.length > ROWS_LIMIT && (
-            <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec anomalies sont affichées ici`} />
+            <Notification message={`Seules les ${ROWS_LIMIT} premières lignes avec des alertes sont affichées ici`} />
           )}
 
           {take(issue.rows, ROWS_LIMIT).map(row => (
             <Row
               key={`row-${row.line}`}
+              issueType={issue.type}
               row={row}
               unknowFields={unknowFields}
               isForcedShowIssues={issue.rows.length === 1}
@@ -86,6 +87,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
 IssueDialog.propTypes = {
   issue: PropTypes.shape({
     code: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     rows: PropTypes.array.isRequired
   }),
   unknowFields: PropTypes.array.isRequired,

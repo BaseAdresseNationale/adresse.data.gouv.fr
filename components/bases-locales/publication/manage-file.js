@@ -17,7 +17,7 @@ function ManageFile({error, handleError, handleFile}) {
 
   const parseFile = useCallback(async file => {
     try {
-      const report = await prevalidate(file)
+      const report = await prevalidate(file, {relaxFieldsDetection: true})
 
       if (!report.parseOk) {
         handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)

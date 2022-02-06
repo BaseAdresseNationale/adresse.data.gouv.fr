@@ -150,7 +150,6 @@ function Frise() {
   return (
     <div className='frise'>
       <svg id='background' viewBox='0 0 1020 264' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'>
-        <title>Group 5</title>
         <defs>
           <polygon id='path-1' points='13.8916531 -0.0970873786 64.4268644 -0.0970873786 78.1592587 32.9029126 0.159258749 32.9029126' />
           <polygon id='path-3' points='13.8712116 -0.0970873786 64.4064229 -0.0970873786 78.1388172 32.9029126 0.138817228 32.9029126' />

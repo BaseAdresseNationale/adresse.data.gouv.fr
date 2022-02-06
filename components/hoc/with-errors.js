@@ -4,7 +4,7 @@ import hoist from 'hoist-non-react-statics'
 
 import ErrorPage from '../../pages/_error'
 
-export default Page => {
+const withErrors = Page => {
   const Extended = hoist(class extends React.Component {
     static propTypes = {
       err: PropTypes.object
@@ -61,3 +61,5 @@ export default Page => {
 
   return Extended
 }
+
+export default withErrors
