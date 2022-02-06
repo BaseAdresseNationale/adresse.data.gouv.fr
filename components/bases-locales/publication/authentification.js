@@ -14,7 +14,7 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
   const [isNonHabilitedOpen, setIsNonHabilitedOpen] = useState(false)
 
   const redirectUrl = `${ADRESSE_URL}/bases-locales/publication?revisionId=${revisionId}&habilitationId=${habilitationId}`
-  const fcButtonUrl = `${authenticationUrl}?redirectUrl=${redirectUrl}`
+  const fcButtonUrl = `${authenticationUrl}?redirectUrl=${encodeURIComponent(redirectUrl)}`
 
   return (
     <div className='auth-container'>
