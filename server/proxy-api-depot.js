@@ -17,17 +17,17 @@ const client = got.extend({
 })
 
 function forward(gotResponse, res) {
-  res.status(gotResponse.status).send(gotResponse.body)
+  res.status(gotResponse.statusCode).send(gotResponse.body)
 }
 
-function addIdToSession(id, req) {
+async function addIdToSession(id, req) {
   if (req.session.knownIds) {
     req.session.knownIds.push(id)
   } else {
     req.session.knownIds = [id]
   }
 
-  req.session.save()
+  await req.session.save()
 }
 
 async function getHabilitation(req, res) {
@@ -42,8 +42,8 @@ async function createHabilitation(req, res) {
 
   const response = await client.post(`communes/${codeCommune}/habilitations`)
 
-  if (response.status === 201) {
-    addIdToSession(response.body._id, req)
+  if (response.statusCode === 201) {
+    await addIdToSession(response.body._id, req)
   }
 
   forward(response, res)
@@ -74,8 +74,8 @@ async function createRevision(req, res) {
     json: {context: {}}
   })
 
-  if (response.status === 201) {
-    addIdToSession(response.body._id, req)
+  if (response.statusCode === 201) {
+    await addIdToSession(response.body._id, req)
   }
 
   forward(response, res)
