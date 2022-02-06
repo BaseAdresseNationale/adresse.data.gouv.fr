@@ -88,7 +88,7 @@ function ManageFile({error, handleError, handleFile}) {
 
       {report && (
         <>
-          <h3 style={{color: theme.colors.red}}>Base adresses locales non conforme</h3>
+          <h3 style={{color: theme.colors.red}}>Base Adresse Locale non conforme</h3>
           <Report report={report} />
         </>
       )}
