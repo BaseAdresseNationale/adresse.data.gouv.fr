@@ -804,5 +804,26 @@
         "height": 124,
         "width": 248,
         "alt": "Logo du partenaire Anne Légaut"
+    },
+    {
+        "name": "Communauté d’agglomération Roannais Agglomération",
+        "link": "https://www.aggloroanne.fr/site-officiel-roannais-agglomeration-et-ville-de-roanne-3.html",
+        "infos": "La communauté d’agglomération Roannais Agglomération sensibilise et accompagne l’ensemble des communes membres dans la mise en œuvre et le suivi de leur Base Adresse Locale. Notre collectivité apporte son savoir-faire technique en matière d’information géographique et met ainsi à disposition ses compétences et ses services aux communes qui le souhaitent : un agent municipal et/ou un élu sont formés sur l’outil « mes-adresses » qui devient l’outil unique de gestion de l’adresse sur le territoire communautaire.",
+        "perimeter": "Communauté d’Agglomération de Roannais Agglomération et ses 40 communes",
+        "codeDepartement": [
+            "42"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "animation",
+            "accompagnement technique",
+            "formation"
+        ],
+        "picture": "/images/logos/partners/roannais.png",
+        "height": 84,
+        "width": 290,
+        "alt": "Logo du partenaire Roannais Agglomération"
     }
 ]
