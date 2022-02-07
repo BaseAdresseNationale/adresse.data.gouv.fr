@@ -1,5 +1,6 @@
 import {useState, useCallback, useEffect} from 'react'
 import {useRouter} from 'next/router'
+import {debounce} from 'lodash'
 
 import {getCommunes, getByCode} from '@/lib/api-geo'
 import {useInput} from '@/hooks/input'
@@ -16,7 +17,7 @@ function CommuneSearch() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleSearch = useCallback(async input => {
+  const handleSearch = useCallback(debounce(async input => {
     setError(null)
     setIsLoading(true)
 
@@ -31,7 +32,7 @@ function CommuneSearch() {
     }
 
     setIsLoading(false)
-  }, [])
+  }, 300), [])
 
   const handleSelect = commune => {
     router.push(`/commune/${commune.code}`)
