@@ -12,7 +12,7 @@ function SectionText({color, children}) {
           font-size: 1em;
           line-height: 1.5em;
           padding-left: 1em;
-          margin: 3em 0;
+          margin: 2em 0;
           color: ${color === 'primary' ? theme.darkText : theme.colors.white};
           border-left: 3px solid ${color === 'primary' ? theme.primary : theme.colors.white};
         }

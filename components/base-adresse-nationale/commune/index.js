@@ -29,7 +29,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
     <>
       <div className='heading'>
         <div>
-          <h2>{nomCommune} - {codeCommune}</h2>
+          <h2><a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a></h2>
           <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
         </div>
         <div style={{padding: '1em'}}>
