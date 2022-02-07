@@ -15,6 +15,8 @@ import Historique from '@/components/commune/historique'
 import BalQuality from '@/components/commune/bal-quality'
 
 function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision, typeCompositionAdresses}) {
+  const hasRevision = Boolean(typeCompositionAdresses === 'bal' && currentRevision)
+
   return (
     <Page id='page' title={`Informations sur la commune de ${communeInfos.nomCommune}`}>
       <Head title={`Informations sur la commune de ${communeInfos.nomCommune}`} icon={<Home size={56} />} />
@@ -26,11 +28,21 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
         revision={currentRevision}
         codeCommune={codeCommune}
         typeComposition={typeCompositionAdresses}
+        hasMigratedBAL={hasRevision}
       />
       {typeCompositionAdresses !== 'assemblage' && (
         <>
-          <BalQuality currentRevision={currentRevision} typeComposition={typeCompositionAdresses} />
-          <Historique revisions={revisions} communeName={communeInfos.nomCommune} codeCommune={codeCommune} typeComposition={typeCompositionAdresses} />
+          <BalQuality
+            currentRevision={currentRevision}
+            hasQualityAdresses={hasRevision}
+          />
+          <Historique
+            revisions={revisions}
+            communeName={communeInfos.nomCommune}
+            codeCommune={codeCommune}
+            typeComposition={typeCompositionAdresses}
+            hasHistoryAdresses={hasRevision}
+          />
         </>
       )}
     </Page>
@@ -44,7 +56,6 @@ Commune.getInitialProps = async ({query}) => {
   const mairie = await getMairie(codeCommune)
   const revisions = await getRevisions(codeCommune)
   let currentRevision
-  let typeCompositionAdresses
 
   try {
     currentRevision = await getCurrentRevision(codeCommune)
@@ -52,13 +63,7 @@ Commune.getInitialProps = async ({query}) => {
     currentRevision = null
   }
 
-  if (commune.typeComposition === 'assemblage') {
-    typeCompositionAdresses = 'assemblage'
-  } else if (commune.typeComposition === 'bal' && !currentRevision) {
-    typeCompositionAdresses = 'transitory'
-  } else {
-    typeCompositionAdresses = 'bal'
-  }
+  const typeCompositionAdresses = commune.typeComposition === 'assemblage' ? 'assemblage' : 'bal'
 
   return {
     codeCommune,

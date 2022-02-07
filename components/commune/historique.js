@@ -5,7 +5,7 @@ import {orderBy} from 'lodash'
 import Section from '@/components/section'
 import HistoriqueItem from './historique-item'
 
-function Historique({revisions, communeName, codeCommune, typeComposition}) {
+function Historique({revisions, communeName, codeCommune, hasHistoryAdresses}) {
   const sortRevisionsByDate = revisions && orderBy(revisions, [
     function (revision) {
       return new Date(revision.updatedAt)
@@ -14,7 +14,7 @@ function Historique({revisions, communeName, codeCommune, typeComposition}) {
 
   return (
     <Section title='Historiques des dépôts et révisions de la BAL'>
-      {typeComposition === 'bal' ? (
+      {hasHistoryAdresses ? (
         <div className='historique-wrapper'>
           <h4><RefreshCw size={25} /> Retrouvez les cinq dernières mise à jour</h4>
           <div className='historique-items'>
@@ -56,7 +56,7 @@ function Historique({revisions, communeName, codeCommune, typeComposition}) {
 Historique.propTypes = {
   revisions: PropTypes.array,
   communeName: PropTypes.string.isRequired,
-  typeComposition: PropTypes.string.isRequired,
+  hasHistoryAdresses: PropTypes.bool.isRequired,
   codeCommune: PropTypes.string.isRequired
 }
 

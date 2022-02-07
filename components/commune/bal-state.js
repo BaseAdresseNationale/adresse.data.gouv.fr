@@ -38,14 +38,14 @@ function sanitedSources(adressesSources) {
   return sanitizedNames.slice(0, -1).join(', ') + ' et ' + sanitizedNames.slice(-1)
 }
 
-function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
+function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigratedBAL}) {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const {codeCommune, nomCommune, nbNumeros, nbNumerosCertifies, voies} = communeInfos
 
   const adressesSources = uniq(voies.map(voie => voie.sources).flat())
   let userName = revision && (revision.context.nomComplet || revision.context.organisation)
 
-  if (revision && !userName) {
+  if (hasMigratedBAL && !userName) {
     if (revision.habilitation.strategy.type === 'email') {
       userName = `la mairie de ${nomCommune}`
     } else if (revision.habilitation.strategy.type === 'franceconnect') {
@@ -54,7 +54,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
   }
 
   const subtitle = useMemo(() => {
-    if (typeComposition === 'transitory') {
+    if (!hasMigratedBAL) {
       return `Les adresses de la commune proviennent de la BAL de la commune de ${nomCommune} (bientôt disponible)`
     }
 
@@ -70,8 +70,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition}) {
 
     if (userName && !clientName) {
       return `Les adresses de la commune proviennent de la Base Adresse Locale de ${userName}`
-    }
-  }, [revision, userName, nomCommune, typeComposition, adressesSources])
+  }, [revision, userName, nomCommune, typeComposition, adressesSources, hasMigratedBAL])
 
   const handleModalOpen = () => {
     setIsContactModalOpen(!isContactModalOpen)
@@ -151,6 +150,7 @@ BALState.propTypes = {
   communeInfos: PropTypes.object.isRequired,
   mairieInfos: PropTypes.object.isRequired,
   typeComposition: PropTypes.string.isRequired,
+  hasMigratedBAL: PropTypes.bool.isRequired,
   revision: PropTypes.object
 }
 
