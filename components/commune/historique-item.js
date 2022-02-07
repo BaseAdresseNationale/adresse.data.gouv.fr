@@ -2,7 +2,7 @@ import theme from '@/styles/theme'
 import PropTypes from 'prop-types'
 import {Circle, Download} from 'react-feather'
 
-import {getCurrentBal} from '@/lib/api-depot'
+import {getCurrentBalUrl} from '@/lib/api-depot'
 
 function HistoriqueItem({balData, communeName, codeCommune}) {
   const {updatedAt, habilitation, client, current} = balData
@@ -29,7 +29,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client?.nom ? client.nom : 'non renseigné'}</b></div>
-        {current && <a href={getCurrentBal(codeCommune)}><Download /></a>}
+        {current && <a href={getCurrentBalUrl(codeCommune)}><Download /></a>}
       </div>
 
       <style jsx>{`

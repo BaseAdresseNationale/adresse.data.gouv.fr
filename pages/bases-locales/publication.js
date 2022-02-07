@@ -1,53 +1,78 @@
 
-import React, {useState, useCallback, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
-
-import {ArrowLeft} from 'react-feather'
+import Image from 'next/image'
 
 import Page from '@/layouts/main'
 
 import Section from '@/components/section'
 import Notification from '@/components/notification'
 
-import {uploadCSV, submissionsBal, getSubmissions, submitBal, askAuthentificationCode} from '@/lib/api-backend-publication'
+import {
+  getHabilitation,
+  createRevision,
+  getRevision,
+  publishRevision,
+  createHabilitation,
+  sendAuthenticationCode
+} from '@/lib/proxy-api-depot'
+import {getCurrentRevision} from '@/lib/api-depot'
+import {getCommune} from '@/lib/api-geo'
 
-import ButtonLink from '@/components/button-link'
 import Steps from '@/components/bases-locales/publication/steps'
 import ManageFile from '@/components/bases-locales/publication/manage-file'
 import Authentification from '@/components/bases-locales/publication/authentification'
-import Form from '@/components/bases-locales/publication/form'
 import Publishing from '@/components/bases-locales/publication/publishing'
 import Published from '@/components/bases-locales/publication/published'
 import CodeAuthentification from '@/components/bases-locales/publication/code-authentification'
 
-const getStep = submission => {
-  if (submission) {
-    switch (submission.status) {
-      case 'created':
-        return 2
-      case 'pending':
-        return 4
-      case 'published':
-        return 5
-      default:
-        break
+const getStep = (revision, habilitation) => {
+  if (revision && habilitation) {
+    if (revision.status === 'published' && revision.current) {
+      // La révision est publiée, fin du formulaire
+      return 5
     }
-  } else {
-    return 1
+
+    if (habilitation.status === 'accepted') {
+      // Habilitation obtenue, on affiche la confirmation de publication
+      return 4
+    }
+
+    if (revision.ready && habilitation.status === 'pending') {
+      // Code envoyé par email, on affiche le champ de saisi
+      if (habilitation?.strategy?.type === 'email') {
+        return 3
+      }
+
+      // Sélection de la méthode d'authentification
+      return 2
+    }
   }
+
+  // Dépôt du fichier
+  return 1
 }
 
-const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionError}) => {
-  const [submission, setSubmission] = useState(defaultSubmission)
+function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, revisionError}) {
+  const [habilitation, setHabilitation] = useState(defaultHabilitation)
+  const [revision, setRevision] = useState(defaultRevision)
+  const [commune, setCommune] = useState(defaultCommune)
+  const [currentRevision, setCurrentRevision] = useState()
 
-  const [step, setStep] = useState(getStep(submission))
-  const [authType, setAuthType] = useState()
-  const [error, setError] = useState(submissionError)
+  const [step, setStep] = useState(getStep(revision, habilitation))
+  const [error, setError] = useState(revisionError)
 
-  const handleFile = async file => {
+  const handleFile = async (file, codeCommune) => {
     try {
-      const submission = await uploadCSV(file)
-      setSubmission(submission)
+      const commune = await getCommune(codeCommune)
+      setCommune(commune)
+
+      const habilitation = await createHabilitation(codeCommune)
+      setHabilitation(habilitation)
+
+      const revision = await createRevision(codeCommune, file) // Gérer le cas où la révision n'est pas valide
+      setRevision(revision)
+
       setStep(2)
     } catch (error) {
       setError(error.message)
@@ -55,59 +80,67 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
   }
 
   const handleCodeAuthentification = async () => {
-    const response = await askAuthentificationCode(submission._id)
-
-    if (response.ok) {
-      setAuthType('code')
+    try {
+      await sendAuthenticationCode(habilitation._id)
       setStep(3)
-    } else {
-      const {message} = await response.json()
-      setError(message)
+    } catch (error) {
+      setError(error.message)
     }
   }
 
-  const handlePublication = useCallback(async () => {
+  const fetchCurrentRevision = useCallback(async () => {
+    const currentRevision = await getCurrentRevision(commune.code)
+    setCurrentRevision(currentRevision)
+  }, [commune])
+
+  const handlePublication = async () => {
     try {
-      await submitBal(submission._id)
-      setStep(5)
+      const publishedRevision = await publishRevision(revision._id, {
+        habilitationId: habilitation._id
+      })
+      setRevision(publishedRevision)
     } catch (error) {
       setError(`Impossible de publier la Base Adresse Locale: ${error.message}`)
     }
-  }, [submission])
+  }
 
   useEffect(() => {
-    const step = getStep(submission)
+    const step = getStep(revision, habilitation)
     setStep(step)
-  }, [submission])
+  }, [revision, habilitation])
 
   useEffect(() => {
-    // Prevent reset submissionError at first render
+    if (commune && step === 4) {
+      fetchCurrentRevision()
+    }
+  }, [step, commune, fetchCurrentRevision])
+
+  useEffect(() => {
+    // Prevent reset revisionError at first render
     if (step !== 1) {
       setError(null)
     }
   }, [step])
 
   useEffect(() => {
-    if (submission?.authenticationError) {
-      setError(submission.authenticationError)
+    if (revision?.authenticationError) {
+      setError(revision.authenticationError)
     }
-  }, [step, submission])
+  }, [step, revision])
 
   return (
     <Page>
-      {redirectUrl && (
-        <Section background='color' style={{padding: '1em 0'}}>
-          <ButtonLink href={redirectUrl} color='white' isOutlined isExternal>
-            <ArrowLeft style={{marginRight: '5px', verticalAlign: 'middle'}} /> Retour à Mes Adresses
-          </ButtonLink>
-        </Section>
-      )}
-
       <Section>
         <h1>Publication d’une Base Adresse Locale</h1>
-        {submission && <h3>{submission.commune.nom} - {submission.commune.code}</h3>}
 
         <Steps step={step} />
+
+        {commune && (
+          <div className='commune-infos'>
+            <Image src='/images/icons/commune.svg' height={60} width={60} />
+            <div>{commune.nom} - {commune.code}</div>
+          </div>
+        )}
 
         {error && (
           <Notification type='error' onClose={() => setError(null)}>
@@ -117,40 +150,45 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
 
         <div className='current-step'>
           {/* Hide file handler to prevent the submitmission of a different file from the original */}
-          {!submissionError && step === 1 && (
+          {!revisionError && step === 1 && (
             <ManageFile handleFile={handleFile} error={error} handleError={setError} />
           )}
 
           {step === 2 && (
             <Authentification
-              communeEmail={submission.commune.email}
+              communeEmail={habilitation.emailCommune}
+              revisionId={revision._id}
+              habilitationId={habilitation._id}
               handleCodeAuthentification={handleCodeAuthentification}
-              authenticationUrl={submission.authenticationUrl}
+              authenticationUrl={habilitation.franceconnectAuthenticationUrl}
             />
           )}
 
           {step === 3 && (
-            authType === 'code' ? (
-              <CodeAuthentification
-                submissionId={submission._id}
-                email={submission.commune.email}
-                handleValidCode={() => setStep(4)}
-                sendBackCode={handleCodeAuthentification}
-                cancel={() => setStep(2)}
-              />
-            ) : <Form mail='' />
+            <CodeAuthentification
+              habilitationId={habilitation._id}
+              email={habilitation.emailCommune}
+              handleValidCode={setHabilitation}
+              sendBackCode={handleCodeAuthentification}
+              cancel={() => setStep(2)}
+            />
+          )}
+
+          {habilitation?.status === 'rejected' && (
+            <Notification type='error' message='Votre demande d’habilitation a été rejetée.' />
           )}
 
           {step === 4 && (
             <Publishing
-              user={submission.authentication}
-              commune={submission.commune}
+              user={habilitation.strategy.mandat}
+              commune={commune}
+              hasConflit={Boolean(currentRevision)}
               publication={handlePublication}
             />
           )}
 
           {step === 5 && (
-            <Published {...submission} redirectUrl={redirectUrl} />
+            <Published communeCode={commune.code} />
           )}
         </div>
       </Section>
@@ -159,59 +197,78 @@ const PublicationPage = React.memo(({redirectUrl, defaultSubmission, submissionE
         .current-step {
           margin: 4em 0;
         }
+
+        .commune-infos {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 2em 0;
+        }
+
+        .commune-infos div {
+          font-weight: bold;
+          font-size: 24px;
+          text-align: center;
+        }
+
+        .loading {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1em;
+          font-style: italic;
+        }
       `}</style>
     </Page>
   )
-})
+}
 
 PublicationPage.getInitialProps = async ({query}) => {
-  const {url, redirectUrl, submissionId} = query
-  let submission
+  const {habilitationId, revisionId} = query
+  let habilitation
+  let revision
+  let commune
 
-  if (submissionId) {
+  if (revisionId) {
     try {
-      submission = await getSubmissions(submissionId)
+      revision = await getRevision(revisionId)
+      commune = await getCommune(revision.codeCommune)
     } catch {
       return {
-        redirectUrl,
-        submissionError: 'Aucune demande de publication n’a été trouvée'
+        revisionError: 'Le contexte du formulaire est incorrect ou a été perdu. Merci de réessayer.'
       }
     }
-  } else if (url) {
+  }
+
+  if (habilitationId) {
     try {
-      submission = await submissionsBal(decodeURIComponent(url))
-    } catch (error) {
+      habilitation = await getHabilitation(habilitationId)
+    } catch {
       return {
-        redirectUrl,
-        submissionError: error.message
+        revisionError: 'Le contexte du formulaire est incorrect ou a été perdu. Merci de réessayer.'
       }
     }
   }
 
   return {
-    redirectUrl,
-    defaultSubmission: submission,
+    defaultRevision: revision,
+    defaultHabilitation: habilitation,
+    defaultCommune: commune
   }
 }
 
 PublicationPage.propTypes = {
-  redirectUrl: PropTypes.string,
-  defaultSubmission: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    commune: PropTypes.object.isRequired,
-    authentication: PropTypes.string,
-    authenticationError: PropTypes.string,
-    authenticationUrl: PropTypes.string,
-    publicationUrl: PropTypes.string
-  }),
-  submissionError: PropTypes.string
+  defaultRevision: PropTypes.object,
+  defaultHabilitation: PropTypes.object,
+  defaultCommune: PropTypes.object,
+  revisionError: PropTypes.string
 }
 
 PublicationPage.defaultProps = {
-  redirectUrl: null,
-  defaultSubmission: null,
-  submissionError: null
+  defaultRevision: null,
+  defaultHabilitation: null,
+  defaultCommune: null,
+  revisionError: null
 }
 
 export default PublicationPage

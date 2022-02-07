@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone'
 import {Plus, FileText, RefreshCcw} from 'react-feather'
 
 import Loader from '@/components/loader'
+import theme from '@/styles/theme'
 
 function formatFileSize(bytes) {
   if (bytes === 0) {
@@ -33,14 +34,14 @@ function Holder({file, placeholder, isLoading, onDrop}) {
             onMouseLeave={() => setIsHovered(false)}
           >
             <input {...inputProps} />
-            <div>{!file && <Plus size={72} />}</div>
+            <div>{!file && <Plus size={72} color={theme.primary} />}</div>
             <div className='file-container'>{file ? (
               <div className='file-sumup'>
                 <div className='file-details'>
                   <FileText size={42} />
-                  <div>
-                    <div>{file.name}</div>
-                    <div>{formatFileSize(file.size)}</div>
+                  <div className='file-infos'>
+                    <div className='name'>{file.name}</div>
+                    <div className='size'>{formatFileSize(file.size)}</div>
                   </div>
                 </div>
                 {isLoading ? (
@@ -90,12 +91,26 @@ function Holder({file, placeholder, isLoading, onDrop}) {
                 align-items: center;
                 justify-content: space-between;
                 text-align: left;
-                padding: .5em;
               }
 
               .file-details {
                 display: flex;
                 align-items: center;
+              }
+
+              .file-infos {
+                border-left: 3px solid ${theme.primary};
+                margin-left: 5px;
+                padding: 0 5px;
+              }
+
+              .name {
+                font-weight: bolder;
+              }
+
+              .size {
+                font-style: italic;
+                font-size: 14px;
               }
 
               .active {

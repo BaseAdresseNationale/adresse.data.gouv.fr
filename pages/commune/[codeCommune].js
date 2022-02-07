@@ -55,13 +55,7 @@ Commune.getInitialProps = async ({query}) => {
   const commune = await getCommune(codeCommune)
   const mairie = await getMairie(codeCommune)
   const revisions = await getRevisions(codeCommune)
-  let currentRevision
-
-  try {
-    currentRevision = await getCurrentRevision(codeCommune)
-  } catch {
-    currentRevision = null
-  }
+  const currentRevision = await getCurrentRevision(codeCommune)
 
   const typeCompositionAdresses = commune.typeComposition === 'assemblage' ? 'assemblage' : 'bal'
 
