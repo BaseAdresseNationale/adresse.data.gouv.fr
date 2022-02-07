@@ -13,7 +13,7 @@ function BalQuality({currentRevision, hasQualityAdresses}) {
       {hasQualityAdresses ? (
         <BalAlerts errors={errors} warnings={warnings} infos={infos} />
       ) : (
-        <p>Retrouvez bientôt la qualité des adresses La Base Adresse Locale de la commune.</p>
+        <p>Retrouvez bientôt des informations concernant la qualité de la Base Adresse Locale de la commune.</p>
       )}
 
       <style jsx>{`

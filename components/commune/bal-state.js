@@ -54,14 +54,14 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
   }
 
   const subtitle = useMemo(() => {
-    // BAL non disponible (en migration)
-    if (!hasMigratedBAL) {
-      return `Les adresses de la commune proviennent de la BAL de la commune de ${nomCommune} (bientôt disponible)`
-    }
-
     // Aucune BAL créée
     if (typeComposition === 'assemblage') {
       return `Les données sont actuellement construites à partir des sources historiques suivantes : ${sanitedSources(adressesSources)}`
+    }
+
+    // BAL non disponible (en migration)
+    if (!hasMigratedBAL) {
+      return `Les adresses de la commune proviennent de la BAL de la commune de ${nomCommune} (source bientôt disponible)`
     }
 
     // BAL créée et migrée
