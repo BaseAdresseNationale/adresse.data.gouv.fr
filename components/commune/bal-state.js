@@ -43,7 +43,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
   const {codeCommune, nomCommune, nbNumeros, nbNumerosCertifies, voies} = communeInfos
 
   const adressesSources = uniq(voies.map(voie => voie.sources).flat())
-  let userName = revision && (revision.context.nomComplet || revision.context.organisation)
+  let userName = hasMigratedBAL && revision.context.organisation
 
   if (hasMigratedBAL && !userName) {
     if (revision.habilitation.strategy.type === 'email') {
@@ -54,22 +54,24 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
   }
 
   const subtitle = useMemo(() => {
+    // BAL non disponible (en migration)
     if (!hasMigratedBAL) {
       return `Les adresses de la commune proviennent de la BAL de la commune de ${nomCommune} (bientôt disponible)`
     }
 
+    // Aucune BAL créée
     if (typeComposition === 'assemblage') {
       return `Les données sont actuellement construites à partir des sources historiques suivantes : ${sanitedSources(adressesSources)}`
     }
 
+    // BAL créée et migrée
     const clientName = revision.client.nom
 
-    if (userName && clientName) {
+    if (clientName) {
       return `Les adresses de la commune proviennent de la Base Adresse Locale de ${userName}, via ${clientName}`
     }
 
-    if (userName && !clientName) {
-      return `Les adresses de la commune proviennent de la Base Adresse Locale de ${userName}`
+    return `Les adresses de la commune proviennent de la Base Adresse Locale de ${userName}`
   }, [revision, userName, nomCommune, typeComposition, adressesSources, hasMigratedBAL])
 
   const handleModalOpen = () => {
