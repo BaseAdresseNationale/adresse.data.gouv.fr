@@ -57,7 +57,7 @@ function Statistics({nbNumeros, nbNumerosCertifies}) {
             </div>
           </div>
         </div>
-        <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)}%</b> des adresses de la commune sont certifiés.</p>
+        <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)}%</b> des adresses de la commune sont certifiées.</p>
       </div>
 
       <style jsx>{`

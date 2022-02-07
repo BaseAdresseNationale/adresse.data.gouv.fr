@@ -15,7 +15,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
     if (habilitation.strategy.type === 'email') {
       userName = `la mairie de ${communeName}`
     } else if (habilitation.strategy.type === 'franceconnect') {
-      userName = `l'élu(e) de ${communeName}`
+      userName = `un(e) élu(e) de ${communeName}`
     }
   }
 

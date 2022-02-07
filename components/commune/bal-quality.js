@@ -9,7 +9,7 @@ function BalQuality({currentRevision, hasQualityAdresses}) {
   const infos = currentRevision && currentRevision.validation.infos ? currentRevision.validation.infos : []
 
   return (
-    <Section background='grey' title='Qualité des adresses' subtitle='Liste des types d’alertes détectés dans la BAL'>
+    <Section background='grey' title='Qualité des adresses' subtitle='Liste des types d’alertes détectés dans la Base Adresse Locale'>
       {hasQualityAdresses ? (
         <BalAlerts errors={errors} warnings={warnings} infos={infos} />
       ) : (

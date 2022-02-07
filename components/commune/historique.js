@@ -13,7 +13,7 @@ function Historique({revisions, communeName, codeCommune, hasHistoryAdresses}) {
   ], ['desc'])
 
   return (
-    <Section title='Historiques des dépôts et révisions de la BAL'>
+    <Section title='Historiques mises à jours de la Base Adresse Locale'>
       {hasHistoryAdresses ? (
         <div className='historique-wrapper'>
           <h4><RefreshCw size={25} /> Retrouvez les cinq dernières mise à jour</h4>

@@ -49,7 +49,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
     if (revision.habilitation.strategy.type === 'email') {
       userName = `la mairie de ${nomCommune}`
     } else if (revision.habilitation.strategy.type === 'franceconnect') {
-      userName = `l'élu(e) de ${nomCommune}`
+      userName = `un(e) élu(e) de ${nomCommune}`
     }
   }
 
