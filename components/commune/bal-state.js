@@ -105,7 +105,8 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
         <h4>Contacter la commune</h4>
 
         <SectionText color='secondary'>
-          En attendant, en cas de problème d’adresse sur une commune, voici comment la contacter. La commune est l’échelon de compétence pour mettre à jour les adresses et vous pouvez lui indiquer notre contact (<a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>) au besoin.
+          La commune est l’échelon de compétence pour mettre à jour les adresses. En cas de problème d’adresse sur la commune, voici comment la contacter. Vous pouvez également lui indiquer notre contact (<a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>) au besoin.
+
         </SectionText>
         <Button color='white' isOutlined onClick={handleModalOpen}>Contactez la mairie</Button>
         {isContactModalOpen && <ContactModal mairieInfos={mairieInfos} onModalClose={handleModalOpen} />}

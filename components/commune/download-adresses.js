@@ -14,7 +14,7 @@ function DownloadAdresses({codeCommune}) {
       <h4>Télécharger les adresses de la commune dans la Base Adresse Nationale</h4>
 
       <SectionText color='secondary'>
-        Voici les adresses des communes dans la <b>Base Adresse Nationale</b>. Ce fichier de référence présente la liste des voies avec les <b>libellés enrichis</b> (minuscules accentuées), mais aussi les libellés à la norme <b>AFNOR</b>, les codes <b>FANTOIR</b> mis à jour par la <b>DGFiP</b>, les points adresses géocodés, ainsi que leur lien avec les parcelles s’ils sont renseignés, la source des adresses et leur <b>certification</b>. Pour plus d’information sur la structure des informations, consultez la documentation des <a href='https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/les-fichiers-de-la-base-adresse-nationale'>fichiers de la Base Adresse Nationale</a>.
+        Voici les adresses de la communes dans la <b>Base Adresse Nationale</b>. Ce fichier de référence présente la liste des voies avec les <b>libellés enrichis</b> (minuscules accentuées), mais aussi les libellés à la norme <b>AFNOR</b>, les codes <b>FANTOIR</b> mis à jour par la <b>DGFiP</b>, les points adresses géocodés, ainsi que leur lien avec les parcelles s’ils sont renseignés, la source des adresses et leur <b>certification</b>. Pour plus d’information sur la structure des informations, consultez la documentation des <a href='https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/les-fichiers-de-la-base-adresse-nationale'>fichiers de la Base Adresse Nationale</a>.
       </SectionText>
 
       <div className='cards-container'>
