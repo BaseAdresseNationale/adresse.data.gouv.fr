@@ -6,7 +6,7 @@ import {getCurrentBalUrl} from '@/lib/api-depot'
 
 function HistoriqueItem({balData, communeName, codeCommune}) {
   const {updatedAt, habilitation, client, current} = balData
-  let userName = balData.context.nomComplet || balData.context.organisation
+  let userName = balData.context.organisation
 
   const date = new Date(updatedAt)
   const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes()}`
