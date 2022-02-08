@@ -5,7 +5,7 @@ import {orderBy} from 'lodash'
 import Section from '@/components/section'
 import HistoriqueItem from './historique-item'
 
-function Historique({revisions, communeName, codeCommune, hasHistoryAdresses}) {
+function Historique({revisions, communeName, hasHistoryAdresses}) {
   const sortRevisionsByDate = revisions && orderBy(revisions, [
     function (revision) {
       return new Date(revision.updatedAt)
@@ -18,7 +18,7 @@ function Historique({revisions, communeName, codeCommune, hasHistoryAdresses}) {
         <div className='historique-wrapper'>
           <h4><RefreshCw size={25} /> Retrouvez les cinq dernières mises à jour</h4>
           <div className='historique-items'>
-            {sortRevisionsByDate.slice(0, 5).map(revision => <HistoriqueItem key={revision._id} balData={revision} communeName={communeName} codeCommune={codeCommune} />)}
+            {sortRevisionsByDate.slice(0, 5).map(revision => <HistoriqueItem key={revision._id} balData={revision} communeName={communeName} />)}
           </div>
         </div>
       ) : (
@@ -56,8 +56,7 @@ function Historique({revisions, communeName, codeCommune, hasHistoryAdresses}) {
 Historique.propTypes = {
   revisions: PropTypes.array,
   communeName: PropTypes.string.isRequired,
-  hasHistoryAdresses: PropTypes.bool.isRequired,
-  codeCommune: PropTypes.string.isRequired
+  hasHistoryAdresses: PropTypes.bool.isRequired
 }
 
 Historique.defaultType = {
