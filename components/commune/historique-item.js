@@ -35,7 +35,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
       <style jsx>{`
         .item-container {
           display: grid;
-          grid-template-columns: ${current ? '.5fr 1fr' : '.5fr 1fr .5fr'};
+          grid-template-columns: .5fr 1fr;
           gap: 1em;
           padding: 1em;
           background: ${theme.colors.lighterGrey};
@@ -50,13 +50,10 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
         }
 
         .user-infos {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr .4fr;
           align-items: center;
           font-size: large;
-        }
-
-        .user-infos div {
-          flex: 1;
         }
 
         .date {
@@ -67,6 +64,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
           align-items: center;
           justify-content: center;
           padding: 10px;
+          font-size: 18px;
         }
 
         @media (max-width: ${theme.breakPoints.laptop}) {
@@ -76,6 +74,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
           }
 
           .user-infos {
+            display: flex;
             flex-direction: column;
             padding-left: 1em;
             gap: 10px;
