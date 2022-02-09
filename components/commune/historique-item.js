@@ -2,14 +2,16 @@ import theme from '@/styles/theme'
 import PropTypes from 'prop-types'
 import {Circle, Download} from 'react-feather'
 
-import {getCurrentBalUrl} from '@/lib/api-depot'
+import {getBalUrl} from '@/lib/api-depot'
 
-function HistoriqueItem({balData, communeName, codeCommune}) {
-  const {updatedAt, habilitation, client, current} = balData
-  let userName = balData.context.organisation
+function HistoriqueItem({balData, communeName}) {
+  const {updatedAt, habilitation, client, current, _id} = balData
 
+  const balURL = getBalUrl(_id)
   const date = new Date(updatedAt)
   const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes()}`
+
+  let userName = balData.context.organisation
 
   if (!userName) {
     if (habilitation.strategy.type === 'email') {
@@ -29,13 +31,13 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client?.nom ? client.nom : 'non renseigné'}</b></div>
-        {current && <a href={getCurrentBalUrl(codeCommune)}><Download /></a>}
+        <a href={balURL}><Download /></a>
       </div>
 
       <style jsx>{`
         .item-container {
           display: grid;
-          grid-template-columns: ${current ? '.5fr 1fr' : '.5fr 1fr .5fr'};
+          grid-template-columns: .5fr 1fr;
           gap: 1em;
           padding: 1em;
           background: ${theme.colors.lighterGrey};
@@ -50,13 +52,10 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
         }
 
         .user-infos {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr .4fr;
           align-items: center;
           font-size: large;
-        }
-
-        .user-infos div {
-          flex: 1;
         }
 
         .date {
@@ -67,6 +66,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
           align-items: center;
           justify-content: center;
           padding: 10px;
+          font-size: 18px;
         }
 
         @media (max-width: ${theme.breakPoints.laptop}) {
@@ -76,6 +76,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
           }
 
           .user-infos {
+            display: flex;
             flex-direction: column;
             padding-left: 1em;
             gap: 10px;
@@ -89,8 +90,7 @@ function HistoriqueItem({balData, communeName, codeCommune}) {
 
 HistoriqueItem.propTypes = {
   balData: PropTypes.object.isRequired,
-  communeName: PropTypes.string.isRequired,
-  codeCommune: PropTypes.string.isRequired
+  communeName: PropTypes.string.isRequired
 }
 
 export default HistoriqueItem
