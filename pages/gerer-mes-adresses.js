@@ -79,14 +79,52 @@ function GererMesAdresses() {
 
         <Notification isFullWidth>
           <div>
-            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} />
+            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} />
             Des <Link href='/guides'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
           </div>
         </Notification>
-
       </Section>
 
-      <Section title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire' background='grey'>
+      <Section title='Utiliser le formulaire de dépôt' subtitle='Un module de publication simplifié permet de déposer un fichier CSV par simple formulaire de dépôt' background='grey' >
+        <div className='easy-step'>
+          <div className='subtitled-img'>
+            <div className='circle'>
+              <b>1</b>
+            </div>
+            <p>Sélectionner un fichier <br /> au format CSV Base Adresse Locale</p>
+          </div>
+          <div className='subtitled-img'>
+            <div className='circle'>
+              <b>2</b>
+            </div>
+            <p>Obtenir une <br />habilitation</p>
+          </div>
+          <div className='subtitled-img'>
+            <div className='circle'>
+              <b>3</b>
+            </div>
+            <p>Publier vos adresses dans <br />la Base Adresse Nationale 🇫🇷</p>
+          </div>
+        </div>
+
+        <div className='action-links'>
+          <ButtonLink
+            size='large'
+            href='/bases-locales/publication'
+          >
+            Utiliser le formulaire de dépôt des adresses
+          </ButtonLink>
+        </div>
+
+        <Notification isFullWidth>
+          <div>
+            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} />
+            Pour en savoir plus sur les <b>différentes méthodes de publication</b>, vous pouvez consulter la documentation <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale' target='_blank' rel='noopener noreferrer'>Publier une Base Adresse Locale</a>.
+          </div>
+        </Notification>
+      </Section>
+
+      <Section title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
         <div>
           <PartnersSearchbar />
         </div>
