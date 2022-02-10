@@ -78,7 +78,7 @@ function Home({stats}) {
         </Section>
       )}
 
-      <Section title='Obtenez des informations sur les adresses d’une commune'>
+      <Section title='Obtenez des informations sur les adresses d’une commune' id='rechercher-une-commune'>
         <div className='commune-search-section'>
           <Image src='/images/icons/commune.svg' height={200} width={200} />
           <SectionText>
