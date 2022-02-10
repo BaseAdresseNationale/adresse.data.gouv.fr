@@ -91,13 +91,13 @@ function GererMesAdresses() {
             <div className='circle'>
               <b>1</b>
             </div>
-            <p>Séléctionner un fichier <br /> au format CSV  Base Adresse Locale</p>
+            <p>Sélectionner un fichier <br /> au format CSV Base Adresse Locale</p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>2</b>
             </div>
-            <p>Obtenenir une <br />habilitation</p>
+            <p>Obtenir une <br />habilitation</p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
