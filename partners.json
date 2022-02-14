@@ -825,5 +825,25 @@
         "height": 84,
         "width": 290,
         "alt": "Logo du partenaire Roannais Agglomération"
+    },
+    {
+        "name": "Communauté d'Agglomération du Bassin de Brive",
+        "link": "https://sig.agglodebrive.org/adws/app/766388b5-bf98-11ea-bb97-091bdaf4361b/index.html",
+        "infos": "La Communauté d'Agglomération du Bassin de Brive accompagne ses communes membres pour la gestion et la mise à jour de leur adressage en leurs proposant un outil web SIG.",
+        "perimeter": "Communauté d'Agglomération du Bassin de Brive (Corrèze)",
+        "codeDepartement": [
+            "19"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "mise à disposition d’outils mutualisés",
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/brive.png",
+        "height": 154,
+        "width": 100,
+        "alt": "Logo du partenaire Communauté d'Agglomération du Bassin de Brive"
     }
 ]
