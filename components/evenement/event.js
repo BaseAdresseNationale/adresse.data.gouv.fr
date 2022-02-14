@@ -1,5 +1,8 @@
+import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
+// eslint-disable-next-line camelcase
+import {atcb_init} from 'add-to-calendar-button'
 import {MapPin} from 'react-feather'
 
 import theme from '@/styles/theme'
@@ -12,6 +15,31 @@ function Event({event, background}) {
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
 
+  // Add to calendar button init
+  useEffect(() => atcb_init())
+
+  const calendarOptions = {
+    event: {
+      name: titre,
+      description,
+      startDate: `${date}T${heureDebut}`,
+      endDate: `${date}T${heureFin}`,
+      location: `${name} ${numero} ${voie} ${codePostal} ${commune}`
+    },
+    label: 'Ajouter au calendrier',
+    options: [
+      'Google',
+      'iCal',
+      'Microsoft365',
+      'Outlook.com',
+      'Yahoo'
+    ],
+    timeZone: 'Europe/France',
+    timeZoneOffset: '+01:00',
+    iCalFileName: `Rappel ${titre}`,
+    trigger: 'click'
+  }
+
   return (
     <div className='event-container'>
       <div className='event-left'>
@@ -21,7 +49,11 @@ function Event({event, background}) {
           <div>
             <MapPin size={10} style={{marginRight: 5}} />{name}, {numero} {voie} <br />{codePostal} {commune}
           </div>
-          <div>add to calendar</div>
+          <div className='atcb'>
+            <script type='application/ld+json'>
+              {JSON.stringify(calendarOptions)}
+            </script>
+          </div>
         </div>
       </div>
       <div className='event-right'>

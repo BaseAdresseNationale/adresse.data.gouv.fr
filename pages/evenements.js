@@ -1,12 +1,13 @@
 import Page from '@/layouts/main'
 import Head from '@/components/head'
+import dynamic from 'next/dynamic'
 import {Calendar} from 'react-feather'
 
 import events from '../events.json'
 
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
-import Event from '@/components/evenement/event'
+const Event = dynamic(import('@/components/evenement/event'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 function Evenements() {
   const today = new Date().setHours(0, 0, 0, 0)

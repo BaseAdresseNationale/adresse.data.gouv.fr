@@ -4,7 +4,7 @@
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
     "cibles": [],
-    "date": "2022, 03, 12",
+    "date": "12-03-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
@@ -17,15 +17,15 @@
       "commune": "Athis-Mons"
     },
     "href": "",
-    "heureDebut": "2022-03-12T17:00:00-04:00",
-    "heureFin": "2022-03-12T21:45:00-04:00"
+    "heureDebut": "14:00",
+    "heureFin": "18:00"
   },
   {
     "titre": "À la Moutarde",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
     "cibles": [],
-    "date": "2022, 02, 24",
+    "date": "24-02-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
@@ -38,15 +38,15 @@
       "commune": "Athis-Mons"
     },
     "href": "",
-    "heureDebut": "2022-03-12T17:00:00-04:00",
-    "heureFin": "2022-03-12T21:45:00-04:00"
+    "heureDebut": "14:00",
+    "heureFin": "18:00"
   },
   {
     "titre": "Lorem Ipsuuum",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
     "cibles": [],
-    "date": "2021, 11, 12",
+    "date": "12-11-2021",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
@@ -59,15 +59,15 @@
       "commune": "Athis-Mons"
     },
     "href": "",
-    "heureDebut": "2022-03-12T17:00:00-04:00",
-    "heureFin": "2022-03-12T21:45:00-04:00"
+    "heureDebut": "14:00",
+    "heureFin": "18:00"
   },
   {
     "titre": "Lapiiin",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
     "cibles": [],
-    "date": "2022, 02, 11",
+    "date": "11-02-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
@@ -80,15 +80,15 @@
       "commune": "Athis-Mons"
     },
     "href": "",
-    "heureDebut": "2022-03-12T17:00:00-04:00",
-    "heureFin": "2022-03-12T21:45:00-04:00"
+    "heureDebut": "14:00",
+    "heureFin": "18:00"
   },
   {
     "titre": "Heuuuu",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "adresselab",
     "cibles": [],
-    "date": "2022, 03, 12",
+    "date": "12-03-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
@@ -101,15 +101,15 @@
       "commune": "Athis-Mons"
     },
     "href": "",
-    "heureDebut": "2022-03-12T17:00:00-04:00",
-    "heureFin": "2022-03-12T21:45:00-04:00"
+    "heureDebut": "14:00",
+    "heureFin": "18:00"
   },
   {
     "titre": "Why not",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "partenaire",
     "cibles": [],
-    "date": "2020, 03, 11",
+    "date": "11-03-2020",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
@@ -122,7 +122,7 @@
       "commune": "Athis-Mons"
     },
     "href": "http://adresse.data.gouv/",
-    "heureDebut": "2022-03-12T17:00:00-04:00",
-    "heureFin": "2022-03-12T21:45:00-04:00"
+    "heureDebut": "14:00",
+    "heureFin": "18:00"
   }
 ]
