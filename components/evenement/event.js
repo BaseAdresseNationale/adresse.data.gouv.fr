@@ -9,8 +9,18 @@ import theme from '@/styles/theme'
 
 import ButtonLink from '../button-link'
 
+const formatTag = tag => {
+  if (tag.includes('’')) {
+    tag = tag.replace('’', ' ')
+  }
+
+  return `#${tag.split(' ').map(word =>
+    word[0].toUpperCase() + word.slice(1, word.length)
+  ).join('')}`
+}
+
 function Event({event, background}) {
-  const {titre, adresse, description, date, href, type} = event
+  const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin} = event
   const {name, numero, voie, codePostal, commune} = adresse
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
@@ -60,14 +70,16 @@ function Event({event, background}) {
         <div className='event-description'>
           <h5>{titre}</h5>
           <p>{description}</p>
-          <div>tags</div>
+          <div className='tags'>
+            {tags.map(tag => <div key={tag}>&nbsp;{formatTag(tag)}</div>)}
+          </div>
         </div>
         {href && <ButtonLink href={href} isExternal>S’incrire</ButtonLink>}
       </div>
 
       <style jsx>{`
         .event-container {
-          font-size: 11px;
+          font-size: 12px;
           padding: 1em;
           background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
           display: grid;
@@ -76,12 +88,15 @@ function Event({event, background}) {
           gap: 1em;
         }
 
-        .event-left, .event-right {
+        .event-left {
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          line-height: 15px;
+          line-height: 18px;
+        }
+
+        .event-left {
+          border-right: solid 2px #0053b375;
         }
 
         h5, .date {
@@ -99,8 +114,35 @@ function Event({event, background}) {
           display: flex;
           flex-direction: column;
           gap: 10px;
-
           align-items: center;
+        }
+
+        .event-description {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .tags {
+          font-size: 11px;
+          color: ${theme.primary};
+          font-style: italic;
+          display: flex;
+          padding: 10px 1em;
+        }
+
+        p {
+          margin: 0;
+          padding: 0 1em;
+        }
+
+        @media only screen and (max-width:1299px) {
+          .event-left {
+            border-right: none;
+            border-bottom: solid 1px ${theme.primary};
+          }
         }
       `}</style>
     </div>
