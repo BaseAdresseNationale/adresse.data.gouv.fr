@@ -11,7 +11,7 @@ function HistoriqueItem({balData, communeName}) {
   const date = new Date(updatedAt)
   const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes()}`
 
-  let userName = balData.context.organisation
+  let userName = balData.client.chefDeFile
 
   if (!userName) {
     if (habilitation.strategy.type === 'email') {

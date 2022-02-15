@@ -43,7 +43,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
   const {codeCommune, nomCommune, nbNumeros, nbNumerosCertifies, voies} = communeInfos
 
   const adressesSources = uniq(voies.map(voie => voie.sources).flat())
-  let userName = hasMigratedBAL && revision.context.organisation
+  let userName = hasMigratedBAL && revision.client.chefDeFile
 
   if (hasMigratedBAL && !userName) {
     if (revision.habilitation.strategy.type === 'email') {
