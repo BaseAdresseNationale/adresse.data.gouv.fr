@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
+import {ExternalLink} from 'react-feather'
 
 import {getStats} from '@/lib/api-ban'
 
@@ -21,8 +22,9 @@ function Home({stats}) {
     <Page>
       <div className='bandeau'>
         <b>📅 &nbsp; À vos agendas ! </b>
-        <a href='https://www.eventbrite.fr/e/billets-adresse-lab1-269490381987' target='_blank' rel='noreferrer'>
+        <a href='https://www.eventbrite.fr/e/billets-adresse-lab1-269490381987'>
           L’équipe BAN vous invite à participer au premier Adresse Lab qui se tiendra en ligne le 10 Mars 2022 de 10h30 à 12h.
+          <ExternalLink style={{marginLeft: 5}} size={16} />
         </a>
 
         <style jsx>{`
