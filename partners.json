@@ -828,6 +828,7 @@
     },
     {
         "name": "Communauté d’Agglomération du Bassin de Brive",
+        "link": "https://sig.agglodebrive.org/portal/",
         "infos": "La Communauté d’Agglomération du Bassin de Brive accompagne ses communes membres pour la gestion et la mise à jour de leur adressage en leurs proposant un outil web SIG.",
         "perimeter": "Communauté d’Agglomération du Bassin de Brive (Corrèze)",
         "codeDepartement": [
