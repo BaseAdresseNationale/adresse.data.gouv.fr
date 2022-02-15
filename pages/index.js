@@ -19,9 +19,37 @@ import CommuneSearch from '@/components/commune/commune-search'
 function Home({stats}) {
   return (
     <Page>
+      <div className='bandeau'>
+        <b>📅 &nbsp; À vos agendas ! </b>
+        <a href='https://www.eventbrite.fr/e/billets-adresse-lab1-269490381987' target='_blank' rel='noreferrer'>
+          L’équipe BAN vous invite à participer au premier Adresse Lab qui se tiendra en ligne le 10 Mars 2022 de 10h30 à 12h.
+        </a>
+
+        <style jsx>{`
+          .bandeau {
+            background: ${theme.primary};
+            text-align: center;
+            padding: .5em;
+            color: ${theme.colors.white};
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .bandeau a {
+            color: ${theme.colors.white};
+          }
+
+          .bandeau a:hover {
+            color: ${theme.primary};
+          }
+        `}</style>
+      </div>
+
       <Hero
         title='Le site national des adresses'
-        tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.' />
+        tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.'
+      />
 
       <Section background='dark'>
         <div className='pitch'>

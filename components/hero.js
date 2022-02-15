@@ -72,7 +72,6 @@ function Hero({title, tagline}) {
 
       <style jsx>{`
         .hero {
-          padding-top: 2em;
           min-height: 100vh;
           background: ${theme.colors.white};
           display: flex;
