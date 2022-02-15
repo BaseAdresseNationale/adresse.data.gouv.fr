@@ -9,16 +9,17 @@
 }
 
 .atcb_button {
-  background:transparent;
-  color:#333;
+  background:#0053B3;
+  border:1px solid #d2d2d2;
+  border-radius: 3px;
+  color:white;
   cursor:pointer;
-  text-decoration: underline;
   display:inline-block;
   font-weight:bold;
   line-height:24px;
   max-width:300px;
   min-width:150px;
-  padding:10px 0;
+  padding:5px;
   position:relative;
   text-align:center;
   touch-action:manipulation;
@@ -26,17 +27,20 @@
   width:auto;
 }
 
+.atcb_button svg {
+  display:none;
+}
+
 @media only screen and (max-width:575px){
   .atcb_button {
-    font-size:14px;
+    font-size:13px;
   }
 }
 
   .atcb_button.active {
-    background:#fff;
+    background:#0053B3;
     border-radius: 6px 6px 3px 3px;
-    box-shadow:1px 5px 15px 0 rgba(0,0,0,.5);
-    padding:10px 5px;
+    padding:5px;
     z-index:90;
   }
 

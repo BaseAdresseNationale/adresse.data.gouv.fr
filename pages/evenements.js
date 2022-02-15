@@ -1,13 +1,12 @@
 import Page from '@/layouts/main'
 import Head from '@/components/head'
-import dynamic from 'next/dynamic'
 import {Calendar} from 'react-feather'
 
 import events from '../events.json'
 
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
-const Event = dynamic(import('@/components/evenement/event'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
+import Event from '@/components/evenement/event'
 
 function Evenements() {
   const today = new Date().setHours(0, 0, 0, 0)
@@ -24,7 +23,11 @@ function Evenements() {
         </SectionText>
 
         <div className='events-container'>
-          {futureEvents.map(event => <Event key={event.titre} event={event} />)}
+          {futureEvents.length > 0 ? (
+            futureEvents.map(event => <Event key={event.titre} event={event} />)
+          ) : (
+            <div>Aucun évènement n’est actuellement programmé</div>
+          )}
         </div>
       </Section>
 
@@ -34,15 +37,20 @@ function Evenements() {
         </SectionText>
 
         <div className='events-container'>
-          {passedEvents.map(event => <Event key={event.titre} event={event} background='grey' />)}
+          {futureEvents.length > 0 ? (
+            passedEvents.map(event => <Event key={event.titre} event={event} background='grey' isPassed />)
+          ) : (
+            <div>Aucun évènement n’est actuellement programmé</div>
+          )}
         </div>
       </Section>
 
       <style jsx>{`
         .events-container {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-          gap: 1em;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
+          gap: 2em 3em;
+          justify-content: center;
         }
       `}</style>
     </Page>

@@ -3,20 +3,23 @@
     "titre": "Lorem Ipsum",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
-    "cibles": [],
+    "cible": "EPCI, Départements, IDG, entreprises partenaires de la Charte",
     "date": "12-03-2022",
     "tags": [
-      "fabrique des géocommuns",
-      "territoires"
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Base Adresse Nationale",
+      "Gouvernance"
     ],
+    "isOnlineOnly": true,
     "adresse": {
-      "name": "IGN",
-      "numero": 5,
-      "voie": "rue Marguerite",
-      "codePostal": 91200,
-      "commune": "Athis-Mons"
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
     },
-    "href": "",
+    "href": "http://adresse.data.gouv/",
     "heureDebut": "14:00",
     "heureFin": "18:00"
   },
@@ -24,18 +27,19 @@
     "titre": "À la Moutarde",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
-    "cibles": [],
-    "date": "24-02-2022",
+    "cible": null,
+    "date": "12-11-2023",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
     ],
+    "isOnlineOnly": true,
     "adresse": {
-      "name": "IGN",
-      "numero": 5,
-      "voie": "rue Marguerite",
-      "codePostal": 91200,
-      "commune": "Athis-Mons"
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
     },
     "href": "",
     "heureDebut": "14:00",
@@ -45,18 +49,19 @@
     "titre": "Lorem Ipsuuum",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
-    "cibles": [],
+    "cible": null,
     "date": "12-11-2021",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
     ],
+    "isOnlineOnly": true,
     "adresse": {
-      "name": "IGN",
-      "numero": 5,
-      "voie": "rue Marguerite",
-      "codePostal": 91200,
-      "commune": "Athis-Mons"
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
     },
     "href": "",
     "heureDebut": "14:00",
@@ -66,18 +71,19 @@
     "titre": "Lapiiin",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
-    "cibles": [],
+    "cible": null,
     "date": "11-02-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
     ],
+    "isOnlineOnly": false,
     "adresse": {
-      "name": "IGN",
+      "nom": "IGN",
       "numero": 5,
-      "voie": "rue Marguerite",
+      "voie": "rue Marguerite rue Marguerite",
       "codePostal": 91200,
-      "commune": "Athis-Mons"
+      "commune": "Athis-Mons athiiiiis"
     },
     "href": "",
     "heureDebut": "14:00",
@@ -87,14 +93,15 @@
     "titre": "Heuuuu",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "adresselab",
-    "cibles": [],
+    "cible": null,
     "date": "12-03-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
     ],
+    "isOnlineOnly": false,
     "adresse": {
-      "name": "IGN",
+      "nom": "IGN",
       "numero": 5,
       "voie": "rue Marguerite",
       "codePostal": 91200,
@@ -108,18 +115,19 @@
     "titre": "Why not",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "partenaire",
-    "cibles": [],
+    "cible": null,
     "date": "11-03-2020",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
     ],
+    "isOnlineOnly": true,
     "adresse": {
-      "name": "IGN",
-      "numero": 5,
-      "voie": "rue Marguerite",
-      "codePostal": 91200,
-      "commune": "Athis-Mons"
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
     },
     "href": "http://adresse.data.gouv/",
     "heureDebut": "14:00",

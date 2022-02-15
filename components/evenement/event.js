@@ -1,13 +1,14 @@
-import {useEffect} from 'react'
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-// eslint-disable-next-line camelcase
-import {atcb_init} from 'add-to-calendar-button'
-import {MapPin} from 'react-feather'
+import dynamic from 'next/dynamic'
+import {MapPin, ChevronDown, ChevronRight} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import ButtonLink from '../button-link'
+import SectionText from '../section-text'
+const AddToCalendar = dynamic(import('./add-to-calendar'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 const formatTag = tag => {
   if (tag.includes('’')) {
@@ -19,130 +20,175 @@ const formatTag = tag => {
   ).join('')}`
 }
 
-function Event({event, background}) {
-  const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin} = event
-  const {name, numero, voie, codePostal, commune} = adresse
+function Event({event, background, isPassed}) {
+  const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly} = event
+  const {nom, numero, voie, codePostal, commune} = adresse
+
+  const [isDisplay, setIsDisplay] = useState(false)
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
 
-  // Add to calendar button init
-  useEffect(() => atcb_init())
-
-  const calendarOptions = {
-    event: {
-      name: titre,
-      description,
-      startDate: `${date}T${heureDebut}`,
-      endDate: `${date}T${heureFin}`,
-      location: `${name} ${numero} ${voie} ${codePostal} ${commune}`
-    },
-    label: 'Ajouter au calendrier',
-    options: [
-      'Google',
-      'iCal',
-      'Microsoft365',
-      'Outlook.com',
-      'Yahoo'
-    ],
-    timeZone: 'Europe/France',
-    timeZoneOffset: '+01:00',
-    iCalFileName: `Rappel ${titre}`,
-    trigger: 'click'
-  }
-
   return (
     <div className='event-container'>
-      <div className='event-left'>
-        <Image src={`/images/icons/event-${type}.svg`} height={90} width={90} />
-        <div className='date'>le {sanitizedDate}</div>
-        <div className='event-actions'>
-          <div>
-            <MapPin size={10} style={{marginRight: 5}} />{name}, {numero} {voie} <br />{codePostal} {commune}
+      <div className='event-top-infos'>
+        <div className={`header ${type}`}>
+          <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} />
+        </div>
+        <div className='general-infos'>
+          <h5>{titre}</h5>
+          <div className='date-container'>
+            <div className='date'>{`le ${sanitizedDate}, de ${heureDebut} à ${heureFin}`}</div>
+            {!isPassed && <AddToCalendar eventData={event} />}
           </div>
-          <div className='atcb'>
-            <script type='application/ld+json'>
-              {JSON.stringify(calendarOptions)}
-            </script>
-          </div>
+
+          {isOnlineOnly ? (
+            <div>🖥️ <br />Évènement en ligne</div>
+          ) : (
+            <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} />{nom}, {numero} {voie} - {codePostal} {commune}</div>
+          )}
+        </div>
+
+        <div className='display-info-container'>
+          <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
+            {isDisplay ? (
+              <p>Masquer les informations</p>
+            ) : (
+              <p>Afficher les informations</p>
+            )}
+            <div className='chevron'>
+              {isDisplay ? (
+                <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
+              ) : (
+                <ChevronRight size={18} color={`${theme.colors.lightBlue}`} />
+              )}
+            </div>
+          </button>
         </div>
       </div>
-      <div className='event-right'>
-        <div className='event-description'>
-          <h5>{titre}</h5>
-          <p>{description}</p>
-          <div className='tags'>
-            {tags.map(tag => <div key={tag}>&nbsp;{formatTag(tag)}</div>)}
-          </div>
+
+      <div className={isDisplay ? 'event-bottom-infos' : 'hidden'}>
+        {cible ? (
+          <div className='cible'>Cet événement est à destination des {cible}.</div>
+        ) : (
+          <div className='cible'>Cet événement est à destination de tous.</div>
+        )}
+
+        <SectionText>{description}</SectionText>
+
+        <div className='tags'>
+          {tags.map(tag => <div key={tag}>&nbsp;{formatTag(tag)}</div>)}
         </div>
-        {href && <ButtonLink href={href} isExternal>S’incrire</ButtonLink>}
+
+        {!isPassed && (
+          <div className={`subscribe ${href ? '' : 'disable'}`}>
+            <ButtonLink href={href} isExternal>
+              {href ? 'S’inscrire à l’évènement' : 'Inscription bientôt disponible'}
+            </ButtonLink>
+          </div>
+        )}
       </div>
 
       <style jsx>{`
-        .event-container {
-          font-size: 12px;
-          padding: 1em;
-          background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          border-radius: ${theme.borderRadius};
-          gap: 1em;
-        }
-
-        .event-left {
+        .event-container, .general-infos, .event-bottom-infos {
           display: flex;
           flex-direction: column;
+        }
+
+        .event-container {
+          height: fit-content;
+          background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
+          border-radius: ${theme.borderRadius};
+          font-size: 14px;
+        }
+
+        .header {
+          display: flex;
           align-items: center;
-          line-height: 18px;
-        }
-
-        .event-left {
-          border-right: solid 2px #0053b375;
-        }
-
-        h5, .date {
+          justify-content: center;
+          padding: 5px;
           text-align: center;
         }
 
-        .date {
+        .adresselab {
+          background: #c6b2ff;
+        }
+
+        .formation {
+          background: #a4ffa4;
+        }
+
+        .partenaire {
+          background: #a8eaff;
+        }
+
+        .general-infos {
+          padding: 1em;
+          text-align: center;
+          gap: 1em;
+        }
+
+        h5 {
           font-size: 18px;
+          margin: 0;
+        }
+
+        .date {
           font-weight: bold;
           color: ${theme.primary};
-          margin: 5px;
         }
 
-        .event-actions {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          align-items: center;
+        .event-bottom-infos {
+          gap: 5px;
+          padding: 0 1em 10px 1em;
         }
 
-        .event-description {
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .tags {
-          font-size: 11px;
-          color: ${theme.primary};
-          font-style: italic;
-          display: flex;
+        .display-info-container {
+          width: 100%;
+          display: grid;
           padding: 10px 1em;
         }
 
-        p {
+        .display-info-container p {
+          font-style: italic;
+          font-weight: lighter;
           margin: 0;
-          padding: 0 1em;
         }
 
-        @media only screen and (max-width:1299px) {
-          .event-left {
-            border-right: none;
-            border-bottom: solid 1px ${theme.primary};
-          }
+        .button-container {
+          display: grid;
+          grid-template-columns: 1fr 0.1fr;
+          align-items: center;
+          justify-items: self-start;
+          border-style: none;
+          background-color: transparent;
+          border-bottom: 2px solid ${theme.colors.lightBlue};
+          box-shadow: 0px 14px 21px -15px ${theme.boxShadow};
+        }
+
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          color: ${theme.primary};
+          font-style: italic;
+        }
+
+        .subscribe {
+          text-align: center;
+        }
+
+        .cible {
+          font-weight: bold;
+          font-style: italic;
+          font-size: 12px;
+        }
+
+        .hidden {
+          display: none;
+        }
+
+        .disable {
+          opacity: 50%;
+          pointer-events: none;
         }
       `}</style>
     </div>
@@ -154,11 +200,13 @@ Event.propTypes = {
   background: PropTypes.oneOf([
     'white',
     'grey'
-  ])
+  ]),
+  isPassed: PropTypes.bool
 }
 
 Event.defaultProps = {
-  background: 'white'
+  background: 'white',
+  isPassed: false
 }
 
 export default Event
