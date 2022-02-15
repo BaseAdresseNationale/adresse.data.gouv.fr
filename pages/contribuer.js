@@ -17,7 +17,7 @@ function Contribuer() {
       <Head title={title} icon={<Edit2 size={56} />} />
       <Section subtitle='Que vous soyez une commune, une entreprise ou un simple citoyen, vous pouvez contribuer à la Base Adresse Nationale' background='grey' />
 
-      <Section title='En tant que commune' subtitle='Créer une Base Adresse Locale'>
+      <Section title='En tant que commune' subtitle='Créer une Base Adresse Locale' id='commune'>
         <div style={{textAlign: 'center'}}>
           <SectionText>
             <p>
@@ -32,7 +32,7 @@ function Contribuer() {
         </div>
       </Section>
 
-      <Section title='En tant que citoyen' background='grey'>
+      <Section title='En tant que citoyen' background='grey' id='citoyen'>
         <SectionText >
           <p>Il n’existe pas encore de <strong>dispositif national</strong> permettant aux citoyens de contribuer directement, mais de nombreux guichets de signalement existent à l’échelon local. Ce site a vocation à les référencer à moyen terme.</p>
           <p>En attendant, <strong>contactez votre mairie</strong>, et parlez-leur de nous !</p>
@@ -40,7 +40,7 @@ function Contribuer() {
         <SearchCommuneContact />
       </Section>
 
-      <Section title='En tant qu’utilisateur des données'>
+      <Section title='En tant qu’utilisateur des données' id='utilisateur'>
         <div style={{textAlign: 'center'}}>
           <p style={{margin: '3em 0'}}>Vous utilisez les données diffusées par ce site et vous avez identifié des alertes récurrentes sur une typologie d’adresse particulière ou dans une zone ?</p>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
