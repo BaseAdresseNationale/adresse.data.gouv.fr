@@ -1,5 +1,6 @@
 import Page from '@/layouts/main'
 import Head from '@/components/head'
+import {orderBy} from 'lodash'
 import {Calendar} from 'react-feather'
 
 import events from '../events.json'
@@ -8,10 +9,22 @@ import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import Event from '@/components/evenement/event'
 
+const sortEventsByDate = orderBy(events, [
+  // Sort date more recent to older
+  function (event) {
+    return Date.parse(event.date)
+  },
+  // ...then sort by earlier start hour
+  function (event) {
+    return Date.parse(`${event.date} ${event.heureDebut}`)
+  },
+], ['desc', 'asc'])
+
 function Evenements() {
   const today = new Date().setHours(0, 0, 0, 0)
-  const passedEvents = events.filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
-  const futureEvents = events.filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
+
+  const passedEvents = sortEventsByDate.filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
+  const futureEvents = sortEventsByDate.filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
 
   return (
     <Page>

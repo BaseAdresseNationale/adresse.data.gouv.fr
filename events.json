@@ -20,7 +20,7 @@
       "commune": ""
     },
     "href": "http://adresse.data.gouv/",
-    "heureDebut": "14:00",
+    "heureDebut": "13:00",
     "heureFin": "18:00"
   },
   {
@@ -28,7 +28,7 @@
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     "type": "formation",
     "cible": null,
-    "date": "12-11-2023",
+    "date": "12-03-2022",
     "tags": [
       "fabrique des géocommuns",
       "territoires"
