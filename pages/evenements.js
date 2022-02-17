@@ -9,22 +9,24 @@ import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import Event from '@/components/evenement/event'
 
-const sortEventsByDate = orderBy(events, [
-  // Sort date more recent to older
-  function (event) {
-    return Date.parse(event.date)
-  },
-  // ...then sort by earlier start hour
-  function (event) {
-    return Date.parse(`${event.date} ${event.heureDebut}`)
-  },
-], ['desc', 'asc'])
+function sortEventsByDate(events, order) {
+  return orderBy(events, [
+    // Sort date
+    function (event) {
+      return Date.parse(event.date)
+    },
+    // ...then sort by start hour
+    function (event) {
+      return Date.parse(`${event.date} ${event.heureDebut}`)
+    },
+  ], [order, order])
+}
 
 function Evenements() {
   const today = new Date().setHours(0, 0, 0, 0)
 
-  const passedEvents = sortEventsByDate.filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
-  const futureEvents = sortEventsByDate.filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
+  const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
+  const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
 
   return (
     <Page>
@@ -37,7 +39,7 @@ function Evenements() {
 
         <div className='events-container'>
           {futureEvents.length > 0 ? (
-            futureEvents.map(event => <Event key={event.titre} event={event} />)
+            futureEvents.map(event => <Event key={`${event.titre}-${event.date}`} event={event} />)
           ) : (
             <div>Aucun évènement n’est actuellement programmé</div>
           )}
@@ -51,7 +53,7 @@ function Evenements() {
 
         <div className='events-container'>
           {futureEvents.length > 0 ? (
-            passedEvents.map(event => <Event key={event.titre} event={event} background='grey' isPassed />)
+            passedEvents.map(event => <Event key={`${event.titre}-${event.date}`} event={event} background='grey' isPassed />)
           ) : (
             <div>Aucun évènement n’est actuellement programmé</div>
           )}
