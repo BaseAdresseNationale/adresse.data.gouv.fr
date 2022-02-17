@@ -7,7 +7,6 @@ import {MapPin, ChevronDown, ChevronRight} from 'react-feather'
 import theme from '@/styles/theme'
 
 import ButtonLink from '../button-link'
-import SectionText from '../section-text'
 const AddToCalendar = dynamic(import('./add-to-calendar'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 const formatTag = tag => {
@@ -21,7 +20,7 @@ const formatTag = tag => {
 }
 
 function Event({event, background, isPassed}) {
-  const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly} = event
+  const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = adresse
 
   const [isDisplay, setIsDisplay] = useState(false)
@@ -73,16 +72,22 @@ function Event({event, background, isPassed}) {
           <div className='cible'>Cet événement est à destination de tous.</div>
         )}
 
-        <SectionText>{description}</SectionText>
+        <p>
+          {description}
+        </p>
+
+        {!isPassed && instructions && (
+          <div className='instructions'>{instructions}</div>
+        )}
 
         <div className='tags'>
           {tags.map(tag => <div key={tag}>&nbsp;{formatTag(tag)}</div>)}
         </div>
 
-        {!isPassed && (
-          <div className={`subscribe ${href ? '' : 'disable'}`}>
+        {!isPassed && href && (
+          <div className='subscribe'>
             <ButtonLink href={href} isExternal>
-              {href ? 'S’inscrire à l’évènement' : 'Inscription bientôt disponible'}
+              S’inscrire à l’évènement
             </ButtonLink>
           </div>
         )}
@@ -95,10 +100,13 @@ function Event({event, background, isPassed}) {
         }
 
         .event-container {
+          width: 260px;
           height: fit-content;
           background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};
           font-size: 14px;
+          position: relative;
+          z-index: ${isDisplay ? 1 : ''}
         }
 
         .header {
@@ -110,15 +118,15 @@ function Event({event, background, isPassed}) {
         }
 
         .adresselab {
-          background: #c6b2ff;
+          background: ${theme.colors.lightPink};
         }
 
         .formation {
-          background: #a4ffa4;
+          background: ${theme.colors.lightEmeraude};
         }
 
         .partenaire {
-          background: #a8eaff;
+          background: ${theme.colors.lightCyan};
         }
 
         .general-infos {
@@ -128,7 +136,7 @@ function Event({event, background, isPassed}) {
         }
 
         h5 {
-          font-size: 18px;
+          font-size: 13px;
           margin: 0;
         }
 
@@ -170,6 +178,7 @@ function Event({event, background, isPassed}) {
           flex-wrap: wrap;
           color: ${theme.primary};
           font-style: italic;
+          font-size: 12px;
         }
 
         .subscribe {
@@ -186,9 +195,14 @@ function Event({event, background, isPassed}) {
           display: none;
         }
 
-        .disable {
-          opacity: 50%;
-          pointer-events: none;
+        p {
+          font-size: 11px;
+        }
+
+        .instructions {
+          font-weight: bold;
+          font-size: 12px;
+          text-align: center;
         }
       `}</style>
     </div>

@@ -6,9 +6,12 @@
 .atcb_button_wrapper {
   display:inline-block;
   position:relative;
+  text-align:center;
 }
 
 .atcb_button {
+  font-size: 12px;
+  text-align:center;
   background:#0053B3;
   border:1px solid #d2d2d2;
   border-radius: 3px;
@@ -48,7 +51,6 @@
     height:16px;
     display:inline-flex;
     margin-bottom:4px;
-    margin-right:10px;
     vertical-align:middle;
   }
 

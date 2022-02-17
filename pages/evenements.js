@@ -30,13 +30,11 @@ function Evenements() {
 
   return (
     <Page>
-      <Head title='À déterminer' icon={<Calendar size={56} />} />
-
+      <Head title='Les évènements autour de l’adresse' icon={<Calendar size={56} />} />
       <Section title='Évènements à venir'>
         <SectionText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Que vous soyez maire ou élu, agent municipal, géomaticien, producteur ou utilisateur... vous pouvez consulter ici la référence à un événement à venir adapté à vos besoins sur l’adresse.
         </SectionText>
-
         <div className='events-container'>
           {futureEvents.length > 0 ? (
             futureEvents.map(event => <Event key={`${event.titre}-${event.date}`} event={event} />)
@@ -48,9 +46,8 @@ function Evenements() {
 
       <Section title='Évènements passés' background='grey'>
         <SectionText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Cette section référence les événements passés organisés sur l’adresse par les équipes Base Adresse Locale - Base Adresse Nationale.
         </SectionText>
-
         <div className='events-container'>
           {futureEvents.length > 0 ? (
             passedEvents.map(event => <Event key={`${event.titre}-${event.date}`} event={event} background='grey' isPassed />)
@@ -62,10 +59,10 @@ function Evenements() {
 
       <style jsx>{`
         .events-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(260px, 300px));
-          gap: 2em 3em;
-          justify-content: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 3em;
+          justify-content: flex-start;
         }
       `}</style>
     </Page>
