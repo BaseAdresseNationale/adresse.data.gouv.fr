@@ -1,7 +1,10 @@
+import {useState} from 'react'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import {orderBy} from 'lodash'
 import {Calendar} from 'react-feather'
+
+import theme from '@/styles/theme'
 
 import events from '../events.json'
 
@@ -23,8 +26,9 @@ function sortEventsByDate(events, order) {
 }
 
 function Evenements() {
-  const today = new Date().setHours(0, 0, 0, 0)
+  const [activeEvent, setActiveEvent] = useState(null)
 
+  const today = new Date().setHours(0, 0, 0, 0)
   const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
   const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
 
@@ -37,7 +41,17 @@ function Evenements() {
         </SectionText>
         <div className='events-container'>
           {futureEvents.length > 0 ? (
-            futureEvents.map(event => <Event key={`${event.titre}-${event.date}`} event={event} />)
+            futureEvents.map(event => {
+              return (
+                <Event
+                  key={`${event.titre}-${event.date}`}
+                  event={event}
+                  id={`${event.titre}-${event.date}`}
+                  activeEvent={activeEvent}
+                  setActiveEvent={setActiveEvent}
+                />
+              )
+            })
           ) : (
             <div>Aucun évènement n’est actuellement programmé</div>
           )}
@@ -50,7 +64,19 @@ function Evenements() {
         </SectionText>
         <div className='events-container'>
           {futureEvents.length > 0 ? (
-            passedEvents.map(event => <Event key={`${event.titre}-${event.date}`} event={event} background='grey' isPassed />)
+            passedEvents.map(event => {
+              return (
+                <Event
+                  key={`${event.titre}-${event.date}`}
+                  id={`${event.titre}-${event.date}`}
+                  event={event}
+                  background='grey'
+                  isPassed
+                  activeEvent={activeEvent}
+                  setActiveEvent={setActiveEvent}
+                />
+              )
+            })
           ) : (
             <div>Aucun évènement n’est actuellement programmé</div>
           )}
@@ -63,6 +89,13 @@ function Evenements() {
           flex-wrap: wrap;
           gap: 3em;
           justify-content: flex-start;
+        }
+
+        @media (max-width: ${theme.breakPoints.desktop}) {
+          .events-container {
+            justify-content: center;
+            gap: 1em;
+          }
         }
       `}</style>
     </Page>

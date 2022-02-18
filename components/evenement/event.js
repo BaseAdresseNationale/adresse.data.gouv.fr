@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -19,16 +18,15 @@ const formatTag = tag => {
   ).join('')}`
 }
 
-function Event({event, background, isPassed}) {
+function Event({event, background, isPassed, id, activeEvent, setActiveEvent}) {
   const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = adresse
 
-  const [isDisplay, setIsDisplay] = useState(false)
-
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
+  const isEventOpen = activeEvent === id || activeEvent === null
 
   return (
-    <div className='event-container'>
+    <div id={id} className='event-container'>
       <div className='event-top-infos'>
         <div className={`header ${type}`}>
           <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} />
@@ -48,14 +46,14 @@ function Event({event, background, isPassed}) {
         </div>
 
         <div className='display-info-container'>
-          <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
-            {isDisplay ? (
+          <button type='button' onClick={() => setActiveEvent(activeEvent === id ? null : id)} className='button-container'>
+            {activeEvent === id ? (
               <p>Masquer les informations</p>
             ) : (
               <p>Afficher les informations</p>
             )}
             <div className='chevron'>
-              {isDisplay ? (
+              {activeEvent === id ? (
                 <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
               ) : (
                 <ChevronRight size={18} color={`${theme.colors.lightBlue}`} />
@@ -65,7 +63,7 @@ function Event({event, background, isPassed}) {
         </div>
       </div>
 
-      <div className={isDisplay ? 'event-bottom-infos' : 'hidden'}>
+      <div className={activeEvent === id ? 'event-bottom-infos' : 'hidden'}>
         {cible ? (
           <div className='cible'>Cet événement est à destination des {cible}.</div>
         ) : (
@@ -106,7 +104,9 @@ function Event({event, background, isPassed}) {
           border-radius: ${theme.borderRadius};
           font-size: 14px;
           position: relative;
-          z-index: ${isDisplay ? 1 : ''}
+          z-index: ${activeEvent === id ? 1 : ''};
+          filter:${isEventOpen ? '' : 'blur(2px)'};
+          position: relative;
         }
 
         .header {
@@ -140,6 +140,10 @@ function Event({event, background, isPassed}) {
           margin: 0;
         }
 
+        .date-container {
+          pointer-events: ${isEventOpen ? '' : 'none'}
+        }
+
         .date {
           font-weight: bold;
           color: ${theme.primary};
@@ -148,6 +152,9 @@ function Event({event, background, isPassed}) {
         .event-bottom-infos {
           gap: 5px;
           padding: 0 1em 10px 1em;
+          position: absolute;
+          top: 100%;
+          background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
         }
 
         .display-info-container {
@@ -211,6 +218,9 @@ function Event({event, background, isPassed}) {
 
 Event.propTypes = {
   event: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  setActiveEvent: PropTypes.func.isRequired,
+  activeEvent: PropTypes.string,
   background: PropTypes.oneOf([
     'white',
     'grey'
@@ -220,7 +230,8 @@ Event.propTypes = {
 
 Event.defaultProps = {
   background: 'white',
-  isPassed: false
+  isPassed: false,
+  activeEvent: null
 }
 
 export default Event
