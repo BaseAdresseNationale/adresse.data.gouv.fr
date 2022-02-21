@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
 import {MapPin, ChevronDown, ChevronRight} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import ButtonLink from '../button-link'
-const AddToCalendar = dynamic(import('./add-to-calendar'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 const formatTag = tag => {
   tag.replace(/[^\w\s]/gi, ' ')
@@ -32,7 +30,6 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           <h5>{titre}</h5>
           <div className='date-container'>
             <div className='date'>{`le ${sanitizedDate}, de ${heureDebut} à ${heureFin}`}</div>
-            {!isPassed && <AddToCalendar eventData={event} />}
           </div>
 
           {isOnlineOnly ? (

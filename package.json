@@ -18,7 +18,6 @@
     "@turf/bbox": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
     "@turf/boolean-contains": "^6.5.0",
-    "add-to-calendar-button": "^1.4.3",
     "babel-plugin-lodash": "^3.3.4",
     "blob-to-buffer": "^1.2.9",
     "chardet": "^1.4.0",
