@@ -211,7 +211,20 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
 }
 
 Event.propTypes = {
-  event: PropTypes.object.isRequired,
+  event: PropTypes.shape({
+    titre: PropTypes.string,
+    adresse: PropTypes.object,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    href: PropTypes.string,
+    tags: PropTypes.array,
+    type: PropTypes.string,
+    heureDebut: PropTypes.string,
+    heureFin: PropTypes.string,
+    cible: PropTypes.string,
+    isOnlineOnly: PropTypes.bool,
+    instructions: PropTypes.string,
+  }).isRequired,
   id: PropTypes.string.isRequired,
   handleOpen: PropTypes.func.isRequired,
   activeEvent: PropTypes.string,
