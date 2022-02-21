@@ -39,7 +39,7 @@ function AddToCalendar({eventData}) {
   }
 
   // Add to calendar button init
-  useEffect(() => atcb_init())
+  useEffect(() => atcb_init(), [])
 
   return (
     <div className='atcb'>
