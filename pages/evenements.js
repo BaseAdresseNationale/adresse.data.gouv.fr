@@ -50,12 +50,14 @@ function Evenements() {
         <div className='events-container'>
           {futureEvents.length > 0 ? (
             futureEvents.map(event => {
+              const id = `${event.titre}-${event.date}`
               return (
                 <Event
                   key={`${event.titre}-${event.date}`}
                   event={event}
-                  id={`${event.titre}-${event.date}`}
-                  activeEvent={activeEvent}
+                  id={id}
+                  isOpen={activeEvent === id}
+                  isAllClose={activeEvent === null}
                   handleOpen={handleActiveEvent}
                 />
               )
@@ -73,14 +75,16 @@ function Evenements() {
         <div className='events-container'>
           {futureEvents.length > 0 ? (
             passedEvents.map(event => {
+              const id = `${event.titre}-${event.date}`
               return (
                 <Event
                   key={`${event.titre}-${event.date}`}
-                  id={`${event.titre}-${event.date}`}
+                  id={id}
                   event={event}
                   background='grey'
                   isPassed
-                  activeEvent={activeEvent}
+                  isOpen={activeEvent === id}
+                  isAllClose={activeEvent === null}
                   handleOpen={handleActiveEvent}
                 />
               )

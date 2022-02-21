@@ -16,12 +16,11 @@ const formatTag = tag => {
   ).join('')}`
 }
 
-function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
+function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}) {
   const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = adresse
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
-  const isEventOpen = activeEvent === id || activeEvent === null
 
   return (
     <div id={id} className='event-container'>
@@ -45,13 +44,13 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
 
         <div className='display-info-container'>
           <button type='button' onClick={() => handleOpen(id)} className='button-container'>
-            {activeEvent === id ? (
+            {isOpen ? (
               <div>Masquer les informations</div>
             ) : (
               <div>Afficher les informations</div>
             )}
             <div className='chevron'>
-              {activeEvent === id ? (
+              {isOpen ? (
                 <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
               ) : (
                 <ChevronRight size={18} color={`${theme.colors.lightBlue}`} />
@@ -61,7 +60,7 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
         </div>
       </div>
 
-      <div className={activeEvent === id ? 'event-bottom-infos' : 'hidden'}>
+      <div className={isOpen ? 'event-bottom-infos' : 'hidden'}>
         {cible ? (
           <div className='cible'>Cet événement est à destination des {cible}.</div>
         ) : (
@@ -102,8 +101,8 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
           border-radius: ${theme.borderRadius};
           font-size: 14px;
           position: relative;
-          z-index: ${activeEvent === id ? 1 : 0};
-          filter:${isEventOpen ? '' : 'blur(2px)'};
+          z-index: ${isOpen ? 1 : 0};
+          filter:${isOpen || isAllClose ? '' : 'blur(2px)'};
           position: relative;
         }
 
@@ -139,7 +138,7 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
         }
 
         .date-container {
-          pointer-events: ${isEventOpen ? '' : 'none'}
+          pointer-events: ${isOpen || isAllClose ? '' : 'none'}
         }
 
         .date {
@@ -227,7 +226,8 @@ Event.propTypes = {
   }).isRequired,
   id: PropTypes.string.isRequired,
   handleOpen: PropTypes.func.isRequired,
-  activeEvent: PropTypes.string,
+  isOpen: PropTypes.bool.isRequired,
+  isAllClose: PropTypes.bool.isRequired,
   background: PropTypes.oneOf([
     'white',
     'grey'
@@ -237,8 +237,7 @@ Event.propTypes = {
 
 Event.defaultProps = {
   background: 'white',
-  isPassed: false,
-  activeEvent: null
+  isPassed: false
 }
 
 export default Event
