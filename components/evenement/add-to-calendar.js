@@ -3,21 +3,23 @@ import PropTypes from 'prop-types'
 // eslint-disable-next-line camelcase
 import {atcb_init} from 'add-to-calendar-button'
 
-const sanitizedDate = date => {
-  const dateToArray = date.split('-')
-  return `${dateToArray[1]}-${dateToArray[2]}-${dateToArray[0]}`
+const calendarDate = date => {
+  const [year, month, day] = date.split('-')
+  return `${month}-${day}-${year}`
 }
 
 function AddToCalendar({eventData}) {
   const {titre, adresse, description, date, heureDebut, heureFin} = eventData
   const {nom, numero, voie, codePostal, commune} = adresse
 
+  const eventDate = calendarDate(date)
+
   const calendarOptions = {
     event: {
       name: titre,
       description,
-      dateStart: sanitizedDate(date),
-      dateEnd: sanitizedDate(date),
+      dateStart: eventDate,
+      dateEnd: eventDate,
       timeStart: heureDebut,
       timeEnd: heureFin,
       location: `${nom} ${numero} ${voie} ${codePostal} ${commune}`
