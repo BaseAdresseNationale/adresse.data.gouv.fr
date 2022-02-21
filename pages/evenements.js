@@ -15,7 +15,7 @@ import Event from '@/components/evenement/event'
 function sortEventsByDate(events, order) {
   return orderBy(events, [
     function (event) {
-      return Date.parse(`${event.date} ${event.heureDebut}`)
+      return Date.parse(`${event.date} ${event.startHour}`)
     },
   ], [order])
 }
@@ -45,10 +45,10 @@ function Evenements() {
         <div className='events-container'>
           {futureEvents.length > 0 ? (
             futureEvents.map(event => {
-              const id = `${event.titre}-${event.date}`
+              const id = `${event.title}-${event.date}`
               return (
                 <Event
-                  key={`${event.titre}-${event.date}`}
+                  key={`${event.title}-${event.date}`}
                   event={event}
                   id={id}
                   isOpen={activeEvent === id}
@@ -70,10 +70,10 @@ function Evenements() {
         <div className='events-container'>
           {futureEvents.length > 0 ? (
             passedEvents.map(event => {
-              const id = `${event.titre}-${event.date}`
+              const id = `${event.title}-${event.date}`
               return (
                 <Event
-                  key={`${event.titre}-${event.date}`}
+                  key={`${event.title}-${event.date}`}
                   id={id}
                   event={event}
                   background='grey'

@@ -15,8 +15,8 @@ const formatTag = tag => {
 }
 
 function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}) {
-  const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly, instructions} = event
-  const {nom, numero, voie, codePostal, commune} = adresse
+  const {title, address, description, date, href, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
+  const {nom, numero, voie, codePostal, commune} = address
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
 
@@ -27,9 +27,9 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} />
         </div>
         <div className='general-infos'>
-          <h5>{titre}</h5>
+          <h5>{title}</h5>
           <div className='date-container'>
-            <div className='date'>{`le ${sanitizedDate}, de ${heureDebut} à ${heureFin}`}</div>
+            <div className='date'>{`le ${sanitizedDate}, de ${startHour} à ${endHour}`}</div>
           </div>
 
           {isOnlineOnly ? (
@@ -58,10 +58,10 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
       </div>
 
       <div className={isOpen ? 'event-bottom-infos' : 'hidden'}>
-        {cible ? (
-          <div className='cible'>Cet événement est à destination des {cible}.</div>
+        {target ? (
+          <div className='target'>Cet événement est à destination des {target}.</div>
         ) : (
-          <div className='cible'>Cet événement est à destination de tous.</div>
+          <div className='target'>Cet événement est à destination de tous.</div>
         )}
 
         <p>
@@ -111,7 +111,7 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           text-align: center;
         }
 
-        .adresselab {
+        .addresslab {
           background: ${theme.colors.lightPink};
         }
 
@@ -186,7 +186,7 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           text-align: center;
         }
 
-        .cible {
+        .target {
           font-weight: bold;
           font-style: italic;
           font-size: 12px;
@@ -208,16 +208,16 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
 
 Event.propTypes = {
   event: PropTypes.shape({
-    titre: PropTypes.string,
-    adresse: PropTypes.object,
+    title: PropTypes.string,
+    address: PropTypes.object,
     description: PropTypes.string,
     date: PropTypes.string,
     href: PropTypes.string,
     tags: PropTypes.array,
     type: PropTypes.string,
-    heureDebut: PropTypes.string,
-    heureFin: PropTypes.string,
-    cible: PropTypes.string,
+    startHour: PropTypes.string,
+    endHour: PropTypes.string,
+    target: PropTypes.string,
     isOnlineOnly: PropTypes.bool,
     instructions: PropTypes.string,
   }).isRequired,
