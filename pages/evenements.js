@@ -14,15 +14,10 @@ import Event from '@/components/evenement/event'
 
 function sortEventsByDate(events, order) {
   return orderBy(events, [
-    // Sort date
-    function (event) {
-      return Date.parse(event.date)
-    },
-    // ...then sort by start hour
     function (event) {
       return Date.parse(`${event.date} ${event.heureDebut}`)
     },
-  ], [order, order])
+  ], [order])
 }
 
 function Evenements() {
