@@ -32,6 +32,14 @@ function Evenements() {
   const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
   const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
 
+  const handleActiveEvent = id => {
+    if (activeEvent === id) {
+      setActiveEvent(null)
+    } else {
+      setActiveEvent(id)
+    }
+  }
+
   return (
     <Page>
       <Head title='Les évènements autour de l’adresse' icon={<Calendar size={56} />} />
@@ -48,7 +56,7 @@ function Evenements() {
                   event={event}
                   id={`${event.titre}-${event.date}`}
                   activeEvent={activeEvent}
-                  setActiveEvent={setActiveEvent}
+                  handleOpen={handleActiveEvent}
                 />
               )
             })
@@ -73,7 +81,7 @@ function Evenements() {
                   background='grey'
                   isPassed
                   activeEvent={activeEvent}
-                  setActiveEvent={setActiveEvent}
+                  handleOpen={handleActiveEvent}
                 />
               )
             })

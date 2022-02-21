@@ -16,7 +16,7 @@ const formatTag = tag => {
   ).join('')}`
 }
 
-function Event({event, background, isPassed, id, activeEvent, setActiveEvent}) {
+function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
   const {titre, adresse, description, date, href, tags, type, heureDebut, heureFin, cible, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = adresse
 
@@ -44,7 +44,7 @@ function Event({event, background, isPassed, id, activeEvent, setActiveEvent}) {
         </div>
 
         <div className='display-info-container'>
-          <button type='button' onClick={() => setActiveEvent(activeEvent === id ? null : id)} className='button-container'>
+          <button type='button' onClick={() => handleOpen(id)} className='button-container'>
             {activeEvent === id ? (
               <p>Masquer les informations</p>
             ) : (
@@ -217,7 +217,7 @@ function Event({event, background, isPassed, id, activeEvent, setActiveEvent}) {
 Event.propTypes = {
   event: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
-  setActiveEvent: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func.isRequired,
   activeEvent: PropTypes.string,
   background: PropTypes.oneOf([
     'white',
