@@ -102,7 +102,7 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
           border-radius: ${theme.borderRadius};
           font-size: 14px;
           position: relative;
-          z-index: ${activeEvent === id ? 1 : ''};
+          z-index: ${activeEvent === id ? 1 : 0};
           filter:${isEventOpen ? '' : 'blur(2px)'};
           position: relative;
         }
