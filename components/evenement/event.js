@@ -9,9 +9,7 @@ import ButtonLink from '../button-link'
 const AddToCalendar = dynamic(import('./add-to-calendar'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
 const formatTag = tag => {
-  if (tag.includes('’')) {
-    tag = tag.replace('’', ' ')
-  }
+  tag.replace(/[^\w\s]/gi, ' ')
 
   return `#${tag.split(' ').map(word =>
     word[0].toUpperCase() + word.slice(1, word.length)
