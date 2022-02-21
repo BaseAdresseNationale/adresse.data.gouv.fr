@@ -46,9 +46,9 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
         <div className='display-info-container'>
           <button type='button' onClick={() => handleOpen(id)} className='button-container'>
             {activeEvent === id ? (
-              <p>Masquer les informations</p>
+              <div>Masquer les informations</div>
             ) : (
-              <p>Afficher les informations</p>
+              <div>Afficher les informations</div>
             )}
             <div className='chevron'>
               {activeEvent === id ? (
@@ -198,10 +198,6 @@ function Event({event, background, isPassed, id, activeEvent, handleOpen}) {
 
         .hidden {
           display: none;
-        }
-
-        p {
-          font-size: 11px;
         }
 
         .instructions {
