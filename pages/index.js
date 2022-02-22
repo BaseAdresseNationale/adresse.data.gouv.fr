@@ -4,6 +4,7 @@ import Image from 'next/image'
 import {ExternalLink} from 'react-feather'
 
 import {getStats} from '@/lib/api-ban'
+import {getPosts} from '@/lib/blog'
 
 import theme from '@/styles/theme'
 import Page from '@/layouts/main'
@@ -17,7 +18,9 @@ import Temoignages from '@/components/temoignages'
 import SocialMedia from '@/components/social-media'
 import CommuneSearch from '@/components/commune/commune-search'
 
-function Home({stats}) {
+function Home({stats, posts}) {
+  const temoignages = posts.posts.filter(post => post.tags.some(tag => tag.name === 'témoignage'))
+
   return (
     <Page>
       <div className='bandeau'>
@@ -141,26 +144,28 @@ function Home({stats}) {
         </DocDownload>
       </Section>
 
-      <Section title='Témoignages sur les Bases Adresses Locales'>
-        <Temoignages limit={3} />
-        <div className='centered'>
-          <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
-        </div>
+      {temoignages && (
+        <Section title='Témoignages sur les Bases Adresses Locales'>
+          <Temoignages limit={3} posts={temoignages} />
+          <div className='centered'>
+            <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
+          </div>
 
-        <style jsx>{`
-          .centered {
-            margin-top: 5em;
-            display: flex;
-            justify-content: center;
-          }
+          <style jsx>{`
+            .centered {
+              margin-top: 5em;
+              display: flex;
+              justify-content: center;
+            }
 
-          .centered a {
-            text-decoration: none;
-            color: white;
-          }
-        `}
-        </style>
-      </Section>
+            .centered a {
+              text-decoration: none;
+              color: white;
+            }
+          `}
+          </style>
+        </Section>
+      )}
 
       <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
         <SocialMedia />
@@ -172,19 +177,22 @@ function Home({stats}) {
 Home.getInitialProps = async () => {
   try {
     return {
-      stats: await getStats()
+      stats: await getStats(),
+      posts: await getPosts()
     }
   } catch (error) {
     console.log('Erreur lors de la récupération des stats BAN:', error)
   }
 
   return {
-    stats: null
+    stats: null,
+    posts: null
   }
 }
 
 Home.propTypes = {
-  stats: PropTypes.object.isRequired
+  stats: PropTypes.object.isRequired,
+  posts: PropTypes.object.isRequired
 }
 
 export default Home

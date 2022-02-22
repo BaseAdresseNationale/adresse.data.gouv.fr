@@ -7,6 +7,8 @@ import colors from '@/styles/colors'
 function BlogCard({post, onClick}) {
   const router = useRouter()
 
+  const link = onClick ? '/blog/' : '/bases-locales/temoignages/'
+
   return (
     <div className='blog-container'>
       <h4 className='blog-title'>{post.title}</h4>
@@ -19,6 +21,7 @@ function BlogCard({post, onClick}) {
         <p><span>Rédigé par {post.authors[0].name}</span> <span>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</span></p>
       </div>
       <p className='preview'>{post.excerpt}</p>
+      {onClick && (
         <div className='blog-tags-container'>
           {post.tags && (
             post.tags.map(tag => (
@@ -26,6 +29,7 @@ function BlogCard({post, onClick}) {
             ))
           )}
         </div>
+      )}
       <div className='blog-link-container'>
         <div onClick={() => router.push(`${link}${post.slug}`)}>Lire l’article</div>
       </div>
