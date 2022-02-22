@@ -1,10 +1,12 @@
+import {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import {MapPin, ChevronDown, ChevronRight} from 'react-feather'
+import {MapPin} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import ButtonLink from '../button-link'
+import Button from '../button'
 
 const formatTag = tag => {
   tag.replace(/[^\w\s]/gi, ' ')
@@ -15,13 +17,28 @@ const formatTag = tag => {
 }
 
 function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}) {
+  const ref = useRef(null)
   const {title, address, description, date, href, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = address
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
 
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (isOpen && ref.current && !ref.current.contains(event.target)) {
+        handleOpen(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [isOpen, handleOpen])
+
   return (
-    <div id={id} className='event-container'>
+    <div id={id} className='event-container' ref={ref}>
       <div className='event-top-infos'>
         <div className={`header ${type}`}>
           <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} />
@@ -40,20 +57,11 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
         </div>
 
         <div className='display-info-container'>
-          <button type='button' onClick={() => handleOpen(id)} className='button-container'>
-            {isOpen ? (
-              <div>Masquer les informations</div>
-            ) : (
-              <div>Afficher les informations</div>
-            )}
-            <div className='chevron'>
-              {isOpen ? (
-                <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
-              ) : (
-                <ChevronRight size={18} color={`${theme.colors.lightBlue}`} />
-              )}
-            </div>
-          </button>
+          {isOpen ? (
+            <Button onClick={() => handleOpen(id)}>Masquer les informations</Button>
+          ) : (
+            <Button onClick={() => handleOpen(id)}>Afficher les informations</Button>
+          )}
         </div>
       </div>
 
@@ -155,23 +163,6 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           width: 100%;
           display: grid;
           padding: 10px 1em;
-        }
-
-        .display-info-container p {
-          font-style: italic;
-          font-weight: lighter;
-          margin: 0;
-        }
-
-        .button-container {
-          display: grid;
-          grid-template-columns: 1fr 0.1fr;
-          align-items: center;
-          justify-items: self-start;
-          border-style: none;
-          background-color: transparent;
-          border-bottom: 2px solid ${theme.colors.lightBlue};
-          box-shadow: 0px 14px 21px -15px ${theme.boxShadow};
         }
 
         .tags {
