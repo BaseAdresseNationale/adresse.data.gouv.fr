@@ -48,7 +48,7 @@ function Evenements() {
               const id = `${event.title}-${event.date}`
               return (
                 <Event
-                  key={`${event.title}-${event.date}`}
+                  key={id}
                   event={event}
                   id={id}
                   isOpen={activeEvent === id}
@@ -73,7 +73,7 @@ function Evenements() {
               const id = `${event.title}-${event.date}`
               return (
                 <Event
-                  key={`${event.title}-${event.date}`}
+                  key={id}
                   id={id}
                   event={event}
                   background='grey'
