@@ -111,7 +111,7 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           text-align: center;
         }
 
-        .addresslab {
+        .adresselab {
           background: ${theme.colors.lightPink};
         }
 
