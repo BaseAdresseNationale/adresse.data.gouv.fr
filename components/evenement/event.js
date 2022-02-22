@@ -100,7 +100,7 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
         }
 
         .event-container {
-          width: 260px;
+          width: 320px;
           height: fit-content;
           background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};

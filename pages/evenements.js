@@ -94,14 +94,13 @@ function Evenements() {
         .events-container {
           display: flex;
           flex-wrap: wrap;
-          gap: 3em;
-          justify-content: flex-start;
+          gap: 4em;
+          justify-content: center;
         }
 
         @media (max-width: ${theme.breakPoints.desktop}) {
           .events-container {
-            justify-content: center;
-            gap: 1em;
+            gap: 2em;
           }
         }
       `}</style>
