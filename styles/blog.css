@@ -1,0 +1,39 @@
+/******************************************************\
+* This CSS is for the blog page                        *
+* Needed to keep images from the ghost blog responsive *
+\******************************************************/
+
+.blog {
+  font-size: 20px;
+  max-width: 1000px;
+  line-height: 30px;
+  margin: 1em auto;
+}
+
+.kg-image-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1em auto;
+  box-shadow: 38px 24px 50px -21px #C9D3DF;
+}
+
+.blog-image {
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.blog-separator {
+  border-bottom: 2px solid #0053B3;
+}
+
+.blog-back-button {
+  vertical-align: middle;
+  padding: 1em 0;
+}
+
+figcaption {
+  font-size: .7em;
+  line-height: 15px;
+  font-style: italic;
+}

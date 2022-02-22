@@ -4,6 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   images: {
-    domains: ['static.data.gouv.fr']
+    domains: ['static.data.gouv.fr', process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE]
   }
 })
