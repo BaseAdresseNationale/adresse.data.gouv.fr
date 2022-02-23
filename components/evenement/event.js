@@ -1,44 +1,23 @@
-import {useRef, useEffect} from 'react'
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import {MapPin} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import ButtonLink from '../button-link'
 import Button from '../button'
+import EventModal from './event-modal'
 
-const formatTag = tag => {
-  tag.replace(/[^\w\s]/gi, ' ')
-
-  return `#${tag.split(' ').map(word =>
-    word[0].toUpperCase() + word.slice(1, word.length)
-  ).join('')}`
-}
-
-function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}) {
-  const ref = useRef(null)
-  const {title, address, description, date, href, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
+function Event({event, background, isPassed, id}) {
+  const {title, address, date, type, startHour, endHour, isOnlineOnly} = event
   const {nom, numero, voie, codePostal, commune} = address
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
 
-  useEffect(() => {
-    const handleOutsideClick = event => {
-      if (isOpen && ref.current && !ref.current.contains(event.target)) {
-        handleOpen(null)
-      }
-    }
-
-    document.addEventListener('mousedown', handleOutsideClick)
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [isOpen, handleOpen])
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <div id={id} className='event-container' ref={ref}>
+    <div id={id} className='event-container'>
       <div className='event-top-infos'>
         <div className={`header ${type}`}>
           <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} />
@@ -57,41 +36,11 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
         </div>
 
         <div className='display-info-container'>
-          {isOpen ? (
-            <Button onClick={() => handleOpen(id)}>Masquer les informations</Button>
-          ) : (
-            <Button onClick={() => handleOpen(id)}>Afficher les informations</Button>
-          )}
+          <Button onClick={() => setIsModalOpen(true)}>Afficher les informations</Button>
         </div>
       </div>
 
-      <div className={isOpen ? 'event-bottom-infos' : 'hidden'}>
-        {target ? (
-          <div className='target'>Cet événement est à destination des {target}.</div>
-        ) : (
-          <div className='target'>Cet événement est à destination de tous.</div>
-        )}
-
-        <p>
-          {description}
-        </p>
-
-        {!isPassed && instructions && (
-          <div className='instructions'>{instructions}</div>
-        )}
-
-        <div className='tags'>
-          {tags.map(tag => <div key={tag}>&nbsp;{formatTag(tag)}</div>)}
-        </div>
-
-        {!isPassed && href && (
-          <div className='subscribe'>
-            <ButtonLink href={href} isExternal>
-              S’inscrire à l’évènement
-            </ButtonLink>
-          </div>
-        )}
-      </div>
+      {isModalOpen && <EventModal event={event} date={sanitizedDate} isPassed={isPassed} onClose={() => setIsModalOpen(false)} />}
 
       <style jsx>{`
         .event-container, .general-infos, .event-bottom-infos {
@@ -105,10 +54,6 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};
           font-size: 14px;
-          position: relative;
-          z-index: ${isOpen ? 1 : 0};
-          filter:${isOpen || isAllClose ? '' : 'blur(2px)'};
-          position: relative;
         }
 
         .header {
@@ -142,55 +87,14 @@ function Event({event, background, isPassed, id, isOpen, isAllClose, handleOpen}
           margin: 0;
         }
 
-        .date-container {
-          pointer-events: ${isOpen || isAllClose ? '' : 'none'}
-        }
-
         .date {
           font-weight: bold;
           color: ${theme.primary};
         }
 
-        .event-bottom-infos {
-          gap: 5px;
-          padding: 0 1em 10px 1em;
-          position: absolute;
-          top: 100%;
-          background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
-        }
-
         .display-info-container {
-          width: 100%;
-          display: grid;
-          padding: 10px 1em;
-        }
-
-        .tags {
-          display: flex;
-          flex-wrap: wrap;
-          color: ${theme.primary};
-          font-style: italic;
-          font-size: 12px;
-        }
-
-        .subscribe {
           text-align: center;
-        }
-
-        .target {
-          font-weight: bold;
-          font-style: italic;
-          font-size: 12px;
-        }
-
-        .hidden {
-          display: none;
-        }
-
-        .instructions {
-          font-weight: bold;
-          font-size: 12px;
-          text-align: center;
+          padding-bottom: 1em;
         }
       `}</style>
     </div>
@@ -201,21 +105,13 @@ Event.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string,
     address: PropTypes.object,
-    description: PropTypes.string,
     date: PropTypes.string,
-    href: PropTypes.string,
-    tags: PropTypes.array,
     type: PropTypes.string,
     startHour: PropTypes.string,
     endHour: PropTypes.string,
-    target: PropTypes.string,
     isOnlineOnly: PropTypes.bool,
-    instructions: PropTypes.string,
   }).isRequired,
   id: PropTypes.string.isRequired,
-  handleOpen: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  isAllClose: PropTypes.bool.isRequired,
   background: PropTypes.oneOf([
     'white',
     'grey'

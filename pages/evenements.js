@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import {orderBy} from 'lodash'
@@ -21,19 +20,9 @@ function sortEventsByDate(events, order) {
 }
 
 function Evenements() {
-  const [activeEvent, setActiveEvent] = useState(null)
-
   const today = new Date().setHours(0, 0, 0, 0)
   const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
   const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
-
-  const handleActiveEvent = id => {
-    if (activeEvent === id) {
-      setActiveEvent(null)
-    } else {
-      setActiveEvent(id)
-    }
-  }
 
   return (
     <Page>
@@ -51,9 +40,6 @@ function Evenements() {
                   key={id}
                   event={event}
                   id={id}
-                  isOpen={activeEvent === id}
-                  isAllClose={activeEvent === null}
-                  handleOpen={handleActiveEvent}
                 />
               )
             })
@@ -78,9 +64,6 @@ function Evenements() {
                   event={event}
                   background='grey'
                   isPassed
-                  isOpen={activeEvent === id}
-                  isAllClose={activeEvent === null}
-                  handleOpen={handleActiveEvent}
                 />
               )
             })
