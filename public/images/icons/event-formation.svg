@@ -1,15 +1,14 @@
-<!-- mdi:school by MaterialDesignIcons (https://materialdesignicons.com/) -->
 <svg width="87" height="77" viewBox="0 0 87 77" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect y="9" width="87" height="68" rx="5" fill="#474646"/>
-<rect x="13" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="13" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="69" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="69" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="8" y="17" width="70" height="5" rx="2.5" fill="white"/>
-<rect x="13" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="13" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="69" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="69" width="5" height="10" rx="2.5" fill="#474646"/>
-<rect x="8" y="17" width="70" height="5" rx="2.5" fill="white"/>
-<path d="M29.5833 53.2617V60.9283L43 68.25L56.4166 60.9283V53.2617L43 60.5833L29.5833 53.2617ZM43 33.75L21.9166 45.25L43 56.75L60.25 47.3392V60.5833H64.0833V45.25L43 33.75Z" fill="white"/>
+<rect y="9" width="87" height="68" rx="5" fill="#006644"/>
+<rect x="13" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="13" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="69" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="69" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="8" y="17" width="70" height="5" rx="2.5" fill="#E3FCEF"/>
+<rect x="13" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="13" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="69" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="69" width="5" height="10" rx="2.5" fill="#006644"/>
+<rect x="8" y="17" width="70" height="5" rx="2.5" fill="#E3FCEF"/>
+<path d="M29.5834 53.2617V60.9283L43 68.25L56.4167 60.9283V53.2617L43 60.5833L29.5834 53.2617ZM43 33.75L21.9167 45.25L43 56.75L60.25 47.3392V60.5833H64.0834V45.25L43 33.75Z" fill="#E3FCEF"/>
 </svg>

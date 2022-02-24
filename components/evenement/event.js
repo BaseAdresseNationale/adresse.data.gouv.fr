@@ -48,36 +48,42 @@ function Event({event, background, isPassed, id}) {
           flex-direction: column;
         }
 
+        {/* Avoid opacity heritance on modal */}
+        .header, .general-infos, .display-info-container {
+          opacity: ${isPassed ? '80%' : '100%'};
+        }
+
         .event-container {
           width: 320px;
           height: fit-content;
           background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
           border-radius: ${theme.borderRadius};
           font-size: 14px;
+          padding: .5em;
         }
 
         .header {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 5px;
           text-align: center;
+          padding-bottom: 10px;
         }
 
         .adresselab {
-          background: ${theme.colors.lightPink};
+         border-bottom: 2px solid ${theme.colors.red};
         }
 
         .formation {
-          background: ${theme.colors.lightEmeraude};
+          border-bottom: 2px solid ${theme.colors.darkGreen};
         }
 
         .partenaire {
-          background: ${theme.colors.lightCyan};
+          border-bottom: 2px solid ${theme.colors.blue};
         }
 
         .general-infos {
-          padding: 1em;
+          padding: 1em 0;
           text-align: center;
           gap: 1em;
         }
@@ -94,7 +100,6 @@ function Event({event, background, isPassed, id}) {
 
         .display-info-container {
           text-align: center;
-          padding-bottom: 1em;
         }
       `}</style>
     </div>

@@ -4,7 +4,6 @@ export default ({
   darkBlue: '#003B80',
   lighterBlue: '#B4E1FA',
   whiteBlue: '#BED5FF',
-  lightCyan: '#a6f2fa',
 
   white: '#ffffff',
   lighterGrey: '#EBEFF3',
@@ -18,10 +17,8 @@ export default ({
   darkGreen: '#0F6F00',
   green: '#03BD5B',
   lightGreen: '#DAF5E7',
-  lightEmeraude: '#9ef9be',
   orange: '#FF9947',
   lightOrange: '#FFF0E4',
   red: '#D1335B',
-  lightRed: '#F8E1E7',
-  lightPink: '#fddbfa'
+  lightRed: '#F8E1E7'
 })

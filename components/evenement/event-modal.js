@@ -118,7 +118,8 @@ function EventModal({event, date, isPassed, onClose}) {
         .modal-container {
           max-height: 90%;
           height: fit-content;
-          width: 90%;
+          max-width: 90%;
+          width: 950px;
           padding: 1em;
           background: ${theme.colors.white};
           border-radius: ${theme.borderRadius};
@@ -132,12 +133,11 @@ function EventModal({event, date, isPassed, onClose}) {
         }
 
         .close-container {
-          border-bottom: 2px solid ${theme.primary};
+          border-bottom: ${`2px solid ${type === 'partenaire' ? theme.colors.blue : (type === 'formation' ? theme.colors.darkGreen : theme.colors.red)}`};
           text-align: right;
         }
 
         .close-button {
-          color: ${theme.primary};
           background: transparent;
           border: none;
         }
@@ -197,15 +197,15 @@ function EventModal({event, date, isPassed, onClose}) {
         }
 
         .adresselab {
-          background: ${theme.colors.lightPink};
+          background: ${theme.colors.lightRed};
         }
 
         .formation {
-          background: ${theme.colors.lightEmeraude};
+          background: ${theme.colors.lightGreen};
         }
 
         .partenaire {
-          background: ${theme.colors.lightCyan};
+          background: ${theme.colors.lighterBlue};
         }
 
         .left-title {
