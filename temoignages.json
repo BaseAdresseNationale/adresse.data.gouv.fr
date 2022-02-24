@@ -150,5 +150,13 @@
         "alt": "Extrait du plan de Rennes Métropole. Source : Rennes Métropole",
         "date": "2021-12-09",
         "articleUrl": "https://blog.geo.data.gouv.fr/rennes-m%C3%A9tropole-plan-de-ville-et-animation-sur-les-adresses-b1d4c46f6f56"
+    },
+    {
+        "title": "Rougon",
+        "preview": "Rougon, 116 habitants, s’est doté d’une Base Adresse Locale complète alors qu’aucune adresse n’était référencée. Gilles Bossuet, conseiller municipal détaille une démarche complète et vertueuse. Le site de la commune va encapsuler la Base Adresse Locale.",
+        "picture": "/images/testimonies/rougon.jpg",
+        "alt": "Rougon vu par drone — Cliché Communauté de communes Alpes Provence Verdon-Sources de Lumière",
+        "date": "2022-02-24",
+        "articleUrl": "https://blog.geo.data.gouv.fr/rougon-cr%C3%A9ation-dune-base-adresse-locale-de-a-%C3%A0-z-partage-et-innovation-894db0722e2a"
     }
 ]
