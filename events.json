@@ -19,7 +19,7 @@
       "commune": ""
     },
     "href": "",
-    "instructions": "Inscriptions sur mail à adresse@data.gouv.fr avec en objet \"Webinaire du 10 mars\"",
+    "instructions": "Inscriptions closes",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -293,6 +293,7 @@
       "commune": ""
     },
     "href": "",
+    "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -317,7 +318,56 @@
       "commune": ""
     },
     "href": "https://www.eventbrite.fr/e/billets-adresse-lab1-269490381987",
+    "instructions": "",
     "startHour": "10:00",
     "endHour": "12:00"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l’éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance #qualité",
+    "type": "formation",
+    "target": "EPCI, Départements, IDG, entreprises partenaires de la Charte de la Base Adresse Locale",
+    "date": "2022-03-11",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "",
+    "instructions": "Formulaire d’inscription bientôt disponible",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "description": "L'équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance #qualité",
+    "type": "formation",
+    "target": "EPCI, Départements, IDG, entreprises partenaires de la Charte de la Base Adresse Locale",
+    "date": "2022-03-14",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "",
+    "instructions": "Formulaire d’inscription bientôt disponible",
+    "startHour": "14:00",
+    "endHour": "15:30"
   }
 ]
