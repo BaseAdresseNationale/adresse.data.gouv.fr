@@ -10,11 +10,13 @@ import SectionText from '../section-text'
 import Notification from '../notification'
 
 const formatTag = tag => {
-  tag.replace(/[^\w\s]/gi, ' ')
+  const cleanTag = tag.trim().replace(/([^a-z\d]|\s+)+/gi, ' ')
 
-  return `#${tag.split(' ').map(word =>
-    word[0].toUpperCase() + word.slice(1, word.length)
-  ).join('')}`
+  if (cleanTag) {
+    return `#${cleanTag.split(' ').map(word =>
+      word[0].toUpperCase() + word.slice(1, word.length)
+    ).join('')}`
+  }
 }
 
 function EventModal({event, date, isPassed, onClose}) {
