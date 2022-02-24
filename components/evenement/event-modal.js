@@ -59,7 +59,7 @@ function EventModal({event, date, isPassed, onClose}) {
             <div className='left-title'>📅 &nbsp; À vos agendas !</div>
             <div className='date-hours-container'>
               <div className='date-container'>
-                L’évènement aura lieu le
+                L’évènement {isPassed ? 'a eu' : 'aura'} lieu le
                 <div className='date'>{date}</div>
               </div>
               <div className='date-container'>
@@ -68,7 +68,7 @@ function EventModal({event, date, isPassed, onClose}) {
               </div>
             </div>
             {isOnlineOnly ? (
-              <div className='place'><span>🖥️</span><br />{title} se déroulera en ligne</div>
+              <div className='place'><span>🖥️</span><br />{`${title} ${isPassed ? 's’est déroulé en ligne' : 'se déroulera en ligne'}`}</div>
             ) : (
               <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} />{nom}, {numero} {voie} - {codePostal} {commune}</div>
             )}
