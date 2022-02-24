@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import BlogCard from '@/components/blog-card'
 
 function Temoignages({limit, posts}) {
-  const temoignages = posts.filter(post => post.tags.some(tag => tag.name === 'témoignage'))
-  const sortedTestimonies = limit ? temoignages.slice(0, limit) : temoignages
+  const sortedTestimonies = limit ? posts.slice(0, limit) : posts
 
   return (
     <div className='temoignages-section'>

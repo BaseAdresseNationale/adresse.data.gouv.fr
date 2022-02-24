@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import {Book, X} from 'react-feather'
 
@@ -12,20 +12,20 @@ import Section from '@/components/section'
 import Button from '@/components/button'
 import BlogCard from '@/components/blog-card'
 
-function BlogIndex(props) {
+function BlogIndex({posts}) {
   const [filters, setFilters] = useState([])
-  const [filteredPosts, setFilteredPosts] = useState(props.posts)
+  const [filteredPosts, setFilteredPosts] = useState(posts)
 
-  function filterPostsByTags() {
-    return props.posts.filter(post => (
+  const filterPostsByTags = useCallback(() => {
+    return posts.filter(post => (
       filters.every(f => (
         post.tags.some(tag => (
           tag.name === f))
       ))
     ))
-  }
+  }, [filters, posts])
 
-  const addTag = tag => {
+  const addTag = useCallback(tag => {
     if (filters.includes(tag)) {
       return
     }
@@ -33,7 +33,7 @@ function BlogIndex(props) {
     filters.push(tag)
     const filtered = filterPostsByTags()
     setFilteredPosts(filtered)
-  }
+  }, [filters, filterPostsByTags])
 
   const removeTag = tag => {
     const index = filters.indexOf(tag)
@@ -46,7 +46,7 @@ function BlogIndex(props) {
   }
 
   const resetFilter = () => {
-    setFilteredPosts(props.posts)
+    setFilteredPosts(posts)
     setFilters([])
   }
 

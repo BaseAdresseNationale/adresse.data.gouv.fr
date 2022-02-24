@@ -9,30 +9,8 @@ import Section from '@/components/section'
 import {getSinglePost} from '@/lib/blog'
 
 function SlugPage({post}) {
-  return (
-    post ? (
-      <Page title={post.title}>
-        <Head title='Le Blog de L’Adresse' icon={<BookOpen size={56} />} />
-        <Section background='grey'>
-          <Link href='/blog'>
-            <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
-          </Link>
-          <div className='blog'>
-            <h2>{post.title}</h2>
-            <p><i>Publié le {new Date(post.published_at).toLocaleDateString('fr-FR')}</i></p>
-            <div className='kg-image-card'>
-              <img src={post.feature_image} />
-            </div>
-            <div className='blog-separator' />
-            <div dangerouslySetInnerHTML={{__html: post.html}} /* eslint-disable-line react/no-danger */ />
-            <div className='blog-separator' />
-          </div>
-          <Link href='/blog'>
-            <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
-          </Link>
-        </Section>
-      </Page>
-    ) : (
+  if (!post) {
+    return (
       <Page title='Oupss...'>
         <Head title='Le Blog de l’adresse' icon={<BookOpen size={56} />} />
         <Section>
@@ -44,12 +22,36 @@ function SlugPage({post}) {
         </Link>
       </Page>
     )
+  }
+
+  return (
+    <Page title={post.title}>
+      <Head title='Le Blog de L’Adresse' icon={<BookOpen size={56} />} />
+      <Section background='grey'>
+        <Link href='/blog'>
+          <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
+        </Link>
+        <div className='blog'>
+          <h2>{post.title}</h2>
+          <p><i>Publié le {new Date(post.published_at).toLocaleDateString('fr-FR')}</i></p>
+          <div className='kg-image-card'>
+            <img src={post.feature_image} />
+          </div>
+          <div className='blog-separator' />
+          <div dangerouslySetInnerHTML={{__html: post.html}} /* eslint-disable-line react/no-danger */ />
+          <div className='blog-separator' />
+        </div>
+        <Link href='/blog'>
+          <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
+        </Link>
+      </Section>
+    </Page>
   )
 }
 
 SlugPage.getInitialProps = async ({query}) => {
   const post = await getSinglePost(query.slug)
-  return {post: post?.posts[0]}
+  return {post}
 }
 
 SlugPage.defaultProps = {

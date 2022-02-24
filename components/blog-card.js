@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import {useRouter} from 'next/router'
+import Link from 'next/link'
 
 import colors from '@/styles/colors'
 
 function BlogCard({post, onClick}) {
-  const router = useRouter()
-
   const link = onClick ? '/blog/' : '/bases-locales/temoignages/'
 
   return (
@@ -31,7 +29,7 @@ function BlogCard({post, onClick}) {
         </div>
       )}
       <div className='blog-link-container'>
-        <div onClick={() => router.push(`${link}${post.slug}`)}>Lire l’article</div>
+        <Link href={`${link}${post.slug}`}>Lire l’article</Link>
       </div>
       <style jsx>{`
         .blog-container {
@@ -108,7 +106,15 @@ BlogCard.defaultProps = {
 }
 
 BlogCard.propTypes = {
-  post: PropTypes.object.isRequired,
+  post: PropTypes.shape({
+    title: PropTypes.string,
+    feature_image: PropTypes.string,
+    authors: PropTypes.array,
+    published_at: PropTypes.string,
+    excerpt: PropTypes.string,
+    tags: PropTypes.array,
+    slug: PropTypes.string
+  }).isRequired,
   onClick: PropTypes.func
 }
 

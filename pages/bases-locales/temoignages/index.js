@@ -6,7 +6,7 @@ import {getPosts} from '@/lib/blog'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
-import TemoignagesComponent from '@/components/temoignages'
+import TemoignagesList from '@/components/temoignages'
 
 function Temoignages({posts}) {
   const title = 'Témoignages sur les Bases Adresses Locales'
@@ -16,14 +16,14 @@ function Temoignages({posts}) {
     <Page title={title} description={description}>
       <Head title={title} icon={<MessageCircle size={56} />} />
       <Section title={description} >
-        <TemoignagesComponent posts={posts.posts} />
+        <TemoignagesList posts={posts.filter(post => post.tags.some(tag => tag.name === 'témoignage'))} />
       </Section>
     </Page>
   )
 }
 
 Temoignages.propTypes = {
-  posts: PropTypes.object
+  posts: PropTypes.array
 }
 
 Temoignages.defaultProps = {
@@ -31,7 +31,7 @@ Temoignages.defaultProps = {
 }
 
 Temoignages.getInitialProps = async () => {
-  const posts = await getPosts()
+  const {posts} = await getPosts()
   return {posts}
 }
 
