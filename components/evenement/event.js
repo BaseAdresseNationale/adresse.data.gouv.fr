@@ -108,13 +108,13 @@ function Event({event, background, isPassed, id}) {
 
 Event.propTypes = {
   event: PropTypes.shape({
-    title: PropTypes.string,
-    address: PropTypes.object,
-    date: PropTypes.string,
-    type: PropTypes.string,
-    startHour: PropTypes.string,
-    endHour: PropTypes.string,
-    isOnlineOnly: PropTypes.bool,
+    title: PropTypes.string.isRequired,
+    address: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    startHour: PropTypes.string.isRequired,
+    endHour: PropTypes.string.isRequired,
+    isOnlineOnly: PropTypes.bool.isRequired,
   }).isRequired,
   id: PropTypes.string.isRequired,
   background: PropTypes.oneOf([
