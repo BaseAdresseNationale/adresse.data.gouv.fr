@@ -22,7 +22,7 @@ function HistoriqueItem({balData, communeName}) {
 
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
-        <div>Via <b>{client.nom }</b></div>
+        <div>Via <b>{client.nom}</b></div>
         <a href={balURL}><Download /></a>
       </div>
 
