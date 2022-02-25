@@ -11,7 +11,7 @@ function HistoriqueItem({balData, communeName}) {
   const date = new Date(updatedAt)
   const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes()}`
 
-  const userName = balData.context.organisation ? balData.context.organisation : `la mairie de ${communeName}`
+  const userName = balData.context?.organisation || `la mairie de ${communeName}`
 
   return (
     <div className='item-container'>
