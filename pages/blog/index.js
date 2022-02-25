@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react'
+import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Book, X} from 'react-feather'
 
@@ -16,39 +16,31 @@ function BlogIndex({posts}) {
   const [filters, setFilters] = useState([])
   const [filteredPosts, setFilteredPosts] = useState(posts)
 
-  const filterPostsByTags = useCallback(() => {
-    return posts.filter(post => (
-      filters.every(f => (
-        post.tags.some(tag => (
-          tag.name === f))
-      ))
-    ))
-  }, [filters, posts])
-
   const addTag = useCallback(tag => {
-    if (filters.includes(tag)) {
-      return
+    if (!filters.includes(tag)) {
+      setFilters([...filters, tag])
     }
-
-    filters.push(tag)
-    const filtered = filterPostsByTags()
-    setFilteredPosts(filtered)
-  }, [filters, filterPostsByTags])
+  }, [filters])
 
   const removeTag = tag => {
-    const index = filters.indexOf(tag)
-    if (index !== -1) {
-      filters.splice(index, 1)
-    }
-
-    const filtered = filterPostsByTags()
-    setFilteredPosts(filtered)
+    setFilters(filters.filter(t => t !== tag))
   }
 
   const resetFilter = () => {
     setFilteredPosts(posts)
     setFilters([])
   }
+
+  useEffect(() => {
+    const filteredPosts = posts.filter(post => (
+      filters.every(f => (
+        post.tags.some(tag => (
+          tag.name === f))
+      ))
+    ))
+
+    setFilteredPosts(filteredPosts)
+  }, [filters, posts])
 
   return (
     <Page title='Le Blog de L’Adresse'>
