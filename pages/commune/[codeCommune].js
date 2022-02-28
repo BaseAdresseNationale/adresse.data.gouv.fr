@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Home} from 'react-feather'
 
 import {getCommune} from '@/lib/api-ban'
-import {getRevisions, getCurrentRevision} from '@/lib/api-depot'
+import {getRevisions} from '@/lib/api-depot'
 import {getMairie} from '@/lib/api-etablissements-public'
 import withErrors from '@/components/hoc/with-errors'
 
@@ -15,7 +15,7 @@ import Historique from '@/components/commune/historique'
 import BalQuality from '@/components/commune/bal-quality'
 
 function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision, typeCompositionAdresses}) {
-  const hasRevision = Boolean(typeCompositionAdresses === 'bal' && currentRevision)
+  const hasRevision = Boolean(currentRevision)
 
   return (
     <Page id='page' title={`Informations sur la commune de ${communeInfos.nomCommune}`}>
@@ -53,8 +53,8 @@ Commune.getInitialProps = async ({query}) => {
   const commune = await getCommune(codeCommune)
   const mairie = await getMairie(codeCommune)
   const revisions = await getRevisions(codeCommune)
-  const currentRevision = await getCurrentRevision(codeCommune)
 
+  const currentRevision = revisions.find(revision => revision.current)
   const typeCompositionAdresses = commune.typeComposition === 'assemblage' ? 'assemblage' : 'bal'
 
   return {
