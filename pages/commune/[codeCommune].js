@@ -15,7 +15,7 @@ import Historique from '@/components/commune/historique'
 import BalQuality from '@/components/commune/bal-quality'
 
 function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevision, typeCompositionAdresses}) {
-  const hasRevision = Boolean(typeCompositionAdresses === 'bal' && currentRevision)
+  const hasRevision = Boolean(currentRevision)
 
   return (
     <Page id='page' title={`Informations sur la commune de ${communeInfos.nomCommune}`}>
