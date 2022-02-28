@@ -117,9 +117,13 @@ BlogIndex.propTypes = {
   posts: PropTypes.array
 }
 
-BlogIndex.getInitialProps = async () => {
-  const posts = await getPosts()
-  return posts
+export async function getServerSideProps() {
+  const {posts} = await getPosts()
+  return {
+    props: {
+      posts
+    }
+  }
 }
 
 export default BlogIndex

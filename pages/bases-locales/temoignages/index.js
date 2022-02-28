@@ -30,9 +30,13 @@ Temoignages.defaultProps = {
   posts: null
 }
 
-Temoignages.getInitialProps = async () => {
+export async function getServerSideProps() {
   const {posts} = await getPosts()
-  return {posts}
+  return {
+    props: {
+      posts
+    }
+  }
 }
 
 export default Temoignages

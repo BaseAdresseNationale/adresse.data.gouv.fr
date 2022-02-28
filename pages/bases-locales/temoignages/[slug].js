@@ -49,17 +49,21 @@ function SlugPage({post}) {
   )
 }
 
-SlugPage.getInitialProps = async ({query}) => {
-  const post = await getSinglePost(query.slug)
-  return {post}
-}
-
 SlugPage.defaultProps = {
   post: null
 }
 
 SlugPage.propTypes = {
   post: PropTypes.object
+}
+
+export async function getServerSideProps({query}) {
+  const post = await getSinglePost(query.slug)
+  return {
+    props: {
+      post
+    }
+  }
 }
 
 export default SlugPage

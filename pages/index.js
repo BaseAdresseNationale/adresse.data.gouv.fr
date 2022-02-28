@@ -174,19 +174,15 @@ function Home({stats, posts}) {
   )
 }
 
-Home.getInitialProps = async () => {
-  try {
-    return {
-      stats: await getStats(),
-      posts: await getPosts()
-    }
-  } catch (error) {
-    console.log('Erreur lors de la récupération des stats BAN:', error)
-  }
+export async function getServerSideProps() {
+  const stats = await getStats()
+  const posts = await getPosts()
 
   return {
-    stats: null,
-    posts: null
+    props: {
+      stats,
+      posts
+    }
   }
 }
 
