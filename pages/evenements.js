@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types'
-import Page from '@/layouts/main'
-import Head from '@/components/head'
 import {orderBy} from 'lodash'
 import {Calendar} from 'react-feather'
 
@@ -8,6 +6,8 @@ import theme from '@/styles/theme'
 
 import events from '../events.json'
 
+import Page from '@/layouts/main'
+import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import Event from '@/components/evenement/event'
