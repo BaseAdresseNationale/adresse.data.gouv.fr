@@ -845,5 +845,45 @@
         "height": 154,
         "width": 100,
         "alt": "Logo du partenaire Communauté d’Agglomération du Bassin de Brive"
+    },
+    {
+        "name": "Communauté d’agglomération de Saint-Quentin-en-Yvelines",
+        "link": "https://www.saint-quentin-en-yvelines.fr/fr",
+        "infos": "La Direction des Systèmes d’Information de Saint-Quentin-en-Yvelines accompagne les 12 communes de l’agglomération sur un outil mutualisé et assure la publication de leurs Bases Adresses Locales.",
+        "perimeter": "Communes de l’agglomération de Saint-Quentin-en-Yvelines",
+        "codeDepartement": [
+            "78"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "mise à disposition d’outils mutualisés",
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/saint-quentin-yvelines.jpg",
+        "height": 124,
+        "width": 220,
+        "alt": "Logo du partenaire Communauté d’agglomération de Saint-Quentin-en-Yvelines"
+    },
+    {
+        "name": "Communauté d’agglomération Royan Atlantique",
+        "link": "https://www.agglo-royan.fr/-/bal",
+        "infos": "Dans le cadre d'une prestation de service numérique gratuite pour les communes adhérentes, la CARA propose un service d’accompagnement comprenant la présentation de l’outil mes-adresses.data.gouv, la création et la publication de la BAL, la réalisation de cas concrets et l’assistance aux communes.",
+        "perimeter": "Communes de la Communauté d’Agglomération Royan Atlantique",
+        "codeDepartement": [
+            "17"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/royan.png",
+        "height": 124,
+        "width": 221,
+        "alt": "Logo du partenaire Communauté d’agglomération Royan Atlantique"
     }
 ]
