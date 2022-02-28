@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import {orderBy} from 'lodash'
@@ -20,10 +21,8 @@ function sortEventsByDate(events, order) {
 }
 
 const today = new Date().setHours(0, 0, 0, 0)
-const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
-const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
 
-function Evenements() {
+function Evenements({passedEvents, futureEvents}) {
   return (
     <Page>
       <Head title='Les évènements autour de l’adresse' icon={<Calendar size={56} />} />
@@ -89,6 +88,23 @@ function Evenements() {
       `}</style>
     </Page>
   )
+}
+
+export async function getStaticProps() {
+  const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
+  const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
+
+  return {
+    props: {
+      passedEvents,
+      futureEvents
+    }
+  }
+}
+
+Evenements.propTypes = {
+  passedEvents: PropTypes.array.isRequired,
+  futureEvents: PropTypes.array.isRequired
 }
 
 export default Evenements
