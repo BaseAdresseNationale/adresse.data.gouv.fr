@@ -107,13 +107,13 @@ BlogCard.defaultProps = {
 
 BlogCard.propTypes = {
   post: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     feature_image: PropTypes.string,
-    authors: PropTypes.array,
-    published_at: PropTypes.string,
-    excerpt: PropTypes.string,
-    tags: PropTypes.array,
-    slug: PropTypes.string
+    authors: PropTypes.array.isRequired,
+    published_at: PropTypes.string.isRequired,
+    excerpt: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+    slug: PropTypes.string.isRequired
   }).isRequired,
   onClick: PropTypes.func
 }
