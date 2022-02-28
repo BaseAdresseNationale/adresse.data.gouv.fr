@@ -19,11 +19,11 @@ function sortEventsByDate(events, order) {
   ], [order])
 }
 
-function Evenements() {
-  const today = new Date().setHours(0, 0, 0, 0)
-  const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
-  const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
+const today = new Date().setHours(0, 0, 0, 0)
+const passedEvents = sortEventsByDate(events, 'desc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) < today)
+const futureEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today)
 
+function Evenements() {
   return (
     <Page>
       <Head title='Les évènements autour de l’adresse' icon={<Calendar size={56} />} />
