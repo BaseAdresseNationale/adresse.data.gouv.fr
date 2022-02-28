@@ -7,6 +7,7 @@ import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import TemoignagesList from '@/components/temoignages'
+import Notification from '@/components/notification'
 
 function Temoignages({posts}) {
   const title = 'Témoignages sur les Bases Adresses Locales'
@@ -16,7 +17,14 @@ function Temoignages({posts}) {
     <Page title={title} description={description}>
       <Head title={title} icon={<MessageCircle size={56} />} />
       <Section title={description} >
-        <TemoignagesList posts={posts.filter(post => post.tags.some(tag => tag.name === 'témoignage'))} />
+        {posts ? (
+          <TemoignagesList posts={posts?.filter(post => post.tags.some(tag => tag.name === 'témoignage'))} />
+        ) : (
+          <Notification>
+            <h5>Les témoignages sont actuellement inaccessibles</h5>
+            <p><i>Merci de réessayer ulterieurement</i></p>
+          </Notification>
+        )}
       </Section>
     </Page>
   )
@@ -31,7 +39,7 @@ Temoignages.defaultProps = {
 }
 
 export async function getServerSideProps() {
-  const {posts} = await getPosts()
+  const posts = await getPosts()
   return {
     props: {
       posts

@@ -11,6 +11,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import Button from '@/components/button'
 import BlogCard from '@/components/blog-card'
+import Notification from '@/components/notification'
 
 function BlogIndex({posts}) {
   const [filters, setFilters] = useState([])
@@ -32,14 +33,16 @@ function BlogIndex({posts}) {
   }
 
   useEffect(() => {
-    const filteredPosts = posts.filter(post => (
-      filters.every(f => (
-        post.tags.some(tag => (
-          tag.name === f))
+    if (posts) {
+      const filteredPosts = posts.filter(post => (
+        filters.every(f => (
+          post.tags.some(tag => (
+            tag.name === f))
+        ))
       ))
-    ))
 
-    setFilteredPosts(filteredPosts)
+      setFilteredPosts(filteredPosts)
+    }
   }, [filters, posts])
 
   return (
@@ -66,10 +69,10 @@ function BlogIndex({posts}) {
             </div>
           </>
         ) : (
-          <>
-            <h3>Le blog est actuellement inaccessible</h3>
-            <p><i>Merci de rééssayer ulterieurement</i></p>
-          </>
+          <Notification>
+            <h5>Le blog est actuellement inaccessible</h5>
+            <p><i>Merci de réessayer ulterieurement</i></p>
+          </Notification>
         )}
       </Section>
       <style jsx>{`
@@ -118,7 +121,7 @@ BlogIndex.propTypes = {
 }
 
 export async function getServerSideProps() {
-  const {posts} = await getPosts()
+  const posts = await getPosts()
   return {
     props: {
       posts

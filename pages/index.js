@@ -17,9 +17,10 @@ import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import SocialMedia from '@/components/social-media'
 import CommuneSearch from '@/components/commune/commune-search'
+import Notification from '@/components/notification'
 
 function Home({stats, posts}) {
-  const temoignages = posts.posts.filter(post => post.tags.some(tag => tag.name === 'témoignage'))
+  const temoignages = posts?.filter(post => post.tags.some(tag => tag.name === 'témoignage'))
 
   return (
     <Page>
@@ -144,28 +145,35 @@ function Home({stats, posts}) {
         </DocDownload>
       </Section>
 
-      {temoignages && (
-        <Section title='Témoignages sur les Bases Adresses Locales'>
-          <Temoignages limit={3} posts={temoignages} />
-          <div className='centered'>
-            <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
-          </div>
+      <Section title='Témoignages sur les Bases Adresses Locales'>
+        {temoignages ? (
+          <>
+            <Temoignages limit={3} posts={temoignages} />
+            <div className='centered'>
+              <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
+            </div>
 
-          <style jsx>{`
-            .centered {
-              margin-top: 5em;
-              display: flex;
-              justify-content: center;
-            }
+            <style jsx>{`
+              .centered {
+                margin-top: 5em;
+                display: flex;
+                justify-content: center;
+              }
 
-            .centered a {
-              text-decoration: none;
-              color: white;
-            }
-          `}
-          </style>
-        </Section>
-      )}
+              .centered a {
+                text-decoration: none;
+                color: white;
+              }
+            `}
+            </style>
+          </>
+        ) : (
+          <Notification>
+            <h5>Les témoignages sont actuellement inaccessibles</h5>
+            <p><i>Merci de réessayer ulterieurement</i></p>
+          </Notification>
+        )}
+      </Section>
 
       <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
         <SocialMedia />
@@ -186,9 +194,13 @@ export async function getServerSideProps() {
   }
 }
 
+Home.defaultProps = {
+  posts: null
+}
+
 Home.propTypes = {
   stats: PropTypes.object.isRequired,
-  posts: PropTypes.object.isRequired
+  posts: PropTypes.object
 }
 
 export default Home
