@@ -25,12 +25,11 @@ function Temoignages({limit, posts}) {
 
 Temoignages.propTypes = {
   limit: PropTypes.number,
-  posts: PropTypes.array
+  posts: PropTypes.array.isRequired
 }
 
 Temoignages.defaultProps = {
-  limit: null,
-  posts: null
+  limit: null
 }
 
 export default Temoignages
