@@ -61,7 +61,14 @@ function EventBanner() {
           />
         ))}
       </div>
-      {selectedEvent && <EventModal event={selectedEvent} date={new Date(selectedEvent.date).toLocaleDateString('fr-FR')} onClose={() => setSelectedEvent(null)} />}
+
+      {selectedEvent && (
+        <EventModal
+          event={selectedEvent}
+          date={new Date(selectedEvent.date).toLocaleDateString('fr-FR')}
+          onClose={() => setSelectedEvent(null)}
+        />
+      )}
 
       <style jsx>{`
         .banner {
