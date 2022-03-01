@@ -1,20 +1,12 @@
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
-import {orderBy} from 'lodash'
 
+import {sortEventsByDate} from '@/lib/date'
 import theme from '@/styles/theme'
 
 import allEvents from '../../events.json'
 
 import EventModal from './event-modal'
-
-function sortEventsByDate(events, order) {
-  return orderBy(events, [
-    function (event) {
-      return Date.parse(`${event.date}T${event.startHour}`)
-    },
-  ], [order])
-}
 
 const today = new Date().setHours(0, 0, 0, 0)
 const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
