@@ -26,6 +26,10 @@ function EventBanner() {
     }
   }, [index, selectedEvent])
 
+  if (events.length === 0) {
+    return null
+  }
+
   return (
     <div className='banner'>
       <div className='banner-title'>Les prochains évènements autour de l’adresse</div>
