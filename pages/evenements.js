@@ -16,7 +16,7 @@ import Loader from '@/components/loader'
 function sortEventsByDate(events, order) {
   return orderBy(events, [
     function (event) {
-      return Date.parse(`${event.date} ${event.startHour}`)
+      return Date.parse(`${event.date}T${event.startHour}`)
     },
   ], [order])
 }
