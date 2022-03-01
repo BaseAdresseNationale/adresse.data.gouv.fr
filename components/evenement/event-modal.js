@@ -26,14 +26,6 @@ function EventModal({event, date, isPassed, onClose}) {
   const {nom, numero, voie, codePostal, commune} = address
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [])
-
-  useEffect(() => {
     const handleClickOutside = event => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         onClose()
