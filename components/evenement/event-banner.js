@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import {orderBy} from 'lodash'
 
-import events from '../../events.json'
+import allEvents from '../../events.json'
 import theme from '@/styles/theme'
 import EventModal from './event-modal'
 
@@ -14,35 +14,35 @@ function sortEventsByDate(events, order) {
   ], [order])
 }
 
+const today = new Date().setHours(0, 0, 0, 0)
+const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
+
 function EventBanner() {
   const [index, setIndex] = useState(0)
   const [event, setEvent] = useState(null)
 
-  const today = new Date().setHours(0, 0, 0, 0)
-  const selectedFirstEvents = sortEventsByDate(events, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
-
   useEffect(() => {
     if (!event) {
       const slideInterval = setTimeout(() => {
-        setIndex(index === selectedFirstEvents.length - 1 ? 0 : index + 1)
+        setIndex(index === events.length - 1 ? 0 : index + 1)
       }, 4000)
 
       return () => {
         clearInterval(slideInterval)
       }
     }
-  }, [index, event, selectedFirstEvents])
+  }, [index, event])
 
   return (
     <div className='banner'>
       <div className='banner-title'>Les prochains évènements autour de l’adresse</div>
       <ul className='slider'>
-        {selectedFirstEvents.length === 0 ? (
+        {events.length === 0 ? (
           <ul className='slide'>
             Aucun évènement n’est actuellement programmé. Retrouvez <Link href='/evenements' passHref><span className='event-link'>ici</span></Link> nos évènements passés.
           </ul>
         ) : (
-          selectedFirstEvents.map((event, idx) => {
+          events.map((event, idx) => {
             const sanitizedDate = new Date(event.date).toLocaleDateString('fr-FR')
             return idx === index && (
               <li className='slide' key={`${event.title}-${sanitizedDate}`}>
@@ -55,7 +55,7 @@ function EventBanner() {
       </ul>
 
       <div className='slideshow-dots'>
-        {selectedFirstEvents.map((event, idx) => (
+        {events.map((event, idx) => (
           <div
             key={`${event.title}-${event.date}`}
             className={`slideshow-dot ${index === idx ? 'active' : ''}`}
