@@ -39,20 +39,16 @@ function EventBanner() {
     <div className='banner'>
       <div className='banner-title'>Les prochains évènements autour de l’adresse</div>
       <ul className='slider'>
-        {events.length === 0 ? (
-          <ul className='slide'>
-            Aucun évènement n’est actuellement programmé. Retrouvez <Link href='/evenements' passHref><span className='event-link'>ici</span></Link> nos évènements passés.
-          </ul>
-        ) : (
-          events.map((event, idx) => {
-            const sanitizedDate = new Date(event.date).toLocaleDateString('fr-FR')
-            return idx === index && (
-              <li className='slide' key={`${event.title}-${sanitizedDate}`}>
-                <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
-                <div className='date'>le {sanitizedDate}</div>
-              </li>
-            )
-          })
+        {events.map((event, idx) => {
+          const sanitizedDate = new Date(event.date).toLocaleDateString('fr-FR')
+
+          return (
+            <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
+              <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
+              <div className='date'>le {sanitizedDate}</div>
+            </li>
+          )
+        }
         )}
       </ul>
 
@@ -134,6 +130,10 @@ function EventBanner() {
           color: ${theme.colors.white};
           cursor: pointer;
           text-decoration: underline;
+        }
+
+        .hidden {
+          display: none;
         }
       `}</style>
     </div>
