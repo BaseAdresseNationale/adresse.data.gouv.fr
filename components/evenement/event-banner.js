@@ -19,10 +19,10 @@ const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event
 
 function EventBanner() {
   const [index, setIndex] = useState(0)
-  const [event, setEvent] = useState(null)
+  const [selectedEvent, setSelectedEvent] = useState(null)
 
   useEffect(() => {
-    if (!event) {
+    if (!selectedEvent) {
       const slideInterval = setTimeout(() => {
         setIndex(index === events.length - 1 ? 0 : index + 1)
       }, 4000)
@@ -31,7 +31,7 @@ function EventBanner() {
         clearInterval(slideInterval)
       }
     }
-  }, [index, event])
+  }, [index, selectedEvent])
 
   return (
     <div className='banner'>
@@ -46,7 +46,7 @@ function EventBanner() {
             const sanitizedDate = new Date(event.date).toLocaleDateString('fr-FR')
             return idx === index && (
               <li className='slide' key={`${event.title}-${sanitizedDate}`}>
-                <div className='event-link' onClick={() => setEvent(event)}>{event.title}</div>
+                <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
                 <div className='date'>le {sanitizedDate}</div>
               </li>
             )
@@ -63,7 +63,7 @@ function EventBanner() {
           />
         ))}
       </div>
-      {event && <EventModal event={event} date={new Date(event.date).toLocaleDateString('fr-FR')} onClose={() => setEvent(null)} />}
+      {selectedEvent && <EventModal event={selectedEvent} date={new Date(selectedEvent.date).toLocaleDateString('fr-FR')} onClose={() => setSelectedEvent(null)} />}
 
       <style jsx>{`
         .banner {
