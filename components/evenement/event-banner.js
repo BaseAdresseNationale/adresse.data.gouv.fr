@@ -2,8 +2,10 @@ import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import {orderBy} from 'lodash'
 
-import allEvents from '../../events.json'
 import theme from '@/styles/theme'
+
+import allEvents from '../../events.json'
+
 import EventModal from './event-modal'
 
 function sortEventsByDate(events, order) {
