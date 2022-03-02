@@ -6,28 +6,10 @@ import {BookOpen, ArrowLeftCircle} from 'react-feather'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
-import Notification from '@/components/notification'
 
 import {getSinglePost} from '@/lib/blog'
 
 function SlugPage({post}) {
-  if (!post) {
-    return (
-      <Page title='Oupss...'>
-        <Head title='Le Blog de l’adresse' icon={<BookOpen size={56} />} />
-        <Section>
-          <Notification>
-            <h5>Le blog est actuellement inaccessible</h5>
-            <p><i>Merci de réessayer ulterieurement</i></p>
-          </Notification>
-        </Section>
-        <Link href='/'>
-          <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
-        </Link>
-      </Page>
-    )
-  }
-
   return (
     <Page title={post.title}>
       <Head title='Le Blog de L’Adresse' icon={<BookOpen size={56} />} />
@@ -63,6 +45,13 @@ SlugPage.propTypes = {
 
 export async function getServerSideProps({query}) {
   const post = await getSinglePost(query.slug)
+
+  if (!post) {
+    return {
+      notFound: true
+    }
+  }
+
   return {
     props: {
       post
