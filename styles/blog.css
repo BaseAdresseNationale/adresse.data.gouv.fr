@@ -10,15 +10,26 @@
   margin: 1em auto;
 }
 
+.blog-feature-image-container {
+  position: relative;
+  height: 500px;
+  box-shadow: 38px 24px 50px -21px lightGrey;
+}
+
 .kg-image-card img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
   border-radius: 8px;
   margin: 1em auto;
   box-shadow: 38px 24px 50px -21px #C9D3DF;
 }
 
-.blog-image {
+figure.kg-card {
+  text-align: center;
+}
+
+.blog-image, .blog-feature-image {
   border-radius: 4px;
   object-fit: cover;
 }

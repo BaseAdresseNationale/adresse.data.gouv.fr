@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Image from 'next/image'
 import {BookOpen, ArrowLeftCircle} from 'react-feather'
 
 import Page from '@/layouts/main'
@@ -37,8 +38,8 @@ function SlugPage({post}) {
         <div className='blog'>
           <h2>{post.title}</h2>
           <p><i>Publié le {new Date(post.published_at).toLocaleDateString('fr-FR')}</i></p>
-          <div className='kg-image-card'>
-            <img src={post.feature_image} />
+          <div className='blog-feature-image-container'>
+            <Image src={post.feature_image} layout='fill' className='blog-feature-image' />
           </div>
           <div className='blog-separator' />
           <div dangerouslySetInnerHTML={{__html: post.html}} /* eslint-disable-line react/no-danger */ />
