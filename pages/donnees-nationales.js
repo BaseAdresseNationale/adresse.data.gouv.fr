@@ -45,6 +45,27 @@ function DonneesNatioales() {
         </div>
       </Section>
 
+      <Section background='grey' title='Flux de données'>
+        <div className='card-container'>
+          <Card
+            action='URL'
+            title='Format WMS Vecteur'
+            link='https://wxs.ign.fr/adresse/geoportail/v/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities'
+            description='Flux WMS Vecteur (OGC) des adresses ponctuelles BAN'
+            list={['Couche BAN.DATA.GOUV', '1 position par adresse']}
+          />
+
+          <Card
+            action='URL'
+            title='Format WFS'
+            link='https://wxs.ign.fr/adresse/geoportail/wfs?SERVICE=WFS&VERSION=1.3.0&REQUEST=GetCapabilities'
+            description='Flux WFS (OGC) des adresses ponctuelles BAN'
+            list={['Couche BAN.DATA.GOUV:ban', '1 position par adresse']}
+          />
+
+        </div>
+      </Section>
+
       <Section title='Comment est construite la Base Adresse Nationale ?' background='color'>
 
         <SectionText color='secondary'>
