@@ -2,7 +2,6 @@ import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import 'template.data.gouv.fr/dist/main.css'
-import '../styles/blog.css' // Global CSS for the blog images
 
 import {DeviceContextProvider} from '@/contexts/device'
 
