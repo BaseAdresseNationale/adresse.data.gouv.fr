@@ -23,9 +23,9 @@ function BlogIndex({posts}) {
     }
   }, [filters])
 
-  const removeTag = tag => {
+  const removeTag = useCallback(tag => {
     setFilters(filters.filter(t => t !== tag))
-  }
+  }, [filters])
 
   const resetFilter = () => {
     setFilteredPosts(posts)
