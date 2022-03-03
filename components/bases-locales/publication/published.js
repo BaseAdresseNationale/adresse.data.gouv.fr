@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import {ArrowLeft, Check} from 'react-feather'
 
 import theme from '@/styles/theme'
-import Button from '@/components/button'
-import router from 'next/router'
+import ButtonLink from '@/components/button-link'
 
 function Published({codeCommune}) {
   return (
@@ -32,37 +30,47 @@ function Published({codeCommune}) {
 
           <section>
             <h4>🔍 Où consulter vos adresses ?</h4>
-            <p>
-              Vos adresses seront intégrées à la Base Adresse Nationale et disponibles dans un délai de <b>24 heures</b>.<br />{}
-              Elles seront consultables directement depuis notre <Link href={`/base-adresse-nationale/${codeCommune}`}><a>carte interactive</a></Link>.
-            </p>
+            <div className='consult-adresses'>
+              <div>
+                <p>
+                  Vos adresses seront intégrées à la <b>Base Adresse Nationale</b> et disponibles d’ici <b>quelques heures</b>.<br />
+                  Elles seront consultables directement depuis notre <b>carte interactive</b>.
+                </p>
+                <ButtonLink href={`/base-adresse-nationale/${codeCommune}`}>Consulter la Base Adresse Nationale</ButtonLink>
+              </div>
+
+              <div>
+                <p>Vous pourrez suivre <b>l’état de vos adresses</b> sur la page d’information par la commune et télécharger la <b>Base Adresse Nationale</b> de votre commune</p>
+                <ButtonLink href={`/commune/${codeCommune}`}>Consulter la page commune</ButtonLink>
+              </div>
+            </div>
           </section>
 
           <section>
-            <h4>🚀 Ne vous arrêtez pas en si bon chemin !</h4>
+            <h4>🚀 Continuez l’édition de cette Base Adresse Locale</h4>
             <p>
-              Si vous souhaitez <b>mettre à jour</b> vos adresses ou effecter des <b>corrections</b>, continuer simplement l‘édition de cette Base Adresse Locale.<br />{}
-              Les changements seront <b>enregistrés automatiquement</b> et transmis à la Base Adresse Nationale.
+              Pour <b>mettre à jour</b> vos adresses, il vous suffit de déposer un nouveau fichier .csv dans le formulaire. Il remplacera le précédent et sera transmis à la <b>Base Adresse Nationale</b>.
             </p>
           </section>
 
           <section>
             <h4>🇫🇷 Vous n’êtes pas seul</h4>
             <p>
-              <b>Tous les jours</b> de nouvelles Bases Adresse Locales viennent alimenter la Base Adresse Nationale comme vous venez de le faire.<br />{}
-              Découvrez l’état du <Link href='/bases-locales'><a>déploiement des Bases Adresse Locales</a></Link> à l’échelle nationale.
+              <b>Tous les jours</b> de nouvelles Bases Adresse Locales viennent alimenter la Base Adresse Nationale comme vous venez de le faire.<br />
+              Découvrez l’état du <b>déploiement des Bases Adresse Locales</b> à l’échelle nationale.
             </p>
+            <ButtonLink href='/deploiement-bal'>Carte de couverture des BAL</ButtonLink>
           </section>
         </div>
       </div>
 
-      <Button style={{marginTop: '1em'}} onClick={() => router.push('/bases-locales/publication')}>
+      <ButtonLink style={{marginTop: '1em'}} href='/bases-locales/publication'>
         <ArrowLeft style={{verticalAlign: 'top'}} /> Publier une autre Base Adresse Locale
-      </Button>
+      </ButtonLink>
 
       <style jsx>{`
         section {
-          margin: 3em 0;
+          margin: 2em 0;
           padding: 0 1em;
           text-align: center;
         }
@@ -108,6 +116,10 @@ function Published({codeCommune}) {
           align-items: center;
           justify-content: center;
           font-size: xx-large;
+        }
+
+        .consult-adresses div {
+          margin: 1.5em 0;
         }
 
         .message-container {
