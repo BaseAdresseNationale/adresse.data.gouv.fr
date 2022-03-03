@@ -16,7 +16,7 @@ function Temoignages({posts}) {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<MessageCircle size={56} />} />
-      <Section title={description} >
+      <Section title={description}>
         {posts ? (
           <TemoignagesList posts={posts?.filter(post => post.tags.some(tag => tag.name === 'témoignage'))} />
         ) : (

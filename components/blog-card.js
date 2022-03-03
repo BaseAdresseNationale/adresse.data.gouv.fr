@@ -29,7 +29,7 @@ function BlogCard({post, onClick}) {
         </div>
       )}
       <div className='blog-link-container'>
-        <Link href={link}>Lire l’article</Link>
+        <Link href={link}><a>Lire l’article</a></Link>
       </div>
       <style jsx>{`
         .blog-container {
@@ -92,6 +92,10 @@ function BlogCard({post, onClick}) {
           color: ${colors.blue};
           text-decoration: underline;
           cursor: pointer;
+        }
+
+        .blog-link-container a {
+          padding: .5em;
         }
       `}</style>
     </div>

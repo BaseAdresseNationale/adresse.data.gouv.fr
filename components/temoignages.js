@@ -13,10 +13,10 @@ function Temoignages({limit, posts}) {
 
       <style jsx>{`
           .temoignages-section {
-            text-align: center;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            grid-column-gap: 6em;
+            grid-gap: 3em 5em;
+            margin-top: 4em;
           }
         `}</style>
     </div>

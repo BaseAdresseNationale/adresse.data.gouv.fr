@@ -13,7 +13,7 @@ function SlugPage({post}) {
   return (
     <Page title={post.title}>
       <Head title='Témoignages sur les Bases Adresses Locales' icon={<BookOpen size={56} />} />
-      <Section background='grey'>
+      <Section>
         <Link href='/bases-locales/temoignages'>
           <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
         </Link>

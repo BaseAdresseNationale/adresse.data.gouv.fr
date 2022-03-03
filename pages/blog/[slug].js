@@ -13,7 +13,7 @@ function SlugPage({post}) {
   return (
     <Page title={post.title}>
       <Head title='Le Blog de L’Adresse' icon={<BookOpen size={56} />} />
-      <Section background='grey'>
+      <Section>
         <Link href='/blog'>
           <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} /> Retour</a>
         </Link>
