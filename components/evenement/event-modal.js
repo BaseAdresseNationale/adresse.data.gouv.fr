@@ -5,19 +5,11 @@ import {XSquare, MapPin} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import {formatTag} from '@/lib/tag'
+
 import ButtonLink from '../button-link'
 import SectionText from '../section-text'
 import Notification from '../notification'
-
-const formatTag = tag => {
-  const cleanTag = tag.trim().replace(/([^a-z\d]|\s+)+/gi, ' ')
-
-  if (cleanTag) {
-    return `#${cleanTag.split(' ').map(word =>
-      word[0].toUpperCase() + word.slice(1, word.length)
-    ).join('')}`
-  }
-}
 
 function EventModal({event, date, isPassed, onClose}) {
   const modalRef = useRef(null)
