@@ -5,11 +5,13 @@ import Link from 'next/link'
 import colors from '@/styles/colors'
 
 function BlogCard({post, onClick}) {
-  const link = onClick ? '/blog/' : '/bases-locales/temoignages/'
+  const link = onClick ? `/blog/${post.slug}` : `/bases-locales/temoignages/${post.slug}`
 
   return (
     <div className='blog-container'>
-      <h4 className='blog-title'>{post.title}</h4>
+      <Link href={link} passHref>
+        <h4 className='blog-title'>{post.title}</h4>
+      </Link>
       <div className='blog-image-container'>
         {post.feature_image && (
           <Image src={post.feature_image} alt={post.title} layout='fill' className='blog-image' />
@@ -19,49 +21,49 @@ function BlogCard({post, onClick}) {
         <p><span>Rédigé par {post.authors[0].name}</span> <span>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</span></p>
       </div>
       <p className='preview'>{post.excerpt}</p>
-      {onClick && (
+      {onClick && post.tags && (
         <div className='blog-tags-container'>
-          {post.tags && (
-            post.tags.map(tag => (
-              <a key={tag.id} onClick={() => onClick(tag.name)}>{tag.name}</a>
-            ))
-          )}
+          {post.tags.map(tag => (
+            <span key={tag.id} onClick={() => onClick(tag.name)}>{tag.name}</span>
+          ))}
         </div>
       )}
       <div className='blog-link-container'>
-        <Link href={`${link}${post.slug}`}>Lire l’article</Link>
+        <Link href={link}>Lire l’article</Link>
       </div>
       <style jsx>{`
         .blog-container {
-          display: grid;
-          grid-template-rows: 50px 150px 30px 1fr auto 0.5fr;
-          text-align: left;
-          margin-top: 3em;
+          display: flex;
+          flex-direction: column;
+          gap: .2em;
         }
 
         .blog-title {
           font-size: 1.2em;
-          margin-bottom: 0.5em;
           display: flex;
-          align-items: flex-end;
+          align-items: flex-start;
+          cursor: pointer;
         }
 
         .blog-image-container {
           position: relative;
+          height: 150px;
           box-shadow: 38px 24px 50px -21px ${colors.lightGrey};
         }
 
         .blog-tags-container {
-          padding: .5em 0;
           display: flex;
           flex-wrap: wrap;
+          gap: 0.2em;
+          margin: .5em 0;
         }
 
-        .blog-tags-container a {
+        .blog-tags-container span {
           background-color: ${colors.lighterBlue};
+          text-decoration: underline;
+          cursor: pointer;
           border-radius: 15px;
           padding: 0px 8px;
-          margin: 3px;
           font-size: .8em;
           font-style: italic;
         }
@@ -69,7 +71,6 @@ function BlogCard({post, onClick}) {
         .infos-container {
           display: flex;
           flex-direction: column;
-          text-align: right;
         }
 
         .infos-container p {
@@ -88,12 +89,8 @@ function BlogCard({post, onClick}) {
         }
 
         .blog-link-container {
-          margin-top: 0.6em;
           color: ${colors.blue};
           text-decoration: underline;
-        }
-
-        .blog-link-container:hover {
           cursor: pointer;
         }
       `}</style>

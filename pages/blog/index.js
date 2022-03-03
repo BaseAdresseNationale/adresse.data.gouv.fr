@@ -53,13 +53,19 @@ function BlogIndex({posts}) {
           <>
             {filters.length > 0 && (
               <div className='tag-infos-container'>
-                <p className='tag-infos'>Liste des articles contenant le mot-clé :</p>
-                {filters.map(filter => (
-                  <span key={filter} className='tag' onClick={() => removeTag(filter)}>
-                    {filter} <X size='15' style={{verticalAlign: 'middle'}} />
-                  </span>
-                ))}
-                <Button onClick={() => resetFilter()} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
+                <div className='tag-infos'>
+                  <span>Liste des articles contenant le mot-clé :</span>
+                  <div className='tags-container'>
+                    <div className='tags-list'>
+                      {filters.map(filter => (
+                        <div key={filter} className='tag' onClick={() => removeTag(filter)}>
+                          {filter} <X size='15' style={{verticalAlign: 'middle'}} />
+                        </div>
+                      ))}
+                    </div>
+                    <Button onClick={() => resetFilter()} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
+                  </div>
+                </div>
               </div>
             )}
             <div className='blog-section'>
@@ -77,20 +83,30 @@ function BlogIndex({posts}) {
       </Section>
       <style jsx>{`
         .blog-section {
-          text-align: center;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-          grid-column-gap: 6em;
+          grid-gap: 3em 5em;
         }
 
         .tag-infos-container {
           border-bottom: 1px solid ${colors.lighterGrey};
-          padding-bottom: .5em;
+        }
+
+        .tags-list {
+          display: flex;
+          flex-flow: wrap;
         }
 
         .tag-infos {
           font-weight: bolder;
           font-size: 1.2em;
+        }
+
+        .tags-container {
+          display: flex;
+          flex-flow: wrap;
+          justify-content: space-between;
+          margin-bottom: .5em;
         }
 
         .tag {
