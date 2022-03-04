@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
-import {orderBy} from 'lodash'
 import {Calendar} from 'react-feather'
 
+import {sortEventsByDate} from '@/lib/date'
 import theme from '@/styles/theme'
 
 import events from '../events.json'
@@ -12,14 +12,6 @@ import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import Event from '@/components/evenement/event'
 import Loader from '@/components/loader'
-
-function sortEventsByDate(events, order) {
-  return orderBy(events, [
-    function (event) {
-      return Date.parse(`${event.date}T${event.startHour}`)
-    },
-  ], [order])
-}
 
 function Evenements() {
   const [isLoading, setIsLoading] = useState(true)
