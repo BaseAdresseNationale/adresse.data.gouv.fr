@@ -18,7 +18,7 @@ function BlogCard({post, onClick}) {
         )}
       </div>
       <div className='infos-container'>
-        <p><span>Rédigé par {post.authors[0].name}</span> <span>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</span></p>
+        <p>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</p>
       </div>
       <p className='preview'>{post.excerpt}</p>
       {onClick && post.tags && (
@@ -78,7 +78,7 @@ function BlogCard({post, onClick}) {
           font-size: 0.8em;
           font-style: italic;
           display: flex;
-          justify-content: space-between;
+          justify-content: end;
           border-bottom: 2px solid ${colors.blue};
         }
 
