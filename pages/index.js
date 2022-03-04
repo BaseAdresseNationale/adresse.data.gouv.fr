@@ -226,7 +226,7 @@ Home.defaultProps = {
 
 Home.propTypes = {
   stats: PropTypes.object.isRequired,
-  posts: PropTypes.object
+  posts: PropTypes.array
 }
 
 export default Home
