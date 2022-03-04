@@ -10,7 +10,7 @@ import Post from '@/components/post'
 
 function SlugPage({post}) {
   return (
-    <Page title={post.title}>
+    <Page title={post.title} description={post.excerpt} image={post.feature_image}>
       <Head title='Témoignages sur les Bases Adresses Locales' icon={<BookOpen size={56} />} />
       <Post {...post} backLink='/bases-locales/temoignages' />
     </Page>
@@ -23,7 +23,9 @@ SlugPage.defaultProps = {
 
 SlugPage.propTypes = {
   post: PropTypes.shape({
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    excerpt: PropTypes.string.isRequired,
+    feature_image: PropTypes.string
   })
 }
 
