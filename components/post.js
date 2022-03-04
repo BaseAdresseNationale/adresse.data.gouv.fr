@@ -15,9 +15,11 @@ function Post({title, published_at, feature_image, html, backLink}) {
       <div className='blog'>
         <h2>{title}</h2>
         <p><i>Publié le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
-        <div className='blog-feature-image-container'>
-          <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
-        </div>
+        {feature_image && (
+          <div className='blog-feature-image-container'>
+            <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
+          </div>
+        )}
         <div className='blog-separator' />
         <div dangerouslySetInnerHTML={{__html: html}} /* eslint-disable-line react/no-danger */ />
         <div className='blog-separator' />
@@ -73,10 +75,14 @@ function Post({title, published_at, feature_image, html, backLink}) {
   )
 }
 
+Post.defaultProps = {
+  feature_image: null
+}
+
 Post.propTypes = {
   title: PropTypes.string.isRequired,
   published_at: PropTypes.string.isRequired,
-  feature_image: PropTypes.string.isRequired,
+  feature_image: PropTypes.string,
   html: PropTypes.string.isRequired,
   backLink: PropTypes.string.isRequired
 }
