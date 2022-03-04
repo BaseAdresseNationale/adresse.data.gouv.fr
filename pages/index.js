@@ -145,35 +145,28 @@ function Home({stats, posts}) {
         </DocDownload>
       </Section>
 
-      <Section title='Témoignages sur les Bases Adresses Locales'>
-        {temoignages ? (
-          <>
-            <Temoignages limit={3} posts={temoignages} />
-            <div className='centered'>
-              <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
-            </div>
+      {temoignages && (
+        <Section title='Témoignages sur les Bases Adresses Locales'>
+          <Temoignages limit={3} posts={temoignages} />
+          <div className='centered'>
+            <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
+          </div>
 
-            <style jsx>{`
-              .centered {
-                margin-top: 5em;
-                display: flex;
-                justify-content: center;
-              }
+          <style jsx>{`
+            .centered {
+              margin-top: 5em;
+              display: flex;
+              justify-content: center;
+            }
 
-              .centered a {
-                text-decoration: none;
-                color: white;
-              }
-            `}
-            </style>
-          </>
-        ) : (
-          <Notification>
-            <h5>Les témoignages sont actuellement inaccessibles</h5>
-            <p><i>Merci de réessayer ulterieurement</i></p>
-          </Notification>
-        )}
-      </Section>
+            .centered a {
+              text-decoration: none;
+              color: white;
+            }
+          `}
+          </style>
+        </Section>
+      )}
 
       <Section title='Découvrez les évènements autour de l’adresse' background='color'>
         <div className='event-section-container'>
