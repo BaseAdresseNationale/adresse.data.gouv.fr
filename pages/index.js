@@ -16,7 +16,6 @@ import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import SocialMedia from '@/components/social-media'
 import CommuneSearch from '@/components/commune/commune-search'
-import Notification from '@/components/notification'
 import EventBanner from '@/components/evenement/event-banner'
 
 function Home({stats, posts}) {
