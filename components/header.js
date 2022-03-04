@@ -11,6 +11,7 @@ const links = [
   {text: 'Guides', href: '/guides'},
   {text: 'API', href: '/api-doc'},
   {text: 'Outils', href: '/outils'},
+  {text: 'Blog', href: '/blog'},
   {text: 'Nous contacter', href: '/nous-contacter'}
 ]
 

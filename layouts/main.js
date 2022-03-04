@@ -11,22 +11,24 @@ class Layout extends React.Component {
     children: PropTypes.node,
     hasFooter: PropTypes.bool,
     title: PropTypes.string,
-    description: PropTypes.string
+    description: PropTypes.string,
+    image: PropTypes.string
   }
 
   static defaultProps = {
     children: null,
     hasFooter: true,
     title: null,
-    description: null
+    description: null,
+    image: null
   }
 
   render() {
-    const {title, description, children, hasFooter} = this.props
+    const {title, description, image, children, hasFooter} = this.props
 
     return (
       <>
-        <Meta title={title} description={description} />
+        <Meta title={title} description={description} image={image} />
         <IEWarning />
         <Header />
         <main>
