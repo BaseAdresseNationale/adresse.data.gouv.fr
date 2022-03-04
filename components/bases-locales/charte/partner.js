@@ -5,15 +5,7 @@ import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-const formatService = service => {
-  if (service.includes('’')) {
-    service = service.replace('’', ' ')
-  }
-
-  return `#${service.split(' ').map(word =>
-    word[0].toUpperCase() + word.slice(1, word.length)
-  ).join('')}`
-}
+import {formatTag} from '@/lib/tag'
 
 function Partner({partnerInfos}) {
   const [isDisplay, setIsDisplay] = useState(false)
@@ -60,7 +52,7 @@ function Partner({partnerInfos}) {
         <div className='services'>
           <div className='title'>Offres de services</div>
           {services.map(service => {
-            return <p key={service}>{formatService(service)}</p>
+            return <p key={service}>{formatTag(service)}</p>
           })}
         </div>
       </div>

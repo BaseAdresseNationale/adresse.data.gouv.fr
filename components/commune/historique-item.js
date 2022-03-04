@@ -5,21 +5,13 @@ import {Circle, Download} from 'react-feather'
 import {getBalUrl} from '@/lib/api-depot'
 
 function HistoriqueItem({balData, communeName}) {
-  const {updatedAt, habilitation, client, current, _id} = balData
+  const {updatedAt, client, current, _id} = balData
 
   const balURL = getBalUrl(_id)
   const date = new Date(updatedAt)
   const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes()}`
 
-  let userName = balData.context.organisation
-
-  if (!userName) {
-    if (habilitation.strategy.type === 'email') {
-      userName = `la mairie de ${communeName}`
-    } else if (habilitation.strategy.type === 'franceconnect') {
-      userName = `un(e) élu(e) de ${communeName}`
-    }
-  }
+  const userName = balData.context?.organisation || `la mairie de ${communeName}`
 
   return (
     <div className='item-container'>
@@ -30,7 +22,7 @@ function HistoriqueItem({balData, communeName}) {
 
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
-        <div>Via <b>{client?.nom ? client.nom : 'non renseigné'}</b></div>
+        <div>Via <b>{client.nom}</b></div>
         <a href={balURL}><Download /></a>
       </div>
 

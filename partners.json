@@ -866,5 +866,45 @@
         "height": 124,
         "width": 220,
         "alt": "Logo du partenaire Communauté d’agglomération de Saint-Quentin-en-Yvelines"
+    },
+    {
+        "name": "Communauté d’agglomération Royan Atlantique",
+        "link": "https://www.agglo-royan.fr/-/bal",
+        "infos": "Dans le cadre d'une prestation de service numérique gratuite pour les communes adhérentes, la CARA propose un service d’accompagnement comprenant la présentation de l’outil mes-adresses.data.gouv, la création et la publication de la BAL, la réalisation de cas concrets et l’assistance aux communes.",
+        "perimeter": "Communes de la Communauté d’Agglomération Royan Atlantique",
+        "codeDepartement": [
+            "17"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique"
+        ],
+        "picture": "/images/logos/partners/royan.png",
+        "height": 124,
+        "width": 221,
+        "alt": "Logo du partenaire Communauté d’agglomération Royan Atlantique"
+    },
+    {
+        "name": "Adress' & Vous",
+        "link": "https://clementvienne.wixsite.com/website/fiabilisation-de-l-adresse",
+        "infos": "Prestation complète de fiabilisation de l’adresse ou un simple accompagnement. Travail préalable de cartographie, dénomination des voies, relevés de terrain pour la numérotation des bâtiments, création de la base de données, consultations des entreprises pour la signalétique, suivi des travaux. Assistance lors de la communication auprès des administrés et transmission à la Base Adresse Nationale ainsi qu’aux organismes compétents.",
+        "perimeter": "Gironde et Ouest de la Dordogne.",
+        "codeDepartement": [
+            "33",
+            "24"
+        ],
+        "echelon": 2,
+        "isPermimeterFrance": false,
+        "isCompany": true,
+        "services": [
+            "accompagnement technique",
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/adress&vous.jpg",
+        "height": 114,
+        "width": 290,
+        "alt": "Logo du partenaire Adress' & Vous"
     }
 ]

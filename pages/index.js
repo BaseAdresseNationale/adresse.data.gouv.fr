@@ -175,6 +175,32 @@ function Home({stats, posts}) {
         )}
       </Section>
 
+      <Section title='Découvrez les évènements autour de l’adresse' background='color'>
+        <div className='event-section-container'>
+          <div className='event-illustration'>
+            <Image src='/images/event-illustration.svg' layout='responsive' height={400} width={400} />
+          </div>
+          <SectionText color='secondary'>
+            Que vous soyez maire ou élu, agent municipal, géomaticien, producteur ou utilisateur... vous pouvez consulter la page exposant les événements autour de l’adresse et vous inscrire à ceux adaptés à vos besoins.          </SectionText>
+          <ButtonLink href='/evenements' isOutlined color='white'>Découvrir les différents évènements</ButtonLink>
+        </div>
+
+        <style jsx>{`
+          .event-section-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3em;
+            margin-top: 3em;
+          }
+
+          .event-illustration {
+            min-width: 290px;
+            max-width: 400px;
+          }
+        `}</style>
+      </Section>
+
       <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
         <SocialMedia />
       </Section>
