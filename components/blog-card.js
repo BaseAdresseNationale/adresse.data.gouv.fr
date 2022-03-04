@@ -13,9 +13,7 @@ function BlogCard({post, onClick}) {
         <h4 className='blog-title'>{post.title}</h4>
       </Link>
       <div className='blog-image-container'>
-        {post.feature_image && (
-          <Image src={post.feature_image} alt={post.title} layout='fill' className='blog-image' />
-        )}
+        <Image src={post.feature_image} alt={post.title} layout='fill' objectFit='cover' />
       </div>
       <div className='infos-container'>
         <p>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</p>
@@ -109,7 +107,7 @@ BlogCard.defaultProps = {
 BlogCard.propTypes = {
   post: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    feature_image: PropTypes.string,
+    feature_image: PropTypes.string.isRequired,
     authors: PropTypes.array.isRequired,
     published_at: PropTypes.string.isRequired,
     excerpt: PropTypes.string.isRequired,

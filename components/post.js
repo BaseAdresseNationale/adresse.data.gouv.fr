@@ -16,7 +16,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
         <h2>{title}</h2>
         <p><i>Publié le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
         <div className='blog-feature-image-container'>
-          <Image src={feature_image} layout='fill' className='blog-feature-image' />
+          <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
         </div>
         <div className='blog-separator' />
         <div dangerouslySetInnerHTML={{__html: html}} /* eslint-disable-line react/no-danger */ />
@@ -50,7 +50,6 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
         .blog-image, .blog-feature-image {
           border-radius: 4px;
-          object-fit: cover;
         }
 
         .blog-separator {

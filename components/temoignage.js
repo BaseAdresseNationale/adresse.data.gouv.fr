@@ -11,7 +11,7 @@ function Temoignage({testimony}) {
     <div className='temoignage-container'>
       <h4 className='temoignage-title'>{title}</h4>
       <div className='temoignage-image-container'>
-        <Image src={picture} alt={alt} layout='fill' className='temoignage-image' />
+        <Image src={picture} alt={alt} layout='fill' objectFit='cover' className='temoignage-image' />
       </div>
       <div className='date-container'>
         <p>Le {localDate}</p>
@@ -25,7 +25,6 @@ function Temoignage({testimony}) {
       <style global jsx>{` // Issue en cours sur GH NextJS : impossible de passer la classe d'un composant Image en dehors d'une balise style jsx globale ===> https://github.com/vercel/next.js/issues/18585
         .temoignage-image {
           border-radius: 4px;
-          object-fit: cover;
         }
       `}</style>
 
