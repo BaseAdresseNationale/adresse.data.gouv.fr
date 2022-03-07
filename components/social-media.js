@@ -14,7 +14,7 @@ function SocialMedia() {
   return (
     <>
       <div className='socials'>
-        <Link href='https://blog.geo.data.gouv.fr/'>
+        <Link href='/blog'>
           <a>
             <Image src='/images/logos/blog.svg' height={88} width={88} alt='Blog' />
             <div>En lisant notre blog</div>
