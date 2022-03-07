@@ -21,12 +21,10 @@ function SocialMedia() {
           </a>
         </Link>
 
-        <Link href='https://twitter.com/adressedatagouv?lang=fr'>
-          <a>
-            <Image src='/images/logos/twitter.svg' height={88} width={88} alt='Twitter' />
-            <div>Sur notre fil Twitter</div>
-          </a>
-        </Link>
+        <a href='https://twitter.com/adressedatagouv?lang=fr'>
+          <Image src='/images/logos/twitter.svg' height={88} width={88} alt='Twitter' />
+          <div>Sur notre fil Twitter</div>
+        </a>
 
         <div onClick={handleNewsletter} className='newsletter'>
           <Image src='/images/logos/newsletter.svg' height={88} width={88} alt='Newsletter' />
