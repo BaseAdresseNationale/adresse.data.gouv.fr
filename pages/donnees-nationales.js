@@ -45,22 +45,30 @@ function DonneesNatioales() {
         </div>
       </Section>
 
-      <Section background='grey' title='Flux de données'>
+      <Section background='grey' title='Services cartographiques'>
         <div className='card-container'>
           <Card
-            action='URL'
-            title='Format WMS Vecteur'
-            link='https://wxs.ign.fr/adresse/geoportail/v/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities'
-            description='Flux WMS Vecteur (OGC) des adresses ponctuelles BAN'
-            list={['Couche BAN.DATA.GOUV', '1 position par adresse']}
+            action='Documentation'
+            title='Format WFS'
+            link='https://geoservices.ign.fr/services-web-experts-adresse'
+            description='Visualisation cartographique des adresses BAN en WFS'
+            list={['MAJ : Hebdomadaire', 'Nom couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
           />
 
           <Card
-            action='URL'
-            title='Format WFS'
-            link='https://wxs.ign.fr/adresse/geoportail/wfs?SERVICE=WFS&VERSION=1.3.0&REQUEST=GetCapabilities'
-            description='Flux WFS (OGC) des adresses ponctuelles BAN'
-            list={['Couche BAN.DATA.GOUV:ban', '1 position par adresse']}
+            action='Documentation'
+            title='Format WMS'
+            link='https://geoservices.ign.fr/services-web-experts-adresse'
+            description='Visualisation cartographique des adresses BAN en WMS'
+            list={['MAJ : Hebdomadaire', 'Nom couche : BAN.DATA.GOUV', '1 position par adresse']}
+          />
+
+          <Card
+            action='Documentation'
+            title='Format Mapbox Vector Tiles (MVT)'
+            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Documentation-API-de-consultation-BAN'
+            description='Visualisation cartographique des adresses BAN en tuiles vectorielles'
+            list={['MAJ : temps réel', '1 position par adresse']}
           />
 
         </div>
