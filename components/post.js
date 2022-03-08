@@ -70,6 +70,78 @@ function Post({title, published_at, feature_image, html, backLink}) {
         .blog figure.kg-card {
           text-align: center;
         }
+
+        .kg-bookmark-card {
+          position: relative;
+          width: 85%;
+          margin: 1em auto;
+        }
+
+        .kg-bookmark-card a.kg-bookmark-container {
+          display: flex;
+          text-decoration: none;
+          border-radius: 3px;
+          border: 1px solid rgb(124 139 154/25%);
+          overflow: hidden;
+          color: inherit;
+          text-align: left;
+        }
+
+        .kg-bookmark-content {
+          display: flex;
+          flex-direction: column;
+          flex-grow: 1;
+          flex-basis: 100%;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding: 20px;
+          overflow: hidden;
+        }
+
+        .kg-bookmark-thumbnail {
+          position: relative;
+          flex-grow: 1;
+          min-width: 33%;
+        }
+
+        .kg-bookmark-title {
+          font-size: 1.5 em;
+          line-height: 1.4 em;
+          font-weight: 600;
+        }
+
+        .kg-bookmark-description {
+          margin-top: 3px;
+          font-size: 14px;
+          max-height: 55px;
+          overflow-y: hidden;
+          opacity: .7;
+        }
+
+        .kg-bookmark-metadata {
+          display: flex;
+          align-items: center;
+          margin-top: 22px;
+          width: 100%;
+          font-weight: 500;
+          word-break: break-word;
+        }
+
+        .kg-bookmark-icon {
+          width: 20px;
+          height: 20px;
+          margin-right: 6px;
+        }
+
+        .kg-bookmark-thumbnail img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-radius: 0 2px 2px 0;
+        }
         `}</style>
     </Section>
   )
