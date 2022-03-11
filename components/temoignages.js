@@ -1,31 +1,22 @@
-import testimonies from 'temoignages.json'
 import PropTypes from 'prop-types'
 
-import Temoignage from '@/components/temoignage'
+import BlogCard from '@/components/blog-card'
 
-function Temoignages({limit}) {
-  const sortByDate = (a, b) => {
-    if (a.date === b.date) {
-      return 0
-    }
-
-    return a.date < b.date ? 1 : -1
-  }
-
-  const sortedTestimonies = limit ? testimonies.sort(sortByDate).slice(0, limit) : testimonies.sort(sortByDate)
+function Temoignages({limit, posts}) {
+  const sortedTestimonies = limit ? posts.slice(0, limit) : posts
 
   return (
     <div className='temoignages-section'>
       {sortedTestimonies.map(testimony => (
-        <Temoignage key={testimony.title} testimony={testimony} />
+        <BlogCard key={testimony.id} post={testimony} />
       ))}
 
       <style jsx>{`
           .temoignages-section {
-            text-align: center;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            grid-column-gap: 6em;
+            grid-gap: 3em 5em;
+            margin-top: 4em;
           }
         `}</style>
     </div>
@@ -33,10 +24,12 @@ function Temoignages({limit}) {
 }
 
 Temoignages.propTypes = {
-  limit: PropTypes.number
+  limit: PropTypes.number,
+  posts: PropTypes.array.isRequired
 }
 
 Temoignages.defaultProps = {
   limit: null
 }
+
 export default Temoignages

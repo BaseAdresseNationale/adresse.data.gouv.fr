@@ -2,6 +2,7 @@
 import {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import Page from '@/layouts/main'
 
@@ -138,7 +139,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
         {commune && (
           <div className='commune-infos'>
             <Image src='/images/icons/commune.svg' height={60} width={60} />
-            <div>{commune.nom} - {commune.code}</div>
+            <Link href={`/commune/${commune.code}`} passHref><div>{commune.nom} - {commune.code}</div></Link>
           </div>
         )}
 
@@ -209,6 +210,8 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
           font-weight: bold;
           font-size: 24px;
           text-align: center;
+          text-decoration: underline;
+          cursor: pointer;
         }
 
         .loading {

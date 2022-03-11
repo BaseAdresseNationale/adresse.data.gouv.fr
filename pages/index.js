@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
-import {ExternalLink} from 'react-feather'
 
 import {getStats} from '@/lib/api-ban'
+import {getPosts} from '@/lib/blog'
 
 import theme from '@/styles/theme'
 import Page from '@/layouts/main'
@@ -16,37 +16,14 @@ import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
 import SocialMedia from '@/components/social-media'
 import CommuneSearch from '@/components/commune/commune-search'
+import EventBanner from '@/components/evenement/event-banner'
 
-function Home({stats}) {
+function Home({stats, posts}) {
+  const temoignages = posts?.filter(post => post.tags.some(tag => tag.name === 'témoignage'))
+
   return (
     <Page>
-      <div className='bandeau'>
-        <b>📅 &nbsp; À vos agendas ! </b>
-        <a href='https://www.eventbrite.fr/e/billets-adresse-lab1-269490381987'>
-          L’équipe BAN vous invite à participer au premier Adresse Lab qui se tiendra en ligne le 10 Mars 2022 de 10h30 à 12h.
-          <ExternalLink style={{marginLeft: 5}} size={16} />
-        </a>
-
-        <style jsx>{`
-          .bandeau {
-            background: ${theme.primary};
-            text-align: center;
-            padding: .5em;
-            color: ${theme.colors.white};
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-
-          .bandeau a {
-            color: ${theme.colors.white};
-          }
-
-          .bandeau a:hover {
-            color: ${theme.primary};
-          }
-        `}</style>
-      </div>
+      <EventBanner />
 
       <Hero
         title='Le site national des adresses'
@@ -141,26 +118,28 @@ function Home({stats}) {
         </DocDownload>
       </Section>
 
-      <Section title='Témoignages sur les Bases Adresses Locales'>
-        <Temoignages limit={3} />
-        <div className='centered'>
-          <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
-        </div>
+      {temoignages && (
+        <Section title='Témoignages sur les Bases Adresses Locales'>
+          <Temoignages limit={3} posts={temoignages} />
+          <div className='centered'>
+            <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
+          </div>
 
-        <style jsx>{`
-          .centered {
-            margin-top: 5em;
-            display: flex;
-            justify-content: center;
-          }
+          <style jsx>{`
+            .centered {
+              margin-top: 5em;
+              display: flex;
+              justify-content: center;
+            }
 
-          .centered a {
-            text-decoration: none;
-            color: white;
-          }
-        `}
-        </style>
-      </Section>
+            .centered a {
+              text-decoration: none;
+              color: white;
+            }
+          `}
+          </style>
+        </Section>
+      )}
 
       <Section title='Découvrez les évènements autour de l’adresse' background='color'>
         <div className='event-section-container'>
@@ -195,22 +174,25 @@ function Home({stats}) {
   )
 }
 
-Home.getInitialProps = async () => {
-  try {
-    return {
-      stats: await getStats()
-    }
-  } catch (error) {
-    console.log('Erreur lors de la récupération des stats BAN:', error)
-  }
+export async function getServerSideProps() {
+  const stats = await getStats()
+  const posts = await getPosts()
 
   return {
-    stats: null
+    props: {
+      stats,
+      posts
+    }
   }
 }
 
+Home.defaultProps = {
+  posts: null
+}
+
 Home.propTypes = {
-  stats: PropTypes.object.isRequired
+  stats: PropTypes.object.isRequired,
+  posts: PropTypes.array
 }
 
 export default Home

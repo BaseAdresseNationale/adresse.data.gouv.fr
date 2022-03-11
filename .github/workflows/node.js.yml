@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE: ghost.adresse.data.gouv.fr
+
 jobs:
   build:
 
