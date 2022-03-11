@@ -52,7 +52,7 @@ function DonneesNatioales() {
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
             description='Visualisation cartographique des adresses BAN en WFS'
-            list={['MAJ : Hebdomadaire', 'Nom couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
+            list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
           />
 
           <Card
@@ -60,15 +60,15 @@ function DonneesNatioales() {
             title='Format WMS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
             description='Visualisation cartographique des adresses BAN en WMS'
-            list={['MAJ : Hebdomadaire', 'Nom couche : BAN.DATA.GOUV', '1 position par adresse']}
+            list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
           />
 
           <Card
             action='Documentation'
-            title='Format Mapbox Vector Tiles (MVT)'
-            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Documentation-API-de-consultation-BAN'
+            title='Format MVT (tuiles vectorielles)'
+            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
             description='Visualisation cartographique des adresses BAN en tuiles vectorielles'
-            list={['MAJ : temps réel', '1 position par adresse']}
+            list={['Mise à jour en temps réel', '1 position par adresse']}
           />
 
         </div>
