@@ -45,6 +45,35 @@ function DonneesNatioales() {
         </div>
       </Section>
 
+      <Section background='grey' title='Services cartographiques'>
+        <div className='card-container'>
+          <Card
+            action='Documentation'
+            title='Format WFS'
+            link='https://geoservices.ign.fr/services-web-experts-adresse'
+            description='Visualisation cartographique des adresses BAN en WFS'
+            list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
+          />
+
+          <Card
+            action='Documentation'
+            title='Format WMS'
+            link='https://geoservices.ign.fr/services-web-experts-adresse'
+            description='Visualisation cartographique des adresses BAN en WMS'
+            list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
+          />
+
+          <Card
+            action='Documentation'
+            title='Format MVT (tuiles vectorielles)'
+            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
+            description='Visualisation cartographique des adresses BAN en tuiles vectorielles'
+            list={['Mise à jour en temps réel', '1 position par adresse']}
+          />
+
+        </div>
+      </Section>
+
       <Section title='Comment est construite la Base Adresse Nationale ?' background='color'>
 
         <SectionText color='secondary'>
