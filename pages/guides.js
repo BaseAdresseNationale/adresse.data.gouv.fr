@@ -63,7 +63,7 @@ function Guides() {
         <DocDownload
           id='guide-adressage'
           title='Le guide de Mes Adresses'
-          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v5.0.pdf'
+          link='https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/files/8234720/20220311.Guide.Mes.Adresses.5.1.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
           alt='miniature du guide Mes Adresses'
         >
@@ -80,7 +80,7 @@ function Guides() {
           isReverse
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
-          link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v3.0.pdf'
+          link='https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/files/8234717/20220311.Bonnes.pratiques.de.l.adresse.3.1.pdf'
         >
           <SectionText>
             <p>
