@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import {Doughnut} from 'react-chartjs-2'
+import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
@@ -39,6 +40,63 @@ const options = {
 function Statistics({nbNumeros, nbNumerosCertifies}) {
   const certifiedPercent = (nbNumerosCertifies / nbNumeros) * 100
   const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent))
+
+  if (certifiedPercent === 100) {
+    return (
+      <div className='statistiques-container'>
+        <div>
+          <Image src='/images/icons/check.svg' height={150} width={150} />
+          <p className='percent'><b>100%</b> des adresses de la commune sont certifiées</p>
+        </div>
+
+        <div className='addresses-number'>
+          <div className='certified-number'>{nbNumerosCertifies}</div>
+          adresses certifiées au total
+        </div>
+
+        <style jsx>{`
+          .statistiques-container {
+            text-align: center;
+            background: ${theme.colors.white};
+            color: ${theme.darkText};
+            border-radius: 8px;
+            padding: 2em;
+            gap: 1em;
+            margin: 3em 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+          }
+
+          .percent {
+            font-size: x-large;
+            margin: 0;
+            padding: 1em 0 .5em 0;
+            border-bottom: solid 3px ${theme.border};
+          }
+
+          .percent b {
+            color: ${theme.primary};
+          }
+
+          .addresses-number {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            font-weight: bold;
+            font-size: x-large;
+          }
+
+          .certified-number {
+            font-size: xxx-large;
+            color: ${theme.primary};
+            font-weight: bold;
+          }
+        `}</style>
+      </div>
+    )
+  }
+
   return (
     <div className='bal-state-wrapper'>
       <div className='statistiques-container'>
@@ -61,7 +119,7 @@ function Statistics({nbNumeros, nbNumerosCertifies}) {
       </div>
 
       <style jsx>{`
-      .bal-state-wrapper {
+        .bal-state-wrapper {
           margin: 3em 0;
         }
 
