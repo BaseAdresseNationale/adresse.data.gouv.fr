@@ -12,7 +12,7 @@ import ButtonLink from '@/components/button-link'
 function Guides() {
   return (
     <Page>
-      <Head title='Guides de l’adressage' icon={<Book size={56} />} />
+      <Head title='Ressources autour de l’adressage' icon={<Book size={56} />} />
       <Section>
         <SectionText>
           <p>
