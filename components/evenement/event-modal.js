@@ -14,7 +14,7 @@ import Notification from '../notification'
 function EventModal({event, date, isPassed, onClose}) {
   const modalRef = useRef(null)
 
-  const {title, address, description, href, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
+  const {title, subtitle, address, description, href, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = address
 
   useEffect(() => {
@@ -71,9 +71,12 @@ function EventModal({event, date, isPassed, onClose}) {
             )}
           </div>
           <div className='right-content'>
-            <div className='title-container'>
+            <div className='head-container'>
               <Image src={`/images/icons/event-${type}.svg`} height={60} width={60} />
-              <div className='right-title'>{title}</div>
+              <div className='title-container'>
+                <div className='right-title'>{title}</div>
+                <div>{subtitle}</div>
+              </div>
             </div>
             <SectionText>{description}</SectionText>
             <Notification><div className='target'>Cet événement est à destination {target ? `des ${target}` : 'de tous'}.</div></Notification>
@@ -164,12 +167,23 @@ function EventModal({event, date, isPassed, onClose}) {
           font-size: 2em;
         }
 
-        .title-container {
+        .head-container {
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 1em;
           flex-wrap: wrap;
+        }
+
+        .title-container {
+          text-align: ${subtitle ? 'start' : 'center'};
+          line-height: ${subtitle ? '30' : '35'}px;
+        }
+
+        .title-container div:nth-child(2) {
+          font-size: 18px;
+          margin-top: 10px;
+          font-style: italic;
         }
 
         .tags {
@@ -207,6 +221,7 @@ function EventModal({event, date, isPassed, onClose}) {
 EventModal.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
     address: PropTypes.object.isRequired,
     description: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
