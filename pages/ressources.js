@@ -22,6 +22,7 @@ function Guides() {
             Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.
           </p>
           <p>La <b>documentation</b> présente la Base Adresse Nationale, les formats d’adresse ainsi que les services et outils accessibles sur le site.</p>
+          <p>La <b>F.A.Q</b> répond aux questions les plus courantes, posées lors des <b>webinaires</b> par les acteurs de la commune.</p>
           <p>
             Pour être tenu informé des mises à jour ou suggérer des évolutions, n’hésitez-pas à <Link href='/nous-contacter'>nous contacter</Link>.
           </p>
