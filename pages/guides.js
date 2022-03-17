@@ -106,6 +106,33 @@ function Guides() {
         </DocDownload>
       </Section>
 
+      <Section background='color' title='F.A.Q'>
+        <div className='faq-container'>
+          <div className='icon-container'>
+            <Image src='/images/icons/faq.svg' height={190} width={190} />
+          </div>
+          <SectionText color='secondary'>
+            Vous vous posez des questions sur <b>la création de votre Base Adresse Locale</b> et sur <b>la gestion de vos adresses</b> ? Certaines disposent déjà d’une réponse !<br />
+            Cette <b>FAQ</b> est alimentée par les échanges avec <b>les élus et agents des communes</b> compilés dans les tchats des <b>webinaires</b> des communes.
+          </SectionText>
+
+          <ButtonLink href='https://adresse-data-gouv-fr.gitbook.io/faq/' isExternal color='white' isOutlined>Accéder à la FAQ</ButtonLink>
+        </div>
+
+        <style jsx>{`
+          .faq-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2em;
+          }
+
+          .icon-container {
+            margin-top: 2em;
+          }
+        `}</style>
+      </Section>
+
       <Section background='grey' title='En partenariat avec : '>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <Image width={190} height={80} src='/images/logos/logo_ANCT.svg' alt='logo ANCT' />
