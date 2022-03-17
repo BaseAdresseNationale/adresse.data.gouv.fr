@@ -37,7 +37,7 @@ function Contact() {
                 Vous pouvez en quelques clics créer la Base Adresse Locale de votre commune, y apporter des modifications, et publier les changements pour que ceux-ci soient pris en compte par un maximum d’acteurs.
                 La prise en main est très simple, et ne nécessite pas de compétences informatiques particulières.
               </p>
-              <ButtonLink target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr/' isExternal>Créer une Base Adresse Locale</ButtonLink>
+              <ButtonLink href='/gerer-mes-adresses'>Gérer mes adresses</ButtonLink>
             </div>
           </Question>
         </div>
