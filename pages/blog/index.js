@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 import {Book, X} from 'react-feather'
 
-import {getPosts} from '../../lib/blog'
+import {getPosts, getTags} from '../../lib/blog'
 
 import colors from '@/styles/colors'
 
@@ -16,7 +16,8 @@ import Pagination from '@/components/blog-pagination'
 
 function BlogIndex({posts, pagination, tags, tagsList}) {
   const router = useRouter()
-  const [filteredPosts, setFilteredPosts] = useState(posts)
+  // Display tag.name instead of tag.slug in tag list
+  const getTagName = tag => tagsList.find(t => t.slug === tag).name
 
   const addTag = tag => {
     if (!tags.includes(tag.slug)) {
@@ -50,7 +51,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
                     <div className='tags-list'>
                       {tags.map(tag => (
                         <div key={tag} className='tag' onClick={() => removeTag(tag)}>
-                          {tag} <X size='15' style={{verticalAlign: 'middle'}} />
+                          {getTagName(tag)} <X size='15' style={{verticalAlign: 'middle'}} />
                         </div>
                       ))}
                     </div>
