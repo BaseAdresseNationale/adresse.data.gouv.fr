@@ -72,10 +72,23 @@ function Post({title, published_at, feature_image, html, backLink}) {
           text-align: center;
         }
 
-        .kg-bookmark-card {
+        .kg-bookmark-card, .kg-callout-card {
           position: relative;
           width: 85%;
           margin: 1em auto;
+        }
+
+        .kg-callout-card {
+          width: 100%;
+          display: flex;
+          background-color: ${colors.lighterBlue};
+          padding: 1.2em;
+          border-radius: 3px;
+          font-size: 1.3rem;
+        }
+
+        .kg-callout-emoji {
+          margin-right: .5em;
         }
 
         .kg-bookmark-card a.kg-bookmark-container {
