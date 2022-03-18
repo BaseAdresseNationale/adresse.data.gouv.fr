@@ -8,7 +8,7 @@ import HamburgerMenu from './hamburger-menu'
 const links = [
   {text: 'Données nationales', href: '/donnees-nationales'},
   {text: 'Contribuer', href: '/contribuer'},
-  {text: 'Guides', href: '/guides'},
+  {text: 'Ressources', href: '/ressources'},
   {text: 'API', href: '/api-doc'},
   {text: 'Outils', href: '/outils'},
   {text: 'Blog', href: '/blog'},
