@@ -40,7 +40,7 @@ function EventBanner() {
           return (
             <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
               <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
-              <div>{event.subtitle}</div>
+              {event.subtitle && <div>{event.subtitle}</div>}
               <div className='date'>le {sanitizedDate}</div>
             </li>
           )
