@@ -144,6 +144,25 @@ function Post({title, published_at, feature_image, html, backLink}) {
           border-radius: 0 2px 2px 0;
         }
 
+        .kg-gallery-row {
+          contain: content;
+          display: grid;
+          grid-gap: .5em;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .kg-gallery-image img {
+          width: auto;
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          margin: auto;
+        }
+
+        .kg-align-center {
+          text-align: center;
+        }
+
         .kg-button-card a {
           color: white;
           background-color: ${colors.blue};
