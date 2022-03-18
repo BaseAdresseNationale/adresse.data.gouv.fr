@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
 import {ArrowLeftCircle} from 'react-feather'
+import colors from  '@/styles/colors'
 
 import Section from '@/components/section'
 
@@ -141,6 +142,19 @@ function Post({title, published_at, feature_image, html, backLink}) {
           top: 0;
           left: 0;
           border-radius: 0 2px 2px 0;
+        }
+
+        .kg-button-card a {
+          color: white;
+          background-color: ${colors.blue};
+          border-radius: 5px;
+          font-weight: 1em;
+          padding: .5em 1.2em;
+          height: 2.4em;
+          line-height: 1em;
+          margin: auto;
+          text-decoration: none;
+          transition: all .2s ease;
         }
         `}</style>
     </Section>
