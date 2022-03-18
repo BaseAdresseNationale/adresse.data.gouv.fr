@@ -40,6 +40,7 @@ function EventBanner() {
           return (
             <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
               <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
+              {event.subtitle && <div>{event.subtitle}</div>}
               <div className='date'>le {sanitizedDate}</div>
             </li>
           )
@@ -71,6 +72,10 @@ function EventBanner() {
           padding: 5px;
           text-align: center;
           overflow: hidden;
+          display: grid;
+          grid-template-rows: auto 60px auto;
+          height: 165px;
+          align-items: center;
         }
 
         .banner-title {
@@ -97,10 +102,11 @@ function EventBanner() {
         .event-link {
           font-size: 16px;
           font-weight: bold;
+          text-align: center;
         }
 
         .date {
-          font-style: italic
+          font-style: italic;
         }
 
         @keyframes fadeIn {
