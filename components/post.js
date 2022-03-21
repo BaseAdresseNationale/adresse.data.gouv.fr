@@ -10,7 +10,14 @@ import Section from '@/components/section'
 function Post({title, published_at, feature_image, html, backLink}) {
   useEffect(() => {
     if (html) {
+      const videoPlayer = [...document.querySelectorAll('video')]
       const dropdownDiv = [...document.querySelectorAll('div.kg-card.kg-toggle-card')]
+
+      if (videoPlayer) {
+        videoPlayer.forEach(m => {
+          m.setAttribute('controls', true)
+        })
+      }
 
       if (dropdownDiv) {
         dropdownDiv.forEach(d => {
@@ -258,6 +265,35 @@ function Post({title, published_at, feature_image, html, backLink}) {
           opacity: 0;
           top: -.5em;
           position: relative;
+        }
+
+        .kg-video-overlay {
+          display: none;
+        }
+
+        .kg-video-container video {
+          width: 100%;
+          height: 100%;
+        }
+
+        video {
+          controls: true;
+        }
+
+        .kg-video-large-play-icon, .kg-video-player {
+          display: none;
+        }
+
+        .kg-video-player-container {
+          display: none;
+        }
+
+        .kg-video-player {
+          display: none;
+        }
+
+        .kg-video-play-icon svg {
+          display: none;
         }
         `}</style>
     </Section>
