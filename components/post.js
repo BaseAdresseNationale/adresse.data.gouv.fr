@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
 import {ArrowLeftCircle} from 'react-feather'
-import colors from  '@/styles/colors'
+import colors from '@/styles/colors'
 
 import Section from '@/components/section'
 
@@ -14,18 +14,21 @@ function Post({title, published_at, feature_image, html, backLink}) {
       const videoPlayer = [...document.querySelectorAll('video')]
       const dropdownDiv = [...document.querySelectorAll('div.kg-card.kg-toggle-card')]
 
+      // Add controls to Vidéo player
       if (videoPlayer) {
-        videoPlayer.forEach(m => {
-          m.setAttribute('controls', true)
+        videoPlayer.forEach(v => {
+          v.setAttribute('controls', true)
         })
       }
 
+      // Add controls to Audio player
       if (audioPlayer) {
         audioPlayer.forEach(a => {
           a.setAttribute('controls', true)
         })
       }
 
+      // Add onClick event on Toggle
       if (dropdownDiv) {
         dropdownDiv.forEach(d => {
           d.addEventListener('click', () => {
@@ -77,7 +80,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           box-shadow: 38px 24px 50px -21px lightGrey;
         }
 
-        .kg-image-card img {
+        .kg-image-card img,
+        .kg-product-card img {
           width: auto;
           max-width: 100%;
           height: auto;
@@ -86,7 +90,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           box-shadow: 38px 24px 50px -21px #C9D3DF;
         }
 
-        .blog-image, .blog-feature-image {
+        .blog-image,
+        .blog-feature-image {
           border-radius: 4px;
         }
 
@@ -107,11 +112,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
           text-align: center;
         }
 
-        .kg-bookmark-card, .kg-callout-card {
-          position: relative;
-          width: 85%;
-          margin: 1em auto;
-        }
+      {/***** Callout Block *****/}
 
         .kg-callout-card {
           width: 100%;
@@ -120,10 +121,19 @@ function Post({title, published_at, feature_image, html, backLink}) {
           padding: 1.2em;
           border-radius: 3px;
           font-size: 1.3rem;
+          margin: 1em auto;
         }
 
         .kg-callout-emoji {
           margin-right: .5em;
+        }
+
+      {/***** Bookmark Block *****/}
+
+        .kg-bookmark-card {
+          position: relative;
+          width: 85%;
+          margin: 1em auto;
         }
 
         .kg-bookmark-card a.kg-bookmark-container {
@@ -151,12 +161,6 @@ function Post({title, published_at, feature_image, html, backLink}) {
           position: relative;
           flex-grow: 1;
           min-width: 33%;
-        }
-
-        .kg-bookmark-title {
-          font-size: 1.5 em;
-          line-height: 1.4 em;
-          font-weight: 600;
         }
 
         .kg-bookmark-description {
@@ -192,6 +196,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           border-radius: 0 2px 2px 0;
         }
 
+      {/***** Gallery Block *****/}
+
         .kg-gallery-row {
           contain: content;
           display: grid;
@@ -206,6 +212,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           border-radius: 8px;
           margin: auto;
         }
+
+      {/***** Button Block *****/}
 
         .kg-align-center {
           text-align: center;
@@ -223,6 +231,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           text-decoration: none;
           transition: all .2s ease;
         }
+
+      {/***** Toggle Block *****/}
 
         .kg-toggle-card {
           background: 0 0;
@@ -248,11 +258,6 @@ function Post({title, published_at, feature_image, html, backLink}) {
           border: none;
         }
 
-        .kg-toggle-card-icon svg {
-          height: 24px;
-          width: 24px;
-        }
-
         .toggled {
           transform: rotate(180deg);
         }
@@ -274,34 +279,14 @@ function Post({title, published_at, feature_image, html, backLink}) {
           position: relative;
         }
 
-        .kg-video-overlay {
-          display: none;
-        }
+      {/***** Video Block *****/}
 
         .kg-video-container video {
           width: 100%;
           height: 100%;
         }
 
-        video {
-          controls: true;
-        }
-
-        .kg-video-large-play-icon, .kg-video-player {
-          display: none;
-        }
-
-        .kg-video-player-container {
-          display: none;
-        }
-
-        .kg-video-player {
-          display: none;
-        }
-
-        .kg-video-play-icon svg {
-          display: none;
-        }
+      {/***** Audio Block *****/}
 
         .kg-audio-card {
           display: flex;
@@ -324,14 +309,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
           border-radius: 5px;
         }
 
-        .kg-audio-title, .kg-file-card-title {
-          padding: .5em;
-          font-size: 1.3em;
-        }
-
-        .kg-audio-player, .kg-audio-thumbnail {
-          display: none;
-        }
+      {/***** File Block *****/}
 
         .kg-file-card-container {
           display: flex;
@@ -365,11 +343,6 @@ function Post({title, published_at, feature_image, html, backLink}) {
           margin-left: 1em;
         }
 
-        .kg-file-card-icon svg {
-          height: 24px;
-          width: 24px;
-        }
-
         .kg-file-card-icon {
           position: relative;
           display: flex;
@@ -379,6 +352,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           min-width: 80px;
           background-color: ${colors.lighterGrey}
         }
+
+      {/***** Header Block *****/}
 
         .kg-header-card {
           padding: 4em;
@@ -390,6 +365,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
           color: white;
           margin-bottom: 1em;
         }
+
+      {/***** Product Block *****/}
 
         .kg-product-card {
           display: flex;
@@ -406,6 +383,38 @@ function Post({title, published_at, feature_image, html, backLink}) {
           border-radius: 5px;
           box-shadow: inset 0 0 0 1px rgb(124 139 154/25%);
           margin-bottom: 1em;
+        }
+
+      {/***** Card Titles *****/}
+
+        .kg-bookmark-title,
+        .kg-audio-title,
+        .kg-file-card-title {
+          color: #111;
+          font-size: 1.5em;
+          line-height: 1.4em;
+          font-weight: 600;
+          padding: .5em;
+        }
+
+      {/***** Hidden Elements *****/}
+
+        .kg-audio-player,
+        .kg-audio-thumbnail,
+        .kg-video-overlay,
+        .kg-video-large-play-icon,
+        .kg-video-player,
+        .kg-video-player-container,
+        .kg-video-play-icon svg {
+          display: none;
+        }
+
+      {/***** Icons *****/}
+
+        .kg-toggle-card-icon svg,
+        .kg-file-card-icon svg {
+          height: 24px;
+          width: 24px;
         }
         `}</style>
     </Section>
