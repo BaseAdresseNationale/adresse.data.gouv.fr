@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,6 +8,26 @@ import colors from  '@/styles/colors'
 import Section from '@/components/section'
 
 function Post({title, published_at, feature_image, html, backLink}) {
+  useEffect(() => {
+    if (html) {
+      const dropdownDiv = [...document.querySelectorAll('div.kg-card.kg-toggle-card')]
+
+      if (dropdownDiv) {
+        dropdownDiv.forEach(d => {
+          d.addEventListener('click', () => {
+            if (d.attributes['data-kg-toggle-state'].value === 'close') {
+              d.dataset.kgToggleState = 'open'
+              d.children[0].lastChild.lastChild.classList.add('toggled')
+            } else {
+              d.dataset.kgToggleState = 'close'
+              d.children[0].lastChild.lastChild.classList.remove('toggled')
+            }
+          })
+        })
+      }
+    }
+  }, [html])
+
   return (
     <Section>
       <Link href={backLink}>
@@ -187,6 +208,56 @@ function Post({title, published_at, feature_image, html, backLink}) {
           margin: auto;
           text-decoration: none;
           transition: all .2s ease;
+        }
+
+        .kg-toggle-card {
+          background: 0 0;
+          box-shadow: inset 0 0 0 1px rgba(124,139,154,.25);
+          border-radius: 4px;
+          padding: 1.2em;
+          margin-bottom: .5em;
+        }
+
+        .kg-toggle-heading {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+        }
+
+        .kg-toggle-heading h4 {
+          margin-bottom: 0;
+        }
+
+        button.kg-toggle-card-icon {
+          background-color: white;
+          border: none;
+        }
+
+        .kg-toggle-card-icon svg {
+          height: 24px;
+          width: 24px;
+        }
+
+        .toggled {
+          transform: rotate(180deg);
+        }
+
+        .kg-toggle-content {
+          height: auto;
+          opacity: 1;
+          transition: opacity 1s ease,top .35s ease;
+          top: 0;
+          position: relative;
+        }
+
+        .kg-toggle-card[data-kg-toggle-state="close"] .kg-toggle-content {
+          height: 0;
+          overflow: hidden;
+          transition: opacity .5s ease,top .35s ease;
+          opacity: 0;
+          top: -.5em;
+          position: relative;
         }
         `}</style>
     </Section>
