@@ -390,6 +390,23 @@ function Post({title, published_at, feature_image, html, backLink}) {
           color: white;
           margin-bottom: 1em;
         }
+
+        .kg-product-card {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .kg-product-card-container {
+          align-items: center;
+          background: 0 0;
+          max-width: 550px;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: inset 0 0 0 1px rgb(124 139 154/25%);
+          margin-bottom: 1em;
+        }
         `}</style>
     </Section>
   )
