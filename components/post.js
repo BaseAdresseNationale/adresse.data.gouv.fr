@@ -332,6 +332,53 @@ function Post({title, published_at, feature_image, html, backLink}) {
         .kg-audio-player, .kg-audio-thumbnail {
           display: none;
         }
+
+        .kg-file-card-container {
+          display: flex;
+          align-items: stretch;
+          justify-content: space-between;
+          padding: 6px;
+          border: 1px solid rgb(124 139 154/25%);
+          border-radius: 3px;
+          transition: all ease-in-out .35s;
+          text-decoration: none;
+          width: 100%;
+          margin-bottom: 1em;
+        }
+
+        .kg-file-card-contents {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          margin: 4px 8px;
+          width: 100%;
+        }
+
+        .kg-file-card-metadata {
+          display: flex;
+          margin-top: 2px;
+          padding: 0 0 .5em .5em;
+          font-style: italic;
+        }
+
+        .kg-file-card-filesize {
+          margin-left: 1em;
+        }
+
+        .kg-file-card-icon svg {
+          height: 24px;
+          width: 24px;
+        }
+
+        .kg-file-card-icon {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 80px;
+          min-width: 80px;
+          background-color: ${colors.lighterGrey}
+        }
         `}</style>
     </Section>
   )
