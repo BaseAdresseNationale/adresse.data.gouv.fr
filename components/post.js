@@ -186,6 +186,10 @@ function Post({title, published_at, feature_image, html, backLink}) {
           margin-right: 6px;
         }
 
+        .kg-bookmark-author {
+          padding-right: .5em;
+        }
+
         .kg-bookmark-thumbnail img {
           width: 100%;
           height: 100%;
