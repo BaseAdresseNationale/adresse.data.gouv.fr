@@ -10,12 +10,19 @@ import Section from '@/components/section'
 function Post({title, published_at, feature_image, html, backLink}) {
   useEffect(() => {
     if (html) {
+      const audioPlayer = [...document.querySelectorAll('audio')]
       const videoPlayer = [...document.querySelectorAll('video')]
       const dropdownDiv = [...document.querySelectorAll('div.kg-card.kg-toggle-card')]
 
       if (videoPlayer) {
         videoPlayer.forEach(m => {
           m.setAttribute('controls', true)
+        })
+      }
+
+      if (audioPlayer) {
+        audioPlayer.forEach(a => {
+          a.setAttribute('controls', true)
         })
       }
 
@@ -293,6 +300,36 @@ function Post({title, published_at, feature_image, html, backLink}) {
         }
 
         .kg-video-play-icon svg {
+          display: none;
+        }
+
+        .kg-audio-card {
+          display: flex;
+          width: 100%;
+          padding: .5em;
+          margin-bottom: 1em;
+          min-height: 96px;
+          border-radius: 3px;
+          box-shadow: inset 0 0 0 1px rgba(124,139,154,.25);
+        }
+
+        .kg-audio-player-container {
+          display: flex;
+          flex-direction: column-reverse;
+          width: 100%;
+        }
+
+        .kg-audio-player-container audio {
+          width: 100%;
+          border-radius: 5px;
+        }
+
+        .kg-audio-title, .kg-file-card-title {
+          padding: .5em;
+          font-size: 1.3em;
+        }
+
+        .kg-audio-player, .kg-audio-thumbnail {
           display: none;
         }
         `}</style>
