@@ -379,6 +379,17 @@ function Post({title, published_at, feature_image, html, backLink}) {
           min-width: 80px;
           background-color: ${colors.lighterGrey}
         }
+
+        .kg-header-card {
+          padding: 4em;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          background-color: black;
+          color: white;
+          margin-bottom: 1em;
+        }
         `}</style>
     </Section>
   )
