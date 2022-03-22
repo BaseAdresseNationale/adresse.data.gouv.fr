@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
