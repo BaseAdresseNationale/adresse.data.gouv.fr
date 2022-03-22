@@ -141,7 +141,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
         .kg-bookmark-card {
           position: relative;
-          width: 85%;
+          width: 100%;
           margin: 1em auto;
         }
 
@@ -186,7 +186,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
           margin-top: 22px;
           width: 100%;
           font-weight: 500;
-          word-break: break-word;
+          white-space: nowrap;
         }
 
         .kg-bookmark-icon {
@@ -215,7 +215,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
           contain: content;
           display: grid;
           grid-gap: .5em;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
 
         .kg-gallery-image img {
@@ -404,8 +404,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
         .kg-audio-title,
         .kg-file-card-title {
           color: #111;
-          font-size: 1.5em;
-          line-height: 1.4em;
+          font-size: 1.3em;
+          line-height: 1.1em;
           font-weight: 600;
           padding: .5em;
         }
@@ -429,7 +429,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
           height: 24px;
           width: 24px;
         }
-        `}</style>
+      `}</style>
     </Section>
   )
 }
