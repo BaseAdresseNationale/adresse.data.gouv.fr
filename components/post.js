@@ -3,43 +3,52 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
 import {ArrowLeftCircle} from 'react-feather'
+
 import colors from '@/styles/colors'
 
 import Section from '@/components/section'
 
 function Post({title, published_at, feature_image, html, backLink}) {
   useEffect(() => {
-    if (html) {
-      const audioPlayer = [...document.querySelectorAll('audio')]
-      const videoPlayer = [...document.querySelectorAll('video')]
-      const dropdownDiv = [...document.querySelectorAll('div.kg-card.kg-toggle-card')]
+    const audioPlayers = [...document.querySelectorAll('audio')]
+    const videoPlayers = [...document.querySelectorAll('video')]
+    const dropdownDivs = [...document.querySelectorAll('div.kg-card.kg-toggle-card')]
 
-      // Add controls to Vidéo player
-      if (videoPlayer) {
-        videoPlayer.forEach(v => {
-          v.setAttribute('controls', true)
-        })
+    function toggleDiv(d) {
+      if (d.attributes['data-kg-toggle-state'].value === 'close') {
+        d.dataset.kgToggleState = 'open'
+        d.children[0].lastChild.lastChild.classList.add('toggled')
+      } else {
+        d.dataset.kgToggleState = 'close'
+        d.children[0].lastChild.lastChild.classList.remove('toggled')
       }
+    }
 
-      // Add controls to Audio player
-      if (audioPlayer) {
-        audioPlayer.forEach(a => {
-          a.setAttribute('controls', true)
-        })
-      }
+    // Add controls to Vidéo player
+    if (videoPlayers.length > 0) {
+      videoPlayers.forEach(v => {
+        v.setAttribute('controls', true)
+      })
+    }
 
-      // Add onClick event on Toggle
-      if (dropdownDiv) {
-        dropdownDiv.forEach(d => {
-          d.addEventListener('click', () => {
-            if (d.attributes['data-kg-toggle-state'].value === 'close') {
-              d.dataset.kgToggleState = 'open'
-              d.children[0].lastChild.lastChild.classList.add('toggled')
-            } else {
-              d.dataset.kgToggleState = 'close'
-              d.children[0].lastChild.lastChild.classList.remove('toggled')
-            }
-          })
+    // Add controls to Audio player
+    if (audioPlayers.length > 0) {
+      audioPlayers.forEach(a => {
+        a.setAttribute('controls', true)
+      })
+    }
+
+    // Add onClick event on Toggle
+    if (dropdownDivs.length > 0) {
+      dropdownDivs.forEach(d => {
+        d.addEventListener('click', () => toggleDiv(d))
+      })
+    }
+
+    return () => {
+      if (dropdownDivs.length > 0) {
+        dropdownDivs.forEach(d => {
+          d.removeEventListener('click', () => toggleDiv(d))
         })
       }
     }
