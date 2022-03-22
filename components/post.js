@@ -159,12 +159,12 @@ function Post({title, published_at, feature_image, html, backLink}) {
         .kg-bookmark-content {
           display: flex;
           flex-direction: column;
+          padding: 20px;
+          overflow: hidden;
           flex-grow: 1;
           flex-basis: 100%;
           align-items: flex-start;
           justify-content: flex-start;
-          padding: 20px;
-          overflow: hidden;
         }
 
         .kg-bookmark-thumbnail {
@@ -173,12 +173,19 @@ function Post({title, published_at, feature_image, html, backLink}) {
           min-width: 33%;
         }
 
+        .kg-bookmark-title {
+          color: #111;
+          font-size: 1.1em;
+          line-height: 1.1em;
+          font-weight: 400;
+        }
+
         .kg-bookmark-description {
           margin-top: 3px;
           font-size: 14px;
           max-height: 55px;
-          overflow-y: hidden;
           opacity: .7;
+          overflow: hidden;
         }
 
         .kg-bookmark-metadata {
@@ -198,6 +205,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
         .kg-bookmark-author {
           padding-right: .5em;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
 
         .kg-bookmark-thumbnail img {
@@ -401,7 +410,6 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
       {/***** Card Titles *****/}
 
-        .kg-bookmark-title,
         .kg-audio-title,
         .kg-file-card-title {
           color: #111;
