@@ -5,39 +5,27 @@ import {useRouter} from 'next/router'
 import colors from '@/styles/colors'
 import {ArrowLeftCircle, ArrowRightCircle} from 'react-feather'
 
-function listPages(num) {
-  const pageNumbers = []
-
-  for (let i = 0; i < num; i++) {
-    pageNumbers.push(i + 1)
-  }
-
-  return pageNumbers
-}
-
-function BlogPagination({pagination}) {
+function BlogPagination({page, pages, prev, next}) {
   const router = useRouter()
-  const pageNumbers = listPages(pagination?.pages)
+  const pageNumbers = Array.from({length: pages}, (v, i) => i + 1)
   const href = `${router.route}?page=`
   const tags = router.query?.tags ? `&tags=${router.query.tags}` : ''
 
   return (
     <>
       <div className='blog-pagination'>
-        {pagination?.prev && (
-          <Link href={`${href}${pagination.prev}${tags}`}>
+        {prev && (
+          <Link href={`${href}${prev}${tags}`}>
             <a className='page'><ArrowLeftCircle style={{verticalAlign: 'middle'}} /></a>
           </Link>
         )}
-        {pageNumbers.map(n => {
-          return (
-            <Link key={n} href={`${href}${n}${tags}`}>
-              <a className={pagination.page === n ? 'actual-page page' : 'page'}>{n}</a>
-            </Link>
-          )
-        })}
-        {pagination?.next && (
-          <Link href={`${href}${pagination.next}${tags}`}>
+        {pageNumbers.map(n => (
+          <Link key={n} href={`${href}${n}${tags}`}>
+            <a className={page === n ? 'actual-page page' : 'page'}>{n}</a>
+          </Link>
+        ))}
+        {next && (
+          <Link href={`${href}${next}${tags}`}>
             <a className='page'><ArrowRightCircle style={{verticalAlign: 'middle'}} /></a>
           </Link>
         )}
@@ -62,17 +50,11 @@ function BlogPagination({pagination}) {
   )
 }
 
-BlogPagination.defaultProps = {
-  pagination: null
-}
-
 BlogPagination.propTypes = {
-  pagination: PropTypes.shape({
-    page: PropTypes.number,
-    pages: PropTypes.number,
-    next: PropTypes.number,
-    prev: PropTypes.number
-  })
+  page: PropTypes.number.isRequired,
+  pages: PropTypes.number.isRequired,
+  next: PropTypes.number,
+  prev: PropTypes.number
 }
 
 export default BlogPagination

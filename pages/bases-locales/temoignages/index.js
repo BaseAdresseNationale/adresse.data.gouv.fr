@@ -18,7 +18,7 @@ function Temoignages({posts, pagination}) {
       <Head title={title} icon={<MessageCircle size={56} />} />
       <Section title={description}>
         {posts ? (
-          <TemoignagesList pagination={pagination} posts={posts} />
+          <TemoignagesList {...pagination} posts={posts} />
         ) : (
           <Notification>
             <h5>Les témoignages sont actuellement inaccessibles</h5>
@@ -40,8 +40,8 @@ Temoignages.defaultProps = {
   pagination: null
 }
 
-export async function getServerSideProps(ctx) {
-  const data = await getPosts({...ctx.query, tags: 'temoignage'})
+export async function getServerSideProps({query}) {
+  const data = await getPosts({...query, tags: 'temoignage'})
   return {
     props: {
       posts: data.posts,

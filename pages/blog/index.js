@@ -17,7 +17,7 @@ import Pagination from '@/components/blog-pagination'
 function BlogIndex({posts, pagination, tags, tagsList}) {
   const router = useRouter()
   // Display tag.name instead of tag.slug in tag list
-  const getTagName = tag => tagsList.find(t => t.slug === tag).name
+  const getTagName = tag => tagsList.find(t => t.slug === tag)?.name || tag
 
   const addTag = tag => {
     if (!tags.includes(tag.slug)) {
@@ -55,7 +55,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
                         </div>
                       ))}
                     </div>
-                    <Button onClick={() => resetTags()} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
+                    <Button onClick={resetTags} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
                   </div>
                 </div>
               </div>
@@ -65,7 +65,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
                 <BlogCard key={post.id} post={post} onClick={addTag} />
               ))}
             </div>
-            <Pagination pagination={pagination} />
+            <Pagination {...pagination} />
           </>
         ) : (
           <Notification>
@@ -122,23 +122,16 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
   )
 }
 
-BlogIndex.defaultProps = {
-  posts: null,
-  pagination: null,
-  tags: null,
-  tagsList: null
-}
-
 BlogIndex.propTypes = {
-  posts: PropTypes.array,
-  pagination: PropTypes.object,
-  tags: PropTypes.array,
-  tagsList: PropTypes.array
+  posts: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
+  tagsList: PropTypes.array.isRequired
 }
 
-export async function getServerSideProps(ctx) {
-  const data = await getPosts(ctx.query)
-  const tags = ctx.query?.tags || null
+export async function getServerSideProps({query}) {
+  const data = await getPosts(query)
+  const tags = query?.tags || null
   const tagsList = await getTags()
 
   return {
