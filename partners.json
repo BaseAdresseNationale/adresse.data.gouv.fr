@@ -906,5 +906,26 @@
         "height": 114,
         "width": 290,
         "alt": "Logo du partenaire Adress' & Vous"
+    },
+    {
+        "name": "Communauté d’Agglomération Pays Basque",
+        "link": "https://www.communaute-paysbasque.fr/",
+        "infos": "La CAPB accompagne depuis 2019 les communes du Pays Basque ayant sollicité son aide sur l’exercice de leur compétence d’adressage. Depuis le diagnostic initial jusqu’à la diffusion, un appui méthodologique et technique est apporté aux communes pour une primo définition de l’adressage. Les communes qui souhaitent être accompagnées pour la mise à jour permanente de leurs adresses seront formées, accompagnées sur la méthode, et un outil mutualisé leur sera mis à disposition.",
+        "perimeter": "Communes membres de la Communauté d’Agglomération Pays Basque",
+        "codeDepartement": [
+            "64"
+        ],
+        "echelon": 1,
+        "isPermimeterFrance": false,
+        "isCompany": false,
+        "services": [
+            "accompagnement technique",
+            "mise à disposition d’outils mutualisés",
+            "formation"
+        ],
+        "picture": "/images/logos/partners/pays-basque.png",
+        "height": 200,
+        "width": 200,
+        "alt": "Logo du partenaire Communauté d’Agglomération Pays Basque"
     }
 ]
