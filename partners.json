@@ -927,5 +927,25 @@
         "height": 200,
         "width": 200,
         "alt": "Logo du partenaire Communauté d’Agglomération Pays Basque"
+    },
+    {
+        "name": "SARL Pichjulellu",
+        "link": "https://pichjulellu.corsica/",
+        "infos": " La SARL Pichjulellu est une agence de communication visuelle et digitale, et de conseil en politique publique, spécialisé dans l’accompagnement et la réalisation des Bases d'adresses locales pour les communes, situé à Speluncatu en Corse.",
+        "perimeter": "Haute-Corse et Corse-du-Sud",
+        "codeDepartement": [
+            "2A",
+            "2B"
+        ],
+        "echelon": 2,
+        "isPermimeterFrance": false,
+        "isCompany": true,
+        "services": [
+            "réalisation de bases adresses locales"
+        ],
+        "picture": "/images/logos/partners/pichjulellu.png",
+        "height": 105,
+        "width": 290,
+        "alt": "Logo du partenaire SARL Pichjulellu"
     }
 ]
