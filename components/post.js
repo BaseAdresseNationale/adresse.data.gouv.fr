@@ -5,7 +5,7 @@ import {ArrowLeftCircle} from 'react-feather'
 
 import Section from '@/components/section'
 
-function Post({title, published_at, feature_image, html, backLink}) {
+function Post({title, published_at, feature_image, authors, html, backLink}) {
   return (
     <Section>
       <Link href={backLink}>
@@ -14,7 +14,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
       <div className='blog'>
         <h2>{title}</h2>
-        <p><i>Publié le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
+        <p className='infos-container'><i>Publié par {authors[0].name}</i> <i>le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
         {feature_image && (
           <div className='blog-feature-image-container'>
             <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
@@ -55,7 +55,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
         }
 
         .blog-separator {
-          border-bottom: 2px solid #0053B3;
+          border-bottom: 1px solid #0053B3;
+          padding: .5em;
         }
 
         .blog-back-button {
@@ -69,6 +70,12 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
         .blog figure.kg-card {
           text-align: center;
+        }
+
+        .infos-container {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #0053B3;
         }
 
         .kg-bookmark-card {
@@ -155,6 +162,7 @@ Post.propTypes = {
   title: PropTypes.string.isRequired,
   published_at: PropTypes.string.isRequired,
   feature_image: PropTypes.string,
+  authors: PropTypes.array.isRequired,
   html: PropTypes.string.isRequired,
   backLink: PropTypes.string.isRequired
 }
