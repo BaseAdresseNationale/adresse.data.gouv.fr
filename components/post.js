@@ -14,13 +14,12 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
 
       <div className='blog'>
         <h2>{title}</h2>
-        <p className='infos-container'><i>Publié par {authors[0].name}</i> <i>le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
         {feature_image && (
           <div className='blog-feature-image-container'>
             <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
           </div>
         )}
-        <div className='blog-separator' />
+        <p className='infos-container'><i>Publié par {authors[0].name}</i> <i>le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
         <div dangerouslySetInnerHTML={{__html: html}} /* eslint-disable-line react/no-danger */ />
         <div className='blog-separator' />
       </div>
