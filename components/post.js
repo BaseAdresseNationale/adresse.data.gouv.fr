@@ -13,7 +13,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
       </Link>
 
       <div className='blog'>
-        <h2>{title}</h2>
+        <h3>{title}</h3>
         {feature_image && (
           <div className='blog-feature-image-container'>
             <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
@@ -36,7 +36,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
 
         .blog-feature-image-container {
           position: relative;
-          height: 500px;
+          height: 250px;
           box-shadow: 38px 24px 50px -21px lightGrey;
         }
 
