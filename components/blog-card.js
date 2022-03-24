@@ -16,6 +16,7 @@ function BlogCard({post, onClick}) {
         <Image src={post.feature_image || '/images/no-img.png'} alt={post.title} layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />
       </div>
       <div className='infos-container'>
+        <p>Publié par {post.authors[0].name}</p>
         <p>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</p>
       </div>
       <p className='preview'>{post.excerpt}</p>
@@ -68,7 +69,9 @@ function BlogCard({post, onClick}) {
 
         .infos-container {
           display: flex;
-          flex-direction: column;
+          justify-content: space-between;
+          padding-top: .5em;
+          border-bottom: 2px solid ${colors.blue};
         }
 
         .infos-container p {
@@ -77,7 +80,6 @@ function BlogCard({post, onClick}) {
           font-style: italic;
           display: flex;
           justify-content: end;
-          border-bottom: 2px solid ${colors.blue};
         }
 
         .preview {
