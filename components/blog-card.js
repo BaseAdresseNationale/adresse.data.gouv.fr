@@ -78,8 +78,6 @@ function BlogCard({post, onClick}) {
           margin: 0;
           font-size: 0.8em;
           font-style: italic;
-          display: flex;
-          justify-content: end;
         }
 
         .preview {
