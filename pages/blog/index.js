@@ -12,7 +12,7 @@ import Section from '@/components/section'
 import Button from '@/components/button'
 import BlogCard from '@/components/blog-card'
 import Notification from '@/components/notification'
-import Pagination from '@/components/blog-pagination'
+import BlogPagination from '@/components/blog-pagination'
 
 function BlogIndex({posts, pagination, tags, tagsList}) {
   const router = useRouter()
@@ -65,7 +65,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
                 <BlogCard key={post.id} post={post} onClick={addTag} />
               ))}
             </div>
-            <Pagination {...pagination} />
+            <BlogPagination {...pagination} />
           </>
         ) : (
           <Notification>

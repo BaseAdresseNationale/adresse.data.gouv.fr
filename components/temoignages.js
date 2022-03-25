@@ -14,7 +14,7 @@ function Temoignages({limit, posts, pagination}) {
         ))}
       </div>
       {pagination && (
-        <BlogPagination pagination={pagination} />
+        <BlogPagination {...pagination} />
       )}
       <style jsx>{`
           .temoignages-section {

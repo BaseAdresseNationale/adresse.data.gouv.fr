@@ -18,7 +18,7 @@ function Temoignages({posts, pagination}) {
       <Head title={title} icon={<MessageCircle size={56} />} />
       <Section title={description}>
         {posts ? (
-          <TemoignagesList {...pagination} posts={posts} />
+          <TemoignagesList pagination={pagination} posts={posts} />
         ) : (
           <Notification>
             <h5>Les témoignages sont actuellement inaccessibles</h5>
