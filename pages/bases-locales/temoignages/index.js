@@ -31,13 +31,8 @@ function Temoignages({posts, pagination}) {
 }
 
 Temoignages.propTypes = {
-  posts: PropTypes.array,
-  pagination: PropTypes.object
-}
-
-Temoignages.defaultProps = {
-  posts: null,
-  pagination: null
+  posts: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired
 }
 
 export async function getServerSideProps({query}) {
