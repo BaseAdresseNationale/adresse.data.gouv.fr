@@ -4,13 +4,9 @@ import {orderBy} from 'lodash'
 
 import colors from '@/styles/colors'
 
-const orderByName = partners => {
-  return orderBy(partners, [partner => partner.name], ['asc'])
-}
-
 function Partners({epci, companies, shuffledPartners}) {
-  const companiesPartners = companies && orderByName(companies)
-  const partners = epci ? orderByName(epci) : shuffledPartners
+  const companiesPartners = companies && orderBy(companies, 'name', 'asc')
+  const partners = epci ? orderBy(epci, 'name', 'asc') : shuffledPartners
 
   return (
     <>
