@@ -60,7 +60,7 @@ Partners.propTypes = {
   shuffledPartners: PropTypes.array
 }
 
-Partner.defaultProps = {
+Partners.defaultProps = {
   epci: null,
   companies: null,
   shuffledPartners: null
