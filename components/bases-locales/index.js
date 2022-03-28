@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/image'
-import {shuffle, unionBy} from 'lodash'
+import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
 import Section from '../section'
@@ -15,14 +15,12 @@ import partners from '../../partners.json'
 import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
-const allPartners = unionBy(partners.companies, partners.epci)
-
 const BasesLocales = React.memo(({datasets, stats}) => {
   const [shuffledPartners, setShuffledPartners] = useState([])
 
   // Utilisation d'un useEffect afin d'éviter les mélanges de rendus de valeurs au render lors du shuffle
   useEffect(() => {
-    const randomizedPartners = shuffle(allPartners).slice(0, 3)
+    const randomizedPartners = shuffle([...partners.companies, ...partners.epci]).slice(0, 3)
     setShuffledPartners(randomizedPartners)
   }, [])
 
