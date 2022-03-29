@@ -821,6 +821,26 @@
       "height": 200,
       "width": 200,
       "alt": "Logo du partenaire Communauté d’Agglomération Pays Basque"
+    },
+    {
+      "name": "Manche numérique",
+      "link": "https://manchenumerique.fr/",
+      "infos": "Dans le cadre d’une mission co-financée par le Conseil départemental de la Manche, le syndicat mixte Manche Numérique accompagne les communes durant l’intégralité de leur projet d’adressage, de l’identification des voies à la saisie des adresses et la publication de leur BAL. Si la réalisation du plan d’adressage reste à la commune, Manche numérique fournit les clés méthodologiques, techniques et juridiques à la réalisation du projet.",
+      "perimeter": "Département de la Manche",
+      "codeDepartement": [
+        "50"
+      ],
+      "echelon": 2,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/manche-numerique.jpg",
+      "height": 117,
+      "width": 232,
+      "alt": "Logo du partenaire Manche numérique"
     }
   ],
   "companies": [
