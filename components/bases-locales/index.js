@@ -20,7 +20,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
   // Utilisation d'un useEffect afin d'éviter les mélanges de rendus de valeurs au render lors du shuffle
   useEffect(() => {
-    const randomizedPartners = shuffle(partners).slice(0, 3)
+    const randomizedPartners = shuffle([...partners.companies, ...partners.epci]).slice(0, 3)
     setShuffledPartners(randomizedPartners)
   }, [])
 
@@ -97,7 +97,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
         <div className='organismes-container'>
           <h3>Quelques partenaires :</h3>
-          <Partners partnersList={shuffledPartners} />
+          <Partners shuffledPartners={shuffledPartners} />
         </div>
         <div className='centered'>
           <ButtonLink href='/bases-locales/charte#partenaires'>
