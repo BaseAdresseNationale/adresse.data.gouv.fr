@@ -76,6 +76,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
       </Section>
       <style jsx>{`
         .blog-section {
+          padding-top: 1em;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
           grid-gap: 3em 5em;
