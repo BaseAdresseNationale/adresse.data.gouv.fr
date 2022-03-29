@@ -23,7 +23,7 @@ function BlogCard({post, onClick}) {
       {onClick && post.tags && (
         <div className='blog-tags-container'>
           {post.tags.map(tag => (
-            <span key={tag.id} onClick={() => onClick(tag.name)}>{tag.name}</span>
+            <span key={tag.id} onClick={() => onClick(tag)}>{tag.name}</span>
           ))}
         </div>
       )}

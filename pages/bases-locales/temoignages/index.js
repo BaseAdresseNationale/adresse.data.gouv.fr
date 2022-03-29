@@ -9,7 +9,7 @@ import Section from '@/components/section'
 import TemoignagesList from '@/components/temoignages'
 import Notification from '@/components/notification'
 
-function Temoignages({posts}) {
+function Temoignages({posts, pagination}) {
   const title = 'Témoignages sur les Bases Adresses Locales'
   const description = 'Découvrez des témoignages de terrain sur les solutions à adopter pour conserver toute la richesse de vos adresses dans une Base Adresse Locale'
 
@@ -18,7 +18,7 @@ function Temoignages({posts}) {
       <Head title={title} icon={<MessageCircle size={56} />} />
       <Section title={description}>
         {posts ? (
-          <TemoignagesList posts={posts?.filter(post => post.tags.some(tag => tag.name === 'témoignage'))} />
+          <TemoignagesList pagination={pagination} posts={posts} />
         ) : (
           <Notification>
             <h5>Les témoignages sont actuellement inaccessibles</h5>
@@ -31,18 +31,16 @@ function Temoignages({posts}) {
 }
 
 Temoignages.propTypes = {
-  posts: PropTypes.array
+  posts: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired
 }
 
-Temoignages.defaultProps = {
-  posts: null
-}
-
-export async function getServerSideProps() {
-  const posts = await getPosts()
+export async function getServerSideProps({query}) {
+  const data = await getPosts({...query, tags: 'temoignage'})
   return {
     props: {
-      posts
+      posts: data.posts,
+      pagination: data.meta.pagination
     }
   }
 }
