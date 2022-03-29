@@ -9,7 +9,6 @@ import Section from '@/components/section'
 import Partners from '@/components/bases-locales/charte/partners'
 
 import partners from 'partners.json'
-
 function Charte() {
   const title = 'Charte et organismes partenaires'
   const description = 'Page vous permettant de consultez et téléchargez la charte Base Adresse Locale et de découvrir les organismes partenaires'
@@ -56,7 +55,7 @@ function Charte() {
       </Section>
 
       <Section id='partenaires' background='white' title='Organismes partenaires' >
-        <Partners partnersList={partners} isAllPartners />
+        <Partners epci={partners.epci} companies={partners.companies} />
       </Section>
 
       <style jsx>{`
