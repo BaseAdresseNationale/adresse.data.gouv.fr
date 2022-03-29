@@ -16,13 +16,14 @@ function BlogCard({post, onClick}) {
         <Image src={post.feature_image || '/images/no-img.png'} alt={post.title} layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />
       </div>
       <div className='infos-container'>
+        <p>Publié par {post.authors[0].name}</p>
         <p>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</p>
       </div>
       <p className='preview'>{post.excerpt}</p>
       {onClick && post.tags && (
         <div className='blog-tags-container'>
           {post.tags.map(tag => (
-            <span key={tag.id} onClick={() => onClick(tag.name)}>{tag.name}</span>
+            <span key={tag.id} onClick={() => onClick(tag)}>{tag.name}</span>
           ))}
         </div>
       )}
@@ -68,16 +69,15 @@ function BlogCard({post, onClick}) {
 
         .infos-container {
           display: flex;
-          flex-direction: column;
+          justify-content: space-between;
+          padding-top: .5em;
+          border-bottom: 2px solid ${colors.blue};
         }
 
         .infos-container p {
           margin: 0;
           font-size: 0.8em;
           font-style: italic;
-          display: flex;
-          justify-content: end;
-          border-bottom: 2px solid ${colors.blue};
         }
 
         .preview {

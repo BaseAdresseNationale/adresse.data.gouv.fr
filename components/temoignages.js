@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types'
 
 import BlogCard from '@/components/blog-card'
+import BlogPagination from '@/components/blog-pagination'
 
-function Temoignages({limit, posts}) {
+function Temoignages({limit, posts, pagination}) {
   const sortedTestimonies = limit ? posts.slice(0, limit) : posts
 
   return (
-    <div className='temoignages-section'>
-      {sortedTestimonies.map(testimony => (
-        <BlogCard key={testimony.id} post={testimony} />
-      ))}
-
+    <>
+      <div className='temoignages-section'>
+        {sortedTestimonies.map(testimony => (
+          <BlogCard key={testimony.id} post={testimony} />
+        ))}
+      </div>
+      {pagination && (
+        <BlogPagination {...pagination} />
+      )}
       <style jsx>{`
           .temoignages-section {
             display: grid;
@@ -19,17 +24,19 @@ function Temoignages({limit, posts}) {
             margin-top: 4em;
           }
         `}</style>
-    </div>
+    </>
   )
+}
+
+Temoignages.defaultProps = {
+  limit: null,
+  pagination: null
 }
 
 Temoignages.propTypes = {
   limit: PropTypes.number,
-  posts: PropTypes.array.isRequired
-}
-
-Temoignages.defaultProps = {
-  limit: null
+  posts: PropTypes.array.isRequired,
+  pagination: PropTypes.object
 }
 
 export default Temoignages

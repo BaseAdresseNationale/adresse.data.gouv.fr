@@ -32,7 +32,7 @@ function PartnersSearchbar() {
   }
 
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
-    const filteredByPerimeter = partners.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByPerimeter = [...partners.companies, ...partners.epci].filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
 
     return filteredByTags.sort((a, b) => {
@@ -99,7 +99,7 @@ function PartnersSearchbar() {
           onSelectTags={handleSelectedTags}
           selectedTags={selectedTags}
           filteredPartners={filteredPartners}
-          allPartners={partners}
+          allPartners={[...partners.epci, ...partners.companies]}
         />
       )}
 
