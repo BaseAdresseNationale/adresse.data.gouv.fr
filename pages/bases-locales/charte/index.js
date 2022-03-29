@@ -34,7 +34,7 @@ function Charte() {
         </SectionText>
       </Section>
 
-      <Section background='color' title='Rejoindre les partenaires de la Charte '>
+      <Section background='color' title='Rejoindre les partenaires de la Charte'>
         <SectionText color='secondary'>
           <p>
             Contactez nous avec en objet « Partenaire de la Charte » pour demander la version de la Charte au <b>nom de votre commune ou de votre organisme</b>. Les chartes ci-dessous sont présentées à titre indicatif.
@@ -110,6 +110,9 @@ function Charte() {
             <li>S’il souhaite prendre en charge l’alimentation de la Base Adresse Nationale, l’organisme devra privilégier l’API de dépôt, et ce dès que possible après le porter à connaissance de la nouvelle version de la Base Adresse Locale d’une commune.</li>
           </ul>
         </SectionText>
+        <div className='redirection-button'>
+          <ButtonLink href='/bases-locales/charte/organismes'>Découvrir les organismes partenaires</ButtonLink>
+        </div>
       </Section>
 
       <Section id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
@@ -144,6 +147,10 @@ function Charte() {
           flex-wrap: wrap;
           justify-content: space-around;
           margin-top: 3em;
+        }
+
+        .redirection-button {
+          text-align: center;
         }
       `}</style>
     </Page>
