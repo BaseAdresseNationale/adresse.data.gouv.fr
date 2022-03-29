@@ -126,6 +126,11 @@ app.prepare().then(() => {
     res.redirect('/contribuer')
   })
 
+  // DO NOT REMOVE
+  server.get('/guides', (request, res) => {
+    res.redirect('/ressources')
+  })
+
   server.get('/map', (request, res) => {
     res.redirect('/base-adresse-nationale')
   })

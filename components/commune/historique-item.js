@@ -9,7 +9,7 @@ function HistoriqueItem({balData, communeName}) {
 
   const balURL = getBalUrl(_id)
   const date = new Date(updatedAt)
-  const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes()}`
+  const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes().toString().padStart(2, '0')}`
 
   const userName = balData.context?.organisation || `la mairie de ${communeName}`
 

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import Partner from '@/components/bases-locales/charte/partner'
+import {orderBy} from 'lodash'
 
 import colors from '@/styles/colors'
 
-function Partners({partnersList, isAllPartners}) {
-  const companyPartners = partnersList.filter(partner => partner.isCompany === true)
-  const partners = isAllPartners ? partnersList.filter(partner => partner.isCompany === false) : partnersList
+function Partners({epci, companies, shuffledPartners}) {
+  const companiesPartners = companies && orderBy(companies, 'name', 'asc')
+  const partners = epci ? orderBy(epci, 'name', 'asc') : shuffledPartners
 
   return (
     <>
@@ -13,11 +14,11 @@ function Partners({partnersList, isAllPartners}) {
         {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
       </div>
 
-      {isAllPartners && (
+      {companiesPartners && (
         <div className='compagny'>
           <h3 className='subtitle'>Sociétés</h3>
           <div className='partners-container'>
-            {companyPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+            {companiesPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
         </div>
       )}
@@ -50,13 +51,15 @@ function Partners({partnersList, isAllPartners}) {
 }
 
 Partners.propTypes = {
-  partnersList: PropTypes.array,
-  isAllPartners: PropTypes.bool
+  epci: PropTypes.array,
+  companies: PropTypes.array,
+  shuffledPartners: PropTypes.array
 }
 
-Partner.defaultProps = {
-  partnersList: null,
-  isAllPartners: false
+Partners.defaultProps = {
+  epci: null,
+  companies: null,
+  shuffledPartners: null
 }
 
 export default Partners
