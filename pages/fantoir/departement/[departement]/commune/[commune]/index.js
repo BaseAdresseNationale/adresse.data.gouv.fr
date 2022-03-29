@@ -4,7 +4,7 @@ import {sortBy, debounce} from 'lodash'
 
 import {Database, Download} from 'react-feather'
 
-import {getFantoir, getVoiesFantoir} from '@/lib/api-ban'
+import {getFantoir, getVoiesFantoir, API_BAN_URL} from '@/lib/api-ban'
 
 import theme from '@/styles/theme'
 
@@ -44,7 +44,7 @@ function VoiesList({voies, nomCommune, codeCommune}) {
         </div>
         <div className='csv-link'>
           <ButtonLink
-            href={`https://plateforme.adresse.data.gouv.fr/api-fantoir/communes/${codeCommune}/voies.csv`}
+            href={`${API_BAN_URL}/api-fantoir/communes/${codeCommune}/voies.csv`}
             size='small'
             isExternal
           >
