@@ -1,8 +1,8 @@
-import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {useRouter} from 'next/router'
 import {Book, X} from 'react-feather'
 
-import {getPosts} from '../../lib/blog'
+import {getPosts, getTags} from '../../lib/blog'
 
 import colors from '@/styles/colors'
 
@@ -12,67 +12,60 @@ import Section from '@/components/section'
 import Button from '@/components/button'
 import BlogCard from '@/components/blog-card'
 import Notification from '@/components/notification'
+import BlogPagination from '@/components/blog-pagination'
 
-function BlogIndex({posts}) {
-  const [filters, setFilters] = useState([])
-  const [filteredPosts, setFilteredPosts] = useState(posts)
+function BlogIndex({posts, pagination, tags, tagsList}) {
+  const router = useRouter()
+  // Display tag.name instead of tag.slug in tag list
+  const getTagName = tag => tagsList.find(t => t.slug === tag)?.name || tag
 
-  const addTag = useCallback(tag => {
-    if (!filters.includes(tag)) {
-      setFilters([...filters, tag])
+  const addTag = tag => {
+    if (!tags.includes(tag.slug)) {
+      router.push(`/blog?tags=${[...tags, tag.slug]}`)
     }
-  }, [filters])
-
-  const removeTag = useCallback(tag => {
-    setFilters(filters.filter(t => t !== tag))
-  }, [filters])
-
-  const resetFilter = () => {
-    setFilteredPosts(posts)
-    setFilters([])
   }
 
-  useEffect(() => {
-    if (posts) {
-      const filteredPosts = posts.filter(post => (
-        filters.every(f => (
-          post.tags.some(tag => (
-            tag.name === f))
-        ))
-      ))
-
-      setFilteredPosts(filteredPosts)
+  const removeTag = tag => {
+    if (tags.length === 1) {
+      resetTags()
+    } else {
+      router.push(`/blog?tags=${tags.filter(t => t !== tag)}`)
     }
-  }, [filters, posts])
+  }
+
+  const resetTags = () => {
+    router.push('/blog')
+  }
 
   return (
     <Page title='Le Blog de L’Adresse'>
       <Head title='Le Blog de L’Adresse' icon={<Book size={56} />} />
       <Section>
-        {filteredPosts ? (
+        {posts ? (
           <>
-            {filters.length > 0 && (
+            {tags?.length > 0 && (
               <div className='tag-infos-container'>
                 <div className='tag-infos'>
                   <span>Liste des articles contenant le mot-clé :</span>
                   <div className='tags-container'>
                     <div className='tags-list'>
-                      {filters.map(filter => (
-                        <div key={filter} className='tag' onClick={() => removeTag(filter)}>
-                          {filter} <X size='15' style={{verticalAlign: 'middle'}} />
+                      {tags.map(tag => (
+                        <div key={tag} className='tag' onClick={() => removeTag(tag)}>
+                          {getTagName(tag)} <X size='15' style={{verticalAlign: 'middle'}} />
                         </div>
                       ))}
                     </div>
-                    <Button onClick={() => resetFilter()} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
+                    <Button onClick={resetTags} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
                   </div>
                 </div>
               </div>
             )}
             <div className='blog-section'>
-              {filteredPosts.map(post => (
+              {posts.map(post => (
                 <BlogCard key={post.id} post={post} onClick={addTag} />
               ))}
             </div>
+            <BlogPagination {...pagination} />
           </>
         ) : (
           <Notification>
@@ -89,6 +82,7 @@ function BlogIndex({posts}) {
         }
 
         .tag-infos-container {
+          margin-bottom: 1em;
           border-bottom: 1px solid ${colors.lighterGrey};
         }
 
@@ -128,19 +122,24 @@ function BlogIndex({posts}) {
   )
 }
 
-BlogIndex.defaultProps = {
-  posts: null
-}
-
 BlogIndex.propTypes = {
-  posts: PropTypes.array
+  posts: PropTypes.array.isRequired,
+  pagination: PropTypes.object.isRequired,
+  tags: PropTypes.array.isRequired,
+  tagsList: PropTypes.array.isRequired
 }
 
-export async function getServerSideProps() {
-  const posts = await getPosts()
+export async function getServerSideProps({query}) {
+  const data = await getPosts(query)
+  const tags = query?.tags || null
+  const tagsList = await getTags()
+
   return {
     props: {
-      posts
+      posts: data?.posts || null,
+      pagination: data?.meta.pagination || null,
+      tags: tags?.split(',') || [],
+      tagsList
     }
   }
 }
