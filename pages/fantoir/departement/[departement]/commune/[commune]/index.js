@@ -4,7 +4,7 @@ import {sortBy, debounce} from 'lodash'
 
 import {Database, Download} from 'react-feather'
 
-import {getFantoir, getVoiesFantoir, getVoiesCSVFantoir} from '@/lib/api-ban'
+import {getFantoir, getVoiesFantoir} from '@/lib/api-ban'
 
 import theme from '@/styles/theme'
 
@@ -15,6 +15,7 @@ import Section from '@/components/section'
 import SearchBar from '@/components/search-bar'
 import HeaderListFantoir from '@/components/fantoir/header-list-fantoir'
 import VoieInformation from '@/components/fantoir/voie-information'
+import ButtonLink from '@/components/button-link'
 
 const voieHeader = ['Nom de la voie', 'type', 'Code FANTOIR']
 
@@ -42,10 +43,14 @@ function VoiesList({voies, nomCommune, codeCommune}) {
           />
         </div>
         <div className='csv-link'>
-          <a href={getVoiesCSVFantoir(codeCommune)}>
+          <ButtonLink
+            href={`https://plateforme.adresse.data.gouv.fr/api-fantoir/communes/${codeCommune}/voies.csv`}
+            size='small'
+            isExternal
+          >
             Télécharger au format CSV
-            <Download style={{verticalAlign: 'middle', padding: '3px'}} />
-          </a>
+            <Download style={{verticalAlign: 'bottom', padding: '3px'}} />
+          </ButtonLink>
         </div>
 
         <HeaderListFantoir
