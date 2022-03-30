@@ -9,7 +9,7 @@ import colors from '@/styles/colors'
 
 import Section from '@/components/section'
 
-function Post({title, published_at, feature_image, html, backLink}) {
+function Post({title, published_at, feature_image, authors, html, backLink}) {
   useEffect(() => {
     const audioPlayers = [...document.querySelectorAll('audio')]
     const videoPlayers = [...document.querySelectorAll('video')]
@@ -62,14 +62,13 @@ function Post({title, published_at, feature_image, html, backLink}) {
       </Link>
 
       <div className='blog'>
-        <h2>{title}</h2>
-        <p><i>Publié le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
+        <h3>{title}</h3>
         {feature_image && (
           <div className='blog-feature-image-container'>
             <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' />
           </div>
         )}
-        <div className='blog-separator' />
+        <p className='infos-container'><i>Publié par {authors[0].name}</i> <i>le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
         <div dangerouslySetInnerHTML={{__html: html}} /* eslint-disable-line react/no-danger */ />
         <div className='blog-separator' />
       </div>
@@ -86,7 +85,7 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
         .blog-feature-image-container {
           position: relative;
-          height: 500px;
+          height: 250px;
           box-shadow: 38px 24px 50px -21px lightGrey;
         }
 
@@ -106,7 +105,8 @@ function Post({title, published_at, feature_image, html, backLink}) {
         }
 
         .blog-separator {
-          border-bottom: 2px solid #0053B3;
+          border-bottom: 1px solid #0053B3;
+          padding: .5em;
         }
 
         .blog-back-button {
@@ -120,6 +120,12 @@ function Post({title, published_at, feature_image, html, backLink}) {
 
         .blog figure.kg-card {
           text-align: center;
+        }
+
+        .infos-container {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #0053B3;
         }
 
       {/***** Callout Block *****/}
@@ -451,6 +457,7 @@ Post.propTypes = {
   title: PropTypes.string.isRequired,
   published_at: PropTypes.string.isRequired,
   feature_image: PropTypes.string,
+  authors: PropTypes.array.isRequired,
   html: PropTypes.string.isRequired,
   backLink: PropTypes.string.isRequired
 }
