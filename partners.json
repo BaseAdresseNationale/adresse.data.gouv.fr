@@ -964,5 +964,51 @@
       "width": 290,
       "alt": "Logo de la SOGEFI Ingéniérie géomatique"
     }
+  ],
+  "communes": [
+    {
+      "name": "La commune de Rougon",
+      "link": "http://www.rougon.fr/",
+      "codeRegion": "93",
+      "codeDepartement": [
+        "04"
+      ],
+      "codeCommune": "04171",
+      "testimonyURL": "https://adresse.data.gouv.fr/blog/rougon-creation-dune-base-adresse-locale-de-a-a-z-partage-et-innovation",
+      "balURL": "https://mes-adresses.data.gouv.fr/bal/608d7a90b47fd850f52fbb6e/communes/04171",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/rougon.jpg",
+      "height": 124,
+      "width": 99,
+      "alt": "Blason de la commune de Rougon",
+      "signatureDate": "2022-03-25"
+    },
+    {
+      "name": "Breux-sur-Avre",
+      "link": "https://www.breux-sur-avre.fr",
+      "codeRegion": "28",
+      "codeDepartement": [
+        "27"
+      ],
+      "codeCommune": "27115",
+      "testimonyURL": "https://www.breux-sur-avre.fr/charte-base-adresse-locale.pdf",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-27115",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/breux-sur-avre.png",
+      "height": 124,
+      "width": 108,
+      "alt": "Blason de la commune Breux-sur-Avre",
+      "signatureDate": "2022-03-29"
+    }
   ]
 }

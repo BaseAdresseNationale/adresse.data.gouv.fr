@@ -93,6 +93,9 @@ function Charte() {
             <li>Partage d’expériences : la commune encourage le partage d’expériences avec d’autres communes, contribuant à la diffusion des bonnes pratiques de l’adresse sur mes-adresses.data.gouv.fr si elles ne disposent pas d’outils (les leurs ou ceux du délégataire).</li>
           </ul>
         </SectionText>
+        <div className='redirection-button'>
+          <ButtonLink href='/bases-locales/charte/communes'>Découvrir les communes partenaires</ButtonLink>
+        </div>
       </Section>
 
       <Section background='grey' title='Organismes partenaires de la Charte'>
