@@ -298,16 +298,16 @@
     "endHour": "15:30"
   },
   {
-    "title": "Adresse Lab #1",
-    "description": "En tant que geocommun numérique, la BAN est pilotée par la communauté de ses contributeurs et de ses utilisateurs. Cette communauté peut s’exprimer via des OpenLabs publics, nommés Adresse Lab.",
-    "type": "adresselab",
+    "title": "Adresse_Lab #1",
+    "description": "En tant que geocommun numérique, la BAN est pilotée par la communauté de ses contributeurs et de ses utilisateurs. Cette communauté peut s’exprimer via des OpenLabs publics, nommés Adresse_Lab.",
+    "type": "Adresse_Lab",
     "target": "",
     "date": "2022-03-10",
     "tags": [
-      "adresse",
-      "base Adresse Nationale",
-      "referentiel",
-      "co construction"
+      "Adresse",
+      "Base Adresse Nationale",
+      "Referentiel",
+      "Co construction"
     ],
     "isOnlineOnly": true,
     "address": {
@@ -393,5 +393,55 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
-  }
+  },
+  {
+    "title": "Adresse_Lab identifiant unique",
+    "description": "L'équipe BAN propose aux producteurs et aux utilisateurs des données adresses de la BAN de se réunir autour de la problématique de l'identifiant unique. Au menu, présentation de ce qui est utilisé actuellement, des questions sur lesquelles on souhaite avoir votre expertise : que cherche-t-on a identifier ? quand un identifiant doit-il être modifié ? N'hésitez pas à nous contacter pour présenter des cas d'utilisation et soumettre à la communauté BAN vos interrogations/suggestions. Nous proposons deux dates pour faciliter les échanges lors de chaque session",
+    "type": "Adresse_Lab",
+    "target": "utilisateurs techniques",
+    "date": "2022-04-21",
+    "tags": [
+      "Adresse",
+      "Base Adresse Nationale",
+      "Referentiel",
+      "Co construction"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+    "nom": "",
+    "numero": "",
+    "voie": "",
+    "codePostal": "",
+    "commune": ""
+    },
+    "href": "",
+    "instructions": "",
+    "startHour": "10:00",
+    "endHour": "12:00"
+  },
+  {
+    "title": "Adresse_Lab identifiant unique",
+    "description": "L'équipe BAN propose aux producteurs et aux utilisateurs des données adresses de la BAN de se réunir autour de la problématique de l'identifiant unique. Au menu, présentation de ce qui est utilisé actuellement, des questions sur lesquelles on souhaite avoir votre expertise : que cherche-t-on a identifier ? quand un identifiant doit-il être modifié ? N'hésitez pas à nous contacter pour présenter des cas d'utilisation et soumettre à la communauté BAN vos interrogations/suggestions. Nous proposons deux dates pour faciliter les échanges lors de chaque session",
+    "type": "Adresse_Lab",
+    "target": "utilisateurs techniques",
+    "date": "2022-05-12",
+    "tags": [
+      "Adresse",
+      "Base Adresse Nationale",
+      "Referentiel",
+      "Co construction"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+    "nom": "",
+    "numero": "",
+    "voie": "",
+    "codePostal": "",
+    "commune": ""
+    },
+    "href": "",
+    "instructions": "",
+    "startHour": "10:00",
+    "endHour": "12:00"
+    }
 ]
