@@ -11,7 +11,7 @@ function Partners({epci, companies, shuffledPartners}) {
   return (
     <>
       <div className='partners-container'>
-        {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
+        {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} isCommune={partner.echelon === 0} />)}
       </div>
 
       {companiesPartners && (
