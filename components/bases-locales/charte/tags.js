@@ -3,15 +3,7 @@ import {uniq} from 'lodash'
 
 import theme from '@/styles/theme'
 
-const formatService = service => {
-  if (service.includes('’')) {
-    service = service.replace('’', ' ')
-  }
-
-  return `#${service.split(' ').map(word =>
-    word[0].toUpperCase() + word.slice(1, word.length)
-  ).join('')}`
-}
+import {formatTag} from '@/lib/tag'
 
 const handleListOfTags = partners => {
   const tags = []
@@ -49,7 +41,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
             key={tag}
             className={handleTagClassname(tag)}
           >
-            {formatService(tag)}
+            {formatTag(tag)}
           </div>
         )
       })}
