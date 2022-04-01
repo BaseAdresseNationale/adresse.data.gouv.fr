@@ -12,7 +12,7 @@ function Footer() {
           <ul className='footer__social'>
             <li><a href='https://twitter.com/AdresseDataGouv'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
             <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
-            <li><a href='https://blog.geo.data.gouv.fr'><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a></li>
+            <li><Link href='/blog'><a><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a></Link></li>
             <li><Link href='/nous-contacter'><a><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
           </ul>
         </div>

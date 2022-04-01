@@ -2,9 +2,9 @@ import {useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {sortBy, debounce} from 'lodash'
 
-import {Database} from 'react-feather'
+import {Database, Download} from 'react-feather'
 
-import {getFantoir, getVoiesFantoir} from '@/lib/api-ban'
+import {getFantoir, getVoiesFantoir, API_BAN_URL} from '@/lib/api-ban'
 
 import theme from '@/styles/theme'
 
@@ -15,10 +15,11 @@ import Section from '@/components/section'
 import SearchBar from '@/components/search-bar'
 import HeaderListFantoir from '@/components/fantoir/header-list-fantoir'
 import VoieInformation from '@/components/fantoir/voie-information'
+import ButtonLink from '@/components/button-link'
 
 const voieHeader = ['Nom de la voie', 'type', 'Code FANTOIR']
 
-function VoiesList({voies, nomCommune}) {
+function VoiesList({voies, nomCommune, codeCommune}) {
   const sortedVoies = useMemo(() => {
     return sortBy(voies, ['id'])
   }, [voies])
@@ -40,6 +41,16 @@ function VoiesList({voies, nomCommune}) {
             placeholder='Chercher une voie'
             onChange={e => searchVoies(e.target.value)}
           />
+        </div>
+        <div className='csv-link'>
+          <ButtonLink
+            href={`${API_BAN_URL}/api-fantoir/communes/${codeCommune}/voies.csv`}
+            size='small'
+            isExternal
+          >
+            Télécharger au format CSV
+            <Download style={{verticalAlign: 'bottom', padding: '3px'}} />
+          </ButtonLink>
         </div>
 
         <HeaderListFantoir
@@ -95,6 +106,11 @@ function VoiesList({voies, nomCommune}) {
           font-size: 1.2em;
           text-align: center;
         }
+
+        .csv-link {
+          text-align: right;
+          padding: .5em;
+        }
       `}</style>
     </Page>
   )
@@ -107,13 +123,15 @@ VoiesList.getInitialProps = async ({query}) => {
 
   return {
     voies,
-    nomCommune
+    nomCommune,
+    codeCommune: query.commune
   }
 }
 
 VoiesList.propTypes = {
   voies: PropTypes.array.isRequired,
-  nomCommune: PropTypes.string.isRequired
+  nomCommune: PropTypes.string.isRequired,
+  codeCommune: PropTypes.string.isRequired
 }
 
 export default withErrors(VoiesList)

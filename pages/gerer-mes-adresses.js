@@ -80,7 +80,7 @@ function GererMesAdresses() {
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} />
-            Des <Link href='/guides'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
+            Des <Link href='/ressources'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
           </div>
         </Notification>
       </Section>
@@ -124,7 +124,7 @@ function GererMesAdresses() {
         </Notification>
       </Section>
 
-      <Section title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
+      <Section id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
         <div>
           <PartnersSearchbar />
         </div>

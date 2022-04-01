@@ -32,7 +32,7 @@ function PartnersSearchbar() {
   }
 
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
-    const filteredByPerimeter = partners.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByPerimeter = [...partners.companies, ...partners.epci].filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
 
     return filteredByTags.sort((a, b) => {
@@ -99,7 +99,7 @@ function PartnersSearchbar() {
           onSelectTags={handleSelectedTags}
           selectedTags={selectedTags}
           filteredPartners={filteredPartners}
-          allPartners={partners}
+          allPartners={[...partners.epci, ...partners.companies]}
         />
       )}
 
@@ -110,8 +110,8 @@ function PartnersSearchbar() {
           <div className='results'>
             <div> <b>{filteredPartners.length} </b>
               {filteredPartners.length === 1 ?
-                'partenaire de la Charte de la Base Adresse Locale trouvé sur votre territoire' :
-                'partenaires de la Charte de la Base Adresse Locale trouvés sur votre territoire'}
+                'partenaire de la Charte de la Base Adresse Locale trouvé dans votre département' :
+                'partenaires de la Charte de la Base Adresse Locale trouvés dans votre département'}
             </div>
 
             <div className='organizations'>

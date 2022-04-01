@@ -12,7 +12,7 @@ import ButtonLink from '@/components/button-link'
 function Guides() {
   return (
     <Page>
-      <Head title='Guides de l’adressage' icon={<Book size={56} />} />
+      <Head title='Ressources autour de l’adressage' icon={<Book size={56} />} />
       <Section>
         <SectionText>
           <p>
@@ -22,6 +22,7 @@ function Guides() {
             Placés sous le régime de la <b><i>licence ouverte</i></b>, ils sont <b>diffusables</b> et <b>réutilisables</b> sans restriction.
           </p>
           <p>La <b>documentation</b> présente la Base Adresse Nationale, les formats d’adresse ainsi que les services et outils accessibles sur le site.</p>
+          <p>La <b>F.A.Q</b> répond aux questions les plus courantes, posées lors des <b>webinaires</b> par les acteurs de la commune.</p>
           <p>
             Pour être tenu informé des mises à jour ou suggérer des évolutions, n’hésitez-pas à <Link href='/nous-contacter'>nous contacter</Link>.
           </p>
@@ -63,7 +64,7 @@ function Guides() {
         <DocDownload
           id='guide-adressage'
           title='Le guide de Mes Adresses'
-          link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v5.0.pdf'
+          link='https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/files/8234720/20220311.Guide.Mes.Adresses.5.1.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
           alt='miniature du guide Mes Adresses'
         >
@@ -80,7 +81,7 @@ function Guides() {
           isReverse
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
-          link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v3.0.pdf'
+          link='https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/files/8234717/20220311.Bonnes.pratiques.de.l.adresse.3.1.pdf'
         >
           <SectionText>
             <p>
@@ -104,6 +105,33 @@ function Guides() {
             </p>
           </SectionText>
         </DocDownload>
+      </Section>
+
+      <Section background='color' title='F.A.Q'>
+        <div className='faq-container'>
+          <div className='icon-container'>
+            <Image src='/images/icons/faq.svg' height={190} width={190} />
+          </div>
+          <SectionText color='secondary'>
+            Vous vous posez des questions sur <b>la création de votre Base Adresse Locale</b> et sur <b>la gestion de vos adresses</b> ? Certaines disposent déjà d’une réponse !<br />
+            Cette <b>FAQ</b> est alimentée par les échanges avec <b>les élus et agents des communes</b> compilés dans les tchats des <b>webinaires</b> des communes.
+          </SectionText>
+
+          <ButtonLink href='https://adresse-data-gouv-fr.gitbook.io/faq/' isExternal color='white' isOutlined>Accéder à la FAQ</ButtonLink>
+        </div>
+
+        <style jsx>{`
+          .faq-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2em;
+          }
+
+          .icon-container {
+            margin-top: 2em;
+          }
+        `}</style>
       </Section>
 
       <Section background='grey' title='En partenariat avec : '>

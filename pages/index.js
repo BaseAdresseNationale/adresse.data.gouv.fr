@@ -19,8 +19,6 @@ import CommuneSearch from '@/components/commune/commune-search'
 import EventBanner from '@/components/evenement/event-banner'
 
 function Home({stats, posts}) {
-  const temoignages = posts?.filter(post => post.tags.some(tag => tag.name === 'témoignage'))
-
   return (
     <Page>
       <EventBanner />
@@ -108,7 +106,7 @@ function Home({stats, posts}) {
         <DocDownload
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
-          link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
+          link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse-v2.0.pdf'
         >
           <SectionText>
             <p>
@@ -118,9 +116,9 @@ function Home({stats, posts}) {
         </DocDownload>
       </Section>
 
-      {temoignages && (
+      {posts && (
         <Section title='Témoignages sur les Bases Adresses Locales'>
-          <Temoignages limit={3} posts={temoignages} />
+          <Temoignages limit={3} posts={posts} />
           <div className='centered'>
             <ButtonLink href='/bases-locales/temoignages'>Lire tous les témoignages</ButtonLink>
           </div>
@@ -176,12 +174,12 @@ function Home({stats, posts}) {
 
 export async function getServerSideProps() {
   const stats = await getStats()
-  const posts = await getPosts()
+  const data = await getPosts({tags: 'temoignage'})
 
   return {
     props: {
       stats,
-      posts
+      posts: data?.posts || null
     }
   }
 }
