@@ -20,8 +20,9 @@ function PartnersSearchbar() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const communePartners = filteredPartners.filter(partner => partner.echelon === 0)
   const companyPartners = filteredPartners.filter(partner => partner.isCompany)
-  const organizationPartners = filteredPartners.filter(partner => !partner.isCompany)
+  const organizationPartners = filteredPartners.filter(partner => !partner.isCompany && partner.echelon !== 0)
 
   const handleSelectedTags = tag => {
     setSelectedTags(prevTags => {
@@ -32,7 +33,7 @@ function PartnersSearchbar() {
   }
 
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
-    const filteredByPerimeter = [...partners.companies, ...partners.epci].filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByPerimeter = [...partners.companies, ...partners.epci, ...partners.communes].filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
 
     return filteredByTags.sort((a, b) => {
@@ -99,7 +100,7 @@ function PartnersSearchbar() {
           onSelectTags={handleSelectedTags}
           selectedTags={selectedTags}
           filteredPartners={filteredPartners}
-          allPartners={[...partners.epci, ...partners.companies]}
+          allPartners={[...partners.epci, ...partners.companies, ...partners.communes]}
         />
       )}
 
@@ -115,6 +116,7 @@ function PartnersSearchbar() {
             </div>
 
             <div className='organizations'>
+              <div><b>{communePartners.length}</b> {`${communePartners.length > 1 ? 'communes' : 'commune'} de mutualisation`}</div>
               <div><b>{organizationPartners.length}</b> {`${organizationPartners.length > 1 ? 'organismes' : 'organisme'} de mutualisation`}</div>
               <div><b>{companyPartners.length}</b> {companyPartners.length > 1 ? 'entreprises' : 'entreprises'}</div>
             </div>
@@ -125,7 +127,7 @@ function PartnersSearchbar() {
       {error ? (
         <div className='error'>{error}</div>
       ) : (
-        filteredPartners.length > 0 && <SearchPartnersResults companies={companyPartners} organizations={organizationPartners} />
+        filteredPartners.length > 0 && <SearchPartnersResults companies={companyPartners} organizations={organizationPartners} communes={communePartners} />
       )}
 
       <style jsx>{`
