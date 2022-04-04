@@ -48,7 +48,7 @@ function Partner({partnerInfos, isCommune}) {
             layout='fixed'
           />
         </div>
-        {/* <div className='display-info-container'> */}
+
         <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
           {isDisplay ? (
             <p>Masquer les informations</p>
@@ -63,7 +63,6 @@ function Partner({partnerInfos, isCommune}) {
             )}
           </div>
         </button>
-        {/* </div> */}
       </div>
 
       <div className={isDisplay ? 'infos-container' : 'hidden'}>
