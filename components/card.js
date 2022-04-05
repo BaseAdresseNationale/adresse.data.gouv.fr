@@ -104,20 +104,18 @@ function Card({title, link, action, links, list, children, color}) {
 }
 
 Card.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   link: PropTypes.string,
   action: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   color: PropTypes.oneOf(['primary', 'secondary']),
   links: PropTypes.array,
   list: PropTypes.array,
 }
 
 Card.defaultProps = {
-  title: null,
   link: null,
   action: 'Télécharger',
-  children: null,
   color: 'primary',
   links: null,
   list: null,
