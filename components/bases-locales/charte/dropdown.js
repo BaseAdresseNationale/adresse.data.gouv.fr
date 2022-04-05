@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {ChevronRight, ChevronDown} from 'react-feather'
 
@@ -6,46 +6,66 @@ import theme from '@/styles/theme'
 
 function Dropdown({code, nom, communesCount, size, color, children}) {
   const [isOpen, setIsOpen] = useState(false)
+  const Chevron = isOpen ? ChevronDown : ChevronRight
+  const isDisabled = communesCount === 0
 
-  const onDropdownOpen = () => {
+  const dropdownToggle = event => {
+    event.stopPropagation()
     setIsOpen(!isOpen)
   }
 
   return (
-    <div className='dropdown-container'>
+    <div
+      className={`
+        dropdown-container
+        ${isDisabled ? 'disabled' : ''}
+        ${color === 'secondary' ? 'alt' : ''}
+      `}
+      onClick={dropdownToggle}
+    >
       <div className='visible-container'>
         <div className='dropdown-infos-container'>
           <div className='name'>{nom} - {code}</div>
-          <div className='communes-length'><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
+          <div className='communes-length'>
+            {isDisabled ? 'Aucune commune partenaire' : (
+              <><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</>
+            )}
+          </div>
         </div>
 
-        {isOpen ? (
-          <ChevronDown
-            onClick={onDropdownOpen}
-            style={{cursor: 'pointer'}}
-            color={color === 'primary' ? theme.primary : theme.colors.white}
-          />
-        ) : (
-          <ChevronRight
-            onClick={onDropdownOpen}
-            style={{cursor: 'pointer'}}
-            color={color === 'primary' ? theme.primary : theme.colors.white}
-          />
-        )}
+        <Chevron
+          style={{cursor: 'pointer'}}
+          color={color === 'primary' ? theme.primary : theme.colors.white}
+        />
       </div>
 
       {isOpen && children}
 
       <style jsx>{`
         .dropdown-container {
-          background: ${color === 'primary' ? theme.backgroundGrey : theme.primary};
-          color: ${color === 'primary' ? theme.darkText : theme.colors.white};
+          background: ${theme.backgroundGrey};
+          color: ${theme.darkText};
+          cursor: pointer;
           padding: ${size === 'large' ? '2em' : '1em'};
           width: 100%;
           border-radius: ${theme.borderRadius};
           margin: 1em 0;
-          opacity: ${communesCount === 0 ? '70%' : '100%'};
-          pointer-events: ${communesCount === 0 ? 'none' : 'auto'}
+          opacity: 100%;
+          pointer-events: auto;
+        }
+
+        .dropdown-container:hover {
+          background: ${color === 'primary' ? theme.colors.lightGrey : theme.primaryDark};
+        }
+
+        .alt {
+          background: ${theme.primary};
+          color: ${theme.colors.white};
+        }
+
+        .disabled {
+          opacity: 70%;
+          pointer-events: none;
         }
 
         .visible-container {
@@ -73,9 +93,9 @@ Dropdown.propTypes = {
   code: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,
   communesCount: PropTypes.number.isRequired,
-  children: PropTypes.node,
   size: PropTypes.oneOf(['large', 'small']),
-  color: PropTypes.oneOf(['primary', 'secondary'])
+  color: PropTypes.oneOf(['primary', 'secondary']),
+  children: PropTypes.node
 }
 
 Dropdown.defaultProps = {
@@ -84,5 +104,5 @@ Dropdown.defaultProps = {
   color: 'primary'
 }
 
-export default Dropdown
+export default React.memo(Dropdown)
 
