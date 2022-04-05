@@ -13,20 +13,20 @@ function Commune({name, codeCommune, picture, alt, signatureDate}) {
         <Image src={picture} height={70} width={56} alt={alt} />
         <Link href={`/commune/${codeCommune}`}>{`${name} - ${codeCommune}`}</Link>
       </div>
-      <div className='signature-date'>Partenaire depuis le {date}</div>
+      <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
 
       <style jsx>{`
         .commune-container {
+          display: flex;
+          justify-content: space-between;
+          flex-flow: wrap;
+          gap: 1em;
+          align-items: center;
           background: ${theme.colors.white};
           padding: .5em 1em;
           border-radius: ${theme.borderRadius};
           margin: .5em 0;
           color: ${theme.darkText};
-          display: grid;
-          gap: 1em;
-          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-          justify-items: inherit;
-          align-items: center;
           text-align:center
         }
 
