@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect, useMemo} from 'react'
 import {debounce, intersection} from 'lodash'
 
 import {getCommunes, getByCode} from '@/lib/api-geo'
@@ -11,6 +11,8 @@ import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
 
+const ALL_PARTNERS = [...partners.companies, ...partners.epci, ...partners.communes]
+
 function PartnersSearchbar() {
   const [input, setInput] = useState('')
   const [results, setResults] = useState([])
@@ -20,9 +22,11 @@ function PartnersSearchbar() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const communePartners = filteredPartners.filter(partner => partner.echelon === 0)
-  const companyPartners = filteredPartners.filter(partner => partner.isCompany)
-  const organizationPartners = filteredPartners.filter(partner => !partner.isCompany && partner.echelon !== 0)
+  const [communePartners, companyPartners, organizationPartners] = useMemo(() => [
+    filteredPartners.filter(partner => partner.echelon === 0),
+    filteredPartners.filter(partner => partner.isCompany),
+    filteredPartners.filter(partner => !partner.isCompany && partner.echelon !== 0)
+  ], [filteredPartners])
 
   const handleSelectedTags = tag => {
     setSelectedTags(prevTags => {
@@ -33,7 +37,7 @@ function PartnersSearchbar() {
   }
 
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
-    const filteredByPerimeter = [...partners.companies, ...partners.epci, ...partners.communes].filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByPerimeter = ALL_PARTNERS.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
 
     return filteredByTags.sort((a, b) => {
