@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback} from 'react'
 import Image from 'next/image'
 import PropTypes from 'prop-types'
-import {ChevronDown, ChevronUp, Mail, Phone} from 'react-feather'
+import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -15,7 +15,7 @@ function Partner({partnerInfos, isCommune}) {
   const [mairieContact, setMairieContact] = useState(null)
 
   const {name, link, alt, infos, perimeter, codeCommune, services, picture, height, width, isCompany} = partnerInfos
-  const contactDefaultValue = 'Non renseigné'
+  const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
     if (isCommune && codeCommune) {
@@ -52,17 +52,9 @@ function Partner({partnerInfos, isCommune}) {
         </div>
 
         <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
-          {isDisplay ? (
-            <p>Masquer les informations</p>
-          ) : (
-            <p>Afficher les informations</p>
-          )}
+          <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
           <div className='chevron'>
-            {isDisplay ? (
-              <ChevronUp size={18} color={`${theme.colors.lightBlue}`} />
-            ) : (
-              <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
-            )}
+            <Chevron size={18} color={`${theme.colors.lightBlue}`} />
           </div>
         </button>
       </div>
