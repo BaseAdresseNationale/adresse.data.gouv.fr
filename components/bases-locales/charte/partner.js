@@ -8,6 +8,8 @@ import theme from '@/styles/theme'
 import {formatTag} from '@/lib/tag'
 import {getMairie} from '@/lib/api-etablissements-public'
 
+import MairieContact from '@/components/mairie/mairie-contact'
+
 function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
@@ -69,16 +71,7 @@ function Partner({partnerInfos, isCommune}) {
         {mairieContact ? (
           <div className='contacts-container'>
             <div className='title'>Contacter la mairie</div>
-            <div>
-              <div className='contact'>
-                <Mail style={{marginRight: '10px'}} size={15} />
-                {mairieContact.mail ? <a href={`mailto:${mairieContact.mail}`}>{mairieContact.mail}</a> : contactDefaultValue}
-              </div>
-              <div>
-                <Phone style={{marginRight: '10px'}} size={15} />
-                {mairieContact.phone ? <a href={`tel:+33${mairieContact.phone}`}>{mairieContact.phone}</a> : contactDefaultValue}
-              </div>
-            </div>
+            <MairieContact email={mairieContact.mail} phone={mairieContact.phone} />
           </div>
         ) : (
           <>

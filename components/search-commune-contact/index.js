@@ -12,7 +12,7 @@ import RenderCommune from '@/components/search-input/render-commune'
 import Notification from '@/components/notification'
 import Loader from '@/components/loader'
 
-import MairieContact from './mairie-contact'
+import MairieCard from '@/components/mairie/mairie-card'
 
 function SearchCommuneContact() {
   const [input, setInput] = useInput('')
@@ -90,7 +90,7 @@ function SearchCommuneContact() {
         </div>
       )}
 
-      {mairie && <MairieContact {...mairie} />}
+      {mairie && <MairieCard {...mairie} />}
 
       <style jsx>{`
         .loading {

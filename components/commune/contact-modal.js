@@ -3,7 +3,7 @@ import {XSquare} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import MairieContact from '@/components/search-commune-contact/mairie-contact'
+import MairieCard from '@/components/mairie/mairie-card'
 
 function ContactModal({mairieInfos, onModalClose}) {
   const {nom, horaires, email, telephone} = mairieInfos
@@ -12,7 +12,7 @@ function ContactModal({mairieInfos, onModalClose}) {
     <div className='modal-wrapper'>
       <div className='contacts-container'>
         <button className='close-modal' type='button' onClick={onModalClose}><XSquare /></button>
-        <MairieContact nom={nom} horaires={horaires} email={email} telephone={telephone} />
+        <MairieCard nom={nom} horaires={horaires} email={email} telephone={telephone} />
       </div>
 
       <style jsx>{`
