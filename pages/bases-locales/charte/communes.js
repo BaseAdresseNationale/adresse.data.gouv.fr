@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
+import {groupBy, sum} from 'lodash'
 import {Award, Mail} from 'react-feather'
 
-import {getRegion} from '@/lib/api-geo'
+import {getDepartementByCode, getRegions} from '@/lib/api-geo'
 
 import Page from '@/layouts/main'
 
@@ -10,15 +11,14 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
-import Region from '@/components/bases-locales/charte/region'
 
 import partners from 'partners.json'
+import Dropdown from '@/components/bases-locales/charte/dropdown'
+import Commune from '@/components/bases-locales/charte/commune'
+
 function Communes({regions}) {
   const title = 'Communes partenaires de la Charte'
   const description = 'Page vous permettant de consultez et découvrir les communes partenaires'
-
-  // Trier par ordre alphabétique en incluant les accents
-  const orderedRegions = [...regions].sort((a, b) => a.nom.localeCompare(b.nom))
 
   return (
     <Page title={title} description={description}>
@@ -40,7 +40,29 @@ function Communes({regions}) {
         </div>
 
         <div className='region-container'>
-          {orderedRegions.map(region => <Region key={region.code} {...region} communes={partners.communes} />)}
+          {regions.map(({code, nom, departements}) => (
+            <Dropdown
+              key={code}
+              code={code}
+              nom={nom}
+              communesCount={departements.length > 0 ? sum(departements.map(({communes}) => communes.length)) : 0}
+            >
+              {departements.length > 0 && departements.map(({code, nom, communes}) => (
+                <Dropdown
+                  key={code}
+                  code={code}
+                  nom={nom}
+                  communesCount={communes.length}
+                  size='small'
+                  color='secondary'
+                >
+                  {communes.length > 0 && communes.map(commune => (
+                    <Commune key={commune.codeCommune} {...commune} />
+                  ))}
+                </Dropdown>
+              ))}
+            </Dropdown>
+          ))}
         </div>
       </Section>
 
@@ -53,9 +75,27 @@ function Communes({regions}) {
   )
 }
 
-Communes.getInitialProps = async () => {
+export async function getServerSideProps() {
+  const regions = await getRegions()
+  const communesByDepartement = groupBy(partners.communes, ({codeDepartement}) => codeDepartement[0])
+
   return {
-    regions: await getRegion()
+    props: {
+      regions: await Promise.all(regions.map(async region => {
+        const departementsCode = partners.communes.filter(({codeRegion}) => codeRegion === region.code).map(({codeDepartement}) => codeDepartement[0])
+
+        return {
+          ...region,
+          departements: await Promise.all(departementsCode.map(async codeDepartement => {
+            const departement = await getDepartementByCode(codeDepartement)
+            return {
+              ...departement,
+              communes: communesByDepartement[codeDepartement]
+            }
+          }))
+        }
+      }))
+    }
   }
 }
 

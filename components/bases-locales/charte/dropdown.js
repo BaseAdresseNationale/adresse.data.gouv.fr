@@ -4,7 +4,7 @@ import {ChevronRight, ChevronDown} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function Dropdown({code, nom, numberOfCommunes, children, size, color}) {
+function Dropdown({code, nom, communesCount, size, color, children}) {
   const [isOpen, setIsOpen] = useState(false)
 
   const onDropdownOpen = () => {
@@ -16,7 +16,7 @@ function Dropdown({code, nom, numberOfCommunes, children, size, color}) {
       <div className='visible-container'>
         <div className='dropdown-infos-container'>
           <div className='name'>{nom} - {code}</div>
-          <div className='communes-length'><b>{numberOfCommunes}</b> {numberOfCommunes <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
+          <div className='communes-length'><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
         </div>
 
         {isOpen ? (
@@ -44,8 +44,8 @@ function Dropdown({code, nom, numberOfCommunes, children, size, color}) {
           width: 100%;
           border-radius: ${theme.borderRadius};
           margin: 1em 0;
-          opacity: ${numberOfCommunes === 0 ? '70%' : '100%'};
-          pointer-events: ${numberOfCommunes === 0 ? 'none' : 'auto'}
+          opacity: ${communesCount === 0 ? '70%' : '100%'};
+          pointer-events: ${communesCount === 0 ? 'none' : 'auto'}
         }
 
         .visible-container {
@@ -72,7 +72,7 @@ function Dropdown({code, nom, numberOfCommunes, children, size, color}) {
 Dropdown.propTypes = {
   code: PropTypes.string.isRequired,
   nom: PropTypes.string.isRequired,
-  numberOfCommunes: PropTypes.number.isRequired,
+  communesCount: PropTypes.number.isRequired,
   children: PropTypes.node,
   size: PropTypes.oneOf(['large', 'small']),
   color: PropTypes.oneOf(['primary', 'secondary'])
