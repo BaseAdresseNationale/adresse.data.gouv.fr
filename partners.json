@@ -841,6 +841,26 @@
       "height": 117,
       "width": 232,
       "alt": "Logo du partenaire Manche numérique"
+    },
+    {
+      "name": "Communauté d'agglomération de l'Albigeois",
+      "link": "https://www.grand-albigeois.fr",
+      "infos": "Le service SIG du Grand Albigeois accompagne les communes de son territoire dans la constitution et la viabilisation de base adresse locale. Cet accompagnement prend la forme de mise à disposition d'un outil mutualisé, ainsi que des formations et du support.",
+      "perimeter": "Communes de la Communauté d’Agglomération de l'Albigeois",
+      "codeDepartement": [
+        "81"
+      ],
+      "echelon": 1,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "mise à disposition d’outils mutualisés",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/albigeois.png",
+      "height": 154,
+      "width": 114,
+      "alt": "Logo du partenaire Communauté d'agglomération de l'Albigeois"
     }
   ],
   "companies": [
