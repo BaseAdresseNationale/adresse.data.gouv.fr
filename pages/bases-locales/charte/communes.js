@@ -20,6 +20,10 @@ function Communes({regions}) {
   const title = 'Communes partenaires de la Charte'
   const description = 'Page vous permettant de consultez et découvrir les communes partenaires'
 
+  // This sort can be removed when there is a sufficient number of partner communes.
+  // Only two at the time this code was written…
+  const sortByCommunesCount = regions.sort((a, b) => b.departements.map(({communes}) => communes.length) - a.departements.map(({communes}) => communes.length))
+
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Award size={56} />} />
@@ -40,7 +44,7 @@ function Communes({regions}) {
         </div>
 
         <div className='region-container'>
-          {regions.map(({code, nom, departements}) => (
+          {sortByCommunesCount.map(({code, nom, departements}) => (
             <Dropdown
               key={code}
               code={code}
