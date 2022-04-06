@@ -973,7 +973,8 @@
         "27"
       ],
       "codeCommune": "27115",
-      "testimonyURL": "https://www.breux-sur-avre.fr/charte-base-adresse-locale.pdf",
+      "charteURL": "https://www.breux-sur-avre.fr/charte-base-adresse-locale.pdf",
+      "testimonyURL": "https://adresse.data.gouv.fr/blog/comment-un-simple-citoyen-peut-il-contribuer-a-resoudre-les-problemes-dadresse-de-sa-commune",
       "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-27115",
       "echelon": 0,
       "isPerimeterFrance": false,
