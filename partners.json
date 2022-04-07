@@ -698,29 +698,6 @@
       "alt": "Logo de la Communauté de Communes de la Plaine d’Estrées"
     },
     {
-      "name": "Anne Légaut",
-      "link": "http://anne-legaut.com/services/",
-      "infos": "Simple mise à jour des adresses ou prestation complète, avec recensement des voies existantes, création des nouvelles et des numéros, fourniture d'un modèle de délibération, d'un fichier publipostage pour les courriers à envoyer aux habitants avec certificat d'adresse, remplissage du tableau pour la DGFiP, aide à la publication de la Base Adresse Locale, diffusion auprès des organismes compétents.",
-      "perimeter": "Drôme, Ardèche, Hautes Alpes, Vaucluse",
-      "codeDepartement": [
-        "26",
-        "07",
-        "05",
-        "84"
-      ],
-      "echelon": 1,
-      "isPermimeterFrance": false,
-      "isCompany": true,
-      "services": [
-        "accompagnement technique",
-        "réalisation de bases adresses locales"
-      ],
-      "picture": "/images/logos/partners/legaut.jpg",
-      "height": 124,
-      "width": 248,
-      "alt": "Logo du partenaire Anne Légaut"
-    },
-    {
       "name": "Communauté d’agglomération Roannais Agglomération",
       "link": "https://www.aggloroanne.fr/site-officiel-roannais-agglomeration-et-ville-de-roanne-3.html",
       "infos": "La communauté d’agglomération Roannais Agglomération sensibilise et accompagne l’ensemble des communes membres dans la mise en œuvre et le suivi de leur Base Adresse Locale. Notre collectivité apporte son savoir-faire technique en matière d’information géographique et met ainsi à disposition ses compétences et ses services aux communes qui le souhaitent : un agent municipal et/ou un élu sont formés sur l’outil « mes-adresses » qui devient l’outil unique de gestion de l’adresse sur le territoire communautaire.",
