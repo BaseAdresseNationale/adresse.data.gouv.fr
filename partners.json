@@ -963,6 +963,27 @@
     }
   ],
   "communes": [
+        {
+      "name": "Égliseneuve-des-Liards",
+      "link": "http://www.mairie-egliseneuvedesliards.fr/actualites/detail/adressage-6469",
+      "codeRegion": "84",
+      "codeDepartement": [
+        "63"
+      ],
+      "codeCommune": "63145",
+      "balURL": "https://mes-adresses.data.gouv.fr/bal/605ef9e087068f21afdff6f2/communes/63145",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/egliseneuve-des-liards.jpg",
+      "height": 115,
+      "width": 288,
+      "alt": "Blason de la commune de Égliseneuve-des-Liards",
+      "signatureDate": "2021-05-11"
+    },
     {
       "name": "La commune de Rougon",
       "link": "http://www.rougon.fr/",
