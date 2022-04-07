@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 import {DownloadCloud} from 'react-feather'
 
-function Card({title, link, action, description, links, list}) {
+function Card({title, link, action, links, list, children, color}) {
   return (
     <div className='card-container'>
       <div className='title'>{title}</div>
       <div className='text-container'>
         <div className='card-description'>
-          {description}
+          {children}
         </div>
 
         {(links || list) && (
@@ -45,12 +45,14 @@ function Card({title, link, action, description, links, list}) {
           flex-direction: column;
           justify-content: space-between;
           background-color: ${theme.colors.white};
-          padding-top: 1em;
           text-align: center;
+          border-radius: 5px;
         }
 
         .title {
           font-weight: 700;
+          color: ${theme.darkText};
+          padding: 1em;
         }
 
         .text-container {
@@ -61,6 +63,10 @@ function Card({title, link, action, description, links, list}) {
           grid-template-rows: ${(links || list) ? '1fr 100px' : '1fr'};
           gap: 1.5em;
           text-align: left;
+        }
+
+        .card-description {
+          text-align: center;
         }
 
         .card-list {
@@ -74,11 +80,12 @@ function Card({title, link, action, description, links, list}) {
 
         .download-link, .no-link {
           font-weight: bold;
-          background-color: ${theme.primary};
+          background-color: ${color === 'primary' ? theme.primary : theme.colors.darkerGrey};
           color: white;
           padding: .8em;
           font-size: 1.2em;
           text-decoration: none;
+          border-radius: 0 0 5px 5px;
         }
 
         .download-link:hover {
@@ -97,18 +104,19 @@ function Card({title, link, action, description, links, list}) {
 }
 
 Card.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   link: PropTypes.string,
   action: PropTypes.string,
-  description: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  color: PropTypes.oneOf(['primary', 'secondary']),
   links: PropTypes.array,
   list: PropTypes.array,
 }
 
 Card.defaultProps = {
-  title: null,
   link: null,
   action: 'Télécharger',
+  color: 'primary',
   links: null,
   list: null,
 }

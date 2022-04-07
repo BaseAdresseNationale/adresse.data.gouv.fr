@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import Image from 'next/image'
 import PropTypes from 'prop-types'
 import {ChevronDown, ChevronUp} from 'react-feather'
@@ -6,10 +6,34 @@ import {ChevronDown, ChevronUp} from 'react-feather'
 import theme from '@/styles/theme'
 
 import {formatTag} from '@/lib/tag'
+import {getMairie} from '@/lib/api-etablissements-public'
 
-function Partner({partnerInfos}) {
+import MairieContact from '@/components/mairie/mairie-contact'
+
+function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
-  const {name, link, alt, infos, perimeter, services, picture, height, width, isCompany} = partnerInfos
+  const [mairieContact, setMairieContact] = useState(null)
+
+  const {name, link, alt, infos, perimeter, codeCommune, services, picture, height, width, isCompany} = partnerInfos
+  const Chevron = isDisplay ? ChevronUp : ChevronDown
+
+  const getMairieInfos = useCallback(async () => {
+    if (isCommune && codeCommune) {
+      const mairie = await getMairie(codeCommune)
+      const {properties} = mairie.features[0]
+
+      setMairieContact(
+        {
+          mail: properties.email,
+          phone: properties.telephone
+        }
+      )
+    }
+  }, [isCommune, codeCommune])
+
+  useEffect(() => {
+    getMairieInfos()
+  }, [getMairieInfos])
 
   return (
     <div className='partner'>
@@ -26,29 +50,30 @@ function Partner({partnerInfos}) {
             layout='fixed'
           />
         </div>
-        <div className='display-info-container'>
-          <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
-            {isDisplay ? (
-              <p>Masquer les informations</p>
-            ) : (
-              <p>Afficher les informations</p>
-            )}
-            <div className='chevron'>
-              {isDisplay ? (
-                <ChevronUp size={18} color={`${theme.colors.lightBlue}`} />
-              ) : (
-                <ChevronDown size={18} color={`${theme.colors.lightBlue}`} />
-              )}
-            </div>
-          </button>
-        </div>
+
+        <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
+          <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
+          <div className='chevron'>
+            <Chevron size={18} color={`${theme.colors.lightBlue}`} />
+          </div>
+        </button>
       </div>
+
       <div className={isDisplay ? 'infos-container' : 'hidden'}>
-        <p>{infos}</p>
-        <div className='perimeter'>
-          <div className='title'>Périmètre</div>
-          <p>{perimeter}</p>
-        </div>
+        {mairieContact ? (
+          <div className='contacts-container'>
+            <div className='title'>Contacter la mairie</div>
+            <MairieContact email={mairieContact.mail} phone={mairieContact.phone} />
+          </div>
+        ) : (
+          <>
+            <p>{infos}</p>
+            <div className='perimeter'>
+              <div className='title'>Périmètre</div>
+              <p>{perimeter}</p>
+            </div>
+          </>
+        )}
         <div className='services'>
           <div className='title'>Offres de services</div>
           {services.map(service => {
@@ -66,15 +91,19 @@ function Partner({partnerInfos}) {
           display: grid;
           align-items: start;
           justify-content: center;
+          background: ${isCommune ? '#fceeac' : 'transparent'};
+          padding: 1em;
+          border-radius: 5px;
         }
 
         .general-partner-infos {
           text-align: left;
           display: grid;
-          grid-template-rows: 40px 124px 20px;
           grid-template-columns: 1fr;
           gap: 1.5em;
           width: 100%;
+          height: 300px;
+          align-content: space-between;
         }
 
         .name {
@@ -90,7 +119,8 @@ function Partner({partnerInfos}) {
         }
 
         .logo {
-          align-self: center;
+          display: flex;
+          justify-self: center;
         }
 
         .display-info-container {
@@ -99,6 +129,7 @@ function Partner({partnerInfos}) {
           grid-template-rows: 1fr 0.5fr;
           font-style: italic;
           color: ${theme.colors.darkerGrey};
+          background: ${isCommune ? '#fceeac' : 'transparent'};
         }
 
         .button-container {
@@ -107,9 +138,11 @@ function Partner({partnerInfos}) {
           align-items: center;
           justify-items: self-start;
           border-style: none;
-          background-color: transparent;
+          background: ${isCommune ? '#fceeac' : 'transparent'};
           border-bottom: 2px solid ${theme.colors.lightBlue};
           box-shadow: 0px 14px 21px -15px ${theme.boxShadow};
+          width: 100%;
+          height: fit-content;
         }
 
         .chevron {
@@ -123,7 +156,6 @@ function Partner({partnerInfos}) {
           grid-template-rows: 1fr auto;
           gap: 0.5em;
           animation: fadeIn ease 1s;
-          margin-top: 20px;
         }
 
         p {
@@ -154,6 +186,16 @@ function Partner({partnerInfos}) {
           0% {opacity:0;}
           100% {opacity:1;}
         }
+
+        .contacts-container {
+          margin-top: 1em;
+          color: ${theme.primary};
+        }
+
+        .contact {
+          display: flex;
+          align-items: center;
+        }
       `}</style>
     </div>
   )
@@ -161,17 +203,23 @@ function Partner({partnerInfos}) {
 
 Partner.propTypes = {
   partnerInfos: PropTypes.shape({
-    name: PropTypes.string,
-    link: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    link: PropTypes.string.isRequired,
     infos: PropTypes.string,
+    codeCommune: PropTypes.string,
     perimeter: PropTypes.string,
-    services: PropTypes.array,
-    picture: PropTypes.string,
-    height: PropTypes.number,
-    width: PropTypes.number,
-    alt: PropTypes.string,
+    services: PropTypes.array.isRequired,
+    picture: PropTypes.string.isRequired,
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    alt: PropTypes.string.isRequired,
     isCompany: PropTypes.bool.isRequired
-  }).isRequired
+  }).isRequired,
+  isCommune: PropTypes.bool
+}
+
+Partner.defaultProps = {
+  isCommune: false
 }
 
 export default Partner

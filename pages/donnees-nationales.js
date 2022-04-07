@@ -25,23 +25,26 @@ function DonneesNatioales() {
           <Card
             title='Format CSV'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'
-            description='Fichier d’usage général recommandé dans la majorité des cas'
             list={['1 position par adresse']}
             links={[{title: 'Schéma des données', href: 'https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'}]}
-          />
+          >
+            Fichier d’usage général recommandé dans la majorité des cas
+          </Card>
 
           <Card
             title='Format Addok'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/addok'
-            description='Fichier spécifique pour le géocodeur Addok'
             list={['1 position par adresse']}
-          />
+          >
+            Fichier spécifique pour le géocodeur Addok
+          </Card>
 
           <Card
             title='Format JSON expert'
-            description='Fichier contenant l’intégralité des données et métadonnées contenues dans la plateforme'
             list={['Plusieurs positions par adresse', 'Plusieurs sources par adresse']}
-          />
+          >
+            Fichier contenant l’intégralité des données et métadonnées contenues dans la plateforme
+          </Card>
         </div>
       </Section>
 
@@ -51,31 +54,32 @@ function DonneesNatioales() {
             action='Documentation'
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
-            description='Visualisation cartographique des adresses BAN en WFS'
             list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
-          />
+          >
+            Visualisation cartographique des adresses BAN en WFS
+          </Card>
 
           <Card
             action='Documentation'
             title='Format WMS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
-            description='Visualisation cartographique des adresses BAN en WMS'
             list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
-          />
+          >
+            Visualisation cartographique des adresses BAN en WMS
+          </Card>
 
           <Card
             action='Documentation'
             title='Format MVT (tuiles vectorielles)'
             link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
-            description='Visualisation cartographique des adresses BAN en tuiles vectorielles'
             list={['Mise à jour en temps réel', '1 position par adresse']}
-          />
-
+          >
+            Visualisation cartographique des adresses BAN en tuiles vectorielles
+          </Card>
         </div>
       </Section>
 
       <Section title='Comment est construite la Base Adresse Nationale ?' background='color'>
-
         <SectionText color='secondary'>
           <div>
             La Base Adresse Nationale est <b>constituée commune par commune</b>, sur le principe suivant :
@@ -95,15 +99,17 @@ function DonneesNatioales() {
           <Card
             title='Export de l’API de gestion IGN'
             link='https://adresse.data.gouv.fr/data/ban/export-api-gestion/latest/'
-            description='Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.'
-          />
+          >
+            Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.
+          </Card>
 
           <Card
             title='Adresses extraites du cadastre'
             link='https://www.data.gouv.fr/fr/datasets/adresses-extraites-du-cadastre/'
             action='Voir sur data.gouv.fr'
-            description='Ce jeu de données contient toutes les adresses extraites des fichiers du cadastre (plan et fichier des parcelles bâties).'
-          />
+          >
+            Ce jeu de données contient toutes les adresses extraites des fichiers du cadastre (plan et fichier des parcelles bâties).
+          </Card>
         </div >
       </Section >
 

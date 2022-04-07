@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect, useMemo} from 'react'
 import {debounce, intersection} from 'lodash'
 
 import {getCommunes, getByCode} from '@/lib/api-geo'
@@ -11,6 +11,8 @@ import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
 
+const ALL_PARTNERS = [...partners.companies, ...partners.epci, ...partners.communes]
+
 function PartnersSearchbar() {
   const [input, setInput] = useState('')
   const [results, setResults] = useState([])
@@ -20,8 +22,11 @@ function PartnersSearchbar() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const companyPartners = filteredPartners.filter(partner => partner.isCompany)
-  const organizationPartners = filteredPartners.filter(partner => !partner.isCompany)
+  const [communePartners, companyPartners, organizationPartners] = useMemo(() => [
+    filteredPartners.filter(partner => partner.echelon === 0),
+    filteredPartners.filter(partner => partner.isCompany),
+    filteredPartners.filter(partner => !partner.isCompany && partner.echelon !== 0)
+  ], [filteredPartners])
 
   const handleSelectedTags = tag => {
     setSelectedTags(prevTags => {
@@ -32,7 +37,7 @@ function PartnersSearchbar() {
   }
 
   const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
-    const filteredByPerimeter = [...partners.companies, ...partners.epci].filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
+    const filteredByPerimeter = ALL_PARTNERS.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
     const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
 
     return filteredByTags.sort((a, b) => {
@@ -82,7 +87,7 @@ function PartnersSearchbar() {
 
   return (
     <div style={{marginTop: '2em'}}>
-      <p className='searchbar-label'>Recherchez un partenaire de la Charte de la Base Adresse Locale sur votre territoire</p>
+      <p className='searchbar-label'>Recherchez un partenaire de la Charte de la Base Adresse Locale dans votre département</p>
       <SearchInput
         value={input}
         results={results}
@@ -99,7 +104,7 @@ function PartnersSearchbar() {
           onSelectTags={handleSelectedTags}
           selectedTags={selectedTags}
           filteredPartners={filteredPartners}
-          allPartners={[...partners.epci, ...partners.companies]}
+          allPartners={[...partners.epci, ...partners.companies, ...partners.communes]}
         />
       )}
 
@@ -115,6 +120,7 @@ function PartnersSearchbar() {
             </div>
 
             <div className='organizations'>
+              <div><b>{communePartners.length}</b> {`${communePartners.length > 1 ? 'communes' : 'commune'} de mutualisation`}</div>
               <div><b>{organizationPartners.length}</b> {`${organizationPartners.length > 1 ? 'organismes' : 'organisme'} de mutualisation`}</div>
               <div><b>{companyPartners.length}</b> {companyPartners.length > 1 ? 'entreprises' : 'entreprises'}</div>
             </div>
@@ -125,7 +131,7 @@ function PartnersSearchbar() {
       {error ? (
         <div className='error'>{error}</div>
       ) : (
-        filteredPartners.length > 0 && <SearchPartnersResults companies={companyPartners} organizations={organizationPartners} />
+        filteredPartners.length > 0 && <SearchPartnersResults companies={companyPartners} organizations={organizationPartners} communes={communePartners} />
       )}
 
       <style jsx>{`
