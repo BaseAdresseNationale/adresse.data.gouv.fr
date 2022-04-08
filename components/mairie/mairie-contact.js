@@ -23,6 +23,7 @@ function MairieContact({email, phone}) {
 
         .contact-info {
           display: flex;
+          font-size: ${email.length > 35 ? '14px' : '16px'};
         }
       `}</style>
     </div>

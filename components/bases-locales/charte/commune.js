@@ -6,13 +6,13 @@ import {ExternalLink} from 'react-feather'
 import theme from '@/styles/theme'
 import ButtonLink from '@/components/button-link'
 
-function Commune({name, codeCommune, picture, alt, signatureDate, charteURL}) {
+function Commune({name, codeCommune, picture, height, width, alt, signatureDate, charteURL}) {
   const date = new Date(signatureDate).toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
 
   return (
     <div className='commune-container' onClick={event => event.stopPropagation()}>
       <div className='commune-infos'>
-        <Image src={picture} height={70} width={56} alt={alt} />
+        <Image src={picture} height={height / 2} width={width / 2} alt={alt} />
         <Link href={`/commune/${codeCommune}`}>{`${name} - ${codeCommune}`}</Link>
       </div>
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
@@ -61,6 +61,8 @@ Commune.propTypes = {
   name: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
   signatureDate: PropTypes.string.isRequired,
   charteURL: PropTypes.string
