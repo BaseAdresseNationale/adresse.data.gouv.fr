@@ -1052,6 +1052,29 @@
       "width": 122,
       "alt": "Blason de la commune Bréau-Mars",
       "signatureDate": "2022-04-08"
+    },
+    {
+      "name": "Traversères",
+      "link": "http://www.traverseres.fr/",
+      "codeRegion": "76",
+      "codeDepartement": [
+        "32"
+      ],
+      "codeCommune": "32454",
+      "charteURL": "http://cdn3_4.reseaudespetitescommunes.fr/cities/797/documents/9543g66iexy5ouf.pdf",
+      "testimonyURL": "https://adresse.data.gouv.fr/blog/de-la-commune-au-departement-la-collaboration-sur-les-adresses-dans-le-gers",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-32454",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/traverseres.jpg",
+      "height": 124,
+      "width": 88,
+      "alt": "Illustration de la commune Traversères",
+      "signatureDate": "2022-04-08"
     }
   ]
 }
