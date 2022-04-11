@@ -22,7 +22,7 @@ function Communes({regions}) {
 
   // This sort can be removed when there is a sufficient number of partner communes.
   // Only two at the time this code was written…
-  const sortByCommunesCount = regions.sort((a, b) => b.departements.map(({communes}) => communes.length) - a.departements.map(({communes}) => communes.length))
+  const sortByCommunesCount = regions.sort((a, b) => sum(b.departements.map(({communes}) => communes.length)) - sum(a.departements.map(({communes}) => communes.length)))
 
   return (
     <Page title={title} description={description}>

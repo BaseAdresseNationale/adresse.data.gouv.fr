@@ -963,7 +963,7 @@
     }
   ],
   "communes": [
-        {
+    {
       "name": "Égliseneuve-des-Liards",
       "link": "http://www.mairie-egliseneuvedesliards.fr/actualites/detail/adressage-6469",
       "codeRegion": "84",
@@ -971,7 +971,8 @@
         "63"
       ],
       "codeCommune": "63145",
-      "balURL": "https://mes-adresses.data.gouv.fr/bal/605ef9e087068f21afdff6f2/communes/63145",
+      "charteURL": "http://www.mairie-egliseneuvedesliards.fr/fileadmin/Mairie_Egliseneuve-des-Liards/2-Documents/pdf/charte-bal-v1-05529.pdf",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-63145",
       "echelon": 0,
       "isPerimeterFrance": false,
       "isCompany": false,
@@ -1028,6 +1029,52 @@
       "width": 108,
       "alt": "Blason de la commune Breux-sur-Avre",
       "signatureDate": "2022-03-29"
+    },
+    {
+      "name": "Bréau-Mars",
+      "link": "https://www.breau-mars.fr/Adhesion-de-notre-Commune-a-la-Base-Adresse-Locale_a2315.html",
+      "codeRegion": "76",
+      "codeDepartement": [
+        "30"
+      ],
+      "codeCommune": "30052",
+      "charteURL": "https://www.breau-mars.fr/photo/art/grande/63620306-45827174.jpg?v=1649338441",
+      "testimonyURL": "https://adresse.data.gouv.fr/blog/adressage-a-breau-mars-communes-fusionnees-et-arrivee-de-la-fibre",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-30052",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/breau-mars.jpg",
+      "height": 124,
+      "width": 122,
+      "alt": "Blason de la commune Bréau-Mars",
+      "signatureDate": "2022-04-08"
+    },
+    {
+      "name": "Traversères",
+      "link": "http://www.traverseres.fr/",
+      "codeRegion": "76",
+      "codeDepartement": [
+        "32"
+      ],
+      "codeCommune": "32454",
+      "charteURL": "http://cdn3_4.reseaudespetitescommunes.fr/cities/797/documents/9543g66iexy5ouf.pdf",
+      "testimonyURL": "https://adresse.data.gouv.fr/blog/de-la-commune-au-departement-la-collaboration-sur-les-adresses-dans-le-gers",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-32454",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/traverseres.jpg",
+      "height": 124,
+      "width": 88,
+      "alt": "Illustration de la commune Traversères",
+      "signatureDate": "2022-04-08"
     }
   ]
 }
