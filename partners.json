@@ -1029,6 +1029,29 @@
       "width": 108,
       "alt": "Blason de la commune Breux-sur-Avre",
       "signatureDate": "2022-03-29"
+    },
+    {
+      "name": "Bréau-Mars",
+      "link": "https://www.breau-mars.fr/Adhesion-de-notre-Commune-a-la-Base-Adresse-Locale_a2315.html",
+      "codeRegion": "76",
+      "codeDepartement": [
+        "30"
+      ],
+      "codeCommune": "30052",
+      "charteURL": "https://www.breau-mars.fr/photo/art/grande/63620306-45827174.jpg?v=1649338441",
+      "testimonyURL": "https://adresse.data.gouv.fr/blog/adressage-a-breau-mars-communes-fusionnees-et-arrivee-de-la-fibre",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-30052",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/breau-mars.jpg",
+      "height": 124,
+      "width": 122,
+      "alt": "Blason de la commune Bréau-Mars",
+      "signatureDate": "2022-04-08"
     }
   ]
 }
