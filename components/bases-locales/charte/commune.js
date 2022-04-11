@@ -61,8 +61,8 @@ Commune.propTypes = {
   name: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
-  width: PropTypes.string.isRequired,
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
   alt: PropTypes.string.isRequired,
   signatureDate: PropTypes.string.isRequired,
   charteURL: PropTypes.string
