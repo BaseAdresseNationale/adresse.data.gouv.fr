@@ -133,10 +133,8 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "formation",
-        "formation technique",
-        "diffusion"
+        "formation technique"
       ],
       "picture": "/images/logos/partners/epci/ideo.png",
       "height": 124,
@@ -177,12 +175,10 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "formation",
         "accompagnement technique",
         "réalisation de bases adresses locales",
-        "mise à disposition d’outils mutualisés",
-        "diffusion"
+        "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/atd16.jpg",
       "height": 124,
@@ -201,7 +197,6 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "formation",
         "accompagnement technique",
         "réalisation de bases adresses locales",
@@ -292,7 +287,6 @@
         "formation",
         "réalisation de bases adresses locales",
         "accompagnement technique",
-        "diffusion",
         "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/compiegne.png",
@@ -314,7 +308,6 @@
       "services": [
         "réalisation de bases adresses locales",
         "accompagnement technique",
-        "diffusion",
         "formation"
       ],
       "picture": "/images/logos/partners/epci/tigeo.png",
@@ -334,11 +327,9 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "accompagnement technique",
         "réalisation de bases adresses locales",
-        "mise à disposition d’outils mutualisés",
-        "diffusion"
+        "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/paysBrest.png",
       "height": 118,
@@ -361,12 +352,10 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "formation",
         "accompagnement technique",
         "réalisation de bases adresses locales",
-        "mise à disposition d’outils mutualisés",
-        "diffusion"
+        "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/geopal.png",
       "height": 122,
@@ -434,11 +423,9 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "formation",
         "accompagnement technique",
-        "mise à disposition d’outils mutualisés",
-        "diffusion"
+        "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/doterr_geocentre.png",
       "height": 124,
@@ -480,7 +467,6 @@
         "formation",
         "réalisation de bases adresses locales",
         "accompagnement technique",
-        "diffusion",
         "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/lisieres-de-oise.png",
@@ -600,8 +586,6 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "diffusion",
-        "animation",
         "accompagnement technique",
         "réalisation de bases adresses locales",
         "mise à disposition d’outils mutualisés"
@@ -667,7 +651,6 @@
       "services": [
         "formation",
         "accompagnement technique",
-        "animation",
         "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/pau.jpg",
@@ -709,7 +692,6 @@
       "isPermimeterFrance": false,
       "isCompany": false,
       "services": [
-        "animation",
         "accompagnement technique",
         "formation"
       ],
@@ -934,8 +916,7 @@
       "isCompany": true,
       "services": [
         "réalisation de bases adresses locales",
-        "accompagnement technique",
-        "diffusion"
+        "accompagnement technique"
       ],
       "picture": "/images/logos/partners/companies/sigeo.png",
       "height": 89,
