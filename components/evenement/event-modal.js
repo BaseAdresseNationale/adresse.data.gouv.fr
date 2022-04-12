@@ -14,7 +14,7 @@ import Notification from '../notification'
 function EventModal({event, date, isPassed, onClose}) {
   const modalRef = useRef(null)
 
-  const {title, subtitle, address, description, href, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
+  const {title, subtitle, address, description, href, isSubscriptionClosed, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = address
 
   useEffect(() => {
@@ -56,13 +56,18 @@ function EventModal({event, date, isPassed, onClose}) {
             ) : (
               <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} />{nom}, {numero} {voie} - {codePostal} {commune}</div>
             )}
+
             {!isPassed && (
               <div className='subscribe'>
-                {instructions && (
-                  <div className='instructions'>{instructions}</div>
+                {isSubscriptionClosed ? (
+                  <div className='instructions'>Inscriptions closes</div>
+                ) : (
+                  instructions && (
+                    <div className='instructions'>{instructions}</div>
+                  )
                 )}
 
-                {href && (
+                {(href && !isSubscriptionClosed) && (
                   <ButtonLink href={href} isExternal>
                     S’inscrire à l’évènement
                   </ButtonLink>
@@ -225,6 +230,7 @@ EventModal.propTypes = {
     address: PropTypes.object,
     description: PropTypes.string.isRequired,
     href: PropTypes.string,
+    isSubscriptionClosed: PropTypes.bool,
     tags: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
     startHour: PropTypes.string.isRequired,
@@ -237,4 +243,5 @@ EventModal.propTypes = {
   isPassed: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }
+
 export default EventModal
