@@ -7,54 +7,45 @@ import Notification from '@/components/notification'
 function SearchPartnersResults({companies, organizations, communes}) {
   return (
     <div>
-      <div>
-        <div className='title'>Communes - échelon de compétence</div>
+      <div className='contact-container'>
+        <div className='subscription-indication'>Vous souhaitez être référencé comme Partenaire de la Charte de la Base Adresse Nationale, contactez nous.</div>
+        <Notification isFullWidth>
+          <HelpCircle style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+          Pour en faire partie, vous pouvez nous contacter à l’adresse suivante: <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr.</a>
+        </Notification>
+      </div>
+
+      <div className='partner-section'>
+        <div className={`title ${communes.length === 0 && 'disabled'}`}>Communes - échelon de compétence</div>
         {communes.length > 0 ? (
           <div className='partners-container'>
             {communes.map(partner => <Partner key={partner.name} partnerInfos={partner} isCommune />)}
           </div>
         ) : (
-          <div className='contact-container'>
-            <div className='no-found'>Votre commune n’est pas encore référencée comme Partenaire de la Charte de la Base Adresse Locale.</div>
-            <Notification isFullWidth>
-              <HelpCircle style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-              Pour en faire partie, vous pouvez nous contacter à l’adresse suivante: <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr.</a>
-            </Notification>
-          </div>
+          <div className='no-found'>Votre commune n’est pas encore référencée comme Partenaire de la Charte de la Base Adresse Locale.</div>
         )}
       </div>
 
-      <div>
-        <div className='title'>Organismes</div>
+      <div className='partner-section'>
+        <div className={`title ${organizations.length === 0 && 'disabled'}`}>Organismes</div>
         {organizations.length > 0 ? (
           <div className='partners-container'>
             {organizations.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
         ) : (
-          <div className='contact-container'>
-            <div className='no-found'>Aucun organisme de mutualisation n’est référencé comme Partenaire de la Charte de la Base Adresse Locale dans ce département.</div>
-            <Notification isFullWidth>
-              <HelpCircle style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-              Pour en faire partie, vous pouvez nous contacter à l’adresse suivante: <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr.</a>
-            </Notification>
-          </div>
+          <div className='no-found'>Aucun organisme de mutualisation n’est référencé comme Partenaire de la Charte de la Base Adresse Locale dans ce département.</div>
+
         )}
       </div>
 
-      <div className='organizations-container'>
-        <div className='title'>Entreprises</div>
+      <div className='partner-section'>
+        <div className={`title ${companies.length === 0 && 'disabled'}`}>Entreprises</div>
         {companies.length > 0 ? (
           <div className='partners-container'>
             {companies.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
           </div>
         ) : (
-          <div className='contact-container'>
-            <div className='no-found'>Aucune entreprise n’est référencée comme Partenaire de la Charte de la Base Adresse Locale dans ce département.</div>
-            <Notification isFullWidth>
-              <HelpCircle style={{verticalAlign: 'bottom', marginRight: '5px'}} />
-              Pour en faire partie, vous pouvez nous contacter à l’adresse suivante: <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr.</a>
-            </Notification>
-          </div>
+          <div className='no-found'>Aucune entreprise n’est référencée comme Partenaire de la Charte de la Base Adresse Locale dans ce département.</div>
         )}
       </div>
 
@@ -68,14 +59,17 @@ function SearchPartnersResults({companies, organizations, communes}) {
           gap: 6em 5em;
         }
 
-        .organizations-container {
+        .partner-section {
           margin-top: 4em;
         }
 
-        .no-found {
-          text-align: center;
+        .no-found, .subscription-indication {
           margin: 1em 0;
           font-style: italic;
+        }
+
+        .subscription-indication {
+          text-align: center;
         }
 
         .title {
@@ -85,6 +79,10 @@ function SearchPartnersResults({companies, organizations, communes}) {
 
         .contact-container {
           margin: 2em 0 4em 0;
+        }
+
+        .disabled {
+          opacity: 60%;
         }
       `}</style>
     </div>
