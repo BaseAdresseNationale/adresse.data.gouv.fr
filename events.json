@@ -20,7 +20,8 @@
       "commune": ""
     },
     "href": "",
-    "instructions": "Inscriptions closes",
+    "isSubscriptionClosed": true,
+    "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -295,6 +296,7 @@
       "commune": ""
     },
     "href": "",
+    "isSubscriptionClosed": true,
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
@@ -320,6 +322,7 @@
       "commune": ""
     },
     "href": "https://www.eventbrite.fr/e/billets-adresse-lab1-269490381987",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "10:00",
     "endHour": "12:00"
@@ -345,7 +348,8 @@
       "commune": ""
     },
     "href": "",
-    "instructions": "Inscriptions closes",
+    "isSubscriptionClosed": true,
+    "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -370,7 +374,8 @@
       "commune": ""
     },
     "href": "",
-    "instructions": "Inscriptions closes",
+    "isSubscriptionClosed": true,
+    "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -395,7 +400,8 @@
       "commune": ""
     },
     "href": "https://cryptpad.fr/form/#/2/form/view/GwBMzsZjMftfsZULBCWOAP8HkHAqI7KlIi2xWXtqJFE/embed/",
-    "instructions": "Inscriptions closes",
+    "isSubscriptionClosed": true,
+    "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -414,13 +420,14 @@
     ],
     "isOnlineOnly": true,
     "address": {
-    "nom": "",
-    "numero": "",
-    "voie": "",
-    "codePostal": "",
-    "commune": ""
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
     },
     "href": "https://www.eventbrite.fr/e/inscription-adresse-lab-identifiants-session-1-311197368707",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "10:00",
     "endHour": "12:00"
@@ -446,6 +453,7 @@
       "commune": ""
     },
     "href": "https://cryptpad.fr/form/#/2/form/view/vDJTz0bY-VLzwkyaa6Ubj+NkI6bJ8WG5qK3GPlCBlI0/embed/",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
@@ -470,14 +478,15 @@
       "codePostal": "",
       "commune": ""
     },
-    "href": "",
-    "instructions": "https://cryptpad.fr/form/#/2/form/view/BGnrBMIF7o4GBJ5fjEy9--DHfn36JkElX9lXEajfKAI/embed/",
+    "href": "https://cryptpad.fr/form/#/2/form/view/BGnrBMIF7o4GBJ5fjEy9--DHfn36JkElX9lXEajfKAI/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
   },
   {
     "title": "Adresse_Lab #2",
-    "subtitle":"identifiant unique",
+    "subtitle": "identifiant unique",
     "description": "L'équipe BAN propose aux producteurs et aux utilisateurs des données adresses de la BAN de se réunir autour de la problématique de l'identifiant unique. Au menu, présentation de ce qui est utilisé actuellement, des questions sur lesquelles on souhaite avoir votre expertise : que cherche-t-on a identifier ? quand un identifiant doit-il être modifié ? N'hésitez pas à nous contacter pour présenter des cas d'utilisation et soumettre à la communauté BAN vos interrogations/suggestions. Nous proposons deux dates pour faciliter les échanges lors de chaque session",
     "type": "adresselab",
     "target": "utilisateurs techniques",
@@ -490,13 +499,14 @@
     ],
     "isOnlineOnly": true,
     "address": {
-    "nom": "",
-    "numero": "",
-    "voie": "",
-    "codePostal": "",
-    "commune": ""
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
     },
     "href": "https://www.eventbrite.fr/e/inscription-adresse-lab-identifiants-session-1-311197368707",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "10:00",
     "endHour": "12:00"
@@ -522,6 +532,7 @@
       "commune": ""
     },
     "href": "https://cryptpad.fr/form/#/2/form/view/UgnknVMXIvIN2GQT3iyB5L5HuGkr8gZrbGivU0Phv-w/embed/",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
@@ -547,6 +558,7 @@
       "commune": ""
     },
     "href": "https://cryptpad.fr/form/#/2/form/view/unkb1bTYS69N0ANl7kmPnwWDMrCUZ9CxKyIJOKOxIiI/embed/",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
@@ -572,6 +584,7 @@
       "commune": ""
     },
     "href": "https://cryptpad.fr/form/#/2/form/view/PTJr1owjcnXbkohaUNNqDoNOy-b9yYwEkLHTZz99p6E/embed/",
+    "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
