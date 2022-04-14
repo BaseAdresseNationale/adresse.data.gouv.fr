@@ -25,7 +25,7 @@ SlugPage.propTypes = {
   post: PropTypes.shape({
     title: PropTypes.string.isRequired,
     excerpt: PropTypes.string.isRequired,
-    feature_image: PropTypes.string
+    feature_image: PropTypes.string /* eslint-disable-line camelcase */
   })
 }
 
