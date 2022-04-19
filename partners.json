@@ -820,6 +820,28 @@
       "height": 154,
       "width": 114,
       "alt": "Logo du partenaire Communauté d'agglomération de l'Albigeois"
+    },
+    {
+      "name": "Communauté d'Agglomération Ventoux Comtat Venaissin",
+      "link": "https://www.lacove.fr/index.php?id=62705",
+      "infos": "Dans le cadre de la convention du service commun SIG et OpenData, la CoVe accompagne les 25 communes adhérentes pour la réalisation, la publication et la mise à jour de leurs Bases Adresses Locales grâce à la mutualisation des compétences, des données et des outils.",
+      "perimeter": "Communauté d’Agglomération Ventoux Comtat Venaissin (Vaucluse)",
+      "codeDepartement": [
+        "84"
+      ],
+      "echelon": 1,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "mise à disposition d’outils mutualisés",
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales"
+      ],
+      "picture": "/images/logos/partners/epci/la-cove.png",
+      "height": 124,
+      "width": 120,
+      "alt": "Logo du partenaire Communauté d’Agglomération Ventoux Comtat Venaissin"
     }
   ],
   "companies": [
