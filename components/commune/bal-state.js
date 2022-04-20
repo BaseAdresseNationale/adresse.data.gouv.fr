@@ -79,7 +79,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
               size='large'
               target='_blank'
               rel='noreferrer'
-              href='https://mes-adresses.data.gouv.fr/new'
+              href={`https://mes-adresses.data.gouv.fr/new?commune=${codeCommune}`}
             >
               Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} />
             </ButtonLink>
