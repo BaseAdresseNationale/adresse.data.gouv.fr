@@ -16,13 +16,15 @@ import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
+
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
+  const sanitizedType = positionType.charAt(0).toUpperCase() + positionType.slice(1)
 
   return (
     <>
@@ -51,6 +53,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, sou
         )}
         <div>Code postal : <b>{codePostal}</b></div>
         <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
+        <div>Type de position : <b>{sanitizedType}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
       </div>
@@ -164,6 +167,7 @@ Numero.propTypes = {
   libelleAcheminement: PropTypes.string.isRequired,
   codePostal: PropTypes.string.isRequired,
   cleInterop: PropTypes.string.isRequired,
+  positionType: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   isMobile: PropTypes.bool
