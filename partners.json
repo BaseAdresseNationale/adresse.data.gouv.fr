@@ -842,6 +842,29 @@
       "height": 124,
       "width": 120,
       "alt": "Logo du partenaire Communauté d’Agglomération Ventoux Comtat Venaissin"
+    },
+    {
+      "name": "GéoBretagne",
+      "link": "https://cms.geobretagne.fr/voirie-adresse",
+      "infos": "GéoBretagne, le partenariat des données territoriales en Bretagne, souhaite poursuivre la démarche d’alimentation d’un référentiel unique (voirie-adresse) via la constitution des Bases Adresse Locales en s’appuyant sur ses membres (EPCI, Mégalis, SDIS, DDFiP en particulier) et le pôle métier voirie-adresse.",
+      "perimeter": "Bretagne",
+      "codeDepartement": [
+        "22",
+        "29",
+        "35",
+        "56"
+      ],
+      "echelon": 3,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique"
+      ],
+      "picture": "/images/logos/partners/epci/geobretagne.png",
+      "height": 45,
+      "width": 232,
+      "alt": "Logo du partenaire GéoBretagne"
     }
   ],
   "companies": [
