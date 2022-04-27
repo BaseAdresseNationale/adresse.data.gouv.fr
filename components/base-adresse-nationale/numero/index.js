@@ -24,7 +24,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
 
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
-  const sanitizedType = positionType.charAt(0).toUpperCase() + positionType.slice(1)
+  const sanitizedType = positionType ? (positionType.charAt(0).toUpperCase() + positionType.slice(1)) : 'Inconnu'
 
   return (
     <>
