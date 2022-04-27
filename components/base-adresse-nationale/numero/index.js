@@ -142,7 +142,8 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
 }
 
 Numero.defaultProps = {
-  isMobile: false
+  isMobile: false,
+  positionType: null
 }
 
 Numero.propTypes = {
@@ -167,7 +168,7 @@ Numero.propTypes = {
   libelleAcheminement: PropTypes.string.isRequired,
   codePostal: PropTypes.string.isRequired,
   cleInterop: PropTypes.string.isRequired,
-  positionType: PropTypes.string.isRequired,
+  positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   isMobile: PropTypes.bool
