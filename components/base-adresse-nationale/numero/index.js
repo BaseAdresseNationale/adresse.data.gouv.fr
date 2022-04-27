@@ -24,7 +24,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
 
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
-  const sanitizedType = positionType.charAt(0).toUpperCase() + positionType.slice(1)
+  const sanitizedType = positionType ? (positionType.charAt(0).toUpperCase() + positionType.slice(1)) : 'Inconnu'
 
   return (
     <>
@@ -142,7 +142,8 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
 }
 
 Numero.defaultProps = {
-  isMobile: false
+  isMobile: false,
+  positionType: null
 }
 
 Numero.propTypes = {
@@ -167,7 +168,7 @@ Numero.propTypes = {
   libelleAcheminement: PropTypes.string.isRequired,
   codePostal: PropTypes.string.isRequired,
   cleInterop: PropTypes.string.isRequired,
-  positionType: PropTypes.string.isRequired,
+  positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   isMobile: PropTypes.bool
