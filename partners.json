@@ -865,6 +865,28 @@
       "height": 45,
       "width": 232,
       "alt": "Logo du partenaire GéoBretagne"
+    },
+    {
+      "name": "Communauté de Communes du Pays du Coquelicot",
+      "link": "https://www.paysducoquelicot.com/vivre-preserver/lhabitat/adresse",
+      "infos": "La Communauté de Communes du Pays du Coquelicot sensibilise et accompagne ses communes membres dans la gestion de leur Base Adresse Locale. Elle propose des formations et un support sur l’outil « Mes Adresses » à destination des élus et agents communaux en charge de l’adressage. Elle apporte également un savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+      "perimeter": "Département de la Somme (65)",
+      "codeDepartement": [
+        "80"
+      ],
+      "echelon": 1,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/coquelicot.jpg",
+      "height": 124,
+      "width": 109,
+      "alt": "Logo du partenaire Communauté de Communes du Pays du Coquelicot"
     }
   ],
   "companies": [
