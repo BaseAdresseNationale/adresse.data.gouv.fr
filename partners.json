@@ -865,6 +865,28 @@
       "height": 45,
       "width": 232,
       "alt": "Logo du partenaire GéoBretagne"
+    },
+    {
+      "name": "Communauté de Communes du Pays du Coquelicot",
+      "link": "https://www.paysducoquelicot.com/vivre-preserver/lhabitat/adresse",
+      "infos": "La Communauté de Communes du Pays du Coquelicot sensibilise et accompagne ses communes membres dans la gestion de leur Base Adresse Locale. Elle propose des formations et un support sur l’outil « Mes Adresses » à destination des élus et agents communaux en charge de l’adressage. Elle apporte également un savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+      "perimeter": "Département de la Somme (65)",
+      "codeDepartement": [
+        "80"
+      ],
+      "echelon": 1,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/coquelicot.jpg",
+      "height": 124,
+      "width": 109,
+      "alt": "Logo du partenaire Communauté de Communes du Pays du Coquelicot"
     }
   ],
   "companies": [
@@ -1131,6 +1153,29 @@
       "width": 88,
       "alt": "Illustration de la commune Traversères",
       "signatureDate": "2022-04-08"
+    },
+    {
+      "name": "Commune de Castillon-Savès",
+      "link": "https://castillon-saves.fr/au-quotidien/plan-de-la-commune",
+      "codeRegion": "",
+      "codeDepartement": [
+        "32"
+      ],
+      "codeCommune": "32090",
+      "charteURL": "https://castillon-saves.fr/wp-content/uploads/2022/05/20220505-Charte-commune-Castillon-Saves.pdf",
+      "testimonyURL": "",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-32090",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/castillon-saves.jpg",
+      "height": 124,
+      "width": 124,
+      "alt": "Blason de la commune de Castillon-Savès",
+      "signatureDate": "2022-05-05"
     }
   ]
 }
