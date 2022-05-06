@@ -1131,6 +1131,29 @@
       "width": 88,
       "alt": "Illustration de la commune Traversères",
       "signatureDate": "2022-04-08"
+    },
+    {
+      "name": "Commune de Castillon-Savès",
+      "link": "https://castillon-saves.fr/au-quotidien/plan-de-la-commune",
+      "codeRegion": "",
+      "codeDepartement": [
+        "32"
+      ],
+      "codeCommune": "32090",
+      "charteURL": "https://castillon-saves.fr/wp-content/uploads/2022/05/20220505-Charte-commune-Castillon-Saves.pdf",
+      "testimonyURL": "",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-32090",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/castillon-saves.jpg",
+      "height": 124,
+      "width": 124,
+      "alt": "Blason de la commune de Castillon-Savès",
+      "signatureDate": "2022-05-05"
     }
   ]
 }
