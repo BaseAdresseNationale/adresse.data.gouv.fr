@@ -81,7 +81,7 @@ function Guides() {
           isReverse
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
-          link='https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/files/8234717/20220311.Bonnes.pratiques.de.l.adresse.3.1.pdf'
+          link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v3.1.pdf'
         >
           <SectionText>
             <p>
