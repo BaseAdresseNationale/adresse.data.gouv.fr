@@ -929,6 +929,28 @@
       "height": 124,
       "width": 157,
       "alt": "Logo du SIDEC du Jura"
+    },
+    {
+      "name": "Alès Agglomération",
+      "link": "https://www.sigcevennes.fr/",
+      "infos": "Le service commun SIG d’Alès Agglomération (SIG Cévennes) se propose, dans le cadre de ses prestations aux Communes adhérentes au service, de les accompagner dans la mise en place de leur adressage communal au travers de la Base Adresse Locale.",
+      "perimeter": "Syndicat Mixte du Pays Cévennes",
+      "codeDepartement": [
+        "30"
+      ],
+      "echelon": 1,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/ales.png",
+      "height": 124,
+      "width": 109,
+      "alt": "Logo du partenaire Alès Agglomération"
     }
   ],
   "companies": [
