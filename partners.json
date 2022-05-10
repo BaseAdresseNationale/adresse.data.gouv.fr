@@ -909,6 +909,26 @@
       "height": 124,
       "width": 76,
       "alt": "Logo du partenaire Pôle Marennes Oléron"
+    },
+    {
+      "name": "SIDEC du Jura",
+      "link": "https://www.sidec-jura.com/mutualiser/gestion-des-besoins-catographiques/",
+      "infos": "Facilitateur de proximité au service des collectivités du Jura, le SIDEC propose différents formats d’accompagnement afin d’apporter un service adapté aux besoins des collectivités jurassiennes dans les domaines des Énergies, Equipements, Infrastructures, de l’Informatique et de la Géomatique.",
+      "perimeter": "Département du Jura",
+      "codeDepartement": [
+        "39"
+      ],
+      "echelon": 2,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique"
+      ],
+      "picture": "/images/logos/partners/epci/sidec.png",
+      "height": 124,
+      "width": 157,
+      "alt": "Logo du SIDEC du Jura"
     }
   ],
   "companies": [
