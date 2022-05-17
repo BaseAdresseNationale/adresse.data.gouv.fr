@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import {groupBy, sum} from 'lodash'
+import {groupBy, sum, uniq} from 'lodash'
 import {Award, Mail} from 'react-feather'
 
 import {getDepartementByCode, getRegions} from '@/lib/api-geo'
@@ -86,12 +86,13 @@ export async function getServerSideProps() {
   return {
     props: {
       regions: await Promise.all(regions.map(async region => {
-        const departementsCode = partners.communes.filter(({codeRegion}) => codeRegion === region.code).map(({codeDepartement}) => codeDepartement[0])
+        const departementsCode = uniq(partners.communes.filter(({codeRegion}) => codeRegion === region.code).map(({codeDepartement}) => codeDepartement[0]))
 
         return {
           ...region,
           departements: await Promise.all(departementsCode.map(async codeDepartement => {
             const departement = await getDepartementByCode(codeDepartement)
+
             return {
               ...departement,
               communes: communesByDepartement[codeDepartement]
