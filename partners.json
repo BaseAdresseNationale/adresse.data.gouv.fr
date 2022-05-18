@@ -951,6 +951,26 @@
       "height": 124,
       "width": 109,
       "alt": "Logo du partenaire Alès Agglomération"
+    },
+    {
+      "name": "Géo17 - Soluris",
+      "link": "https://www.geoplateforme17.fr/projets/adresse",
+      "infos": "Géo17 propose des ressources aux communes pour les aider dans leur projet d’adressage, en complémentarité avec les solutions offertes par les structures de mutualisation locales (intercommunalités, PETR, Pays) et par l’État.",
+      "perimeter": "Communes de Charente-Maritime",
+      "codeDepartement": [
+        "17"
+      ],
+      "echelon": 2,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/soluris.png",
+      "height": 124,
+      "width": 149,
+      "alt": "Logo du partenaire Géo17 - Soluris"
     }
   ],
   "companies": [
