@@ -25,6 +25,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
   const sanitizedType = positionType ? (positionType.charAt(0).toUpperCase() + positionType.slice(1)) : 'Inconnu'
+  const isOverseasCollectivity = Object.keys(commune.region).length === 0 && Object.keys(commune.departement).length === 0
 
   return (
     <>
@@ -32,7 +33,13 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
         <div>
           <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-          <div className='region'>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
+
+          {!isOverseasCollectivity && (
+            <div className='region'>
+              {`${commune.region.nom} - ${commune.departement.nom} (${commune.departement.code})`}
+            </div>
+          )}
+
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -51,8 +58,8 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
         {lieuDitComplementNom && (
           <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
         )}
-        <div>Code postal : <b>{codePostal}</b></div>
-        <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
+        {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
+        {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
         <div>Type de position : <b>{sanitizedType}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
@@ -165,13 +172,18 @@ Numero.propTypes = {
     id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired
   }),
-  libelleAcheminement: PropTypes.string.isRequired,
-  codePostal: PropTypes.string.isRequired,
+  libelleAcheminement: PropTypes.string,
+  codePostal: PropTypes.string,
   cleInterop: PropTypes.string.isRequired,
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   isMobile: PropTypes.bool
+}
+
+Numero.defaultProps = {
+  codePostal: null,
+  libelleAcheminement: null
 }
 
 export default Numero
