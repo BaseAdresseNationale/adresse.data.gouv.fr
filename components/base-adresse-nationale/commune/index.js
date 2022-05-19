@@ -13,7 +13,7 @@ import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Notification from '@/components/notification'
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, nbNumeros, nbNumerosCertifies, nbLieuxDits, population, codesPostaux, typeComposition}) {
+function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, nbNumeros, nbNumerosCertifies, nbLieuxDits, population, codesPostaux, typeComposition, isCOM}) {
   const [activeTab, setActiveTab] = useState('VOIES')
 
   const isAllCertified = nbNumeros > 0 && nbNumeros === nbNumerosCertifies
@@ -30,7 +30,9 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
       <div className='heading'>
         <div>
           <h2><a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a></h2>
-          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
+          <div className='region'>
+            {isCOM ? `Collectivité d’outremer - ${region.nom} (${region.code})` : `${region.nom} - ${departement.nom} (${departement.code})`}
+          </div>
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -131,14 +133,16 @@ Commune.propTypes = {
   nbNumeros: PropTypes.number.isRequired,
   nbNumerosCertifies: PropTypes.number.isRequired,
   region: PropTypes.shape({
-    nom: PropTypes.string.isRequired
+    nom: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired
   }).isRequired,
   departement: PropTypes.shape({
     code: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired
   }).isRequired,
   population: PropTypes.number.isRequired,
-  codesPostaux: PropTypes.array.isRequired
+  codesPostaux: PropTypes.array.isRequired,
+  isCOM: PropTypes.bool
 }
 
 export default Commune

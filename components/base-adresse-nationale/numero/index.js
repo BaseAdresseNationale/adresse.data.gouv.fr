@@ -16,7 +16,7 @@ import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile, isCOM}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -25,7 +25,6 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
   const sanitizedType = positionType ? (positionType.charAt(0).toUpperCase() + positionType.slice(1)) : 'Inconnu'
-  const isOverseasCollectivity = Object.keys(commune.region).length === 0 && Object.keys(commune.departement).length === 0
 
   return (
     <>
@@ -34,12 +33,9 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
           <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
 
-          {!isOverseasCollectivity && (
-            <div className='region'>
-              {`${commune.region.nom} - ${commune.departement.nom} (${commune.departement.code})`}
-            </div>
-          )}
-
+          <div className='region'>
+            {isCOM ? `Collectivité d’outremer - ${commune.departement.nom} (${commune.departement.code})` : `${commune.region.nom} - ${commune.departement.nom} (${commune.departement.code})`}
+          </div>
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -173,7 +169,8 @@ Numero.propTypes = {
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  isCOM: PropTypes.bool
 }
 
 Numero.defaultProps = {

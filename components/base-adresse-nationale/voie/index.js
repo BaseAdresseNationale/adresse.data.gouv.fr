@@ -11,7 +11,7 @@ import ParcellesList from '../parcelles-list'
 import Numero from './numero'
 import Notification from '@/components/notification'
 
-function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumeros}) {
+function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumeros, isCOM}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
@@ -21,7 +21,9 @@ function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumero
         <h2>{nomVoie}</h2>
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
         {region && departement && (
-          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
+          <div className='region'>
+            {isCOM ? `Collectivité d’outremer - ${commune.departement.nom} (${commune.departement.code})` : `${commune.region.nom} - ${commune.departement.nom} (${commune.departement.code})`}
+          </div>
         )}
         <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
       </div>
@@ -98,7 +100,8 @@ Voie.propTypes = {
   displayBBox: PropTypes.array,
   nbNumeros: PropTypes.number,
   numeros: PropTypes.array,
-  parcelles: PropTypes.array
+  parcelles: PropTypes.array,
+  isCOM: PropTypes.bool
 }
 
 export default Voie

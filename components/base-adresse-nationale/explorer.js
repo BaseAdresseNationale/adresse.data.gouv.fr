@@ -35,10 +35,15 @@ function Explorer({address, isMobile, isSafariBrowser}) {
   }
 
   const Address = ADDRESSTYPES[address.type] || Numero
+  const isCOM = address.commune ? (
+    address.commune.region.code === address.commune.departement.code
+  ) : (
+    address.region.code === address.departement.code
+  ) // Quick fix to check if the address is a COM or not. Will be change at this issue resolution => https://github.com/etalab/api-geo/issues/154
 
   return (
     <div className='explorer-container'>
-      <Address {...address} isMobile={isMobile} isSafariBrowser={isSafariBrowser} />
+      <Address {...address} isMobile={isMobile} isSafariBrowser={isSafariBrowser} isCOM={isCOM} />
 
       <style jsx>{`
         .explorer-container {
@@ -61,7 +66,10 @@ Explorer.propTypes = {
   address: PropTypes.shape({
     type: PropTypes.oneOf(['commune', 'voie', 'lieu-dit', 'numero']),
     voies: PropTypes.array,
-    nbVoies: PropTypes.number
+    nbVoies: PropTypes.number,
+    commune: PropTypes.object,
+    departement: PropTypes.object,
+    region: PropTypes.object
   }),
   isMobile: PropTypes.bool,
   isSafariBrowser: PropTypes.bool
