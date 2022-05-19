@@ -148,11 +148,6 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
   )
 }
 
-Numero.defaultProps = {
-  isMobile: false,
-  positionType: null
-}
-
 Numero.propTypes = {
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
