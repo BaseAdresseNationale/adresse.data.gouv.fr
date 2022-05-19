@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
 import {CheckCircle} from 'react-feather'
 
-import colors from '@/styles/colors'
 import theme from '@/styles/theme'
 
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
+import RegionInfos from '../region-infos'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Notification from '@/components/notification'
 import Voie from './voie'
 
-function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, nbNumeros, nbNumerosCertifies, nbLieuxDits, population, codesPostaux, typeComposition, isCOM}) {
+function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, nbNumeros, nbNumerosCertifies, nbLieuxDits, population, codesPostaux, typeComposition}) {
   const [activeTab, setActiveTab] = useState('VOIES')
 
   const isAllCertified = nbNumeros > 0 && nbNumeros === nbNumerosCertifies
@@ -30,9 +30,12 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
       <div className='heading'>
         <div>
           <h2><a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a></h2>
-          <div className='region'>
-            {isCOM ? `Collectivité d’outremer - ${region.nom} (${region.code})` : `${region.nom} - ${departement.nom} (${departement.code})`}
-          </div>
+          <RegionInfos
+            title={`${nomCommune} - ${codeCommune}`}
+            codeCommune={codeCommune}
+            region={region}
+            departement={departement}
+          />
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -108,13 +111,6 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
           margin-bottom: 0.2em;
         }
 
-        .region {
-          margin-top: 0.5em;
-          font-style: italic;
-          font-size: 17px;
-          color: ${colors.almostBlack};
-        }
-
         .non-breaking {
           white-space: nowrap;
         }
@@ -141,8 +137,7 @@ Commune.propTypes = {
     nom: PropTypes.string.isRequired
   }).isRequired,
   population: PropTypes.number.isRequired,
-  codesPostaux: PropTypes.array.isRequired,
-  isCOM: PropTypes.bool
+  codesPostaux: PropTypes.array.isRequired
 }
 
 export default Commune
