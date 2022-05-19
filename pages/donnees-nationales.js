@@ -54,7 +54,7 @@ function DonneesNatioales() {
             action='Documentation'
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
-            list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
+            list={['Mise à jour mensuelle', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
           >
             Visualisation cartographique des adresses BAN en WFS
           </Card>
@@ -63,7 +63,7 @@ function DonneesNatioales() {
             action='Documentation'
             title='Format WMS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
-            list={['Mise à jour hebdomadaire', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
+            list={['Mise à jour mensuelle', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
           >
             Visualisation cartographique des adresses BAN en WMS
           </Card>
