@@ -68,6 +68,7 @@ function Guides() {
           link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses-v6.0.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
           alt='miniature du guide Mes Adresses'
+          version='6 - 06/05/2022'
         >
           <SectionText>
             <p>&quot;Mes Adresses&quot; est un outil en ligne qui vous permet de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. Il est accessible sans compétences techniques et dispose d’un tutoriel embarqué.<br /> Le Guide de Mes Adresses est disponible dans un <a href='https://guide.mes-adresses.data.gouv.fr/'>format texte en ligne</a> ou en PDF.</p>
@@ -86,6 +87,7 @@ function Guides() {
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques-v3.1.pdf'
+          version='3.1 - 11/03/2022'
         >
           <SectionText>
             <p>
@@ -104,6 +106,7 @@ function Guides() {
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
+          version=''
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
           <SectionText>
