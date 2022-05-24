@@ -165,8 +165,13 @@ Numero.propTypes = {
 }
 
 Numero.defaultProps = {
+  suffixe: null,
+  lieuDitComplementNom: null,
+  positions: [],
   codePostal: null,
-  libelleAcheminement: null
+  libelleAcheminement: null,
+  positionType: null,
+  isMobile: false
 }
 
 export default Numero
