@@ -6,6 +6,7 @@ import {getCommune} from '@/lib/api-ban'
 import {getRevisions} from '@/lib/api-depot'
 import {getMairie} from '@/lib/api-etablissements-public'
 import withErrors from '@/components/hoc/with-errors'
+import {isCOM} from '@/lib/ban'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -51,7 +52,10 @@ Commune.getInitialProps = async ({query}) => {
   const {codeCommune} = query
 
   const commune = await getCommune(codeCommune)
-  const mairie = await getMairie(codeCommune)
+  const isCommuneCOM = isCOM(codeCommune)
+
+  const mairie = isCommuneCOM ? await getMairie(codeCommune, 'mairie_com') : await getMairie(codeCommune)
+
   const revisions = await getRevisions(codeCommune)
 
   const currentRevision = revisions.find(revision => revision.current)
