@@ -31,7 +31,6 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
         <div>
           <h2><a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a></h2>
           <RegionInfos
-            title={`${nomCommune} - ${codeCommune}`}
             codeCommune={codeCommune}
             region={region}
             departement={departement}
