@@ -165,7 +165,7 @@ function Home({stats, posts}) {
         `}</style>
       </Section>
 
-      <Section title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
+      <Section id='newsletter' title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
         <SocialMedia />
       </Section>
     </Page>

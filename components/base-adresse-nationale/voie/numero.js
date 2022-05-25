@@ -61,17 +61,17 @@ function Numero({id, numero, suffixe, lieuDitComplementNom, sourcePosition, isCe
 }
 
 Numero.propTypes = {
-  suffixe: null,
-  lieuDitComplementNom: null
-}
-
-Numero.propTypes = {
   id: PropTypes.string.isRequired,
   suffixe: PropTypes.string,
   numero: PropTypes.number.isRequired,
   lieuDitComplementNom: PropTypes.string,
   isCertified: PropTypes.bool.isRequired,
   sourcePosition: PropTypes.string.isRequired
+}
+
+Numero.defaultProps = {
+  suffixe: null,
+  lieuDitComplementNom: null
 }
 
 export default Numero
