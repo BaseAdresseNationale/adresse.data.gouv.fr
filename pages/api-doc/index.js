@@ -1,4 +1,4 @@
-import {Compass, Terminal, Map, Folder} from 'react-feather'
+import {Compass, Terminal, Map, Folder, Activity} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -32,6 +32,12 @@ function ApiPage() {
       description: 'API permettant consulter la base FANTOIR de la DGFiP.',
       href: 'https://github.com/BaseAdresseNationale/api-fantoir/blob/master/README.md#api',
       icon: <Folder />
+    },
+    {
+      title: 'Supervision BAN/BAL',
+      description: 'Consultez la disponiblité des différents systèmes grâce à un outil de monitoring.',
+      href: 'https://status.adresse.data.gouv.fr/',
+      icon: <Activity />
     }
   ]
 
