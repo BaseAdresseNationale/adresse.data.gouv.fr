@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import {orderBy} from 'lodash'
 import {CheckCircle} from 'react-feather'
 
-import colors from '@/styles/colors'
 import theme from '@/styles/theme'
 
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
+import RegionInfos from '../region-infos'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Notification from '@/components/notification'
@@ -30,7 +30,11 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
       <div className='heading'>
         <div>
           <h2><a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a></h2>
-          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
+          <RegionInfos
+            codeCommune={codeCommune}
+            region={region}
+            departement={departement}
+          />
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -106,13 +110,6 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
           margin-bottom: 0.2em;
         }
 
-        .region {
-          margin-top: 0.5em;
-          font-style: italic;
-          font-size: 17px;
-          color: ${colors.almostBlack};
-        }
-
         .non-breaking {
           white-space: nowrap;
         }
@@ -131,7 +128,8 @@ Commune.propTypes = {
   nbNumeros: PropTypes.number.isRequired,
   nbNumerosCertifies: PropTypes.number.isRequired,
   region: PropTypes.shape({
-    nom: PropTypes.string.isRequired
+    nom: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired
   }).isRequired,
   departement: PropTypes.shape({
     code: PropTypes.string.isRequired,

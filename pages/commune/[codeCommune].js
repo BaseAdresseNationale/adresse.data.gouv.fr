@@ -51,7 +51,9 @@ Commune.getInitialProps = async ({query}) => {
   const {codeCommune} = query
 
   const commune = await getCommune(codeCommune)
+
   const mairie = await getMairie(codeCommune)
+
   const revisions = await getRevisions(codeCommune)
 
   const currentRevision = revisions.find(revision => revision.current)
@@ -60,7 +62,7 @@ Commune.getInitialProps = async ({query}) => {
   return {
     codeCommune,
     communeInfos: commune,
-    mairieInfos: mairie.features[0].properties,
+    mairieInfos: mairie.features[0]?.properties,
     revisions,
     currentRevision,
     typeCompositionAdresses
@@ -69,7 +71,7 @@ Commune.getInitialProps = async ({query}) => {
 
 Commune.propTypes = {
   communeInfos: PropTypes.object.isRequired,
-  mairieInfos: PropTypes.object.isRequired,
+  mairieInfos: PropTypes.object,
   codeCommune: PropTypes.string.isRequired,
   typeCompositionAdresses: PropTypes.string.isRequired,
   currentRevision: PropTypes.object,
@@ -78,7 +80,8 @@ Commune.propTypes = {
 
 Commune.defaultType = {
   revision: [],
-  currentRevision: null
+  currentRevision: null,
+  mairieInfos: null
 }
 
 export default withErrors(Commune)

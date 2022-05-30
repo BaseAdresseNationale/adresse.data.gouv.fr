@@ -15,6 +15,7 @@ import PositionsTypes from '../positions-types'
 import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
+import RegionInfos from '../region-infos'
 
 function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
@@ -32,7 +33,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
         <div>
           <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
           {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-          <div className='region'>{commune.region.nom} - {commune.departement.nom} ({commune.departement.code})</div>
+          <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
         </div>
         <div style={{padding: '1em'}}>
           <Certification
@@ -51,8 +52,8 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
         {lieuDitComplementNom && (
           <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
         )}
-        <div>Code postal : <b>{codePostal}</b></div>
-        <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>
+        {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
+        {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
         <div>Type de position : <b>{sanitizedType}</b></div>
         <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
         <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
@@ -102,6 +103,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
           onClose={() => setIsCopyAvailable(true)}
         />
       )}
+
       <style jsx>{`
         .heading {
           display: grid;
@@ -114,13 +116,6 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
 
         .heading h2 {
           margin-bottom: 0.2em;
-        }
-
-        .region {
-          margin: 2em 0 0.7em 0;
-          font-style: italic;
-          font-size: 17px;
-          color: ${colors.almostBlack};
         }
 
         .numero-details {
@@ -139,11 +134,6 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
       `}</style>
     </>
   )
-}
-
-Numero.defaultProps = {
-  isMobile: false,
-  positionType: null
 }
 
 Numero.propTypes = {
@@ -165,13 +155,23 @@ Numero.propTypes = {
     id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired
   }),
-  libelleAcheminement: PropTypes.string.isRequired,
-  codePostal: PropTypes.string.isRequired,
+  libelleAcheminement: PropTypes.string,
+  codePostal: PropTypes.string,
   cleInterop: PropTypes.string.isRequired,
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   isMobile: PropTypes.bool
+}
+
+Numero.defaultProps = {
+  suffixe: null,
+  lieuDitComplementNom: null,
+  positions: [],
+  codePostal: null,
+  libelleAcheminement: null,
+  positionType: null,
+  isMobile: false
 }
 
 export default Numero
