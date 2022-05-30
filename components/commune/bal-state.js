@@ -96,7 +96,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
           La commune est l’échelon de compétence pour mettre à jour les adresses. En cas de problème d’adresse sur la commune, voici comment la contacter. Vous pouvez également lui indiquer notre contact (<a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a>) au besoin.
 
         </SectionText>
-        <Button color='white' isOutlined onClick={handleModalOpen}>Contactez la mairie</Button>
+        <Button color='white' isOutlined disabled={!mairieInfos} onClick={handleModalOpen}>Contactez la mairie</Button>
         {isContactModalOpen && <ContactModal mairieInfos={mairieInfos} onModalClose={handleModalOpen} />}
       </div>
 
@@ -139,14 +139,15 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
 
 BALState.propTypes = {
   communeInfos: PropTypes.object.isRequired,
-  mairieInfos: PropTypes.object.isRequired,
+  mairieInfos: PropTypes.object,
   typeComposition: PropTypes.string.isRequired,
   hasMigratedBAL: PropTypes.bool.isRequired,
   revision: PropTypes.object
 }
 
 BALState.defaultType = {
-  revision: null
+  revision: null,
+  mairieInfos: null
 }
 
 export default BALState

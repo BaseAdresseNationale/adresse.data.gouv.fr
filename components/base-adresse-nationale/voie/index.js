@@ -10,6 +10,7 @@ import AddressesList from '../addresses-list'
 import ParcellesList from '../parcelles-list'
 import Numero from './numero'
 import Notification from '@/components/notification'
+import RegionInfos from '../region-infos'
 
 function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumeros}) {
   const isToponyme = type === 'lieu-dit'
@@ -21,7 +22,7 @@ function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumero
         <h2>{nomVoie}</h2>
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
         {region && departement && (
-          <div className='region'>{region.nom} - {departement.nom} ({departement.code})</div>
+          <RegionInfos codeCommune={commune.code} region={region} departement={departement} />
         )}
         <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
       </div>
@@ -59,13 +60,6 @@ function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumero
 
         .heading h2, h4 {
           margin-bottom: 0.2em;
-        }
-
-        .region {
-          margin-top: 0.5em;
-          font-style: italic;
-          font-size: 17px;
-          color: ${colors.almostBlack};
         }
 
         .number-of-numeros {
