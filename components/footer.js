@@ -20,6 +20,7 @@ function Footer() {
           <li><h2>adresse.data.gouv.fr</h2></li>
           <li><Link href='/cgu'><a>Mentions légales et CGU</a></Link></li>
           <li><a href='https://doc.adresse.data.gouv.fr/'>Documentation</a></li>
+          <li><a href='https://status.adresse.data.gouv.fr/'>Supervision BAN/BAL</a></li>
           <li><Link href='/nous-contacter'><a>Nous contacter</a></Link></li>
         </ul>
       </div>
