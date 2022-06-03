@@ -642,6 +642,32 @@
     "endHour": "15:30"
   },
   {
+    "title": "Adresse_Lab #3",
+    "subtitle": "Identifiant de l'Adresse",
+    "description": "Restitution des ateliers 'Identifiant de l'adresse' qui se sont tenus les 21 Avril et 12 Mai 2022",
+    "type": "adresselab",
+    "target": "utilisateurs de la BAN",
+    "date": "2022-06-16",
+    "tags": [
+      "Adresse",
+      "Adresse_Lab",
+      "Technique"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://www.eventbrite.fr/e/billets-adresse-lab3-restitution-des-ateliers-identifiant-de-ladresse-354423298627",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
     "title": "Webinaire Mes Adresses",
     "subtitle": "Je débute sur Mes Adresses",
     "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, les fonctions de bases à partir de la création d'une BAL et les points de vigilance #qualité",
