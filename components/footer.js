@@ -22,6 +22,7 @@ function Footer() {
           <li><a href='https://doc.adresse.data.gouv.fr/'>Documentation</a></li>
           <li><a href='https://status.adresse.data.gouv.fr/'>Supervision BAN/BAL</a></li>
           <li><Link href='/nous-contacter'><a>Nous contacter</a></Link></li>
+          <li><Link href='/accessibilite'><a>Accessibilité : non conforme</a></Link></li>
         </ul>
       </div>
       <style jsx>{`
