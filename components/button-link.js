@@ -33,7 +33,7 @@ function ButtonLink({size, color, href, isDisabled, isOutlined, isExternal, chil
         {children}
       </a>
     ) : (
-      <Link href={href}>
+      <Link href={href} passHref>
         <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
           {children}
         </a>
