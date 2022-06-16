@@ -28,7 +28,7 @@ function BlogCard({post, onClick}) {
         </div>
       )}
       <div className='blog-link-container'>
-        <Link href={link}><a>Lire l’article</a></Link>
+        <Link href={link}><a aria-label={`Lire l’article ${post.title}`}>Lire l’article</a></Link>
       </div>
       <style jsx>{`
         .blog-container {
