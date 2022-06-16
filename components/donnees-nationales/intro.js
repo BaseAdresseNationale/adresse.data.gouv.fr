@@ -1,4 +1,4 @@
-import {List, Target} from 'react-feather'
+import {List, Target, ExternalLink, FileText} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -10,12 +10,12 @@ function Intro() {
       <div className='ban'>
         <SectionText>
           <p>
-            La <b>Base Adresse Nationale</b> est l’une des neuf bases de données du <a href='https://www.data.gouv.fr/fr/reference'>service public des données de référence</a>. Elle est la seule base de données d’adresses <b>officiellement reconnue par l’administration</b>.
+            La <b>Base Adresse Nationale</b> est l’une des neuf bases de données du service public des données de référence. Elle est la seule base de données d’adresses <b>officiellement reconnue par l’administration</b>.
           </p>
 
           <p><b>Service numérique d’usage partagé</b> et <b>infrastructure socle</b> sur laquelle sont adossées de nombreuses politiques publiques, elle fait partie du <b>système d’information et de communication de l’État</b> et est à ce titre placée sous la <b>responsabilité du Premier ministre</b>.</p>
 
-          <p>Son <b>pilotage</b> est assuré par la <a href='https://www.numerique.gouv.fr/dinum/'>Direction Interministérielle du Numérique</a> (DINUM), qui est chargée d’en définir les modalités de gouvernance et de fonctionnement (à la suite d’une <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier ministre</a>).</p>
+          <p>Son <b>pilotage</b> est assuré par la décision du Premier ministre).</p>
 
           <p>
             Sa <b>construction</b> est assurée grâce à de nombreux partenaires, et en premier lieu par les communes, <b>seules autorités compétentes en terme d’adressage</b>.
@@ -44,6 +44,15 @@ function Intro() {
             <li>25 millions d’adresses</li>
           </ul>
         </div>
+      </div>
+
+      <div>
+        <h3>En savoir un peu plus</h3>
+        <ul className='discover-links'>
+          <li><ExternalLink /><a href='https://www.data.gouv.fr/fr/reference'>Découvrez le service public de la donnée</a></li>
+          <li><ExternalLink /><a href='https://www.numerique.gouv.fr/dinum/'>Explorez le site de la Direction Interministérielle du Numérique (DINUM)</a></li>
+          <li><FileText /><a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>Lire la décision du Premier ministre sur le pilotage de Base Adresse Nationale</a></li>
+        </ul>
       </div>
 
       <style jsx>{`
@@ -77,6 +86,24 @@ function Intro() {
 
         h6 {
           margin-bottom: 1em;
+        }
+
+        h3 {
+          text-align: center;
+        }
+
+        .discover-links {
+          list-style-type: none;
+          padding: 0;
+        }
+
+        .discover-links li {
+          margin: 10px 0;
+          display: grid;
+          grid-template-columns: 20px 1fr;
+          align-items: center;
+          gap: 10px;
+          color: ${theme.primary};
         }
       `}</style>
     </div>

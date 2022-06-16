@@ -27,6 +27,7 @@ function DonneesNatioales() {
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'
             list={['1 position par adresse']}
             links={[{title: 'Schéma des données', href: 'https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'}]}
+            action='Télécharger au format CSV'
           >
             Fichier d’usage général recommandé dans la majorité des cas
           </Card>
@@ -35,6 +36,7 @@ function DonneesNatioales() {
             title='Format Addok'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/addok'
             list={['1 position par adresse']}
+            action='Télécharger au format Addok'
           >
             Fichier spécifique pour le géocodeur Addok
           </Card>
@@ -51,7 +53,7 @@ function DonneesNatioales() {
       <Section background='grey' title='Services cartographiques'>
         <div className='card-container'>
           <Card
-            action='Documentation'
+            action='Consulter la documentation WFS'
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
             list={['Mise à jour mensuelle', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
@@ -60,7 +62,7 @@ function DonneesNatioales() {
           </Card>
 
           <Card
-            action='Documentation'
+            action='Consulter la documentation WMS'
             title='Format WMS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
             list={['Mise à jour mensuelle', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
@@ -69,7 +71,7 @@ function DonneesNatioales() {
           </Card>
 
           <Card
-            action='Documentation'
+            action='Consulter la documentation MVT'
             title='Format MVT (tuiles vectorielles)'
             link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
             list={['Mise à jour en temps réel', '1 position par adresse']}
@@ -99,6 +101,7 @@ function DonneesNatioales() {
           <Card
             title='Export de l’API de gestion IGN'
             link='https://adresse.data.gouv.fr/data/ban/export-api-gestion/latest/'
+            action='Télécharger les exports'
           >
             Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.
           </Card>
