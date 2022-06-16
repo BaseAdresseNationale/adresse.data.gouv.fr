@@ -38,9 +38,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             </p>
 
             <p>
-              Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent dans l’<Link href='/base-adresse-nationale'>explorateur de la Base Adresse Nationale</Link> comme « <b>certifiées par la commune</b> » ou « <b>en cours de certification par la commune</b> ».
+              Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent dans l’explorateur de la Base Adresse Nationale comme « <b>certifiées par la commune</b> » ou « <b>en cours de certification par la commune</b> ».
             </p>
           </SectionText>
+          <div className='explorateur-button-container'>
+            <ButtonLink href='/base-adresse-nationale' label='Accéder à l’explorateur de la Base Adresse Nationale'>Accéder à l’explorateur</ButtonLink>
+          </div>
           <div className='parters'>
             <div className='partner'>
               <div><Image src='/images/logos/logo_ANCT.svg' alt='logo ANCT' width={190} height={80} layout='fixed' /></div>
@@ -69,8 +72,8 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
       <Section background='color' title='Qu’est-ce que le format BAL ?'>
         <SectionText color='secondary'>
-          <p>L’<a href='http://www.aitf.fr/'>Association des Ingénieurs Territoriaux de France</a> (AITF) a créé en avril 2015 un groupe de travail portant sur la Base Adresse Nationale.</p>
-          <p>Les <a href='https://aitf-sig-topo.github.io/voies-adresses/'>travaux de ce groupe</a> ont abouti à la <a href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf'>spécification d’un format d’échange</a>, aujourd’hui en version 1.3.</p>
+          <p>L’<a href='http://www.aitf.fr/' aria-label='Accéder au site de l’Association des Ingénieurs Territoriaux de France'>Association des Ingénieurs Territoriaux de France</a> (AITF) a créé en avril 2015 un groupe de travail portant sur la Base Adresse Nationale.</p>
+          <p>Les <a href='https://aitf-sig-topo.github.io/voies-adresses/' aria-label='Lire les travaux de l’AITF'>travaux de ce groupe</a> ont abouti à la <a href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf' aria-label='Accédez au document sur la spécification du format d’échange '>spécification d’un format d’échange</a>, aujourd’hui en version 1.3.</p>
           <p>Le format <b>BAL</b> est aujourd’hui le format d’échange à privilégier pour les données Adresse produites localement.</p>
         </SectionText>
         <div className='action'>
@@ -133,6 +136,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
           align-items: center;
           text-align: center;
           gap: 1em;
+        }
+
+        .explorateur-button-container {
+          text-align: center;
         }
 
         .parters {

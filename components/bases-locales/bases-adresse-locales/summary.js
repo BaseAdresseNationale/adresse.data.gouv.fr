@@ -15,7 +15,9 @@ class Summary extends React.Component {
 
   render() {
     const {dataset} = this.props
-    const {id, organization, url, model, dateMAJ, rowsCount, communes} = dataset
+
+    const {id, organization, url, model, dateMAJ, rowsCount, communes, title} = dataset
+
     const infos = [
       {
         title: 'Format',
@@ -43,11 +45,11 @@ class Summary extends React.Component {
           </div>
 
           <div className='links'>
-            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
-              Consulter
+            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`} label={`Consulter les ${title}`}>
+              Consulter la BAL
             </ButtonLink>
             {url &&
-              <a href={url}><DownloadCloud size={18} style={{verticalAlign: 'middle', marginRight: '5px'}} />Télécharger </a>}
+              <a href={url} aria-label={`Télécharger les ${title}`}><DownloadCloud size={18} style={{verticalAlign: 'middle', marginRight: '5px'}} />Télécharger la Base Adresse Locale</a>}
           </div>
         </div>
 

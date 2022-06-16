@@ -17,7 +17,7 @@ class BaseAdresseLocale extends React.Component {
     return (
       <div className='bal-container'>
         <div className='link-title'>
-          <Link href={`/bases-locales/jeux-de-donnees/${dataset.id}`}>
+          <Link href={`/bases-locales/jeux-de-donnees/${dataset.id}`} passHref>
             <a>{dataset.title}</a>
           </Link>
         </div>

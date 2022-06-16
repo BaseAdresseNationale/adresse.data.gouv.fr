@@ -15,18 +15,14 @@ function MapBalSection({stats}) {
   return (
     <div className='deployement-container'>
       <div className='map-illustration'>
-        <Link href='/deploiement-bal'>
-          <a>
-            <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} />
-          </a>
-        </Link>
+        <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} />
       </div>
       <div className='metrics-container'>
         <Metric metric={stats.bal.nbCommunesCouvertes}> communes couvertes</Metric>
         <Metric metric={numFormater(stats.bal.nbAdresses)}> d’adresses issues des BAL</Metric>
         <Metric metric={populationCouvertePercent} isPercent>de la population couverte</Metric>
       </div>
-      <ButtonLink href='/deploiement-bal' isOutlined color='white'>Carte de couverture des BAL</ButtonLink>
+      <ButtonLink href='/deploiement-bal' isOutlined color='white'>Accéder à la carte de couverture des BAL</ButtonLink>
 
       <style jsx>{`
         .deployement-container {
