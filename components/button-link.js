@@ -4,11 +4,11 @@ import Link from 'next/link'
 
 import colors from '@/styles/colors'
 
-function ButtonLink({size, color, href, isDisabled, isOutlined, isExternal, children, ...props}) {
+function ButtonLink({size, color, href, label, isDisabled, isOutlined, isExternal, children, ...props}) {
   if (isDisabled) {
     return (
       <>
-        <a alt='nopnop' className={`button ${size} secondary`} {...props}>
+        <a alt='nopnop' aria-label={label} className={`button ${size} secondary`} {...props}>
           {children}
         </a>
         <div className='unavailable'>(Temporairement indisponible)</div>
@@ -29,12 +29,12 @@ function ButtonLink({size, color, href, isDisabled, isOutlined, isExternal, chil
 
   return (
     isExternal ? (
-      <a href={href} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+      <a href={href} aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
         {children}
       </a>
     ) : (
       <Link href={href} passHref>
-        <a className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
+        <a aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
           {children}
         </a>
       </Link>
@@ -55,6 +55,7 @@ ButtonLink.propTypes = {
     'white'
   ]),
   href: PropTypes.string.isRequired,
+  label: PropTypes.string,
   isOutlined: PropTypes.bool,
   isExternal: PropTypes.bool,
   isDisabled: PropTypes.bool,
@@ -64,6 +65,7 @@ ButtonLink.propTypes = {
 ButtonLink.defaultProps = {
   size: null,
   color: 'primary',
+  label: null,
   isOutlined: false,
   isExternal: false,
   isDisabled: false,
