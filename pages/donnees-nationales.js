@@ -25,6 +25,7 @@ function DonneesNatioales() {
           <Card
             title='Format CSV'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'
+            action='Télécharger au format CSV'
             list={['1 position par adresse']}
             links={[{title: 'Schéma des données', href: 'https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'}]}
           >
@@ -34,6 +35,7 @@ function DonneesNatioales() {
           <Card
             title='Format Addok'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/addok'
+            action='Télécharger au format Addok'
             list={['1 position par adresse']}
           >
             Fichier spécifique pour le géocodeur Addok
@@ -51,27 +53,26 @@ function DonneesNatioales() {
       <Section background='grey' title='Services cartographiques'>
         <div className='card-container'>
           <Card
-            action='Documentation'
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
+            action='Consulter la documentation WFS'
             list={['Mise à jour mensuelle', 'Nom de la couche : BAN.DATA.GOUV:ban', '1 position par adresse']}
           >
             Visualisation cartographique des adresses BAN en WFS
           </Card>
 
           <Card
-            action='Documentation'
             title='Format WMS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
+            action='Consulter la documentation WMS'
             list={['Mise à jour mensuelle', 'Nom de la couche : BAN.DATA.GOUV', '1 position par adresse']}
           >
             Visualisation cartographique des adresses BAN en WMS
           </Card>
 
           <Card
-            action='Documentation'
-            title='Format MVT (tuiles vectorielles)'
             link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
+            action='Consulter la documentation MVT'
             list={['Mise à jour en temps réel', '1 position par adresse']}
           >
             Visualisation cartographique des adresses BAN en tuiles vectorielles
@@ -98,6 +99,7 @@ function DonneesNatioales() {
         <div className='card-container'>
           <Card
             title='Export de l’API de gestion IGN'
+            action='Télécharger les exports'
             link='https://adresse.data.gouv.fr/data/ban/export-api-gestion/latest/'
           >
             Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.

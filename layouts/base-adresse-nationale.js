@@ -133,8 +133,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <Explorer address={address} handleSelect={handleSelect} />
         <div className='footer'>
           <p>Pour mettre à jour vos adresses, cliquez ici : </p>
-          <ButtonLink href='https://adresse.data.gouv.fr/contribuer' isOutlined color='white' size='small'>Contribuer</ButtonLink>
-        </div>
+          <ButtonLink href='https://adresse.data.gouv.fr/contribuer' isOutlined color='white' size='small'>Contribuer à la Base Adresse Nationale</ButtonLink>        </div>
       </div>
 
       <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>

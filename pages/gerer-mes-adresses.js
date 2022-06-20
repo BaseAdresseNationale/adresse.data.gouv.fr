@@ -80,7 +80,7 @@ function GererMesAdresses() {
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} />
-            Des <Link href='/ressources'>guides</Link> sont à votre disposition afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
+            <Link href='/ressources'>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
           </div>
         </Notification>
       </Section>

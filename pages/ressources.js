@@ -67,12 +67,12 @@ function Guides() {
           title='Le guide de Mes Adresses'
           link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
+          action='Télécharger le guide de l’adressage'
           alt='miniature du guide Mes Adresses'
           version='6 - 06/05/2022'
         >
           <SectionText>
-            <p>&quot;Mes Adresses&quot; est un outil en ligne qui vous permet de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. Il est accessible sans compétences techniques et dispose d’un tutoriel embarqué.<br /> Le Guide de Mes Adresses est disponible dans un <a href='https://guide.mes-adresses.data.gouv.fr/'>format texte en ligne</a> ou en PDF.</p>
-          </SectionText>
+            <p>&quot;Mes Adresses&quot; est un outil en ligne qui vous permet de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. Il est accessible sans compétences techniques et dispose d’un tutoriel embarqué.<br /> <a href='https://guide.mes-adresses.data.gouv.fr/'>Le Guide de Mes Adresses est disponible dans un format texte en ligne</a> ou en PDF.</p>          </SectionText>
           <Notification>
             Les guides sont régulièrement <b>actualisés</b>. Si vous téléchargez la version PDF, pensez à vérifier que vous disposez de <b>la dernière version en vigueur</b>. Le type de version et les dates de mises à jour figurent à la fin des PDF.
           </Notification>
@@ -91,7 +91,7 @@ function Guides() {
         >
           <SectionText>
             <p>
-              Les communes sont responsables de leurs adresses.<br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.<br /> Le Guide des Bonnes pratiques est disponible dans un <a href='https://guide-bonnes-pratiques.adresse.data.gouv.fr/'>format texte en ligne</a> ou en PDF.
+              Les communes sont responsables de leurs adresses.<br /> Ce guide passe en revue les bonnes pratiques pour nommer, numéroter les voies et diffuser l’information en parfaite conformité avec les obligations légales et rien que les obligations légales.<br /> <a href='https://guide-bonnes-pratiques.adresse.data.gouv.fr/'>Le Guide des Bonnes pratiques est disponible dans un format texte en ligne</a> ou en PDF.
             </p>
           </SectionText>
           <Notification>
@@ -106,6 +106,7 @@ function Guides() {
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
+          action='Télécharger la fibre arrive dans la commune'
           version=''
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
