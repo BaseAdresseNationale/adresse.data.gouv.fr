@@ -2,7 +2,7 @@
   "epci": [
     {
       "name": "ATD24",
-      "link": "https://www.atd24.fr/gestion-des-territoires__trashed/cartographie-numerique/",
+      "link": "https://www.atd24.fr/gestion-des-territoires/cartographie-numerique/",
       "infos": "L’Agence Technique Départementale de la Dordogne a développé une Base Adresse Locale sur Périgéo, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
       "perimeter": "Dordogne",
       "codeDepartement": [
