@@ -8,8 +8,11 @@ function HistoriqueItem({balData, communeName}) {
   const {updatedAt, client, current, _id} = balData
 
   const balURL = getBalUrl(_id)
+
   const date = new Date(updatedAt)
   const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes().toString().padStart(2, '0')}`
+  const accessibleDateOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+  const accessibleUpdateTime = `le ${date.toLocaleDateString('fr-FR', accessibleDateOptions)} à ${date.getHours()} heures ${date.getMinutes().toString().padStart(2, '0')}`
 
   const userName = balData.context?.organisation || `la mairie de ${communeName}`
 
@@ -23,7 +26,7 @@ function HistoriqueItem({balData, communeName}) {
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client.nom}</b></div>
-        <a href={balURL}><Download /></a>
+        <a href={balURL} aria-label={`Télécharger la version du ${accessibleUpdateTime}`}><Download /></a>
       </div>
 
       <style jsx>{`

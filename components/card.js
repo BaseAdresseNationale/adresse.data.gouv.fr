@@ -21,7 +21,7 @@ function Card({title, link, action, links, list, children, color}) {
 
             {links && (
               <div className='card-links'>
-                { links.map(({title, href}) => <a key={title} href={href}>{title}</a>)}
+                {links.map(({title, href}) => <a key={title} href={href} aria-label={`Accéder au contenu ${title}`}>{title}</a>)}
               </div>
             )}
           </div>

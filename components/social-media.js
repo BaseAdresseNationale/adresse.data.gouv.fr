@@ -15,24 +15,29 @@ function SocialMedia() {
     <>
       <div className='socials'>
         <Link href='/blog' passHref>
-          <a>
+          <a aria-label='Consulter notre blog'>
             <Image src='/images/logos/blog.svg' height={88} width={88} alt='Blog' />
             <div>En lisant notre blog</div>
           </a>
         </Link>
 
-        <a href='https://twitter.com/adressedatagouv?lang=fr'>
+        <a href='https://twitter.com/adressedatagouv?lang=fr' aria-label='Visiter notre compte Twitter'>
           <Image src='/images/logos/twitter.svg' height={88} width={88} alt='Twitter' />
           <div>Sur notre fil Twitter</div>
         </a>
 
-        <div onClick={handleNewsletter} className='newsletter'>
+        <button
+          onClick={handleNewsletter}
+          className='newsletter'
+          aria-label='S’inscrire à l’infolettre'
+          type='button'
+        >
           <Image src='/images/logos/newsletter.svg' height={88} width={88} alt='Newsletter' />
           <div className='dropdown'>
             {isShown ? <ChevronDown /> : <ChevronRight />}
             En s’inscrivant à l’infolettre
           </div>
-        </div>
+        </button>
       </div>
 
       {isShown && (
@@ -48,6 +53,11 @@ function SocialMedia() {
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 2em;
+          }
+
+          .newsletter {
+            border: none;
+            background: none;
           }
 
           a, .newsletter {

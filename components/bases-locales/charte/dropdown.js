@@ -25,10 +25,10 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
     >
       <div className='visible-container'>
         <div className='dropdown-infos-container'>
-          <div className='name'>{nom} - {code}</div>
+          <div className='name' aria-label={`Commune ${nom}, code postal ${code}`}>{nom} - {code}</div>
           <div className='communes-length'>
             {isDisabled ? 'Aucune commune partenaire' : (
-              <><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</>
+              <div aria-label={`${communesCount} communes partenaires`}><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
             )}
           </div>
         </div>

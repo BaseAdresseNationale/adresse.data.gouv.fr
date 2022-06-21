@@ -11,7 +11,7 @@ import ButtonLink from '../button-link'
 import SectionText from '../section-text'
 import Notification from '../notification'
 
-function EventModal({event, date, isPassed, onClose}) {
+function EventModal({event, sanitizedDate, accessibleDate, isPassed, onClose}) {
   const modalRef = useRef(null)
 
   const {title, subtitle, address, description, href, isSubscriptionClosed, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
@@ -44,7 +44,7 @@ function EventModal({event, date, isPassed, onClose}) {
             <div className='date-hours-container'>
               <div className='date-container'>
                 L’évènement {isPassed ? 'a eu' : 'aura'} lieu le
-                <div className='date'>{date}</div>
+                <div className='date' aria-label={accessibleDate}>{sanitizedDate}</div>
               </div>
               <div className='date-container'>
                 De
@@ -239,7 +239,8 @@ EventModal.propTypes = {
     isOnlineOnly: PropTypes.bool.isRequired,
     instructions: PropTypes.string,
   }).isRequired,
-  date: PropTypes.string.isRequired,
+  sanitizedDate: PropTypes.string.isRequired,
+  accessibleDate: PropTypes.string.isRequired,
   isPassed: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }

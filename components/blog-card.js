@@ -29,7 +29,7 @@ function BlogCard({post, onClick}) {
       )}
       <div className='blog-link-container'>
         <Link href={link} passHref>
-          <a>Lire l’article</a>
+          <a aria-label={`Lire l’article ${post.title}`}>Lire l’article</a>
         </Link>
       </div>
       <style jsx>{`

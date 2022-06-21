@@ -14,6 +14,10 @@ function EventBanner() {
   const [index, setIndex] = useState(0)
   const [selectedEvent, setSelectedEvent] = useState(null)
 
+  const sanitizedDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR')
+  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+  const accessibleDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR', options)
+
   useEffect(() => {
     if (!selectedEvent) {
       const slideInterval = setTimeout(() => {
@@ -61,7 +65,8 @@ function EventBanner() {
       {selectedEvent && (
         <EventModal
           event={selectedEvent}
-          date={new Date(selectedEvent.date).toLocaleDateString('fr-FR')}
+          sanitizedDate={sanitizedDate}
+          accessibleDate={accessibleDate}
           onClose={() => setSelectedEvent(null)}
         />
       )}

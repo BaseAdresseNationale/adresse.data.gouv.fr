@@ -16,16 +16,22 @@ function BlogPagination({page, pages, prev, next}) {
       <div className='blog-pagination'>
         {prev && (
           <Link href={`${href}${prev}${tags}`} passHref>
-            <a className='page'><ArrowLeftCircle style={{verticalAlign: 'middle'}} /></a>
+            <a className='page'><ArrowLeftCircle aria-label='Aller à la page précédente' style={{verticalAlign: 'middle'}} /></a>
           </Link>
         )}
         {pageNumbers.map(n => (
           <Link key={n} href={`${href}${n}${tags}`} passHref>
+            <a
+              className={page === n ? 'actual-page page' : 'page'}
+              aria-label={`${page === n ? `Vous êtes sur la page ${n}` : `Aller à la page ${n}`}`}
+            >
+              {n}
+            </a>
           </Link>
         ))}
         {next && (
           <Link href={`${href}${next}${tags}`} passHref>
-            <a className='page'><ArrowRightCircle style={{verticalAlign: 'middle'}} /></a>
+            <a className='page' aria-label='Aller à la page suivante'><ArrowRightCircle style={{verticalAlign: 'middle'}} /></a>
           </Link>
         )}
       </div>

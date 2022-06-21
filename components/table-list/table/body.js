@@ -7,6 +7,9 @@ function Body({list, cols, checkIsSelected, handleSelect}) {
     <tbody>
       {list.map((item, idx) => (
         <tr
+          role='button'
+          tabIndex='0'
+          aria-label={`Accéder à la commune ${item.nom} dans l’explorateur`}
           key={`tr-${idx}`} // eslint-disable-line react/no-array-index-key
           className={`${checkIsSelected && checkIsSelected(item) ? 'selected' : null}`}
           onClick={handleSelect ? () => handleSelect(item) : null}
