@@ -1,8 +1,25 @@
-import {List, Target, ExternalLink, FileText} from 'react-feather'
+import {List, Target} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import SectionText from '../section-text'
+import KnowMoreSection from '../know-more-section'
+
+const knowMoreLinks = [
+  {
+    title: 'Découvrez le service public de la donnée',
+    href: 'https://www.data.gouv.fr/fr/reference'
+  },
+  {
+    title: 'Explorez le site de la Direction Interministérielle du Numérique (DINUM)',
+    href: 'https://www.numerique.gouv.fr/dinum/'
+  },
+  {
+    title: 'Lire la décision du Premier ministre sur le pilotage de Base Adresse Nationale',
+    href: 'https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf',
+    isFile: true,
+  }
+]
 
 function Intro() {
   return (
@@ -46,14 +63,7 @@ function Intro() {
         </div>
       </div>
 
-      <div>
-        <h3>En savoir un peu plus</h3>
-        <ul className='discover-links'>
-          <li><ExternalLink /><a href='https://www.data.gouv.fr/fr/reference'>Découvrez le service public de la donnée</a></li>
-          <li><ExternalLink /><a href='https://www.numerique.gouv.fr/dinum/'>Explorez le site de la Direction Interministérielle du Numérique (DINUM)</a></li>
-          <li><FileText /><a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>Lire la décision du Premier ministre sur le pilotage de Base Adresse Nationale</a></li>
-        </ul>
-      </div>
+      <KnowMoreSection links={knowMoreLinks} />
 
       <style jsx>{`
         .section-container {

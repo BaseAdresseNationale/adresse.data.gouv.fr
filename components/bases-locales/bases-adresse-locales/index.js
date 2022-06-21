@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {debounce, deburr} from 'lodash'
-import {ExternalLink} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -10,6 +9,7 @@ import Notification from '@/components/notification'
 import SearchBar from '@/components/search-bar'
 
 import BaseAdresseLocale from './base-adresse-locale'
+import KnowMoreSection from '@/components/know-more-section'
 
 const DATASETS_COUNT = 10
 
@@ -22,6 +22,21 @@ const sortByDateMAJ = datasets => {
     ...datasetsWithoutDateMAJ
   ]
 }
+
+const knowMoreLinks = [
+  {
+    title: 'Visiter le site data.gouv.fr',
+    href: 'https://www.data.gouv.fr'
+  },
+  {
+    title: 'Comment certifier une organisation ? Suivez la documentation !',
+    href: 'https://doc.data.gouv.fr/organisations/certifier-une-organisation/'
+  },
+  {
+    title: 'Publier sa Base Adresse Locale sur Mes Adresses',
+    href: 'https://mes-adresses.data.gouv.fr'
+  }
+]
 
 function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
@@ -63,14 +78,7 @@ function BasesAdresseLocales({datasets}) {
         <p>Cette page recense toutes les <strong>Bases Adresses Locales</strong> connues à ce jour.</p>
         <p>Pour référencer la vôtre facilement, publiez-la sur <b>data.gouv.fr</b> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <b>certifiée</b>.<br />Vous pouvez aussi utiliser <b>Mes Adresses</b>, qui dispose d’un outil de publication simplifié.</p>
 
-        <div className='discover-more'>
-          <h3>En savoir un peu plus</h3>
-          <ul className='discover-links'>
-            <li><ExternalLink /><a href='https://www.data.gouv.fr'>Visiter le site data.gouv.fr</a></li>
-            <li><ExternalLink /><a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>Comment certifier une organisation ? Suivez la documentation !</a></li>
-            <li><ExternalLink /><a href='https://mes-adresses.data.gouv.fr' target='_blank' rel='noreferrer'>Publier sa Base Adresse Locale sur Mes Adresses</a></li>
-          </ul>
-        </div>
+        <KnowMoreSection links={knowMoreLinks} />
       </Notification>
       <Container>
         <SearchBar
@@ -125,33 +133,6 @@ function BasesAdresseLocales({datasets}) {
 
           .no-result {
             margin-top: 1em;
-          }
-
-          .discover-more {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 2em;
-          }
-
-          h3 {
-            text-align: center;
-            margin: 0;
-          }
-
-          .discover-links {
-            list-style-type: none;
-            padding: 0;
-            width: fit-content;
-          }
-
-          .discover-links li {
-            margin: 10px 0;
-            display: grid;
-            grid-template-columns: 20px 1fr;
-            justify-items: left;
-            gap: 10px;
-            color: ${theme.primary};
           }
       `}</style>
     </>
