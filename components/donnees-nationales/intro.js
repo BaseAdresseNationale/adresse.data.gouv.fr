@@ -97,24 +97,6 @@ function Intro() {
         h6 {
           margin-bottom: 1em;
         }
-
-        h3 {
-          text-align: center;
-        }
-
-        .discover-links {
-          list-style-type: none;
-          padding: 0;
-        }
-
-        .discover-links li {
-          margin: 10px 0;
-          display: grid;
-          grid-template-columns: 20px 1fr;
-          align-items: center;
-          gap: 10px;
-          color: ${theme.primary};
-        }
       `}</style>
     </div>
   )
