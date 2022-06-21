@@ -1097,6 +1097,36 @@
       "height": 102,
       "width": 290,
       "alt": "Logo de la SOGEFI Ingéniérie géomatique"
+    },
+    {
+      "name": "PLANIGRAPHE",
+      "link": "https://planigraphe.fr/charte-de-la-base-adresse-locale/",
+      "infos": "PLANIGRAPHE accompagne les collectivités dans la mise en conformité de leur adressage. Cela comprend un accompagnement dans les procédures de délibérations et de communication auprès des administrés, un audit cartographique du territoire afin de structurer et dénommer les voies à adresser puis un travail de localisation des adresses sur le terrain en étroite collaboration avec les élus. PLANIGRAPHE forme également les communes dans la gestion de leur future Base d’Adresse Locale et son intégration dans la Base d’Adresse Nationale.",
+      "perimeter": "Auvergne-Rhône-Alpes",
+      "codeDepartement": [
+        "03",
+        "12",
+        "15",
+        "23",
+        "30",
+        "32",
+        "34",
+        "43",
+        "46",
+        "48",
+        "63"
+      ],
+      "echelon": null,
+      "isPerimeterFrance": false,
+      "isCompany": true,
+      "services": [
+        "accompagnement technique",
+        "réalisation de bases adresses locales"
+      ],
+      "picture": "/images/logos/partners/companies/planigraphe.jpg",
+      "height": 124,
+      "width": 218,
+      "alt": "Logo de la société PLANIGRAPHE"
     }
   ],
   "communes": [
