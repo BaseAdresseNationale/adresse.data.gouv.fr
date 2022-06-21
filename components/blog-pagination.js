@@ -13,7 +13,7 @@ function BlogPagination({page, pages, prev, next}) {
 
   return (
     <>
-      <div className='blog-pagination'>
+      <div className='blog-pagination' role='navigation'>
         {prev && (
           <Link href={`${href}${prev}${tags}`} passHref>
             <a className='page'><ArrowLeftCircle aria-label='Aller à la page précédente' style={{verticalAlign: 'middle'}} /></a>
