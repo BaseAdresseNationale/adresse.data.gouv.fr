@@ -107,7 +107,7 @@ function Guides() {
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
-          label='Télécharger le document "La fibre arrive dans la commune"'
+          label='Télécharger le document "La fibre arrive dans votre commune"'
           version=''
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
