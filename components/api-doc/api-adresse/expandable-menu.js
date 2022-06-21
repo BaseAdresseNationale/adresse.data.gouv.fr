@@ -4,11 +4,15 @@ import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '../../../styles/theme'
 
-function ExpandableMenu({title, children}) {
+function ExpandableMenu({title, children, label}) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className='expandable-menu-container' onClick={() => setIsExpanded(!isExpanded)}>
+    <button
+      type='button'
+      aria-label={`${isExpanded ? 'Masquer' : 'Afficher'} la documentation de ${label}`}
+      className='expandable-menu-container' onClick={() => setIsExpanded(!isExpanded)}
+    >
       <div className='head'>
         <div className='title'>{title}</div>
         <div style={{paddingLeft: '.5em'}}>
@@ -20,11 +24,14 @@ function ExpandableMenu({title, children}) {
 
       <style jsx>{`
         .expandable-menu-container {
+          width: 100%;
           margin: 0.5em 0;
           padding: 0.5em;
           background: ${theme.colors.white};
           border-radius: 3px;
           color: ${theme.darkText};
+          border: none;
+          text-align: left;
         }
 
         .expandable-menu-container:hover {
@@ -45,7 +52,7 @@ function ExpandableMenu({title, children}) {
           width: 100%;
         }
         `}</style>
-    </div>
+    </button>
   )
 }
 
@@ -54,6 +61,7 @@ ExpandableMenu.propTypes = {
     PropTypes.string,
     PropTypes.node
   ]).isRequired,
+  label: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired
 }
 

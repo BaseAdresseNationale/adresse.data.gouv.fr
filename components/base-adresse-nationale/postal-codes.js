@@ -13,9 +13,14 @@ function PostalCodes({codes}) {
       ) : (
         <div className='postal-codes'>
           <div>
-            <div className='with-icon wrapper' onClick={() => setShowCodes(!showCodes)}>
+            <button
+              type='button'
+              aria-label={showCodes ? 'Masquer les codes postaux' : 'Afficher les codes postaux'}
+              className='with-icon wrapper'
+              onClick={() => setShowCodes(!showCodes)}
+            >
               <div>Codes postaux</div> {showCodes ? <ChevronUp /> : <ChevronDown />}
-            </div>
+            </button>
           </div>
           {showCodes && (
             <ul className='codes-list'>
@@ -41,8 +46,8 @@ function PostalCodes({codes}) {
         .wrapper {
           justify-content: space-between;
           background: whitesmoke;
-          padding: 0.2em 0.4em;
           border-radius: 4px;
+          border: none;
         }
 
         .with-icon > div {

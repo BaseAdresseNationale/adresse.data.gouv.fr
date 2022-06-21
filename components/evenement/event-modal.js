@@ -34,7 +34,7 @@ function EventModal({event, sanitizedDate, accessibleDate, isPassed, onClose}) {
     <div className='modal-wrapper'>
       <div className='modal-container' ref={modalRef}>
         <div className='close-container'>
-          <button type='button' onClick={onClose} className='close-button'>
+          <button type='button' onClick={onClose} aria-label='Fermer la fenêtre' className='close-button'>
             <XSquare />
           </button>
         </div>

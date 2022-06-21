@@ -17,13 +17,18 @@ class SwitchMapStyle extends React.Component {
 
     return (
       <div className='switch-style'>
-        <Image
-          width={80}
-          height={80}
-          alt={style}
-          src={src}
+        <button
+          type='button'
+          aria-label={isVector ? 'Passer en vue satellite' : 'Passer en vue vectoriel'}
           onClick={handleChange}
-        />
+        >
+          <Image
+            width={80}
+            height={80}
+            alt={style}
+            src={src}
+          />
+        </button>
         <div className='text'>{style}</div>
         <style jsx>{`
           .switch-style {

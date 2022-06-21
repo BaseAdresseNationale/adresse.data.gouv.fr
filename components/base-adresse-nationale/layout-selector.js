@@ -4,7 +4,12 @@ import theme from '@/styles/theme'
 function LayoutSelector({name, value, icon, isSelected, handleClick}) {
   const Icon = icon
   return (
-    <div className={`layout ${isSelected ? 'selected' : ''}`} onClick={() => handleClick(value)}>
+    <button
+      type='button'
+      aria-label={`Séléctionner l'onglet ${name}`}
+      className={`layout ${isSelected ? 'selected' : ''}`}
+      onClick={() => handleClick(value)}
+    >
       <div><Icon /></div>
       <div>{name}</div>
 
@@ -15,6 +20,10 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
           justify-content: center;
           align-items: center;
           padding-top: 0.5em;
+          gap: 5px;
+          background: none;
+          border: none;
+          color: ${theme.darkText};
         }
 
         .layout.selected {
@@ -23,7 +32,7 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
           border-top: 4px solid ${theme.primary};
         }
         `}</style>
-    </div>
+    </button>
   )
 }
 

@@ -25,9 +25,9 @@ class Table extends React.Component {
         </table>
 
         {!hasDisabledWrap &&
-          <div className='wrap' onClick={onWrap}>
-            {isWrap ? 'Tout afficher' : 'Réduire'}
-          </div>}
+          <button type='button' className='wrap' onClick={onWrap}>
+            {isWrap ? 'Afficher tout la liste' : 'Réduire l’affichage de la liste'}
+          </button>}
 
         <style jsx>{`
           .table-container {
@@ -44,6 +44,8 @@ class Table extends React.Component {
             text-align: center;
             margin-top: 1em;
             text-decoration: underline;
+            border: none;
+            background: none;
           }
 
           .wrap:hover {

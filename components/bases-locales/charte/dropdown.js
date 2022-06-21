@@ -15,7 +15,8 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
   }
 
   return (
-    <div
+    <button
+      type='button'
       className={`
         dropdown-container
         ${isDisabled ? 'disabled' : ''}
@@ -28,7 +29,7 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
           <div className='name' aria-label={`Commune ${nom}, code postal ${code}`}>{nom} - {code}</div>
           <div className='communes-length'>
             {isDisabled ? 'Aucune commune partenaire' : (
-              <div aria-label={`${communesCount} communes partenaires`}><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
+              <div aria-label={`${communesCount} communes partenaires`} className='commune-count'><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
             )}
           </div>
         </div>
@@ -52,10 +53,15 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
           margin: 1em 0;
           opacity: 100%;
           pointer-events: auto;
+          border: none;
         }
 
         .dropdown-container:hover {
           background: ${color === 'primary' ? theme.colors.lightGrey : theme.primaryDark};
+        }
+
+        .commune-count {
+          width: fit-content;
         }
 
         .alt {
@@ -85,7 +91,7 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
           font-style: italic;
         }
       `}</style>
-    </div>
+    </button>
   )
 }
 
@@ -105,4 +111,3 @@ Dropdown.defaultProps = {
 }
 
 export default React.memo(Dropdown)
-

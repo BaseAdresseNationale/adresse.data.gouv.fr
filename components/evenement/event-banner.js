@@ -43,7 +43,14 @@ function EventBanner() {
 
           return (
             <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
-              <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
+              <button
+                type='button'
+                className='event-link'
+                aria-label={`Afficher l’évènement ${event.title}`}
+                onClick={() => setSelectedEvent(event)}
+              >
+                {event.title}
+              </button>
               {event.subtitle && <div>{event.subtitle}</div>}
               <div className='date'>le {sanitizedDate}</div>
             </li>
@@ -54,7 +61,9 @@ function EventBanner() {
 
       <div className='slideshow-dots'>
         {events.map((event, idx) => (
-          <div
+          <button
+            aria-label={`${index === idx ? 'Vous être sur la slide' : 'Allez à la slide'} de l’évènement ${event.title}`}
+            type='button'
             key={`${event.title}-${event.date}`}
             className={`slideshow-dot ${index === idx ? 'active' : ''}`}
             onClick={() => setIndex(idx)}
@@ -108,6 +117,8 @@ function EventBanner() {
           font-size: 16px;
           font-weight: bold;
           text-align: center;
+          border: none;
+          background: none;
         }
 
         .date {
@@ -133,6 +144,8 @@ function EventBanner() {
           margin: 15px 7px 0px;
           background-color: ${theme.colors.white};
           opacity: 50%;
+          padding: 0;
+          border: none;
         }
 
         .active {

@@ -5,20 +5,26 @@ import colors from '@/styles/colors'
 function Tabs({activeTab, setActiveTab}) {
   return (
     <div className='tab-container'>
-      <div className={`tab ${activeTab === 'VOIES' ? 'active' : 'inactive'}`}
+      <button
+        type='button'
+        aria-label='Afficher les voies'
+        className={`tab ${activeTab === 'VOIES' ? 'active' : 'inactive'}`}
         onClick={() => {
           setActiveTab('VOIES')
         }}
       >
         Voies
-      </div>
-      <div className={`tab ${activeTab === 'LIEUXDITS' ? 'active' : 'inactive'}`}
+      </button>
+      <button
+        type='button'
+        aria-label='Afficher les lieux-dits'
+        className={`tab ${activeTab === 'LIEUXDITS' ? 'active' : 'inactive'}`}
         onClick={() => {
           setActiveTab('LIEUXDITS')
         }}
       >
         Lieux-dits
-      </div>
+      </button>
 
       <style jsx>{`
         .tab-container {
@@ -32,7 +38,8 @@ function Tabs({activeTab, setActiveTab}) {
           flex: 1;
           text-align: center;
           padding: 0.5em;
-          background-color: ${colors.lighterGrey}
+          background-color: ${colors.lighterGrey};
+          border: none;
         }
 
         .tab:hover {

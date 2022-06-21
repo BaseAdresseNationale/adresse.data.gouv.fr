@@ -22,10 +22,16 @@ class SelectableItemList extends React.Component {
       <div>
         <div className={`${list.length > 0 && 'list selection'}`}>
           {list.map(item => (
-            <div key={item.key} className='item' onClick={() => action(item)}>
+            <button
+              type='button'
+              aria-label={buttonIcon === '+' ? `Séléctionner ${item.value}` : `Désélectionner ${item.value}`}
+              key={item.key}
+              className='item'
+              onClick={() => action(item)}
+            >
               <div className='text'>{item.value}</div>
               <div className='button'>{buttonIcon}</div>
-            </div>
+            </button>
           ))}
         </div>
         <style jsx>{`
