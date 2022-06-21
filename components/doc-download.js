@@ -18,7 +18,7 @@ function DocDownload({title, link, label, src, alt, isReverse, version, children
           </div>
           {version && <div className='version'>Version {version}</div>}
         </div>
-        <a href={link}>
+        <a href={link} className='download-url'>
           <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '5px'}} />
           {label}
         </a>
@@ -59,6 +59,10 @@ function DocDownload({title, link, label, src, alt, isReverse, version, children
           font-style: italic;
           font-weight: bold;
           font-size: .9em;
+        }
+
+        .download-url {
+          text-align: center;
         }
       `}</style>
     </div>

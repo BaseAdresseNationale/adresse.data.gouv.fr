@@ -87,6 +87,7 @@ function Guides() {
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques.pdf'
+          label='Télécharger le guide des bonnes pratiques'
           version='3.1 - 11/03/2022'
         >
           <SectionText>
@@ -106,7 +107,7 @@ function Guides() {
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
-          label='Télécharger la fibre arrive dans la commune'
+          label='Télécharger le document "La fibre arrive dans la commune"'
           version=''
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
