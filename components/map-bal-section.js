@@ -26,7 +26,7 @@ function MapBalSection({stats}) {
         <Metric metric={numFormater(stats.bal.nbAdresses)}> d’adresses issues des BAL</Metric>
         <Metric metric={populationCouvertePercent} isPercent>de la population couverte</Metric>
       </div>
-      <ButtonLink href='/deploiement-bal' isOutlined color='white'>Accéder à la carte de couverture des BAL</ButtonLink>
+      <ButtonLink href='/deploiement-bal' isOutlined color='white'>Accéder à la carte de couverture des Bases Adresses Locales</ButtonLink>
 
       <style jsx>{`
         .deployement-container {

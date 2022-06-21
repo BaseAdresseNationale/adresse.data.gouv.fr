@@ -44,7 +44,7 @@ class Summary extends React.Component {
 
           <div className='links'>
             <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`}>
-              Consulter la BAL
+              Consulter la Base Adresse Locale
             </ButtonLink>
             {url &&
               <a href={url}>
