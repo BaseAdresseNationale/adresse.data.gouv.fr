@@ -15,17 +15,16 @@ function BlogPagination({page, pages, prev, next}) {
     <>
       <div className='blog-pagination'>
         {prev && (
-          <Link href={`${href}${prev}${tags}`}>
+          <Link href={`${href}${prev}${tags}`} passHref>
             <a className='page'><ArrowLeftCircle style={{verticalAlign: 'middle'}} /></a>
           </Link>
         )}
         {pageNumbers.map(n => (
-          <Link key={n} href={`${href}${n}${tags}`}>
-            <a className={page === n ? 'actual-page page' : 'page'}>{n}</a>
+          <Link key={n} href={`${href}${n}${tags}`} passHref>
           </Link>
         ))}
         {next && (
-          <Link href={`${href}${next}${tags}`}>
+          <Link href={`${href}${next}${tags}`} passHref>
             <a className='page'><ArrowRightCircle style={{verticalAlign: 'middle'}} /></a>
           </Link>
         )}

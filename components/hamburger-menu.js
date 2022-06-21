@@ -39,8 +39,8 @@ class HamburgerMenu extends React.Component {
         {visible && (
           <div className='content'>
             {links.map(link => (
-              <Link key={link.text} href={link.href}>
-                <a>{link.text}</a>
+              <Link key={link.text} href={link.href} passHref>
+                <a aria-label={`Visiter la page ${link.text}`}>{link.text}</a>
               </Link>
             ))}
           </div>
