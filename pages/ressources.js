@@ -67,7 +67,7 @@ function Guides() {
           title='Le guide de Mes Adresses'
           link='https://adresse.data.gouv.fr/data/docs/guide-mes-adresses.pdf'
           src='/images/previews/guide-mes-adresses-preview.png'
-          action='Télécharger le guide de l’adressage'
+          label='Télécharger le guide de l’adressage'
           alt='miniature du guide Mes Adresses'
           version='6 - 06/05/2022'
         >
@@ -106,7 +106,7 @@ function Guides() {
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'
-          action='Télécharger la fibre arrive dans la commune'
+          label='Télécharger la fibre arrive dans la commune'
           version=''
         >
           <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
