@@ -34,7 +34,7 @@ function Intro() {
             <li>Producteur : <strong>Etalab</strong></li>
             <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
             <li>Fréquence de mise à jour : <strong>quotidienne</strong></li>
-            <li>Couverture : <b>France métropolitaine et DROM</b></li>
+            <li>Couverture : <b>France entière (y compris les collectivités d’outremer)</b></li>
           </ul>
         </div >
         <div>
