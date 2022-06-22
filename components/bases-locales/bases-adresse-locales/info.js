@@ -36,7 +36,7 @@ class Info extends React.Component {
           span.valid {
             padding: .4em .5em;
             background-color: ${theme.successBg};
-            color: ${theme.successBorder};
+            color: ${theme.successPublish};
           }
 
           span.not-valid {

@@ -8,7 +8,7 @@ function Step({title, children}) {
       {children}
       <style jsx>{`
         .disabled {
-          color: ${theme.colors.lightGrey};
+          color: ${theme.colors.grey};
         }
       `}</style>
     </div>
