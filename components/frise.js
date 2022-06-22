@@ -7,9 +7,7 @@ const getSeasonColors = () => {
   const year = now.getFullYear()
 
   const winter = new Date(`${year}-12-21`)
-  const lastYearWinter = new Date(`${year - 1}-03-20`)
   const spring = new Date(`${year}-03-20`)
-  const nextYearSpring = new Date(`${year + 1}-03-20`)
   const summer = new Date(`${year}-06-21`)
   const fall = new Date(`${year}-09-22`)
 
@@ -18,19 +16,23 @@ const getSeasonColors = () => {
   const fallColors = ['#C20505', '#FCE563', '#FCBF63', '#FC6363', '#FFE23F', '#FFB700', '#F19800', '#EC8C24', '#9E3200', '#C37676', '#E9A64F', '#C37679', '#F3DA43', '#C94976', '#F3DA43', '#C3A476']
   const summerColors = []
 
-  if (now >= spring && now < summer) {
+  const isSpring = now >= spring && now < summer
+  const isFall = now >= fall && now < winter
+  const isSummer = now >= summer && now < fall
+
+  if (isSpring) {
     return springColors
   }
 
-  if (now >= fall && now < winter) {
+  if (isFall) {
     return fallColors
   }
 
-  if ((now >= winter || now >= lastYearWinter) && (now < nextYearSpring || now < spring)) {
-    return winterColors
+  if (isSummer) {
+    return summerColors
   }
 
-  return summerColors
+  return winterColors
 }
 
 function Frise() {
