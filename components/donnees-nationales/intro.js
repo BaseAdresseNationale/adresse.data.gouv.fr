@@ -3,6 +3,23 @@ import {List, Target} from 'react-feather'
 import theme from '@/styles/theme'
 
 import SectionText from '../section-text'
+import KnowMoreSection from '../know-more-section'
+
+const knowMoreLinks = [
+  {
+    title: 'Découvrez le service public de la donnée',
+    href: 'https://www.data.gouv.fr/fr/reference'
+  },
+  {
+    title: 'Explorez le site de la Direction Interministérielle du Numérique (DINUM)',
+    href: 'https://www.numerique.gouv.fr/dinum/'
+  },
+  {
+    title: 'Lire la décision du Premier ministre sur le pilotage de Base Adresse Nationale',
+    href: 'https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf',
+    isFile: true,
+  }
+]
 
 function Intro() {
   return (
@@ -10,12 +27,12 @@ function Intro() {
       <div className='ban'>
         <SectionText>
           <p>
-            La <b>Base Adresse Nationale</b> est l’une des neuf bases de données du <a href='https://www.data.gouv.fr/fr/reference'>service public des données de référence</a>. Elle est la seule base de données d’adresses <b>officiellement reconnue par l’administration</b>.
+            La <b>Base Adresse Nationale</b> est l’une des neuf bases de données du service public des données de référence. Elle est la seule base de données d’adresses <b>officiellement reconnue par l’administration</b>.
           </p>
 
           <p><b>Service numérique d’usage partagé</b> et <b>infrastructure socle</b> sur laquelle sont adossées de nombreuses politiques publiques, elle fait partie du <b>système d’information et de communication de l’État</b> et est à ce titre placée sous la <b>responsabilité du Premier ministre</b>.</p>
 
-          <p>Son <b>pilotage</b> est assuré par la <a href='https://www.numerique.gouv.fr/dinum/'>Direction Interministérielle du Numérique</a> (DINUM), qui est chargée d’en définir les modalités de gouvernance et de fonctionnement (à la suite d’une <a href='https://www.ccomptes.fr/sites/default/files/2019-03/20190311-refere-S2018-3287-valorisation-donnees-IGN-Meteo-France-Cerema-rep-PM.pdf'>décision du Premier ministre</a>).</p>
+          <p>Son <b>pilotage</b> est assuré par la Direction Interministérielle du Numérique (DINUM), qui est chargée d’en définir les modalités de gouvernance et de fonctionnement (à la suite d’une décision du Premier ministre).</p>
 
           <p>
             Sa <b>construction</b> est assurée grâce à de nombreux partenaires, et en premier lieu par les communes, <b>seules autorités compétentes en terme d’adressage</b>.
@@ -45,6 +62,8 @@ function Intro() {
           </ul>
         </div>
       </div>
+
+      <KnowMoreSection links={knowMoreLinks} />
 
       <style jsx>{`
         .section-container {

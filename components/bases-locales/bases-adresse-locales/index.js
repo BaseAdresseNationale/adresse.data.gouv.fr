@@ -9,6 +9,7 @@ import Notification from '@/components/notification'
 import SearchBar from '@/components/search-bar'
 
 import BaseAdresseLocale from './base-adresse-locale'
+import KnowMoreSection from '@/components/know-more-section'
 
 const DATASETS_COUNT = 10
 
@@ -21,6 +22,21 @@ const sortByDateMAJ = datasets => {
     ...datasetsWithoutDateMAJ
   ]
 }
+
+const knowMoreLinks = [
+  {
+    title: 'Visiter le site data.gouv.fr',
+    href: 'https://www.data.gouv.fr'
+  },
+  {
+    title: 'Comment certifier une organisation ? Suivez la documentation !',
+    href: 'https://doc.data.gouv.fr/organisations/certifier-une-organisation/'
+  },
+  {
+    title: 'Publier sa Base Adresse Locale sur Mes Adresses',
+    href: 'https://mes-adresses.data.gouv.fr'
+  }
+]
 
 function BasesAdresseLocales({datasets}) {
   const [search, setSearch] = useState('')
@@ -60,7 +76,9 @@ function BasesAdresseLocales({datasets}) {
     <>
       <Notification isFullWidth>
         <p>Cette page recense toutes les <strong>Bases Adresses Locales</strong> connues à ce jour.</p>
-        <p>Pour référencer la vôtre facilement, publiez-la sur <a href='https://www.data.gouv.fr'>data.gouv.fr</a> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <a href='https://doc.data.gouv.fr/organisations/certifier-une-organisation/'>certifiée</a>.<br />Vous pouvez aussi utiliser <a target='_blank' rel='noreferrer' href='https://mes-adresses.data.gouv.fr'>Mes Adresses</a>, qui dispose d’un outil de publication simplifié.</p>
+        <p>Pour référencer la vôtre facilement, publiez-la sur <b>data.gouv.fr</b> avec le mot-clé <span className='tag'>base-adresse-locale</span>. Votre organisation devra auparavant avoir été <b>certifiée</b>.<br />Vous pouvez aussi utiliser <b>Mes Adresses</b>, qui dispose d’un outil de publication simplifié.</p>
+
+        <KnowMoreSection links={knowMoreLinks} />
       </Notification>
       <Container>
         <SearchBar
@@ -116,7 +134,7 @@ function BasesAdresseLocales({datasets}) {
           .no-result {
             margin-top: 1em;
           }
-          `}</style>
+      `}</style>
     </>
   )
 }

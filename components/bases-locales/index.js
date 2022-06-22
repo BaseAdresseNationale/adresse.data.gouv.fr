@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import Image from 'next/image'
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
@@ -38,9 +37,13 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             </p>
 
             <p>
-              Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent dans l’<Link href='/base-adresse-nationale'>explorateur de la Base Adresse Nationale</Link> comme « <b>certifiées par la commune</b> » ou « <b>en cours de certification par la commune</b> ».
+              Les Bases Adresses Locales constituent les <b>adresses prioritaires de la Base Adresse Nationale</b>. Validées par la commune, les adresses d’une Base Adresse Locale apparaissent dans l’explorateur de la Base Adresse Nationale comme « <b>certifiées par la commune</b> » ou « <b>en cours de certification par la commune</b> ».
             </p>
           </SectionText>
+          <div className='explorateur-button-container'>
+            <ButtonLink href='/base-adresse-nationale'>Accéder à l’explorateur</ButtonLink>
+          </div>
+
           <div className='parters'>
             <div className='partner'>
               <div><Image src='/images/logos/logo_ANCT.svg' alt='logo ANCT' width={190} height={80} layout='fixed' /></div>
@@ -61,7 +64,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
               Vous êtes une commune et souhaitez mettre en place une Base Adresse Locale à l’aide d’outils existants ?
             </div>
             <ButtonLink href='/gerer-mes-adresses'>
-              C’est par ici
+              Créer une Base Adresse Locale
             </ButtonLink>
           </div>
         </Notification>
@@ -147,6 +150,10 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         .partner {
           display: grid;
           grid-template-rows: 1fr 1fr;
+        }
+
+        .explorateur-button-container {
+          text-align: center;
         }
 
         .bal-grid {

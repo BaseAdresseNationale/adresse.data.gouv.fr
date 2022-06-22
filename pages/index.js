@@ -107,6 +107,7 @@ function Home({stats, posts}) {
           src='/images/previews/obligations-adresse-preview.png'
           alt='miniature du document obligations-adresse'
           link='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse-v2.0.pdf'
+          label='Télécharger les obligations relatives à l’adresse'
         >
           <SectionText>
             <p>

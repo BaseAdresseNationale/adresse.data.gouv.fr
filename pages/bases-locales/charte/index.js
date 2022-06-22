@@ -29,7 +29,7 @@ function Charte() {
               <li>Un format qui s’adresse aux <b>communes qui partagent leur expérience</b> avec d’autres communes.</li>
               <li>Un format dédié aux <b>organismes qui accompagnent les communes</b>.</li>
             </ul>
-            <p>Les deux versions de la Charte ont en partage le respect du format de données <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale'>Base Adresse Locale</a> et d’une gouvernance qui place la commune au coeur du dispositif de l’adresse.</p>
+            <p>Les deux versions de la Charte ont en partage le respect du <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale'>format de données Base Adresse Locale</a> et d’une gouvernance qui place la commune au coeur du dispositif de l’adresse.</p>
           </div>
         </SectionText>
       </Section>
@@ -50,6 +50,7 @@ function Charte() {
         <div className='downloads-container'>
           <Card
             link='https://adresse.data.gouv.fr/data/docs/charte-bal-communes-v1.1.pdf'
+            action='Télécharger la charte des communes partenaires'
             title='Charte des communes partenaires'
             color='secondary'
           >
@@ -64,6 +65,7 @@ function Charte() {
 
           <Card
             link='https://adresse.data.gouv.fr/data/docs/charte-bal-organismes-v1.1.pdf'
+            action='Télécharger la charte des organismes partenaires'
             title='Charte des organismes partenaires'
             color='secondary'
           >
