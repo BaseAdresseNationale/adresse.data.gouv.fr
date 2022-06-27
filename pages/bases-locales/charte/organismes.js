@@ -17,7 +17,7 @@ function Organismes() {
   const {epci, companies} = partners
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Award size={56} />} />
+      <Head title={title} icon={<Award size={56} alt='' />} />
 
       <Section title='Liste des organismes partenaires'>
         <SectionText>
@@ -27,7 +27,7 @@ function Organismes() {
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' />
           </ButtonLink>
         </div>
 

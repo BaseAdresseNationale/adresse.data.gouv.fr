@@ -16,7 +16,7 @@ function BlogPagination({page, pages, prev, next}) {
       <div className='blog-pagination' role='navigation'>
         {prev && (
           <Link href={`${href}${prev}${tags}`}>
-            <a className='page'><ArrowLeftCircle aria-label='Aller à la page précédente' style={{verticalAlign: 'middle'}} /></a>
+            <a className='page' aria-label='Aller à la page précédente'><ArrowLeftCircle style={{verticalAlign: 'middle'}} alt='' /></a>
           </Link>
         )}
         {pageNumbers.map(n => (
@@ -31,10 +31,11 @@ function BlogPagination({page, pages, prev, next}) {
         ))}
         {next && (
           <Link href={`${href}${next}${tags}`}>
-            <a className='page' aria-label='Aller à la page suivante'><ArrowRightCircle style={{verticalAlign: 'middle'}} /></a>
+            <a className='page' aria-label='Aller à la page suivante'><ArrowRightCircle style={{verticalAlign: 'middle'}} alt='' /></a>
           </Link>
         )}
       </div>
+
       <style jsx>{`
         .blog-pagination {
           display: flex;

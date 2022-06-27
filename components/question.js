@@ -44,7 +44,7 @@ class Question extends React.Component {
           onClick={this.toggle}
         >
           <div className='question'>{question}</div>
-          <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} /> : <ChevronDown style={{verticalAlign: 'middle'}} />}</div>
+          <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} alt='' /> : <ChevronDown style={{verticalAlign: 'middle'}} alt='' />}</div>
         </button>
         {open && (
           <div className='answer'>{children}</div>

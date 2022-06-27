@@ -6,19 +6,19 @@ import {ExternalLink} from 'react-feather'
 import theme from '@/styles/theme'
 import ButtonLink from '@/components/button-link'
 
-function Commune({name, codeCommune, picture, height, width, alt, signatureDate, charteURL}) {
+function Commune({name, codeCommune, picture, height, width, signatureDate, charteURL}) {
   const date = new Date(signatureDate).toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
 
   return (
     <div className='commune-container' onClick={event => event.stopPropagation()}>
       <div className='commune-infos'>
-        <Image src={picture} height={height / 2} width={width / 2} alt={alt} />
+        <Image src={picture} height={height / 2} width={width / 2} alt='' />
         <Link href={`/commune/${codeCommune}`} aria-label={`Aller sur la page commune de ${name}`}>{`${name} - ${codeCommune}`}</Link>
       </div>
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
       {charteURL && (
         <ButtonLink href={charteURL} isExternal target='_blank' label={`Voir la charte de ${name}`}>
-          Voir la charte <ExternalLink size={20} style={{verticalAlign: 'sub'}} />
+          Voir la charte <ExternalLink size={20} style={{verticalAlign: 'sub'}} alt='Lien externe' />
         </ButtonLink>
       )}
 
@@ -63,7 +63,6 @@ Commune.propTypes = {
   picture: PropTypes.string.isRequired,
   height: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,
-  alt: PropTypes.string.isRequired,
   signatureDate: PropTypes.string.isRequired,
   charteURL: PropTypes.string
 }

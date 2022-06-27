@@ -10,16 +10,16 @@ function Footer() {
         <div className='footer__logo'>
           <Image width={160} height={46} src='/images/logos/etalab.svg' alt='Etalab' />
           <ul className='footer__social'>
-            <li><a href='https://twitter.com/AdresseDataGouv' aria-label='Consulter notre compte Twitter'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
-            <li><a href='https://github.com/etalab/adresse.data.gouv.fr' aria-label='Consulter notre page GitHub'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
+            <li><a href='https://twitter.com/AdresseDataGouv' aria-label='Consulter notre compte Twitter'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='' /></a></li>
+            <li><a href='https://github.com/etalab/adresse.data.gouv.fr' aria-label='Consulter notre page GitHub'><Image width={25} height={25} src='/images/medias/github.svg' alt='' /></a></li>
             <li>
               <Link href='/blog'>
-                <a aria-label='Consulter notre blog'><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a>
+                <a aria-label='Consulter notre blog'><Image width={25} height={25} src='/images/medias/medium.svg' alt='' /></a>
               </Link>
             </li>
             <li>
               <Link href='/nous-contacter'>
-                <a aria-label='Contacter l’équipe'><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a>
+                <a aria-label='Contacter l’équipe'><Image width={25} height={25} src='/images/medias/envelop.svg' alt='' /></a>
               </Link>
             </li>
           </ul>

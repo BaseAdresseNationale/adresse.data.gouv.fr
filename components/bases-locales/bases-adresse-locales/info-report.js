@@ -15,12 +15,13 @@ class InfoReport extends React.Component {
 
     return (
       <Info title='Conformité' type={isValid ? 'valid' : 'not-valid'}>
-        {isValid ? <Check size={14} /> : <X size={14} />}
+        {isValid ? <Check size={14} alt='Conforme' /> : <X size={14} alt='Non-conforme' />}
 
         <div className='info-report'>
           <Link href={`/bases-locales/jeux-de-donnees/${id}/rapport`}>
             <a>Consulter le rapport</a>
           </Link>
+
           <style jsx>{`
             .info-report {
               margin-left: 0.2em;

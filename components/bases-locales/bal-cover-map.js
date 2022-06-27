@@ -183,7 +183,7 @@ class BalCoverMap extends React.Component {
       <div>
         {this.state.warningZoom && (
           <div className='warning'>
-            <AlertTriangle color='orange' />
+            <AlertTriangle color='orange' alt='Annonce d’alerte' />
             <div className='warning-text'>
               Double-cliquez sur la carte pour activer le zoom
             </div>

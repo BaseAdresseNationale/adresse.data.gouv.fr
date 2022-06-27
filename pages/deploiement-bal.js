@@ -86,7 +86,7 @@ function EtatDeploiement({datasets, stats}) {
   return (
     <Page>
       <div className='container-map'>
-        <Head title='État du déploiement des Bases Adresses Locales' icon={<Database size={56} />} />
+        <Head title='État du déploiement des Bases Adresses Locales' icon={<Database size={56} alt='' />} />
         <div className='map-stats-container' id='map-stat'>
           <div className='stats'>
             <DoughnutCounter

@@ -37,6 +37,7 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
         <Chevron
           style={{cursor: 'pointer'}}
           color={color === 'primary' ? theme.primary : theme.colors.white}
+          alt=''
         />
       </div>
 

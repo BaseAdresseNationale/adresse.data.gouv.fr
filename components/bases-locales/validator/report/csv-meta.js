@@ -8,9 +8,10 @@ function CsvMeta({name, value, isValid}) {
     <div>
       <div className='item'>
         <div><b>{name}</b></div>
-        {isValid ? <div className='check'><Check /></div> : <div className='error'><X /></div>}
+        {isValid ? <div className='check'><Check alt='Valide' /></div> : <div className='error'><X alt='Invalide' /></div>}
       </div>
       <div className='item-value'>{value}</div>
+
       <style jsx>{`
         .item {
           display: flex;

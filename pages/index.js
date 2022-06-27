@@ -85,7 +85,7 @@ function Home({stats, posts}) {
 
       <Section title='Obtenez des informations sur les adresses d’une commune' id='rechercher-une-commune'>
         <div className='commune-search-section'>
-          <Image src='/images/icons/commune.svg' height={200} width={200} />
+          <Image src='/images/icons/commune.svg' height={200} width={200} alt='' />
           <SectionText>
             Recherchez une commune afin d’obtenir les <b>informations disponibles sur ses adresses</b>, leur composition, leur degré d’achèvement et de certification, et de <b>télécharger ses fichiers adresses</b>.
           </SectionText>
@@ -143,7 +143,7 @@ function Home({stats, posts}) {
       <Section title='Découvrez les évènements autour de l’adresse' background='color'>
         <div className='event-section-container'>
           <div className='event-illustration'>
-            <Image src='/images/event-illustration.svg' layout='responsive' height={400} width={400} />
+            <Image src='/images/event-illustration.svg' layout='responsive' height={400} width={400} alt='' />
           </div>
           <SectionText color='secondary'>
             Que vous soyez maire ou élu, agent municipal, géomaticien, producteur ou utilisateur... vous pouvez consulter la page exposant les événements autour de l’adresse et vous inscrire à ceux adaptés à vos besoins.          </SectionText>

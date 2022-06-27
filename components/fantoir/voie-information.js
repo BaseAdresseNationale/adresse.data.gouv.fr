@@ -19,7 +19,7 @@ function VoieInformation({voie}) {
         <div className='infos'>{voie.typeVoie}</div>
         <div className='infos'>{voie.codeRivoli}</div>
         <div>
-          {isOpen ? <ChevronUp size={35} /> : <ChevronDown size={35} />}
+          {isOpen ? <ChevronUp size={35} alt='' /> : <ChevronDown size={35} alt='' />}
         </div>
       </button>
       {isOpen && (

@@ -12,7 +12,7 @@ function KnowMoreSection({links}) {
           links.map(({isFile, href, title}) => {
             return (
               <li key={href}>
-                {isFile ? <FileText /> : <ExternalLink />}<a href={href}>{title}</a>
+                {isFile ? <FileText alt='' /> : <ExternalLink alt='' />}<a href={href}>{title}</a>
               </li>
             )
           })

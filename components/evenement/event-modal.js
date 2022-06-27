@@ -36,7 +36,7 @@ function EventModal({event, isPassed, onClose}) {
       <div className='modal-container' ref={modalRef}>
         <div className={`close-container close-container-${type}`}>
           <button type='button' onClick={onClose} aria-label='Fermer la fenêtre' className='close-button'>
-            <XSquare />
+            <XSquare alt='' />
           </button>
         </div>
         <div className='modal-content'>
@@ -55,7 +55,7 @@ function EventModal({event, isPassed, onClose}) {
             {isOnlineOnly ? (
               <div className='place'><span>🖥️</span><br />{`${title} ${isPassed ? 's’est déroulé en ligne' : 'se déroulera en ligne'}`}</div>
             ) : (
-              <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} />{nom}, {numero} {voie} - {codePostal} {commune}</div>
+              <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} alt='' />{nom}, {numero} {voie} - {codePostal} {commune}</div>
             )}
 
             {!isPassed && (
@@ -78,7 +78,7 @@ function EventModal({event, isPassed, onClose}) {
           </div>
           <div className='right-content'>
             <div className='head-container'>
-              <Image src={`/images/icons/event-${type}.svg`} height={60} width={60} />
+              <Image src={`/images/icons/event-${type}.svg`} height={60} width={60} alt='' />
               <div className='title-container'>
                 <div className='right-title'>{title}</div>
                 <div>{subtitle}</div>

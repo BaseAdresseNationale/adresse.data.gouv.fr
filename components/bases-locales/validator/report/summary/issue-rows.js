@@ -26,7 +26,7 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
         <span className='colored'> {getLabel(issue)}</span>
       </div>
 
-      <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} /></div>
+      <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} alt='' /></div>
 
       <style jsx>{`
         .issue {

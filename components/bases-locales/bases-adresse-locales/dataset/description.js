@@ -21,7 +21,7 @@ class Description extends React.Component {
       <div>
         <Markdown markdown={description} />
         {page &&
-          <a className='dgv-link' href={page}><ArrowRight style={{marginRight: '5px', verticalAlign: 'middle'}} /> Consulter ce jeu de données sur data.gouv.fr</a>}
+          <a className='dgv-link' href={page}><ArrowRight style={{marginRight: '5px', verticalAlign: 'middle'}} alt='' /> Consulter ce jeu de données sur data.gouv.fr</a>}
       </div>
     )
   }

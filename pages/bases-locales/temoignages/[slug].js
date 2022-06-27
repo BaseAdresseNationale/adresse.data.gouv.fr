@@ -11,7 +11,7 @@ import Post from '@/components/post'
 function SlugPage({post}) {
   return (
     <Page title={post.title} description={post.excerpt} image={post.feature_image}>
-      <Head title='Témoignages sur les Bases Adresses Locales' icon={<BookOpen size={56} />} />
+      <Head title='Témoignages sur les Bases Adresses Locales' icon={<BookOpen size={56} alt='' />} />
       <Post {...post} backLink='/bases-locales/temoignages' />
     </Page>
   )

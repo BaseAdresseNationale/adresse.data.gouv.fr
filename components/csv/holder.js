@@ -34,18 +34,18 @@ function Holder({file, placeholder, isLoading, onDrop}) {
             onMouseLeave={() => setIsHovered(false)}
           >
             <input {...inputProps} />
-            <div>{!file && <Plus size={72} color={theme.primary} />}</div>
+            <div>{!file && <Plus size={72} color={theme.primary} alt='Glisser un fichier ou l’ajouter en cliquant sur la zone' />}</div>
             <div className='file-container'>{file ? (
               <div className='file-sumup'>
                 <div className='file-details'>
-                  <FileText size={42} />
+                  <FileText size={42} alt='Fichier déposé' />
                   <div className='file-infos'>
                     <div className='name'>{file.name}</div>
                     <div className='size'>{formatFileSize(file.size)}</div>
                   </div>
                 </div>
                 {isLoading ? (
-                  <div className='loading'>Chargement du fichier… <span><Loader /></span></div>
+                  <div className='loading'>Chargement du fichier… <span><Loader alt='' /></span></div>
                 ) : (
                   <RefreshCcw
                     size={32}
@@ -54,7 +54,6 @@ function Holder({file, placeholder, isLoading, onDrop}) {
                       margin: '0 1em'
                     }} />
                 )}
-
               </div>
             ) : placeholder}</div>
 

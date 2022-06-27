@@ -7,7 +7,7 @@ function Notification({message, type, style, isFullWidth, onClose, children}) {
   return (
     <div style={style} className={`notification ${type || ''} ${onClose ? 'closable' : ''} ${isFullWidth ? 'full-width' : ''}`}>
       {onClose && (
-        <Button className='close' aria-label='Fermer' onClick={onClose}><X /></Button>
+        <Button className='close' aria-label='Fermer la notification' onClick={onClose}><X alt='' /></Button>
       )}
       {children || message}
     </div >

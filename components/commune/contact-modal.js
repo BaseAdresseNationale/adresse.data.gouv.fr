@@ -17,7 +17,7 @@ function ContactModal({mairieInfos, onModalClose}) {
           aria-label='Fermer la fenêtre de contact'
           onClick={onModalClose}
         >
-          <XSquare />
+          <XSquare alt='' />
         </button>
         <MairieCard nom={nom} horaires={horaires} email={email} telephone={telephone} />
       </div>

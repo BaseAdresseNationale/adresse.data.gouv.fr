@@ -4,7 +4,7 @@ import {DownloadCloud} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function DocDownload({title, link, label, src, alt, isReverse, version, children}) {
+function DocDownload({title, link, label, src, isReverse, version, children}) {
   return (
     <div className='doc-container'>
       <div className='text-container'>
@@ -14,15 +14,16 @@ function DocDownload({title, link, label, src, alt, isReverse, version, children
       <div className='doc-download-container'>
         <div className='doc-infos-container'>
           <div className='preview'>
-            <Image width={200} height={280} layout='fixed' src={src} alt={alt} />
+            <Image width={200} height={280} layout='fixed' src={src} alt='' />
           </div>
           {version && <div className='version'>Version {version}</div>}
         </div>
         <a href={link} className='download-url'>
-          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '5px'}} />
+          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '5px'}} alt='' />
           {label}
         </a>
       </div>
+
       <style jsx>{`
         .doc-container {
           display: flex;
@@ -76,7 +77,6 @@ DocDownload.propTypes = {
   label: PropTypes.string,
   title: PropTypes.string,
   src: PropTypes.string,
-  alt: PropTypes.string,
   version: PropTypes.string
 }
 
@@ -87,7 +87,6 @@ DocDownload.defaultProps = {
   label: null,
   title: null,
   src: null,
-  alt: null,
   version: null
 }
 

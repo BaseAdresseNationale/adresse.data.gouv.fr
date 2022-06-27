@@ -8,7 +8,7 @@ function User({user, commune}) {
   return (
     <div className='user'>
       <div className='avatar'>
-        <Image width={60} height={60} src={`/images/icons/${user ? 'elu' : 'commune'}.svg`} alt='elu' />
+        <Image width={60} height={60} src={`/images/icons/${user ? 'elu' : 'commune'}.svg`} alt='' />
       </div>
       {user ? (
         <div className='user-infos'>{prenom} {nomMarital || nomNaissance}</div>

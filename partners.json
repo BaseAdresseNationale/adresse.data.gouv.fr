@@ -19,8 +19,7 @@
       ],
       "picture": "/images/logos/partners/epci/atd24.png",
       "height": 124,
-      "width": 187,
-      "alt": "Logo de L’Agence Technique Départementale de la Dordogne"
+      "width": 187
     },
     {
       "name": "SiiG",
@@ -44,8 +43,7 @@
       ],
       "picture": "/images/logos/partners/epci/siig.png",
       "height": 124,
-      "width": 116,
-      "alt": "Logo du Syndicat Intercommunal d’Information Géographique"
+      "width": 116
     },
     {
       "name": "SMICA",
@@ -66,8 +64,7 @@
       ],
       "picture": "/images/logos/partners/epci/smica.png",
       "height": 81,
-      "width": 290,
-      "alt": "Logo du Syndicat pour la Modernisation et l'Ingénierie des Collectivités"
+      "width": 290
     },
     {
       "name": "Imaginà-Coworking Balagna",
@@ -86,8 +83,7 @@
       ],
       "picture": "/images/logos/partners/epci/imagina.png",
       "height": 97,
-      "width": 290,
-      "alt": "Logo Imaginà-Coworking Balagna"
+      "width": 290
     },
     {
       "name": "IDéO BFC",
@@ -113,8 +109,7 @@
       ],
       "picture": "/images/logos/partners/epci/ideo.png",
       "height": 124,
-      "width": 84,
-      "alt": "Logo de IDéO BFC"
+      "width": 84
     },
     {
       "name": "Département du Calvados",
@@ -135,8 +130,7 @@
       ],
       "picture": "/images/logos/partners/epci/calvados.png",
       "height": 124,
-      "width": 147,
-      "alt": "Logo du Département du Calvados"
+      "width": 147
     },
     {
       "name": "ATD16",
@@ -157,8 +151,7 @@
       ],
       "picture": "/images/logos/partners/epci/atd16.jpg",
       "height": 124,
-      "width": 123,
-      "alt": "Logo de L’Agence Technique Départementale de la Charente"
+      "width": 123
     },
     {
       "name": "Communauté de Communes du Pont du Gard",
@@ -179,8 +172,7 @@
       ],
       "picture": "/images/logos/partners/epci/ccpg.jpg",
       "height": 124,
-      "width": 256,
-      "alt": "Logo de la Communauté de Communes du Pont du Gard"
+      "width": 256
     },
     {
       "name": "RGD Savoie Mont Blanc",
@@ -201,8 +193,7 @@
       ],
       "picture": "/images/logos/partners/epci/rgdsavoie.png",
       "height": 124,
-      "width": 136,
-      "alt": "Logo de la RGD Savoie Mont Blanc"
+      "width": 136
     },
     {
       "name": "MEGALIS Bretagne",
@@ -225,8 +216,7 @@
       ],
       "picture": "/images/logos/partners/epci/megalis_bretagne.png",
       "height": 124,
-      "width": 294,
-      "alt": "Logo de MEGALIS Bretagne"
+      "width": 294
     },
     {
       "name": "Département de l'Yonne",
@@ -244,8 +234,7 @@
       ],
       "picture": "/images/logos/partners/epci/yonne.png",
       "height": 124,
-      "width": 124,
-      "alt": "Logo du Conseil Départemental de l'Yonne"
+      "width": 124
     },
     {
       "name": "Agglomération de la Région de Compiègne",
@@ -266,8 +255,7 @@
       ],
       "picture": "/images/logos/partners/epci/compiegne.png",
       "height": 129,
-      "width": 290,
-      "alt": "Logo de l’Agglomération de la Région de Compiègne"
+      "width": 290
     },
     {
       "name": "TIGEO",
@@ -287,8 +275,7 @@
       ],
       "picture": "/images/logos/partners/epci/tigeo.png",
       "height": 83,
-      "width": 290,
-      "alt": "Logo de Tarn Information Géographique"
+      "width": 290
     },
     {
       "name": "Pays de Brest",
@@ -308,8 +295,7 @@
       ],
       "picture": "/images/logos/partners/epci/paysBrest.png",
       "height": 118,
-      "width": 290,
-      "alt": "Logo du Pays de Brest"
+      "width": 290
     },
     {
       "name": "GÉOPAL",
@@ -334,8 +320,7 @@
       ],
       "picture": "/images/logos/partners/epci/geopal.png",
       "height": 122,
-      "width": 290,
-      "alt": "Logo de GÉOPAL"
+      "width": 290
     },
     {
       "name": "Communauté d'Agglomération Gaillac Graulhet",
@@ -356,8 +341,7 @@
       ],
       "picture": "/images/logos/partners/epci/gaillac.png",
       "height": 117,
-      "width": 300,
-      "alt": "Logo de la Communauté d'Agglomération Gaillac Graulhet"
+      "width": 300
     },
     {
       "name": "Communauté d'Agglomération Plaine Vallée",
@@ -378,8 +362,7 @@
       ],
       "picture": "/images/logos/partners/epci/plaine-vallee.png",
       "height": 124,
-      "width": 277,
-      "alt": "Logo de la Communauté d'Agglomération Plaine Vallée"
+      "width": 277
     },
     {
       "name": "Réseau Régional des Données Territoriales et Géographiques en Centre-Val de Loire",
@@ -404,8 +387,7 @@
       ],
       "picture": "/images/logos/partners/epci/doterr_geocentre.png",
       "height": 124,
-      "width": 258,
-      "alt": "Logo du Réseau Régional des Données Territoriales et Géographiques en Centre-Val de Loire"
+      "width": 258
     },
     {
       "name": "Somme Numérique",
@@ -424,8 +406,7 @@
       ],
       "picture": "/images/logos/partners/epci/somme-numerique.jpg",
       "height": 73,
-      "width": 290,
-      "alt": "Logo de Somme Numérique"
+      "width": 290
     },
     {
       "name": "Communauté de Communes des Lisières de l’Oise",
@@ -446,8 +427,7 @@
       ],
       "picture": "/images/logos/partners/epci/lisieres-de-oise.png",
       "height": 124,
-      "width": 162,
-      "alt": "Logo de la Communauté de Communes des Lisières de l’Oise"
+      "width": 162
     },
     {
       "name": "Syndicat Départemental d’Aménagement et d’Ingénierie du Lot",
@@ -467,8 +447,7 @@
       ],
       "picture": "/images/logos/partners/epci/lot.jpg",
       "height": 124,
-      "width": 105,
-      "alt": "Logo du Syndicat Départemental d’Aménagement et d’Ingénierie du Lot"
+      "width": 105
     },
     {
       "name": "LOSANGE",
@@ -493,8 +472,7 @@
       ],
       "picture": "/images/logos/partners/epci/losange.jpg",
       "height": 62,
-      "width": 290,
-      "alt": "Logo de LOSANGE"
+      "width": 290
     },
     {
       "name": "OPenIG",
@@ -524,8 +502,7 @@
       ],
       "picture": "/images/logos/partners/epci/openig.png",
       "height": 124,
-      "width": 119,
-      "alt": "Logo de OPENIG"
+      "width": 119
     },
     {
       "name": "Communauté de communes Pays de Forcalquier - Montagne de Lure",
@@ -546,8 +523,7 @@
       ],
       "picture": "/images/logos/partners/epci/forcalquier-lure.jpg",
       "height": 124,
-      "width": 240,
-      "alt": "Logo de Communauté de communes Pays de Forcalquier et Montagne de Lure"
+      "width": 240
     },
     {
       "name": "Colmar Agglomération",
@@ -567,8 +543,7 @@
       ],
       "picture": "/images/logos/partners/epci/colmar.jpg",
       "height": 124,
-      "width": 216,
-      "alt": "Logo de Colmar Agglomération"
+      "width": 216
     },
     {
       "name": "Clermont Auvergne Métropole",
@@ -589,8 +564,7 @@
       ],
       "picture": "/images/logos/partners/epci/clermont.png",
       "height": 124,
-      "width": 195,
-      "alt": "Logo de Clermont Auvergne Métropole"
+      "width": 195
     },
     {
       "name": "Tarn-et-Garonne Numérique",
@@ -609,8 +583,7 @@
       ],
       "picture": "/images/logos/partners/epci/tarn-garonne-numerique.png",
       "height": 124,
-      "width": 121,
-      "alt": "Logo de Tarn et Garonne Numérique"
+      "width": 121
     },
     {
       "name": "Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
@@ -630,8 +603,7 @@
       ],
       "picture": "/images/logos/partners/epci/pau.jpg",
       "height": 124,
-      "width": 261,
-      "alt": "Logo de la Communauté d’Agglomération Pau Béarn Pyrénées"
+      "width": 261
     },
     {
       "name": "Communauté de Communes de la Plaine d’Estrées",
@@ -652,8 +624,7 @@
       ],
       "picture": "/images/logos/partners/epci/ccpe.png",
       "height": 124,
-      "width": 246,
-      "alt": "Logo de la Communauté de Communes de la Plaine d’Estrées"
+      "width": 246
     },
     {
       "name": "Communauté d’agglomération Roannais Agglomération",
@@ -672,8 +643,7 @@
       ],
       "picture": "/images/logos/partners/epci/roannais.png",
       "height": 84,
-      "width": 290,
-      "alt": "Logo du partenaire Roannais Agglomération"
+      "width": 290
     },
     {
       "name": "Communauté d’Agglomération du Bassin de Brive",
@@ -692,8 +662,7 @@
       ],
       "picture": "/images/logos/partners/epci/brive.png",
       "height": 154,
-      "width": 100,
-      "alt": "Logo du partenaire Communauté d’Agglomération du Bassin de Brive"
+      "width": 100
     },
     {
       "name": "Communauté d’agglomération de Saint-Quentin-en-Yvelines",
@@ -713,8 +682,7 @@
       ],
       "picture": "/images/logos/partners/epci/saint-quentin-yvelines.jpg",
       "height": 124,
-      "width": 220,
-      "alt": "Logo du partenaire Communauté d’agglomération de Saint-Quentin-en-Yvelines"
+      "width": 220
     },
     {
       "name": "Communauté d’agglomération Royan Atlantique",
@@ -732,8 +700,7 @@
       ],
       "picture": "/images/logos/partners/epci/royan.png",
       "height": 124,
-      "width": 221,
-      "alt": "Logo du partenaire Communauté d’agglomération Royan Atlantique"
+      "width": 221
     },
     {
       "name": "Communauté d’Agglomération Pays Basque",
@@ -753,8 +720,7 @@
       ],
       "picture": "/images/logos/partners/epci/pays-basque.png",
       "height": 124,
-      "width": 125,
-      "alt": "Logo du partenaire Communauté d’Agglomération Pays Basque"
+      "width": 125
     },
     {
       "name": "Manche numérique",
@@ -773,8 +739,7 @@
       ],
       "picture": "/images/logos/partners/epci/manche-numerique.jpg",
       "height": 117,
-      "width": 232,
-      "alt": "Logo du partenaire Manche numérique"
+      "width": 232
     },
     {
       "name": "Communauté d'agglomération de l'Albigeois",
@@ -793,8 +758,7 @@
       ],
       "picture": "/images/logos/partners/epci/albigeois.png",
       "height": 154,
-      "width": 114,
-      "alt": "Logo du partenaire Communauté d'agglomération de l'Albigeois"
+      "width": 114
     },
     {
       "name": "Communauté d'Agglomération Ventoux Comtat Venaissin",
@@ -815,8 +779,7 @@
       ],
       "picture": "/images/logos/partners/epci/la-cove.png",
       "height": 124,
-      "width": 120,
-      "alt": "Logo du partenaire Communauté d’Agglomération Ventoux Comtat Venaissin"
+      "width": 120
     },
     {
       "name": "GéoBretagne",
@@ -838,8 +801,7 @@
       ],
       "picture": "/images/logos/partners/epci/geobretagne.png",
       "height": 45,
-      "width": 232,
-      "alt": "Logo du partenaire GéoBretagne"
+      "width": 232
     },
     {
       "name": "Communauté de Communes du Pays du Coquelicot",
@@ -860,8 +822,7 @@
       ],
       "picture": "/images/logos/partners/epci/coquelicot.jpg",
       "height": 124,
-      "width": 109,
-      "alt": "Logo du partenaire Communauté de Communes du Pays du Coquelicot"
+      "width": 109
     },
     {
       "name": "Pôle Marennes Oléron",
@@ -882,8 +843,7 @@
       ],
       "picture": "/images/logos/partners/epci/marennes-oleron.png",
       "height": 124,
-      "width": 76,
-      "alt": "Logo du partenaire Pôle Marennes Oléron"
+      "width": 76
     },
     {
       "name": "SIDEC du Jura",
@@ -902,8 +862,7 @@
       ],
       "picture": "/images/logos/partners/epci/sidec.png",
       "height": 124,
-      "width": 157,
-      "alt": "Logo du SIDEC du Jura"
+      "width": 157
     },
     {
       "name": "Alès Agglomération",
@@ -924,8 +883,7 @@
       ],
       "picture": "/images/logos/partners/epci/ales.png",
       "height": 124,
-      "width": 109,
-      "alt": "Logo du partenaire Alès Agglomération"
+      "width": 109
     },
     {
       "name": "Géo17 - Soluris",
@@ -944,8 +902,7 @@
       ],
       "picture": "/images/logos/partners/epci/soluris.png",
       "height": 124,
-      "width": 149,
-      "alt": "Logo du partenaire Géo17 - Soluris"
+      "width": 149
     },
     {
       "name": "Toulouse Métropole",
@@ -963,8 +920,7 @@
       ],
       "picture": "/images/logos/partners/epci/toulouse-metro.png",
       "height": 71,
-      "width": 232,
-      "alt": "Logo du partenaire Toulouse Métropole"
+      "width": 232
     },
     {
       "name": "Quimperlé Communauté",
@@ -983,8 +939,7 @@
       ],
       "picture": "/images/logos/partners/epci/quimperle.png",
       "height": 124,
-      "width": 245,
-      "alt": "Logo de Quimperlé Communauté"
+      "width": 245
     }
   ],
   "companies": [
@@ -1005,8 +960,7 @@
       ],
       "picture": "/images/logos/partners/companies/pichjulellu.png",
       "height": 105,
-      "width": 290,
-      "alt": "Logo du partenaire SARL Pichjulellu"
+      "width": 290
     },
     {
       "name": "Adress' & Vous",
@@ -1026,8 +980,7 @@
       ],
       "picture": "/images/logos/partners/companies/adress&vous.jpg",
       "height": 114,
-      "width": 290,
-      "alt": "Logo du partenaire Adress' & Vous"
+      "width": 290
     },
     {
       "name": "SIGNA.CONCEPT",
@@ -1056,8 +1009,7 @@
       ],
       "picture": "/images/logos/partners/companies/signa.jpg",
       "height": 124,
-      "width": 208,
-      "alt": "Logo de Signa.Concept"
+      "width": 208
     },
     {
       "name": "Anne Légaut",
@@ -1079,8 +1031,7 @@
       ],
       "picture": "/images/logos/partners/companies/legaut.jpg",
       "height": 124,
-      "width": 248,
-      "alt": "Logo du partenaire Anne Légaut"
+      "width": 248
     },
     {
       "name": "La Poste Solutions business",
@@ -1097,8 +1048,7 @@
       ],
       "picture": "/images/logos/partners/companies/la-poste.png",
       "height": 124,
-      "width": 102,
-      "alt": "Logo de la Poste"
+      "width": 102
     },
     {
       "name": "SIGEO 3D",
@@ -1115,8 +1065,7 @@
       ],
       "picture": "/images/logos/partners/companies/sigeo.png",
       "height": 89,
-      "width": 290,
-      "alt": "Logo de SIGEO 3D"
+      "width": 290
     },
     {
       "name": "SOGEFI Ingéniérie géomatique",
@@ -1134,8 +1083,7 @@
       ],
       "picture": "/images/logos/partners/companies/sogefi.png",
       "height": 102,
-      "width": 290,
-      "alt": "Logo de la SOGEFI Ingéniérie géomatique"
+      "width": 290
     },
     {
       "name": "PLANIGRAPHE",
@@ -1164,8 +1112,7 @@
       ],
       "picture": "/images/logos/partners/companies/planigraphe.jpg",
       "height": 124,
-      "width": 218,
-      "alt": "Logo de la société PLANIGRAPHE"
+      "width": 218
     }
   ],
   "communes": [
@@ -1188,7 +1135,6 @@
       "picture": "/images/logos/partners/communes/egliseneuve-des-liards.jpg",
       "height": 93,
       "width": 232,
-      "alt": "Blason de la commune de Égliseneuve-des-Liards",
       "signatureDate": "2021-05-11"
     },
     {
@@ -1210,7 +1156,6 @@
       "picture": "/images/logos/partners/communes/rougon.png",
       "height": 124,
       "width": 99,
-      "alt": "Blason de la commune de Rougon",
       "signatureDate": "2022-03-25"
     },
     {
@@ -1233,7 +1178,6 @@
       "picture": "/images/logos/partners/communes/breux-sur-avre.png",
       "height": 124,
       "width": 108,
-      "alt": "Blason de la commune Breux-sur-Avre",
       "signatureDate": "2022-03-29"
     },
     {
@@ -1256,7 +1200,6 @@
       "picture": "/images/logos/partners/communes/breau-mars.jpg",
       "height": 124,
       "width": 122,
-      "alt": "Blason de la commune Bréau-Mars",
       "signatureDate": "2022-04-08"
     },
     {
@@ -1279,7 +1222,6 @@
       "picture": "/images/logos/partners/communes/traverseres.jpg",
       "height": 124,
       "width": 88,
-      "alt": "Illustration de la commune Traversères",
       "signatureDate": "2022-04-08"
     },
     {
@@ -1302,7 +1244,6 @@
       "picture": "/images/logos/partners/communes/castillon-saves.jpg",
       "height": 124,
       "width": 124,
-      "alt": "Blason de la commune de Castillon-Savès",
       "signatureDate": "2022-05-05"
     },
     {
@@ -1325,7 +1266,6 @@
       "picture": "/images/logos/partners/communes/granges.png",
       "height": 124,
       "width": 79,
-      "alt": "Blason de la commune Granges",
       "signatureDate": "2022-05-16"
     },
     {
@@ -1348,7 +1288,6 @@
       "picture": "/images/logos/partners/communes/truchtersheim.jpg",
       "height": 124,
       "width": 136,
-      "alt": "Blason de la commune de Truchtersheim",
       "signatureDate": "2022-06-28"
     },
     {
@@ -1371,7 +1310,6 @@
       "picture": "/images/logos/partners/communes/entre-deux.png",
       "height": 124,
       "width": 286,
-      "alt": "",
       "signatureDate": "2022-06-03"
     }
   ]
