@@ -23,7 +23,7 @@ function BlogCard({post, onClick}) {
       {onClick && post.tags && (
         <div className='blog-tags-container'>
           {post.tags.map(tag => (
-            <button type='button' aria-label={`Séléctionner le tag ${tag.name}`} key={tag.id} onClick={() => onClick(tag)}>
+            <button type='button' aria-label={`Sélectionner le tag ${tag.name}`} key={tag.id} onClick={() => onClick(tag)}>
               {tag.name}
             </button>
           ))}

@@ -24,7 +24,7 @@ class SelectableItemList extends React.Component {
           {list.map(item => (
             <button
               type='button'
-              aria-label={buttonIcon === '+' ? `Séléctionner ${item.value}` : `Désélectionner ${item.value}`}
+              aria-label={buttonIcon === '+' ? `Sélectionner ${item.value}` : `Désélectionner ${item.value}`}
               key={item.key}
               className='item'
               onClick={() => action(item)}

@@ -62,7 +62,7 @@ function EventBanner() {
       <div className='slideshow-dots'>
         {events.map((event, idx) => (
           <button
-            aria-label={`${index === idx ? 'Vous être sur la slide' : 'Allez à la slide'} de l’évènement ${event.title}`}
+            aria-label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${accessibleDate}`}
             type='button'
             key={`${event.title}-${event.date}`}
             className={`slideshow-dot ${index === idx ? 'active' : ''}`}

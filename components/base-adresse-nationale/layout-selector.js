@@ -6,7 +6,7 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
   return (
     <button
       type='button'
-      aria-label={`Séléctionner l'onglet ${name}`}
+      aria-label={`Sélectionner l'onglet ${name}`}
       className={`layout ${isSelected ? 'selected' : ''}`}
       onClick={() => handleClick(value)}
     >

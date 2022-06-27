@@ -13,7 +13,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
     >
       <div className='select-wrap'>
         <select
-          aria-label='Séléctionner le layer'
+          aria-label='Modifier l’affichage des adresses sur la carte'
           value={selected}
           name='paint-layer'
           id='paint-layer'
