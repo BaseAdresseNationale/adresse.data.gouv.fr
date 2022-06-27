@@ -38,6 +38,12 @@ class SwitchMapStyle extends React.Component {
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }
 
+          button {
+            border: none;
+            background: none;
+            padding: 0;
+          }
+
           .switch-style:hover {
             cursor: pointer;
           }
