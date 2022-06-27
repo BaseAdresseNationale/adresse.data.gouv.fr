@@ -33,7 +33,7 @@ function ButtonLink({size, color, href, label, isDisabled, isOutlined, isExterna
         {children}
       </a>
     ) : (
-      <Link href={href} passHref>
+      <Link href={href}>
         <a aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
           {children}
         </a>

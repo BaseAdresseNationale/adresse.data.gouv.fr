@@ -14,7 +14,7 @@ function SocialMedia() {
   return (
     <>
       <div className='socials'>
-        <Link href='/blog' passHref>
+        <Link href='/blog'>
           <a aria-label='Consulter notre blog'>
             <Image src='/images/logos/blog.svg' height={88} width={88} alt='Blog' />
             <div>En lisant notre blog</div>
