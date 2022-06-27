@@ -33,7 +33,7 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
           <div className='content'>
             <div className='authentification-choice'>
               <h4>M’authentifier comme élu de la commune</h4>
-              <a href={fcButtonUrl}>
+              <a href={fcButtonUrl} aria-label='S’authentifier sur FranceConnect'>
                 <Image width={280} height={82} layout='fixed' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' />
               </a>
               <p className='alert-personal-data'>
