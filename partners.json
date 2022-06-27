@@ -946,6 +946,25 @@
       "height": 124,
       "width": 149,
       "alt": "Logo du partenaire Géo17 - Soluris"
+    },
+    {
+      "name": "Toulouse Métropole",
+      "link": "https://data.toulouse-metropole.fr/explore/dataset/base-adresse-locale/information/",
+      "infos": "La Base Adresse Nationale (BAN) est la base de données de référence des adresses officiellement reconnues par l’Administration. La complétude de cette base permet que les services soient délivrés au bon endroit. Cette base nationale est construite par l’addition des Bases Adresses Locales (BAL) produites par les communes ou, par délégation, par leur EPCI. La BAL de Toulouse Métropole est structurée en conformité avec le modèle national de la BAN. Elle contient l’ensemble des adresses des communes membres de Toulouse Métropole.",
+      "perimeter": "Communes de Toulouse métropole",
+      "codeDepartement": [
+        "31"
+      ],
+      "echelon": 1,
+      "isPermimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "réalisation de bases adresses locales"
+      ],
+      "picture": "/images/logos/partners/epci/toulouse-metro.png",
+      "height": 71,
+      "width": 232,
+      "alt": "Logo du partenaire Toulouse Métropole"
     }
   ],
   "companies": [
