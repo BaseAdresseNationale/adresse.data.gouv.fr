@@ -43,6 +43,7 @@ function Hero({title, tagline}) {
               href='/bases-locales'
               icon={<Database size={48} color={theme.colors.white} />}
               isImportant
+              label='Découvrir la Base Adresse Locale'
               size='80'
             >
               Bases Adresses Locales
