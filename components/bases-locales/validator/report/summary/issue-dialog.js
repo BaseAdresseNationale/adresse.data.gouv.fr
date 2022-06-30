@@ -20,7 +20,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
             <h3>Ligne{issue.rows.length > 1 ? 's' : ''} avec l’alerte :</h3>
             <h4>{getLabel(issue.code)}</h4>
           </div>
-          <button type='button' onClick={handleClose} aria-label='Fermer la modale indiquant les lignes avec alertes'>
+          <button type='button' onClick={handleClose} aria-label='Fermer la fenêtre indiquant les lignes avec alertes'>
             <X size={40} style={{cursor: 'pointer'}} />
           </button>
         </div>

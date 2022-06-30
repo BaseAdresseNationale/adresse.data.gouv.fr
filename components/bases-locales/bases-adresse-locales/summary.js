@@ -43,7 +43,7 @@ class Summary extends React.Component {
           </div>
 
           <div className='links'>
-            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`} label={`Consulter la Base Adresse Locale ${dataset.title}`}>
+            <ButtonLink href={`/bases-locales/jeux-de-donnees/${id}`} label={`Consulter la Base Adresse Locale ${title}`}>
               Consulter la Base Adresse Locale
             </ButtonLink>
             {url &&

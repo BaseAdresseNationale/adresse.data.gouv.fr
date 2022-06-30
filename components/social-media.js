@@ -21,7 +21,7 @@ function SocialMedia() {
           </a>
         </Link>
 
-        <a href='https://twitter.com/adressedatagouv?lang=fr' aria-label='Visiter notre compte Twitter'>
+        <a href='https://twitter.com/adressedatagouv?lang=fr' aria-label='Consulter notre compte Twitter'>
           <Image src='/images/logos/twitter.svg' height={88} width={88} alt='Twitter' />
           <div>Sur notre fil Twitter</div>
         </a>

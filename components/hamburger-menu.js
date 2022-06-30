@@ -40,7 +40,7 @@ class HamburgerMenu extends React.Component {
           <div className='content'>
             {links.map(link => (
               <Link key={link.text} href={link.href}>
-                <a aria-label={`Visiter la page ${link.text}`}>{link.text}</a>
+                <a aria-label={`Consulter la page ${link.text}`}>{link.text}</a>
               </Link>
             ))}
           </div>

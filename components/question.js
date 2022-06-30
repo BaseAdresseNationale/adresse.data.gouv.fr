@@ -39,7 +39,7 @@ class Question extends React.Component {
       <div id={slug}>
         <button
           type='button'
-          aria-label={`Nous contacter pour la raison suivante : ${question}`}
+          aria-label={`Afficher la réponse à la question : ${question}`}
           className={`question-container ${open ? 'is-open' : ''}`}
           onClick={this.toggle}
         >
