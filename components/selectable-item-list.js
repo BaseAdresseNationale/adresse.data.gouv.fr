@@ -11,7 +11,7 @@ class SelectableItemList extends React.Component {
         value: PropTypes.string.isRequired
       })
     ).isRequired,
-    buttonIcon: PropTypes.string.isRequired,
+    buttonIcon: PropTypes.oneOf(['+', '-']).isRequired,
     action: PropTypes.func.isRequired
   }
 
