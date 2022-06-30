@@ -38,6 +38,10 @@ function Dataset({dataset}) {
     )
   }
 
+  const handleLabel = item => {
+    return `Consulter les adresses de la commune ${item} dans la Base Adresse Nationale`
+  }
+
   return (
     <div>
       <Section>
@@ -57,6 +61,7 @@ function Dataset({dataset}) {
             title={dataset.communes.length === 1 ? 'Commune' : 'Communes'}
             subtitle={dataset.communes.length === 1 ? '1 commune répertoriée' : `${dataset.communes.length} communes répertoriées`}
             list={dataset.communes}
+            handleLabel={handleLabel}
             textFilter={item => item.nom}
             cols={cols}
             handleSelect={selectCommune} />

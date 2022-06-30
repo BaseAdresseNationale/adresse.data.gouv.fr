@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-function Body({list, cols, checkIsSelected, handleSelect}) {
+function Body({list, cols, checkIsSelected, handleLabel, handleSelect}) {
   return (
     <tbody>
       {list.map((item, idx) => (
         <tr
           role='button'
           tabIndex='0'
-          aria-label={`Accéder à la commune ${item.nom} dans l’explorateur`}
+          aria-label={() => handleLabel(item.nom)}
           key={`tr-${idx}`} // eslint-disable-line react/no-array-index-key
           className={`${checkIsSelected && checkIsSelected(item) ? 'selected' : null}`}
           onClick={handleSelect ? () => handleSelect(item) : null}
@@ -57,6 +57,7 @@ function Body({list, cols, checkIsSelected, handleSelect}) {
 Body.propTypes = {
   list: PropTypes.array.isRequired,
   cols: PropTypes.object.isRequired,
+  handleLabel: PropTypes.func.isRequired,
   handleSelect: PropTypes.func,
   checkIsSelected: PropTypes.func
 }

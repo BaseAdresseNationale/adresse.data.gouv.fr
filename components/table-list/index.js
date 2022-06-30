@@ -20,7 +20,7 @@ const getPropsToFilter = (list, filters) => {
   })
 }
 
-function TableList({title, subtitle, list, textFilter, filters, cols, checkIsSelected, handleSelect}) {
+function TableList({title, subtitle, list, textFilter, filters, cols, checkIsSelected, handleSelect, handleLabel}) {
   const [text, setText] = useState('')
   const [propsFilter, setPropsFilter] = useState()
   const [selectedPropsFilter, setSelectedPropsFilter] = useState({})
@@ -91,6 +91,7 @@ function TableList({title, subtitle, list, textFilter, filters, cols, checkIsSel
           cols={cols}
           checkIsSelected={checkIsSelected}
           handleSelect={handleSelect}
+          handleLabel={handleLabel}
         />
       )}
 
@@ -111,6 +112,7 @@ TableList.propTypes = {
   textFilter: PropTypes.func,
   filters: PropTypes.object,
   cols: PropTypes.object.isRequired,
+  handleLabel: PropTypes.func.isRequired,
   checkIsSelected: PropTypes.func,
   handleSelect: PropTypes.func
 }
