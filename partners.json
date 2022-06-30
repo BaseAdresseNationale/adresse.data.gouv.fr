@@ -1307,6 +1307,29 @@
       "width": 79,
       "alt": "Blason de la commune Granges",
       "signatureDate": "2022-05-16"
+    },
+    {
+      "name": "Commune de Truchtersheim",
+      "link": "http://www.truchtersheim.fr/fr/information/113002/base-adresse-locale",
+      "codeRegion": "44",
+      "codeDepartement": [
+        "67"
+      ],
+      "codeCommune": "67495",
+      "charteURL": "http://cdn2_3.reseaudesvilles.fr/cities/107/documents/5fetd4lb3cl64u.pdf",
+      "testimonyURL": "",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-67495",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/truchtersheim.jpg",
+      "height": 205,
+      "width": 225,
+      "alt": "Blason de la commune de Truchtersheim",
+      "signatureDate": "2022-06-28"
     }
   ]
 }
