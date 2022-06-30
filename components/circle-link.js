@@ -7,7 +7,7 @@ function CircleLink({size, href, isExternal, icon, label, fontSize, isImportant,
   return (
     <>
       {isExternal ? (
-        <a href={href} className={isDisable ? 'disable' : ''} aria-label={label ? label : children}>
+        <a href={href} className={isDisable ? 'disable' : ''} aria-label={label || children}>
           <div className='circle'>
             {icon}
           </div>
@@ -15,7 +15,7 @@ function CircleLink({size, href, isExternal, icon, label, fontSize, isImportant,
         </a>
       ) : (
         <Link href={href}>
-          <a className={isDisable ? 'disable' : ''} aria-label={label ? label : children}>
+          <a className={isDisable ? 'disable' : ''} aria-label={label || children}>
             <div className='circle'>
               {icon}
             </div>

@@ -33,14 +33,13 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
   return (
     <div className='labels-container'>
       {handleListOfTags(allPartners).map(tag => {
-        const isActive = handleTagClassname(tag) === 'label label-active'
-        const isDisable = handleTagClassname(tag) === 'label label-inactive'
+        const isActive = handleTagClassname(tag).includes('active')
 
         return (
           <button
             type='button'
             aria-label={`${isActive ? 'Désélectionner' : 'Sélectionner'} le tag ${tag}`}
-            aria-disabled={isDisable}
+            aria-disabled={!isActive}
             onClick={() => {
               onSelectTags(tag)
             }}
