@@ -5,22 +5,31 @@ import Header from './header'
 const order = (a, b, direction) => (
   <button
     type='button'
-    style={{display: 'inline-flex', border: 'none', background: 'none', color: 'white'}}
     aria-label={`Trier par ordre ${direction === 'asc' ? 'croissant' : 'décroissant'}`}
   >
     <ArrowDown />
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      fontSize: '14px',
-      lineHeight: '14px',
-      marginLeft: '3px',
-      marginTop: '-2px'
-    }}
-    >
+    <div>
       <div>{a}</div>
       <div>{b}</div>
     </div>
+
+    <style jsx>{`
+      button {
+        display: inline-flex;
+        border: none;
+        background: none;
+        color: white;
+      }
+
+      .order-instruction {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        line-height: 14px;
+        margin-left: 3px;
+        margin-top: -2px
+      }
+    `}</style>
   </button>
 )
 
