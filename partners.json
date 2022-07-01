@@ -1330,6 +1330,26 @@
       "width": 136,
       "alt": "Blason de la commune de Truchtersheim",
       "signatureDate": "2022-06-28"
+    },
+    {
+      "name": "Quimperlé Communauté",
+      "link": "https://www.quimperle-communaute.bzh/lagglomeration/le-territoire/cartographie/",
+      "infos": "Quimperlé Communauté accompagne les communes pour la création et la mise à jour de Bases Adresses Locales : aide à la mise en place de démarches d’adressage, accompagnement technique et suivi des démarches, formation et assistance à l’outil « Mes adresses ».",
+      "perimeter": "communes de la Communauté d'agglomération (29)",
+      "codeDepartement": [
+        "29"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique"
+      ],
+      "picture": "/images/logos/partners/epci/quimperle.png",
+      "height": 124,
+      "width": 245,
+      "alt": "Logo de Quimperlé Communauté"
     }
   ]
 }
