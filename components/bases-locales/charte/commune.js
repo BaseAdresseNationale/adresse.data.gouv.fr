@@ -13,11 +13,11 @@ function Commune({name, codeCommune, picture, height, width, alt, signatureDate,
     <div className='commune-container' onClick={event => event.stopPropagation()}>
       <div className='commune-infos'>
         <Image src={picture} height={height / 2} width={width / 2} alt={alt} />
-        <Link href={`/commune/${codeCommune}`}>{`${name} - ${codeCommune}`}</Link>
+        <Link href={`/commune/${codeCommune}`} aria-label={`Aller sur la page commune de ${name}`}>{`${name} - ${codeCommune}`}</Link>
       </div>
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
       {charteURL && (
-        <ButtonLink href={charteURL} isExternal target='_blank'>
+        <ButtonLink href={charteURL} isExternal target='_blank' label={`Voir la charte de ${name}`}>
           Voir la charte <ExternalLink size={20} style={{verticalAlign: 'sub'}} />
         </ButtonLink>
       )}

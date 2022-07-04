@@ -19,19 +19,21 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
   return (
     <div className='auth-container'>
       <div className='dropdown-container'>
-        <div
+        <button
+          type='button'
+          aria-label={`${isHabilitedOpen ? 'Masquer' : 'Afficher'} la marche à suivre lorsque vous êtes habilité`}
           className='dropdown-title'
           onClick={() => setIsHabilitedOpen(!isHabilitedOpen)}
         >
           <h3>Vous êtes habilité(e)</h3>
           {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
-        </div>
+        </button>
 
         {isHabilitedOpen && (
           <div className='content'>
             <div className='authentification-choice'>
               <h4>M’authentifier comme élu de la commune</h4>
-              <a href={fcButtonUrl}>
+              <a href={fcButtonUrl} aria-label='S’authentifier avec FranceConnect'>
                 <Image width={280} height={82} layout='fixed' src='/images/FCboutons-10.svg' alt='bouton FranceConnect' />
               </a>
               <p className='alert-personal-data'>
@@ -69,13 +71,15 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
       </div>
 
       <div className='dropdown-container'>
-        <div
+        <button
+          type='button'
+          aria-label={`${isHabilitedOpen ? 'Masquer' : 'Afficher'} la marche à suivre lorsque vous n'êtes pas habilité`}
           className='dropdown-title'
           onClick={() => setIsNonHabilitedOpen(!isNonHabilitedOpen)}
         >
           <h3>Vous n’êtes pas habilité(e)</h3>
           {isNonHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
-        </div>
+        </button>
 
         {isNonHabilitedOpen && (
           <div className='content'>
@@ -130,6 +134,10 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
           display: flex;
           justify-content: space-between;
           align-items: center;
+          width: 100%;
+          border: none;
+          background: none;
+          color: ${theme.darkText};
         }
 
         h4 {

@@ -32,15 +32,15 @@ class HamburgerMenu extends React.Component {
 
     return (
       <div className='dropdown'>
-        <div onClick={this.handleMenu}>
+        <button type='button' aria-label={`${visible ? 'Fermer' : 'Ouvrir'} le menu de navigation`} onClick={this.handleMenu}>
           {visible ? <X size={22} /> : <Menu size={22} />}
-        </div>
+        </button>
 
         {visible && (
           <div className='content'>
             {links.map(link => (
               <Link key={link.text} href={link.href}>
-                <a>{link.text}</a>
+                <a aria-label={`Consulter la page ${link.text}`}>{link.text}</a>
               </Link>
             ))}
           </div>
@@ -51,6 +51,11 @@ class HamburgerMenu extends React.Component {
             position: relative;
             display: inline-block;
             cursor: pointer;
+          }
+
+          .dropdown button {
+            border: none;
+            background: none;
           }
 
           a {

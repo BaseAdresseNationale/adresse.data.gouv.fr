@@ -10,19 +10,26 @@ function Footer() {
         <div className='footer__logo'>
           <Image width={160} height={46} src='/images/logos/etalab.svg' alt='Etalab' />
           <ul className='footer__social'>
-            <li><a href='https://twitter.com/AdresseDataGouv'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
-            <li><a href='https://github.com/etalab/adresse.data.gouv.fr'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
-            <li><Link href='/blog'><a><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a></Link></li>
-            <li><Link href='/nous-contacter'><a><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a></Link></li>
+            <li><a href='https://twitter.com/AdresseDataGouv' aria-label='Consulter notre compte Twitter'><Image width={25} height={25} src='/images/medias/twitter.svg' alt='Twitter' /></a></li>
+            <li><a href='https://github.com/etalab/adresse.data.gouv.fr' aria-label='Consulter notre page GitHub'><Image width={25} height={25} src='/images/medias/github.svg' alt='Github' /></a></li>
+            <li>
+              <Link href='/blog'>
+                <a aria-label='Consulter notre blog'><Image width={25} height={25} src='/images/medias/medium.svg' alt='Medium' /></a>
+              </Link>
+            </li>
+            <li>
+              <Link href='/nous-contacter'>
+                <a aria-label='Contacter l’équipe'><Image width={25} height={25} src='/images/medias/envelop.svg' alt='Nous contacter' /></a>
+              </Link>
+            </li>
           </ul>
         </div>
         <ul className='footer__links'>
           <li><h2>adresse.data.gouv.fr</h2></li>
-          <li><Link href='/cgu'><a>Mentions légales et CGU</a></Link></li>
-          <li><a href='https://doc.adresse.data.gouv.fr/'>Documentation</a></li>
-          <li><a href='https://status.adresse.data.gouv.fr/'>Supervision BAN/BAL</a></li>
+          <li><Link href='/cgu'><a aria-label='Accéder aux mentions légales et conditions générales d’utilisation'>Mentions légales et CGU</a></Link></li>
+          <li><a href='https://doc.adresse.data.gouv.fr/' aria-label='Consulter la documentation'>Documentation</a></li>
+          <li><a href='https://status.adresse.data.gouv.fr/' aria-label='Consulter la supervision de la Base Adresse Nationale et Base Adresse Locale'>Supervision BAN/BAL</a></li>
           <li><Link href='/nous-contacter'><a>Nous contacter</a></Link></li>
-          <li><Link href='/accessibilite'><a>Accessibilité : non conforme</a></Link></li>
         </ul>
       </div>
       <style jsx>{`

@@ -50,9 +50,14 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
                   <div className='tags-container'>
                     <div className='tags-list'>
                       {tags.map(tag => (
-                        <div key={tag} className='tag' onClick={() => removeTag(tag)}>
+                        <button
+                          type='button'
+                          aria-label={`Supprimer le tag ${getTagName(tag)}`}
+                          key={tag} className='tag'
+                          onClick={() => removeTag(tag)}
+                        >
                           {getTagName(tag)} <X size='15' style={{verticalAlign: 'middle'}} />
-                        </div>
+                        </button>
                       ))}
                     </div>
                     <Button onClick={resetTags} size='small' style={{float: 'right'}}>Voir tous les articles</Button>
@@ -107,9 +112,11 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
         .tag {
           background-color: ${colors.lighterBlue};
           border-radius: 15px;
-          padding: 2px 10px;
+          border: none;
+          padding: 5px 10px;
           margin: 3px;
           font-size: .8em;
+          font-weight: bold;
           font-style: italic;
           text-decoration: underline;
           color: ${colors.blue}

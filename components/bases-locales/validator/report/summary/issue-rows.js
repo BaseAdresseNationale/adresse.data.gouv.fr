@@ -10,8 +10,10 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
     return null
   }
 
+  const buttonLabel = `Afficher ${isOnAllLines ? 'toutes les lignes comportant l’alerte' : (rowsCount === 1 ? 'l’alerte' : `les ${rowsCount} alertes`)} ${getLabel(issue)}`
+
   return (
-    <div className='issue' onClick={onClick}>
+    <button type='button' aria-label={buttonLabel} className='issue' onClick={onClick}>
       <div>
         <b>{
           isOnAllLines ?
@@ -31,6 +33,9 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
           padding: 0.4em 0;
           display: flex;
           justify-content: space-between;
+          width: 100%;
+          border: none;
+          background: none;
         }
 
         .colored {
@@ -42,7 +47,7 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
           background-color: #f8f8f8;
         }
         `}</style>
-    </div>
+    </button>
   )
 }
 

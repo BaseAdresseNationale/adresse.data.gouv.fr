@@ -2,32 +2,45 @@ import PropTypes from 'prop-types'
 import {ArrowDown} from 'react-feather'
 import Header from './header'
 
-const order = (a, b) => (
-  <div style={{display: 'inline-flex'}}>
+const order = (a, b, direction) => (
+  <button
+    type='button'
+    aria-label={`Trier par ordre ${direction === 'asc' ? 'croissant' : 'décroissant'}`}
+  >
     <ArrowDown />
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      fontSize: '14px',
-      lineHeight: '14px',
-      marginLeft: '3px',
-      marginTop: '-2px'
-    }}
-    >
+    <div>
       <div>{a}</div>
       <div>{b}</div>
     </div>
-  </div>
+
+    <style jsx>{`
+      button {
+        display: inline-flex;
+        border: none;
+        background: none;
+        color: white;
+      }
+
+      .order-instruction {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        line-height: 14px;
+        margin-left: 3px;
+        margin-top: -2px
+      }
+    `}</style>
+  </button>
 )
 
 const alphabetical = {
-  asc: order('Z', 'A'),
-  desc: order('A', 'Z')
+  asc: order('Z', 'A', 'asc'),
+  desc: order('A', 'Z', 'desc')
 }
 
 const numeric = {
-  asc: order('9', '1'),
-  desc: order('1', '9')
+  asc: order('9', '1', 'asc'),
+  desc: order('1', '9', 'desc')
 }
 
 const sortTypes = {alphabetical, numeric}

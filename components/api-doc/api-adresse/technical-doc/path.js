@@ -43,6 +43,7 @@ function Path({name, description, params, method, body}) {
         }
 
         .description {
+          font-size: 14px;
           width: 100%;
           display: flex;
           justify-content: space-between;
@@ -54,7 +55,7 @@ function Path({name, description, params, method, body}) {
   )
 
   return (
-    <ExpandableMenu title={title}>
+    <ExpandableMenu title={title} label={description}>
       <ParamsTable params={params} />
       {body && <ParamsTable label='body' params={[body]} />}
     </ExpandableMenu>

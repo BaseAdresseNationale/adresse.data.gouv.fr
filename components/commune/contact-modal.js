@@ -11,7 +11,14 @@ function ContactModal({mairieInfos, onModalClose}) {
   return (
     <div className='modal-wrapper'>
       <div className='contacts-container'>
-        <button className='close-modal' type='button' onClick={onModalClose}><XSquare /></button>
+        <button
+          className='close-modal'
+          type='button'
+          aria-label='Fermer la fenêtre de contact'
+          onClick={onModalClose}
+        >
+          <XSquare />
+        </button>
         <MairieCard nom={nom} horaires={horaires} email={email} telephone={telephone} />
       </div>
 

@@ -75,7 +75,12 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
               placeholder='Entrez votre code ici'
               onChange={handleInput}
             />
-            <button type='submit' disabled={code.length !== 6} onClick={submitCode}>
+            <button
+              type='submit'
+              aria-label='Soumettre le code d’authentification'
+              disabled={code.length !== 6}
+              onClick={submitCode}
+            >
               <Check />
             </button>
           </div>
@@ -83,7 +88,7 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
 
           <div>
             <div>Vous n’avez pas reçu votre code ?</div>
-            <div onClick={sendBackCode}><a>Renvoyer un code à l’adresse {email}</a></div>
+            <button type='button' onClick={sendBackCode}><a>Renvoyer un code à l’adresse {email}</a></button>
           </div>
         </div>
       </div>
@@ -134,6 +139,11 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
           font-weight: bold;
           font-size: 30px;
           caret-color: transparent;
+        }
+
+        button {
+          border: none;
+          background: none;
         }
 
         /* Chrome, Safari, Edge, Opera */

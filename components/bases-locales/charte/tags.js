@@ -33,8 +33,13 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
   return (
     <div className='labels-container'>
       {handleListOfTags(allPartners).map(tag => {
+        const isActive = handleTagClassname(tag).includes('active')
+
         return (
-          <div
+          <button
+            type='button'
+            aria-label={`${isActive ? 'Désélectionner' : 'Sélectionner'} le tag ${tag}`}
+            aria-disabled={!isActive}
             onClick={() => {
               onSelectTags(tag)
             }}
@@ -42,7 +47,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
             className={handleTagClassname(tag)}
           >
             {formatTag(tag)}
-          </div>
+          </button>
         )
       })}
 
@@ -52,8 +57,12 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
             grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
           }
 
+        .labels-container button {
+          border: none;
+        }
+
         .label {
-          font-size: 1.1em;
+          font-size: .9em;
           background-color: ${theme.colors.lightGrey};
           color: ${theme.colors.black};
           border-radius: 4px;

@@ -13,6 +13,8 @@ function Event({event, background, isPassed, id}) {
   const {nom, numero, voie, codePostal, commune} = address
 
   const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
+  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+  const accessibleDate = new Date(date).toLocaleDateString('fr-FR', options)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -27,7 +29,7 @@ function Event({event, background, isPassed, id}) {
           <div>{subtitle}</div>
         </div>
         <div className='date-container'>
-          <div className='date'>{`le ${sanitizedDate}, de ${startHour} à ${endHour}`}</div>
+          <div className='date' aria-label={`le ${accessibleDate}, de ${startHour} à ${endHour}`}>{`le ${sanitizedDate}, de ${startHour} à ${endHour}`}</div>
         </div>
 
         {isOnlineOnly ? (
@@ -40,7 +42,7 @@ function Event({event, background, isPassed, id}) {
         </div>
       </div>
 
-      {isModalOpen && <EventModal event={event} date={sanitizedDate} isPassed={isPassed} onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <EventModal event={event} sanitizedDate={sanitizedDate} accessibleDate={accessibleDate} isPassed={isPassed} onClose={() => setIsModalOpen(false)} />}
 
       <style jsx>{`
         {/* Avoid opacity heritance on modal */}

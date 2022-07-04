@@ -21,7 +21,12 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
 
   return (
     <div>
-      <div className='line' onClick={handleError}>
+      <button
+        type='button'
+        className='line'
+        aria-label={`${showIssues ? 'Masquer' : 'Afficher'} la ligne ${row.line}`}
+        onClick={handleError}
+      >
         <div>
           <div className='col'>
             <b>Ligne {row.line}</b>
@@ -44,7 +49,7 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
         ) : (
           <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} />
         )}
-      </div>
+      </button>
 
       {showIssues &&
         <div className='issue'>
@@ -66,6 +71,9 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
         }
 
         .line {
+          width: 100%;
+          border: none;
+          background: none;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -80,6 +88,7 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
 
         .col {
           margin: 0.5em 1em 0.5em 0;
+          font-size: 16px;
         }
 
         .error {

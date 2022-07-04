@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-function CircleLink({size, href, isExternal, icon, fontSize, isImportant, isDisable, children}) {
+function CircleLink({size, href, isExternal, icon, label, fontSize, isImportant, isDisable, children}) {
   return (
     <>
       {isExternal ? (
-        <a href={href} className={isDisable ? 'disable' : ''}>
+        <a href={href} className={isDisable ? 'disable' : ''} aria-label={label || children}>
           <div className='circle'>
             {icon}
           </div>
@@ -15,7 +15,7 @@ function CircleLink({size, href, isExternal, icon, fontSize, isImportant, isDisa
         </a>
       ) : (
         <Link href={href}>
-          <a className={isDisable ? 'disable' : ''}>
+          <a className={isDisable ? 'disable' : ''} aria-label={label || children}>
             <div className='circle'>
               {icon}
             </div>
@@ -71,6 +71,7 @@ CircleLink.propTypes = {
   size: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
   icon: PropTypes.object.isRequired,
+  label: PropTypes.string,
   fontSize: PropTypes.string,
   children: PropTypes.node,
   isExternal: PropTypes.bool,
@@ -84,6 +85,7 @@ CircleLink.defaultProps = {
   isExternal: false,
   isDisable: false,
   isImportant: false,
+  label: null
 }
 
 export default CircleLink

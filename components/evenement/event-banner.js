@@ -14,6 +14,10 @@ function EventBanner() {
   const [index, setIndex] = useState(0)
   const [selectedEvent, setSelectedEvent] = useState(null)
 
+  const sanitizedDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR')
+  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+  const accessibleDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR', options)
+
   useEffect(() => {
     if (!selectedEvent) {
       const slideInterval = setTimeout(() => {
@@ -39,7 +43,14 @@ function EventBanner() {
 
           return (
             <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
-              <div className='event-link' onClick={() => setSelectedEvent(event)}>{event.title}</div>
+              <button
+                type='button'
+                className='event-link'
+                aria-label={`Afficher l’évènement ${event.title}`}
+                onClick={() => setSelectedEvent(event)}
+              >
+                {event.title}
+              </button>
               {event.subtitle && <div>{event.subtitle}</div>}
               <div className='date'>le {sanitizedDate}</div>
             </li>
@@ -50,7 +61,9 @@ function EventBanner() {
 
       <div className='slideshow-dots'>
         {events.map((event, idx) => (
-          <div
+          <button
+            aria-label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${accessibleDate}`}
+            type='button'
             key={`${event.title}-${event.date}`}
             className={`slideshow-dot ${index === idx ? 'active' : ''}`}
             onClick={() => setIndex(idx)}
@@ -61,7 +74,8 @@ function EventBanner() {
       {selectedEvent && (
         <EventModal
           event={selectedEvent}
-          date={new Date(selectedEvent.date).toLocaleDateString('fr-FR')}
+          sanitizedDate={sanitizedDate}
+          accessibleDate={accessibleDate}
           onClose={() => setSelectedEvent(null)}
         />
       )}
@@ -103,6 +117,8 @@ function EventBanner() {
           font-size: 16px;
           font-weight: bold;
           text-align: center;
+          border: none;
+          background: none;
         }
 
         .date {
@@ -128,6 +144,8 @@ function EventBanner() {
           margin: 15px 7px 0px;
           background-color: ${theme.colors.white};
           opacity: 50%;
+          padding: 0;
+          border: none;
         }
 
         .active {

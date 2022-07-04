@@ -6,14 +6,22 @@ import theme from '@/styles/theme'
 function BodyListFantoir({contents, onSelect, isCanceled}) {
   return (
     <div>
-      <div onClick={onSelect}>
+      <button type='button' aria-label={`Accéder aux données de ${contents[0]}`} onClick={onSelect}>
         <div className={isCanceled ? 'line canceled' : 'line'}>
           {contents.map(item => (
             <div key={uniqueId('_infos')} className='infos'>{item}</div>
           ))}
         </div>
-      </div>
+      </button>
+
       <style jsx>{`
+        button {
+          width: 100%;
+          border: none;
+          background: none;
+          font-size: 14px;
+        }
+
         .line {
           display: flex;
           padding: .5em;

@@ -13,6 +13,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
     >
       <div className='select-wrap'>
         <select
+          aria-label='Sélectionner le fond de carte'
           value={selected}
           name='paint-layer'
           id='paint-layer'
@@ -25,9 +26,14 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
         </select>
 
         {isMobile && !isWrap && (
-          <div className='close-icon' onClick={() => setIsWrap(true)}>
+          <button
+            type='button'
+            aria-label='Fermer la séléction'
+            className='close-icon'
+            onClick={() => setIsWrap(true)}
+          >
             <X />
-          </div>
+          </button>
         )}
       </div>
 
@@ -79,6 +85,9 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
           margin-right: 1em;
           margin-left: 1em;
           cursor: pointer;
+          border: none;
+          background: none;
+          height: fit-content;
         }
 
         .content {

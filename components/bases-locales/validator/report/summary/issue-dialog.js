@@ -20,7 +20,9 @@ function IssueDialog({issue, unknowFields, handleClose}) {
             <h3>Ligne{issue.rows.length > 1 ? 's' : ''} avec l’alerte :</h3>
             <h4>{getLabel(issue.code)}</h4>
           </div>
-          <X size={40} style={{cursor: 'pointer'}} onClick={handleClose} />
+          <button type='button' onClick={handleClose} aria-label='Fermer la fenêtre indiquant les lignes avec alertes'>
+            <X size={40} style={{cursor: 'pointer'}} />
+          </button>
         </div>
         <div className='scroll'>
 
@@ -50,6 +52,13 @@ function IssueDialog({issue, unknowFields, handleClose}) {
           left: 0;
           right: 0;
           z-index: 999;
+        }
+
+        button {
+          border: none;
+          background: none;
+          height: fit-content;
+          width: fit-content;
         }
 
         .dialog {

@@ -37,18 +37,24 @@ class Question extends React.Component {
 
     return (
       <div id={slug}>
-        <div
+        <button
+          type='button'
+          aria-label={`Afficher la réponse à la question : ${question}`}
           className={`question-container ${open ? 'is-open' : ''}`}
           onClick={this.toggle}
         >
           <div className='question'>{question}</div>
           <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} /> : <ChevronDown style={{verticalAlign: 'middle'}} />}</div>
-        </div>
+        </button>
         {open && (
           <div className='answer'>{children}</div>
         )}
+
         <style jsx>{`
           .question-container {
+            color: ${theme.darkText};
+            width: 100%;
+            background: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -71,11 +77,13 @@ class Question extends React.Component {
           }
 
           .question {
-            font-size: ${isBold ? '20px' : 'large'};
-            font-weight: ${isBold ? '600' : 'initial'};
+            text-align: left;
+            font-size: ${isBold ? '18px' : 'large'};
+            font-weight: ${isBold ? '800' : 'initial'};
           }
 
           .answer {
+            width: 100%;
             padding: 1em;
             border: 1px solid ${theme.primary};
             border-top: none;

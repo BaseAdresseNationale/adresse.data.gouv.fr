@@ -17,13 +17,19 @@ function CommuneSchedules({scheldules}) {
 
   return (
     <div className='schedules'>
-      <div className='scheldule-dropdown' onClick={toggleSchedules}>Horaires d’ouverture
+      <button
+        type='button'
+        aria-label={`${isDisplayed ? 'Masquer' : 'Afficher'} les horaires de la mairie`}
+        className='scheldule-dropdown'
+        onClick={toggleSchedules}
+      >
+        Horaires d’ouverture
         {isDisplayed ? (
           <ChevronDown style={{marginTop: '2px'}} />
         ) : (
           <ChevronRight style={{marginTop: '2px'}} />
         )}
-      </div>
+      </button>
 
       <div>
         {scheldules ? (
@@ -35,8 +41,8 @@ function CommuneSchedules({scheldules}) {
                 </div>
                 <ul>
                   {scheldule.heures.map(heure => (
-                    <li key={`${scheldule.du}-${scheldule.au}&${heure.de}-${heure.a}`}>
-                      De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b>
+                    <li key={`${scheldule.du}-${scheldule.au}&${heure.de}-${heure.a}`} aria-label={`${getHours(heure.de)} heures à ${getHours(heure.a)} heures`}>
+                      <div aria-hidden>De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b></div>
                     </li>
                   ))}
                 </ul>
@@ -64,6 +70,8 @@ function CommuneSchedules({scheldules}) {
           gap: 5px;
           cursor: pointer;
           text-decoration: underline;
+          border: none;
+          background: none;
         }
 
         .schedules > div {

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import Image from 'next/image'
 
 import {numFormater} from '@/lib/format-numbers'
@@ -15,11 +14,9 @@ function MapBalSection({stats}) {
   return (
     <div className='deployement-container'>
       <div className='map-illustration'>
-        <Link href='/deploiement-bal'>
-          <a>
-            <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} />
-          </a>
-        </Link>
+        <div className='map-illustration'>
+          <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} />
+        </div>
       </div>
       <div className='metrics-container'>
         <Metric metric={stats.bal.nbCommunesCouvertes}> communes couvertes</Metric>

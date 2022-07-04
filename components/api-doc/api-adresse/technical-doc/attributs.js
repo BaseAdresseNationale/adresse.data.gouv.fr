@@ -7,7 +7,7 @@ import ParamsTable from './params-table'
 
 function Attributs({model, defaults, optionals}) {
   return (
-    <ExpandableMenu title='Attributs'>
+    <ExpandableMenu title='Attributs' label='Attributs'>
       <div>
         <ParamsTable label='Par défaut' params={defaults} />
         {optionals && (

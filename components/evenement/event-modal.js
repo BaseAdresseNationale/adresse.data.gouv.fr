@@ -6,15 +6,16 @@ import {XSquare, MapPin} from 'react-feather'
 import theme from '@/styles/theme'
 
 import {formatTag} from '@/lib/tag'
+import {sanitizedDate, accessibleDate} from '@/lib/date'
 
 import ButtonLink from '../button-link'
 import SectionText from '../section-text'
 import Notification from '../notification'
 
-function EventModal({event, date, isPassed, onClose}) {
+function EventModal({event, isPassed, onClose}) {
   const modalRef = useRef(null)
 
-  const {title, subtitle, address, description, href, isSubscriptionClosed, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
+  const {title, subtitle, address, description, href, date, isSubscriptionClosed, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = address
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function EventModal({event, date, isPassed, onClose}) {
     <div className='modal-wrapper'>
       <div className='modal-container' ref={modalRef}>
         <div className='close-container'>
-          <button type='button' onClick={onClose} className='close-button'>
+          <button type='button' onClick={onClose} aria-label='Fermer la fenêtre' className='close-button'>
             <XSquare />
           </button>
         </div>
@@ -44,7 +45,7 @@ function EventModal({event, date, isPassed, onClose}) {
             <div className='date-hours-container'>
               <div className='date-container'>
                 L’évènement {isPassed ? 'a eu' : 'aura'} lieu le
-                <div className='date'>{date}</div>
+                <div className='date' aria-label={accessibleDate(date)}>{sanitizedDate(date)}</div>
               </div>
               <div className='date-container'>
                 De
@@ -234,12 +235,12 @@ EventModal.propTypes = {
     tags: PropTypes.array.isRequired,
     type: PropTypes.string.isRequired,
     startHour: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
     endHour: PropTypes.string.isRequired,
     target: PropTypes.string.isRequired,
     isOnlineOnly: PropTypes.bool.isRequired,
     instructions: PropTypes.string,
   }).isRequired,
-  date: PropTypes.string.isRequired,
   isPassed: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired
 }

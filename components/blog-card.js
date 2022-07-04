@@ -23,13 +23,18 @@ function BlogCard({post, onClick}) {
       {onClick && post.tags && (
         <div className='blog-tags-container'>
           {post.tags.map(tag => (
-            <span key={tag.id} onClick={() => onClick(tag)}>{tag.name}</span>
+            <button type='button' aria-label={`Sélectionner le tag ${tag.name}`} key={tag.id} onClick={() => onClick(tag)}>
+              {tag.name}
+            </button>
           ))}
         </div>
       )}
       <div className='blog-link-container'>
-        <Link href={link}><a>Lire l’article</a></Link>
+        <Link href={link}>
+          <a aria-label={`Lire l’article ${post.title}`}>Lire l’article</a>
+        </Link>
       </div>
+
       <style jsx>{`
         .blog-container {
           display: flex;
@@ -57,14 +62,15 @@ function BlogCard({post, onClick}) {
           margin: .5em 0;
         }
 
-        .blog-tags-container span {
+        .blog-tags-container button {
           background-color: ${colors.lighterBlue};
           text-decoration: underline;
           cursor: pointer;
+          border: none;
           border-radius: 15px;
-          padding: 0px 8px;
+          padding: 5px 8px;
           font-size: .8em;
-          font-style: italic;
+          font-style: oblique;
         }
 
         .infos-container {

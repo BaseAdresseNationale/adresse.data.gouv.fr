@@ -3,27 +3,25 @@ import PropTypes from 'prop-types'
 import {Circle, Download} from 'react-feather'
 
 import {getBalUrl} from '@/lib/api-depot'
+import {sanitizedDateTime, accessibleDateTime} from '@/lib/date'
 
 function HistoriqueItem({balData, communeName}) {
   const {updatedAt, client, current, _id} = balData
 
   const balURL = getBalUrl(_id)
-  const date = new Date(updatedAt)
-  const completUpdateTime = `le ${date.toLocaleDateString('fr-FR')} à ${date.getHours()}h${date.getMinutes().toString().padStart(2, '0')}`
-
   const userName = balData.context?.organisation || `la mairie de ${communeName}`
 
   return (
     <div className='item-container'>
       <div className='update-infos'>
         <div className='status'><Circle color={current ? theme.successBorder : theme.colors.darkGrey} /></div>
-        <div className='date'>{completUpdateTime}</div>
+        <div className='date'>{sanitizedDateTime(updatedAt)}</div>
       </div>
 
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client.nom}</b></div>
-        <a href={balURL}><Download /></a>
+        <a href={balURL} aria-label={`Télécharger la version du ${accessibleDateTime(updatedAt)}`}><Download /></a>
       </div>
 
       <style jsx>{`
