@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import {Mail, Phone} from 'react-feather'
 
 function MairieContact({email, phone}) {
+  console.log(email)
   return (
     <div className='contact-infos'>
       <div className='contact-info'>
@@ -23,8 +24,7 @@ function MairieContact({email, phone}) {
 
         .contact-info {
           display: flex;
-          font-size: ${email.length > 35 ? '14px' : '16px'};
-          align-items: center;
+          font-size: ${email?.length > 35 ? '14px' : '16px'};
         }
       `}</style>
     </div>
