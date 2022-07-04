@@ -58,14 +58,14 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
   return (
     <Section>
       <Link href={backLink}>
-        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt='' /> Retour</a>
+        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt /> Retour</a>
       </Link>
 
       <div className='blog'>
         <h3>{title}</h3>
         {feature_image && (
           <div className='blog-feature-image-container'>
-            <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' alt='' />
+            <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' alt />
           </div>
         )}
         <p className='infos-container'><i>Publié par {authors[0].name}</i> <i>le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
@@ -74,7 +74,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
       </div>
 
       <Link href={backLink}>
-        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt='' /> Retour</a>
+        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt /> Retour</a>
       </Link>
 
       <style jsx global>{`

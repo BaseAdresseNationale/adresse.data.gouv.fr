@@ -48,14 +48,14 @@ function Partner({partnerInfos, isCommune}) {
             height={height}
             width={width}
             layout='fixed'
-            alt=''
+            alt
           />
         </div>
 
         <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
           <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
           <div className='chevron'>
-            <Chevron size={18} color={`${theme.colors.lightBlue}`} alt='' />
+            <Chevron size={18} color={`${theme.colors.lightBlue}`} alt />
           </div>
         </button>
       </div>

@@ -35,7 +35,7 @@ function CommunesList({communes, nomDepartement}) {
 
   return (
     <Page title='FANTOIR'>
-      <Head title={`FANTOIR : ${nomDepartement}`} icon={<Database size={56} alt='' />} />
+      <Head title={`FANTOIR : ${nomDepartement}`} icon={<Database size={56} alt />} />
       <Section title={`Liste des communes - ${nomDepartement}`}>
         <div className='search'>
           <SearchBar

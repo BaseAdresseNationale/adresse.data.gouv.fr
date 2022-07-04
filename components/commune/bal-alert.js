@@ -8,7 +8,7 @@ function BalAlert({alert, type}) {
   return (
     <div className='alert-container'>
       <div className={`alert-type ${type}`}>
-        {type === 'error' ? <AlertOctagon alt='' /> : (type === 'warning' ? <AlertTriangle alt='' /> : <Info alt='' />)}
+        {type === 'error' ? <AlertOctagon alt /> : (type === 'warning' ? <AlertTriangle alt /> : <Info alt />)}
         {type === 'error' ? 'Erreur' : (type === 'warning' ? 'Avertissement' : 'Information')}
       </div>
       <div>{getLabel(alert)}</div>

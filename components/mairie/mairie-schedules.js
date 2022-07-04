@@ -25,9 +25,9 @@ function CommuneSchedules({scheldules}) {
       >
         Horaires d’ouverture
         {isDisplayed ? (
-          <ChevronDown style={{marginTop: '2px'}} alt='' />
+          <ChevronDown style={{marginTop: '2px'}} alt />
         ) : (
-          <ChevronRight style={{marginTop: '2px'}} alt='' />
+          <ChevronRight style={{marginTop: '2px'}} alt />
         )}
       </button>
 

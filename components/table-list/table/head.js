@@ -7,7 +7,7 @@ const order = (a, b, direction) => (
     type='button'
     aria-label={`Trier par ordre ${direction === 'asc' ? 'croissant' : 'décroissant'}`}
   >
-    <ArrowDown alt='' />
+    <ArrowDown alt />
     <div>
       <div>{a}</div>
       <div>{b}</div>

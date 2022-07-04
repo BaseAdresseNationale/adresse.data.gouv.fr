@@ -15,7 +15,7 @@ function Temoignages({posts, pagination}) {
 
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<MessageCircle size={56} alt='' />} />
+      <Head title={title} icon={<MessageCircle size={56} alt />} />
       <Section title={description}>
         {posts ? (
           <TemoignagesList pagination={pagination} posts={posts} />

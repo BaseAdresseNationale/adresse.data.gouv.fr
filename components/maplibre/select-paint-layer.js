@@ -32,7 +32,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
             className='close-icon'
             onClick={() => setIsWrap(true)}
           >
-            <X alt='' />
+            <X alt />
           </button>
         )}
       </div>

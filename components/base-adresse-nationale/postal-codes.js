@@ -19,7 +19,7 @@ function PostalCodes({codes}) {
               className='with-icon wrapper'
               onClick={() => setShowCodes(!showCodes)}
             >
-              <div>Codes postaux</div> {showCodes ? <ChevronUp alt='' /> : <ChevronDown alt='' />}
+              <div>Codes postaux</div> {showCodes ? <ChevronUp alt /> : <ChevronDown alt />}
             </button>
           </div>
           {showCodes && (

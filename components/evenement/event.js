@@ -21,7 +21,7 @@ function Event({event, background, isPassed, id}) {
   return (
     <div id={id} className='event-container'>
       <div className={`header ${type}`}>
-        <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt='' />
+        <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt />
       </div>
       <div className='general-infos'>
         <div className='title-container'>
@@ -35,7 +35,7 @@ function Event({event, background, isPassed, id}) {
         {isOnlineOnly ? (
           <div>🖥️ <br />Évènement en ligne</div>
         ) : (
-          <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} alt='' />{nom}, {numero} {voie} - {codePostal} {commune}</div>
+          <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} alt />{nom}, {numero} {voie} - {codePostal} {commune}</div>
         )}
         <div className='display-info-container'>
           <Button onClick={() => setIsModalOpen(true)}>Afficher les informations</Button>

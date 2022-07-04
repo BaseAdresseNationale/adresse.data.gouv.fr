@@ -10,7 +10,7 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
       className={`layout ${isSelected ? 'selected' : ''}`}
       onClick={() => handleClick(value)}
     >
-      <div alt=''><Icon /></div>
+      <div alt><Icon /></div>
       <div>{name}</div>
 
       <style jsx>{`

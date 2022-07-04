@@ -14,12 +14,12 @@ function DocDownload({title, link, label, src, isReverse, version, children}) {
       <div className='doc-download-container'>
         <div className='doc-infos-container'>
           <div className='preview'>
-            <Image width={200} height={280} layout='fixed' src={src} alt='' />
+            <Image width={200} height={280} layout='fixed' src={src} alt />
           </div>
           {version && <div className='version'>Version {version}</div>}
         </div>
         <a href={link} className='download-url'>
-          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '5px'}} alt='' />
+          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '5px'}} alt />
           {label}
         </a>
       </div>

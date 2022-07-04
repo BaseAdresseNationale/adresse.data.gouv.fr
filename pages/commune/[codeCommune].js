@@ -19,7 +19,7 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
 
   return (
     <Page id='page' title={`Informations sur la commune de ${communeInfos.nomCommune}`}>
-      <Head title={`Informations sur la commune de ${communeInfos.nomCommune}`} icon={<Home size={56} alt='' />} />
+      <Head title={`Informations sur la commune de ${communeInfos.nomCommune}`} icon={<Home size={56} alt />} />
 
       <CommuneInfos communeInfos={communeInfos} />
       <BALState

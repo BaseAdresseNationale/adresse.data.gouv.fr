@@ -5,10 +5,10 @@ import {HelpCircle, AlertTriangle, Check, X} from 'react-feather'
 import theme from '../../../styles/theme'
 
 const types = {
-  info: {icon: <HelpCircle alt='' />, title: 'Bon à savoir'},
-  success: {icon: <Check alt='' />, title: 'Réussi'},
-  warning: {icon: <AlertTriangle alt='' />, title: 'Attention'},
-  error: {icon: <X alt='' />, title: 'Erreur'}
+  info: {icon: <HelpCircle alt />, title: 'Bon à savoir'},
+  success: {icon: <Check alt />, title: 'Réussi'},
+  warning: {icon: <AlertTriangle alt />, title: 'Attention'},
+  error: {icon: <X alt />, title: 'Erreur'}
 }
 
 function NotificationApi({message, type}) {

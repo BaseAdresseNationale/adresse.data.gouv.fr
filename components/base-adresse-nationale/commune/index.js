@@ -65,7 +65,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
       {certificationInProgress && nbNumeros > 0 && (
         <Notification style={{marginTop: '1em'}} type='info'>
           Les adresses sont en <b>cours de certification</b> par la commune.<br />{}
-          Actuellement, <span className='non-breaking'><b>{nbNumerosCertifies} / {nbNumeros} adresses ({certificationPercentage}%) sont certifiées</b> <CheckCircle style={{verticalAlign: 'middle'}} color={theme.successBorder} size={26} alt='' /></span>.
+          Actuellement, <span className='non-breaking'><b>{nbNumerosCertifies} / {nbNumeros} adresses ({certificationPercentage}%) sont certifiées</b> <CheckCircle style={{verticalAlign: 'middle'}} color={theme.successBorder} size={26} alt /></span>.
         </Notification>
       )}
 

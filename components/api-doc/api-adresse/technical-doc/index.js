@@ -11,7 +11,7 @@ function TechnicalDoc({paths, defaultModel, defaultAttributs, optionAttributs}) 
     <Section background='color'>
 
       <div className='title'>
-        <div className='feather-icon'><Book alt='' /></div>
+        <div className='feather-icon'><Book alt /></div>
         <h2 className='h2'>Documentation technique</h2>
       </div>
 

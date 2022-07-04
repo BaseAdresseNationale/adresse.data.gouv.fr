@@ -34,7 +34,7 @@ function Evenements() {
 
   return (
     <Page>
-      <Head title='Les évènements autour de l’adresse' icon={<Calendar size={56} alt='' />} />
+      <Head title='Les évènements autour de l’adresse' icon={<Calendar size={56} alt />} />
       <>
         <Section title='Évènements à venir'>
           <SectionText>

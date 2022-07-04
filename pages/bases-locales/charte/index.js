@@ -19,7 +19,7 @@ function Charte() {
 
   return (
     <Page title={title} description={description} >
-      <Head title={title} icon={<Download size={56} alt='' />} />
+      <Head title={title} icon={<Download size={56} alt />} />
 
       <Section background='white' title='Charte de la Base Adresse Locale'>
         <SectionText>
@@ -46,7 +46,7 @@ function Charte() {
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' color='white' isExternal isOutlined>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt />
           </ButtonLink>
         </div>
 
@@ -59,7 +59,7 @@ function Charte() {
           >
             <Image
               src='/images/previews/charte-communes.png'
-              alt=''
+              alt
               width={150}
               height={200}
               objectFit='contain'
@@ -74,7 +74,7 @@ function Charte() {
           >
             <Image
               src='/images/previews/charte-organismes.png'
-              alt=''
+              alt
               width={150}
               height={200}
               objectFit='contain'
