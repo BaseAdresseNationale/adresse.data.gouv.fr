@@ -1350,6 +1350,29 @@
       "width": 136,
       "alt": "Blason de la commune de Truchtersheim",
       "signatureDate": "2022-06-28"
+    },
+    {
+      "name": "Commune d’Entre-Deux",
+      "link": "https://entredeux.re/charte-de-la-base-adresse-locale",
+      "codeRegion": "04",
+      "codeDepartement": [
+        "974"
+      ],
+      "codeCommune": "97403",
+      "charteURL": "",
+      "testimonyURL": "",
+      "balURL": "",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/entre-deux.png",
+      "height": 124,
+      "width": 286,
+      "alt": "",
+      "signatureDate": "2022-06-03"
     }
   ]
 }
