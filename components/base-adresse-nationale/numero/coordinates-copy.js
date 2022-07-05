@@ -38,8 +38,9 @@ function CoordinatesCopy({coordinates, setCopyError, setIsCopySucceded, setIsCop
             size='small'
             style={{borderRadius: '0 3px 3px 0'}}
             onClick={handleClick}
+            label='Copier les coordonnées'
           >
-            <Clipboard alt='Copier les coordonnées' />
+            <Clipboard alt />
           </Button>
         </div>
       ) : (

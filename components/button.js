@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 
 import colors from '@/styles/colors'
 
-function Button({size, color, isOutlined, children, ...props}) {
+function Button({size, color, label, isOutlined, children, ...props}) {
   return (
-    <button type='submit' className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+    <button type='submit' aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
       {children}
 
       <style jsx>{`
@@ -33,6 +33,7 @@ Button.propTypes = {
     'secondary',
     'white'
   ]),
+  label: PropTypes.string,
   isOutlined: PropTypes.bool,
   children: PropTypes.node
 }
@@ -40,6 +41,7 @@ Button.propTypes = {
 Button.defaultProps = {
   size: null,
   color: 'primary',
+  label: null,
   isOutlined: false,
   children: null
 }
