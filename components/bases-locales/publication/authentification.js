@@ -45,7 +45,7 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
               <h4>Authentifier la mairie de la commune</h4>
               <Button size='large' disabled={!communeEmail} onClick={handleCodeAuthentification}>
                 <div className='mail-button'>
-                  <Mail size={40} alt='Envoie par e-mail' /> Recevoir un code d’authentification
+                  <Mail size={40} alt='Envoi par e-mail' /> Recevoir un code d’authentification
                 </div>
               </Button>
               <p className='email-info'>
