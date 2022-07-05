@@ -36,10 +36,11 @@ function Partner({partnerInfos, isCommune}) {
   }, [getMairieInfos])
 
   return (
-    <div className='partner'>
+    <div className={`partner ${isDisplay && isCommune ? 'open-commune-partner' : ''}`}>
       <div className='general-partner-infos'>
         <p className='name'>
           <b><a href={link}>{`${name} ${isCompany ? '(société)' : ''}`}</a></b>
+          {isCommune && <Image src='/images/icons/commune.svg' height={35} width={35} layout='fixed' alt='Ce partenaire est une commune' />}
         </p>
         <div className='logo'>
           <Image
@@ -86,14 +87,21 @@ function Partner({partnerInfos, isCommune}) {
         .partner {
           max-width: 300px;
           width: 100%;
+          height: fit-content;
           grid-template-rows: 0.5fr auto;
           grid-template-columns: 1fr;
           display: grid;
           align-items: start;
           justify-content: center;
-          background: ${isCommune ? '#fceeac' : 'transparent'};
           padding: 1em;
           border-radius: 5px;
+          border: ${isCommune ? `solid 3px ${theme.primary}` : ''};
+        }
+
+        .open-commune-partner {
+          background-image: ${isDisplay && isCommune ? 'url(\'/images/icons/scarf.svg\')' : 'none'};
+          background-repeat:  no-repeat;
+          background-position: 115% 109%;
         }
 
         .general-partner-infos {
@@ -112,6 +120,9 @@ function Partner({partnerInfos, isCommune}) {
           font-weight: bold;
           font-style: normal;
           align-self: flex-start;
+          display: grid;
+          grid-template-columns: 1fr 35px;
+          align-items: center;
         }
 
         a {
@@ -129,7 +140,6 @@ function Partner({partnerInfos, isCommune}) {
           grid-template-rows: 1fr 0.5fr;
           font-style: italic;
           color: ${theme.colors.darkerGrey};
-          background: ${isCommune ? '#fceeac' : 'transparent'};
         }
 
         .button-container {
@@ -137,8 +147,8 @@ function Partner({partnerInfos, isCommune}) {
           grid-template-columns: 1fr 0.1fr;
           align-items: center;
           justify-items: self-start;
+          background: none;
           border-style: none;
-          background: ${isCommune ? '#fceeac' : 'transparent'};
           border-bottom: 2px solid ${theme.colors.lightBlue};
           box-shadow: 0px 14px 21px -15px ${theme.boxShadow};
           width: 100%;

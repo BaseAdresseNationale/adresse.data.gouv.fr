@@ -5,11 +5,11 @@ function MairieContact({email, phone}) {
   return (
     <div className='contact-infos'>
       <div className='contact-info'>
-        <Mail style={{marginRight: '10px'}} />
+        <Mail size={18} style={{marginRight: '10px'}} />
         {email ? <a href={`mailto:${email}`}>{email}</a> : 'Non renseigné'}
       </div>
       <div className='contact-info'>
-        <Phone style={{marginRight: '10px'}} />
+        <Phone size={18} style={{marginRight: '10px'}} />
         {phone ? <a href={`tel:+33${phone}`}>{phone}</a> : 'Non renseigné'}
       </div>
 
@@ -17,13 +17,14 @@ function MairieContact({email, phone}) {
         .contact-infos {
           display: flex;
           flex-direction: column;
-          padding-bottom: 1em;
-          gap: 1em;
+          padding-bottom: .5em;
+          gap: 5px;
         }
 
         .contact-info {
           display: flex;
           font-size: ${email.length > 35 ? '14px' : '16px'};
+          align-items: center;
         }
       `}</style>
     </div>
