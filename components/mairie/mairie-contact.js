@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import {Mail, Phone} from 'react-feather'
 
 function MairieContact({email, phone}) {
-  console.log(email)
   return (
     <div className='contact-infos'>
       <div className='contact-info'>
