@@ -99,7 +99,7 @@ function Partner({partnerInfos, isCommune}) {
         }
 
         .open-commune-partner {
-          background-image: ${isDisplay && isCommune ? 'url(\'/images/icons/scarf.svg\')' : 'none'};
+          background-image: url('/images/icons/scarf.svg');
           background-repeat:  no-repeat;
           background-position: 115% 109%;
         }
