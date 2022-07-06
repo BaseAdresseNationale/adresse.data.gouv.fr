@@ -770,5 +770,33 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
+  },
+  {
+    "title": "Adresse en région",
+    "subtitle": "Rennes - 35",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr",
+    "type": "adresse-region",
+    "target": "communes et epci",
+    "date": "2022-06-01",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Base Adresse Nationale",
+      "Co construction",
+      "Agile"
+    ],
+    "isOnlineOnly": false,
+    "address": {
+      "nom": "Ti Lab",
+      "numero": "5",
+      "voie": "rue Martenot",
+      "codePostal": "35000",
+      "commune": "Rennes"
+    },
+    "href": "",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "17:00"
   }
 ]
