@@ -28,7 +28,7 @@ class Step extends React.Component {
           <div className='badge index'>{index}</div>
         )}
 
-        <div className={`title ${isActif ? 'actif-title' : ''}`}>
+        <div className={`title ${isActif ? 'actif-title' : ''}`} aria-disabled={isDisabled}>
           {isValid ? validTitle : title}
         </div>
 
