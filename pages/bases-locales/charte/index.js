@@ -111,7 +111,7 @@ function Charte() {
             La présente charte s’adresse aux acteurs qui souhaitent proposer cet accompagnement. Son adoption leur permet d’être référencés comme tiers de confiance sur le site national de l’adresse adresse.data.gouv.fr et de disposer eux-mêmes d’un accompagnement de niveau national et d’outils adaptés.
           </p>
           <p>La présente charte est valable trois mois, à échéance en fin de trimestre, et renouvelée par tacite reconduction.</p>
-          <Notification type='info'>
+          <Notification>
             <p className='info'><Info /> <b> En cas de manquements répétés aux engagements demandés, le statut de tiers de confiance sera révoqué ainsi que les droits d’accès associé.</b></p>
           </Notification>
 
