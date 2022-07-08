@@ -1,5 +1,7 @@
 import Image from 'next/image'
-import {Download, Mail} from 'react-feather'
+import {Download, Mail, Info} from 'react-feather'
+
+import theme from '@/styles/theme'
 
 import Page from '@/layouts/main'
 
@@ -9,6 +11,7 @@ import PartnersSearchbar from '@/components/bases-locales/charte/partners-search
 import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import Card from '@/components/card'
+import Notification from '@/components/notification'
 
 function Charte() {
   const title = 'Charte et organismes partenaires'
@@ -64,7 +67,7 @@ function Charte() {
           </Card>
 
           <Card
-            link='https://adresse.data.gouv.fr/data/docs/charte-bal-organismes-v1.1.pdf'
+            link='https://adresse.data.gouv.fr/data/docs/charte-bal-organismes.pdf'
             action='Télécharger la charte des organismes partenaires'
             title='Charte des organismes partenaires'
             color='secondary'
@@ -100,20 +103,50 @@ function Charte() {
         </div>
       </Section>
 
-      <Section background='grey' title='Organismes partenaires de la Charte'>
+      <Section background='grey' title='Organismes partenaires de la Charte' subtitle='Organismes d’accompagnement à but non lucratif (EPCI, départements, syndicats mixtes…)'>
         <SectionText>
           <p>
-            La présence de cette Charte de la Base Adresse Locale sur le site Internet d’un organisme signifie qu’il privilégie le format Base Adresse Locale pour la transmission des adresses communales à la Base Adresse Nationale.
-            Cet organisme est donc référencé sur adresse.data.gouv.fr. Cette charte vise à fédérer le plus grand nombre d’acteurs qui ont en commun le souhait d’utiliser et de promouvoir les Bases Adresses Locales à travers plusieurs actions dédiées.
+            La loi du 21 février 2022, dite loi &quot;3DS&quot;, réaffirme la compétence de la commune en matière d’adressage. Elle doit procéder à la dénomination des voies, des lieux-dits et à la numérotation des constructions, mais aussi transmettre les données associées à la Base Adresse Nationale.
+            Compte-tenu de la grande diversité des territoires et de l’investissement que cette tâche peut occasionner au démarrage, il peut être pertinent de proposer un accompagnement aux communes, à l’échelle locale.
+            La présente charte s’adresse aux acteurs qui souhaitent proposer cet accompagnement. Son adoption leur permet d’être référencés comme tiers de confiance sur le site national de l’adresse adresse.data.gouv.fr et de disposer eux-mêmes d’un accompagnement de niveau national et d’outils adaptés.
           </p>
-          <ul className='charte-list'>
-            <li>L’organisme promeut une gouvernance qui assure à la commune d’être la seule autorité compétente sur l’adresse à travers sa Base Adresse Locale même si elle peut en déléguer la réalisation technique. En outre, une commune peut à tout moment reprendre une gestion autonome de ses adresses.</li>
-            <li>L’organisme soutient, valorise (selon le cas) des formations permettant à la commune d’administrer sa Base Adresse Locale sur mes-adresses.data.gouv.fr lorsque la commune ne dispose pas d’outils (les siens ou ceux du délégataire).</li>
-            <li>L’organisme veille à la participation active de la commune pour certifier ses adresses.</li>
-            <li>L’organisme informe la commune de l’importance de mettre à jour régulièrement ses adresses et de créer une routine.</li>
-            <li>L’organisme encourage et facilite la transmission rapide de la Base Adresse Locale à la Base Adresse Nationale.</li>
-            <li>S’il souhaite prendre en charge l’alimentation de la Base Adresse Nationale, l’organisme devra privilégier l’API de dépôt, et ce dès que possible après le porter à connaissance de la nouvelle version de la Base Adresse Locale d’une commune.</li>
-          </ul>
+          <p>La présente charte est valable trois mois, à échéance en fin de trimestre, et renouvelée par tacite reconduction.</p>
+          <Notification>
+            <p className='info'><Info /><b>En cas de manquements répétés aux engagements demandés, le statut de tiers de confiance sera révoqué ainsi que les droits d’accès associés.</b></p>
+          </Notification>
+
+          <div className='organisme-charte'>
+            <div>
+              <b>Les actions concrètes prévues par la présente charte sont les suivantes :</b>
+              <ul className='charte-list'>
+                <li>former la commune à l’utilisation d’un outil de gestion des adresses (tel que l’éditeur en ligne mes-adresses.data.gouv.fr, ou tout autre outil équivalent) ;</li>
+                <li>informer la commune de l’importance de tenir à jour sa Base Adresse Locale selon les modalités prévues par la loi et l’aider à mettre en place des processus ou routines ;</li>
+                <li>promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse.data.gouv.fr.</li>
+              </ul>
+            </div>
+            <div>
+              <b>Dans le cas où l’organisme se dote d’un outil mutualisé pour la gestion des adresses, il veillera :</b>
+              <ul className='charte-list'>
+                <li>à ce que cet outil soit en mesure d’importer et d’exporter les données au format BAL 1.3 ;</li>
+                <li>à s’interfacer, pour les données produites via l’outil, avec l’un des dispositifs officiels de remontée des Bases Adresses Locales au niveau national : l’API de dépôt ou le moissonneur ;</li>
+                <li>à transmettre ces données dès que possible après le porter à connaissance de la mise à jour des adresses d’une commune, et au plus tard au bout de 7 jours ;</li>
+                <li>à veiller à ce que la commune reste au centre de la gestion des adresses, et puisse procéder à la certification ;</li>
+                <li>à garantir l’autonomie de la commune quant au choix de son outil de gestion et à sa réversibilité.</li>
+              </ul>
+            </div>
+            <p>
+              Dans le cas où l’organisme met en place des formations ou un accompagnement, et si des prestations tarifées sont proposées par un partenaire de l’organisme tiers de confiance, ce dernier devra garantir une concurrence non faussée et permettre à d’autres acteurs économiques de proposer leurs services de façon équitable.
+            </p>
+            <div>
+              <b>Par ailleurs, l’organisme s’engage :</b>
+              <ul className='charte-list'>
+                <li>à promouvoir la Base Adresse Nationale comme base de données de référence pour les adresses en France ;</li>
+                <li>à utiliser la Base Adresse Nationale dans ses outils et services ;</li>
+                <li>à ne pas introduire de traitements intermédiaires entre les communes autonomes et l’échelon national ;</li>
+                <li>à communiquer l’URL du point d’accès national de la Base Adresse Nationale lors qu’un partenaire demande des données adresses. Il doit en effet s’abstenir de diffuser lui-même une donnée qui pourrait être datée ou non validée par la Base Adresse Nationale. En effet, le service public de la donnée garantit que les réutilisateurs disposent tous de la même base, à jour.</li>
+              </ul>
+            </div>
+          </div>
         </SectionText>
         <div className='redirection-button'>
           <ButtonLink href='/bases-locales/charte/organismes'>Découvrir les organismes partenaires</ButtonLink>
@@ -145,6 +178,23 @@ function Charte() {
 
         .contact-button {
           text-align: center;
+        }
+
+        .info {
+          margin: 0;
+          color: ${theme.primary};
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        .organisme-charte {
+          margin-top: 3em;
+        }
+
+        .organisme-charte b {
+          text-decoration: underline;
         }
 
         .downloads-container {
