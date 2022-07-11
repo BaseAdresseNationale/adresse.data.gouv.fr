@@ -773,8 +773,8 @@
   },
   {
     "title": "Adresse en région",
-    "subtitle": "Rennes - 35",
-    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr",
+    "subtitle": "Ille-et-Vilaine (35) et Morbihan (56)",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr. Cet évènement est organisé avec GéoBretagne",
     "type": "adresse-region",
     "target": "communes et epci",
     "date": "2022-06-01",
@@ -801,8 +801,8 @@
   },
   {
     "title": "Adresse en région",
-    "subtitle": "Landerneau - 29",
-    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr",
+    "subtitle": "Côtes-d'Armor (22) et Finistère (29)",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr. Cet évènement est organisé avec GéoBretagne et la Communauté d’Agglomération du Pays de Landerneau-Daoulas",
     "type": "adresse-region",
     "target": "communes et epci",
     "date": "2022-09-06",
@@ -829,8 +829,8 @@
   },
   {
     "title": "Adresse en région",
-    "subtitle": "Amiens - 80",
-    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr",
+    "subtitle": "Aisne (02), Oise (60) et Somme (80)",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr. Cet évènement est organisé avec Organisé avec Somme Numérique.",
     "type": "adresse-region",
     "target": "communes et epci",
     "date": "2022-10-11",
