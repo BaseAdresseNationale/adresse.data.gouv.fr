@@ -81,6 +81,10 @@ function Event({event, background, isPassed, id}) {
           border-bottom: 2px solid ${theme.colors.blue};
         }
 
+        .adresse-region {
+          border-bottom: 2px solid ${theme.colors.purple};
+        }
+
         .general-infos {
           display: grid;
           padding: 1em 0;
