@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {validateProfile} from '@etalab/bal'
+import {validateProfile} from '@ban-team/validateur-bal'
 
 import Loader from '@/components/loader'
 

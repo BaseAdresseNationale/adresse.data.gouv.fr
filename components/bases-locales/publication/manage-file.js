@@ -1,7 +1,7 @@
 import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {uniq} from 'lodash'
-import {prevalidate} from '@etalab/bal'
+import {prevalidate} from '@ban-team/validateur-bal'
 
 import {getFileExtension} from '@/lib/bal/file'
 

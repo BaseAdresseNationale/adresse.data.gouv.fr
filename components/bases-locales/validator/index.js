@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {prevalidate} from '@etalab/bal'
+import {prevalidate} from '@ban-team/validateur-bal'
 
 import {getFileExtension} from '@/lib/bal/file'
 
