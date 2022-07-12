@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {getLabel} from '@etalab/bal'
+import {getLabel} from '@ban-team/validateur-bal'
 import theme from '@/styles/theme'
 
 function RowIssues({errors, hoveredFieldErrors}) {
