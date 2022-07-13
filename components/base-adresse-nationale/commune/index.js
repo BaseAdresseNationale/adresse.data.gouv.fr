@@ -28,30 +28,33 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
   return (
     <>
       <div className='heading'>
-        <div>
-          <h2><a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a></h2>
-          <RegionInfos
-            codeCommune={codeCommune}
-            region={region}
-            departement={departement}
-          />
+        <div className='name-certification'>
+          <h2>
+            <a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a>
+          </h2>
+          <div>
+            <Certification
+              isCertified={typeComposition === 'bal'}
+              validIconColor={certificationInProgress ? theme.border : theme.successBorder}
+              certifiedMessage={
+                isAllCertified ?
+                  'Toutes les adresses sont certifiées par la commune' :
+                  'Les adresses sont en cours de certification par la commune'
+              }
+              notCertifiedMessage={
+                nbNumerosCertifies > 0 ?
+                  'Certaines adresses ne sont pas certifiées par la commune' :
+                  'Aucune adresse n’est certifiée par la commune'
+              }
+            />
+          </div>
         </div>
-        <div style={{padding: '1em'}}>
-          <Certification
-            isCertified={typeComposition === 'bal'}
-            validIconColor={certificationInProgress ? theme.border : theme.successBorder}
-            certifiedMessage={
-              isAllCertified ?
-                'Toutes les adresses sont certifiées par la commune' :
-                'Les adresses sont en cours de certification par la commune'
-            }
-            notCertifiedMessage={
-              nbNumerosCertifies > 0 ?
-                'Certaines adresses ne sont pas certifiées par la commune' :
-                'Aucune adresse n’est certifiée par la commune'
-            }
-          />
-        </div>
+
+        <RegionInfos
+          codeCommune={codeCommune}
+          region={region}
+          departement={departement}
+        />
       </div>
       <Details
         certificationPercentage={certificationPercentage}
@@ -101,13 +104,20 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
       <style jsx>{`
         .heading {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          flex-direction: column;
           margin: 1.2em 0;
         }
 
         .heading h2 {
           margin-bottom: 0.2em;
+          display: flex;
+        }
+
+        .name-certification {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
 
         .non-breaking {
