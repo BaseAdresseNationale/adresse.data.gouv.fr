@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {ZoomIn} from 'react-feather'
-import {getLabel} from '@etalab/bal'
+import {getLabel} from '@ban-team/validateur-bal'
 
 import theme from '@/styles/theme'
 

@@ -34,7 +34,7 @@ function EventModal({event, isPassed, onClose}) {
   return (
     <div className='modal-wrapper'>
       <div className='modal-container' ref={modalRef}>
-        <div className='close-container'>
+        <div className={`close-container close-container-${type}`}>
           <button type='button' onClick={onClose} aria-label='Fermer la fenêtre' className='close-button'>
             <XSquare />
           </button>
@@ -126,8 +126,24 @@ function EventModal({event, isPassed, onClose}) {
         }
 
         .close-container {
-          border-bottom: ${`2px solid ${type === 'partenaire' ? theme.colors.blue : (type === 'formation' ? theme.colors.darkGreen : theme.colors.red)}`};
+          border-bottom: 2px solid;
           text-align: right;
+        }
+
+        .close-container-partenaire {
+          border-color: ${theme.colors.blue};
+        }
+
+        .close-container-formation {
+          border-color: ${theme.colors.darkGreen};
+        }
+
+        .close-container-adresselab {
+          border-color: ${theme.colors.red};
+        }
+
+        .close-container-adresse-region {
+          border-color: ${theme.colors.purple};
         }
 
         .close-button {
@@ -210,6 +226,10 @@ function EventModal({event, isPassed, onClose}) {
 
         .partenaire {
           background: ${theme.colors.lighterBlue};
+        }
+
+        .adresse-region {
+          background: ${theme.colors.lightPurple};
         }
 
         .left-title {

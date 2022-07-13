@@ -770,5 +770,89 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
+  },
+  {
+    "title": "Adresse en région",
+    "subtitle": "Ille-et-Vilaine (35) et Morbihan (56)",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr. Cet évènement est organisé avec GéoBretagne",
+    "type": "adresse-region",
+    "target": "communes et epci",
+    "date": "2022-06-01",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Base Adresse Nationale",
+      "Co construction",
+      "Agile"
+    ],
+    "isOnlineOnly": false,
+    "address": {
+      "nom": "Ti Lab",
+      "numero": "5",
+      "voie": "rue Martenot",
+      "codePostal": "35000",
+      "commune": "Rennes"
+    },
+    "href": "",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "17:00"
+  },
+  {
+    "title": "Adresse en région",
+    "subtitle": "Côtes-d'Armor (22) et Finistère (29)",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr. Cet évènement est organisé avec GéoBretagne et la Communauté d’Agglomération du Pays de Landerneau-Daoulas",
+    "type": "adresse-region",
+    "target": "communes et epci",
+    "date": "2022-09-06",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Base Adresse Nationale",
+      "Co construction",
+      "Agile"
+    ],
+    "isOnlineOnly": false,
+    "address": {
+      "nom": "Maison de Services Au Public",
+      "numero": "59",
+      "voie": "rue de Brest",
+      "codePostal": "29800",
+      "commune": "Landerneau"
+    },
+    "href": "",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "17:00"
+  },
+  {
+    "title": "Adresse en région",
+    "subtitle": "Aisne (02), Oise (60) et Somme (80)",
+    "description": "Adresse en région réunit les acteurs de la fabrique de l'adresse en ateliers pour partager sur les problèmes et les bonnes pratiques, en petit format pour élaborer ensemble des solutions concrètes pour faciliter la création et la mise à jour des adresses par les communes. Ces ateliers sont réservés aux acteurs publics. Pour participer à Adresse en région dans votre département ou se porter volontaire pour co-organiser : adresse@data.gouv.fr. Cet évènement est organisé avec Organisé avec Somme Numérique.",
+    "type": "adresse-region",
+    "target": "communes et epci",
+    "date": "2022-10-11",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Base Adresse Nationale",
+      "Co construction",
+      "Agile"
+    ],
+    "isOnlineOnly": false,
+    "address": {
+      "nom": "Somme numérique",
+      "numero": "43",
+      "voie": "avenue d’Italie",
+      "codePostal": "80090",
+      "commune": "Amiens"
+    },
+    "href": "",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "17:00"
   }
 ]
