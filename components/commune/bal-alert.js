@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {getLabel} from '@etalab/bal'
+import {getLabel} from '@ban-team/validateur-bal'
 import {AlertTriangle, AlertOctagon, Info} from 'react-feather'
 
 import theme from '@/styles/theme'
