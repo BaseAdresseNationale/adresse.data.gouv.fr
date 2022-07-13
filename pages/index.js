@@ -35,7 +35,7 @@ function Home({stats, posts}) {
               Pour que les <strong>services d’urgence</strong> arrivent au bon endroit, pour vous permettre de réaliser une analyse <strong>cartographique</strong> en quelques clics ou encore pour que les opérateurs <strong>publics et privés</strong> coordonnent mieux leurs chantiers, les adresses sont un véritable enjeu de <strong>souveraineté</strong> pour la France.
             </p>
           </SectionText>
-          <ButtonLink href='/donnees-nationales'>Découvrir la BAN et accéder aux données</ButtonLink>
+          <ButtonLink isOutlined color='white' href='/donnees-nationales'>Découvrir la BAN et accéder aux données</ButtonLink>
         </div>
 
         <style jsx>{`

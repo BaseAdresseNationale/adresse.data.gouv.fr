@@ -80,7 +80,7 @@ function Card({title, link, action, links, list, children, color}) {
 
         .download-link, .no-link {
           font-weight: bold;
-          background-color: ${color === 'primary' ? theme.primary : theme.colors.darkerGrey};
+          background-color: ${color === 'primary' ? theme.primary : theme.backgroundDisable};
           color: white;
           padding: .8em;
           font-size: 1.2em;
@@ -95,7 +95,7 @@ function Card({title, link, action, links, list, children, color}) {
 
         .no-link {
           pointer-events: none;
-          background-color: ${theme.boxShadow};
+          background-color: ${theme.backgroundDisable};
           color: white;
         }
       `}</style>

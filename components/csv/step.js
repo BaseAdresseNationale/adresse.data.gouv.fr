@@ -4,11 +4,11 @@ import theme from '@/styles/theme'
 function Step({title, children}) {
   return (
     <div style={{margin: '1em 0'}}>
-      <h2 className={`${children ? '' : 'disabled'}`}>{title}</h2>
+      <h2 className={`${children ? '' : 'disabled'}`} aria-disabled={!children}>{title}</h2>
       {children}
       <style jsx>{`
         .disabled {
-          color: ${theme.colors.lightGrey};
+          color: ${theme.colors.grey};
         }
       `}</style>
     </div>
