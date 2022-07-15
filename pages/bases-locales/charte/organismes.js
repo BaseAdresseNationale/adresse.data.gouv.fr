@@ -14,7 +14,7 @@ function Organismes() {
   const title = 'Organismes partenaires de la Charte'
   const description = 'Page vous permettant de consultez et découvrir les organismes partenaires'
 
-  const {epci, companies} = partners
+  const {epci} = partners
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Award size={56} alt />} />
@@ -32,7 +32,7 @@ function Organismes() {
         </div>
 
         <div className='partners-section'>
-          <Partners epci={epci} companies={companies} />
+          <Partners epci={epci} />
         </div>
       </Section>
 

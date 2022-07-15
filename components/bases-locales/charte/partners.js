@@ -11,17 +11,12 @@ function Partners({epci, companies, shuffledPartners}) {
   return (
     <>
       <div className='partners-container'>
-        {partners.map(partner => <Partner key={partner.name} partnerInfos={partner} isCommune={partner.echelon === 0} />)}
+        {companies ? (
+          companiesPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)
+        ) : (
+          partners.map(partner => <Partner key={partner.name} partnerInfos={partner} isCommune={partner.echelon === 0} />)
+        )}
       </div>
-
-      {companiesPartners && (
-        <div className='compagny'>
-          <h3 className='subtitle'>Sociétés</h3>
-          <div className='partners-container'>
-            {companiesPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)}
-          </div>
-        </div>
-      )}
 
       <style jsx>{`
         .partners-container {
