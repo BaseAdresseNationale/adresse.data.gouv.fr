@@ -22,7 +22,7 @@ function Publishing({user, commune, hasConflit, publication}) {
         {hasConflit && (
           <Notification type='warning'>
             <div className='alert-content'>
-              <h4><AlertOctagon /> Une autre Base Adresses Locale est déjà synchronisée avec la Base Adresses Nationale.</h4>
+              <h4><AlertOctagon alt /> Une autre Base Adresses Locale est déjà synchronisée avec la Base Adresses Nationale.</h4>
               <p>En choisissant de publier, votre Base Adresse Locale <b>remplacera celle actuellement en place</b>.</p>
             </div>
           </Notification>
@@ -37,7 +37,7 @@ function Publishing({user, commune, hasConflit, publication}) {
           )}
 
           <Button size='large' disabled={hasConflit && !isConfirmed} onClick={publication}>
-            <div className='publish-button-content'><ArrowUpCircle size={25} /> Publier</div>
+            <div className='publish-button-content'><ArrowUpCircle size={25} alt /> Publier</div>
           </Button>
         </div>
       </div>

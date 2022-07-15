@@ -7,7 +7,7 @@ function DownloadCard({format, url, isAvailable, color}) {
     <div className='card-container'>
       <div className='format'>Format {format}</div>
       <div className={`download-container ${color}`}>
-        <a className='download-link' href={url}><DownloadCloud />Télécharger</a>
+        <a className='download-link' href={url}><DownloadCloud alt />Télécharger</a>
       </div>
 
       <style jsx>{`

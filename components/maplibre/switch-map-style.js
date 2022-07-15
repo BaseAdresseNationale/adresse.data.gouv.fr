@@ -25,8 +25,8 @@ class SwitchMapStyle extends React.Component {
           <Image
             width={80}
             height={80}
-            alt={style}
             src={src}
+            alt
           />
         </button>
         <div className='text'>{style}</div>

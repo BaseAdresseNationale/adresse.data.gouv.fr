@@ -14,7 +14,7 @@ function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
 
-  const {name, link, alt, infos, perimeter, codeCommune, services, picture, height, width, isCompany} = partnerInfos
+  const {name, link, infos, perimeter, codeCommune, services, picture, height, width, isCompany} = partnerInfos
   const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
@@ -45,17 +45,17 @@ function Partner({partnerInfos, isCommune}) {
         <div className='logo'>
           <Image
             src={picture}
-            alt={alt}
             height={height}
             width={width}
             layout='fixed'
+            alt
           />
         </div>
 
         <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
           <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
           <div className='chevron'>
-            <Chevron size={18} color={`${theme.colors.lightBlue}`} />
+            <Chevron size={18} color={`${theme.colors.lightBlue}`} alt />
           </div>
         </button>
       </div>
@@ -222,7 +222,6 @@ Partner.propTypes = {
     picture: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
-    alt: PropTypes.string.isRequired,
     isCompany: PropTypes.bool.isRequired
   }).isRequired,
   isCommune: PropTypes.bool

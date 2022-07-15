@@ -38,8 +38,9 @@ function CoordinatesCopy({coordinates, setCopyError, setIsCopySucceded, setIsCop
             size='small'
             style={{borderRadius: '0 3px 3px 0'}}
             onClick={handleClick}
+            label='Copier les coordonnées'
           >
-            <Clipboard />
+            <Clipboard alt />
           </Button>
         </div>
       ) : (
@@ -50,7 +51,7 @@ function CoordinatesCopy({coordinates, setCopyError, setIsCopySucceded, setIsCop
           onClick={handleClick}
         >
           Copier la position GPS
-          <Clipboard style={{marginLeft: '1em', verticalAlign: 'middle'}} />
+          <Clipboard style={{marginLeft: '1em', verticalAlign: 'middle'}} alt />
         </Button>
       )}
       <style jsx>{`

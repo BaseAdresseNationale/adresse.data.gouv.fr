@@ -34,7 +34,7 @@ function VoiesList({voies, nomCommune, codeCommune}) {
 
   return (
     <Page title='FANTOIR'>
-      <Head title={`FANTOIR : ${nomCommune}`} icon={<Database size={56} />} />
+      <Head title={`FANTOIR : ${nomCommune}`} icon={<Database size={56} alt />} />
       <Section title={`Liste des voies - ${nomCommune}`}>
         <div className='search'>
           <SearchBar
@@ -49,7 +49,7 @@ function VoiesList({voies, nomCommune, codeCommune}) {
             isExternal
           >
             Télécharger au format CSV
-            <Download style={{verticalAlign: 'bottom', padding: '3px'}} />
+            <Download style={{verticalAlign: 'bottom', padding: '3px'}} alt />
           </ButtonLink>
         </div>
 

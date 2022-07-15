@@ -17,7 +17,7 @@ class Organization extends React.Component {
     const {logo, name} = this.props
     return (
       <div className='organization'>
-        <Image width={100} height={100} objectFit='contain' src={logo} alt={name} />
+        <Image width={100} height={100} objectFit='contain' src={logo} alt />
         <div className='name'>{name}</div>
 
         <style jsx>{`
