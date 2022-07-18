@@ -63,6 +63,8 @@ function Contact() {
       .sub-section {
         margin: 1em 0;
         text-align: center;
+        border: 1px solid ${theme.primary};
+        border-radius: 3px;
       }
 
       .sub-section p {
