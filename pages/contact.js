@@ -1,5 +1,7 @@
 import {Mail} from 'react-feather'
 
+import theme from '@/styles/theme'
+
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
@@ -60,6 +62,11 @@ function Contact() {
       <style jsx>{`
       .sub-section {
         margin: 1em 0;
+        text-align: center;
+      }
+
+      .sub-section p {
+        text-align: left;
       }
       `}</style>
     </Page>
