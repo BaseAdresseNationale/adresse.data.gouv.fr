@@ -185,7 +185,7 @@ function Charte() {
             <div>
               <b>Dans le cas où l’organisation utilise son propre outil pour la gestion des adresses, elle veillera :</b>
               <ul>
-                <li>à ce que cet outil soit en mesure d’importer et d’exporter les données au format BAL1.3:</li>
+                <li>à ce que cet outil soit en mesure d’importer et d’exporter les données au format BAL1.3;</li>
                 <li>à communiquer à la commune un fichier BAL.csv qu’elle publiera par formulaire ou dépôt sur data.gouv.fr en authentifiant;</li>
                 <li>à transmettre ces données dès que possible après le porter à connaissance de la mise à jour des adresses d’une commune;</li>
                 <li>à veiller à ce que la commune reste au centre de la gestion des adresses, et puisse procéder à la certification;</li>
@@ -195,7 +195,7 @@ function Charte() {
               <b>Par ailleurs, l’organisme s’engage :</b>
               <ul>
                 <li>à promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse.data.gouv.fr;</li>
-                <li>à respecter le format d’adresse enrichi Base Adresse Locale et non une norme d’adresse commerciale:</li>
+                <li>à respecter le format d’adresse enrichi Base Adresse Locale et non une norme d’adresse commerciale ;</li>
               </ul>
             </div>
           </div>
