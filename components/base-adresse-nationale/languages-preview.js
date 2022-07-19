@@ -12,9 +12,11 @@ function LanguagesPreview({nomAlt, hasIcon}) {
           <Tooltip
             direction='right'
             message={
-              <ul>
-                {Object.keys(nomAlt).map(voieName => <li color='white' key={voieName}>{nomAlt[voieName]}</li>)}
-              </ul>
+        <ul>
+          {Object.values(nomAlt).map(voieName => (
+            <li color='white' key={voieName}>{voieName}</li>
+          ))}
+        </ul>
             }
           >
             <div className='label'>
