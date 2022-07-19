@@ -34,42 +34,42 @@ function LanguagesPreview({nomAlt}) {
       )}
 
       <style jsx>{`
-      .multiple-languages, .alt-name {
-            font-style: italic;
-            font-size: 14px;
-            font-weight: lighter;
-          }
+        .multiple-languages, .alt-name {
+          font-style: italic;
+          font-size: 14px;
+          font-weight: lighter;
+        }
 
-          .label {
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: none;
-            margin: 0;
-            padding: 0;
-          }
+        .label {
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          background: none;
+          margin: 0;
+          padding: 0;
+        }
 
-          ul {
-            padding: 0 15px;
-            margin: 0;
-            font-style: normal;
-            font-weight: bold;
-            text-align: left;
-          }
+        ul {
+          padding: 0 15px;
+          margin: 0;
+          font-style: normal;
+          font-weight: bold;
+          text-align: left;
+        }
 
-          .language-with-icon {
-            font-style: italic;
-            font-weight: lighter;
-            display: flex;
-            gap: 5px;
-            align-items: center;
-          }
+        .language-with-icon {
+          font-style: italic;
+          font-weight: lighter;
+          display: flex;
+          gap: 5px;
+          align-items: center;
+        }
 
-          .alt-name {
-            font-weight: lighter;
-            font-size: 16px;
-          }
+        .alt-name {
+          font-weight: lighter;
+          font-size: 16px;
+        }
       `}</style>
     </>
   )
