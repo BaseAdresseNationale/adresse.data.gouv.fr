@@ -5,11 +5,11 @@ function MairieContact({email, phone}) {
   return (
     <div className='contact-infos'>
       <div className='contact-info'>
-        <Mail size={18} style={{marginRight: '10px'}} />
+        <Mail style={{marginRight: '10px'}} alt='Adresse e-mail' />
         {email ? <a href={`mailto:${email}`}>{email}</a> : 'Non renseigné'}
       </div>
       <div className='contact-info'>
-        <Phone size={18} style={{marginRight: '10px'}} />
+        <Phone style={{marginRight: '10px'}} alt='Numéro de téléphone' />
         {phone ? <a href={`tel:+33${phone}`}>{phone}</a> : 'Non renseigné'}
       </div>
 

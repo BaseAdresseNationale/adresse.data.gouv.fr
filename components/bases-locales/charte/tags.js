@@ -72,6 +72,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
         .label-inactive {
           color: ${theme.colors.darkerGrey};
           pointer-events: none;
+          background: ${theme.colors.lighterGrey};
         }
 
         .label-active {

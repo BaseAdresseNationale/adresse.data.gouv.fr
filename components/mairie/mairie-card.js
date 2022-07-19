@@ -11,7 +11,7 @@ function MairieCard({nom, horaires, email, telephone}) {
   return (
     <div className='mairie-infos'>
       <div className='mairie-name'>
-        <Image src='/images/icons/commune.svg' height={80} width={80} />
+        <Image src='/images/icons/commune.svg' height={80} width={80} alt />
         <b>{nom}</b>
       </div>
       <div>

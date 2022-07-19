@@ -13,7 +13,7 @@ function BlogCard({post, onClick}) {
         <h4 className='blog-title'>{post.title}</h4>
       </Link>
       <div className='blog-image-container'>
-        <Image src={post.feature_image || '/images/no-img.png'} alt={post.title} layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />
+        <Image src={post.feature_image || '/images/no-img.png'} alt layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />
       </div>
       <div className='infos-container'>
         <p>Publié par {post.authors[0].name}</p>
@@ -37,15 +37,15 @@ function BlogCard({post, onClick}) {
 
       <style jsx>{`
         .blog-container {
-          display: flex;
-          flex-direction: column;
+          display: grid;
+          grid-template-rows: 70px .5fr 33px 0fr 0fr 0fr;
           gap: .2em;
         }
 
         .blog-title {
           font-size: 1.2em;
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           cursor: pointer;
         }
 
@@ -63,6 +63,7 @@ function BlogCard({post, onClick}) {
         }
 
         .blog-tags-container button {
+          height: fit-content;
           background-color: ${colors.lighterBlue};
           text-decoration: underline;
           cursor: pointer;
@@ -98,8 +99,8 @@ function BlogCard({post, onClick}) {
           cursor: pointer;
         }
 
-        .blog-link-container a {
-          padding: .5em;
+        h4 {
+          margin: 0;
         }
       `}</style>
     </div>

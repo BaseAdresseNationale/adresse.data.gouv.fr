@@ -30,7 +30,7 @@ function Card({title, link, action, links, list, children, color}) {
 
       {link ? (
         <a className='download-link' href={link}>
-          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '4px'}} /> {action}
+          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '4px'}} alt /> {action}
         </a>
       ) : (
         <div className='no-link'>
@@ -40,13 +40,13 @@ function Card({title, link, action, links, list, children, color}) {
 
       <style jsx>{`
         .card-container {
-          margin: 1em;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           background-color: ${theme.colors.white};
           text-align: center;
           border-radius: 5px;
+          margin-top: 1em;
         }
 
         .title {
@@ -80,7 +80,7 @@ function Card({title, link, action, links, list, children, color}) {
 
         .download-link, .no-link {
           font-weight: bold;
-          background-color: ${color === 'primary' ? theme.primary : theme.colors.darkerGrey};
+          background-color: ${color === 'primary' ? theme.primary : theme.backgroundDisable};
           color: white;
           padding: .8em;
           font-size: 1.2em;
@@ -95,7 +95,7 @@ function Card({title, link, action, links, list, children, color}) {
 
         .no-link {
           pointer-events: none;
-          background-color: ${theme.boxShadow};
+          background-color: ${theme.backgroundDisable};
           color: white;
         }
       `}</style>

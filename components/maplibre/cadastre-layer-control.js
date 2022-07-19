@@ -14,7 +14,7 @@ function CadastreLayerControl({isDisabled, isActived, handleClick}) {
     >
       <Layout color={isDisabled ? '#cdcdcd' : (
         isActived ? theme.primary : theme.darkText
-      )} size={18} />
+      )} size={18} alt />
     </button>
   )
 }

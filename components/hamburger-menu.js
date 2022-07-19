@@ -33,7 +33,7 @@ class HamburgerMenu extends React.Component {
     return (
       <div className='dropdown'>
         <button type='button' aria-label={`${visible ? 'Fermer' : 'Ouvrir'} le menu de navigation`} onClick={this.handleMenu}>
-          {visible ? <X size={22} /> : <Menu size={22} />}
+          {visible ? <X size={22} alt /> : <Menu size={22} alt />}
         </button>
 
         {visible && (

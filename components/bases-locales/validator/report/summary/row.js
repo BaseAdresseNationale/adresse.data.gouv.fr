@@ -45,9 +45,9 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
         </div>
 
         {showIssues ? (
-          <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} />
+          <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} alt />
         ) : (
-          <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} />
+          <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} alt />
         )}
       </button>
 

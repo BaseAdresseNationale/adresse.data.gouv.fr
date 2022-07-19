@@ -46,7 +46,7 @@ function Intro() {
 
       <div className='characteristics'>
         <div>
-          <h6><List style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} /> Caractéristiques</h6>
+          <h6><List style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt /> Caractéristiques</h6>
           <ul>
             <li>Producteur : <strong>Etalab</strong></li>
             <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
@@ -55,7 +55,7 @@ function Intro() {
           </ul>
         </div >
         <div>
-          <h6> <Target style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} /> Chiffres clés</h6>
+          <h6> <Target style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt /> Chiffres clés</h6>
           <ul>
             <li>250 000 lieux-dits (<span className='new'>beta</span>)</li>
             <li>25 millions d’adresses</li>

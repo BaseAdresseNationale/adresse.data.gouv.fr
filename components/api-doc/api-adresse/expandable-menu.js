@@ -16,7 +16,11 @@ function ExpandableMenu({title, children, label}) {
       <div className='head'>
         <div className='title'>{title}</div>
         <div style={{paddingLeft: '.5em'}}>
-          {isExpanded ? <ChevronUp style={{verticalAlign: 'middle'}} size={38} /> : <ChevronDown style={{verticalAlign: 'middle'}} size={38} />}
+          {isExpanded ? (
+            <ChevronUp style={{verticalAlign: 'middle'}} size={38} alt />
+          ) : (
+            <ChevronDown style={{verticalAlign: 'middle'}} size={38} alt />
+          )}
         </div>
       </div>
 

@@ -25,8 +25,8 @@ class SwitchMapStyle extends React.Component {
           <Image
             width={80}
             height={80}
-            alt={style}
             src={src}
+            alt
           />
         </button>
         <div className='text'>{style}</div>
@@ -50,9 +50,14 @@ class SwitchMapStyle extends React.Component {
 
           .text {
             position: relative;
-            bottom: 26px;
-            left: 4px;
-            color: ${isVector ? '#fff' : '#000'}
+            bottom: 35px;
+            left: 5px;
+            background: ${theme.colors.almostBlack};
+            color: ${theme.colors.white};
+            border-radius: 10px;
+            text-align: center;
+            width: fit-content;
+            padding: 0 5px;
           }
           `}</style>
       </div>

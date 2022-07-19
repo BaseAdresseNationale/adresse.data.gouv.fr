@@ -11,13 +11,13 @@ const title = 'API Adresse'
 const description = 'Cherchez des adresses et lieux-dits.'
 
 const examples = [
-  {title: 'Recherche par texte', id: 'text', icon: <Search />}
+  {title: 'Recherche par texte', id: 'text', icon: <Search alt />}
 ]
 
 function Adresse() {
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Compass color='white' size={56} />}>
+      <Head title={title} icon={<Compass color='white' size={56} alt />}>
         {description}
       </Head>
 
