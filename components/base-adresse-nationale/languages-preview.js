@@ -15,7 +15,9 @@ function LanguagesPreview({nomAlt}) {
             direction='right'
             message={
               <ul>
-                {altNames.map(voieName => <li color='white' key={voieName}>{nomAlt[voieName]}</li>)}
+                {altNames.map(voieName => (
+                  <li color='white' key={voieName}>{nomAlt[voieName]}</li>
+                ))}
               </ul>
             }
           >
