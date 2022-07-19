@@ -46,7 +46,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
               />
             </div>
           </div>
-          {voie.nomAlt && <LanguagesPreview nomAlt={voie.nomAlt} hasIcon />}
+          {voie.nomAlt && <LanguagesPreview nomAlt={voie.nomAlt} />}
         </div>
 
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}

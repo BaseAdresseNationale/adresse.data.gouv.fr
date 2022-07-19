@@ -22,7 +22,7 @@ function Voie({type, nomVoie, nomAlt, commune, numeros, parcelles, displayBBox, 
       <div className='heading'>
         <div>
           <h2>{nomVoie}</h2>
-          {nomAlt && <LanguagesPreview nomAlt={nomAlt} hasIcon />}
+          {nomAlt && <LanguagesPreview nomAlt={nomAlt} />}
         </div>
 
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}

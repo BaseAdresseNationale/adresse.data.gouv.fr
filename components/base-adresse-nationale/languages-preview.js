@@ -4,12 +4,12 @@ import {HelpCircle} from 'react-feather'
 
 import Tooltip from '@/components/base-adresse-nationale/tooltip'
 
-function LanguagesPreview({nomAlt, hasIcon}) {
+function LanguagesPreview({nomAlt}) {
   const altNames = Object.keys(nomAlt)
 
   return (
     <>
-      {altNames.length > 1 && (
+      {altNames.length > 1 ? (
         <div className='multiple-languages'>
           <Tooltip
             direction='right'
@@ -24,15 +24,11 @@ function LanguagesPreview({nomAlt, hasIcon}) {
             </div>
           </Tooltip>
         </div>
-      )}
-
-      {hasIcon && altNames.length === 1 ? (
+      ) : (
         <div className='language-with-icon'>
           <Image src={`/images/icons/flags/${altNames[0]}.svg`} height={22} width={22} />
           <div className='alt-name'>{nomAlt[altNames]}</div>
         </div>
-      ) : (
-        <div className='alt-name'>{nomAlt[altNames]}</div>
       )}
 
       <style jsx>{`
@@ -78,12 +74,7 @@ function LanguagesPreview({nomAlt, hasIcon}) {
 }
 
 LanguagesPreview.propTypes = {
-  nomAlt: PropTypes.object.isRequired,
-  hasIcon: PropTypes.bool
-}
-
-LanguagesPreview.defaultProps = {
-  hasIcon: false
+  nomAlt: PropTypes.object.isRequired
 }
 
 export default LanguagesPreview
