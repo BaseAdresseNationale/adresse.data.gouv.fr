@@ -19,7 +19,15 @@ function LanguagesPreview({nomAlt}) {
             message={
               <ul>
                 {altNames.map(voieName => (
-                  <li color='white' key={voieName}>{nomAlt[voieName]}</li>
+                  <li color='white' key={voieName}>
+                    <Image
+                      src={isFlagExist ? `/images/icons/flags/${voieName}.svg` : '/images/icons/flags/ntr.svg'}
+                      height={20}
+                      width={20}
+                      onLoadingComplete={result => result.naturalHeight <= 1 ? setIsFlagExist(false) : setIsFlagExist(true)}
+                    />
+                    {nomAlt[voieName]}
+                  </li>
                 ))}
               </ul>
             }
@@ -64,6 +72,14 @@ function LanguagesPreview({nomAlt}) {
           font-style: normal;
           font-weight: bold;
           text-align: left;
+        }
+
+        li {
+          list-style-type: none;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin: 10px 0;
         }
 
         .language-with-icon {
