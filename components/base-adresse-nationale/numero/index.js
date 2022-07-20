@@ -17,7 +17,8 @@ import CoordinatesCopy from './coordinates-copy'
 import DeviceContext from '@/contexts/device'
 import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+
+function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -55,7 +56,10 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
       <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
       <div className='numero-details'>
         {lieuDitComplementNom && (
-          <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
+          <div>
+            <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
+            {lieuDitComplementNomAlt && <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />}
+          </div>
         )}
         {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
         {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
@@ -154,6 +158,7 @@ Numero.propTypes = {
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
+  lieuDitComplementNomAlt: PropTypes.object,
   certifie: PropTypes.bool.isRequired,
   sourcePosition: PropTypes.string.isRequired,
   parcelles: PropTypes.array.isRequired,
@@ -182,6 +187,7 @@ Numero.propTypes = {
 Numero.defaultProps = {
   suffixe: null,
   lieuDitComplementNom: null,
+  lieuDitComplementNomAlt: null,
   positions: [],
   codePostal: null,
   libelleAcheminement: null,
