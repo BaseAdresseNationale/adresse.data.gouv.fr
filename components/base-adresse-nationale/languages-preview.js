@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import {HelpCircle} from 'react-feather'
@@ -5,6 +6,8 @@ import {HelpCircle} from 'react-feather'
 import Tooltip from '@/components/base-adresse-nationale/tooltip'
 
 function LanguagesPreview({nomAlt}) {
+  const [isFlagExist, setIsFlagExist] = useState(true)
+
   const altNames = Object.keys(nomAlt)
 
   return (
@@ -28,7 +31,12 @@ function LanguagesPreview({nomAlt}) {
         </div>
       ) : (
         <div className='language-with-icon'>
-          <Image src={`/images/icons/flags/${altNames[0]}.svg`} height={22} width={22} />
+          <Image
+            src={isFlagExist ? `/images/icons/flags/${altNames[0]}.svg` : '/images/icons/flags/ntr.svg'}
+            height={22}
+            width={22}
+            onLoadingComplete={result => result.naturalHeight <= 1 ? setIsFlagExist(false) : setIsFlagExist(true)}
+          />
           <div className='alt-name'>{nomAlt[altNames]}</div>
         </div>
       )}
