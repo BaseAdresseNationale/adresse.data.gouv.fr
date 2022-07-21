@@ -11,15 +11,20 @@ import ParcellesList from '../parcelles-list'
 import Numero from './numero'
 import Notification from '@/components/notification'
 import RegionInfos from '../region-infos'
+import LanguagesPreview from '../languages-preview'
 
-function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumeros}) {
+function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBBox, nbNumeros}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
   return (
     <>
       <div className='heading'>
-        <h2>{nomVoie}</h2>
+        <div>
+          <h2>{nomVoie}</h2>
+          {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
+        </div>
+
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
         {region && departement && (
           <RegionInfos codeCommune={commune.code} region={region} departement={departement} />
@@ -54,11 +59,16 @@ function Voie({type, nomVoie, commune, numeros, parcelles, displayBBox, nbNumero
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          gap: 1em;
           margin: 1.2em 0;
           border-bottom: solid 1px ${colors.lightGrey}
         }
 
-        .heading h2, h4 {
+        .heading h2 {
+          margin: 0;
+        }
+
+        .heading h4 {
           margin-bottom: 0.2em;
         }
 
@@ -75,12 +85,14 @@ Voie.propTypes = {
   commune: null,
   numeros: null,
   nbNumeros: null,
+  nomVoieAlt: null,
   parcelles: null,
   displayBBox: null
 }
 
 Voie.propTypes = {
   nomVoie: PropTypes.string.isRequired,
+  nomVoieAlt: PropTypes.object,
   type: PropTypes.oneOf(['voie', 'lieu-dit']),
   commune: PropTypes.shape({
     id: PropTypes.string,

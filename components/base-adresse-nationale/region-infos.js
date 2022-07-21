@@ -24,10 +24,10 @@ function RegionInfos({codeCommune, region, departement}) {
 
       <style jsx>{`
         .region {
-          margin: 2em 0 0.7em 0;
           font-style: italic;
           font-size: 17px;
           color: ${colors.almostBlack};
+          margin-top: .5em;
         }
       `}</style>
     </div>

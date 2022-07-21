@@ -32,7 +32,7 @@ function PopupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie,
           display: grid;
           grid-template-columns: 3fr 1fr;
           grid-gap: .5em;
-          align-items: center;
+          align-items: flex-start;
         }
 
         .commune {
@@ -80,7 +80,9 @@ function PopupVoie({nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type
           <div><b>{nomVoie}</b></div>
           <div>{nomCommune} {codeCommune}</div>
         </div>
-        <Tag type={type || 'lieu-dit'} />
+        <div>
+          <Tag type={type || 'lieu-dit'} />
+        </div>
       </div>
 
       {parcelles && <ParcellesList parcelles={parcelles.split('|')} />}

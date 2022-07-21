@@ -16,8 +16,9 @@ import CoordinatesCopy from './coordinates-copy'
 
 import DeviceContext from '@/contexts/device'
 import RegionInfos from '../region-infos'
+import LanguagesPreview from '../languages-preview'
 
-function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -30,27 +31,35 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
   return (
     <>
       <div className='heading'>
-        <div>
-          <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
-          {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-          <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
+        <div className='voie-names'>
+          <div className='name-certification'>
+            <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
+            <div>
+              <Certification
+                isCertified={certifie || sourcePosition === 'bal'}
+                validIconColor={certifie ? theme.successBorder : theme.border}
+                certifiedMessage={
+                  certifie ?
+                    'Cette adresse est certifiée par la commune' :
+                    'Cette adresse est en cours de certification par la commune'
+                }
+                notCertifiedMessage='Cette adresse n’est pas certifiée par la commune'
+              />
+            </div>
+          </div>
+          {voie?.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
         </div>
-        <div style={{padding: '1em'}}>
-          <Certification
-            isCertified={certifie || sourcePosition === 'bal'}
-            validIconColor={certifie ? theme.successBorder : theme.border}
-            certifiedMessage={
-              certifie ?
-                'Cette adresse est certifiée par la commune' :
-                'Cette adresse est en cours de certification par la commune'
-            }
-            notCertifiedMessage='Cette adresse n’est pas certifiée par la commune'
-          />
-        </div>
+
+        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
       </div>
+
+      <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
       <div className='numero-details'>
         {lieuDitComplementNom && (
-          <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
+          <div>
+            <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
+            {lieuDitComplementNomAlt && <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />}
+          </div>
         )}
         {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
         {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
@@ -106,16 +115,25 @@ function Numero({numero, suffixe, lieuDitComplementNom, certifie, positions, pos
 
       <style jsx>{`
         .heading {
-          display: grid;
-          grid-template-columns: 3fr 1fr;
-          justify-content: space-between;
-          align-items: center;
+          display: flex;
+          flex-direction: column;
           margin: 1.2em 0;
           border-bottom: 1px solid ${colors.lighterGrey};
         }
 
         .heading h2 {
           margin-bottom: 0.2em;
+        }
+
+        .name-certification {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .voie-names {
+          margin-bottom: 1em;
         }
 
         .numero-details {
@@ -140,6 +158,7 @@ Numero.propTypes = {
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
+  lieuDitComplementNomAlt: PropTypes.object,
   certifie: PropTypes.bool.isRequired,
   sourcePosition: PropTypes.string.isRequired,
   parcelles: PropTypes.array.isRequired,
@@ -153,7 +172,8 @@ Numero.propTypes = {
   }).isRequired,
   voie: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    nomVoie: PropTypes.string.isRequired
+    nomVoie: PropTypes.string.isRequired,
+    nomVoieAlt: PropTypes.object
   }),
   libelleAcheminement: PropTypes.string,
   codePostal: PropTypes.string,

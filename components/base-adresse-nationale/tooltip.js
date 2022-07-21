@@ -7,6 +7,7 @@ function Tooltip({message, direction, children}) {
       <div className='tooltip-text'>
         {message}
       </div>
+
       <style jsx>{`
       .tooltip {
         position: relative;
@@ -14,9 +15,9 @@ function Tooltip({message, direction, children}) {
         cursor: help;
       }
 
-      .tooltip-bottom .tooltip-text, .tooltip-left .tooltip-text {
+      .tooltip-bottom .tooltip-text, .tooltip-left .tooltip-text, .tooltip-right .tooltip-text {
         visibility: hidden;
-        width: 154px;
+        width: fit-content;
         background-color: #000000d1;
         color: #fff;
         text-align: center;
@@ -30,7 +31,7 @@ function Tooltip({message, direction, children}) {
 
       .tooltip-bottom .tooltip-text {
         left: -106px;
-        top: 60px;
+        top: 40px;
       }
 
       .tooltip-left .tooltip-text {
@@ -38,17 +39,22 @@ function Tooltip({message, direction, children}) {
         top: -20px;
       }
 
-      .tooltip-bottom .tooltip-text::after, .tooltip-left .tooltip-text::after {
+      .tooltip-right .tooltip-text {
+        left: 26px;
+        top: 30px;
+      }
+
+      .tooltip-bottom .tooltip-text::after, .tooltip-left .tooltip-text::after, .tooltip-right .tooltip-text::after {
         content: " ";
         position: absolute;
         border-width: 5px;
         border-style: solid;
       }
 
-      .tooltip-bottom .tooltip-text::after {
+      .tooltip-bottom .tooltip-text::after, .tooltip-right .tooltip-text::after {
         margin-left: -5px;
         bottom: 100%;  /* At the top of the tooltip */
-        left: 82%;
+        left: 88%;
         border-color: transparent transparent black transparent;
       }
 
@@ -71,10 +77,11 @@ Tooltip.defaultProps = {
 }
 
 Tooltip.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.node.isRequired,
   direction: PropTypes.oneOf([
     'bottom',
-    'left'
+    'left',
+    'right'
   ]),
   children: PropTypes.node.isRequired
 }
