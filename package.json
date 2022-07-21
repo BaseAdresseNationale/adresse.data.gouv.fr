@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "node server",
-    "build": "next build",
+    "build-next": "next build",
+    "build-available-flags": "node scripts/build-available-flags",
+    "build": "yarn build-available-flags && yarn build-next",
     "start": "NODE_ENV=production node server",
     "lint": "xo",
     "heroku-postbuild": "next build"

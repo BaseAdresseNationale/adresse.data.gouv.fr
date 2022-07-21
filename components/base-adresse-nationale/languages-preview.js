@@ -1,13 +1,16 @@
-import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import {HelpCircle} from 'react-feather'
 
 import Tooltip from '@/components/base-adresse-nationale/tooltip'
 
-function LanguagesPreview({nomAlt}) {
-  const [isFlagExist, setIsFlagExist] = useState(true)
+import availableFlags from '../../available-flags.json'
 
+const isFlagExist = codeISO => {
+  return availableFlags.includes(codeISO)
+}
+
+function LanguagesPreview({nomAlt}) {
   const altNames = Object.keys(nomAlt)
 
   return (
@@ -18,15 +21,14 @@ function LanguagesPreview({nomAlt}) {
             direction='right'
             message={
               <ul>
-                {altNames.map(voieName => (
-                  <li color='white' key={voieName}>
+                {altNames.map(codeISO => (
+                  <li color='white' key={codeISO}>
                     <Image
-                      src={isFlagExist ? `/images/icons/flags/${voieName}.svg` : '/images/icons/flags/ntr.svg'}
+                      src={isFlagExist(codeISO) ? `/images/icons/flags/${codeISO}.svg` : '/images/icons/flags/ntr.svg'}
                       height={20}
                       width={20}
-                      onLoadingComplete={result => result.naturalHeight <= 1 ? setIsFlagExist(false) : setIsFlagExist(true)}
                     />
-                    {nomAlt[voieName]}
+                    {nomAlt[codeISO]}
                   </li>
                 ))}
               </ul>
@@ -40,10 +42,9 @@ function LanguagesPreview({nomAlt}) {
       ) : (
         <div className='language-with-icon'>
           <Image
-            src={isFlagExist ? `/images/icons/flags/${altNames[0]}.svg` : '/images/icons/flags/ntr.svg'}
+            src={isFlagExist(altNames[0]) ? `/images/icons/flags/${altNames[0]}.svg` : '/images/icons/flags/ntr.svg'}
             height={22}
             width={22}
-            onLoadingComplete={result => result.naturalHeight <= 1 ? setIsFlagExist(false) : setIsFlagExist(true)}
           />
           <div className='alt-name'>{nomAlt[altNames]}</div>
         </div>
