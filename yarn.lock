@@ -517,11 +517,17 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
-"@ban-team/validateur-bal@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@ban-team/validateur-bal/-/validateur-bal-2.8.0.tgz#09c8b5854ab6b96d8779287bc7430150dbaeccf7"
-  integrity sha512-LusrzcHN9+0mjX0XIUjTjsrjiOD7158XPOucVtLxYEJ6I83ySdTg4MyW4QkJOxrsruf/ylEcdc+ZN2u0N5y3AQ==
+"@ban-team/shared-data@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@ban-team/shared-data/-/shared-data-1.0.1.tgz#bc3f49beab5bf492ad5da4d2a3852a539e68416b"
+  integrity sha512-eRrAZ2QJRiYd3wiPQE1ejA8fwn18AWvKASaEn7ajGVxIjOD5ty3E2hKlLPDOjdrg/bsVrabzOvxnnUN0sxboIA==
+
+"@ban-team/validateur-bal@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@ban-team/validateur-bal/-/validateur-bal-2.9.0.tgz#09fa914d42bedaf09c8369126ceed1b0a110945e"
+  integrity sha512-Qid9f/9bnYJyBdAt6vlrp43fDXcAl9bxvD9UTTUC7IMZsZXgIcnxyO8LUnjHz358MDraRmljRCb+U+pLAoA6bA==
   dependencies:
+    "@ban-team/shared-data" "^1.0.0"
     "@etalab/project-legal" "^0.6.0"
     blob-to-buffer "^1.2.9"
     bluebird "^3.7.2"
