@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Image from 'next/image'
 
 import colors from '@/styles/colors'
 
@@ -8,40 +7,7 @@ import ParcellesList from '@/components/base-adresse-nationale/parcelles-list'
 
 import {sources} from './layers'
 
-function PopupLanguagePreview({languages}) {
-  return (
-    <div className='languages'>
-      {Object.keys(languages).map(language => {
-        return (
-          <div className='language' key={language}>
-            <Image src={`/images/icons/flags/${language}.svg`} height={12} width={12} />
-            <div>{languages[language]}</div>
-          </div>
-        )
-      })}
-
-      <style jsx>{`
-        .languages {
-          margin-bottom: 10px;
-          font-size: 12px;
-          font-style: italic;
-        }
-
-        .language {
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-      `}</style>
-    </div>
-  )
-}
-
-PopupLanguagePreview.propTypes = {
-  languages: PropTypes.object.isRequired
-}
-
-function PopupNumero({numero, suffixe, parcelles, lieuDitComplementNom, lieuDitComplementNomAlt, nomVoie, nomAlt, nomCommune, codeCommune, sourcePosition}) {
+function PopupNumero({numero, suffixe, parcelles, nomVoie, nomCommune, codeCommune, sourcePosition}) {
   const position = sources[sourcePosition]
 
   return (
@@ -50,15 +16,7 @@ function PopupNumero({numero, suffixe, parcelles, lieuDitComplementNom, lieuDitC
         <div>
           <div>
             <b>{numero}{suffixe} {nomVoie}</b>
-            {nomAlt && <PopupLanguagePreview languages={nomAlt} />}
           </div>
-          {lieuDitComplementNom && (
-            <div>
-              <b>lieu diiit</b>
-              {lieuDitComplementNomAlt && <PopupLanguagePreview languages={lieuDitComplementNomAlt} />}
-            </div>
-          )}
-
         </div>
         <Tag type='numero' />
       </div>
@@ -111,27 +69,18 @@ PopupNumero.propTypes = {
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   parcelles: PropTypes.string,
-  lieuDitComplementNom: PropTypes.string,
-  lieuDitComplementNomAlt: PropTypes.object,
   nomVoie: PropTypes.string.isRequired,
-  nomAlt: PropTypes.object,
   nomCommune: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   sourcePosition: PropTypes.string.isRequired,
 }
 
-PopupNumero.defaultProps = {
-  nomAlt: null,
-  lieuDitComplementNomAlt: null
-}
-
-function PopupVoie({nomVoie, nomAlt, nomCommune, codeCommune, parcelles, nbNumeros, type}) {
+function PopupVoie({nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type}) {
   return (
     <div>
       <div className='heading'>
         <div className='address'>
           <div><b>{nomVoie}</b></div>
-          {nomAlt && <PopupLanguagePreview languages={nomAlt} />}
           <div>{nomCommune} {codeCommune}</div>
         </div>
         <div>
@@ -164,16 +113,11 @@ function PopupVoie({nomVoie, nomAlt, nomCommune, codeCommune, parcelles, nbNumer
 
 PopupVoie.propTypes = {
   nomVoie: PropTypes.string.isRequired,
-  nomAlt: PropTypes.object,
   nomCommune: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   parcelles: PropTypes.string,
   nbNumeros: PropTypes.number.isRequired,
   type: PropTypes.string
-}
-
-PopupVoie.defaultProps = {
-  nomAlt: null
 }
 
 export default function popupFeatures(features) {
