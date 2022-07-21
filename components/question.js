@@ -58,10 +58,8 @@ class Question extends React.Component {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid ${theme.primary};
+            border: none;
             padding: ${isBold ? '1em' : '1.5em'};
-            margin: 0.2em;
-            border-radius: 3px;
           }
 
           .question-container.is-open {
@@ -84,11 +82,8 @@ class Question extends React.Component {
 
           .answer {
             width: 100%;
-            padding: 1em;
-            border: 1px solid ${theme.primary};
-            border-top: none;
+            padding: ${isBold ? '1em' : '1.5em'};
             background: ${theme.colors.lighterGrey};
-            margin: -0.2em 0.2em 0.2em;
           }
         `}</style>
       </div>

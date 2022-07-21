@@ -14,7 +14,7 @@ function Footer() {
             <li><a href='https://github.com/etalab/adresse.data.gouv.fr' aria-label='Consulter notre page GitHub'><Image width={25} height={25} src='/images/medias/github.svg' alt /></a></li>
             <li>
               <Link href='/blog'>
-                <a aria-label='Consulter notre blog'><Image width={25} height={25} src='/images/medias/medium.svg' alt /></a>
+                <a aria-label='Consulter notre blog'><Image width={25} height={25} src='/images/medias/blog.svg' alt /></a>
               </Link>
             </li>
             <li>
