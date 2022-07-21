@@ -47,7 +47,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
               />
             </div>
           </div>
-          {voie.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
+          <LanguagesPreview nomAlt={voie.nomVoieAlt} />
         </div>
 
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
@@ -58,7 +58,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
         {lieuDitComplementNom && (
           <div>
             <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
-            {lieuDitComplementNomAlt && <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />}
+            <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />
           </div>
         )}
         {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
@@ -173,7 +173,7 @@ Numero.propTypes = {
   voie: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired,
-    nomVoieAlt: PropTypes.object
+    nomVoieAlt: PropTypes.object.isRequired
   }),
   libelleAcheminement: PropTypes.string,
   codePostal: PropTypes.string,
@@ -187,7 +187,6 @@ Numero.propTypes = {
 Numero.defaultProps = {
   suffixe: null,
   lieuDitComplementNom: null,
-  lieuDitComplementNomAlt: null,
   positions: [],
   codePostal: null,
   libelleAcheminement: null,

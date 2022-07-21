@@ -22,7 +22,7 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
       <div className='heading'>
         <div>
           <h2>{nomVoie}</h2>
-          {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
+          <LanguagesPreview nomAlt={nomVoieAlt} />
         </div>
 
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
@@ -82,7 +82,6 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
 }
 
 Voie.propTypes = {
-  nomVoieAlt: null,
   commune: null,
   numeros: null,
   nbNumeros: null,
@@ -92,7 +91,7 @@ Voie.propTypes = {
 
 Voie.propTypes = {
   nomVoie: PropTypes.string.isRequired,
-  nomVoieAlt: PropTypes.object,
+  nomVoieAlt: PropTypes.object.isRequired,
   type: PropTypes.oneOf(['voie', 'lieu-dit']),
   commune: PropTypes.shape({
     id: PropTypes.string,

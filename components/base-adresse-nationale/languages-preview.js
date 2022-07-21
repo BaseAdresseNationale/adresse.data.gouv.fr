@@ -1,3 +1,4 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import {HelpCircle} from 'react-feather'
@@ -12,6 +13,10 @@ const isFlagExist = codeISO => {
 
 function LanguagesPreview({nomAlt}) {
   const altNames = Object.keys(nomAlt)
+
+  if (altNames.length === 0) {
+    return null
+  }
 
   return (
     <>
@@ -104,4 +109,4 @@ LanguagesPreview.propTypes = {
   nomAlt: PropTypes.object.isRequired
 }
 
-export default LanguagesPreview
+export default React.memo(LanguagesPreview)

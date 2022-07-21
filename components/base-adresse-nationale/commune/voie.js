@@ -16,7 +16,7 @@ function Voie({id, type, nomVoie, nomVoieAlt, nbNumeros}) {
               <div><b>{nomVoie}</b></div>
               {nbNumeros > 0 && <div className='numeros'>{nbNumeros} numéros</div>}
             </div>
-            {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
+            <LanguagesPreview nomAlt={nomVoieAlt} />
           </div>
           {type === 'lieu-dit' && <Tag type='lieu-dit' />}
         </div>
@@ -39,7 +39,7 @@ function Voie({id, type, nomVoie, nomVoieAlt, nbNumeros}) {
 
           .voie-default-name {
             display: flex;
-            flex-direction: ${nomVoieAlt ? 'row' : 'column'};
+            flex-direction: ${Object.keys(nomVoieAlt).length > 0 ? 'row' : 'column'};
             justify-content: space-between;
           }
 
@@ -62,11 +62,7 @@ Voie.propTypes = {
   type: PropTypes.oneOf(['voie', 'lieu-dit']),
   nomVoie: PropTypes.string.isRequired,
   nbNumeros: PropTypes.number.isRequired,
-  nomVoieAlt: PropTypes.object
-}
-
-Voie.defaultProps = {
-  nomVoieAlt: null
+  nomVoieAlt: PropTypes.object.isRequired
 }
 
 export default Voie
