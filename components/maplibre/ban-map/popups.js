@@ -7,17 +7,13 @@ import ParcellesList from '@/components/base-adresse-nationale/parcelles-list'
 
 import {sources} from './layers'
 
-function PopupNumero({numero, suffixe, parcelles, nomVoie, nomCommune, codeCommune, sourcePosition}) {
+function PopupNumero({numero, suffixe, parcelles, lieuDitComplementNom, nomVoie, nomCommune, codeCommune, sourcePosition}) {
   const position = sources[sourcePosition]
 
   return (
     <div>
       <div className='heading'>
-        <div>
-          <div>
-            <b>{numero}{suffixe} {nomVoie}</b>
-          </div>
-        </div>
+        <b>{numero}{suffixe} {nomVoie} {lieuDitComplementNom ? `(${lieuDitComplementNom})` : ''}</b>
         <Tag type='numero' />
       </div>
       <div className='commune'>{nomCommune} - {codeCommune}</div>
@@ -69,6 +65,7 @@ PopupNumero.propTypes = {
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   parcelles: PropTypes.string,
+  lieuDitComplementNom: PropTypes.string,
   nomVoie: PropTypes.string.isRequired,
   nomCommune: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
