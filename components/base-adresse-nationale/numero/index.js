@@ -47,7 +47,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
               />
             </div>
           </div>
-          {voie.nomAlt && <LanguagesPreview nomAlt={voie.nomAlt} />}
+          {voie.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
         </div>
 
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
@@ -173,7 +173,7 @@ Numero.propTypes = {
   voie: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired,
-    nomAlt: PropTypes.object
+    nomVoieAlt: PropTypes.object
   }),
   libelleAcheminement: PropTypes.string,
   codePostal: PropTypes.string,

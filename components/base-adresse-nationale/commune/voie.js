@@ -6,7 +6,7 @@ import theme from '@/styles/theme'
 import Tag from '@/components/tag'
 import LanguagesPreview from '../languages-preview'
 
-function Voie({id, type, nomVoie, nomAlt, nbNumeros}) {
+function Voie({id, type, nomVoie, nomVoieAlt, nbNumeros}) {
   return (
     <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
       <a>
@@ -16,7 +16,7 @@ function Voie({id, type, nomVoie, nomAlt, nbNumeros}) {
               <div><b>{nomVoie}</b></div>
               {nbNumeros > 0 && <div className='numeros'>{nbNumeros} numéros</div>}
             </div>
-            {nomAlt && <LanguagesPreview nomAlt={nomAlt} />}
+            {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
           </div>
           {type === 'lieu-dit' && <Tag type='lieu-dit' />}
         </div>
@@ -39,7 +39,7 @@ function Voie({id, type, nomVoie, nomAlt, nbNumeros}) {
 
           .voie-default-name {
             display: flex;
-            flex-direction: ${nomAlt ? 'row' : 'column'};
+            flex-direction: ${nomVoieAlt ? 'row' : 'column'};
             justify-content: space-between;
           }
 
@@ -62,11 +62,11 @@ Voie.propTypes = {
   type: PropTypes.oneOf(['voie', 'lieu-dit']),
   nomVoie: PropTypes.string.isRequired,
   nbNumeros: PropTypes.number.isRequired,
-  nomAlt: PropTypes.object
+  nomVoieAlt: PropTypes.object
 }
 
 Voie.defaultProps = {
-  nomAlt: null
+  nomVoieAlt: null
 }
 
 export default Voie

@@ -13,7 +13,7 @@ import Notification from '@/components/notification'
 import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 
-function Voie({type, nomVoie, nomAlt, commune, numeros, parcelles, displayBBox, nbNumeros}) {
+function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBBox, nbNumeros}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
@@ -22,7 +22,7 @@ function Voie({type, nomVoie, nomAlt, commune, numeros, parcelles, displayBBox, 
       <div className='heading'>
         <div>
           <h2>{nomVoie}</h2>
-          {nomAlt && <LanguagesPreview nomAlt={nomAlt} />}
+          {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
         </div>
 
         {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
@@ -82,7 +82,7 @@ function Voie({type, nomVoie, nomAlt, commune, numeros, parcelles, displayBBox, 
 }
 
 Voie.propTypes = {
-  nomAlt: null,
+  nomVoieAlt: null,
   commune: null,
   numeros: null,
   nbNumeros: null,
@@ -92,7 +92,7 @@ Voie.propTypes = {
 
 Voie.propTypes = {
   nomVoie: PropTypes.string.isRequired,
-  nomAlt: PropTypes.object,
+  nomVoieAlt: PropTypes.object,
   type: PropTypes.oneOf(['voie', 'lieu-dit']),
   commune: PropTypes.shape({
     id: PropTypes.string,
