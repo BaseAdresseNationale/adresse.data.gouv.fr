@@ -12,11 +12,8 @@ function DownloadCard({format, url, isAvailable, color}) {
 
       <style jsx>{`
         .card-container {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
+          display: grid;
+          grid-template-rows: 1fr 70px;
           font-size: 22px;
           opacity: ${isAvailable ? '1' : '0.5'}
         }
@@ -30,7 +27,6 @@ function DownloadCard({format, url, isAvailable, color}) {
         }
 
         .format {
-          width: 100%;
           padding: 1em;
           font-size: 18px;
           font-weight: bold;
@@ -38,14 +34,16 @@ function DownloadCard({format, url, isAvailable, color}) {
           background: ${theme.colors.white};
           border-radius: 5px 5px 0 0;
           text-align: center;
+          align-items: center;
           display: flex;
           justify-content: center;
         }
 
         .download-container {
-          width: 100%;
-          padding: 1em 4em;
           border-radius: 0 0 5px 5px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .download-link {

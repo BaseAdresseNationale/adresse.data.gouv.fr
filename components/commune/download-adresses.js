@@ -39,9 +39,9 @@ function DownloadAdresses({codeCommune}) {
         }
 
         .cards-container {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
           gap: 2em;
         }
       `}</style>
