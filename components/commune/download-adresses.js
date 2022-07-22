@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 
-import {getAddressCSVLegacy, getLieuxDitsCSVLegacy} from '@/lib/api-ban'
+import {getAddressCSVLegacy, getLieuxDitsCSVLegacy, getAdressesCsvBal} from '@/lib/api-ban'
 
 import DownloadCard from './download-card'
 import SectionText from '../section-text'
 
 function DownloadAdresses({codeCommune}) {
+  const adressesCsvBalUrl = getAdressesCsvBal(codeCommune)
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
 
@@ -18,6 +19,7 @@ function DownloadAdresses({codeCommune}) {
       </SectionText>
 
       <div className='cards-container'>
+        <DownloadCard format='CSV BAL 1.3' url={adressesCsvBalUrl} isAvailable color='secondary' />
         <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' />
         <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' />
       </div>
@@ -37,9 +39,9 @@ function DownloadAdresses({codeCommune}) {
         }
 
         .cards-container {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
           gap: 2em;
         }
       `}</style>
