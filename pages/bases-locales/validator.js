@@ -9,7 +9,7 @@ const title = 'Le validateur BAL'
 function ValidatorPage() {
   return (
     <Page>
-      <Head title={title} icon={<UserCheck size={56} alt />} />
+      <Head title={title} icon={<UserCheck size={56} alt aria-hidden />} />
       <Validator />
     </Page>
   )

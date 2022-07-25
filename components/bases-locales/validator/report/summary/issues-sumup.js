@@ -24,12 +24,12 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
         &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) {percentageIssues}%
         <div className={`summary-icon ${issueType}`}>
           {issueType === 'error' ? (
-            <X style={{verticalAlign: 'bottom'}} alt />
+            <X style={{verticalAlign: 'bottom'}} alt aria-hidden />
           ) : (
             issueType === 'warning' ? (
-              <AlertTriangle style={{verticalAlign: 'bottom'}} alt />
+              <AlertTriangle style={{verticalAlign: 'bottom'}} alt aria-hidden />
             ) : (
-              <Info style={{verticalAlign: 'bottom'}} alt />
+              <Info style={{verticalAlign: 'bottom'}} alt aria-hidden />
             )
           )}
         </div>

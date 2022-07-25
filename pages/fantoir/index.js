@@ -35,7 +35,7 @@ function Fantoir({departements}) {
 
   return (
     <Page title={title}>
-      <Head title={title} icon={<Database size={56} alt />} />
+      <Head title={title} icon={<Database size={56} alt aria-hidden />} />
       <Section title='Liste des départements'>
         <div className='search'>
           <SearchBar

@@ -25,7 +25,7 @@ class BasesAdressesLocalesPage extends React.Component {
 
     return (
       <Page title={title} description={description}>
-        <Head title={title} icon={<Database size={56} alt />} />
+        <Head title={title} icon={<Database size={56} alt aria-hidden />} />
         <BasesLocales datasets={datasets} stats={stats} />
       </Page>
     )

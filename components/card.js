@@ -30,7 +30,7 @@ function Card({title, link, action, links, list, children, color}) {
 
       {link ? (
         <a className='download-link' href={link}>
-          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '4px'}} alt /> {action}
+          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '4px'}} alt aria-hidden /> {action}
         </a>
       ) : (
         <div className='no-link'>

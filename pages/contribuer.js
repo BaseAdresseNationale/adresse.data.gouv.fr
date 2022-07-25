@@ -14,7 +14,7 @@ const description = 'Les différents outils à votre disposition pour contribuer
 function Contribuer() {
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Edit2 size={56} alt />} />
+      <Head title={title} icon={<Edit2 size={56} alt aria-hidden />} />
       <Section subtitle='Que vous soyez une commune, une entreprise ou un simple citoyen, vous pouvez contribuer à la Base Adresse Nationale' background='grey' />
 
       <Section title='En tant que commune' subtitle='Créer une Base Adresse Locale' id='commune'>
@@ -28,7 +28,7 @@ function Contribuer() {
               <b>Plusieurs outils</b> existent leur permettant d’exercer cette compétence essentielle.
             </p>
           </SectionText>
-          <ButtonLink size='large' href='/gerer-mes-adresses'>Gérer mes adresses <MapPin style={{verticalAlign: 'bottom', marginRight: '5px'}} alt /></ButtonLink>
+          <ButtonLink size='large' href='/gerer-mes-adresses'>Gérer mes adresses <MapPin style={{verticalAlign: 'bottom', marginRight: '5px'}} alt aria-hidden /></ButtonLink>
         </div>
       </Section>
 
@@ -45,7 +45,7 @@ function Contribuer() {
           <p style={{margin: '3em 0'}}>Vous utilisez les données diffusées par ce site et vous avez identifié des alertes récurrentes sur une typologie d’adresse particulière ou dans une zone ?</p>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt aria-hidden />
           </ButtonLink>
         </div>
       </Section>

@@ -10,7 +10,7 @@ function SearchPartnersResults({companies, organizations, communes}) {
       <div className='contact-container'>
         <div className='subscription-indication'>Vous souhaitez être référencé comme Partenaire de la Charte de la Base Adresse Nationale, contactez nous.</div>
         <Notification isFullWidth>
-          <HelpCircle style={{verticalAlign: 'bottom', marginRight: '5px'}} alt />
+          <HelpCircle style={{verticalAlign: 'bottom', marginRight: '5px'}} alt aria-hidden />
           Pour en faire partie, vous pouvez nous contacter à l’adresse suivante: <a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr.</a>
         </Notification>
       </div>

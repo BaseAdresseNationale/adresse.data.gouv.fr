@@ -9,7 +9,7 @@ function Published({codeCommune}) {
     <div>
       <div className='published'>
         <div className='header'>
-          <div className='valid'><Check size={45} alt /></div>
+          <div className='valid'><Check size={45} alt aria-hidden /></div>
           <h1>Votre Base Adresse Locale a bien été publiée !</h1>
         </div>
 
@@ -65,7 +65,7 @@ function Published({codeCommune}) {
       </div>
 
       <ButtonLink style={{marginTop: '1em'}} href='/bases-locales/publication'>
-        <ArrowLeft style={{verticalAlign: 'top'}} alt /> Publier une autre Base Adresse Locale
+        <ArrowLeft style={{verticalAlign: 'top'}} alt aria-hidden /> Publier une autre Base Adresse Locale
       </ButtonLink>
 
       <style jsx>{`

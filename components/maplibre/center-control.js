@@ -10,7 +10,7 @@ function CenterControl({isDisabled, handleClick}) {
       title='Recentrer la carte'
       onClick={handleClick}
     >
-      <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} alt />
+      <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} alt aria-hidden />
     </button>
   )
 }

@@ -55,7 +55,7 @@ function Partner({partnerInfos, isCommune}) {
         <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
           <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
           <div className='chevron'>
-            <Chevron size={18} color={`${theme.colors.lightBlue}`} alt />
+            <Chevron size={18} color={`${theme.colors.lightBlue}`} alt aria-hidden />
           </div>
         </button>
       </div>
