@@ -75,7 +75,7 @@ function FoundFields({fields}) {
           }
 
           .lr-tooltip {
-            width: 125px;
+            width: max-content;
             font-size: 16px;
             font-weight: bold;
           }
