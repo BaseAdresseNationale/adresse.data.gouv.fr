@@ -21,7 +21,7 @@ function FoundFields({fields}) {
           </tr>
           {fields.length > 0 ? fields.map(field => (
             <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
-              <td className={field.locale ? 'lr-field' : ''}>
+              <td className='lr-field'>
                 {field.name}
                 {field.locale && (
                   <Tooltip
