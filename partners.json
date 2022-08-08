@@ -940,6 +940,26 @@
       "picture": "/images/logos/partners/epci/quimperle.png",
       "height": 124,
       "width": 245
+    },
+    {
+      "name": "Agence Départementale d’Ingénierie de l’Orne",
+      "link": " https://ingenierie.orne.fr/",
+      "infos": "L’Agence Départementale d’Ingénierie de l’Orne propose d’accompagner les communes dans leurs actions d’adressage. Ce travail est complété par la mise à disposition d’une application web-SIG qui gère les points « adresse » et le linéaire des voies avec leurs noms.",
+      "perimeter": "Département de l'Orne",
+      "codeDepartement": [
+        "61"
+      ],
+      "echelon": 2,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/orne.png",
+      "height": 68,
+      "width": 245
     }
   ],
   "companies": [
