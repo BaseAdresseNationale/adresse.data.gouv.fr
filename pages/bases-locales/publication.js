@@ -138,7 +138,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
 
         {commune && (
           <div className='commune-infos'>
-            <Image src='/images/icons/commune.svg' height={60} width={60} alt aria-hidden />
+            <Image src='/images/icons/commune.svg' height={60} width={60} alt aria-hidden='true' />
             <Link href={`/commune/${commune.code}`} passHref><div>{commune.nom} - {commune.code}</div></Link>
           </div>
         )}

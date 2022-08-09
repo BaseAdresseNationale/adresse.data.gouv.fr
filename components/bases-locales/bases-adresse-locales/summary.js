@@ -48,7 +48,7 @@ class Summary extends React.Component {
             </ButtonLink>
             {url &&
               <a href={url} aria-label={`Télécharger les ${title}`}>
-                <DownloadCloud size={18} style={{verticalAlign: 'middle', marginRight: '5px'}} alt aria-hidden />
+                <DownloadCloud size={18} style={{verticalAlign: 'middle', marginRight: '5px'}} alt aria-hidden='true' />
                 Télécharger la Base Adresse Locale
               </a>}
           </div>

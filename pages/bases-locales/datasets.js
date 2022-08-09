@@ -23,7 +23,7 @@ class Datasets extends React.Component {
 
     return (
       <Page title={title} description={description}>
-        <Head title={title} icon={<Database size={56} alt aria-hidden />} />
+        <Head title={title} icon={<Database size={56} alt aria-hidden='true' />} />
         <BasesAdresseLocales datasets={datasets} />
       </Page>
     )

@@ -32,7 +32,7 @@ function LanguagesPreview({nomAlt}) {
                       src={isFlagExist(codeISO) ? `/images/icons/flags/${codeISO}.svg` : '/images/icons/flags/ntr.svg'}
                       height={20}
                       width={20}
-                      aria-hidden
+                      aria-hidden='true'
                     />
                     {nomAlt[codeISO]}
                   </li>
@@ -51,7 +51,7 @@ function LanguagesPreview({nomAlt}) {
             src={isFlagExist(altNames[0]) ? `/images/icons/flags/${altNames[0]}.svg` : '/images/icons/flags/ntr.svg'}
             height={22}
             width={22}
-            aria-hidden
+            aria-hidden='true'
           />
           <div className='alt-name'>{nomAlt[altNames]}</div>
         </div>

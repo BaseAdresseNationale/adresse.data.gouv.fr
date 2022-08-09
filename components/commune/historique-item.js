@@ -14,14 +14,14 @@ function HistoriqueItem({balData, communeName}) {
   return (
     <div className='item-container'>
       <div className='update-infos'>
-        <div className='status'><Circle color={current ? theme.successBorder : theme.colors.darkGrey} alt aria-hidden /></div>
+        <div className='status'><Circle color={current ? theme.successBorder : theme.colors.darkGrey} alt aria-hidden='true' /></div>
         <div className='date'>{sanitizedDateTime(updatedAt)}</div>
       </div>
 
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client.nom}</b></div>
-        <a href={balURL} aria-label={`Télécharger la version du ${accessibleDateTime(updatedAt)}`}><Download alt aria-hidden /></a>
+        <a href={balURL} aria-label={`Télécharger la version du ${accessibleDateTime(updatedAt)}`}><Download alt aria-hidden='true' /></a>
       </div>
 
       <style jsx>{`

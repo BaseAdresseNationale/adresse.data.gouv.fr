@@ -81,7 +81,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
               rel='noreferrer'
               href={`https://mes-adresses.data.gouv.fr/new?commune=${codeCommune}`}
             >
-              Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt aria-hidden />
+              Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt aria-hidden='true' />
             </ButtonLink>
           </div>
         </Notification>

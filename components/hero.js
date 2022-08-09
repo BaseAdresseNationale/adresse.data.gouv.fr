@@ -25,7 +25,7 @@ function Hero({title, tagline}) {
           <div className='data-tools'>
             <CircleLink
               href='/download'
-              icon={<Download size={48} color={theme.colors.white} alt aria-hidden />}
+              icon={<Download size={48} color={theme.colors.white} alt aria-hidden='true' />}
               isImportant
               size='80'
             >
@@ -33,7 +33,7 @@ function Hero({title, tagline}) {
             </CircleLink>
             <CircleLink
               href='/contribuer'
-              icon={<Edit3 size={48} color={theme.colors.white} alt aria-hidden />}
+              icon={<Edit3 size={48} color={theme.colors.white} alt aria-hidden='true' />}
               isImportant
               size='80'
             >
@@ -41,7 +41,7 @@ function Hero({title, tagline}) {
             </CircleLink>
             <CircleLink
               href='/bases-locales'
-              icon={<Database size={48} color={theme.colors.white} alt aria-hidden />}
+              icon={<Database size={48} color={theme.colors.white} alt aria-hidden='true' />}
               isImportant
               label='Découvrir la Base Adresse Locale'
               size='80'
@@ -50,7 +50,7 @@ function Hero({title, tagline}) {
             </CircleLink>
             <CircleLink
               href='/outils'
-              icon={<ToolsIcon size={48} color={theme.colors.white} alt aria-hidden />}
+              icon={<ToolsIcon size={48} color={theme.colors.white} alt aria-hidden='true' />}
               isImportant
               size='80'
             >

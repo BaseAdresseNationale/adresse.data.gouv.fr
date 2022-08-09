@@ -19,7 +19,7 @@ function Charte() {
 
   return (
     <Page title={title} description={description} >
-      <Head title={title} icon={<Download size={56} alt aria-hidden />} />
+      <Head title={title} icon={<Download size={56} alt aria-hidden='true' />} />
 
       <Section background='white' title='Charte de la Base Adresse Locale'>
         <SectionText>
@@ -47,7 +47,7 @@ function Charte() {
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' color='white' isExternal isOutlined>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt aria-hidden />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt aria-hidden='true' />
           </ButtonLink>
         </div>
 

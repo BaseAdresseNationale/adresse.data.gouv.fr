@@ -38,7 +38,7 @@ class Header extends React.Component {
             </Info>
           )}
         </div>
-        {logo && <Image objectFit='contain' width={240} height={140} src={logo} alt aria-hidden />}
+        {logo && <Image objectFit='contain' width={240} height={140} src={logo} alt aria-hidden='true' />}
 
         <style jsx>{`
           .head {

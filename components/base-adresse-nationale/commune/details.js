@@ -11,7 +11,7 @@ function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, code
       <div className='commune-general'>
         <PostalCodes codes={codesPostaux} />
         <div className='with-icon'>
-          <Users alt aria-hidden /> <div><b>{population}</b> habitants</div>
+          <Users alt aria-hidden='true' /> <div><b>{population}</b> habitants</div>
         </div>
       </div>
       <div className='number-of-wrapper'>

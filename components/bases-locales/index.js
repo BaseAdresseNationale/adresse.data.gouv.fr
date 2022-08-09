@@ -46,12 +46,12 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='parters'>
             <div className='partner'>
-              <div><Image src='/images/logos/logo_ANCT.svg' alt aria-hidden width={190} height={80} layout='fixed' /></div>
+              <div><Image src='/images/logos/logo_ANCT.svg' alt aria-hidden='true' width={190} height={80} layout='fixed' /></div>
               <div><b>Le Programme Bases Adresses Locales de l’Agence Nationale pour la Cohésion des Territoires (ANCT)</b> est en place pour faciliter leur déploiement.</div>
             </div>
 
             <div className='partner'>
-              <div><Image src='/images/logos/logo-AMF.jpg' alt aria-hidden width={201} height={106} layout='fixed' /></div>
+              <div><Image src='/images/logos/logo-AMF.jpg' alt aria-hidden='true' width={201} height={106} layout='fixed' /></div>
               <div><b>L’Association des Maires de France soutient la démarche.</b></div>
             </div>
           </div>
@@ -60,7 +60,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         <Notification style={{margin: '2em 0 -1em 0'}}>
           <div className='notification-content'>
             <div>
-              <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} alt aria-hidden />
+              <HelpCircle style={{verticalAlign: 'bottom', marginRight: '4px'}} alt aria-hidden='true' />
               Vous êtes une commune et souhaitez mettre en place une Base Adresse Locale à l’aide d’outils existants ?
             </div>
             <ButtonLink href='/gerer-mes-adresses'>
@@ -82,7 +82,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
             isOutlined
             color='white'
           >
-            Valider vos données au format BAL <CheckSquare style={{verticalAlign: 'middle', marginLeft: '3px'}} alt aria-hidden />
+            Valider vos données au format BAL <CheckSquare style={{verticalAlign: 'middle', marginLeft: '3px'}} alt aria-hidden='true' />
           </ButtonLink>
         </div>
       </Section>

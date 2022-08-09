@@ -39,7 +39,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
 
   return (
     <Page title='Le Blog de L’Adresse'>
-      <Head title='Le Blog de L’Adresse' icon={<Book size={56} alt aria-hidden />} />
+      <Head title='Le Blog de L’Adresse' icon={<Book size={56} alt aria-hidden='true' />} />
       <Section>
         {posts ? (
           <>
@@ -56,7 +56,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
                           key={tag} className='tag'
                           onClick={() => removeTag(tag)}
                         >
-                          {getTagName(tag)} <X size='15' style={{verticalAlign: 'middle'}} alt aria-hidden />
+                          {getTagName(tag)} <X size='15' style={{verticalAlign: 'middle'}} alt aria-hidden='true' />
                         </button>
                       ))}
                     </div>
