@@ -13,6 +13,8 @@ function Tooltip({message, direction, children}) {
         position: relative;
         display: inline-block;
         cursor: help;
+        display: flex;
+        align-self: center;
       }
 
       .tooltip-bottom .tooltip-text, .tooltip-left .tooltip-text, .tooltip-right .tooltip-text {

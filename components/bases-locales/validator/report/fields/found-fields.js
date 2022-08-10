@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types'
+import Image from 'next/image'
+import {capitalize} from 'lodash'
+
+import languesRegionales from '@ban-team/shared-data/langues-regionales.json'
 
 import theme from '@/styles/theme'
+
+import Tooltip from '@/components/base-adresse-nationale/tooltip'
 
 function FoundFields({fields}) {
   return (
@@ -15,7 +21,23 @@ function FoundFields({fields}) {
           </tr>
           {fields.length > 0 ? fields.map(field => (
             <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
-              <td>{field.name}</td>
+              <td className='lr-field'>
+                {field.name}
+                {field.locale && (
+                  <Tooltip
+                    message={
+                      <div className='lr-tooltip'>
+                        Langue régionale
+                        <div className='lr'>
+                          {capitalize(languesRegionales.find(langue => langue.code === field.locale).label)}
+                        </div>
+                      </div>
+                    }
+                  >
+                    <Image src={`/images/icons/flags/${field.locale}.svg`} height={25} width={25} />
+                  </Tooltip>
+                )}
+              </td>
               <td>{field.schemaName}</td>
               <td>{field.version}</td>
             </tr>
@@ -44,6 +66,23 @@ function FoundFields({fields}) {
 
           th, td {
             padding: 0.5em;
+          }
+
+          .lr-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .lr-tooltip {
+            width: max-content;
+            font-size: 16px;
+            font-weight: bold;
+          }
+
+          .lr {
+            font-size: 14px;
+            font-style: italic;
           }
         `}</style>
       </table>
