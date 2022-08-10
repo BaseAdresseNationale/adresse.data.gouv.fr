@@ -33,9 +33,9 @@ function Guides() {
       <Section background='color' title='Documentation'>
         <p>Cette <b>documentation</b> vous fournit les informations relatives à la <b>Base Adresse Nationale</b>, au format <b>Base Adresse Locale</b>, ainsi que des FAQ et conseils pratiques.</p>
         <div className='button-container'>
-          <div className='logos-container'>
-            <Image src='/images/logos/BAN.svg' height={210} width={210} alt aria-hidden='true' />
-            <Image src='/images/logos/BAL.svg' height={200} width={200} alt aria-hidden='true' />
+          <div className='logos-container' aria-hidden='true'>
+            <Image src='/images/logos/BAN.svg' height={210} width={210} alt />
+            <Image src='/images/logos/BAL.svg' height={200} width={200} alt />
           </div>
           <ButtonLink href='https://doc.adresse.data.gouv.fr/' isExternal isOutlined color='white'>
             Accéder à la documentation

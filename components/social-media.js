@@ -34,7 +34,7 @@ function SocialMedia() {
         >
           <Image src='/images/logos/newsletter.svg' height={88} width={88} alt aria-hidden='true' />
           <div className='dropdown'>
-            {isShown ? <ChevronDown alt aria-hidden='true' /> : <ChevronRight alt aria-hidden='true' />}
+            <div aria-hidden='true'>{isShown ? <ChevronDown alt /> : <ChevronRight alt />}</div>
             En s’inscrivant à l’infolettre
           </div>
         </button>
@@ -86,7 +86,6 @@ function SocialMedia() {
 
           .dropdown {
             display: flex;
-            align-items: center;
           }
         `}</style>
     </>
