@@ -2,29 +2,30 @@ import PropTypes from 'prop-types'
 
 import colors from '@/styles/colors'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function Tabs({activeTab, setActiveTab}) {
   return (
     <div className='tab-container'>
-      <button
-        type='button'
-        aria-label='Afficher les voies'
-        className={`tab ${activeTab === 'VOIES' ? 'active' : 'inactive'}`}
+      <ActionButtonNeutral
+        label='Afficher les voies'
+        isFullSize
         onClick={() => {
           setActiveTab('VOIES')
         }}
       >
-        Voies
-      </button>
-      <button
-        type='button'
-        aria-label='Afficher les lieux-dits'
-        className={`tab ${activeTab === 'LIEUXDITS' ? 'active' : 'inactive'}`}
+        <div className={`tab ${activeTab === 'VOIES' ? 'active' : 'inactive'}`}>Voies</div>
+      </ActionButtonNeutral>
+
+      <ActionButtonNeutral
+        label='Afficher les lieux-dits'
+        isFullSize
         onClick={() => {
           setActiveTab('LIEUXDITS')
         }}
       >
-        Lieux-dits
-      </button>
+        <div className={`tab ${activeTab === 'LIEUXDITS' ? 'active' : 'inactive'}`}> Lieux-dits</div>
+      </ActionButtonNeutral>
 
       <style jsx>{`
         .tab-container {
@@ -39,11 +40,7 @@ function Tabs({activeTab, setActiveTab}) {
           text-align: center;
           padding: 0.5em;
           background-color: ${colors.lighterGrey};
-          border: none;
-        }
-
-        .tab:hover {
-          cursor: pointer;
+          font-weight: bold;
         }
 
         .active {

@@ -4,6 +4,8 @@ import {ChevronRight, ChevronDown} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function Dropdown({code, nom, communesCount, size, color, children}) {
   const [isOpen, setIsOpen] = useState(false)
   const Chevron = isOpen ? ChevronDown : ChevronRight
@@ -15,34 +17,33 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
   }
 
   return (
-    <button
-      type='button'
-      className={`
-        dropdown-container
-        ${isDisabled ? 'disabled' : ''}
-        ${color === 'secondary' ? 'alt' : ''}
-      `}
-      onClick={dropdownToggle}
-    >
-      <div className='visible-container'>
-        <div className='dropdown-infos-container'>
-          <div className='name' aria-label={`Commune ${nom}, code INSEE ${code}`}>{nom} - {code}</div>
-          <div className='communes-length'>
-            {isDisabled ? 'Aucune commune partenaire' : (
-              <div aria-label={`${communesCount} communes partenaires`} className='commune-count'><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
-            )}
+    <ActionButtonNeutral isFullWidth onClick={dropdownToggle}>
+      <div
+        className={`
+          dropdown-container
+          ${isDisabled ? 'disabled' : ''}
+          ${color === 'secondary' ? 'alt' : ''}
+        `}
+      >
+        <div className='visible-container'>
+          <div className='dropdown-infos-container'>
+            <div className='name' aria-label={`Commune ${nom}, code INSEE ${code}`}>{nom} - {code}</div>
+            <div className='communes-length'>
+              {isDisabled ? 'Aucune commune partenaire' : (
+                <div aria-label={`${communesCount} communes partenaires`} className='commune-count'><b>{communesCount}</b> {communesCount <= 1 ? 'commune partenaire' : 'communes partenaires'}</div>
+              )}
+            </div>
           </div>
+
+          <Chevron
+            style={{cursor: 'pointer'}}
+            color={color === 'primary' ? theme.primary : theme.colors.white}
+            alt
+          />
         </div>
 
-        <Chevron
-          style={{cursor: 'pointer'}}
-          color={color === 'primary' ? theme.primary : theme.colors.white}
-          alt
-        />
+        {isOpen && children}
       </div>
-
-      {isOpen && children}
-
       <style jsx>{`
         .dropdown-container {
           background: ${theme.backgroundGrey};
@@ -53,8 +54,6 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
           border-radius: ${theme.borderRadius};
           margin: 1em 0;
           opacity: 100%;
-          pointer-events: auto;
-          border: none;
         }
 
         .dropdown-container:hover {
@@ -92,7 +91,7 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
           font-style: italic;
         }
       `}</style>
-    </button>
+    </ActionButtonNeutral>
   )
 }
 

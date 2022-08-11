@@ -3,19 +3,30 @@ import {Layout} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function CadastreLayerControl({isDisabled, isActived, handleClick}) {
   return (
-    <button
+    <ActionButtonNeutral
       disabled={isDisabled}
-      type='button'
       className='maplibregl-ctrl'
       title={`${isActived ? 'Masquer' : 'Afficher'} le cadastre`}
       onClick={handleClick}
     >
-      <Layout color={isDisabled ? '#cdcdcd' : (
-        isActived ? theme.primary : theme.darkText
-      )} size={18} alt />
-    </button>
+      <div className='maplibregl-ctrl layout-icon'>
+        <Layout color={isDisabled ? '#cdcdcd' : (isActived ? theme.primary : theme.darkText)} size={18} alt />
+      </div>
+
+      <style jsx>{`
+        .layout-icon {
+          width: 29px;
+          height: 29px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      `}</style>
+    </ActionButtonNeutral>
   )
 }
 

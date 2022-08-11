@@ -6,6 +6,7 @@ import theme from '@/styles/theme'
 import allEvents from '../../events.json'
 
 import EventModal from './event-modal'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 const today = new Date().setHours(0, 0, 0, 0)
 const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
@@ -43,16 +44,12 @@ function EventBanner() {
 
           return (
             <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
-              <button
-                type='button'
-                className='event-link'
-                aria-label={`Afficher l’évènement ${event.title}`}
-                onClick={() => setSelectedEvent(event)}
-              >
-                {event.title}
-              </button>
-              {event.subtitle && <div>{event.subtitle}</div>}
-              <div className='date'>le {sanitizedDate}</div>
+              <ActionButtonNeutral label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)}>
+                <div className='event-link'>
+                  {event.subtitle && <div>{event.subtitle}</div>}
+                  <div className='date'>le {sanitizedDate}</div>
+                </div>
+              </ActionButtonNeutral>
             </li>
           )
         }
@@ -61,13 +58,13 @@ function EventBanner() {
 
       <div className='slideshow-dots'>
         {events.map((event, idx) => (
-          <button
-            aria-label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${accessibleDate}`}
-            type='button'
+          <ActionButtonNeutral
+            label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${accessibleDate}`}
             key={`${event.title}-${event.date}`}
-            className={`slideshow-dot ${index === idx ? 'active' : ''}`}
             onClick={() => setIndex(idx)}
-          />
+          >
+            <div className={`slideshow-dot ${index === idx ? 'active' : ''}`} />
+          </ActionButtonNeutral>
         ))}
       </div>
 
@@ -117,8 +114,6 @@ function EventBanner() {
           font-size: 16px;
           font-weight: bold;
           text-align: center;
-          border: none;
-          background: none;
         }
 
         .date {

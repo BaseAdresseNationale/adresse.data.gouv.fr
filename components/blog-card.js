@@ -4,6 +4,8 @@ import Link from 'next/link'
 
 import colors from '@/styles/colors'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function BlogCard({post, onClick}) {
   const link = onClick ? `/blog/${post.slug}` : `/bases-locales/temoignages/${post.slug}`
 
@@ -23,9 +25,9 @@ function BlogCard({post, onClick}) {
       {onClick && post.tags && (
         <div className='blog-tags-container'>
           {post.tags.map(tag => (
-            <button type='button' aria-label={`Sélectionner le tag ${tag.name}`} key={tag.id} onClick={() => onClick(tag)}>
-              {tag.name}
-            </button>
+            <ActionButtonNeutral label={`Sélectionner le tag ${tag.name}`} key={tag.id} onClick={() => onClick(tag)}>
+              <div className='tag'>{tag.name}</div>
+            </ActionButtonNeutral>
           ))}
         </div>
       )}
@@ -62,15 +64,12 @@ function BlogCard({post, onClick}) {
           margin: .5em 0;
         }
 
-        .blog-tags-container button {
+        .tag {
           height: fit-content;
           background-color: ${colors.lighterBlue};
           text-decoration: underline;
-          cursor: pointer;
-          border: none;
           border-radius: 15px;
           padding: 5px 8px;
-          font-size: .8em;
           font-style: oblique;
         }
 

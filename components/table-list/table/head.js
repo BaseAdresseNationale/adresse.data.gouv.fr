@@ -1,23 +1,22 @@
 import PropTypes from 'prop-types'
 import {ArrowDown} from 'react-feather'
+
 import Header from './header'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 const order = (a, b, direction) => (
-  <button
-    type='button'
-    aria-label={`Trier par ordre ${direction === 'asc' ? 'croissant' : 'décroissant'}`}
-  >
-    <ArrowDown alt />
-    <div>
-      <div>{a}</div>
-      <div>{b}</div>
+  <ActionButtonNeutral label={`Trier par ordre ${direction === 'asc' ? 'croissant' : 'décroissant'}`}>
+    <div className='sort-button-content'>
+      <ArrowDown alt />
+      <div>
+        <div>{a}</div>
+        <div>{b}</div>
+      </div>
     </div>
 
     <style jsx>{`
-      button {
+      .sort-button-content {
         display: inline-flex;
-        border: none;
-        background: none;
         color: white;
       }
 
@@ -30,7 +29,8 @@ const order = (a, b, direction) => (
         margin-top: -2px
       }
     `}</style>
-  </button>
+
+  </ActionButtonNeutral>
 )
 
 const alphabetical = {

@@ -4,24 +4,28 @@ import {ChevronUp, ChevronDown} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function VoieInformation({voie}) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className='line-container'>
-      <button
-        type='button'
-        aria-label={`${isOpen ? 'Masquer' : 'Afficher'} les informations concernant la voie ${voie.libelleVoieComplet}`}
-        className={voie?.dateAnnulation ? 'line title canceled' : 'line title'}
+      <ActionButtonNeutral
+        isFullSize
+        label={`${isOpen ? 'Masquer' : 'Afficher'} les informations concernant la voie ${voie.libelleVoieComplet}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className='infos'>{voie.libelleVoieComplet}</div>
-        <div className='infos'>{voie.typeVoie}</div>
-        <div className='infos'>{voie.codeRivoli}</div>
-        <div>
-          {isOpen ? <ChevronUp size={35} alt /> : <ChevronDown size={35} alt />}
+        <div className={voie?.dateAnnulation ? 'line title canceled' : 'line title'}>
+          <div className='infos'>{voie.libelleVoieComplet}</div>
+          <div className='infos'>{voie.typeVoie}</div>
+          <div className='infos'>{voie.codeRivoli}</div>
+          <div>
+            {isOpen ? <ChevronUp size={35} alt /> : <ChevronDown size={35} alt />}
+          </div>
         </div>
-      </button>
+      </ActionButtonNeutral>
+
       {isOpen && (
         <div className='voie-tags'>
           <div>Code Rivoli : <span>{voie.codeRivoli}</span></div>
@@ -44,12 +48,6 @@ function VoieInformation({voie}) {
           padding: .5em;
         }
 
-        button {
-          width: 100%;
-          border: none;
-          background: none;
-        }
-
         .line {
           display: flex;
           padding: .5em;
@@ -59,7 +57,6 @@ function VoieInformation({voie}) {
         }
 
         .line:hover {
-          cursor: pointer;
           color: #000;
           background-color: ${theme.colors.lighterGrey};
         }

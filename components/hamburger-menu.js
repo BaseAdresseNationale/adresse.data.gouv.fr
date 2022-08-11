@@ -6,6 +6,8 @@ import {Menu, X} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 class HamburgerMenu extends React.Component {
   static propTypes = {
     links: PropTypes.arrayOf(PropTypes.shape({
@@ -32,9 +34,9 @@ class HamburgerMenu extends React.Component {
 
     return (
       <div className='dropdown'>
-        <button type='button' aria-label={`${visible ? 'Fermer' : 'Ouvrir'} le menu de navigation`} onClick={this.handleMenu}>
+        <ActionButtonNeutral label={`${visible ? 'Fermer' : 'Ouvrir'} le menu de navigation`} onClick={this.handleMenu}>
           {visible ? <X size={22} alt /> : <Menu size={22} alt />}
-        </button>
+        </ActionButtonNeutral>
 
         {visible && (
           <div className='content'>
@@ -51,11 +53,6 @@ class HamburgerMenu extends React.Component {
             position: relative;
             display: inline-block;
             cursor: pointer;
-          }
-
-          .dropdown button {
-            border: none;
-            background: none;
           }
 
           a {

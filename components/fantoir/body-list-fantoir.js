@@ -3,28 +3,24 @@ import {uniqueId} from 'lodash'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function BodyListFantoir({contents, onSelect, isCanceled}) {
   return (
     <div>
-      <button type='button' aria-label={`Accéder aux données de ${contents[0]}`} onClick={onSelect}>
+      <ActionButtonNeutral isFullSize label={`Accéder aux données de ${contents[0]}`} onClick={onSelect}>
         <div className={isCanceled ? 'line canceled' : 'line'}>
           {contents.map(item => (
             <div key={uniqueId('_infos')} className='infos'>{item}</div>
           ))}
         </div>
-      </button>
+      </ActionButtonNeutral>
 
       <style jsx>{`
-        button {
-          width: 100%;
-          border: none;
-          background: none;
-          font-size: 14px;
-        }
-
         .line {
           display: flex;
           padding: .5em;
+          font-size: 14px;
           border-bottom: 1px solid ${theme.border};
           border-left: 1px solid ${theme.border};
           border-right: 1px solid ${theme.border};
@@ -32,7 +28,6 @@ function BodyListFantoir({contents, onSelect, isCanceled}) {
         }
 
         .line:hover {
-          cursor: pointer;
           color: #000;
           background-color: ${theme.colors.lighterGrey};
         }

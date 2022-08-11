@@ -4,6 +4,8 @@ import {getLabel} from '@ban-team/validateur-bal'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
   const rowsCount = rows.length
   if (rowsCount === 0) {
@@ -13,21 +15,22 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
   const buttonLabel = `Afficher ${isOnAllLines ? 'toutes les lignes comportant l’alerte' : (rowsCount === 1 ? 'l’alerte' : `les ${rowsCount} alertes`)} ${getLabel(issue)}`
 
   return (
-    <button type='button' aria-label={buttonLabel} className='issue' onClick={onClick}>
-      <div>
-        <b>{
-          isOnAllLines ?
-            'Toutes les lignes' :
-            (rowsCount === 1 ?
-              `La ligne ${rows[0].line}` :
-              `${rowsCount} lignes`)
-        }</b> {rowsCount === 1 ? 'comporte' : 'comportent'} l’alerte :
+    <ActionButtonNeutral isFullSize label={buttonLabel} onClick={onClick}>
+      <div className='issue'>
+        <div>
+          <b>{
+            isOnAllLines ?
+              'Toutes les lignes' :
+              (rowsCount === 1 ?
+                `La ligne ${rows[0].line}` :
+                `${rowsCount} lignes`)
+          }</b> {rowsCount === 1 ? 'comporte' : 'comportent'} l’alerte :
 
-        <span className='colored'> {getLabel(issue)}</span>
+          <span className='colored'> {getLabel(issue)}</span>
+        </div>
+
+        <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} alt /></div>
       </div>
-
-      <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} alt /></div>
-
       <style jsx>{`
         .issue {
           padding: 0.4em 0;
@@ -46,8 +49,8 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
           cursor: pointer;
           background-color: #f8f8f8;
         }
-        `}</style>
-    </button>
+      `}</style>
+    </ActionButtonNeutral>
   )
 }
 

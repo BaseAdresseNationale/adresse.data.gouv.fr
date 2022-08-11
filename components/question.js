@@ -5,6 +5,8 @@ import {kebabCase} from 'lodash'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 class Question extends React.Component {
   state = {
     open: false
@@ -37,15 +39,17 @@ class Question extends React.Component {
 
     return (
       <div id={slug}>
-        <button
-          type='button'
-          aria-label={`Afficher la réponse à la question : ${question}`}
-          className={`question-container ${open ? 'is-open' : ''}`}
+        <ActionButtonNeutral
+          label={`Afficher la réponse à la question : ${question}`}
           onClick={this.toggle}
+          isFullSize
         >
-          <div className='question'>{question}</div>
-          <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} alt /> : <ChevronDown style={{verticalAlign: 'middle'}} alt />}</div>
-        </button>
+          <div className={`question-container ${open ? 'is-open' : ''}`}>
+            <div className='question'>{question}</div>
+            <div>{open ? <ChevronUp style={{verticalAlign: 'middle'}} alt /> : <ChevronDown style={{verticalAlign: 'middle'}} alt />}</div>
+          </div>
+        </ActionButtonNeutral>
+
         {open && (
           <div className='answer'>{children}</div>
         )}

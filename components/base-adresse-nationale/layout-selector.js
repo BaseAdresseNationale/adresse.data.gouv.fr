@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function LayoutSelector({name, value, icon, isSelected, handleClick}) {
   const Icon = icon
   return (
-    <button
-      type='button'
-      aria-label={`Sélectionner l'onglet ${name}`}
-      className={`layout ${isSelected ? 'selected' : ''}`}
+    <ActionButtonNeutral
+      isFullSize
+      label={`Sélectionner l'onglet ${name}`}
       onClick={() => handleClick(value)}
     >
-      <div alt><Icon /></div>
-      <div>{name}</div>
+      <div className={`layout ${isSelected ? 'selected' : ''}`}>
+        <div alt><Icon /></div>
+        <div>{name}</div>
+      </div>
 
       <style jsx>{`
         .layout {
@@ -21,8 +24,6 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
           align-items: center;
           padding-top: 0.5em;
           gap: 5px;
-          background: none;
-          border: none;
           color: ${theme.darkText};
         }
 
@@ -32,7 +33,7 @@ function LayoutSelector({name, value, icon, isSelected, handleClick}) {
           border-top: 4px solid ${theme.primary};
         }
         `}</style>
-    </button>
+    </ActionButtonNeutral>
   )
 }
 

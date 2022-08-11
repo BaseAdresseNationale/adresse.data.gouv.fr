@@ -2,6 +2,8 @@ import {useState} from 'react'
 import PropTypes from 'prop-types'
 import {X} from 'react-feather'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function SelectPaintLayer({options, selected, handleSelect, isMobile, children}) {
   const [isWrap, setIsWrap] = useState(true)
 
@@ -26,14 +28,9 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
         </select>
 
         {isMobile && !isWrap && (
-          <button
-            type='button'
-            aria-label='Fermer la séléction'
-            className='close-icon'
-            onClick={() => setIsWrap(true)}
-          >
-            <X alt />
-          </button>
+          <ActionButtonNeutral label='Fermer la sélection' onClick={() => setIsWrap(true)}>
+            <div className='close-icon'><X alt /></div>
+          </ActionButtonNeutral>
         )}
       </div>
 
@@ -84,10 +81,6 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
           font-size: 1.2em;
           margin-right: 1em;
           margin-left: 1em;
-          cursor: pointer;
-          border: none;
-          background: none;
-          height: fit-content;
         }
 
         .content {
