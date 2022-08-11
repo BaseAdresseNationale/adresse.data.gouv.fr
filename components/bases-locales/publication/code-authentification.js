@@ -89,7 +89,7 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
 
           <div>
             <div>Vous n’avez pas reçu votre code ?</div>
-            <ActionButtonNeutral onClick={sendBackCode}>
+            <ActionButtonNeutral onClick={sendBackCode} label=''>
               <div className='send-code'>Renvoyer un code à l’adresse {email}</div>
             </ActionButtonNeutral>
           </div>

@@ -11,6 +11,7 @@ function CadastreLayerControl({isDisabled, isActived, handleClick}) {
       disabled={isDisabled}
       className='maplibregl-ctrl'
       title={`${isActived ? 'Masquer' : 'Afficher'} le cadastre`}
+      label={`${isActived ? 'Masquer' : 'Afficher'} le cadastre`}
       onClick={handleClick}
     >
       <div className='maplibregl-ctrl layout-icon'>

@@ -17,7 +17,7 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
   }
 
   return (
-    <ActionButtonNeutral isFullWidth onClick={dropdownToggle}>
+    <ActionButtonNeutral isFullWidth onClick={dropdownToggle} label={`${isOpen ? 'Masquer' : 'Afficher'} les informations`}>
       <div
         className={`
           dropdown-container

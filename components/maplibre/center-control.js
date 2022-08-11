@@ -9,6 +9,7 @@ function CenterControl({isDisabled, handleClick}) {
       isFullSize
       disabled={isDisabled}
       title='Recentrer la carte'
+      label='Recentrer la carte'
       onClick={handleClick}
     >
       <div className='maplibregl-ctrl cross-icon'>

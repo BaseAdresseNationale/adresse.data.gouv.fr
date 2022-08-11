@@ -14,7 +14,7 @@ function OpenGPS({coordinates}) {
 
   return (
     <Link href={`${href}${lat},${lon}`} passHref>
-      <ActionButtonNeutral>
+      <ActionButtonNeutral label='Naviguer sur la carte'>
         <div className='maplibregl-ctrl navigation-icon'>
           <Navigation size={18} />
 
