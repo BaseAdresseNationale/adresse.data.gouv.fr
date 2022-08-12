@@ -120,6 +120,7 @@ function DonneesNatioales() {
           margin-top: 3em;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+          gap: 1em;
         }
         .adjust-img {
           text-align: center;
