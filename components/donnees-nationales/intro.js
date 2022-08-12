@@ -48,8 +48,8 @@ function Intro() {
         <div>
           <h6><List style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt /> Caractéristiques</h6>
           <ul>
-            <li>Producteur : <strong>Etalab</strong></li>
-            <li>Licence : <a href='https://www.etalab.gouv.fr/licence-ouverte-open-licence'>Licence Ouverte</a></li>
+            <li>Producteur : <strong>DINUM / ANCT / IGN</strong></li>
+            <li>Licence : <a href='https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf'>Licence Ouverte</a></li>
             <li>Fréquence de mise à jour : <strong>quotidienne</strong></li>
             <li>Couverture : <b>France entière (y compris les collectivités d’outremer)</b></li>
           </ul>
