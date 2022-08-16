@@ -21,12 +21,12 @@ function CommuneSchedules({scheldules}) {
     <div className='schedules'>
       <ActionButtonNeutral label={`${isDisplayed ? 'Masquer' : 'Afficher'} les horaires de la mairie`} onClick={toggleSchedules}>
         <div className='scheldule-dropdown'>
+          Horaires d’ouverture
           {isDisplayed ? (
             <ChevronDown style={{marginTop: '2px'}} alt aria-hidden='true' />
           ) : (
             <ChevronRight style={{marginTop: '2px'}} alt aria-hidden='true' />
           )}
-          Horaires d’ouverture
         </div>
       </ActionButtonNeutral>
 
@@ -66,6 +66,7 @@ function CommuneSchedules({scheldules}) {
           font-size: 17px;
           font-weight: bolder;
           display: flex;
+          align-items: center;
           gap: 5px;
           text-decoration: underline;
         }
