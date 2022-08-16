@@ -40,7 +40,7 @@ function VoieInformation({voie}) {
           )}
         </div>
       )}
-      
+
       <style jsx>{`
         .title {
           color: ${isOpen ? '#FFF' : '#000'};

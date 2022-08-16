@@ -40,7 +40,7 @@ function EventModal({event, isPassed, onClose}) {
             <XSquare alt aria-hidden='true' />
           </ActionButtonNeutral>
         </div>
-        
+
         <div className='modal-content'>
           <div className={`left-content ${type}`}>
             <div className='left-title'>📅 &nbsp; À vos agendas !</div>

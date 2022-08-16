@@ -79,7 +79,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
           </Notification>
         )}
       </Section>
-      
+
       <style jsx>{`
         .blog-section {
           padding-top: 1em;

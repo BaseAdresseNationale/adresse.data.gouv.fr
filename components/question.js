@@ -47,14 +47,14 @@ class Question extends React.Component {
           <div className={`question-container ${open ? 'is-open' : ''}`}>
             <div className='question'>{question}</div>
             <div>{open ? (
-                <ChevronUp style={{verticalAlign: 'middle'}} alt aria-hidden='true' /> 
-              ):(
-                <ChevronDown style={{verticalAlign: 'middle'}} alt aria-hidden='true' />
-              )}
-              </div>
+              <ChevronUp style={{verticalAlign: 'middle'}} alt aria-hidden='true' />
+            ) : (
+              <ChevronDown style={{verticalAlign: 'middle'}} alt aria-hidden='true' />
+            )}
+            </div>
           </div>
         </ActionButtonNeutral>
-        
+
         {open && (
           <div className='answer'>{children}</div>
         )}
