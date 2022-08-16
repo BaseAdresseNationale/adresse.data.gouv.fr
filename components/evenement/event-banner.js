@@ -46,10 +46,11 @@ function EventBanner() {
             <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
               <ActionButtonNeutral label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)}>
                 <div className='event-link'>
-                  {event.subtitle && <div>{event.subtitle}</div>}
-                  <div className='date'>le {sanitizedDate}</div>
+                  {event.title}
                 </div>
               </ActionButtonNeutral>
+              {event.subtitle && <div>{event.subtitle}</div>}
+              <div className='date'>le {sanitizedDate}</div>
             </li>
           )
         }
