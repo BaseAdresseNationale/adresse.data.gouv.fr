@@ -16,7 +16,7 @@ function Historique({revisions, communeName, hasHistoryAdresses}) {
     <Section title='Historique des mises à jour de la Base Adresse Locale'>
       {hasHistoryAdresses ? (
         <div className='historique-wrapper'>
-          <h4><RefreshCw size={25} alt /> Retrouvez les cinq dernières mises à jour</h4>
+          <h4><RefreshCw size={25} alt aria-hidden='true' /> Retrouvez les cinq dernières mises à jour</h4>
           <div className='historique-items'>
             {sortRevisionsByDate.slice(0, 5).map(revision => <HistoriqueItem key={revision._id} balData={revision} communeName={communeName} />)}
           </div>

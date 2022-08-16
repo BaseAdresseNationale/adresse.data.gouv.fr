@@ -517,17 +517,17 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
-"@ban-team/shared-data@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@ban-team/shared-data/-/shared-data-1.0.1.tgz#bc3f49beab5bf492ad5da4d2a3852a539e68416b"
-  integrity sha512-eRrAZ2QJRiYd3wiPQE1ejA8fwn18AWvKASaEn7ajGVxIjOD5ty3E2hKlLPDOjdrg/bsVrabzOvxnnUN0sxboIA==
+"@ban-team/shared-data@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@ban-team/shared-data/-/shared-data-1.1.0.tgz#5c1ee73fd98b86723ee9893a426cbfd9a6e5f6b6"
+  integrity sha512-+SnPGySf715hd2pvygtCN24uGZNBMAeY8mNvt1WC7a+sPtjz74HL7+S+ff7SiZIrSYioSJi+OZp5t8QHgk2X/A==
 
-"@ban-team/validateur-bal@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@ban-team/validateur-bal/-/validateur-bal-2.9.0.tgz#09fa914d42bedaf09c8369126ceed1b0a110945e"
-  integrity sha512-Qid9f/9bnYJyBdAt6vlrp43fDXcAl9bxvD9UTTUC7IMZsZXgIcnxyO8LUnjHz358MDraRmljRCb+U+pLAoA6bA==
+"@ban-team/validateur-bal@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@ban-team/validateur-bal/-/validateur-bal-2.10.0.tgz#47f5f58ce13f2f4ab4b3e490e687ab3bb1d8cdaf"
+  integrity sha512-DPi9hlgbs88exH6UAoJLJ63UyChdBpldD+kzvp0DdXRWYGh7oJwUwroSuw7ixqAB7iXPlSsIfIK3fe6EUle78Q==
   dependencies:
-    "@ban-team/shared-data" "^1.0.0"
+    "@ban-team/shared-data" "^1.1.0"
     "@etalab/project-legal" "^0.6.0"
     blob-to-buffer "^1.2.9"
     bluebird "^3.7.2"
@@ -538,7 +538,7 @@
     iconv-lite "^0.6.3"
     lodash "^4.17.21"
     papaparse "^5.3.2"
-    yargs "^17.5.0"
+    yargs "^17.5.1"
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"
@@ -7529,7 +7529,7 @@ yargs-parser@^21.0.0:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-21.0.0.tgz#a485d3966be4317426dd56bdb6a30131b281dc55"
   integrity sha512-z9kApYUOCwoeZ78rfRYYWdiU/iNL6mwwYlkkZfJoyMR1xps+NEBX5X7XmRpxkZHhXJ6+Ey00IwKxBBSW9FIjyA==
 
-yargs@^17.5.0:
+yargs@^17.5.1:
   version "17.5.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-17.5.1.tgz#e109900cab6fcb7fd44b1d8249166feb0b36e58e"
   integrity sha512-t6YAJcxDkNX7NFYiVtKvWUz8l+PaKTLiL63mJYWR2GnHq2gjEWISzsLp9wg3aY36dY1j+gfIEL3pIF+XlJJfbA==

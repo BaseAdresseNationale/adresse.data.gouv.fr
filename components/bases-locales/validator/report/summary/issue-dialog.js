@@ -22,7 +22,7 @@ function IssueDialog({issue, unknowFields, handleClose}) {
             <h4>{getLabel(issue.code)}</h4>
           </div>
           <ActionButtonNeutral label='Fermer la fenêtre indiquant les lignes avec alertes' onClick={handleClose}>
-            <X size={40} style={{cursor: 'pointer'}} alt />
+            <X size={40} style={{cursor: 'pointer'}} alt aria-hidden='true' />
           </ActionButtonNeutral>
         </div>
         <div className='scroll'>

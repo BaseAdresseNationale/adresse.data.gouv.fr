@@ -21,10 +21,9 @@ function PostalCodes({codes}) {
               onClick={() => setShowCodes(!showCodes)}
             >
               <div className='wrapper'>
-                <div>Codes postaux</div> {showCodes ? <ChevronUp alt /> : <ChevronDown alt />}
+                <div>Codes postaux</div> {showCodes ? <ChevronUp alt aria-hidden='true' /> : <ChevronDown alt aria-hidden='true' />}
               </div>
             </ActionButtonNeutral>
-
           </div>
           {showCodes && (
             <ul className='codes-list'>

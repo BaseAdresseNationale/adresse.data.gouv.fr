@@ -11,7 +11,7 @@ function CommuneInfos({communeInfos}) {
     <Section title='Carte d’identité de la commune'>
       <div className='all-infos-wrapper'>
         <div className='name-container'>
-          <Image src='/images/icons/commune.svg' height={80} width={80} layout='fixed' alt />
+          <Image src='/images/icons/commune.svg' height={80} width={80} layout='fixed' alt aria-hidden='true' />
           <div className='name'>{nomCommune} - {codeCommune}</div>
         </div>
 

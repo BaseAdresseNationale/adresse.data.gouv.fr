@@ -15,7 +15,7 @@ const description = 'Fichiers nationaux contenant les adresses du territoire.'
 function DonneesNatioales() {
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Download size={56} alt />} />
+      <Head title={title} icon={<Download size={56} alt aria-hidden='true' />} />
       <Section title='Base Adresse Nationale' subtitle='Base de données de référence pour les adresses en France'>
         <Intro />
       </Section>
@@ -91,7 +91,7 @@ function DonneesNatioales() {
           </div>
         </SectionText>
         <div className='adjust-img'>
-          <Image width={1000} height={600} src='/images/donnees-nationales/schema-donnees-ban.svg' alt />
+          <Image width={1000} height={600} src='/images/donnees-nationales/schema-donnees-ban.svg' alt aria-hidden='true' />
         </div>
       </Section>
 
@@ -120,6 +120,7 @@ function DonneesNatioales() {
           margin-top: 3em;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+          gap: 1em;
         }
         .adjust-img {
           text-align: center;

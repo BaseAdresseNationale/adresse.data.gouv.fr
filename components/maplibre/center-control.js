@@ -13,7 +13,7 @@ function CenterControl({isDisabled, handleClick}) {
       onClick={handleClick}
     >
       <div className='maplibregl-ctrl cross-icon'>
-        <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} alt />
+        <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} alt aria-hidden='true' />
       </div>
 
       <style jsx>{`

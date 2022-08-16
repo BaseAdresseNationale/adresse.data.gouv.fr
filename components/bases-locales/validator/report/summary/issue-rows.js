@@ -25,12 +25,13 @@ function IssueRows({issue, rows, isOnAllLines, onClick, type}) {
                 `La ligne ${rows[0].line}` :
                 `${rowsCount} lignes`)
           }</b> {rowsCount === 1 ? 'comporte' : 'comportent'} l’alerte :
-
           <span className='colored'> {getLabel(issue)}</span>
         </div>
+        
+      <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} alt aria-hidden='true' /></div>
 
-        <div><ZoomIn style={{margin: '0 .5em', verticalAlign: 'middle'}} alt /></div>
       </div>
+      
       <style jsx>{`
         .issue {
           padding: 0.4em 0;

@@ -14,7 +14,7 @@ const ADDRESSTYPES = {
 function SearchMessage() {
   return (
     <div className='search-message'>
-      <ArrowUp alt />
+      <ArrowUp alt aria-hidden='true' />
       <h4>Rechercher une adresse</h4>
       <style jsx>{`
         .search-message {

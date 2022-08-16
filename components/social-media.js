@@ -17,13 +17,13 @@ function SocialMedia() {
       <div className='socials'>
         <Link href='/blog'>
           <a aria-label='Consulter notre blog'>
-            <Image src='/images/logos/blog.svg' height={88} width={88} alt />
+            <Image src='/images/logos/blog.svg' height={88} width={88} alt aria-hidden='true' />
             <div>En lisant notre blog</div>
           </a>
         </Link>
 
         <a href='https://twitter.com/adressedatagouv?lang=fr' aria-label='Consulter notre compte Twitter'>
-          <Image src='/images/logos/twitter.svg' height={88} width={88} alt />
+          <Image src='/images/logos/twitter.svg' height={88} width={88} alt aria-hidden='true' />
           <div>Sur notre fil Twitter</div>
         </a>
         <ActionButtonNeutral
@@ -33,7 +33,7 @@ function SocialMedia() {
           <div className='newsletter'>
             <Image src='/images/logos/newsletter.svg' height={88} width={88} alt />
             <div className='dropdown'>
-              {isShown ? <ChevronDown alt /> : <ChevronRight alt />}
+              <div aria-hidden='true'>{isShown ? <ChevronDown alt /> : <ChevronRight alt />}</div>
               En s’inscrivant à l’infolettre
             </div>
           </div>
@@ -81,7 +81,6 @@ function SocialMedia() {
 
           .dropdown {
             display: flex;
-            align-items: center;
           }
         `}</style>
     </>

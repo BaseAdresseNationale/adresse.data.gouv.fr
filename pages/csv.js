@@ -10,7 +10,7 @@ const description = 'adresse.data.gouv.fr met en place des outils pour une prise
 function CsvPage() {
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<FileText size={56} alt />} />
+      <Head title={title} icon={<FileText size={56} alt aria-hidden='true' />} />
       <Csv />
     </Page>
   )

@@ -15,7 +15,7 @@ const description = 'Contactez l’équipe de adresse.data.gouv.fr'
 function Contact() {
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Mail size={56} alt />} />
+      <Head title={title} icon={<Mail size={56} alt aria-hidden='true' />} />
       <Section>
         <div className='sub-section'>
           <Question question='Je suis un particulier ou une entreprise et j’ai constaté une adresse manquante ou incorrecte.' isBold>

@@ -21,7 +21,7 @@ function VoieInformation({voie}) {
           <div className='infos'>{voie.typeVoie}</div>
           <div className='infos'>{voie.codeRivoli}</div>
           <div>
-            {isOpen ? <ChevronUp size={35} alt /> : <ChevronDown size={35} alt />}
+            {isOpen ? <ChevronUp size={35} alt aria-hidden='true' /> : <ChevronDown size={35} alt aria-hidden='true' />}
           </div>
         </div>
       </ActionButtonNeutral>
@@ -40,6 +40,7 @@ function VoieInformation({voie}) {
           )}
         </div>
       )}
+      
       <style jsx>{`
         .title {
           color: ${isOpen ? '#FFF' : '#000'};
