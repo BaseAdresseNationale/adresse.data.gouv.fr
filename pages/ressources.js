@@ -13,7 +13,7 @@ import Notification from '@/components/notification'
 function Guides() {
   return (
     <Page>
-      <Head title='Ressources autour de l’adressage' icon={<Book size={56} alt />} />
+      <Head title='Ressources autour de l’adressage' icon={<Book size={56} alt aria-hidden='true' />} />
       <Section>
         <SectionText>
           <p>
@@ -33,7 +33,7 @@ function Guides() {
       <Section background='color' title='Documentation'>
         <p>Cette <b>documentation</b> vous fournit les informations relatives à la <b>Base Adresse Nationale</b>, au format <b>Base Adresse Locale</b>, ainsi que des FAQ et conseils pratiques.</p>
         <div className='button-container'>
-          <div className='logos-container'>
+          <div className='logos-container' aria-hidden='true'>
             <Image src='/images/logos/BAN.svg' height={210} width={210} alt />
             <Image src='/images/logos/BAL.svg' height={200} width={200} alt />
           </div>
@@ -122,7 +122,7 @@ function Guides() {
       <Section background='color' title='F.A.Q'>
         <div className='faq-container'>
           <div className='icon-container'>
-            <Image src='/images/icons/faq.svg' height={190} width={190} alt />
+            <Image src='/images/icons/faq.svg' height={190} width={190} alt aria-hidden='true' />
           </div>
           <SectionText color='secondary'>
             Vous vous posez des questions sur <b>la création de votre Base Adresse Locale</b> et sur <b>la gestion de vos adresses</b> ? Certaines disposent déjà d’une réponse !<br />

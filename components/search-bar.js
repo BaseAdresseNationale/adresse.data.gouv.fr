@@ -21,7 +21,7 @@ const SearchBar = React.forwardRef((props, ref) => {
           className='search'
           aria-label='Recherche'
         />
-        <span className='icon-title'><Search alt /></span>
+        <span className='icon-title'><Search alt aria-hidden='true' /></span>
         <style jsx>{`
           .search-input-container {
             position: relative;

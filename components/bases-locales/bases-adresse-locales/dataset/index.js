@@ -50,7 +50,7 @@ function Dataset({dataset}) {
 
         {url && <div className='links'>
           <ButtonLink isExternal href={url} size='large' >
-            Télécharger le jeu de données<Download style={{verticalAlign: 'middle', marginLeft: '3px'}} alt />
+            Télécharger le jeu de données<Download style={{verticalAlign: 'middle', marginLeft: '3px'}} alt aria-hidden='true' />
           </ButtonLink>
         </div>}
 

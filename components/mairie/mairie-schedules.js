@@ -25,9 +25,9 @@ function CommuneSchedules({scheldules}) {
       >
         Horaires d’ouverture
         {isDisplayed ? (
-          <ChevronDown style={{marginTop: '2px'}} alt />
+          <ChevronDown style={{marginTop: '2px'}} alt aria-hidden='true' />
         ) : (
-          <ChevronRight style={{marginTop: '2px'}} alt />
+          <ChevronRight style={{marginTop: '2px'}} alt aria-hidden='true' />
         )}
       </button>
 
@@ -42,7 +42,7 @@ function CommuneSchedules({scheldules}) {
                 <ul>
                   {scheldule.heures.map(heure => (
                     <li key={`${scheldule.du}-${scheldule.au}&${heure.de}-${heure.a}`} aria-label={`${getHours(heure.de)} heures à ${getHours(heure.a)} heures`}>
-                      <div aria-hidden>De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b></div>
+                      <div aria-hidden='true'>De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b></div>
                     </li>
                   ))}
                 </ul>

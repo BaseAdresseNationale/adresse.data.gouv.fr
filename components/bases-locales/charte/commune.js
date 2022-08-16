@@ -12,7 +12,7 @@ function Commune({name, codeCommune, picture, height, width, signatureDate, char
   return (
     <div className='commune-container' onClick={event => event.stopPropagation()}>
       <div className='commune-infos'>
-        <Image src={picture} height={height / 2} width={width / 2} alt />
+        <Image src={picture} height={height / 2} width={width / 2} alt aria-hidden='true' />
         <Link href={`/commune/${codeCommune}`} aria-label={`Aller sur la page commune de ${name}`}>{`${name} - ${codeCommune}`}</Link>
       </div>
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>

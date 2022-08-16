@@ -26,11 +26,11 @@ function Communes({regions}) {
 
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Award size={56} alt />} />
+      <Head title={title} icon={<Award size={56} alt aria-hidden='true' />} />
 
       <Section title='Liste des communes partenaires'>
         <div className='award-illustration'>
-          <Image src='/images/icons/award.png' height={235} width={130} alt />
+          <Image src='/images/icons/award.png' height={235} width={130} alt aria-hidden='true' />
         </div>
         <SectionText>
           Cette charte est à l’initiative de communes désireuses de <b>partager leur expérience</b>. La qualité de la Base Adresse Locale réalisée est un prérequis afin de faciliter <b>la diffusion de bonnes pratiques</b>.
@@ -39,7 +39,7 @@ function Communes({regions}) {
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt aria-hidden='true' />
           </ButtonLink>
         </div>
 
