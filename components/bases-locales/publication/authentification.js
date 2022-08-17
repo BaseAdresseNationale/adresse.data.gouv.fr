@@ -8,6 +8,7 @@ const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data
 import theme from '@/styles/theme'
 
 import Button from '@/components/button'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function Authentification({communeEmail, revisionId, habilitationId, authenticationUrl, handleCodeAuthentification}) {
   const [isHabilitedOpen, setIsHabilitedOpen] = useState(true)
@@ -19,15 +20,16 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
   return (
     <div className='auth-container'>
       <div className='dropdown-container'>
-        <button
-          type='button'
-          aria-label={`${isHabilitedOpen ? 'Masquer' : 'Afficher'} la marche à suivre lorsque vous êtes habilité`}
-          className='dropdown-title'
+        <ActionButtonNeutral
+          isFullSize
+          label={`${isHabilitedOpen ? 'Masquer' : 'Afficher'} la marche à suivre lorsque vous êtes habilité`}
           onClick={() => setIsHabilitedOpen(!isHabilitedOpen)}
         >
-          <h3>Vous êtes habilité(e)</h3>
-          {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} alt aria-hidden='true' /> : <ChevronRight color={theme.primary} size={35} alt aria-hidden='true' />}
-        </button>
+          <div className='dropdown-title'>
+            <h3>Vous êtes habilité(e)</h3>
+            {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} alt aria-hidden='true' /> : <ChevronRight color={theme.primary} size={35} alt aria-hidden='true' />}
+          </div>
+        </ActionButtonNeutral>
 
         {isHabilitedOpen && (
           <div className='content'>
@@ -71,15 +73,16 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
       </div>
 
       <div className='dropdown-container'>
-        <button
-          type='button'
-          aria-label={`${isHabilitedOpen ? 'Masquer' : 'Afficher'} la marche à suivre lorsque vous n'êtes pas habilité`}
-          className='dropdown-title'
+        <ActionButtonNeutral
+          isFullSize
+          label={`${isHabilitedOpen ? 'Masquer' : 'Afficher'} la marche à suivre lorsque vous n'êtes pas habilité`}
           onClick={() => setIsNonHabilitedOpen(!isNonHabilitedOpen)}
         >
-          <h3>Vous n’êtes pas habilité(e)</h3>
-          {isNonHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
-        </button>
+          <div className='dropdown-title'>
+            <h3>Vous n’êtes pas habilité(e)</h3>
+            {isNonHabilitedOpen ? <ChevronDown color={theme.primary} size={35} /> : <ChevronRight color={theme.primary} size={35} />}
+          </div>
+        </ActionButtonNeutral>
 
         {isNonHabilitedOpen && (
           <div className='content'>
@@ -135,8 +138,6 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          border: none;
-          background: none;
           color: ${theme.darkText};
         }
 

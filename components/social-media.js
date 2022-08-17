@@ -4,6 +4,7 @@ import Image from 'next/image'
 import {ChevronDown, ChevronRight} from 'react-feather'
 
 import Container from '@/components/container'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function SocialMedia() {
   const [isShown, setIsShown] = useState(false)
@@ -25,19 +26,18 @@ function SocialMedia() {
           <Image src='/images/logos/twitter.svg' height={88} width={88} alt aria-hidden='true' />
           <div>Sur notre fil Twitter</div>
         </a>
-
-        <button
+        <ActionButtonNeutral
           onClick={handleNewsletter}
-          className='newsletter'
-          aria-label='S’inscrire à l’infolettre'
-          type='button'
+          label='S’inscrire à l’infolettre'
         >
-          <Image src='/images/logos/newsletter.svg' height={88} width={88} alt aria-hidden='true' />
-          <div className='dropdown'>
-            <div aria-hidden='true'>{isShown ? <ChevronDown alt /> : <ChevronRight alt />}</div>
-            En s’inscrivant à l’infolettre
+          <div className='newsletter'>
+            <Image src='/images/logos/newsletter.svg' height={88} width={88} alt />
+            <div className='dropdown'>
+              <div aria-hidden='true'>{isShown ? <ChevronDown alt /> : <ChevronRight alt />}</div>
+              En s’inscrivant à l’infolettre
+            </div>
           </div>
-        </button>
+        </ActionButtonNeutral>
       </div>
 
       {isShown && (
@@ -53,11 +53,6 @@ function SocialMedia() {
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 2em;
-          }
-
-          .newsletter {
-            border: none;
-            background: none;
           }
 
           a, .newsletter {

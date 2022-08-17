@@ -4,6 +4,7 @@ import {XSquare} from 'react-feather'
 import theme from '@/styles/theme'
 
 import MairieCard from '@/components/mairie/mairie-card'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function ContactModal({mairieInfos, onModalClose}) {
   const {nom, horaires, email, telephone} = mairieInfos
@@ -11,14 +12,12 @@ function ContactModal({mairieInfos, onModalClose}) {
   return (
     <div className='modal-wrapper'>
       <div className='contacts-container'>
-        <button
-          className='close-modal'
-          type='button'
-          aria-label='Fermer la fenêtre de contact'
-          onClick={onModalClose}
-        >
-          <XSquare alt aria-hidden='true' />
-        </button>
+        <div className='close-modal'>
+          <ActionButtonNeutral label='Fermer la fenêtre de contact' onClick={onModalClose}>
+            <XSquare alt aria-hidden='true' color={theme.primary} />
+          </ActionButtonNeutral>
+        </div>
+
         <MairieCard nom={nom} horaires={horaires} email={email} telephone={telephone} />
       </div>
 
@@ -48,11 +47,8 @@ function ContactModal({mairieInfos, onModalClose}) {
         }
 
         .close-modal {
-          width: fit-content;
-          align-self: flex-end;
-          border: none;
-          background: transparent;
-          color: ${theme.primary};
+          width: 100%;
+          text-align: end;
         }
       `}</style>
     </div>

@@ -1,11 +1,12 @@
 import {useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
+import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import Line from './line'
 import RowIssues from './row-issues'
-import {ChevronDown, ChevronUp} from 'react-feather'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function Row({row, isForcedShowIssues, unknowFields, issueType}) {
   const [showIssues, setShowIssues] = useState(false)
@@ -20,36 +21,36 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
   }, [showIssues])
 
   return (
-    <div>
-      <button
-        type='button'
-        className='line'
-        aria-label={`${showIssues ? 'Masquer' : 'Afficher'} la ligne ${row.line}`}
+
+    <>
+      <ActionButtonNeutral isFullSize label={`${showIssues ? 'Masquer' : 'Afficher'} la ligne ${row.line}`}
         onClick={handleError}
       >
-        <div>
-          <div className='col'>
-            <b>Ligne {row.line}</b>
-          </div>
+        <div className='line'>
           <div>
-            {issuesCount === 1 ? (
-              <div className={issueType}>
-                {showIssues ? 'Masquer' : 'Afficher'} l’alerte
-              </div>
-            ) : (
-              <div className={issueType}>
-                {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} alertes
-              </div>
-            )}
+            <div className='col'>
+              <b>Ligne {row.line}</b>
+            </div>
+            <div>
+              {issuesCount === 1 ? (
+                <div className={issueType}>
+                  {showIssues ? 'Masquer' : 'Afficher'} l’alerte
+                </div>
+              ) : (
+                <div className={issueType}>
+                  {showIssues ? 'Masquer' : 'Afficher'} les {issuesCount} alertes
+                </div>
+              )}
+            </div>
           </div>
-        </div>
 
-        {showIssues ? (
-          <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} alt aria-hidden='true' />
-        ) : (
-          <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} alt aria-hidden='true' />
-        )}
-      </button>
+          {showIssues ? (
+            <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} alt aria-hidden='true' />
+          ) : (
+            <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} alt aria-hidden='true' />
+          )}
+        </div>
+      </ActionButtonNeutral>
 
       {showIssues &&
         <div className='issue'>
@@ -108,7 +109,7 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
           background-color: #f8f8f8;
         }
       `}</style>
-    </div>
+    </>
   )
 }
 

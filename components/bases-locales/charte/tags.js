@@ -5,6 +5,8 @@ import theme from '@/styles/theme'
 
 import {formatTag} from '@/lib/tag'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 const handleListOfTags = partners => {
   const tags = []
   partners.forEach(partner => {
@@ -36,18 +38,16 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
         const isActive = handleTagClassname(tag).includes('active')
 
         return (
-          <button
-            type='button'
-            aria-label={`${isActive ? 'Désélectionner' : 'Sélectionner'} le tag ${tag}`}
+          <ActionButtonNeutral
+            label={`${isActive ? 'Désélectionner' : 'Sélectionner'} le tag ${tag}`}
             aria-disabled={!isActive}
             onClick={() => {
               onSelectTags(tag)
             }}
             key={tag}
-            className={handleTagClassname(tag)}
           >
-            {formatTag(tag)}
-          </button>
+            <div className={handleTagClassname(tag)}> {formatTag(tag)}</div>
+          </ActionButtonNeutral>
         )
       })}
 
@@ -57,12 +57,8 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
             grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
           }
 
-        .labels-container button {
-          border: none;
-        }
-
         .label {
-          font-size: .9em;
+          font-size: 1.1em;
           background-color: ${theme.colors.lightGrey};
           color: ${theme.colors.black};
           border-radius: 4px;
@@ -78,10 +74,6 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
         .label-active {
           color: ${theme.colors.white};
           background-color: ${theme.colors.blue};
-        }
-
-        .label:hover {
-          cursor: pointer;
         }
       `}</style>
     </div>

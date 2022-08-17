@@ -5,6 +5,8 @@ import {Navigation} from 'react-feather'
 
 import DeviceContext from '@/contexts/device'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function OpenGPS({coordinates}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const {lat, lon} = coordinates
@@ -12,12 +14,21 @@ function OpenGPS({coordinates}) {
 
   return (
     <Link href={`${href}${lat},${lon}`} passHref>
-      <button
-        type='button'
-        className='maplibregl-ctrl'
-      >
-        <Navigation size={18} />
-      </button>
+      <ActionButtonNeutral label='Naviguer sur la carte'>
+        <div className='maplibregl-ctrl navigation-icon'>
+          <Navigation size={18} />
+
+          <style jsx>{`
+            .navigation-icon {
+              width: 29px;
+              height: 29px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          `}</style>
+        </div>
+      </ActionButtonNeutral>
     </Link>
   )
 }

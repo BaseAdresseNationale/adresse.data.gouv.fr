@@ -8,6 +8,7 @@ import theme from '@/styles/theme'
 
 import Button from '@/components/button'
 import Notification from '@/components/notification'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function CodeAuthentification({habilitationId, email, handleValidCode, sendBackCode, cancel}) {
   const [code, setCode] = useState('')
@@ -75,20 +76,22 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
               placeholder='Entrez votre code ici'
               onChange={handleInput}
             />
-            <button
+            <ActionButtonNeutral
               type='submit'
-              aria-label='Soumettre le code d’authentification'
+              label='Soumettre le code d’authentification'
               disabled={code.length !== 6}
               onClick={submitCode}
             >
-              <Check />
-            </button>
+              <div className='submit-button'><Check /></div>
+            </ActionButtonNeutral>
           </div>
           {error && <Notification message={error} type='error' />}
 
           <div>
             <div>Vous n’avez pas reçu votre code ?</div>
-            <button type='button' onClick={sendBackCode}><a>Renvoyer un code à l’adresse {email}</a></button>
+            <ActionButtonNeutral onClick={sendBackCode} label=''>
+              <div className='send-code'>Renvoyer un code à l’adresse {email}</div>
+            </ActionButtonNeutral>
           </div>
         </div>
       </div>
@@ -141,11 +144,6 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
           caret-color: transparent;
         }
 
-        button {
-          border: none;
-          background: none;
-        }
-
         /* Chrome, Safari, Edge, Opera */
         .input-container input::-webkit-outer-spin-button,
         .input-container input::-webkit-inner-spin-button {
@@ -158,20 +156,26 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
           -moz-appearance: textfield;
         }
 
-        .input-container button {
+        .submit-button {
+          height: 60px;
           width: 50px;
           border-radius: 0 3px 3px 0;
           border: none;
           background-color: #0053b3;
           color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .input-container button:disabled {
+        .submit-button:disabled {
           background-color: ${theme.borderLighter};
         }
 
-        a {
+        .send-code {
           font-style: italic;
+          color: ${theme.primary};
+          text-decoration: underline;
         }
         `}</style>
     </>

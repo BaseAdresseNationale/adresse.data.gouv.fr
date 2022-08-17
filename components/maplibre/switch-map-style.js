@@ -4,6 +4,8 @@ import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 class SwitchMapStyle extends React.Component {
   static propTypes = {
     isVector: PropTypes.bool.isRequired,
@@ -17,18 +19,14 @@ class SwitchMapStyle extends React.Component {
 
     return (
       <div className='switch-style'>
-        <button
-          type='button'
-          aria-label={isVector ? 'Passer en vue satellite' : 'Passer en vue vectoriel'}
-          onClick={handleChange}
-        >
+        <ActionButtonNeutral label={isVector ? 'Passer en vue satellite' : 'Passer en vue vectoriel'} onClick={handleChange}>
           <Image
             width={80}
             height={80}
             src={src}
             alt
           />
-        </button>
+        </ActionButtonNeutral>
         <div className='text'>{style}</div>
         <style jsx>{`
           .switch-style {
@@ -36,12 +34,6 @@ class SwitchMapStyle extends React.Component {
             height: 80px;
             border: 2px solid #fff;
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
-          }
-
-          button {
-            border: none;
-            background: none;
-            padding: 0;
           }
 
           .switch-style:hover {

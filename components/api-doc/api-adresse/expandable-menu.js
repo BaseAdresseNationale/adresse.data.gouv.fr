@@ -4,27 +4,31 @@ import {ChevronDown, ChevronUp} from 'react-feather'
 
 import theme from '../../../styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function ExpandableMenu({title, children, label}) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <button
-      type='button'
-      aria-label={`${isExpanded ? 'Masquer' : 'Afficher'} la documentation de ${label}`}
-      className='expandable-menu-container' onClick={() => setIsExpanded(!isExpanded)}
+    <ActionButtonNeutral
+      label={`${isExpanded ? 'Masquer' : 'Afficher'} la documentation de ${label}`}
+      onClick={() => setIsExpanded(!isExpanded)}
+      isFullSize
     >
-      <div className='head'>
-        <div className='title'>{title}</div>
-        <div style={{paddingLeft: '.5em'}}>
-          {isExpanded ? (
-            <ChevronUp style={{verticalAlign: 'middle'}} size={38} alt aria-hidden='true' />
-          ) : (
-            <ChevronDown style={{verticalAlign: 'middle'}} size={38} alt aria-hidden='true' />
-          )}
+      <div className='expandable-menu-container'>
+        <div className='head'>
+          <div className='title'>{title}</div>
+          <div style={{paddingLeft: '.5em'}}>
+            {isExpanded ? (
+              <ChevronUp style={{verticalAlign: 'middle'}} size={38} alt aria-hidden='true' />
+            ) : (
+              <ChevronDown style={{verticalAlign: 'middle'}} size={38} alt aria-hidden='true' />
+            )}
+          </div>
         </div>
-      </div>
 
-      {isExpanded && children}
+        {isExpanded && children}
+      </div>
 
       <style jsx>{`
         .expandable-menu-container {
@@ -33,17 +37,10 @@ function ExpandableMenu({title, children, label}) {
           padding: 0.5em;
           background: ${theme.colors.white};
           border-radius: 3px;
-          color: ${theme.darkText};
-          border: none;
           text-align: left;
         }
 
-        .expandable-menu-container:hover {
-          cursor: pointer;
-        }
-
         .head {
-          display: flex;
           justify-content: space-between;
           display: flex;
           align-items: center;
@@ -55,8 +52,8 @@ function ExpandableMenu({title, children, label}) {
           font-weight: 600;
           width: 100%;
         }
-        `}</style>
-    </button>
+      `}</style>
+    </ActionButtonNeutral>
   )
 }
 

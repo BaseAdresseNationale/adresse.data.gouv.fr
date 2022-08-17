@@ -9,6 +9,7 @@ import {formatTag} from '@/lib/tag'
 import {getMairie} from '@/lib/api-etablissements-public'
 
 import MairieContact from '@/components/mairie/mairie-contact'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
@@ -51,13 +52,14 @@ function Partner({partnerInfos, isCommune}) {
             alt
           />
         </div>
-
-        <button type='button' onClick={() => setIsDisplay(!isDisplay)} className='button-container'>
-          <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
-          <div className='chevron'>
-            <Chevron size={18} color={`${theme.colors.lightBlue}`} alt aria-hidden='true' />
+        <ActionButtonNeutral isFullSize label={`${isDisplay ? 'Masquer' : 'Afficher'} les informations`}>
+          <div className='button-container' onClick={() => setIsDisplay(!isDisplay)}>
+            <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
+            <div className='chevron'>
+              <Chevron size={18} color={`${theme.colors.lightBlue}`} alt aria-hidden='true' />
+            </div>
           </div>
-        </button>
+        </ActionButtonNeutral>
       </div>
 
       <div className={isDisplay ? 'infos-container' : 'hidden'}>

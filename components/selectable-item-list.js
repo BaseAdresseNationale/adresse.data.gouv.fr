@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 class SelectableItemList extends React.Component {
   static propTypes = {
     list: PropTypes.arrayOf(
@@ -22,16 +24,17 @@ class SelectableItemList extends React.Component {
       <div>
         <div className={`${list.length > 0 && 'list selection'}`}>
           {list.map(item => (
-            <button
-              type='button'
-              aria-label={buttonIcon === '+' ? `Sélectionner ${item.value}` : `Désélectionner ${item.value}`}
+            <ActionButtonNeutral
+              label={buttonIcon === '+' ? `Sélectionner ${item.value}` : `Désélectionner ${item.value}`}
               key={item.key}
-              className='item'
               onClick={() => action(item)}
+              isFullSize
             >
-              <div className='text'>{item.value}</div>
-              <div className='button'>{buttonIcon}</div>
-            </button>
+              <div className='item'>
+                <div className='text'>{item.value}</div>
+                <div className='button'>{buttonIcon}</div>
+              </div>
+            </ActionButtonNeutral>
           ))}
         </div>
         <style jsx>{`
@@ -49,9 +52,6 @@ class SelectableItemList extends React.Component {
             white-space: nowrap;
             width: 100%;
             background: #fff;
-          }
-
-          .item:hover {
             cursor: pointer;
           }
 

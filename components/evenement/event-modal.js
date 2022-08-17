@@ -11,6 +11,7 @@ import {sanitizedDate, accessibleDate} from '@/lib/date'
 import ButtonLink from '../button-link'
 import SectionText from '../section-text'
 import Notification from '../notification'
+import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function EventModal({event, isPassed, onClose}) {
   const modalRef = useRef(null)
@@ -35,10 +36,11 @@ function EventModal({event, isPassed, onClose}) {
     <div className='modal-wrapper'>
       <div className='modal-container' ref={modalRef}>
         <div className={`close-container close-container-${type}`}>
-          <button type='button' onClick={onClose} aria-label='Fermer la fenêtre' className='close-button'>
+          <ActionButtonNeutral onClick={onClose} label='Fermer la fenêtre'>
             <XSquare alt aria-hidden='true' />
-          </button>
+          </ActionButtonNeutral>
         </div>
+
         <div className='modal-content'>
           <div className={`left-content ${type}`}>
             <div className='left-title'>📅 &nbsp; À vos agendas !</div>
@@ -144,11 +146,6 @@ function EventModal({event, isPassed, onClose}) {
 
         .close-container-adresse-region {
           border-color: ${theme.colors.purple};
-        }
-
-        .close-button {
-          background: transparent;
-          border: none;
         }
 
         .modal-content {

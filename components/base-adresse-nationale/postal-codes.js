@@ -2,6 +2,9 @@ import {useState} from 'react'
 import PropTypes from 'prop-types'
 import {ChevronUp, ChevronDown} from 'react-feather'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+import colors from '@/styles/colors'
+
 function PostalCodes({codes}) {
   const [showCodes, setShowCodes] = useState(false)
   return (
@@ -13,14 +16,14 @@ function PostalCodes({codes}) {
       ) : (
         <div className='postal-codes'>
           <div>
-            <button
-              type='button'
-              aria-label={showCodes ? 'Masquer les codes postaux' : 'Afficher les codes postaux'}
-              className='with-icon wrapper'
+            <ActionButtonNeutral
+              label={showCodes ? 'Masquer les codes postaux' : 'Afficher les codes postaux'}
               onClick={() => setShowCodes(!showCodes)}
             >
-              <div>Codes postaux</div> {showCodes ? <ChevronUp alt aria-hidden='true' /> : <ChevronDown alt aria-hidden='true' />}
-            </button>
+              <div className='wrapper'>
+                <div>Codes postaux</div> {showCodes ? <ChevronUp alt aria-hidden='true' /> : <ChevronDown alt aria-hidden='true' />}
+              </div>
+            </ActionButtonNeutral>
           </div>
           {showCodes && (
             <ul className='codes-list'>
@@ -31,23 +34,17 @@ function PostalCodes({codes}) {
       )}
 
       <style jsx>{`
-        .postal-codes-container {
-          position: relative;
-        }
-
         .postal-codes {
-          cursor: pointer;
-        }
-
-        .with-icon {
-          display: flex;
+          padding: 5px;
+          background: ${colors.lighterGrey};
         }
 
         .wrapper {
+          display: flex;
           justify-content: space-between;
-          background: whitesmoke;
           border-radius: 4px;
-          border: none;
+          align-items: center;
+
         }
 
         .with-icon > div {

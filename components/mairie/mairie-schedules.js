@@ -4,6 +4,8 @@ import {ChevronRight, ChevronDown} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 const getHours = time => {
   return new Date('1970-01-01T' + time + 'Z').getHours()
 }
@@ -17,19 +19,16 @@ function CommuneSchedules({scheldules}) {
 
   return (
     <div className='schedules'>
-      <button
-        type='button'
-        aria-label={`${isDisplayed ? 'Masquer' : 'Afficher'} les horaires de la mairie`}
-        className='scheldule-dropdown'
-        onClick={toggleSchedules}
-      >
-        Horaires d’ouverture
-        {isDisplayed ? (
-          <ChevronDown style={{marginTop: '2px'}} alt aria-hidden='true' />
-        ) : (
-          <ChevronRight style={{marginTop: '2px'}} alt aria-hidden='true' />
-        )}
-      </button>
+      <ActionButtonNeutral label={`${isDisplayed ? 'Masquer' : 'Afficher'} les horaires de la mairie`} onClick={toggleSchedules}>
+        <div className='scheldule-dropdown'>
+          Horaires d’ouverture
+          {isDisplayed ? (
+            <ChevronDown style={{marginTop: '2px'}} alt aria-hidden='true' />
+          ) : (
+            <ChevronRight style={{marginTop: '2px'}} alt aria-hidden='true' />
+          )}
+        </div>
+      </ActionButtonNeutral>
 
       <div>
         {scheldules ? (
@@ -67,11 +66,9 @@ function CommuneSchedules({scheldules}) {
           font-size: 17px;
           font-weight: bolder;
           display: flex;
+          align-items: center;
           gap: 5px;
-          cursor: pointer;
           text-decoration: underline;
-          border: none;
-          background: none;
         }
 
         .schedules > div {

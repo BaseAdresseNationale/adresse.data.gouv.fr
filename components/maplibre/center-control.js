@@ -1,17 +1,31 @@
 import PropTypes from 'prop-types'
 import {Crosshair} from 'react-feather'
 
+import ActionButtonNeutral from '@/components/action-button-neutral'
+
 function CenterControl({isDisabled, handleClick}) {
   return (
-    <button
+    <ActionButtonNeutral
+      isFullSize
       disabled={isDisabled}
-      type='button'
-      className='maplibregl-ctrl'
       title='Recentrer la carte'
+      label='Recentrer la carte'
       onClick={handleClick}
     >
-      <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} alt aria-hidden='true' />
-    </button>
+      <div className='maplibregl-ctrl cross-icon'>
+        <Crosshair size={18} color={isDisabled ? '#cdcdcd' : 'black'} alt aria-hidden='true' />
+      </div>
+
+      <style jsx>{`
+        .cross-icon {
+          width: 29px;
+          height: 29px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      `}</style>
+    </ActionButtonNeutral>
   )
 }
 
