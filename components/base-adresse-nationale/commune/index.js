@@ -1,17 +1,13 @@
 import {useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
+import Image from 'next/image'
 import {orderBy} from 'lodash'
-import {CheckCircle} from 'react-feather'
-
-import theme from '@/styles/theme'
 
 import {isCOM} from '@/lib/ban'
 
-import Certification from '../certification'
 import AddressesList from '../addresses-list'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
-import Notification from '@/components/notification'
 import Voie from './voie'
 
 function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, nbNumeros, nbNumerosCertifies, nbLieuxDits, population, codesPostaux, typeComposition}) {
@@ -30,45 +26,27 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
     <>
       <div className='heading'>
         <div className='name-certification'>
+          <Image src='/images/icons/commune.svg' height={50} width={50} />
           <h2>
             <a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a>
             {isCOM(codeCommune) && <i>Collectivité d’outremer</i>}
           </h2>
-          <div>
-            <Certification
-              isCertified={typeComposition === 'bal'}
-              validIconColor={certificationInProgress ? theme.border : theme.successBorder}
-              certifiedMessage={
-                isAllCertified ?
-                  'Toutes les adresses sont certifiées par la commune' :
-                  'Les adresses sont en cours de certification par la commune'
-              }
-              notCertifiedMessage={
-                nbNumerosCertifies > 0 ?
-                  'Certaines adresses ne sont pas certifiées par la commune' :
-                  'Aucune adresse n’est certifiée par la commune'
-              }
-            />
-          </div>
         </div>
       </div>
       <Details
+        typeComposition={typeComposition}
+        isAllCertified={isAllCertified}
+        isCertificationInProgress={certificationInProgress}
         certificationPercentage={certificationPercentage}
         region={region}
         departement={departement}
         nbVoies={nbVoies}
         nbLieuxDits={nbLieuxDits}
         nbNumeros={nbNumeros}
+        nbNumerosCertifies={nbNumerosCertifies}
         codesPostaux={codesPostaux}
         population={population}
       />
-
-      {certificationInProgress && nbNumeros > 0 && (
-        <Notification style={{marginTop: '1em'}} type='info'>
-          Les adresses sont en <b>cours de certification</b> par la commune.<br />{}
-          Actuellement, <span className='non-breaking'><b>{nbNumerosCertifies} / {nbNumeros} adresses ({certificationPercentage}%) sont certifiées</b> <CheckCircle style={{verticalAlign: 'middle'}} color={theme.successBorder} size={26} alt aria-hidden='true' /></span>.
-        </Notification>
-      )}
 
       <div>
         <Tabs
@@ -121,7 +99,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
           width: 100%;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          gap: 1em;
         }
 
         .non-breaking {

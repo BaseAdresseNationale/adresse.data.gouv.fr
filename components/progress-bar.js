@@ -14,21 +14,22 @@ function ProgressBar({progress, height}) {
         .progressbar-container {
           display: flex;
           align-items: center;
+          width: 100%;
         }
 
         .bar-container {
           height: ${height}px;
-          background: ${theme.colors.orange};
+          background: ${theme.colors.red};
           border-radius: 5px;
           width: 100%;
         }
 
         .progress {
           height: 100%;
-          width: ${progress}%;
-          background-color: ${theme.primary};
+          width: ${Number.parseFloat(progress)}%;
+          background-color: ${theme.colors.green};
           text-align: right;
-          border-radius: 5px;
+          border-radius: ${progress === '100' ? '5px' : '5px 0 0 5px'};
         }
 
         .percent {
@@ -41,7 +42,7 @@ function ProgressBar({progress, height}) {
 }
 
 ProgressBar.propTypes = {
-  progress: PropTypes.number.isRequired,
+  progress: PropTypes.string.isRequired,
   height: PropTypes.number
 }
 
