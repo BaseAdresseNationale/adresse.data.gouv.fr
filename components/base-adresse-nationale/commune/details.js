@@ -1,11 +1,26 @@
 import PropTypes from 'prop-types'
 
-import colors from '@/styles/colors'
+import theme from '@/styles/theme'
 
 import CommuneIdCard from '@/components/commune-id-card'
 import NumberCard from '@/components/number-card'
+import ProgressBar from '@/components/progress-bar'
+import Certification from '../certification'
 
-function Details({region, departement, certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
+function Details({
+  typeComposition,
+  isCertificationInProgress,
+  isAllCertified,
+  region,
+  departement,
+  certificationPercentage,
+  nbVoies,
+  nbLieuxDits,
+  nbNumeros,
+  codesPostaux,
+  population,
+  nbNumerosCertifies
+}) {
   return (
     <div className='details-container'>
       <CommuneIdCard
@@ -17,7 +32,7 @@ function Details({region, departement, certificationPercentage, nbVoies, nbLieux
         size='small'
       />
 
-      <div className='address-number'>
+      <div>
         <h3>Les adresses de la commune en quelques chiffres</h3>
         <div className='number-cards'>
           <NumberCard
@@ -41,44 +56,53 @@ function Details({region, departement, certificationPercentage, nbVoies, nbLieux
         </div>
       </div>
 
-      <div className='number-of-wrapper'>
-        <div>
-          {certificationPercentage === 0 ? (
-            <div>
-              Aucune adresse n’est certifiée par la commune
-            </div>
-          ) : (
-            <div>
-              {certificationPercentage}% des adresses sont certifiées par la commune
-            </div>
-          )}
+      <div>
+        <h3>Nombre d’adresses certifiées</h3>
+        <div className='certif-progress-container'>
+          <ProgressBar progress={certificationPercentage} />
+          <div>
+            <Certification
+              iconSize={20}
+              isCertified={typeComposition === 'bal'}
+              validIconColor={isCertificationInProgress ? theme.border : theme.successBorder}
+              certifiedMessage={
+                isAllCertified ?
+                  'Toutes les adresses sont certifiées par la commune' :
+                  'Les adresses sont en cours de certification par la commune'
+              }
+              notCertifiedMessage={
+                nbNumerosCertifies > 0 ?
+                  'Certaines adresses ne sont pas certifiées par la commune' :
+                  'Aucune adresse n’est certifiée par la commune'
+              }
+            />
+          </div>
+        </div>
+
+        <div className='address-number-container'>
+          <div className='certified-container'>
+            <b>{nbNumerosCertifies}</b>
+            <div>Adresses certifiées</div>
+          </div>
+          <div className='non-certified-container'>
+            <b>{nbNumeros - nbNumerosCertifies}</b>
+            <div>Adresses non certifiées</div>
+          </div>
         </div>
       </div>
 
       <style jsx>{`
         .details-container {
-          margin-top: 1em;
+          margin: 1em 0;
           display: flex;
           flex-direction: column;
-          gap: 1em;
+          gap: 1.5em;
         }
 
-        .commune-general {
-          padding-bottom: 1em;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .number-of-wrapper {
-          margin: 1em 0;
-          border-left: solid 3px ${colors.lightBlue};
-          padding-left: 5px;
-        }
-
-        .address-number h3 {
-          font-size: large;
+        h3 {
+          font-size: medium;
           text-align: center;
-          margin-bottom: .5em;
+          margin-bottom: 5px;
         }
 
         .number-cards {
@@ -86,12 +110,48 @@ function Details({region, departement, certificationPercentage, nbVoies, nbLieux
           grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
           gap: 1em;
         }
+
+
+        .address-number-container {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          align-items: center;
+          margin-top: 1em;
+        }
+
+        .certif-progress-container {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          align-items: center;
+        }
+
+        .certified-container, .non-certified-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          font-weight: bold;
+          font-size: 15px;
+        }
+
+        .certified-container b {
+          color: ${theme.colors.orange};
+          font-size: x-large;
+        }
+
+        .non-certified-container b {
+          color: ${theme.primary};
+          font-size: x-large;
+        }
       `}</style>
     </div>
   )
 }
 
 Details.propTypes = {
+  typeComposition: PropTypes.string.isRequired,
+  isAllCertified: PropTypes.bool.isRequired,
+  isCertificationInProgress: PropTypes.bool.isRequired,
   certificationPercentage: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -102,7 +162,8 @@ Details.propTypes = {
   population: PropTypes.number.isRequired,
   codesPostaux: PropTypes.array.isRequired,
   region: PropTypes.object.isRequired,
-  departement: PropTypes.object.isRequired
+  departement: PropTypes.object.isRequired,
+  nbNumerosCertifies: PropTypes.number.isRequired
 }
 
 export default Details
