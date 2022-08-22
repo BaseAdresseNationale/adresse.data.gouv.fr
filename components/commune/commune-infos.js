@@ -5,6 +5,7 @@ import theme from '@/styles/theme'
 
 import Section from '@/components/section'
 import CommuneIdCard from '@/components/commune-id-card'
+import NumberCard from '../number-card'
 
 function CommuneInfos({communeInfos}) {
   const {codeCommune, codesPostaux, departement, nomCommune, nbNumeros, nbVoies, nbLieuxDits, population, region} = communeInfos
@@ -26,19 +27,11 @@ function CommuneInfos({communeInfos}) {
 
         <div>
           <h3>Les adresses de la commune en quelques chiffres</h3>
+
           <div className='cards-container'>
-            <div className='number-card'>
-              <div>Nombre de numéros</div>
-              <div>{nbNumeros}</div>
-            </div>
-            <div className='number-card'>
-              <div>Nombre de voies</div>
-              <div>{nbVoies}</div>
-            </div>
-            <div className='number-card'>
-              <div>Nombre de lieux-dits</div>
-              <div>{nbLieuxDits}</div>
-            </div>
+            <NumberCard label={nbVoies <= 1 ? 'Voie répertoriée' : 'Voies répertoriées'} number={nbVoies} />
+            <NumberCard label={nbLieuxDits <= 1 ? 'Lieu-dit répertorié' : 'Lieux-dits répertoriés'} number={nbLieuxDits} />
+            <NumberCard label={nbNumeros <= 1 ? 'Numéro répertorié' : 'Numéros répertoriés'} number={nbNumeros} />
           </div>
         </div>
       </div>
