@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types'
-import {Users} from 'react-feather'
 
 import colors from '@/styles/colors'
 
-import PostalCodes from '../postal-codes'
+import CommuneIdCard from '@/components/commune-id-card'
 
-function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
+function Details({region, departement, certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
   return (
-    <>
-      <div className='commune-general'>
-        <PostalCodes codes={codesPostaux} />
-        <div className='with-icon'>
-          <Users alt aria-hidden='true' /> <div><b>{population}</b> habitants</div>
-        </div>
-      </div>
+    <div className='details-container'>
+      <CommuneIdCard
+        codesPostaux={codesPostaux}
+        region={region}
+        departement={departement}
+        population={population}
+        color='secondary'
+        size='small'
+      />
+
       <div className='number-of-wrapper'>
         <div className='number-of-container'>
           <div>
@@ -27,6 +29,7 @@ function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, code
               </div>
             )}
           </div>
+
           <div>
             {nbVoies > 0 ? (nbVoies > 1 ? `${nbVoies} voies répertoriées` : '1 voie répertoriée') : 'Aucune voie répertoriée'}
           </div>
@@ -40,6 +43,12 @@ function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, code
       </div>
 
       <style jsx>{`
+        .details-container {
+          margin: 1em 0;
+          display: flex;
+          flex-direction: column;
+        }
+
         .commune-general {
           padding-bottom: 1em;
           display: flex;
@@ -71,7 +80,7 @@ function Details({certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, code
           color: ${colors.almostBlack};
         }
       `}</style>
-    </>
+    </div>
   )
 }
 
@@ -84,6 +93,9 @@ Details.propTypes = {
   nbLieuxDits: PropTypes.number.isRequired,
   nbNumeros: PropTypes.number.isRequired,
   population: PropTypes.number.isRequired,
-  codesPostaux: PropTypes.array.isRequired
+  codesPostaux: PropTypes.array.isRequired,
+  region: PropTypes.object.isRequired,
+  departement: PropTypes.object.isRequired
 }
+
 export default Details
