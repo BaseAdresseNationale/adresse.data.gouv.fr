@@ -30,6 +30,7 @@ function PostalCodes({codes}) {
             width: fit-content;
             list-style: none;
             text-align: center;
+            color: ${theme.colors.white};
             padding: 10px;
             border-radius: 5px;
             left: 0;
