@@ -960,6 +960,26 @@
       "picture": "/images/logos/partners/epci/orne.png",
       "height": 68,
       "width": 245
+    },
+    {
+      "name": "Communauté d’Agglomération de Paris - Vallée de la Marne",
+      "link": "https://www.agglo-pvm.fr/lagglomeration/la-communaute-dagglomeration/documents-publics",
+      "infos": "La communauté d’agglomération de Paris-Vallée de la Marne sensibilise les communes et leur propose un accompagnement dans leurs démarches d’adressage.",
+      "perimeter": "Communes de la communauté d’Agglomération de PVM",
+      "codeDepartement": [
+        "77"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "sensibilisation",
+        "accompagnement technique",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/marne.png",
+      "height": 100,
+      "width": 245
     }
   ],
   "companies": [
