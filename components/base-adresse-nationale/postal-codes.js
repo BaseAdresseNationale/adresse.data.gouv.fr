@@ -7,7 +7,7 @@ function PostalCodes({codes}) {
     <div>{codes[0]}</div>
   ) : (
     <div className='dropdown'>
-      <div className='dropdown-action'>Codes</div>
+      <div className='dropdown-action'>{codes.length} codes</div>
       <ul className='dropdown-content'>
         {codes.map(code => <li key={code}>{code}</li>)}
       </ul>
