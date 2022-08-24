@@ -48,7 +48,7 @@ function EventBanner() {
       <div className='slides-controls-container'>
         <div className='slideshow-dots'>
           <ActionButtonNeutral
-            label={isAutoplay ? 'Le défilement est automatique. Mettre en pause le défilement.' : 'Le défilement est en pause. Lancer le défilement.'}
+            label={isAutoplay ? 'Le défilement automatique est activé. Mettre en pause le défilement.' : 'Le défilement automatique est désactivé. Lancer le défilement.'}
             onClick={() => setIsAutoplay(!isAutoplay)}
           >
             {isAutoplay ? <Pause size={18} color={theme.colors.white} /> : <Play size={18} color={theme.colors.white} />}
