@@ -5,9 +5,10 @@ import {CheckCircle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import {isCOM} from '@/lib/ban'
+
 import Certification from '../certification'
 import AddressesList from '../addresses-list'
-import RegionInfos from '../region-infos'
 import Details from '@/components/base-adresse-nationale/commune/details'
 import Tabs from '@/components/base-adresse-nationale/commune/tabs'
 import Notification from '@/components/notification'
@@ -31,6 +32,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
         <div className='name-certification'>
           <h2>
             <a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a>
+            {isCOM(codeCommune) && <i>Collectivité d’outremer</i>}
           </h2>
           <div>
             <Certification
@@ -49,15 +51,11 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
             />
           </div>
         </div>
-
-        <RegionInfos
-          codeCommune={codeCommune}
-          region={region}
-          departement={departement}
-        />
       </div>
       <Details
         certificationPercentage={certificationPercentage}
+        region={region}
+        departement={departement}
         nbVoies={nbVoies}
         nbLieuxDits={nbLieuxDits}
         nbNumeros={nbNumeros}
@@ -105,12 +103,18 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
         .heading {
           display: flex;
           flex-direction: column;
-          margin: 1.2em 0;
+          margin-top: 1.2em;
         }
 
         .heading h2 {
           margin-bottom: 0.2em;
           display: flex;
+          flex-direction: column;
+        }
+
+        .heading i {
+          font-size: small;
+          font-weight: lighter;
         }
 
         .name-certification {
