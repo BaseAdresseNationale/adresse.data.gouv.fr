@@ -51,11 +51,6 @@ function DonneesNatioales() {
       </Section>
 
       <Section background='grey' title='Services cartographiques'>
-        <div className='link'>
-          <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig'>
-            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des SIG
-          </a>
-        </div>
         <div className='card-container'>
           <Card
             title='Format MVT (tuiles vectorielles)'
@@ -83,6 +78,11 @@ function DonneesNatioales() {
           >
             Visualisation cartographique des adresses BAN en WMS
           </Card>
+        </div>
+        <div className='link'>
+          <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig'>
+            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des SIG
+          </a>
         </div>
       </Section>
 
@@ -133,7 +133,7 @@ function DonneesNatioales() {
         }
         .link {
           text-align: center;
-          padding-top: 2em;
+          padding-top: 3em;
         }
       `}</style>
     </Page >
