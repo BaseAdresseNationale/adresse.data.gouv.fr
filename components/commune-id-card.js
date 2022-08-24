@@ -13,7 +13,7 @@ function CommuneIdCard({region, departement, codesPostaux, population, color, si
       </div>
       <div className='info-container'>
         <div className='label'>Département</div>
-        <div className='value'>{departement.nom} {departement.code}</div>
+        <div className='value'>{departement.nom} ({departement.code})</div>
       </div>
       <div className='info-container'>
         <div className='label'>Code Postal</div>
