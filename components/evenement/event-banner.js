@@ -104,12 +104,12 @@ function EventBanner() {
           gap: .5em;
           height: fit-content;
           align-items: center;
-          color: ${theme.colors.white};
         }
 
         .banner-title {
           font-size: 18px;
           font-weight: bold;
+          color: ${theme.colors.white};
         }
 
         .slides-controls-container {
@@ -145,6 +145,7 @@ function EventBanner() {
 
         .date {
           font-style: italic;
+          color: ${theme.colors.white};
         }
 
         @keyframes fadeIn {
