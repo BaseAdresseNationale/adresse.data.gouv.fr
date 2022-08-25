@@ -81,7 +81,7 @@ function DonneesNatioales() {
         </div>
         <div className='link'>
           <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig'>
-            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des SIG
+            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des flux avec un outil SIG
           </a>
         </div>
       </Section>
