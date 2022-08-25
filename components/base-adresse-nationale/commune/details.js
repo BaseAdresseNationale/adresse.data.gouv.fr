@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 
 import CommuneIdCard from '@/components/commune-id-card'
-import NumberCard from '@/components/number-card'
+import Counter from '@/components/ui/metrics/counter'
 import ProgressBar from '@/components/progress-bar'
 import Certification from '../certification'
 
@@ -35,21 +35,21 @@ function Details({
       <div>
         <h3>Les adresses de la commune en quelques chiffres</h3>
         <div className='number-cards'>
-          <NumberCard
+          <Counter
+            value={nbVoies}
             label={nbVoies <= 1 ? 'Voie' : 'Voies'}
-            number={nbVoies}
             color='secondary'
             size='small'
           />
-          <NumberCard
+          <Counter
+            value={nbLieuxDits}
             label={nbLieuxDits <= 1 ? 'Lieu-dit' : 'Lieux-dits'}
-            number={nbLieuxDits}
             color='secondary'
             size='small'
           />
-          <NumberCard
+          <Counter
+            value={nbNumeros}
             label={nbNumeros <= 1 ? 'Numéro' : 'Numéros'}
-            number={nbNumeros}
             color='secondary'
             size='small'
           />
