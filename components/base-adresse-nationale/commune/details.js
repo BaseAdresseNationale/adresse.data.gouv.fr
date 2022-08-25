@@ -135,12 +135,12 @@ function Details({
         }
 
         .certified-container b {
-          color: ${theme.colors.red};
+          color: ${theme.colors.green};
           font-size: x-large;
         }
 
         .non-certified-container b {
-          color: ${theme.colors.green};
+          color: ${theme.colors.red};
           font-size: x-large;
         }
       `}</style>
