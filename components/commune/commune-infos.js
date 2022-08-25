@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 
-import Section from '@/components/section'
 import theme from '@/styles/theme'
+
+import Section from '@/components/section'
+import CommuneIdCard from '@/components/commune-id-card'
 
 function CommuneInfos({communeInfos}) {
   const {codeCommune, codesPostaux, departement, nomCommune, nbNumeros, nbVoies, nbLieuxDits, population, region} = communeInfos
@@ -15,24 +17,12 @@ function CommuneInfos({communeInfos}) {
           <div className='name'>{nomCommune} - {codeCommune}</div>
         </div>
 
-        <div className='general-infos-container'>
-          <div>
-            <div className='label'>Région</div>
-            <div className='value'>{region.nom}</div>
-          </div>
-          <div>
-            <div className='label'>Département</div>
-            <div className='value'>{departement.nom} ({departement.code})</div>
-          </div>
-          <div>
-            <div className='label'>Code Postal</div>
-            <span className='value'>{codesPostaux[0]}</span>
-          </div>
-          <div>
-            <div className='label'>Population</div>
-            <div className='value'>{population} habitants</div>
-          </div>
-        </div>
+        <CommuneIdCard
+          region={region}
+          departement={departement}
+          codesPostaux={codesPostaux}
+          population={population}
+        />
 
         <div>
           <h3>Les adresses de la commune en quelques chiffres</h3>
