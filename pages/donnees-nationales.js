@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {Download} from 'react-feather'
+import {Download, ExternalLink} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -53,6 +53,15 @@ function DonneesNatioales() {
       <Section background='grey' title='Services cartographiques'>
         <div className='card-container'>
           <Card
+            title='Format MVT (tuiles vectorielles)'
+            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
+            action='Consulter la documentation MVT'
+            list={['Mise à jour en temps réel', '1 position par adresse']}
+          >
+            Visualisation cartographique des adresses BAN en tuiles vectorielles
+          </Card>
+
+          <Card
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
             action='Consulter la documentation WFS'
@@ -69,14 +78,11 @@ function DonneesNatioales() {
           >
             Visualisation cartographique des adresses BAN en WMS
           </Card>
-
-          <Card
-            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
-            action='Consulter la documentation MVT'
-            list={['Mise à jour en temps réel', '1 position par adresse']}
-          >
-            Visualisation cartographique des adresses BAN en tuiles vectorielles
-          </Card>
+        </div>
+        <div className='link'>
+          <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig'>
+            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des flux avec un outil SIG
+          </a>
         </div>
       </Section>
 
@@ -124,6 +130,10 @@ function DonneesNatioales() {
         }
         .adjust-img {
           text-align: center;
+        }
+        .link {
+          text-align: center;
+          padding-top: 3em;
         }
       `}</style>
     </Page >
