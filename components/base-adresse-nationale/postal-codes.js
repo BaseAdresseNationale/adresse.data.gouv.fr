@@ -1,60 +1,47 @@
-import {useState} from 'react'
 import PropTypes from 'prop-types'
-import {ChevronUp, ChevronDown} from 'react-feather'
 
-import ActionButtonNeutral from '@/components/action-button-neutral'
-import colors from '@/styles/colors'
+import theme from '@/styles/theme'
 
 function PostalCodes({codes}) {
-  const [showCodes, setShowCodes] = useState(false)
-  return (
-    <div className='postal-codes-container'>
-      {codes.length === 1 ? (
-        <div>
-          Code postal : <b>{codes[0]}</b>
-        </div>
-      ) : (
-        <div className='postal-codes'>
-          <div>
-            <ActionButtonNeutral
-              label={showCodes ? 'Masquer les codes postaux' : 'Afficher les codes postaux'}
-              onClick={() => setShowCodes(!showCodes)}
-            >
-              <div className='wrapper'>
-                <div>Codes postaux</div> {showCodes ? <ChevronUp alt aria-hidden='true' /> : <ChevronDown alt aria-hidden='true' />}
-              </div>
-            </ActionButtonNeutral>
-          </div>
-          {showCodes && (
-            <ul className='codes-list'>
-              {codes.map(code => <li key={code}>{code}</li>)}
-            </ul>
-          )}
-        </div>
-      )}
+  return codes.length === 1 ? (
+    <div>{codes[0]}</div>
+  ) : (
+    <div className='dropdown'>
+      <div className='dropdown-action'>{codes.length} codes</div>
+      <ul className='dropdown-content'>
+        {codes.map(code => <li key={code}>{code}</li>)}
+      </ul>
 
       <style jsx>{`
-        .postal-codes {
-          padding: 5px;
-          background: ${colors.lighterGrey};
-        }
+          .dropdown-action {
+            text-decoration: underline;
+            cursor: pointer;
+          }
 
-        .wrapper {
-          display: flex;
-          justify-content: space-between;
-          border-radius: 4px;
-          align-items: center;
+          .dropdown {
+            position: relative;
+            display: inline-block;
+          }
 
-        }
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: ${theme.backgroundDark};
+            width: fit-content;
+            list-style: none;
+            text-align: center;
+            color: ${theme.colors.white};
+            padding: 10px;
+            border-radius: 5px;
+            left: 0;
+            top: 10px;
+            z-index: 1;
+          }
 
-        .with-icon > div {
-          margin-right: 0.4em;
-        }
-
-        .codes-list {
-          margin: 0;
-        }
-      `}</style>
+          .dropdown-action:hover .dropdown-content {
+            display: inline-block;
+          }
+        `}</style>
     </div>
   )
 }
