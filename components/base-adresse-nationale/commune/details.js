@@ -8,18 +8,18 @@ import ProgressBar from '@/components/progress-bar'
 import Certification from '../certification'
 
 function Details({
-  typeComposition,
-  isCertificationInProgress,
-  isAllCertified,
+  codesPostaux,
+  population,
   region,
   departement,
-  certificationPercentage,
   nbVoies,
   nbLieuxDits,
   nbNumeros,
-  codesPostaux,
-  population,
-  nbNumerosCertifies
+  nbNumerosCertifies,
+  certificationPercentage,
+  typeComposition,
+  isCertificationInProgress,
+  isAllCertified
 }) {
   return (
     <div className='details-container'>
