@@ -30,7 +30,7 @@ function EventBanner() {
     if (!selectedEvent && isAutoplay) {
       const slideInterval = setTimeout(() => {
         setIndex(index === events.length - 1 ? 0 : index + 1)
-      }, 3000)
+      }, 4000)
 
       return () => {
         clearInterval(slideInterval)
