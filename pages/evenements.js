@@ -84,7 +84,7 @@ function Evenements() {
                       key={id}
                       id={id}
                       event={event}
-                      background='grey'
+                      background='secondary'
                       isPassed
                     />
                   )
