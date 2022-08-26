@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import {X, Check} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -79,16 +80,24 @@ function Details({
           </div>
         </div>
 
-        <div className='address-number-container'>
-          <div className='certified-container'>
-            <b>{nbNumerosCertifies}</b>
-            <div>Adresses certifiées</div>
-          </div>
-          <div className='non-certified-container'>
-            <b>{nbNumeros - nbNumerosCertifies}</b>
-            <div>Adresses non certifiées</div>
-          </div>
-        </div>
+        {isAllCertified ? (
+          <div className='full-none-certified'><Check /> {nbNumerosCertifies} adresses ont été certifiées</div>
+        ) : (
+          certificationPercentage === 0 ? (
+            <div className='full-none-certified'><X />{nbNumeros} adresses sont non-certifiées</div>
+          ) : (
+            <div className='address-number-container'>
+              <div className='certified-container'>
+                <b>{nbNumerosCertifies}</b>
+                <div>Adresses certifiées</div>
+              </div>
+              <div className='non-certified-container'>
+                <b>{nbNumeros - nbNumerosCertifies}</b>
+                <div>Adresses non certifiées</div>
+              </div>
+            </div>
+          )
+        )}
       </div>
 
       <style jsx>{`
@@ -142,6 +151,17 @@ function Details({
         .non-certified-container b {
           color: ${theme.colors.red};
           font-size: x-large;
+        }
+
+        .full-none-certified {
+          text-align: center;
+          color: ${isAllCertified ? theme.colors.green : theme.colors.red};
+          font-weight: bold;
+          margin-top: .5em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
         }
       `}</style>
     </div>
