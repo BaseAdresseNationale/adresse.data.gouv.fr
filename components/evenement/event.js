@@ -2,6 +2,8 @@ import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 
+import {dateWithDay} from '@/lib/date'
+
 import theme from '@/styles/theme'
 
 import Button from '../button'
@@ -10,9 +12,6 @@ import EventModal from './event-modal'
 function Event({event, background, isPassed}) {
   const {title, subtitle, address, date, type, startHour, endHour, isOnlineOnly} = event
   const {nom, numero, voie, codePostal, commune} = address
-
-  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-  const sanitizedDate = new Date(date).toLocaleDateString('fr-FR', options)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -28,8 +27,8 @@ function Event({event, background, isPassed}) {
         </div>
 
         <div className='date-location-container'>
-          <div className='date' aria-label={`le ${sanitizedDate}, de ${startHour} à ${endHour}`}>
-            {`le ${sanitizedDate} | ${startHour}-${endHour}`}
+          <div className='date' aria-label={`le ${dateWithDay(date)}, de ${startHour} à ${endHour}`}>
+            {`le ${dateWithDay(date)} | ${startHour}-${endHour}`}
           </div>
           {isOnlineOnly ? (
             <div className='location'>Évènement en ligne</div>

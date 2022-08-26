@@ -6,7 +6,7 @@ import {XSquare, MapPin} from 'react-feather'
 import theme from '@/styles/theme'
 
 import {formatTag} from '@/lib/tag'
-import {sanitizedDate, accessibleDate} from '@/lib/date'
+import {dateWithDay} from '@/lib/date'
 
 import ButtonLink from '../button-link'
 import SectionText from '../section-text'
@@ -47,7 +47,7 @@ function EventModal({event, isPassed, onClose}) {
             <div className='date-hours-container'>
               <div className='date-container'>
                 L’évènement {isPassed ? 'a eu' : 'aura'} lieu le
-                <div className='date' aria-label={accessibleDate(date)}>{sanitizedDate(date)}</div>
+                <div className='date' aria-label={dateWithDay(date)}>{dateWithDay(date)}</div>
               </div>
               <div className='date-container'>
                 De

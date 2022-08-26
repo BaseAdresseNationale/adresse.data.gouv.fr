@@ -54,7 +54,6 @@ function Evenements() {
                     <Event
                       key={id}
                       event={event}
-                      id={id}
                     />
                   )
                 })
@@ -82,7 +81,6 @@ function Evenements() {
                   return (
                     <Event
                       key={id}
-                      id={id}
                       event={event}
                       background='secondary'
                       isPassed
