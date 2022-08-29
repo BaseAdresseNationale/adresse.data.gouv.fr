@@ -68,7 +68,7 @@ function EventModal({event, isPassed, onClose}) {
 
         <div className='description-container'>
           <SectionText>{description}</SectionText>
-          <div className='target'><div><Target /></div> Cet événement est à destination {target ? `des ${target}` : 'de tous'}.</div>
+          <div className='target'><div className='target-icon'><Target size={24} /></div> Cet événement est à destination {target ? `des ${target}` : 'de tous'}.</div>
           <div className='tags'>{tags.map(tag => <div key={tag} className={`${type}-txt`}>&nbsp;{formatTag(tag)}</div>)}</div>
         </div>
       </div>
@@ -155,6 +155,10 @@ function EventModal({event, isPassed, onClose}) {
           justify-content: center;
           align-items: center;
           margin-bottom: 1em;
+        }
+
+        .target-icon {
+          height: 24px;
         }
 
         .tags {
