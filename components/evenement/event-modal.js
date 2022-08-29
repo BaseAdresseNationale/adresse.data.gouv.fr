@@ -41,16 +41,15 @@ function EventModal({event, isPassed, onClose}) {
           </ActionButtonNeutral>
 
           <div className='presentation'>
-            <Image src={`/images/icons/event-${type}.svg`} height={150} width={150} alt aria-hidden='true' />
-
+            <Image src={`/images/icons/event-${type}.svg`} height={150} width={170} alt aria-hidden='true' />
             <div className='header-infos'>
               <div className='title-container'>
                 <h5>{title}</h5>
                 <div>{subtitle}</div>
               </div>
+
               <div>
                 <div className='date' aria-label={`le ${dateWithDay(date)}, de ${startHour} à ${endHour}`}>{`Le ${dateWithDay(date)} | ${startHour}-${endHour}`}</div>
-
                 {!isOnlineOnly && <div className='location'><MapPin size={15} /> {nom}, {numero} {voie} <br /> {codePostal} {commune}</div>}
                 {isOnlineOnly && (
                   href ? (
@@ -104,7 +103,7 @@ function EventModal({event, isPassed, onClose}) {
         }
 
         .header {
-          padding: 1em 2em;
+          padding: 1em;
           color: ${theme.colors.white};
           border-radius: 5px 5px 0 0;
           text-align: right;
@@ -120,7 +119,7 @@ function EventModal({event, isPassed, onClose}) {
         .date {
           font-size: large;
           font-weight: bold;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
         }
 
         .subscription-closed {
@@ -131,7 +130,9 @@ function EventModal({event, isPassed, onClose}) {
         .presentation {
           gap: 2em;
           justify-content: space-between;
-          margin-top: 1em;
+          margin-top: .5em;
+          border-top: .5px solid white;
+          padding: 1.5em 2em 0 2em;
         }
 
         .title-container h5 {
