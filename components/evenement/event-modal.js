@@ -164,6 +164,7 @@ function EventModal({event, isPassed, onClose}) {
         .tags {
           font-style: italic;
           gap: .5em;
+          flex-wrap: wrap;
         }
 
         .adresselab-backg {
