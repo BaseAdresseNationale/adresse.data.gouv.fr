@@ -44,7 +44,7 @@ function Event({event, background, isPassed}) {
         <Button onClick={() => setIsModalOpen(true)}>Afficher les informations</Button>
       </div>
 
-      {isModalOpen && <EventModal event={event} isPassed={isPassed} onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <EventModal event={event} onClose={() => setIsModalOpen(false)} isPassed={isPassed} />}
 
       <style jsx>{`
         {/* Avoid opacity heritance on modal */}

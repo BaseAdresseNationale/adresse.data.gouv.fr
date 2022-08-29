@@ -73,7 +73,7 @@
     },
     "href": "",
     "isSubscriptionClosed": true,
-    "instructions": "",
+    "instructions": "Inscription automatique après adoption de la charte, contacter adresse@data.gouv.fr",
     "startHour": "14:00",
     "endHour": "15:30"
   },
@@ -928,7 +928,7 @@
     },
     "href": "",
     "isSubscriptionClosed": true,
-    "instructions": "",
+    "instructions": "Inscription automatique après adoption de la charte, contacter adresse@data.gouv.fr",
     "startHour": "14:00",
     "endHour": "15:30"
   }
