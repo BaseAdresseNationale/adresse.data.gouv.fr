@@ -1,16 +1,15 @@
 import {useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import {XSquare, MapPin} from 'react-feather'
+import {MapPin, XCircle, Target} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import {formatTag} from '@/lib/tag'
-import {sanitizedDate, accessibleDate} from '@/lib/date'
+import {dateWithDay} from '@/lib/date'
 
-import ButtonLink from '../button-link'
-import SectionText from '../section-text'
-import Notification from '../notification'
+import ButtonLink from '@/components/button-link'
+import SectionText from '@/components/section-text'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
 function EventModal({event, isPassed, onClose}) {
@@ -18,6 +17,7 @@ function EventModal({event, isPassed, onClose}) {
 
   const {title, subtitle, address, description, href, date, isSubscriptionClosed, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
   const {nom, numero, voie, codePostal, commune} = address
+  const isSubscriptionBlocked = isSubscriptionClosed || isPassed
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -34,64 +34,41 @@ function EventModal({event, isPassed, onClose}) {
 
   return (
     <div className='modal-wrapper'>
-      <div className='modal-container' ref={modalRef}>
-        <div className={`close-container close-container-${type}`}>
-          <ActionButtonNeutral onClick={onClose} label='Fermer la fenêtre'>
-            <XSquare alt aria-hidden='true' />
+      <div className='modal' ref={modalRef}>
+        <div className={`header ${type}-backg`}>
+          <ActionButtonNeutral label='Fermer la fenêtre'>
+            <XCircle onClick={onClose} color={theme.colors.white} />
           </ActionButtonNeutral>
-        </div>
 
-        <div className='modal-content'>
-          <div className={`left-content ${type}`}>
-            <div className='left-title'>📅 &nbsp; À vos agendas !</div>
-            <div className='date-hours-container'>
-              <div className='date-container'>
-                L’évènement {isPassed ? 'a eu' : 'aura'} lieu le
-                <div className='date' aria-label={accessibleDate(date)}>{sanitizedDate(date)}</div>
-              </div>
-              <div className='date-container'>
-                De
-                <div className='date'>{`${startHour} à ${endHour}`}</div>
-              </div>
-            </div>
-            {isOnlineOnly ? (
-              <div className='place'><span>🖥️</span><br />{`${title} ${isPassed ? 's’est déroulé en ligne' : 'se déroulera en ligne'}`}</div>
-            ) : (
-              <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} alt aria-hidden='true' />{nom}, {numero} {voie} - {codePostal} {commune}</div>
-            )}
-
-            {!isPassed && (
-              <div className='subscribe'>
-                {isSubscriptionClosed ? (
-                  <div className='instructions'>Inscriptions closes</div>
-                ) : (
-                  instructions && (
-                    <div className='instructions'>{instructions}</div>
-                  )
-                )}
-
-                {(href && !isSubscriptionClosed) && (
-                  <ButtonLink href={href} isExternal>
-                    S’inscrire à l’évènement
-                  </ButtonLink>
-                )}
-              </div>
-            )}
-          </div>
-          <div className='right-content'>
-            <div className='head-container'>
-              <Image src={`/images/icons/event-${type}.svg`} height={60} width={60} alt aria-hidden='true' />
+          <div className='presentation'>
+            <Image src={`/images/icons/event-${type}.svg`} height={150} width={170} alt aria-hidden='true' />
+            <div className='header-infos'>
               <div className='title-container'>
-                <div className='right-title'>{title}</div>
+                <h5>{title}</h5>
                 <div>{subtitle}</div>
               </div>
-            </div>
-            <SectionText>{description}</SectionText>
-            <Notification><div className='target'>Cet événement est à destination {target ? `des ${target}` : 'de tous'}.</div></Notification>
-            <div className='tags'>
-              {tags.map(tag => <div key={tag}>&nbsp;{formatTag(tag)}</div>)}
+
+              <div>
+                <div className='date' aria-label={`le ${dateWithDay(date)}, de ${startHour} à ${endHour}`}>{`Le ${dateWithDay(date)} | ${startHour}-${endHour}`}</div>
+                {!isOnlineOnly && <div className='location'><MapPin size={15} /> {nom}, {numero} {voie} <br /> {codePostal} {commune}</div>}
+                {isOnlineOnly && (
+                  href ? (
+                    <div className={isSubscriptionBlocked ? 'subscription-closed' : ''}>
+                      <ButtonLink size='small' color='white' isOutlined href={href} isExternal>{isSubscriptionBlocked ? 'Inscriptions closes' : 'S’inscrire à l’évènement' }</ButtonLink>
+                    </div>
+                  ) : (
+                    <div>{isSubscriptionBlocked ? 'Inscriptions closes' : instructions}</div>
+                  )
+                )}
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className='description-container'>
+          <SectionText>{description}</SectionText>
+          <div className='target'><div className='target-icon'><Target size={24} /></div> Cet événement est à destination {target ? `des ${target}` : 'de tous'}.</div>
+          <div className='tags'>{tags.map(tag => <div key={tag} className={`${type}-txt`}>&nbsp;{formatTag(tag)}</div>)}</div>
         </div>
       </div>
 
@@ -110,132 +87,131 @@ function EventModal({event, isPassed, onClose}) {
           align-items: center;
         }
 
-        .modal-container {
-          max-height: 90%;
-          height: fit-content;
-          max-width: 90%;
-          width: 950px;
-          padding: 1em;
-          background: ${theme.colors.white};
-          border-radius: ${theme.borderRadius};
+        .modal, .header-infos, .presentation, .target, .tags {
           display: flex;
+        }
+
+        .modal {
+          padding: 0;
+          border-radius: 5px;
+          max-height: 90%;
+          max-width: 90%;
+          width: 800px;
+          height: fit-content;
           flex-direction: column;
           overflow: auto;
         }
 
-        .date-container, .date, .instructions, .left-title, .right-title{
-          font-weight: bold;
-        }
-
-        .close-container {
-          border-bottom: 2px solid;
+        .header {
+          padding: 1em;
+          color: ${theme.colors.white};
+          border-radius: 5px 5px 0 0;
           text-align: right;
         }
 
-        .close-container-partenaire {
-          border-color: ${theme.colors.blue};
-        }
-
-        .close-container-formation {
-          border-color: ${theme.colors.darkGreen};
-        }
-
-        .close-container-adresselab {
-          border-color: ${theme.colors.red};
-        }
-
-        .close-container-adresse-region {
-          border-color: ${theme.colors.purple};
-        }
-
-        .modal-content {
-          display: flex;
-          gap: 1em;
-          margin-top: 1em;
-          flex-wrap: wrap-reverse;
-        }
-
-        .left-content, .right-content {
-          min-width: 260px;
-          flex: 1;
-          display: flex;
+        .header-infos {
           flex-direction: column;
-          justify-content: space-around;
-          border-radius: ${theme.borderRadius};
-          padding: 1em;
-          gap: 1em;
-          text-align: center;
-        }
-
-        .date-container {
-          font-size: 16px;
-          margin-bottom: 1em;
+          justify-content: space-between;
+          align-items: flex-end;
+          gap: 2em;
         }
 
         .date {
-          font-size: 22px;
+          font-size: large;
+          font-weight: bold;
+          margin-bottom: 10px;
         }
 
-        .place {
-          font-size: 16px;
-          font-style: italic;
+        .subscription-closed {
+          pointer-events: none;
+          opacity: 70%;
         }
 
-        .place span {
-          font-style: normal;
-          font-size: 2em;
+        .presentation {
+          gap: 2em;
+          justify-content: space-between;
+          margin-top: .5em;
+          border-top: .5px solid white;
+          padding: 1.5em 2em 0 2em;
         }
 
-        .head-container {
-          display: flex;
-          align-items: center;
+        .title-container h5 {
+          font-size: x-large;
+          margin: 0;
+        }
+
+        .description-container {
+          padding: 1em;
+        }
+
+        .close {
+          width: 100%;
+          text-align: right;
+        }
+
+        .target {
+          font-weight: bold;
+          font-size: large;
+          gap: 5px;
           justify-content: center;
-          gap: 1em;
-          flex-wrap: wrap;
+          align-items: center;
+          margin-bottom: 1em;
         }
 
-        .title-container {
-          text-align: ${subtitle ? 'start' : 'center'};
-          line-height: ${subtitle ? '30' : '35'}px;
-        }
-
-        .title-container div:nth-child(2) {
-          font-size: 18px;
-          margin-top: 10px;
-          font-style: italic;
+        .target-icon {
+          height: 24px;
         }
 
         .tags {
-          display: flex;
-          flex-wrap: wrap;
-          color: ${theme.primary};
           font-style: italic;
-          font-size: 14px;
+          gap: .5em;
+          flex-wrap: wrap;
         }
 
-        .adresselab {
-          background: ${theme.colors.lightRed};
+        .adresselab-backg {
+         background: ${theme.colors.red};
         }
 
-        .formation {
-          background: ${theme.colors.lightGreen};
+        .formation-backg {
+          background: ${theme.colors.darkGreen};
         }
 
-        .partenaire {
-          background: ${theme.colors.lighterBlue};
+        .partenaire-backg {
+          background: ${theme.colors.blue};
         }
 
-        .adresse-region {
-          background: ${theme.colors.lightPurple};
+        .adresse-region-backg {
+          background: ${theme.colors.purple};
         }
 
-        .left-title {
-          font-size: 1.5em;
+        .adresselab-txt {
+         color: ${theme.colors.red};
         }
 
-        .right-title {
-          font-size: 2em;
+        .formation-txt {
+          color: ${theme.colors.darkGreen};
         }
+
+        .partenaire-txt {
+          color: ${theme.colors.blue};
+        }
+
+        .adresse-region-txt {
+          color: ${theme.colors.purple};
+        }
+
+        @media (max-width: 624px) {
+          .presentation {
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: center
+          }
+
+          .header-infos {
+            align-items: center;
+          }
+        }
+
       `}</style>
     </div>
   )
@@ -258,8 +234,8 @@ EventModal.propTypes = {
     isOnlineOnly: PropTypes.bool.isRequired,
     instructions: PropTypes.string,
   }).isRequired,
-  isPassed: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  isPassed: PropTypes.bool.isRequired
 }
 
 export default EventModal
