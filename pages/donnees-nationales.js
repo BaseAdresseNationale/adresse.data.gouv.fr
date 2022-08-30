@@ -23,7 +23,7 @@ function DonneesNatioales() {
       <Section background='grey' title='Télécharger les données'>
         <div className='card-container'>
           <Card
-            title='Format CSV'
+            title='Format CSV historique'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'
             action='Télécharger au format CSV'
             list={['1 position par adresse']}
@@ -33,19 +33,21 @@ function DonneesNatioales() {
           </Card>
 
           <Card
+            title='Format BAL'
+            list={['Plusieurs positions par adresse']}
+            link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv-bal/'
+            action='Téléchargez au format BAL'
+          >
+            Fichier CSV au format <a href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf'>BAL 1.3 (AITF)</a>
+          </Card>
+
+          <Card
             title='Format Addok'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/addok'
             action='Télécharger au format Addok'
             list={['1 position par adresse']}
           >
             Fichier spécifique pour le géocodeur Addok
-          </Card>
-
-          <Card
-            title='Format JSON expert'
-            list={['Plusieurs positions par adresse', 'Plusieurs sources par adresse']}
-          >
-            Fichier contenant l’intégralité des données et métadonnées contenues dans la plateforme
           </Card>
         </div>
       </Section>
