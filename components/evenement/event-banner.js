@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {Pause, Play} from 'react-feather'
 
-import {sortEventsByDate} from '@/lib/date'
+import {sortEventsByDate, dateWithDay} from '@/lib/date'
 import theme from '@/styles/theme'
 
 import allEvents from '../../events.json'
@@ -12,19 +12,10 @@ import ActionButtonNeutral from '@/components/action-button-neutral'
 const today = new Date().setHours(0, 0, 0, 0)
 const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
 
-const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-const handleAccessibleDate = eventDate => {
-  return new Date(eventDate).toLocaleDateString('fr-FR', options)
-}
-
 function EventBanner() {
   const [index, setIndex] = useState(0)
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [isAutoplay, setIsAutoplay] = useState(true)
-
-  const sanitizedDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR')
-  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-  const accessibleDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR', options)
 
   useEffect(() => {
     if (!selectedEvent && isAutoplay) {
@@ -56,7 +47,7 @@ function EventBanner() {
           <div>
             {events.map((event, idx) => (
               <ActionButtonNeutral
-                label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${accessibleDate}`}
+                label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${dateWithDay(event.date)}`}
                 key={`${event.title}-${event.date}`}
                 onClick={() => setIndex(idx)}
                 disabled={index === idx}
@@ -68,17 +59,15 @@ function EventBanner() {
         </div>
         <ul className='slider'>
           {events.map((event, idx) => {
-            const sanitizedDate = new Date(event.date).toLocaleDateString('fr-FR')
-
             return (
-              <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
+              <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${event.date}`}>
                 <ActionButtonNeutral label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)} isFullSize>
                   <div className='event-link'>
                     {event.title}
                   </div>
                 </ActionButtonNeutral>
                 {event.subtitle && <div className='subtitle'>{event.subtitle}</div>}
-                <div className='date'>le {sanitizedDate}</div>
+                <div className='date'>le {dateWithDay(event.date)}</div>
               </li>
             )
           }
@@ -89,8 +78,6 @@ function EventBanner() {
       {selectedEvent && (
         <EventModal
           event={selectedEvent}
-          sanitizedDate={sanitizedDate}
-          accessibleDate={handleAccessibleDate(selectedEvent.date)}
           onClose={() => setSelectedEvent(null)}
         />
       )}
