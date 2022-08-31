@@ -105,13 +105,13 @@ function Details({
           margin: 1em 0;
           display: flex;
           flex-direction: column;
-          gap: 1.5em;
+          gap: 1.8em;
         }
 
         h3 {
           font-size: medium;
           text-align: center;
-          margin-bottom: 5px;
+          margin-bottom: 8px;
         }
 
         .number-cards {
@@ -157,7 +157,7 @@ function Details({
           text-align: center;
           color: ${isAllCertified ? theme.colors.green : theme.colors.red};
           font-weight: bold;
-          margin-top: .5em;
+          margin-top: .8em;
           display: flex;
           align-items: center;
           justify-content: center;
