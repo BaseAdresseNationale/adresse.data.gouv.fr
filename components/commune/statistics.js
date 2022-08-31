@@ -4,16 +4,16 @@ import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
-function toCounterData(percent, total) {
+function toCounterData(percent, total, hasNumeros) {
+  const backgroundColor = hasNumeros ? ['#0054B3', '#FCB955'] : ['#ADB9C9']
+  const data = hasNumeros ? [percent, total] : [0, 1]
+
   return {
     labels: [],
     datasets: [
       {
-        data: [percent, total],
-        backgroundColor: [
-          '#0054B3',
-          '#FCB955'
-        ],
+        data,
+        backgroundColor,
         borderColor: [
           '#FFFFFF',
         ],
@@ -38,8 +38,10 @@ const options = {
 }
 
 function Statistics({nbNumeros, nbNumerosCertifies}) {
-  const certifiedPercent = (nbNumerosCertifies / nbNumeros) * 100
-  const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent))
+  const hasNumeros = Boolean(nbNumeros)
+
+  const certifiedPercent = hasNumeros ? (nbNumerosCertifies / nbNumeros) * 100 : 0
+  const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent), hasNumeros)
 
   if (certifiedPercent === 100) {
     return (
@@ -106,16 +108,20 @@ function Statistics({nbNumeros, nbNumerosCertifies}) {
           </div>
           <div className='numbers'>
             <div className='addresses-number'>
-              <div className='certified-number'>{nbNumerosCertifies}</div>
+              <div className='certified-number'>{nbNumerosCertifies || 0}</div>
               adresses certifiées.
             </div>
             <div className='addresses-number'>
-              <div className='uncertified-number'>{nbNumeros - nbNumerosCertifies}</div>
+              <div className='uncertified-number'>{nbNumeros - nbNumerosCertifies || 0}</div>
               adresses non certifiées (ou en attente).
             </div>
           </div>
         </div>
-        <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)}%</b> des adresses de la commune sont certifiées.</p>
+        {hasNumeros ? (
+          <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)}%</b> des adresses de la commune sont certifiées.</p>
+        ) : (
+          <p className='percent'>Les données concernant les adresses sont actuellement indisponibles</p>
+        )}
       </div>
 
       <style jsx>{`
