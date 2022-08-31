@@ -7,7 +7,8 @@ import theme from '@/styles/theme'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
 const getHours = time => {
-  return new Date('1970-01-01T' + time + 'Z').getHours()
+  const [hour, minutes] = time.split(':')
+  return hour + 'h' + minutes
 }
 
 function CommuneSchedules({scheldules}) {
@@ -41,7 +42,7 @@ function CommuneSchedules({scheldules}) {
                 <ul>
                   {scheldule.heures.map(heure => (
                     <li key={`${scheldule.du}-${scheldule.au}&${heure.de}-${heure.a}`} aria-label={`${getHours(heure.de)} heures à ${getHours(heure.a)} heures`}>
-                      <div aria-hidden='true'>De <b>{getHours(heure.de)}h</b> à <b>{getHours(heure.a)}h</b></div>
+                      <div aria-hidden='true'>De <b>{getHours(heure.de)}</b> à <b>{getHours(heure.a)}</b></div>
                     </li>
                   ))}
                 </ul>
