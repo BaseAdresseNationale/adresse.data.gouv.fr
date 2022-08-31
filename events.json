@@ -72,7 +72,7 @@
       "commune": ""
     },
     "href": "",
-    "isSubscriptionClosed": true,
+    "isSubscriptionClosed": false,
     "instructions": "Inscription automatique après adoption de la charte, contacter adresse@data.gouv.fr",
     "startHour": "14:00",
     "endHour": "15:30"
@@ -927,7 +927,7 @@
       "codePostal": ""
     },
     "href": "",
-    "isSubscriptionClosed": true,
+    "isSubscriptionClosed": false,
     "instructions": "Inscription automatique après adoption de la charte, contacter adresse@data.gouv.fr",
     "startHour": "14:00",
     "endHour": "15:30"
