@@ -203,15 +203,9 @@ function EventModal({event, isPassed, onClose}) {
         @media (max-width: 624px) {
           .presentation {
             flex-wrap: wrap;
-            justify-content: center;
-            text-align: center
-          }
-
-          .header-infos {
-            align-items: center;
+            justify-content: flex-end;
           }
         }
-
       `}</style>
     </div>
   )
