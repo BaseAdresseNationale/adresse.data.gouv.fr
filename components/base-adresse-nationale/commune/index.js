@@ -97,7 +97,8 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
 
         .name-certification {
           width: 100%;
-          display: flex;
+          display: grid;
+          grid-template-columns: 50px 1fr;
           align-items: center;
           gap: 1em;
         }
