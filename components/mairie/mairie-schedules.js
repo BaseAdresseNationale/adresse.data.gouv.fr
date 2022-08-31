@@ -7,10 +7,8 @@ import theme from '@/styles/theme'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
 const getHours = time => {
-  const getHour = time.slice(0, 2).replace('0', '')
-  const getMinutes = time.slice(3, 5).replace('00', '')
-
-  return getHour + 'h' + getMinutes
+  const [hour, minutes] = time.split(':')
+  return hour + 'h' + minutes
 }
 
 function CommuneSchedules({scheldules}) {
