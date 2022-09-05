@@ -46,7 +46,7 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 
           <div className='parters'>
             <div className='partner'>
-              <div><Image src='/images/logos/logo_ANCT.svg' alt aria-hidden='true' width={190} height={80} layout='fixed' /></div>
+              <div><Image src='/images/logos/logo-anct.png' alt aria-hidden='true' width={190} height={80} layout='fixed' /></div>
               <div><b>Le Programme Bases Adresses Locales de l’Agence Nationale pour la Cohésion des Territoires (ANCT)</b> est en place pour faciliter leur déploiement.</div>
             </div>
 

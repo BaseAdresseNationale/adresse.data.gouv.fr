@@ -148,7 +148,7 @@ function Guides() {
 
       <Section background='grey' title='En partenariat avec : '>
         <div style={{display: 'flex', justifyContent: 'center'}}>
-          <Image width={190} height={80} src='/images/logos/logo_ANCT.svg' alt='l’ANCT' />
+          <Image width={190} height={80} src='/images/logos/logo-anct.png' alt='l’ANCT' />
         </div>
       </Section>
     </Page>
