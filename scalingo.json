@@ -1,0 +1,7 @@
+{
+  "env": {
+    "YARN_PRODUCTION": {
+      "value": "false"
+    }
+  }
+}
