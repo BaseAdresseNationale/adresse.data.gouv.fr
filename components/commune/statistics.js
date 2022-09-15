@@ -4,16 +4,15 @@ import Image from 'next/image'
 
 import theme from '@/styles/theme'
 
-function toCounterData(percent, total, hasNumeros) {
-  const backgroundColor = hasNumeros ? ['#0054B3', '#FCB955'] : ['#ADB9C9']
-  const data = hasNumeros ? [percent, total] : [0, 1]
+import NoAddressWarning from './no-address-warning'
 
+function toCounterData(percent, total) {
   return {
     labels: [],
     datasets: [
       {
-        data,
-        backgroundColor,
+        data: [percent, total],
+        backgroundColor: ['#0054B3', '#FCB955'],
         borderColor: [
           '#FFFFFF',
         ],
@@ -38,10 +37,16 @@ const options = {
 }
 
 function Statistics({nbNumeros, nbNumerosCertifies}) {
-  const hasNumeros = Boolean(nbNumeros)
+  const hasNumeros = nbNumeros > 0
 
-  const certifiedPercent = hasNumeros ? (nbNumerosCertifies / nbNumeros) * 100 : 0
-  const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent), hasNumeros)
+  const certifiedPercent = (nbNumerosCertifies / nbNumeros) * 100
+  const doughnutData = toCounterData(Math.round(certifiedPercent), 100 - Math.round(certifiedPercent))
+
+  if (!hasNumeros) {
+    return (
+      <NoAddressWarning />
+    )
+  }
 
   if (certifiedPercent === 100) {
     return (
@@ -117,11 +122,7 @@ function Statistics({nbNumeros, nbNumerosCertifies}) {
             </div>
           </div>
         </div>
-        {hasNumeros ? (
-          <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)}%</b> des adresses de la commune sont certifiées.</p>
-        ) : (
-          <p className='percent'>Les données concernant les adresses sont actuellement indisponibles</p>
-        )}
+        <p className='percent'>Aujourd’hui, <b>{certifiedPercent.toFixed(2)}%</b> des adresses de la commune sont certifiées.</p>
       </div>
 
       <style jsx>{`
