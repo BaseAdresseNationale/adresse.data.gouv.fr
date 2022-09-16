@@ -980,6 +980,56 @@
       "picture": "/images/logos/partners/epci/marne.png",
       "height": 100,
       "width": 245
+    },
+    {
+      "name": "Lannion-Trégor Communauté",
+      "link": "https://geoportail.lannion-tregor.com/",
+      "infos": "Le service Geomatique de Lannion-Trégor Communauté accompagne, depuis plusieurs années, les communes du territoire dans la démarche BAL. Nous les aidons à identifier / dénommer leurs voies, leurs lieux-dits, à numéroter leurs adresses, à mettre à jour et diffuser leur BAL.",
+      "perimeter": "Communes de la communauté de Lannion Tregor ",
+      "codeDepartement": [
+        "22"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/lannion-tregor.jpg",
+      "height": 108,
+      "width": 290
+    },
+    {
+      "name": "Centre Régional Auvergne-Rhône-Alpes de l’Information Géographique (CRAIG)",
+      "link": "https://www.craig.fr/fr/contenu/3426-mettre-en-place-une-demarche-dadressage",
+      "infos": "Le Centre Régional Auvergne-Rhône-Alpes de l’Information Géographique (CRAIG) est un centre de ressources dans le domaine de l’information géographique pour les acteurs publics régionaux.Le CRAIG propose d'accompagner les communes de la région Auvergne-Rhône-Alpes dans leur projet d’adressage, en les aidant à utiliser les solutions techniques offertes par l’État et par les EPCI.",
+      "perimeter": "Région Auvergne-Rhône-Alpes",
+      "codeDepartement": [
+        "01",
+        "03",
+        "07",
+        "15",
+        "26",
+        "38",
+        "42",
+        "43",
+        "63",
+        "69",
+        "73",
+        "74"
+      ],
+      "echelon": 2,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/epci/region-ara.png",
+      "height": 94,
+      "width": 260
     }
   ],
   "companies": [
