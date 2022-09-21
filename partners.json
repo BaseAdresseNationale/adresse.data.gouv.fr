@@ -1030,6 +1030,27 @@
       "picture": "/images/logos/partners/epci/region-ara.png",
       "height": 94,
       "width": 260
+    },
+    {
+      "name": "Agence Publique de Gestion Locale",
+      "link": "https://www.geo64.fr/partenaires/",
+      "infos": " L’APGL a développé une Base Adresse Locale sur Géo64, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
+      "perimeter": "Communes des Pyrénées-Atlantiques",
+      "codeDepartement": [
+        "64"
+      ],
+      "echelon": 2,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/apgl.png",
+      "height": 124,
+      "width": 173
     }
   ],
   "companies": [
