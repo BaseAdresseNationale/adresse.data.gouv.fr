@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
+import {Pause, Play} from 'react-feather'
 
-import {sortEventsByDate} from '@/lib/date'
+import {sortEventsByDate, dateWithDay} from '@/lib/date'
 import theme from '@/styles/theme'
 
 import allEvents from '../../events.json'
@@ -14,13 +15,10 @@ const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event
 function EventBanner() {
   const [index, setIndex] = useState(0)
   const [selectedEvent, setSelectedEvent] = useState(null)
-
-  const sanitizedDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR')
-  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-  const accessibleDate = selectedEvent && new Date(selectedEvent.date).toLocaleDateString('fr-FR', options)
+  const [isAutoplay, setIsAutoplay] = useState(true)
 
   useEffect(() => {
-    if (!selectedEvent) {
+    if (!selectedEvent && isAutoplay) {
       const slideInterval = setTimeout(() => {
         setIndex(index === events.length - 1 ? 0 : index + 1)
       }, 4000)
@@ -29,7 +27,7 @@ function EventBanner() {
         clearInterval(slideInterval)
       }
     }
-  }, [index, selectedEvent])
+  }, [index, selectedEvent, isAutoplay])
 
   if (events.length === 0) {
     return null
@@ -38,42 +36,48 @@ function EventBanner() {
   return (
     <div className='banner'>
       <div className='banner-title'>Les prochains évènements autour de l’adresse</div>
-      <ul className='slider'>
-        {events.map((event, idx) => {
-          const sanitizedDate = new Date(event.date).toLocaleDateString('fr-FR')
-
-          return (
-            <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${sanitizedDate}`}>
-              <ActionButtonNeutral label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)}>
-                <div className='event-link'>
-                  {event.title}
-                </div>
-              </ActionButtonNeutral>
-              {event.subtitle && <div>{event.subtitle}</div>}
-              <div className='date'>le {sanitizedDate}</div>
-            </li>
-          )
-        }
-        )}
-      </ul>
-
-      <div className='slideshow-dots'>
-        {events.map((event, idx) => (
+      <div className='slides-controls-container'>
+        <div className='slideshow-dots'>
           <ActionButtonNeutral
-            label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${accessibleDate}`}
-            key={`${event.title}-${event.date}`}
-            onClick={() => setIndex(idx)}
+            label={isAutoplay ? 'Le défilement automatique est activé. Mettre en pause le défilement.' : 'Le défilement automatique est désactivé. Lancer le défilement.'}
+            onClick={() => setIsAutoplay(!isAutoplay)}
           >
-            <div className={`slideshow-dot ${index === idx ? 'active' : ''}`} />
+            {isAutoplay ? <Pause size={18} color={theme.colors.white} /> : <Play size={18} color={theme.colors.white} />}
           </ActionButtonNeutral>
-        ))}
+          <div>
+            {events.map((event, idx) => (
+              <ActionButtonNeutral
+                label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${dateWithDay(event.date)}`}
+                key={`${event.title}-${event.date}`}
+                onClick={() => setIndex(idx)}
+                disabled={index === idx}
+              >
+                <div className='slideshow-dot' />
+              </ActionButtonNeutral>
+            ))}
+          </div>
+        </div>
+        <ul className='slider'>
+          {events.map((event, idx) => {
+            return (
+              <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${event.date}`}>
+                <ActionButtonNeutral label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)} isFullSize>
+                  <div className='event-link'>
+                    {event.title}
+                  </div>
+                </ActionButtonNeutral>
+                {event.subtitle && <div className='subtitle'>{event.subtitle}</div>}
+                <div className='date'>le {dateWithDay(event.date)}</div>
+              </li>
+            )
+          }
+          )}
+        </ul>
       </div>
 
       {selectedEvent && (
         <EventModal
           event={selectedEvent}
-          sanitizedDate={sanitizedDate}
-          accessibleDate={accessibleDate}
           onClose={() => setSelectedEvent(null)}
         />
       )}
@@ -81,44 +85,54 @@ function EventBanner() {
       <style jsx>{`
         .banner {
           background: ${theme.primary};
-          padding: 5px;
           text-align: center;
-          overflow: hidden;
           display: grid;
-          grid-template-rows: auto 60px auto;
-          height: 165px;
+          grid-template-rows: .5fr 1fr;
+          gap: .5em;
+          height: fit-content;
           align-items: center;
         }
 
         .banner-title {
-          font-size: 20px;
-          margin-bottom: 5px;
+          font-size: 18px;
           font-weight: bold;
           color: ${theme.colors.white};
         }
 
+        .slides-controls-container {
+          display: flex;
+          gap: .5em;
+          /* Accessibility: Use column-reverse to show slider controler on bottom (keep it above for the DOM) */
+          flex-direction: column-reverse;
+        }
+
         .slider {
-          white-space: nowrap;
-          text-align: center;
           padding: 0;
           margin: 0;
-          color: ${theme.colors.white};
         }
 
         .slide {
-          text-align: center;
-          display: inline-block;
+          display: grid;
+          grid-template-rows: repeat(3, 1fr);
+          justify-content: center;
           animation: fadeIn linear 1s;
         }
 
         .event-link {
           font-size: 16px;
           font-weight: bold;
-          text-align: center;
+          color: ${theme.colors.white};
+          text-decoration: underline;
+        }
+
+        .subtitle {
+          font-size: 15px;
+          color: ${theme.colors.white};
         }
 
         .date {
           font-style: italic;
+          color: ${theme.colors.white};
         }
 
         @keyframes fadeIn {
@@ -128,30 +142,17 @@ function EventBanner() {
 
           /* Buttons */
         .slideshow-dots {
-          text-align: center;
+          display: grid;
+          grid-template-columns: 18px auto;
+          justify-content: center;
         }
 
         .slideshow-dot {
-          display: inline-block;
-          height: 7px;
-          width: 7px;
+          height: 10px;
+          width: 10px;
           border-radius: 50%;
-          cursor: pointer;
-          margin: 15px 7px 0px;
           background-color: ${theme.colors.white};
-          opacity: 50%;
-          padding: 0;
-          border: none;
-        }
-
-        .active {
-          opacity: 100%;
-        }
-
-        .event-link {
-          color: ${theme.colors.white};
-          cursor: pointer;
-          text-decoration: underline;
+          margin: 5px;
         }
 
         .hidden {

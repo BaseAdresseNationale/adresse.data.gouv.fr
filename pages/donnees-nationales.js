@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {Download} from 'react-feather'
+import {Download, ExternalLink} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -23,13 +23,22 @@ function DonneesNatioales() {
       <Section background='grey' title='Télécharger les données'>
         <div className='card-container'>
           <Card
-            title='Format CSV'
+            title='Format CSV historique'
             link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv'
             action='Télécharger au format CSV'
             list={['1 position par adresse']}
             links={[{title: 'Schéma des données', href: 'https://github.com/etalab/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md'}]}
           >
             Fichier d’usage général recommandé dans la majorité des cas
+          </Card>
+
+          <Card
+            title='Format BAL'
+            list={['Plusieurs positions par adresse']}
+            link='https://adresse.data.gouv.fr/data/ban/adresses/latest/csv-bal/'
+            action='Téléchargez au format BAL'
+          >
+            Fichier CSV au format <a href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf'>BAL 1.3 (AITF)</a>
           </Card>
 
           <Card
@@ -40,18 +49,20 @@ function DonneesNatioales() {
           >
             Fichier spécifique pour le géocodeur Addok
           </Card>
-
-          <Card
-            title='Format JSON expert'
-            list={['Plusieurs positions par adresse', 'Plusieurs sources par adresse']}
-          >
-            Fichier contenant l’intégralité des données et métadonnées contenues dans la plateforme
-          </Card>
         </div>
       </Section>
 
       <Section background='grey' title='Services cartographiques'>
         <div className='card-container'>
+          <Card
+            title='Format MVT (tuiles vectorielles)'
+            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
+            action='Consulter la documentation MVT'
+            list={['Mise à jour en temps réel', '1 position par adresse']}
+          >
+            Visualisation cartographique des adresses BAN en tuiles vectorielles
+          </Card>
+
           <Card
             title='Format WFS'
             link='https://geoservices.ign.fr/services-web-experts-adresse'
@@ -69,14 +80,11 @@ function DonneesNatioales() {
           >
             Visualisation cartographique des adresses BAN en WMS
           </Card>
-
-          <Card
-            link='https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles'
-            action='Consulter la documentation MVT'
-            list={['Mise à jour en temps réel', '1 position par adresse']}
-          >
-            Visualisation cartographique des adresses BAN en tuiles vectorielles
-          </Card>
+        </div>
+        <div className='link'>
+          <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig'>
+            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des flux avec un outil SIG
+          </a>
         </div>
       </Section>
 
@@ -124,6 +132,10 @@ function DonneesNatioales() {
         }
         .adjust-img {
           text-align: center;
+        }
+        .link {
+          text-align: center;
+          padding-top: 3em;
         }
       `}</style>
     </Page >

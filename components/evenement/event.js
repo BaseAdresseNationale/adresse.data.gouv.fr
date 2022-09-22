@@ -1,116 +1,126 @@
 import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
-import {MapPin} from 'react-feather'
+
+import {dateWithDay} from '@/lib/date'
 
 import theme from '@/styles/theme'
 
 import Button from '../button'
 import EventModal from './event-modal'
 
-function Event({event, background, isPassed, id}) {
+function Event({event, background, isPassed}) {
   const {title, subtitle, address, date, type, startHour, endHour, isOnlineOnly} = event
   const {nom, numero, voie, codePostal, commune} = address
-
-  const sanitizedDate = new Date(date).toLocaleDateString('fr-FR')
-  const options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
-  const accessibleDate = new Date(date).toLocaleDateString('fr-FR', options)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
-    <div id={id} className='event-container'>
+    <div className='event-container'>
       <div className={`header ${type}`}>
-        <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt aria-hidden='true' />
-      </div>
-      <div className='general-infos'>
-        <div className='title-container'>
-          <h5>{title}</h5>
-          <div>{subtitle}</div>
-        </div>
-        <div className='date-container'>
-          <div className='date' aria-label={`le ${accessibleDate}, de ${startHour} à ${endHour}`}>{`le ${sanitizedDate}, de ${startHour} à ${endHour}`}</div>
+        <div className='presentation'>
+          <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt aria-hidden='true' />
+          <div className='title-container'>
+            <h5>{title}</h5>
+            <div>{subtitle}</div>
+          </div>
         </div>
 
-        {isOnlineOnly ? (
-          <div>🖥️ <br />Évènement en ligne</div>
-        ) : (
-          <div><MapPin strokeWidth={3} size={14} style={{marginRight: 5}} alt aria-hidden='true' />{nom}, {numero} {voie} - {codePostal} {commune}</div>
-        )}
-        <div className='display-info-container'>
-          <Button onClick={() => setIsModalOpen(true)}>Afficher les informations</Button>
+        <div className='date-location-container'>
+          <div className='date' aria-label={`le ${dateWithDay(date)}, de ${startHour} à ${endHour}`}>
+            {`le ${dateWithDay(date)} | ${startHour}-${endHour}`}
+          </div>
+          {isOnlineOnly ? (
+            <div className='location'>Évènement en ligne</div>
+          ) : (
+            <div className='location'>
+              {nom}, {numero} {voie} <br /> {codePostal} {commune}
+            </div>
+          )}
         </div>
       </div>
 
-      {isModalOpen && <EventModal event={event} sanitizedDate={sanitizedDate} accessibleDate={accessibleDate} isPassed={isPassed} onClose={() => setIsModalOpen(false)} />}
+      <div className='open-modal'>
+        <Button onClick={() => setIsModalOpen(true)}>Afficher les informations</Button>
+      </div>
+
+      {isModalOpen && <EventModal event={event} onClose={() => setIsModalOpen(false)} isPassed={isPassed} />}
 
       <style jsx>{`
         {/* Avoid opacity heritance on modal */}
-        .header, .general-infos, .display-info-container {
-          opacity: ${isPassed ? '80%' : '100%'};
+        .header, .open-modal {
+          opacity: ${isPassed ? '60%' : '100%'};
         }
 
         .event-container {
           display: grid;
-          grid-template-rows: 60px 1fr;
+          grid-template-rows: 1fr 100px;
           width: 320px;
-          min-height: 295px;
-          background: ${background === 'grey' ? theme.colors.white : theme.colors.lighterGrey};
-          border-radius: ${theme.borderRadius};
-          font-size: 14px;
-          padding: .5em;
+          min-height: 320px;
+          background: ${background === 'secondary' ? theme.colors.white : theme.colors.lighterGrey};
+          border-radius: 5px;
         }
 
         .header {
+          color: ${theme.colors.white};
+          border-radius: 5px 5px 0 0;
+          padding: 1em;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          padding-bottom: 10px;
-        }
-
-        .adresselab {
-         border-bottom: 2px solid ${theme.colors.red};
-        }
-
-        .formation {
-          border-bottom: 2px solid ${theme.colors.darkGreen};
-        }
-
-        .partenaire {
-          border-bottom: 2px solid ${theme.colors.blue};
-        }
-
-        .adresse-region {
-          border-bottom: 2px solid ${theme.colors.purple};
-        }
-
-        .general-infos {
-          display: grid;
-          padding: 1em 0;
-          text-align: center;
-          grid-auto-rows: 50px .5fr 1fr .5fr;
+          flex-direction: column;
           gap: 1em;
         }
 
-        .title-container div {
-          font-size: 13px;
-          font-weight: bold;
-          font-style: italic;
+        .presentation {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 10px;
         }
 
-        h5 {
-          font-size: 13px;
+        .title-container div {
+          font-style: italic;
+          font-size: 14px;
+        }
+
+        .title-container h5 {
           margin: 0;
+          font-size: 15px;
+        }
+
+        .date-location-container {
+          text-align: center;
         }
 
         .date {
           font-weight: bold;
-          color: ${theme.primary};
         }
 
-        .display-info-container {
+        .location {
+          font-size: 14px;
           text-align: center;
+        }
+
+        .open-modal {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .adresselab {
+         background: ${theme.colors.red};
+        }
+
+        .formation {
+          background: ${theme.colors.darkGreen};
+        }
+
+        .partenaire {
+          background: ${theme.colors.blue};
+        }
+
+        .adresse-region {
+          background: ${theme.colors.purple};
         }
       `}</style>
     </div>
@@ -128,16 +138,15 @@ Event.propTypes = {
     endHour: PropTypes.string.isRequired,
     isOnlineOnly: PropTypes.bool.isRequired,
   }).isRequired,
-  id: PropTypes.string.isRequired,
   background: PropTypes.oneOf([
-    'white',
-    'grey'
+    '',
+    'secondary'
   ]),
   isPassed: PropTypes.bool
 }
 
 Event.defaultProps = {
-  background: 'white',
+  background: '',
   isPassed: false
 }
 

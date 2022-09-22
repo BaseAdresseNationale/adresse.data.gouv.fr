@@ -51,12 +51,14 @@ function CommuneIdCard({region, departement, codesPostaux, population, color, si
           font-size: ${size === 'regular' ? '20px' : '15px'};
           font-weight: bold;
           justify-self: center;
+          text-align: center;
         }
 
         .value {
           font-weight: 100;
           font-size: ${size === 'regular' ? '18px' : '14px'};
           justify-self: center;
+          text-align: center;
         }
       `}</style>
     </div>
