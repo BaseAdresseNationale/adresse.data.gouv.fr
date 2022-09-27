@@ -1054,7 +1054,7 @@
     },
     {
       "name": "Grand Paris Sud - Seine - Essonne - Sénart",
-      "link": "https://data.grandparissud.fr/explore/dataset/statut-de-publication-de-la-base-d-adresse-locale-des-communes/information",
+      "link": "https://data.grandparissud.fr/explore/dataset/statut-de-publication-de-la-base-d-adresse-locale-des-communes/information/",
       "infos": "La CA de Grand Paris Sud - Seine-Essonne - Sénart (GPS) accompagne, parmi les 23 communes du territoire, celles ayant sollicité son aide sur l’exercice de leur compétence d’adressage. Nous assurons la mise à disposition de l’information, la sensibilisation à la tâche de maintien des adressages locaux ainsi que l’accompagnement méthodologique et technique pour la publication sur les outils addresses.data.gouv.fr. Nous diffusons également des listes de différentiels constatés (par exemple avec les données IPE des opérateurs de réseau de déploiement de la Fibre optique) pour certaines communes.",
       "perimeter": "communes de Grand Paris Sud Essonne sur deux départements Essonne (91) et Seine-et-Marne (77)",
       "codeDepartement": [
