@@ -4,7 +4,6 @@ import {Database} from 'react-feather'
 
 import Page from '@/layouts/main'
 
-import {getDatasets} from '@/lib/bal/api'
 import {getStats} from '@/lib/api-ban'
 import withErrors from '@/components/hoc/with-errors'
 
@@ -16,17 +15,16 @@ const description = 'Bases de données Adresse de périmètre local, éditées s
 
 class BasesAdressesLocalesPage extends React.Component {
   static propTypes = {
-    datasets: PropTypes.array.isRequired,
-    stats: PropTypes.object.isRequired,
+    stats: PropTypes.object.isRequired
   }
 
   render() {
-    const {datasets, stats} = this.props
+    const {stats} = this.props
 
     return (
       <Page title={title} description={description}>
         <Head title={title} icon={<Database size={56} alt aria-hidden='true' />} />
-        <BasesLocales datasets={datasets} stats={stats} />
+        <BasesLocales stats={stats} />
       </Page>
     )
   }
@@ -34,7 +32,6 @@ class BasesAdressesLocalesPage extends React.Component {
 
 BasesAdressesLocalesPage.getInitialProps = async () => {
   return {
-    datasets: await getDatasets({noContour: true, sample: 3}),
     stats: await getStats()
   }
 }
