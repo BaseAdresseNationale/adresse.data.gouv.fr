@@ -7,11 +7,12 @@ import languesRegionales from '@ban-team/shared-data/langues-regionales.json'
 import theme from '@/styles/theme'
 
 import Tooltip from '@/components/base-adresse-nationale/tooltip'
+import ValidatorSectionTitle from '../../validator-section-title'
 
 function FoundFields({fields}) {
   return (
     <>
-      <h4>Champs présents</h4>
+      <ValidatorSectionTitle>Champs présents</ValidatorSectionTitle>
       <table>
         <tbody>
           <tr>

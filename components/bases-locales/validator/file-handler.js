@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Holder from '../../csv/holder'
 import Notification from '../../notification'
+import ValidatorSectionTitle from './validator-section-title'
 
 class FileHandler extends React.Component {
   static propTypes = {
@@ -40,7 +41,7 @@ class FileHandler extends React.Component {
     return (
       <>
         <div>
-          {file ? <h4>Votre fichier</h4> : <h2>Choisir un fichier</h2> }
+          {file ? <ValidatorSectionTitle>Votre fichier</ValidatorSectionTitle> : <ValidatorSectionTitle>Choisir un fichier</ValidatorSectionTitle> }
 
           <div className='file-handler-container'>
             <Holder

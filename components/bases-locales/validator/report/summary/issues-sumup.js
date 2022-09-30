@@ -20,7 +20,7 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
   return (
     <div className='issues-container'>
       <h4>
-        {issuesRowsCount} {issueType === 'error' ? 'Erreur' : (issueType === 'warning' ? 'Avertissement' : 'Information')}{issuesRowsCount > 1 ? 's' : ''}
+        {issuesRowsCount}&nbsp;{issueType === 'error' ? 'Erreur' : (issueType === 'warning' ? 'Avertissement' : 'Information')}{issuesRowsCount > 1 ? 's' : ''}
         &nbsp;({issuesCount} ligne{issuesCount > 1 ? 's' : ''}) {percentageIssues}%
         <div className={`summary-icon ${issueType}`}>
           {issueType === 'error' ? (
@@ -56,6 +56,7 @@ function IssuesSumup({issues, issueType, totalRowsCount, handleSelect}) {
         h4 {
           display: flex;
           margin: 1em 0;
+          font-size: 16px;
         }
 
         .error {
