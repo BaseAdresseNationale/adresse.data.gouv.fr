@@ -96,7 +96,7 @@ const getPositionsFeatures = address => {
       },
       properties: {
         ...address,
-        type: p.positionType,
+        type: p?.positionType || 'inconnu',
         nomVoie: address.voie.nomVoie
       }
     }))
