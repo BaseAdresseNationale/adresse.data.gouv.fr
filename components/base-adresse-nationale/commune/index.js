@@ -30,10 +30,10 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
     <>
       <div className='heading'>
         <div className='name-certification'>
-          <h2>
+          <h1>
             <a href={`/commune/${codeCommune}`}>{nomCommune} - {codeCommune}</a>
             {isCOM(codeCommune) && <i>Collectivité d’outremer</i>}
-          </h2>
+          </h1>
           <div>
             <Certification
               isCertified={typeComposition === 'bal'}
@@ -106,8 +106,8 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
           margin-top: 1.2em;
         }
 
-        .heading h2 {
-          margin-bottom: 0.2em;
+        .heading h1 {
+          margin-bottom: 0;
           display: flex;
           flex-direction: column;
         }
