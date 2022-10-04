@@ -22,8 +22,8 @@ function PositionsTypes({positions, isMobile, isSafariBrowser, setCopyError, set
       <div>
         {positions.map(p => (
           <div key={uniqueId()} className='array-positions'>
-            <span className='position' style={{backgroundColor: positionsColors[p.positionType].color}}>
-              {positionsColors[p.positionType].name}
+            <span className='position' style={{backgroundColor: positionsColors[p?.positionType]?.color || '#FF6347'}}>
+              {positionsColors[p.positionType]?.name || 'Inconnu'}
             </span>
             <CoordinatesCopy
               isMobile={isMobile}
