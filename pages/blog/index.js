@@ -74,8 +74,10 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
           </>
         ) : (
           <Notification>
-            <h5>Le blog est actuellement inaccessible</h5>
-            <p><i>Merci de réessayer ulterieurement</i></p>
+            <div className='inaccessible'>
+              <div>Le blog est actuellement inaccessible</div>
+              <p><i>Merci de réessayer ulterieurement</i></p>
+            </div>
           </Notification>
         )}
       </Section>
@@ -86,6 +88,15 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
           grid-gap: 3em 5em;
+        }
+
+        .inaccessible {
+          text-align: center;
+        }
+
+        .inaccessible div:first-child {
+          font-weight: bold;
+          font-size: large;
         }
 
         .tag-infos-container {

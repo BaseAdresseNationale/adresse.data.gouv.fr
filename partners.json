@@ -958,7 +958,7 @@
         "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/orne.png",
-      "height": 68,
+      "height": 126,
       "width": 245
     },
     {
@@ -1220,19 +1220,32 @@
       "name": "PLANIGRAPHE",
       "link": "https://planigraphe.fr/charte-de-la-base-adresse-locale/",
       "infos": "PLANIGRAPHE accompagne les collectivités dans la mise en conformité de leur adressage. Cela comprend un accompagnement dans les procédures de délibérations et de communication auprès des administrés, un audit cartographique du territoire afin de structurer et dénommer les voies à adresser puis un travail de localisation des adresses sur le terrain en étroite collaboration avec les élus. PLANIGRAPHE forme également les communes dans la gestion de leur future Base d’Adresse Locale et son intégration dans la Base d’Adresse Nationale.",
-      "perimeter": "Auvergne-Rhône-Alpes",
+      "perimeter": "Auvergne-Rhône-Alpes, Occitanie, Provence-Alpes-Côte d'Azur",
       "codeDepartement": [
         "03",
+        "04",
+        "05",
+        "06",
+        "09",
+        "11",
         "12",
+        "13",
         "15",
         "23",
         "30",
+        "31",
         "32",
         "34",
         "43",
         "46",
         "48",
-        "63"
+        "63",
+        "65",
+        "66",
+        "81",
+        "82",
+        "83",
+        "84"
       ],
       "echelon": null,
       "isPerimeterFrance": false,
@@ -1442,6 +1455,28 @@
       "height": 124,
       "width": 286,
       "signatureDate": "2022-06-03"
+    },
+    {
+      "name": "Commune de Chuzelles",
+      "link": "https://chuzelles.fr/",
+      "codeRegion": "84",
+      "codeDepartement": [
+        "38"
+      ],
+      "codeCommune": "38110",
+      "charteURL": "https://chuzelles.fr/cadre-de-vie/urbanisme/adressage#charte",
+      "testimonyURL": "",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-38110",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/chuzelles.png",
+      "height": 124,
+      "width": 127,
+      "signatureDate": "2022-09-27"
     }
   ]
 }
