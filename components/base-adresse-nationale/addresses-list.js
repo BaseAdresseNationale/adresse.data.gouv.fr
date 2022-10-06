@@ -29,7 +29,7 @@ function AddressesList({title, placeholder, addresses, getLabel, addressComponen
     <div className='addresses'>
       <div className='addresses-heading'>
         <div className='title'>
-          <h5>{title}</h5>
+          <h2>{title}</h2>
         </div>
         {addresses.length > 0 ? (
           <div className='search-input'>
@@ -88,8 +88,9 @@ function AddressesList({title, placeholder, addresses, getLabel, addressComponen
           margin-bottom: 0.2em;
         }
 
-        .addresses-heading h5 {
-          margin: 0;
+        .addresses-heading h2 {
+          margin-bottom: 0.2em;
+          font-size: medium;
         }
 
         input {

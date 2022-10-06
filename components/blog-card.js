@@ -12,7 +12,7 @@ function BlogCard({post, onClick}) {
   return (
     <div className='blog-container'>
       <Link href={link} passHref>
-        <h4 className='blog-title'>{post.title}</h4>
+        <h2 className='blog-title'>{post.title}</h2>
       </Link>
       <div className='blog-image-container'>
         <Image src={post.feature_image || '/images/no-img.png'} alt aria-hidden='true' layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />

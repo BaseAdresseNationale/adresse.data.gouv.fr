@@ -9,6 +9,7 @@ import Summary from './summary'
 
 import theme from '@/styles/theme'
 import FileValidation from './file-validation'
+import ValidatorSectionTitle from '../validator-section-title'
 
 function Report({report}) {
   const {fileValidation, rows, fields, notFoundFields, profilesValidation} = report
@@ -50,7 +51,8 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <h4>Validation des données</h4>
+        <ValidatorSectionTitle>Validation des données</ValidatorSectionTitle>
+
         {profileReport ? (
           <Summary rows={profileReport.rows} fields={profileReport.fields} />
         ) : (
