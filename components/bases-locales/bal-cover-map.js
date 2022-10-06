@@ -52,7 +52,12 @@ class BalCoverMap extends React.Component {
         source: 'data',
         'source-layer': 'communes',
         paint: {
-          'fill-color': theme.colors.green,
+          'fill-color': [
+            'case',
+            ['==', ['get', 'nomClient'], 'Moissonneur'],
+            theme.colors.darkGreen,
+            theme.colors.green
+          ],
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'hover'], false],
@@ -68,7 +73,12 @@ class BalCoverMap extends React.Component {
         source: 'data',
         'source-layer': 'communes',
         paint: {
-          'line-color': theme.colors.green,
+          'line-color': [
+            'case',
+            ['==', ['get', 'nomClient'], 'Moissonneur'],
+            theme.colors.darkGreen,
+            theme.colors.green
+          ],
           'line-width': 1
         },
         filter: ['==', '$type', 'Polygon']
