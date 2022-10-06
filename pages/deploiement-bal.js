@@ -5,7 +5,6 @@ import Head from '@/components/head'
 import theme from '@/styles/theme'
 import {Database} from 'react-feather'
 
-import {getDatasets} from '@/lib/bal/api'
 import {getStats} from '@/lib/api-ban'
 import {numFormater} from '@/lib/format-numbers'
 
@@ -48,7 +47,7 @@ const options = {
   }
 }
 
-function EtatDeploiement({datasets, stats}) {
+function EtatDeploiement({stats}) {
   // Calcul population couverte
   const populationCouvertePercent = Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
   const allPopulationCouverte = 100 - Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
@@ -68,20 +67,6 @@ function EtatDeploiement({datasets, stats}) {
   const adressesCertifieesPercent = Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
   const allAdressesCertifieesPercent = 100 - Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
   const dataAdressesCertifiees = toCounterData(adressesCertifieesPercent, allAdressesCertifieesPercent)
-
-  const mapData = {
-    type: 'FeatureCollection',
-    features: datasets.map(dataset => ({
-      type: 'Feature',
-      properties: {
-        id: dataset.id,
-        nom: dataset.title,
-        license: dataset.license,
-        organization: dataset.organization ? dataset.organization.name : null
-      },
-      geometry: dataset.contour
-    }))
-  }
 
   return (
     <Page>
@@ -124,7 +109,6 @@ function EtatDeploiement({datasets, stats}) {
                 <BalCoverMap
                   map={map}
                   popup={popup}
-                  data={mapData}
                   setSources={setSources}
                   setLayers={setLayers}
                 />
@@ -180,13 +164,11 @@ function EtatDeploiement({datasets, stats}) {
 
 EtatDeploiement.getInitialProps = async () => {
   return {
-    datasets: await getDatasets(),
     stats: await getStats(),
   }
 }
 
 EtatDeploiement.propTypes = {
-  datasets: PropTypes.array.isRequired,
   stats: PropTypes.shape({
     france: PropTypes.object.isRequired,
     bal: PropTypes.object.isRequired,

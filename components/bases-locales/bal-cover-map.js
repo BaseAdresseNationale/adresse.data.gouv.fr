@@ -6,31 +6,28 @@ import {AlertTriangle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-const popupHTML = ({nom, organization, license}) => renderToString(
+const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data.gouv.fr'
+
+const popupHTML = ({nom, code, departement, nomClient}) => renderToString(
   <div>
     <p>
-      <b>{nom}</b>
+      <b>Adresses de {nom}</b>
     </p>
-    {organization && (
-      <div>Producteur : {organization}</div>
-    )}
-    {license && (
-      <div>Licence : {license}</div>
-    )}
+    <div>Commune : {code}</div>
+    <div>Département : {departement}</div>
+    <div>Provenance : {nomClient}</div>
   </div>
 )
 
 class BalCoverMap extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
-    data: PropTypes.object,
     popup: PropTypes.object,
     setSources: PropTypes.func.isRequired,
     setLayers: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    data: null,
     popup: null
   }
 
@@ -40,18 +37,20 @@ class BalCoverMap extends React.Component {
   }
 
   componentDidMount() {
-    const {map, data, setSources, setLayers} = this.props
+    const {map, setSources, setLayers} = this.props
     const sources = [{
       name: 'data',
-      type: 'geojson',
-      generateId: true,
-      data
+      type: 'vector',
+      format: 'pbf',
+      promoteId: 'code',
+      tiles: [`${ADRESSE_URL}/deploiement/couverture-tiles/{z}/{x}/{y}.pbf`]
     }]
     const layers = [
       {
         id: 'bal-polygon-fill',
         type: 'fill',
         source: 'data',
+        'source-layer': 'communes',
         paint: {
           'fill-color': theme.colors.green,
           'fill-opacity': [
@@ -67,6 +66,7 @@ class BalCoverMap extends React.Component {
         id: 'bal-polygon-outline',
         type: 'line',
         source: 'data',
+        'source-layer': 'communes',
         paint: {
           'line-color': theme.colors.green,
           'line-width': 1
@@ -121,25 +121,21 @@ class BalCoverMap extends React.Component {
   }
 
   onMouseMove = (layer, event) => {
-    const {map, data, popup} = this.props
+    const {map, popup} = this.props
     const canvas = map.getCanvas()
     canvas.style.cursor = 'pointer'
 
     const [feature] = event.features
 
     if (this.highlighted) {
-      map.setFeatureState({source: 'data', id: this.highlighted}, {hover: false})
+      map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: false})
     }
 
     this.highlighted = feature.id
-    map.setFeatureState({source: 'data', id: this.highlighted}, {hover: true})
-
-    const _data = data.features.find(f =>
-      f.properties.id === feature.properties.id
-    )
+    map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: true})
 
     popup.setLngLat(event.lngLat)
-      .setHTML(popupHTML(_data.properties))
+      .setHTML(popupHTML(feature.properties))
       .addTo(map)
   }
 
@@ -149,7 +145,7 @@ class BalCoverMap extends React.Component {
     canvas.style.cursor = ''
 
     if (this.highlighted) {
-      map.setFeatureState({source: 'data', id: this.highlighted}, {hover: false})
+      map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: false})
     }
 
     popup.remove()
@@ -159,8 +155,7 @@ class BalCoverMap extends React.Component {
     const [feature] = event.features
 
     Router.push(
-      `/bases-locales/datasets/dataset?id=${feature.properties.id}`,
-      `/bases-locales/jeux-de-donnees/${feature.properties.id}`
+      `/commune/${feature.id}`
     )
   }
 
