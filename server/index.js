@@ -11,8 +11,12 @@ const enableHelmet = process.env.ENABLE_HELMET === '1'
 const app = next({dev})
 const handle = app.getRequestHandler()
 
+const {prepareContoursCommunes} = require('../lib/util/contours-communes')
+
 app.prepare().then(() => {
   const server = express()
+
+  prepareContoursCommunes()
 
   if (!dev) {
     server.use(compression())
