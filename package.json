@@ -35,7 +35,6 @@
     "iron-session": "^6.0.5",
     "lodash": "^4.17.21",
     "maplibre-gl": "^1.15.2",
-    "marked": "^3.0.4",
     "next": "^11.1.2",
     "papaparse": "^5.3.1",
     "prop-types": "^15.7.2",
