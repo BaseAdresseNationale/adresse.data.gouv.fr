@@ -1,7 +1,6 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
-import Router from 'next/router'
 import {AlertTriangle} from 'react-feather'
 
 import theme from '@/styles/theme'
@@ -86,7 +85,6 @@ class BalCoverMap extends React.Component {
       map.on('wheel', this.onWheel.bind(this))
 
       map.on('dblclick', this.onDblClick.bind(this))
-      map.on('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
     })
   }
 
@@ -117,7 +115,6 @@ class BalCoverMap extends React.Component {
     map.off('wheel', this.onWheel.bind(this))
 
     map.off('dblclick', this.onDblClick.bind(this))
-    map.off('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
   }
 
   onMouseMove = (layer, event) => {
@@ -153,15 +150,6 @@ class BalCoverMap extends React.Component {
     }
 
     popup.remove()
-  }
-
-  onClick = (layer, event) => {
-    const [feature] = event.features
-
-    Router.push(
-      `/bases-locales/datasets/dataset?id=${feature.properties.id}`,
-      `/bases-locales/jeux-de-donnees/${feature.properties.id}`
-    )
   }
 
   onWheel = () => {
