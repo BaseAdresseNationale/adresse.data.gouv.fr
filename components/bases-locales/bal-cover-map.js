@@ -8,7 +8,7 @@ import MapLegends from '../maplibre/map-legends'
 
 import theme from '@/styles/theme'
 
-const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data.gouv.fr'
+const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 
 const balLegend = {
   title: 'Provenance',
