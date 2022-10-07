@@ -28,13 +28,15 @@ const balLegend = {
   }
 }
 
-const popupHTML = ({nom, code, departement, nomClient}) => renderToString(
+const popupHTML = ({nom, code, departement, nbNumeros, certificationPercentage, nomClient}) => renderToString(
   <div>
     <p>
       <b>Adresses de {nom}</b>
     </p>
     <div>Commune : {code}</div>
     <div>Département : {departement}</div>
+    <div>Nombre d’adresses : {nbNumeros}</div>
+    <div>{`${certificationPercentage ? `Taux de certification : ${certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
     <div>Provenance : {nomClient}</div>
   </div>
 )
