@@ -14,7 +14,11 @@ const balLegend = {
   title: 'Provenance',
   content: {
     mesAdresses: {
-      name: 'Mes adresses / API Dépôt',
+      name: 'Mes adresses',
+      color: theme.colors.blue
+    },
+    autreOutil: {
+      name: 'Autre outil',
       color: theme.colors.green
     },
     moissonneur: {
@@ -72,6 +76,8 @@ class BalCoverMap extends React.Component {
             'case',
             ['==', ['get', 'nomClient'], 'Moissonneur'],
             theme.colors.darkGreen,
+            ['==', ['get', 'idClient'], 'mes-adresses'],
+            theme.colors.blue,
             theme.colors.green
           ],
           'fill-opacity': [
@@ -93,6 +99,8 @@ class BalCoverMap extends React.Component {
             'case',
             ['==', ['get', 'nomClient'], 'Moissonneur'],
             theme.colors.darkGreen,
+            ['==', ['get', 'idClient'], 'mes-adresses'],
+            theme.colors.blue,
             theme.colors.green
           ],
           'line-width': 1
@@ -235,7 +243,7 @@ class BalCoverMap extends React.Component {
             display: flex;
             align-items: center;
             padding: 1em;
-            margin: 8em 1em;
+            margin: 9em 1em;
             background: #ffffffc4;
           }
 
