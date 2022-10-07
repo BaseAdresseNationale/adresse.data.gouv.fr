@@ -5,6 +5,8 @@ import {CheckCircle} from 'react-feather'
 
 import theme from '@/styles/theme'
 
+import {getPercentage} from '@/lib/util/compute'
+
 import {isCOM} from '@/lib/ban'
 
 import Certification from '../certification'
@@ -20,11 +22,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
   const isAllCertified = nbNumeros > 0 && nbNumeros === nbNumerosCertifies
   const certificationInProgress = typeComposition === 'bal' && !isAllCertified
 
-  const certificationPercentage = useMemo(() => {
-    const percentage = (nbNumerosCertifies * 100) / nbNumeros
-    const roundedPercentage = Math.floor(percentage * 10) / 10
-    return (roundedPercentage ? String(roundedPercentage).replace('.', ',') : roundedPercentage) || 0
-  }, [nbNumerosCertifies, nbNumeros])
+  const certificationPercentage = useMemo(() => getPercentage(nbNumerosCertifies, nbNumeros), [nbNumerosCertifies, nbNumeros])
 
   return (
     <>
