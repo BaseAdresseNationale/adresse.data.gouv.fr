@@ -14,30 +14,28 @@ const balLegend = {
   title: 'Provenance',
   content: {
     mesAdresses: {
-      name: 'Mes adresses',
+      name: 'Mes Adresses',
       color: theme.colors.blue
+    },
+    moissonneur: {
+      name: 'Moissonneur BAL',
+      color: theme.colors.purple
     },
     autreOutil: {
       name: 'Autre outil',
       color: theme.colors.green
-    },
-    moissonneur: {
-      name: 'Moissonneur',
-      color: theme.colors.darkGreen
     }
   }
 }
 
-const popupHTML = ({nom, code, departement, nbNumeros, certificationPercentage, nomClient}) => renderToString(
+const popupHTML = ({nom, code, nbNumeros, certificationPercentage, nomClient}) => renderToString(
   <div>
     <p>
-      <b>Adresses de {nom}</b>
+      <b>{nom} ({code})</b>
     </p>
-    <div>Commune : {code}</div>
-    <div>Département : {departement}</div>
     <div>Nombre d’adresses : {nbNumeros}</div>
     <div>{`${certificationPercentage ? `Taux de certification : ${certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
-    <div>Provenance : {nomClient}</div>
+    <div>Déposé via : {nomClient}</div>
   </div>
 )
 
@@ -76,8 +74,8 @@ class BalCoverMap extends React.Component {
         paint: {
           'fill-color': [
             'case',
-            ['==', ['get', 'nomClient'], 'Moissonneur'],
-            theme.colors.darkGreen,
+            ['==', ['get', 'idClient'], 'moissonneur-bal'],
+            theme.colors.purple,
             ['==', ['get', 'idClient'], 'mes-adresses'],
             theme.colors.blue,
             theme.colors.green
@@ -85,27 +83,9 @@ class BalCoverMap extends React.Component {
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'hover'], false],
-            0.5,
-            0.2
+            0.8,
+            0.6
           ]
-        },
-        filter: ['==', '$type', 'Polygon']
-      },
-      {
-        id: 'bal-polygon-outline',
-        type: 'line',
-        source: 'data',
-        'source-layer': 'communes',
-        paint: {
-          'line-color': [
-            'case',
-            ['==', ['get', 'nomClient'], 'Moissonneur'],
-            theme.colors.darkGreen,
-            ['==', ['get', 'idClient'], 'mes-adresses'],
-            theme.colors.blue,
-            theme.colors.green
-          ],
-          'line-width': 1
         },
         filter: ['==', '$type', 'Polygon']
       }
