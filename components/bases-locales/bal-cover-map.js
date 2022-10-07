@@ -1,6 +1,7 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
+import Router from 'next/router'
 import {AlertTriangle} from 'react-feather'
 
 import MapLegends from '../maplibre/map-legends'
@@ -111,6 +112,7 @@ class BalCoverMap extends React.Component {
       map.on('wheel', this.onWheel.bind(this))
 
       map.on('dblclick', this.onDblClick.bind(this))
+      map.on('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
     })
   }
 
@@ -141,6 +143,7 @@ class BalCoverMap extends React.Component {
     map.off('wheel', this.onWheel.bind(this))
 
     map.off('dblclick', this.onDblClick.bind(this))
+    map.off('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
   }
 
   onMouseMove = (layer, event) => {
