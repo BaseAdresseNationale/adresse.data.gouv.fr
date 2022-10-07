@@ -110,13 +110,19 @@ function Guides() {
           label='Télécharger le document "La fibre arrive dans votre commune"'
           version=''
         >
-          <h5>Communes et opérateurs, vous pouvez gagner du temps</h5>
+          <h4>Communes et opérateurs, vous pouvez gagner du temps</h4>
           <SectionText>
             <p>
               Avant de vous lancer dans une opération d’adressage et d’engager les finances de la commune, prenez connaissance des actions nécessaires et suffisantes.
             </p>
           </SectionText>
         </DocDownload>
+
+        <style jsx>{`
+          h4 {
+            font-size: large;
+          }
+        `}</style>
       </Section>
 
       <Section background='color' title='F.A.Q'>
