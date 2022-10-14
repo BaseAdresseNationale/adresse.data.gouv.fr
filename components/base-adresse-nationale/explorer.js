@@ -15,7 +15,7 @@ function SearchMessage() {
   return (
     <div className='search-message'>
       <ArrowUp alt aria-hidden='true' />
-      <h4>Rechercher une adresse</h4>
+      <h1>Rechercher une adresse</h1>
       <style jsx>{`
         .search-message {
           display: flex;
@@ -24,7 +24,12 @@ function SearchMessage() {
           justify-content: center;
           align-items: center;
         }
-        `}</style>
+
+        .search-message h1 {
+          font-size: large;
+          font-weight: bold;
+        }
+      `}</style>
     </div>
   )
 }

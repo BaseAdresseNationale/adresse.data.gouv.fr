@@ -925,7 +925,7 @@
     {
       "name": "Quimperlé Communauté",
       "link": "https://www.quimperle-communaute.bzh/lagglomeration/le-territoire/cartographie/",
-      "infos": "Quimperlé Communauté accompagne les communes pour la création et la mise à jour de Bases Adresses Locales : aide à la mise en place de démarches d’adressage, accompagnement technique et suivi des démarches, formation et assistance à l’outil « Mes adresses ».",
+      "infos": "Quimperlé Communauté accompagne les communes pour la création et la mise à jour de Bases Adresses Locales : aide à la mise en place de démarches d’adressage, accompagnement technique et suivi des démarches, formation et assistance à l’outil « Mes Adresses ».",
       "perimeter": "Communes de la Communauté d'agglomération (29)",
       "codeDepartement": [
         "29"
@@ -958,7 +958,7 @@
         "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/orne.png",
-      "height": 68,
+      "height": 126,
       "width": 245
     },
     {
@@ -1030,6 +1030,47 @@
       "picture": "/images/logos/partners/epci/region-ara.png",
       "height": 94,
       "width": 260
+    },
+    {
+      "name": "Agence Publique de Gestion Locale",
+      "link": "https://www.geo64.fr/partenaires/",
+      "infos": " L’APGL a développé une Base Adresse Locale sur Géo64, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
+      "perimeter": "Communes des Pyrénées-Atlantiques",
+      "codeDepartement": [
+        "64"
+      ],
+      "echelon": 2,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/apgl.png",
+      "height": 124,
+      "width": 173
+    },
+    {
+      "name": "Grand Paris Sud - Seine - Essonne - Sénart",
+      "link": "https://data.grandparissud.fr/explore/dataset/statut-de-publication-de-la-base-d-adresse-locale-des-communes/information/",
+      "infos": "La CA de Grand Paris Sud - Seine-Essonne - Sénart (GPS) accompagne, parmi les 23 communes du territoire, celles ayant sollicité son aide sur l’exercice de leur compétence d’adressage. Nous assurons la mise à disposition de l’information, la sensibilisation à la tâche de maintien des adressages locaux ainsi que l’accompagnement méthodologique et technique pour la publication sur les outils addresses.data.gouv.fr. Nous diffusons également des listes de différentiels constatés (par exemple avec les données IPE des opérateurs de réseau de déploiement de la Fibre optique) pour certaines communes.",
+      "perimeter": "communes de Grand Paris Sud Essonne sur deux départements Essonne (91) et Seine-et-Marne (77)",
+      "codeDepartement": [
+        "77",
+        "91"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique"
+      ],
+      "picture": "/images/logos/partners/epci/grand-paris-sud.png",
+      "height": 122,
+      "width": 280
     }
   ],
   "companies": [
@@ -1179,19 +1220,32 @@
       "name": "PLANIGRAPHE",
       "link": "https://planigraphe.fr/charte-de-la-base-adresse-locale/",
       "infos": "PLANIGRAPHE accompagne les collectivités dans la mise en conformité de leur adressage. Cela comprend un accompagnement dans les procédures de délibérations et de communication auprès des administrés, un audit cartographique du territoire afin de structurer et dénommer les voies à adresser puis un travail de localisation des adresses sur le terrain en étroite collaboration avec les élus. PLANIGRAPHE forme également les communes dans la gestion de leur future Base d’Adresse Locale et son intégration dans la Base d’Adresse Nationale.",
-      "perimeter": "Auvergne-Rhône-Alpes",
+      "perimeter": "Auvergne-Rhône-Alpes, Occitanie, Provence-Alpes-Côte d'Azur",
       "codeDepartement": [
         "03",
+        "04",
+        "05",
+        "06",
+        "09",
+        "11",
         "12",
+        "13",
         "15",
         "23",
         "30",
+        "31",
         "32",
         "34",
         "43",
         "46",
         "48",
-        "63"
+        "63",
+        "65",
+        "66",
+        "81",
+        "82",
+        "83",
+        "84"
       ],
       "echelon": null,
       "isPerimeterFrance": false,
@@ -1401,6 +1455,28 @@
       "height": 124,
       "width": 286,
       "signatureDate": "2022-06-03"
+    },
+    {
+      "name": "Commune de Chuzelles",
+      "link": "https://chuzelles.fr/",
+      "codeRegion": "84",
+      "codeDepartement": [
+        "38"
+      ],
+      "codeCommune": "38110",
+      "charteURL": "https://chuzelles.fr/cadre-de-vie/urbanisme/adressage#charte",
+      "testimonyURL": "",
+      "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-38110",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/chuzelles.png",
+      "height": 124,
+      "width": 127,
+      "signatureDate": "2022-09-27"
     }
   ]
 }

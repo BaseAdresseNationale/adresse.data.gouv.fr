@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
+import ValidatorSectionTitle from '../../validator-section-title'
 
 function UnfoundFields({fields}) {
   return (
-    <>
+    <div className='unfound-container'>
       {fields.length > 0 && (
         <>
-          <h4>Champs non trouvés</h4>
+          <ValidatorSectionTitle>Champs non trouvés</ValidatorSectionTitle>
           <table>
             <tbody>
               <tr>
@@ -27,7 +28,7 @@ function UnfoundFields({fields}) {
         </>
       )}
       <style jsx>{`
-        h4 {
+        .unfound-container {
           margin-top: 1em;
         }
 
@@ -43,7 +44,7 @@ function UnfoundFields({fields}) {
           background-color: ${theme.warningBg};
         }
     `}</style>
-    </>
+    </div>
   )
 }
 

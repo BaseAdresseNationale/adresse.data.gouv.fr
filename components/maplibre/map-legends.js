@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-function MapLegends({title, legend}) {
+function MapLegends({title, legend, hasBorderRadius}) {
   return (
     <>
       <div className='legend-title'>{title}</div>
@@ -25,7 +25,7 @@ function MapLegends({title, legend}) {
         .legend-color {
           width: 15px;
           height: 15px;
-          border-radius: 50%;
+          border-radius: ${hasBorderRadius ? '50%' : ''};
           margin-right: 0.5em;
         }
       `}
@@ -34,9 +34,14 @@ function MapLegends({title, legend}) {
   )
 }
 
+MapLegends.defaultProps = {
+  hasBorderRadius: true
+}
+
 MapLegends.propTypes = {
   title: PropTypes.string.isRequired,
-  legend: PropTypes.object.isRequired
+  legend: PropTypes.object.isRequired,
+  hasBorderRadius: PropTypes.bool
 }
 
 export default MapLegends

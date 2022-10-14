@@ -8,13 +8,12 @@ import Section from '../section'
 import ButtonLink from '../button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
-import BaseAdresseLocale from './bases-adresse-locales/base-adresse-locale'
 import Notification from '../notification'
 import partners from '../../partners.json'
 import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
-const BasesLocales = React.memo(({datasets, stats}) => {
+const BasesLocales = React.memo(({stats}) => {
   const [shuffledPartners, setShuffledPartners] = useState([])
 
   // Utilisation d'un useEffect afin d'éviter les mélanges de rendus de valeurs au render lors du shuffle
@@ -109,21 +108,6 @@ const BasesLocales = React.memo(({datasets, stats}) => {
         </div>
       </Section>
 
-      <Section title='Quelques Bases Adresses Locales déjà publiées' background='grey'>
-        <div className='bal-grid'>
-          {datasets.map(dataset => (
-            <BaseAdresseLocale key={dataset.id} dataset={dataset} />
-          ))}
-        </div>
-        <div className='centered'>
-          <ButtonLink
-            href='/bases-locales/jeux-de-donnees'
-          >
-            Voir toutes les Bases Adresses Locales
-          </ButtonLink>
-        </div>
-      </Section>
-
       <Section background='color' title='État du déploiement des Bases Adresses Locales'>
         <MapBalSection stats={stats} />
       </Section>
@@ -193,7 +177,6 @@ const BasesLocales = React.memo(({datasets, stats}) => {
 })
 
 BasesLocales.propTypes = {
-  datasets: PropTypes.array.isRequired,
   stats: PropTypes.object.isRequired
 }
 
