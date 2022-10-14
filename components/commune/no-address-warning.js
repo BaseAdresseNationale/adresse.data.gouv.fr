@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 function NoAddressWarning() {
   return (
     <div className='no-address-container'>
-      <Image src='/images/icons/address-not-found.png' height={150} width={120} alt aria-hidden='true' />
+      <Image src='/images/icons/address-not-found.png' height={150} width={120} alt='' aria-hidden='true' />
       <p className='no-address-text'>Aucune adresse n’est connue pour cette commune</p>
 
       <style jsx>{`
