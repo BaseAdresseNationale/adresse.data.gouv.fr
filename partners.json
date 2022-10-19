@@ -1092,6 +1092,28 @@
       "picture": "/images/logos/partners/epci/agglo-puyenvelay.png",
       "height": 90,
       "width": 184
+    },
+    {
+      "name": "Communauté de Communes Porte de DrômArdèche",
+      "link": "https://sig.portededromardeche.fr/adresse",
+      "infos": "Depuis 2011, la Communauté de Communes Porte de DrômArdèche sensibilise les communes de son territoire à la thématique de l’adressage et à ses bonnes pratiques. Elle accompagne les communes dans l’élaboration et la mise à jour de Bases Adresses Locales en mettant à disposition ses compétences, services et outils. Un espace de travail développé sur GÉCCPDA, WebSIG mutualisé, permet aux communes de créer et gérer leurs adresses, dans une Base Adresse Locale.",
+      "perimeter": "communes membre de Communauté de Communes Porte de DrômArdèche (8 communes en Ardèche - 26 communes en Drôme)",
+      "codeDepartement": [
+        "07",
+        "26"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/dromardeche.jpg",
+      "height": 90,
+      "width": 184
     }
   ],
   "companies": [
