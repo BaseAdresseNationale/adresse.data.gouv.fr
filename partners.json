@@ -1278,6 +1278,23 @@
       "picture": "/images/logos/partners/companies/planigraphe.jpg",
       "height": 124,
       "width": 218
+    },
+    {
+      "name": "PRODEXA",
+      "link": "https://prodexa.fr/adressage/",
+      "infos": "PRODEXA est un acteur clé pour vous aider à réaliser votre « Base Adresse Locale », quel que soit l’état de l’adressage de votre commune. Nos robots de traitement de données apportent fiabilité et rapidité, nos géomaticiens analysent la cartographie et nos enquêteurs sur le terrain font les relevés nécessaires. En vous mettant au cœur de nos priorités et en vous accompagnant à chaque étape, nous obtenons ensemble une certification sans complications et sans failles. Nous vous aidons ensuite à prendre en main l’outil pour créer vos « futures nouvelles adresses » dans la BAN.",
+      "perimeter": "France entière",
+      "codeDepartement": [],
+      "echelon": null,
+      "isPerimeterFrance": true,
+      "isCompany": true,
+      "services": [
+        "accompagnement technique",
+        "réalisation de bases adresses locales"
+      ],
+      "picture": "/images/logos/partners/companies/prodexa.png",
+      "height": 99,
+      "width": 290
     }
   ],
   "communes": [
