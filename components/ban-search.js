@@ -59,7 +59,7 @@ function BanSearch() {
   }, [results])
 
   useEffect(() => {
-    if (input) {
+    if (input && input.length > 2) {
       setResults([])
       setLoading(true)
       setError(null)
