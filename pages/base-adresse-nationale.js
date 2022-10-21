@@ -12,7 +12,6 @@ import DeviceContext from '@/contexts/device'
 
 function BaseAdresseNationale({address}) {
   const {isMobileDevice} = useContext(DeviceContext)
-  const [initialHash, setInitialHash] = useState(null)
   const [bBox, setBBox] = useState(null)
   const Layout = isMobileDevice ? Mobile : Desktop
 
@@ -52,26 +51,9 @@ function BaseAdresseNationale({address}) {
   }, [router])
 
   useEffect(() => {
-    const {hash} = window.location
-
-    if (hash) {
-      setInitialHash(hash)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (address && initialHash) {
-      const {hash} = window.location
-      if (hash !== initialHash) {
-        setInitialHash(null)
-      }
-    }
-  }, [address, initialHash])
-
-  useEffect(() => {
     let bbox = address?.displayBBox
 
-    if (!initialHash && address?.positions?.length > 1) {
+    if (address?.positions?.length > 1) {
       const coordinates = address.positions.map(p => {
         return p.position.coordinates
       })
@@ -80,7 +62,7 @@ function BaseAdresseNationale({address}) {
     }
 
     setBBox(bbox)
-  }, [initialHash, address])
+  }, [address])
 
   return (
     <Page title={title} description={description} hasFooter={false}>
@@ -88,7 +70,6 @@ function BaseAdresseNationale({address}) {
         address={address}
         bbox={bBox}
         handleSelect={selectAddress}
-        hash={initialHash}
       />
     </Page>
   )
