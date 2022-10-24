@@ -935,9 +935,9 @@
   {
     "title": "Adresse_Lab #4",
     "subtitle": "identifiant unique",
-    "description": "Point d'actualités et d'avancement sur le chantier en cours de l'ID unique de l'adresse",
+    "description": "Point d’actualités et d’avancement sur le chantier en cours de l’ID unique de l’adresse",
     "type": "adresselab",
-    "target": "techniques",
+    "target": "utilisateurs technique",
     "date": "2022-11-09",
     "tags": [
       "Adresse",
