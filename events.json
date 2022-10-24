@@ -937,7 +937,7 @@
     "subtitle": "identifiant unique",
     "description": "Point d’actualités et d’avancement sur le chantier en cours de l’ID unique de l’adresse",
     "type": "adresselab",
-    "target": "utilisateurs technique",
+    "target": "utilisateurs techniques",
     "date": "2022-11-09",
     "tags": [
       "Adresse",
