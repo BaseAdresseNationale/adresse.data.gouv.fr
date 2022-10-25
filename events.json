@@ -933,6 +933,33 @@
     "endHour": "15:30"
   },
   {
+    "title": "Adresse_Lab #4",
+    "subtitle": "identifiant unique",
+    "description": "Point d’actualités et d’avancement sur le chantier en cours de l’ID unique de l’adresse",
+    "type": "adresselab",
+    "target": "utilisateurs techniques",
+    "date": "2022-11-09",
+    "tags": [
+      "Adresse",
+      "Base Adresse Nationale",
+      "Referentiel",
+      "Co construction"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": " https://www.eventbrite.fr/e/billets-adresse-lab-4-prototype-id-unique-432713115577",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
     "title": "Webinaire Mes Adresses",
     "subtitle": "Je débute sur Mes Adresses",
     "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l’éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
