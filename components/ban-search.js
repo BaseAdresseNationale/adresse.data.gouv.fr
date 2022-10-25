@@ -59,11 +59,17 @@ function BanSearch() {
   }, [results])
 
   useEffect(() => {
-    if (input) {
-      setResults([])
-      setLoading(true)
-      setError(null)
-      handleSearch(input)
+    const trimmedInput = input.trim()
+
+    if (trimmedInput.length >= 3) {
+      if (/^[A-z][A-z\d]{0,3}/.test(trimmedInput)) {
+        setResults([])
+        setLoading(true)
+        setError(null)
+        handleSearch(trimmedInput)
+      } else {
+        setError({message: 'Les trois premiers caractères doivent être des lettres ou des chiffres'})
+      }
     }
   }, [handleSearch, input])
 
