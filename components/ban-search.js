@@ -73,6 +73,13 @@ function BanSearch() {
     }
   }, [handleSearch, input])
 
+  useEffect(() => {
+    if (input.length <= 3) {
+      setResults([])
+      setOrderResults([])
+    }
+  }, [input])
+
   return (
     <>
       <SearchInput
