@@ -3,6 +3,7 @@ import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
 import {search} from '@/lib/api-adresse'
+import {isFirstCharValid} from '@/lib/string'
 import {useInput} from '../hooks/input'
 
 import SearchInput from '@/components/search-input'
@@ -62,7 +63,7 @@ function BanSearch() {
     const trimmedInput = input.trim()
 
     if (trimmedInput.length >= 3) {
-      if (/^[A-zÀ-ú,\s\d\w]{3}/.test(trimmedInput)) {
+      if (isFirstCharValid(trimmedInput)) {
         setResults([])
         setLoading(true)
         setError(null)
