@@ -69,7 +69,7 @@ function BanSearch() {
         setError(null)
         handleSearch(trimmedInput)
       } else {
-        setError({message: 'Les trois premiers caractères doivent être des lettres ou des chiffres'})
+        setError({message: 'Le premier caractère doit être une lettre ou un chiffre'})
       }
     }
   }, [handleSearch, input])
