@@ -2,8 +2,7 @@ import {useState, useCallback, useEffect} from 'react'
 import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
-import {search} from '@/lib/api-adresse'
-import {isFirstCharValid} from '@/lib/string'
+import {search, isFirstCharValid} from '@/lib/api-adresse'
 import {useInput} from '../hooks/input'
 
 import SearchInput from '@/components/search-input'
