@@ -1025,11 +1025,6 @@
     ],
     "isOnlineOnly": true,
     "address": {
-    "nom": "",
-    "numero": "",
-    "voie": "",
-    "codePostal": "",
-    "commune": ""
     },
     "href": "https://cryptpad.fr/form/#/2/form/view/S+3GGPX2V88nc-ICZ-gMgLwtp1on924z47QenZZ0-io/embed/",
     "isSubscriptionClosed": false,
@@ -1051,10 +1046,6 @@
     ],
     "isOnlineOnly": true,
     "address": {
-    "nom": "",
-    "numero": "",
-    "voie": "",
-    "codePostal": ""
     },
     "href": "",
     "isSubscriptionClosed": true,
@@ -1076,11 +1067,6 @@
       ],
       "isOnlineOnly": true,
       "address": {
-      "nom": "",
-      "numero": "",
-      "voie": "",
-      "codePostal": "",
-      "commune": ""
       },
       "href":"https://cryptpad.fr/form/#/2/form/view/fbECvc1JRyxDn3Ku+2G3F6IgGMYDBfrPvtn5VjalLqM/embed/",
       "isSubscriptionClosed": false,
