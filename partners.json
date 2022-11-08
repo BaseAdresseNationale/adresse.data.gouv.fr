@@ -1537,6 +1537,26 @@
       "height": 124,
       "width": 127,
       "signatureDate": "2022-09-27"
+    },
+    {
+      "name": "Communauté d’Agglomération de La Rochelle",
+      "link": "https://www.agglo-larochelle.fr",
+      "infos": "L’Unité Géomatique de la Communauté d’Agglomération de La Rochelle, propose, pour les communes du territoire, un appui technique à la création des Bases Adresses Locales, et la mise à disposition d’outils mutualisés de mise à jour des adresses.",
+      "charteURL": "https://tandem.larochelle.fr/m-organiser/systemes-d-information/systeme-d-information-geographique-sig-?article=ressources",
+      "perimeter": "Communes de la Communauté d'Agglomération de La Rochelle (Département 17)",
+      "codeDepartement": [
+        "17"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "Accompagnement technique",
+        "Mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/agglo-la-rochelle.png",
+      "height": 68,
+      "width": 260
     }
   ]
 }
