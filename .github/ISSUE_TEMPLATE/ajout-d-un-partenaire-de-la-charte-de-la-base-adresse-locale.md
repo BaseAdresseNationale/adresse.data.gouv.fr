@@ -14,6 +14,7 @@ assignees: tmerlier
 - Description : 
 - Lien vers le site :
 - Lien vers la charte :
+- Date de signature de la charte : 
 - Périmètre :
 - Liste des codes département :
 - Échelon : 
