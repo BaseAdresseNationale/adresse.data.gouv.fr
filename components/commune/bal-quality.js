@@ -1,17 +1,24 @@
 import PropTypes from 'prop-types'
+import {pick} from 'lodash'
 
 import Section from '@/components/section'
 import BalAlerts from './bal-alerts'
 
 function BalQuality({currentRevision}) {
-  const errors = currentRevision && currentRevision.validation.errors ? currentRevision.validation.errors : []
-  const warnings = currentRevision && currentRevision.validation.warnings ? currentRevision.validation.warnings : []
-  const infos = currentRevision && currentRevision.validation.infos ? currentRevision.validation.infos : []
+  const harvestErrors = pick(currentRevision.client.extra, 'uniqueErrors', 'nbRowsWithErrors')
+  const errors = harvestErrors.uniqueErrors || []
+  const warnings = currentRevision?.validation.warnings ? currentRevision.validation.warnings : []
+  const infos = currentRevision?.validation.infos ? currentRevision.validation.infos : []
 
   return (
     <Section background='grey' title='Qualité des adresses' subtitle='Liste des types d’alertes détectés dans la Base Adresse Locale'>
       {currentRevision ? (
-        <BalAlerts errors={errors} warnings={warnings} infos={infos} />
+        <BalAlerts
+          errors={errors}
+          nbRowsWithErrors={harvestErrors.nbRowsWithErrors}
+          warnings={warnings}
+          infos={infos}
+        />
       ) : (
         <p>Retrouvez bientôt des informations concernant la qualité de la Base Adresse Locale de la commune.</p>
       )}
