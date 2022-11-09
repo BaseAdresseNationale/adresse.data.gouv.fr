@@ -59,7 +59,7 @@ function Cgu() {
               dinsic-sec-directeur [à] modernisation.gouv.fr
             </p>
 
-            <p>Directeur de la publication : Mme Stéphanie Schaer, DINUM</p>
+            <p>Directrice de la publication : Mme Stéphanie Schaer, DINUM</p>
 
             <h4>Hébergeur</h4>
             <p>
