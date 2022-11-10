@@ -5,7 +5,7 @@ import Section from '@/components/section'
 import BalAlerts from './bal-alerts'
 
 function BalQuality({currentRevision}) {
-  const harvestErrors = pick(currentRevision.client.extra, 'uniqueErrors', 'nbRowsWithErrors')
+  const harvestErrors = pick(currentRevision.context.extras, 'uniqueErrors', 'nbRowsWithErrors')
   const errors = harvestErrors.uniqueErrors || []
   const warnings = currentRevision?.validation.warnings ? currentRevision.validation.warnings : []
   const infos = currentRevision?.validation.infos ? currentRevision.validation.infos : []
