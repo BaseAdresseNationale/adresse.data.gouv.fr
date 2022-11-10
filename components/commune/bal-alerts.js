@@ -5,11 +5,11 @@ import theme from '@/styles/theme'
 import Notification from '@/components/notification'
 import BalAlert from './bal-alert'
 
-function BalAlerts({errors, warnings, infos}) {
-  const hasAlerts = Boolean(warnings.length > 0 || errors.length > 0 || infos.length > 0)
+function BalAlerts({errors, nbRowsWithErrors, warnings, infos}) {
   const numberOfErrors = errors.length
   const numberOfWarnings = warnings.length
   const numberOfInfos = infos.length
+  const hasAlerts = Boolean(numberOfErrors > 0 || numberOfWarnings > 0 || numberOfInfos > 0)
 
   return (
     <div className='bal-alerts-types-container'>
@@ -18,6 +18,11 @@ function BalAlerts({errors, warnings, infos}) {
           {numberOfErrors > 0 && (
             <div className='alerts-type-container'>
               <h4>{numberOfErrors > 1 ? `${numberOfErrors} erreurs détectées` : `${numberOfErrors} erreur détectée`}</h4>
+              {nbRowsWithErrors && (
+                <i className='error'>
+                  {nbRowsWithErrors} {`${nbRowsWithErrors > 1 ? 'lignes n’ont pas pu être prisent' : 'ligne n’a pas pu être prise'} en compte dans la Base Adresse Nationale`}
+                </i>
+              )}
               {errors.map(error => <BalAlert key={error} alert={error} type='error' />)}
             </div>
           )}
@@ -47,6 +52,10 @@ function BalAlerts({errors, warnings, infos}) {
       <style jsx>{`
         .bal-alerts-types-container {
           margin-top: 3em;
+        }
+
+        .error {
+          color: ${theme.errorBorder};
         }
 
         .conform-container {
@@ -81,8 +90,13 @@ function BalAlerts({errors, warnings, infos}) {
   )
 }
 
+BalAlerts.defaultProps = {
+  nbRowsWithErrors: 0
+}
+
 BalAlerts.propTypes = {
   errors: PropTypes.array.isRequired,
+  nbRowsWithErrors: PropTypes.number,
   warnings: PropTypes.array.isRequired,
   infos: PropTypes.array.isRequired
 }

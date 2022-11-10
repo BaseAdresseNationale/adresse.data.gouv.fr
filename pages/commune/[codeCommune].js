@@ -30,12 +30,10 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
         typeComposition={typeCompositionAdresses}
         hasMigratedBAL={hasRevision}
       />
+
       {typeCompositionAdresses !== 'assemblage' && (
         <>
-          <BalQuality
-            currentRevision={currentRevision}
-            hasQualityAdresses={hasRevision}
-          />
+          <BalQuality currentRevision={currentRevision} />
           <Historique
             revisions={revisions}
             communeName={communeInfos.nomCommune}
