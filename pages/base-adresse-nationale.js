@@ -75,8 +75,10 @@ function BaseAdresseNationale({address}) {
       const coordinates = address.positions.map(p => {
         return p.position.coordinates
       })
-
-      bbox = new maplibregl.LngLatBounds(coordinates).toArray()
+      // calcul le bounding box, la premiere position comme initailisation
+      bbox = coordinates.reduce((bound, c) => bound.extend(c),
+        new maplibregl.LngLatBounds(coordinates[0], coordinates[0])
+      ).toArray()
     }
 
     setBBox(bbox)
