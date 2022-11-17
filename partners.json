@@ -1,4 +1,33 @@
 {
+  "reUsersBan": [
+    {
+      "name": "Ministère de l'Éducation Nationale et de la Jeunesse",
+      "link": "https://www.atd24.fr/gestion-des-territoires/cartographie-numerique/",
+      "infos": "L’Agence Technique Départementale de la Dordogne a développé une Base Adresse Locale sur Périgéo, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
+      "isCompany": false,
+      "picture": "/images/logos/partners/re-users-ban/ministere-de-l-education-nationale-et-de-la-jeunesse.png",
+      "height": 200,
+      "width": 245
+    },
+    {
+      "name": "Instant System",
+      "link": "http://carto.siig.fr/adresse/",
+      "infos": "Le Syndicat Intercommunal d’Information Géographique met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement une cinquantaine dans le Gard).",
+      "isCompany": false,
+      "picture": "/images/logos/partners/re-users-ban/instant-system.png",
+      "height": 200,
+      "width": 251
+    },
+    {
+      "name": "Direction Générale des Douanes et Droits Indirects",
+      "link": "https://www.smica.fr/fr/metiers-services/information-geographique",
+      "infos": "Syndicat mixte pour la Modernisation et l’Ingénierie informatique des Collectivités ou établissements publics Adhérents met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement 282 communes et 19 EPCI).",
+      "isCompany": false,
+      "picture": "/images/logos/partners/re-users-ban/douanes-et-droits-indirects.jpg",
+      "height": 200,
+      "width": 156
+    }
+  ],
   "epci": [
     {
       "name": "ATD24",
