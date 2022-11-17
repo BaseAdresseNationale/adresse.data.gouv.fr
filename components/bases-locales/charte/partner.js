@@ -52,38 +52,43 @@ function Partner({partnerInfos, isCommune}) {
             alt
           />
         </div>
-        <ActionButtonNeutral isFullSize label={`${isDisplay ? 'Masquer' : 'Afficher'} les informations`}>
-          <div className='button-container' onClick={() => setIsDisplay(!isDisplay)}>
-            <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
-            <div className='chevron'>
-              <Chevron size={18} color={`${theme.colors.lightBlue}`} alt aria-hidden='true' />
-            </div>
-          </div>
-        </ActionButtonNeutral>
-      </div>
 
-      <div className={isDisplay ? 'infos-container' : 'hidden'}>
-        {mairieContact ? (
-          <div className='contacts-container'>
-            <div className='title'>Contacter la mairie</div>
-            <MairieContact email={mairieContact.mail} phone={mairieContact.phone} />
-          </div>
-        ) : (
-          <>
-            <p>{infos}</p>
-            <div className='perimeter'>
-              <div className='title'>Périmètre</div>
-              <p>{perimeter}</p>
+        {services && services.length > 0 && (
+
+          <ActionButtonNeutral isFullSize label={`${isDisplay ? 'Masquer' : 'Afficher'} les informations`}>
+            <div className='button-container' onClick={() => setIsDisplay(!isDisplay)}>
+              <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
+              <div className='chevron'>
+                <Chevron size={18} color={`${theme.colors.lightBlue}`} alt aria-hidden='true' />
+              </div>
             </div>
-          </>
+          </ActionButtonNeutral>
         )}
-        <div className='services'>
-          <div className='title'>Offres de services</div>
-          {services.map(service => {
-            return <p key={service}>{formatTag(service)}</p>
-          })}
-        </div>
       </div>
+      {services && services.length > 0 && (
+        <div className={isDisplay ? 'infos-container' : 'hidden'}>
+          {mairieContact ? (
+            <div className='contacts-container'>
+              <div className='title'>Contacter la mairie</div>
+              <MairieContact email={mairieContact.mail} phone={mairieContact.phone} />
+            </div>
+          ) : (
+            <>
+              <p>{infos}</p>
+              <div className='perimeter'>
+                <div className='title'>Périmètre</div>
+                <p>{perimeter}</p>
+              </div>
+            </>
+          )}
+          <div className='services'>
+            <div className='title'>Offres de services</div>
+            {services.map(service => {
+              return <p key={service}>{formatTag(service)}</p>
+            })}
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .partner {
@@ -220,17 +225,13 @@ Partner.propTypes = {
     infos: PropTypes.string,
     codeCommune: PropTypes.string,
     perimeter: PropTypes.string,
-    services: PropTypes.array.isRequired,
+    services: PropTypes.array,
     picture: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
-    isCompany: PropTypes.bool.isRequired
+    isCompany: PropTypes.bool
   }).isRequired,
   isCommune: PropTypes.bool
-}
-
-Partner.defaultProps = {
-  isCommune: false
 }
 
 export default Partner
