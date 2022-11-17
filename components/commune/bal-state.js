@@ -68,7 +68,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
 
   return (
     <Section title='État de la Base Adresse Nationale' background='color' subtitle={subtitle}>
-      <Statistics nbNumeros={nbNumeros} nbNumerosCertifies={nbNumerosCertifies} />
+      {nbNumeros > 0 && <Statistics nbNumeros={nbNumeros} nbNumerosCertifies={nbNumerosCertifies} />}
 
       {typeComposition === 'assemblage' && (
         <Notification type='warning'>
