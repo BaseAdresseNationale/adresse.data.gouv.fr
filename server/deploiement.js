@@ -23,7 +23,7 @@ app.route('/couverture-tiles/:z/:x/:y.pbf')
     }
 
     const tileIndex = await useCache('couverture-bal-tiles', 300, async () => {
-      const featureCollection = computeStats()
+      const featureCollection = await computeStats()
       return geojsonVt(featureCollection, {indexMaxZoom: 9})
     })
 
