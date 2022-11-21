@@ -99,7 +99,7 @@ const BasesLocales = React.memo(({stats}) => {
         </div>
         <div className='organismes-container'>
           <h3>Quelques partenaires :</h3>
-          <Partners shuffledPartners={shuffledPartners} />
+          <Partners data={shuffledPartners} />
         </div>
         <div className='centered'>
           <ButtonLink href='/bases-locales/charte#partenaires'>

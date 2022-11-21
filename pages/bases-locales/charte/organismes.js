@@ -32,7 +32,7 @@ function Organismes() {
         </div>
 
         <div className='partners-section'>
-          <Partners epci={epci} />
+          <Partners data={epci} />
         </div>
       </Section>
 

@@ -32,7 +32,7 @@ function Companies() {
         </div>
 
         <div className='partners-section'>
-          <Partners companies={companies} />
+          <Partners data={companies} />
         </div>
       </Section>
 

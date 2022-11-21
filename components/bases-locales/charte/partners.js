@@ -4,10 +4,8 @@ import {orderBy} from 'lodash'
 
 import colors from '@/styles/colors'
 
-function Partners({data, isOrder, epci, companies, shuffledPartners}) {
-  const _data = data || epci || companies || shuffledPartners
-  const _isOrder = isOrder || data || epci || companies
-  const items = _isOrder ? orderBy(_data, 'name', 'asc') : _data
+function Partners({data}) {
+  const items = orderBy(data, 'name', 'asc')
 
   return (
     <>
@@ -43,11 +41,9 @@ function Partners({data, isOrder, epci, companies, shuffledPartners}) {
 }
 
 Partners.propTypes = {
-  data: PropTypes.array,
-  isOrder: PropTypes.bool,
-  epci: PropTypes.array,
-  companies: PropTypes.array,
-  shuffledPartners: PropTypes.array
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }))
 }
 
 export default Partners
