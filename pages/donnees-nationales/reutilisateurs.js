@@ -7,13 +7,12 @@ import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
-import partners from 'partners.json'
+import reUsersBan from 'data/partners/re-users-ban.json'
 
 function Reutilisateurs() {
-  const title = 'Données nationales'
+  const title = 'Réutilisateurs de la BAN'
   const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
-  const {reUsersBan} = partners
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Users size={56} alt aria-hidden='true' />} />

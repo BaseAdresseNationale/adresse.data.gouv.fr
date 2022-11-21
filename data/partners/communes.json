@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Égliseneuve-des-Liards",
+    "link": "http://www.mairie-egliseneuvedesliards.fr/actualites/detail/adressage-6469",
+    "codeRegion": "84",
+    "codeDepartement": [
+      "63"
+    ],
+    "codeCommune": "63145",
+    "charteURL": "http://www.mairie-egliseneuvedesliards.fr/fileadmin/Mairie_Egliseneuve-des-Liards/2-Documents/pdf/charte-bal-v1-05529.pdf",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-63145",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/egliseneuve-des-liards.jpg",
+    "height": 93,
+    "width": 232,
+    "signatureDate": "2021-05-11"
+  },
+  {
+    "name": "La commune de Rougon",
+    "link": "http://www.rougon.fr/",
+    "codeRegion": "93",
+    "codeDepartement": [
+      "04"
+    ],
+    "codeCommune": "04171",
+    "testimonyURL": "https://adresse.data.gouv.fr/blog/rougon-creation-dune-base-adresse-locale-de-a-a-z-partage-et-innovation",
+    "balURL": "https://mes-adresses.data.gouv.fr/bal/608d7a90b47fd850f52fbb6e/communes/04171",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/rougon.png",
+    "height": 124,
+    "width": 99,
+    "signatureDate": "2022-03-25"
+  },
+  {
+    "name": "Breux-sur-Avre",
+    "link": "https://www.breux-sur-avre.fr",
+    "codeRegion": "28",
+    "codeDepartement": [
+      "27"
+    ],
+    "codeCommune": "27115",
+    "charteURL": "https://www.breux-sur-avre.fr/charte-base-adresse-locale.pdf",
+    "testimonyURL": "https://adresse.data.gouv.fr/blog/comment-un-simple-citoyen-peut-il-contribuer-a-resoudre-les-problemes-dadresse-de-sa-commune",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-27115",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/breux-sur-avre.png",
+    "height": 124,
+    "width": 108,
+    "signatureDate": "2022-03-29"
+  },
+  {
+    "name": "Bréau-Mars",
+    "link": "https://www.breau-mars.fr/Adhesion-de-notre-Commune-a-la-Base-Adresse-Locale_a2315.html",
+    "codeRegion": "76",
+    "codeDepartement": [
+      "30"
+    ],
+    "codeCommune": "30052",
+    "charteURL": "https://www.breau-mars.fr/photo/art/grande/63620306-45827174.jpg?v=1649338441",
+    "testimonyURL": "https://adresse.data.gouv.fr/blog/adressage-a-breau-mars-communes-fusionnees-et-arrivee-de-la-fibre",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-30052",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/breau-mars.jpg",
+    "height": 124,
+    "width": 122,
+    "signatureDate": "2022-04-08"
+  },
+  {
+    "name": "Traversères",
+    "link": "http://www.traverseres.fr/",
+    "codeRegion": "76",
+    "codeDepartement": [
+      "32"
+    ],
+    "codeCommune": "32454",
+    "charteURL": "http://cdn3_4.reseaudespetitescommunes.fr/cities/797/documents/9543g66iexy5ouf.pdf",
+    "testimonyURL": "https://adresse.data.gouv.fr/blog/de-la-commune-au-departement-la-collaboration-sur-les-adresses-dans-le-gers",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-32454",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/traverseres.jpg",
+    "height": 124,
+    "width": 88,
+    "signatureDate": "2022-04-08"
+  },
+  {
+    "name": "Commune de Castillon-Savès",
+    "link": "https://castillon-saves.fr/au-quotidien/plan-de-la-commune",
+    "codeRegion": "76",
+    "codeDepartement": [
+      "32"
+    ],
+    "codeCommune": "32090",
+    "charteURL": "https://castillon-saves.fr/wp-content/uploads/2022/05/20220505-Charte-commune-Castillon-Saves.pdf",
+    "testimonyURL": "",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-32090",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/castillon-saves.jpg",
+    "height": 124,
+    "width": 124,
+    "signatureDate": "2022-05-05"
+  },
+  {
+    "name": "Granges",
+    "link": "https://www.granges71.fr/",
+    "codeRegion": "27",
+    "codeDepartement": [
+      "71"
+    ],
+    "codeCommune": "71225",
+    "charteURL": "https://www.granges71.fr/static/c470a4de4f199eace9fef5997d3799d3/charte-commune-granges.pdf",
+    "testimonyURL": "",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-71225",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/granges.png",
+    "height": 124,
+    "width": 79,
+    "signatureDate": "2022-05-16"
+  },
+  {
+    "name": "Commune de Truchtersheim",
+    "link": "http://www.truchtersheim.fr/fr/information/113002/base-adresse-locale",
+    "codeRegion": "44",
+    "codeDepartement": [
+      "67"
+    ],
+    "codeCommune": "67495",
+    "charteURL": "http://cdn2_3.reseaudesvilles.fr/cities/107/documents/5fetd4lb3cl64u.pdf",
+    "testimonyURL": "",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-67495",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/truchtersheim.jpg",
+    "height": 124,
+    "width": 136,
+    "signatureDate": "2022-06-28"
+  },
+  {
+    "name": "Commune d’Entre-Deux",
+    "link": "https://entredeux.re/charte-de-la-base-adresse-locale",
+    "codeRegion": "04",
+    "codeDepartement": [
+      "974"
+    ],
+    "codeCommune": "97403",
+    "charteURL": "",
+    "testimonyURL": "",
+    "balURL": "",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/entre-deux.png",
+    "height": 124,
+    "width": 286,
+    "signatureDate": "2022-06-03"
+  },
+  {
+    "name": "Commune de Chuzelles",
+    "link": "https://chuzelles.fr/",
+    "codeRegion": "84",
+    "codeDepartement": [
+      "38"
+    ],
+    "codeCommune": "38110",
+    "charteURL": "https://chuzelles.fr/cadre-de-vie/urbanisme/adressage#charte",
+    "testimonyURL": "",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-38110",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/chuzelles.png",
+    "height": 124,
+    "width": 127,
+    "signatureDate": "2022-09-27"
+  },
+  {
+    "name": "Commune de Ballon",
+    "link": "http://www.mairie-ballon.fr/",
+    "codeRegion": "75",
+    "codeDepartement": [
+      "17"
+    ],
+    "codeCommune": "17032",
+    "charteURL": "http://www.mairie-ballon.fr/",
+    "testimonyURL": "",
+    "balURL": "https://plateforme.adresse.data.gouv.fr/ban/communes/17032/download/csv-bal/adresses",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/ballon.png",
+    "height": 70,
+    "width": 256,
+    "signatureDate": "2022-11-30"
+  }
+]

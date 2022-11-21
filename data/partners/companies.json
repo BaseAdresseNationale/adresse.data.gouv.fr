@@ -1,0 +1,223 @@
+[
+  {
+    "name": "SARL Pichjulellu",
+    "link": "https://pichjulellu.corsica/",
+    "infos": " La SARL Pichjulellu est une agence de communication visuelle et digitale, et de conseil en politique publique, spécialisé dans l’accompagnement et la réalisation des Bases d'adresses locales pour les communes, situé à Speluncatu en Corse.",
+    "perimeter": "Haute-Corse et Corse-du-Sud",
+    "codeDepartement": [
+      "2A",
+      "2B"
+    ],
+    "echelon": 2,
+    "isPermimeterFrance": false,
+    "isCompany": true,
+    "services": [
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/pichjulellu.png",
+    "height": 105,
+    "width": 290
+  },
+  {
+    "name": "Adress' & Vous",
+    "link": "https://clementvienne.wixsite.com/website/fiabilisation-de-l-adresse",
+    "infos": "Prestation complète de fiabilisation de l’adresse ou un simple accompagnement. Travail préalable de cartographie, dénomination des voies, relevés de terrain pour la numérotation des bâtiments, création de la base de données, consultations des entreprises pour la signalétique, suivi des travaux. Assistance lors de la communication auprès des administrés et transmission à la Base Adresse Nationale ainsi qu’aux organismes compétents.",
+    "perimeter": "Gironde et Ouest de la Dordogne.",
+    "codeDepartement": [
+      "33",
+      "24"
+    ],
+    "echelon": 2,
+    "isPermimeterFrance": false,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/adress&vous.jpg",
+    "height": 114,
+    "width": 290
+  },
+  {
+    "name": "SIGNA.CONCEPT",
+    "link": "https://www.signaconcept.fr/charte-de-la-base-adresse-locale/",
+    "infos": "Assistance complète de la mairie au cours de toutes les étapes, travail de recensement sur le terrain avec des GPS de précision, reportage photo-numérique de la future implantation des panneaux, création d'une BAL, présentation au vérificateur, transmission du fichier à la mairie avec le lien vers l'éditeur Mes Adresses pour enregistrement dans la Base Adresse Nationale.",
+    "perimeter": "Couvre les départements 26, 07, 04, 03, 63, 05, 84, 43, 30, 2A, 2B",
+    "codeDepartement": [
+      "26",
+      "07",
+      "04",
+      "03",
+      "63",
+      "05",
+      "84",
+      "43",
+      "30",
+      "2A",
+      "2B"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/signa.jpg",
+    "height": 124,
+    "width": 208
+  },
+  {
+    "name": "Anne Légaut",
+    "link": "http://anne-legaut.com/services/",
+    "infos": "Simple mise à jour des adresses ou prestation complète, avec recensement des voies existantes, création des nouvelles et des numéros, fourniture d'un modèle de délibération, d'un fichier publipostage pour les courriers à envoyer aux habitants avec certificat d'adresse, remplissage du tableau pour la DGFiP, aide à la publication de la Base Adresse Locale, diffusion auprès des organismes compétents.",
+    "perimeter": "Drôme, Ardèche, Hautes Alpes, Vaucluse",
+    "codeDepartement": [
+      "26",
+      "07",
+      "05",
+      "84"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/legaut.jpg",
+    "height": 124,
+    "width": 248
+  },
+  {
+    "name": "La Poste Solutions business",
+    "link": "https://www.laposte.fr/entreprise/produit-entreprise/adn",
+    "infos": "La Poste propose une offre de solutions modulables pour accompagner votre commune dans la fiabilisation de l'adressage de son territoire. Cette prestation vous permet de diagnostiquer la qualité des adresses de votre commune et vous aide à résoudre tous les problèmes complexes d'adressage (création, modification, suppression et numérotation des voies). En complément de la mise en œuvre de votre projet d’adressage, La Poste vous accompagne dans la communication auprès des citoyens, la création de votre Base Adresse Locale, et la fourniture de la signalétique.",
+    "perimeter": "France entière",
+    "codeDepartement": [],
+    "echelon": null,
+    "isPerimeterFrance": true,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/la-poste.png",
+    "height": 124,
+    "width": 102
+  },
+  {
+    "name": "SIGEO 3D",
+    "link": "https://sigeo3d.fr/adressage.html",
+    "infos": "Nous vous accompagnons ou réalisons pour vous l'adressage complet de votre commune, nécessaire pour l'arrivée de la Fibre mais aussi pour les services de secours, livraisons, navigation GPS. Nous prenons en charge l'intégralité du process si vous le désirez : recensement des voies existantes, création des nouvelles voies, des nouveaux numéros, publication de votre Base Adresse Locale, diffusion auprès des organismes compétents...",
+    "perimeter": "Cher (18), Indre (36), Gironde (33) et France Entière en solution 100% digitale",
+    "codeDepartement": [],
+    "echelon": null,
+    "isPerimeterFrance": true,
+    "isCompany": true,
+    "services": [
+      "réalisation de bases adresses locales",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/companies/sigeo.png",
+    "height": 89,
+    "width": 290
+  },
+  {
+    "name": "SOGEFI Ingéniérie géomatique",
+    "link": "https://www.sogefi-sig.com/adresse/",
+    "infos": "Nous vous proposons de vous accompagner dans la mise en conformité de votre Base Adresse Locale avec la Base Adresse Nationale et de vous former à sa mise à jour en toute autonomie, au fur et à mesure des créations de nouvelles adresses. En complément, si toutes les voies de votre commune ne sont pas nommées et que toutes les habitations ne sont pas numérotées, nous sommes également en mesure de vous conseiller et de vous accompagner sur ce point.",
+    "perimeter": "France entière",
+    "codeDepartement": [],
+    "echelon": null,
+    "isPerimeterFrance": true,
+    "isCompany": true,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/sogefi.png",
+    "height": 102,
+    "width": 290
+  },
+  {
+    "name": "PLANIGRAPHE",
+    "link": "https://planigraphe.fr/charte-de-la-base-adresse-locale/",
+    "infos": "PLANIGRAPHE accompagne les collectivités dans la mise en conformité de leur adressage. Cela comprend un accompagnement dans les procédures de délibérations et de communication auprès des administrés, un audit cartographique du territoire afin de structurer et dénommer les voies à adresser puis un travail de localisation des adresses sur le terrain en étroite collaboration avec les élus. PLANIGRAPHE forme également les communes dans la gestion de leur future Base d’Adresse Locale et son intégration dans la Base d’Adresse Nationale.",
+    "perimeter": "Auvergne-Rhône-Alpes, Occitanie, Provence-Alpes-Côte d'Azur",
+    "codeDepartement": [
+      "03",
+      "04",
+      "05",
+      "06",
+      "09",
+      "11",
+      "12",
+      "13",
+      "15",
+      "23",
+      "30",
+      "31",
+      "32",
+      "34",
+      "43",
+      "46",
+      "48",
+      "63",
+      "65",
+      "66",
+      "81",
+      "82",
+      "83",
+      "84"
+    ],
+    "echelon": null,
+    "isPerimeterFrance": false,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/planigraphe.jpg",
+    "height": 124,
+    "width": 218
+  },
+  {
+    "name": "PRODEXA",
+    "link": "https://prodexa.fr/adressage/",
+    "infos": "PRODEXA est un acteur clé pour vous aider à réaliser votre « Base Adresse Locale », quel que soit l’état de l’adressage de votre commune. Nos robots de traitement de données apportent fiabilité et rapidité, nos géomaticiens analysent la cartographie et nos enquêteurs sur le terrain font les relevés nécessaires. En vous mettant au cœur de nos priorités et en vous accompagnant à chaque étape, nous obtenons ensemble une certification sans complications et sans failles. Nous vous aidons ensuite à prendre en main l’outil pour créer vos « futures nouvelles adresses » dans la BAN.",
+    "perimeter": "France entière",
+    "codeDepartement": [],
+    "echelon": null,
+    "isPerimeterFrance": true,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/prodexa.png",
+    "height": 99,
+    "width": 290
+  },
+  {
+    "name": "Edenmap",
+    "infos": "Edenmap intervient en appui des collectivités sur l’ensemble de la chaine de valeur de l’adressage : audit & fiabilisation des bases voies et adresses existantes, assistance à la production des BAL, fourniture d’outils web pour la mise à jour et la gestion des adresses (édition automatisée des arrêtés de dénomination / numérotation, publication dans la BAN), assistance à la mise en œuvre de l’adressage physique, proposition de signalétique (nouveau) : plaque de rue et numéros de porte 100% en plastique recyclé. Edenmap est une société française spécialisée dans l’adressage, en métropole, dans les outre-mers et à l’international.",
+    "link": "https://www.edenmap.com/",
+    "charteURL": "https://www.edenmap.com/Site_fr/index_fr.html",
+    "signatureDate": "2022-11-21",
+    "codeDepartement": [],
+    "isPerimeterFrance": true,
+    "echelon": 3,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/companies/edenmap.jpg",
+    "height": 75,
+    "width": 273
+  }
+]

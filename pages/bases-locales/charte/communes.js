@@ -12,7 +12,7 @@ import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 
-import partners from 'partners.json'
+import communes from 'data/partners/communes.json'
 import Dropdown from '@/components/bases-locales/charte/dropdown'
 import Commune from '@/components/bases-locales/charte/commune'
 
@@ -81,12 +81,12 @@ function Communes({regions}) {
 
 export async function getServerSideProps() {
   const regions = await getRegions()
-  const communesByDepartement = groupBy(partners.communes, ({codeDepartement}) => codeDepartement[0])
+  const communesByDepartement = groupBy(communes, ({codeDepartement}) => codeDepartement[0])
 
   return {
     props: {
       regions: await Promise.all(regions.map(async region => {
-        const departementsCode = uniq(partners.communes.filter(({codeRegion}) => codeRegion === region.code).map(({codeDepartement}) => codeDepartement[0]))
+        const departementsCode = uniq(communes.filter(({codeRegion}) => codeRegion === region.code).map(({codeDepartement}) => codeDepartement[0]))
 
         return {
           ...region,

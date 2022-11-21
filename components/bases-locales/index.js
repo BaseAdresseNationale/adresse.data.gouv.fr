@@ -9,7 +9,9 @@ import ButtonLink from '../button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
 import Notification from '../notification'
-import partners from '../../partners.json'
+import companies from 'data/partners/companies.json'
+import epci from 'data/partners/epci.json'
+import communes from 'data/partners/communes.json'
 import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
@@ -18,7 +20,7 @@ const BasesLocales = React.memo(({stats}) => {
 
   // Utilisation d'un useEffect afin d'éviter les mélanges de rendus de valeurs au render lors du shuffle
   useEffect(() => {
-    const randomizedPartners = shuffle([...partners.companies, ...partners.epci, ...partners.communes]).slice(0, 3)
+    const randomizedPartners = shuffle([...companies, ...epci, ...communes]).slice(0, 3)
     setShuffledPartners(randomizedPartners)
   }, [])
 

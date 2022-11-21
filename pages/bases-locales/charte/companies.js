@@ -7,13 +7,11 @@ import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
-import partners from 'partners.json'
+import companies from 'data/partners/companies.json'
 
 function Companies() {
   const title = 'Sociétés partenaires de la Charte'
   const description = 'Page vous permettant de consultez et découvrir les organisations à but lucratif partenaires'
-
-  const {companies} = partners
 
   return (
     <Page title={title} description={description}>
