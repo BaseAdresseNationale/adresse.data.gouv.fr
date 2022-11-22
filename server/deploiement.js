@@ -22,25 +22,29 @@ app.route('/couverture-tiles/:z/:x/:y.pbf')
       return res.status(204).send()
     }
 
-    const tileIndex = await useCache('couverture-bal-tiles', 300, async () => {
-      const featureCollection = computeStats()
-      return geojsonVt(featureCollection, {indexMaxZoom: 9})
-    })
+    try {
+      const tileIndex = await useCache('couverture-bal-tiles', 300, async () => {
+        const featureCollection = await computeStats()
+        return geojsonVt(featureCollection, {indexMaxZoom: 9})
+      })
 
-    const tile = tileIndex.getTile(z, x, y)
+      const tile = tileIndex.getTile(z, x, y)
 
-    if (!tile) {
-      return res.status(204).send()
+      if (!tile) {
+        return res.status(204).send()
+      }
+
+      const pbf = vtpbf.fromGeojsonVt({communes: tile})
+
+      res.set({
+        'Content-Type': 'application/x-protobuf',
+        'Content-Encoding': 'gzip'
+      })
+
+      res.send(await gzip(Buffer.from(pbf)))
+    } catch (err) {
+      return res.status(404).send({code: 404, message: err})
     }
-
-    const pbf = vtpbf.fromGeojsonVt({communes: tile})
-
-    res.set({
-      'Content-Type': 'application/x-protobuf',
-      'Content-Encoding': 'gzip'
-    })
-
-    res.send(await gzip(Buffer.from(pbf)))
   })
 
 module.exports = app
