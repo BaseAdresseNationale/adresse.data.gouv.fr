@@ -62,7 +62,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
       </Link>
 
       <div className='blog'>
-        <h3>{title}</h3>
+        <h2>{title}</h2>
         {feature_image && (
           <div className='blog-feature-image-container'>
             <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' alt aria-hidden='true' />

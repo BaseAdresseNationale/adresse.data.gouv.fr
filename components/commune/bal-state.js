@@ -15,6 +15,7 @@ import ButtonLink from '@/components/button-link'
 import Statistics from './statistics'
 
 function sanitedSources(adressesSources) {
+  console.log('🚀 ~ file: bal-state.js ~ line 18 ~ sanitedSources ~ adressesSources', adressesSources)
   const sources =
     {
       cadastre: 'cadastre',
@@ -48,7 +49,11 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
   const subtitle = useMemo(() => {
     // Aucune BAL créée
     if (typeComposition === 'assemblage') {
-      return `Les données sont actuellement construites à partir des sources historiques suivantes : ${sanitedSources(adressesSources)}`
+      if (adressesSources.length > 0) {
+        return `Les données sont actuellement construites à partir des sources historiques suivantes : ${sanitedSources(adressesSources)}`
+      }
+
+      return null
     }
 
     // BAL non disponible (en migration)
@@ -68,7 +73,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
 
   return (
     <Section title='État de la Base Adresse Nationale' background='color' subtitle={subtitle}>
-      <Statistics nbNumeros={nbNumeros} nbNumerosCertifies={nbNumerosCertifies} />
+      {nbNumeros > 0 && <Statistics nbNumeros={nbNumeros} nbNumerosCertifies={nbNumerosCertifies} />}
 
       {typeComposition === 'assemblage' && (
         <Notification type='warning'>

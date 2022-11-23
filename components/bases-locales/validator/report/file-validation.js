@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 
 import CsvMeta from './csv-meta'
+import ValidatorSectionTitle from '../validator-section-title'
 
 function FileValidation({encoding, delimiter, linebreak, rowsCount}) {
   return (
     <div>
-      <h4>Validation de la structure du fichier</h4>
+      <ValidatorSectionTitle>Validation de la structure du fichier</ValidatorSectionTitle>
       <div className='items'>
         <CsvMeta
           name='Encodage des caractères'

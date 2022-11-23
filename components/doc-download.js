@@ -8,7 +8,7 @@ function DocDownload({title, link, label, src, isReverse, version, children}) {
   return (
     <div className='doc-container'>
       <div className='text-container'>
-        <h3>{title}</h3>
+        {title && <h3>{title}</h3>}
         {children}
       </div>
       <div className='doc-download-container'>

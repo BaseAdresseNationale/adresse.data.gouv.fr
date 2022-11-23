@@ -56,13 +56,13 @@ function Summary({rows, fields}) {
   return (
     <div>
       {rowsWithIssuesCount === 0 ? (
-        <h4>Aucune ligne comprenant des alertes n’a été trouvée <span className='valid'><Check alt aria-hidden='true' /></span></h4>
+        <h3>Aucune ligne comprenant des alertes n’a été trouvée <span className='valid'><Check alt aria-hidden='true' /></span></h3>
       ) : (
         <div>
           {rowsWithIssuesCount > 1 ? (
-            <h4>{rowsWithIssuesCount} lignes comprenant des alertes</h4>
+            <h3>{rowsWithIssuesCount} lignes comprenant des alertes</h3>
           ) : (
-            <h4>{rowsWithIssuesCount} ligne comprenant des alertes</h4>
+            <h3>{rowsWithIssuesCount} ligne comprenant des alertes</h3>
           )}
         </div>
       )}
@@ -103,9 +103,11 @@ function Summary({rows, fields}) {
       )}
 
       <style jsx>{`
-        h4 {
+        h3 {
           display: flex;
+          gap: 10px;
           margin: 1em 0;
+          font-size: 16px;
         }
         `}</style>
     </div>

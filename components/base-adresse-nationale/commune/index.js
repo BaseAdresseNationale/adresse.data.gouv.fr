@@ -33,6 +33,7 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
           </h2>
         </div>
       </div>
+
       <Details
         typeComposition={typeComposition}
         isAllCertified={isAllCertified}
@@ -84,8 +85,8 @@ function Commune({nomCommune, codeCommune, region, departement, voies, nbVoies, 
           margin-top: 1.2em;
         }
 
-        .heading h2 {
-          margin-bottom: 0.2em;
+        .heading h1 {
+          margin-bottom: 0;
           display: flex;
           flex-direction: column;
         }

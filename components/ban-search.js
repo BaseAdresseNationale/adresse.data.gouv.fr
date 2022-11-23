@@ -2,7 +2,7 @@ import {useState, useCallback, useEffect} from 'react'
 import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
-import {search} from '@/lib/api-adresse'
+import {search, isFirstCharValid} from '@/lib/api-adresse'
 import {useInput} from '../hooks/input'
 
 import SearchInput from '@/components/search-input'
@@ -59,13 +59,26 @@ function BanSearch() {
   }, [results])
 
   useEffect(() => {
-    if (input) {
-      setResults([])
-      setLoading(true)
-      setError(null)
-      handleSearch(input)
+    const trimmedInput = input.trim()
+
+    if (trimmedInput.length >= 3) {
+      if (isFirstCharValid(trimmedInput)) {
+        setResults([])
+        setLoading(true)
+        setError(null)
+        handleSearch(trimmedInput)
+      } else {
+        setError({message: 'Le premier caractère doit être une lettre ou un chiffre'})
+      }
     }
   }, [handleSearch, input])
+
+  useEffect(() => {
+    if (input.length <= 3) {
+      setResults([])
+      setOrderResults([])
+    }
+  }, [input])
 
   return (
     <>

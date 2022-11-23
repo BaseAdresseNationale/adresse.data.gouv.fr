@@ -4,33 +4,50 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 import {AlertTriangle} from 'react-feather'
 
+import MapLegends from '../maplibre/map-legends'
+
 import theme from '@/styles/theme'
 
-const popupHTML = ({nom, organization, license}) => renderToString(
+const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
+
+const balLegend = {
+  title: 'Provenance',
+  content: {
+    mesAdresses: {
+      name: 'Mes Adresses',
+      color: theme.colors.blue
+    },
+    moissonneur: {
+      name: 'Moissonneur BAL',
+      color: theme.colors.purple
+    },
+    autreOutil: {
+      name: 'Autre outil',
+      color: theme.colors.green
+    }
+  }
+}
+
+const popupHTML = ({nom, code, nbNumeros, certificationPercentage, nomClient}) => renderToString(
   <div>
     <p>
-      <b>{nom}</b>
+      <b>{nom} ({code})</b>
     </p>
-    {organization && (
-      <div>Producteur : {organization}</div>
-    )}
-    {license && (
-      <div>Licence : {license}</div>
-    )}
+    <div>Nombre d’adresses : {nbNumeros}</div>
+    <div>{`${certificationPercentage ? `Taux de certification : ${certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
+    <div>Déposé via : {nomClient}</div>
   </div>
 )
 
 class BalCoverMap extends React.Component {
   static propTypes = {
     map: PropTypes.object.isRequired,
-    data: PropTypes.object,
     popup: PropTypes.object,
     setSources: PropTypes.func.isRequired,
     setLayers: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    data: null,
     popup: null
   }
 
@@ -40,36 +57,35 @@ class BalCoverMap extends React.Component {
   }
 
   componentDidMount() {
-    const {map, data, setSources, setLayers} = this.props
+    const {map, setSources, setLayers} = this.props
     const sources = [{
       name: 'data',
-      type: 'geojson',
-      generateId: true,
-      data
+      type: 'vector',
+      format: 'pbf',
+      promoteId: 'code',
+      tiles: [`${ADRESSE_URL}/deploiement/couverture-tiles/{z}/{x}/{y}.pbf`]
     }]
     const layers = [
       {
         id: 'bal-polygon-fill',
         type: 'fill',
         source: 'data',
+        'source-layer': 'communes',
         paint: {
-          'fill-color': theme.colors.green,
+          'fill-color': [
+            'case',
+            ['==', ['get', 'idClient'], 'moissonneur-bal'],
+            theme.colors.purple,
+            ['==', ['get', 'idClient'], 'mes-adresses'],
+            theme.colors.blue,
+            theme.colors.green
+          ],
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'hover'], false],
-            0.5,
-            0.2
+            0.8,
+            0.6
           ]
-        },
-        filter: ['==', '$type', 'Polygon']
-      },
-      {
-        id: 'bal-polygon-outline',
-        type: 'line',
-        source: 'data',
-        paint: {
-          'line-color': theme.colors.green,
-          'line-width': 1
         },
         filter: ['==', '$type', 'Polygon']
       }
@@ -121,25 +137,21 @@ class BalCoverMap extends React.Component {
   }
 
   onMouseMove = (layer, event) => {
-    const {map, data, popup} = this.props
+    const {map, popup} = this.props
     const canvas = map.getCanvas()
     canvas.style.cursor = 'pointer'
 
     const [feature] = event.features
 
     if (this.highlighted) {
-      map.setFeatureState({source: 'data', id: this.highlighted}, {hover: false})
+      map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: false})
     }
 
     this.highlighted = feature.id
-    map.setFeatureState({source: 'data', id: this.highlighted}, {hover: true})
-
-    const _data = data.features.find(f =>
-      f.properties.id === feature.properties.id
-    )
+    map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: true})
 
     popup.setLngLat(event.lngLat)
-      .setHTML(popupHTML(_data.properties))
+      .setHTML(popupHTML(feature.properties))
       .addTo(map)
   }
 
@@ -149,7 +161,7 @@ class BalCoverMap extends React.Component {
     canvas.style.cursor = ''
 
     if (this.highlighted) {
-      map.setFeatureState({source: 'data', id: this.highlighted}, {hover: false})
+      map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: false})
     }
 
     popup.remove()
@@ -159,8 +171,7 @@ class BalCoverMap extends React.Component {
     const [feature] = event.features
 
     Router.push(
-      `/bases-locales/datasets/dataset?id=${feature.properties.id}`,
-      `/bases-locales/jeux-de-donnees/${feature.properties.id}`
+      `/commune/${feature.id}`
     )
   }
 
@@ -181,6 +192,10 @@ class BalCoverMap extends React.Component {
   render() {
     return (
       <div>
+        <div className='legend-container'>
+          <MapLegends title={balLegend.title} legend={balLegend.content} hasBorderRadius={false} />
+        </div>
+
         {this.state.warningZoom && (
           <div className='warning'>
             <AlertTriangle color='orange' alt='Avertissement' />
@@ -191,13 +206,26 @@ class BalCoverMap extends React.Component {
         )}
 
         <style jsx>{`
+          .legend-container {
+            position: absolute;
+            text-align: left;
+            box-shadow: none;
+            border: 2px solid #dcd8d5;
+            border-radius: 4px;
+            z-index: 1;
+            padding: 0.5em;
+            left: 13px;
+            top: 8px;
+            background-color: rgba(255,255,255,0.9);
+          }
+
           .warning {
             z-index: 1;
             position: absolute;
             display: flex;
             align-items: center;
             padding: 1em;
-            margin: 1em;
+            margin: 9em 1em;
             background: #ffffffc4;
           }
 

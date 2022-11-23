@@ -11,8 +11,12 @@ const enableHelmet = process.env.ENABLE_HELMET === '1'
 const app = next({dev})
 const handle = app.getRequestHandler()
 
+const {prepareContoursCommunes} = require('../lib/util/contours-communes')
+
 app.prepare().then(() => {
   const server = express()
+
+  prepareContoursCommunes()
 
   if (!dev) {
     server.use(compression())
@@ -108,6 +112,8 @@ app.prepare().then(() => {
   server.get('/bases-locales/jeux-de-donnees/:id/:codeCommune', (req, res) => {
     res.redirect(`/base-adresse-nationale/${req.params.codeCommune}`)
   })
+
+  server.use('/deploiement', require('./deploiement'))
 
   server.use('/proxy-api-depot', require('./proxy-api-depot'))
 
