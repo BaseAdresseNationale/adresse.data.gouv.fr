@@ -1114,6 +1114,67 @@
       "picture": "/images/logos/partners/epci/dromardeche.jpg",
       "height": 90,
       "width": 184
+    },
+    {
+      "name": "Communauté d’Agglomération de La Rochelle",
+      "link": "https://www.agglo-larochelle.fr",
+      "infos": "L’Unité Géomatique de la Communauté d’Agglomération de La Rochelle, propose, pour les communes du territoire, un appui technique à la création des Bases Adresses Locales, et la mise à disposition d’outils mutualisés de mise à jour des adresses.",
+      "charteURL": "https://tandem.larochelle.fr/m-organiser/systemes-d-information/systeme-d-information-geographique-sig-?article=ressources",
+      "perimeter": "Communes de la Communauté d'Agglomération de La Rochelle (Département 17)",
+      "codeDepartement": [
+        "17"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "mise à disposition d’outils mutualisés"
+      ],
+      "picture": "/images/logos/partners/epci/agglo-la-rochelle.png",
+      "height": 68,
+      "width": 260
+    },
+    {
+      "name": "Amiens métropole",
+      "link": "https://www.amiens.fr",
+      "infos": "La Base Adresse Nationale (BAN), référentiel commun des adresses officiellement reconnues, relève de la compétence des communes. La complétude de cette base permet que les services soient délivrés au bon endroit. Cette base nationale est construite par l’addition des Bases Adresses Locales (BAL) produites par les communes, la Ville d’Amiens a publié sa BAL issue du SIG de la collectivité. Dans un esprit de synergie, l'équipe SIG d'Amiens métropole propose un accompagnement technique aux 38 communes membres dans leur démarche d’adressage, avec une offre d'assistance et formation à l'outil « Mes adresses ».",
+      "charteURL": "https://geo.amiens.fr/adws/app/523da8c6-5dbc-11ec-9790-3dc5639e7001/index.html?context=SknR",
+      "signatureDate": "2022-11-29",
+      "perimeter": "39 communes membres",
+      "codeDepartement": [
+        "80"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique"
+      ],
+      "picture": "/images/logos/partners/epci/amiens-metropole.png",
+      "height": 190,
+      "width": 175
+    },
+    {
+      "name": "Communauté de Communes de la Région de Molsheim-Mutzig",
+      "infos": "A travers son service SIG, la Communauté de Communes de la Région de Molsheim-Mutzig souhaite accompagner ses communes membres dans la création et la tenue à jour de Bases Adresses Locales de qualité.",
+      "link": "https://www.cc-molsheim-mutzig.fr/",
+      "charteURL": "https://www.cc-molsheim-mutzig.fr/base-adresse-locale.htm",
+      "signatureDate": "2022-11-21",
+      "perimeter": "Le territoire de la CCRMM",
+      "codeDepartement": [
+        "67"
+      ],
+      "echelon": 1,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/epci/ccrmm.jpg",
+      "height": 148,
+      "width": 148
     }
   ],
   "companies": [
@@ -1317,6 +1378,26 @@
       "picture": "/images/logos/partners/companies/prodexa.png",
       "height": 99,
       "width": 290
+    },
+    {
+      "name": "Edenmap",
+      "infos": "Edenmap intervient en appui des collectivités sur l’ensemble de la chaine de valeur de l’adressage : audit & fiabilisation des bases voies et adresses existantes, assistance à la production des BAL, fourniture d’outils web pour la mise à jour et la gestion des adresses (édition automatisée des arrêtés de dénomination / numérotation, publication dans la BAN), assistance à la mise en œuvre de l’adressage physique, proposition de signalétique (nouveau) : plaque de rue et numéros de porte 100% en plastique recyclé. Edenmap est une société française spécialisée dans l’adressage, en métropole, dans les outre-mers et à l’international.",
+      "link": "https://www.edenmap.com/",
+      "charteURL": "https://www.edenmap.com/Site_fr/index_fr.html",
+      "signatureDate": "2022-11-21",
+      "codeDepartement": [],
+      "isPerimeterFrance": true,
+      "echelon": 3,
+      "isCompany": true,
+      "services": [
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/epci/edenmap.jpg",
+      "height": 75,
+      "width": 273
     }
   ],
   "communes": [
@@ -1537,87 +1618,6 @@
       "height": 124,
       "width": 127,
       "signatureDate": "2022-09-27"
-    },
-    {
-      "name": "Communauté d’Agglomération de La Rochelle",
-      "link": "https://www.agglo-larochelle.fr",
-      "infos": "L’Unité Géomatique de la Communauté d’Agglomération de La Rochelle, propose, pour les communes du territoire, un appui technique à la création des Bases Adresses Locales, et la mise à disposition d’outils mutualisés de mise à jour des adresses.",
-      "charteURL": "https://tandem.larochelle.fr/m-organiser/systemes-d-information/systeme-d-information-geographique-sig-?article=ressources",
-      "perimeter": "Communes de la Communauté d'Agglomération de La Rochelle (Département 17)",
-      "codeDepartement": [
-        "17"
-      ],
-      "echelon": 1,
-      "isPerimeterFrance": false,
-      "isCompany": false,
-      "services": [
-        "accompagnement technique",
-        "mise à disposition d’outils mutualisés"
-      ],
-      "picture": "/images/logos/partners/epci/agglo-la-rochelle.png",
-      "height": 68,
-      "width": 260
-    },
-    {
-      "name": "Amiens métropole",
-      "link": "https://www.amiens.fr",
-      "infos": "La Base Adresse Nationale (BAN), référentiel commun des adresses officiellement reconnues, relève de la compétence des communes. La complétude de cette base permet que les services soient délivrés au bon endroit. Cette base nationale est construite par l’addition des Bases Adresses Locales (BAL) produites par les communes, la Ville d’Amiens a publié sa BAL issue du SIG de la collectivité. Dans un esprit de synergie, l'équipe SIG d'Amiens métropole propose un accompagnement technique aux 38 communes membres dans leur démarche d’adressage, avec une offre d'assistance et formation à l'outil « Mes adresses ».",
-      "charteURL": "https://geo.amiens.fr/adws/app/523da8c6-5dbc-11ec-9790-3dc5639e7001/index.html?context=SknR",
-      "signatureDate": "2022-11-29",
-      "perimeter": "39 communes membres",
-      "codeDepartement": [
-        "80"
-      ],
-      "echelon": 1,
-      "isPerimeterFrance": false,
-      "isCompany": false,
-      "services": [
-        "formation",
-        "accompagnement technique"
-      ],
-      "picture": "/images/logos/partners/epci/amiens-metropole.png",
-      "height": 190,
-      "width": 175
-    },
-    {
-      "name": "Communauté de Communes de la Région de Molsheim-Mutzig",
-      "infos": "A travers son service SIG, la Communauté de Communes de la Région de Molsheim-Mutzig souhaite accompagner ses communes membres dans la création et la tenue à jour de Bases Adresses Locales de qualité.",
-      "link": "https://www.cc-molsheim-mutzig.fr/",
-      "charteURL": "https://www.cc-molsheim-mutzig.fr/base-adresse-locale.htm",
-      "signatureDate": "2022-11-21",
-      "perimeter": "Le territoire de la CCRMM",
-      "codeDepartement": [
-        "67"
-      ],
-      "echelon": 1,
-      "isCompany": false,
-      "services": [
-        "accompagnement technique",
-        "formation"
-      ],
-      "picture": "/images/logos/partners/epci/ccrmm.jpg",
-      "height": 148,
-      "width": 148
-    },
-    {
-      "name": "Edenmap",
-      "infos": "Edenmap intervient en appui des collectivités sur l’ensemble de la chaine de valeur de l’adressage : audit & fiabilisation des bases voies et adresses existantes, assistance à la production des BAL, fourniture d’outils web pour la mise à jour et la gestion des adresses (édition automatisée des arrêtés de dénomination / numérotation, publication dans la BAN), assistance à la mise en œuvre de l’adressage physique, proposition de signalétique (nouveau) : plaque de rue et numéros de porte 100% en plastique recyclé. Edenmap est une société française spécialisée dans l’adressage, en métropole, dans les outre-mers et à l’international.",
-      "link": "https://www.edenmap.com/",
-      "charteURL": "https://www.edenmap.com/Site_fr/index_fr.html",
-      "signatureDate": "2022-11-21",
-      "codeDepartement": [],
-      "isPerimeterFrance": true,
-      "echelon": 3,
-      "isCompany": true,
-      "services": [
-        "accompagnement technique",
-        "réalisation de bases adresses locales",
-        "mise à disposition d’outils mutualisés",
-        "formation"
-      ],
-      "picture": "/images/logos/partners/epci/edenmap.jpg",
-      "height": 75,
-      "width": 273
     }
   ]
 }
