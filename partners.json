@@ -1551,12 +1551,33 @@
       "isPerimeterFrance": false,
       "isCompany": false,
       "services": [
-        "Accompagnement technique",
-        "Mise à disposition d’outils mutualisés"
+        "accompagnement technique",
+        "mise à disposition d’outils mutualisés"
       ],
       "picture": "/images/logos/partners/epci/agglo-la-rochelle.png",
       "height": 68,
       "width": 260
+    },
+    {
+      "name": "Amiens métropole",
+      "link": "https://www.amiens.fr",
+      "infos": "La Base Adresse Nationale (BAN), référentiel commun des adresses officiellement reconnues, relève de la compétence des communes. La complétude de cette base permet que les services soient délivrés au bon endroit. Cette base nationale est construite par l’addition des Bases Adresses Locales (BAL) produites par les communes, la Ville d’Amiens a publié sa BAL issue du SIG de la collectivité. Dans un esprit de synergie, l'équipe SIG d'Amiens métropole propose un accompagnement technique aux 38 communes membres dans leur démarche d’adressage, avec une offre d'assistance et formation à l'outil « Mes adresses ».",
+      "charteURL": "https://geo.amiens.fr/adws/app/523da8c6-5dbc-11ec-9790-3dc5639e7001/index.html?context=SknR",
+      "signatureDate": "2022-11-29",
+      "perimeter": "39 communes membres",
+      "codeDepartement": [
+        "80"
+      ],
+      "echelon": 1,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "formation",
+        "accompagnement technique"
+      ],
+      "picture": "/images/logos/partners/epci/amiens-metropole.png",
+      "height": 190,
+      "width": 175
     }
   ]
 }
