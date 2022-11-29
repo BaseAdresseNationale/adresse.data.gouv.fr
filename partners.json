@@ -1598,6 +1598,26 @@
       "picture": "/images/logos/partners/epci/ccrmm.jpg",
       "height": 148,
       "width": 148
+    },
+    {
+      "name": "Edenmap",
+      "infos": "Edenmap intervient en appui des collectivités sur l’ensemble de la chaine de valeur de l’adressage : audit & fiabilisation des bases voies et adresses existantes, assistance à la production des BAL, fourniture d’outils web pour la mise à jour et la gestion des adresses (édition automatisée des arrêtés de dénomination / numérotation, publication dans la BAN), assistance à la mise en œuvre de l’adressage physique, proposition de signalétique (nouveau) : plaque de rue et numéros de porte 100% en plastique recyclé. Edenmap est une société française spécialisée dans l’adressage, en métropole, dans les outre-mers et à l’international.",
+      "link": "https://www.edenmap.com/",
+      "charteURL": "https://www.edenmap.com/Site_fr/index_fr.html",
+      "signatureDate": "2022-11-21",
+      "codeDepartement": [],
+      "isPerimeterFrance": true,
+      "echelon": 3,
+      "isCompany": true,
+      "services": [
+        "accompagnement technique",
+        "réalisation de bases adresses locales",
+        "mise à disposition d’outils mutualisés",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/epci/edenmap.jpg",
+      "height": 75,
+      "width": 273
     }
   ]
 }
