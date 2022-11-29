@@ -1578,6 +1578,26 @@
       "picture": "/images/logos/partners/epci/amiens-metropole.png",
       "height": 190,
       "width": 175
+    },
+    {
+      "name": "Communauté de Communes de la Région de Molsheim-Mutzig",
+      "infos": "A travers son service SIG, la Communauté de Communes de la Région de Molsheim-Mutzig souhaite accompagner ses communes membres dans la création et la tenue à jour de Bases Adresses Locales de qualité.",
+      "link": "https://www.cc-molsheim-mutzig.fr/",
+      "charteURL": "https://www.cc-molsheim-mutzig.fr/base-adresse-locale.htm",
+      "signatureDate": "2022-11-21",
+      "perimeter": "Le territoire de la CCRMM",
+      "codeDepartement": [
+        "67"
+      ],
+      "echelon": 1,
+      "isCompany": false,
+      "services": [
+        "accompagnement technique",
+        "formation"
+      ],
+      "picture": "/images/logos/partners/epci/ccrmm.jpg",
+      "height": 148,
+      "width": 148
     }
   ]
 }
