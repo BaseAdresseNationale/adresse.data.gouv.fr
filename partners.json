@@ -1395,7 +1395,7 @@
         "mise à disposition d’outils mutualisés",
         "formation"
       ],
-      "picture": "/images/logos/partners/epci/edenmap.jpg",
+      "picture": "/images/logos/partners/companies/edenmap.jpg",
       "height": 75,
       "width": 273
     }
@@ -1618,6 +1618,28 @@
       "height": 124,
       "width": 127,
       "signatureDate": "2022-09-27"
+    },
+    {
+      "name": "Commune de Ballon",
+      "link": "http://www.mairie-ballon.fr/",
+      "codeRegion": "75",
+      "codeDepartement": [
+        "17"
+      ],
+      "codeCommune": "17032",
+      "charteURL": "http://www.mairie-ballon.fr/",
+      "testimonyURL": "",
+      "balURL": "https://plateforme.adresse.data.gouv.fr/ban/communes/17032/download/csv-bal/adresses",
+      "echelon": 0,
+      "isPerimeterFrance": false,
+      "isCompany": false,
+      "services": [
+        "partage d'expérience"
+      ],
+      "picture": "/images/logos/partners/communes/ballon.png",
+      "height": 70,
+      "width": 256,
+      "signatureDate": "2022-11-30"
     }
   ]
 }
