@@ -1094,7 +1094,7 @@
     "instructions": "",
     "startHour": "10:00",
     "endHour": "11:30"
-  }
+  },
   {
     "title": "Webinaire Mes Adresses",
     "subtitle": "Je veux améliorer ma BAL",
@@ -1115,5 +1115,5 @@
     "instructions": "",
     "startHour": "10:00",
     "endHour": "11:30"
-  },
+  }
 ]
