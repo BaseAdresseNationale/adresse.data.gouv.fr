@@ -8,7 +8,7 @@ import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
-import epci from 'data/partners/epci.json'
+import epci from '@/data/partners/epci.json'
 
 function Organismes() {
   const title = 'Organismes partenaires de la Charte'

@@ -7,7 +7,7 @@ import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
-import reUsersBan from 'data/partners/re-users-ban.json'
+import reUsersBan from '@/data/partners/re-users-ban.json'
 
 function Reutilisateurs() {
   const title = 'Réutilisateurs de la BAN'

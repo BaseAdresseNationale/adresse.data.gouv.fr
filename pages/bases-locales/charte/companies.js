@@ -7,7 +7,7 @@ import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
-import companies from 'data/partners/companies.json'
+import companies from '@/data/partners/companies.json'
 
 function Companies() {
   const title = 'Sociétés partenaires de la Charte'

@@ -4,9 +4,9 @@ import {debounce, intersection} from 'lodash'
 import {getCommunes, getByCode} from '@/lib/api-geo'
 import theme from '@/styles/theme'
 
-import companies from 'data/partners/companies.json'
-import epci from 'data/partners/epci.json'
-import communes from 'data/partners/communes.json'
+import companies from '@/data/partners/companies.json'
+import epci from '@/data/partners/epci.json'
+import communes from '@/data/partners/communes.json'
 
 import SearchPartnersResults from '@/components/bases-locales/charte/search-partners-results'
 import SearchInput from '@/components/search-input'

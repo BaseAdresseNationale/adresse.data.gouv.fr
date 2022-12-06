@@ -12,7 +12,7 @@ import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 
-import communes from 'data/partners/communes.json'
+import communes from '@/data/partners/communes.json'
 import Dropdown from '@/components/bases-locales/charte/dropdown'
 import Commune from '@/components/bases-locales/charte/commune'
 

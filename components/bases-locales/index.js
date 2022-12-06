@@ -9,9 +9,9 @@ import ButtonLink from '../button-link'
 import Partners from '@/components/bases-locales/charte/partners'
 
 import Notification from '../notification'
-import companies from 'data/partners/companies.json'
-import epci from 'data/partners/epci.json'
-import communes from 'data/partners/communes.json'
+import companies from '@/data/partners/companies.json'
+import epci from '@/data/partners/epci.json'
+import communes from '@/data/partners/communes.json'
 import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
