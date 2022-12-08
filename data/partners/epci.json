@@ -1,0 +1,1178 @@
+[
+  {
+    "name": "ATD24",
+    "link": "https://www.atd24.fr/gestion-des-territoires/cartographie-numerique/",
+    "infos": "L’Agence Technique Départementale de la Dordogne a développé une Base Adresse Locale sur Périgéo, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
+    "perimeter": "Dordogne",
+    "codeDepartement": [
+      "24"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/atd24.png",
+    "height": 124,
+    "width": 187
+  },
+  {
+    "name": "SiiG",
+    "link": "http://carto.siig.fr/adresse/",
+    "infos": "Le Syndicat Intercommunal d’Information Géographique met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement une cinquantaine dans le Gard).",
+    "perimeter": "Gard et départements limitrophes - Vaucluse - Ardèche - Drôme",
+    "codeDepartement": [
+      "30",
+      "84",
+      "07",
+      "26"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/siig.png",
+    "height": 124,
+    "width": 116
+  },
+  {
+    "name": "SMICA",
+    "link": "https://www.smica.fr/fr/metiers-services/information-geographique",
+    "infos": "Syndicat mixte pour la Modernisation et l’Ingénierie informatique des Collectivités ou établissements publics Adhérents met à disposition ses compétences, ses services et ses outils aux communes adhérentes (actuellement 282 communes et 19 EPCI).",
+    "perimeter": "Aveyron",
+    "codeDepartement": [
+      "12"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/smica.png",
+    "height": 81,
+    "width": 290
+  },
+  {
+    "name": "Imaginà-Coworking Balagna",
+    "link": "https://www.imagina-coworkingbalagna.fr",
+    "infos": "Régi bénévolement par une association, cet espace de coworking situé dans le village de Speluncatu dans la vallée du Reginu, au cœur de la micro-région de la Balagne a une convention avec la municipalité pour gérer cet espace de travail communal. En vingtaine de profil différents se côtoient et s'entraident dans se coworking rural du piedmont balanin tout au long de l'année.",
+    "perimeter": "Ensemble de la Corse",
+    "codeDepartement": [
+      "2A",
+      "2B"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/imagina.png",
+    "height": 97,
+    "width": 290
+  },
+  {
+    "name": "IDéO BFC",
+    "link": "https://ideo.ternum-bfc.fr/",
+    "infos": "IDéO BFC est un dispositif partenarial dédié au partage des données et de la connaissance en Bourgogne-Franche-Comté. Il est piloté par l'État (SGAR et DREAL BFC), la Région Bourgogne-Franche-Comté et le Groupement d'Intérêt Public Territoires Numériques BFC.",
+    "perimeter": "Bourgogne-Franche-Comté",
+    "codeDepartement": [
+      "21",
+      "25",
+      "39",
+      "58",
+      "70",
+      "71",
+      "89",
+      "90"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "formation technique"
+    ],
+    "picture": "/images/logos/partners/epci/ideo.png",
+    "height": 124,
+    "width": 84
+  },
+  {
+    "name": "Département du Calvados",
+    "link": "https://mapeo-calvados.fr/ban",
+    "infos": "Le Département du Calvados propose un accompagnement des communes dans leur démarche d'adressage. Une méthodologie et une application cartographique sont notamment mises à leur disposition pour la construction des Bases Adresses Locales.",
+    "perimeter": "Calvados",
+    "codeDepartement": [
+      "14"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/calvados.png",
+    "height": 124,
+    "width": 147
+  },
+  {
+    "name": "ATD16",
+    "link": "https://www.atd16.fr/",
+    "infos": "L’Agence Technique Départementale de la Charente met à disposition ses compétences, services et outils. Un espace de travail développé sur Géo16, son SIG mutualisé, permet aux communes adhérentes de créer et gérer leurs voies et adresses, dans une Base Adresse Locale.",
+    "perimeter": "Charente",
+    "codeDepartement": [
+      "16"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/atd16.jpg",
+    "height": 124,
+    "width": 123
+  },
+  {
+    "name": "Communauté de Communes du Pont du Gard",
+    "link": "https://sig.cc-pontdugard.fr/donnee_publiee/reg_plu/carte%20umap.htm",
+    "infos": "La Communauté de Communes du Pont du Gard se compose de 17 communes, et s’est doté d’un SIG propre pour gérer et mettre à jour ses données géographiques.",
+    "perimeter": "Communauté de Communes du Pont du Gard (17 communes du Gard)",
+    "codeDepartement": [
+      "30"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/ccpg.jpg",
+    "height": 124,
+    "width": 256
+  },
+  {
+    "name": "RGD Savoie Mont Blanc",
+    "link": "https://www.rgd.fr/grands-projets/adressage/",
+    "infos": "La RGD est un centre de ressources et d’expertise pour mutualiser les compétences en bases de données, au service des acteurs publics de Savoie et de Haute-Savoie.",
+    "perimeter": "Savoie et Haute-Savoie",
+    "codeDepartement": [
+      "73",
+      "74"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/rgdsavoie.png",
+    "height": 124,
+    "width": 136
+  },
+  {
+    "name": "MEGALIS Bretagne",
+    "link": "https://www.megalis.bretagne.bzh/jcms/mw_27974/megalis-bretagne-accompagne-les-communes-dans-leur-projet-dadressage",
+    "infos": "Pour faciliter le déploiement de la fibre, MEGALIS BRETAGNE souhaite contribuer à la promotion et à la constitution de Bases Adresse Locales consolidées et certifiées par les communes. Ses actions d'accompagnement technique à l'utilisation d'outils mutualisés (tels que https://mes-adresses.data.gouv.fr), participent à l'édification d'une Base Adresse Nationale fiabilisée et partagée par tous. Cet accompagnement est proposé hors zone AMII.",
+    "perimeter": "Bretagne",
+    "codeDepartement": [
+      "22",
+      "29",
+      "56",
+      "35"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "mise à disposition d’outils mutualisés",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/megalis_bretagne.png",
+    "height": 124,
+    "width": 294
+  },
+  {
+    "name": "Département de l'Yonne",
+    "link": "https://www.yonne.fr/Territoire/Amenagement-numerique/Fiabilisation-de-l-adressage",
+    "infos": "Le Conseil Départemental de l'Yonne, pilote du Schéma Directeur Territorial d'Aménagement Numérique, accompagne ses territoires dans la fiabilisation de leur adressage en vue notamment du raccordement à la fibre. Suite à l'information globale des communes réalisée en avril, nous sommes à votre disposition pour vous accompagner dans la création de votre Base d'Adresse Locale. Contactez-nous sur ant@yonne.fr et retrouvez nous sur https://www.yonne.fr/Territoire/Amenagement-numerique.",
+    "perimeter": "Yonne",
+    "codeDepartement": [
+      "89"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/yonne.png",
+    "height": 124,
+    "width": 124
+  },
+  {
+    "name": "Agglomération de la Région de Compiègne",
+    "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/31/adresse-le-compiegnois-sur-la-bonne-voie/",
+    "infos": "Dans le cadre du partenariat local d’information géographique, les intercommunalités du compiégnois se sont engagées dès 2017 dans un programme d’accompagnement complet des communes.",
+    "perimeter": "Agglomération de la Région de Compiègne",
+    "codeDepartement": [
+      "60"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "réalisation de bases adresses locales",
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/compiegne.png",
+    "height": 129,
+    "width": 290
+  },
+  {
+    "name": "TIGEO",
+    "link": "https://www.tigeo.fr/outils-thematiques/adressage/accueil-voies-adresses",
+    "infos": "TIGEO (Tarn Information Géographique) est une association Loi 1901 dont l’objet principal sont la promotion et le développement de l’usage de l’information géographique sur le territoire du Tarn. Elle propose dans ce cadre aux collectivités tarnaises différents services liés à l'adressage.",
+    "perimeter": "Tarn",
+    "codeDepartement": [
+      "81"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "réalisation de bases adresses locales",
+      "accompagnement technique",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/tigeo.png",
+    "height": 83,
+    "width": 290
+  },
+  {
+    "name": "Pays de Brest",
+    "link": "https://geo.pays-de-brest.fr/actualites/Pages/public/Adressage.aspx",
+    "infos": "Le service SIG du Pôle métropolitain du Pays de Brest assure l’harmonisation, l’intégration et la diffusion des données géographiques en lien avec les collectivités de ce territoire.",
+    "perimeter": "Pays de Brest",
+    "codeDepartement": [
+      "29"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/paysBrest.png",
+    "height": 118,
+    "width": 290
+  },
+  {
+    "name": "GÉOPAL",
+    "link": "https://www.geopal.org/accueil/projet_regional_adresse/un_projet_en_lien_avec_la_base_adresse_nationale_etalab",
+    "infos": "GÉOPAL (portail de l’information géographique en Pays de la Loire), GÉOVENDEE, L.A. GÉODATA, GÉOMAYENNE, SIEML et Sarthe Numérique, proposent un accompagnement des communes dans leur démarche d'adressage avec la mobilisation de tous ses partenaires (chefs de file départementaux et EPCI) pour être au plus près des communes. Des guides méthodologiques et des outils s’adaptant à chacun sont notamment mis à disposition pour la constitution des Bases Adresses Locales.",
+    "perimeter": "Région des Pays de la Loire (Vendée, Loire-Atlantique, Maine-et Loire, Mayenne, Sarthe)",
+    "codeDepartement": [
+      "44",
+      "49",
+      "53",
+      "72",
+      "85"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/geopal.png",
+    "height": 122,
+    "width": 290
+  },
+  {
+    "name": "Communauté d'Agglomération Gaillac Graulhet",
+    "link": "http://www.ted.fr/actualites/charte-de-la-base-adresse-locale",
+    "infos": "Engagée depuis de nombreuses années auprès de ses communes membres dans leurs projets d'adressage, la Communauté d'Agglomération Gaillac Graulhet leur propose un accompagnement méthodologique et technique par le biais d'ateliers, de cartes et d'outils webcarto.",
+    "perimeter": "Communauté d'Agglomération Gaillac Graulhet et ses 61 communes",
+    "codeDepartement": [
+      "81"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/gaillac.png",
+    "height": 117,
+    "width": 300
+  },
+  {
+    "name": "Communauté d'Agglomération Plaine Vallée",
+    "link": "https://www.agglo-plainevallee.fr/actualites/les-bases-adresses-locales-bal/",
+    "infos": "La Communauté d’Agglomération sensibilise et accompagne ses communes dans la prise en main de leur Base Adresse Locale. Elle apporte son savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+    "perimeter": "Communauté d’Agglomération Plaine Vallée et ses 18 communes.",
+    "codeDepartement": [
+      "95"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/plaine-vallee.png",
+    "height": 124,
+    "width": 277
+  },
+  {
+    "name": "Réseau Régional des Données Territoriales et Géographiques en Centre-Val de Loire",
+    "link": "https://www.doterr.fr/accueil/les_ressources/creer_sa_base_adresse_locale",
+    "infos": "Do.TeRR GéoCentre est un dispositif partenarial soutenu par l’Etat (SGAR & DREAL Centre-Val de Loire), le Conseil régional et les collectivités en Centre-Val de Loire au service des organismes publics de la région. Centre de ressources et d’expertise, il œuvre pour le partage des données géographiques et ouvertes. Sa mission d’animation est confiée au GIP RECIA.",
+    "perimeter": "Région Centre-Val de Loire",
+    "codeDepartement": [
+      "18",
+      "28",
+      "36",
+      "37",
+      "41",
+      "45"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/doterr_geocentre.png",
+    "height": 124,
+    "width": 258
+  },
+  {
+    "name": "Somme Numérique",
+    "link": "https://www.sommenumerique.fr/amenagement-numerique/creer-sa-base-dadresse-locale-en-quelques-clics",
+    "infos": "Somme numérique accompagne gratuitement ses membres et leurs communes dans le but de faciliter le déploiement de la fibre.",
+    "perimeter": "Somme et 7 communes frontalières de Seine-Maritime.",
+    "codeDepartement": [
+      "80"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/somme-numerique.jpg",
+    "height": 73,
+    "width": 290
+  },
+  {
+    "name": "Communauté de Communes des Lisières de l’Oise",
+    "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/30/adresse-le-compiegnois-sur-la-bonne-voie/",
+    "infos": "Dans le cadre du partenariat local d’information géographique, les intercommunalités du compiégnois se sont engagées dès 2017 dans un programme d’accompagnement complet des communes.",
+    "perimeter": "Communauté de Communes des Lisières de l’Oise",
+    "codeDepartement": [
+      "60"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "réalisation de bases adresses locales",
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/lisieres-de-oise.png",
+    "height": 124,
+    "width": 162
+  },
+  {
+    "name": "Syndicat Départemental d’Aménagement et d’Ingénierie du Lot",
+    "link": "https://lot.fr/soutien-collectivites/amenagement-ingenierie",
+    "infos": "Le Syndicat Départemental d’Aménagement et d’Ingénierie du Lot propose aux communes adhérentes un accompagnement aux projets d’adressage sur convention méthodologie, conseils pour le nommage des voies, numérotation, normalisation des adresses au format BAL et publication.",
+    "perimeter": "Lot",
+    "codeDepartement": [
+      "46"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/lot.jpg",
+    "height": 124,
+    "width": 105
+  },
+  {
+    "name": "LOSANGE",
+    "link": "https://www.losange-fibre.fr/collectivites/referencement-dune-adresse/",
+    "infos": "Pour faciliter le déploiement de la fibre et pour que chaque utilisateur puisse souscrire aisément un abonnement auprès du Fournisseur d’Accès à Internet de son choix, LOSANGE promeut la création et la mise à jour de bases adresses locales auprès des 3404 communes concernées par ce déploiement du Très Haut Débit sur la Région Grand Est. LOSANGE accompagne techniquement les collectivités pour la création et la mise à jour des Bases Adresses Locales.",
+    "perimeter": "Région Grand Est hors zones AMII et communes disposant d’une offre Très Haut Débit",
+    "codeDepartement": [
+      "08",
+      "10",
+      "51",
+      "52",
+      "54",
+      "55",
+      "88"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/losange.jpg",
+    "height": 62,
+    "width": 290
+  },
+  {
+    "name": "OPenIG",
+    "link": "https://www.openig.org/groupes-de-travail/adresse",
+    "infos": " En Occitanie, OPenIG, la plateforme régionale associative pour l'information géographique a adopté cette charte et contribue à l'amélioration des adresses. OPenIG appuie cette démarche à travers l'information et l'accompagnement technique de ses communes adhérentes ou ayants-droit ainsi que de leurs chefs de files.",
+    "perimeter": "Occitanie",
+    "codeDepartement": [
+      "09",
+      "11",
+      "12",
+      "30",
+      "31",
+      "32",
+      "34",
+      "46",
+      "48",
+      "65",
+      "66",
+      "81",
+      "82"
+    ],
+    "echelon": 3,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/openig.png",
+    "height": 124,
+    "width": 119
+  },
+  {
+    "name": "Communauté de communes Pays de Forcalquier - Montagne de Lure",
+    "link": "https://www.forcalquier-lure.com/",
+    "infos": "Le service SIG accompagne les 13 communes du territoire dans le cadre de la création et de la mise à jour de la base adresse nationale sur adresse.data.gouv.fr.",
+    "perimeter": "Communauté de communes Pays de Forcalquier - Montagne de Lure",
+    "codeDepartement": [
+      "04"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/forcalquier-lure.jpg",
+    "height": 124,
+    "width": 240
+  },
+  {
+    "name": "Colmar Agglomération",
+    "link": "https://www.agglo-colmar.fr/",
+    "infos": "Le service SIG de Colmar Agglomération assure l’harmonisation, l’intégration et la diffusion des données géographiques ainsi que l'animation et le conseil autour de cette thématique auprès des différentes collectivités du territoire.",
+    "perimeter": "Communes de l'agglomération de Colmar",
+    "codeDepartement": [
+      "68"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/colmar.jpg",
+    "height": 124,
+    "width": 216
+  },
+  {
+    "name": "Clermont Auvergne Métropole",
+    "link": "https://www.clermontmetropole.eu/accueil/",
+    "infos": "Clermont Auvergne Métropole accompagne les communes sur un outil mutualisé sur QGIS et Postgis, et assure la publication de leurs Bases Adresses Locales.",
+    "perimeter": "Communes de Clermont Auvergne Métropole",
+    "codeDepartement": [
+      "63"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/clermont.png",
+    "height": 124,
+    "width": 195
+  },
+  {
+    "name": "Tarn-et-Garonne Numérique",
+    "link": "https://www.82numerique.fr/collectivites/connecter-les-collectivites/les-outils/l-adressage",
+    "infos": "Dans le cadre de son programme 100% FTTH, Tarn-et-Garonne Numérique propose à ses communes membres une formation et un accompagnement technique dans leur démarche d’adressage : de la création de la Base Adresse Locale jusqu’à sa mise à jour.",
+    "perimeter": "Tarn-et-Garonne (82)",
+    "codeDepartement": [
+      "82"
+    ],
+    "echelon": 2,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/tarn-garonne-numerique.png",
+    "height": 124,
+    "width": 121
+  },
+  {
+    "name": "Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
+    "link": "https://opendata.agglo-pau.fr/contact2.html",
+    "infos": "La Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques accompagne l’ensemble de ses communes membres dans la mise en œuvre et le suivi d’une Base Adresse Locale propre à chacune. L’ensemble des communes a été rencontré, les élus et le personnel municipal concerné sensibilisés, un diagnostic précis de l’adresse a été réalisé pour chaque commune et ainsi de nombreuses adresses ont été régularisées, corrigées ou créées. En même temps que la BAL est publiée, un agent municipal et un élu sont formés sur l’outil « mes-adresses » qui devient l’outil unique de gestion de l’adresse sur le territoire communautaire.",
+    "perimeter": "Communes de la Communauté d’Agglomération Pau Béarn Pyrénées Atlantiques",
+    "codeDepartement": [
+      "64"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/pau.jpg",
+    "height": 124,
+    "width": 261
+  },
+  {
+    "name": "Communauté de Communes de la Plaine d’Estrées",
+    "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/30/adresse-le-compiegnois-sur-la-bonne-voie/",
+    "infos": "La Communauté de Communes sensibilise et accompagne ses communes dans la prise en main de leur Base Adresse Locale. Elle apporte son savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+    "perimeter": "Communauté de Communes de la Plaine d’Estrées",
+    "codeDepartement": [
+      "60"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/ccpe.png",
+    "height": 124,
+    "width": 246
+  },
+  {
+    "name": "Communauté d’agglomération Roannais Agglomération",
+    "link": "https://www.aggloroanne.fr/site-officiel-roannais-agglomeration-et-ville-de-roanne-3.html",
+    "infos": "La communauté d’agglomération Roannais Agglomération sensibilise et accompagne l’ensemble des communes membres dans la mise en œuvre et le suivi de leur Base Adresse Locale. Notre collectivité apporte son savoir-faire technique en matière d’information géographique et met ainsi à disposition ses compétences et ses services aux communes qui le souhaitent : un agent municipal et/ou un élu sont formés sur l’outil « mes-adresses » qui devient l’outil unique de gestion de l’adresse sur le territoire communautaire.",
+    "perimeter": "Communauté d’Agglomération de Roannais Agglomération et ses 40 communes",
+    "codeDepartement": [
+      "42"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/roannais.png",
+    "height": 84,
+    "width": 290
+  },
+  {
+    "name": "Communauté d’Agglomération du Bassin de Brive",
+    "link": "https://sig.agglodebrive.org/portal/",
+    "infos": "La Communauté d’Agglomération du Bassin de Brive accompagne ses communes membres pour la gestion et la mise à jour de leur adressage en leurs proposant un outil web SIG.",
+    "perimeter": "Communauté d’Agglomération du Bassin de Brive (Corrèze)",
+    "codeDepartement": [
+      "19"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "mise à disposition d’outils mutualisés",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/brive.png",
+    "height": 154,
+    "width": 100
+  },
+  {
+    "name": "Communauté d’agglomération de Saint-Quentin-en-Yvelines",
+    "link": "https://www.saint-quentin-en-yvelines.fr/fr/les-bases-adresse-de-sqy",
+    "infos": "La Direction des Systèmes d’Information de Saint-Quentin-en-Yvelines accompagne les 12 communes de l’agglomération sur un outil mutualisé et assure la publication de leurs Bases Adresses Locales.",
+    "perimeter": "Communes de l’agglomération de Saint-Quentin-en-Yvelines",
+    "codeDepartement": [
+      "78"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "mise à disposition d’outils mutualisés",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/saint-quentin-yvelines.jpg",
+    "height": 124,
+    "width": 220
+  },
+  {
+    "name": "Communauté d’agglomération Royan Atlantique",
+    "link": "https://www.agglo-royan.fr/-/bal",
+    "infos": "Dans le cadre d'une prestation de service numérique gratuite pour les communes adhérentes, la CARA propose un service d’accompagnement comprenant la présentation de l’outil mes-adresses.data.gouv, la création et la publication de la BAL, la réalisation de cas concrets et l’assistance aux communes.",
+    "perimeter": "Communes de la Communauté d’Agglomération Royan Atlantique",
+    "codeDepartement": [
+      "17"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/royan.png",
+    "height": 124,
+    "width": 221
+  },
+  {
+    "name": "Communauté d’Agglomération Pays Basque",
+    "link": "https://www.communaute-paysbasque.fr/",
+    "infos": "La CAPB accompagne depuis 2019 les communes du Pays Basque ayant sollicité son aide sur l’exercice de leur compétence d’adressage. Depuis le diagnostic initial jusqu’à la diffusion, un appui méthodologique et technique est apporté aux communes pour une primo définition de l’adressage. Les communes qui souhaitent être accompagnées pour la mise à jour permanente de leurs adresses seront formées, accompagnées sur la méthode, et un outil mutualisé leur sera mis à disposition.",
+    "perimeter": "Communes membres de la Communauté d’Agglomération Pays Basque",
+    "codeDepartement": [
+      "64"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/pays-basque.png",
+    "height": 124,
+    "width": 125
+  },
+  {
+    "name": "Manche numérique",
+    "link": "https://manchenumerique.fr/",
+    "infos": "Dans le cadre d’une mission co-financée par le Conseil départemental de la Manche, le syndicat mixte Manche Numérique accompagne les communes durant l’intégralité de leur projet d’adressage, de l’identification des voies à la saisie des adresses et la publication de leur BAL. Si la réalisation du plan d’adressage reste à la commune, Manche numérique fournit les clés méthodologiques, techniques et juridiques à la réalisation du projet.",
+    "perimeter": "Département de la Manche",
+    "codeDepartement": [
+      "50"
+    ],
+    "echelon": 2,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/manche-numerique.jpg",
+    "height": 117,
+    "width": 232
+  },
+  {
+    "name": "Communauté d'agglomération de l'Albigeois",
+    "link": "https://www.grand-albigeois.fr",
+    "infos": "Le service SIG du Grand Albigeois accompagne les communes de son territoire dans la constitution et la viabilisation de base adresse locale. Cet accompagnement prend la forme de mise à disposition d'un outil mutualisé, ainsi que des formations et du support.",
+    "perimeter": "Communes de la Communauté d’Agglomération de l'Albigeois",
+    "codeDepartement": [
+      "81"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "mise à disposition d’outils mutualisés",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/albigeois.png",
+    "height": 154,
+    "width": 114
+  },
+  {
+    "name": "Communauté d'Agglomération Ventoux Comtat Venaissin",
+    "link": "https://www.lacove.fr/index.php?id=62705",
+    "infos": "Dans le cadre de la convention du service commun SIG et OpenData, la CoVe accompagne les 25 communes adhérentes pour la réalisation, la publication et la mise à jour de leurs Bases Adresses Locales grâce à la mutualisation des compétences, des données et des outils.",
+    "perimeter": "Communauté d’Agglomération Ventoux Comtat Venaissin (Vaucluse)",
+    "codeDepartement": [
+      "84"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "mise à disposition d’outils mutualisés",
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/la-cove.png",
+    "height": 124,
+    "width": 120
+  },
+  {
+    "name": "GéoBretagne",
+    "link": "https://cms.geobretagne.fr/voirie-adresse",
+    "infos": "GéoBretagne, le partenariat des données territoriales en Bretagne, souhaite poursuivre la démarche d’alimentation d’un référentiel unique (voirie-adresse) via la constitution des Bases Adresse Locales en s’appuyant sur ses membres (EPCI, Mégalis, SDIS, DDFiP en particulier) et le pôle métier voirie-adresse.",
+    "perimeter": "Bretagne",
+    "codeDepartement": [
+      "22",
+      "29",
+      "35",
+      "56"
+    ],
+    "echelon": 3,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/geobretagne.png",
+    "height": 45,
+    "width": 232
+  },
+  {
+    "name": "Communauté de Communes du Pays du Coquelicot",
+    "link": "https://www.paysducoquelicot.com/vivre-preserver/lhabitat/adresse",
+    "infos": "La Communauté de Communes du Pays du Coquelicot sensibilise et accompagne ses communes membres dans la gestion de leur Base Adresse Locale. Elle propose des formations et un support sur l’outil « Mes Adresses » à destination des élus et agents communaux en charge de l’adressage. Elle apporte également un savoir-faire technique en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
+    "perimeter": "Département de la Somme (65)",
+    "codeDepartement": [
+      "80"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/coquelicot.jpg",
+    "height": 124,
+    "width": 109
+  },
+  {
+    "name": "Pôle Marennes Oléron",
+    "link": "https://www.marennes-oleron.com/adresse-accompagnement-des-communes/",
+    "infos": "Le Pôle Marennes Oléron, à travers son Système d'Information Territoriale, accompagne les communes de son territoire à travailler sur l’adresse, en les formant à la thématique et en leur mettant en place des solutions à façon.",
+    "perimeter": "14 communes des communautés de communes de l’Île d’Oléron et du Bassin de Marennes",
+    "codeDepartement": [
+      "17"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/marennes-oleron.png",
+    "height": 124,
+    "width": 76
+  },
+  {
+    "name": "SIDEC du Jura",
+    "link": "https://www.sidec-jura.com/mutualiser/gestion-des-besoins-catographiques/",
+    "infos": "Facilitateur de proximité au service des collectivités du Jura, le SIDEC propose différents formats d’accompagnement afin d’apporter un service adapté aux besoins des collectivités jurassiennes dans les domaines des Énergies, Equipements, Infrastructures, de l’Informatique et de la Géomatique.",
+    "perimeter": "Département du Jura",
+    "codeDepartement": [
+      "39"
+    ],
+    "echelon": 2,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/sidec.png",
+    "height": 124,
+    "width": 157
+  },
+  {
+    "name": "Alès Agglomération",
+    "link": "https://www.sigcevennes.fr/",
+    "infos": "Le service commun SIG d’Alès Agglomération (SIG Cévennes) se propose, dans le cadre de ses prestations aux Communes adhérentes au service, de les accompagner dans la mise en place de leur adressage communal au travers de la Base Adresse Locale.",
+    "perimeter": "Syndicat Mixte du Pays Cévennes",
+    "codeDepartement": [
+      "30"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/ales.png",
+    "height": 124,
+    "width": 109
+  },
+  {
+    "name": "Géo17 - Soluris",
+    "link": "https://www.geoplateforme17.fr/projets/adresse",
+    "infos": "Géo17 propose des ressources aux communes pour les aider dans leur projet d’adressage, en complémentarité avec les solutions offertes par les structures de mutualisation locales (intercommunalités, PETR, Pays) et par l’État.",
+    "perimeter": "Communes de Charente-Maritime",
+    "codeDepartement": [
+      "17"
+    ],
+    "echelon": 2,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/soluris.png",
+    "height": 124,
+    "width": 149
+  },
+  {
+    "name": "Toulouse Métropole",
+    "link": "https://data.toulouse-metropole.fr/explore/dataset/base-adresse-locale/information/",
+    "infos": "La Base Adresse Nationale (BAN) est la base de données de référence des adresses officiellement reconnues par l’Administration. La complétude de cette base permet que les services soient délivrés au bon endroit. Cette base nationale est construite par l’addition des Bases Adresses Locales (BAL) produites par les communes ou, par délégation, par leur EPCI. La BAL de Toulouse Métropole est structurée en conformité avec le modèle national de la BAN. Elle contient l’ensemble des adresses des communes membres de Toulouse Métropole.",
+    "perimeter": "Communes de Toulouse métropole",
+    "codeDepartement": [
+      "31"
+    ],
+    "echelon": 1,
+    "isPermimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/toulouse-metro.png",
+    "height": 71,
+    "width": 232
+  },
+  {
+    "name": "Quimperlé Communauté",
+    "link": "https://www.quimperle-communaute.bzh/lagglomeration/le-territoire/cartographie/",
+    "infos": "Quimperlé Communauté accompagne les communes pour la création et la mise à jour de Bases Adresses Locales : aide à la mise en place de démarches d’adressage, accompagnement technique et suivi des démarches, formation et assistance à l’outil « Mes Adresses ».",
+    "perimeter": "Communes de la Communauté d'agglomération (29)",
+    "codeDepartement": [
+      "29"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/quimperle.png",
+    "height": 124,
+    "width": 245
+  },
+  {
+    "name": "Agence Départementale d’Ingénierie de l’Orne",
+    "link": " https://ingenierie.orne.fr/",
+    "infos": "L’Agence Départementale d’Ingénierie de l’Orne propose d’accompagner les communes dans leurs actions d’adressage. Ce travail est complété par la mise à disposition d’une application web-SIG qui gère les points « adresse » et le linéaire des voies avec leurs noms.",
+    "perimeter": "Département de l'Orne",
+    "codeDepartement": [
+      "61"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/orne.png",
+    "height": 126,
+    "width": 245
+  },
+  {
+    "name": "Communauté d’Agglomération de Paris - Vallée de la Marne",
+    "link": "https://www.agglo-pvm.fr/lagglomeration/la-communaute-dagglomeration/documents-publics",
+    "infos": "La communauté d’agglomération de Paris-Vallée de la Marne sensibilise les communes et leur propose un accompagnement dans leurs démarches d’adressage.",
+    "perimeter": "Communes de la communauté d’Agglomération de PVM",
+    "codeDepartement": [
+      "77"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "sensibilisation",
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/marne.png",
+    "height": 100,
+    "width": 245
+  },
+  {
+    "name": "Lannion-Trégor Communauté",
+    "link": "https://geoportail.lannion-tregor.com/",
+    "infos": "Le service Geomatique de Lannion-Trégor Communauté accompagne, depuis plusieurs années, les communes du territoire dans la démarche BAL. Nous les aidons à identifier / dénommer leurs voies, leurs lieux-dits, à numéroter leurs adresses, à mettre à jour et diffuser leur BAL.",
+    "perimeter": "Communes de la communauté de Lannion Tregor ",
+    "codeDepartement": [
+      "22"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/lannion-tregor.jpg",
+    "height": 108,
+    "width": 290
+  },
+  {
+    "name": "Centre Régional Auvergne-Rhône-Alpes de l’Information Géographique (CRAIG)",
+    "link": "https://www.craig.fr/fr/contenu/3426-mettre-en-place-une-demarche-dadressage",
+    "infos": "Le Centre Régional Auvergne-Rhône-Alpes de l’Information Géographique (CRAIG) est un centre de ressources dans le domaine de l’information géographique pour les acteurs publics régionaux.Le CRAIG propose d'accompagner les communes de la région Auvergne-Rhône-Alpes dans leur projet d’adressage, en les aidant à utiliser les solutions techniques offertes par l’État et par les EPCI.",
+    "perimeter": "Région Auvergne-Rhône-Alpes",
+    "codeDepartement": [
+      "01",
+      "03",
+      "07",
+      "15",
+      "26",
+      "38",
+      "42",
+      "43",
+      "63",
+      "69",
+      "73",
+      "74"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/region-ara.png",
+    "height": 94,
+    "width": 260
+  },
+  {
+    "name": "Agence Publique de Gestion Locale",
+    "link": "https://www.geo64.fr/partenaires/",
+    "infos": " L’APGL a développé une Base Adresse Locale sur Géo64, son SIG mutualisé, permettant aux communes de créer et gérer leurs adresses.",
+    "perimeter": "Communes des Pyrénées-Atlantiques",
+    "codeDepartement": [
+      "64"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/apgl.png",
+    "height": 124,
+    "width": 173
+  },
+  {
+    "name": "Grand Paris Sud - Seine - Essonne - Sénart",
+    "link": "https://data.grandparissud.fr/explore/dataset/statut-de-publication-de-la-base-d-adresse-locale-des-communes/information/",
+    "infos": "La CA de Grand Paris Sud - Seine-Essonne - Sénart (GPS) accompagne, parmi les 23 communes du territoire, celles ayant sollicité son aide sur l’exercice de leur compétence d’adressage. Nous assurons la mise à disposition de l’information, la sensibilisation à la tâche de maintien des adressages locaux ainsi que l’accompagnement méthodologique et technique pour la publication sur les outils addresses.data.gouv.fr. Nous diffusons également des listes de différentiels constatés (par exemple avec les données IPE des opérateurs de réseau de déploiement de la Fibre optique) pour certaines communes.",
+    "perimeter": "communes de Grand Paris Sud Essonne sur deux départements Essonne (91) et Seine-et-Marne (77)",
+    "codeDepartement": [
+      "77",
+      "91"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/grand-paris-sud.png",
+    "height": 122,
+    "width": 280
+  },
+  {
+    "name": "Communauté d’Agglomération du Puy-en-Velay",
+    "link": "https://geoportail.lepuyenvelay.fr/",
+    "infos": "La Communauté d’Agglomération du Puy-en-Velay met à disposition de ses communes un outil de gestion de leur Base Adresse Locale, permettant de faire remonter leurs voies et adresses au niveau national. Nous proposons également des formations et un accompagnement pour l’utilisation de cet outil, ainsi qu’un modèle de cahier des charges si vous souhaitez passer par un prestataire extérieur.",
+    "perimeter": "communes membres de la Communauté d’Agglomération du Puy-en-Velay (Haute-Loire, 43)",
+    "codeDepartement": [
+      "43"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/agglo-puyenvelay.png",
+    "height": 90,
+    "width": 184
+  },
+  {
+    "name": "Communauté de Communes Porte de DrômArdèche",
+    "link": "https://sig.portededromardeche.fr/adresse",
+    "infos": "Depuis 2011, la Communauté de Communes Porte de DrômArdèche sensibilise les communes de son territoire à la thématique de l’adressage et à ses bonnes pratiques. Elle accompagne les communes dans l’élaboration et la mise à jour de Bases Adresses Locales en mettant à disposition ses compétences, services et outils. Un espace de travail développé sur GÉCCPDA, WebSIG mutualisé, permet aux communes de créer et gérer leurs adresses, dans une Base Adresse Locale.",
+    "perimeter": "communes membre de Communauté de Communes Porte de DrômArdèche (8 communes en Ardèche - 26 communes en Drôme)",
+    "codeDepartement": [
+      "07",
+      "26"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/dromardeche.jpg",
+    "height": 90,
+    "width": 184
+  },
+  {
+    "name": "Communauté d’Agglomération de La Rochelle",
+    "link": "https://www.agglo-larochelle.fr",
+    "infos": "L’Unité Géomatique de la Communauté d’Agglomération de La Rochelle, propose, pour les communes du territoire, un appui technique à la création des Bases Adresses Locales, et la mise à disposition d’outils mutualisés de mise à jour des adresses.",
+    "charteURL": "https://tandem.larochelle.fr/m-organiser/systemes-d-information/systeme-d-information-geographique-sig-?article=ressources",
+    "perimeter": "Communes de la Communauté d'Agglomération de La Rochelle (Département 17)",
+    "codeDepartement": [
+      "17"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/agglo-la-rochelle.png",
+    "height": 68,
+    "width": 260
+  },
+  {
+    "name": "Amiens métropole",
+    "link": "https://www.amiens.fr",
+    "infos": "La Base Adresse Nationale (BAN), référentiel commun des adresses officiellement reconnues, relève de la compétence des communes. La complétude de cette base permet que les services soient délivrés au bon endroit. Cette base nationale est construite par l’addition des Bases Adresses Locales (BAL) produites par les communes, la Ville d’Amiens a publié sa BAL issue du SIG de la collectivité. Dans un esprit de synergie, l'équipe SIG d'Amiens métropole propose un accompagnement technique aux 38 communes membres dans leur démarche d’adressage, avec une offre d'assistance et formation à l'outil « Mes adresses ».",
+    "charteURL": "https://geo.amiens.fr/adws/app/523da8c6-5dbc-11ec-9790-3dc5639e7001/index.html?context=SknR",
+    "signatureDate": "2022-11-29",
+    "perimeter": "39 communes membres",
+    "codeDepartement": [
+      "80"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/amiens-metropole.png",
+    "height": 190,
+    "width": 175
+  },
+  {
+    "name": "Communauté de Communes de la Région de Molsheim-Mutzig",
+    "infos": "A travers son service SIG, la Communauté de Communes de la Région de Molsheim-Mutzig souhaite accompagner ses communes membres dans la création et la tenue à jour de Bases Adresses Locales de qualité.",
+    "link": "https://www.cc-molsheim-mutzig.fr/",
+    "charteURL": "https://www.cc-molsheim-mutzig.fr/base-adresse-locale.htm",
+    "signatureDate": "2022-11-21",
+    "perimeter": "Le territoire de la CCRMM",
+    "codeDepartement": [
+      "67"
+    ],
+    "echelon": 1,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "formation"
+    ],
+    "picture": "/images/logos/partners/epci/ccrmm.jpg",
+    "height": 148,
+    "width": 148
+  }
+]

@@ -7,7 +7,8 @@
       "@/layouts/*": ["layouts/*"],
       "@/styles/*": ["styles/*"],
       "@/contexts/*": ["contexts/*"],
-      "@/hooks/*": ["hooks/*"]
+      "@/hooks/*": ["hooks/*"],
+      "@/data/*": ["data/*"]
     }
   }
 }

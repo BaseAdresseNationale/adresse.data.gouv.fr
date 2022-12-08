@@ -12,7 +12,7 @@ import SectionText from '@/components/section-text'
 const title = 'Données nationales'
 const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
-function DonneesNatioales() {
+function DonneesNationales() {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Download size={56} alt aria-hidden='true' />} />
@@ -142,4 +142,4 @@ function DonneesNatioales() {
   )
 }
 
-export default DonneesNatioales
+export default DonneesNationales

@@ -36,6 +36,7 @@ function Home({stats, posts}) {
             </p>
           </SectionText>
           <ButtonLink isOutlined color='white' href='/donnees-nationales'>Découvrir la BAN et accéder aux données</ButtonLink>
+          <ButtonLink isOutlined color='white' href='/donnees-nationales/reutilisateurs'>Voir qui réutilise la BAN</ButtonLink>
         </div>
 
         <style jsx>{`
