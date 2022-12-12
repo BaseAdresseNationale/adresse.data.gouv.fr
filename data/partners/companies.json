@@ -90,23 +90,6 @@
     "width": 248
   },
   {
-    "name": "La Poste Solutions business",
-    "link": "https://www.laposte.fr/entreprise/produit-entreprise/adn",
-    "infos": "La Poste propose une offre de solutions modulables pour accompagner votre commune dans la fiabilisation de l'adressage de son territoire. Cette prestation vous permet de diagnostiquer la qualité des adresses de votre commune et vous aide à résoudre tous les problèmes complexes d'adressage (création, modification, suppression et numérotation des voies). En complément de la mise en œuvre de votre projet d’adressage, La Poste vous accompagne dans la communication auprès des citoyens, la création de votre Base Adresse Locale, et la fourniture de la signalétique.",
-    "perimeter": "France entière",
-    "codeDepartement": [],
-    "echelon": null,
-    "isPerimeterFrance": true,
-    "isCompany": true,
-    "services": [
-      "accompagnement technique",
-      "réalisation de bases adresses locales"
-    ],
-    "picture": "/images/logos/partners/companies/la-poste.png",
-    "height": 124,
-    "width": 102
-  },
-  {
     "name": "SIGEO 3D",
     "link": "https://sigeo3d.fr/adressage.html",
     "infos": "Nous vous accompagnons ou réalisons pour vous l'adressage complet de votre commune, nécessaire pour l'arrivée de la Fibre mais aussi pour les services de secours, livraisons, navigation GPS. Nous prenons en charge l'intégralité du process si vous le désirez : recensement des voies existantes, création des nouvelles voies, des nouveaux numéros, publication de votre Base Adresse Locale, diffusion auprès des organismes compétents...",
