@@ -1,37 +1,81 @@
 [{
     "name": "Ministère de l'Éducation Nationale et de la Jeunesse",
     "link": "https://www.education.gouv.fr/",
-    "infos": "",
-    "isCompany": false,
+    "usage": "Usage sur 2 applications MENS en délégation de service.",
     "picture": "/images/logos/partners/re-users-ban/ministere-de-l-education-nationale-et-de-la-jeunesse.png",
-    "height": 200,
-    "width": 245
+    "height": 150,
+    "width": 184
   },
   {
     "name": "Instant System",
     "link": "https://www.data.gouv.fr/fr/organizations/instant-system/",
-    "infos": "",
-    "isCompany": false,
+    "usage": "Intégré dans les solutions de mobilité.",
     "picture": "/images/logos/partners/re-users-ban/instant-system.png",
-    "height": 200,
-    "width": 251
+    "height": 180,
+    "width": 226
   },
   {
     "name": "Direction Générale des Douanes et Droits Indirects",
     "link": "https://www.douane.gouv.fr/",
-    "infos": "",
-    "isCompany": false,
+    "usage": "Géocodage dans plusieurs applications.",
     "picture": "/images/logos/partners/re-users-ban/douanes-et-droits-indirects.jpg",
-    "height": 200,
-    "width": 156
+    "height": 150,
+    "width": 117
   },
   {
     "name": "Postcode.eu",
     "link": "https://www.postcode.eu/",
-    "infos": "",
-    "isCompany": false,
+    "usage": "Intégré dans une API d'adresse internationale.",
     "picture": "/images/logos/partners/re-users-ban/postcode-eu.png",
-    "height": 200,
-    "width": 226
+    "height": 180,
+    "width": 203
+  },
+  {
+    "name": "Gendarmerie nationale",
+    "link": "https://www.gendarmerie.interieur.gouv.fr/",
+    "usage": "Usage du géocodeur.",
+    "picture": "/images/logos/partners/re-users-ban/gendarmerie-nationale.png",
+    "height": 180,
+    "width": 210
+  },
+  {
+    "name": "HERE",
+    "link": "https://www.here.com/",
+    "usage": "Alimentation du référentiel en données adresse.",
+    "picture": "/images/logos/partners/re-users-ban/here.png",
+    "height": 180,
+    "width": 198
+  },
+  {
+    "name": "IGN",
+    "link": "https://www.ign.fr/",
+    "usage": "Alimentation du référentiel en données adresse.",
+    "picture": "/images/logos/partners/re-users-ban/ign.png",
+    "height": 180,
+    "width": 164
+  },
+  {
+    "name": "Acceslibre",
+    "link": "https://www.data.gouv.fr/fr/organizations/acceslibre/",
+    "usage": "Enrichissement du formulaire de description des ERP.",
+    "picture": "/images/logos/partners/re-users-ban/acceslibre.png",
+    "height": 83,
+    "width": 300
+  },
+  {
+    "name": "SDIS 64",
+    "link": "https://www.sdis64.fr/",
+    "usage": "Enrichissement du référentiel d'intervention.",
+    "picture": "/images/logos/partners/re-users-ban/sdis64.jpeg",
+    "height": 180,
+    "width": 300
+  },
+  {
+    "name": "TomTom",
+    "link": "https://www.tomtom.com/",
+    "usage": "Alimentation du référentiel en données adresse.",
+    "picture": "/images/logos/partners/re-users-ban/tomtom.jpeg",
+    "height": 177,
+    "width": 300
   }
 ]
