@@ -4,18 +4,13 @@ import {orderBy} from 'lodash'
 
 import colors from '@/styles/colors'
 
-function Partners({epci, companies, shuffledPartners}) {
-  const companiesPartners = companies && orderBy(companies, 'name', 'asc')
-  const partners = epci ? orderBy(epci, 'name', 'asc') : shuffledPartners
+function Partners({data}) {
+  const items = orderBy(data, 'name', 'asc')
 
   return (
     <>
       <div className='partners-container'>
-        {companies ? (
-          companiesPartners.map(partner => <Partner key={partner.name} partnerInfos={partner} />)
-        ) : (
-          partners.map(partner => <Partner key={partner.name} partnerInfos={partner} isCommune={partner.echelon === 0} />)
-        )}
+        {items.map(item => <Partner key={item.name} partnerInfos={item} isCommune={item.echelon === 0} />)}
       </div>
 
       <style jsx>{`
@@ -46,15 +41,9 @@ function Partners({epci, companies, shuffledPartners}) {
 }
 
 Partners.propTypes = {
-  epci: PropTypes.array,
-  companies: PropTypes.array,
-  shuffledPartners: PropTypes.array
-}
-
-Partners.defaultProps = {
-  epci: null,
-  companies: null,
-  shuffledPartners: null
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }))
 }
 
 export default Partners

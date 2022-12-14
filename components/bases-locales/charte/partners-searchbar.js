@@ -4,14 +4,16 @@ import {debounce, intersection} from 'lodash'
 import {getCommunes, getByCode} from '@/lib/api-geo'
 import theme from '@/styles/theme'
 
-import partners from 'partners.json'
+import companies from '@/data/partners/companies.json'
+import epci from '@/data/partners/epci.json'
+import communes from '@/data/partners/communes.json'
 
 import SearchPartnersResults from '@/components/bases-locales/charte/search-partners-results'
 import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
 
-const ALL_PARTNERS = [...partners.companies, ...partners.epci, ...partners.communes]
+const ALL_PARTNERS = [...companies, ...epci, ...communes]
 
 function PartnersSearchbar() {
   const [input, setInput] = useState('')
@@ -104,7 +106,7 @@ function PartnersSearchbar() {
           onSelectTags={handleSelectedTags}
           selectedTags={selectedTags}
           filteredPartners={filteredPartners}
-          allPartners={[...partners.epci, ...partners.companies, ...partners.communes]}
+          allPartners={[...epci, ...companies, ...communes]}
         />
       )}
 

@@ -1,0 +1,37 @@
+[{
+    "name": "Ministère de l'Éducation Nationale et de la Jeunesse",
+    "link": "https://www.education.gouv.fr/",
+    "infos": "",
+    "isCompany": false,
+    "picture": "/images/logos/partners/re-users-ban/ministere-de-l-education-nationale-et-de-la-jeunesse.png",
+    "height": 200,
+    "width": 245
+  },
+  {
+    "name": "Instant System",
+    "link": "https://www.data.gouv.fr/fr/organizations/instant-system/",
+    "infos": "",
+    "isCompany": false,
+    "picture": "/images/logos/partners/re-users-ban/instant-system.png",
+    "height": 200,
+    "width": 251
+  },
+  {
+    "name": "Direction Générale des Douanes et Droits Indirects",
+    "link": "https://www.douane.gouv.fr/",
+    "infos": "",
+    "isCompany": false,
+    "picture": "/images/logos/partners/re-users-ban/douanes-et-droits-indirects.jpg",
+    "height": 200,
+    "width": 156
+  },
+  {
+    "name": "Postcode.eu",
+    "link": "https://www.postcode.eu/",
+    "infos": "",
+    "isCompany": false,
+    "picture": "/images/logos/partners/re-users-ban/postcode-eu.png",
+    "height": 200,
+    "width": 226
+  }
+]
