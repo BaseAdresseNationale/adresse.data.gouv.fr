@@ -202,5 +202,24 @@
     "picture": "/images/logos/partners/companies/edenmap.jpg",
     "height": 75,
     "width": 273
+  },
+  {
+    "name": "ADRÉ Ingénierie",
+    "infos": "ADRÉ Ingénierie vous propose une solution clé en main pour la mise en conformité de votre Base Adresse Locale, quel que soit l’état de l’adressage de votre commune. Notre équipe d’ingénieurs et de techniciens vous accompagne tout au long du projet ; prise de besoin, recensement terrain, traitement de données et même formation de vos agents. Nous vous assurons un suivi à chaque étape afin d’obtenir ensemble la certification de votre adressage. Enfin, nous pourrons vous aider à prendre en main l’outil pour créer vos « futures nouvelles adresses » dans la BAN.",
+    "link": "https://adre-ingenierie.fr/base-adresse-locale/",
+    "charteURL": "https://adre-ingenierie.fr/wp-content/uploads/2022/12/Charte-de-la-Base-Adresse-Locale-organisation-a-but-lucratif.pdf",
+    "signatureDate": "2022-12-13",
+    "isCompany": true,
+    "isPerimeterFrance": true,
+    "codeDepartement": [],
+    "echelon": 3,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/adre-ingenierie.png",
+    "height": 150,
+    "width": 332
   }
 ]
