@@ -205,6 +205,7 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
           setLayers,
           setInfos,
           setTools,
+          bbox,
           setMarkerCoordinates
         })}
 

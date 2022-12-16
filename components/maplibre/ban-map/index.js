@@ -27,7 +27,7 @@ import {
   PARCELLES_MINZOOM
 } from './layers'
 import popupFeatures from './popups'
-import {forEach} from 'lodash'
+import {flatten, forEach} from 'lodash'
 
 import DeviceContext from '@/contexts/device'
 
@@ -105,12 +105,13 @@ const getPositionsFeatures = address => {
   return []
 }
 
-function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onSelect, isMobile}) {
+function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbox, onSelect, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
+  const [bound, setBound] = useState()
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
@@ -168,13 +169,13 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
   }
 
   const centerAddress = useCallback(() => {
-    if (address && !isCenterControlDisabled) {
-      map.fitBounds(address.displayBBox, {
+    if (bound && !isCenterControlDisabled) {
+      map.fitBounds(bound, {
         padding: 30
       })
       setIsCenterControlDisabled(true)
     }
-  }, [address, isCenterControlDisabled, map])
+  }, [bound, isCenterControlDisabled, map])
 
   const isAddressVisible = useCallback(() => {
     if (address) {
@@ -187,7 +188,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
       ]
 
       const currentZoom = map.getZoom()
-      const isAddressInMapBBox = address.displayBBox ? isFeatureContained(mapBBox, address.displayBBox) : false
+      const isAddressInMapBBox = bound ? isFeatureContained(mapBBox, bound) : false
 
       const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
       const isZoomGreaterThanMin = currentZoom >= ZOOM_RANGE[address.type].min
@@ -195,7 +196,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     } else {
       setIsCenterControlDisabled(true)
     }
-  }, [map, address])
+  }, [map, address, bound])
 
   const handleZoom = useCallback(() => {
     isAddressVisible()
@@ -339,6 +340,14 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, onS
     }
   }, [map, isSourceLoaded, address, setLayers])
 
+  useEffect(() => {
+    if (bbox) {
+      setBound(flatten(bbox))
+    } else {
+      setBound(address?.displayBBox)
+    }
+  }, [map, bbox, address])
+
   return (
     <>
       <div className='maplibregl-ctrl-group maplibregl-ctrl'>
@@ -407,7 +416,8 @@ BanMap.propTypes = {
   onSelect: PropTypes.func,
   setSources: PropTypes.func.isRequired,
   setLayers: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
+  bbox: PropTypes.arrayOf({type: PropTypes.number}),
 }
 
 export default BanMap
