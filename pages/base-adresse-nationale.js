@@ -82,7 +82,7 @@ function BaseAdresseNationale({address}) {
       ).toArray()
     }
 
-    setBBox(bbox)
+    setBBox(initialHash ? undefined : bbox)
   }, [initialHash, address])
 
   return (
