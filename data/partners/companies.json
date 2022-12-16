@@ -221,5 +221,34 @@
     "picture": "/images/logos/partners/companies/adre-ingenierie.png",
     "height": 150,
     "width": 332
+  },
+  {
+    "name": "Nominescence",
+    "infos": "Nominescence accompagne les communes et réalise la création, l’actualisation et la diffusion de leur Base Adresse Locale. Nominescence propose également aux collectivités des prestations en naming territorial pour dynamiser, diversifier et donner du sens aux noms dans l’espace public.",
+    "link": "https://www.nominescence.fr/adressagenumerotation-pxl-44.html",
+    "charteURL": "https://www.nominescence.com/images/Image/Charte%20de%20la%20Base%20Adresse%20Locale.pdf",
+    "signatureDate": "2022-12-13",
+    "codeDepartement": [
+      "14",
+      "22",
+      "29",
+      "35",
+      "44",
+      "49",
+      "50",
+      "53",
+      "56",
+      "61",
+      "72"
+    ],
+    "echelon": 2,
+    "isCompany": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/companies/nominescence.jpg",
+    "height": 100,
+    "width": 354
   }
 ]
