@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import {uniqueId} from 'lodash'
 
 import CoordinatesCopy from './numero/coordinates-copy'
+import TargetLockIcon from '@/components/icons/target-lock'
+import Button from '../button'
 
 export const positionsColors = {
   entrée: {name: 'Entrée', color: '#00CED1'},
@@ -25,6 +27,11 @@ function PositionsTypes({positions, isMobile, isSafariBrowser, setCopyError, set
             <span className='position' style={{backgroundColor: positionsColors[p?.positionType]?.color || '#FF6347'}}>
               {positionsColors[p.positionType]?.name || 'Inconnu'}
             </span>
+              <a href={`#18/${p.position.coordinates[1]}/${p.position.coordinates[0]}`}>
+                <Button size='small' style={{display: 'flex'}} label='Centrer sur la position' >
+                  Centrer sur la carte<TargetLockIcon alt aria-hidden='true' />
+                </Button>
+              </a>
             <CoordinatesCopy
               isMobile={isMobile}
               isSafariBrowser={isSafariBrowser}
