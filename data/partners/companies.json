@@ -42,7 +42,7 @@
     "name": "SIGNA.CONCEPT",
     "link": "https://www.signaconcept.fr/charte-de-la-base-adresse-locale/",
     "infos": "Assistance complète de la mairie au cours de toutes les étapes, travail de recensement sur le terrain avec des GPS de précision, reportage photo-numérique de la future implantation des panneaux, création d'une BAL, présentation au vérificateur, transmission du fichier à la mairie avec le lien vers l'éditeur Mes Adresses pour enregistrement dans la Base Adresse Nationale.",
-    "perimeter": "Couvre les départements 26, 07, 04, 03, 63, 05, 84, 43, 30, 2A, 2B",
+    "perimeter": "Drôme, Ardèche, Alpes de Haute-Provence, Allier, Puy-de-Dôme, Hautes-Alpes, Vaucluse, Haute-Loire, Gard, Corse-du-Sud, Haute-Corse",
     "codeDepartement": [
       "26",
       "07",
@@ -190,6 +190,7 @@
     "charteURL": "https://www.edenmap.com/Site_fr/index_fr.html",
     "signatureDate": "2022-11-21",
     "codeDepartement": [],
+    "perimeter": "France entière",
     "isPerimeterFrance": true,
     "echelon": 3,
     "isCompany": true,
@@ -211,6 +212,7 @@
     "signatureDate": "2022-12-13",
     "isCompany": true,
     "isPerimeterFrance": true,
+    "perimeter": "France entière",
     "codeDepartement": [],
     "echelon": 3,
     "services": [
@@ -241,6 +243,7 @@
       "61",
       "72"
     ],
+    "perimeter": "Calvados, Côtes d’Armor, Finistère, Ile-et-Vilaine, Loire Atlantique, Maine-et-Loire, Manche, Mayenne, Morbihan, Orne, Sarthe",
     "echelon": 2,
     "isCompany": true,
     "services": [
