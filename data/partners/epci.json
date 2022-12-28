@@ -1174,5 +1174,27 @@
     "picture": "/images/logos/partners/epci/ccrmm.jpg",
     "height": 148,
     "width": 148
+  },
+  {
+    "name": "Communauté de Communes des Deux Vallées",
+    "infos": "Dans le cadre du partenariat local d’information géographique entre 4 intercommunalités depuis le 1er janvier 2022, la Communauté de Communes s’est engagée dans un programme d’accompagnement des communes.",
+    "link": "https://geo.compiegnois.fr/portail/index.php/2021/05/30/adresse-le-compiegnois-sur-la-bonne-voie/",
+    "charteURL": "https://adresse.data.gouv.fr/data/docs/charte-bal-v1.0.pdf",
+    "signatureDate": "2022-12-12",
+    "perimeter": "Communauté de Communes des Deux Vallées",
+    "codeDepartement": [
+      "60"
+    ],
+    "echelon": 1,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/ccdv.jpg",
+    "height": 110,
+    "width": 125
   }
 ]
