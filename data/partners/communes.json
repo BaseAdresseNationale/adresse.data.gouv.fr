@@ -238,5 +238,26 @@
     "height": 70,
     "width": 256,
     "signatureDate": "2022-11-30"
+  },
+  {
+    "name": "Saint-Maur-des-Fossés",
+    "link": "https://www.saint-maur.com",
+    "charteURL": "https://www.saint-maur.com/actualites/actualite/saint-maur-est-signataire-de-la-charte-base-adresse-locale",
+    "signatureDate": "2022-11-24",
+    "testimonyURL": "",
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "codeRegion": "11",
+    "codeDepartement": [
+      "94"
+    ],
+    "codeCommune": "94068",
+    "echelon": 0,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/saint-maur.png",
+    "height": 105,
+    "width": 200
   }
 ]
