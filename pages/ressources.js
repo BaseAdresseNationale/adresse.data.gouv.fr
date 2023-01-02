@@ -88,7 +88,7 @@ function Guides() {
           alt='miniature du guide bonne pratique'
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques.pdf'
           label='Télécharger le guide des bonnes pratiques'
-          version='3.1 - 11/03/2022'
+          version='4.0 - 02/01/2023'
         >
           <SectionText>
             <p>
