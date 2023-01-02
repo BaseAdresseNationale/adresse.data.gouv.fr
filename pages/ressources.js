@@ -83,6 +83,7 @@ function Guides() {
         <DocDownload
           id='guide-bonnes-pratiques'
           title='Le guide des bonnes pratiques'
+          subtitle='à l’usage des communes et de leurs partenaires'
           isReverse
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'

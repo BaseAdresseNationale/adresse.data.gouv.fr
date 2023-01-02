@@ -4,11 +4,12 @@ import {DownloadCloud} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-function DocDownload({title, link, label, src, isReverse, version, children}) {
+function DocDownload({title, subtitle, link, label, src, isReverse, version, children}) {
   return (
     <div className='doc-container'>
       <div className='text-container'>
         {title && <h3>{title}</h3>}
+        {subtitle && <h4>{subtitle}</h4>}
         {children}
       </div>
       <div className='doc-download-container'>
@@ -30,6 +31,12 @@ function DocDownload({title, link, label, src, isReverse, version, children}) {
           flex-wrap: wrap;
           flex-direction: ${isReverse ? 'row-reverse' : 'row'};
           margin: 1em 0;
+        }
+
+        h3 + h4 {
+          margin: -20px 0px 0 0;
+          font-size: small;
+          color: ${theme.colors.darkGrey};
         }
 
         .text-container {
@@ -76,6 +83,7 @@ DocDownload.propTypes = {
   link: PropTypes.string,
   label: PropTypes.string,
   title: PropTypes.string,
+  subtitle: PropTypes.string,
   src: PropTypes.string,
   version: PropTypes.string
 }
@@ -86,6 +94,7 @@ DocDownload.defaultProps = {
   link: null,
   label: null,
   title: null,
+  subtitle: null,
   src: null,
   version: null
 }
