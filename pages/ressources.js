@@ -83,12 +83,13 @@ function Guides() {
         <DocDownload
           id='guide-bonnes-pratiques'
           title='Le guide des bonnes pratiques'
+          subtitle='à l’usage des communes et de leurs partenaires'
           isReverse
           src='/images/previews/bonnes-pratiques-preview.png'
           alt='miniature du guide bonne pratique'
           link='https://adresse.data.gouv.fr/data/docs/guide-bonnes-pratiques.pdf'
           label='Télécharger le guide des bonnes pratiques'
-          version='3.1 - 11/03/2022'
+          version='4.0 - 02/01/2023'
         >
           <SectionText>
             <p>
