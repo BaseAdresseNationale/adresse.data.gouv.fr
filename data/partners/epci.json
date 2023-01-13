@@ -1196,5 +1196,28 @@
     "picture": "/images/logos/partners/epci/ccdv.jpg",
     "height": 110,
     "width": 125
+  },
+  {
+    "name": "Communauté d’Agglomération du Grand Avignon",
+    "infos": "La communauté d’agglomération du Grand Avignon accompagne les communes dans l'adressage avec un soutien personnalisé. Le service SIG propose à chaque commune des réunions de présentation et de sensibilisation, peut former les agents de mairie aux outils en ligne et maintenir un suivi de leur mise à jours.",
+    "link": "https://grand-avignon.business-geografic.com",
+    "charteURL": "https://grand-avignon.business-geografic.com/adws/app/bbcf18ca-5b56-11ed-8c17-0f7fc3e6453a/index.html",
+    "signatureDate": "2023-01-10",
+    "perimeter": "Les 16 communes de la Communauté d’Agglomération du Grand Avignon",
+    "codeDepartement": [
+      "84",
+      "30"
+    ],
+    "echelon": 1,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/grand-avignon.png",
+    "height": 136,
+    "width": 300
   }
 ]
