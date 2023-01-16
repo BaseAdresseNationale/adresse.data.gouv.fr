@@ -299,6 +299,8 @@
   {
     "name": "GÉOPAL",
     "link": "https://www.geopal.org/accueil/projet_regional_adresse/un_projet_en_lien_avec_la_base_adresse_nationale_etalab",
+    "charteURL": "https://www.geopal.org/accueil/projet_regional_adresse/un_projet_en_lien_avec_la_base_adresse_nationale_etalab",
+    "signatureDate": "2023-01-13",
     "infos": "GÉOPAL (portail de l’information géographique en Pays de la Loire), GÉOVENDEE, L.A. GÉODATA, GÉOMAYENNE, SIEML et Sarthe Numérique, proposent un accompagnement des communes dans leur démarche d'adressage avec la mobilisation de tous ses partenaires (chefs de file départementaux et EPCI) pour être au plus près des communes. Des guides méthodologiques et des outils s’adaptant à chacun sont notamment mis à disposition pour la constitution des Bases Adresses Locales.",
     "perimeter": "Région des Pays de la Loire (Vendée, Loire-Atlantique, Maine-et Loire, Mayenne, Sarthe)",
     "codeDepartement": [
