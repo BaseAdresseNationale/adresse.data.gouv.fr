@@ -1242,5 +1242,27 @@
     "picture": "/images/logos/partners/epci/sieeen.jpg",
     "height": 137,
     "width": 164
+  },
+  {
+    "name": "Loire Forez agglomération",
+    "info": "Depuis 2017, Loire Forez agglomération accompagne ses communes membres dans leur démarche d’adressage. Cette démarche contribue notamment à améliorer la qualité des services de livraison et à faciliter l’intervention rapide des secours.",
+    "link": "https://www.loireforez.fr/connaitre-agglo/actions-projets/adressage/",
+    "charteURL": "https://www.loireforez.fr/wp-content/uploads/2021/07/20210402_Charte_-BaseAdresseLocale_LoireForez-agglomeration.pdf",
+    "signatureDate": "2023-01-13",
+    "perimeter": "87 communes de Loire Forez agglomération",
+    "codeDepartement": [
+      "42"
+    ],
+    "echelon": 1,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/loire-forez-agglo.jpg",
+    "height": 160,
+    "width": 226
   }
 ]
