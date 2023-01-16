@@ -24,14 +24,15 @@ function PositionsTypes({positions, isMobile, isSafariBrowser, setCopyError, set
       <div>
         {positions.map(p => (
           <div key={uniqueId()} className='array-positions'>
-            <span className='position' style={{backgroundColor: positionsColors[p?.positionType]?.color || '#FF6347'}}>
+            <span className='position' size='small' style={{color: positionsColors[p?.positionType]?.color || '#FF6347'}}>
               {positionsColors[p.positionType]?.name || 'Inconnu'}
             </span>
-              <a href={`#18/${p.position.coordinates[1]}/${p.position.coordinates[0]}`}>
-                <Button size='small' style={{display: 'flex'}} label='Centrer sur la position' >
-                  Centrer sur la carte<TargetLockIcon alt aria-hidden='true' />
-                </Button>
-              </a>
+
+            <a href={`#18/${p.position.coordinates[1]}/${p.position.coordinates[0]}`}>
+              <Button color='secondary' size='small' style={{padding: '.5em'}} label='Centrer sur la position' >
+                Centrer sur la carte<TargetLockIcon style={{verticalAlign: 'middle'}} alt aria-hidden='true' />
+              </Button>
+            </a>
             <CoordinatesCopy
               isMobile={isMobile}
               isSafariBrowser={isSafariBrowser}
@@ -57,17 +58,16 @@ function PositionsTypes({positions, isMobile, isSafariBrowser, setCopyError, set
 
         .position {
           color: #FFF;
-          padding: 3px 10px;
-          margin: auto .5em;
-          border-radius: 4px;
+          padding: 3px;
           font-weight: 600;
           text-align: center;
           flex: 1;
         }
 
         .array-positions {
-          display: ${isMobile ? 'block' : 'flex'};
-          padding: ${isMobile ? '.5em 0' : '.5em'};
+          display: flex;
+          padding: ${isMobile ? '.5em 0.25em' : '.25em'};
+          gap: 0.5ch;
         }
       `}</style>
     </div>

@@ -47,7 +47,7 @@ function CoordinatesCopy({coordinates, setCopyError, setIsCopySucceded, setIsCop
         <Button
           type='button'
           size='small'
-          style={{width: '100%'}}
+          style={{width: '100%', padding: '.5em'}}
           onClick={handleClick}
         >
           Copier la position GPS
