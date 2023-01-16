@@ -1219,5 +1219,26 @@
     "picture": "/images/logos/partners/epci/grand-avignon.png",
     "height": 136,
     "width": 300
+  },
+  {
+    "name": "Syndicat Intercommunal d'Énergies, d'Équipement et d'Environnement de la Nièvre",
+    "infos": "Le SIEEEN propose aux communes un module dédié à la gestion des Base Adresse Locale. Celui-ci permet la création, les mises à jour des adresses ainsi que la génération des courriers d’informations de nouvel adressage ou de d’attestation d’adresse, le SIEEEN les accompagnant dans leurs démarches et la diffusion de la donnée.",
+    "link": "https://www.sieeen.fr/",
+    "charteURL": "https://www.sieeen.fr/sites/default/files/Fichier%20editeur/20220623%20Charte%20de%20la%20Base%20Adresse%20Locale%20-%20organisme%20public.pdf",
+    "signatureDate": "2023-01-12",
+    "perimeter": "Nièvre",
+    "codeDepartement": [
+      "58"
+    ],
+    "echelon": 2,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/sieeen.jpg",
+    "height": 137,
+    "width": 164
   }
 ]
