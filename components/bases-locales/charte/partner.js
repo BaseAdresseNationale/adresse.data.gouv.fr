@@ -15,7 +15,7 @@ function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
 
-  const {name, link, infos, perimeter, codeCommune, services, picture, height, width, isCompany} = partnerInfos
+  const {name, link, infos, perimeter, codeCommune, services, testimonyURL, picture, height, width, isCompany} = partnerInfos
   const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
@@ -87,6 +87,7 @@ function Partner({partnerInfos, isCommune}) {
               return <p key={service}>{formatTag(service)}</p>
             })}
           </div>
+          {testimonyURL && (<a href={partnerInfos.testimonyURL} className='temoignage'>Voir le témoignage</a>)}
         </div>
       )}
 
@@ -213,6 +214,10 @@ function Partner({partnerInfos, isCommune}) {
           display: flex;
           align-items: center;
         }
+
+        .temoignage:hover {
+          background-color: None
+        }
       `}</style>
     </div>
   )
@@ -226,6 +231,7 @@ Partner.propTypes = {
     codeCommune: PropTypes.string,
     perimeter: PropTypes.string,
     services: PropTypes.array,
+    testimonyURL: PropTypes.string,
     picture: PropTypes.string.isRequired,
     height: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
