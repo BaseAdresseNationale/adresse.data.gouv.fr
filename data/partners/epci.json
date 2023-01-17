@@ -299,6 +299,8 @@
   {
     "name": "GÉOPAL",
     "link": "https://www.geopal.org/accueil/projet_regional_adresse/un_projet_en_lien_avec_la_base_adresse_nationale_etalab",
+    "charteURL": "https://www.geopal.org/accueil/projet_regional_adresse/un_projet_en_lien_avec_la_base_adresse_nationale_etalab",
+    "signatureDate": "2023-01-13",
     "infos": "GÉOPAL (portail de l’information géographique en Pays de la Loire), GÉOVENDEE, L.A. GÉODATA, GÉOMAYENNE, SIEML et Sarthe Numérique, proposent un accompagnement des communes dans leur démarche d'adressage avec la mobilisation de tous ses partenaires (chefs de file départementaux et EPCI) pour être au plus près des communes. Des guides méthodologiques et des outils s’adaptant à chacun sont notamment mis à disposition pour la constitution des Bases Adresses Locales.",
     "perimeter": "Région des Pays de la Loire (Vendée, Loire-Atlantique, Maine-et Loire, Mayenne, Sarthe)",
     "codeDepartement": [
@@ -1196,5 +1198,71 @@
     "picture": "/images/logos/partners/epci/ccdv.jpg",
     "height": 110,
     "width": 125
+  },
+  {
+    "name": "Communauté d’Agglomération du Grand Avignon",
+    "infos": "La communauté d’agglomération du Grand Avignon accompagne les communes dans l'adressage avec un soutien personnalisé. Le service SIG propose à chaque commune des réunions de présentation et de sensibilisation, peut former les agents de mairie aux outils en ligne et maintenir un suivi de leur mise à jours.",
+    "link": "https://grand-avignon.business-geografic.com",
+    "charteURL": "https://grand-avignon.business-geografic.com/adws/app/bbcf18ca-5b56-11ed-8c17-0f7fc3e6453a/index.html",
+    "signatureDate": "2023-01-10",
+    "perimeter": "Les 16 communes de la Communauté d’Agglomération du Grand Avignon",
+    "codeDepartement": [
+      "84",
+      "30"
+    ],
+    "echelon": 1,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/grand-avignon.png",
+    "height": 136,
+    "width": 300
+  },
+  {
+    "name": "Syndicat Intercommunal d'Énergies, d'Équipement et d'Environnement de la Nièvre",
+    "infos": "Le SIEEEN propose aux communes un module dédié à la gestion des Base Adresse Locale. Celui-ci permet la création, les mises à jour des adresses ainsi que la génération des courriers d’informations de nouvel adressage ou de d’attestation d’adresse, le SIEEEN les accompagnant dans leurs démarches et la diffusion de la donnée.",
+    "link": "https://www.sieeen.fr/",
+    "charteURL": "https://www.sieeen.fr/sites/default/files/Fichier%20editeur/20220623%20Charte%20de%20la%20Base%20Adresse%20Locale%20-%20organisme%20public.pdf",
+    "signatureDate": "2023-01-12",
+    "perimeter": "Nièvre",
+    "codeDepartement": [
+      "58"
+    ],
+    "echelon": 2,
+    "isCompany": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/sieeen.jpg",
+    "height": 137,
+    "width": 164
+  },
+  {
+    "name": "Loire Forez agglomération",
+    "info": "Depuis 2017, Loire Forez agglomération accompagne ses communes membres dans leur démarche d’adressage. Cette démarche contribue notamment à améliorer la qualité des services de livraison et à faciliter l’intervention rapide des secours.",
+    "link": "https://www.loireforez.fr/connaitre-agglo/actions-projets/adressage/",
+    "charteURL": "https://www.loireforez.fr/wp-content/uploads/2021/07/20210402_Charte_-BaseAdresseLocale_LoireForez-agglomeration.pdf",
+    "signatureDate": "2023-01-13",
+    "perimeter": "87 communes de Loire Forez agglomération",
+    "codeDepartement": [
+      "42"
+    ],
+    "echelon": 1,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/loire-forez-agglo.jpg",
+    "height": 160,
+    "width": 226
   }
 ]
