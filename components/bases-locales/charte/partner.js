@@ -1,5 +1,6 @@
 import {useState, useEffect, useCallback} from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {ChevronDown, ChevronUp} from 'react-feather'
 
@@ -87,7 +88,11 @@ function Partner({partnerInfos, isCommune}) {
               return <p key={service}>{formatTag(service)}</p>
             })}
           </div>
-          {testimonyURL && (<a href={partnerInfos.testimonyURL} className='temoignage'>Voir le témoignage</a>)}
+          {testimonyURL && (
+            <Link href={partnerInfos.testimonyURL}>
+              <a className='temoignage'>Voir le témoignage</a>
+            </Link>
+          )}
         </div>
       )}
 
@@ -216,7 +221,7 @@ function Partner({partnerInfos, isCommune}) {
         }
 
         .temoignage:hover {
-          background-color: None
+          background-color: transparent;
         }
       `}</style>
     </div>
