@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
 import {Doughnut} from 'react-chartjs-2'
+import { Chart, ArcElement } from "chart.js";
 import Image from 'next/image'
 
 import theme from '@/styles/theme'
+
+Chart.register(ArcElement);
 
 function toCounterData(percent, total) {
   return {
