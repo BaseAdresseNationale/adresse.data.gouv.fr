@@ -1,7 +1,7 @@
 
 import {useState, useEffect, useCallback} from 'react'
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Link from 'next/link'
 
 import Page from '@/layouts/main'
@@ -139,7 +139,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
         {commune && (
           <div className='commune-infos'>
             <Image src='/images/icons/commune.svg' height={60} width={60} alt aria-hidden='true' />
-            <Link href={`/commune/${commune.code}`} passHref><div>{commune.nom} - {commune.code}</div></Link>
+            <Link href={`/commune/${commune.code}`} passHref legacyBehavior><div>{commune.nom} - {commune.code}</div></Link>
           </div>
         )}
 
@@ -223,7 +223,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
         }
       `}</style>
     </Page>
-  )
+  );
 }
 
 PublicationPage.getInitialProps = async ({query}) => {

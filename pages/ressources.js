@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {Book} from 'react-feather'
 
 import Page from '@/layouts/main'
@@ -25,7 +25,7 @@ function Guides() {
           <p>La <b>documentation</b> présente la Base Adresse Nationale, les formats d’adresse ainsi que les services et outils accessibles sur le site.</p>
           <p>La <b>F.A.Q</b> répond aux questions les plus courantes, posées lors des <b>webinaires</b> par les acteurs de la commune.</p>
           <p>
-            Pour être tenu informé des mises à jour ou suggérer des évolutions, n’hésitez-pas à <Link href='/nous-contacter'>nous contacter</Link>.
+            Pour être tenu informé des mises à jour ou suggérer des évolutions, n’hésitez-pas à <Link href='/nous-contacter' legacyBehavior>nous contacter</Link>.
           </p>
         </SectionText>
       </Section>
@@ -159,7 +159,7 @@ function Guides() {
         </div>
       </Section>
     </Page>
-  )
+  );
 }
 
 export default Guides

@@ -17,68 +17,69 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
-  return (
-    <>
-      <div className='heading'>
-        <div>
-          <h2>{nomVoie}</h2>
-          {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
-        </div>
-
-        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-        {region && departement && (
-          <RegionInfos codeCommune={commune.code} region={region} departement={departement} />
-        )}
-        <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
+  return <>
+    <div className='heading'>
+      <div>
+        <h2>{nomVoie}</h2>
+        {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
       </div>
 
-      {!displayBBox && (
-        <Notification type='warning' message='Aucune position n’est connue pour cette adresse, elle ne peut donc pas être affichée sur la carte.' />
+      {commune && <h4><Link
+        href={`/base-adresse-nationale?id=${commune.id}`}
+        as={`/base-adresse-nationale/${commune.id}`}
+        legacyBehavior><a>{commune.nom} - {commune.code}</a></Link></h4>}
+      {region && departement && (
+        <RegionInfos codeCommune={commune.code} region={region} departement={departement} />
       )}
+      <div className='number-of-numeros'>{nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéros répertorié'}</div>
+    </div>
 
-      {isToponyme ? (
-        <Tag type='lieu-dit' />
-      ) : (
-        <div className='numeros-list'>
-          <AddressesList
-            title='Numéros de la voie'
-            addresses={numeros}
-            placeholder='Rechercher un numéro'
-            getLabel={getNumeroComplet}
-            addressComponent={numero => (
-              <Numero isCertified={numero.certifie} {...numero} />
-            )}
-          />
-        </div>
-      )}
+    {!displayBBox && (
+      <Notification type='warning' message='Aucune position n’est connue pour cette adresse, elle ne peut donc pas être affichée sur la carte.' />
+    )}
 
-      {parcelles && <div style={{marginTop: '1em'}}>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>}
+    {isToponyme ? (
+      <Tag type='lieu-dit' />
+    ) : (
+      <div className='numeros-list'>
+        <AddressesList
+          title='Numéros de la voie'
+          addresses={numeros}
+          placeholder='Rechercher un numéro'
+          getLabel={getNumeroComplet}
+          addressComponent={numero => (
+            <Numero isCertified={numero.certifie} {...numero} />
+          )}
+        />
+      </div>
+    )}
 
-      <style jsx>{`
-        .heading {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          gap: 1em;
-          margin: 1.2em 0;
-          border-bottom: solid 1px ${colors.lightGrey}
-        }
+    {parcelles && <div style={{marginTop: '1em'}}>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>}
 
-        .heading h2 {
-          margin: 0;
-        }
+    <style jsx>{`
+      .heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1em;
+        margin: 1.2em 0;
+        border-bottom: solid 1px ${colors.lightGrey}
+      }
 
-        .heading h4 {
-          margin-bottom: 0.2em;
-        }
+      .heading h2 {
+        margin: 0;
+      }
 
-        .number-of-numeros {
-          font-weight: bolder;
-          margin: 2em 0 0.7em 0;
-        }
-        `}</style>
-    </>
-  )
+      .heading h4 {
+        margin-bottom: 0.2em;
+      }
+
+      .number-of-numeros {
+        font-weight: bolder;
+        margin: 2em 0 0.7em 0;
+      }
+      `}</style>
+  </>;
 }
 
 Voie.propTypes = {

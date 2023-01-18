@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {ChevronRight, ChevronDown, Info, Mail, Users, Clock, LogIn} from 'react-feather'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data.gouv.fr'

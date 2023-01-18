@@ -4,67 +4,64 @@ import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 
 function CircleLink({size, href, isExternal, icon, label, fontSize, isImportant, isDisable, children}) {
-  return (
-    <>
-      {isExternal ? (
-        <a href={href} className={isDisable ? 'disable' : ''} aria-label={label || children}>
+  return <>
+    {isExternal ? (
+      <a href={href} className={isDisable ? 'disable' : ''} aria-label={label || children}>
+        <div className='circle'>
+          {icon}
+        </div>
+        {children}
+      </a>
+    ) : (
+      <Link href={href} legacyBehavior>
+        <a className={isDisable ? 'disable' : ''} aria-label={label || children}>
           <div className='circle'>
             {icon}
           </div>
           {children}
         </a>
-      ) : (
-        <Link href={href}>
-          <a className={isDisable ? 'disable' : ''} aria-label={label || children}>
-            <div className='circle'>
-              {icon}
-            </div>
-            {children}
-          </a>
-        </Link>
-      )}
+      </Link>
+    )}
 
-      <style jsx>{`
-        .circle {
-          background: ${theme.primary};
-          color: ${theme.colors.white};
-          border-radius: 50%;
-          width: ${size}px;
-          height: ${size}px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+    <style jsx>{`
+      .circle {
+        background: ${theme.primary};
+        color: ${theme.colors.white};
+        border-radius: 50%;
+        width: ${size}px;
+        height: ${size}px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        a {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          text-transform: ${isImportant ? 'uppercase' : 'none'};
-          text-decoration: ${isImportant ? 'none' : 'underline'};
-          font-weight: 700;
-          color: ${theme.darkText};
-          gap: 10px;
-          height: fit-content;
-          padding: 1em;
-          font-size: ${fontSize};
-        }
+      a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        text-transform: ${isImportant ? 'uppercase' : 'none'};
+        text-decoration: ${isImportant ? 'none' : 'underline'};
+        font-weight: 700;
+        color: ${theme.darkText};
+        gap: 10px;
+        height: fit-content;
+        padding: 1em;
+        font-size: ${fontSize};
+      }
 
-        a.button:hover {
-          background-color: ${theme.colors.darkerGrey};
-        }
+      a.button:hover {
+        background-color: ${theme.colors.darkerGrey};
+      }
 
-        .disable {
-          opacity: 50%;
-          color: ${theme.colors.lightGrey};
-          pointer-events: none;
-        }
-      `}</style>
-    </>
-
-  )
+      .disable {
+        opacity: 50%;
+        color: ${theme.colors.lightGrey};
+        pointer-events: none;
+      }
+    `}</style>
+  </>;
 }
 
 CircleLink.propTypes = {

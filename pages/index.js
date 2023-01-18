@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 
 import {getStats} from '@/lib/api-ban'
 import {getPosts} from '@/lib/blog'
@@ -58,7 +58,7 @@ function Home({stats, posts}) {
 
       <Section title='Adoptez la Charte de la Base Adresse Locale et rejoignez les organismes partenaires'>
         <SectionText>
-          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales'>Base Adresse Locale</Link>.</p>
+          <p>Administrée par <b>la DINUM</b>, <b>la Base Adresse Nationale</b> privilégie le format <Link href='/bases-locales' legacyBehavior>Base Adresse Locale</Link>.</p>
           <p><b>Une Charte</b> encourage le partage des bonnes pratiques, permet aux <b>organismes</b> qui promeuvent activement <b>le format Base Adresse Locale</b> d’être identifiés et aux communes de se repérer.</p>
         </SectionText>
 
@@ -171,7 +171,7 @@ function Home({stats, posts}) {
         <SocialMedia />
       </Section>
     </Page>
-  )
+  );
 }
 
 export async function getServerSideProps() {

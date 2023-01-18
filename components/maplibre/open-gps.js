@@ -13,7 +13,7 @@ function OpenGPS({coordinates}) {
   const href = isSafariBrowser ? 'http://maps.apple.com/?address=' : 'geo:'
 
   return (
-    <Link href={`${href}${lat},${lon}`} passHref>
+    <Link href={`${href}${lat},${lon}`} passHref legacyBehavior>
       <ActionButtonNeutral label='Naviguer sur la carte'>
         <div className='maplibregl-ctrl navigation-icon'>
           <Navigation size={18} />
@@ -30,7 +30,7 @@ function OpenGPS({coordinates}) {
         </div>
       </ActionButtonNeutral>
     </Link>
-  )
+  );
 }
 
 OpenGPS.propTypes = {

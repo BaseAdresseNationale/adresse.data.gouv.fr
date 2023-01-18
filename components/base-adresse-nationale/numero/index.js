@@ -28,130 +28,134 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
   const sanitizedType = positionType ? (positionType.charAt(0).toUpperCase() + positionType.slice(1)) : 'Inconnu'
 
-  return (
-    <>
-      <div className='heading'>
-        <div className='voie-names'>
-          <div className='name-certification'>
-            <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
-            <div>
-              <Certification
-                isCertified={certifie || sourcePosition === 'bal'}
-                validIconColor={certifie ? theme.successBorder : theme.border}
-                certifiedMessage={
-                  certifie ?
-                    'Cette adresse est certifiée par la commune' :
-                    'Cette adresse est en cours de certification par la commune'
-                }
-                notCertifiedMessage='Cette adresse n’est pas certifiée par la commune'
-              />
-            </div>
-          </div>
-          {voie?.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
-        </div>
-
-        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
-      </div>
-
-      <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
-      <div className='numero-details'>
-        {lieuDitComplementNom && (
+  return <>
+    <div className='heading'>
+      <div className='voie-names'>
+        <div className='name-certification'>
+          <h2>{getNumeroComplet({numero, suffixe})} <Link
+            href={`/base-adresse-nationale?id=${voie.id}`}
+            as={`/base-adresse-nationale/${voie.id}`}
+            legacyBehavior><a>{voie.nomVoie}</a></Link>,</h2>
           <div>
-            <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
-            {lieuDitComplementNomAlt && <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />}
+            <Certification
+              isCertified={certifie || sourcePosition === 'bal'}
+              validIconColor={certifie ? theme.successBorder : theme.border}
+              certifiedMessage={
+                certifie ?
+                  'Cette adresse est certifiée par la commune' :
+                  'Cette adresse est en cours de certification par la commune'
+              }
+              notCertifiedMessage='Cette adresse n’est pas certifiée par la commune'
+            />
           </div>
-        )}
-        {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
-        {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
-        <div>Type de position : <b>{sanitizedType}</b></div>
-        <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
-        <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
+        </div>
+        {voie?.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
       </div>
 
-      {positions?.length > 1 ? (
-        <PositionsTypes
-          positions={positions}
-          isMobile={isMobile}
-          isSafariBrowser={isSafariBrowser}
-          setCopyError={setCopyError}
-          setIsCopySucceded={setIsCopySucceded}
-          setIsCopyAvailable={setIsCopyAvailable}
-        />
-      ) : (
-        <CoordinatesCopy
-          isMobile={isMobile}
-          isSafariBrowser={isSafariBrowser}
-          coordinates={coordinates}
-          setCopyError={setCopyError}
-          setIsCopySucceded={setIsCopySucceded}
-          setIsCopyAvailable={setIsCopyAvailable}
-        />
+      {commune && <h4><Link
+        href={`/base-adresse-nationale?id=${commune.id}`}
+        as={`/base-adresse-nationale/${commune.id}`}
+        legacyBehavior><a>{commune.nom} - {commune.code}</a></Link></h4>}
+    </div>
+
+    <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
+    <div className='numero-details'>
+      {lieuDitComplementNom && (
+        <div>
+          <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
+          {lieuDitComplementNomAlt && <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />}
+        </div>
       )}
+      {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
+      {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
+      <div>Type de position : <b>{sanitizedType}</b></div>
+      <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
+      <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
+    </div>
 
-      {isCopySucceded && (
-        <Alert
-          type='success'
-          message='Coordonnées GPS copiées'
-          onClose={() => setIsCopySucceded(false)}
-        />
-      )}
+    {positions?.length > 1 ? (
+      <PositionsTypes
+        positions={positions}
+        isMobile={isMobile}
+        isSafariBrowser={isSafariBrowser}
+        setCopyError={setCopyError}
+        setIsCopySucceded={setIsCopySucceded}
+        setIsCopyAvailable={setIsCopyAvailable}
+      />
+    ) : (
+      <CoordinatesCopy
+        isMobile={isMobile}
+        isSafariBrowser={isSafariBrowser}
+        coordinates={coordinates}
+        setCopyError={setCopyError}
+        setIsCopySucceded={setIsCopySucceded}
+        setIsCopyAvailable={setIsCopyAvailable}
+      />
+    )}
 
-      {copyError && (
-        <Alert
-          type='error'
-          message={copyError}
-          onClose={() => setCopyError(null)}
-        />
-      )}
+    {isCopySucceded && (
+      <Alert
+        type='success'
+        message='Coordonnées GPS copiées'
+        onClose={() => setIsCopySucceded(false)}
+      />
+    )}
 
-      {!isCopyAvailable && (
-        <Alert
-          type='warning'
-          duration={10000}
-          message={copyUnvailableMessage}
-          onClose={() => setIsCopyAvailable(true)}
-        />
-      )}
+    {copyError && (
+      <Alert
+        type='error'
+        message={copyError}
+        onClose={() => setCopyError(null)}
+      />
+    )}
 
-      <style jsx>{`
-        .heading {
-          display: flex;
-          flex-direction: column;
-          margin: 1.2em 0;
-          border-bottom: 1px solid ${colors.lighterGrey};
-        }
+    {!isCopyAvailable && (
+      <Alert
+        type='warning'
+        duration={10000}
+        message={copyUnvailableMessage}
+        onClose={() => setIsCopyAvailable(true)}
+      />
+    )}
 
-        .heading h2 {
-          margin-bottom: 0.2em;
-        }
+    <style jsx>{`
+      .heading {
+        display: flex;
+        flex-direction: column;
+        margin: 1.2em 0;
+        border-bottom: 1px solid ${colors.lighterGrey};
+      }
 
-        .name-certification {
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
+      .heading h2 {
+        margin-bottom: 0.2em;
+      }
 
-        .voie-names {
-          margin-bottom: 1em;
-        }
+      .name-certification {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-        .numero-details {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-          align-items: start;
-        }
+      .voie-names {
+        margin-bottom: 1em;
+      }
 
-        .numero-details > div {
-          margin: 0.5em 0 0.5em 0;
-          font-size: 1.1em;
-          font-style: italic;
-          color: ${colors.almostBlack};
-        }
-      `}</style>
-    </>
-  )
+      .numero-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: start;
+      }
+
+      .numero-details > div {
+        margin: 0.5em 0 0.5em 0;
+        font-size: 1.1em;
+        font-style: italic;
+        color: ${colors.almostBlack};
+      }
+    `}</style>
+  </>;
 }
 
 Numero.propTypes = {

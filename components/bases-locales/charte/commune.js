@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Link from 'next/link'
 import {ExternalLink} from 'react-feather'
 
@@ -13,7 +13,10 @@ function Commune({name, codeCommune, picture, height, width, signatureDate, char
     <div className='commune-container' onClick={event => event.stopPropagation()}>
       <div className='commune-infos'>
         <Image src={picture} height={height / 2} width={width / 2} alt aria-hidden='true' />
-        <Link href={`/commune/${codeCommune}`} aria-label={`Aller sur la page commune de ${name}`}>{`${name} - ${codeCommune}`}</Link>
+        <Link
+          href={`/commune/${codeCommune}`}
+          aria-label={`Aller sur la page commune de ${name}`}
+          legacyBehavior>{`${name} - ${codeCommune}`}</Link>
       </div>
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
       {charteURL && (
@@ -54,7 +57,7 @@ function Commune({name, codeCommune, picture, height, width, signatureDate, char
         }
       `}</style>
     </div>
-  )
+  );
 }
 
 Commune.propTypes = {

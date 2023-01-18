@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 

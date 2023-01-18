@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {Download, ExternalLink} from 'react-feather'
 
 import Page from '@/layouts/main'
@@ -93,7 +93,7 @@ function DonneesNationales() {
           <div>
             La Base Adresse Nationale est <b>constituée commune par commune</b>, sur le principe suivant :
             <ul>
-              <li>si la commune dispose d’une <Link href='/bases-locales'><a>Base Adresse Locale</a></Link>, ce sont ces adresses qui sont incluses dans la Base Adresse Nationale ;</li>
+              <li>si la commune dispose d’une <Link href='/bases-locales' legacyBehavior><a>Base Adresse Locale</a></Link>, ce sont ces adresses qui sont incluses dans la Base Adresse Nationale ;</li>
               <li>dans le cas contraire, la liste des adresses est générée par défaut à partir des <b>meilleures sources disponibles</b> (DGFiP, IGN, ARCEP, Guichet Adresse).</li>
             </ul>
           </div>
@@ -139,7 +139,7 @@ function DonneesNationales() {
         }
       `}</style>
     </Page >
-  )
+  );
 }
 
 export default DonneesNationales

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {groupBy, sum, uniq} from 'lodash'
 import {Award, Mail} from 'react-feather'
 

@@ -5,7 +5,7 @@ function Ribbon() {
   return (
     <div>
       <div className='ribbon'>
-        <strong>Nouveautés</strong> : consultez nos <Link href='/ressources'>guides de l’adressage</Link> à destination des collectivités.
+        <strong>Nouveautés</strong> : consultez nos <Link href='/ressources' legacyBehavior>guides de l’adressage</Link> à destination des collectivités.
       </div>
       <style jsx>{`
       .ribbon {
@@ -17,7 +17,7 @@ function Ribbon() {
       }
     `}</style>
     </div>
-  )
+  );
 }
 
 export default Ribbon

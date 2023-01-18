@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 
 import theme from '@/styles/theme'
 
@@ -20,7 +20,7 @@ function Header() {
     <nav className='nav'>
       <div className='nav__container'>
 
-        <Link href='/'>
+        <Link href='/' legacyBehavior>
           <a className='nav__link'>
             <Image layout='responsive' width={424} height={100} src='/images/logos/logo-rf.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
           </a>
@@ -32,7 +32,7 @@ function Header() {
               {link.isExternal ? (
                 <a href={link.href}>{link.text}</a>
               ) : (
-                <Link href={link.href}><a>{link.text}</a></Link>
+                <Link href={link.href} legacyBehavior><a>{link.text}</a></Link>
               )}
             </li>
           ))}
@@ -136,7 +136,7 @@ function Header() {
       }
   `}</style>
     </nav>
-  )
+  );
 }
 
 export default Header

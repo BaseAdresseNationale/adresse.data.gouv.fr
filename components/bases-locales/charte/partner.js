@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import PropTypes from 'prop-types'
 import {ChevronDown, ChevronUp} from 'react-feather'
 

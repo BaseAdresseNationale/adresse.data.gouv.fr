@@ -6,7 +6,7 @@ import Container from './container'
 
 export function ToolCard({title, href, description, icon}) {
   return (
-    <Link href={href}>
+    <Link href={href} legacyBehavior>
       <a className='api-container'>
         <div className='title'>
           <div className='circle'>{icon}</div>
@@ -58,7 +58,7 @@ export function ToolCard({title, href, description, icon}) {
         `}</style>
       </a>
     </Link>
-  )
+  );
 }
 
 ToolCard.propTypes = {

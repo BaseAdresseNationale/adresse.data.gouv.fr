@@ -27,19 +27,17 @@ function ButtonLink({size, color, href, label, isDisabled, isOutlined, isExterna
     )
   }
 
-  return (
-    isExternal ? (
-      <a href={href} aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+  return isExternal ? (
+    <a href={href} aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
+      {children}
+    </a>
+  ) : (
+    <Link href={href} legacyBehavior>
+      <a aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
         {children}
       </a>
-    ) : (
-      <Link href={href}>
-        <a aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
-          {children}
-        </a>
-      </Link>
-    )
-  )
+    </Link>
+  );
 }
 
 ButtonLink.propTypes = {

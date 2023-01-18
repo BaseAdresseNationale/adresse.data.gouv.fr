@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Link from 'next/link'
 
 import colors from '@/styles/colors'
@@ -11,7 +11,7 @@ function BlogCard({post, onClick}) {
 
   return (
     <div className='blog-container'>
-      <Link href={link} passHref>
+      <Link href={link} passHref legacyBehavior>
         <h2 className='blog-title'>{post.title}</h2>
       </Link>
       <div className='blog-image-container'>
@@ -32,7 +32,7 @@ function BlogCard({post, onClick}) {
         </div>
       )}
       <div className='blog-link-container'>
-        <Link href={link}>
+        <Link href={link} legacyBehavior>
           <a aria-label={`Lire l’article ${post.title}`}>Lire l’article</a>
         </Link>
       </div>
@@ -103,7 +103,7 @@ function BlogCard({post, onClick}) {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
 BlogCard.defaultProps = {

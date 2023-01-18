@@ -2,7 +2,7 @@
 import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {ArrowLeftCircle} from 'react-feather'
 
 import colors from '@/styles/colors'
@@ -57,7 +57,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
 
   return (
     <Section>
-      <Link href={backLink}>
+      <Link href={backLink} legacyBehavior>
         <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt aria-hidden='true' /> Retour</a>
       </Link>
 
@@ -73,7 +73,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
         <div className='blog-separator' />
       </div>
 
-      <Link href={backLink}>
+      <Link href={backLink} legacyBehavior>
         <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt aria-hidden='true' /> Retour</a>
       </Link>
 
@@ -446,7 +446,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
         }
       `}</style>
     </Section>
-  )
+  );
 }
 
 Post.defaultProps = {

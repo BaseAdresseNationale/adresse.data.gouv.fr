@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {HelpCircle} from 'react-feather'
 
 import Tooltip from '@/components/base-adresse-nationale/tooltip'

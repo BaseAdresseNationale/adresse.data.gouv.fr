@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import {Smile, XCircle} from 'react-feather'
 
 import theme from '@/styles/theme'

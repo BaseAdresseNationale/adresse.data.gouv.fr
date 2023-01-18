@@ -22,11 +22,11 @@ function GererMesAdresses() {
           </p>
 
           <p>
-            Pour qu’elles puissent exprimer pleinement cette compétence, il est proposé aux communes de mettre en place un <b>fichier répertoriant l’intégralité des voies et des adresses</b> présentes sur leur territoire, une <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>.
+            Pour qu’elles puissent exprimer pleinement cette compétence, il est proposé aux communes de mettre en place un <b>fichier répertoriant l’intégralité des voies et des adresses</b> présentes sur leur territoire, une <Link href='/bases-locales' legacyBehavior><a><b>Base Adresse Locale</b></a></Link>.
           </p>
 
           <p>
-            Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales'><a><b>Base Adresse Locale</b></a></Link>, que vous soyez élu ou agent municipal habilité.
+            Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales' legacyBehavior><a><b>Base Adresse Locale</b></a></Link>, que vous soyez élu ou agent municipal habilité.
           </p>
 
           <p>
@@ -80,7 +80,7 @@ function GererMesAdresses() {
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt aria-hidden='true' />
-            <Link href='/ressources'>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
+            <Link href='/ressources' legacyBehavior>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
           </div>
         </Notification>
       </Section>
@@ -208,7 +208,7 @@ function GererMesAdresses() {
         }
       `}</style>
     </Page>
-  )
+  );
 }
 
 export default GererMesAdresses

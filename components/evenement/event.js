@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 
 import {dateWithDay} from '@/lib/date'
 

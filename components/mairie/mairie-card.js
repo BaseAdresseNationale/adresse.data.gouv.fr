@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 
 import colors from '@/styles/colors'
 import theme from '@/styles/theme'
