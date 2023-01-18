@@ -19,6 +19,11 @@ Il utilise [React](https://reactjs.org), [Next.js](https://nextjs.org) et [MapLi
 yarn
 ```
 
+## Drapeaux disponible pour les langues régionales
+```
+$ yarn build-available-flags
+```
+
 ### Lancer en mode développement
 
 ```bash
