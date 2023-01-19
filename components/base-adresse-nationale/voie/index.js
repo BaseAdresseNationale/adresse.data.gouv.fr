@@ -25,7 +25,7 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
           {nomVoieAlt && <LanguagesPreview nomAlt={nomVoieAlt} />}
         </div>
 
-        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
+        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`} legacyBehavior><a>{commune.nom} - {commune.code}</a></Link></h4>}
         {region && departement && (
           <RegionInfos codeCommune={commune.code} region={region} departement={departement} />
         )}

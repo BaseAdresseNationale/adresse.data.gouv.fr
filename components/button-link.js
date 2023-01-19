@@ -32,7 +32,7 @@ function ButtonLink({size, color, href, label, isDisabled, isOutlined, isExterna
   return (
     isExternal ?
       <a href={href} {...newProps}>{children}</a> :
-      <Link href={href}><a {...newProps} >{children}</a></Link>
+      <Link href={href} legacyBehavior><a {...newProps} >{children}</a></Link>
   )
 }
 

@@ -33,7 +33,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
       <div className='heading'>
         <div className='voie-names'>
           <div className='name-certification'>
-            <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`}><a>{voie.nomVoie}</a></Link>,</h2>
+            <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`} legacyBehavior><a>{voie.nomVoie}</a></Link>,</h2>
             <div>
               <Certification
                 isCertified={certifie || sourcePosition === 'bal'}
@@ -50,7 +50,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
           {voie?.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
         </div>
 
-        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`}><a>{commune.nom} - {commune.code}</a></Link></h4>}
+        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`} legacyBehavior><a>{commune.nom} - {commune.code}</a></Link></h4>}
       </div>
 
       <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />

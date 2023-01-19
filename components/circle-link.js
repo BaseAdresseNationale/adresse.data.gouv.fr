@@ -14,7 +14,7 @@ function CircleLink({size, href, isExternal, icon, label, fontSize, isImportant,
           {children}
         </a>
       ) : (
-        <Link href={href}>
+        <Link href={href} legacyBehavior>
           <a className={isDisable ? 'disable' : ''} aria-label={label || children}>
             <div className='circle'>
               {icon}

@@ -8,7 +8,7 @@ import LanguagesPreview from '../languages-preview'
 
 function Voie({id, type, nomVoie, nomVoieAlt, nbNumeros}) {
   return (
-    <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
+    <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`} legacyBehavior>
       <a>
         <div className='voie'>
           <div className='voie-names'>
