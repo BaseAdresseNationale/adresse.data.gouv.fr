@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 import {getStats} from '@/lib/api-ban'
 import {getPosts} from '@/lib/blog'

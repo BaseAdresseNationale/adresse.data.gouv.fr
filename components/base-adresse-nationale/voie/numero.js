@@ -8,7 +8,7 @@ import Certification from '../certification'
 
 function Numero({id, numero, suffixe, lieuDitComplementNom, sourcePosition, isCertified}) {
   return (
-    <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`}>
+    <Link href={`/base-adresse-nationale?id=${id}`} as={`/base-adresse-nationale/${id}`} legacyBehavior>
       <a>
         <div className='numero'>
           <b>{getNumeroComplet({numero, suffixe})}</b> {lieuDitComplementNom}

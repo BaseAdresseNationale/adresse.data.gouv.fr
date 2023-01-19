@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import {ChevronDown, ChevronRight} from 'react-feather'
 
 import Container from '@/components/container'
@@ -15,7 +15,7 @@ function SocialMedia() {
   return (
     <>
       <div className='socials'>
-        <Link href='/blog'>
+        <Link href='/blog' legacyBehavior>
           <a aria-label='Consulter notre blog'>
             <Image src='/images/logos/blog.svg' height={88} width={88} alt aria-hidden='true' />
             <div>En lisant notre blog</div>
