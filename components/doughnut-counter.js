@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types'
 import {Doughnut} from 'react-chartjs-2'
+import {Chart as ChartJS, ArcElement} from 'chart.js'
+
+ChartJS.register(ArcElement)
 
 function DoughnutCounter({title, valueUp, valueDown, data, options}) {
   return (
