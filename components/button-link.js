@@ -27,18 +27,12 @@ function ButtonLink({size, color, href, label, isDisabled, isOutlined, isExterna
     )
   }
 
+  const newProps = {'aria-label': label, className: `button${isOutlined ? '-outline' : ''} ${size} ${color}`, ...props}
+
   return (
-    isExternal ? (
-      <a href={href} aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props}>
-        {children}
-      </a>
-    ) : (
-      <Link href={href}>
-        <a aria-label={label} className={`button${isOutlined ? '-outline' : ''} ${size} ${color}`} {...props} >
-          {children}
-        </a>
-      </Link>
-    )
+    isExternal ?
+      <a href={href} {...newProps}>{children}</a> :
+      <Link href={href}><a {...newProps} >{children}</a></Link>
   )
 }
 
