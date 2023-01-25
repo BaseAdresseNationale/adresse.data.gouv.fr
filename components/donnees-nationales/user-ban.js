@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 
 function UserBAN({UserInfos}) {
-  const {name, link, usage, picture, height, width} = {...UserInfos}
+  const {name, link, usage, picture, height, width} = UserInfos
 
   return (
     <div className='user'>
