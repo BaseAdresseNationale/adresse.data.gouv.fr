@@ -71,7 +71,7 @@ function BaseAdresseNationale({address}) {
   useEffect(() => {
     let bbox = address?.displayBBox
 
-    if (!initialHash && address?.positions?.length > 1) {
+    if (address?.positions?.length > 1) {
       const coordinates = address.positions.map(p => {
         return p.position.coordinates
       })
