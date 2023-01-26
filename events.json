@@ -1549,14 +1549,8 @@
       "Co construction"
     ],
     "isOnlineOnly": true,
-    "address": {
-      "nom": "",
-      "numero": "",
-      "voie": "",
-      "codePostal": "",
-      "commune": ""
-    },
-    "href": "",
+    "address": {},
+    "href": "https://webinaire.numerique.gouv.fr//meeting/signin/5699/creator/3324/hash/61fcf6f21947874ba68b105a3433cdd55e43ffb9",
     "isSubscriptionClosed": false,
     "instructions": "",
     "startHour": "10:30",
