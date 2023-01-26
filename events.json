@@ -1534,5 +1534,26 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
+  },
+  {
+    "title": "Adresse_Lab #5",
+    "subtitle": "point d'étape T1 2023",
+    "description": "Point d’actualités et d’avancement sur le chantier en cours de l’ID unique de l’adresse",
+    "type": "adresselab",
+    "target": "utilisateurs techniques",
+    "date": "2023-02-14",
+    "tags": [
+      "Adresse",
+      "Base Adresse Nationale",
+      "Referentiel",
+      "Co construction"
+    ],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://webinaire.numerique.gouv.fr//meeting/signin/5699/creator/3324/hash/61fcf6f21947874ba68b105a3433cdd55e43ffb9",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
   }
 ]
