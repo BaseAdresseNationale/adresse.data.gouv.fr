@@ -1264,5 +1264,70 @@
     "picture": "/images/logos/partners/epci/loire-forez-agglo.jpg",
     "height": 160,
     "width": 226
+  },
+  {
+    "name": "Agglomération Montargoise",
+    "link": "https://geoloiret.loiret-numerique.fr/arcgis/apps/sites/#/agglomontargoise/pages/ame-pluihd",
+    "charteURL": "https://ged.loiret.fr/share/s/cFZXoqO2QyaURdxfplyaAw",
+    "infos": "L’Agglomération Montargoise propose un accompagnement méthodologique et technique aux communes de son territoire pour la création et la mise à jour de leur Base Adresse Locale. Cet engagement prend la forme d’une collaboration entre le service SIG de l’intercommunalité, les élus et techniciens des communes.",
+    "perimeter": "Les 15 communes de l’Agglomération Montargoise",
+    "codeDepartement": [
+      "45"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "mise à disposition d'outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/montargoise.png",
+    "height": 135,
+    "width": 130
+  },
+  {
+    "name": "SIEL-TE",
+    "link": "https://www.te42.fr/",
+    "charteURL": "https://www.te42.fr/wp-content/uploads/2022/08/Charte-de-la-Base-Adresse-Locale-organisme-public.pdf",
+    "infos": "Le SIEL-TE propose un outil pour accompagner votre commune dans la fiabilisation de l'adressage de votre territoire. Celui-ci vous permettra de diagnostiquer la qualité des adresses de votre commune et vous aidera à résoudre les anomalies d’adressage (modification, doublon, suppression, numérotation des voies…). En complément, il vous permettra également de créer de nouvelles adresses, notamment en lien avec les nouvelles constructions sur votre territoire.",
+    "perimeter": "Communes du département de la Loire",
+    "codeDepartement": [
+      "42"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d'outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/siel.png",
+    "height": 124,
+    "width": 281
+  },
+  {
+    "name": "Lamballe Terre & Mer",
+    "link": "https://sig.lamballe-terre-mer.bzh/",
+    "charteURL": "https://sig.lamballe-terre-mer.bzh/html/images/20220517%20Charte%20Lamballe%20Terre%20&%20Mer.pdf",
+    "infos": "Le service SIG de Lamballe Terre & Mer se propose, dans le cadre de ses prestations aux Communes, de les accompagner dans la mise en place de leur adressage communal au travers de la Base Adresse Locale. Le service SIG propose un outils de mise à jour et de suivi de l'adressage dans les communes",
+    "perimeter": "Communes de la communauté d'agglomération",
+    "codeDepartement": [
+      "22"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation des bases adresses locales",
+      "mise à disposition d'outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/lamballe.png",
+    "height": 124,
+    "width": 363
   }
 ]
