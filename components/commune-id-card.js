@@ -30,7 +30,7 @@ function CommuneIdCard({region, departement, codesPostaux, population, color, si
           background: ${color === 'primary' ? theme.primary : theme.backgroundGrey};
           border-radius: 8px;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(${size === 'regular' ? '250px' : '40px'}, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(${size === 'regular' ? '250px' : '90px'}, 1fr));
           gap: 1em;
           padding: 10px;
         }

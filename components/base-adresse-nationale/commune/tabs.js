@@ -29,7 +29,7 @@ function Tabs({activeTab, setActiveTab}) {
 
       <style jsx>{`
         .tab-container {
-          margin: 1.4em 0 0.5em 0;
+          margin-bottom: 0.5em;
           width: 100%;
           display: flex;
           border-top: 1px solid ${colors.lighterGrey};

@@ -1,10 +1,27 @@
 import PropTypes from 'prop-types'
+import {X, Check} from 'react-feather'
 
-import colors from '@/styles/colors'
+import theme from '@/styles/theme'
 
 import CommuneIdCard from '@/components/commune-id-card'
+import Counter from '@/components/ui/metrics/counter'
+import ProgressBar from '@/components/progress-bar'
+import Certification from '../certification'
 
-function Details({region, departement, certificationPercentage, nbVoies, nbLieuxDits, nbNumeros, codesPostaux, population}) {
+function Details({
+  codesPostaux,
+  population,
+  region,
+  departement,
+  nbVoies,
+  nbLieuxDits,
+  nbNumeros,
+  nbNumerosCertifies,
+  certificationPercentage,
+  typeComposition,
+  isCertificationInProgress,
+  isAllCertified
+}) {
   return (
     <div className='details-container'>
       <CommuneIdCard
@@ -16,30 +33,71 @@ function Details({region, departement, certificationPercentage, nbVoies, nbLieux
         size='small'
       />
 
-      <div className='number-of-wrapper'>
-        <div className='number-of-container'>
-          <div>
-            {certificationPercentage === 0 ? (
-              <div>
-                Aucune adresse n’est certifiée par la commune
-              </div>
-            ) : (
-              <div>
-                {certificationPercentage}% des adresses sont certifiées par la commune
-              </div>
-            )}
-          </div>
+      <div>
+        <h3>Les adresses de la commune en quelques chiffres</h3>
+        <div className='number-cards'>
+          <Counter
+            value={nbVoies}
+            label={nbVoies <= 1 ? 'Voie' : 'Voies'}
+            color='secondary'
+            size='small'
+          />
+          <Counter
+            value={nbLieuxDits}
+            label={nbLieuxDits <= 1 ? 'Lieu-dit' : 'Lieux-dits'}
+            color='secondary'
+            size='small'
+          />
+          <Counter
+            value={nbNumeros}
+            label={nbNumeros <= 1 ? 'Numéro' : 'Numéros'}
+            color='secondary'
+            size='small'
+          />
+        </div>
+      </div>
 
+      <div>
+        <h3>Nombre d’adresses certifiées</h3>
+        <div className='certif-progress-container'>
+          <ProgressBar progress={certificationPercentage} />
           <div>
-            {nbVoies > 0 ? (nbVoies > 1 ? `${nbVoies} voies répertoriées` : '1 voie répertoriée') : 'Aucune voie répertoriée'}
-          </div>
-          <div>
-            {nbLieuxDits > 0 ? (nbLieuxDits > 1 ? `${nbLieuxDits} lieux-dits répertoriés` : '1 lieu-dit répertorié') : 'Aucun lieu-dit répertorié'}
-          </div>
-          <div>
-            {nbNumeros > 0 ? (nbNumeros > 1 ? `${nbNumeros} numéros répertoriés` : '1 numéro répertorié') : 'Aucun numéro répertorié'}
+            <Certification
+              iconSize={20}
+              isCertified={typeComposition === 'bal'}
+              validIconColor={isCertificationInProgress ? theme.border : theme.successBorder}
+              certifiedMessage={
+                isAllCertified ?
+                  'Toutes les adresses sont certifiées par la commune' :
+                  'Les adresses sont en cours de certification par la commune'
+              }
+              notCertifiedMessage={
+                nbNumerosCertifies > 0 ?
+                  'Certaines adresses ne sont pas certifiées par la commune' :
+                  'Aucune adresse n’est certifiée par la commune'
+              }
+            />
           </div>
         </div>
+
+        {isAllCertified ? (
+          <div className='full-none-certified'><Check /> {nbNumerosCertifies} adresses ont été certifiées</div>
+        ) : (
+          certificationPercentage === 0 ? (
+            <div className='full-none-certified'><X />{nbNumeros} adresses sont non-certifiées</div>
+          ) : (
+            <div className='address-number-container'>
+              <div className='certified-container'>
+                <b>{nbNumerosCertifies}</b>
+                <div>Adresses certifiées</div>
+              </div>
+              <div className='non-certified-container'>
+                <b>{nbNumeros - nbNumerosCertifies}</b>
+                <div>Adresses non certifiées</div>
+              </div>
+            </div>
+          )
+        )}
       </div>
 
       <style jsx>{`
@@ -47,37 +105,63 @@ function Details({region, departement, certificationPercentage, nbVoies, nbLieux
           margin: 1em 0;
           display: flex;
           flex-direction: column;
+          gap: 1.8em;
         }
 
-        .commune-general {
-          padding-bottom: 1em;
+        h3 {
+          font-size: medium;
+          text-align: center;
+          margin-bottom: 8px;
+        }
+
+        .number-cards {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+          gap: 1em;
+        }
+
+
+        .address-number-container {
           display: flex;
-          justify-content: space-between;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          align-items: center;
+          margin-top: 1em;
         }
 
-        .with-icon {
-          display: flex;
+        .certif-progress-container {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          align-items: center;
         }
 
-        .with-icon > div {
-          margin-left: 0.4em;
-        }
-
-        .number-of-wrapper {
-          margin: 1em 0;
-          border-left: solid 3px ${colors.lightBlue};
-        }
-
-        .number-of-container {
+        .certified-container, .non-certified-container {
           display: flex;
           flex-direction: column;
-          padding-left: 1em;
+          align-items: center;
+          font-weight: bold;
+          font-size: 15px;
         }
 
-        .number-of-container > div {
-          font-style: italic;
-          font-size: 16px;
-          color: ${colors.almostBlack};
+        .certified-container b {
+          color: ${theme.colors.green};
+          font-size: x-large;
+        }
+
+        .non-certified-container b {
+          color: ${theme.colors.red};
+          font-size: x-large;
+        }
+
+        .full-none-certified {
+          text-align: center;
+          color: ${isAllCertified ? theme.colors.green : theme.colors.red};
+          font-weight: bold;
+          margin-top: .8em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
         }
       `}</style>
     </div>
@@ -85,6 +169,9 @@ function Details({region, departement, certificationPercentage, nbVoies, nbLieux
 }
 
 Details.propTypes = {
+  typeComposition: PropTypes.string.isRequired,
+  isAllCertified: PropTypes.bool.isRequired,
+  isCertificationInProgress: PropTypes.bool.isRequired,
   certificationPercentage: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
@@ -95,7 +182,8 @@ Details.propTypes = {
   population: PropTypes.number.isRequired,
   codesPostaux: PropTypes.array.isRequired,
   region: PropTypes.object.isRequired,
-  departement: PropTypes.object.isRequired
+  departement: PropTypes.object.isRequired,
+  nbNumerosCertifies: PropTypes.number.isRequired
 }
 
 export default Details

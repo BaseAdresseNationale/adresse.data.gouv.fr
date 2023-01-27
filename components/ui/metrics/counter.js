@@ -2,52 +2,44 @@ import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 import {formatPercent, formatInteger} from '@/lib/format-numbers'
 
-function Counter({value, label, unit, size, color, title}) {
+function Counter({value, label, unit, size, color}) {
   return (
-    <div style={{textAlign: 'center'}}>
-      {title && <div className='title'>{title}</div>}
-      <div className={`value ${color}`}>
-        {unit && unit === '%' ?
-          formatPercent(value) :
-          formatInteger(value) || 0}{unit && <span className='unit'>{unit}</span>}
+    <div className='counter-container'>
+      <div className='value'>
+        {unit && unit === '%' ? formatPercent(value) : formatInteger(value) || 0}
+        {unit && <span className='unit'>{unit}</span>}
       </div>
-      {label && <div className={size}>{label}</div>}
+      {label && <div className='label'>{label}</div>}
 
       <style jsx>{`
-      .title {
-        margin: 1em 0;
-        font-size: 2em;
-        line-height: 1em;
-      }
+        .counter-container {
+          background: ${color === 'primary' ? theme.backgroundGrey : theme.backgroundWhite};
+          border: ${color === 'primary' ? 'none' : `${theme.primary} 3px solid`};
+          border-radius: 5px;
+          font-weight: bold;
+          display: flex;
+          padding: ${size === 'small' ? '.5em 0' : '2em'};
+          gap: ${size === 'small' ? '5px' : '1.5em'};
+          flex-direction: column;
+          align-items: center;
+        }
 
-      .value {
-        font-size: 2rem;
-        font-weight: bold;
-        line-height: 1;
-      }
+        .value {
+          color: ${theme.primary};
+          font-size: ${size === 'small' ? 'x-large' : 'xx-large'};
+        }
 
-      .unit {
-        font-size: 0.5rem;
-        margin-left: 0.1rem;
-      }
+        .label {
+          margin: 0;
+          padding: 0;
+          background: none;
+          font-size: ${size === 'small' ? 'medium' : 'x-large'};
+        }
 
-      .success {
-        color: ${theme.colors.green};
-      }
-
-      .warning {
-        color: ${theme.colors.orange};
-      }
-
-      .error {
-        color: ${theme.colors.red};
-      }
-
-      .small {
-        font-size: 0.4rem;
-        line-height: 1;
-      }
-    `}</style>
+        .unit {
+          margin-left: 0.1rem;
+        }
+      `}</style>
     </div>
   )
 }
@@ -59,25 +51,21 @@ Counter.propTypes = {
   ]).isRequired,
   label: PropTypes.string,
   unit: PropTypes.string,
-  title: PropTypes.string,
   size: PropTypes.oneOf([
     '',
     'small'
   ]),
   color: PropTypes.oneOf([
-    '',
-    'success',
-    'warning',
-    'error'
-  ])
+    'primary',
+    'secondary'
+  ]),
 }
 
 Counter.defaultProps = {
   label: null,
   unit: null,
-  title: null,
   size: '',
-  color: ''
+  color: 'primary'
 }
 
 export default Counter
