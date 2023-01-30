@@ -146,6 +146,7 @@ function ByAddressName({title, id, icon}) {
               renderItem={renderAdresse}
               getItemValue={item => item.label}
               results={list}
+              wrapperStyle={{position: 'relative'}}
             />
             <SwitchInput handleChange={() => setAutocomplete(!autocomplete)} label='Autocomplétion' isChecked={autocomplete} />
           </div>

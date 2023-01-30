@@ -56,6 +56,7 @@ function CommuneSearch() {
         isLoading={isLoading}
         renderItem={RenderCommune}
         getItemValue={commune => commune.code}
+        wrapperStyle={{position: 'relative', minHeight: '4em'}}
       />
 
       {error &&

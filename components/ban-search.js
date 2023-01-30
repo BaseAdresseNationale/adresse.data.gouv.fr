@@ -6,7 +6,6 @@ import {search, isFirstCharValid} from '@/lib/api-adresse'
 import {useInput} from '../hooks/input'
 
 import SearchInput from '@/components/search-input'
-import Notification from '@/components/notification'
 import renderAddok from '@/components/search-input/render-addok'
 
 function BanSearch() {
@@ -81,29 +80,17 @@ function BanSearch() {
   }, [input])
 
   return (
-    <>
-      <SearchInput
-        value={input}
-        results={orderResults}
-        isLoading={loading}
-        placeholder='20 avenue de Ségur, Paris'
-        onSelect={handleSelect}
-        onSearch={setInput}
-        renderItem={renderAddok}
-        wrapperStyle={{position: 'relative'}}
-        getItemValue={getFeatureValue} />
-
-      {error &&
-        <div className='error'>
-          <Notification message={error.message} type='error' />
-        </div>}
-
-      <style jsx>{`
-          .error {
-            margin: 1em 0;
-          }
-        `}</style>
-    </>
+    <SearchInput
+      value={input}
+      results={orderResults}
+      isLoading={loading}
+      placeholder='20 avenue de Ségur, Paris'
+      onSelect={handleSelect}
+      onSearch={setInput}
+      renderItem={renderAddok}
+      wrapperStyle={{position: 'relative', minHeight: '4em'}}
+      getItemValue={getFeatureValue}
+      error={error} />
   )
 }
 
