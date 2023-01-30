@@ -17,7 +17,7 @@ const links = [
 
 function Header() {
   return (
-    <nav className='nav'>
+    <nav className='nav template-data-gouv'>
       <div className='nav__container'>
 
         <Link href='/' legacyBehavior>

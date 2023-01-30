@@ -1,10 +1,10 @@
 import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-
-import 'template.data.gouv.fr/dist/main.css'
-
 import {DeviceContextProvider} from '@/contexts/device'
+
+import '@/styles/template-data-gouv-to-dsfr/normalizer.css'
+import '@/styles/template-data-gouv-to-dsfr/main-alternate.css'
 
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
 const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID

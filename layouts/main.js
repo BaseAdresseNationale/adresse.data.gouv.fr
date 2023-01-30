@@ -31,7 +31,7 @@ class Layout extends React.Component {
         <Meta title={title} description={description} image={image} />
         <IEWarning />
         <Header />
-        <main>
+        <main className='template-data-gouv'>
           {children}
         </main>
         {hasFooter && <Footer />}
