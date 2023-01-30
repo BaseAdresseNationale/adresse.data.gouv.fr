@@ -97,7 +97,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
 
         .mobile-container {
           width: 100%;
-          height: calc(${viewHeight} - ${styleParam.mobile.headerHeight}px - 115px); // Max heigth available - sum of header - (searchbar and layout selector heights)
+          height: calc(${viewHeight} - ${styleParam.mobile.headerHeight}px - 489px); // Max heigth available - sum of header, searchbar and layout selector heights
         }
 
         .show {
