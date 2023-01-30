@@ -15,7 +15,7 @@ function MapBalSection({stats}) {
     <div className='deployement-container'>
       <div className='map-illustration'>
         <div className='map-illustration'>
-          <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} alt aria-hidden='true' />
+          <Image src='/images/france-illustration.svg' layout='responsive' height={400} width={400} alt='' aria-hidden='true' />
         </div>
       </div>
       <div className='metrics-container'>

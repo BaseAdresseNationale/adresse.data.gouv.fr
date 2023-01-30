@@ -27,7 +27,7 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
         >
           <div className='dropdown-title'>
             <h3>Vous êtes habilité(e)</h3>
-            {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} alt aria-hidden='true' /> : <ChevronRight color={theme.primary} size={35} alt aria-hidden='true' />}
+            {isHabilitedOpen ? <ChevronDown color={theme.primary} size={35} alt='' aria-hidden='true' /> : <ChevronRight color={theme.primary} size={35} alt='' aria-hidden='true' />}
           </div>
         </ActionButtonNeutral>
 
@@ -36,7 +36,7 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
             <div className='authentification-choice'>
               <h4>M’authentifier comme élu de la commune</h4>
               <a href={fcButtonUrl} aria-label='S’authentifier avec FranceConnect'>
-                <Image width={280} height={82} layout='fixed' src='/images/FCboutons-10.svg' alt aria-hidden='true' />
+                <Image width={280} height={82} layout='fixed' src='/images/FCboutons-10.svg' alt='' aria-hidden='true' />
               </a>
               <p className='alert-personal-data'>
                 Aucune donnée personnelle ne nous sera transmise durant ce processus d’authentification
@@ -66,9 +66,9 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
         <div>Comprendre l’habilitation en quelques points</div>
         <p className='intro'>Afin de pouvoir publier vos adresses dans la <b>Base Adresse Nationale</b>, votre <b>Base Adresse Locale</b> doit obtenir une <b>habilitation</b>.</p>
         <ul>
-          <li><Users size={15} alt aria-hidden='true' /> <p>Permet à <b>toute personne aillant accès à l’édition</b> de cette Base Adresse Locale de <b>mettre à jour</b> les adresses de sa commune.</p></li>
-          <li><Clock size={15} alt aria-hidden='true' /> <p>Elle est valable <b>6 mois</b>.</p></li>
-          <li><LogIn size={15} alt aria-hidden='true' /> <p>Pour l’obtenir, <b>un(e) élu(e)</b> de la commune ou <b>un(e) employé(e)</b> de la mairie doit <b>s’authentifier</b>.</p></li>
+          <li><Users size={15} alt='' aria-hidden='true' /> <p>Permet à <b>toute personne aillant accès à l’édition</b> de cette Base Adresse Locale de <b>mettre à jour</b> les adresses de sa commune.</p></li>
+          <li><Clock size={15} alt='' aria-hidden='true' /> <p>Elle est valable <b>6 mois</b>.</p></li>
+          <li><LogIn size={15} alt='' aria-hidden='true' /> <p>Pour l’obtenir, <b>un(e) élu(e)</b> de la commune ou <b>un(e) employé(e)</b> de la mairie doit <b>s’authentifier</b>.</p></li>
         </ul>
       </div>
 
@@ -87,7 +87,7 @@ function Authentification({communeEmail, revisionId, habilitationId, authenticat
         {isNonHabilitedOpen && (
           <div className='content'>
             <div className='infos-habilitation'>
-              <h4><Info alt aria-hidden='true' /><b>Prestataires et délégataires</b></h4>
+              <h4><Info alt='' aria-hidden='true' /><b>Prestataires et délégataires</b></h4>
               <p>Contactez la mairie pour qu’elle puisse <b>authentifier </b>les adresses selon les modalités définies ci-dessus. Pour rappel, la commune <b>reste responsable de ses adresses</b>, même en cas de délégation de la <b>réalisation technique de l’adressage</b>.</p>
             </div>
           </div>

@@ -45,9 +45,9 @@ function Row({row, isForcedShowIssues, unknowFields, issueType}) {
           </div>
 
           {showIssues ? (
-            <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} alt aria-hidden='true' />
+            <ChevronUp style={{verticalAlign: 'middle', color: '#222'}} alt='' aria-hidden='true' />
           ) : (
-            <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} alt aria-hidden='true' />
+            <ChevronDown style={{verticalAlign: 'middle', color: '#222'}} alt='' aria-hidden='true' />
           )}
         </div>
       </ActionButtonNeutral>

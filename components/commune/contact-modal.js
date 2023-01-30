@@ -14,7 +14,7 @@ function ContactModal({mairieInfos, onModalClose}) {
       <div className='contacts-container'>
         <div className='close-modal'>
           <ActionButtonNeutral label='Fermer la fenêtre de contact' onClick={onModalClose}>
-            <XSquare alt aria-hidden='true' color={theme.primary} />
+            <XSquare alt='' aria-hidden='true' color={theme.primary} />
           </ActionButtonNeutral>
         </div>
 

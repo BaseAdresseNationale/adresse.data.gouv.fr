@@ -17,12 +17,12 @@ function Accessibilite() {
 
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Smile size={56} alt aria-hidden='true' />} />
+      <Head title={title} icon={<Smile size={56} alt='' aria-hidden='true' />} />
 
       <Section>
         <div className='accessibility-intro'>
           <div className='accessibility-illustration'>
-            <Image src='/images/accessibilite-illustration.svg' layout='responsive' height={100} width={500} alt aria-hidden='true' />
+            <Image src='/images/accessibilite-illustration.svg' layout='responsive' height={100} width={500} alt='' aria-hidden='true' />
           </div>
 
           <SectionText>
@@ -44,7 +44,7 @@ function Accessibilite() {
 
       <Section background='color' title='État de conformité'>
         <Notification type='warning'>
-          <div className='conformity'><XCircle alt aria-hidden='true' /> Non conforme</div>
+          <div className='conformity'><XCircle alt='' aria-hidden='true' /> Non conforme</div>
         </Notification>
         <SectionText color='secondary'>
           <b>adresse.data.gouv.fr</b> est non conforme avec le <b>référentiel général d’amélioration de l’accessibilité</b> (RGAA), un audit d’accessibilité n’ayant pas encore été réalisé.

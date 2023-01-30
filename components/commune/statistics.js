@@ -48,7 +48,7 @@ function Statistics({nbNumeros, nbNumerosCertifies}) {
     return (
       <div className='statistiques-container'>
         <div>
-          <Image src='/images/icons/check.svg' height={150} width={150} alt aria-hidden='true' />
+          <Image src='/images/icons/check.svg' height={150} width={150} alt='' aria-hidden='true' />
           <p className='percent'><b>100%</b> des adresses de la commune sont certifiées</p>
         </div>
 

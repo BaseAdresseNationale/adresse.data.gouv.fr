@@ -13,7 +13,7 @@ import theme from '@/styles/theme'
 function GererMesAdresses() {
   return (
     <Page>
-      <Head title='Gérer mes adresses' icon={<MapPin size={56} alt aria-hidden='true' />} />
+      <Head title='Gérer mes adresses' icon={<MapPin size={56} alt='' aria-hidden='true' />} />
 
       <Section title='Pourquoi et comment gérer les adresses de ma commune ?' subtitle='Un véritable enjeu de souveraineté pour la France et ses territoires'>
         <SectionText>
@@ -68,7 +68,7 @@ function GererMesAdresses() {
             rel='noreferrer'
             href='https://mes-adresses.data.gouv.fr/new'
           >
-            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt aria-hidden='true' />
+            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
           </ButtonLink>
 
           <div className='already-done'>
@@ -79,7 +79,7 @@ function GererMesAdresses() {
 
         <Notification isFullWidth>
           <div>
-            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt aria-hidden='true' />
+            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
             <Link href='/ressources'>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
           </div>
         </Notification>
@@ -118,7 +118,7 @@ function GererMesAdresses() {
 
         <Notification isFullWidth>
           <div>
-            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt aria-hidden='true' />
+            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
             Pour en savoir plus sur les <b>différentes méthodes de publication</b>, vous pouvez consulter la documentation <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale' target='_blank' rel='noopener noreferrer'>Publier une Base Adresse Locale</a>.
           </div>
         </Notification>
@@ -139,7 +139,7 @@ function GererMesAdresses() {
               color='white'
               isOutlined
             >
-              Accéder à la page dédiée <Book style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt aria-hidden='true' />
+              Accéder à la page dédiée <Book style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
             </ButtonLink>
           </div>
         </div>

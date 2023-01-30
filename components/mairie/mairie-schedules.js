@@ -24,9 +24,9 @@ function CommuneSchedules({scheldules}) {
         <div className='scheldule-dropdown'>
           Horaires d’ouverture
           {isDisplayed ? (
-            <ChevronDown style={{marginTop: '2px'}} alt aria-hidden='true' />
+            <ChevronDown style={{marginTop: '2px'}} alt='' aria-hidden='true' />
           ) : (
-            <ChevronRight style={{marginTop: '2px'}} alt aria-hidden='true' />
+            <ChevronRight style={{marginTop: '2px'}} alt='' aria-hidden='true' />
           )}
         </div>
       </ActionButtonNeutral>

@@ -10,13 +10,13 @@ function Certification({isCertified, certifiedMessage, notCertifiedMessage, icon
     <div>
       {isCertified && (
         <Tooltip message={certifiedMessage} direction={tooltipDirection}>
-          <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={validIconColor} size={iconSize} alt aria-hidden='true' />
+          <CheckCircle style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={validIconColor} size={iconSize} alt='' aria-hidden='true' />
         </Tooltip>
       )}
 
       {!isCertified && notCertifiedMessage && (
         <Tooltip message={notCertifiedMessage} direction={tooltipDirection}>
-          <XOctagon style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.warningBorder} size={iconSize} alt aria-hidden='true' />
+          <XOctagon style={{marginLeft: '.5em', verticalAlign: 'sub'}} color={theme.warningBorder} size={iconSize} alt='' aria-hidden='true' />
         </Tooltip>
       )}
     </div>

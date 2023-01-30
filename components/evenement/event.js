@@ -19,7 +19,7 @@ function Event({event, background, isPassed}) {
     <div className='event-container'>
       <div className={`header ${type}`}>
         <div className='presentation'>
-          <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt aria-hidden='true' />
+          <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt='' aria-hidden='true' />
           <div className='title-container'>
             <h5>{title}</h5>
             <div>{subtitle}</div>

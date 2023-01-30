@@ -16,7 +16,7 @@ function Organismes() {
 
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Award size={56} alt aria-hidden='true' />} />
+      <Head title={title} icon={<Award size={56} alt='' aria-hidden='true' />} />
 
       <Section title='Liste des organismes partenaires'>
         <SectionText>
@@ -26,7 +26,7 @@ function Organismes() {
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt aria-hidden='true' />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' aria-hidden='true' />
           </ButtonLink>
         </div>
 
