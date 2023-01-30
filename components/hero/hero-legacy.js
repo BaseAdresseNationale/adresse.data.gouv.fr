@@ -4,11 +4,11 @@ import {Download, MapPin, Database} from 'react-feather'
 
 import theme from '@/styles/theme'
 
-import ToolsIcon from './icons/tools'
-import BanSearch from './ban-search'
-import Container from './container'
-import ButtonLink from './button-link'
-import CircleLink from './circle-link'
+import ToolsIcon from '@/components/icons/tools'
+import BanSearch from '@/components/ban-search'
+import Container from '@/components/container'
+import ButtonLink from '@/components/button-link'
+import CircleLink from '@/components/circle-link'
 
 const Frise = dynamic(import('@/components/frise'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
