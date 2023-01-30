@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: 
+      dockerfile: 'Dockerfile.dev'
+    container_name: frontend
+    volumes:
+    - ./:/app
+    - /app/node_modules
+    - /app/.next
+    ports:
+      - "3000:3000"
