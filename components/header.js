@@ -1,141 +1,194 @@
-import Link from 'next/link'
-import Image from 'next/legacy/image'
+import {useMemo} from 'react'
+import {useRouter} from 'next/router'
+import {Header as HeaderDsfr} from '@codegouvfr/react-dsfr/Header'
 
-import theme from '@/styles/theme'
-
-import HamburgerMenu from './hamburger-menu'
-
-const links = [
-  {text: 'Données nationales', href: '/donnees-nationales'},
-  {text: 'Contribuer', href: '/contribuer'},
-  {text: 'Ressources', href: '/ressources'},
-  {text: 'API', href: '/api-doc'},
-  {text: 'Outils', href: '/outils'},
-  {text: 'Blog', href: '/blog'},
-  {text: 'Nous contacter', href: '/nous-contacter'}
+const quickLinks = [
+  {icon: 'ri-tools-fill', text: 'Outils et API', href: '/outils'},
+  {icon: 'ri-quill-pen-fill', text: 'Blog et témoignages', href: '/blog'},
+  {icon: 'ri-discuss-fill', text: 'Nous contacter', href: '/nous-contacter'},
 ]
 
+const navigationLinks = [
+  {
+    linkProps: {
+      href: '/',
+    },
+    text: 'Accueil',
+  },
+  {
+    linkProps: {
+      href: '/donnees-nationales',
+    },
+    text: 'Accéder aux données',
+  },
+  {
+    linkProps: {
+      href: '/contribuer',
+      target: '_self',
+    },
+    text: 'Contribuer',
+  },
+  {
+    text: 'Communes et Collectivités',
+    menuLinks: [
+      {
+        linkProps: {
+          href: '/ressources',
+        },
+        text: 'Ressources autour de l’adressage',
+      },
+      {
+        linkProps: {
+          href: '/gerer-mes-adresses',
+        },
+        text: 'Gérer mes adresses',
+      },
+      {
+        linkProps: {
+          href: 'https://mes-adresses.data.gouv.fr/',
+          target: '_blank',
+        },
+        text: 'Outil national "Mes Adresses"',
+      },
+      {
+        linkProps: {
+          href: '/evenements',
+          target: '_blank',
+        },
+        text: 'Les évènements de l’adresse',
+      },
+    ]
+  },
+  {
+    text: 'Partenaires',
+    menuLinks: [
+      {
+        linkProps: {
+          href: '/bases-locales/charte',
+        },
+        text: 'La charte des partenaires',
+      },
+      {
+        linkProps: {
+          href: '/ressources',
+        },
+        text: 'Ressources autour de l’adressage',
+      },
+      {
+        linkProps: {
+          href: '/gerer-mes-adresses',
+        },
+        text: 'Gérer les adresses',
+      },
+      {
+        linkProps: {
+          href: 'https://mes-adresses.data.gouv.fr/',
+          target: '_blank',
+        },
+        text: 'Outil national "Mes Adresses"',
+      },
+      {
+        linkProps: {
+          href: '/bases-locales/publication',
+          target: '_blank',
+        },
+        text: 'Formulaire de dépôt BAL',
+      },
+      {
+        linkProps: {
+          href: '/evenements',
+          target: '_blank',
+        },
+        text: 'Les évènements de l’adresse',
+      },
+    ]
+  },
+  {
+    text: 'Utilisateurs',
+    menuLinks: [
+      {
+        linkProps: {
+          href: '/donnees-nationales',
+        },
+        text: 'Accéder aux données',
+      },
+      {
+        linkProps: {
+          href: '/outils',
+        },
+        text: 'Consulter les outils',
+      },
+      {
+        linkProps: {
+          href: '/api-doc',
+        },
+        text: 'Utiliser les API de l’adresse',
+      },
+      {
+        linkProps: {
+          href: '/deploiement-bal',
+        },
+        text: 'État du déploiement des Bases Adresses Locales',
+      },
+    ]
+  },
+]
+
+const markAsActive = (navigation, route) => {
+  return navigation.map(navEntry => {
+    const menuLinks = navEntry?.menuLinks ? markAsActive(navEntry.menuLinks, route, navEntry?.text) : undefined
+    const menuLinksActive = menuLinks?.some(({isActive}) => isActive === true)
+    return ({
+      ...navEntry,
+      isActive: menuLinksActive ?? route === navEntry?.linkProps?.href,
+      menuLinks
+    })
+  })
+}
+
 function Header() {
+  const {route} = useRouter()
+
+  const selectedNavigationLinks = useMemo(
+    () => markAsActive(navigationLinks, route),
+    [route],
+  )
+
   return (
-    <nav className='nav template-data-gouv'>
-      <div className='nav__container'>
-
-        <Link href='/' legacyBehavior>
-          <a className='nav__link'>
-            <Image layout='responsive' width={424} height={100} src='/images/logos/logo-rf.svg' alt='Page d’accueil de adresse.data.gouv.fr' />
-          </a>
-        </Link>
-
-        <ul className='nav__links'>
-          {links.map(link => (
-            <li key={link.text}>
-              {link.isExternal ? (
-                <a href={link.href}>{link.text}</a>
-              ) : (
-                <Link href={link.href} legacyBehavior><a>{link.text}</a></Link>
-              )}
-            </li>
-          ))}
-        </ul>
-
-        <div className='hamburger-menu'>
-          <HamburgerMenu links={links} />
-        </div>
-
-      </div>
-
+    <>
+      <HeaderDsfr
+        brandTop={
+          <>
+            République
+            <br />
+            française
+          </>
+        }
+        homeLinkProps={{
+          href: '/',
+          title:
+          'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)',
+        }}
+        serviceTagline='Le site nationale de l’adresse'
+        serviceTitle={<span className='ban-service-title'>adresse<b>.data.gouv</b><i>.fr</i></span>}
+        quickAccessItems={quickLinks.map(({icon, href, text}) => (
+          {
+            iconId: icon,
+            linkProps: {
+              href,
+            },
+            text,
+          }
+        ))}
+        navigation={selectedNavigationLinks}
+      />
       <style jsx>{`
-      .nav {
-        border-bottom: 1px solid ${theme.boxShadow};
-        width: 100%;
-        background: #fff;
-        z-index: 100;
-      }
-
-      .nav-fixed {
-        position: fixed;
-        top: 0;
-      }
-
-      .nav__container {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-
-      .nav__logo {
-        display: block;
-        width: 40%;
-        max-width: 305px;
-        margin: 0.2em 1em;
-      }
-
-      .nav__link {
-        width: 40%;
-        margin: .2em 1em;
-        min-width: 220px;
-        max-width: 424px;
-      }
-
-      .nav__link:hover {
-        background-color: ${theme.colors.white};
-      }
-
-      .nav__links {
-        display: flex;
-        flex-flow: wrap;
-        margin: 0;
-        padding: 1em;
-        list-style-type: none;
-        text-align: right;
-      }
-
-      .nav__links li {
-        padding: 0;
-        display: inline;
-        font-size: 1.1em;
-      }
-
-      .nav__links a,
-      .nav__links .dropdown {
-        text-decoration: none;
-        color: ${theme.colors.black};
-        padding: 0.4em 0.8em;
-        border-radius: 3px;
-      }
-
-      .nav__links a::after {
-        content: none;
-      }
-
-      .nav__links a:hover,
-      .nav__links .dropdown:hover {
-        background-color: ${theme.colors.lightGrey};
-        transition: background ease-out 0.5s;
-      }
-
-      .nav__links a.active {
-        background: ${theme.primary};
-        color: ${theme.colors.white};
-      }
-
-      .hamburger-menu {
-        display: none;
-      }
-
-      @media (max-width: ${theme.breakPoints.desktop}) {
-        .nav__links {
-          display: none;
+        .ban-service-title {
+          white-space: nowrap;
+          font-weight: 400;
         }
-
-        .hamburger-menu {
-          display: block;
-          margin: 1em;
-        }
-      }
-  `}</style>
-    </nav>
+      `}</style>
+    </>
   )
 }
 
