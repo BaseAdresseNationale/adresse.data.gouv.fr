@@ -5,7 +5,7 @@ import theme from '@/styles/theme'
 
 function Footer() {
   return (
-    <footer className='footer'>
+    <footer className='footer template-data-gouv'>
       <div className='footer-container'>
         <div className='footer__logo'>
           <Image width={160} height={46} src='/images/logos/etalab.svg' alt='Etalab' />
