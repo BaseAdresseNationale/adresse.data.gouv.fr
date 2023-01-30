@@ -37,5 +37,8 @@ node_modules
 coverage
 reports
 
+# Project
+/public/dsfr/
+
 # Dev Tooling
 *.wip
