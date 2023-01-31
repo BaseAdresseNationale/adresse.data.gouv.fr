@@ -36,3 +36,6 @@ node_modules
 # Reports
 coverage
 reports
+
+# Dev Tooling
+*.wip
