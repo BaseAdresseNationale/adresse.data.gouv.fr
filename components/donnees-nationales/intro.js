@@ -46,7 +46,7 @@ function Intro() {
 
       <div className='characteristics'>
         <div>
-          <h3><List style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt aria-hidden='true' /> Caractéristiques</h3>
+          <h3><List style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt='' aria-hidden='true' /> Caractéristiques</h3>
           <ul>
             <li>Producteur : <strong>DINUM / ANCT / IGN</strong></li>
             <li>Licence : <a href='https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf'>Licence Ouverte</a></li>
@@ -55,7 +55,7 @@ function Intro() {
           </ul>
         </div >
         <div>
-          <h3> <Target style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt aria-hidden='true' /> Chiffres clés</h3>
+          <h3> <Target style={{verticalAlign: 'bottom', marginRight: '5px'}} color={theme.primary} alt='' aria-hidden='true' /> Chiffres clés</h3>
           <ul>
             <li>250 000 lieux-dits (<span className='new'>beta</span>)</li>
             <li>25 millions d’adresses</li>

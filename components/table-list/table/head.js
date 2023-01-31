@@ -7,7 +7,7 @@ import ActionButtonNeutral from '@/components/action-button-neutral'
 const order = (a, b, direction) => (
   <ActionButtonNeutral label={`Trier par ordre ${direction === 'asc' ? 'croissant' : 'décroissant'}`}>
     <div className='sort-button-content'>
-      <ArrowDown alt aria-hidden='true' />
+      <ArrowDown alt='' aria-hidden='true' />
       <div>
         <div>{a}</div>
         <div>{b}</div>

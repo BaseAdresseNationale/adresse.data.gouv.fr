@@ -29,7 +29,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
 
         {isMobile && !isWrap && (
           <ActionButtonNeutral label='Fermer la sélection' onClick={() => setIsWrap(true)}>
-            <div className='close-icon'><X alt aria-hidden='true' /></div>
+            <div className='close-icon'><X alt='' aria-hidden='true' /></div>
           </ActionButtonNeutral>
         )}
       </div>

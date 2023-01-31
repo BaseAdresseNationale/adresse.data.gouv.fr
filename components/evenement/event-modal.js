@@ -41,7 +41,7 @@ function EventModal({event, isPassed, onClose}) {
           </ActionButtonNeutral>
 
           <div className='presentation'>
-            <Image src={`/images/icons/event-${type}.svg`} height={150} width={170} alt aria-hidden='true' />
+            <Image src={`/images/icons/event-${type}.svg`} height={150} width={170} alt='' aria-hidden='true' />
             <div className='header-infos'>
               <div className='title-container'>
                 <h5>{title}</h5>

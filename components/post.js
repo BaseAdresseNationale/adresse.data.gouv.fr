@@ -58,14 +58,14 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
   return (
     <Section>
       <Link href={backLink} legacyBehavior>
-        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt aria-hidden='true' /> Retour</a>
+        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt='' aria-hidden='true' /> Retour</a>
       </Link>
 
       <div className='blog'>
         <h2>{title}</h2>
         {feature_image && (
           <div className='blog-feature-image-container'>
-            <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' alt aria-hidden='true' />
+            <Image src={feature_image} layout='fill' objectFit='cover' className='blog-feature-image' alt='' aria-hidden='true' />
           </div>
         )}
         <p className='infos-container'><i>Publié par {authors[0].name}</i> <i>le {new Date(published_at).toLocaleDateString('fr-FR')}</i></p>
@@ -74,7 +74,7 @@ function Post({title, published_at, feature_image, authors, html, backLink}) {
       </div>
 
       <Link href={backLink} legacyBehavior>
-        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt aria-hidden='true' /> Retour</a>
+        <a className='blog-back-button'><ArrowLeftCircle size={25} style={{verticalAlign: 'middle', marginRight: '.5em'}} alt='' aria-hidden='true' /> Retour</a>
       </Link>
 
       <style jsx global>{`

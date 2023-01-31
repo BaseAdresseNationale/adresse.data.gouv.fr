@@ -30,7 +30,7 @@ function PositionsTypes({positions, isMobile, isSafariBrowser, setCopyError, set
 
             <a href={`#18/${p.position.coordinates[1]}/${p.position.coordinates[0]}`}>
               <Button color='secondary' size='small' style={{padding: '.5em'}} label='Centrer sur la position' >
-                Centrer sur la carte<TargetLockIcon style={{verticalAlign: 'middle'}} alt aria-hidden='true' />
+                Centrer sur la carte<TargetLockIcon style={{verticalAlign: 'middle'}} alt='' aria-hidden='true' />
               </Button>
             </a>
             <CoordinatesCopy

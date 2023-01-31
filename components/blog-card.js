@@ -15,7 +15,7 @@ function BlogCard({post, onClick}) {
         <h2 className='blog-title'>{post.title}</h2>
       </Link>
       <div className='blog-image-container'>
-        <Image src={post.feature_image || '/images/no-img.png'} alt aria-hidden='true' layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />
+        <Image src={post.feature_image || '/images/no-img.png'} alt='' aria-hidden='true' layout='fill' objectFit={post.feature_image ? 'cover' : 'contain'} />
       </div>
       <div className='infos-container'>
         <p>Publié par {post.authors[0].name}</p>

@@ -35,7 +35,7 @@ class HamburgerMenu extends React.Component {
     return (
       <div className='dropdown'>
         <ActionButtonNeutral label={`${visible ? 'Fermer' : 'Ouvrir'} le menu de navigation`} onClick={this.handleMenu}>
-          {visible ? <X size={22} alt aria-hidden='true' /> : <Menu size={22} alt aria-hidden='true' />}
+          {visible ? <X size={22} alt='' aria-hidden='true' /> : <Menu size={22} alt='' aria-hidden='true' />}
         </ActionButtonNeutral>
 
         {visible && (

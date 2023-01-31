@@ -45,7 +45,7 @@ function Holder({file, placeholder, isLoading, onDrop}) {
                   </div>
                 </div>
                 {isLoading ? (
-                  <div className='loading'>Chargement du fichier… <span><Loader alt aria-hidden='true' /></span></div>
+                  <div className='loading'>Chargement du fichier… <span><Loader alt='' aria-hidden='true' /></span></div>
                 ) : (
                   <RefreshCcw
                     size={32}

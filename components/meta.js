@@ -8,7 +8,7 @@ function Meta({title, description, image}) {
   description = prune(description, 160, '…')
   return (
     <Head>
-      {title ? <title>{title} | {SITE_NAME}</title> : <title>{SITE_NAME}</title>}
+      <title>{title ? `${title} | ${SITE_NAME}` : SITE_NAME}</title>
 
       {/* Search Engine */}
       <meta name='description' content={description} />

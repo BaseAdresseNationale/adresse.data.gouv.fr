@@ -15,7 +15,7 @@ function CadastreLayerControl({isDisabled, isActived, handleClick}) {
       onClick={handleClick}
     >
       <div className='maplibregl-ctrl layout-icon'>
-        <Layout color={isDisabled ? '#cdcdcd' : (isActived ? theme.primary : theme.darkText)} size={18} alt aria-hidden='true' />
+        <Layout color={isDisabled ? '#cdcdcd' : (isActived ? theme.primary : theme.darkText)} size={18} alt='' aria-hidden='true' />
       </div>
 
       <style jsx>{`

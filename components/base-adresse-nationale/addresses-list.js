@@ -33,7 +33,7 @@ function AddressesList({title, placeholder, addresses, getLabel, addressComponen
         </div>
         {addresses.length > 0 ? (
           <div className='search-input'>
-            <div className='search-icon'><Search size={18} alt aria-hidden='true' /></div>
+            <div className='search-icon'><Search size={18} alt='' aria-hidden='true' /></div>
             <input
               type='text'
               placeholder={placeholder || 'Recherche'}

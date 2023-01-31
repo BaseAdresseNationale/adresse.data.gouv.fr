@@ -16,7 +16,7 @@ function BlogPagination({page, pages, prev, next}) {
       <div className='blog-pagination' role='navigation'>
         {prev && (
           <Link href={`${href}${prev}${tags}`} legacyBehavior>
-            <a className='page' aria-label='Aller à la page précédente'><ArrowLeftCircle style={{verticalAlign: 'middle'}} alt aria-hidden='true' /></a>
+            <a className='page' aria-label='Aller à la page précédente'><ArrowLeftCircle style={{verticalAlign: 'middle'}} alt='' aria-hidden='true' /></a>
           </Link>
         )}
         {pageNumbers.map(n => (
@@ -31,7 +31,7 @@ function BlogPagination({page, pages, prev, next}) {
         ))}
         {next && (
           <Link href={`${href}${next}${tags}`} legacyBehavior>
-            <a className='page' aria-label='Aller à la page suivante'><ArrowRightCircle style={{verticalAlign: 'middle'}} alt aria-hidden='true' /></a>
+            <a className='page' aria-label='Aller à la page suivante'><ArrowRightCircle style={{verticalAlign: 'middle'}} alt='' aria-hidden='true' /></a>
           </Link>
         )}
       </div>

@@ -15,7 +15,7 @@ function Reutilisateurs() {
 
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Users size={56} alt aria-hidden='true' />} />
+      <Head title={title} icon={<Users size={56} alt='' aria-hidden='true' />} />
 
       <Section title='Qui réutilise la BAN&nbsp;?' subtitle='Quelques exemples parmi les milliers d’usages périodiques de la BAN'>
         <div className='re-users-section'>
@@ -35,7 +35,7 @@ function Reutilisateurs() {
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt aria-hidden='true' />
+            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' aria-hidden='true' />
           </ButtonLink>
         </div>
       </Section>

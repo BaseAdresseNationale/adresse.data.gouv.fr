@@ -21,7 +21,7 @@ function VoieInformation({voie}) {
           <div className='infos'>{voie.typeVoie}</div>
           <div className='infos'>{voie.codeRivoli}</div>
           <div>
-            {isOpen ? <ChevronUp size={35} alt aria-hidden='true' /> : <ChevronDown size={35} alt aria-hidden='true' />}
+            {isOpen ? <ChevronUp size={35} alt='' aria-hidden='true' /> : <ChevronDown size={35} alt='' aria-hidden='true' />}
           </div>
         </div>
       </ActionButtonNeutral>
