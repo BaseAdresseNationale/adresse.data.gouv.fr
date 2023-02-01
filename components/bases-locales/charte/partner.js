@@ -50,7 +50,7 @@ function Partner({partnerInfos, isCommune}) {
             height={height}
             width={width}
             layout='fixed'
-            alt
+            alt=''
           />
         </div>
 

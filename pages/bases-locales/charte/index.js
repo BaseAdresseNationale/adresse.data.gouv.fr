@@ -60,10 +60,10 @@ function Charte() {
           >
             <Image
               src='/images/previews/charte-communes.png'
-              alt
+              objectFit='contain'
               width={150}
               height={200}
-              objectFit='contain'
+              alt=''
             />
           </Card>
 
@@ -75,10 +75,10 @@ function Charte() {
           >
             <Image
               src='/images/previews/charte-organismes.png'
-              alt
+              objectFit='contain'
               width={150}
               height={200}
-              objectFit='contain'
+              alt=''
             />
           </Card>
 
@@ -90,9 +90,10 @@ function Charte() {
           >
             <Image
               src='/images/previews/charte-societes.png'
+              objectFit='contain'
               width={150}
               height={200}
-              objectFit='contain'
+              alt=''
             />
           </Card>
         </div>
