@@ -32,12 +32,12 @@ function Hero({title, tagline}) {
               Accéder aux données
             </CircleLink>
             <CircleLink
-              href='/contribuer'
+              href='/gerer-mes-adresses'
               icon={<Edit3 size={48} color={theme.colors.white} alt='' aria-hidden='true' />}
               isImportant
               size='80'
             >
-              Contribuer à la démarche
+              Gérer mes adresses
             </CircleLink>
             <CircleLink
               href='/bases-locales'
