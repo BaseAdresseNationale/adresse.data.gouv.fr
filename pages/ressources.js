@@ -153,6 +153,20 @@ function Guides() {
         `}</style>
       </Section>
 
+      <Section title='Articles techniques et témoignages' subtitle='Créer une Base Adresse Locale' id='commune'>
+        <div style={{textAlign: 'center'}}>
+          <SectionText>
+            <p>
+              Vous souhaitez découvrir comment d’autres communes procèdent pour mettre à jour leurs adresses, comment vos adresses sont utilisées ou encore prendre connaissance des évolutions techniques de Mes Adresses et de la BAN ?
+            </p>
+            <p>
+              Consultez le blog et naviguez grâce aux mots-clés.
+            </p>
+          </SectionText>
+          <ButtonLink size='large' href='/blog'>Accéder au blog</ButtonLink>
+        </div>
+      </Section>
+
       <Section background='grey' title='En partenariat avec : '>
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <Image width={190} height={80} src='/images/logos/logo-anct.png' alt='l’ANCT' />
