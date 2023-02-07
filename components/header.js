@@ -11,12 +11,6 @@ const quickLinks = [
 const navigationLinks = [
   {
     linkProps: {
-      href: '/',
-    },
-    text: 'Accueil',
-  },
-  {
-    linkProps: {
       href: '/donnees-nationales',
     },
     text: 'Accéder aux données',
@@ -24,7 +18,6 @@ const navigationLinks = [
   {
     linkProps: {
       href: '/contribuer',
-      target: '_self',
     },
     text: 'Contribuer',
   },
@@ -53,7 +46,6 @@ const navigationLinks = [
       {
         linkProps: {
           href: '/evenements',
-          target: '_blank',
         },
         text: 'Les évènements de l’adresse',
       },
@@ -90,14 +82,12 @@ const navigationLinks = [
       {
         linkProps: {
           href: '/bases-locales/publication',
-          target: '_blank',
         },
         text: 'Formulaire de dépôt BAL',
       },
       {
         linkProps: {
           href: '/evenements',
-          target: '_blank',
         },
         text: 'Les évènements de l’adresse',
       },
@@ -169,7 +159,7 @@ function Header() {
           title:
           'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)',
         }}
-        serviceTagline='Le site nationale de l’adresse'
+        serviceTagline='Le site national de l’adresse'
         serviceTitle={<span className='ban-service-title'>adresse<b>.data.gouv</b><i>.fr</i></span>}
         quickAccessItems={quickLinks.map(({icon, href, text}) => (
           {
