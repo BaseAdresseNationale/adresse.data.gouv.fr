@@ -100,7 +100,7 @@ const inputStatement = [
     type: 'default',
     badgeLabels: ['communes', 'partenaires'],
     title: 'La démarche d’adressage',
-    body: <p>Issue du guide des bonnes pratiques,
+    body: <p>Issu du guide des bonnes pratiques,
       le <i>parcours de l’adresse</i> vous aidera à comprendre comment
       transmettre les adresses de votre commune
       vers la BAN.</p>,

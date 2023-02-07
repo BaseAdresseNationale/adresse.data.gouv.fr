@@ -10,14 +10,14 @@ function Hero() {
       <div className='hero-container'>
         <Container>
           <h1 className='home-title'>
-            <strong>Le site nationale de l’adresse</strong> est
+            <strong>Le site national de l’adresse</strong> est
             le <strong className='home-title-note'>service public gratuit</strong> pour
             référencer <strong>l’intégralité des adresses du territoire</strong> et
             les rendre <strong>utilisables par tous</strong>.
           </h1>
 
           <div className='home-search-block'>
-            <p className='example'>Recherchez une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
+            <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
             <BanSearch />
             <div className='map-button'>
               <Link className='fr-link  fr-link--lg fr-link--icon-right fr-icon-arrow-right-line' href='/base-adresse-nationale'>
