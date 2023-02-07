@@ -153,7 +153,7 @@ function Guides() {
         `}</style>
       </Section>
 
-      <Section title='Articles techniques et témoignages' subtitle='Créer une Base Adresse Locale' id='commune'>
+      <Section title='Articles techniques et témoignages' id='commune'>
         <div style={{textAlign: 'center'}}>
           <SectionText>
             <p>
