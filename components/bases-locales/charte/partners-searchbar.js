@@ -99,6 +99,7 @@ function PartnersSearchbar() {
         onSearch={setInput}
         renderItem={RenderCommune}
         getItemValue={commune => commune.nom}
+        wrapperStyle={{position: 'relative'}}
       />
 
       {commune && (

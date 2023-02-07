@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {MapPin, Book, Edit2, HelpCircle} from 'react-feather'
+import {MapPin, Book, Edit2, HelpCircle, Info} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -38,7 +38,7 @@ function GererMesAdresses() {
 
       <Section title='Plusieurs solutions s’offrent à vous' background='color' />
 
-      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !'>
+      <Section title='Utiliser l’outil national&nbsp;: "Mes Adresses"' subtitle='Facile, gratuit et rapide !'>
         <div className='easy-step'>
           <div className='subtitled-img'>
             <div className='circle'>
@@ -78,10 +78,48 @@ function GererMesAdresses() {
         </div>
 
         <Notification isFullWidth>
-          <div>
+          <p>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
             <Link href='/ressources'>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
-          </div>
+          </p>
+        </Notification>
+      </Section>
+
+      <Section title='Référencer votre BAL depuis data.gouv.fr' subtitle='Déposer le fichier sur data.gouv.fr par une organisation certifiée avec le mot clé base-adresse-locale' background='grey' >
+        <div className='action-links'>
+          <ButtonLink
+            size='large'
+            href='https://www.data.gouv.fr/fr/'
+            target='_blank'
+          >
+            Accéder à data.gouv.fr
+          </ButtonLink>
+        </div>
+
+        <Notification isFullWidth>
+          <p>
+            <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
+            Avant toute publication, d’une Base Adresse Locale réalisée sur votre outil, <b>assurez-vous que votre fichier est conforme</b> au format grâce à <Link href='https://adresse.data.gouv.fr/bases-locales/validateur'>notre validateur</Link>.
+          </p>
+        </Notification>
+      </Section>
+
+      <Section title='Référencer vos adresses via l’API de dépôt d’une BAL' subtitle='Consulter la documentation et contacter adresse@data.gouv.fr pour tester l’API et passer en production' >
+        <div className='action-links'>
+          <ButtonLink
+            size='large'
+            href='https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation'
+            target='_blank'
+          >
+            Voir la documentation sur Github
+          </ButtonLink>
+        </div>
+
+        <Notification isFullWidth>
+          <p>
+            <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
+            Avant toute publication, d’une Base Adresse Locale réalisée sur votre outil, <b>assurez-vous que votre fichier est conforme</b> au format grâce à <Link href='https://adresse.data.gouv.fr/bases-locales/validateur'>notre validateur</Link>.
+          </p>
         </Notification>
       </Section>
 
@@ -117,10 +155,14 @@ function GererMesAdresses() {
         </div>
 
         <Notification isFullWidth>
-          <div>
+          <p>
+            <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
+            Avant toute publication, d’une Base Adresse Locale réalisée sur votre outil, <b>assurez-vous que votre fichier est conforme</b> au format grâce à <Link href='https://adresse.data.gouv.fr/bases-locales/validateur'>notre validateur</Link>.
+          </p>
+          <p>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
             Pour en savoir plus sur les <b>différentes méthodes de publication</b>, vous pouvez consulter la documentation <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale' target='_blank' rel='noopener noreferrer'>Publier une Base Adresse Locale</a>.
-          </div>
+          </p>
         </Notification>
       </Section>
 

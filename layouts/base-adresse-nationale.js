@@ -13,6 +13,18 @@ import Explorer from '@/components/base-adresse-nationale/explorer'
 
 import DeviceContext from '@/contexts/device'
 
+const styleParam = {
+  mobile: {
+    headerHeight: 164.5,
+  },
+  tablet: {
+    headerHeight: 168.5,
+  },
+  desktop: {
+    headerHeight: 172.5,
+  },
+}
+
 const defaultProps = {
   address: null,
   hash: null
@@ -85,7 +97,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
 
         .mobile-container {
           width: 100%;
-          height: calc(${viewHeight} - 202px); // Max heigth available - sum of header, searchbar and layout selector heights
+          height: calc(${viewHeight} - ${styleParam.mobile.headerHeight}px - 489px); // Max heigth available - sum of header, searchbar and layout selector heights
         }
 
         .show {
@@ -148,7 +160,17 @@ export function Desktop({address, bbox, handleSelect, hash}) {
       <style jsx>{`
         .ban-container {
           display: flex;
-          height: calc(100vh - 107px);
+          height: calc(100vh - ${styleParam.mobile.headerHeight}px);
+        }
+        @media (min-width: ${theme.breakPoints.tablet}) {
+          .ban-container {
+            height: calc(100vh - ${styleParam.tablet.headerHeight}px);
+          }
+        }
+        @media (min-width: ${theme.breakPoints.desktop}) {
+          .ban-container {
+            height: calc(100vh - ${styleParam.desktop.headerHeight}px);
+          }
         }
 
         .sidebar {

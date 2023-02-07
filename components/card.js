@@ -86,9 +86,20 @@ function Card({title, link, action, links, list, children, color}) {
           font-size: 1.2em;
           text-decoration: none;
           border-radius: 0 0 5px 5px;
+          transition: ease .25s;
+          transition-property: color, background-color;
         }
 
+        .download-link:hover,
+        .download-link:active,
+        .download-link:focus,
+        .download-link:visited {
+          color: #fff;
+        }
+
+
         .download-link:hover {
+          background-color: #333;
           text-decoration: underline;
           cursor: pointer;
         }

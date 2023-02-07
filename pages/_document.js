@@ -1,30 +1,31 @@
 import Document, {Head, Html, Main, NextScript} from 'next/document'
+import {dsfrDocumentApi} from './_app'
 
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
 const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return {...initialProps}
-  }
+const {getColorSchemeHtmlAttributes, augmentDocumentForDsfr} = dsfrDocumentApi
 
-  render() {
-    return (
-      <Html lang='fr'>
-        <Head>
-          <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-          <link rel='icon' href='/favicon.ico' />
-        </Head>
+export default function MyDocument(props) {
+  return (
+    <Html lang='fr' {...getColorSchemeHtmlAttributes(props)}>
+      <Head>
+        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
 
-        <body>
-          <Main />
-          {PIWIK_URL && PIWIK_SITE_ID && <script defer async src={`${PIWIK_URL}/piwik.js`} />}
-          <NextScript />
-        </body>
-      </Html>
-    )
-  }
+      <body>
+        <Main />
+        {PIWIK_URL && PIWIK_SITE_ID && <script defer async src={`${PIWIK_URL}/piwik.js`} />}
+        <NextScript />
+      </body>
+    </Html>
+  )
 }
 
-export default MyDocument
+MyDocument.getInitialProps = async ctx => {
+  const initialProps = await Document.getInitialProps(ctx)
+  return {...initialProps}
+}
+
+augmentDocumentForDsfr(MyDocument)
