@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {MapPin, Book, Edit2, HelpCircle, FileText, Terminal, Database} from 'react-feather'
+import {MapPin, Book, Edit2, HelpCircle, FileText, Terminal, RefreshCw, Database} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -42,25 +42,31 @@ function GererMesAdresses() {
 
       <Section title='Plusieurs solutions s’offrent à vous' background='color' />
 
-      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !' background='grey'>
+      <Section title='Utilisez l’outil national : Mes Adresses' subtitle='Facile, gratuit et rapide !' background='grey'>
         <div className='easy-step'>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>1</b>
             </div>
-            <p>Créer votre <br /> Base Adresse Locale</p>
+            <p>Créez votre <br /> Base Adresse Locale</p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>2</b>
             </div>
-            <p>Gérer vos adresses <br />directement en ligne</p>
+            <p>Gérez vos adresses <br />directement en ligne</p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>3</b>
             </div>
-            <p>Partager vos adresses dans <br /> la Base Adresse Nationale 🇫🇷</p>
+            <p>Partagez vos adresses dans <br /> la Base Adresse Nationale 🇫🇷</p>
+          </div>
+          <div className='subtitled-img'>
+            <div className='circle'>
+              <RefreshCw size={42} alt='' aria-hidden='true' />
+            </div>
+            <p>Continuez la mise à jour <br /> de vos adresses</p>
           </div>
         </div>
 
@@ -72,7 +78,7 @@ function GererMesAdresses() {
             rel='noreferrer'
             href='https://mes-adresses.data.gouv.fr/new'
           >
-            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
+            Créez votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
           </ButtonLink>
 
           <div className='already-done'>
@@ -84,7 +90,7 @@ function GererMesAdresses() {
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
-            <Link href='/ressources'>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
+            <Link href='/ressources'>Des guides sont à votre disposition</Link> ainsi que des <a href='https://peertube.adresse.data.gouv.fr/w/p/4kx66AESyPc6Er47sgBeFX' target='_blank' rel='noopener noreferrer'>vidéos tutorielles</a> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
           </div>
         </Notification>
       </Section>
