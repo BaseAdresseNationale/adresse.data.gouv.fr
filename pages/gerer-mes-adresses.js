@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {MapPin, Book, Edit2, HelpCircle} from 'react-feather'
+import {MapPin, Book, Edit2, HelpCircle, FileText, Terminal, RefreshCw, Database, Info} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -18,45 +18,55 @@ function GererMesAdresses() {
       <Section title='Pourquoi et comment gérer les adresses de ma commune ?' subtitle='Un véritable enjeu de souveraineté pour la France et ses territoires'>
         <SectionText>
           <p>
-            La <b>création des voies et des adresses</b> en France est du <b>ressort des communes</b>, via le conseil municipal.
+            La <b>création des voies et des adresses</b> en France est du <b>ressort des communes</b>, via le conseil municipal (<Link href='/blog/que-va-changer-la-loi3ds-pour-les-communes-sur-leur-adresse'>art.169 Loi 3DS</Link>).
           </p>
 
           <p>
-            Pour qu’elles puissent exprimer pleinement cette compétence, il est proposé aux communes de mettre en place un <b>fichier répertoriant l’intégralité des voies et des adresses</b> présentes sur leur territoire, une <Link href='/bases-locales' legacyBehavior><a><b>Base Adresse Locale</b></a></Link>.
+            Pour qu’elles puissent exprimer pleinement cette compétence, les communes mettent en place et tiennent à jour un <b>fichier répertoriant l’intégralité des adresses, voies et lieux-dits</b> présents sur leur territoire, une <Link href='/bases-locales' legacyBehavior><a><b>Base Adresse Locale</b></a></Link>.
           </p>
 
           <p>
-            Des outils, dont certains sont <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre <Link href='/bases-locales' legacyBehavior><a><b>Base Adresse Locale</b></a></Link>, que vous soyez élu ou agent municipal habilité.
+            Des <a href='https://guide-bonnes-pratiques.adresse.data.gouv.fr/les-outils-de-la-fabrique-de-ladresse'>outils</a> <b>libres, gratuits et ne nécessitant aucune compétence technique</b>, vous permettent de créer et administrer <b>vous-même</b> votre Base Adresse Locale.
           </p>
 
           <p>
-            Ces adresses sont celles que l’on retrouvera dans la <b>Base Adresse Nationale</b>, <a href='https://www.data.gouv.fr/fr/reference'>base de données de référence</a> pour les adresses en France.<br />{}
-            Elles seront conformes aux besoins des <b>différents acteurs</b>, comme par exemple <b>les secours</b> ou les opérateurs en charge du <b>déploiement de la fibre optique</b>.
+            Découvrez le <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/schema-du-parcours'>parcours de l’adresse</a>, depuis la délibération jusqu’à la transmission à l’ensemble des services publics.
+          </p>
+
+          <p>
+            Ces adresses sont celles que l’on retrouvera dans la <b><Link href='/donnees-nationales'>Base Adresse Nationale</Link></b>, le <a href='https://www.data.gouv.fr/fr/pages/spd/reference'>service public de la donnée</a> pour les adresses en France.<br />{}
+            Elles seront conformes aux besoins des <b>différents acteurs</b>, comme par exemple <b>les secours</b> ou les opérateurs en charge du <b><a href='https://adresse.data.gouv.fr/data/docs/communes-operateurs-obligations-adresse.pdf'>déploiement de la fibre optique</a></b>.
           </p>
         </SectionText>
       </Section>
 
       <Section title='Plusieurs solutions s’offrent à vous' background='color' />
 
-      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !'>
+      <Section title='Utilisez l’outil national&nbsp;: « Mes Adresses »' subtitle='Facile, gratuit et rapide !' background='grey'>
         <div className='easy-step'>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>1</b>
             </div>
-            <p>Créer votre <br /> Base Adresse Locale</p>
+            <p>Créez votre <br /> Base Adresse Locale</p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>2</b>
             </div>
-            <p>Gérer vos adresses <br />directement en ligne</p>
+            <p>Gérez vos adresses <br />directement en ligne</p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
               <b>3</b>
             </div>
-            <p>Partager vos adresses dans <br /> la Base Adresse Nationale 🇫🇷</p>
+            <p>Partagez vos adresses dans <br /> la Base Adresse Nationale 🇫🇷</p>
+          </div>
+          <div className='subtitled-img'>
+            <div className='circle'>
+              <RefreshCw size={42} alt='' aria-hidden='true' />
+            </div>
+            <p>Continuez la mise à jour <br /> de vos adresses</p>
           </div>
         </div>
 
@@ -68,7 +78,7 @@ function GererMesAdresses() {
             rel='noreferrer'
             href='https://mes-adresses.data.gouv.fr/new'
           >
-            Créer votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
+            Créez votre Base Adresse Locale <Edit2 style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
           </ButtonLink>
 
           <div className='already-done'>
@@ -78,59 +88,57 @@ function GererMesAdresses() {
         </div>
 
         <Notification isFullWidth>
-          <div>
+          <p>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
-            <Link href='/ressources'>Des guides sont à votre disposition</Link> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration de Mes Adresses qui vous permet de le découvrir en toute liberté</a>.
-          </div>
+            <Link href='/ressources'>Des guides sont à votre disposition</Link> ainsi que des <a href='https://peertube.adresse.data.gouv.fr/w/p/4kx66AESyPc6Er47sgBeFX' target='_blank' rel='noopener noreferrer'>vidéos tutorielles</a> afin de bien débuter, ainsi que le <a href='https://mes-adresses.data.gouv.fr/new?test=1' target='_blank' rel='noopener noreferrer'>mode démonstration</a> de Mes Adresses qui vous permet de le découvrir en toute liberté.
+          </p>
         </Notification>
       </Section>
 
-      <Section title='Utiliser le formulaire de dépôt' subtitle='Un module de publication simplifié permet de déposer un fichier CSV par simple formulaire de dépôt' background='grey' >
+      <Section id='recherche-partenaires' title='Vous souhaitez être accompagné dans votre adressage' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
+        <PartnersSearchbar />
+      </Section>
+
+      <Section title='Vous utilisez déjà votre propre outil' subtitle='Plusieurs solutions existent afin de publier vos fichiers Base Adresse Locale' background='grey'>
         <div className='easy-step'>
           <div className='subtitled-img'>
             <div className='circle'>
-              <b>1</b>
+              <b><FileText size={42} alt='' aria-hidden='true' /></b>
             </div>
-            <p>Sélectionner un fichier <br /> au format CSV Base Adresse Locale</p>
+            <p><Link href='/bases-locales/publication'>Formulaire de dépôt</Link></p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
-              <b>2</b>
+              <b><Database size={42} alt='' aria-hidden='true' /></b>
             </div>
-            <p>Obtenir une <br />habilitation</p>
+            <p><a href='https://www.data.gouv.fr/fr/'>data.gouv.fr</a></p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
-              <b>3</b>
+              <b><Terminal size={42} alt='' aria-hidden='true' /></b>
             </div>
-            <p>Publier vos adresses dans <br />la Base Adresse Nationale 🇫🇷</p>
+            <p><a href='https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation'>API dépôt d’une Base Adresse Locale</a></p>
           </div>
         </div>
 
         <div className='action-links'>
           <ButtonLink
             size='large'
-            href='/bases-locales/publication'
+            href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale'
           >
-            Utiliser le formulaire de dépôt des adresses
+            Voir tous les méthodes de publication
           </ButtonLink>
         </div>
 
         <Notification isFullWidth>
-          <div>
-            <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
-            Pour en savoir plus sur les <b>différentes méthodes de publication</b>, vous pouvez consulter la documentation <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale' target='_blank' rel='noopener noreferrer'>Publier une Base Adresse Locale</a>.
-          </div>
+          <p>
+            <Info style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
+            Avant toute publication, d’une Base Adresse Locale réalisée sur votre outil, <b>assurez-vous que votre fichier est conforme</b> au format grâce à <Link href='https://adresse.data.gouv.fr/bases-locales/validateur'>notre validateur</Link>.
+          </p>
         </Notification>
       </Section>
 
-      <Section id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
-        <div>
-          <PartnersSearchbar />
-        </div>
-      </Section>
-
-      <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL et connectez vous à la Base Adresse Nationale' background='color'>
+      <Section title='Vous accompagnez des communes' subtitle='Implémentez la spécification BAL dans votre outil de gestion des adresses et connectez vous à la Base Adresse Nationale' background='color'>
         <div className='grid-links'>
           <div className='action-links'>
             <ButtonLink
@@ -139,7 +147,7 @@ function GererMesAdresses() {
               color='white'
               isOutlined
             >
-              Accéder à la page dédiée <Book style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
+              Accédez à la page dédiée <Book style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
             </ButtonLink>
           </div>
         </div>
