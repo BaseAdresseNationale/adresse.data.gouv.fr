@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
-import {Download, Edit3, Database} from 'react-feather'
+import {Download, MapPin, Database} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -33,7 +33,7 @@ function Hero({title, tagline}) {
             </CircleLink>
             <CircleLink
               href='/gerer-mes-adresses'
-              icon={<Edit3 size={48} color={theme.colors.white} alt='' aria-hidden='true' />}
+              icon={<MapPin size={48} color={theme.colors.white} alt='' aria-hidden='true' />}
               isImportant
               size='80'
             >
