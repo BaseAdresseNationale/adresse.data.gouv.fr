@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import {MapPin, Book, Edit2, HelpCircle} from 'react-feather'
+import {MapPin, Book, Edit2, HelpCircle, FileText, Terminal, Database} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -42,7 +42,7 @@ function GererMesAdresses() {
 
       <Section title='Plusieurs solutions s’offrent à vous' background='color' />
 
-      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !'>
+      <Section title='Utiliser l’outil national' subtitle='Facile, gratuit et rapide !' background='grey'>
         <div className='easy-step'>
           <div className='subtitled-img'>
             <div className='circle'>
@@ -89,49 +89,47 @@ function GererMesAdresses() {
         </Notification>
       </Section>
 
-      <Section title='Utiliser le formulaire de dépôt' subtitle='Un module de publication simplifié permet de déposer un fichier CSV par simple formulaire de dépôt' background='grey' >
+      <Section id='recherche-partenaires' title='Vous souhaitez être accompagné dans votre adressage' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
+        <PartnersSearchbar />
+      </Section>
+
+      <Section title='Vous utilisez déjà votre propre outil' subtitle='Plusieurs solutions existent afin de publier vos fichiers Base Adresse Locale' background='grey'>
         <div className='easy-step'>
           <div className='subtitled-img'>
             <div className='circle'>
-              <b>1</b>
+              <b><FileText size={42} alt='' aria-hidden='true' /></b>
             </div>
-            <p>Sélectionner un fichier <br /> au format CSV Base Adresse Locale</p>
+            <p><Link href='/bases-locales/publication'>Formulaire de dépôt</Link></p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
-              <b>2</b>
+              <b><Database size={42} alt='' aria-hidden='true' /></b>
             </div>
-            <p>Obtenir une <br />habilitation</p>
+            <p><a href='https://www.data.gouv.fr/fr/'>data.gouv.fr</a></p>
           </div>
           <div className='subtitled-img'>
             <div className='circle'>
-              <b>3</b>
+              <b><Terminal size={42} alt='' aria-hidden='true' /></b>
             </div>
-            <p>Publier vos adresses dans <br />la Base Adresse Nationale 🇫🇷</p>
+            <p><a href='https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation'>API dépôt d’une Base Adresse Locale</a></p>
           </div>
         </div>
 
         <div className='action-links'>
           <ButtonLink
             size='large'
-            href='/bases-locales/publication'
+            href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale'
           >
-            Utiliser le formulaire de dépôt des adresses
+            Voir tous les méthodes de publication
           </ButtonLink>
         </div>
 
         <Notification isFullWidth>
           <div>
             <HelpCircle style={{verticalAlign: 'bottom', marginRight: '1em'}} alt='' aria-hidden='true' />
-            Pour en savoir plus sur les <b>différentes méthodes de publication</b>, vous pouvez consulter la documentation <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale' target='_blank' rel='noopener noreferrer'>Publier une Base Adresse Locale</a>.
+            Avant de publier, <b>vérifiez la conformité</b> de votre fichier Base Adresse Locale grâce au <Link href='/bases-locales/validateur'>Validateur BAL</Link>
           </div>
         </Notification>
-      </Section>
-
-      <Section id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
-        <div>
-          <PartnersSearchbar />
-        </div>
       </Section>
 
       <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL et connectez vous à la Base Adresse Nationale' background='color'>
