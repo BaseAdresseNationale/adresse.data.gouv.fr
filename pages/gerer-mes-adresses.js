@@ -138,7 +138,7 @@ function GererMesAdresses() {
         </Notification>
       </Section>
 
-      <Section title='Développer votre propre outil de gestion d’adresses' subtitle='Implémentez la spécification BAL et connectez vous à la Base Adresse Nationale' background='color'>
+      <Section title='Vous accompagnez des communes' subtitle='Implémentez la spécification BAL dans votre outil de gestion des adresses et connectez vous à la Base Adresse Nationale' background='color'>
         <div className='grid-links'>
           <div className='action-links'>
             <ButtonLink
@@ -147,7 +147,7 @@ function GererMesAdresses() {
               color='white'
               isOutlined
             >
-              Accéder à la page dédiée <Book style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
+              Accédez à la page dédiée <Book style={{verticalAlign: 'bottom', marginLeft: '3px'}} alt='' aria-hidden='true' />
             </ButtonLink>
           </div>
         </div>
