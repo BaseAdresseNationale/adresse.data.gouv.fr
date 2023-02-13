@@ -126,7 +126,7 @@ function GererMesAdresses() {
             size='large'
             href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale'
           >
-            Voir tous les méthodes de publication
+            Voir toutes les méthodes de publication
           </ButtonLink>
         </div>
 
