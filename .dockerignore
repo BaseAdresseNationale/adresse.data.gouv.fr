@@ -1,6 +1,5 @@
 # Environment config
 .env*
-!.env.sample
 !.env.production
 
 # Runtime
@@ -37,3 +36,19 @@ node_modules
 # Reports
 coverage
 reports
+
+# Git config
+.git
+.github
+.gitignore
+
+#Editor Config
+.editorconfig
+
+#Docker config
+Dockerfile
+docker-compose
+
+#Other
+*.md
+LICENSE
