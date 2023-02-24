@@ -314,8 +314,7 @@ export const toponymeLayer = {
     'text-size': {
       stops: [
         [0, 3],
-        [10, 15],
-        [17, 8]
+        [10, 15]
       ]
     },
     'text-field': ['get', 'nomVoie'],
