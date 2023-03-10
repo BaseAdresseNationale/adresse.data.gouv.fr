@@ -27,6 +27,7 @@ function Footer() {
         <ul className='footer__links'>
           <li><h2>adresse.data.gouv.fr</h2></li>
           <li><Link href='/cgu' legacyBehavior><a aria-label='Accéder aux mentions légales et conditions générales d’utilisation'>Mentions légales et CGU</a></Link></li>
+          <li><Link href='/indicateurs' legacyBehavior><a aria-label='Consulter les indicateurs d’impacts'>Indicateurs d’impact</a></Link></li>
           <li><a href='https://doc.adresse.data.gouv.fr/' aria-label='Consulter la documentation'>Documentation</a></li>
           <li><a href='https://status.adresse.data.gouv.fr/' aria-label='Consulter la supervision de la Base Adresse Nationale et Base Adresse Locale'>Supervision BAN/BAL</a></li>
           <li><Link href='/accessibilite' aria-label='Consulter la déclaration d’accessibilité' legacyBehavior><a>Accessibilité : non-conforme</a></Link></li>
