@@ -13,7 +13,7 @@ import Notification from '@/components/notification'
 import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 
-function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBBox, nbNumeros}) {
+function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBBox, nbNumeros, lieuDitVoies}) {
   const isToponyme = type === 'lieu-dit'
   const {region, departement} = commune
 
@@ -36,21 +36,35 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
         <Notification type='warning' message='Aucune position n’est connue pour cette adresse, elle ne peut donc pas être affichée sur la carte.' />
       )}
 
-      {isToponyme ? (
-        <Tag type='lieu-dit' />
-      ) : (
-        <div className='numeros-list'>
-          <AddressesList
-            title='Numéros de la voie'
-            addresses={numeros}
-            placeholder='Rechercher un numéro'
-            getLabel={getNumeroComplet}
-            addressComponent={numero => (
-              <Numero isCertified={numero.certifie} {...numero} />
-            )}
-          />
-        </div>
-      )}
+      {isToponyme ?
+        <>
+          <Tag type='lieu-dit' />
+          {lieuDitVoies && lieuDitVoies.length > 0 && lieuDitVoies.map(lieuDitVoie => (
+            <div key={lieuDitVoie.idVoie} className='address-list-for-lieu-dit'>
+              <AddressesList
+                title={lieuDitVoie.nomVoie}
+                addresses={numeros.filter(numero => numero.idVoie === lieuDitVoie.idVoie)}
+                placeholder='Rechercher un numéro'
+                getLabel={getNumeroComplet}
+                addressComponent={numero => (
+                  <Numero isCertified={numero.certifie} {...numero} />
+                )}
+              />
+            </div>
+          ))}
+        </> : (
+          <div className='numeros-list'>
+            <AddressesList
+              title='Numéros de la voie'
+              addresses={numeros}
+              placeholder='Rechercher un numéro'
+              getLabel={getNumeroComplet}
+              addressComponent={numero => (
+                <Numero isCertified={numero.certifie} {...numero} />
+              )}
+            />
+          </div>
+        )}
 
       {parcelles && <div style={{marginTop: '1em'}}>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>}
 
@@ -76,6 +90,10 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
           font-weight: bolder;
           margin: 2em 0 0.7em 0;
         }
+
+        .address-list-for-lieu-dit {
+          margin: 1em 0 0.7em 0;
+        }
         `}</style>
     </>
   )
@@ -87,7 +105,8 @@ Voie.propTypes = {
   nbNumeros: null,
   nomVoieAlt: null,
   parcelles: null,
-  displayBBox: null
+  displayBBox: null,
+  lieuDitVoies: null
 }
 
 Voie.propTypes = {
@@ -104,7 +123,8 @@ Voie.propTypes = {
   displayBBox: PropTypes.array,
   nbNumeros: PropTypes.number,
   numeros: PropTypes.array,
-  parcelles: PropTypes.array
+  parcelles: PropTypes.array,
+  lieuDitVoies: PropTypes.array
 }
 
 export default Voie
