@@ -140,6 +140,27 @@ export async function getServerSideProps({query}) {
       }
     }
 
+    if (address.type === 'lieu-dit') {
+      const {numeros} = address
+
+      if (numeros && numeros.length > 0) {
+        const idsVoie = []
+
+        numeros.forEach(numero => {
+          const {idVoie} = numero
+          if (!idsVoie.includes(idVoie)) {
+            idsVoie.push(idVoie)
+          }
+        })
+
+        const lieuDitVoiesTemp = idsVoie.map(idVoie => getAddress(idVoie))
+        const lieuDitVoies = await Promise.all(lieuDitVoiesTemp)
+
+        address.nbNumeros = numeros.length
+        address.lieuDitVoies = lieuDitVoies
+      }
+    }
+
     return {
       props: {address}
     }
