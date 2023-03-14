@@ -18,7 +18,7 @@ import DeviceContext from '@/contexts/device'
 import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 
-function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt, certifie, positions, positionType, sourcePosition, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt, certifie, positions, positionType, sourcePosition, dateMAJ, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -88,6 +88,8 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
         />
       )}
 
+      <div className='update'>Adresse mise à jour le <b>{dateMAJ ? new Date(dateMAJ).toLocaleDateString('fr-FR') : 'inconnue'}</b></div>
+
       {isCopySucceded && (
         <Alert
           type='success'
@@ -149,6 +151,12 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
           font-style: italic;
           color: ${colors.almostBlack};
         }
+
+        .update {
+          text-align: center;
+          margin-top: 1em;
+          font-style: italic;
+        }
       `}</style>
     </>
   )
@@ -163,6 +171,7 @@ Numero.propTypes = {
   sourcePosition: PropTypes.string.isRequired,
   parcelles: PropTypes.array.isRequired,
   positions: PropTypes.array,
+  dateMAJ: PropTypes.string,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,
@@ -191,6 +200,7 @@ Numero.defaultProps = {
   codePostal: null,
   libelleAcheminement: null,
   positionType: null,
+  dateMAJ: null,
   isMobile: false
 }
 
