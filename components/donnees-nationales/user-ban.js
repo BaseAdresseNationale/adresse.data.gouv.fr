@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 
 import theme from '@/styles/theme'
 
-function UserBAN({UserInfos}) {
-  const {name, link, usage, picture, height, width} = UserInfos
+function UserBAN({userInfos}) {
+  const {name, link, usage, picture, height, width} = userInfos
 
   return (
     <div className='user'>
@@ -17,8 +17,7 @@ function UserBAN({UserInfos}) {
             src={picture}
             height={height}
             width={width}
-            layout='fixed'
-            alt
+            alt={`Logo - ${name}`}
           />
         </div>
         <div className='usage-container'>
@@ -94,7 +93,7 @@ function UserBAN({UserInfos}) {
 }
 
 UserBAN.propTypes = {
-  UserInfos: PropTypes.shape({
+  userInfos: PropTypes.shape({
     name: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     usage: PropTypes.string.isRequired,
