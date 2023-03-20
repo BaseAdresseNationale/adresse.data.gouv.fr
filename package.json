@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/runtime": "^7.20.7",
     "@ban-team/shared-data": "^1.2.0",
-    "@ban-team/validateur-bal": "^2.11.0",
+    "@ban-team/validateur-bal": "^2.12.0",
     "@turf/bbox": "^6.5.0",
     "@turf/bbox-polygon": "^6.5.0",
     "@turf/boolean-contains": "^6.5.0",
