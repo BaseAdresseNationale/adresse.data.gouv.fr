@@ -30,6 +30,15 @@ $ yarn build-available-flags
 yarn dev
 ```
 
+### Lancer en mode développement avec docker et docker-compose
+
+```bash
+docker-compose up --build -d
+```
+
+* --build permet de builder l'image qui est définie dans le Dockerfile.dev
+* -d permet d'activer le 'detached mode' : execution des services en arrière-plan
+
 ### Générer les assets pour la production
 
 ```bash

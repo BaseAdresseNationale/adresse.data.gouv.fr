@@ -1,5 +1,27 @@
 [
   {
+    "name": "Ressons-le-Long",
+    "link": "https://www.ressonslelong.com/",
+    "codeRegion": "32",
+    "codeDepartement": [
+      "02"
+    ],
+    "codeCommune": "02643",
+    "testimonyURL": null,
+    "charteURL": "https://www.ressonslelong.com/upload/Doc_Paragraphe/202230313%20Charte%20commune%20Ressons%20le%20Long.pdf",
+    "balURL": "https://adresse.data.gouv.fr/bases-locales/jeux-de-donnees/bal-02643",
+    "echelon": 0,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "partage d'expérience"
+    ],
+    "picture": "/images/logos/partners/communes/ressons-le-long.jpg",
+    "height": 181,
+    "width": 108,
+    "signatureDate": "2023-03-16"
+  },
+  {
     "name": "Égliseneuve-des-Liards",
     "link": "http://www.mairie-egliseneuvedesliards.fr/actualites/detail/adressage-6469",
     "codeRegion": "84",
