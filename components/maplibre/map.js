@@ -143,7 +143,15 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
       })
 
       if (hasControl) {
-        map.addControl(new maplibregl.NavigationControl({showCompass: false}))
+        const navControl = new maplibregl.NavigationControl({
+          showCompass: false
+        })
+        const scaleControl = new maplibregl.ScaleControl({
+          maxWidth: 150,
+          unit: 'metric'
+        })
+        map.addControl(navControl, 'top-right')
+        map.addControl(scaleControl, 'bottom-right')
       }
 
       map.on('load', loadData)
