@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types'
 import UserBAN from '@/components/donnees-nationales/user-ban'
-import {orderBy} from 'lodash'
+import {shuffle} from 'lodash'
+import {useState, useEffect} from 'react'
 
 import colors from '@/styles/colors'
 
 function UsersBAN({data}) {
-  const items = orderBy(data, 'name', 'asc')
+  const [items, setItems] = useState([])
+  useEffect(() => {
+    setItems(shuffle(data))
+  }, [data])
 
-  return (
+  return items.length > 0 ? (
     <>
       <div className='users-container'>
-        {items.map(user => <UserBAN key={user.name} UserInfos={user} />)}
+        {items.map(user => <UserBAN key={user.name} userInfos={user} />)}
       </div>
 
       <style jsx>{`
@@ -30,7 +34,7 @@ function UsersBAN({data}) {
         }
       `}</style>
     </>
-  )
+  ) : null
 }
 
 UsersBAN.propTypes = {
