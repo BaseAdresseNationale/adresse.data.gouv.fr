@@ -68,13 +68,12 @@ function Home({stats, posts}) {
         </div>
 
         <style jsx>{`
-            .centered {
-              margin: 40px auto;
-              display: flex;
-              justify-content: center;
-            }
-          `}
-        </style>
+          .centered {
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+          }
+        `}</style>
       </Section>
 
       {stats && (
@@ -135,8 +134,7 @@ function Home({stats, posts}) {
               text-decoration: none;
               color: white;
             }
-          `}
-          </style>
+          `}</style>
         </Section>
       )}
 
