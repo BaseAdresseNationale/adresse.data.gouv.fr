@@ -21,7 +21,7 @@ function Reutilisateurs() {
         L’adresse est une donnée d’intérêt général, son utilisation est un enjeu dans de nombreux domaines :<br />services publics, services de sécurité et de secours, gestionnaires de réseaux, services de livraison, de localisation et navigation, services clients et geomarketing , assurances…
       </p>
 
-      <Section subtitle='Ils utilisent la BAN'>
+      <Section subtitle='Quelques exemples parmi les milliers d’usages réguliers de la BAN'>
         <div className='re-users-section'>
           <UsersBAN data={usersData} />
         </div>
@@ -35,7 +35,7 @@ function Reutilisateurs() {
         </div>
       </Section>
 
-      <Section subtitle='Pour apparaître dans cette liste de réutilisateurs, contactez-nous :'>
+      <Section subtitle='Pour apparaître dans cette liste d’utilisateurs, contactez-nous :'>
         <div className='contact-button'>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
