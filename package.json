@@ -51,7 +51,6 @@
     "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
     "sharp": "^0.29.3",
-    "template.data.gouv.fr": "1.2.1",
     "underscore.string": "^3.3.6",
     "vt-pbf": "^3.1.3"
   },
