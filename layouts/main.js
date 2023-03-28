@@ -12,7 +12,8 @@ class Layout extends React.Component {
     hasFooter: PropTypes.bool,
     title: PropTypes.string,
     description: PropTypes.string,
-    image: PropTypes.string
+    image: PropTypes.string,
+    isLegacy: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -20,18 +21,19 @@ class Layout extends React.Component {
     hasFooter: true,
     title: null,
     description: null,
-    image: null
+    image: null,
+    isLegacy: true,
   }
 
   render() {
-    const {title, description, image, children, hasFooter} = this.props
+    const {title, description, image, children, hasFooter, isLegacy} = this.props
 
     return (
       <>
         <Meta title={title} description={description} image={image} />
         <IEWarning />
         <Header />
-        <main>
+        <main className={isLegacy && 'template-data-gouv'}>
           {children}
         </main>
         {hasFooter && <Footer />}
