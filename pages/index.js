@@ -14,7 +14,6 @@ import ButtonLink from '@/components/button-link'
 import MapBalSection from '@/components/map-bal-section'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
-import SocialMedia from '@/components/social-media'
 import CommuneSearch from '@/components/commune/commune-search'
 import EventBanner from '@/components/evenement/event-banner'
 
@@ -69,13 +68,12 @@ function Home({stats, posts}) {
         </div>
 
         <style jsx>{`
-            .centered {
-              margin: 40px auto;
-              display: flex;
-              justify-content: center;
-            }
-          `}
-        </style>
+          .centered {
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+          }
+        `}</style>
       </Section>
 
       {stats && (
@@ -136,8 +134,7 @@ function Home({stats, posts}) {
               text-decoration: none;
               color: white;
             }
-          `}
-          </style>
+          `}</style>
         </Section>
       )}
 
@@ -165,10 +162,6 @@ function Home({stats, posts}) {
             max-width: 400px;
           }
         `}</style>
-      </Section>
-
-      <Section id='newsletter' title='Suivez et participez à l’actualité de la communauté adresse.data.gouv' background='grey'>
-        <SocialMedia />
       </Section>
     </Page>
   )

@@ -73,12 +73,12 @@ function Hero({title, tagline}) {
 
       <style jsx>{`
         .hero {
-          min-height: 100vh;
           background: ${theme.colors.white};
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          gap: 1em;
+          gap: 5em;
+          color: inherit;
         }
 
         .hero-container {
