@@ -6,6 +6,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import ButtonLink from '@/components/button-link'
 import UsersBAN from '@/components/donnees-nationales/users-ban'
+import SectionText from '@/components/section-text'
 
 import usersData from '@/data/partners/users-ban.json'
 
@@ -17,11 +18,13 @@ function Reutilisateurs() {
     <Page title={title} description={description}>
       <Head title={title} icon={<Users size={56} alt='' aria-hidden='true' />} />
 
-      <p className='description'>
-        L’adresse est une donnée d’intérêt général, son utilisation est un enjeu dans de nombreux domaines :<br />services publics, services de sécurité et de secours, gestionnaires de réseaux, services de livraison, de localisation et navigation, services clients et geomarketing , assurances…
-      </p>
+      <Section title='Une donnée d’intérêt général' background='grey'>
+        <SectionText>
+          L’adresse est une donnée d’intérêt général, son utilisation est un enjeu dans de nombreux domaines :<br />services publics, services de sécurité et de secours, gestionnaires de réseaux, services de livraison, de localisation et navigation, services clients et geomarketing , assurances…
+        </SectionText>
+      </Section>
 
-      <Section subtitle='Quelques exemples parmi les milliers d’usages réguliers de la BAN'>
+      <Section title='Quelques exemples parmi les milliers d’usages réguliers de la BAN'>
         <div className='re-users-section'>
           <UsersBAN data={usersData} />
         </div>
@@ -46,8 +49,8 @@ function Reutilisateurs() {
 
       <style jsx>{`
 
-        .description {
-          text-align: center;
+        .re-users-section {
+          padding-top: 2em;
         }
 
         .contact-button {
