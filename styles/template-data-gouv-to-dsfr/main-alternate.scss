@@ -484,6 +484,16 @@ https://jsonformatter.org/scss-to-css
     top: 0;
     overflow: hidden;
     text-decoration: none;
+    cursor: pointer;
+    width: auto;
+  }
+
+  a.button:disabled,
+  button.button:disabled {
+    color: #fff;
+    color: var(--white);
+    background-color: #c9d3df;
+    background-color: var(--light-grey);
   }
 
   a.button:hover,
@@ -492,6 +502,29 @@ https://jsonformatter.org/scss-to-css
   input[type="button"]:hover {
     background: #003b80;
     background: var(--theme-secondary-darken);
+  }
+
+  button.legacy:not(:disabled):hover:not([class^="Mui"]),
+  input[type=button]:not(:disabled):hover,
+  input[type=image]:not(:disabled):hover,
+  input[type=reset]:not(:disabled):hover,
+  input[type=submit]:not(:disabled):hover {
+    background-color: inherit;
+  }
+
+  button:not(:disabled):hover {
+    background: #003b80;
+    background: var(--theme-secondary-darken);
+  }
+
+  a.button:disabled:hover,
+  button.button:disabled:hover {
+    cursor: auto;
+    cursor: initial;
+    color: #fff;
+    color: var(--white);
+    background-color: #c9d3df;
+    background-color: var(--light-grey);
   }
 
   a.button:active,

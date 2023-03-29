@@ -47,6 +47,7 @@ function EventBanner() {
           <div>
             {events.map((event, idx) => (
               <ActionButtonNeutral
+                className='legacy'
                 label={`${index === idx ? 'Vous êtes sur la fiche de' : 'Allez à la fiche de'} l’évènement ${event.title} du ${dateWithDay(event.date)}`}
                 key={`${event.title}-${event.date}`}
                 onClick={() => setIndex(idx)}
@@ -61,7 +62,7 @@ function EventBanner() {
           {events.map((event, idx) => {
             return (
               <li className={idx === index ? 'slide' : 'hidden'} key={`${event.title}-${event.date}`}>
-                <ActionButtonNeutral label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)} isFullSize>
+                <ActionButtonNeutral className='legacy' label={`Afficher l’évènement ${event.title}`} onClick={() => setSelectedEvent(event)} isFullSize>
                   <div className='event-link'>
                     {event.title}
                   </div>
