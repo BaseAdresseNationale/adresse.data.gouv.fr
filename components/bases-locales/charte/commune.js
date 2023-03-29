@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
-import {ExternalLink} from 'react-feather'
 
 import theme from '@/styles/theme'
 import ButtonLink from '@/components/button-link'
@@ -18,7 +17,7 @@ function Commune({name, codeCommune, picture, height, width, signatureDate, char
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
       {charteURL && (
         <ButtonLink href={charteURL} isExternal target='_blank' label={`Voir la charte de ${name}`}>
-          Voir la charte <ExternalLink size={20} style={{verticalAlign: 'sub'}} alt='Lien externe' />
+          Voir la charte
         </ButtonLink>
       )}
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {ExternalLink, FileText} from 'react-feather'
+import {FileText, ArrowRight} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -12,7 +12,7 @@ function KnowMoreSection({links}) {
           links.map(({isFile, href, title}) => {
             return (
               <li key={href}>
-                {isFile ? <FileText alt='Document' /> : <ExternalLink alt='Lien externe' />}<a href={href}>{title}</a>
+                {isFile ? <FileText alt='Document' /> : <ArrowRight alt='Lien externe' />}<a href={href} target='_blank' rel='noreferrer'>{title}</a>
               </li>
             )
           })

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/legacy/image'
-import {Download, ExternalLink} from 'react-feather'
+import {Download} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -82,8 +82,8 @@ function DonneesNationales() {
           </Card>
         </div>
         <div className='link'>
-          <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig'>
-            <ExternalLink style={{verticalAlign: 'bottom'}} /> Retrouvez les tutoriels d’utilisation des flux avec un outil SIG
+          <a href='https://geoservices.ign.fr/documentation/services/utilisation-sig' target='_blank' rel='noreferrer'>
+            Retrouvez les tutoriels d’utilisation des flux avec un outil SIG
           </a>
         </div>
       </Section>
