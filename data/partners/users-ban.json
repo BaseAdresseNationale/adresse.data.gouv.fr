@@ -77,5 +77,13 @@
     "picture": "/images/logos/partners/re-users-ban/tomtom.jpeg",
     "height": 177,
     "width": 300
+  },
+  {
+    "name": "Orange",
+    "link": "https://www.orange.fr/",
+    "usage": "Enrichissement du référentiel.",
+    "picture": "/images/logos/partners/re-users-ban/orange.png",
+    "height": 150,
+    "width": 300
   }
 ]
