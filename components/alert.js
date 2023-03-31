@@ -50,8 +50,14 @@ function Alert({type, message, duration, onClose}) {
         .alert-container {
           z-index: 999;
           position: absolute;
-          top: 86px;
           width: 100%;
+          bottom: 4em;
+        }
+        @media (min-width: 900px) {
+          .alert-container {
+            right: .5em;
+            width: auto;
+          }
         }
 
         .alert {
