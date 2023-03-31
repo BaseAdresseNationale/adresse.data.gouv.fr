@@ -50,6 +50,7 @@ function Explorer({address, isMobile, isSafariBrowser}) {
           height: 100%;
           overflow-y: auto;
           overflow-x: hidden;
+          padding: 0 .75em;
         }
       `}</style>
     </div>
