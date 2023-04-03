@@ -11,7 +11,7 @@ function ParcellesList({parcelles}) {
             <div key={parcelle} className='parcelle'>{parcelle}</div>
           ))}
         </div>
-      ) : 'Aucune parcelles cadastrale n’est référencée'}
+      ) : 'Aucune parcelle cadastrale n’est référencée'}
 
       <style jsx>{`
         .parcelles {
