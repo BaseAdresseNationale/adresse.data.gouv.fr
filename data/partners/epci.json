@@ -1329,5 +1329,25 @@
     "picture": "/images/logos/partners/epci/lamballe.png",
     "height": 124,
     "width": 363
+  },
+  {
+    "name": "Cap Atlantique",
+    "link": "https://www.cap-atlantique.fr/",
+    "charteURL": "https://data.capatlantique.fr/explore/dataset/244400610-base-adresse-locale/information/",
+    "infos": "Cap Atlantique met à disposition des communes de la Communauté d’agglomération son outil mutualisé, qui permet également de gérer les lieux-dits par le biais du champ lieudit_complement_nom.",
+    "perimeter": "Communes de Cap Atlantique",
+    "codeDepartement": [
+      "44",
+      "56"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "mise à disposition d'outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/cap-atlantique.png",
+    "height": 75,
+    "width": 300
   }
 ]
