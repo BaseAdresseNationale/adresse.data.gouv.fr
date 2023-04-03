@@ -21,8 +21,8 @@ class SwitchMapStyle extends React.Component {
       <div className='switch-style'>
         <ActionButtonNeutral label={isVector ? 'Passer en vue satellite' : 'Passer en vue vectoriel'} onClick={handleChange}>
           <Image
-            width={80}
-            height={80}
+            width={90}
+            height={90}
             src={src}
             alt=''
           />
@@ -30,8 +30,8 @@ class SwitchMapStyle extends React.Component {
         <div className='text'>{style}</div>
         <style jsx>{`
           .switch-style {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border: 2px solid #fff;
             box-shadow: 0 1px 4px 0 ${theme.boxShadow};
           }

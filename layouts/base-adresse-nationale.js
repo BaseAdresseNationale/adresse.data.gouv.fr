@@ -179,17 +179,14 @@ export function Desktop({address, bbox, handleSelect, hash}) {
           z-index: 1;
           min-width: 460px;
           box-shadow: 2px 0px 10px #0000008a;
-          padding: 0 0.5em;
         }
 
         .search {
           padding: 0.5em;
-          margin: 0 -0.5em;
           background-color: ${theme.primary};
         }
 
         .footer {
-          margin: 0 -0.5em;
           padding: .5em;
           text-align: center;
         }

@@ -73,7 +73,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
           display: flex;
           justify-content: space-between;
           align-items: center;
-          min-width: 150px;
+          min-width: 11em;
         }
 
         .close-icon {
@@ -86,8 +86,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
         .content {
           margin-top: 1em;
         }
-      `}
-      </style>
+      `}</style>
     </div>
   )
 }

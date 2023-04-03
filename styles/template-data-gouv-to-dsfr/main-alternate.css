@@ -391,10 +391,33 @@
   top: 0;
   overflow: hidden;
   text-decoration: none;
+  cursor: pointer;
+  width: auto;
+}
+.template-data-gouv a.button:disabled, .template-data-gouv button.button:disabled {
+  color: #fff;
+  color: var(--white);
+  background-color: #c9d3df;
+  background-color: var(--light-grey);
 }
 .template-data-gouv a.button:hover, .template-data-gouv button.button:hover, .template-data-gouv input[type="submit"]:hover, .template-data-gouv input[type="button"]:hover {
   background: #003b80;
   background: var(--theme-secondary-darken);
+}
+.template-data-gouv button.legacy:not(:disabled):hover:not([class^="Mui"]), .template-data-gouv input[type=button]:not(:disabled):hover, .template-data-gouv input[type=image]:not(:disabled):hover, .template-data-gouv input[type=reset]:not(:disabled):hover, .template-data-gouv input[type=submit]:not(:disabled):hover {
+  background-color: inherit;
+}
+.template-data-gouv button:not(:disabled):hover {
+  background: #003b80;
+  background: var(--theme-secondary-darken);
+}
+.template-data-gouv a.button:disabled:hover, .template-data-gouv button.button:disabled:hover {
+  cursor: auto;
+  cursor: initial;
+  color: #fff;
+  color: var(--white);
+  background-color: #c9d3df;
+  background-color: var(--light-grey);
 }
 .template-data-gouv a.button:active, .template-data-gouv button.button:active, .template-data-gouv input[type="submit"]:hover, .template-data-gouv input[type="button"]:hover {
   -webkit-transform: translateY(1px);
