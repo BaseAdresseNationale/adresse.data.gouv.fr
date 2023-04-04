@@ -5,6 +5,7 @@ import Page from '@/layouts/main'
 
 import Head from '@/components/head'
 import Section from '@/components/section'
+import SectionText from '@/components/section-text'
 
 function Indicateurs() {
   const title = 'Indicateurs d’impact'
@@ -13,6 +14,15 @@ function Indicateurs() {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<PieChart size={56} alt='' aria-hidden='true' />} />
+
+      <Section background='grey'>
+        <SectionText>
+          Cette page d’indicateurs ne reflète qu’une partie des usages. Sont ici représentés les usages de l’API adresse et non les usages de téléchargement des fichiers adresse. Néanmoins, les exploitations de l’API sont une illustration relativement fidèle des usages de l’adresse et de la typologie des utilisateurs.<br />
+          Les statistiques sont présentées sur une périodicité mensuelle et sont issues des données brutes d’exploitation.<br />
+          Ces données seront régulièrement enrichies afin de donner une lecture la plus fidèle des usages de la BAN.<br />
+          Date de dernière mise à jour : Mars 2023
+        </SectionText>
+      </Section>
 
       <Section title='Nombre de requêtes' subtitle='en février 2023' >
         <Image src='/images/indicateurs/nb_requetes.png' height={250} width={1000} />
