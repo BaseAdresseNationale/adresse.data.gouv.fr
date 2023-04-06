@@ -1349,5 +1349,27 @@
     "picture": "/images/logos/partners/epci/cap-atlantique.png",
     "height": 75,
     "width": 300
+  },
+  {
+    "name": "Quimper Bretagne Occidentale",
+    "link": "https://www.quimper-bretagne-occidentale.bzh/1980-adoption-de-la-charte-base-adresse-locale-.htm",
+    "charteURL": "https://www.quimper-bretagne-occidentale.bzh/cms_viewFile.php?idtf=50571&path=Charte-Base-Adresse-Locale-QBO.pdf",
+    "infos": "Quimper Bretagne Occidentale, à travers son Système d’Information Géographique (SIG) accompagne depuis de nombreuses années les communes dans leur démarche d’adressage et s’engage désormais dans la démarche nationale « base adresse locale »",
+    "perimeter": "Communauté d’agglomération",
+    "codeDepartement": [
+      "29"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/quimper-bretagne-occidentale.png",
+    "height": 110,
+    "width": 300
   }
 ]
