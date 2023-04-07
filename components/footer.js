@@ -1,8 +1,10 @@
+import {useEffect, useRef, useState} from 'react'
 import Link from 'next/link'
 import {Footer as FooterDsfr} from '@codegouvfr/react-dsfr/Footer'
 import {Button} from '@codegouvfr/react-dsfr/Button'
 import {createModal} from '@codegouvfr/react-dsfr/Modal'
 import {fr} from '@codegouvfr/react-dsfr'
+import {useRouter} from 'next/router'
 
 const {NewsLetterModal, newsLetterModalButtonProps} = createModal({
   name: 'newsLetter',
@@ -10,6 +12,21 @@ const {NewsLetterModal, newsLetterModalButtonProps} = createModal({
 })
 
 function Footer() {
+  const buttonNewsLetter = useRef(null)
+  const {asPath} = useRouter()
+  const [hash, setHash] = useState()
+
+  useEffect(() => {
+    const hash = asPath.split('#')[1]
+    setHash(hash)
+  }, [asPath])
+
+  useEffect(() => {
+    if (hash === 'newsletter') {
+      buttonNewsLetter.current.click()
+    }
+  }, [hash])
+
   return (
     <>
       <NewsLetterModal
@@ -44,7 +61,7 @@ function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Button className={fr.cx('fr-btn', 'ri-file-list-3-fill')} title='Infolettre d’Adresse.data.gouv.fr' {...newsLetterModalButtonProps}>
+                    <Button ref={buttonNewsLetter} className={fr.cx('fr-btn', 'ri-file-list-3-fill')} title='Infolettre d’Adresse.data.gouv.fr' {...newsLetterModalButtonProps}>
                       Infolettre
                     </Button>
                   </li>
