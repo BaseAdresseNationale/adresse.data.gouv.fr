@@ -14,10 +14,6 @@ function Notification({message, type, style, isFullWidth, onClose, children}) {
       </div >
       <style jsx>{`
         .notification {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-
           background: #b4e1fa;
           background: var(--theme-info-bg);
           border: 1px solid #006be6;
