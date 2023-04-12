@@ -90,7 +90,7 @@ function Footer() {
           },
           {
             text: 'Supervision BAN/BAL',
-            linkProps: {href: 'https://status.adresse.data.gouv.fr/', target: '_blank'}
+            linkProps: {href: 'https://stats.uptimerobot.com/jVEyBiY5jg', target: '_blank'}
           },
           {
             text: 'Github',
