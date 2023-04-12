@@ -36,7 +36,7 @@ function ApiPage() {
     {
       title: 'Supervision BAN/BAL',
       description: 'Consultez la disponiblité des différents systèmes grâce à un outil de monitoring.',
-      href: 'https://status.adresse.data.gouv.fr/',
+      href: 'https://stats.uptimerobot.com/jVEyBiY5jg',
       icon: <Activity alt='' aria-hidden='true' />
     }
   ]
