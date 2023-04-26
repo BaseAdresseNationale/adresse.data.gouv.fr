@@ -40,6 +40,7 @@ app.prepare().then(() => {
             'api-adresse.data.gouv.fr',
             'backend.adresse.data.gouv.fr',
             'plateforme.adresse.data.gouv.fr',
+            'plateforme-bal.adresse.data.gouv.fr',
             'etablissements-publics.api.gouv.fr',
             'geo.api.gouv.fr',
             'openmaptiles.geo.data.gouv.fr',
