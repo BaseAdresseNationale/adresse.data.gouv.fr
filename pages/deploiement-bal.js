@@ -1,37 +1,28 @@
+import {useEffect, useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import theme from '@/styles/theme'
-import {Database} from 'react-feather'
+import {Database, Download} from 'react-feather'
+import {debounce} from 'lodash'
 
-import {getStats} from '@/lib/api-ban'
+import departementCenterMap from '@/data/geo/departement-center.json'
+
+import {_fetch, getStats} from '@/lib/api-ban'
+import {getDepartements, getEpcis} from '@/lib/api-geo'
 import {numFormater} from '@/lib/format-numbers'
+
+import {useStatsDeploiement} from '@/hooks/stats-deploiement'
 
 import MapLibre from '@/components/maplibre'
 import DoughnutCounter from '@/components/doughnut-counter'
-
 import BalCoverMap from '@/components/bases-locales/bal-cover-map'
+import SearchInput from '@/components/search-input'
+import SearchSelected from '@/components/search-input/search-selected'
+import StatsSearchItem from '@/components/search-input/stats-search-item'
 
-function toCounterData(percent, total) {
-  return {
-    labels: [],
-    datasets: [
-      {
-        data: [percent, total],
-        backgroundColor: [
-          'rgba(0, 83, 179, 1)',
-          'rgba(0, 0, 0, 0)'
-        ],
-        borderColor: [
-          'rgba(1, 1, 1, 0)',
-          'rgba(1, 1, 1, 0.3)'
-        ],
-        borderWidth: 1,
-      },
-    ]
-  }
-}
+const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 
 const options = {
   height: 200,
@@ -47,72 +38,158 @@ const options = {
   }
 }
 
-function EtatDeploiement({stats}) {
-  // Calcul population couverte
-  const populationCouvertePercent = Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
-  const allPopulationCouverte = 100 - Math.round((stats.bal.populationCouverte * 100) / stats.france.population)
-  const dataPopulationCouverte = toCounterData(populationCouvertePercent, allPopulationCouverte)
+const mapToSearchResult = (values, type) => values.map(({code, nom, centre, contour}) => ({value: code, type, nom, center: centre, contour}))
 
-  // Calcul communes couvertes
-  const communesCouvertesPercent = Math.round((stats.bal.nbCommunesCouvertes * 100) / stats.france.nbCommunes)
-  const allCommunesCouvertesPercent = 100 - Math.round((stats.bal.nbCommunesCouvertes * 100) / stats.france.nbCommunes)
-  const dataCommunesCouvertes = toCounterData(communesCouvertesPercent, allCommunesCouvertesPercent)
+function EtatDeploiement({initialStats, departements}) {
+  const [input, setInput] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [results, setResults] = useState([])
+  const {stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry} = useStatsDeploiement({initialStats})
 
-  // Calcul adresses gerees dans la BAL
-  const adressesGereesBALPercent = Math.round((stats.bal.nbAdresses * 100) / stats.ban.nbAdresses)
-  const allAdressesGereesBALPercent = 100 - Math.round((stats.bal.nbAdresses * 100) / stats.ban.nbAdresses)
-  const dataAdressesGereesBAL = toCounterData(adressesGereesBALPercent, allAdressesGereesBALPercent)
+  const {
+    dataPopulationCouverte,
+    communesCouvertesPercent,
+    dataCommunesCouvertes,
+    adressesGereesBALPercent,
+    dataAdressesGereesBAL,
+    adressesCertifieesPercent,
+    dataAdressesCertifiees,
+    total
+  } = formatedStats
 
-  // Calcul adresses certifiees
-  const adressesCertifieesPercent = Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
-  const allAdressesCertifieesPercent = 100 - Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
-  const dataAdressesCertifiees = toCounterData(adressesCertifieesPercent, allAdressesCertifieesPercent)
+  const handleSearch = useCallback(debounce(async input => {
+    setIsLoading(true)
+    try {
+      const filteredEpcis = await getEpcis({q: input, limit: 10, fields: ['centre', 'contour']})
+      const filteredDepartements = departements.filter(({nom}) => nom.toLowerCase().includes(input.toLowerCase()))
+
+      const results = [...mapToSearchResult(filteredEpcis, 'EPCI'), ...mapToSearchResult(filteredDepartements, 'Département')]
+
+      setResults(results)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
+  }, 300), [])
+
+  const handleResetSearch = () => {
+    setFilter(null)
+    setInput('')
+  }
+
+  const handleSelect = item => {
+    setFilter(item)
+    setInput(item.nom)
+  }
+
+  useEffect(() => {
+    if (input) {
+      handleSearch(input)
+    } else if (input === '') {
+      setResults([])
+    }
+  }, [input])
+
+  const handleDownloadCSV = async () => {
+    const url = new URL(`${ADRESSE_URL}/deploiement/couverture-stats`)
+    url.searchParams.append('codesCommune', filteredCodesCommmune)
+
+    const csvHeaders = ['code', 'nom', 'nbNumeros', 'certificationPercentage', 'hasBAL', 'nomClient']
+    const {features} = await _fetch(url)
+    const csvString = [csvHeaders.join(';'), ...features.map(({properties}) => csvHeaders.map(property => properties[property]).join(';'))].join('\n')
+
+    const link = document.createElement('a')
+    link.href = 'data:text/csv,' + encodeURIComponent(csvString)
+    link.download = 'deploiement-bal.csv'
+    link.click()
+  }
+
+  const renderInput = () => (
+    <div className='selected-filter-input'>
+      <SearchSelected value={input} onReset={handleResetSearch} />
+      <button title='Télécharger les données au format CSV' type='button' onClick={handleDownloadCSV}>
+        <Download />
+      </button>
+      <style jsx>{`
+        .selected-filter-input {
+          display: flex;
+        }
+        .selected-filter-input button {
+          margin-left: 5px;
+        }
+        .selected-filter-input button:hover {
+          background: transparent;
+          color: ${theme.colors.darkGrey};
+        }
+      `}</style>
+    </div>
+  )
 
   return (
     <Page>
       <div className='container-map'>
         <Head title='État du déploiement des Bases Adresses Locales' icon={<Database size={56} alt='' aria-hidden='true' />} />
         <div className='map-stats-container' id='map-stat'>
-          <div className='stats'>
-            <DoughnutCounter
-              title='Adresses issues des BAL'
-              valueUp={numFormater(stats.bal.nbAdresses)}
-              valueDown={`${adressesGereesBALPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
-              data={dataAdressesGereesBAL}
-              options={options}
+          <div className='stats-wrapper'>
+            <SearchInput
+              value={input}
+              results={results}
+              isLoading={isLoading}
+              placeholder='Filtrer par EPCI ou par département'
+              onSelect={handleSelect}
+              onSearch={setInput}
+              getItemValue={item => item.nom}
+              renderInput={filter ? renderInput : undefined}
+              wrapperStyle={{position: 'relative'}}
+              renderItem={StatsSearchItem}
             />
-            <DoughnutCounter
-              title='Communes couvertes'
-              valueUp={numFormater(stats.bal.nbCommunesCouvertes)}
-              valueDown={`${communesCouvertesPercent}% des ${numFormater(stats.france.nbCommunes)} communes françaises`}
-              data={dataCommunesCouvertes}
-              options={options}
-            />
-            <DoughnutCounter
-              title='Population couverte'
-              valueUp={numFormater(stats.bal.populationCouverte)}
-              valueDown={`${Math.round((stats.bal.populationCouverte * 100) / stats.france.population)}% des ${numFormater(stats.france.population)} d’habitants`}
-              data={dataPopulationCouverte}
-              options={options}
-            />
-            <DoughnutCounter
-              title='Adresses certifiées'
-              valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
-              valueDown={`${adressesCertifieesPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
-              data={dataAdressesCertifiees}
-              options={options}
-            />
+            <div className='stats'>
+              {!Number.isNaN(adressesGereesBALPercent) && <DoughnutCounter
+                title='Adresses issues des BAL'
+                valueUp={numFormater(stats.bal.nbAdresses)}
+                valueDown={`${adressesGereesBALPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+                data={dataAdressesGereesBAL}
+                options={options}
+              />}
+              <DoughnutCounter
+                title='Communes couvertes'
+                valueUp={numFormater(stats.bal.nbCommunesCouvertes)}
+                valueDown={`${communesCouvertesPercent}% des ${numFormater(total.nbCommunes)} communes`}
+                data={dataCommunesCouvertes}
+                options={options}
+              />
+              <DoughnutCounter
+                title='Population couverte'
+                valueUp={numFormater(stats.bal.populationCouverte)}
+                valueDown={`${Math.round((stats.bal.populationCouverte * 100) / total.population)}% des ${numFormater(total.population)} d’habitants`}
+                data={dataPopulationCouverte}
+                options={options}
+              />
+              {!Number.isNaN(adressesGereesBALPercent) && <DoughnutCounter
+                title='Adresses certifiées'
+                valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
+                valueDown={`${adressesCertifieesPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+                data={dataAdressesCertifiees}
+                options={options}
+              />}
+            </div>
           </div>
           <div className='bal-cover-map-container'>
             <MapLibre>
-              {({map, popup, setSources, setLayers}) => (
-                <BalCoverMap
-                  map={map}
-                  popup={popup}
-                  setSources={setSources}
-                  setLayers={setLayers}
-                />
-              )}
+              {({map, popup, setSources, setLayers}) => {
+                return (
+                  <BalCoverMap
+                    map={map}
+                    popup={popup}
+                    setSources={setSources}
+                    setLayers={setLayers}
+                    center={geometry.center}
+                    zoom={geometry.zoom}
+                    filteredCodesCommmune={filteredCodesCommmune}
+                  />
+                )
+              }}
             </MapLibre>
           </div>
         </div>
@@ -132,13 +209,19 @@ function EtatDeploiement({stats}) {
             text-align: center;
           }
 
+          .stats-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 1em;
+          }
+
           .stats {
             height: fit-content;
-            flex: 1;
             display: grid;
             grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
             gap: 1em;
-            padding: 1em;
+            margin-top: 1em;
           }
 
           .bal-cover-map-container {
@@ -163,17 +246,33 @@ function EtatDeploiement({stats}) {
 }
 
 EtatDeploiement.getInitialProps = async () => {
+  const departements = await getDepartements()
+  const departementsWithCenter = departements.map(({code, ...rest}) => {
+    const {geometry} = departementCenterMap[code]
+
+    return {
+      ...rest,
+      code,
+      centre: geometry
+    }
+  })
+
   return {
-    stats: await getStats(),
+    initialStats: await getStats(),
+    departements: departementsWithCenter
   }
 }
 
 EtatDeploiement.propTypes = {
-  stats: PropTypes.shape({
+  initialStats: PropTypes.shape({
     france: PropTypes.object.isRequired,
     bal: PropTypes.object.isRequired,
     ban: PropTypes.object.isRequired
-  }).isRequired
+  }).isRequired,
+  departements: PropTypes.arrayOf(PropTypes.shape({
+    nom: PropTypes.string.isRequired,
+    code: PropTypes.string.isRequired,
+  })).isRequired,
 }
 
 export default EtatDeploiement
