@@ -1,6 +1,6 @@
 import {useState, useCallback, useEffect} from 'react'
 import {useRouter} from 'next/router'
-import {debounce} from 'lodash'
+import {debounce, groupBy} from 'lodash'
 
 import {search, isFirstCharValid} from '@/lib/api-adresse'
 import {useInput} from '../hooks/input'
@@ -43,15 +43,12 @@ function BanSearch() {
 
   useEffect(() => {
     if (results && results.length > 0) {
-      const orderResults = []
-      results.map(feature => {
-        if (!orderResults.some(item => item.header === feature.properties.type)) {
-          orderResults.push({
-            header: feature.properties.type
-          })
-        }
+      const categories = new Set(results.map(({properties}) => properties.type))
+      const groupByType = groupBy(results, 'properties.type')
 
-        return orderResults.push(feature)
+      const orderResults = [];
+      [...categories].forEach(cat => {
+        orderResults.push({header: cat}, ...groupByType[cat])
       })
 
       setOrderResults(orderResults)
