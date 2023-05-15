@@ -19,7 +19,29 @@ import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 import DownloadCertificate from './download-certificate'
 
-function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt, certifie, positions, positionType, sourcePosition, dateMAJ, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+const {CERTIFICAT_NUMEROTATION_ENABLED} = process.env
+
+function Numero({
+  numero,
+  suffixe,
+  lieuDitComplementNom,
+  lieuDitComplementNomAlt,
+
+  certifie,
+  positions,
+  positionType,
+  sourcePosition,
+  dateMAJ,
+  commune,
+  voie,
+  libelleAcheminement,
+  parcelles,
+  codePostal,
+  cleInterop,
+  lat,
+  lon,
+  isMobile
+}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -92,6 +114,7 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
       <div className='update'>Adresse mise à jour le <b>{dateMAJ ? new Date(dateMAJ).toLocaleDateString('fr-FR') : 'inconnue'}</b></div>
 
       {
+        CERTIFICAT_NUMEROTATION_ENABLED &&
         isCertifiable({sources: sourcePosition, certifie, parcelles}) &&
         <div className='ressource'>
           <DownloadCertificate cleInterop={cleInterop} title='Télécharger le Certificat de numérotage' />
