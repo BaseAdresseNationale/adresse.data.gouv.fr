@@ -6,7 +6,7 @@ import colors from '@/styles/colors'
 import theme from '@/styles/theme'
 
 import Alert from '@/components/alert'
-import {getNumeroComplet} from '@/lib/ban'
+import {getNumeroComplet, isCertifiable} from '@/lib/ban'
 
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
@@ -17,8 +17,31 @@ import CoordinatesCopy from './coordinates-copy'
 import DeviceContext from '@/contexts/device'
 import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
+import DownloadCertificate from './download-certificate'
 
-function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt, certifie, positions, positionType, sourcePosition, dateMAJ, commune, voie, libelleAcheminement, parcelles, codePostal, cleInterop, lat, lon, isMobile}) {
+const {CERTIFICAT_NUMEROTATION_ENABLED} = process.env
+
+function Numero({
+  numero,
+  suffixe,
+  lieuDitComplementNom,
+  lieuDitComplementNomAlt,
+
+  certifie,
+  positions,
+  positionType,
+  sourcePosition,
+  dateMAJ,
+  commune,
+  voie,
+  libelleAcheminement,
+  parcelles,
+  codePostal,
+  cleInterop,
+  lat,
+  lon,
+  isMobile
+}) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
@@ -90,6 +113,14 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
 
       <div className='update'>Adresse mise à jour le <b>{dateMAJ ? new Date(dateMAJ).toLocaleDateString('fr-FR') : 'inconnue'}</b></div>
 
+      {
+        CERTIFICAT_NUMEROTATION_ENABLED &&
+        isCertifiable({sources: sourcePosition, certifie, parcelles}) &&
+        <div className='ressource'>
+          <DownloadCertificate cleInterop={cleInterop} title='Télécharger le Certificat de numérotage' />
+        </div>
+      }
+
       {isCopySucceded && (
         <Alert
           type='success'
@@ -116,11 +147,14 @@ function Numero({numero, suffixe, lieuDitComplementNom, lieuDitComplementNomAlt,
       )}
 
       <style jsx>{`
-        .heading {
+        .heading, .ressource {
           display: flex;
           flex-direction: column;
           margin: 1.2em 0;
           border-bottom: 1px solid ${colors.lighterGrey};
+        }
+        .ressource {
+          border-bottom: none;
         }
 
         .heading h2 {
