@@ -19,7 +19,7 @@ import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 import DownloadCertificate from './download-certificate'
 
-const {CERTIFICAT_NUMEROTATION_ENABLED} = process.env
+const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = process.env
 
 function Numero({
   numero,
@@ -40,7 +40,7 @@ function Numero({
   cleInterop,
   lat,
   lon,
-  isMobile
+  isMobile,
 }) {
   const {isSafariBrowser} = useContext(DeviceContext)
   const [copyError, setCopyError] = useState(null)
@@ -49,14 +49,26 @@ function Numero({
 
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
-  const sanitizedType = positionType ? (positionType.charAt(0).toUpperCase() + positionType.slice(1)) : 'Inconnu'
+  const sanitizedType = positionType ?
+    positionType.charAt(0).toUpperCase() + positionType.slice(1) :
+    'Inconnu'
 
   return (
     <>
       <div className='heading'>
         <div className='voie-names'>
           <div className='name-certification'>
-            <h2>{getNumeroComplet({numero, suffixe})} <Link href={`/base-adresse-nationale?id=${voie.id}`} as={`/base-adresse-nationale/${voie.id}`} legacyBehavior><a>{voie.nomVoie}</a></Link>,</h2>
+            <h2>
+              {getNumeroComplet({numero, suffixe})}{' '}
+              <Link
+                href={`/base-adresse-nationale?id=${voie.id}`}
+                as={`/base-adresse-nationale/${voie.id}`}
+                legacyBehavior
+              >
+                <a>{voie.nomVoie}</a>
+              </Link>
+              ,
+            </h2>
             <div>
               <Certification
                 isCertified={certifie || sourcePosition === 'bal'}
@@ -73,22 +85,56 @@ function Numero({
           {voie?.nomVoieAlt && <LanguagesPreview nomAlt={voie.nomVoieAlt} />}
         </div>
 
-        {commune && <h4><Link href={`/base-adresse-nationale?id=${commune.id}`} as={`/base-adresse-nationale/${commune.id}`} legacyBehavior><a>{commune.nom} - {commune.code}</a></Link></h4>}
+        {commune && (
+          <h4>
+            <Link
+              href={`/base-adresse-nationale?id=${commune.id}`}
+              as={`/base-adresse-nationale/${commune.id}`}
+              legacyBehavior
+            >
+              <a>
+                {commune.nom} - {commune.code}
+              </a>
+            </Link>
+          </h4>
+        )}
       </div>
 
-      <RegionInfos codeCommune={commune.code} region={commune.region} departement={commune.departement} />
+      <RegionInfos
+        codeCommune={commune.code}
+        region={commune.region}
+        departement={commune.departement}
+      />
       <div className='numero-details'>
         {lieuDitComplementNom && (
           <div>
-            <div>Lieu-dit : <b>{lieuDitComplementNom}</b></div>
-            {lieuDitComplementNomAlt && <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />}
+            <div>
+              Lieu-dit : <b>{lieuDitComplementNom}</b>
+            </div>
+            {lieuDitComplementNomAlt && (
+              <LanguagesPreview nomAlt={lieuDitComplementNomAlt} />
+            )}
           </div>
         )}
-        {codePostal && <div>Code postal : <b>{codePostal}</b></div>}
-        {libelleAcheminement && <div>Libellé d’acheminement : <b>{libelleAcheminement}</b></div>}
-        <div>Type de position : <b>{sanitizedType}</b></div>
-        <div>Clé d’interopérabilité : <b>{cleInterop}</b></div>
-        <div>Parcelles cadastrales : <ParcellesList parcelles={parcelles} /></div>
+        {codePostal && (
+          <div>
+            Code postal : <b>{codePostal}</b>
+          </div>
+        )}
+        {libelleAcheminement && (
+          <div>
+            Libellé d’acheminement : <b>{libelleAcheminement}</b>
+          </div>
+        )}
+        <div>
+          Type de position : <b>{sanitizedType}</b>
+        </div>
+        <div>
+          Clé d’interopérabilité : <b>{cleInterop}</b>
+        </div>
+        <div>
+          Parcelles cadastrales : <ParcellesList parcelles={parcelles} />
+        </div>
       </div>
 
       {positions?.length > 1 ? (
@@ -111,15 +157,22 @@ function Numero({
         />
       )}
 
-      <div className='update'>Adresse mise à jour le <b>{dateMAJ ? new Date(dateMAJ).toLocaleDateString('fr-FR') : 'inconnue'}</b></div>
+      <div className='update'>
+        Adresse mise à jour le{' '}
+        <b>
+          {dateMAJ ? new Date(dateMAJ).toLocaleDateString('fr-FR') : 'inconnue'}
+        </b>
+      </div>
 
-      {
-        CERTIFICAT_NUMEROTATION_ENABLED &&
-        isCertifiable({sources: sourcePosition, certifie, parcelles}) &&
+      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED &&
+        isCertifiable({sources: sourcePosition, certifie, parcelles}) && (
         <div className='ressource'>
-          <DownloadCertificate cleInterop={cleInterop} title='Télécharger le Certificat de numérotage' />
+          <DownloadCertificate
+            cleInterop={cleInterop}
+            title='Télécharger le Certificat de numérotage'
+          />
         </div>
-      }
+      )}
 
       {isCopySucceded && (
         <Alert
@@ -147,7 +200,8 @@ function Numero({
       )}
 
       <style jsx>{`
-        .heading, .ressource {
+        .heading,
+        .ressource {
           display: flex;
           flex-direction: column;
           margin: 1.2em 0;
@@ -211,12 +265,12 @@ Numero.propTypes = {
     nom: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired,
     region: PropTypes.object,
-    departement: PropTypes.object
+    departement: PropTypes.object,
   }).isRequired,
   voie: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nomVoie: PropTypes.string.isRequired,
-    nomVoieAlt: PropTypes.object
+    nomVoieAlt: PropTypes.object,
   }),
   libelleAcheminement: PropTypes.string,
   codePostal: PropTypes.string,
@@ -224,7 +278,7 @@ Numero.propTypes = {
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  isMobile: PropTypes.bool
+  isMobile: PropTypes.bool,
 }
 
 Numero.defaultProps = {
@@ -235,7 +289,7 @@ Numero.defaultProps = {
   libelleAcheminement: null,
   positionType: null,
   dateMAJ: null,
-  isMobile: false
+  isMobile: false,
 }
 
 export default Numero
