@@ -1635,6 +1635,26 @@
     "endHour": "15:30"
   },
   {
+    "title": "Adresse_Lab",
+    "subtitle": "Point d'échange trimestriel T2 2023",
+    "description": "Point d’actualité et d’avancement sur les chantiers en cours.",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2023-05-24",
+    "tags": [
+      "Technique",
+      "Base Adresse Nationale",
+      "Utilisateurs"
+    ],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://webinaire.numerique.gouv.fr//meeting/signin/5699/creator/3324/hash/61fcf6f21947874ba68b105a3433cdd55e43ffb9",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
     "title": "Webinaire Mes Adresses",
     "subtitle": "Je débute sur Mes Adresses",
     "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
