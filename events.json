@@ -1639,7 +1639,7 @@
     "subtitle": "Point d'échange trimestriel T2 2023",
     "description": "Point d’actualité et d’avancement sur les chantiers en cours.",
     "type": "adresselab",
-    "target": "les utilisateurs de la donnée adresse",
+    "target": "utilisateurs de la donnée adresse",
     "date": "2023-05-24",
     "tags": [
       "Technique",
