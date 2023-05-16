@@ -2,7 +2,7 @@ import ReactPDF from '@react-pdf/renderer'
 import {CertificatNumerotation} from '@/components/document/numerotation/certificat'
 import {getAddress} from '@/lib/api-ban'
 
-const {CERTIFICAT_NUMEROTATION_ENABLED} = process.env
+const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = process.env
 
 const certifiable = ({sources, certifie, parcelles}) =>
   // Check is bal
@@ -13,7 +13,7 @@ const certifiable = ({sources, certifie, parcelles}) =>
   parcelles?.length > 0
 
 export default async function handler(req, res) {
-  if (!CERTIFICAT_NUMEROTATION_ENABLED) {
+  if (!NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED) {
     return res.status(401).send('Unauthorized')
   }
 
