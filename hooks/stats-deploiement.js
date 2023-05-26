@@ -1,5 +1,5 @@
 import {useState, useMemo, useEffect} from 'react'
-import {getStats} from '@/lib/api-ban'
+import {getFilteredStats} from '@/lib/api-ban'
 import {getEpciCommunes, getDepartementCommunes} from '@/lib/api-geo'
 import {DEFAULT_CENTER, DEFAULT_ZOOM} from '@/components/maplibre/map'
 
@@ -84,7 +84,7 @@ export function useStatsDeploiement({initialStats}) {
 
         const filteredCodesCommmune = filteredCommunes.map(({code}) => code)
         setFilteredCodesCommune(filteredCodesCommmune)
-        const filteredStats = await getStats(filteredCodesCommmune)
+        const filteredStats = await getFilteredStats(filteredCodesCommmune)
 
         setStats(filteredStats)
       } catch (err) {
