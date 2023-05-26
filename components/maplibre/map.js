@@ -15,8 +15,8 @@ import SwitchMapStyle from './switch-map-style'
 import useMarker from './hooks/marker'
 import usePopup from './hooks/popup'
 
-const DEFAULT_CENTER = [1.7, 46.9]
-const DEFAULT_ZOOM = 4.4
+export const DEFAULT_CENTER = [1.7, 46.9]
+export const DEFAULT_ZOOM = 4.4
 
 const STYLES = {
   vector,
