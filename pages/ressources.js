@@ -69,7 +69,7 @@ function Guides() {
           src='/images/previews/guide-mes-adresses-preview.png'
           label='Télécharger le guide de l’adressage'
           alt='miniature du guide Mes Adresses'
-          version='8.1 - 13/03/2023'
+          version='8.2 - 01/06/2023'
         >
           <SectionText>
             <p>&quot;Mes Adresses&quot; est un outil en ligne qui vous permet de gérer simplement vos adresses, de la constitution d’une Base Adresse Locale à sa mise à jour. Il est accessible sans compétences techniques et dispose d’un tutoriel embarqué.<br /> <a href='https://guide.mes-adresses.data.gouv.fr/'>Le Guide de Mes Adresses est disponible dans un format texte en ligne</a> ou en PDF.</p>          </SectionText>
