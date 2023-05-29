@@ -5,12 +5,25 @@ const app = new express.Router()
 const vtpbf = require('vt-pbf')
 const geojsonVt = require('geojson-vt')
 
-const {computeStats} = require('../lib/util/compute')
+const {computeStats, fetchStatsData} = require('../lib/util/compute')
 const {useCache} = require('../lib/util/cache')
 
 const gzip = promisify(zlib.gzip)
 
 app.use(express.json())
+
+app.route('/couverture-stats')
+  .get(async (req, res) => {
+    const {codesCommune} = req.query
+    const codesCommuneArr = codesCommune?.split(',') || []
+    try {
+      const statsData = await useCache('stats-data', 300, fetchStatsData)
+      const featureCollection = computeStats(statsData, codesCommuneArr)
+      res.send(featureCollection)
+    } catch (err) {
+      return res.status(500).send({code: 500, message: err})
+    }
+  })
 
 app.route('/couverture-tiles/:z/:x/:y.pbf')
   .get(async (req, res) => {
@@ -24,7 +37,9 @@ app.route('/couverture-tiles/:z/:x/:y.pbf')
 
     try {
       const tileIndex = await useCache('couverture-bal-tiles', 300, async () => {
-        const featureCollection = await computeStats()
+        const statsData = await useCache('stats-data', 300, fetchStatsData)
+        const featureCollection = computeStats(statsData)
+
         return geojsonVt(featureCollection, {indexMaxZoom: 9})
       })
 

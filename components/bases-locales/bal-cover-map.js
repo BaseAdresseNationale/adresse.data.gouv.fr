@@ -7,6 +7,7 @@ import {AlertTriangle} from 'react-feather'
 import MapLegends from '../maplibre/map-legends'
 
 import theme from '@/styles/theme'
+import {DEFAULT_CENTER, DEFAULT_ZOOM} from '@/components/maplibre/map'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 
@@ -28,14 +29,14 @@ const balLegend = {
   }
 }
 
-const popupHTML = ({nom, code, nbNumeros, certificationPercentage, nomClient}) => renderToString(
+const popupHTML = ({nom, code, nbNumeros, certificationPercentage, nomClient, hasBAL}) => renderToString(
   <div>
     <p>
       <b>{nom} ({code})</b>
     </p>
     <div>Nombre d’adresses : {nbNumeros}</div>
     <div>{`${certificationPercentage ? `Taux de certification : ${certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
-    <div>Déposé via : {nomClient}</div>
+    {hasBAL ? <div>Déposé via : {nomClient}</div> : <div>Ne dispose pas d&apos;une BAL</div>}
   </div>
 )
 
@@ -44,20 +45,27 @@ class BalCoverMap extends React.Component {
     map: PropTypes.object.isRequired,
     popup: PropTypes.object,
     setSources: PropTypes.func.isRequired,
-    setLayers: PropTypes.func.isRequired
+    setLayers: PropTypes.func.isRequired,
+    center: PropTypes.arrayOf(PropTypes.number),
+    zoom: PropTypes.number,
+    filteredCodesCommmune: PropTypes.arrayOf(PropTypes.string),
   }
 
   static defaultProps = {
-    popup: null
+    popup: null,
+    center: DEFAULT_CENTER,
+    zoom: DEFAULT_ZOOM,
+    filteredCodesCommmune: []
   }
 
   state = {
     zoomActivated: false,
-    warningZoom: false
+    warningZoom: false,
+    currentCenter: null,
   }
 
   componentDidMount() {
-    const {map, setSources, setLayers} = this.props
+    const {map, setSources, setLayers, center} = this.props
     const sources = [{
       name: 'data',
       type: 'vector',
@@ -74,6 +82,8 @@ class BalCoverMap extends React.Component {
         paint: {
           'fill-color': [
             'case',
+            ['==', ['get', 'idClient'], null],
+            theme.colors.lightGrey,
             ['==', ['get', 'idClient'], 'moissonneur-bal'],
             theme.colors.purple,
             ['==', ['get', 'idClient'], 'mes-adresses'],
@@ -90,7 +100,7 @@ class BalCoverMap extends React.Component {
         filter: ['==', '$type', 'Polygon']
       }
     ]
-
+    this.setState({currentCenter: center})
     setSources(sources)
     setLayers(layers)
 
@@ -107,12 +117,46 @@ class BalCoverMap extends React.Component {
   }
 
   componentDidUpdate() {
-    const {map} = this.props
+    const {map, center, zoom, filteredCodesCommmune} = this.props
+
+    const polygonFillLayer = map.getLayer('bal-polygon-fill')
+    if (filteredCodesCommmune.length > 0 && polygonFillLayer) {
+      const inFilteredCommunesExp = ['in', ['get', 'code'], ['literal', filteredCodesCommmune]]
+      map.setPaintProperty('bal-polygon-fill', 'fill-color', [
+        'case',
+        ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], null]],
+        theme.colors.lightGrey,
+        ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], 'moissonneur-bal']],
+        theme.colors.purple,
+        ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], 'mes-adresses']],
+        theme.colors.blue,
+        ['all', inFilteredCommunesExp, ['!=', ['get', 'idClient'], null]],
+        theme.colors.green,
+        'transparent'
+      ])
+    } else if (polygonFillLayer) {
+      map.setPaintProperty('bal-polygon-fill', 'fill-color', [
+        'case',
+        ['==', ['get', 'idClient'], null],
+        theme.colors.lightGrey,
+        ['==', ['get', 'idClient'], 'moissonneur-bal'],
+        theme.colors.purple,
+        ['==', ['get', 'idClient'], 'mes-adresses'],
+        theme.colors.blue,
+        theme.colors.green
+      ])
+    }
 
     if (this.state.zoomActivated) {
       map.scrollZoom.enable()
     } else {
       map.scrollZoom.disable()
+    }
+
+    if (this.state.currentCenter !== center) {
+      map.setCenter(center)
+      map.setZoom(zoom)
+      this.setState({currentCenter: center})
     }
 
     if (this.state.warningZoom) {
@@ -137,7 +181,7 @@ class BalCoverMap extends React.Component {
   }
 
   onMouseMove = (layer, event) => {
-    const {map, popup} = this.props
+    const {map, popup, filteredCodesCommmune} = this.props
     const canvas = map.getCanvas()
     canvas.style.cursor = 'pointer'
 
@@ -150,9 +194,13 @@ class BalCoverMap extends React.Component {
     this.highlighted = feature.id
     map.setFeatureState({source: 'data', sourceLayer: 'communes', id: this.highlighted}, {hover: true})
 
-    popup.setLngLat(event.lngLat)
-      .setHTML(popupHTML(feature.properties))
-      .addTo(map)
+    if (filteredCodesCommmune.length === 0 || filteredCodesCommmune.includes(feature.properties.code)) {
+      popup.setLngLat(event.lngLat)
+        .setHTML(popupHTML(feature.properties))
+        .addTo(map)
+    } else {
+      popup.remove()
+    }
   }
 
   onMouseLeave = () => {
