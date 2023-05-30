@@ -1371,5 +1371,27 @@
     "picture": "/images/logos/partners/epci/quimper-bretagne-occidentale.png",
     "height": 110,
     "width": 300
+  },
+  {
+    "name": "Communauté urbaine de Dunkerque",
+    "link": "https://www.communaute-urbaine-dunkerque.fr/les-bases-adresses-de-la-communaute-urbaine-de-dunkerque",
+    "charteURL": "https://www.communaute-urbaine-dunkerque.fr/les-bases-adresses-de-la-communaute-urbaine-de-dunkerque",
+    "infos": "Les services de la Communauté urbaine de Dunkerque travaillent avec les communes pour améliorer la base adresse nationale, qui vise à géolocaliser chaque adresse postale sur le territoire français. Cela passe par la création de bases adresse locale, pour lesquels les équipes recensent les créations et modifications de noms de voies, vérifient le placement et la numérotation des bâtiments. Ce travail permet ensuite de faciliter l'accès aux services publics (infrastructures, réseaux…) et aux services localisés (livraisons…).",
+    "perimeter": "Communauté urbaine de Dunkerque",
+    "codeDepartement": [
+      "59"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/dunkerque.png",
+    "height": 111,
+    "width": 320
   }
 ]
