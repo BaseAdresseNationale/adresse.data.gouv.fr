@@ -82,7 +82,7 @@ class BalCoverMap extends React.Component {
         paint: {
           'fill-color': [
             'case',
-            ['==', ['get', 'idClient'], null],
+            ['==', ['get', 'hasBAL'], false],
             theme.colors.lightGrey,
             ['==', ['get', 'idClient'], 'moissonneur-bal'],
             theme.colors.purple,
@@ -124,20 +124,20 @@ class BalCoverMap extends React.Component {
       const inFilteredCommunesExp = ['in', ['get', 'code'], ['literal', filteredCodesCommmune]]
       map.setPaintProperty('bal-polygon-fill', 'fill-color', [
         'case',
-        ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], null]],
+        ['all', inFilteredCommunesExp, ['==', ['get', 'hasBAL'], false]],
         theme.colors.lightGrey,
         ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], 'moissonneur-bal']],
         theme.colors.purple,
         ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], 'mes-adresses']],
         theme.colors.blue,
-        ['all', inFilteredCommunesExp, ['!=', ['get', 'idClient'], null]],
+        inFilteredCommunesExp,
         theme.colors.green,
         'transparent'
       ])
     } else if (polygonFillLayer) {
       map.setPaintProperty('bal-polygon-fill', 'fill-color', [
         'case',
-        ['==', ['get', 'idClient'], null],
+        ['==', ['get', 'hasBAL'], false],
         theme.colors.lightGrey,
         ['==', ['get', 'idClient'], 'moissonneur-bal'],
         theme.colors.purple,
