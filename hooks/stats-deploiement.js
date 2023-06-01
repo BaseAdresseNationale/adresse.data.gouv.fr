@@ -1,7 +1,9 @@
 import {useState, useMemo, useEffect} from 'react'
 import {getFilteredStats} from '@/lib/api-ban'
-import {getEpciCommunes, getDepartementCommunes} from '@/lib/api-geo'
+import {getEpciCommunes, getDepartementCommunes, getCommunes} from '@/lib/api-geo'
 import {DEFAULT_CENTER, DEFAULT_ZOOM} from '@/components/maplibre/map'
+
+const communesWithArrondissements = {75056: 'Paris', 69123: 'Lyon', 13055: 'Marseille'}
 
 function toCounterData(percent, total) {
   return {
@@ -82,7 +84,15 @@ export function useStatsDeploiement({initialStats}) {
           })
         }
 
-        const filteredCodesCommmune = filteredCommunes.map(({code}) => code)
+        let filteredCodesCommmune = filteredCommunes.map(({code}) => code)
+        const communeWithArrondissement = filteredCodesCommmune.find(code => communesWithArrondissements[code])
+
+        if (communeWithArrondissement) {
+          const districts = await getCommunes({q: communesWithArrondissements[communeWithArrondissement], type: 'arrondissement-municipal'})
+          filteredCodesCommmune.splice(filteredCodesCommmune.indexOf(communeWithArrondissement), 1)
+          filteredCodesCommmune = [...filteredCodesCommmune, ...districts.map(({code}) => code)]
+        }
+
         setFilteredCodesCommune(filteredCodesCommmune)
         const filteredStats = await getFilteredStats(filteredCodesCommmune)
 

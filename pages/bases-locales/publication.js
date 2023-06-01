@@ -189,7 +189,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
           )}
 
           {step === 5 && (
-            <Published communeCode={commune.code} />
+            <Published codeCommune={commune.code} />
           )}
         </div>
       </Section>
