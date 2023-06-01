@@ -50,6 +50,10 @@
     "openmaptiles": {
       "type": "vector",
       "url": "https://openmaptiles.geo.data.gouv.fr/data/france-vector.json"
+    },
+    "decoupage-administratif": {
+      "type": "vector",
+      "url": "https://openmaptiles.geo.data.gouv.fr/data/decoupage-administratif.json"
     }
   },
   "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
@@ -3444,59 +3448,7 @@
         ]
       }
     },
-    {
-      "id": "boundary-land-level-4",
-      "type": "line",
-      "source": "openmaptiles",
-      "source-layer": "boundary",
-      "filter": [
-        "all",
-        [
-          ">=",
-          "admin_level",
-          3
-        ],
-        [
-          "<=",
-          "admin_level",
-          8
-        ],
-        [
-          "!=",
-          "maritime",
-          1
-        ]
-      ],
-      "layout": {
-        "line-join": "round"
-      },
-      "paint": {
-        "line-color": "#9e9cab",
-        "line-dasharray": [
-          3,
-          1,
-          1,
-          1
-        ],
-        "line-width": {
-          "base": 1.4,
-          "stops": [
-            [
-              4,
-              0.4
-            ],
-            [
-              5,
-              1
-            ],
-            [
-              12,
-              3
-            ]
-          ]
-        }
-      }
-    },
+
     {
       "id": "boundary-land-level-2",
       "type": "line",
@@ -4237,6 +4189,114 @@
         "text-color": "#334",
         "text-halo-width": 2,
         "text-halo-color": "rgba(255,255,255,0.8)"
+      }
+    },
+
+    {
+      "id": "boundary-region",
+      "type": "line",
+      "source": "decoupage-administratif",
+      "source-layer": "regions",
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "rgba(158,156,171, 1)",
+        "line-dasharray": [
+          3,
+          1,
+          1,
+          1
+        ],
+        "line-width": {
+          "base": 1.4,
+          "stops": [
+            [
+              4,
+              0.4
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              12,
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "boundary-dep",
+      "type": "line",
+      "source": "decoupage-administratif",
+      "source-layer": "departements",
+      "layout": {
+        "line-join": "round"
+      },
+      "paint": {
+        "line-color": "rgba(158,156,171, 0.8)",
+        "line-dasharray": [
+          3,
+          1,
+          1,
+          1
+        ],
+        "line-width": {
+          "base": 1.4,
+          "stops": [
+            [
+              4,
+              0.4
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              12,
+              3
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "boundary-commune",
+      "type": "line",
+      "source": "decoupage-administratif",
+      "source-layer": "communes",
+      "minzoom": 10,
+      "layout": {
+        "line-join": "round"
+      },
+
+      "paint": {
+        "line-color": "rgba(158,156,171, 0.5)",
+        "line-dasharray": [
+          3,
+          1,
+          1,
+          1
+        ],
+        "line-width": {
+          "base": 1.4,
+          "stops": [
+            [
+              4,
+              0.4
+            ],
+            [
+              5,
+              1
+            ],
+            [
+              12,
+              3
+            ]
+          ]
+        }
       }
     }
   ],
