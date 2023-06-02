@@ -32,6 +32,12 @@ const navigationLinks = [
       },
       {
         linkProps: {
+          href: '/programme-bal',
+        },
+        text: 'Découvrez le programme Bases Adresses Locales',
+      },
+      {
+        linkProps: {
           href: 'https://mes-adresses.data.gouv.fr/',
           target: '_blank',
         },

@@ -79,7 +79,7 @@ function Guides() {
         </DocDownload>
       </Section>
 
-      <Section background='grey'>
+      <Section id='guide-des-bonnes-pratiques' background='grey'>
         <DocDownload
           id='guide-bonnes-pratiques'
           title='Le guide des bonnes pratiques'
