@@ -33,6 +33,7 @@ function Numero({
   sourcePosition,
   dateMAJ,
   commune,
+  nomAncienneCommune,
   voie,
   libelleAcheminement,
   parcelles,
@@ -106,6 +107,11 @@ function Numero({
         departement={commune.departement}
       />
       <div className='numero-details'>
+        {nomAncienneCommune && (
+          <div>
+            Ancienne commune : <b>{nomAncienneCommune}</b>
+          </div>
+        )}
         {lieuDitComplementNom && (
           <div>
             <div>
@@ -260,6 +266,7 @@ Numero.propTypes = {
   parcelles: PropTypes.array.isRequired,
   positions: PropTypes.array,
   dateMAJ: PropTypes.string,
+  nomAncienneCommune: PropTypes.string,
   commune: PropTypes.shape({
     id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,
