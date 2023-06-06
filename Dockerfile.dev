@@ -4,6 +4,7 @@ WORKDIR /app
 
 # installing dependencies
 COPY package.json yarn.lock .
+RUN mkdir public
 RUN yarn install
 
 # copying the root folder into the workdir
