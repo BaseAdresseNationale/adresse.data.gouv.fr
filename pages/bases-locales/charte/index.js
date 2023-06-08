@@ -53,7 +53,7 @@ function Charte() {
 
         <div className='downloads-container'>
           <Card
-            link='https://adresse.data.gouv.fr/data/docs/charte-bal-communes-v1.1.pdf'
+            link='https://adresse.data.gouv.fr/data/docs/charte-bal-communes.pdf'
             action='Télécharger la charte des communes partenaires'
             title='Charte des communes partenaires'
             color='secondary'
@@ -107,6 +107,7 @@ function Charte() {
           </p>
           <ul className='charte-list'>
             <li>La commune promeut une gouvernance qui assure à la commune d’être la seule autorité compétente sur l’adresse à travers sa Base Adresse Locale même si elle peut en déléguer la réalisation technique. Si elle délègue cette réalisation technique, elle peut à tout moment reprendre une gestion autonome de ses adresses.</li>
+            <li>La commune procède à la « dénomination des voies et lieux-dits, y compris les voies privées ouvertes à la circulation » et à la numérotation des constructions conformément à l’article 169 de la loi du 21 février 2022, dite loi &quot;3DS&quot;.</li>
             <li>La commune veille à certifier ses adresses.</li>
             <li>La commune met à jour régulièrement ses adresses et crée une routine pour leur conserver leur qualité.</li>
             <li>La commune encourage et facilite la transmission rapide de sa Base Adresse Locale à la Base Adresse Nationale.</li>
@@ -137,7 +138,7 @@ function Charte() {
               <ul className='charte-list'>
                 <li>former la commune à l’utilisation d’un outil de gestion des adresses (tel que l’éditeur en ligne mes-adresses.data.gouv.fr, ou tout autre outil équivalent) ;</li>
                 <li>informer la commune de l’importance de tenir à jour sa Base Adresse Locale selon les modalités prévues par la loi et l’aider à mettre en place des processus ou routines ;</li>
-                <li>promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse.data.gouv.fr.</li>
+                <li>promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse-data.gouv.fr, conformes à l’adressage légal (loi 3DS : « dénomination des voies et lieux-dits, y compris les voies privées ouvertes à la circulation »).</li>
               </ul>
             </div>
             <div>
@@ -195,7 +196,7 @@ function Charte() {
             <div>
               <b>Par ailleurs, l’organisme s’engage :</b>
               <ul>
-                <li>à promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse.data.gouv.fr;</li>
+                <li>à promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse-data.gouv.fr, conformes à l’adressage légal (loi 3DS : « dénomination des voies et lieux-dits, y compris les voies privées ouvertes à la circulation »)</li>
                 <li>à respecter le format d’adresse enrichi Base Adresse Locale et non une norme d’adresse commerciale ;</li>
               </ul>
             </div>
