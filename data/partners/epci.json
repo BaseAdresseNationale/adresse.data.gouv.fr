@@ -1395,7 +1395,7 @@
     "width": 320
   },
   {
-    "name": "Terre de confluences",
+    "name": "Terres des confluences",
     "link": "https://www.terresdesconfluences.fr/",
     "charteURL": "https://www.terresdesconfluences.fr/",
     "infos": "Le service SIG sensibilise et accompagne ses communes membres dans l’élaboration de leur Base Adresse Locale. Elle propose des formations et un support sur l’outil « Mes Adresses ». Elle met à disposition ses compétences techniques en matière d’information géographique et peut ponctuellement réaliser une partie de la mise à jour des adresses.",
@@ -1412,7 +1412,7 @@
       "réalisation de bases adresses locales"
     ],
     "picture": "/images/logos/partners/epci/terres-des-confluences.png",
-    "height": 111,
+    "height": 140,
     "width": 320
   }
 ]

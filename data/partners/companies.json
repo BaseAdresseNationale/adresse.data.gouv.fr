@@ -253,5 +253,39 @@
     "picture": "/images/logos/partners/companies/nominescence.jpg",
     "height": 100,
     "width": 354
+  },
+  {
+    "name": "CICL",
+    "infos": "CICL accompagne depuis plus de 10 ans les collectivités pour la création ou la mise en conformité de leur adressage : assistance pour les procédures de délibérations du Conseil Municipal et pour la communication auprès des administrés, structuration des voies à dénommer et assistance à la dénomination en cas de besoin ; localisation des adresses sur le terrain en collaboration avec les élus. CICL accompagne également les communes pour la Mise à Jour régulière des voies et des adresses de leur Base d’Adresse Locale et pour son intégration dans la Base d’Adresse Nationale.",
+    "link": "https://www.cicl.fr/vos-domaines,1/population,5/denomination-des-voies-et-adressage-postal-bal-ban,p6.html",
+    "charteURL": "https://www.cicl.fr/vos-domaines,1/population,5/denomination-des-voies-et-adressage-postal-bal-ban,p6.html",
+    "signatureDate": "2023-06-06",
+    "codeDepartement": [
+      "01",
+      "03",
+      "07",
+      "15",
+      "26",
+      "38",
+      "42",
+      "43",
+      "63",
+      "69",
+      "73",
+      "74"
+    ],
+    "perimeter": "Ain, Allier, Ardèche, Cantal, Drôme, Isère, Loire, Haute-Loire, Puy-de-Dôme, Rhône, Savoie, Haute-Savoie",
+    "echelon": 2,
+    "isCompany": true,
+    "isPerimeterFrance": true,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "formation",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/companies/cicl.png",
+    "height": 125,
+    "width": 250
   }
 ]
