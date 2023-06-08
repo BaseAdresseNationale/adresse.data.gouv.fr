@@ -89,6 +89,14 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
     }
   }
 
+  const onResetStepper = () => {
+    setStep(1)
+    setHabilitation(defaultHabilitation)
+    setRevision(defaultRevision)
+    setCommune(defaultCommune)
+    setCurrentRevision(undefined)
+  }
+
   const fetchCurrentRevision = useCallback(async () => {
     const currentRevision = await getCurrentRevision(commune.code)
     setCurrentRevision(currentRevision)
@@ -189,7 +197,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
           )}
 
           {step === 5 && (
-            <Published codeCommune={commune.code} />
+            <Published codeCommune={commune.code} onResetStepper={onResetStepper} />
           )}
         </div>
       </Section>
