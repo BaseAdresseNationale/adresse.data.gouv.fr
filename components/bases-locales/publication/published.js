@@ -4,7 +4,7 @@ import {ArrowLeft, Check} from 'react-feather'
 import theme from '@/styles/theme'
 import ButtonLink from '@/components/button-link'
 
-function Published({codeCommune}) {
+function Published({codeCommune, onResetStepper}) {
   return (
     <div>
       <div className='published'>
@@ -64,9 +64,10 @@ function Published({codeCommune}) {
         </div>
       </div>
 
-      <ButtonLink style={{marginTop: '1em'}} href='/bases-locales/publication'>
-        <ArrowLeft style={{verticalAlign: 'top'}} alt='' aria-hidden='true' /> Publier une autre Base Adresse Locale
-      </ButtonLink>
+      <button type='button' onClick={() => onResetStepper()} className='button primary reset-stepper-button'>
+        <ArrowLeft alt='' aria-hidden='true' />
+        <div>Publier une autre Base Adresse Locale</div>
+      </button>
 
       <style jsx>{`
         section {
@@ -138,13 +139,24 @@ function Published({codeCommune}) {
           flex-direction: column;
           align-items: center;
         }
+
+        .reset-stepper-button {
+          display: flex !important;
+          align-items: center;
+          margin-top: 1em;
+        }
+        .reset-stepper-button > div {
+          margin-left: 0.5em;
+        }
+
       `}</style>
     </div>
   )
 }
 
 Published.propTypes = {
-  codeCommune: PropTypes.string.isRequired
+  codeCommune: PropTypes.string.isRequired,
+  onResetStepper: PropTypes.func.isRequired
 }
 
 export default Published
