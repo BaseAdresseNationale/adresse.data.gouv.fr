@@ -4,16 +4,11 @@
     "link": "https://pichjulellu.corsica/",
     "infos": " La SARL Pichjulellu est une agence de communication visuelle et digitale, et de conseil en politique publique, spécialisé dans l’accompagnement et la réalisation des Bases d'adresses locales pour les communes, situé à Speluncatu en Corse.",
     "perimeter": "Haute-Corse et Corse-du-Sud",
-    "codeDepartement": [
-      "2A",
-      "2B"
-    ],
+    "codeDepartement": ["2A", "2B"],
     "echelon": 2,
     "isPermimeterFrance": false,
     "isCompany": true,
-    "services": [
-      "réalisation de bases adresses locales"
-    ],
+    "services": ["réalisation de bases adresses locales"],
     "picture": "/images/logos/partners/companies/pichjulellu.png",
     "height": 105,
     "width": 290
@@ -23,10 +18,7 @@
     "link": "https://clementvienne.wixsite.com/website/fiabilisation-de-l-adresse",
     "infos": "Prestation complète de fiabilisation de l’adresse ou un simple accompagnement. Travail préalable de cartographie, dénomination des voies, relevés de terrain pour la numérotation des bâtiments, création de la base de données, consultations des entreprises pour la signalétique, suivi des travaux. Assistance lors de la communication auprès des administrés et transmission à la Base Adresse Nationale ainsi qu’aux organismes compétents.",
     "perimeter": "Gironde et Ouest de la Dordogne.",
-    "codeDepartement": [
-      "33",
-      "24"
-    ],
+    "codeDepartement": ["33", "24"],
     "echelon": 2,
     "isPermimeterFrance": false,
     "isCompany": true,
@@ -72,12 +64,7 @@
     "link": "http://anne-legaut.com/services/",
     "infos": "Simple mise à jour des adresses ou prestation complète, avec recensement des voies existantes, création des nouvelles et des numéros, fourniture d'un modèle de délibération, d'un fichier publipostage pour les courriers à envoyer aux habitants avec certificat d'adresse, remplissage du tableau pour la DGFiP, aide à la publication de la Base Adresse Locale, diffusion auprès des organismes compétents.",
     "perimeter": "Drôme, Ardèche, Hautes Alpes, Vaucluse",
-    "codeDepartement": [
-      "26",
-      "07",
-      "05",
-      "84"
-    ],
+    "codeDepartement": ["26", "07", "05", "84"],
     "echelon": 1,
     "isPermimeterFrance": false,
     "isCompany": true,
@@ -285,6 +272,27 @@
       "mise à disposition d’outils mutualisés"
     ],
     "picture": "/images/logos/partners/companies/cicl.png",
+    "height": 125,
+    "width": 250
+  },
+  {
+    "name": "CARTO DES SUCS",
+    "infos": "CARTO DES SUCS propose aux collectivités un accompagnement dans le cadre de la mise en place ou de la mise en conformité de l’adressage légal de son territoire. Depuis le projet initial, jusqu’à la mise en ligne et publication des données sur la plateforme numérique de la Base Adresse Nationale, CARTO DES SUCS vous guide et vous aide afin de vous simplifier cette mission avec la numérisation des voies et numérotation, classique ou métrique, des bâtiments afin de géo-localiser précisément chaque point adresse.",
+    "link": "https://www.cartodessucs.fr/prestations-collectivite-carte-communale/",
+    "charteURL": "https://www.cartodessucs.fr/prestations-collectivite-carte-communale/",
+    "signatureDate": "2023-06-13",
+    "codeDepartement": ["07", "15", "42", "43", "48", "63"],
+    "perimeter": "Ardèche, Cantal, Haute-Loire, Loire, Lozère, Puy-de-Dôme",
+    "echelon": 2,
+    "isCompany": true,
+    "isPerimeterFrance": false,
+    "services": [
+      "accompagnement technique",
+      "réalisation de bases adresses locales",
+      "formation",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/companies/carto-des-sucs.png",
     "height": 125,
     "width": 250
   }
