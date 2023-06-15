@@ -53,7 +53,7 @@ const BasesLocales = React.memo(({stats}) => {
 
             <div className='partner'>
               <div><Image src='/images/logos/logo-AMF.jpg' alt='' aria-hidden='true' width={201} height={106} layout='fixed' /></div>
-              <div><b>L’Association des Maires de France soutient la démarche.</b></div>
+              <div><b>L&apos;Association des maires de France et des présidents d’intercommunalité soutient la démarche.</b></div>
             </div>
           </div>
         </div>
