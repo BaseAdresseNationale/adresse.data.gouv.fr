@@ -2,14 +2,14 @@ import theme from '@/styles/theme'
 import {positionsColors} from '@/components/base-adresse-nationale/positions-types'
 
 export const sources = {
-  bal: {name: 'Base Adresse Locale', color: '#4dac26'},
-  cadastre: {name: 'Cadastre', color: '#2c7bb6'},
-  ftth: {name: 'Opérateur THD', color: '#118571'},
+  bal: {name: 'Base Adresse Locale', color: '#009E73'},
+  cadastre: {name: 'Cadastre', color: '#56B4E9'},
+  ftth: {name: 'Opérateur THD', color: '#E69F00'},
   'insee-ril': {name: 'INSEE', color: '#a6611a'},
-  'ign-api-gestion-ign': {name: 'IGN', color: '#455d7a'},
-  'ign-api-gestion-laposte': {name: 'La Poste', color: '#fecd51'},
-  'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#d7191c'},
-  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse', color: '#7b3294'}
+  'ign-api-gestion-ign': {name: 'IGN', color: '#0072B2'},
+  'ign-api-gestion-laposte': {name: 'La Poste', color: '#F0E442'},
+  'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#D55E00'},
+  'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse', color: '#CC79A7'}
 }
 
 export const defaultLayerPaint = [
