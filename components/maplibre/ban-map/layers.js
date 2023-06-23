@@ -5,7 +5,6 @@ export const sources = {
   bal: {name: 'Base Adresse Locale', color: '#009E73'},
   cadastre: {name: 'Cadastre', color: '#56B4E9'},
   ftth: {name: 'Opérateur THD', color: '#E69F00'},
-  'insee-ril': {name: 'INSEE', color: '#a6611a'},
   'ign-api-gestion-ign': {name: 'IGN', color: '#0072B2'},
   'ign-api-gestion-laposte': {name: 'La Poste', color: '#F0E442'},
   'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#D55E00'},
