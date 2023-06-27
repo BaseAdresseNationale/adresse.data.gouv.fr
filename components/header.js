@@ -26,15 +26,15 @@ const navigationLinks = [
     menuLinks: [
       {
         linkProps: {
-          href: '/gerer-mes-adresses',
-        },
-        text: 'Comment mettre à jour mes adresses',
-      },
-      {
-        linkProps: {
           href: '/programme-bal',
         },
         text: 'Découvrez le programme Bases Adresses Locales',
+      },
+      {
+        linkProps: {
+          href: '/gerer-mes-adresses',
+        },
+        text: 'Comment mettre à jour mes adresses',
       },
       {
         linkProps: {

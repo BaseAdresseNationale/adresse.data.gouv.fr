@@ -2,6 +2,7 @@ import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import {createNextDsfrIntegrationApi} from '@codegouvfr/react-dsfr/next-pagesdir'
 import {useIsDark} from '@codegouvfr/react-dsfr/useIsDark'
 import {DeviceContextProvider} from '@/contexts/device'
@@ -11,6 +12,12 @@ import '@/styles/template-data-gouv-to-dsfr/main-alternate.css'
 
 const PIWIK_URL = process.env.NEXT_PUBLIC_PIWIK_URL
 const PIWIK_SITE_ID = process.env.NEXT_PUBLIC_PIWIK_SITE_ID
+
+const CrispWithNoSSR = dynamic(
+  // eslint-disable-next-line node/no-unsupported-features/es-syntax
+  () => import('../components/crisp-chat'),
+  {ssr: false}
+)
 
 const {
   withDsfr,
@@ -53,6 +60,7 @@ function MyApp({Component, pageProps}) {
       <DeviceContextProvider>
         <div id='alert-root' />
         <Component {...pageProps} />
+        <CrispWithNoSSR />
       </DeviceContextProvider>
       <style global jsx>{`
         body,

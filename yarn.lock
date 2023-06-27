@@ -1858,6 +1858,11 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
+crisp-sdk-web@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/crisp-sdk-web/-/crisp-sdk-web-1.0.19.tgz#83213f18d4fbd1eb185eb3fbaffb948b7fdd99d5"
+  integrity sha512-kV/MyXVnQrVUwO9Stb7bUYr34BnslVhb5UZTUAa/qz1LvTrKtCBu5SYHyIYDiC29CHKrVXPenVyerpH/ZvuF/g==
+
 cross-fetch@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
