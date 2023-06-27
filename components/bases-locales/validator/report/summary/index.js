@@ -4,6 +4,7 @@ import {Check} from 'react-feather'
 
 import IssueDialog from './issue-dialog'
 import IssuesSumup from './issues-sumup'
+import ValidatorSectionTitle from '../../validator-section-title'
 
 function Summary({rows, fields}) {
   const [selectedIssue, setSelectedIssue] = useState(null)
@@ -55,8 +56,12 @@ function Summary({rows, fields}) {
 
   return (
     <div>
+      <ValidatorSectionTitle>Validation des données</ValidatorSectionTitle>
       {rowsWithIssuesCount === 0 ? (
-        <h3>Aucune ligne comprenant des alertes n’a été trouvée <span className='valid'><Check alt='' aria-hidden='true' /></span></h3>
+        <h3>
+          Aucune ligne comprenant des alertes n’a été trouvée
+          <Check alt='' aria-hidden='true' />
+        </h3>
       ) : (
         <div>
           {rowsWithIssuesCount > 1 ? (

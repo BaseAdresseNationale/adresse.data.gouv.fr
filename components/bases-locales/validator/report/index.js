@@ -1,49 +1,23 @@
-import {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {validateProfile} from '@ban-team/validateur-bal'
-
-import Loader from '@/components/loader'
 
 import Fields from './fields'
 import Summary from './summary'
 
 import theme from '@/styles/theme'
 import FileValidation from './file-validation'
-import ValidatorSectionTitle from '../validator-section-title'
+import ProileValidation from './profile-validation/profile-validation'
 
 function Report({report}) {
-  const {fileValidation, rows, fields, notFoundFields, profilesValidation} = report
-  const [profile, setProfile] = useState('1.3-etalab')
-  const [profileReport, setProfileReport] = useState(null)
-
-  useEffect(() => {
-    const getProfileReport = async () => {
-      const profileReport = await validateProfile(report, profile)
-      setProfileReport(profileReport)
-    }
-
-    if (profile) {
-      getProfileReport()
-    }
-  }, [report, profile])
+  const {fileValidation, rows, fields, notFoundFields, profilErrors} = report
 
   return (
-    <div>
-      <div className='profil-selector'>
-        <label>Version de la spécification :</label>
-        <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
-          {Object.keys(profilesValidation).map(key => (
-            <option key={key} value={key}>
-              {profilesValidation[key].isValid ? '✅' : '❌'}
-              {' '}
-              {profilesValidation[key].name}
-            </option>
-          ))}
-        </select>
+    <>
+      <div className='report-container'>
+        <FileValidation {...fileValidation} rowsCount={rows.length} />
       </div>
 
       <div className='report-container'>
-        <FileValidation {...fileValidation} rowsCount={rows.length} />
+        <ProileValidation profilErrors={profilErrors} />
       </div>
 
       <div className='report-container'>
@@ -51,27 +25,10 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <ValidatorSectionTitle>Validation des données</ValidatorSectionTitle>
-
-        {profileReport ? (
-          <Summary rows={profileReport.rows} fields={profileReport.fields} />
-        ) : (
-          <Loader size='big' />
-        )}
+        <Summary rows={report.rows} fields={report.fields} />
       </div>
 
       <style jsx>{`
-        .profil-selector {
-          display: flex;
-          align-items: center;
-          margin: 1em;
-        }
-
-        select {
-          margin-left: 1em;
-          background-size: 2em 1em;
-        }
-
         .report-container {
           margin: 2em 0;
           padding: 2em 1em;
@@ -79,7 +36,7 @@ function Report({report}) {
           background: ${theme.colors.white};
         }
       `}</style>
-    </div>
+    </>
   )
 }
 
@@ -88,13 +45,18 @@ Report.propTypes = {
     fields: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired,
     notFoundFields: PropTypes.array.isRequired,
-    profilesValidation: PropTypes.object.isRequired,
     uniqueErrors: PropTypes.array.isRequired,
     fileValidation: PropTypes.shape({
       encoding: PropTypes.object.isRequired,
       delimiter: PropTypes.object.isRequired,
       linebreak: PropTypes.object.isRequired
-    })
+    }),
+    profilErrors: PropTypes.arrayOf(
+      PropTypes.shape({
+        code: PropTypes.string.isRequired,
+        level: PropTypes.string.isRequired
+      })
+    ),
   }).isRequired
 }
 

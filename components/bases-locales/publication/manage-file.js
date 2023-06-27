@@ -1,7 +1,7 @@
 import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {uniq} from 'lodash'
-import {prevalidate} from '@ban-team/validateur-bal'
+import {validate} from '@ban-team/validateur-bal'
 
 import {getFileExtension} from '@/lib/bal/file'
 
@@ -17,7 +17,7 @@ function ManageFile({error, handleError, handleFile}) {
 
   const parseFile = useCallback(async file => {
     try {
-      const report = await prevalidate(file, {relaxFieldsDetection: true})
+      const report = await validate(file, {profile: '1.3-etalab', relaxFieldsDetection: true})
 
       if (!report.parseOk) {
         handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
