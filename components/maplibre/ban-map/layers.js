@@ -55,23 +55,15 @@ export const positionsCircleLayer = {
   source: 'positions',
   type: 'circle',
   paint: {
-    'circle-color': ['match', ['get', 'type'], ...colors, '#000'],
+    'circle-color': 'transparent',
     'circle-stroke-color': [
-      'case',
-      ['boolean', ['feature-state', 'hover'], false],
-      theme.primary,
-      '#fff'
+      'match', ['get', 'type'], ...colors, '#000'
     ],
-    'circle-stroke-width': [
-      'case',
-      ['boolean', ['feature-state', 'hover'], false],
-      3,
-      1
-    ],
+    'circle-stroke-width': 3,
     'circle-radius': {
       stops: [
         [12, 0.8],
-        [17, 6]
+        [17, 5]
       ]
     }
   }
