@@ -6,8 +6,8 @@ import UnfoundFields from './unfound-fields'
 function Fields({fields, notFound}) {
   return (
     <div className='fields-container'>
-      {fields.length > 0 && <FoundFields fields={fields} />}
       {notFound.length > 0 && <UnfoundFields fields={notFound} />}
+      {fields.length > 0 && <FoundFields fields={fields} />}
 
       <style jsx>{`
         .fields-container {

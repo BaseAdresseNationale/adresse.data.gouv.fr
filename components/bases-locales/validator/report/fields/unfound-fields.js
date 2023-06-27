@@ -14,12 +14,14 @@ function UnfoundFields({fields}) {
               <tr>
                 <th>Nom du champ</th>
                 <th>Version de la spécification</th>
+                <th>Criticité</th>
               </tr>
               {fields.map(field => {
                 return (
-                  <tr key={field.schemaName} className='warning'>
+                  <tr key={field.schemaName} className={field.level === 'E' ? 'error' : 'warning'}>
                     <td>{field.schemaName}</td>
                     <td>{field.schemaVersion}</td>
+                    <td>{field.level === 'E' ? 'Erreur' : 'Alert'}</td>
                   </tr>
                 )
               })}
@@ -29,7 +31,7 @@ function UnfoundFields({fields}) {
       )}
       <style jsx>{`
         .unfound-container {
-          margin-top: 1em;
+          margin-bottom: 2em;
         }
 
         table {
@@ -42,6 +44,10 @@ function UnfoundFields({fields}) {
 
         .warning {
           background-color: ${theme.warningBg};
+        }
+
+        .error {
+          background-color: ${theme.errorBg};
         }
     `}</style>
     </div>
