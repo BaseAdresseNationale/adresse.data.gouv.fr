@@ -1414,5 +1414,52 @@
     "picture": "/images/logos/partners/epci/terres-des-confluences.png",
     "height": 140,
     "width": 320
+  },
+  {
+    "name": "Gers numérique",
+    "link": "https://www.gersnumerique.fr/",
+    "charteURL": "https://www.gersnumerique.fr/bouquet-de-services/bouquet-de-services.html",
+    "infos": "Gers numérique propose un accompagnement pour les communes qui ne disposent pas des moyens techniques, financiers et humains pour réaliser cette activité (< 250 habitants dans un premier temps).",
+    "perimeter": "communes du Gers",
+    "codeDepartement": [
+      "32"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/gers-numerique.png",
+    "height": 80,
+    "width": 250
+  },
+  {
+    "name": "SICTIAM",
+    "link": "https://catalogue.sictiam.fr/adressage-des-rues/",
+    "charteURL": "https://catalogue.sictiam.fr/adressage-des-rues/",
+    "infos": "Établissement de services numériques du secteur public, avec plus de 450 institutions publiques et 4 départements adhérents, le SICTIAM propose aux communes un service d'adresse qui comprend la formation, la réalisation des Bases Adresses Locales sur un outil dédié et un accompagnement technique.",
+    "perimeter": "Provence Alpes Côte d'Azur",
+    "codeDepartement": [
+      "04", 
+      "05",
+      "06",
+      "13",
+      "83",
+      "84"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation de bases adresses locales"
+    ],
+    "picture": "/images/logos/partners/epci/sictiam.png",
+    "height": 140,
+    "width": 300
   }
 ]
