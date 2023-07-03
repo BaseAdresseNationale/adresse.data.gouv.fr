@@ -5,7 +5,7 @@ import {Check} from 'react-feather'
 import ValidatorSectionTitle from '../../validator-section-title'
 import TableProfileValidation from './table-profile-validation'
 
-function ProileValidation({profilErrors}) {
+function ProfileValidation({profilErrors}) {
   const {errors, warnings} = useMemo(() => {
     return {
       errors: profilErrors.filter(pe => pe.level === 'E'),
@@ -39,7 +39,7 @@ function ProileValidation({profilErrors}) {
   )
 }
 
-ProileValidation.propTypes = {
+ProfileValidation.propTypes = {
   profilErrors: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -48,4 +48,4 @@ ProileValidation.propTypes = {
   ),
 }
 
-export default ProileValidation
+export default ProfileValidation

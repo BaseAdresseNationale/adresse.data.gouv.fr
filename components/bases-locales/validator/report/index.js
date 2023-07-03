@@ -5,7 +5,7 @@ import Summary from './summary'
 
 import theme from '@/styles/theme'
 import FileValidation from './file-validation'
-import ProileValidation from './profile-validation/profile-validation'
+import ProfileValidation from './profile-validation/profile-validation'
 
 function Report({report}) {
   const {fileValidation, rows, fields, notFoundFields, profilErrors} = report
@@ -17,7 +17,7 @@ function Report({report}) {
       </div>
 
       <div className='report-container'>
-        <ProileValidation profilErrors={profilErrors} />
+        <ProfileValidation profilErrors={profilErrors} />
       </div>
 
       <div className='report-container'>
