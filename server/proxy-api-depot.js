@@ -1,5 +1,5 @@
 const express = require('express')
-const got = require('got')
+const got = require('../lib/util/got.js')
 const {ironSession} = require('iron-session/express')
 
 const w = require('./w')
@@ -7,14 +7,14 @@ const w = require('./w')
 const API_DEPOT_URL = process.env.NEXT_PUBLIC_API_DEPOT_URL || 'https://plateforme.adresse.data.gouv.fr/api-depot'
 const {API_DEPOT_TOKEN} = process.env
 
-const client = got.extend({
+const commonReqOptions = {
   prefixUrl: API_DEPOT_URL,
   headers: {
     authorization: `Token ${API_DEPOT_TOKEN}`
   },
   throwHttpErrors: false,
   responseType: 'json'
-})
+}
 
 function forward(gotResponse, res) {
   res.status(gotResponse.statusCode).send(gotResponse.body)
@@ -33,14 +33,14 @@ async function addIdToSession(id, req) {
 async function getHabilitation(req, res) {
   const {habilitationId} = req.params
 
-  const response = await client.get(`habilitations/${habilitationId}`)
+  const response = await got.get(`habilitations/${habilitationId}`, commonReqOptions)
   forward(response, res)
 }
 
 async function createHabilitation(req, res) {
   const {codeCommune} = req.params
 
-  const response = await client.post(`communes/${codeCommune}/habilitations`)
+  const response = await got.post(`communes/${codeCommune}/habilitations`, commonReqOptions)
 
   if (response.statusCode === 201) {
     await addIdToSession(response.body._id, req)
@@ -52,8 +52,8 @@ async function createHabilitation(req, res) {
 async function sendPinCode(req, res) {
   const {habilitationId} = req.params
 
-  const response = await client
-    .post(`habilitations/${habilitationId}/authentication/email/send-pin-code`)
+  const response = await got
+    .post(`habilitations/${habilitationId}/authentication/email/send-pin-code`, commonReqOptions)
 
   forward(response, res)
 }
@@ -61,8 +61,8 @@ async function sendPinCode(req, res) {
 async function validatePinCode(req, res) {
   const {habilitationId} = req.params
 
-  const response = await client
-    .post(`habilitations/${habilitationId}/authentication/email/validate-pin-code`, {json: req.body})
+  const response = await got
+    .post(`habilitations/${habilitationId}/authentication/email/validate-pin-code`, {...commonReqOptions, json: req.body})
 
   forward(response, res)
 }
@@ -70,8 +70,8 @@ async function validatePinCode(req, res) {
 async function createRevision(req, res) {
   const {codeCommune} = req.params
 
-  const response = await client.post(`communes/${codeCommune}/revisions`, {
-    json: {context: {}}
+  const response = await got.post(`communes/${codeCommune}/revisions`, {
+    ...commonReqOptions, json: {context: {}}
   })
 
   if (response.statusCode === 201) {
@@ -84,16 +84,18 @@ async function createRevision(req, res) {
 async function getRevision(req, res) {
   const {revisionId} = req.params
 
-  const response = await client.get(`revisions/${revisionId}`)
+  const response = await got.get(`revisions/${revisionId}`, commonReqOptions)
   forward(response, res)
 }
 
 async function uploadFile(req, res) {
   const {revisionId} = req.params
 
-  const response = await client.put(`revisions/${revisionId}/files/bal`, {
+  const response = await got.put(`revisions/${revisionId}/files/bal`, {
+    ...commonReqOptions,
     body: req.body,
     headers: {
+      ...commonReqOptions.headers,
       'Content-Type': 'text/csv'
     }
   })
@@ -103,13 +105,13 @@ async function uploadFile(req, res) {
 
 async function computeRevision(req, res) {
   const {revisionId} = req.params
-  const response = await client.post(`revisions/${revisionId}/compute`)
+  const response = await got.post(`revisions/${revisionId}/compute`, commonReqOptions)
   forward(response, res)
 }
 
 async function publishRevision(req, res) {
   const {revisionId} = req.params
-  const response = await client.post(`revisions/${revisionId}/publish`, {json: req.body})
+  const response = await got.post(`revisions/${revisionId}/publish`, {...commonReqOptions, json: req.body})
   forward(response, res)
 }
 
