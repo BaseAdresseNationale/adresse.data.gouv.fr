@@ -42,6 +42,10 @@ function Contribuer() {
 
       <Section title='En tant qu’utilisateur des données' id='utilisateur'>
         <div style={{textAlign: 'center'}}>
+          <p style={{margin: '3em 0'}}>Rejoignez notre collectif des usagers de la BAN. Demandez par mail à rejoindre le MTECT-collectif-des-utilisateurs-de-la-ban en envoyant une demande sur adresse@data.gouv.fr</p>
+          <ButtonLink href='https://osmose.numerique.gouv.fr/jcms/p_4881391/fr/mtect-collectif-des-utilisateurs-de-la-ban' isExternal>
+            Rejoignez nous sur OSMOSE
+          </ButtonLink>
           <p style={{margin: '3em 0'}}>Vous utilisez les données diffusées par ce site et vous avez identifié des alertes récurrentes sur une typologie d’adresse particulière ou dans une zone ?</p>
           <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
             Contactez-nous
