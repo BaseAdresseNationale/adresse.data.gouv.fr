@@ -2004,5 +2004,25 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
+  },
+  {
+    "title": "Adresse_Lab #6",
+    "subtitle": "Point d'échange trimestriel T3 2023",
+    "description": "Point d'étape trimestre 3 : actualités et chantiers en cours",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2023-09-26",
+    "tags": [
+      "Technique",
+      "Base Adresse Nationale",
+      "Utilisateurs"
+    ],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://webinaire.numerique.gouv.fr//meeting/signin/5699/creator/3324/hash/61fcf6f21947874ba68b105a3433cdd55e43ffb9",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "15:00",
+    "endHour": "16:30"
   }
 ]
