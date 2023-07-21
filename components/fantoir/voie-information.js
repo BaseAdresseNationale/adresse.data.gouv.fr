@@ -29,7 +29,6 @@ function VoieInformation({voie}) {
       {isOpen && (
         <div className='voie-tags'>
           <div>Code Rivoli : <span>{voie.codeRivoli}</span></div>
-          <div>Clé Rivoli : <span>{voie.cleRivoli}</span></div>
           <div>Date d’ajout : <span>{voie.dateAjout}</span></div>
           {voie.natureVoie && (
             <div>Nature de la voie : <span>{voie.natureVoie}</span></div>
