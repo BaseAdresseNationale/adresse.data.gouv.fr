@@ -5,8 +5,9 @@ import {Circle, Download} from 'react-feather'
 import {getBalUrl} from '@/lib/api-depot'
 import {sanitizedDateTime, accessibleDateTime} from '@/lib/date'
 
-function HistoriqueItem({balData, communeName}) {
+function HistoriqueItem({balData, communeName, onDownloadStart}) {
   const {updatedAt, client, current, _id} = balData
+  const handleDownloadStart = () => onDownloadStart(accessibleDateTime(updatedAt))
 
   const balURL = getBalUrl(_id)
   const userName = balData.context?.organisation || `la mairie de ${communeName}`
@@ -21,7 +22,7 @@ function HistoriqueItem({balData, communeName}) {
       <div className='user-infos'>
         <div>Par <b>{userName}</b></div>
         <div>Via <b>{client.nom}</b></div>
-        <a href={balURL} aria-label={`Télécharger la version du ${accessibleDateTime(updatedAt)}`}><Download alt='' aria-hidden='true' /></a>
+        <a href={balURL} aria-label={`Télécharger la version du ${accessibleDateTime(updatedAt)}`} onClick={handleDownloadStart}><Download alt='' aria-hidden='true' /></a>
       </div>
 
       <style jsx>{`
@@ -80,7 +81,8 @@ function HistoriqueItem({balData, communeName}) {
 
 HistoriqueItem.propTypes = {
   balData: PropTypes.object.isRequired,
-  communeName: PropTypes.string.isRequired
+  communeName: PropTypes.string.isRequired,
+  onDownloadStart: PropTypes.func
 }
 
 export default HistoriqueItem
