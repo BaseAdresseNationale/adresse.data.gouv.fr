@@ -1461,5 +1461,26 @@
     "picture": "/images/logos/partners/epci/sictiam.png",
     "height": 140,
     "width": 300
+  },
+  {
+    "name": "Département du Loiret",
+    "link": "https://geoloiret.loiret-numerique.fr/apps/projets/cd45_adressage.htm",
+    "charteURL": "https://geoloiret.loiret-numerique.fr/arcgis/sharing/rest/content/items/3374ec07d23c4ed7bb041cc8310f7523/data",
+    "signatureDate": "2023-07-04",
+    "infos": "Afin d'être identifiée et éligible à la fibre auprès des fournisseurs d'accès Internet, il est indispensable que l'adresse de chaque habitation puisse être référencée correctement. Il s'agit de créer pour les futurs abonnés, qu'ils soient particuliers ou entreprises, une adresse géolocalisable qui sera inscrite dans la Base d'Adresse Nationale (BAN).Dans ce cadre, le service en charge du SIG et du déploiement de la fibre du Conseil Départemental du Loiret accompagne les communes, via une assistance technique pour se lancer et prendre en main la gestion de ses adresses, afin de faciliter la bonne arrivée de la fibre sur l'ensemble de son périmètre d'action.",
+    "perimeter": "communes du Loiret où la fibre sera déployée",
+    "codeDepartement": [
+      "45"
+    ],
+    "echelon": 2,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique"
+    ],
+    "picture": "/images/logos/partners/epci/departement-loiret.png",
+    "height": 100,
+    "width": 246
   }
 ]
