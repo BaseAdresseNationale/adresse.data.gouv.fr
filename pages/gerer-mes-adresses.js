@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 import {MapPin, Book, Edit2, HelpCircle, FileText, Terminal, RefreshCw, Database, Info} from 'react-feather'
 
 import Page from '@/layouts/main'
@@ -8,9 +9,10 @@ import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import Notification from '@/components/notification'
 import PartnersSearchbar from '@/components/bases-locales/charte/partners-searchbar'
+import {getPartenairesDeLaCharteServices} from '@/lib/api-bal-admin'
 import theme from '@/styles/theme'
 
-function GererMesAdresses() {
+function GererMesAdresses({partnersServices}) {
   return (
     <Page>
       <Head title='Gérer mes adresses' icon={<MapPin size={56} alt='' aria-hidden='true' />} />
@@ -96,7 +98,7 @@ function GererMesAdresses() {
       </Section>
 
       <Section id='recherche-partenaires' title='Vous souhaitez être accompagné dans votre adressage' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
-        <PartnersSearchbar />
+        <PartnersSearchbar partnersServices={partnersServices} />
       </Section>
 
       <Section title='Vous utilisez déjà votre propre outil' subtitle='Plusieurs solutions existent afin de publier vos fichiers Base Adresse Locale' background='grey'>
@@ -217,6 +219,20 @@ function GererMesAdresses() {
       `}</style>
     </Page>
   )
+}
+
+export async function getServerSideProps() {
+  const partnersServices = await getPartenairesDeLaCharteServices()
+
+  return {
+    props: {
+      partnersServices
+    }
+  }
+}
+
+GererMesAdresses.propTypes = {
+  partnersServices: PropTypes.array.isRequired
 }
 
 export default GererMesAdresses

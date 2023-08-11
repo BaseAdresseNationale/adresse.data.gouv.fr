@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types'
-import Image from 'next/legacy/image'
 import Link from 'next/link'
 
 import theme from '@/styles/theme'
 import ButtonLink from '@/components/button-link'
 
-function Commune({name, codeCommune, picture, height, width, signatureDate, charteURL}) {
+function Commune({name, codeCommune, picture, signatureDate, charteURL}) {
   const date = new Date(signatureDate).toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
 
   return (
     <div className='commune-container' onClick={event => event.stopPropagation()}>
       <div className='commune-infos'>
-        <Image src={picture} height={height / 2} width={width / 2} alt='' aria-hidden='true' />
+        <div className='logo' style={{backgroundImage: `url(${picture})`}} />
         <Link href={`/commune/${codeCommune}`} aria-label={`Aller sur la page commune de ${name}`}>{`${name} - ${codeCommune}`}</Link>
       </div>
       <div className='signature-date'>Partenaire depuis le <b>{date}</b></div>
@@ -51,6 +50,14 @@ function Commune({name, codeCommune, picture, height, width, signatureDate, char
           font-style: italic;
           justify-self: flex-end;
         }
+
+        .logo {
+          width: 65px;
+          height: 65px;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
       `}</style>
     </div>
   )
@@ -60,8 +67,6 @@ Commune.propTypes = {
   name: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
   signatureDate: PropTypes.string.isRequired,
   charteURL: PropTypes.string
 }

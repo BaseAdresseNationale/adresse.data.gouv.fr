@@ -10,7 +10,7 @@ function Partners({data}) {
   return (
     <>
       <div className='partners-container'>
-        {items.map(item => <Partner key={item.name} partnerInfos={item} isCommune={item.echelon === 0} />)}
+        {items.map(item => <Partner key={item.name} partnerInfos={item} isCommune={item.type === 'commune'} />)}
       </div>
 
       <style jsx>{`
@@ -18,6 +18,7 @@ function Partners({data}) {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           justify-items: center;
+          align-items: flex-start;
           margin-top: 4em;
           gap: 8em;
         }
