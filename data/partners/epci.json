@@ -1461,5 +1461,27 @@
     "picture": "/images/logos/partners/epci/sictiam.png",
     "height": 140,
     "width": 300
+  },
+  {
+    "name": "Communauté de Communes de l’île de Ré",
+    "link": "https://cdciledere.fr/la-ban-en-quelques-mots/",
+    "charteURL": "https://cdciledere.fr/app/uploads/2023/06/Charte-de-la-Base-Adresse-Locale-organisme-public.pdf",
+    "infos": "Le service SIG de la Communauté de communes de l’île de Ré accompagne les communes adhérentes à la démarche intercommunale, dans la création et la tenue à jour de Bases Adresses Locales de qualité, via le SIG Web mutualisé et assure ainsi le meilleur accès aux services départementaux intervenant sur l’île de Ré.",
+    "perimeter": "La Flotte, Les Portes en Ré, Rivedoux Plage, Saint Martin de Ré, Sainte Marie de Ré",
+    "codeDepartement": [
+      "17"
+    ],
+    "echelon": 1,
+    "isPerimeterFrance": false,
+    "isCompany": false,
+    "services": [
+      "formation",
+      "accompagnement technique",
+      "réalisation des bases adresses locales",
+      "mise à disposition d’outils mutualisés"
+    ],
+    "picture": "/images/logos/partners/epci/iledere.png",
+    "height": 140,
+    "width": 140
   }
 ]
