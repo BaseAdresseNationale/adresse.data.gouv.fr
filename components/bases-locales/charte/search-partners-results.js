@@ -55,6 +55,7 @@ function SearchPartnersResults({companies, organizations, communes}) {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
           justify-items: flex-start;
+          align-items: flex-start;
           margin: 2em 0;
           gap: 6em 5em;
         }

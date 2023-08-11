@@ -1,17 +1,22 @@
-import {Award, Mail} from 'react-feather'
+import {useState} from 'react'
+import {Award} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
-import ButtonLink from '@/components/button-link'
+import Button from '@/components/button'
 import Partners from '@/components/bases-locales/charte/partners'
+import CandidacyModal from '@/components/bases-locales/charte/candidacy-modal'
+import {getPartenairesDeLaCharte, getPartenairesDeLaCharteServices} from '@/lib/api-bal-admin'
+import {getDepartements} from '@/lib/api-geo'
+import PropTypes from 'prop-types'
 
-import companies from '@/data/partners/companies.json'
-
-function Companies() {
+function Companies({companyPartners, partnersServices, departements}) {
   const title = 'Sociétés partenaires de la Charte'
   const description = 'Page vous permettant de consultez et découvrir les organisations à but lucratif partenaires'
+
+  const [showCandidacyModal, setShowCandidacyModal] = useState(false)
 
   return (
     <Page title={title} description={description}>
@@ -23,16 +28,20 @@ function Companies() {
           Votre organisme respecte déjà ces spécifications mais n’est pas identifié ? Vous pouvez rejoindre les partenaires de la Charte en nous contactant.
         </SectionText>
         <div className='contact-button'>
-          <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
-            Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} />
-          </ButtonLink>
+          <Button type='button' onClick={() => setShowCandidacyModal(true)}>
+            Rejoignez-nous
+          </Button>
         </div>
 
         <div className='partners-section'>
-          <Partners data={companies} />
+          <Partners data={companyPartners} />
         </div>
       </Section>
+      {showCandidacyModal && <CandidacyModal
+        onClose={() => setShowCandidacyModal(false)}
+        partnersServices={partnersServices}
+        departements={departements}
+      />}
 
       <style jsx>{`
         .contact-button {
@@ -45,6 +54,26 @@ function Companies() {
       `}</style>
     </Page>
   )
+}
+
+export async function getServerSideProps() {
+  const companyPartners = await getPartenairesDeLaCharte({type: 'entreprise'})
+  const partnersServices = await getPartenairesDeLaCharteServices()
+  const departements = await getDepartements()
+
+  return {
+    props: {
+      companyPartners,
+      partnersServices,
+      departements,
+    }
+  }
+}
+
+Companies.propTypes = {
+  partnersServices: PropTypes.array.isRequired,
+  departements: PropTypes.array.isRequired,
+  companyPartners: PropTypes.array.isRequired,
 }
 
 export default Companies

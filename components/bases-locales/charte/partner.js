@@ -1,4 +1,5 @@
 import {useState, useEffect, useCallback} from 'react'
+import styled from 'styled-components'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
@@ -12,11 +13,27 @@ import {getMairie} from '@/lib/api-etablissements-public'
 import MairieContact from '@/components/mairie/mairie-contact'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
+const StyledActionButtonNeutral = styled(ActionButtonNeutral)`
+  display: flex;
+  justify-content: space-between;
+  text-decoration: underline;
+  align-items: center;
+  margin-bottom: 1em;
+
+  &:hover {
+    background: none !important;
+  }
+
+  > p {
+    margin: 0;
+  }
+`
+
 function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
 
-  const {name, link, infos, perimeter, codeCommune, services, testimonyURL, picture, height, width, isCompany} = partnerInfos
+  const {name, link, infos, perimeter, codeCommune, services, testimonyURL, isCompany, picture} = partnerInfos
   const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
@@ -44,26 +61,20 @@ function Partner({partnerInfos, isCommune}) {
           <b><a href={link}>{`${name} ${isCompany ? '(société)' : ''}`}</a></b>
           {isCommune && <Image src='/images/icons/commune.svg' height={35} width={35} layout='fixed' alt='Ce partenaire est une commune' />}
         </p>
-        <div className='logo'>
-          <Image
-            src={picture}
-            height={height}
-            width={width}
-            layout='fixed'
-            alt=''
-          />
-        </div>
+        <div className='logo' style={{backgroundImage: `url(${picture})`}} />
 
         {services && services.length > 0 && (
 
-          <ActionButtonNeutral isFullSize label={`${isDisplay ? 'Masquer' : 'Afficher'} les informations`}>
-            <div className='button-container' onClick={() => setIsDisplay(!isDisplay)}>
-              <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
-              <div className='chevron'>
-                <Chevron size={18} color={`${theme.colors.lightBlue}`} alt='' aria-hidden='true' />
-              </div>
+          <StyledActionButtonNeutral
+            isFullSize
+            label={`${isDisplay ? 'Masquer' : 'Afficher'} les informations`}
+            onClick={() => setIsDisplay(!isDisplay)}
+          >
+            <p>{isDisplay ? 'Masquer' : 'Afficher'} les informations</p>
+            <div className='chevron'>
+              <Chevron size={18} color={`${theme.colors.lightBlue}`} alt='' aria-hidden='true' />
             </div>
-          </ActionButtonNeutral>
+          </StyledActionButtonNeutral>
         )}
       </div>
       {services && services.length > 0 && (
@@ -100,10 +111,8 @@ function Partner({partnerInfos, isCommune}) {
         .partner {
           max-width: 300px;
           width: 100%;
-          height: fit-content;
-          grid-template-rows: 0.5fr auto;
-          grid-template-columns: 1fr;
-          display: grid;
+          display: flex;
+          flex-direction: column;
           align-items: start;
           justify-content: center;
           padding: 1em;
@@ -118,24 +127,18 @@ function Partner({partnerInfos, isCommune}) {
         }
 
         .general-partner-infos {
-          text-align: left;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.5em;
           width: 100%;
-          height: 300px;
           align-content: space-between;
         }
 
         .name {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           margin: 0;
           font-size: 1em;
           font-weight: bold;
           font-style: normal;
-          align-self: flex-start;
-          display: grid;
-          grid-template-columns: 1fr 35px;
-          align-items: center;
         }
 
         a {
@@ -143,29 +146,17 @@ function Partner({partnerInfos, isCommune}) {
         }
 
         .logo {
-          display: flex;
-          justify-self: center;
+          height: 200px;
+          margin: 1em 0;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
         }
 
         .display-info-container {
           width: 100%;
-          display: grid;
-          grid-template-rows: 1fr 0.5fr;
           font-style: italic;
           color: ${theme.colors.darkerGrey};
-        }
-
-        .button-container {
-          display: grid;
-          grid-template-columns: 1fr 0.1fr;
-          align-items: center;
-          justify-items: self-start;
-          background: none;
-          border-style: none;
-          border-bottom: 2px solid ${theme.colors.lightBlue};
-          box-shadow: 0px 14px 21px -15px ${theme.boxShadow};
-          width: 100%;
-          height: fit-content;
         }
 
         .chevron {
@@ -174,10 +165,7 @@ function Partner({partnerInfos, isCommune}) {
         }
 
         .infos-container {
-          text-align: start;
-          display: grid;
-          grid-template-rows: 1fr auto;
-          gap: 0.5em;
+          margin-top: 1em;
           animation: fadeIn ease 1s;
         }
 
@@ -238,8 +226,6 @@ Partner.propTypes = {
     services: PropTypes.array,
     testimonyURL: PropTypes.string,
     picture: PropTypes.string.isRequired,
-    height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
     isCompany: PropTypes.bool
   }).isRequired,
   isCommune: PropTypes.bool

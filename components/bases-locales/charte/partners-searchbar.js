@@ -1,21 +1,40 @@
+import PropTypes from 'prop-types'
 import {useState, useCallback, useEffect, useMemo} from 'react'
-import {debounce, intersection} from 'lodash'
+import {debounce} from 'lodash'
 
 import {getCommunes, getByCode} from '@/lib/api-geo'
 import theme from '@/styles/theme'
 
-import companies from '@/data/partners/companies.json'
-import epci from '@/data/partners/epci.json'
-import communes from '@/data/partners/communes.json'
+import {getPartenairesDeLaCharte} from '@/lib/api-bal-admin'
 
 import SearchPartnersResults from '@/components/bases-locales/charte/search-partners-results'
 import SearchInput from '@/components/search-input'
 import Tags from '@/components/bases-locales/charte/tags'
 import RenderCommune from '@/components/search-input/render-commune'
 
-const ALL_PARTNERS = [...companies, ...epci, ...communes]
+function getPartnerEchlon(partner) {
+  if (partner.type === 'commune') {
+    return 0
+  }
 
-function PartnersSearchbar() {
+  if (partner.type === 'organisme') {
+    if (partner.organismeType === 'epci') {
+      return 1
+    }
+
+    if (partner.organismeType === 'departement') {
+      return 2
+    }
+
+    if (partner.organismeType === 'region') {
+      return 3
+    }
+  }
+
+  return 4
+}
+
+function PartnersSearchbar({partnersServices}) {
   const [input, setInput] = useState('')
   const [results, setResults] = useState([])
   const [commune, setCommune] = useState(null)
@@ -25,9 +44,9 @@ function PartnersSearchbar() {
   const [error, setError] = useState(null)
 
   const [communePartners, companyPartners, organizationPartners] = useMemo(() => [
-    filteredPartners.filter(partner => partner.echelon === 0),
-    filteredPartners.filter(partner => partner.isCompany),
-    filteredPartners.filter(partner => !partner.isCompany && partner.echelon !== 0)
+    filteredPartners.filter(partner => partner.type === 'commune'),
+    filteredPartners.filter(partner => partner.type === 'entreprise'),
+    filteredPartners.filter(partner => partner.type === 'organisme')
   ], [filteredPartners])
 
   const handleSelectedTags = tag => {
@@ -38,23 +57,24 @@ function PartnersSearchbar() {
     })
   }
 
-  const getAvailablePartners = useCallback((communeCodeDepartement, tags) => {
-    const filteredByPerimeter = ALL_PARTNERS.filter(({codeDepartement, isPerimeterFrance}) => (codeDepartement.includes(communeCodeDepartement) || isPerimeterFrance))
-    const filteredByTags = filteredByPerimeter.filter(({services}) => intersection(tags, services).length === tags.length)
-
-    return filteredByTags.sort((a, b) => {
-      return a.echelon - b.echelon
-    })
-  }, [])
-
   useEffect(() => {
-    if (commune) {
-      const availablePartners = getAvailablePartners(commune.codeDepartement, selectedTags)
-      setFilteredPartners(availablePartners)
-    } else {
-      setFilteredPartners([])
+    const fetchFilteredPartners = async () => {
+      if (commune) {
+        const filteredPartners = await getPartenairesDeLaCharte({
+          services: selectedTags,
+          codeDepartement: commune.codeDepartement,
+        })
+        const sortedFilteredPartners = filteredPartners.sort((a, b) => {
+          return getPartnerEchlon(a) - getPartnerEchlon(b)
+        })
+        setFilteredPartners(sortedFilteredPartners)
+      } else {
+        setFilteredPartners([])
+      }
     }
-  }, [selectedTags, getAvailablePartners, commune])
+
+    fetchFilteredPartners()
+  }, [selectedTags, commune])
 
   useEffect(() => {
     setInput(commune ? commune.nom : '')
@@ -106,7 +126,7 @@ function PartnersSearchbar() {
           onSelectTags={handleSelectedTags}
           selectedTags={selectedTags}
           filteredPartners={filteredPartners}
-          allPartners={[...epci, ...companies, ...communes]}
+          partnersServices={partnersServices}
         />
       )}
 
@@ -160,6 +180,10 @@ function PartnersSearchbar() {
         `}</style>
     </div>
   )
+}
+
+PartnersSearchbar.propTypes = {
+  partnersServices: PropTypes.array.isRequired
 }
 
 export default PartnersSearchbar
