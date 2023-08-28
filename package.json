@@ -19,7 +19,7 @@
   "dependencies": {
     "@babel/runtime": "^7.20.7",
     "@ban-team/shared-data": "^1.2.0",
-    "@ban-team/validateur-bal": "^2.15.0",
+    "@ban-team/validateur-bal": "^2.16.0",
     "@codegouvfr/react-dsfr": "^0.41.0",
     "@react-pdf/renderer": "^3.1.9",
     "@turf/bbox": "^6.5.0",
