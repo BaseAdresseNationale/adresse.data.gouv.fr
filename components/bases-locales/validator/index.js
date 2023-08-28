@@ -31,7 +31,7 @@ function BALValidator() {
       setInProgress(true)
       try {
         setReport(null)
-        const report = await validate(file, {profile, relaxFieldsDetection: profile === '1.3-etalab'})
+        const report = await validate(file, {profile})
         if (report.parseOk) {
           setReport(report)
         } else {
