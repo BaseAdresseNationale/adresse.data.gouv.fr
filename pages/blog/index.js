@@ -41,6 +41,10 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
   return (
     <Page title='Le Blog de L’Adresse'>
       <Head title='Le Blog de L’Adresse' icon={<Book size={56} alt='' aria-hidden='true' />} />
+      <div className='partners-testimony-map'>
+        <h3>Carte des témoignages</h3>
+        <iframe width='80%' height='400px' src='https://umap.openstreetmap.fr/fr/map/carte-des-temoignages_953200?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&allowEdit=false&moreControl=false&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=false&onLoadPanel=caption&captionBar=false&captionMenus=false' />
+      </div>
       <Section>
         {posts ? (
           <>
@@ -134,6 +138,17 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
 
         .tag:hover {
           background-color: ${colors.lightRed};
+        }
+
+        .partners-testimony-map {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .partners-testimony-map h3 {
+          margin: 1em;
         }
       `}</style>
     </Page>
