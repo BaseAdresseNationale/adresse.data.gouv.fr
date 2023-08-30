@@ -105,13 +105,6 @@ function DonneesNationales() {
 
       <Section title='Autres fichiers nationaux' background='grey'>
         <div className='card-container'>
-          <Card
-            title='Export de l’API de gestion IGN'
-            action='Télécharger les exports'
-            link='https://adresse.data.gouv.fr/data/ban/export-api-gestion/latest/'
-          >
-            Ce fichier contient toutes les données que l’IGN exporte chaque semaine de son API de gestion d’adresses.
-          </Card>
 
           <Card
             title='Adresses extraites du cadastre'
