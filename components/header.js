@@ -120,6 +120,12 @@ const navigationLinks = [
         },
         text: 'État du déploiement des Bases Adresses Locales',
       },
+      {
+        linkProps: {
+          href: '/contribuer#osmose',
+        },
+        text: 'Rejoignez le collectif des usagers',
+      },
     ]
   },
 ]
