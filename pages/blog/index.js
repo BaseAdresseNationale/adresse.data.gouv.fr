@@ -160,6 +160,16 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
           font-weight: bold;
           color: var(--theme-primary);
         }
+
+        @media (max-width: 768px) {
+          .partners-testimony-map a {
+            margin-left: 0;
+            align-self: center;
+          }
+          .partners-testimony-map iframe {
+            display: none;
+          }
+        }
       `}</style>
     </Page>
   )
