@@ -39,7 +39,7 @@ function Contribuer() {
         </SectionText>
         <SearchCommuneContact />
       </Section>
-
+      <a id='osmose' />
       <Section title='En tant qu’utilisateur des données' id='utilisateur'>
         <div style={{textAlign: 'center'}}>
           <p style={{margin: '3em 0'}}>Rejoignez notre collectif des usagers de la BAN. Demandez par mail à rejoindre le MTECT-collectif-des-utilisateurs-de-la-ban en envoyant une demande sur adresse@data.gouv.fr</p>
