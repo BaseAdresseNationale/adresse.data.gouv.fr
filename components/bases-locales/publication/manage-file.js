@@ -17,7 +17,7 @@ function ManageFile({error, handleError, handleFile}) {
 
   const parseFile = useCallback(async file => {
     try {
-      const report = await validate(file, {profile: '1.3-etalab', relaxFieldsDetection: true})
+      const report = await validate(file, {profile: '1.3-relax'})
 
       if (!report.parseOk) {
         handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
