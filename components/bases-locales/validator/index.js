@@ -7,7 +7,7 @@ import {getFileExtension} from '@/lib/bal/file'
 import theme from '@/styles/theme'
 import Section from '@/components/section'
 import Loader from '@/components/loader'
-
+import ButtonLink from '@/components/button-link'
 import Report from './report'
 import FileHander from './file-handler'
 
@@ -51,7 +51,7 @@ function BALValidator() {
 
   useEffect(() => {
     getProfileReport(file)
-  }, [profile])
+  }, [profile, file, getProfileReport])
 
   const handleFileDrop = fileList => {
     const file = fileList[0]
@@ -72,23 +72,27 @@ function BALValidator() {
 
   return (
     <Section>
-
       <FileHander
         file={file}
         isLoading={inProgress}
         error={error}
         onFileDrop={handleFileDrop}
       />
-      <div className='profil-selector'>
-        <label>Version de la spécification</label>
-        <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
-          {Object.values(profiles).filter(p => p.isUsed).map(p => (
-            <option key={p.code} value={p.code}>
-              {p.name}
-              {defaultProfil === p.code && ' (défaut)'}
-            </option>
-          ))}
-        </select>
+      <div className='menu-validateur'>
+        <div className='profil-selector'>
+          <label>Version de la spécification</label>
+          <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
+            {Object.values(profiles).filter(p => p.isUsed).map(p => (
+              <option key={p.code} value={p.code}>
+                {p.name}
+                {defaultProfil === p.code && ' (défaut)'}
+              </option>
+            ))}
+          </select>
+        </div>
+        <ButtonLink href='/bases-locales/validator-documentation' title='Documentation Validateur'>
+          Documentation
+        </ButtonLink>
       </div>
       {inProgress &&
         <Section title='Analyse en cours'>
@@ -96,7 +100,6 @@ function BALValidator() {
             <Loader size='big' />
           </div>
         </Section>}
-
       {report &&
         <>
           <h3>
@@ -107,7 +110,7 @@ function BALValidator() {
               </span>
             ) : (
               <span className='error profile-validation'>
-                Le fichier Bal n’est valide (en version {profiles[profile].name})
+                Le fichier Bal n’est pas valide (en version {profiles[profile].name})
                 <X className='icon' alt='Invalide' />
               </span>
             )}
@@ -115,10 +118,15 @@ function BALValidator() {
           <Report profile={profile} report={report} />
         </>}
       <style jsx>{`
+        .menu-validateur {
+          margin-top: 20px;
+          display: flex;
+          align-items: unset;
+          justify-content: space-between;
+        }
         .profil-selector {
           display: flex;
           align-items: self-end;
-          margin-top: 20px;
         }
         .profil-selector > label {
           margin-right: 10px;
