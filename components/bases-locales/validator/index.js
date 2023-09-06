@@ -11,7 +11,7 @@ import ButtonLink from '@/components/button-link'
 import Report from './report'
 import FileHander from './file-handler'
 
-const defaultProfil = '1.3-etalab-strict'
+const defaultProfil = '1.3'
 
 function BALValidator() {
   const [file, setFile] = useState()
@@ -51,7 +51,7 @@ function BALValidator() {
 
   useEffect(() => {
     getProfileReport(file)
-  }, [profile, file, getProfileReport])
+  }, [profile])
 
   const handleFileDrop = fileList => {
     const file = fileList[0]
