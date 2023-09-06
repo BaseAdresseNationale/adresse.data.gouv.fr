@@ -20,7 +20,7 @@ function FoundFields({fields}) {
             <th>Nom du champ dans la spécification</th>
             <th>Version de la spécification</th>
           </tr>
-          {fields.length > 0 ? fields.map(field => (
+          {fields.length > 0 ? fields.filter(field => field.name).map(field => (
             <tr key={field.name} className={field.exactMatch ? 'background-green' : (field.exactMatch === false ? 'background-red' : 'background-grey')}>
               <td className='lr-field'>
                 {field.name}
