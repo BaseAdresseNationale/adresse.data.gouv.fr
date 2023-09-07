@@ -39,6 +39,7 @@ function Numero({
   parcelles,
   codePostal,
   cleInterop,
+  banId,
   lat,
   lon,
   isMobile,
@@ -138,6 +139,9 @@ function Numero({
         <div>
           Clé d’interopérabilité : <b>{cleInterop}</b>
         </div>
+        {banId && (
+          <div>banId : <b>{banId}</b></div>
+        )}
         <div>
           Parcelles cadastrales : <ParcellesList parcelles={parcelles} />
         </div>
@@ -282,6 +286,7 @@ Numero.propTypes = {
   libelleAcheminement: PropTypes.string,
   codePostal: PropTypes.string,
   cleInterop: PropTypes.string.isRequired,
+  banId: PropTypes.string,
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
@@ -295,6 +300,7 @@ Numero.defaultProps = {
   codePostal: null,
   libelleAcheminement: null,
   positionType: null,
+  banId: null,
   dateMAJ: null,
   isMobile: false,
 }
