@@ -126,6 +126,12 @@ const navigationLinks = [
         },
         text: 'Rejoignez le collectif des usagers',
       },
+      {
+        linkProps: {
+          href: '/donnees-nationales/usages',
+        },
+        text: 'Usages',
+      },
     ]
   },
 ]
