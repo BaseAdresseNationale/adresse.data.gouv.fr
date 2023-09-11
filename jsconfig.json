@@ -8,7 +8,8 @@
       "@/styles/*": ["styles/*"],
       "@/contexts/*": ["contexts/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/data/*": ["data/*"]
+      "@/data/*": ["data/*"],
+      "@/views/*": ["views/*"]
     }
   }
 }
