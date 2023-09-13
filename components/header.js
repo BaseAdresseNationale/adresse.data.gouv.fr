@@ -130,7 +130,7 @@ const navigationLinks = [
         linkProps: {
           href: '/donnees-nationales/usages',
         },
-        text: 'Usages',
+        text: 'Cas d\'usages',
       },
     ]
   },
