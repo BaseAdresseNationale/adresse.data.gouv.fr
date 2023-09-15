@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import PropTypes from 'prop-types'
-import {useState, useEffect} from 'react'
 
 function Data({root, path = [], data = []}) {
   const currentDir = ['data', ...path].slice(-1)
@@ -59,36 +58,4 @@ Data.propTypes = {
   data: PropTypes.array.isRequired,
 }
 
-function DataContainer({root, path = []}) {
-  const [loadedData, setLoadedData] = useState()
-
-  useEffect(() => {
-    const callData = async () => {
-      let content
-      try {
-        content = await fetch('/api/data?path=' + path.join('/'))
-      } catch (err) {
-        console.error(err)
-      }
-
-      const contentJson = await content.json()
-      setLoadedData(contentJson)
-    }
-
-    callData()
-  }, [path, setLoadedData])
-
-  return (
-    <Data root={root} path={path} data={loadedData?.data || []} />
-  )
-}
-
-DataContainer.propTypes = {
-  root: PropTypes.shape({
-    href: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  }),
-  path: PropTypes.array.isRequired,
-}
-
-export default DataContainer
+export default Data
