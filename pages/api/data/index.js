@@ -1,15 +1,16 @@
 import {readdir, readFile, lstat} from 'node:fs/promises'
+import path from 'path'
 
 const PATH = process.env.NEXT_PUBLIC_PATH_STATIC_FILE
 
-const getDirectories = async path =>
-  (await readdir(path, {withFileTypes: true}))
+const getDirectories = async dirPath =>
+  (await readdir(dirPath, {withFileTypes: true}))
     .map(entry => ({name: entry.name, isDirectory: entry.isDirectory()}))
 
 export default async function handler(req, res) {
   try {
-    const {path = ''} = req.query
-    const absolutePath = PATH + path
+    const {path: paramPath = ''} = req.query
+    const absolutePath = path.join(PATH, paramPath)
     let stat
     try {
       stat = await lstat(absolutePath)

@@ -1,16 +1,76 @@
-import Head from '@/components/head'
-import Page from '@/layouts/main'
-import {Download} from 'react-feather'
+import Link from 'next/link'
 import PropTypes from 'prop-types'
 import {useState, useEffect} from 'react'
-import Link from 'next/link'
 
-function Data({path = []}) {
+function Data({root, path = [], data = []}) {
+  const currentDir = ['data', ...path].slice(-1)
+  const parentsDir = ['data', ...path].slice(0, -1)
+
+  return (
+    <div>
+      <div>
+        {root ? <span><Link href={root.href}>{root.label}</Link>{' '}</span> :
+          null}
+        {path.length > 0 && (
+          parentsDir.map((dir, index) => (
+            <span key={dir}>&gt; <Link href={`/${parentsDir.slice(0, index + 1).join('/')}`}>{dir}</Link>{' '}</span>
+          ))
+        )}
+        <span>&gt; {currentDir}{' '}</span>
+      </div>
+
+      <div>
+        {data ? (
+          <ul>
+            {
+              data
+                ?.filter(({name}) => !name.startsWith('.')) // Hide hidden files
+                .map(entry => (
+                  <li key={entry.name}>
+                    <Link
+                      legacyBehavior
+                      href={'./' + [...path, entry.name].join('/')}
+                    >
+                      <a
+                        target={entry.isDirectory ? '_self' : '_blank'}
+                        rel='noreferrer'
+                      >
+                        {entry.name}
+                      </a>
+                    </Link>
+                  </li>
+                ))
+            }
+          </ul>
+        ) : (
+          'Chargement...'
+        )}
+      </div>
+    </div>
+  )
+}
+
+Data.propTypes = {
+  root: PropTypes.shape({
+    href: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }),
+  path: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+}
+
+function DataContainer({root, path = []}) {
   const [loadedData, setLoadedData] = useState()
 
   useEffect(() => {
     const callData = async () => {
-      const content = await fetch('/api/data?path=' + path.join('/'))
+      let content
+      try {
+        content = await fetch('/api/data?path=' + path.join('/'))
+      } catch (err) {
+        console.error(err)
+      }
+
       const contentJson = await content.json()
       setLoadedData(contentJson)
     }
@@ -18,23 +78,17 @@ function Data({path = []}) {
     callData()
   }, [path, setLoadedData])
 
-  const title = ['data', ...path].join('/')
-
   return (
-    <Page title={title}>
-      <Head title={title} icon={<Download size={56} alt='' aria-hidden='true' />} />
-      {path.length > 0 && <div>
-        <Link href={path.slice(0, -1).join('/')} >&lt;&lt;&lt;</Link>
-      </div>}
-      <div>
-        {loadedData ? <ul>{loadedData.data.map(entry => <li key={entry.name}><Link legacyBehavior href={entry.isDirectory ? './' + [...path, entry.name].join('/') : '/api/data?path=' + [...path, entry.name].join('/')}>{entry.name}</Link></li>)}</ul> : 'Chargement...'}
-      </div>
-    </Page>
+    <Data root={root} path={path} data={loadedData?.data || []} />
   )
 }
 
-Data.propTypes = {
-  path: PropTypes.array.isRequired
+DataContainer.propTypes = {
+  root: PropTypes.shape({
+    href: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }),
+  path: PropTypes.array.isRequired,
 }
 
-export default Data
+export default DataContainer
