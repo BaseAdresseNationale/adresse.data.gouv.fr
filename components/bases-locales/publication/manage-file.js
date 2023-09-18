@@ -20,8 +20,6 @@ function ManageFile({error, handleError, handleFile}) {
   const parseFile = useCallback(async file => {
     try {
       const report = await validate(file, {profile: defaultProfile})
-      console.log(report)
-      console.log(report.parseOk)
       if (!report.parseOk) {
         handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
         return
