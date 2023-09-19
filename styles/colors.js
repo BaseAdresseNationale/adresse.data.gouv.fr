@@ -23,5 +23,6 @@ export default ({
   red: '#D1335B',
   lightRed: '#F8E1E7',
   purple: '#8200BF',
-  lightPurple: '#FCE6FF'
+  lightPurple: '#FCE6FF',
+  yellow: '#FFD700'
 })
