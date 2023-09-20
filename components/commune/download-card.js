@@ -2,12 +2,12 @@ import theme from '@/styles/theme'
 import PropTypes from 'prop-types'
 import {DownloadCloud} from 'react-feather'
 
-function DownloadCard({format, url, isAvailable, color}) {
+function DownloadCard({format, url, isAvailable, color, onDownloadStart}) {
   return (
     <div className='card-container'>
       <div className='format'>Format {format}</div>
       <div className={`download-container ${color}`}>
-        <a className='download-link' href={url}><DownloadCloud alt='' aria-hidden='true' />Télécharger</a>
+        <a className='download-link' href={url} onClick={onDownloadStart} download><DownloadCloud alt='' aria-hidden='true' />Télécharger</a>
       </div>
 
       <style jsx>{`
@@ -69,7 +69,8 @@ DownloadCard.propTypes = {
   color: PropTypes.oneOf([
     'primary',
     'secondary'
-  ])
+  ]),
+  onDownloadStart: PropTypes.func
 }
 
 DownloadCard.defaultType = {
