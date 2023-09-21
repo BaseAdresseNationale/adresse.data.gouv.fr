@@ -11,7 +11,7 @@ import Data from '@/views/data'
 
 import ErrorPage from '../_error'
 
-const PATH = process.env.NEXT_PUBLIC_PATH_STATIC_FILE
+const PATH = process.env.PATH_STATIC_FILE
 const rootLink = {
   href: '/donnees-nationales',
   label: 'Données nationales',
