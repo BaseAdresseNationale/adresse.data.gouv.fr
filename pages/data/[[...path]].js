@@ -21,6 +21,7 @@ const getDirectories = path => (
   fs
     .readdirSync(path, {withFileTypes: true})
     .filter(({name}) => !name.startsWith('.')) // Hide hidden files
+    .filter(entry => !entry.isSymbolicLink()) // Hide Symbolic links
     .map(entry => ({
       name: entry.name,
       isDirectory: entry.isDirectory()
