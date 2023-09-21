@@ -31,11 +31,23 @@ export function getServerSideProps(context) {
   const {path: paramPath = []} = context.params
   const fileName = `${paramPath.join('/')}`
   const filePath = path.join(PATH, fileName)
+  const date = new Date()
+  const formattedDate = new Intl.DateTimeFormat('fr', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(date).replace(/,/g, '\'').replace(/ /g, ' ')
+
   let stat
+
+  if (!filePath.startsWith(PATH)) {
+    console.warn(`[${formattedDate} - WARNING]`, `Attempted illegal access to ${filePath}`)
+    context.res.statusCode = 404
+    return {
+      props: {errorCode: 404},
+    }
+  }
 
   try {
     stat = fs.lstatSync(filePath)
-  } catch {
+  } catch (err) {
+    console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
     context.res.statusCode = 404
     return {
       props: {errorCode: 404},
@@ -61,7 +73,8 @@ export function getServerSideProps(context) {
     context.res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
     context.res.statusCode = 200
     context.res.end(fileContents)
-  } catch {
+  } catch (err) {
+    console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
     return {
       props: {
         errorCode: 502,
