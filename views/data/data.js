@@ -23,7 +23,6 @@ function Data({root, path = [], data = []}) {
           <ul>
             {
               data
-                ?.filter(({name}) => !name.startsWith('.')) // Hide hidden files
                 .map(entry => (
                   <li key={entry.name}>
                     <Link
