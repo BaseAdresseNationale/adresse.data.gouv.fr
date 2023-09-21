@@ -20,6 +20,7 @@ const rootLink = {
 const getDirectories = path => (
   fs
     .readdirSync(path, {withFileTypes: true})
+    .filter(({name}) => !name.startsWith('.')) // Hide hidden files
     .map(entry => ({
       name: entry.name,
       isDirectory: entry.isDirectory()
