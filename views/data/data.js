@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import PropTypes from 'prop-types'
+import {filesize} from 'filesize'
 
 function Data({root, path = [], data = []}) {
   const currentDir = ['data', ...path].slice(-1)
@@ -34,8 +35,10 @@ function Data({root, path = [], data = []}) {
                         rel='noreferrer'
                       >
                         {entry.name}
+                        {entry.fileInfo && `(${filesize(entry.fileInfo?.size)} - ${(new Date(entry.fileInfo.date)).toLocaleString()})`}
                       </a>
                     </Link>
+
                   </li>
                 ))
             }

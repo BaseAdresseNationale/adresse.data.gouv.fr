@@ -44,15 +44,20 @@ const getDirectories = _path => (
         _path,
         fs.readlinkSync(path.join(_path, entry.name))
       ) : path.join(_path, entry.name)
-      const target = isSymbolicLink ? fs.lstatSync(computedPath) : entry
+      const target = isSymbolicLink ? fs.lstatSync(computedPath) : fs.lstatSync(path.resolve(_path, entry.name))
       const isDirectory = target.isDirectory()
       const targetName = isSymbolicLink ? path.basename(computedPath) : entry.name
+      const {size = 0, mtime = null} = target
 
       return ({
         name: entry.name,
         targetName,
         isDirectory,
         isSymbolicLink,
+        fileInfo: isDirectory ? null : {
+          size,
+          date: mtime.toUTCString()
+        }
       })
     })
 )
