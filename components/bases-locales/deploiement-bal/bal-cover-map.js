@@ -20,7 +20,7 @@ const paintLayers = {
         content: {
           mesadresses: {name: 'Mes Adresses', color: '#228833'},
           form: {name: 'Formulaire', color: '#EE6677'},
-          moissoneur: {name: 'Moissoneur', color: '#AA3377'},
+          moissoneur: {name: 'Moissonneur', color: '#AA3377'},
           api: {name: 'Api', color: '#66CCEE'},
         }
       },
@@ -79,7 +79,7 @@ const paintLayers = {
       {
         title: 'Autre source',
         content: {
-          other: {name: 'Api, formulaire, moissoneur', color: '#66CCEE'},
+          other: {name: 'Api, formulaire, moissonneur', color: '#66CCEE'},
         }
       }
     ],
