@@ -4,7 +4,7 @@ const {ironSession} = require('iron-session/express')
 
 const w = require('./w')
 
-const API_DEPOT_URL = process.env.NEXT_PUBLIC_API_DEPOT_URL || 'https://plateforme.adresse.data.gouv.fr/api-depot'
+const API_DEPOT_URL = process.env.NEXT_PUBLIC_API_DEPOT_URL || 'https://plateforme-bal.adresse.data.gouv.fr/api-depot'
 const {API_DEPOT_TOKEN} = process.env
 
 const client = got.extend({
