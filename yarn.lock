@@ -5388,6 +5388,11 @@ maplibre-gl@^1.15.3:
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.1"
 
+matomo-tracker@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/matomo-tracker/-/matomo-tracker-2.2.4.tgz#ee397d915d7b2e7964996ca28a0a03f4f0692453"
+  integrity sha512-7fDy4wRhDQ1dnSxVqmnVqmmos9ACKag0fCBtBD3/Qeoqks7MFqXcO35nfS6S8xU/IXNf7534q/4Gx8fuWKYW6A==
+
 media-engine@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/media-engine/-/media-engine-1.0.3.tgz#be3188f6cd243ea2a40804a35de5a5b032f58dad"
