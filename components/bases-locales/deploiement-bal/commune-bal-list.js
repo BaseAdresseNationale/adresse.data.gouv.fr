@@ -6,7 +6,8 @@ import {Accordion} from '@codegouvfr/react-dsfr/Accordion'
 
 import BaseLocaleCard from '@/components/bases-locales/deploiement-bal/bal-card'
 
-const communesIndex = keyBy(communes, 'code')
+const communesActuelles = communes.filter(({type}) => type === 'commune-actuelle')
+const communesIndex = keyBy(communesActuelles, 'code')
 
 const findCommuneName = codeCommune => {
   return communesIndex[codeCommune]?.nom || ''
