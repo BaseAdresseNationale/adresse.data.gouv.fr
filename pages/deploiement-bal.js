@@ -11,7 +11,6 @@ import departementCenterMap from '@/data/geo/departement-center.json'
 
 import {_fetch, getStats} from '@/lib/api-ban'
 import {getDepartements, getEpcis} from '@/lib/api-geo'
-import {getBals} from '@/lib/mes-adresse-api'
 
 import {useStatsDeploiement} from '@/hooks/stats-deploiement'
 
@@ -31,7 +30,6 @@ function EtatDeploiement({initialStats, departements}) {
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState([])
   const {stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry} = useStatsDeploiement({initialStats})
-  const [bals, setBals] = useState([])
   const [selectedPanel, setSelectedPanel] = useState('source')
 
   const handleSearch = useCallback(debounce(async input => {
@@ -54,16 +52,6 @@ function EtatDeploiement({initialStats, departements}) {
     setFilter(null)
     setInput('')
   }
-
-  useEffect(() => {
-    async function getBalsFiltered() {
-      const fields = ['_id', 'commune', 'status', 'nom', '_updated', 'sync']
-      const balsFiltered = await getBals(fields, filteredCodesCommmune)
-      setBals(balsFiltered)
-    }
-
-    getBalsFiltered()
-  }, [filteredCodesCommmune])
 
   const handleSelect = async item => {
     setFilter(item)
@@ -134,7 +122,7 @@ function EtatDeploiement({initialStats, departements}) {
             {selectedPanel === 'source' ? (
               <PanelSource stats={stats} formatedStats={formatedStats} />
             ) : (
-              <PanelBal filteredCodesCommmune={filteredCodesCommmune} bals={bals} />
+              <PanelBal filteredCodesCommmune={filteredCodesCommmune} />
             )}
           </div>
           <div className='bal-cover-map-container'>

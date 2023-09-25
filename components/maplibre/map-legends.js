@@ -19,6 +19,7 @@ function MapLegends({title, legend, hasBorderRadius}) {
         .legend-container {
           display: flex;
           align-items: center;
+          text-align: left;
         }
 
         .legend-color {
