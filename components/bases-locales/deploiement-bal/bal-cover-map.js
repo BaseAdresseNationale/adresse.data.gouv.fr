@@ -8,6 +8,7 @@ import SelectPaintLayer from '@/components/maplibre/select-paint-layer'
 import MapLegends from '@/components/maplibre/map-legends'
 
 import {DEFAULT_CENTER, DEFAULT_ZOOM} from '@/components/maplibre/map'
+import theme from '@/styles/theme'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 
@@ -18,10 +19,10 @@ const paintLayers = {
       {
         title: 'Déploiement BAL',
         content: {
-          mesadresses: {name: 'Mes Adresses', color: '#228833'},
-          form: {name: 'Formulaire', color: '#EE6677'},
-          moissoneur: {name: 'Moissonneur', color: '#AA3377'},
-          api: {name: 'Api', color: '#66CCEE'},
+          mesadresses: {name: 'Mes Adresses', color: theme.colors.mapGreen},
+          moissoneur: {name: 'Moissonneur', color: theme.colors.mapOrange},
+          form: {name: 'Formulaire', color: theme.colors.mapBlue},
+          api: {name: 'Api', color: theme.colors.mapYellow},
         }
       },
       {
@@ -38,28 +39,28 @@ const paintLayers = {
             ['==', ['get', 'hasBAL'], true],
             ['==', ['get', 'idClient'], 'mes-adresses']
           ], // Mes Adresses
-          color: '#228833'
+          color: theme.colors.mapGreen
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
             ['==', ['get', 'idClient'], 'moissonneur-bal']
           ], // Moissonneur
-          color: '#AA3377'
+          color: theme.colors.mapOrange
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
             ['==', ['get', 'idClient'], 'formulaire-publication']
           ], // Formaulaire
-          color: '#EE6677'
+          color: theme.colors.mapBlue
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
             ['==', ['has', 'idClient'], true]
           ], // API
-          color: '#66CCEE'
+          color: theme.colors.mapYellow
         },
       ],
       default: '#ddd'
@@ -71,15 +72,15 @@ const paintLayers = {
       {
         title: 'Mes Adresses',
         content: {
-          published: {name: 'Publiée', color: '#228833'},
-          pap: {name: 'Prête a être publiée', color: '#AA3377'},
-          draft: {name: 'Brouillon', color: '#EE6677'},
+          published: {name: 'Publiée', color: theme.colors.mapGreen},
+          pap: {name: 'Prête a être publiée', color: theme.colors.mapBlue},
+          draft: {name: 'Brouillon', color: theme.colors.mapYellow},
         }
       },
       {
         title: 'Autre source',
         content: {
-          other: {name: 'Api, formulaire, moissonneur', color: '#66CCEE'},
+          other: {name: 'Api, formulaire, moissonneur', color: theme.colors.mapOrange},
         }
       }
     ],
@@ -90,25 +91,25 @@ const paintLayers = {
           expression: [
             ['==', ['get', 'statusBals'], 'published'],
           ], // Mes Adresses
-          color: '#228833'
+          color: theme.colors.mapGreen
         },
         {
           expression: [
             ['==', ['get', 'statusBals'], 'ready-to-publish'],
           ], // Mes Adresses
-          color: '#AA3377'
+          color: theme.colors.mapBlue
         },
         {
           expression: [
             ['==', ['get', 'statusBals'], 'draft'],
           ], // Mes Adresses
-          color: '#EE6677'
+          color: theme.colors.mapYellow
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
           ],
-          color: '#66CCEE'
+          color: theme.colors.mapOrange
         },
       ],
       default: '#ddd'

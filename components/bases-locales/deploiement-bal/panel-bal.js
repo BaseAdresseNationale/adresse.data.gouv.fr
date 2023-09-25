@@ -4,6 +4,7 @@ import {groupBy} from 'lodash'
 import {Doughnut} from 'react-chartjs-2'
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
 
+import theme from '@/styles/theme'
 import {getBals} from '@/lib/mes-adresse-api'
 import CommuneBALList from './commune-bal-list'
 
@@ -32,9 +33,9 @@ const initialStats = {
   datasets: [{
     data: [0, 0, 0],
     backgroundColor: [
-      '#228833',
-      '#AA3377',
-      '#EE6677'
+      theme.colors.mapGreen,
+      theme.colors.mapBlue,
+      theme.colors.mapYellow
     ],
     hoverOffset: 4
   }]
