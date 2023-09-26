@@ -8,6 +8,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import Page from '@/layouts/main'
 import Data from '@/views/data'
+import getAnalyticsPusher, {getDownloadTrackData} from '@/lib/util/analytics-tracker'
 
 import ErrorPage from '../_error'
 
@@ -69,11 +70,18 @@ export function getServerSideProps(context) {
     const fileExtension = path.extname(fileName)
     const contentType = mime.getType(fileExtension) || 'application/octet-stream'
     const fileContents = fs.readFileSync(filePath)
+    const sendToTracker = getAnalyticsPusher()
 
     context.res.setHeader('Content-Type', contentType)
     context.res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
     context.res.statusCode = 200
     context.res.end(fileContents)
+
+    sendToTracker(getDownloadTrackData({
+      downloadDataType: path.dirname(fileName).split('/')[0],
+      downloadFileName: fileName,
+      nbDownload: 1
+    }))
   } catch (err) {
     console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
     return {
