@@ -46,6 +46,12 @@ function Charte({partnersServices, departements}) {
         </SectionText>
       </Section>
 
+      <Section background='grey' id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
+        <div>
+          <PartnersSearchbar partnersServices={partnersServices} />
+        </div>
+      </Section>
+
       <Section background='color' title='Rejoindre les partenaires de la Charte'>
         <div className='contact-button'>
           <Button onClick={() => setShowCandidacyModal(true)}>
@@ -209,11 +215,6 @@ function Charte({partnersServices, departements}) {
         </div>
       </Section>
 
-      <Section background='grey' id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
-        <div>
-          <PartnersSearchbar partnersServices={partnersServices} />
-        </div>
-      </Section>
       {showCandidacyModal && <CandidacyModal
         onClose={() => setShowCandidacyModal(false)}
         partnersServices={partnersServices}
