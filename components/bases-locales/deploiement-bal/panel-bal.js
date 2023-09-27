@@ -5,7 +5,7 @@ import {Doughnut} from 'react-chartjs-2'
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
 
 import theme from '@/styles/theme'
-import {getBals} from '@/lib/mes-adresse-api'
+import {getBals, getBalsStatus} from '@/lib/mes-adresse-api'
 import CommuneBALList from './commune-bal-list'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -46,29 +46,40 @@ function PanelBal({filteredCodesCommmune}) {
   const [dataStats, setDataStats] = useState(initialStats)
 
   useEffect(() => {
-    async function getBalsFiltered() {
-      const fields = ['_id', 'commune', 'status', 'nom', '_updated', 'sync']
-      const balsFiltered = await getBals(fields, filteredCodesCommmune)
-      setDataStatsWithBal(balsFiltered)
-      if (filteredCodesCommmune.length > 0) {
-        setBals(balsFiltered)
-      }
+    async function loadBalsStatus() {
+      const balsStatus = await getBalsStatus()
+      const statusData = [
+        balsStatus.find(({status}) => status === 'published')?.count || 0,
+        balsStatus.find(({status}) => status === 'ready-to-publish')?.count || 0,
+        balsStatus.find(({status}) => status === 'draft')?.count || 0,
+      ]
+      setDataStatsWithBal(statusData)
     }
 
-    getBalsFiltered()
+    async function loadBals() {
+      const fields = ['_id', 'commune', 'status', 'nom', '_updated', 'sync']
+      const balsFiltered = await getBals(fields, filteredCodesCommmune)
+      setBals(balsFiltered)
+      const statusData = [
+        balsFiltered.filter(({status}) => status === 'published').length,
+        balsFiltered.filter(({status}) => status === 'ready-to-publish').length,
+        balsFiltered.filter(({status}) => status === 'draft').length
+      ]
+      setDataStatsWithBal(statusData)
+    }
+
+    if (filteredCodesCommmune.length <= 0) {
+      loadBalsStatus()
+    } else {
+      loadBals()
+    }
   }, [filteredCodesCommmune, setDataStatsWithBal])
 
   const balsByCommune = useMemo(() => {
     return groupBy(bals, 'commune')
   }, [bals])
 
-  const setDataStatsWithBal = useCallback(balsFiltered => {
-    const data = [
-      balsFiltered.filter(bal => bal.status === 'published').length,
-      balsFiltered.filter(bal => bal.status === 'ready-to-publish').length,
-      balsFiltered.filter(bal => bal.status === 'draft').length
-    ]
-
+  const setDataStatsWithBal = useCallback(data => {
     setDataStats(dataStats => {
       return {
         ...dataStats,
@@ -80,7 +91,7 @@ function PanelBal({filteredCodesCommmune}) {
         ]
       }
     })
-  }, [setDataStats, dataStats])
+  }, [])
 
   return (
     <div>
