@@ -274,6 +274,7 @@ function CandidacyForm({onClose, partnersServices, departements}) {
             label='Lien vers la charte*'
             nativeInputProps={{
               value: formData.charteURL,
+              type: 'url',
               onChange: handleEdit('charteURL'),
               required: true,
             }}
@@ -282,6 +283,7 @@ function CandidacyForm({onClose, partnersServices, departements}) {
             label='Lien vers le site'
             nativeInputProps={{
               value: formData.link,
+              type: 'url',
               onChange: handleEdit('link')}}
           />
         </div>
@@ -291,12 +293,14 @@ function CandidacyForm({onClose, partnersServices, departements}) {
               label='Lien vers le témoignage'
               nativeInputProps={{
                 value: formData.testimonyURL,
+                type: 'url',
                 onChange: handleEdit('testimonyURL')}}
             />
             <Input
               label='Lien vers la BAL'
               nativeInputProps={{
                 value: formData.balURL,
+                type: 'url',
                 onChange: handleEdit('balURL')}}
             />
           </div>)}
@@ -306,6 +310,7 @@ function CandidacyForm({onClose, partnersServices, departements}) {
               label='Lien vers le témoignage'
               nativeInputProps={{
                 value: formData.testimonyURL,
+                type: 'url',
                 onChange: handleEdit('testimonyURL')}}
             />
           </div>
