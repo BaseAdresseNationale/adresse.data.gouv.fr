@@ -37,7 +37,6 @@ const VOIE_MAX = NUMEROS_MIN
 const TOPONYME_MIN = 11
 const TOPONYME_MAX = NUMEROS_MIN + 2
 const TOPONYME_COLOR = '#7c5050'
-const COMMUNNE_MIN = 9
 export const PARCELLES_MINZOOM = 14
 
 const getColors = () => {
