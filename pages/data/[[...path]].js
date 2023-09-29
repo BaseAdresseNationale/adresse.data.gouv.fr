@@ -19,7 +19,17 @@ const rootLink = {
 }
 
 const autorizedPath = (_path, rootPath = PATH) => {
-  const realPath = fs.realpathSync(_path)
+  let realPath
+  try {
+    realPath = fs.realpathSync(_path)
+  } catch (err) {
+    console.warn('[WARNING]', 'File access error:', err)
+    return {
+      path: _path,
+      auth: false
+    }
+  }
+
   const isRealPathIsInRoot = realPath.startsWith(rootPath)
   const isRealPathIsVisibleFile = !path.basename(realPath).startsWith('.')
   const isPathIsVisibleFile = !path.basename(_path).startsWith('.')
