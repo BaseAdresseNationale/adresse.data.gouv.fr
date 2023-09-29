@@ -108,9 +108,11 @@ export function getServerSideProps(context) {
     const fileExtension = path.extname(targetFileName)
     const contentType = mime.getType(fileExtension) || 'application/octet-stream'
     const fileContents = fs.readFileSync(filePath)
+    const lastModified = stat.mtime.toUTCString()
     const sendToTracker = getAnalyticsPusher()
 
     context.res.setHeader('Content-Type', contentType)
+    context.res.setHeader('Last-Modified', lastModified)
     context.res.setHeader('Content-Disposition', `attachment; filename="${targetFileName}"`)
     context.res.statusCode = 200
     context.res.end(fileContents)
