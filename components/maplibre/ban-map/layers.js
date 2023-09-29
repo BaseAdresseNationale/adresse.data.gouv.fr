@@ -29,7 +29,7 @@ export const sourcesLayerPaint = {
   })
 }
 
-//const NUMEROS_POINT_MIN = 12
+const NUMEROS_POINT_MIN = 12
 const NUMEROS_MIN = 17
 const VOIE_COLOR = '#4a4a4a'
 const VOIE_MIN = 12
@@ -115,7 +115,7 @@ export const adresseCircleLayer = {
   source: 'base-adresse-nationale',
   'source-layer': 'adresses',
   type: 'circle',
-  minzoom: COMMUNNE_MIN,
+  minzoom: NUMEROS_POINT_MIN,
   paint: {
     'circle-color': defaultLayerPaint,
     'circle-stroke-color': [
