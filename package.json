@@ -37,6 +37,7 @@
     "crisp-sdk-web": "^1.0.19",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "filesize": "^10.0.12",
     "fs-extra": "^11.1.0",
     "geojson-vt": "^3.2.1",
     "got": "^11.8.6",
