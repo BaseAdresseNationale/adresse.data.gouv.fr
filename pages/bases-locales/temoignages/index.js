@@ -36,7 +36,7 @@ Temoignages.propTypes = {
 }
 
 export async function getServerSideProps({query}) {
-  const data = await getPosts({...query, tags: 'temoignage'})
+  const data = await getPosts({...query, limitFields: true, tags: 'temoignage'})
   return {
     props: {
       posts: data.posts,

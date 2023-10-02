@@ -169,12 +169,12 @@ function Home({stats, posts}) {
 
 export async function getServerSideProps() {
   const stats = await getStats()
-  const data = await getPosts({tags: 'temoignage'})
+  const {posts = null} = await getPosts({tags: 'temoignage', limitFields: true, limit: 3},)
 
   return {
     props: {
       stats,
-      posts: data?.posts || null
+      posts,
     }
   }
 }
