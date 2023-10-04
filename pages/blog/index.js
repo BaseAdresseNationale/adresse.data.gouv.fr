@@ -183,7 +183,7 @@ BlogIndex.propTypes = {
 }
 
 export async function getServerSideProps({query}) {
-  const data = await getPosts(query)
+  const data = await getPosts({...query, limitFields: true})
   const tags = query?.tags || null
   const tagsList = await getTags()
 
