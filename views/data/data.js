@@ -50,7 +50,7 @@ function Data({root, path = [], data = []}) {
                       <li key={entry.name}>
                         <Link
                           legacyBehavior
-                          href={'./' + [...path, entry.name].join('/')}
+                          href={encodeURI('./' + [...path, entry.name].join('/'))}
                         >
                           <a
                             target={entry.isDirectory ? '_self' : `file-${entry.name}`}

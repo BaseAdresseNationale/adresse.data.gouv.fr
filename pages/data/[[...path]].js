@@ -76,7 +76,8 @@ export function getServerSideProps(context) {
   let stat
   let targetFileName
 
-  const {path: paramPath = []} = context.params
+  const {params, res} = context
+  const {path: paramPath = []} = params
   const fileName = `${paramPath.join('/')}`
   const filePath = path.resolve(PATH, fileName)
   const date = new Date()
@@ -88,7 +89,7 @@ export function getServerSideProps(context) {
 
     if (!authPath.auth) {
       console.warn(`[${formattedDate} - WARNING]`, `Attempted illegal access to ${authPath.path}`)
-      context.res.statusCode = 404
+      res.statusCode = 404
       return {
         props: {errorCode: 404},
       }
@@ -98,7 +99,7 @@ export function getServerSideProps(context) {
     targetFileName = path.basename(realPath)
   } catch (err) {
     console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
-    context.res.statusCode = 404
+    res.statusCode = 404
     return {
       props: {errorCode: 404},
     }
@@ -122,12 +123,12 @@ export function getServerSideProps(context) {
     const fileSize = stat.size
     const sendToTracker = getAnalyticsPusher()
 
-    context.res.setHeader('Content-Type', contentType)
-    context.res.setHeader('Content-Disposition', `attachment; filename="${targetFileName}"`)
-    context.res.setHeader('Content-Length', fileSize)
-    context.res.setHeader('Last-Modified', lastModified)
-    context.res.statusCode = 200
-    context.res.end(fileContents)
+    res.setHeader('Content-Type', contentType)
+    res.setHeader('Content-Disposition', `attachment; filename="${targetFileName}"`)
+    res.setHeader('Content-Length', fileSize)
+    res.setHeader('Last-Modified', lastModified)
+    res.statusCode = 200
+    res.end(fileContents)
 
     sendToTracker(getDownloadTrackData({
       downloadDataType: path.dirname(fileName).split('/')[0],
