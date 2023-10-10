@@ -11,19 +11,28 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [16, 18, 20]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+   - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn
-    - run: yarn lint
-    - run: yarn build
+        cache: 'yarn'
+
+    - name: Install dependencies
+      run: yarn
+    
+    - name: Run linting
+      run: yarn lint
+    
+    - name: Run build
+      run: yarn build
