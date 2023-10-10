@@ -92,7 +92,7 @@ function BALState({communeInfos, mairieInfos, revision, typeComposition, hasMigr
         </Notification>
       )}
 
-      <DownloadAdresses codeCommune={codeCommune} />
+      <DownloadAdresses codeCommune={codeCommune} nomCommune={nomCommune} />
 
       <div className='contact-wrapper'>
         <h4>Contacter la commune</h4>

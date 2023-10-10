@@ -17,7 +17,7 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
   }
 
   return (
-    <ActionButtonNeutral isFullWidth onClick={dropdownToggle} label={`${isOpen ? 'Masquer' : 'Afficher'} les informations`} isFullSize>
+    <ActionButtonNeutral onClick={dropdownToggle} label={`${isOpen ? 'Masquer' : 'Afficher'} les informations`} isFullSize>
       <div
         className={`
           dropdown-container
@@ -38,7 +38,6 @@ function Dropdown({code, nom, communesCount, size, color, children}) {
           <Chevron
             style={{cursor: 'pointer'}}
             color={color === 'primary' ? theme.primary : theme.colors.white}
-            alt
           />
         </div>
 

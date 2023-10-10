@@ -23,5 +23,11 @@ export default ({
   red: '#D1335B',
   lightRed: '#F8E1E7',
   purple: '#8200BF',
-  lightPurple: '#FCE6FF'
+  lightPurple: '#FCE6FF',
+  yellow: '#FFD700',
+
+  mapGreen: '#009E73',
+  mapOrange: '#E69F00',
+  mapBlue: '#0072B2',
+  mapYellow: '#F0E442'
 })

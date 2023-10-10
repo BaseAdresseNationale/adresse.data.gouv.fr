@@ -13,13 +13,13 @@ function MapLegends({title, legend, hasBorderRadius}) {
       <style jsx>{`
         .legend-title {
           font-weight: bold;
-          width: 80%;
-          margin-bottom: 0.5em;
+          text-align: left;
         }
 
         .legend-container {
           display: flex;
           align-items: center;
+          text-align: left;
         }
 
         .legend-color {

@@ -4,27 +4,115 @@ import PropTypes from 'prop-types'
 import Router from 'next/router'
 import {AlertTriangle} from 'react-feather'
 
-import MapLegends from '../maplibre/map-legends'
+import SelectPaintLayer from '@/components/maplibre/select-paint-layer'
+import MapLegends from '@/components/maplibre/map-legends'
 
-import theme from '@/styles/theme'
 import {DEFAULT_CENTER, DEFAULT_ZOOM} from '@/components/maplibre/map'
+import theme from '@/styles/theme'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 
-const balLegend = {
-  title: 'Provenance',
-  content: {
-    mesAdresses: {
-      name: 'Mes Adresses',
-      color: theme.colors.blue
-    },
-    moissonneur: {
-      name: 'Moissonneur BAL',
-      color: theme.colors.purple
-    },
-    autreOutil: {
-      name: 'Autre outil',
-      color: theme.colors.green
+const paintLayers = {
+  source: {
+    name: 'Déploiement BAL',
+    legend: [
+      {
+        title: 'Déploiement BAL',
+        content: {
+          mesadresses: {name: 'Mes Adresses', color: theme.colors.mapGreen},
+          moissoneur: {name: 'Moissonneur', color: theme.colors.mapOrange},
+          form: {name: 'Formulaire', color: theme.colors.mapBlue},
+          api: {name: 'Api', color: theme.colors.mapYellow},
+        }
+      },
+      {
+        title: 'BAN',
+        content: {
+          other: {name: 'Assemblage', color: '#ddd'},
+        }
+      }
+    ],
+    paint: {
+      styles: [
+        {
+          expression: [
+            ['==', ['get', 'hasBAL'], true],
+            ['==', ['get', 'idClient'], 'mes-adresses']
+          ], // Mes Adresses
+          color: theme.colors.mapGreen
+        },
+        {
+          expression: [
+            ['==', ['get', 'hasBAL'], true],
+            ['==', ['get', 'idClient'], 'moissonneur-bal']
+          ], // Moissonneur
+          color: theme.colors.mapOrange
+        },
+        {
+          expression: [
+            ['==', ['get', 'hasBAL'], true],
+            ['==', ['get', 'idClient'], 'formulaire-publication']
+          ], // Formaulaire
+          color: theme.colors.mapBlue
+        },
+        {
+          expression: [
+            ['==', ['get', 'hasBAL'], true],
+            ['==', ['has', 'idClient'], true]
+          ], // API
+          color: theme.colors.mapYellow
+        },
+      ],
+      default: '#ddd'
+    }
+  },
+  bal: {
+    name: 'Suivi Mes Adresses',
+    legend: [
+      {
+        title: 'Mes Adresses',
+        content: {
+          published: {name: 'Publiée', color: theme.colors.mapGreen},
+          pap: {name: 'Prête a être publiée', color: theme.colors.mapBlue},
+          draft: {name: 'Brouillon', color: theme.colors.mapYellow},
+        }
+      },
+      {
+        title: 'Autre source',
+        content: {
+          other: {name: 'Api, formulaire, moissonneur', color: theme.colors.mapOrange},
+        }
+      }
+    ],
+
+    paint: {
+      styles: [
+        {
+          expression: [
+            ['==', ['get', 'statusBals'], 'published'],
+          ], // Mes Adresses
+          color: theme.colors.mapGreen
+        },
+        {
+          expression: [
+            ['==', ['get', 'statusBals'], 'ready-to-publish'],
+          ], // Mes Adresses
+          color: theme.colors.mapBlue
+        },
+        {
+          expression: [
+            ['==', ['get', 'statusBals'], 'draft'],
+          ], // Mes Adresses
+          color: theme.colors.mapYellow
+        },
+        {
+          expression: [
+            ['==', ['get', 'hasBAL'], true],
+          ],
+          color: theme.colors.mapOrange
+        },
+      ],
+      default: '#ddd'
     }
   }
 }
@@ -49,6 +137,8 @@ class BalCoverMap extends React.Component {
     center: PropTypes.arrayOf(PropTypes.number),
     zoom: PropTypes.number,
     filteredCodesCommmune: PropTypes.arrayOf(PropTypes.string),
+    selectedPaintLayer: PropTypes.string.isRequired,
+    setSelectedPaintLayer: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -80,16 +170,7 @@ class BalCoverMap extends React.Component {
         source: 'data',
         'source-layer': 'communes',
         paint: {
-          'fill-color': [
-            'case',
-            ['==', ['get', 'hasBAL'], false],
-            theme.colors.lightGrey,
-            ['==', ['get', 'idClient'], 'moissonneur-bal'],
-            theme.colors.purple,
-            ['==', ['get', 'idClient'], 'mes-adresses'],
-            theme.colors.blue,
-            theme.colors.green
-          ],
+          'fill-color': this.createStyle(),
           'fill-opacity': [
             'case',
             ['boolean', ['feature-state', 'hover'], false],
@@ -106,7 +187,6 @@ class BalCoverMap extends React.Component {
 
     map.once('load', () => {
       map.doubleClickZoom.disable()
-
       map.on('mousemove', 'bal-polygon-fill', this.onMouseMove.bind(this, 'bal-polygon-fill'))
       map.on('mouseleave', 'bal-polygon-fill', this.onMouseLeave.bind(this, 'bal-polygon-fill'))
       map.on('wheel', this.onWheel.bind(this))
@@ -117,34 +197,10 @@ class BalCoverMap extends React.Component {
   }
 
   componentDidUpdate() {
-    const {map, center, zoom, filteredCodesCommmune} = this.props
-
+    const {map, center, zoom} = this.props
     const polygonFillLayer = map.getLayer('bal-polygon-fill')
-    if (filteredCodesCommmune.length > 0 && polygonFillLayer) {
-      const inFilteredCommunesExp = ['in', ['get', 'code'], ['literal', filteredCodesCommmune]]
-      map.setPaintProperty('bal-polygon-fill', 'fill-color', [
-        'case',
-        ['all', inFilteredCommunesExp, ['==', ['get', 'hasBAL'], false]],
-        theme.colors.lightGrey,
-        ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], 'moissonneur-bal']],
-        theme.colors.purple,
-        ['all', inFilteredCommunesExp, ['==', ['get', 'idClient'], 'mes-adresses']],
-        theme.colors.blue,
-        inFilteredCommunesExp,
-        theme.colors.green,
-        'transparent'
-      ])
-    } else if (polygonFillLayer) {
-      map.setPaintProperty('bal-polygon-fill', 'fill-color', [
-        'case',
-        ['==', ['get', 'hasBAL'], false],
-        theme.colors.lightGrey,
-        ['==', ['get', 'idClient'], 'moissonneur-bal'],
-        theme.colors.purple,
-        ['==', ['get', 'idClient'], 'mes-adresses'],
-        theme.colors.blue,
-        theme.colors.green
-      ])
+    if (polygonFillLayer) {
+      map.setPaintProperty('bal-polygon-fill', 'fill-color', this.createStyle())
     }
 
     if (this.state.zoomActivated) {
@@ -178,6 +234,35 @@ class BalCoverMap extends React.Component {
 
     map.off('dblclick', this.onDblClick.bind(this))
     map.off('click', 'bal-polygon-fill', this.onClick.bind(this, 'bal-polygon-fill'))
+  }
+
+  createStyle = () => {
+    const {filteredCodesCommmune} = this.props
+    const stylePaint = ['case']
+
+    paintLayers[this.props.selectedPaintLayer].paint.styles.forEach(style => {
+      const {expression, color} = style
+      const exp = [
+        'all',
+        ...expression,
+      ]
+      if (filteredCodesCommmune.length > 0) {
+        const inFilteredCommunesExp = ['in', ['get', 'code'], ['literal', filteredCodesCommmune]]
+        exp.push(inFilteredCommunesExp)
+      }
+
+      stylePaint.push(exp, color)
+    })
+    if (filteredCodesCommmune.length > 0) {
+      stylePaint.push(
+        ['in', ['get', 'code'], ['literal', filteredCodesCommmune]],
+        '#ddd',
+        'transparent')
+    } else {
+      stylePaint.push(paintLayers[this.props.selectedPaintLayer].paint.default)
+    }
+
+    return stylePaint
   }
 
   onMouseMove = (layer, event) => {
@@ -217,10 +302,7 @@ class BalCoverMap extends React.Component {
 
   onClick = (layer, event) => {
     const [feature] = event.features
-
-    Router.push(
-      `/commune/${feature.id}`
-    )
+    Router.push(`/commune/${feature.id}`)
   }
 
   onWheel = () => {
@@ -240,9 +322,17 @@ class BalCoverMap extends React.Component {
   render() {
     return (
       <div>
-        <div className='legend-container'>
-          <MapLegends title={balLegend.title} legend={balLegend.content} hasBorderRadius={false} />
-        </div>
+        <SelectPaintLayer
+          options={paintLayers}
+          selected={this.props.selectedPaintLayer}
+          handleSelect={this.props.setSelectedPaintLayer}
+        >
+          {
+            paintLayers[this.props.selectedPaintLayer].legend.map(l => (
+              <MapLegends key={l.title} title={l.title} legend={l.content} />
+            ))
+          }
+        </SelectPaintLayer>
 
         {this.state.warningZoom && (
           <div className='warning'>
@@ -273,7 +363,7 @@ class BalCoverMap extends React.Component {
             display: flex;
             align-items: center;
             padding: 1em;
-            margin: 9em 1em;
+            margin: 20em 20em;
             background: #ffffffc4;
           }
 

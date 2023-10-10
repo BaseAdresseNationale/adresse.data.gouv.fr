@@ -35,7 +35,7 @@ function Home({stats, posts}) {
             </p>
           </SectionText>
           <ButtonLink isOutlined color='white' href='/donnees-nationales'>Découvrir la BAN et accéder aux données</ButtonLink>
-          <ButtonLink isOutlined color='white' href='/donnees-nationales/utilisateurs'>Découvrir les usages de la BAN</ButtonLink>
+          <ButtonLink isOutlined color='white' href='/donnees-nationales/usages'>Découvrir les usages de la BAN</ButtonLink>
         </div>
 
         <style jsx>{`
@@ -169,12 +169,12 @@ function Home({stats, posts}) {
 
 export async function getServerSideProps() {
   const stats = await getStats()
-  const data = await getPosts({tags: 'temoignage'})
+  const {posts = null} = await getPosts({tags: 'temoignage', limitFields: true, limit: 3},)
 
   return {
     props: {
       stats,
-      posts: data?.posts || null
+      posts,
     }
   }
 }

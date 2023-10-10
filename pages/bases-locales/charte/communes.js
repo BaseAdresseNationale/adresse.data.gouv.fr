@@ -1,24 +1,28 @@
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/legacy/image'
 import {groupBy, sum, uniq} from 'lodash'
-import {Award, Mail} from 'react-feather'
+import {Award} from 'react-feather'
 
-import {getDepartementByCode, getRegions} from '@/lib/api-geo'
+import {getDepartementByCode, getRegions, getDepartements} from '@/lib/api-geo'
 
 import Page from '@/layouts/main'
+import {getPartenairesDeLaCharte, getPartenairesDeLaCharteServices} from '@/lib/api-bal-admin'
 
 import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
-import ButtonLink from '@/components/button-link'
+import Button from '@/components/button'
 
-import communes from '@/data/partners/communes.json'
 import Dropdown from '@/components/bases-locales/charte/dropdown'
 import Commune from '@/components/bases-locales/charte/commune'
+import CandidacyModal from '@/components/bases-locales/charte/candidacy-modal'
 
-function Communes({regions}) {
+function Communes({regions, partnersServices, departements}) {
   const title = 'Communes partenaires de la Charte'
   const description = 'Page vous permettant de consultez et découvrir les communes partenaires'
+
+  const [showCandidacyModal, setShowCandidacyModal] = useState(false)
 
   // This sort can be removed when there is a sufficient number of partner communes.
   // Only two at the time this code was written…
@@ -37,10 +41,9 @@ function Communes({regions}) {
           Votre commune ne fait pas partie de la liste ? Vous pouvez rejoindre les partenaires de la Charte en nous contactant.
         </SectionText>
         <div className='contact-button'>
-          <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
-            Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' aria-hidden='true' />
-          </ButtonLink>
+          <Button onClick={() => setShowCandidacyModal(true)} >
+            Rejoignez-nous
+          </Button>
         </div>
 
         <div className='region-container'>
@@ -69,10 +72,17 @@ function Communes({regions}) {
           ))}
         </div>
       </Section>
+      {showCandidacyModal && <CandidacyModal
+        partnersServices={partnersServices}
+        departements={departements}
+        onClose={() => setShowCandidacyModal(false)} />}
 
       <style jsx>{`
         .award-illustration, .contact-button {
           text-align: center;
+        }
+        .contact-button {
+          margin-bottom: 2em;
         }
       `}</style>
     </Page>
@@ -81,12 +91,17 @@ function Communes({regions}) {
 
 export async function getServerSideProps() {
   const regions = await getRegions()
-  const communesByDepartement = groupBy(communes, ({codeDepartement}) => codeDepartement[0])
+  const communesPartners = await getPartenairesDeLaCharte({type: 'commune'})
+  const partnersServices = await getPartenairesDeLaCharteServices()
+  const departements = await getDepartements()
+  const communesByDepartement = groupBy(communesPartners, ({codeDepartement}) => codeDepartement[0])
 
   return {
     props: {
       regions: await Promise.all(regions.map(async region => {
-        const departementsCode = uniq(communes.filter(({codeRegion}) => codeRegion === region.code).map(({codeDepartement}) => codeDepartement[0]))
+        const departementsCode = uniq(communesPartners.filter(({codeRegion, codeDepartement}) => {
+          return codeRegion === region.code && codeDepartement && codeDepartement.length > 0
+        }).map(({codeDepartement}) => codeDepartement[0]))
 
         return {
           ...region,
@@ -99,13 +114,17 @@ export async function getServerSideProps() {
             }
           }))
         }
-      }))
+      })),
+      partnersServices,
+      departements,
     }
   }
 }
 
 Communes.propTypes = {
-  regions: PropTypes.array.isRequired
+  regions: PropTypes.array.isRequired,
+  partnersServices: PropTypes.array.isRequired,
+  departements: PropTypes.array.isRequired,
 }
 
 export default Communes

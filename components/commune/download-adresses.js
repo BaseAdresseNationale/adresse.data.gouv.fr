@@ -1,14 +1,26 @@
 import PropTypes from 'prop-types'
 
 import {getAddressCSVLegacy, getLieuxDitsCSVLegacy, getAdressesCsvBal} from '@/lib/api-ban'
+import {push as matomoPush} from '@socialgouv/matomo-next'
 
 import DownloadCard from './download-card'
 import SectionText from '../section-text'
 
-function DownloadAdresses({codeCommune}) {
+function DownloadAdresses({codeCommune, nomCommune}) {
   const adressesCsvBalUrl = getAdressesCsvBal(codeCommune)
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
+  const downloadBal = () => {// Call to matomo
+    matomoPush(['trackEvent', 'download', 'download BAL', `${codeCommune} - ${nomCommune}`, 'current'])
+  }
+
+  const downloadCsvHistoriqueAdresses = () => {// Call to matomo
+    matomoPush(['trackEvent', 'download', 'download CSV historique adresses', `${codeCommune} - ${nomCommune}`, 'current'])
+  }
+
+  const downloadCsvHistoriqueLieuxDits = () => {// Call to matomo
+    matomoPush(['trackEvent', 'download', 'download CSV historique lieux-dits', `${codeCommune} - ${nomCommune}`, 'current'])
+  }
 
   return (
     <div className='download-adresses-container'>
@@ -19,9 +31,9 @@ function DownloadAdresses({codeCommune}) {
       </SectionText>
 
       <div className='cards-container'>
-        <DownloadCard format='CSV BAL 1.3' url={adressesCsvBalUrl} isAvailable color='secondary' />
-        <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' />
-        <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' />
+        <DownloadCard format='CSV BAL 1.3' url={adressesCsvBalUrl} isAvailable color='secondary' onDownloadStart={downloadBal} />
+        <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' onDownloadStart={downloadCsvHistoriqueAdresses} />
+        <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' onDownloadStart={downloadCsvHistoriqueLieuxDits} />
       </div>
 
       <style jsx>{`
@@ -50,7 +62,8 @@ function DownloadAdresses({codeCommune}) {
 }
 
 DownloadAdresses.propTypes = {
-  codeCommune: PropTypes.string.isRequired
+  codeCommune: PropTypes.string.isRequired,
+  nomCommune: PropTypes.string.isRequired
 }
 
 DownloadAdresses.defaultType = {

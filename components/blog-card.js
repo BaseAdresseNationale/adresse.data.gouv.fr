@@ -21,7 +21,7 @@ function BlogCard({post, onClick}) {
         <p>Publié par {post.authors[0].name}</p>
         <p>Le {new Date(post.published_at).toLocaleDateString('fr-FR')}</p>
       </div>
-      <p className='preview'>{post.excerpt}</p>
+      <p className='preview'>{post.custom_excerpt}</p>
       {onClick && post.tags && (
         <div className='blog-tags-container'>
           {post.tags.map(tag => (
@@ -111,15 +111,17 @@ BlogCard.defaultProps = {
 }
 
 BlogCard.propTypes = {
+  /* eslint-disable camelcase */
   post: PropTypes.shape({
     title: PropTypes.string.isRequired,
     feature_image: PropTypes.string,
     authors: PropTypes.array.isRequired,
     published_at: PropTypes.string.isRequired,
-    excerpt: PropTypes.string.isRequired,
+    custom_excerpt: PropTypes.string.isRequired,
     tags: PropTypes.array.isRequired,
     slug: PropTypes.string.isRequired
   }).isRequired,
+  /* eslint-enable camelcase */
   onClick: PropTypes.func
 }
 

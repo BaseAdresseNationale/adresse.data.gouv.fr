@@ -44,6 +44,7 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
       <div className='partners-testimony-map'>
         <h3>Carte des témoignages</h3>
         <iframe width='80%' height='400px' src='https://umap.openstreetmap.fr/fr/map/carte-des-temoignages_953200?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&allowEdit=false&moreControl=false&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=false&onLoadPanel=caption&captionBar=false&captionMenus=false' />
+        <a href='https://umap.openstreetmap.fr/en/map/carte-des-temoignages_953200#6/46.149/8.240' target='_blank' rel='noreferrer'>Voir en plein écran</a>
       </div>
       <Section>
         {posts ? (
@@ -150,6 +151,25 @@ function BlogIndex({posts, pagination, tags, tagsList}) {
         .partners-testimony-map h3 {
           margin: 1em;
         }
+
+        .partners-testimony-map a {
+          align-self: flex-start;
+          margin-left: 10%;
+          margin-top: 1em;
+          font-size: 1.2em;
+          font-weight: bold;
+          color: var(--theme-primary);
+        }
+
+        @media (max-width: 768px) {
+          .partners-testimony-map a {
+            margin-left: 0;
+            align-self: center;
+          }
+          .partners-testimony-map iframe {
+            display: none;
+          }
+        }
       `}</style>
     </Page>
   )
@@ -163,7 +183,7 @@ BlogIndex.propTypes = {
 }
 
 export async function getServerSideProps({query}) {
-  const data = await getPosts(query)
+  const data = await getPosts({...query, limitFields: true})
   const tags = query?.tags || null
   const tagsList = await getTags()
 

@@ -1,21 +1,29 @@
+import {useState} from 'react'
 import Image from 'next/legacy/image'
-import {Download, Mail, Info} from 'react-feather'
+import PropTypes from 'prop-types'
+import {Download, Info} from 'react-feather'
 
 import theme from '@/styles/theme'
 
 import Page from '@/layouts/main'
 
 import Head from '@/components/head'
+import Button from '@/components/button'
 import Section from '@/components/section'
 import PartnersSearchbar from '@/components/bases-locales/charte/partners-searchbar'
 import SectionText from '@/components/section-text'
 import ButtonLink from '@/components/button-link'
 import Card from '@/components/card'
 import Notification from '@/components/notification'
+import CandidacyModal from '@/components/bases-locales/charte/candidacy-modal'
+import {getPartenairesDeLaCharteServices} from '@/lib/api-bal-admin'
+import {getDepartements} from '@/lib/api-geo'
 
-function Charte() {
+function Charte({partnersServices, departements}) {
   const title = 'Charte et organismes partenaires'
   const description = 'Page vous permettant de consultez et téléchargez la charte Base Adresse Locale et de découvrir les organismes partenaires'
+
+  const [showCandidacyModal, setShowCandidacyModal] = useState(false)
 
   return (
     <Page title={title} description={description} >
@@ -38,17 +46,17 @@ function Charte() {
         </SectionText>
       </Section>
 
+      <Section background='grey' id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
+        <div>
+          <PartnersSearchbar partnersServices={partnersServices} />
+        </div>
+      </Section>
+
       <Section background='color' title='Rejoindre les partenaires de la Charte'>
-        <SectionText color='secondary'>
-          <p>
-            Contactez nous avec en objet « Partenaire de la Charte » pour demander la version de la Charte au <b>nom de votre commune ou de votre organisme</b>. Les chartes ci-dessous sont présentées à titre indicatif.
-          </p>
-        </SectionText>
         <div className='contact-button'>
-          <ButtonLink href='mailto:adresse@data.gouv.fr' color='white' isExternal isOutlined>
-            Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' aria-hidden='true' />
-          </ButtonLink>
+          <Button onClick={() => setShowCandidacyModal(true)}>
+            Rejoignez-nous
+          </Button>
         </div>
 
         <div className='downloads-container'>
@@ -207,11 +215,11 @@ function Charte() {
         </div>
       </Section>
 
-      <Section background='grey' id='recherche-partenaires' title='Outils disponibles sur votre territoire' subtitle='De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire'>
-        <div>
-          <PartnersSearchbar />
-        </div>
-      </Section>
+      {showCandidacyModal && <CandidacyModal
+        onClose={() => setShowCandidacyModal(false)}
+        partnersServices={partnersServices}
+        departements={departements}
+      />}
 
       <style jsx>{`
         .charte-download-section {
@@ -263,6 +271,23 @@ function Charte() {
       `}</style>
     </Page>
   )
+}
+
+export async function getServerSideProps() {
+  const partnersServices = await getPartenairesDeLaCharteServices()
+  const departements = await getDepartements()
+
+  return {
+    props: {
+      partnersServices,
+      departements,
+    }
+  }
+}
+
+Charte.propTypes = {
+  partnersServices: PropTypes.array.isRequired,
+  departements: PropTypes.array.isRequired
 }
 
 export default Charte

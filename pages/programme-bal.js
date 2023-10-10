@@ -210,8 +210,10 @@ function ProgrammeBAL({stats}) {
               </div>
               <div className='fr-col-md-5 cta-card'>
                 <h3>Avec accompagnement</h3>
-                <p>Nos partenaires labellisés Charte de la Base Adresse Locale  vous proposent un accompagnement ou des outils adaptés à votre territoire. </p>
+                <p>Nos partenaires labellisés Charte de la Base Adresse Locale  vous proposent un accompagnement ou des outils adaptés à votre territoire.</p>
                 <Link href='/bases-locales/charte#recherche-partenaires' className='fr-link--icon-right fr-icon-arrow-right-line fr-link'>Trouver un partenaire dans mon département</Link>
+                <p style={{marginTop: '1em'}}>Différents types <strong>d&apos;organismes à but non lucratif</strong> peuvent vous accompagner dans la confection de votre Base Adresse Locale, découvrez les via une <strong>carte interactive</strong>.</p>
+                <Link target='_blank' href='https://umap.openstreetmap.fr/en/map/partenaires-publics-de-la-charte-de-la-base-adress_953281#6/47.354/9.229' className='fr-link--icon-right fr-icon-arrow-right-line fr-link'>Découvrir nos partenaires</Link>
               </div>
             </div>
           </div>

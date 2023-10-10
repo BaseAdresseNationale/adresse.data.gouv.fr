@@ -37,6 +37,7 @@ function Commune({communeInfos, mairieInfos, revisions, codeCommune, currentRevi
           <Historique
             revisions={revisions}
             communeName={communeInfos.nomCommune}
+            communeCode={codeCommune}
             hasHistoryAdresses={hasRevision}
           />
         </>

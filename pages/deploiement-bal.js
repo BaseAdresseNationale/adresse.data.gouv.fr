@@ -11,51 +11,26 @@ import departementCenterMap from '@/data/geo/departement-center.json'
 
 import {_fetch, getStats} from '@/lib/api-ban'
 import {getDepartements, getEpcis} from '@/lib/api-geo'
-import {numFormater} from '@/lib/format-numbers'
 
 import {useStatsDeploiement} from '@/hooks/stats-deploiement'
 
 import MapLibre from '@/components/maplibre'
-import DoughnutCounter from '@/components/doughnut-counter'
-import BalCoverMap from '@/components/bases-locales/bal-cover-map'
+import BalCoverMap from '@/components/bases-locales/deploiement-bal/bal-cover-map'
+import PanelSource from '@/components/bases-locales/deploiement-bal/panel-source'
+import PanelBal from '@/components/bases-locales/deploiement-bal/panel-bal'
 import SearchInput from '@/components/search-input'
 import SearchSelected from '@/components/search-input/search-selected'
 import StatsSearchItem from '@/components/search-input/stats-search-item'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 
-const options = {
-  height: 200,
-  width: 200,
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      enabled: false
-    }
-  }
-}
-
 const mapToSearchResult = (values, type) => values.map(({code, nom, centre, contour}) => ({value: code, type, nom, center: centre, contour}))
-
 function EtatDeploiement({initialStats, departements}) {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState([])
   const {stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry} = useStatsDeploiement({initialStats})
-
-  const {
-    dataPopulationCouverte,
-    communesCouvertesPercent,
-    dataCommunesCouvertes,
-    adressesGereesBALPercent,
-    dataAdressesGereesBAL,
-    adressesCertifieesPercent,
-    dataAdressesCertifiees,
-    total
-  } = formatedStats
+  const [selectedPanel, setSelectedPanel] = useState('source')
 
   const handleSearch = useCallback(debounce(async input => {
     setIsLoading(true)
@@ -78,7 +53,7 @@ function EtatDeploiement({initialStats, departements}) {
     setInput('')
   }
 
-  const handleSelect = item => {
+  const handleSelect = async item => {
     setFilter(item)
     setInput(item.nom)
   }
@@ -144,36 +119,11 @@ function EtatDeploiement({initialStats, departements}) {
               wrapperStyle={{position: 'relative'}}
               renderItem={StatsSearchItem}
             />
-            <div className='stats'>
-              {!Number.isNaN(adressesGereesBALPercent) && <DoughnutCounter
-                title='Adresses issues des BAL'
-                valueUp={numFormater(stats.bal.nbAdresses)}
-                valueDown={`${adressesGereesBALPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
-                data={dataAdressesGereesBAL}
-                options={options}
-              />}
-              <DoughnutCounter
-                title='Communes couvertes'
-                valueUp={numFormater(stats.bal.nbCommunesCouvertes)}
-                valueDown={`${communesCouvertesPercent}% des ${numFormater(total.nbCommunes)} communes`}
-                data={dataCommunesCouvertes}
-                options={options}
-              />
-              <DoughnutCounter
-                title='Population couverte'
-                valueUp={numFormater(stats.bal.populationCouverte)}
-                valueDown={`${Math.round((stats.bal.populationCouverte * 100) / total.population)}% des ${numFormater(total.population)} d’habitants`}
-                data={dataPopulationCouverte}
-                options={options}
-              />
-              {!Number.isNaN(adressesGereesBALPercent) && <DoughnutCounter
-                title='Adresses certifiées'
-                valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
-                valueDown={`${adressesCertifieesPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
-                data={dataAdressesCertifiees}
-                options={options}
-              />}
-            </div>
+            {selectedPanel === 'source' ? (
+              <PanelSource stats={stats} formatedStats={formatedStats} />
+            ) : (
+              <PanelBal filteredCodesCommmune={filteredCodesCommmune} />
+            )}
           </div>
           <div className='bal-cover-map-container'>
             <MapLibre>
@@ -187,6 +137,8 @@ function EtatDeploiement({initialStats, departements}) {
                     center={geometry.center}
                     zoom={geometry.zoom}
                     filteredCodesCommmune={filteredCodesCommmune}
+                    selectedPaintLayer={selectedPanel}
+                    setSelectedPaintLayer={setSelectedPanel}
                   />
                 )
               }}
@@ -205,15 +157,16 @@ function EtatDeploiement({initialStats, departements}) {
           .map-stats-container {
             display: flex;
             justify-content: space-around;
-            height: 100%;
+            height: calc(100vh - 270px);
             text-align: center;
           }
 
           .stats-wrapper {
             display: flex;
             flex-direction: column;
-            flex: 1;
+            width: 30%;
             padding: 1em;
+            overflow: scroll;
           }
 
           .stats {
@@ -227,7 +180,7 @@ function EtatDeploiement({initialStats, departements}) {
           .bal-cover-map-container {
             height: 100%;
             min-height: 400px;
-            flex: 1;
+            width: 70%;
           }
 
           .bal-cover-map-container children {
@@ -237,6 +190,14 @@ function EtatDeploiement({initialStats, departements}) {
           @media (max-width: ${theme.breakPoints.desktop}) {
             .map-stats-container {
               flex-direction: column;
+            }
+            .bal-cover-map-container {
+              width: 100%;
+              height: 100%;
+            }
+            .stats-wrapper {
+              width: 100%;
+              height: 100%;
             }
           }
           `}</style>
@@ -259,7 +220,7 @@ EtatDeploiement.getInitialProps = async () => {
 
   return {
     initialStats: await getStats(),
-    departements: departementsWithCenter
+    departements: departementsWithCenter,
   }
 }
 

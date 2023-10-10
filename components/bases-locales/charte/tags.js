@@ -7,17 +7,7 @@ import {formatTag} from '@/lib/tag'
 
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
-const handleListOfTags = partners => {
-  const tags = []
-  partners.forEach(partner => {
-    partner.services.forEach(service => {
-      tags.push(service)
-    })
-  })
-  return uniq(tags)
-}
-
-function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
+function Tags({onSelectTags, selectedTags, filteredPartners, partnersServices}) {
   const handleTagClassname = tag => {
     const filteredPartnersTags = uniq(filteredPartners.map(({services}) => services).flat())
 
@@ -34,7 +24,7 @@ function Tags({onSelectTags, selectedTags, filteredPartners, allPartners}) {
 
   return (
     <div className='labels-container'>
-      {handleListOfTags(allPartners).map(tag => {
+      {partnersServices.map(tag => {
         const isActive = handleTagClassname(tag).includes('active')
 
         return (
@@ -85,7 +75,7 @@ export default Tags
 Tags.propTypes = {
   onSelectTags: PropTypes.func.isRequired,
   filteredPartners: PropTypes.array.isRequired,
-  allPartners: PropTypes.array.isRequired,
+  partnersServices: PropTypes.array.isRequired,
   selectedTags: PropTypes.array
 }
 

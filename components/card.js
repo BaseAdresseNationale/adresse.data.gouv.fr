@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import theme from '@/styles/theme'
 import {DownloadCloud} from 'react-feather'
+import Link from 'next/link'
 
 function Card({title, link, action, links, list, children, color}) {
   return (
@@ -21,7 +22,7 @@ function Card({title, link, action, links, list, children, color}) {
 
             {links && (
               <div className='card-links'>
-                {links.map(({title, href}) => <a key={title} href={href} aria-label={`Accéder au contenu ${title}`}>{title}</a>)}
+                {links.map(({title, href}) => <Link key={title} href={href} aria-label={`Accéder au contenu ${title}`}>{title}</Link>)}
               </div>
             )}
           </div>
@@ -29,9 +30,11 @@ function Card({title, link, action, links, list, children, color}) {
       </div>
 
       {link ? (
-        <a className='download-link' href={link}>
-          <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '4px'}} alt='' aria-hidden='true' /> {action}
-        </a>
+        <Link href={link} legacyBehavior>
+          <a className='download-link'>
+            <DownloadCloud style={{verticalAlign: 'bottom', marginRight: '4px'}} alt='' aria-hidden='true' /> {action}
+          </a>
+        </Link>
       ) : (
         <div className='no-link'>
           Bientôt disponible

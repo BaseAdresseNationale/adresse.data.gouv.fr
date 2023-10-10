@@ -12,7 +12,12 @@ if (process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
 const redirection = async () => [
   {
     source: '/donnees-nationales/reutilisateurs',
-    destination: '/donnees-nationales/utilisateurs',
+    destination: '/donnees-nationales/usages',
+    permanent: true
+  },
+  {
+    source: '/donnees-nationales/utilisateurs',
+    destination: '/donnees-nationales/usages',
     permanent: true
   }
 ]
@@ -20,6 +25,9 @@ const redirection = async () => [
 const nextConfig = withTM({
   images: {
     domains: imagesDomains
+  },
+  compiler: {
+    styledComponents: true
   },
   webpack: config => {
     config.module.rules.push({

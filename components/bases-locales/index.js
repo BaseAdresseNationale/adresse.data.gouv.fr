@@ -1,27 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/legacy/image'
-import {shuffle} from 'lodash'
 import {CheckSquare, HelpCircle} from 'react-feather'
 
 import Section from '../section'
 import ButtonLink from '../button-link'
 import Partners from '@/components/bases-locales/charte/partners'
+import {getRandomPartenairesDeLaCharte} from '@/lib/api-bal-admin'
 
 import Notification from '../notification'
-import companies from '@/data/partners/companies.json'
-import epci from '@/data/partners/epci.json'
-import communes from '@/data/partners/communes.json'
 import SectionText from '../section-text'
 import MapBalSection from '../map-bal-section'
 
 const BasesLocales = React.memo(({stats}) => {
-  const [shuffledPartners, setShuffledPartners] = useState([])
+  const [randomPartners, setRandomPartners] = useState([])
 
-  // Utilisation d'un useEffect afin d'éviter les mélanges de rendus de valeurs au render lors du shuffle
+  // We fetch the partners on the client side to have them changing on each page load
   useEffect(() => {
-    const randomizedPartners = shuffle([...companies, ...epci, ...communes]).slice(0, 3)
-    setShuffledPartners(randomizedPartners)
+    async function fetchRandomPartners() {
+      const partners = await getRandomPartenairesDeLaCharte(3)
+      setRandomPartners(partners)
+    }
+
+    fetchRandomPartners()
   }, [])
 
   return (
@@ -101,7 +102,7 @@ const BasesLocales = React.memo(({stats}) => {
         </div>
         <div className='organismes-container'>
           <h3>Quelques partenaires :</h3>
-          <Partners data={shuffledPartners} />
+          <Partners data={randomPartners} />
         </div>
         <div className='centered'>
           <ButtonLink href='/bases-locales/charte#partenaires'>

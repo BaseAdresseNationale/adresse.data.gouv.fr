@@ -37,7 +37,8 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
       {!isWrap && (
         <div className='content'>
           {children}
-        </div>)}
+        </div>
+      )}
 
       <style jsx>{`
         .select-paint-container {
@@ -49,6 +50,7 @@ function SelectPaintLayer({options, selected, handleSelect, isMobile, children})
           padding: 0.5em;
           left: 10px;
           top: 8px;
+          width: 225px;
           background-color: rgba(255,255,255,0.9);
         }
 
