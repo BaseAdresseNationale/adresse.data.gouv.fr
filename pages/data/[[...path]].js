@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import mime from 'mime'
+import send from 'send'
 import PropTypes from 'prop-types'
 import {Download} from 'react-feather'
 
@@ -72,33 +72,56 @@ const getDirectories = _path => (
     })
 )
 
-export function getServerSideProps(context) {
-  let stat
-  let targetFileName
+const getFormatedDate = () => {
+  const date = new Date()
+  return new Intl.DateTimeFormat('fr', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(date).replace(/,/g, '\'').replace(/ /g, ' ')
+}
 
-  const {path: paramPath = []} = context.params
+const asyncSend = (req, res, filePath) => new Promise((resolve, reject) => {
+  const targetFileName = path.basename(filePath)
+  function headers(res) {
+    res.setHeader('Content-Disposition', `attachment; filename="${targetFileName}"`)
+  }
+
+  send(req, encodeURI(filePath), {index: false})
+    .on('headers', headers)
+    .pipe(res)
+    .on('error', err => {
+      const formattedDate = getFormatedDate()
+      console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
+      reject(err)
+    })
+    .on('end', () => {
+      resolve()
+    })
+})
+
+export async function getServerSideProps(context) {
+  let stat
+  let realPath
+
+  const {params, res, req} = context
+  const {path: paramPath = []} = params
   const fileName = `${paramPath.join('/')}`
   const filePath = path.resolve(PATH, fileName)
-  const date = new Date()
-  const formattedDate = new Intl.DateTimeFormat('fr', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(date).replace(/,/g, '\'').replace(/ /g, ' ')
+  const formattedDate = getFormatedDate()
 
   try {
     const authPath = autorizedPath(filePath)
-    const realPath = authPath.path
 
     if (!authPath.auth) {
       console.warn(`[${formattedDate} - WARNING]`, `Attempted illegal access to ${authPath.path}`)
-      context.res.statusCode = 404
+      res.statusCode = 404
       return {
         props: {errorCode: 404},
       }
     }
 
+    realPath = authPath.path
     stat = fs.lstatSync(realPath)
-    targetFileName = path.basename(realPath)
   } catch (err) {
     console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
-    context.res.statusCode = 404
+    res.statusCode = 404
     return {
       props: {errorCode: 404},
     }
@@ -115,22 +138,11 @@ export function getServerSideProps(context) {
   }
 
   try {
-    const fileExtension = path.extname(targetFileName)
-    const contentType = mime.getType(fileExtension) || 'application/octet-stream'
-    const fileContents = fs.readFileSync(filePath)
-    const lastModified = stat.mtime.toUTCString()
-    const fileSize = stat.size
     const sendToTracker = getAnalyticsPusher()
 
-    context.res.setHeader('Content-Type', contentType)
-    context.res.setHeader('Content-Disposition', `attachment; filename="${targetFileName}"`)
-    context.res.setHeader('Content-Length', fileSize)
-    context.res.setHeader('Last-Modified', lastModified)
-    context.res.statusCode = 200
-    context.res.end(fileContents)
-
+    await asyncSend(req, res, realPath)
     sendToTracker(getDownloadTrackData({
-      downloadDataType: path.dirname(fileName).split('/')[0],
+      downloadDataType: `${path.dirname(fileName).split('/')[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
       downloadFileName: fileName,
       nbDownload: 1
     }))
