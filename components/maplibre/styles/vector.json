@@ -4271,7 +4271,7 @@
       "type": "line",
       "source": "decoupage-administratif",
       "source-layer": "communes",
-      "minzoom": 10,
+      "minzoom": 9,
       "layout": {
         "line-join": "round"
       },
@@ -4303,33 +4303,60 @@
         }
       }
     },
-{
-"id": "commune-nom",
-"type": "symbol",
-"metadata": {
-"mapbox:group": "1444849242106.713"
-},
-"source": "decoupage-administratif",
-"source-layer": "communes",
-"minzoom": 9,
+    {
+      "id": "commune-nom",
+      "type": "symbol",
+      "metadata": {
+      "mapbox:group": "1444849242106.713"
+    },
+       "source": "decoupage-administratif",
+       "source-layer": "communes",
+       "minzoom": 9,
+       "layout": {
+         "text-font": [
+         "Noto Sans Bold"
+       ],
+       "text-field": "{nom}",
+       "text-size": 14,
+       "text-max-width": 6.25,
+       "text-transform": "uppercase",
+       "visibility": "visible"
+    },
+    "paint": {
+    "text-halo-blur": 1,
+    "text-color": "#334",
+    "text-halo-width": 2,
+    "text-halo-color": "rgba(255,255,255,0.8)"
+    }
+  },
+  {
+    "id": "departement-nom",
+    "type": "symbol",
+    "metadata": {
+      "mapbox:group": "1444849242106.713"
+    },
+    "source": "decoupage-administratif",
+    "source-layer": "departements",
+    "minzoom": 5,
+    "maxzoom": 9,
 
-"layout": {
-"text-font": [
-"Noto Sans Bold"
-],
-"text-field": "{nom}",
-"text-size": 14,
-"text-max-width": 6.25,
-"text-transform": "uppercase",
-"visibility": "visible"
-},
-"paint": {
-"text-halo-blur": 1,
-"text-color": "#334",
-"text-halo-width": 2,
-"text-halo-color": "rgba(255,255,255,0.8)"
-}
-}
+    "layout": {
+      "text-font": [
+        "Noto Sans Bold"
+      ],
+      "text-field": "{nom}",
+      "text-size": 14,
+      "text-max-width": 6.25,
+      "text-transform": "uppercase",
+      "visibility": "visible"
+    },
+    "paint": {
+      "text-halo-blur": 1,
+      "text-color": "#334",
+      "text-halo-width": 2,
+      "text-halo-color": "rgba(255,255,255,0.8)"
+    }
+  }
   ],
   "id": "osm-bright"
 }
