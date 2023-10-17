@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// eslint-disable-next-line node/file-extension-in-import
 function AppCard({data}) {
   const getStatusColor = status => {
     switch (status) {
@@ -41,9 +40,9 @@ function AppCard({data}) {
       <h3>{data.nom_application}</h3>
       <p>{data.description_utilisation}</p>
       {data.dernier_telechargement && <p>Dernier téléchargement: {data.dernier_telechargement}</p>}
-      {data.url_application && <a href={data.url_application} target='_blank' rel='noopener noreferrer'>Voir l'application</a>}
+      {data.url_application && <a href={data.url_application} target='_blank' rel='noopener noreferrer'>Voir l‘application</a>}
       <div className='status-type-container'>
-        <span style={{backgroundColor: getStatusColor(data.statut_integration) }}>{data.statut_integration}</span>
+        <span style={{backgroundColor: getStatusColor(data.statut_integration)}}>{data.statut_integration}</span>
         <span style={{backgroundColor: getTypeColor(data.type_integration)}}>{data.type_integration}</span>
       </div>
       <style jsx>{`

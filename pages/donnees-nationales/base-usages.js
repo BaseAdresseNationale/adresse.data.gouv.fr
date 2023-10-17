@@ -16,17 +16,18 @@ function BaseUsages() {
 
   const [searchTerm, setSearchTerm] = useState('')
 
-const filteredApps = appsData.filter(app =>
+  const filteredApps = appsData.filter(app =>
     (categorieFilter === '' || app.categorie_application === categorieFilter) &&
-  (statutFilter === '' || app.statut_integration === statutFilter) &&
-  (typeFilter === '' || app.type_integration === typeFilter) &&
-  (searchTerm === '' ||
-   (app.nom_application && app.nom_application.toLowerCase().includes(searchTerm.toLowerCase())) ||
-   (app.description_utilisation && app.description_utilisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
-   // eslint-disable-next-line no-mixed-operators
-   app.tags_application && app.tags_application.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-  )
-  )
+    (statutFilter === '' || app.statut_integration === statutFilter) &&
+    (typeFilter === '' || app.type_integration === typeFilter) &&
+    (searchTerm === '' || 
+      (
+        (app.nom_application && app.nom_application.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (app.description_utilisation && app.description_utilisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (app.tags_application && app.tags_application.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+      )
+    )
+  );
 
   return (
     <Page title={title} description={description}>
