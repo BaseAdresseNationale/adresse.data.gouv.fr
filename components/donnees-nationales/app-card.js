@@ -4,20 +4,19 @@ const AppCard = ({ data }) => {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'en production': return '#68D391'; 
-      case 'en cours de test': return '#ECC94B'; 
-      case 'en réflexion': return '#8d99ae'; 
-      // Add other cases if there are more status types
-      default: return '#E2E8F0'; // Default color
+      case 'en production': return '#68D391';
+      case 'en cours de test': return '#ECC94B';
+      case 'en réflexion': return '#8d99ae';
+      default: return '#E2E8F0';
     }
   }
 
   const getTypeColor = (type) => {
-    switch(type) {      
-    case 'Non défini': return '#ced4da'; 
-    case 'API': return '#68D391'; 
-    case 'Téléchargement': return '#a3cef1'; 
-    default: return '#E2E8F0'; // Default color
+    switch(type) {
+    case 'Non défini': return '#ced4da';
+    case 'API': return '#68D391';
+    case 'Téléchargement': return '#a3cef1';
+    default: return '#E2E8F0';
   }
   }
 
@@ -70,7 +69,7 @@ const AppCard = ({ data }) => {
         }
       `}</style>
     </div>
-  );  
+  );
 }
 
 export default AppCard;
