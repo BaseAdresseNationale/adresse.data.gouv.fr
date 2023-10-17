@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Users} from 'react-feather'
-import AppCard from '../../components/donnees-nationales/app-card.js'
+import AppCard from '../../components/donnees-nationales/app-card'
 import appsData from '../../data/partners/usecases-ban.json'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -16,16 +16,16 @@ function BaseUsages() {
 
   const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredApps = appsData.filter(app =>
-    (categorieFilter === '' || app.categorie_application === categorieFilter)
-    && (statutFilter === '' || app.statut_integration === statutFilter)
-    && (typeFilter === '' || app.type_integration === typeFilter)
-    && (searchTerm === ''
-      || (app.nom_application && app.nom_application.toLowerCase().includes(searchTerm.toLowerCase()))
-      || (app.description_utilisation && app.description_utilisation.toLowerCase().includes(searchTerm.toLowerCase()))
-      // eslint-disable-next-line no-mixed-operators
-      || app.tags_application && app.tags_application.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-    )
+const filteredApps = appsData.filter(app =>
+    (categorieFilter === '' || app.categorie_application === categorieFilter) &&
+  (statutFilter === '' || app.statut_integration === statutFilter) &&
+  (typeFilter === '' || app.type_integration === typeFilter) &&
+  (searchTerm === '' ||
+   (app.nom_application && app.nom_application.toLowerCase().includes(searchTerm.toLowerCase())) ||
+   (app.description_utilisation && app.description_utilisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
+   // eslint-disable-next-line no-mixed-operators
+   app.tags_application && app.tags_application.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+  )
   )
 
   return (
