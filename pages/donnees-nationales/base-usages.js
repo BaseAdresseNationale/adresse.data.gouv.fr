@@ -1,33 +1,54 @@
-import {useState} from 'react'
+import {useState, useMemo} from 'react'
 import {Users} from 'react-feather'
-import AppCard from '../../components/donnees-nationales/app-card'
-import appsData from '../../data/partners/usecases-ban.json'
+import camelCase from 'lodash/camelCase'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
+import AppCard from '@/components/donnees-nationales/app-card'
+
+import appsDataSource from '@/data/partners/usecases-ban.json'
+
+const appsData = appsDataSource.map(
+  appData => Object.fromEntries(
+    Object
+      .entries(appData)
+      .filter(([key]) => key)
+      .map(([key, value]) => [camelCase(key), value])
+  )
+)
 
 function BaseUsages() {
   const [categorieFilter, setCategorieFilter] = useState('')
   const [statutFilter, setStatutFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
-  const title = 'Liste des usages de la BAN'
-  const description = 'Fichiers nationaux contenant les adresses du territoire.'
-
   const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredApps = appsData.filter(app =>
-    (categorieFilter === '' || app.categorie_application === categorieFilter) &&
-    (statutFilter === '' || app.statut_integration === statutFilter) &&
-    (typeFilter === '' || app.type_integration === typeFilter) &&
+  const filterCategories = useMemo(() => [...new Set(appsData.map(({categorieApplication}) => categorieApplication))], [])
+  const filterStatuts = useMemo(() => [...new Set(appsData.map(({statutIntegration}) => statutIntegration))], [])
+  const filterTypes = useMemo(() => [...new Set(appsData.map(({typeIntegration}) => typeIntegration))], [])
+  const filteredApps = useMemo(() => appsData.filter(({
+    categorieApplication,
+    statutIntegration,
+    typeIntegration,
+    nomApplication,
+    descriptionUtilisation,
+    tagsApplication,
+  }) =>
+    (categorieFilter === '' || categorieApplication === categorieFilter) &&
+    (statutFilter === '' || statutIntegration === statutFilter) &&
+    (typeFilter === '' || typeIntegration === typeFilter) &&
     (searchTerm === '' ||
       (
-        (app.nom_application && app.nom_application.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (app.description_utilisation && app.description_utilisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (app.tags_application && app.tags_application.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+        (nomApplication && nomApplication.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (descriptionUtilisation && descriptionUtilisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (tagsApplication && tagsApplication.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
       )
     )
-  )
+  ), [categorieFilter, statutFilter, typeFilter, searchTerm])
+
+  const title = 'Liste des usages de la BAN'
+  const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
   return (
     <Page title={title} description={description}>
@@ -38,35 +59,33 @@ function BaseUsages() {
         </SectionText>
       </Section>
       <div className='container'>
+
         <div className='filters'>
           <select onChange={e => setCategorieFilter(e.target.value)}>
             <option value=''>Toutes les catégories</option>
-            {[...new Set(appsData.map(app => app.categorie_application))].map(categorie => (
-              <option key={categorie} value={categorie}>{categorie}</option>
-            ))}
+            {filterCategories.map(categorie => (<option key={categorie} value={categorie}>{categorie}</option>))}
           </select>
           <select onChange={e => setStatutFilter(e.target.value)}>
             <option value=''>Tous les statuts</option>
-            {[...new Set(appsData.map(app => app.statut_integration))].map(statut => (
-              <option key={statut} value={statut}>{statut}</option>
-            ))}
+            {filterStatuts.map(statut => (<option key={statut} value={statut}>{statut}</option>))}
           </select>
           <select onChange={e => setTypeFilter(e.target.value)}>
             <option value=''>Tous les modes</option>
-            {[...new Set(appsData.map(app => app.type_integration))].map(type => (
-              <option key={type} value={type}>{type}</option>
-            ))}
+            {filterTypes.map(type => (<option key={type} value={type}>{type}</option>))}
           </select>
           <input
             type='text'
             placeholder='Search...'
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
+            className='filter-search'
           />
         </div>
+
         <div className='cards'>
-          {filteredApps.map(app => <AppCard key={app.id_application} data={app} />)}
+          {filteredApps.map(appDescription => <AppCard key={appDescription.id_application} {...appDescription} />)}
         </div>
+
         <style jsx>{`
         .container {
           max-width: 1300px;
@@ -75,9 +94,15 @@ function BaseUsages() {
         }
         .filters {
           display: flex;
+          width: 100%;
+          flex-wrap: wrap;
           justify-content: start;
-          gap: 1rem;  // This creates the horizontal space between the filters
-          margin-bottom: 2rem;  // Adds some vertical space before cards
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+        .filter-search {
+          flex: 1;
+          min-width: 15em;
         }
         .cards {
           display: grid;

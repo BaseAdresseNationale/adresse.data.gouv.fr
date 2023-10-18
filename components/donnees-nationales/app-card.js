@@ -1,58 +1,57 @@
-/* eslint-disable react/prop-types */
-function AppCard({data}) {
-  const getStatusColor = status => {
-    switch (status) {
-      case 'en production': { return '#68D391'
-      }
+import PropTypes from 'prop-types'
 
-      case 'en cours de test': { return '#ECC94B'
-      }
+const statusColors = {
+  'en cours de test': '#ECC94B',
+  'en réflexion': '#8d99ae',
+  default: '#E2E8F0',
+}
 
-      case 'en réflexion': { return '#8d99ae'
-      }
+const typeColors = {
+  'Non défini': '#ced4da',
+  API: '#68D391',
+  Téléchargement: '#a3cef1',
+  default: '#E2E8F0',
+}
 
-      default: { return '#E2E8F0'
-      }
-    }
-  }
+const getStatusColor = status => statusColors?.[status] || statusColors.default
+const getTypeColor = type => typeColors?.[type] || typeColors.default
 
-  const getTypeColor = type => {
-    switch (type) {
-      case 'Non défini': { return '#ced4da'
-      }
-
-      case 'API': { return '#68D391'
-      }
-
-      case 'Téléchargement': { return '#a3cef1'
-      }
-
-      default: { return '#E2E8F0'
-      }
-    }
-  }
-
+function AppCard({
+  statutIntegration,
+  typeIntegration,
+  nomApplication,
+  descriptionUtilisation,
+  imageUtilisateur,
+  urlApplication,
+  dernierTelechargement,
+  nomUtilisateur,
+}) {
   return (
     <div className='card'>
       <div className='image-container'>
-        <img src={data.image_utilisateur} alt={`${data.nom_utilisateur} Logo`} />
+        <img src={imageUtilisateur} alt={`${nomUtilisateur} Logo`} />  {/* eslint-disable-line @next/next/no-img-element */}
       </div>
-      <h3>{data.nom_application}</h3>
-      <p>{data.description_utilisation}</p>
-      {data.dernier_telechargement && <p>Dernier téléchargement: {data.dernier_telechargement}</p>}
-      {data.url_application && <a href={data.url_application} target='_blank' rel='noopener noreferrer'>Voir l‘application</a>}
+      <h3>{nomApplication}</h3>
+      <div className='card-description'>
+        <p>{descriptionUtilisation}</p>
+      </div>
+      {dernierTelechargement && <p>Dernier téléchargement: {dernierTelechargement}</p>}
+      {urlApplication && <a href={urlApplication} target='_blank' rel='noopener noreferrer'>Voir l‘application</a>}
       <div className='status-type-container'>
-        <span style={{backgroundColor: getStatusColor(data.statut_integration)}}>{data.statut_integration}</span>
-        <span style={{backgroundColor: getTypeColor(data.type_integration)}}>{data.type_integration}</span>
+        <span style={{backgroundColor: getStatusColor(statutIntegration)}}>{statutIntegration}</span>
+        <span style={{backgroundColor: getTypeColor(typeIntegration)}}>{typeIntegration}</span>
       </div>
+
       <style jsx>{`
         .card {
           border: 1px solid #eaeaea;
           padding: 1rem;
-          margin: 1rem;
           display: flex;
           flex-direction: column;
           align-items: center;
+        }
+        .card-description {
+          flex: 1;
         }
         .image-container {
           width: 250px;
@@ -82,6 +81,17 @@ function AppCard({data}) {
       `}</style>
     </div>
   )
+}
+
+AppCard.propTypes = {
+  typeIntegration: PropTypes.string.isRequired,
+  nomApplication: PropTypes.string.isRequired,
+  descriptionUtilisation: PropTypes.string.isRequired,
+  imageUtilisateur: PropTypes.string.isRequired,
+  urlApplication: PropTypes.string,
+  dernierTelechargement: PropTypes.string,
+  nomUtilisateur: PropTypes.string.isRequired,
+  statutIntegration: PropTypes.string.isRequired,
 }
 
 export default AppCard
