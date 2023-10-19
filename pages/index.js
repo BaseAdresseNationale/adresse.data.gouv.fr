@@ -116,7 +116,7 @@ function Home({stats, posts}) {
         </DocDownload>
       </Section>
 
-      {posts && (
+      {posts && posts?.length && (
         <Section title='Témoignages sur les Bases Adresses Locales'>
           <Temoignages limit={3} posts={posts} />
           <div className='centered'>
@@ -169,7 +169,7 @@ function Home({stats, posts}) {
 
 export async function getServerSideProps() {
   const stats = await getStats()
-  const {posts = null} = await getPosts({tags: 'temoignage', limitFields: true, limit: 3},)
+  const {posts = null} = (await getPosts({tags: 'temoignage', limitFields: true, limit: 3})) || {}
 
   return {
     props: {
