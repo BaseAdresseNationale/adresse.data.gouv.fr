@@ -336,20 +336,6 @@
     "tags_application": "hospitalisation, formulaire"
   },
   {
-    "id_application": "cb49ea3c-5630-4eef-b0d5-a5406a8245a2",
-    "nom_application": "Google Maps",
-    "description_utilisation": "Application GPS",
-    "nom_utilisateur": "Google",
-    "image_utilisateur": "/images/logos/partners/re-users-ban/google-maps.png",
-    "statut_integration": "en production",
-    "type_integration": "Téléchargement",
-    "dernier_telechargement": "",
-    "url_application": "https://maps.google.com/maps",
-    "categorie_application": "Service de géolocalisation",
-    "": "",
-    "tags_application": "maps, transports"
-  },
-  {
     "id_application": "6bd138a1-1b89-4e71-8364-ea3e85918321",
     "nom_application": "Application France Identité",
     "description_utilisation": "L'application d'authentification renforcée de l'Etat",
