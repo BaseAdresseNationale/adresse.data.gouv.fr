@@ -8,7 +8,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import Page from '@/layouts/main'
 import Data from '@/views/data'
-import getAnalyticsPusher, {getDownloadTrackData} from '@/lib/util/analytics-tracker'
+import sendToTracker, {getDownloadTrackEvent} from '@/lib/util/analytics-tracker'
 
 import ErrorPage from '../_error'
 
@@ -85,7 +85,6 @@ const asyncSend = (req, res, filePath) => new Promise((resolve, reject) => {
 
   send(req, encodeURI(filePath), {index: false})
     .on('headers', headers)
-    .pipe(res)
     .on('error', err => {
       const formattedDate = getFormatedDate()
       console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
@@ -94,6 +93,7 @@ const asyncSend = (req, res, filePath) => new Promise((resolve, reject) => {
     .on('end', () => {
       resolve()
     })
+    .pipe(res)
 })
 
 export async function getServerSideProps(context) {
@@ -138,14 +138,12 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const sendToTracker = getAnalyticsPusher()
-
-    await asyncSend(req, res, realPath)
-    sendToTracker(getDownloadTrackData({
+    sendToTracker(getDownloadTrackEvent({
       downloadDataType: `${path.dirname(fileName).split('/')[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
       downloadFileName: fileName,
       nbDownload: 1
     }))
+    await asyncSend(req, res, realPath)
   } catch (err) {
     console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
     return {
