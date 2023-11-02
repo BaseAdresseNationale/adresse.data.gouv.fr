@@ -11,15 +11,15 @@ function DownloadAdresses({codeCommune, nomCommune}) {
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
   const downloadBal = () => {// Call to matomo
-    matomoPush(['trackEvent', 'download', 'download BAL', `${codeCommune} - ${nomCommune}`, 'current'])
+    matomoPush(['trackEvent', 'Download (Front)', 'Download BAL', `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   const downloadCsvHistoriqueAdresses = () => {// Call to matomo
-    matomoPush(['trackEvent', 'download', 'download CSV historique adresses', `${codeCommune} - ${nomCommune}`, 'current'])
+    matomoPush(['trackEvent', 'Download (Front)', 'Download CSV historique adresses', `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   const downloadCsvHistoriqueLieuxDits = () => {// Call to matomo
-    matomoPush(['trackEvent', 'download', 'download CSV historique lieux-dits', `${codeCommune} - ${nomCommune}`, 'current'])
+    matomoPush(['trackEvent', 'Download (Front)', 'Download CSV historique lieux-dits', `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   return (
