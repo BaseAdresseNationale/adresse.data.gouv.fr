@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import getConfig from 'next/config'
 
 import {getAddressCSVLegacy, getLieuxDitsCSVLegacy, getAdressesCsvBal} from '@/lib/api-ban'
 import {push as matomoPush} from '@socialgouv/matomo-next'
@@ -6,20 +7,23 @@ import {push as matomoPush} from '@socialgouv/matomo-next'
 import DownloadCard from './download-card'
 import SectionText from '../section-text'
 
+const {isDevMode} = getConfig().publicRuntimeConfig
+const matomoCategoryName = `${isDevMode ? 'DEVMODE - ' : ''}Download (Front)`
+
 function DownloadAdresses({codeCommune, nomCommune}) {
   const adressesCsvBalUrl = getAdressesCsvBal(codeCommune)
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
   const downloadBal = () => {// Call to matomo
-    matomoPush(['trackEvent', 'Download (Front)', 'Download BAL', `${codeCommune} - ${nomCommune} - current`, 1])
+    matomoPush(['trackEvent', matomoCategoryName, 'Download BAL', `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   const downloadCsvHistoriqueAdresses = () => {// Call to matomo
-    matomoPush(['trackEvent', 'Download (Front)', 'Download CSV historique adresses', `${codeCommune} - ${nomCommune} - current`, 1])
+    matomoPush(['trackEvent', matomoCategoryName, 'Download CSV historique adresses', `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   const downloadCsvHistoriqueLieuxDits = () => {// Call to matomo
-    matomoPush(['trackEvent', 'Download (Front)', 'Download CSV historique lieux-dits', `${codeCommune} - ${nomCommune} - current`, 1])
+    matomoPush(['trackEvent', matomoCategoryName, 'Download CSV historique lieux-dits', `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   return (

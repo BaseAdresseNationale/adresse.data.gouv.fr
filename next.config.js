@@ -38,6 +38,9 @@ const nextConfig = withTM({
     return config
   },
   redirects: redirection,
+  publicRuntimeConfig: {
+    isDevMode: process.env.NODE_ENV !== 'production',
+  },
 })
 
 module.exports = withBundleAnalyzer(nextConfig)
