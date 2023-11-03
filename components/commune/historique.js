@@ -13,7 +13,7 @@ function Historique({revisions, communeName, communeCode, hasHistoryAdresses}) {
     }
   ], ['desc'])
   const downloadBal = revisionDate => {// Call to matomo
-    matomoPush(['trackEvent', 'download', 'download BAL', `${communeCode} - ${communeName}`, revisionDate])
+    matomoPush(['trackEvent', 'Download (Front)', 'Download BAL', `${communeCode} - ${communeName} - Rev. ${revisionDate}`, 1])
   }
 
   return (
