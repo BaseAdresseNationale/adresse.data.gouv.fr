@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types'
+import getConfig from 'next/config'
 import {RefreshCw} from 'react-feather'
 import {orderBy} from 'lodash'
 import {push as matomoPush} from '@socialgouv/matomo-next'
 
 import Section from '@/components/section'
 import HistoriqueItem from './historique-item'
+
+const {isDevMode} = getConfig()
+const matomoCategoryName = `${isDevMode ? 'DEVMODE - ' : ''}Download (Front)`
 
 function Historique({revisions, communeName, communeCode, hasHistoryAdresses}) {
   const sortRevisionsByDate = revisions && orderBy(revisions, [
@@ -13,7 +17,7 @@ function Historique({revisions, communeName, communeCode, hasHistoryAdresses}) {
     }
   ], ['desc'])
   const downloadBal = revisionDate => {// Call to matomo
-    matomoPush(['trackEvent', 'Download (Front)', 'Download BAL', `${communeCode} - ${communeName} - Rev. ${revisionDate}`, 1])
+    matomoPush(['trackEvent', matomoCategoryName, 'Download BAL', `${communeCode} - ${communeName} - Rev. ${revisionDate}`, 1])
   }
 
   return (
