@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 
 const statusColors = {
   'en cours de test': '#ECC94B',
-  'en réflexion': '#8d99ae',
-  default: '#E2E8F0',
+  'en réflexion': '#f4a259',
+  default: '#68D391',
 }
 
 const typeColors = {
@@ -11,6 +11,7 @@ const typeColors = {
   API: '#68D391',
   Téléchargement: '#a3cef1',
   default: '#E2E8F0',
+  Géocodeur: '#70a0af'
 }
 
 const getStatusColor = status => statusColors?.[status] || statusColors.default
