@@ -6,6 +6,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
 import AppCard from '@/components/donnees-nationales/app-card'
+import ButtonLink from '@/components/button-link'
 
 import appsDataSource from '@/data/partners/usecases-ban.json'
 
@@ -85,6 +86,17 @@ function BaseUsages() {
         <div className='cards'>
           {filteredApps.map(appDescription => <AppCard key={appDescription.id_application} {...appDescription} />)}
         </div>
+        <Section title='Vous utilisez la Base Adresse Nationale ?'>
+          <SectionText>
+            <p>Faites nous part de votre usage et faites apparaître votre application sur cette page</p>
+          </SectionText>
+
+          <div className='centered'>
+            <ButtonLink href='mailto:adresse@data.gouv.fr?subject=Ajout d‘un cas d‘usage - Base Adresse Nationale'>
+              Ajoutez votre application
+            </ButtonLink>
+          </div>
+        </Section>
 
         <style jsx>{`
         .container {
@@ -109,7 +121,11 @@ function BaseUsages() {
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 1rem;
         }
-
+        .centered {
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+        }
       `}</style>
       </div>
     </Page>
