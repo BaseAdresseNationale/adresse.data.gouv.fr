@@ -2462,6 +2462,26 @@
     "endHour": "15:30"
   },
   {
+    "title": "Adresse_Lab #8",
+    "subtitle": "Point d'échange trimestriel T4 2023",
+    "description": "Actualités et point d'avancement des chantiers en cours",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2023-12-12",
+    "tags": [
+      "Technique",
+      "Base Adresse Nationale",
+      "Utilisateurs"
+    ],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2QwZDU3OWEtM2I5My00ZjliLTllODEtYjdkZjY3ZjAxMGYz%40thread.v2/0?context=%7b%22Tid%22%3a%223876b373-7e2c-4857-b024-53326b5b4bb2%22%2c%22Oid%22%3a%22b6c5bcc6-2261-4874-9aa5-508a6afa334e%22%7d",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "15:30",
+    "endHour": "17:00"
+  },
+  {
     "title": "Webinaire Mes Adresses",
     "subtitle": "Je veux améliorer ma BAL",
     "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
