@@ -2290,7 +2290,7 @@
     "subtitle": "Rencontre Utilisateurs Nationaux",
     "description": "Notre objectif est de rassembler les utilisateurs experts partageant des problématiques communes : emprise d’utilisation large incluant des données d’assemblages, besoin d’historisation (souvent lié à la problématique d’adosser des données métier aux adresses de la BAN), des besoins spécifiques sur la qualité la mise à jour des données.",
     "type": "adresselab",
-    "target": "Les SI nationaux utilisateurs avancés de la donnée adresse",
+    "target": "opérateurs de SI nationaux",
     "date": "2023-11-14",
     "tags": [
       "Technique",
@@ -2309,7 +2309,7 @@
     "isSubscriptionClosed": true,
     "instructions": "",
     "startHour": "09:00",
-    "endHour": "18:00"
+    "endHour": "16:00"
   },
   {
     "title": "Webinaire Mes Adresses",
