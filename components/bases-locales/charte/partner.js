@@ -12,6 +12,7 @@ import {getMairie} from '@/lib/api-etablissements-public'
 
 import MairieContact from '@/components/mairie/mairie-contact'
 import ActionButtonNeutral from '@/components/action-button-neutral'
+import ButtonLink from '@/components/button-link'
 
 const StyledActionButtonNeutral = styled(ActionButtonNeutral)`
   display: flex;
@@ -33,7 +34,7 @@ function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
 
-  const {name, link, infos, perimeter, codeCommune, services, testimonyURL, isCompany, picture} = partnerInfos
+  const {name, link, infos, perimeter, codeCommune, services, testimonyURL, isCompany, picture, charteURL} = partnerInfos
   const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
@@ -103,6 +104,11 @@ function Partner({partnerInfos, isCommune}) {
             <Link href={partnerInfos.testimonyURL} legacyBehavior>
               <a className='temoignage'>Voir le témoignage</a>
             </Link>
+          )}
+          {charteURL && (
+            <ButtonLink href={charteURL} isExternal target='_blank' label={`Voir la charte de ${name}`} style={{marginTop: '10px'}}>
+              Voir la charte
+            </ButtonLink>
           )}
         </div>
       )}
@@ -225,6 +231,7 @@ Partner.propTypes = {
     perimeter: PropTypes.string,
     services: PropTypes.array,
     testimonyURL: PropTypes.string,
+    charteURL: PropTypes.string,
     picture: PropTypes.string.isRequired,
     isCompany: PropTypes.bool
   }).isRequired,
