@@ -11,7 +11,8 @@ import ButtonLink from '@/components/button-link'
 import Report from './report'
 import FileHander from './file-handler'
 
-const defaultProfil = '1.3'
+const defaultProfil = 'default'
+const relaxProfil = 'relax'
 
 function BALValidator() {
   const [file, setFile] = useState()
@@ -82,12 +83,12 @@ function BALValidator() {
         <div className='profil-selector'>
           <label>Version de la spécification</label>
           <select name='profil' defaultValue={profile} onChange={e => setProfile(e.target.value)}>
-            {Object.values(profiles).filter(p => p.isUsed).map(p => (
-              <option key={p.code} value={p.code}>
-                {p.name}
-                {defaultProfil === p.code && ' (défaut)'}
-              </option>
-            ))}
+            <option key={profiles[defaultProfil].code} value={profiles[defaultProfil].code}>
+              {profiles[defaultProfil].name} (défaut)
+            </option>
+            <option key={profiles[relaxProfil].code} value={profiles[relaxProfil].code}>
+              {profiles[relaxProfil].name}
+            </option>
           </select>
         </div>
         <ButtonLink href='/bases-locales/validator-documentation' title='Documentation Validateur'>

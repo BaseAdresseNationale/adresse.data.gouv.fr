@@ -10,7 +10,7 @@ import Report from '../validator/report'
 
 import theme from '@/styles/theme'
 
-const defaultProfile = '1.3-relax'
+const relaxProfil = 'relax'
 
 function ManageFile({error, handleError, handleFile}) {
   const [file, setFile] = useState(null)
@@ -19,7 +19,7 @@ function ManageFile({error, handleError, handleFile}) {
 
   const parseFile = useCallback(async file => {
     try {
-      const report = await validate(file, {profile: defaultProfile})
+      const report = await validate(file, {profile: relaxProfil})
       if (!report.parseOk) {
         handleError(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
         return
@@ -31,7 +31,7 @@ function ManageFile({error, handleError, handleFile}) {
         throw new Error('Fichier BAL vide ou contenant plusieurs communes')
       }
 
-      if (report.profilesValidation[defaultProfile].isValid) {
+      if (report.profilesValidation[relaxProfil].isValid) {
         handleFile(file, communes[0])
       } else {
         setReport(report)
