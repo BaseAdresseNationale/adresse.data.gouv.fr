@@ -1,10 +1,12 @@
+import PropTypes from 'prop-types'
 import {useEffect, useState} from 'react'
 import {Calendar} from 'react-feather'
 
 import {sortEventsByDate} from '@/lib/date'
 import theme from '@/styles/theme'
 
-import events from '../events.json'
+import banEvents from '../events.json'
+import {getBalEvents} from '@/lib/api-bal-admin'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -13,7 +15,7 @@ import SectionText from '@/components/section-text'
 import Event from '@/components/evenement/event'
 import Loader from '@/components/loader'
 
-function Evenements() {
+function Evenements({events}) {
   const [isLoading, setIsLoading] = useState(true)
   const [passedEvents, setPassedEvents] = useState([])
   const [futureEvents, setFutureEvents] = useState([])
@@ -118,6 +120,30 @@ function Evenements() {
       `}</style>
     </Page>
   )
+}
+
+export async function getServerSideProps() {
+  let balEvents = []
+  try {
+    balEvents = await getBalEvents()
+  } catch (err) {
+    console.log(err)
+  }
+  const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
+
+  return {
+    props: {
+      events,
+    }
+  }
+}
+
+Evenements.defaultProps = {
+  events: []
+}
+
+Evenements.propTypes = {
+  events: PropTypes.array
 }
 
 export default Evenements
