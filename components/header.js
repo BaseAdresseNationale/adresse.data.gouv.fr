@@ -4,7 +4,7 @@ import {Header as HeaderDsfr} from '@codegouvfr/react-dsfr/Header'
 
 const quickLinks = [
   {icon: 'ri-tools-fill', text: 'Outils et API', href: '/outils'},
-  {icon: 'ri-quill-pen-fill', text: 'Blog et témoignages', href: '/blog'},
+  {icon: 'ri-quill-pen-fill', text: 'Documentation', href: '/ressources'},
   {icon: 'ri-discuss-fill', text: 'Nous contacter', href: '/nous-contacter'},
 ]
 
