@@ -10,6 +10,8 @@ import ButtonLink from '@/components/button-link'
 
 import appsDataSource from '@/data/partners/usecases-ban.json'
 
+const sortByKey = key => (a, b) => ((a[key] < b[key]) && -1) || ((a[key] > b[key]) && 1) || 0
+
 const appsData = appsDataSource.map(
   appData => Object.fromEntries(
     Object
@@ -47,7 +49,7 @@ function BaseUsages() {
         (tagsApplication && tagsApplication.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
       )
     )
-  ), [categorieFilter, statutFilter, typeFilter, searchTerm])
+  ).sort(sortByKey('nomApplication')), [categorieFilter, statutFilter, typeFilter, searchTerm])
 
   const title = 'Liste des usages de la BAN'
   const description = 'Fichiers nationaux contenant les adresses du territoire.'
