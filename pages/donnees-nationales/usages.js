@@ -1,71 +1,139 @@
-import {Users, Mail} from 'react-feather'
-
+import {useState, useMemo} from 'react'
+import {Users} from 'react-feather'
+import camelCase from 'lodash/camelCase'
 import Page from '@/layouts/main'
-
 import Head from '@/components/head'
 import Section from '@/components/section'
-import ButtonLink from '@/components/button-link'
-import UsersBAN from '@/components/donnees-nationales/users-ban'
 import SectionText from '@/components/section-text'
+import AppCard from '@/components/donnees-nationales/app-card'
+import ButtonLink from '@/components/button-link'
 
-import usersData from '@/data/partners/users-ban.json'
+import appsDataSource from '@/data/partners/usecases-ban.json'
 
-function Reutilisateurs() {
-  const title = 'Usages de la BAN'
+const appsData = appsDataSource.map(
+  appData => Object.fromEntries(
+    Object
+      .entries(appData)
+      .filter(([key]) => key)
+      .map(([key, value]) => [camelCase(key), value])
+  )
+)
+
+const filterCategories = [...new Set(appsData.map(({categorieApplication}) => categorieApplication))]
+const filterStatuts = [...new Set(appsData.map(({statutIntegration}) => statutIntegration))]
+const filterTypes = [...new Set(appsData.map(({typeIntegration}) => typeIntegration))]
+
+function BaseUsages() {
+  const [categorieFilter, setCategorieFilter] = useState('')
+  const [statutFilter, setStatutFilter] = useState('')
+  const [typeFilter, setTypeFilter] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredApps = useMemo(() => appsData.filter(({
+    categorieApplication,
+    statutIntegration,
+    typeIntegration,
+    nomApplication,
+    descriptionUtilisation,
+    tagsApplication,
+  }) =>
+    (categorieFilter === '' || categorieApplication === categorieFilter) &&
+    (statutFilter === '' || statutIntegration === statutFilter) &&
+    (typeFilter === '' || typeIntegration === typeFilter) &&
+    (searchTerm === '' ||
+      (
+        (nomApplication && nomApplication.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (descriptionUtilisation && descriptionUtilisation.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (tagsApplication && tagsApplication.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+      )
+    )
+  ), [categorieFilter, statutFilter, typeFilter, searchTerm])
+
+  const title = 'Liste des usages de la BAN'
   const description = 'Fichiers nationaux contenant les adresses du territoire.'
 
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Users size={56} alt='' aria-hidden='true' />} />
-
       <Section title='Une donnée d’intérêt général' background='grey'>
         <SectionText>
           L’adresse est une donnée d’intérêt général, son utilisation est un enjeu dans de nombreux domaines :<br />services publics, services de sécurité et de secours, gestionnaires de réseaux, services de livraison, de localisation et navigation, services clients et geomarketing , assurances…
         </SectionText>
       </Section>
+      <div className='container'>
 
-      <Section title='Quelques exemples parmi les milliers d’usages réguliers de la BAN'>
-        <div className='re-users-section'>
-          <UsersBAN data={usersData} />
+        <div className='filters'>
+          <select onChange={e => setCategorieFilter(e.target.value)}>
+            <option value=''>Toutes les catégories</option>
+            {filterCategories.map(categorie => (<option key={categorie} value={categorie}>{categorie}</option>))}
+          </select>
+          <select onChange={e => setStatutFilter(e.target.value)}>
+            <option value=''>Tous les statuts</option>
+            {filterStatuts.map(statut => (<option key={statut} value={statut}>{statut}</option>))}
+          </select>
+          <select onChange={e => setTypeFilter(e.target.value)}>
+            <option value=''>Tous les modes</option>
+            {filterTypes.map(type => (<option key={type} value={type}>{type}</option>))}
+          </select>
+          <input
+            type='text'
+            placeholder='Rechercher...'
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            className='filter-search'
+          />
         </div>
-      </Section>
 
-      <Section subtitle='Retrouvez plusieurs cas d’usages de la BAN sur notre Blog' background='grey'>
-        <div className='blog-button'>
-          <ButtonLink href='https://adresse.data.gouv.fr/blog'>
-            Ouvrir le Blog
-          </ButtonLink>
+        <div className='cards'>
+          {filteredApps.map(appDescription => <AppCard key={appDescription.idApplication} {...appDescription} />)}
         </div>
-      </Section>
+        <Section title='Vous utilisez la Base Adresse Nationale ?'>
+          <SectionText>
+            <p>Faites nous part de votre usage et faites apparaître votre application sur cette page</p>
+          </SectionText>
 
-      <Section subtitle='Pour apparaître dans cette liste d’utilisateurs, contactez-nous :'>
-        <div className='contact-button'>
-          <ButtonLink href='mailto:adresse@data.gouv.fr' isExternal>
-            Contactez-nous
-            <Mail style={{verticalAlign: 'bottom', marginLeft: '4px'}} alt='' aria-hidden='true' />
-          </ButtonLink>
-        </div>
-      </Section>
+          <div className='centered'>
+            <ButtonLink
+              href='mailto:adresse@data.gouv.fr?subject=Ajout d’un cas d’usage - Base Adresse Nationale'
+              isExternal
+            >
+              Ajoutez votre application
+            </ButtonLink>
+          </div>
+        </Section>
 
-      <style jsx>{`
-
-        .re-users-section {
-          padding-top: 2em;
-        }
-
-        .contact-button {
-          padding-top: 2em;
-          text-align: center;
-        }
-
-        .blog-button {
-          padding-top: 2em;
-          text-align: center;
-        }
-
-      `}</style>
+        <style jsx>{`
+          .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+          }
+          .filters {
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+          }
+          .filter-search {
+            flex: 1;
+            min-width: 15em;
+          }
+          .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+          }
+          .centered {
+              margin: 40px auto;
+              display: flex;
+              justify-content: center;
+          }
+        `}</style>
+      </div>
     </Page>
   )
 }
 
-export default Reutilisateurs
+export default BaseUsages
