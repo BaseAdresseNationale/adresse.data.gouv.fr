@@ -7,6 +7,7 @@ import {createNextDsfrIntegrationApi} from '@codegouvfr/react-dsfr/next-pagesdir
 import {useIsDark} from '@codegouvfr/react-dsfr/useIsDark'
 import {DeviceContextProvider} from '@/contexts/device'
 import {init as matomoInit} from '@socialgouv/matomo-next'
+import BALWidget from '@/components/bal-widget/bal-widget'
 
 import '@/styles/template-data-gouv-to-dsfr/normalizer.css'
 import '@/styles/template-data-gouv-to-dsfr/main-alternate.css'
@@ -45,6 +46,7 @@ function MyApp({Component, pageProps}) {
       <DeviceContextProvider>
         <div id='alert-root' />
         <Component {...pageProps} />
+        <BALWidget />
       </DeviceContextProvider>
       <style global jsx>{`
         body,
