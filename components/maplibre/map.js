@@ -1,7 +1,7 @@
-import {useState, useCallback, useEffect} from 'react'
+import {useState, useCallback, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-import maplibregl from 'maplibre-gl'
+
 import mapStyle from 'maplibre-gl/dist/maplibre-gl.css'
 
 import theme from '@/styles/theme'
@@ -12,8 +12,7 @@ import Notification from '../notification'
 
 import SwitchMapStyle from './switch-map-style'
 
-import useMarker from './hooks/marker'
-import usePopup from './hooks/popup'
+import ReactMap, {NavigationControl, ScaleControl} from 'react-map-gl/maplibre'
 
 export const DEFAULT_CENTER = [1.7, 46.9]
 export const DEFAULT_ZOOM = 4.4
@@ -40,29 +39,15 @@ const STYLES = {
 }
 
 function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaultZoom, isInteractive, hasControl, isLoading, error, children}) {
-  const [map, setMap] = useState(null)
-  const [mapContainer, setMapContainer] = useState(null)
-  const [isFirstLoad, setIsFirstLoad] = useState(false)
-  const [isSourceLoaded, setIsSourceLoaded] = useState(false)
-  const [isStyleLoaded, setIsStyleLoaded] = useState(true)
+  const map = useRef()
   const [style, setStyle] = useState(defaultStyle)
-  const [sources, setSources] = useState([])
-  const [layers, setLayers] = useState([])
   const [infos, setInfos] = useState(null)
   const [tools, setTools] = useState(null)
-  const [marker, setMarkerCoordinates] = useMarker(map)
-  const [popup] = usePopup(marker)
   const [mapError, setMapError] = useState(error)
-
-  const mapRef = useCallback(ref => {
-    if (ref) {
-      setMapContainer(ref)
-    }
-  }, [])
 
   const fitBounds = useCallback(bbox => {
     try {
-      map.fitBounds(bbox, {
+      map.current.fitBounds(bbox, {
         padding: 30,
         linear: true,
         maxZoom: 19,
@@ -80,104 +65,12 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
     )
   }, [style])
 
-  const loadData = useCallback(() => {
-    if (map && isStyleLoaded && isFirstLoad) {
-      sources.forEach(source => {
-        const {name, ...properties} = source
-        const src = map.getSource(name)
-
-        if (src && properties.data) {
-          src.setData(properties.data)
-        } else if (!src) {
-          map.addSource(name, properties)
-        }
-      })
-
-      layers.forEach(layer => {
-        if (!map.getLayer(layer.id)) {
-          map.addLayer(layer)
-        }
-      })
-    }
-  }, [map, isFirstLoad, isStyleLoaded, layers, sources])
-
-  const onSourceData = useCallback(event => {
-    setIsSourceLoaded(event.isSourceLoaded)
-  }, [])
-
-  useEffect(() => {
-    loadData()
-  }, [sources, layers, style, isStyleLoaded, loadData])
-
-  useEffect(() => {
-    if (map) {
-      map.setStyle(STYLES[style])
-
-      const onStyleData = () => {
-        if (map.isStyleLoaded()) {
-          setIsStyleLoaded(true)
-        } else {
-          setIsStyleLoaded(false)
-          setTimeout(onStyleData, 200)
-        }
-      }
-
-      map.on('style.load', onStyleData)
-
-      return () => {
-        map.off('style.load', onStyleData)
-      }
-    }
-  }, [style]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (mapContainer) {
-      const map = new maplibregl.Map({
-        container: mapContainer,
-        style: STYLES[style],
-        center: defaultCenter || DEFAULT_CENTER,
-        zoom: defaultZoom || DEFAULT_ZOOM,
-        maxZoom: 19,
-        hash: hasHash,
-        isInteractive
-      })
-
-      if (hasControl) {
-        const navControl = new maplibregl.NavigationControl({
-          showCompass: false
-        })
-        const scaleControl = new maplibregl.ScaleControl({
-          maxWidth: 150,
-          unit: 'metric'
-        })
-        map.addControl(navControl, 'top-right')
-        map.addControl(scaleControl, 'bottom-right')
-      }
-
-      map.on('load', loadData)
-      map.on('sourcedata', onSourceData)
-      map.once('load', () => {
-        setIsFirstLoad(true)
-      })
-
-      setMap(map)
-
-      return () => {
-        map.off('load', loadData)
-        map.off('sourcedata', onSourceData)
-      }
-    }
-
-    // Map should only be created when its container is ready
-    // and should not be re-created
-  }, [mapContainer]) // eslint-disable-line react-hooks/exhaustive-deps
-
   useEffect(() => {
     setMapError(error)
   }, [error])
 
   useEffect(() => {
-    if (bbox && map) {
+    if (bbox && map.current) {
       fitBounds(bbox)
     }
   }, [map, bbox, fitBounds])
@@ -203,31 +96,31 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
           <div className='tools right'>{tools}</div>
         )}
 
-        {map && children({
-          map,
-          marker,
-          popup,
-          style,
-          isSourceLoaded,
-          setSources,
-          setLayers,
-          setInfos,
-          setTools,
-          bbox,
-          setMarkerCoordinates
-        })}
+        <ReactMap ref={map} hash={hasHash} maxZoom={19} interactive={isInteractive} initialViewState={{bounds: bbox, zoom: defaultZoom || DEFAULT_ZOOM, latitude: defaultCenter?.[1] || DEFAULT_CENTER[1], longitude: defaultCenter?.[0] || DEFAULT_CENTER[0]}} mapStyle={STYLES[style]}>
+          { children &&
+            (
+              <div>
+                {children}
+              </div>
+            )}
 
-        <div ref={mapRef} className='map-container' />
+          { hasControl && (
+            <div>
+              <NavigationControl position='top-right' showCompass={false} />
+              <ScaleControl position='bottom-right' maxWidth={150} unit='metric' />
+            </div>
+          )}
 
-        {hasSwitchStyle && (
-          <div className='tools bottom switch'>
-            <SwitchMapStyle
-              isVector={style === 'vector'}
-              handleChange={switchLayer}
-            />
-          </div>
-        )}
+          { hasSwitchStyle && (
+            <div className='tools bottom switch'>
+              <SwitchMapStyle
+                isVector={style === 'vector'}
+                handleChange={switchLayer}
+              />
+            </div>
+          )}
 
+        </ReactMap>
       </div>
 
       <Head>
@@ -305,7 +198,7 @@ Map.propTypes = {
   defaultZoom: PropTypes.number,
   isLoading: PropTypes.bool,
   error: PropTypes.object,
-  children: PropTypes.func.isRequired
+  children: PropTypes.node
 }
 
 Map.defaultProps = {
