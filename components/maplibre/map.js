@@ -41,8 +41,6 @@ const STYLES = {
 function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaultZoom, isInteractive, hasControl, isLoading, error, children}) {
   const map = useRef()
   const [style, setStyle] = useState(defaultStyle)
-  const [infos, setInfos] = useState(null)
-  const [tools, setTools] = useState(null)
   const [mapError, setMapError] = useState(error)
 
   const fitBounds = useCallback(bbox => {
@@ -86,14 +84,6 @@ function Map({hasSwitchStyle, bbox, defaultStyle, hasHash, defaultCenter, defaul
 
         {!mapError && isLoading && (
           <div className='tools'>Chargement…</div>
-        )}
-
-        {!isLoading && !mapError && infos && (
-          <div className='tools'>{infos}</div>
-        )}
-
-        {!isLoading && !mapError && tools && (
-          <div className='tools right'>{tools}</div>
         )}
 
         <ReactMap ref={map} hash={hasHash} maxZoom={19} interactive={isInteractive} initialViewState={{bounds: bbox, zoom: defaultZoom || DEFAULT_ZOOM, latitude: defaultCenter?.[1] || DEFAULT_CENTER[1], longitude: defaultCenter?.[0] || DEFAULT_CENTER[0]}} mapStyle={STYLES[style]}>
