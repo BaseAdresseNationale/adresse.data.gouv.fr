@@ -7,7 +7,7 @@ import Loader from '../loader'
 import theme from '@/styles/theme'
 import SearchBar from '../search-bar'
 
-function SearchInput({onSearch, onSelect, placeholder, isLoading, value, results, renderItem, renderInput, getItemValue, wrapperStyle}) {
+function SearchInput({onSearch, onSelect, placeholder, isLoading, value, results, renderItem, renderInput, getItemValue, wrapperStyle, error: errorProps}) {
   const ref = React.createRef()
 
   const handleSearch = useCallback(event => {
@@ -20,7 +20,11 @@ function SearchInput({onSearch, onSelect, placeholder, isLoading, value, results
 
   const defaultRenderInput = props => {
     return (
-      <SearchBar ref={ref} {...props} placeholder={placeholder} />
+      <SearchBar
+        ref={ref}
+        placeholder={placeholder}
+        {...errorProps}
+        {...props} />
     )
   }
 
@@ -42,6 +46,7 @@ function SearchInput({onSearch, onSelect, placeholder, isLoading, value, results
             border: 1px solid ${theme.border};
             color: ${theme.colors.black};
             border-radius: 0 0 5px 5px;
+            top: 2.5em;
           }
 
           .item {
@@ -85,7 +90,8 @@ SearchInput.propTypes = {
   onSearch: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
   getItemValue: PropTypes.func.isRequired,
-  renderInput: PropTypes.func
+  renderInput: PropTypes.func,
+  error: PropTypes.object,
 }
 
 SearchInput.defaultProps = {
@@ -93,7 +99,8 @@ SearchInput.defaultProps = {
   value: '',
   placeholder: '',
   isLoading: false,
-  wrapperStyle: null
+  wrapperStyle: null,
+  error: null
 }
 
 export default SearchInput
