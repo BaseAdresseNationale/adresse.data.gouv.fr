@@ -8,7 +8,7 @@ import Head from '@/components/head'
 import Section from '@/components/section'
 import Page from '@/layouts/main'
 import Data from '@/views/data'
-import sendToTracker, {getDownloadTrackEvent} from '@/lib/util/analytics-tracker'
+import sendToTracker, {getDownloadToEventTracker} from '@/lib/util/analytics-tracker'
 
 import ErrorPage from '../_error'
 
@@ -138,7 +138,7 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    sendToTracker(getDownloadTrackEvent({
+    sendToTracker(getDownloadToEventTracker({
       downloadDataType: `${path.dirname(fileName).split('/')[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
       downloadFileName: fileName,
       nbDownload: 1
