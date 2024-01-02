@@ -15,13 +15,12 @@ function renderHeader(header) {
     <div>
       <div key={header} className='header'>{featuresTypes[header]}</div>
       <style jsx>{`
-          .header {
-            background-color: ${theme.colors.grey};
-            color: ${theme.colors.white};
-            padding: 0.2em;
-          }
-        `}
-      </style>
+        .header {
+          background-color: ${theme.colors.grey};
+          color: ${theme.colors.white};
+          padding: 0.2em;
+        }
+      `}</style>
     </div>
   )
 }

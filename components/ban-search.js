@@ -5,9 +5,9 @@ import {debounce, groupBy} from 'lodash'
 import {search, isFirstCharValid} from '@/lib/api-adresse'
 import {useInput} from '../hooks/input'
 
-import SearchInput from '@/components/search-input'
+import SearchInput from '@/components/search-input-legacy'
+import renderAddok from '@/components/search-input-legacy/render-addok'
 import Notification from '@/components/notification'
-import renderAddok from '@/components/search-input/render-addok'
 
 function BanSearch() {
   const [input, setInput] = useInput('')

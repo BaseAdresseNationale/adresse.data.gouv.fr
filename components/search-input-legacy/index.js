@@ -7,7 +7,18 @@ import Loader from '../loader'
 import theme from '@/styles/theme'
 import SearchBar from '../search-bar'
 
-function SearchInput({onSearch, onSelect, placeholder, isLoading, value, results, renderItem, renderInput, getItemValue, wrapperStyle}) {
+function SearchInput({
+  onSearch,
+  onSelect,
+  placeholder,
+  isLoading,
+  value,
+  results,
+  renderItem,
+  renderInput,
+  getItemValue,
+  wrapperStyle
+}) {
   const ref = React.createRef()
 
   const handleSearch = useCallback(event => {

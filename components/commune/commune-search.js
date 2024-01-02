@@ -5,8 +5,8 @@ import {debounce} from 'lodash'
 import {getCommunes, getByCode} from '@/lib/api-geo'
 import {useInput} from '@/hooks/input'
 
-import SearchInput from '../search-input'
-import RenderCommune from '@/components/search-input/render-commune'
+import SearchInput from '../search-input-legacy'
+import RenderCommune from '@/components/search-input-legacy/render-commune'
 import Notification from '../notification'
 
 function CommuneSearch() {

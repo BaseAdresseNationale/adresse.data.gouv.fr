@@ -8,8 +8,8 @@ import {getCommunes} from '@/lib/api-geo'
 
 import {useInput} from '../../../hooks/input'
 
-import SearchInput from '@/components/search-input'
-import RenderCommune from '@/components/search-input/render-commune'
+import SearchInput from '@/components/search-input-legacy'
+import RenderCommune from '@/components/search-input-legacy/render-commune'
 
 const StyledContainer = styled.div`
     .search-input-container {
