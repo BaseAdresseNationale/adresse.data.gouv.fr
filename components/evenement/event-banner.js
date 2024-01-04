@@ -5,7 +5,6 @@ import {Pause, Play} from 'react-feather'
 import {dateWithDay} from '@/lib/date'
 import theme from '@/styles/theme'
 
-
 import EventModal from './event-modal'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 

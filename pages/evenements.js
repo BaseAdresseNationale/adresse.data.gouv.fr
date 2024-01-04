@@ -129,6 +129,7 @@ export async function getServerSideProps() {
   } catch (err) {
     console.log(err)
   }
+
   const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
 
   return {
