@@ -31,6 +31,8 @@ import {flatten, forEach} from 'lodash'
 import DeviceContext from '@/contexts/device'
 import {Layer, Source, useMap, Popup} from 'react-map-gl/maplibre'
 
+const API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL || 'https://plateforme.adresse.data.gouv.fr'
+
 let hoveredFeature = null
 
 const SOURCES = ['adresses', 'toponymes']
@@ -322,7 +324,7 @@ function BanMap({address, bbox, onSelect, isMobile}) {
         type='vector'
         format='pbf'
         tiles={[
-          'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
+          `${API_BAN_URL}/tiles/ban/{z}/{x}/{y}.pbf`
         ]}
         minzoom={10}
         maxzoom={14}
