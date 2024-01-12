@@ -177,9 +177,11 @@ function ProgrammeBAL({stats}) {
               <img className='fr-responsive-img' src='/images/bal-landing-page/checkbox.png' alt='' width='100%' />
             </div>
           </div>
-          <div style={{marginTop: 50}} className='fr-grid-row'>
-            <h2>Déjà <strong>{stats.bal.nbCommunesCouvertes}</strong> communes ont mis jour leurs bases d’adresses</h2>
-          </div>
+          {stats && (
+            <div style={{marginTop: 50}} className='fr-grid-row'>
+              <h2>Déjà <strong>{stats.bal.nbCommunesCouvertes}</strong> communes ont mis jour leurs bases d’adresses</h2>
+            </div>
+          )}
           <div className='fr-grid-row space-between-row'>
             <div className='fr-col-md-5 verbatim-card'>
               <Image src='/images/bal-landing-page/verbatim.svg' alt='icone verbatim' width={30} height={30} />
@@ -377,8 +379,12 @@ export async function getServerSideProps() {
   }
 }
 
+ProgrammeBAL.defaultProps = {
+  stats: null,
+}
+
 ProgrammeBAL.propTypes = {
-  stats: PropTypes.object.isRequired,
+  stats: PropTypes.object,
 }
 
 export default ProgrammeBAL

@@ -180,11 +180,12 @@ export async function getServerSideProps() {
 }
 
 Home.defaultProps = {
-  posts: null
+  posts: null,
+  stats: null
 }
 
 Home.propTypes = {
-  stats: PropTypes.object.isRequired,
+  stats: PropTypes.object,
   posts: PropTypes.array
 }
 
