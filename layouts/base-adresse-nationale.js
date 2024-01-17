@@ -1,6 +1,6 @@
 import {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
-import {Map, Folder} from 'react-feather'
+import {Map as MapIcone, Folder} from 'react-feather'
 
 import theme from '@/styles/theme'
 
@@ -57,9 +57,9 @@ export function Mobile({address, bbox, handleSelect, hash}) {
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
         <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-          {({...maplibreProps}) => (
-            <BanMap address={address} {...maplibreProps} onSelect={handleSelect} isMobile />
-          )}
+
+          <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+
         </MapLibre>
       </div>
 
@@ -80,7 +80,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
         <LayoutSelector
           name='Carte'
           value='map'
-          icon={Map}
+          icon={MapIcone}
           isSelected={selectedLayout === 'map'}
           handleClick={setSelectedLayout}
         />
@@ -152,9 +152,9 @@ export function Desktop({address, bbox, handleSelect, hash}) {
       </div>
 
       <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-        {({...maplibreProps}) => (
-          <BanMap address={address} {...maplibreProps} onSelect={handleSelect} />
-        )}
+
+        <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+
       </MapLibre>
 
       <style jsx>{`

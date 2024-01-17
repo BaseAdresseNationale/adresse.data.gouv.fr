@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import dynamic from 'next/dynamic'
 
 import {isWebGLSupported} from '@/lib/browser/webgl'
@@ -71,14 +71,32 @@ function NoWebglError() {
   )
 }
 
-class MapWrapper extends React.PureComponent {
+// eslint-disable-next-line node/no-unsupported-features/es-syntax
+const DynamicMap = dynamic(import('./map' /* webpackChunkName: "maplibre-gl" */), {
+  ssr: false,
+  loading: () => (
+    <MapLoader />
+  )
+})
+
+export function MapWrapper(props) {
+  const [showMap, setIsMapShowned] = useState(false)
+  useEffect(() => {
+    setIsMapShowned(true)
+  }, [])
+  return (
+    (showMap && isWebGLSupported()) ? (<DynamicMap {...props} />) : (<MapLoader />)
+  )
+}
+
+export class MapLegacy extends React.PureComponent {
   state = {
     showMap: false
   }
 
   componentDidMount() {
     /* eslint-disable node/no-unsupported-features/es-syntax */
-    this.MapComponent = isWebGLSupported() ? dynamic(import('./map' /* webpackChunkName: "maplibre-gl" */), {
+    this.MapComponent = isWebGLSupported() ? dynamic(import('./map-legacy' /* webpackChunkName: "maplibre-gl" */), {
       ssr: false,
       loading: () => (
         <MapLoader />

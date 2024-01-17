@@ -54,6 +54,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
+    "react-map-gl": "^7.1.6",
     "recharts": "^2.8.0",
     "send": "^0.18.0",
     "sharp": "^0.29.3",

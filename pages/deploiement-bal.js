@@ -14,7 +14,7 @@ import {getDepartements, getEpcis} from '@/lib/api-geo'
 
 import {useStatsDeploiement} from '@/hooks/stats-deploiement'
 
-import MapLibre from '@/components/maplibre'
+import {MapLegacy as MapLibre} from '@/components/maplibre'
 import BalCoverMap from '@/components/bases-locales/deploiement-bal/bal-cover-map'
 import PanelSource from '@/components/bases-locales/deploiement-bal/panel-source'
 import PanelBal from '@/components/bases-locales/deploiement-bal/panel-bal'
