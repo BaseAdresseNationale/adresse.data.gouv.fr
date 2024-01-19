@@ -1,6 +1,5 @@
 # Environment config
 .env*
-!.env.sample
 !.env.production
 
 # Runtime
@@ -38,8 +37,18 @@ node_modules
 coverage
 reports
 
-# Project
-/public/dsfr/
+# Git config
+.git
+.github
+.gitignore
 
-# Dev Tooling
-*.wip
+#Editor Config
+.editorconfig
+
+#Docker config
+Dockerfile
+docker-compose
+
+#Other
+*.md
+LICENSE
