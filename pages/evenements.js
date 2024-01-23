@@ -77,7 +77,7 @@ function Evenements({events}) {
             </div>
           ) : (
             <div className='events-container'>
-              {futureEvents.length > 0 ? (
+              {passedEvents.length > 0 ? (
                 passedEvents.map(event => {
                   const id = `${event.title}-${event.date}`
                   return (
