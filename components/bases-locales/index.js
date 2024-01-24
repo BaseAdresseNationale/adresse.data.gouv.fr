@@ -111,9 +111,11 @@ const BasesLocales = React.memo(({stats}) => {
         </div>
       </Section>
 
-      <Section background='color' title='État du déploiement des Bases Adresses Locales'>
-        <MapBalSection stats={stats} />
-      </Section>
+      {stats && (
+        <Section background='color' title='État du déploiement des Bases Adresses Locales'>
+          <MapBalSection stats={stats} />
+        </Section>
+      )}
 
       <style jsx>{`
         .notification-content {
