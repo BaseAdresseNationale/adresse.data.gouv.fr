@@ -1,13 +1,12 @@
-import {useState, useCallback, useEffect} from 'react'
+import {useState, useMemo, useEffect} from 'react'
 import {useRouter} from 'next/router'
 import {debounce} from 'lodash'
 
 import {getCommunes, getByCode} from '@/lib/api-geo'
 import {useInput} from '@/hooks/input'
-
-import SearchInput from '../search-input-legacy'
+import SearchInput from '@/components/search-input-legacy'
 import RenderCommune from '@/components/search-input-legacy/render-commune'
-import Notification from '../notification'
+import Notification from '@/components/notification'
 
 function CommuneSearch() {
   const router = useRouter()
@@ -17,7 +16,7 @@ function CommuneSearch() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleSearch = useCallback(debounce(async input => {
+  const handleSearch = useMemo(() => debounce(async input => {
     setError(null)
     setIsLoading(true)
 
@@ -25,7 +24,11 @@ function CommuneSearch() {
       const inputToNumber = Number.parseInt(input, 10)
       const isInputNumber = !Number.isNaN(inputToNumber)
 
-      const communes = await (isInputNumber ? getByCode({postalCode: input, type: 'type=commune-actuelle,arrondissement-municipal'}) : getCommunes({q: input, limit: 5, boost: 'population', type: 'commune-actuelle,arrondissement-municipal'}))
+      const communes = await (
+        isInputNumber ?
+          getByCode({postalCode: input, type: 'type=commune-actuelle,arrondissement-municipal'}) :
+          getCommunes({q: input, limit: 5, boost: 'population', type: 'commune-actuelle,arrondissement-municipal'})
+      )
       setResults(communes.filter(({code}) => !['75056', '13055', '69123'].includes(code))) // Filter Paris, Marseille and Lyon
     } catch {
       setError('Impossible d’effectuer la recherche, veuillez rééssayer ultérieurement')
