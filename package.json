@@ -35,6 +35,7 @@
     "content-disposition": "^0.5.4",
     "copy-to-clipboard": "^3.3.3",
     "dotenv": "^16.0.3",
+    "downshift": "^8.3.1",
     "express": "^4.18.2",
     "filesize": "^10.0.12",
     "fs-extra": "^11.1.0",
