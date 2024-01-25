@@ -10,8 +10,6 @@ services:
         - https_proxy
         - HTTP_PROXY
         - HTTPS_PROXY
-    networks:
-      - adresse-site
     ports:
-      # pour http://localhost:8091/api/doc si traefik non installé
       - "${PORT:-3000}:3000"
+
