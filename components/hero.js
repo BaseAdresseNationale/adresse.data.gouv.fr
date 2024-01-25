@@ -60,7 +60,7 @@ function Hero({title, tagline}) {
 
           <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
 
-          <BanSearch />
+          <BanSearch placeholder='20 avenue de Ségur, Paris' hasPreferedPageResult />
           <div className='map-button'>
             <ButtonLink href='/base-adresse-nationale'>
               Accéder directement à la carte

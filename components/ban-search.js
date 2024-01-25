@@ -1,97 +1,139 @@
-import {useState, useCallback, useEffect} from 'react'
+/* eslint operator-linebreak: ["error", "before"] */
+import PropTypes from 'prop-types'
+import {useState, useCallback, useMemo} from 'react'
 import {useRouter} from 'next/router'
-import {debounce, groupBy} from 'lodash'
+import {groupBy} from 'lodash'
 
 import {search, isFirstCharValid} from '@/lib/api-adresse'
-import {useInput} from '../hooks/input'
+import {getCommune as getCommuneByINSEE} from '@/lib/api-ban'
 
-import SearchInput from '@/components/search-input-legacy'
-import renderAddok from '@/components/search-input-legacy/render-addok'
+import SearchInput from '@/components/search-input'
 import Notification from '@/components/notification'
 
-function BanSearch() {
-  const [input, setInput] = useInput('')
-  const [results, setResults] = useState([])
-  const [orderResults, setOrderResults] = useState([])
-  const [loading, setLoading] = useState(false)
+const featuresTypes = {
+  municipality: 'Communes ou Arrondissements',
+  city: 'Villes',
+  village: 'Villages',
+  hamlet: 'Hameaux',
+  street: 'Voies',
+  locality: 'Lieux-dits',
+  housenumber: 'Adresse',
+}
+
+const minChars = 3
+const codeInseeSize = 5
+
+const formatBanToProperties = ({
+  id,
+  nomCommune,
+  departement,
+  region,
+  codesPostaux,
+  codeCommune,
+}) => ({
+  id,
+  type: 'municipality',
+  name: nomCommune,
+  postcode: codesPostaux?.[0],
+  citycode: codeCommune,
+  city: nomCommune,
+  context: `${departement?.code}, ${departement?.nom}, ${region?.nom}`,
+})
+
+const searchDataInBan = ({type, postcode, citycode, debug} = {}) => async (strSearch, signal) => {
+  // Note: Item should be like : {properties: {id, name, context, city, citycode, type, postcode}, header}
+  if (typeof strSearch === 'string' && isFirstCharValid(strSearch) && strSearch.length >= minChars) {
+    try {
+      const communePromise = strSearch.length === codeInseeSize
+        ? (getCommuneByINSEE(strSearch, signal)
+          .then(result => ({properties: formatBanToProperties(result)})) // eslint-disable-line promise/prefer-await-to-then
+          .catch(err => debug && console.error('err getCommuneByINSEE >', err) && null)) // eslint-disable-line promise/prefer-await-to-then
+        : null
+      const searchApiPromise = search({q: strSearch, limit: 7, type, postcode, citycode, autocomplete: true}, signal)
+      const [communeResult, searchApiResults] = await Promise.all([communePromise, searchApiPromise])
+      const results = [
+        ...(communeResult ? [communeResult] : []),
+        ...(searchApiResults?.features) || []
+      ].filter(
+        // TODO : Make special pages for Paris, Marseille and Lyon and remove this filter
+        ({properties}) => (!['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
+      )
+      const groupByType = groupBy(results, 'properties.type')
+      const {housenumber, ...restOfFeaturesTypes} = featuresTypes
+      const computedFeaturesTypes = Number.isNaN(strSearch[0])
+        ? {...restOfFeaturesTypes, housenumber}
+        : {housenumber, ...restOfFeaturesTypes}
+      const orderResults = Object.entries(
+        Object.keys(computedFeaturesTypes)
+          .reduce((acc, key) => ({ // eslint-disable-line unicorn/no-array-reduce
+            ...acc,
+            ...(groupByType[key] ? {[key]: groupByType[key]} : {})
+          }), {})
+      ).flatMap(([category, [firstValue, ...otherValues]]) => {
+        return [
+          ...(firstValue
+            ? (type
+              ? [firstValue]
+              : [{...firstValue, header: featuresTypes?.[category] || `${category}`}])
+            : []),
+          ...(otherValues || [])
+        ]
+      })
+
+      return orderResults
+    } catch (err) {
+      if (debug) {
+        console.error(err)
+      }
+    }
+  }
+
+  return []
+}
+
+const itemMenuFormater = item => {
+  const {properties: {id, name, context, city, citycode, type}, header} = item
+  const [codeDepartement, departement, region] = context.split(', ')
+
+  const label = name
+  const details = `${type === 'municipality'
+    ? `Code Insee ${citycode} `
+    : `${city} `
+  }(${codeDepartement}, ${departement}, ${region})`
+
+  return {id, header, label, details}
+}
+
+function BanSearch({filter = {}, placeholder, hasPreferedPageResult}) {
   const [error, setError] = useState(null)
 
   const router = useRouter()
+  const onSearch = useMemo(() => searchDataInBan({...filter}), [filter])
 
-  const handleSelect = feature => {
-    const {id} = feature.properties
-    router.push(`/base-adresse-nationale?id=${id}`, `/base-adresse-nationale/${id}`)
-  }
-
-  const handleSearch = useCallback(debounce(async input => {
-    try {
-      const results = await search({q: input, limit: 7})
-      setResults(
-        results.features
-          .filter(({properties}) => !['75056', '13055', '69123'].includes(properties.id)) // Filter Paris, Marseille and Lyon
-      )
-    } catch (err) {
-      setError(err)
+  const handleSelect = useCallback(feature => {
+    const {id, citycode: codeCommune, type} = feature?.properties || {}
+    if (hasPreferedPageResult && type === 'municipality') {
+      router.push(`/commune/${codeCommune}`)
+    } else if (id) {
+      router.push(`/base-adresse-nationale?id=${id}`, `/base-adresse-nationale/${id}`)
     }
-
-    setLoading(false)
-  }, 300), [])
-
-  const getFeatureValue = feature => {
-    return feature.header ? feature.header : feature.properties.name
-  }
-
-  useEffect(() => {
-    if (results && results.length > 0) {
-      const categories = new Set(results.map(({properties}) => properties.type))
-      const groupByType = groupBy(results, 'properties.type')
-
-      const orderResults = [];
-      [...categories].forEach(cat => {
-        orderResults.push({header: cat}, ...groupByType[cat])
-      })
-
-      setOrderResults(orderResults)
-    }
-  }, [results])
-
-  useEffect(() => {
-    const trimmedInput = input.trim()
-
-    if (trimmedInput.length >= 3) {
-      if (isFirstCharValid(trimmedInput)) {
-        setResults([])
-        setLoading(true)
-        setError(null)
-        handleSearch(trimmedInput)
-      } else {
-        setError({message: 'Le premier caractère doit être une lettre ou un chiffre'})
-      }
-    }
-  }, [handleSearch, input])
-
-  useEffect(() => {
-    if (input.length <= 3) {
-      setResults([])
-      setOrderResults([])
-    }
-  }, [input])
+  }, [hasPreferedPageResult, router])
+  const handleError = useCallback(err => setError(err), [])
 
   return (
     <>
       <SearchInput
-        value={input}
-        results={orderResults}
-        isLoading={loading}
-        placeholder='20 avenue de Ségur, Paris'
+        placeholder={placeholder}
+        itemMenuFormater={itemMenuFormater}
+        onSearch={onSearch}
         onSelect={handleSelect}
-        onSearch={setInput}
-        renderItem={renderAddok}
+        onError={handleError}
         wrapperStyle={{position: 'relative'}}
-        getItemValue={getFeatureValue} />
+        hasLoader
+      />
 
-      {error &&
-        <div className='error'>
+      {error
+        && <div className='error'>
           <Notification message={error.message} type='error' />
         </div>}
 
@@ -102,6 +144,16 @@ function BanSearch() {
         `}</style>
     </>
   )
+}
+
+BanSearch.propTypes = {
+  filter: PropTypes.shape({
+    type: PropTypes.string,
+    postcode: PropTypes.string,
+    citycode: PropTypes.string,
+  }),
+  placeholder: PropTypes.string,
+  hasPreferedPageResult: PropTypes.bool,
 }
 
 export default BanSearch
