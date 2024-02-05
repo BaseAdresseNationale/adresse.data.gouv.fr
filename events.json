@@ -2809,5 +2809,76 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
+  },
+  {
+    "title": "Adresse_Lab",
+    "subtitle": "Rencontre Utilisateurs Nationaux #2",
+    "description": "Journée d'échanges entre les utilisateurs experts de la BAN autour des problématiques communes : emprise d’utilisation large incluant des données d’assemblages, besoin d’historisation de la donnée (souvent lié à la problématique d’adosser des données métier aux adresses de la BAN), des besoins spécifiques sur la qualité et la mise à jour des données.",
+    "type": "adresselab",
+    "target":  "SI nationaux utilisateurs avancés de la donnée adresse",
+    "date": "2024-01-23",
+    "tags": [
+      "Technique",
+      "Base Adresse Nationale",
+      "Utilisateurs"
+    ],
+    "isOnlineOnly": false,
+    "address": {
+      "nom": "DINUM",
+      "numero": "20",
+      "voie": "Avenue de Ségur",
+      "codePostal": "75007",
+      "commune": "PARIS"
+    },
+    "href": "",
+    "isSubscriptionClosed": true,
+    "instructions": "",
+    "startHour": "09:30",
+    "endHour": "16:00"
+  },
+  {
+    "title": "Adresse_Lab #9",
+    "subtitle": "Point d'échange trimestriel T1 2024",
+    "description": "Actualités et point d'avancement des chantiers en cours. Il n’est pas nécessaire de « s’inscrire à l’événement ». Le lien d’inscription correspond au lien à utiliser pour se connecter au webinaire.",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2024-02-08",
+    "tags": [
+      "Technique",
+      "Base Adresse Nationale",
+      "Utilisateurs"
+    ],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2QwZDU3OWEtM2I5My00ZjliLTllODEtYjdkZjY3ZjAxMGYz%40thread.v2/0?context=%7b%22Tid%22%3a%223876b373-7e2c-4857-b024-53326b5b4bb2%22%2c%22Oid%22%3a%22b6c5bcc6-2261-4874-9aa5-508a6afa334e%22%7d",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
+    "title": "Événement Partenaire de la Charte de la Base Adresse Locale",
+    "description": "Chaque mois, les organismes partenaires de la Charte de la Base Adresse Locale sont invités à échanger sur l'adresse, les évolutions de l'éditeur Mes Adresses, l'accompagnement, la formation, les avancées législatives, etc. L'objectif est de faciliter l'accompagnement des communes et de fluidifier les retours utilisateurs. Inscription automatique après adoption de la charte, contacter adresse@data.gouv.fr",
+    "type": "partenaire",
+    "target": "Communes, EPCI, départements, IDG et entreprises partenaires de la Charte de la Base Adresse Locale ",
+    "date": "2024-02-13",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Base Adresse Nationale",
+      "Gouvernance"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": ""
+    },
+    "href": "",
+    "isSubscriptionClosed": true,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
   }
 ]

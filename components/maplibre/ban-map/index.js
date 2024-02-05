@@ -1,5 +1,4 @@
-import ReactDOM from 'react-dom'
-import {useCallback, useContext, useEffect, useState} from 'react'
+import {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'
@@ -30,6 +29,9 @@ import popupFeatures from './popups'
 import {flatten, forEach} from 'lodash'
 
 import DeviceContext from '@/contexts/device'
+import {Layer, Source, useMap, Popup} from 'react-map-gl/maplibre'
+
+const API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL || 'https://plateforme.adresse.data.gouv.fr'
 
 let hoveredFeature = null
 
@@ -105,28 +107,30 @@ const getPositionsFeatures = address => {
   return []
 }
 
-function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbox, onSelect, isMobile}) {
+function BanMap({address, bbox, onSelect, isMobile}) {
+  const map = useMap()
   const {isSafariBrowser} = useContext(DeviceContext)
   const [isCenterControlDisabled, setIsCenterControlDisabled] = useState(true)
   const [selectedPaintLayer, setSelectedPaintLayer] = useState('certification')
   const [isCadastreDisplayable, setIsCadastreDisplayble] = useState(true)
   const [isCadastreLayersShown, setIsCadastreLayersShown] = useState(false)
   const [bound, setBound] = useState()
+  const [infoPopup, setInfoPopup] = useState(null)
 
   const onLeave = useCallback(() => {
     if (hoveredFeature) {
       highLightAdressesByProperties(false, hoveredFeature)
     }
 
-    popup.remove()
-    map.getCanvas().style.cursor = 'grab'
+    setInfoPopup(null)
+    map.current.getCanvas().style.cursor = 'grab'
     hoveredFeature = null
-  }, [map, popup, highLightAdressesByProperties])
+  }, [map, highLightAdressesByProperties])
 
   const highLightAdressesByProperties = useCallback((isHovered, hoveredFeature) => {
     const {nom, id} = hoveredFeature
     forEach(SOURCES, sourceLayer => {
-      forEach(map.querySourceFeatures('base-adresse-nationale', {
+      forEach(map.current.querySourceFeatures('base-adresse-nationale', {
         sourceLayer,
         filter: [
           'any',
@@ -134,7 +138,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
           ['in', id, ['get', 'id']]
         ]
       }), ({id}) => {
-        map.setFeatureState({source: 'base-adresse-nationale', sourceLayer, id}, {hover: isHovered})
+        map.current.setFeatureState({source: 'base-adresse-nationale', sourceLayer, id}, {hover: isHovered})
       })
     })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -151,17 +155,14 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
       }
       highLightAdressesByProperties(true, hoveredFeature)
 
-      map.getCanvas().style.cursor = 'pointer'
-      const popupNode = document.createElement('div')
-      ReactDOM.render(popupFeatures(e.features), popupNode)
-      popup.setLngLat(e.lngLat)
-        .setDOMContent(popupNode)
-        .addTo(map)
+      map.current.getCanvas().style.cursor = 'pointer'
+
+      setInfoPopup({...e})
     } else {
-      map.getCanvas().style.cursor = 'grab'
-      popup.remove()
+      map.current.getCanvas().style.cursor = 'grab'
+      setInfoPopup(null)
     }
-  }, [map, popup, highLightAdressesByProperties])
+  }, [map, highLightAdressesByProperties])
 
   const handleClick = (e, cb) => {
     const feature = e.features[0]
@@ -170,7 +171,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
 
   const centerAddress = useCallback(() => {
     if (bound && !isCenterControlDisabled) {
-      map.fitBounds(bound, {
+      map.current.fitBounds(bound, {
         padding: 30
       })
       setIsCenterControlDisabled(true)
@@ -179,7 +180,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
 
   const isAddressVisible = useCallback(() => {
     if (address) {
-      const {_sw, _ne} = map.getBounds()
+      const {_sw, _ne} = map.current.getBounds()
       const mapBBox = [
         _sw.lng,
         _sw.lat,
@@ -187,7 +188,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
         _ne.lat
       ]
 
-      const currentZoom = map.getZoom()
+      const currentZoom = map.current.getZoom()
       const isAddressInMapBBox = bound ? isFeatureContained(mapBBox, bound) : false
 
       const isZoomSmallerThanMax = currentZoom <= ZOOM_RANGE[address.type].max
@@ -200,7 +201,7 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
 
   const handleZoom = useCallback(() => {
     isAddressVisible()
-    const zoom = map.getZoom()
+    const zoom = map.current.getZoom()
     setIsCadastreDisplayble(zoom < PARCELLES_MINZOOM)
   }, [map, isAddressVisible])
 
@@ -209,136 +210,48 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
   }, [address, isAddressVisible, handleZoom])
 
   useEffect(() => {
-    if (map.isStyleLoaded()) {
-      map.setPaintProperty(adresseCircleLayer.id, 'circle-color', paintLayers[selectedPaintLayer].paint)
-      map.setPaintProperty(adresseLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
-      map.setPaintProperty(adresseCompletLabelLayer.id, 'text-color', paintLayers[selectedPaintLayer].paint)
+    map.current.off('dragend', handleZoom)
+    map.current.off('zoomend', handleZoom)
 
-      cadastreLayers.map(({id}) => (
-        map.setLayoutProperty(
-          id,
-          'visibility',
-          isCadastreLayersShown ? 'visible' : 'none'
-        )
-      ))
+    map.current.on('dragend', handleZoom)
+    map.current.on('zoomend', handleZoom)
 
-      if (address?.parcelles) {
-        map.setFilter('parcelle-highlighted', ['any', ...address.parcelles.map(id => ['==', ['get', 'id'], id])])
-      } else {
-        map.setFilter('parcelle-highlighted', ['==', ['get', 'id'], ''])
-      }
+    map.current.on('mousemove', 'adresse', onHover)
+    map.current.on('mousemove', 'adresse-label', onHover)
+    map.current.on('mousemove', 'voie', onHover)
+    map.current.on('mousemove', 'toponyme', onHover)
 
-      if (address?.positions?.length > 1) {
-        map.setFilter('adresse', ['!=', ['get', 'id'], address.id])
-        map.setFilter('adresse-label', ['!=', ['get', 'id'], address.id])
-      }
-    }
-  }, [map, selectedPaintLayer, isCadastreLayersShown, address])
+    map.current.on('mouseleave', 'adresse', onLeave)
+    map.current.on('mouseleave', 'adresse-label', onLeave)
+    map.current.on('mouseleave', 'voie', onLeave)
+    map.current.on('mouseleave', 'toponyme', onLeave)
 
-  useEffect(() => {
-    map.off('dragend', handleZoom)
-    map.off('zoomend', handleZoom)
-
-    map.on('dragend', handleZoom)
-    map.on('zoomend', handleZoom)
-
-    map.on('mousemove', 'adresse', onHover)
-    map.on('mousemove', 'adresse-label', onHover)
-    map.on('mousemove', 'voie', onHover)
-    map.on('mousemove', 'toponyme', onHover)
-
-    map.on('mouseleave', 'adresse', onLeave)
-    map.on('mouseleave', 'adresse-label', onLeave)
-    map.on('mouseleave', 'voie', onLeave)
-    map.on('mouseleave', 'toponyme', onLeave)
-
-    map.on('click', 'adresse', e => handleClick(e, onSelect))
-    map.on('click', 'adresse-label', e => handleClick(e, onSelect))
-    map.on('click', 'voie', e => handleClick(e, onSelect))
-    map.on('click', 'toponyme', e => handleClick(e, onSelect))
-
+    map.current.on('click', 'adresse', e => handleClick(e, onSelect))
+    map.current.on('click', 'adresse-label', e => handleClick(e, onSelect))
+    map.current.on('click', 'voie', e => handleClick(e, onSelect))
+    map.current.on('click', 'toponyme', e => handleClick(e, onSelect))
     return () => {
-      map.off('dragend', handleZoom)
-      map.off('zoomend', handleZoom)
+      map.current.off('dragend', handleZoom)
+      map.current.off('zoomend', handleZoom)
 
-      map.off('mousemove', 'adresse', onHover)
-      map.off('mousemove', 'adresse-label', onHover)
-      map.off('mousemove', 'voie', onHover)
-      map.off('mousemove', 'toponyme', onHover)
+      map.current.off('mousemove', 'adresse', onHover)
+      map.current.off('mousemove', 'adresse-label', onHover)
+      map.current.off('mousemove', 'voie', onHover)
+      map.current.off('mousemove', 'toponyme', onHover)
 
-      map.off('mouseleave', 'adresse', onLeave)
-      map.off('mouseleave', 'adresse-label', onLeave)
-      map.off('mouseleave', 'voie', onLeave)
-      map.off('mouseleave', 'toponyme', onLeave)
+      map.current.off('mouseleave', 'adresse', onLeave)
+      map.current.off('mouseleave', 'adresse-label', onLeave)
+      map.current.off('mouseleave', 'voie', onLeave)
+      map.current.off('mouseleave', 'toponyme', onLeave)
 
-      map.off('click', 'adresse', e => handleClick(e, onSelect))
-      map.off('click', 'adresse-label', e => handleClick(e, onSelect))
-      map.off('click', 'voie', e => handleClick(e, onSelect))
-      map.off('click', 'toponyme', e => handleClick(e, onSelect))
+      map.current.off('click', 'adresse', e => handleClick(e, onSelect))
+      map.current.off('click', 'adresse-label', e => handleClick(e, onSelect))
+      map.current.off('click', 'voie', e => handleClick(e, onSelect))
+      map.current.off('click', 'toponyme', e => handleClick(e, onSelect))
     }
 
     // No dependency in order to mock a didMount and avoid duplicating events.
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    setSources([
-      {
-        name: 'base-adresse-nationale',
-        type: 'vector',
-        format: 'pbf',
-        tiles: [
-          'https://plateforme.adresse.data.gouv.fr/tiles/ban/{z}/{x}/{y}.pbf'
-        ],
-        minzoom: 10,
-        maxzoom: 14,
-        promoteId: 'id'
-      },
-      {
-        name: 'cadastre',
-        type: 'vector',
-        url: 'https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
-      },
-      {
-        name: 'positions',
-        type: 'geojson',
-        data: {
-          type: 'FeatureCollection',
-          features: getPositionsFeatures(address)
-        }
-      }
-    ])
-    setLayers([
-      ...cadastreLayers,
-      adresseCircleLayer,
-      adresseLabelLayer,
-      adresseCompletLabelLayer,
-      voieLayer,
-      toponymeLayer,
-      positionsLabelLayer,
-      positionsCircleLayer
-    ])
-  }, [setSources, setLayers, address])
-
-  useEffect(() => {
-    if (isSourceLoaded && map.getLayer('adresse-complet-label') && map.getLayer('adresse-label')) {
-      if (address && address.type === 'numero') {
-        const {id} = address
-        map.setFilter('adresse-complet-label', [
-          '==', ['get', 'id'], id
-        ])
-        map.setFilter('adresse-label', [
-          '!=', ['get', 'id'], id
-        ])
-      } else {
-        map.setFilter('adresse-complet-label', [
-          '==', ['get', 'id'], ''
-        ])
-        map.setFilter('adresse-label', [
-          '!=', ['get', 'id'], ''
-        ])
-      }
-    }
-  }, [map, isSourceLoaded, address, setLayers])
 
   useEffect(() => {
     if (bbox) {
@@ -347,6 +260,20 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
       setBound(address?.displayBBox)
     }
   }, [map, bbox, address])
+
+  const cadastreFiltre = useMemo(() => address?.parcelles ? ['any', ...address.parcelles.map(id => ['==', ['get', 'id'], id])] : ['==', ['get', 'id'], ''], [address?.parcelles])
+
+  const dataPositionJson = useMemo(() => {
+    return {
+      type: 'FeatureCollection',
+      features: getPositionsFeatures(address)
+    }
+  }
+  , [address])
+
+  const [filtreIsAdresse, filtreIsnotAdresse] = useMemo(() =>
+    [['==', ['get', 'id'], address?.id], ['!=', ['get', 'id'], address?.id]]
+  , [address])
 
   return (
     <>
@@ -374,23 +301,66 @@ function BanMap({map, isSourceLoaded, popup, address, setSources, setLayers, bbo
         />
       </SelectPaintLayer>
 
-      <style jsx>{`
-        .maplibregl-ctrl-group {
-          position: absolute;
-          box-shadow: none;
-          border: 2px solid #dcd8d5;
-          z-index: 2;
-          right: 8px;
-          top: 80px;
+      { infoPopup?.features && (
+        <Popup closeOnClick={false} closeButton={false} latitude={infoPopup.lngLat.lat} longitude={infoPopup.lngLat.lng}>
+          {popupFeatures(infoPopup?.features || [])}
+        </Popup>
+
+      )}
+      <Source id='cadastre'
+        type='vector'
+        url='https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
+      >
+        {cadastreLayers.map(cadastreLayerElt => {
+          if (cadastreLayerElt.id === 'parcelle-highlighted') {
+            cadastreLayerElt.filter = cadastreFiltre
+          }
+
+          return <Layer key={cadastreLayerElt.id} {...cadastreLayerElt} layout={{...cadastreLayerElt.layout, visibility: isCadastreLayersShown ? 'visible' : 'none'}} />
         }
-        `}</style>
+        )}
+      </Source>
+      <Source id='base-adresse-nationale'
+        type='vector'
+        format='pbf'
+        tiles={[
+          `${API_BAN_URL}/tiles/ban/{z}/{x}/{y}.pbf`
+        ]}
+        minzoom={10}
+        maxzoom={14}
+        promoteId='id'
+      >
+        <Layer {...adresseCircleLayer} paint={{...adresseCircleLayer.paint, 'circle-color': paintLayers[selectedPaintLayer].paint}} />
+        <Layer {...adresseLabelLayer} filter={address?.type === 'numero' ? filtreIsnotAdresse : true} paint={{...adresseLabelLayer.paint, 'text-color': paintLayers[selectedPaintLayer].paint}} />
+        <Layer {...adresseCompletLabelLayer} filter={address?.type === 'numero' ? filtreIsAdresse : false} paint={{...adresseCompletLabelLayer.paint, 'text-color': paintLayers[selectedPaintLayer].paint}} />
+        <Layer {...voieLayer} />
+        <Layer {...toponymeLayer} />
+      </Source>
+
+      <Source
+        id='positions'
+        type='geojson'
+        data={dataPositionJson}
+      >
+        <Layer {...positionsLabelLayer} />
+        <Layer {...positionsCircleLayer} />
+      </Source>
+      <style jsx>{`
+      .maplibregl-ctrl-group {
+        position: absolute;
+        box-shadow: none;
+        border: 2px solid #dcd8d5;
+        z-index: 2;
+        right: 8px;
+        top: 80px;
+      }
+      `}</style>
     </>
   )
 }
 
 BanMap.defaultProps = {
   address: null,
-  isSourceLoaded: false,
   onSelect: () => {},
   isMobile: false
 }
@@ -407,17 +377,14 @@ BanMap.propTypes = {
     lon: PropTypes.number,
     voie: PropTypes.object
   }),
-  map: PropTypes.object.isRequired,
-  isSourceLoaded: PropTypes.bool,
-  popup: PropTypes.object.isRequired,
+
   contour: PropTypes.shape({
     features: PropTypes.array.isRequired
   }),
   onSelect: PropTypes.func,
-  setSources: PropTypes.func.isRequired,
-  setLayers: PropTypes.func.isRequired,
+
   isMobile: PropTypes.bool,
-  bbox: PropTypes.arrayOf({type: PropTypes.number}),
+  bbox: PropTypes.arrayOf(PropTypes.number),
 }
 
 export default BanMap
