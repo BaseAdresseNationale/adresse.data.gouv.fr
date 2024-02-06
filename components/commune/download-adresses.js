@@ -1,3 +1,5 @@
+import {useCallback} from 'react'
+
 import PropTypes from 'prop-types'
 import getConfig from 'next/config'
 
@@ -13,17 +15,18 @@ const matomoCategoryName = `${isDevMode ? 'DEVMODE - ' : ''}Download (Front)`
 function DownloadAdresses({codeCommune, nomCommune}) {
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
-  const downloadBal = version => {// Call to matomo
+
+  const downloadBal = useCallback(version => () => {// Call to matomo
     matomoPush(['trackEvent', matomoCategoryName, `Download BAL ${version || '(unknow version)'}`, `${codeCommune} - ${nomCommune} - current`, 1])
-  }
+  }, [codeCommune, nomCommune])
 
-  const downloadCsvHistoriqueAdresses = () => {// Call to matomo
+  const downloadCsvHistoriqueAdresses = useCallback(() => {// Call to matomo
     matomoPush(['trackEvent', matomoCategoryName, 'Download CSV historique adresses', `${codeCommune} - ${nomCommune} - current`, 1])
-  }
+  }, [codeCommune, nomCommune])
 
-  const downloadCsvHistoriqueLieuxDits = () => {// Call to matomo
+  const downloadCsvHistoriqueLieuxDits = useCallback(() => {// Call to matomo
     matomoPush(['trackEvent', matomoCategoryName, 'Download CSV historique lieux-dits', `${codeCommune} - ${nomCommune} - current`, 1])
-  }
+  }, [codeCommune, nomCommune])
 
   return (
     <div className='download-adresses-container'>
