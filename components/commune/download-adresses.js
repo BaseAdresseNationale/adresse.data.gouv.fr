@@ -11,11 +11,10 @@ const {isDevMode} = getConfig().publicRuntimeConfig
 const matomoCategoryName = `${isDevMode ? 'DEVMODE - ' : ''}Download (Front)`
 
 function DownloadAdresses({codeCommune, nomCommune}) {
-  const adressesCsvBalUrl = getAdressesCsvBal(codeCommune)
   const addressLegacyUrl = getAddressCSVLegacy(codeCommune)
   const lieuxDitsLegacyUrl = getLieuxDitsCSVLegacy(codeCommune)
-  const downloadBal = () => {// Call to matomo
-    matomoPush(['trackEvent', matomoCategoryName, 'Download BAL', `${codeCommune} - ${nomCommune} - current`, 1])
+  const downloadBal = version => {// Call to matomo
+    matomoPush(['trackEvent', matomoCategoryName, `Download BAL ${version || '(unknow version)'}`, `${codeCommune} - ${nomCommune} - current`, 1])
   }
 
   const downloadCsvHistoriqueAdresses = () => {// Call to matomo
@@ -35,7 +34,8 @@ function DownloadAdresses({codeCommune, nomCommune}) {
       </SectionText>
 
       <div className='cards-container'>
-        <DownloadCard format='CSV BAL 1.3' url={adressesCsvBalUrl} isAvailable color='secondary' onDownloadStart={downloadBal} />
+        <DownloadCard format='CSV BAL 1.3' url={getAdressesCsvBal(codeCommune, '1.3')} isAvailable color='secondary' onDownloadStart={downloadBal('1.3')} />
+        <DownloadCard format='CSV BAL 1.4' url={getAdressesCsvBal(codeCommune, '1.4')} isAvailable color='secondary' onDownloadStart={downloadBal('1.4')} />
         <DownloadCard format='CSV historique (adresses)' url={addressLegacyUrl} isAvailable color='secondary' onDownloadStart={downloadCsvHistoriqueAdresses} />
         <DownloadCard format='CSV historique (lieux-dits)' url={lieuxDitsLegacyUrl} isAvailable color='secondary' onDownloadStart={downloadCsvHistoriqueLieuxDits} />
       </div>
