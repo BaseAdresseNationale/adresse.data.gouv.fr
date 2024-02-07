@@ -3,3 +3,8 @@
 /node_modules/
 # à compléter avec ce qui est local
 
+# Build
+.next
+bundle-stats
+available-flags.json
+
