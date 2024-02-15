@@ -2880,5 +2880,343 @@
     "instructions": "",
     "startHour": "14:00",
     "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-03-07",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/-lkQShn8xgU4swFXhMKALF7AJkIHhu1ehkpX2wK6RtY/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-03-14",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/NWTZ5WiYq7U-HwWmS5SJOTSGe6HOKmfg9PstV2wu2mk/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-03-21",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/786ez48a180zS7NAiRC2n16IEh3UMwGUKBQnkaic1jY/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je veux améliorer ma BAL",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-03-28",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href":"https://cryptpad.fr/form/#/2/form/view/BHoMBldQRNVrIC1oP68rYncu6hupwddtynUw2aowfZw/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-04-04",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/K6Ri40iYApFzj-C1Xdul2lNKCc2Qb0XE6jTEVW6yQjY/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-04-11",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/XcZLYCVYTpWFlcKrmeW0f4iDA1Qmw6R1RHGpu4yadmE/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-04-18",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/XcZLYCVYTpWFlcKrmeW0f4iDA1Qmw6R1RHGpu4yadmE/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je veux améliorer ma BAL",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-04-25",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href":"https://cryptpad.fr/form/#/2/form/view/56WfycOGttENrAaSb2sOs09hJQvRhY35PErD8YVrJbs/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-05-02",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/MmPXVTFfjAB232W2wAdUq8A8Hd6rSFqZrJBqPZ2sM4s/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-05-09",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/gX1anLaCsxJM+cFbOiMDrwCN3G2ngVXuk-ePiQhTW7Q/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je veux améliorer ma BAL",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-05-16",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href":"https://cryptpad.fr/form/#/2/form/view/zIKXMtvdVLLSOT3xnIB5HNn-Qrmi8TZB2e8+BKBfm3Q/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je débute sur Mes Adresses",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-05-23",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href": "https://cryptpad.fr/form/#/2/form/view/E+HN8Fx-Fyd4bX+zjQEGuoTg-yhCfW7hgFpVuQDmgpU/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
+  },
+  {
+    "title": "Webinaire Mes Adresses",
+    "subtitle": "Je veux améliorer ma BAL",
+    "description": "L’équipe du Programme Bases Adresses Locales propose aux communes qui le souhaitent un webinaire sur l'éditeur Mes Adresses. Au menu, un rappel des principales fonctionnalités et les points de vigilance qualité.",
+    "type": "formation",
+    "target": "communes",
+    "date": "2024-05-30",
+    "tags": [
+      "Programme Base Adresse Locale",
+      "Base Adresse Locale",
+      "Commune"
+    ],
+    "isOnlineOnly": true,
+    "address": {
+      "nom": "",
+      "numero": "",
+      "voie": "",
+      "codePostal": "",
+      "commune": ""
+    },
+    "href":"https://cryptpad.fr/form/#/2/form/view/GlZVHbV47ViV5Yc5E3VLyprVEwEirEeyAkGGVXFHDqU/embed/",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
   }
 ]
