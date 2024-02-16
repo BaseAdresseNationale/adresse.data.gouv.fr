@@ -8,6 +8,8 @@ import MapLibre from '@/components/maplibre'
 import BanSearch from '@/components/ban-search'
 import BanMap from '@/components/maplibre/ban-map'
 import ButtonLink from '@/components/button-link'
+import SignalementButton from '@/components/signalement/signalement-button'
+import SignalementForm from '@/components/signalement/signalement-form'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
@@ -134,6 +136,7 @@ Mobile.defaultProps = defaultProps
 Mobile.propTypes = propTypes
 
 export function Desktop({address, bbox, handleSelect, hash}) {
+  const [isSignalementFormOpen, setIsSignalementFormOpen] = useState(false)
   const {zoom, center} = parseHash(hash)
 
   return (
@@ -142,13 +145,16 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='search'>
           <BanSearch />
         </div>
-        <Explorer address={address} handleSelect={handleSelect} />
-        <div className='footer'>
-          <p>Pour mettre à jour vos adresses, cliquez ici : </p>
-          <ButtonLink href='https://adresse.data.gouv.fr/contribuer' isOutlined color='white' size='small'>
-            Contribuer à la Base Adresse Nationale
-          </ButtonLink>
-        </div>
+        {isSignalementFormOpen ? <SignalementForm address={address} onClose={() => setIsSignalementFormOpen(false)} /> : <>
+          <Explorer address={address} handleSelect={handleSelect} />
+          {address && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
+          <div className='footer'>
+            <p>Pour mettre à jour vos adresses, cliquez ici : </p>
+            <ButtonLink href='https://adresse.data.gouv.fr/contribuer' isOutlined color='white' size='small'>
+              Contribuer à la Base Adresse Nationale
+            </ButtonLink>
+          </div>
+        </>}
       </div>
 
       <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
@@ -193,6 +199,10 @@ export function Desktop({address, bbox, handleSelect, hash}) {
 
         .footer p {
           font-size: .8em;
+        }
+
+        .signalement-button {
+
         }
         `}</style>
     </div>
