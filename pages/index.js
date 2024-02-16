@@ -2,8 +2,12 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Image from 'next/legacy/image'
 
+import banEvents from '../events.json'
+
 import {getStats} from '@/lib/api-ban'
 import {getPosts} from '@/lib/blog'
+import {sortEventsByDate} from '@/lib/date'
+import {getBalEvents} from '@/lib/api-bal-admin'
 
 import theme from '@/styles/theme'
 import Page from '@/layouts/main'
@@ -17,10 +21,10 @@ import Temoignages from '@/components/temoignages'
 import CommuneSearch from '@/components/commune/commune-search'
 import EventBanner from '@/components/evenement/event-banner'
 
-function Home({stats, posts}) {
+function Home({stats, posts, events}) {
   return (
     <Page>
-      <EventBanner />
+      <EventBanner events={events} />
 
       <Hero
         title='Le site national des adresses'
@@ -170,23 +174,36 @@ function Home({stats, posts}) {
 export async function getServerSideProps() {
   const stats = await getStats()
   const {posts = null} = (await getPosts({tags: 'temoignage', limitFields: true, limit: 3})) || {}
+  let balEvents = []
+  try {
+    balEvents = await getBalEvents()
+  } catch (err) {
+    console.log(err)
+  }
+
+  const today = new Date().setHours(0, 0, 0, 0)
+  const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
+    .filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
 
   return {
     props: {
       stats,
       posts,
+      events
     }
   }
 }
 
 Home.defaultProps = {
   posts: null,
-  stats: null
+  stats: null,
+  events: [],
 }
 
 Home.propTypes = {
   stats: PropTypes.object,
-  posts: PropTypes.array
+  posts: PropTypes.array,
+  events: PropTypes.array,
 }
 
 export default Home
