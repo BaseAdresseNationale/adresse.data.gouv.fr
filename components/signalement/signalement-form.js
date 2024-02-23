@@ -1,265 +1,129 @@
 import {useState, useMemo} from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+import {StyledForm} from './signalement.styles'
 import Input from '@codegouvfr/react-dsfr/Input'
 import Button from '@codegouvfr/react-dsfr/Button'
-import {sendSignalement} from '@/lib/api-signalement'
-import SelectInput from '@/components/common/form-inputs/select-input'
+import PositionInput from './position-input'
+import {getExistingLocationLabel, getInitialSignalement} from './use-signalement'
+import SignalementRecapModal from './signalement-recap-modal'
 
-const StyledForm = styled.form`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  max-width: unset !important;
-  margin: unset !important;
-  overflow: scroll;
+export default function SignalementForm({signalement, onEditSignalement, onClose, address}) {
+  const [showRecapModal, setShowRecapModal] = useState(false)
 
-  section:not(:first-of-type) {
-    margin-top: 2em;
-  }
+  const isSubmitDisabled = useMemo(() => {
+    return JSON.stringify(getInitialSignalement(address)) === JSON.stringify(signalement)
+  }, [address, signalement])
 
-  .form-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    > div {
-      width: 100%;
-
-      &:not(:first-child) {
-        margin-left: 1em;
-      }
-    }
-  }
-
-  .fr-alert {
-    margin-top: 15px;
-  }
-
-  .form-controls {
-    display: flex;
-    margin-top: 1em;
-
-    > :last-child {
-      margin-left: 1em;
-    }
-  }
-`
-
-const positionTypeOptions = [
-  {value: 'entrée', label: 'Entrée'},
-  {value: 'délivrance postale', label: 'Délivrance postale'},
-  {value: 'bâtiment', label: 'Bâtiment'},
-  {value: 'cage d’escalier', label: 'Cage d’escalier'},
-  {value: 'logement', label: 'Logement'},
-  {value: 'parcelle', label: 'Parcelle'},
-  {value: 'segment', label: 'Segment'},
-  {value: 'service technique', label: 'Service technique'},
-  {value: 'inconnue', label: 'Inconnu'}
-]
-
-function getExistingLocationType(type) {
-  switch (type) {
-    // In this case type = LOCATION_TO_CREATE
-    case 'commune':
-      return ''
-    case 'voie':
-      return 'VOIE'
-    case 'lieu-dit':
-      return 'TOPONYME'
-    default:
-      return 'NUMERO'
-  }
-}
-
-function getExistingLocationLabel(address) {
-  switch (address.type) {
-    // In this case type = LOCATION_TO_CREATE
-    case 'commune':
-      return ''
-    case 'voie':
-      return 'VOIE'
-    case 'lieu-dit':
-      return 'TOPONYME'
-    default:
-      return `${address.numero} ${address.voie.nomVoie}`
-  }
-}
-
-function SignalementForm({onClose, address}) {
-  const [formData, setFormData] = useState({
-    codeCommune: address.commune.code,
-    type: 'LOCATION_TO_UPDATE',
-    existingLocation: {
-      type: getExistingLocationType(address.type),
-      label: getExistingLocationLabel(address),
-    },
-    author: {
-      firstName: '',
-      lastName: '',
-      email: ''
-    },
-    changesRequested: {
-      numero: address.numero,
-      suffixe: address.suffixe,
-      position: address.position,
-      positionType: address.positionType,
-      nomVoie: address.voie.nomVoie
-    }
-  })
-  const [submitStatus, setSubmitStatus] = useState(null)
-
-  const handleEdit = (property, key) => event => {
-    const {value} = event.target
-    setFormData(state => ({...state, [property]: {
-      ...state[property],
-      [key]: value
-    }}))
-  }
-
-  const handleSubmit = async event => {
-    event.preventDefault()
-    setSubmitStatus('loading')
-    try {
-      await sendSignalement(formData)
-      setSubmitStatus('success')
-      setTimeout(() => {
-        onClose()
-      }, 2000)
-    } catch {
-      setSubmitStatus('error')
-    }
-  }
-
-  const SignalementFields = useMemo(() => {
-    switch (address.type) {
-      case 'commune':
-        return null
-      case 'voie':
-        return <div className='form-row' />
-      case 'lieu-dit':
-        return <div className='form-row' />
-      default:
-        return (
-          <>
-            <div className='form-row'>
-              <p>Ajuster la <b>position</b> de cette adresse en déplaçant le point rouge sur la carte.
-              </p>
-            </div>
-            <div className='form-row'>
-              <p>Corriger les informations qui vous semblent erronées.
-              </p>
-            </div>
-            <div className='form-row'>
-
-              <Input
-                label='Numéro*'
-                nativeInputProps={{
-                  required: true,
-                  type: 'number',
-                  value: formData.changesRequested.numero,
-                  onChange: handleEdit('changesRequested', 'numero')}}
-              />
-              <Input
-                label='Suffixe'
-                nativeInputProps={{
-                  value: formData.changesRequested.suffixe,
-                  onChange: handleEdit('changesRequested', 'suffixe')}}
-              />
-              <SelectInput
-                label='Type de position*'
-                value={formData.changesRequested.positionType}
-                options={positionTypeOptions}
-                handleChange={type => {
-                  setFormData(state => ({...state, changesRequested: {
-                    ...state.changesRequested,
-                    positionType: type
-                  }}))
-                }} />
-            </div>
-            <div className='form-row'>
-              <Input
-                label='Nom de la voie'
-                nativeInputProps={{
-                  required: true,
-                  value: formData.changesRequested.nomVoie,
-                  onChange: handleEdit('changesRequested', 'nomVoie')}}
-              />
-            </div>
-          </>
-        )
-    }
-  }, [address, formData])
+  const {numero, suffixe, nomVoie, positions} = signalement.changesRequested
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <section>
+    <>
+      <StyledForm >
         <h4>
-          Signalement d&apos;un problème pour l&apos;adresse : <em>{getExistingLocationLabel(address)}</em>
+          Signalement d&apos;un problème d&apos;adressage
         </h4>
-        {SignalementFields}
-      </section>
-      <section>
-        <h4>Votre contact</h4>
+        <section>
+          <h6>
+            Adresse concernée
+          </h6>
+          <div className='form-row'>
+            {getExistingLocationLabel(address)}
+          </div>
+          <div className='form-row'>
+            {address.codePostal} {address.commune.nom}
+          </div>
+        </section>
+        <section>
+          <h6>
+            Modifications demandées
+          </h6>
 
-        <div className='form-row'>
-          <Input
-            label='Nom'
-            nativeInputProps={{
-              value: formData.author.lastName,
-              onChange: handleEdit('contactLastName')}}
-          />
-
-          <Input
-            label='Prénom'
-            nativeInputProps={{
-              value: formData.author.firstName,
-              onChange: handleEdit('contactFirstName')}}
-          />
+          <div className='form-row'>
+            <Input
+              label='Numéro*'
+              nativeInputProps={{
+                required: true,
+                type: 'number',
+                value: numero,
+                onChange: event => onEditSignalement('changesRequested', 'numero')(event.target.value)}}
+            />
+            <Input
+              label='Suffixe'
+              nativeInputProps={{
+                value: suffixe,
+                placeholder: 'bis, ter...',
+                onChange: event => onEditSignalement('changesRequested', 'suffixe')(event.target.value)}}
+            />
+          </div>
+          {positions.map(({position, positionType}, index) => (
+            <PositionInput
+              key={index} // eslint-disable-line react/no-array-index-key
+              position={position}
+              positionType={positionType}
+              onEditPositionType={updatedPosition => {
+                const newPositions = [...positions]
+                newPositions[index] = updatedPosition
+                onEditSignalement('changesRequested', 'positions')(newPositions)
+              }}
+              onDelete={() => {
+                onEditSignalement('changesRequested', 'positions')(positions.filter((_, i) => i !== index))
+              }} />
+          ))}
+          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Button
+              type='button'
+              style={{color: 'white', marginBottom: 10}}
+              onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: [address.lon, address.lat]}, positionType: 'entrée'}])}
+            >
+              Ajouter une position
+            </Button>
+          </div>
+          <div className='form-row'>
+            <Input
+              label='Nom de la voie'
+              nativeInputProps={{
+                required: true,
+                value: nomVoie,
+                onChange: event => onEditSignalement('changesRequested', 'nomVoie')(event.target.value)}}
+            />
+          </div>
+        </section>
+        <div className='form-controls'>
+          <Button
+            onClick={() => setShowRecapModal(true)}
+            disabled={isSubmitDisabled}
+            style={{color: 'white'}}
+            type='button'
+          >
+            Envoyer le signalement
+          </Button>
+          <Button type='button' priority='secondary' onClick={onClose}>
+            Annuler
+          </Button>
         </div>
-
-        <Input
-          label='Email'
-          nativeInputProps={{
-            type: 'email',
-            value: formData.author.email,
-            onChange: handleEdit('contactEmail')}}
-        />
-      </section>
-      {submitStatus === 'success' && (
-        <div className='fr-alert fr-alert--success'>
-          <p>
-            Votre signalement a bien été envoyée.
-          </p>
-        </div>
-      )}
-      {submitStatus === 'error' && (
-        <div className='fr-alert fr-alert--error'>
-          <p>
-            Une erreur est survenue lors de l&apos;envoi de votre signalement. Veuillez réessayer ultérieurement.
-          </p>
-        </div>
-      )}
-      <div className='form-controls'>
-        <Button
-          disabled={submitStatus === 'loading' || submitStatus === 'success'}
-          style={{color: 'white'}}
-          type='submit'
-        >
-          Envoyer le signalement
-        </Button>
-        <Button type='button' priority='secondary' onClick={onClose}>
-          Annuler
-        </Button>
-      </div>
-    </StyledForm>
+      </StyledForm>
+      {showRecapModal && <SignalementRecapModal onClose={() => setShowRecapModal(false)} signalement={signalement} address={address} onEditSignalement={onEditSignalement} />}
+    </>
   )
 }
 
-SignalementForm.propType = {
+SignalementForm.propTypes = {
   onClose: PropTypes.func.isRequired,
-  address: PropTypes.object.isRequired
+  address: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    codePostal: PropTypes.string,
+    commune: PropTypes.object,
+    position: PropTypes.object,
+    positions: PropTypes.array,
+    positionType: PropTypes.string,
+    parcelles: PropTypes.array,
+    displayBBox: PropTypes.array,
+    lat: PropTypes.number,
+    lon: PropTypes.number,
+    voie: PropTypes.object
+  }).isRequired,
+  signalement: PropTypes.object.isRequired,
+  onEditSignalement: PropTypes.func.isRequired
 }
-
-export default SignalementForm

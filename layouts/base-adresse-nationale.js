@@ -10,6 +10,8 @@ import BanMap from '@/components/maplibre/ban-map'
 import ButtonLink from '@/components/button-link'
 import SignalementButton from '@/components/signalement/signalement-button'
 import SignalementForm from '@/components/signalement/signalement-form'
+import SignalementMap from '@/components/signalement/signalement-map'
+import {useSignalement} from '@/components/signalement/use-signalement'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
@@ -137,6 +139,7 @@ Mobile.propTypes = propTypes
 
 export function Desktop({address, bbox, handleSelect, hash}) {
   const [isSignalementFormOpen, setIsSignalementFormOpen] = useState(false)
+  const {signalement, onEditSignalement} = useSignalement(address)
   const {zoom, center} = parseHash(hash)
 
   return (
@@ -145,9 +148,9 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='search'>
           <BanSearch />
         </div>
-        {isSignalementFormOpen ? <SignalementForm address={address} onClose={() => setIsSignalementFormOpen(false)} /> : <>
+        {isSignalementFormOpen ? <SignalementForm address={address} signalement={signalement} onEditSignalement={onEditSignalement} onClose={() => setIsSignalementFormOpen(false)} /> : <>
           <Explorer address={address} handleSelect={handleSelect} />
-          {address && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
+          {address && <SignalementButton disabled={address.type !== 'numero'} onClick={() => setIsSignalementFormOpen(true)} />}
           <div className='footer'>
             <p>Pour mettre à jour vos adresses, cliquez ici : </p>
             <ButtonLink href='https://adresse.data.gouv.fr/contribuer' isOutlined color='white' size='small'>
@@ -159,7 +162,9 @@ export function Desktop({address, bbox, handleSelect, hash}) {
 
       <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
 
-        <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+        {isSignalementFormOpen ?
+          <SignalementMap signalement={signalement} onEditSignalement={onEditSignalement} /> :
+          <BanMap address={address} onSelect={handleSelect} bbox={bbox} />}
 
       </MapLibre>
 
