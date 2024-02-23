@@ -13,12 +13,13 @@ const StyledButton = styled(Button)`
     }
 `
 
-function SignalementButton({onClick}) {
-  return <StyledButton onClick={onClick}>Signaler un problème <AlertTriangle /></StyledButton>
+function SignalementButton({onClick, disabled}) {
+  return <StyledButton disabled={disabled} onClick={onClick}>Signaler un problème <AlertTriangle /></StyledButton>
 }
 
-SignalementButton.propType = {
+SignalementButton.propTypes = {
   onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 }
 
 export default SignalementButton
