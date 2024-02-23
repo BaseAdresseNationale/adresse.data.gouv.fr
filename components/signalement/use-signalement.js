@@ -85,7 +85,7 @@ export function useSignalement(address) {
   const [signalement, setSignalement] = useState(null)
 
   useEffect(() => {
-    if (!address) {
+    if (!address || address.type !== 'numero') {
       return
     }
 
