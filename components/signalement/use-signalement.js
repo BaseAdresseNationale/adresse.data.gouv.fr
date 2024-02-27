@@ -67,6 +67,7 @@ export const getInitialSignalement = address => {
         numero: address.numero,
         suffixe: address.suffixe,
         positions: address.positions,
+        parcelles: address.parcelles,
         nomVoie: address.voie.nomVoie
       }
     } else if (type === 'VOIE') {
@@ -83,6 +84,7 @@ export const getInitialSignalement = address => {
 
 export function useSignalement(address) {
   const [signalement, setSignalement] = useState(null)
+  const [isEditParcellesMode, setIsEditParcellesMode] = useState(false)
 
   useEffect(() => {
     if (!address || address.type !== 'numero') {
@@ -102,5 +104,7 @@ export function useSignalement(address) {
   return {
     signalement,
     onEditSignalement,
+    isEditParcellesMode,
+    setIsEditParcellesMode
   }
 }

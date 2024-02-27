@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 import {StyledForm} from './signalement.styles'
+import ParcellesList from '../base-adresse-nationale/parcelles-list'
 import Input from '@codegouvfr/react-dsfr/Input'
 import Button from '@codegouvfr/react-dsfr/Button'
 import {sendSignalement} from '@/lib/api-signalement'
@@ -26,7 +27,7 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
     }
   }
 
-  const {numero, suffixe, nomVoie, positions} = signalement.changesRequested
+  const {numero, suffixe, nomVoie, positions, parcelles} = signalement.changesRequested
 
   return ReactDOM.createPortal(<Modal title='Votre demande de signalement' onClose={onClose}>
     <StyledForm onSubmit={handleSubmit}>
@@ -38,10 +39,13 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
             <p>
               {getExistingLocationLabel(address)}
               <br />
+              <h6>Positions : </h6>
               {address.positions.map(({position, positionType}, index) => {
                 return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
               })}
               <br />
+              <h6>Parcelles : </h6>
+              {address.parcelles && <ParcellesList parcelles={address.parcelles} />}
               {address.codePostal} {address.commune.nom}
             </p>
           </div>
@@ -50,9 +54,12 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
             <p>
               {numero} {suffixe} {nomVoie}
               <br />
+              <h6>Positions : </h6>
               {positions.map(({position, positionType}, index) => {
                 return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
               })}
+              <h6>Parcelles : </h6>
+              {<ParcellesList parcelles={parcelles} />}
               <br />
               {address.codePostal} {address.commune.nom}
             </p>

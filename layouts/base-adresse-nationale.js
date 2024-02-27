@@ -139,7 +139,7 @@ Mobile.propTypes = propTypes
 
 export function Desktop({address, bbox, handleSelect, hash}) {
   const [isSignalementFormOpen, setIsSignalementFormOpen] = useState(false)
-  const {signalement, onEditSignalement} = useSignalement(address)
+  const {signalement, onEditSignalement, isEditParcellesMode, setIsEditParcellesMode} = useSignalement(address)
   const {zoom, center} = parseHash(hash)
 
   return (
@@ -148,7 +148,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='search'>
           <BanSearch />
         </div>
-        {isSignalementFormOpen ? <SignalementForm address={address} signalement={signalement} onEditSignalement={onEditSignalement} onClose={() => setIsSignalementFormOpen(false)} /> : <>
+        {isSignalementFormOpen ? <SignalementForm address={address} signalement={signalement} onEditSignalement={onEditSignalement} onClose={() => setIsSignalementFormOpen(false)} setIsEditParcellesMode={setIsEditParcellesMode} isEditParcellesMode={isEditParcellesMode} /> : <>
           <Explorer address={address} handleSelect={handleSelect} />
           {address && <SignalementButton disabled={address.type !== 'numero'} onClick={() => setIsSignalementFormOpen(true)} />}
           <div className='footer'>
@@ -161,11 +161,9 @@ export function Desktop({address, bbox, handleSelect, hash}) {
       </div>
 
       <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-
         {isSignalementFormOpen ?
-          <SignalementMap signalement={signalement} onEditSignalement={onEditSignalement} /> :
+          <SignalementMap signalement={signalement} onEditSignalement={onEditSignalement} isEditParcellesMode={isEditParcellesMode} /> :
           <BanMap address={address} onSelect={handleSelect} bbox={bbox} />}
-
       </MapLibre>
 
       <style jsx>{`

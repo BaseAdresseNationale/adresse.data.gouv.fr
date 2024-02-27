@@ -1,11 +1,17 @@
 import {useCallback, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {MapPin} from 'react-feather'
-import {Marker} from 'react-map-gl/maplibre'
+import {Marker, Layer, Source, useMap} from 'react-map-gl/maplibre'
 import {positionTypeOptions} from './use-signalement'
+import {cadastreLayers, PARCELLES_MINZOOM} from '../maplibre/ban-map/layers'
+import {useCadastre} from './use-cadastre'
 
-function SignalementMap({signalement, onEditSignalement}) {
-  const {positions} = signalement.changesRequested
+function SignalementMap({signalement, onEditSignalement, isEditParcellesMode}) {
+  const {positions, parcelles} = signalement.changesRequested
+  const map = useMap()
+
+  const {cadastreFiltre} = useCadastre({map, parcelles, isCadastreDisplayed: isEditParcellesMode, handleEditParcelle: onEditSignalement('changesRequested', 'parcelles')})
+
   const onMarkerDrag = useCallback(index => event => {
     const newPositions = [...positions]
     newPositions[index] = {
@@ -37,6 +43,37 @@ function SignalementMap({signalement, onEditSignalement}) {
 
   return (
     <>
+      <Source id='cadastre'
+        type='vector'
+        url='https://openmaptiles.geo.data.gouv.fr/data/cadastre.json'
+      >
+        {[...cadastreLayers, {
+          id: 'parcelle-hovered',
+          type: 'fill',
+          source: 'cadastre',
+          'source-layer': 'parcelles',
+          minzoom: PARCELLES_MINZOOM,
+          layout: {
+            visibility: 'none'
+          },
+          paint: {
+            'fill-color': '#0053b3',
+            'fill-opacity': [
+              'case',
+              ['boolean', ['feature-state', 'hover'], false],
+              0.8,
+              0.6
+            ]
+          }
+        }].map(cadastreLayer => {
+          if (cadastreLayer.id === 'parcelle-highlighted') {
+            cadastreLayer.filter = cadastreFiltre
+          }
+
+          return <Layer key={cadastreLayer.id} {...cadastreLayer} layout={{...cadastreLayer.layout, visibility: isEditParcellesMode ? 'visible' : 'none'}} />
+        }
+        )}
+      </Source>
       {positions.map(({position, positionType}, index) => (
         <Marker
           key={index} // eslint-disable-line react/no-array-index-key
@@ -65,7 +102,8 @@ function SignalementMap({signalement, onEditSignalement}) {
 
 SignalementMap.propTypes = {
   signalement: PropTypes.object.isRequired,
-  onEditSignalement: PropTypes.func.isRequired
+  onEditSignalement: PropTypes.func.isRequired,
+  isEditParcellesMode: PropTypes.bool.isRequired,
 }
 
 export default SignalementMap
