@@ -7,15 +7,16 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import PositionInput from './position-input'
 import {getExistingLocationLabel, getInitialSignalement} from './use-signalement'
 import SignalementRecapModal from './signalement-recap-modal'
+import ParcellesList from '../base-adresse-nationale/parcelles-list'
 
-export default function SignalementForm({signalement, onEditSignalement, onClose, address}) {
+export default function SignalementForm({signalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode}) {
   const [showRecapModal, setShowRecapModal] = useState(false)
 
   const isSubmitDisabled = useMemo(() => {
     return JSON.stringify(getInitialSignalement(address)) === JSON.stringify(signalement)
   }, [address, signalement])
 
-  const {numero, suffixe, nomVoie, positions} = signalement.changesRequested
+  const {numero, suffixe, nomVoie, positions, parcelles} = signalement.changesRequested
 
   return (
     <>
@@ -24,9 +25,9 @@ export default function SignalementForm({signalement, onEditSignalement, onClose
           Signalement d&apos;un problème d&apos;adressage
         </h4>
         <section>
-          <h6>
+          <h5>
             Adresse concernée
-          </h6>
+          </h5>
           <div className='form-row'>
             {getExistingLocationLabel(address)}
           </div>
@@ -35,10 +36,9 @@ export default function SignalementForm({signalement, onEditSignalement, onClose
           </div>
         </section>
         <section>
-          <h6>
+          <h5>
             Modifications demandées
-          </h6>
-
+          </h5>
           <div className='form-row'>
             <Input
               label='Numéro*'
@@ -56,6 +56,7 @@ export default function SignalementForm({signalement, onEditSignalement, onClose
                 onChange: event => onEditSignalement('changesRequested', 'suffixe')(event.target.value)}}
             />
           </div>
+          <h6>Positions :</h6>
           {positions.map(({position, positionType}, index) => (
             <PositionInput
               key={index} // eslint-disable-line react/no-array-index-key
@@ -77,6 +78,17 @@ export default function SignalementForm({signalement, onEditSignalement, onClose
               onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: [address.lon, address.lat]}, positionType: 'entrée'}])}
             >
               Ajouter une position
+            </Button>
+          </div>
+          <h6>Parcelles cadastrales :</h6>
+          <ParcellesList parcelles={parcelles} />
+          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <Button
+              type='button'
+              style={{color: 'white', marginBottom: 10}}
+              onClick={() => setIsEditParcellesMode(!isEditParcellesMode)}
+            >
+              {isEditParcellesMode ? 'Arrêter de modifier les parcelles' : 'Modifier les parcelles'}
             </Button>
           </div>
           <div className='form-row'>
@@ -125,5 +137,7 @@ SignalementForm.propTypes = {
     voie: PropTypes.object
   }).isRequired,
   signalement: PropTypes.object.isRequired,
-  onEditSignalement: PropTypes.func.isRequired
+  onEditSignalement: PropTypes.func.isRequired,
+  setIsEditParcellesMode: PropTypes.func.isRequired,
+  isEditParcellesMode: PropTypes.bool
 }
