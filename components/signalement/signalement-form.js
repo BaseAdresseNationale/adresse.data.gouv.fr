@@ -7,7 +7,6 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import PositionInput from './position-input'
 import {getExistingLocationLabel, getInitialSignalement} from './use-signalement'
 import SignalementRecapModal from './signalement-recap-modal'
-import ParcellesList from '../base-adresse-nationale/parcelles-list'
 
 export default function SignalementForm({signalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode}) {
   const [showRecapModal, setShowRecapModal] = useState(false)
@@ -81,7 +80,13 @@ export default function SignalementForm({signalement, onEditSignalement, onClose
             </Button>
           </div>
           <h6>Parcelles cadastrales :</h6>
-          <ParcellesList parcelles={parcelles} />
+          <div className='parcelles-wrapper'>
+            {parcelles.map(parcelle => (
+              <div key={parcelle}>
+                {parcelle}
+              </div>
+            ))}
+          </div>
           <div style={{display: 'flex', justifyContent: 'flex-end'}}>
             <Button
               type='button'
