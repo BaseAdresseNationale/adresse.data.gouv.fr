@@ -1,13 +1,29 @@
 
 import {useCallback, useMemo, useEffect, useState} from 'react'
+import {PARCELLES_MINZOOM} from '../maplibre/ban-map/layers'
+
+export const parcelleHoveredLayer = {
+  id: 'parcelle-hovered',
+  type: 'fill',
+  source: 'cadastre',
+  'source-layer': 'parcelles',
+  minzoom: PARCELLES_MINZOOM,
+  layout: {
+    visibility: 'none'
+  },
+  paint: {
+    'fill-color': [
+      'case',
+      ['boolean', ['feature-state', 'hover'], false],
+      '#0053b3',
+      'transparent',
+    ],
+    'fill-opacity': 0.6,
+  }
+}
 
 export const useCadastre = ({map, parcelles, handleEditParcelle}) => {
   const [hoveredParcelle, setHoveredParcelle] = useState(null)
-
-  console.log(map)
-  useEffect(() => {
-    console.log('hoveredParcelle', hoveredParcelle)
-  }, [hoveredParcelle])
 
   const cadastreFiltre = useMemo(() => parcelles ? ['any', ...parcelles.map(id => ['==', ['get', 'id'], id])] : ['==', ['get', 'id'], ''], [parcelles])
 
@@ -16,16 +32,16 @@ export const useCadastre = ({map, parcelles, handleEditParcelle}) => {
       if (e.features.length > 0) {
         if (hoveredParcelle) {
           map.current.setFeatureState(
-            {source: 'cadastre', sourceLayer: 'parcelle-hovered', id: hoveredParcelle},
+            {source: 'cadastre', sourceLayer: 'parcelles', id: hoveredParcelle},
             {hover: false}
           )
         }
 
-        setHoveredParcelle(e.features[0].id)
         map.current.setFeatureState(
-          {source: 'cadastre', sourceLayer: 'parcelle-hovered', id: hoveredParcelle},
+          {source: 'cadastre', sourceLayer: 'parcelles', id: e.features[0].id},
           {hover: true}
         )
+        setHoveredParcelle(e.features[0].id)
       }
     },
     [map, hoveredParcelle]
@@ -35,7 +51,7 @@ export const useCadastre = ({map, parcelles, handleEditParcelle}) => {
     () => {
       if (hoveredParcelle) {
         map.current.setFeatureState(
-          {source: 'cadastre', sourceLayer: 'parcelle-hovered', id: hoveredParcelle},
+          {source: 'cadastre', sourceLayer: 'parcelles', id: hoveredParcelle},
           {hover: false}
         )
       }
@@ -47,13 +63,12 @@ export const useCadastre = ({map, parcelles, handleEditParcelle}) => {
 
   const handleSelectParcelle = useCallback(
     e => {
-      console.log('e', e)
       if (map && e && e.features && e.features.length > 0) {
-        const selected = e.features[0].id
-        if (parcelles.includes(selected)) {
-          handleEditParcelle(parcelles.filter(id => id !== selected))
-        } else {
-          handleEditParcelle([...parcelles, selected])
+        const selectedParcelle = e.features[0]?.properties?.id
+        if (parcelles.includes(selectedParcelle)) {
+          handleEditParcelle(parcelles.filter(id => id !== selectedParcelle))
+        } else if (selectedParcelle) {
+          handleEditParcelle([...parcelles, selectedParcelle])
         }
       }
     },
@@ -62,11 +77,11 @@ export const useCadastre = ({map, parcelles, handleEditParcelle}) => {
 
   useEffect(() => {
     map.current.on('mousemove', 'parcelle-hovered', handleMouseMove)
-    map.current.on('mouseleave', 'parcelle-hovered', () => handleMouseLeave)
+    map.current.on('mouseleave', 'parcelle-hovered', handleMouseLeave)
     map.current.on('click', 'parcelle-hovered', handleSelectParcelle)
     return () => {
       map.current.off('mousemove', 'parcelle-hovered', handleMouseMove)
-      map.current.off('mouseleave', 'parcelle-hovered', () => handleMouseLeave)
+      map.current.off('mouseleave', 'parcelle-hovered', handleMouseLeave)
       map.current.off('click', 'parcelle-hovered', handleSelectParcelle)
     }
   }, [map, handleMouseMove, handleSelectParcelle, handleMouseLeave])

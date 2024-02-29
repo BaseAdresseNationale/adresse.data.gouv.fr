@@ -49,4 +49,17 @@ export const StyledForm = styled.form`
       margin-left: 1em;
     }
   }
+
+  .parcelles-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    > div {
+      margin-right: 1em;
+      margin-bottom: 1em;
+      padding: 0.5em;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+  }
 `
