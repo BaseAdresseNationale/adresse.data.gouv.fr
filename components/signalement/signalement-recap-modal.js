@@ -38,31 +38,26 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
             <h5>Adresse concernée</h5>
             <p>
               {getExistingLocationLabel(address)}
-              <br />
-              <h6>Positions : </h6>
-              {address.positions.map(({position, positionType}, index) => {
-                return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
-              })}
-              <br />
-              <h6>Parcelles : </h6>
-              {address.parcelles && <ParcellesList parcelles={address.parcelles} />}
-              {address.codePostal} {address.commune.nom}
+
             </p>
+            <h6>Positions : </h6>
+            {address.positions.map(({position, positionType}, index) => {
+              return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
+            })}
+            <h6>Parcelles : </h6>
+            {address.parcelles && <ParcellesList parcelles={address.parcelles} />}
           </div>
           <div>
             <h5>Modifications demandées</h5>
             <p>
               {numero} {suffixe} {nomVoie}
-              <br />
-              <h6>Positions : </h6>
-              {positions.map(({position, positionType}, index) => {
-                return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
-              })}
-              <h6>Parcelles : </h6>
-              {<ParcellesList parcelles={parcelles} />}
-              <br />
-              {address.codePostal} {address.commune.nom}
             </p>
+            <h6>Positions : </h6>
+            {positions.map(({position, positionType}, index) => {
+              return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
+            })}
+            <h6>Parcelles : </h6>
+            {<ParcellesList parcelles={parcelles} />}
           </div>
         </div>
       </section>

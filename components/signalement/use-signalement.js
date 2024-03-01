@@ -34,13 +34,35 @@ export function getExistingLocationLabel(address) {
   switch (address.type) {
     // In this case type = LOCATION_TO_CREATE
     case 'commune':
+      return address.nom
+    case 'voie':
+      return address.nomVoie
+    case 'lieu-dit':
+      return address.nom
+    default:
+      return `${address.numero} ${address.suffixe || ''} ${address.voie.nomVoie}`
+  }
+}
+
+export function getExistingLocation(address) {
+  switch (address.type) {
+    // In this case type = LOCATION_TO_CREATE
+    case 'commune':
       return ''
     case 'voie':
       return 'VOIE'
     case 'lieu-dit':
       return 'TOPONYME'
     default:
-      return `${address.numero} ${address.voie.nomVoie}`
+      return {
+        type: 'NUMERO',
+        numero: address.numero,
+        suffixe: address.suffixe,
+        toponyme: {
+          type: 'VOIE',
+          nom: address.voie.nomVoie
+        }
+      }
   }
 }
 
@@ -51,10 +73,7 @@ export const getInitialSignalement = address => {
     initialSignalement = {
       codeCommune: address.commune.code,
       type: 'LOCATION_TO_UPDATE',
-      existingLocation: {
-        type,
-        label: getExistingLocationLabel(address),
-      },
+      existingLocation: getExistingLocation(address),
       author: {
         firstName: '',
         lastName: '',

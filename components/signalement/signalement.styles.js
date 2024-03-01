@@ -62,4 +62,8 @@ export const StyledForm = styled.form`
       border-radius: 5px;
     }
   }
+
+  h6 {
+    margin: 1em 0 0 0;
+  }
 `
