@@ -45,7 +45,7 @@ app.prepare().then(() => {
             'geo.api.gouv.fr',
             'openmaptiles.geo.data.gouv.fr',
             'openmaptiles.github.io',
-            'wxs.ign.fr',
+            'data.geopf.fr/',
             'orangemug.github.io',
             'stats.data.gouv.fr'
           ],
