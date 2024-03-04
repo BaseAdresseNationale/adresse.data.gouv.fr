@@ -25,8 +25,10 @@ const rootLink = {
 const bucketName = 'prd-ign-mut-ban'
 const rootDir = ['adresse-data']
 const clientS3 = new S3({
-  accessKeyId: S3_CONFIG_ACCESS_KEY_ID,
-  secretAccessKey: S3_CONFIG_SECRET_ACCESS_KEY,
+  credentials: {
+    accessKeyId: S3_CONFIG_ACCESS_KEY_ID,
+    secretAccessKey: S3_CONFIG_SECRET_ACCESS_KEY,
+  },
   region: S3_CONFIG_REGION,
   endpoint: S3_CONFIG_ENDPOINT,
 })
@@ -112,7 +114,7 @@ async function listObjectsRecursively(prefix, continuationToken) {
       path: Prefix,
       isDirectory: true,
     }))
-    const nextList = (data.IsTruncated) ? listObjectsRecursively(prefix, data.NextContinuationToken) : []
+    const nextList = (data.IsTruncated) ? await listObjectsRecursively(prefix, data.NextContinuationToken) : []
     return [...filesList, ...dirsList, ...nextList]
   } catch (err) {
     console.error('Erreur lors de la récupération de la liste des objets :', err)
@@ -159,7 +161,7 @@ export async function getServerSideProps(context) {
   } catch {
     // ERROR > PATH SHOULD BE DIRECTORY
     const s3DirPath = `${s3ObjectPath}/`
-    const s3Objects = (await listObjectsRecursively(s3DirPath))
+    const s3Objects = await listObjectsRecursively(s3DirPath)
     if (s3Objects) {
       const s3data = (s3Objects || [])
         .filter(({name}) => autorizedPathS3(name).auth)
