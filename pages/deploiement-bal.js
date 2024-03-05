@@ -18,9 +18,9 @@ import {MapLegacy as MapLibre} from '@/components/maplibre'
 import BalCoverMap from '@/components/bases-locales/deploiement-bal/bal-cover-map'
 import PanelSource from '@/components/bases-locales/deploiement-bal/panel-source'
 import PanelBal from '@/components/bases-locales/deploiement-bal/panel-bal'
-import SearchInput from '@/components/search-input'
-import SearchSelected from '@/components/search-input/search-selected'
-import StatsSearchItem from '@/components/search-input/stats-search-item'
+import SearchInput from '@/components/search-input-legacy'
+import SearchSelected from '@/components/search-input-legacy/search-selected'
+import StatsSearchItem from '@/components/search-input-legacy/stats-search-item'
 
 const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
 

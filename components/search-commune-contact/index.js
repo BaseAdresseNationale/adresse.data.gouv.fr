@@ -3,15 +3,11 @@ import {debounce} from 'lodash'
 
 import {getCommunes} from '@/lib/api-geo'
 import {getMairie} from '@/lib/api-etablissements-public'
-
-import {useInput} from '../../hooks/input'
-
-import SearchInput from '@/components/search-input'
-import RenderCommune from '@/components/search-input/render-commune'
-
+import {useInput} from '@/hooks/input'
+import SearchInput from '@/components/search-input-legacy'
+import RenderCommune from '@/components/search-input-legacy/render-commune'
 import Notification from '@/components/notification'
 import Loader from '@/components/loader'
-
 import MairieCard from '@/components/mairie/mairie-card'
 
 function SearchCommuneContact() {

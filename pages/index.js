@@ -18,7 +18,7 @@ import ButtonLink from '@/components/button-link'
 import MapBalSection from '@/components/map-bal-section'
 import DocDownload from '@/components/doc-download'
 import Temoignages from '@/components/temoignages'
-import CommuneSearch from '@/components/commune/commune-search'
+import BanSearch from '@/components/ban-search'
 import EventBanner from '@/components/evenement/event-banner'
 
 function Home({stats, posts, events}) {
@@ -92,7 +92,9 @@ function Home({stats, posts, events}) {
           <SectionText>
             Recherchez une commune afin d’obtenir les <b>informations disponibles sur ses adresses</b>, leur composition, leur degré d’achèvement et de certification, et de <b>télécharger ses fichiers adresses</b>.
           </SectionText>
-          <CommuneSearch />
+          <div style={{width: '100%'}}>
+            <BanSearch placeholder='Paris 11e Arrondissement' filter={{type: 'municipality'}} hasPreferedPageResult />
+          </div>
 
           <style jsx>{`
             .commune-search-section {

@@ -53,7 +53,7 @@ export function Mobile({address, bbox, handleSelect, hash}) {
 
   return (
     <div className='ban-container'>
-      <BanSearch />
+      <BanSearch placeholder='20 avenue de Ségur, Paris' />
 
       <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
         <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
@@ -140,7 +140,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
     <div className='ban-container'>
       <div className='sidebar'>
         <div className='search'>
-          <BanSearch />
+          <BanSearch placeholder='20 avenue de Ségur, Paris' />
         </div>
         <Explorer address={address} handleSelect={handleSelect} />
         <div className='footer'>

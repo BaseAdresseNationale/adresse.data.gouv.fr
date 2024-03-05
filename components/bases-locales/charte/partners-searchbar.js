@@ -8,9 +8,9 @@ import theme from '@/styles/theme'
 import {getPartenairesDeLaCharte} from '@/lib/api-bal-admin'
 
 import SearchPartnersResults from '@/components/bases-locales/charte/search-partners-results'
-import SearchInput from '@/components/search-input'
+import SearchInput from '@/components/search-input-legacy'
+import RenderCommune from '@/components/search-input-legacy/render-commune'
 import Tags from '@/components/bases-locales/charte/tags'
-import RenderCommune from '@/components/search-input/render-commune'
 
 function getPartnerEchlon(partner) {
   if (partner.type === 'commune') {

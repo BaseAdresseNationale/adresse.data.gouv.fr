@@ -2,16 +2,14 @@ import {useState, useCallback, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {debounce} from 'lodash'
 
-import theme from '../../../../styles/theme'
-
 import {search} from '@/lib/api-search'
 import {useInput} from '@/hooks/input'
-
+import theme from '@/styles/theme'
 import Section from '@/components/section'
+import SearchInput from '@/components/search-input-legacy'
 
 import Tuto from '../tuto'
 import TryContainer from '../try-container'
-import SearchInput from '../../../search-input'
 import SwitchInput from '../switch-input'
 
 const TYPES = ['housenumber', 'street', 'locality', 'municipality']
@@ -147,7 +145,10 @@ function ByAddressName({title, id, icon}) {
               getItemValue={item => item.label}
               results={list}
             />
-            <SwitchInput handleChange={() => setAutocomplete(!autocomplete)} label='Autocomplétion' isChecked={autocomplete} />
+            <SwitchInput
+              handleChange={() => setAutocomplete(!autocomplete)}
+              label='Autocomplétion'
+              isChecked={autocomplete} />
           </div>
 
           <div>
