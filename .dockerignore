@@ -1,10 +1,58 @@
-/.git/
-/.github/
-/node_modules/
-# à compléter avec ce qui est local
+# Environment config
+.env*
+
+# Runtime
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Logs
+logs
+*.log
+npm-debug.log*
+CHANGELOG.md
+
+# Mac
+*.DS_Store
+.AppleDouble
+.LSOverride
 
 # Build
 .next
-bundle-stats
-available-flags.json
 
+# Cache
+.yarn-cache
+.npm
+.eslintcache
+.changelog
+
+# Node
+node_modules
+
+# Reports
+coverage
+reports
+
+# Git config
+.git
+.github
+.gitignore
+
+#Editor Config
+.editorconfig
+
+#Docker config
+Dockerfile*
+docker-compose.yml
+.dockerignore
+
+#Babel config
+.babelrc
+
+#Scalingo config
+scalingo.json
+
+#Other
+*.md
+LICENSE
