@@ -1,16 +1,4 @@
-version: "1"
-
 services:
-  api:
-    build:
-      context: .
-      args:
-        - http_proxy
-        - https_proxy
-        - HTTP_PROXY
-        - HTTPS_PROXY
-    ports:
-      - "${PORT:-3000}:3000"
   frontend:
     build: 
       dockerfile: 'Dockerfile.dev'
