@@ -15,7 +15,6 @@ function KeyNumberItem({value = '', unit, label = '', description, className}) {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        /* position: relative; */
       }
 
       .key-number {
