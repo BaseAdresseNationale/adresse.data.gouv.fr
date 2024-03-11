@@ -30,4 +30,3 @@ COPY --from=builder /app/scripts/ ./scripts
 EXPOSE 3000
 
 CMD ["sh", "-c", "yarn build-available-flags && yarn start"]
-#CMD ["yarn", "start"]
