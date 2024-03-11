@@ -20,6 +20,8 @@ services:
       - ./events.json:/app/events.json
       - ./next.config.js:/app/next.config.js
       - ./.babelrc:/app/.babelrc
+    ports:
+      - "${PORT:-3000}:3000"
     environment:
       - NEXT_PUBLIC_ADRESSE_URL=${NEXT_PUBLIC_ADRESSE_URL}
       - NEXT_PUBLIC_API_GEO_URL=${NEXT_PUBLIC_API_GEO_URL}
