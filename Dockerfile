@@ -9,9 +9,6 @@ RUN yarn
 COPY . .
 RUN yarn build
 
-# purger les inutiles dans node_modules en gérant proprement "dependencies" et "devDependencies"
-# RUN rm -rf node_modules && yarn install --production
-
 FROM node:18.19-alpine3.18
 
 WORKDIR /app
