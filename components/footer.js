@@ -94,8 +94,8 @@ function Footer() {
         }}
         bottomItems={[
           {
-            text: 'Indicateurs d’impact',
-            linkProps: {href: '/indicateurs'}
+            text: 'Statistiques',
+            linkProps: {href: '/stats'}
           },
           {
             text: 'Contact',
