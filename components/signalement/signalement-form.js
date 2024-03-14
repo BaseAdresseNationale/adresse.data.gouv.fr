@@ -1,125 +1,88 @@
-import {useState, useMemo} from 'react'
+import {useState} from 'react'
 import PropTypes from 'prop-types'
 
-import {StyledForm} from './signalement.styles'
-import Input from '@codegouvfr/react-dsfr/Input'
 import Button from '@codegouvfr/react-dsfr/Button'
-import PositionInput from './position-input'
-import {getExistingLocationLabel, getInitialSignalement} from './use-signalement'
+import {StyledForm} from './signalement.styles'
 import SignalementRecapModal from './signalement-recap-modal'
+import SignalementNumeroUpdateForm from './signalement-numero/signalement-numero-update-form'
+import SignalementNumeroDeleteForm from './signalement-numero/signalement-numero-delete-form'
+import SignalementCreateForm from './signalement-numero/signalement-numero-create-form'
+import {getExistingLocationLabel} from './use-signalement'
 
-export default function SignalementForm({signalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode}) {
+export default function SignalementForm({signalement, createSignalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode, center}) {
   const [showRecapModal, setShowRecapModal] = useState(false)
-
-  const isSubmitDisabled = useMemo(() => {
-    return JSON.stringify(getInitialSignalement(address)) === JSON.stringify(signalement)
-  }, [address, signalement])
-
-  const {numero, suffixe, nomVoie, positions, parcelles} = signalement.changesRequested
 
   return (
     <>
-      <StyledForm >
-        <h4>
-          Signalement d&apos;un problème d&apos;adressage
-        </h4>
-        <section>
-          <h5>
-            Adresse concernée
-          </h5>
-          <div className='form-row'>
-            {getExistingLocationLabel(address)}
-          </div>
-          <div className='form-row'>
-            {address.codePostal} {address.commune.nom}
-          </div>
-        </section>
-        <section>
-          <h5>
-            Modifications demandées
-          </h5>
-          <div className='form-row'>
-            <Input
-              label='Numéro*'
-              nativeInputProps={{
-                required: true,
-                type: 'number',
-                value: numero,
-                onChange: event => onEditSignalement('changesRequested', 'numero')(event.target.value)}}
-            />
-            <Input
-              label='Suffixe'
-              nativeInputProps={{
-                value: suffixe,
-                placeholder: 'bis, ter...',
-                onChange: event => onEditSignalement('changesRequested', 'suffixe')(event.target.value)}}
-            />
-          </div>
-          <h6>Positions :</h6>
-          {positions.map(({position, positionType}, index) => (
-            <PositionInput
-              key={index} // eslint-disable-line react/no-array-index-key
-              position={position}
-              positionType={positionType}
-              onEditPositionType={updatedPosition => {
-                const newPositions = [...positions]
-                newPositions[index] = updatedPosition
-                onEditSignalement('changesRequested', 'positions')(newPositions)
-              }}
-              onDelete={() => {
-                onEditSignalement('changesRequested', 'positions')(positions.filter((_, i) => i !== index))
-              }} />
-          ))}
-          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+      {!signalement && (
+        <StyledForm>
+          {address && (<section>
+            <h4>
+              Signalement
+            </h4>
+            <h5>
+              Adresse concernée
+            </h5>
+            <div className='form-row'>
+              {getExistingLocationLabel(address)}
+            </div>
+            <div className='form-row'>
+              {address.codePostal} {address.commune.nom}
+            </div>
             <Button
               type='button'
               style={{color: 'white', marginBottom: 10}}
-              onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: [address.lon, address.lat]}, positionType: 'entrée'}])}
+              onClick={() => createSignalement('LOCATION_TO_UPDATE')}
             >
-              Ajouter une position
+              Signaler un changement
             </Button>
-          </div>
-          <h6>Parcelles cadastrales :</h6>
-          <div className='parcelles-wrapper'>
-            {parcelles.map(parcelle => (
-              <div key={parcelle}>
-                {parcelle}
-              </div>
-            ))}
-          </div>
-          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
             <Button
               type='button'
               style={{color: 'white', marginBottom: 10}}
-              onClick={() => setIsEditParcellesMode(!isEditParcellesMode)}
+              onClick={() => createSignalement('LOCATION_TO_DELETE')}
             >
-              {isEditParcellesMode ? 'Arrêter de modifier les parcelles' : 'Modifier les parcelles'}
+              Demander la suppression
             </Button>
-          </div>
-          <div className='form-row'>
-            <Input
-              label='Nom de la voie'
-              nativeInputProps={{
-                required: true,
-                value: nomVoie,
-                onChange: event => onEditSignalement('changesRequested', 'nomVoie')(event.target.value)}}
-            />
-          </div>
-        </section>
-        <div className='form-controls'>
-          <Button
-            onClick={() => setShowRecapModal(true)}
-            disabled={isSubmitDisabled}
-            style={{color: 'white'}}
-            type='button'
-          >
-            Envoyer le signalement
-          </Button>
-          <Button type='button' priority='secondary' onClick={onClose}>
-            Annuler
-          </Button>
-        </div>
-      </StyledForm>
+          </section>)}
+          <section>
+            <h5>
+              Adresse non référencée
+            </h5>
+            <Button
+              type='button'
+              style={{color: 'white', marginBottom: 10}}
+              onClick={() => createSignalement('LOCATION_TO_CREATE')}
+            >
+              Signaler un numéro manquant
+            </Button>
+          </section>
+        </StyledForm>
+      )}
+      {signalement?.type === 'LOCATION_TO_CREATE' && (
+        <SignalementCreateForm
+          setIsEditParcellesMode={setIsEditParcellesMode}
+          onClose={onClose}
+          onSubmit={() => setShowRecapModal(true)}
+          onEditSignalement={onEditSignalement}
+          signalement={signalement}
+          isEditParcellesMode={isEditParcellesMode}
+          center={center} />)}
+      {signalement?.type === 'LOCATION_TO_DELETE' && (
+        <SignalementNumeroDeleteForm
+          address={address}
+          onClose={onClose}
+          onSubmit={() => setShowRecapModal(true)}
+          onEditSignalement={onEditSignalement}
+          signalement={signalement} />)}
+      {signalement?.type === 'LOCATION_TO_UPDATE' && (
+        <SignalementNumeroUpdateForm
+          address={address}
+          setIsEditParcellesMode={setIsEditParcellesMode}
+          onClose={onClose}
+          onSubmit={() => setShowRecapModal(true)}
+          onEditSignalement={onEditSignalement}
+          signalement={signalement}
+          isEditParcellesMode={isEditParcellesMode} />)}
       {showRecapModal && <SignalementRecapModal onClose={() => setShowRecapModal(false)} signalement={signalement} address={address} onEditSignalement={onEditSignalement} />}
     </>
   )
@@ -141,8 +104,10 @@ SignalementForm.propTypes = {
     lon: PropTypes.number,
     voie: PropTypes.object
   }).isRequired,
-  signalement: PropTypes.object.isRequired,
+  signalement: PropTypes.object,
   onEditSignalement: PropTypes.func.isRequired,
   setIsEditParcellesMode: PropTypes.func.isRequired,
-  isEditParcellesMode: PropTypes.bool
+  createSignalement: PropTypes.func.isRequired,
+  isEditParcellesMode: PropTypes.bool,
+  center: PropTypes.array
 }
