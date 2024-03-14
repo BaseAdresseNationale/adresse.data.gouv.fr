@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 
+export const SignalementTypeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 export const StyledForm = styled.form`
   padding: 20px;
   display: flex;

@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 
 export const positionTypeOptions = [
   {value: 'entrée', label: 'Entrée', color: 'green'},
@@ -66,35 +66,41 @@ export function getExistingLocation(address) {
   }
 }
 
-export const getInitialSignalement = address => {
-  let initialSignalement = {}
-  if (address) {
-    const type = getExistingLocationType(address.type)
-    initialSignalement = {
-      codeCommune: address.commune.code,
-      type: 'LOCATION_TO_UPDATE',
-      existingLocation: getExistingLocation(address),
-      author: {
-        firstName: '',
-        lastName: '',
-        email: ''
-      }
-    }
+export const getInitialSignalement = (signalementType, address) => {
+  if (!address) {
+    return null
+  }
 
-    if (type === 'NUMERO') {
-      initialSignalement.changesRequested = {
-        numero: address.numero,
-        suffixe: address.suffixe,
-        positions: address.positions,
-        parcelles: address.parcelles,
-        nomVoie: address.voie.nomVoie
-      }
-    } else if (type === 'VOIE') {
-      initialSignalement.changesRequested = {
-        nomVoie: address.nomVoie
-      }
-    } else if (type === 'TOPONYME') {
-      initialSignalement.changesRequested = {}
+  const initialSignalement = {
+    type: signalementType,
+    codeCommune: address.commune.code,
+    author: {
+      firstName: '',
+      lastName: '',
+      email: ''
+    },
+    changesRequested: {}
+  }
+
+  if (signalementType === 'LOCATION_TO_CREATE') {
+    initialSignalement.changesRequested = {
+      numero: '',
+      suffixe: '',
+      nomVoie: address.voie.nomVoie,
+      positions: [],
+      parcelles: []
+    }
+  } else if (signalementType === 'LOCATION_TO_UPDATE') {
+    initialSignalement.changesRequested = {
+      numero: address.numero,
+      suffixe: address.suffixe,
+      nomVoie: address.voie.nomVoie,
+      positions: address.positions,
+      parcelles: address.parcelles
+    }
+  } else if (signalementType === 'LOCATION_TO_DELETE') {
+    initialSignalement.changesRequested = {
+      comment: ''
     }
   }
 
@@ -105,13 +111,13 @@ export function useSignalement(address) {
   const [signalement, setSignalement] = useState(null)
   const [isEditParcellesMode, setIsEditParcellesMode] = useState(false)
 
-  useEffect(() => {
-    if (!address || address.type !== 'numero') {
-      return
-    }
+  const createSignalement = signalementType => {
+    setSignalement(getInitialSignalement(signalementType, address))
+  }
 
-    setSignalement(getInitialSignalement(address))
-  }, [address])
+  const deleteSignalement = () => {
+    setSignalement(null)
+  }
 
   const onEditSignalement = (property, key) => value => {
     setSignalement(state => ({...state, [property]: {
@@ -121,6 +127,8 @@ export function useSignalement(address) {
   }
 
   return {
+    createSignalement,
+    deleteSignalement,
     signalement,
     onEditSignalement,
     isEditParcellesMode,

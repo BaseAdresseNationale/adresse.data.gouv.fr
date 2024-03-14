@@ -31,14 +31,13 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
 
   return ReactDOM.createPortal(<Modal title='Votre demande de signalement' onClose={onClose}>
     <StyledForm onSubmit={handleSubmit}>
-      <section>
+      {signalement.type === 'LOCATION_TO_UPDATE' && <section>
         <h4>Récapitulatif</h4>
         <div className='signalement-recap'>
           <div>
             <h5>Adresse concernée</h5>
             <p>
               {getExistingLocationLabel(address)}
-
             </p>
             <h6>Positions : </h6>
             {address.positions.map(({position, positionType}, index) => {
@@ -60,7 +59,7 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
             {<ParcellesList parcelles={parcelles} />}
           </div>
         </div>
-      </section>
+      </section>}
       <section>
         <h4>Contact</h4>
         <p>
