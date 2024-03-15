@@ -126,6 +126,7 @@ function CurlDoc() {
             <p>On peut utiliser le fichier <a href='https://adresse.data.gouv.fr/exemples/search.csv'>https://adresse.data.gouv.fr/exemples/search.csv</a> comme exemple.</p>
             <pre><code>curl -X POST -F data=@search.csv -F columns=adresse -F columns=postcode https://api-adresse.data.gouv.fr/search/csv/</code></pre>
             <p>Enfin, en cas d’industrialisation du géocodage, il peut être pertinent de lister spécifiquement les champs attendus dans la réponse, pour limiter la taille du fichier obtenu, et donc accélérer le transfert et réduire l’empreinte carbone.</p>
+            <p>Les champs disponibles sont : latitude, longitude, result_label, result_score, result_score_next, result_type, result_id, result_housenumber, result_name, result_street, result_postcode, result_city, result_context, result_citycode, result_oldcitycode, result_oldcity, result_district et result_status.</p>
             <pre><code>curl -X POST -F data=@search.csv -F columns=adresse -F columns=postcode -F result_columns=result_id -F result_columns=score https://api-adresse.data.gouv.fr/search/csv/</code></pre>
           </div>
         </div>
