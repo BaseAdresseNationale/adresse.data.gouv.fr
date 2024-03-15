@@ -182,7 +182,6 @@ export function Desktop({address, bbox, handleSelect, hash}) {
             onClose={handleCloseSignalementForm}
             setIsEditParcellesMode={setIsEditParcellesMode}
             isEditParcellesMode={isEditParcellesMode}
-            center={center}
           />
         ) : (
           <>

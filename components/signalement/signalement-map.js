@@ -37,7 +37,7 @@ function SignalementMap({signalement, onEditSignalement, isEditParcellesMode}) {
   }, [signalementLabel])
 
   const getSignalementPositionColor = useCallback(positionType => {
-    return positionTypeOptions.find(({value}) => value === positionType).color
+    return positionTypeOptions.find(({value}) => value === positionType)?.color || 'white'
   }, [])
 
   return (

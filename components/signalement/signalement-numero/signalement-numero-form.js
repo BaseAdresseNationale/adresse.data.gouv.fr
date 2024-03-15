@@ -7,19 +7,27 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import PositionInput from '../position-input'
 import {getExistingLocationLabel, getInitialSignalement} from '../use-signalement'
 
-export default function SignalementNumeroUpdateForm({signalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode, onSubmit}) {
+export default function SignalementNumeroForm({signalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode, onSubmit, initialPositionCoords}) {
+  const isCreation = !address
+
   const isSubmitDisabled = useMemo(() => {
-    return JSON.stringify(getInitialSignalement(address)) === JSON.stringify(signalement)
-  }, [address, signalement])
+    const {changesRequested} = signalement
+    const isDisabled = changesRequested.positions.length === 0
+    if (isCreation) {
+      return isDisabled
+    }
+
+    return isDisabled || (JSON.stringify(getInitialSignalement(address)) === JSON.stringify(signalement))
+  }, [address, signalement, isCreation])
 
   const {numero, suffixe, nomVoie, positions, parcelles} = signalement.changesRequested
 
   return (
-    <StyledForm >
+    <StyledForm onSubmit={onSubmit}>
       <h4>
         Signalement d&apos;un problème d&apos;adressage
       </h4>
-      <section>
+      {!isCreation && <section>
         <h5>
           Adresse concernée
         </h5>
@@ -29,16 +37,18 @@ export default function SignalementNumeroUpdateForm({signalement, onEditSignalem
         <div className='form-row'>
           {address.codePostal} {address.commune.nom}
         </div>
-      </section>
+      </section>}
       <section>
         <h5>
-          Modifications demandées
+          {isCreation ? 'Demande de création d\'un numéro' : 'Modifications demandées'}
         </h5>
         <div className='form-row'>
           <Input
             label='Numéro*'
             nativeInputProps={{
               required: true,
+              min: 1,
+              max: 9999,
               type: 'number',
               value: numero,
               onChange: event => onEditSignalement('changesRequested', 'numero')(event.target.value)}}
@@ -70,7 +80,7 @@ export default function SignalementNumeroUpdateForm({signalement, onEditSignalem
           <Button
             type='button'
             style={{color: 'white', marginBottom: 10}}
-            onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: [address.lon, address.lat]}, positionType: 'entrée'}])}
+            onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: initialPositionCoords}, positionType: 'entrée'}])}
           >
             Ajouter une position
           </Button>
@@ -95,6 +105,7 @@ export default function SignalementNumeroUpdateForm({signalement, onEditSignalem
         <div className='form-row'>
           <Input
             label='Nom de la voie'
+            disabled={isCreation}
             nativeInputProps={{
               required: true,
               value: nomVoie,
@@ -104,10 +115,9 @@ export default function SignalementNumeroUpdateForm({signalement, onEditSignalem
       </section>
       <div className='form-controls'>
         <Button
-          onClick={onSubmit}
           disabled={isSubmitDisabled}
           style={{color: 'white'}}
-          type='button'
+          type='submit'
         >
           Envoyer le signalement
         </Button>
@@ -119,7 +129,7 @@ export default function SignalementNumeroUpdateForm({signalement, onEditSignalem
   )
 }
 
-SignalementNumeroUpdateForm.propTypes = {
+SignalementNumeroForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   address: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -134,10 +144,11 @@ SignalementNumeroUpdateForm.propTypes = {
     lat: PropTypes.number,
     lon: PropTypes.number,
     voie: PropTypes.object
-  }).isRequired,
+  }),
   signalement: PropTypes.object.isRequired,
   onEditSignalement: PropTypes.func.isRequired,
   setIsEditParcellesMode: PropTypes.func.isRequired,
   isEditParcellesMode: PropTypes.bool,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  initialPositionCoords: PropTypes.array.isRequired
 }

@@ -4,13 +4,22 @@ import PropTypes from 'prop-types'
 import Button from '@codegouvfr/react-dsfr/Button'
 import {StyledForm} from './signalement.styles'
 import SignalementRecapModal from './signalement-recap-modal'
-import SignalementNumeroUpdateForm from './signalement-numero/signalement-numero-update-form'
+import SignalementNumeroForm from './signalement-numero/signalement-numero-form'
 import SignalementNumeroDeleteForm from './signalement-numero/signalement-numero-delete-form'
-import SignalementCreateForm from './signalement-numero/signalement-numero-create-form'
 import {getExistingLocationLabel} from './use-signalement'
 
-export default function SignalementForm({signalement, createSignalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode, center}) {
+export default function SignalementForm({signalement, createSignalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode}) {
   const [showRecapModal, setShowRecapModal] = useState(false)
+
+  const getCenterCoords = () => {
+    const splittedHash = window.location.hash.split('/')
+    return [Number.parseFloat(splittedHash[2]), Number.parseFloat(splittedHash[1])]
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    setShowRecapModal(true)
+  }
 
   return (
     <>
@@ -29,6 +38,7 @@ export default function SignalementForm({signalement, createSignalement, onEditS
             <div className='form-row'>
               {address.codePostal} {address.commune.nom}
             </div>
+            <br />
             <Button
               type='button'
               style={{color: 'white', marginBottom: 10}}
@@ -58,32 +68,26 @@ export default function SignalementForm({signalement, createSignalement, onEditS
           </section>
         </StyledForm>
       )}
-      {signalement?.type === 'LOCATION_TO_CREATE' && (
-        <SignalementCreateForm
+
+      {(signalement?.type === 'LOCATION_TO_UPDATE' || signalement?.type === 'LOCATION_TO_CREATE') && (
+        <SignalementNumeroForm
           setIsEditParcellesMode={setIsEditParcellesMode}
           onClose={onClose}
-          onSubmit={() => setShowRecapModal(true)}
+          onSubmit={handleSubmit}
           onEditSignalement={onEditSignalement}
           signalement={signalement}
           isEditParcellesMode={isEditParcellesMode}
-          center={center} />)}
+          {...(signalement?.type === 'LOCATION_TO_UPDATE' ? {address, initialPositionCoords: [address.lon, address.lat]} : {initialPositionCoords: getCenterCoords()})}
+        />)}
+
       {signalement?.type === 'LOCATION_TO_DELETE' && (
         <SignalementNumeroDeleteForm
           address={address}
           onClose={onClose}
-          onSubmit={() => setShowRecapModal(true)}
+          onSubmit={handleSubmit}
           onEditSignalement={onEditSignalement}
           signalement={signalement} />)}
-      {signalement?.type === 'LOCATION_TO_UPDATE' && (
-        <SignalementNumeroUpdateForm
-          address={address}
-          setIsEditParcellesMode={setIsEditParcellesMode}
-          onClose={onClose}
-          onSubmit={() => setShowRecapModal(true)}
-          onEditSignalement={onEditSignalement}
-          signalement={signalement}
-          isEditParcellesMode={isEditParcellesMode} />)}
-      {showRecapModal && <SignalementRecapModal onClose={() => setShowRecapModal(false)} signalement={signalement} address={address} onEditSignalement={onEditSignalement} />}
+      {showRecapModal && <SignalementRecapModal onSubmit={onClose} onClose={() => setShowRecapModal(false)} signalement={signalement} address={address} onEditSignalement={onEditSignalement} />}
     </>
   )
 }
@@ -109,5 +113,4 @@ SignalementForm.propTypes = {
   setIsEditParcellesMode: PropTypes.func.isRequired,
   createSignalement: PropTypes.func.isRequired,
   isEditParcellesMode: PropTypes.bool,
-  center: PropTypes.array
 }

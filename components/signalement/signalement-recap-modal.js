@@ -10,7 +10,7 @@ import {sendSignalement} from '@/lib/api-signalement'
 import {getExistingLocationLabel, getPositionTypeLabel} from './use-signalement'
 import Modal from '../common/modal'
 
-export default function SignalementRecapModal({signalement, onEditSignalement, onClose, address}) {
+export default function SignalementRecapModal({signalement, onEditSignalement, onClose, address, onSubmit}) {
   const [submitStatus, setSubmitStatus] = useState(null)
 
   const handleSubmit = async event => {
@@ -20,7 +20,7 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
       await sendSignalement(signalement)
       setSubmitStatus('success')
       setTimeout(() => {
-        onClose()
+        onSubmit()
       }, 2000)
     } catch {
       setSubmitStatus('error')
@@ -137,5 +137,6 @@ SignalementRecapModal.propTypes = {
     voie: PropTypes.object
   }).isRequired,
   signalement: PropTypes.object.isRequired,
-  onEditSignalement: PropTypes.func.isRequired
+  onEditSignalement: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
