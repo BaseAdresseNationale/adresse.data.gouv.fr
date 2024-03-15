@@ -5,9 +5,9 @@ import Input from '@codegouvfr/react-dsfr/Input'
 import Button from '@codegouvfr/react-dsfr/Button'
 import {getExistingLocationLabel} from '../use-signalement'
 
-export default function SignalementNumeroDeleteForm({signalement, onEditSignalement, onClose, address, onSubmit}) {
+export default function SignalementNumeroDeleteForm({onEditSignalement, onClose, address, onSubmit}) {
   return (
-    <StyledForm >
+    <StyledForm onSubmit={onSubmit}>
       <h4>
         Demande de suppression d&apos;un numéro
       </h4>
@@ -27,18 +27,18 @@ export default function SignalementNumeroDeleteForm({signalement, onEditSignalem
           <Input
             label='Raisons de la suppression*'
             textArea
+            onChange={event => onEditSignalement('changesRequested', 'comment')(event.target.value)}
             nativeInputProps={{
               required: true,
-              onChange: event => onEditSignalement('changesRequested', 'comment')(event.target.value)}}
+            }}
           />
         </div>
 
       </section>
       <div className='form-controls'>
         <Button
-          onClick={onSubmit}
           style={{color: 'white'}}
-          type='button'
+          type='submit'
         >
           Envoyer le signalement
         </Button>
@@ -66,7 +66,6 @@ SignalementNumeroDeleteForm.propTypes = {
     lon: PropTypes.number,
     voie: PropTypes.object
   }).isRequired,
-  signalement: PropTypes.object.isRequired,
   onEditSignalement: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 }

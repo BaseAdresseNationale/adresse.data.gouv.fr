@@ -58,6 +58,10 @@ export function getExistingLocation(address) {
         type: 'NUMERO',
         numero: address.numero,
         suffixe: address.suffixe,
+        position: {
+          type: 'Point',
+          coordinates: [address.lon, address.lat]
+        },
         toponyme: {
           type: 'VOIE',
           nom: address.voie.nomVoie
@@ -90,6 +94,10 @@ export const getInitialSignalement = (signalementType, address) => {
       positions: [],
       parcelles: []
     }
+    initialSignalement.existingLocation = {
+      type: 'VOIE',
+      nom: address.voie.nomVoie
+    }
   } else if (signalementType === 'LOCATION_TO_UPDATE') {
     initialSignalement.changesRequested = {
       numero: address.numero,
@@ -98,10 +106,12 @@ export const getInitialSignalement = (signalementType, address) => {
       positions: address.positions,
       parcelles: address.parcelles
     }
+    initialSignalement.existingLocation = getExistingLocation(address)
   } else if (signalementType === 'LOCATION_TO_DELETE') {
     initialSignalement.changesRequested = {
       comment: ''
     }
+    initialSignalement.existingLocation = getExistingLocation(address)
   }
 
   return initialSignalement
