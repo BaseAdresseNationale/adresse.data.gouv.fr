@@ -58,7 +58,6 @@ BaseLocaleCard.propTypes = {
     status: PropTypes.oneOf([
       'replaced',
       'published',
-      'ready-to-publish',
       'draft',
     ]).isRequired,
     sync: PropTypes.shape({

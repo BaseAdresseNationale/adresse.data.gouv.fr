@@ -73,7 +73,6 @@ const paintLayers = {
         title: 'Mes Adresses',
         content: {
           published: {name: 'Publiée', color: theme.colors.mapGreen},
-          pap: {name: 'Prête a être publiée', color: theme.colors.mapBlue},
           draft: {name: 'Brouillon', color: theme.colors.mapYellow},
         }
       },
@@ -92,12 +91,6 @@ const paintLayers = {
             ['==', ['get', 'statusBals'], 'published'],
           ], // Mes Adresses
           color: theme.colors.mapGreen
-        },
-        {
-          expression: [
-            ['==', ['get', 'statusBals'], 'ready-to-publish'],
-          ], // Mes Adresses
-          color: theme.colors.mapBlue
         },
         {
           expression: [
