@@ -18,11 +18,6 @@ const STATUSES = {
     label: 'À jour',
     intent: 'success',
   },
-  'ready-to-publish': {
-    content: 'Cette Base Adresse Locale est désormais prête à être publiée',
-    label: 'Prête à être publiée',
-    intent: 'info',
-  },
   draft: {
     label: 'Brouillon',
     intent: undefined,
@@ -64,7 +59,6 @@ StatusBadge.propTypes = {
   status: PropTypes.oneOf([
     'replaced',
     'published',
-    'ready-to-publish',
     'draft',
     'demo',
   ]).isRequired,
