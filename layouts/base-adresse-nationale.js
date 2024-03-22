@@ -167,6 +167,8 @@ export function Desktop({address, bbox, handleSelect, hash}) {
     deleteSignalement()
   }
 
+  const displaySignalementButton = address?.type === 'numero' || address?.type === 'lieu-dit' || address?.type === 'voie'
+
   return (
     <div className='ban-container'>
       <div className='sidebar'>
@@ -186,7 +188,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         ) : (
           <>
             <Explorer address={address} handleSelect={handleSelect} />
-            {address && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
+            {displaySignalementButton && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
             <div className='footer'>
               <p>Pour mettre à jour vos adresses, cliquez ici : </p>
               <ButtonLink
@@ -209,17 +211,15 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         hasSwitchStyle
         hasHash
       >
-        {isSignalementFormOpen &&
-        (signalement?.type === 'LOCATION_TO_UPDATE' ||
-          signalement?.type === 'LOCATION_TO_CREATE') ? (
-            <SignalementMap
-              signalement={signalement}
-              onEditSignalement={onEditSignalement}
-              isEditParcellesMode={isEditParcellesMode}
-            />
-          ) : (
-            <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
-          )}
+        {isSignalementFormOpen && signalement?.changesRequested?.positions ? (
+          <SignalementMap
+            signalement={signalement}
+            onEditSignalement={onEditSignalement}
+            isEditParcellesMode={isEditParcellesMode}
+          />
+        ) : (
+          <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+        )}
       </MapLibre>
 
       <style jsx>{`

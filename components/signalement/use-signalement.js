@@ -32,13 +32,10 @@ export function getExistingLocationType(type) {
 
 export function getExistingLocationLabel(address) {
   switch (address.type) {
-    // In this case type = LOCATION_TO_CREATE
-    case 'commune':
-      return address.nom
     case 'voie':
       return address.nomVoie
     case 'lieu-dit':
-      return address.nom
+      return address.nomVoie
     default:
       return `${address.numero} ${address.suffixe || ''} ${address.voie.nomVoie}`
   }
@@ -46,13 +43,16 @@ export function getExistingLocationLabel(address) {
 
 export function getExistingLocation(address) {
   switch (address.type) {
-    // In this case type = LOCATION_TO_CREATE
-    case 'commune':
-      return ''
     case 'voie':
-      return 'VOIE'
+      return {
+        type: 'VOIE',
+        nom: address.nomVoie
+      }
     case 'lieu-dit':
-      return 'TOPONYME'
+      return {
+        type: 'TOPONYME',
+        nom: address.nomVoie
+      }
     default:
       return {
         type: 'NUMERO',
@@ -64,7 +64,7 @@ export function getExistingLocation(address) {
         },
         toponyme: {
           type: 'VOIE',
-          nom: address.voie.nomVoie
+          nom: address.type === 'voie' ? address.nomVoie : address.voie.nomVoie
         }
       }
   }
@@ -90,22 +90,33 @@ export const getInitialSignalement = (signalementType, address) => {
     initialSignalement.changesRequested = {
       numero: '',
       suffixe: '',
-      nomVoie: address.voie.nomVoie,
+      nomVoie: address.nomVoie,
       positions: [],
       parcelles: []
     }
     initialSignalement.existingLocation = {
       type: 'VOIE',
-      nom: address.voie.nomVoie
+      nom: address.nomVoie
     }
   } else if (signalementType === 'LOCATION_TO_UPDATE') {
-    initialSignalement.changesRequested = {
-      numero: address.numero,
-      suffixe: address.suffixe,
-      nomVoie: address.voie.nomVoie,
-      positions: address.positions,
-      parcelles: address.parcelles
+    if (address.type === 'voie') {
+      initialSignalement.changesRequested = {
+        nom: address.nomVoie,
+      }
+    } else if (address.type === 'lieu-dit') {
+      initialSignalement.changesRequested = {
+        nom: address.nomVoie,
+      }
+    } else {
+      initialSignalement.changesRequested = {
+        numero: address.numero,
+        suffixe: address.suffixe,
+        nomVoie: address.voie.nomVoie,
+        positions: address.positions,
+        parcelles: address.parcelles
+      }
     }
+
     initialSignalement.existingLocation = getExistingLocation(address)
   } else if (signalementType === 'LOCATION_TO_DELETE') {
     initialSignalement.changesRequested = {
