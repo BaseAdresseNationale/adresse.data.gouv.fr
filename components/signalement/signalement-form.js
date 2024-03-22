@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Button from '@codegouvfr/react-dsfr/Button'
 import {StyledForm} from './signalement.styles'
 import SignalementRecapModal from './signalement-recap-modal'
+import SignalementToponymeForm from './signalement-toponyme/signalement-toponyme-form'
 import SignalementNumeroForm from './signalement-numero/signalement-numero-form'
 import SignalementNumeroDeleteForm from './signalement-numero/signalement-numero-delete-form'
 import {getExistingLocationLabel} from './use-signalement'
@@ -25,12 +26,12 @@ export default function SignalementForm({signalement, createSignalement, onEditS
     <>
       {!signalement && (
         <StyledForm>
-          {address && (<section>
+          <section>
             <h4>
               Signalement
             </h4>
             <h5>
-              Adresse concernée
+              Lieu concerné
             </h5>
             <div className='form-row'>
               {getExistingLocationLabel(address)}
@@ -44,17 +45,18 @@ export default function SignalementForm({signalement, createSignalement, onEditS
               style={{color: 'white', marginBottom: 10}}
               onClick={() => createSignalement('LOCATION_TO_UPDATE')}
             >
-              Signaler un changement
+              Demander une modification
             </Button>
+            {address.type === 'numero' &&
             <Button
               type='button'
               style={{color: 'white', marginBottom: 10}}
               onClick={() => createSignalement('LOCATION_TO_DELETE')}
             >
               Demander la suppression
-            </Button>
-          </section>)}
-          <section>
+            </Button>}
+          </section>
+          {(address.type === 'voie') && <section>
             <h5>
               Adresse non référencée
             </h5>
@@ -65,11 +67,21 @@ export default function SignalementForm({signalement, createSignalement, onEditS
             >
               Signaler un numéro manquant
             </Button>
-          </section>
+          </section>}
         </StyledForm>
       )}
 
-      {(signalement?.type === 'LOCATION_TO_UPDATE' || signalement?.type === 'LOCATION_TO_CREATE') && (
+      {signalement?.type === 'LOCATION_TO_UPDATE' && (address.type === 'voie' || address.type === 'lieu-dit') && (
+        <SignalementToponymeForm
+          onClose={onClose}
+          onSubmit={handleSubmit}
+          onEditSignalement={onEditSignalement}
+          signalement={signalement}
+          address={address}
+        />
+      )}
+
+      {(signalement?.type === 'LOCATION_TO_UPDATE' || signalement?.type === 'LOCATION_TO_CREATE') && address.type === 'numero' && (
         <SignalementNumeroForm
           setIsEditParcellesMode={setIsEditParcellesMode}
           onClose={onClose}
