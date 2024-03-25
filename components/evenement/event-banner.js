@@ -1,18 +1,14 @@
+import PropTypes from 'prop-types'
 import {useState, useEffect} from 'react'
 import {Pause, Play} from 'react-feather'
 
-import {sortEventsByDate, dateWithDay} from '@/lib/date'
+import {dateWithDay} from '@/lib/date'
 import theme from '@/styles/theme'
-
-import allEvents from '../../events.json'
 
 import EventModal from './event-modal'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
-const today = new Date().setHours(0, 0, 0, 0)
-const events = sortEventsByDate(allEvents, 'asc').filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
-
-function EventBanner() {
+function EventBanner({events}) {
   const [index, setIndex] = useState(0)
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [isAutoplay, setIsAutoplay] = useState(true)
@@ -162,6 +158,14 @@ function EventBanner() {
       `}</style>
     </div>
   )
+}
+
+EventBanner.defaultProps = {
+  events: []
+}
+
+EventBanner.propTypes = {
+  events: PropTypes.array
 }
 
 export default EventBanner

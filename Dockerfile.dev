@@ -3,7 +3,7 @@ FROM node:16.19.0-alpine
 WORKDIR /app
 
 # installing dependencies
-COPY package.json yarn.lock .
+COPY package.json yarn.lock ./
 RUN mkdir public
 RUN yarn install
 

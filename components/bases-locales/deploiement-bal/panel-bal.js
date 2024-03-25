@@ -27,14 +27,12 @@ const options = {
 const initialStats = {
   labels: [
     'Publiée',
-    'Prête à être publiée',
     'Brouillon'
   ],
   datasets: [{
     data: [0, 0, 0],
     backgroundColor: [
       theme.colors.mapGreen,
-      theme.colors.mapBlue,
       theme.colors.mapYellow
     ],
     hoverOffset: 4
@@ -50,7 +48,6 @@ function PanelBal({filteredCodesCommmune}) {
       const balsStatus = await getBalsStatus()
       const statusData = [
         balsStatus.find(({status}) => status === 'published')?.count || 0,
-        balsStatus.find(({status}) => status === 'ready-to-publish')?.count || 0,
         balsStatus.find(({status}) => status === 'draft')?.count || 0,
       ]
       setDataStatsWithBal(statusData)
@@ -62,7 +59,6 @@ function PanelBal({filteredCodesCommmune}) {
       setBals(balsFiltered)
       const statusData = [
         balsFiltered.filter(({status}) => status === 'published').length,
-        balsFiltered.filter(({status}) => status === 'ready-to-publish').length,
         balsFiltered.filter(({status}) => status === 'draft').length
       ]
       setDataStatsWithBal(statusData)

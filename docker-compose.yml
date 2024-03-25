@@ -4,8 +4,42 @@ services:
       dockerfile: 'Dockerfile.dev'
     container_name: frontend
     volumes:
-    - ./:/app
-    - /app/node_modules
-    - /app/.next
+      - ./build/:/app/build
+      - ./components/:/app/components
+      - ./contexts/:/app/contexts
+      - ./data/:/app/data
+      - ./hooks/:/app/hooks
+      - ./layouts/:/app/layouts
+      - ./lib/:/app/lib
+      - ./pages/:/app/pages
+      - ./public/:/app/public
+      - ./scripts/:/app/scripts
+      - ./server/:/app/server
+      - ./styles/:/app/styles
+      - ./views/:/app/views
+      - ./events.json:/app/events.json
+      - ./next.config.js:/app/next.config.js
+      - ./.babelrc:/app/.babelrc
     ports:
-      - "${PORT:-3000}:${PORT:-3000}"
+      - "${PORT:-3000}:3000"
+    environment:
+      - NEXT_PUBLIC_ADRESSE_URL=${NEXT_PUBLIC_ADRESSE_URL}
+      - NEXT_PUBLIC_API_GEO_URL=${NEXT_PUBLIC_API_GEO_URL}
+      - NEXT_PUBLIC_API_BAN_URL=${NEXT_PUBLIC_API_BAN_URL}
+      - NEXT_PUBLIC_API_ADRESSE=${NEXT_PUBLIC_API_ADRESSE}
+      - NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC=${NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC}
+      - NEXT_PUBLIC_MATOMO_URL=${NEXT_PUBLIC_MATOMO_URL}
+      - NEXT_PUBLIC_MATOMO_SITE_ID=${NEXT_PUBLIC_MATOMO_SITE_ID}
+      - MATOMO_TOKEN_AUTH=${MATOMO_TOKEN_AUTH}
+      - ENABLE_HELMET=${ENABLE_HELMET}
+      - NEXT_PUBLIC_API_DEPOT_URL=${NEXT_PUBLIC_API_DEPOT_URL}
+      - API_DEPOT_TOKEN=${API_DEPOT_TOKEN}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED=${NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED}
+      - PATH_STATIC_FILE=${PATH_STATIC_FILE}
+      - GHOST_KEY=${GHOST_KEY}
+      - NEXT_PUBLIC_GHOST_URL=${NEXT_PUBLIC_GHOST_URL}
+      - NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE=${NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE}
+      - NEXT_PUBLIC_BAL_ADMIN_API_URL=${NEXT_PUBLIC_BAL_ADMIN_API_URL}
+      - NEXT_PUBLIC_BAL_API_URL=${NEXT_PUBLIC_BAL_API_URL}
+      - NEXT_PUBLIC_MES_ADRESSES=${NEXT_PUBLIC_MES_ADRESSES}

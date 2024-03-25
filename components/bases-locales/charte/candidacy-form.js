@@ -271,7 +271,7 @@ function CandidacyForm({onClose, partnersServices, departements}) {
         <h4>Autres informations</h4>
         <div className='form-row'>
           <Input
-            label='Lien vers la charte*'
+            label='Lien vers la charte sur votre site internet*'
             nativeInputProps={{
               value: formData.charteURL,
               type: 'url',
