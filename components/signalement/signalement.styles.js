@@ -7,6 +7,7 @@ export const SignalementTypeWrapper = styled.div`
 `
 
 export const StyledForm = styled.form`
+  position: relative;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -26,6 +27,17 @@ export const StyledForm = styled.form`
     > div {
       width: 100%;
       padding: 1em;
+    }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+
+    :hover {
+      cursor: pointer;
+      background-color: transparent;
     }
   }
 
@@ -71,5 +83,9 @@ export const StyledForm = styled.form`
 
   h6 {
     margin: 1em 0 0 0;
+  }
+
+  legend {
+    font-style: italic;
   }
 `

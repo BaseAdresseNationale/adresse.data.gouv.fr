@@ -37,6 +37,47 @@ export default function SignalementToponymeForm({signalement, onEditSignalement,
               onChange: event => onEditSignalement('changesRequested', 'nom')(event.target.value)}}
           />
         </div>
+        {/* <h6>Positions :</h6>
+        {positions.map(({position, positionType}, index) => (
+          <PositionInput
+            key={index} // eslint-disable-line react/no-array-index-key
+            position={position}
+            positionType={positionType}
+            onEditPositionType={updatedPosition => {
+              const newPositions = [...positions]
+              newPositions[index] = updatedPosition
+              onEditSignalement('changesRequested', 'positions')(newPositions)
+            }}
+            onDelete={() => {
+              onEditSignalement('changesRequested', 'positions')(positions.filter((_, i) => i !== index))
+            }} />
+        ))}
+        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button
+            type='button'
+            style={{color: 'white', marginBottom: 10}}
+            onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: initialPositionCoords}, positionType: 'entrée'}])}
+          >
+            Ajouter une position
+          </Button>
+        </div>
+        <h6>Parcelles cadastrales :</h6>
+        <div className='parcelles-wrapper'>
+          {parcelles.map(parcelle => (
+            <div key={parcelle}>
+              {parcelle}
+            </div>
+          ))}
+        </div> */}
+        {/* <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+          <Button
+            type='button'
+            style={{color: 'white', marginBottom: 10}}
+            onClick={() => setIsEditParcellesMode(!isEditParcellesMode)}
+          >
+            {isEditParcellesMode ? 'Arrêter de modifier les parcelles' : 'Modifier les parcelles'}
+          </Button>
+        </div> */}
       </section>
       <div className='form-controls'>
         <Button
@@ -71,5 +112,8 @@ SignalementToponymeForm.propTypes = {
   }),
   signalement: PropTypes.object.isRequired,
   onEditSignalement: PropTypes.func.isRequired,
+  // SetIsEditParcellesMode: PropTypes.func.isRequired,
+  // isEditParcellesMode: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
+  // InitialPositionCoords: PropTypes.array
 }

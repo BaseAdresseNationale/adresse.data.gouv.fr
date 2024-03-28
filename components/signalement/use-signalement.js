@@ -12,21 +12,24 @@ export const positionTypeOptions = [
   {value: 'inconnue', label: 'Inconnu', color: 'white'}
 ]
 
+export const isSignalementAvailable = address => {
+  return (address?.type === 'voie' || address?.type === 'lieu-dit' || address?.type === 'numero')
+}
+
 export const getPositionTypeLabel = positionType => {
   return positionTypeOptions.find(({value}) => value === positionType).label
 }
 
 export function getExistingLocationType(type) {
   switch (type) {
-    // In this case type = LOCATION_TO_CREATE
-    case 'commune':
-      return ''
     case 'voie':
       return 'VOIE'
     case 'lieu-dit':
       return 'TOPONYME'
-    default:
+    case 'numero':
       return 'NUMERO'
+    default:
+      throw new Error(`Impossible de créer un signalement pour le type : ${type}`)
   }
 }
 
@@ -36,8 +39,10 @@ export function getExistingLocationLabel(address) {
       return address.nomVoie
     case 'lieu-dit':
       return address.nomVoie
-    default:
+    case 'numero':
       return `${address.numero} ${address.suffixe || ''} ${address.voie.nomVoie}`
+    default:
+      throw new Error(`Impossible de créer un signalement pour le type : ${address.type}`)
   }
 }
 
@@ -51,9 +56,14 @@ export function getExistingLocation(address) {
     case 'lieu-dit':
       return {
         type: 'TOPONYME',
-        nom: address.nomVoie
+        nom: address.nomVoie,
+        position: {
+          type: 'Point',
+          coordinates: [address.lon, address.lat]
+        },
+        parcelles: address.parcelles,
       }
-    default:
+    case 'numero':
       return {
         type: 'NUMERO',
         numero: address.numero,
@@ -62,16 +72,19 @@ export function getExistingLocation(address) {
           type: 'Point',
           coordinates: [address.lon, address.lat]
         },
+        parcelles: address.parcelles,
         toponyme: {
           type: 'VOIE',
-          nom: address.type === 'voie' ? address.nomVoie : address.voie.nomVoie
+          nom: address.voie.nomVoie
         }
       }
+    default:
+      throw new Error(`Impossible de créer un signalement pour le type : ${address.type}`)
   }
 }
 
 export const getInitialSignalement = (signalementType, address) => {
-  if (!address) {
+  if (!address || !isSignalementAvailable(address)) {
     return null
   }
 
@@ -106,6 +119,9 @@ export const getInitialSignalement = (signalementType, address) => {
     } else if (address.type === 'lieu-dit') {
       initialSignalement.changesRequested = {
         nom: address.nomVoie,
+        // For the moment we don't allow to change the position of a toponyme
+        // positions: address.positions,
+        // parcelles: address.parcelles
       }
     } else {
       initialSignalement.changesRequested = {
@@ -151,6 +167,7 @@ export function useSignalement(address) {
     createSignalement,
     deleteSignalement,
     signalement,
+    isSignalementAvailable: isSignalementAvailable(address),
     onEditSignalement,
     isEditParcellesMode,
     setIsEditParcellesMode
