@@ -62,7 +62,7 @@ function SignalementMap({signalement, onEditSignalement, isEditParcellesMode}) {
           latitude={position.coordinates[1]}
           anchor='bottom'
           draggable
-          onDrag={onMarkerDrag(index)}
+          onDragEnd={onMarkerDrag(index)}
         >
           <label className='map-pin-label' style={{color: getSignalementPositionColor(positionType)}}>{getSignalementPositionLabel(positionType)}</label>
           <style jsx>{`

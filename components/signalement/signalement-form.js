@@ -8,6 +8,7 @@ import SignalementToponymeForm from './signalement-toponyme/signalement-toponyme
 import SignalementNumeroForm from './signalement-numero/signalement-numero-form'
 import SignalementNumeroDeleteForm from './signalement-numero/signalement-numero-delete-form'
 import {getExistingLocationLabel} from './use-signalement'
+import {X} from 'react-feather'
 
 export default function SignalementForm({signalement, createSignalement, onEditSignalement, onClose, address, setIsEditParcellesMode, isEditParcellesMode}) {
   const [showRecapModal, setShowRecapModal] = useState(false)
@@ -26,6 +27,9 @@ export default function SignalementForm({signalement, createSignalement, onEditS
     <>
       {!signalement && (
         <StyledForm>
+          <button className='close-btn' type='button' onClick={onClose}>
+            <X />
+          </button>
           <section>
             <h4>
               Signalement
@@ -40,33 +44,39 @@ export default function SignalementForm({signalement, createSignalement, onEditS
               {address.codePostal} {address.commune.nom}
             </div>
             <br />
-            <Button
-              type='button'
-              style={{color: 'white', marginBottom: 10}}
-              onClick={() => createSignalement('LOCATION_TO_UPDATE')}
-            >
-              Demander une modification
-            </Button>
-            {address.type === 'numero' &&
-            <Button
-              type='button'
-              style={{color: 'white', marginBottom: 10}}
-              onClick={() => createSignalement('LOCATION_TO_DELETE')}
-            >
-              Demander la suppression
-            </Button>}
+            <div className='form-row'>
+              <Button
+                type='button'
+                style={{color: 'white', marginBottom: 10}}
+                onClick={() => createSignalement('LOCATION_TO_UPDATE')}
+              >
+                Demander une modification
+              </Button>
+            </div>
+            <div className='form-row'>
+              {address.type === 'numero' &&
+              <Button
+                type='button'
+                style={{color: 'white', marginBottom: 10}}
+                onClick={() => createSignalement('LOCATION_TO_DELETE')}
+              >
+                Demander la suppression
+              </Button>}
+            </div>
           </section>
           {(address.type === 'voie') && <section>
             <h5>
               Adresse non référencée
             </h5>
-            <Button
-              type='button'
-              style={{color: 'white', marginBottom: 10}}
-              onClick={() => createSignalement('LOCATION_TO_CREATE')}
-            >
-              Signaler un numéro manquant
-            </Button>
+            <div className='form-row'>
+              <Button
+                type='button'
+                style={{color: 'white', marginBottom: 10}}
+                onClick={() => createSignalement('LOCATION_TO_CREATE')}
+              >
+                Signaler un numéro manquant
+              </Button>
+            </div>
           </section>}
         </StyledForm>
       )}
@@ -78,6 +88,9 @@ export default function SignalementForm({signalement, createSignalement, onEditS
           onEditSignalement={onEditSignalement}
           signalement={signalement}
           address={address}
+          // InitialPositionCoords={[address.lon, address.lat]}
+          isEditParcellesMode={isEditParcellesMode}
+          setIsEditParcellesMode={setIsEditParcellesMode}
         />
       )}
 

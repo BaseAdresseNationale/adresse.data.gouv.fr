@@ -62,6 +62,7 @@ export default function SignalementNumeroForm({signalement, onEditSignalement, o
           />
         </div>
         <h6>Positions :</h6>
+        <legend>Déplacez les marqueurs sur la carte pour éditer les positions.</legend>
         {positions.map(({position, positionType}, index) => (
           <PositionInput
             key={index} // eslint-disable-line react/no-array-index-key

@@ -51,6 +51,22 @@ const parseHash = hash => {
 }
 
 export function Mobile({address, bbox, handleSelect, hash}) {
+  const [isSignalementFormOpen, setIsSignalementFormOpen] = useState(false)
+  const {
+    createSignalement,
+    deleteSignalement,
+    signalement,
+    onEditSignalement,
+    isEditParcellesMode,
+    setIsEditParcellesMode,
+    isSignalementAvailable
+  } = useSignalement(address)
+
+  const handleCloseSignalementForm = () => {
+    setIsSignalementFormOpen(false)
+    deleteSignalement()
+  }
+
   const {viewHeight} = useContext(DeviceContext)
   const [selectedLayout, setSelectedLayout] = useState('map')
   const {zoom, center} = parseHash(hash)
@@ -71,7 +87,15 @@ export function Mobile({address, bbox, handleSelect, hash}) {
           hasSwitchStyle
           hasHash
         >
-          <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+          {isSignalementFormOpen && signalement?.changesRequested?.positions ? (
+            <SignalementMap
+              signalement={signalement}
+              onEditSignalement={onEditSignalement}
+              isEditParcellesMode={isEditParcellesMode}
+            />
+          ) : (
+            <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+          )}
         </MapLibre>
       </div>
 
@@ -81,7 +105,19 @@ export function Mobile({address, bbox, handleSelect, hash}) {
         }`}
       >
         <div className='explorer'>
-          <Explorer address={address} handleSelect={handleSelect} isMobile />
+          {isSignalementFormOpen ? (
+            <SignalementForm
+              address={address}
+              createSignalement={createSignalement}
+              signalement={signalement}
+              onEditSignalement={onEditSignalement}
+              onClose={handleCloseSignalementForm}
+              setIsEditParcellesMode={setIsEditParcellesMode}
+              isEditParcellesMode={isEditParcellesMode}
+            />
+          ) : (
+            <Explorer address={address} handleSelect={handleSelect} isMobile />)}
+          {isSignalementAvailable && !isSignalementFormOpen && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
         </div>
       </div>
 
@@ -159,6 +195,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
     onEditSignalement,
     isEditParcellesMode,
     setIsEditParcellesMode,
+    isSignalementAvailable
   } = useSignalement(address)
   const {zoom, center} = parseHash(hash)
 
@@ -166,8 +203,6 @@ export function Desktop({address, bbox, handleSelect, hash}) {
     setIsSignalementFormOpen(false)
     deleteSignalement()
   }
-
-  const displaySignalementButton = address?.type === 'numero' || address?.type === 'lieu-dit' || address?.type === 'voie'
 
   return (
     <div className='ban-container'>
@@ -188,7 +223,7 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         ) : (
           <>
             <Explorer address={address} handleSelect={handleSelect} />
-            {displaySignalementButton && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
+            {isSignalementAvailable && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
             <div className='footer'>
               <p>Pour mettre à jour vos adresses, cliquez ici : </p>
               <ButtonLink
