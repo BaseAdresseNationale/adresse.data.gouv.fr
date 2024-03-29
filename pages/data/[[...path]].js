@@ -128,12 +128,18 @@ const config = {
     {
       parent: 'adresses-cadastre',
       name: 'latest',
-      target: '2023',
+      target: {
+        action: 'getLatestFromRegExp',
+        params: ['^\\d{4}$']
+      },
     },
     {
       parent: 'adresses-ftth',
       name: 'latest',
-      target: '2023-T2',
+      target: {
+        action: 'getLatestFromRegExp',
+        params: ['^\\d{4}-T\\d$']
+      },
     },
     {
       parent: 'ban',
@@ -144,36 +150,81 @@ const config = {
     {
       parent: 'ban/adresses',
       name: 'weekly',
-      target: '2024-03-20',
+      target: {
+        action: 'getLatestFromRegExp',
+        params: ['^\\d{4}-\\d{2}-\\d{2}$']
+      },
     },
     {
       parent: 'ban/export-api-gestion', // OBSOLETE ?
       name: 'latest',
-      target: '2023-04-28',
+      target: {
+        action: 'getLatestFromRegExp',
+        params: ['^\\d{4}-\\d{2}-\\d{2}$']
+      },
     },
     {
       parent: 'contours-administratifs',
       name: 'latest',
-      target: '2023',
+      target: {
+        action: 'getLatestFromRegExp',
+        params: ['^\\d{4}$']
+      },
     },
     {
       parent: 'fantoir',
       name: 'latest',
-      target: 'fantoir-2023-04.gz',
+      target: {
+        action: 'getLatestFromRegExp',
+        params: ['^fantoir-\\d{4}-\\d{2}\\.gz$']
+      },
     },
   ]
+}
+
+const aliasAction = {
+  getLatestFromRegExp: (s3Objects, regExpString) => s3Objects
+    .filter(({name}) => ((new RegExp(regExpString)).test(name)))
+    .sort((a, b) => new Date(b.name) - new Date(a.name))[0]
+}
+
+const getAlias = async (aliasesRaw, currentPath) => {
+  const aliases = aliasesRaw && (
+    [...config.alias]
+      .sort((a, b) => `${b.parent}${b.name}`.localeCompare(`${a.parent}${a.name}`))
+      .reverse()
+  )
+  const alias = aliases?.find(({parent}) => (new RegExp(`^${parent}(/|$)`)).test(currentPath)) || null
+
+  if (typeof alias.target === 'string') {
+    return alias
+  }
+
+  if (typeof alias.target === 'object' && alias.target.action) {
+    const s3ObjectPath = [...rootDir, ...alias.parent.replace(/\/$/, '').split('/')].join('/')
+    const s3DirPath = `${s3ObjectPath}/`
+    const s3Objects = await listObjectsRecursively(s3DirPath)
+    const s3data = s3Objects ? [
+      ...(s3Objects || [])
+        .filter(({name}) => autorizedPathS3(name).auth),
+    ] : []
+
+    const targetAlias = aliasAction[alias.target.action](s3data, ...(alias.target?.params || []))
+
+    return {
+      ...alias,
+      target: targetAlias.name,
+    }
+  }
+
+  throw new Error('Alias target should be a string, or an object with an action key')
 }
 
 export async function getServerSideProps(context) {
   const {params, res, req} = context
   const {path: paramPathRaw = []} = params
+  const alias = await getAlias(config?.alias, paramPathRaw.join('/') || '')
 
-  const aliases = config?.alias && (
-    [...config.alias]
-      .sort((a, b) => `${b.parent}${b.name}`.localeCompare(`${a.parent}${a.name}`))
-      .reverse()
-  )
-  const alias = aliases?.find(({parent}) => (new RegExp(`^${parent}(/|$)`)).test(paramPathRaw.join('/'))) || null
   const paramPath = alias && (new RegExp(`^${alias.parent}/${alias.name}`)).test(paramPathRaw.join('/'))
     ? paramPathRaw.join('/').replace(new RegExp(`^${alias.parent}/${alias.name}`), `${alias.parent}/${alias.target}`).split('/')
     : paramPathRaw
