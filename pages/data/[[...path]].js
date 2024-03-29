@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types'
 import {Download} from 'react-feather'
 import {S3} from '@aws-sdk/client-s3'
+import {fr} from '@codegouvfr/react-dsfr'
 
 import Head from '@/components/head'
 import Section from '@/components/section'
@@ -138,6 +139,7 @@ const config = {
       parent: 'ban',
       name: 'adresses-odbl',
       target: 'adresses',
+      comment: 'Ce repertoire est obsolète et redirige vers le répertoire adresses',
     },
     {
       parent: 'ban/adresses',
@@ -233,6 +235,7 @@ export async function getServerSideProps(context) {
       const s3contentDir = [
         ...s3data,
         ...(alias && alias.parent === dirPath ? [{
+          ...alias,
           ...(s3data.find(({name}) => name === alias.target) || {}),
           name: alias.name,
           path: `${s3ObjectPath}/${alias.name}`,
@@ -243,7 +246,11 @@ export async function getServerSideProps(context) {
         props: {
           title: ['data', ...paramPath].join('/') || '',
           path: paramPathRaw || [],
-          data: s3contentDir || []
+          data: s3contentDir || [],
+          pageInfoText: alias && alias.parent !== dirPath && alias.comment ? {
+            type: 'warning',
+            value: alias.comment,
+          } : null,
         }
       }
     }
@@ -259,7 +266,7 @@ export async function getServerSideProps(context) {
   return {props: {}}
 }
 
-export default function DataPage({title, path, data, errorCode, errorMessage}) {
+export default function DataPage({title, path, data, pageInfoText, errorCode, errorMessage}) {
   return errorCode && errorCode !== 200 ?
     (<ErrorPage code={errorCode} message={errorMessage} />) :
     (path ? (
@@ -269,8 +276,22 @@ export default function DataPage({title, path, data, errorCode, errorMessage}) {
           icon={<Download size={56} alt='' aria-hidden='true' />}
         />
         <Section>
+          {pageInfoText && (
+            <p>
+              {pageInfoText.type === 'warning' && <i className={fr.cx('fr-icon-warning-fill', 'warn-icon')} />}
+              {pageInfoText.value}
+            </p>
+          )}
           <Data {...{root: rootLink, path, data}} />
         </Section>
+
+        <style jsx>{`
+          .warn-icon {
+            color: #f60700;
+            float: left;
+            margin: 0 0.5em 0 0;
+          }
+        `}</style>
       </Page>
     ) : null)
 }
@@ -279,6 +300,10 @@ DataPage.propTypes = {
   title: PropTypes.string,
   path: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
+  pageInfoText: PropTypes.shape({
+    type: PropTypes.string,
+    value: PropTypes.string,
+  }),
   errorCode: PropTypes.number,
   errorMessage: PropTypes.string,
 }
