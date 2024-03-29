@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import PropTypes from 'prop-types'
 import {Download} from 'react-feather'
 import {S3} from '@aws-sdk/client-s3'
@@ -121,10 +122,60 @@ async function listObjectsRecursively(prefix, continuationToken) {
   }
 }
 
+const config = {
+  alias: [
+    {
+      parent: 'adresses-cadastre',
+      name: 'latest',
+      target: '2023',
+    },
+    {
+      parent: 'adresses-ftth',
+      name: 'latest',
+      target: '2023-T2',
+    },
+    {
+      parent: 'ban',
+      name: 'adresses-odbl',
+      target: 'adresses',
+    },
+    {
+      parent: 'ban/adresses',
+      name: 'weekly',
+      target: '2024-03-20',
+    },
+    {
+      parent: 'ban/export-api-gestion', // OBSOLETE ?
+      name: 'latest',
+      target: '2023-04-28',
+    },
+    {
+      parent: 'contours-administratifs',
+      name: 'latest',
+      target: '2023',
+    },
+    {
+      parent: 'fantoir',
+      name: 'latest',
+      target: 'fantoir-2023-04.gz',
+    },
+  ]
+}
+
 export async function getServerSideProps(context) {
   const {params, res, req} = context
-  const {path: paramPath = []} = params
-  const fileName = `${paramPath.join('/')}`
+  const {path: paramPathRaw = []} = params
+
+  const aliases = config?.alias && (
+    [...config.alias]
+      .sort((a, b) => `${b.parent}${b.name}`.localeCompare(`${a.parent}${a.name}`))
+      .reverse()
+  )
+  const alias = aliases?.find(({parent}) => (new RegExp(`^${parent}(/|$)`)).test(paramPathRaw.join('/'))) || null
+  const paramPath = alias && (new RegExp(`^${alias.parent}/${alias.name}`)).test(paramPathRaw.join('/'))
+    ? paramPathRaw.join('/').replace(new RegExp(`^${alias.parent}/${alias.name}`), `${alias.parent}/${alias.target}`).split('/')
+    : paramPathRaw
+  const dirPath = `${paramPath.join('/')}`
   const formattedDate = getFormatedDate()
   const s3ObjectPath = [...rootDir, ...paramPath].join('/')
 
@@ -138,7 +189,7 @@ export async function getServerSideProps(context) {
     try {
       sendToTracker(getDownloadToEventTracker({
         downloadDataType: `${paramPath[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
-        downloadFileName: fileName,
+        downloadFileName: dirPath,
         nbDownload: 1
       }))
       await asyncSendS3(req, res, {
@@ -163,14 +214,36 @@ export async function getServerSideProps(context) {
     const s3DirPath = `${s3ObjectPath}/`
     const s3Objects = await listObjectsRecursively(s3DirPath)
     if (s3Objects) {
-      const s3data = (s3Objects || [])
-        .filter(({name}) => autorizedPathS3(name).auth)
+      const s3data = [
+        ...(s3Objects || [])
+          .filter(({name}) => autorizedPathS3(name).auth)
+          .map(({name, path, isDirectory, fileInfo, ...rest}) => ({
+            name,
+            path: alias && alias.parent !== dirPath
+              ? path.replace(
+                (new RegExp(`^${rootDir.join('/')}/${alias.parent}/${alias.target}`)),
+                `${rootDir.join('/')}/${alias.parent}/${alias.name}`
+              )
+              : path,
+            isDirectory,
+            ...(fileInfo ? {fileInfo} : {}),
+            ...rest,
+          }))
+      ]
+      const s3contentDir = [
+        ...s3data,
+        ...(alias && alias.parent === dirPath ? [{
+          ...(s3data.find(({name}) => name === alias.target) || {}),
+          name: alias.name,
+          path: `${s3ObjectPath}/${alias.name}`,
+        }] : []),
+      ].sort((a, b) => a.name.localeCompare(b.name) || a.isDirectory - b.isDirectory)
 
       return {
         props: {
           title: ['data', ...paramPath].join('/') || '',
-          path: paramPath || [],
-          data: s3data || []
+          path: paramPathRaw || [],
+          data: s3contentDir || []
         }
       }
     }
