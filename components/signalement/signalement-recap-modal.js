@@ -57,8 +57,8 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
             </p>
             {positions && <>
               <h6>Positions : </h6>
-              {positions.map(({position, positionType}, index) => {
-                return <React.Fragment key={index}><b>{getPositionTypeLabel(positionType)}</b> : {position.coordinates[0]}, {position.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
+              {positions.map(({point, type}, index) => {
+                return <React.Fragment key={index}><b>{getPositionTypeLabel(type)}</b> : {point.coordinates[0]}, {point.coordinates[1]}<br /></React.Fragment> // eslint-disable-line react/no-array-index-key
               })}
             </>}
             {parcelles && <>

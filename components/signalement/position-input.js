@@ -12,30 +12,30 @@ const StyledContainer = styled.div`
     
 `
 
-export default function PositionInput({position, positionType, onDelete, onEditPositionType}) {
+export default function PositionInput({point, type, onDelete, onEditPositionType}) {
   return (
     <StyledContainer>
       <SelectInput
         label='Type de position*'
-        value={positionType}
+        value={type}
         options={positionTypeOptions}
         handleChange={type => onEditPositionType({
-          position,
-          positionType: type,
+          point,
+          type,
         })} />
       <Input
         label='Longitude'
         disabled
         nativeInputProps={{
           style: {width: 90, padding: 5, marginLeft: 10, marginRight: 10},
-          value: position.coordinates[0]}}
+          value: point.coordinates[0]}}
       />
       <Input
         label='Latitude'
         disabled
         nativeInputProps={{
           style: {width: 90, padding: 5},
-          value: position.coordinates[1]}}
+          value: point.coordinates[1]}}
       />
       <button type='button' onClick={onDelete} style={{marginTop: 5, marginLeft: 5}}>
         <span className='icon'><X size={20} /></span>
@@ -47,8 +47,8 @@ export default function PositionInput({position, positionType, onDelete, onEditP
 PositionInput.propTypes = {
   onDelete: PropTypes.func.isRequired,
   onEditPositionType: PropTypes.func.isRequired,
-  position: PropTypes.shape({
+  point: PropTypes.shape({
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
-  positionType: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 }

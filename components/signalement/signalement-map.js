@@ -11,11 +11,11 @@ function SignalementMap({signalement, onEditSignalement, isEditParcellesMode}) {
   const map = useMap()
   const {cadastreFiltre} = useCadastre({map, parcelles, isCadastreDisplayed: isEditParcellesMode, handleEditParcelle: onEditSignalement('changesRequested', 'parcelles')})
 
-  const onMarkerDrag = useCallback(index => event => {
+  const onMarkerDragEnd = useCallback(index => event => {
     const newPositions = [...positions]
     newPositions[index] = {
       ...newPositions[index],
-      position: {
+      point: {
         type: 'Point',
         coordinates: [event.lngLat.lng, event.lngLat.lat]
       }
@@ -55,16 +55,16 @@ function SignalementMap({signalement, onEditSignalement, isEditParcellesMode}) {
         }
         )}
       </Source>
-      {positions.map(({position, positionType}, index) => (
+      {positions.map(({point, type}, index) => (
         <Marker
           key={index} // eslint-disable-line react/no-array-index-key
-          longitude={position.coordinates[0]}
-          latitude={position.coordinates[1]}
+          longitude={point.coordinates[0]}
+          latitude={point.coordinates[1]}
           anchor='bottom'
           draggable
-          onDragEnd={onMarkerDrag(index)}
+          onDragEnd={onMarkerDragEnd(index)}
         >
-          <label className='map-pin-label' style={{color: getSignalementPositionColor(positionType)}}>{getSignalementPositionLabel(positionType)}</label>
+          <label className='map-pin-label' style={{color: getSignalementPositionColor(type)}}>{getSignalementPositionLabel(type)}</label>
           <style jsx>{`
             .map-pin-label {
               position: absolute;
@@ -73,7 +73,7 @@ function SignalementMap({signalement, onEditSignalement, isEditParcellesMode}) {
               transform: translateX(calc(-50% + 10px));
             }
           `}</style>
-          <MapPin size={20} color={getSignalementPositionColor(positionType)} />
+          <MapPin size={20} color={getSignalementPositionColor(type)} />
         </Marker>
       ))}
     </>

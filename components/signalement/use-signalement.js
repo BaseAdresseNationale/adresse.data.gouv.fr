@@ -58,8 +58,11 @@ export function getExistingLocation(address) {
         type: 'TOPONYME',
         nom: address.nomVoie,
         position: {
-          type: 'Point',
-          coordinates: [address.lon, address.lat]
+          point: {
+            type: 'Point',
+            coordinates: [address.lon, address.lat]
+          },
+          type: address.positionType
         },
         parcelles: address.parcelles,
       }
@@ -69,8 +72,11 @@ export function getExistingLocation(address) {
         numero: address.numero,
         suffixe: address.suffixe,
         position: {
-          type: 'Point',
-          coordinates: [address.lon, address.lat]
+          point: {
+            type: 'Point',
+            coordinates: [address.lon, address.lat]
+          },
+          type: address.positionType
         },
         parcelles: address.parcelles,
         toponyme: {
@@ -128,7 +134,13 @@ export const getInitialSignalement = (signalementType, address) => {
         numero: address.numero,
         suffixe: address.suffixe,
         nomVoie: address.voie.nomVoie,
-        positions: address.positions,
+        positions: address.positions.map(({position, positionType}) => ({
+          point: {
+            type: 'Point',
+            coordinates: [...position.coordinates]
+          },
+          type: positionType
+        })),
         parcelles: address.parcelles
       }
     }

@@ -63,11 +63,11 @@ export default function SignalementNumeroForm({signalement, onEditSignalement, o
         </div>
         <h6>Positions :</h6>
         <legend>Déplacez les marqueurs sur la carte pour éditer les positions.</legend>
-        {positions.map(({position, positionType}, index) => (
+        {positions.map(({point, type}, index) => (
           <PositionInput
             key={index} // eslint-disable-line react/no-array-index-key
-            position={position}
-            positionType={positionType}
+            point={point}
+            type={type}
             onEditPositionType={updatedPosition => {
               const newPositions = [...positions]
               newPositions[index] = updatedPosition
@@ -81,7 +81,7 @@ export default function SignalementNumeroForm({signalement, onEditSignalement, o
           <Button
             type='button'
             style={{color: 'white', marginBottom: 10}}
-            onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {position: {type: 'Point', coordinates: initialPositionCoords}, positionType: 'entrée'}])}
+            onClick={() => onEditSignalement('changesRequested', 'positions')([...positions, {point: {type: 'Point', coordinates: initialPositionCoords}, type: 'entrée'}])}
           >
             Ajouter une position
           </Button>
