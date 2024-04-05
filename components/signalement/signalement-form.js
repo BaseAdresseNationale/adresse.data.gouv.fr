@@ -94,7 +94,7 @@ export default function SignalementForm({signalement, createSignalement, onEditS
         />
       )}
 
-      {(signalement?.type === 'LOCATION_TO_UPDATE' || signalement?.type === 'LOCATION_TO_CREATE') && address.type === 'numero' && (
+      {(signalement?.type === 'LOCATION_TO_UPDATE' || signalement?.type === 'LOCATION_TO_CREATE') && (address.type === 'numero' || address.type === 'voie') && (
         <SignalementNumeroForm
           setIsEditParcellesMode={setIsEditParcellesMode}
           onClose={onClose}
