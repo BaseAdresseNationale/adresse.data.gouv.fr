@@ -1,0 +1,58 @@
+{
+  "alias": [
+    {
+      "parent": "adresses-cadastre",
+      "name": "latest",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^\\d{4}$"]
+      }
+    },
+    {
+      "parent": "adresses-ftth",
+      "name": "latest",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^\\d{4}-T\\d$"]
+      }
+    },
+    {
+      "parent": "ban",
+      "name": "adresses-odbl",
+      "target": "adresses",
+      "comment": "Ce repertoire est obsolète et redirige vers les données du répertoire `adresses`"
+    },
+    {
+      "parent": "ban/adresses",
+      "name": "weekly",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^\\d{4}-\\d{2}-\\d{2}$"]
+      }
+    },
+    {
+      "parent": "ban/export-api-gestion",
+      "name": "latest",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^\\d{4}-\\d{2}-\\d{2}$"]
+      }
+    },
+    {
+      "parent": "contours-administratifs",
+      "name": "latest",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^\\d{4}$"]
+      }
+    },
+    {
+      "parent": "fantoir",
+      "name": "latest",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^fantoir-\\d{4}-\\d{2}\\.gz$"]
+      }
+    }
+  ]
+}
