@@ -5,14 +5,15 @@ import PropTypes from 'prop-types'
 import DataEntry from './data-entry'
 import dateFormatOptions from './date-format-options'
 
-function Data({root, path = [], data: dataRaw = []}) {
+function Data({root, path = [], data: dataRaw = [], config = {}}) {
   const currentDir = ['data', ...path].slice(-1)
   const parentsDir = ['data', ...path].slice(0, -1)
+  const sectionsConfig = useMemo(() => Object.fromEntries((config.groups || []).map(group => [group.name, group])), [config.groups])
+  const {__: dataDefault, ...dateSections} = useMemo(() => {
+    const sections = Object.fromEntries((config.groups || []).map(group => [group.name, []]))
 
-  const {dataPath, dateDir} = useMemo(() => {
     // eslint-disable-next-line unicorn/no-array-reduce
-    const {dataPath, dateDirRaw} = dataRaw.reduce((acc, entry) => {
-      const {isDirectory} = entry
+    const dataSections = dataRaw.reduce((acc, entry) => {
       const fileDate = entry.fileInfo?.date && new Date(entry.fileInfo.date)
       const {year, month, day} = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/.exec(entry.name)?.groups || {}
       const humanDateDirName = year && month && day && (new Date(year, month, day)).toLocaleString('fr-FR', dateFormatOptions.dateFormatOptionsLongDate)
@@ -23,20 +24,13 @@ function Data({root, path = [], data: dataRaw = []}) {
         fileDate,
       }
 
-      if (isDirectory && humanDateDirName) {
-        acc.dateDirRaw?.push(finalEntry)
-      } else {
-        acc.dataPath?.push(finalEntry)
-      }
+      const section = config.groups?.find(({rule}) => rule && (new RegExp(rule)).test(entry.name))
+      acc[section ? section.name : '__'].push(finalEntry)
 
       return acc
-    }, {dateDirRaw: [], dataPath: []})
-
-    return {
-      dataPath,
-      dateDir: dateDirRaw.reverse()
-    }
-  }, [dataRaw])
+    }, (sections.__ ? sections : {__: [], ...sections}))
+    return dataSections
+  }, [dataRaw, config.groups])
 
   return (
     <div>
@@ -52,28 +46,33 @@ function Data({root, path = [], data: dataRaw = []}) {
       </div>
 
       <div>
-        {dataPath?.length > 0 && (
+        {dataDefault?.length > 0 && (
           <ul>
             {
-              dataPath.map(entry => (
+              dataDefault.map(entry => (
                 <li key={entry.name}><DataEntry entry={entry} path={path} /></li>
               ))
             }
           </ul>
         )}
 
-        {dateDir?.length > 0 && (
-          <>
-            <hr />
-            <h3>Données archivées</h3>
-            <ul>
-              {
-                dateDir.map(entry => (
-                  <li key={entry.name}><DataEntry entry={entry} path={path} /></li>
-                ))
-              }
-            </ul>
-          </>
+        {dateSections && Object.entries(dateSections).map(([sectionName, sectionEntries]) => {
+          const {description} = sectionsConfig[sectionName] || {}
+          return (
+            <div key={sectionName}>
+              <hr />
+              <h3>{sectionName}</h3>
+              {description && <p>{description}</p>}
+              <ul>
+                {
+                  sectionEntries.map(entry => (
+                    <li key={entry.name}><DataEntry entry={entry} path={path} /></li>
+                  ))
+                }
+              </ul>
+            </div>
+          )
+        }
         )}
       </div>
     </div>
@@ -87,6 +86,7 @@ Data.propTypes = {
   }),
   path: PropTypes.array.isRequired,
   data: PropTypes.array.isRequired,
+  config: PropTypes.object,
 }
 
 export default Data

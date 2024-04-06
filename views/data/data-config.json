@@ -1,4 +1,75 @@
 {
+  "directory": [
+    {
+      "path": "adresses-cadastre",
+      "hero": {
+        "value": "Ces fichiers sont produit depuis les données fournis par la DGFiP"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "direction": "desc",
+          "rule": "^\\d{4}$"
+        },
+        {
+          "name": "__"
+        }
+      ]
+    },
+    {
+      "path": "ban/adresses",
+      "hero": {
+        "value": "Retrouvez ici toute les adresses de la Base Adresse Nationale (BAN)"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "description": "Données archivées de la BAN",
+          "direction": "desc",
+          "rule": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        {
+          "name": "__"
+        }
+      ]
+    },
+    {
+      "path": "ban/adresses-odbl",
+      "hero": {
+        "type": "warning",
+        "value": "Ce répertoire est obsolète et redirige vers le répertoire adresses"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "description": "Données archivées de la BAN",
+          "direction": "desc",
+          "rule": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        {
+          "name": "__"
+        }
+      ]
+    },
+    {
+      "path": "ban/export-api-gestion",
+      "hero": {
+        "type": "warning",
+        "value": "Ce répertoire est obsolète et redirige vers le répertoire adresses"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "description": "Données archivées de la BAN",
+          "direction": "desc",
+          "rule": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        {
+          "name": "__"
+        }
+      ]
+    }
+  ],
   "alias": [
     {
       "parent": "adresses-cadastre",

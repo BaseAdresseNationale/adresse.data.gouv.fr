@@ -45,6 +45,7 @@ const clientS3 = new S3({
 export async function getServerSideProps(context) {
   const {params, res, req} = context
   const {path: paramPathRaw = []} = params
+  const config = dataConfig?.directory.find(({path}) => path === paramPathRaw.join('/')) || {}
   const alias = await getAlias(clientS3, bucketName)(rootDir, dataConfig?.alias, paramPathRaw.join('/') || '')
 
   const paramPath = alias && (new RegExp(`^${alias.parent}/${alias.name}`)).test(paramPathRaw.join('/'))
@@ -120,10 +121,7 @@ export async function getServerSideProps(context) {
           title: ['data', ...paramPath].join('/') || '',
           path: paramPathRaw || [],
           data: s3contentDir || [],
-          pageInfoText: alias && alias.parent !== dirPath && alias.comment ? {
-            type: 'warning',
-            value: alias.comment,
-          } : null,
+          config,
         }
       }
     }
@@ -139,7 +137,8 @@ export async function getServerSideProps(context) {
   return {props: {}}
 }
 
-export default function DataPage({title, path, data, pageInfoText, errorCode, errorMessage}) {
+export default function DataPage({title, path, data, config, errorCode, errorMessage}) {
+  const {hero} = config
   return errorCode && errorCode !== 200 ?
     (<ErrorPage code={errorCode} message={errorMessage} />) :
     (path ? (
@@ -149,13 +148,13 @@ export default function DataPage({title, path, data, pageInfoText, errorCode, er
           icon={<Download size={56} alt='' aria-hidden='true' />}
         />
         <Section>
-          {pageInfoText && (
+          {hero && (
             <p>
-              {pageInfoText.type === 'warning' && <i className={fr.cx('fr-icon-warning-fill', 'warn-icon')} />}
-              {pageInfoText.value}
+              {hero.type === 'warning' && <i className={fr.cx('fr-icon-warning-fill', 'warn-icon')} />}
+              {hero.value}
             </p>
           )}
-          <Data {...{root: rootLink, path, data}} />
+          <Data {...{root: rootLink, path, data, config}} />
         </Section>
 
         <style jsx>{`
@@ -173,9 +172,11 @@ DataPage.propTypes = {
   title: PropTypes.string,
   path: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
-  pageInfoText: PropTypes.shape({
-    type: PropTypes.string,
-    value: PropTypes.string,
+  config: PropTypes.shape({
+    hero: PropTypes.shape({
+      type: PropTypes.string,
+      value: PropTypes.string,
+    }),
   }),
   errorCode: PropTypes.number,
   errorMessage: PropTypes.string,

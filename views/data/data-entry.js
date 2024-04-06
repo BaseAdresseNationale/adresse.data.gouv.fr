@@ -9,7 +9,9 @@ import dateFormatOptions from './date-format-options'
 
 const translatedName = {
   latest: 'Dernière(s) version(s) en date',
-  weekly: 'Version hebdomadaire',
+  weekly: 'Version(s) hebdomadaire(s)',
+  'ban/adresses-odbl': 'Repertoire déprecié',
+  'ban/adresses-odbl/latest': 'Dernière(s) version(s) en date',
 }
 
 const translatedQuarter = {
@@ -25,7 +27,7 @@ function DataEntry({entry: {name, isDirectory, fileInfo}, path}) {
   const {year, quarter, month, day} = dateSearchRegExp.exec(name)?.groups || {}
   const humanDateDirName = year && month && day ? (new Date(year, month, day)).toLocaleString('fr-FR', dateFormatOptions.dateFormatOptionsLongDate) :
     year && quarter && `${translatedQuarter[quarter]} ${year}`
-  const humanDirName = humanDateDirName ? `export du ${humanDateDirName}` : translatedName[name]
+  const humanDirName = humanDateDirName ? `export du ${humanDateDirName}` : translatedName[[...path, name].join('/')] || translatedName[name]
 
   return (
     <Fragment key={name}>
@@ -40,7 +42,7 @@ function DataEntry({entry: {name, isDirectory, fileInfo}, path}) {
         >
           <span className='explorer-link-label'>
             <span className='explorer-link-label-wrapper'>
-              <span className={humanDirName ? 'explorer-link-label-text-date' : 'explorer-link-label-text'}>{name}</span>
+              <span className={humanDateDirName ? 'explorer-link-label-text-date' : 'explorer-link-label-text'}>{name}</span>
               {humanDirName && <span className='explorer-link-label-human'>{humanDirName}</span>}
             </span>
 
