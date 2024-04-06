@@ -5,8 +5,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const imagesDomains = ['static.data.gouv.fr']
 
-if (process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
-  imagesDomains.push(process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE)
+const envVar = Object.fromEntries(
+  Object
+    .entries(process.env)
+    .filter(([key]) => key.startsWith('NEXT_PUBLIC'))
+)
+
+if (envVar.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
+  imagesDomains.push(envVar.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE)
 }
 
 const redirection = async () => [
@@ -45,6 +51,7 @@ const nextConfig = withTM({
   redirects: redirection,
   publicRuntimeConfig: {
     isDevMode: process.env.NODE_ENV !== 'production',
+    ...envVar,
   },
 })
 
