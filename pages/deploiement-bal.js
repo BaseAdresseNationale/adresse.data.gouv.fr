@@ -23,7 +23,7 @@ import SearchInput from '@/components/search-input'
 import SearchSelected from '@/components/search-input/search-selected'
 import StatsSearchItem from '@/components/search-input/stats-search-item'
 
-const {NEXT_PUBLIC_ADRESSE_URL: ADRESSE_URL = 'http://localhost:3000'} = getConfig().publicRuntimeConfig
+const {NEXT_PUBLIC_ADRESSE_URL: ADRESSE_URL = '.'} = getConfig().publicRuntimeConfig
 
 const mapToSearchResult = (values, type) => values.map(({code, nom, centre, contour}) => ({value: code, type, nom, center: centre, contour}))
 function EtatDeploiement({initialStats, departements}) {
