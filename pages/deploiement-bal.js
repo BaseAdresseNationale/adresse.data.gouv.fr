@@ -1,5 +1,6 @@
 import {useEffect, useState, useCallback} from 'react'
 import PropTypes from 'prop-types'
+import getConfig from 'next/config'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
@@ -22,7 +23,7 @@ import SearchInput from '@/components/search-input'
 import SearchSelected from '@/components/search-input/search-selected'
 import StatsSearchItem from '@/components/search-input/stats-search-item'
 
-const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
+const {NEXT_PUBLIC_ADRESSE_URL: ADRESSE_URL = 'http://localhost:3000'} = getConfig().publicRuntimeConfig
 
 const mapToSearchResult = (values, type) => values.map(({code, nom, centre, contour}) => ({value: code, type, nom, center: centre, contour}))
 function EtatDeploiement({initialStats, departements}) {

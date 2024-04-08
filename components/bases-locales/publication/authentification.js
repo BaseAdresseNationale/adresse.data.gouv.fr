@@ -1,9 +1,10 @@
 import {useState} from 'react'
 import PropTypes from 'prop-types'
+import getConfig from 'next/config'
 import Image from 'next/legacy/image'
 import {ChevronRight, ChevronDown, Info, Mail, Users, Clock, LogIn} from 'react-feather'
 
-const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'https://adresse.data.gouv.fr'
+const {NEXT_PUBLIC_ADRESSE_URL: ADRESSE_URL = '.'} = getConfig().publicRuntimeConfig
 
 import theme from '@/styles/theme'
 

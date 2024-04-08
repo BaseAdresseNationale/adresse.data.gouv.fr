@@ -2,6 +2,7 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import getConfig from 'next/config'
 import {AlertTriangle} from 'react-feather'
 
 import SelectPaintLayer from '@/components/maplibre/select-paint-layer'
@@ -10,7 +11,7 @@ import MapLegends from '@/components/maplibre/map-legends'
 import {DEFAULT_CENTER, DEFAULT_ZOOM} from '@/components/maplibre/map'
 import theme from '@/styles/theme'
 
-const ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL || 'http://localhost:3000'
+const {NEXT_PUBLIC_ADRESSE_URL: ADRESSE_URL = '.'} = getConfig().publicRuntimeConfig
 
 const paintLayers = {
   source: {
@@ -52,7 +53,7 @@ const paintLayers = {
           expression: [
             ['==', ['get', 'hasBAL'], true],
             ['==', ['get', 'idClient'], 'formulaire-publication']
-          ], // Formaulaire
+          ], // Formulaire
           color: theme.colors.mapBlue
         },
         {
