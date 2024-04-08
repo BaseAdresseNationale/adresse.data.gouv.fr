@@ -1,9 +1,12 @@
 import {useCallback, useContext, useEffect, useMemo, useState} from 'react'
 import PropTypes from 'prop-types'
+import {Layer, Source, useMap, Popup} from 'react-map-gl/maplibre'
 import bboxPolygon from '@turf/bbox-polygon'
 import booleanContains from '@turf/boolean-contains'
 
 import theme from '@/styles/theme'
+import DeviceContext from '@/contexts/device'
+import {API_BAN_URL} from '@/lib/api-ban'
 
 import CadastreLayerControl from '../cadastre-layer-control'
 import CenterControl from '../center-control'
@@ -27,11 +30,6 @@ import {
 } from './layers'
 import popupFeatures from './popups'
 import {flatten, forEach} from 'lodash'
-
-import DeviceContext from '@/contexts/device'
-import {Layer, Source, useMap, Popup} from 'react-map-gl/maplibre'
-
-const API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL || 'https://plateforme.adresse.data.gouv.fr'
 
 let hoveredFeature = null
 
