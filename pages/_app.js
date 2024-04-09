@@ -2,6 +2,7 @@ import {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import Link from 'next/link'
+import getConfig from 'next/config'
 import {createNextDsfrIntegrationApi} from '@codegouvfr/react-dsfr/next-pagesdir'
 import {useIsDark} from '@codegouvfr/react-dsfr/useIsDark'
 import {DeviceContextProvider} from '@/contexts/device'
@@ -10,8 +11,10 @@ import {init as matomoInit} from '@socialgouv/matomo-next'
 import '@/styles/template-data-gouv-to-dsfr/normalizer.css'
 import '@/styles/template-data-gouv-to-dsfr/main-alternate.css'
 
-const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL
-const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID
+const {
+  NEXT_PUBLIC_MATOMO_URL: MATOMO_URL,
+  NEXT_PUBLIC_MATOMO_SITE_ID: MATOMO_SITE_ID,
+} = getConfig().publicRuntimeConfig
 
 const {
   withDsfr,

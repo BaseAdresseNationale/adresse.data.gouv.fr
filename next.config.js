@@ -1,3 +1,5 @@
+const fs = require('fs')
+const dotenv = require('dotenv')
 const withTM = require('next-transpile-modules')(['@codegouvfr/react-dsfr'])
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
@@ -5,8 +7,17 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const imagesDomains = ['static.data.gouv.fr']
 
-if (process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
-  imagesDomains.push(process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE)
+const defaultEnvVarFile = '.env.default'
+const defaultEnvVarRaw = dotenv.parse(fs.readFileSync(defaultEnvVarFile))
+const defaultEnvVar = Object.fromEntries(Object.entries(defaultEnvVarRaw).filter(([key]) => key.startsWith('NEXT_PUBLIC')))
+const envVar = Object.fromEntries(
+  Object
+    .entries(process.env)
+    .filter(([key]) => key.startsWith('NEXT_PUBLIC'))
+)
+
+if (envVar.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
+  imagesDomains.push(envVar.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE)
 }
 
 const redirection = async () => [
@@ -45,6 +56,8 @@ const nextConfig = withTM({
   redirects: redirection,
   publicRuntimeConfig: {
     isDevMode: process.env.NODE_ENV !== 'production',
+    ...defaultEnvVar,
+    ...envVar,
   },
 })
 

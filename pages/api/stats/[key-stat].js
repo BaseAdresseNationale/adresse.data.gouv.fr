@@ -1,3 +1,5 @@
+import getConfig from 'next/config'
+
 import {
   matomoToVisitData,
   matomoDailyDownloadToData,
@@ -12,10 +14,17 @@ import {
 } from '@/views/stats/stats-config-data'
 
 const {
-  NEXT_PUBLIC_MATOMO_URL: MATOMO_URL,
-  NEXT_PUBLIC_MATOMO_SITE_ID: MATOMO_ID,
   MATOMO_TOKEN_AUTH = '',
 } = process.env
+
+const {
+  NEXT_PUBLIC_MATOMO_URL: MATOMO_URL,
+  NEXT_PUBLIC_MATOMO_SITE_ID: MATOMO_ID,
+} = getConfig().publicRuntimeConfig
+
+if (!MATOMO_URL || !MATOMO_ID) {
+  throw new Error('MATOMO_URL and MATOMO_ID is not defined in the environment')
+}
 
 const URL_GET_STATS_MONTHLY_DOWNLOAD = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1&token_auth=${MATOMO_TOKEN_AUTH}`
 const URL_GET_STATS_MONTHLY_LOOKUP = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1&token_auth=${MATOMO_TOKEN_AUTH}`

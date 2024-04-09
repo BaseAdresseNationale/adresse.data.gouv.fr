@@ -1,11 +1,16 @@
 const express = require('express')
 const got = require('got')
 const {ironSession} = require('iron-session/express')
+const getConfig = require('next/config')
 
 const w = require('./w')
 
-const API_DEPOT_URL = process.env.NEXT_PUBLIC_API_DEPOT_URL || 'https://plateforme-bal.adresse.data.gouv.fr/api-depot'
+const {NEXT_PUBLIC_API_DEPOT_URL: API_DEPOT_URL} = getConfig().publicRuntimeConfig
 const {API_DEPOT_TOKEN} = process.env
+
+if (!API_DEPOT_URL) {
+  throw new Error('API_DEPOT_URL is not defined in the environment')
+}
 
 const client = got.extend({
   prefixUrl: API_DEPOT_URL,

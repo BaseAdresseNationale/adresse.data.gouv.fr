@@ -1,6 +1,7 @@
 import {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import getConfig from 'next/config'
 
 import colors from '@/styles/colors'
 import theme from '@/styles/theme'
@@ -19,7 +20,7 @@ import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 import DownloadCertificate from './download-certificate'
 
-const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = process.env
+const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = getConfig().publicRuntimeConfig
 
 function Numero({
   numero,
