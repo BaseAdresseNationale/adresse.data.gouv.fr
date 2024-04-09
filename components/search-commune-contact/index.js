@@ -26,10 +26,9 @@ function SearchCommuneContact() {
     setLoading(true)
     setMairie(null)
 
-    const results = await getMairie(commune.code)
-    const mairie = results.features[0]
+    const mairie = await getMairie(commune.code)
     if (mairie) {
-      setMairie(results.features[0].properties)
+      setMairie(mairie)
     } else {
       const error = new Error(`Aucune information disponible pour la mairie de ${commune.nom}.`)
       setError(error)

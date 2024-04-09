@@ -40,12 +40,11 @@ function Partner({partnerInfos, isCommune}) {
   const getMairieInfos = useCallback(async () => {
     if (isCommune && codeCommune) {
       const mairie = await getMairie(codeCommune)
-      const {properties} = mairie.features[0]
 
       setMairieContact(
         {
-          mail: properties.email,
-          phone: properties.telephone
+          mail: mairie.email,
+          phone: mairie.telephone
         }
       )
     }
