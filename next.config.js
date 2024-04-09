@@ -7,7 +7,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const imagesDomains = ['static.data.gouv.fr']
 
-const defaultEnvVarFile = '.env.sample'
+const defaultEnvVarFile = '.env.default'
 const defaultEnvVarRaw = dotenv.parse(fs.readFileSync(defaultEnvVarFile))
 const defaultEnvVar = Object.fromEntries(Object.entries(defaultEnvVarRaw).filter(([key]) => key.startsWith('NEXT_PUBLIC')))
 const envVar = Object.fromEntries(
