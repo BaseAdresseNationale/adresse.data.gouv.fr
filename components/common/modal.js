@@ -16,6 +16,7 @@ const StyledContainer = styled.div`
   align-items: center;
 
   > .modal {
+  background: white;
   display: flex;
   padding: 2em;
   border-radius: 5px;

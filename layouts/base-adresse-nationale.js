@@ -8,6 +8,10 @@ import MapLibre from '@/components/maplibre'
 import BanSearch from '@/components/ban-search'
 import BanMap from '@/components/maplibre/ban-map'
 import ButtonLink from '@/components/button-link'
+import SignalementButton from '@/components/signalement/signalement-button'
+import SignalementForm from '@/components/signalement/signalement-form'
+import SignalementMap from '@/components/signalement/signalement-map'
+import {useSignalement} from '@/components/signalement/use-signalement'
 import LayoutSelector from '@/components/base-adresse-nationale/layout-selector'
 import Explorer from '@/components/base-adresse-nationale/explorer'
 
@@ -27,14 +31,14 @@ const styleParam = {
 
 const defaultProps = {
   address: null,
-  hash: null
+  hash: null,
 }
 
 const propTypes = {
   address: PropTypes.object,
   bbox: PropTypes.array,
   handleSelect: PropTypes.func.isRequired,
-  hash: PropTypes.string
+  hash: PropTypes.string,
 }
 
 const parseHash = hash => {
@@ -47,6 +51,22 @@ const parseHash = hash => {
 }
 
 export function Mobile({address, bbox, handleSelect, hash}) {
+  const [isSignalementFormOpen, setIsSignalementFormOpen] = useState(false)
+  const {
+    createSignalement,
+    deleteSignalement,
+    signalement,
+    onEditSignalement,
+    isEditParcellesMode,
+    setIsEditParcellesMode,
+    isSignalementAvailable
+  } = useSignalement(address)
+
+  const handleCloseSignalementForm = () => {
+    setIsSignalementFormOpen(false)
+    deleteSignalement()
+  }
+
   const {viewHeight} = useContext(DeviceContext)
   const [selectedLayout, setSelectedLayout] = useState('map')
   const {zoom, center} = parseHash(hash)
@@ -55,17 +75,49 @@ export function Mobile({address, bbox, handleSelect, hash}) {
     <div className='ban-container'>
       <BanSearch />
 
-      <div className={`mobile-container ${selectedLayout === 'map' ? 'show' : 'hidden'}`}>
-        <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-
-          <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
-
+      <div
+        className={`mobile-container ${
+          selectedLayout === 'map' ? 'show' : 'hidden'
+        }`}
+      >
+        <MapLibre
+          defaultCenter={center}
+          defaultZoom={zoom}
+          bbox={bbox}
+          hasSwitchStyle
+          hasHash
+        >
+          {isSignalementFormOpen && signalement?.changesRequested?.positions ? (
+            <SignalementMap
+              signalement={signalement}
+              onEditSignalement={onEditSignalement}
+              isEditParcellesMode={isEditParcellesMode}
+            />
+          ) : (
+            <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+          )}
         </MapLibre>
       </div>
 
-      <div className={`mobile-container ${selectedLayout === 'explorer' ? 'show' : 'hidden'}`}>
+      <div
+        className={`mobile-container ${
+          selectedLayout === 'explorer' ? 'show' : 'hidden'
+        }`}
+      >
         <div className='explorer'>
-          <Explorer address={address} handleSelect={handleSelect} isMobile />
+          {isSignalementFormOpen ? (
+            <SignalementForm
+              address={address}
+              createSignalement={createSignalement}
+              signalement={signalement}
+              onEditSignalement={onEditSignalement}
+              onClose={handleCloseSignalementForm}
+              setIsEditParcellesMode={setIsEditParcellesMode}
+              isEditParcellesMode={isEditParcellesMode}
+            />
+          ) : (
+            <Explorer address={address} handleSelect={handleSelect} isMobile />)}
+          {isSignalementAvailable && !isSignalementFormOpen && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
         </div>
       </div>
 
@@ -97,7 +149,9 @@ export function Mobile({address, bbox, handleSelect, hash}) {
 
         .mobile-container {
           width: 100%;
-          height: calc(${viewHeight} - ${styleParam.mobile.headerHeight}px - 115px); // Max heigth available - sum of header - (searchbar and layout selector heights)
+          height: calc(
+            ${viewHeight} - ${styleParam.mobile.headerHeight}px - 115px
+          ); // Max heigth available - sum of header - (searchbar and layout selector heights)
         }
 
         .show {
@@ -124,9 +178,8 @@ export function Mobile({address, bbox, handleSelect, hash}) {
           grid-gap: 1em;
           background-color: #fff;
         }
-        `}</style>
+      `}</style>
     </div>
-
   )
 }
 
@@ -134,7 +187,22 @@ Mobile.defaultProps = defaultProps
 Mobile.propTypes = propTypes
 
 export function Desktop({address, bbox, handleSelect, hash}) {
+  const [isSignalementFormOpen, setIsSignalementFormOpen] = useState(false)
+  const {
+    createSignalement,
+    deleteSignalement,
+    signalement,
+    onEditSignalement,
+    isEditParcellesMode,
+    setIsEditParcellesMode,
+    isSignalementAvailable
+  } = useSignalement(address)
   const {zoom, center} = parseHash(hash)
+
+  const handleCloseSignalementForm = () => {
+    setIsSignalementFormOpen(false)
+    deleteSignalement()
+  }
 
   return (
     <div className='ban-container'>
@@ -142,19 +210,51 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         <div className='search'>
           <BanSearch />
         </div>
-        <Explorer address={address} handleSelect={handleSelect} />
-        <div className='footer'>
-          <p>Pour mettre à jour vos adresses, cliquez ici : </p>
-          <ButtonLink href='https://adresse.data.gouv.fr/contribuer' isOutlined color='white' size='small'>
-            Contribuer à la Base Adresse Nationale
-          </ButtonLink>
-        </div>
+        {isSignalementFormOpen ? (
+          <SignalementForm
+            address={address}
+            createSignalement={createSignalement}
+            signalement={signalement}
+            onEditSignalement={onEditSignalement}
+            onClose={handleCloseSignalementForm}
+            setIsEditParcellesMode={setIsEditParcellesMode}
+            isEditParcellesMode={isEditParcellesMode}
+          />
+        ) : (
+          <>
+            <Explorer address={address} handleSelect={handleSelect} />
+            {isSignalementAvailable && <SignalementButton onClick={() => setIsSignalementFormOpen(true)} />}
+            <div className='footer'>
+              <p>Pour mettre à jour vos adresses, cliquez ici : </p>
+              <ButtonLink
+                href='https://adresse.data.gouv.fr/contribuer'
+                isOutlined
+                color='white'
+                size='small'
+              >
+                Contribuer à la Base Adresse Nationale
+              </ButtonLink>
+            </div>
+          </>
+        )}
       </div>
 
-      <MapLibre defaultCenter={center} defaultZoom={zoom} bbox={bbox} hasSwitchStyle hasHash>
-
-        <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
-
+      <MapLibre
+        defaultCenter={center}
+        defaultZoom={zoom}
+        bbox={bbox}
+        hasSwitchStyle
+        hasHash
+      >
+        {isSignalementFormOpen && signalement?.changesRequested?.positions ? (
+          <SignalementMap
+            signalement={signalement}
+            onEditSignalement={onEditSignalement}
+            isEditParcellesMode={isEditParcellesMode}
+          />
+        ) : (
+          <BanMap address={address} onSelect={handleSelect} bbox={bbox} />
+        )}
       </MapLibre>
 
       <style jsx>{`
@@ -187,14 +287,17 @@ export function Desktop({address, bbox, handleSelect, hash}) {
         }
 
         .footer {
-          padding: .5em;
+          padding: 0.5em;
           text-align: center;
         }
 
         .footer p {
-          font-size: .8em;
+          font-size: 0.8em;
         }
-        `}</style>
+
+        .signalement-button {
+        }
+      `}</style>
     </div>
   )
 }
