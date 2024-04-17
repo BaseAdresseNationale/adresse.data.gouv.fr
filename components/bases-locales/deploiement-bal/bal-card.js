@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types'
+import getConfig from 'next/config'
+
 import ButtonLink from '@/components/button-link'
 import {sanitizedDate} from '@/lib/date'
 import StatusBadge from '@/components/bases-locales/deploiement-bal/status-badge'
 
-const MES_ADRESSE_URL = process.env.NEXT_PUBLIC_MES_ADRESSES || 'https://mes-adresses.data.gouv.fr'
+const {NEXT_PUBLIC_MES_ADRESSES: MES_ADRESSE_URL} = getConfig().publicRuntimeConfig
 
 function BaseLocaleCard({bal}) {
-  const balUrl = MES_ADRESSE_URL + '/bal/' + bal._id
+  if (!MES_ADRESSE_URL) {
+    console.error('`MES_ADRESSE_URL` config value is not defined')
+    return null
+  }
+
+  const balUrl = `${MES_ADRESSE_URL}/bal/${bal._id}`
 
   return (
     <div>
@@ -58,7 +65,6 @@ BaseLocaleCard.propTypes = {
     status: PropTypes.oneOf([
       'replaced',
       'published',
-      'ready-to-publish',
       'draft',
     ]).isRequired,
     sync: PropTypes.shape({

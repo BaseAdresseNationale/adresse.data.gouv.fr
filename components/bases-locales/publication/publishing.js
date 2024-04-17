@@ -32,7 +32,7 @@ function Publishing({user, commune, hasConflit, publication}) {
           {hasConflit && (
             <div className='confirm-publication'>
               <input type='checkbox' value={isConfirmed} onChange={() => setIsConfirmed(!isConfirmed)} />
-              <label>Je comprend que ma Base Adresse Locale remplacera celle actuellement synchronisée avec la Base Adresses Nationale</label>
+              <label>Je comprends que ma Base Adresse Locale remplacera celle actuellement synchronisée avec la Base Adresses Nationale</label>
             </div>
           )}
 

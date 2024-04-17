@@ -176,6 +176,10 @@ function EventModal({event, isPassed, onClose}) {
           background: ${theme.colors.darkGreen};
         }
 
+        .formation-lvl2-backg {
+          background: ${theme.colors.green};
+        }
+
         .partenaire-backg {
           background: ${theme.colors.blue};
         }

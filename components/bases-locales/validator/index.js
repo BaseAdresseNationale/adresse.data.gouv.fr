@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import {validate, profiles} from '@ban-team/validateur-bal'
 import {Check, X} from 'react-feather'
+import Link from 'next/link'
 
 import {getFileExtension} from '@/lib/bal/file'
 
@@ -85,14 +86,35 @@ function BALValidator() {
             {Object.values(profiles).filter(p => p.isUsed).map(p => (
               <option key={p.code} value={p.code}>
                 {p.name}
-                {defaultProfil === p.code && ' (défaut)'}
               </option>
             ))}
           </select>
         </div>
-        <ButtonLink href='/bases-locales/validator-documentation' title='Documentation Validateur'>
-          Documentation
-        </ButtonLink>
+        <div>
+          <ButtonLink href='/bases-locales/validator-documentation' title='Documentation Validateur'>
+            Documentation du validateur
+          </ButtonLink>
+        </div>
+      </div>
+      <div>
+        <Link
+          style={{display: 'block'}}
+          href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.3.pdf'
+          target='_blank'
+          rel='noreferrer'
+          title='Documentation du format BAL 1.3'
+        >
+          Documentation du format BAL 1.3
+        </Link>
+        <Link
+          style={{display: 'block'}}
+          href='https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.4.pdf'
+          target='_blank'
+          rel='noreferrer'
+          title='Documentation du format BAL 1.4'
+        >
+          Documentation du format BAL 1.4
+        </Link>
       </div>
       {inProgress &&
         <Section title='Analyse en cours'>
@@ -126,7 +148,6 @@ function BALValidator() {
         }
         .profil-selector {
           display: flex;
-          align-items: self-end;
         }
         .profil-selector > label {
           margin-right: 10px;

@@ -115,6 +115,10 @@ function Event({event, background, isPassed}) {
           background: ${theme.colors.darkGreen};
         }
 
+        .formation-lvl2 {
+          background: ${theme.colors.green};
+        }
+
         .partenaire {
           background: ${theme.colors.blue};
         }

@@ -20,6 +20,8 @@ import {
 
 import {defaultTheme} from './color-theme'
 import AxisTickByDate from './axis-tick-by-date'
+import ChartsCustomTooltip from './charts-custom-tooltip'
+import ChartsCustomAxisLabel from './charts-custom-axis-label'
 
 const renderColorfulLegendText = (value, entry) => {
   const {color} = entry
@@ -27,18 +29,31 @@ const renderColorfulLegendText = (value, entry) => {
 }
 
 const yAxisTickFormatter = value => {
-  return Number.isNaN(value) ?
-    value :
-    `${value.toLocaleString(
-      undefined, {minimumFractionDigits: 0}
-    ).replace(/000$/g, 'K')}`
-}
+  if (Number.isNaN(value)) {
+    return value
+  }
 
-const defaultArea = {
-  type: 'monotone',
-  dataKey: 'download BAL',
-  stackId: '1',
-  strokeWidth: 0.5,
+  if (value >= 10_000_000) {
+    return `${(value / 1_000_000).toPrecision(2)}M`
+  }
+
+  if (value >= 1_000_000) {
+    return `${(value / 1_000_000).toPrecision(1)}M`
+  }
+
+  if (value >= 100_000) {
+    return `${(value / 1000).toPrecision(3)}K`
+  }
+
+  if (value >= 10_000) {
+    return `${(value / 1000).toPrecision(2)}K`
+  }
+
+  if (value >= 1_000) {
+    return `${(value / 1000).toPrecision(1)}K`
+  }
+
+  return value
 }
 
 const typeComponents = {
@@ -60,14 +75,29 @@ const typeComponents = {
   },
 }
 
-function CartesianChart({type, data, axisDef, yAxisMaxKeyName, totalKeyName}) {
+const defaultArea = {
+  type: 'monotone',
+  dataKey: 'download BAL',
+  stackId: '1',
+  strokeWidth: 0.5,
+}
+
+function CartesianChart({type, data, axisDef, totalKeyName: totalKeyNameProps}) {
   const dataList = Object.entries(axisDef).map(([dataKey, areaItem], index) => ({
     ...defaultArea,
     dataKey,
-    stroke: defaultTheme[index]?.[0],
-    fill: defaultTheme[index]?.[1],
+    stroke: dataKey?.stroke || defaultTheme[index]?.[0],
+    fill: dataKey?.fill || defaultTheme[index]?.[1],
     ...(areaItem || {}),
   }))
+  const totalKeyName = totalKeyNameProps || Object.values(axisDef).find(({ordinate}) => ordinate)?.dataKey
+  const yAxisMaxKeyName = dataList.find(({ordinate}) => Boolean(ordinate))?.dataKey
+  const yAxisMaxValue = yAxisMaxKeyName ?
+    (data || []).reduce( // eslint-disable-line unicorn/no-array-reduce
+      (acc, item) => {
+        return Math.max(acc, item?.[yAxisMaxKeyName] ? Number(item[yAxisMaxKeyName]) : 0)
+      }, 0) :
+    'auto'
 
   const {chart: Chart, axis: Axis} = typeComponents[type]
 
@@ -96,9 +126,10 @@ function CartesianChart({type, data, axisDef, yAxisMaxKeyName, totalKeyName}) {
         <YAxis
           dataKey={yAxisMaxKeyName}
           tickFormatter={yAxisTickFormatter}
+          domain={[0, yAxisMaxValue === 'auto' ? yAxisMaxValue : `dataMax + ${'1'.padEnd((yAxisMaxValue).toString().length - 1, '0')}`]}
         />
 
-        <Tooltip />
+        <Tooltip content={<ChartsCustomTooltip />} />
 
         <>
           {dataList.map((areaItem, index, arr) => (
@@ -106,7 +137,7 @@ function CartesianChart({type, data, axisDef, yAxisMaxKeyName, totalKeyName}) {
               key={areaItem.dataKey}
               {...(areaItem || {})}
             >
-              {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position='top' />}
+              {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position='top' content={<ChartsCustomAxisLabel />} />}
             </Axis>
           ))}
         </>
@@ -133,7 +164,6 @@ CartesianChart.propTypes = {
   type: PropTypes.oneOf(['area', 'bar', 'line', 'scatter']),
   data: PropTypes.array,
   axisDef: PropTypes.object,
-  yAxisMaxKeyName: PropTypes.string,
   totalKeyName: PropTypes.string,
 }
 

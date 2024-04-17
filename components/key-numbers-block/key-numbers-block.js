@@ -25,21 +25,23 @@ function KeyNumbersBlock({data = [], className, hasSeparator}) {
           gap: 2em;
           margin: 4em 0;
         }
-        @media (min-width: ${theme.breakPoints.desktop}) {
+        /* @media (min-width: ${theme.breakPoints.desktop}) {
           .key-numbers {
             display: flex;
             flex-direction: column;
             gap: 3.5em;
             flex-direction: row;
           }
-        }
+        } */
         .key-numbers > :global(*.large) {
           grid-column: 1 / span 2;
           padding: 0 0 1.5em;
+          font-size: 1em;
         }
         .key-numbers > :global(*) {
           position: relative;
           flex: 1;
+          font-size: 0.75em;
         }
         .key-numbers > :global(*)::before {
             width: 1px;
@@ -55,7 +57,17 @@ function KeyNumbersBlock({data = [], className, hasSeparator}) {
           content: '';
           left: -1.5em;
         }
+
         @media (min-width: ${theme.breakPoints.desktop}) {
+          .key-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5em;
+            flex-direction: row;
+          }
+          .key-numbers > :global(*) {
+            font-size: 1em;
+          }
           .key-numbers > :global(*):not(:first-child)::before {
             content: '';
             left: -1.75em;
