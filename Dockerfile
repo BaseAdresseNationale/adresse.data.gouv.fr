@@ -17,6 +17,7 @@ COPY --from=builder /app/package.json ./
 COPY --from=builder /app/yarn.lock ./
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/.env.default ./
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/lib/util ./lib/util
