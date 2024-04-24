@@ -34,7 +34,7 @@ function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
 
-  const {name, link, infos, perimeter, codeCommune, services, testimonyURL, isCompany, picture, charteURL} = partnerInfos
+  const {_id, name, link, infos, perimeter, codeCommune, services, testimonyURL, isCompany, picture, charteURL} = partnerInfos
   const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
@@ -58,11 +58,16 @@ function Partner({partnerInfos, isCommune}) {
     <div className={`partner ${isDisplay && isCommune ? 'open-commune-partner' : ''}`}>
       <div className='general-partner-infos'>
         <p className='name'>
-          <b><a href={link}>{`${name} ${isCompany ? '(société)' : ''}`}</a></b>
+          {isCommune ?
+            <b><a href={link}>${name}</a></b> :
+            <b><a href={`/bases-locales/charte/partenaires/${_id}`}>{`${name} ${isCompany ? '(société)' : ''}`}</a></b>}
           {isCommune && <Image src='/images/icons/commune.svg' height={35} width={35} layout='fixed' alt='Ce partenaire est une commune' />}
         </p>
-        <div className='logo' style={{backgroundImage: `url(${picture})`}} />
-
+        {isCommune ?
+          <div className='logo' style={{backgroundImage: `url(${picture})`}} /> :
+          <a href={`/bases-locales/charte/partenaires/${_id}`}>
+            <div className='logo' style={{backgroundImage: `url(${picture})`}} />
+          </a>}
         {services && services.length > 0 && (
 
           <StyledActionButtonNeutral
@@ -107,6 +112,11 @@ function Partner({partnerInfos, isCommune}) {
           {charteURL && (
             <ButtonLink href={charteURL} isExternal target='_blank' label={`Voir la charte de ${name}`} style={{marginTop: '10px'}}>
               Voir la charte
+            </ButtonLink>
+          )}
+          {link && (
+            <ButtonLink href={link} isExternal target='_blank' label={`Voir site internet de ${name}`} style={{marginLeft: '0px'}}>
+              Site internet
             </ButtonLink>
           )}
         </div>
@@ -223,6 +233,7 @@ function Partner({partnerInfos, isCommune}) {
 
 Partner.propTypes = {
   partnerInfos: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     infos: PropTypes.string,

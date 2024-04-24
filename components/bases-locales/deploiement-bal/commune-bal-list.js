@@ -1,17 +1,9 @@
 import PropTypes from 'prop-types'
-import {keyBy} from 'lodash'
-import communes from '@etalab/decoupage-administratif/data/communes.json'
 import styled from 'styled-components'
 import {Accordion} from '@codegouvfr/react-dsfr/Accordion'
 
 import BaseLocaleCard from '@/components/bases-locales/deploiement-bal/bal-card'
-
-const communesActuelles = communes.filter(({type}) => type === 'commune-actuelle')
-const communesIndex = keyBy(communesActuelles, 'code')
-
-const findCommuneName = codeCommune => {
-  return communesIndex[codeCommune]?.nom || ''
-}
+import {findCommuneName} from '@/lib/cog'
 
 const StyledAccordion = styled(Accordion)`
   .fr-accordion__btn {

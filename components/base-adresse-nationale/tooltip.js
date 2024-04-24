@@ -28,6 +28,13 @@ function Tooltip({message, direction, children}) {
 
         /* Position the tooltip */
         position: absolute;
+      }
+
+      .tooltip-text {
+        z-index: 2;
+      }
+
+      .tooltip-bottom .tooltip-left .tooltip-text, .tooltip-right .tooltip-text {
         z-index: 1;
       }
 
