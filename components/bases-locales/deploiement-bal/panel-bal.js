@@ -5,7 +5,7 @@ import {Doughnut} from 'react-chartjs-2'
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
 
 import theme from '@/styles/theme'
-import {getBals, getBalsStatus} from '@/lib/mes-adresse-api'
+import {getStatsBals, getBalsStatus} from '@/lib/mes-adresse-api'
 import CommuneBALList from './commune-bal-list'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -55,7 +55,7 @@ function PanelBal({filteredCodesCommmune}) {
 
     async function loadBals() {
       const fields = ['_id', 'commune', 'status', 'nom', '_updated', 'sync']
-      const balsFiltered = await getBals(fields, filteredCodesCommmune)
+      const balsFiltered = await getStatsBals(fields, filteredCodesCommmune)
       setBals(balsFiltered)
       const statusData = [
         balsFiltered.filter(({status}) => status === 'published').length,
