@@ -61,7 +61,7 @@ Commune.getInitialProps = async ({query}) => {
   return {
     codeCommune,
     communeInfos: commune,
-    mairieInfos: mairie.features[0]?.properties,
+    mairieInfos: mairie,
     revisions,
     currentRevision,
     typeCompositionAdresses

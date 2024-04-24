@@ -1,7 +1,7 @@
 services:
   frontend:
-    build: 
-      dockerfile: 'Dockerfile.dev'
+    build:
+      dockerfile: "Dockerfile.dev"
     container_name: frontend
     volumes:
       - ./build/:/app/build
@@ -43,3 +43,7 @@ services:
       - NEXT_PUBLIC_BAL_ADMIN_API_URL=${NEXT_PUBLIC_BAL_ADMIN_API_URL}
       - NEXT_PUBLIC_BAL_API_URL=${NEXT_PUBLIC_BAL_API_URL}
       - NEXT_PUBLIC_MES_ADRESSES=${NEXT_PUBLIC_MES_ADRESSES}
+      - S3_CONFIG_ACCESS_KEY_ID=${S3_CONFIG_ACCESS_KEY_ID}
+      - S3_CONFIG_SECRET_ACCESS_KEY=${S3_CONFIG_SECRET_ACCESS_KEY}
+      - S3_CONFIG_REGION=${S3_CONFIG_REGION}
+      - S3_CONFIG_ENDPOINT=${S3_CONFIG_ENDPOINT}

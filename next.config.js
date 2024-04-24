@@ -38,6 +38,13 @@ const redirection = async () => [
   }
 ]
 
+const rewritedURL = async () => [
+  {
+    source: '/data/ban/adresses-odbl/:path*',
+    destination: '/data/ban/adresses/:path*',
+  }
+]
+
 const nextConfig = withTM({
   images: {
     domains: imagesDomains
@@ -54,6 +61,7 @@ const nextConfig = withTM({
     return config
   },
   redirects: redirection,
+  rewrites: rewritedURL,
   publicRuntimeConfig: {
     isDevMode: process.env.NODE_ENV !== 'production',
     ...defaultEnvVar,
