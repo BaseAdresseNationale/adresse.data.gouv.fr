@@ -23,6 +23,8 @@ export default function SignalementForm({signalement, createSignalement, onEditS
     setShowRecapModal(true)
   }
 
+  console.log('address', address)
+
   return (
     <>
       {!signalement && (
@@ -94,7 +96,18 @@ export default function SignalementForm({signalement, createSignalement, onEditS
         />
       )}
 
-      {(signalement?.type === 'LOCATION_TO_UPDATE' || signalement?.type === 'LOCATION_TO_CREATE') && (address.type === 'numero' || address.type === 'voie') && (
+      {signalement?.type === 'LOCATION_TO_CREATE' && address.type === 'voie' && (
+        <SignalementNumeroForm
+          setIsEditParcellesMode={setIsEditParcellesMode}
+          onClose={onClose}
+          onSubmit={handleSubmit}
+          onEditSignalement={onEditSignalement}
+          signalement={signalement}
+          isEditParcellesMode={isEditParcellesMode}
+          {...(signalement?.type === 'LOCATION_TO_UPDATE' ? {address, initialPositionCoords: [address.lon, address.lat]} : {initialPositionCoords: getCenterCoords()})}
+        />)}
+
+      {signalement?.type === 'LOCATION_TO_UPDATE' && address.type === 'numero' && (
         <SignalementNumeroForm
           setIsEditParcellesMode={setIsEditParcellesMode}
           onClose={onClose}
