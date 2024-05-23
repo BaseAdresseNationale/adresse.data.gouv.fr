@@ -6,8 +6,6 @@ export const sources = {
   cadastre: {name: 'Cadastre', color: '#56B4E9'},
   ftth: {name: 'Opérateur THD', color: '#E69F00'},
   'ign-api-gestion-ign': {name: 'IGN', color: '#0072B2'},
-  'ign-api-gestion-laposte': {name: 'La Poste', color: '#F0E442'},
-  'ign-api-gestion-sdis': {name: 'SDIS (Pompiers)', color: '#D55E00'},
   'ign-api-gestion-municipal_administration': {name: 'Guichet Adresse', color: '#CC79A7'}
 }
 
