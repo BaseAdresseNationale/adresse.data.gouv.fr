@@ -23,8 +23,6 @@ export default function SignalementForm({signalement, createSignalement, onEditS
     setShowRecapModal(true)
   }
 
-  console.log('address', address)
-
   return (
     <>
       {!signalement && (

@@ -155,6 +155,10 @@ app.prepare().then(() => {
     return handle(request, res)
   })
 
+  server.post('/api/create-signalement', (request, res) => {
+    return handle(request, res)
+  })
+
   server.listen(port, err => {
     if (err) {
       throw err

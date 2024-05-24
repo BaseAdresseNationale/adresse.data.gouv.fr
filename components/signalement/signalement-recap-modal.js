@@ -22,7 +22,8 @@ export default function SignalementRecapModal({signalement, onEditSignalement, o
       setTimeout(() => {
         onSubmit()
       }, 2000)
-    } catch {
+    } catch (error) {
+      console.error(error)
       setSubmitStatus('error')
     }
   }
