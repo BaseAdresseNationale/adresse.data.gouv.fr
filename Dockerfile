@@ -7,7 +7,7 @@ RUN mkdir public
 RUN yarn
 
 COPY . .
-RUN yarn build
+RUN yarn dev
 
 FROM node:18.19-alpine3.18
 
