@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import colors from '@/styles/colors'
 
-import {getNumeroComplet} from '@/lib/ban'
+import {getNumeroComplet, orderBySuffixe} from '@/lib/ban'
 
 import Tag from '@/components/tag'
 
@@ -56,7 +56,7 @@ function Voie({type, nomVoie, nomVoieAlt, commune, numeros, parcelles, displayBB
           <div className='numeros-list'>
             <AddressesList
               title='Numéros de la voie'
-              addresses={numeros}
+              addresses={orderBySuffixe(numeros)}
               placeholder='Rechercher un numéro'
               getLabel={getNumeroComplet}
               addressComponent={numero => (
