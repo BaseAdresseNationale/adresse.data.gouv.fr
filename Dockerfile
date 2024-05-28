@@ -7,7 +7,7 @@ RUN mkdir public
 RUN yarn
 
 COPY . .
-RUN yarn dev
+RUN yarn build
 
 FROM node:18.19-alpine3.18
 
@@ -27,4 +27,4 @@ COPY --from=builder /app/scripts/ ./scripts
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "yarn build-available-flags && yarn start"]
+CMD ["sh", "-c", "yarn build-available-flags && yarn dev"]
