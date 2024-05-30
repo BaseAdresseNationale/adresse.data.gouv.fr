@@ -68,6 +68,7 @@ function BALWidget() {
   }, [isBalWidgetReady, balWidgetRef, balWidgetConfig])
 
   useEffect(() => {
+    let transitionTimeout = null
     function BALWidgetMessageHandler(event) {
       switch (event.data?.type) {
         case 'BAL_WIDGET_OPENED':
@@ -76,7 +77,7 @@ function BALWidget() {
           break
         case 'BAL_WIDGET_CLOSED':
           // Wait for transition to end before closing the iframe
-          setTimeout(() => {
+          transitionTimeout = setTimeout(() => {
             setIsBalWidgetOpen(false)
           }, 300)
           break
@@ -98,6 +99,7 @@ function BALWidget() {
 
     return () => {
       window.removeEventListener('message', BALWidgetMessageHandler)
+      clearTimeout(transitionTimeout)
     }
   }, [isBalWidgetOpen])
 
