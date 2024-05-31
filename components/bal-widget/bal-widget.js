@@ -34,6 +34,22 @@ function BALWidget() {
   const [balWidgetConfig, setBalWidgetConfig] = useState(null)
   const router = useRouter()
 
+  const isWidgetDisabled = useMemo(() => {
+    if (balWidgetConfig) {
+      const availablePages = balWidgetConfig.global.showOnPages || []
+      return balWidgetConfig.global.hideWidget ||
+        (availablePages.length > 0 && availablePages.every(page => router.pathname !== page))
+    }
+
+    return true
+  }, [router.pathname, balWidgetConfig])
+
+  const isWidgetDisplayed = !isWidgetDisabled || isBalWidgetOpen
+
+  if (!isWidgetDisplayed && isBalWidgetReady) {
+    setIsBalWidgetReady(false)
+  }
+
   // Fetch BAL widget config
   useEffect(() => {
     async function fetchBalWidgetConfig() {
@@ -102,18 +118,6 @@ function BALWidget() {
       clearTimeout(transitionTimeout)
     }
   }, [isBalWidgetOpen])
-
-  const isWidgetDisabled = useMemo(() => {
-    if (balWidgetConfig) {
-      const availablePages = balWidgetConfig.global.showOnPages || []
-      return balWidgetConfig.global.hideWidget ||
-        (availablePages.length > 0 && availablePages.every(page => router.pathname !== page))
-    }
-
-    return true
-  }, [router.pathname, balWidgetConfig])
-
-  const isWidgetDisplayed = !isWidgetDisabled || isBalWidgetOpen
 
   return isWidgetDisplayed ? (
     <StyledIFrame
