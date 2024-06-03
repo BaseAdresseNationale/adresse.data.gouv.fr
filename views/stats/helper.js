@@ -309,7 +309,7 @@ export const getQualityData = () => {
 export const getBanStatsData = async () => {
   const {ban: dataBanStats, bal: dataBalStats} = await getStats() || {}
   return dataBanStats && dataBalStats ? [
-    {value: `${(Number(((dataBanStats.nbAdresses) * 0.000001).toFixed(2)))}`, unit: 'M', label: 'Total des adresses au sein de la Base Adresse National'},
+    {value: `${(Number(((dataBanStats.nbAdresses) * 0.000001).toFixed(2)))}`, unit: 'M', label: 'Total des adresses au sein de la Base Adresse Nationale'},
     {value: `${(Number(((dataBalStats.nbAdresses) * 0.000001).toFixed(2)))}`, unit: 'M', label: 'Adresses issues des Bases Adresses Locales', hasSeparator: true},
     {value: `${(Number(((dataBanStats.nbAdresses - dataBalStats.nbAdresses) * 0.000001).toFixed(2)))}`, unit: 'M', label: 'Adresses issues des autres sources'},
     {value: `${(Number(((dataBalStats.nbAdressesCertifiees) * 0.000001).toFixed(2)))}`, unit: 'M', label: 'Adresses certifiées', hasSeparator: true},
