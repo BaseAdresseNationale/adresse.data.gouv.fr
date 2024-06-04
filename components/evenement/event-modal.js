@@ -7,6 +7,7 @@ import theme from '@/styles/theme'
 
 import {formatTag} from '@/lib/tag'
 import {dateWithDay} from '@/lib/date'
+import {removeAccents} from '@/lib/format-strings'
 
 import ButtonLink from '@/components/button-link'
 import SectionText from '@/components/section-text'
@@ -35,13 +36,13 @@ function EventModal({event, isPassed, onClose}) {
   return (
     <div className='modal-wrapper'>
       <div className='modal' ref={modalRef}>
-        <div className={`header ${type}-backg`}>
+        <div className={`header ${removeAccents(type)}-backg`}>
           <ActionButtonNeutral label='Fermer la fenêtre'>
             <XCircle onClick={onClose} color={theme.colors.white} />
           </ActionButtonNeutral>
 
-          <div className='presentation'>
-            <Image src={`/images/icons/event-${type}.svg`} height={150} width={170} alt='' aria-hidden='true' />
+          <div className='presentation-wrapper'>
+            <Image src={`/images/icons/event-${removeAccents(type)}.svg`} height={150} width={170} alt='' aria-hidden='true' />
             <div className='header-infos'>
               <div className='title-container'>
                 <h5>{title}</h5>
@@ -87,7 +88,7 @@ function EventModal({event, isPassed, onClose}) {
           align-items: center;
         }
 
-        .modal, .header-infos, .presentation, .target, .tags {
+        .modal, .header-infos, .presentation-wrapper, .target, .tags {
           display: flex;
         }
 
@@ -127,7 +128,7 @@ function EventModal({event, isPassed, onClose}) {
           opacity: 70%;
         }
 
-        .presentation {
+        .presentation-wrapper {
           gap: 2em;
           justify-content: space-between;
           margin-top: .5em;
@@ -184,6 +185,10 @@ function EventModal({event, isPassed, onClose}) {
           background: ${theme.colors.blue};
         }
 
+        .presentation-backg {
+          background: rgb(26, 168, 255);
+        }
+
         .adresse-region-backg {
           background: ${theme.colors.purple};
         }
@@ -205,7 +210,7 @@ function EventModal({event, isPassed, onClose}) {
         }
 
         @media (max-width: 624px) {
-          .presentation {
+          .presentation-wrapper {
             flex-wrap: wrap;
             justify-content: flex-end;
           }
