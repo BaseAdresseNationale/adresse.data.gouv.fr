@@ -35,6 +35,11 @@ const redirection = async () => [
     source: '/donnees-nationales/base-usages',
     destination: '/donnees-nationales/usages',
     permanent: true
+  },
+  {
+    source: '/indicateurs',
+    destination: '/stats',
+    permanent: true
   }
 ]
 
