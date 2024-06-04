@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Image from 'next/legacy/image'
 
 import {dateWithDay} from '@/lib/date'
+import {removeAccents} from '@/lib/format-strings'
 
 import theme from '@/styles/theme'
 
@@ -17,9 +18,9 @@ function Event({event, background, isPassed}) {
 
   return (
     <div className='event-container'>
-      <div className={`header ${type}`}>
-        <div className='presentation'>
-          <Image src={`/images/icons/event-${type}.svg`} height={50} width={50} alt='' aria-hidden='true' />
+      <div className={`header ${removeAccents(type)}`}>
+        <div className='presentation-wrapper'>
+          <Image src={`/images/icons/event-${removeAccents(type)}.svg`} height={50} width={50} alt='' aria-hidden='true' />
           <div className='title-container'>
             <h5>{title}</h5>
             <div>{subtitle}</div>
@@ -70,7 +71,7 @@ function Event({event, background, isPassed}) {
           gap: 1em;
         }
 
-        .presentation {
+        .presentation-wrapper {
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -119,7 +120,7 @@ function Event({event, background, isPassed}) {
           background: ${theme.colors.green};
         }
 
-        .présentation {
+        .presentation {
           background: rgb(26, 168, 255);
         }
 
