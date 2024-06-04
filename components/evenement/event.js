@@ -119,6 +119,10 @@ function Event({event, background, isPassed}) {
           background: ${theme.colors.green};
         }
 
+        .présentation {
+          background: rgb(26, 168, 255);
+        }
+
         .partenaire {
           background: ${theme.colors.blue};
         }
