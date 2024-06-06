@@ -25,6 +25,7 @@ COPY --from=builder /app/server ./server
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/scripts/ ./scripts
 
+RUN chown -R node:node /app
 USER node
 
 EXPOSE 3000
