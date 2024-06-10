@@ -16,7 +16,7 @@ function Data({root, path = [], data: dataRaw = [], config = {}}) {
     const dataSections = dataRaw.reduce((acc, entry) => {
       const fileDate = entry.fileInfo?.date && new Date(entry.fileInfo.date)
       const {year, month, day} = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/.exec(entry.name)?.groups || {}
-      const humanDateDirName = year && month && day && (new Date(year, month, day)).toLocaleString('fr-FR', dateFormatOptions.dateFormatOptionsLongDate)
+      const humanDateDirName = year && month && day && (new Date(year, (month - 1), day)).toLocaleString('fr-FR', dateFormatOptions.dateFormatOptionsLongDate)
 
       const finalEntry = {
         ...entry,
