@@ -25,7 +25,7 @@ function DataEntry({entry: {name, isDirectory, fileInfo}, path}) {
   const fileDate = fileInfo?.date && new Date(fileInfo.date)
   const dateSearchRegExp = /^(?<year>\d{4})-(((?<month>\d{2})-(?<day>\d{2}))|(?<quarter>T[1-4]))$/
   const {year, quarter, month, day} = dateSearchRegExp.exec(name)?.groups || {}
-  const humanDateDirName = year && month && day ? (new Date(year, month, day)).toLocaleString('fr-FR', dateFormatOptions.dateFormatOptionsLongDate) :
+  const humanDateDirName = year && month && day ? (new Date(year, (month - 1), day)).toLocaleString('fr-FR', dateFormatOptions.dateFormatOptionsLongDate) :
     year && quarter && `${translatedQuarter[quarter]} ${year}`
   const humanDirName = humanDateDirName ? `export du ${humanDateDirName}` : translatedName[[...path, name].join('/')] || translatedName[name]
 
