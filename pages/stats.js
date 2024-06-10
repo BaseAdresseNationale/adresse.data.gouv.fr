@@ -88,7 +88,7 @@ function StatsPage() {
 
       <Section>
         <h2>Exploitation directe de la BAN : <br />Nombre de recherches de composants d’adresses</h2>
-        <p>Consommation quotidiennes des données de la BAN depuis l’API d’exploration (<i>API Lookup</i>).</p>
+        <p>Consommation quotidienne des données de la BAN depuis l’API d’exploration (<i>API Lookup</i>).</p>
         <p className='note-info'>
           <i className={fr.cx('fr-icon-info-fill', 'fr-icon', 'warn-icon')} /> Données collectées à partir de Novembre 2023
         </p>
@@ -104,17 +104,12 @@ function StatsPage() {
           <li>
             Recherches quotidiennes sur les 30 derniers jours.
           </li>
-          <li>
-            * L’API Geocodage-BAN (anciennement “API Adresse”) met à disposition les adresses présentes dans la BAN.
-            Les adresses retournées par l’API ne sont actuellement disponibles qu’en français.
-            L’API ne fournit pas encore les lieux-dits.
-          </li>
         </ul>
       </Section>
 
       <Section>
         <h2>Exploitation indirecte de la BAN : <br />Nombre de téléchargements des données de la BAN</h2>
-        <p>Téléchargement quotidien des données brutes issues des serveurs BAN par des exploitants extérieurs, en vue d’une utilisation direct depuis leurs systèmes.</p>
+        <p>Téléchargement quotidien des données brutes issues des serveurs BAN par des exploitants extérieurs, en vue d’une utilisation directe depuis leurs systèmes.</p>
         <p className='note-info'>
           <i className={fr.cx('fr-icon-info-fill', 'fr-icon', 'warn-icon')} /> Données collectées à partir de Novembre 2023
         </p>
@@ -132,7 +127,7 @@ function StatsPage() {
       </Section>
 
       <Section background='color' className='key-number-section'>
-        <h2>État de la Base Adresses Nationale (BAN)</h2>
+        <h2>État de la Base Adresse Nationale (BAN)</h2>
         <p>
           La <b>Base Adresse Nationale (BAN)</b> est constituée de plusieurs sources de données, de natures différentes.
           La récente loi dite 3DS impose aux communes de mettre en place une <b>Base Adresse Locale (BAL)</b>,
