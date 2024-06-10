@@ -25,7 +25,7 @@ function Adresse() {
       <Section background='grey'>
         <div>
           <p>
-            L’API adresse permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse (&quot;géocoder&quot;) selon plusieurs critères. On vous explique tout en détail ici : <a href='https://guides.etalab.gouv.fr/apis-geo/1-api-adresse.html' target='_blank' rel='noreferrer'>Guide sur l’API Adresse</a>
+            L’API adresse permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse (&quot;géocoder&quot;) selon plusieurs critères. On vous explique tout en détail ici : <a href='https://guides.data.gouv.fr/reutiliser-des-donnees/utiliser-les-api-geographiques/utiliser-lapi-adresse' target='_blank' rel='noreferrer'>Guide sur l’API Adresse</a>
           </p>
           <p>Vous atteignez fréquemment la limite de requête de l’API, fixée à 50 appels / seconde/ IP ?</p>
           <p>2 options s’offrent à vous :</p>
