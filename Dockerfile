@@ -2,7 +2,9 @@ FROM node:18.19-alpine3.18 as builder
 
 WORKDIR /app
 
+WORKDIR /app
 COPY package.json yarn.lock .
+ENV YARN_LOG_DIR=/tmp
 RUN mkdir public
 RUN yarn
 
@@ -25,9 +27,8 @@ COPY --from=builder /app/server ./server
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/scripts/ ./scripts
 
-RUN chown -R node:node /app
+RUN yarn build-available-flags
 USER node
-
 EXPOSE 3000
 
-CMD ["sh", "-c", "yarn build-available-flags && yarn start"]
+CMD ["sh", "-c", "yarn start"]
