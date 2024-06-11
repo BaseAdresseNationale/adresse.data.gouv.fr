@@ -43,6 +43,20 @@ function PanelBal({filteredCodesCommmune}) {
   const [bals, setBals] = useState([])
   const [dataStats, setDataStats] = useState(initialStats)
 
+  const setDataStatsWithBal = useCallback(data => {
+    setDataStats(dataStats => {
+      return {
+        ...dataStats,
+        datasets: [
+          {
+            ...dataStats.datasets[0],
+            data
+          }
+        ]
+      }
+    })
+  }, [])
+
   useEffect(() => {
     async function loadBalsStatus() {
       const balsStatus = await getBalsStatus()
@@ -74,20 +88,6 @@ function PanelBal({filteredCodesCommmune}) {
   const balsByCommune = useMemo(() => {
     return groupBy(bals, 'commune')
   }, [bals])
-
-  const setDataStatsWithBal = useCallback(data => {
-    setDataStats(dataStats => {
-      return {
-        ...dataStats,
-        datasets: [
-          {
-            ...dataStats.datasets[0],
-            data
-          }
-        ]
-      }
-    })
-  }, [])
 
   return (
     <div>
