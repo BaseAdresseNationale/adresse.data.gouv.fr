@@ -115,16 +115,6 @@ function BanMap({address, bbox, onSelect, isMobile}) {
   const [bound, setBound] = useState()
   const [infoPopup, setInfoPopup] = useState(null)
 
-  const onLeave = useCallback(() => {
-    if (hoveredFeature) {
-      highLightAdressesByProperties(false, hoveredFeature)
-    }
-
-    setInfoPopup(null)
-    map.current.getCanvas().style.cursor = 'grab'
-    hoveredFeature = null
-  }, [map, highLightAdressesByProperties])
-
   const highLightAdressesByProperties = useCallback((isHovered, hoveredFeature) => {
     const {nom, id} = hoveredFeature
     forEach(SOURCES, sourceLayer => {
@@ -140,6 +130,16 @@ function BanMap({address, bbox, onSelect, isMobile}) {
       })
     })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const onLeave = useCallback(() => {
+    if (hoveredFeature) {
+      highLightAdressesByProperties(false, hoveredFeature)
+    }
+
+    setInfoPopup(null)
+    map.current.getCanvas().style.cursor = 'grab'
+    hoveredFeature = null
+  }, [map, highLightAdressesByProperties])
 
   const onHover = useCallback(e => {
     if (e.features.length > 0) {
