@@ -4,7 +4,7 @@ import Link from 'next/link'
 import theme from '@/styles/theme'
 import ButtonLink from '@/components/button-link'
 
-function Commune({name, codeCommune, picture, signatureDate, charteURL}) {
+function Commune({_id, name, codeCommune, picture, signatureDate, charteURL}) {
   const date = new Date(signatureDate).toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
 
   return (
@@ -64,6 +64,7 @@ function Commune({name, codeCommune, picture, signatureDate, charteURL}) {
 }
 
 Commune.propTypes = {
+  _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   codeCommune: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
