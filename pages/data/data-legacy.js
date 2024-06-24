@@ -3,6 +3,7 @@ import path from 'node:path'
 import send from 'send'
 import PropTypes from 'prop-types'
 import {Download} from 'react-feather'
+import getConfig from 'next/config'
 
 import Head from '@/components/head'
 import Section from '@/components/section'
@@ -12,7 +13,7 @@ import sendToTracker, {getDownloadToEventTracker} from '@/lib/util/analytics-tra
 
 import ErrorPage from '../_error'
 
-const PATH = process.env.PATH_STATIC_FILE
+const {NEXT_PUBLIC_PATH_STATIC_FILE: PATH} = getConfig().publicRuntimeConfig
 const rootLink = {
   href: '/donnees-nationales',
   label: 'Données nationales',
