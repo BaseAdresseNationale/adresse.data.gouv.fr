@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import PropTypes from 'prop-types'
 import {Users} from 'react-feather'
 
@@ -22,10 +23,16 @@ function PartenairePage({partenaireDeLaCharte, moissonneur}) {
 
 export async function getServerSideProps({params}) {
   const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
-  const moissonneur = {}
-  if (partenaireDeLaCharte.dataGouvOrganizationId) {
-    moissonneur.organization = await getOrganization(partenaireDeLaCharte.dataGouvOrganizationId)
-    moissonneur.sources = await getOrganizationSources(partenaireDeLaCharte.dataGouvOrganizationId)
+  const moissonneur = {
+    organizations: [],
+    sources: [],
+  }
+
+  if (partenaireDeLaCharte.dataGouvOrganizationId?.length > 0) {
+    for (const orgaId of partenaireDeLaCharte.dataGouvOrganizationId) {
+      moissonneur.organizations.push(await getOrganization(orgaId))
+      moissonneur.sources.push(...(await getOrganizationSources(orgaId)))
+    }
   }
 
   return {

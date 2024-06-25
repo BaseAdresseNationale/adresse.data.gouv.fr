@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types'
-
+import {useMemo} from 'react'
+import {flattenDeep} from 'lodash'
 import Section from '@/components/section'
 
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import MoissonneurBal from './moissonneur-bal'
 import Perimeters from './perimeter'
 
-function Partenaire({partenaireDeLaCharte, moissonneur: {organization, sources}}) {
+function Partenaire({partenaireDeLaCharte, moissonneur: {organizations, sources}}) {
+  const aggregatePerimeters = useMemo(() => flattenDeep(organizations.map(({perimeters}) => perimeters)), [organizations])
+
   return (
     <Section>
       <section>
@@ -37,7 +40,7 @@ function Partenaire({partenaireDeLaCharte, moissonneur: {organization, sources}}
           <h2>Publication de Bases Adresse Locales</h2>
           <p>{partenaireDeLaCharte.name} mutualise la production et diffusion des Bases Adresses Locales (BAL).</p>
 
-          <Perimeters perimeters={organization.perimeters} />
+          <Perimeters perimeters={aggregatePerimeters} />
           <MoissonneurBal sources={sources} />
         </>
       )}
