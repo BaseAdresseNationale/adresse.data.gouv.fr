@@ -21,7 +21,7 @@ import Temoignages from '@/components/temoignages'
 import CommuneSearch from '@/components/commune/commune-search'
 import EventBanner from '@/components/evenement/event-banner'
 
-function Home({stats, posts, events}) {
+function Home({stats, posts, events, lastUpdated}) {
   return (
     <Page>
       <EventBanner events={events} />
@@ -29,6 +29,7 @@ function Home({stats, posts, events}) {
       <Hero
         title='Le site national des adresses'
         tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.'
+        lastUpdated={lastUpdated}
       />
 
       <Section background='dark'>
@@ -171,6 +172,33 @@ function Home({stats, posts, events}) {
   )
 }
 
+const fetchLastUpdatedDate = async () => {
+  try {
+    const res = await fetch('https://api-adresse.data.gouv.fr/info.txt')
+    const text = await res.text()
+    const match = text.match(/gra-geocode-compute-1 = (.+)/)
+    if (!match) {
+      return null
+    }
+
+    const [, dateString] = match
+    const date = new Date(dateString.trim())
+
+    const formattedDate = `${date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })}`
+
+    return formattedDate
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la date :', error)
+    return null
+  }
+}
+
 export async function getServerSideProps() {
   const stats = await getStats()
   const {posts = null} = (await getPosts({tags: 'temoignage', limitFields: true, limit: 3})) || {}
@@ -181,6 +209,7 @@ export async function getServerSideProps() {
     console.log(err)
   }
 
+  const lastUpdated = await fetchLastUpdatedDate()
   const today = new Date().setHours(0, 0, 0, 0)
   const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
     .filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
@@ -189,7 +218,8 @@ export async function getServerSideProps() {
     props: {
       stats,
       posts,
-      events
+      events,
+      lastUpdated
     }
   }
 }
@@ -198,12 +228,14 @@ Home.defaultProps = {
   posts: null,
   stats: null,
   events: [],
+  lastUpdated: null
 }
 
 Home.propTypes = {
   stats: PropTypes.object,
   posts: PropTypes.array,
   events: PropTypes.array,
+  lastUpdated: PropTypes.string
 }
 
 export default Home

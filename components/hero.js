@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types'
 import dynamic from 'next/dynamic'
 import {Download, MapPin, Database} from 'react-feather'
-
 import theme from '@/styles/theme'
-
 import ToolsIcon from './icons/tools'
 import BanSearch from './ban-search'
 import Container from './container'
@@ -12,7 +10,7 @@ import CircleLink from './circle-link'
 
 const Frise = dynamic(import('@/components/frise'), {ssr: false}) // eslint-disable-line node/no-unsupported-features/es-syntax
 
-function Hero({title, tagline}) {
+function Hero({title, tagline, lastUpdated}) {
   return (
     <div className='hero'>
       <div className='hero-container'>
@@ -60,6 +58,7 @@ function Hero({title, tagline}) {
 
           <p className='example'>Rechercher une adresse, une voie, un lieu-dit ou une commune dans la Base Adresse Nationale</p>
 
+          <p className='last-updated'>Dernière actualisation du moteur de recherche : {lastUpdated}</p>
           <BanSearch />
           <div className='map-button'>
             <ButtonLink href='/base-adresse-nationale'>
@@ -120,6 +119,10 @@ function Hero({title, tagline}) {
           text-align: center;
           padding: .5em;
         }
+        .hero-container .last-updated {
+          font-size: 0.8em; 
+          padding-left: 0em;
+          line-height: 0.01em;
       `}</style>
     </div>
   )
@@ -127,7 +130,8 @@ function Hero({title, tagline}) {
 
 Hero.propTypes = {
   title: PropTypes.string.isRequired,
-  tagline: PropTypes.string.isRequired
+  tagline: PropTypes.string.isRequired,
+  lastUpdated: PropTypes.string.isRequired
 }
 
 export default Hero
