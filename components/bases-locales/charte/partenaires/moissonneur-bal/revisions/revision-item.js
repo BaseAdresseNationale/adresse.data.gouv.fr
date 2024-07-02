@@ -7,6 +7,7 @@ import {getFileLink} from '@/lib/moissonneur-bal'
 import Tooltip from '@/components/base-adresse-nationale/tooltip'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import {formatDate} from '@/lib/date'
+import {findCommuneName} from '@/lib/cog'
 
 const {NEXT_PUBLIC_CLIENT_GUICHET_ADRESSE: CLIENT_GUICHET_ADRESSE} = getConfig().publicRuntimeConfig
 const {NEXT_PUBLIC_CLIENT_MES_ADRESSE: CLIENT_MES_ADRESSE} = getConfig().publicRuntimeConfig
@@ -68,7 +69,7 @@ function MoissonneurRevisionItem({codeCommune, _created, nbRows, nbRowsWithError
   return (
     <tr>
       <td className='fr-col fr-my-1v'>
-        <p>{codeCommune}</p>
+        <p>{findCommuneName(codeCommune)} ({codeCommune})</p>
       </td>
       <td className='fr-col fr-my-1v'>
         <p>{formatDate(_created)}</p>
