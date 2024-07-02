@@ -5,6 +5,7 @@ import Image from 'next/legacy/image'
 import banEvents from '../events.json'
 
 import {getStats} from '@/lib/api-ban'
+import {fetchLastUpdatedDate} from '@/lib/updated-date.js'
 import {getPosts} from '@/lib/blog'
 import {sortEventsByDate} from '@/lib/date'
 import {getBalEvents} from '@/lib/api-bal-admin'
@@ -170,31 +171,6 @@ function Home({stats, posts, events, lastUpdated}) {
       </Section>
     </Page>
   )
-}
-
-const fetchLastUpdatedDate = async () => {
-  try {
-    const res = await fetch('https://api-adresse.data.gouv.fr/info.txt')
-    const text = await res.text()
-    const match = text.match(/gra-geocode-compute-1 = (.+)/)
-    if (!match) {
-      return null
-    }
-
-    const [, dateString] = match
-    const date = new Date(dateString.trim())
-
-    const formattedDate = `${date.toLocaleDateString('fr-FR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })}`
-
-    return formattedDate
-  } catch (error) {
-    console.error('Erreur lors de la récupération de la date :', error)
-    return null
-  }
 }
 
 export async function getServerSideProps() {
