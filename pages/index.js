@@ -5,6 +5,7 @@ import Image from 'next/legacy/image'
 import banEvents from '../events.json'
 
 import {getStats} from '@/lib/api-ban'
+import {fetchLastUpdatedDate} from '@/lib/updated-date.js'
 import {getPosts} from '@/lib/blog'
 import {sortEventsByDate} from '@/lib/date'
 import {getBalEvents} from '@/lib/api-bal-admin'
@@ -21,7 +22,7 @@ import Temoignages from '@/components/temoignages'
 import CommuneSearch from '@/components/commune/commune-search'
 import EventBanner from '@/components/evenement/event-banner'
 
-function Home({stats, posts, events}) {
+function Home({stats, posts, events, lastUpdated}) {
   return (
     <Page>
       <EventBanner events={events} />
@@ -29,6 +30,7 @@ function Home({stats, posts, events}) {
       <Hero
         title='Le site national des adresses'
         tagline='Référencer l’intégralité des adresses du territoire et les rendre utilisables par tous.'
+        lastUpdated={lastUpdated}
       />
 
       <Section background='dark'>
@@ -181,6 +183,7 @@ export async function getServerSideProps() {
     console.log(err)
   }
 
+  const lastUpdated = await fetchLastUpdatedDate()
   const today = new Date().setHours(0, 0, 0, 0)
   const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
     .filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
@@ -189,7 +192,8 @@ export async function getServerSideProps() {
     props: {
       stats,
       posts,
-      events
+      events,
+      lastUpdated
     }
   }
 }
@@ -198,12 +202,14 @@ Home.defaultProps = {
   posts: null,
   stats: null,
   events: [],
+  lastUpdated: null
 }
 
 Home.propTypes = {
   stats: PropTypes.object,
   posts: PropTypes.array,
   events: PropTypes.array,
+  lastUpdated: PropTypes.string
 }
 
 export default Home

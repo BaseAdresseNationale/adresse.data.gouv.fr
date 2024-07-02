@@ -1,5 +1,5 @@
 import {Compass, Search} from 'react-feather'
-
+import PropTypes from 'prop-types'
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import TechnicalDoc from '@/components/api-doc/api-adresse/technical-doc'
@@ -7,6 +7,7 @@ import doc from '@/components/api-doc/api-adresse/doc'
 import ByAddressName from '@/components/api-doc/api-adresse/examples/by-address-name'
 import CurlDoc from '@/components/api-doc/api-adresse/curl-doc'
 import Section from '@/components/section'
+import {fetchLastUpdatedDate} from '@/lib/updated-date.js'
 
 const title = 'API Adresse'
 const description = 'Cherchez des adresses et lieux-dits.'
@@ -15,13 +16,29 @@ const examples = [
   {title: 'Recherche par texte', id: 'text', icon: <Search alt='' aria-hidden='true' />}
 ]
 
-function Adresse() {
+export async function getServerSideProps() {
+  const lastUpdatedDate = await fetchLastUpdatedDate()
+  return {
+    props: {
+      lastUpdatedDate
+    }
+  }
+}
+
+function Adresse({lastUpdatedDate}) {
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Compass color='white' size={56} alt='' aria-hidden='true' />}>
         {description}
       </Head>
 
+      {lastUpdatedDate && (
+        <div className='last-updated-container'>
+          <span className='last-updated'>
+            <b>Dernière actualisation du moteur de recherche : {lastUpdatedDate} </b>
+          </span>
+        </div>
+      )}
       <Section background='grey'>
         <div>
           <p>
@@ -42,9 +59,29 @@ function Adresse() {
       <TechnicalDoc {...doc} />
 
       <ByAddressName {...examples[0]} />
+      <style jsx>{`
+        .last-updated-container {
+          background-color: #0053b3;
+          padding: 0px ;
+          text-align: center;
+        }
+        .last-updated {
+          color: white;
+          font-size: 1em;
+          
+        }
+      `}</style>
 
     </Page>
   )
+}
+
+Adresse.defaultProps = {
+  lastUpdatedDate: null
+}
+
+Adresse.propTypes = {
+  lastUpdatedDate: PropTypes.string,
 }
 
 export default Adresse
