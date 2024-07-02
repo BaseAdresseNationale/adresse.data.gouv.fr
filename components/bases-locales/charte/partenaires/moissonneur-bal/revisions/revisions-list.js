@@ -29,7 +29,7 @@ function MoissonneurRevisionsList({sourceId}) {
           <table>
             <thead>
               <tr>
-                <th scope='col'>Code Commune</th>
+                <th scope='col'>Commune</th>
                 <th scope='col'>Date</th>
                 <th scope='col'>
                   <Tooltip message='Nombre de ligne totale du fichier / nombre de ligne comportant des erreurs dans celui-ci' width='200px'>
