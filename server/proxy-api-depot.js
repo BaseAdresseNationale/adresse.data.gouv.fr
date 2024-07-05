@@ -12,6 +12,13 @@ if (!API_DEPOT_URL) {
   throw new Error('API_DEPOT_URL is not defined in the environment')
 }
 
+const baseClient = got.extend({
+  prefixUrl: API_DEPOT_URL,
+  headers: {
+    authorization: `Token ${API_DEPOT_TOKEN}`
+  },
+})
+
 const client = got.extend({
   prefixUrl: API_DEPOT_URL,
   headers: {
@@ -56,20 +63,22 @@ async function createHabilitation(req, res) {
 
 async function sendPinCode(req, res) {
   const {habilitationId} = req.params
-
-  const response = await client
-    .post(`habilitations/${habilitationId}/authentication/email/send-pin-code`)
-
-  forward(response, res)
+  try {
+    const response = await baseClient.post(`habilitations/${habilitationId}/authentication/email/send-pin-code`)
+    forward(response, res)
+  } catch (error) {
+    res.status(error.response.statusCode).send(error.response.body)
+  }
 }
 
 async function validatePinCode(req, res) {
   const {habilitationId} = req.params
-
-  const response = await client
-    .post(`habilitations/${habilitationId}/authentication/email/validate-pin-code`, {json: req.body})
-
-  forward(response, res)
+  try {
+    const response = await baseClient.post(`habilitations/${habilitationId}/authentication/email/validate-pin-code`, {json: req.body})
+    forward(response, res)
+  } catch (error) {
+    res.status(error.response.statusCode).send(error.response.body)
+  }
 }
 
 async function createRevision(req, res) {
