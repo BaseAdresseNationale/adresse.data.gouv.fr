@@ -82,7 +82,12 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
 
   const handleCodeAuthentification = async () => {
     try {
-      await sendAuthenticationCode(habilitation._id)
+      const response = await sendAuthenticationCode(habilitation._id)
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message)
+      }
+
       setStep(3)
     } catch (error) {
       setError(error.message)
@@ -175,8 +180,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
 
           {step === 3 && (
             <CodeAuthentification
-              habilitationId={habilitation._id}
-              email={habilitation.emailCommune}
+              habilitation={habilitation}
               handleValidCode={setHabilitation}
               sendBackCode={handleCodeAuthentification}
               cancel={() => setStep(2)}
@@ -189,7 +193,7 @@ function PublicationPage({defaultRevision, defaultHabilitation, defaultCommune, 
 
           {step === 4 && (
             <Publishing
-              user={habilitation.strategy.mandat}
+              user={habilitation.strategy?.mandat}
               commune={commune}
               hasConflit={Boolean(currentRevision)}
               publication={handlePublication}

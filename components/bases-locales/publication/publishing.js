@@ -14,7 +14,7 @@ function Publishing({user, commune, hasConflit, publication}) {
 
   return (
     <div>
-      <User user={user} commune={commune} />
+      {user && <User user={user} commune={commune} />}
 
       <div className='message'>
         <p className='publish-message'>La Base Adresse Locale de votre commune <b>{commune.nom} ({commune.code})</b> est maintenant <b className='ready-to-publish'>prête à être publiée</b></p>
@@ -89,7 +89,7 @@ function Publishing({user, commune, hasConflit, publication}) {
 }
 
 Publishing.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   commune: PropTypes.shape({
     nom: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired

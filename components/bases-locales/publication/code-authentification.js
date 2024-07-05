@@ -2,7 +2,7 @@ import {useCallback, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Check, ArrowLeft, Mail} from 'react-feather'
 
-import {submitAuthentificationCode} from '@/lib/proxy-api-depot'
+import {submitAuthentificationCode, getHabilitation} from '@/lib/proxy-api-depot'
 
 import theme from '@/styles/theme'
 
@@ -10,29 +10,25 @@ import Button from '@/components/button'
 import Notification from '@/components/notification'
 import ActionButtonNeutral from '@/components/action-button-neutral'
 
-function CodeAuthentification({habilitationId, email, handleValidCode, sendBackCode, cancel}) {
+function CodeAuthentification({habilitation, handleValidCode, sendBackCode, cancel}) {
   const [code, setCode] = useState('')
   const [codeMask, setCodeMask] = useState('______')
   const [error, setError] = useState(null)
 
   const submitCode = useCallback(async () => {
     try {
-      const habilitation = await submitAuthentificationCode(habilitationId, code)
-
-      if (habilitation?.validated === false) {
-        const {error, remainingAttempts} = habilitation
-        if (remainingAttempts > 0) {
-          throw new Error(`${error}. Tentative restantes : ${remainingAttempts}`)
-        }
-
-        throw new Error(error)
+      const response = await submitAuthentificationCode(habilitation._id, code)
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.message)
       }
 
-      handleValidCode(habilitation)
+      const validatedHabilitation = await getHabilitation(habilitation._id)
+      handleValidCode(validatedHabilitation)
     } catch (error) {
       setError(error.message)
     }
-  }, [habilitationId, code, handleValidCode])
+  }, [habilitation, code, handleValidCode])
 
   const handleInput = event => {
     // Récupérer la valeur de l'input
@@ -63,7 +59,7 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
         <h3>Entrez le code qui vous a été envoyé à l’adresse : </h3>
         <div className='email-info'>
           <Mail size={50} color={theme.primary} />
-          {email}
+          {habilitation.emailCommune}
         </div>
 
         <div className='form'>
@@ -90,7 +86,7 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
           <div>
             <div>Vous n’avez pas reçu votre code ?</div>
             <ActionButtonNeutral onClick={sendBackCode} label=''>
-              <div className='send-code'>Renvoyer un code à l’adresse {email}</div>
+              <div className='send-code'>Renvoyer un code à l’adresse {habilitation.emailCommune}</div>
             </ActionButtonNeutral>
           </div>
         </div>
@@ -183,8 +179,7 @@ function CodeAuthentification({habilitationId, email, handleValidCode, sendBackC
 }
 
 CodeAuthentification.propTypes = {
-  habilitationId: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  habilitation: PropTypes.object.isRequired,
   handleValidCode: PropTypes.func.isRequired,
   sendBackCode: PropTypes.func.isRequired,
   cancel: PropTypes.func.isRequired
