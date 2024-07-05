@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Home} from 'react-feather'
 
 import {getCommune} from '@/lib/api-ban'
-import {getRevisions} from '@/lib/api-depot'
+import {getPublishedRevisions} from '@/lib/api-depot'
 import {getMairie} from '@/lib/api-etablissements-public'
 import withErrors from '@/components/hoc/with-errors'
 
@@ -53,7 +53,7 @@ Commune.getInitialProps = async ({query}) => {
 
   const mairie = await getMairie(codeCommune)
 
-  const revisions = await getRevisions(codeCommune)
+  const revisions = await getPublishedRevisions(codeCommune)
 
   const currentRevision = revisions.find(revision => revision.current)
   const typeCompositionAdresses = commune.typeComposition === 'assemblage' ? 'assemblage' : 'bal'
