@@ -61,7 +61,6 @@ function MoissonneurBal({sources}) {
  
         .fr-accordion {
           border: 1px solid grey;
-          padding: 2em;
           border-radius: 5px;
           margin: 1em 0;
         }
@@ -72,6 +71,7 @@ function MoissonneurBal({sources}) {
           content: none;
         }
         .fr-accordion__btn {
+          padding: 2em;
           font-size: 16px;
         }
         .accordion-header {
