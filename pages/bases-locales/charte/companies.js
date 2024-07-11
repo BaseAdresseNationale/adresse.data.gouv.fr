@@ -1,11 +1,9 @@
 import {useState} from 'react'
-import {Award} from 'react-feather'
 
 import Page from '@/layouts/main'
 import Head from '@/components/head'
 import Section from '@/components/section'
 import SectionText from '@/components/section-text'
-import Button from '@/components/button'
 import Partners from '@/components/bases-locales/charte/partners'
 import CandidacyModal from '@/components/bases-locales/charte/candidacy-modal'
 import {getPartenairesDeLaCharte, getPartenairesDeLaCharteServices} from '@/lib/api-bal-admin'
@@ -13,26 +11,42 @@ import {getDepartements} from '@/lib/api-geo'
 import PropTypes from 'prop-types'
 
 function Companies({companyPartners, partnersServices, departements}) {
-  const title = 'Sociétés partenaires de la Charte'
+  const title = 'Sociétés prestataires'
   const description = 'Page vous permettant de consultez et découvrir les organisations à but lucratif partenaires'
 
   const [showCandidacyModal, setShowCandidacyModal] = useState(false)
 
   return (
     <Page title={title} description={description}>
-      <Head title={title} icon={<Award size={56} />} />
+      <Head title={title} />
 
-      <Section title='Liste des sociétés partenaires'>
+      <Section title='Liste des sociétés prestataires'>
         <SectionText>
-          Ces organismes s’engagent à respecter le format Base Adresse Locale (attention, il s’agit d’un format de données bien précis), sa gouvernance et pour ces raisons sont identifiés comme tiers de confiance.
-          Votre organisme respecte déjà ces spécifications mais n’est pas identifié ? Vous pouvez rejoindre les partenaires de la Charte en nous contactant.
+          Les sociétés qui réalisent des prestations d’adressage s’engagent à respecter le
+          {' '}
+          <a
+            href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale'
+            target='_blank'
+            rel='noreferrer'
+          >
+            format Base Adresse Locale
+          </a>
+          {' '}
+          ainsi que les conditions requises aux
+          {' '}
+          <a
+            href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/les-prestations-pour-la-realisation-dune-base-adresse-locale'
+            target='_blank'
+            rel='noreferrer'
+          >
+            prestations pour la réalisation d’une Base Adresse Locale
+          </a>
+          . En cas de non respects de ces conditions, nous nous réservons le droit de dé-
+          référencé un prestataire
+          <br />
+          <br />
+          Votre société souhaite figurer dans cette liste ? Contactez-nous à <i>adresse@data.gouv.fr</i>
         </SectionText>
-        <div className='contact-button'>
-          <Button type='button' onClick={() => setShowCandidacyModal(true)}>
-            Rejoignez-nous
-          </Button>
-        </div>
-
         <div className='partners-section'>
           <Partners data={companyPartners} />
         </div>

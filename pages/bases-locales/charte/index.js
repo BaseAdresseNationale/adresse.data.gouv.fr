@@ -35,11 +35,10 @@ function Charte({partnersServices, departements}) {
             La Charte de la Base Adresse Locale rassemble les organismes qui privilégient le format Base Adresse Locale et s’engagent en matière de gouvernance. L’enjeu pour la commune, autorité responsable de l’adresse, est d’identifier un référent en capacité de l’assister au besoin. Les organismes partenaires présentent la Charte sur leur site Internet et la respectent. Ces organismes s’engagent également à respecter le principe du &quot;Dites-le nous une fois de l’adresse&quot;. Ils sont référencés comme tiers de confiance sur ce site.
           </p>
           <div>
-            Elle est disponible en trois versions :
+            Elle est disponible en deux versions :
             <ul className='charte-list'>
               <li>Un format qui s’adresse aux <b>communes qui partagent leur expérience</b> avec d’autres communes.</li>
               <li>Un format dédié aux <b>organismes qui accompagnent les communes</b>.</li>
-              <li>Un format pour les <b>organisations à but lucratif</b> qui proposent une prestation d’adressage aux communes.</li>
             </ul>
             <p>Les deux versions de la Charte ont en partage le respect du <a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/le-format-base-adresse-locale'>format de données Base Adresse Locale</a> et d’une gouvernance qui place la commune au coeur du dispositif de l’adresse.</p>
           </div>
@@ -83,21 +82,6 @@ function Charte({partnersServices, departements}) {
           >
             <Image
               src='/images/previews/charte-organismes.png'
-              objectFit='contain'
-              width={150}
-              height={200}
-              alt=''
-            />
-          </Card>
-
-          <Card
-            link='https://adresse.data.gouv.fr/data/docs/charte-bal-societe.pdf'
-            action='Télécharger la charte des sociétés partenaires'
-            title='Charte des sociétés partenaires'
-            color='secondary'
-          >
-            <Image
-              src='/images/previews/charte-societes.png'
               objectFit='contain'
               width={150}
               height={200}
@@ -175,43 +159,6 @@ function Charte({partnersServices, departements}) {
         </SectionText>
         <div className='redirection-button'>
           <ButtonLink href='/bases-locales/charte/organismes'>Découvrir les organismes partenaires</ButtonLink>
-        </div>
-      </Section>
-
-      <Section title='Sociétés partenaires de la Charte' subtitle='Organisations d’accompagnement à but lucratif'>
-        <SectionText>
-          <p>La loi du 21 février 2022, dite loi &quot;3DS&quot;, réaffirme la compétence de la commune en matière d’adressage. Elle doit procéder à la dénomination des voies, des lieux-dits et à la numérotation des constructions, mais aussi transmettre les données associées à la Base Adresse Nationale. Compte-tenu de la grande diversité des territoires et de l’investissement que cette tâche peut occasionner au démarrage, il peut être pertinent de proposer un accompagnement aux communes, à l’échelle locale. La présente charte s’adresse aux acteurs qui souhaitent proposer cet accompagnement. Son adoption leur permet d’être référencés comme tiers de confiance sur le site national de l’adresse adresse.data.gouv.fr.</p>
-          <Notification>
-            <p className='info'><Info /><b>En cas de manquements répétés aux engagements demandés, le statut de tiers de confiance sera révoqué ainsi que les droits d’accès associés.</b></p>
-          </Notification>
-
-          <div className='organisme-charte'>
-            <div>
-              <b>Dans le cas où l’organisation réalise sa prestation sur l’éditeur national Mes Adresses, elle veillera :</b>
-              <ul>
-                <li>à ce que la commune soit administratrice, certifie ses adresses et assure la publication de sa Base Adresse Locale;</li>
-              </ul>
-            </div>
-            <div>
-              <b>Dans le cas où l’organisation utilise son propre outil pour la gestion des adresses, elle veillera :</b>
-              <ul>
-                <li>à ce que cet outil soit en mesure d’importer et d’exporter les données au format BAL1.3;</li>
-                <li>à communiquer à la commune un fichier BAL.csv qu’elle publiera par formulaire ou dépôt sur data.gouv.fr en authentifiant;</li>
-                <li>à transmettre ces données dès que possible après le porter à connaissance de la mise à jour des adresses d’une commune;</li>
-                <li>à veiller à ce que la commune reste au centre de la gestion des adresses, et puisse procéder à la certification;</li>
-              </ul>
-            </div>
-            <div>
-              <b>Par ailleurs, l’organisme s’engage :</b>
-              <ul>
-                <li>à promouvoir les bonnes pratiques d’adressage telles que préconisées sur le site adresse-data.gouv.fr, conformes à l’adressage légal (loi 3DS : « dénomination des voies et lieux-dits, y compris les voies privées ouvertes à la circulation »)</li>
-                <li>à respecter le format d’adresse enrichi Base Adresse Locale et non une norme d’adresse commerciale ;</li>
-              </ul>
-            </div>
-          </div>
-        </SectionText>
-        <div className='redirection-button'>
-          <ButtonLink href='/bases-locales/charte/companies'>Découvrir les sociétés partenaires</ButtonLink>
         </div>
       </Section>
 

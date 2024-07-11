@@ -68,6 +68,12 @@ const navigationLinks = [
       },
       {
         linkProps: {
+          href: '/bases-locales/charte/companies',
+        },
+        text: 'Sociétés prestataires',
+      },
+      {
+        linkProps: {
           href: '/gerer-mes-adresses',
         },
         text: 'Comment mettre à jour les adresses',
