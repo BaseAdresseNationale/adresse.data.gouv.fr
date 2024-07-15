@@ -123,13 +123,7 @@ function Evenements({events}) {
 }
 
 export async function getServerSideProps() {
-  let balEvents = []
-  try {
-    balEvents = await getBalEvents()
-  } catch (err) {
-    console.log(err)
-  }
-
+  const balEvents = await getBalEvents()
   const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
 
   return {

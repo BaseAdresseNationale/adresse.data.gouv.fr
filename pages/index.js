@@ -173,17 +173,14 @@ function Home({stats, posts, events, lastUpdated}) {
   )
 }
 
-export async function getServerSideProps() {
-  const stats = await getStats()
-  const {posts = null} = (await getPosts({tags: 'temoignage', limitFields: true, limit: 3})) || {}
-  let balEvents = []
-  try {
-    balEvents = await getBalEvents()
-  } catch (err) {
-    console.log(err)
-  }
+export async function getStaticProps() {
+  const [stats, {posts = null}, balEvents, lastUpdated] = await Promise.all([
+    getStats(),
+    getPosts({tags: 'temoignage', limitFields: true, limit: 3}).then(posts => posts || {}),
+    getBalEvents(),
+    fetchLastUpdatedDate()
+  ])
 
-  const lastUpdated = await fetchLastUpdatedDate()
   const today = new Date().setHours(0, 0, 0, 0)
   const events = sortEventsByDate([...banEvents, ...balEvents], 'asc')
     .filter(event => new Date(event.date).setHours(0, 0, 0, 0) >= today).slice(0, 3)
@@ -194,7 +191,8 @@ export async function getServerSideProps() {
       posts,
       events,
       lastUpdated
-    }
+    },
+    revalidate: 300 // Revalidate every 5 minutes
   }
 }
 
