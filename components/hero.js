@@ -131,7 +131,7 @@ function Hero({title, tagline, lastUpdated}) {
 Hero.propTypes = {
   title: PropTypes.string.isRequired,
   tagline: PropTypes.string.isRequired,
-  lastUpdated: PropTypes.string.isRequired
+  lastUpdated: PropTypes.string
 }
 
 export default Hero
