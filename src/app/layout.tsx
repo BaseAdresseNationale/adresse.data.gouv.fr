@@ -1,13 +1,20 @@
+import Link from 'next/link'
 import { DsfrHead } from '@codegouvfr/react-dsfr/next-appdir/DsfrHead'
 import { DsfrProvider } from '@codegouvfr/react-dsfr/next-appdir/DsfrProvider'
 import { getHtmlAttributes } from '@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes'
-import { StartDsfr } from './StartDsfr'
-import { defaultColorScheme } from './defaultColorScheme'
-import Link from 'next/link'
+
+import StartDsfr from '@/layouts/StartDsfr'
+import Header from '@/layouts/Header'
+import Footer from '@/layouts/Footer'
+import { defaultColorScheme } from '@/theme/defaultColorScheme'
+
+import styles from './layout.module.css'
+
+import './globals.css'
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
-  // NOTE: The lang parameter is optional and defaults to "fr"
   const lang = 'fr'
+
   return (
     <html {...getHtmlAttributes({ defaultColorScheme, lang })}>
       <head>
@@ -29,7 +36,13 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
         />
       </head>
       <body>
-        <DsfrProvider lang={lang}>{children}</DsfrProvider>
+        <DsfrProvider lang={lang}>
+          <div className={styles.layoutWrapper}>
+            <Header />
+            <div className={styles.pageWrapper}>{children}</div>
+            <Footer />
+          </div>
+        </DsfrProvider>
       </body>
     </html>
   )
