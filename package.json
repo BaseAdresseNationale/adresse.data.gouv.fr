@@ -3,14 +3,19 @@
   "version": "2.0.0-alpha",
   "private": true,
   "scripts": {
+    "predev": "only-include-used-icons",
     "dev": "next dev",
+    "prebuild": "only-include-used-icons",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "prestorybook": "copy-dsfr-to-public --publicDir .storybook/static && only-include-used-icons --publicDir .storybook/static",
     "storybook": "storybook dev -p 6006",
+    "prebuild-storybook": "yarn prestorybook",
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@codegouvfr/react-dsfr": "^1.9.29",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
@@ -32,7 +37,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "eslint-plugin-storybook": "^0.8.0",
+    "sass": "^1.77.8",
     "storybook": "^8.2.2",
+    "storybook-dark-mode": "^4.0.2",
     "typescript": "^5"
   }
 }
