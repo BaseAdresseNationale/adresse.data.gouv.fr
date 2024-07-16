@@ -37,7 +37,7 @@ const navEntries: MainNavigationProps.Item[] = [
     menuLinks: [
       {
         text: 'Découvrir la Base Adresse Nationale',
-        linkProps: { href: '#' },
+        linkProps: { href: '/decouvrir_la_BAN' },
       },
       { text: 'Utiliser la BAN', linkProps: { href: '#' } },
       { text: 'Documentation', linkProps: { href: '#' } },
