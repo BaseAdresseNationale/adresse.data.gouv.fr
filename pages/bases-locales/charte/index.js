@@ -182,7 +182,13 @@ function Charte({partnersServices, departements}) {
         <SectionText>
           <p>La loi du 21 février 2022, dite loi &quot;3DS&quot;, réaffirme la compétence de la commune en matière d’adressage. Elle doit procéder à la dénomination des voies, des lieux-dits et à la numérotation des constructions, mais aussi transmettre les données associées à la Base Adresse Nationale. Compte-tenu de la grande diversité des territoires et de l’investissement que cette tâche peut occasionner au démarrage, il peut être pertinent de proposer un accompagnement aux communes, à l’échelle locale. La présente charte s’adresse aux acteurs qui souhaitent proposer cet accompagnement. Son adoption leur permet d’être référencés comme tiers de confiance sur le site national de l’adresse adresse.data.gouv.fr.</p>
           <Notification>
-            <p className='info'><Info /><b>En cas de manquements répétés aux engagements demandés, le statut de tiers de confiance sera révoqué ainsi que les droits d’accès associés.</b></p>
+            <p className='info'><Info /><b>En cas de manquements répétés aux engagements demandés, le statut de tiers de confiance sera révoqué ainsi que les droits d’accès associés.
+              <br />En savoir plus sur les modalités des prestations{' '}
+              (<a href='https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/les-prestations-pour-la-realisation-dune-base-adresse-locale' target='_blank' rel='noreferrer'>
+                Lien vers doc
+              </a>)
+            </b></p>
+
           </Notification>
 
           <div className='organisme-charte'>
