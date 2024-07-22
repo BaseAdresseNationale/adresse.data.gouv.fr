@@ -2,6 +2,10 @@
   "name": "adresse.data.gouv.fr",
   "version": "2.0.0-alpha",
   "private": true,
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
   "scripts": {
     "predev": "only-include-used-icons",
     "dev": "next dev",
