@@ -20,12 +20,13 @@
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^1.9.29",
+    "@strapi/blocks-react-renderer": "^1.0.1",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "strapi-sdk-js": "^2.3.3"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "^2.3.0",
     "@chromatic-com/storybook": "^1.6.1",
     "@storybook/addon-essentials": "^8.2.2",
     "@storybook/addon-interactions": "^8.2.2",
@@ -35,12 +36,14 @@
     "@storybook/nextjs": "^8.2.2",
     "@storybook/react": "^8.2.2",
     "@storybook/test": "^8.2.2",
+    "@stylistic/eslint-plugin": "^2.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "eslint-plugin-storybook": "^0.8.0",
+    "husky": "^9.1.2",
     "sass": "^1.77.8",
     "storybook": "^8.2.2",
     "storybook-dark-mode": "^4.0.2",

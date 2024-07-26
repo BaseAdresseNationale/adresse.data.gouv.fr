@@ -55,7 +55,7 @@ const navEntries: MainNavigationProps.Item[] = [
     menuLinks: [
       {
         text: 'Votre commune et sa base adresse locale ',
-        linkProps: { href: '#' },
+        linkProps: { href: '/programme-BAL' },
       },
       { text: 'Ma commune', linkProps: { href: '#' } },
       {
