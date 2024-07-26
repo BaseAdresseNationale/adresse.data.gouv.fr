@@ -3,10 +3,13 @@ const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
       test: /\.woff2$/,
-      type: "asset/resource",
-    });
-    return config;
+      type: 'asset/resource',
+    })
+    return config
   },
-};
+  compiler: {
+    styledComponents: true,
+  },
+}
 
-export default nextConfig;
+export default nextConfig

@@ -5,21 +5,28 @@ const colorTheme = {
   secondary: fr.colors.decisions.background.alt.pinkTuile.default,
 }
 
+export interface SectionProps {
+  children: React.ReactNode
+  pageTitle?: string
+  title?: string
+  color?: 'primary' | 'secondary'
+  style?: React.CSSProperties
+  className?: string
+}
+
 export default function Section({
   children,
   pageTitle,
   title,
   color,
-}: {
-  children: React.ReactNode
-  pageTitle?: string
-  title?: string
-  color?: 'primary' | 'secondary'
-}) {
+  style,
+  className,
+}: SectionProps) {
   return (
     <section
-      className="fr-container-fluid"
+      className={className ? `fr-container-fluid ${className}` : 'fr-container-fluid'}
       style={{
+        ...style,
         ...(color ? { backgroundColor: colorTheme[color] } : {}),
       }}
     >
