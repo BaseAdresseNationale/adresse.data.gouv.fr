@@ -7,19 +7,19 @@
     "npm": ">=10"
   },
   "scripts": {
-    "predev": "only-include-used-icons",
+    "predev": "react-dsfr update-icons",
     "dev": "next dev",
-    "prebuild": "only-include-used-icons",
+    "prebuild": "react-dsfr update-icons",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prestorybook": "copy-dsfr-to-public --publicDir .storybook/static && only-include-used-icons --publicDir .storybook/static",
+    "prestorybook": "react-dsfr update-icons",
     "storybook": "storybook dev -p 6006",
-    "prebuild-storybook": "yarn prestorybook",
+    "prebuild-storybook": "react-dsfr update-icons",
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@codegouvfr/react-dsfr": "^1.9.29",
+    "@codegouvfr/react-dsfr": "^1.10.11",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",

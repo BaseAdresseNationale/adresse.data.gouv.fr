@@ -9,8 +9,7 @@ import { useEffectOnValueChange } from "./hooks/useEffectOnValueChange";
 import { darkTheme, lightTheme } from "./customTheme";
 import { DocsContainer } from "./DocsContainer";
 
-import "./static/dsfr/dsfr.css";
-import "./static/dsfr/utility/icons/icons.min.css";
+import "@codegouvfr/react-dsfr/main.css";
 
 const defaultLang = "fr";
 
