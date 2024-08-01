@@ -94,25 +94,6 @@ export const StyledPageProgrammeBAL = styled.div`
     padding: 30px;
   }
 
-  .verbatim-card {
-    border-left: 1px solid #dddddd;
-    padding: 10px 30px;
-  }
-
-  .verbatim-card > p {
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .verbatim-card > div {
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .verbatim-card > a {
-    font-size: 12px !important;
-  }
-
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
     .hide-mobile {
       display: none;
@@ -125,10 +106,6 @@ export const StyledPageProgrammeBAL = styled.div`
 
     .main-steps-row {
       margin-top: 20px;
-    }
-
-    .verbatim-card:first-of-type {
-      margin-bottom: 20px;
     }
 
     .cta-card:first-of-type {
