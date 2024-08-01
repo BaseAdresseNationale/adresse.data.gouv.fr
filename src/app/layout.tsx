@@ -14,7 +14,7 @@ import StyledComponentsRegistry from '@/styled-components/registry'
 import theme from '@/styled-components/theme'
 import GlobalStyle from './global.styles'
 
-export const StyledLayout = styled.div`
+const StyledLayout = styled.div`
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
