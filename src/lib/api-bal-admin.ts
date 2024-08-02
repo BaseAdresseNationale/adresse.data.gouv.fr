@@ -1,23 +1,30 @@
+import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { customFetch } from './fetch'
 
 if (!process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL) {
   throw new Error('NEXT_PUBLIC_BAL_ADMIN_API_URL is not defined in the environment')
 }
 
-export async function getOnePartenairesDeLaCharte(id: string) {
+export async function getOnePartenairesDeLaCharte(id: string): Promise<PartenaireDeLaChartType> {
   const url = new URL(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/partenaires-de-la-charte/${id}`)
 
   return customFetch(url)
 }
 
-export async function getPartenairesDeLaCharte(queryObject: Record<string, string>) {
+interface PartenairesDeLaCharteQuery {
+  codeDepartement?: string[]
+  services?: string[]
+  type?: PartenaireDeLaCharteTypeEnum
+}
+
+export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaCharteQuery): Promise<PartenaireDeLaChartType[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/partenaires-de-la-charte`)
   Object.keys(queryObject).forEach(key => url.searchParams.append(key, queryObject[key]))
 
   return customFetch(url)
 }
 
-export const getPartenairesDeLaCharteServices = async () => {
+export async function getPartenairesDeLaCharteServices(): Promise<string[]> {
   return customFetch(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/partenaires-de-la-charte/services`)
 }
 

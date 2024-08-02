@@ -1,10 +1,14 @@
 import DownloadCard from '@/components/DownloadCard'
 import { StyledPage } from './page.styles'
-import { getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
+import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import SearchItems from '@/components/SearchItems'
+import { getDepartements } from '@/lib/api-geo'
 
 export default async function CharteBALPage() {
+  const departements = await getDepartements()
   const services = await getPartenairesDeLaCharteServices()
+  const initialPartenaires = await getPartenairesDeLaCharte({
+  })
 
   return (
     <StyledPage pageTitle="Charte de la Base adresse locale">
@@ -47,7 +51,7 @@ export default async function CharteBALPage() {
       </div>
       <h2>Partenaires disponibles sur votre territoire</h2>
       <p>De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire</p>
-      <SearchItems services={services} />
+      <SearchItems services={services} initialPartenaires={initialPartenaires} departements={departements} />
     </StyledPage>
   )
 }
