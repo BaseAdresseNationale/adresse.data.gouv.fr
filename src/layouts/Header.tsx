@@ -24,7 +24,7 @@ const markAsActive = (
   }) as MainNavigationProps.Item[]
 }
 
-const navEntries: MainNavigationProps.Item[] = [
+export const navEntries: MainNavigationProps.Item[] = [
   {
     text: 'Accueil',
     linkProps: {
@@ -103,7 +103,7 @@ const navEntries: MainNavigationProps.Item[] = [
   {
     text: 'La communauté',
     menuLinks: [
-      { text: 'Découvrir la charte', linkProps: { href: '#' } },
+      { text: 'Charte de la Base adresse locale', linkProps: { href: '/charte-base-adresse-locale' } },
       { text: 'Communes partenaires', linkProps: { href: '#' } },
       {
         text: 'Organismes partenaires',
