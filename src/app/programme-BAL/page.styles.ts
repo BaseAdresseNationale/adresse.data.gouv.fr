@@ -51,6 +51,10 @@ export const StyledPageProgrammeBAL = styled.div`
     align-items: center;
   }
 
+  .quote-wrapper {
+    justify-content: space-between;
+  }
+
   .space-between-row {
     justify-content: space-between;
     align-items: center;
@@ -92,6 +96,10 @@ export const StyledPageProgrammeBAL = styled.div`
     background: white;
     border: 1px solid #dddddd;
     padding: 30px;
+  }
+
+  .fr-quote {
+    display: block;
   }
 
   @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {

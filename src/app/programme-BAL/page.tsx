@@ -2,11 +2,10 @@ import Section from '@/components/Section'
 import { getStats } from '@/lib/api-ban'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Link from 'next/link'
-import Image from 'next/image'
 import { StyledPageProgrammeBAL } from './page.styles'
 import IconCard from '@/components/IconCard'
 import ResponsiveImage from '@/components/ResponsiveImage'
-import Verbatim from '@/components/Verbatim'
+import { Quote } from '@codegouvfr/react-dsfr/Quote'
 
 export default async function ProgrammeBALPage() {
   const stats = await getStats()
@@ -271,16 +270,20 @@ export default async function ProgrammeBALPage() {
               </h2>
             </div>
           )}
-          <div className="fr-grid-row space-between-row">
-            <Verbatim
+          <div className="fr-grid-row quote-wrapper">
+            <Quote
+              className="fr-col-md-5"
+              size="medium"
               text="Je m’attendais à un outil un peu indigeste. Et il est d’une simplicité à toute épreuve. Il est facile de se connecter, de suivre un webinaire - et même, nul besoin de webinaire, car l’outil est très simple d’utilisation. S’il existait déjà une adresse au niveau national, il les remonte et on vérifie, on valide avant de passer à la suivante. Cela permet surtout d’ajouter les lieux dits, ce qui est très important. Les adresses, avec les lieux-dits, seront utilisées par tous les secours."
               author="Judith Ardon Pernet, maire de Nogaret"
-              link="https://adresse.data.gouv.fr/blog/les-bases-adresses-locales-pivot-de-la-transition-numerique-des-communes"
+              source={<a href="https://adresse.data.gouv.fr/blog/les-bases-adresses-locales-pivot-de-la-transition-numerique-des-communes" target="_blank">Consulter l&apos;article entier</a>}
             />
-            <Verbatim
+            <Quote
+              className="fr-col-md-5"
+              size="medium"
               text="J’ai vérifié les numérotations et corrigé les fautes d’orthographe. Il est vrai qu’en Bretagne, l’orthographe est un peu particulière, pas toujours compatible avec les usages classiques de la langue française. Nous utilisons les apostrophes comme à « Kerflec’h », avec le « c’h ». C’est ainsi, c’est l’orthographe du mot, elle figure d’ailleurs sur les panneaux. Je souhaitais surtout procéder à ces corrections une seule fois, ne plus avoir à y revenir. J’ai ouvert à nouveau ma Base Adresse Locale afin de réaliser associer les adresses aux numéros de parcelles : il s’agit surtout d’une opération complémentaire. Bien entendu, nous effectuerons les mises à jour lors de nouvelles constructions."
               author="Joël Marivain, maire de Kerfourn"
-              link="https://adresse.data.gouv.fr/blog/lassociation-des-maires-du-morbihan-mobilise-les-communes-sur-leurs-adresses"
+              source={<a href="https://adresse.data.gouv.fr/blog/lassociation-des-maires-du-morbihan-mobilise-les-communes-sur-leurs-adresses" target="_blank">Consulter l&apos;article entier</a>}
             />
           </div>
         </div>
