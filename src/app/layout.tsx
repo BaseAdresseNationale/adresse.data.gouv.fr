@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { DsfrHead } from '@codegouvfr/react-dsfr/next-appdir/DsfrHead'
 import { DsfrProvider } from '@codegouvfr/react-dsfr/next-appdir/DsfrProvider'
@@ -7,10 +9,22 @@ import StartDsfr from '@/layouts/StartDsfr'
 import Header from '@/layouts/Header'
 import Footer from '@/layouts/Footer'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
+import styled, { ThemeProvider } from 'styled-components'
+import StyledComponentsRegistry from '@/styled-components/registry'
+import theme from '@/styled-components/theme'
+import GlobalStyle from './global.styles'
 
-import styles from './layout.module.css'
+const StyledLayout = styled.div`
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 
-import './globals.css'
+  .pageWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+`
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
@@ -22,26 +36,24 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
         <DsfrHead
           Link={Link}
           preloadFonts={[
-            // "Marianne-Light",
-            // "Marianne-Light_Italic",
             'Marianne-Regular',
-            // "Marianne-Regular_Italic",
             'Marianne-Medium',
-            // "Marianne-Medium_Italic",
             'Marianne-Bold',
-            // "Marianne-Bold_Italic",
-            // "Spectral-Regular",
-            // "Spectral-ExtraBold"
           ]}
         />
       </head>
       <body>
         <DsfrProvider lang={lang}>
-          <div className={styles.layoutWrapper}>
-            <Header />
-            <div className={styles.pageWrapper}>{children}</div>
-            <Footer />
-          </div>
+          <StyledComponentsRegistry>
+            <ThemeProvider theme={theme}>
+              <GlobalStyle />
+              <StyledLayout>
+                <Header />
+                <div className="pageWrapper">{children}</div>
+                <Footer />
+              </StyledLayout>
+            </ThemeProvider>
+          </StyledComponentsRegistry>
         </DsfrProvider>
       </body>
     </html>

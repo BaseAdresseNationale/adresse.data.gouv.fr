@@ -37,3 +37,7 @@ next-env.d.ts
 
 *storybook.log
 /.storybook/static/dsfr/
+
+public/dsfr
+
+.vscode/
