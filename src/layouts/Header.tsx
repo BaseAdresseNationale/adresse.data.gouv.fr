@@ -103,15 +103,15 @@ export const navEntries: MainNavigationProps.Item[] = [
   {
     text: 'La communauté',
     menuLinks: [
-      { text: 'Charte de la Base adresse locale', linkProps: { href: '/charte-base-adresse-locale' } },
-      { text: 'Communes partenaires', linkProps: { href: '#' } },
+      { text: 'Charte de la Base adresse locale', linkProps: { href: '/communaute/charte-base-adresse-locale' } },
+      { text: 'Communes partenaires', linkProps: { href: '/communaute/communes-partenaires' } },
       {
         text: 'Organismes partenaires',
-        linkProps: { href: '#' },
+        linkProps: { href: '/communaute/organismes-partenaires' },
       },
       {
-        text: 'Entreprises partenaires',
-        linkProps: { href: '#' },
+        text: 'Sociétés partenaires',
+        linkProps: { href: '/communaute/societes-partenaires' },
       },
       { text: 'Nos usagers', linkProps: { href: '#' } },
     ],
