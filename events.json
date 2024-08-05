@@ -416,5 +416,21 @@
     "instructions": "",
     "startHour": "10:30",
     "endHour": "12:00"
+  },
+  {
+    "title": "Adresse_Lab",
+    "subtitle": "Point d'échange trimestriel T4 2024",
+    "description": "Actualités et point d'avancement des chantiers en cours. Il n’est pas nécessaire de « s’inscrire à l’événement ». Le lien d’inscription correspond au lien à utiliser pour se connecter au webinaire. Ce jalon de présentation du nouveau socle technique se tiendra également avec les partenaires de la charte.",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2024-09-10",
+    "tags": ["Technique", "Base Adresse Nationale", "Utilisateurs"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://webinaire.numerique.gouv.fr//meeting/signin/27556/creator/9391/hash/d976fe67483d86021e0a2fa15a641a12a6a0d848",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "14:00",
+    "endHour": "15:30"
   }
 ]
