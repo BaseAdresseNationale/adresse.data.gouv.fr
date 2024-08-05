@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDarkMode as useStorybookUiDarkMode } from "storybook-dark-mode";
 import type { Preview } from "@storybook/react";
 import { UPDATE_STORY_ARGS } from "@storybook/core-events";
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { useIsDark as useIsDsfrDark } from "@codegouvfr/react-dsfr/useIsDark";
 
@@ -47,6 +48,16 @@ const preview = {
     controls: {
       exclude: ["activeControls", "shortcut", "filterDescription"],
       expanded: true,
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i
+      }
+    },
+    viewport: {
+      viewports: {
+        ...INITIAL_VIEWPORTS,
+        ...MINIMAL_VIEWPORTS,
+      },
     },
   },
 
