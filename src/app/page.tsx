@@ -1,8 +1,10 @@
 'use client'
 
+import Notices from '@/components/Notices'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
 
+import dataNotices from '@/data/sample-notices.json'
 import dataBAN from '@/data/sample-ban-info.json'
 import dataBAL from '@/data/sample-bal-info.json'
 import dataActions from '@/data/sample-actions.json'
@@ -10,6 +12,8 @@ import dataActions from '@/data/sample-actions.json'
 export default function Home() {
   return (
     <>
+      <Notices {...dataNotices} />
+
       <SectionHero
         pageTitle="La base adresse nationale"
         picture={{

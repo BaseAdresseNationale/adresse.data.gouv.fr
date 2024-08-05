@@ -1,0 +1,19 @@
+{
+  "data": [
+    { "text": "Ici vous trouvez des alerte et mise en avant du système." },
+    { "text": "Maintenance de la BAN prevue le 12/12/2022" },
+    { "text": "Nouvelle version de la BAN disponible" },
+    {
+      "text": "Nouvel article disponible : \"Un nouveau socle technique pour la BAN\"",
+      "link": {
+        "href": "https://www.data.gouv.fr/fr/datasets/5eaf7f8f0c7a939f7b3f3f3d",
+        "target": "_blank"
+      }
+    },
+    { "text": "Ave mundus" },
+    { "text": "Nosce te ipsum." },
+    { "text": "Fluctuat nec mergitur." },
+    { "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }
+  ],
+  "duration": 6000
+}
