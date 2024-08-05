@@ -12,7 +12,7 @@ export default async function ProgrammeBALPage() {
 
   return (
     <StyledPageProgrammeBAL>
-      <Section className="hero-section" color="primary">
+      <Section className="hero-section" theme="primary">
         <div className="fr-container fr-py-5w">
           <div className="fr-grid-row">
             <div className="fr-col-md-7 improve-quality-card">
@@ -68,7 +68,7 @@ export default async function ProgrammeBALPage() {
         </div>
       </Section>
 
-      <Section color="primary">
+      <Section theme="primary">
         <div className="fr-container fr-py-5w">
           <div className="fr-grid-row hide-mobile">
             <h2>Une Base Adresse Locale pour...</h2>
@@ -289,7 +289,7 @@ export default async function ProgrammeBALPage() {
         </div>
       </Section>
 
-      <Section color="primary">
+      <Section theme="primary">
         <div className="fr-container fr-py-5w">
           <div className="fr-grid-row">
             <h2>Créer sa Base Adresse Locale</h2>

@@ -3,7 +3,7 @@ import Section from '@/components/Section'
 export default function Home() {
   return (
     <>
-      <Section pageTitle="Page Title" color="primary">
+      <Section pageTitle="Page Title" theme="primary">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
           malesuada consectetur turpis eu sodales. Donec fringilla odio a justo
@@ -31,7 +31,7 @@ export default function Home() {
         </p>
       </Section>
       <Section title="Section Title A">Some content A</Section>
-      <Section title="Section Title B" color="secondary">
+      <Section title="Section Title B" theme="secondary">
         Some content B
       </Section>
       <Section title="Section Title C">Some content C</Section>
