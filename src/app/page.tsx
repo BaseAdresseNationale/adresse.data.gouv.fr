@@ -1,15 +1,19 @@
-'use client'
-
 import Notices from '@/components/Notices'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
+import SectionQuotes from '@/components/SectionQuotes'
+import { getStats } from '@/lib/api-ban'
 
 import dataNotices from '@/data/sample-notices.json'
 import dataBAN from '@/data/sample-ban-info.json'
 import dataBAL from '@/data/sample-bal-info.json'
 import dataActions from '@/data/sample-actions.json'
+import dataQuotes from '@/data/sample-quotes.json'
+import theme from '@/theme'
 
-export default function Home() {
+export default async function Home() {
+  const stats = await getStats()
+
   return (
     <>
       <Notices {...dataNotices} />
@@ -53,6 +57,19 @@ export default function Home() {
         data={dataBAL}
         title="Constituez la base adresse locale de votre commune !"
       />
+
+      {stats && dataQuotes?.length && (
+        <SectionQuotes
+          title={(
+            <h2>
+              Déjà <strong style={{ color: theme.colors['primary'].main }}>{new Intl.NumberFormat('fr-FR').format(stats.bal.nbCommunesCouvertes)} communes</strong>{' '}
+              ont mis à jour leurs bases d’adresses
+            </h2>
+          )}
+          data={dataQuotes}
+          theme="secondary"
+        />
+      )}
 
       <SectionTilesList
         data={dataActions}
