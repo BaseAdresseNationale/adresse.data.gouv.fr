@@ -1,35 +1,40 @@
+'use client'
+
 import Section from '@/components/Section'
+import SectionHero from '@/components/SectionHero'
 
 export default function Home() {
   return (
     <>
-      <Section pageTitle="Page Title" theme="primary">
+      <SectionHero
+        pageTitle="La base adresse nationale"
+        picture={{
+          src: './img/home_page_hero_ban.svg',
+          alt: 'Illustration de "La base adresse nationale"',
+          width: 400,
+          height: 310,
+        }}
+        footerLinks={[
+          {
+            label: 'Découvrir la Base Adresse Nationale',
+            href: '/decouvrir_la_BAN',
+          },
+        ]}
+      >
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-          malesuada consectetur turpis eu sodales. Donec fringilla odio a justo
-          maximus ornare. Vivamus pellentesque nisl vitae mi pretium lacinia.
-          Vestibulum tincidunt enim eu scelerisque viverra. Quisque sagittis
-          nunc risus, nec venenatis est fringilla vitae. Ut feugiat velit
-          bibendum ullamcorper aliquet. Maecenas augue quam, suscipit ut finibus
-          eu, dictum a erat. Cras blandit, ante nec congue aliquet, sem diam
-          euismod magna, eget efficitur purus dui sed tellus. Vestibulum finibus
-          ullamcorper dui. Aliquam erat volutpat. Quisque a accumsan magna, eu
-          facilisis dui.
+          Pour que les services d’urgence arrivent au bon endroit, pour vous
+          permettre de réaliser une analyse cartographique ou encore pour mieux
+          coordonnées les chantiers, les adresses sont un véritable enjeu de
+          souveraineté pour la France.
         </p>
         <p>
-          Sed eleifend quam mi, laoreet eleifend metus maximus eu. Nunc tempus
-          facilisis pretium. Vivamus eget nisi sit amet purus condimentum
-          posuere quis in nibh. Proin commodo elementum arcu, ac volutpat nisl
-          posuere quis. Sed accumsan nulla mi. Cras dolor purus, ultricies sed
-          sollicitudin ac, ultrices vel tellus. Proin molestie sem enim, in
-          fermentum nisi aliquam eget. Vivamus quis quam augue. Phasellus luctus
-          sollicitudin nisi, vitae luctus risus faucibus a. Cras cursus a lectus
-          sit amet finibus. Aliquam venenatis ullamcorper scelerisque. Lorem
-          ipsum dolor sit amet, consectetur adipiscing elit. In viverra lacus
-          vel mi aliquam, eget porta eros suscipit. Nulla a ante tincidunt,
-          imperdiet ex molestie, imperdiet augue.
+          <strong>
+            Notre Objectif : référencer l’intégralité des adresses du territoire et
+            les rendre utilisables par tous.
+          </strong>
         </p>
-      </Section>
+      </SectionHero>
+
       <Section title="Section Title A">Some content A</Section>
       <Section title="Section Title B" theme="secondary">
         Some content B
