@@ -1,7 +1,11 @@
 'use client'
 
-import Section from '@/components/Section'
 import SectionHero from '@/components/SectionHero'
+import SectionTilesList from '@/components/SectionTilesList'
+
+import dataBAN from '@/data/sample-ban-info.json'
+import dataBAL from '@/data/sample-bal-info.json'
+import dataActions from '@/data/sample-actions.json'
 
 export default function Home() {
   return (
@@ -35,11 +39,23 @@ export default function Home() {
         </p>
       </SectionHero>
 
-      <Section title="Section Title A">Some content A</Section>
-      <Section title="Section Title B" theme="secondary">
-        Some content B
-      </Section>
-      <Section title="Section Title C">Some content C</Section>
+      <SectionTilesList
+        data={dataBAN}
+        title="Utilisez la base adresse nationale"
+        theme="secondary"
+      />
+
+      <SectionTilesList
+        data={dataBAL}
+        title="Constituez la base adresse locale de votre commune !"
+      />
+
+      <SectionTilesList
+        data={dataActions}
+        title="Constituez la base adresse locale de votre commune !"
+        isSmallTiles
+        withoutLinkIcon
+      />
     </>
   )
 }
