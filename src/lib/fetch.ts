@@ -10,7 +10,7 @@ export default class HttpError extends Error {
   }
 }
 
-export async function customFetch(url: string, customOptions: RequestInit = {}) {
+export async function customFetch(url: string | URL | globalThis.Request, customOptions: RequestInit = {}) {
   try {
     const options: RequestInit = {
       mode: 'cors',

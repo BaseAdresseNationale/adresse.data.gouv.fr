@@ -8,6 +8,7 @@ import { getHtmlAttributes } from '@codegouvfr/react-dsfr/next-appdir/getHtmlAtt
 import { StartDsfr } from '@/providers'
 import Header from '@/layouts/Header'
 import Footer from '@/layouts/Footer'
+import Breadcrumb from '@/layouts/Breadcrumb'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import styled, { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
@@ -49,7 +50,10 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
               <GlobalStyle />
               <StyledLayout>
                 <Header />
-                <div className="pageWrapper">{children}</div>
+                <div className="pageWrapper">
+                  <Breadcrumb />
+                  {children}
+                </div>
                 <Footer />
               </StyledLayout>
             </ThemeProvider>
