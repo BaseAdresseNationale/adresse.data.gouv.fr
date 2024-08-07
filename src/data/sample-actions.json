@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Je débute sur Mes Adresses",
+    "picto": "./img/picto-fr/calendar.svg",
+    "link": {
+      "href": "#some",
+      "target": "_self"
+    },
+    "tags": ["Formation en ligne"]
+  },
+  {
+    "title": "Comprendre la Base adresse locale",
+    "picto": "./img/picto-fr/video.svg",
+    "link": {
+      "href": "#",
+      "target": "_self"
+    },
+    "tags": ["Vidéo"]
+  },
+  {
+    "title": "Comment mettre à jour ma base locale ?",
+    "picto": "./img/picto-fr/document.svg",
+    "link": {
+      "href": "#",
+      "target": "_self"
+    },
+    "tags": ["Documentation"]
+  },
+  {
+    "title": "Installer un géocodeur sur son serveur.",
+    "picto": "./img/picto-fr/coding.svg",
+    "link": {
+      "href": "#",
+      "target": "_self"
+    },
+    "tags": ["Doc Technique"]
+  }
+]

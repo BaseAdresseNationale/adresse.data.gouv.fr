@@ -5,13 +5,13 @@ import { DsfrHead } from '@codegouvfr/react-dsfr/next-appdir/DsfrHead'
 import { DsfrProvider } from '@codegouvfr/react-dsfr/next-appdir/DsfrProvider'
 import { getHtmlAttributes } from '@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes'
 
-import StartDsfr from '@/layouts/StartDsfr'
+import { StartDsfr } from '@/providers'
 import Header from '@/layouts/Header'
 import Footer from '@/layouts/Footer'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import styled, { ThemeProvider } from 'styled-components'
-import StyledComponentsRegistry from '@/styled-components/registry'
-import theme from '@/styled-components/theme'
+import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
+import theme from '@/theme/theme'
 import GlobalStyle from './global.styles'
 
 const StyledLayout = styled.div`

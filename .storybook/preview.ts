@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDarkMode as useStorybookUiDarkMode } from "storybook-dark-mode";
 import type { Preview } from "@storybook/react";
 import { UPDATE_STORY_ARGS } from "@storybook/core-events";
+import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { startReactDsfr } from "@codegouvfr/react-dsfr/spa";
 import { useIsDark as useIsDsfrDark } from "@codegouvfr/react-dsfr/useIsDark";
 
@@ -9,8 +10,7 @@ import { useEffectOnValueChange } from "./hooks/useEffectOnValueChange";
 import { darkTheme, lightTheme } from "./customTheme";
 import { DocsContainer } from "./DocsContainer";
 
-import "./static/dsfr/dsfr.css";
-import "./static/dsfr/utility/icons/icons.min.css";
+import "@codegouvfr/react-dsfr/main.css";
 
 const defaultLang = "fr";
 
@@ -48,6 +48,16 @@ const preview = {
     controls: {
       exclude: ["activeControls", "shortcut", "filterDescription"],
       expanded: true,
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i
+      }
+    },
+    viewport: {
+      viewports: {
+        ...INITIAL_VIEWPORTS,
+        ...MINIMAL_VIEWPORTS,
+      },
     },
   },
 

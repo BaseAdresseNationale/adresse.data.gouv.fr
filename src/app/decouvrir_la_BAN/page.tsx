@@ -3,7 +3,7 @@ import Section from '@/components/Section'
 export default function Home() {
   return (
     <>
-      <Section pageTitle="Découvrir la Base Adresse Nationale" color="primary">
+      <Section pageTitle="Découvrir la Base Adresse Nationale" theme="primary">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sodales
           nulla vel vulputate congue. Integer quis malesuada sem, nec lacinia
@@ -32,7 +32,7 @@ export default function Home() {
         </p>
       </Section>
       <Section title="Section Title A">Some content A</Section>
-      <Section title="Section Title B" color="secondary">
+      <Section title="Section Title B" theme="secondary">
         Some content B
       </Section>
       <Section title="Section Title C">Some content C</Section>
