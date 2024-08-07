@@ -8,6 +8,7 @@ on:
 
 env:
   NEXT_PUBLIC_API_BAN_URL: ${{ vars.NEXT_PUBLIC_API_BAN_URL }}
+  NEXT_PUBLIC_BAL_ADMIN_API_URL: ${{ vars.NEXT_PUBLIC_BAL_ADMIN_API_URL }}
 
 jobs:
   build:
