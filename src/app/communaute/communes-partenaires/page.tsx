@@ -1,7 +1,23 @@
+import SearchPartenaire from '@/components/SearchPartenaire'
 import Section from '@/components/Section'
+import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { getDepartements } from '@/lib/api-geo'
+import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import { displayWithPlural } from '@/utils/string'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 export default async function CommunesPartenairesPage() {
+  const services = await getPartenairesDeLaCharteServices()
+  const initialPartenaires = await getPartenairesDeLaCharte({
+    type: PartenaireDeLaCharteTypeEnum.COMMUNE,
+  })
+  const departements = await getDepartements()
+
+  async function renderInfos(paginatedPartenaires: PaginatedPartenairesDeLaCharte) {
+    'use server'
+    return <p>{displayWithPlural(paginatedPartenaires.totalCommunes, 'commune')}</p>
+  }
+
   return (
     <Section pageTitle="Communes partenaires de la Charte">
       <p>La présence de cette Charte de la Base Adresse Locale sur le site Internet d’une commune signifie qu’elle utilise le format Base Adresse Locale pour la transmission de ses adresses à la Base Adresse Nationale et promeut ce format. Cette commune est donc référencée sur adresse.data.gouv.fr pour la qualité de ses adresses et sa démarche de partage d’expérience auprès d’autres communes. Cette charte vise à fédérer les communes qui ont en commun le souhait de partager leur expérience et à faciliter la diffusion des bonnes pratiques entre pairs.</p>
@@ -34,11 +50,20 @@ export default async function CommunesPartenairesPage() {
       <Button
         iconId="fr-icon-questionnaire-line"
         iconPosition="right"
-        // onClick={() => {}}
         priority="secondary"
+        style={{ marginBottom: '1rem' }}
       >
         Rejoignez-nous
       </Button>
+      <SearchPartenaire
+        searchBy="name"
+        services={services}
+        initialPartenaires={initialPartenaires}
+        departements={departements}
+        filter={{ type: PartenaireDeLaCharteTypeEnum.COMMUNE }}
+        renderInfos={renderInfos}
+      />
+
     </Section>
   )
 }

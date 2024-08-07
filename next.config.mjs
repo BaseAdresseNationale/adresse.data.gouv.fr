@@ -10,6 +10,11 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '3mb',
+    },
+  },
 }
 
 export default nextConfig

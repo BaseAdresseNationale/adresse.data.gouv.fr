@@ -1,14 +1,19 @@
 import DownloadCard from '@/components/DownloadCard'
 import { StyledPage } from './page.styles'
-import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
-import SearchItems from '@/components/SearchItems'
+import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import SearchPartenaire from '@/components/SearchPartenaire'
 import { getDepartements } from '@/lib/api-geo'
+import { displayWithPlural } from '@/utils/string'
 
 export default async function CharteBALPage() {
   const departements = await getDepartements()
   const services = await getPartenairesDeLaCharteServices()
-  const initialPartenaires = await getPartenairesDeLaCharte({
-  })
+  const initialPartenaires = await getPartenairesDeLaCharte({})
+
+  const renderInfos = async (paginatedPartenaires: PaginatedPartenairesDeLaCharte) => {
+    'use server'
+    return <p>{displayWithPlural(paginatedPartenaires.total, 'partenaire')} : {displayWithPlural(paginatedPartenaires.totalCommunes, 'commune')}, {displayWithPlural(paginatedPartenaires.totalOrganismes, 'organisme')}, {displayWithPlural(paginatedPartenaires.totalEntreprises, 'entreprise')}</p>
+  }
 
   return (
     <StyledPage pageTitle="Charte de la Base adresse locale">
@@ -51,7 +56,13 @@ export default async function CharteBALPage() {
       </div>
       <h2>Partenaires disponibles sur votre territoire</h2>
       <p>De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire</p>
-      <SearchItems services={services} initialPartenaires={initialPartenaires} departements={departements} />
+      <SearchPartenaire
+        searchBy="perimeter"
+        services={services}
+        initialPartenaires={initialPartenaires}
+        departements={departements}
+        renderInfos={renderInfos}
+      />
     </StyledPage>
   )
 }

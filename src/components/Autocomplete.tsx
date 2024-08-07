@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 export const StyledAutocomplete = styled.div`
   position: relative;
+  .fr-input-group {
+    margin-bottom: 0;
+  }
   input:focus {
     outline: none;
   }
@@ -124,7 +127,10 @@ const Autocomplete = <T extends { code: string }>({
           onChange={onSearch}
           onFocus={() => setHasFocus(true)}
           onBlur={(e) => {
-            if (e.relatedTarget instanceof Element && e.relatedTarget.tagName === 'BUTTON') {
+            if (
+              e.relatedTarget instanceof Element
+              && e.relatedTarget.tagName === 'BUTTON'
+            ) {
               return
             }
             setHasFocus(false)
@@ -136,7 +142,8 @@ const Autocomplete = <T extends { code: string }>({
       </div>
       {hasFocus && (
         <div className="results">
-          {results.length > 0 && renderResultList(results, () => setHasFocus(false))}
+          {results.length > 0
+          && renderResultList(results, () => setHasFocus(false))}
           {results.length === 0 && search.length >= 4 && <p>Aucun résultat</p>}
           {results.length === 0 && search.length > 0 && search.length < 4 && (
             <p>Votre recherche doit comporter au moins 4 caractères</p>

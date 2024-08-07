@@ -1,9 +1,20 @@
+'use client'
+
 import { useCallback } from 'react'
 import Autocomplete, { StyledResultList } from './Autocomplete'
 import { Commune } from '@/types/api-geo.types'
 import { getCommunes } from '@/lib/api-geo'
 import Button from '@codegouvfr/react-dsfr/Button'
+import styled from 'styled-components'
 
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  > button {
+    margin-left: 1rem;
+  }
+`
 export interface CommuneInputProps {
   value: Commune | null
   onChange: (value: Commune | null) => void
@@ -14,15 +25,15 @@ export default function CommuneInput({ value, onChange }: CommuneInputProps) {
 
   return value
     ? (
-        <div>
-          <span>{value.nom}</span>
+        <StyledWrapper>
+          <span><b>{value.nom}</b> ({value.code})</span>
           <Button
             iconId="fr-icon-close-line"
             onClick={() => onChange(null)}
             priority="tertiary no outline"
             title="Réinitialiser"
           />
-        </div>
+        </StyledWrapper>
       )
     : (
         <Autocomplete

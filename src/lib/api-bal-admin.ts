@@ -15,11 +15,24 @@ interface PartenairesDeLaCharteQuery {
   codeDepartement?: string[]
   services?: string[]
   type?: PartenaireDeLaCharteTypeEnum
+  search?: string
 }
 
-export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaCharteQuery): Promise<PartenaireDeLaChartType[]> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/partenaires-de-la-charte`)
-  Object.keys(queryObject).forEach(key => url.searchParams.append(key, queryObject[key]))
+export interface PaginatedPartenairesDeLaCharte {
+  total: number
+  totalCommunes: number
+  totalOrganismes: number
+  totalEntreprises: number
+  data: PartenaireDeLaChartType[]
+}
+
+export const DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT = 8
+
+export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaCharteQuery, page: number = 1, limit: number = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT): Promise<{ total: number, totalCommunes: number, totalOrganismes: number, totalEntreprises: number, data: PartenaireDeLaChartType[] }> {
+  const url = new URL(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/partenaires-de-la-charte/paginated`)
+  url.searchParams.append('page', page.toString())
+  url.searchParams.append('limit', limit.toString())
+  Object.keys(queryObject).forEach(key => url.searchParams.append(key, queryObject[key as keyof PartenairesDeLaCharteQuery] as string))
 
   return customFetch(url)
 }

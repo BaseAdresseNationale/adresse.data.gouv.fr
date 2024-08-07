@@ -1,7 +1,23 @@
+import SearchPartenaire from '@/components/SearchPartenaire'
 import Section from '@/components/Section'
+import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { getDepartements } from '@/lib/api-geo'
+import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import { displayWithPlural } from '@/utils/string'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 export default async function OrganismesPartenairesPage() {
+  const services = await getPartenairesDeLaCharteServices()
+  const initialPartenaires = await getPartenairesDeLaCharte({
+    type: PartenaireDeLaCharteTypeEnum.ORGANISME,
+  })
+  const departements = await getDepartements()
+
+  async function renderInfos(paginatedPartenaires: PaginatedPartenairesDeLaCharte) {
+    'use server'
+    return <p>{displayWithPlural(paginatedPartenaires.totalOrganismes, 'organisme')}</p>
+  }
+
   return (
     <Section pageTitle="Organismes partenaires de la Charte">
       <p><b>Organismes d’accompagnement à but non lucratif (EPCI, départements, syndicats mixtes…)</b></p>
@@ -67,9 +83,18 @@ export default async function OrganismesPartenairesPage() {
         iconPosition="right"
         // onClick={() => {}}
         priority="secondary"
+        style={{ marginBottom: '1rem' }}
       >
         Rejoignez-nous
       </Button>
+      <SearchPartenaire
+        searchBy="name"
+        services={services}
+        initialPartenaires={initialPartenaires}
+        departements={departements}
+        filter={{ type: PartenaireDeLaCharteTypeEnum.ORGANISME }}
+        renderInfos={renderInfos}
+      />
     </Section>
   )
 }
