@@ -1,4 +1,4 @@
-import SearchPartenaire from '@/components/SearchPartenaire'
+import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
 import Section from '@/components/Section'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'

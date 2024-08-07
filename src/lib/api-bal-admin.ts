@@ -1,4 +1,4 @@
-import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
+import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { customFetch } from './fetch'
 
 if (!process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL) {
@@ -50,8 +50,7 @@ export async function getRandomPartenairesDeLaCharte(limit: number) {
   return customFetch(url)
 }
 
-// TODO fix type
-export async function candidateToPartenairesDeLaCharte(candidacy: any) {
+export async function candidateToPartenairesDeLaCharte(candidacy: CandidatePartenaireDeLaCharteType) {
   const request = `${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/partenaires-de-la-charte/candidate`
 
   return customFetch(request, {
@@ -63,17 +62,17 @@ export async function candidateToPartenairesDeLaCharte(candidacy: any) {
   })
 }
 
-// export async function getBalEvents() {
-//   try {
-//     const response = await fetch(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/events`)
-//     if (!response.ok) {
-//       throw new Error('Error while fetching bal events')
-//     }
+export async function getBalEvents() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/events`)
+    if (!response.ok) {
+      throw new Error('Error while fetching bal events')
+    }
 
-//     return response.json()
-//   }
-//   catch (error) {
-//     console.error(error)
-//     return []
-//   }
-// }
+    return response.json()
+  }
+  catch (error) {
+    console.error(error)
+    return []
+  }
+}

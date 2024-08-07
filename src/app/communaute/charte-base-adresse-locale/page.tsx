@@ -1,7 +1,7 @@
 import DownloadCard from '@/components/DownloadCard'
 import { StyledPage } from './page.styles'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
-import SearchPartenaire from '@/components/SearchPartenaire'
+import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
 import { getDepartements } from '@/lib/api-geo'
 import { displayWithPlural } from '@/utils/string'
 

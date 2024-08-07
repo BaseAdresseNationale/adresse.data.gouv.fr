@@ -8,35 +8,47 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import styled from 'styled-components'
 
 const StyledWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  .commune-name-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
 
-  > button {
-    margin-left: 1rem;
+    > button {
+      margin-left: 1rem;
+    }
   }
 `
 export interface CommuneInputProps {
+  label?: string
   value: Commune | null
   onChange: (value: Commune | null) => void
 }
 
-export default function CommuneInput({ value, onChange }: CommuneInputProps) {
+export default function CommuneInput({ value, onChange, label }: CommuneInputProps) {
   const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
   return value
     ? (
-        <StyledWrapper>
-          <span><b>{value.nom}</b> ({value.code})</span>
-          <Button
-            iconId="fr-icon-close-line"
-            onClick={() => onChange(null)}
-            priority="tertiary no outline"
-            title="Réinitialiser"
-          />
+        <StyledWrapper className="fr-input-group">
+          {label && (
+            <label className="fr-label" htmlFor="autocomplete-search">
+              {label}
+            </label>
+          )}
+          <div className="commune-name-wrapper">
+            <span><b>{value.nom}</b> ({value.code})</span>
+            <Button
+              iconId="fr-icon-close-line"
+              onClick={() => onChange(null)}
+              priority="tertiary no outline"
+              title="Réinitialiser"
+            />
+          </div>
         </StyledWrapper>
       )
     : (
         <Autocomplete
+          label={label}
           inputProps={{ placeholder: 'Rechercher ma commune' }}
           fetchResults={fetchCommunes}
           renderResultList={(results, onBlur) => (

@@ -19,6 +19,27 @@ export enum PartenaireDeLaCharteOrganismeTypeEnum {
   AUTRE = 'autre',
 }
 
+export type CandidatePartenaireDeLaCharteType = {
+  type: PartenaireDeLaCharteTypeEnum
+  organismeType?: PartenaireDeLaCharteOrganismeTypeEnum
+  name: string
+  picture: string
+  services: PartenaireDeLaCharteServiceEnum[]
+  codeDepartement: string[]
+  isPerimeterFrance?: boolean
+  contactFirstName: string
+  contactLastName: string
+  contactEmail: string
+  link?: string
+  charteURL?: string
+  codeRegion: string | null
+  codeCommune: string | null
+  testimonyURL?: string
+  balURL?: string
+  infos?: string
+  perimeter?: string
+}
+
 export type PartenaireDeLaChartType = {
   _id: string
   _created: string
