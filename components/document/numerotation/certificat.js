@@ -7,13 +7,13 @@ import {
   Font,
   View} from '@react-pdf/renderer'
 import PropTypes from 'prop-types'
-import {getNumeroComplet} from '@/lib/ban'
-import {sanitizedDate} from '@/lib/date'
 import {BlocMarque} from '../bloc-marque'
+import getConfig from 'next/config'
 
 const fontSource = './public/dsfr/fonts/Marianne-Regular.woff'
 const fontFamily = 'Marianne' // Devrait etre Arial Regular mais pas de source
 const SITE_URL = 'https://adresse.data.gouv.fr'
+const {NEXT_PUBLIC_ADRESSE_URL} = getConfig().publicRuntimeConfig
 
 Font.register({
   family: 'Marianne',
@@ -31,14 +31,17 @@ const stylesDSFR = StyleSheet.create({
   signature: {textAlign: 'right', fontSize: '8pt', margin: '10'}
 })
 
-function CertificatNumerotation({commune, voie, numero, etablissementDate}) {
-  const {nom: nomCommune} = commune
-  const {nomVoie: libelleVoie} = voie
+function CertificatNumerotation({data}) {
+  const nomCommune = data.nom_commune
+  const libelleVoie = data.rue
+  const numero = data.number
+  const {cog} = data
 
-  const isMultiParcelle = numero.parcelles.length > 1
-  const parcelleCadastral = numero.parcelles.join(', ') || '123456'
+  const isMultiParcelle = data.parcelles.length > 1
+  const parcelleCadastral = data.parcelles.join(', ') || '123456'
 
-  const etabliLe = sanitizedDate(etablissementDate || Date.now())
+  const etabliLe = data.createdAt
+  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.id}`
 
   const mmMarinaneSize = 4.25
 
@@ -56,18 +59,13 @@ function CertificatNumerotation({commune, voie, numero, etablissementDate}) {
             La commune de {nomCommune} atteste que l’adresse certifiée dans sa Base Adresse Locale, associée
             { isMultiParcelle ? ' aux parcelles ' : ' à la parcelle '} {parcelleCadastral} est :
           </Text>
-          <Text>{getNumeroComplet(numero)} {libelleVoie}</Text>
-          <Text>{numero.lieuDitComplementNom}</Text>
-          <Text>{numero.codePostal} {numero.libelleAcheminement}</Text>
+          <Text>{numero} {libelleVoie}</Text>
+          <Text>{cog} {nomCommune}</Text>
         </View>
         <View style={{padding: '12pt'}}>
-          {/* <Image source='Capture de l’adresse sur l’explorateur'/>
-          or <Canvas /> */}
-          {/*
-          <Link src={`/base-adresse-nationale/${numero.id}`}>
-            Lien vers l’adresse sur l’explorateur adresse.data.gouv.fr : {new URL(`/base-adresse-nationale/${numero.id}`, SITE_URL).toString()}
-          </Link>
-          */}
+          <Text> Lien du document :{' '}
+            <Link src={certificatUrl}>{certificatUrl}</Link>
+          </Text>
         </View>
         <Text>
           Pour servir et valoir ce que de droit, le {etabliLe}.
@@ -76,7 +74,7 @@ function CertificatNumerotation({commune, voie, numero, etablissementDate}) {
         <Text style={stylesDSFR.signature}>L’équipe adresse</Text>
 
         <Text style={{fontStyle: 'italic', position: 'absolute', left: '20mm', bottom: '20mm'}}>
-          Signaler un problème à la commune de {nomCommune} : <Link src={`/commune/${commune.code}`}>{new URL(`/commune/${commune.code}`, SITE_URL).toString()}</Link>
+          Signaler un problème à la commune de {nomCommune} : <Link src={`/commune/${cog}`}>{new URL(`/commune/${cog}`, SITE_URL).toString()}</Link>
         </Text>
 
       </Page>
@@ -87,23 +85,18 @@ function CertificatNumerotation({commune, voie, numero, etablissementDate}) {
 export {CertificatNumerotation}
 
 CertificatNumerotation.propTypes = {
-  commune: PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    nom: PropTypes.string.isRequired
-  }).isRequired,
-  voie: PropTypes.shape({
-    nomVoie: PropTypes.string.isRequired
-  }),
-  numero: PropTypes.shape({
+  /* eslint-disable camelcase */
+  data: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    lieuDitComplementNom: PropTypes.string,
-    codePostal: PropTypes.string.isRequired,
-    libelleAcheminement: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+    address_id: PropTypes.string.isRequired,
+    number: PropTypes.number.isRequired,
+    suffix: PropTypes.string,
+    rue: PropTypes.string.isRequired,
+    nom_commune: PropTypes.string.isRequired,
+    cog: PropTypes.string.isRequired,
     parcelles: PropTypes.arrayOf(PropTypes.string).isRequired
-  }),
-  etablissementDate: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.instanceOf(Date),
-  ])
+  }).isRequired
+  /* eslint-enable camelcase */
+
 }
