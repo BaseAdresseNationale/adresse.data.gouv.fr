@@ -180,7 +180,7 @@ function Numero({
         <div className='ressource'>
           <DownloadCertificate
             cleInterop={cleInterop}
-            title='Télécharger le Certificat de numérotage'
+            title="Télécharger le Certificat d'adressage"
           />
         </div>
       )}

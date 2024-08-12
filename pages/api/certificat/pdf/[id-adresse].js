@@ -4,7 +4,7 @@ import ReactPDF from '@react-pdf/renderer'
 import {CertificatNumerotation} from '@/components/document/numerotation/certificat'
 import {getAddress} from '@/lib/api-ban'
 import QRCode from 'qrcode'
-import {getMairie} from '@/lib/api-etablissements-public'
+import {getMairie, getCommuneLogo} from '@/lib/api-etablissements-public'
 
 const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED, NEXT_PUBLIC_ADRESSE_URL, NEXT_PUBLIC_API_BAN_URL} = getConfig().publicRuntimeConfig
 const certifiable = ({sources, certifie, parcelles}) =>
@@ -47,14 +47,16 @@ export default async function handler(req, res) {
 
   const data = await response.json()
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.id}`
-  const qrCodeDataURL = await QRCode.toDataURL(certificatUrl);
+  const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
   const mairie = await getMairie(data.cog)
+  const logo = await getCommuneLogo(data.cog)
 
   const pdfStream = await ReactPDF.renderToStream(
     <CertificatNumerotation
       data={data}
       qrCodeDataURL={qrCodeDataURL}
       mairie={mairie}
+      logo={logo}
     />
   )
   res.setHeader('Content-Type', 'application/pdf')
