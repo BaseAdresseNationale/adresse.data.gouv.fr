@@ -30,7 +30,7 @@ export default async function handler(req, res) {
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.id}`
   const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
   const mairie = await getMairie(data.cog)
-  //const logo = await getCommuneLogo(data.cog)
+  const logo = await getCommuneLogo(data.cog)
 
   // Générer le PDF avec les informations récupérées
   const pdfStream = await ReactPDF.renderToStream(
@@ -38,6 +38,7 @@ export default async function handler(req, res) {
       data={data}
       qrCodeDataURL={qrCodeDataURL}
       mairie={mairie}
+      logo={logo}
     />
   )
 

@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 import {
   Document,
   Link,
@@ -35,8 +36,7 @@ const stylesDSFR = StyleSheet.create({
   logoBloc: {width: '20mm', height: '20mm'},
   logoContainer: {flexDirection: 'row', alignItems: 'center'}
 })
-
-function CertificatNumerotation({data, qrCodeDataURL,mairie}) {
+function CertificatNumerotation({data, qrCodeDataURL, mairie, logo}) {
   const nomCommune = data.nom_commune
   const libelleVoie = data.rue
   const numero = data.number
@@ -44,16 +44,16 @@ function CertificatNumerotation({data, qrCodeDataURL,mairie}) {
 
   const parcelleCadastral = data.parcelles.join(', ') || '123456'
 
-  const dateObj = new Date(data.createdAt);
-  const day = dateObj.getDate(); // Get the day of the month
-  const month = dateObj.toLocaleString('default', { month: 'long' }); // Get the full month name
-  const year = dateObj.getFullYear(); // Get the full year
-  const etabliLe = `${day} ${month} ${year}`;  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.id}`
-  
+  const dateObj = new Date(data.createdAt)
+  const day = dateObj.getDate()
+  const month = dateObj.toLocaleString('default', { month: 'long' })
+  const year = dateObj.getFullYear()
+  const etabliLe = `${day} ${month} ${year}`
+  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.id}`
   return(
   <Document tile="Certificat d'adressage"> 
           <Page size='A4' style={stylesDSFR.page}>
-          <Image src={`public/images/logos/partners/communes/${cog}.png`} style={stylesDSFR.logoBloc} />
+          <Image src={logo} style={stylesDSFR.logoBloc} />
             <Text>Commune de {nomCommune}</Text>
             <Text>{mairie.telephone}</Text>
             <Text>{mairie.email}</Text>
@@ -88,12 +88,12 @@ function CertificatNumerotation({data, qrCodeDataURL,mairie}) {
           
           <View style={stylesDSFR.footer}>
           <Text style={stylesDSFR.footerText}>
-            Émis par les services de la Base Adresse Nationale, mandataire pour la commune de {nomCommune}
+            Émis par les services de la Base Adresse Nationale, mandataire pour la commune de {nomCommune}.
           </Text>
 
           <View style={stylesDSFR.logoContainer}>
-            <Image src={`public/images/logos/partners/communes/${cog}.png`} style={stylesDSFR.logoBloc} />
-            <View style={{ width: '10mm' }} />
+            <Image src={logo} style={stylesDSFR.logoBloc} />
+            <View style={{ width: '2mm' }} />
             <Image src={`public/images/logos/BAN.png`} style={stylesDSFR.logoBloc} />
           </View>
         </View>          
@@ -116,7 +116,6 @@ function CertificatNumerotation({data, qrCodeDataURL,mairie}) {
       cog: PropTypes.string.isRequired,
       parcelles: PropTypes.arrayOf(PropTypes.string).isRequired
     }).isRequired,
-    qrCodeDataURL: PropTypes.string.isRequired
+    qrCodeDataURL: PropTypes.string.isRequired,
+    logo:PropTypes.string.isRequired
     }
-
-  
