@@ -35,7 +35,7 @@ const stylesDSFR = StyleSheet.create({
   logoBloc: {width: '20mm', height: '20mm'},
   logoContainer: {flexDirection: 'row', alignItems: 'center'}
 })
-function CertificatNumerotation({data, qrCodeDataURL, mairie, logo}) {
+function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
   const nomCommune = data.full_address.district
   const libelleVoie = data.full_address.common_toponym
   const numero = data.full_address.number
@@ -52,7 +52,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie, logo}) {
   return (
     <Document tile="Certificat d'adressage">
       <Page size='A4' style={stylesDSFR.page}>
-        <Image src={logo} style={stylesDSFR.logoBloc} />
+        <Image src='public/images/logos/partners/communes/64102.png' style={stylesDSFR.logoBloc} />
         <Text>Commune de {nomCommune}</Text>
         <Text>{mairie.telephone}</Text>
         <Text>{mairie.email}</Text>
@@ -93,7 +93,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie, logo}) {
           </Text>
 
           <View style={stylesDSFR.logoContainer}>
-            <Image src={logo} style={stylesDSFR.logoBloc} />
+            <Image src='public/images/logos/partners/communes/64102.png' style={stylesDSFR.logoBloc} />
             <View style={{width: '2mm'}} />
             <Image src='public/images/logos/BAN.png' style={stylesDSFR.logoBloc} />
           </View>
@@ -120,6 +120,5 @@ CertificatNumerotation.propTypes = {
     parcelles: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   qrCodeDataURL: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
   mairie: PropTypes.object.isRequired
 }
