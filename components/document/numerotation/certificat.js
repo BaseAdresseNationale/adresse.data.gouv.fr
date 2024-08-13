@@ -56,7 +56,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie, logo}) {
         <Text>Commune de {nomCommune}</Text>
         <Text>{mairie.telephone}</Text>
         <Text>{mairie.email}</Text>
-        <Text style={stylesDSFR.titre}>Certificat d&apos;adressage</Text>
+        <Text style={stylesDSFR.titre}>Certificat d&apos;adressage (version Beta)</Text>
         <View style={stylesDSFR.contenu}>
           <Text>
             La commune de {nomCommune} atteste que l&apos;adresse ci-dessous est certifiée dans la Base Adresse
@@ -85,6 +85,9 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie, logo}) {
         <Text>Consulter l&apos;authenticité de ce certificat : <Link src={certificatUrl}>{certificatUrl}</Link></Text>
         <Image src={qrCodeDataURL} style={stylesDSFR.qrCode} />
         <View style={stylesDSFR.footer}>
+          <Text style={stylesDSFR.footerText}>
+            Ce document n&apos;a aucune valeur juridique.
+          </Text>
           <Text style={stylesDSFR.footerText}>
             Émis par les services de la Base Adresse Nationale, mandataire pour la commune de {nomCommune}.
           </Text>
