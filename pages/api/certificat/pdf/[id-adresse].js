@@ -46,10 +46,10 @@ export default async function handler(req, res) {
   }
 
   const data = await response.json()
-  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.id}`
+  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/api/certificat/justificatif/${data.full_address.id}`
   const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
-  const mairie = await getMairie(data.cog)
-  const logo = await getCommuneLogo(data.cog)
+  const mairie = await getMairie(data.full_address.insee_code)
+  const logo = await getCommuneLogo(data.full_address.insee_code)
 
   const pdfStream = await ReactPDF.renderToStream(
     <CertificatNumerotation
