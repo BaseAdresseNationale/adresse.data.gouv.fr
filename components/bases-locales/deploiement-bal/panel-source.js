@@ -25,6 +25,10 @@ function PanelSource({stats, formatedStats}) {
     dataAdressesGereesBAL,
     adressesCertifieesPercent,
     dataAdressesCertifiees,
+    communesAvecBanIdPercent,
+    dataCommunesAvecBanId,
+    adressesAvecBanIdPercent,
+    dataAdressesAvecBanId,
     total
   } = formatedStats
 
@@ -59,6 +63,20 @@ function PanelSource({stats, formatedStats}) {
           data={dataAdressesCertifiees}
           options={options}
         />}
+        <DoughnutCounter
+          title='Communes avec identifiant BAN'
+          valueUp={numFormater(stats.ban.nbCommunesAvecBanId)}
+          valueDown={`${communesAvecBanIdPercent}% des ${numFormater(total.nbCommunes)} communes`}
+          data={dataCommunesAvecBanId}
+          options={options}
+        />
+        <DoughnutCounter
+          title='Adresses avec identifiant BAN'
+          valueUp={numFormater(stats.ban.nbAdressesAvecBanId)}
+          valueDown={`${adressesAvecBanIdPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+          data={dataAdressesAvecBanId}
+          options={options}
+        />
       </div>
 
       <style jsx>{`

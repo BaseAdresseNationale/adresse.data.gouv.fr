@@ -129,6 +129,11 @@ export function useStatsDeploiement({initialStats}) {
     const allCommunesCouvertesPercent = 100 - Math.round((stats.bal.nbCommunesCouvertes * 100) / total.nbCommunes)
     const dataCommunesCouvertes = toCounterData(communesCouvertesPercent, allCommunesCouvertesPercent)
 
+    // Calcul communes avec l'identifiant BAN
+    const communesAvecBanIdPercent = Math.round((stats.ban.nbCommunesAvecBanId * 100) / total.nbCommunes)
+    const allCommunesAvecBanIdPercent = 100 - Math.round((stats.ban.nbCommunesAvecBanId * 100) / total.nbCommunes)
+    const dataCommunesAvecBanId = toCounterData(communesAvecBanIdPercent, allCommunesAvecBanIdPercent)
+
     // Calcul adresses gerees dans la BAL
     const adressesGereesBALPercent = Math.round((stats.bal.nbAdresses * 100) / stats.ban.nbAdresses)
     const allAdressesGereesBALPercent = 100 - Math.round((stats.bal.nbAdresses * 100) / stats.ban.nbAdresses)
@@ -138,6 +143,11 @@ export function useStatsDeploiement({initialStats}) {
     const adressesCertifieesPercent = Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
     const allAdressesCertifieesPercent = 100 - Math.round((stats.bal.nbAdressesCertifiees * 100) / stats.ban.nbAdresses)
     const dataAdressesCertifiees = toCounterData(adressesCertifieesPercent, allAdressesCertifieesPercent)
+
+    // Calcul adresses avec identifiant BAN
+    const adressesAvecBanIdPercent = Math.round((stats.ban.nbAdressesAvecBanId * 100) / stats.ban.nbAdresses)
+    const allAdressesAvecBanIdPercent = 100 - Math.round((stats.ban.nbAdressesAvecBanId * 100) / stats.ban.nbAdresses)
+    const dataAdressesAvecBanId = toCounterData(adressesAvecBanIdPercent, allAdressesAvecBanIdPercent)
 
     return {
       populationCouvertePercent,
@@ -152,6 +162,12 @@ export function useStatsDeploiement({initialStats}) {
       adressesCertifieesPercent,
       allAdressesCertifieesPercent,
       dataAdressesCertifiees,
+      communesAvecBanIdPercent,
+      allCommunesAvecBanIdPercent,
+      dataCommunesAvecBanId,
+      adressesAvecBanIdPercent,
+      allAdressesAvecBanIdPercent,
+      dataAdressesAvecBanId,
       total
     }
   }, [stats])
