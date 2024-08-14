@@ -24,7 +24,7 @@ function Certificat({certificat = {}, id = '1234'}) {
           {certificat.id ? (
             <>
               <div className='certificate-field'>
-                <span className='field-label'>Numéro : </span>
+                <span className='field-label'>Identifiant certificat : </span>
                 <span className='field-value'>{id}</span>
               </div>
               <div className='certificate-field'>
