@@ -39,13 +39,14 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
   const nomCommune = data.full_address.districtDefaultLabel
   const libelleVoie = data.full_address.commonToponymDefaultLabel
   const numero = data.full_address.number
+  const suffix = data.full_address.suffix ? data.full_address.suffix : ''
   const {cog} = data.full_address
 
   const parcelleCadastral = data.cadastre_ids.join(', ')
 
   const dateObj = new Date(data.createdAt)
   const day = dateObj.getDate()
-  const month = dateObj.toLocaleString('default', {month: 'long'})
+  const month = dateObj.toLocaleString('fr-FR', {month: 'long'})
   const year = dateObj.getFullYear()
   const etabliLe = `${day} ${month} ${year}`
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
@@ -60,7 +61,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
         <View style={stylesDSFR.contenu}>
           <Text>
             La commune de {nomCommune} atteste que l&apos;adresse ci-dessous est certifiée dans la Base Adresse
-            Nationale le {etabliLe}
+            Nationale à la date du {etabliLe}
           </Text>
           <Text> {'\n'}</Text>
           <Text>
@@ -73,7 +74,9 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
           <Text>
             N° de voirie et désignation de la voie :
           </Text>
-          <Text>{numero} {libelleVoie}</Text>
+          {suffix ?
+            <Text>{numero} {suffix} {libelleVoie}</Text> :
+            <Text>{numero} {libelleVoie}</Text>}
           <Text>{cog} (code insee), {nomCommune}</Text>
           <Text> {'\n'}</Text>
 

@@ -29,7 +29,9 @@ function Certificat({certificat = {}, id = '1234'}) {
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Adresse : </span>
-                <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.suffix} ${certificat.full_address.commonToponymDefaultLabel}`}</span>
+                {certificat.full_address.suffix ?
+                  <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.suffix} ${certificat.full_address.commonToponymDefaultLabel}`}</span> :
+                  <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.commonToponymDefaultLabel}`}</span>}
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Code insee : </span>
