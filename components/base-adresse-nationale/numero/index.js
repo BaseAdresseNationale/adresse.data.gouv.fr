@@ -65,11 +65,13 @@ function Numero({
       const rawResponse = await getDistrict(banIdDistrict)
       const district = rawResponse.response
       if (!district) {
+        setIsCertifiable(false)
         return
       }
 
       const districtConfig = district.config || {}
       if (!districtConfig.certificate) {
+        setIsCertifiable(false)
         return
       }
 
