@@ -29,19 +29,19 @@ function Certificat({certificat = {}, id = '1234'}) {
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Adresse : </span>
-                <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.suffix} ${certificat.full_address.common_toponym}`}</span>
+                <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.suffix} ${certificat.full_address.commonToponymDefaultLabel}`}</span>
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Code insee : </span>
-                <span className='field-value'>{certificat.full_address.insee_code}</span>
+                <span className='field-value'>{certificat.full_address.cog}</span>
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Commune : </span>
-                <span className='field-value'>{certificat.full_address.district}</span>
+                <span className='field-value'>{certificat.full_address.districtDefaultLabel}</span>
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Parcelles : </span>
-                <span className='field-value'>{certificat.parcelles.join(', ')}</span>
+                <span className='field-value'>{certificat.cadastre_ids.join(', ')}</span>
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Date de délivrance : </span>
@@ -86,14 +86,13 @@ function Certificat({certificat = {}, id = '1234'}) {
 
 export async function getServerSideProps({query}) {
   const {idCertificat} = query
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificat/${idCertificat}`, {
+  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
   const certificat = (response.ok) ? await response.json() : {}
-  console.log(certificat)
   return {
     props: {
       certificat,
