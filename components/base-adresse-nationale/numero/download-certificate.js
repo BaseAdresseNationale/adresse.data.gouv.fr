@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 function DownloadCertificate({cleInterop, title}) {
   return (
     <Download label={title} details='PDF' linkProps={{
-      href: `/api/certificat/pdf/${cleInterop}`
+      href: `/api/certificat/pdf/${cleInterop}`,
+      target: '_blank'
     }} />
   )
 }

@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react'
+import {useEffect, useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import getConfig from 'next/config'
@@ -7,7 +7,7 @@ import colors from '@/styles/colors'
 import theme from '@/styles/theme'
 
 import Alert from '@/components/alert'
-import {getNumeroComplet, isCertifiable} from '@/lib/ban'
+import {getNumeroComplet, isNumeroCertifiable} from '@/lib/ban'
 
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
@@ -19,6 +19,8 @@ import DeviceContext from '@/contexts/device'
 import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 import DownloadCertificate from './download-certificate'
+
+import {getDistrict} from '@/lib/api-ban'
 
 const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = getConfig().publicRuntimeConfig
 
@@ -41,6 +43,7 @@ function Numero({
   codePostal,
   cleInterop,
   banId,
+  banIdDistrict,
   lat,
   lon,
   isMobile,
@@ -49,12 +52,34 @@ function Numero({
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
+  const [isCertifiable, setIsCertifiable] = useState(false)
 
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
   const sanitizedType = positionType ?
     positionType.charAt(0).toUpperCase() + positionType.slice(1) :
     'Inconnu'
+
+  useEffect(() => {
+    async function fetchDistrict() {
+      const rawResponse = await getDistrict(banIdDistrict)
+      const district = rawResponse.response
+      if (!district) {
+        return
+      }
+
+      const districtConfig = district.config || {}
+      if (!districtConfig.certificate) {
+        return
+      }
+
+      if (isNumeroCertifiable) {
+        setIsCertifiable(true)
+      }
+    }
+
+    fetchDistrict()
+  }, [banIdDistrict])
 
   return (
     <>
@@ -175,12 +200,11 @@ function Numero({
         </b>
       </div>
 
-      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED &&
-        isCertifiable({sources: sourcePosition, certifie, parcelles}) && (
+      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && isCertifiable && (
         <div className='ressource'>
           <DownloadCertificate
             cleInterop={cleInterop}
-            title='Télécharger le Certificat de numérotage'
+            title="Télécharger le Certificat d'adressage (version Beta)"
           />
         </div>
       )}
@@ -288,6 +312,7 @@ Numero.propTypes = {
   codePostal: PropTypes.string,
   cleInterop: PropTypes.string.isRequired,
   banId: PropTypes.string,
+  banIdDistrict: PropTypes.string,
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,

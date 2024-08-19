@@ -1,3 +1,4 @@
+
 import {
   Document,
   Link,
@@ -5,15 +6,14 @@ import {
   Text,
   StyleSheet,
   Font,
+  Image,
   View} from '@react-pdf/renderer'
 import PropTypes from 'prop-types'
-import {getNumeroComplet} from '@/lib/ban'
-import {sanitizedDate} from '@/lib/date'
-import {BlocMarque} from '../bloc-marque'
+import getConfig from 'next/config'
 
 const fontSource = './public/dsfr/fonts/Marianne-Regular.woff'
 const fontFamily = 'Marianne' // Devrait etre Arial Regular mais pas de source
-const SITE_URL = 'https://adresse.data.gouv.fr'
+const {NEXT_PUBLIC_ADRESSE_URL} = getConfig().publicRuntimeConfig
 
 Font.register({
   family: 'Marianne',
@@ -28,57 +28,76 @@ const stylesDSFR = StyleSheet.create({
   titre: {paddingTop: '20mm', paddingBottom: '12mm', textAlign: 'center', fontSize: '12pt', fontWeight: 'bold'},
   contenu: {},
   blocMarque: {marginBottom: '20mm'},
-  signature: {textAlign: 'right', fontSize: '8pt', margin: '10'}
+  signature: {textAlign: 'right', fontSize: '8pt', margin: '10'},
+  qrCode: {width: '25mm', height: '25mm', alignSelf: 'flex-end'},
+  footer: {position: 'absolute', bottom: '20mm', left: '20mm', right: '20mm', fontSize: 10, flexDirection: 'column', alignItems: 'flex-start'},
+  footerText: {marginBottom: '5mm', textAlign: 'left'},
+  logoBloc: {width: '20mm', height: '20mm'},
+  logoContainer: {flexDirection: 'row', alignItems: 'center'}
 })
+function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
+  const nomCommune = data.full_address.districtDefaultLabel
+  const libelleVoie = data.full_address.commonToponymDefaultLabel
+  const numero = data.full_address.number
+  const {cog} = data.full_address
 
-function CertificatNumerotation({commune, voie, numero, etablissementDate}) {
-  const {nom: nomCommune} = commune
-  const {nomVoie: libelleVoie} = voie
+  const parcelleCadastral = data.cadastre_ids.join(', ')
 
-  const isMultiParcelle = numero.parcelles.length > 1
-  const parcelleCadastral = numero.parcelles.join(', ') || '123456'
-
-  const etabliLe = sanitizedDate(etablissementDate || Date.now())
-
-  const mmMarinaneSize = 4.25
-
+  const dateObj = new Date(data.createdAt)
+  const day = dateObj.getDate()
+  const month = dateObj.toLocaleString('default', {month: 'long'})
+  const year = dateObj.getFullYear()
+  const etabliLe = `${day} ${month} ${year}`
+  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
   return (
-    <Document tile='Certificat de numerotage'>
+    <Document tile="Certificat d'adressage">
       <Page size='A4' style={stylesDSFR.page}>
-        <View style={stylesDSFR.blocMarque}>
-          <BlocMarque baseSize={mmMarinaneSize} />
-        </View>
+        <Image src='public/images/logos/partners/communes/64102.png' style={stylesDSFR.logoBloc} />
         <Text>Commune de {nomCommune}</Text>
-
-        <Text style={stylesDSFR.titre}>Certificat de numérotage</Text>
+        <Text>{mairie?.telephone}</Text>
+        <Text>{mairie?.email}</Text>
+        <Text style={stylesDSFR.titre}>Certificat d&apos;adressage (version Beta)</Text>
         <View style={stylesDSFR.contenu}>
           <Text>
-            La commune de {nomCommune} atteste que l’adresse certifiée dans sa Base Adresse Locale, associée
-            { isMultiParcelle ? ' aux parcelles ' : ' à la parcelle '} {parcelleCadastral} est :
+            La commune de {nomCommune} atteste que l&apos;adresse ci-dessous est certifiée dans la Base Adresse
+            Nationale le {etabliLe}
           </Text>
-          <Text>{getNumeroComplet(numero)} {libelleVoie}</Text>
-          <Text>{numero.lieuDitComplementNom}</Text>
-          <Text>{numero.codePostal} {numero.libelleAcheminement}</Text>
+          <Text> {'\n'}</Text>
+          <Text>
+            Section(s) et N° de cadastre :
+          </Text>
+          <Text>
+            {parcelleCadastral}
+          </Text>
+          <Text> {'\n'}</Text>
+          <Text>
+            N° de voirie et désignation de la voie :
+          </Text>
+          <Text>{numero} {libelleVoie}</Text>
+          <Text>{cog} (code insee), {nomCommune}</Text>
+          <Text> {'\n'}</Text>
+
+          <Text>
+            En foi de quoi, le présent certificat est délivré au demandeur pour servir et valoir ce que de droit.
+          </Text>
         </View>
-        <View style={{padding: '12pt'}}>
-          {/* <Image source='Capture de l’adresse sur l’explorateur'/>
-          or <Canvas /> */}
-          {/*
-          <Link src={`/base-adresse-nationale/${numero.id}`}>
-            Lien vers l’adresse sur l’explorateur adresse.data.gouv.fr : {new URL(`/base-adresse-nationale/${numero.id}`, SITE_URL).toString()}
-          </Link>
-          */}
+        <Text> {'\n\n\n\n'}</Text>
+        <Text>Consulter l&apos;authenticité de ce certificat : <Link src={certificatUrl}>{certificatUrl}</Link></Text>
+        <Image src={qrCodeDataURL} style={stylesDSFR.qrCode} />
+        <View style={stylesDSFR.footer}>
+          <Text style={stylesDSFR.footerText}>
+            Ce document n&apos;a aucune valeur juridique.
+          </Text>
+          <Text style={stylesDSFR.footerText}>
+            Émis par les services de la Base Adresse Nationale, mandataire pour la commune de {nomCommune}.
+          </Text>
+
+          <View style={stylesDSFR.logoContainer}>
+            <Image src='public/images/logos/partners/communes/64102.png' style={stylesDSFR.logoBloc} />
+            <View style={{width: '2mm'}} />
+            <Image src='public/images/logos/BAN.png' style={stylesDSFR.logoBloc} />
+          </View>
         </View>
-        <Text>
-          Pour servir et valoir ce que de droit, le {etabliLe}.
-        </Text>
-
-        <Text style={stylesDSFR.signature}>L’équipe adresse</Text>
-
-        <Text style={{fontStyle: 'italic', position: 'absolute', left: '20mm', bottom: '20mm'}}>
-          Signaler un problème à la commune de {nomCommune} : <Link src={`/commune/${commune.code}`}>{new URL(`/commune/${commune.code}`, SITE_URL).toString()}</Link>
-        </Text>
-
       </Page>
     </Document>
   )
@@ -87,23 +106,19 @@ function CertificatNumerotation({commune, voie, numero, etablissementDate}) {
 export {CertificatNumerotation}
 
 CertificatNumerotation.propTypes = {
-  commune: PropTypes.shape({
-    code: PropTypes.string.isRequired,
-    nom: PropTypes.string.isRequired
-  }).isRequired,
-  voie: PropTypes.shape({
-    nomVoie: PropTypes.string.isRequired
-  }),
-  numero: PropTypes.shape({
+  data: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    lieuDitComplementNom: PropTypes.string,
-    codePostal: PropTypes.string.isRequired,
-    libelleAcheminement: PropTypes.string.isRequired,
-    parcelles: PropTypes.arrayOf(PropTypes.string).isRequired
-  }),
-  etablissementDate: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.instanceOf(Date),
-  ])
+    createdAt: PropTypes.string.isRequired,
+    address_id: PropTypes.string.isRequired,
+    full_address: PropTypes.shape({
+      number: PropTypes.number.isRequired,
+      commonToponymDefaultLabel: PropTypes.string.isRequired,
+      suffix: PropTypes.string,
+      districtDefaultLabel: PropTypes.string.isRequired,
+      cog: PropTypes.string.isRequired,
+    }).isRequired,
+    cadastre_ids: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired,
+  qrCodeDataURL: PropTypes.string.isRequired,
+  mairie: PropTypes.object.isRequired
 }
