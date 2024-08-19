@@ -36,12 +36,12 @@ const stylesDSFR = StyleSheet.create({
   logoContainer: {flexDirection: 'row', alignItems: 'center'}
 })
 function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
-  const nomCommune = data.full_address.district
-  const libelleVoie = data.full_address.common_toponym
+  const nomCommune = data.full_address.districtDefaultLabel
+  const libelleVoie = data.full_address.commonToponymDefaultLabel
   const numero = data.full_address.number
-  const {insee_code} = data.full_address
+  const {cog} = data.full_address
 
-  const parcelleCadastral = data.parcelles.join(', ') || '123456'
+  const parcelleCadastral = data.cadastre_ids.join(', ')
 
   const dateObj = new Date(data.createdAt)
   const day = dateObj.getDate()
@@ -54,8 +54,8 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
       <Page size='A4' style={stylesDSFR.page}>
         <Image src='public/images/logos/partners/communes/64102.png' style={stylesDSFR.logoBloc} />
         <Text>Commune de {nomCommune}</Text>
-        <Text>{mairie.telephone}</Text>
-        <Text>{mairie.email}</Text>
+        <Text>{mairie?.telephone}</Text>
+        <Text>{mairie?.email}</Text>
         <Text style={stylesDSFR.titre}>Certificat d&apos;adressage (version Beta)</Text>
         <View style={stylesDSFR.contenu}>
           <Text>
@@ -74,7 +74,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
             N° de voirie et désignation de la voie :
           </Text>
           <Text>{numero} {libelleVoie}</Text>
-          <Text>{insee_code} (code insee), {nomCommune}</Text>
+          <Text>{cog} (code insee), {nomCommune}</Text>
           <Text> {'\n'}</Text>
 
           <Text>
@@ -112,12 +112,12 @@ CertificatNumerotation.propTypes = {
     address_id: PropTypes.string.isRequired,
     full_address: PropTypes.shape({
       number: PropTypes.number.isRequired,
-      common_toponym: PropTypes.string.isRequired,
+      commonToponymDefaultLabel: PropTypes.string.isRequired,
       suffix: PropTypes.string,
-      district: PropTypes.string.isRequired,
-      insee_code: PropTypes.string.isRequired,
+      districtDefaultLabel: PropTypes.string.isRequired,
+      cog: PropTypes.string.isRequired,
     }).isRequired,
-    parcelles: PropTypes.arrayOf(PropTypes.string).isRequired
+    cadastre_ids: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   qrCodeDataURL: PropTypes.string.isRequired,
   mairie: PropTypes.object.isRequired
