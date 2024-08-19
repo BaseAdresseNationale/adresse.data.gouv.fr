@@ -73,13 +73,13 @@ function Numero({
         return
       }
 
-      if (isNumeroCertifiable) {
+      if (isNumeroCertifiable({banId, sources: sourcePosition, certifie, parcelles})) {
         setIsCertifiable(true)
       }
     }
 
     fetchDistrict()
-  }, [banIdDistrict])
+  }, [banIdDistrict, banId, sourcePosition, certifie, parcelles])
 
   return (
     <>
