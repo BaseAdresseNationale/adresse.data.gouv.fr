@@ -1,26 +1,34 @@
 'use client'
 
-import { Breadcrumb as _Breadcrumb } from '@codegouvfr/react-dsfr/Breadcrumb'
+import { Breadcrumb as BreadcrumbDSFR } from '@codegouvfr/react-dsfr/Breadcrumb'
 import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
 import { usePathname } from 'next/navigation'
-import { useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { navEntries } from './Header'
 import styled from 'styled-components'
 
-const StyledWrapper = styled.div`
+import type { RegisteredLinkProps } from '@codegouvfr/react-dsfr/link'
+
+type Segment = {
+  label: ReactNode
+  linkProps: RegisteredLinkProps
+}
+
+export const BreadcrumbWrapper = styled.div.attrs({ className: 'fr-container ' })`
   > nav {
     margin-bottom: 1rem;
+    margin-top: 1.5rem;
   }
 `
 
-function getSegments(entries: MainNavigationProps.Item[], pathname: string): { label: string, linkProps: { href: string } }[] {
+function getSegments(entries: MainNavigationProps.Item[], pathname: string): Segment[] {
   for (const entry of entries) {
-    const { menuLinks, text, linkProps } = entry
+    const { menuLinks, text: label, linkProps } = entry
 
     if (linkProps?.href === pathname) {
       return [{
-        label: text as string,
-        linkProps: linkProps as { href: string },
+        label,
+        linkProps,
       }]
     }
 
@@ -29,8 +37,8 @@ function getSegments(entries: MainNavigationProps.Item[], pathname: string): { l
       if (segments.length) {
         return linkProps
           ? [{
-              label: text as string,
-              linkProps: linkProps as { href: string },
+              label,
+              linkProps,
             }, ...segments]
           : segments
       }
@@ -40,26 +48,43 @@ function getSegments(entries: MainNavigationProps.Item[], pathname: string): { l
   return []
 }
 
-export default function Breadcrumb() {
+export default function Breadcrumb(
+  {
+    currentPageLabel,
+    segments: _segments,
+  }: {
+    currentPageLabel?: ReactNode
+    segments?: Segment[]
+  }
+) {
   const pathname = usePathname()
 
   const segments = useMemo(
-    () => pathname === '/' ? [] : getSegments(navEntries, pathname),
-    [pathname]
+    () => (
+      _segments
+        ? [..._segments, { label: currentPageLabel, linkProps: { href: pathname } }]
+        : pathname === '/'
+          ? []
+          : getSegments(navEntries, pathname)
+    ),
+    [_segments, currentPageLabel, pathname]
   )
 
   return (
     segments.length > 0
       ? (
-          <StyledWrapper className="fr-container">
-            <_Breadcrumb
+          <BreadcrumbWrapper className="fr-container">
+            <BreadcrumbDSFR
               segments={segments.slice(0, segments.length - 1)}
-              currentPageLabel={segments[segments.length - 1].label}
+              currentPageLabel={
+                currentPageLabel
+                || (segments && segments[segments.length - 1].label)
+              }
               homeLinkProps={{
                 href: '/',
               }}
             />
-          </StyledWrapper>
+          </BreadcrumbWrapper>
         )
       : null
   )
