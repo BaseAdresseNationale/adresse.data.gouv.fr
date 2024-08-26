@@ -98,7 +98,7 @@ export const navEntries: MainNavigationProps.Item[] = [
       { text: 'Les événements', linkProps: { href: '#' } },
       {
         text: 'Le blog et les témoignages',
-        linkProps: { href: '#' },
+        linkProps: { href: '/blog' },
       },
       { text: 'L’Info-lettre', linkProps: { href: '#' } },
     ],
@@ -169,7 +169,7 @@ export default function Header() {
           {
             iconId: 'ri-quill-pen-fill',
             linkProps: {
-              href: '#',
+              href: '/blog',
             },
             text: 'Blog',
           },
