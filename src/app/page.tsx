@@ -2,13 +2,11 @@ import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 
 import Section from '@/components/Section'
-import Notices from '@/components/Notices'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
 import SectionQuotes from '@/components/SectionQuotes'
 import { getStats } from '@/lib/api-ban'
 
-import dataNotices from '@/data/sample-notices.json'
 import dataBAN from '@/data/sample-ban-info.json'
 import dataBAL from '@/data/sample-bal-info.json'
 import dataActions from '@/data/sample-actions.json'
@@ -22,8 +20,6 @@ export default async function Home() {
 
   return (
     <>
-      <Notices {...dataNotices} />
-
       <SectionHero
         pageTitle="La base adresse nationale"
         picture={{
