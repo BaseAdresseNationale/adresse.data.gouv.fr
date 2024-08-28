@@ -13,6 +13,10 @@ const theme = {
       main: fr.colors.decisions.background.alt.pinkTuile.active,
       badge: fr.colors.decisions.background.alt.pinkTuile.active,
     },
+    grey: {
+      main: fr.colors.decisions.text.default.grey.default,
+      border: fr.colors.decisions.border.default.grey.default,
+    },
   },
 }
 

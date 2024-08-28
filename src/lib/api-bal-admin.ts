@@ -1,5 +1,6 @@
 import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { customFetch } from './fetch'
+import { EventType } from '@/types/events.types'
 
 if (!process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL) {
   throw new Error('NEXT_PUBLIC_BAL_ADMIN_API_URL is not defined in the environment')
@@ -62,7 +63,7 @@ export async function candidateToPartenairesDeLaCharte(candidacy: CandidateParte
   })
 }
 
-export async function getBalEvents() {
+export async function getBalEvents(): Promise<EventType[]> {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/events`)
     if (!response.ok) {
