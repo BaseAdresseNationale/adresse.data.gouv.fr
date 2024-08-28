@@ -70,7 +70,7 @@ export default async function FormationEnLignePage() {
 
   return (
     <>
-      <Section title="Prochains évènements">
+      <Section title="Prochaines formations">
         <CardWrapper>
           {upcomingEvents.map((event, index) => (
             <EventCard
