@@ -14,7 +14,9 @@ const theme = {
       badge: fr.colors.decisions.background.alt.pinkTuile.active,
     },
     grey: {
+      bg: fr.colors.decisions.background.alt.grey.default,
       main: fr.colors.decisions.text.default.grey.default,
+      badge: fr.colors.decisions.background.alt.grey.active,
       border: fr.colors.decisions.border.default.grey.default,
     },
   },
