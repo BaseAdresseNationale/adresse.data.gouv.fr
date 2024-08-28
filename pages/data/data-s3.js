@@ -70,6 +70,7 @@ export async function getServerSideProps(context) {
       }))
       await asyncSendS3(clientS3)(req, res, {
         params: {
+          ...(req?.headers?.range ? {Range: req.headers.range} : {}),
           Bucket: bucketName,
           Key: s3ObjectPath,
         },
@@ -180,4 +181,8 @@ DataPage.propTypes = {
   }),
   errorCode: PropTypes.number,
   errorMessage: PropTypes.string,
+}
+
+DataPage.defaultProps = {
+  config: {}
 }

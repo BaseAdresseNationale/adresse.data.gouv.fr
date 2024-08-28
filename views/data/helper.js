@@ -31,7 +31,14 @@ export const asyncSendS3 = clientS3 => (req, res, {params, fileName, metadata}) 
 
     /* eslint-disable promise/prefer-await-to-then */
     clientS3.getObject(params)
-      .then(({Body}) => {
+      .then(({Body, AcceptRanges, ContentRange, ContentLength}) => {
+        if (AcceptRanges && ContentRange) {
+          res.setHeader('Accept-Ranges', AcceptRanges)
+          res.setHeader('Content-Range', ContentRange)
+          res.setHeader('Content-Length', ContentLength)
+          res.status(206)
+        }
+
         Body
           .on('error', err => {
             const formattedDate = getFormatedDate()
