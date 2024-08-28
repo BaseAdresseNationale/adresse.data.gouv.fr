@@ -22,4 +22,10 @@ export const StyledEventCard = styled.div<{ isPassed?: boolean }>`
     h3 {
         font-size: 1.5rem;
     }
+
+    .fr-btn {
+        &::after {
+            display: none;
+        }
+    }
 `
