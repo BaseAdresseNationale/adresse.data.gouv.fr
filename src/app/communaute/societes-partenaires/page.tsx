@@ -1,10 +1,10 @@
+import CandidacyModal from '@/components/PartenairesDeLaCharte/CandidacyModal'
 import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
 import Section from '@/components/Section'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import { displayWithPlural } from '@/utils/string'
-import Button from '@codegouvfr/react-dsfr/Button'
 
 export default async function SocietesPartenairesPage() {
   const services = await getPartenairesDeLaCharteServices()
@@ -55,15 +55,7 @@ export default async function SocietesPartenairesPage() {
       </ul>
       <h2>Les sociétés partenaires</h2>
       <p>Ces organismes s’engagent à respecter le format Base Adresse Locale (attention, il s’agit d’un format de données bien précis), sa gouvernance et pour ces raisons sont identifiés comme tiers de confiance. Votre organisme respecte déjà ces spécifications mais n’est pas identifié ? Vous pouvez rejoindre les partenaires de la Charte en nous contactant.</p>
-      <Button
-        iconId="fr-icon-questionnaire-line"
-        iconPosition="right"
-        // onClick={() => {}}
-        priority="secondary"
-        style={{ marginBottom: '1rem' }}
-      >
-        Rejoignez-nous
-      </Button>
+      <CandidacyModal services={services} departements={departements} />
       <SearchPartenaire
         searchBy="name"
         services={services}

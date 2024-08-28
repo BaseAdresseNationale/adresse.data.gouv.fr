@@ -36,15 +36,4 @@ export const StyledWrapper = styled.div`
       }
     }
   }
-
-  .content {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-
-    .fr-card__img {
-      object-fit: contain !important;
-    }
-  }
 `
