@@ -205,14 +205,21 @@ function Numero({
         </b>
       </div>
 
-      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && isCertifiable && (
-        <div className='ressource'>
-          <DownloadCertificate
-            cleInterop={cleInterop}
-            title="Télécharger le Certificat d'adressage"
-          />
-        </div>
-      )}
+      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED ? (
+        isCertifiable ? (
+          <div className='ressource'>
+            <DownloadCertificate
+              cleInterop={cleInterop}
+              title="Télécharger le Certificat d'adressage"
+            />
+          </div>
+        ) : (
+          <div className='ressource'>
+            <div />
+            <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
+          </div>
+        )
+      ) : null}
 
       {isCopySucceded && (
         <Alert
