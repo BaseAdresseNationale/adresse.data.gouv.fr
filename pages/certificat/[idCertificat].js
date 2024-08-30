@@ -18,8 +18,8 @@ function Certificat({certificat = {}, id = '1234'}) {
       hour: '2-digit',
       minute: '2-digit',
       second: '2-digit',
-      timeZone: 'UTC',
-      timeZoneName: 'short', // This will show 'UTC'
+      timeZone: 'Europe/Paris',
+      timeZoneName: 'long', // This will show 'UTC'
     }
     return new Intl.DateTimeFormat('fr-FR', options).format(date)
   }
