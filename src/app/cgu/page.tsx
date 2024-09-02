@@ -1,8 +1,7 @@
-"use client"
+'use client'
 import Section from '@/components/Section'
 import theme from '@/theme/theme'
 import styled from 'styled-components'
-
 
 const StyledWrapper = styled.div`
       .row {
@@ -20,9 +19,9 @@ const StyledWrapper = styled.div`
 export default function Home() {
   return (
     <>
-      <Section  title='Mentions légales'>
+      <Section title="Mentions légales">
         <StyledWrapper>
-          <div className='row'>
+          <div className="row">
             <div>
               <h2>Conditions Générales d’Utilisation</h2>
               <p>Tout utilisateur de la plateforme reconnaît expressément souscrire sans réserve aux présentes conditions générales d’utilisation (CGU). L’utilisation de la plateforme suppose le respect total des lois, règlements et tous les autres textes juridiques en vigueur. Il conviendra de respecter l’ensemble de ces dispositions et règles en toutes circonstances. A défaut, l’utilisateur est conscient qu’il risque des sanctions civiles, pénales et/ou disciplinaires.</p>
@@ -62,7 +61,7 @@ export default function Home() {
             </div>
             <div>
               <h2>Nous contacter</h2>
-              <p><a href='mailto:adresse@data.gouv.fr'>adresse@data.gouv.fr</a></p>
+              <p><a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a></p>
 
               <h2>Mentions légales</h2>
               <h4>Editeur</h4>
