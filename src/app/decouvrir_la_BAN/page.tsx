@@ -1,41 +1,65 @@
-import Section from '@/components/Section'
+import { Suspense } from 'react'
+import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 
-export default function Home() {
+import Section from '@/components/Section'
+import SectionHero from '@/components/SectionHero'
+import HtmlViewer from '@/components/HtmlViewer'
+import { getMarkdown } from '@/lib/markdown'
+
+import { TextWrapper } from './page.styled'
+
+import type { DataType } from '@/lib/markdown'
+
+export default async function Home() {
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('decouvrir_la_BAN') || {}
+
   return (
     <>
-      <Section pageTitle="Découvrir la Base Adresse Nationale" theme="primary">
+      <SectionHero
+        pageTitle="Découvrir la Base Adresse Nationale"
+        picture={{
+          src: './img/home_page_hero_ban.svg',
+          alt: 'Illustration de "La Base Adresse Nationale"',
+          width: 400,
+          height: 310,
+        }}
+      >
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sodales
-          nulla vel vulputate congue. Integer quis malesuada sem, nec lacinia
-          ligula. Maecenas laoreet egestas fringilla. Vivamus vehicula lacinia
-          feugiat. Quisque feugiat nibh at urna viverra, quis malesuada leo
-          congue. Phasellus auctor tincidunt lorem et gravida. Etiam tempor
-          eleifend facilisis. Nulla a rutrum turpis, quis porta dui. Sed sed
-          arcu ex. Donec vel faucibus ex. Donec commodo vehicula nisi, vel
-          aliquam velit luctus at. Vivamus pharetra urna ornare ante volutpat
-          aliquam. Phasellus in nisi ipsum. Nulla porttitor vehicula malesuada.
-          Duis faucibus facilisis suscipit. Phasellus condimentum ex at sem
-          dictum vulputate.
+          La Base Adresse Nationale est l’une des neuf bases de données du service
+          public des données de référence. Elle est la seule base de données
+          d’adresses officiellement reconnue par l’administration.
         </p>
         <p>
-          Maecenas vitae porta elit. Maecenas finibus accumsan libero id auctor.
-          Quisque at luctus metus. Sed maximus sagittis vehicula. Cras vehicula
-          ultrices tortor et pharetra. Integer mi nibh, gravida dapibus mattis
-          at, aliquam in dui. Proin at condimentum nunc. Donec in felis id lacus
-          malesuada dignissim. In luctus luctus venenatis. Nam ultrices nisi non
-          rutrum pharetra. Donec malesuada risus quis tellus lobortis, quis
-          viverra tortor elementum. Vivamus sed euismod velit. Vestibulum tempus
-          facilisis nunc, at vulputate ligula tincidunt vel. Sed fermentum
-          molestie felis mattis faucibus. Nullam sit amet nibh lacus. Class
-          aptent taciti sociosqu ad litora torquent per conubia nostra, per
-          inceptos himenaeos.
+          Service numérique d’usage partagé et infrastructure socle sur laquelle
+          sont adossées de nombreuses politiques publiques, elle fait partie
+          du système d’information et de communication de l’État et est à ce
+          titre placée sous la responsabilité du Premier ministre.
         </p>
+
+      </SectionHero>
+
+      <Section>
+        <TextWrapper>
+          <Suspense fallback={<p>Chargement...</p>}>
+            <article>
+              {contentHtml && <HtmlViewer html={contentHtml} />}
+            </article>
+            {
+              data?.aside && (
+                <aside>{data?.aside?.map(
+                  ({ data }) =>
+                    data?.contentHtml && (
+                      <CallOut key={`${data?.data?.title}`}>
+                        <HtmlViewer html={data?.contentHtml} />
+                      </CallOut>
+                    )
+                )}
+                </aside>
+              )
+            }
+          </Suspense>
+        </TextWrapper>
       </Section>
-      <Section title="Section Title A">Some content A</Section>
-      <Section title="Section Title B" theme="secondary">
-        Some content B
-      </Section>
-      <Section title="Section Title C">Some content C</Section>
     </>
   )
 }

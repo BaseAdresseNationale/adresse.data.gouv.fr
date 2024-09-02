@@ -2,33 +2,33 @@ import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 
 import Section from '@/components/Section'
-import Notices from '@/components/Notices'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
+import BlogGrid from '@/components/BlogGrid'
 import SectionQuotes from '@/components/SectionQuotes'
 import { getStats } from '@/lib/api-ban'
+import { getPosts } from '@/lib/blog'
+import theme from '@/theme'
 
-import dataNotices from '@/data/sample-notices.json'
 import dataBAN from '@/data/sample-ban-info.json'
 import dataBAL from '@/data/sample-bal-info.json'
 import dataActions from '@/data/sample-actions.json'
 import dataQuotes from '@/data/sample-quotes.json'
-import theme from '@/theme'
 
 import { CardContainer } from './page.styles'
 
 export default async function Home() {
   const stats = await getStats()
+  const highlightedDatas = await getPosts({ limit: 3 })
+  const highlightedPosts = highlightedDatas?.posts || []
 
   return (
     <>
-      <Notices {...dataNotices} />
-
       <SectionHero
-        pageTitle="La base adresse nationale"
+        pageTitle="La Base Adresse Nationale"
         picture={{
           src: './img/home_page_hero_ban.svg',
-          alt: 'Illustration de "La base adresse nationale"',
+          alt: 'Illustration de "La Base Adresse Nationale"',
           width: 400,
           height: 310,
         }}
@@ -55,13 +55,15 @@ export default async function Home() {
 
       <SectionTilesList
         data={dataBAN}
-        title="Utilisez la base adresse nationale"
+        title="Utilisez la Base Adresse Nationale"
+        id="utilisez-la-base-adresse-nationale"
         theme="secondary"
       />
 
       <SectionTilesList
         data={dataBAL}
-        title="Constituez la base adresse locale de votre commune !"
+        title="Constituez la Base Adresse Locale de votre commune !"
+        id="constituez-la-base-adresse-locale-de-votre-commune"
       />
 
       {stats && dataQuotes?.length && (
@@ -79,12 +81,17 @@ export default async function Home() {
 
       <SectionTilesList
         data={dataActions}
-        title="Constituez la base adresse locale de votre commune !"
+        title="Nous retrouver, se former"
+        id="nous-retrouver-se-former"
         isSmallTiles
         withoutLinkIcon
       />
 
-      <Section title="Devenir partenaire" theme="primary">
+      <Section
+        title="Devenir partenaire"
+        id="devenir-partenaire"
+        theme="primary"
+      >
         <CardContainer>
           <div>
             <Card
@@ -137,6 +144,23 @@ export default async function Home() {
           </div>
         </CardContainer>
       </Section>
+
+      <BlogGrid
+        title="Articles et témoignages"
+        posts={highlightedPosts}
+        footer={(
+          <Button
+            iconId="fr-icon-arrow-right-line"
+            iconPosition="right"
+            linkProps={{
+              href: '/blog',
+            }}
+            priority="primary"
+          >
+            Parcourir tous les articles et témoignages
+          </Button>
+        )}
+      />
     </>
   )
 }

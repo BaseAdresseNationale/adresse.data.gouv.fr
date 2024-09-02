@@ -4,6 +4,9 @@ import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { Header as HeaderDSFR } from '@codegouvfr/react-dsfr/Header'
 import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
+import Notices from '@/components/Notices'
+
+import dataNotices from '@/data/sample-notices.json'
 
 const markAsActive = (
   navigation: MainNavigationProps.Item[],
@@ -95,7 +98,7 @@ export const navEntries: MainNavigationProps.Item[] = [
       { text: 'Les événements', linkProps: { href: '#' } },
       {
         text: 'Le blog et les témoignages',
-        linkProps: { href: '#' },
+        linkProps: { href: '/blog' },
       },
       { text: 'L’Info-lettre', linkProps: { href: '#' } },
     ],
@@ -127,57 +130,60 @@ export default function Header() {
   )
 
   return (
-    <HeaderDSFR
-      id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
-      brandTop={(
-        <>
-          RÉPUBLIQUE
-          <br />
-          FRANÇAISE
-        </>
-      )}
-      serviceTitle={(
-        <>
-          adresse.
-          <b>data.gouv</b>
-          <i>.fr</i>
-        </>
-      )}
-      serviceTagline="Le site national de l’adresse"
-      homeLinkProps={{
-        href: '/',
-        title:
+    <>
+      <HeaderDSFR
+        id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
+        brandTop={(
+          <>
+            RÉPUBLIQUE
+            <br />
+            FRANÇAISE
+          </>
+        )}
+        serviceTitle={(
+          <>
+            adresse.
+            <b>data.gouv</b>
+            <i>.fr</i>
+          </>
+        )}
+        serviceTagline="Le site national de l’adresse"
+        homeLinkProps={{
+          href: '/',
+          title:
           'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)',
-      }}
-      operatorLogo={{
-        alt: '[À MODIFIER - texte alternatif de l’image]',
-        imgUrl: '/logo-ban-site.svg',
-        orientation: 'vertical',
-      }}
-      quickAccessItems={[
-        {
-          iconId: 'fr-icon-book-2-fill',
-          linkProps: {
-            href: '#',
+        }}
+        operatorLogo={{
+          alt: '[À MODIFIER - texte alternatif de l’image]',
+          imgUrl: '/logo-ban-site.svg',
+          orientation: 'vertical',
+        }}
+        quickAccessItems={[
+          {
+            iconId: 'fr-icon-book-2-fill',
+            linkProps: {
+              href: '#',
+            },
+            text: 'Documentation',
           },
-          text: 'Documentation',
-        },
-        {
-          iconId: 'ri-quill-pen-fill',
-          linkProps: {
-            href: '#',
+          {
+            iconId: 'ri-quill-pen-fill',
+            linkProps: {
+              href: '/blog',
+            },
+            text: 'Blog',
           },
-          text: 'Blog',
-        },
-        {
-          iconId: 'fr-icon-message-2-fill',
-          linkProps: {
-            href: '#',
+          {
+            iconId: 'fr-icon-message-2-fill',
+            linkProps: {
+              href: '#',
+            },
+            text: 'Nous contacter',
           },
-          text: 'Nous contacter',
-        },
-      ]}
-      navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
-    />
+        ]}
+        navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
+      />
+      <Notices {...dataNotices} />
+    </>
   )
 }

@@ -10,13 +10,14 @@ env:
   NEXT_PUBLIC_API_BAN_URL: ${{ vars.NEXT_PUBLIC_API_BAN_URL }}
   NEXT_PUBLIC_BAL_ADMIN_API_URL: ${{ vars.NEXT_PUBLIC_BAL_ADMIN_API_URL }}
   NEXT_PUBLIC_API_GEO_URL: ${{ vars.NEXT_PUBLIC_API_GEO_URL }}
+  NEXT_PUBLIC_ADRESSE_URL: ${{ vars.NEXT_PUBLIC_ADRESSE_URL }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [20.x, 22.6]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}

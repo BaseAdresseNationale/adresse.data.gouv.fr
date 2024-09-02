@@ -19,6 +19,7 @@ interface TilesData {
 
 interface SectionTilesListProps {
   title?: string
+  id?: string
   data: TilesData[]
   theme?: ColorTheme
   tileTitleAs?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -28,6 +29,7 @@ interface SectionTilesListProps {
 
 function SectionTilesList({
   title,
+  id,
   data,
   theme,
   tileTitleAs = 'h3',
@@ -35,7 +37,7 @@ function SectionTilesList({
   withoutLinkIcon,
 }: SectionTilesListProps) {
   return (
-    <Section title={title} theme={theme}>
+    <Section title={title} id={id} theme={theme}>
       <CardWrapper isSmallCard={isSmallTiles}>
         {data.map((item, index) => (
           <Tile
