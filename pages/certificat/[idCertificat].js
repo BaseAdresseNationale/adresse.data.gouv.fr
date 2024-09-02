@@ -9,6 +9,21 @@ import Section from '@/components/section'
 const {NEXT_PUBLIC_API_BAN_URL} = getConfig().publicRuntimeConfig
 
 function Certificat({certificat = {}, id = '1234'}) {
+  const formatDate = dateString => {
+    const date = new Date(dateString)
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZone: 'Europe/Paris',
+      timeZoneName: 'long', // This will show 'UTC'
+    }
+    return new Intl.DateTimeFormat('fr-FR', options).format(date)
+  }
+
   return (
     <Page title={`Certificat d'adressage numéro : ${id}`}>
       <Head
@@ -33,21 +48,23 @@ function Certificat({certificat = {}, id = '1234'}) {
                   <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.suffix} ${certificat.full_address.commonToponymDefaultLabel}`}</span> :
                   <span className='field-value'>{`${certificat.full_address.number} ${certificat.full_address.commonToponymDefaultLabel}`}</span>}
               </div>
+              {/*
               <div className='certificate-field'>
                 <span className='field-label'>Code insee : </span>
                 <span className='field-value'>{certificat.full_address.cog}</span>
               </div>
+              */}
               <div className='certificate-field'>
                 <span className='field-label'>Commune : </span>
                 <span className='field-value'>{certificat.full_address.districtDefaultLabel}</span>
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Parcelles : </span>
-                <span className='field-value'>{certificat.cadastre_ids.join(', ')}</span>
+                <span className='field-value'>{certificat.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2')).join(', ')}</span>
               </div>
               <div className='certificate-field'>
                 <span className='field-label'>Date de délivrance : </span>
-                <span className='field-value'>{certificat.createdAt}</span>
+                <span className='field-value'>{formatDate(certificat.createdAt)}</span>
               </div>
             </>
           ) : (
