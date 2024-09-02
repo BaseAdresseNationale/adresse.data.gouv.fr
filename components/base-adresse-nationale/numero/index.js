@@ -24,6 +24,7 @@ import {getDistrict} from '@/lib/api-ban'
 
 const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = getConfig().publicRuntimeConfig
 
+// eslint-disable-next-line complexity
 function Numero({
   numero,
   suffixe,
@@ -53,6 +54,7 @@ function Numero({
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
   const [isCertifiable, setIsCertifiable] = useState(false)
+  const [districtConfig, setDistrictConfig] = useState(null)
 
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
@@ -64,12 +66,14 @@ function Numero({
     async function fetchDistrict() {
       const rawResponse = await getDistrict(banIdDistrict)
       const district = rawResponse.response
+      const districtConfig = district.config || {}
+      setDistrictConfig(districtConfig)
+
       if (!district) {
         setIsCertifiable(false)
         return
       }
 
-      const districtConfig = district.config || {}
       if (!districtConfig.certificate) {
         setIsCertifiable(false)
         return
@@ -205,7 +209,7 @@ function Numero({
         </b>
       </div>
 
-      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED ? (
+      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && districtConfig?.certificate && (
         isCertifiable ? (
           <div className='ressource'>
             <DownloadCertificate
@@ -219,7 +223,7 @@ function Numero({
             <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
           </div>
         )
-      ) : null}
+      )}
 
       {isCopySucceded && (
         <Alert
