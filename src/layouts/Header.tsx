@@ -87,8 +87,14 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       { text: 'Validateur BAL', linkProps: { href: '#' } },
       { text: 'Géocodeur', linkProps: { href: '#' } },
-      { text: 'Publication', linkProps: { href: '#' } },
-      { text: 'Supervision BAL/BAN', linkProps: { href: '#' } },
+      { text: 'Publication des adresses', linkProps: { href: '#' } },
+      {
+        text: 'Supervision BAN/BAL',
+        linkProps: {
+          href: 'https://status.adresse.data.gouv.fr/',
+          target: '_blank',
+        },
+      },
       { text: 'Fantoir', linkProps: { href: '#' } },
     ],
   },
