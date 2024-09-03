@@ -44,8 +44,9 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
   const libelleVoie = data.full_address.commonToponymDefaultLabel
   const numero = data.full_address.number
   const suffix = data.full_address.suffix ? data.full_address.suffix : ''
-  // Const {cog} = data.full_address
+  const {cog} = data.full_address
   const parcelleCadastral = data.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2')).join(', ')
+  const logoUrl = `public/logos/certificat/${cog}.png`
 
   const dateObj = new Date(data.createdAt)
   const day = dateObj.getDate()
@@ -56,7 +57,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
   return (
     <Document tile="Certificat d'adressage">
       <Page size='A4' style={stylesDSFR.page}>
-        <Image src='public/logos/certificat/64102.png' style={stylesDSFR.logoBloc} />
+        <Image src={logoUrl} style={stylesDSFR.logoBloc} />
         <Text>Ville de {nomCommune}</Text>
         <Text>{mairie?.telephone}</Text>
         <Text>{mairie?.email}</Text>
@@ -96,7 +97,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
           </Text>
 
           <View style={stylesDSFR.logoContainer}>
-            <Image src='public/logos/certificat/64102.png' style={stylesDSFR.logoBloc} />
+            <Image src={logoUrl} style={stylesDSFR.logoBloc} />
             <View style={{width: '2mm'}} />
             <Image src='public/images/logos/BAN.png' style={stylesDSFR.logoBanBloc} />
           </View>
