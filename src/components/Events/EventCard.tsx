@@ -16,7 +16,7 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
   }
 
   return (
-    <StyledEventCard isPassed={isPassed}>
+    <StyledEventCard $isPassed={isPassed}>
       <div className="badge-wrapper">
         <>{event.tags.map(tag => <Badge style={{ backgroundColor: tagToColor[tag].background, color: tagToColor[tag].color, marginRight: 4 }} key={tag} small>{tag}</Badge>)}</>
       </div>

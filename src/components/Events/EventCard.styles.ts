@@ -2,10 +2,10 @@
 
 import styled from 'styled-components'
 
-export const StyledEventCard = styled.div<{ isPassed?: boolean }>`
+export const StyledEventCard = styled.div<{ $isPassed?: boolean }>`
     padding: 32px;
     border: 1px solid ${({ theme }) => theme.colors.grey.border};
-    ${({ isPassed }) => isPassed && 'opacity: 0.5;'}
+    ${({ $isPassed }) => $isPassed && 'opacity: 0.5;'}
 
     .event-details {
         color: ${({ theme }) => theme.colors.primary.main};
