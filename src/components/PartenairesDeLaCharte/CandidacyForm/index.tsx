@@ -32,7 +32,7 @@ interface CandidacyFormProps {
 }
 
 function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) {
-  const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
+  const [selectedCommune, setSelectedCommune] = useState<Commune>()
   const [formData, setFormData] = useState<CandidatePartenaireDeLaCharteType>({
     type: PartenaireDeLaCharteTypeEnum.COMMUNE,
     organismeType: PartenaireDeLaCharteOrganismeTypeEnum.EPCI,
@@ -66,7 +66,7 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
     setFormData(state => ({ ...state, [property]: value }))
   }
 
-  const handleSelectCommune = (commune: Commune | null) => {
+  const handleSelectCommune = (commune?: Commune) => {
     if (commune) {
       setSelectedCommune(commune)
       setFormData(state => ({
@@ -78,7 +78,7 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
       }))
     }
     else {
-      setSelectedCommune(null)
+      setSelectedCommune(undefined)
       setFormData(state => ({
         ...state,
         name: '',
@@ -142,7 +142,7 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
               }))
             }}
           />
-          {formData.type === PartenaireDeLaCharteTypeEnum.COMMUNE && <CommuneInput label="Commune*" value={selectedCommune} onChange={handleSelectCommune} />}
+          {formData.type === PartenaireDeLaCharteTypeEnum.COMMUNE && <CommuneInput label="Commune*" placeholder="Rechercher ma commune" value={selectedCommune} onChange={handleSelectCommune} />}
           {formData.type === PartenaireDeLaCharteTypeEnum.ORGANISME && (
             <>
               <SelectInput

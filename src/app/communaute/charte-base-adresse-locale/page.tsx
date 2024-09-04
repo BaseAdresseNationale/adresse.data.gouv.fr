@@ -1,9 +1,10 @@
 import DownloadCard from '@/components/DownloadCard'
-import { StyledPage } from './page.styles'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
 import { getDepartements } from '@/lib/api-geo'
 import { displayWithPlural } from '@/utils/string'
+import CardWrapper from '@/components/CardWrapper'
+import Section from '@/components/Section'
 
 export default async function CharteBALPage() {
   const departements = await getDepartements()
@@ -16,7 +17,7 @@ export default async function CharteBALPage() {
   }
 
   return (
-    <StyledPage pageTitle="Charte de la Base adresse locale">
+    <Section pageTitle="Charte de la Base adresse locale">
       <p>La Charte de la Base Adresse Locale rassemble les organismes qui privilégient le format Base Adresse Locale et s’engagent en matière de gouvernance. L’enjeu pour la commune, autorité responsable de l’adresse, est d’identifier un référent en capacité de l’assister au besoin. Les organismes partenaires présentent la Charte sur leur site Internet et la respectent. Ces organismes s’engagent également à respecter le principe du &quot;Dites-le nous une fois de l’adresse&quot;. Ils sont référencés comme tiers de confiance sur ce site.</p>
       <p>Elle est disponible en trois versions :</p>
       <ul>
@@ -34,7 +35,7 @@ export default async function CharteBALPage() {
         Les deux versions de la Charte ont en partage le respect du format de données Base Adresse Locale et d’une gouvernance qui place la commune au coeur du dispositif de l’adresse.
       </p>
       <h2>Télécharger</h2>
-      <div className="download-card-wrapper">
+      <CardWrapper style={{ marginBottom: '2rem' }}>
         <DownloadCard
           title="Télécharger la charte des communes partenaires"
           text="La charte des communes partenaires est destinée aux communes qui partagent leur expérience avec d’autres communes."
@@ -53,7 +54,7 @@ export default async function CharteBALPage() {
           fileDescription="PDF - 235 ko"
           downloadlink="/chartes-partenaires/charte-bal-societe-v1.1.pdf"
         />
-      </div>
+      </CardWrapper>
       <h2>Partenaires disponibles sur votre territoire</h2>
       <p>De nombreux partenaires de la Charte de la Base Adresse Locale proposent un accompagnement et/ou des outils adaptés à votre territoire</p>
       <SearchPartenaire
@@ -63,6 +64,6 @@ export default async function CharteBALPage() {
         departements={departements}
         renderInfos={renderInfos}
       />
-    </StyledPage>
+    </Section>
   )
 }

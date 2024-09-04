@@ -54,13 +54,16 @@ export const navEntries: MainNavigationProps.Item[] = [
     ],
   },
   {
-    text: 'Les communes',
+    text: 'Communes',
     menuLinks: [
       {
-        text: 'Votre commune et sa base adresse locale ',
-        linkProps: { href: '/programme-BAL' },
+        text: 'Découvrez le programme Base Adresse Locale',
+        linkProps: { href: '/communes/programme-BAL' },
       },
-      { text: 'Ma commune', linkProps: { href: '#' } },
+      {
+        text: 'Votre commune et sa base adresse locale ',
+        linkProps: { href: '/communes/votre-commune-et-sa-base-adresse-locale' },
+      },
       {
         text: 'Application Mes adresses',
         linkProps: { href: '#' },

@@ -89,7 +89,7 @@ const Autocomplete = <T extends { code: string }>({
 
   useEffect(() => {
     async function fetch() {
-      if (search.length >= 4) {
+      if (search.length >= 3) {
         const results = await fetchResults(search)
 
         setResults(results)
@@ -103,7 +103,7 @@ const Autocomplete = <T extends { code: string }>({
   }, [fetchResults, search])
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= 4) {
+    if (e.target.value.length <= 3) {
       setSearch(e.target.value)
     }
     else if (searchTimeoutRef.current) {
@@ -144,9 +144,9 @@ const Autocomplete = <T extends { code: string }>({
         <div className="results">
           {results.length > 0
           && renderResultList(results, () => setHasFocus(false))}
-          {results.length === 0 && search.length >= 4 && <p>Aucun résultat</p>}
-          {results.length === 0 && search.length > 0 && search.length < 4 && (
-            <p>Votre recherche doit comporter au moins 4 caractères</p>
+          {results.length === 0 && search.length >= 3 && <p>Aucun résultat</p>}
+          {results.length === 0 && search.length > 0 && search.length < 3 && (
+            <p>Votre recherche doit comporter au moins 3 caractères</p>
           )}
         </div>
       )}

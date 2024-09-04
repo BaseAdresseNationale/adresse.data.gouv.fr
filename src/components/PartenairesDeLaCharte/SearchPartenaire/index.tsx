@@ -38,7 +38,7 @@ export default function SearchPartenaire({
   const debouncedSearch = useDebounce(search, 500)
   const [info, setInfo] = useState<React.ReactNode>(null)
   const [currentPage, setCurrentPage] = useState(getPageFromHash(hash))
-  const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
+  const [selectedCommune, setSelectedCommune] = useState<Commune>()
   const [selectedServices, setSelectedServices] = useState<string[]>([])
   const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>(initialPartenaires)
 
@@ -86,7 +86,7 @@ export default function SearchPartenaire({
     <StyledWrapper>
       <div className="controls">
         <div className="controls-input-wrapper">
-          {searchBy === 'perimeter' && (<CommuneInput value={selectedCommune} onChange={commune => setSelectedCommune(commune)} />)}
+          {searchBy === 'perimeter' && (<CommuneInput placeholder="Rechercher ma commune" value={selectedCommune} onChange={commune => setSelectedCommune(commune)} />)}
           {searchBy === 'name' && (
             <input
               className="fr-input"

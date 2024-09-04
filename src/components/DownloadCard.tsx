@@ -11,12 +11,12 @@ export interface DownloadCardProps {
 }
 
 const StyledWrapper = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding: 1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
   border: 1px solid #dddddd;
-  width: 380px;
 
   h3 {
     font-size: 1.2rem;
@@ -52,7 +52,7 @@ export default function DownloadCard({
           iconId="fr-icon-download-line"
           onClick={() => window.open(downloadlink, '_blank')}
           priority="tertiary no outline"
-          title="Label button"
+          title="Télécharger"
         />
       </div>
     </StyledWrapper>
