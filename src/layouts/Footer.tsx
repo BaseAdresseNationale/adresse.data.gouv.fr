@@ -71,9 +71,13 @@ export default function Footer() {
           href: '/accessibilite',
         }}
         termsLinkProps={{
-          href: '/cgu',
+          href: '/mentions_legales',
         }}
         bottomItems={[
+          {
+            text: 'CGU',
+            linkProps: { href: '/cgu' },
+          },
           {
             text: 'Statistiques',
             linkProps: { href: '/stats' },

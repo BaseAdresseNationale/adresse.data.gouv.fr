@@ -1,6 +1,5 @@
 ---
 title: Conditions Générales d'Utilisation
-aside: [{attach: "nous contacter", filename: "nous_contacter"}]
 ---
 
 ## Conditions Générales d’Utilisation
