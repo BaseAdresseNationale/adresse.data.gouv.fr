@@ -73,15 +73,19 @@ export default async function FormationEnLignePage() {
   return (
     <>
       <Section title="Prochaines formations">
-        <CardWrapper>
-          {upcomingEvents.map((event, index) => (
-            <EventCard
-              key={index}
-              event={event}
-              tagToColor={tagToColor}
-            />
-          ))}
-        </CardWrapper>
+        {upcomingEvents.length > 0
+          ? (
+              <CardWrapper>
+                {upcomingEvents.map((event, index) => (
+                  <EventCard
+                    key={index}
+                    event={event}
+                    tagToColor={tagToColor}
+                  />
+                ))}
+              </CardWrapper>
+            )
+          : <p>Aucune formation prévue pour le moment</p>}
       </Section>
       <Section title="Vidéos des formations">
         <CardWrapper isSmallCard>
