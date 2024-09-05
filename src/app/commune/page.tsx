@@ -9,9 +9,9 @@ export default function VotreCommuneEtSaBALPage() {
 
   return (
     <>
-      <Section title="Votre commune et la base adresse">
+      <Section pageTitle="Consulter la page commune">
         <div style={{ maxWidth: 600 }}>
-          <CommuneInput placeholder="Nom ou code INSEE, exemple : 64256 ou Hasparren" label="Rechercher une commune" onChange={commune => commune && router.push(`/communes/votre-commune-et-sa-base-adresse-locale/${commune.code}`)} />
+          <CommuneInput placeholder="Nom ou code INSEE, exemple : 64256 ou Hasparren" label="Rechercher une commune" onChange={commune => commune && router.push(`/commune/${commune.code}`)} />
         </div>
       </Section>
       <Section title="Pourquoi">

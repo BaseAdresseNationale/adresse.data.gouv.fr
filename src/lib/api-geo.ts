@@ -17,6 +17,14 @@ export function isCodeDepNaive(token: string) {
   return token.match(/^\d{2,3}$/)
 }
 
+export function getCommune(code: string): Promise<Commune> {
+  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/communes/${code}`)
+}
+
+export function getEPCI(code: string) {
+  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/epcis/${code}`)
+}
+
 export function getCommunes(args: any): Promise<Commune[]> {
   const { q, fields, limit, boost, type } = args
   const code = q.match(/^\d{5}$/) ? q : undefined

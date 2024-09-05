@@ -15,7 +15,7 @@ import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
 import theme from '@/theme/theme'
 import GlobalStyle from './global.styles'
 import { useEffect } from 'react'
-import {init as matomoInit} from '@socialgouv/matomo-next'
+import { init as matomoInit } from '@socialgouv/matomo-next'
 import { BALWidgetProvider } from '@/contexts/BALWidget.context'
 
 const StyledLayout = styled.div`
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
       return
     }
 
-    matomoInit({url: process.env.NEXT_PUBLIC_MATOMO_URL, siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID})
+    matomoInit({ url: process.env.NEXT_PUBLIC_MATOMO_URL, siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID })
   }, [])
 
   return (
