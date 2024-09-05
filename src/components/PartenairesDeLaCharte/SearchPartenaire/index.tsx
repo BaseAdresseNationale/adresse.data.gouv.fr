@@ -14,6 +14,7 @@ import { Commune } from '@/types/api-geo.types'
 import { getPageFromHash, resetHash, useHash } from '@/hooks/useHash'
 import { useDebounce } from '@/hooks/useDebounce'
 import { StyledWrapper } from './SearchPartenaire.styles'
+import CardWrapper from '@/components/CardWrapper'
 
 export interface SearchPartenaireProps {
   services: string[]
@@ -98,12 +99,11 @@ export default function SearchPartenaire({
         </div>
         <TagSelect options={services} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
       </div>
-      <div className="content">
+      <CardWrapper isSmallCard>
         {partenaires.data.length === 0 && <p>Aucun partenaire trouvé</p>}
         {partenaires.data.map(partenaire => (
           <Card
             key={partenaire._id}
-            style={{ width: 280 }}
             title={partenaire.name}
             imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
             start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
@@ -111,7 +111,7 @@ export default function SearchPartenaire({
             {...(partenaire.link ? { footer: <a href={partenaire.link} target="_blank" className="fr-btn fr-btn--secondary">Site du partenaire</a> } : {})}
           />
         ))}
-      </div>
+      </CardWrapper>
       <Pagination
         style={{ marginTop: '1rem' }}
         count={count}

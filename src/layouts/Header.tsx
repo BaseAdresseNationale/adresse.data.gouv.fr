@@ -65,7 +65,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Application Mes adresses',
         linkProps: { href: '#' },
       },
-      { text: 'Formation en ligne', linkProps: { href: '#' } },
+      { text: 'Formation en ligne', linkProps: { href: '/communes/formation-en-ligne' } },
     ],
   },
   {
@@ -101,7 +101,7 @@ export const navEntries: MainNavigationProps.Item[] = [
   {
     text: 'L’actualité',
     menuLinks: [
-      { text: 'Les événements', linkProps: { href: '#' } },
+      { text: 'Les événements', linkProps: { href: '/actualite/evenements' } },
       {
         text: 'Le blog et les témoignages',
         linkProps: { href: '/blog' },
