@@ -68,15 +68,10 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
   return (
     <Document title="Certificat d'adressage">
       <Page size='A4' style={stylesDSFR.page}>
-        <View style={stylesDSFR.headerContainer}>
-          <Image src={logoUrl} style={stylesDSFR.logoBloc} />
-          <View style={stylesDSFR.textContainer}>
-            <Text>Ville de {nomCommune}</Text>
-            <Text>{mairie?.telephone}</Text>
-            <Text>{mairie?.email}</Text>
-          </View>
-        </View>
-
+        <Image src={logoUrl} style={stylesDSFR.logoBloc} />
+        <Text>Ville de {nomCommune}</Text>
+        <Text>{mairie?.telephone}</Text>
+        <Text>{mairie?.email}</Text>
         <Text style={stylesDSFR.titre}>Certificat d&apos;adressage</Text>
         <View style={stylesDSFR.contenu}>
           <Text>
@@ -98,6 +93,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
             <View style={stylesDSFR.tableRow}>
               <View style={stylesDSFR.tableCol}>
                 {parcelles.map((parcelle, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <Text key={index} style={stylesDSFR.tableCell}>{parcelle}</Text>
                 ))}
               </View>
