@@ -3,14 +3,14 @@ import Section from '@/components/Section'
 import { getCommune as getBANCommune, getAddressCSVLegacy, getLieuxDitsCSVLegacy, getAdressesCsvBal } from '@/lib/api-ban'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { StyledCommunePage } from './page.styles'
-import { getRevisionDownloadUrl, getRevisions } from '@/lib/api-depot'
+import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import CardWrapper from '@/components/CardWrapper'
 import { Table } from '@codegouvfr/react-dsfr/Table'
 import { BALWidgetShowCommune } from './BALWidgetShowCommune'
 import { CommuneNavigation } from './CommuneNavigation'
 import Image from 'next/image'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
-import { getDataset } from '@/lib/api-data-gouv'
+import { getCommuneFlag } from '@/lib/api-wikidata'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -19,30 +19,19 @@ interface CommunePageProps {
 export default async function CommunePage({ params }: CommunePageProps) {
   const { codeCommune } = params
   const commune = await getBANCommune(codeCommune)
+  const communeHasBAL = commune.typeComposition !== 'assemblage'
   const APIGeoCommune = await getAPIGeoCommune(codeCommune)
   const EPCI = await getEPCI(APIGeoCommune?.codeEpci)
 
   const mairiePageUrl = await getMairiePageURL(codeCommune)
+  const communeFlagUrl = await getCommuneFlag(codeCommune)
 
-  const revisions = await getRevisions(codeCommune)
-  const lastRevision = revisions[0]
-  const modificationHistoryData = revisions
-    .slice(0, 5)
-    .map(revision => [
-        `le ${new Date(revision.createdAt).toLocaleDateString()} à ${new Date(revision.createdAt).toLocaleTimeString()}`,
-        revision.client.mandataire,
-        revision.client.nom,
-        <a key={revision._id} href={getRevisionDownloadUrl(revision._id)} download>Fichier CSV</a>,
-    ])
-
-  const modeDePublication = !lastRevision ? 'Assemblage' : lastRevision.client.nom === 'Mes Adresses' ? 'Mes Adresses' : lastRevision.client.nom === 'Moissonneur BAL' ? 'Moissonneur' : 'API Dépôt'
-
-  let source = !lastRevision ? 'Assemblage' : lastRevision.client.nom === 'Mes Adresses' ? `Commune de ${commune.nomCommune}` : lastRevision.client.nom === 'Moissonneur BAL' ? 'Moissonneur' : lastRevision.client.nom
-  if (source === 'Moissonneur') {
-    const sourceId = lastRevision?.context?.extras?.sourceId
-    const id: string[] = sourceId.split('-')
-    const dataset = await getDataset(id[1])
-    source = dataset?.nom || source
+  let lastRevisionsDetails
+  if (communeHasBAL) {
+    const revisions = await getRevisions(codeCommune)
+    lastRevisionsDetails = await Promise.all(revisions
+      .slice(0, 5)
+      .map(revision => getRevisionDetails(revision, commune)))
   }
 
   return (
@@ -51,7 +40,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       <StyledCommunePage>
         <Section className="commune-main-section">
           <h1>
-            <Image width={80} height={80} alt="logo commune par défault" src="/commune/default-logo.svg" />
+            <Image width={80} height={80} alt="logo commune par défault" src={communeFlagUrl || '/commune/default-logo.svg'} />
             <br />
             {commune.nomCommune} ({commune.codeCommune})
           </h1>
@@ -114,7 +103,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
                   Mode de publication
                 </label>
                 <div>
-                  {modeDePublication}
+                  {!communeHasBAL && 'Assemblage'}
+                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][1]}
                 </div>
               </div>
               <div className="publication-recap">
@@ -122,7 +112,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
                   Source
                 </label>
                 <div>
-                  {source}
+                  {!communeHasBAL && '-'}
+                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][2]}
                 </div>
               </div>
               <div className="publication-recap">
@@ -130,24 +121,25 @@ export default async function CommunePage({ params }: CommunePageProps) {
                   Dernière mise à jour
                 </label>
                 <div>
-                  {!lastRevision ? '-' : `le ${new Date(lastRevision.createdAt).toLocaleDateString()}`}
+                  {!communeHasBAL && '-'}
+                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][0]}
                 </div>
               </div>
             </CardWrapper>
           </div>
           {mairiePageUrl && <a href={mairiePageUrl} target="_blank" className="fr-btn fr-btn--secondary">Contacter la mairie</a>}
         </Section>
-        {lastRevision && (
+        {communeHasBAL && lastRevisionsDetails && (
           <Section title="Les dernières mises à jour" theme="primary">
             <div className="modification-history-wrapper">
               <Table
                 headers={[
                   'Date',
-                  'Auteur',
-                  'Outil',
+                  'Mode de publication',
+                  'Source',
                   'Télécharger',
                 ]}
-                data={modificationHistoryData}
+                data={lastRevisionsDetails}
               />
             </div>
           </Section>

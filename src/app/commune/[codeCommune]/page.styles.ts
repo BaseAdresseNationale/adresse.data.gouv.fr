@@ -140,5 +140,9 @@ export const StyledCommunePage = styled.div`
         }
     }
 }
+
+table {
+    max-width: calc(100vw - 3rem);
+}
 }
 `
