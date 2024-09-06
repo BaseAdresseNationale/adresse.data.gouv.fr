@@ -139,7 +139,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
             matomoPush(['trackEvent', matomoCategoryName, 'Location changed', event.data.content, 1])
           }
           break
-        case 'BAL_WIDGET_READY':
+        case 'BAL_WIDGET_CONFIG_LOADED':
           setIsBalWidgetReady(true)
           break
         default:
