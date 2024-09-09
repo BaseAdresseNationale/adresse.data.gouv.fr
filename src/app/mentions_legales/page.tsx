@@ -4,14 +4,18 @@ import Section from '@/components/Section'
 import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
-
 import { TextWrapper } from './page.styled'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export default async function Home() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('mentions_legales') || {}
 
   return (
-    <>
+    <>      
+    <Breadcrumb
+      currentPageLabel={'Mentions Légales'}
+      segments={[]}
+    />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>

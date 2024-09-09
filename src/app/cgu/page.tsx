@@ -4,7 +4,7 @@ import Section from '@/components/Section'
 import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
-
+import Breadcrumb from '@/layouts/Breadcrumb'
 import { TextWrapper } from './page.styled'
 
 export default async function Home() {
@@ -12,6 +12,10 @@ export default async function Home() {
 
   return (
     <>
+      <Breadcrumb
+        currentPageLabel={'Conditions Générales d\'Utilisation'}
+        segments={[]}
+      />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
