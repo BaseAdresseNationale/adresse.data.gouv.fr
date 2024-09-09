@@ -11,11 +11,11 @@ export default async function Home() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('mentions_legales') || {}
 
   return (
-    <>      
-    <Breadcrumb
-      currentPageLabel={'Mentions Légales'}
-      segments={[]}
-    />
+    <>
+      <Breadcrumb
+        currentPageLabel="Mentions Légales"
+        segments={[]}
+      />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
