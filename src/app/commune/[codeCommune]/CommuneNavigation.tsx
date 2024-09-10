@@ -14,6 +14,7 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
+    margin-bottom: 2rem;
 
     > nav {
         margin-bottom: 0;
@@ -58,8 +59,7 @@ export function CommuneNavigation({ commune }: CommuneNavigationProps) {
       />
       <div className="commune-input-wrapper">
         <CommuneInput
-          label="Rechercher une commune"
-          placeholder="Nom ou code INSEE, exemple : 64256 ou Hasparren"
+          placeholder="Rechercher une commune"
           onChange={commune => commune && router.push(`/commune/${commune.code}`)}
         />
       </div>

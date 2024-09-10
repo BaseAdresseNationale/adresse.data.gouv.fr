@@ -19,6 +19,8 @@ export const getRevisionDownloadUrl = (revisionId: string) => {
   return `${process.env.NEXT_PUBLIC_API_DEPOT_URL}/revisions/${revisionId}/files/bal/download`
 }
 
+const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'short' })
+
 export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
   let modeDePublication = '-'
   if (revision?.context?.extras?.sourceId) {
@@ -46,7 +48,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   }
 
   return [
-    `le ${new Date(revision.createdAt).toLocaleDateString()} à ${new Date(revision.createdAt).toLocaleTimeString().split(':').slice(0, 2).join(':')}`,
+    `le ${frDateFormatter.format(new Date(revision.createdAt))} à ${new Date(revision.createdAt).toLocaleTimeString().split(':').slice(0, 2).join(':')}`,
     modeDePublication,
     source,
     <a key={revision._id} href={getRevisionDownloadUrl(revision._id)} download>Fichier CSV</a>,

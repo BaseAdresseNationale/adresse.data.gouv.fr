@@ -5,9 +5,10 @@ import styled from 'styled-components'
 
 export interface DownloadCardProps {
   title: string
-  text: string
+  text?: string
   fileDescription: string
   downloadlink: string
+  onDownloadStart?: () => void
 }
 
 const StyledWrapper = styled.div`
@@ -39,18 +40,26 @@ export default function DownloadCard({
   text,
   downloadlink,
   fileDescription,
+  onDownloadStart,
 }: DownloadCardProps) {
+  const handleClick = () => {
+    if (onDownloadStart) {
+      onDownloadStart()
+    }
+    window.open(downloadlink, '_blank')
+  }
+
   return (
     <StyledWrapper>
       <div>
         <h3>{title}</h3>
-        <p>{text}</p>
+        {text && <p>{text}</p>}
       </div>
       <div className="file-wrapper">
         <legend>{fileDescription}</legend>
         <Button
           iconId="fr-icon-download-line"
-          onClick={() => window.open(downloadlink, '_blank')}
+          onClick={handleClick}
           priority="tertiary no outline"
           title="Télécharger"
         />

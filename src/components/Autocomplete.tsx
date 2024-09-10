@@ -116,7 +116,7 @@ const Autocomplete = <T extends { code: string }>({
 
   return (
     <StyledAutocomplete>
-      <div className="fr-input-group">
+      <div className="fr-input-group fr-search-bar" role="search">
         {label && (
           <label className="fr-label" htmlFor="autocomplete-search">
             {label}
@@ -139,6 +139,9 @@ const Autocomplete = <T extends { code: string }>({
           name="autocomplete-search"
           {...inputProps}
         />
+        <button className="fr-btn" title="Rechercher">
+          Rechercher
+        </button>
       </div>
       {hasFocus && (
         <div className="results">

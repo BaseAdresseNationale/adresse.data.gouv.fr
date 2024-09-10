@@ -1,16 +1,16 @@
-import DownloadCard from '@/components/DownloadCard'
 import Section from '@/components/Section'
-import { getCommune as getBANCommune, getAddressCSVLegacy, getLieuxDitsCSVLegacy, getAdressesCsvBal } from '@/lib/api-ban'
+import { getCommune as getBANCommune, assemblageSources } from '@/lib/api-ban'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { StyledCommunePage } from './page.styles'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import CardWrapper from '@/components/CardWrapper'
 import { Table } from '@codegouvfr/react-dsfr/Table'
-import { BALWidgetShowCommune } from './BALWidgetShowCommune'
 import { CommuneNavigation } from './CommuneNavigation'
 import Image from 'next/image'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { getCommuneFlag } from '@/lib/api-wikidata'
+import { CommuneDownloadSection } from './CommuneDownloadSection'
+import { formatFr } from '@/lib/array'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -25,6 +25,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
   const mairiePageUrl = await getMairiePageURL(codeCommune)
   const communeFlagUrl = await getCommuneFlag(codeCommune)
+  const certificationPercentage = Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   let lastRevisionsDetails
   if (communeHasBAL) {
@@ -37,12 +38,12 @@ export default async function CommunePage({ params }: CommunePageProps) {
   return (
     <>
       <CommuneNavigation commune={commune} />
-      <StyledCommunePage>
+      <StyledCommunePage $certificationPercentage={certificationPercentage}>
         <Section className="commune-main-section">
           <h1>
             <Image width={80} height={80} alt="logo commune par défault" src={communeFlagUrl || '/commune/default-logo.svg'} />
             <br />
-            {commune.nomCommune} ({commune.codeCommune})
+            {commune.nomCommune} - {commune.codeCommune}
           </h1>
           <CardWrapper className="commune-general-info-wrapper">
             <div className="commune-general-info">
@@ -90,7 +91,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
               </div>
               <div className="adresse-recap">
                 <div>
-                  {Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)} %
+                  {certificationPercentage} %
                 </div>
                 <label>
                   d&apos;adresses certifiées
@@ -112,7 +113,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                   Source
                 </label>
                 <div>
-                  {!communeHasBAL && '-'}
+                  {!communeHasBAL && formatFr(assemblageSources(commune.voies))}
                   {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][2]}
                 </div>
               </div>
@@ -122,7 +123,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 </label>
                 <div>
                   {!communeHasBAL && '-'}
-                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][0]}
+                  {communeHasBAL && lastRevisionsDetails && (lastRevisionsDetails[0][0] as string).split(' à ')[0]}
                 </div>
               </div>
             </CardWrapper>
@@ -144,23 +145,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
             </div>
           </Section>
         )}
-        <Section title="Télécharger les adresses de la commune">
-          <p>
-            Voici les adresses de la communes dans la Base Adresse Nationale. Ce fichier de référence présente la liste des voies avec les libellés enrichis (minuscules accentuées), mais aussi les libellés à la norme AFNOR, les codes FANTOIR mis à jour par la DGFiP, les points adresses géocodés, ainsi que leur lien avec les parcelles s’ils sont renseignés, la source des adresses et leur certification. Pour plus d’information sur la structure des informations, consultez la documentation des fichiers de la Base Adresse Nationale.
-          </p>
-          <CardWrapper isSmallCard style={{ marginBottom: '2rem' }}>
-            <DownloadCard title="Télécharger Format BAL 1.3" fileDescription="Fichier CSV" downloadlink={getAdressesCsvBal(codeCommune, '1.3')} text="" />
-            <DownloadCard title="Télécharger Format BAL 1.4" fileDescription="Fichier CSV" downloadlink={getAdressesCsvBal(codeCommune, '1.4')} text="" />
-            <DownloadCard title="Télécharger Format Historique" fileDescription="Fichier CSV" downloadlink={getAddressCSVLegacy(codeCommune)} text="" />
-            <DownloadCard title="Télécharger Format Historique lieu-dit" fileDescription="Fichier CSV" downloadlink={getLieuxDitsCSVLegacy(codeCommune)} text="" />
-          </CardWrapper>
-          <p>
-            La commune est l’échelon de compétence pour mettre à jour les adresses. En cas de problème d’adresse sur la commune, contactez la. Vous pouvez également lui indiquer notre contact (<a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>) au besoin.
-          </p>
-        </Section>
-
+        <CommuneDownloadSection commune={commune} />
       </StyledCommunePage>
-      <BALWidgetShowCommune codeCommune={codeCommune} nomCommune={commune.nomCommune} />
     </>
   )
 }

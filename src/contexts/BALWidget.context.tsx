@@ -1,9 +1,7 @@
 'use client'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { push as matomoPush } from '@socialgouv/matomo-next'
 import styled from 'styled-components'
-
-const matomoCategoryName = `${process.env.NODE_ENV !== 'production' ? 'DEVMODE - ' : ''}BAL Widget (Front)`
+import { matomoTrackEvent } from '@/lib/matomo'
 
 export const StyledIFrame = styled.iframe<{ $isOpen: boolean }>`
   position: fixed;
@@ -122,7 +120,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           if (transitionTimeout.current) {
             clearTimeout(transitionTimeout.current)
           }
-          matomoPush(['trackEvent', matomoCategoryName, 'Location changed', '/', 1])
+          matomoTrackEvent('BAL_WIDGET (Front)', 'Location changed', '/', 1)
           setIsBalWidgetOpen(true)
           break
         case 'BAL_WIDGET_CLOSED':
@@ -136,7 +134,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           break
         case 'BAL_WIDGET_LOCATION':
           if (isBalWidgetOpen) {
-            matomoPush(['trackEvent', matomoCategoryName, 'Location changed', event.data.content, 1])
+            matomoTrackEvent('BAL_WIDGET (Front)', 'Location changed', event.data.content, 1)
           }
           break
         case 'BAL_WIDGET_CONFIG_LOADED':

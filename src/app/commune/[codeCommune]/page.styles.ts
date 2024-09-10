@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-export const StyledCommunePage = styled.div`
+export const StyledCommunePage = styled.div<{ $certificationPercentage: number }>`
 
 .commune-main-section {
     > h1 {
@@ -27,7 +27,8 @@ export const StyledCommunePage = styled.div`
     }
     
     .commune-adresse-info-wrapper {
-        background-color: ${({ theme }) => theme.colors.grey.bg};
+        background: ${({ theme, $certificationPercentage }) => $certificationPercentage === 0 ? `${theme.colors.grey.bg};` : $certificationPercentage === 100 ? `var(--background-contrast-success);` : `linear-gradient(90deg, var(--background-contrast-success) ${$certificationPercentage - 5}%, ${theme.colors.grey.bg} ${$certificationPercentage + 5}%);`};
+        border-radius: 5px;
         margin-bottom: 2rem;
         width: 100%;
     
@@ -63,7 +64,7 @@ export const StyledCommunePage = styled.div`
 
                 div {
                     background-color: white;
-                    border-radius: 10px;
+                    border-radius: 5px;
                     padding: 1rem;
                     font-size: 1.5rem;
                     margin-bottom: 1rem;
