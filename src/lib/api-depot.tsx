@@ -19,7 +19,7 @@ export const getRevisionDownloadUrl = (revisionId: string) => {
   return `${process.env.NEXT_PUBLIC_API_DEPOT_URL}/revisions/${revisionId}/files/bal/download`
 }
 
-const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'short' })
+const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'long' })
 
 export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
   let modeDePublication = '-'
