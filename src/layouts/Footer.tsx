@@ -71,7 +71,7 @@ export default function Footer() {
           href: '/accessibilite',
         }}
         termsLinkProps={{
-          href: '/mentions_legales',
+          href: '/mentions-legales',
         }}
         bottomItems={[
           {

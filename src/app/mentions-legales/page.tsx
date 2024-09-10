@@ -8,7 +8,7 @@ import { TextWrapper } from './page.styled'
 import Breadcrumb from '@/layouts/Breadcrumb'
 
 export default async function Home() {
-  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('mentions_legales') || {}
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('mentions-legales') || {}
 
   return (
     <>
