@@ -65,6 +65,20 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
   const etabliLe = `${day} ${month} ${year}`
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
 
+  // Fonction pour grouper les parcelles par deux
+  const groupParcelles = parcelles => {
+    const grouped = []
+    for (let i = 0; i < parcelles.length; i += 2) {
+      grouped.push(
+        parcelles[i] + (parcelles[i + 1] ? `    ,    ${parcelles[i + 1]}` : '')
+      )
+    }
+
+    return grouped
+  }
+
+  const groupedParcelles = groupParcelles(parcelles)
+
   return (
     <Document title="Certificat d'adressage">
       <Page size='A4' style={stylesDSFR.page}>
@@ -92,7 +106,7 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
             </View>
             <View style={stylesDSFR.tableRow}>
               <View style={stylesDSFR.tableCol}>
-                {parcelles.map((parcelle, index) => (
+                {groupedParcelles.map((parcelle, index) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <Text key={index} style={stylesDSFR.tableCell}>{parcelle}</Text>
                 ))}
