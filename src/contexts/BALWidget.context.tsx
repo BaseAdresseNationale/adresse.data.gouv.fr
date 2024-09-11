@@ -44,8 +44,10 @@ interface BALWidgetProviderProps {
 export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   const balWidgetRef = useRef<HTMLIFrameElement>(null)
   const transitionTimeout = useRef<NodeJS.Timeout>()
+  const [isWidgetDisplayed, setIsWidgetDisplayed] = useState(false)
   const [isBalWidgetOpen, setIsBalWidgetOpen] = useState(false)
   const [isBalWidgetReady, setIsBalWidgetReady] = useState(false)
+  const [isBalWidgetConfigLoaded, setIsBalWidgetConfigLoaded] = useState(false)
   const [balWidgetConfig, setBalWidgetConfig] = useState(null)
 
   const open = useCallback(() => {
@@ -105,8 +107,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   // Send config to BAL widget
   // once it's ready
   useEffect(() => {
-    if (balWidgetRef.current && !isBalWidgetReady && balWidgetConfig) {
-      console.log('Sending config to BAL widget')
+    if (balWidgetRef.current && balWidgetConfig && isBalWidgetReady && !isBalWidgetConfigLoaded) {
       balWidgetRef.current.contentWindow?.postMessage(
         {
           type: 'BAL_WIDGET_CONFIG',
@@ -115,7 +116,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
         '*'
       )
     }
-  }, [isBalWidgetReady, balWidgetRef, balWidgetConfig])
+  }, [balWidgetRef, balWidgetConfig, isBalWidgetReady, isBalWidgetConfigLoaded])
 
   useEffect(() => {
     function BALWidgetMessageHandler(event: { data: { type: string, content: any } }) {
@@ -141,9 +142,11 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
             matomoTrackEvent('BAL_WIDGET (Front)', 'Location changed', event.data.content, 1)
           }
           break
-        case 'BAL_WIDGET_CONFIG_LOADED':
-          console.log('BAL widget loaded')
+        case 'BAL_WIDGET_READY':
           setIsBalWidgetReady(true)
+          break
+        case 'BAL_WIDGET_CONFIG_LOADED':
+          setIsBalWidgetConfigLoaded(true)
           break
         default:
           break
@@ -151,6 +154,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
     }
 
     window.addEventListener('message', BALWidgetMessageHandler)
+    setIsWidgetDisplayed(true)
 
     return () => {
       window.removeEventListener('message', BALWidgetMessageHandler)
@@ -168,11 +172,13 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
     }}
     >
       {children}
-      <StyledIFrame
-        ref={balWidgetRef}
-        src={process.env.NEXT_PUBLIC_BAL_WIDGET_URL}
-        $isOpen={isBalWidgetOpen}
-      />
+      {isWidgetDisplayed && (
+        <StyledIFrame
+          ref={balWidgetRef}
+          src={process.env.NEXT_PUBLIC_BAL_WIDGET_URL}
+          $isOpen={isBalWidgetOpen}
+        />
+      )}
     </BALWidgetContext.Provider>
   )
 }
