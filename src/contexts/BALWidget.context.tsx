@@ -8,6 +8,9 @@ export const StyledIFrame = styled.iframe<{ $isOpen: boolean }>`
   bottom: 40px;
   right: 40px;
   z-index: 999;
+  // Fix to avoid white box when dark mode is enabled
+  color-scheme: normal;
+  border: none;
   ${({ $isOpen }) => $isOpen ? 'height: 600px; width: 450px;' : 'height: 60px; width: 60px;'}
 
 
@@ -103,6 +106,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   // once it's ready
   useEffect(() => {
     if (balWidgetRef.current && !isBalWidgetReady && balWidgetConfig) {
+      console.log('Sending config to BAL widget')
       balWidgetRef.current.contentWindow?.postMessage(
         {
           type: 'BAL_WIDGET_CONFIG',
@@ -138,6 +142,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           }
           break
         case 'BAL_WIDGET_CONFIG_LOADED':
+          console.log('BAL widget loaded')
           setIsBalWidgetReady(true)
           break
         default:
