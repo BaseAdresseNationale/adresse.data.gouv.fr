@@ -1,0 +1,1310 @@
+{
+  "01": {
+    "type": "Feature",
+    "properties": {
+      "code": "01",
+      "nom": "Ain",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.2847815, 46.0654455]
+    }
+  },
+  "02": {
+    "type": "Feature",
+    "properties": {
+      "code": "02",
+      "nom": "Aisne",
+      "region": "32"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.6066061, 49.4535125]
+    }
+  },
+  "03": {
+    "type": "Feature",
+    "properties": {
+      "code": "03",
+      "nom": "Allier",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.1638756, 46.3675]
+    }
+  },
+  "04": {
+    "type": "Feature",
+    "properties": {
+      "code": "04",
+      "nom": "Alpes-de-Haute-Provence",
+      "region": "93"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.1847107, 44.1642445]
+    }
+  },
+  "05": {
+    "type": "Feature",
+    "properties": {
+      "code": "05",
+      "nom": "Hautes-Alpes",
+      "region": "93"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.3501258, 44.6566695]
+    }
+  },
+  "06": {
+    "type": "Feature",
+    "properties": {
+      "code": "06",
+      "nom": "Alpes-Maritimes",
+      "region": "93"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [7.2418054, 43.920949]
+    }
+  },
+  "07": {
+    "type": "Feature",
+    "properties": {
+      "code": "07",
+      "nom": "Ardèche",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.3986349, 44.8153435]
+    }
+  },
+  "08": {
+    "type": "Feature",
+    "properties": {
+      "code": "08",
+      "nom": "Ardennes",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.6716728, 49.698121]
+    }
+  },
+  "09": {
+    "type": "Feature",
+    "properties": {
+      "code": "09",
+      "nom": "Ariège",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.4070006, 42.9438395]
+    }
+  },
+  "10": {
+    "type": "Feature",
+    "properties": {
+      "code": "10",
+      "nom": "Aube",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.1910675, 48.3200295]
+    }
+  },
+  "11": {
+    "type": "Feature",
+    "properties": {
+      "code": "11",
+      "nom": "Aude",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.5126672, 43.0545845]
+    }
+  },
+  "12": {
+    "type": "Feature",
+    "properties": {
+      "code": "12",
+      "nom": "Aveyron",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.5064637, 44.315775]
+    }
+  },
+  "13": {
+    "type": "Feature",
+    "properties": {
+      "code": "13",
+      "nom": "Bouches-du-Rhône",
+      "region": "93"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.3766205, 43.542208]
+    }
+  },
+  "14": {
+    "type": "Feature",
+    "properties": {
+      "code": "14",
+      "nom": "Calvados",
+      "region": "28"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.2398572, 49.0907945]
+    }
+  },
+  "15": {
+    "type": "Feature",
+    "properties": {
+      "code": "15",
+      "nom": "Cantal",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.6995664, 45.049625]
+    }
+  },
+  "16": {
+    "type": "Feature",
+    "properties": {
+      "code": "16",
+      "nom": "Charente",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.0975035, 45.6662975]
+    }
+  },
+  "17": {
+    "type": "Feature",
+    "properties": {
+      "code": "17",
+      "nom": "Charente-Maritime",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.8232672, 45.7301625]
+    }
+  },
+  "18": {
+    "type": "Feature",
+    "properties": {
+      "code": "18",
+      "nom": "Cher",
+      "region": "24"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.5754579, 47.0248]
+    }
+  },
+  "19": {
+    "type": "Feature",
+    "properties": {
+      "code": "19",
+      "nom": "Corrèze",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.8179095, 45.342754]
+    }
+  },
+  "21": {
+    "type": "Feature",
+    "properties": {
+      "code": "21",
+      "nom": "Côte-d'Or",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.7483693, 47.4655595]
+    }
+  },
+  "22": {
+    "type": "Feature",
+    "properties": {
+      "code": "22",
+      "nom": "Côtes-d'Armor",
+      "region": "53"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.7502396, 48.458147]
+    }
+  },
+  "23": {
+    "type": "Feature",
+    "properties": {
+      "code": "23",
+      "nom": "Creuse",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.0490754, 46.0594705]
+    }
+  },
+  "24": {
+    "type": "Feature",
+    "properties": {
+      "code": "24",
+      "nom": "Dordogne",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.6319876, 45.142783]
+    }
+  },
+  "25": {
+    "type": "Feature",
+    "properties": {
+      "code": "25",
+      "nom": "Doubs",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.2354953, 47.06672]
+    }
+  },
+  "26": {
+    "type": "Feature",
+    "properties": {
+      "code": "26",
+      "nom": "Drôme",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.2045621, 44.7296545]
+    }
+  },
+  "27": {
+    "type": "Feature",
+    "properties": {
+      "code": "27",
+      "nom": "Eure",
+      "region": "28"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.9654168, 49.075814]
+    }
+  },
+  "28": {
+    "type": "Feature",
+    "properties": {
+      "code": "28",
+      "nom": "Eure-et-Loir",
+      "region": "24"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.3999676, 48.447443]
+    }
+  },
+  "29": {
+    "type": "Feature",
+    "properties": {
+      "code": "29",
+      "nom": "Finistère",
+      "region": "53"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8722921, 48.245101]
+    }
+  },
+  "2A": {
+    "type": "Feature",
+    "properties": {
+      "code": "2A",
+      "nom": "Corse-du-Sud",
+      "region": "94"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [9.0095413, 41.8730495]
+    }
+  },
+  "2B": {
+    "type": "Feature",
+    "properties": {
+      "code": "2B",
+      "nom": "Haute-Corse",
+      "region": "94"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [9.1009038, 42.4219715]
+    }
+  },
+  "30": {
+    "type": "Feature",
+    "properties": {
+      "code": "30",
+      "nom": "Gard",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.2970045, 43.9598595]
+    }
+  },
+  "31": {
+    "type": "Feature",
+    "properties": {
+      "code": "31",
+      "nom": "Haute-Garonne",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.9725995, 43.3053995]
+    }
+  },
+  "32": {
+    "type": "Feature",
+    "properties": {
+      "code": "32",
+      "nom": "Gers",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.4100816, 43.6953795]
+    }
+  },
+  "33": {
+    "type": "Feature",
+    "properties": {
+      "code": "33",
+      "nom": "Gironde",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.6043535, 44.8842205]
+    }
+  },
+  "34": {
+    "type": "Feature",
+    "properties": {
+      "code": "34",
+      "nom": "Hérault",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.355429, 43.591445]
+    }
+  },
+  "35": {
+    "type": "Feature",
+    "properties": {
+      "code": "35",
+      "nom": "Ille-et-Vilaine",
+      "region": "53"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.6498283, 48.172221]
+    }
+  },
+  "36": {
+    "type": "Feature",
+    "properties": {
+      "code": "36",
+      "nom": "Indre",
+      "region": "24"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.5382748, 46.8122235]
+    }
+  },
+  "37": {
+    "type": "Feature",
+    "properties": {
+      "code": "37",
+      "nom": "Indre-et-Loire",
+      "region": "24"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.6866543, 47.223328]
+    }
+  },
+  "38": {
+    "type": "Feature",
+    "properties": {
+      "code": "38",
+      "nom": "Isère",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.6343405, 45.289537]
+    }
+  },
+  "39": {
+    "type": "Feature",
+    "properties": {
+      "code": "39",
+      "nom": "Jura",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.7830205, 46.783271]
+    }
+  },
+  "40": {
+    "type": "Feature",
+    "properties": {
+      "code": "40",
+      "nom": "Landes",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.6436227, 44.009817]
+    }
+  },
+  "41": {
+    "type": "Feature",
+    "properties": {
+      "code": "41",
+      "nom": "Loir-et-Cher",
+      "region": "24"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.2971745, 47.6598305]
+    }
+  },
+  "42": {
+    "type": "Feature",
+    "properties": {
+      "code": "42",
+      "nom": "Loire",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.0455259, 45.75382]
+    }
+  },
+  "43": {
+    "type": "Feature",
+    "properties": {
+      "code": "43",
+      "nom": "Haute-Loire",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.8336207, 45.0857755]
+    }
+  },
+  "44": {
+    "type": "Feature",
+    "properties": {
+      "code": "44",
+      "nom": "Loire-Atlantique",
+      "region": "52"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.8727193, 47.347982]
+    }
+  },
+  "45": {
+    "type": "Feature",
+    "properties": {
+      "code": "45",
+      "nom": "Loiret",
+      "region": "24"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.3072858, 47.9140495]
+    }
+  },
+  "46": {
+    "type": "Feature",
+    "properties": {
+      "code": "46",
+      "nom": "Lot",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.6657855, 44.6250165]
+    }
+  },
+  "47": {
+    "type": "Feature",
+    "properties": {
+      "code": "47",
+      "nom": "Lot-et-Garonne",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.4537713, 44.3691005]
+    }
+  },
+  "48": {
+    "type": "Feature",
+    "properties": {
+      "code": "48",
+      "nom": "Lozère",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.5207714, 44.542626]
+    }
+  },
+  "49": {
+    "type": "Feature",
+    "properties": {
+      "code": "49",
+      "nom": "Maine-et-Loire",
+      "region": "52"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.391126, 47.3894295]
+    }
+  },
+  "50": {
+    "type": "Feature",
+    "properties": {
+      "code": "50",
+      "nom": "Manche",
+      "region": "28"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.245121, 49.091842]
+    }
+  },
+  "51": {
+    "type": "Feature",
+    "properties": {
+      "code": "51",
+      "nom": "Marne",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.3125533, 48.9615875]
+    }
+  },
+  "52": {
+    "type": "Feature",
+    "properties": {
+      "code": "52",
+      "nom": "Haute-Marne",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.2530403, 48.1329125]
+    }
+  },
+  "53": {
+    "type": "Feature",
+    "properties": {
+      "code": "53",
+      "nom": "Mayenne",
+      "region": "52"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.6490931, 48.150718]
+    }
+  },
+  "54": {
+    "type": "Feature",
+    "properties": {
+      "code": "54",
+      "nom": "Meurthe-et-Moselle",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.9869787, 48.956086]
+    }
+  },
+  "55": {
+    "type": "Feature",
+    "properties": {
+      "code": "55",
+      "nom": "Meuse",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.4287976, 49.012909]
+    }
+  },
+  "56": {
+    "type": "Feature",
+    "properties": {
+      "code": "56",
+      "nom": "Morbihan",
+      "region": "53"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.7633479, 47.8260225]
+    }
+  },
+  "57": {
+    "type": "Feature",
+    "properties": {
+      "code": "57",
+      "nom": "Moselle",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.538236, 49.0206515]
+    }
+  },
+  "58": {
+    "type": "Feature",
+    "properties": {
+      "code": "58",
+      "nom": "Nièvre",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.5444754, 47.1195925]
+    }
+  },
+  "59": {
+    "type": "Feature",
+    "properties": {
+      "code": "59",
+      "nom": "Nord",
+      "region": "32"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.0884533, 50.5290325]
+    }
+  },
+  "60": {
+    "type": "Feature",
+    "properties": {
+      "code": "60",
+      "nom": "Oise",
+      "region": "32"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.406372, 49.4123425]
+    }
+  },
+  "61": {
+    "type": "Feature",
+    "properties": {
+      "code": "61",
+      "nom": "Orne",
+      "region": "28"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.0440421, 48.5764595]
+    }
+  },
+  "62": {
+    "type": "Feature",
+    "properties": {
+      "code": "62",
+      "nom": "Pas-de-Calais",
+      "region": "32"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.2568645, 50.514978]
+    }
+  },
+  "63": {
+    "type": "Feature",
+    "properties": {
+      "code": "63",
+      "nom": "Puy-de-Dôme",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.0838352, 45.771939]
+    }
+  },
+  "64": {
+    "type": "Feature",
+    "properties": {
+      "code": "64",
+      "nom": "Pyrénées-Atlantiques",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.7282984, 43.18733]
+    }
+  },
+  "65": {
+    "type": "Feature",
+    "properties": {
+      "code": "65",
+      "nom": "Hautes-Pyrénées",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.156396, 43.1433645]
+    }
+  },
+  "66": {
+    "type": "Feature",
+    "properties": {
+      "code": "66",
+      "nom": "Pyrénées-Orientales",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.5063376, 42.6256785]
+    }
+  },
+  "67": {
+    "type": "Feature",
+    "properties": {
+      "code": "67",
+      "nom": "Bas-Rhin",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [7.5336286, 48.5991405]
+    }
+  },
+  "68": {
+    "type": "Feature",
+    "properties": {
+      "code": "68",
+      "nom": "Haut-Rhin",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [7.2315163, 47.8658675]
+    }
+  },
+  "69": {
+    "type": "Feature",
+    "properties": {
+      "code": "69",
+      "nom": "Rhône",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.6122253, 45.880242]
+    }
+  },
+  "70": {
+    "type": "Feature",
+    "properties": {
+      "code": "70",
+      "nom": "Haute-Saône",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.0947911, 47.6384135]
+    }
+  },
+  "71": {
+    "type": "Feature",
+    "properties": {
+      "code": "71",
+      "nom": "Saône-et-Loire",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.5588043, 46.65624]
+    }
+  },
+  "72": {
+    "type": "Feature",
+    "properties": {
+      "code": "72",
+      "nom": "Sarthe",
+      "region": "52"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.2538763, 48.02683]
+    }
+  },
+  "73": {
+    "type": "Feature",
+    "properties": {
+      "code": "73",
+      "nom": "Savoie",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.3848042, 45.495068]
+    }
+  },
+  "74": {
+    "type": "Feature",
+    "properties": {
+      "code": "74",
+      "nom": "Haute-Savoie",
+      "region": "84"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.3447268, 46.0448545]
+    }
+  },
+  "75": {
+    "type": "Feature",
+    "properties": {
+      "code": "75",
+      "nom": "Paris",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.3200849, 48.8590545]
+    }
+  },
+  "76": {
+    "type": "Feature",
+    "properties": {
+      "code": "76",
+      "nom": "Seine-Maritime",
+      "region": "28"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.9375644, 49.6614235]
+    }
+  },
+  "77": {
+    "type": "Feature",
+    "properties": {
+      "code": "77",
+      "nom": "Seine-et-Marne",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.0416752, 48.619127]
+    }
+  },
+  "78": {
+    "type": "Feature",
+    "properties": {
+      "code": "78",
+      "nom": "Yvelines",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.8879452, 48.762668]
+    }
+  },
+  "79": {
+    "type": "Feature",
+    "properties": {
+      "code": "79",
+      "nom": "Deux-Sèvres",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.2996334, 46.5390145]
+    }
+  },
+  "80": {
+    "type": "Feature",
+    "properties": {
+      "code": "80",
+      "nom": "Somme",
+      "region": "32"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.3737748, 49.969012]
+    }
+  },
+  "81": {
+    "type": "Feature",
+    "properties": {
+      "code": "81",
+      "nom": "Tarn",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.1339943, 43.7919005]
+    }
+  },
+  "82": {
+    "type": "Feature",
+    "properties": {
+      "code": "82",
+      "nom": "Tarn-et-Garonne",
+      "region": "76"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.2051448, 44.080723]
+    }
+  },
+  "83": {
+    "type": "Feature",
+    "properties": {
+      "code": "83",
+      "nom": "Var",
+      "region": "93"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.2663883, 43.4174865]
+    }
+  },
+  "84": {
+    "type": "Feature",
+    "properties": {
+      "code": "84",
+      "nom": "Vaucluse",
+      "region": "93"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [5.1819711, 43.994185]
+    }
+  },
+  "85": {
+    "type": "Feature",
+    "properties": {
+      "code": "85",
+      "nom": "Vendée",
+      "region": "52"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.291323, 46.6757835]
+    }
+  },
+  "86": {
+    "type": "Feature",
+    "properties": {
+      "code": "86",
+      "nom": "Vienne",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.4653456, 46.6121645]
+    }
+  },
+  "87": {
+    "type": "Feature",
+    "properties": {
+      "code": "87",
+      "nom": "Haute-Vienne",
+      "region": "75"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.2031806, 45.919102]
+    }
+  },
+  "88": {
+    "type": "Feature",
+    "properties": {
+      "code": "88",
+      "nom": "Vosges",
+      "region": "44"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.3818314, 48.163371]
+    }
+  },
+  "89": {
+    "type": "Feature",
+    "properties": {
+      "code": "89",
+      "nom": "Yonne",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.645219, 47.8553515]
+    }
+  },
+  "90": {
+    "type": "Feature",
+    "properties": {
+      "code": "90",
+      "nom": "Territoire de Belfort",
+      "region": "27"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [6.899136, 47.6292645]
+    }
+  },
+  "91": {
+    "type": "Feature",
+    "properties": {
+      "code": "91",
+      "nom": "Essonne",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.2392432, 48.529915]
+    }
+  },
+  "92": {
+    "type": "Feature",
+    "properties": {
+      "code": "92",
+      "nom": "Hauts-de-Seine",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.1986566, 48.8402415]
+    }
+  },
+  "93": {
+    "type": "Feature",
+    "properties": {
+      "code": "93",
+      "nom": "Seine-Saint-Denis",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.4528458, 48.9098745]
+    }
+  },
+  "94": {
+    "type": "Feature",
+    "properties": {
+      "code": "94",
+      "nom": "Val-de-Marne",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.4543554, 48.774566]
+    }
+  },
+  "95": {
+    "type": "Feature",
+    "properties": {
+      "code": "95",
+      "nom": "Val-d'Oise",
+      "region": "11"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.2088587, 49.075101]
+    }
+  },
+  "971": {
+    "type": "Feature",
+    "properties": {
+      "code": "971",
+      "nom": "Guadeloupe",
+      "region": "01"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-61.6777465, 16.1541265]
+    }
+  },
+  "972": {
+    "type": "Feature",
+    "properties": {
+      "code": "972",
+      "nom": "Martinique",
+      "region": "02"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-61.0157706, 14.636729]
+    }
+  },
+  "973": {
+    "type": "Feature",
+    "properties": {
+      "code": "973",
+      "nom": "Guyane",
+      "region": "03"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-53.0319571, 3.9292475]
+    }
+  },
+  "974": {
+    "type": "Feature",
+    "properties": {
+      "code": "974",
+      "nom": "La Réunion",
+      "region": "04"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [55.5365668, -21.130733]
+    }
+  },
+  "976": {
+    "type": "Feature",
+    "properties": {
+      "code": "976",
+      "nom": "Mayotte",
+      "region": "06"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [45.1486155, -12.825413]
+    }
+  },
+  "975": {
+    "type": "Feature",
+    "properties": {
+      "code": "975",
+      "nom": "Saint-Pierre-et-Miquelon",
+      "region": "975"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-56.1951066, 46.7832905]
+    }
+  },
+  "977": {
+    "type": "Feature",
+    "properties": {
+      "code": "977",
+      "nom": "Saint-Barthélemy",
+      "region": "977"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-62.811569, 17.9036285]
+    }
+  },
+  "978": {
+    "type": "Feature",
+    "properties": {
+      "code": "978",
+      "nom": "Saint-Martin",
+      "region": "978"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-63.0513267, 18.085539]
+    }
+  },
+  "984": {
+    "type": "Feature",
+    "properties": {
+      "code": "984",
+      "nom": "Terres australes et antarctiques françaises",
+      "region": "984"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [139, -75.741256]
+    }
+  },
+  "986": {
+    "type": "Feature",
+    "properties": {
+      "code": "986",
+      "nom": "Wallis et Futuna",
+      "region": "986"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-176.2066986, -13.284669]
+    }
+  },
+  "987": {
+    "type": "Feature",
+    "properties": {
+      "code": "987",
+      "nom": "Polynésie française",
+      "region": "987"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-139.0067844, -9.7793225]
+    }
+  },
+  "988": {
+    "type": "Feature",
+    "properties": {
+      "code": "988",
+      "nom": "Nouvelle-Calédonie",
+      "region": "988"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [165.2452406, -21.235534]
+    }
+  },
+  "989": {
+    "type": "Feature",
+    "properties": {
+      "code": "989",
+      "nom": "Île de Clipperton",
+      "region": "989"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-109.2163213, 10.3036475]
+    }
+  }
+}

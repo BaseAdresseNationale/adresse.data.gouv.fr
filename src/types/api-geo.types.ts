@@ -18,7 +18,15 @@ export type Commune = {
 export type EPCI = {
   nom: string
   code: string
-  codesDepartements: string[]
-  codesRegions: string[]
+  codeDepartement: string
+  codeRegion: string
   population: number
+  centre?: {
+    type: string
+    coordinates: number[]
+  }
+  contour?: {
+    type: string
+    coordinates: number[][][]
+  }
 }
