@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      dockerfile: "dockerfile.dev" 
+    container_name: frontend-new-site
+    volumes:
+      - ./public:/app/public
+      - ./src:/app/src
+      - ./next.config.mjs:/app/next.config.mjs
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./.env:/app/.env
+      - ./.env.default:/app/.env.default
+      - ./.git:/app/.git
+      - ./.next:/app/.next
+      - ./.storybook:/app/.storybook
+    ports:
+      - "3000:3000"  
+    environment:
+      - NEXT_PUBLIC_ADRESSE_URL=${NEXT_PUBLIC_ADRESSE_URL}
+      - NEXT_PUBLIC_API_GEO_URL=${NEXT_PUBLIC_API_GEO_URL}
+      - NEXT_PUBLIC_API_BAN_URL=${NEXT_PUBLIC_API_BAN_URL}
+      - NEXT_PUBLIC_API_ADRESSE=${NEXT_PUBLIC_API_ADRESSE}
+      - NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC=${NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC}
+      - NEXT_PUBLIC_MATOMO_URL=${NEXT_PUBLIC_MATOMO_URL}
+      - NEXT_PUBLIC_MATOMO_SITE_ID=${NEXT_PUBLIC_MATOMO_SITE_ID}
+      - MATOMO_TOKEN_AUTH=${MATOMO_TOKEN_AUTH}
+      - ENABLE_HELMET=${ENABLE_HELMET}
+      - NEXT_PUBLIC_API_DEPOT_URL=${NEXT_PUBLIC_API_DEPOT_URL}
+      - API_DEPOT_TOKEN=${API_DEPOT_TOKEN}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED=${NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED}
+      - GHOST_KEY=${GHOST_KEY}
+      - NEXT_PUBLIC_GHOST_URL=${NEXT_PUBLIC_GHOST_URL}
+      - NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE=${NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE}
+      - NEXT_PUBLIC_BAL_ADMIN_API_URL=${NEXT_PUBLIC_BAL_ADMIN_API_URL}
+      - NEXT_PUBLIC_BAL_API_URL=${NEXT_PUBLIC_BAL_API_URL}
+      - NEXT_PUBLIC_BAL_WIDGET_URL=${NEXT_PUBLIC_BAL_WIDGET_URL}
+      - NEXT_PUBLIC_MES_ADRESSES=${NEXT_PUBLIC_MES_ADRESSES}
+      - NEXT_PUBLIC_TOGGLER_DATA_SOURCES=${NEXT_PUBLIC_TOGGLER_DATA_SOURCES}
+      - NEXT_PUBLIC_PATH_STATIC_FILE=${NEXT_PUBLIC_PATH_STATIC_FILE}
+      - S3_CONFIG_ACCESS_KEY_ID=${S3_CONFIG_ACCESS_KEY_ID}
+      - S3_CONFIG_SECRET_ACCESS_KEY=${S3_CONFIG_SECRET_ACCESS_KEY}
+      - S3_CONFIG_REGION=${S3_CONFIG_REGION}
+      - S3_CONFIG_ENDPOINT=${S3_CONFIG_ENDPOINT}
+      - NEXT_LAST_UPDATED_DATE_ADDOCK_URL=${NEXT_LAST_UPDATED_DATE_ADDOCK_URL}
