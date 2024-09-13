@@ -2,9 +2,9 @@ import { useState, useMemo, useEffect } from 'react'
 import { getFilteredStats } from '@/lib/api-ban'
 import { getEpciCommunes, getDepartementCommunes, getCommunes } from '@/lib/api-geo'
 import { BANStats } from '@/types/api-ban.types'
-import { DeploiementBALSearchResult } from '@/app/deploiement-bal/DeploiementBALMap'
 import { Commune } from '@/types/api-geo.types'
 import { DEFAULT_CENTER, DEFAULT_ZOOM } from '@/components/Map/map.config'
+import { DeploiementBALSearchResult } from '@/app/deploiement-bal/DeploiementBALDashboard'
 
 const communesWithArrondissements = { 75056: 'Paris', 69123: 'Lyon', 13055: 'Marseille' }
 

@@ -1,7 +1,8 @@
 import { getDepartements } from '@/lib/api-geo'
 import departementCenterMap from '@/data/departement-center.json'
 import { getStats } from '@/lib/api-ban'
-import DeploiementBALMap from './DeploiementBALMap'
+import DeploiementBALDashboard from './DeploiementBALDashboard'
+import Section from '@/components/Section'
 
 export default async function DeploiementBALPage() {
   const stats = await getStats()
@@ -16,5 +17,9 @@ export default async function DeploiementBALPage() {
     }
   })
 
-  return <DeploiementBALMap departements={departementsWithCenter} initialStats={stats} />
+  return (
+    <Section pageTitle="État du déploiement des Bases Adresses Locales">
+      <DeploiementBALDashboard departements={departementsWithCenter} initialStats={stats} />
+    </Section>
+  )
 }

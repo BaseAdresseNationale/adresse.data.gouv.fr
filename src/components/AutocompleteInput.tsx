@@ -8,7 +8,7 @@ const StyledWrapper = styled.div`
   .name-wrapper {
     display: flex;
     align-items: center;
-    margin-top: 0.5rem;
+    height: 40px;
 
     > button {
       margin-left: 1rem;
@@ -26,7 +26,7 @@ export interface AutocompleteInputProps {
 export default function AutocompleteInput({ value, onChange, label, fetchResults, placeholder }: AutocompleteInputProps) {
   return value
     ? (
-        <StyledWrapper className="fr-input-group">
+        <StyledWrapper>
           {label && (
             <label className="fr-label" htmlFor="autocomplete-search">
               {label}

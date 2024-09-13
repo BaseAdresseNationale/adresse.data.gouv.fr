@@ -1,6 +1,6 @@
-import { prepareContoursCommunes } from './utils/contours-communes'
+import { downloadContoursCommunes } from './utils/contours-communes'
 
 // This function is called once when the application starts
 export async function register() {
-  await prepareContoursCommunes()
+  await downloadContoursCommunes()
 }

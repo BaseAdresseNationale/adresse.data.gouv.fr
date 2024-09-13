@@ -24,10 +24,43 @@ function getPercentage(value: number, totalValue: number) {
   return (roundedPercentage ? String(roundedPercentage).replace('.', ',') : roundedPercentage) || 0
 }
 
-async function fetchStatsData() {
-  const currentRevisions = await customFetch(`${process.env.NEXT_PUBLIC_API_DEPOT_URL}/current-revisions`)
-  const communesSummary = await customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/api/communes-summary`)
-  const bals = await customFetch(`${process.env.NEXT_PUBLIC_BAL_API_URL}/stats/bals?fields=_id&fields=commune&fields=status`, { method: 'POST' })
+type RevisionSummary = {
+  _id: string
+  codeCommune: string
+  client: {
+    _id: string
+    id: string
+    nom: string
+    mandataire: string
+  }
+  publishedAt: string
+}
+
+type CommuneSummary = {
+  codeCommune: string
+  departement: string
+  nbLieuxDits: number
+  nbNumeros: number
+  nbVoies: number
+  nomCommune: string
+  population: number
+  region: string
+  typeComposition: string
+  analyseAdressage: {
+    nbAdressesAttendues: number
+    ratio: number
+    deficitAdresses: boolean
+  }
+  nbNumerosCertifies: number
+  composedAt: string
+  dateRevision: string
+  idRevision: string
+}
+
+export async function fetchStatsData() {
+  const currentRevisions: RevisionSummary[] = await customFetch(`${process.env.NEXT_PUBLIC_API_DEPOT_URL}/current-revisions`)
+  const communesSummary: CommuneSummary[] = await customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/api/communes-summary`)
+  const bals = await customFetch(`${process.env.NEXT_PUBLIC_BAL_API_URL}/stats/bals?fields=id,commune,status`, { method: 'POST' })
 
   return { currentRevisions, communesSummary, bals }
 }
@@ -48,15 +81,14 @@ function computeStatusBals(bals: { status: 'published' | 'replaced' | 'draft' }[
   return 'unknown'
 }
 
-function createFeature(codeCommune: string, currentRevisionsIndex: Record<string, any>, communesSummaryIndex: Record<string, any>, communesBalsIndex: Record<string, any>) {
-  const revisions = currentRevisionsIndex[codeCommune]
-  const summary = communesSummaryIndex[codeCommune]
-  const contourCommune = getContourCommune(codeCommune)
-  const { nom, code } = contourCommune.properties
+export function createFeature(communeWithContour: any, currentRevisionsIndex: Record<string, RevisionSummary>, communesSummaryIndex: Record<string, any>, communesBalsIndex: Record<string, any>) {
+  const { properties: { code, nom }, geometry } = communeWithContour
+  const revisions = currentRevisionsIndex[code]
+  const summary = communesSummaryIndex[code]
   const nbNumeros = spaceThousands(summary.nbNumeros)
   const certificationPercentage = getPercentage(summary.nbNumerosCertifies, summary.nbNumeros)
   const hasBAL = summary.typeComposition === 'bal'
-  const statusBals = computeStatusBals(communesBalsIndex[codeCommune])
+  const statusBals = computeStatusBals(communesBalsIndex[code])
 
   const feature = {
     type: 'Feature',
@@ -68,34 +100,37 @@ function createFeature(codeCommune: string, currentRevisionsIndex: Record<string
       certificationPercentage,
       ...((hasBAL && revisions)
         ? {
-            idClient: revisions.client.id || '',
+            idClient: revisions.client._id || '',
             nomClient: revisions.client.nom || '',
           }
         : {}),
       statusBals,
     },
-    geometry: contourCommune.geometry,
+    geometry,
   }
 
   return feature
 }
 
-function computeStats({ currentRevisions, communesSummary, bals }, codesCommune) {
+export async function computeStats({ currentRevisions, communesSummary, bals }: { currentRevisions: RevisionSummary[], communesSummary: CommuneSummary[], bals: any }, codesCommune: string[]) {
   const currentRevisionsIndex = keyBy(currentRevisions, 'codeCommune')
   const communesSummaryIndex = keyBy(communesSummary, 'codeCommune')
   const communesBalsIndex = groupBy(bals, 'commune')
 
   const communes = codesCommune?.length > 0 ? new Set(codesCommune) : new Set([...currentRevisions.map(c => c.codeCommune), ...communesSummary.map(c => c.codeCommune)])
 
+  let communesWithContours = []
+  for (const codeCommune of communes) {
+    const communeWithContours = await getContourCommune(codeCommune)
+    if (communeWithContours) {
+      communesWithContours.push(communeWithContours)
+    }
+  }
+
   return {
     type: 'FeatureCollection',
-    features: [...communes]
-      .filter(codeCommune => communesSummaryIndex[codeCommune] && getContourCommune(codeCommune))
-      .map(codeCommune => createFeature(codeCommune, currentRevisionsIndex, communesSummaryIndex, communesBalsIndex)),
+    features: communesWithContours
+      .filter(communeWithContour => communesSummaryIndex[communeWithContour.properties.code])
+      .map(communeWithContour => createFeature(communeWithContour, currentRevisionsIndex, communesSummaryIndex, communesBalsIndex)),
   }
-}
-
-module.exports = {
-  computeStats,
-  fetchStatsData,
 }

@@ -40,5 +40,6 @@ next-env.d.ts
 /.storybook/static/dsfr/
 
 public/dsfr
+public/communes-index.json
 
 .vscode/
