@@ -30,6 +30,14 @@ const nextConfig = {
       bodySizeLimit: '3mb',
     },
   },
+  publicRuntimeConfig: {
+    NEXT_PUBLIC_BAL_ADMIN_API_URL: process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL,
+    NEXT_PUBLIC_API_BAN_URL: process.env.NEXT_PUBLIC_API_BAN_URL,
+    NEXT_PUBLIC_API_GEO_URL: process.env.NEXT_PUBLIC_API_GEO_URL,
+    NEXT_PUBLIC_GHOST_URL: process.env.NEXT_PUBLIC_GHOST_URL,
+    NEXT_PUBLIC_GHOST_KEY: process.env.NEXT_PUBLIC_GHOST_KEY,
+    isDevMode: process.env.NODE_ENV !== 'production',
+  },
 }
 
 export default nextConfig
