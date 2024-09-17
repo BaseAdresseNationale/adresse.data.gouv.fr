@@ -43,19 +43,10 @@ const initialStats = {
 }
 
 const StyledWrapper = styled.div`
-  h3 {
-    text-align: left;
-  }
-  .stats {
-    border: 1px solid lightgrey;
-    padding: 1em;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-  }
-  .donut {
-    width: 60%;
-  }
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  
 `
 
 interface TabMesAdressesProps {
@@ -115,27 +106,25 @@ export default function TabMesAdresses({ filteredCodesCommmune }: TabMesAdresses
 
   return (
     <StyledWrapper>
-      <br />
-      <h3>Statut des BAL(s)</h3>
-      <div className="stats">
-        <div className="donut">
-          <Doughnut data={dataStats} options={options} />
-        </div>
+      <div>
+        <h3>Statut des BAL(s)</h3>
+        <Doughnut data={dataStats} options={options} />
       </div>
-      <br />
-      <h3>Liste des Communes</h3>
-      {filteredCodesCommmune.length > 0
-        ? (
-            <div>
-              {Object.keys(balsByCommune).map((codeCommune) => {
-                const balsCommune = balsByCommune[codeCommune] || []
-                return <CommuneBALList key={codeCommune} codeCommune={codeCommune} balsCommune={balsCommune} />
-              })}
-            </div>
-          )
-        : (
-            <p>Aucun Département ou EPCI sélectionné</p>
-          )}
+      <div>
+        <h3>Liste des Communes</h3>
+        {filteredCodesCommmune.length > 0
+          ? (
+              <div>
+                {Object.keys(balsByCommune).map((codeCommune) => {
+                  const balsCommune = balsByCommune[codeCommune] || []
+                  return <CommuneBALList key={codeCommune} codeCommune={codeCommune} balsCommune={balsCommune} />
+                })}
+              </div>
+            )
+          : (
+              <p>Aucun Département ou EPCI sélectionné</p>
+            )}
+      </div>
     </StyledWrapper>
   )
 }

@@ -59,7 +59,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Département
               </label>
               <div>
-                {commune.departement.nom}
+                <a href={`/deploiement-bal?departement=${commune.departement.code}`}>{commune.departement.nom}</a>
               </div>
             </div>
             <div className="commune-general-info">
@@ -67,7 +67,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Intercommunalité
               </label>
               <div>
-                {EPCI?.nom || '-'}
+                {EPCI ? <a href={`/deploiement-bal?epci=${EPCI.code}`}>{EPCI.nom}</a> : '-'}
               </div>
             </div>
           </CardWrapper>

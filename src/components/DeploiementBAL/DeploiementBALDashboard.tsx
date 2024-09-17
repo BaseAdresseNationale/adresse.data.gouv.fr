@@ -12,33 +12,20 @@ import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
-
-export type DeploiementBALSearchResultEPCI = {
-  type: 'EPCI'
-  code: string
-  nom: string
-  center: { type: string, coordinates: number[] }
-  contour: { type: string, coordinates: number[][][] }
-}
-
-export type DeploiementBALSearchResultDepartement = {
-  type: 'Département'
-  code: string
-  nom: string
-  center: { type: string, coordinates: number[] }
-}
-
-export type DeploiementBALSearchResult = DeploiementBALSearchResultEPCI | DeploiementBALSearchResultDepartement
-
-const mapToSearchResult = (values: any[], type: 'EPCI' | 'Département'): DeploiementBALSearchResult[] => values.map(({ code, nom, centre, contour }) => ({ code, type, nom, center: centre, contour }))
+import { DeploiementBALSearchResult, mapToSearchResult } from '@/app/deploiement-bal/page'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
-  departements: (Departement & { centre: { type: string, coordinates: number[] } })[]
+  initialFilter: DeploiementBALSearchResult | null
+  departements: (Departement & { centre: { type: string, coordinates: [number, number] } })[]
 }
 
-export default function DeploiementBALMap({ initialStats, departements }: DeploiementBALMapProps) {
-  const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats })
+export default function DeploiementBALMap({ initialStats, initialFilter, departements }: DeploiementBALMapProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
   const [selectedTab, setSelectedTab] = useState<'source' | 'bal'>('source')
 
   const handleSearch = useCallback(async (input: string) => {
@@ -48,6 +35,25 @@ export default function DeploiementBALMap({ initialStats, departements }: Deploi
     return [...mapToSearchResult(filteredEpcis, 'EPCI'), ...mapToSearchResult(filteredDepartements, 'Département')]
   }, [departements])
 
+  const handleFilter = useCallback((filter: DeploiementBALSearchResult | null) => {
+    // Update URL
+    const current = new URLSearchParams(Array.from(searchParams.entries()))
+    current.delete('epci')
+    current.delete('departement')
+    if (filter) {
+      if (filter.type === 'EPCI') {
+        current.set('epci', filter.code)
+      }
+      else if (filter.type === 'Département') {
+        current.set('departement', filter.code)
+      }
+    }
+    const search = current.toString()
+    const query = search ? `?${search}` : ''
+    router.push(`${pathname}${query}`)
+    setFilter(filter)
+  }, [setFilter, pathname, searchParams, router])
+
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
@@ -55,7 +61,7 @@ export default function DeploiementBALMap({ initialStats, departements }: Deploi
           <AutocompleteInput
             value={filter}
             fetchResults={handleSearch}
-            onChange={newValue => setFilter(newValue as DeploiementBALSearchResult)}
+            onChange={(value) => handleFilter(value as DeploiementBALSearchResult | null)}
             placeholder="CC du Val d'Amboise ou Indre-et-Loire"
           />
           <Tabs
@@ -79,12 +85,11 @@ export default function DeploiementBALMap({ initialStats, departements }: Deploi
             }}
             mapStyle="/map-styles/osm-bright.json"
           >
-            <Source id="data" type="geojson" data={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-map`}>
+            <Source promoteId="code" id="data" type="geojson" data={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-map`}>
               <Layer
                 id="bal-polygon-fill"
                 type="fill"
                 source="data"
-                source-layer="communes"
                 paint={{
                   'fill-color': getStyle(selectedTab, filteredCodesCommmune),
                   'fill-opacity': [
@@ -102,7 +107,6 @@ export default function DeploiementBALMap({ initialStats, departements }: Deploi
               zoom={geometry.zoom}
               filteredCodesCommmune={filteredCodesCommmune}
               selectedPaintLayer={selectedTab}
-              setSelectedPaintLayer={setSelectedTab}
             />
           </Map>
         </div>

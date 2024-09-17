@@ -21,8 +21,14 @@ export function getCommune(code: string): Promise<Commune> {
   return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/communes/${code}`)
 }
 
-export function getEPCI(code: string) {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/epcis/${code}`)
+export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
+  const url = new URL(`${process.env.NEXT_PUBLIC_API_GEO_URL}/epcis/${code}`)
+
+  if (fields) {
+    url.searchParams.append('fields', fields.toString())
+  }
+
+  return customFetch(url)
 }
 
 export function getCommunes(args: any): Promise<Commune[]> {

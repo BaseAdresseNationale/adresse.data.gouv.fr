@@ -25,10 +25,10 @@ const theme = {
 export type ColorTheme = keyof typeof theme.colors
 
 export const toolsColors = {
-  mesAdresses: '#0072B2',
+  mesAdresses: '#469c76',
   moissonneur: '#E69F00',
   api: '#F0E442',
-  formulaire: '0072B2',
+  formulaire: '#0072B2',
 }
 
 export default theme

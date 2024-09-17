@@ -10,20 +10,19 @@ export const StyledDeploiementBALDashboard = styled.div`
 
     .map-stats-container {
         display: flex;
-        justify-content: space-around;
-        height: calc(100vh - 270px);
+        flex-direction: column;
         text-align: center;
     }
 
     .stats-wrapper {
         display: flex;
         flex-direction: column;
-        width: 30%;
         padding: 1em;
         overflow: scroll;
 
         .fr-tabs {
             margin-top: 1em;
+            height: 340px;
 
             .fr-tabs__panel {
                 overflow: scroll;
@@ -42,26 +41,11 @@ export const StyledDeploiementBALDashboard = styled.div`
     }
 
     .bal-cover-map-container {
-        height: 100%;
-        min-height: 400px;
-        width: 70%;
+        height: 500px;
+        width: 100%;
     }
 
     .bal-cover-map-container children {
         width: 100%;
-    }
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
-        .map-stats-container {
-            flex-direction: column;
-        }
-        .bal-cover-map-container {
-            width: 100%;
-            height: 100%;
-        }
-        .stats-wrapper {
-            width: 100%;
-            height: 100%;
-        }
     }
 `

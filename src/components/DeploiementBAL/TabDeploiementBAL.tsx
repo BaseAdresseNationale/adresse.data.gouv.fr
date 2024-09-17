@@ -1,5 +1,6 @@
 'use client'
 
+import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 import DoughnutCounter from '@/components/ChartJS/DoughnutCounter'
 import { customFetch } from '@/lib/fetch'
 import { BANStats } from '@/types/api-ban.types'
@@ -7,7 +8,6 @@ import { numFormater } from '@/utils/number'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useState } from 'react'
 import styled from 'styled-components'
-import { DeploiementBALSearchResult } from './DeploiementBALDashboard'
 
 const StyledWrapper = styled.div`
 .stats {

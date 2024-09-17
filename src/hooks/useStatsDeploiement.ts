@@ -4,7 +4,7 @@ import { getEpciCommunes, getDepartementCommunes, getCommunes } from '@/lib/api-
 import { BANStats } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { DEFAULT_CENTER, DEFAULT_ZOOM } from '@/components/Map/map.config'
-import { DeploiementBALSearchResult } from '@/app/deploiement-bal/DeploiementBALDashboard'
+import { DeploiementBALSearchResult } from '@/components/DeploiementBAL/DeploiementBALDashboard'
 
 const communesWithArrondissements = { 75056: 'Paris', 69123: 'Lyon', 13055: 'Marseille' }
 
@@ -60,12 +60,13 @@ function estimateZoomFromContour(contour: { coordinates: number[][][] }, maxZoom
 
 interface StatsDeploiement {
   initialStats: BANStats
+  initialFilter: DeploiementBALSearchResult | null
 }
 
-export function useStatsDeploiement({ initialStats }: StatsDeploiement) {
+export function useStatsDeploiement({ initialStats, initialFilter }: StatsDeploiement) {
   const [isLoading, setIsLoading] = useState(false)
   const [stats, setStats] = useState(initialStats)
-  const [filter, setFilter] = useState<DeploiementBALSearchResult | null>(null)
+  const [filter, setFilter] = useState<DeploiementBALSearchResult | null>(initialFilter)
   const [filteredCodesCommmune, setFilteredCodesCommune] = useState<string[]>([])
   const [geometry, setGeometry] = useState({
     center: DEFAULT_CENTER,
