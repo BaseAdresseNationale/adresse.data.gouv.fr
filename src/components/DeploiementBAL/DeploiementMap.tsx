@@ -241,7 +241,7 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
       map.off('mouseleave', 'bal-polygon-fill', onMouseLeave)
       map.off('click', 'bal-polygon-fill', onClick)
     }
-  }, [center, zoom, map, filteredCodesCommmune, highlighted, router])
+  }, [center, zoom, map, filteredCodesCommmune, router])
 
   return (
     <StyledWrapper>

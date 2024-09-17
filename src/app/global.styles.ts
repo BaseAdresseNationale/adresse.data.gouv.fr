@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
-
 const GlobalStyle = createGlobalStyle`
 * {
   box-sizing: border-box;

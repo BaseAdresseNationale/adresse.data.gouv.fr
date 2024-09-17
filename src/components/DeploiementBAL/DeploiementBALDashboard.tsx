@@ -50,31 +50,20 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     }
     const search = current.toString()
     const query = search ? `?${search}` : ''
-    router.push(`${pathname}${query}`)
+    router.replace(`${pathname}${query}`,)
     setFilter(filter)
   }, [setFilter, pathname, searchParams, router])
 
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
-        <div className="stats-wrapper">
+        <div className="input-wrapper">
           <AutocompleteInput
             value={filter}
             fetchResults={handleSearch}
-            onChange={(value) => handleFilter(value as DeploiementBALSearchResult | null)}
+            onChange={value => handleFilter(value as DeploiementBALSearchResult | null)}
             placeholder="CC du Val d'Amboise ou Indre-et-Loire"
           />
-          <Tabs
-            selectedTabId={selectedTab}
-            tabs={[
-              { tabId: 'source', label: 'Déploiement BAL' },
-              { tabId: 'bal', label: 'Suivi Mes-Adresses' },
-            ]}
-            onTabChange={setSelectedTab as (tabId: string) => void}
-          >
-            {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
-            {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
-          </Tabs>
         </div>
         <div className="bal-cover-map-container">
           <Map
@@ -109,6 +98,20 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
               selectedPaintLayer={selectedTab}
             />
           </Map>
+        </div>
+        <div className="stats-wrapper">
+
+          <Tabs
+            selectedTabId={selectedTab}
+            tabs={[
+              { tabId: 'source', label: 'Déploiement BAL' },
+              { tabId: 'bal', label: 'Suivi Mes-Adresses' },
+            ]}
+            onTabChange={setSelectedTab as (tabId: string) => void}
+          >
+            {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
+            {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
+          </Tabs>
         </div>
       </div>
     </StyledDeploiementBALDashboard>

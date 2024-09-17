@@ -14,10 +14,14 @@ export const StyledDeploiementBALDashboard = styled.div`
         text-align: center;
     }
 
+    .input-wrapper {
+        max-width: 400px;
+        margin-bottom: 1rem;
+    }
+
     .stats-wrapper {
         display: flex;
         flex-direction: column;
-        padding: 1em;
         overflow: scroll;
 
         .fr-tabs {
