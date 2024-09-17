@@ -1,5 +1,5 @@
 ---
-title: Nous contacter
+title: Mentions Legales
 ---
 
 ### Mentions légales
