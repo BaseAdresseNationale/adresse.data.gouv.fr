@@ -33,20 +33,20 @@ const URL_GET_STATS_DAILY_LOOKUP = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID}&
 const URL_GET_STAT_VISIT = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1&token_auth=${MATOMO_TOKEN_AUTH}`
 
 const APIs = {
-  'monthly-usage': {getter: getMonthlyUsageData([URL_GET_STATS_MONTHLY_DOWNLOAD, URL_GET_STATS_MONTHLY_LOOKUP])},
-  'daily-lookup': {url: URL_GET_STATS_DAILY_LOOKUP, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup)},
-  'daily-download': {url: URL_GET_STATS_DAILY_DOWNLOAD, converter: matomoDailyDownloadToData(defDataDailyDownload)},
-  visit: {url: URL_GET_STAT_VISIT, converter: matomoToVisitData(defDataBanVisit)},
-  quality: {getter: getQualityData},
+  'monthly-usage': { getter: getMonthlyUsageData([URL_GET_STATS_MONTHLY_DOWNLOAD, URL_GET_STATS_MONTHLY_LOOKUP]) },
+  'daily-lookup': { url: URL_GET_STATS_DAILY_LOOKUP, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup) },
+  'daily-download': { url: URL_GET_STATS_DAILY_DOWNLOAD, converter: matomoDailyDownloadToData(defDataDailyDownload) },
+  'visit': { url: URL_GET_STAT_VISIT, converter: matomoToVisitData(defDataBanVisit) },
+  'quality': { getter: getQualityData },
 }
 
 export default async function handler(req, res) {
-  const {'key-stat': keyStat} = req.query
+  const { 'key-stat': keyStat } = req.query
 
   try {
-    const {url, getter, data: dataRaw, converter = d => d} = APIs?.[keyStat] || {}
+    const { url, getter, data: dataRaw, converter = d => d } = APIs?.[keyStat] || {}
     if (!url && !dataRaw && !getter) {
-      throw new Error('API not found', {status: 404, cause: {details: 'API not found', status: 404}})
+      throw new Error('API not found', { status: 404, cause: { details: 'API not found', status: 404 } })
     }
 
     if (getter) {
@@ -60,16 +60,17 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(url)
-    const {status} = response
+    const { status } = response
     const validStatus = [200, 304]
     if (!validStatus.includes(status)) {
-      throw new Error('API not found', {cause: {details: 'Error while fetching API', status}})
+      throw new Error('API not found', { cause: { details: 'Error while fetching API', status } })
     }
 
     const data = await converter(await response.json())
     res.status(status).json(data)
-  } catch (error) {
-    const {message, cause} = error
+  }
+  catch (error) {
+    const { message, cause } = error
     console.error('Error on Front-end Stat API :', message, cause, error)
     res.status(cause?.status || 500).send(message || 'Internal server error')
   }

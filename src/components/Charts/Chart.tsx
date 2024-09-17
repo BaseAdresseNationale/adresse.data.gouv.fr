@@ -14,18 +14,18 @@ import {
   ResponsiveContainer,
   Tooltip,
   Legend,
-  DefaultLegendContent
+  DefaultLegendContent,
 } from 'recharts'
 
-import {defaultTheme} from './ColorTheme'
+import { defaultTheme } from './ColorTheme'
 import AxisTickByDate from './AxisTicksByDate'
 import ChartsCustomTooltip from './ChartsCustomTooltips'
 import ChartsCustomAxisLabel from './ChartsCustomAxisLabel'
 import { Formatter } from 'recharts/types/component/DefaultLegendContent'
 
-const renderColorfulLegendText = (value: any, entry: { color: string}) => {
-  const {color} = entry
-  return <span style={{color}}>{value}</span>
+const renderColorfulLegendText = (value: any, entry: { color: string }) => {
+  const { color } = entry
+  return <span style={{ color }}>{ value }</span>
 }
 const yAxisTickFormatter = (value: any): string => {
   if (Number.isNaN(value)) {
@@ -82,13 +82,13 @@ const defaultArea = {
 }
 
 interface CartesianChartProps {
-  type?: 'area' | 'bar' | 'line' | 'scatter',
+  type?: 'area' | 'bar' | 'line' | 'scatter'
   data?: any[]
-  axisDef?: Record<string, any>,
+  axisDef?: Record<string, any>
   totalKeyName?: string
 }
 
-export default function CartesianChart({type, data, axisDef, totalKeyName: totalKeyNameProps}: CartesianChartProps) {
+export default function CartesianChart({ type, data, axisDef, totalKeyName: totalKeyNameProps }: CartesianChartProps) {
   const dataList = Object.entries(axisDef).map(([dataKey, areaItem], index) => ({
     ...defaultArea,
     dataKey,
@@ -96,19 +96,19 @@ export default function CartesianChart({type, data, axisDef, totalKeyName: total
     fill: dataKey?.fill || defaultTheme[index]?.[1],
     ...(areaItem || {}),
   }))
-  const totalKeyName = totalKeyNameProps || Object.values(axisDef).find(({ordinate}) => ordinate)?.dataKey
-  const yAxisMaxKeyName = dataList.find(({ordinate}) => Boolean(ordinate))?.dataKey
-  const yAxisMaxValue = yAxisMaxKeyName ?
-    (data || []).reduce( // eslint-disable-line unicorn/no-array-reduce
-      (acc, item) => {
-        return Math.max(acc, item?.[yAxisMaxKeyName] ? Number(item[yAxisMaxKeyName]) : 0)
-      }, 0) :
-    'auto'
+  const totalKeyName = totalKeyNameProps || Object.values(axisDef).find(({ ordinate }) => ordinate)?.dataKey
+  const yAxisMaxKeyName = dataList.find(({ ordinate }) => Boolean(ordinate))?.dataKey
+  const yAxisMaxValue = yAxisMaxKeyName
+    ? (data || []).reduce(
+        (acc, item) => {
+          return Math.max(acc, item?.[yAxisMaxKeyName] ? Number(item[yAxisMaxKeyName]) : 0)
+        }, 0)
+    : 'auto'
 
-  const {chart: Chart, axis: Axis} = typeComponents[type]
+  const { chart: Chart, axis: Axis } = typeComponents[type]
 
   return (
-    <ResponsiveContainer width='100%' height='100%'>
+    <ResponsiveContainer width="100%" height="100%">
       <Chart
         data={data}
         outerRadius={90}
@@ -116,16 +116,16 @@ export default function CartesianChart({type, data, axisDef, totalKeyName: total
           top: 0,
           right: 0,
           left: 0,
-          bottom: 50
+          bottom: 50,
         }}
       >
-        <CartesianGrid strokeDasharray='3 3' />
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis
-          dataKey='period'
+          dataKey="period"
           angle={-45}
           padding={{
             left: 0,
-            right: 0
+            right: 0,
           }}
           tick={<AxisTickByDate />}
         />
@@ -143,21 +143,21 @@ export default function CartesianChart({type, data, axisDef, totalKeyName: total
               key={areaItem.dataKey}
               {...(areaItem || {})}
             >
-              {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position='top' content={<ChartsCustomAxisLabel />} />}
+              {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position="top" content={<ChartsCustomAxisLabel />} />}
             </Axis>
           ))}
         </>
 
         <Legend
-          layout='horizontal'
-          verticalAlign='bottom'
-          align='left'
+          layout="horizontal"
+          verticalAlign="bottom"
+          align="left"
           wrapperStyle={{
             position: 'absolute',
             paddingBottom: '20px',
             paddingTop: '50px',
           }}
-          iconType='circle'
+          iconType="circle"
           formatter={renderColorfulLegendText}
         />
       </Chart>

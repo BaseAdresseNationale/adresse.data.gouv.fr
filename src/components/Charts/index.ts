@@ -1,2 +1,2 @@
-export {default as CartesianChart} from './Chart'
-export {defaultTheme, colorthemes} from './ColorTheme'
+export { default as CartesianChart } from './Chart'
+export { defaultTheme, colorthemes } from './ColorTheme'
