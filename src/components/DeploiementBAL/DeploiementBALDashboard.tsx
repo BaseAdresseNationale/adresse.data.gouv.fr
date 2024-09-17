@@ -50,7 +50,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     }
     const search = current.toString()
     const query = search ? `?${search}` : ''
-    router.replace(`${pathname}${query}`,)
+    router.replace(`${pathname}${query}`)
     setFilter(filter)
   }, [setFilter, pathname, searchParams, router])
 
