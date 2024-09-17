@@ -1,5 +1,5 @@
 import theme from '@/theme/theme'
-import KeyNumberItem, {KeyNumberItemProps} from './KeyNumberItem'
+import KeyNumberItem, { KeyNumberItemProps } from './KeyNumberItem'
 
 interface KeyNumbersBlockProps {
   data?: Array<KeyNumberItemProps & {
@@ -10,12 +10,12 @@ interface KeyNumbersBlockProps {
   hasSeparator?: boolean
 }
 
-function KeyNumbersBlock({data, className, hasSeparator}: KeyNumbersBlockProps) {
+function KeyNumbersBlock({ data, className, hasSeparator }: KeyNumbersBlockProps) {
   return (
     <>
       <div className={`key-numbers ${hasSeparator ? 'has-separator' : ''} ${className}`}>
-        {data!=undefined && data.map(
-          ({large, hasSeparator, className = '', ...keyNumberProps}) => (
+        {data != undefined && data.map(
+          ({ large, hasSeparator, className = '', ...keyNumberProps }) => (
             <KeyNumberItem
               key={keyNumberProps.label}
               className={`${className} ${large ? 'large' : ''} ${hasSeparator ? 'has-separator' : ''}`.trim()}

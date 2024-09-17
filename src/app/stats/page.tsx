@@ -1,15 +1,15 @@
-"use client"
-import {useMemo, useEffect} from 'react'
+'use client'
+import { useMemo, useEffect } from 'react'
 import useSWR from 'swr'
 import Link from 'next/link'
-import {fr} from '@codegouvfr/react-dsfr'
+import { fr } from '@codegouvfr/react-dsfr'
 
 import { TextWrapper } from './page.styled'
 import Breadcrumb from '@/layouts/Breadcrumb'
 
 import Section from '@/components/Section'
 import KeyNumbersBlock from '@/components/KeyNumberBlock'
-import {CartesianChart as Chart} from '@/components/Charts'
+import { CartesianChart as Chart } from '@/components/Charts'
 import {
   getDataDef,
   getBanStatsData,
@@ -27,11 +27,11 @@ const URL_GET_STATS_LOOKUP_MONTH = './stats/daily-lookup'
 const URL_GET_STATS_VISIT = './stats/visit'
 
 function StatsPage() {
-  const {data: dataDailyDownload, error: errorDataDailyDownload} = useSWR(URL_GET_STATS_DOWNLOAD_DAY, fetcher)
-  const {data: dataMonthlyUsage, error: errorDataMonthlyUsage} = useSWR(URL_GET_STATS_DOWNLOAD_MONTH, fetcher)
-  const {data: dataMonthlyLookup, error: errorDataMonthlyLookup} = useSWR(URL_GET_STATS_LOOKUP_MONTH, fetcher)
-  const {data: dataBanVisit, error: errorDataBanVisit} = useSWR(URL_GET_STATS_VISIT, fetcher)
-  const {data: dataStateBan, error: errorBanStats} = useSWR('BAN__GET_STATE__API', getBanStatsData)
+  const { data: dataDailyDownload, error: errorDataDailyDownload } = useSWR(URL_GET_STATS_DOWNLOAD_DAY, fetcher)
+  const { data: dataMonthlyUsage, error: errorDataMonthlyUsage } = useSWR(URL_GET_STATS_DOWNLOAD_MONTH, fetcher)
+  const { data: dataMonthlyLookup, error: errorDataMonthlyLookup } = useSWR(URL_GET_STATS_LOOKUP_MONTH, fetcher)
+  const { data: dataBanVisit, error: errorDataBanVisit } = useSWR(URL_GET_STATS_VISIT, fetcher)
+  const { data: dataStateBan, error: errorBanStats } = useSWR('BAN__GET_STATE__API', getBanStatsData)
 
   const axisDefDailyDownload = useMemo(() => getDataDef(defDataDailyDownload, 'rubi'), [])
   const axisDefDataMonthlyLookup = useMemo(() => getDataDef(defDataMonthlyLookup), [])
@@ -55,7 +55,7 @@ function StatsPage() {
 
   return (
     <>
-    <Breadcrumb
+      <Breadcrumb
         currentPageLabel="Statistiques"
         segments={[]}
       />
@@ -75,24 +75,25 @@ function StatsPage() {
             De plus, elles ne prennent pas en compte les utilisations de la BAN par les exploitants ou organismes partenaires.
           </p>
 
-          <p className='section-footer-notes'>
+          <p className="section-footer-notes">
             <i>Ces données étant en cours de construction, elles peuvent, dans certains cas, être incomplètes. <br />
-              Nous vous remercions de votre compréhension.</i>
+              Nous vous remercions de votre compréhension.
+            </i>
           </p>
         </Section>
 
-        <Section 
+        <Section
           title="Les usages de la BAN en chiffres"
           id="Ban en chiffres"
           theme="secondary"
-          className='key-number-section'
+          className="key-number-section"
         >
           <h2>Les usages de la BAN en chiffre</h2>
           <p><b>{dataMonthlyUsage?.period && `● Periode : ${dataMonthlyUsage.period}`}</b></p>
           <KeyNumbersBlock data={dataMonthlyUsage?.value} />
 
-          <ul className='section-footer-notes'>
-            {dataMonthlyUsage?.value?.map(({note, label}) => (
+          <ul className="section-footer-notes">
+            {dataMonthlyUsage?.value?.map(({ note, label }) => (
               <li key={label}>{note}</li>
             ))}
           </ul>
@@ -101,18 +102,19 @@ function StatsPage() {
         <Section>
           <h2>Exploitation directe de la BAN : <br />Nombre de recherches de composants d’adresses</h2>
           <p>Consommation quotidienne des données de la BAN depuis l’API d’exploration (<i>API Lookup</i>).</p>
-          <p className='note-info'>
-            <i className={fr.cx("fr-icon-info-fill")} /> Données collectées à partir de Novembre 2023
+          <p className="note-info">
+            <i className={fr.cx('fr-icon-info-fill')} /> Données collectées à partir de Novembre 2023
           </p>
 
-          <div className='chart-wrapper'>
+          <div className="chart-wrapper">
             <Chart
-              type='line'
+              type="line"
               data={dataMonthlyLookup}
-              axisDef={axisDefDataMonthlyLookup} />
+              axisDef={axisDefDataMonthlyLookup}
+            />
           </div>
 
-          <ul className='section-footer-notes'>
+          <ul className="section-footer-notes">
             <li>
               Recherches quotidiennes sur les 30 derniers jours.
             </li>
@@ -122,19 +124,22 @@ function StatsPage() {
         <Section>
           <h2>Exploitation indirecte de la BAN : <br />Nombre de téléchargements des données de la BAN</h2>
           <p>Téléchargement quotidien des données brutes issues des serveurs BAN par des exploitants extérieurs, en vue d’une utilisation directe depuis leurs systèmes.</p>
-          <p className='note-info'>
-            <i className={fr.cx("fr-icon-info-fill")} /> Données collectées à partir de Novembre 2023
+          <p className="note-info">
+            <i className={fr.cx('fr-icon-info-fill')} /> Données collectées à partir de Novembre 2023
           </p>
 
-          <div className='chart-wrapper'>
+          <div className="chart-wrapper">
             <Chart
-              type='bar'
+              type="bar"
               data={dataDailyDownload}
-              axisDef={axisDefDailyDownload} />
+              axisDef={axisDefDailyDownload}
+            />
           </div>
 
-          <ul className='section-footer-notes'>
-            <li>Téléchargements quotidiens sur les 30 derniers jours.</li>
+          <ul className="section-footer-notes">
+            <li>
+              Téléchargements quotidiens sur les 30 derniers jours.
+            </li>
           </ul>
         </Section>
 
@@ -142,7 +147,7 @@ function StatsPage() {
           title="État de la Base Adresse Nationale (BAN)"
           id="Etat de la BAN"
           theme="secondary"
-          className='key-number-section'
+          className="key-number-section"
         >
           <h2>État de la Base Adresse Nationale (BAN)</h2>
           <p>
@@ -156,7 +161,7 @@ function StatsPage() {
           )}
 
           <div>
-            <Link href='/deploiement-bal'>Plus d&apos;informations sur l&apos;état du déploiement des Bases Adresses Locales</Link>
+            <Link href="/deploiement-bal">Plus d&apos;informations sur l&apos;état du déploiement des Bases Adresses Locales</Link>
           </div>
         </Section>
 
@@ -164,14 +169,15 @@ function StatsPage() {
           <h2>Attrait du sujet “Adresse”</h2>
           <p>Quantité de visites sur le site web de l’adresse.</p>
 
-          <div className='chart-wrapper'>
+          <div className="chart-wrapper">
             <Chart
-              type='line'
+              type="line"
               data={dataBanVisit}
-              axisDef={axisDefDataBanVisit} />
+              axisDef={axisDefDataBanVisit}
+            />
           </div>
 
-          <ul className='section-footer-notes'>
+          <ul className="section-footer-notes">
             <li>Valeurs totales mensuelles des 12 derniers mois.</li>
           </ul>
         </Section>
@@ -187,7 +193,7 @@ function StatsPage() {
           </p>
           <p>
             Pour plus d’informations, vous pouvez consulter
-            nos <Link href='/cgu'>Conditions Générales d’Utilisation</Link>.
+            nos <Link href="/cgu">Conditions Générales d’Utilisation</Link>.
           </p>
         </Section>
       </TextWrapper>

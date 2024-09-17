@@ -6,13 +6,13 @@ export interface KeyNumberItemProps {
   className?: string
 }
 
-function KeyNumberItem({value = '', unit, label = '', description, className}: KeyNumberItemProps) {
+function KeyNumberItem({ value = '', unit, label = '', description, className }: KeyNumberItemProps) {
   return (
     <>
       <div className={`key-number-item ${className || ''}`}>
-        <span className='key-number' data-unit={unit}>{value}</span>
-        <span className='number-label'>{label}</span>
-        {description && <span className='number-description'>{description}</span>}
+        <span className="key-number" data-unit={unit}>{value}</span>
+        <span className="number-label">{label}</span>
+        {description && <span className="number-description">{description}</span>}
       </div>
 
       <style jsx>{`
