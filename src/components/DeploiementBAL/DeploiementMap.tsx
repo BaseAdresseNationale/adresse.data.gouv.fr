@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { MapMouseEvent, Popup, useMap } from 'react-map-gl/maplibre'
 import { toolsColors } from '@/theme/theme'
@@ -172,9 +172,56 @@ interface DeploiementMapProps {
 
 export default function DeploiementMap({ center, zoom, filteredCodesCommmune, selectedPaintLayer }: DeploiementMapProps) {
   const { current: map } = useMap()
-  const router = useRouter()
-  const [highlighted, setHighlighted] = useState('')
+  const hoveredRef = React.useRef<string | null>(null)
+  const selectedRef = React.useRef<string | null>(null)
   const [popup, setPopup] = useState<{ latitude: number, longitude: number, properties: any } | null>(null)
+
+  useEffect(() => {
+    if (!map) {
+      return
+    }
+
+    map.setCenter(center)
+    map.setZoom(zoom)
+  }, [map, center, zoom])
+
+  const closePopup = useCallback(() => {
+    setPopup(null)
+    if (selectedRef.current) {
+      map?.setFeatureState({ source: 'data', id: selectedRef.current }, { hover: false })
+      selectedRef.current = null
+    }
+    if (hoveredRef.current) {
+      map?.setFeatureState({ source: 'data', id: hoveredRef.current }, { hover: false })
+      hoveredRef.current = null
+    }
+  }, [map])
+
+  useEffect(() => {
+    if (!map) {
+      return
+    }
+
+    const onClick = (event: MapMouseEvent) => {
+      const [feature] = (event as any).features
+      if (filteredCodesCommmune.length === 0 || filteredCodesCommmune.includes(feature.properties.code)) {
+        closePopup()
+        setPopup({
+          latitude: event.lngLat.lat,
+          longitude: event.lngLat.lng,
+          properties: feature.properties,
+        })
+        selectedRef.current = feature.id
+        map.setFeatureState({ source: 'data', id: feature.id }, { hover: true })
+      }
+    }
+
+    map.on('click', 'bal-polygon-fill', onClick)
+
+    return () => {
+      map.off('click', 'bal-polygon-fill', onClick)
+    }
+  }, [map, filteredCodesCommmune, closePopup])
 
   useEffect(() => {
     if (!map) {
@@ -186,62 +233,34 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
         return
       }
 
-      const canvas = map.getCanvas()
-      canvas.style.cursor = 'pointer'
-
       const [feature] = (event as any).features
 
-      if (highlighted) {
-        map.setFeatureState({ source: 'data', id: highlighted }, { hover: false })
+      if (hoveredRef.current && hoveredRef.current !== selectedRef.current) {
+        map.setFeatureState({ source: 'data', id: hoveredRef.current }, { hover: false })
       }
 
-      setHighlighted(feature.id)
-      map.setFeatureState({ source: 'data', id: highlighted }, { hover: true })
-
-      if (filteredCodesCommmune.length === 0 || filteredCodesCommmune.includes(feature.properties.code)) {
-        setPopup({
-          latitude: event.lngLat.lat,
-          longitude: event.lngLat.lng,
-          properties: feature.properties,
-        })
-      }
-      else {
-        setPopup(null)
-      }
-    }
-
-    const onClick = (event: MapMouseEvent) => {
-      const [feature] = (event as any).features
-      router.push(`/commune/${feature.id}`)
+      hoveredRef.current = feature.id
+      map.setFeatureState({ source: 'data', id: feature.id }, { hover: true })
     }
 
     const onMouseLeave = () => {
       if (!map) {
         return
       }
-      const canvas = map.getCanvas()
-      canvas.style.cursor = ''
 
-      if (highlighted) {
-        map.setFeatureState({ source: 'data', id: highlighted }, { hover: false })
+      if (hoveredRef.current) {
+        map.setFeatureState({ source: 'data', id: hoveredRef.current }, { hover: false })
       }
-
-      setPopup(null)
     }
-
-    map.setCenter(center)
-    map.setZoom(zoom)
 
     map.on('mousemove', 'bal-polygon-fill', onMouseMove)
     map.on('mouseleave', 'bal-polygon-fill', onMouseLeave)
-    map.on('click', 'bal-polygon-fill', onClick)
 
     return () => {
       map.off('mousemove', 'bal-polygon-fill', onMouseMove)
       map.off('mouseleave', 'bal-polygon-fill', onMouseLeave)
-      map.off('click', 'bal-polygon-fill', onClick)
     }
-  }, [center, zoom, map, filteredCodesCommmune, router])
+  }, [map])
 
   return (
     <StyledWrapper>
@@ -263,14 +282,13 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
         }
       </div>
       {popup && (
-        <Popup latitude={popup.latitude} longitude={popup.longitude} closeButton={false}>
+        <Popup latitude={popup.latitude} longitude={popup.longitude} onClose={closePopup}>
           <div>
-            <p>
-              <b>{popup.properties.nom} ({popup.properties.code})</b>
-            </p>
+            <b>{popup.properties.nom} ({popup.properties.code})</b>
             <div>Nombre d’adresses : {popup.properties.nbNumeros}</div>
             <div>{`${popup.properties.certificationPercentage ? `Taux de certification : ${popup.properties.certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
             {popup.properties.hasBAL ? <div>Déposé via : {popup.properties.nomClient}</div> : <div>Ne dispose pas d&apos;une BAL</div>}
+            <a href={`/commune/${popup.properties.code}`}>Voir la page commune</a>
           </div>
         </Popup>
       )}
