@@ -7,7 +7,9 @@ if (!process.env.NEXT_PUBLIC_BAL_API_URL) {
 
 export async function getStatsBals(fields: string[], codeCommunes: string[]): Promise<Partial<BaseAdresseLocale>[]> {
   const url = new URL(`${process.env.NEXT_PUBLIC_BAL_API_URL}/stats/bals`)
-  url.searchParams.append('fields', fields.join(','))
+  for (const field of fields) {
+    url.searchParams.append('fields', field)
+  }
   return customFetch(url, {
     method: 'POST',
     body: JSON.stringify({
