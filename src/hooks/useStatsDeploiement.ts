@@ -4,7 +4,7 @@ import { getEpciCommunes, getDepartementCommunes, getCommunes } from '@/lib/api-
 import { BANStats } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { DEFAULT_CENTER, DEFAULT_ZOOM } from '@/components/Map/map.config'
-import { DeploiementBALSearchResult } from '@/components/DeploiementBAL/DeploiementBALDashboard'
+import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 
 const communesWithArrondissements = { 75056: 'Paris', 69123: 'Lyon', 13055: 'Marseille' }
 
