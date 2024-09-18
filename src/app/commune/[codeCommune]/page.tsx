@@ -5,11 +5,11 @@ import { StyledCommunePage } from './page.styles'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import CardWrapper from '@/components/CardWrapper'
 import { Table } from '@codegouvfr/react-dsfr/Table'
-import { CommuneNavigation } from './CommuneNavigation'
+import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 import Image from 'next/image'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { getCommuneFlag } from '@/lib/api-wikidata'
-import { CommuneDownloadSection } from './CommuneDownloadSection'
+import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 import { formatFr } from '@/lib/array'
 
 interface CommunePageProps {
