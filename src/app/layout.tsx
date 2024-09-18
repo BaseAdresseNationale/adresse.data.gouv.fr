@@ -14,6 +14,9 @@ import styled, { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
 import theme from '@/theme/theme'
 import GlobalStyle from './global.styles'
+import { useEffect } from 'react'
+import { init as matomoInit } from '@socialgouv/matomo-next'
+import { BALWidgetProvider } from '@/contexts/BALWidget.context'
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -29,6 +32,14 @@ const StyledLayout = styled.div`
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_MATOMO_URL || !process.env.NEXT_PUBLIC_MATOMO_SITE_ID) {
+      return
+    }
+
+    matomoInit({ url: process.env.NEXT_PUBLIC_MATOMO_URL, siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID })
+  }, [])
 
   return (
     <html {...getHtmlAttributes({ defaultColorScheme, lang })}>
@@ -47,15 +58,17 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
         <DsfrProvider lang={lang}>
           <StyledComponentsRegistry>
             <ThemeProvider theme={theme}>
-              <GlobalStyle />
-              <StyledLayout>
-                <Header />
-                <div className="pageWrapper">
-                  <Breadcrumb />
-                  {children}
-                </div>
-                <Footer />
-              </StyledLayout>
+              <BALWidgetProvider>
+                <GlobalStyle />
+                <StyledLayout>
+                  <Header />
+                  <div className="pageWrapper">
+                    <Breadcrumb />
+                    {children}
+                  </div>
+                  <Footer />
+                </StyledLayout>
+              </BALWidgetProvider>
             </ThemeProvider>
           </StyledComponentsRegistry>
         </DsfrProvider>

@@ -14,3 +14,11 @@ export type Commune = {
   codeRegion: string
   population: number
 }
+
+export type EPCI = {
+  nom: string
+  code: string
+  codesDepartements: string[]
+  codesRegions: string[]
+  population: number
+}

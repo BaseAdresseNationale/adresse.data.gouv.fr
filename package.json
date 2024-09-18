@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@codegouvfr/react-dsfr": "^1.10.11",
+    "@socialgouv/matomo-next": "^1.9.0",
     "@types/remark-heading-id": "^1.0.0",
     "gray-matter": "^4.0.3",
     "next": "14.2.5",

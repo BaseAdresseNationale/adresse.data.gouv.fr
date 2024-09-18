@@ -54,18 +54,21 @@ export const navEntries: MainNavigationProps.Item[] = [
     ],
   },
   {
-    text: 'Les communes',
+    text: 'Communes',
     menuLinks: [
       {
-        text: 'Votre commune et sa base adresse locale ',
-        linkProps: { href: '/programme-BAL' },
+        text: 'Découvrez le programme Base Adresse Locale',
+        linkProps: { href: '/programme-bal' },
       },
-      { text: 'Ma commune', linkProps: { href: '#' } },
+      {
+        text: 'Consulter la page commune',
+        linkProps: { href: '/commune' },
+      },
       {
         text: 'Application Mes adresses',
         linkProps: { href: '#' },
       },
-      { text: 'Formation en ligne', linkProps: { href: '/communes/formation-en-ligne' } },
+      { text: 'Formation en ligne', linkProps: { href: '/formation-en-ligne' } },
     ],
   },
   {
@@ -101,7 +104,7 @@ export const navEntries: MainNavigationProps.Item[] = [
   {
     text: 'L’actualité',
     menuLinks: [
-      { text: 'Les événements', linkProps: { href: '/actualite/evenements' } },
+      { text: 'Les événements', linkProps: { href: '/evenements' } },
       {
         text: 'Le blog et les témoignages',
         linkProps: { href: '/blog' },

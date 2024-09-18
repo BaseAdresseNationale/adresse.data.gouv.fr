@@ -5,18 +5,19 @@ import styled from 'styled-components'
 
 export interface DownloadCardProps {
   title: string
-  text: string
+  text?: string
   fileDescription: string
   downloadlink: string
+  onDownloadStart?: () => void
 }
 
 const StyledWrapper = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding: 1rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
   border: 1px solid #dddddd;
-  width: 380px;
 
   h3 {
     font-size: 1.2rem;
@@ -39,20 +40,28 @@ export default function DownloadCard({
   text,
   downloadlink,
   fileDescription,
+  onDownloadStart,
 }: DownloadCardProps) {
+  const handleClick = () => {
+    if (onDownloadStart) {
+      onDownloadStart()
+    }
+    window.open(downloadlink, '_blank')
+  }
+
   return (
     <StyledWrapper>
       <div>
         <h3>{title}</h3>
-        <p>{text}</p>
+        {text && <p>{text}</p>}
       </div>
       <div className="file-wrapper">
         <legend>{fileDescription}</legend>
         <Button
           iconId="fr-icon-download-line"
-          onClick={() => window.open(downloadlink, '_blank')}
+          onClick={handleClick}
           priority="tertiary no outline"
-          title="Label button"
+          title="Télécharger"
         />
       </div>
     </StyledWrapper>

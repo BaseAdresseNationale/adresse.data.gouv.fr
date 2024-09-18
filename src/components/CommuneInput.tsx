@@ -20,11 +20,12 @@ const StyledWrapper = styled.div`
 `
 export interface CommuneInputProps {
   label?: string
-  value: Commune | null
-  onChange: (value: Commune | null) => void
+  value?: Partial<Commune>
+  placeholder?: string
+  onChange: (value?: Commune) => void
 }
 
-export default function CommuneInput({ value, onChange, label }: CommuneInputProps) {
+export default function CommuneInput({ value, onChange, label, placeholder }: CommuneInputProps) {
   const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
   return value
@@ -39,7 +40,7 @@ export default function CommuneInput({ value, onChange, label }: CommuneInputPro
             <span><b>{value.nom}</b> ({value.code})</span>
             <Button
               iconId="fr-icon-close-line"
-              onClick={() => onChange(null)}
+              onClick={() => onChange()}
               priority="tertiary no outline"
               title="Réinitialiser"
             />
@@ -49,7 +50,7 @@ export default function CommuneInput({ value, onChange, label }: CommuneInputPro
     : (
         <Autocomplete
           label={label}
-          inputProps={{ placeholder: 'Rechercher ma commune' }}
+          inputProps={{ placeholder }}
           fetchResults={fetchCommunes}
           renderResultList={(results, onBlur) => (
             <StyledResultList>
