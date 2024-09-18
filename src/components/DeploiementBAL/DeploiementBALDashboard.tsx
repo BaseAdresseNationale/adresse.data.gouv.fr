@@ -12,8 +12,10 @@ import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
-import { DeploiementBALSearchResult, mapToSearchResult } from '@/app/deploiement-bal/page'
+import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+
+export const mapToSearchResult = (values: any[], type: 'EPCI' | 'Département'): DeploiementBALSearchResult[] => values.map(({ code, nom, centre, contour }) => ({ code, type, nom, center: centre, contour }))
 
 interface DeploiementBALMapProps {
   initialStats: BANStats

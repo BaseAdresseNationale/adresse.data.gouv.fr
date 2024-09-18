@@ -1,7 +1,7 @@
 import { getDepartements, getEPCI } from '@/lib/api-geo'
 import departementCenterMap from '@/data/departement-center.json'
 import { getStats } from '@/lib/api-ban'
-import DeploiementBALDashboard from '../../components/DeploiementBAL/DeploiementBALDashboard'
+import DeploiementBALDashboard, { mapToSearchResult } from '../../components/DeploiementBAL/DeploiementBALDashboard'
 import Section from '@/components/Section'
 
 export type DeploiementBALSearchResultEPCI = {
@@ -20,8 +20,6 @@ export type DeploiementBALSearchResultDepartement = {
 }
 
 export type DeploiementBALSearchResult = DeploiementBALSearchResultEPCI | DeploiementBALSearchResultDepartement
-
-export const mapToSearchResult = (values: any[], type: 'EPCI' | 'Département'): DeploiementBALSearchResult[] => values.map(({ code, nom, centre, contour }) => ({ code, type, nom, center: centre, contour }))
 
 export default async function DeploiementBALPage({ searchParams }: { searchParams: Record<string, string> }) {
   const stats = await getStats()
