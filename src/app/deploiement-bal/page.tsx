@@ -1,8 +1,9 @@
 import { getDepartements, getEPCI } from '@/lib/api-geo'
 import departementCenterMap from '@/data/departement-center.json'
 import { getStats } from '@/lib/api-ban'
-import DeploiementBALDashboard, { mapToSearchResult } from '../../components/DeploiementBAL/DeploiementBALDashboard'
+import DeploiementBALDashboard from '../../components/DeploiementBAL/DeploiementBALDashboard'
 import Section from '@/components/Section'
+import { mapToSearchResult } from '@/lib/deploiement-stats'
 
 export type DeploiementBALSearchResultEPCI = {
   type: 'EPCI'

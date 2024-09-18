@@ -14,8 +14,7 @@ import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
 import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-
-export const mapToSearchResult = (values: any[], type: 'EPCI' | 'Département'): DeploiementBALSearchResult[] => values.map(({ code, nom, centre, contour }) => ({ code, type, nom, center: centre, contour }))
+import { mapToSearchResult } from '@/lib/deploiement-stats'
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -76,11 +75,12 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             }}
             mapStyle="/map-styles/osm-bright.json"
           >
-            <Source promoteId="code" id="data" type="geojson" data={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-map`}>
+            <Source promoteId="code" id="data" type="vector" tiles={[`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
               <Layer
                 id="bal-polygon-fill"
                 type="fill"
                 source="data"
+                source-layer="communes"
                 paint={{
                   'fill-color': getStyle(selectedTab, filteredCodesCommmune),
                   'fill-opacity': [

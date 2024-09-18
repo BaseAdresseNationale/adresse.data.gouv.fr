@@ -188,11 +188,11 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
   const closePopup = useCallback(() => {
     setPopup(null)
     if (selectedRef.current) {
-      map?.setFeatureState({ source: 'data', id: selectedRef.current }, { hover: false })
+      map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: selectedRef.current }, { hover: false })
       selectedRef.current = null
     }
     if (hoveredRef.current) {
-      map?.setFeatureState({ source: 'data', id: hoveredRef.current }, { hover: false })
+      map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
       hoveredRef.current = null
     }
   }, [map])
@@ -212,7 +212,7 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
           properties: feature.properties,
         })
         selectedRef.current = feature.id
-        map.setFeatureState({ source: 'data', id: feature.id }, { hover: true })
+        map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: feature.id }, { hover: true })
       }
     }
 
@@ -236,11 +236,11 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
       const [feature] = (event as any).features
 
       if (hoveredRef.current && hoveredRef.current !== selectedRef.current) {
-        map.setFeatureState({ source: 'data', id: hoveredRef.current }, { hover: false })
+        map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
       }
 
       hoveredRef.current = feature.id
-      map.setFeatureState({ source: 'data', id: feature.id }, { hover: true })
+      map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: feature.id }, { hover: true })
     }
 
     const onMouseLeave = () => {
@@ -249,7 +249,7 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
       }
 
       if (hoveredRef.current) {
-        map.setFeatureState({ source: 'data', id: hoveredRef.current }, { hover: false })
+        map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
       }
     }
 
