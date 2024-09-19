@@ -9,12 +9,13 @@ import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import ResponsiveImage from '../../ResponsiveImage'
 import { Departement } from '@/types/api-geo.types'
-import CommuneInput from '../../CommuneInput'
 import { Commune } from '@/types/api-geo.types'
 import { getPageFromHash, resetHash, useHash } from '@/hooks/useHash'
 import { useDebounce } from '@/hooks/useDebounce'
 import { StyledWrapper } from './SearchPartenaire.styles'
 import CardWrapper from '@/components/CardWrapper'
+import { getCommunes } from '@/lib/api-geo'
+import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
 
 export interface SearchPartenaireProps {
   services: string[]
@@ -38,9 +39,11 @@ export default function SearchPartenaire({
   const debouncedSearch = useDebounce(search, 500)
   const [info, setInfo] = useState<React.ReactNode>(null)
   const [currentPage, setCurrentPage] = useState(getPageFromHash(hash))
-  const [selectedCommune, setSelectedCommune] = useState<Commune>()
+  const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [selectedServices, setSelectedServices] = useState<string[]>([])
   const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>(initialPartenaires)
+
+  const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
   const updatePartenaires = useCallback(async (page: number) => {
     const updatedPartenaires = await getPartenairesDeLaCharte({
@@ -86,7 +89,15 @@ export default function SearchPartenaire({
     <StyledWrapper>
       <div className="controls">
         <div className="controls-input-wrapper">
-          {searchBy === 'perimeter' && (<CommuneInput placeholder="Rechercher ma commune" value={selectedCommune} onChange={commune => setSelectedCommune(commune)} />)}
+          {searchBy === 'perimeter' && (
+            <AutocompleteInput
+              label="Rechercher ma commune"
+              value={selectedCommune}
+              fetchResults={fetchCommunes}
+              onChange={commune => setSelectedCommune(commune as Commune | null)}
+              placeholder="Rechercher ma commune"
+            />
+          ) }
           {searchBy === 'name' && (
             <input
               className="fr-input"

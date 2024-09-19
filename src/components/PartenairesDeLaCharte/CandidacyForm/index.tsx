@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useCallback, useState } from 'react'
 import { capitalize } from 'lodash'
 
 import SelectInput from '../../SelectInput'
@@ -9,8 +9,9 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import { candidateToPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { Commune, Departement } from '@/types/api-geo.types'
 import { StyledForm } from './CandidacyForm.styles'
-import CommuneInput from '@/components/CommuneInput'
 import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteOrganismeTypeEnum, PartenaireDeLaCharteServiceEnum, PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import { getCommunes } from '@/lib/api-geo'
+import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
 
 const typeOptions = [
   { value: PartenaireDeLaCharteTypeEnum.COMMUNE, label: 'Commune' },
@@ -32,7 +33,7 @@ interface CandidacyFormProps {
 }
 
 function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) {
-  const [selectedCommune, setSelectedCommune] = useState<Commune>()
+  const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [formData, setFormData] = useState<CandidatePartenaireDeLaCharteType>({
     type: PartenaireDeLaCharteTypeEnum.COMMUNE,
     organismeType: PartenaireDeLaCharteOrganismeTypeEnum.EPCI,
@@ -61,12 +62,14 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
   const servicesOptions = Object.values(services).map(value => ({ value, label: capitalize(value) }))
   const departementsOptions = departements.map(departement => ({ value: departement.code, label: `${departement.code} - ${departement.nom}` }))
 
+  const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
+
   const handleEdit = (property: keyof CandidatePartenaireDeLaCharteType) => (event: any) => {
     const { value } = event.target
     setFormData(state => ({ ...state, [property]: value }))
   }
 
-  const handleSelectCommune = (commune?: Commune) => {
+  const handleSelectCommune = (commune: Commune | null) => {
     if (commune) {
       setSelectedCommune(commune)
       setFormData(state => ({
@@ -78,7 +81,7 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
       }))
     }
     else {
-      setSelectedCommune(undefined)
+      setSelectedCommune(null)
       setFormData(state => ({
         ...state,
         name: '',
@@ -142,7 +145,15 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
               }))
             }}
           />
-          {formData.type === PartenaireDeLaCharteTypeEnum.COMMUNE && <CommuneInput label="Commune*" placeholder="Rechercher ma commune" value={selectedCommune} onChange={handleSelectCommune} />}
+          {formData.type === PartenaireDeLaCharteTypeEnum.COMMUNE && (
+            <AutocompleteInput
+              label="Commune*"
+              value={selectedCommune}
+              fetchResults={fetchCommunes}
+              onChange={value => handleSelectCommune(value as Commune | null)}
+              placeholder="Rechercher ma commune"
+            />
+          ) }
           {formData.type === PartenaireDeLaCharteTypeEnum.ORGANISME && (
             <>
               <SelectInput

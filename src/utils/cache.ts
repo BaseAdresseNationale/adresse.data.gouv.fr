@@ -66,7 +66,10 @@ const globalCache = new Cache()
 export async function getCachedData(key: string, resolver: () => Promise<any>, ttl?: number) {
   if (!globalCache.has(key)) {
     const promizedValue = resolver()
-    globalCache.set(key, promizedValue.then(value => globalCache.set(key, value, resolver, ttl)), resolver, ttl)
+    globalCache.set(key, promizedValue.then((value) => {
+      globalCache.set(key, value, resolver, ttl)
+      return value
+    }), resolver, ttl)
 
     return promizedValue
   }

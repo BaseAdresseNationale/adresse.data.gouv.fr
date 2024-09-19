@@ -1,10 +1,14 @@
 'use client'
 
-import Autocomplete, { StyledResultList } from './Autocomplete'
+import Autocomplete, { StyledResultList } from '.'
 import Button from '@codegouvfr/react-dsfr/Button'
 import styled from 'styled-components'
 
 const StyledWrapper = styled.div`
+  label {
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
   .name-wrapper {
     display: flex;
     align-items: center;

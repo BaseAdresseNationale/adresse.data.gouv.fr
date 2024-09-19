@@ -6,7 +6,7 @@ import geojsonVt from 'geojson-vt'
 import vtpbf from 'vt-pbf'
 
 const computeTiles = async () => {
-  const statsData = await getCachedData('stats-data', fetchStatsData, 300)
+  const statsData = await getCachedData('stats-data', fetchStatsData)
   const featureCollection = await computeStats(statsData, [])
 
   return geojsonVt(featureCollection as geojsonVt.Data, { indexMaxZoom: 9 })

@@ -1,12 +1,12 @@
 'use client'
 
-import AutocompleteInput from '@/components/AutocompleteInput'
+import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
 import { useStatsDeploiement } from '@/hooks/useStatsDeploiement'
 import { getEpcis } from '@/lib/api-geo'
 import { BANStats } from '@/types/api-ban.types'
 import { Departement } from '@/types/api-geo.types'
 import { useCallback, useState } from 'react'
-import Map, { Layer, Source } from 'react-map-gl/maplibre'
+import Map, { Layer, NavigationControl, Source } from 'react-map-gl/maplibre'
 import TabDeploiementBAL from './TabDeploiementBAL'
 import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
@@ -15,6 +15,7 @@ import DeploiementMap, { getStyle } from './DeploiementMap'
 import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
+import { FullScreenControl } from '../Map/FullScreenControl'
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -60,6 +61,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
       <div className="map-stats-container" id="map-stat">
         <div className="input-wrapper">
           <AutocompleteInput
+            label="Rechercher une collectivité ou un département :"
             value={filter}
             fetchResults={handleSearch}
             onChange={value => handleFilter(value as DeploiementBALSearchResult | null)}
@@ -75,6 +77,8 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             }}
             mapStyle="/map-styles/osm-bright.json"
           >
+            <NavigationControl showZoom showCompass position="top-right" />
+            <FullScreenControl position="top-right" />
             <Source promoteId="code" id="data" type="vector" tiles={[`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
               <Layer
                 id="bal-polygon-fill"

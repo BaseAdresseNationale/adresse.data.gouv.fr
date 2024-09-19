@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { MapMouseEvent, Popup, useMap } from 'react-map-gl/maplibre'
 import { toolsColors } from '@/theme/theme'
-import { useRouter } from 'next/navigation'
 
 const StyledWrapper = styled.div`
   .legend-wrapper {
