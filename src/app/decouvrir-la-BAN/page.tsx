@@ -11,7 +11,7 @@ import { TextWrapper } from './page.styled'
 import type { DataType } from '@/lib/markdown'
 
 export default async function Home() {
-  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('decouvrir_la_BAN') || {}
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('decouvrir-la-BAN') || {}
 
   return (
     <>

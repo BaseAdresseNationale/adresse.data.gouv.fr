@@ -40,17 +40,16 @@ export const navEntries: MainNavigationProps.Item[] = [
     menuLinks: [
       {
         text: 'Découvrir la Base Adresse Nationale',
-        linkProps: { href: '/decouvrir_la_BAN' },
+        linkProps: { href: '/decouvrir-la-BAN' },
       },
-      { text: 'Utiliser la BAN', linkProps: { href: '#' } },
-      { text: 'Documentation', linkProps: { href: '#' } },
-      {
+      { text: 'Utiliser la BAN', linkProps: { href: '/utiliser-la-ban' } },
+      { text: 'Documentation', linkProps: { href: '/ressources' } },
+     /* {
         text: 'Documentation technique',
         linkProps: { href: '#' },
-      },
-      { text: 'Vidéos', linkProps: { href: '#' } },
-      { text: 'État du déploiement', linkProps: { href: '#' } },
-      { text: 'Statistiques', linkProps: { href: '#' } },
+      },*/
+      { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
+      { text: 'Statistiques', linkProps: { href: '/stats' } },
     ],
   },
   {
@@ -66,7 +65,10 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       {
         text: 'Application Mes adresses',
-        linkProps: { href: '#' },
+        linkProps: {
+          href: 'https://mes-adresses.data.gouv.fr/',
+          target: '_blank',
+        },
       },
       { text: 'Formation en ligne', linkProps: { href: '/formation-en-ligne' } },
     ],
@@ -76,20 +78,20 @@ export const navEntries: MainNavigationProps.Item[] = [
     menuLinks: [
       {
         text: 'Tous les outils et APIs',
-        linkProps: { href: '#' },
+        linkProps: { href: '/outils' },
       },
       {
         text: 'Carte de la Base adresse nationale',
-        linkProps: { href: '#' },
+        linkProps: { href: '/base-adresse-nationale#4.4/46.9/1.7' },
       },
-      { text: 'Certificat d’adresse', linkProps: { href: '#' } },
-      { text: 'Signalement', linkProps: { href: '#' } },
+      //{ text: 'Certificat d’adresse', linkProps: { href: '#' } },*/
+      //{ text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',
-        linkProps: { href: '#' },
+        linkProps: { href: '/donnees-nationales' },
       },
-      { text: 'Validateur BAL', linkProps: { href: '#' } },
-      { text: 'Géocodeur', linkProps: { href: '#' } },
+      { text: 'Validateur BAL', linkProps: { href: '/validateur' } },
+      //{ text: 'Géocodeur', linkProps: { href: '#' } },
       { text: 'Publication des adresses', linkProps: { href: '#' } },
       {
         text: 'Supervision BAN/BAL',
@@ -98,7 +100,7 @@ export const navEntries: MainNavigationProps.Item[] = [
           target: '_blank',
         },
       },
-      { text: 'Fantoir', linkProps: { href: '#' } },
+      //{ text: 'Fantoir', linkProps: { href: '#' } },
     ],
   },
   {
@@ -125,7 +127,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Sociétés partenaires',
         linkProps: { href: '/communaute/societes-partenaires' },
       },
-      { text: 'Nos usagers', linkProps: { href: '#' } },
+      { text: 'Nos usagers', linkProps: { href: '/usages' } },
     ],
   },
 ]
