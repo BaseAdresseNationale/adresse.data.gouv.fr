@@ -24,6 +24,7 @@ import DownloadCertificate from './download-certificate'
 const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = getConfig().publicRuntimeConfig
 
 function Numero({
+  id,
   numero,
   suffixe,
   lieuDitComplementNom,
@@ -181,7 +182,7 @@ function Numero({
         (isNumeroCertifiable({banId, sources: sourcePosition, certifie, parcelles}) ?
           <div className='certificate'>
             <DownloadCertificate
-              cleInterop={cleInterop}
+              id={id}
               title="Télécharger le Certificat d'adressage"
             />
           </div> :
@@ -274,6 +275,7 @@ function Numero({
 }
 
 Numero.propTypes = {
+  id: PropTypes.string.isRequired,
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
