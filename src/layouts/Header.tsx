@@ -44,10 +44,7 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       { text: 'Utiliser la BAN', linkProps: { href: '/utiliser-la-ban' } },
       { text: 'Documentation', linkProps: { href: '/ressources' } },
-     /* {
-        text: 'Documentation technique',
-        linkProps: { href: '#' },
-      },*/
+      // {text: 'Documentation technique',linkProps: { href: '#' }, },
       { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
       { text: 'Statistiques', linkProps: { href: '/stats' } },
     ],
@@ -84,14 +81,14 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Carte de la Base adresse nationale',
         linkProps: { href: '/base-adresse-nationale#4.4/46.9/1.7' },
       },
-      //{ text: 'Certificat d’adresse', linkProps: { href: '#' } },*/
-      //{ text: 'Signalement', linkProps: { href: '#' } },
+      // { text: 'Certificat d’adresse', linkProps: { href: '#' } },*/
+      // { text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',
         linkProps: { href: '/donnees-nationales' },
       },
       { text: 'Validateur BAL', linkProps: { href: '/validateur' } },
-      //{ text: 'Géocodeur', linkProps: { href: '#' } },
+      // { text: 'Géocodeur', linkProps: { href: '#' } },
       { text: 'Publication des adresses', linkProps: { href: '#' } },
       {
         text: 'Supervision BAN/BAL',
@@ -100,7 +97,7 @@ export const navEntries: MainNavigationProps.Item[] = [
           target: '_blank',
         },
       },
-      //{ text: 'Fantoir', linkProps: { href: '#' } },
+      // { text: 'Fantoir', linkProps: { href: '#' } },
     ],
   },
   {
