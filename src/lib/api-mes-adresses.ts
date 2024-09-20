@@ -10,11 +10,13 @@ export async function getStatsBals(fields: string[], codeCommunes: string[]): Pr
   for (const field of fields) {
     url.searchParams.append('fields', field)
   }
+  const body = JSON.stringify({ codeCommunes })
   return customFetch(url, {
     method: 'POST',
-    body: JSON.stringify({
-      codeCommunes,
-    }),
+    body,
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
 }
 
