@@ -29,12 +29,11 @@ function SelectInput({ label, value, hint, options, defaultOption, isDisabled, h
         }}
         multiple={isMultiple}
       >
-        {defaultOption && <option value="">{defaultOption}</option>}
+        {defaultOption && <option value="" disabled>{defaultOption}</option>}
         {options.map(option => (
           <option
             key={option.label}
             value={option.value}
-            disabled={isDisabled}
           >
             {option.label}
           </option>

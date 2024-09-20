@@ -2,7 +2,6 @@ import { computeStats, fetchStatsData } from '@/lib/deploiement-stats'
 import { getCachedData } from '@/utils/cache'
 import { NextRequest, NextResponse } from 'next/server'
 import geojsonVt from 'geojson-vt'
-// @ts-ignore
 import vtpbf from 'vt-pbf'
 
 const computeTiles = async () => {
