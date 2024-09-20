@@ -79,9 +79,9 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       {
         text: 'Carte de la Base adresse nationale',
-        linkProps: { href: '/base-adresse-nationale#4.4/46.9/1.7' },
+        linkProps: { href: '/base-adresse-nationale' },
       },
-      // { text: 'Certificat d’adresse', linkProps: { href: '#' } },*/
+      // { text: 'Certificat d’adresse', linkProps: { href: '#' } },
       // { text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',
