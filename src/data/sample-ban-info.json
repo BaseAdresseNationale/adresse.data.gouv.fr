@@ -4,7 +4,7 @@
     "description": "Vous souhaitez utiliser la base adresse nationale, explorez les différentes possibilités.",
     "picto": "./img/picto/map-location.svg",
     "link": {
-      "href": "/decouvrir_la_BAN",
+      "href": "/decouvrir-la-BAN",
       "target": "_self"
     }
   },
@@ -13,7 +13,7 @@
     "description": "Vous avez besoins de données toujours à jour ? Découvrez les APIs.",
     "picto": "./img/picto/api-and-cloud.svg",
     "link": {
-      "href": "#",
+      "href": "/outils",
       "target": "_self"
     }
   },
@@ -22,7 +22,7 @@
     "description": "Ils est possible de télécharger les données afin de les héberger et de les utiliser chez vous.",
     "picto": "./img/picto/bdd.svg",
     "link": {
-      "href": "#",
+      "href": "/donnees-nationales",
       "target": "_self"
     }
   }

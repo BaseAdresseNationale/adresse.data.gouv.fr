@@ -35,7 +35,7 @@ export default async function Home() {
         footerLinks={[
           {
             label: 'Découvrir la Base Adresse Nationale',
-            href: '/decouvrir_la_BAN',
+            href: '/decouvrir-la-BAN',
           },
         ]}
       >
