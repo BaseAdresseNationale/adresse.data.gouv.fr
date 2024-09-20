@@ -4,6 +4,7 @@ import { Button } from '@codegouvfr/react-dsfr/Button'
 import Section from '@/components/Section'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
+import SectionSearchBAN from '@/components/SectionSearchBAN'
 import BlogGrid from '@/components/BlogGrid'
 import SectionQuotes from '@/components/SectionQuotes'
 import { getStats } from '@/lib/api-ban'
@@ -52,6 +53,8 @@ export default async function Home() {
           </strong>
         </p>
       </SectionHero>
+
+      <SectionSearchBAN />
 
       <SectionTilesList
         data={dataBAN}
