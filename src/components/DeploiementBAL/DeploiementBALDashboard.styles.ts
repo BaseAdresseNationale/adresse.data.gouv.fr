@@ -22,15 +22,11 @@ export const StyledDeploiementBALDashboard = styled.div`
     .stats-wrapper {
         display: flex;
         flex-direction: column;
-        overflow: scroll;
 
         .fr-tabs {
             margin-top: 1em;
-            height: 340px;
 
             .fr-tabs__panel {
-                overflow: scroll;
-                height: 100%;
                 padding: 1rem;
             }
         }

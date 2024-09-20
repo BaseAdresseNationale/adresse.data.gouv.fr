@@ -131,7 +131,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
           options={options}
         />
       </div>
-      <Button style={{ marginTop: '1rem', marginBottom: '2.5rem' }} disabled={!filter || isLoadingCSV} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">Télécharger les données au format CSV</Button>
+      <Button style={{ marginTop: '1rem' }} disabled={!filter || isLoadingCSV} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">Télécharger les données au format CSV</Button>
     </StyledWrapper>
   )
 }
