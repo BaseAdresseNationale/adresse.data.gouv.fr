@@ -15,6 +15,7 @@ interface GreyMatter extends matter.GrayMatterFile<string> {
 }
 
 export type DataType = {
+  title?: string
   aside?: Array<{ data: { contentHtml: string, data: { title: string } } }>
 }
 
