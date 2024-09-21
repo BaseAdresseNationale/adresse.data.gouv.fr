@@ -7,10 +7,16 @@ export const HeroWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: row;
   }
 `
+
+export const HeroTextWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  `
 
 export const HeroFooter = styled.footer`
   padding: 2em 0;
@@ -19,9 +25,9 @@ export const HeroFooter = styled.footer`
 export const HeroImage = styled(Image)`
   width: 100%;
 
-  @media screen and (min-width: 768px) {
-    margin: 2rem 6rem;
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin: 2rem 4rem;
     width: auto;
-    max-width: 30vw;
+    max-width: 36vw;
   }
 `
