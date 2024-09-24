@@ -34,11 +34,11 @@ function BlogView() {
 
   const nbHighlightedPosts = 3
   const nbPost = 15
-  const page: number = useMemo(() => Number(searchParams.get('page') || 1), [searchParams])
-  const tags: Set<string> = useMemo(() => new Set(decodeURI(searchParams.get('tags') || '')?.split(',').filter(t => t).sort() || []), [searchParams])
+  const page: number = useMemo(() => Number(searchParams?.get('page') || 1), [searchParams])
+  const tags: Set<string> = useMemo(() => new Set(decodeURI(searchParams?.get('tags') || '')?.split(',').filter(t => t).sort() || []), [searchParams])
 
   const getPageLink = useCallback(({ page, tags: _tags }: { page?: number, tags?: string[] }) => {
-    const urlSearchParams = searchParams.entries() as unknown as string[][]
+    const urlSearchParams = searchParams?.entries() as unknown as string[][]
     const linkSearchParams = new URLSearchParams(urlSearchParams)
     if (_tags) {
       if (_tags.length) {

@@ -33,6 +33,9 @@ const nextConfig = {
     },
     instrumentationHook: true,
   },
+  transpilePackages: [
+    '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
+  ],
 }
 
 export default nextConfig
