@@ -1,11 +1,12 @@
 import { BANCommune, BANVoie } from '@/types/api-ban.types'
+import { BANStats } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
 
 if (!process.env.NEXT_PUBLIC_API_BAN_URL) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined')
 }
 
-export function getStats() {
+export function getStats(): Promise<BANStats> {
   return customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/stats`)
 }
 
@@ -42,4 +43,16 @@ export function assemblageSources(voies: BANVoie[]) {
   return adressesSources
     .filter(source => Boolean(sources[source]))
     .map(source => sources[source] || source)
+}
+
+export function getFilteredStats(codesCommune: string[]): Promise<BANStats> {
+  return customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/stats`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: JSON.stringify({
+      codesCommune: codesCommune || [],
+    }),
+  })
 }

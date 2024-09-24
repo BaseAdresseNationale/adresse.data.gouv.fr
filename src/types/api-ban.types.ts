@@ -32,3 +32,47 @@ export type BANCommune = {
   dateRevision: string
   voies: BANVoie[]
 }
+
+export type BANStats = {
+  total: {
+    population: number
+    nbCommunes: number
+  }
+  france: {
+    population: number
+    nbCommunes: number
+  }
+  ban: {
+    nbAdresses: number
+    nbAdressesCertifiees: number
+    nbCommunesCouvertes: number
+    populationCouverte: number
+    nbCommunesIdSocle: number
+    nbAdressesIdSocle: number
+    _id: string
+    nbAdressesAvecBanId: number
+    nbCommunesAvecBanId: number
+  }
+  bal: {
+    nbAdresses: number
+    nbAdressesCertifiees: number
+    nbCommunesCouvertes: number
+    populationCouverte: number
+    nbCommunesIdSocle: number
+    nbAdressesIdSocle: number
+    _id: string
+    nbAdressesAvecBanId: number
+    nbCommunesAvecBanId: number
+  }
+  assemblage: {
+    nbAdresses: number
+    nbAdressesCertifiees: number
+    nbCommunesCouvertes: number
+    populationCouverte: number
+    nbCommunesIdSocle: number
+    nbAdressesIdSocle: number
+    _id: string
+    nbAdressesAvecBanId: number
+    nbCommunesAvecBanId: number
+  }
+}

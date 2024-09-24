@@ -20,6 +20,8 @@ const nextConfig = {
       test: /\.woff2$/,
       type: 'asset/resource',
     })
+    config.resolve.fallback = { fs: false }
+
     return config
   },
   compiler: {
@@ -29,6 +31,7 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '3mb',
     },
+    instrumentationHook: true,
   },
 }
 

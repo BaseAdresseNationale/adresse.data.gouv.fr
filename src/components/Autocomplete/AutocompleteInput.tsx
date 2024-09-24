@@ -1,46 +1,46 @@
 'use client'
 
-import { useCallback } from 'react'
-import Autocomplete, { StyledResultList } from './Autocomplete'
-import { Commune } from '@/types/api-geo.types'
-import { getCommunes } from '@/lib/api-geo'
+import Autocomplete, { StyledResultList } from '.'
 import Button from '@codegouvfr/react-dsfr/Button'
 import styled from 'styled-components'
 
 const StyledWrapper = styled.div`
-  .commune-name-wrapper {
+  label {
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+  .name-wrapper {
     display: flex;
     align-items: center;
-    margin-top: 0.5rem;
+    height: 40px;
 
     > button {
       margin-left: 1rem;
     }
   }
 `
-export interface CommuneInputProps {
+export interface AutocompleteInputProps {
   label?: string
-  value?: Partial<Commune>
+  value: { nom: string, code: string } | null
   placeholder?: string
-  onChange: (value?: Commune) => void
+  onChange: (value: { nom: string, code: string } | null) => void
+  fetchResults: (query: string) => Promise<{ nom: string, code: string }[]>
 }
 
-export default function CommuneInput({ value, onChange, label, placeholder }: CommuneInputProps) {
-  const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
-
+export default function AutocompleteInput({ value, onChange, label, fetchResults, placeholder }: AutocompleteInputProps) {
   return value
     ? (
-        <StyledWrapper className="fr-input-group">
+        <StyledWrapper>
           {label && (
             <label className="fr-label" htmlFor="autocomplete-search">
               {label}
             </label>
           )}
-          <div className="commune-name-wrapper">
+          <div className="name-wrapper">
             <span><b>{value.nom}</b> ({value.code})</span>
             <Button
               iconId="fr-icon-close-line"
-              onClick={() => onChange()}
+              onClick={() => onChange(null)}
               priority="tertiary no outline"
               title="Réinitialiser"
             />
@@ -51,10 +51,10 @@ export default function CommuneInput({ value, onChange, label, placeholder }: Co
         <Autocomplete
           label={label}
           inputProps={{ placeholder }}
-          fetchResults={fetchCommunes}
+          fetchResults={fetchResults}
           renderResultList={(results, onBlur) => (
             <StyledResultList>
-              {results.map((result: Commune) => (
+              {results.map((result: { nom: string, code: string }) => (
                 <div key={result.code} className="result-item">
                   <button
                     tabIndex={0}

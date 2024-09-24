@@ -1,10 +1,12 @@
 'use client'
 
-import CommuneInput from '@/components/CommuneInput'
+import { getCommunes } from '@/lib/api-geo'
 import { BANCommune } from '@/types/api-ban.types'
 import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
 import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
 import styled from 'styled-components'
+import AutocompleteInput from '../Autocomplete/AutocompleteInput'
 
 interface CommuneNavigationProps {
   commune: BANCommune
@@ -40,6 +42,7 @@ const StyledWrapper = styled.div`
 
 export function CommuneNavigation({ commune }: CommuneNavigationProps) {
   const router = useRouter()
+  const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
   return (
     <StyledWrapper className="fr-container">
@@ -58,9 +61,11 @@ export function CommuneNavigation({ commune }: CommuneNavigationProps) {
         }}
       />
       <div className="commune-input-wrapper">
-        <CommuneInput
-          placeholder="Rechercher une commune"
+        <AutocompleteInput
+          value={null}
+          fetchResults={fetchCommunes}
           onChange={commune => commune && router.push(`/commune/${commune.code}`)}
+          placeholder="Rechercher une commune"
         />
       </div>
     </StyledWrapper>

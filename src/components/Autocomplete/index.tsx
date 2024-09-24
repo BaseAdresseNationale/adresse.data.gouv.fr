@@ -3,6 +3,10 @@ import styled from 'styled-components'
 
 export const StyledAutocomplete = styled.div`
   position: relative;
+  label {
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
   .fr-input-group {
     margin-bottom: 0;
   }
@@ -116,12 +120,12 @@ const Autocomplete = <T extends { code: string }>({
 
   return (
     <StyledAutocomplete>
+      {label && (
+        <label className="fr-label" htmlFor="autocomplete-search">
+          {label}
+        </label>
+      )}
       <div className="fr-input-group fr-search-bar" role="search">
-        {label && (
-          <label className="fr-label" htmlFor="autocomplete-search">
-            {label}
-          </label>
-        )}
         <input
           className="fr-input"
           onChange={onSearch}
