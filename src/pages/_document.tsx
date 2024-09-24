@@ -10,14 +10,12 @@ const {
 export default function Document(props: DocumentProps) {
   return (
     <Html {...getColorSchemeHtmlAttributes(props)}>
+      <Head />
       <Layout>
-        <>
-          <Head />
-          <body>
-            <Main />
-            <NextScript />
-          </body>
-        </>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
       </Layout>
     </Html>
   )

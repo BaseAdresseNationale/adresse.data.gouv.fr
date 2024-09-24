@@ -44,6 +44,16 @@ export default async function PageDownloadBan() {
         title="Télécharger"
         id="download"
         theme="primary"
+        footer={(
+          <p>
+            <Link
+              className="fr-link fr-link--icon-left ri-folders-line"
+              href="/data"
+            >
+              Naviguez à travers toutes les données téléchargeables mises à disposition par la BAN
+            </Link>
+          </p>
+        )}
       >
         <CardContainer>
           <div>
