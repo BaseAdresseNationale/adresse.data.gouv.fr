@@ -133,7 +133,7 @@ export default function Header() {
   const pathname = usePathname()
 
   const selectedNavigationLinks = useMemo(
-    () => markAsActive(navEntries as MainNavigationProps.Item[], pathname),
+    () => markAsActive(navEntries as MainNavigationProps.Item[], pathname || ''),
     [pathname]
   )
 

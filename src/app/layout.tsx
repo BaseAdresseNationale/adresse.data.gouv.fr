@@ -12,7 +12,7 @@ import Breadcrumb from '@/layouts/Breadcrumb'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import styled, { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
-import theme from '@/theme/theme'
+import theme from '@/theme'
 import GlobalStyle from './global.styles'
 import { useEffect } from 'react'
 import { init as matomoInit } from '@socialgouv/matomo-next'
@@ -21,7 +21,7 @@ import { BALWidgetProvider } from '@/contexts/BALWidget.context'
 const StyledLayout = styled.div`
   min-height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
 
   .pageWrapper {
     display: flex;
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
                 <StyledLayout>
                   <Header />
                   <div className="pageWrapper">
-                    <Breadcrumb />
+                    {/* <Breadcrumb /> */}
                     {children}
                   </div>
                   <Footer />
