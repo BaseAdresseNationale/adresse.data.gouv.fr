@@ -14,17 +14,17 @@ import {
   getDataDef,
   getBanStatsData,
   fetcher,
-} from '@/utils/charts/helper'
+} from './utils/helper'
 import {
   defDataDailyDownload,
   defDataMonthlyLookup,
   defDataBanVisit,
-} from '@/utils/charts/stats-config-data'
+} from './utils/stats-config-data'
 
-const URL_GET_STATS_DOWNLOAD_DAY = './stats/daily-download'
-const URL_GET_STATS_DOWNLOAD_MONTH = './stats/monthly-usage'
-const URL_GET_STATS_LOOKUP_MONTH = './stats/daily-lookup'
-const URL_GET_STATS_VISIT = './stats/visit'
+const URL_GET_STATS_DOWNLOAD_DAY = '/stats/daily-download'
+const URL_GET_STATS_DOWNLOAD_MONTH = '/stats/monthly-usage'
+const URL_GET_STATS_LOOKUP_MONTH = '/stats/daily-lookup'
+const URL_GET_STATS_VISIT = '/stats/visit'
 
 function StatsPage() {
   const { data: dataDailyDownload, error: errorDataDailyDownload } = useSWR(URL_GET_STATS_DOWNLOAD_DAY, fetcher)
@@ -88,7 +88,6 @@ function StatsPage() {
           theme="secondary"
           className="key-number-section"
         >
-          <h2>Les usages de la BAN en chiffre</h2>
           <p><b>{dataMonthlyUsage?.period && `● Periode : ${dataMonthlyUsage.period}`}</b></p>
           <KeyNumbersBlock data={dataMonthlyUsage?.value} />
 
@@ -149,7 +148,6 @@ function StatsPage() {
           theme="secondary"
           className="key-number-section"
         >
-          <h2>État de la Base Adresse Nationale (BAN)</h2>
           <p>
             La <b>Base Adresse Nationale (BAN)</b> est constituée de plusieurs sources de données, de natures différentes.
             La récente loi dite 3DS impose aux communes de mettre en place une <b>Base Adresse Locale (BAL)</b>,
