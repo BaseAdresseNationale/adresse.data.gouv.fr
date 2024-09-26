@@ -27,7 +27,19 @@ const URL_GET_STATS_DAILY_DOWNLOAD = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID
 const URL_GET_STATS_DAILY_LOOKUP = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`
 const URL_GET_STAT_VISIT = `${MATOMO_URL}/index.php?idSite=${MATOMO_ID}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`
 
-const APIs = {
+// Any : is from matomo's data extracted from helper.js
+type StatValue = Record<string, any>
+
+type Converter = (data: object) => Promise<object> | object
+
+interface DataResponse {
+  url?: string | URL | Request | undefined
+  getter?: () => Promise< StatValue[] | { period: string, value: StatValue[] } > | (StatValue[] | { period: string, value: StatValue[] })
+  converter?: Converter
+  data?: object
+}
+
+const APIs: Record<string, DataResponse> = {
   'monthly-usage': { getter: getMonthlyUsageData([URL_GET_STATS_MONTHLY_DOWNLOAD, URL_GET_STATS_MONTHLY_LOOKUP]) },
   'daily-lookup': { url: URL_GET_STATS_DAILY_LOOKUP, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup) },
   'daily-download': { url: URL_GET_STATS_DAILY_DOWNLOAD, converter: matomoDailyDownloadToData(defDataDailyDownload) },
@@ -39,11 +51,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
   const res = Response
   const slug = params.slug
   try {
-    const { url, getter, data: dataRaw, converter = d => d } = APIs?.[slug] || {}
-
-    if (!url && !dataRaw && !getter) {
-      throw new Error('API not found ', { cause: { details: 'API not found', status: 404 } })
-    }
+    const { url, getter, data: dataRaw, converter = (d: object) => d }: DataResponse = APIs?.[slug] || {}
 
     if (getter) {
       const data = await converter(await getter())
@@ -55,19 +63,23 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
       return res.json(data, { status: 200 })
     }
 
-    const response = await fetch(url)
-    const { status } = response
-    const validStatus = [200, 304]
-    if (!validStatus.includes(status)) {
-      throw new Error('API not found 2', { cause: { details: 'Error while fetching API', status } })
+    if (url) {
+      const response = await fetch(url)
+      const { status } = response
+      const validStatus = [200, 304]
+      if (!validStatus.includes(status)) {
+        throw new Error('API not found 2', { cause: { details: 'Error while fetching API', status } })
+      }
+
+      const data = await converter(await response.json())
+      return res.json(data, { status: 200 })
     }
 
-    const data = await converter(await response.json())
-    return res.json(data, { status: 200 })
+    throw new Error('API not found ', { cause: { details: 'API not found', status: 404 } })
   }
   catch (error) {
-    const { message, cause } = error
+    const { message, cause } = error as Error
     console.error('Error on Front-end Stat API :', message, cause, error)
-    return new res(message || 'Internal server error', { status: (cause?.status || 500) })
+    return new res(message || 'Internal server error', { status: ((cause as any)?.status || 500) })
   }
 }
