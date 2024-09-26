@@ -11,32 +11,27 @@ import { TextWrapper } from './page.styled'
 import type { DataType } from '@/lib/markdown'
 
 export default async function Home() {
+  const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('decouvrir-la-BAN--intro') || {}
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('decouvrir-la-BAN') || {}
 
   return (
     <>
-      <SectionHero
-        pageTitle="Découvrir la Base Adresse Nationale"
-        picture={{
-          src: './img/home_page_hero_ban.svg',
-          alt: 'Illustration de "La Base Adresse Nationale"',
-          width: 400,
-          height: 310,
-        }}
-      >
-        <p>
-          La Base Adresse Nationale est l’une des neuf bases de données du service
-          public des données de référence. Elle est la seule base de données
-          d’adresses officiellement reconnue par l’administration.
-        </p>
-        <p>
-          Service numérique d’usage partagé et infrastructure socle sur laquelle
-          sont adossées de nombreuses politiques publiques, elle fait partie
-          du système d’information et de communication de l’État et est à ce
-          titre placée sous la responsabilité du Premier ministre.
-        </p>
-
-      </SectionHero>
+      <Suspense fallback={<p>Chargement...</p>}>
+        {heroContentHtml
+        && (
+          <SectionHero
+            pageTitle={heroData?.title || ''}
+            picture={{
+              src: './img/pages/decouvrir_la_BAN/illustration-ban.svg',
+              alt: 'Illustration de "La Base Adresse Nationale"',
+              width: 400,
+              height: 310,
+            }}
+          >
+            <HtmlViewer html={heroContentHtml} />
+          </SectionHero>
+        )}
+      </Suspense>
 
       <Section>
         <TextWrapper>

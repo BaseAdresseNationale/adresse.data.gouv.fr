@@ -11,10 +11,10 @@ export const TextWrapper = styled.div`
 
     article {
       flex: 65;
-      min-width: 600px;
 
       img {
         max-width: 100%;
+        margin: 2rem auto;
       }
     }
 
