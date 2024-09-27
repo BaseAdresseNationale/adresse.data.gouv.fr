@@ -45,7 +45,7 @@ class FileHandler extends React.Component {
 
           <div className='file-handler-container'>
             <Holder
-              placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 100 Mo)'
+              placeholder='Sélectionner ou glisser ici votre fichier BAL au format CSV (maximum 50 Mo)'
               file={file}
               isLoading={isLoading}
               onDrop={onFileDrop}
