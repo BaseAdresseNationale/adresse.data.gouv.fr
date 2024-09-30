@@ -162,7 +162,7 @@ app.post('/communes/:codeCommune/revisions', w(createRevision))
 app.get('/revisions/:revisionId', w(getRevision))
 app.put(
   '/revisions/:revisionId/files/bal',
-  express.raw({limit: '10mb', type: 'text/csv'}),
+  express.raw({limit: '50mb', type: 'text/csv'}),
   w(uploadFile)
 )
 app.post('/revisions/:revisionId/compute', w(computeRevision))
