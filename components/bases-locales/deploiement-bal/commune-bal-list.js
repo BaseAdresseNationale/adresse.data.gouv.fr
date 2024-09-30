@@ -31,7 +31,7 @@ function CommuneBALList({codeCommune, balsCommune}) {
       {balsCommune.length > 0 ? (
         <StyledAccordion label={title} className='accordion'>
           {balsCommune.map(bal => (
-            <BaseLocaleCard key={bal._id} bal={bal} />
+            <BaseLocaleCard key={bal.id} bal={bal} />
           ))}
         </StyledAccordion>
       ) : (

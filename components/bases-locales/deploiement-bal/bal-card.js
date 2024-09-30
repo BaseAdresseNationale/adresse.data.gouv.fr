@@ -13,7 +13,7 @@ function BaseLocaleCard({bal}) {
     return null
   }
 
-  const balUrl = `${MES_ADRESSE_URL}/bal/${bal._id}`
+  const balUrl = `${MES_ADRESSE_URL}/bal/${bal.id}`
 
   return (
     <div>
@@ -21,7 +21,7 @@ function BaseLocaleCard({bal}) {
         <div className='card-header'>
           <div className='card-header-title'>
             <h4>{bal.commune} {bal.nom}</h4>
-            <p><i>Modifié le {sanitizedDate(bal._updated)}</i></p>
+            <p><i>Modifié le {sanitizedDate(bal.updatedAt)}</i></p>
           </div>
           <StatusBadge status={bal.status} sync={bal.sync} />
         </div>
@@ -58,10 +58,10 @@ function BaseLocaleCard({bal}) {
 
 BaseLocaleCard.propTypes = {
   bal: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     nom: PropTypes.string.isRequired,
     commune: PropTypes.string.isRequired,
-    _updated: PropTypes.string,
+    updatedAt: PropTypes.string,
     status: PropTypes.oneOf([
       'replaced',
       'published',
