@@ -26,7 +26,7 @@ La Base Adresse Nationale agrège les BAL communales, puis met à disposition la
 La Base Adresse Nationale est constituée commune par commune, sur le principe suivant:
 
 - La commune fournit et actualise sa Base Adresse Locale (**BAL**) : ce sont ces adresses qui sont incluses dans la Base Adresse Nationale;
-- En cas d'absence de BAL, et afin d'assurer une couverture exhaustive du territoire, une liste d'adresses est fournie par l'IGN à partir des meilleures sources disponibles (**DGFiP**, **IGN**, **ARCEP**, **Guichet Adresse**)._[*](#user-content-notes)_
+- En cas d'absence de BAL, et afin d'assurer une couverture exhaustive du territoire, une liste d'adresses est fournie par l'IGN à partir des meilleures sources disponibles _[(1)](#user-content-notes)_ (**DGFiP**, **IGN**, **ARCEP**, **Guichet Adresse**).
 
 ![Shema illustrant le fonctionnement de la Base Adresse Nationale](/img/pages/decouvrir_la_BAN/schema_composition_ban.svg)
 
@@ -44,7 +44,7 @@ La Base Adresse Nationale et les Bases Adresses Locales constituent l'écosystè
 
 ### Notes
 
-_*_ La liste d'adresses fournie par l'IGN est une disposition palliative. Elle ne soustrait pas la commune à sa responsabilité d'adressage
+__(1)__  La liste d'adresses fournie par l'IGN est une disposition palliative. Elle ne soustrait pas la commune à sa responsabilité d'adressage
 
 ------------------------------------
 
@@ -52,4 +52,4 @@ _*_ La liste d'adresses fournie par l'IGN est une disposition palliative. Elle n
 
 - [Comment utiliser la BAN](/utiliser-la-ban)
 - [Documentation technique](/documentation-technique)
-- [Etat du déploiement de la BAN](/deploiement)
+- [Etat du déploiement de la BAN](/deploiement-bal)
