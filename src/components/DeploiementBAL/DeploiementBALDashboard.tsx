@@ -5,7 +5,7 @@ import { useStatsDeploiement } from '@/hooks/useStatsDeploiement'
 import { getEpcis } from '@/lib/api-geo'
 import { BANStats } from '@/types/api-ban.types'
 import { Departement } from '@/types/api-geo.types'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Map, { Layer, NavigationControl, Source } from 'react-map-gl/maplibre'
 import TabDeploiementBAL from './TabDeploiementBAL'
 import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
@@ -29,6 +29,11 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
   const [selectedTab, setSelectedTab] = useState<'source' | 'bal'>('source')
+  const [origin, setOrigin] = useState('')
+
+  useEffect(() => {
+    setOrigin(window.location.origin)
+  }, [])
 
   const handleSearch = useCallback(async (input: string) => {
     const filteredEpcis = await getEpcis({ q: input, limit: 10, fields: ['centre', 'contour'] })
@@ -79,7 +84,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
           >
             <NavigationControl showZoom showCompass position="top-right" />
             <FullScreenControl position="top-right" />
-            <Source promoteId="code" id="data" type="vector" tiles={[`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
+            <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
               <Layer
                 id="bal-polygon-fill"
                 type="fill"
@@ -106,7 +111,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
           </Map>
         </div>
         <div className="stats-wrapper">
-
           <Tabs
             selectedTabId={selectedTab}
             tabs={[
