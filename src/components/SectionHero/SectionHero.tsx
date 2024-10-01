@@ -2,7 +2,7 @@ import Button from '@codegouvfr/react-dsfr/Button'
 
 import Section from '@/components/Section'
 
-import { HeroWrapper, HeroFooter, HeroImage } from './SectionHero.styles'
+import { HeroWrapper, HeroTextWrapper, HeroFooter, HeroImage } from './SectionHero.styles'
 
 interface HeroProps {
   pageTitle: string
@@ -29,7 +29,7 @@ function Hero({
   return (
     <Section theme="primary">
       <HeroWrapper>
-        <div>
+        <HeroTextWrapper>
           <h1>{pageTitle}</h1>
           {children}
           {
@@ -49,7 +49,7 @@ function Hero({
               </HeroFooter>
             )
           }
-        </div>
+        </HeroTextWrapper>
         <div>
           <HeroImage
             src={picture.src}
