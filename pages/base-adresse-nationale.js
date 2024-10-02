@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {useRouter} from 'next/router'
 import maplibregl from 'maplibre-gl'
 
-import {getAddress} from '@/lib/api-ban'
+import {getAddress, getDistrict} from '@/lib/api-ban'
 
 import Page from '@/layouts/main'
 import {Desktop, Mobile} from '@/layouts/base-adresse-nationale'
@@ -120,7 +120,10 @@ BaseAdresseNationale.propTypes = {
     voie: PropTypes.shape({
       nomVoie: PropTypes.string
     }),
-    displayBBox: PropTypes.array
+    displayBBox: PropTypes.array,
+    districtConfig: PropTypes.shape({
+      certificate: PropTypes.object,
+    })
   })
 }
 
@@ -161,8 +164,16 @@ export async function getServerSideProps({query}) {
       }
     }
 
+    let districtConfig = {}
+    const {banIdDistrict} = address
+    if (banIdDistrict) {
+      const districtRawResponse = await getDistrict(banIdDistrict)
+      const district = districtRawResponse.response
+      districtConfig = district.config || {}
+    }
+
     return {
-      props: {address}
+      props: {address: {...address, districtConfig}}
     }
   } catch {
     return {
