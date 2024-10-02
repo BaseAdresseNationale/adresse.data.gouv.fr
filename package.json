@@ -19,15 +19,18 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.645.0",
     "@codegouvfr/react-dsfr": "^1.10.11",
     "@etalab/decoupage-administratif": "^4.0.0",
     "@socialgouv/matomo-next": "^1.9.0",
     "@types/remark-heading-id": "^1.0.0",
     "chart.js": "^4.4.4",
+    "filesize": "^10.1.6",
     "geojson-vt": "^4.0.2",
     "gray-matter": "^4.0.3",
     "maplibre-gl": "^4.7.0",
     "next": "14.2.5",
+    "prop-types": "^15.8.1",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
@@ -35,6 +38,7 @@
     "remark": "^15.0.1",
     "remark-heading-id": "^1.0.1",
     "remark-html": "^16.0.1",
+    "send": "^0.18.0",
     "styled-components": "^6.1.12",
     "vt-pbf": "^3.1.3"
   },

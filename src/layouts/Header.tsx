@@ -85,7 +85,8 @@ export const navEntries: MainNavigationProps.Item[] = [
       // { text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',
-        linkProps: { href: '/donnees-nationales' },
+        // linkProps: { href: '/donnees-nationales' }, // TODO: Use redirection
+        linkProps: { href: '/outils/telechargements' },
       },
       { text: 'Validateur BAL', linkProps: { href: '/validateur' } },
       // { text: 'Géocodeur', linkProps: { href: '#' } },
@@ -133,7 +134,7 @@ export default function Header() {
   const pathname = usePathname()
 
   const selectedNavigationLinks = useMemo(
-    () => markAsActive(navEntries as MainNavigationProps.Item[], pathname),
+    () => markAsActive(navEntries as MainNavigationProps.Item[], pathname || ''),
     [pathname]
   )
 

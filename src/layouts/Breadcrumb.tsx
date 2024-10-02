@@ -62,10 +62,10 @@ export default function Breadcrumb(
   const segments = useMemo(
     () => (
       _segments
-        ? [..._segments, { label: currentPageLabel, linkProps: { href: pathname } }]
-        : pathname === '/'
-          ? []
-          : getSegments(navEntries, pathname)
+        ? [..._segments, { label: currentPageLabel, linkProps: { href: pathname || '' } }]
+        : !pathname || pathname === '/'
+            ? []
+            : getSegments(navEntries, pathname)
     ),
     [_segments, currentPageLabel, pathname]
   )

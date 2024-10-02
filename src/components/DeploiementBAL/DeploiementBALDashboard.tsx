@@ -39,7 +39,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
 
   const handleFilter = useCallback((filter: DeploiementBALSearchResult | null) => {
     // Update URL
-    const current = new URLSearchParams(Array.from(searchParams.entries()))
+    const current = new URLSearchParams(Array.from(searchParams?.entries() || []))
     current.delete('epci')
     current.delete('departement')
     if (filter) {
