@@ -11,6 +11,7 @@
     "dev": "next dev",
     "prebuild": "react-dsfr update-icons",
     "build": "next build",
+    "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "prestorybook": "react-dsfr update-icons",
@@ -20,8 +21,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.645.0",
+    "@ban-team/validateur-bal": "^2.19.1",
     "@codegouvfr/react-dsfr": "^1.10.11",
     "@etalab/decoupage-administratif": "^4.0.0",
+    "@next/bundle-analyzer": "^14.2.13",
     "@socialgouv/matomo-next": "^1.9.0",
     "@types/remark-heading-id": "^1.0.0",
     "chart.js": "^4.4.4",
@@ -39,6 +42,7 @@
     "remark-heading-id": "^1.0.1",
     "remark-html": "^16.0.1",
     "send": "^0.18.0",
+    "sharp": "^0.33.5",
     "styled-components": "^6.1.12",
     "vt-pbf": "^3.1.3"
   },

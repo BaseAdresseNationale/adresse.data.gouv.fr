@@ -1,12 +1,18 @@
 /** @type {import('next').NextConfig} */
 
+import NextBundleAnalyzer from '@next/bundle-analyzer'
+
 const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE
 const imagesDomains = ['static.data.gouv.fr']
 if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
   imagesDomains.push(NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE)
 }
 
-const nextConfig = {
+const withBundleAnalyzer = NextBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})
+
+const nextConfig = withBundleAnalyzer({
   images: {
     remotePatterns: imagesDomains.map(domain => ({
       protocol: 'https',
@@ -36,6 +42,6 @@ const nextConfig = {
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
   ],
-}
+})
 
 export default nextConfig

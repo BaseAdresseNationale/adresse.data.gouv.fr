@@ -61,7 +61,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
   const handleDownloadCSV = async () => {
     try {
       setIsLoadingCSV(true)
-      const url = new URL(`${process.env.NEXT_PUBLIC_ADRESSE_URL}/api/deploiement-stats`)
+      const url = new URL(`${window.location.origin}/api/deploiement-stats`)
       url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
 
       const csvHeaders = ['code', 'nom', 'nbNumeros', 'certificationPercentage', 'hasBAL', 'nomClient']

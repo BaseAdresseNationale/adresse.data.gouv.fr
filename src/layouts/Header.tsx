@@ -88,7 +88,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         // linkProps: { href: '/donnees-nationales' }, // TODO: Use redirection
         linkProps: { href: '/outils/telechargements' },
       },
-      { text: 'Validateur BAL', linkProps: { href: '/validateur' } },
+      { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
       // { text: 'Géocodeur', linkProps: { href: '#' } },
       { text: 'Publication des adresses', linkProps: { href: '#' } },
       {
