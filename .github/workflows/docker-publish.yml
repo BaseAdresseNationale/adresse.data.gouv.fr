@@ -5,12 +5,14 @@ on:
     branches: 
       - "master"
       - "main"  # Ajout de la branche main
+      - "develop"
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: 
       - "master"
       - "main"  # Ajout de la branche main
+      - "develop"
 
 env:
   # Use docker.io for Docker Hub if empty
