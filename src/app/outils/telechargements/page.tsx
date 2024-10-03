@@ -151,6 +151,7 @@ export default async function PageDownloadBan() {
                   iconId="fr-icon-book-2-line"
                   linkProps={{
                     href: 'https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles',
+                    target: '_blank'
                   }}
                   size="small"
                 >
@@ -178,6 +179,7 @@ export default async function PageDownloadBan() {
                   iconId="fr-icon-book-2-line"
                   linkProps={{
                     href: 'https://geoservices.ign.fr/services-web-experts-adresse',
+                    target: '_blank'
                   }}
                   size="small"
                 >
@@ -205,6 +207,7 @@ export default async function PageDownloadBan() {
                   iconId="fr-icon-book-2-line"
                   linkProps={{
                     href: 'https://geoservices.ign.fr/services-web-experts-adresse',
+                    target: '_blank'
                   }}
                   size="small"
                 >
