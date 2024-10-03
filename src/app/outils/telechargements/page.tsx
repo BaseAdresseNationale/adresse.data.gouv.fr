@@ -212,7 +212,7 @@ export default async function PageDownloadBan() {
                 </Button>
               )}
             />
-          </div>       
+          </div>
         </CardContainer>
       </Section>
     </>
