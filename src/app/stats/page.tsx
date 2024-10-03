@@ -53,7 +53,7 @@ function StatsPage() {
     errorBanStats,
   ])
   type dataMonthlyUsageObject = {
-    note: string,
+    note: string
     label: string
   }
 
@@ -96,7 +96,7 @@ function StatsPage() {
           <KeyNumbersBlock data={dataMonthlyUsage?.value} />
 
           <ul className="section-footer-notes">
-            {dataMonthlyUsage?.value?.map(({ note, label}: dataMonthlyUsageObject) => (
+            {dataMonthlyUsage?.value?.map(({ note, label }: dataMonthlyUsageObject) => (
               <li key={label}>{note}</li>
             ))}
           </ul>
