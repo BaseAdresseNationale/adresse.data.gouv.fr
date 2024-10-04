@@ -42,6 +42,9 @@ const nextConfig = withBundleAnalyzer({
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
   ],
+  env: {
+    NEXT_PUBLIC_GHOST_KEY: process.env.NEXT_PUBLIC_GHOST_KEY,
+  },
 })
 
 export default nextConfig
