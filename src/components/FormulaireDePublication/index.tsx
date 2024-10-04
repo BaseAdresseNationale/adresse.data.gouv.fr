@@ -64,11 +64,11 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
   useEffect(() => {
     const step = getStepIndex(revision, habilitation)
-    if (step !== stepIndex){
+    if (step !== stepIndex) {
       setStepIndex(step)
       setError(undefined)
     }
-  }, [revision, habilitation])
+  }, [revision, habilitation, stepIndex])
 
   const handleFileChange = async (file?: File) => {
     if (!file) {
@@ -99,7 +99,8 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       try {
         const currentRevision = await getCurrentRevision(codeCommune)
         setCommuneCurrentRevision(currentRevision)
-      } catch {}
+      }
+      catch {}
 
       setCommune({ ...commune, flagUrl: communeFlagUrl })
     }
