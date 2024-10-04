@@ -2,13 +2,13 @@ name: Docker
 
 on:
   push:
-    branches: 
+    branches:
       - "master"
       - "main"  # Ajout de la branche main
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: 
+    branches:
       - "master"
       - "main"  # Ajout de la branche main
 
@@ -17,6 +17,21 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  # App Configuration
+  NEXT_PUBLIC_ADRESSE_URL: ${{ vars.NEXT_PUBLIC_ADRESSE_URL }}
+  NEXT_PUBLIC_API_BAN_URL: ${{ vars.NEXT_PUBLIC_API_BAN_URL }}
+  # DataGouv & Beta.gouv API Configuration
+  NEXT_PUBLIC_DATAGOUV_URL: ${{ vars.NEXT_PUBLIC_DATAGOUV_URL }}
+  NEXT_PUBLIC_API_GEO_URL: ${{ vars.NEXT_PUBLIC_API_GEO_URL }}
+  NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC: ${{ vars.NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC }}
+  # Ghost Blog Configuration
+  NEXT_PUBLIC_GHOST_URL: ${{ vars.NEXT_PUBLIC_GHOST_URL }}
+  NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE: ${{ vars.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE }}
+  NEXT_PUBLIC_GHOST_KEY: ${{ vars.NEXT_PUBLIC_GHOST_KEY }}
+  # BAL API Access Configuration
+  NEXT_PUBLIC_API_DEPOT_URL: ${{ vars.NEXT_PUBLIC_API_DEPOT_URL }}
+  NEXT_PUBLIC_BAL_ADMIN_API_URL: ${{ vars.NEXT_PUBLIC_BAL_ADMIN_API_URL }}
+  NEXT_PUBLIC_BAL_API_URL: ${{ vars.NEXT_PUBLIC_BAL_API_URL }}
 
 jobs:
   build:
