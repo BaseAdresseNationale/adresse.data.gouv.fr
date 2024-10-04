@@ -2,12 +2,13 @@
 
 import Section from '@/components/Section'
 import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { validate, profiles as profilesMap } from '@ban-team/validateur-bal'
 import SelectInput from '@/components/SelectInput'
 import Loader from '@/components/Loader'
 import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
 import ProfileDocumentation from '@/components/ValidateurBAL/ProfileDocumentation'
+import DropZoneInput from '../DropZoneInput'
 
 const availableProfiles = ['1.3', '1.4']
 
@@ -21,10 +22,8 @@ export default function ValidateurBAL() {
   const [validationReport, setValidationReport] = useState<any>(null)
   const [file, setFile] = useState<File | null>(null)
   const [profile, setProfile] = useState<string>('')
-  const fileRef = useRef<HTMLInputElement>(null)
 
-  const handleFileChange = () => {
-    const file = fileRef.current?.files?.[0]
+  const handleFileChange = (file?: File) => {
     if (!file) {
       throw new Error('No file selected')
     }
@@ -53,10 +52,13 @@ export default function ValidateurBAL() {
 
   const steps = [
     { title: 'Ajout du fichier à valider', content: (
-      <div className="fr-upload-group">
-        <span className="fr-hint-text" style={{ marginBottom: '0.5rem' }}>Taille maximale: 50 Mo. Format supporté : CSV</span>
-        <input ref={fileRef} onChange={handleFileChange} className="fr-upload" type="file" id="file-upload" name="file-upload" accept="text/csv" />
-      </div>
+      <DropZoneInput
+        onChange={handleFileChange}
+        label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
+        hint="Taille maximale: 50 Mo. Format supporté : CSV"
+        accept={{ 'text/csv': [] }}
+        maxSize={50 * 1024 * 1024}
+      />
     ) },
     { title: 'Choix du profil', content: <div style={{ maxWidth: 400 }}><SelectInput options={profilesOptions} label="Version de la spécification" value={profile} defaultOption="Choisir une version de la spécification" handleChange={handleProfileChange} /></div> },
   ]
@@ -78,7 +80,9 @@ export default function ValidateurBAL() {
               : (
                   <>
                     <Stepper currentStep={stepIndex + 1} stepCount={steps.length} title={steps[stepIndex].title} nextTitle={steps[stepIndex + 1]?.title} />
-                    {steps[stepIndex].content}
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      {steps[stepIndex].content}
+                    </div>
                   </>
                 )}
       </Section>

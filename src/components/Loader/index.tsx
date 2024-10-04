@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import styled from 'styled-components'
 
@@ -22,10 +24,11 @@ const StyledLoader = styled.div<{ $size: number }>`
 
 interface LoaderProps {
   size?: number
+  style?: React.CSSProperties
 }
 
-function Loader({ size = 24 }: LoaderProps) {
-  return <StyledLoader $size={size} />
+function Loader({ size = 24, style }: LoaderProps) {
+  return <StyledLoader $size={size} style={style} />
 }
 
 export default Loader

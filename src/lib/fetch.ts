@@ -11,29 +11,21 @@ export default class HttpError extends Error {
 }
 
 export async function customFetch(url: string | URL | globalThis.Request, customOptions: RequestInit = {}) {
-  try {
-    const options: RequestInit = {
-      mode: 'cors',
-      method: 'GET',
-      ...customOptions,
-    }
-
-    const response = await fetch(url, options)
-    const contentType = response.headers.get('content-type')
-
-    if (!response.ok) {
-      throw new HttpError(response)
-    }
-
-    if (response.ok && contentType && contentType.includes('application/json')) {
-      return response.json()
-    }
-
-    throw new Error('Une erreur est survenue')
-  }
-  catch (error) {
-    console.error(error)
+  const options: RequestInit = {
+    mode: 'cors',
+    method: 'GET',
+    ...customOptions,
   }
 
-  return null
+  const response = await fetch(url, options)
+  const contentType = response.headers.get('content-type')
+
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error?.message || response.statusText)
+  }
+
+  if (response.ok && contentType && contentType.includes('application/json')) {
+    return response.json()
+  }
 }
