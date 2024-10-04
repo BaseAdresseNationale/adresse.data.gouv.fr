@@ -36,6 +36,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# docker compose 
+docker-compose-prod.yml
+
 *storybook.log
 /.storybook/static/dsfr/
 

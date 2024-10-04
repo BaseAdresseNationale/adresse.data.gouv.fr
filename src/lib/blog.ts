@@ -1,6 +1,8 @@
+import getConfig from 'next/config'
+
 const URL = process.env.NEXT_PUBLIC_GHOST_URL
 const KEY = process.env.NEXT_PUBLIC_GHOST_KEY
-console.log('NEXT_PUBLIC_GHOST_KEY:', process.env.NEXT_PUBLIC_GHOST_KEY)
+console.log('NEXT_PUBLIC_GHOST_KEY:', KEY)
 
 const LIMIT = 15
 const INCLUDE = 'authors,tags'
