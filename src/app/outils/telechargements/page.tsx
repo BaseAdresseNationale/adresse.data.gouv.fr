@@ -132,7 +132,7 @@ export default async function PageDownloadBan() {
         <p>
           <Link className="fr-link" href="#" target="_blank">Retrouvez les tutoriels d’utilisation des flux avec un outil SIG</Link>
         </p>
-        <CardContainer $cols={4}>
+        <CardContainer $cols={3}>
           <div>
             <Card
               title="Format MVT (tuiles vectorielles)"
@@ -150,7 +150,8 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: '#',
+                    href: 'https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles',
+                    target: '_blank',
                   }}
                   size="small"
                 >
@@ -177,7 +178,8 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: '#',
+                    href: 'https://geoservices.ign.fr/services-web-experts-adresse',
+                    target: '_blank',
                   }}
                   size="small"
                 >
@@ -204,33 +206,12 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: '#',
+                    href: 'https://geoservices.ign.fr/services-web-experts-adresse',
+                    target: '_blank',
                   }}
                   size="small"
                 >
                   Lire la documentation
-                </Button>
-              )}
-            />
-          </div>
-          <div>
-            <Card
-              title="Adresses extraites du cadastre"
-              titleAs="h3"
-              desc={(
-                <>
-                  Ce jeu de données contient toutes les adresses extraites des fichiers du cadastre (plan et fichier des parcelles bâties).
-                </>
-              )}
-              footer={(
-                <Button
-                  iconId="fr-icon-window-line"
-                  linkProps={{
-                    href: '#',
-                  }}
-                  size="small"
-                >
-                  Voir sur data.gouv.fr
                 </Button>
               )}
             />

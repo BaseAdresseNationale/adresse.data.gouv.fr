@@ -1,17 +1,19 @@
 /** @type {import('next').NextConfig} */
 
+import fs from 'node:fs'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
-import  fs from 'fs'
 import dotenv from 'dotenv'
+
+const getNextEnv = envVars => Object.fromEntries(
+  Object
+    .entries(envVars)
+    .filter(([key]) => key.startsWith('NEXT_PUBLIC'))
+)
 
 const defaultEnvVarFile = '.env.default'
 const defaultEnvVarRaw = dotenv.parse(fs.readFileSync(defaultEnvVarFile))
-const defaultEnvVar = Object.fromEntries(Object.entries(defaultEnvVarRaw).filter(([key]) => key.startsWith('NEXT_PUBLIC')))
-const envVar = Object.fromEntries(
-  Object
-    .entries(process.env)
-    .filter(([key]) => key.startsWith('NEXT_PUBLIC'))
-)
+const defaultEnvVar = getNextEnv(defaultEnvVarRaw)
+const envVar = getNextEnv(process.env)
 
 const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE
 const imagesDomains = ['static.data.gouv.fr']
@@ -24,6 +26,10 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 })
 
 const nextConfig = withBundleAnalyzer({
+  env: {
+    ...defaultEnvVar,
+    ...envVar,
+  },
   images: {
     remotePatterns: imagesDomains.map(domain => ({
       protocol: 'https',
@@ -53,11 +59,6 @@ const nextConfig = withBundleAnalyzer({
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
   ],
-  publicRuntimeConfig: {
-    isDevMode: process.env.NODE_ENV !== 'production',
-    ...defaultEnvVar,
-    ...envVar,
-  },
 })
 
 export default nextConfig
