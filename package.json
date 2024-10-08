@@ -31,6 +31,7 @@
     "altcha": "^1.0.5",
     "chart.js": "^4.4.4",
     "dotenv": "^16.4.5",
+    "downshift": "^9.0.8",
     "filesize": "^10.1.6",
     "geojson-vt": "^4.0.2",
     "getconfig": "^4.5.0",
