@@ -34,3 +34,22 @@ export type Revision = {
     expiresAt: string
   }
 }
+
+export enum HabilitationStatus {
+  PENDING = 'pending',
+  ACCEPTED = 'accepted',
+  REJECTED = 'rejected',
+}
+
+export type Habilitation = {
+  _id: string
+  codeCommune: string
+  emailCommune: string
+  franceconnectAuthenticationUrl: string
+  strategy: any
+  client: string
+  status: HabilitationStatus
+  createdAt: string
+  updatedAt: string
+  expiresAt: string
+}
