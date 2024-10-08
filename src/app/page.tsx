@@ -43,7 +43,7 @@ export default async function Home() {
         <p>
           Pour que les services d’urgence arrivent au bon endroit, pour vous
           permettre de réaliser une analyse cartographique ou encore pour mieux
-          coordonnées les chantiers, les adresses sont un véritable enjeu de
+          coordonner les chantiers, les adresses sont un véritable enjeu de
           souveraineté pour la France.
         </p>
         <p>
