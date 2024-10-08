@@ -1,9 +1,7 @@
 'use client'
 
 import Section from '@/components/Section'
-import BALWidgetContext from '@/contexts/BALWidget.context'
 import Button from '@codegouvfr/react-dsfr/Button'
-import { useContext } from 'react'
 import styled from 'styled-components'
 
 const StyledWrapper = styled(Section)`
@@ -26,13 +24,6 @@ const StyledWrapper = styled(Section)`
 `
 
 export default function NousContacterPage() {
-  const { open, navigate } = useContext(BALWidgetContext)
-
-  const handleContactParticuliers = () => {
-    navigate('/particulier')
-    open()
-  }
-
   return (
     <StyledWrapper pageTitle="Nous contacter">
       <section>
@@ -68,7 +59,13 @@ export default function NousContacterPage() {
         <p>
           Notre équipe fera le nécessaire pour vous répondre dans les plus brefs délais, dans la limite de sa disponibilité.
         </p>
-        <Button iconId="fr-icon-mail-line" onClick={handleContactParticuliers}>Nous contacter</Button>
+        <Button
+          iconId="fr-icon-mail-line"
+          linkProps={{
+            href: 'mailto:adresse@data.gouv.fr ',
+          }}
+        >Nous contacter
+        </Button>
       </section>
       <section>
         <h2>
@@ -81,10 +78,21 @@ export default function NousContacterPage() {
           Il s&apos;adresse aux utilisateurs de la donnée BAN : administrations et services publics, services de secours et de sécurité, opérateurs de réseaux, services de localisation et navigation, ... constitués par le biais de cette démarche en &quot;Collectif des usagers de la BAN&quot;. L&apos;objectif est la connaissance des cas d&apos;application et la compréhension des besoins pour piloter les évolutions de la feuille de route BAN en adéquation avec les usages.
         </p>
         <div className="osmose-buttons">
-          <Button iconId="fr-icon-mail-line" priority="secondary">
+          <Button
+            iconId="fr-icon-mail-line"
+            priority="secondary"
+            linkProps={{
+              href: ' https://osmose.numerique.gouv.fr/jcms/p_4881391/fr/mtect-collectif-des-utilisateurs-de-la-ban',
+            }}
+          >
             Demander à rejoindre Osmose
           </Button>
-          <Button iconId="fr-icon-question-answer-line">
+          <Button
+            iconId="fr-icon-question-answer-line"
+            linkProps={{
+              href: ' https://osmose.numerique.gouv.fr/jcms/p_4881391/fr/mtect-collectif-des-utilisateurs-de-la-ban',
+            }}
+          >
             Accéder à Osmose
           </Button>
         </div>
