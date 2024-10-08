@@ -90,7 +90,7 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
       // { text: 'Géocodeur', linkProps: { href: '#' } },
-      { text: 'Publication des adresses', linkProps: { href: '#' } },
+      { text: 'Formulaire de publication', linkProps: { href: '/outils/formulaire-de-publication' } },
       {
         text: 'Supervision BAN/BAL',
         linkProps: {
@@ -185,7 +185,7 @@ export default function Header() {
           {
             iconId: 'fr-icon-message-2-fill',
             linkProps: {
-              href: '#',
+              href: '/nous-contacter',
             },
             text: 'Nous contacter',
           },

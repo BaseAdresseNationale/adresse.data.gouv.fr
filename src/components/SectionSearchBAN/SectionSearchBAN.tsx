@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import Image from 'next/image'
 import { SearchBar } from '@codegouvfr/react-dsfr/SearchBar'
@@ -15,6 +15,7 @@ import {
   Title,
   FormDescription,
 } from './SectionSearchBAN.styles'
+import BALWidgetContext from '@/contexts/BALWidget.context'
 
 interface InputSearchBANProps {
   id?: string
@@ -54,6 +55,13 @@ function InputSearch() {
 }
 
 function SectionSearchBAN({ id }: InputSearchBANProps) {
+  const { open, navigate } = useContext(BALWidgetContext)
+
+  const handleContactParticuliers = () => {
+    navigate('/particulier')
+    open()
+  }
+
   return (
     <Section id={id}>
       <Wrapper>
@@ -67,7 +75,7 @@ function SectionSearchBAN({ id }: InputSearchBANProps) {
           <InputSearch />
           <FormWrapperFooter>
             <a className="fr-link fr-link--icon-left fr-icon-road-map-line" href="#">Consulter directement la carte</a>
-            <a className="fr-link fr-link--icon-left fr-icon-questionnaire-line" href="#">J’ai un soucis avec mon adresse, pourquoi ?</a>
+            <button className="fr-link fr-link--icon-left fr-icon-questionnaire-line" onClick={handleContactParticuliers}>J’ai un soucis avec mon adresse, pourquoi ?</button>
           </FormWrapperFooter>
         </FormWrapper>
       </Wrapper>
