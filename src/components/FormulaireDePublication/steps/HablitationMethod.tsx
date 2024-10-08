@@ -44,9 +44,6 @@ export function HabilitationMethod({ revision, habilitation, sendPinCode }: Habi
           Permet à <b>toute personne aillant accès à l’édition</b> de cette Base Adresse Locale de <b>mettre à jour</b> les adresses de sa commune.
         </li>
         <li>
-          Elle est valable <b>1 an</b>.
-        </li>
-        <li>
           Pour l’obtenir, <b>un(e) élu(e)</b> de la commune ou <b>un(e) employé(e)</b> de la mairie doit <b>s’authentifier</b>.
         </li>
       </ul>

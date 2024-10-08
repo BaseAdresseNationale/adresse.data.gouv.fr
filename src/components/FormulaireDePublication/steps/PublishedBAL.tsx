@@ -20,9 +20,17 @@ const StyledWrapper = styled.div`
 
   section {
     margin-bottom: 2rem;
+    padding: 0 1rem;
     li > span {
         margin-right: 0.5rem;
     }
+  }
+
+  .highlighted {
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   button {
@@ -51,6 +59,13 @@ export function PublishedBAL({ commune, onReset }: PublishedBALProps) {
 
         <h3>Votre Base Adresse Locale a bien été publiée !</h3>
 
+        <section className="highlighted">
+          <h4>🚀 Continuez l’édition de cette Base Adresse Locale</h4>
+          <p>
+            Pour <b>mettre à jour</b> vos adresses, il vous suffit de déposer un nouveau fichier .csv dans le formulaire. Il remplacera le précédent et sera transmis à la <b>Base Adresse Nationale</b>.
+          </p>
+        </section>
+
         <section>
           <h4>✨ Un réel bénéfice pour votre commune</h4>
           <p>
@@ -69,29 +84,17 @@ export function PublishedBAL({ commune, onReset }: PublishedBALProps) {
           <h4>🔍 Où consulter vos adresses ?</h4>
           <p>
             Vos adresses seront intégrées à la <b>Base Adresse Nationale</b> et disponibles d’ici <b>quelques heures</b>.<br />
-            Elles seront consultables directement depuis notre <b>carte interactive</b>.
+            Elles seront consultables directement depuis notre <a href={`/base-adresse-nationale/${commune.code}`}>carte interactive</a>.
           </p>
-          <a href={`/base-adresse-nationale/${commune.code}`}>Consulter la Base Adresse Nationale</a>
-
-          <p>Vous pourrez suivre <b>l’état de vos adresses</b> sur la page d’information par la commune et télécharger la <b>Base Adresse Nationale</b> de votre commune</p>
-          <a href={`/commune/${commune.code}`}>Consulter la page commune</a>
-
-        </section>
-
-        <section>
-          <h4>🚀 Continuez l’édition de cette Base Adresse Locale</h4>
-          <p>
-            Pour <b>mettre à jour</b> vos adresses, il vous suffit de déposer un nouveau fichier .csv dans le formulaire. Il remplacera le précédent et sera transmis à la <b>Base Adresse Nationale</b>.
-          </p>
+          <p>Vous pourrez suivre <b>l’état de vos adresses</b> sur la page d’information par la commune et télécharger la <b>Base Adresse Nationale</b> de votre <a href={`/commune/${commune.code}`}>commune</a>.</p>
         </section>
 
         <section>
           <h4>🇫🇷 Vous n’êtes pas seul</h4>
           <p>
             <b>Tous les jours</b> de nouvelles Bases Adresse Locales viennent alimenter la Base Adresse Nationale comme vous venez de le faire.<br />
-            Découvrez l’état du <b>déploiement des Bases Adresse Locales</b> à l’échelle nationale.
+            Découvrez l’état du <a href="/deploiement-bal">déploiement des Bases Adresse Locales</a> à l’échelle nationale.
           </p>
-          <a href="/deploiement-bal">Carte de couverture des BAL</a>
         </section>
 
         <Button type="button" onClick={onReset}>
