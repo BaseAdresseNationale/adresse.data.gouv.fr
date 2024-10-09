@@ -50,10 +50,10 @@ export const navEntries: MainNavigationProps.Item[] = [
     ],
   },
   {
-    text: 'Communes',
+    text: 'Les communes',
     menuLinks: [
       {
-        text: 'Découvrez le programme Base Adresse Locale',
+        text: 'Découvrir le programme Base Adresse Locale',
         linkProps: { href: '/programme-bal' },
       },
       {
