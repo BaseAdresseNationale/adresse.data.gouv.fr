@@ -14,14 +14,13 @@ import {
   ResponsiveContainer,
   Tooltip,
   Legend,
-  DefaultLegendContent,
 } from 'recharts'
 
 import { defaultTheme } from './ColorTheme'
 import AxisTickByDate from './AxisTicksByDate'
 import ChartsCustomTooltip from './ChartsCustomTooltips'
 import ChartsCustomAxisLabel from './ChartsCustomAxisLabel'
-import { Formatter } from 'recharts/types/component/DefaultLegendContent'
+import React from 'react'
 
 const renderColorfulLegendText = (value: any, entry: { color: string }) => {
   const { color } = entry
@@ -55,7 +54,11 @@ const yAxisTickFormatter = (value: any): string => {
   return value
 }
 
-const typeComponents = {
+interface TypeComponent {
+  chart: React.ElementType
+  axis: React.ComponentType
+}
+const typeComponents: Record<string, TypeComponent> = {
   area: {
     chart: AreaChart,
     axis: Area,
@@ -82,9 +85,9 @@ const defaultArea = {
 }
 
 interface CartesianChartProps {
-  type?: 'area' | 'bar' | 'line' | 'scatter'
+  type: 'area' | 'bar' | 'line' | 'scatter'
   data?: any[]
-  axisDef?: Record<string, any>
+  axisDef: Record<string, any>
   totalKeyName?: string
 }
 
@@ -92,8 +95,8 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
   const dataList = Object.entries(axisDef).map(([dataKey, areaItem], index) => ({
     ...defaultArea,
     dataKey,
-    stroke: dataKey?.stroke || defaultTheme[index]?.[0],
-    fill: dataKey?.fill || defaultTheme[index]?.[1],
+    stroke: areaItem?.stroke || defaultTheme[index]?.[0],
+    fill: areaItem?.fill || defaultTheme[index]?.[1],
     ...(areaItem || {}),
   }))
   const totalKeyName = totalKeyNameProps || Object.values(axisDef).find(({ ordinate }) => ordinate)?.dataKey
@@ -158,7 +161,7 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
             paddingTop: '50px',
           }}
           iconType="circle"
-          formatter={renderColorfulLegendText}
+          // formatter={renderColorfulLegendText}
         />
       </Chart>
 
