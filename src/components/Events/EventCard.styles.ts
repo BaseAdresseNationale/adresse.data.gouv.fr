@@ -19,6 +19,13 @@ export const StyledEventCard = styled.div<{ $isPassed?: boolean }>`
         }
     }
 
+    .clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;    
+    }
+
     h3 {
         font-size: 1.5rem;
     }

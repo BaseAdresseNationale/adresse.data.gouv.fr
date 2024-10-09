@@ -1,7 +1,10 @@
+'use client'
+
 import { EventType } from '@/types/events.types'
 import { StyledEventCard } from './EventCard.styles'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { getFullDate } from '@/utils/date'
+import { useState } from 'react'
 
 interface EventCardProps {
   event: EventType
@@ -10,6 +13,9 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event, isPassed, tagToColor }: EventCardProps) {
+  const hasLargeDescription = event.description.length > 180
+  const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
+
   const getAdressToString = (adress: EventType['address']) => {
     if (!adress) return ''
     return `${adress.nom}, ${adress.numero} ${adress.voie}, ${adress.codePostal} ${adress.commune}`
@@ -28,9 +34,14 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
         {event.isOnlineOnly ? <span> | En ligne</span> : event.address ? <span> | {getAdressToString(event.address)}</span> : null}
       </div>
       <h3>{event.title}</h3>
-      <p>
+      <p className={!showAllDescription ? 'clamp' : ''}>
         {event.description}
       </p>
+      {hasLargeDescription && (
+        <button className="fr-link" onClick={() => setShowAllDescription(!showAllDescription)}>
+          {showAllDescription ? 'Voir moins' : 'Voir plus'}
+        </button>
+      )}
       {!event.isSubscriptionClosed && !isPassed && (
         <a className="fr-btn" href={event.href} target="_blank" rel="noreferrer">
           S&apos;inscrire
