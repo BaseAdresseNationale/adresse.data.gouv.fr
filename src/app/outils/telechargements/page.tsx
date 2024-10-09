@@ -136,7 +136,7 @@ export default async function PageDownloadBan() {
           </div>
           <div>
             <Card
-              title="A venir "
+              title="A venir"
               titleAs="h3"
               desc={(
                 <>
@@ -145,17 +145,6 @@ export default async function PageDownloadBan() {
                   </ul>
                 </>
               )}
-              /*footer={(
-                <Button
-                  iconId="fr-icon-book-2-line"
-                  linkProps={{
-                    href: '/data/ban/adresses/latest/addok',
-                  }}
-                  size="small"
-                >
-                  Télécharger au format Addok
-                </Button>
-              )}*/
             />
           </div>
         </CardContainer>
