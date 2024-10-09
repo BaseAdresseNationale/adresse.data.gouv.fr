@@ -13,7 +13,7 @@ import { TextWrapper, CardContainer } from './page.styled'
 import type { DataType } from '@/lib/markdown'
 
 export default async function PageDownloadBan() {
-  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('les_données_de_la_BAN') || {}
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('les_donnees_de_la_BAN') || {}
 
   return (
     <>
@@ -48,7 +48,7 @@ export default async function PageDownloadBan() {
           <p>
             <Link
               className="fr-link fr-link--icon-left ri-folders-line"
-              href="/data"
+              href="/data/ban/adresses"
             >
               Naviguez à travers toutes les données téléchargeables mises à disposition par la BAN
             </Link>
@@ -130,7 +130,7 @@ export default async function PageDownloadBan() {
         id="carto"
       >
         <p>
-          <Link className="fr-link" href="#" target="_blank">Retrouvez les tutoriels d’utilisation des flux avec un outil SIG</Link>
+          <Link className="fr-link" href="https://geoservices.ign.fr/documentation/services/utilisation-sig" target="_blank">Retrouvez les tutoriels d’utilisation des flux avec un outil SIG</Link>
         </p>
         <CardContainer $cols={3}>
           <div>
