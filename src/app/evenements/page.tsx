@@ -11,30 +11,40 @@ export default async function EvenementsPage() {
 
   const { allEvents, tagToColor } = mapEvents([...balEvents, ...(banEvents as EventType[])])
   const { upcomingEvents, pastEvents } = getUpcomingAndPassedEvents(allEvents)
+  const lastMonthPastEvents = pastEvents.filter((event) => {
+    const eventDate = new Date(event.date)
+    const lastMonth = new Date()
+    lastMonth.setMonth(lastMonth.getMonth() - 1)
+    return eventDate > lastMonth
+  })
 
   return (
     <>
       <Section title="Prochains évènements">
         <CardWrapper>
-          {upcomingEvents.map((event, index) => (
-            <EventCard
-              key={index}
-              event={event}
-              tagToColor={tagToColor}
-            />
-          ))}
+          {upcomingEvents.length > 0
+            ? upcomingEvents.map((event, index) => (
+              <EventCard
+                key={index}
+                event={event}
+                tagToColor={tagToColor}
+              />
+            ))
+            : <p>Aucun évènement à venir</p>}
         </CardWrapper>
       </Section>
       <Section title="Évènements passés">
         <CardWrapper>
-          {pastEvents.map((event, index) => (
-            <EventCard
-              key={index}
-              event={event}
-              tagToColor={tagToColor}
-              isPassed
-            />
-          ))}
+          {lastMonthPastEvents.length > 0
+            ? lastMonthPastEvents.map((event, index) => (
+              <EventCard
+                key={index}
+                event={event}
+                tagToColor={tagToColor}
+                isPassed
+              />
+            ))
+            : <p>Aucun évènement n&apos;a eu lieu le mois dernier</p>}
         </CardWrapper>
       </Section>
     </>
