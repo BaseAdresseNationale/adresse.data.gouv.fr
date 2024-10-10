@@ -13,7 +13,7 @@ import { TextWrapper, CardContainer } from './page.styled'
 import type { DataType } from '@/lib/markdown'
 
 export default async function PageDownloadBan() {
-  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('les_données_de_la_BAN') || {}
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('les_donnees_de_la_BAN') || {}
 
   return (
     <>
@@ -48,89 +48,113 @@ export default async function PageDownloadBan() {
           <p>
             <Link
               className="fr-link fr-link--icon-left ri-folders-line"
-              href="/data"
+              href="/data/ban/adresses"
             >
               Naviguez à travers toutes les données téléchargeables mises à disposition par la BAN
             </Link>
           </p>
         )}
       >
-        <CardContainer>
+        <CardContainer $cols={4}>
           <div>
             <Card
               title="Format CSV historique"
               titleAs="h3"
-              detail="Télécharger"
-              endDetail="Fichier CSV compressé (.csv.gz)"
               desc={(
-                <ul>
-                  <li>Fichier d’usage général recommandé dans la majorité des cas</li>
-                  <li>Couverture nationale</li>
-                  <li>Une position par adresse</li>
-                </ul>
+                <>
+                  <ul>
+                    <li>Fichier d’usage général recommandé dans la majorité des cas</li>
+                    <li>Couverture nationale</li>
+                    <li>Une position par adresse</li>
+                  </ul>
+                </>
               )}
-              enlargeLink
-              linkProps={{
-                href: '/data/ban/adresses/latest/csv/adresses-france.csv.gz',
-                target: '_blank',
-                download: true,
-              }}
-              className="fr-card--download"
+              footer={(
+                <Button
+                  iconId="fr-icon-book-2-line"
+                  linkProps={{
+                    href: '/data/ban/adresses/latest/csv',
+                  }}
+                  size="small"
+                >
+                  Télécharger au format CSV
+                </Button>
+              )}
             />
           </div>
           <div>
             <Card
               title="Format BAL"
               titleAs="h3"
-              detail="Télécharger"
-              endDetail="Fichier CSV compressé (.csv.gz)"
               desc={(
-                <ul>
-                  <li>Fichier CSV au format BAL 1.3 (AITF)</li>
-                  <li>Couverture nationale</li>
-                  <li>Plusieurs positions par adresse</li>
-                </ul>
+                <>
+                  <ul>
+                    <li>Fichier CSV au format BAL 1.3 (AITF)</li>
+                    <li>Couverture nationale</li>
+                    <li>Plusieurs positions par adresse</li>
+                  </ul>
+                </>
               )}
-              enlargeLink
-              linkProps={{
-                href: '/data/ban/adresses/latest/csv-bal/adresses-france.csv.gz',
-                target: '_blank',
-                download: true,
-              }}
-              className="fr-card--download"
+              footer={(
+                <Button
+                  iconId="fr-icon-book-2-line"
+                  linkProps={{
+                    href: '/data/ban/adresses/latest/csv-bal/',
+                  }}
+                  size="small"
+                >
+                  Télécharger au format BAL
+                </Button>
+              )}
             />
           </div>
           <div>
             <Card
               title="Format Addok"
               titleAs="h3"
-              detail="Télécharger"
-              endDetail="Fichier ndJSON compressé (.ndjson.gz)"
               desc={(
-                <ul>
-                  <li>Fichier spécifique pour le géocodeur Addok</li>
-                  <li>Couverture nationale</li>
-                  <li>Une position par adresse</li>
-                </ul>
+                <>
+                  <ul>
+                    <li>Fichier spécifique pour le géocodeur Addok</li>
+                    <li>Couverture nationale</li>
+                    <li>Une position par adresse</li>
+                  </ul>
+                </>
               )}
-              enlargeLink
-              linkProps={{
-                href: '/data/ban/adresses/latest/addok/adresses-addok-france.ndjson.gz',
-                target: '_blank',
-                download: true,
-              }}
-              className="fr-card--download"
+              footer={(
+                <Button
+                  iconId="fr-icon-book-2-line"
+                  linkProps={{
+                    href: '/data/ban/adresses/latest/addok',
+                  }}
+                  size="small"
+                >
+                  Télécharger au format Addok
+                </Button>
+              )}
+            />
+          </div>
+          <div>
+            <Card
+              title="A venir"
+              titleAs="h3"
+              desc={(
+                <>
+                  <ul>
+                    <li>En cours de développement Format JSON Expert et fichiers différentiels</li>
+                  </ul>
+                </>
+              )}
             />
           </div>
         </CardContainer>
       </Section>
-
       <Section
         title="Services cartographiques"
         id="carto"
       >
         <p>
-          <Link className="fr-link" href="#" target="_blank">Retrouvez les tutoriels d’utilisation des flux avec un outil SIG</Link>
+          <Link className="fr-link" href="https://geoservices.ign.fr/documentation/services/utilisation-sig" target="_blank">Retrouvez les tutoriels d’utilisation des flux avec un outil SIG</Link>
         </p>
         <CardContainer $cols={3}>
           <div>
