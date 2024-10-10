@@ -3,6 +3,9 @@ title: Utiliser la BAN
 aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--la-base-adresse-nationale"}]
 ---
 
+
+![Exemple d'adresse sur une carte](img/pages/utiliser_la_BAN/exemple_carte_adresse.png)
+
 ## Structure de données au sein de la BAN
 
 La Base Adresse Nationale (BAN) est une base de données géographiques, qui stocke l'ensemble des adresses du territoire. Les adresses sont représentées sous la forme d'un objet géométrique **ponctuel géolocalisé**, associé à des champs descriptifs représentant les différents objets de la base et leurs attributs. 
