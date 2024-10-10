@@ -4,7 +4,7 @@ title: Decouvrir la BAN - La Base Adresse Nationale
 
 ### Caractéristiques
 
-- Producteur : DINUM / ANCT / IGN
+- Producteur : IGN
 - Licence : Licence Ouverte
 - Fréquence de mise à jour : quotidienne
 - Couverture : France entière (y compris les collectivités d’outremer)
