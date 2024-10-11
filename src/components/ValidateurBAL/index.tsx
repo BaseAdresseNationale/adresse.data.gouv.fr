@@ -9,6 +9,7 @@ import Loader from '@/components/Loader'
 import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
 import ProfileDocumentation from '@/components/ValidateurBAL/ProfileDocumentation'
 import DropZoneInput from '../DropZoneInput'
+import Alert from '@codegouvfr/react-dsfr/Alert'
 
 const availableProfiles = ['1.3', '1.4']
 
@@ -133,6 +134,9 @@ export default function ValidateurBAL() {
           Voici le détail des erreurs et avertissements que vous pouvez rencontrer lors de la validation de votre fichier BAL suivant la spécification choisie :
         </p>
         {availableProfiles.map(profile => <ProfileDocumentation key={profile} profile={profilesMap[profile]} />)}
+      </Section>
+      <Section>
+        <Alert title="Télécharger le validateur" severity="info" description={<p> Pour une utilisation avancée, vous pouvez télécharger le validateur sur cette <a href="https://github.com/BaseAdresseNationale/validateur-bal/releases" target="_blank" rel="noreferrer">page</a>.</p>} />
       </Section>
     </>
   )

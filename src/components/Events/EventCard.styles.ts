@@ -19,11 +19,10 @@ export const StyledEventCard = styled.div<{ $isPassed?: boolean }>`
         }
     }
 
-    .clamp {
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;  
-        overflow: hidden;    
+    .show-btn {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+        display: block;
     }
 
     h3 {

@@ -13,8 +13,11 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event, isPassed, tagToColor }: EventCardProps) {
-  const hasLargeDescription = event.description.length > 180
+  const { tags, title, description, startHour, endHour, date, address, isOnlineOnly, isSubscriptionClosed, href } = event
+
+  const hasLargeDescription = description.length > 200
   const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
+  const actualDescription = showAllDescription ? description : description.slice(0, 200) + '...'
 
   const getAdressToString = (adress: EventType['address']) => {
     if (!adress) return ''
@@ -24,26 +27,26 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
   return (
     <StyledEventCard $isPassed={isPassed}>
       <div className="badge-wrapper">
-        <>{event.tags.map(tag => <Badge style={{ backgroundColor: tagToColor[tag].background, color: tagToColor[tag].color, marginRight: 4 }} key={tag} small>{tag}</Badge>)}</>
+        <>{tags.map(tag => <Badge style={{ backgroundColor: tagToColor[tag].background, color: tagToColor[tag].color, marginRight: 4 }} key={tag} small>{tag}</Badge>)}</>
       </div>
       <div className="event-details">
         <span className="fr-icon-calendar-2-fill" aria-hidden="true" />
-        <span>{getFullDate(new Date(event.date))}</span>
+        <span>{getFullDate(new Date(date))}</span>
         {' | '}
-        <span>{event.startHour} - {event.endHour}</span>
-        {event.isOnlineOnly ? <span> | En ligne</span> : event.address ? <span> | {getAdressToString(event.address)}</span> : null}
+        <span>{startHour} - {endHour}</span>
+        {isOnlineOnly ? <span> | En ligne</span> : address ? <span> | {getAdressToString(address)}</span> : null}
       </div>
-      <h3>{event.title}</h3>
-      <p className={!showAllDescription ? 'clamp' : ''}>
-        {event.description}
+      <h3>{title}</h3>
+      <p>
+        {actualDescription}
       </p>
       {hasLargeDescription && (
-        <button className="fr-link" onClick={() => setShowAllDescription(!showAllDescription)}>
+        <button className="show-btn fr-link" onClick={() => setShowAllDescription(!showAllDescription)}>
           {showAllDescription ? 'Voir moins' : 'Voir plus'}
         </button>
       )}
-      {!event.isSubscriptionClosed && !isPassed && (
-        <a className="fr-btn" href={event.href} target="_blank" rel="noreferrer">
+      {!isSubscriptionClosed && !isPassed && (
+        <a className="fr-btn" href={href} target="_blank" rel="noreferrer">
           S&apos;inscrire
         </a>
       )}
