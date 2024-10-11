@@ -9,17 +9,13 @@ export const TextWrapper = styled.div`
     align-items: flex-start;
     gap: 1rem;
 
-    article {
-      flex: 65;
+    div~fr-card {
+    width: 588px;
+    height: 256px;
+    gap: 0px;
+    border: 1px 0px 0px 0px;
+    opacity: 0px;
 
-      img {
-        max-width: 100%;
-      }
-    }
-
-    aside {
-      flex: 35;
-      min-width: 300px;
     }
 `
 
@@ -30,10 +26,11 @@ export const CardContainer = styled.div<{ $cols?: number }>`
   justify-content: center;
   gap: ${gap};
 
+  
   & > div {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: ${({ $cols = 3 }) => css`calc(${(100 / $cols).toFixed(2)}% - ${gap})`};
     min-width: 250px;
-  }
+}
 `
