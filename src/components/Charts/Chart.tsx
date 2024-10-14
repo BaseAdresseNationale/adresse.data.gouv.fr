@@ -21,6 +21,7 @@ import AxisTickByDate from './AxisTicksByDate'
 import ChartsCustomTooltip from './ChartsCustomTooltips'
 import ChartsCustomAxisLabel from './ChartsCustomAxisLabel'
 import React from 'react'
+import { FC } from 'react'
 
 const renderColorfulLegendText = (value: any, entry: { color: string }) => {
   const { color } = entry
@@ -108,63 +109,64 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
         }, 0)
     : 'auto'
 
-  const { chart: Chart, axis: Axis } = typeComponents[type]
-
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <Chart
-        data={data}
-        outerRadius={90}
-        margin={{
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 50,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="period"
-          angle={-45}
-          padding={{
-            left: 0,
+  if (typeComponents[type]) {
+    const { chart: Chart, axis: Axis } = typeComponents[type]
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <Chart
+          data={data}
+          outerRadius={90}
+          margin={{
+            top: 0,
             right: 0,
+            left: 0,
+            bottom: 50,
           }}
-          tick={<AxisTickByDate />}
-        />
-        <YAxis
-          dataKey={yAxisMaxKeyName}
-          tickFormatter={yAxisTickFormatter}
-          domain={[0, yAxisMaxValue === 'auto' ? yAxisMaxValue : `dataMax + ${'1'.padEnd((yAxisMaxValue).toString().length - 1, '0')}`]}
-        />
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="period"
+            angle={-45}
+            padding={{
+              left: 0,
+              right: 0,
+            }}
+            tick={<AxisTickByDate />}
+          />
+          <YAxis
+            dataKey={yAxisMaxKeyName}
+            tickFormatter={yAxisTickFormatter}
+            domain={[0, yAxisMaxValue === 'auto' ? yAxisMaxValue : `dataMax + ${'1'.padEnd((yAxisMaxValue).toString().length - 1, '0')}`]}
+          />
 
-        <Tooltip content={<ChartsCustomTooltip />} />
+          <Tooltip content={<ChartsCustomTooltip />} />
 
-        <>
-          {dataList.map((areaItem, index, arr) => (
-            <Axis
-              key={areaItem.dataKey}
-              {...(areaItem || {})}
-            >
-              {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position="top" content={<ChartsCustomAxisLabel />} />}
-            </Axis>
-          ))}
-        </>
+          <>
+            {dataList.map((areaItem, index, arr) => (
+              <Axis
+                key={areaItem.dataKey}
+                {...(areaItem || {})}
+              >
+                {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position="top" content={<ChartsCustomAxisLabel />} />}
+              </Axis>
+            ))}
+          </>
 
-        <Legend
-          layout="horizontal"
-          verticalAlign="bottom"
-          align="left"
-          wrapperStyle={{
-            position: 'absolute',
-            paddingBottom: '20px',
-            paddingTop: '50px',
-          }}
-          iconType="circle"
-          // formatter={renderColorfulLegendText}
-        />
-      </Chart>
+          <Legend
+            layout="horizontal"
+            verticalAlign="bottom"
+            align="left"
+            wrapperStyle={{
+              position: 'absolute',
+              paddingBottom: '20px',
+              paddingTop: '50px',
+            }}
+            iconType="circle"
+            // formatter={renderColorfulLegendText}
+          />
+        </Chart>
 
-    </ResponsiveContainer>
-  )
+      </ResponsiveContainer>
+    )
+  }
 }
