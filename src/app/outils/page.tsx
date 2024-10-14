@@ -55,8 +55,7 @@ export default async function Outils() {
               footer={(
                 <Button
                   linkProps={{
-                    href: 'https://adresse.data.gouv.fr/base-adresse-nationale#4.4/46.9/1.7',
-                    target: '_blank',
+                    href: '/outils/base-adresse-nationale',
                   }}
                   size="small"
                 >
@@ -72,8 +71,7 @@ export default async function Outils() {
               footer={(
                 <Button
                   linkProps={{
-                    href: 'https://adresse.data.gouv.fr/csv',
-                    target: '_blank',
+                    href: '/outils/csv',
                   }}
                   size="small"
                 >
@@ -90,8 +88,7 @@ export default async function Outils() {
                 <Button
                   iconId="fr-icon-code-s-slash-line"
                   linkProps={{
-                    href: 'https://adresse.data.gouv.fr/api-doc/adresse',
-                    target: '_blank',
+                    href: '/outils/api-doc/adresse',
                   }}
                   size="small"
                 >
@@ -133,7 +130,7 @@ export default async function Outils() {
               )}
 
             />
-            <Card
+            {/* <Card
               title="Certificat d'adresse"
               titleAs="h5"
               desc="Un organisme privé (ex. : un opérateur téléphonique) ou public (ex. : Notaire) vous demande un certificat d’adresse."
@@ -143,7 +140,7 @@ export default async function Outils() {
                   <input className="fr-input" aria-describedby="text-1-messages" name="text" id="text-1" type="text"></input>
                 </div>
               )}
-            />
+            /> */}
             <Card
               title="L'explorateur FANTOIR"
               titleAs="h5"
@@ -155,8 +152,7 @@ export default async function Outils() {
                     <Button
                       className="fr-btn fr-btn--secondary"
                       linkProps={{
-                        href: 'https://adresse.data.gouv.fr/fantoir',
-                        target: '_blank',
+                        href: '/outils/fantoir',
                       }}
                       size="small"
                     >
@@ -197,7 +193,7 @@ export default async function Outils() {
                 </Button>
               )}
             />
-            <Card
+            {/* <Card
               title="Signalement"
               titleAs="h5"
               desc="Description texte SM regular Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
@@ -227,7 +223,7 @@ export default async function Outils() {
                 </ul>
               )}
 
-            />
+            /> */}
           </CardContainer>
         </TextWrapper>
       </Section>
@@ -246,7 +242,8 @@ export default async function Outils() {
             footer={(
               <Button
                 linkProps={{
-                  href: '#',
+                  href: 'https://mes-adresses.data.gouv.fr/',
+                  target: '_blank',
                 }}
                 size="small"
               >
@@ -307,7 +304,8 @@ export default async function Outils() {
               <Button
                 iconId="fr-icon-book-2-line"
                 linkProps={{
-                  href: 'outils/validateur-bal',
+                  href: 'https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation',
+                  target: '_blank',
                 }}
                 size="small"
               >
