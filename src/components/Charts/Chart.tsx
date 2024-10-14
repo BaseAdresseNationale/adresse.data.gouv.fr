@@ -56,7 +56,7 @@ const yAxisTickFormatter = (value: any): string => {
 
 interface TypeComponent {
   chart: React.ElementType
-  axis: React.ComponentType
+  axis: any
 }
 const typeComponents: Record<string, TypeComponent> = {
   area: {
