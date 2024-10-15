@@ -25,6 +25,11 @@ env:
   S3_CONFIG_REGION: ${{ secrets.S3_CONFIG_REGION }}
   S3_CONFIG_ENDPOINT: ${{ secrets.S3_CONFIG_ENDPOINT }}
 
+  # MATOMO 
+  NEXT_PUBLIC_MATOMO_URL=${{secrets.NEXT_PUBLIC_MATOMO_URL}}
+  NEXT_PUBLIC_MATOMO_SITE_ID${{secrets.NEXT_PUBLIC_MATOMO_SITE_ID}}
+  
+
 jobs:
   build:
     runs-on: ubuntu-latest
