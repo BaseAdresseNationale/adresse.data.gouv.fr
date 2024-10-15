@@ -26,6 +26,50 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 })
 
 const nextConfig = withBundleAnalyzer({
+  async redirects() {
+    return [
+      {
+        source: '/gerer-mes-adresses',
+        destination: '/programme-bal',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/charte',
+        destination: '/communaute/charte-base-adresse-locale',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/charte/communes',
+        destination: '/communaute/communes-partenaires',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/charte/companies',
+        destination: '/communaute/societes-partenaires',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/charte/organismes',
+        destination: '/communaute/organismes-partenaires',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/validateur',
+        destination: '/outils/validateur-bal',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/publication',
+        destination: '/outils/formulaire-de-publication',
+        permanent: true,
+      },
+      {
+        source: '/bases-locales/validator-documentation',
+        destination: '/outils/formulaire-de-publication',
+        permanent: true,
+      },
+    ]
+  },
   env: {
     ...defaultEnvVar,
     ...envVar,

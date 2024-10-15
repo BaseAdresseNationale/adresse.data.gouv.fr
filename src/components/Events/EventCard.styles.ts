@@ -19,6 +19,12 @@ export const StyledEventCard = styled.div<{ $isPassed?: boolean }>`
         }
     }
 
+    .show-btn {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
     h3 {
         font-size: 1.5rem;
     }

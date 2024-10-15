@@ -1,17 +1,49 @@
 import { Footer as FooterDSFR } from '@codegouvfr/react-dsfr/Footer'
 import { Follow } from '@codegouvfr/react-dsfr/Follow'
 import { headerFooterDisplayItem } from '@codegouvfr/react-dsfr/Display'
+import { useState } from 'react'
+import { customFetch } from '@/lib/fetch'
 
 export default function Footer() {
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [email, setEmail] = useState('')
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      await customFetch(`/api/brevo-optin`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      setSuccess(true)
+    }
+    catch (error) {
+      console.error(error)
+    }
+    finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <>
       <Follow
         newsletter={{
-          buttonProps: {},
+          buttonProps: {
+            type: 'submit',
+            disabled: loading || !email,
+          },
           desc: 'Recevez toutes les informations de la base adresse nationale !',
           form: {
-            formComponent: ({ children }) => <form action="">{children}</form>,
-            success: false,
+            formComponent: ({ children }) => (<form onSubmit={handleSubmit}>{children}</form>),
+            successMessage: 'Vous êtes bien inscrit à la newsletter',
+            success,
+            inputProps: {
+              value: email,
+              onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+              type: 'email',
+            } as any,
           },
         }}
         social={{
