@@ -66,6 +66,7 @@ export default async function PageDownloadBan() {
                     <li>Fichier d’usage général recommandé dans la majorité des cas</li>
                     <li>Couverture nationale</li>
                     <li>Une position par adresse</li>
+                    <li><a href="telechargements/format-csv">En savoir plus</a></li>
                   </ul>
                 </>
               )}
