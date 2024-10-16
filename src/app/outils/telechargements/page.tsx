@@ -50,7 +50,7 @@ export default async function PageDownloadBan() {
               className="fr-link fr-link--icon-left ri-folders-line"
               href="/data/ban/adresses"
             >
-              Naviguez à travers toutes les données téléchargeables mises à disposition par la BAN
+              Naviguer à travers toutes les données téléchargeables mises à disposition par la BAN
             </Link>
           </p>
         )}
@@ -63,10 +63,9 @@ export default async function PageDownloadBan() {
               desc={(
                 <>
                   <ul>
-                    <li>Fichier d’usage général recommandé dans la majorité des cas</li>
-                    <li>Couverture nationale</li>
+                    <li>Fichier d’usage général recommandé dans la majorité des cas. <a href="telechargements/format-csv">En savoir plus</a></li>
                     <li>Une position par adresse</li>
-                    <li><a href="telechargements/format-csv">En savoir plus</a></li>
+                    <li><a href="https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md" target="_blank">Schéma de données</a></li>
                   </ul>
                 </>
               )}
@@ -91,7 +90,6 @@ export default async function PageDownloadBan() {
                 <>
                   <ul>
                     <li>Fichier CSV au format BAL 1.3 (AITF)</li>
-                    <li>Couverture nationale</li>
                     <li>Plusieurs positions par adresse</li>
                   </ul>
                 </>
@@ -117,7 +115,6 @@ export default async function PageDownloadBan() {
                 <>
                   <ul>
                     <li>Fichier spécifique pour le géocodeur Addok</li>
-                    <li>Couverture nationale</li>
                     <li>Une position par adresse</li>
                   </ul>
                 </>
@@ -135,19 +132,6 @@ export default async function PageDownloadBan() {
               )}
             />
           </div>
-          <div>
-            <Card
-              title="A venir"
-              titleAs="h3"
-              desc={(
-                <>
-                  <ul>
-                    <li>En cours de développement Format JSON Expert et fichiers différentiels</li>
-                  </ul>
-                </>
-              )}
-            />
-          </div>
         </CardContainer>
       </Section>
       <Section
@@ -155,7 +139,7 @@ export default async function PageDownloadBan() {
         id="carto"
       >
         <p>
-          <Link className="fr-link" href="https://geoservices.ign.fr/documentation/services/utilisation-sig" target="_blank">Retrouvez les tutoriels d’utilisation des flux avec un outil SIG</Link>
+          <Link className="fr-link" href="https://geoservices.ign.fr/documentation/services/utilisation-sig" target="_blank">Retrouver les tutoriels d’utilisation des flux avec un outil SIG</Link>
         </p>
         <CardContainer $cols={3}>
           <div>
