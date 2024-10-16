@@ -22,7 +22,7 @@ La BAN est composée d'objets de différents types :
 
 L'autorité principale de production de l'adresse est la commune dans le périmètre de la Loi3DS. Les adresses de la BAN sont donc construites à partir des données source provenant des Bases adresses locales (BAL) sur les emprises communales.
 
-Les fichiers BAL sont des fichiers au format CSV qui suivent la structure définie dans la [Spécification du format BAL 1.4](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.4.pdf)L. Un fichier BAL contient l’ensemble des données d’adressage d’une commune. À chaque soumission de fichier BAL auprès de la BAN, le fichier est traité dans son intégralité.
+Les fichiers BAL sont des fichiers au format CSV qui suivent la structure définie dans la [Spécification du format BAL 1.4](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.4.pdf). Un fichier BAL contient l’ensemble des données d’adressage d’une commune. À chaque soumission de fichier BAL auprès de la BAN, le fichier est traité dans son intégralité.
 
 
   
