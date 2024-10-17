@@ -4,24 +4,44 @@ title: Mentions Legales
 
 ### Mentions légales
 
-#### Editeur
+### ÉDITEURS :
 
-Direction interministérielle du numérique (DINUM)  
-20, avenue de Ségur  
-75007 Paris  
-dinsic-sec-directeur [à] modernisation.gouv.fr  
+Institut national de l’information géographique et forestière (IGN) \
+73 avenue de Paris \
+94165 Saint-Mandé cedex \
+Téléphone : 01 43 98 80 00 \
+Contacter l'[IGN ](https://www.ign.fr/institut/nous-ecrire)
   
-Directrice de la publication : Mme Stéphanie Schaer, DINUM
 
-#### Hébergeur
+### Pour les pages du blog :
 
-Société OVH  
-SAS au capital de 10 174 560 €  
-RCS Lille Métropole 424 761 419 00045  
-Code APE 6311Z  
-Siège social : 2 rue Kellermann - 59100 Roubaix - France.  
+Agence nationale de la cohésion des territoires (ANCT) \
+20 avenue de Ségur \
+TSA 10717 \
+75334 Paris cedex 07 \
+Téléphone : 01 85 58 60 00 \
+Contacter l'[ANCT](https://agence-cohesion-territoires.gouv.fr/contactez-nous-19)
 
-### Nous contacter  
+### DIRECTEURS DE LA PUBLICATION:
 
-[adresse@data.gouv.fr](mailto:adresse@data.gouv.fr)
+Pour l’IGN : Sébastien SORIANO, directeur général de l’IGN \
+Pour l’ANCT : Stanislas BOURRON, directeur général de l’ANCT \
+
+### HÉBERGEMENT DE LA PLATEFORME :
+
+OVH, société par actions simplifiée \
+2 rue Kellerman \
+59100 Roubaix – France \
+Téléphone : 1007 ou 09 72 10 10 07
+
+### ACCESSIBILITÉ :
+
+La plateforme n’est pas encore conforme, mais nous tâchons de la rendre accessible à toutes et à tous.
+
+### SÉCURITÉ :
+
+La plateforme est protégée par un certificat électronique, matérialisé pour la grande majorité des navigateurs par un cadenas. Cette protection participe à la confidentialité des échanges.
+
+En aucun cas les services associés à la plateforme ne seront à l’origine d’envoi de courriels pour demander la saisie d’informations personnelles.
+
 
