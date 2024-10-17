@@ -1,4 +1,5 @@
-import {useEffect, useContext, useState} from 'react'
+/* eslint-disable complexity */
+import {useContext, useState} from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import getConfig from 'next/config'
@@ -20,12 +21,10 @@ import RegionInfos from '../region-infos'
 import LanguagesPreview from '../languages-preview'
 import DownloadCertificate from './download-certificate'
 
-import {getDistrict} from '@/lib/api-ban'
-
 const {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED} = getConfig().publicRuntimeConfig
 
-// eslint-disable-next-line complexity
 function Numero({
+  id,
   numero,
   suffixe,
   lieuDitComplementNom,
@@ -44,7 +43,7 @@ function Numero({
   codePostal,
   cleInterop,
   banId,
-  banIdDistrict,
+  districtConfig,
   lat,
   lon,
   isMobile,
@@ -53,42 +52,12 @@ function Numero({
   const [copyError, setCopyError] = useState(null)
   const [isCopyAvailable, setIsCopyAvailable] = useState(true)
   const [isCopySucceded, setIsCopySucceded] = useState(false)
-  const [isCertifiable, setIsCertifiable] = useState(false)
-  const [districtConfig, setDistrictConfig] = useState(null)
 
   const coordinates = {lat, lon}
   const copyUnvailableMessage = `Votre navigateur est incompatible avec la copie des coordonnées GPS : ${lat},${lon}`
   const sanitizedType = positionType ?
     positionType.charAt(0).toUpperCase() + positionType.slice(1) :
     'Inconnu'
-
-  useEffect(() => {
-    async function fetchDistrict() {
-      const rawResponse = await getDistrict(banIdDistrict)
-      const district = rawResponse.response
-      const districtConfig = district.config || {}
-      setDistrictConfig(districtConfig)
-
-      if (!district) {
-        setIsCertifiable(false)
-        return
-      }
-
-      if (!districtConfig.certificate) {
-        setIsCertifiable(false)
-        return
-      }
-
-      if (!isNumeroCertifiable({banId, sources: sourcePosition, certifie, parcelles})) {
-        setIsCertifiable(false)
-        return
-      }
-
-      setIsCertifiable(true)
-    }
-
-    fetchDistrict()
-  }, [banIdDistrict, banId, sourcePosition, certifie, parcelles])
 
   return (
     <>
@@ -209,21 +178,18 @@ function Numero({
         </b>
       </div>
 
-      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && districtConfig?.certificate && (
-        isCertifiable ? (
-          <div className='ressource'>
+      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && districtConfig?.certificate &&
+        (isNumeroCertifiable({banId, sources: sourcePosition, certifie, parcelles}) ?
+          <div className='certificate'>
             <DownloadCertificate
-              cleInterop={cleInterop}
+              id={id}
               title="Télécharger le Certificat d'adressage"
             />
-          </div>
-        ) : (
-          <div className='ressource'>
+          </div> :
+          <div className='certificate'>
             <div />
             <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
-          </div>
-        )
-      )}
+          </div>)}
 
       {isCopySucceded && (
         <Alert
@@ -257,9 +223,6 @@ function Numero({
           flex-direction: column;
           margin: 1.2em 0;
           border-bottom: 1px solid ${colors.lighterGrey};
-        }
-        .ressource {
-          border-bottom: none;
         }
 
         .heading h2 {
@@ -296,12 +259,23 @@ function Numero({
           margin-top: 1em;
           font-style: italic;
         }
+
+        .certificate {
+          margin-top: 1em;
+          margin-bottom: 1em;
+        }
+
+        .certificate-loader {
+          margin-top: 1em;
+          margin-bottom: 1em;
+        }
       `}</style>
     </>
   )
 }
 
 Numero.propTypes = {
+  id: PropTypes.string.isRequired,
   numero: PropTypes.number.isRequired,
   suffixe: PropTypes.string,
   lieuDitComplementNom: PropTypes.string,
@@ -328,7 +302,9 @@ Numero.propTypes = {
   codePostal: PropTypes.string,
   cleInterop: PropTypes.string.isRequired,
   banId: PropTypes.string,
-  banIdDistrict: PropTypes.string,
+  districtConfig: PropTypes.shape({
+    certificate: PropTypes.object,
+  }),
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,

@@ -90,12 +90,21 @@ const paintLayers = {
         {
           expression: [
             ['==', ['get', 'statusBals'], 'published'],
+            ['==', ['get', 'idClient'], 'mes-adresses']
+          ], // Mes Adresses
+          color: theme.colors.mapGreen
+        },
+        {
+          expression: [
+            ['==', ['get', 'statusBals'], 'replaced'],
+            ['==', ['get', 'idClient'], 'mes-adresses']
           ], // Mes Adresses
           color: theme.colors.mapGreen
         },
         {
           expression: [
             ['==', ['get', 'statusBals'], 'draft'],
+            ['==', ['get', 'idClient'], 'mes-adresses']
           ], // Mes Adresses
           color: theme.colors.mapYellow
         },
