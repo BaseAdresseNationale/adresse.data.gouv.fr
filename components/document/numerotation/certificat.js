@@ -33,9 +33,16 @@ const stylesDSFR = StyleSheet.create({
   blocMarque: {marginBottom: '20mm'},
   signature: {textAlign: 'right', fontSize: '8pt', margin: '10'},
   qrCode: {width: '25mm', height: '25mm', alignSelf: 'flex-end'},
+  qrCodeContainer: {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: '10mm'}, // Conteneur pour le texte et le QR code
   footer: {position: 'absolute', bottom: '20mm', left: '20mm', right: '20mm', fontSize: 10, flexDirection: 'column', alignItems: 'flex-start'},
   footerText: {marginBottom: '5mm', textAlign: 'left'},
-  logoBloc: {width: '40mm', height: 'auto'},
+  footerLogo: {width: '20mm', height: 'auto'}, // Réduit la taille des logos ici
+  logoBloc: {
+    maxWidth: '35mm', // Largeur maximale de 35mm
+    maxHeight: '35mm', // Hauteur maximale de 35mm
+    width: 'auto', // Largeur automatique pour garder les proportions
+    height: 'auto', // Hauteur automatique pour garder les proportions
+  },
   logoBanBloc: {width: '20mm', height: '20mm'},
   logoContainer: {flexDirection: 'row', alignItems: 'center'},
   boldText: {fontFamily: 'Marianne', fontWeight: '700'},
@@ -139,18 +146,22 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
             En foi de quoi, le présent certificat est délivré au demandeur pour servir et valoir ce que de droit.
           </Text>
         </View>
-        <Text> {'\n\n\n\n'}</Text>
-        <Text>Consulter l&apos;authenticité de ce certificat : <Link src={certificatUrl}>{certificatUrl}</Link></Text>
-        <Image src={qrCodeDataURL} style={stylesDSFR.qrCode} />
+        {/* Conteneur pour le texte et le QR code */}
+        <View style={stylesDSFR.qrCodeContainer}>
+          <Text style={stylesDSFR.qrCodeText}>
+            Consulter l&apos;authenticité de ce certificat : <Link src={certificatUrl}>{certificatUrl}</Link>
+          </Text>
+          <Image src={qrCodeDataURL} style={stylesDSFR.qrCode} />
+        </View>
         <View style={stylesDSFR.footer}>
           <Text style={stylesDSFR.footerText}>
             Émis par les services de la Base Adresse Nationale, mandataire pour la ville de {nomCommune}.
           </Text>
 
           <View style={stylesDSFR.logoContainer}>
-            <Image src={logoUrl} style={stylesDSFR.logoBloc} />
+            <Image src={logoUrl} style={stylesDSFR.footerLogo} />
             <View style={{width: '2mm'}} />
-            <Image src='public/images/logos/BAN.png' style={stylesDSFR.logoBanBloc} />
+            <Image src='public/images/logos/BAN.png' style={stylesDSFR.footerLogo} />
           </View>
         </View>
       </Page>
