@@ -18,6 +18,7 @@ import { Habilitation, HabilitationStatus, Revision } from '@/types/api-depot.ty
 import { PinCodeValidation } from './steps/PinCodeValidation'
 import { PublishingBAL } from './steps/PublishingBAL'
 import { PublishedBAL } from './steps/PublishedBAL'
+import Link from 'next/link'
 
 const getStepIndex = (revision?: Revision, habilitation?: Habilitation) => {
   if (revision && habilitation) {
@@ -198,10 +199,10 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       {error && <Alert title="Une erreur est survenue" severity="error" description={error.message} />}
       <StyledWrapper>
         {(stepIndex > 0 && commune) && (
-          <a href={`/commune/${commune.code}`} className="commune-link">
+          <Link href={`/commune/${commune.code}`} className="commune-link">
             <Image width={80} height={80} alt="logo commune par défault" src={commune.flagUrl} />
             <b>{commune.nom} - {commune.code}</b>
-          </a>
+          </Link>
         )}
         {isLoading ? <Loader style={{ alignSelf: 'center' }} /> : steps[stepIndex].content}
       </StyledWrapper>

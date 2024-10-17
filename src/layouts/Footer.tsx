@@ -2,27 +2,32 @@ import { Footer as FooterDSFR } from '@codegouvfr/react-dsfr/Footer'
 import { Follow } from '@codegouvfr/react-dsfr/Follow'
 import { headerFooterDisplayItem } from '@codegouvfr/react-dsfr/Display'
 import { useState } from 'react'
-import { customFetch } from '@/lib/fetch'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { newsletterOptIn } from '@/lib/api-brevo'
+
+const NewsletterOptinWithNoSSR = dynamic(
+  () => import('../components/NewsletterOptin'),
+  { ssr: false }
+)
 
 export default function Footer() {
-  const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [email, setEmail] = useState('')
+  const [showCaptcha, setShowCaptcha] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setShowCaptcha(true)
+  }
+
+  const handleOptIn = async () => {
     try {
-      await customFetch(`/api/brevo-optin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
+      await newsletterOptIn(email)
       setSuccess(true)
     }
     catch (error) {
       console.error(error)
-    }
-    finally {
-      setLoading(false)
     }
   }
 
@@ -32,11 +37,18 @@ export default function Footer() {
         newsletter={{
           buttonProps: {
             type: 'submit',
-            disabled: loading || !email,
+            disabled: !email,
           },
-          desc: 'Recevez toutes les informations de la base adresse nationale !',
+          desc: (
+            <>
+              Recevez toutes les informations de la base adresse nationale !
+              <br />
+              <Link href="/newsletters">
+                Découvrez nos dernières newsletters
+              </Link>
+            </>),
           form: {
-            formComponent: ({ children }) => (<form onSubmit={handleSubmit}>{children}</form>),
+            formComponent: ({ children }) => <NewsletterOptinWithNoSSR showCatpcha={showCaptcha} handleSubmit={handleSubmit} onVerified={handleOptIn}>{children}</NewsletterOptinWithNoSSR>,
             successMessage: 'Vous êtes bien inscrit à la newsletter',
             success,
             inputProps: {

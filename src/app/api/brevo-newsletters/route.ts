@@ -1,6 +1,7 @@
 import { customFetch } from '@/lib/fetch'
 import { NextRequest, NextResponse } from 'next/server'
 
+// Optin to the newsletter
 export async function POST(request: NextRequest) {
   const requestBody = await request.json()
   const { email } = requestBody
