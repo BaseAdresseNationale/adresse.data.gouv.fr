@@ -68,7 +68,7 @@ function PanelBal({filteredCodesCommmune}) {
     }
 
     async function loadBals() {
-      const fields = ['_id', 'commune', 'status', 'nom', '_updated', 'sync']
+      const fields = ['id', 'commune', 'status', 'nom', 'updatedAt', 'sync']
       const balsFiltered = await getStatsBals(fields, filteredCodesCommmune)
       setBals(balsFiltered)
       const statusData = [
