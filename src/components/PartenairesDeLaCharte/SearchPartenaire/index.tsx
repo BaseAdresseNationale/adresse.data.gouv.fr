@@ -24,6 +24,8 @@ export interface SearchPartenaireProps {
   filter?: { type: PartenaireDeLaCharteTypeEnum }
   searchBy: 'perimeter' | 'name'
   renderInfos?: (partenaire: PaginatedPartenairesDeLaCharte) => Promise<React.ReactNode>
+  shuffle?: boolean
+  pageSize?: number
 }
 
 export default function SearchPartenaire({
@@ -33,6 +35,8 @@ export default function SearchPartenaire({
   filter,
   searchBy,
   renderInfos,
+  shuffle,
+  pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
 }: SearchPartenaireProps) {
   const hash = useHash()
   const [search, onSearch] = useState('')
@@ -51,10 +55,10 @@ export default function SearchPartenaire({
       services: selectedServices,
       codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
       search: debouncedSearch,
-    }, page)
+    }, page, pageSize)
 
     setPartenaires(updatedPartenaires)
-  }, [selectedServices, selectedCommune, debouncedSearch, filter])
+  }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize])
 
   useEffect(() => {
     if (hash) {
@@ -78,7 +82,7 @@ export default function SearchPartenaire({
     }
   }, [partenaires, renderInfos])
 
-  const count = useMemo(() => Math.ceil(partenaires.total / DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT), [partenaires.total])
+  const count = useMemo(() => Math.ceil(partenaires.total / pageSize), [partenaires.total, pageSize])
 
   const getDepartementNom = (code: string) => {
     const departement = departements.find(departement => departement.code === code)
@@ -112,7 +116,13 @@ export default function SearchPartenaire({
       </div>
       <CardWrapper isSmallCard>
         {partenaires.data.length === 0 && <p>Aucun partenaire trouvé</p>}
-        {partenaires.data.map(partenaire => (
+        {partenaires.data.sort(() => {
+          if (shuffle) {
+            return Math.random() - 0.5
+          }
+
+          return 0
+        }).map(partenaire => (
           <Card
             key={partenaire._id}
             title={partenaire.name}
@@ -123,12 +133,14 @@ export default function SearchPartenaire({
           />
         ))}
       </CardWrapper>
-      <Pagination
-        style={{ marginTop: '1rem' }}
-        count={count}
-        defaultPage={currentPage}
-        getPageLinkProps={pageNumber => ({ href: `#page=${pageNumber}` })}
-      />
+      {partenaires.total > pageSize && (
+        <Pagination
+          style={{ marginTop: '1rem' }}
+          count={count}
+          defaultPage={currentPage}
+          getPageLinkProps={pageNumber => ({ href: `#page=${pageNumber}` })}
+        />
+      )}
     </StyledWrapper>
   )
 }
