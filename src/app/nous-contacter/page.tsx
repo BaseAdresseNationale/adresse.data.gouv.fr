@@ -2,6 +2,7 @@
 
 import Section from '@/components/Section'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 const StyledWrapper = styled(Section)`
@@ -47,7 +48,7 @@ export default function NousContacterPage() {
         <p>
           Vous pouvez en quelques clics créer la Base Adresse Locale de votre commune, y apporter des modifications, et publier les changements pour que ceux-ci soient pris en compte par un maximum d’acteurs. La prise en main est très simple, et ne nécessite pas de compétences informatiques particulières.
         </p>
-        <a href="/programme-bal" className="fr-link">Votre commune et la base adresse locale</a>
+        <Link href="/programme-bal" className="fr-link">Votre commune et la base adresse locale</Link>
       </section>
       <section>
         <h2>
