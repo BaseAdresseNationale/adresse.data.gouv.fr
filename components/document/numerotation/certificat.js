@@ -84,8 +84,19 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
       <Page size='A4' style={stylesDSFR.page}>
         <Image src={logoUrl} style={stylesDSFR.logoBloc} />
         <Text>Ville de {nomCommune}</Text>
-        <Text>{mairie?.telephone}</Text>
-        <Text>{mairie?.email}</Text>
+
+        {cog === '49331' ? (
+          <>
+            <Text>Secrétariat Général</Text>
+            <Text>02 41 92 52 74</Text>
+            <Text>fabienne.prodhomme@segreenanjoubleu.fr</Text>
+          </>
+        ) : (
+          <>
+            <Text>{mairie?.telephone}</Text>
+            <Text>{mairie?.email}</Text>
+          </>
+        )}
         <Text style={stylesDSFR.titre}>Certificat d&apos;adressage</Text>
         <View style={stylesDSFR.contenu}>
           <Text>
@@ -98,19 +109,13 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
           <View style={stylesDSFR.table}>
             <View style={stylesDSFR.tableRow}>
               <View style={stylesDSFR.tableCol}>
-                <Text style={[stylesDSFR.tableCell, stylesDSFR.tableHeader]}>Section(s) et N° parcelle(s) cadastrale(s)</Text>
+                <Text style={[stylesDSFR.tableCell, stylesDSFR.tableHeader]}>N° de voirie et désignation de la voie</Text>
               </View>
               <View style={stylesDSFR.tableCol}>
-                <Text style={[stylesDSFR.tableCell, stylesDSFR.tableHeader]}>N° de voirie et désignation de la voie</Text>
+                <Text style={[stylesDSFR.tableCell, stylesDSFR.tableHeader]}>Section(s) et N° parcelle(s) cadastrale(s)</Text>
               </View>
             </View>
             <View style={stylesDSFR.tableRow}>
-              <View style={stylesDSFR.tableCol}>
-                {groupedParcelles.map((parcelle, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Text key={index} style={stylesDSFR.tableCell}>{parcelle}</Text>
-                ))}
-              </View>
               <View style={stylesDSFR.tableCol}>
                 <Text style={stylesDSFR.tableCell}>
                   {suffix ? `${numero} ${suffix} ${libelleVoie}` : `${numero} ${libelleVoie}`}
@@ -118,6 +123,12 @@ function CertificatNumerotation({data, qrCodeDataURL, mairie}) {
                 <Text style={stylesDSFR.tableCell}>
                   {nomCommune}
                 </Text>
+              </View>
+              <View style={stylesDSFR.tableCol}>
+                {groupedParcelles.map((parcelle, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Text key={index} style={stylesDSFR.tableCell}>{parcelle}</Text>
+                ))}
               </View>
             </View>
           </View>
