@@ -28,6 +28,7 @@
     "@next/bundle-analyzer": "^14.2.13",
     "@socialgouv/matomo-next": "^1.9.0",
     "@types/remark-heading-id": "^1.0.0",
+    "altcha": "^1.0.5",
     "chart.js": "^4.4.4",
     "dotenv": "^16.4.5",
     "filesize": "^10.1.6",
