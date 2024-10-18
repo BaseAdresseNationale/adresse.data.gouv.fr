@@ -3,6 +3,7 @@ import { Commune } from '@/types/api-geo.types'
 import styled from 'styled-components'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 interface PublishedBALProps {
   commune: Commune
@@ -84,16 +85,16 @@ export function PublishedBAL({ commune, onReset }: PublishedBALProps) {
           <h4>🔍 Où consulter vos adresses ?</h4>
           <p>
             Vos adresses seront intégrées à la <b>Base Adresse Nationale</b> et disponibles d’ici <b>quelques heures</b>.<br />
-            Elles seront consultables directement depuis notre <a href={`/base-adresse-nationale/${commune.code}`}>carte interactive</a>.
+            Elles seront consultables directement depuis notre <Link href={`/base-adresse-nationale/${commune.code}`}>carte interactive</Link>.
           </p>
-          <p>Vous pourrez suivre <b>l’état de vos adresses</b> sur la page d’information par la commune et télécharger la <b>Base Adresse Nationale</b> de votre <a href={`/commune/${commune.code}`}>commune</a>.</p>
+          <p>Vous pourrez suivre <b>l’état de vos adresses</b> sur la page d’information par la commune et télécharger la <b>Base Adresse Nationale</b> de votre <Link href={`/commune/${commune.code}`}>commune</Link>.</p>
         </section>
 
         <section>
           <h4>🇫🇷 Vous n’êtes pas seul</h4>
           <p>
             <b>Tous les jours</b> de nouvelles Bases Adresse Locales viennent alimenter la Base Adresse Nationale comme vous venez de le faire.<br />
-            Découvrez l’état du <a href="/deploiement-bal">déploiement des Bases Adresse Locales</a> à l’échelle nationale.
+            Découvrez l’état du <Link href="/deploiement-bal">déploiement des Bases Adresse Locales</Link> à l’échelle nationale.
           </p>
         </section>
 

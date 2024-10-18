@@ -70,6 +70,68 @@ export default async function ProgrammeBALPage() {
 
       <Section theme="primary">
         <div className="fr-container fr-py-5w">
+          <div className="fr-grid-row">
+            <h2>Créer sa Base Adresse Locale</h2>
+            <div className="fr-grid-row space-between-row">
+              <div className="fr-col-md-5 cta-card">
+                <h3>En autonomie</h3>
+                <p>
+                  Notre outil <strong>Mes Adresses</strong> vous permet de vous
+                  lancer, gratuitement et sans compétences techniques.
+                </p>
+                <Button
+                  linkProps={{
+                    href: 'https://mes-adresses.data.gouv.fr/',
+                    target: '_blank',
+                  }}
+                >
+                  Créer la base de ma commune
+                </Button>
+                <p style={{ marginTop: '1.5rem' }}>
+                  Vous disposez déjà d&apos;un SIG? Rendez-vous sur :<br />
+                  <Link
+                    href="/gerer-mes-adresses"
+                    className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
+                  >
+                    Gérer mes adresses
+                  </Link>
+                </p>
+              </div>
+              <div className="fr-col-md-5 cta-card">
+                <h3>Avec accompagnement</h3>
+                <p>
+                  Nos partenaires labellisés Charte de la Base Adresse Locale
+                  vous proposent un accompagnement ou des outils adaptés à votre
+                  territoire.
+                </p>
+                <Link
+                  href="/bases-locales/charte#recherche-partenaires"
+                  className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
+                >
+                  Trouver un partenaire dans mon département
+                </Link>
+                <p style={{ marginTop: '1em' }}>
+                  Différents types{' '}
+                  <strong>d&apos;organismes à but non lucratif</strong> peuvent
+                  vous accompagner dans la confection de votre Base Adresse
+                  Locale, découvrez les via une{' '}
+                  <strong>carte interactive</strong>.
+                </p>
+                <Link
+                  target="_blank"
+                  href="https://umap.openstreetmap.fr/en/map/partenaires-publics-de-la-charte-de-la-base-adress_953281#6/47.354/9.229"
+                  className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
+                >
+                  Découvrir nos partenaires
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section theme="primary">
+        <div className="fr-container fr-py-5w">
           <div className="fr-grid-row hide-mobile">
             <h2>Une Base Adresse Locale pour...</h2>
           </div>
@@ -285,68 +347,6 @@ export default async function ProgrammeBALPage() {
               author="Joël Marivain, maire de Kerfourn"
               source={<a href="https://adresse.data.gouv.fr/blog/lassociation-des-maires-du-morbihan-mobilise-les-communes-sur-leurs-adresses" target="_blank">Consulter l&apos;article entier</a>}
             />
-          </div>
-        </div>
-      </Section>
-
-      <Section theme="primary">
-        <div className="fr-container fr-py-5w">
-          <div className="fr-grid-row">
-            <h2>Créer sa Base Adresse Locale</h2>
-            <div className="fr-grid-row space-between-row">
-              <div className="fr-col-md-5 cta-card">
-                <h3>En autonomie</h3>
-                <p>
-                  Notre outil <strong>Mes Adresses</strong> vous permet de vous
-                  lancer, gratuitement et sans compétences techniques.
-                </p>
-                <Button
-                  linkProps={{
-                    href: 'https://mes-adresses.data.gouv.fr/',
-                    target: '_blank',
-                  }}
-                >
-                  Créer la base de ma commune
-                </Button>
-                <p style={{ marginTop: '1.5rem' }}>
-                  Vous disposez déjà d&apos;un SIG? Rendez-vous sur :<br />
-                  <Link
-                    href="/gerer-mes-adresses"
-                    className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
-                  >
-                    Gérer mes adresses
-                  </Link>
-                </p>
-              </div>
-              <div className="fr-col-md-5 cta-card">
-                <h3>Avec accompagnement</h3>
-                <p>
-                  Nos partenaires labellisés Charte de la Base Adresse Locale
-                  vous proposent un accompagnement ou des outils adaptés à votre
-                  territoire.
-                </p>
-                <Link
-                  href="/bases-locales/charte#recherche-partenaires"
-                  className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
-                >
-                  Trouver un partenaire dans mon département
-                </Link>
-                <p style={{ marginTop: '1em' }}>
-                  Différents types{' '}
-                  <strong>d&apos;organismes à but non lucratif</strong> peuvent
-                  vous accompagner dans la confection de votre Base Adresse
-                  Locale, découvrez les via une{' '}
-                  <strong>carte interactive</strong>.
-                </p>
-                <Link
-                  target="_blank"
-                  href="https://umap.openstreetmap.fr/en/map/partenaires-publics-de-la-charte-de-la-base-adress_953281#6/47.354/9.229"
-                  className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
-                >
-                  Découvrir nos partenaires
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </Section>
