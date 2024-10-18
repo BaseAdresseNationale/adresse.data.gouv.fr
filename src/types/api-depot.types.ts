@@ -53,3 +53,14 @@ export type Habilitation = {
   updatedAt: string
   expiresAt: string
 }
+
+export enum TypePerimeterEnum {
+  EPCI = 'epci',
+  DEPARTEMENT = 'departement',
+  COMMUNE = 'commune',
+}
+
+export type PerimeterType = {
+  type: TypePerimeterEnum
+  code: string
+}

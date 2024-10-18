@@ -16,6 +16,7 @@ import { StyledWrapper } from './SearchPartenaire.styles'
 import CardWrapper from '@/components/CardWrapper'
 import { getCommunes } from '@/lib/api-geo'
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
+import Link from 'next/link'
 
 export interface SearchPartenaireProps {
   services: string[]
@@ -125,7 +126,7 @@ export default function SearchPartenaire({
         }).map(partenaire => (
           <Card
             key={partenaire._id}
-            title={partenaire.name}
+            title={<Link href={`/partenaires/${partenaire._id}`}>{partenaire.name}</Link>}
             imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
             start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
             detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
