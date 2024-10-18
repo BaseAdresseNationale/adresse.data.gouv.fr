@@ -25,7 +25,7 @@ Contacter l'[ANCT](https://agence-cohesion-territoires.gouv.fr/contactez-nous-19
 ### DIRECTEURS DE LA PUBLICATION:
 
 Pour l’IGN : Sébastien SORIANO, directeur général de l’IGN \
-Pour l’ANCT : Stanislas BOURRON, directeur général de l’ANCT \
+Pour l’ANCT : Stanislas BOURRON, directeur général de l’ANCT
 
 ### HÉBERGEMENT DE LA PLATEFORME :
 
