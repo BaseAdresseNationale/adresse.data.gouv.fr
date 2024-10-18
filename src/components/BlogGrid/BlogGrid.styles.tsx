@@ -24,7 +24,7 @@ export const CardWrapper = styled(CardWrapperAPP)<{ $loading?: boolean }>`
       ({ $loading }) => $loading
         ? css`grayscale(1) blur(5px)`
         : css`grayscale(0) blur(0px)`
-      };
+    };
     transition: filter ease;
     transition-duration: .6s;
 `
