@@ -57,6 +57,7 @@ export type PartenaireDeLaChartType = {
   signatureDate?: string
   dataGouvOrganizationId?: string[]
   apiDepotClientId: string[]
+  infos: string
 }
 
 export type PartenaireDeLaCharteCommuneType = PartenaireDeLaChartType & {
