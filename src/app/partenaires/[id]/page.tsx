@@ -2,12 +2,12 @@ import { getOnePartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import Section from '@/components/Section'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { flattenDeep } from 'lodash'
-import { findCommuneName } from '@/utils/cog'
 import MoissonneurBal from '@/components/Partenaires/MoissonneurBAL'
 import { getOrganization, getOrganizationSources } from '@/lib/api-moissonneur-bal'
 import { OrganizationMoissoneurType, SourceMoissoneurType } from '@/types/api-moissonneur-bal.types'
 import { PerimeterType } from '@/types/api-depot.types'
 import Perimeters from '@/components/Partenaires/Perimeters'
+import ResponsiveImage from '@/components/ResponsiveImage'
 
 export default async function PartenairePage({ params }: { params: { id: string } }) {
   const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
@@ -30,30 +30,20 @@ export default async function PartenairePage({ params }: { params: { id: string 
   return (
     <>
       <Section>
-        <div className="fr-container fr-py-2w">
-          <div className="fr-grid-row" style={{ flexWrap: 'nowrap' }}>
-            <div>
-              <div className="logo" style={{ backgroundImage: `url("${partenaireDeLaCharte.picture}")` }} />
-            </div>
-            <div>
-              <h2>{partenaireDeLaCharte.name}</h2>
-              {partenaireDeLaCharte.infos
-              && <p>{partenaireDeLaCharte.infos}</p>}
-            </div>
+        <div className="fr-grid-row" style={{ flexWrap: 'nowrap', marginBottom: '2rem' }}>
+          <ResponsiveImage style={{ maxWidth: 300, maxHeight: 300, marginRight: '1rem' }} src={partenaireDeLaCharte.picture} alt={`Logo de ${partenaireDeLaCharte.name}`} />
+          <div>
+            <h2>{partenaireDeLaCharte.name}</h2>
+            {partenaireDeLaCharte.infos
+            && <p>{partenaireDeLaCharte.infos}</p>}
           </div>
         </div>
-        <div className="fr-container fr-py-2w">
-          {partenaireDeLaCharte.services
-          && (
-            <div style={{ margin: 'var(--text-spacing)' }}>
-              {partenaireDeLaCharte.services?.map(s => (
-                <Badge key={s}>{s}</Badge>
-              ))}
-            </div>
-          )}
-        </div>
+        {partenaireDeLaCharte.services?.map(s => (
+          <Badge style={{ marginRight: '1rem' }} key={s}>{s}</Badge>
+        ))}
       </Section>
-      {partenaireDeLaCharte.dataGouvOrganizationId && (
+      {partenaireDeLaCharte.dataGouvOrganizationId
+      && (
         <Section title="Publication de Bases Adresse Locale">
           <p>{partenaireDeLaCharte.name} mutualise la production et diffusion des Bases Adresses Locales (BAL).</p>
           <Perimeters perimeters={aggregatePerimeters} />

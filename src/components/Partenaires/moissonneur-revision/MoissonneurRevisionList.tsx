@@ -13,14 +13,14 @@ interface MoissonneurRevisionsListProps {
 function MoissonneurRevisionsList({ sourceId }: MoissonneurRevisionsListProps) {
   const [revisions, setRevisions] = useState<RevisionMoissoneurType[]>([])
 
-  const fetchRevisions = async () => {
-    if (sourceId) {
-      const results = await getSourceRevisions(sourceId)
-      setRevisions(results)
-    }
-  }
-
   useEffect(() => {
+    const fetchRevisions = async () => {
+      if (sourceId) {
+        const results = await getSourceRevisions(sourceId)
+        setRevisions(results)
+      }
+    }
+
     fetchRevisions()
   }, [sourceId])
 
@@ -62,7 +62,7 @@ function MoissonneurRevisionsList({ sourceId }: MoissonneurRevisionsListProps) {
 
                 <tbody>
                   {revisions.map(revision => (
-                    <MoissonneurRevisionItem key={revision._id} {...revision} />
+                    <MoissonneurRevisionItem key={revision.id} {...revision} />
                   ))}
                 </tbody>
               </table>

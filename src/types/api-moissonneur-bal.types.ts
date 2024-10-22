@@ -29,7 +29,7 @@ export enum HarvestStatus {
 }
 
 export type HarvestMoissonneurType = {
-  _id: string
+  id: string
   startedAt: string
   finishedAt: string
   status: HarvestStatus
@@ -40,7 +40,7 @@ export type HarvestMoissonneurType = {
 }
 
 export type SourceMoissoneurType = {
-  _id: string
+  id: string
   url: string
   title: string
   page: string
@@ -52,9 +52,9 @@ export type SourceMoissoneurType = {
     lastHarvest: Date
     harvestingSince: Date | null
   }
-  _updated: string
-  _created: string
-  _deleted: boolean
+  updatedAt: string
+  createdAt: string
+  deletedAt: boolean
 }
 
 export interface ExtendedSourceMoissoneurType extends SourceMoissoneurType {
@@ -71,7 +71,7 @@ export type PublicationMoissoneurType = {
 }
 
 export type RevisionMoissoneurType = {
-  _id: string
+  id: string
   sourceId: string
   codeCommune: string
   harvestId: string
@@ -79,23 +79,25 @@ export type RevisionMoissoneurType = {
   updateRejectionReason?: string | undefined
   fileId?: string
   dataHash?: string
-  nbRows?: number
-  nbRowsWithErrors?: number
-  uniqueErrors?: string[]
   publication?: PublicationMoissoneurType
   current?: boolean
-  _created: string
+  createdAt: string
+  validation: {
+    nbRows?: number
+    nbRowsWithErrors?: number
+    uniqueErrors?: string[]
+  }
 }
 
 export interface OrganizationMoissoneurType {
-  _id: string
+  id: string
   name?: string
   page?: string
   logo?: string
   perimeters?: PerimeterType[]
-  _updated?: Date
-  _created?: Date
-  _deleted?: boolean
+  updatedAt?: Date
+  createdAt?: Date
+  deletedAt?: boolean
 }
 
 export interface OrganizationBalAdminType extends OrganizationMoissoneurType {
