@@ -103,6 +103,7 @@ const nextConfig = withBundleAnalyzer({
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
   ],
+  output: 'standalone',
 })
 
 export default nextConfig
