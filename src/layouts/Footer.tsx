@@ -1,7 +1,7 @@
 import { Footer as FooterDSFR } from '@codegouvfr/react-dsfr/Footer'
 import { Follow } from '@codegouvfr/react-dsfr/Follow'
 import { headerFooterDisplayItem } from '@codegouvfr/react-dsfr/Display'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { newsletterOptIn } from '@/lib/api-brevo'
@@ -21,7 +21,7 @@ export default function Footer() {
     setShowCaptcha(true)
   }
 
-  const handleOptIn = async () => {
+  const handleOptIn = useCallback(async () => {
     try {
       await newsletterOptIn(email)
       setSuccess(true)
@@ -29,7 +29,7 @@ export default function Footer() {
     catch (error) {
       console.error(error)
     }
-  }
+  }, [email])
 
   return (
     <>
