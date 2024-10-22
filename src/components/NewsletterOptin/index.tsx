@@ -35,7 +35,7 @@ export default function NewsletterOptin({ children, handleSubmit, onVerified, sh
       }
       altchaElement.removeEventListener('statechange', eventHandler)
     }
-  }, [altchaElement])
+  }, [altchaElement, onVerified])
 
   return (
     <form onSubmit={handleSubmit}>
