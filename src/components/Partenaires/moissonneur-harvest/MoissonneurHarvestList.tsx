@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { getSourceHarvests } from '@/lib/api-moissonneur-bal'
 import MoissonneurHarvestItem from './MoissonneurHarvestItem'
@@ -19,8 +19,8 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
   const [currentPage, setCurrentPage] = useState(1)
   const [totalCount, setTotalCount] = useState(0)
 
-  const fetchHarvests = useCallback(async () => {
-    if (sourceId) {
+  useEffect(() => {
+    const fetchHarvests = async () => {
       const { results, count } = await getSourceHarvests(
         sourceId,
         currentPage,
@@ -29,17 +29,14 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
       setHarvests(results)
       setTotalCount(count)
     }
-  }, [currentPage, sourceId])
 
-  /*   const onPageChange = (page) => {
-    setCurrentPage(page)
-    fetchHarvests(page)
-  } */
+    if (!sourceId) {
+      return
+    }
 
-  useEffect(() => {
-    setCurrentPage(1)
+    setCurrentPage(currentPage)
     fetchHarvests()
-  }, [fetchHarvests, sourceId])
+  }, [sourceId, currentPage])
 
   return (
     <section>
@@ -69,7 +66,7 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
 
                   <tbody>
                     {harvests.map(harvest => (
-                      <MoissonneurHarvestItem key={harvest._id} {...harvest} />
+                      <MoissonneurHarvestItem key={harvest.id} {...harvest} />
                     ))}
                   </tbody>
                 </table>
@@ -78,14 +75,13 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
                 style={{ marginTop: '1rem' }}
                 count={totalCount}
                 defaultPage={currentPage}
-                getPageLinkProps={pageNumber => ({ href: `#page=${pageNumber}` })}
+                getPageLinkProps={pageNumber => ({ href: `#page=${pageNumber}`, onClick: () => setCurrentPage(pageNumber) })}
               />
             </div>
           )
         : (
             <p>Aucun moissonnage</p>
           )}
-
     </section>
   )
 }

@@ -2,27 +2,22 @@ import Tooltip from '@/components/Tooltip'
 import { findCommuneName } from '@/utils/cog'
 import { formatDate } from '@/utils/date'
 import Badge from '@codegouvfr/react-dsfr/Badge'
-import getConfig from 'next/config'
 import UpdateStatusBadge from '../UpdateStatus'
 import { getFileLink } from '@/lib/api-moissonneur-bal'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { PublicationMoissoneurType, RevisionMoissoneurType } from '@/types/api-moissonneur-bal.types'
 
-const { NEXT_PUBLIC_CLIENT_GUICHET_ADRESSE: CLIENT_GUICHET_ADRESSE } = getConfig().publicRuntimeConfig
-const { NEXT_PUBLIC_CLIENT_MES_ADRESSE: CLIENT_MES_ADRESSE } = getConfig().publicRuntimeConfig
-const { NEXT_PUBLIC_CLIENT_FORMULAIRE_PUBLICATION: CLIENT_FORMULAIRE_PUBLICATION } = getConfig().publicRuntimeConfig
-
 const otherClients = [
   {
-    id: CLIENT_GUICHET_ADRESSE,
+    id: process.env.NEXT_PUBLIC_CLIENT_GUICHET_ADRESSE,
     name: 'Guichet Adresse',
   },
   {
-    id: CLIENT_MES_ADRESSE,
+    id: process.env.NEXT_PUBLIC_CLIENT_MES_ADRESSE,
     name: 'Mes Adresses',
   },
   {
-    id: CLIENT_FORMULAIRE_PUBLICATION,
+    id: process.env.NEXT_PUBLIC_CLIENT_FORMULAIRE_PUBLICATION,
     name: 'Formulaire Publication',
   },
 ]
@@ -58,22 +53,22 @@ function PublicationStatusBadge({ status, currentClientId, errorMessage }: Publi
   )
 }
 
-export default function MoissonneurRevisionItem({ codeCommune, _created, nbRows, nbRowsWithErrors, updateStatus, updateRejectionReason, publication, fileId }: RevisionMoissoneurType) {
+export default function MoissonneurRevisionItem({ codeCommune, createdAt, validation, updateStatus, updateRejectionReason, publication, fileId }: RevisionMoissoneurType) {
   return (
     <tr>
       <td className="fr-col fr-my-1v">
         <p>{findCommuneName(codeCommune)} ({codeCommune})</p>
       </td>
       <td className="fr-col fr-my-1v">
-        <p>{formatDate(_created)}</p>
+        <p>{formatDate(createdAt)}</p>
       </td>
       <td className="fr-col fr-my-1v">
-        <p>{`${nbRows} / ${nbRowsWithErrors}`}</p>
+        <p>{`${validation.nbRows} / ${validation.nbRowsWithErrors}`}</p>
       </td>
-      <td className="fr-col fr-my-1v">
+      <td className="fr-col fr-my-1v" style={{ textAlign: 'center' }}>
         <UpdateStatusBadge status={updateStatus} error={updateRejectionReason} />
       </td>
-      <td className="fr-col fr-my-1v">
+      <td className="fr-col fr-my-1v" style={{ textAlign: 'center' }}>
         {publication && <PublicationStatusBadge {...publication} />}
       </td>
       <td className="fr-col fr-my-1v">

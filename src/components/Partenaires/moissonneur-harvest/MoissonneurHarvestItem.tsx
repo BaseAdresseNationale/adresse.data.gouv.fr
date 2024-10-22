@@ -36,10 +36,10 @@ export default function MoissonneurHarvestItem({ startedAt, status, error, updat
       <td className="fr-col fr-my-1v">
         <p>{formatDate(startedAt)}</p>
       </td>
-      <td className="fr-col fr-my-1v">
+      <td className="fr-col fr-my-1v" style={{ textAlign: 'center' }}>
         <StatusBadge status={status} error={error} />
       </td>
-      <td className="fr-col fr-my-1v">
+      <td className="fr-col fr-my-1v" style={{ textAlign: 'center' }}>
         {updateStatus && <UpdateStatusBadge status={updateStatus} error={updateRejectionReason} />}
       </td>
       <td className="fr-col fr-my-1v">
