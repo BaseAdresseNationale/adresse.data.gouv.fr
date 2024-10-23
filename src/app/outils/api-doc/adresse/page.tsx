@@ -4,16 +4,9 @@ import type { DataType } from '@/lib/markdown'
 import { Suspense } from 'react'
 import SectionHero from '@/components/SectionHero'
 import HtmlViewer from '@/components/HtmlViewer'
-import { Search } from 'react-feather'
 import CurlDoc from './components/curl-doc'
 
-const examples = [
-  { title: 'Recherche par texte', id: 'text', icon: <Search aria-hidden="true" /> },
-]
-
-export default ApiAdresse
-
-export async function ApiAdresse() {
+async function ApiAdresse() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/api-adresse') || {}
   return (
     <>
@@ -49,3 +42,4 @@ export async function ApiAdresse() {
     </>
   )
 }
+export default ApiAdresse

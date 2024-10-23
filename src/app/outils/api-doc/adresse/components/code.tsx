@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types'
 import colors from '../utils/color'
-function Code({ code }) {
+
+Code.propTypes = {
+  code: PropTypes.string.isRequired,
+}
+
+function Code({ code }: { code: string }) {
   return (
     <>
       <pre><code>{code}</code></pre>
@@ -22,10 +27,6 @@ function Code({ code }) {
       </style>
     </>
   )
-}
-
-Code.propTypes = {
-  code: PropTypes.string.isRequired,
 }
 
 export default Code
