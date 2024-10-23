@@ -49,3 +49,5 @@ export const FormDescription = styled.div`
   font-size: 1rem;
   margin-bottom: .5em;
 `
+
+export const ButtonLink = styled.button<{ href: string }>``

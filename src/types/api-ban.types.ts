@@ -1,3 +1,20 @@
+export type BANAddress = {
+  id: string
+  type: string
+  banId: string | null
+  numero: string
+  repetition: string
+  nomVoie: string
+  sourceNomVoie: string
+  codeCommune: string
+  nomCommune: string
+  codePostal: string
+  sourcePosition: string
+  position: { type: string, coordinates: number[] }
+  sources: string[]
+  displayBBox: [number, number, number, number]
+}
+
 export type BANVoie = {
   id: string
   type: string

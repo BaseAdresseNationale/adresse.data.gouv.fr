@@ -1,12 +1,12 @@
 'use client'
 
-import { useContext, useState } from 'react'
-import PropTypes from 'prop-types'
+import { useContext } from 'react'
 import Image from 'next/image'
-import { SearchBar } from '@codegouvfr/react-dsfr/SearchBar'
+import Link from 'next/link'
 
+import BALWidgetContext from '@/contexts/BALWidget.context'
 import Section from '@/components/Section'
-
+import SearchBAN from '@/components/SearchBAN'
 import {
   Wrapper,
   FormWrapper,
@@ -14,47 +14,16 @@ import {
   IntroWrapper,
   Title,
   FormDescription,
+  ButtonLink,
 } from './SectionSearchBAN.styles'
-import BALWidgetContext from '@/contexts/BALWidget.context'
 
-interface InputSearchBANProps {
+const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+
+interface SectionSearchBANProps {
   id?: string
 }
 
-function InputSearch() {
-  const [search, onSearchChange] = useState('')
-  const [inputElement, setInputElement] = useState<HTMLInputElement | null>(null)
-
-  return (
-    <>
-      <SearchBar
-        renderInput={({ className, id, placeholder, type }) => (
-          <input
-            ref={setInputElement}
-            className={className}
-            id={id}
-            placeholder={placeholder}
-            type={type}
-            value={search}
-            onChange={event => onSearchChange(event.currentTarget.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Escape' && inputElement !== null) {
-                inputElement.blur()
-              }
-            }}
-          />
-        )}
-      />
-      {/*
-        -> Sample of search results :
-        <p>Search results for: {search}</p>
-      */}
-    </>
-
-  )
-}
-
-function SectionSearchBAN({ id }: InputSearchBANProps) {
+function SectionSearchBAN({ id }: SectionSearchBANProps) {
   const { open, navigate } = useContext(BALWidgetContext)
 
   const handleContactParticuliers = () => {
@@ -70,12 +39,13 @@ function SectionSearchBAN({ id }: InputSearchBANProps) {
           <Image src="./img/map.svg" alt="picto map" width={141} height={140} />
         </IntroWrapper>
         <FormWrapper>
-          <Title>Recherchez dans la base adresse nationale</Title>
-          <FormDescription>Saisissez votre adresse, une voie, un lieu-dit ou une commune</FormDescription>
-          <InputSearch />
+          <SearchBAN>
+            <Title>Recherchez dans la base adresse nationale</Title>
+            <FormDescription>Saisissez votre adresse, une voie, un lieu-dit ou une commune</FormDescription>
+          </SearchBAN>
           <FormWrapperFooter>
-            <a className="fr-link fr-link--icon-left fr-icon-road-map-line" href="#">Consulter directement la carte</a>
-            <button className="fr-link fr-link--icon-left fr-icon-questionnaire-line" onClick={handleContactParticuliers}>J’ai un soucis avec mon adresse, pourquoi ?</button>
+            <Link className="fr-link fr-link--icon-left fr-icon-road-map-line" href={`.${URL_CARTOGRAPHY_BAN}`}>Consulter directement la carte</Link>
+            <ButtonLink className="fr-link fr-link--icon-left fr-icon-questionnaire-line" href="#" onClick={handleContactParticuliers}>J’ai un soucis avec mon adresse, pourquoi ?</ButtonLink>
           </FormWrapperFooter>
         </FormWrapper>
       </Wrapper>

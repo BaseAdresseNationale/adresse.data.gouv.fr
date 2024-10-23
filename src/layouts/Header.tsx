@@ -8,6 +8,8 @@ import Notices from '@/components/Notices'
 
 import dataNotices from '@/data/sample-notices.json'
 
+const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+
 const markAsActive = (
   navigation: MainNavigationProps.Item[],
   route: string
@@ -79,7 +81,7 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       {
         text: 'Carte de la Base adresse nationale',
-        linkProps: { href: '/base-adresse-nationale' },
+        linkProps: { href: `${URL_CARTOGRAPHY_BAN}` },
       },
       // { text: 'Certificat d’adresse', linkProps: { href: '#' } },
       // { text: 'Signalement', linkProps: { href: '#' } },
