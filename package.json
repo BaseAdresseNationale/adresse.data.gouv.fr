@@ -45,6 +45,7 @@
     "react-confetti": "^6.1.0",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
+    "react-feather": "^2.0.10",
     "react-map-gl": "^7.1.7",
     "react-pin-field": "^3.1.5",
     "remark": "^15.0.1",
