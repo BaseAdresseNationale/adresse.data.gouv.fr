@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense } from 'react'
-import { MapProvider, Map } from 'react-map-gl/maplibre'
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
+import { MapProvider, Map, NavigationControl, ScaleControl} from 'react-map-gl/maplibre'
 import { useSearchParams } from 'next/navigation'
 import type { MapRef } from 'react-map-gl/maplibre'
 
@@ -16,6 +16,7 @@ import MicroToponymCard from './components/micro-toponym/MicroToponymCard'
 import { AddressCard } from './components/address'
 import { DistrictCard, DistrictMicroToponymList } from './components/district'
 import { MapSearchResultsWrapper } from './page.styles'
+import BanMap from './components/ban-map'
 
 import type {
   TypeAddressExtended,
@@ -24,6 +25,7 @@ import type {
   TypeDistrictExtended,
   TypeDistrict,
 } from './types/LegacyBan.types'
+import { useRouter } from 'next/navigation'
 
 interface LinkProps {
   href: string
@@ -145,6 +147,12 @@ function CartoView() {
   }
   , [banItemId, isMapReady])
 
+  const router = useRouter()
+
+  const selectAddress = useCallback(({ id }) => {
+    router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`)
+  }, [router])
+
   return (
     <MapProvider>
       <Map
@@ -164,8 +172,15 @@ function CartoView() {
         }}
         mapStyle="/map-styles/osm-bright.json"
         onLoad={() => setIsMapReady(true)}
-      />
-
+      >
+        <div>
+          <BanMap address={mapSearchResults} onSelect={selectAddress} />
+        </div>
+        <div>
+          <NavigationControl position="top-right" showCompass />
+          <ScaleControl position="bottom-right" maxWidth={150} unit="metric" />
+        </div>
+      </Map>
       <Aside isInfo>
         <MapDataLoader isLoading={isLoadMapSearchResults}>
           Chargement des données de la BAN...
