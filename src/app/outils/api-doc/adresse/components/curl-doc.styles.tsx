@@ -1,17 +1,16 @@
 'use client'
 
 import styled from 'styled-components'
-import colors from '../utils/color'
 import theme from '@/theme'
 
 export const Code = styled.code`
-    background: ${colors.white};
-    border: 1px solid ${colors.lighterGrey};
+    background: #ffff;
+    border: 1px solid ${theme.colors.grey.border};
     border-radius: 5px;
     width: 100%;
     padding: 1em;
     margin: 1em 0;
-    color: ${colors.darkerGrey};
+    color: ${theme.colors.grey.main};
     white-space: pre-wrap;
     word-break: normal;
     display: block;
@@ -27,16 +26,16 @@ export const ApiEntryPoint = styled.div`
     padding: 40px 0;
 
     &:not(:first-child) {
-        border-top: 1px solid ${colors.lightGrey};
+        border-top: 1px solid ${theme.colors.grey.border};
     }
 
     .details {
         background-color: ${theme.colors.primary.bg};
         color: ${theme.colors.grey};
         padding: 40px;
-        border: 1px solid ${colors.darkGrey};
+        border: 1px solid ${theme.colors.primary.border};
         border-radius: 5px;
-        box-shadow: 0 1px 4px 0 ${colors.lightGrey};
+        box-shadow: 0 1px 4px 0 ${theme.colors.grey.border};
         width: 100%;
     }
 
