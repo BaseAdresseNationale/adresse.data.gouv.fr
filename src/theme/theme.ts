@@ -7,11 +7,13 @@ const theme = {
       bg: fr.colors.decisions.background.alt.blueFrance.default,
       main: fr.colors.decisions.text.actionHigh.blueFrance.default,
       badge: fr.colors.decisions.background.alt.blueFrance.active,
+      border: fr.colors.decisions.border.default.blueFrance.default,
     },
     secondary: {
       bg: fr.colors.decisions.background.alt.pinkTuile.default,
       main: fr.colors.decisions.background.alt.pinkTuile.active,
       badge: fr.colors.decisions.background.alt.pinkTuile.active,
+      border: fr.colors.decisions.border.default.pinkTuile.default,
     },
     grey: {
       bg: fr.colors.decisions.background.alt.grey.default,
