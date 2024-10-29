@@ -1,5 +1,6 @@
 import CandidacyModal from '@/components/PartenairesDeLaCharte/CandidacyModal'
 import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
+import { TestimonialsMaps } from '@/components/PartenairesDeLaCharte/TestimonialsMap'
 import Section from '@/components/Section'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
@@ -76,6 +77,7 @@ export default async function OrganismesPartenairesPage() {
           À communiquer l’URL du point d’accès national de la Base Adresse Nationale lors qu’un partenaire demande des données adresses. Il doit en effet s’abstenir de diffuser lui-même une donnée qui pourrait être datée ou non validée par la Base Adresse Nationale. En effet, le service public de la donnée garantit que les réutilisateurs disposent tous de la même base, à jour.
         </li>
       </ul>
+      <TestimonialsMaps />
       <h2>Les organismes partenaires</h2>
       <p>Ces organismes s’engagent à respecter le format Base Adresse Locale (attention, il s’agit d’un format de données bien précis), sa gouvernance et pour ces raisons sont identifiés comme tiers de confiance. Votre organisme respecte déjà ces spécifications mais n’est pas identifié ? Vous pouvez rejoindre les partenaires de la Charte en nous contactant.</p>
       <CandidacyModal services={services} departements={departements} />
