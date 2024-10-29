@@ -40,19 +40,19 @@ export default async function CharteBALPage() {
           title="Télécharger la charte des communes partenaires"
           text="La charte des communes partenaires est destinée aux communes qui partagent leur expérience avec d’autres communes."
           fileDescription="PDF - 295 ko"
-          downloadlink="/chartes-partenaires/charte-bal-communes-v1.2.pdf"
+          downloadlink="/chartes-partenaires/charte-bal-communes.pdf"
         />
         <DownloadCard
           title="Télécharger la charte des organismes partenaires"
           text="La charte des organismes partenaires est destinée aux organismes publics qui accompagnent les communes."
           fileDescription="PDF - 238 ko"
-          downloadlink="/chartes-partenaires/charte-bal-organismes-v2.1.pdf"
+          downloadlink="/chartes-partenaires/charte-bal-organismes.pdf"
         />
         <DownloadCard
           title="Télécharger la charte des sociétés partenaires"
           text="La charte des sociétés partenaires est destinée aux sociétés à but lucratif qui proposent une prestation d’adressage aux communes."
           fileDescription="PDF - 235 ko"
-          downloadlink="/chartes-partenaires/charte-bal-societe-v1.1.pdf"
+          downloadlink="/chartes-partenaires/charte-bal-societes.pdf"
         />
       </CardWrapper>
       <h2>Partenaires disponibles sur votre territoire</h2>

@@ -12,7 +12,7 @@ export default function VotreCommuneEtSaBALPage() {
 
   return (
     <>
-      <Section pageTitle="Consulter la page commune">
+      <Section pageTitle="Consulter la page d'une commune">
         <div style={{ maxWidth: 600 }}>
           <AutocompleteInput
             label="Rechercher une commune :"
@@ -23,9 +23,9 @@ export default function VotreCommuneEtSaBALPage() {
           />
         </div>
       </Section>
-      <Section title="Qu'est ce que la page commune ?">
+      <Section title="Qu'est ce que la page d'une commune ?">
         <p style={{ marginBottom: 0 }}>
-          La page commune permet de consulter les informations relatives à l&apos;état de l&apos;adressage de chaque commune.
+          La page d&apos;une commune permet de consulter les informations relatives à l&apos;état de l&apos;adressage de chaque commune.
         </p>
         <p>
           Vous pourrez y retrouver les informations suivantes :

@@ -10,7 +10,7 @@ export default async function SocietesPartenairesPage() {
   const services = await getPartenairesDeLaCharteServices()
   const initialPartenaires = await getPartenairesDeLaCharte({
     type: PartenaireDeLaCharteTypeEnum.ENTREPRISE,
-  })
+  }, 1, 20)
   const departements = await getDepartements()
 
   async function renderInfos(paginatedPartenaires: PaginatedPartenairesDeLaCharte) {
@@ -57,6 +57,8 @@ export default async function SocietesPartenairesPage() {
       <p>Ces organismes s’engagent à respecter le format Base Adresse Locale (attention, il s’agit d’un format de données bien précis), sa gouvernance et pour ces raisons sont identifiés comme tiers de confiance. Votre organisme respecte déjà ces spécifications mais n’est pas identifié ? Vous pouvez rejoindre les partenaires de la Charte en nous contactant.</p>
       <CandidacyModal services={services} departements={departements} />
       <SearchPartenaire
+        shuffle
+        pageSize={20}
         searchBy="name"
         services={services}
         initialPartenaires={initialPartenaires}
@@ -64,7 +66,6 @@ export default async function SocietesPartenairesPage() {
         filter={{ type: PartenaireDeLaCharteTypeEnum.ENTREPRISE }}
         renderInfos={renderInfos}
       />
-
     </Section>
   )
 }

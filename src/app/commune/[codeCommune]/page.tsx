@@ -11,6 +11,7 @@ import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { getCommuneFlag } from '@/lib/api-wikidata'
 import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 import { formatFr } from '@/lib/array'
+import Link from 'next/link'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -59,7 +60,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Département
               </label>
               <div>
-                <a href={`/deploiement-bal?departement=${commune.departement.code}`}>{commune.departement.nom}</a>
+                <Link href={`/deploiement-bal?departement=${commune.departement.code}`}>{commune.departement.nom}</Link>
               </div>
             </div>
             <div className="commune-general-info">
@@ -67,7 +68,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Intercommunalité
               </label>
               <div>
-                {EPCI ? <a href={`/deploiement-bal?epci=${EPCI.code}`}>{EPCI.nom}</a> : '-'}
+                {EPCI ? <Link href={`/deploiement-bal?epci=${EPCI.code}`}>{EPCI.nom}</Link> : '-'}
               </div>
             </div>
           </CardWrapper>
@@ -128,7 +129,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
               </div>
             </CardWrapper>
           </div>
-          {mairiePageUrl && <a href={mairiePageUrl} target="_blank" className="fr-btn fr-btn--secondary">Contacter la mairie</a>}
+          {mairiePageUrl && <Link href={mairiePageUrl} target="_blank" className="fr-btn fr-btn--secondary">Contacter la mairie</Link>}
         </Section>
         {communeHasBAL && lastRevisionsDetails && (
           <Section title="Les dernières mises à jour" theme="primary">

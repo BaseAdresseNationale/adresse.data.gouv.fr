@@ -73,6 +73,19 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             placeholder="CC du Val d'Amboise ou Indre-et-Loire"
           />
         </div>
+        <div className="stats-wrapper">
+          <Tabs
+            selectedTabId={selectedTab}
+            tabs={[
+              { tabId: 'source', label: 'Déploiement BAL' },
+              { tabId: 'bal', label: 'Suivi Mes-Adresses' },
+            ]}
+            onTabChange={setSelectedTab as (tabId: string) => void}
+          >
+            {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
+            {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
+          </Tabs>
+        </div>
         <div className="bal-cover-map-container">
           <Map
             initialViewState={{
@@ -110,19 +123,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             />
           </Map>
         </div>
-        <div className="stats-wrapper">
-          <Tabs
-            selectedTabId={selectedTab}
-            tabs={[
-              { tabId: 'source', label: 'Déploiement BAL' },
-              { tabId: 'bal', label: 'Suivi Mes-Adresses' },
-            ]}
-            onTabChange={setSelectedTab as (tabId: string) => void}
-          >
-            {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
-            {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
-          </Tabs>
-        </div>
+
       </div>
     </StyledDeploiementBALDashboard>
   )
