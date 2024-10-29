@@ -9,7 +9,7 @@ import {
   CertificateField,
   FieldLabel,
   FieldValue,
-} from './certificat.styles' // Importer les styled components
+} from '@/components/Certificat' // Importer les styled components
 
 const { NEXT_PUBLIC_API_BAN_URL } = process.env
 

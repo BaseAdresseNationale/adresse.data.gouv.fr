@@ -9,7 +9,6 @@ if (!API_BAN_SEARCH_URL) {
 }
 
 export function getAddress(idAddress: string) {
-  console.log(`${API_BAN_SEARCH_URL}/lookup/${idAddress}`)
   return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idAddress}`)
 }
 
