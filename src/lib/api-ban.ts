@@ -8,6 +8,14 @@ if (!API_BAN_SEARCH_URL) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined')
 }
 
+export function getAddress(idAddress: string) {
+  console.log(`${API_BAN_SEARCH_URL}/lookup/${idAddress}`)
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idAddress}`)
+}
+
+export function getDistrict(banIdDistrict: string) {
+  return customFetch(`${API_BAN_SEARCH_URL}/api/district/${banIdDistrict}`)
+}
 export function getBanItem(idBanItem: string, signal?: AbortSignal): Promise<BANCommune | BANVoie | BANAddress> {
   return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idBanItem}`, signal ? { signal } : {})
 }
