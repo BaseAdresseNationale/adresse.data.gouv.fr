@@ -3,7 +3,7 @@
   "version": "2.0.0-alpha",
   "private": true,
   "engines": {
-    "node": ">=20",
+    "node": "22",
     "npm": ">=10"
   },
   "scripts": {
