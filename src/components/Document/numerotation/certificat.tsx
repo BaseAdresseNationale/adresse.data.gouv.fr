@@ -137,11 +137,17 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
           </Text>
         </View>
         <View style={stylesDSFR.qrCodeContainer}>
-          <Text>
-            Consulter l&apos;authenticité de ce certificat : <Link src={certificatUrl}>{certificatUrl}</Link>
-          </Text>
+          <View>
+            <Text>
+              Consulter l&apos;authenticité de ce certificat :
+            </Text>
+            <Link src={certificatUrl}>
+              {certificatUrl}
+            </Link>
+          </View>
           <Image src={qrCodeDataURL} style={stylesDSFR.qrCode} />
         </View>
+
         <View style={stylesDSFR.footer}>
           <Text style={stylesDSFR.footerText}>
             Émis par les services de la Base Adresse Nationale, mandataire pour la ville de {nomCommune}.
