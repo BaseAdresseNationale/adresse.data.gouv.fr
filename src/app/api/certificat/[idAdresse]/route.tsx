@@ -5,8 +5,9 @@ import { getAddress, getDistrict } from '@/lib/api-ban'
 import QRCode from 'qrcode'
 import { getMairie } from '@/lib/api-etablissement-public'
 
-const { NEXT_PUBLIC_ADRESSE_URL, NEXT_PUBLIC_API_BAN_URL } = process.env
-const { BAN_API_TOKEN } = process.env
+const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
+const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
+const BAN_API_TOKEN = process.env.BAN_API_TOKEN
 
 const isAddressCertifiable = async ({ banId, sources, certifie, parcelles }: any): Promise<boolean> => {
   return !!banId && sources?.includes('bal') && certifie && parcelles?.length > 0
@@ -47,6 +48,7 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
   }
 
   const { banId: addressID } = address
+  console.log(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`)
   const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`, {
     method: 'POST',
     headers: {

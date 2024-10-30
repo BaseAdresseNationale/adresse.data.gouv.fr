@@ -15,7 +15,7 @@ import {
 } from '@react-pdf/renderer'
 import { stylesDSFR } from './certificat.styles'
 
-const { NEXT_PUBLIC_ADRESSE_URL } = process.env
+const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
 
 interface CertificatNumerotationProps {
   data: {
