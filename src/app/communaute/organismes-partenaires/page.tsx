@@ -1,5 +1,6 @@
 import CandidacyModal from '@/components/PartenairesDeLaCharte/CandidacyModal'
 import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
+import { PartenairesMap } from '@/components/PartenairesDeLaCharte/PartenairesMap'
 import Section from '@/components/Section'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
@@ -20,6 +21,7 @@ export default async function OrganismesPartenairesPage() {
 
   return (
     <Section pageTitle="Organismes partenaires de la Charte">
+      <PartenairesMap />
       <p><b>Organismes d’accompagnement à but non lucratif (EPCI, départements, syndicats mixtes…)</b></p>
       <p>La loi du 21 février 2022, dite loi &quot;3DS&quot;, réaffirme la compétence de la commune en matière d’adressage. Elle doit procéder à la dénomination des voies, des lieux-dits et à la numérotation des constructions, mais aussi transmettre les données associées à la Base Adresse Nationale. Compte-tenu de la grande diversité des territoires et de l’investissement que cette tâche peut occasionner au démarrage, il peut être pertinent de proposer un accompagnement aux communes, à l’échelle locale. La présente charte s’adresse aux acteurs qui souhaitent proposer cet accompagnement. Son adoption leur permet d’être référencés comme tiers de confiance sur le site national de l’adresse adresse.data.gouv.fr et de disposer eux-mêmes d’un accompagnement de niveau national et d’outils adaptés.</p>
       <p>La présente charte est valable trois mois, à échéance en fin de trimestre, et renouvelée par tacite reconduction.</p>
