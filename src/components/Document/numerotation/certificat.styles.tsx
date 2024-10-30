@@ -1,6 +1,6 @@
 import { StyleSheet, Font } from '@react-pdf/renderer'
-const fontSource = 'node_modules/@codegouvfr/react-dsfr/dsfr/fonts/Marianne-Regular.woff'
-const fontSourceBold = 'node_modules/@codegouvfr/react-dsfr/dsfr/fonts/Marianne-Bold.woff'
+const fontSource = 'public/fonts/Marianne-Regular.woff'
+const fontSourceBold = 'public/fonts/Marianne-Bold.woff'
 const fontFamily = 'Marianne'
 
 Font.register({
@@ -8,8 +8,8 @@ Font.register({
   fonts: [
     { src: fontSource },
     { src: fontSourceBold, fontWeight: 700 },
-    { src: 'node_modules/@codegouvfr/react-dsfr/dsfr/fonts/Marianne-Regular_Italic.woff', fontStyle: 'italic' },
-    { src: 'node_modules/@codegouvfr/react-dsfr/dsfr/fonts/Marianne-Bold_Italic.woff', fontStyle: 'italic', fontWeight: 700 },
+    { src: 'public/fonts/Marianne-Regular_Italic.woff', fontStyle: 'italic' },
+    { src: 'public/fonts/Marianne-Bold_Italic.woff', fontStyle: 'italic', fontWeight: 700 },
   ],
 })
 

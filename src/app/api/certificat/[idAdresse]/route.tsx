@@ -48,9 +48,6 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
   }
 
   const { banId: addressID } = address
-  console.log(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`)
-  console.log(JSON.stringify({ addressID }))
-  console.log(`Token ${BAN_API_TOKEN}`)
   const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`, {
     method: 'POST',
     headers: {
@@ -59,7 +56,6 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     },
     body: JSON.stringify({ addressID }),
   })
-  console.log(response)
 
   if (!response.ok) {
     const errorMessage = `Erreur ${response.status}: ${response.statusText}`
