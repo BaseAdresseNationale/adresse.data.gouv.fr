@@ -1,29 +1,35 @@
-import { BANCommune, BANVoie } from '@/types/api-ban.types'
+import { BANCommune, BANVoie, BANAddress } from '@/types/api-ban.types'
 import { BANStats } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
 
-if (!process.env.NEXT_PUBLIC_API_BAN_URL) {
+const API_BAN_SEARCH_URL = process.env.NEXT_PUBLIC_API_BAN_URL
+
+if (!API_BAN_SEARCH_URL) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined')
 }
 
-export function getStats(): Promise<BANStats> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/stats`)
+export function getBanItem(idBanItem: string, signal?: AbortSignal): Promise<BANCommune | BANVoie | BANAddress> {
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idBanItem}`, signal ? { signal } : {})
 }
 
-export function getCommune(codeCommune: string): Promise<BANCommune> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/lookup/${codeCommune}`)
+export function getStats(): Promise<BANStats> {
+  return customFetch(`${API_BAN_SEARCH_URL}/ban/stats`)
+}
+
+export function getCommune(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${codeCommune}`, signal ? { signal } : {})
 }
 
 export function getAddressCSVLegacy(codeCommune: string) {
-  return `${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/communes/${codeCommune}/download/csv-legacy/adresses`
+  return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-legacy/adresses`
 }
 
 export function getLieuxDitsCSVLegacy(codeCommune: string) {
-  return `${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/communes/${codeCommune}/download/csv-legacy/lieux-dits`
+  return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-legacy/lieux-dits`
 }
 
 export function getAdressesCsvBal(codeCommune: string, version = '1.3') {
-  return `${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/communes/${codeCommune}/download/csv-bal/adresses?version=${version}`
+  return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-bal/adresses?version=${version}`
 }
 
 export function assemblageSources(voies: BANVoie[]) {
@@ -46,7 +52,7 @@ export function assemblageSources(voies: BANVoie[]) {
 }
 
 export function getFilteredStats(codesCommune: string[]): Promise<BANStats> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/ban/stats`, {
+  return customFetch(`${API_BAN_SEARCH_URL}/ban/stats`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
