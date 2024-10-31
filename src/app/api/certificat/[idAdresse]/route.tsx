@@ -32,7 +32,6 @@ const isDistrictCertifiable = async (banIdDistrict: string | null): Promise<bool
 export async function GET(request: NextRequest, { params }: { params: { idAdresse: string } }) {
   let address
   try {
-    console.log(params)
     address = await getAddress(params.idAdresse)
     if (!address) {
       throw new Error('Adresse non trouvée')

@@ -1,10 +1,3 @@
-/***
- * @Document : Certificat d'adressage
- * @Page : A4
- * @Text : Beacause this is a text component from react-pdf, it is used to render text in the document.
- *  and  the eslint rule jsx-a11y/alt-text is disabled because the image component from react-pdf does not have an alt prop.
- */
-/* eslint-disable jsx-a11y/alt-text */
 import {
   Document,
   Link,
@@ -137,7 +130,7 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
           </Text>
         </View>
         <View style={stylesDSFR.qrCodeContainer}>
-          <View>
+          <View style={stylesDSFR.qrCodeLinkContainer}>
             <Text>
               Consulter l&apos;authenticité de ce certificat :
             </Text>

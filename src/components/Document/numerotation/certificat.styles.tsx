@@ -20,7 +20,7 @@ const stylesDSFR = StyleSheet.create({
   blocMarque: { marginBottom: '20mm' },
   signature: { textAlign: 'right', fontSize: '8pt', margin: '10' },
   qrCode: { width: '25mm', height: '25mm', alignSelf: 'flex-end' },
-  qrCodeContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: '10mm' },
+  qrCodeContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '10mm' },
   footer: { position: 'absolute', bottom: '20mm', left: '20mm', right: '20mm', fontSize: 10, flexDirection: 'column', alignItems: 'flex-start' },
   footerText: { marginBottom: '5mm', textAlign: 'left' },
   footerLogo: { width: '25', height: '25' },
@@ -36,6 +36,7 @@ const stylesDSFR = StyleSheet.create({
   tableCol: { width: '50%', borderStyle: 'solid', borderWidth: 1, borderColor: '#000' },
   tableCell: { margin: 5, fontSize: 10 },
   tableHeader: { backgroundColor: '#f0f0f0', fontWeight: 'bold' },
+  qrCodeLinkContainer: { flex: 1, marginRight: '5mm', minWidth: 1 },
 })
 
 export { stylesDSFR }
