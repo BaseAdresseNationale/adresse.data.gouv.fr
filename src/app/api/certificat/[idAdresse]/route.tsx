@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import ReactPDF from '@react-pdf/renderer'
-import { CertificatNumerotation } from '@/components/Document/numerotation/certificat'
-import { getAddress, getDistrict } from '@/lib/api-ban'
 import QRCode from 'qrcode'
+import ReactPDF from '@react-pdf/renderer'
+
+import { getAddress, getDistrict } from '@/lib/api-ban'
 import { getMairie } from '@/lib/api-etablissement-public'
+
+import { CertificatNumerotation } from './components/certificat'
 
 const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
 const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
@@ -75,7 +77,6 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     />
   )
 
-  // Convertir le ReadableStream en Buffer
   const chunks: Buffer[] = []
   pdfStream.on('data', (chunk) => {
     chunks.push(chunk)
@@ -83,7 +84,7 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
 
   return new Promise<NextResponse>((resolve, reject) => {
     pdfStream.on('end', () => {
-      const buffer = Buffer.concat(chunks)
+      const buffer = Buffer.concat(chunks as unknown as Uint8Array[])
       const headers = new Headers({ 'Content-Type': 'application/pdf' })
       resolve(new NextResponse(buffer, { headers }))
     })

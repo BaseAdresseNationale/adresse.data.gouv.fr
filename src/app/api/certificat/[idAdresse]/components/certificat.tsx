@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import {
   Document,
   Link,
@@ -6,7 +7,7 @@ import {
   Image,
   View,
 } from '@react-pdf/renderer'
-import { stylesDSFR } from './certificat.styles'
+import { stylesDSFR } from './certificat.stylesheet'
 
 const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
 
@@ -65,7 +66,6 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
       <Page size="A4" style={stylesDSFR.page}>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
-          {/* <Image src={logoUrl} style={stylesDSFR.logoBloc} /> */}
         </View>
         <Text> {'\n'}</Text>
         {/* Conteneur pour le logo de la mairie et les informations */}

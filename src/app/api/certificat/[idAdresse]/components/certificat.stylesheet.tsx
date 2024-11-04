@@ -1,4 +1,5 @@
 import { StyleSheet, Font } from '@react-pdf/renderer'
+
 const fontSource = 'public/fonts/Marianne-Regular.woff'
 const fontSourceBold = 'public/fonts/Marianne-Bold.woff'
 const fontFamily = 'Marianne'
