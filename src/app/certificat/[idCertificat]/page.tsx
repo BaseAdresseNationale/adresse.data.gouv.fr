@@ -1,6 +1,3 @@
-// pages/certificat.tsx ou un fichier similaire
-import { GetServerSidePropsContext } from 'next'
-import PropTypes from 'prop-types'
 import Section from '@/components/Section'
 import NotFoundPage from '@/app/not-found'
 import {
@@ -9,7 +6,7 @@ import {
   CertificateField,
   FieldLabel,
   FieldValue,
-} from '@/components/Certificat' // Importer les styled components
+} from './page.styles'
 
 const { NEXT_PUBLIC_API_BAN_URL } = process.env
 
@@ -28,52 +25,63 @@ interface CertificatProps {
   id: string
 }
 
-export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const { idCertificat } = query
+// const Certificat = ({ certificat, id }: CertificatProps) => {
+async function Certificat({ params }: { params: { idCertificat: string } }) {
+  const { idCertificat } = params
   const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
   const certificat = response.ok ? await response.json() : {}
-  return { props: { certificat, id: idCertificat } }
-}
 
-const Certificat = ({ certificat, id }: CertificatProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Europe/Paris', timeZoneName: 'long' }
-    // return new Intl.DateTimeFormat('fr-FR', options).format(date) TODO
-    return new Intl.DateTimeFormat('fr-FR').format(date)
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZone: 'Europe/Paris',
+      timeZoneName: 'longGeneric',
+    }
+    return new Intl.DateTimeFormat('fr-FR', options).format(date)
   }
 
-  const path = ['certificat', id]
+  const path = ['certificat', idCertificat]
 
   return (
     <>
       <Section>
         <CertificateContainer>
-          <CertificateTitle>Certificat d&apos;adressage numéro {id}</CertificateTitle>
+          <CertificateTitle>Certificat d&apos;adressage</CertificateTitle>
           {certificat.id
             ? (
                 <>
+                  <p>
+                    La Base Adresse Nationale certifie que le certificat d’adressage
+                    n°<b><code>{idCertificat}</code></b> a été emit par ses services,
+                    et contient les informations suivantes :
+                  </p>
                   <CertificateField>
-                    <FieldLabel>Identifiant certificat :</FieldLabel>
-                    <FieldValue>{id}</FieldValue>
-                  </CertificateField>
-                  <CertificateField>
-                    <FieldLabel>Adresse :</FieldLabel>
+                    <FieldLabel>Adresse&nbsp;:</FieldLabel>{' '}
                     <FieldValue>{certificat.full_address?.number} {certificat.full_address?.suffix || ''} {certificat.full_address?.commonToponymDefaultLabel}</FieldValue>
                   </CertificateField>
                   <CertificateField>
-                    <FieldLabel>Commune :</FieldLabel>
+                    <FieldLabel>Commune&nbsp;:</FieldLabel>{' '}
                     <FieldValue>{certificat.full_address?.districtDefaultLabel}</FieldValue>
                   </CertificateField>
                   <CertificateField>
-                    <FieldLabel>Parcelles :</FieldLabel>
-                    <FieldValue>{certificat.cadastre_ids?.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2')).join(', ')}</FieldValue>
+                    <FieldLabel>Parcelles&nbsp;:</FieldLabel>{' '}
+                    <FieldValue><code>{certificat.cadastre_ids?.map((id: string) => id.replace(/(\d+)([A-Z])/, '$1 $2')).join(', ')}</code></FieldValue>
                   </CertificateField>
                   <CertificateField>
-                    <FieldLabel>Date de délivrance :</FieldLabel>
+                    <FieldLabel>Identifiant de certificat&nbsp;:</FieldLabel>{' '}
+                    <FieldValue><code>{idCertificat}</code></FieldValue>
+                  </CertificateField>
+                  <CertificateField>
+                    <FieldLabel>Date de délivrance&nbsp;:</FieldLabel>{' '}
                     <FieldValue>{formatDate(certificat.createdAt)}</FieldValue>
                   </CertificateField>
                 </>
@@ -85,11 +93,6 @@ const Certificat = ({ certificat, id }: CertificatProps) => {
       </Section>
     </>
   )
-}
-
-Certificat.propTypes = {
-  certificat: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
 }
 
 export default Certificat
