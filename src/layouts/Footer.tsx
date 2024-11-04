@@ -6,6 +6,14 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { newsletterOptIn } from '@/lib/api-brevo'
 
+const {
+  NEXT_PUBLIC_SOCIAL_NETWORKS_URL_XCOM: SOCIAL_NETWORKS_URL_XCOM,
+  NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTODON: SOCIAL_NETWORKS_URL_MASTODON,
+  NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBOOK: SOCIAL_NETWORKS_URL_FACEBOOK,
+  NEXT_PUBLIC_SOCIAL_NETWORKS_URL_LINKEDIN: SOCIAL_NETWORKS_URL_LINKEDIN,
+  NEXT_PUBLIC_SOCIAL_NETWORKS_URL_GITHUB: SOCIAL_NETWORKS_URL_GITHUB,
+} = process.env
+
 const NewsletterOptinWithNoSSR = dynamic(
   () => import('../components/NewsletterOptin'),
   { ssr: false }
@@ -62,21 +70,28 @@ export default function Footer() {
           buttons: [
             {
               linkProps: {
-                href: 'https://x.com/adressedatagouv?lang=fr',
+                href: SOCIAL_NETWORKS_URL_XCOM as unknown as URL ?? '',
                 target: '_blank',
               },
               type: 'twitter-x',
             },
             {
               linkProps: {
-                href: 'https://www.linkedin.com/company/base-adresse-nationale/',
+                href: SOCIAL_NETWORKS_URL_MASTODON as unknown as URL ?? '',
+                target: '_blank',
+              },
+              type: 'mastodon',
+            },
+            {
+              linkProps: {
+                href: SOCIAL_NETWORKS_URL_LINKEDIN as unknown as URL ?? '',
                 target: '_blank',
               },
               type: 'linkedin',
             },
             {
               linkProps: {
-                href: 'https://github.com/BaseAdresseNationale',
+                href: SOCIAL_NETWORKS_URL_GITHUB as unknown as URL ?? '',
                 target: '_blank',
               },
               type: 'github',

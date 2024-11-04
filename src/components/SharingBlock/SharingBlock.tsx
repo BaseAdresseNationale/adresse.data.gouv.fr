@@ -4,6 +4,40 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import type { ButtonProps } from '@codegouvfr/react-dsfr/Button'
 
 import { SharingDefList } from './SharingBlock.styled'
+import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
+
+interface MastodonShareEvent extends Event {
+  target: EventTarget & {
+    getAttribute(attributeName: string): string | null
+  }
+}
+
+function MastodonShare(content: string, navigatorPageName = 'mastodon') {
+  try {
+    // Controle if content is not empty
+    if (!content) {
+      throw new Error('Content is empty')
+    }
+
+    // Get the Mastodon domain
+    // TODO: Prefer DSFR Modal for the prompt
+    const mastodonDomain = prompt('Votre Domain Mastodon ?', 'mastodon.social')
+
+    // TODO: Add a check for the Mastodon domain
+    if (!mastodonDomain) {
+      return
+    }
+
+    // Build the sharing URL
+    const url = `https://${mastodonDomain}/share?text=${content}`
+
+    // Open a window on the share page
+    window.open(url, navigatorPageName)
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
 
 const ShareButton = (buttonProps: ButtonProps) => (
   <Button
@@ -39,6 +73,11 @@ function SharingBlock({ pageUrl, callMessage, title }: { pageUrl: string, callMe
       title: 'Partager sur Threads',
     },
     {
+      iconId: 'fr-icon-mastodon-line',
+      onClick: () => MastodonShare(`${title};url=${pageUrl}`),
+      title: 'Partager sur Mastodon',
+    },
+    {
       iconId: 'fr-icon-linkedin-box-line',
       linkProps: {
         href: `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${callMessage}&summary=My%20favorite%20developer%20program&source=LinkedIn`,
@@ -64,9 +103,14 @@ function SharingBlock({ pageUrl, callMessage, title }: { pageUrl: string, callMe
   return (
     <SharingDefList>
       <dt>Partager la page</dt>
-      {shareingPlateform.map(ShareButtonProps => (
-        <dd key={ShareButtonProps.title}>
-          <ShareButton {...(ShareButtonProps as ButtonProps)} />
+      {shareingPlateform.map(({ title, ...ShareButtonProps }) => (
+        <dd key={title}>
+          <Tooltip
+            kind="hover"
+            title={title}
+          >
+            <ShareButton {...(ShareButtonProps as ButtonProps)} />
+          </Tooltip>
         </dd>
       ))}
     </SharingDefList>

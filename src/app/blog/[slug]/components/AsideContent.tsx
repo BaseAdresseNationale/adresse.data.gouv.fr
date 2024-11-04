@@ -6,6 +6,7 @@ import { AsideLinkList, AsideFollowList } from './AsideContent.styled'
 
 const {
   NEXT_PUBLIC_SOCIAL_NETWORKS_URL_XCOM: SOCIAL_NETWORKS_URL_XCOM,
+  NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTODON: SOCIAL_NETWORKS_URL_MASTODON,
   NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBOOK: SOCIAL_NETWORKS_URL_FACEBOOK,
   NEXT_PUBLIC_SOCIAL_NETWORKS_URL_LINKEDIN: SOCIAL_NETWORKS_URL_LINKEDIN,
 } = process.env
@@ -28,8 +29,13 @@ async function AsideContent() {
       <AsideFollowList>
         <li><Link className="fr-link fr-link--icon-left fr-icon-linkedin-box-fill" target="linkedin" href={SOCIAL_NETWORKS_URL_LINKEDIN ?? ''}>LinkedIn</Link></li>
         <li><Link className="fr-link fr-link--icon-left fr-icon-twitter-x-fill" target="twitter-x" href={SOCIAL_NETWORKS_URL_XCOM ?? ''}>X.com</Link></li>
-        <li><Link className="fr-link fr-link--icon-left fr-icon-facebook-circle-fill" target="facebook" href={SOCIAL_NETWORKS_URL_FACEBOOK ?? ''}>Facebook</Link></li>
+        <li><Link className="fr-link fr-link--icon-left fr-icon-mastodon-fill" target="mastodon" href={SOCIAL_NETWORKS_URL_MASTODON ?? ''}>Mastodon</Link></li>
         <li><Link className="fr-link fr-link--icon-left ri-mail-send-fill" target="newsletter" href="#d">Newsletter</Link></li>
+      </AsideFollowList>
+      <hr />
+      <h6>A voir egalement</h6>
+      <AsideFollowList>
+        <li><Link className="fr-link fr-link--icon-left fr-icon-facebook-circle-fill" target="facebook" href={SOCIAL_NETWORKS_URL_FACEBOOK ?? ''}>Page Facebook du programme BAL</Link></li>
       </AsideFollowList>
     </>
   )

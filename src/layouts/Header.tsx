@@ -45,8 +45,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/decouvrir-la-BAN' },
       },
       { text: 'Utiliser la BAN', linkProps: { href: '/utiliser-la-ban' } },
-      { text: 'Documentation', linkProps: { href: '/ressources' } },
-      // {text: 'Documentation technique',linkProps: { href: '#' }, },
+      { text: 'Documentation', linkProps: { href: '/ressources-et-documentations' } },
       { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
       { text: 'Statistiques', linkProps: { href: '/stats' } },
     ],
@@ -171,25 +170,25 @@ export default function Header() {
         }}
         quickAccessItems={[
           {
+            iconId: 'fr-icon-road-map-fill',
+            linkProps: {
+              href: '/carte-base-adresse-nationale',
+            },
+            text: 'La Carte',
+          },
+          {
             iconId: 'fr-icon-book-2-fill',
             linkProps: {
-              href: '#',
+              href: '/ressources-et-documentations',
             },
-            text: 'Documentation',
+            text: 'La Documentation',
           },
           {
             iconId: 'ri-quill-pen-fill',
             linkProps: {
               href: '/blog',
             },
-            text: 'Blog',
-          },
-          {
-            iconId: 'fr-icon-message-2-fill',
-            linkProps: {
-              href: '/nous-contacter',
-            },
-            text: 'Nous contacter',
+            text: 'Le Blog',
           },
         ]}
         navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
