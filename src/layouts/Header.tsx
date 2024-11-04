@@ -45,8 +45,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/decouvrir-la-BAN' },
       },
       { text: 'Utiliser la BAN', linkProps: { href: '/utiliser-la-ban' } },
-      { text: 'Documentation', linkProps: { href: '/ressources' } },
-      // {text: 'Documentation technique',linkProps: { href: '#' }, },
+      { text: 'Documentation', linkProps: { href: '/ressources-et-documentations' } },
       { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
       { text: 'Statistiques', linkProps: { href: '/stats' } },
     ],
@@ -173,7 +172,7 @@ export default function Header() {
           {
             iconId: 'fr-icon-book-2-fill',
             linkProps: {
-              href: '#',
+              href: '/ressources-et-documentations',
             },
             text: 'Documentation',
           },

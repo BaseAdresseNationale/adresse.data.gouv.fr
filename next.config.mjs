@@ -28,6 +28,11 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 
 const redirects = async () => [
   {
+    source: '/ressources',
+    destination: '/ressources-et-documentations',
+    permanent: true,
+  },
+  {
     source: '/gerer-mes-adresses',
     destination: '/programme-bal',
     permanent: true,
