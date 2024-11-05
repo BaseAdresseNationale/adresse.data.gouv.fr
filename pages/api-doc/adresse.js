@@ -48,7 +48,7 @@ function Adresse({lastUpdatedDate}) {
           <p>2 options s’offrent à vous :</p>
           <ul>
             <li>Vous pouvez installer une instance de l’API sur vos propres serveurs. Nous vous indiquons la marche à suivre sur cette page : <a href='https://github.com/BaseAdresseNationale/addok-docker#installer-une-instance-avec-les-données-de-la-base-adresse-nationale' target='_blank' rel='noreferrer'>Installer une instance docker avec les données de la BAN</a></li>
-            <li>Vous êtes un acteur public <b>ET</b> vous ne pouvez pas installer d’instance sur votre Système d’Information : vous pouvez demander une levée de cette limite au moyen de cette Démarche Simplifiée : <a href='https://www.demarches-simplifiees.fr/admin/procedures/75659/apercu' target='_blank' rel='noreferrer'>Demander une levée de limite</a></li>
+            <li>Vous êtes un acteur public <b>ET</b> vous ne pouvez pas installer d’instance sur votre Système d’Information : vous pouvez demander une levée de cette limite au moyen de cette Démarche Simplifiée : <a href='https://www.demarches-simplifiees.fr/commencer/demande-de-levee-de-limite-de-l-api-base-adresse' target='_blank' rel='noreferrer'>Demander une levée de limite</a></li>
           </ul>
         </div>
 
