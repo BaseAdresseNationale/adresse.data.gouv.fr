@@ -64,22 +64,6 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="Le Géocodeur CSV"
-              titleAs="h5"
-              desc="Ajouter un fichier CSV, définissez les colonnes à utiliser pour le géocodage."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  linkProps={{
-                    href: '/outils/csv',
-                  }}
-                  size="small"
-                >
-                  Géocodeur CSV
-                </Button>
-              )}
-            />
-            <Card
               title="API Adresse"
               titleAs="h5"
               desc="L’API adresse permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse 'géocoder' selon plusieurs critères."
@@ -97,6 +81,91 @@ export default async function Outils() {
               )}
             />
             <Card
+              title="Service de géocodage"
+              titleAs="h5"
+              desc="Le service Géoplateforme de géocodage permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse 'géocoder' selon plusieurs critères."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  iconId="fr-icon-code-s-slash-line"
+                  linkProps={{
+                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
+                    target: '_blank',
+                  }}
+                  size="small"
+                >
+                  Documentation
+                </Button>
+              )}
+            />
+            <Card
+              title="Service d'autocomplétion"
+              titleAs="h5"
+              desc="Le service Géplateforme d’autocomplétion a pour but de suggérer des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux.."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  iconId="fr-icon-code-s-slash-line"
+                  linkProps={{
+                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/autocompletion',
+                    target: '_blank',
+                  }}
+                  size="small"
+                >
+                  Documentation
+                </Button>
+              )}
+            />
+            <Card
+              title="Le Géocodeur CSV"
+              titleAs="h5"
+              desc="Ajouter un fichier CSV, définissez les colonnes à utiliser pour le géocodage."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  linkProps={{
+                    href: '/outils/csv',
+                  }}
+                  size="small"
+                >
+                  Géocodeur CSV
+                </Button>
+              )}
+            />
+            <Card
+              title="Service de géocodage de fichiers"
+              titleAs="h5"
+              desc="Avec le service de la géoplateforme ,ajouter un fichier CSV, définissez les colonnes à utiliser pour le géocodage."
+              className="fr-card--md fr-card--horizontal-tier"
+              footer={(
+                <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                  <li>
+                    <Button
+                      className="fr-btn--secondary"
+                      linkProps={{
+                        href: 'outils/csv',
+                      }}
+                      size="small"
+                    >
+                      Géocodeur CSV
+                    </Button>
+                  </li>
+                  <li>
+                    <Button
+                      linkProps={{
+                        href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
+                        target: '_blank',
+                      }}
+                      size="small"
+                    >
+                      Documentation
+                    </Button>
+                  </li>
+                </ul>
+              )}
+
+            />
+            <Card
               title="Téléchargement des données"
               titleAs="h5"
               desc="Télécharger des données de la BAN, base de données officiellement reconnues par l'administration."
@@ -109,7 +178,7 @@ export default async function Outils() {
                     <Button
                       className="fr-btn--secondary"
                       linkProps={{
-                        href: '/outils/telechargements',
+                        href: 'data/ban/adresses/latest',
                       }}
                       size="small"
                     >
@@ -119,7 +188,7 @@ export default async function Outils() {
                   <li>
                     <Button
                       linkProps={{
-                        href: '#',
+                        href: '/outils/telechargements',
                       }}
                       size="small"
                     >
@@ -285,13 +354,6 @@ export default async function Outils() {
                     Publication
                   </Button>
                 </li>
-                <li>
-                  <Button
-                    className="fr-btn"
-                  >
-                    Documentation
-                  </Button>
-                </li>
               </ul>
             )}
           />
@@ -312,20 +374,6 @@ export default async function Outils() {
                 API dépot d’une Base Adresse Local
               </Button>
             )}
-          />
-        </CardContainer>
-      </Section>
-      <Section
-        title="Les outils de la communauté"
-        id="communauté"
-      >
-        <CardContainer $cols={2}>
-          <Card
-            title="Plugin QGIS"
-            titleAs="h5"
-            desc="Retrouvez la liste des plugin QGIS développés par et pour la communauté."
-            className="fr-card--horizontal-tier fr-card--md"
-            footer={<a className="fr-link fr-icon-arrow-right-line fr-link--icon-right" href="#">Liste des Plugin disponibles</a>}
           />
         </CardContainer>
       </Section>
