@@ -177,40 +177,6 @@ export default async function Outils() {
                 </div>
               )}
             /> */}
-            <Card
-              title="L'explorateur FANTOIR"
-              titleAs="h5"
-              desc="Consultez la base FANTOIR de la DGFiP en quelques clics."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-                  <li>
-                    <Button
-                      className="fr-btn fr-btn--secondary"
-                      linkProps={{
-                        href: '/outils/fantoir',
-                      }}
-                      size="small"
-                    >
-                      Explorateur FANTOIR
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      className="fr-btn"
-                      linkProps={{
-                        href: 'https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
-                        target: '_blank',
-                      }}
-                      size="small"
-                    >
-                      Documentation
-                    </Button>
-                  </li>
-                </ul>
-              )}
-
-            />
             {/* <Card
               title="Signalement"
               titleAs="h5"
