@@ -40,7 +40,7 @@ export default async function Outils() {
       </Suspense>
 
       <Section
-        title="Les outils de consultation"
+        title="Les outils d'exploitation"
         id="consultation"
       >
         <TextWrapper>
@@ -64,9 +64,9 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="API Adresse"
+              title="API Adresse (en cours de transfert vers le Service de géocodage de la Géoplateforme)"
               titleAs="h5"
-              desc="L’API adresse permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse 'géocoder' selon plusieurs critères."
+              desc="L’API adresse permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse 'géoocoder' selon plusieurs critères."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -81,9 +81,9 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="Service de géocodage"
+              title="Service de géocodage (Nouveau)"
               titleAs="h5"
-              desc="Le service Géoplateforme de géocodage permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse 'géocoder' selon plusieurs critères."
+              desc="Le service Géoplateforme de géocodage permet d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastraled’effectuer rapidement une recherche d’adresse."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -99,9 +99,9 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="Service d'autocomplétion"
+              title="Service d'autocomplétion (Nouveau)"
               titleAs="h5"
-              desc="Le service Géplateforme d’autocomplétion a pour but de suggérer des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux.."
+              desc="Le service Géoplateforme d’autocomplétion facilite la saisie en suggérant des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -131,39 +131,6 @@ export default async function Outils() {
                   Géocodeur CSV
                 </Button>
               )}
-            />
-            <Card
-              title="Service de géocodage de fichiers"
-              titleAs="h5"
-              desc="Avec le service de la géoplateforme ,ajouter un fichier CSV, définissez les colonnes à utiliser pour le géocodage."
-              className="fr-card--md fr-card--horizontal-tier"
-              footer={(
-                <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
-                  <li>
-                    <Button
-                      className="fr-btn--secondary"
-                      linkProps={{
-                        href: 'outils/csv',
-                      }}
-                      size="small"
-                    >
-                      Géocodeur CSV
-                    </Button>
-                  </li>
-                  <li>
-                    <Button
-                      linkProps={{
-                        href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
-                        target: '_blank',
-                      }}
-                      size="small"
-                    >
-                      Documentation
-                    </Button>
-                  </li>
-                </ul>
-              )}
-
             />
             <Card
               title="Téléchargement des données"
@@ -244,24 +211,6 @@ export default async function Outils() {
               )}
 
             />
-            <Card
-              title="API FANTOIR"
-              titleAs="h5"
-              desc="API permettant de consulter la base FANTOIR de la DGFiP."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  iconId="fr-icon-book-2-line"
-                  linkProps={{
-                    href: 'https://github.com/BaseAdresseNationale/api-fantoir/blob/master/README.md#api',
-                    target: '_blank',
-                  }}
-                  size="small"
-                >
-                  API FANTOIR
-                </Button>
-              )}
-            />
             {/* <Card
               title="Signalement"
               titleAs="h5"
@@ -339,7 +288,7 @@ export default async function Outils() {
           <Card
             title="Publication d’une Base Adresse Locale"
             titleAs="h5"
-            desc="Description texte SM regular Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+            desc="Formulaire de publication d'une BAL"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -358,9 +307,9 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="API dépot d’une Base Adresse Local"
+            title="API dépôt d’une Base Adresse Locale"
             titleAs="h5"
-            desc="API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale avec les gestions des habilitions."
+            desc="API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale avec les gestions des habilitations."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -378,7 +327,65 @@ export default async function Outils() {
         </CardContainer>
       </Section>
       <Section
-        title="Pour connaitre l’état des outils"
+        title="Les outils de la communauté"
+        id="communauté"
+      >
+        <CardContainer $cols={2}>
+          <Card
+            title="API FANTOIR"
+            titleAs="h5"
+            desc="API permettant de consulter la base FANTOIR de la DGFiP."
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                iconId="fr-icon-book-2-line"
+                linkProps={{
+                  href: 'https://github.com/BaseAdresseNationale/api-fantoir/blob/master/README.md#api',
+                  target: '_blank',
+                }}
+                size="small"
+              >
+                API FANTOIR
+              </Button>
+            )}
+          />
+          <Card
+            title="L'explorateur FANTOIR"
+            titleAs="h5"
+            desc="Consultez la base FANTOIR de la DGFiP en quelques clics."
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                <li>
+                  <Button
+                    className="fr-btn fr-btn--secondary"
+                    linkProps={{
+                      href: '/outils/fantoir',
+                    }}
+                    size="small"
+                  >
+                    Explorateur FANTOIR
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    className="fr-btn"
+                    linkProps={{
+                      href: 'https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    Documentation
+                  </Button>
+                </li>
+              </ul>
+            )}
+          />
+        </CardContainer>
+      </Section>
+      <Section
+        title="Les outils de supervision"
         id="etat-outils"
         theme="primary"
       >
@@ -401,18 +408,18 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="L’état du déploiement"
+            title="Les métriques d'impact"
             titleAs="h5"
-            desc="Les différents service de la base adresse sont aussi disponible sous la forme d’APIs : Adresse, Base Adresse Locale, FANTOIR,… "
+            desc="Les statistiques sur la BAN"
             className="fr-card fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
                 linkProps={{
-                  href: 'deploiement-bal',
+                  href: '/stats',
                 }}
                 size="small"
               >
-                État du déploiement
+                Statistiques
               </Button>
             )}
           />
