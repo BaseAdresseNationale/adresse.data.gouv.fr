@@ -3,7 +3,7 @@ import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
 
 import { getMairie } from '@/lib/api-etablissement-public'
-import { CertificatNumerotation } from '/home/JBouhadoun/dev/ban/nv_site/adresse.data.gouv.fr/src/app/api/certificat/[idAdresse]/components/certificat'
+import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 
 const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
 const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
