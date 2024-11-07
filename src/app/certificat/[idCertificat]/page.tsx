@@ -10,22 +10,6 @@ import {
 
 const { NEXT_PUBLIC_API_BAN_URL } = process.env
 
-interface CertificatProps {
-  certificat: {
-    id?: string
-    full_address?: {
-      number: string
-      suffix?: string
-      commonToponymDefaultLabel: string
-      districtDefaultLabel: string
-    }
-    cadastre_ids: string[]
-    createdAt: string
-  }
-  id: string
-}
-
-// const Certificat = ({ certificat, id }: CertificatProps) => {
 async function Certificat({ params }: { params: { idCertificat: string } }) {
   const { idCertificat } = params
   const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
@@ -61,7 +45,7 @@ async function Certificat({ params }: { params: { idCertificat: string } }) {
                 <>
                   <p>
                     La Base Adresse Nationale certifie que le certificat d’adressage
-                    n°<b><code>{idCertificat}</code></b> a été emit par ses services,
+                    n°<b><code>{idCertificat}</code></b> a été émis par ses services,
                     et contient les informations suivantes :
                   </p>
                   <CertificateField>
@@ -83,6 +67,15 @@ async function Certificat({ params }: { params: { idCertificat: string } }) {
                   <CertificateField>
                     <FieldLabel>Date de délivrance&nbsp;:</FieldLabel>{' '}
                     <FieldValue>{formatDate(certificat.createdAt)}</FieldValue>
+                  </CertificateField>
+                  {/* Lien pour télécharger le certificat */}
+                  <CertificateField>
+                    <FieldLabel>Copie du certificat&nbsp;:</FieldLabel>{' '}
+                    <FieldValue>
+                      <a href={`/api/certificat/pdf/${idCertificat}`} target="_blank" rel="noopener noreferrer">
+                        Télécharger en PDF
+                      </a>
+                    </FieldValue>
                   </CertificateField>
                 </>
               )

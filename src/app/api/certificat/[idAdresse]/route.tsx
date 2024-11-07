@@ -1,13 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import QRCode from 'qrcode'
-import ReactPDF from '@react-pdf/renderer'
-
 import { getAddress, getDistrict } from '@/lib/api-ban'
-import { getMairie } from '@/lib/api-etablissement-public'
-
-import { CertificatNumerotation } from './components/certificat'
-
-const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
 const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
 const BAN_API_TOKEN = process.env.BAN_API_TOKEN
 
@@ -65,32 +57,6 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
   }
 
   const data = await response.json()
-  const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
-  const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
-  const mairie = await getMairie(data.full_address.cog)
-  const mairieData = mairie || { telephone: undefined, email: undefined }
-  const pdfStream = await ReactPDF.renderToStream(
-    <CertificatNumerotation
-      data={data}
-      qrCodeDataURL={qrCodeDataURL}
-      mairie={mairieData}
-    />
-  )
 
-  const chunks: Buffer[] = []
-  pdfStream.on('data', (chunk) => {
-    chunks.push(chunk)
-  })
-
-  return new Promise<NextResponse>((resolve, reject) => {
-    pdfStream.on('end', () => {
-      const buffer = Buffer.concat(chunks as unknown as Uint8Array[])
-      const headers = new Headers({ 'Content-Type': 'application/pdf' })
-      resolve(new NextResponse(buffer, { headers }))
-    })
-
-    pdfStream.on('error', (error) => {
-      reject(new Error('Erreur lors de la création du PDF: ' + error.message))
-    })
-  })
+  return NextResponse.json({ id: data.id })
 }
