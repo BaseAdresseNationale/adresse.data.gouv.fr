@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation'
 import type { MapRef } from 'react-map-gl/maplibre'
 
 import { getCommuneFlag } from '@/lib/api-wikidata'
-import { getBanItem } from '@/lib/api-ban'
+import { getBanItem, getDistrict } from '@/lib/api-ban'
 
 import Aside from './components/Aside'
 import MapBreadcrumb from './components/MapBreadcrumb'
@@ -97,6 +97,8 @@ function CartoView() {
   const banItemId = searchParams?.get('id')
   const typeView = getBanItemTypes(mapSearchResults)
 
+  const [withCertificate, setWithCertificate] = useState<boolean>(false)
+
   useEffect(() => {
     console.log('isMapReady', isMapReady)
     isMapReady ? setIsLoadMapTiles(false) : setIsLoadMapTiles(true)
@@ -124,6 +126,15 @@ function CartoView() {
         }
         else if (typeItem === 'address') {
           setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
+          let districtConfig: { certificate: boolean } = { certificate: false }
+          const { banIdDistrict } = banItem as TypeAddressExtended
+
+          if (banIdDistrict) {
+            const districtRawResponse = await getDistrict(banIdDistrict)
+            const district = districtRawResponse.response
+            districtConfig = district.config || { certificate: false }
+          }
+          setWithCertificate(districtConfig.certificate)
         }
         const { displayBBox = [] } = banItem
         const bbox = displayBBox
@@ -196,7 +207,7 @@ function CartoView() {
                 )}
 
                 {(typeView === 'address') && (
-                  <AddressCard address={mapSearchResults as TypeAddressExtended} />
+                  <AddressCard address={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} />
                 )}
               </MapSearchResultsWrapper>
             )

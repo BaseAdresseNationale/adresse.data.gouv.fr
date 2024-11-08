@@ -17,14 +17,16 @@ import {
   AddressDetailsWrapper,
   AddressDetailsItem,
 } from './AddressCard.styles'
-
+import { isNumeroCertifiable } from '@/lib/ban'
+import DownloadCertificate from './download-certificate'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface AddressCardProps {
   address: TypeAddressExtended
+  withCertificate: boolean
 }
 
-function AddressCard({ address }: AddressCardProps) {
+function AddressCard({ address, withCertificate }: AddressCardProps) {
   const district = address.commune
   const microToponym = address.voie
   const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
@@ -93,6 +95,32 @@ function AddressCard({ address }: AddressCardProps) {
           {address.position.coordinates[0]}, {address.position.coordinates[1]}
         </AddressDetailsItem>
       </AddressDetailsWrapper>
+
+      {/* Ajout du composant DownloadCertificate sous les coordonnées */}
+
+      { withCertificate && (
+        isNumeroCertifiable({
+          banId: address.banId ?? '',
+          sources: Array.isArray(address.sourcePosition) ? address.sourcePosition : [address.sourcePosition],
+          certifie: address.certifie,
+          parcelles: address.parcelles,
+        })
+          ? (
+              <div className="certificate">
+                <DownloadCertificate
+                  id={address.id}
+                  title="Télécharger le Certificat d'adressage"
+                />
+              </div>
+            )
+          : (
+              <div className="certificate">
+                <div />
+                <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
+              </div>
+            )
+      )}
+
     </>
   )
 }
