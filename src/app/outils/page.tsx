@@ -64,78 +64,9 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="API Adresse (en cours de transfert vers le Service de géocodage de la Géoplateforme)"
-              titleAs="h5"
-              desc="L’API adresse permet notamment d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer des coordonnées à une adresse 'géoocoder' selon plusieurs critères."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  iconId="fr-icon-code-s-slash-line"
-                  linkProps={{
-                    href: '/outils/api-doc/adresse',
-                  }}
-                  size="small"
-                >
-                  API adresse
-                </Button>
-              )}
-            />
-            <Card
-              title="Service de géocodage (Nouveau)"
-              titleAs="h5"
-              desc="Le service Géoplateforme de géocodage permet d’effectuer rapidement une recherche d’adresse, mais aussi de pouvoir associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastraled’effectuer rapidement une recherche d’adresse."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  iconId="fr-icon-code-s-slash-line"
-                  linkProps={{
-                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
-                    target: '_blank',
-                  }}
-                  size="small"
-                >
-                  Documentation
-                </Button>
-              )}
-            />
-            <Card
-              title="Service d'autocomplétion (Nouveau)"
-              titleAs="h5"
-              desc="Le service Géoplateforme d’autocomplétion facilite la saisie en suggérant des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  iconId="fr-icon-code-s-slash-line"
-                  linkProps={{
-                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/autocompletion',
-                    target: '_blank',
-                  }}
-                  size="small"
-                >
-                  Documentation
-                </Button>
-              )}
-            />
-            <Card
-              title="Le Géocodeur CSV"
-              titleAs="h5"
-              desc="Ajouter un fichier CSV, définissez les colonnes à utiliser pour le géocodage."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  linkProps={{
-                    href: '/outils/csv',
-                  }}
-                  size="small"
-                >
-                  Géocodeur CSV
-                </Button>
-              )}
-            />
-            <Card
               title="Téléchargement des données"
               titleAs="h5"
-              desc="Télécharger des données de la BAN, base de données officiellement reconnues par l'administration."
+              desc="Télécharger les données de la Base Adresse Nationale (BAN)"
               imageAlt="download data"
               imageUrl="./img/pages/outils/outils-ban.png"
               className="fr-card--md fr-card--horizontal-tier"
@@ -165,6 +96,75 @@ export default async function Outils() {
                 </ul>
               )}
 
+            />
+            <Card
+              title="Api de géocodage (Nouveau)"
+              titleAs="h5"
+              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  iconId="fr-icon-code-s-slash-line"
+                  linkProps={{
+                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
+                    target: '_blank',
+                  }}
+                  size="small"
+                >
+                  Documentation
+                </Button>
+              )}
+            />
+            <Card
+              title="Service d'autocomplétion (Nouveau)"
+              titleAs="h5"
+              desc="Faciliter la saisie en suggérant des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  iconId="fr-icon-code-s-slash-line"
+                  linkProps={{
+                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/autocompletion',
+                    target: '_blank',
+                  }}
+                  size="small"
+                >
+                  Documentation
+                </Button>
+              )}
+            />
+            <Card
+              title="Le Géocodeur CSV"
+              titleAs="h5"
+              desc="Le service de Géocodeur CSV permet de géocoder une liste d'adresses en ajoutant un fichier CSV et en paramétrant les colonnes à utiliser."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  linkProps={{
+                    href: '/outils/csv',
+                  }}
+                  size="small"
+                >
+                  Géocodeur CSV
+                </Button>
+              )}
+            />
+            <Card
+              title="API Adresse (en cours de transfert vers le Service de géocodage de la Géoplateforme)"
+              titleAs="h5"
+              desc="Effectuer rapidement une recherche d’adresse pour y associer des coordonnées (géocoder) suivant plusieurs critères."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  iconId="fr-icon-code-s-slash-line"
+                  linkProps={{
+                    href: '/outils/api-doc/adresse',
+                  }}
+                  size="small"
+                >
+                  API adresse
+                </Button>
+              )}
             />
             {/* <Card
               title="Certificat d'adresse"
@@ -219,7 +219,7 @@ export default async function Outils() {
           <Card
             title="Mes adresses"
             titleAs="h5"
-            desc="Permet aux communes de modifier les adresses de son territoire."
+            desc="Permettre aux communes de modifier les adresses de son territoire."
             className="fr-card--horizontal-tier fr-card--md"
             imageAlt="mes-adresses"
             imageUrl="./img/pages/outils/outils-ban.png"
@@ -238,7 +238,7 @@ export default async function Outils() {
           <Card
             title="Le validateur Base Adresse locale"
             titleAs="h5"
-            desc="Vérifiez la conformité de votre fichier Base Adresse Locale"
+            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -254,7 +254,7 @@ export default async function Outils() {
           <Card
             title="Publication d’une Base Adresse Locale"
             titleAs="h5"
-            desc="Formulaire de publication d'une BAL"
+            desc="Publier une base à partir d'un formulaire."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -275,7 +275,7 @@ export default async function Outils() {
           <Card
             title="API dépôt d’une Base Adresse Locale"
             titleAs="h5"
-            desc="API permettant de soumettre une Base Adresse Locale à la Base Adresse Nationale avec les gestions des habilitations."
+            desc="Soumettre une Base Adresse Locale à la Base Adresse Nationale avec les gestions des habilitations."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -298,9 +298,9 @@ export default async function Outils() {
       >
         <CardContainer $cols={2}>
           <Card
-            title="API FANTOIR"
+            title="API FANTOIR (Dépréciée)"
             titleAs="h5"
-            desc="API permettant de consulter la base FANTOIR de la DGFiP."
+            desc="Consulter la base FANTOIR de la DGFiP."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -318,7 +318,7 @@ export default async function Outils() {
           <Card
             title="L'explorateur FANTOIR"
             titleAs="h5"
-            desc="Consultez la base FANTOIR de la DGFiP en quelques clics."
+            desc="Consulter la base FANTOIR de la DGFiP en quelques clics."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -359,7 +359,7 @@ export default async function Outils() {
           <Card
             title="Supervision des outils et Apis"
             titleAs="h5"
-            desc="Consultez la disponibilité des différents systèmes grâce à un outil de monitoring."
+            desc="Consulter la disponibilité des différents composants de l'écosystème adresse grâce à un outil de monitoring."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -376,7 +376,7 @@ export default async function Outils() {
           <Card
             title="Les métriques d'impact"
             titleAs="h5"
-            desc="Les statistiques sur la BAN"
+            desc="Consulter les statistiques sur la BAN"
             className="fr-card fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
