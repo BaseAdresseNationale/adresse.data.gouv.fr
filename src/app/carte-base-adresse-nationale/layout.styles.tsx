@@ -1,6 +1,6 @@
 'use client'
 
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 const INIT_BG_SIZE = '40%'
 
@@ -63,9 +63,12 @@ export const CartoMenu = styled.div`
   }
 
   & > * {
+    pointer-events: auto;
+  }
+
+  & > *:not(.layer) {
     border-radius: 0.25rem 0.25rem 0 0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    pointer-events: auto;
   }
 `
 
@@ -82,4 +85,89 @@ export const CartoBody = styled.div`
   background-image: url('/img/map-bg-pattern.svg');
   background-size: ${INIT_BG_SIZE},  55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
   animation: ${animate} 20s ease-in-out 5 1s;
+`
+
+// ---------------------------
+// --- Map Legend & Config ---
+// ---------------------------
+
+export const MapParamsWrapper = styled.div.attrs({
+  className: 'layer',
+})`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: .5em;
+  padding: 1rem 0;
+  position: relative;
+  z-index: 1;
+`
+
+export const RingButtonStyled = styled.button.attrs({
+  className: 'Mui-Not-DSFR',
+})<{
+  $img?: string
+  $isActive?: boolean
+  $isTypeRadio?: boolean
+}>`
+  border: 0.15rem solid currentColor;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  background-color: var(--background-raised-grey);
+  ${({ $img }) => $img && css`background-image: url(${$img})`};
+  background-position: center center;
+  background-size: 100%;
+  box-shadow: 0rem 0.3rem 0.7rem -0.25rem rgba(0, 0, 0, .5),
+    0rem 0.3rem 0.7rem -0.15rem rgba(255, 255, 255, .5),
+    ${({ $isTypeRadio, $isActive }) => !$isTypeRadio || $isActive ? css`0rem 0rem 0rem -0rem rgba(0, 0, 0, .5) inset` : css`0rem 0.3rem 0.7rem -0.25rem rgba(0, 0, 0, .5) inset`},
+    ${({ $isActive }) => $isActive ? css`0rem 0rem 1px 2px #fff inset` : css`0rem 0rem 0px 0px #fff inset`},
+    ${({ $isActive }) => $isActive ? css`0rem 0rem 1px 3px currentColor inset` : css`0rem 0rem 0px 0px currentColor inset`};
+  margin: 0 0.5rem 0 0;
+  color: var(--text-action-high-blue-france);
+  min-height: 3em;
+  min-width: 3em;
+  ${({ $isActive, $isTypeRadio }) => !$isTypeRadio || $isActive
+    ? css`filter: grayscale(0) brightness(1);`
+    : css`filter: grayscale(0.75) brightness(.85);`
+  }
+  ${({ $isActive, $isTypeRadio }) => $isTypeRadio && $isActive
+    ? css`cursor: default;`
+    : css`filter: pointer;`
+  }
+  transform-origin: center;
+  transform: scale(.95);
+  transition: background-color 0.15s, filter 0.15s, transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    background-color: blue;
+    filter: grayscale(0) brightness(1);
+    transform: scale(1);
+    ${({ $isActive }) => $isActive
+      ? css`transform: scale(.95);`
+      : css`transform: scale(1);`
+    }
+  }
+`
+
+export const LegendList = styled.ul`
+  list-style: none;
+  padding: 0;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`
+
+export const PointPaint = styled.div<{ $fill?: string, $stroke?: string }>`
+  display: inline-block;
+  align-items: center;
+  background-color: ${({ $fill }) => $fill || 'transparent'};
+  border-color: ${({ $stroke }) => $stroke || 'transparent'};
+  border-style: solid;
+  border-width: .25em;
+  border-radius: 1em;
+  box-sizing: content-box;
+  margin-bottom: -.15em;
+  width: 0.6em;
+  height: 0.6em;
 `
