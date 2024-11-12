@@ -2,7 +2,7 @@ import { writeFileSync, readFile, existsSync } from 'fs'
 import { keyBy } from 'lodash'
 import { getCachedData } from './cache'
 
-const FILE_PATH = 'public/communes-index.json'
+const FILE_PATH = 'public/data/communes-index.json'
 
 export async function downloadContoursCommunes() {
   if (existsSync(FILE_PATH)) {
