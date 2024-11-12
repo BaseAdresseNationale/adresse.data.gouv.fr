@@ -33,6 +33,7 @@ export const AsideWrapper = styled.div<{
   }
 
   .body {
+    width: 100%;
     height: 100%;
     max-height: 100%;
     overflow-x: hidden;
@@ -110,6 +111,7 @@ export const AsideTogglerButtonWrapper = styled.div`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     position: sticky;
+    z-index: 1;
     top: 0;
     width: 2rem;
     max-height: none;
