@@ -85,6 +85,8 @@ jobs:
             NEXT_PUBLIC_GHOST_KEY=${{ vars.NEXT_PUBLIC_GHOST_KEY }}
             NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL=${{ vars.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL }}
             NEXT_PUBLIC_BREVO_API_URL=${{ vars.NEXT_PUBLIC_BREVO_API_URL }}
+            NEXT_PUBLIC_MATOMO_URL=${{ vars.NEXT_PUBLIC_MATOMO_URL }}
+            NEXT_PUBLIC_MATOMO_SITE_ID=${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}
   
       # Debug: Afficher les informations de débogage
       - name: Print Debug Info
