@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+#RUN npm install
 
 COPY . .
 COPY .env.default .env.default
