@@ -7,7 +7,6 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
-COPY .env.default .env.default
 
 RUN npm run build
 # Étape 2 : Image de production
