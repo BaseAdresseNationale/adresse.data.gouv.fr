@@ -60,11 +60,11 @@ export const AsideWrapper = styled.div<{
     transition: transform 0.5s ease;
 
     ${({ $withTogglerButton }) => $withTogglerButton
-      ? css`
+        ? css`
         width: calc(400px + 2rem);
         max-width: calc(25% + 2rem);
       `
-      : css`
+        : css`
         width: 400px;
         max-width: 25%;
       `
