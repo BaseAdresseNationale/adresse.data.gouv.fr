@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-#RUN npm install
+RUN npm install
 
 COPY . .
 COPY .env.default .env.default
 
-RUN export $(grep -v '^#' .env.default | xargs) && npm run build
+RUN npm run build
 # Étape 2 : Image de production
 FROM node:20.15.1
 
