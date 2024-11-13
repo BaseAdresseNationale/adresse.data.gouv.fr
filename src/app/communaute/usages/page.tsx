@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import camelCase from 'lodash/camelCase'
+import camelCase from 'lodash'
 import Section from '@/components/Section'
 import appsDataSource from '@/data/partners/usecases-ban.json'
 import Button from '@codegouvfr/react-dsfr/Button'
@@ -12,7 +12,7 @@ import { Filters } from './page.styles'
 import CardWrapper from '@/components/CardWrapper'
 import Input from '@codegouvfr/react-dsfr/Input'
 import { CenteredLink } from './page.styles'
-const sortByKey = (key: string) => (a, b) => ((a[key] < b[key]) && -1) || ((a[key] > b[key]) && 1) || 0
+const sortByKey = (key: string) => (a: Record<string, string>, b: Record<string, string>) => ((a[key] < b[key]) && -1) || ((a[key] > b[key]) && 1) || 0
 
 const appsData = appsDataSource.map(
   appData => Object.fromEntries(
@@ -22,7 +22,7 @@ const appsData = appsDataSource.map(
       .map(([key, value]) => [camelCase(key), value])
   )
 )
-console.log(appsData)
+
 const filterCategories = [...new Set(appsData.map(({ categorieApplication }) => categorieApplication))]
 const filterStatuts = [...new Set(appsData.map(({ statutIntegration }) => statutIntegration))]
 const filterTypes = [...new Set(appsData.map(({ typeIntegration }) => typeIntegration))]
@@ -48,7 +48,7 @@ export default function BaseUsages() {
       || (
         (nomApplication && nomApplication.toLowerCase().includes(searchTerm.toLowerCase()))
         || (descriptionUtilisation && descriptionUtilisation.toLowerCase().includes(searchTerm.toLowerCase()))
-        || (tagsApplication && tagsApplication.split(', ').some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+        || (tagsApplication && tagsApplication.split(', ').some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
       )
     )
   ).sort(sortByKey('nomApplication')), [categorieFilter, statutFilter, typeFilter, searchTerm])
