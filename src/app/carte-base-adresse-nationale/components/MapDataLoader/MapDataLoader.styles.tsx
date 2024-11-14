@@ -3,6 +3,7 @@
 import styled, { css, keyframes } from 'styled-components'
 
 export const LoaderWrapper = styled.div<{ $isVisible: boolean }>`
+  width: 100%;
   max-height: 100%;
   opacity: 1;
   transform: translate(0, 0);

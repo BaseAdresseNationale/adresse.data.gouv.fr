@@ -97,4 +97,5 @@ export const AddressDetailsItemValue = styled.pre`
   font-size: small;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  white-space: pre-line;
 `

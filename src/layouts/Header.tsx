@@ -4,9 +4,9 @@ import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import { Header as HeaderDSFR } from '@codegouvfr/react-dsfr/Header'
 import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
-import Notices from '@/components/Notices'
+import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
-import dataNotices from '@/data/sample-notices.json'
+import Notices from '@/components/Notices'
 
 const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
 
@@ -79,7 +79,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/outils' },
       },
       {
-        text: 'Carte de la Base adresse nationale',
+        text: 'Carte de la Base adresse nationale (Explorateur)',
         linkProps: { href: `${URL_CARTOGRAPHY_BAN}` },
       },
       // { text: 'Certificat d’adresse', linkProps: { href: '#' } },
@@ -131,7 +131,21 @@ export const navEntries: MainNavigationProps.Item[] = [
   },
 ]
 
-export default function Header() {
+interface Notices {
+  data: {
+    text: string
+    link?: {
+      href: string
+      target?: string
+    }
+  }[]
+  duration: number
+}
+
+export default function Header({ notices = {
+  data: [],
+  duration: 4000,
+} }: { notices: Notices }) {
   const pathname = usePathname()
 
   const selectedNavigationLinks = useMemo(
@@ -174,26 +188,26 @@ export default function Header() {
             linkProps: {
               href: '/carte-base-adresse-nationale',
             },
-            text: 'La Carte',
+            text: <Tooltip kind="hover" title="Carte de la Base adresse nationale (Explorateur)">La Carte</Tooltip>,
           },
           {
             iconId: 'fr-icon-book-2-fill',
             linkProps: {
               href: '/ressources-et-documentations',
             },
-            text: 'La Documentation',
+            text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
           },
           {
             iconId: 'ri-quill-pen-fill',
             linkProps: {
               href: '/blog',
             },
-            text: 'Le Blog',
+            text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
           },
         ]}
         navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
       />
-      <Notices {...dataNotices} />
+      {notices && notices.data.length > 0 && <Notices {...notices} />}
     </>
   )
 }
