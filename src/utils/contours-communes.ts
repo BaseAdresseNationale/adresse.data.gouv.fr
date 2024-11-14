@@ -2,6 +2,7 @@ import { writeFileSync, readFile, existsSync, mkdirSync } from 'fs'
 import { keyBy } from 'lodash'
 import { getCachedData } from './cache'
 
+
 const DIRECTORY_PATH = 'public/data'
 const FILE_NAME = 'communes-index.json'
 
