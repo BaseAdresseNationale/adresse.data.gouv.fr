@@ -79,6 +79,8 @@ COPY --from=builder /app/.env.default ./
 # Utilisation de l'utilisateur non-root
 USER node
 
+RUN mkdir /app/data 
+
 # Expose le port de l'application
 EXPOSE 3000
 
