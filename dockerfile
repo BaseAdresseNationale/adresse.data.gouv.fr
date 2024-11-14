@@ -76,10 +76,11 @@ COPY --from=builder /app/src ./src
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.env.default ./
 
+RUN mkdir -p /app/data && chown -R node:node /app/data
+
 # Utilisation de l'utilisateur non-root
 USER node
 
-RUN mkdir -p /app/data && chown -R node:node /app/data
 # Expose le port de l'application
 EXPOSE 3000
 
