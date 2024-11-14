@@ -2,7 +2,7 @@ import { writeFileSync, readFile, existsSync, mkdirSync } from 'fs'
 import { keyBy } from 'lodash'
 import { getCachedData } from './cache'
 
-const DIRECTORY_PATH = 'data'
+const DIRECTORY_PATH = '/app/data'
 const FILE_NAME = 'communes-index.json'
 const FILE_PATH = `${DIRECTORY_PATH}/${FILE_NAME}`
 
