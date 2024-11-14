@@ -161,7 +161,7 @@ function BanMap({ address, bbox, onSelect, isCadastreLayersShown }: BanMapProps)
 
   return (
     <>
-      <ControlGroup>
+      <ControlGroup $position="bottom-right">
         <CenterControl
           handleClick={centerAddress}
         />

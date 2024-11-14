@@ -198,9 +198,9 @@ function CartoView() {
         onLoad={() => setIsMapReady(true)}
         attributionControl={false}
       >
-        <NavigationControl position="top-right" showCompass />
         <ScaleControl position="bottom-right" maxWidth={150} unit="metric" />
-        <AttributionControl position="bottom-left" customAttribution="Map design by me" compact={true} />
+        <NavigationControl position="bottom-right" showCompass />
+        <AttributionControl position="bottom-left" customAttribution="IGN" compact={true} />
 
         <BanMap
           address={mapSearchResults as unknown as Address}

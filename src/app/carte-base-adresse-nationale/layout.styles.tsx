@@ -26,10 +26,10 @@ const animate = keyframes`
 export const CartoWrapper = styled.div`
   position: relative;
   display: flex;
-  height: calc(100vh - 4.5rem - 5.8rem - 3.6rem - 5rem);
+  height: calc(100vh - 10.3rem);
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      height: calc(100vh - 4.5rem - 5.8rem - 3.6rem - 3.6rem);
+      height: calc(100vh - 7.4rem - 3.5rem);
   }
 
   &::before {
@@ -139,7 +139,6 @@ export const RingButtonStyled = styled.button.attrs({
   transition: background-color 0.15s, filter 0.15s, transform 0.15s, box-shadow 0.15s;
 
   &:hover {
-    background-color: blue;
     filter: grayscale(0) brightness(1);
     transform: scale(1);
     ${({ $isActive }) => $isActive

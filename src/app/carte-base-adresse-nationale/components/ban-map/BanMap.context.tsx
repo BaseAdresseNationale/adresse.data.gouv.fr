@@ -8,7 +8,7 @@ interface BanMapProviderProps {
 }
 
 const initBanMapConfig = {
-  mapStyle: 'osm-vector',
+  mapStyle: 'ign-vector',
   displayLandRegister: false,
 }
 
