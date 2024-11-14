@@ -7,10 +7,6 @@ const FILE_NAME = 'communes-index.json'
 const FILE_PATH = `${DIRECTORY_PATH}/${FILE_NAME}`
 
 export async function downloadContoursCommunes() {
-  if (!existsSync(DIRECTORY_PATH)) {
-    console.log('Creating data directory…')
-    mkdirSync(DIRECTORY_PATH, { recursive: true })
-  }
   if (existsSync(FILE_PATH)) {
     console.log('Contours communes already downloaded')
     return
