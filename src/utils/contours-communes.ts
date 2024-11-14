@@ -10,6 +10,7 @@ export async function downloadContoursCommunes() {
     console.log('Creating data directory…')
     mkdirSync(DIRECTORY_PATH, { recursive: true })
   }
+  const filePath = `${DIRECTORY_PATH}/${FILE_NAME}`
   if (existsSync(FILE_PATH)) {
     console.log('Contours communes already downloaded')
     return
