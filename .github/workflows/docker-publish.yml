@@ -90,8 +90,8 @@ jobs:
             S3_CONFIG_SECRET_ACCESS_KEY=${{ secrets.S3_CONFIG_SECRET_ACCESS_KEY }}
             S3_CONFIG_REGION=${{ secrets.S3_CONFIG_REGION }}
             S3_CONFIG_ENDPOINT=${{ secrets.S3_CONFIG_ENDPOINT }}
-            NEXT_PUBLIC_MATOMO_URL=${{secrets.NEXT_PUBLIC_MATOMO_URL}}
-            NEXT_PUBLIC_MATOMO_SITE_ID=${{secrets.NEXT_PUBLIC_MATOMO_SITE_ID}}
+            NEXT_PUBLIC_MATOMO_URL=${{ vars.NEXT_PUBLIC_MATOMO_URL }}
+            NEXT_PUBLIC_MATOMO_SITE_ID=${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}
   
       # Debug: Afficher les informations de débogage
       - name: Print Debug Info
