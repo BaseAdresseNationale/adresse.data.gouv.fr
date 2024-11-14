@@ -43,15 +43,14 @@ function DistrictCard({ district, logo }: DistrictCardProps) {
         <DistrictDetailsItem className="ri-group-line">
           <b>{formatNumber(district.population)}</b>&nbsp;habitants
         </DistrictDetailsItem>
-        <DistrictDetailsItem className="ri-home-4-line">
-          <b>{formatNumber(district.nbNumeros)}</b>&nbsp;adresses répertoriées
-        </DistrictDetailsItem>
         <DistrictDetailsItem className="ri-shield-check-line">
           {
             Number(district.nbNumerosCertifies) > 1
               ? <><b>{formatNumber(district.nbNumerosCertifies)}</b>&nbsp;adresses certifiées</>
-              : <>{district.nbNumerosCertifies || 'Aucune'} adresses certifiées</>
-          }{' '}
+              : <>{district.nbNumerosCertifies || 'Aucune'} adresse certifiée</>
+          }{'\u00A0/\u00A0'}
+          <b>{formatNumber(district.nbNumeros)}</b>&nbsp;adresses répertoriées{' '}
+          <b>(soit {Math.round((district.nbNumerosCertifies / district.nbNumeros) * 100)}%)</b>
         </DistrictDetailsItem>
         <DistrictDetailsItem className="ri-signpost-line">
           {
@@ -67,7 +66,7 @@ function DistrictCard({ district, logo }: DistrictCardProps) {
             href={`./commune/${district.codeCommune}`}
             className="fr-link fr-link--icon-right fr-icon-arrow-right-line"
           >
-            En Savoir plus
+            Voir la page de la commune
           </Link>
         </div>
 
