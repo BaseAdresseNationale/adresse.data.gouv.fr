@@ -33,6 +33,11 @@ const StyledLayout = styled.div`
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
 
+  const dataNotices = {
+    data: [],
+    duration: 4000,
+  }
+
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_MATOMO_URL || !process.env.NEXT_PUBLIC_MATOMO_SITE_ID) {
       return
@@ -61,7 +66,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
               <BALWidgetProvider>
                 <GlobalStyle />
                 <StyledLayout>
-                  <Header />
+                  <Header notices={dataNotices} />
                   <div className="pageWrapper">
                     {/* <Breadcrumb /> */}
                     {children}

@@ -1,9 +1,9 @@
 'use client'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import styled from 'styled-components'
+import { useCallback, useEffect, useRef, useState, createContext } from 'react'
+import styled, { css } from 'styled-components'
 import { matomoTrackEvent } from '@/lib/matomo'
 
-export const StyledIFrame = styled.iframe<{ $isOpen: boolean }>`
+export const StyledIFrame = styled.iframe<{ $isOpen: boolean, $isVisible: boolean }>`
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -11,7 +11,9 @@ export const StyledIFrame = styled.iframe<{ $isOpen: boolean }>`
   // Fix to avoid white box when dark mode is enabled
   color-scheme: normal;
   border: none;
-  ${({ $isOpen }) => $isOpen ? 'height: 600px; width: 450px;' : 'height: 60px; width: 60px;'}
+  ${({ $isOpen }) => $isOpen ? css`height: 600px; width: 450px;` : css`height: 60px; width: 60px;`}
+  ${({ $isVisible }) => $isVisible ? css`transform: translateX(0);` : css`transform: translateX(300%);`}
+  transition: transform 0.3s ease;
 
 
   @media screen and (max-width: 450px) {
@@ -21,21 +23,27 @@ export const StyledIFrame = styled.iframe<{ $isOpen: boolean }>`
   }
 `
 
-interface BALWidgetContext {
+interface BALWidgetContextType {
   open: () => void
   close: () => void
   navigate: (to: string) => void
+  showWidget: () => void
+  hideWidget: () => void
   isBalWidgetOpen: boolean
   isBalWidgetReady: boolean
+  isWidgetVisible: boolean
 }
 
-const BALWidgetContext = React.createContext<BALWidgetContext>({
-  open: () => {},
-  close: () => {},
-  navigate: () => {},
+export const BALWidgetContext = createContext({
+  open: () => { },
+  close: () => { },
+  navigate: (to: string) => { },
+  showWidget: () => { },
+  hideWidget: () => { },
   isBalWidgetOpen: false,
   isBalWidgetReady: false,
-})
+  isWidgetVisible: true,
+} as BALWidgetContextType)
 
 interface BALWidgetProviderProps {
   children: React.ReactNode
@@ -45,6 +53,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   const balWidgetRef = useRef<HTMLIFrameElement>(null)
   const transitionTimeout = useRef<NodeJS.Timeout>()
   const [isWidgetDisplayed, setIsWidgetDisplayed] = useState(false)
+  const [isWidgetVisible, setIsWidgetVisible] = useState(true)
   const [isBalWidgetOpen, setIsBalWidgetOpen] = useState(false)
   const [isBalWidgetReady, setIsBalWidgetReady] = useState(false)
   const [isBalWidgetConfigLoaded, setIsBalWidgetConfigLoaded] = useState(false)
@@ -167,8 +176,11 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
       open,
       close,
       navigate,
+      showWidget: () => setIsWidgetVisible(true),
+      hideWidget: () => setIsWidgetVisible(false),
       isBalWidgetOpen,
       isBalWidgetReady,
+      isWidgetVisible,
     }}
     >
       {children}
@@ -177,6 +189,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           ref={balWidgetRef}
           src={process.env.NEXT_PUBLIC_BAL_WIDGET_URL}
           $isOpen={isBalWidgetOpen}
+          $isVisible={isWidgetVisible}
         />
       )}
     </BALWidgetContext.Provider>
