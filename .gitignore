@@ -43,6 +43,7 @@ docker-compose-prod.yml
 /.storybook/static/dsfr/
 
 public/dsfr
+
 public/communes-index.json
 public/data/communes-index.json
 
