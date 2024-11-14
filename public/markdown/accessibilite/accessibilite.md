@@ -14,25 +14,27 @@ adresse.data.gouv.fr est non conforme avec le référentiel général d’améli
 
 ## Établissement de cette déclaration d’accessibilité
 
-Cette déclaration d’accessibilité a été établie le 14/11/2024 et s’applique à adresse.data.gouv.fr.
+Cette déclaration d’accessibilité a été mise à jour le 14/11/2024 et s’applique à adresse.data.gouv.fr.
 
-**Technologies utilisées pour la réalisation du site adresse.data.gouv.fr**
+## Technologies utilisées pour la réalisation du site adresse.data.gouv.fr ##
+
 - HTML5
 - CSS
 - JavaScript
 - Node.js
 - NEXT.js
 - REACT
-- Styled Component
 - Markdown
 - Maplibre
 - React Map GL
 
-Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter notre équipe pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.
+## Retour d'information et contact
+
+Si vous n’arrivez pas à accéder à un contenu ou à un service, vous pouvez contacter le responsable du site internet pour être orienté vers une alternative accessible ou obtenir le contenu sous une autre forme.
 
 Envoyer un message à [adresse@data.gouv.fr](mailto:adresse@data.gouv.fr)
 
-## Voie de recours
+## Voies de recours
 
 Si vous constatez un défaut d’accessibilité vous empêchant d’accéder à un contenu ou une fonctionnalité du site, que vous nous le signalez et que vous ne parvenez pas à obtenir une réponse de notre part, vous êtes en droit de faire parvenir vos doléances ou une demande de saisine au Défenseur des droits.
 
