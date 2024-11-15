@@ -22,7 +22,6 @@ const appsData = appsDataSource.map(
       .map(([key, value]) => [camelCase(key), value])
   )
 )
-
 const filterCategories = [...new Set(appsData.map(({ categorieApplication }) => categorieApplication))]
 const filterStatuts = [...new Set(appsData.map(({ statutIntegration }) => statutIntegration))]
 const filterTypes = [...new Set(appsData.map(({ typeIntegration }) => typeIntegration))]
@@ -40,17 +39,17 @@ export default function BaseUsages() {
     nomApplication,
     descriptionUtilisation,
     tagsApplication,
-  }) =>
+  }) => (
     (categorieFilter === '' || categorieApplication === categorieFilter)
     && (statutFilter === '' || statutIntegration === statutFilter)
     && (typeFilter === '' || typeIntegration === typeFilter)
-    && (searchTerm === ''
-      || (
-        (nomApplication && nomApplication.toLowerCase().includes(searchTerm.toLowerCase()))
-        || (descriptionUtilisation && descriptionUtilisation.toLowerCase().includes(searchTerm.toLowerCase()))
-        || (tagsApplication && tagsApplication.split(', ').some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
-      )
+    && (searchTerm === '' || (
+      (nomApplication && nomApplication.toLowerCase().includes(searchTerm.toLowerCase()))
+      || (descriptionUtilisation && descriptionUtilisation.toLowerCase().includes(searchTerm.toLowerCase()))
+      || (tagsApplication && tagsApplication.split(', ').some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
     )
+    )
+  )
   ).sort(sortByKey('nomApplication')), [categorieFilter, statutFilter, typeFilter, searchTerm])
   return (
     <>
@@ -75,7 +74,7 @@ export default function BaseUsages() {
             }}
           >
             <option value="">Toutes les catégories</option>
-            {filterCategories.map(categorie => (<option key={categorie} value={categorie}>{categorie}</option>))}
+            {filterCategories.map((categorie, index) => (<option key={index} value={categorie}>{categorie}</option>))}
           </Select>
           <Select
             label="Status"
@@ -84,7 +83,7 @@ export default function BaseUsages() {
             }}
           >
             <option value="">Tous les statuts</option>
-            {filterStatuts.map(statut => (<option key={statut} value={statut}>{statut}</option>))}
+            {filterStatuts.map((statut, index) => (<option key={index} value={statut}>{statut}</option>))}
           </Select>
           <Select
             label="Modes"
@@ -93,7 +92,7 @@ export default function BaseUsages() {
             }}
           >
             <option value="">Tous les modes</option>
-            {filterTypes.map(type => (<option key={type} value={type}>{type}</option>))}
+            {filterTypes.map((type, index) => (<option key={index} value={type}>{type}</option>))}
           </Select>
           <Input
             label="Rechercher"
@@ -108,9 +107,9 @@ export default function BaseUsages() {
           />
         </Filters>
         <CardWrapper isSmallCard>
-          {filteredApps.map(appDescription => (
+          {filteredApps.map((appDescription, index) => appDescription && (
             <AppCard
-              key={appDescription.idApplication}
+              key={index}
               statutIntegration={appDescription.statutIntegration}
               typeIntegration={appDescription.typeIntegration}
               nomApplication={appDescription.nomApplication}
@@ -124,10 +123,7 @@ export default function BaseUsages() {
           ))}
         </CardWrapper>
         <Section title="Vous utilisez la Base Adresse Nationale ?">
-          <p>
-            <p>Faites nous part de votre usage et faites apparaître votre application sur cette page</p>
-          </p>
-
+          <p>Faites nous part de votre usage et faites apparaître votre application sur cette page</p>
           <CenteredLink>
             <Button
               linkProps={{

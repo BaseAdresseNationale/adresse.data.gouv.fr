@@ -1,3 +1,5 @@
+'use client'
+
 import Card from '@codegouvfr/react-dsfr/Card'
 import Tag from '@codegouvfr/react-dsfr/Tag'
 import Badge from '@codegouvfr/react-dsfr/Badge'
@@ -24,7 +26,6 @@ const getStatusColor = (status: Status): Severity => statusColors[status] || sta
 const getTypeColor = (type: TypeColors): string => typeColors[type] || typeColors.default
 
 export interface UsersBan {
-  key: string
   typeIntegration: TypeColors
   nomApplication: string
   descriptionUtilisation: string
@@ -37,7 +38,6 @@ export interface UsersBan {
 }
 
 function AppCard({
-  key,
   statutIntegration,
   typeIntegration,
   nomApplication,
@@ -51,11 +51,10 @@ function AppCard({
   return (
     <Card
       size="small"
-      key={key}
       title={nomApplication}
       desc={descriptionUtilisation}
       imageComponent={<ResponsiveImage src={imageUtilisateur} alt={nomUtilisateur} style={{ objectFit: 'contain' }} />}
-      start={(
+      start={tagsApplication && (
         <ul className="fr-tags-group">
           {tagsApplication.split(', ').map((tag, index) => <li key={index}><Tag small key={index}>{tag.toLowerCase()}</Tag></li>)}
         </ul>
