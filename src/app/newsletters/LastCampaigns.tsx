@@ -1,5 +1,7 @@
-import { customFetch } from '@/lib/fetch'
+'use client'
+import { useEffect, useState } from 'react'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
+import Loader from '@/components/Loader'
 
 interface Newsletter {
   id: number
@@ -7,26 +9,41 @@ interface Newsletter {
   htmlContent: string
 }
 
-export default async function LastCampaigns() {
-  const to = Date.now()
-  const from = new Date(to - 1000 * 60 * 60 * 24 * 30 * 6)
-  const newsletters = []
-  const allCampaigns = []
-  let count = 0
-  let offset = 0
-  try {
-    do {
-      const { campaigns, count: _count } = await customFetch(`${process.env.NEXT_PUBLIC_BREVO_API_URL}/emailCampaigns?status=sent&limit=30&offset=${offset}&startDate=${from.toISOString()}&endDate=${new Date(to).toISOString()}`, {
-        headers: { 'accept': 'application/json', 'content-type': 'application/json', 'api-key': process.env.BREVO_API_KEY } as RequestInit['headers'],
-      })
-      count = _count
-      offset += campaigns.length
-      allCampaigns.push(...campaigns)
-      newsletters.push(...campaigns.filter((campaign: Newsletter) => campaign.name.includes('adresse.data.gouv.fr')))
-    } while (offset < count)
+export default function LastCampaigns() {
+  const [newsletters, setNewsletters] = useState<Newsletter[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function fetchNewsletters() {
+      try {
+        const response = await fetch('/api/brevo-newsletters') // Assuming this is the route
+        if (!response.ok) {
+          throw new Error('Newsletters indisponible')
+        }
+        const data = await response.json()
+        setNewsletters(data.newsletters)
+      }
+      catch (error: any) {
+        setError(error.message)
+      }
+      finally {
+        setLoading(false)
+      }
+    }
+    fetchNewsletters()
+  }, [])
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}>
+        <Loader size={50} />
+      </div>
+    )
   }
-  catch (error) {
-    console.error(error)
+
+  if (error) {
+    return <div>Error: {error}</div>
   }
 
   return (
