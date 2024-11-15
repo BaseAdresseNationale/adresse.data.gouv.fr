@@ -4,19 +4,23 @@ import { getCachedData } from './cache'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const ROOT_PATH = path.resolve(__dirname, '../..')
-const DIRECTORY_PATH = `${ROOT_PATH}/data`
-const FILE_NAME = 'communes-index.json'
-const FILE_PATH = `${DIRECTORY_PATH}/${FILE_NAME}`
+function getFilePath() {
+  const __filename = fileURLToPath(import.meta.url)
+  const __dirname = path.dirname(__filename)
+  const root_path = path.resolve(__dirname, '../..')
+  const directory_path = `${root_path}/data`
+  const file_name = 'communes-index.json'
+  const file_path = `${directory_path}/${file_name}`
+  return { directory_path, file_name, file_path }
+}
 
 export async function downloadContoursCommunes() {
-  if (!existsSync(DIRECTORY_PATH)) {
+  const { directory_path, file_path } = getFilePath()
+  if (!existsSync(directory_path)) {
     console.log('Creating data directory…')
-    mkdirSync(DIRECTORY_PATH, { recursive: true })
+    mkdirSync(directory_path, { recursive: true })
   }
-  if (existsSync(FILE_PATH)) {
+  if (existsSync(file_path)) {
     console.log('Contours communes already downloaded')
     return
   }
@@ -26,14 +30,16 @@ export async function downloadContoursCommunes() {
   const response = await fetch('http://etalab-datasets.geo.data.gouv.fr/contours-administratifs/2024/geojson/communes-100m.geojson')
   const responseJson = await response.json()
   const communesIndex = JSON.stringify(keyBy([...responseJson.features], f => f.properties.code))
-  writeFileSync(FILE_PATH, communesIndex)
+  writeFileSync(file_path, communesIndex)
 
   console.log('Contours communes ready')
 }
 
 async function readCommunesIndex() {
+  const { file_path } = getFilePath()
+
   const fileData: Buffer = await new Promise((resove, reject) => {
-    readFile(FILE_PATH, (err, data) => {
+    readFile(file_path, (err, data) => {
       if (err) {
         reject(err)
       }
