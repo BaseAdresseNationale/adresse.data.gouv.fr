@@ -5,6 +5,7 @@ import Tag from '@codegouvfr/react-dsfr/Tag'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
 import ResponsiveImage from '@/components/ResponsiveImage'
+import { TagsAndBadges } from '../page.styles'
 
 type Severity = 'new' | 'error' | 'success'
 const statusColors: Record<string, Severity> = {
@@ -54,15 +55,19 @@ function AppCard({
       desc={descriptionUtilisation}
       imageComponent={<ResponsiveImage src={imageUtilisateur} alt={nomUtilisateur} style={{ objectFit: 'contain' }} />}
       start={tagsApplication && (
-        <ul className="fr-tags-group">
-          {tagsApplication.split(', ').map((tag, index) => <li key={index}><Tag small key={index}>{tag.toLowerCase()}</Tag></li>)}
-        </ul>
+        <TagsAndBadges>
+          <ul className="fr-tags-group">
+            {tagsApplication.split(', ').map((tag, index) => <li key={index}><Tag small key={index}>{tag.toLowerCase()}</Tag></li>)}
+          </ul>
+        </TagsAndBadges>
       )}
       end={(
-        <ul className="fr-tags-group">
-          <li><Badge noIcon className="fr-badge--sm" severity={getStatusColor(statutIntegration)}>{statutIntegration}</Badge></li>
-          <li><p style={{ backgroundColor: getTypeColor(typeIntegration) }} className="fr-badge fr-badge--sm">{typeIntegration}</p></li>
-        </ul>
+        <TagsAndBadges>
+          <ul className="fr-tags-group">
+            <li><Badge noIcon className="fr-badge--sm" severity={getStatusColor(statutIntegration)}>{statutIntegration}</Badge></li>
+            <li><p style={{ backgroundColor: getTypeColor(typeIntegration) }} className="fr-badge fr-badge--sm">{typeIntegration}</p></li>
+          </ul>
+        </TagsAndBadges>
       )}
       endDetail={dernierTelechargement && <p>Dernier téléchargement: {dernierTelechargement}</p>}
 

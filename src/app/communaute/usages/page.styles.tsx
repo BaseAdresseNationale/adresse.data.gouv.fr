@@ -16,6 +16,15 @@ export const Filters = styled.div`
       min-width: 15em;
     }
 `
+export const TagsAndBadges = styled.div`
+  .fr-tags-group > li {
+    line-height: 1.3rem;
+  }
+
+  .fr-badge, .fr-tag {
+    margin: 0.25rem;
+  }
+`
 
 export const CenteredLink = styled.div`
     margin: 40px auto;
