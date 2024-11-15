@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useMemo } from 'react'
-import camelCase from 'lodash'
+import { camelCase } from 'lodash'
 import Section from '@/components/Section'
 import appsDataSource from '@/data/partners/usecases-ban.json'
 import Button from '@codegouvfr/react-dsfr/Button'

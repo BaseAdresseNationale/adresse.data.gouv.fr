@@ -6,15 +6,14 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 import Button from '@codegouvfr/react-dsfr/Button'
 import ResponsiveImage from '@/components/ResponsiveImage'
 
-type Status = 'en cours de test' | 'en réflexion' | 'default'
 type Severity = 'new' | 'error' | 'success'
-const statusColors: Record<Status, Severity> = {
+const statusColors: Record<string, Severity> = {
   'en cours de test': 'new',
   'en réflexion': 'error',
   'default': 'success',
 }
-type TypeColors = 'Non défini' | 'API' | 'Téléchargement' | 'default' | 'Géocodeur'
-const typeColors: Record<TypeColors, string> = {
+
+const typeColors: Record<string, string> = {
   'Non défini': '#ced4da',
   'API': '#68D391',
   'Téléchargement': '#a3cef1',
@@ -22,18 +21,18 @@ const typeColors: Record<TypeColors, string> = {
   'Géocodeur': '#70a0af',
 }
 
-const getStatusColor = (status: Status): Severity => statusColors[status] || statusColors.default
-const getTypeColor = (type: TypeColors): string => typeColors[type] || typeColors.default
+const getStatusColor = (status: string) => statusColors[status] || statusColors.default
+const getTypeColor = (type: string) => typeColors[type] || typeColors.default
 
 export interface UsersBan {
-  typeIntegration: TypeColors
+  typeIntegration: string
   nomApplication: string
   descriptionUtilisation: string
   imageUtilisateur: string
   urlApplication: string
   dernierTelechargement: string
   nomUtilisateur: string
-  statutIntegration: Status
+  statutIntegration: string
   tagsApplication: string
 }
 
