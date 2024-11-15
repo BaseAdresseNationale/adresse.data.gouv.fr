@@ -43,8 +43,7 @@ async function _fetch(url: string, _options: RequestInit = {}) {
 }
 
 export function isFirstCharValid(entry: string) {
-  return (
-    entry.slice(0, 1).toLowerCase() !== entry.slice(0, 1).toUpperCase())
+  return (entry.slice(0, 1).toLowerCase() !== entry.slice(0, 1).toUpperCase())
     || (
       entry.codePointAt(0)
       && (
