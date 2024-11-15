@@ -88,7 +88,7 @@ export default function BaseUsages() {
           <Select
             label="Modes"
             nativeSelectProps={{
-              onChange: e => setStatutFilter(e.target.value),
+              onChange: e => setTypeFilter(e.target.value),
             }}
           >
             <option value="">Tous les modes</option>
