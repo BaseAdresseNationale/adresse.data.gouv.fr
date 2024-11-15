@@ -27,11 +27,11 @@
     "tags": ["Documentation"]
   },
   {
-    "title": "Installer un géocodeur sur son serveur.",
+    "title": "Installer un géocodeur sur son serveur",
     "picto": "./img/picto-fr/coding.svg",
     "link": {
-      "href": "#",
-      "target": "_self"
+      "href": "https://github.com/BaseAdresseNationale/addok-docker#installer-une-instance-avec-les-donn%C3%A9es-de-la-base-adresse-nationale",
+      "target": "_github"
     },
     "tags": ["Doc Technique"]
   }

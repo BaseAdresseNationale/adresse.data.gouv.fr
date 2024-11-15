@@ -1,7 +1,7 @@
 [
   {
-    "title": "Faites l’état des lieux",
-    "description": "Vous souhaitez utiliser la base adresse nationale, explorez les différentes possibilités.",
+    "title": "Faire l’état des lieux",
+    "description": "Repérez les adresses manquantes, les doublons...",
     "detail": "Créer une base pour ma commune",
     "picto": "./img/picto/road.svg",
     "link": {
@@ -10,7 +10,7 @@
     }
   },
   {
-    "title": "Harmonisez vos adresses",
+    "title": "Harmoniser vos adresses",
     "description": "Complétez votre base, consultez la population et délibérez en Conseil municipal.",
     "detail": "Découvrez les bonnes pratiques",
     "picto": "./img/picto/city-hall.svg",
@@ -20,7 +20,7 @@
     }
   },
   {
-    "title": "Diffusez votre base",
+    "title": "Diffuser votre base",
     "description": "Publiez votre base, placez des panneaux et informez vos habitants et partenaires.",
     "detail": "Découvrez les méthodes de publications",
     "picto": "./img/picto/map-target.svg",
