@@ -73,6 +73,12 @@ function AddressCard({ address, withCertificate }: AddressCardProps) {
             <AddressDetailsItemValue>{address.cleInterop}</AddressDetailsItemValue>
           </span>
         </AddressDetailsItem>
+        <AddressDetailsItem className="ri-collage-line">
+          <span>
+            Parcelles cadastrales :  <br />
+            <AddressDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</AddressDetailsItemValue>
+          </span>
+        </AddressDetailsItem>
         <AddressDetailsItem className="ri-calendar-line">
           Date de mise à jour :  <br />
           {dateMaj}

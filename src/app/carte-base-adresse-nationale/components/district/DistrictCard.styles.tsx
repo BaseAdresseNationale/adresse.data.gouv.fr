@@ -53,7 +53,7 @@ export const DistrictDetailsItem = styled.li`
   margin-bottom: 0.2em;
 
   b {
-    font-weight: normal;
+    font-weight: 500;
     font-size: 1.1em;
   }
 
