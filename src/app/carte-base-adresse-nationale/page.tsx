@@ -121,6 +121,7 @@ function CartoView() {
         setMapSearchResults(banItem)
 
         const districtFlagUrl = await getCommuneFlag(banItemId)
+        console.log('districtFlagUrl', districtFlagUrl)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
         setIsLoadMapSearchResults(false)
@@ -130,7 +131,6 @@ function CartoView() {
 
   useEffect(() => {
     if (isMapReady && mapSearchResults) {
-      setDistrictLogo(undefined)
       setMapBreadcrumbPath([]);
 
       (async () => {
