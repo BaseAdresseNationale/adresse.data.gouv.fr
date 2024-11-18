@@ -55,7 +55,7 @@ function MoissonneurRevisionsList({sourceId}) {
 
             <tbody>
               {revisions.map(revision => (
-                <MoissonneurRevisionItem key={revision._id} {...revision} />
+                <MoissonneurRevisionItem key={revision.id} {...revision} />
               ))}
             </tbody>
           </table>

@@ -11,18 +11,18 @@ function MoissonneurBal({sources}) {
       <p>Les fichiers BAL mises à disposition sont quotidiennement moissonnées sur la plateforme ouvertes des données publiques françaises (data.gouv.fr).</p>
       <div className='fr-accordions-group'>
         {sources.map(source => (
-          <section key={source._id} className='fr-accordion'>
+          <section key={source.id} className='fr-accordion'>
             <h4 className='fr-accordion__title'>
               <button
                 type='button'
                 className='fr-accordion__btn'
                 aria-expanded='false'
-                aria-controls={`accordion-${source._id}`}
+                aria-controls={`accordion-${source.id}`}
               >
                 <div className='accordion-header'>
                   <p>{source.title}</p>
                   <div>
-                    {source._deleted ? (
+                    {source.deletedAt ? (
                       <Badge severity='error' style={{marginRight: 2, marginBottom: 2}}>
                         Supprimé
                       </Badge>
@@ -49,9 +49,9 @@ function MoissonneurBal({sources}) {
 
               </button>
             </h4>
-            <div className='fr-collapse' id={`accordion-${source._id}`}>
-              <MoissonneurHarvestList sourceId={source._id} />
-              <MoissonneurRevisionsList sourceId={source._id} />
+            <div className='fr-collapse' id={`accordion-${source.id}`}>
+              <MoissonneurHarvestList sourceId={source.id} />
+              <MoissonneurRevisionsList sourceId={source.id} />
             </div>
           </section>
         ))}
