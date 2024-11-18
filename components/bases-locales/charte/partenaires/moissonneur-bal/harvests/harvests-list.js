@@ -63,7 +63,7 @@ function MoissonneurHarvestList({sourceId}) {
 
                 <tbody>
                   {harvests.map(harvest => (
-                    <MoissonneurHarvestItem key={harvest._id} {...harvest} />
+                    <MoissonneurHarvestItem key={harvest.id} {...harvest} />
                   ))}
                 </tbody>
               </table>

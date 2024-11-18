@@ -65,17 +65,17 @@ PublicationStatusBadge.propTypes = {
   errorMessage: PropTypes.string,
 }
 
-function MoissonneurRevisionItem({codeCommune, _created, nbRows, nbRowsWithErrors, updateStatus, updateRejectionReason, publication, fileId}) {
+function MoissonneurRevisionItem({codeCommune, createdAt, validation, updateStatus, updateRejectionReason, publication, fileId}) {
   return (
     <tr>
       <td className='fr-col fr-my-1v'>
         <p>{findCommuneName(codeCommune)} ({codeCommune})</p>
       </td>
       <td className='fr-col fr-my-1v'>
-        <p>{formatDate(_created)}</p>
+        <p>{formatDate(createdAt)}</p>
       </td>
       <td className='fr-col fr-my-1v'>
-        <p>{`${nbRows} / ${nbRowsWithErrors}`}</p>
+        <p>{`${validation.nbRows} / ${validation.nbRowsWithErrors}`}</p>
       </td>
       <td className='fr-col fr-my-1v'>
         <UpdateStatusBadge status={updateStatus} error={updateRejectionReason} />
@@ -92,9 +92,8 @@ function MoissonneurRevisionItem({codeCommune, _created, nbRows, nbRowsWithError
 
 MoissonneurRevisionItem.propTypes = {
   codeCommune: PropTypes.string.isRequired,
-  _created: PropTypes.string.isRequired,
-  nbRows: PropTypes.number.isRequired,
-  nbRowsWithErrors: PropTypes.number.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  validation: PropTypes.object.isRequired,
   updateStatus: PropTypes.string.isRequired,
   updateRejectionReason: PropTypes.string,
   publication: PropTypes.object.isRequired,
