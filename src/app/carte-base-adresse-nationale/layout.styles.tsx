@@ -57,7 +57,7 @@ export const CartoMenu = styled.div`
   pointer-events: none;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    min-width: 200px;
+    min-width: 340px;
     width: 400px;
     max-width: 25%;
   }
@@ -96,11 +96,15 @@ export const MapParamsWrapper = styled.div.attrs({
 })`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   gap: .5em;
   padding: 1rem 0;
   position: relative;
   z-index: 1;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    justify-content: space-between;
+  }
 `
 
 export const RingButtonStyled = styled.button.attrs({
