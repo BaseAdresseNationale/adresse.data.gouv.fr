@@ -74,7 +74,7 @@ export const AddressDetailsWrapper = styled.ul`
   margin: 2rem 0;
 `
 
-export const AddressDetailsItem = styled.li`
+const AddressDetailsItemStyle = styled.li`
   display: flex;
   flex-direction: row;
   margin-bottom: 0.2em;
@@ -92,6 +92,18 @@ export const AddressDetailsItem = styled.li`
     vertical-align: -0.25rem;
   }
 `
+
+interface AddressDetailsItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  children: React.ReactNode
+}
+
+export const AddressDetailsItem = ({ children, ...props }: AddressDetailsItemProps) => (
+  <AddressDetailsItemStyle {...props}>
+    <div>
+      {children}
+    </div>
+  </AddressDetailsItemStyle>
+)
 
 export const AddressDetailsItemValue = styled.pre`
   font-size: small;

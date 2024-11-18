@@ -11,11 +11,14 @@ import { getBanItem, getDistrict } from '@/lib/api-ban'
 import Aside from './components/Aside'
 import MapBreadcrumb from './components/MapBreadcrumb'
 import MapDataLoader from './components/MapDataLoader'
-import MicroToponymAddressList from './components/micro-toponym/MicroToponymAddressList'
-import MicroToponymCard from './components/micro-toponym/MicroToponymCard'
-import { AddressCard } from './components/address'
-import { DistrictCard, DistrictMicroToponymList } from './components/district'
-import { MapSearchResultsWrapper } from './page.styles'
+import { AddressCard, AsideFooterAddress } from './components/address'
+import { MicroToponymCard, MicroToponymAddressList, AsideFooterMicroToponym } from './components/micro-toponym'
+import { DistrictCard, DistrictMicroToponymList, AsideFooterDistrict } from './components/district'
+import {
+  MapSearchResultsWrapper,
+
+} from './page.styles'
+
 import BanMap from './components/ban-map'
 
 import type {
@@ -108,7 +111,6 @@ function CartoView() {
   const typeView = getBanItemTypes(mapSearchResults)
 
   useEffect(() => {
-    console.log('isMapReady', isMapReady)
     isMapReady ? setIsLoadMapTiles(false) : setIsLoadMapTiles(true)
   }, [isMapReady])
 
@@ -121,7 +123,6 @@ function CartoView() {
         setMapSearchResults(banItem)
 
         const districtFlagUrl = await getCommuneFlag(banItemId)
-        console.log('districtFlagUrl', districtFlagUrl)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
         setIsLoadMapSearchResults(false)
@@ -221,6 +222,26 @@ function CartoView() {
         <Aside
           onClickToggler={mapSearchResults && (() => setIsMenuVisible(!isMenuVisible))}
           isOpen={isMenuVisible}
+          footer={
+            ((typeView === 'address') && (
+              <AsideFooterAddress
+                banItem={mapSearchResults as TypeAddressExtended}
+                withCertificate={withCertificate}
+              />
+            ))
+            || ((typeView === 'micro-toponym') && (
+              <AsideFooterMicroToponym
+                banItem={mapSearchResults as TypeMicroToponymExtended}
+                withCertificate={withCertificate}
+              />
+            ))
+            || ((typeView === 'district') && (
+              <AsideFooterDistrict
+                banItem={mapSearchResults as TypeDistrictExtended}
+                withCertificate={withCertificate}
+              />
+            ))
+          }
         >
           {mapSearchResults
             ? (
@@ -241,7 +262,7 @@ function CartoView() {
                   )}
 
                   {(typeView === 'address') && (
-                    <AddressCard address={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} />
+                    <AddressCard address={mapSearchResults as TypeAddressExtended} />
                   )}
                 </MapSearchResultsWrapper>
               )

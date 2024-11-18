@@ -1,20 +1,18 @@
-import { useCallback, useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useMap, Popup } from 'react-map-gl/maplibre'
 
-import CenterControl from './CenterControl'
 import LayerBan from './LayerBan'
 import LayerCadastre from './LayerCadastre'
 import Popups from './Popups'
 
 import { ControlGroup } from './BanMap.styles'
 
-import type { MapMouseEvent, MapGeoJSONFeature, LngLatBoundsLike } from 'react-map-gl/maplibre'
+import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
-import type { Address, BBox, PopupInfo } from './types'
+import type { Address, PopupInfo } from './types'
 
 interface BanMapProps {
   address: Address
-  bbox?: BBox
   onSelect: (properties: any) => void
   isCadastreLayersShown?: boolean
 }
@@ -30,19 +28,10 @@ interface HighLightAdressesByProperties {
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({ address, bbox, onSelect, isCadastreLayersShown }: BanMapProps) {
+function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
-  const [bound, setBound] = useState<LngLatBoundsLike>()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
-
-  const centerAddress = useCallback(() => {
-    if (bound) {
-      map.current?.fitBounds(bound, {
-        padding: 30,
-      })
-    }
-  }, [bound, map])
 
   useEffect(() => {
     const currentMap = map.current
@@ -150,23 +139,8 @@ function BanMap({ address, bbox, onSelect, isCadastreLayersShown }: BanMapProps)
     }
   }, [map, onSelect])
 
-  useEffect(() => {
-    if (bbox) {
-      setBound(bbox.flat() as LngLatBoundsLike)
-    }
-    else {
-      setBound(address?.displayBBox?.length === 4 ? (address.displayBBox as LngLatBoundsLike) : undefined)
-    }
-  }, [map, bbox, address])
-
   return (
     <>
-      <ControlGroup $position="bottom-right">
-        <CenterControl
-          handleClick={centerAddress}
-        />
-      </ControlGroup>
-
       { infoPopup?.features && (
         <Popup closeOnClick={false} closeButton={false} latitude={infoPopup.lngLat.lat} longitude={infoPopup.lngLat.lng}>
           <Popups features={infoPopup?.features as unknown as PopupFeature[] || []} />

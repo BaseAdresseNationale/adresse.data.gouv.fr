@@ -26,18 +26,18 @@ export const DistrictLabelPrefix = styled.span`
   line-height: 1;
 `
 
-export const DistrictLabel = styled.span.attrs({ className: 'fr-link' })`
+export const DistrictLabel = styled.span`
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1;
 `
 
 export const DistrictLabelCode = styled.span`
   display: block;
   margin-bottom: 0.5rem;
-  font-size: 0.8em;
+  font-size: 0.9rem;
   font-weight: 700;
 `
 

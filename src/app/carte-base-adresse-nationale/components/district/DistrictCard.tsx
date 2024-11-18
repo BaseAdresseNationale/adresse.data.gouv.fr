@@ -33,7 +33,7 @@ function DistrictCard({ district, logo }: DistrictCardProps) {
         <DistrictLabelWrapper>
           <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
           <DistrictLabel>
-            <Link href={`./commune/${district.codeCommune}`}>{district.nomCommune}</Link>
+            {district.nomCommune}
           </DistrictLabel>
           <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
         </DistrictLabelWrapper>

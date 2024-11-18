@@ -55,7 +55,7 @@ function Carto({ children }: { children: JSX.Element }) {
         <SearchBAN />
 
         <MapParamsWrapper>
-          <RingButton tooltip="Légende" className={isLegendVisible ? 'ri-close-large-line' : 'ri-menu-line'} onClick={toggleLegend} $isActive={isLegendVisible} />
+          <RingButton tooltip="Légende" className={isLegendVisible ? 'ri-close-large-line' : 'ri-apps-2-line'} onClick={toggleLegend} $isActive={isLegendVisible} />
           <RingButton tooltip="Afficher les parcelles cadastrales" className={displayLandRegister ? 'ri-collage-fill' : 'ri-collage-line'} onClick={toggleCadasterLayer} $isActive={displayLandRegister} />
           <RingButton tooltip="Utiliser les fonds IGN" $img="/img/map/bg-button-map-style-ign-vector.png" onClick={() => handleMapStyleChange('ign-vector')} $isActive={banMapConfig.mapStyle === 'ign-vector'} $isTypeRadio />
           <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={banMapConfig.mapStyle === 'osm-vector'} $isTypeRadio />

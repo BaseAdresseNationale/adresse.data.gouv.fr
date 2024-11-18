@@ -1,17 +1,22 @@
-/* eslint-disable @stylistic/multiline-ternary */
-import { Download } from '@codegouvfr/react-dsfr/Download'
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 interface DownloadCertificateProps {
   id: string
   title?: string
 }
 
+interface HandleButtonDownloadEvent extends React.MouseEvent<HTMLButtonElement> {}
+
 const DownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title }) => {
   const [hasDownloaded, setHasDownloaded] = useState(false)
   const [certificateId, setCertificateId] = useState<string | null>(null)
 
-  const handleDownload = async () => {
+  interface CertificateResponse {
+    id: string
+  }
+  const handleDownload = useCallback(async (evt: HandleButtonDownloadEvent) => {
+    evt?.preventDefault()
     try {
       let downloadUrl = ''
 
@@ -22,7 +27,7 @@ const DownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title }) 
         const response = await fetch(`/api/certificat/${id}`)
         if (!response.ok) throw new Error('Erreur lors de la récupération du certificat')
 
-        const result = await response.json()
+        const result: CertificateResponse = await response.json()
         setCertificateId(result.id)
         setHasDownloaded(true)
 
@@ -30,8 +35,8 @@ const DownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title }) 
       }
 
       const link = document.createElement('a')
-      link.href = downloadUrl
-      link.download = `certificat_${id}.pdf`
+      link.setAttribute('href', downloadUrl)
+      link.setAttribute('download', `certificat_${id}.pdf`)
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
@@ -39,37 +44,16 @@ const DownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title }) 
     catch (error) {
       console.error('Erreur lors du téléchargement du certificat :', error)
     }
-  }
+  }, [certificateId, id])
 
   return (
-    <div>
-      {!hasDownloaded ? (
-        <Download
-          label={title || 'Télécharger le certificat'}
-          details="PDF"
-          linkProps={{
-            href: '#',
-            onClick: handleDownload,
-          }}
-        />
-      ) : (
-        <div>
-          <span>Vous avez déjà téléchargé ce certificat.</span>
-          <div>
-            <p>ID du certificat : {certificateId}</p>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault()
-                handleDownload()
-              }}
-            >
-              Cliquez ici pour le télécharger à nouveau
-            </a>
-          </div>
-        </div>
-      )}
-    </div>
+    <Button
+      iconId="ri-file-paper-2-line"
+      onClick={handleDownload}
+      priority="tertiary no outline"
+    >
+      {title || (!hasDownloaded ? 'Télécharger le certificat (PDF)' : 'Re-Télécharger le certificat (PDF)')}
+    </Button>
   )
 }
 

@@ -49,16 +49,15 @@ function ResumeDistrict({ district, actionProps }: ResumeDistrictProps) {
             }{' '}
             <b>({district.data.codesPostaux.map(formatNumber).join(', ')})</b>
           </DistrictDetailsItem>
-          <DistrictDetailsItem className="ri-edit-box-line">Source des données BAN : <b>{district.data.typeComposition === 'bal' ? 'Base Adresse Local (BAL)' : 'Assemblage IGN'}</b></DistrictDetailsItem>
         </ul>
 
         <ul>
+          <DistrictDetailsItem className="ri-edit-box-line">Source des données BAN : <b>{district.data.typeComposition === 'bal' ? 'Base Adresse Local (BAL)' : 'Assemblage IGN'}</b></DistrictDetailsItem>
           <DistrictDetailsItem className="ri-key-line">Identifiant district BAN : <b>{district.id}</b></DistrictDetailsItem>
           <DistrictDetailsItem className="ri-shield-keyhole-line">Identificateur d’adresse :{' '}
             <b>{district.data.voies?.[0]?.banId ? 'Stable (Identifiants BAN)' : 'Volatile (Clé d’interoprabilité)'}</b>
           </DistrictDetailsItem>
-          <DistrictDetailsItem className="ri-global-line">Langue par defaut : <b>{district.config?.lang || 'Français'}</b></DistrictDetailsItem>
-          <DistrictDetailsItem className="ri-file-paper-2-line">Certificat d’addressage :{' '}
+          <DistrictDetailsItem className="ri-file-paper-2-line">Certificat d’adressage :{' '}
             <b>{ district.config?.certificate ? 'Activé' : 'Non activé'}</b>
           </DistrictDetailsItem>
         </ul>

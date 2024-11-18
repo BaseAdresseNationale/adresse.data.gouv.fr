@@ -8,6 +8,8 @@ import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import Notices from '@/components/Notices'
 
+import { CornerRibbons } from './Header.styles'
+
 const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
 
 const markAsActive = (
@@ -58,7 +60,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/programme-bal' },
       },
       {
-        text: 'Consulter la page commune',
+        text: 'Consulter la page d’une commune',
         linkProps: { href: '/commune' },
       },
       {
@@ -155,6 +157,7 @@ export default function Header({ notices = {
 
   return (
     <>
+      <CornerRibbons>Version bêta</CornerRibbons>
       <HeaderDSFR
         id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
         brandTop={(
