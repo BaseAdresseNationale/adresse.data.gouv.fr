@@ -69,7 +69,6 @@ function DistrictCard({ district, logo }: DistrictCardProps) {
             Voir la page de la commune
           </Link>
         </div>
-
       </DistrictDetailsWrapper>
     </>
   )

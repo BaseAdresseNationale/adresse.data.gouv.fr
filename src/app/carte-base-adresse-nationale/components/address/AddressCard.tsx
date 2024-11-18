@@ -61,7 +61,7 @@ function AddressCard({ address, withCertificate }: AddressCardProps) {
       </AddressHeaderWrapper>
 
       <AddressDetailsWrapper>
-        <AddressDetailsItem className="ri-key-fill">
+        <AddressDetailsItem className="ri-key-line">
           <span>
             Identifiant BAN : <br />
             <AddressDetailsItemValue>{address.banId}</AddressDetailsItemValue>

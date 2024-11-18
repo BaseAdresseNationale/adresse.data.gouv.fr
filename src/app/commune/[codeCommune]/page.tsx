@@ -1,17 +1,26 @@
-import Section from '@/components/Section'
-import { getCommune as getBANCommune, assemblageSources } from '@/lib/api-ban'
-import { getMairiePageURL } from '@/lib/api-etablissement-public'
-import { StyledCommunePage } from './page.styles'
-import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
-import CardWrapper from '@/components/CardWrapper'
-import { Table } from '@codegouvfr/react-dsfr/Table'
-import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 import Image from 'next/image'
+import Link from 'next/link'
+import { Table } from '@codegouvfr/react-dsfr/Table'
+
+import CardWrapper from '@/components/CardWrapper'
+import Section from '@/components/Section'
+import {
+  getBanItem,
+  getDistrict,
+  getCommune as getBANCommune,
+  assemblageSources,
+} from '@/lib/api-ban'
+import { formatFr } from '@/lib/array'
+import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
+import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { getCommuneFlag } from '@/lib/api-wikidata'
+
 import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-import { formatFr } from '@/lib/array'
-import Link from 'next/link'
+import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
+
+import ResumeDistrict from './ResumeDistrict'
+import { StyledCommunePage } from './page.styles'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -19,22 +28,48 @@ interface CommunePageProps {
 
 export default async function CommunePage({ params }: CommunePageProps) {
   const { codeCommune } = params
-  const commune = await getBANCommune(codeCommune)
-  const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const APIGeoCommune = await getAPIGeoCommune(codeCommune)
-  const EPCI = await getEPCI(APIGeoCommune?.codeEpci)
+  const [
+    commune,
+    APIGeoCommune,
+  ] = await Promise.all([
+    getBANCommune(codeCommune),
+    getAPIGeoCommune(codeCommune),
+  ])
 
-  const mairiePageUrl = await getMairiePageURL(codeCommune)
-  const communeFlagUrl = await getCommuneFlag(codeCommune)
+  const { banId: banIdDistrict, id: legacyId } = commune
+  const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
-  let lastRevisionsDetails
-  if (communeHasBAL) {
-    const revisions = await getRevisions(codeCommune)
-    lastRevisionsDetails = await Promise.all(revisions
-      .slice(0, 5)
-      .map(revision => getRevisionDetails(revision, commune)))
-  }
+  const [
+    districtRawResponse,
+    mairiePageUrl,
+    communeFlagUrl,
+    EPCI,
+    lastRevisionsDetails,
+  ] = await Promise.all([
+    getDistrict(banIdDistrict as string),
+    getMairiePageURL(codeCommune),
+    getCommuneFlag(codeCommune),
+    getEPCI(APIGeoCommune?.codeEpci),
+    communeHasBAL && getRevisions(codeCommune)
+      .then(revisions => Promise.all(revisions
+        .slice(0, 5)
+        .map(revision => getRevisionDetails(revision, commune)))
+      ),
+  ])
+
+  getRevisions(codeCommune)
+    .then((revisions) => {
+      return Promise.all(revisions
+        .slice(0, 5)
+        .map(revision => getRevisionDetails(revision, commune)))
+    })
+    .then((lastRevisionsDetails) => {
+      console.log('lastRevisionsDetails >>', lastRevisionsDetails)
+    })
+
+  const district = { ...districtRawResponse.response, data: commune }
+  const districtMapURL = `/carte-base-adresse-nationale?id=${district.codeCommune}`
 
   return (
     <>
@@ -129,8 +164,32 @@ export default async function CommunePage({ params }: CommunePageProps) {
               </div>
             </CardWrapper>
           </div>
-          {mairiePageUrl && <Link href={mairiePageUrl} target="_blank" className="fr-btn fr-btn--secondary">Contacter la mairie</Link>}
+
+          <ResumeDistrict
+            district={district}
+            actionProps={[
+              {
+                iconId: 'fr-icon-road-map-line',
+                linkProps: {
+                  href: districtMapURL,
+                },
+                priority: 'secondary',
+                value: 'Afficher sur la carte',
+              },
+              {
+                iconId: 'fr-icon-discuss-line',
+                linkProps: {
+                  href: mairiePageUrl,
+                  target: '_blank',
+                },
+                priority: 'secondary',
+                value: 'Contacter la mairie',
+              },
+            ]}
+          />
+
         </Section>
+
         {communeHasBAL && lastRevisionsDetails && (
           <Section title="Les dernières mises à jour" theme="primary">
             <div className="modification-history-wrapper">

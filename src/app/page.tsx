@@ -41,10 +41,10 @@ export default async function Home() {
         ]}
       >
         <p>
-          Pour que les services d’urgence arrivent au bon endroit, pour vous
-          permettre de réaliser une analyse cartographique ou encore pour mieux
-          coordonner les chantiers, les adresses sont un véritable enjeu de
-          souveraineté pour la France.
+          Pour que les services d’urgence arrivent au bon endroit. <br />
+          Pour un raccordement efficace aux réseaux d’énergies ou de communication. <br />
+          Ou encore pour des analyses cartographiques précises. <br />
+          Les adresses : enjeu de souveraineté nationale.
         </p>
         <p>
           <strong>
@@ -58,14 +58,14 @@ export default async function Home() {
 
       <SectionTilesList
         data={dataBAN}
-        title="Utilisez la Base Adresse Nationale"
+        title="Utiliser la Base Adresse Nationale"
         id="utilisez-la-base-adresse-nationale"
         theme="secondary"
       />
 
       <SectionTilesList
         data={dataBAL}
-        title="Constituez la Base Adresse Locale de votre commune !"
+        title="Constituer la Base Adresse Locale de votre commune"
         id="constituez-la-base-adresse-locale-de-votre-commune"
       />
 

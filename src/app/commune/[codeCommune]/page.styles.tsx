@@ -25,13 +25,13 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
             }
         }
     }
-    
+
     .commune-adresse-info-wrapper {
         background: ${({ theme, $certificationPercentage }) => $certificationPercentage === 0 ? `${theme.colors.grey.bg};` : $certificationPercentage === 100 ? `var(--background-contrast-success);` : `linear-gradient(90deg, var(--background-contrast-success) ${$certificationPercentage - 5}%, ${theme.colors.grey.bg} ${$certificationPercentage + 5}%);`};
         border-radius: 5px;
         margin-bottom: 2rem;
         width: 100%;
-    
+
         > div {
             &:not(:first-of-type) {
                 margin-top: 1rem;
@@ -55,7 +55,7 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
                     font-size: 1.3rem;
                 }
             }
-            
+
             .publication-recap {
                 flex: 1 0 33%;
                 padding: 1rem;
@@ -113,7 +113,7 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
             }
         }
     }
-    
+
     .commune-adresse-info-wrapper {
 
         > div {
@@ -121,7 +121,7 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
             .adresse-recap {
                 justify-content: flex-start;
             }
-            
+
             .publication-recap {
                 padding: 0 1rem;
 

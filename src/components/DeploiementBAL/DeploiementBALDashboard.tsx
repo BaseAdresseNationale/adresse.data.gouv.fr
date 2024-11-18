@@ -93,7 +93,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
               latitude: 47,
               zoom: 5,
             }}
-            mapStyle="/map-styles/osm-bright.json"
+            mapStyle="/map-styles/osm-vector.json"
           >
             <NavigationControl showZoom showCompass position="top-right" />
             <FullScreenControl position="top-right" />
