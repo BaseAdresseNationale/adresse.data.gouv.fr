@@ -454,5 +454,27 @@
     "instructions": "",
     "startHour": "09:30",
     "endHour": "16:00"
+  },
+  {
+    "title": "Adresse_Lab",
+    "subtitle": "Rencontre Utilisateurs Nationaux #6",
+    "description": "Journée d'échanges entre les utilisateurs experts, autour des problématiques communes : emprise d’utilisation large incluant des données d’assemblage, besoin d’historisation de la donnée, adosser des données métier aux adresses de la BAN, besoins spécifiques sur la qualité et la mise à jour des données.",
+    "type": "adresselab",
+    "target": "Les SI nationaux utilisateurs avancés de la donnée adresse",
+    "date": "2024-12-05",
+    "tags": ["Technique", "Base Adresse Nationale", "Utilisateurs"],
+    "isOnlineOnly": false,
+    "address": {
+      "nom": "IGN",
+      "numero": "73",
+      "voie": "Avenue de Paris",
+      "codePostal": "94160",
+      "commune": "Saint-Mandé"
+    },
+    "href": "",
+    "isSubscriptionClosed": true,
+    "instructions": "",
+    "startHour": "09:30",
+    "endHour": "16:00"
   }
 ]
