@@ -14,6 +14,22 @@ export interface TypeMicroToponymPartial {
   nomVoieAlt?: Record<string, string>
 }
 
+export interface TypeMicroToponym extends TypeMicroToponymPartial {
+  banId?: string
+  sourceNomVoie: string
+  sources: string[]
+  nbNumeros: number
+  nbNumerosCertifies: number
+}
+
+export interface TypeMicroToponymExtended extends TypeMicroToponym {
+  type: TypeItem
+  displayBBox: [number, number, number, number]
+  position: TypePosition
+  commune: TypeDistrict
+  numeros: TypeAddress[]
+}
+
 export interface TypeDistrictPartial {
   banId?: string
   id: string
@@ -27,41 +43,9 @@ export interface TypeDistrictPartial {
   }
 }
 
-export interface TypeAddress {
-  banId?: string
-  id: string
-  numero: number
-  suffixe?: string | null
-  lieuDitComplementNom?: string | null
-  parcelles: any[]
-  sources: string[]
-  certifie: boolean
-  position: TypePosition
-  positionType: string
-  sourcePosition: string
-  codePostal: string
-  libelleAcheminement: string
-}
-
-export interface TypeMicroToponym extends TypeMicroToponymPartial {
-  banId?: string
-  sourceNomVoie: string
-  sources: string[]
-  nbNumeros: number
-  nbNumerosCertifies: number
-}
-
 export interface TypeDistrict extends TypeDistrictPartial {
   nom: string
   code: string
-}
-
-export interface TypeMicroToponymExtended extends TypeMicroToponym {
-  type: TypeItem
-  displayBBox: [number, number, number, number]
-  position: TypePosition
-  commune: TypeDistrict
-  numeros: TypeAddress[]
 }
 
 export interface TypeDistrictExtended extends TypeDistrictPartial {
@@ -80,6 +64,22 @@ export interface TypeDistrictExtended extends TypeDistrictPartial {
   idRevision?: string | null
   dateRevision?: string | null
   voies: TypeMicroToponym[]
+}
+
+export interface TypeAddress {
+  banId?: string
+  id: string
+  numero: number
+  suffixe?: string | null
+  lieuDitComplementNom?: string | null
+  parcelles: any[]
+  sources: string[]
+  certifie: boolean
+  position: TypePosition
+  positionType: string
+  sourcePosition: string
+  codePostal: string
+  libelleAcheminement: string
 }
 
 export interface TypeAddressExtended {
