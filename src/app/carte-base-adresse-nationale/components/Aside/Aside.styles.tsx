@@ -53,7 +53,7 @@ export const AsideWrapper = styled.div<{
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     display: flex;
     flex-direction: row-reverse;
-    min-width: 200px;
+    min-width: calc(340px + 2rem);
     width: calc(400px + 2rem);
     max-width: calc(25% + 2rem);
     overflow: hidden;
@@ -97,7 +97,7 @@ export const AsideTogglerButtonWrapper = styled.div`
   align-items: center;
   height: 2.5rem;
   max-height: 2.5rem;
-  pointer-events: auto;
+  pointer-events: none;
 
   &::after {
     content: '';
@@ -153,6 +153,7 @@ export const AsideWrapperTogglerButton = styled.button.attrs<{ $isOpen: boolean 
   background-repeat: repeat-x;
   transform: rotateX(0deg) rotateY(0deg);
   transition: background 0.5s ease, transform 0.5s ease;
+  pointer-events: auto;
 
   &.md {
     display: none;
@@ -194,4 +195,17 @@ export const AsideWrapperTogglerButton = styled.button.attrs<{ $isOpen: boolean 
       transform: rotateX(0deg) rotateY(180deg);
     }
   }
+`
+
+export const AsideFooter = styled.footer`
+    position: sticky;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    box-shadow: 0 0 .5rem -0.125rem rgba(0, 0, 0, 0.7);
+    background: var(--background-default-grey);
+    pointer-events: auto;
 `

@@ -2,16 +2,18 @@ import {
   AsideWrapper,
   AsideTogglerButtonWrapper,
   AsideWrapperTogglerButton,
+  AsideFooter,
 } from './Aside.styles'
 
 interface AsideProps {
   children: React.ReactNode
+  footer?: React.ReactNode
   onClickToggler?: (args: { isOpen: boolean, togglerButtonType: 'horizontal' | 'vertical' }) => void
   isOpen?: boolean
   isInfo?: boolean
 }
 
-function Aside({ children, onClickToggler, isOpen = true, isInfo }: AsideProps) {
+function Aside({ children, footer, onClickToggler, isOpen = true, isInfo }: AsideProps) {
   const withTogglerButton = Boolean(onClickToggler)
 
   return (
@@ -25,7 +27,7 @@ function Aside({ children, onClickToggler, isOpen = true, isInfo }: AsideProps) 
         <AsideTogglerButtonWrapper>
           <AsideWrapperTogglerButton
             className="ri-arrow-up-double-fill sm"
-            // TODO : Add onClick event for auto scroll to top
+            // TODO : Add onClick event for auto scroll to top on mobile
             onClick={() => {
               onClickToggler?.({
                 isOpen,
@@ -50,6 +52,12 @@ function Aside({ children, onClickToggler, isOpen = true, isInfo }: AsideProps) 
 
       <div className="body">
         {children}
+
+        {footer && (
+          <AsideFooter>
+            {footer}
+          </AsideFooter>
+        )}
       </div>
     </AsideWrapper>
   )
