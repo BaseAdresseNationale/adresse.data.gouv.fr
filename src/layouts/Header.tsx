@@ -60,7 +60,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/programme-bal' },
       },
       {
-        text: 'Consulter la page commune',
+        text: 'Consulter la page d’une commune',
         linkProps: { href: '/commune' },
       },
       {
