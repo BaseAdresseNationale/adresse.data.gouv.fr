@@ -56,6 +56,7 @@ Les identifiants BanID seront fournis par le biais de fichiers BAL 1.4 par l'usa
 
 [En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/DRAFT-%23-Int%C3%A9gration-des-BanID)
 
+
 # Production de l'adresse 
 - La spécification du format d'échange Base Adresse Locale (BAL)
 Ce modèle de données simple permet aux collectivités locales de publier leurs données voies-adresses en open data dans la BAN pour les mettre à disposition de tous. Les voies n'ont pas de géométrie, les adresses disposent d’attributs décrivant des coordonnées géographiques.
