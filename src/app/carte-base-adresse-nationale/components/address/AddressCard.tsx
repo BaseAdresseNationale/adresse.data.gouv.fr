@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import {
   AddressDetailsItemValue,
 
@@ -17,16 +15,18 @@ import {
   AddressDetailsWrapper,
   AddressDetailsItem,
 } from './AddressCard.styles'
-import { isNumeroCertifiable } from '@/lib/ban'
-import DownloadCertificate from './download-certificate'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface AddressCardProps {
   address: TypeAddressExtended
-  withCertificate: boolean
 }
 
-function AddressCard({ address, withCertificate }: AddressCardProps) {
+interface Position {
+  position: TypeAddressExtended['position']
+  positionType: TypeAddressExtended['positionType']
+}
+
+function AddressCard({ address }: AddressCardProps) {
   const district = address.commune
   const microToponym = address.voie
   const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
@@ -34,6 +34,29 @@ function AddressCard({ address, withCertificate }: AddressCardProps) {
     month: 'long',
     day: 'numeric',
   })
+
+  const isMultiPosition = Number(address.positions?.length) > 1
+  const {
+    mainPosition,
+    secondariesPositions,
+  }: {
+    mainPosition: Position
+    secondariesPositions: Position[]
+  } = isMultiPosition
+    ? address.positions.reduce((acc, entry) => {
+      if (entry.position.coordinates.join('--') === address.position.coordinates.join('--')) {
+        acc.mainPosition = entry
+      }
+      else {
+        acc.secondariesPositions.push(entry)
+      }
+      return acc
+    }, { mainPosition: (null as unknown as Position), secondariesPositions: ([] as Position[]) })
+    : { mainPosition: {
+        position: address.position,
+        positionType: address.positionType,
+      }, secondariesPositions: [] }
+
   return (
     <>
       <AddressHeaderWrapper>
@@ -92,41 +115,25 @@ function AddressCard({ address, withCertificate }: AddressCardProps) {
           Libellé d’acheminement :  <br />
           {address.libelleAcheminement}
         </AddressDetailsItem>
-        <AddressDetailsItem className="ri-map-pin-range-line">
-          Position :  <br />
-          {address.positionType}
+        <AddressDetailsItem className="ri-map-pin-line">
+          {isMultiPosition ? 'Position Principale' : 'Position'} :  <br />
+          <span>Type / {mainPosition.positionType}</span> <br />
+          <span>Coordonnées / {mainPosition.position.coordinates[0]}, {mainPosition.position.coordinates[1]}</span>
         </AddressDetailsItem>
-        <AddressDetailsItem className="ri-focus-3-line">
-          Coordonnées :  <br />
-          {address.position.coordinates[0]}, {address.position.coordinates[1]}
-        </AddressDetailsItem>
+        {isMultiPosition && (
+          <AddressDetailsItem className="ri-map-pin-2-line">
+            Position Secondaire :  <br />
+            <ol>
+              {secondariesPositions.map((entry, index) => (
+                <li key={index}>
+                  <span>Type / {entry.positionType}</span> <br />
+                  <span>Coordonnées / {entry.position.coordinates[0]}, {entry.position.coordinates[1]}</span>
+                </li>
+              ))}
+            </ol>
+          </AddressDetailsItem>
+        )}
       </AddressDetailsWrapper>
-
-      {/* Ajout du composant DownloadCertificate sous les coordonnées */}
-
-      { withCertificate && (
-        isNumeroCertifiable({
-          banId: address.banId ?? '',
-          sources: Array.isArray(address.sourcePosition) ? address.sourcePosition : [address.sourcePosition],
-          certifie: address.certifie,
-          parcelles: address.parcelles,
-        })
-          ? (
-              <div className="certificate">
-                <DownloadCertificate
-                  id={address.id}
-                  title="Télécharger le Certificat d'adressage"
-                />
-              </div>
-            )
-          : (
-              <div className="certificate">
-                <div />
-                <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
-              </div>
-            )
-      )}
-
     </>
   )
 }
