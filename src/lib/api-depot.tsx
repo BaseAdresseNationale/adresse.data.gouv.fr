@@ -101,8 +101,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   let source = '-'
   if (modeDePublication === 'Moissonneur') {
     const sourceId = revision?.context?.extras?.sourceId
-    const id: string[] = sourceId.split('-')
-    const dataset = await getDataset(id[1])
+    const dataset = await getDataset(sourceId)
     source = dataset?.organization?.name
   }
   else if (modeDePublication === 'Mes Adresses') {
