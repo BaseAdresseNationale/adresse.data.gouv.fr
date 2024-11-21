@@ -30,9 +30,10 @@ interface CertificatNumerotationProps {
     telephone?: string
     email?: string
   }
+  logoUrl: string
 }
 
-const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, qrCodeDataURL, mairie }) => {
+const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, qrCodeDataURL, mairie, logoUrl }) => {
   const nomCommune = data.full_address.districtDefaultLabel
   const libelleVoie = data.full_address.commonToponymDefaultLabel
   const numero = data.full_address.number
@@ -40,7 +41,7 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const { cog } = data.full_address
   const parcelles = data.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2'))
 
-  const logoUrl = `public/logos/certificat/${cog}.png`
+  // const logoUrl = `public/logos/certificat/${cog}.png`
   const logoAdresse = `public/logos/certificat/adresse-logo.png`
 
   const dateObj = new Date(data.createdAt)
@@ -67,6 +68,7 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
       <Page size="A4" style={stylesDSFR.page}>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
+          <Image src={logoUrl} style={stylesDSFR.logoBloc} />
         </View>
         <Text> {'\n'}</Text>
         {/* Conteneur pour le logo de la mairie et les informations */}
