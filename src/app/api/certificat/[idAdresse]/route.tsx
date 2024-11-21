@@ -11,10 +11,8 @@ const isDistrictCertifiable = async (banIdDistrict: string | null): Promise<bool
   if (!banIdDistrict) {
     return false
   }
-
   const rawResponse = await getDistrict(banIdDistrict)
   const district = rawResponse.response
-
   if (!district) {
     return false
   }
