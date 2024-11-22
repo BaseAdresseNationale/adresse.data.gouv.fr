@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import SelectableItemList from '../components/selectable-item-list'
 import theme from '@/theme/theme'
 
@@ -20,7 +19,7 @@ export default function ColumnsSelect({ columns, selectedColumns, onAdd, onRemov
           }
         })}
         buttonIcon="+"
-        action={item => onAdd(item.value)}
+        action={onAdd}
       />
 
       <SelectableItemList
@@ -31,7 +30,7 @@ export default function ColumnsSelect({ columns, selectedColumns, onAdd, onRemov
           }
         })}
         buttonIcon="-"
-        action={item => onRemove(item.value)}
+        action={onRemove}
       />
       <style jsx>{`
         .columns {

@@ -1,7 +1,12 @@
 /* eslint react/no-array-index-key: off */
-import PropTypes from 'prop-types'
 
-function Table({ headers, rows }) {
+interface PropTypesTable {
+  headers: Array<string>
+  rows: Array<string[]>
+
+}
+
+export default function Table({ headers, rows }: PropTypesTable) {
   return (
     <table>
       <tbody>
@@ -37,10 +42,3 @@ function Table({ headers, rows }) {
     </table>
   )
 }
-
-Table.propTypes = {
-  headers: PropTypes.array.isRequired,
-  rows: PropTypes.array.isRequired,
-}
-
-export default Table
