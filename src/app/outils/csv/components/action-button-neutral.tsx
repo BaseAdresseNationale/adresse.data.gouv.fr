@@ -5,12 +5,12 @@ interface ActionButtonNeutralPropTypes {
   children: React.ReactNode
   label: string
   isFullSize: boolean
-  type: 'button' | 'submit'
+  [key: string]: any
 }
 
-export default function ActionButtonNeutral({ children, label, type = 'submit', isFullSize = false, ...props }: ActionButtonNeutralPropTypes) {
+export default function ActionButtonNeutral({ children, label, isFullSize = false, ...props }: ActionButtonNeutralPropTypes) {
   return (
-    <Button type={type === 'button' ? 'button' : 'submit'} aria-label={label} {...props}>
+    <Button aria-label={label} {...props}>
       {children}
 
       <style jsx>{`

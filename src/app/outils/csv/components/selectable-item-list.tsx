@@ -19,11 +19,10 @@ export default function SelectableItemList({ list, buttonIcon, action }: Selecta
       <div className={`${list.length > 0 && 'list selection'}`}>
         {list.map(item => (
           <ActionButtonNeutral
-            type="button"
             label={buttonIcon === '+' ? `Sélectionner ${item.value}` : `Désélectionner ${item.value}`}
             key={item.key}
-            onClick={() => action(item)}
             isFullSize
+            onClick={action(item)}
           >
             <div className="item">
               <div className="text">{item.value}</div>

@@ -1,9 +1,9 @@
 import chardet from 'chardet'
 import toBuffer from 'blob-to-buffer'
 
-function detectEncoding(blob) {
+function detectEncoding(blob: Blob) {
   return new Promise((resolve, reject) => {
-    toBuffer(blob, (err, buffer) => {
+    toBuffer(blob, (err: Error, buffer: Buffer) => {
       if (err) {
         return reject(err)
       }

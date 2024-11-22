@@ -1,5 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
 import { geocodeCsv } from '@/lib/api-adresse'
 
@@ -14,25 +13,18 @@ function geocodedFileName(originalFileName = 'file') {
   return originalFileName + '.geocoded.csv'
 }
 
-class Geocoder extends React.Component {
-  static propTypes = {
-    file: PropTypes.object.isRequired,
-    columns: PropTypes.array.isRequired,
-    filter: PropTypes.string,
-  }
+interface GeocodeurPropTypes {
+  file: File
+  columns: string[]
+  filter?: string
+}
 
-  static defaultProps = {
-    filter: null,
-  }
+export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) {
+  const [status, setStatus] = useState<string | undefined>()
+  const [blob, setBlob] = useState<Blob>()
+  const [error, setError] = useState<Error | undefined>()
 
-  state = {
-    status: null,
-    blob: null,
-    error: null,
-  }
-
-  handleGeocodeClick = async () => {
-    const { file, columns, filter } = this.props
+  const handleGeocodeClick = async () => {
     const filters = []
 
     if (filter) {
@@ -42,53 +34,42 @@ class Geocoder extends React.Component {
       })
     }
 
-    this.setState({ status: 'pending' })
-
     try {
-      const blob = await geocodeCsv(file, filters, columns)
-      this.setState({
-        status: 'done',
-        blob,
-      })
+      const blob: Blob = await geocodeCsv(file, filters, columns)
+      setBlob(blob)
+      setStatus('done')
     }
-    catch (error) {
-      this.setState({
-        status: null,
-        error,
-      })
+    catch (error: any) {
+      setStatus(undefined)
+      setError(error)
     }
   }
+  return (
+    <div className="geocoder">
+      {!status && (
+        <Button onClick={handleGeocodeClick}>Lancer le géocodage</Button>
+      )}
 
-  render() {
-    const { status, blob, error } = this.state
-    const { file } = this.props
+      {status === 'pending' && (
+        <Button>
+          <div className="col">
+            En cours de géocodage…
+            <Loader />
+          </div>
+        </Button>
+      )}
 
-    return (
-      <div className="geocoder">
-        {!status && (
-          <Button onClick={this.handleGeocodeClick}>Lancer le géocodage</Button>
-        )}
+      {status === 'done' && (
+        <a href={blob && URL.createObjectURL(blob)} download={geocodedFileName(file.name)}>
+          <Button>Télécharger</Button>
+        </a>
+      )}
 
-        {status === 'pending' && (
-          <Button>
-            <div className="col">
-              En cours de géocodage…
-              <Loader />
-            </div>
-          </Button>
-        )}
+      {error && (
+        <p className="error"><b>{error.message}</b><br /><i>Code erreur : {error.name}</i></p>
+      )}
 
-        {status === 'done' && (
-          <a href={URL.createObjectURL(blob)} download={geocodedFileName(file.name)}>
-            <Button>Télécharger</Button>
-          </a>
-        )}
-
-        {error && (
-          <p className="error"><b>{error.message}</b><br /><i>Code erreur : {error.httpCode}</i></p>
-        )}
-
-        <style jsx>{`
+      <style jsx>{`
           .geocoder {
             margin: 2em 0;
             text-align: center;
@@ -103,10 +84,7 @@ class Geocoder extends React.Component {
             color: red;
           }
         `}
-        </style>
-      </div>
-    )
-  }
+      </style>
+    </div>
+  )
 }
-
-export default Geocoder
