@@ -55,7 +55,7 @@ export default async function Outils() {
               footer={(
                 <Button
                   linkProps={{
-                    href: '/outils/carte-base-adresse-nationale',
+                    href: 'carte-base-adresse-nationale',
                   }}
                   size="small"
                 >
