@@ -55,7 +55,7 @@ export default async function Outils() {
               footer={(
                 <Button
                   linkProps={{
-                    href: '/outils/base-adresse-nationale',
+                    href: '/outils/carte-base-adresse-nationale',
                   }}
                   size="small"
                 >
@@ -286,7 +286,7 @@ export default async function Outils() {
                 }}
                 size="small"
               >
-                API dépot d’une Base Adresse Local
+                API dépot d’une Base Adresse Locale
               </Button>
             )}
           />
@@ -348,12 +348,29 @@ export default async function Outils() {
               </ul>
             )}
           />
+          <Card
+            title="CRAIG"
+            titleAs="h5"
+            desc="Outil de conversion TOPO vers FANTOIR du CRAIG"
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                iconId="fr-icon-book-2-line"
+                linkProps={{
+                  href: 'https://www.data.gouv.fr/fr/reuses/recreation-des-fichiers-departementaux-fantoir-a-partir-du-fichier-topo-de-la-dgfip/',
+                  target: '_blank',
+                }}
+                size="small"
+              >
+                Documentation
+              </Button>
+            )}
+          />
         </CardContainer>
       </Section>
       <Section
         title="Les outils de supervision"
         id="etat-outils"
-        theme="primary"
       >
         <CardContainer $cols={2}>
           <Card
