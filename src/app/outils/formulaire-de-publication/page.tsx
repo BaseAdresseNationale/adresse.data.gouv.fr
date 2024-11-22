@@ -1,7 +1,7 @@
 import Loader from '@/components/Loader'
 import dynamic from 'next/dynamic'
 import { getCommune } from '@/lib/api-geo'
-import { getCommuneFlag } from '@/lib/api-wikidata'
+import { getCommuneFlag } from '@/lib/api-blasons-communes'
 import { getHabilitation, getRevision } from '@/lib/api-depot'
 import { Habilitation, Revision } from '@/types/api-depot.types'
 import { Commune } from '@/types/api-geo.types'
