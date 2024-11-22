@@ -4,7 +4,7 @@
     "properties": {
       "code": "01",
       "nom": "Ain",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -16,7 +16,7 @@
     "properties": {
       "code": "02",
       "nom": "Aisne",
-      "region": "32"
+      "codeRegion": "32"
     },
     "geometry": {
       "type": "Point",
@@ -28,7 +28,7 @@
     "properties": {
       "code": "03",
       "nom": "Allier",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -40,7 +40,7 @@
     "properties": {
       "code": "04",
       "nom": "Alpes-de-Haute-Provence",
-      "region": "93"
+      "codeRegion": "93"
     },
     "geometry": {
       "type": "Point",
@@ -52,7 +52,7 @@
     "properties": {
       "code": "05",
       "nom": "Hautes-Alpes",
-      "region": "93"
+      "codeRegion": "93"
     },
     "geometry": {
       "type": "Point",
@@ -64,7 +64,7 @@
     "properties": {
       "code": "06",
       "nom": "Alpes-Maritimes",
-      "region": "93"
+      "codeRegion": "93"
     },
     "geometry": {
       "type": "Point",
@@ -76,7 +76,7 @@
     "properties": {
       "code": "07",
       "nom": "Ardèche",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -88,7 +88,7 @@
     "properties": {
       "code": "08",
       "nom": "Ardennes",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -100,7 +100,7 @@
     "properties": {
       "code": "09",
       "nom": "Ariège",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -112,7 +112,7 @@
     "properties": {
       "code": "10",
       "nom": "Aube",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -124,7 +124,7 @@
     "properties": {
       "code": "11",
       "nom": "Aude",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -136,7 +136,7 @@
     "properties": {
       "code": "12",
       "nom": "Aveyron",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -148,7 +148,7 @@
     "properties": {
       "code": "13",
       "nom": "Bouches-du-Rhône",
-      "region": "93"
+      "codeRegion": "93"
     },
     "geometry": {
       "type": "Point",
@@ -160,7 +160,7 @@
     "properties": {
       "code": "14",
       "nom": "Calvados",
-      "region": "28"
+      "codeRegion": "28"
     },
     "geometry": {
       "type": "Point",
@@ -172,7 +172,7 @@
     "properties": {
       "code": "15",
       "nom": "Cantal",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -184,7 +184,7 @@
     "properties": {
       "code": "16",
       "nom": "Charente",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -196,7 +196,7 @@
     "properties": {
       "code": "17",
       "nom": "Charente-Maritime",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -208,7 +208,7 @@
     "properties": {
       "code": "18",
       "nom": "Cher",
-      "region": "24"
+      "codeRegion": "24"
     },
     "geometry": {
       "type": "Point",
@@ -220,7 +220,7 @@
     "properties": {
       "code": "19",
       "nom": "Corrèze",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -232,7 +232,7 @@
     "properties": {
       "code": "21",
       "nom": "Côte-d'Or",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -244,7 +244,7 @@
     "properties": {
       "code": "22",
       "nom": "Côtes-d'Armor",
-      "region": "53"
+      "codeRegion": "53"
     },
     "geometry": {
       "type": "Point",
@@ -256,7 +256,7 @@
     "properties": {
       "code": "23",
       "nom": "Creuse",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -268,7 +268,7 @@
     "properties": {
       "code": "24",
       "nom": "Dordogne",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -280,7 +280,7 @@
     "properties": {
       "code": "25",
       "nom": "Doubs",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -292,7 +292,7 @@
     "properties": {
       "code": "26",
       "nom": "Drôme",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -304,7 +304,7 @@
     "properties": {
       "code": "27",
       "nom": "Eure",
-      "region": "28"
+      "codeRegion": "28"
     },
     "geometry": {
       "type": "Point",
@@ -316,7 +316,7 @@
     "properties": {
       "code": "28",
       "nom": "Eure-et-Loir",
-      "region": "24"
+      "codeRegion": "24"
     },
     "geometry": {
       "type": "Point",
@@ -328,7 +328,7 @@
     "properties": {
       "code": "29",
       "nom": "Finistère",
-      "region": "53"
+      "codeRegion": "53"
     },
     "geometry": {
       "type": "Point",
@@ -340,7 +340,7 @@
     "properties": {
       "code": "2A",
       "nom": "Corse-du-Sud",
-      "region": "94"
+      "codeRegion": "94"
     },
     "geometry": {
       "type": "Point",
@@ -352,7 +352,7 @@
     "properties": {
       "code": "2B",
       "nom": "Haute-Corse",
-      "region": "94"
+      "codeRegion": "94"
     },
     "geometry": {
       "type": "Point",
@@ -364,7 +364,7 @@
     "properties": {
       "code": "30",
       "nom": "Gard",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -376,7 +376,7 @@
     "properties": {
       "code": "31",
       "nom": "Haute-Garonne",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -388,7 +388,7 @@
     "properties": {
       "code": "32",
       "nom": "Gers",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -400,7 +400,7 @@
     "properties": {
       "code": "33",
       "nom": "Gironde",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -412,7 +412,7 @@
     "properties": {
       "code": "34",
       "nom": "Hérault",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -424,7 +424,7 @@
     "properties": {
       "code": "35",
       "nom": "Ille-et-Vilaine",
-      "region": "53"
+      "codeRegion": "53"
     },
     "geometry": {
       "type": "Point",
@@ -436,7 +436,7 @@
     "properties": {
       "code": "36",
       "nom": "Indre",
-      "region": "24"
+      "codeRegion": "24"
     },
     "geometry": {
       "type": "Point",
@@ -448,7 +448,7 @@
     "properties": {
       "code": "37",
       "nom": "Indre-et-Loire",
-      "region": "24"
+      "codeRegion": "24"
     },
     "geometry": {
       "type": "Point",
@@ -460,7 +460,7 @@
     "properties": {
       "code": "38",
       "nom": "Isère",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -472,7 +472,7 @@
     "properties": {
       "code": "39",
       "nom": "Jura",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -484,7 +484,7 @@
     "properties": {
       "code": "40",
       "nom": "Landes",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -496,7 +496,7 @@
     "properties": {
       "code": "41",
       "nom": "Loir-et-Cher",
-      "region": "24"
+      "codeRegion": "24"
     },
     "geometry": {
       "type": "Point",
@@ -508,7 +508,7 @@
     "properties": {
       "code": "42",
       "nom": "Loire",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -520,7 +520,7 @@
     "properties": {
       "code": "43",
       "nom": "Haute-Loire",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -532,7 +532,7 @@
     "properties": {
       "code": "44",
       "nom": "Loire-Atlantique",
-      "region": "52"
+      "codeRegion": "52"
     },
     "geometry": {
       "type": "Point",
@@ -544,7 +544,7 @@
     "properties": {
       "code": "45",
       "nom": "Loiret",
-      "region": "24"
+      "codeRegion": "24"
     },
     "geometry": {
       "type": "Point",
@@ -556,7 +556,7 @@
     "properties": {
       "code": "46",
       "nom": "Lot",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -568,7 +568,7 @@
     "properties": {
       "code": "47",
       "nom": "Lot-et-Garonne",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -580,7 +580,7 @@
     "properties": {
       "code": "48",
       "nom": "Lozère",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -592,7 +592,7 @@
     "properties": {
       "code": "49",
       "nom": "Maine-et-Loire",
-      "region": "52"
+      "codeRegion": "52"
     },
     "geometry": {
       "type": "Point",
@@ -604,7 +604,7 @@
     "properties": {
       "code": "50",
       "nom": "Manche",
-      "region": "28"
+      "codeRegion": "28"
     },
     "geometry": {
       "type": "Point",
@@ -616,7 +616,7 @@
     "properties": {
       "code": "51",
       "nom": "Marne",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -628,7 +628,7 @@
     "properties": {
       "code": "52",
       "nom": "Haute-Marne",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -640,7 +640,7 @@
     "properties": {
       "code": "53",
       "nom": "Mayenne",
-      "region": "52"
+      "codeRegion": "52"
     },
     "geometry": {
       "type": "Point",
@@ -652,7 +652,7 @@
     "properties": {
       "code": "54",
       "nom": "Meurthe-et-Moselle",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -664,7 +664,7 @@
     "properties": {
       "code": "55",
       "nom": "Meuse",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -676,7 +676,7 @@
     "properties": {
       "code": "56",
       "nom": "Morbihan",
-      "region": "53"
+      "codeRegion": "53"
     },
     "geometry": {
       "type": "Point",
@@ -688,7 +688,7 @@
     "properties": {
       "code": "57",
       "nom": "Moselle",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -700,7 +700,7 @@
     "properties": {
       "code": "58",
       "nom": "Nièvre",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -712,7 +712,7 @@
     "properties": {
       "code": "59",
       "nom": "Nord",
-      "region": "32"
+      "codeRegion": "32"
     },
     "geometry": {
       "type": "Point",
@@ -724,7 +724,7 @@
     "properties": {
       "code": "60",
       "nom": "Oise",
-      "region": "32"
+      "codeRegion": "32"
     },
     "geometry": {
       "type": "Point",
@@ -736,7 +736,7 @@
     "properties": {
       "code": "61",
       "nom": "Orne",
-      "region": "28"
+      "codeRegion": "28"
     },
     "geometry": {
       "type": "Point",
@@ -748,7 +748,7 @@
     "properties": {
       "code": "62",
       "nom": "Pas-de-Calais",
-      "region": "32"
+      "codeRegion": "32"
     },
     "geometry": {
       "type": "Point",
@@ -760,7 +760,7 @@
     "properties": {
       "code": "63",
       "nom": "Puy-de-Dôme",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -772,7 +772,7 @@
     "properties": {
       "code": "64",
       "nom": "Pyrénées-Atlantiques",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -784,7 +784,7 @@
     "properties": {
       "code": "65",
       "nom": "Hautes-Pyrénées",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -796,7 +796,7 @@
     "properties": {
       "code": "66",
       "nom": "Pyrénées-Orientales",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -808,7 +808,7 @@
     "properties": {
       "code": "67",
       "nom": "Bas-Rhin",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -820,7 +820,7 @@
     "properties": {
       "code": "68",
       "nom": "Haut-Rhin",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -832,7 +832,7 @@
     "properties": {
       "code": "69",
       "nom": "Rhône",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -844,7 +844,7 @@
     "properties": {
       "code": "70",
       "nom": "Haute-Saône",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -856,7 +856,7 @@
     "properties": {
       "code": "71",
       "nom": "Saône-et-Loire",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -868,7 +868,7 @@
     "properties": {
       "code": "72",
       "nom": "Sarthe",
-      "region": "52"
+      "codeRegion": "52"
     },
     "geometry": {
       "type": "Point",
@@ -880,7 +880,7 @@
     "properties": {
       "code": "73",
       "nom": "Savoie",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -892,7 +892,7 @@
     "properties": {
       "code": "74",
       "nom": "Haute-Savoie",
-      "region": "84"
+      "codeRegion": "84"
     },
     "geometry": {
       "type": "Point",
@@ -904,7 +904,7 @@
     "properties": {
       "code": "75",
       "nom": "Paris",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -916,7 +916,7 @@
     "properties": {
       "code": "76",
       "nom": "Seine-Maritime",
-      "region": "28"
+      "codeRegion": "28"
     },
     "geometry": {
       "type": "Point",
@@ -928,7 +928,7 @@
     "properties": {
       "code": "77",
       "nom": "Seine-et-Marne",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -940,7 +940,7 @@
     "properties": {
       "code": "78",
       "nom": "Yvelines",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -952,7 +952,7 @@
     "properties": {
       "code": "79",
       "nom": "Deux-Sèvres",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -964,7 +964,7 @@
     "properties": {
       "code": "80",
       "nom": "Somme",
-      "region": "32"
+      "codeRegion": "32"
     },
     "geometry": {
       "type": "Point",
@@ -976,7 +976,7 @@
     "properties": {
       "code": "81",
       "nom": "Tarn",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -988,7 +988,7 @@
     "properties": {
       "code": "82",
       "nom": "Tarn-et-Garonne",
-      "region": "76"
+      "codeRegion": "76"
     },
     "geometry": {
       "type": "Point",
@@ -1000,7 +1000,7 @@
     "properties": {
       "code": "83",
       "nom": "Var",
-      "region": "93"
+      "codeRegion": "93"
     },
     "geometry": {
       "type": "Point",
@@ -1012,7 +1012,7 @@
     "properties": {
       "code": "84",
       "nom": "Vaucluse",
-      "region": "93"
+      "codeRegion": "93"
     },
     "geometry": {
       "type": "Point",
@@ -1024,7 +1024,7 @@
     "properties": {
       "code": "85",
       "nom": "Vendée",
-      "region": "52"
+      "codeRegion": "52"
     },
     "geometry": {
       "type": "Point",
@@ -1036,7 +1036,7 @@
     "properties": {
       "code": "86",
       "nom": "Vienne",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -1048,7 +1048,7 @@
     "properties": {
       "code": "87",
       "nom": "Haute-Vienne",
-      "region": "75"
+      "codeRegion": "75"
     },
     "geometry": {
       "type": "Point",
@@ -1060,7 +1060,7 @@
     "properties": {
       "code": "88",
       "nom": "Vosges",
-      "region": "44"
+      "codeRegion": "44"
     },
     "geometry": {
       "type": "Point",
@@ -1072,7 +1072,7 @@
     "properties": {
       "code": "89",
       "nom": "Yonne",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -1084,7 +1084,7 @@
     "properties": {
       "code": "90",
       "nom": "Territoire de Belfort",
-      "region": "27"
+      "codeRegion": "27"
     },
     "geometry": {
       "type": "Point",
@@ -1096,7 +1096,7 @@
     "properties": {
       "code": "91",
       "nom": "Essonne",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -1108,7 +1108,7 @@
     "properties": {
       "code": "92",
       "nom": "Hauts-de-Seine",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -1120,7 +1120,7 @@
     "properties": {
       "code": "93",
       "nom": "Seine-Saint-Denis",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -1132,7 +1132,7 @@
     "properties": {
       "code": "94",
       "nom": "Val-de-Marne",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -1144,7 +1144,7 @@
     "properties": {
       "code": "95",
       "nom": "Val-d'Oise",
-      "region": "11"
+      "codeRegion": "11"
     },
     "geometry": {
       "type": "Point",
@@ -1156,7 +1156,7 @@
     "properties": {
       "code": "971",
       "nom": "Guadeloupe",
-      "region": "01"
+      "codeRegion": "01"
     },
     "geometry": {
       "type": "Point",
@@ -1168,7 +1168,7 @@
     "properties": {
       "code": "972",
       "nom": "Martinique",
-      "region": "02"
+      "codeRegion": "02"
     },
     "geometry": {
       "type": "Point",
@@ -1180,7 +1180,7 @@
     "properties": {
       "code": "973",
       "nom": "Guyane",
-      "region": "03"
+      "codeRegion": "03"
     },
     "geometry": {
       "type": "Point",
@@ -1192,7 +1192,7 @@
     "properties": {
       "code": "974",
       "nom": "La Réunion",
-      "region": "04"
+      "codeRegion": "04"
     },
     "geometry": {
       "type": "Point",
@@ -1204,7 +1204,7 @@
     "properties": {
       "code": "976",
       "nom": "Mayotte",
-      "region": "06"
+      "codeRegion": "06"
     },
     "geometry": {
       "type": "Point",
@@ -1216,7 +1216,7 @@
     "properties": {
       "code": "975",
       "nom": "Saint-Pierre-et-Miquelon",
-      "region": "975"
+      "codeRegion": "975"
     },
     "geometry": {
       "type": "Point",
@@ -1228,7 +1228,7 @@
     "properties": {
       "code": "977",
       "nom": "Saint-Barthélemy",
-      "region": "977"
+      "codeRegion": "977"
     },
     "geometry": {
       "type": "Point",
@@ -1240,7 +1240,7 @@
     "properties": {
       "code": "978",
       "nom": "Saint-Martin",
-      "region": "978"
+      "codeRegion": "978"
     },
     "geometry": {
       "type": "Point",
@@ -1252,7 +1252,7 @@
     "properties": {
       "code": "984",
       "nom": "Terres australes et antarctiques françaises",
-      "region": "984"
+      "codeRegion": "984"
     },
     "geometry": {
       "type": "Point",
@@ -1264,7 +1264,7 @@
     "properties": {
       "code": "986",
       "nom": "Wallis et Futuna",
-      "region": "986"
+      "codeRegion": "986"
     },
     "geometry": {
       "type": "Point",
@@ -1276,7 +1276,7 @@
     "properties": {
       "code": "987",
       "nom": "Polynésie française",
-      "region": "987"
+      "codeRegion": "987"
     },
     "geometry": {
       "type": "Point",
@@ -1288,7 +1288,7 @@
     "properties": {
       "code": "988",
       "nom": "Nouvelle-Calédonie",
-      "region": "988"
+      "codeRegion": "988"
     },
     "geometry": {
       "type": "Point",
@@ -1300,7 +1300,7 @@
     "properties": {
       "code": "989",
       "nom": "Île de Clipperton",
-      "region": "989"
+      "codeRegion": "989"
     },
     "geometry": {
       "type": "Point",

@@ -1,39 +1,21 @@
-import { getDepartements, getEPCI } from '@/lib/api-geo'
-import departementCenterMap from '@/data/departement-center.json'
+import { getEPCI } from '@/lib/api-geo'
+import departements from '@/data/departement-center.json'
 import { getStats } from '@/lib/api-ban'
 import DeploiementBALDashboard from '../../components/DeploiementBAL/DeploiementBALDashboard'
 import Section from '@/components/Section'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
-
-export type DeploiementBALSearchResultEPCI = {
-  type: 'EPCI'
-  code: string
-  nom: string
-  center: { type: string, coordinates: [number, number] }
-  contour: { type: string, coordinates: number[][][] }
-}
-
-export type DeploiementBALSearchResultDepartement = {
-  type: 'Département'
-  code: string
-  nom: string
-  center: { type: string, coordinates: [number, number] }
-}
-
-export type DeploiementBALSearchResult = DeploiementBALSearchResultEPCI | DeploiementBALSearchResultDepartement
+import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
+import { Departement } from '@/types/api-geo.types'
 
 export default async function DeploiementBALPage({ searchParams }: { searchParams: Record<string, string> }) {
   const stats = await getStats()
-  const departements = await getDepartements()
-  const departementsWithCenter = departements.map(({ code, ...rest }) => {
-    const { geometry } = (departementCenterMap as any)[code]
-
+  const departementsWithCenter = Object.values(departements).map(({ properties, geometry }) => {
     return {
-      ...rest,
-      code,
+      ...properties,
+      type: 'Département',
       centre: geometry,
     }
-  })
+  }) as (Departement & { centre: { type: string, coordinates: number[] } })[]
 
   let initialFilter: DeploiementBALSearchResult | null = null
   if (searchParams.departement) {

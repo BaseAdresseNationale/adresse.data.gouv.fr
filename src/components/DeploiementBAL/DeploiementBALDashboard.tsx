@@ -1,7 +1,7 @@
 'use client'
 
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
-import { useStatsDeploiement } from '@/hooks/useStatsDeploiement'
+import { DeploiementBALSearchResult, useStatsDeploiement } from '@/hooks/useStatsDeploiement'
 import { getEpcis } from '@/lib/api-geo'
 import { BANStats } from '@/types/api-ban.types'
 import { Departement } from '@/types/api-geo.types'
@@ -12,7 +12,6 @@ import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
-import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { FullScreenControl } from '../Map/FullScreenControl'
@@ -20,7 +19,7 @@ import { FullScreenControl } from '../Map/FullScreenControl'
 interface DeploiementBALMapProps {
   initialStats: BANStats
   initialFilter: DeploiementBALSearchResult | null
-  departements: (Departement & { centre: { type: string, coordinates: [number, number] } })[]
+  departements: (Departement & { centre: { type: string, coordinates: number[] } })[]
 }
 
 export default function DeploiementBALMap({ initialStats, initialFilter, departements }: DeploiementBALMapProps) {

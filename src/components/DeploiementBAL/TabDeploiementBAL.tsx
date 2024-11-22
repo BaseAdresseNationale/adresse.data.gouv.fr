@@ -1,7 +1,7 @@
 'use client'
 
-import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
 import DoughnutCounter from '@/components/ChartJS/DoughnutCounter'
+import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { customFetch } from '@/lib/fetch'
 import { BANStats } from '@/types/api-ban.types'
 import { numFormater } from '@/utils/number'

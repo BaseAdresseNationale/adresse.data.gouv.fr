@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { MapMouseEvent, Popup, useMap } from 'react-map-gl/maplibre'
 import { toolsColors } from '@/theme/theme'
-import Link from 'next/link'
 
 const StyledWrapper = styled.div`
   .legend-wrapper {
@@ -288,7 +287,7 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
             <div>Nombre d’adresses : {popup.properties.nbNumeros}</div>
             <div>{`${popup.properties.certificationPercentage ? `Taux de certification : ${popup.properties.certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
             {popup.properties.hasBAL ? <div>Déposé via : {popup.properties.nomClient}</div> : <div>Ne dispose pas d&apos;une BAL</div>}
-            <Link href={`/commune/${popup.properties.code}`}>Voir la page commune</Link>
+            <a href={`/commune/${popup.properties.code}`}>Voir la page commune</a>
           </div>
         </Popup>
       )}

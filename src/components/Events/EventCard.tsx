@@ -22,7 +22,7 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
 
   const hasLargeDescription = description.length > 100
   const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
-  const actualDescription = showAllDescription ? description : description.slice(0, 200) + '...'
+  const actualDescription = showAllDescription ? description : description.slice(0, 100) + '...'
   const backgroundColor = backgroundColors[type]
 
   const getAdressToString = (adress: EventType['address']) => {
