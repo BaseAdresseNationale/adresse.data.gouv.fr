@@ -112,7 +112,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Le blog et les témoignages',
         linkProps: { href: '/blog' },
       },
-      { text: 'L’Info-lettre', linkProps: { href: '#' } },
+      { text: 'L’Info-lettre', linkProps: { href: '/newsletters' } },
     ],
   },
   {
