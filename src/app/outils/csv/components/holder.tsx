@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 import Dropzone from 'react-dropzone'
 
 import Loader from '@/components/Loader/index'
@@ -19,18 +18,13 @@ function formatFileSize(bytes: number) {
 }
 
 interface HolderParameters {
-  file: File
+  file: File | null
   placeholder: string
   isLoading: boolean
-  onDrop: <T extends File>() => void
+  onDrop: (FileList: File[]) => void
 }
 
-Holder.defaultProps = {
-  file: null,
-  isLoading: false,
-}
-
-export default function Holder({ file, placeholder, isLoading, onDrop }: HolderParameters) {
+export default function Holder({ file = null, placeholder, isLoading = false, onDrop }: HolderParameters) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -62,7 +56,7 @@ export default function Holder({ file, placeholder, isLoading, onDrop }: HolderP
                           <div className="loading">Chargement du fichier… <span><Loader aria-hidden="true" /></span></div>
                         )
                       : (
-                          <p>React-Feather Icon</p>
+                          <p>React-Feather Icon </p>
                         )}
                   </div>
                 )
