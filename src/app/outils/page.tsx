@@ -301,7 +301,7 @@ export default async function Outils() {
           <Card
             title="API FANTOIR (Dépréciée)"
             titleAs="h5"
-            desc="Consulter la base FANTOIR de la direction générale des finances publiques (DGFIP)."
+            desc="Consulter la base FANTOIR de la Direction générale des finances publiques (DGFIP)."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -352,7 +352,7 @@ export default async function Outils() {
           <Card
             title="Convertisseur TOPO - FANTOIR"
             titleAs="h5"
-            desc="Outil de conversion TOPO vers FANTOIR développé par le centre régional auvergne-rhône-alpes de l'information géographique(CRAIG)"
+            desc="Outil de conversion TOPO vers FANTOIR développé par le Centre régional Auvergne-Rhône-Alpes de l'information géographique(CRAIG)"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
