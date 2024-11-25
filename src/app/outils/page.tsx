@@ -74,7 +74,7 @@ export default async function Outils() {
                 <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                   <li>
                     <Button
-                      className="fr-btn--secondary"
+                      className="fr-btn"
                       linkProps={{
                         href: 'data/ban/adresses/latest',
                       }}
@@ -85,6 +85,7 @@ export default async function Outils() {
                   </li>
                   <li>
                     <Button
+                      className="fr-btn--secondary"
                       linkProps={{
                         href: '/outils/telechargements',
                       }}
@@ -260,7 +261,7 @@ export default async function Outils() {
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                 <li>
                   <Button
-                    className="fr-btn fr-btn--secondary"
+                    className="fr-btn fr-btn"
                     linkProps={{
                       href: 'outils/formulaire-de-publication',
                     }}
@@ -300,7 +301,7 @@ export default async function Outils() {
           <Card
             title="API FANTOIR (Dépréciée)"
             titleAs="h5"
-            desc="Consulter la base FANTOIR de la DGFiP."
+            desc="Consulter la base FANTOIR de la direction générale des finances publiques (DGFIP)."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -318,13 +319,13 @@ export default async function Outils() {
           <Card
             title="L'explorateur FANTOIR"
             titleAs="h5"
-            desc="Consulter la base FANTOIR de la DGFiP en quelques clics."
+            desc="Consulter la base FANTOIR de la Direction générale des finances publiques (DGFIP) en quelques clics."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                 <li>
                   <Button
-                    className="fr-btn fr-btn--secondary"
+                    className="fr-btn fr-btn"
                     linkProps={{
                       href: '/outils/fantoir',
                     }}
@@ -335,7 +336,7 @@ export default async function Outils() {
                 </li>
                 <li>
                   <Button
-                    className="fr-btn"
+                    className="fr-btn fr-btn--secondary"
                     linkProps={{
                       href: 'https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
                       target: '_blank',
@@ -349,21 +350,38 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="CRAIG"
+            title="Convertisseur TOPO - FANTOIR"
             titleAs="h5"
-            desc="Outil de conversion TOPO vers FANTOIR du CRAIG"
+            desc="Outil de conversion TOPO vers FANTOIR développé par le centre régional auvergne-rhône-alpes de l'information géographique(CRAIG)"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
-              <Button
-                iconId="fr-icon-book-2-line"
-                linkProps={{
-                  href: 'https://www.data.gouv.fr/fr/reuses/recreation-des-fichiers-departementaux-fantoir-a-partir-du-fichier-topo-de-la-dgfip/',
-                  target: '_blank',
-                }}
-                size="small"
-              >
-                Documentation
-              </Button>
+              <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                <li>
+                  <Button
+                    className="fr-btn fr-btn"              
+                    linkProps={{
+                      href: 'https://github.com/landryb/topo2fantoir',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    topo2fantoir
+                  </Button>
+                </li>  
+                <li>
+                  <Button
+                    className="fr-btn fr-btn--secondary"
+                    linkProps={{
+                      href: 'https://www.craig.fr/',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    En savoir plus sur CRAIG
+                  </Button>
+                </li>
+                
+              </ul>
             )}
           />
         </CardContainer>
