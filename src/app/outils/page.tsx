@@ -358,7 +358,7 @@ export default async function Outils() {
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                 <li>
                   <Button
-                    className="fr-btn fr-btn"              
+                    className="fr-btn fr-btn"
                     linkProps={{
                       href: 'https://github.com/landryb/topo2fantoir',
                       target: '_blank',
@@ -367,7 +367,7 @@ export default async function Outils() {
                   >
                     topo2fantoir
                   </Button>
-                </li>  
+                </li>
                 <li>
                   <Button
                     className="fr-btn fr-btn--secondary"
@@ -380,7 +380,6 @@ export default async function Outils() {
                     En savoir plus sur CRAIG
                   </Button>
                 </li>
-                
               </ul>
             )}
           />
