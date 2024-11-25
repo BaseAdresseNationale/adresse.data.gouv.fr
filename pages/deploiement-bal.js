@@ -208,7 +208,7 @@ function EtatDeploiement({initialStats, departements}) {
 }
 
 EtatDeploiement.getInitialProps = async () => {
-  const departements = await getDepartements()
+  const departements = await getDepartements({zone: 'metro,drom,com'})
   const departementsWithCenter = departements.map(({code, ...rest}) => {
     const {geometry} = departementCenterMap[code]
 
