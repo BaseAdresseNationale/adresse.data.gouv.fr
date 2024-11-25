@@ -34,7 +34,7 @@ function Partner({partnerInfos, isCommune}) {
   const [isDisplay, setIsDisplay] = useState(false)
   const [mairieContact, setMairieContact] = useState(null)
 
-  const {_id, name, link, infos, perimeter, codeCommune, services, testimonyURL, isCompany, picture, charteURL} = partnerInfos
+  const {id, name, type, link, infos, perimeter, codeCommune, services, testimonyURL, picture, charteURL} = partnerInfos
   const Chevron = isDisplay ? ChevronUp : ChevronDown
 
   const getMairieInfos = useCallback(async () => {
@@ -60,12 +60,12 @@ function Partner({partnerInfos, isCommune}) {
         <p className='name'>
           {isCommune ?
             <b><a href={link}>${name}</a></b> :
-            <b><a href={`/bases-locales/charte/partenaires/${_id}`}>{`${name} ${isCompany ? '(société)' : ''}`}</a></b>}
+            <b><a href={`/bases-locales/charte/partenaires/${id}`}>{`${name} ${type === 'entreprise' ? '(société)' : ''}`}</a></b>}
           {isCommune && <Image src='/images/icons/commune.svg' height={35} width={35} layout='fixed' alt='Ce partenaire est une commune' />}
         </p>
         {isCommune ?
           <div className='logo' style={{backgroundImage: `url(${picture})`}} /> :
-          <a href={`/bases-locales/charte/partenaires/${_id}`}>
+          <a href={`/bases-locales/charte/partenaires/${id}`}>
             <div className='logo' style={{backgroundImage: `url(${picture})`}} />
           </a>}
         {services && services.length > 0 && (
@@ -233,8 +233,9 @@ function Partner({partnerInfos, isCommune}) {
 
 Partner.propTypes = {
   partnerInfos: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     link: PropTypes.string.isRequired,
     infos: PropTypes.string,
     codeCommune: PropTypes.string,
@@ -243,7 +244,6 @@ Partner.propTypes = {
     testimonyURL: PropTypes.string,
     charteURL: PropTypes.string,
     picture: PropTypes.string.isRequired,
-    isCompany: PropTypes.bool
   }).isRequired,
   isCommune: PropTypes.bool
 }

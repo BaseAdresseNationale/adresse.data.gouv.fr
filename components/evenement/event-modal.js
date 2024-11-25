@@ -17,7 +17,6 @@ function EventModal({event, isPassed, onClose}) {
   const modalRef = useRef(null)
 
   const {title, subtitle, address, description, href, date, isSubscriptionClosed, tags, type, startHour, endHour, target, isOnlineOnly, instructions} = event
-  const {nom, numero, voie, codePostal, commune} = address
   const isSubscriptionBlocked = isSubscriptionClosed || isPassed
 
   useEffect(() => {
@@ -51,7 +50,7 @@ function EventModal({event, isPassed, onClose}) {
 
               <div>
                 <div className='date' aria-label={`le ${dateWithDay(date)}, de ${startHour} à ${endHour}`}>{`Le ${dateWithDay(date)} | ${startHour}-${endHour}`}</div>
-                {!isOnlineOnly && <div className='location'><MapPin size={15} /> {nom}, {numero} {voie} <br /> {codePostal} {commune}</div>}
+                {!isOnlineOnly && address && <div className='location'><MapPin size={15} /> {address.nom}, {address.numero} {address.voie} <br /> {address.codePostal} {address.commune}</div>}
                 {isOnlineOnly && (
                   href ? (
                     <div className={isSubscriptionBlocked ? 'subscription-closed' : ''}>

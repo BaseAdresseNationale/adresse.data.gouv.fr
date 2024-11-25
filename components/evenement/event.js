@@ -12,8 +12,6 @@ import EventModal from './event-modal'
 
 function Event({event, background, isPassed}) {
   const {title, subtitle, address, date, type, startHour, endHour, isOnlineOnly} = event
-  const {nom, numero, voie, codePostal, commune} = address
-
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
@@ -34,9 +32,10 @@ function Event({event, background, isPassed}) {
           {isOnlineOnly ? (
             <div className='location'>Évènement en ligne</div>
           ) : (
-            <div className='location'>
-              {nom}, {numero} {voie} <br /> {codePostal} {commune}
-            </div>
+            address &&
+              <div className='location'>
+                {address.nom}, {address.numero} {address.voie} <br /> {address.codePostal} {address.commune}
+              </div>
           )}
         </div>
       </div>
