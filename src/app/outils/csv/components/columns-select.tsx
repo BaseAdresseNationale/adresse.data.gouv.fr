@@ -18,15 +18,17 @@ export default function ColumnsSelect({ columns, selectedColumns, onAdd, onRemov
             value: col,
           }
         })}
+        key="addItemList"
         buttonIcon="+"
         action={onAdd}
       />
 
       <SelectableItemList
-        list={selectedColumns.map((col) => {
+        key="removeItemList"
+        list={selectedColumns.map((selectedColumn) => {
           return {
-            key: col,
-            value: col,
+            key: selectedColumn,
+            value: selectedColumn,
           }
         })}
         buttonIcon="-"
