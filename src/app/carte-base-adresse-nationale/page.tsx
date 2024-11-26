@@ -5,7 +5,7 @@ import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl }
 import { useSearchParams } from 'next/navigation'
 import type { MapRef } from 'react-map-gl/maplibre'
 
-import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
+import { getCommuneFlag } from '@/lib/api-wikidata'
 import { getBanItem, getDistrict } from '@/lib/api-ban'
 
 import Aside from './components/Aside'
@@ -42,6 +42,7 @@ type MapBreadcrumbPathSegment = string | { label: string, linkProps?: LinkProps 
 
 const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 6
+const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
 const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
 
 const getBanItemTypes = (banItem?: { type: 'commune' | 'voie' | 'lieu-dit' | 'numero' }) => {
@@ -121,8 +122,8 @@ function CartoView() {
         const banItem = (await getBanItem(banItemId)) as unknown as TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended
         setMapSearchResults(banItem)
 
-        const districtFlagUrl = await getCommuneFlagProxy(banItemId)
-        setDistrictLogo(districtFlagUrl)
+        const districtFlagUrl = await getCommuneFlag(banItemId)
+        setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
         setIsLoadMapSearchResults(false)
       })()
