@@ -33,6 +33,7 @@ import { useRouter } from 'next/navigation'
 import { useBanMapConfig } from './components/ban-map/BanMap.context'
 
 import type { Address } from './components/ban-map/types'
+import { env } from 'next-runtime-env'
 
 interface LinkProps {
   href: string
@@ -43,7 +44,7 @@ type MapBreadcrumbPathSegment = string | { label: string, linkProps?: LinkProps 
 const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 6
 const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
 const getBanItemTypes = (banItem?: { type: 'commune' | 'voie' | 'lieu-dit' | 'numero' }) => {
   switch (banItem?.type) {

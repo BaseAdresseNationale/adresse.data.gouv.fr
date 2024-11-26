@@ -8,8 +8,9 @@ import {
   View,
 } from '@react-pdf/renderer'
 import { stylesDSFR } from './certificat.stylesheet'
+import { env } from 'next-runtime-env'
 
-const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 interface CertificatNumerotationProps {
   data: {

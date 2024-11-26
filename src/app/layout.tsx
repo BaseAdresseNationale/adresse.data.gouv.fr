@@ -17,6 +17,7 @@ import GlobalStyle from './global.styles'
 import { useEffect } from 'react'
 import { init as matomoInit } from '@socialgouv/matomo-next'
 import { BALWidgetProvider } from '@/contexts/BALWidget.context'
+import { PublicEnvScript, env } from 'next-runtime-env'
 
 const StyledLayout = styled.div`
   min-height: 100vh;
@@ -39,16 +40,17 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
   }
 
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_MATOMO_URL || !process.env.NEXT_PUBLIC_MATOMO_SITE_ID) {
+    if (!env('NEXT_PUBLIC_MATOMO_URL') || !env('NEXT_PUBLIC_MATOMO_SITE_ID')) {
       return
     }
 
-    matomoInit({ url: process.env.NEXT_PUBLIC_MATOMO_URL, siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID })
+    matomoInit({ url: env('NEXT_PUBLIC_MATOMO_URL') || '', siteId: env('NEXT_PUBLIC_MATOMO_SITE_ID') || '' })
   }, [])
 
   return (
     <html {...getHtmlAttributes({ defaultColorScheme, lang })}>
       <head>
+        <PublicEnvScript />
         <StartDsfr />
         <DsfrHead
           Link={Link}

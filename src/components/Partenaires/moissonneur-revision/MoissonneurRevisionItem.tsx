@@ -6,18 +6,19 @@ import UpdateStatusBadge from '../UpdateStatus'
 import { getFileLink } from '@/lib/api-moissonneur-bal'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { PublicationMoissoneurType, RevisionMoissoneurType } from '@/types/api-moissonneur-bal.types'
+import { env } from 'next-runtime-env'
 
 const otherClients = [
   {
-    id: process.env.NEXT_PUBLIC_CLIENT_GUICHET_ADRESSE,
+    id: env('NEXT_PUBLIC_CLIENT_GUICHET_ADRESSE'),
     name: 'Guichet Adresse',
   },
   {
-    id: process.env.NEXT_PUBLIC_CLIENT_MES_ADRESSE,
+    id: env('NEXT_PUBLIC_CLIENT_MES_ADRESSE'),
     name: 'Mes Adresses',
   },
   {
-    id: process.env.NEXT_PUBLIC_CLIENT_FORMULAIRE_PUBLICATION,
+    id: env('NEXT_PUBLIC_CLIENT_FORMULAIRE_PUBLICATION'),
     name: 'Formulaire Publication',
   },
 ]

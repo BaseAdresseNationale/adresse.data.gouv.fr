@@ -2,6 +2,9 @@
 
 import 'altcha'
 import { useCallback, useEffect, useState } from 'react'
+import { env } from 'next-runtime-env'
+
+const ALTCHA_API_KEY = env('NEXT_PUBLIC_ALTCHA_API_KEY')
 
 interface LoaderProps {
   children: React.ReactNode
@@ -43,7 +46,7 @@ export default function NewsletterOptin({ children, handleSubmit, onVerified, sh
       {showCatpcha && (
         <altcha-widget
           ref={onRefChange as any}
-          challengeurl={`https://eu.altcha.org/api/v1/challenge?apiKey=${process.env.NEXT_PUBLIC_ALTCHA_API_KEY}`}
+          challengeurl={`https://eu.altcha.org/api/v1/challenge?apiKey=${ALTCHA_API_KEY}`}
           spamfilter
         >
         </altcha-widget>

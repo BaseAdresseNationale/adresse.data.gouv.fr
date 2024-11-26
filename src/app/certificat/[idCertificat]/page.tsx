@@ -7,8 +7,9 @@ import {
   FieldLabel,
   FieldValue,
 } from './page.styles'
+import { env } from 'next-runtime-env'
 
-const { NEXT_PUBLIC_API_BAN_URL } = process.env
+const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 async function Certificat({ params }: { params: { idCertificat: string } }) {
   const { idCertificat } = params
