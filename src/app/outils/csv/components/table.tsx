@@ -1,5 +1,3 @@
-/* eslint react/no-array-index-key: off */
-
 interface PropTypesTable {
   headers: Array<string>
   rows: Array<string[]>
