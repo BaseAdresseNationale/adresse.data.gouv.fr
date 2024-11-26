@@ -11,11 +11,10 @@ import {
   defDataBanVisit,
   defDataDailyDownload,
 } from '../utils/stats-config-data'
+import { env } from 'next-runtime-env'
 
-const {
-  NEXT_PUBLIC_MATOMO_URL,
-  NEXT_PUBLIC_MATOMO_SITE_ID,
-} = process.env
+const NEXT_PUBLIC_MATOMO_URL = env('NEXT_PUBLIC_MATOMO_URL')
+const NEXT_PUBLIC_MATOMO_SITE_ID = env('NEXT_PUBLIC_MATOMO_SITE_ID')
 
 if (!NEXT_PUBLIC_MATOMO_URL || !NEXT_PUBLIC_MATOMO_SITE_ID) {
   throw new Error('MATOMO_URL and MATOMO_ID is not defined in the environment')

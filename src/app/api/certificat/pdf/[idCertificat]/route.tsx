@@ -4,9 +4,10 @@ import ReactPDF from '@react-pdf/renderer'
 
 import { getMairie } from '@/lib/api-etablissement-public'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
+import { env } from 'next-runtime-env'
 
-const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
-const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function GET(request: NextRequest, { params }: { params: { idCertificat: string } }) {
   const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${params.idCertificat}`, {

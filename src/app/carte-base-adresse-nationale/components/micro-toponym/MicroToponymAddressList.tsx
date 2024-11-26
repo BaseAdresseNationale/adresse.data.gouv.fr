@@ -11,8 +11,9 @@ import {
 
 import type { SortAddressesEntry } from '../../tools/sortAddresses'
 import type { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
+import { env } from 'next-runtime-env'
 
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
 interface MicroToponymAddressListProps {
   microToponym: TypeMicroToponymExtended

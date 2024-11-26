@@ -1,24 +1,25 @@
 import { customFetch } from '@/lib/fetch'
 import { ExtendedSourceMoissoneurType, HarvestMoissonneurType, OrganizationMoissoneurType, RevisionMoissoneurType } from '@/types/api-moissonneur-bal.types'
+import { env } from 'next-runtime-env'
 
-if (!process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL) {
+if (!env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')) {
   throw new Error('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL is not defined in the environment')
 }
 
 export async function getOrganization(id: string): Promise<OrganizationMoissoneurType> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL}/organizations/${id}`)
+  const url = new URL(`${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/organizations/${id}`)
 
   return customFetch(url)
 }
 
 export async function getOrganizationSources(id: string): Promise<ExtendedSourceMoissoneurType[]> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL}/organizations/${id}/sources`)
+  const url = new URL(`${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/organizations/${id}/sources`)
 
   return customFetch(url)
 }
 
 export async function getSourceHarvests(id: string, page = 1, limit = 20): Promise<{ results: HarvestMoissonneurType[], count: number }> {
-  const url = `${process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL}/sources/${id}/harvests?` + new URLSearchParams({
+  const url = `${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/sources/${id}/harvests?` + new URLSearchParams({
     limit: String(limit),
     offset: String(limit * (page - 1)),
   })
@@ -27,11 +28,11 @@ export async function getSourceHarvests(id: string, page = 1, limit = 20): Promi
 }
 
 export async function getSourceRevisions(id: string): Promise<RevisionMoissoneurType[]> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL}/sources/${id}/last-updated-revisions`)
+  const url = new URL(`${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/sources/${id}/last-updated-revisions`)
 
   return customFetch(url)
 }
 
 export function getFileLink(id: string) {
-  return `${process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL}/files/${id}/download`
+  return `${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/files/${id}/download`
 }

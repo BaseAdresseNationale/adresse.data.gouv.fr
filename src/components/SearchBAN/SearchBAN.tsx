@@ -7,8 +7,9 @@ import { search, isFirstCharValid } from '@/lib/api-adresse'
 import { getCommune as getCommuneByINSEE } from '@/lib/api-ban'
 
 import SearchInput from './search-input'
+import { env } from 'next-runtime-env'
 
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
 const featuresTypes = {
   municipality: 'Communes ou Arrondissements',

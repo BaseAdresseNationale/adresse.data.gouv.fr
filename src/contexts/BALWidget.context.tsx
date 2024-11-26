@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState, createContext } from 'react'
 import styled, { css } from 'styled-components'
 import { matomoTrackEvent } from '@/lib/matomo'
+import { env } from 'next-runtime-env'
 
 export const StyledIFrame = styled.iframe<{ $isOpen: boolean, $isVisible: boolean }>`
   position: fixed;
@@ -97,7 +98,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   useEffect(() => {
     async function fetchBalWidgetConfig() {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BAL_ADMIN_API_URL}/bal-widget/config`)
+        const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/bal-widget/config`)
         const data = await response.json()
         if (response.status !== 200) {
           throw new Error(data.message)
@@ -187,7 +188,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
       {isWidgetDisplayed && (
         <StyledIFrame
           ref={balWidgetRef}
-          src={process.env.NEXT_PUBLIC_BAL_WIDGET_URL}
+          src={env('NEXT_PUBLIC_BAL_WIDGET_URL')}
           $isOpen={isBalWidgetOpen}
           $isVisible={isWidgetVisible}
         />

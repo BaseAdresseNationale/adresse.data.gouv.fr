@@ -1,7 +1,7 @@
 import { APIEtablissementPublicMairie } from '@/types/api-etablissement-public.types'
 import { customFetch } from './fetch'
-
-if (!process.env.NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC) {
+import { env } from 'next-runtime-env'
+if (!env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')) {
   throw new Error('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC is not defined')
 }
 
@@ -9,7 +9,7 @@ export async function getMairiePageURL(codeCommune: string) {
   // Documentation : https://api-lannuaire.service-public.fr/explore/dataset/api-lannuaire-administration/information/
   const route = 'catalog/datasets/api-lannuaire-administration/records'
   const query = `select=nom,url_service_public&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`
-  const url = `${process.env.NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC}/${route}?${query}`
+  const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
 
   const response: { results: APIEtablissementPublicMairie[] } = await customFetch(url)
   if (!response?.results || response.results.length === 0) {
@@ -84,7 +84,7 @@ export async function getMairie(codeCommune: string): Promise<FormattedMairie | 
   // Documentation : https://api-lannuaire.service-public.fr/explore/dataset/api-lannuaire-administration/information/
   const route = 'catalog/datasets/api-lannuaire-administration/records'
   const query = `select=plage_ouverture,nom,telephone,adresse_courriel&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`
-  const url = `${process.env.NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC}/${route}?${query}`
+  const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
 
   const response: { results: MairieResponse[] } = await customFetch(url)
   if (!response?.results || response.results.length === 0) {
