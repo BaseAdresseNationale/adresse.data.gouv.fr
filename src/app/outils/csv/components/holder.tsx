@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Dropzone from 'react-dropzone'
 
 import Loader from '@/components/Loader/index'
-import theme from '@/theme/theme'
+import { HolderWrapper } from './holder.styles'
 
 function formatFileSize(bytes: number) {
   if (bytes === 0) {
@@ -34,106 +34,37 @@ export default function Holder({ file = null, placeholder, isLoading = false, on
         const inputProps = getInputProps()
 
         return (
-          <div
-            {...rootProps}
-            className={`dropzone ${file ? 'file' : ''} ${isDragActive ? 'active' : ''}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <input {...inputProps} />
-            <div>{!file && <p>Glisser le fichier</p>}</div>
-            <div className="file-container">{file
-              ? (
-                  <div className="file-sumup">
-                    <div className="file-details">
-                      <div className="file-infos">
-                        <div className="name">{file.name}</div>
-                        <div className="size">{formatFileSize(file.size)}</div>
+          <HolderWrapper>
+            <div
+              {...rootProps}
+              className={`dropzone ${file ? 'file' : ''} ${isDragActive ? 'active' : ''}`}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <input {...inputProps} />
+              <div>{!file && <p>Glisser le fichier</p>}</div>
+              <div className="file-container">{file
+                ? (
+                    <div className="file-sumup">
+                      <div className="file-details">
+                        <div className="file-infos">
+                          <div className="name">{file.name}</div>
+                          <div className="size">{formatFileSize(file.size)}</div>
+                        </div>
                       </div>
+                      {isLoading
+                        ? (
+                            <div className="loading">Chargement du fichier… <span><Loader aria-hidden="true" /></span></div>
+                          )
+                        : (
+                            <span className="fr-icon-flood-fill" aria-hidden="true" aria-label="Recharger le fichier" />
+                          )}
                     </div>
-                    {isLoading
-                      ? (
-                          <div className="loading">Chargement du fichier… <span><Loader aria-hidden="true" /></span></div>
-                        )
-                      : (
-                          <p>React-Feather Icon </p>
-                        )}
-                  </div>
-                )
-              : placeholder}
+                  )
+                : placeholder}
+              </div>
             </div>
-
-            <style jsx>{`
-              .dropzone {
-                display: flex;
-                flex-flow: column;
-                justify-content: center;
-                width: 100%;
-                border: 1px dashed #ccc;
-                height: 200px;
-                text-align: center;
-                cursor: pointer;
-                border-radius: 4px;
-              }
-
-              .dropzone:hover {
-                background-color: #ebeff3;
-              }
-
-              .dropzone.file {
-                display: flex;
-                flex-flow: column;
-                height: auto;
-                border: none;
-              }
-
-              .file-container {
-                width: 100%;
-              }
-
-              .file-sumup {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                text-align: left;
-              }
-
-              .file-details {
-                display: flex;
-                align-items: center;
-              }
-
-              .file-infos {
-                border-left: 3px solid ${theme.colors.primary};
-                margin-left: 5px;
-                padding: 0 5px;
-              }
-
-              .name {
-                font-weight: bolder;
-              }
-
-              .size {
-                font-style: italic;
-                font-size: 14px;
-              }
-
-              .active {
-                background-color: #ebeff3;
-              }
-
-              .loading {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                font-style: italic;
-              }
-              .loading span {
-                margin-left: 1em;
-              }
-            `}
-            </style>
-          </div>
+          </HolderWrapper>
         )
       }}
     </Dropzone>

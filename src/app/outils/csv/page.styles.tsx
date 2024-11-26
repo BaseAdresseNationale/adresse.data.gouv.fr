@@ -1,16 +1,21 @@
-// <style jsx>{`
-//     .filters {
-//       margin: 1em 0;
-//     }
+'use client'
 
-//     .loading {
-//       display: flex;
-//       flex-direction: column;
-//       align-items: center;
-//       margin: 1em 0;
-//     }
+import styled from 'styled-components'
 
-//     .error {
-//       color: red;
-//     }
-//   `}</style>
+export const TextWrapper = styled.div`
+
+    .filters {
+      margin: 1em 0;
+    }
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 1em 0;
+    }
+
+    .error {
+      color: red;
+    }
+  `

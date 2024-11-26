@@ -14,6 +14,7 @@ import Holder from './components/holder'
 import Table from './components/table'
 import Geocoder from './components/geocoder'
 import Loader from '@/components/Loader/index'
+import { TextWrapper } from './page.styles'
 
 const allowedTypes = new Set([
   'text/plain',
@@ -133,7 +134,7 @@ export default function Csv() {
   const columns = csv ? csv.data[0] : []
   return (
     <>
-      <Breadcrumb
+      {/* <Breadcrumb
         currentPageLabel="Géocodeur"
         segments={[
           {
@@ -143,77 +144,79 @@ export default function Csv() {
             },
           },
         ]}
-      />
+      /> */}
       <Section pageTitle="Géocoder un fichier CSV">
-        <div id="main" className="csvtogeocoder">
-          <div>
-            <h2>1. Choisir un fichier</h2>
+        <TextWrapper>
+          <div id="main" className="csvtogeocoder">
+            <div>
+              <h2>1. Choisir un fichier</h2>
 
-            <Holder
-              file={file}
-              placeholder={`Glissez un fichier ici (max ${MAX_SIZE / (1024 * 1024)} Mo), ou cliquez pour choisir`}
-              isLoading={loading}
-              onDrop={handleFileDrop}
-            />
+              <Holder
+                file={file}
+                placeholder={`Glissez un fichier ici (max ${MAX_SIZE / (1024 * 1024)} Mo), ou cliquez pour choisir`}
+                isLoading={loading}
+                onDrop={handleFileDrop}
+              />
 
-            {loading && (
-              <div className="loading">
-                <h4>Analyse du fichier en cours…</h4>
-                <Loader />
-              </div>
-            )}
+              {loading && (
+                <div className="loading">
+                  <h4>Analyse du fichier en cours…</h4>
+                  <Loader />
+                </div>
+              )}
 
-            {error && <div className="error">{error.message}</div>}
-          </div>
-
-          <div>
-            <div id="preview">
-              <Step title="2. Aperçu du fichier et vérification de l’encodage">
-                {csv && <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />}
-              </Step>
+              {error && <div className="error">{error.message}</div>}
             </div>
 
-            <Step title="3. Choisir les colonnes à utiliser pour construire les adresses">
-              {csv && (
-                <ColumnsSelect
-                  columns={csv.data[0]}
-                  selectedColumns={selectedColumns}
-                  onAdd={handleAddColumn}
-                  onRemove={handleRemoveColumn}
-                />
-              )}
-            </Step>
+            <div>
+              <div id="preview">
+                <Step title="2. Aperçu du fichier et vérification de l’encodage">
+                  {csv && <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />}
+                </Step>
+              </div>
 
-            {csv && (
-              <>
-                <div className="filters">
-                  <Button onClick={toggleAdvancedPanel} style={{ fontSize: '1em', padding: '0.4em 1em' }}>
-                    {advancedPanel ? <p>Minus Icon - </p> : <p>Plus Icon </p>} Paramètres avancés
-                  </Button>
-
-                  {advancedPanel && (
-                    <Filter
-                      selected={filter}
-                      columns={columns}
-                      onSelect={handleFilter}
-                    />
-                  )}
-                </div>
-                {file
-                && (
-                  <Geocoder
-                  // This key should be somehow unique: this means that we
-                  // will get a new state in Geocoder whenever file changes.
-                    key={`${file.name}-${file.size}`}
-                    file={file}
-                    columns={selectedColumns}
-                    filter={filter === null ? undefined : filter}
+              <Step title="3. Choisir les colonnes à utiliser pour construire les adresses">
+                {csv && (
+                  <ColumnsSelect
+                    columns={csv.data[0]}
+                    selectedColumns={selectedColumns}
+                    onAdd={handleAddColumn}
+                    onRemove={handleRemoveColumn}
                   />
                 )}
-              </>
-            )}
+              </Step>
+
+              {csv && (
+                <>
+                  <div className="filters">
+                    <Button onClick={toggleAdvancedPanel} style={{ fontSize: '1em', padding: '0.4em 1em' }}>
+                      {advancedPanel ? <p>Minus Icon - </p> : <p>Plus Icon </p>} Paramètres avancés
+                    </Button>
+
+                    {advancedPanel && (
+                      <Filter
+                        selected={filter}
+                        columns={columns}
+                        onSelect={handleFilter}
+                      />
+                    )}
+                  </div>
+                  {file
+                  && (
+                    <Geocoder
+                      // This key should be somehow unique: this means that we
+                      // will get a new state in Geocoder whenever file changes.
+                      key={`${file.name}-${file.size}`}
+                      file={file}
+                      columns={selectedColumns}
+                      filter={filter === null ? undefined : filter}
+                    />
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        </TextWrapper>
       </Section>
     </>
 
