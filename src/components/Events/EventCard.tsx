@@ -1,6 +1,6 @@
 'use client'
 
-import { EventType } from '@/types/events.types'
+import { EventType, EventTypeTypeEnum } from '@/types/events.types'
 import { StyledEventCard } from './EventCard.styles'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { getFullDate } from '@/utils/date'
@@ -12,12 +12,18 @@ interface EventCardProps {
   isPassed?: boolean
 }
 
-export default function EventCard({ event, isPassed, tagToColor }: EventCardProps) {
-  const { tags, title, description, startHour, endHour, date, address, isOnlineOnly, isSubscriptionClosed, href } = event
+const backgroundColors: Record<string, string> = {
+  [EventTypeTypeEnum.FORMATION]: 'rgba(136, 213, 156, 0.1)',
+  [EventTypeTypeEnum.FORMATION_LVL2]: 'rgba(136, 213, 156, 0.25)',
+}
 
-  const hasLargeDescription = description.length > 200
+export default function EventCard({ event, isPassed, tagToColor }: EventCardProps) {
+  const { tags, title, description, startHour, endHour, date, address, isSubscriptionClosed, href, type } = event
+
+  const hasLargeDescription = description.length > 100
   const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
-  const actualDescription = showAllDescription ? description : description.slice(0, 200) + '...'
+  const actualDescription = showAllDescription ? description : description.slice(0, 100) + '...'
+  const backgroundColor = backgroundColors[type]
 
   const getAdressToString = (adress: EventType['address']) => {
     if (!adress) return ''
@@ -25,7 +31,7 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
   }
 
   return (
-    <StyledEventCard $isPassed={isPassed}>
+    <StyledEventCard $isPassed={isPassed} $backgroundColor={backgroundColor}>
       <div className="badge-wrapper">
         <>{tags.map(tag => <Badge style={{ backgroundColor: tagToColor[tag].background, color: tagToColor[tag].color, marginRight: 4 }} key={tag} small>{tag}</Badge>)}</>
       </div>
@@ -34,7 +40,7 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
         <span>{getFullDate(new Date(date))}</span>
         {' | '}
         <span>{startHour} - {endHour}</span>
-        {isOnlineOnly ? <span> | En ligne</span> : address ? <span> | {getAdressToString(address)}</span> : null}
+        {address?.commune ? <span> | {getAdressToString(address)}</span> : null}
       </div>
       <h3>{title}</h3>
       <p>

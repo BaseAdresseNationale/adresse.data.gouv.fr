@@ -11,7 +11,7 @@ export function mapEvents(events: EventType[], typeFilter?: string) {
     const [hourB, minuteB] = b.startHour.split(':')
     dateB.setHours(parseInt(hourB), parseInt(minuteB))
 
-    return dateB.getTime() - dateA.getTime()
+    return dateA.getTime() - dateB.getTime()
   })
 
   if (typeFilter) {

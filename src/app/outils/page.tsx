@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 
 import Button from '@codegouvfr/react-dsfr/Button'
 import Card from '@codegouvfr/react-dsfr/Card'

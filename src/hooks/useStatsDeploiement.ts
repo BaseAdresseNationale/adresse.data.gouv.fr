@@ -4,7 +4,23 @@ import { getEpciCommunes, getDepartementCommunes, getCommunes } from '@/lib/api-
 import { BANStats } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { DEFAULT_CENTER, DEFAULT_ZOOM } from '@/components/Map/map.config'
-import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
+
+export type DeploiementBALSearchResultEPCI = {
+  type: 'EPCI'
+  code: string
+  nom: string
+  center: { type: string, coordinates: [number, number] }
+  contour: { type: string, coordinates: number[][][] }
+}
+
+export type DeploiementBALSearchResultDepartement = {
+  type: 'Département'
+  code: string
+  nom: string
+  center: { type: string, coordinates: [number, number] }
+}
+
+export type DeploiementBALSearchResult = DeploiementBALSearchResultEPCI | DeploiementBALSearchResultDepartement
 
 const communesWithArrondissements = { 75056: 'Paris', 69123: 'Lyon', 13055: 'Marseille' }
 

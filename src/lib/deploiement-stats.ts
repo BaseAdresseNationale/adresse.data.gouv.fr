@@ -1,7 +1,7 @@
 import { customFetch } from './fetch'
 import { keyBy, groupBy } from 'lodash'
 import { getContourCommune } from '../utils/contours-communes'
-import { DeploiementBALSearchResult } from '@/app/deploiement-bal/page'
+import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 
 if (!process.env.NEXT_PUBLIC_API_BAN_URL) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined in the environment')
@@ -136,4 +136,4 @@ export async function computeStats({ currentRevisions, communesSummary, bals }: 
   }
 }
 
-export const mapToSearchResult = (values: any[], type: 'EPCI' | 'Département'): DeploiementBALSearchResult[] => values.map(({ code, nom, centre, contour }) => ({ code, type, nom, center: centre, contour }))
+export const mapToSearchResult = (values: any[], type: DeploiementBALSearchResult['type']): DeploiementBALSearchResult[] => values.map(({ code, nom, centre, contour }) => ({ code, type, nom, center: centre, contour }))

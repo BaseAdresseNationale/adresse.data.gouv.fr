@@ -5,7 +5,6 @@ import { Table } from '@codegouvfr/react-dsfr/Table'
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
-  getBanItem,
   getDistrict,
   getCommune as getBANCommune,
   assemblageSources,
@@ -14,7 +13,7 @@ import { formatFr } from '@/lib/array'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
-import { getCommuneFlag } from '@/lib/api-wikidata'
+import { getCommuneFlag } from '@/lib/api-blasons-communes'
 
 import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
