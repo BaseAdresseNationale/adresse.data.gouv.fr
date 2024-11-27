@@ -83,7 +83,7 @@ export default function RessourcesPage() {
         id="ressources-adressage"
         theme="primary"
       />
-      <Section theme="secondary" className="stay-tuned">
+      <Section className="stay-tuned">
         <div>
           <div className="text-wrapper">
             <i className="ri-information-line" />
@@ -100,7 +100,7 @@ export default function RessourcesPage() {
           </div>
         </div>
       </Section>
-      <Section id="guide-mes-adresses" className="guide-section">
+      <Section theme="primary" id="guide-mes-adresses" className="guide-section">
         <div>
           <div className="text-wrapper">
             <div>
@@ -124,7 +124,7 @@ export default function RessourcesPage() {
           </div>
         </div>
       </Section>
-      <Section theme="grey" className="guide-section">
+      <Section className="guide-section">
         <div>
           <div className="illustration-wrapper">
             <DownloadGuideCard imgProps={{ src: '/documentation-bal/guide-bonnes-pratiques.png', alt: 'Illustration guide bonnes pratiques', style: { width: 220, height: 300 } }} downloadlink="/documentation-bal/guide-mes-adresses-v8.2.pdf" />

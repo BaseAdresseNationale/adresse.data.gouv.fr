@@ -43,8 +43,6 @@ export default function DownloadGuideCard({
     window.open(downloadlink, '_blank')
   }
 
-  console.log('isHovered', isHovered)
-
   return (
     <StyledWrapper onClick={handleClick} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => { setIsHovered(false) }}>
       {isHovered && <div className="hover-background"><span className="fr-icon-download-line" /></div>}
