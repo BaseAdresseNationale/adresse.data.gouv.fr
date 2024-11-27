@@ -65,6 +65,10 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/commune' },
       },
       {
+        text: 'Documentation Base Adresse Locale',
+        linkProps: { href: '/documentation-bal' },
+      },
+      {
         text: 'Application Mes adresses',
         linkProps: {
           href: 'https://mes-adresses.data.gouv.fr/',
