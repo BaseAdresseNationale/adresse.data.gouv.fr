@@ -13,6 +13,7 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
         margin-bottom: 2rem;
 
         .commune-general-info {
+            line-height: normal;
             display: flex;
             flex-direction: column;
             align-items: center;
