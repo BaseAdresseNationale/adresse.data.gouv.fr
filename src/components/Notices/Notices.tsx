@@ -14,11 +14,13 @@ interface NoticeProps {
     }
   }[]
   duration?: number
+  className?: string
 }
 
 function Notice({
   data = [],
   duration = 4000,
+  className,
 }: NoticeProps) {
   const [titleId, setTitleId] = useState(0)
 
@@ -35,7 +37,7 @@ function Notice({
   const title = text && (data.length > 1 ? `(${titleId + 1}/${data.length}) ${text}` : text)
 
   return title && (
-    <NoticeWrapper>
+    <NoticeWrapper className={className}>
       <NoticeDSFR
         title={<NoticeMessage {...(link ? { as: 'a', ...link } : {})}>{title}</NoticeMessage>}
         isClosable

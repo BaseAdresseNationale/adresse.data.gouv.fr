@@ -1,11 +1,19 @@
+import { useCallback, useState, useMemo } from 'react'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { env } from 'next-runtime-env'
 import { Footer as FooterDSFR } from '@codegouvfr/react-dsfr/Footer'
 import { Follow } from '@codegouvfr/react-dsfr/Follow'
 import { headerFooterDisplayItem } from '@codegouvfr/react-dsfr/Display'
-import { useCallback, useState } from 'react'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
+
 import { newsletterOptIn } from '@/lib/api-brevo'
-import { env } from 'next-runtime-env'
+import { useMainLayout } from '@/layouts/MainLayout'
+
+import {
+  FooterWrapper,
+  FooterDisplayButton,
+  FooterBody,
+} from './Footer.styles'
 
 const SOCIAL_NETWORKS_URL_MASTODON = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTODON')
 const SOCIAL_NETWORKS_URL_FACEBOOK = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBOOK')
@@ -19,9 +27,12 @@ const NewsletterOptinWithNoSSR = dynamic(
 )
 
 export default function Footer() {
+  const { typeLayout } = useMainLayout()
   const [success, setSuccess] = useState(false)
   const [email, setEmail] = useState('')
   const [showCaptcha, setShowCaptcha] = useState(false)
+
+  const size = useMemo(() => (typeLayout === 'full-screen' ? 'hidden' : 'default'), [typeLayout])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -39,128 +50,131 @@ export default function Footer() {
   }, [email])
 
   return (
-    <>
-      <Follow
-        newsletter={{
-          buttonProps: {
-            type: 'submit',
-            disabled: !email,
-          },
-          desc: (
+    <FooterWrapper $isHidden={size === 'hidden'}>
+      <FooterDisplayButton />
+      <FooterBody>
+        <Follow
+          newsletter={{
+            buttonProps: {
+              type: 'submit',
+              disabled: !email,
+            },
+            desc: (
+              <>
+                Recevez toutes les informations de la base adresse nationale !
+                <br />
+                <Link href="/newsletters">
+                  Découvrez nos dernières newsletters
+                </Link>
+              </>),
+            form: {
+              formComponent: ({ children }) => <NewsletterOptinWithNoSSR showCatpcha={showCaptcha} handleSubmit={handleSubmit} onVerified={handleOptIn}>{children}</NewsletterOptinWithNoSSR>,
+              successMessage: 'Vous êtes bien inscrit à la newsletter',
+              success,
+              inputProps: {
+                value: email,
+                onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+                type: 'email',
+              } as any,
+            },
+          }}
+          social={{
+            buttons: [
+              {
+                linkProps: {
+                  href: SOCIAL_NETWORKS_URL_XCOM as unknown as URL ?? '',
+                  target: '_blank',
+                },
+                type: 'twitter-x',
+              },
+              {
+                linkProps: {
+                  href: SOCIAL_NETWORKS_URL_MASTODON as unknown as URL ?? '',
+                  target: '_blank',
+                },
+                type: 'mastodon',
+              },
+              {
+                linkProps: {
+                  href: SOCIAL_NETWORKS_URL_LINKEDIN as unknown as URL ?? '',
+                  target: '_blank',
+                },
+                type: 'linkedin',
+              },
+              {
+                linkProps: {
+                  href: SOCIAL_NETWORKS_URL_GITHUB as unknown as URL ?? '',
+                  target: '_blank',
+                },
+                type: 'github',
+              },
+            ],
+          }}
+        />
+        <FooterDSFR
+          brandTop={(
             <>
-              Recevez toutes les informations de la base adresse nationale !
+              RÉPUBLIQUE
               <br />
-              <Link href="/newsletters">
-                Découvrez nos dernières newsletters
-              </Link>
-            </>),
-          form: {
-            formComponent: ({ children }) => <NewsletterOptinWithNoSSR showCatpcha={showCaptcha} handleSubmit={handleSubmit} onVerified={handleOptIn}>{children}</NewsletterOptinWithNoSSR>,
-            successMessage: 'Vous êtes bien inscrit à la newsletter',
-            success,
-            inputProps: {
-              value: email,
-              onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
-              type: 'email',
-            } as any,
-          },
-        }}
-        social={{
-          buttons: [
+              FRANÇAISE
+            </>
+          )}
+          accessibility="non compliant"
+          operatorLogo={{
+            alt: '[À MODIFIER - texte alternatif de l’image]',
+            imgUrl: '/logo-ban-site.svg',
+            orientation: 'vertical',
+          }}
+          contentDescription={(
+            <>
+              Adresse<b>.data.gouv</b><i>.fr</i> &nbsp;-&nbsp; Le site national officiel de l’adresse. <br />
+              Service public gratuit pour référencer l’intégralité des adresses du
+              territoire et les rendre utilisables par tous. Retrouvez-y toutes
+              les informations et démarches administratives nécessaires à la
+              création et à la gestion des adresses.
+            </>
+          )}
+          homeLinkProps={{
+            href: '/',
+            title: 'Adresse.data.gouv.fr - Accueil',
+          }}
+          accessibilityLinkProps={{
+            href: '/accessibilite',
+          }}
+          termsLinkProps={{
+            href: '/mentions-legales',
+          }}
+          bottomItems={[
             {
-              linkProps: {
-                href: SOCIAL_NETWORKS_URL_XCOM as unknown as URL ?? '',
-                target: '_blank',
-              },
-              type: 'twitter-x',
-            },
-            {
-              linkProps: {
-                href: SOCIAL_NETWORKS_URL_MASTODON as unknown as URL ?? '',
-                target: '_blank',
-              },
-              type: 'mastodon',
-            },
-            {
-              linkProps: {
-                href: SOCIAL_NETWORKS_URL_LINKEDIN as unknown as URL ?? '',
-                target: '_blank',
-              },
-              type: 'linkedin',
+              text: 'CGU',
+              linkProps: { href: '/cgu' },
             },
             {
+              text: 'Statistiques',
+              linkProps: { href: '/stats' },
+            },
+            {
+              text: 'Contact',
+              linkProps: { href: '/nous-contacter' },
+            },
+            {
+              text: 'Documentation',
               linkProps: {
-                href: SOCIAL_NETWORKS_URL_GITHUB as unknown as URL ?? '',
+                href: 'https://doc.adresse.data.gouv.fr/',
                 target: '_blank',
               },
-              type: 'github',
             },
-          ],
-        }}
-      />
-      <FooterDSFR
-        brandTop={(
-          <>
-            RÉPUBLIQUE
-            <br />
-            FRANÇAISE
-          </>
-        )}
-        accessibility="non compliant"
-        operatorLogo={{
-          alt: '[À MODIFIER - texte alternatif de l’image]',
-          imgUrl: '/logo-ban-site.svg',
-          orientation: 'vertical',
-        }}
-        contentDescription={(
-          <>
-            Adresse<b>.data.gouv</b><i>.fr</i> &nbsp;-&nbsp; Le site national officiel de l’adresse. <br />
-            Service public gratuit pour référencer l’intégralité des adresses du
-            territoire et les rendre utilisables par tous. Retrouvez-y toutes
-            les informations et démarches administratives nécessaires à la
-            création et à la gestion des adresses.
-          </>
-        )}
-        homeLinkProps={{
-          href: '/',
-          title: 'Adresse.data.gouv.fr - Accueil',
-        }}
-        accessibilityLinkProps={{
-          href: '/accessibilite',
-        }}
-        termsLinkProps={{
-          href: '/mentions-legales',
-        }}
-        bottomItems={[
-          {
-            text: 'CGU',
-            linkProps: { href: '/cgu' },
-          },
-          {
-            text: 'Statistiques',
-            linkProps: { href: '/stats' },
-          },
-          {
-            text: 'Contact',
-            linkProps: { href: '/nous-contacter' },
-          },
-          {
-            text: 'Documentation',
-            linkProps: {
-              href: 'https://doc.adresse.data.gouv.fr/',
-              target: '_blank',
+            {
+              text: 'Supervision BAN/BAL',
+              linkProps: {
+                href: 'https://status.adresse.data.gouv.fr/',
+                target: '_blank',
+              },
             },
-          },
-          {
-            text: 'Supervision BAN/BAL',
-            linkProps: {
-              href: 'https://status.adresse.data.gouv.fr/',
-              target: '_blank',
-            },
-          },
-          headerFooterDisplayItem,
-        ]}
-      />
-    </>
+            headerFooterDisplayItem,
+          ]}
+        />
+      </FooterBody>
+    </FooterWrapper>
   )
 }
