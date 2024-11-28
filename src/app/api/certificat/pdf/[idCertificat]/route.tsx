@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
-
 import { getMairie } from '@/lib/api-etablissement-public'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 import { env } from 'next-runtime-env'
