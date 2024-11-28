@@ -5,9 +5,9 @@ import remarkHeadingId from 'remark-heading-id'
 
 import html from 'remark-html'
 import matter from 'gray-matter'
-
-const { NEXT_PUBLIC_ADRESSE_URL, NODE_ENV } = process.env
-
+import { env } from 'next-runtime-env'
+const NODE_ENV = env('NODE_ENV')
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 // fix unknown property on matter.GrayMatterFile
 // https://github.com/jonschlinkert/gray-matter/issues/160
 interface GreyMatter extends matter.GrayMatterFile<string> {

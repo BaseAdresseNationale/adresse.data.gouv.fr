@@ -44,6 +44,7 @@
     "lodash": "^4.17.21",
     "maplibre-gl": "^4.7.1",
     "next": "14.2.5",
+    "next-runtime-env": "^3.2.2",
     "node-fetch": "^3.3.2",
     "path": "^0.12.7",
     "prop-types": "^15.8.1",

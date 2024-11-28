@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {
   createProxyMiddleware,
 } from 'http-proxy-middleware'
+import { env } from 'next-runtime-env'
 
 export const config = {
   api: {
@@ -13,10 +14,10 @@ export const config = {
 }
 
 const proxy = createProxyMiddleware<NextApiRequest, NextApiResponse>({
-  target: process.env.NEXT_PUBLIC_API_DEPOT_URL,
+  target: env('NEXT_PUBLIC_API_DEPOT_URL'),
   changeOrigin: true,
   headers: {
-    Authorization: `Token ${process.env.API_DEPOT_TOKEN}`,
+    Authorization: `Token ${env('API_DEPOT_TOKEN')}`,
   },
   pathRewrite: {
     '^/api/proxy-api-depot': '',

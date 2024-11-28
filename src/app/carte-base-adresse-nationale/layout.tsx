@@ -9,6 +9,8 @@ import { BALWidgetContext } from '@/contexts/BALWidget.context'
 import { BanMapProvider, useBanMapConfig } from './components/ban-map/BanMap.context'
 import { theme } from './components/ban-map/theme'
 import Legend from './components/Legend'
+import { PublicEnvScript } from 'next-runtime-env'
+
 import {
   CartoWrapper,
   CartoMenu,
@@ -92,6 +94,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   return (
     <BanMapProvider>
+      <PublicEnvScript />
       <Carto>
         { children }
       </Carto>

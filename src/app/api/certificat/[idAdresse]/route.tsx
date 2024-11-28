@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAddress, getDistrict } from '@/lib/api-ban'
-const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
-const BAN_API_TOKEN = process.env.BAN_API_TOKEN
+import { env } from 'next-runtime-env'
+
+const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
+const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
 const isAddressCertifiable = async ({ banId, sources, certifie, parcelles }: any): Promise<boolean> => {
   return !!banId && sources?.includes('bal') && certifie && parcelles?.length > 0

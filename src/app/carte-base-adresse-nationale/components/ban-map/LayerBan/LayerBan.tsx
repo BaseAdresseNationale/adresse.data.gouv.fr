@@ -11,8 +11,9 @@ import {
 
 import type { FillLayer } from 'react-map-gl/maplibre'
 import type { Address } from '../types.d'
+import { env } from 'next-runtime-env'
 
-const API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
+const API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 function LayerBan({ address }: { address: Address }) {
   const isAdresseFilter = useMemo(() => ['==', ['get', 'id'], address?.id], [address])

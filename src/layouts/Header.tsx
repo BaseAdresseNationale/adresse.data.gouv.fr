@@ -9,8 +9,9 @@ import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import Notices from '@/components/Notices'
 
 import { CornerRibbons } from './Header.styles'
+import { env } from 'next-runtime-env'
 
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
 const markAsActive = (
   navigation: MainNavigationProps.Item[],

@@ -4,6 +4,7 @@ import Section from '@/components/Section'
 import VideoMiniature from '@/components/VideoMiniature'
 import { getBalEvents } from '@/lib/api-bal-admin'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
+export const dynamic = 'force-dynamic'
 
 const videoFormations = [
   {

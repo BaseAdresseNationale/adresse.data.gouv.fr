@@ -2,14 +2,15 @@ import { customFetch } from '@/lib/fetch'
 import { Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
+import { env } from 'next-runtime-env'
 
-if (!process.env.NEXT_PUBLIC_API_DEPOT_URL) {
+if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
 }
 
 export async function getHabilitation(habilitationId: string, opts = { useProxy: true }): Promise<Habilitation> {
-  const baseUrl = opts.useProxy ? '/api/proxy-api-depot' : `${process.env.NEXT_PUBLIC_API_DEPOT_URL}`
-  const fetchOptions = opts.useProxy ? {} : { headers: { Authorization: `Token ${process.env.API_DEPOT_TOKEN}` } }
+  const baseUrl = opts.useProxy ? '/api/proxy-api-depot' : `${env('NEXT_PUBLIC_API_DEPOT_URL')}`
+  const fetchOptions = opts.useProxy ? {} : { headers: { Authorization: `Token ${env('API_DEPOT_TOKEN')}` } }
 
   return customFetch(`${baseUrl}/habilitations/${habilitationId}`, fetchOptions)
 }
@@ -33,15 +34,15 @@ export function validateHabilitationPinCode(habilitationId: string, code: string
 }
 
 export async function getRevision(revisionId: string): Promise<Revision> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_DEPOT_URL}/revisions/${revisionId}`)
+  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}`)
 }
 
 export async function getCurrentRevision(codeCommune: string): Promise<Revision | undefined> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_DEPOT_URL}/communes/${codeCommune}/current-revision`)
+  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision`)
 }
 
 export async function getRevisions(codeCommune: string): Promise<Revision[]> {
-  const revisions = await customFetch(`${process.env.NEXT_PUBLIC_API_DEPOT_URL}/communes/${codeCommune}/revisions`)
+  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/revisions`)
 
   return revisions.sort((a: Revision, b: Revision) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -81,7 +82,7 @@ export function publishRevision(revisionId: string, body: string) {
 }
 
 export const getRevisionDownloadUrl = (revisionId: string) => {
-  return `${process.env.NEXT_PUBLIC_API_DEPOT_URL}/revisions/${revisionId}/files/bal/download`
+  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}/files/bal/download`
 }
 
 const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'long', year: 'numeric' })

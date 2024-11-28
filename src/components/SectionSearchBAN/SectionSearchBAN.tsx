@@ -16,8 +16,9 @@ import {
   FormDescription,
   ButtonLink,
 } from './SectionSearchBAN.styles'
+import { env } from 'next-runtime-env'
 
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
 interface SectionSearchBANProps {
   id?: string

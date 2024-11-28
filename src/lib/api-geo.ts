@@ -1,12 +1,13 @@
 import { Commune, Departement, EPCI } from '@/types/api-geo.types'
 import { customFetch } from './fetch'
+import { env } from 'next-runtime-env'
 
-if (!process.env.NEXT_PUBLIC_API_GEO_URL) {
+if (!env('NEXT_PUBLIC_API_GEO_URL')) {
   throw new Error('NEXT_PUBLIC_API_GEO_URL is not defined')
 }
 
 export function getDepartements(): Promise<Departement[]> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/departements`)
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements`)
 }
 
 export function isCodeDepNaive(token: string) {
@@ -18,11 +19,11 @@ export function isCodeDepNaive(token: string) {
 }
 
 export function getCommune(code: string): Promise<Commune> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/communes/${code}`)
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/communes/${code}`)
 }
 
 export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_API_GEO_URL}/epcis/${code}`)
+  const url = new URL(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${code}`)
 
   if (fields) {
     url.searchParams.append('fields', fields.toString())
@@ -34,7 +35,7 @@ export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
 export function getCommunes(args: any): Promise<Commune[]> {
   const { q, fields, limit, boost, type } = args
   const code = q.match(/^\d{5}$/) ? q : undefined
-  let url = code ? `${process.env.NEXT_PUBLIC_API_GEO_URL}/communes?code=${code}` : `${process.env.NEXT_PUBLIC_API_GEO_URL}/communes?nom=${encodeURIComponent(q)}`
+  let url = code ? `${env('NEXT_PUBLIC_API_GEO_URL')}/communes?code=${code}` : `${env('NEXT_PUBLIC_API_GEO_URL')}/communes?nom=${encodeURIComponent(q)}`
 
   if (fields) {
     url += `&fields=${fields.join(',')}`
@@ -56,7 +57,7 @@ export function getCommunes(args: any): Promise<Commune[]> {
 }
 
 export function getEpcis({ q, limit, fields }: { q: string, limit: number, fields: string[] }): Promise<EPCI[]> {
-  const url = new URL(`${process.env.NEXT_PUBLIC_API_GEO_URL}/epcis`)
+  const url = new URL(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis`)
 
   if (q) {
     url.searchParams.append('nom', q)
@@ -74,9 +75,9 @@ export function getEpcis({ q, limit, fields }: { q: string, limit: number, field
 }
 
 export function getEpciCommunes(code: string): Promise<Commune[]> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/epcis/${code}/communes`)
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${code}/communes`)
 }
 
 export function getDepartementCommunes(code: string): Promise<Commune[]> {
-  return customFetch(`${process.env.NEXT_PUBLIC_API_GEO_URL}/departements/${code}/communes`)
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}/communes`)
 }

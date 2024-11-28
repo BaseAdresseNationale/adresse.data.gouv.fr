@@ -2,16 +2,17 @@ import { customFetch } from './fetch'
 import { keyBy, groupBy } from 'lodash'
 import { getContourCommune } from '../utils/contours-communes'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
+import { env } from 'next-runtime-env'
 
-if (!process.env.NEXT_PUBLIC_API_BAN_URL) {
+if (!env('NEXT_PUBLIC_API_BAN_URL')) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined in the environment')
 }
 
-if (!process.env.NEXT_PUBLIC_API_DEPOT_URL) {
+if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined in the environment')
 }
 
-if (!process.env.NEXT_PUBLIC_BAL_API_URL) {
+if (!env('NEXT_PUBLIC_BAL_API_URL')) {
   throw new Error('NEXT_PUBLIC_BAL_API_URL is not defined in the environment')
 }
 
@@ -59,9 +60,9 @@ type CommuneSummary = {
 }
 
 export async function fetchStatsData() {
-  const currentRevisions: RevisionSummary[] = await customFetch(`${process.env.NEXT_PUBLIC_API_DEPOT_URL}/current-revisions`)
-  const communesSummary: CommuneSummary[] = await customFetch(`${process.env.NEXT_PUBLIC_API_BAN_URL}/api/communes-summary`)
-  const bals = await customFetch(`${process.env.NEXT_PUBLIC_BAL_API_URL}/stats/bals?fields=id&fields=commune&fields=status`, { method: 'POST' })
+  const currentRevisions: RevisionSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/current-revisions`)
+  const communesSummary: CommuneSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/communes-summary`)
+  const bals = await customFetch(`${env('NEXT_PUBLIC_BAL_API_URL')}/stats/bals?fields=id&fields=commune&fields=status`, { method: 'POST' })
 
   return { currentRevisions, communesSummary, bals }
 }

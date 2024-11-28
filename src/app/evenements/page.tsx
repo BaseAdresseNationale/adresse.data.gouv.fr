@@ -6,6 +6,8 @@ import EventCard from '@/components/Events/EventCard'
 import { EventType } from '@/types/events.types'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 
+export const dynamic = 'force-dynamic'
+
 export default async function EvenementsPage() {
   const balEvents = await getBalEvents()
 

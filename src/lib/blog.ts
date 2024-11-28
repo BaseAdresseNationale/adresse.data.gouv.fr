@@ -1,7 +1,7 @@
-import getConfig from 'next/config'
+import { env } from 'next-runtime-env'
 
-const URL = process.env.NEXT_PUBLIC_GHOST_URL
-const KEY = process.env.NEXT_PUBLIC_GHOST_KEY
+const URL = env ('NEXT_PUBLIC_GHOST_URL')
+const KEY = env ('NEXT_PUBLIC_GHOST_KEY')
 
 const LIMIT = 15
 const INCLUDE = 'authors,tags'
