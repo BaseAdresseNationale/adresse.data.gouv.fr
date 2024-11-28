@@ -28,7 +28,7 @@ export const MicroToponymAddressListTable = styled(Table)`
     }
 
     th:nth-child(2) {
-      width: 4rem;
+      width: 5rem;
       text-align: center;
     }
   }

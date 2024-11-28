@@ -17,6 +17,7 @@ body {
 // Quik fix for DSFR Table component
 .fr-table > table {
   display: table;
+}
 `
 
 export default GlobalStyle

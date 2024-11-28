@@ -14,8 +14,7 @@ export const MicroToponymHeaderWrapper = styled.div`
   border-bottom: 4px solid var(--border-active-blue-france);
 `
 
-export const MicroToponymLabelWrapper = styled.div`
-`
+export const MicroToponymLabelWrapper = styled.div``
 
 export const MicroToponymLabel = styled.span`
   display: block;
@@ -34,7 +33,6 @@ export const MicroToponymLabelAlt = styled.span`
 `
 
 const flagSize = '1.3em'
-
 export const MicroToponymLabelFlag = styled(Image).attrs({
   width: 24,
   height: 24,

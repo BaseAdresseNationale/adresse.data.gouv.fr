@@ -4,14 +4,15 @@ import styled from 'styled-components'
 
 export const MapSearchResultsWrapper = styled.div`
   min-height: 200%;
-  padding: 8.5rem 1rem 1rem;
-  background-color: var(--background-default-grey);
+  padding: 1rem;
   scroll-snap-align: start;
-  pointer-events: auto;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     width: 100%;
     min-height: 100%;
     margin-top: 0;
   }
 `
+
+export const MapSearchResultsHead = styled.div``
+export const MapSearchResultsBody = styled.div``

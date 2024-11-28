@@ -1,17 +1,16 @@
 import { useMemo } from 'react'
-
-import { isNumeroCertifiable } from '@/lib/ban'
-import { useFocusOnMap } from '../ban-map/BanMap.context'
-
 import Button from '@codegouvfr/react-dsfr/Button'
 
-import DownloadCertificate from './download-certificate'
+import { isNumeroCertifiable } from '@/lib/ban'
+
+import { useFocusOnMap } from '../ban-map/BanMap.context'
+import DownloadCertificate from './DownloadCertificate'
 
 import {
   AsideFooterWrapper,
   ActionWrapper,
   ActionList,
-} from './AsideFooterAddress.styles'
+} from './PanelAddressFooter.styles'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 

@@ -1,23 +1,12 @@
+import Link from 'next/link'
 import {
   AddressDetailsItemValue,
-
-  AddressHeaderWrapper,
-
-  AddressLabelWrapper,
-  AddressPostCode,
-
-  AddressNumberAndMicroTopoLabel,
-  AddressMicroTopoLabelAlt,
-  AddressMicroTopoLabelFlag,
-
-  AddressDistrictLabelPrefix,
-  AddressDistrictLabel,
   AddressDetailsWrapper,
   AddressDetailsItem,
-} from './AddressCard.styles'
+} from './PanelAddress.styles'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
-interface AddressCardProps {
+interface PanelAddressProps {
   address: TypeAddressExtended
 }
 
@@ -26,9 +15,7 @@ interface Position {
   positionType: TypeAddressExtended['positionType']
 }
 
-function AddressCard({ address }: AddressCardProps) {
-  const district = address.commune
-  const microToponym = address.voie
+function PanelAddress({ address }: PanelAddressProps) {
   const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
@@ -59,31 +46,19 @@ function AddressCard({ address }: AddressCardProps) {
 
   return (
     <>
-      <AddressHeaderWrapper>
-        <AddressLabelWrapper>
-          <AddressNumberAndMicroTopoLabel>
-            {address.numero ? `${address.numero} ` : ''}
-            {address.suffixe ? `${address.suffixe} ` : ''}<br />
-            {microToponym.nomVoie},
-          </AddressNumberAndMicroTopoLabel>
-          {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
-            <AddressMicroTopoLabelAlt key={lang}>
-              <AddressMicroTopoLabelFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
-              {odonyme}
-            </AddressMicroTopoLabelAlt>
-          ))}
-          {address.nomAncienneCommune && (
-            <>
-              <AddressDistrictLabelPrefix>Commune historique de </AddressDistrictLabelPrefix>
-              <AddressDistrictLabel $historique>{address.nomAncienneCommune},</AddressDistrictLabel>
-            </>
-          )}
-          <AddressPostCode>CP {address.codePostal},</AddressPostCode>
-          <AddressDistrictLabel>{district.nom} (COG  {district.code})</AddressDistrictLabel>
-        </AddressLabelWrapper>
-      </AddressHeaderWrapper>
+      <div>
+        <Link
+          href={`./commune/${address.commune.code}`}
+          className="fr-link fr-link--icon-right fr-icon-arrow-right-line"
+        >
+          En savoir plus sur la commune de {address.commune.nom}
+        </Link>
+      </div>
 
       <AddressDetailsWrapper>
+        <AddressDetailsItem className="ri-verified-badge-fill">
+          <strong>{address.certifie ? `Adresse certifiée` : 'Adresse non certifiée'}</strong>
+        </AddressDetailsItem>
         <AddressDetailsItem className="ri-key-line">
           <span>
             Identifiant BAN : <br />
@@ -138,4 +113,4 @@ function AddressCard({ address }: AddressCardProps) {
   )
 }
 
-export default AddressCard
+export default PanelAddress

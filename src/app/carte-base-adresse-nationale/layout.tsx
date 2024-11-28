@@ -5,6 +5,7 @@ import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import SearchBAN from '@/components/SearchBAN'
 import { BALWidgetContext } from '@/contexts/BALWidget.context'
+import { useMainLayout } from '@/layouts/MainLayout'
 
 import { BanMapProvider, useBanMapConfig } from './components/ban-map/BanMap.context'
 import { theme } from './components/ban-map/theme'
@@ -34,10 +35,18 @@ const RingButton = ({ tooltip, ...props }: { tooltip?: string, [key: string]: an
 }
 
 function Carto({ children }: { children: JSX.Element }) {
+  const { setTypeLayout } = useMainLayout()
+
   const [isLegendVisible, setIsLegendVisible] = useState(false)
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
   const { mapStyle, displayLandRegister } = banMapConfig
+
+  useEffect(() => {
+    setTypeLayout('full-screen')
+    window?.setTimeout(() => window?.scrollTo(0, 1), 1000)
+    return () => setTypeLayout('default')
+  }, [setTypeLayout])
 
   const toggleLegend = useCallback(() => {
     setIsLegendVisible(!isLegendVisible)

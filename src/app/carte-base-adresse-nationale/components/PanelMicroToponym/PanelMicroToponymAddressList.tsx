@@ -4,10 +4,11 @@ import { fr } from '@codegouvfr/react-dsfr'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 
 import sortAddresses from '../../tools/sortAddresses'
+
 import {
   MicroToponymAddressListInfo,
   MicroToponymAddressListTable,
-} from './MicroToponymAddressList.styles'
+} from './PanelMicroToponymAddressList.styles'
 
 import type { SortAddressesEntry } from '../../tools/sortAddresses'
 import type { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
@@ -15,11 +16,11 @@ import { env } from 'next-runtime-env'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
-interface MicroToponymAddressListProps {
+interface PanelMicroToponymAddressListProps {
   microToponym: TypeMicroToponymExtended
 }
 
-function MicroToponymAddressList({ microToponym }: MicroToponymAddressListProps) {
+function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddressListProps) {
   const [isAddressUncertifiedVisible, setIsAddressUncertifiedVisible] = useState(true)
   const [isAddressCertifiedVisible, setIsAddressCertifiedVisible] = useState(true)
   const addressesUncertified = useMemo(
@@ -64,7 +65,7 @@ function MicroToponymAddressList({ microToponym }: MicroToponymAddressListProps)
       <MicroToponymAddressListTable
         headers={[
           <>N° ({addresses.length} trouvés dans l’odonyme)</>,
-          'État',
+          'Certif.',
         ]}
         data={
           addresses.map((address: any) => (
@@ -84,4 +85,4 @@ function MicroToponymAddressList({ microToponym }: MicroToponymAddressListProps)
   )
 }
 
-export default MicroToponymAddressList
+export default PanelMicroToponymAddressList

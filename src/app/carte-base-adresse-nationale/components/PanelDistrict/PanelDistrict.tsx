@@ -1,44 +1,21 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
 import formatNumber from '../../tools/formatNumber'
+import PanelDistrictMicroToponymList from './PanelDistrictMicroToponymList'
 import {
-  DistrictHeaderWrapper,
-  DistrictLabelWrapper,
-  DistrictLabelPrefix,
-  DistrictLabel,
-  DistrictLabelCode,
-  DistrictLogoWrapper,
   DistrictDetailsWrapper,
   DistrictDetailsItem,
-} from './DistrictCard.styles'
+} from './PanelDistrict.styles'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
-interface DistrictCardProps {
+interface PanelDistrictProps {
   district: TypeDistrictExtended
-  logo?: string
 }
 
-function DistrictCard({ district, logo }: DistrictCardProps) {
+function PanelDistrict({ district }: PanelDistrictProps) {
   return (
     <>
-      <DistrictHeaderWrapper>
-        {logo && (
-          <DistrictLogoWrapper>
-            <Image width={80} height={80} alt="logo commune par défault" src={logo} />
-          </DistrictLogoWrapper>
-        )}
-
-        <DistrictLabelWrapper>
-          <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
-          <DistrictLabel>
-            {district.nomCommune}
-          </DistrictLabel>
-          <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
-        </DistrictLabelWrapper>
-      </DistrictHeaderWrapper>
-
       <DistrictDetailsWrapper>
         <DistrictDetailsItem className="ri-group-line">
           <b>{formatNumber(district.population)}</b>&nbsp;habitants
@@ -70,8 +47,10 @@ function DistrictCard({ district, logo }: DistrictCardProps) {
           </Link>
         </div>
       </DistrictDetailsWrapper>
+
+      <PanelDistrictMicroToponymList district={district} />
     </>
   )
 }
 
-export default DistrictCard
+export default PanelDistrict
