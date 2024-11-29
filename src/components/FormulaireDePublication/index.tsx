@@ -12,7 +12,7 @@ import { Commune } from '@/types/api-geo.types'
 import { validateHabilitationPinCode, createHabilitation, createRevision, getHabilitation, sendHabilitationPinCode, getCurrentRevision, publishRevision } from '@/lib/api-depot'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import Image from 'next/image'
-import { getCommuneFlag } from '@/lib/api-blasons-communes'
+import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { HabilitationMethod } from './steps/HablitationMethod'
 import { Habilitation, HabilitationStatus, Revision } from '@/types/api-depot.types'
 import { PinCodeValidation } from './steps/PinCodeValidation'
@@ -81,6 +81,9 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       if (!report.parseOk) {
         throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
       }
+      else if (!report.profilesValidation['1.3'].isValid) {
+        throw new Error('Le fichier n\'est pas valide en version 1.3, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
+      }
       const communes = new Set<string>(Array.from(report.rows.map((r: any) => r.parsedValues.commune_insee || r.additionalValues.cle_interop.codeCommune)))
 
       if (communes.size !== 1) {
@@ -89,7 +92,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
       const [codeCommune] = communes
       const commune = await getCommune(codeCommune)
-      const communeFlagUrl = await getCommuneFlag(codeCommune) || '/commune/default-logo.svg'
+      const communeFlagUrl = await getCommuneFlagProxy(codeCommune)
 
       const habilitation = await createHabilitation(codeCommune)
       setHabilitation(habilitation)
