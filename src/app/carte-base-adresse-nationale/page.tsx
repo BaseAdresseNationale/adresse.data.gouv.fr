@@ -9,7 +9,7 @@ import { getCommuneFlag } from '@/lib/api-wikidata'
 import { getBanItem, getDistrict } from '@/lib/api-ban'
 
 import Aside from './components/Aside'
-import MapDataLoader from './components/MapDataLoader'
+import LoadingBar from './components/LoadingBar'
 import { PanelAddressHeader, PanelAddress, PanelAddressFooter } from './components/PanelAddress'
 import { PanelMicroToponymHeader, PanelMicroToponym, PanelMicroToponymFooter } from './components/PanelMicroToponym'
 import { PanelDistrictHeader, PanelDistrict, PanelDistrictFooter } from './components/PanelDistrict'
@@ -190,6 +190,7 @@ function CartoView() {
 
   return (
     <MapProvider>
+      <LoadingBar $isLoading={isLoadMapSearchResults || isLoadMapTiles} />
       <Map
         ref={banMapRef}
         id="banMapGL"
@@ -218,16 +219,6 @@ function CartoView() {
           onSelect={selectBanItem}
           isCadastreLayersShown={displayLandRegister}
         />
-
-        <Aside isInfo>
-          <MapDataLoader isLoading={isLoadMapSearchResults}>
-            Chargement des données de la BAN...
-          </MapDataLoader>
-
-          <MapDataLoader isLoading={isLoadMapTiles}>
-            Chargement des données cartographiques...
-          </MapDataLoader>
-        </Aside>
 
         <Aside
           onClose={unselectBanItem}
