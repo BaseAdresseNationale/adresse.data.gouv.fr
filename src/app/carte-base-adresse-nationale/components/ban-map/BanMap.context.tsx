@@ -14,7 +14,7 @@ interface MapItem {
 }
 
 const initBanMapConfig = {
-  mapStyle: 'ign-vector',
+  mapStyle: 'osm-vector',
   displayLandRegister: false,
 }
 
