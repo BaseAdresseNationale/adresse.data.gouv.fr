@@ -46,7 +46,6 @@ export const LoadingBar = styled.div<{ $isLoading: boolean }>`
   width: 0;
   height: var(--loading-bar-size);
   background-color: var(--loading-bg-color);
-  z-index: 1;
   transform: translateY(calc(-1 * var(--loading-bar-size)));
   opacity: 0;
   transition: transform 0.3s ease,
