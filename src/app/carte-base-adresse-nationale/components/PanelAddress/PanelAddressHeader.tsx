@@ -1,11 +1,20 @@
+import DistrictLink from '../DistrictLink'
+import formatNumber from '../../tools/formatNumber'
+
+import {
+  PanelDistrictLabelPrefix,
+  PanelDistrictLabel,
+  PanelNumberAndMicroTopoLabel,
+  PanelAddressPostCode,
+  PanelMicroTopoLabelAlt,
+  PanelMicroTopoLabelAltFlag,
+} from '../PanelStyles/PanelStyles'
+
 import {
   AddressLabelWrapper,
-  AddressPostCode,
-  AddressNumberAndMicroTopoLabel,
-  AddressMicroTopoLabelAlt,
-  AddressMicroTopoLabelFlag,
-  AddressDistrictLabelPrefix,
-  AddressDistrictLabel,
+  AddressNumber,
+  AddressNumberSuffix,
+  AddressMicroTopoLabel,
 } from './PanelAddressHeader.styles'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
@@ -21,25 +30,40 @@ function AddressCard({ address }: AddressCardProps) {
   return (
     <>
       <AddressLabelWrapper>
-        <AddressNumberAndMicroTopoLabel>
-          {address.numero ? `${address.numero} ` : ''}
-          {address.suffixe ? `${address.suffixe} ` : ''}<br />
-          {microToponym.nomVoie},
-        </AddressNumberAndMicroTopoLabel>
+        <PanelNumberAndMicroTopoLabel>
+          {(address.numero || address.suffixe) && (
+            <>
+              <AddressNumber>
+                {address.numero ? `${address.numero}` : ''}
+                {address.suffixe && <AddressNumberSuffix>{address.suffixe}</AddressNumberSuffix>}
+              </AddressNumber>
+              {' '}
+            </>
+          )}
+          <AddressMicroTopoLabel $isOnNewLine={Boolean(address.suffixe)}>
+            {microToponym.nomVoie},
+          </AddressMicroTopoLabel>
+        </PanelNumberAndMicroTopoLabel>
+
         {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
-          <AddressMicroTopoLabelAlt key={lang}>
-            <AddressMicroTopoLabelFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
+          <PanelMicroTopoLabelAlt key={lang}>
+            <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
             {odonyme}
-          </AddressMicroTopoLabelAlt>
+          </PanelMicroTopoLabelAlt>
         ))}
+
+        <PanelAddressPostCode>CP {formatNumber(address.codePostal)}</PanelAddressPostCode>
+
         {address.nomAncienneCommune && (
           <>
-            <AddressDistrictLabelPrefix>Commune historique de </AddressDistrictLabelPrefix>
-            <AddressDistrictLabel $historique>{address.nomAncienneCommune},</AddressDistrictLabel>
+            <PanelDistrictLabelPrefix>Commune historique de </PanelDistrictLabelPrefix>
+            <PanelDistrictLabel $historique>{address.nomAncienneCommune},</PanelDistrictLabel>
           </>
         )}
-        <AddressPostCode>CP {address.codePostal},</AddressPostCode>
-        <AddressDistrictLabel>{district.nom} (COG  {district.code})</AddressDistrictLabel>
+        <DistrictLink district={district}>
+          <PanelDistrictLabel>{district.nom} (COG  {district.code})</PanelDistrictLabel>
+        </DistrictLink>
+
       </AddressLabelWrapper>
     </>
   )

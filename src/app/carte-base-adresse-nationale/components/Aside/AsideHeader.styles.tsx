@@ -9,6 +9,7 @@ export const AsideHeader = styled.div`
   overflow: hidden;
   width: 100%;
   padding: 0 1rem 1rem;
+  font-size: 1rem;
   transform: translateY(-100%);
   scroll-snap-align: start;
   scroll-snap-stop: always;

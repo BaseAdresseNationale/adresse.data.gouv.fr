@@ -1,13 +1,16 @@
-import Link from 'next/link'
+import DistrictLink from '../DistrictLink'
 
 import {
   MicroToponymLabelWrapper,
-  MicroToponymDistrictLabelPrefix,
-  MicroToponymDistrictLabel,
-  MicroToponymLabel,
-  MicroToponymLabelAlt,
-  MicroToponymLabelFlag,
 } from './PanelMicroToponymHeader.styles'
+
+import {
+  PanelDistrictLabelPrefix,
+  PanelDistrictLabel,
+  PanelNumberAndMicroTopoLabel,
+  PanelMicroTopoLabelAlt,
+  PanelMicroTopoLabelAltFlag,
+} from '../PanelStyles/PanelStyles'
 
 import type { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
 
@@ -21,17 +24,17 @@ function PanelMicroToponymHeader({ microToponym }: PanelMicroToponymHeaderProps)
   return (
     <>
       <MicroToponymLabelWrapper>
-        <MicroToponymLabel>{microToponym.nomVoie}</MicroToponymLabel>
+        <PanelNumberAndMicroTopoLabel>{microToponym.nomVoie}</PanelNumberAndMicroTopoLabel>
         {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
-          <MicroToponymLabelAlt key={lang}>
-            <MicroToponymLabelFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
+          <PanelMicroTopoLabelAlt key={lang}>
+            <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
             {odonyme}
-          </MicroToponymLabelAlt>
+          </PanelMicroTopoLabelAlt>
         ))}
-        <MicroToponymDistrictLabelPrefix>Commune de </MicroToponymDistrictLabelPrefix>
-        <MicroToponymDistrictLabel $districtCode={district.code}>
-          {district.nom} (COG  {district.code})
-        </MicroToponymDistrictLabel>
+        <DistrictLink district={district}>
+          <PanelDistrictLabelPrefix>Commune de </PanelDistrictLabelPrefix>
+          <PanelDistrictLabel>{district.nom} (COG  {district.code})</PanelDistrictLabel>
+        </DistrictLink>
       </MicroToponymLabelWrapper>
     </>
   )

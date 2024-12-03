@@ -1,6 +1,7 @@
 'use client'
 
 import styled from 'styled-components'
+import Link from 'next/link'
 import { Table } from '@codegouvfr/react-dsfr/Table'
 
 export const MicroToponymAddressListInfo = styled.div.attrs({ className: 'ri-information-line' })`
@@ -17,6 +18,16 @@ export const MicroToponymAddressListInfo = styled.div.attrs({ className: 'ri-inf
     margin-right: 0.25em;
     vertical-align: -0.25rem;
   }
+`
+
+export const MicroToponymAddressLink = styled(Link)`
+        display: inline-flex;
+        gap: 0.25rem;
+
+        span:first-child {
+          min-width: 1.5rem;
+          text-align: right;
+        }
 `
 
 export const MicroToponymAddressListTable = styled(Table)`
@@ -36,16 +47,6 @@ export const MicroToponymAddressListTable = styled(Table)`
   & > table tbody {
     td:nth-child(1) {
       text-align: left;
-
-      a {
-        display: inline-flex;
-        gap: 0.25rem;
-
-        span:first-child {
-          min-width: 1.5rem;
-          text-align: right;
-        }
-      }
     }
 
     td:nth-child(2) {

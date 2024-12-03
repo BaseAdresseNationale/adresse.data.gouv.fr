@@ -8,6 +8,7 @@ import sortAddresses from '../../tools/sortAddresses'
 import {
   MicroToponymAddressListInfo,
   MicroToponymAddressListTable,
+  MicroToponymAddressLink,
 } from './PanelMicroToponymAddressList.styles'
 
 import type { SortAddressesEntry } from '../../tools/sortAddresses'
@@ -41,11 +42,11 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
       <h4>Adresses</h4>
 
       <MicroToponymAddressListInfo>
-        Une adresse certifiée garantit aux utilisateurs de la Base Adresses Natinale que l’adresse est valide et existe bel et bien sur le territoire de la commune et à la position fournie.
+        Une adresse certifiée garantit aux utilisateurs de la Base Adresses Natinale que cette dernière est valide et existe bel et bien sur le territoire de la commune, à la position fournie.
       </MicroToponymAddressListInfo>
 
       <ToggleSwitch
-        label={<>{addressesUncertified.length} Adresses non certifiés</>}
+        label={<>{addressesUncertified.length} {addressesUncertified.length > 1 ? 'Adresses non certifiées' : 'Adresse non certifiée'}</>}
         labelPosition="right"
         inputTitle="terms"
         showCheckedHint={false}
@@ -54,7 +55,7 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
       />
 
       <ToggleSwitch
-        label={<>{addressesCertified.length} Adresses Certifiés</>}
+        label={<>{addressesCertified.length} {addressesCertified.length > 1 ? 'Adresses certifiées' : 'Adresse certifiée'}</>}
         labelPosition="right"
         inputTitle="terms"
         showCheckedHint={false}
@@ -64,17 +65,37 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
 
       <MicroToponymAddressListTable
         headers={[
-          <>N° ({addresses.length} trouvés dans l’odonyme)</>,
+          <>N° (
+            <>
+              {addresses.length}{' '}
+              {addresses.length > 1 ? 'trouvés sur l’odonyme' : 'trouvé sur l’odonyme'}
+            </>
+            )
+          </>,
           'Certif.',
         ]}
         data={
           addresses.map((address: any) => (
             [
-              <Link key={address.id} href={`${URL_CARTOGRAPHY_BAN}?id=${address.id}`}>
+              <MicroToponymAddressLink key={address.id} href={`${URL_CARTOGRAPHY_BAN}?id=${address.id}`}>
                 <span>{address.numero}</span>
-                {address?.suffixe && <span>{address.suffixe}</span>}
-              </Link>,
-              address?.certifie ? <span className={fr.cx('fr-icon-success-line')} style={{ color: 'var(--artwork-major-blue-france)' }} aria-hidden={true} /> : '',
+                {address?.suffixe ? <span>{address.suffixe}</span> : <span>{' '}</span>}
+              </MicroToponymAddressLink>,
+              address?.certifie
+                ? (
+                    <span
+                      className={fr.cx('fr-icon-success-line')}
+                      style={{ color: 'var(--artwork-major-blue-france)' }}
+                      aria-hidden={true}
+                    />
+                  )
+                : (
+                    <span
+                      className={fr.cx('fr-icon-error-line')}
+                      style={{ color: 'var(--artwork-major-red-marianne)' }}
+                      aria-hidden={true}
+                    />
+                  ),
             ]
           ))
         }

@@ -20,6 +20,7 @@ export const AsideWrapper = styled.div<{
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   scroll-padding-top: 8rem;
+  font-size: 1rem;
   pointer-events: none;
 
   @media (hover: hover) {

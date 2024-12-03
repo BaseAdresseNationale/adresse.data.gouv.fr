@@ -1,6 +1,9 @@
 import Image from 'next/image'
 
+import DistrictLink from '../DistrictLink'
+
 import {
+  DistrictHeaderWrapper,
   DistrictLabelWrapper,
   DistrictLabelPrefix,
   DistrictLabel,
@@ -16,22 +19,28 @@ interface PanelDistrictHeaderProps {
 }
 
 function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
-  return (
-    <>
-      {logo && (
-        <DistrictLogoWrapper>
-          <Image width={80} height={80} alt="logo commune par défault" src={logo} />
-        </DistrictLogoWrapper>
-      )}
+  const formatedDistrict = {
+    nom: district.nomCommune,
+    code: district.codeCommune,
+  }
 
-      <DistrictLabelWrapper>
-        <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
-        <DistrictLabel>
-          {district.nomCommune}
-        </DistrictLabel>
-        <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
-      </DistrictLabelWrapper>
-    </>
+  return (
+    <DistrictLink district={formatedDistrict}>
+      <DistrictHeaderWrapper>
+        {logo && (
+          <DistrictLogoWrapper>
+            <Image width={80} height={80} alt="logo commune par défault" src={logo} />
+          </DistrictLogoWrapper>
+        )}
+        <DistrictLabelWrapper>
+          <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
+          <DistrictLabel>
+            {district.nomCommune}
+          </DistrictLabel>
+          <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
+        </DistrictLabelWrapper>
+      </DistrictHeaderWrapper>
+    </DistrictLink>
   )
 }
 

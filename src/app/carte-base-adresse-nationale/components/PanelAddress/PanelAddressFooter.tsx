@@ -10,6 +10,7 @@ import {
   AsideFooterWrapper,
   ActionWrapper,
   ActionList,
+  ActionMessage,
 } from './PanelAddressFooter.styles'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
@@ -39,17 +40,17 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
     <AsideFooterWrapper>
       {children}
       {!withCertificate && (
-        <div>
+        <ActionMessage>
           Les certifications d’adresses sur la commune de {address.commune.nom} sont
           réalisées directement par la mairie.
           Contactez-la pour obtenir un certificat d’adressage ou toute autre information.
-        </div>
+        </ActionMessage>
       )}
       {withCertificate && !isCertifiable && (
-        <div>
+        <ActionMessage>
           Cette adresse ne remplit pas les critères minimums pour obtenir une certification.
           Veuillez contacter votre mairie pour obtenir un certificat d’adressage ou toute autre information.
-        </div>
+        </ActionMessage>
       )}
       <ActionWrapper>
         <ActionList>

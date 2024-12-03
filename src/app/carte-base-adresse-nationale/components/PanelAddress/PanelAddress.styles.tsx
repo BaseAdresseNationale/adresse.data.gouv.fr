@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export const AddressDetailsWrapper = styled.ul`
   padding: 0;
-  margin: 2rem 0;
+  margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
 `
@@ -33,6 +33,19 @@ interface AddressDetailsItemProps extends React.HTMLAttributes<HTMLLIElement> {
 
 export const AddressDetailsItem = ({ children, ...props }: AddressDetailsItemProps) => (
   <AddressDetailsItemStyle {...props}>
+    <div>
+      {children}
+    </div>
+  </AddressDetailsItemStyle>
+)
+
+interface AddressDetailsCertificationProps extends React.HTMLAttributes<HTMLLIElement> {
+  children: React.ReactNode
+  isCertified: boolean
+}
+
+export const AddressDetailsCertification = ({ children, isCertified, ...props }: AddressDetailsCertificationProps) => (
+  <AddressDetailsItemStyle {...props} className="ri-verified-badge-fill">
     <div>
       {children}
     </div>
