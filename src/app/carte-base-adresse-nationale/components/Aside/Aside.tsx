@@ -1,19 +1,45 @@
+import AsideHeader from './AsideHeader'
+
 import {
   AsideWrapper,
   AsideTogglerButtonWrapper,
   AsideWrapperTogglerButton,
+  AsideBody,
   AsideFooter,
 } from './Aside.styles'
 
-interface AsideProps {
+import type { MapBreadcrumbPath } from '../MapBreadcrumb'
+
+interface AsideDefaultProps {
   children: React.ReactNode
+  header?: React.ReactNode
   footer?: React.ReactNode
+  path?: MapBreadcrumbPath
+  onClose?: () => void
   onClickToggler?: (args: { isOpen: boolean, togglerButtonType: 'horizontal' | 'vertical' }) => void
   isOpen?: boolean
   isInfo?: boolean
 }
 
-function Aside({ children, footer, onClickToggler, isOpen = true, isInfo }: AsideProps) {
+interface AsideProps extends AsideDefaultProps {
+  header: React.ReactNode
+  isInfo?: false
+}
+interface AsideInfoProps extends AsideDefaultProps {
+  header?: undefined | null
+  isInfo: true
+}
+
+function Aside({
+  children,
+  header,
+  footer,
+  path,
+  onClose,
+  onClickToggler,
+  isOpen = true,
+  isInfo,
+}: AsideProps | AsideInfoProps) {
   const withTogglerButton = Boolean(onClickToggler)
 
   return (
@@ -25,18 +51,6 @@ function Aside({ children, footer, onClickToggler, isOpen = true, isInfo }: Asid
     >
       {withTogglerButton && (
         <AsideTogglerButtonWrapper>
-          <AsideWrapperTogglerButton
-            className="ri-arrow-up-double-fill sm"
-            // TODO : Add onClick event for auto scroll to top on mobile
-            onClick={() => {
-              onClickToggler?.({
-                isOpen,
-                togglerButtonType: 'vertical',
-              })
-            }}
-            $isOpen={isOpen}
-          />
-
           <AsideWrapperTogglerButton
             className="ri-arrow-right-double-fill md"
             onClick={() => {
@@ -50,9 +64,22 @@ function Aside({ children, footer, onClickToggler, isOpen = true, isInfo }: Asid
         </AsideTogglerButtonWrapper>
       )}
 
-      <div className="body">
-        {children}
+      <div className="aside-body-wrapper ">
+        <div className="body">
+          {header && (
+            <AsideHeader path={path} onClose={onClose}>
+              {header}
+            </AsideHeader>
+          )}
 
+          {isInfo
+            ? children
+            : children && (
+              <AsideBody>
+                {children}
+              </AsideBody>
+            )}
+        </div>
         {footer && (
           <AsideFooter>
             {footer}

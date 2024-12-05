@@ -17,19 +17,26 @@ export const AsideWrapper = styled.div<{
   z-index: 9;
   overflow-x: hidden;
   overflow-y: auto;
+  scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
+  scroll-padding-top: 8rem;
+  font-size: 1rem;
   pointer-events: none;
+
+  @media (hover: hover) {
+    &:hover,
+    &:focus-within,
+    &:active {
+      pointer-events: auto;
+    }
+  }
 
   &::before {
     ${({ $isTypeInfo }) => !$isTypeInfo && css`content: ''`};
     display: block;
-    height: calc(100% - 2.5rem);
+    height: 100%;
     scroll-snap-align: start;
     transition: height 0.5s ease;
-
-    ${({ $isVisible }) => css`
-      height: ${$isVisible ? 'calc(100% - 2.5rem)' : '100%'};
-    `}
   }
 
   .body {
@@ -38,15 +45,21 @@ export const AsideWrapper = styled.div<{
     max-height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    box-shadow: 0 0 .5rem -0.125rem rgba(0, 0, 0, 0.7);
     scroll-snap-align: start;
+    scroll-snap-stop: always;
 
-    ${({ $isTypeInfo }) => $isTypeInfo && css`
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: flex-end;
-      align-items: center;
-      padding-bottom: 4rem;      `
+    ${({ $isTypeInfo }) => $isTypeInfo
+      ? css`
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: flex-end;
+        align-items: center;
+        padding-bottom: 4rem;
+      `
+      : css`
+        background: var(--background-default-grey);
+        box-shadow: 0 0 .5rem -0.125rem rgba(0, 0, 0, 0.7);
+      `
     }
   }
 
@@ -58,9 +71,10 @@ export const AsideWrapper = styled.div<{
     max-width: calc(25% + 2rem);
     overflow: hidden;
     transition: transform 0.5s ease;
+    pointer-events: none;
 
     ${({ $withTogglerButton }) => $withTogglerButton
-        ? css`
+      ? css`
         width: calc(400px + 2rem);
         max-width: calc(25% + 2rem);
       `
@@ -81,22 +95,23 @@ export const AsideWrapper = styled.div<{
     .body {
       justify-content: flex-start;
       height: 100%;
+      padding-bottom: 8rem;
       overflow-x: hidden;
       overflow-y: auto;
       scroll-snap-type: x mandatory;
 
-      ${({ $isTypeInfo }) => $isTypeInfo && css`padding-top: 4rem;`};
+      ${({ $isTypeInfo }) => $isTypeInfo && css`padding-top: 8rem;`};
     }
   }
 `
 
 export const AsideTogglerButtonWrapper = styled.div`
+  height: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 2.5rem;
-  max-height: 2.5rem;
   pointer-events: none;
 
   &::after {
@@ -195,6 +210,11 @@ export const AsideWrapperTogglerButton = styled.button.attrs<{ $isOpen: boolean 
       transform: rotateX(0deg) rotateY(180deg);
     }
   }
+`
+
+export const AsideBody = styled.div`
+  background: var(--background-default-grey);
+  pointer-events: auto;
 `
 
 export const AsideFooter = styled.footer`

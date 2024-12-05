@@ -27,9 +27,11 @@ export const CartoWrapper = styled.div`
   position: relative;
   display: flex;
   height: calc(100vh - 10.3rem);
+  height: calc(100dvh - 10.3rem);
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      height: calc(100vh - 7.4rem - 3.5rem);
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      height: calc(100vh - 7.4rem - 3.5rem + 3.5rem);
+      height: calc(100dvh - 7.4rem - 3.5rem + 3.5rem);
   }
 
   &::before {
@@ -102,7 +104,7 @@ export const MapParamsWrapper = styled.div.attrs({
   position: relative;
   z-index: 1;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     justify-content: space-between;
   }
 `
@@ -124,7 +126,7 @@ export const RingButtonStyled = styled.button.attrs({
   box-shadow: 0rem 0.3rem 0.7rem -0.25rem rgba(0, 0, 0, .5),
     0rem 0.3rem 0.7rem -0.15rem rgba(255, 255, 255, .5),
     ${({ $isTypeRadio, $isActive }) => !$isTypeRadio || $isActive ? css`0rem 0rem 0rem -0rem rgba(0, 0, 0, .5) inset` : css`0rem 0.3rem 0.7rem -0.25rem rgba(0, 0, 0, .5) inset`},
-    ${({ $isActive }) => $isActive ? css`0rem 0rem 1px 2px #fff inset` : css`0rem 0rem 0px 0px #fff inset`},
+    ${({ $isActive }) => $isActive ? css`0rem 0rem 1px 2px var(--background-raised-grey) inset` : css`0rem 0rem 0px 0px var(--background-raised-grey) inset`},
     ${({ $isActive }) => $isActive ? css`0rem 0rem 1px 3px currentColor inset` : css`0rem 0rem 0px 0px currentColor inset`};
   margin: 0 0.5rem 0 0;
   color: var(--text-action-high-blue-france);

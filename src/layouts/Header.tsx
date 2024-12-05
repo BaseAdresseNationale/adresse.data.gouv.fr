@@ -2,14 +2,18 @@
 
 import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
+import { env } from 'next-runtime-env'
 import { Header as HeaderDSFR } from '@codegouvfr/react-dsfr/Header'
 import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import Notices from '@/components/Notices'
+import { useMainLayout } from './MainLayout'
 
-import { CornerRibbons } from './Header.styles'
-import { env } from 'next-runtime-env'
+import {
+  HeaderWrapper,
+  CornerRibbons,
+} from './Header.styles'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
@@ -93,7 +97,6 @@ export const navEntries: MainNavigationProps.Item[] = [
       // { text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',
-        // linkProps: { href: '/donnees-nationales' }, // TODO: Use redirection
         linkProps: { href: '/outils/telechargements' },
       },
       { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
@@ -149,10 +152,21 @@ interface Notices {
   duration: number
 }
 
-export default function Header({ notices = {
-  data: [],
-  duration: 4000,
-} }: { notices: Notices }) {
+interface HeaderProps {
+  notices?: Notices
+  isBeta?: boolean
+}
+
+export default function Header(
+  {
+    notices = {
+      data: [],
+      duration: 4000,
+    },
+    isBeta = true, // TODO : Use env variable
+  }: HeaderProps
+) {
+  const { typeLayout } = useMainLayout()
   const pathname = usePathname()
 
   const selectedNavigationLinks = useMemo(
@@ -160,11 +174,15 @@ export default function Header({ notices = {
     [pathname]
   )
 
+  const size = useMemo(() => (typeLayout === 'default' ? 'default' : 'small'), [typeLayout])
+
   return (
-    <>
-      <CornerRibbons>Version bêta</CornerRibbons>
+    <HeaderWrapper $size={size}>
+      <div className="header-spacer" />
+      {isBeta && <CornerRibbons>Version βετα</CornerRibbons>}
       <HeaderDSFR
         id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
+        className="dsfr-header"
         brandTop={(
           <>
             RÉPUBLIQUE
@@ -215,7 +233,7 @@ export default function Header({ notices = {
         ]}
         navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
       />
-      {notices && notices.data.length > 0 && <Notices {...notices} />}
-    </>
+      {notices && notices.data.length > 0 && <Notices className="dsfr-notice" {...notices} />}
+    </HeaderWrapper>
   )
 }

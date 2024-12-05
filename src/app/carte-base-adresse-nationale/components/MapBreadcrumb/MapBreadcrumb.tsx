@@ -11,9 +11,9 @@ interface MapBreadcrumbPathSegment {
     target?: string
   }
 }
-interface MapBreadcrumbPath extends Array<string | MapBreadcrumbPathSegment> {}
+export interface MapBreadcrumbPath extends Array<string | MapBreadcrumbPathSegment> {}
 
-interface MapBreadcrumbProps {
+export interface MapBreadcrumbProps {
   path: MapBreadcrumbPath
 }
 

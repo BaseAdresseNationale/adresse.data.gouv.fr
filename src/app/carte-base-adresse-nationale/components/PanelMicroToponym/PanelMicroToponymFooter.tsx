@@ -6,17 +6,17 @@ import {
   AsideFooterWrapper,
   ActionWrapper,
   ActionList,
-} from './AsideFooterDistrict.styles'
+} from './PanelMicroToponymFooter.styles'
 
-import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
+import type { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
 
-interface AsideFooterAddressProps {
-  banItem: TypeDistrictExtended
+interface PanelMicroToponymFooterProps {
+  banItem: TypeMicroToponymExtended
   withCertificate: boolean
   children?: React.ReactNode
 }
 
-function AsideFooterDistrict({ banItem: microToponym, children }: AsideFooterAddressProps) {
+function PanelMicroToponymFooter({ banItem: microToponym, children }: PanelMicroToponymFooterProps) {
   const focusOnMap = useFocusOnMap(microToponym)
 
   const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,7 +34,7 @@ function AsideFooterDistrict({ banItem: microToponym, children }: AsideFooterAdd
             onClick={handleClick}
             priority="tertiary no outline"
           >
-            Centrer la carte sur la commune
+            Centrer la carte sur l’odonyme
           </Button>
 
         </ActionList>
@@ -43,4 +43,4 @@ function AsideFooterDistrict({ banItem: microToponym, children }: AsideFooterAdd
   )
 }
 
-export default AsideFooterDistrict
+export default PanelMicroToponymFooter

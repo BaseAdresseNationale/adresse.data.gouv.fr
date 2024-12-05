@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import { Table } from '@codegouvfr/react-dsfr/Table'
 
-import { DistrictMicroToponymListInfo } from './DistrictMicroToponymList.styles'
+import { DistrictMicroToponymListInfo } from './PanelDistrictMicroToponymList.styles'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 import { env } from 'next-runtime-env'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
-interface DistrictMicroToponymListProps {
+interface PanelDistrictMicroToponymListProps {
   district: TypeDistrictExtended
 }
 
@@ -22,7 +22,7 @@ const sortMicroToponymes = (
 const testMicroTopoWithAddress = ({ nbNumeros }: { nbNumeros: number }) => nbNumeros && nbNumeros > 0
 const testMicroTopoWithoutAddress = ({ nbNumeros }: { nbNumeros: number }) => !nbNumeros || nbNumeros === 0
 
-function DistrictMicroToponymList({ district }: DistrictMicroToponymListProps) {
+function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymListProps) {
   const [isMicroTopoWithAddressVisible, setIsMicroTopoWithAddressVisible] = useState(true)
   const [isMicroTopoWithoutAddressVisible, setIsMicroTopoWithoutAddressVisible] = useState(true)
 
@@ -90,4 +90,4 @@ function DistrictMicroToponymList({ district }: DistrictMicroToponymListProps) {
   )
 }
 
-export default DistrictMicroToponymList
+export default PanelDistrictMicroToponymList

@@ -5,8 +5,6 @@ import LayerBan from './LayerBan'
 import LayerCadastre from './LayerCadastre'
 import Popups from './Popups'
 
-import { ControlGroup } from './BanMap.styles'
-
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
 import type { Address, PopupInfo } from './types'
@@ -146,7 +144,6 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
           <Popups features={infoPopup?.features as unknown as PopupFeature[] || []} />
         </Popup>
       )}
-
       <LayerBan address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />
     </>

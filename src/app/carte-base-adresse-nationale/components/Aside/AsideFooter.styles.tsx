@@ -2,7 +2,9 @@
 
 import styled from 'styled-components'
 
-export const AsideFooterWrapper = styled.div``
+export const AsideFooterWrapper = styled.div`
+  font-size: 1rem;
+`
 
 export const ActionWrapper = styled.ul`
   display: flex;
