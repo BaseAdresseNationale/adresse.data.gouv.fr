@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState, createContext } from 'react'
 import styled, { css } from 'styled-components'
 import { matomoTrackEvent } from '@/lib/matomo'
 import { env } from 'next-runtime-env'
+import { useRouter } from 'next/navigation'
 
 export const StyledIFrame = styled.iframe<{ $isOpen: boolean, $isVisible: boolean }>`
   position: fixed;
@@ -52,6 +53,7 @@ interface BALWidgetProviderProps {
 
 export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   const balWidgetRef = useRef<HTMLIFrameElement>(null)
+  const router = useRouter()
   const transitionTimeout = useRef<NodeJS.Timeout>()
   const [isWidgetDisplayed, setIsWidgetDisplayed] = useState(false)
   const [isWidgetVisible, setIsWidgetVisible] = useState(true)
@@ -158,6 +160,9 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
         case 'BAL_WIDGET_CONFIG_LOADED':
           setIsBalWidgetConfigLoaded(true)
           break
+        case 'BAL_WIDGET_PARENT_NAVIGATE_TO':
+          router.push(event.data.content)
+          break
         default:
           break
       }
@@ -170,7 +175,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
       window.removeEventListener('message', BALWidgetMessageHandler)
       clearTimeout(transitionTimeout.current)
     }
-  }, [isBalWidgetOpen])
+  }, [isBalWidgetOpen, router])
 
   return (
     <BALWidgetContext.Provider value={{
