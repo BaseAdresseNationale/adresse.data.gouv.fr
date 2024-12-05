@@ -1,6 +1,6 @@
 {
   "name": "adresse.data.gouv.fr",
-  "version": "2.0.0-alpha",
+  "version": "2.0.3",
   "private": true,
   "engines": {
     "node": "22",
@@ -61,7 +61,7 @@
     "remark": "^15.0.1",
     "remark-heading-id": "^1.0.1",
     "remark-html": "^16.0.1",
-    "send": "^0.18.0",
+    "send": "^1.1.0",
     "sharp": "^0.33.5",
     "styled-components": "^6.1.12",
     "swr": "^2.2.4",
