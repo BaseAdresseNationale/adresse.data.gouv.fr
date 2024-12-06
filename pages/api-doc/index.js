@@ -34,13 +34,18 @@ function ApiPage() {
       icon: <Folder alt='' aria-hidden='true' />
     },
     {
+      title: 'Convertisseur TOPO vers Fantoir',
+      description: 'Outil mis à disposition par le CRAIG. Des fichiers préparés sont également disponibles sur la page de l\'outil.',
+      href: 'https://github.com/landryb/topo2fantoir',
+      icon: <Folder alt='' aria-hidden='true' />
+    },
+    {
       title: 'Supervision BAN/BAL',
       description: 'Consultez la disponiblité des différents systèmes grâce à un outil de monitoring.',
       href: 'https://status.adresse.data.gouv.fr/',
       icon: <Activity alt='' aria-hidden='true' />
     }
   ]
-
   return (
     <Page title={title} description={description}>
       <Head title={title} icon={<Compass color='white' size={56} alt='' aria-hidden='true' />} />
