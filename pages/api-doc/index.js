@@ -35,7 +35,7 @@ function ApiPage() {
     },
     {
       title: 'Convertisseur TOPO vers Fantoir',
-      description: 'Outil mis à disposition par le CRAIG. Des fichiers préparés sont également disponibles sur la page de l\'outil',
+      description: 'Outil mis à disposition par le CRAIG. Des fichiers préparés sont également disponibles sur la page de l\'outil.',
       href: 'https://github.com/landryb/topo2fantoir',
       icon: <Folder alt='' aria-hidden='true' />
     },
