@@ -35,7 +35,7 @@ function ApiPage() {
     },
     {
       title: 'Convertisseur TOPO vers Fantoir',
-      description: 'Outil de conversion TOPO vers FANTOIR développé par le Centre régional Auvergne-Rhône-Alpes de l\'information géographique (CRAIG). Des fichiers préparés sont également disponible sur le site.',
+      description: 'Outil mis à disposition par le CRAIG. Des fichiers préparés sont également mis à disposition sur la page outil.',
       href: 'https://github.com/landryb/topo2fantoir',
       icon: <Folder alt='' aria-hidden='true' />
     },
