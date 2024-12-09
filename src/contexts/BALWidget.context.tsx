@@ -159,7 +159,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
           setIsBalWidgetConfigLoaded(true)
           break
         case 'BAL_WIDGET_PARENT_NAVIGATE_TO':
-          window.location.href = event.data.content
+          window.open(event.data.content.href, event.data.content.target)
           break
         default:
           break
