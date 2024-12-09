@@ -22,11 +22,11 @@ export default function ActionButtonNeutral({ children, label, isFullSize = fals
           padding: 0;
           margin: 0;
           cursor: pointer;
-          color: ${colors.colors.grey.border};
+          color: ${colors.colors.primary.badge};
         }
 
         button:disabled {
-          opacity: 50%;
+          opacity: 75%;
           cursor: not-allowed;
         }
       `}

@@ -57,7 +57,7 @@ export default function Holder({ file = null, placeholder, isLoading = false, on
                             <div className="loading">Chargement du fichier… <span><Loader aria-hidden="true" /></span></div>
                           )
                         : (
-                            <span className="fr-icon-flood-fill" aria-hidden="true" aria-label="Recharger le fichier" />
+                            <span className="fr-icon-refresh-fill" aria-hidden="true" aria-label="Recharger le fichier" />
                           )}
                     </div>
                   )
