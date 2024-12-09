@@ -42,7 +42,7 @@ export default function SelectableItemList({ list, buttonIcon, action }: Selecta
             border: 1px solid ${theme.colors.grey.main};
             white-space: nowrap;
             width: 100%;
-            background: #fff;
+            background: #000;
             cursor: pointer;
           }
 

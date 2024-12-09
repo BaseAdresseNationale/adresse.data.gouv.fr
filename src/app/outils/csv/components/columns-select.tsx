@@ -67,7 +67,7 @@ export default function ColumnsSelect({ columns, selectedColumns, onAdd, onRemov
           font-weight: bold;
           text-align: center;
           width: 20px;
-          color: ${theme.colors.primary.badge};
+          color: ${theme.colors.grey.badge};
           background-color: ${theme.colors.primary.bg};
         }
       `}
