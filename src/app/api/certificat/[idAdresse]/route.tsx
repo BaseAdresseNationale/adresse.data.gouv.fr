@@ -41,7 +41,7 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
   }
 
   const { banId: addressID } = address
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`, {
+  const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -50,13 +50,16 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     body: JSON.stringify({ addressID }),
   })
 
-  if (!response.ok) {
-    const errorMessage = `Erreur ${response.status}: ${response.statusText}`
+  if (!rawResponse.ok) {
+    const errorMessage = `Erreur ${rawResponse.status}: ${rawResponse.statusText}`
     console.error('Échec de la publication des données :', errorMessage)
     throw new Error(errorMessage)
   }
 
-  const data = await response.json()
+  const response = await rawResponse.json()
+  // temporary check migrating ban api response structure
+  // to-do : remove this check after migration
+  const data = response.response || response
 
   return NextResponse.json({ id: data.id })
 }
