@@ -63,7 +63,7 @@ export default async function handler(req, res) {
   }
 
   const {banId: addressID} = address
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`, {
+  const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -72,11 +72,14 @@ export default async function handler(req, res) {
     body: JSON.stringify({addressID}),
   })
 
-  if (!response.ok) {
+  if (!rawResponse.ok) {
     throw new Error('Échec de la publication des données')
   }
 
-  const data = await response.json()
+  const response = await rawResponse.json()
+  // Temorary check to handle ban api response migration
+  // to-do: remove this check when ban api response migration is done
+  const data = response.response || response
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
   const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
   const mairie = await getMairie(data.full_address.cog)

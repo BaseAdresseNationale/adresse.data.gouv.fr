@@ -105,13 +105,16 @@ function Certificat({certificat = {}, id = '1234'}) {
 
 export async function getServerSideProps({query}) {
   const {idCertificat} = query
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
+  const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-  const certificat = (response.ok) ? await response.json() : {}
+  const response = (rawResponse.ok) ? await rawResponse.json() : {}
+  // Temorary check to handle ban api response migration
+  // to-do: remove this check when ban api response migration is done
+  const certificat = response.response || response
   return {
     props: {
       certificat,
