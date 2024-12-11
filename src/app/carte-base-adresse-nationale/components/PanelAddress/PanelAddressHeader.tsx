@@ -8,7 +8,7 @@ import {
   PanelAddressPostCode,
   PanelMicroTopoLabelAlt,
   PanelMicroTopoLabelAltFlag,
-} from '../PanelStyles/PanelStyles'
+} from '../PanelStyles'
 
 import {
   AddressLabelWrapper,
@@ -43,25 +43,29 @@ function AddressCard({ address }: AddressCardProps) {
           <AddressMicroTopoLabel $isOnNewLine={Boolean(address.suffixe)}>
             {microToponym.nomVoie},
           </AddressMicroTopoLabel>
+          {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
+            <PanelMicroTopoLabelAlt key={lang}>
+              <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
+              {odonyme}
+            </PanelMicroTopoLabelAlt>
+          ))}
+          {address?.lieuDitComplementNom && (<PanelMicroTopoLabelAlt>{address?.lieuDitComplementNom},</PanelMicroTopoLabelAlt>)}
         </PanelNumberAndMicroTopoLabel>
-
-        {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
-          <PanelMicroTopoLabelAlt key={lang}>
-            <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
-            {odonyme}
-          </PanelMicroTopoLabelAlt>
-        ))}
 
         <PanelAddressPostCode>CP {formatNumber(address.codePostal)}</PanelAddressPostCode>
 
-        {address.nomAncienneCommune && (
-          <>
-            <PanelDistrictLabelPrefix>Commune historique de </PanelDistrictLabelPrefix>
-            <PanelDistrictLabel $historique>{address.nomAncienneCommune},</PanelDistrictLabel>
-          </>
-        )}
         <DistrictLink district={district}>
-          <PanelDistrictLabel>{district.nom} (COG  {district.code})</PanelDistrictLabel>
+          {address.nomAncienneCommune && address.nomAncienneCommune !== district.nom && address.codeAncienneCommune
+            ? (
+                <>
+                  <PanelDistrictLabelPrefix>Commune historique de </PanelDistrictLabelPrefix>
+                  <PanelDistrictLabel $cog={address.codeAncienneCommune} $separator=", " $historique>{address.nomAncienneCommune}</PanelDistrictLabel>
+                </>
+              )
+            : (
+                <PanelDistrictLabelPrefix>Commune de </PanelDistrictLabelPrefix>
+              )}
+          <PanelDistrictLabel $cog={district.code}>{district.nom}</PanelDistrictLabel>
         </DistrictLink>
 
       </AddressLabelWrapper>
