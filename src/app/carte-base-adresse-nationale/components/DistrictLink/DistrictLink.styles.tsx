@@ -12,7 +12,6 @@ export const DistrictLinkWrapper = styled.span`
   align-items: flex-start;
   line-height: 1.5;
   text-decoration: none;
-  cursor: pointer;
 `
 
 export const DistrictName = styled.span`
