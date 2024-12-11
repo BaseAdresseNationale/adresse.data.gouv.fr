@@ -1,6 +1,6 @@
 {
   "name": "adresse.data.gouv.fr",
-  "version": "2.0.0-alpha",
+  "version": "2.0.3",
   "private": true,
   "engines": {
     "node": "22",
@@ -43,7 +43,7 @@
     "https-proxy-agent": "^7.0.5",
     "lodash": "^4.17.21",
     "maplibre-gl": "^4.7.1",
-    "next": "14.2.5",
+    "next": "^14.2.20",
     "next-runtime-env": "^3.2.2",
     "node-fetch": "^3.3.2",
     "path": "^0.12.7",
@@ -61,7 +61,6 @@
     "remark": "^15.0.1",
     "remark-heading-id": "^1.0.1",
     "remark-html": "^16.0.1",
-    "send": "^0.18.0",
     "sharp": "^0.33.5",
     "styled-components": "^6.1.12",
     "swr": "^2.2.4",
