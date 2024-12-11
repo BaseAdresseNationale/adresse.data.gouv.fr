@@ -10,7 +10,7 @@ import {
   PanelNumberAndMicroTopoLabel,
   PanelMicroTopoLabelAlt,
   PanelMicroTopoLabelAltFlag,
-} from '../PanelStyles/PanelStyles'
+} from '../PanelStyles'
 
 import type { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
 
