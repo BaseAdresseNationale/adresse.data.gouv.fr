@@ -69,6 +69,9 @@ export interface TypeDistrictExtended extends TypeDistrictPartial {
 export interface TypeAddress {
   banId?: string
   id: string
+  idVoie?: string
+  nomVoie?: string
+  nomVoieAlt?: string
   numero: number
   suffixe?: string | null
   lieuDitComplementNom?: string | null
