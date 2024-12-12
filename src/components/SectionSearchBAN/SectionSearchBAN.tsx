@@ -1,6 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
+import Button from '@codegouvfr/react-dsfr/Button'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -45,8 +46,20 @@ function SectionSearchBAN({ id }: SectionSearchBANProps) {
             <FormDescription>Saisissez votre adresse, une voie, un lieu-dit ou une commune</FormDescription>
           </SearchBAN>
           <FormWrapperFooter>
-            <Link className="fr-link fr-link--icon-left fr-icon-road-map-line" href={`.${URL_CARTOGRAPHY_BAN}`}>Consultez directement la carte</Link>
-            <ButtonLink className="fr-link fr-link--icon-left fr-icon-questionnaire-line" href="#" onClick={handleContactParticuliers}>J’ai un souci avec mon adresse</ButtonLink>
+            <Button
+              iconId="fr-icon-road-map-line"
+              linkProps={{
+                href: '/carte-base-adresse-nationale',
+              }}
+            >
+              Consulter directement la carte
+            </Button>
+            <Button
+              iconId="fr-icon-questionnaire-line"
+              onClick={handleContactParticuliers}
+            >
+              Vérifier mon adresse
+            </Button>
           </FormWrapperFooter>
         </FormWrapper>
       </Wrapper>
