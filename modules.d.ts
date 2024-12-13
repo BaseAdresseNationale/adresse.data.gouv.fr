@@ -16,3 +16,6 @@ declare module '@ban-team/validateur-bal' {
 }
 
 declare module 'vt-pbf';
+declare module 'papaparse';
+declare module 'chardet';
+declare module 'blob-to-buffer';
