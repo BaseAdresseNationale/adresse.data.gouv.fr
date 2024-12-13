@@ -1,6 +1,6 @@
 import React from 'react'
 
-import theme from '@/theme/theme'
+import { SelectableItemListWrapper } from './selectable-item-list.style'
 
 import ActionButtonNeutral from '../components/action-button-neutral'
 
@@ -12,7 +12,7 @@ interface SelectableItemListPropType {
 
 export default function SelectableItemList({ list, buttonIcon, action }: SelectableItemListPropType) {
   return (
-    <div>
+    <SelectableItemListWrapper>
       <div className={`${list.length > 0 && 'list selection'}`}>
         {list.map(item => typeof (item.value) === 'string' && (
           <ActionButtonNeutral
@@ -28,47 +28,6 @@ export default function SelectableItemList({ list, buttonIcon, action }: Selecta
           </ActionButtonNeutral>
         ))}
       </div>
-      <style jsx>{`
-          .list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
-            grid-gap: 5px;
-          }
-
-          .item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid ${theme.colors.grey.main};
-            white-space: nowrap;
-            width: 100%;
-            background: #000;
-            cursor: pointer;
-          }
-
-          .text {
-            overflow: auto;
-            text-overflow: ellipsis;
-            margin-left: 0.5em;
-          }
-
-          .selection {
-            margin: 2em 0;
-            padding: 0.5em;
-            border: 1px dashed #ccc;
-            background: #fff;
-          }
-
-          .button {
-            font-size: larger;
-            font-weight: bold;
-            text-align: center;
-            min-width: 20px;
-            color: ${theme.colors.primary.main};
-            background-color: ${theme.colors.primary.bg};
-          }
-      `}
-      </style>
-    </div>
+    </SelectableItemListWrapper>
   )
 }

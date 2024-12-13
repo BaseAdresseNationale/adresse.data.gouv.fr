@@ -45,7 +45,7 @@ export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) 
     }
   }
   return (
-    <div className="geocoder">
+    <div className="geocoder" style={{ margin: '2em 0', textAlign: 'center' }}>
       {!status && (
         <Button onClick={handleGeocodeClick}>Lancer le géocodage</Button>
       )}
@@ -68,23 +68,6 @@ export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) 
       {error && (
         <p className="error"><b>{error.message}</b><br /><i>Code erreur : {error.name}</i></p>
       )}
-
-      <style jsx>{`
-          .geocoder {
-            margin: 2em 0;
-            text-align: center;
-          }
-
-          .col {
-            display: flex;
-            align-items: center;
-          }
-
-          .error {
-            color: red;
-          }
-        `}
-      </style>
     </div>
   )
 }

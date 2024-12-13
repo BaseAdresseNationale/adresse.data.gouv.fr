@@ -3,18 +3,15 @@
 import React, { useState } from 'react'
 import Papa from 'papaparse'
 import detectEncoding from '@/lib/detect-encoding'
-
 import Section from '@/components/Section/Section'
-import Button from '@codegouvfr/react-dsfr/Button'
-import Breadcrumb from '@codegouvfr/react-dsfr/Breadcrumb'
+import Geocoder from './components/geocoder'
+import { TextWrapper } from './page.styles'
+import Accordion from '@codegouvfr/react-dsfr/Accordion'
+import Select from '@codegouvfr/react-dsfr/Select'
 import Step from './components/step'
 import ColumnsSelect from './components/columns-select'
-import Filter from './components/filter'
-import Holder from './components/holder'
-import Table from './components/table'
-import Geocoder from './components/geocoder'
-import Loader from '@/components/Loader/index'
-import { TextWrapper } from './page.styles'
+import DropZoneInput from '@/components/DropZoneInput'
+import Table from '@codegouvfr/react-dsfr/Table'
 
 const allowedTypes = new Set([
   'text/plain',
@@ -86,8 +83,10 @@ export default function Csv() {
     }
   }
 
-  const handleFileDrop = (fileList: File[]) => {
-    const file = fileList[0]
+  const handleFileDrop = (file?: File) => {
+    if (!file) {
+      throw new Error('No file selected')
+    }
     const fileExtension = getFileExtension(file.name)
     if (file.type && !allowedTypes.has(file.type)) {
       setError(Error(`Ce type de fichier n’est pas supporté : ${file.type}.`))
@@ -132,36 +131,28 @@ export default function Csv() {
   }
 
   const columns = csv ? csv.data[0] : []
+
   return (
     <>
-      {/* <Breadcrumb
-        currentPageLabel="Géocodeur"
-        segments={[
-          {
-            label: 'Outils & APIs',
-            linkProps: {
-              href: '/outils',
-            },
-          },
-        ]}
-      /> */}
       <Section pageTitle="Géocoder un fichier CSV">
         <TextWrapper>
           <div id="main" className="csvtogeocoder">
             <div>
               <h2>1. Choisir un fichier</h2>
-
-              <Holder
-                file={file}
-                placeholder={`Glissez un fichier ici (max ${MAX_SIZE / (1024 * 1024)} Mo), ou cliquez pour choisir`}
-                isLoading={loading}
-                onDrop={handleFileDrop}
-              />
-
-              {loading && (
-                <div className="loading">
-                  <h4>Analyse du fichier en cours…</h4>
-                  <Loader />
+              <DropZoneInput
+                onChange={handleFileDrop}
+                label="Glisser un fichier ici, ou cliquez pour choisir"
+                hint="Taille maximale: 50 Mo. Format accepté: CSV."
+                maxSize={MAX_SIZE * 1024 * 1024}
+              >
+              </DropZoneInput>
+              {file
+              && (
+                <div className="file-details">
+                  <div className="file-infos">
+                    <div className="name">Nom du fichier : {file.name}</div>
+                    <div className="size">Taille : {((file.size / 10 ** 6) <= 1) ? (file.size) + ' octets' : (file.size / 10 ** 6) + ' Mo'}</div>
+                  </div>
                 </div>
               )}
 
@@ -171,7 +162,7 @@ export default function Csv() {
             <div>
               <div id="preview">
                 <Step title="2. Aperçu du fichier et vérification de l’encodage">
-                  {csv && <Table headers={csv.data[0]} rows={csv.data.slice(1, 10)} />}
+                  {csv && <Table headers={csv.data[0]} data={csv.data.slice(1, 10)} />}
                 </Step>
               </div>
 
@@ -189,17 +180,19 @@ export default function Csv() {
               {csv && (
                 <>
                   <div className="filters">
-                    <Button onClick={toggleAdvancedPanel} style={{ fontSize: '1em', padding: '0.4em 1em' }}>
-                      {advancedPanel ? <p>Minus Icon - </p> : <p>Plus Icon </p>} Paramètres avancés
-                    </Button>
-
-                    {advancedPanel && (
-                      <Filter
-                        selected={filter}
-                        columns={columns}
-                        onSelect={handleFilter}
-                      />
-                    )}
+                    <Accordion label="Paramètres avancés" onExpandedChange={setAdvancedPanel} expanded={advancedPanel}>
+                      {advancedPanel && (
+                        <Select
+                          label="Code INSEE"
+                          nativeSelectProps={{
+                            onChange: event => handleFilter(event.target.value),
+                          }}
+                        >
+                          (<option value={filter}>Aucun</option>
+                          {columns.map((value: string) => (<option value={filter} key={value}>{value}</option>))})
+                        </Select>
+                      )}
+                    </Accordion>
                   </div>
                   {file
                   && (
