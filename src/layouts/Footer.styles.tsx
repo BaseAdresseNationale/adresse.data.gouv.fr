@@ -6,12 +6,11 @@ const footerDisplayButtonHeight = '2.5rem'
 const transitionDelaiOnOpen = '0.75s'
 const transitionDelaiOnClose = '0.35s'
 
-export const FooterWrapper = styled.footer<{ $isHidden: boolean }>`
+export const FooterWrapper = styled.footer<{ $isHidden: boolean, $isEventReady: boolean }>`
   display: block;
   width: 100%;
-  transition: transform 0.3s ease ${transitionDelaiOnClose}, z-index 0s ease ${transitionDelaiOnClose};
 
-  ${({ $isHidden }) => $isHidden
+  ${({ $isHidden, $isEventReady }) => $isHidden
     ? css`
       position: fixed;
       z-index: 5;
@@ -23,26 +22,30 @@ export const FooterWrapper = styled.footer<{ $isHidden: boolean }>`
       .footer-display-button {
         display: flex;
       }
-      `
+
+      ${$isEventReady && css`
+        transition: transform 0.3s ease ${transitionDelaiOnClose}, z-index 0s ease ${transitionDelaiOnClose};
+
+        &:hover,
+        &:focus-within {
+          overflow: auto;
+          z-index: 900;
+          transform: translateY(0);
+          transition: transform 0.3s ease ${transitionDelaiOnOpen}, z-index 0s ease ${transitionDelaiOnOpen};
+
+          .footer-display-button {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+
+            &::before {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      `}
+    `
     : css`position: static;`
-  }
-
-  &:hover,
-  &:focus-within {
-    overflow: auto;
-    z-index: 1000;
-    transform: translateY(0);
-    transition: transform 0.3s ease ${transitionDelaiOnOpen}, z-index 0s ease ${transitionDelaiOnOpen};
-
-    .footer-display-button {
-      max-height: 0;
-      opacity: 0;
-      pointer-events: none;
-
-      &::before {
-        transform: rotate(180deg);
-      }
-    }
   }
 `
 

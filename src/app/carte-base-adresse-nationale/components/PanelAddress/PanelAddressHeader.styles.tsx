@@ -7,8 +7,7 @@ export const AddressLabelWrapper = styled.div`
 `
 
 export const AddressNumber = styled.span`
-  font-size: 1.75em;
-  font-style: italic;
+  font-size: 1.55em;
   line-height: 1;
   font-weight: 300;
 `

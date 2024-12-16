@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useEffect, useMemo, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { env } from 'next-runtime-env'
@@ -31,8 +31,20 @@ export default function Footer() {
   const [success, setSuccess] = useState(false)
   const [email, setEmail] = useState('')
   const [showCaptcha, setShowCaptcha] = useState(false)
+  const [isEventReady, setIsEventReady] = useState(false)
 
   const size = useMemo(() => (typeLayout === 'full-screen' ? 'hidden' : 'default'), [typeLayout])
+  const previousSize = useRef<typeof size | null>(null)
+
+  useEffect(() => {
+    if (previousSize.current !== size) {
+      previousSize.current = size
+      setIsEventReady(false)
+    }
+    else if (!isEventReady) {
+      setIsEventReady(true)
+    }
+  }, [size, isEventReady])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -50,7 +62,10 @@ export default function Footer() {
   }, [email])
 
   return (
-    <FooterWrapper $isHidden={size === 'hidden'}>
+    <FooterWrapper
+      $isHidden={size === 'hidden'}
+      $isEventReady={isEventReady}
+    >
       <FooterDisplayButton />
       <FooterBody>
         <Follow

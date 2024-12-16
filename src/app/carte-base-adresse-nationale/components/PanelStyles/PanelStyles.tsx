@@ -28,7 +28,7 @@ export const tertiaryInfo = css`
 export const PanelNumberAndMicroTopoLabel = styled.span`
   ${mainInfo}
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 `
 
 // -------------------
@@ -68,8 +68,21 @@ export const PanelDistrictLabelPrefix = styled.span`
   font-weight: 300;
 `
 
-export const PanelDistrictLabel = styled.span<{ $historique?: boolean }>`
-  display: block;
+const PanelDistrictCogPrefix = styled.span`
+  &::before {
+    content: 'COG ';
+    font-size: 0.8em;
+    letter-spacing: 0.05em;
+  }
+`
+
+export const PanelDistrictLabel = styled.span.attrs<{ $cog?: string }>(({ $cog, children }) => (
+  {
+    children: $cog
+      ? (<>{children} (<PanelDistrictCogPrefix>{$cog}</PanelDistrictCogPrefix>)</>)
+      : children,
+  }
+))<{ $historique?: boolean, $separator?: string }>`
   ${secondaryInfo}
   ${({ $historique }) => $historique
     ? css`
@@ -80,4 +93,9 @@ export const PanelDistrictLabel = styled.span<{ $historique?: boolean }>`
         font-weight: 600;
       `
     };
+  display: block;
+
+  &::after {
+    ${({ $separator }) => $separator && css`content: '${$separator}';`}
+  }
 `
