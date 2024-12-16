@@ -74,7 +74,7 @@ export default async function Home() {
           title={(
             <h2>
               Déjà <strong style={{ color: theme.colors['primary'].main }}>{new Intl.NumberFormat('fr-FR').format(stats.bal.nbCommunesCouvertes)} communes</strong>{' '}
-              ont mis à jour leurs bases d’adresses
+              ont mis à jour leur base d’adresses
             </h2>
           )}
           data={dataQuotes}

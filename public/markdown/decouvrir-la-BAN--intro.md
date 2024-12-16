@@ -4,7 +4,7 @@ intro: [{attach: "la-base-adresse-nationale", filename: "decouvrir_la_BAN--intro
 aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir_la_BAN--la_base_adresse_nationale"}]
 ---
 
-La Base Adresse Nationale (**Ban**), est une base de données d'état répertoriant l'ensemble des adresses du territoire français.
+La Base Adresse Nationale (**BAN**), est une base de données d'état répertoriant l'ensemble des adresses du territoire français.
 
 Elle est l’une des neuf bases de données du [Service Public de la Donnée](https://www.data.gouv.fr/fr/pages/spd/reference/) et l’unique référentiel d'adresses officiellement reconnu par l’administration française.
 

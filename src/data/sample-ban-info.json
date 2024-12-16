@@ -1,7 +1,7 @@
 [
   {
-    "title": "Comprendre comment utiliser la base adresse nationale ?",
-    "description": "Vous souhaitez utiliser la base adresse nationale, explorez les différentes possibilités.",
+    "title": "Comprendre comment utiliser la Base Adresse Nationale ?",
+    "description": "Vous souhaitez utiliser la Base Adresse Nationale, explorez les différentes possibilités.",
     "picto": "./img/picto/map-location.svg",
     "link": {
       "href": "/decouvrir-la-BAN",
@@ -19,7 +19,7 @@
   },
   {
     "title": "Télécharger les données",
-    "description": "Ils est possible de télécharger les données afin de les héberger et de les utiliser chez vous.",
+    "description": "Il est possible de télécharger les données afin de les héberger et de les utiliser chez vous.",
     "picto": "./img/picto/bdd.svg",
     "link": {
       "href": "/donnees-nationales",

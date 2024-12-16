@@ -46,7 +46,7 @@ const meta = {
     title: (
       <h2>
         Déjà <strong style={{ color: appTheme.colors['primary'].main }}>12 667 communes</strong>{' '}
-        ont mis à jour leurs bases d’adresses
+        ont mis à jour leur base d’adresses
       </h2>
     ),
     data: dataActions,
