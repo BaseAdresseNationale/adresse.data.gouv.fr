@@ -14,7 +14,7 @@ export default async function DocumentationPage() {
 
   return (
     <>
-       <Suspense fallback={<p>Chargement...</p>}>
+      <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml
         && (
           <SectionHero
