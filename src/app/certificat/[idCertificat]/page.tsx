@@ -7,16 +7,20 @@ import {
   FieldLabel,
   FieldValue,
 } from './page.styles'
+import { env } from 'next-runtime-env'
 
-const { NEXT_PUBLIC_API_BAN_URL } = process.env
+const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 async function Certificat({ params }: { params: { idCertificat: string } }) {
   const { idCertificat } = params
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
+  const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   })
-  const certificat = response.ok ? await response.json() : {}
+  const response = rawResponse.ok ? await rawResponse.json() : {}
+  // temporary check migrating ban api response structure
+  // to-do : remove this check after migration
+  const certificat = response.response || response
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)

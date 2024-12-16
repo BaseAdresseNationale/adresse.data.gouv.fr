@@ -4,6 +4,7 @@ import { getFullDate } from '@/utils/date'
 import styled from 'styled-components'
 import StatusBadge from './StatusBadge'
 import { BaseAdresseLocale } from '@/types/api-mes-adresses.types'
+import { env } from 'next-runtime-env'
 
 const StyledWrapper = styled.div`
 .card {
@@ -34,14 +35,14 @@ interface BaseLocaleCardProps {
 }
 
 export default function BaseLocaleCard({ bal }: BaseLocaleCardProps) {
-  if (!process.env.NEXT_PUBLIC_MES_ADRESSES) {
+  if (!env('NEXT_PUBLIC_MES_ADRESSES')) {
     console.error('NEXT_PUBLIC_MES_ADRESSES config value is not defined')
     return null
   }
 
   const { id, commune, nom, status, sync, updatedAt } = bal
 
-  const balUrl = `${process.env.NEXT_PUBLIC_MES_ADRESSES}/bal/${id}`
+  const balUrl = `${env('NEXT_PUBLIC_MES_ADRESSES')}/bal/${id}`
 
   return (
     <StyledWrapper>

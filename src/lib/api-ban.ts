@@ -1,8 +1,9 @@
 import { BANCommune, BANVoie, BANAddress } from '@/types/api-ban.types'
 import { BANStats } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
+import { env } from 'next-runtime-env'
 
-const API_BAN_SEARCH_URL = process.env.NEXT_PUBLIC_API_BAN_URL
+const API_BAN_SEARCH_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 if (!API_BAN_SEARCH_URL) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined')

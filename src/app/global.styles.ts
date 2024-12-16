@@ -13,6 +13,11 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
 }
+
+// Quik fix for DSFR Table component
+.fr-table > table {
+  display: table;
+}
 `
 
 export default GlobalStyle

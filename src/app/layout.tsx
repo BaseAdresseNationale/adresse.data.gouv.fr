@@ -6,44 +6,49 @@ import { DsfrProvider } from '@codegouvfr/react-dsfr/next-appdir/DsfrProvider'
 import { getHtmlAttributes } from '@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes'
 
 import { StartDsfr } from '@/providers'
+import { LayoutProvider } from '@/layouts/MainLayout'
 import Header from '@/layouts/Header'
 import Footer from '@/layouts/Footer'
-import Breadcrumb from '@/layouts/Breadcrumb'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
 import theme from '@/theme'
 import GlobalStyle from './global.styles'
 import { useEffect } from 'react'
 import { init as matomoInit } from '@socialgouv/matomo-next'
 import { BALWidgetProvider } from '@/contexts/BALWidget.context'
+import { PublicEnvScript, env } from 'next-runtime-env'
 
-const StyledLayout = styled.div`
-  min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-
-  .pageWrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-`
+import {
+  StyledLayout,
+  PageWrapper,
+} from './layout.styles'
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
 
+  // TODO : Connect to Grist API
+  const sampleNotice = {
+    text: 'Nouveau service : le calculateur de distance',
+  }
+
+  const dataNotices = {
+    data: [sampleNotice],
+    duration: 4000,
+  }
+
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_MATOMO_URL || !process.env.NEXT_PUBLIC_MATOMO_SITE_ID) {
+    if (!env('NEXT_PUBLIC_MATOMO_URL') || !env('NEXT_PUBLIC_MATOMO_SITE_ID')) {
       return
     }
 
-    matomoInit({ url: process.env.NEXT_PUBLIC_MATOMO_URL, siteId: process.env.NEXT_PUBLIC_MATOMO_SITE_ID })
+    matomoInit({ url: env('NEXT_PUBLIC_MATOMO_URL') || '', siteId: env('NEXT_PUBLIC_MATOMO_SITE_ID') || '' })
   }, [])
 
   return (
     <html {...getHtmlAttributes({ defaultColorScheme, lang })}>
       <head>
+        <PublicEnvScript />
         <StartDsfr />
         <DsfrHead
           Link={Link}
@@ -57,19 +62,20 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
       <body>
         <DsfrProvider lang={lang}>
           <StyledComponentsRegistry>
-            <ThemeProvider theme={theme}>
-              <BALWidgetProvider>
-                <GlobalStyle />
-                <StyledLayout>
-                  <Header />
-                  <div className="pageWrapper">
-                    {/* <Breadcrumb /> */}
-                    {children}
-                  </div>
-                  <Footer />
-                </StyledLayout>
-              </BALWidgetProvider>
-            </ThemeProvider>
+            <LayoutProvider>
+              <ThemeProvider theme={theme}>
+                <BALWidgetProvider>
+                  <GlobalStyle />
+                  <StyledLayout>
+                    <Header notices={dataNotices} />
+                    <PageWrapper>
+                      {children}
+                    </PageWrapper>
+                    <Footer />
+                  </StyledLayout>
+                </BALWidgetProvider>
+              </ThemeProvider>
+            </LayoutProvider>
           </StyledComponentsRegistry>
         </DsfrProvider>
       </body>

@@ -1,9 +1,10 @@
 import { customFetch } from './fetch'
+import { env } from 'next-runtime-env'
 
-if (!process.env.NEXT_PUBLIC_DATAGOUV_URL) {
+if (!env('NEXT_PUBLIC_DATAGOUV_URL')) {
   throw new Error('NEXT_PUBLIC_DATAGOUV_URL is not defined')
 }
 
 export function getDataset(datasetId: string) {
-  return customFetch(`${process.env.NEXT_PUBLIC_DATAGOUV_URL}/datasets/${datasetId}`)
+  return customFetch(`${env('NEXT_PUBLIC_DATAGOUV_URL')}/datasets/${datasetId}`)
 }

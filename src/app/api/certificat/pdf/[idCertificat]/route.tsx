@@ -4,35 +4,45 @@ import ReactPDF from '@react-pdf/renderer'
 
 import { getMairie } from '@/lib/api-etablissement-public'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
+import { env } from 'next-runtime-env'
+import { getCommuneLogo } from '@/lib/api-wikidata'
 
-const NEXT_PUBLIC_ADRESSE_URL = process.env.NEXT_PUBLIC_ADRESSE_URL
-const NEXT_PUBLIC_API_BAN_URL = process.env.NEXT_PUBLIC_API_BAN_URL
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function GET(request: NextRequest, { params }: { params: { idCertificat: string } }) {
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${params.idCertificat}`, {
+  const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${params.idCertificat}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
 
-  if (!response.ok) {
-    console.error(`Erreur lors de la récupération du certificat : ${response.status} ${response.statusText}`)
-    return new NextResponse('Erreur lors de la récupération du certificat', { status: response.status })
+  if (!rawResponse.ok) {
+    console.error(`Erreur lors de la récupération du certificat : ${rawResponse.status} ${rawResponse.statusText}`)
+    return new NextResponse('Erreur lors de la récupération du certificat', { status: rawResponse.status })
   }
 
-  const data = await response.json()
+  const response = await rawResponse.json()
+  // temporary check migrating ban api response structure
+  // to-do : remove this check after migration
+  const data = response.response || response
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
   const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
 
   const mairie = await getMairie(data.full_address.cog)
+
   const mairieData = mairie || { telephone: undefined, email: undefined }
+
+  const logoUrl = await getCommuneLogo(data.full_address.cog) || ' '
 
   const pdfStream = await ReactPDF.renderToStream(
     <CertificatNumerotation
       data={data}
       qrCodeDataURL={qrCodeDataURL}
       mairie={mairieData}
+      logoUrl={logoUrl}
+
     />
   )
 

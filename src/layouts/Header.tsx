@@ -2,13 +2,20 @@
 
 import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
+import { env } from 'next-runtime-env'
 import { Header as HeaderDSFR } from '@codegouvfr/react-dsfr/Header'
 import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
+import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
+
 import Notices from '@/components/Notices'
+import { useMainLayout } from './MainLayout'
 
-import dataNotices from '@/data/sample-notices.json'
+import {
+  HeaderWrapper,
+  CornerRibbons,
+} from './Header.styles'
 
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
 const markAsActive = (
   navigation: MainNavigationProps.Item[],
@@ -58,8 +65,12 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/programme-bal' },
       },
       {
-        text: 'Consulter la page commune',
+        text: 'Consulter la page d’une commune',
         linkProps: { href: '/commune' },
+      },
+      {
+        text: 'Documentation Base Adresse Locale',
+        linkProps: { href: '/documentation-bal' },
       },
       {
         text: 'Application Mes adresses',
@@ -79,14 +90,13 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/outils' },
       },
       {
-        text: 'Carte de la Base adresse nationale',
+        text: 'Carte de la Base adresse nationale (Explorateur)',
         linkProps: { href: `${URL_CARTOGRAPHY_BAN}` },
       },
       // { text: 'Certificat d’adresse', linkProps: { href: '#' } },
       // { text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',
-        // linkProps: { href: '/donnees-nationales' }, // TODO: Use redirection
         linkProps: { href: '/outils/telechargements' },
       },
       { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
@@ -110,7 +120,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Le blog et les témoignages',
         linkProps: { href: '/blog' },
       },
-      { text: 'L’Info-lettre', linkProps: { href: '#' } },
+      { text: 'L’Info-lettre', linkProps: { href: '/newsletters' } },
     ],
   },
   {
@@ -126,12 +136,37 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Sociétés partenaires',
         linkProps: { href: '/communaute/societes-partenaires' },
       },
-      { text: 'Nos usagers', linkProps: { href: '/usages' } },
+      { text: 'Nos usagers', linkProps: { href: '/communaute/usages' } },
     ],
   },
 ]
 
-export default function Header() {
+interface Notices {
+  data: {
+    text: string
+    link?: {
+      href: string
+      target?: string
+    }
+  }[]
+  duration: number
+}
+
+interface HeaderProps {
+  notices?: Notices
+  isBeta?: boolean
+}
+
+export default function Header(
+  {
+    notices = {
+      data: [],
+      duration: 4000,
+    },
+    isBeta = true, // TODO : Use env variable
+  }: HeaderProps
+) {
+  const { typeLayout } = useMainLayout()
   const pathname = usePathname()
 
   const selectedNavigationLinks = useMemo(
@@ -139,10 +174,15 @@ export default function Header() {
     [pathname]
   )
 
+  const size = useMemo(() => (typeLayout === 'default' ? 'default' : 'small'), [typeLayout])
+
   return (
-    <>
+    <HeaderWrapper $size={size}>
+      <div className="header-spacer" />
+      {isBeta && <CornerRibbons>Version βετα</CornerRibbons>}
       <HeaderDSFR
         id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
+        className="dsfr-header"
         brandTop={(
           <>
             RÉPUBLIQUE
@@ -174,26 +214,26 @@ export default function Header() {
             linkProps: {
               href: '/carte-base-adresse-nationale',
             },
-            text: 'La Carte',
+            text: <Tooltip kind="hover" title="Carte de la Base adresse nationale (Explorateur)">La Carte</Tooltip>,
           },
           {
             iconId: 'fr-icon-book-2-fill',
             linkProps: {
               href: '/ressources-et-documentations',
             },
-            text: 'La Documentation',
+            text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
           },
           {
             iconId: 'ri-quill-pen-fill',
             linkProps: {
               href: '/blog',
             },
-            text: 'Le Blog',
+            text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
           },
         ]}
         navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
       />
-      <Notices {...dataNotices} />
-    </>
+      {notices && notices.data.length > 0 && <Notices className="dsfr-notice" {...notices} />}
+    </HeaderWrapper>
   )
 }

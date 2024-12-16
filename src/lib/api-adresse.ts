@@ -1,3 +1,5 @@
+import { env } from 'next-runtime-env'
+
 interface ExtendedError extends Error {
   code?: number
   url?: string
@@ -14,7 +16,7 @@ class HttpError extends (Error as { new(message: string): ExtendedError }) {
   }
 }
 
-const API_ADRESSE = process.env.NEXT_PUBLIC_API_ADRESSE
+const API_ADRESSE = env('NEXT_PUBLIC_API_ADRESSE')
 
 if (!API_ADRESSE) {
   throw new Error('API_ADRESSE is not defined in the environment variables')
@@ -43,8 +45,7 @@ async function _fetch(url: string, _options: RequestInit = {}) {
 }
 
 export function isFirstCharValid(entry: string) {
-  return (
-    entry.slice(0, 1).toLowerCase() !== entry.slice(0, 1).toUpperCase())
+  return (entry.slice(0, 1).toLowerCase() !== entry.slice(0, 1).toUpperCase())
     || (
       entry.codePointAt(0)
       && (
