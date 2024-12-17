@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { Tooltip } from "@codegouvfr/react-dsfr/Tooltip";
 
 import DistrictLink from '../DistrictLink'
 
@@ -37,7 +38,13 @@ function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
           <DistrictLabel>
             {district.nomCommune}
           </DistrictLabel>
-          <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
+          
+          <DistrictLabelCode>
+            <Tooltip
+              kind="hover"
+              title="Code INSEE"
+            >COG</Tooltip>
+            &nbsp;{district.codeCommune}</DistrictLabelCode>
         </DistrictLabelWrapper>
       </DistrictHeaderWrapper>
     </DistrictLink>
