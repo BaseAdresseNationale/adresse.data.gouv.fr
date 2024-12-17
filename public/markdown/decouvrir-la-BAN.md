@@ -38,7 +38,7 @@ La plateforme adresse.data.gouv.fr est le point d’accès vers :
 
 - les **données** de la Base Adresse Nationale (**BAN**), la base nationale de référence sur l’adresse qui faire partie du socle de souveraineté de l’État. Elle est co-portée par la Direction du numérique de l’État (**DINUM**) et l'Institut National de l'Information Géographique et Forestière (**IGN**).
 
-- les **outils et services** permettant aux **communes** de mettre à jour leurs adresses et de publier leur **Base Adresse Locale**. Ces outils et services sont développés avec le soutien du Programme "Bases Adresses Locales" de l'Agence Nationale de la Cohésion des Territoires (**ANCT**).
+- les **outils et services** permettant aux **communes** de mettre à jour leurs adresses et de publier leur **Base Adresse Locale**. Ces outils et services sont développés avec le soutien du Programme "Base Adresse Locale" de l'Agence Nationale de la Cohésion des Territoires (**ANCT**).
 
 La Base Adresse Nationale et les Bases Adresses Locales constituent l'écosystème en Licence Ouverte priorisé par l’État pour faciliter la mise à jour des adresses par les communes et les rendre utilisables par tous.
 

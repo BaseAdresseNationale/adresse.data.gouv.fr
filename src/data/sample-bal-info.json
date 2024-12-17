@@ -5,7 +5,7 @@
     "detail": "Créer une base pour ma commune",
     "picto": "./img/picto/road.svg",
     "link": {
-      "href": "#",
+      "href": "/programme-bal#creer-sa-base-adresse-locale",
       "target": "_self"
     }
   },
@@ -15,7 +15,7 @@
     "detail": "Découvrez les bonnes pratiques",
     "picto": "./img/picto/city-hall.svg",
     "link": {
-      "href": "#",
+      "href": "/documentation-bal#guide-bonnes-pratiques",
       "target": "_self"
     }
   },
@@ -25,7 +25,7 @@
     "detail": "Découvrez les méthodes de publication",
     "picto": "./img/picto/map-target.svg",
     "link": {
-      "href": "#",
+      "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale",
       "target": "_self"
     }
   }
