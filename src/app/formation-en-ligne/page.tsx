@@ -88,7 +88,7 @@ export default async function FormationEnLignePage() {
             )
           : <p>Aucune formation prévue pour le moment</p>}
       </Section>
-      <Section title="Vidéos des formations">
+      <Section title="Vidéos des formations" id="videos-formations">
         <CardWrapper isSmallCard>
           {videoFormations.map((video, index) => (
             <VideoMiniature key={index} {...video} />

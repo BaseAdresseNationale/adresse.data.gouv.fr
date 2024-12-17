@@ -3,7 +3,7 @@
     "title": "Je débute sur Mes Adresses",
     "picto": "./img/picto-fr/calendar.svg",
     "link": {
-      "href": "#some",
+      "href": "/formation-en-ligne#videos-formations",
       "target": "_self"
     },
     "tags": ["Formation en ligne"]
@@ -12,7 +12,7 @@
     "title": "Comprendre la Base Adresse Locale",
     "picto": "./img/picto-fr/video.svg",
     "link": {
-      "href": "#",
+      "href": "https://peertube.adresse.data.gouv.fr/w/toyKNe4rKyVD7mUovsWLKd",
       "target": "_self"
     },
     "tags": ["Vidéo"]
@@ -21,7 +21,7 @@
     "title": "Comment mettre à jour ma Base Adresse Locale ?",
     "picto": "./img/picto-fr/document.svg",
     "link": {
-      "href": "#",
+      "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale",
       "target": "_self"
     },
     "tags": ["Documentation"]

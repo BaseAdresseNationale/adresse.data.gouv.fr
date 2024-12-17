@@ -111,7 +111,7 @@ export default async function Home() {
                 <Button
                   iconId="fr-icon-newspaper-line"
                   linkProps={{
-                    href: '#',
+                    href: '/communaute/charte-base-adresse-locale',
                   }}
                   priority="secondary"
                   size="small"
@@ -135,7 +135,8 @@ export default async function Home() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: '#',
+                    href: 'https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale',
+                    target: '_blank',
                   }}
                   priority="secondary"
                   size="small"

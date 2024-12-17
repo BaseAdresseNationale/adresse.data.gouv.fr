@@ -26,7 +26,7 @@
     "picto": "./img/picto/map-target.svg",
     "link": {
       "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale",
-      "target": "_self"
+      "target": "_blank"
     }
   }
 ]
