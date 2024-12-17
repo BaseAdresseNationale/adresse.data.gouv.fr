@@ -28,6 +28,11 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 
 const redirects = async () => [
   {
+    source: '/csv',
+    destination: '/outils/csv',
+    permanent: true,
+  },
+  {
     source: '/ressources',
     destination: '/ressources-et-documentations',
     permanent: true,
