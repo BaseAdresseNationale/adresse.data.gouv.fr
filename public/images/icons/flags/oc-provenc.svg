@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="225" height="150">
+<path d="M0 0 C74.25 0 148.5 0 225 0 C225 49.5 225 99 225 150 C150.75 150 76.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#D4001C" transform="translate(0,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#FFD700" transform="translate(200,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#D4001C" transform="translate(175,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#FFD700" transform="translate(150,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#D4001C" transform="translate(125,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#FFD700" transform="translate(100,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#D4001C" transform="translate(75,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#FFD700" transform="translate(50,0)"/>
+<path d="M0 0 C8.25 0 16.5 0 25 0 C25 49.5 25 99 25 150 C16.75 150 8.5 150 0 150 C0 100.5 0 51 0 0 Z " fill="#FFD700" transform="translate(0,0)"/>
+</svg>
