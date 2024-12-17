@@ -42,7 +42,7 @@ function SectionSearchBAN({ id }: SectionSearchBANProps) {
         </IntroWrapper>
         <FormWrapper>
           <SearchBAN>
-            <Title>Rechercher dans la base adresse nationale</Title>
+            <Title>Rechercher dans la Base Adresse Nationale</Title>
             <FormDescription>Saisissez votre adresse, une voie, un lieu-dit ou une commune</FormDescription>
           </SearchBAN>
           <FormWrapperFooter>

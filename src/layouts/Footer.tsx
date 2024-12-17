@@ -76,7 +76,7 @@ export default function Footer() {
             },
             desc: (
               <>
-                Recevez toutes les informations de la base adresse nationale !
+                Recevez toutes les informations de la Base Adresse Nationale !
                 <br />
                 <Link href="/newsletters">
                   Découvrez nos dernières newsletters
@@ -142,7 +142,7 @@ export default function Footer() {
           }}
           contentDescription={(
             <>
-              Adresse<b>.data.gouv</b><i>.fr</i> &nbsp;-&nbsp; Le site national officiel de l’adresse. <br />
+              adresse<b>.data.gouv</b><i>.fr</i> &nbsp;-&nbsp; Le site national officiel de l’adresse. <br />
               Service public gratuit pour référencer l’intégralité des adresses du
               territoire et les rendre utilisables par tous. Retrouvez-y toutes
               les informations et démarches administratives nécessaires à la

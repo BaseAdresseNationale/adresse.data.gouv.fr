@@ -9,7 +9,7 @@
     "tags": ["Formation en ligne"]
   },
   {
-    "title": "Comprendre la Base adresse locale",
+    "title": "Comprendre la Base Adresse Locale",
     "picto": "./img/picto-fr/video.svg",
     "link": {
       "href": "#",
@@ -18,7 +18,7 @@
     "tags": ["Vidéo"]
   },
   {
-    "title": "Comment mettre à jour ma base locale ?",
+    "title": "Comment mettre à jour ma Base Adresse Locale ?",
     "picto": "./img/picto-fr/document.svg",
     "link": {
       "href": "#",
