@@ -54,3 +54,12 @@ export const MicroToponymAddressListTable = styled(Table)`
     }
   }
 `
+
+export const ToggleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  width: 100%;
+  margin: 1.5rem 0;
+`

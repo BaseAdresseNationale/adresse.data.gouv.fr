@@ -57,18 +57,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
       ),
   ])
 
-  getRevisions(codeCommune)
-    .then((revisions) => {
-      return Promise.all(revisions
-        .slice(0, 5)
-        .map(revision => getRevisionDetails(revision, commune)))
-    })
-    .then((lastRevisionsDetails) => {
-      console.log('lastRevisionsDetails >>', lastRevisionsDetails)
-    })
-
   const district = { ...districtRawResponse.response, data: commune }
-  const districtMapURL = `/carte-base-adresse-nationale?id=${district.codeCommune}`
+  const districtMapURL = `/carte-base-adresse-nationale?id=${district?.data?.codeCommune}`
 
   return (
     <>

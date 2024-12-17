@@ -10,7 +10,7 @@ import {
   PanelNumberAndMicroTopoLabel,
   PanelMicroTopoLabelAlt,
   PanelMicroTopoLabelAltFlag,
-} from '../PanelStyles/PanelStyles'
+} from '../PanelStyles'
 
 import type { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
 
@@ -24,16 +24,19 @@ function PanelMicroToponymHeader({ microToponym }: PanelMicroToponymHeaderProps)
   return (
     <>
       <MicroToponymLabelWrapper>
-        <PanelNumberAndMicroTopoLabel>{microToponym.nomVoie}</PanelNumberAndMicroTopoLabel>
-        {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
-          <PanelMicroTopoLabelAlt key={lang}>
-            <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
-            {odonyme}
-          </PanelMicroTopoLabelAlt>
-        ))}
+        <PanelNumberAndMicroTopoLabel>
+          {microToponym.nomVoie}
+          {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
+            <PanelMicroTopoLabelAlt key={lang}>
+              <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
+              {odonyme}
+            </PanelMicroTopoLabelAlt>
+          ))}
+        </PanelNumberAndMicroTopoLabel>
+
         <DistrictLink district={district}>
           <PanelDistrictLabelPrefix>Commune de </PanelDistrictLabelPrefix>
-          <PanelDistrictLabel>{district.nom} (COG  {district.code})</PanelDistrictLabel>
+          <PanelDistrictLabel $cog={district.code}>{district.nom}</PanelDistrictLabel>
         </DistrictLink>
       </MicroToponymLabelWrapper>
     </>
