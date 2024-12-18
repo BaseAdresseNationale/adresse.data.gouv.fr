@@ -22,7 +22,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const blogPost = await getSinglePost(params.slug) || {}
 
   const {
-    excerpt,
     html: contentHtml,
     title,
     tags,
@@ -73,9 +72,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               {readingTime && <div className="reading-time">Lecture {readingTime} minutes</div>}
             </PublicationWrapper>
 
-            <p>
-              {excerpt}
-            </p>
             {featureImage && (
               <ImageWrapper>
                 <ResponsiveImage src={featureImage} alt={title} />
