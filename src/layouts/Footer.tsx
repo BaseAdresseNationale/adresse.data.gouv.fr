@@ -76,7 +76,7 @@ export default function Footer() {
             },
             desc: (
               <>
-                Recevez toutes les informations de la Base Adresse Nationale !
+                <div id="newsletter">Recevez toutes les informations de la Base Adresse Nationale !</div>
                 <br />
                 <Link href="/newsletters">
                   Découvrez nos dernières newsletters
