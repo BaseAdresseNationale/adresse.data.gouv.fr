@@ -483,7 +483,7 @@
     "description": "Actualités BAN",
     "type": "adresselab",
     "target": "utilisateurs de la donnée adresse",
-    "date": "2025-01-25",
+    "date": "2025-01-21",
     "tags": ["Technique", "Base Adresse Nationale", "Utilisateurs"],
     "isOnlineOnly": true,
     "address": {},
