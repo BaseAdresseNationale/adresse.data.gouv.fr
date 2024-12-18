@@ -2,23 +2,52 @@
 
 import styled from 'styled-components'
 
-const colors = {
-  almostBlack: '#26353f',
-  blue: '#0053B3',
-}
-
 export const PopupWrapper = styled.div`
+  margin: .5rem 0;
 
   .heading {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: .5em;
     align-items: flex-start;
+    margin: .5rem 0;
   }
 
-  .commune {
-    font-style: italic;
-    color: ${colors.almostBlack};
+  .addr-num {
+    font-weight: 300;
+    font-size: 1.5em;
+    line-height: 1;
+
+    &.with-suffix {
+      display: block;
+    }
+
+    .addr-num-suffix {
+      font-size: .75em;
+      vertical-align: top;
+      margin-left: .15em;
+    }
+}
+  .addr-main-topo {
+    font-weight: 700;
+  }
+  .addr-secondary-topo {
+    font-weight: 300;
+    font-size: .8em;
+  }
+  .addr-district {
+    margin-top: .25em;
+    font-weight: 500;
+    font-size: .9em;
+
+    .addr-district-prefix {
+      display: block;
+      font-weight: 300;
+      font-size: .8em;
+      line-height: 1.25;
+    }
+
+    .addr-district-cog-prefix {
+      font-size: 0.8em;
+      letter-spacing: 0.05em;
+    }
   }
 
   .infos-container {
@@ -29,7 +58,7 @@ export const PopupWrapper = styled.div`
 
   .separator {
     width: 0px;
-    border: 1px solid ${colors.blue};
+    border: 1px solid var(--text-action-high-blue-france);
   }
 
   .infos {
@@ -40,17 +69,14 @@ export const PopupWrapper = styled.div`
 `
 
 export const PopupVoieWrapper = styled(PopupWrapper)`
-.heading {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-gap: .5em;
-  margin-bottom: 1em;
-}
-
-.address {
-  display: flex;
-  flex-direction: column;
-}
+ .toponym-desc {
+  display: block;
+  border-top: 1px solid var(--border-plain-grey);
+  margin: 0.7em 0 0;
+  padding: 0.7em 0;
+  font-size: .9em;
+  font-weight: 300;
+ }
 `
 
 export const BadgeIcon = styled.span`
