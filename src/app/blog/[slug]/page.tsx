@@ -76,7 +76,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
             <p>
               {excerpt}
             </p>
-            
             {featureImage && (
               <ImageWrapper>
                 <ResponsiveImage src={featureImage} alt={title} />
