@@ -32,7 +32,7 @@ function SectionQuotes({ title, data, theme }: SectionQuotesProps) {
       </QuoteWrapper>
       <QuoteWrapperFooter>
         <a className="fr-link fr-link--icon-left fr-icon-chat-3-line" href="/blog">Découvrez tous les témoignages</a>
-        <a className="fr-link fr-link--icon-left fr-icon-france-line" href="#">Quelles communes ont mis à jour leur base ? </a>
+        <a className="fr-link fr-link--icon-left fr-icon-france-line" href="/deploiement-bal">Quelles communes ont mis à jour leur base ? </a>
       </QuoteWrapperFooter>
     </Section>
   )
