@@ -99,6 +99,7 @@ export const AsideWrapper = styled.div<{
       overflow-x: hidden;
       overflow-y: auto;
       scroll-snap-type: x mandatory;
+      pointer-events: auto;
 
       ${({ $isTypeInfo }) => $isTypeInfo && css`padding-top: 8rem;`};
     }
