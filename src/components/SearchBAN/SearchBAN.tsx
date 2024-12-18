@@ -47,7 +47,7 @@ const formatBanToProperties = ({
   postcode: codesPostaux?.[0],
   citycode: codeCommune,
   city: nomCommune,
-  context: `${departement?.code}, ${departement?.nom}, ${region?.nom}`,
+  context: [departement?.code, departement?.nom, region?.nom].filter(entry=>Boolean(entry)).join(', '),
 })
 
 interface TypeSearchDataInBan {
@@ -129,9 +129,9 @@ const itemMenuFormater = (item:
 
   const label = name
   const details = `${type === 'municipality'
-    ? `Code Insee ${citycode} `
+    ? `Code Insee - COG ${citycode} `
     : `${city} `
-  }(${codeDepartement}, ${departement}, ${region})`
+  }(${codeDepartement}, ${departement}${region ? `, ${region}` : ''})`
 
   return { id, header, label, details }
 }
