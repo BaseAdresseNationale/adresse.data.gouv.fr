@@ -52,7 +52,7 @@ function AddressCard({ address }: AddressCardProps) {
           {address?.lieuDitComplementNom && (<PanelMicroTopoLabelAlt>{address?.lieuDitComplementNom},</PanelMicroTopoLabelAlt>)}
         </PanelNumberAndMicroTopoLabel>
 
-        <PanelAddressPostCode>CP {formatNumber(address.codePostal)}</PanelAddressPostCode>
+        <PanelAddressPostCode>CP {formatNumber(address.codePostal).padStart(6, '0')}</PanelAddressPostCode>
 
         <DistrictLink district={district}>
           {address.nomAncienneCommune && address.nomAncienneCommune !== district.nom && address.codeAncienneCommune

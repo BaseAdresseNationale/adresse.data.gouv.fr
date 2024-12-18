@@ -35,7 +35,7 @@ function PanelDistrict({ district }: PanelDistrictProps) {
               ? <><b>{formatNumber(district.codesPostaux.length)}</b>&nbsp;codes Postaux</>
               : <>{district.codesPostaux.length || 'Aucune'} code Postal</>
           }{' '}
-          ({district.codesPostaux.map(formatNumber).join(', ')})
+          ({district.codesPostaux.map(cp => formatNumber(cp).padStart(6, '0')).join(', ')})
         </DistrictDetailsItem>
 
         <div>
