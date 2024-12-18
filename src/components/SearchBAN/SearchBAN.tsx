@@ -47,7 +47,7 @@ const formatBanToProperties = ({
   postcode: codesPostaux?.[0],
   citycode: codeCommune,
   city: nomCommune,
-  context: [departement?.code, departement?.nom, region?.nom].filter(entry=>Boolean(entry)).join(', '),
+  context: [departement?.code, departement?.nom, region?.nom].filter(entry => Boolean(entry)).join(', '),
 })
 
 interface TypeSearchDataInBan {
