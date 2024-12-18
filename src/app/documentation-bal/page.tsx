@@ -124,7 +124,7 @@ export default function RessourcesPage() {
           </div>
         </div>
       </Section>
-      <Section className="guide-section">
+      <Section className="guide-section" id="guide-bonnes-pratiques">
         <div>
           <div className="illustration-wrapper">
             <DownloadGuideCard imgProps={{ src: '/documentation-bal/guide-bonnes-pratiques.png', alt: 'Illustration guide bonnes pratiques', style: { width: 220, height: 300 } }} downloadlink="/documentation-bal/guide-mes-adresses-v8.2.pdf" />

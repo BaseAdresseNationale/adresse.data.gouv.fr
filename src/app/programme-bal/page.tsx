@@ -23,7 +23,7 @@ export default async function ProgrammeBALPage() {
                 style={{ marginBottom: 40 }}
                 className="fr-text--lead fr-pr-3w"
               >
-                <b>Bases Adresses Locales</b> est un programme de l&apos;ANCT
+                <b>Base Adresse Locale</b> est un programme de l&apos;ANCT
                 destiné aux communes. Référencez toutes les adresses de votre
                 commune pour offrir de meilleurs services à vos administrés.
               </p>
@@ -68,7 +68,7 @@ export default async function ProgrammeBALPage() {
         </div>
       </Section>
 
-      <Section theme="primary">
+      <Section theme="primary" id="creer-sa-base-adresse-locale">
         <div className="fr-container fr-py-5w">
           <div className="fr-grid-row">
             <h2>Créer sa Base Adresse Locale</h2>
@@ -237,7 +237,7 @@ export default async function ProgrammeBALPage() {
         <div className="fr-container fr-py-5w">
           <div className="fr-grid-row hide-mobile">
             <p>
-              Le programme <strong>Bases Adresses Locales</strong> permet de
+              Le programme <strong>Base Adresse Locale</strong> permet de
               reprendre la main sur les données de son territoire. Il est
               soutenu par les maires et les territoires de France :
             </p>
