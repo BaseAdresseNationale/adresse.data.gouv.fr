@@ -13,9 +13,6 @@ export function getAddress(idAddress: string) {
   return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idAddress}`)
 }
 
-export function getDistrict(banIdDistrict: string) {
-  return customFetch(`${API_BAN_SEARCH_URL}/api/district/${banIdDistrict}`)
-}
 export function getBanItem(idBanItem: string, signal?: AbortSignal): Promise<BANCommune | BANVoie | BANAddress> {
   return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idBanItem}`, signal ? { signal } : {})
 }

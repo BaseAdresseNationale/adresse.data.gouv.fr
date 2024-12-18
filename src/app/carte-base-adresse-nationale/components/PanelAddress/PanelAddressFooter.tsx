@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
-import { isNumeroCertifiable } from '@/lib/ban'
+import { isAddressCertifiable } from '@/lib/ban'
 
 import { useFocusOnMap } from '../ban-map/BanMap.context'
 import DownloadCertificate from './DownloadCertificate'
@@ -24,11 +24,12 @@ interface AsideFooterAddressProps {
 function AsideFooterAddress({ banItem: address, withCertificate, children }: AsideFooterAddressProps) {
   const focusOnMap = useFocusOnMap(address)
 
-  const isCertifiable = useMemo(() => isNumeroCertifiable({
+  const isCertifiable = useMemo(() => isAddressCertifiable({
     banId: address.banId ?? '',
     sources: Array.isArray(address.sourcePosition) ? address.sourcePosition : [address.sourcePosition],
     certifie: address.certifie,
     parcelles: address.parcelles,
+    withBanId: address.withBanId,
   }), [address])
 
   const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {

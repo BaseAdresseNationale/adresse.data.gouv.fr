@@ -48,6 +48,10 @@ export interface TypeDistrict extends TypeDistrictPartial {
   code: string
 }
 
+export interface TypeDistrictConfig {
+  certificate?: {}
+}
+
 export interface TypeDistrictExtended extends TypeDistrictPartial {
   type: TypeItem
   codeCommune: string
@@ -64,6 +68,7 @@ export interface TypeDistrictExtended extends TypeDistrictPartial {
   idRevision?: string | null
   dateRevision?: string | null
   voies: TypeMicroToponym[]
+  config?: TypeDistrictConfig
 }
 
 export interface TypeAddress {
@@ -119,4 +124,8 @@ export interface TypeAddressExtended {
   cleInterop: string
   voie: TypeMicroToponymPartial
   commune: TypeDistrict
+  withBanId: boolean
+  config?: {
+    certificate: {}
+  }
 }
