@@ -34,7 +34,6 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
   useEffect(() => {
     const currentMap = map.current
     const itemLayers = ['adresse', 'adresse-label', 'voie', 'toponyme']
-    console.log('CurrentMap Effect', currentMap)
 
     const highLightAdressesByProperties: HighLightAdressesByProperties = (
       isHovered: boolean,
@@ -95,7 +94,6 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
 
     const onLeave = () => {
       if (currentMap) {
-        console.log('onLeave')
         if (hoveredFeature.current) {
           highLightAdressesByProperties(false, hoveredFeature.current)
         }
@@ -125,8 +123,6 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
     }
 
     return () => {
-      console.log('CurrentMap Stop Effect', currentMap)
-
       if (currentMap) {
         itemLayers.forEach((itemLayer) => {
           currentMap.off('mouseleave', itemLayer, onLeave)
