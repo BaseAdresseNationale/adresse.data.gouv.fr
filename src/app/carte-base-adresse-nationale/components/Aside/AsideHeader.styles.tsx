@@ -8,6 +8,7 @@ export const AsideHeader = styled.div`
   flex-direction: column-reverse;
   overflow: hidden;
   width: 100%;
+  min-height: fit-content;
   padding: 0 1rem 1rem;
   font-size: 1rem;
   transform: translateY(-100%);

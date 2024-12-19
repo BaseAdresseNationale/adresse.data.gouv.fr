@@ -51,8 +51,6 @@ function PopupNumero(properties: PropsPopupNumero) {
     certifie,
   } = properties
 
-  console.log('properties >>>', properties)
-
   return (
     <PopupWrapper>
       <div className="heading">
@@ -77,11 +75,11 @@ function PopupNumero(properties: PropsPopupNumero) {
 
       <div>
         <span className={`fr-badge fr-badge--no-icon ${sourcePosition === 'bal' ? 'fr-badge--success' : 'fr-badge--grey'}`}>
-          <BadgeIcon className={sourcePosition === 'bal' ? 'ri-shield-star-fill' : 'ri-government-fill'} />
+          <BadgeIcon className={sourcePosition === 'bal' ? 'ri-star-fill' : 'ri-government-fill'} />
           {sourcePosition === 'bal' ? 'BAL' : 'Assemblage IGN'}
         </span>{' '}
         <span className={`fr-badge fr-badge--no-icon ${certifie ? 'fr-badge--success' : 'fr-badge--grey'}`}>
-          <BadgeIcon className={certifie ? 'ri-shield-check-fill' : 'ri-forbid-fill'} />
+          <BadgeIcon className={certifie ? 'ri-checkbox-circle-fill' : 'fr-icon-error-fill'} />
           {certifie ? 'Certifiée' : 'Non certifiée'}
         </span>
       </div>
@@ -105,12 +103,12 @@ function PopupVoie({ nomVoie, nomCommune, codeCommune, parcelles, nbNumeros }: P
 
       {parcelles && <PlotsList plots={parcelles.split('|')} />}
 
-      <div className='toponym-desc'>
-      {
-        nbNumeros
-          ? <><b>{nbNumeros} {nbNumeros > 1 ? 'adresses' : 'adresse'}</b> sur cet odonyme</>
-          : <>Odonyme sans adresse</>
-      }
+      <div className="toponym-desc">
+        {
+          nbNumeros
+            ? <><b>{nbNumeros} {nbNumeros > 1 ? 'adresses' : 'adresse'}</b> sur cet odonyme</>
+            : <>Odonyme sans adresse</>
+        }
       </div>
     </PopupVoieWrapper>
   )

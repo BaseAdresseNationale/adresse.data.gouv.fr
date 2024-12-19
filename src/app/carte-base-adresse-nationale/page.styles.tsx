@@ -3,7 +3,6 @@
 import styled from 'styled-components'
 
 export const MapSearchResultsWrapper = styled.div`
-  min-height: 200%;
   padding: 1rem;
   scroll-snap-align: start;
 

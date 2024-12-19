@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 import {
   DistrictLinkWrapper,
   DistrictName,
@@ -10,7 +12,7 @@ interface District {
 }
 
 interface DistrictLinkProps {
-  children?: React.ReactNode
+  children?: ReactNode
   district: District
 }
 

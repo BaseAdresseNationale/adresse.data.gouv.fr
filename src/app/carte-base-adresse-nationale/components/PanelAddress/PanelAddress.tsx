@@ -2,6 +2,7 @@ import {
   AddressDetailsItemValue,
   AddressDetailsWrapper,
   AddressDetailsItem,
+  AddressDetailsOrigin,
   AddressDetailsCertification,
 } from './PanelAddress.styles'
 
@@ -47,9 +48,9 @@ function PanelAddress({ address }: PanelAddressProps) {
 
   return (
     <AddressDetailsWrapper>
-      <AddressDetailsCertification isCertified={address.certifie}>
-        <strong>{address.certifie ? `Adresse certifiée` : 'Adresse non certifiée'}</strong>
-      </AddressDetailsCertification>
+      <AddressDetailsOrigin origin={address.sourcePosition} />
+      <AddressDetailsCertification isCertified={address.certifie} />
+
       <AddressDetailsItem className="ri-key-line">
         <span>
           Identifiant BAN : <br />
