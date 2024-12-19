@@ -93,15 +93,14 @@ export const AsideWrapper = styled.div<{
     }
 
     .body {
+      display:flex;
+      flex-direction: column;
       justify-content: flex-start;
       height: 100%;
-      padding-bottom: 8rem;
-      overflow-x: hidden;
-      overflow-y: auto;
       scroll-snap-type: x mandatory;
       pointer-events: auto;
 
-      ${({ $isTypeInfo }) => $isTypeInfo && css`padding-top: 8rem;`};
+      ${({ $isTypeInfo }) => $isTypeInfo && css`padding-top: 8rem;`}
     }
   }
 `
@@ -214,11 +213,16 @@ export const AsideWrapperTogglerButton = styled.button.attrs<{ $isOpen: boolean 
 `
 
 export const AsideBody = styled.div`
+  flex: 1 1 auto;
   background: var(--background-default-grey);
   pointer-events: auto;
 `
 
-export const AsideFooter = styled.footer`
+export const AsideFooter = styled.footer<{
+  $onTargetClick?: () => void
+  $isForLargeScreen?: boolean
+  $isForSmallScreen?: boolean
+}>`
     position: sticky;
     z-index: 1;
     bottom: 0;
@@ -229,4 +233,16 @@ export const AsideFooter = styled.footer`
     box-shadow: 0 0 .5rem -0.125rem rgba(0, 0, 0, 0.7);
     background: var(--background-default-grey);
     pointer-events: auto;
+
+    ${({ $isForSmallScreen }) => $isForSmallScreen && css`
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        display: none;
+      }
+    `}
+
+    ${({ $isForLargeScreen }) => $isForLargeScreen && css`
+      @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+        visibility: hidden;
+      }
+    `}
 `

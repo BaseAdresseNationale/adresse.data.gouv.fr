@@ -46,6 +46,23 @@ export const CartoWrapper = styled.div`
     box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.5) inset;
     pointer-events: none;
   }
+
+  // ---------------------------------
+  // --- Fix for MaplibreGL styles ---
+  // ---------------------------------
+
+  .maplibregl-map{
+    font:1rem/1.5 "Marianne", arial, sans-serif;
+  }
+  .maplibregl-popup-content {
+    background: var(--background-default-grey);
+    border-radius: 0.5rem;
+    padding: 0.75rem
+  }
+
+  .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+    border-top-color: var(--background-default-grey);
+  }
 `
 
 export const CartoMenu = styled.div`
