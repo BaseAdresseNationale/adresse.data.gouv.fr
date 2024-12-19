@@ -1,3 +1,5 @@
+import { useCallback, useEffect, useRef } from 'react'
+
 import AsideHeader from './AsideHeader'
 
 import {
@@ -40,6 +42,20 @@ function Aside({
   isOpen = true,
   isInfo,
 }: AsideProps | AsideInfoProps) {
+  const asideWrapperRef = useRef<HTMLDivElement>(null)
+  const asideBodyRef = useRef<HTMLDivElement>(null)
+
+  const onTargetClick = useCallback(() => {
+    asideWrapperRef.current?.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
+    if (path) {
+      asideWrapperRef.current?.scrollTo(0, 0)
+      asideBodyRef.current?.scrollTo(0, 0)
+    }
+  }, [path])
+
   const withTogglerButton = Boolean(onClickToggler)
 
   return (
@@ -48,6 +64,7 @@ function Aside({
       $isVisible={Boolean(children)}
       $withTogglerButton={withTogglerButton}
       $isTypeInfo={isInfo}
+      ref={asideWrapperRef}
     >
       {withTogglerButton && (
         <AsideTogglerButtonWrapper>
@@ -65,7 +82,7 @@ function Aside({
       )}
 
       <div className="aside-body-wrapper ">
-        <div className="body">
+        <div className="body" ref={asideBodyRef}>
           {header && (
             <AsideHeader path={path} onClose={onClose}>
               {header}
@@ -79,9 +96,15 @@ function Aside({
                 {children}
               </AsideBody>
             )}
+
+          {footer && (
+            <AsideFooter $isForLargeScreen>
+              {footer}
+            </AsideFooter>
+          )}
         </div>
         {footer && (
-          <AsideFooter>
+          <AsideFooter $onTargetClick={onTargetClick} $isForSmallScreen>
             {footer}
           </AsideFooter>
         )}
