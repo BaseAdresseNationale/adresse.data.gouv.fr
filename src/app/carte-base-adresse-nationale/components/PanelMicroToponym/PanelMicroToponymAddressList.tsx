@@ -142,14 +142,14 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
                   address?.certifie
                     ? (
                         <span
-                          className={fr.cx('fr-icon-success-line')}
-                          style={{ color: 'var(--artwork-major-blue-france)' }}
+                          className={fr.cx('ri-checkbox-circle-fill')}
+                          style={{ color: 'var(--text-default-success)' }}
                           aria-hidden={true}
                         />
                       )
                     : (
                         <span
-                          className={fr.cx('fr-icon-error-line')}
+                          className={fr.cx('fr-icon-error-fill')}
                           style={{ color: 'var(--artwork-major-red-marianne)' }}
                           aria-hidden={true}
                         />
