@@ -1,4 +1,4 @@
-import ParcellesList from './ParcellesList'
+import PlotsList from './PlotsList'
 
 import {
   PopupWrapper,
@@ -54,48 +54,62 @@ function PopupNumero(properties: PropsPopupNumero) {
   return (
     <PopupWrapper>
       <div className="heading">
-        <b>{numero}{suffixe} {nomVoie}</b>
+        <div>
+          <span className={`addr-num ${suffixe ? 'with-suffix' : ''}`}>
+            {numero}
+            {suffixe && <span className="addr-num-suffix">{suffixe}</span>}
+            {' '}
+          </span>
+          <span className="addr-main-topo">{nomVoie}</span>
+        </div>
+        {
+          lieuDitComplementNom && (
+            <div className="addr-secondary-topo">{lieuDitComplementNom}{', '}</div>
+          )
+        }
+        <div className="addr-district">
+          <span className="addr-district-prefix">Commune de </span>
+          {nomCommune} - (<span className="addr-district-cog-prefix">COG&nbsp;</span>{codeCommune})
+        </div>
       </div>
-      {
-        lieuDitComplementNom && (
-          <p>{lieuDitComplementNom}</p>
-        )
-      }
-      <div className="commune">{nomCommune} - (COG&nbsp;{codeCommune})</div>
 
       <div>
         <span className={`fr-badge fr-badge--no-icon ${sourcePosition === 'bal' ? 'fr-badge--success' : 'fr-badge--grey'}`}>
-          <BadgeIcon className={sourcePosition === 'bal' ? 'ri-shield-star-fill' : 'ri-government-fill'} />
+          <BadgeIcon className={sourcePosition === 'bal' ? 'ri-star-fill' : 'ri-government-fill'} />
           {sourcePosition === 'bal' ? 'BAL' : 'Assemblage IGN'}
         </span>{' '}
         <span className={`fr-badge fr-badge--no-icon ${certifie ? 'fr-badge--success' : 'fr-badge--grey'}`}>
-          <BadgeIcon className={certifie ? 'ri-shield-check-fill' : 'ri-forbid-fill'} />
+          <BadgeIcon className={certifie ? 'ri-checkbox-circle-fill' : 'fr-icon-error-fill'} />
           {certifie ? 'Certifiée' : 'Non certifiée'}
         </span>
       </div>
 
-      {parcelles && <ParcellesList parcelles={parcelles.split('|')} />}
+      {parcelles && <PlotsList plots={parcelles.split('|')} />}
     </PopupWrapper>
   )
 }
 
-function PopupVoie({ nomVoie, nomCommune, codeCommune, parcelles, nbNumeros, type }: PorpsPopupVoie) {
+function PopupVoie({ nomVoie, nomCommune, codeCommune, parcelles, nbNumeros }: PorpsPopupVoie) {
   return (
     <PopupVoieWrapper>
       <div className="heading">
-        <div className="address">
-          <div><b>{nomVoie}</b></div>
-          <div>{nomCommune} {codeCommune}</div>
+        <div className="addr-main-topo">{nomVoie}</div>
+        <div className="addr-district">
+          <span className="addr-district-prefix">Commune de </span>
+          {nomCommune} - (COG&nbsp;{codeCommune})
         </div>
-        <div>
-        </div>
+
       </div>
 
-      {parcelles && <ParcellesList parcelles={parcelles.split('|')} />}
+      {parcelles && <PlotsList plots={parcelles.split('|')} />}
 
-      {nbNumeros && (
-        <div>Cette voie contient <b>{nbNumeros} numéro{nbNumeros > 1 ? 's' : ''}</b></div>
-      )}
+      <div className="toponym-desc">
+        {
+          nbNumeros
+            ? <><b>{nbNumeros} {nbNumeros > 1 ? 'adresses' : 'adresse'}</b> sur cet odonyme</>
+            : <>Odonyme sans adresse</>
+        }
+      </div>
     </PopupVoieWrapper>
   )
 }

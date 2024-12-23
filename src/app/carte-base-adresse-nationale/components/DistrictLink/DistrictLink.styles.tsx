@@ -6,7 +6,7 @@ import Link from 'next/link'
 export const DistrictLinkWrapper = styled.span`
   position: relative;
   font-size: 1em;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;

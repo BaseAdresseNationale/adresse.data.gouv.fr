@@ -47,7 +47,9 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
 
   return (
     <>
-      <h3>Odonymes</h3>
+      <h4 data-prefix="Odonymes">
+        Voies, places et lieux-dits
+      </h4>
 
       <DistrictMicroToponymListInfo>
         Les odonymes correspondent aux voies, places, lieux-dits, et autres micro-toponymes circulables et/ou porteurs d’adresses.

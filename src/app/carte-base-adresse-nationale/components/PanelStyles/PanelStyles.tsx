@@ -69,6 +69,8 @@ export const PanelDistrictLabelPrefix = styled.span`
 `
 
 const PanelDistrictCogPrefix = styled.span`
+  white-space: nowrap;
+
   &::before {
     content: 'COG ';
     font-size: 0.8em;
