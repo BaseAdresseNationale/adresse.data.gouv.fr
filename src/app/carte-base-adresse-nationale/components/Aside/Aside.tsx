@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react'
+import { fr } from '@codegouvfr/react-dsfr'
 
 import AsideHeader from './AsideHeader'
+import { useBanMapConfig } from '../../components/ban-map/BanMap.context'
 
 import {
   AsideWrapper,
@@ -32,18 +34,78 @@ interface AsideInfoProps extends AsideDefaultProps {
   isInfo: true
 }
 
+const useDebouncedCallback = (callback: ((...args: any[]) => void), delay: number) => {
+  const callbackRef = useRef(callback)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  return useCallback(
+    (...args: any[]) => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+      }
+
+      timerRef.current = setTimeout(() => {
+        callbackRef.current(...args)
+      }, delay)
+    },
+    [delay]
+  )
+}
+
 function Aside({
   children,
   header,
   footer,
   path,
   onClose,
-  onClickToggler,
+  onClickToggler: onClickTogglerProps,
   isOpen = true,
   isInfo,
 }: AsideProps | AsideInfoProps) {
+  const debounceDelay = 10
   const asideWrapperRef = useRef<HTMLDivElement>(null)
   const asideBodyRef = useRef<HTMLDivElement>(null)
+
+  const banMapConfigState = useBanMapConfig()
+  const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
+  const { displayMenuConfig } = banMapConfig
+
+  const oldScrollTop = useRef(0)
+  const handleScroll = useDebouncedCallback(
+    (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+      const target = e.target as HTMLDivElement
+      const windowWidth = window?.innerWidth || 0
+      const isMobile = windowWidth < fr.breakpoints.getPxValues().md
+      const isScrollUp = oldScrollTop.current > target.scrollTop
+      oldScrollTop.current = target.scrollTop
+
+      if (target.scrollTop <= 10) {
+        dispatchToBanMapConfig({ type: 'TOOGLE_MENU_CONFIG', payload: true })
+      }
+      else if (!isMobile && isScrollUp) {
+        dispatchToBanMapConfig({ type: 'TOOGLE_MENU_CONFIG', payload: true })
+      }
+      else {
+        dispatchToBanMapConfig({ type: 'TOOGLE_MENU_CONFIG', payload: false })
+      }
+    },
+    debounceDelay
+  )
+
+  interface OnClickTogglerArgs {
+    isOpen: boolean
+    togglerButtonType: 'horizontal' | 'vertical'
+  }
+
+  const onClickToggler = useCallback(
+    (args: OnClickTogglerArgs) => {
+      onClickTogglerProps?.(args)
+      if (isOpen) {
+        dispatchToBanMapConfig({ type: 'TOOGLE_MENU_CONFIG', payload: true })
+      }
+    },
+    [dispatchToBanMapConfig, isOpen, onClickTogglerProps]
+  )
 
   const onTargetClick = useCallback(() => {
     asideWrapperRef.current?.scrollTo(0, 0)
@@ -60,11 +122,13 @@ function Aside({
 
   return (
     <AsideWrapper
+      ref={asideWrapperRef}
+      $withTogglerButton={withTogglerButton}
+      $withConfigMenuVisible={displayMenuConfig}
       $isOpen={isOpen}
       $isVisible={Boolean(children)}
-      $withTogglerButton={withTogglerButton}
       $isTypeInfo={isInfo}
-      ref={asideWrapperRef}
+      onScroll={handleScroll}
     >
       {withTogglerButton && (
         <AsideTogglerButtonWrapper>
@@ -81,8 +145,12 @@ function Aside({
         </AsideTogglerButtonWrapper>
       )}
 
-      <div className="aside-body-wrapper ">
-        <div className="body" ref={asideBodyRef}>
+      <div className="aside-body-wrapper">
+        <div
+          ref={asideBodyRef}
+          className="body"
+          onScroll={handleScroll}
+        >
           {header && (
             <AsideHeader path={path} onClose={onClose}>
               {header}

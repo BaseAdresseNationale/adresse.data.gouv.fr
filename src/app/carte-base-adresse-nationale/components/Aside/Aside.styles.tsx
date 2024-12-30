@@ -3,8 +3,9 @@
 import styled, { css } from 'styled-components'
 
 export const AsideWrapper = styled.div<{
-  $isOpen?: boolean
   $withTogglerButton: boolean
+  $withConfigMenuVisible: boolean
+  $isOpen?: boolean
   $isVisible?: boolean
   $isTypeInfo?: boolean
 }>`
@@ -19,7 +20,7 @@ export const AsideWrapper = styled.div<{
   overflow-y: auto;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
-  scroll-padding-top: 8rem;
+  scroll-padding-top: 5rem;
   font-size: 1rem;
   pointer-events: none;
 
@@ -78,7 +79,7 @@ export const AsideWrapper = styled.div<{
         width: calc(400px + 2rem);
         max-width: calc(25% + 2rem);
       `
-        : css`
+      : css`
         width: 400px;
         max-width: 25%;
       `
@@ -101,6 +102,34 @@ export const AsideWrapper = styled.div<{
       pointer-events: auto;
 
       ${({ $isTypeInfo }) => $isTypeInfo && css`padding-top: 8rem;`}
+
+      &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        background: linear-gradient(
+          to bottom,
+          var(--background-default-grey) 3rem,
+          transparent 100%
+        );
+        z-index: 10;
+        position: sticky;
+        top: 0;
+        pointer-events: none;
+
+        ${
+          ({ $withConfigMenuVisible }) => $withConfigMenuVisible
+            ? css`
+                min-height: 8.5rem;
+                margin-bottom: -8.5rem;
+              `
+            : css`
+                min-height: 5rem;
+                margin-bottom: -5rem;
+              `
+        }
+
+      }
     }
   }
 `
@@ -113,16 +142,6 @@ export const AsideTogglerButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
   pointer-events: none;
-
-  &::after {
-    content: '';
-    height: 0.15rem;
-    width: 85%;
-    background: rgba(0, 0, 0, 0);
-    box-shadow: 0rem 0.1rem 0.2rem -0.05rem rgba(0, 0, 0, 0.5);
-    position: absolute;
-    bottom: 0.2rem;
-  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     position: sticky;
