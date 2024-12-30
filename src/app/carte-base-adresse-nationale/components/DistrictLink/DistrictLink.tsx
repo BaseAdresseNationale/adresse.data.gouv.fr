@@ -26,7 +26,6 @@ function DistrictLink({ children, district }: DistrictLinkProps) {
 
       <DistrictLinkLabel
         href={href}
-        target="_test"
         title={titleLink}
       >
         Voir la page de la commune
