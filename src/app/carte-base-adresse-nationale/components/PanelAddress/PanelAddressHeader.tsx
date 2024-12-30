@@ -18,7 +18,6 @@ import {
   AddressParentsWrapper,
   AddressParents,
   AddressCertification,
-  BadgeWrapper,
   Badge,
 } from './PanelAddressHeader.styles'
 
@@ -77,12 +76,11 @@ function AddressCard({ address }: AddressCardProps) {
         {
           address.certifie && (
             <AddressCertification>
-              <BadgeWrapper>
-                <Badge className="badge green">
-                  <div className="circle"><i className="ri-checkbox-circle-fill"></i></div>
-                  <div className="ribbon"><span>Certifiée</span></div>
-                </Badge>
-              </BadgeWrapper>
+              <Badge
+                label="Certifiée"
+                color="green"
+                title="Cette adresse est certifiée par la commune"
+              />
             </AddressCertification>
           )
         }

@@ -8,7 +8,7 @@ export const BadgeWrapper = styled.div`
     margin: 0.5em;
 `
 
-export const Badge = styled.div`
+export const BadgeStyled = styled.div`
   --size: 3.75em;
   --border-size: 0.35em;
 
@@ -172,3 +172,20 @@ export const AddressCertification = styled.div`
   align-self: flex-end;
   justify-self: flex-end;
 `
+
+interface BadgeProps {
+  label: string
+  color: string
+  title: string
+}
+
+export const Badge = ({ label, color, title }: BadgeProps) => {
+  return (
+    <BadgeWrapper title={title}>
+      <BadgeStyled className={`badge ${color}`}>
+        <div className="circle"><i className="ri-checkbox-circle-fill"></i></div>
+        <div className="ribbon"><span>{label}</span></div>
+      </BadgeStyled>
+    </BadgeWrapper>
+  )
+}

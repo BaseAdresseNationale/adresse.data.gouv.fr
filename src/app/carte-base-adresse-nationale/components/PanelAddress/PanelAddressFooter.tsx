@@ -65,22 +65,31 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
 
         </ActionList>
 
-        { withCertificate && (
-          isCertifiable
-            ? (
-                <ActionList className="certificate">
-                  <DownloadCertificate
-                    id={address.id}
-                  />
-                </ActionList>
-              )
-            : (
-                <ActionList className="certificate">
-                  <div />
-                  <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
-                </ActionList>
-              )
-        )}
+        { withCertificate
+          ? (
+              isCertifiable
+                ? (
+                    <ActionList className="certificate">
+                      <DownloadCertificate
+                        id={address.id}
+                      />
+                    </ActionList>
+                  )
+                : (
+                    <ActionList className="certificate">
+                      <div />
+                      <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
+                    </ActionList>
+                  )
+            )
+          : (
+              <ActionList className="certificate">
+                <DownloadCertificate
+                  id={address.id}
+                  disabled
+                />
+              </ActionList>
+            )}
       </ActionWrapper>
     </AsideFooterWrapper>
   )

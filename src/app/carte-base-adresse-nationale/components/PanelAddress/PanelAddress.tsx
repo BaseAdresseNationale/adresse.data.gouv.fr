@@ -1,10 +1,10 @@
+import { AddressDetailsCertification } from './PanelAddress.styles'
 import {
-  AddressDetailsItemValue,
-  AddressDetailsWrapper,
-  AddressDetailsItem,
-  AddressDetailsOrigin,
-  AddressDetailsCertification,
-} from './PanelAddress.styles'
+  PanelDetailsWrapper as AddressDetailsWrapper,
+  PanelDetailsItem as AddressDetailsItem,
+  PanelDetailsItemValue as AddressDetailsItemValue,
+  PanelDetailsOrigin as AddressDetailsOrigin,
+} from '../PanelStyles/PanelStyles'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
@@ -15,6 +15,32 @@ interface PanelAddressProps {
 interface Position {
   position: TypeAddressExtended['position']
   positionType: TypeAddressExtended['positionType']
+}
+
+const configOriginAddress = {
+  bal: {
+    className: 'ri-star-fill isFormal',
+    message: <>Cette adresse est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
+    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+  },
+  default: {
+    className: 'ri-government-fill',
+    message: <>Cette adresse est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
+    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+  },
+}
+
+const certificationLevelConfig = {
+  0: {
+    message: 'Cette adresse n’est pas certifiée',
+    desc: 'Une adresse certifiée indique que la commune a validé l’exactitude des informations de l’adresse.',
+    className: 'fr-icon-error-fill isFailed',
+  },
+  1: {
+    message: 'Cette adresse est certifiée',
+    desc: 'Une adresse certifiée indique que la commune a validé l’exactitude des informations de l’adresse.',
+    className: 'ri-checkbox-circle-fill isSuccessful',
+  },
 }
 
 function PanelAddress({ address }: PanelAddressProps) {
@@ -48,8 +74,8 @@ function PanelAddress({ address }: PanelAddressProps) {
 
   return (
     <AddressDetailsWrapper>
-      <AddressDetailsOrigin origin={address.sourcePosition} />
-      <AddressDetailsCertification isCertified={address.certifie} />
+      <AddressDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
+      <AddressDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
 
       <AddressDetailsItem className="ri-key-line">
         <span>
@@ -59,36 +85,36 @@ function PanelAddress({ address }: PanelAddressProps) {
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-links-line">
         <span>
-          Clé d’interopérabilité :  <br />
+          Clé d’interopérabilité : <br />
           <AddressDetailsItemValue>{address.cleInterop}</AddressDetailsItemValue>
         </span>
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-collage-line">
         <span>
-          Parcelles cadastrales :  <br />
+          Parcelles cadastrales : <br />
           <AddressDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</AddressDetailsItemValue>
         </span>
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-calendar-line">
-        Date de mise à jour :  <br />
+        Date de mise à jour : <br />
         {dateMaj}
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-edit-box-line">
-        Producteur :  <br />
+        Producteur : <br />
         {address.sourcePosition}
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-signpost-line">
-        Libellé d’acheminement :  <br />
+        Libellé d’acheminement : <br />
         {address.libelleAcheminement}
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-map-pin-line">
-        {isMultiPosition ? 'Position Principale' : 'Position'} :  <br />
+        {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
         <span>Type / {mainPosition.positionType}</span> <br />
         <span>Coordonnées / {mainPosition.position.coordinates[0]}, {mainPosition.position.coordinates[1]}</span>
       </AddressDetailsItem>
       {isMultiPosition && (
         <AddressDetailsItem className="ri-map-pin-2-line">
-          Position Secondaire :  <br />
+          Position Secondaire : <br />
           <ol>
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
