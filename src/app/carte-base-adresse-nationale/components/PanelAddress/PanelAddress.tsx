@@ -1,4 +1,5 @@
 import Button from '@codegouvfr/react-dsfr/Button'
+import { toast } from 'react-toastify'
 
 import { AddressDetailsCertification } from './PanelAddress.styles'
 import { useMapFlyTo } from '../ban-map/BanMap.context'
@@ -21,13 +22,20 @@ interface Position {
   positionType: TypeAddressExtended['positionType']
 }
 
-function formatCoordinates(coords: [number, number]): string {
+function formatCoords(coords: [number, number]): string {
   const [lon, lat] = coords
   const formattedLon = Math.abs(lon).toFixed(6)
   const formattedLat = Math.abs(lat).toFixed(6)
   const lonDirection = lon >= 0 ? 'E' : 'W'
   const latDirection = lat >= 0 ? 'N' : 'S'
   return `${formattedLat}° ${latDirection}, ${formattedLon}° ${lonDirection}`
+}
+
+function copyCoordsToClipboard(coords: [number, number]) {
+  const [lon, lat] = coords
+  const coordsString = `${lat.toFixed(6)},${lon.toFixed(6)}`
+  navigator.clipboard.writeText(coordsString)
+  toast(`Position GPS copiée dans le presse-papier (${coordsString})`)
 }
 
 const toFixedGPS = (gps: number) => gps.toFixed(6)
@@ -62,6 +70,7 @@ const certificationLevelConfig = {
 
 function PanelAddress({ address }: PanelAddressProps) {
   const { mapFlyTo } = useMapFlyTo()
+
   const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
@@ -127,7 +136,7 @@ function PanelAddress({ address }: PanelAddressProps) {
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-map-pin-line">
         {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
-        <span>{mainPosition.positionType} • {formatCoordinates(mainPosition.position.coordinates as [number, number])}</span> <br />
+        <span>{mainPosition.positionType} • {formatCoords(mainPosition.position.coordinates as [number, number])}</span> <br />
         <span>
           <Button
             iconId="ri-focus-3-line"
@@ -135,6 +144,13 @@ function PanelAddress({ address }: PanelAddressProps) {
             priority="tertiary no outline"
             size="small"
             title="Centrer sur la position"
+          />
+          <Button
+            iconId="ri-file-copy-line"
+            onClick={() => copyCoordsToClipboard(mainPosition.position.coordinates as [number, number])}
+            priority="tertiary no outline"
+            size="small"
+            title="Copier la position GPS"
           />
           {
             isSmartDevice() && 'geolocation' in navigator
@@ -158,7 +174,7 @@ function PanelAddress({ address }: PanelAddressProps) {
           <ol>
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
-                <span>{entry.positionType} • {formatCoordinates(entry.position.coordinates as [number, number])}</span> <br />
+                <span>{entry.positionType} • {formatCoords(entry.position.coordinates as [number, number])}</span> <br />
                 <span>
                   <Button
                     iconId="ri-focus-3-line"
@@ -166,6 +182,13 @@ function PanelAddress({ address }: PanelAddressProps) {
                     priority="tertiary no outline"
                     size="small"
                     title="Centrer sur la position"
+                  />
+                  <Button
+                    iconId="ri-file-copy-line"
+                    onClick={() => copyCoordsToClipboard(entry.position.coordinates as [number, number])}
+                    priority="tertiary no outline"
+                    size="small"
+                    title="Copier la position GPS"
                   />
                   {
                     isSmartDevice() && 'geolocation' in navigator
