@@ -1,4 +1,8 @@
+import Button from '@codegouvfr/react-dsfr/Button'
+
 import { AddressDetailsCertification } from './PanelAddress.styles'
+import { useMapFlyTo } from '../ban-map/BanMap.context'
+
 import {
   PanelDetailsWrapper as AddressDetailsWrapper,
   PanelDetailsItem as AddressDetailsItem,
@@ -15,6 +19,15 @@ interface PanelAddressProps {
 interface Position {
   position: TypeAddressExtended['position']
   positionType: TypeAddressExtended['positionType']
+}
+
+function formatCoordinates(coords: [number, number]): string {
+  const [lon, lat] = coords
+  const formattedLon = Math.abs(lon).toFixed(6)
+  const formattedLat = Math.abs(lat).toFixed(6)
+  const lonDirection = lon >= 0 ? 'E' : 'W'
+  const latDirection = lat >= 0 ? 'N' : 'S'
+  return `${formattedLat}° ${latDirection}, ${formattedLon}° ${lonDirection}`
 }
 
 const configOriginAddress = {
@@ -44,6 +57,7 @@ const certificationLevelConfig = {
 }
 
 function PanelAddress({ address }: PanelAddressProps) {
+  const { mapFlyTo } = useMapFlyTo()
   const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
@@ -109,8 +123,16 @@ function PanelAddress({ address }: PanelAddressProps) {
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-map-pin-line">
         {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
-        <span>Type / {mainPosition.positionType}</span> <br />
-        <span>Coordonnées / {mainPosition.position.coordinates[0]}, {mainPosition.position.coordinates[1]}</span>
+        <span>{mainPosition.positionType} • {formatCoordinates(mainPosition.position.coordinates as [number, number])}</span> <br />
+        <span>
+          <Button
+            iconId="ri-focus-3-line"
+            onClick={() => mapFlyTo?.(mainPosition.position.coordinates as [number, number])}
+            priority="tertiary no outline"
+            size="small"
+            title="Centrer sur la position"
+          />
+        </span>
       </AddressDetailsItem>
       {isMultiPosition && (
         <AddressDetailsItem className="ri-map-pin-2-line">
@@ -118,8 +140,16 @@ function PanelAddress({ address }: PanelAddressProps) {
           <ol>
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
-                <span>Type / {entry.positionType}</span> <br />
-                <span>Coordonnées / {entry.position.coordinates[0]}, {entry.position.coordinates[1]}</span>
+                <span>{entry.positionType} • {formatCoordinates(entry.position.coordinates as [number, number])}</span> <br />
+                <span>
+                  <Button
+                    iconId="ri-focus-3-line"
+                    onClick={() => mapFlyTo?.(entry.position.coordinates as [number, number])}
+                    priority="tertiary no outline"
+                    size="small"
+                    title="Centrer sur la position"
+                  />
+                </span>
               </li>
             ))}
           </ol>

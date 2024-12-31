@@ -96,3 +96,28 @@ export function useFocusOnMap(item: MapItem) {
 
   return focusOnMap
 }
+
+export const useMapFlyTo = () => {
+  const map = useMap()
+
+  if (!map) {
+    throw new Error('useMapFlyTo must be used inside a MapProvider')
+  }
+
+  const flyTo = map.current?.flyTo
+  if (!flyTo) {
+    throw new Error('flyTo is not available')
+  }
+
+  const mapFlyTo = useCallback(
+    (coords: [number, number]) => {
+      flyTo({
+        center: coords,
+        essential: true,
+      })
+    },
+    [flyTo]
+  )
+
+  return { flyTo, mapFlyTo }
+}
