@@ -253,6 +253,10 @@ export const AsideFooter = styled.footer<{
     background: var(--background-default-grey);
     pointer-events: auto;
 
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      width: calc(100% - 1px);
+    }
+
     ${({ $isForSmallScreen }) => $isForSmallScreen && css`
       @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         display: none;

@@ -111,12 +111,16 @@ function Aside({
     asideWrapperRef.current?.scrollTo(0, 0)
   }, [])
 
+  const scrollToTop = useCallback(() => {
+    asideWrapperRef.current?.scrollTo(0, 0)
+    asideBodyRef.current?.scrollTo(0, 0)
+  }, [])
+
   useEffect(() => {
     if (path) {
-      asideWrapperRef.current?.scrollTo(0, 0)
-      asideBodyRef.current?.scrollTo(0, 0)
+      scrollToTop()
     }
-  }, [path])
+  }, [path, scrollToTop])
 
   const withTogglerButton = Boolean(onClickToggler)
 
