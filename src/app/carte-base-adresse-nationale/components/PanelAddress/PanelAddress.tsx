@@ -30,6 +30,10 @@ function formatCoordinates(coords: [number, number]): string {
   return `${formattedLat}° ${latDirection}, ${formattedLon}° ${lonDirection}`
 }
 
+const toFixedGPS = (gps: number) => gps.toFixed(6)
+const getLinkFromCoords = (coords: [number, number]) => `geo:${toFixedGPS(coords[1])},${toFixedGPS(coords[0])}`
+const isSmartDevice = () => /Mobi|Android/i.test(navigator.userAgent)
+
 const configOriginAddress = {
   bal: {
     className: 'ri-star-fill isFormal',
@@ -132,6 +136,20 @@ function PanelAddress({ address }: PanelAddressProps) {
             size="small"
             title="Centrer sur la position"
           />
+          {
+            isSmartDevice() && 'geolocation' in navigator
+            && (
+              <Button
+                iconId="ri-share-forward-line"
+                linkProps={{
+                  href: getLinkFromCoords(mainPosition.position.coordinates as [number, number]),
+                }}
+                priority="tertiary no outline"
+                size="small"
+                title="Afficher la position GPS"
+              />
+            )
+          }
         </span>
       </AddressDetailsItem>
       {isMultiPosition && (
@@ -149,6 +167,20 @@ function PanelAddress({ address }: PanelAddressProps) {
                     size="small"
                     title="Centrer sur la position"
                   />
+                  {
+                    isSmartDevice() && 'geolocation' in navigator
+                    && (
+                      <Button
+                        iconId="ri-share-forward-line"
+                        linkProps={{
+                          href: getLinkFromCoords(entry.position.coordinates as [number, number]),
+                        }}
+                        priority="tertiary no outline"
+                        size="small"
+                        title="Afficher la position GPS"
+                      />
+                    )
+                  }
                 </span>
               </li>
             ))}
