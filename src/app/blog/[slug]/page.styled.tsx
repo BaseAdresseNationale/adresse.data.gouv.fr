@@ -9,79 +9,62 @@ export const TagsWrapper = styled.div`
 `
 
 export const TextWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+
+  header,
+  article {
+    padding: 0;
+    width: auto;
+  }
+
+  aside {
+    hr {
+      width: 10%;
+    }
+  }
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: row;
 
     header,
     article {
-      padding: 0;
-      width: auto;
+      width: 70%;
+      padding-left: ${ARTICLE_MARGIN_LEFT};
     }
 
     aside {
-      hr {
-        width: 10%;
-      }
+      width: 30%;
+      min-width: 230px;
     }
+  }
 
-    figure {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      max-width: calc(100vw - 1.5rem - 1.5rem);
-      margin: 2rem 15%;
-      font-size: 1rem;
-
-      img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 1rem;
-      }
-
-      figcaption {
-        font-size: 0.75em;
-        text-align: center;
-        margin-top: 0.5em;
-        color: #666666;
-      }
-    }
-
-    @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      flex-direction: row;
-
-      header,
-      article {
-        width: 70%;
-        padding-left: ${ARTICLE_MARGIN_LEFT};
-      }
-
-      aside {
-        width: 30%;
-        min-width: 230px;
-      }
-    }
+  // Fix for BlogPost component
+  .kg-video-overlay,
+  .kg-video-player-container {
+    display: none;
+  }
 `
 export const ImageWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    max-height: 25rem;
-    overflow: hidden;
-    margin: 2rem -2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  max-height: 25rem;
+  overflow: hidden;
+  margin: 2rem -2rem;
+  box-shadow: 0 0 0.3rem rgba(0,0,0,0.1);
 
-    box-shadow: 0 0 0.3rem rgba(0,0,0,0.1);
+  img {
+    width: 100%;
+    height: auto;
+  }
 
-    img {
-      width: 100%;
-      height: auto;
-    }
-
-    @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
-      margin: 2rem 0 2rem -${ARTICLE_MARGIN_LEFT};
-    }
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    margin: 2rem 0 2rem -${ARTICLE_MARGIN_LEFT};
+  }
 `
 
 export const PublicationWrapper = styled.div`
