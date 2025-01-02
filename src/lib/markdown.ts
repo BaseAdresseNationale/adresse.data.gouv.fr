@@ -79,7 +79,8 @@ export async function getMarkdown(filename: string = 'sample') {
 
 export async function fetchMarkdown(filename: string = 'sample', host = NEXT_PUBLIC_ADRESSE_URL) {
   try {
-    const fileContents = await fetch(`${host}/markdown/${filename}.md`).then(response => response.text())
+    const url = /^http(s?)\:\/\//.test(filename) ? filename : `${host}/markdown/${filename}.md`
+    const fileContents = await fetch(url).then(response => response.text())
     return extractMarkdown(fileContents, fetchMarkdown, filename, host)
   }
   catch (error) {
