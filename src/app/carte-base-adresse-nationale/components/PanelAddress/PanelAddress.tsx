@@ -1,8 +1,8 @@
-import Button from '@codegouvfr/react-dsfr/Button'
 import { toast } from 'react-toastify'
 
 import { AddressDetailsCertification } from './PanelAddress.styles'
 import { useMapFlyTo } from '../ban-map/BanMap.context'
+import AddressDetailPosition from '../AddressDetailPosition'
 
 import {
   PanelDetailsWrapper as AddressDetailsWrapper,
@@ -136,37 +136,11 @@ function PanelAddress({ address }: PanelAddressProps) {
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-map-pin-line">
         {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
-        <span>{mainPosition.positionType} • {formatCoords(mainPosition.position.coordinates as [number, number])}</span> <br />
-        <span>
-          <Button
-            iconId="ri-focus-3-line"
-            onClick={() => mapFlyTo?.(mainPosition.position.coordinates as [number, number])}
-            priority="tertiary no outline"
-            size="small"
-            title="Centrer sur la position"
-          />
-          <Button
-            iconId="ri-file-copy-line"
-            onClick={() => copyCoordsToClipboard(mainPosition.position.coordinates as [number, number])}
-            priority="tertiary no outline"
-            size="small"
-            title="Copier la position GPS"
-          />
-          {
-            isSmartDevice() && 'geolocation' in navigator
-            && (
-              <Button
-                iconId="ri-share-forward-line"
-                linkProps={{
-                  href: getLinkFromCoords(mainPosition.position.coordinates as [number, number]),
-                }}
-                priority="tertiary no outline"
-                size="small"
-                title="Afficher la position GPS"
-              />
-            )
-          }
-        </span>
+        <AddressDetailPosition
+          type={mainPosition.positionType}
+          coords={mainPosition.position.coordinates as [number, number]}
+          isSmartDevice={isSmartDevice()}
+        />
       </AddressDetailsItem>
       {isMultiPosition && (
         <AddressDetailsItem className="ri-map-pin-2-line">
@@ -174,37 +148,11 @@ function PanelAddress({ address }: PanelAddressProps) {
           <ol>
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
-                <span>{entry.positionType} • {formatCoords(entry.position.coordinates as [number, number])}</span> <br />
-                <span>
-                  <Button
-                    iconId="ri-focus-3-line"
-                    onClick={() => mapFlyTo?.(entry.position.coordinates as [number, number])}
-                    priority="tertiary no outline"
-                    size="small"
-                    title="Centrer sur la position"
-                  />
-                  <Button
-                    iconId="ri-file-copy-line"
-                    onClick={() => copyCoordsToClipboard(entry.position.coordinates as [number, number])}
-                    priority="tertiary no outline"
-                    size="small"
-                    title="Copier la position GPS"
-                  />
-                  {
-                    isSmartDevice() && 'geolocation' in navigator
-                    && (
-                      <Button
-                        iconId="ri-share-forward-line"
-                        linkProps={{
-                          href: getLinkFromCoords(entry.position.coordinates as [number, number]),
-                        }}
-                        priority="tertiary no outline"
-                        size="small"
-                        title="Afficher la position GPS"
-                      />
-                    )
-                  }
-                </span>
+                <AddressDetailPosition
+                  type={entry.positionType}
+                  coords={entry.position.coordinates as [number, number]}
+                  isSmartDevice={isSmartDevice()}
+                />
               </li>
             ))}
           </ol>

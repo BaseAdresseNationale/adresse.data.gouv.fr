@@ -148,6 +148,12 @@ export const PanelDetailsItemStyle = styled.li`
   }
 `
 
+export const PanelDetailsItemContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`
+
 const PanelDetailsDesc = styled.div`
   display: block;
   font-size: 0.9em;
@@ -163,9 +169,9 @@ interface PanelDetailsItemProps extends React.HTMLAttributes<HTMLLIElement> {
 
 export const PanelDetailsItem = ({ children, ...props }: PanelDetailsItemProps) => (
   <PanelDetailsItemStyle {...props}>
-    <div>
+    <PanelDetailsItemContent>
       {children}
-    </div>
+    </PanelDetailsItemContent>
   </PanelDetailsItemStyle>
 )
 
