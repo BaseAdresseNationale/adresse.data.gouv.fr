@@ -69,6 +69,7 @@ export default function Footer() {
       <FooterDisplayButton />
       <FooterBody>
         <Follow
+          id="newsletter-form"
           newsletter={{
             buttonProps: {
               type: 'submit',
@@ -76,8 +77,8 @@ export default function Footer() {
             },
             desc: (
               <>
-                <div id="newsletter">Recevez toutes les informations de la Base Adresse Nationale !</div>
-                <br />
+                <span>Recevez toutes les informations de la Base Adresse Nationale !</span>
+                <br /><br />
                 <Link href="/newsletters">
                   Découvrez nos dernières newsletters
                 </Link>
