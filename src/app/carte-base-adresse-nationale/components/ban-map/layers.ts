@@ -5,7 +5,7 @@ const NUMEROS_MIN = 17
 const VOIE_COLOR = '#4a4a4a'
 const VOIE_MIN = 12
 const VOIE_MAX = NUMEROS_MIN
-const TOPONYME_MIN = 11
+const TOPONYME_MIN = 14
 const TOPONYME_MAX = NUMEROS_MIN + 2
 const TOPONYME_COLOR = '#7c5050'
 export const PARCELLES_MINZOOM = 14
@@ -218,12 +218,12 @@ export const toponymeLayer = {
   },
   'layout': {
     'text-font': ['Noto Sans Bold'],
-    'text-size': {
-      stops: [
-        [0, 3],
-        [10, 15],
-      ],
-    },
+    'text-size': [
+      'interpolate',
+      ['linear'], ['zoom'],
+      TOPONYME_MIN, 8,
+      TOPONYME_MAX, 15,
+    ],
     'text-field': ['get', 'nomVoie'],
     'text-ignore-placement': false,
     'text-variable-anchor': ['bottom', 'top', 'right', 'left'],

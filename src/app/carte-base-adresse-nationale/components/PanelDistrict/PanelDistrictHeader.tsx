@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import DistrictLink from '../DistrictLink'
-
 import {
   DistrictHeaderWrapper,
   DistrictLabelWrapper,
@@ -11,6 +9,7 @@ import {
   DistrictLogoWrapper,
   DistrictLogoBadge,
 } from './PanelDistrictHeader.styles'
+import DistrictLink from '../DistrictLink'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
