@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 export const AsideHeader = styled.div`
   position: absolute;
+  flex: 1 0 fit-content;
   display: flex;
   flex-direction: column-reverse;
   overflow: hidden;
