@@ -4,6 +4,7 @@ import Tag from '@codegouvfr/react-dsfr/Tag'
 import Breadcrumb from '@/layouts/Breadcrumb'
 import Section from '@/components/Section'
 import HtmlViewer from '@/components/HtmlViewer'
+import SharingBlock from '@/components/SharingBlock'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { getSinglePost } from '@/lib/blog'
 
@@ -22,6 +23,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const blogPost = await getSinglePost(params.slug) || {}
 
   const {
+    excerpt,
     html: contentHtml,
     title,
     tags,
@@ -30,6 +32,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     published_at: publishedAt,
     reading_time: readingTime,
   } = blogPost || {}
+
+  const excerptRegex = new RegExp(excerpt.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i')
+  const excerptMatch = contentHtml.match(excerptRegex)
+  const excerptIndex = excerptMatch?.index || 0
 
   return (
     <>
@@ -71,6 +77,14 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               {publishedAt && <div className="publication-date">Publié le {new Date(publishedAt).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>}
               {readingTime && <div className="reading-time">Lecture {readingTime} minutes</div>}
             </PublicationWrapper>
+
+            {excerptIndex <= 0 && (
+              <p>
+                {excerpt}
+              </p>
+            )}
+
+            <SharingBlock pageUrl={pageUrl} callMessage={title} title={title} />
 
             {featureImage && (
               <ImageWrapper>
