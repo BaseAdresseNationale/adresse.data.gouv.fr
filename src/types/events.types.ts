@@ -23,9 +23,9 @@ export enum EventTypeTagEnum {
 }
 
 export type EventType = {
-  _id: string
-  _created: string
-  _updated: string
+  id: string
+  createdAt: string
+  updatedAt: string
   title: string
   subtitle: string
   description: string

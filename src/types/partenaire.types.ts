@@ -41,9 +41,9 @@ export type CandidatePartenaireDeLaCharteType = {
 }
 
 export type PartenaireDeLaChartType = {
-  _id: string
-  _created: string
-  _updated: string
+  id: string
+  createdAt: string
+  updatedAt: string
   type: PartenaireDeLaCharteTypeEnum
   name: string
   picture: string
