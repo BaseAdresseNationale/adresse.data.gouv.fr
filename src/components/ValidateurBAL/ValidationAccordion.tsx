@@ -20,7 +20,7 @@ export default function ValidationAccordion({ title, groups }: ValidationAccordi
   return (
     <StyledWrapper>
       <h5>{title}</h5>
-      {Object.keys(groups).map((code, index) => (
+      {Object.keys(groups).map(code => (
         <Accordion
           key={code}
           label={`${getLabel(code)} - ${groups[code].length} ligne(s)`}
@@ -28,7 +28,7 @@ export default function ValidationAccordion({ title, groups }: ValidationAccordi
           <div className="table-wrapper">
             <Table
               data={groups[code].map(row => ([row.line, ...Object.values(row.rawValues)]))}
-              headers={['Ligne', ...Object.keys(groups[code][index].rawValues)]}
+              headers={['Ligne', ...Object.keys(groups[code][0].rawValues)]}
             />
           </div>
         </Accordion>
