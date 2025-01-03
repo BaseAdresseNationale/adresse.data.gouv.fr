@@ -21,9 +21,9 @@ export const tertiaryInfo = css`
   line-height: 1.5;
 `
 
-// ---------------
-// MAIN INFO -----
-// ---------------
+// ----------------------
+// HEADER MAIN INFO -----
+// ----------------------
 
 export const PanelNumberAndMicroTopoLabel = styled.span`
   ${mainInfo}
@@ -31,9 +31,9 @@ export const PanelNumberAndMicroTopoLabel = styled.span`
   margin-bottom: 0.25rem;
 `
 
-// -------------------
-// TERTIARY INFO -----
-// -------------------
+// --------------------------
+// HEADER TERTIARY INFO -----
+// --------------------------
 
 export const PanelMicroTopoLabelAlt = styled.span`
   ${tertiaryInfo}
@@ -57,9 +57,9 @@ export const PanelAddressPostCode = styled.span`
   display: block;
 `
 
-// --------------------
-// SECONDARY INFO -----
-// --------------------
+// ---------------------------
+// HEADER SECONDARY INFO -----
+// ---------------------------
 
 export const PanelDistrictLabelPrefix = styled.span`
   ${secondaryInfo}
@@ -101,3 +101,142 @@ export const PanelDistrictLabel = styled.span.attrs<{ $cog?: string }>(({ $cog, 
     ${({ $separator }) => $separator && css`content: '${$separator}';`}
   }
 `
+
+// ------------------
+// BODY DETAILS -----
+// ------------------
+
+export const PanelDetailsWrapper = styled.ul`
+  padding: 0;
+  margin: 0 0 4rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+`
+
+export const PanelDetailsItemStyle = styled.li`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.2em;
+
+  b {
+    font-weight: 500;
+    font-size: 1.1em;
+  }
+
+  &.isSuccessful {
+    color: var(--text-default-success);
+  }
+
+  &.isFailed {
+    color: var(--text-label-red-marianne);
+  }
+
+  &.isFormal {
+    color: var(--text-label-blue-france);
+  }
+
+  &.isIsolated {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &::before {
+    margin-right: 0.5em;
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: -0.25rem;
+  }
+`
+
+export const PanelDetailsItemContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`
+
+const PanelDetailsDesc = styled.div`
+  display: block;
+  font-size: 0.9em;
+  font-style: italic;
+  line-height: 1.5rem;
+  padding-right: 1em;
+  color: var(--text-mention-grey);
+`
+
+interface PanelDetailsItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  children: React.ReactNode
+}
+
+export const PanelDetailsItem = ({ children, ...props }: PanelDetailsItemProps) => (
+  <PanelDetailsItemStyle {...props}>
+    <PanelDetailsItemContent>
+      {children}
+    </PanelDetailsItemContent>
+  </PanelDetailsItemStyle>
+)
+
+export const PanelDetailsItemValue = styled.pre`
+  font-size: small;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  white-space: pre-line;
+`
+
+interface PanelDetailsItemWithDescProps extends React.HTMLAttributes<HTMLLIElement> {
+  message: React.ReactNode
+  desc: React.ReactNode
+}
+
+export const PanelDetailsItemWithDesc = ({
+  message,
+  desc,
+  className,
+  ...props
+}: PanelDetailsItemWithDescProps) => (
+  <PanelDetailsItem
+    {...props}
+    className={
+  `${className || ''} `
+  + `isIsolated `
+  + `${className}`
+    }
+  >
+    <div>
+      <strong>{message}</strong>
+      <PanelDetailsDesc>
+        {desc}
+      </PanelDetailsDesc>
+    </div>
+  </PanelDetailsItem>
+)
+
+interface ConfigEntryValue {
+  className: string
+  message: React.ReactNode
+  desc: React.ReactNode
+}
+
+type ConfigEntryKey = string
+type ConfigOrigin = Record<ConfigEntryKey, ConfigEntryValue>
+interface DistrictDetailsOriginProps extends React.HTMLAttributes<HTMLLIElement> {
+  config: ConfigOrigin
+  origin: ConfigEntryKey
+}
+
+export const PanelDetailsOrigin = ({ config, origin, className, ...props }: DistrictDetailsOriginProps) => {
+  const configOrigin = config[origin] || config.default
+  return (
+    configOrigin
+    && (
+      <PanelDetailsItemWithDesc
+        {...props}
+        message={configOrigin.message}
+        desc={configOrigin.desc}
+        className={
+          `${configOrigin.className} `
+          + `isIsolated `
+          + `${className}`
+        }
+      />
+    ))
+}

@@ -7,9 +7,7 @@ export const LegendWrapper = styled.div<{ $isVisible: boolean }>`
   max-height: 100%;
   opacity: 1;
   transform: translate(0, 0);
-  box-shadow: 0 0 .75rem rgba(0,0,0,0.25),
-    0 4rem 1.5rem 0rem rgba(255, 255, 255, 0.5),
-    0 -4rem 1.5rem 0rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 .75rem var(--shadow-color);
   transition: transform 0.3s ease 0.3s,
     opacity 0.6s ease 0.3s,
     box-shadow 0.6s ease 0.3s,
@@ -19,9 +17,7 @@ export const LegendWrapper = styled.div<{ $isVisible: boolean }>`
     max-height: 0;
     opacity: 0;
     transform: translate(calc(-100% - 2rem), 0);
-    box-shadow: 0 0 .75rem rgba(0,0,0,0.25),
-      0 0rem 0rem 0rem rgba(255, 255, 255, 0.5),
-      0 0rem 0rem 0rem rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 .75rem var(--shadow-color);
     transition: transform 0.3s ease,
       opacity 0.6s ease,
       box-shadow 0.6s ease,
@@ -43,7 +39,7 @@ export const LegendDialog = styled.dialog`
   border: 0 none;
   border-bottom: 3px solid var(--border-plain-info);
   border-radius: .25rem .25rem 0 0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 1px , 0 0 10px var(--shadow-color);
   pointer-events: auto;
 `
 

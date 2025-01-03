@@ -1,18 +1,17 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import { isAddressCertifiable } from '@/lib/ban'
-
-import { useFocusOnMap } from '../ban-map/BanMap.context'
-import DownloadCertificate from './DownloadCertificate'
+import { getMairiePageURL } from '@/lib/api-etablissement-public'
 
 import {
-  AsideFooterWrapper,
   ActionWrapper,
   ActionList,
-  ActionMessage,
-} from './PanelAddressFooter.styles'
-
+  ActionDownloadCertificate as DownloadCertificate,
+} from './ActionComponents'
+import { AsideFooterWrapper } from './PanelAddressFooter.styles'
+import { useFocusOnMap } from '../ban-map/BanMap.context'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface AsideFooterAddressProps {
@@ -22,6 +21,7 @@ interface AsideFooterAddressProps {
 }
 
 function AsideFooterAddress({ banItem: address, withCertificate, children }: AsideFooterAddressProps) {
+  const [mairiePageURL, setMairiePageURL] = useState<string | null>(null)
   const focusOnMap = useFocusOnMap(address)
 
   const isCertifiable = useMemo(() => isAddressCertifiable({
@@ -37,22 +37,19 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
     focusOnMap()
   }
 
+  const codeCommune = address.commune?.code
+  useEffect(() => {
+    if (!address) return
+    if (!codeCommune) return
+    (async () => {
+      const url = await getMairiePageURL(codeCommune)
+      setMairiePageURL(url)
+    })()
+  }, [address, codeCommune])
+
   return (
     <AsideFooterWrapper>
       {children}
-      {!withCertificate && (
-        <ActionMessage>
-          Les certifications d’adresses sur la commune de {address.commune.nom} sont
-          réalisées directement par la mairie.
-          Contactez-la pour obtenir un certificat d’adressage ou toute autre information.
-        </ActionMessage>
-      )}
-      {withCertificate && !isCertifiable && (
-        <ActionMessage>
-          Cette adresse ne remplit pas les critères minimums pour obtenir une certification.
-          Veuillez contacter votre mairie pour obtenir un certificat d’adressage ou toute autre information.
-        </ActionMessage>
-      )}
       <ActionWrapper>
         <ActionList>
           <Button
@@ -65,22 +62,45 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
 
         </ActionList>
 
-        { withCertificate && (
-          isCertifiable
-            ? (
-                <ActionList className="certificate">
-                  <DownloadCertificate
-                    id={address.id}
-                  />
-                </ActionList>
+        <ActionList className="certificate">
+          {
+            (
+              !withCertificate && (
+                <DownloadCertificate
+                  id={address.id}
+                  message={(
+                    <>
+                      Les certifications d’adresses sur la commune de {address.commune.nom} sont
+                      réalisées directement par la mairie.<br />
+                      <Link className="fr-link" href={mairiePageURL || ''} target="_blank">Contactez-la</Link> pour obtenir un certificat d’adressage ou toute autre information.
+                    </>
+                  )}
+                  disabled
+                />
               )
-            : (
-                <ActionList className="certificate">
-                  <div />
-                  <span>Certificat d&apos;adressage indisponible pour cette adresse, veuillez contacter votre mairie.</span>
-                </ActionList>
+            ) || (
+              !isCertifiable && (
+                <DownloadCertificate
+                  id={address.id}
+                  message={(
+                    <>
+                      Cette adresse ne remplit pas les critères minimums
+                      pour obtenir une certification.
+                      Veuillez contacter votre mairie pour obtenir un certificat d’adressage
+                      ou toute autre information.
+                    </>
+                  )}
+                  disabled
+                />
               )
-        )}
+            ) || (
+              <DownloadCertificate
+                id={address.id}
+              />
+            )
+          }
+        </ActionList>
+
       </ActionWrapper>
     </AsideFooterWrapper>
   )

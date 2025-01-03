@@ -17,3 +17,11 @@ export const DistrictMicroToponymListInfo = styled.div.attrs({ className: 'ri-in
     vertical-align: -0.25rem;
   }
 `
+
+export const ClearInputButton = styled.button`
+  position: absolute;
+  right: 2rem;
+  height: calc(100% - 2px);
+  padding-top: 2px;
+  width: 2rem;
+`

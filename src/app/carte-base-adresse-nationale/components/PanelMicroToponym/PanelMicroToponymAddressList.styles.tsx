@@ -63,3 +63,11 @@ export const ToggleWrapper = styled.div`
   width: 100%;
   margin: 1.5rem 0;
 `
+
+export const ClearInputButton = styled.button`
+  position: absolute;
+  right: 2rem;
+  height: calc(100% - 2px);
+  padding-top: 2px;
+  width: 2rem;
+`

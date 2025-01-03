@@ -2,10 +2,12 @@ import Link from 'next/link'
 
 import formatNumber from '../../tools/formatNumber'
 import PanelDistrictMicroToponymList from './PanelDistrictMicroToponymList'
+import { DistrictDetailsCertification } from './PanelDistrict.styles'
 import {
-  DistrictDetailsWrapper,
-  DistrictDetailsItem,
-} from './PanelDistrict.styles'
+  PanelDetailsWrapper as DistrictDetailsWrapper,
+  PanelDetailsItem as DistrictDetailsItem,
+  PanelDetailsOrigin as DistrictDetailsOrigin,
+} from '../PanelStyles/PanelStyles'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
@@ -13,21 +15,73 @@ interface PanelDistrictProps {
   district: TypeDistrictExtended
 }
 
+const configOriginDistrict = {
+  bal: {
+    className: 'ri-star-fill isFormal',
+    message: <>Les adresses de cette commune sont issues d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
+    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+  },
+  default: {
+    className: 'ri-government-fill',
+    message: <>Les adresses de cette commune sont issues d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
+    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+  },
+}
+
+const certificationConfig = {
+  0: {
+    message: 'Aucune adresse certifiée par la commune',
+    desc: 'Une adresse certifiée indique que la commune a validé l’exactitude des informations de l’adresse.',
+    className: 'fr-icon-error-fill isFailed',
+  },
+  1: {
+    message: `Adresses en cours de certification ({{CERTIFICATED_PERCENT}}%)`,
+    desc: 'Une adresse certifiée indique que la commune a validé l’exactitude des informations de l’adresse.',
+    className: 'ri-award-line',
+  },
+  2: {
+    message: `Adresses certifiées à {{CERTIFICATED_PERCENT}}%`,
+    desc: 'Une adresse certifiée indique que la commune a validé l’exactitude des informations de l’adresse.',
+    className: 'ri-award-fill isSuccessful',
+  },
+}
+
 function PanelDistrict({ district }: PanelDistrictProps) {
+  console.log('PanelDistrict', district)
+  const nbAddress = Number(district.nbNumeros || 0)
+  const nbAddressCertified = Number(district.nbNumerosCertifies || 0)
+  const certificatedAddressPercent = nbAddress ? Math.round((nbAddressCertified / nbAddress) * 100) : 0
+
   return (
     <>
       <DistrictDetailsWrapper>
+        <DistrictDetailsOrigin config={configOriginDistrict} origin={district.typeComposition} />
+        <DistrictDetailsCertification certificationConfig={certificationConfig} origin={district.typeComposition} certificatedAddressPercent={certificatedAddressPercent} />
+
         <DistrictDetailsItem className="ri-group-line">
           <b>{formatNumber(district.population)}</b>&nbsp;habitants
         </DistrictDetailsItem>
-        <DistrictDetailsItem className="ri-shield-check-line">
+        <DistrictDetailsItem className="ri-map-pin-line">
+          <b>{formatNumber(nbAddress)}</b>&nbsp;adresses répertoriées{' '}
           {
-            Number(district.nbNumerosCertifies) > 1
-              ? <><b>{formatNumber(district.nbNumerosCertifies)}</b>&nbsp;adresses certifiées</>
-              : <>{district.nbNumerosCertifies || 'Aucune'} adresse certifiée</>
-          }{'\u00A0/\u00A0'}
-          <b>{formatNumber(district.nbNumeros)}</b>&nbsp;adresses répertoriées{' '}
-          <b>(soit {Math.round((district.nbNumerosCertifies / district.nbNumeros) * 100)}%)</b>
+            nbAddressCertified && (
+              nbAddressCertified === nbAddress
+                ? <>et certifiées</>
+                : (
+                    <>
+                      <br />
+                      (dont{' '}
+                      <b>{formatNumber(nbAddressCertified)}</b>{' '}
+                      {
+                        (nbAddressCertified > 1)
+                          ? 'adresses certifiées'
+                          : 'adresse certifiée'
+                      }
+                      )
+                    </>
+                  )
+            )
+          }
         </DistrictDetailsItem>
         <DistrictDetailsItem className="ri-signpost-line">
           {

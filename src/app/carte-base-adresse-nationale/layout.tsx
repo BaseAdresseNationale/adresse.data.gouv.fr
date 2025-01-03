@@ -40,7 +40,7 @@ function Carto({ children }: { children: JSX.Element }) {
   const [isLegendVisible, setIsLegendVisible] = useState(false)
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
-  const { mapStyle, displayLandRegister } = banMapConfig
+  const { mapStyle, displayLandRegister, displayMenuConfig } = banMapConfig
 
   useEffect(() => {
     setTypeLayout('full-screen')
@@ -65,15 +65,15 @@ function Carto({ children }: { children: JSX.Element }) {
       <CartoMenu>
         <SearchBAN />
 
-        <MapParamsWrapper>
+        <MapParamsWrapper $isHidden={!displayMenuConfig}>
           <RingButton tooltip="Légende" className={isLegendVisible ? 'ri-close-large-line' : 'ri-apps-2-line'} onClick={toggleLegend} $isActive={isLegendVisible} />
           <RingButton tooltip="Afficher les parcelles cadastrales" className={displayLandRegister ? 'ri-collage-fill' : 'ri-collage-line'} onClick={toggleCadasterLayer} $isActive={displayLandRegister} />
-          <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={banMapConfig.mapStyle === 'osm-vector'} $isTypeRadio />
-          <RingButton tooltip="Utiliser les fonds IGN" $img="/img/map/bg-button-map-style-ign-vector.png" onClick={() => handleMapStyleChange('ign-vector')} $isActive={banMapConfig.mapStyle === 'ign-vector'} $isTypeRadio />
-          <RingButton tooltip="Utiliser la vue satellite IGN" $img="/img/map/bg-button-map-style-ign-ortho.png" onClick={() => handleMapStyleChange('ign-ortho')} $isActive={banMapConfig.mapStyle === 'ign-ortho'} $isTypeRadio />
+          <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={mapStyle === 'osm-vector'} $isTypeRadio />
+          <RingButton tooltip="Utiliser les fonds IGN" $img="/img/map/bg-button-map-style-ign-vector.png" onClick={() => handleMapStyleChange('ign-vector')} $isActive={mapStyle === 'ign-vector'} $isTypeRadio />
+          <RingButton tooltip="Utiliser la vue satellite IGN" $img="/img/map/bg-button-map-style-ign-ortho.png" onClick={() => handleMapStyleChange('ign-ortho')} $isActive={mapStyle === 'ign-ortho'} $isTypeRadio />
         </MapParamsWrapper>
 
-        <Legend className="layer" isVisible={isLegendVisible}>
+        <Legend className="layer" isVisible={displayMenuConfig && isLegendVisible}>
           <LegendList>
             <li><span><PointPaint $fill={theme.bal} /> Source BAL</span></li>
             <li><span><PointPaint $fill={theme.noBal} /> Source IGN</span></li>

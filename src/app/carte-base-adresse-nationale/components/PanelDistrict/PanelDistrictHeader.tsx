@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import DistrictLink from '../DistrictLink'
-
 import {
   DistrictHeaderWrapper,
   DistrictLabelWrapper,
@@ -9,7 +7,9 @@ import {
   DistrictLabel,
   DistrictLabelCode,
   DistrictLogoWrapper,
+  DistrictLogoBadge,
 } from './PanelDistrictHeader.styles'
+import DistrictLink from '../DistrictLink'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
@@ -24,23 +24,28 @@ function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
     code: district.codeCommune,
   }
 
+  const certificatedAddressPercent = Math.round((district.nbNumerosCertifies / district.nbNumeros) * 100)
+
   return (
-    <DistrictLink district={formatedDistrict}>
-      <DistrictHeaderWrapper>
-        {logo && (
-          <DistrictLogoWrapper>
-            <Image width={80} height={80} alt="logo commune par défault" src={logo} />
-          </DistrictLogoWrapper>
-        )}
-        <DistrictLabelWrapper>
-          <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
-          <DistrictLabel>
-            {district.nomCommune}
-          </DistrictLabel>
-          <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
-        </DistrictLabelWrapper>
-      </DistrictHeaderWrapper>
-    </DistrictLink>
+    <>
+      <DistrictLink district={formatedDistrict}>
+        <DistrictHeaderWrapper>
+          {logo && (
+            <DistrictLogoWrapper>
+              <Image width={80} height={80} alt="logo commune par défault" src={logo} />
+              {certificatedAddressPercent > 98 && <DistrictLogoBadge title={`Les adresse de cette commune sont certifiées à ${certificatedAddressPercent}%`} />}
+            </DistrictLogoWrapper>
+          )}
+          <DistrictLabelWrapper>
+            <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
+            <DistrictLabel>
+              {district.nomCommune}
+            </DistrictLabel>
+            <DistrictLabelCode>COG {district.codeCommune}</DistrictLabelCode>
+          </DistrictLabelWrapper>
+        </DistrictHeaderWrapper>
+      </DistrictLink>
+    </>
   )
 }
 

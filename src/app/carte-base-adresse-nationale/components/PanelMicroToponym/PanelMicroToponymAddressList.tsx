@@ -1,6 +1,7 @@
-import { Fragment, useState, useMemo, useEffect } from 'react'
+import { Fragment, useState, useMemo, useEffect, useCallback } from 'react'
 import { fr } from '@codegouvfr/react-dsfr'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
+import { Input } from '@codegouvfr/react-dsfr/Input'
 
 import { getBanItem } from '@/lib/api-ban'
 
@@ -11,6 +12,7 @@ import {
   MicroToponymAddressListTable,
   MicroToponymAddressLink,
   ToggleWrapper,
+  ClearInputButton,
 } from './PanelMicroToponymAddressList.styles'
 
 import type { SortAddressesEntry } from '../../tools/sortAddresses'
@@ -34,6 +36,7 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
   const [isAddressUncertifiedVisible, setIsAddressUncertifiedVisible] = useState(true)
   const [isAddressCertifiedVisible, setIsAddressCertifiedVisible] = useState(true)
   const [subMicroToponyms, setSubMicroToponyms] = useState<ToponymesEntry[]>([])
+  const [filter, setFilter] = useState<Record<string, string>>({})
 
   const microToponymId = microToponym?.idVoie
 
@@ -43,6 +46,13 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
   const addressesCertified = useMemo(
     () => microToponym?.numeros.filter(({ certifie }) => certifie === true) || []
     , [microToponym?.numeros])
+
+  const handelFilter = useCallback((topoId: string, search: string) => {
+    const { [topoId]: id, ...initFilter } = filter
+    setFilter({ ...initFilter, ...(search && { [topoId]: search }) })
+  }, [filter])
+
+  const deburr = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
   useEffect(() => {
     (async () => {
@@ -73,6 +83,11 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
             {
               MicroToponym: banItem,
               addresses: addressesGroup[topoId]
+                .filter(address => (filter[topoId])
+                  ? deburr(String(`${address.numero}${address.suffixe}`))
+                    .includes(deburr(filter[topoId].replace(/\s/g, '')))
+                  : true
+                )
                 .sort((addrA, addrB) => sortAddresses(addrA as unknown as SortAddressesEntry, addrB as unknown as SortAddressesEntry)),
             },
           ]
@@ -88,7 +103,14 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
       setSubMicroToponyms(_subMicroToponyms)
     })()
   },
-  [microToponymId, addressesCertified, addressesUncertified, isAddressCertifiedVisible, isAddressUncertifiedVisible])
+  [
+    microToponymId,
+    addressesCertified,
+    addressesUncertified,
+    isAddressCertifiedVisible,
+    isAddressUncertifiedVisible,
+    filter,
+  ])
 
   return (
     <>
@@ -121,6 +143,19 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
       {subMicroToponyms.map(([topoId, { MicroToponym, addresses }]) => (
         <Fragment key={topoId}>
           {(topoId !== microToponymId) && <h5>{MicroToponym.nomVoie}</h5>}
+          <Input
+            label=""
+            addon={filter[topoId] && <ClearInputButton onClick={() => handelFilter(topoId, '')}>X</ClearInputButton>}
+            iconId="fr-icon-search-line"
+            nativeInputProps={{
+              placeholder: 'Rechercher un numero',
+              value: filter[topoId] || '',
+              onChange: (evt: React.ChangeEvent<HTMLInputElement>) => {
+                const search = evt.target.value
+                handelFilter(topoId, search)
+              },
+            }}
+          />
           <MicroToponymAddressListTable
             headers={[
               <>N° (

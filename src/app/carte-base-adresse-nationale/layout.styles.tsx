@@ -91,6 +91,8 @@ export const CartoMenu = styled.div`
   }
 `
 
+export const CartoMenuWrapper = styled.div.attrs({ className: 'layer' })``
+
 const bgColor = `var(--background-default-grey)`
 const bgColorMain = `var(--text-default-grey)`
 export const CartoBody = styled.div`
@@ -112,7 +114,7 @@ export const CartoBody = styled.div`
 
 export const MapParamsWrapper = styled.div.attrs({
   className: 'layer',
-})`
+})<{ $isHidden?: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -120,6 +122,14 @@ export const MapParamsWrapper = styled.div.attrs({
   padding: 1rem 0;
   position: relative;
   z-index: 1;
+  transition: transform 0.5s ease, opacity 0.5s ease, z-index 0s ease 0.5s;
+
+  ${({ $isHidden }) => $isHidden && css`
+    transform: translateY(-100%);
+    opacity: 0;
+    z-index: -1;
+    transition: transform 0.5s ease, opacity 0.5s ease, z-index 0s ease 0s;
+  `}
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
     justify-content: space-between;

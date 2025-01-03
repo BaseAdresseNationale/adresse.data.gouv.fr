@@ -1,14 +1,18 @@
 import React, { useState, useCallback } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
+import ActionButtonDisabled from './ActionButtonDisabled'
+
 interface DownloadCertificateProps {
   id: string
   title?: string
+  message?: React.ReactNode
+  disabled?: boolean
 }
 
 interface HandleButtonDownloadEvent extends React.MouseEvent<HTMLButtonElement> {}
 
-const DownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title }) => {
+const ActionDownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title, message, disabled }) => {
   const [hasDownloaded, setHasDownloaded] = useState(false)
   const [certificateId, setCertificateId] = useState<string | null>(null)
 
@@ -46,15 +50,23 @@ const DownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title }) 
     }
   }, [certificateId, id])
 
-  return (
-    <Button
-      iconId="ri-file-paper-2-line"
-      onClick={handleDownload}
-      priority="tertiary no outline"
-    >
-      {title || (!hasDownloaded ? 'Télécharger le certificat (PDF)' : 'Re-Télécharger le certificat (PDF)')}
-    </Button>
-  )
+  return (!disabled)
+    ? (
+        <Button
+          iconId="ri-file-paper-2-line"
+          onClick={handleDownload}
+          priority="tertiary no outline"
+        >
+          {title || (!hasDownloaded ? 'Télécharger le certificat (PDF)' : 'Re-Télécharger le certificat (PDF)')}
+        </Button>
+      )
+    : (
+        <ActionButtonDisabled
+          iconId="ri-file-paper-2-line"
+          title="Certificat d’adressage"
+          message={message}
+        />
+      )
 }
 
-export default DownloadCertificate
+export default ActionDownloadCertificate

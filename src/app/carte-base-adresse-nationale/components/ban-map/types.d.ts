@@ -19,10 +19,11 @@ export interface Address {
 export interface BanMapConfig {
   mapStyle: string
   displayLandRegister: boolean
+  displayMenuConfig: boolean
 }
 
 interface SetMapStyleAction {
-  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER'
+  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOOGLE_MENU_CONFIG'
   payload: string | boolean
 }
 

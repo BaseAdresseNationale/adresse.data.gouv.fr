@@ -16,6 +16,7 @@ interface MapItem {
 const initBanMapConfig = {
   mapStyle: 'osm-vector',
   displayLandRegister: false,
+  displayMenuConfig: true,
 }
 
 const BanMapContext = createContext<[BanMapConfig, React.Dispatch<BanMapAction>] | null>(null)
@@ -36,6 +37,12 @@ function banMapReducer(
       return {
         ...banMapConfig,
         displayLandRegister: action.payload as boolean,
+      }
+    }
+    case 'TOOGLE_MENU_CONFIG': {
+      return {
+        ...banMapConfig,
+        displayMenuConfig: action.payload as boolean,
       }
     }
     default: {
@@ -63,7 +70,7 @@ export function BanMapProvider({ children }: BanMapProviderProps) {
 }
 
 export function useBanMapConfig() {
-  return useContext(BanMapContext) as [{ mapStyle: string, displayLandRegister: boolean }, (action: any) => void]
+  return useContext(BanMapContext) as [BanMapConfig, (action: any) => void]
 }
 
 export function useFocusOnMap(item: MapItem) {
@@ -88,4 +95,29 @@ export function useFocusOnMap(item: MapItem) {
   }, [bound, map])
 
   return focusOnMap
+}
+
+export const useMapFlyTo = () => {
+  const map = useMap()
+
+  if (!map) {
+    throw new Error('useMapFlyTo must be used inside a MapProvider')
+  }
+
+  const flyTo = map.current?.flyTo
+  if (!flyTo) {
+    throw new Error('flyTo is not available')
+  }
+
+  const mapFlyTo = useCallback(
+    (coords: [number, number]) => {
+      flyTo({
+        center: coords,
+        essential: true,
+      })
+    },
+    [flyTo]
+  )
+
+  return { flyTo, mapFlyTo }
 }
