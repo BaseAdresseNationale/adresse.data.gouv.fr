@@ -125,8 +125,8 @@ export default function SearchPartenaire({
           return 0
         }).map(partenaire => (
           <Card
-            key={partenaire._id}
-            title={<Link href={`/partenaires/${partenaire._id}`}>{partenaire.name}</Link>}
+            key={partenaire.id}
+            title={<Link href={`/partenaires/${partenaire.id}`}>{partenaire.name}</Link>}
             imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
             start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
             detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
