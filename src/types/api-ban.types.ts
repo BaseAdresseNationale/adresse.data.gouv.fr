@@ -28,6 +28,10 @@ export type BANVoie = {
   nbNumerosCertifies: number
 }
 
+export type BANConfig = {
+  certificate: {}
+}
+
 export type BANCommune = {
   id: string
   type: string
@@ -48,6 +52,7 @@ export type BANCommune = {
   idRevision: string
   dateRevision: string
   voies: BANVoie[]
+  config: BANConfig
 }
 
 export type BANStats = {

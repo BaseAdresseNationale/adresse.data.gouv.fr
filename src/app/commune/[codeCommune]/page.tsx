@@ -5,7 +5,6 @@ import { Table } from '@codegouvfr/react-dsfr/Table'
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
-  getDistrict,
   getCommune as getBANCommune,
   assemblageSources,
 } from '@/lib/api-ban'
@@ -35,18 +34,15 @@ export default async function CommunePage({ params }: CommunePageProps) {
     getAPIGeoCommune(codeCommune),
   ])
 
-  const { banId: banIdDistrict, id: legacyId } = commune
   const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
-    districtRawResponse,
     mairiePageUrl,
     communeFlagUrl,
     EPCI,
     lastRevisionsDetails,
   ] = await Promise.all([
-    getDistrict(banIdDistrict as string),
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
     getEPCI(APIGeoCommune?.codeEpci),
@@ -57,8 +53,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       ),
   ])
 
-  const district = { ...districtRawResponse.response, data: commune }
-  const districtMapURL = `/carte-base-adresse-nationale?id=${district?.data?.codeCommune}`
+  const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
 
   return (
     <>
@@ -155,7 +150,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           </div>
 
           <ResumeDistrict
-            district={district}
+            district={commune}
             actionProps={[
               {
                 iconId: 'fr-icon-road-map-line',

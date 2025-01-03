@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type { MapRef } from 'react-map-gl/maplibre'
 
 import { getCommuneFlag } from '@/lib/api-wikidata'
-import { getBanItem, getDistrict } from '@/lib/api-ban'
+import { getBanItem } from '@/lib/api-ban'
 
 import Aside from './components/Aside'
 import LoadingBar from './components/LoadingBar'
@@ -164,15 +164,8 @@ function CartoView() {
         }
         else if (typeItem === 'address') {
           setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
-          let districtConfig: { certificate: boolean } = { certificate: false }
-          const { banIdDistrict } = banItem as TypeAddressExtended
-
-          if (banIdDistrict) {
-            const districtRawResponse = await getDistrict(banIdDistrict)
-            const district = districtRawResponse.response
-            districtConfig = district.config || { certificate: false }
-          }
-          setWithCertificate(districtConfig.certificate)
+          const config = (banItem as TypeAddressExtended).config
+          setWithCertificate(config?.certificate ? true : false)
         }
         const { displayBBox = [] } = banItem
         const bbox = displayBBox

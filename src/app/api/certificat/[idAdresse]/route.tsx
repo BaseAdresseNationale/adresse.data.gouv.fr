@@ -1,27 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAddress, getDistrict } from '@/lib/api-ban'
+import { getAddress, getCommune } from '@/lib/api-ban'
+import { isAddressCertifiable } from '@/lib/ban'
 import { env } from 'next-runtime-env'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
-
-const isAddressCertifiable = async ({ banId, sources, certifie, parcelles }: any): Promise<boolean> => {
-  return !!banId && sources?.includes('bal') && certifie && parcelles?.length > 0
-}
-
-const isDistrictCertifiable = async (banIdDistrict: string | null): Promise<boolean> => {
-  if (!banIdDistrict) {
-    return false
-  }
-  const rawResponse = await getDistrict(banIdDistrict)
-  const district = rawResponse.response
-  if (!district) {
-    return false
-  }
-
-  const districtConfig = district.config || {}
-  return !!districtConfig.certificate
-}
 
 export async function GET(request: NextRequest, { params }: { params: { idAdresse: string } }) {
   let address
@@ -35,7 +18,7 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     return new NextResponse(null, { status: 404 })
   }
 
-  const isCertifiable = (await isDistrictCertifiable(address.banIdDistrict)) && await isAddressCertifiable(address)
+  const isCertifiable = address?.config?.certificate && await isAddressCertifiable(address)
   if (!isCertifiable) {
     return new NextResponse('Adresse incompatible avec le service', { status: 404 })
   }
