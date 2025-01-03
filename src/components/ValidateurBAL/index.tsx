@@ -10,6 +10,7 @@ import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
 import ProfileDocumentation from '@/components/ValidateurBAL/ProfileDocumentation'
 import DropZoneInput from '../DropZoneInput'
 import Alert from '@codegouvfr/react-dsfr/Alert'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 const availableProfiles = ['1.3', '1.4']
 
@@ -23,6 +24,13 @@ export default function ValidateurBAL() {
   const [validationReport, setValidationReport] = useState<any>(null)
   const [file, setFile] = useState<File | null>(null)
   const [profile, setProfile] = useState<string>('')
+
+  const handleReset = () => {
+    setStepIndex(0)
+    setValidationReport(null)
+    setFile(null)
+    setProfile('')
+  }
 
   const handleFileChange = (file?: File) => {
     if (!file) {
@@ -72,7 +80,8 @@ export default function ValidateurBAL() {
           : (validationReport && profile)
               ? (
                   <>
-                    <div style={{ marginLeft: '1.5rem' }}>
+                    <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                      <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content' }} onClick={handleReset}>Retour à la sélection du fichier</Button>
                       {steps[1].content}
                     </div>
                     <ValidationReport report={validationReport} profile={profile} profiles={profilesMap} />
