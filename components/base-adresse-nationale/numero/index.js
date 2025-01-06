@@ -8,7 +8,7 @@ import colors from '@/styles/colors'
 import theme from '@/styles/theme'
 
 import Alert from '@/components/alert'
-import {getNumeroComplet, isNumeroCertifiable} from '@/lib/ban'
+import {getNumeroComplet, isAddressCertifiable} from '@/lib/ban'
 
 import Certification from '../certification'
 import ParcellesList from '../parcelles-list'
@@ -43,7 +43,8 @@ function Numero({
   codePostal,
   cleInterop,
   banId,
-  districtConfig,
+  config,
+  withBanId,
   lat,
   lon,
   isMobile,
@@ -178,8 +179,8 @@ function Numero({
         </b>
       </div>
 
-      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && districtConfig?.certificate &&
-        (isNumeroCertifiable({banId, sources: sourcePosition, certifie, parcelles}) ?
+      {NEXT_PUBLIC_CERTIFICAT_NUMEROTATION_ENABLED && config?.certificate &&
+        (isAddressCertifiable({banId, sources: sourcePosition, certifie, parcelles, withBanId}) ?
           <div className='certificate'>
             <DownloadCertificate
               id={id}
@@ -302,9 +303,10 @@ Numero.propTypes = {
   codePostal: PropTypes.string,
   cleInterop: PropTypes.string.isRequired,
   banId: PropTypes.string,
-  districtConfig: PropTypes.shape({
+  config: PropTypes.shape({
     certificate: PropTypes.object,
   }),
+  withBanId: PropTypes.bool.isRequired,
   positionType: PropTypes.string,
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
