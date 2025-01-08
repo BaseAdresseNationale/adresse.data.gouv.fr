@@ -22,10 +22,17 @@ export type BANVoie = {
   idVoie: string
   nomVoie: string
   nomVoieAlt: Record<string, string>
+  libelleVoieComplet: string
+  natureVoie?: string
+  voiePrivee?: boolean
   sourceNomVoie: string
   sources: string[]
   nbNumeros: number
   nbNumerosCertifies: number
+  dateAjout: string
+  dateAnnulation?: string
+  typeVoie?: string
+  codeRivoli?: string
 }
 
 export type BANConfig = {
@@ -39,6 +46,7 @@ export type BANCommune = {
   banId: string | null
   nomCommune: string
   departement: { nom: string, code: string }
+  codeDepartement: string
   region: { nom: string, code: string }
   codesPostaux: string[]
   population: number
@@ -51,6 +59,7 @@ export type BANCommune = {
   displayBBox: number[]
   idRevision: string
   dateRevision: string
+  dateAnnulation: string
   voies: BANVoie[]
   config: BANConfig
 }

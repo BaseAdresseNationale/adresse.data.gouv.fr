@@ -10,6 +10,10 @@ export function getDepartements(): Promise<Departement[]> {
   return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements`)
 }
 
+export function getDepartementByCode(code: string) {
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}`)
+}
+
 export function isCodeDepNaive(token: string) {
   if (['2A', '2B'].includes(token)) {
     return true
