@@ -90,8 +90,9 @@ export default async function ProgrammeBALPage() {
                 <p style={{ marginTop: '1.5rem' }}>
                   Vous disposez déjà d&apos;un SIG? Rendez-vous sur :<br />
                   <Link
-                    href="/gerer-mes-adresses"
+                    href="https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale"
                     className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
+                    target="_blank"
                   >
                     Gérer mes adresses
                   </Link>
