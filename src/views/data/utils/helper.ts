@@ -81,8 +81,6 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
   (req: Request, res: any, options: AsyncSendS3Options) =>
     new Promise<void>(
       (resolve, reject) => {
-        console.log('res >>>', res)
-        // res.attachment(params.key)
         res.setHeader('Content-Length', options.metadata?.ContentLength)
         res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
 
