@@ -38,6 +38,11 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/bases-locales',
+    destination: '/programme-bal',
+    permanent: true,
+  },
+  {
     source: '/bases-locales/charte',
     destination: '/communaute/charte-base-adresse-locale',
     permanent: true,
@@ -88,8 +93,38 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/bases-locales/temoignages',
+    destination: '/blog',
+    permanent: true,
+  },
+  {
     source: '/base-adresse-nationale/:path',
     destination: `${URL_CARTOGRAPHY_BAN}?id=:path`,
+    permanent: true,
+  },
+  {
+    source: '/csv',
+    destination: '/outils/csv',
+    permanent: true,
+  },
+  {
+    source: '/donnees-nationales',
+    destination: '/outils/telechargements',
+    permanent: true,
+  },
+  {
+    source: '/api-doc',
+    destination: '/outils',
+    permanent: true,
+  },
+  {
+    source: '/donnees-nationales/usages',
+    destination: '/communaute/usages',
+    permanent: true,
+  },
+  {
+    source: '/contribuer',
+    destination: '/nous-contacter',
     permanent: true,
   },
 ]
