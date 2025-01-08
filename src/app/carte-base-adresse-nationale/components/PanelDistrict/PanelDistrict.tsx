@@ -47,7 +47,6 @@ const certificationConfig = {
 }
 
 function PanelDistrict({ district }: PanelDistrictProps) {
-  console.log('PanelDistrict', district)
   const nbAddress = Number(district.nbNumeros || 0)
   const nbAddressCertified = Number(district.nbNumerosCertifies || 0)
   const certificatedAddressPercent = nbAddress ? Math.round((nbAddressCertified / nbAddress) * 100) : 0
