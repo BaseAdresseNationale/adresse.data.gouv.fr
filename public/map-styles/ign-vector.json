@@ -7923,10 +7923,12 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 7,
+      "maxzoom": 13,
       "filter": [
         "in",
         "txt_typo",
         "commune 4",
+        "TYPO_A_4",
         "BAT_COMMUNE_4",
         "BAT_COMMUNE_4_T"
       ],
@@ -8251,10 +8253,12 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 5,
+      "maxzoom": 13,
       "filter": [
         "in",
         "txt_typo",
         "commune 3",
+        "TYPO_A_3",
         "BAT_COMMUNE_3",
         "BAT_COMMUNE_3_T"
       ],
@@ -8558,10 +8562,12 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 4,
+      "maxzoom": 13,
       "filter": [
         "in",
         "txt_typo",
         "commune 2",
+        "TYPO_A_2",
         "BAT_COMMUNE_2",
         "BAT_COMMUNE-2",
         "BAT_COMMUNE_2_T"
