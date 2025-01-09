@@ -7585,31 +7585,6 @@
         "text-halo-width": 1
       }
     },
-    {
-      "id": "toponyme - lieu dit non habité",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_ocs_ponc",
-      "filter": [
-        "all",
-        ["==", "symbo", "LIEU-DIT_NON_HABITE"],
-        ["in", "txt_typo", "TYPO_B_7", "TYPO_B_8", "TYPO_B_9"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 12,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
-      }
-    },
 
     {
       "id": "toponyme localite importance 5",
@@ -7677,31 +7652,6 @@
         "text-color": "#287B00",
         "text-halo-width": 1,
         "text-halo-color": "rgba(255, 255, 255, 0.5)"
-      }
-    },
-    {
-      "id": "toponyme - lieu dit non habité 1",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_ocs_ponc",
-      "filter": [
-        "all",
-        ["==", "symbo", "LIEU-DIT_NON_HABITE"],
-        ["in", "txt_typo", "TYPO_B_5", "TYPO_B_4"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 15,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
       }
     },
 
