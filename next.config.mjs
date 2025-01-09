@@ -58,6 +58,21 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/fantoir',
+    destination: '/outils/fantoir',
+    permanent: true,
+  },
+  {
+    source: '/fantoir/departement/:departement',
+    destination: '/outils/fantoir/:departement',
+    permanent: true,
+  },
+  {
+    source: '/fantoir/departement/:departement/commune/:codeCommune',
+    destination: '/outils/fantoir/:departement/:codeCommune',
+    permanent: true,
+  },
+  {
     source: '/bases-locales/validateur',
     destination: '/outils/validateur-bal',
     permanent: true,

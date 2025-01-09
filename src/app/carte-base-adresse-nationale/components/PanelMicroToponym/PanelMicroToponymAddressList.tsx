@@ -92,7 +92,7 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
             },
           ]
         })
-      ) as ToponymesEntry[]
+      ) as unknown as ToponymesEntry[]
 
       _subMicroToponyms.sort(([topoId_A, { MicroToponym: { nomVoie: nomVoie_A } }], [topoId_B, { MicroToponym: { nomVoie: nomVoie_B } }]) => {
         if (topoId_A === microToponymId) return -1

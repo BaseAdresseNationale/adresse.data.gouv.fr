@@ -67,3 +67,16 @@ export function getFilteredStats(codesCommune: string[]): Promise<BANStats> {
     }),
   })
 }
+
+// Legacy : Fantoir :
+export function getFantoir(departementCode: string) {
+  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/departements/${departementCode}/communes`)
+}
+
+export function getVoiesFantoir(communeCode: string) {
+  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/communes/${communeCode}/voies`)
+}
+
+export function getVoieFantoir(voieCode: string) {
+  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/voies/${voieCode}`)
+}
