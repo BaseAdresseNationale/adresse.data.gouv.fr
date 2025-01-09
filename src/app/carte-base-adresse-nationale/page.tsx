@@ -5,7 +5,7 @@ import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl }
 import { useRouter, useSearchParams } from 'next/navigation'
 import type { MapRef } from 'react-map-gl/maplibre'
 
-import { getCommuneFlag } from '@/lib/api-wikidata'
+import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getBanItem } from '@/lib/api-ban'
 
 import Aside from './components/Aside'
@@ -135,7 +135,7 @@ function CartoView() {
         const banItem = (await getBanItem(banItemId)) as unknown as TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended
         setMapSearchResults(banItem)
 
-        const districtFlagUrl = await getCommuneFlag(banItemId)
+        const districtFlagUrl = await getCommuneFlagProxy(banItemId)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
         setIsLoadMapSearchResults(false)
