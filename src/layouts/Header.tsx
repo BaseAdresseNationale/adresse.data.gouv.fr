@@ -163,7 +163,7 @@ export default function Header(
       data: [],
       duration: 4000,
     },
-    isBeta = true, // TODO : Use env variable
+    isBeta, // TODO : Use env variable
   }: HeaderProps
 ) {
   const { typeLayout } = useMainLayout()
