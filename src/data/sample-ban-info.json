@@ -22,7 +22,7 @@
     "description": "Il est possible de télécharger les données afin de les héberger et de les utiliser chez vous.",
     "picto": "./img/picto/bdd.svg",
     "link": {
-      "href": "/donnees-nationales",
+      "href": "/outils/telechargements",
       "target": "_self"
     }
   }

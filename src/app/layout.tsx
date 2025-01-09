@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   // TODO : Connect to Grist API
   const sampleNotice = {
-    text: 'Nouveau service : le calculateur de distance',
+    text: 'Une nouvelle version du site pour optimiser votre accès à nos données et services. L\'équipe Adresse vous souhaite une très belle année 2025',
   }
 
   const dataNotices = {
