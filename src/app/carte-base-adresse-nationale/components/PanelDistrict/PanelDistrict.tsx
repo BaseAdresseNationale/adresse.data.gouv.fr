@@ -18,13 +18,19 @@ interface PanelDistrictProps {
 const configOriginDistrict = {
   bal: {
     className: 'ri-star-fill isFormal',
-    message: <>Les adresses de cette commune sont issues d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
-    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+    message: <>Les adresses de cette commune sont issues d’une Base Adresse Locale&nbsp;(BAL)</>,
+    desc: <>Les Base Adresse Locale&nbsp;(BAL) sont directement produites par les communes.</>,
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Les adresses de cette commune sont issues d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
-    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+    message: <>Les adresses de cette commune sont produite par l’IGN</>,
+    desc: (
+      <>
+        En l’absence d’une Base Adresse Locale&nbsp;(BAL) officielle, l’IGN fournit ces adresses,
+        produites à partir de multiples sources.<br />
+        <Link href="/contribuer" className="fr-link--icon-left fr-icon-pencil-line">Contribuez à la Base Adresse Nationale&nbsp;(BAN)</Link>
+      </>
+    ),
   },
 }
 

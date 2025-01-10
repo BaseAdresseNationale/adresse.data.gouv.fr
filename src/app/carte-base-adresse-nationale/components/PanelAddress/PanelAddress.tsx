@@ -1,7 +1,4 @@
-import { toast } from 'react-toastify'
-
 import { AddressDetailsCertification } from './PanelAddress.styles'
-import { useMapFlyTo } from '../ban-map/BanMap.context'
 import AddressDetailPosition from '../AddressDetailPosition'
 
 import {
@@ -22,24 +19,6 @@ interface Position {
   positionType: TypeAddressExtended['positionType']
 }
 
-function formatCoords(coords: [number, number]): string {
-  const [lon, lat] = coords
-  const formattedLon = Math.abs(lon).toFixed(6)
-  const formattedLat = Math.abs(lat).toFixed(6)
-  const lonDirection = lon >= 0 ? 'E' : 'W'
-  const latDirection = lat >= 0 ? 'N' : 'S'
-  return `${formattedLat}° ${latDirection}, ${formattedLon}° ${lonDirection}`
-}
-
-function copyCoordsToClipboard(coords: [number, number]) {
-  const [lon, lat] = coords
-  const coordsString = `${lat.toFixed(6)},${lon.toFixed(6)}`
-  navigator.clipboard.writeText(coordsString)
-  toast(`Position GPS copiée dans le presse-papier (${coordsString})`)
-}
-
-const toFixedGPS = (gps: number) => gps.toFixed(6)
-const getLinkFromCoords = (coords: [number, number]) => `geo:${toFixedGPS(coords[1])},${toFixedGPS(coords[0])}`
 const isSmartDevice = () => /Mobi|Android/i.test(navigator.userAgent)
 
 const configOriginAddress = {
@@ -50,8 +29,13 @@ const configOriginAddress = {
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Cette adresse est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
-    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+    message: <>Cette adresse est fournit par l’IGN</>,
+    desc: (
+      <>
+        En l’absence de Base Adresse Locale&nbsp;(BAL) officielle sur la commune,
+        l’IGN fournie des adresses produites à partir de multiples sources.
+      </>
+    ),
   },
 }
 
@@ -69,8 +53,6 @@ const certificationLevelConfig = {
 }
 
 function PanelAddress({ address }: PanelAddressProps) {
-  const { mapFlyTo } = useMapFlyTo()
-
   const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
