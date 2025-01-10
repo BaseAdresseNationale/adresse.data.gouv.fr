@@ -3,7 +3,7 @@
     "title": "Je débute sur Mes Adresses",
     "picto": "./img/picto-fr/calendar.svg",
     "link": {
-      "href": "/formation-en-ligne#videos-formations",
+      "href": "/formation-en-ligne",
       "target": "_self"
     },
     "tags": ["Formation en ligne"]
