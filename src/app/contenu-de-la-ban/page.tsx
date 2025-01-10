@@ -11,8 +11,8 @@ import { TextWrapper } from './page.styled'
 import type { DataType } from '@/lib/markdown'
 
 export default async function Home() {
-  const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('la-ban/utiliser-la-ban-intro') || {}
-  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('la-ban/utiliser-la-ban') || {}
+  const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('la-ban/contenu-de-la-ban-intro') || {}
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('la-ban/contenu-de-la-ban') || {}
 
   return (
     <>
@@ -22,7 +22,7 @@ export default async function Home() {
           <SectionHero
             pageTitle={heroData?.title || ''}
             picture={{
-              src: './img/pages/utiliser_la_BAN/construire-ban.svg',
+              src: './img/pages/contenu_de_la_ban/construire-ban.svg',
               alt: 'Illustration "Construire la Base Adresse Nationale"',
               width: 400,
               height: 194,

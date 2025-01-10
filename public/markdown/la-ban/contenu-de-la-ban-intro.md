@@ -1,6 +1,6 @@
 ---
-title: Utiliser la BAN
-intro: [{attach: "la-base-adresse-nationale", filename: "utiliser-la-ban-intro"}]
+title: Contenu de la BAN
+intro: [{attach: "la-base-adresse-nationale", filename: "contenu-de-la-ban-intro"}]
 aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir_la_BAN--la_base_adresse_nationale"}]
 ---
 

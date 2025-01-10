@@ -50,6 +50,6 @@ __(1)__  La liste d'adresses fournie par l'IGN est une disposition palliative. E
 
 ## En savoir plus ?
 
-- [Comment utiliser la BAN](/utiliser-la-ban)
+- [Contenu de la BAN](/contenu-de-la-ban)
 - [Documentation](/ressources-et-documentations)
 - [Etat du déploiement de la BAN](/deploiement-bal)

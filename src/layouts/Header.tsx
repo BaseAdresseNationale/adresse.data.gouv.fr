@@ -51,7 +51,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Découvrir la Base Adresse Nationale',
         linkProps: { href: '/decouvrir-la-BAN' },
       },
-      { text: 'Utiliser la BAN', linkProps: { href: '/utiliser-la-ban' } },
+      { text: 'Contenu de la BAN', linkProps: { href: '/contenu-de-la-ban' } },
       { text: 'Documentation', linkProps: { href: '/ressources-et-documentations' } },
       { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
       { text: 'Statistiques', linkProps: { href: '/stats' } },
