@@ -1,10 +1,10 @@
 ---
-title: Utiliser la BAN
+title: Contenu de la BAN
 aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--la-base-adresse-nationale"}]
 ---
 
 
-![Exemple d'adresse sur une carte](img/pages/utiliser_la_BAN/utiliser-la-ban-hero-illu.png)
+![Exemple d'adresse sur une carte](img/pages/contenu_de_la_ban/contenu-de-la-ban-hero-illu.png)
 
 ## Structure de la donnée BAN
 
