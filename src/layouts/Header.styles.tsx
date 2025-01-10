@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small' }>`
   position: relative;
-  z-index: 1000;
+  z-index: 990;
 
   .dsfr-notice {
       ${({ $size }) => $size === 'small' ? css`position: absolute;` : css`position: static;`}
@@ -23,7 +23,7 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small' }>`
       position: relative;
       transition: height .3s ease;
 
-      ${({ $size }) => $size === 'small' && css`z-index: 1000;`}
+      ${({ $size }) => $size === 'small' && css`z-index: 990;`}
       ${({ $size }) => $size === 'small'
         ? css`height: 7.4rem;`
         : css`height: 14.4rem;`
@@ -37,7 +37,7 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small' }>`
     .dsfr-header {
       position: absolute;
       top: 0;
-      z-index: 1000;
+      z-index: 990;
 
       .fr-header__body {
         margin-bottom: 0;
@@ -79,7 +79,7 @@ export const CornerRibbons = styled.div.attrs<{
   className: `cr-${$positionVertical} cr-${$positionHorizontal}`,
 }))`
   position: fixed;
-  z-index: 1001;
+  z-index: 991;
   width: 200px;
   padding: .75rem;
   color: #f0f0f0;
