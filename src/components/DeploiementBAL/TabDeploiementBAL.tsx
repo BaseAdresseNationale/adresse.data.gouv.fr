@@ -102,7 +102,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
       const response = await customFetch(url)
 
       const link = document.createElement('a')
-      link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(response))
+      link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(response, null, 2))
       link.download = 'deploiement-bal.json'
       link.click()
     }
