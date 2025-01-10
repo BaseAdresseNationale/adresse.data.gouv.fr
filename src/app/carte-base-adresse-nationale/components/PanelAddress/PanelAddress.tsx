@@ -21,6 +21,8 @@ interface Position {
 
 const isSmartDevice = () => /Mobi|Android/i.test(navigator.userAgent)
 
+const isValidDate: { (dateStr: string): boolean } = dateStr => !isNaN(Number(new Date(dateStr)))
+
 const configOriginAddress = {
   bal: {
     className: 'ri-star-fill isFormal',
@@ -29,7 +31,7 @@ const configOriginAddress = {
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Cette adresse est fournit par l’IGN</>,
+    message: <>Cette adresse est fournie par l’IGN</>,
     desc: (
       <>
         En l’absence de Base Adresse Locale&nbsp;(BAL) officielle sur la commune,
@@ -53,11 +55,13 @@ const certificationLevelConfig = {
 }
 
 function PanelAddress({ address }: PanelAddressProps) {
-  const dateMaj = new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  const dateMaj = isValidDate(address.dateMAJ)
+    ? new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+    : 'Non renseignée'
 
   const isMultiPosition = Number(address.positions?.length) > 1
   const {

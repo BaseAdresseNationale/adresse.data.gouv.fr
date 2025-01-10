@@ -26,7 +26,7 @@ const configOriginDistrict = {
     message: <>Les adresses de cette commune sont produite par l’IGN</>,
     desc: (
       <>
-        En l’absence d’une Base Adresse Locale&nbsp;(BAL) officielle, l’IGN fournit ces adresses,
+        En l’absence d’une Base Adresse Locale&nbsp;(BAL) officielle, l’IGN fournie ces adresses,
         produites à partir de multiples sources.<br />
         <Link href="/contribuer" className="fr-link--icon-left fr-icon-pencil-line">Contribuez à la Base Adresse Nationale&nbsp;(BAN)</Link>
       </>
