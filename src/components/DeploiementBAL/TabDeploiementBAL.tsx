@@ -17,6 +17,18 @@ const StyledWrapper = styled.div`
     gap: 1em;
     margin-top: 1em;
 }
+
+.download-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 1em;
+    label {
+        margin-right: 1em;
+    }
+    button {
+        margin-right: 1em;
+    }
+}
 `
 
 const options = {
@@ -41,7 +53,7 @@ interface TabDeploiementBALProps {
 }
 
 export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesCommmune, filter }: TabDeploiementBALProps) {
-  const [isLoadingCSV, setIsLoadingCSV] = useState(false)
+  const [isDownloadingData, setIsDownloadingData] = useState(false)
 
   const {
     dataPopulationCouverte,
@@ -60,7 +72,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
 
   const handleDownloadCSV = async () => {
     try {
-      setIsLoadingCSV(true)
+      setIsDownloadingData(true)
       const url = new URL(`${window.location.origin}/api/deploiement-stats`)
       url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
 
@@ -77,7 +89,28 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
       console.error(error)
     }
     finally {
-      setIsLoadingCSV(false)
+      setIsDownloadingData(false)
+    }
+  }
+
+  const handleDownloadGeoJSON = async () => {
+    try {
+      setIsDownloadingData(true)
+      const url = new URL(`${window.location.origin}/api/deploiement-stats`)
+      url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
+
+      const response = await customFetch(url)
+
+      const link = document.createElement('a')
+      link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(response))
+      link.download = 'deploiement-bal.json'
+      link.click()
+    }
+    catch (error) {
+      console.error(error)
+    }
+    finally {
+      setIsDownloadingData(false)
     }
   }
 
@@ -131,7 +164,11 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
           options={options}
         />
       </div>
-      <Button style={{ marginTop: '1rem' }} disabled={!filter || isLoadingCSV} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">Télécharger les données au format CSV</Button>
+      <div className="download-wrapper">
+        <label>Télécharger les données : </label>
+        <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">format CSV</Button>
+        <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadGeoJSON} iconId="fr-icon-download-fill">format GéoJSON</Button>
+      </div>
     </StyledWrapper>
   )
 }
