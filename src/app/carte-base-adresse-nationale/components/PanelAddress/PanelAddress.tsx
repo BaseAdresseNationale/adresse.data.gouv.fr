@@ -114,7 +114,7 @@ function PanelAddress({ address }: PanelAddressProps) {
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-edit-box-line">
         Producteur : <br />
-        {address.sourcePosition}
+        {address.sourcePosition === 'bal' ? 'BAL' : 'IGN'}
       </AddressDetailsItem>
       <AddressDetailsItem className="ri-signpost-line">
         Libellé d’acheminement : <br />
