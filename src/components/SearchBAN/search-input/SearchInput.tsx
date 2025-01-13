@@ -1,7 +1,8 @@
 import { Fragment, useRef, useState, useCallback } from 'react'
 import { useCombobox } from 'downshift'
-import { debounce } from 'lodash'
 import { Input } from '@codegouvfr/react-dsfr/Input'
+
+import { useDebouncedCallback } from '@/hooks/useDebounce'
 
 import SearchResultHeader from './SearchResultHeader'
 import SearchResultItem from './SearchResultItem'
@@ -90,6 +91,24 @@ export default function SearchInput({
   [onSelect]
   )
 
+  const onInputValueChange = useDebouncedCallback(async ({ inputValue }: { inputValue: string }) => {
+    if (controller.current) {
+      controller.current.abort()
+    }
+
+    controller.current = new AbortController()
+
+    try {
+      const results = await onSearchAsync(inputValue.trim(), controller.current.signal)
+      setItems(results)
+    }
+    catch (err: unknown) {
+      if (onError) {
+        onError(err as Error)
+      }
+    }
+  }, 300)
+
   const {
     highlightedIndex,
     selectedItem,
@@ -98,24 +117,8 @@ export default function SearchInput({
     getInputProps,
     getItemProps,
     isOpen,
-  } = useCombobox({
-    onInputValueChange: debounce(async ({ inputValue }) => {
-      if (controller.current) {
-        controller.current.abort()
-      }
-
-      controller.current = new AbortController()
-
-      try {
-        const results = await onSearchAsync(inputValue.trim(), controller.current.signal)
-        setItems(results)
-      }
-      catch (err: unknown) {
-        if (onError) {
-          onError(err as Error)
-        }
-      }
-    }, 500),
+  } = useCombobox<TypeItem>({
+    onInputValueChange,
     items,
     itemToString: item => item ? item.properties.name : '',
     stateReducer,
