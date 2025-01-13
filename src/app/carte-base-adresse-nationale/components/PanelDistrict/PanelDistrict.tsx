@@ -69,7 +69,7 @@ function PanelDistrict({ district }: PanelDistrictProps) {
         <DistrictDetailsItem className="ri-map-pin-line">
           <b>{formatNumber(nbAddress)}</b>&nbsp;adresses répertoriées{' '}
           {
-            nbAddressCertified && (
+            nbAddressCertified > 0 && (
               nbAddressCertified === nbAddress
                 ? <>et certifiées</>
                 : (
