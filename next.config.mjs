@@ -15,7 +15,7 @@ const defaultEnvVarRaw = dotenv.parse(fs.readFileSync(defaultEnvVarFile))
 const defaultEnvVar = getNextEnv(defaultEnvVarRaw)
 const envVar = getNextEnv(process.env)
 
-const URL_CARTOGRAPHY_BAN = process.env.NEXT_PUBLIC_URL_CARTOGRAPHY_BAN
+const URL_CARTOGRAPHY_BAN = '/carte-base-adresse-nationale'
 const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE
 const imagesDomains = ['static.data.gouv.fr']
 if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
@@ -100,6 +100,11 @@ const redirects = async () => [
   {
     source: '/base-adresse-nationale/:path',
     destination: `${URL_CARTOGRAPHY_BAN}?id=:path`,
+    permanent: true,
+  },
+  {
+    source: '/base-adresse-nationale',
+    destination: `${URL_CARTOGRAPHY_BAN}`,
     permanent: true,
   },
   {
