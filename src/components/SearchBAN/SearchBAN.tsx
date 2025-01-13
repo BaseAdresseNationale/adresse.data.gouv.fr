@@ -5,6 +5,7 @@ import { groupBy } from 'lodash'
 
 import { search, isFirstCharValid } from '@/lib/api-adresse'
 import { getCommune as getCommuneByINSEE } from '@/lib/api-ban'
+import { removeAccent } from '@/utils/string'
 
 import SearchInput from './search-input'
 import { env } from 'next-runtime-env'
@@ -57,13 +58,26 @@ interface TypeSearchDataInBan {
   debug?: boolean
 }
 
+// TODO : Extract from BDD
+// List of district with shortName
+const normalizeName = (name: string) => removeAccent(name.toLowerCase())
+const shortDistrictName = [
+  'Bû', 'Ry', 'Eu', 'Sy', 'Oz',
+  'Us', 'Ri', 'Uz', 'Oô', 'Py',
+  'Ur', 'Gy', 'Y', 'By',
+].map(normalizeName)
+
 const searchDataInBan = ({
   type,
   postcode,
   citycode,
   debug,
 }: TypeSearchDataInBan = {}) =>
-  async (strSearch: string, signal: AbortSignal) => {
+  async (_strSearch: string, signal: AbortSignal) => {
+    const strSearch = (shortDistrictName.includes(normalizeName(_strSearch)))
+      ? _strSearch.padEnd(3, '.')
+      : _strSearch
+
     if (typeof strSearch === 'string' && isFirstCharValid(strSearch) && strSearch.length >= minChars) {
       try {
         const communePromise = strSearch.length === codeInseeSize
