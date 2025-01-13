@@ -55,12 +55,12 @@ export default function ValidateurBAL() {
                     <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                       <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content' }} onClick={handleReset}>Retour à la sélection du fichier</Button>
                       <div style={{ maxWidth: 400 }}>
-                        <SelectInput 
+                        <SelectInput
                           options={profilesOptions}
                           label="Version de la spécification"
                           value={profile}
                           defaultOption="Choisir une version de la spécification"
-                          handleChange={(value) => setProfile(value)}
+                          handleChange={value => setProfile(value)}
                         />
                       </div>
                     </div>

@@ -27,10 +27,10 @@ const StyledWrapper = styled.div`
 export default function ValidationAccordion({ title, groups }: ValidationAccordionProps) {
   const data = useCallback((code: string) => {
     const fieldError = code.split('.')?.[0]
-    return groups[code].map(row => ([row.line, 
-      ...Object.keys(row.rawValues).map((key) => (
-        key === fieldError ? <p className='error'>{row.rawValues[key]}</p> : row.rawValues[key]
-      ))
+    return groups[code].map(row => ([row.line,
+      ...Object.keys(row.rawValues).map((key, index) => (
+        key === fieldError ? <p key={index} className="error">{row.rawValues[key]}</p> : row.rawValues[key]
+      )),
     ]))
   }, [groups])
 

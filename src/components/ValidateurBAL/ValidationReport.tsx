@@ -143,7 +143,7 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
           <>
             <h4>Champs présents</h4>
             <div className="present-fields-wrapper">
-              {fields.map((field: { name: string }) => <Badge style={{textTransform: 'none'}} key={field.name}>{field.name}</Badge>)}
+              {fields.map((field: { name: string }) => <Badge style={{ textTransform: 'none' }} key={field.name}>{field.name}</Badge>)}
             </div>
           </>
         )}
