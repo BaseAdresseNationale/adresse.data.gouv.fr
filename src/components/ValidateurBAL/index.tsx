@@ -19,37 +19,22 @@ const profilesOptions = Object.values(profilesMap)
   .map(({ name, code }) => ({ label: name, value: code }))
 
 export default function ValidateurBAL() {
-  const [stepIndex, setStepIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [validationReport, setValidationReport] = useState<any>(null)
-  const [file, setFile] = useState<File | null>(null)
-  const [profile, setProfile] = useState<string>('')
+  const [profile, setProfile] = useState<string>(availableProfiles[0])
 
   const handleReset = () => {
-    setStepIndex(0)
     setValidationReport(null)
-    setFile(null)
-    setProfile('')
   }
 
-  const handleFileChange = (file?: File) => {
-    if (!file) {
-      throw new Error('No file selected')
-    }
-    setFile(file)
-    setStepIndex(1)
-  }
-
-  const handleProfileChange = async (value: string) => {
-    if (!file) {
+  const handleFileChange = async (value?: File) => {
+    if (!value) {
       throw new Error('No file selected')
     }
     try {
       setIsLoading(true)
-      setProfile(value)
-      const report = await validate(file, value)
+      const report = await validate(value, profile)
       setValidationReport(report)
-      setStepIndex(2)
     }
     catch (e) {
       console.error(e)
@@ -58,19 +43,6 @@ export default function ValidateurBAL() {
       setIsLoading(false)
     }
   }
-
-  const steps = [
-    { title: 'Ajout du fichier à valider', content: (
-      <DropZoneInput
-        onChange={handleFileChange}
-        label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
-        hint="Taille maximale: 50 Mo. Format supporté : CSV"
-        accept={{ 'text/csv': [] }}
-        maxSize={50 * 1024 * 1024}
-      />
-    ) },
-    { title: 'Choix du profil', content: <div style={{ maxWidth: 400 }}><SelectInput options={profilesOptions} label="Version de la spécification" value={profile} defaultOption="Choisir une version de la spécification" handleChange={handleProfileChange} /></div> },
-  ]
 
   return (
     <>
@@ -82,18 +54,27 @@ export default function ValidateurBAL() {
                   <>
                     <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                       <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content' }} onClick={handleReset}>Retour à la sélection du fichier</Button>
-                      {steps[1].content}
+                      <div style={{ maxWidth: 400 }}>
+                        <SelectInput 
+                          options={profilesOptions}
+                          label="Version de la spécification"
+                          value={profile}
+                          defaultOption="Choisir une version de la spécification"
+                          handleChange={(value) => setProfile(value)}
+                        />
+                      </div>
                     </div>
                     <ValidationReport report={validationReport} profile={profile} profiles={profilesMap} />
                   </>
                 )
               : (
-                  <>
-                    <Stepper currentStep={stepIndex + 1} stepCount={steps.length} title={steps[stepIndex].title} nextTitle={steps[stepIndex + 1]?.title} />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      {steps[stepIndex].content}
-                    </div>
-                  </>
+                  <DropZoneInput
+                    onChange={handleFileChange}
+                    label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
+                    hint="Taille maximale: 50 Mo. Format supporté : CSV"
+                    accept={{ 'text/csv': [] }}
+                    maxSize={50 * 1024 * 1024}
+                  />
                 )}
       </Section>
       <Section title="Documentation" theme="primary">

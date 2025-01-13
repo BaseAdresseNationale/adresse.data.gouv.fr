@@ -56,7 +56,6 @@ const sortBySeverity = (a: ProfileError, b: ProfileError) => {
 
 function ValidationReport({ report, profile, profiles }: ValidationReportProps) {
   const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report
-
   const generalValidationRows = profilErrors
     .sort(sortBySeverity)
     .map(({ code, level }: ProfileError) => ([level === 'E' ? <Badge severity="error">Erreur</Badge> : level === 'I' ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
@@ -96,8 +95,8 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
 
           <div className="item">
             <div><b>Délimiteur</b></div>
-            <Badge severity={fileValidation.encoding.isValid ? 'success' : 'error'}>
-              {fileValidation.encoding.value}
+            <Badge severity={fileValidation.delimiter.isValid ? 'success' : 'error'}>
+              {fileValidation.delimiter.value}
             </Badge>
           </div>
 
@@ -144,7 +143,7 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
           <>
             <h4>Champs présents</h4>
             <div className="present-fields-wrapper">
-              {fields.map((field: { name: string }) => <Badge key={field.name}>{field.name}</Badge>)}
+              {fields.map((field: { name: string }) => <Badge style={{textTransform: 'none'}} key={field.name}>{field.name}</Badge>)}
             </div>
           </>
         )}

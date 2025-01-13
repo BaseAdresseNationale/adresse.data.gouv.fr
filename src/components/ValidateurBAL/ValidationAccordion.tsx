@@ -3,6 +3,7 @@ import { getLabel } from '@ban-team/validateur-bal'
 import Table from '@codegouvfr/react-dsfr/Table'
 import { ValidationRow } from './ValidationSummary'
 import styled from 'styled-components'
+import { useCallback, useMemo } from 'react'
 
 type ValidationAccordionProps = {
   title: string
@@ -13,10 +14,26 @@ const StyledWrapper = styled.div`
   margin-top: 1rem;
   .table-wrapper {
     max-width: calc(100vw - 5.5rem);
+    overflow: scroll;
+
+    td {
+      .error {
+        color: var(--text-default-error);
+      }
+    }
   }
 `
 
 export default function ValidationAccordion({ title, groups }: ValidationAccordionProps) {
+  const data = useCallback((code: string) => {
+    const fieldError = code.split('.')?.[0]
+    return groups[code].map(row => ([row.line, 
+      ...Object.keys(row.rawValues).map((key) => (
+        key === fieldError ? <p className='error'>{row.rawValues[key]}</p> : row.rawValues[key]
+      ))
+    ]))
+  }, [groups])
+
   return (
     <StyledWrapper>
       <h5>{title}</h5>
@@ -27,7 +44,7 @@ export default function ValidationAccordion({ title, groups }: ValidationAccordi
         >
           <div className="table-wrapper">
             <Table
-              data={groups[code].map(row => ([row.line, ...Object.values(row.rawValues)]))}
+              data={data(code)}
               headers={['Ligne', ...Object.keys(groups[code][0].rawValues)]}
             />
           </div>
