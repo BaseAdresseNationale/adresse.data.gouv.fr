@@ -22,18 +22,16 @@ export default function ValidateurBAL() {
   const [isLoading, setIsLoading] = useState(false)
   const [validationReport, setValidationReport] = useState<any>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[0])
+  const [file, setFile] = useState<File | null>(null)
 
   const handleReset = () => {
     setValidationReport(null)
   }
 
-  const handleFileChange = async (value?: File) => {
-    if (!value) {
-      throw new Error('No file selected')
-    }
+  const getReport = async (file: File, profile: string) => {
     try {
       setIsLoading(true)
-      const report = await validate(value, profile)
+      const report = await validate(file, profile)
       setValidationReport(report)
     }
     catch (e) {
@@ -42,6 +40,22 @@ export default function ValidateurBAL() {
     finally {
       setIsLoading(false)
     }
+  }
+
+  const handleFileChange = async (value?: File) => {
+    if (!value) {
+      throw new Error('No file selected')
+    }
+    setFile(value)
+    getReport(value, profile)
+  }
+
+  const handleProfileChange = async (value?: string) => {
+    if (!value) {
+      throw new Error('No profile selected')
+    }
+    setProfile(value)
+    getReport(file as File, value)
   }
 
   return (
@@ -60,7 +74,7 @@ export default function ValidateurBAL() {
                           label="Version de la spécification"
                           value={profile}
                           defaultOption="Choisir une version de la spécification"
-                          handleChange={value => setProfile(value)}
+                          handleChange={handleProfileChange}
                         />
                       </div>
                     </div>
