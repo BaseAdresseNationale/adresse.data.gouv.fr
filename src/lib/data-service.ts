@@ -1,4 +1,6 @@
 import { S3 } from '@aws-sdk/client-s3'
+import { NodeHttpHandler } from '@smithy/node-http-handler'
+import https from 'https'
 import { GetServerSidePropsContext } from 'next'
 import sendToTracker, { getDownloadToEventTracker } from '@/lib/analytics-tracker'
 import { dataConfig } from '@/views/data/config'
@@ -19,6 +21,11 @@ const S3_CONFIG_ENDPOINT = env('S3_CONFIG_ENDPOINT')
 export const bucketName = 'prd-ign-mut-ban'
 export const rootDir = ['adresse-data']
 
+const agent = new https.Agent({
+  keepAlive: true,
+  maxSockets: 200,
+})
+
 const clientS3 = new S3({
   credentials: {
     accessKeyId: S3_CONFIG_ACCESS_KEY_ID || 'default-access-key-id',
@@ -26,6 +33,9 @@ const clientS3 = new S3({
   },
   region: S3_CONFIG_REGION || 'default-region',
   endpoint: S3_CONFIG_ENDPOINT || '',
+  requestHandler: new NodeHttpHandler({
+    httpsAgent: agent,
+  }),
 })
 
 interface Context extends GetServerSidePropsContext {
