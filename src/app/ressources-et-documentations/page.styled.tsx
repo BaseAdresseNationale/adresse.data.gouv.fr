@@ -10,7 +10,7 @@ export const TextWrapper = styled.div`
     gap: 1rem;
 
     article {
-      flex: 65;
+      overflow: hidden;
 
       img {
         max-width: 100%;
