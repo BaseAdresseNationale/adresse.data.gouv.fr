@@ -172,7 +172,7 @@ function CartoView() {
         if (banMapGL && bbox && bbox.length === 4) {
           banMapGL.fitBounds(bbox, {
             padding: { top: 10, bottom: 10, left: 10, right: 10 },
-            duration: 2500,
+            animate: false, // TODO: fix animation
           })
           setIsMenuVisible(true)
         }
