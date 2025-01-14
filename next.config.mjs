@@ -33,6 +33,11 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/guides',
+    destination: '/documentation-bal',
+    permanent: true,
+  },
+  {
     source: '/gerer-mes-adresses',
     destination: '/programme-bal',
     permanent: true,
@@ -83,6 +88,11 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/validateur',
+    destination: '/outils/validateur-bal',
+    permanent: true,
+  },
+  {
     source: '/bases-locales/publication',
     destination: '/outils/formulaire-de-publication',
     permanent: true,
@@ -108,6 +118,11 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/map',
+    destination: `${URL_CARTOGRAPHY_BAN}`,
+    permanent: true,
+  },
+  {
     source: '/csv',
     destination: '/outils/csv',
     permanent: true,
@@ -118,9 +133,24 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/download',
+    destination: '/outils/telechargements',
+    permanent: true,
+  },
+  {
     source: '/api-doc',
     destination: '/outils',
     permanent: true,
+  },
+  {
+    source: '/api',
+    destination: '/outils',
+    permanent: true,
+  },
+  {
+    source: '/donnees-nationales/utilisateurs',
+    destination: '/communaute/usages',
+    permanent: true
   },
   {
     source: '/donnees-nationales/usages',
@@ -128,10 +158,38 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/donnees-nationales/base-usages',
+    destination: '/communaute/usages',
+    permanent: true
+  },
+  {
     source: '/contribuer',
     destination: '/nous-contacter',
     permanent: true,
   },
+  {
+    source: '/contrib',
+    destination: '/nous-contacter',
+    permanent: true,
+  },
+  {
+    source: '/contact',
+    destination: '/nous-contacter',
+    permanent: true,
+  },
+  {
+    source: '/indicateurs',
+    destination: '/stats',
+    permanent: true
+  },
+  
+]
+
+const rewrites = async () => [
+  {
+    source: '/data/ban/adresses-odbl/:path*',
+    destination: '/data/ban/adresses/:path*',
+  }
 ]
 
 const nextConfig = withBundleAnalyzer({
@@ -139,7 +197,8 @@ const nextConfig = withBundleAnalyzer({
     ...defaultEnvVar,
     ...envVar,
   },
-  redirects,
+  redirects, 
+  rewrites,
   images: {
     remotePatterns: imagesDomains.map(domain => ({
       protocol: 'https',
