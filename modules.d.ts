@@ -10,7 +10,13 @@ type ValidateurProfile = {
 }
 
 declare module '@ban-team/validateur-bal' {
-  export function validate(file: File, profile: string): Promise<any>
+  export function validate(file: File, {
+    relaxFieldsDetection,
+    profile,
+  }: {
+    relaxFieldsDetection?: boolean,
+    profile?: string,
+  }): Promise<any>
   export const profiles: Record<string, ValidateurProfile>
   export const getLabel: (code: string) => string
 }
