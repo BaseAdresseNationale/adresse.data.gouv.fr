@@ -29,6 +29,13 @@ const StyledWrapper = styled.div`
         margin-right: 1em;
     }
 }
+
+@media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  .download-wrapper {
+    flex-direction: column;
+    gap: 1em;
+  } 
+}
 `
 
 const options = {
