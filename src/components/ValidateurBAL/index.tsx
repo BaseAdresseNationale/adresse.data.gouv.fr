@@ -1,7 +1,6 @@
 'use client'
 
 import Section from '@/components/Section'
-import { Stepper } from '@codegouvfr/react-dsfr/Stepper'
 import { useState } from 'react'
 import { validate, profiles as profilesMap } from '@ban-team/validateur-bal'
 import SelectInput from '@/components/SelectInput'
@@ -31,7 +30,7 @@ export default function ValidateurBAL() {
   const getReport = async (file: File, profile: string) => {
     try {
       setIsLoading(true)
-      const report = await validate(file, profile)
+      const report = await validate(file, { profile })
       setValidationReport(report)
     }
     catch (e) {
