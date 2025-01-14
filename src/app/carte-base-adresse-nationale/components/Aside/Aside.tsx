@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { fr } from '@codegouvfr/react-dsfr'
 
+import { useDebouncedCallback } from '@/hooks/useDebounce'
+
 import AsideHeader from './AsideHeader'
 import { useBanMapConfig } from '../../components/ban-map/BanMap.context'
 
@@ -32,24 +34,6 @@ interface AsideProps extends AsideDefaultProps {
 interface AsideInfoProps extends AsideDefaultProps {
   header?: undefined | null
   isInfo: true
-}
-
-const useDebouncedCallback = (callback: ((...args: any[]) => void), delay: number) => {
-  const callbackRef = useRef(callback)
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  return useCallback(
-    (...args: any[]) => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current)
-      }
-
-      timerRef.current = setTimeout(() => {
-        callbackRef.current(...args)
-      }, delay)
-    },
-    [delay]
-  )
 }
 
 function Aside({

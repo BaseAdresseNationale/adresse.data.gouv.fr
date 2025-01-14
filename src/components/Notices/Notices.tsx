@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import NoticeDSFR from '@codegouvfr/react-dsfr/Notice'
 
 import { NoticeWrapper, NoticeMessage } from './Notices.styles'
 
 interface NoticeProps {
   data: {
-    text: string
+    text: React.ReactNode
     link?: {
       href: string
       target?: string

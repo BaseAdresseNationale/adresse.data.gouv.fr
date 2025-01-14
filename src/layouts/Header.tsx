@@ -143,7 +143,7 @@ export const navEntries: MainNavigationProps.Item[] = [
 
 interface Notices {
   data: {
-    text: string
+    text: React.ReactNode
     link?: {
       href: string
       target?: string
@@ -201,10 +201,10 @@ export default function Header(
         homeLinkProps={{
           href: '/',
           title:
-          'Accueil - Nom de l’entité (ministère, secrétariat d‘état, gouvernement)',
+          'Accueil - Base Adresse Nationale (Gouvernement Français)',
         }}
         operatorLogo={{
-          alt: '[À MODIFIER - texte alternatif de l’image]',
+          alt: 'Logo de la Base Adresse Nationale (BAN)',
           imgUrl: '/logo-ban-site.svg',
           orientation: 'vertical',
         }}
