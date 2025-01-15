@@ -1,0 +1,120 @@
+import { FormEvent, useCallback, useState } from 'react'
+import { capitalize } from 'lodash'
+
+import SelectInput from '../../SelectInput'
+import ImageInput from '../../ImageInput'
+import MultiSelectInput from '../../MultiSelectInput'
+import Input from '@codegouvfr/react-dsfr/Input'
+import Button from '@codegouvfr/react-dsfr/Button'
+import { candidateToPartenairesDeLaCharte, registrationToEvent } from '@/lib/api-bal-admin'
+import { Commune, Departement } from '@/types/api-geo.types'
+import { StyledForm } from './ParticipantForm.styles'
+import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteOrganismeTypeEnum, PartenaireDeLaCharteServiceEnum, PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import { getCommunes } from '@/lib/api-geo'
+import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
+import { EventType, ParticipantType } from '@/types/events.types'
+
+interface ParticipantFormProps {
+  onClose: () => void
+  eventId: string
+}
+
+function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
+  const [formData, setFormData] = useState<ParticipantType>({
+    name: '',
+    email: '',
+    community: '',
+    function: ''
+  })
+  const [submitStatus, setSubmitStatus] = useState<'loading' | 'success' | 'error' | null>(null)
+
+  const handleEdit = (property: keyof ParticipantType) => (event: any) => {
+    const { value } = event.target
+    setFormData(state => ({ ...state, [property]: value }))
+  }
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    setSubmitStatus('loading')
+    try {
+      await registrationToEvent(eventId, formData)
+      setSubmitStatus('success')
+      setTimeout(() => {
+        onClose()
+      }, 2000)
+    }
+    catch {
+      setSubmitStatus('error')
+    }
+  }
+
+  const canSubmit = () => {
+    return formData.name && formData.email
+  }
+
+  return (
+    <StyledForm onSubmit={handleSubmit}>
+      <section>
+        <Input
+          label="Nom / Prénom*"
+          nativeInputProps={{
+            required: true,
+            value: formData.name,
+            onChange: handleEdit('name') }}
+        />
+
+        <Input
+          label="Email*"
+          nativeInputProps={{
+            required: true,
+            type: 'email',
+            value: formData.email,
+            onChange: handleEdit('email') }}
+        />
+        <Input
+          label="Commune / Collectivité"
+          nativeInputProps={{
+            required: false,
+            value: formData.community,
+            onChange: handleEdit('community') }}
+        />
+
+        <Input
+          label="Fonction / Poste"
+          nativeInputProps={{
+            required: false,
+            value: formData.function,
+            onChange: handleEdit('function') }}
+        />
+      </section>
+      {submitStatus === 'success' && (
+        <div className="fr-alert fr-alert--success">
+          <p>
+            Votre inscription a bien été envoyée.
+          </p>
+        </div>
+      )}
+      {submitStatus === 'error' && (
+        <div className="fr-alert fr-alert--error">
+          <p>
+            Une erreur est survenue lors de l&apos;envoi de votre inscription. Veuillez réessayer ultérieurement. SI le problème persiste, veuillez nous contacter par mail à adresse@data.gouv.fr.
+          </p>
+        </div>
+      )}
+      <div className="form-controls">
+        <Button
+          disabled={!canSubmit() || submitStatus === 'loading' || submitStatus === 'success'}
+          style={{ color: 'white' }}
+          type="submit"
+        >
+          S'inscrire
+        </Button>
+        <Button type="button" priority="secondary" onClick={onClose}>
+          Annuler
+        </Button>
+      </div>
+    </StyledForm>
+  )
+}
+
+export default ParticipantForm

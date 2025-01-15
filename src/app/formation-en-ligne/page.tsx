@@ -67,7 +67,7 @@ const videoFormations = [
 
 export default async function FormationEnLignePage() {
   const balEvents = await getBalEvents()
-
+  console.log(balEvents)
   const { allEvents, tagToColor } = mapEvents(balEvents, 'formation')
   const { upcomingEvents } = getUpcomingAndPassedEvents(allEvents)
 

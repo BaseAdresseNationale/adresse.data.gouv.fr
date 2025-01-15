@@ -3,14 +3,23 @@
 import { EventType, EventTypeTypeEnum } from '@/types/events.types'
 import { StyledEventCard } from './EventCard.styles'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import { getFullDate } from '@/utils/date'
 import { useState } from 'react'
+import Button from '@codegouvfr/react-dsfr/Button'
+import ParticipantForm from './ParticipantForm'
 
 interface EventCardProps {
   event: EventType
   tagToColor: Record<string, { color: string, background: string }>
   isPassed?: boolean
 }
+
+const Modal = createModal({
+  id: 'participant-event-modal',
+  isOpenedByDefault: false,
+})
+
 
 const backgroundColors: Record<string, string> = {
   [EventTypeTypeEnum.FORMATION]: 'rgba(136, 213, 156, 0.1)',
@@ -51,11 +60,21 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
           {showAllDescription ? 'Voir moins' : 'Voir plus'}
         </button>
       )}
-      {!isSubscriptionClosed && !isPassed && (
-        <a className="fr-btn" href={href} target="_blank" rel="noreferrer">
+
+      {!isSubscriptionClosed && !isPassed &&
+        <Button
+          iconId="fr-icon-questionnaire-line"
+          iconPosition="right"
+          priority="secondary"
+          onClick={() => Modal.open()}
+          style={{ marginBottom: '1rem' }}
+        >
           S&apos;inscrire
-        </a>
-      )}
+        </Button>
+      }
+      <Modal.Component title={'Formulaire inscription évènement'}>
+        <ParticipantForm onClose={() => Modal.close()} eventId={event.id}/>
+      </Modal.Component>
     </StyledEventCard>
   )
 }
