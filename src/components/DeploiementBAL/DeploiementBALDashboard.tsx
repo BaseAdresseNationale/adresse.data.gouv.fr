@@ -81,48 +81,47 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             ]}
             onTabChange={setSelectedTab as (tabId: string) => void}
           >
+            <div className="bal-cover-map-container">
+              <Map
+                initialViewState={{
+                  longitude: 2,
+                  latitude: 47,
+                  zoom: 5,
+                }}
+                mapStyle="/map-styles/osm-vector.json"
+              >
+                <NavigationControl showZoom showCompass position="top-right" />
+                <FullScreenControl position="top-right" />
+                <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
+                  <Layer
+                    id="bal-polygon-fill"
+                    type="fill"
+                    source="data"
+                    source-layer="communes"
+                    paint={{
+                      'fill-color': getStyle(selectedTab, filteredCodesCommmune),
+                      'fill-opacity': [
+                        'case',
+                        ['boolean', ['feature-state', 'hover'], false],
+                        0.8,
+                        0.6,
+                      ],
+                    }}
+                    filter={['==', '$type', 'Polygon']}
+                  />
+                </Source>
+                <DeploiementMap
+                  center={geometry.center}
+                  zoom={geometry.zoom}
+                  filteredCodesCommmune={filteredCodesCommmune}
+                  selectedPaintLayer={selectedTab}
+                />
+              </Map>
+            </div>
             {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
             {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
           </Tabs>
         </div>
-        <div className="bal-cover-map-container">
-          <Map
-            initialViewState={{
-              longitude: 2,
-              latitude: 47,
-              zoom: 5,
-            }}
-            mapStyle="/map-styles/osm-vector.json"
-          >
-            <NavigationControl showZoom showCompass position="top-right" />
-            <FullScreenControl position="top-right" />
-            <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
-              <Layer
-                id="bal-polygon-fill"
-                type="fill"
-                source="data"
-                source-layer="communes"
-                paint={{
-                  'fill-color': getStyle(selectedTab, filteredCodesCommmune),
-                  'fill-opacity': [
-                    'case',
-                    ['boolean', ['feature-state', 'hover'], false],
-                    0.8,
-                    0.6,
-                  ],
-                }}
-                filter={['==', '$type', 'Polygon']}
-              />
-            </Source>
-            <DeploiementMap
-              center={geometry.center}
-              zoom={geometry.zoom}
-              filteredCodesCommmune={filteredCodesCommmune}
-              selectedPaintLayer={selectedTab}
-            />
-          </Map>
-        </div>
-
       </div>
     </StyledDeploiementBALDashboard>
   )
