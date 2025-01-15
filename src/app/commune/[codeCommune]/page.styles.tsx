@@ -96,7 +96,13 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
     }
 
     .fr-table {
+        align-self: auto;
+    }
+
+    @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      .fr-table {
         align-self: center;
+      }
     }
 }
 
