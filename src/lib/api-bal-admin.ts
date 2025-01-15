@@ -34,7 +34,19 @@ export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaChart
   const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/paginated`)
   url.searchParams.append('page', page.toString())
   url.searchParams.append('limit', limit.toString())
-  Object.keys(queryObject).forEach(key => url.searchParams.append(key, queryObject[key as keyof PartenairesDeLaCharteQuery] as string))
+  Object.keys(queryObject).forEach((key) => {
+    const value = queryObject[key as keyof PartenairesDeLaCharteQuery]
+    if (value) {
+      if (Array.isArray(value)) {
+        value.forEach((value) => {
+          url.searchParams.append(key, value)
+        })
+      }
+      else {
+        url.searchParams.append(key, value)
+      }
+    }
+  })
 
   return customFetch(url)
 }

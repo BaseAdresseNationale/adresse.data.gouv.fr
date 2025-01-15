@@ -10,7 +10,7 @@ import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import ResponsiveImage from '../../ResponsiveImage'
 import { Departement } from '@/types/api-geo.types'
 import { Commune } from '@/types/api-geo.types'
-import { getPageFromHash, resetHash, useHash } from '@/hooks/useHash'
+import { getPageFromHash, useHash } from '@/hooks/useHash'
 import { useDebounce } from '@/hooks/useDebounce'
 import { StyledWrapper } from './SearchPartenaire.styles'
 import CardWrapper from '@/components/CardWrapper'
@@ -39,7 +39,7 @@ export default function SearchPartenaire({
   shuffle,
   pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
 }: SearchPartenaireProps) {
-  const hash = useHash()
+  const { hash, resetHash } = useHash()
   const [search, onSearch] = useState('')
   const debouncedSearch = useDebounce(search, 500)
   const [info, setInfo] = useState<React.ReactNode>(null)
@@ -59,23 +59,20 @@ export default function SearchPartenaire({
     }, page, pageSize)
 
     setPartenaires(updatedPartenaires)
+    setCurrentPage(page)
   }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize])
 
   useEffect(() => {
     if (hash) {
       const nextPage = getPageFromHash(hash)
       updatePartenaires(nextPage)
-      setCurrentPage(nextPage)
-    }
-    else {
-      setCurrentPage(1)
     }
   }, [hash, updatePartenaires])
 
   useEffect(() => {
     resetHash()
     updatePartenaires(1)
-  }, [selectedServices, selectedCommune, debouncedSearch, updatePartenaires])
+  }, [selectedServices, selectedCommune, debouncedSearch, updatePartenaires, resetHash])
 
   useEffect(() => {
     if (renderInfos) {
