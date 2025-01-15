@@ -2,31 +2,7 @@
 
 import styled from 'styled-components'
 
-export const ResumeDistrictWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  line-height: 2.25;
-  margin: 1rem 0;
-  padding: 1rem 0;
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: row;
-  }
-
-  ul {
-    display: flex;
-    margin: 0;
-
-    > li {
-      list-style-type: none;
-      margin: 0;
-    }
-  }
-
-`
-
-export const ResumeDistrictActionsWrapper = styled.div`
+export const CertificatAdressageOptInActionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
