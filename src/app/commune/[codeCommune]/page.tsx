@@ -181,6 +181,15 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 value: 'Afficher sur la carte',
               },
               {
+                iconId: 'fr-icon-error-warning-line',
+                linkProps: {
+                  href: 'https://signalement.adresse.data.gouv.fr/',
+                  target: '_blank',
+                },
+                priority: 'secondary',
+                value: 'Proposer une amélioration',
+              },
+              {
                 iconId: 'fr-icon-discuss-line',
                 linkProps: {
                   href: mairiePageUrl,
