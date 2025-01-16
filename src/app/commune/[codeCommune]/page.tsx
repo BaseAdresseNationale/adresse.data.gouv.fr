@@ -163,7 +163,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 </label>
                 <div>
                   {!communeHasBAL && '-'}
-                  {communeHasBAL && lastRevisionsDetails && (lastRevisionsDetails[0][0] as string).split(' à ')[0]}
+                  {communeHasBAL && lastRevisionsDetails && (lastRevisionsDetails[0][1] as string).split(' à ')[0]}
                 </div>
               </div>
             </CardWrapper>
@@ -203,11 +203,14 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
         </Section>
 
+        <CommuneDownloadSection commune={commune} hasRevision={Boolean(lastRevisionsDetails)} />
+
         {communeHasBAL && lastRevisionsDetails && (
-          <Section title="Les dernières mises à jour" theme="primary">
+          <Section title="Les dernières mises à jour">
             <div className="modification-history-wrapper">
               <Table
                 headers={[
+                  'Révision courante',
                   'Date',
                   'Mode de publication',
                   'Source',
@@ -218,7 +221,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
             </div>
           </Section>
         )}
-        <CommuneDownloadSection commune={commune} />
       </StyledCommunePage>
     </>
   )

@@ -1,14 +1,16 @@
 'use client'
 
 import Button from '@codegouvfr/react-dsfr/Button'
+import { useState } from 'react'
 import styled from 'styled-components'
+import Loader from '../Loader'
 
 export interface DownloadCardProps {
   title: string
-  text?: string
+  text?: React.ReactNode
   fileDescription: string
-  downloadlink: string
-  onDownloadStart?: () => void
+  downloadlink?: string
+  onDownloadStart?: (() => Promise<void>) | (() => void)
 }
 
 const StyledWrapper = styled.div`
@@ -42,27 +44,45 @@ export default function DownloadCard({
   fileDescription,
   onDownloadStart,
 }: DownloadCardProps) {
-  const handleClick = () => {
-    if (onDownloadStart) {
-      onDownloadStart()
+  const [isDownloading, setIsDownloading] = useState(false)
+
+  const handleClick = async () => {
+    setIsDownloading(true)
+
+    try {
+      if (onDownloadStart) {
+        await onDownloadStart()
+      }
+      if (downloadlink) {
+        window.open(downloadlink, '_blank')
+      }
     }
-    window.open(downloadlink, '_blank')
+    catch (e) {
+      console.error('Error while downloading file', e)
+    }
+    finally {
+      setIsDownloading(false)
+    }
   }
 
   return (
     <StyledWrapper>
       <div>
         <h3>{title}</h3>
-        {text && <p>{text}</p>}
+        {text}
       </div>
       <div className="file-wrapper">
         <legend>{fileDescription}</legend>
-        <Button
-          iconId="fr-icon-download-line"
-          onClick={handleClick}
-          priority="tertiary no outline"
-          title="Télécharger"
-        />
+        {!isDownloading
+          ? (
+              <Button
+                iconId="fr-icon-download-line"
+                onClick={handleClick}
+                priority="tertiary no outline"
+                title="Télécharger"
+              />
+            )
+          : <Loader />}
       </div>
     </StyledWrapper>
   )
