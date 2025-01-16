@@ -5,25 +5,36 @@ import styled from 'styled-components'
 export const ResumeDistrictWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2rem;
   line-height: 2.25;
-  margin: 1rem 0;
-  padding: 1rem 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .resume-card {
+    padding: 1rem;
+    border: 1px solid ${({ theme }) => theme.colors.grey.border};
+    border-radius: 5px;
+
+    > i {
+      margin-right: 0.5rem;
+    }
+  }
+`
+
+export const CertificatAdressageOptInActionsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: row;
   }
-
-  ul {
-    display: flex;
-    margin: 0;
-
-    > li {
-      list-style-type: none;
-      margin: 0;
-    }
-  }
-
 `
 
 export const ResumeDistrictActionsWrapper = styled.div`
