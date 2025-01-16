@@ -96,13 +96,27 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
     }
 
     .fr-table {
-        align-self: auto;
-    }
 
-    @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-      .fr-table {
-        align-self: center;
-      }
+        table {
+            thead {
+                display: none;
+            }
+
+            tbody {
+                border: 0;
+
+                tr {
+                    td:first-child {
+                        text-align: center;
+                        color: ${({ theme }) => theme.colors.primary.main};
+                    }
+
+                    td:nth-child(2) {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
     }
 }
 
