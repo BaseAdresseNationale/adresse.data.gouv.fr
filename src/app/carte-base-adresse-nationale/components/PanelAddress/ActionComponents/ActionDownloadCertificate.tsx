@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import ActionButtonDisabled from './ActionButtonDisabled'
@@ -15,6 +15,11 @@ interface HandleButtonDownloadEvent extends React.MouseEvent<HTMLButtonElement> 
 const ActionDownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, title, message, disabled }) => {
   const [hasDownloaded, setHasDownloaded] = useState(false)
   const [certificateId, setCertificateId] = useState<string | null>(null)
+
+  useEffect(() => {
+    setHasDownloaded(false)
+    setCertificateId(null)
+  }, [id])
 
   interface CertificateResponse {
     id: string

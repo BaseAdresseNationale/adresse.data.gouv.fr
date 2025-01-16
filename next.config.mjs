@@ -143,6 +143,11 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/api-doc/adresse',
+    destination: '/outils/api-doc/adresse',
+    permanent: true,
+  },
+  {
     source: '/api',
     destination: '/outils',
     permanent: true,
