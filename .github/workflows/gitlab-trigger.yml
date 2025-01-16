@@ -1,0 +1,30 @@
+name: Trigger GitLab Pipeline on Merge
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    environment: main
+    steps:
+      - name: Call GitLab API
+        env:
+          GITLAB_API_URL: ${{ secrets.GITLAB_URL}}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: |
+          echo "Triggering GitLab pipeline..."
+          response=$(curl -X POST \
+                --fail \
+                -F token=${GITLAB_TOKEN} \
+                -F ref=main \
+                "${GITLAB_API_URL}")
+          if [ "$response" -ne 201 ]; then
+              echo "GitLab pipeline trigger failed with status code $response."
+              exit 1
+          fi
+
+          echo "GitLab pipeline triggered successfully!"
