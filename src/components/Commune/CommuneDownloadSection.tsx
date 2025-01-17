@@ -32,22 +32,6 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
   return (
     <Section title="Téléchargements" theme="primary">
       <CardWrapper isSmallCard style={{ marginBottom: '2rem' }}>
-        <DownloadCard
-          title="Format national (BAN)"
-          text={(
-            <div style={{ fontSize: '0.8rem' }}>Inclut des colonnes additionnelles
-              <ul style={{ lineHeight: 1.2 }}>
-                <li>Nom et code de la commune ancienne</li>
-                <li>Libellé AFNOR</li>
-                <li>Libellé d&apos;acheminement</li>
-                <li>Code Postal</li>
-              </ul>
-            </div>
-          )}
-          fileDescription="Fichier CSV"
-          downloadlink={getAddressCSVLegacy(commune.codeCommune)}
-          onDownloadStart={matomoTrackDownload('Download CSV historique adresses')}
-        />
 
         {hasRevision
           ? (
@@ -68,7 +52,7 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
                 title="Format Local (BAL)"
                 text={(
                   <div style={{ fontSize: '0.8rem' }}>
-                    Format BAL 1.4 généré à partir de l&apos;assemblage
+                    Format BAL 1.4 généré à partir de l&apos;assemblage BAN
                   </div>
                 )}
                 fileDescription="Fichier CSV"
@@ -77,35 +61,36 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
               />
             )}
 
-        {hasRevision && (
-          <DownloadCard
-            title="Liste des voies"
-            text={(
-              <div style={{ fontSize: '0.8rem' }}>
-                Utile pour commander des panneaux ou prendre une délibération groupée
-              </div>
-            )}
-            fileDescription="Fichier CSV"
-            downloadlink={`/api/downloads/${commune.codeCommune}/street-list`}
-            onDownloadStart={matomoTrackDownload('Download street list')}
-          />
-        )}
-
-        {hasRevision && (
-          <DownloadCard
-            title="Liste des numéros"
-            text={(
-              <div style={{ fontSize: '0.8rem' }}>
-                Utile pour commander des plaques
-              </div>
-            )}
-            fileDescription="Fichier CSV"
-            downloadlink={`/api/downloads/${commune.codeCommune}/number-list`}
-            onDownloadStart={matomoTrackDownload('Download number list')}
-          />
-        )}
+        <DownloadCard
+          title="Format national (BAN)"
+          text={(
+            <div style={{ fontSize: '0.8rem' }}>Inclut des colonnes additionnelles
+              <ul style={{ lineHeight: 1.2 }}>
+                <li>Nom et code de la commune ancienne</li>
+                <li>Libellé AFNOR</li>
+                <li>Libellé d&apos;acheminement</li>
+                <li>Code Postal</li>
+              </ul>
+            </div>
+          )}
+          fileDescription="Fichier CSV"
+          downloadlink={getAddressCSVLegacy(commune.codeCommune)}
+          onDownloadStart={matomoTrackDownload('Download CSV historique adresses')}
+        />
 
         <DownloadCard
+          title="Liste des voies"
+          text={(
+            <div style={{ fontSize: '0.8rem' }}>
+              Utile pour commander des panneaux ou prendre une délibération groupée
+            </div>
+          )}
+          fileDescription="Fichier CSV"
+          downloadlink={`/api/downloads/${commune.codeCommune}/street-list?from=${hasRevision ? 'api-depot' : 'ban'}`}
+          onDownloadStart={matomoTrackDownload('Download street list')}
+        />
+
+        {/*         <DownloadCard
           title="Carte imprimable de la commune"
           text={(
             <div style={{ fontSize: '0.8rem' }}>
@@ -114,7 +99,7 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
           )}
           fileDescription="Fichier PDF"
           onDownloadStart={onDownloadPrintableMap}
-        />
+        /> */}
 
       </CardWrapper>
     </Section>
