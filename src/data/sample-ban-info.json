@@ -2,7 +2,7 @@
   {
     "title": "Comprendre comment utiliser la Base Adresse Nationale ?",
     "description": "Vous souhaitez utiliser la Base Adresse Nationale, explorez les différentes possibilités.",
-    "picto": "./img/picto/map-location.svg",
+    "picto": "/img/picto/map-location.svg",
     "link": {
       "href": "/decouvrir-la-BAN",
       "target": "_self"
@@ -11,7 +11,7 @@
   {
     "title": "Découvrir nos outils et APIs",
     "description": "Vous avez besoin de données toujours à jour ? Découvrez les APIs.",
-    "picto": "./img/picto/api-and-cloud.svg",
+    "picto": "/img/picto/api-and-cloud.svg",
     "link": {
       "href": "/outils",
       "target": "_self"
@@ -20,7 +20,7 @@
   {
     "title": "Télécharger les données",
     "description": "Il est possible de télécharger les données afin de les héberger et de les utiliser chez vous.",
-    "picto": "./img/picto/bdd.svg",
+    "picto": "/img/picto/bdd.svg",
     "link": {
       "href": "/outils/telechargements",
       "target": "_self"
