@@ -80,46 +80,6 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
     }
 }
 
-
-
-.modification-history-wrapper {
-    margin-top: 2rem;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-
-    h3 {
-        font-size: 1.5rem;
-        line-height: 2rem;
-    }
-
-    .fr-table {
-
-        table {
-            thead {
-                display: none;
-            }
-
-            tbody {
-                border: 0;
-
-                tr {
-                    td:first-child {
-                        text-align: center;
-                        color: ${({ theme }) => theme.colors.primary.main};
-                    }
-
-                    td:nth-child(2) {
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-    }
-}
-
 @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
     .commune-main-section {
 
@@ -161,10 +121,6 @@ export const StyledCommunePage = styled.div<{ $certificationPercentage: number }
             }
         }
     }
-}
-
-table {
-    max-width: calc(100vw - 3rem);
 }
 }
 `

@@ -52,6 +52,7 @@ export type PartenaireDeLaChartType = {
   contactEmail: string
   services: PartenaireDeLaCharteServiceEnum[]
   codeDepartement: string[]
+  codeCommune?: string
   link?: string
   charteURL?: string
   signatureDate?: string

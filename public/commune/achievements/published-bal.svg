@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 45.37 45.37">
+  <!-- Generator: Adobe Illustrator 29.2.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 108)  -->
+  <defs>
+    <style>
+      .st0 {
+        isolation: isolate;
+        opacity: .1;
+      }
+
+      .st1 {
+        fill: #3a3a3a;
+      }
+
+      .st2 {
+        fill: #b7fdc8;
+        stroke: #263238;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: .28px;
+      }
+    </style>
+  </defs>
+  <g class="st0">
+    <polygon points="5.99 21.39 14.25 27.42 36.83 18.2 5.99 21.39"/>
+    <polygon points="36.83 18.2 36.32 18.47 36.32 18.47 14.25 27.42 16 32.08 19.9 31.31 27.53 36.96 36.83 18.2"/>
+  </g>
+  <g>
+    <polygon class="st2" points="14.25 20.46 14.25 28.53 36.32 11.51 14.25 20.46"/>
+    <polygon class="st2" points="14.25 20.46 14.25 28.53 36.32 11.51 14.25 20.46"/>
+    <polygon class="st2" points="14.25 20.46 36.83 11.23 5.99 14.43 14.25 20.46"/>
+    <polygon class="st2" points="16.9 22.13 27.53 29.99 36.83 11.23 16.9 22.13"/>
+    <polygon class="st2" points="16.9 22.13 14.25 28.53 19.9 24.35 16.9 22.13"/>
+    <polygon class="st2" points="16.9 22.13 14.25 28.53 19.9 24.35 16.9 22.13"/>
+    <path class="st2" d="M14.28,28.18c.16-.07.31-.14.47-.21"/>
+  </g>
+</svg>

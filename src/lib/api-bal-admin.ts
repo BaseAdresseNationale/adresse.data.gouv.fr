@@ -1,6 +1,6 @@
 import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
-import { customFetch } from './fetch'
 import { EventType, ParticipantType } from '@/types/events.types'
+import { addSearchParams, customFetch } from './fetch'
 import { env } from 'next-runtime-env'
 
 if (!env('NEXT_PUBLIC_BAL_ADMIN_API_URL')) {
@@ -18,6 +18,7 @@ interface PartenairesDeLaCharteQuery {
   services?: string[]
   type?: PartenaireDeLaCharteTypeEnum
   search?: string
+  withoutPictures?: boolean
 }
 
 export interface PaginatedPartenairesDeLaCharte {
@@ -30,23 +31,11 @@ export interface PaginatedPartenairesDeLaCharte {
 
 export const DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT = 8
 
-export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaCharteQuery, page: number = 1, limit: number = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT): Promise<{ total: number, totalCommunes: number, totalOrganismes: number, totalEntreprises: number, data: PartenaireDeLaChartType[] }> {
+export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaCharteQuery, page: number = 1, limit: number = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT): Promise<PaginatedPartenairesDeLaCharte> {
   const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/paginated`)
   url.searchParams.append('page', page.toString())
   url.searchParams.append('limit', limit.toString())
-  Object.keys(queryObject).forEach((key) => {
-    const value = queryObject[key as keyof PartenairesDeLaCharteQuery]
-    if (value) {
-      if (Array.isArray(value)) {
-        value.forEach((value) => {
-          url.searchParams.append(key, value)
-        })
-      }
-      else {
-        url.searchParams.append(key, value)
-      }
-    }
-  })
+  addSearchParams(url, queryObject)
 
   return customFetch(url)
 }
