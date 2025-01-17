@@ -1,10 +1,15 @@
+import { getAdressesCsvBal } from '@/lib/api-ban'
 import { getCurrentRevisionDownloadUrl } from '@/lib/api-depot'
 import { parseCSV } from '@/utils/csv'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest, { params }: { params: { codeCommune: string } }) {
   try {
-    const response = await fetch(getCurrentRevisionDownloadUrl(params.codeCommune), {
+    const from = request.nextUrl.searchParams.get('from') || 'ban'
+
+    const fileToFetchUrl = from === 'ban' ? getAdressesCsvBal(params.codeCommune, '1.4') : getCurrentRevisionDownloadUrl(params.codeCommune)
+
+    const response = await fetch(fileToFetchUrl, {
       headers: {
         'Content-Type': 'text/csv',
       },
@@ -29,26 +34,33 @@ export async function GET(request: NextRequest, { params }: { params: { codeComm
     const result = data
       .reduce((acc: Record<string, any>, row: string[]) => {
         if (!acc[row[voieIndexes[0]]] && row[numeroIndex] !== '99999') {
-          acc[row[voieIndexes[0]]] = voieIndexes.reduce((voieAcc: Record<string, string>, voieIndex) => {
+          acc[row[voieIndexes[0]]] = voieIndexes.reduce((voieAcc: Record<string, any>, voieIndex) => {
             voieAcc[headers[voieIndex]] = row[voieIndex]
 
             return voieAcc
-          }, {})
+          }, {
+            number_count: 1,
+            numbers: [row[numeroIndex]],
+          })
+        }
+        else if (row[numeroIndex] !== '99999' && !acc[row[voieIndexes[0]]].numbers.includes(row[numeroIndex])) {
+          acc[row[voieIndexes[0]]].number_count++
+          acc[row[voieIndexes[0]]].numbers.push(row[numeroIndex])
         }
 
         return acc
       }, {})
 
-    const resultHeaders = voieIndexes.map(index => headers[index])
+    const resultHeaders = [...voieIndexes.map(index => headers[index]), 'number_count', 'numbers']
 
     const resultData = Object.values(result)
-      .map(voies => resultHeaders.map(header => voies[header] || '').join(';'))
+      .map(voies => resultHeaders.map(header => voies[header]).join(';'))
       .sort((a, b) => a.localeCompare(b))
 
     return new NextResponse([resultHeaders.join(';'), ...resultData].join('\n'), {
       headers: {
         'Content-Type': 'text/csv',
-        'Content-Disposition': `attachment; filename="liste-voies-${params.codeCommune}.csv"`,
+        'Content-Disposition': `attachment; filename="liste-numeros-${params.codeCommune}.csv"`,
       },
     })
   }

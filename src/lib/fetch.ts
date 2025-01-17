@@ -29,3 +29,19 @@ export async function customFetch(url: string | URL | globalThis.Request, custom
     return response.json()
   }
 }
+
+export function addSearchParams(url: URL, queryObject: any) {
+  Object.keys(queryObject).forEach((key) => {
+    const value = queryObject[key]
+    if (value) {
+      if (Array.isArray(value)) {
+        value.forEach((value) => {
+          url.searchParams.append(key, value)
+        })
+      }
+      else {
+        url.searchParams.append(key, value)
+      }
+    }
+  })
+}

@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-export const ResumeDistrictWrapper = styled.div`
+export const CommuneActionsActionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -37,7 +37,7 @@ export const CertificatAdressageOptInActionsWrapper = styled.div`
   }
 `
 
-export const ResumeDistrictActionsWrapper = styled.div`
+export const CommuneInfosActionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

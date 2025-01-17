@@ -1,14 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Table } from '@codegouvfr/react-dsfr/Table'
 
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
   getCommune as getBANCommune,
-  assemblageSources,
 } from '@/lib/api-ban'
-import { formatFr } from '@/lib/array'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
@@ -17,8 +14,14 @@ import { getCommuneFlag } from '@/lib/api-blasons-communes'
 import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 
-import ResumeDistrict from './ResumeDistrict'
+import CommuneActions from '../../../components/Commune/CommuneActions'
 import { StyledCommunePage } from './page.styles'
+import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
+import { getSignalements } from '@/lib/api-signalement'
+import { SignalementStatusEnum } from '@/types/api-signalement.types'
+import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
+import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -35,22 +38,29 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ])
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const certificationPercentage = Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)
+  const communeHasRegionalLanguage = commune.voies.some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
+  const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
     mairiePageResponse,
     communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
+    paginatedSignalementsResponse,
+    paginatedPartenairesDeLaCharteResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
     getEPCI(APIGeoCommune?.codeEpci),
-    communeHasBAL && getRevisions(codeCommune)
-      .then(revisions => Promise.all(revisions
-        .slice(0, 5)
-        .map(revision => getRevisionDetails(revision, commune)))
-      ),
+    communeHasBAL
+      ? getRevisions(codeCommune)
+        .then(revisions => Promise.all(revisions
+          .slice(0, 5)
+          .map(revision => getRevisionDetails(revision, commune)))
+        )
+      : [],
+    getSignalements({ codeCommunes: [codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
+    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -73,6 +83,18 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
+  if (paginatedSignalementsResponse.status === 'rejected') {
+    console.error(`Failed to get paginated signalements for commune ${codeCommune}`, paginatedSignalementsResponse.reason)
+  }
+  const paginatedSignalements = paginatedSignalementsResponse.status === 'fulfilled' ? paginatedSignalementsResponse.value : null
+
+  if (paginatedPartenairesDeLaCharteResponse.status === 'rejected') {
+    console.error(`Failed to get paginated partenaires de la charte for commune ${codeCommune}`, paginatedPartenairesDeLaCharteResponse.reason)
+  }
+  const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : null
+
+  const isPartenaireDeLaCharte = Boolean(paginatedPartenairesDeLaCharte?.data.find(partenaire => partenaire.codeCommune === codeCommune))
+
   const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
 
   return (
@@ -85,6 +107,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
             <br />
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
+
           <CardWrapper className="commune-general-info-wrapper">
             <div className="commune-general-info">
               <label>
@@ -111,65 +134,23 @@ export default async function CommunePage({ params }: CommunePageProps) {
               </div>
             </div>
           </CardWrapper>
-          <div className="commune-adresse-info-wrapper">
-            <CardWrapper>
-              <div className="adresse-recap">
-                <div>
-                  {commune.nbVoies}
-                </div>
-                <label>
-                  voies, places et lieux-dits adressés
-                </label>
-              </div>
-              <div className="adresse-recap">
-                <div>
-                  {commune.nbNumeros}
-                </div>
-                <label>
-                  adresses
-                </label>
-              </div>
-              <div className="adresse-recap">
-                <div>
-                  {certificationPercentage} %
-                </div>
-                <label>
-                  d&apos;adresses certifiées
-                </label>
-              </div>
-            </CardWrapper>
-            <CardWrapper>
-              <div className="publication-recap">
-                <label>
-                  Mode de publication
-                </label>
-                <div>
-                  {!communeHasBAL && 'Assemblage'}
-                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][1]}
-                </div>
-              </div>
-              <div className="publication-recap">
-                <label>
-                  Source
-                </label>
-                <div>
-                  {!communeHasBAL && formatFr(assemblageSources(commune.voies))}
-                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][2]}
-                </div>
-              </div>
-              <div className="publication-recap">
-                <label>
-                  Dernière mise à jour
-                </label>
-                <div>
-                  {!communeHasBAL && '-'}
-                  {communeHasBAL && lastRevisionsDetails && (lastRevisionsDetails[0][1] as string).split(' à ')[0]}
-                </div>
-              </div>
-            </CardWrapper>
-          </div>
 
-          <ResumeDistrict
+          <CommuneAchievements
+            certificationPercentage={certificationPercentage}
+            hasPublishedBAL={communeHasBAL}
+            isPartner={isPartenaireDeLaCharte}
+            hasProcessedSignalement={Boolean(paginatedSignalements && paginatedSignalements.total >= 1)}
+            hasRegionalLanguage={communeHasRegionalLanguage}
+          />
+
+          <CommuneCertificationBar
+            certificationPercentage={certificationPercentage}
+            commune={commune}
+            communeHasBAL={communeHasBAL}
+            lastRevisionsDetails={lastRevisionsDetails}
+          />
+
+          <CommuneActions
             district={commune}
             actionProps={[
               {
@@ -180,15 +161,17 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 priority: 'secondary',
                 value: 'Afficher sur la carte',
               },
-              {
-                iconId: 'fr-icon-error-warning-line',
-                linkProps: {
-                  href: 'https://signalement.adresse.data.gouv.fr/',
-                  target: '_blank',
-                },
-                priority: 'secondary',
-                value: 'Proposer une amélioration',
-              },
+              ...(communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][2] === 'Mes Adresses')
+                ? [{
+                    iconId: 'fr-icon-error-warning-line',
+                    linkProps: {
+                      href: 'https://signalement.adresse.data.gouv.fr/',
+                      target: '_blank',
+                    },
+                    priority: 'secondary',
+                    value: 'Proposer une amélioration',
+                  }]
+                : [],
               {
                 iconId: 'fr-icon-discuss-line',
                 linkProps: {
@@ -206,20 +189,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
         <CommuneDownloadSection commune={commune} hasRevision={Boolean(lastRevisionsDetails)} />
 
         {communeHasBAL && lastRevisionsDetails && (
-          <Section title="Les dernières mises à jour">
-            <div className="modification-history-wrapper">
-              <Table
-                headers={[
-                  'Révision courante',
-                  'Date',
-                  'Mode de publication',
-                  'Source',
-                  'Télécharger',
-                ]}
-                data={lastRevisionsDetails}
-              />
-            </div>
-          </Section>
+          <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
       </StyledCommunePage>
     </>

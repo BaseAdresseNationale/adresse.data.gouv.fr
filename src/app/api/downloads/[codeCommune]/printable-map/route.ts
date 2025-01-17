@@ -30,12 +30,12 @@ export async function GET(request: NextRequest, { params }: { params: { codeComm
     const jobId = response.id
 
     let jobStatusResponseJSON
-    let maxAttempts = 20
+    let maxAttempts = 50
 
     do {
       const jobStatusResponse = await fetch(`https://api.get-map.org/apis/jobs/${jobId}`)
       jobStatusResponseJSON = await jobStatusResponse.json()
-      await new Promise(resolve => setTimeout(resolve, 5000))
+      await new Promise(resolve => setTimeout(resolve, 2000))
       maxAttempts--
     } while (jobStatusResponseJSON.status !== 2 && maxAttempts > 0)
 

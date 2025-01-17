@@ -82,7 +82,7 @@ export default function DownloadCard({
                 title="Télécharger"
               />
             )
-          : <Loader />}
+          : <div style={{ padding: '8px' }}><Loader /></div>}
       </div>
     </StyledWrapper>
   )
