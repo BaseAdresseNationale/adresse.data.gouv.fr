@@ -34,7 +34,9 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
 
   const mairieData = mairie || { telephone: undefined, email: undefined }
 
-  const logoUrl = await getCommuneLogo(data.full_address.cog) || ' '
+  // const logoUrl = await getCommuneLogo(data.full_address.cog) || ' '
+
+  const logoUrl = `${NEXT_PUBLIC_ADRESSE_URL}/logos/certificat/${data.full_address.cog}.png`
 
   const pdfStream = await ReactPDF.renderToStream(
     <CertificatNumerotation
