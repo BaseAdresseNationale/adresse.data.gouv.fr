@@ -3,7 +3,7 @@
     "title": "Faire l’état des lieux",
     "description": "Repérez les adresses manquantes, les doublons...",
     "detail": "Créer une base pour ma commune",
-    "picto": "./img/picto/road.svg",
+    "picto": "/img/picto/road.svg",
     "link": {
       "href": "/programme-bal#creer-sa-base-adresse-locale",
       "target": "_self"
@@ -13,7 +13,7 @@
     "title": "Harmoniser vos adresses",
     "description": "Complétez votre base, consultez la population et délibérez en Conseil municipal.",
     "detail": "Découvrez les bonnes pratiques",
-    "picto": "./img/picto/city-hall.svg",
+    "picto": "/img/picto/city-hall.svg",
     "link": {
       "href": "/documentation-bal#guide-bonnes-pratiques",
       "target": "_self"
@@ -23,7 +23,7 @@
     "title": "Diffuser votre base",
     "description": "Publiez votre base, placez des panneaux et informez vos habitants et partenaires.",
     "detail": "Découvrez les méthodes de publication",
-    "picto": "./img/picto/map-target.svg",
+    "picto": "/img/picto/map-target.svg",
     "link": {
       "href": "https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale",
       "target": "_blank"

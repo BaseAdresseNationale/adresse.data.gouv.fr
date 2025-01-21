@@ -38,7 +38,7 @@ function SectionSearchBAN({ id }: SectionSearchBANProps) {
       <Wrapper>
         <IntroWrapper>
           <Title>Votre adresse est elle bien renseignée ?</Title>
-          <Image src="./img/map.svg" alt="picto map" width={141} height={140} />
+          <Image src="/img/map.svg" alt="picto map" width={141} height={140} />
         </IntroWrapper>
         <FormWrapper>
           <SearchBAN>
