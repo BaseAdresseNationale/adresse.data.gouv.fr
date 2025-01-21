@@ -10,7 +10,8 @@ export const CommuneActionsActionsWrapper = styled.div`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-end;
+    flex-wrap: wrap;
   }
 
   .resume-card {
