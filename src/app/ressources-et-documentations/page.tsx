@@ -20,7 +20,7 @@ export default async function DocumentationPage() {
           <SectionHero
             pageTitle={heroData?.title || ''}
             picture={{
-              src: './img/pages/documentation/image_documentation.svg',
+              src: '/img/pages/documentation/image_documentation.svg',
               alt: 'Illustration pour la documentation',
               width: 400,
               height: 310,

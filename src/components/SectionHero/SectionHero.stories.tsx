@@ -49,7 +49,7 @@ const meta = {
         target: '_blank',
       }],
       picture: {
-        src: './img/home_page_hero_ban.svg',
+        src: '/img/home_page_hero_ban.svg',
         alt: 'Illustration de "La base adresse nationale"',
         width: 400,
         height: 310,
@@ -86,7 +86,7 @@ export const Default: Story = {
       target: '_blank',
     }],
     picture: {
-      src: './img/home_page_hero_ban.svg',
+      src: '/img/home_page_hero_ban.svg',
       alt: 'Illustration de "La base adresse nationale"',
       width: 400,
       height: 310,

@@ -28,7 +28,7 @@ export default async function Home() {
       <SectionHero
         pageTitle="La Base Adresse Nationale"
         picture={{
-          src: './img/home_page_hero_ban.svg',
+          src: '/img/home_page_hero_ban.svg',
           alt: 'Illustration de "La Base Adresse Nationale"',
           width: 400,
           height: 310,

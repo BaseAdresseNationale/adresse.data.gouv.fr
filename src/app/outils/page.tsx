@@ -27,7 +27,7 @@ export default async function Outils() {
           <SectionHero
             pageTitle={heroData?.title || ''}
             picture={{
-              src: './img/pages/outils/in-progress.svg',
+              src: '/img/pages/outils/in-progress.svg',
               alt: 'Illustration des "Outils et APIs"',
               width: 400,
               height: 310,
@@ -49,7 +49,7 @@ export default async function Outils() {
               titleAs="h5"
               desc="Chercher des adresses dans la Base Adresse Nationale."
               imageAlt="explorateur ban"
-              imageUrl="./img/pages/outils/outils-ban.png"
+              imageUrl="/img/pages/outils/outils-ban.png"
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -67,7 +67,7 @@ export default async function Outils() {
               titleAs="h5"
               desc="Télécharger les données de la Base Adresse Nationale (BAN)"
               imageAlt="download data"
-              imageUrl="./img/pages/outils/outils-ban.png"
+              imageUrl="/img/pages/outils/outils-ban.png"
               className="fr-card--md fr-card--horizontal-tier"
               footer={(
                 <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -222,7 +222,7 @@ export default async function Outils() {
             desc="Permettre aux communes de modifier les adresses de son territoire."
             className="fr-card--horizontal-tier fr-card--md"
             imageAlt="mes-adresses"
-            imageUrl="./img/pages/outils/outils-ban.png"
+            imageUrl="/img/pages/outils/outils-ban.png"
             footer={(
               <Button
                 linkProps={{
