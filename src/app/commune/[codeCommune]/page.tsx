@@ -17,11 +17,9 @@ import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation
 import CommuneActions from '../../../components/Commune/CommuneActions'
 import { StyledCommunePage } from './page.styles'
 import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
-import { getSignalements } from '@/lib/api-signalement'
-import { SignalementStatusEnum } from '@/types/api-signalement.types'
-import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
 import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
+import { getCommuneAchievements } from '@/lib/commune'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -38,7 +36,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ])
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const communeHasRegionalLanguage = commune.voies.some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
@@ -46,8 +43,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
-    paginatedSignalementsResponse,
-    paginatedPartenairesDeLaCharteResponse,
+    communeAchievementsResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
@@ -59,8 +55,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           .map(revision => getRevisionDetails(revision, commune)))
         )
       : [],
-    getSignalements({ codeCommunes: [codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
-    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
+    getCommuneAchievements(commune),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -83,17 +78,10 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
-  if (paginatedSignalementsResponse.status === 'rejected') {
-    console.error(`Failed to get paginated signalements for commune ${codeCommune}`, paginatedSignalementsResponse.reason)
+  if (communeAchievementsResponse.status === 'rejected') {
+    console.error(`Failed to get commune achievements for commune ${codeCommune}`, communeAchievementsResponse.reason)
   }
-  const paginatedSignalements = paginatedSignalementsResponse.status === 'fulfilled' ? paginatedSignalementsResponse.value : null
-
-  if (paginatedPartenairesDeLaCharteResponse.status === 'rejected') {
-    console.error(`Failed to get paginated partenaires de la charte for commune ${codeCommune}`, paginatedPartenairesDeLaCharteResponse.reason)
-  }
-  const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : null
-
-  const isPartenaireDeLaCharte = Boolean(paginatedPartenairesDeLaCharte?.data.find(partenaire => partenaire.codeCommune === codeCommune))
+  const communeAchievements = communeAchievementsResponse.status === 'fulfilled' ? communeAchievementsResponse.value : null
 
   const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
 
@@ -135,13 +123,11 @@ export default async function CommunePage({ params }: CommunePageProps) {
             </div>
           </CardWrapper>
 
-          <CommuneAchievements
-            certificationPercentage={certificationPercentage}
-            hasPublishedBAL={communeHasBAL}
-            isPartner={isPartenaireDeLaCharte}
-            hasProcessedSignalement={Boolean(paginatedSignalements && paginatedSignalements.total >= 1)}
-            hasRegionalLanguage={communeHasRegionalLanguage}
-          />
+          {communeAchievements && (
+            <CommuneAchievements
+              achievements={communeAchievements}
+            />
+          )}
 
           <CommuneCertificationBar
             certificationPercentage={certificationPercentage}
