@@ -107,7 +107,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
       source = dataset?.organization?.name
     }
     catch (error) {
-      console.error(`Error fetching dataset ${sourceId}: ${error}`)
+      console.error(`Error fetching dataset ${sourceId} for commune ${commune.codeCommune}: ${error}`)
     }
   }
   else if (modeDePublication === 'Mes Adresses') {
