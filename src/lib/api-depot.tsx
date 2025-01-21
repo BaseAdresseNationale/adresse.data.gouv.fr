@@ -102,8 +102,13 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   let source = '-'
   if (modeDePublication === 'Moissonneur') {
     const sourceId = revision?.context?.extras?.sourceId
-    const dataset = await getDataset(sourceId)
-    source = dataset?.organization?.name
+    try {
+      const dataset = await getDataset(sourceId)
+      source = dataset?.organization?.name
+    }
+    catch (error) {
+      console.error(`Error fetching dataset ${sourceId}: ${error}`)
+    }
   }
   else if (modeDePublication === 'Mes Adresses') {
     source = `Commune de ${commune.nomCommune}`
