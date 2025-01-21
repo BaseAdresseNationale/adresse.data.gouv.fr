@@ -21,7 +21,6 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
   })
 
   if (!rawResponse.ok) {
-    console.error(`Erreur lors de la récupération du certificat : ${rawResponse.status} ${rawResponse.statusText}`)
     return new NextResponse('Erreur lors de la récupération du certificat', { status: rawResponse.status })
   }
 
