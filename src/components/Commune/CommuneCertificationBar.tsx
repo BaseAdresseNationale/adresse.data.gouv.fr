@@ -41,6 +41,9 @@ const StyledWrapper = styled.div<{ $certificationPercentage: number }>`
 
                 label {
                     font-size: 1.3rem;
+                    > i {
+                      margin-left: 1rem; 
+                    }
                 }
             }
 
@@ -61,6 +64,10 @@ const StyledWrapper = styled.div<{ $certificationPercentage: number }>`
 
                 label {
                     font-size: 1.3rem;
+
+                    > i {
+                      margin-left: 1rem; 
+                    }
                 }
             }
         }
@@ -137,7 +144,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
         </div>
         <div className="publication-recap">
           <label>
-            <i className="ri-plug-linee" />
+            <i className="ri-plug-line" />
             Source
           </label>
           <div>
