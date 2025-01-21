@@ -31,7 +31,7 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
 
   return (
     <Section title="Téléchargements" theme="primary">
-      <CardWrapper isSmallCard style={{ marginBottom: '2rem' }}>
+      <CardWrapper style={{ marginBottom: '2rem' }}>
 
         {hasRevision
           ? (

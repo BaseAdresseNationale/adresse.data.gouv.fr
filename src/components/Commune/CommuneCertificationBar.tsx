@@ -57,16 +57,17 @@ const StyledWrapper = styled.div<{ $certificationPercentage: number }>`
                     background-color: white;
                     border-radius: 5px;
                     padding: 1rem;
-                    font-size: 1.5rem;
+                    font-size: 1rem;
                     margin-bottom: 1rem;
                     margin-top: 1rem;
+                    font-weight: bold;
                 }
 
                 label {
                     font-size: 1.3rem;
 
                     > i {
-                      margin-left: 1rem; 
+                      margin-right: 0.5rem;
                     }
                 }
             }
@@ -87,7 +88,6 @@ const StyledWrapper = styled.div<{ $certificationPercentage: number }>`
                 background-color: white;
                 border-radius: 10px;
                 padding: 1rem;
-                font-size: 1.5rem;
                 margin-bottom: 1rem;
                 margin-top: 1rem;
             }
