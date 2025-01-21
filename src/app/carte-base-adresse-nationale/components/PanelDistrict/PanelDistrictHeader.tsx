@@ -7,24 +7,24 @@ import {
   DistrictLabel,
   DistrictLabelCode,
   DistrictLogoWrapper,
-  DistrictLogoBadge,
 } from './PanelDistrictHeader.styles'
 import DistrictLink from '../DistrictLink'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
+import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
+import { CommuneAchievements as CommuneAchievementsType } from '@/lib/commune'
 
 interface PanelDistrictHeaderProps {
   district: TypeDistrictExtended
   logo?: string
+  achievements?: CommuneAchievementsType
 }
 
-function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
+function PanelDistrictHeader({ district, logo, achievements }: PanelDistrictHeaderProps) {
   const formatedDistrict = {
     nom: district.nomCommune,
     code: district.codeCommune,
   }
-
-  const certificatedAddressPercent = Math.round((district.nbNumerosCertifies / district.nbNumeros) * 100)
 
   return (
     <>
@@ -33,7 +33,6 @@ function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
           {logo && (
             <DistrictLogoWrapper>
               <Image width={80} height={80} alt="logo commune par défault" src={logo} />
-              {certificatedAddressPercent > 98 && <DistrictLogoBadge title={`Les adresse de cette commune sont certifiées à ${certificatedAddressPercent}%`} />}
             </DistrictLogoWrapper>
           )}
           <DistrictLabelWrapper>
@@ -45,6 +44,7 @@ function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
           </DistrictLabelWrapper>
         </DistrictHeaderWrapper>
       </DistrictLink>
+      {achievements && <CommuneAchievements isMini achievements={achievements} />}
     </>
   )
 }
