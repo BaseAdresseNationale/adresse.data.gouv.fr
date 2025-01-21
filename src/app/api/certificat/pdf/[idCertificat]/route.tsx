@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
+import { join } from 'node:path'
+import * as fs from 'node:fs'
 
 import { getMairie } from '@/lib/api-etablissement-public'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
@@ -36,7 +38,13 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
 
   // const logoUrl = await getCommuneLogo(data.full_address.cog) || ' '
 
-  const logoUrl = `${NEXT_PUBLIC_ADRESSE_URL}/logos/certificat/${data.full_address.cog}.png`
+  // let logoUrl = `${NEXT_PUBLIC_ADRESSE_URL}/logos/certificat/${data.full_address.cog}.png`
+
+  let logoUrl = join(process.cwd(), 'public', 'logos', 'certificat', `${data.full_address.cog}.png`)
+
+  if (!fs.existsSync(logoUrl)) {
+    logoUrl = join(process.cwd(), 'public', 'logos', 'certificat', 'default.png')
+  }
 
   const pdfStream = await ReactPDF.renderToStream(
     <CertificatNumerotation
