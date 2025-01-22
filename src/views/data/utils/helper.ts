@@ -90,7 +90,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               res.setHeader('Accept-Ranges', AcceptRanges)
               res.setHeader('Content-Range', ContentRange)
               res.setHeader('Content-Length', ContentLength)
-              res.status(206)
+              res.statusCode = 206
             }
             (Body as NodeJS.ReadableStream)
               ?.on('error', (err: Error) => {
