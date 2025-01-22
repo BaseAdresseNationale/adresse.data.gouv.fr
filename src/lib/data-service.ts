@@ -23,7 +23,7 @@ export const rootDir = ['adresse-data']
 
 const agent = new https.Agent({
   keepAlive: true,
-  maxSockets: 200,
+  maxSockets: 300,
 })
 
 const clientS3 = new S3({

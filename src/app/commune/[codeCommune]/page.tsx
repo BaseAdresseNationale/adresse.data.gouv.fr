@@ -38,11 +38,11 @@ export default async function CommunePage({ params }: CommunePageProps) {
   const certificationPercentage = Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
-    mairiePageUrl,
-    communeFlagUrl,
-    EPCI,
-    lastRevisionsDetails,
-  ] = await Promise.all([
+    mairiePageResponse,
+    communeFlagResponse,
+    EPCIResponse,
+    lastRevisionsDetailsResponse,
+  ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
     getEPCI(APIGeoCommune?.codeEpci),
@@ -52,6 +52,26 @@ export default async function CommunePage({ params }: CommunePageProps) {
         .map(revision => getRevisionDetails(revision, commune)))
       ),
   ])
+
+  if (mairiePageResponse.status === 'rejected') {
+    console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason)
+  }
+  const mairiePageUrl = mairiePageResponse.status === 'fulfilled' ? mairiePageResponse.value : null
+
+  if (communeFlagResponse.status === 'rejected') {
+    console.error(`Failed to get commune flag for commune  ${codeCommune}`, communeFlagResponse.reason)
+  }
+  const communeFlagUrl = communeFlagResponse.status === 'fulfilled' ? communeFlagResponse.value : null
+
+  if (EPCIResponse.status === 'rejected') {
+    console.error(`Failed to get EPCI for commune ${codeCommune}`, EPCIResponse.reason)
+  }
+  const EPCI = EPCIResponse.status === 'fulfilled' ? EPCIResponse.value : null
+
+  if (lastRevisionsDetailsResponse.status === 'rejected') {
+    console.error(`Failed to get last revisions details for commune ${codeCommune}`, lastRevisionsDetailsResponse.reason)
+  }
+  const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
   const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
 

@@ -28,7 +28,7 @@ function PanelMicroToponymHeader({ microToponym }: PanelMicroToponymHeaderProps)
           {microToponym.nomVoie}
           {microToponym?.nomVoieAlt && Object.entries(microToponym.nomVoieAlt).map(([lang, odonyme]) => (
             <PanelMicroTopoLabelAlt key={lang}>
-              <PanelMicroTopoLabelAltFlag src={`./img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
+              <PanelMicroTopoLabelAltFlag src={`/img/flags/${lang}.svg`} alt={`Drapeau ${lang}`} />{' '}
               {odonyme}
             </PanelMicroTopoLabelAlt>
           ))}
