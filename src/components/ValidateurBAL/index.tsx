@@ -85,7 +85,7 @@ export default function ValidateurBAL() {
                     onChange={handleFileChange}
                     label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
                     hint="Taille maximale: 50 Mo. Format supporté : CSV"
-                    accept={{ 'text/csv': [] }}
+                    accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
                     maxSize={50 * 1024 * 1024}
                   />
                 )}
