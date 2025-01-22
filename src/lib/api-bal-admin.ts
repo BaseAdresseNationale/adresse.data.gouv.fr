@@ -65,7 +65,7 @@ export async function candidateToPartenairesDeLaCharte(candidacy: CandidateParte
 }
 
 export async function registrationToEvent(eventId: string, participant: ParticipantType) {
-  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events/${eventId}/participant`
+  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events/${eventId}/participants`
 
   return customFetch(request, {
     method: 'POST',

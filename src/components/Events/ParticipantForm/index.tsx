@@ -21,7 +21,7 @@ interface ParticipantFormProps {
 
 function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
   const [formData, setFormData] = useState<ParticipantType>({
-    name: '',
+    fullname: '',
     email: '',
     community: '',
     function: ''
@@ -49,7 +49,7 @@ function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
   }
 
   const canSubmit = () => {
-    return formData.name && formData.email
+    return formData.fullname && formData.email
   }
 
   return (
@@ -59,8 +59,8 @@ function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
           label="Nom / Prénom*"
           nativeInputProps={{
             required: true,
-            value: formData.name,
-            onChange: handleEdit('name') }}
+            value: formData.fullname,
+            onChange: handleEdit('fullname') }}
         />
 
         <Input

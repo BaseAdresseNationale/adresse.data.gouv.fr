@@ -51,7 +51,7 @@ export type EventType = {
 
 export type ParticipantType = {
   id?: string;
-  name: string;
+  fullname: string;
   email: string;
   community?: string;
   function?: string;
