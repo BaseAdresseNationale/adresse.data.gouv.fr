@@ -13,8 +13,6 @@ const StyledWrapper = styled.div`
   margin-top: 1rem;
 `
 
-const limit = 10;
-
 export default function ValidationAccordion({ title, groups }: ValidationAccordionProps) {
   return (
     <StyledWrapper>

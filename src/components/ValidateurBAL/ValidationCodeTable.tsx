@@ -25,11 +25,11 @@ const StyledWrapper = styled.div`
   }
 `
 
-const limit = 10;
+const limit = 10
 
 export default function ValidationCodeTable({ code, groupCode }: ValidationCodeTableProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  
+  const [currentPage, setCurrentPage] = useState(1)
+
   const data = useMemo(() => {
     const fieldError = code.split('.')?.[0]
     const start = (currentPage - 1) * limit
@@ -39,20 +39,19 @@ export default function ValidationCodeTable({ code, groupCode }: ValidationCodeT
         key === fieldError ? <p key={index} className="error">{row.rawValues[key]}</p> : row.rawValues[key]
       )),
     ]))
-
-  }, [groupCode, currentPage])
+  }, [code, groupCode, currentPage])
 
   return (
     <StyledWrapper>
       <div className="table-wrapper">
         <Table
-            data={data}
-            headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
+          data={data}
+          headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
         />
         <SoftPagination
           currentPage={currentPage}
           totalCount={groupCode.length}
-          onPageChange={(page) => {setCurrentPage(page)}}
+          onPageChange={(page) => { setCurrentPage(page) }}
           limit={limit}
         />
       </div>
