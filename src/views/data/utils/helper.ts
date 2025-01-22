@@ -103,7 +103,10 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               })
               .pipe(res)
           })
-          .catch((err: Error) => console.error(err))
+          .catch((err: Error) => {
+            console.error(err)
+            reject(err)
+          })
       }
     )
 
