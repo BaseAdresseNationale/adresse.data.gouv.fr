@@ -11,7 +11,7 @@ export const FooterWrapper = styled.footer<{ $isHidden: boolean, $isEventReady: 
   width: 100%;
 
   ${({ $isHidden, $isEventReady }) => $isHidden
-    ? css`
+      ? css`
       position: fixed;
       z-index: 5;
       max-height: 75dvh;
@@ -45,7 +45,7 @@ export const FooterWrapper = styled.footer<{ $isHidden: boolean, $isEventReady: 
         }
       `}
     `
-    : css`position: static;`
+      : css`position: static;`
   }
 `
 

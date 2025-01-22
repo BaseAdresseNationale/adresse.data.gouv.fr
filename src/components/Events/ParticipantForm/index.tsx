@@ -24,7 +24,7 @@ function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
     fullname: '',
     email: '',
     community: '',
-    function: ''
+    function: '',
   })
   const [submitStatus, setSubmitStatus] = useState<'loading' | 'success' | 'error' | null>(null)
 
@@ -107,7 +107,7 @@ function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
           style={{ color: 'white' }}
           type="submit"
         >
-          S'inscrire
+          S&apos;inscrire
         </Button>
         <Button type="button" priority="secondary" onClick={onClose}>
           Annuler

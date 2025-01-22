@@ -25,8 +25,8 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small' }>`
 
       ${({ $size }) => $size === 'small' && css`z-index: 990;`}
       ${({ $size }) => $size === 'small'
-        ? css`height: 7.4rem;`
-        : css`height: 14.4rem;`
+          ? css`height: 7.4rem;`
+          : css`height: 14.4rem;`
       }
     }
 

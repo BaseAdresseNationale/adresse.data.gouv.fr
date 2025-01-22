@@ -57,10 +57,10 @@ const certificationLevelConfig = {
 function PanelAddress({ address }: PanelAddressProps) {
   const dateMaj = isValidDate(address.dateMAJ)
     ? new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
     : 'Non renseignée'
 
   const isMultiPosition = Number(address.positions?.length) > 1
@@ -72,14 +72,14 @@ function PanelAddress({ address }: PanelAddressProps) {
     secondariesPositions: Position[]
   } = isMultiPosition
     ? address.positions.reduce((acc, entry) => {
-      if (entry.position.coordinates.join('--') === address.position.coordinates.join('--')) {
-        acc.mainPosition = entry
-      }
-      else {
-        acc.secondariesPositions.push(entry)
-      }
-      return acc
-    }, { mainPosition: (null as unknown as Position), secondariesPositions: ([] as Position[]) })
+        if (entry.position.coordinates.join('--') === address.position.coordinates.join('--')) {
+          acc.mainPosition = entry
+        }
+        else {
+          acc.secondariesPositions.push(entry)
+        }
+        return acc
+      }, { mainPosition: (null as unknown as Position), secondariesPositions: ([] as Position[]) })
     : { mainPosition: {
         position: address.position,
         positionType: address.positionType,

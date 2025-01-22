@@ -50,14 +50,14 @@ export const AsideWrapper = styled.div<{
     scroll-snap-stop: always;
 
     ${({ $isTypeInfo }) => $isTypeInfo
-      ? css`
+        ? css`
         display: flex;
         flex-flow: column nowrap;
         justify-content: flex-end;
         align-items: center;
         padding-bottom: 4rem;
       `
-      : css`
+        : css`
         background: var(--background-default-grey);
         box-shadow: 0 0 .5rem -0.125rem rgba(0, 0, 0, 0.7);
       `
@@ -75,11 +75,11 @@ export const AsideWrapper = styled.div<{
     pointer-events: none;
 
     ${({ $withTogglerButton }) => $withTogglerButton
-      ? css`
+        ? css`
         width: calc(400px + 2rem);
         max-width: calc(25% + 2rem);
       `
-      : css`
+        : css`
         width: 400px;
         max-width: 25%;
       `

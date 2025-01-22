@@ -160,12 +160,12 @@ export const RingButtonStyled = styled.button.attrs({
   min-height: 3em;
   min-width: 3em;
   ${({ $isActive, $isTypeRadio }) => !$isTypeRadio || $isActive
-    ? css`filter: grayscale(0) brightness(1);`
-    : css`filter: grayscale(0.75) brightness(.85);`
+      ? css`filter: grayscale(0) brightness(1);`
+      : css`filter: grayscale(0.75) brightness(.85);`
   }
   ${({ $isActive, $isTypeRadio }) => $isTypeRadio && $isActive
-    ? css`cursor: default;`
-    : css`filter: pointer;`
+      ? css`cursor: default;`
+      : css`filter: pointer;`
   }
   transform-origin: center;
   transform: scale(.95);
@@ -175,8 +175,8 @@ export const RingButtonStyled = styled.button.attrs({
     filter: grayscale(0) brightness(1);
     transform: scale(1);
     ${({ $isActive }) => $isActive
-      ? css`transform: scale(.95);`
-      : css`transform: scale(1);`
+        ? css`transform: scale(.95);`
+        : css`transform: scale(1);`
     }
   }
 `

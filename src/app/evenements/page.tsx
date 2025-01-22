@@ -26,12 +26,12 @@ export default async function EvenementsPage() {
         <CardWrapper>
           {upcomingEvents.length > 0
             ? upcomingEvents.map((event, index) => (
-              <EventCard
-                key={index}
-                event={event}
-                tagToColor={tagToColor}
-              />
-            ))
+                <EventCard
+                  key={index}
+                  event={event}
+                  tagToColor={tagToColor}
+                />
+              ))
             : <p>Aucun évènement à venir</p>}
         </CardWrapper>
       </Section>
@@ -39,13 +39,13 @@ export default async function EvenementsPage() {
         <CardWrapper>
           {lastMonthPastEvents.length > 0
             ? lastMonthPastEvents.map((event, index) => (
-              <EventCard
-                key={index}
-                event={event}
-                tagToColor={tagToColor}
-                isPassed
-              />
-            ))
+                <EventCard
+                  key={index}
+                  event={event}
+                  tagToColor={tagToColor}
+                  isPassed
+                />
+              ))
             : <p>Aucun évènement n&apos;a eu lieu le mois dernier</p>}
         </CardWrapper>
       </Section>

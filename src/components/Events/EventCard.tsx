@@ -20,7 +20,6 @@ const Modal = createModal({
   isOpenedByDefault: false,
 })
 
-
 const backgroundColors: Record<string, string> = {
   [EventTypeTypeEnum.FORMATION]: 'rgba(136, 213, 156, 0.1)',
   [EventTypeTypeEnum.FORMATION_LVL2]: 'rgba(136, 213, 156, 0.25)',
@@ -61,7 +60,8 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
         </button>
       )}
 
-      {!isSubscriptionClosed && !isPassed &&
+      {!isSubscriptionClosed && !isPassed
+      && (
         <Button
           iconId="fr-icon-questionnaire-line"
           iconPosition="right"
@@ -71,9 +71,9 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
         >
           S&apos;inscrire
         </Button>
-      }
-      <Modal.Component title={'Formulaire inscription évènement'}>
-        <ParticipantForm onClose={() => Modal.close()} eventId={event.id}/>
+      )}
+      <Modal.Component title="Formulaire inscription évènement">
+        <ParticipantForm onClose={() => Modal.close()} eventId={event.id} />
       </Modal.Component>
     </StyledEventCard>
   )

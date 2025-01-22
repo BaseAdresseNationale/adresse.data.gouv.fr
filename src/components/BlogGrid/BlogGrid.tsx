@@ -35,8 +35,8 @@ function BlogGrid({ title, header, footer, posts, nbPost, isLoading, isVisible }
           !posts || loading
             ? 'Chargement en cours...'
             : posts.slice(0, nbPost).map(post =>
-              <BlogCard key={post.title} post={post} />
-            )
+                <BlogCard key={post.title} post={post} />
+              )
         }
       </CardWrapper>
 

@@ -87,14 +87,14 @@ export const PanelDistrictLabel = styled.span.attrs<{ $cog?: string }>(({ $cog, 
 ))<{ $historique?: boolean, $separator?: string }>`
   ${secondaryInfo}
   ${({ $historique }) => $historique
-    ? css`
+      ? css`
       ${tertiaryInfo}
         font-weight: 300;
       `
-    : css`
+      : css`
         font-weight: 600;
       `
-    };
+  };
   display: block;
 
   &::after {
@@ -196,9 +196,9 @@ export const PanelDetailsItemWithDesc = ({
   <PanelDetailsItem
     {...props}
     className={
-  `${className || ''} `
-  + `isIsolated `
-  + `${className}`
+      `${className || ''} `
+      + `isIsolated `
+      + `${className}`
     }
   >
     <div>

@@ -100,9 +100,9 @@ export async function handleS3Data(context: Context) {
             name,
             path: alias && alias.parent !== dirPath
               ? path.replace(
-                (new RegExp(`^${rootDir.join('/')}/${alias.parent}/${alias.target}`)),
-                `${rootDir.join('/')}/${alias.parent}/${alias.name}`
-              )
+                  (new RegExp(`^${rootDir.join('/')}/${alias.parent}/${alias.target}`)),
+                  `${rootDir.join('/')}/${alias.parent}/${alias.name}`
+                )
               : path,
             isDirectory,
             ...(fileInfo ? { fileInfo } : {}),

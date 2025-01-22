@@ -85,7 +85,7 @@ function PanelMicroToponymAddressList({ microToponym }: PanelMicroToponymAddress
               addresses: addressesGroup[topoId]
                 .filter(address => (filter[topoId])
                   ? deburr(String(`${address.numero}${address.suffixe}`))
-                    .includes(deburr(filter[topoId].replace(/\s/g, '')))
+                      .includes(deburr(filter[topoId].replace(/\s/g, '')))
                   : true
                 )
                 .sort((addrA, addrB) => sortAddresses(addrA as unknown as SortAddressesEntry, addrB as unknown as SortAddressesEntry)),
