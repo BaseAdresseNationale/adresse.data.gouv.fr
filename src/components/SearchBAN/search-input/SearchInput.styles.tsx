@@ -25,18 +25,19 @@ export const SearchComboboxInputLoader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
   transform: translateX(-1.5em);
-  transition: opacity 0.25s ease .25s;
-
-  &.loading {
-    opacity: 1;
-    transition: opacity 0.25s ease;
-  }
 
   .search-combobox-input-loader-icon {
     animation:${rotate} 2s infinite;
     animation-timing-function: cubic-bezier(0.25, 0.5, 0.25, 0.5);
+    opacity: 0;
+    animation-play-state: paused;
+    transition: opacity 0.25s ease;
+
+    &.loading {
+      opacity: 1;
+      animation-play-state: running;
+    }
   }
 `
 
