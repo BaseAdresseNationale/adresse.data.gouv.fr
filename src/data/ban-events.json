@@ -480,7 +480,7 @@
   {
     "title": "Adresse_Lab",
     "subtitle": "Point d'échange trimestriel T1 2025",
-    "description": "Actualités BAN",
+    "description": "Actualités BAN - Point d'échange trimestriel T1 2025",
     "type": "adresselab",
     "target": "utilisateurs de la donnée adresse",
     "date": "2025-01-21",
@@ -494,8 +494,8 @@
     "endHour": "15:30"
   },
   {
-    "title": "Adresse_Lab",
-    "subtitle": "Rencontre Utilisateurs Nationaux BAN#7",
+    "title": "Rencontre Utilisateurs Nationaux BAN#7",
+    "subtitle": "Adresse_Lab",
     "description": "Journée d'échanges entre les utilisateurs experts, autour des problématiques partagées : emprise d’utilisation large incluant données d’assemblage, besoin d’historisation de la donnée, adosser des données métier aux adresses de la BAN, besoins spécifiques sur la qualité et la mise à jour des données.",
     "type": "adresselab",
     "target": "Les SI nationaux utilisateurs avancés de la donnée adresse",
