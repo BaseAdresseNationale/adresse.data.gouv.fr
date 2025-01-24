@@ -129,8 +129,8 @@ export default function SearchInput({
       {children && <label {...getLabelProps()}>{children}</label>}
 
       <SearchComboboxInputWrapper>
-        <SearchComboboxInputLoader className={`${hasLoader && isLoading ? 'loading' : ''}`}>
-          <i className="search-combobox-input-loader-icon ri-refresh-line" />
+        <SearchComboboxInputLoader>
+          <i className={`search-combobox-input-loader-icon ri-refresh-line ${isLoading ? 'loading' : ''}`} />
         </SearchComboboxInputLoader>
 
         <Input
