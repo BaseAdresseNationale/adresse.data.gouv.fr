@@ -30,6 +30,8 @@ import { useBanMapConfig } from './components/ban-map/BanMap.context'
 
 import type { Address } from './components/ban-map/types'
 import { env } from 'next-runtime-env'
+import { CommuneAchievements, getCommuneAchievements } from '@/lib/commune'
+import { BANCommune } from '@/types/api-ban.types'
 
 interface LinkProps {
   href: string
@@ -94,6 +96,7 @@ function CartoView() {
   const [isMenuVisible, setIsMenuVisible] = useState(false)
   const [mapSearchResults, setMapSearchResults] = useState<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | undefined>()
   const [districtLogo, setDistrictLogo] = useState<string | undefined>()
+  const [districtAchievements, setDistrictAchievements] = useState<CommuneAchievements>()
   const [mapBreadcrumbPath, setMapBreadcrumbPath] = useState<MapBreadcrumbPath>([])
   const [withCertificate, setWithCertificate] = useState<boolean>(false)
   const [isLoadMapSearchResults, setIsLoadMapSearchResults] = useState(false)
@@ -158,6 +161,8 @@ function CartoView() {
         const typeItem = getBanItemTypes(banItem)
         if (typeItem === 'district') {
           setMapBreadcrumbPath(getDistrictBreadcrumbPath(banItem as TypeDistrictExtended))
+          const _districtAchievements = await getCommuneAchievements(banItem as unknown as BANCommune)
+          setDistrictAchievements(_districtAchievements)
         }
         else if (typeItem === 'micro-toponym') {
           setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
@@ -219,7 +224,7 @@ function CartoView() {
           isOpen={isMenuVisible}
           path={mapBreadcrumbPath}
           header={
-            ((typeView === 'district') && (<PanelDistrictHeader district={mapSearchResults as TypeDistrictExtended} logo={districtLogo} />))
+            ((typeView === 'district') && (<PanelDistrictHeader district={mapSearchResults as TypeDistrictExtended} logo={districtLogo} achievements={districtAchievements} />))
             || ((typeView === 'micro-toponym') && (<PanelMicroToponymHeader microToponym={mapSearchResults as TypeMicroToponymExtended} />))
             || ((typeView === 'address') && (<PanelAddressHeader address={mapSearchResults as TypeAddressExtended} />))
           }
