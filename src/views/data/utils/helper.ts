@@ -94,6 +94,11 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               res.setHeader('Content-Length', ContentLength)
               res.statusCode = 206
             }
+
+            if (req.method === 'HEAD') {
+              return resolve()
+            }
+
             (Body as NodeJS.ReadableStream)
               ?.on('error', (err: Error) => {
                 const formattedDate = getFormatedDate()
