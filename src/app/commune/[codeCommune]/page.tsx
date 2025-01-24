@@ -54,22 +54,22 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ])
 
   if (mairiePageResponse.status === 'rejected') {
-    console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason)
+    console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason?.message)
   }
   const mairiePageUrl = mairiePageResponse.status === 'fulfilled' ? mairiePageResponse.value : null
 
   if (communeFlagResponse.status === 'rejected') {
-    console.error(`Failed to get commune flag for commune  ${codeCommune}`, communeFlagResponse.reason)
+    console.error(`Failed to get commune flag for commune  ${codeCommune}`, communeFlagResponse.reason?.message)
   }
   const communeFlagUrl = communeFlagResponse.status === 'fulfilled' ? communeFlagResponse.value : null
 
   if (EPCIResponse.status === 'rejected') {
-    console.error(`Failed to get EPCI for commune ${codeCommune}`, EPCIResponse.reason)
+    console.error(`Failed to get EPCI for commune ${codeCommune}`, EPCIResponse.reason?.message)
   }
   const EPCI = EPCIResponse.status === 'fulfilled' ? EPCIResponse.value : null
 
   if (lastRevisionsDetailsResponse.status === 'rejected') {
-    console.error(`Failed to get last revisions details for commune ${codeCommune}`, lastRevisionsDetailsResponse.reason)
+    console.error(`Failed to get last revisions details for commune ${codeCommune}`, lastRevisionsDetailsResponse.reason?.message)
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
