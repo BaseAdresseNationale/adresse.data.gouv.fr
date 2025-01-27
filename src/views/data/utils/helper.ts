@@ -85,13 +85,20 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
         res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
 
         clientS3.getObject(options.params)
-          .then(({ Body, AcceptRanges, ContentRange, ContentLength }) => {
+          .then(({ Body, AcceptRanges, ContentRange, ContentLength, LastModified, ETag }) => {
+            res.setHeader('Last-Modified', LastModified?.toUTCString())
+            res.setHeader('Etag', ETag)
             if (AcceptRanges && ContentRange) {
               res.setHeader('Accept-Ranges', AcceptRanges)
               res.setHeader('Content-Range', ContentRange)
               res.setHeader('Content-Length', ContentLength)
               res.statusCode = 206
             }
+
+            if (req.method === 'HEAD') {
+              return resolve()
+            }
+
             (Body as NodeJS.ReadableStream)
               ?.on('error', (err: Error) => {
                 const formattedDate = getFormatedDate()
