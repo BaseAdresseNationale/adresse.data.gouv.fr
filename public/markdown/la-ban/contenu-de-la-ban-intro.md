@@ -5,6 +5,6 @@ aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir_la_BAN--la_ba
 ---
 
 La Base Adresse Nationale (BAN) est le référentiel des adresses du territoire. 
-Le contenu de la Base Adresse Nationale est accessible sous forme de [fichiers](/outils/telechargements) et [d’API](/outils).
+Le contenu de la Base Adresse Nationale est accessible sous forme de [fichiers, flux](/outils/telechargements) et [d’API](/outils).
 
 Les données sont accessibles en [licence ouverte](https://www.etalab.gouv.fr/licence-ouverte-open-licence/)
