@@ -104,7 +104,9 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         const currentRevision = await getCurrentRevision(codeCommune)
         setCommuneCurrentRevision(currentRevision)
       }
-      catch {}
+      catch (e) {
+        setError(e as Error)
+      }
 
       setCommune({ ...commune, flagUrl: communeFlagUrl })
     }
@@ -185,7 +187,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         onChange={handleFileChange}
         label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
         hint="Taille maximale: 50 Mo. Format supporté : CSV"
-        accept={{ 'text/csv': [] }}
+        accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
         maxSize={50 * 1024 * 1024}
       />
     ) },

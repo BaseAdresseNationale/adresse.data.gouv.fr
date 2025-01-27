@@ -60,10 +60,20 @@ export async function createRevision(codeCommune: string, file: File): Promise<R
     }),
   })
 
+  // Force content type to be text/csv
+  // To fix application/vnd.ms-excel issue on Windows and Firefox
+  const blobFile = new Blob([file as Blob], {
+    type: 'text/csv',
+  })
+
+  const _file = new File([blobFile], file.name, {
+    type: 'text/csv',
+  })
+
   await customFetch(`/api/proxy-api-depot/revisions/${revision._id}/files/bal`, {
     method: 'PUT',
     headers: { 'Content-Type': 'text/csv' },
-    body: file,
+    body: _file,
   })
 
   const computedRevision = await customFetch(`/api/proxy-api-depot/revisions/${revision._id}/compute`, {

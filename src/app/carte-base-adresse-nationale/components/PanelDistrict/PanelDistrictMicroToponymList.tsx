@@ -73,7 +73,6 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
         }
       )
       setFiltredMicroToponymes(voies)
-      console.log('voies', voies)
     }
   }, [microToponymes, search])
 
