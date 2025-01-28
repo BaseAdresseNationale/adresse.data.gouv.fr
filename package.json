@@ -35,6 +35,7 @@
     "blob-to-buffer": "^1.2.9",
     "chardet": "^1.6.0",
     "chart.js": "^4.4.4",
+    "csv-parse": "^5.6.0",
     "dotenv": "^16.4.5",
     "downshift": "^9.0.8",
     "filesize": "^10.1.6",
