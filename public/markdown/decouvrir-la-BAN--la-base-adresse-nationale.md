@@ -5,7 +5,7 @@ title: Decouvrir la BAN - La Base Adresse Nationale
 ### Caractéristiques
 
 - Producteur : IGN
-- Licence : Licence Ouverte
+- Licence : [Licence Ouverte](https://www.etalab.gouv.fr/licence-ouverte-open-licence/)
 - Fréquence de mise à jour : quotidienne
 - Couverture : France entière (y compris les collectivités d’outremer)
 
