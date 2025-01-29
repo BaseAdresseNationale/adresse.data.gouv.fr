@@ -108,7 +108,7 @@ export const PanelDistrictLabel = styled.span.attrs<{ $cog?: string }>(({ $cog, 
 
 export const PanelDetailsWrapper = styled.ul`
   padding: 0;
-  margin: 0 0 4rem;
+  margin: 0 0 2rem;
   font-size: 0.9rem;
   line-height: 1.5;
 `
@@ -154,89 +154,9 @@ export const PanelDetailsItemContent = styled.div`
   flex-direction: column;
 `
 
-const PanelDetailsDesc = styled.div`
-  display: block;
-  font-size: 0.9em;
-  font-style: italic;
-  line-height: 1.5rem;
-  padding-right: 1em;
-  color: var(--text-mention-grey);
-`
-
-interface PanelDetailsItemProps extends React.HTMLAttributes<HTMLLIElement> {
-  children: React.ReactNode
-}
-
-export const PanelDetailsItem = ({ children, ...props }: PanelDetailsItemProps) => (
-  <PanelDetailsItemStyle {...props}>
-    <PanelDetailsItemContent>
-      {children}
-    </PanelDetailsItemContent>
-  </PanelDetailsItemStyle>
-)
-
 export const PanelDetailsItemValue = styled.pre`
   font-size: small;
   font-weight: 700;
   margin-bottom: 0.5rem;
   white-space: pre-line;
 `
-
-interface PanelDetailsItemWithDescProps extends React.HTMLAttributes<HTMLLIElement> {
-  message: React.ReactNode
-  desc: React.ReactNode
-}
-
-export const PanelDetailsItemWithDesc = ({
-  message,
-  desc,
-  className,
-  ...props
-}: PanelDetailsItemWithDescProps) => (
-  <PanelDetailsItem
-    {...props}
-    className={
-  `${className || ''} `
-  + `isIsolated `
-  + `${className}`
-    }
-  >
-    <div>
-      <strong>{message}</strong>
-      <PanelDetailsDesc>
-        {desc}
-      </PanelDetailsDesc>
-    </div>
-  </PanelDetailsItem>
-)
-
-interface ConfigEntryValue {
-  className: string
-  message: React.ReactNode
-  desc: React.ReactNode
-}
-
-type ConfigEntryKey = string
-type ConfigOrigin = Record<ConfigEntryKey, ConfigEntryValue>
-interface DistrictDetailsOriginProps extends React.HTMLAttributes<HTMLLIElement> {
-  config: ConfigOrigin
-  origin: ConfigEntryKey
-}
-
-export const PanelDetailsOrigin = ({ config, origin, className, ...props }: DistrictDetailsOriginProps) => {
-  const configOrigin = config[origin] || config.default
-  return (
-    configOrigin
-    && (
-      <PanelDetailsItemWithDesc
-        {...props}
-        message={configOrigin.message}
-        desc={configOrigin.desc}
-        className={
-          `${configOrigin.className} `
-          + `isIsolated `
-          + `${className}`
-        }
-      />
-    ))
-}

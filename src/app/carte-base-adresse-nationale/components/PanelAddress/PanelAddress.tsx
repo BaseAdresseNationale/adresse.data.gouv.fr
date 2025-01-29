@@ -1,4 +1,3 @@
-import { AddressDetailsCertification } from './PanelAddress.styles'
 import AddressDetailPosition from '../AddressDetailPosition'
 
 import {
@@ -6,7 +5,8 @@ import {
   PanelDetailsItem,
   PanelDetailsItemValue,
   PanelDetailsOrigin,
-} from '../Panel/PanelStyles'
+  PanelDetailsCertification,
+} from '../Panel'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
@@ -88,12 +88,12 @@ function PanelAddress({ address }: PanelAddressProps) {
   return (
     <PanelDetailsWrapper>
       <PanelDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
-      <AddressDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
+      <PanelDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
 
       <PanelDetailsItem className="ri-key-line">
         <span>
           Identifiant BAN : <br />
-          <PanelDetailsItemValue>{address.banId}</PanelDetailsItemValue>
+          <PanelDetailsItemValue>{address.banId || 'Non renseigné'}</PanelDetailsItemValue>
         </span>
       </PanelDetailsItem>
       <PanelDetailsItem className="ri-links-line">
@@ -111,10 +111,6 @@ function PanelAddress({ address }: PanelAddressProps) {
       <PanelDetailsItem className="ri-calendar-line">
         Date de mise à jour : <br />
         {dateMaj}
-      </PanelDetailsItem>
-      <PanelDetailsItem className="ri-edit-box-line">
-        Producteur : <br />
-        {address.sourcePosition === 'bal' ? 'BAL' : 'IGN'}
       </PanelDetailsItem>
       <PanelDetailsItem className="ri-signpost-line">
         Libellé d’acheminement : <br />
