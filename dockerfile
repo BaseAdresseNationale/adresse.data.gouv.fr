@@ -56,13 +56,8 @@ WORKDIR /app
 
 # Copie les fichiers nécessaires de l'étape de build
 COPY --from=builder /app/package.json ./
-COPY --from=builder /app/package-lock.json ./
-COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.env.default ./
 
 RUN mkdir -p /app/data && chown -R node:node /app/data
 
