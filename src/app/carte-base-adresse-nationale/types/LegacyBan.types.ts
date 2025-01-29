@@ -1,6 +1,6 @@
 type TypePosition = {
   type: string
-  coordinates: number[]
+  coordinates: [number, number] | [number, number, number]
 }
 
 export type TypeItem = 'commune' | 'voie' | 'lieu-dit'
@@ -75,10 +75,10 @@ export interface TypeAddress {
   banId?: string
   id: string
   idVoie?: string
-  nomVoie?: string
-  nomVoieAlt?: string
   numero: number
   suffixe?: string | null
+  nomVoie?: string
+  nomVoieAlt?: string
   lieuDitComplementNom?: string | null
   parcelles: any[]
   sources: string[]
@@ -88,6 +88,7 @@ export interface TypeAddress {
   sourcePosition: string
   codePostal: string
   libelleAcheminement: string
+  dateMAJ: string
 }
 
 export interface TypeAddressExtended {
