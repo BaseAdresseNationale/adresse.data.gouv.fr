@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Button from '@codegouvfr/react-dsfr/Button'
 
@@ -12,17 +12,20 @@ import {
 } from './ActionComponents'
 import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 import { useFocusOnMap } from '../ban-map/BanMap.context'
+
+import type { MapItem } from '../ban-map/BanMap.context'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface AsideFooterAddressProps {
   banItem: TypeAddressExtended
   withCertificate: boolean
   children?: React.ReactNode
+  isMenuVisible?: boolean
 }
 
-function AsideFooterAddress({ banItem: address, withCertificate, children }: AsideFooterAddressProps) {
+function AsideFooterAddress({ banItem: address, withCertificate, children, isMenuVisible }: AsideFooterAddressProps) {
   const [mairiePageURL, setMairiePageURL] = useState<string | null>(null)
-  const focusOnMap = useFocusOnMap(address)
+  const focusOnMap = useFocusOnMap(address as MapItem)
 
   const isCertifiable = useMemo(() => isAddressCertifiable({
     banId: address.banId ?? '',
@@ -32,10 +35,11 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
     withBanId: address.withBanId,
   }), [address])
 
-  const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
-    focusOnMap()
-  }
+    const options = { padding: isMenuVisible ? { top: 30, bottom: 30, left: 400 * 1.5, right: 400 / 2 } : 30 }
+    focusOnMap(options)
+  }, [focusOnMap, isMenuVisible])
 
   const codeCommune = address.commune?.code
   useEffect(() => {

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
 import { useRouter, useSearchParams } from 'next/navigation'
-import type { MapRef } from 'react-map-gl/maplibre'
+import { LngLatBounds } from 'maplibre-gl'
 
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getBanItem } from '@/lib/api-ban'
@@ -17,7 +17,9 @@ import { MapWrapper, MapSearchResultsWrapper } from './page.styles'
 
 import BanMap from './components/ban-map'
 
+import type { MapRef } from 'react-map-gl/maplibre'
 import type { MapBreadcrumbPath } from './components/MapBreadcrumb'
+import type { Address } from './components/ban-map/types'
 import type {
   TypeAddressExtended,
   TypeMicroToponymPartial,
@@ -28,7 +30,6 @@ import type {
 
 import { useBanMapConfig } from './components/ban-map/BanMap.context'
 
-import type { Address } from './components/ban-map/types'
 import { env } from 'next-runtime-env'
 
 interface LinkProps {
@@ -53,6 +54,22 @@ const getBanItemTypes = (banItem?: { type: 'commune' | 'voie' | 'lieu-dit' | 'nu
     default:
       return undefined
   }
+}
+
+interface Bounds {
+  getNorth: () => number
+  getSouth: () => number
+  getEast: () => number
+  getWest: () => number
+}
+
+const isBboxIntersect = (bounds1: Bounds, bounds2: Bounds): boolean => {
+  return (
+    bounds1.getNorth() >= bounds2.getSouth()
+    && bounds1.getSouth() <= bounds2.getNorth()
+    && bounds1.getEast() >= bounds2.getWest()
+    && bounds1.getWest() <= bounds2.getEast()
+  )
 }
 
 const getDistrictBreadcrumbPath = (district: TypeDistrict | TypeDistrictExtended, districtLinkProps?: LinkProps) => ([
@@ -167,12 +184,46 @@ function CartoView() {
           const config = (banItem as TypeAddressExtended).config
           setWithCertificate(config?.certificate ? true : false)
         }
-        const { displayBBox = [] } = banItem
-        const bbox = displayBBox
+
+        interface Position {
+          position: {
+            coordinates: [number, number] | [number, number, number]
+          }
+        }
+
+        const getBboxFromPositions = (positions: Position[]): [number, number, number, number] => {
+          return positions.reduce<[number, number, number, number]>(
+            (acc, entry: Position) => {
+              const [lng, lat] = entry.position.coordinates
+              acc[0] = Math.min(acc[0], lng)
+              acc[1] = Math.min(acc[1], lat)
+              acc[2] = Math.max(acc[2], lng)
+              acc[3] = Math.max(acc[3], lat)
+              return acc
+            },
+            [
+              positions[0].position.coordinates[0],
+              positions[0].position.coordinates[1],
+              positions[0].position.coordinates[0],
+              positions[0].position.coordinates[1],
+            ],
+          )
+        }
+
+        const bbox: [number, number, number, number] = ('positions' in banItem && banItem.positions.length > 1)
+          ? getBboxFromPositions(banItem.positions)
+          : banItem.displayBBox
+
         if (banMapGL && bbox && bbox.length === 4) {
+          const mapZoom = banMapGL.getZoom()
+          const mapBounds = banMapGL.getBounds()
+          const searchBound = new LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]])
+          const isBBoxVisible = (Math.ceil(mapZoom) >= 9) && isBboxIntersect(mapBounds, searchBound)
+
           banMapGL.fitBounds(bbox, {
-            padding: { top: 10, bottom: 10, left: 10, right: 10 },
-            animate: false, // TODO: fix animation
+            padding: { top: 30, bottom: 30, left: 400 * 1.5, right: 400 / 2 },
+            animate: isBBoxVisible,
+            duration: 1250,
           })
           setIsMenuVisible(true)
         }
@@ -225,9 +276,9 @@ function CartoView() {
               || ((typeView === 'address') && (<PanelAddressHeader address={mapSearchResults as TypeAddressExtended} />))
             }
             footer={
-              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} />))
-              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} />))
-              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} />))
+              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} isMenuVisible />))
+              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} isMenuVisible />))
+              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} isMenuVisible />))
             }
           >
             {mapSearchResults

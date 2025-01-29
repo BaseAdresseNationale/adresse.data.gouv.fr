@@ -52,7 +52,7 @@ export const AddressDetailPosition = ({ type, coords, marker, isSmartDevice }: A
       <PositionActions>
         <Button
           iconId="ri-focus-3-line"
-          onClick={() => mapFlyTo?.(coords)}
+          onClick={() => mapFlyTo?.(coords, { zoom: 19 })}
           priority="tertiary no outline"
           size="small"
           title="Centrer sur la position"
