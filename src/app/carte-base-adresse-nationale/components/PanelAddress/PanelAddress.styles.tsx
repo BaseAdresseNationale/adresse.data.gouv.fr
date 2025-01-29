@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-import { PanelDetailsItemWithDesc } from '../PanelStyles/PanelStyles'
+import { PanelDetailsItemWithDesc } from '../Panel/PanelStyles'
 
 export const AddressDetailsWrapper = styled.ul`
   padding: 0;

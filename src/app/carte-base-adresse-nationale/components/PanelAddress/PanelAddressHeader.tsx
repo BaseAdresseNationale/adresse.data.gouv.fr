@@ -8,7 +8,7 @@ import {
   PanelAddressPostCode,
   PanelMicroTopoLabelAlt,
   PanelMicroTopoLabelAltFlag,
-} from '../PanelStyles'
+} from '../Panel'
 
 import {
   AddressLabelWrapper,

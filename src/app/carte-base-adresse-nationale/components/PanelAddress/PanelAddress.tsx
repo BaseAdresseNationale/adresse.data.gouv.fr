@@ -6,7 +6,7 @@ import {
   PanelDetailsItem,
   PanelDetailsItemValue,
   PanelDetailsOrigin,
-} from '../PanelStyles/PanelStyles'
+} from '../Panel/PanelStyles'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
