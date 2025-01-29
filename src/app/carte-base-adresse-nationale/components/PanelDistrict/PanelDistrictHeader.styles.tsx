@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-import { mainInfo } from '../PanelStyles'
+import { mainInfo } from '../Panel'
 
 export const DistrictHeaderWrapper = styled.div`
     display: flex;

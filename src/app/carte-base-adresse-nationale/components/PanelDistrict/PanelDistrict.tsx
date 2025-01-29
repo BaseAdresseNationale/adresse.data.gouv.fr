@@ -7,7 +7,7 @@ import {
   PanelDetailsWrapper,
   PanelDetailsItem,
   PanelDetailsOrigin,
-} from '../PanelStyles/PanelStyles'
+} from '../Panel/PanelStyles'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
