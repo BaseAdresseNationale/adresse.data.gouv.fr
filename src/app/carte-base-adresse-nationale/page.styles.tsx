@@ -3,7 +3,7 @@
 import styled from 'styled-components'
 
 export const MapSearchResultsWrapper = styled.div`
-  padding: 1rem;
+  padding: 0 1rem;
   scroll-snap-align: start;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {

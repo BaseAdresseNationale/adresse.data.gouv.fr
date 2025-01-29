@@ -32,3 +32,7 @@ export const PositionActions = styled.div`
   align-items: flex-end;
   margin-bottom: -0.2rem;
 `
+
+export const PositionCoordValue = styled.span`
+  white-space: nowrap;
+`

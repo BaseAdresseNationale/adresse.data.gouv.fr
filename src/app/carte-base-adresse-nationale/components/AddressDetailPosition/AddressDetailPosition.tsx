@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import { useMapFlyTo } from '../ban-map/BanMap.context'
@@ -8,6 +9,7 @@ import {
   PositionActions,
   PositionDetailEntryType,
   PositionType,
+  PositionCoordValue,
 } from './AddressDetailPosition.styles'
 
 import {
@@ -29,7 +31,18 @@ export const AddressDetailPosition = ({ type, coords, isSmartDevice }: AddressDe
     <PositionWrapper>
       <PositionDetails>
         <PositionType>Type : <PositionDetailEntryType>{type}</PositionDetailEntryType></PositionType>
-        <strong>{formatCoords(coords)}</strong>
+        <strong>{
+          formatCoords(coords)?.split(',').map(
+            (coord, i, arr) => (
+              <Fragment key={coord}>
+                <PositionCoordValue>
+                  {coord.trim()}
+                </PositionCoordValue>
+                {(i < (arr.length - 1)) ? ', ' : ''}
+              </Fragment>
+            )
+          )
+        }</strong>
       </PositionDetails>
       <PositionActions>
         <Button
