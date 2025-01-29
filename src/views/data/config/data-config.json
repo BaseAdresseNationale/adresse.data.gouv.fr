@@ -83,7 +83,7 @@
       "parent": "adresses-ftth",
       "name": "latest",
       "target": {
-        "action": "getLatestFromRegExp",
+        "action": "getLatestASCIFromRegExp",
         "params": ["^\\d{4}-T\\d$"]
       }
     },
@@ -121,7 +121,7 @@
       "parent": "fantoir",
       "name": "latest",
       "target": {
-        "action": "getLatestFromRegExp",
+        "action": "getLatestASCIFromRegExp",
         "params": ["^fantoir-\\d{4}-\\d{2}\\.gz$"]
       }
     }
