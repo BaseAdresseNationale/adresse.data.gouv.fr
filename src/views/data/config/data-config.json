@@ -17,6 +17,22 @@
       ]
     },
     {
+      "path": "adresses-ftth",
+      "hero": {
+        "value": "Ces fichiers sont produit depuis les données fournis par l'ARCEP"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "direction": "desc",
+          "rule": "^\\d{4}-T\\d$"
+        },
+        {
+          "name": "__"
+        }
+      ]
+    },
+    {
       "path": "ban/adresses",
       "hero": {
         "value": "Retrouvez ici toute les adresses de la Base Adresse Nationale (BAN)"
