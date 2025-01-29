@@ -4,9 +4,9 @@ import formatNumber from '../../tools/formatNumber'
 import PanelDistrictMicroToponymList from './PanelDistrictMicroToponymList'
 import { DistrictDetailsCertification } from './PanelDistrict.styles'
 import {
-  PanelDetailsWrapper as DistrictDetailsWrapper,
-  PanelDetailsItem as DistrictDetailsItem,
-  PanelDetailsOrigin as DistrictDetailsOrigin,
+  PanelDetailsWrapper,
+  PanelDetailsItem,
+  PanelDetailsOrigin,
 } from '../PanelStyles/PanelStyles'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
@@ -59,14 +59,14 @@ function PanelDistrict({ district }: PanelDistrictProps) {
 
   return (
     <>
-      <DistrictDetailsWrapper>
-        <DistrictDetailsOrigin config={configOriginDistrict} origin={district.typeComposition} />
+      <PanelDetailsWrapper>
+        <PanelDetailsOrigin config={configOriginDistrict} origin={district.typeComposition} />
         <DistrictDetailsCertification certificationConfig={certificationConfig} origin={district.typeComposition} certificatedAddressPercent={certificatedAddressPercent} />
 
-        <DistrictDetailsItem className="ri-group-line">
+        <PanelDetailsItem className="ri-group-line">
           <b>{formatNumber(district.population)}</b>&nbsp;habitants
-        </DistrictDetailsItem>
-        <DistrictDetailsItem className="ri-map-pin-line">
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-map-pin-line">
           <b>{formatNumber(nbAddress)}</b>&nbsp;adresses répertoriées{' '}
           {
             nbAddressCertified > 0 && (
@@ -87,15 +87,15 @@ function PanelDistrict({ district }: PanelDistrictProps) {
                   )
             )
           }
-        </DistrictDetailsItem>
-        <DistrictDetailsItem className="ri-signpost-line">
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-signpost-line">
           {
             Number(district.codesPostaux.length) > 1
               ? <><b>{formatNumber(district.codesPostaux.length)}</b>&nbsp;codes Postaux</>
               : <>{district.codesPostaux.length || 'Aucune'} code Postal</>
           }{' '}
           ({district.codesPostaux.map(cp => formatNumber(cp).padStart(6, '0')).join(', ')})
-        </DistrictDetailsItem>
+        </PanelDetailsItem>
 
         <div>
           <Link
@@ -105,7 +105,7 @@ function PanelDistrict({ district }: PanelDistrictProps) {
             Voir la page de la commune
           </Link>
         </div>
-      </DistrictDetailsWrapper>
+      </PanelDetailsWrapper>
 
       <PanelDistrictMicroToponymList district={district} />
     </>

@@ -8,7 +8,7 @@ import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import {
   ActionWrapper,
   ActionList,
-  ActionDownloadCertificate as DownloadCertificate,
+  ActionDownloadCertificate,
 } from './ActionComponents'
 import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 import { useFocusOnMap } from '../ban-map/BanMap.context'
@@ -66,7 +66,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
           {
             (
               !withCertificate && (
-                <DownloadCertificate
+                <ActionDownloadCertificate
                   id={address.id}
                   message={(
                     <>
@@ -80,7 +80,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
               )
             ) || (
               !isCertifiable && (
-                <DownloadCertificate
+                <ActionDownloadCertificate
                   id={address.id}
                   message={(
                     <>
@@ -94,7 +94,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
                 />
               )
             ) || (
-              <DownloadCertificate
+              <ActionDownloadCertificate
                 id={address.id}
               />
             )
