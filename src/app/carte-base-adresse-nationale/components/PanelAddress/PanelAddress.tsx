@@ -2,10 +2,10 @@ import { AddressDetailsCertification } from './PanelAddress.styles'
 import AddressDetailPosition from '../AddressDetailPosition'
 
 import {
-  PanelDetailsWrapper as AddressDetailsWrapper,
-  PanelDetailsItem as AddressDetailsItem,
-  PanelDetailsItemValue as AddressDetailsItemValue,
-  PanelDetailsOrigin as AddressDetailsOrigin,
+  PanelDetailsWrapper,
+  PanelDetailsItem,
+  PanelDetailsItemValue,
+  PanelDetailsOrigin,
 } from '../PanelStyles/PanelStyles'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
@@ -86,41 +86,41 @@ function PanelAddress({ address }: PanelAddressProps) {
       }, secondariesPositions: [] }
 
   return (
-    <AddressDetailsWrapper>
-      <AddressDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
+    <PanelDetailsWrapper>
+      <PanelDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
       <AddressDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
 
-      <AddressDetailsItem className="ri-key-line">
+      <PanelDetailsItem className="ri-key-line">
         <span>
           Identifiant BAN : <br />
-          <AddressDetailsItemValue>{address.banId}</AddressDetailsItemValue>
+          <PanelDetailsItemValue>{address.banId}</PanelDetailsItemValue>
         </span>
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-links-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-links-line">
         <span>
           Clé d’interopérabilité : <br />
-          <AddressDetailsItemValue>{address.cleInterop}</AddressDetailsItemValue>
+          <PanelDetailsItemValue>{address.cleInterop}</PanelDetailsItemValue>
         </span>
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-collage-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-collage-line">
         <span>
           Parcelles cadastrales : <br />
-          <AddressDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</AddressDetailsItemValue>
+          <PanelDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</PanelDetailsItemValue>
         </span>
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-calendar-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-calendar-line">
         Date de mise à jour : <br />
         {dateMaj}
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-edit-box-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-edit-box-line">
         Producteur : <br />
         {address.sourcePosition === 'bal' ? 'BAL' : 'IGN'}
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-signpost-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-signpost-line">
         Libellé d’acheminement : <br />
         {address.libelleAcheminement}
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-map-pin-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-map-pin-line">
         {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
         <AddressDetailPosition
           type={mainPosition.positionType}
@@ -128,9 +128,9 @@ function PanelAddress({ address }: PanelAddressProps) {
           marker={isMultiPosition ? '⦿' : undefined}
           isSmartDevice={isSmartDevice()}
         />
-      </AddressDetailsItem>
+      </PanelDetailsItem>
       {isMultiPosition && (
-        <AddressDetailsItem className="ri-map-pin-2-line">
+        <PanelDetailsItem className="ri-map-pin-2-line">
           Position Secondaire : <br />
           <ol>
             {secondariesPositions.map((entry, index) => (
@@ -143,9 +143,9 @@ function PanelAddress({ address }: PanelAddressProps) {
               </li>
             ))}
           </ol>
-        </AddressDetailsItem>
+        </PanelDetailsItem>
       )}
-    </AddressDetailsWrapper>
+    </PanelDetailsWrapper>
   )
 }
 
