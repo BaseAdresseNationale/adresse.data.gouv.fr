@@ -75,7 +75,7 @@ function PopupNumero(properties: PropsPopupNumero) {
 
       <div>
         <span className={`fr-badge fr-badge--no-icon ${sourcePosition === 'bal' ? 'fr-badge--success' : 'fr-badge--grey'}`}>
-          <BadgeIcon className={sourcePosition === 'bal' ? 'ri-star-fill' : 'ri-government-fill'} />
+          <BadgeIcon className={sourcePosition === 'bal' ? 'ri-send-plane-fill' : 'ri-government-fill'} />
           {sourcePosition === 'bal' ? 'BAL' : 'IGN'}
         </span>{' '}
         <span className={`fr-badge fr-badge--no-icon ${certifie ? 'fr-badge--success' : 'fr-badge--grey'}`}>
