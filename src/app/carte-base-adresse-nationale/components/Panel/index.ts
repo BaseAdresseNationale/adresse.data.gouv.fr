@@ -1,1 +1,6 @@
 export * from './PanelStyles'
+export * from './PanelDetailsItem'
+export * from './PanelDetailsItemWithDesc'
+export * from './PanelDetailsOrigin'
+export * from './PanelDetailsCertification'
+export * from './PanelDetailsCertifications'

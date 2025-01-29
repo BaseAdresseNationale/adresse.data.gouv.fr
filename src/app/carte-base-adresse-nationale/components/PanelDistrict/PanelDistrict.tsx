@@ -2,12 +2,13 @@ import Link from 'next/link'
 
 import formatNumber from '../../tools/formatNumber'
 import PanelDistrictMicroToponymList from './PanelDistrictMicroToponymList'
-import { DistrictDetailsCertification } from './PanelDistrict.styles'
 import {
   PanelDetailsWrapper,
   PanelDetailsItem,
+  PanelDetailsItemValue,
   PanelDetailsOrigin,
-} from '../Panel/PanelStyles'
+  PanelDetailsCertifications,
+} from '../Panel'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
@@ -61,8 +62,14 @@ function PanelDistrict({ district }: PanelDistrictProps) {
     <>
       <PanelDetailsWrapper>
         <PanelDetailsOrigin config={configOriginDistrict} origin={district.typeComposition} />
-        <DistrictDetailsCertification certificationConfig={certificationConfig} origin={district.typeComposition} certificatedAddressPercent={certificatedAddressPercent} />
+        <PanelDetailsCertifications certificationConfig={certificationConfig} origin={district.typeComposition} certificatedPercent={certificatedAddressPercent} />
 
+        <PanelDetailsItem className="ri-key-line">
+          <span>
+            Identifiant BAN&nbsp;:&nbsp;
+            <PanelDetailsItemValue>{district.banId || 'Non renseigné'}</PanelDetailsItemValue>
+          </span>
+        </PanelDetailsItem>
         <PanelDetailsItem className="ri-group-line">
           <b>{formatNumber(district.population)}</b>&nbsp;habitants
         </PanelDetailsItem>
