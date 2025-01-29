@@ -25,7 +25,7 @@ const isValidDate: { (dateStr: string): boolean } = dateStr => !isNaN(Number(new
 
 const configOriginAddress = {
   bal: {
-    className: 'ri-star-fill isFormal',
+    className: 'ri-send-plane-fill isFormal',
     message: <>Cette adresse est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
     desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
   },

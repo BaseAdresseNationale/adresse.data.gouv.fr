@@ -18,7 +18,7 @@ interface PanelDistrictProps {
 
 const configOriginDistrict = {
   bal: {
-    className: 'ri-star-fill isFormal',
+    className: 'ri-send-plane-fill isFormal',
     message: <>Les adresses de cette commune sont issues d’une Base Adresse Locale&nbsp;(BAL)</>,
     desc: <>Les Base Adresse Locale&nbsp;(BAL) sont directement produites par les communes.</>,
   },
