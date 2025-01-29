@@ -125,6 +125,7 @@ function PanelAddress({ address }: PanelAddressProps) {
         <AddressDetailPosition
           type={mainPosition.positionType}
           coords={mainPosition.position.coordinates as [number, number]}
+          marker={isMultiPosition ? '⦿' : undefined}
           isSmartDevice={isSmartDevice()}
         />
       </AddressDetailsItem>
@@ -135,7 +136,7 @@ function PanelAddress({ address }: PanelAddressProps) {
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
                 <AddressDetailPosition
-                  type={entry.positionType}
+                  type={`${entry.positionType}`}
                   coords={entry.position.coordinates as [number, number]}
                   isSmartDevice={isSmartDevice()}
                 />
