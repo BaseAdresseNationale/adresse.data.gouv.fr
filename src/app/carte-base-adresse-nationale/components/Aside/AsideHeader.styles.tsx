@@ -18,6 +18,7 @@ export const AsideHeader = styled.div`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     position: static;
+    flex: 0 0 auto;
     padding: 8rem 1rem 1rem;
     background: var(--background-default-grey);
     margin: 0;
