@@ -3,7 +3,7 @@
     {
       "path": "adresses-cadastre",
       "hero": {
-        "value": "Ces fichiers sont produit depuis les données fournis par la DGFiP"
+        "value": "Ces fichiers sont produits depuis les données fournies par la DGFiP"
       },
       "groups": [
         {
@@ -19,7 +19,7 @@
     {
       "path": "adresses-ftth",
       "hero": {
-        "value": "Ces fichiers sont produit depuis les données fournis par l'ARCEP"
+        "value": "Ces fichiers sont produits depuis les données fournies par l'ARCEP"
       },
       "groups": [
         {
@@ -35,7 +35,7 @@
     {
       "path": "ban/adresses",
       "hero": {
-        "value": "Retrouvez ici toute les adresses de la Base Adresse Nationale (BAN)"
+        "value": "Retrouvez ici toutes les adresses de la Base Adresse Nationale (BAN)"
       },
       "groups": [
         {
