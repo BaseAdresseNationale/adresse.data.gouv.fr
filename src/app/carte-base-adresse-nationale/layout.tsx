@@ -15,7 +15,6 @@ import { PublicEnvScript } from 'next-runtime-env'
 import {
   CartoWrapper,
   CartoMenu,
-  CartoBody,
   MapParamsWrapper,
   RingButtonStyled,
   LegendList,
@@ -82,10 +81,7 @@ function Carto({ children }: { children: JSX.Element }) {
           </LegendList>
         </Legend>
       </CartoMenu>
-
-      <CartoBody>
-        { children }
-      </CartoBody>
+      { children }
     </CartoWrapper>
   )
 }
