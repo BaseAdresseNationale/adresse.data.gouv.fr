@@ -140,7 +140,7 @@ function Aside({
           onScroll={handleScroll}
         >
           {header && (
-            <AsideHeader path={path} onClose={onClose}>
+            <AsideHeader onClose={onClose}>
               {header}
             </AsideHeader>
           )}
