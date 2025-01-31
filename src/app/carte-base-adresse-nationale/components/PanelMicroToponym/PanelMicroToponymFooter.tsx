@@ -15,17 +15,19 @@ interface PanelMicroToponymFooterProps {
   banItem: TypeMicroToponymExtended
   withCertificate: boolean
   children?: React.ReactNode
+  onClickAction?: () => void
   isMenuVisible?: boolean
 }
 
-function PanelMicroToponymFooter({ banItem: microToponym, children, isMenuVisible = false }: PanelMicroToponymFooterProps) {
+function PanelMicroToponymFooter({ banItem: microToponym, children, onClickAction, isMenuVisible = false }: PanelMicroToponymFooterProps) {
   const focusOnMap = useFocusOnMap(microToponym)
 
   const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
     const options = getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible })
     focusOnMap(options)
-  }, [focusOnMap, isMenuVisible])
+    if (onClickAction) onClickAction()
+  }, [focusOnMap, isMenuVisible, onClickAction])
 
   return (
     <AsideFooterWrapper>

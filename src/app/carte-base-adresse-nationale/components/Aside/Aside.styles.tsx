@@ -236,7 +236,6 @@ export const AsideBody = styled.div`
 `
 
 export const AsideFooter = styled.footer<{
-  $onTargetClick?: () => void
   $isForLargeScreen?: boolean
   $isForSmallScreen?: boolean
 }>`

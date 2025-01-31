@@ -21,10 +21,11 @@ interface AsideFooterAddressProps {
   banItem: TypeAddressExtended
   withCertificate: boolean
   children?: React.ReactNode
+  onClickAction?: () => void
   isMenuVisible?: boolean
 }
 
-function AsideFooterAddress({ banItem: address, withCertificate, children, isMenuVisible = false }: AsideFooterAddressProps) {
+function AsideFooterAddress({ banItem: address, withCertificate, children, onClickAction, isMenuVisible = false }: AsideFooterAddressProps) {
   const [mairiePageURL, setMairiePageURL] = useState<string | null>(null)
   const focusOnMap = useFocusOnMap(address as MapItem)
 
@@ -40,7 +41,8 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, isMen
     evt.preventDefault()
     const options = getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible })
     focusOnMap(options)
-  }, [focusOnMap, isMenuVisible])
+    if (onClickAction) onClickAction()
+  }, [focusOnMap, isMenuVisible, onClickAction])
 
   const codeCommune = address.commune?.code
   useEffect(() => {
