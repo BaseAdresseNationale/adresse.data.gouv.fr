@@ -3,8 +3,8 @@ import { fr } from '@codegouvfr/react-dsfr'
 
 import { useDebouncedCallback } from '@/hooks/useDebounce'
 
-import AsideHeader from './AsideHeader'
 import { useBanMapConfig } from '../../components/ban-map/BanMap.context'
+import AsideHeader from './AsideHeader'
 
 import {
   AsideWrapper,
@@ -36,6 +36,8 @@ interface AsideInfoProps extends AsideDefaultProps {
   isInfo: true
 }
 
+const headerHeight = 160 // TODO : Get from env-variable or DOM
+
 function Aside({
   children,
   header,
@@ -61,9 +63,10 @@ function Aside({
       const windowWidth = window?.innerWidth || 0
       const isMobile = windowWidth < fr.breakpoints.getPxValues().md
       const isScrollUp = oldScrollTop.current > target.scrollTop
+      const minHeightScroll = (isMobile && window?.innerHeight) ? ((window.innerHeight / 2) - headerHeight) : 10
       oldScrollTop.current = target.scrollTop
 
-      if (target.scrollTop <= 10) {
+      if (target.scrollTop <= minHeightScroll) {
         dispatchToBanMapConfig({ type: 'TOOGLE_MENU_CONFIG', payload: true })
       }
       else if (!isMobile && isScrollUp) {

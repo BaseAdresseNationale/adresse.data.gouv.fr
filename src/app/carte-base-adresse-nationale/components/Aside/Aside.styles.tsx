@@ -38,6 +38,12 @@ export const AsideWrapper = styled.div<{
     height: 100%;
     scroll-snap-align: start;
     transition: height 0.5s ease;
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+
+    ${({ $withConfigMenuVisible }) => !$withConfigMenuVisible && css`
+      background-color: var(--background-default-grey);
+    `}
   }
 
   .body {
