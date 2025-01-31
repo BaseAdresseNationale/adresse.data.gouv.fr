@@ -24,14 +24,6 @@ export const AsideWrapper = styled.div<{
   font-size: 1rem;
   pointer-events: none;
 
-  @media (hover: hover) {
-    &:hover,
-    &:focus-within,
-    &:active {
-      pointer-events: auto;
-    }
-  }
-
   &::before {
     ${({ $isTypeInfo }) => !$isTypeInfo && css`content: ''`};
     display: block;
