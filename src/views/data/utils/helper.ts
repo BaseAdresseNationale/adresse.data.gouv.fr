@@ -96,6 +96,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
             }
 
             if (req.method === 'HEAD') {
+              res.end()
               return resolve()
             }
 
