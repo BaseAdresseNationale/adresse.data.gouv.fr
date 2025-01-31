@@ -47,3 +47,12 @@ export type EventType = {
   startHour: string
   endHour: string
 }
+
+export type ParticipantType = {
+  id?: string
+  fullname: string
+  email: string
+  community?: string
+  function?: string
+  eventId?: string
+}
