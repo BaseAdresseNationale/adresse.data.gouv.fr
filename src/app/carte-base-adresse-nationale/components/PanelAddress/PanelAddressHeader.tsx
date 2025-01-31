@@ -32,7 +32,7 @@ function AddressCard({ address }: AddressCardProps) {
   const microToponym = address.voie
 
   return (
-    <AddressLabelWrapper $isCertified={address.certifie}>
+    <AddressLabelWrapper>
       <PanelNumberAndMicroTopoLabel>
         {(address.numero || address.suffixe) && (
           <>

@@ -6,17 +6,17 @@ import Image from 'next/image'
 const flagSize = '1.05em'
 
 export const mainInfo = css`
-  font-size: 2rem;
+  font-size: 2em;
   font-weight: 700;
   line-height: 1.25;
 `
 export const secondaryInfo = css`
-  font-size: 1.25rem;
+  font-size: 1.25em;
   font-weight: 400;
   line-height: 1.25;
 `
 export const tertiaryInfo = css`
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 300;
   line-height: 1.5;
 `
@@ -37,6 +37,7 @@ export const PanelNumberAndMicroTopoLabel = styled.span`
 
 export const PanelMicroTopoLabelAlt = styled.span`
   ${tertiaryInfo}
+  font-size: 0.5em;
   display: block;
 `
 
