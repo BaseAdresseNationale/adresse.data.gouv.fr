@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { cloneElement, useCallback, useEffect, useRef } from 'react'
 import { fr } from '@codegouvfr/react-dsfr'
 
 import { useDebouncedCallback } from '@/hooks/useDebounce'
@@ -163,8 +163,10 @@ function Aside({
           )}
         </div>
         {footer && (
-          <AsideFooter $onTargetClick={onTargetClick} $isForSmallScreen>
-            {footer}
+          <AsideFooter $isForSmallScreen>
+            {cloneElement(footer as React.ReactElement, {
+              onClickAction: onTargetClick,
+            })}
           </AsideFooter>
         )}
       </div>

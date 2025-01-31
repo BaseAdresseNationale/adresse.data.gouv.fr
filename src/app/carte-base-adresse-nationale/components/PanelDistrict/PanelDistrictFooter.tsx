@@ -15,17 +15,19 @@ interface PanelDistrictFooterProps {
   banItem: TypeDistrictExtended
   withCertificate: boolean
   children?: React.ReactNode
+  onClickAction?: () => void
   isMenuVisible?: boolean
 }
 
-function PanelDistrictFooter({ banItem: microToponym, children, isMenuVisible = false }: PanelDistrictFooterProps) {
+function PanelDistrictFooter({ banItem: microToponym, children, onClickAction, isMenuVisible = false }: PanelDistrictFooterProps) {
   const focusOnMap = useFocusOnMap(microToponym)
 
   const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
     const options = getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible })
     focusOnMap(options)
-  }, [focusOnMap, isMenuVisible])
+    if (onClickAction) onClickAction()
+  }, [focusOnMap, isMenuVisible, onClickAction])
 
   return (
     <AsideFooterWrapper>
