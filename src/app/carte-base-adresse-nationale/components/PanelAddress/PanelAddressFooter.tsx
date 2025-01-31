@@ -10,8 +10,9 @@ import {
   ActionList,
   ActionDownloadCertificate,
 } from './ActionComponents'
-import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 import { useFocusOnMap } from '../ban-map/BanMap.context'
+import { isMobileView, getMapAnimationOption } from '../Panel'
+import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 
 import type { MapItem } from '../ban-map/BanMap.context'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
@@ -23,7 +24,7 @@ interface AsideFooterAddressProps {
   isMenuVisible?: boolean
 }
 
-function AsideFooterAddress({ banItem: address, withCertificate, children, isMenuVisible }: AsideFooterAddressProps) {
+function AsideFooterAddress({ banItem: address, withCertificate, children, isMenuVisible = false }: AsideFooterAddressProps) {
   const [mairiePageURL, setMairiePageURL] = useState<string | null>(null)
   const focusOnMap = useFocusOnMap(address as MapItem)
 
@@ -37,7 +38,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, isMen
 
   const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
-    const options = { padding: isMenuVisible ? { top: 30, bottom: 30, left: 400 * 1.5, right: 400 / 2 } : 30 }
+    const options = getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible })
     focusOnMap(options)
   }, [focusOnMap, isMenuVisible])
 
