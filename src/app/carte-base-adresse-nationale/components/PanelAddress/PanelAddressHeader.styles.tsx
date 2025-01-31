@@ -2,6 +2,8 @@
 
 import styled, { css } from 'styled-components'
 
+import { PanelHeaderWrapper } from '../Panel'
+
 export const BadgeWrapper = styled.div`
     font-size: 0.6em;
     float: right;
@@ -125,11 +127,10 @@ export const BadgeStyled = styled.div`
   }
 `
 
-export const AddressLabelWrapper = styled.div<{ $isCertified: boolean }>`
+export const AddressLabelWrapper = styled(PanelHeaderWrapper)`
   position: relative;
   display: block;
   flex: 1;
-  font-size: 1rem;
 
   &::after {
     content: '';

@@ -42,7 +42,8 @@ export const AddressDetailPosition = ({ type, coords, isSmartDevice }: AddressDe
               </Fragment>
             )
           )
-        }</strong>
+        }
+        </strong>
       </PositionDetails>
       <PositionActions>
         <Button
