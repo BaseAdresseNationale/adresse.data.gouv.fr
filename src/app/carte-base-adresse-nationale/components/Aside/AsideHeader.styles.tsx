@@ -2,17 +2,17 @@
 
 import styled from 'styled-components'
 
-export const AsideHeader = styled.div`
+export const AsideHeaderWrapper = styled.div`
   position: absolute;
   flex: 1 0 fit-content;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: hidden;
   width: 100%;
   min-height: fit-content;
   padding: 0 1rem 1rem;
   font-size: 1rem;
-  transform: translateY(-100%);
+  transform: translateY(calc(-100% + 1px));
   scroll-snap-align: start;
   scroll-snap-stop: always;
 

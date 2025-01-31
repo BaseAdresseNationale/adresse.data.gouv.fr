@@ -1,21 +1,23 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
-import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
+import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react'
+import { env } from 'next-runtime-env'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
 import { LngLatBounds } from 'maplibre-gl'
 
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getBanItem } from '@/lib/api-ban'
 
+import { useBanMapConfig } from './components/ban-map/BanMap.context'
 import Aside from './components/Aside'
+import BanMap from './components/ban-map'
 import LoadingBar from './components/LoadingBar'
+import MapBreadcrumb from './components/MapBreadcrumb'
 import { PanelAddressHeader, PanelAddress, PanelAddressFooter } from './components/PanelAddress'
 import { PanelMicroToponymHeader, PanelMicroToponym, PanelMicroToponymFooter } from './components/PanelMicroToponym'
 import { PanelDistrictHeader, PanelDistrict, PanelDistrictFooter } from './components/PanelDistrict'
 import { MapWrapper, MapSearchResultsWrapper } from './page.styles'
-
-import BanMap from './components/ban-map'
 
 import type { MapRef } from 'react-map-gl/maplibre'
 import type { MapBreadcrumbPath } from './components/MapBreadcrumb'
@@ -27,10 +29,6 @@ import type {
   TypeDistrictExtended,
   TypeDistrict,
 } from './types/LegacyBan.types'
-
-import { useBanMapConfig } from './components/ban-map/BanMap.context'
-
-import { env } from 'next-runtime-env'
 
 interface LinkProps {
   href: string
@@ -127,10 +125,12 @@ function CartoView() {
     setIsMenuVisible(false)
     const timer = setTimeout(() => {
       setMapSearchResults(undefined)
+      setMapBreadcrumbPath([])
       setDistrictLogo(undefined)
     }, 1000)
     return () => {
       setMapSearchResults(undefined)
+      setMapBreadcrumbPath([])
       setDistrictLogo(undefined)
       clearTimeout(timer)
     }
@@ -283,11 +283,14 @@ function CartoView() {
           >
             {mapSearchResults
               ? (
-                  <MapSearchResultsWrapper>
-                    {(typeView === 'district') && (<PanelDistrict district={mapSearchResults as TypeDistrictExtended} />)}
-                    {(typeView === 'micro-toponym') && (<PanelMicroToponym microToponym={mapSearchResults as TypeMicroToponymExtended} />)}
-                    {(typeView === 'address') && (<PanelAddress address={mapSearchResults as TypeAddressExtended} />)}
-                  </MapSearchResultsWrapper>
+                  <>
+                    {mapBreadcrumbPath?.length > 0 && <MapBreadcrumb path={mapBreadcrumbPath} />}
+                    <MapSearchResultsWrapper>
+                      {(typeView === 'district') && (<PanelDistrict district={mapSearchResults as TypeDistrictExtended} />)}
+                      {(typeView === 'micro-toponym') && (<PanelMicroToponym microToponym={mapSearchResults as TypeMicroToponymExtended} />)}
+                      {(typeView === 'address') && (<PanelAddress address={mapSearchResults as TypeAddressExtended} />)}
+                    </MapSearchResultsWrapper>
+                  </>
                 )
               : null}
           </Aside>
