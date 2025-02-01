@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useCallback } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import { useMapFlyTo } from '../ban-map/BanMap.context'
@@ -24,11 +24,21 @@ interface AddressDetailPositionProps {
   type: string
   coords: [number, number]
   marker?: string
+  onFlyToPosition?: () => void
   isSmartDevice: boolean
 }
 
-export const AddressDetailPosition = ({ type, coords, marker, isSmartDevice }: AddressDetailPositionProps) => {
+export const AddressDetailPosition = ({ type, coords, marker, onFlyToPosition, isSmartDevice }: AddressDetailPositionProps) => {
   const { mapFlyTo } = useMapFlyTo()
+
+  interface FlyToOptions {
+    zoom: number
+  }
+
+  const flyToPosition = useCallback((coords: [number, number], options: FlyToOptions) => {
+    mapFlyTo?.(coords, options)
+    onFlyToPosition?.()
+  }, [mapFlyTo, onFlyToPosition])
 
   return (
     <PositionWrapper>
@@ -52,7 +62,7 @@ export const AddressDetailPosition = ({ type, coords, marker, isSmartDevice }: A
       <PositionActions>
         <Button
           iconId="ri-focus-3-line"
-          onClick={() => mapFlyTo?.(coords, { zoom: 19 })}
+          onClick={() => flyToPosition?.(coords, { zoom: 19 })}
           priority="tertiary no outline"
           size="small"
           title="Centrer sur la position"

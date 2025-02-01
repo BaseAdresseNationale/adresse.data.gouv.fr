@@ -1,4 +1,4 @@
-import { cloneElement, useCallback, useEffect, useRef } from 'react'
+import { Children, isValidElement, cloneElement, forwardRef, useCallback, useEffect, useRef } from 'react'
 import { fr } from '@codegouvfr/react-dsfr'
 
 import { useDebouncedCallback } from '@/hooks/useDebounce'
@@ -47,10 +47,11 @@ function Aside({
   onClickToggler: onClickTogglerProps,
   isOpen = true,
   isInfo,
-}: AsideProps | AsideInfoProps) {
+}: AsideProps | AsideInfoProps, ref: React.Ref<HTMLDivElement>) {
   const debounceDelay = 10
-  const asideWrapperRef = useRef<HTMLDivElement>(null)
   const asideBodyRef = useRef<HTMLDivElement>(null)
+  const asideWrapperAltRef = useRef<HTMLDivElement>(null)
+  const asideWrapperRef = (ref || asideWrapperAltRef) as React.RefObject<HTMLDivElement>
 
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
@@ -94,14 +95,10 @@ function Aside({
     [dispatchToBanMapConfig, isOpen, onClickTogglerProps]
   )
 
-  const onTargetClick = useCallback(() => {
-    asideWrapperRef.current?.scrollTo(0, 0)
-  }, [])
-
   const scrollToTop = useCallback(() => {
     asideWrapperRef.current?.scrollTo(0, 0)
     asideBodyRef.current?.scrollTo(0, 0)
-  }, [])
+  }, [asideWrapperRef])
 
   useEffect(() => {
     if (path) {
@@ -148,13 +145,11 @@ function Aside({
             </AsideHeader>
           )}
 
-          {isInfo
-            ? children
-            : children && (
-              <AsideBody>
-                {children}
-              </AsideBody>
-            )}
+          {
+            isInfo
+              ? children
+              : children && (<AsideBody>{children}</AsideBody>)
+          }
 
           {footer && (
             <AsideFooter $isForLargeScreen>
@@ -164,9 +159,7 @@ function Aside({
         </div>
         {footer && (
           <AsideFooter $isForSmallScreen>
-            {cloneElement(footer as React.ReactElement, {
-              onClickAction: onTargetClick,
-            })}
+            {footer}
           </AsideFooter>
         )}
       </div>
@@ -174,4 +167,4 @@ function Aside({
   )
 }
 
-export default Aside
+export default forwardRef(Aside)

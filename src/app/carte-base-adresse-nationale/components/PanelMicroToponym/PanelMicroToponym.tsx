@@ -50,11 +50,12 @@ const certificationConfig = {
 
 interface PanelMicroToponymProps {
   microToponym: TypeMicroToponymExtended
+  onFlyToPosition?: () => void
 }
 
 const isSmartDevice = () => /Mobi|Android/i.test(navigator.userAgent)
 
-function PanelMicroToponym({ microToponym }: PanelMicroToponymProps) {
+function PanelMicroToponym({ microToponym, onFlyToPosition }: PanelMicroToponymProps) {
   const dateMaj = microToponym.numeros.reduce((acc, numero) => {
     const date = new Date(numero.dateMAJ)
     return acc
@@ -97,6 +98,7 @@ function PanelMicroToponym({ microToponym }: PanelMicroToponymProps) {
           Position : <br />
           <AddressDetailPosition
             type="Centroïde"
+            onFlyToPosition={onFlyToPosition}
             coords={microToponym.position.coordinates as [number, number]}
             isSmartDevice={isSmartDevice()}
           />
