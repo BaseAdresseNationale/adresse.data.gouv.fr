@@ -2,6 +2,6 @@
 
 import styled from 'styled-components'
 
-export const MicroToponymLabelWrapper = styled.div`
-  font-size: 1rem;
-`
+import { PanelHeaderWrapper } from '../Panel'
+
+export const MicroToponymLabelWrapper = styled(PanelHeaderWrapper)``

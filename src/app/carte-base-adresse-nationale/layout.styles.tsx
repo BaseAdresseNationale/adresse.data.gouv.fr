@@ -38,10 +38,7 @@ export const CartoWrapper = styled.div`
     content: '';
     position: absolute;
     z-index: 11;
-    top: 0;
-    left: -1rem;
-    right: -1rem;
-    bottom: 0;
+    inset: 0;
     height: 100%;
     box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.5) inset;
     pointer-events: none;
@@ -79,6 +76,7 @@ export const CartoMenu = styled.div`
     min-width: 340px;
     width: 400px;
     max-width: 25%;
+    background-color: transparent;
   }
 
   & > * {
@@ -106,6 +104,10 @@ export const CartoBody = styled.div`
   background-image: url('/img/map-bg-pattern.svg');
   background-size: ${INIT_BG_SIZE},  55px, 55px 55px, 27.5px 27.5px, 27.5px 27.5px;
   animation: ${animate} 20s ease-in-out 5 1s;
+
+  &.loaded {
+    animation: none;
+  }
 `
 
 // ---------------------------

@@ -7,10 +7,9 @@ export interface Address {
     nomVoie: string
   }
   parcelles?: string[]
+  position: GeoJSON.Point
   positions?: {
-    position: {
-      coordinates: [number, number]
-    }
+    position: GeoJSON.Point
     positionType?: string
   }[]
   displayBBox?: number[]

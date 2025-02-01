@@ -1,7 +1,8 @@
-import { useFocusOnMap } from '../ban-map/BanMap.context'
-
+import { useCallback } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
+import { useFocusOnMap } from '../ban-map/BanMap.context'
+import { isMobileView, getMapAnimationOption } from '../Panel'
 import {
   AsideFooterWrapper,
   ActionWrapper,
@@ -14,15 +15,19 @@ interface PanelDistrictFooterProps {
   banItem: TypeDistrictExtended
   withCertificate: boolean
   children?: React.ReactNode
+  onClickAction?: () => void
+  isMenuVisible?: boolean
 }
 
-function PanelDistrictFooter({ banItem: microToponym, children }: PanelDistrictFooterProps) {
+function PanelDistrictFooter({ banItem: microToponym, children, onClickAction, isMenuVisible = false }: PanelDistrictFooterProps) {
   const focusOnMap = useFocusOnMap(microToponym)
 
-  const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
-    focusOnMap()
-  }
+    const options = getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible })
+    focusOnMap(options)
+    if (onClickAction) onClickAction()
+  }, [focusOnMap, isMenuVisible, onClickAction])
 
   return (
     <AsideFooterWrapper>
