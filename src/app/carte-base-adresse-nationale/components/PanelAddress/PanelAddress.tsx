@@ -12,6 +12,7 @@ import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface PanelAddressProps {
   address: TypeAddressExtended
+  onFlyToPosition?: () => void
 }
 
 interface Position {
@@ -22,6 +23,22 @@ interface Position {
 const isSmartDevice = () => /Mobi|Android/i.test(navigator.userAgent)
 
 const isValidDate: { (dateStr: string): boolean } = dateStr => !isNaN(Number(new Date(dateStr)))
+
+const rankPosition = (mainPosition: Position, positions: Position[]) => {
+  const isMultiPosition = Number(positions.length) > 1
+  const defaultRankedPositions = { mainPosition, secondariesPositions: [] as Position[] }
+  return isMultiPosition
+    ? positions.reduce<{ mainPosition: Position, secondariesPositions: Position[] }>((acc, entry, index) => {
+      if (entry.position.coordinates.join('--') === mainPosition.position.coordinates.join('--')) {
+        acc.mainPosition = entry
+      }
+      else {
+        acc.secondariesPositions.push(entry)
+      }
+      return acc
+    }, defaultRankedPositions)
+    : defaultRankedPositions
+}
 
 const configOriginAddress = {
   bal: {
@@ -54,7 +71,7 @@ const certificationLevelConfig = {
   },
 }
 
-function PanelAddress({ address }: PanelAddressProps) {
+function PanelAddress({ address, onFlyToPosition }: PanelAddressProps) {
   const dateMaj = isValidDate(address.dateMAJ)
     ? new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
       year: 'numeric',
@@ -63,27 +80,14 @@ function PanelAddress({ address }: PanelAddressProps) {
     })
     : 'Non renseignée'
 
-  const isMultiPosition = Number(address.positions?.length) > 1
-  const {
-    mainPosition,
-    secondariesPositions,
-  }: {
-    mainPosition: Position
-    secondariesPositions: Position[]
-  } = isMultiPosition
-    ? address.positions.reduce((acc, entry) => {
-      if (entry.position.coordinates.join('--') === address.position.coordinates.join('--')) {
-        acc.mainPosition = entry
-      }
-      else {
-        acc.secondariesPositions.push(entry)
-      }
-      return acc
-    }, { mainPosition: (null as unknown as Position), secondariesPositions: ([] as Position[]) })
-    : { mainPosition: {
-        position: address.position,
-        positionType: address.positionType,
-      }, secondariesPositions: [] }
+  const { mainPosition, secondariesPositions } = rankPosition(
+    {
+      position: address.position,
+      positionType: address.positionType,
+    },
+    address.positions
+  )
+  const isMultiPosition = secondariesPositions.length > 1
 
   return (
     <PanelDetailsWrapper>
@@ -120,6 +124,7 @@ function PanelAddress({ address }: PanelAddressProps) {
         {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
         <AddressDetailPosition
           type={mainPosition.positionType}
+          onFlyToPosition={onFlyToPosition}
           coords={mainPosition.position.coordinates as [number, number]}
           isSmartDevice={isSmartDevice()}
         />
@@ -131,7 +136,8 @@ function PanelAddress({ address }: PanelAddressProps) {
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
                 <AddressDetailPosition
-                  type={entry.positionType}
+                  type={`${entry.positionType}`}
+                  onFlyToPosition={onFlyToPosition}
                   coords={entry.position.coordinates as [number, number]}
                   isSmartDevice={isSmartDevice()}
                 />
