@@ -3,7 +3,7 @@
     {
       "path": "adresses-cadastre",
       "hero": {
-        "value": "Ces fichiers sont produit depuis les données fournis par la DGFiP"
+        "value": "Ces fichiers sont produits depuis les données fournies par la DGFiP"
       },
       "groups": [
         {
@@ -17,9 +17,25 @@
       ]
     },
     {
+      "path": "adresses-ftth",
+      "hero": {
+        "value": "Ces fichiers sont produits depuis les données fournies par l'ARCEP"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "direction": "desc",
+          "rule": "^\\d{4}-T\\d$"
+        },
+        {
+          "name": "__"
+        }
+      ]
+    },
+    {
       "path": "ban/adresses",
       "hero": {
-        "value": "Retrouvez ici toute les adresses de la Base Adresse Nationale (BAN)"
+        "value": "Retrouvez ici toutes les adresses de la Base Adresse Nationale (BAN)"
       },
       "groups": [
         {
@@ -83,7 +99,7 @@
       "parent": "adresses-ftth",
       "name": "latest",
       "target": {
-        "action": "getLatestFromRegExp",
+        "action": "getLatestASCIFromRegExp",
         "params": ["^\\d{4}-T\\d$"]
       }
     },
@@ -121,7 +137,7 @@
       "parent": "fantoir",
       "name": "latest",
       "target": {
-        "action": "getLatestFromRegExp",
+        "action": "getLatestASCIFromRegExp",
         "params": ["^fantoir-\\d{4}-\\d{2}\\.gz$"]
       }
     }
