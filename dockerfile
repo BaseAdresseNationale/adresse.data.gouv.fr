@@ -1,5 +1,5 @@
 # Étape 1 : Construction de l'image avec les variables d'environnement injectées
-FROM node:20.15.1 as builder
+FROM node:20.15.1-alpine as builder
 
 # Définit le répertoire de travail
 WORKDIR /app
@@ -49,20 +49,15 @@ RUN npm i sharp
 RUN npm run build
 
 # Étape 2 : Image de production
-FROM node:20.15.1
+FROM node:20.15.1-alpine
 
 # Définit le répertoire de travail
 WORKDIR /app
 
 # Copie les fichiers nécessaires de l'étape de build
 COPY --from=builder /app/package.json ./
-COPY --from=builder /app/package-lock.json ./
-COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.env.default ./
 
 RUN mkdir -p /app/data && chown -R node:node /app/data
 

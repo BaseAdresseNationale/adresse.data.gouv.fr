@@ -96,6 +96,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
             }
 
             if (req.method === 'HEAD') {
+              res.end()
               return resolve()
             }
 
@@ -164,6 +165,9 @@ const aliasAction: AliasAction = {
   getLatestFromRegExp: (s3Objects, regExpString) => s3Objects
     .filter(({ name }) => ((new RegExp(regExpString)).test(name)))
     .sort((a, b) => new Date(b.name).getTime() - new Date(a.name).getTime())[0],
+  getLatestASCIFromRegExp: (s3Objects, regExpString) => s3Objects
+    .filter(({ name }) => ((new RegExp(regExpString)).test(name)))
+    .sort().at(-1),
 }
 
 export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir: string[], aliasesRaw: Aliase[], currentPath: string) => {
