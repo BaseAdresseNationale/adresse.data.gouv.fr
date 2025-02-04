@@ -3,21 +3,15 @@
 import { EventType, EventTypeTypeEnum } from '@/types/events.types'
 import { StyledEventCard } from './EventCard.styles'
 import Badge from '@codegouvfr/react-dsfr/Badge'
-import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import { getFullDate } from '@/utils/date'
 import { useState } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
-import ParticipantForm from './ParticipantForm'
-
-const Modal = createModal({
-  id: 'participant-event-modal',
-  isOpenedByDefault: false,
-})
 
 interface EventCardProps {
   event: EventType
   tagToColor: Record<string, { color: string, background: string }>
   isPassed?: boolean
+  onRegister?: () => void
 }
 
 const backgroundColors: Record<string, string> = {
@@ -25,8 +19,8 @@ const backgroundColors: Record<string, string> = {
   [EventTypeTypeEnum.FORMATION_LVL2]: 'rgba(136, 213, 156, 0.25)',
 }
 
-export default function EventCard({ event, isPassed, tagToColor }: EventCardProps) {
-  const { tags, title, description, startHour, endHour, date, address, isSubscriptionClosed, href, type } = event
+export default function EventCard({ event, isPassed, tagToColor, onRegister }: EventCardProps) {
+  const { tags, title, description, startHour, endHour, date, address, isSubscriptionClosed, type } = event
 
   const hasLargeDescription = description.length > 100
   const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
@@ -60,20 +54,17 @@ export default function EventCard({ event, isPassed, tagToColor }: EventCardProp
         </button>
       )}
 
-      {!isSubscriptionClosed && !isPassed && (
+      {!isSubscriptionClosed && !isPassed && onRegister && (
         <Button
           iconId="fr-icon-questionnaire-line"
           iconPosition="right"
           priority="secondary"
-          onClick={() => Modal.open()}
+          onClick={onRegister}
           style={{ marginBottom: '1rem' }}
         >
           S&apos;inscrire
         </Button>
       )}
-      <Modal.Component title="Formulaire inscription évènement">
-        <ParticipantForm onClose={() => Modal.close()} eventId={event.id} />
-      </Modal.Component>
     </StyledEventCard>
   )
 }
