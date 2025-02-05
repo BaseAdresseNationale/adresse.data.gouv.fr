@@ -1,0 +1,124 @@
+'use client'
+
+import CardWrapper from '@/components/CardWrapper'
+import EventCard from '@/components/Events/EventCard'
+import Section from '@/components/Section'
+import VideoMiniature from '@/components/VideoMiniature'
+import { EventType } from '@/types/events.types'
+import { createModal } from '@codegouvfr/react-dsfr/Modal'
+import ParticipantForm from './ParticipantForm'
+import { useState } from 'react'
+
+const Modal = createModal({
+  id: 'register-event-modal',
+  isOpenedByDefault: false,
+})
+
+const videoFormations = [
+  {
+    title: 'Épisode 1 : Introduction',
+    image: '/img/formations-en-ligne/e1.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/toyKNe4rKyVD7mUovsWLKd',
+      target: '_blank',
+    },
+  },
+  {
+    title: 'Épisode 2 : Création',
+    image: '/img/formations-en-ligne/e2.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/aNEtMh7fJCzsAPoGkwvFSg',
+      target: '_blank',
+    },
+  },
+  {
+    title: 'Épisode 3 : Voies',
+    image: '/img/formations-en-ligne/e3.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/rgksUPigy8KWnmx8WFELDN',
+      target: '_blank',
+    },
+  },
+  {
+    title: 'Épisode 4 : Numéros',
+    image: '/img/formations-en-ligne/e4.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/un73nNp4kQofNkhT38D6YQ',
+      target: '_blank',
+    },
+  },
+  {
+    title: 'Épisode 5 : Lieux-dits',
+    image: '/img/formations-en-ligne/e5.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/ttnYNTcXtcubCHQX8kHdGt',
+      target: '_blank',
+    },
+  },
+  {
+    title: 'Épisode 6 : Publication',
+    image: '/img/formations-en-ligne/e6.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/4uU6AHpTe7coPyhskBSANB',
+      target: '_blank',
+    },
+  },
+  {
+    title: 'Épisode 7 : Récupération',
+    image: '/img/formations-en-ligne/e7.png',
+    link: {
+      href: 'https://peertube.adresse.data.gouv.fr/w/fdD1tzvPfktHkkVK8p7h5D',
+      target: '_blank',
+    },
+  },
+]
+
+interface OnlineTrainingPageProps {
+  tagToColor: Record<string, { color: string, background: string }>
+  upcomingEvents: EventType[]
+}
+
+export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: OnlineTrainingPageProps) {
+  const [eventIdRegister, setEventIdRegister] = useState('')
+
+  const handleRegister = (eventId: string) => {
+    setEventIdRegister(eventId)
+    Modal.open()
+  }
+
+  const handleCloseModal = () => {
+    setEventIdRegister('')
+    Modal.close()
+  }
+
+  return (
+    <>
+      <Section title="Prochaines formations">
+        {upcomingEvents.length > 0
+          ? (
+              <CardWrapper>
+                {upcomingEvents.map((event, index) => (
+                  <EventCard
+                    key={index}
+                    event={event}
+                    tagToColor={tagToColor}
+                    onRegister={() => handleRegister(event.id)}
+                  />
+                ))}
+              </CardWrapper>
+            )
+          : <p>Aucune formation prévue pour le moment</p>}
+      </Section>
+      <Section title="Vidéos des formations" id="videos-formations">
+        <CardWrapper isSmallCard>
+          {videoFormations.map((video, index) => (
+            <VideoMiniature key={index} {...video} />
+          ))}
+        </CardWrapper>
+      </Section>
+      <Modal.Component title="Formulaire d'inscription formation">
+        <ParticipantForm onClose={handleCloseModal} eventId={eventIdRegister} />
+      </Modal.Component>
+    </>
+  )
+}

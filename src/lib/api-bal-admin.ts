@@ -1,6 +1,6 @@
 import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { customFetch } from './fetch'
-import { EventType } from '@/types/events.types'
+import { EventType, ParticipantType } from '@/types/events.types'
 import { env } from 'next-runtime-env'
 
 if (!env('NEXT_PUBLIC_BAL_ADMIN_API_URL')) {
@@ -61,6 +61,18 @@ export async function candidateToPartenairesDeLaCharte(candidacy: CandidateParte
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(candidacy),
+  })
+}
+
+export async function registrationToEvent(eventId: string, participant: ParticipantType) {
+  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events/${eventId}/participants`
+
+  return customFetch(request, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(participant),
   })
 }
 
