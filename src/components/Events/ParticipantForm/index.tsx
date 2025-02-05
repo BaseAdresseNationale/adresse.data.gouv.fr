@@ -2,9 +2,12 @@ import { FormEvent, useState } from 'react'
 
 import Input from '@codegouvfr/react-dsfr/Input'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Alert from '@codegouvfr/react-dsfr/Alert'
 import { registrationToEvent } from '@/lib/api-bal-admin'
 import { StyledForm } from './ParticipantForm.styles'
 import { ParticipantType } from '@/types/events.types'
+import Notice from '@codegouvfr/react-dsfr/Notice'
+import Link from 'next/link'
 
 interface ParticipantFormProps {
   onClose: () => void
@@ -78,6 +81,14 @@ function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
             value: formData.function,
             onChange: handleEdit('function') }}
         />
+      </section>
+      <section>
+        <span>
+          <i>
+            Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par le Programme Base Adresse Locale de l&apos;ANCT pour vous envoyer l&apos;invitation au webinaire. Pour en savoir plus consultez&nbsp;
+          </i>
+          <Link href="/cgu" className="fr-link--icon-right fr-icon-links-line">nos CGU</Link>
+        </span>
       </section>
       <section>
         {submitStatus === 'success' && (
