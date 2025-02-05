@@ -51,10 +51,12 @@ export const LoadingBar = styled.div<{ $isLoading: boolean }>`
   transition: transform 0.3s ease,
     width 1.5s ease,
     opacity 0.3s ease;
+  animation-play-state: paused;
 
   ${({ $isLoading }) => $isLoading && css`
     transform: translateY(0);
     width: 100%;
     opacity: 0.9;
+    animation-play-state: running;
   `}
 `
