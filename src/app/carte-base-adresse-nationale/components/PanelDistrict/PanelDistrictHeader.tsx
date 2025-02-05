@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import {
+  DistrictHeader,
   DistrictHeaderWrapper,
   DistrictLabelWrapper,
   DistrictLabelPrefix,
@@ -27,7 +28,7 @@ function PanelDistrictHeader({ district, logo, achievements }: PanelDistrictHead
   }
 
   return (
-    <>
+    <DistrictHeader>
       <DistrictLink district={formatedDistrict}>
         <DistrictHeaderWrapper>
           {logo && (
@@ -45,7 +46,7 @@ function PanelDistrictHeader({ district, logo, achievements }: PanelDistrictHead
         </DistrictHeaderWrapper>
       </DistrictLink>
       {achievements && <CommuneAchievements isMini achievements={achievements} />}
-    </>
+    </DistrictHeader>
   )
 }
 
