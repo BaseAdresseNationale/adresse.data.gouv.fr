@@ -4,6 +4,12 @@ import styled from 'styled-components'
 
 import { mainInfo } from '../PanelStyles'
 
+export const DistrictHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
 export const DistrictHeaderWrapper = styled.div`
     display: flex;
     justify-content: flex-start;

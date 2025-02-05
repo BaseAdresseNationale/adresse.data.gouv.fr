@@ -6,12 +6,17 @@ import Tooltip from '../Tooltip'
 import { CommuneAchievements as CommuneAchievementsType } from '@/lib/commune'
 
 const StyledWrapper = styled.div<{ $isMini?: boolean }>`
-    margin: ${({ $isMini }) => $isMini ? '1rem 0' : '2em 0'};
     width: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     gap: ${({ $isMini }) => $isMini ? '0.8rem' : '1.6rem'};
+    margin: ${({ $isMini }) => $isMini ? '1rem 0' : '2em 0'};
+
+    @media screen and (max-width: ${props => props.theme.breakpoints.sm}) {
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
 `
 
 const StyledAchievementBadge = styled.div<{ $isMini?: boolean }>`
@@ -28,14 +33,21 @@ const StyledAchievementBadge = styled.div<{ $isMini?: boolean }>`
 
   position: relative;
   font-size: 1em;
-  margin: ${({ $isMini }) => $isMini ? '0' : '0 1.6em'};
-  width: ${({ $isMini }) => $isMini ? '32px' : '100px'};
-  height: ${({ $isMini }) => $isMini ? '32px' : '100px'};
-  border-radius: ${({ $isMini }) => $isMini ? '2px' : '10px'};
   display: inline-block;
   top: 0;
   background: linear-gradient(to bottom right, var(--color-gradient-from) 0%, var(--color-gradient-to) 100%);
   color: var(--color);
+  margin: ${({ $isMini }) => $isMini ? '0' : '0 1.6em'};
+  width: ${({ $isMini }) => $isMini ? '32px' : '100px'};
+  height: ${({ $isMini }) => $isMini ? '32px' : '100px'};
+  border-radius: ${({ $isMini }) => $isMini ? '2px' : '10px'};
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.sm}) {
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 2px;
+  }
 
   &:before,
   &:after {
@@ -115,7 +127,7 @@ export function CommuneAchievements({ isMini, achievements: { hasProcessedSignal
       {achievements.map(({ title, icone, achieved, required }) => (!achieved && !required)
         ? null
         : (
-            <Tooltip key={title} message={<b>{title}</b>}>
+            <Tooltip key={title} message={<b>{title}</b>} placement="bottom">
               <StyledAchievementBadge $isMini={isMini} className={`${achieved ? 'green' : 'disabled'}`}>
                 <ResponsiveImage src={icone} alt={`Badge ${title}`} />
               </StyledAchievementBadge>
