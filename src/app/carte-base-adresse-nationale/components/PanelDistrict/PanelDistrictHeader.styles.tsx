@@ -11,6 +11,12 @@ export const DistrictHeaderWrapper = styled(PanelHeaderWrapper)`
   gap: 1.25rem;
 `
 
+export const DistrictHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
 export const DistrictLogoWrapper = styled.div`
   position: relative;
 
