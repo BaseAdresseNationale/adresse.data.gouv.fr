@@ -15,9 +15,9 @@ export const StyledAutocomplete = styled.div`
   }
   .results {
     position: absolute;
-    background-color: #fff;
+    background-color: light-dark(#fff, var(--background-default-grey));
+    border: 1px solid light-dark(#ccc, var(--border-default-grey));
     width: 100%;
-    border: 1px solid #ccc;
     border-top: none;
     z-index: 100;
     max-height: 200px;
@@ -46,7 +46,7 @@ export const StyledResultList = styled.div`
       text-align: left;
       padding: 5px 10px;
       &:hover {
-        background-color: #eee;
+        background-color: light-dark(#eee, var(--background-contrast-grey));
       }
     }
   }

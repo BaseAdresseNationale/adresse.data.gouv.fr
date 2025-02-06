@@ -54,7 +54,7 @@ const StyledWrapper = styled.div<{ $certificationPercentage: number }>`
                 flex-direction: column;
 
                 div {
-                    background-color: white;
+                    background-color: light-dark(white, var(--background-default-grey));
                     border-radius: 5px;
                     padding: 1rem;
                     font-size: 1rem;

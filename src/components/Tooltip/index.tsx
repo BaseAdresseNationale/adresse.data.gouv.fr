@@ -12,13 +12,11 @@ interface TooltipProps {
   placement?: 'top' | 'bottom' | 'left' | 'right'
 }
 
-const StyledTooltip = styled.span<{ $top?: number, $left?: number }>`
+const StyledTooltip = styled.span`
   display: block;
   position: fixed;
-  top: ${({ $top }) => $top ? `${$top}px` : '0'};
-  left: ${({ $left }) => $left ? `${$left}px` : '0'};
   z-index: 1000;
-  background-color: #fff;
+  background-color: light-dark(white, var(--background-default-grey));
   padding: 0.5rem;
   border-radius: 0.1rem;
   color: var(--text-default-grey);
@@ -36,7 +34,7 @@ const StyledTooltip = styled.span<{ $top?: number, $left?: number }>`
   &.bottom {
     transform: translateX(-50%);
     &:before {
-      border-color: transparent transparent #fff transparent;
+      border-color: transparent transparent light-dark(white, var(--background-default-grey)) transparent;
       bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
@@ -104,11 +102,10 @@ function getTooltipPosition(el: Element | null, placement: 'top' | 'bottom' | 'l
   }
 }
 
-export default function Tooltip({ children, message, style, placement: initialPlacement = 'top' }: TooltipProps) {
+export default function Tooltip({ children, message, style, placement = 'top' }: TooltipProps) {
   const [id] = useState(Math.random().toString(36).substring(7))
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 })
   const [isHovered, setIsHovered] = useState(false)
-  const [placement, setPlacement] = useState(initialPlacement)
   const [containerRef, setContainerRef] = useDOMRef<HTMLDivElement>()
   const [tooltipRef, setTooltipRef] = useDOMRef<HTMLSpanElement>()
 
@@ -137,21 +134,18 @@ export default function Tooltip({ children, message, style, placement: initialPl
 
     const rect = tooltipRef.getBoundingClientRect()
     if (rect.x < 0) {
-      setPlacement('right')
-    }
-    if (rect.right > window.innerWidth) {
-      setPlacement('left')
-    }
-    if (rect.y < 0) {
-      setPlacement('bottom')
-    }
-    if (rect.bottom > window.innerHeight) {
-      setPlacement('top')
+      setTooltipPosition((prev) => {
+        return { ...prev, right: window.innerWidth - rect.width + Math.abs(rect.x) }
+      })
+    } else if (rect.y < 0) {
+      setTooltipPosition((prev) => {
+        return { ...prev, bottom: window.innerHeight - rect.height + Math.abs(rect.y) }
+      })
     }
   }, [tooltipRef])
 
   const tooltipElem = (
-    <StyledTooltip ref={setTooltipRef} className={placement} id={id} role="tooltip" aria-hidden="true" style={style} $top={tooltipPosition.top} $left={tooltipPosition.left}>
+    <StyledTooltip ref={setTooltipRef} className={placement} id={id} role="tooltip" aria-hidden="true" style={{ ...tooltipPosition, ...style }}>
       {message}
     </StyledTooltip>
   )
