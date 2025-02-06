@@ -4,13 +4,13 @@ import { Pagination } from '@codegouvfr/react-dsfr/Pagination'
 import TagSelect from '../../TagSelect'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
-import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import ResponsiveImage from '../../ResponsiveImage'
 import { Departement } from '@/types/api-geo.types'
 import { Commune } from '@/types/api-geo.types'
-import { getPageFromHash, resetHash, useHash } from '@/hooks/useHash'
+import { getPageFromHash, useHash } from '@/hooks/useHash'
 import { useDebounce } from '@/hooks/useDebounce'
 import { StyledWrapper } from './SearchPartenaire.styles'
 import CardWrapper from '@/components/CardWrapper'
@@ -19,34 +19,34 @@ import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
 import Link from 'next/link'
 
 export interface SearchPartenaireProps {
-  services: string[]
+  initialServices: Record<string, number>
   initialPartenaires: PaginatedPartenairesDeLaCharte
   departements: Departement[]
   filter?: { type: PartenaireDeLaCharteTypeEnum }
   searchBy: 'perimeter' | 'name'
-  renderInfos?: (partenaire: PaginatedPartenairesDeLaCharte) => Promise<React.ReactNode>
   shuffle?: boolean
   pageSize?: number
+  placeholder: string
 }
 
 export default function SearchPartenaire({
-  services,
+  initialServices,
   initialPartenaires,
   departements,
   filter,
   searchBy,
-  renderInfos,
   shuffle,
+  placeholder,
   pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
 }: SearchPartenaireProps) {
-  const hash = useHash()
+  const { hash, resetHash } = useHash()
   const [search, onSearch] = useState('')
   const debouncedSearch = useDebounce(search, 500)
-  const [info, setInfo] = useState<React.ReactNode>(null)
   const [currentPage, setCurrentPage] = useState(getPageFromHash(hash))
   const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [selectedServices, setSelectedServices] = useState<string[]>([])
   const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>(initialPartenaires)
+  const [services, setServices] = useState<Record<string, number>>(initialServices)
 
   const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
@@ -57,31 +57,29 @@ export default function SearchPartenaire({
       codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
       search: debouncedSearch,
     }, page, pageSize)
-
     setPartenaires(updatedPartenaires)
+
+    const updatedServices = await getPartenairesDeLaCharteServices({
+      ...filter,
+      codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+      search: debouncedSearch,
+    })
+    setServices(updatedServices)
+
+    setCurrentPage(page)
   }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize])
 
   useEffect(() => {
     if (hash) {
       const nextPage = getPageFromHash(hash)
       updatePartenaires(nextPage)
-      setCurrentPage(nextPage)
-    }
-    else {
-      setCurrentPage(1)
     }
   }, [hash, updatePartenaires])
 
   useEffect(() => {
     resetHash()
     updatePartenaires(1)
-  }, [selectedServices, selectedCommune, debouncedSearch, updatePartenaires])
-
-  useEffect(() => {
-    if (renderInfos) {
-      renderInfos(partenaires).then(setInfo)
-    }
-  }, [partenaires, renderInfos])
+  }, [selectedServices, selectedCommune, debouncedSearch, updatePartenaires, resetHash])
 
   const count = useMemo(() => Math.ceil(partenaires.total / pageSize), [partenaires.total, pageSize])
 
@@ -90,30 +88,32 @@ export default function SearchPartenaire({
     return departement?.nom || ''
   }
 
+  const tagSelectOption = useMemo(() => {
+    return Object.keys(services).map(service => ({ value: service, label: <div><Badge style={{ marginRight: 5 }}>{services[service]}</Badge>{service}</div> }))
+  }, [services])
+
   return (
     <StyledWrapper>
       <div className="controls">
         <div className="controls-input-wrapper">
           {searchBy === 'perimeter' && (
             <AutocompleteInput
-              label="Rechercher ma commune"
               value={selectedCommune}
               fetchResults={fetchCommunes}
               onChange={commune => setSelectedCommune(commune as Commune | null)}
-              placeholder="Rechercher ma commune"
+              placeholder={placeholder}
             />
           ) }
           {searchBy === 'name' && (
             <input
               className="fr-input"
-              placeholder="Rechercher un partenaire"
+              placeholder={placeholder}
               value={search}
               onChange={e => onSearch(e.target.value)}
             />
           )}
-          {info}
         </div>
-        <TagSelect options={services} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
+        <TagSelect options={tagSelectOption} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
       </div>
       <CardWrapper isSmallCard>
         {partenaires.data.length === 0 && <p>Aucun partenaire trouvé</p>}
@@ -136,7 +136,7 @@ export default function SearchPartenaire({
       </CardWrapper>
       {partenaires.total > pageSize && (
         <Pagination
-          style={{ marginTop: '1rem' }}
+          style={{ marginTop: '1rem', alignSelf: 'center' }}
           count={count}
           defaultPage={currentPage}
           getPageLinkProps={pageNumber => ({ href: `#page=${pageNumber}` })}
