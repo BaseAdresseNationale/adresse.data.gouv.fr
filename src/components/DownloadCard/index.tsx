@@ -14,12 +14,13 @@ export interface DownloadCardProps {
 }
 
 const StyledWrapper = styled.div`
-  background-color: white;
+  background-color: light-dark(white, var(--background-default-grey));
+  border: 1px solid light-dark(#dddddd, var(--border-default-grey));
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
-  border: 1px solid #dddddd;
 
   h3 {
     font-size: 1.2rem;
@@ -32,7 +33,7 @@ const StyledWrapper = styled.div`
     align-items: center;
 
     legend {
-      color: #666666;
+      color: light-dark(#666666, white);
     }
   }
 `
