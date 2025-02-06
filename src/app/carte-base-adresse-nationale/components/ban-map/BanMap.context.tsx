@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useReducer, useState
 import { useMap } from 'react-map-gl/maplibre'
 
 import type { LngLatBoundsLike } from 'react-map-gl/maplibre'
+import type { FlyToOptions } from 'maplibre-gl'
 
 import type { BanMapConfig, BanMapAction } from './types'
 
@@ -9,8 +10,15 @@ interface BanMapProviderProps {
   children: React.ReactNode
 }
 
-interface MapItem {
+interface Position {
+  position: {
+    coordinates: [number, number]
+  }
+  positionType?: string
+}
+export interface MapItem {
   displayBBox: number[]
+  positions?: Position[]
 }
 
 const initBanMapConfig = {
@@ -25,7 +33,6 @@ function banMapReducer(
   banMapConfig: BanMapConfig,
   action: BanMapAction,
 ): BanMapConfig {
-  console.log('banMapReducer', banMapConfig, action)
   switch (action.type) {
     case 'SET_MAP_STYLE': {
       return {
@@ -73,6 +80,31 @@ export function useBanMapConfig() {
   return useContext(BanMapContext) as [BanMapConfig, (action: any) => void]
 }
 
+const getBboxFromPositions = (positions: Position[]): [number, number, number, number] => {
+  return positions.reduce<[number, number, number, number]>(
+    (acc, entry: Position) => {
+      const [lng, lat] = entry.position.coordinates
+      acc[0] = Math.min(acc[0], lng)
+      acc[1] = Math.min(acc[1], lat)
+      acc[2] = Math.max(acc[2], lng)
+      acc[3] = Math.max(acc[3], lat)
+      return acc
+    },
+    [
+      positions[0].position.coordinates[0],
+      positions[0].position.coordinates[1],
+      positions[0].position.coordinates[0],
+      positions[0].position.coordinates[1],
+    ],
+  )
+}
+
+const defaultAnimationFlyToOptions: FlyToOptions = {
+  padding: 30,
+  animate: true,
+  duration: 1250,
+}
+
 export function useFocusOnMap(item: MapItem) {
   const map = useMap()
 
@@ -86,13 +118,19 @@ export function useFocusOnMap(item: MapItem) {
     setBound(item?.displayBBox?.length === 4 ? (item.displayBBox as LngLatBoundsLike) : undefined)
   }, [map, item])
 
-  const focusOnMap = useCallback(() => {
-    if (bound) {
-      map.current?.fitBounds(bound, {
-        padding: 30,
+  const focusOnMap = useCallback((options = {}) => {
+    const boundPositions: LngLatBoundsLike | undefined = ((item.positions && item.positions?.length) || 0) > 0
+      ? getBboxFromPositions(item.positions as Position[])
+      : undefined
+
+    const preferedBound = boundPositions || bound
+    if (preferedBound) {
+      map.current?.fitBounds(preferedBound, {
+        ...defaultAnimationFlyToOptions,
+        ...options,
       })
     }
-  }, [bound, map])
+  }, [bound, item.positions, map])
 
   return focusOnMap
 }
@@ -110,10 +148,13 @@ export const useMapFlyTo = () => {
   }
 
   const mapFlyTo = useCallback(
-    (coords: [number, number]) => {
+    (coords: [number, number], option?: FlyToOptions) => {
       flyTo({
         center: coords,
         essential: true,
+        ...defaultAnimationFlyToOptions,
+        duration: (defaultAnimationFlyToOptions.duration || 0) / 2,
+        ...(option || {}),
       })
     },
     [flyTo]

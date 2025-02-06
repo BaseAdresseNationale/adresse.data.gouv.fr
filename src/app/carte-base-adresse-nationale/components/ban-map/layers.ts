@@ -10,6 +10,38 @@ const TOPONYME_MAX = NUMEROS_MIN + 2
 const TOPONYME_COLOR = '#7c5050'
 export const PARCELLES_MINZOOM = 14
 
+interface TypePositionConfig {
+  name: string
+  color: string
+}
+
+type TypePositionConfigs = Record<string, TypePositionConfig>
+
+export const positionsConfigs: TypePositionConfigs = {
+  'entrée': { name: 'Entrée', color: '#00CED1' },
+  'délivrance postale': { name: 'Délivrance postale', color: '#9370DB' },
+  'bâtiment': { name: 'Bâtiment', color: '#CD5C5C' },
+  'cage d’escalier': { name: 'Cage d’escalier', color: '#20B2AA' },
+  'logement': { name: 'Logement', color: '#C71585' },
+  'parcelle': { name: 'Parcelle', color: '#00BFFF' },
+  'segment': { name: 'Segment', color: '#6B8E23' },
+  'service technique': { name: 'Service technique', color: '#9932CC' },
+  'inconnue': { name: 'Inconnu', color: '#787878' },
+}
+
+const defaultColor = positionsConfigs['inconnue'].color
+
+const getColors = () => {
+  const array: string[] = []
+  Object.keys(positionsConfigs).forEach((key) => {
+    array.push(key, positionsConfigs[key].color)
+  })
+
+  return [...array]
+}
+
+const colors = getColors()
+
 export const defaultLayerPaint = [
   'case',
   ['==', ['get', 'sourcePosition'], 'bal'],
@@ -149,7 +181,7 @@ export const adresseCompletLabelLayer = {
     ],
     'text-ignore-placement': false,
     'text-variable-anchor': ['bottom'],
-    'text-radial-offset': 1,
+    'text-radial-offset': 1.7,
   },
 }
 
@@ -322,3 +354,125 @@ export const cadastreLayers = [{
     'text-translate-anchor': 'map',
   },
 }]
+
+export const positionsCircleLayer = {
+  id: 'positions',
+  source: 'positions',
+  type: 'circle',
+  paint: {
+    'circle-color': [
+      'case',
+      ['get', 'isMain'],
+      'transparent',
+      ['match', ['get', 'type'], ...colors, defaultColor],
+    ],
+    'circle-stroke-color': [
+      'case',
+      ['get', 'isMain'],
+      ['match', ['get', 'type'], ...colors, defaultColor],
+      'transparent',
+    ],
+    'circle-stroke-width': 2,
+    'circle-radius': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      10,
+      ['case', ['get', 'isMain'], 1.5, 1],
+      17,
+      ['case', ['get', 'isMain'], 9.5, 2.5],
+    ],
+    'circle-opacity': [
+      'interpolate',
+      ['linear'], ['zoom'],
+      12, 0,
+      13, 0.5,
+      16, 1,
+      17, 0,
+    ],
+    'circle-stroke-opacity': [
+      'interpolate',
+      ['linear'], ['zoom'],
+      12, 0,
+      13, 0.5,
+      16, 1,
+      17, 0,
+    ],
+  },
+}
+
+export const positionsLabelLayer = {
+  id: 'positions-label',
+  source: 'positions',
+  type: 'symbol',
+  minzoom: NUMEROS_MIN,
+  paint: {
+    'text-color': ['match', ['get', 'type'], ...colors, defaultColor],
+    'text-halo-color': '#fff',
+    'text-halo-width': 0.5,
+  },
+  layout: {
+    'text-font': ['Noto Sans Regular'],
+    'text-size': {
+      stops: [
+        [NUMEROS_MIN, 13],
+        [17, 14],
+      ],
+    },
+    // 'text-field': [
+    //   'case',
+    //   ['>', ['get', 'positionSize'], 1],
+    //   [
+    //     'format',
+    //     ['get', 'label'],
+    //     ' (',
+    //     ['get', 'positionIndex'],
+    //     '/',
+    //     ['get', 'positionSize'],
+    //     ')',
+    //   ],
+    //   [
+    //     'format',
+    //     ['get', 'label'],
+    //   ],
+    // ],
+    'text-field': [
+      'case',
+      ['>', ['get', 'positionSize'], 1],
+      // [
+      //   'format',
+      //   ['get', 'positionIndex'],
+      //   ' - ',
+      //   ['get', 'label'],
+      // ],
+      [
+        'case',
+        ['!=', ['get', 'positionIndex'], '0'],
+        [
+          'format',
+          ['get', 'positionIndex'],
+          ' - ',
+          ['get', 'label'],
+        ],
+        [
+          'format',
+          '⦿',
+          ' - ',
+          ['get', 'label'],
+        ],
+      ],
+      [
+        'format',
+        ['get', 'label'],
+      ],
+    ],
+    'text-ignore-placement': false,
+    'text-variable-anchor': ['top'],
+    'text-radial-offset': [
+      'case',
+      ['get', 'isMain'],
+      1.7,
+      1.3,
+    ],
+  },
+}

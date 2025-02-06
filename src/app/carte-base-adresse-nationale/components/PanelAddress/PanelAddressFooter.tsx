@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Button from '@codegouvfr/react-dsfr/Button'
 
@@ -8,21 +8,24 @@ import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import {
   ActionWrapper,
   ActionList,
-  ActionDownloadCertificate as DownloadCertificate,
+  ActionDownloadCertificate,
 } from './ActionComponents'
-import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 import { useFocusOnMap } from '../ban-map/BanMap.context'
+import { AsideFooterWrapper } from './PanelAddressFooter.styles'
+
+import type { MapItem } from '../ban-map/BanMap.context'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface AsideFooterAddressProps {
   banItem: TypeAddressExtended
   withCertificate: boolean
   children?: React.ReactNode
+  onClickAction?: () => void
 }
 
-function AsideFooterAddress({ banItem: address, withCertificate, children }: AsideFooterAddressProps) {
+function AsideFooterAddress({ banItem: address, withCertificate, children, onClickAction }: AsideFooterAddressProps) {
   const [mairiePageURL, setMairiePageURL] = useState<string | null>(null)
-  const focusOnMap = useFocusOnMap(address)
+  const focusOnMap = useFocusOnMap(address as MapItem)
 
   const isCertifiable = useMemo(() => isAddressCertifiable({
     banId: address.banId ?? '',
@@ -32,10 +35,11 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
     withBanId: address.withBanId,
   }), [address])
 
-  const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
     focusOnMap()
-  }
+    if (onClickAction) onClickAction()
+  }, [focusOnMap, onClickAction])
 
   const codeCommune = address.commune?.code
   useEffect(() => {
@@ -66,7 +70,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
           {
             (
               !withCertificate && (
-                <DownloadCertificate
+                <ActionDownloadCertificate
                   id={address.id}
                   message={(
                     <>
@@ -80,7 +84,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
               )
             ) || (
               !isCertifiable && (
-                <DownloadCertificate
+                <ActionDownloadCertificate
                   id={address.id}
                   message={(
                     <>
@@ -94,7 +98,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children }: Asi
                 />
               )
             ) || (
-              <DownloadCertificate
+              <ActionDownloadCertificate
                 id={address.id}
               />
             )

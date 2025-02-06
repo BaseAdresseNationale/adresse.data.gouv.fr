@@ -1,28 +1,17 @@
-'use client'
+import { PanelDetailsItemWithDesc } from './PanelDetailsItemWithDesc'
 
-import styled from 'styled-components'
-
-import { PanelDetailsItemWithDesc } from '../PanelStyles/PanelStyles'
-
-export const AddressDetailsWrapper = styled.ul`
-  padding: 0;
-  margin: 0 0 4rem;
-  font-size: 0.9rem;
-  line-height: 1.5;
-`
-
-interface CertificationConfigEntry {
+export interface CertificationConfigEntry {
   className: string
   message: string
   desc: string
 }
 
-interface AddressDetailsCertificationProps extends React.HTMLAttributes<HTMLLIElement> {
+interface PanelDetailsCertificationProps extends React.HTMLAttributes<HTMLLIElement> {
   certificationConfig: Record<(0 | 1), CertificationConfigEntry>
   isCertified: boolean
 }
 
-export const AddressDetailsCertification = ({ certificationConfig, isCertified, className, ...props }: AddressDetailsCertificationProps) => {
+export const PanelDetailsCertification = ({ certificationConfig, isCertified, className, ...props }: PanelDetailsCertificationProps) => {
   const certificationLevel = isCertified ? 1 : 0
 
   return (
