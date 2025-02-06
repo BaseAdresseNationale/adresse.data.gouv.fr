@@ -137,7 +137,8 @@ export default function Tooltip({ children, message, style, placement = 'top' }:
       setTooltipPosition((prev) => {
         return { ...prev, right: window.innerWidth - rect.width + Math.abs(rect.x) }
       })
-    } else if (rect.y < 0) {
+    }
+    else if (rect.y < 0) {
       setTooltipPosition((prev) => {
         return { ...prev, bottom: window.innerHeight - rect.height + Math.abs(rect.y) }
       })
