@@ -8,11 +8,17 @@ import {
   FieldValue,
 } from './page.styles'
 import { env } from 'next-runtime-env'
+import { isUUIDv4 } from '@/utils/validate'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 async function Certificat({ params }: { params: { idCertificat: string } }) {
   const { idCertificat } = params
+
+  if (!isUUIDv4(idCertificat)) {
+    return <NotFoundPage />
+  }
+
   const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
