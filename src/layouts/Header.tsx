@@ -61,15 +61,16 @@ export const navEntries: MainNavigationProps.Item[] = [
     text: 'Les communes',
     menuLinks: [
       {
-        text: 'Découvrir le programme Base Adresse Locale',
+        text: 'Découvrir la Base Adresse Locale',
         linkProps: { href: '/programme-bal' },
       },
       {
         text: 'Consulter la page d’une commune',
         linkProps: { href: '/commune' },
       },
+      { text: 'Webinaires et tutoriels', linkProps: { href: '/formation-en-ligne' } },
       {
-        text: 'Documentation Base Adresse Locale',
+        text: 'Documentation adressage',
         linkProps: { href: '/documentation-bal' },
       },
       {
@@ -79,7 +80,6 @@ export const navEntries: MainNavigationProps.Item[] = [
           target: '_blank',
         },
       },
-      { text: 'Formation en ligne', linkProps: { href: '/formation-en-ligne' } },
     ],
   },
   {
@@ -127,11 +127,11 @@ export const navEntries: MainNavigationProps.Item[] = [
     text: 'La communauté',
     menuLinks: [
       { text: 'Charte de la Base adresse locale', linkProps: { href: '/communaute/charte-base-adresse-locale' } },
-      { text: 'Communes partenaires', linkProps: { href: '/communaute/communes-partenaires' } },
       {
         text: 'Organismes partenaires',
         linkProps: { href: '/communaute/organismes-partenaires' },
       },
+      { text: 'Communes partenaires', linkProps: { href: '/communaute/communes-partenaires' } },
       {
         text: 'Sociétés partenaires',
         linkProps: { href: '/communaute/societes-partenaires' },
