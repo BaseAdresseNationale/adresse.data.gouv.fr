@@ -8,11 +8,15 @@ import { getMairie } from '@/lib/api-etablissement-public'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 import { env } from 'next-runtime-env'
 import { getCommuneLogo } from '@/lib/api-wikidata'
-
+import { isUUIDv4 } from '@/utils/validate'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function GET(request: NextRequest, { params }: { params: { idCertificat: string } }) {
+  if (!isUUIDv4(params.idCertificat)) {
+    return new NextResponse('Invalid certificate ID: Must be a valid UUID v4', { status: 400 })
+  }
+
   const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${params.idCertificat}`, {
     method: 'GET',
     headers: {
