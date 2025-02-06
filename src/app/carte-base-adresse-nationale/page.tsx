@@ -14,7 +14,7 @@ import Aside from './components/Aside'
 import BanMap from './components/ban-map'
 import LoadingBar from './components/LoadingBar'
 import MapBreadcrumb from './components/MapBreadcrumb'
-import { isMobileView, getMapAnimationOption } from './components/Panel'
+import { isMobileView, getMapPadding } from './components/Panel'
 import { PanelAddressHeader, PanelAddress, PanelAddressFooter } from './components/PanelAddress'
 import { PanelMicroToponymHeader, PanelMicroToponym, PanelMicroToponymFooter } from './components/PanelMicroToponym'
 import { PanelDistrictHeader, PanelDistrict, PanelDistrictFooter } from './components/PanelDistrict'
@@ -55,6 +55,21 @@ const getBanItemTypes = (banItem?: { type: 'commune' | 'voie' | 'lieu-dit' | 'nu
   }
 }
 
+interface BanMapGL {
+  getCenter: () => { lng: number, lat: number }
+  getZoom: () => number
+}
+
+const getMapHash = (banMapGL: BanMapGL | null): string | undefined => {
+  if (banMapGL) {
+    const { lng, lat } = banMapGL.getCenter()
+    const zoom = banMapGL.getZoom()
+    const hash = `${lat.toFixed(6)}_${lng.toFixed(6)}_${zoom.toFixed(2)}`
+    return hash
+  }
+  return
+}
+
 interface Bounds {
   getNorth: () => number
   getSouth: () => number
@@ -81,6 +96,7 @@ const getDistrictBreadcrumbPath = (district: TypeDistrict | TypeDistrictExtended
       }
     : `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
 ])
+
 const getMicroTopoBreadcrumbPath = (
   microTopo: TypeMicroToponymPartial | TypeMicroToponymExtended,
   district?: TypeDistrict,
@@ -131,7 +147,6 @@ const getBboxFromPositions = (positions: Position[]): [number, number, number, n
 function CartoView() {
   const [isMapReady, setIsMapReady] = useState(false)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
-  const [animationOption, setAnimationOption] = useState({})
   const [mapSearchResults, setMapSearchResults] = useState<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | undefined>()
   const [districtLogo, setDistrictLogo] = useState<string | undefined>()
   const [mapBreadcrumbPath, setMapBreadcrumbPath] = useState<MapBreadcrumbPath>([])
@@ -143,24 +158,30 @@ function CartoView() {
   const asideRef = useRef<HTMLDivElement>(null)
   const oldMapSearchResults = useRef<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | null>(null)
 
+  type Lon = number
+  type Lat = number
+  type Zoom = number
+  type PositionArray = [Lon, Lat, Zoom]
+  type MinLon = Lon
+  type MinLat = Lat
+  type MaxLon = Lon
+  type MaxLat = Lat
+  type BoundsArray = [MinLon, MinLat, MaxLon, MaxLat]
+  interface HashMap {
+    value: string
+    position?: PositionArray
+    bounds?: BoundsArray
+  }
+
   const searchParams = useSearchParams()
+  const initHash = useRef<string | null>(null)
+  const [hash, setHash] = useState<HashMap | null>(null)
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
   const [{ mapStyle, displayLandRegister }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const typeView = getBanItemTypes(mapSearchResults)
-
-  useEffect(() => {
-    setAnimationOption(getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible }))
-    const isMobile = isMobileView()
-    setAnimationOption(
-      getMapAnimationOption({
-        isMobileView: isMobile,
-        isMenuVisible,
-      })
-    )
-  }, [isMenuVisible])
 
   const selectBanItem = useCallback(({ id }: { id: string }) => router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`), [router])
   const unselectBanItem = useCallback(() => router.push(`${URL_CARTOGRAPHY_BAN}`), [router])
@@ -179,24 +200,88 @@ function CartoView() {
       clearTimeout(timer)
     }
   }, [])
+  const updateHashPosition = useCallback((hash: string) => {
+    if (window && window.location) {
+      if (window.location?.hash === hash) return
+      const locationPrefix = `${window.location.pathname}${window.location.search}`
+      const newLocation = hash ? `${locationPrefix}#${hash}` : locationPrefix
+      router.replace(newLocation)
+    }
+  }, [router])
+  const onMoveHandle = useCallback(() => {
+    const { current: banMapGL } = banMapRef
+    const hash = getMapHash(banMapGL)
+    updateHashPosition(hash || '')
+  }, [updateHashPosition])
 
+  // InitialPosition from hash
+  useEffect(() => {
+    if (window?.location?.hash) {
+      initHash.current = window?.location?.hash?.slice(1)
+      const hash = initHash.current
+      const [lon, lat, zoom] = hash.split('_').map(Number)
+      const hashPosition = [lon, lat, zoom]
+      setHash({
+        value: hash,
+        position: hashPosition as PositionArray,
+      })
+    }
+  }, [])
+
+  // Config map animation
+  useEffect(() => {
+    const { current: banMapGL } = banMapRef
+    if (isMapReady && banMapGL) {
+      const isMobile = isMobileView()
+      const padding = getMapPadding({
+        isMobileView: isMobile,
+        isMenuVisible,
+      })
+      banMapGL.setPadding(padding || { top: 30, bottom: 30, left: 30, right: 30 })
+    }
+  }, [isMapReady, isMenuVisible])
+
+  // Load map tiles
   useEffect(() => {
     isMapReady
       ? setIsLoadMapTiles(false)
       : setIsLoadMapTiles(true)
   }, [isMapReady])
 
+  // Load search datas
   useEffect(() => {
     if (banItemId) {
       (async () => {
         setIsLoadMapSearchResults(true)
 
-        const banItem = (await getBanItem(banItemId)) as unknown as TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended
+        // Load search item & district flag
+        const banItemPromise = (getBanItem(banItemId))
+        const districtFlagUrlPromise = getCommuneFlagProxy(banItemId)
+        const [banItem, districtFlagUrl] = await Promise.all([
+          banItemPromise as unknown as Promise<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended>,
+          districtFlagUrlPromise as Promise<string | undefined>,
+        ])
         setMapSearchResults(banItem)
-        setIsMenuVisible(true)
-
-        const districtFlagUrl = await getCommuneFlagProxy(banItemId)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
+
+        // Update breadcrumb path & Actions Params
+        switch (getBanItemTypes(banItem)) {
+          case 'district':
+            setMapBreadcrumbPath(getDistrictBreadcrumbPath(banItem as TypeDistrictExtended))
+            break
+          case 'micro-toponym':
+            setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
+            break
+          case 'address':
+            setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
+            const config = (banItem as TypeAddressExtended).config
+            setWithCertificate(config?.certificate ? true : false)
+            break
+          default:
+            setMapBreadcrumbPath([])
+            setWithCertificate(false)
+            break
+        }
 
         setIsLoadMapSearchResults(false)
       })()
@@ -206,29 +291,7 @@ function CartoView() {
     }
   }, [banItemId, closeMapSearchResults])
 
-  useEffect(() => {
-    if (mapSearchResults) {
-      const banItem = mapSearchResults
-      const typeItem = getBanItemTypes(banItem)
-
-      if (typeItem === 'district') {
-        setMapBreadcrumbPath(getDistrictBreadcrumbPath(banItem as TypeDistrictExtended))
-      }
-      else if (typeItem === 'micro-toponym') {
-        setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
-      }
-      else if (typeItem === 'address') {
-        setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
-        const config = (banItem as TypeAddressExtended).config
-        setWithCertificate(config?.certificate ? true : false)
-      }
-      else {
-        setMapBreadcrumbPath([])
-      }
-    }
-  }, [mapSearchResults])
-
-  // Map focus & animation
+  // Position map to Search results
   useEffect(() => {
     if (
       isMapReady
@@ -238,27 +301,61 @@ function CartoView() {
       const { current: banMapGL } = banMapRef
       setIsMenuVisible(false)
       const banItem = mapSearchResults
+
+      // Display Search results
       const bbox: [number, number, number, number] = ('positions' in banItem && banItem.positions.length > 1)
         ? getBboxFromPositions(banItem.positions)
         : banItem.displayBBox
 
       if (banMapGL && bbox && bbox.length === 4) {
-        const mapZoom = banMapGL.getZoom()
-        const mapBounds = banMapGL.getBounds()
-        const searchBound = new LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]])
-        const isBBoxVisible = (Math.ceil(mapZoom) >= 9) && isBboxIntersect(mapBounds, searchBound)
+        if (!initHash.current) {
+          setHash({
+            value: bbox.join('_'),
+            bounds: bbox,
+          })
+        }
 
-        banMapGL.fitBounds(bbox, {
-          ...animationOption,
-          animate: isBBoxVisible,
-          duration: 1250,
-        })
         setIsMenuVisible(true)
         oldMapSearchResults.current = banItem
       }
     }
   }
-  , [animationOption, isMapReady, mapSearchResults])
+  , [isMapReady, mapSearchResults])
+
+  // Map focus & animation
+  useEffect(() => {
+    const { current: banMapGL } = banMapRef
+
+    if (isMapReady && banMapGL && hash) {
+      const mapZoom = banMapGL.getZoom()
+      const mapBounds = banMapGL.getBounds()
+      const bbox = hash?.bounds
+      const position = hash?.position
+
+      if (position && position.length === 3) {
+        const hashBounds = new LngLatBounds([position[0], position[1]], [position[0], position[1]])
+        const isBBoxVisible: boolean = (Math.ceil(mapZoom) >= 9) && isBboxIntersect(mapBounds, hashBounds)
+
+        banMapGL.flyTo({
+          center: [position[1], position[0]],
+          zoom: position[2],
+          animate: isBBoxVisible,
+        })
+      }
+
+      else if (bbox && bbox.length === 4) {
+        const hashBounds = new LngLatBounds([bbox[0], bbox[1]], [bbox[2], bbox[3]])
+        const isBBoxVisible = (Math.ceil(mapZoom) >= 9) && isBboxIntersect(mapBounds, hashBounds)
+
+        banMapGL.fitBounds(bbox, {
+          animate: isBBoxVisible,
+          duration: 1250,
+        })
+      }
+
+      initHash.current = null
+    }
+  }, [isMapReady, hash])
 
   return (
     <MapWrapper className={`${isMapReady ? '' : 'loading'}`}>
@@ -281,6 +378,7 @@ function CartoView() {
           }}
           mapStyle={mapStyle ? `/map-styles/${mapStyle}.json` : undefined}
           onLoad={() => setIsMapReady(true)}
+          onMoveEnd={onMoveHandle}
           attributionControl={false}
         >
           <ScaleControl position="bottom-right" maxWidth={150} unit="metric" />
@@ -305,9 +403,9 @@ function CartoView() {
               || ((typeView === 'address') && (<PanelAddressHeader address={mapSearchResults as TypeAddressExtended} />))
             }
             footer={
-              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} onClickAction={onTargetClick} isMenuVisible />))
-              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} onClickAction={onTargetClick} isMenuVisible />))
-              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} onClickAction={onTargetClick} isMenuVisible />))
+              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
+              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
+              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
             }
           >
             {mapSearchResults
@@ -318,42 +416,6 @@ function CartoView() {
                       {(typeView === 'district') && (<PanelDistrict district={mapSearchResults as TypeDistrictExtended} />)}
                       {(typeView === 'micro-toponym') && (<PanelMicroToponym microToponym={mapSearchResults as TypeMicroToponymExtended} onFlyToPosition={onTargetClick} />)}
                       {(typeView === 'address') && (<PanelAddress address={mapSearchResults as TypeAddressExtended} onFlyToPosition={onTargetClick} />)}
-                    </MapSearchResultsWrapper>
-                  </>
-                )
-              : null}
-          </Aside>
-
-          <BanMap
-            address={mapSearchResults as unknown as Address}
-            onSelect={selectBanItem}
-            isCadastreLayersShown={displayLandRegister}
-          />
-
-          <Aside
-            onClose={unselectBanItem}
-            onClickToggler={mapSearchResults && (() => setIsMenuVisible(!isMenuVisible))}
-            isOpen={isMenuVisible}
-            path={mapBreadcrumbPath}
-            header={
-              ((typeView === 'district') && (<PanelDistrictHeader district={mapSearchResults as TypeDistrictExtended} logo={districtLogo} />))
-              || ((typeView === 'micro-toponym') && (<PanelMicroToponymHeader microToponym={mapSearchResults as TypeMicroToponymExtended} />))
-              || ((typeView === 'address') && (<PanelAddressHeader address={mapSearchResults as TypeAddressExtended} />))
-            }
-            footer={
-              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} isMenuVisible />))
-              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} isMenuVisible />))
-              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} isMenuVisible />))
-            }
-          >
-            {mapSearchResults
-              ? (
-                  <>
-                    {mapBreadcrumbPath?.length > 0 && <MapBreadcrumb path={mapBreadcrumbPath} />}
-                    <MapSearchResultsWrapper>
-                      {(typeView === 'district') && (<PanelDistrict district={mapSearchResults as TypeDistrictExtended} />)}
-                      {(typeView === 'micro-toponym') && (<PanelMicroToponym microToponym={mapSearchResults as TypeMicroToponymExtended} />)}
-                      {(typeView === 'address') && (<PanelAddress address={mapSearchResults as TypeAddressExtended} />)}
                     </MapSearchResultsWrapper>
                   </>
                 )

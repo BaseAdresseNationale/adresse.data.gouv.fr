@@ -39,28 +39,28 @@ function sortPositions(positions: GeoJSON.Feature[]) {
 
 const getPositionsFeatures = (address: Address): GeoJSON.Feature[] => {
   return address
-  ?.positions
-  ?.sort((a, b) => {
-    if (a.position.coordinates.join() === address.position?.coordinates.join()) return -1
-    if (b.position.coordinates.join() === address.position?.coordinates.join()) return 1
-    return 0
-  })
-  ?.map((entry, index) => ({
-    type: 'Feature' as const,
-    geometry: {
-      type: 'Point' as const,
-      coordinates: entry.position.coordinates,
-    },
-    properties: {
-      ...address,
-      type: entry?.positionType || 'inconnu',
-      label: positionsConfigs?.[entry?.positionType as string]?.name || 'Inconnu',
-      nomVoie: address.voie.nomVoie,
-      isMain: entry.position.coordinates.join() === address.position?.coordinates.join(),
-      positionIndex: `${index}`,
-      positionSize: address?.positions?.length || 0,
-    },
-  })) || []
+    ?.positions
+    ?.sort((a, b) => {
+      if (a.position.coordinates.join() === address.position?.coordinates.join()) return -1
+      if (b.position.coordinates.join() === address.position?.coordinates.join()) return 1
+      return 0
+    })
+    ?.map((entry, index) => ({
+      type: 'Feature' as const,
+      geometry: {
+        type: 'Point' as const,
+        coordinates: entry.position.coordinates,
+      },
+      properties: {
+        ...address,
+        type: entry?.positionType || 'inconnu',
+        label: positionsConfigs?.[entry?.positionType as string]?.name || 'Inconnu',
+        nomVoie: address.voie.nomVoie,
+        isMain: entry.position.coordinates.join() === address.position?.coordinates.join(),
+        positionIndex: `${index}`,
+        positionSize: address?.positions?.length || 0,
+      },
+    })) || []
 }
 
 function LayerAddressPositions({ address }: { address: Address }) {

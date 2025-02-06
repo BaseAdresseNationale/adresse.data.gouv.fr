@@ -16,17 +16,24 @@ interface MapAnimationOptions {
   }
 }
 
-const defaultPadding = {
+const defaultPaddingParams = {
   padding: 30,
   mobileHeader: 100,
   mobileFooter: 250,
   panelWidth: 400,
 }
 
-export const getMapAnimationOption = ({ isMobileView, isMenuVisible, paddingParams: paddingParamsProps }: MapAnimationOptions) => {
+export const getMapPadding = ({ isMobileView, isMenuVisible, paddingParams: paddingParamsProps }: MapAnimationOptions) => {
   const paddingParams = {
-    ...defaultPadding,
+    ...defaultPaddingParams,
     ...(paddingParamsProps || {}),
+  }
+
+  const defaultPadding = {
+    top: defaultPaddingParams.padding || 0,
+    bottom: defaultPaddingParams.padding || 0,
+    left: defaultPaddingParams.padding || 0,
+    right: defaultPaddingParams.padding || 0,
   }
 
   const padding = (isMobileView && (
@@ -40,10 +47,10 @@ export const getMapAnimationOption = ({ isMobileView, isMenuVisible, paddingPara
     {
       top: paddingParams.padding,
       bottom: paddingParams.padding,
-      left: paddingParams.panelWidth * 1.5,
-      right: paddingParams.panelWidth / 2,
+      left: paddingParams.panelWidth + (paddingParams.padding * 2),
+      right: paddingParams.padding * 2,
     }
-  )) || paddingParams.padding || 0
+  )) || defaultPadding
 
-  return { padding }
+  return padding
 }

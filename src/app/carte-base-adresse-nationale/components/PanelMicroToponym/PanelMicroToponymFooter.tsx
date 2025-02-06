@@ -2,7 +2,6 @@ import { useCallback } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import { useFocusOnMap } from '../ban-map/BanMap.context'
-import { isMobileView, getMapAnimationOption } from '../Panel'
 import {
   AsideFooterWrapper,
   ActionWrapper,
@@ -16,18 +15,16 @@ interface PanelMicroToponymFooterProps {
   withCertificate: boolean
   children?: React.ReactNode
   onClickAction?: () => void
-  isMenuVisible?: boolean
 }
 
-function PanelMicroToponymFooter({ banItem: microToponym, children, onClickAction, isMenuVisible = false }: PanelMicroToponymFooterProps) {
+function PanelMicroToponymFooter({ banItem: microToponym, children, onClickAction }: PanelMicroToponymFooterProps) {
   const focusOnMap = useFocusOnMap(microToponym)
 
   const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
-    const options = getMapAnimationOption({ isMobileView: isMobileView(), isMenuVisible })
-    focusOnMap(options)
+    focusOnMap()
     if (onClickAction) onClickAction()
-  }, [focusOnMap, isMenuVisible, onClickAction])
+  }, [focusOnMap, onClickAction])
 
   return (
     <AsideFooterWrapper>
