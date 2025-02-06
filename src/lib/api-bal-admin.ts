@@ -40,8 +40,11 @@ export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaChart
   return customFetch(url)
 }
 
-export async function getPartenairesDeLaCharteServices(): Promise<string[]> {
-  return customFetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/services`)
+export async function getPartenairesDeLaCharteServices(queryObject: PartenairesDeLaCharteQuery): Promise<Record<string, number>> {
+  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/services`)
+  addSearchParams(url, queryObject)
+
+  return customFetch(url)
 }
 
 export async function getRandomPartenairesDeLaCharte(limit: number) {

@@ -30,12 +30,13 @@ interface CandidacyFormProps {
   onClose: () => void
   services: string[]
   departements: Departement[]
+  defaultType?: PartenaireDeLaCharteTypeEnum
 }
 
-function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) {
+function CandidacyForm({ onClose, services, departements, defaultType = PartenaireDeLaCharteTypeEnum.COMMUNE }: CandidacyFormProps) {
   const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [formData, setFormData] = useState<CandidatePartenaireDeLaCharteType>({
-    type: PartenaireDeLaCharteTypeEnum.COMMUNE,
+    type: defaultType,
     organismeType: PartenaireDeLaCharteOrganismeTypeEnum.EPCI,
     name: '',
     picture: '',
