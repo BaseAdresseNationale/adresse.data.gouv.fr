@@ -41,7 +41,7 @@ export default async function CommunesPartenairesPage() {
         <CandidacyModal services={Object.keys(services)} departements={departements} />
       </div>
       <SearchPartenaire
-        placeholder="Rechercher les communes partenaires"
+        placeholder="Rechercher une commune partenaire"
         searchBy="name"
         initialServices={services}
         initialPartenaires={initialPartenaires}
