@@ -3,7 +3,7 @@
 import { Pagination } from '@codegouvfr/react-dsfr/Pagination'
 import TagSelect from '../../TagSelect'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
@@ -17,6 +17,7 @@ import CardWrapper from '@/components/CardWrapper'
 import { getCommunes } from '@/lib/api-geo'
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
 import Link from 'next/link'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 export interface SearchPartenaireProps {
   initialServices: Record<string, number>
@@ -27,6 +28,7 @@ export interface SearchPartenaireProps {
   shuffle?: boolean
   pageSize?: number
   placeholder: string
+  onReview?: (partenaire: PartenaireDeLaChartType) => void
 }
 
 export default function SearchPartenaire({
@@ -38,6 +40,7 @@ export default function SearchPartenaire({
   shuffle,
   placeholder,
   pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
+  onReview,
 }: SearchPartenaireProps) {
   const { hash, resetHash } = useHash()
   const [search, onSearch] = useState('')
@@ -130,7 +133,12 @@ export default function SearchPartenaire({
             imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
             start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
             detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
-            {...(partenaire.link ? { footer: <a href={partenaire.link} target="_blank" className="fr-btn fr-btn--secondary">Site du partenaire</a> } : {})}
+            footer={(
+              <>
+                {partenaire.link && <Button priority="secondary" linkProps={{ href: partenaire.link, target: '_blank' }} style={{ marginTop: '0.5rem' }}>Site du partenaire</Button>}
+                {onReview && <Button priority="secondary" style={{ marginTop: '0.5rem' }} onClick={() => onReview(partenaire)}>Noter la prestation</Button>}
+              </>
+            )}
           />
         ))}
       </CardWrapper>

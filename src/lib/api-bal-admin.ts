@@ -1,4 +1,4 @@
-import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
+import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType, ReviewType } from '@/types/partenaire.types'
 import { EventType, ParticipantType } from '@/types/events.types'
 import { addSearchParams, customFetch } from './fetch'
 import { env } from 'next-runtime-env'
@@ -77,6 +77,18 @@ export async function registrationToEvent(eventId: string, participant: Particip
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(participant),
+  })
+}
+
+export async function sendReview(partenaireId: string, review: ReviewType) {
+  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${partenaireId}/review`
+
+  return customFetch(request, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(review),
   })
 }
 

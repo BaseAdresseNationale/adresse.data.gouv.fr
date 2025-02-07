@@ -35,7 +35,7 @@ export default async function OrganismesPartenairesPage() {
         <CandidacyModal defaultType={PartenaireDeLaCharteTypeEnum.ORGANISME} services={Object.keys(services)} departements={departements} />
       </div>
       <SearchPartenaire
-        placeholder="Rechercher les organismes partenaires"
+        placeholder="Rechercher un organisme partenaire"
         searchBy="name"
         initialServices={services}
         initialPartenaires={initialPartenaires}

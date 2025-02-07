@@ -50,6 +50,7 @@ export type EventType = {
 
 export type ParticipantType = {
   id?: string
+  isAnonymous?: boolean
   fullname: string
   email: string
   community?: string
