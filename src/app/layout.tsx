@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   // TODO : Connect to Grist API
   const sampleNotice = {
-    text: 'Alerte téléchargements, des lenteurs sont identifiées. Résolution en cours',
+    text: 'Alerte téléchargements : Des lenteurs sont identifiées. Résolution en cours',
   }
 
   const dataNotices = {
