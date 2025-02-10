@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import {
+  MapBreadcrumbWrapper,
   MapBreadcrumbEntry,
 } from './MapBreadcrumb.styles'
 
@@ -21,30 +22,32 @@ function MapBreadcrumb({ path = [] }: MapBreadcrumbProps) {
   return path && path.length
     ? (
         <div>
-          <ol className="fr-breadcrumb__list">
-            {path.map((segment, index) => {
-              if (typeof segment === 'string') {
+          <MapBreadcrumbWrapper>
+            <ol className="fr-breadcrumb__list">
+              {path.map((segment, index) => {
+                if (typeof segment === 'string') {
+                  return (
+                    <li key={index}>
+                      <MapBreadcrumbEntry>{segment}</MapBreadcrumbEntry>
+                    </li>
+                  )
+                }
+
                 return (
                   <li key={index}>
-                    <MapBreadcrumbEntry>{segment}</MapBreadcrumbEntry>
+                    <Link
+                      className="fr-breadcrumb__link"
+                      href={segment.linkProps?.href as unknown as URL}
+                      target={segment.linkProps?.target}
+                    >
+                      {segment.label}
+                    </Link>
                   </li>
                 )
               }
-
-              return (
-                <li key={index}>
-                  <Link
-                    className="fr-breadcrumb__link"
-                    href={segment.linkProps?.href as unknown as URL}
-                    target={segment.linkProps?.target}
-                  >
-                    {segment.label}
-                  </Link>
-                </li>
-              )
-            }
-            )}
-          </ol>
+              )}
+            </ol>
+          </MapBreadcrumbWrapper>
         </div>
       )
     : null

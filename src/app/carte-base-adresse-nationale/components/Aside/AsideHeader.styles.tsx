@@ -2,22 +2,23 @@
 
 import styled from 'styled-components'
 
-export const AsideHeader = styled.div`
+export const AsideHeaderWrapper = styled.div`
   position: absolute;
   flex: 1 0 fit-content;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: hidden;
   width: 100%;
   min-height: fit-content;
   padding: 0 1rem 1rem;
   font-size: 1rem;
-  transform: translateY(-100%);
+  transform: translateY(calc(-100% + 1px));
   scroll-snap-align: start;
   scroll-snap-stop: always;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     position: static;
+    flex: 0 0 auto;
     padding: 8rem 1rem 1rem;
     background: var(--background-default-grey);
     margin: 0;

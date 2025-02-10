@@ -2,12 +2,13 @@ import Link from 'next/link'
 
 import formatNumber from '../../tools/formatNumber'
 import PanelDistrictMicroToponymList from './PanelDistrictMicroToponymList'
-import { DistrictDetailsCertification } from './PanelDistrict.styles'
 import {
-  PanelDetailsWrapper as DistrictDetailsWrapper,
-  PanelDetailsItem as DistrictDetailsItem,
-  PanelDetailsOrigin as DistrictDetailsOrigin,
-} from '../PanelStyles/PanelStyles'
+  PanelDetailsWrapper,
+  PanelDetailsItem,
+  PanelDetailsItemValue,
+  PanelDetailsOrigin,
+  PanelDetailsCertifications,
+} from '../Panel'
 
 import type { TypeDistrictExtended } from '../../types/LegacyBan.types'
 
@@ -17,7 +18,7 @@ interface PanelDistrictProps {
 
 const configOriginDistrict = {
   bal: {
-    className: 'ri-star-fill isFormal',
+    className: 'ri-send-plane-fill isFormal',
     message: <>Les adresses de cette commune sont issues d’une Base Adresse Locale&nbsp;(BAL)</>,
     desc: <>Les Base Adresse Locale&nbsp;(BAL) sont directement produites par les communes.</>,
   },
@@ -59,14 +60,20 @@ function PanelDistrict({ district }: PanelDistrictProps) {
 
   return (
     <>
-      <DistrictDetailsWrapper>
-        <DistrictDetailsOrigin config={configOriginDistrict} origin={district.typeComposition} />
-        <DistrictDetailsCertification certificationConfig={certificationConfig} origin={district.typeComposition} certificatedAddressPercent={certificatedAddressPercent} />
+      <PanelDetailsWrapper>
+        <PanelDetailsOrigin config={configOriginDistrict} origin={district.typeComposition} />
+        <PanelDetailsCertifications certificationConfig={certificationConfig} origin={district.typeComposition} certificatedPercent={certificatedAddressPercent} />
 
-        <DistrictDetailsItem className="ri-group-line">
+        <PanelDetailsItem className="ri-key-line">
+          <span>
+            Identifiant BAN&nbsp;:&nbsp;
+            <PanelDetailsItemValue>{district.banId || 'Non renseigné'}</PanelDetailsItemValue>
+          </span>
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-group-line">
           <b>{formatNumber(district.population)}</b>&nbsp;habitants
-        </DistrictDetailsItem>
-        <DistrictDetailsItem className="ri-map-pin-line">
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-map-pin-line">
           <b>{formatNumber(nbAddress)}</b>&nbsp;adresses répertoriées{' '}
           {
             nbAddressCertified > 0 && (
@@ -87,15 +94,15 @@ function PanelDistrict({ district }: PanelDistrictProps) {
                   )
             )
           }
-        </DistrictDetailsItem>
-        <DistrictDetailsItem className="ri-signpost-line">
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-signpost-line">
           {
             Number(district.codesPostaux.length) > 1
               ? <><b>{formatNumber(district.codesPostaux.length)}</b>&nbsp;codes Postaux</>
               : <>{district.codesPostaux.length || 'Aucune'} code Postal</>
           }{' '}
           ({district.codesPostaux.map(cp => formatNumber(cp).padStart(6, '0')).join(', ')})
-        </DistrictDetailsItem>
+        </PanelDetailsItem>
 
         <div>
           <Link
@@ -105,7 +112,7 @@ function PanelDistrict({ district }: PanelDistrictProps) {
             Voir la page de la commune
           </Link>
         </div>
-      </DistrictDetailsWrapper>
+      </PanelDetailsWrapper>
 
       <PanelDistrictMicroToponymList district={district} />
     </>

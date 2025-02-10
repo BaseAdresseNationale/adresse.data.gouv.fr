@@ -26,9 +26,27 @@ export const PositionType = styled.span`
   font-weight: bold;
 `
 
+export const PositionCoords = styled.strong`
+  font-size: 0.85em;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+`
+
 export const PositionActions = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   margin-bottom: -0.2rem;
+`
+
+export const PositionCoordValue = styled.span`
+  white-space: nowrap;
+`
+
+export const PositionMarker = styled.i`
+  display: inline-block;
+  font-style: normal;
+  font-size: var(--xl-size);
+  width: var(--xl-size);
+  text-align: right;
 `

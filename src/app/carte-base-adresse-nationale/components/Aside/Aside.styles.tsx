@@ -24,20 +24,18 @@ export const AsideWrapper = styled.div<{
   font-size: 1rem;
   pointer-events: none;
 
-  @media (hover: hover) {
-    &:hover,
-    &:focus-within,
-    &:active {
-      pointer-events: auto;
-    }
-  }
-
   &::before {
     ${({ $isTypeInfo }) => !$isTypeInfo && css`content: ''`};
     display: block;
     height: 100%;
     scroll-snap-align: start;
     transition: height 0.5s ease;
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+
+    ${({ $withConfigMenuVisible }) => !$withConfigMenuVisible && css`
+      background-color: var(--background-default-grey);
+    `}
   }
 
   .body {
@@ -238,7 +236,6 @@ export const AsideBody = styled.div`
 `
 
 export const AsideFooter = styled.footer<{
-  $onTargetClick?: () => void
   $isForLargeScreen?: boolean
   $isForSmallScreen?: boolean
 }>`
@@ -250,7 +247,7 @@ export const AsideFooter = styled.footer<{
     padding: 1rem;
     border-radius: 0.5rem 0.5rem 0 0;
     box-shadow: 0 0 .5rem -0.125rem rgba(0, 0, 0, 0.7);
-    background: var(--background-default-grey);
+    background: var(--background-raised-grey);
     pointer-events: auto;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.md}) {

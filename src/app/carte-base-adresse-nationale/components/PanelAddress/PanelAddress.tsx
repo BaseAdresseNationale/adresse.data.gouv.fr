@@ -1,17 +1,18 @@
-import { AddressDetailsCertification } from './PanelAddress.styles'
 import AddressDetailPosition from '../AddressDetailPosition'
 
 import {
-  PanelDetailsWrapper as AddressDetailsWrapper,
-  PanelDetailsItem as AddressDetailsItem,
-  PanelDetailsItemValue as AddressDetailsItemValue,
-  PanelDetailsOrigin as AddressDetailsOrigin,
-} from '../PanelStyles/PanelStyles'
+  PanelDetailsWrapper,
+  PanelDetailsItem,
+  PanelDetailsItemValue,
+  PanelDetailsOrigin,
+  PanelDetailsCertification,
+} from '../Panel'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
 interface PanelAddressProps {
   address: TypeAddressExtended
+  onFlyToPosition?: () => void
 }
 
 interface Position {
@@ -23,9 +24,25 @@ const isSmartDevice = () => /Mobi|Android/i.test(navigator.userAgent)
 
 const isValidDate: { (dateStr: string): boolean } = dateStr => !isNaN(Number(new Date(dateStr)))
 
+const rankPosition = (mainPosition: Position, positions: Position[]) => {
+  const isMultiPosition = Number(positions.length) > 1
+  const defaultRankedPositions = { mainPosition, secondariesPositions: [] as Position[] }
+  return isMultiPosition
+    ? positions.reduce<{ mainPosition: Position, secondariesPositions: Position[] }>((acc, entry, index) => {
+      if (entry.position.coordinates.join('--') === mainPosition.position.coordinates.join('--')) {
+        acc.mainPosition = entry
+      }
+      else {
+        acc.secondariesPositions.push(entry)
+      }
+      return acc
+    }, defaultRankedPositions)
+    : defaultRankedPositions
+}
+
 const configOriginAddress = {
   bal: {
-    className: 'ri-star-fill isFormal',
+    className: 'ri-send-plane-fill isFormal',
     message: <>Cette adresse est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
     desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
   },
@@ -54,7 +71,7 @@ const certificationLevelConfig = {
   },
 }
 
-function PanelAddress({ address }: PanelAddressProps) {
+function PanelAddress({ address, onFlyToPosition }: PanelAddressProps) {
   const dateMaj = isValidDate(address.dateMAJ)
     ? new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
       year: 'numeric',
@@ -63,88 +80,74 @@ function PanelAddress({ address }: PanelAddressProps) {
     })
     : 'Non renseignée'
 
-  const isMultiPosition = Number(address.positions?.length) > 1
-  const {
-    mainPosition,
-    secondariesPositions,
-  }: {
-    mainPosition: Position
-    secondariesPositions: Position[]
-  } = isMultiPosition
-    ? address.positions.reduce((acc, entry) => {
-      if (entry.position.coordinates.join('--') === address.position.coordinates.join('--')) {
-        acc.mainPosition = entry
-      }
-      else {
-        acc.secondariesPositions.push(entry)
-      }
-      return acc
-    }, { mainPosition: (null as unknown as Position), secondariesPositions: ([] as Position[]) })
-    : { mainPosition: {
-        position: address.position,
-        positionType: address.positionType,
-      }, secondariesPositions: [] }
+  const { mainPosition, secondariesPositions } = rankPosition(
+    {
+      position: address.position,
+      positionType: address.positionType,
+    },
+    address.positions
+  )
+  const isMultiPosition = secondariesPositions.length > 0
 
   return (
-    <AddressDetailsWrapper>
-      <AddressDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
-      <AddressDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
+    <PanelDetailsWrapper>
+      <PanelDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
+      <PanelDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
 
-      <AddressDetailsItem className="ri-key-line">
+      <PanelDetailsItem className="ri-key-line">
         <span>
           Identifiant BAN : <br />
-          <AddressDetailsItemValue>{address.banId}</AddressDetailsItemValue>
+          <PanelDetailsItemValue>{address.banId || 'Non renseigné'}</PanelDetailsItemValue>
         </span>
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-links-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-links-line">
         <span>
           Clé d’interopérabilité : <br />
-          <AddressDetailsItemValue>{address.cleInterop}</AddressDetailsItemValue>
+          <PanelDetailsItemValue>{address.cleInterop}</PanelDetailsItemValue>
         </span>
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-collage-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-collage-line">
         <span>
           Parcelles cadastrales : <br />
-          <AddressDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</AddressDetailsItemValue>
+          <PanelDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</PanelDetailsItemValue>
         </span>
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-calendar-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-calendar-line">
         Date de mise à jour : <br />
         {dateMaj}
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-edit-box-line">
-        Producteur : <br />
-        {address.sourcePosition === 'bal' ? 'BAL' : 'IGN'}
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-signpost-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-signpost-line">
         Libellé d’acheminement : <br />
         {address.libelleAcheminement}
-      </AddressDetailsItem>
-      <AddressDetailsItem className="ri-map-pin-line">
+      </PanelDetailsItem>
+      <PanelDetailsItem className="ri-map-pin-line">
         {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
         <AddressDetailPosition
           type={mainPosition.positionType}
           coords={mainPosition.position.coordinates as [number, number]}
+          marker={isMultiPosition ? '⦿' : undefined}
+          onFlyToPosition={onFlyToPosition}
           isSmartDevice={isSmartDevice()}
         />
-      </AddressDetailsItem>
+      </PanelDetailsItem>
       {isMultiPosition && (
-        <AddressDetailsItem className="ri-map-pin-2-line">
+        <PanelDetailsItem className="ri-map-pin-2-line">
           Position Secondaire : <br />
           <ol>
             {secondariesPositions.map((entry, index) => (
               <li key={index}>
                 <AddressDetailPosition
-                  type={entry.positionType}
+                  type={`${entry.positionType}`}
                   coords={entry.position.coordinates as [number, number]}
+                  onFlyToPosition={onFlyToPosition}
                   isSmartDevice={isSmartDevice()}
                 />
               </li>
             ))}
           </ol>
-        </AddressDetailsItem>
+        </PanelDetailsItem>
       )}
-    </AddressDetailsWrapper>
+    </PanelDetailsWrapper>
   )
 }
 

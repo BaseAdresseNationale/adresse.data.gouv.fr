@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useMap, Popup } from 'react-map-gl/maplibre'
 
-import LayerBan from './LayerBan'
+import LayerBan, { LayerAddressPositions } from './LayerBan'
 import LayerCadastre from './LayerCadastre'
 import Popups from './Popups'
 
@@ -141,6 +141,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
         </Popup>
       )}
       <LayerBan address={address} />
+      <LayerAddressPositions address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />
     </>
   )

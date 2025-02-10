@@ -1,3 +1,4 @@
+import { Fragment, useCallback } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import { useMapFlyTo } from '../ban-map/BanMap.context'
@@ -8,6 +9,9 @@ import {
   PositionActions,
   PositionDetailEntryType,
   PositionType,
+  PositionCoords,
+  PositionCoordValue,
+  PositionMarker,
 } from './AddressDetailPosition.styles'
 
 import {
@@ -19,22 +23,46 @@ import {
 interface AddressDetailPositionProps {
   type: string
   coords: [number, number]
+  marker?: string
+  onFlyToPosition?: () => void
   isSmartDevice: boolean
 }
 
-export const AddressDetailPosition = ({ type, coords, isSmartDevice }: AddressDetailPositionProps) => {
+export const AddressDetailPosition = ({ type, coords, marker, onFlyToPosition, isSmartDevice }: AddressDetailPositionProps) => {
   const { mapFlyTo } = useMapFlyTo()
+
+  interface FlyToOptions {
+    zoom: number
+  }
+
+  const flyToPosition = useCallback((coords: [number, number], options: FlyToOptions) => {
+    mapFlyTo?.(coords, options)
+    onFlyToPosition?.()
+  }, [mapFlyTo, onFlyToPosition])
 
   return (
     <PositionWrapper>
+      {marker && <PositionMarker>{marker}</PositionMarker>}
       <PositionDetails>
         <PositionType>Type : <PositionDetailEntryType>{type}</PositionDetailEntryType></PositionType>
-        <strong>{formatCoords(coords)}</strong>
+        <PositionCoords>{
+          formatCoords(coords)?.split(',').map(
+            (coord, i, arr) => (
+              <Fragment key={coord}>
+                <PositionCoordValue>
+                  {coord.trim()}
+                </PositionCoordValue>
+                {(i < (arr.length - 1)) ? ', ' : ''}
+              </Fragment>
+            )
+          )
+        }
+        </PositionCoords>
       </PositionDetails>
       <PositionActions>
         <Button
           iconId="ri-focus-3-line"
-          onClick={() => mapFlyTo?.(coords)}
+          onClick={() => flyToPosition?.(coords, { zoom: 19 })}
           priority="tertiary no outline"
           size="small"
           title="Centrer sur la position"

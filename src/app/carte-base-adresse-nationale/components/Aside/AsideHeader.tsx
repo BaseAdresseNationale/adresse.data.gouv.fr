@@ -1,24 +1,19 @@
 import Button from '@codegouvfr/react-dsfr/Button'
 
-import MapBreadcrumb from '../MapBreadcrumb'
-import type { MapBreadcrumbPath } from '../MapBreadcrumb'
-
 import {
-  AsideHeader as AsideHeaderStyle,
+  AsideHeaderWrapper,
   AsideHeaderContent,
   AsideHeaderCloseButtonWrapper,
 } from './AsideHeader.styles'
 
 interface AsideHeaderProps {
-  path?: MapBreadcrumbPath
   children?: React.ReactNode
   onClose?: () => void
 }
 
-function AsideHeader({ path, children, onClose }: AsideHeaderProps) {
+function AsideHeader({ children, onClose }: AsideHeaderProps) {
   return (
-    <AsideHeaderStyle>
-      {path && <MapBreadcrumb path={path} />}
+    <AsideHeaderWrapper>
       <AsideHeaderContent>
         {onClose && (
           <AsideHeaderCloseButtonWrapper>
@@ -33,7 +28,7 @@ function AsideHeader({ path, children, onClose }: AsideHeaderProps) {
         )}
         {children}
       </AsideHeaderContent>
-    </AsideHeaderStyle>
+    </AsideHeaderWrapper>
   )
 }
 
