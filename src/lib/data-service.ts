@@ -48,7 +48,7 @@ export async function handleS3Data(context: Context) {
   const { params, res, req } = context
   const { path: paramPathRaw = [] } = params
   const config = dataConfig?.directory.find(({ path }) => path === paramPathRaw.join('/')) || {}
-  const alias = await getAlias(clientS3, bucketName)(rootDir, dataConfig?.alias, paramPathRaw.join('/') || '')
+  const alias = await getAlias(clientS3, bucketName || '')(rootDir, dataConfig?.alias, paramPathRaw.join('/') || '')
 
   const paramPath = alias && (new RegExp(`^${alias.parent}/${alias.name}`)).test(paramPathRaw.join('/'))
     ? paramPathRaw.join('/').replace(new RegExp(`^${alias.parent}/${alias.name}`), `${alias.parent}/${alias.target}`).split('/')
@@ -59,7 +59,7 @@ export async function handleS3Data(context: Context) {
 
   try {
     const s3Head = await clientS3.headObject({
-      Bucket: bucketName,
+      Bucket: bucketName || '',
       Key: s3ObjectPath,
     })
 
@@ -72,7 +72,7 @@ export async function handleS3Data(context: Context) {
       await asyncSendS3(clientS3)((req as unknown as Request), res, {
         params: {
           ...(req?.headers?.range ? { Range: req.headers.range } : {}),
-          Bucket: bucketName,
+          Bucket: bucketName || '',
           Key: s3ObjectPath,
         },
         fileName: paramPath[paramPath.length - 1],
@@ -91,7 +91,7 @@ export async function handleS3Data(context: Context) {
   }
   catch {
     const s3DirPath = `${s3ObjectPath}/`
-    const s3Objects = await listObjectsRecursively(clientS3, bucketName)(s3DirPath)
+    const s3Objects = await listObjectsRecursively(clientS3, bucketName || '')(s3DirPath)
     if (s3Objects) {
       const s3data = [
         ...(s3Objects || [])
