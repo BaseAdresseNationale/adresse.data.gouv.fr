@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   // TODO : Connect to Grist API
   const sampleNotice = {
-    text: <Link href="/blog/nouveau_site">Une nouvelle version du site pour optimiser votre accès à nos données et services. L’équipe Adresse vous souhaite une très belle année 2025</Link>,
+    text: 'Alerte téléchargements, des lenteurs sont identifiées. Résolution en cours',
   }
 
   const dataNotices = {
