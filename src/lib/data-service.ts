@@ -18,7 +18,7 @@ const S3_CONFIG_SECRET_ACCESS_KEY = env('S3_CONFIG_SECRET_ACCESS_KEY')
 const S3_CONFIG_REGION = env('S3_CONFIG_REGION')
 const S3_CONFIG_ENDPOINT = env('S3_CONFIG_ENDPOINT')
 
-export const bucketName = 'prd-ign-mut-ban'
+export const bucketName = env('S3_CONFIG_BUCKETNAME')
 export const rootDir = ['adresse-data']
 
 const agent = new https.Agent({
