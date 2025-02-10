@@ -22,7 +22,7 @@ import Link from 'next/link'
 
 const getStepIndex = (revision?: Revision, habilitation?: Habilitation) => {
   if (revision && habilitation) {
-    if (revision.status === 'published' && revision.current) {
+    if (revision.status === 'published' && revision.isCurrent) {
       // La révision est publiée, fin du formulaire
       return 4
     }
@@ -32,7 +32,7 @@ const getStepIndex = (revision?: Revision, habilitation?: Habilitation) => {
       return 3
     }
 
-    if (revision.ready && habilitation.status === HabilitationStatus.PENDING) {
+    if (revision.isReady && habilitation.status === HabilitationStatus.PENDING) {
       // Code envoyé par email, on affiche le champ de saisi
       if (habilitation?.strategy?.type === 'email') {
         return 2
@@ -124,8 +124,8 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         throw new Error('Une erreur est survenue')
       }
       setIsLoading(true)
-      await sendHabilitationPinCode(habilitation._id)
-      const updatedHabilitation = await getHabilitation(habilitation._id)
+      await sendHabilitationPinCode(habilitation.id)
+      const updatedHabilitation = await getHabilitation(habilitation.id)
       setHabilitation(updatedHabilitation)
     }
     catch (error) {
@@ -142,8 +142,8 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         throw new Error('Une erreur est survenue')
       }
       setIsLoading(true)
-      await validateHabilitationPinCode(habilitation._id, pinCode)
-      const updatedHabilitation = await getHabilitation(habilitation._id)
+      await validateHabilitationPinCode(habilitation.id, pinCode)
+      const updatedHabilitation = await getHabilitation(habilitation.id)
       setHabilitation(updatedHabilitation)
     }
     catch (error) {
@@ -160,8 +160,8 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         throw new Error('Une erreur est survenue')
       }
       setIsLoading(true)
-      const publishedRevision = await publishRevision(revision._id, JSON.stringify({
-        habilitationId: habilitation._id,
+      const publishedRevision = await publishRevision(revision.id, JSON.stringify({
+        habilitationId: habilitation.id,
       }))
       setRevision(publishedRevision)
     }
