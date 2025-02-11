@@ -70,13 +70,13 @@ export async function createRevision(codeCommune: string, file: File): Promise<R
     type: 'text/csv',
   })
 
-  await customFetch(`/api/proxy-api-depot/revisions/${revision._id}/files/bal`, {
+  await customFetch(`/api/proxy-api-depot/revisions/${revision.id}/files/bal`, {
     method: 'PUT',
     headers: { 'Content-Type': 'text/csv' },
     body: _file,
   })
 
-  const computedRevision = await customFetch(`/api/proxy-api-depot/revisions/${revision._id}/compute`, {
+  const computedRevision = await customFetch(`/api/proxy-api-depot/revisions/${revision.id}/compute`, {
     method: 'POST',
   })
 
@@ -131,6 +131,6 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     `le ${frDateFormatter.format(new Date(revision.createdAt))} à ${new Date(revision.createdAt).toLocaleTimeString().split(':').slice(0, 2).join(':')}`,
     modeDePublication,
     source,
-    <a key={revision._id} href={getRevisionDownloadUrl(revision._id)} download>Fichier CSV</a>,
+    <a key={revision.id} href={getRevisionDownloadUrl(revision.id)} download>Fichier CSV</a>,
   ]
 }
