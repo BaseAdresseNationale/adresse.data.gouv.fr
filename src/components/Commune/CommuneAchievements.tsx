@@ -93,12 +93,14 @@ export function CommuneAchievements({ isMini, achievements: { hasProcessedSignal
       icone: '/commune/achievements/50-certified.svg',
       achieved: hasAbove50PercentCertifiedNumbers,
       required: true,
+      hidden: has100PercentCertifiedNumbers,
     },
     {
       title: 'La Base Adresse Locale contient 100% d\'adresses certifiées',
       icone: '/commune/achievements/100-certified.svg',
       achieved: has100PercentCertifiedNumbers,
       required: true,
+      hidden: !hasAbove50PercentCertifiedNumbers,
     },
     {
       title: 'La Base Adresse Locale contient des identifiants stables',
@@ -124,7 +126,7 @@ export function CommuneAchievements({ isMini, achievements: { hasProcessedSignal
   ]
   return (
     <StyledWrapper $isMini={isMini}>
-      {achievements.map(({ title, icone, achieved, required }) => (!achieved && !required)
+      {achievements.map(({ title, icone, achieved, required, hidden }) => ((!achieved && !required) || hidden)
         ? null
         : (
             <Tooltip key={title} message={<b>{title}</b>} placement="bottom">
