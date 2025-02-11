@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
+import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react'
 import { env } from 'next-runtime-env'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
@@ -30,9 +30,6 @@ import type {
   TypeDistrictExtended,
   TypeDistrict,
 } from './types/LegacyBan.types'
-
-import { CommuneAchievements, getCommuneAchievements } from '@/lib/commune'
-import { BANCommune } from '@/types/api-ban.types'
 
 interface LinkProps {
   href: string
@@ -152,7 +149,6 @@ function CartoView() {
   const [isMenuVisible, setIsMenuVisible] = useState(false)
   const [mapSearchResults, setMapSearchResults] = useState<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | undefined>()
   const [districtLogo, setDistrictLogo] = useState<string | undefined>()
-  const [districtAchievements, setDistrictAchievements] = useState<CommuneAchievements>()
   const [mapBreadcrumbPath, setMapBreadcrumbPath] = useState<MapBreadcrumbPath>([])
   const [withCertificate, setWithCertificate] = useState<boolean>(false)
   const [isLoadMapSearchResults, setIsLoadMapSearchResults] = useState(false)
@@ -272,8 +268,6 @@ function CartoView() {
         switch (getBanItemTypes(banItem)) {
           case 'district':
             setMapBreadcrumbPath(getDistrictBreadcrumbPath(banItem as TypeDistrictExtended))
-            const _districtAchievements = await getCommuneAchievements(banItem as unknown as BANCommune)
-            setDistrictAchievements(_districtAchievements)
             break
           case 'micro-toponym':
             setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
@@ -404,7 +398,7 @@ function CartoView() {
             isOpen={isMenuVisible}
             path={mapBreadcrumbPath}
             header={
-              ((typeView === 'district') && (<PanelDistrictHeader district={mapSearchResults as TypeDistrictExtended} logo={districtLogo} achievements={districtAchievements} />))
+              ((typeView === 'district') && (<PanelDistrictHeader district={mapSearchResults as TypeDistrictExtended} logo={districtLogo} />))
               || ((typeView === 'micro-toponym') && (<PanelMicroToponymHeader microToponym={mapSearchResults as TypeMicroToponymExtended} />))
               || ((typeView === 'address') && (<PanelAddressHeader address={mapSearchResults as TypeAddressExtended} />))
             }
