@@ -3,13 +3,14 @@ title: Découvrir la Base Adresse Nationale
 aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--la-base-adresse-nationale"}]
 ---
 
-## Pilotage et diffusion
+## Gouvernance
 
-Le pilotage de la **BAN** est assuré par la Direction Interministérielle du Numérique (**DINUM**).
-Sa construction est assurée en premier lieu par les communes, seules autorités compétentes en terme d’adressage, qui sont accompagnées dans le cadre du *Programme BAL* par l'Agence Nationale de la Cohésion des Territoires (**ANCT**).
+L'exploitation et la diffusion de la BAN sont pilotées par l'Institut National de l'Information Géographique et forestière (**IGN**).
+La Base Adresse Nationale est accessible en opendata dans le cadre de la [licence ouverte Etalab](https://www.etalab.gouv.fr/licence-ouverte-open-licence/). Les données sont mises à disposition [sous forme de fichiers, de flux, et d’API](/outils).
 
-L'opération et la diffusion de la BAN sont assurées par l'Institut National de l'Information Géographique et forestière (**IGN**).
-La Base Adresse Nationale est accessible en opendata [sous forme de fichiers et d’API](/outils).
+La construction de la BAN est assurée en premier lieu par les communes, seules autorités compétentes en terme d’adressage. Elles sont accompagnées dans le cadre de cette mission par le _[Programme BAL](/programme-bal)_ de l'Agence Nationale de la Cohésion des Territoires (**ANCT**).
+
+La Direction Interministérielle du Numérique (**DINUM**) supervise le dispositif au titre de responsable du [Service Public de la Donnée](https://www.data.gouv.fr/fr/pages/spd/reference/) dont la BAN est un des référentiels.
 
 ## L'adresse, compétence communale
 
@@ -44,7 +45,7 @@ La Base Adresse Nationale et les Bases Adresses Locales constituent l'écosystè
 
 ### Notes
 
-__(1)__  La liste d'adresses fournie par l'IGN est une disposition palliative. Elle ne soustrait pas la commune à sa responsabilité d'adressage
+**(1)**  La liste d'adresses fournie par l'IGN est une disposition palliative. Elle ne soustrait pas la commune à sa responsabilité d'adressage
 
 ------------------------------------
 

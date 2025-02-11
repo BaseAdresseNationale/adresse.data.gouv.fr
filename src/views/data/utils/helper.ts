@@ -1,5 +1,5 @@
 import type AWS from '@aws-sdk/client-s3'
-
+import type { Readable } from 'stream'
 interface S3ObjectItem {
   Key: string
   LastModified: Date
@@ -77,6 +77,10 @@ export const autorizedPathS3 = (path: string) => {
   }
 }
 
+function destroy(stream: Readable | any) {
+  stream?.destroy?.()
+}
+
 export const asyncSendS3 = (clientS3: AWS.S3) =>
   (req: Request, res: any, options: AsyncSendS3Options) =>
     new Promise<void>(
@@ -97,6 +101,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
 
             if (req.method === 'HEAD') {
               res.end()
+              destroy(Body) // force clean up
               return resolve()
             }
 
@@ -104,6 +109,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               ?.on('error', (err: Error) => {
                 const formattedDate = getFormatedDate()
                 console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
+                destroy(Body) // purge
                 reject(err)
               })
               ?.on('end', () => {
