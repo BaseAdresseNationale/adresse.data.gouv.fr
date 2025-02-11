@@ -25,6 +25,6 @@ export function SeasonSketch() {
   const curSeason = getSeason()
 
   return (
-    <ResponsiveImage src={`/img/frise-des-saisons/${curSeason}.png`} alt={`Illustration ${curSeason}`} />
+    <ResponsiveImage aria-hidden="true" src={`/img/frise-des-saisons/${curSeason}.png`} alt={`Illustration ${curSeason}`} />
   )
 }
