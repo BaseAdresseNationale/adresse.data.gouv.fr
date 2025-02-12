@@ -1,13 +1,13 @@
 export type Revision = {
-  _id: string
+  id: string
   codeCommune: string
   client: {
-    _id: string
+    id: string
     nom: string
     mandataire: string
   }
   status: string
-  ready: any
+  isReady: any
   validation: {
     valid: boolean
     validatorVersion: string
@@ -22,10 +22,9 @@ export type Revision = {
   publishedAt: string
   createdAt: string
   updatedAt: string
-  __v: number
-  current: boolean
+  isCurrent: boolean
   habilitation: {
-    _id: string
+    id: string
     codeCommune: string
     emailCommune: string
     strategy: any
@@ -42,7 +41,7 @@ export enum HabilitationStatus {
 }
 
 export type Habilitation = {
-  _id: string
+  id: string
   codeCommune: string
   emailCommune: string
   franceconnectAuthenticationUrl: string
