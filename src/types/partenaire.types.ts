@@ -59,6 +59,7 @@ export type PartenaireDeLaChartType = {
   dataGouvOrganizationId?: string[]
   apiDepotClientId: string[]
   infos: string
+  reviews?: ReviewType[]
 }
 
 export type PartenaireDeLaCharteCommuneType = PartenaireDeLaChartType & {
@@ -85,10 +86,15 @@ export type PartenaireDeLaCharteEntrepriseType = PartenaireDeLaChartType & {
 }
 
 export type ReviewType = {
+  id: string
   fullname: string
   email: string
   isAnonymous?: boolean
   community?: string
   rating: number
   comment?: string
+  createdAt: string
+  updatedAt: string
 }
+
+export type ReviewFormType = Omit<ReviewType, 'id' | 'createdAt' | 'updatedAt'>

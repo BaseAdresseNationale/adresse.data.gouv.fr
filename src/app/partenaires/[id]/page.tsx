@@ -8,6 +8,7 @@ import { OrganizationMoissoneurType, SourceMoissoneurType } from '@/types/api-mo
 import { PerimeterType } from '@/types/api-depot.types'
 import Perimeters from '@/components/Partenaires/Perimeters'
 import ResponsiveImage from '@/components/ResponsiveImage'
+import PartenaireReviews from '@/components/PartenairesDeLaCharte/PartenaireReviews'
 
 export default async function PartenairePage({ params }: { params: { id: string } }) {
   const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
@@ -41,6 +42,7 @@ export default async function PartenairePage({ params }: { params: { id: string 
         {partenaireDeLaCharte.services?.map(s => (
           <Badge style={{ marginRight: '1rem' }} key={s}>{s}</Badge>
         ))}
+        {partenaireDeLaCharte.reviews && partenaireDeLaCharte.reviews.length > 0 && <PartenaireReviews reviews={partenaireDeLaCharte.reviews} />}
       </Section>
       {partenaireDeLaCharte.dataGouvOrganizationId
       && (

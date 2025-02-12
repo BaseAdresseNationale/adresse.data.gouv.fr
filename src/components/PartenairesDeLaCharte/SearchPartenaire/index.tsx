@@ -5,9 +5,7 @@ import TagSelect from '../../TagSelect'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
-import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
-import ResponsiveImage from '../../ResponsiveImage'
 import { Departement } from '@/types/api-geo.types'
 import { Commune } from '@/types/api-geo.types'
 import { getPageFromHash, useHash } from '@/hooks/useHash'
@@ -16,8 +14,7 @@ import { StyledWrapper } from './SearchPartenaire.styles'
 import CardWrapper from '@/components/CardWrapper'
 import { getCommunes } from '@/lib/api-geo'
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
-import Link from 'next/link'
-import Button from '@codegouvfr/react-dsfr/Button'
+import PartenaireCard from './PartenaireCard'
 
 export interface SearchPartenaireProps {
   initialServices: Record<string, number>
@@ -127,18 +124,11 @@ export default function SearchPartenaire({
 
           return 0
         }).map(partenaire => (
-          <Card
+          <PartenaireCard
             key={partenaire.id}
-            title={<Link href={`/partenaires/${partenaire.id}`}>{partenaire.name}</Link>}
-            imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
-            start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
+            partenaire={partenaire}
             detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
-            footer={(
-              <>
-                {partenaire.link && <Button priority="secondary" linkProps={{ href: partenaire.link, target: '_blank' }} style={{ marginTop: '0.5rem' }}>Site du partenaire</Button>}
-                {onReview && <Button priority="secondary" style={{ marginTop: '0.5rem' }} onClick={() => onReview(partenaire)}>Noter la prestation</Button>}
-              </>
-            )}
+            onReview={onReview}
           />
         ))}
       </CardWrapper>
