@@ -5,7 +5,7 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import { sendReview } from '@/lib/api-bal-admin'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { ReviewType } from '@/types/partenaire.types'
+import { ReviewFormType } from '@/types/partenaire.types'
 import Checkbox from '@codegouvfr/react-dsfr/Checkbox'
 import StarRatingInput from '../StarRatingInput'
 import { PartenaireDeLaChartType } from '@/types/partenaire.types'
@@ -49,7 +49,7 @@ interface ReviewFormProps {
 }
 
 export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
-  const [formData, setFormData] = useState<ReviewType>({
+  const [formData, setFormData] = useState<ReviewFormType>({
     fullname: '',
     isAnonymous: false,
     email: '',
@@ -59,7 +59,7 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
   })
   const [submitStatus, setSubmitStatus] = useState<'loading' | 'success' | 'error' | null>(null)
 
-  const handleEdit = (property: keyof ReviewType) => (event: any) => {
+  const handleEdit = (property: keyof ReviewFormType) => (event: any) => {
     const { value } = event.target
     setFormData(state => ({ ...state, [property]: value }))
   }
@@ -123,6 +123,7 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
           label="Votre note*"
           value={formData.rating}
           onChange={rating => setFormData(prev => ({ ...prev, rating }))}
+          style={{ marginBottom: '1em' }}
         />
         <Input
           label="Commentaire"
