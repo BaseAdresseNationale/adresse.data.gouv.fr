@@ -1,29 +1,16 @@
-import { parse } from 'csv-parse'
+import Papa from 'papaparse'
 
-export const parseCSV = (csv: string) => {
-  return new Promise((resolve, reject) => {
-    const parser = parse({
+export const parseCSV = async (csv: string) => {
+  return new Promise(async (resolve, reject) => {
+    Papa.parse(csv, {
+      skipEmptyLines: true,
       delimiter: ';',
+      complete: (res: Record<string, any>) => {
+        resolve(res)
+      },
+      error: () => {
+        reject(Error('Impossible de parser ce fichier.'))
+      },
     })
-
-    const records: string[] = []
-
-    parser.on('readable', function () {
-      let record
-      while ((record = parser.read()) !== null) {
-        records.push(record)
-      }
-    })
-
-    parser.on('end', function () {
-      resolve(records)
-    })
-
-    parser.on('error', function (err) {
-      reject(err)
-    })
-
-    parser.write(csv)
-    parser.end()
   })
 }
