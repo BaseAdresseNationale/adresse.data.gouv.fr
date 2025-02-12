@@ -1,4 +1,4 @@
-import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType, ReviewType } from '@/types/partenaire.types'
+import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType, ReviewFormType } from '@/types/partenaire.types'
 import { EventType, ParticipantType } from '@/types/events.types'
 import { addSearchParams, customFetch } from './fetch'
 import { env } from 'next-runtime-env'
@@ -47,15 +47,6 @@ export async function getPartenairesDeLaCharteServices(queryObject: PartenairesD
   return customFetch(url)
 }
 
-export async function getRandomPartenairesDeLaCharte(limit: number) {
-  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/random`)
-  if (limit) {
-    url.searchParams.append('limit', limit.toString())
-  }
-
-  return customFetch(url)
-}
-
 export async function candidateToPartenairesDeLaCharte(candidacy: CandidatePartenaireDeLaCharteType) {
   const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/candidate`
 
@@ -80,7 +71,7 @@ export async function registrationToEvent(eventId: string, participant: Particip
   })
 }
 
-export async function sendReview(partenaireId: string, review: ReviewType) {
+export async function sendReview(partenaireId: string, review: ReviewFormType) {
   const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${partenaireId}/review`
 
   return customFetch(request, {
