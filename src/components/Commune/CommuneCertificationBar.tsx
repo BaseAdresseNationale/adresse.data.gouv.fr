@@ -166,7 +166,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
       <CardWrapper>
         <div className="publication-recap">
           <label>
-            <i className="ri-key-line" />
+            <i className="ri-links-line" />
             Code INSEE
           </label>
           <div>
@@ -189,7 +189,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
         <div className="publication-recap">
           <label>
             <i className="ri-key-line" />
-            Code BAN :
+            Identifiant BAN :
           </label>
           <div>
             {commune.banId || '-'}
