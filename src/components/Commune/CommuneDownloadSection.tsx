@@ -5,7 +5,6 @@ import DownloadCard from '@/components/DownloadCard'
 import Section from '@/components/Section'
 import { getAddressCSVLegacy, getAdressesCsvBal } from '@/lib/api-ban'
 import { getCurrentRevisionDownloadUrl } from '@/lib/api-depot'
-import { customFetch } from '@/lib/fetch'
 import { matomoTrackEvent } from '@/lib/matomo'
 import { BANCommune } from '@/types/api-ban.types'
 
@@ -19,14 +18,6 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
     return () => {
       matomoTrackEvent('Download (Front)', eventName, `${commune.codeCommune} - ${commune.nomCommune} - current`, 1)
     }
-  }
-
-  const onDownloadPrintableMap = async () => {
-    matomoTrackDownload('Download printable map')
-
-    const { mapUrl } = await customFetch(`/api/downloads/${commune.codeCommune}/printable-map`)
-
-    window.open(mapUrl, '_blank')
   }
 
   return (
@@ -89,18 +80,6 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
           downloadlink={`/api/downloads/${commune.codeCommune}/street-list?from=${hasRevision ? 'api-depot' : 'ban'}`}
           onDownloadStart={matomoTrackDownload('Download street list')}
         />
-
-        {/*         <DownloadCard
-          title="Carte imprimable de la commune"
-          text={(
-            <div style={{ fontSize: '0.8rem' }}>
-              Cet export est généré grâce à <a href="https://print.get-map.org/" target="_blank">MyOSMatic</a>. Les données utilisées sont celles d&apos;OSM.
-            </div>
-          )}
-          fileDescription="Fichier PDF"
-          onDownloadStart={onDownloadPrintableMap}
-        /> */}
-
       </CardWrapper>
     </Section>
   )
