@@ -16,14 +16,13 @@ export async function GET(request: NextRequest, { params }: { params: { codeComm
     })
     const csvFile = await response.text()
 
-    const parsedCSV = await parseCSV(csvFile) as string[][]
-
+    const { data: parsedCSV } = await parseCSV(csvFile) as { data: string[][] }
     const headers = parsedCSV[0]
     const data = parsedCSV.slice(1)
 
     const numeroIndex = headers.findIndex(header => header === 'numero')
 
-    const voieIndexes = headers
+    const nameIndexes = headers
       .map((cell, index) => {
         if (cell.startsWith('voie_nom')) {
           return index
@@ -31,36 +30,64 @@ export async function GET(request: NextRequest, { params }: { params: { codeComm
       })
       .filter(index => index !== undefined) as number[]
 
-    const result = data
+    const lieutDitComplementIndex = headers.findIndex(header => header === 'lieudit_complement_nom')
+
+    const resultVoies = data
       .reduce((acc: Record<string, any>, row: string[]) => {
-        if (!acc[row[voieIndexes[0]]] && row[numeroIndex] !== '99999') {
-          acc[row[voieIndexes[0]]] = voieIndexes.reduce((voieAcc: Record<string, any>, voieIndex) => {
+        if (!acc[row[nameIndexes[0]]] && row[numeroIndex] !== '99999') {
+          acc[row[nameIndexes[0]]] = nameIndexes.reduce((voieAcc: Record<string, any>, voieIndex) => {
             voieAcc[headers[voieIndex]] = row[voieIndex]
 
             return voieAcc
           }, {
+            type: 'voie',
             number_count: 1,
             numbers: [row[numeroIndex]],
           })
         }
-        else if (row[numeroIndex] !== '99999' && !acc[row[voieIndexes[0]]].numbers.includes(row[numeroIndex])) {
-          acc[row[voieIndexes[0]]].number_count++
-          acc[row[voieIndexes[0]]].numbers.push(row[numeroIndex])
+        else if (row[numeroIndex] !== '99999' && !acc[row[nameIndexes[0]]].numbers.includes(row[numeroIndex])) {
+          acc[row[nameIndexes[0]]].number_count++
+          acc[row[nameIndexes[0]]].numbers.push(row[numeroIndex])
         }
 
         return acc
       }, {})
 
-    const resultHeaders = [...voieIndexes.map(index => headers[index]), 'number_count', 'numbers']
+    const resultLieuxDits = data
+      .reduce((acc: Record<string, any>, row: string[]) => {
+        if (!acc[row[nameIndexes[0]]] && row[numeroIndex] === '99999') {
+          const nomLieuDit = row[nameIndexes[0]]
+          const relatedNumeros = data.filter(row => row[lieutDitComplementIndex] === nomLieuDit)
+          acc[nomLieuDit] = nameIndexes.reduce((ldAcc: Record<string, any>, nameIndex) => {
+            ldAcc[headers[nameIndex]] = row[nameIndex]
 
-    const resultData = Object.values(result)
+            return ldAcc
+          }, {
+            type: 'lieux-dit',
+            number_count: relatedNumeros.length,
+            numbers: relatedNumeros.map(row => row[numeroIndex]),
+          })
+        }
+
+        return acc
+      }, {})
+
+    const resultHeaders = [...nameIndexes.map(index => headers[index]), 'type', 'number_count', 'numbers']
+
+    const resultVoiesData = Object.values(resultVoies)
       .map(voies => resultHeaders.map(header => voies[header]).join(';'))
       .sort((a, b) => a.localeCompare(b))
 
-    return new NextResponse([resultHeaders.join(';'), ...resultData].join('\n'), {
+    const resultLieuxDitsData = Object.values(resultLieuxDits)
+      .map(lieuxDits => resultHeaders.map(header => lieuxDits[header]).join(';'))
+      .sort((a, b) => a.localeCompare(b))
+
+    const fileHeaders = resultHeaders.map(header => header.replace('voie_', '')).join(';')
+
+    return new NextResponse([fileHeaders, ...resultVoiesData, ...resultLieuxDitsData].join('\n'), {
       headers: {
         'Content-Type': 'text/csv',
-        'Content-Disposition': `attachment; filename="liste-numeros-${params.codeCommune}.csv"`,
+        'Content-Disposition': `attachment; filename="liste-voies-et-lieux-dits-${params.codeCommune}.csv"`,
       },
     })
   }

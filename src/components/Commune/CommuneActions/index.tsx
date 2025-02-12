@@ -1,20 +1,29 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-
+import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import {
   CommuneActionsActionsWrapper,
-  CertificatAdressageOptInActionsWrapper,
   StyledIframeWrapper,
   StyledIframe,
 } from './CommuneActions.styles'
 import { BANCommune } from '@/types/api-ban.types'
 import Section from '@/components/Section'
 
+interface CommuneActionProps {
+  iconId: any
+  linkProps: {
+    href: string
+    target?: string
+  }
+  priority: any
+  value: string
+}
+
 interface CommuneActionsProps {
   district: BANCommune
-  actionProps: any[]
+  actionProps: CommuneActionProps[]
 }
 
 function CommuneActions({ district, actionProps }: CommuneActionsProps) {
@@ -39,16 +48,33 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
               {props.value}
             </Button>
           ))}
-          <Button
-            key="set-config"
-            iconId="ri-settings-line"
-            onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-          >
-            Configurer les options de la commune
-          </Button>
+          {district.config?.certificate
+            ? (
+                <Tooltip kind="hover" title={`Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN. Vous pouvez y accéder en cliquant sur le bouton ci-dessous.`}>
+                  <Button
+                    key="set-config"
+                    priority="secondary"
+                    iconId="ri-file-paper-2-line"
+                    linkProps={{
+                      href: `/carte-base-adresse-nationale?id=${district.codeCommune}`,
+                    }}
+                  >
+                    Télécharger des certificats d’adressage
+                  </Button>
+                </Tooltip>
+              )
+            : (
+                <Button
+                  key="set-config"
+                  iconId="ri-file-paper-2-line"
+                  onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+                >
+                  Demander l’activation du certificat d’adressage
+                </Button>
+              )}
         </CommuneActionsActionsWrapper>
       </Section>
-      <Section title={`Configuration des options pour la commune de ${district.nomCommune}`} theme="grey" isVisible={isConfigDistrictVisible}>
+      <Section title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`} theme="grey" isVisible={isConfigDistrictVisible}>
         <p>
           <i>
             Cette fonctionnalité est en développement.

@@ -158,15 +158,17 @@ export default async function CommunePage({ params }: CommunePageProps) {
                     value: 'Proposer une amélioration',
                   }]
                 : [],
-              {
-                iconId: 'fr-icon-discuss-line',
-                linkProps: {
-                  href: mairiePageUrl,
-                  target: '_blank',
-                },
-                priority: 'secondary',
-                value: 'Contacter la mairie',
-              },
+              ...(mairiePageUrl)
+                ? [{
+                    iconId: 'fr-icon-discuss-line',
+                    linkProps: {
+                      href: mairiePageUrl,
+                      target: '_blank',
+                    },
+                    priority: 'secondary',
+                    value: 'Contacter la mairie',
+                  }]
+                : [],
             ]}
           />
 

@@ -70,7 +70,7 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
         />
 
         <DownloadCard
-          title="Liste des voies"
+          title="Liste des voies et des lieux-dits (odonymes)"
           text={(
             <div style={{ fontSize: '0.8rem' }}>
               Utile pour commander des panneaux ou prendre une délibération groupée
