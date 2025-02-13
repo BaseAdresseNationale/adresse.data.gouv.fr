@@ -114,6 +114,12 @@ export const StyledPage = styled.div`
     }
 
     .on-this-page {
+        flex-direction: column;
+        > .illustration-wrapper {
+            display: block;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
         .text-wrapper {
             padding: 0;
 

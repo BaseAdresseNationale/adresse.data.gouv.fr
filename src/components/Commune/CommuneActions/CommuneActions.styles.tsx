@@ -2,25 +2,30 @@
 
 import styled from 'styled-components'
 
-export const ResumeDistrictWrapper = styled.div`
+export const CommuneActionsActionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 2rem;
   line-height: 2.25;
-  margin: 1rem 0;
-  padding: 1rem 0;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
   }
 
-  ul {
-    margin: 0;
-  }
+  .resume-card {
+    padding: 1rem;
+    border: 1px solid ${({ theme }) => theme.colors.grey.border};
+    border-radius: 5px;
 
+    > i {
+      margin-right: 0.5rem;
+    }
+  }
 `
 
-export const ResumeDistrictActionsWrapper = styled.div`
+export const CertificatAdressageOptInActionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -33,7 +38,20 @@ export const ResumeDistrictActionsWrapper = styled.div`
   }
 `
 
-export const DistrictDetailsItem = styled.li`
+export const CommuneInfosActionsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: row;
+  }
+`
+
+export const CommuneConfigItem = styled.div`
   display: block;
   margin-bottom: 0.2em;
 
