@@ -7,6 +7,7 @@ import {
   CommuneActionsActionsWrapper,
   StyledIframeWrapper,
   StyledIframe,
+  CommuneConfigItem,
 } from './CommuneActions.styles'
 import { BANCommune } from '@/types/api-ban.types'
 import Section from '@/components/Section'
@@ -34,6 +35,37 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
     <>
       <link href={iframeSRC} rel="prefetch" />
       <Section>
+        <CommuneActionsActionsWrapper style={{ marginBottom: '3rem' }}>
+          {district.config?.certificate
+            ? (
+                <Tooltip kind="hover" title={`Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`}>
+                  <CommuneConfigItem className="ri-file-paper-2-line">Certificat d’adressage :{' '}
+                    <b>Activé</b>
+                  </CommuneConfigItem>
+                </Tooltip>
+              )
+            : (
+                <Button
+                  key="set-config"
+                  iconId="ri-file-paper-2-line"
+                  onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+                >
+                  Demander l’activation du certificat d’adressage
+                </Button>
+              )}
+        </CommuneActionsActionsWrapper>
+        <Section title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`} theme="grey" isVisible={isConfigDistrictVisible}>
+          <p>
+            <i>
+              Cette fonctionnalité est en développement.
+              Vous pouvez vous inscrire en liste d’attente pour l’activation
+              du certificat d’adressage pour votre commune.
+            </i>
+          </p>
+          <StyledIframeWrapper>
+            <StyledIframe src={iframeSRC} width="100%" height="800" frameBorder="0" />
+          </StyledIframeWrapper>
+        </Section>
         <CommuneActionsActionsWrapper>
           {actionProps && actionProps.length && actionProps.map(props => (
             <Button
@@ -48,43 +80,7 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
               {props.value}
             </Button>
           ))}
-          {district.config?.certificate
-            ? (
-                <Tooltip kind="hover" title={`Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN. Vous pouvez y accéder en cliquant sur le bouton ci-dessous.`}>
-                  <Button
-                    key="set-config"
-                    priority="secondary"
-                    iconId="ri-file-paper-2-line"
-                    linkProps={{
-                      href: `/carte-base-adresse-nationale?id=${district.codeCommune}`,
-                    }}
-                  >
-                    Télécharger des certificats d’adressage
-                  </Button>
-                </Tooltip>
-              )
-            : (
-                <Button
-                  key="set-config"
-                  iconId="ri-file-paper-2-line"
-                  onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-                >
-                  Demander l’activation du certificat d’adressage
-                </Button>
-              )}
         </CommuneActionsActionsWrapper>
-      </Section>
-      <Section title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`} theme="grey" isVisible={isConfigDistrictVisible}>
-        <p>
-          <i>
-            Cette fonctionnalité est en développement.
-            Vous pouvez vous inscrire en liste d’attente pour l’activation
-            du certificat d’adressage pour votre commune.
-          </i>
-        </p>
-        <StyledIframeWrapper>
-          <StyledIframe src={iframeSRC} width="100%" height="800" frameBorder="0" />
-        </StyledIframeWrapper>
       </Section>
     </>
   )
