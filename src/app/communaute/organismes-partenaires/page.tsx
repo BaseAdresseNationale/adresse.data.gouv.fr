@@ -5,6 +5,7 @@ import Section from '@/components/Section'
 import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import DownloadCard from '@/components/DownloadCard'
 
 const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.ORGANISME,
@@ -21,6 +22,14 @@ export default async function OrganismesPartenairesPage() {
       <p>
         La Charte des organismes partenaires s’adresse aux organismes publics (intercommunalités, syndicats mixtes, départements…) qui accompagnent les communes dans la publication de leurs adresses.
       </p>
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '3rem 0' }}>
+        <DownloadCard
+          title="Télécharger la charte des organismes partenaires"
+          fileDescription="PDF - 295 ko"
+          downloadlink="/chartes-partenaires/charte-bal-organismes.pdf"
+          style={{ maxWidth: '400px' }}
+        />
+      </div>
       <p>
         Cet accompagnement peut prendre plusieurs formes : formation, accompagnement technique, mise à disposition d’outils mutualisés, réalisation de bases adresses locales par délégation pour les communes, sensibilisation, partage d’expérience.
       </p>
