@@ -51,6 +51,23 @@ export const CommuneInfosActionsWrapper = styled.div`
   }
 `
 
+export const CommuneConfigItem = styled.div`
+  display: block;
+  margin-bottom: 0.2em;
+
+  b {
+    font-weight: 500;
+    font-size: 1.1em;
+  }
+
+  &::before {
+    width: 1.25em;
+    height: 1.25em;
+    margin-right: 0.5em;
+    vertical-align: -0.25rem;
+  }
+`
+
 export const StyledIframeWrapper = styled.div`
   display: flex;
   flex-direction: column;
