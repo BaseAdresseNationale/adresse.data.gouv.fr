@@ -52,12 +52,14 @@ export type PartenaireDeLaChartType = {
   contactEmail: string
   services: PartenaireDeLaCharteServiceEnum[]
   codeDepartement: string[]
+  codeCommune?: string
   link?: string
   charteURL?: string
   signatureDate?: string
   dataGouvOrganizationId?: string[]
   apiDepotClientId: string[]
   infos: string
+  reviews?: ReviewType[]
 }
 
 export type PartenaireDeLaCharteCommuneType = PartenaireDeLaChartType & {
@@ -82,3 +84,17 @@ export type PartenaireDeLaCharteEntrepriseType = PartenaireDeLaChartType & {
   infos?: string
   perimeter?: string
 }
+
+export type ReviewType = {
+  id: string
+  fullname: string
+  email: string
+  isAnonymous?: boolean
+  community?: string
+  rating: number
+  comment?: string
+  createdAt: string
+  updatedAt: string
+}
+
+export type ReviewFormType = Omit<ReviewType, 'id' | 'createdAt' | 'updatedAt'>
