@@ -5,8 +5,9 @@ import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenair
 import Section from '@/components/Section'
 import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ReviewForm from './ReviewForm'
+import { Departement } from '@/types/api-geo.types'
 
 const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.ENTREPRISE,
@@ -19,16 +20,26 @@ const Modal = createModal({
 
 interface CompanyPageProps {
   services: Record<string, number>
-  initialPartenaires: any
-  departements: any
+  departements: Departement[]
+  page: number
 }
 
 export default function CompanyPage({
-  services,
-  initialPartenaires,
   departements,
+  services,
+  page,
 }: CompanyPageProps) {
   const [reviewedPartenaire, setReviewedPartenaire] = useState<PartenaireDeLaChartType>()
+  const [partenairesLoaded, setPartenairesLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!partenairesLoaded) return
+    const elem = document.querySelector(`a[title="Page ${page}"]`)
+    if (elem) {
+      ;(elem as HTMLElement).click()
+    }
+
+  }, [partenairesLoaded, page])
 
   const handleStartReview = (partenaire: PartenaireDeLaChartType) => {
     setReviewedPartenaire(partenaire)
@@ -60,13 +71,12 @@ export default function CompanyPage({
         </div>
         <SearchPartenaire
           placeholder="Rechercher une société"
-          shuffle
           searchBy="name"
-          initialServices={services}
-          initialPartenaires={initialPartenaires}
           departements={departements}
           filter={PARTENAIRE_SEARCH_FILTER}
           onReview={handleStartReview}
+          shuffle
+          onLoaded={() => setPartenairesLoaded(true)}
         />
       </Section>
       <Modal.Component title={`Notez votre expérience avec ${reviewedPartenaire?.name}`}>
