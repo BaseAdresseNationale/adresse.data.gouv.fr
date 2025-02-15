@@ -31,8 +31,6 @@ export default async function CharteBALPage() {
       <SearchPartenaire
         placeholder="Rechercher un partenaire pour ma commune"
         searchBy="perimeter"
-        initialServices={services}
-        initialPartenaires={initialPartenaires}
         departements={departements}
         filter={PARTENAIRE_SEARCH_FILTER}
       />

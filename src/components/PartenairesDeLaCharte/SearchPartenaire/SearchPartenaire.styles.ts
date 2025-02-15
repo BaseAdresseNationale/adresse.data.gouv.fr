@@ -6,6 +6,13 @@ export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+  .loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+
   .controls {
     .controls-input-wrapper {
       display: flex;
