@@ -15,10 +15,9 @@ import CardWrapper from '@/components/CardWrapper'
 import { getCommunes } from '@/lib/api-geo'
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
 import PartenaireCard from './PartenaireCard'
+import Loader from '@/components/Loader'
 
 export interface SearchPartenaireProps {
-  initialServices: Record<string, number>
-  initialPartenaires: PaginatedPartenairesDeLaCharte
   departements: Departement[]
   filter?: { type: PartenaireDeLaCharteTypeEnum }
   searchBy: 'perimeter' | 'name'
@@ -26,11 +25,10 @@ export interface SearchPartenaireProps {
   pageSize?: number
   placeholder: string
   onReview?: (partenaire: PartenaireDeLaChartType) => void
+  onLoaded?: () => void
 }
 
 export default function SearchPartenaire({
-  initialServices,
-  initialPartenaires,
   departements,
   filter,
   searchBy,
@@ -38,35 +36,54 @@ export default function SearchPartenaire({
   placeholder,
   pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
   onReview,
+  onLoaded
 }: SearchPartenaireProps) {
   const { hash, resetHash } = useHash()
   const [search, onSearch] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
   const debouncedSearch = useDebounce(search, 500)
   const [currentPage, setCurrentPage] = useState(getPageFromHash(hash))
   const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [selectedServices, setSelectedServices] = useState<string[]>([])
-  const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>(initialPartenaires)
-  const [services, setServices] = useState<Record<string, number>>(initialServices)
+  const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>()
+  const [services, setServices] = useState<Record<string, number>>()
 
   const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
   const updatePartenaires = useCallback(async (page: number) => {
-    const updatedPartenaires = await getPartenairesDeLaCharte({
-      ...filter,
-      services: selectedServices,
-      codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
-      search: debouncedSearch,
-    }, page, pageSize)
-    setPartenaires(updatedPartenaires)
+    try {
+      const updatedPartenaires = await getPartenairesDeLaCharte({
+        ...filter,
+        services: selectedServices,
+        codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+        search: debouncedSearch,
+      }, page, pageSize)
 
-    const updatedServices = await getPartenairesDeLaCharteServices({
-      ...filter,
-      codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
-      search: debouncedSearch,
-    })
-    setServices(updatedServices)
+      setPartenaires({
+        ...updatedPartenaires,
+        data: updatedPartenaires.data.sort(() => {
+          if (selectedServices.length > 0 || selectedCommune || search) {
+            return 0
+          }
+          return shuffle ? Math.random() - 0.5 : 0
+        })
+      })
+  
+      const updatedServices = await getPartenairesDeLaCharteServices({
+        ...filter,
+        codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+        search: debouncedSearch,
+      })
+      setServices(updatedServices)
+  
+      setCurrentPage(page)
+      onLoaded && onLoaded()
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
 
-    setCurrentPage(page)
   }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize])
 
   useEffect(() => {
@@ -81,7 +98,13 @@ export default function SearchPartenaire({
     updatePartenaires(1)
   }, [selectedServices, selectedCommune, debouncedSearch, updatePartenaires, resetHash])
 
-  const count = useMemo(() => Math.ceil(partenaires.total / pageSize), [partenaires.total, pageSize])
+  const count = useMemo(() => {
+    if (!partenaires) {
+      return 0
+    }
+
+    return Math.ceil(partenaires.total / pageSize)
+  }, [partenaires?.total, pageSize])
 
   const getDepartementNom = (code: string) => {
     const departement = departements.find(departement => departement.code === code)
@@ -89,6 +112,10 @@ export default function SearchPartenaire({
   }
 
   const tagSelectOption = useMemo(() => {
+    if (!services) {
+      return []
+    }
+
     return Object.keys(services).map(service => ({ value: service, label: <div><Badge style={{ marginRight: 5 }}>{services[service]}</Badge>{service}</div> }))
   }, [services])
 
@@ -115,15 +142,10 @@ export default function SearchPartenaire({
         </div>
         <TagSelect options={tagSelectOption} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
       </div>
-      <CardWrapper isSmallCard>
-        {partenaires.data.length === 0 && <p>Aucun partenaire trouvé</p>}
-        {partenaires.data.sort(() => {
-          if (shuffle) {
-            return Math.random() - 0.5
-          }
-
-          return 0
-        }).map(partenaire => (
+      {isLoading ? <div className='loader-wrapper'>
+        <Loader size={50} />
+      </div> : partenaires?.data.length === 0 ? <p>Aucun partenaire trouvé</p> :       <CardWrapper isSmallCard>
+        {partenaires?.data.map(partenaire => (
           <PartenaireCard
             key={partenaire.id}
             partenaire={partenaire}
@@ -131,8 +153,9 @@ export default function SearchPartenaire({
             onReview={onReview}
           />
         ))}
-      </CardWrapper>
-      {partenaires.total > pageSize && (
+      </CardWrapper>}
+
+      {partenaires && partenaires.total > pageSize && (
         <Pagination
           style={{ marginTop: '1rem', alignSelf: 'center' }}
           count={count}
