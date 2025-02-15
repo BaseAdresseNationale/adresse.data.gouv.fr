@@ -87,10 +87,9 @@ export type PartenaireDeLaCharteEntrepriseType = PartenaireDeLaChartType & {
 
 export type ReviewType = {
   id: string
-  fullname: string
   email: string
   isAnonymous?: boolean
-  community?: string
+  community: string
   rating: number
   comment?: string
   createdAt: string

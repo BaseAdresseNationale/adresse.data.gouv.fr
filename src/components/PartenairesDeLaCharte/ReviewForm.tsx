@@ -50,7 +50,6 @@ interface ReviewFormProps {
 
 export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
   const [formData, setFormData] = useState<ReviewFormType>({
-    fullname: '',
     isAnonymous: false,
     email: '',
     community: '',
@@ -82,14 +81,6 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <section>
-        <h2>Vos coordonnées</h2>
-        <Input
-          label="Nom et prénom*"
-          nativeInputProps={{
-            required: true,
-            value: formData.fullname,
-            onChange: handleEdit('fullname') }}
-        />
         <Input
           label="Email*"
           nativeInputProps={{
@@ -99,9 +90,9 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
             onChange: handleEdit('email') }}
         />
         <Input
-          label="Commune ou collectivité"
+          label="Commune ou collectivité*"
           nativeInputProps={{
-            required: false,
+            required: true,
             value: formData.community,
             onChange: handleEdit('community') }}
         />

@@ -13,7 +13,6 @@ const PARTENAIRE_SEARCH_FILTER = {
 
 export default async function OrganismesPartenairesPage() {
   const services = await getPartenairesDeLaCharteServices(PARTENAIRE_SEARCH_FILTER)
-  const initialPartenaires = await getPartenairesDeLaCharte(PARTENAIRE_SEARCH_FILTER)
   const departements = await getDepartements()
 
   return (
@@ -46,8 +45,6 @@ export default async function OrganismesPartenairesPage() {
       <SearchPartenaire
         placeholder="Rechercher un organisme partenaire"
         searchBy="name"
-        initialServices={services}
-        initialPartenaires={initialPartenaires}
         departements={departements}
         filter={PARTENAIRE_SEARCH_FILTER}
       />
