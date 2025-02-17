@@ -19,9 +19,11 @@ export function createHabilitation(codeCommune: string): Promise<Habilitation> {
   return customFetch(`/api/proxy-api-depot/communes/${codeCommune}/habilitations`, { method: 'POST' })
 }
 
-export function sendHabilitationPinCode(habilitationId: string) {
+export function sendHabilitationPinCode(habilitationId: string, email: string) {
   return customFetch(`/api/proxy-api-depot/habilitations/${habilitationId}/authentication/email/send-pin-code`, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
   })
 }
 

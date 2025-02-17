@@ -3,12 +3,16 @@ import Alert from '@codegouvfr/react-dsfr/Alert'
 import styled from 'styled-components'
 import Card from '@codegouvfr/react-dsfr/Card'
 import ResponsiveImage from '../../ResponsiveImage'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { getEmailsCommune } from '@/lib/api-etablissement-public'
+import Select from '@codegouvfr/react-dsfr/Select'
 
 interface HabilitationMethodProps {
   revision: Revision
   habilitation: Habilitation
   sendPinCode: () => Promise<void>
+  emailSelected: string | undefined
+  setEmailSelected: Dispatch<SetStateAction<string | undefined>>
 }
 
 const StyledWrapper = styled.div`
@@ -24,8 +28,9 @@ const StyledWrapper = styled.div`
     }
 `
 
-export function HabilitationMethod({ revision, habilitation, sendPinCode }: HabilitationMethodProps) {
+export function HabilitationMethod({ revision, habilitation, sendPinCode, emailSelected, setEmailSelected }: HabilitationMethodProps) {
   const [redirectUrl, setRedirectUrl] = useState('')
+  const [emailsCommune, setEmailsCommune] = useState<string[]>([])
 
   const franceConnectUrl = `${habilitation.franceconnectAuthenticationUrl}?redirectUrl=${encodeURIComponent(redirectUrl)}`
 
@@ -33,6 +38,18 @@ export function HabilitationMethod({ revision, habilitation, sendPinCode }: Habi
     const redirectUrl = `${window.location.href}?revisionId=${revision.id}&habilitationId=${habilitation.id}`
     setRedirectUrl(redirectUrl)
   }, [revision, habilitation])
+
+  useEffect(() => {
+    async function fetchEmailsCommune() {
+      const emails = await getEmailsCommune(habilitation.codeCommune)
+      setEmailsCommune(emails)
+      if (emails.length > 0) {
+        setEmailSelected(emails[0])
+      }
+    }
+
+    fetchEmailsCommune()
+  }, [habilitation.codeCommune, setEmailSelected])
 
   return (
     <StyledWrapper>
@@ -48,13 +65,32 @@ export function HabilitationMethod({ revision, habilitation, sendPinCode }: Habi
         </li>
       </ul>
       <div className="habilitation-methods">
-        {habilitation.emailCommune && (
+        {emailSelected && (
           <Card
             imageComponent={<ResponsiveImage src="/commune/default-logo.svg" alt="Mairie de la commune" style={{ objectFit: 'contain' }} />}
             desc={(
-              <span>
-                Un code d’authentification vous sera envoyé à l’adresse : <b>{habilitation.emailCommune}</b>
-              </span>
+              <>
+                {emailsCommune.length === 1 && (
+                  <span>
+                    Un code d’authentification vous sera envoyé à l’adresse : <b>{emailSelected}</b>
+                  </span>
+                )}
+                {emailsCommune.length > 1 && (
+                  <Select
+                    label="Un code d’habilitation vous sera envoyé à l’adresse que vous selectionnez"
+                    nativeSelectProps={{
+                      onChange: e => setEmailSelected(e.target.value),
+                      value: emailSelected,
+                    }}
+                  >
+                    {emailsCommune.map((email: string) => (
+                      <option key={email} value={email}>
+                        {email}
+                      </option>
+                    ))}
+                  </Select>
+                )}
+              </>
             )}
             linkProps={{
               onClick: sendPinCode,
