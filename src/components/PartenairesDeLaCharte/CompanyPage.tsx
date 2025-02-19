@@ -5,7 +5,7 @@ import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenair
 import Section from '@/components/Section'
 import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import ReviewForm from './ReviewForm'
 import { Departement } from '@/types/api-geo.types'
 
@@ -40,10 +40,14 @@ export default function CompanyPage({
     }
   }, [partenairesLoaded, page])
 
-  const handleStartReview = (partenaire: PartenaireDeLaChartType) => {
+  const handleStartReview = useCallback((partenaire: PartenaireDeLaChartType) => {
     setReviewedPartenaire(partenaire)
     Modal.open()
-  }
+  }, [])
+
+  const handlePartenairesLoaded = useCallback(() => {
+    setPartenairesLoaded(true)
+  }, [])
 
   const handleCloseModal = () => {
     setReviewedPartenaire(undefined)
@@ -74,7 +78,7 @@ export default function CompanyPage({
           departements={departements}
           filter={PARTENAIRE_SEARCH_FILTER}
           onReview={handleStartReview}
-          onLoaded={() => setPartenairesLoaded(true)}
+          onLoaded={handlePartenairesLoaded}
         />
       </Section>
       <Modal.Component title={`Notez votre expérience avec ${reviewedPartenaire?.name}`}>
