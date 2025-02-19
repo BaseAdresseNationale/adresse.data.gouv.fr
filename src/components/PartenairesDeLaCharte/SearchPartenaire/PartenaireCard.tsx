@@ -46,7 +46,7 @@ export default function PartenaireCard({
       footer={(
         <>
           {partenaire.link && <Button priority="secondary" linkProps={{ href: partenaire.link, target: '_blank' }} style={{ marginTop: '0.5rem' }}>Site du partenaire</Button>}
-          {onReview && <Button priority="secondary" style={{ marginTop: '0.5rem' }} onClick={() => onReview(partenaire)}>Noter la prestation</Button>}
+          {onReview && <Button type="button" priority="secondary" style={{ marginTop: '0.5rem' }} onClick={() => onReview(partenaire)}>Noter la prestation</Button>}
         </>
       )}
     />
