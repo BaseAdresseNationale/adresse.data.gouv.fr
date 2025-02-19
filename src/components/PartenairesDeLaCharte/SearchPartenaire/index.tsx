@@ -21,7 +21,6 @@ export interface SearchPartenaireProps {
   departements: Departement[]
   filter?: { type: PartenaireDeLaCharteTypeEnum }
   searchBy: 'perimeter' | 'name'
-  shuffle?: boolean
   pageSize?: number
   placeholder: string
   onReview?: (partenaire: PartenaireDeLaChartType) => void
@@ -32,11 +31,10 @@ export default function SearchPartenaire({
   departements,
   filter,
   searchBy,
-  shuffle,
   placeholder,
   pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
   onReview,
-  onLoaded
+  onLoaded,
 }: SearchPartenaireProps) {
   const { hash, resetHash } = useHash()
   const [search, onSearch] = useState('')
@@ -57,34 +55,28 @@ export default function SearchPartenaire({
         services: selectedServices,
         codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
         search: debouncedSearch,
+        shuffleResults: filter?.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE,
       }, page, pageSize)
 
-      setPartenaires({
-        ...updatedPartenaires,
-        data: updatedPartenaires.data.sort(() => {
-          if (selectedServices.length > 0 || selectedCommune || search) {
-            return 0
-          }
-          return shuffle ? Math.random() - 0.5 : 0
-        })
-      })
-  
+      setPartenaires(updatedPartenaires)
+
       const updatedServices = await getPartenairesDeLaCharteServices({
         ...filter,
         codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
         search: debouncedSearch,
       })
       setServices(updatedServices)
-  
+
       setCurrentPage(page)
       onLoaded && onLoaded()
-    } catch (err) {
+    }
+    catch (err) {
       console.error(err)
-    } finally {
+    }
+    finally {
       setIsLoading(false)
     }
-
-  }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize])
+  }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize, onLoaded])
 
   useEffect(() => {
     if (hash) {
@@ -104,7 +96,7 @@ export default function SearchPartenaire({
     }
 
     return Math.ceil(partenaires.total / pageSize)
-  }, [partenaires?.total, pageSize])
+  }, [partenaires, pageSize])
 
   const getDepartementNom = (code: string) => {
     const departement = departements.find(departement => departement.code === code)
@@ -142,18 +134,26 @@ export default function SearchPartenaire({
         </div>
         <TagSelect options={tagSelectOption} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
       </div>
-      {isLoading ? <div className='loader-wrapper'>
-        <Loader size={50} />
-      </div> : partenaires?.data.length === 0 ? <p>Aucun partenaire trouvé</p> :       <CardWrapper isSmallCard>
-        {partenaires?.data.map(partenaire => (
-          <PartenaireCard
-            key={partenaire.id}
-            partenaire={partenaire}
-            detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
-            onReview={onReview}
-          />
-        ))}
-      </CardWrapper>}
+      {isLoading
+        ? (
+            <div className="loader-wrapper">
+              <Loader size={50} />
+            </div>
+          )
+        : partenaires?.data.length === 0
+          ? <p>Aucun partenaire trouvé</p>
+          : (
+              <CardWrapper isSmallCard>
+                {partenaires?.data.map(partenaire => (
+                  <PartenaireCard
+                    key={partenaire.id}
+                    partenaire={partenaire}
+                    detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
+                    onReview={onReview}
+                  />
+                ))}
+              </CardWrapper>
+            )}
 
       {partenaires && partenaires.total > pageSize && (
         <Pagination
