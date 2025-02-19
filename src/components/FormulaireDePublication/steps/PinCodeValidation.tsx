@@ -37,16 +37,16 @@ align-items: center;
 `
 
 interface PinCodeValidationProps {
-  habilitation: Habilitation
+  emailSelected: string | undefined
   onSubmit: (code: string) => void
   sendPinCode: () => Promise<void>
   isLoading?: boolean
 }
 
-export function PinCodeValidation({ habilitation, onSubmit, sendPinCode, isLoading }: PinCodeValidationProps) {
+export function PinCodeValidation({ onSubmit, emailSelected, sendPinCode, isLoading }: PinCodeValidationProps) {
   return (
     <StyledWrapper>
-      <p>Entrer le code qui vous a été envoyé à l&apos;adresse : <b>{habilitation.emailCommune}</b></p>
+      <p>Entrer le code qui vous a été envoyé à l&apos;adresse : <b>{emailSelected}</b></p>
       <div className="pin-wrapper">
         <PinField disabled={isLoading} onComplete={code => onSubmit(code)} validate={/^[0-9]$/} length={6} className="pin-field" />
       </div>
