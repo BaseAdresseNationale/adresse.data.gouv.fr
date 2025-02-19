@@ -13,7 +13,6 @@ const PARTENAIRE_SEARCH_FILTER = {
 export default async function CharteBALPage() {
   const departements = await getDepartements()
   const initialPartenaires = await getPartenairesDeLaCharte({})
-  const services = await getPartenairesDeLaCharteServices(PARTENAIRE_SEARCH_FILTER)
 
   return (
     <Section pageTitle={`${initialPartenaires.totalCommunes + initialPartenaires.totalOrganismes} acteurs engagés pour accompagner les communes dans l’adressage`}>
