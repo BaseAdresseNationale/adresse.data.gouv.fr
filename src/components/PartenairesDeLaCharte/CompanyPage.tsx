@@ -38,7 +38,6 @@ export default function CompanyPage({
     if (elem) {
       ;(elem as HTMLElement).click()
     }
-
   }, [partenairesLoaded, page])
 
   const handleStartReview = (partenaire: PartenaireDeLaChartType) => {
@@ -75,7 +74,6 @@ export default function CompanyPage({
           departements={departements}
           filter={PARTENAIRE_SEARCH_FILTER}
           onReview={handleStartReview}
-          shuffle
           onLoaded={() => setPartenairesLoaded(true)}
         />
       </Section>
