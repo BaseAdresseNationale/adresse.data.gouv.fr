@@ -71,7 +71,7 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
       setSubmitStatus('success')
       setTimeout(() => {
         onClose()
-      }, 2000)
+      }, 3000)
     }
     catch {
       setSubmitStatus('error')
@@ -128,18 +128,23 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
         />
       </section>
       <section>
-        <span>
+        <p>
+          <i>
+            Les commentaires seront publiés après validation par l&apos;équipe de la Base Adresse Locale.s
+          </i>
+        </p>
+        <p style={{ margin: 0 }}>
           <i>
             Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par le Programme Base Adresse Locale de l&apos;ANCT pour nous permettre de valider les avis. Pour en savoir plus consultez&nbsp;
           </i>
           <Link href="/cgu" className="fr-link--icon-right fr-icon-links-line">nos CGU</Link>
-        </span>
+        </p>
       </section>
       <section>
         {submitStatus === 'success' && (
           <div className="fr-alert fr-alert--success">
             <p>
-              Votre avis a bien été envoyée.
+              Un mail de confirmation vous a été envoyé, il nous permet de vérifier votre adresse mail. Merci pour votre avis !
             </p>
           </div>
         )}
