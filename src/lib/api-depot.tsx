@@ -3,6 +3,7 @@ import { Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
+import Tooltip from '@/components/Tooltip'
 
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
@@ -97,6 +98,10 @@ export const getRevisionDownloadUrl = (revisionId: string) => {
   return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}/files/bal/download`
 }
 
+export const getCurrentRevisionDownloadUrl = (codeCommune: string) => {
+  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`
+}
+
 const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'long', year: 'numeric' })
 
 export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
@@ -130,9 +135,10 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   }
 
   return [
+    revision.isCurrent ? <Tooltip message="Révision courante"><span className="fr-icon-success-line" aria-hidden="true" /></Tooltip> : '',
     `le ${frDateFormatter.format(new Date(revision.createdAt))} à ${new Date(revision.createdAt).toLocaleTimeString().split(':').slice(0, 2).join(':')}`,
     modeDePublication,
     source,
-    <a key={revision.id} href={getRevisionDownloadUrl(revision.id)} download>Fichier CSV</a>,
+    <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
   ]
 }
