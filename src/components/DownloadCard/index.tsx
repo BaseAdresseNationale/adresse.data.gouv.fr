@@ -11,6 +11,7 @@ export interface DownloadCardProps {
   fileDescription: string
   downloadlink?: string
   onDownloadStart?: (() => Promise<void>) | (() => void)
+  style?: React.CSSProperties
 }
 
 const StyledWrapper = styled.div`
@@ -44,6 +45,7 @@ export default function DownloadCard({
   downloadlink,
   fileDescription,
   onDownloadStart,
+  style,
 }: DownloadCardProps) {
   const [isDownloading, setIsDownloading] = useState(false)
 
@@ -67,7 +69,7 @@ export default function DownloadCard({
   }
 
   return (
-    <StyledWrapper>
+    <StyledWrapper style={style}>
       <div>
         <h3>{title}</h3>
         {text}
