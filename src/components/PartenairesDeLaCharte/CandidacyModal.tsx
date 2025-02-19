@@ -7,10 +7,13 @@ import { Departement } from '@/types/api-geo.types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import { useIsModalOpen } from '@codegouvfr/react-dsfr/Modal/useIsModalOpen'
 import Button from '@codegouvfr/react-dsfr/Button'
+import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 
 interface CandidacyModalProps {
   services: string[]
   departements: Departement[]
+  buttonLabel?: string
+  defaultType?: PartenaireDeLaCharteTypeEnum
 }
 
 const Modal = createModal({
@@ -18,7 +21,7 @@ const Modal = createModal({
   isOpenedByDefault: false,
 })
 
-function CandidacyModal({ services, departements }: CandidacyModalProps) {
+function CandidacyModal({ services, departements, buttonLabel = 'Rejoignez-nous', defaultType }: CandidacyModalProps) {
   const [showForm, setShowForm] = useState(false)
   useIsModalOpen(Modal, {
     onDisclose: () => setShowForm(false),
@@ -32,12 +35,12 @@ function CandidacyModal({ services, departements }: CandidacyModalProps) {
         iconPosition="right"
         priority="secondary"
         onClick={() => Modal.open()}
-        style={{ marginBottom: '1rem' }}
+        size="large"
       >
-        Rejoignez-nous
+        {buttonLabel}
       </Button>
       <Modal.Component title={showForm ? 'Formulaire de candidature à la charte' : 'Notice d\'information'}>
-        {showForm ? <CandidacyForm onClose={() => Modal.close()} services={services} departements={departements} /> : <CandidacyInfos onConfirm={() => setShowForm(true)} />}
+        {showForm ? <CandidacyForm onClose={() => Modal.close()} services={services} departements={departements} defaultType={defaultType} /> : <CandidacyInfos onConfirm={() => setShowForm(true)} />}
       </Modal.Component>
     </>
   )
