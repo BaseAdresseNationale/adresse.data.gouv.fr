@@ -19,6 +19,7 @@ interface PartenairesDeLaCharteQuery {
   type?: PartenaireDeLaCharteTypeEnum
   search?: string
   withoutPictures?: boolean
+  shuffleResults?: boolean
 }
 
 export interface PaginatedPartenairesDeLaCharte {
