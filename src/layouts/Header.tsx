@@ -177,7 +177,7 @@ export default function Header(
   const size = useMemo(() => (typeLayout === 'default' ? 'default' : 'small'), [typeLayout])
 
   return (
-    <HeaderWrapper $size={size}>
+    <HeaderWrapper $size={size} $withNotice={notices && notices.data.length > 0}>
       <div className="header-spacer" />
       {isBeta && <CornerRibbons>Version βετα</CornerRibbons>}
       <HeaderDSFR
