@@ -16,7 +16,10 @@ export async function getMairiePageURL(codeCommune: string) {
     return null
   }
 
-  const mainMarie = response.results.find(result => !result.nom.toLowerCase().includes('mairie déléguée'))
+  const mainMarie = response.results.find((result) => {
+    const label: string = result.nom.toLowerCase()
+    return !label.includes('mairie déléguée') && !label.includes('mairie annexe')
+  })
   const rawMairie = mainMarie || response.results[0]
 
   return rawMairie.url_service_public
