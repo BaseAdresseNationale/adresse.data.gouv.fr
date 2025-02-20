@@ -63,3 +63,42 @@ export type PerimeterType = {
   type: TypePerimeterEnum
   code: string
 }
+
+export enum ClientApiDepotAuthorizationStrategyEnum {
+  HABILITATION = 'habilitation',
+  CHEF_DE_FILE = 'chef-de-file',
+  INTERNAL = 'internal',
+}
+
+export type ClientApiDepotType = {
+  id: string
+  createdAt: string
+  updatedAt: string
+  active: boolean
+  authorizationStrategy: ClientApiDepotAuthorizationStrategyEnum
+  mandataire: string
+  nom: string
+  chefDeFileId: string
+  options: {
+    relaxMode: boolean
+  }
+}
+
+export type ChefDeFileApiDepotType = {
+  id: string
+  nom?: string
+  email?: string
+  perimeters?: PerimeterType[]
+  signataireCharte?: boolean
+  isEmailPublic?: boolean
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type ClientApiDepotWithChefDeFileType = ClientApiDepotType & {
+  chefDeFile: ChefDeFileApiDepotType
+}
+
+export type ClientsWithChefDeFileAndRevisions = ClientApiDepotWithChefDeFileType & {
+  revisions: Pick<Revision, 'id' | 'codeCommune' | 'status' | 'isCurrent' | 'publishedAt' | 'validation'>[]
+}
