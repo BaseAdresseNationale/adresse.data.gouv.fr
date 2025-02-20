@@ -1,4 +1,4 @@
-import { PartenaireDeLaChartType, ReviewType } from '@/types/partenaire.types'
+import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType, ReviewType } from '@/types/partenaire.types'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import ResponsiveImage from '../../ResponsiveImage'
@@ -26,11 +26,13 @@ export default function PartenaireCard({
     return partenaire.reviews.reduce((acc, review) => acc + review.rating, 0) / partenaire.reviews.length
   }, [partenaire])
 
+  const isCommune = partenaire.type === PartenaireDeLaCharteTypeEnum.COMMUNE
+
   return (
     <Card
       key={partenaire.id}
       title={(
-        <Link href={`/partenaires/${partenaire.id}`}>
+        <Link href={isCommune ? `/commune/${partenaire.codeCommune}` : `/partenaires/${partenaire.id}`}>
           {partenaire.name}
           {globalReview && (
             <div style={{ display: 'flex', alignItems: 'end', marginTop: '0.5rem' }}>
