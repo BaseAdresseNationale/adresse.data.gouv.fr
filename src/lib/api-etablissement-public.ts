@@ -8,7 +8,7 @@ if (!env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')) {
 export async function getMairiePageURL(codeCommune: string) {
   // Documentation : https://api-lannuaire.service-public.fr/explore/dataset/api-lannuaire-administration/information/
   const route = 'catalog/datasets/api-lannuaire-administration/records'
-  const query = `select=nom,url_service_public&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`
+  const query = `select=nom,url_service_public&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"&limit=-1`
   const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
 
   const response: { results: APIEtablissementPublicMairie[] } = await customFetch(url)
