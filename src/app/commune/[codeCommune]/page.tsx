@@ -1,14 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Table } from '@codegouvfr/react-dsfr/Table'
 
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
   getCommune as getBANCommune,
-  assemblageSources,
 } from '@/lib/api-ban'
-import { formatFr } from '@/lib/array'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
@@ -17,8 +14,12 @@ import { getCommuneFlag } from '@/lib/api-blasons-communes'
 import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 
-import ResumeDistrict from './ResumeDistrict'
+import CommuneActions from '../../../components/Commune/CommuneActions'
 import { StyledCommunePage } from './page.styles'
+import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
+import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
+import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
+import { getCommuneAchievements } from '@/lib/commune'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -35,22 +36,26 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ])
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const certificationPercentage = Math.round(commune.nbNumerosCertifies / commune.nbNumeros * 100)
+  const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
     mairiePageResponse,
     communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
+    communeAchievementsResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
     getEPCI(APIGeoCommune?.codeEpci),
-    communeHasBAL && getRevisions(codeCommune)
-      .then(revisions => Promise.all(revisions
-        .slice(0, 5)
-        .map(revision => getRevisionDetails(revision, commune)))
-      ),
+    communeHasBAL
+      ? getRevisions(codeCommune)
+        .then(revisions => Promise.all(revisions
+          .slice(0, 5)
+          .map(revision => getRevisionDetails(revision, commune)))
+        )
+      : [],
+    getCommuneAchievements(commune),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -73,6 +78,11 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
+  if (communeAchievementsResponse.status === 'rejected') {
+    console.error(`Failed to get commune achievements for commune ${codeCommune}`, communeAchievementsResponse.reason)
+  }
+  const communeAchievements = communeAchievementsResponse.status === 'fulfilled' ? communeAchievementsResponse.value : null
+
   const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
 
   return (
@@ -85,6 +95,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
             <br />
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
+
           <CardWrapper className="commune-general-info-wrapper">
             <div className="commune-general-info">
               <label>
@@ -111,65 +122,21 @@ export default async function CommunePage({ params }: CommunePageProps) {
               </div>
             </div>
           </CardWrapper>
-          <div className="commune-adresse-info-wrapper">
-            <CardWrapper>
-              <div className="adresse-recap">
-                <div>
-                  {commune.nbVoies}
-                </div>
-                <label>
-                  voies, places et lieux-dits adressés
-                </label>
-              </div>
-              <div className="adresse-recap">
-                <div>
-                  {commune.nbNumeros}
-                </div>
-                <label>
-                  adresses
-                </label>
-              </div>
-              <div className="adresse-recap">
-                <div>
-                  {certificationPercentage} %
-                </div>
-                <label>
-                  d&apos;adresses certifiées
-                </label>
-              </div>
-            </CardWrapper>
-            <CardWrapper>
-              <div className="publication-recap">
-                <label>
-                  Mode de publication
-                </label>
-                <div>
-                  {!communeHasBAL && 'Assemblage'}
-                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][1]}
-                </div>
-              </div>
-              <div className="publication-recap">
-                <label>
-                  Source
-                </label>
-                <div>
-                  {!communeHasBAL && formatFr(assemblageSources(commune.voies))}
-                  {communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][2]}
-                </div>
-              </div>
-              <div className="publication-recap">
-                <label>
-                  Dernière mise à jour
-                </label>
-                <div>
-                  {!communeHasBAL && '-'}
-                  {communeHasBAL && lastRevisionsDetails && (lastRevisionsDetails[0][0] as string).split(' à ')[0]}
-                </div>
-              </div>
-            </CardWrapper>
-          </div>
 
-          <ResumeDistrict
+          {communeAchievements && (
+            <CommuneAchievements
+              achievements={communeAchievements}
+            />
+          )}
+
+          <CommuneCertificationBar
+            certificationPercentage={certificationPercentage}
+            commune={commune}
+            communeHasBAL={communeHasBAL}
+            lastRevisionsDetails={lastRevisionsDetails}
+          />
+
+          <CommuneActions
             district={commune}
             actionProps={[
               {
@@ -180,36 +147,38 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 priority: 'secondary',
                 value: 'Afficher sur la carte',
               },
-              {
-                iconId: 'fr-icon-discuss-line',
-                linkProps: {
-                  href: mairiePageUrl,
-                  target: '_blank',
-                },
-                priority: 'secondary',
-                value: 'Contacter la mairie',
-              },
+              ...(communeHasBAL && lastRevisionsDetails && lastRevisionsDetails[0][2] === 'Mes Adresses')
+                ? [{
+                    iconId: 'fr-icon-error-warning-line',
+                    linkProps: {
+                      href: 'https://signalement.adresse.data.gouv.fr/',
+                      target: '_blank',
+                    },
+                    priority: 'secondary',
+                    value: 'Proposer une amélioration',
+                  }]
+                : [],
+              ...(mairiePageUrl)
+                ? [{
+                    iconId: 'fr-icon-discuss-line',
+                    linkProps: {
+                      href: mairiePageUrl,
+                      target: '_blank',
+                    },
+                    priority: 'secondary',
+                    value: 'Contacter la mairie',
+                  }]
+                : [],
             ]}
           />
 
         </Section>
 
+        <CommuneDownloadSection commune={commune} hasRevision={Boolean(lastRevisionsDetails)} />
+
         {communeHasBAL && lastRevisionsDetails && (
-          <Section title="Les dernières mises à jour" theme="primary">
-            <div className="modification-history-wrapper">
-              <Table
-                headers={[
-                  'Date',
-                  'Mode de publication',
-                  'Source',
-                  'Télécharger',
-                ]}
-                data={lastRevisionsDetails}
-              />
-            </div>
-          </Section>
+          <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
-        <CommuneDownloadSection commune={commune} />
       </StyledCommunePage>
     </>
   )

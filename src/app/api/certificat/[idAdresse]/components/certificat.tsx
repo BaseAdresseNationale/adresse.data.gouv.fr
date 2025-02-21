@@ -22,6 +22,7 @@ interface CertificatNumerotationProps {
       suffix?: string
       districtDefaultLabel: string
       cog: string
+      lieuDitComplementNomDefaultLabel?: string
     }
     cadastre_ids: string[]
   }
@@ -39,6 +40,7 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const numero = data.full_address.number
   const suffix = data.full_address.suffix || ''
   const { cog } = data.full_address
+  const lieuDitComplementNomDefaultLabel = data.full_address.lieuDitComplementNomDefaultLabel || null
   const parcelles = data.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2'))
 
   // const logoUrl = `public/logos/certificat/${cog}.png`
@@ -113,6 +115,9 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
               <View style={stylesDSFR.tableCol}>
                 <Text style={stylesDSFR.tableCell}>
                   {suffix ? `${numero} ${suffix} ${libelleVoie}` : `${numero} ${libelleVoie}`}
+                </Text>
+                <Text style={stylesDSFR.tableCell}>
+                  {lieuDitComplementNomDefaultLabel}
                 </Text>
                 <Text style={stylesDSFR.tableCell}>
                   {nomCommune}

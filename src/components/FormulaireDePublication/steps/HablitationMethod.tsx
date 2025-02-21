@@ -30,7 +30,7 @@ export function HabilitationMethod({ revision, habilitation, sendPinCode }: Habi
   const franceConnectUrl = `${habilitation.franceconnectAuthenticationUrl}?redirectUrl=${encodeURIComponent(redirectUrl)}`
 
   useEffect(() => {
-    const redirectUrl = `${window.location.href}?revisionId=${revision._id}&habilitationId=${habilitation._id}`
+    const redirectUrl = `${window.location.href}?revisionId=${revision.id}&habilitationId=${habilitation.id}`
     setRedirectUrl(redirectUrl)
   }, [revision, habilitation])
 

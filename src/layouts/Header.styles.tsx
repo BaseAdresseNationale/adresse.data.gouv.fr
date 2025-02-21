@@ -2,7 +2,7 @@
 
 import styled, { css } from 'styled-components'
 
-export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small' }>`
+export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small', $withNotice?: boolean }>`
   position: relative;
   z-index: 990;
 
@@ -24,9 +24,9 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small' }>`
       transition: height .3s ease;
 
       ${({ $size }) => $size === 'small' && css`z-index: 990;`}
-      ${({ $size }) => $size === 'small'
+      ${({ $size, $withNotice }) => $size === 'small'
         ? css`height: 7.4rem;`
-        : css`height: 14.4rem;`
+        : css`height: ${$withNotice ? '14.4rem' : '10.8rem'};`
       }
     }
 

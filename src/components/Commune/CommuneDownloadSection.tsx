@@ -3,15 +3,17 @@
 import CardWrapper from '@/components/CardWrapper'
 import DownloadCard from '@/components/DownloadCard'
 import Section from '@/components/Section'
-import { getAddressCSVLegacy, getLieuxDitsCSVLegacy, getAdressesCsvBal } from '@/lib/api-ban'
+import { getAddressCSVLegacy, getAdressesCsvBal } from '@/lib/api-ban'
+import { getCurrentRevisionDownloadUrl } from '@/lib/api-depot'
 import { matomoTrackEvent } from '@/lib/matomo'
 import { BANCommune } from '@/types/api-ban.types'
 
 interface CommuneDownloadSectionProps {
   commune: BANCommune
+  hasRevision?: boolean
 }
 
-export function CommuneDownloadSection({ commune }: CommuneDownloadSectionProps) {
+export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownloadSectionProps) {
   function matomoTrackDownload(eventName: string) {
     return () => {
       matomoTrackEvent('Download (Front)', eventName, `${commune.codeCommune} - ${commune.nomCommune} - current`, 1)
@@ -19,19 +21,66 @@ export function CommuneDownloadSection({ commune }: CommuneDownloadSectionProps)
   }
 
   return (
-    <Section title="Télécharger les adresses de la commune">
-      <p>
-        Voici les adresses de la communes dans la Base Adresse Nationale. Ce fichier de référence présente la liste des voies avec les libellés enrichis (minuscules accentuées), mais aussi les libellés à la norme AFNOR, les codes FANTOIR mis à jour par la DGFiP, les points adresses géocodés, ainsi que leur lien avec les parcelles s’ils sont renseignés, la source des adresses et leur certification. Pour plus d’information sur la structure des informations, consultez la documentation des fichiers de la Base Adresse Nationale.
-      </p>
-      <CardWrapper isSmallCard style={{ marginBottom: '2rem' }}>
-        <DownloadCard title="Télécharger Format BAL 1.3" fileDescription="Fichier CSV" downloadlink={getAdressesCsvBal(commune.codeCommune, '1.3')} onDownloadStart={matomoTrackDownload('Download BAL 1.3')} />
-        <DownloadCard title="Télécharger Format BAL 1.4" fileDescription="Fichier CSV" downloadlink={getAdressesCsvBal(commune.codeCommune, '1.4')} onDownloadStart={matomoTrackDownload('Download BAL 1.4')} />
-        <DownloadCard title="Télécharger Format Historique" fileDescription="Fichier CSV" downloadlink={getAddressCSVLegacy(commune.codeCommune)} onDownloadStart={matomoTrackDownload('Download CSV historique adresses')} />
-        <DownloadCard title="Télécharger Format Historique lieu-dit" fileDescription="Fichier CSV" downloadlink={getLieuxDitsCSVLegacy(commune.codeCommune)} onDownloadStart={matomoTrackDownload('Download CSV historique lieux-dits')} />
+    <Section title="Téléchargements" theme="primary">
+      <CardWrapper style={{ marginBottom: '2rem' }}>
+
+        {hasRevision
+          ? (
+              <DownloadCard
+                title="Format Local (BAL)"
+                text={(
+                  <div style={{ fontSize: '0.8rem' }}>
+                    Adresses diffusées par la commune
+                  </div>
+                )}
+                fileDescription="Fichier CSV"
+                downloadlink={getCurrentRevisionDownloadUrl(commune.codeCommune)}
+                onDownloadStart={matomoTrackDownload('Download format BA')}
+              />
+            )
+          : (
+              <DownloadCard
+                title="Format Local (BAL)"
+                text={(
+                  <div style={{ fontSize: '0.8rem' }}>
+                    Format BAL 1.4 généré à partir de l&apos;assemblage BAN
+                  </div>
+                )}
+                fileDescription="Fichier CSV"
+                downloadlink={getAdressesCsvBal(commune.codeCommune, '1.4')}
+                onDownloadStart={matomoTrackDownload('Download BAL 1.4')}
+              />
+            )}
+
+        <DownloadCard
+          title="Format national (BAN)"
+          text={(
+            <div style={{ fontSize: '0.8rem' }}>Inclut des colonnes additionnelles
+              <ul style={{ lineHeight: 1.2 }}>
+                <li>Nom et code de la commune ancienne</li>
+                <li>Libellé AFNOR</li>
+                <li>Libellé d&apos;acheminement</li>
+                <li>Code Postal</li>
+              </ul>
+            </div>
+          )}
+          fileDescription="Fichier CSV"
+          downloadlink={getAddressCSVLegacy(commune.codeCommune)}
+          onDownloadStart={matomoTrackDownload('Download CSV historique adresses')}
+        />
+
+        <DownloadCard
+          title="Liste des voies et des lieux-dits (odonymes)"
+          text={(
+            <div style={{ fontSize: '0.8rem' }}>
+              Utile pour commander des panneaux ou prendre une délibération groupée
+            </div>
+          )}
+          fileDescription="Fichier CSV"
+          downloadlink={`/api/downloads/${commune.codeCommune}/street-list?from=${hasRevision ? 'api-depot' : 'ban'}`}
+          onDownloadStart={matomoTrackDownload('Download street list')}
+        />
       </CardWrapper>
-      <p>
-        La commune est l’échelon de compétence pour mettre à jour les adresses. En cas de problème d’adresse sur la commune, contactez la. Vous pouvez également lui indiquer notre contact (<a href="mailto:adresse@data.gouv.fr">adresse@data.gouv.fr</a>) au besoin.
-      </p>
     </Section>
   )
 }
