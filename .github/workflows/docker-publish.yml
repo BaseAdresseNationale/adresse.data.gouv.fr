@@ -87,6 +87,7 @@ jobs:
             NEXT_PUBLIC_MATOMO_URL=${{ vars.NEXT_PUBLIC_MATOMO_URL }}
             NEXT_PUBLIC_MATOMO_SITE_ID=${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}
             NEXT_PUBLIC_API_SIGNALEMENT=${{ vars.NEXT_PUBLIC_API_SIGNALEMENT }}
+            NEXT_PUBLIC_SOCIAL_NETWORKS_BLUESKY_KEY_DNS=${{ vars.NEXT_PUBLIC_SOCIAL_NETWORKS_BLUESKY_KEY_DNS }}
   
       # Debug: Afficher les informations de débogage
       - name: Print Debug Info
