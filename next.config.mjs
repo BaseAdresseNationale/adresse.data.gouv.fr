@@ -59,7 +59,7 @@ const redirects = async () => [
   },
   {
     source: '/bases-locales/charte/companies',
-    destination: '/communaute/societes-partenaires',
+    destination: '/communaute/annuaire-des-prestataires',
     permanent: true,
   },
   {
@@ -155,7 +155,7 @@ const redirects = async () => [
   {
     source: '/donnees-nationales/utilisateurs',
     destination: '/communaute/usages',
-    permanent: true
+    permanent: true,
   },
   {
     source: '/donnees-nationales/usages',
@@ -165,7 +165,7 @@ const redirects = async () => [
   {
     source: '/donnees-nationales/base-usages',
     destination: '/communaute/usages',
-    permanent: true
+    permanent: true,
   },
   {
     source: '/contribuer',
@@ -185,16 +185,16 @@ const redirects = async () => [
   {
     source: '/indicateurs',
     destination: '/stats',
-    permanent: true
+    permanent: true,
   },
-  
+
 ]
 
 const rewrites = async () => [
   {
     source: '/data/ban/adresses-odbl/:path*',
     destination: '/data/ban/adresses/:path*',
-  }
+  },
 ]
 
 const nextConfig = withBundleAnalyzer({
@@ -202,7 +202,7 @@ const nextConfig = withBundleAnalyzer({
     ...defaultEnvVar,
     ...envVar,
   },
-  redirects, 
+  redirects,
   rewrites,
   images: {
     remotePatterns: imagesDomains.map(domain => ({
