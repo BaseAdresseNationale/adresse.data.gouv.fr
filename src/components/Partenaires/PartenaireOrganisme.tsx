@@ -3,39 +3,27 @@
 import MoissonneurBal from '@/components/Partenaires/Moissonnage/MoissonneurBAL'
 import { PartenaireDeLaChartType } from '@/types/partenaire.types'
 import Tabs from '@codegouvfr/react-dsfr/Tabs'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import APIDepot from './APIDepot/APIDepot'
 
 interface PartenaireOrganismeProps {
   partenaireDeLaCharte: PartenaireDeLaChartType
+  availableTabs: { tabId: string, label: string }[]
 }
 
-export default function PartenaireOrganisme({ partenaireDeLaCharte }: PartenaireOrganismeProps) {
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-
-  const tabs = useMemo(() => {
-    const _tabs = []
-    if (partenaireDeLaCharte.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
-      _tabs.push({ tabId: 'api-depot', label: 'API-dépôt', content: <APIDepot partenaireDeLaCharte={partenaireDeLaCharte} /> })
-    }
-    if (partenaireDeLaCharte.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
-      _tabs.push({ tabId: 'moissonnage', label: 'Moissonnage', content: <MoissonneurBal partenaireDeLaCharte={partenaireDeLaCharte} /> })
-    }
-
-    return _tabs
-  }, [partenaireDeLaCharte])
-
-  const selectedTabId = tabs[selectedTabIndex]?.tabId
+export default function PartenaireOrganisme({ partenaireDeLaCharte, availableTabs }: PartenaireOrganismeProps) {
+  const [selectedTabId, setSelectedTabId] = useState(availableTabs[0]?.tabId || '')
 
   return (
     <div className="fr-container fr-py-5w">
       <p>{partenaireDeLaCharte.name} mutualise la production et la diffusion des Bases Adresses Locales (BAL).</p>
       <Tabs
         selectedTabId={selectedTabId}
-        tabs={tabs}
-        onTabChange={(tabId: string) => setSelectedTabIndex(tabs.findIndex(tab => tab.tabId === tabId))}
+        tabs={availableTabs}
+        onTabChange={setSelectedTabId}
       >
-        {tabs[selectedTabIndex]?.content}
+        {selectedTabId === 'api-depot' && <APIDepot partenaireDeLaCharte={partenaireDeLaCharte} /> }
+        {selectedTabId === 'moissonnage' && <MoissonneurBal partenaireDeLaCharte={partenaireDeLaCharte} /> }
       </Tabs>
     </div>
   )

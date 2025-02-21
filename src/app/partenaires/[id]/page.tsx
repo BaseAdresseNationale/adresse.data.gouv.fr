@@ -9,6 +9,15 @@ import PartenaireOrganisme from '@/components/Partenaires/PartenaireOrganisme'
 export default async function PartenairePage({ params }: { params: { id: string } }) {
   const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
 
+  const availableTabs = []
+
+  if (partenaireDeLaCharte.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
+    availableTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
+  }
+  if (partenaireDeLaCharte.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
+    availableTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+  }
+
   return (
     <>
       <Section>
@@ -25,7 +34,7 @@ export default async function PartenairePage({ params }: { params: { id: string 
         ))}
         {partenaireDeLaCharte.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE && partenaireDeLaCharte.reviews && partenaireDeLaCharte.reviews.length > 0 && <PartenaireReviews reviews={partenaireDeLaCharte.reviews} />}
       </Section>
-      {partenaireDeLaCharte.type === PartenaireDeLaCharteTypeEnum.ORGANISME && <PartenaireOrganisme partenaireDeLaCharte={partenaireDeLaCharte} />}
+      {partenaireDeLaCharte.type === PartenaireDeLaCharteTypeEnum.ORGANISME && <PartenaireOrganisme availableTabs={availableTabs} partenaireDeLaCharte={partenaireDeLaCharte} />}
     </>
   )
 }
