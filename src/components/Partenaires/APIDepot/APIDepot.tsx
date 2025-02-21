@@ -41,6 +41,7 @@ export default function APIDepot({ partenaireDeLaCharte }: APIDepotProps) {
     : (
         <Section title="Publication de Bases Adresse Locale via API">
           <section>
+            <p>Liste des clients d&apos;API de dépôt dont dispose {partenaireDeLaCharte.name} : </p>
             <div className="fr-accordions-group">
               {clients.map(client => (
                 <Accordion
@@ -52,7 +53,12 @@ export default function APIDepot({ partenaireDeLaCharte }: APIDepotProps) {
                     </div>
                   )}
                 >
-                  {client.chefDeFile.perimeters && <Perimeters perimeters={client.chefDeFile.perimeters} style={{ marginBottom: '1rem' }} />}
+                  {client.chefDeFile.perimeters && (
+                    <>
+                      <p>Ce client d&apos;API de dépôt est habilité à publier des BAL pour les communes listées ci-dessous, les publications concernant des communes ne faisant pas partie des périmètres ci-dessous seront rejetées.</p>
+                      <Perimeters perimeters={client.chefDeFile.perimeters} style={{ marginBottom: '2rem' }} />
+                    </>
+                  )}
                   <APIDepotRevisionsList revisions={client.revisions} />
                 </Accordion>
               ))}
