@@ -18,6 +18,8 @@ import dataQuotes from '@/data/sample-quotes.json'
 
 import { CardContainer } from './page.styles'
 
+export const revalidate = 3600 // 1 hour
+
 export default async function Home() {
   const stats = await getStats()
   const highlightedDatas = await getPosts({ limit: 3 })
