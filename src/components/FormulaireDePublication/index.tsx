@@ -193,7 +193,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       />
     ) },
     { title: 'Choix de la méthode d\'habilitation', content: (revision && habilitation) && <HabilitationMethod revision={revision} habilitation={habilitation} sendPinCode={sendPinCode} emailSelected={emailSelected} setEmailSelected={setEmailSelected} /> },
-    { title: 'Validation de l\'habilitation', content: habilitation && <PinCodeValidation emailSelected={emailSelected} onSubmit={checkPinCode} sendPinCode={sendPinCode} isLoading={isLoading} /> },
+    { title: 'Validation de l\'habilitation', content: habilitation && <PinCodeValidation email={habilitation.emailCommune} onSubmit={checkPinCode} sendPinCode={sendPinCode} isLoading={isLoading} /> },
     { title: 'Publication des adresses', content: commune && <PublishingBAL commune={commune} handlePublishRevision={handlePublishRevision} hasConflict={Boolean(communeCurrentRevision)} /> },
     { title: 'La Base Adresse Locale est publiée', content: commune && <PublishedBAL commune={commune} onReset={handleReset} /> },
 

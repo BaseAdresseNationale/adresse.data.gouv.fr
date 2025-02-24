@@ -11,7 +11,7 @@ interface HabilitationMethodProps {
   revision: Revision
   habilitation: Habilitation
   sendPinCode: () => Promise<void>
-  emailSelected: string | undefined
+  emailSelected?: string
   setEmailSelected: Dispatch<SetStateAction<string | undefined>>
 }
 
