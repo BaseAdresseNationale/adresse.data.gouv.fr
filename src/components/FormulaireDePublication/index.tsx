@@ -56,6 +56,7 @@ interface FormulaireDePublicationProps {
 export default function FormulaireDePublication({ initialHabilitation, initialRevision, initialCommune }: FormulaireDePublicationProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error>()
+  const [emailSelected, setEmailSelected] = useState<string | undefined>()
   const [commune, setCommune] = useState<Commune & { flagUrl: string } | undefined>(initialCommune)
   const [habilitation, setHabilitation] = useState<Habilitation | undefined>(initialHabilitation)
   const [revision, setRevision] = useState<Revision | undefined>(initialRevision)
@@ -120,11 +121,11 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
   const sendPinCode = async () => {
     try {
-      if (!habilitation) {
+      if (!habilitation || !emailSelected) {
         throw new Error('Une erreur est survenue')
       }
       setIsLoading(true)
-      await sendHabilitationPinCode(habilitation.id)
+      await sendHabilitationPinCode(habilitation.id, emailSelected)
       const updatedHabilitation = await getHabilitation(habilitation.id)
       setHabilitation(updatedHabilitation)
     }
@@ -191,8 +192,8 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         maxSize={50 * 1024 * 1024}
       />
     ) },
-    { title: 'Choix de la méthode d\'habilitation', content: (revision && habilitation) && <HabilitationMethod revision={revision} habilitation={habilitation} sendPinCode={sendPinCode} /> },
-    { title: 'Validation de l\'habilitation', content: habilitation && <PinCodeValidation habilitation={habilitation} onSubmit={checkPinCode} sendPinCode={sendPinCode} isLoading={isLoading} /> },
+    { title: 'Choix de la méthode d\'habilitation', content: (revision && habilitation) && <HabilitationMethod revision={revision} habilitation={habilitation} sendPinCode={sendPinCode} emailSelected={emailSelected} setEmailSelected={setEmailSelected} /> },
+    { title: 'Validation de l\'habilitation', content: habilitation && <PinCodeValidation email={habilitation.emailCommune} onSubmit={checkPinCode} sendPinCode={sendPinCode} isLoading={isLoading} /> },
     { title: 'Publication des adresses', content: commune && <PublishingBAL commune={commune} handlePublishRevision={handlePublishRevision} hasConflict={Boolean(communeCurrentRevision)} /> },
     { title: 'La Base Adresse Locale est publiée', content: commune && <PublishedBAL commune={commune} onReset={handleReset} /> },
 
