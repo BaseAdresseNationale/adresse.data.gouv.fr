@@ -99,31 +99,3 @@ export async function getMairie(codeCommune: string): Promise<FormattedMairie | 
   const mairie = formatMairie(rawMairie)
   return mairie
 }
-
-function validateEmail(email: string) {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([a-zA-Z\-\d]+\.)+[a-zA-Z]{2,}))$/
-  return re.test(String(email).toLowerCase())
-}
-
-export async function getEmailsCommune(codeCommune: string): Promise<string[]> {
-  // Documentation : https://api-lannuaire.service-public.fr/explore/dataset/api-lannuaire-administration/information/
-  const route = 'catalog/datasets/api-lannuaire-administration/records'
-  const query = `select=plage_ouverture,nom,telephone,adresse_courriel&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`
-  const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
-
-  const response: { results: MairieResponse[] } = await customFetch(url)
-
-  const emails: string[] = response.results
-    .filter(
-      ({ adresse_courriel }) => adresse_courriel && adresse_courriel !== '' && validateEmail(adresse_courriel)
-    )
-    .reduce(
-      (accumulator: string[], { adresse_courriel }: MairieResponse) => [
-        ...accumulator,
-        ...(adresse_courriel as string).split(';'),
-      ],
-      []
-    )
-
-  return emails
-}

@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import Card from '@codegouvfr/react-dsfr/Card'
 import ResponsiveImage from '../../ResponsiveImage'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { getEmailsCommune } from '@/lib/api-etablissement-public'
 import Select from '@codegouvfr/react-dsfr/Select'
+import { getEmailsCommune } from '@/lib/api-depot'
 
 interface HabilitationMethodProps {
   revision: Revision

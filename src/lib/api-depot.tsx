@@ -52,6 +52,10 @@ export async function getRevisions(codeCommune: string): Promise<Revision[]> {
   })
 }
 
+export async function getEmailsCommune(codeCommune: string): Promise<string[]> {
+  return await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/emails`)
+}
+
 export async function createRevision(codeCommune: string, file: File): Promise<Revision> {
   const revision: Revision = await customFetch(`/api/proxy-api-depot/communes/${codeCommune}/revisions`, {
     method: 'POST',
