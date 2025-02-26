@@ -20,9 +20,11 @@ export function createHabilitation(codeCommune: string): Promise<Habilitation> {
   return customFetch(`/api/proxy-api-depot/communes/${codeCommune}/habilitations`, { method: 'POST' })
 }
 
-export function sendHabilitationPinCode(habilitationId: string) {
+export function sendHabilitationPinCode(habilitationId: string, email: string) {
   return customFetch(`/api/proxy-api-depot/habilitations/${habilitationId}/authentication/email/send-pin-code`, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
   })
 }
 
@@ -48,6 +50,10 @@ export async function getRevisions(codeCommune: string): Promise<Revision[]> {
   return revisions.sort((a: Revision, b: Revision) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   })
+}
+
+export async function getEmailsCommune(codeCommune: string): Promise<string[]> {
+  return await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/emails`)
 }
 
 export async function createRevision(codeCommune: string, file: File): Promise<Revision> {
