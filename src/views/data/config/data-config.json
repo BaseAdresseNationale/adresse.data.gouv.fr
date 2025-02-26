@@ -48,6 +48,24 @@
           "name": "__"
         }
       ]
+    },
+    {
+      "path": "ban/export-api-gestion",
+      "hero": {
+        "type": "warning",
+        "value": "Ce répertoire est obsolète et redirige vers le répertoire adresses"
+      },
+      "groups": [
+        {
+          "name": "Données archivées",
+          "description": "Données archivées de la BAN",
+          "direction": "desc",
+          "rule": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        {
+          "name": "__"
+        }
+      ]
     }
   ],
   "alias": [
@@ -70,6 +88,14 @@
     {
       "parent": "ban/adresses",
       "name": "weekly",
+      "target": {
+        "action": "getLatestFromRegExp",
+        "params": ["^\\d{4}-\\d{2}-\\d{2}$"]
+      }
+    },
+    {
+      "parent": "ban/export-api-gestion",
+      "name": "latest",
       "target": {
         "action": "getLatestFromRegExp",
         "params": ["^\\d{4}-\\d{2}-\\d{2}$"]
