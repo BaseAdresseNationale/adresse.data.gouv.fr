@@ -14,8 +14,8 @@ declare module '@ban-team/validateur-bal' {
     relaxFieldsDetection,
     profile,
   }: {
-    relaxFieldsDetection?: boolean,
-    profile?: string,
+    relaxFieldsDetection?: boolean
+    profile?: string
   }): Promise<any>
   export const profiles: Record<string, ValidateurProfile>
   export const getLabel: (code: string) => string
