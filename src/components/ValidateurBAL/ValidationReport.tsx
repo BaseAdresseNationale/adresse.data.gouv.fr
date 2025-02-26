@@ -3,25 +3,8 @@ import Section from '../Section'
 import styled from 'styled-components'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { Table } from '@codegouvfr/react-dsfr/Table'
-import { getLabel } from '@ban-team/validateur-bal'
+import { getLabel, PrevalidateType, ValidateProfile, profiles, ProfileErrorType, NotFoundFieldType, ErrorLevelEnum } from '@ban-team/validateur-bal'
 import ValidationSummary from './ValidationSummary'
-
-interface ValidationReportProps {
-  report: any
-  profile: string
-  profiles: Record<string, ValidateurProfile>
-}
-
-type ProfileError = {
-  code: string
-  level: 'E' | 'W' | 'I'
-}
-
-type FieldError = {
-  schemaName: string
-  schemaVersion: string
-  level: 'E' | 'W' | 'I'
-}
 
 const StyledWrapper = styled.div`
 .file-structure-wrapper {
@@ -49,25 +32,29 @@ const StyledWrapper = styled.div`
 
 `
 
-const sortBySeverity = (a: ProfileError, b: ProfileError) => {
-  const levelOrder = { E: 0, W: 1, I: 2 }
-  return levelOrder[a.level] - levelOrder[b.level]
+const sortBySeverity = (a: ProfileErrorType | NotFoundFieldType, b: ProfileErrorType | NotFoundFieldType) => {
+  const levelOrder: Record<string, number> = { E: 0, W: 1, I: 2 }
+  return levelOrder[a.level!] - levelOrder[b.level!]
 }
 
-function ValidationReport({ report, profile, profiles }: ValidationReportProps) {
-  const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report
+interface ValidationReportProps {
+  report: PrevalidateType | ValidateProfile
+  profile: string
+}
+
+function ValidationReport({ report, profile }: ValidationReportProps) {
+  const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateProfile
   const generalValidationRows = profilErrors
     .sort(sortBySeverity)
-    .map(({ code, level }: ProfileError) => ([level === 'E' ? <Badge severity="error">Erreur</Badge> : level === 'I' ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
+    .map(({ code, level }: ProfileErrorType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
 
-  const notFoundFieldsRows = notFoundFields
-    .sort(sortBySeverity)
-    .map(({ schemaName, schemaVersion, level }: FieldError) => ([level === 'E' ? <Badge severity="error">Erreur</Badge> : level === 'I' ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, schemaName, schemaVersion]))
+  const notFoundFieldsRows = notFoundFields!.sort(sortBySeverity)
+    .map(({ schemaName, level }: NotFoundFieldType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, schemaName]))
 
   return (
     <StyledWrapper>
       <Section>
-        {profilesValidation[profile].isValid
+        {profilesValidation?.[profile].isValid
           ? (
               <Alert
                 description={`Le fichier Bal est valide (en version ${profiles[profile].name})`}
@@ -88,29 +75,29 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
         <div className="file-structure-wrapper">
           <div className="item">
             <div><b>Encodage des caractères</b></div>
-            <Badge severity={fileValidation.encoding.isValid ? 'success' : 'error'}>
-              {fileValidation.encoding.value}
+            <Badge severity={fileValidation?.encoding.isValid ? 'success' : 'error'}>
+              {fileValidation?.encoding.value || ''}
             </Badge>
           </div>
 
           <div className="item">
             <div><b>Délimiteur</b></div>
-            <Badge severity={fileValidation.delimiter.isValid ? 'success' : 'error'}>
-              {fileValidation.delimiter.value}
+            <Badge severity={fileValidation?.delimiter.isValid ? 'success' : 'error'}>
+              {fileValidation?.delimiter.value || ''}
             </Badge>
           </div>
 
           <div className="item">
             <div><b>Nombre de lignes</b></div>
             <Badge severity="success">
-              {rows.length}
+              {rows?.length || 0}
             </Badge>
           </div>
 
           <div className="item">
             <div><b>Séparateur de ligne</b></div>
-            <Badge severity={fileValidation.linebreak.isValid ? 'success' : 'error'}>
-              {fileValidation.linebreak.value}
+            <Badge severity={fileValidation?.linebreak.isValid ? 'success' : 'error'}>
+              {fileValidation?.linebreak.value || ''}
             </Badge>
           </div>
         </div>
@@ -130,7 +117,7 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
       </Section>
 
       <Section theme="primary">
-        {notFoundFields.length > 0 && (
+        {notFoundFields && notFoundFields.length > 0 && (
           <>
             <h4>Champs non trouvés</h4>
             <div className="table-wrapper">
@@ -139,7 +126,7 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
           </>
         )}
 
-        {fields.length > 0 && (
+        {fields && fields.length > 0 && (
           <>
             <h4>Champs présents</h4>
             <div className="present-fields-wrapper">
@@ -148,7 +135,7 @@ function ValidationReport({ report, profile, profiles }: ValidationReportProps) 
           </>
         )}
       </Section>
-      <ValidationSummary rows={rows} />
+      {rows && <ValidationSummary rows={rows} /> }
     </StyledWrapper>
   )
 }
