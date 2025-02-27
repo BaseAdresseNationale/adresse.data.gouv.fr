@@ -15,11 +15,11 @@ export type Revision = {
     warnings: any[]
     infos: any[]
     rowsCount: number
-  }
+  } | null
   context: {
     extras: any
   }
-  publishedAt: string
+  publishedAt: string | null
   createdAt: string
   updatedAt: string
   isCurrent: boolean
@@ -31,7 +31,7 @@ export type Revision = {
     createdAt: string
     updatedAt: string
     expiresAt: string
-  }
+  } | null
 }
 
 export enum HabilitationStatus {
