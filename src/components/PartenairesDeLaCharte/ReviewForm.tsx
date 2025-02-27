@@ -130,7 +130,7 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
       <section>
         <p>
           <i>
-            Les commentaires seront publiés après validation par l&apos;équipe de la Base Adresse Locale.s
+            Les commentaires seront publiés après validation par l&apos;équipe Base Adresse Locale.
           </i>
         </p>
         <p style={{ margin: 0 }}>
