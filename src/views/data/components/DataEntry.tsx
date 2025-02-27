@@ -26,8 +26,8 @@ const theme = {
 }
 
 const translatedName: { [key: string]: string } = {
-  'latest': 'Dernière(s) version(s) en date',
-  'weekly': 'Version(s) hebdomadaire(s)',
+  latest: 'Dernière(s) version(s) en date',
+  weekly: 'Version(s) hebdomadaire(s)',
 }
 
 const translatedQuarter: { [key: string]: string } = {
