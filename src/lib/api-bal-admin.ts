@@ -73,7 +73,7 @@ export async function registrationToEvent(eventId: string, participant: Particip
 }
 
 export async function sendReview(partenaireId: string, review: ReviewFormType) {
-  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${partenaireId}/review`
+  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${partenaireId}/reviews`
 
   return customFetch(request, {
     method: 'POST',

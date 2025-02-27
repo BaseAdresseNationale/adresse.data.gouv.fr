@@ -29,16 +29,11 @@ function APIDepotRevisionsList({ revisions }: APIDepotRevisionsListProps) {
     ValidationReportModal.open()
   }
 
-  const handleCloseValidationReport = () => {
-    setShowValidationReport(null)
-    ValidationReportModal.close()
-  }
-
   return (
     <>
       <section>
-        <h5>Revisions par commune</h5>
-        <p>Ici sont listés les dernières révisions publiées par commune par ce client d&apos;API de dépôt.</p>
+        <h5>Révisions par commune</h5>
+        <p>Ici sont listés les dernières révisions créées par commune par ce client d&apos;API de dépôt.</p>
         <p><b> Si vous rencontrez un problème pour la publication d&apos;une commune, vous obtiendrez des informations sur les erreurs de publication en consultant le rapport de validation.</b></p>
         {(revisions && revisions.length > 0)
           ? (
@@ -49,6 +44,7 @@ function APIDepotRevisionsList({ revisions }: APIDepotRevisionsListProps) {
                       <th scope="col"></th>
                       <th scope="col">Commune</th>
                       <th scope="col">Statut</th>
+                      <th scope="col">Date de publication</th>
                       <th scope="col">Rapport de validation</th>
                       <th scope="col">Fichier</th>
                     </tr>

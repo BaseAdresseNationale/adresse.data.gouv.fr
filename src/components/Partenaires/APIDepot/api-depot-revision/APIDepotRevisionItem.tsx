@@ -10,7 +10,7 @@ interface APIDepotRevisionItemProps {
   codeCommune: string
   validation: Revision['validation']
   isCurrent: boolean
-  publishedAt: string
+  publishedAt: string | null
   status: string
   openValidationReport: (validation: Revision['validation']) => void
 }
@@ -20,14 +20,12 @@ export default function APIDepotRevisionItem({ id, codeCommune, validation, isCu
     switch (status) {
       case 'published':
         return (
-          <Tooltip title={`Publiée le ${new Date(publishedAt).toLocaleDateString('fr')}`}>
-            <Badge severity="success">Publiée</Badge>
-          </Tooltip>
+          <Badge severity="success">Publiée</Badge>
         )
       default:
         return (
-          <Tooltip title={validation.errors.length > 0 ? 'Des erreurs de validations empèchent la publication, pour en savoir plus veuillez consulter le rapport de validation' : 'La révision est en attente de publication'}>
-            <Badge severity={validation.errors.length > 0 ? 'error' : 'warning'}>Non publiée</Badge>
+          <Tooltip title={validation && validation.errors.length > 0 ? 'Des erreurs de validations empèchent la publication, pour en savoir plus veuillez consulter le rapport de validation' : 'La révision est en attente de publication'}>
+            <Badge severity={validation && validation.errors.length > 0 ? 'error' : 'warning'}>Non publiée</Badge>
           </Tooltip>
         )
     }
@@ -45,7 +43,18 @@ export default function APIDepotRevisionItem({ id, codeCommune, validation, isCu
         {getStatusBadge(status)}
       </td>
       <td className="fr-col fr-my-1v">
-        <Button type="button" onClick={() => openValidationReport(validation)}>Ouvrir</Button>
+        {publishedAt
+          ? new Date(publishedAt).toLocaleDateString('fr', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+          })
+          : ''}
+      </td>
+      <td className="fr-col fr-my-1v">
+        {validation && <Button type="button" onClick={() => openValidationReport(validation)}>Ouvrir</Button>}
       </td>
       <td className="fr-col fr-my-1v">
         {publishedAt && <Button linkProps={{ href: getRevisionDownloadUrl(id) }}>Télécharger</Button>}
