@@ -188,18 +188,11 @@ const redirects = async () => [
     permanent: true
   },
   {
-    source: '/data/ban/adresses-odbl',
+    source: '/data/ban/adresses-odbl/:path*',
     destination: '/data/ban/adresses',
     permanent: true
   },
   
-]
-
-const rewrites = async () => [
-  {
-    source: '/data/ban/adresses-odbl/:path*',
-    destination: '/data/ban/adresses/:path*',
-  }
 ]
 
 const nextConfig = withBundleAnalyzer({
@@ -207,8 +200,7 @@ const nextConfig = withBundleAnalyzer({
     ...defaultEnvVar,
     ...envVar,
   },
-  redirects, 
-  rewrites,
+  redirects,
   images: {
     remotePatterns: imagesDomains.map(domain => ({
       protocol: 'https',
