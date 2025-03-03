@@ -1,15 +1,12 @@
-import Accordion from '@codegouvfr/react-dsfr/Accordion'
-import { getLabel } from '@ban-team/validateur-bal'
 import Table from '@codegouvfr/react-dsfr/Table'
-import { ValidationRow } from './ValidationSummary'
+import { ValidateRowType } from '@ban-team/validateur-bal'
 import styled from 'styled-components'
-import { useCallback, useMemo, useState } from 'react'
-import Pagination from '@codegouvfr/react-dsfr/Pagination'
+import { useMemo, useState } from 'react'
 import SoftPagination from '../Pagination/soft-pagination'
 
 type ValidationCodeTableProps = {
   code: string
-  groupCode: ValidationRow[]
+  groupCode: ValidateRowType[]
 }
 
 const StyledWrapper = styled.div`
