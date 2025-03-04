@@ -189,7 +189,7 @@ const redirects = async () => [
   },
   {
     source: '/data/ban/adresses-odbl/:path*',
-    destination: '/data/ban/adresses',
+    destination: '/data/ban/adresses/:path*',
     permanent: true
   },
   
