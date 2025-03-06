@@ -2,7 +2,7 @@
 
 import Section from '@/components/Section'
 import { useState } from 'react'
-import { validate, profiles as profilesMap } from '@ban-team/validateur-bal'
+import { validate, profiles, ValidateProfile, PrevalidateType } from '@ban-team/validateur-bal'
 import SelectInput from '@/components/SelectInput'
 import Loader from '@/components/Loader'
 import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
@@ -13,14 +13,17 @@ import Button from '@codegouvfr/react-dsfr/Button'
 
 const availableProfiles = ['1.3', '1.4']
 
-const profilesOptions = Object.values(profilesMap)
+const profilesOptions: {
+  label: string
+  value: string
+}[] = Object.values(profiles)
   .filter(({ code }) => availableProfiles.includes(code))
   .map(({ name, code }) => ({ label: name, value: code }))
 
 export default function ValidateurBAL() {
   const [isLoading, setIsLoading] = useState(false)
-  const [validationReport, setValidationReport] = useState<any>(null)
-  const [profile, setProfile] = useState<string>(availableProfiles[0])
+  const [validationReport, setValidationReport] = useState<PrevalidateType | ValidateProfile | null>(null)
+  const [profile, setProfile] = useState<string>(availableProfiles[1])
   const [file, setFile] = useState<File | null>(null)
 
   const handleReset = () => {
@@ -30,7 +33,9 @@ export default function ValidateurBAL() {
   const getReport = async (file: File, profile: string) => {
     try {
       setIsLoading(true)
-      const report = await validate(file, { profile })
+      // const arrayBuffer: ArrayBuffer = await file.arrayBuffer()
+      // const buffer: Buffer = Buffer.from(arrayBuffer)
+      const report: PrevalidateType | ValidateProfile = await validate(file as any, { profile })
       setValidationReport(report)
     }
     catch (e) {
@@ -77,7 +82,7 @@ export default function ValidateurBAL() {
                         />
                       </div>
                     </div>
-                    <ValidationReport report={validationReport} profile={profile} profiles={profilesMap} />
+                    <ValidationReport report={validationReport} profile={profile} />
                   </>
                 )
               : (
@@ -136,7 +141,7 @@ export default function ValidateurBAL() {
         <p>
           Voici le détail des erreurs et avertissements que vous pouvez rencontrer lors de la validation de votre fichier BAL suivant la spécification choisie :
         </p>
-        {availableProfiles.map(profile => <ProfileDocumentation key={profile} profile={profilesMap[profile]} />)}
+        {availableProfiles.map(profile => <ProfileDocumentation key={profile} profile={profiles[profile]} />)}
       </Section>
       <Section>
         <Alert title="Télécharger le validateur" severity="info" description={<p> Pour une utilisation avancée, vous pouvez télécharger le validateur sur cette <a href="https://github.com/BaseAdresseNationale/validateur-bal/releases" target="_blank" rel="noreferrer">page</a>.</p>} />

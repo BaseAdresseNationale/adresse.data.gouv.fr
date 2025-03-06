@@ -1,10 +1,10 @@
-import { getLabel } from '@ban-team/validateur-bal'
+import { getLabel, Profile } from '@ban-team/validateur-bal'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import Table from '@codegouvfr/react-dsfr/Table'
 import styled from 'styled-components'
 
 type ProfileDocumentationProps = {
-  profile: ValidateurProfile
+  profile: Profile
 }
 
 const StyledWrapper = styled.div`
@@ -19,8 +19,7 @@ export default function ProfileDocumentation({ profile }: ProfileDocumentationPr
     .map(code => ([code, getLabel(code.replace('@@', 'eus'))]))
   const warningsLevel = warnings
     .map(code => ([code, getLabel(code.replace('@@', 'eus'))]))
-  const infosLevel = infos
-    .map(code => ([code, getLabel(code.replace('@@', 'eus'))]))
+  const infosLevel = infos?.map(code => ([code, getLabel(code.replace('@@', 'eus'))])) ?? []
 
   return (
     <StyledWrapper>

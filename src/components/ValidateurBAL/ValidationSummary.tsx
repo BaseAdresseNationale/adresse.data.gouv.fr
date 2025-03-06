@@ -1,27 +1,19 @@
 import Section from '../Section'
 import ValidationAccordion from './ValidationAccordion'
-
-export type ValidationRow = {
-  isValid: boolean
-  line: number
-  parsedValues: Record<string, string>
-  rawValues: Record<string, string>
-  localizedValues: Record<string, string>
-  errors: { code: string, level: 'E' | 'W' | 'I', schemaName: string }[]
-}
+import { ErrorLevelEnum, ValidateRowType } from '@ban-team/validateur-bal'
 
 type ValidationSummaryProps = {
-  rows: ValidationRow[]
+  rows: ValidateRowType[]
 }
 
 export default function ValidationSummary({ rows }: ValidationSummaryProps) {
-  const errorsGroups: Record<string, ValidationRow[]> = {}
-  const warningsGroups: Record<string, ValidationRow[]> = {}
-  const infosGroups: Record<string, ValidationRow[]> = {}
+  const errorsGroups: Record<string, ValidateRowType[]> = {}
+  const warningsGroups: Record<string, ValidateRowType[]> = {}
+  const infosGroups: Record<string, ValidateRowType[]> = {}
 
   rows.forEach((row) => {
-    row.errors.forEach(({ code, level }) => {
-      if (level === 'W') {
+    row.errors!.forEach(({ code, level }) => {
+      if (level === ErrorLevelEnum.WARNING) {
         if (!warningsGroups[code]) {
           warningsGroups[code] = []
         }
@@ -29,7 +21,7 @@ export default function ValidationSummary({ rows }: ValidationSummaryProps) {
         warningsGroups[code].push(row)
       }
 
-      if (level === 'E') {
+      if (level === ErrorLevelEnum.ERROR) {
         if (!errorsGroups[code]) {
           errorsGroups[code] = []
         }
@@ -37,7 +29,7 @@ export default function ValidationSummary({ rows }: ValidationSummaryProps) {
         errorsGroups[code].push(row)
       }
 
-      if (level === 'I') {
+      if (level === ErrorLevelEnum.INFO) {
         if (!infosGroups[code]) {
           infosGroups[code] = []
         }
