@@ -26,10 +26,8 @@ const theme = {
 }
 
 const translatedName: { [key: string]: string } = {
-  'latest': 'Dernière(s) version(s) en date',
-  'weekly': 'Version(s) hebdomadaire(s)',
-  'ban/adresses-odbl': 'Repertoire déprecié',
-  'ban/adresses-odbl/latest': 'Dernière(s) version(s) en date',
+  latest: 'Dernière(s) version(s) en date',
+  weekly: 'Version(s) hebdomadaire(s)',
 }
 
 const translatedQuarter: { [key: string]: string } = {
