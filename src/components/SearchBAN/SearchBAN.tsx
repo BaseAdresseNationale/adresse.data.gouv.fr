@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { env } from 'next-runtime-env'
 import { groupBy } from 'lodash'
 
 import { search, isFirstCharValid } from '@/lib/api-adresse'
@@ -8,7 +8,7 @@ import { getCommune as getCommuneByINSEE } from '@/lib/api-ban'
 import { removeAccent } from '@/utils/string'
 
 import SearchInput from './search-input'
-import { env } from 'next-runtime-env'
+import shortDistrictNameRaw from './district-short-name.json'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
@@ -56,22 +56,20 @@ interface TypeSearchDataInBan {
   postcode?: string
   citycode?: string
   debug?: boolean
+  hasBanData?: boolean
+  hasGeocoderData?: boolean
 }
 
-// TODO : Extract from BDD
-// List of district with shortName
 const normalizeName = (name: string) => removeAccent(name.toLowerCase())
-const shortDistrictName = [
-  'Bû', 'Ry', 'Eu', 'Sy', 'Oz',
-  'Us', 'Ri', 'Uz', 'Oô', 'Py',
-  'Ur', 'Gy', 'Y', 'By',
-].map(normalizeName)
+const shortDistrictName = shortDistrictNameRaw.map(normalizeName)
 
 const searchDataInBan = ({
   type,
   postcode,
   citycode,
   debug,
+  hasBanData = true,
+  hasGeocoderData = true,
 }: TypeSearchDataInBan = {}) =>
   async (_strSearch: string, signal: AbortSignal) => {
     const strSearch = (shortDistrictName.includes(normalizeName(_strSearch)))
@@ -80,15 +78,18 @@ const searchDataInBan = ({
 
     if (typeof strSearch === 'string' && isFirstCharValid(strSearch) && strSearch.length >= minChars) {
       try {
-        const communePromise = strSearch.length === codeInseeSize
-          ? (getCommuneByINSEE(strSearch, signal)
-              .then(result => ({ properties: formatBanToProperties(result) }))
-              .catch((err) => {
-                if (debug) console.error('err getCommuneByINSEE >', err)
-                return null
-              }))
+        const communePromise = hasBanData
+          ? (
+              strSearch.length === codeInseeSize
+                ? (getCommuneByINSEE(strSearch, signal)
+                    .then(result => ({ properties: formatBanToProperties(result) }))
+                    .catch((err) => {
+                      if (debug) console.error('err getCommuneByINSEE >', err)
+                      return null
+                    }))
+                : null)
           : null
-        const searchApiPromise = search({ q: strSearch, limit: 7, type, postcode, citycode, autocomplete: true }, signal)
+        const searchApiPromise = hasGeocoderData ? search({ q: strSearch, limit: 7, type, postcode, citycode, autocomplete: true }, signal) : null
         const [communeResult, searchApiResults] = await Promise.all([communePromise, searchApiPromise])
         const results = [
           ...(communeResult ? [communeResult] : []),
@@ -158,58 +159,45 @@ interface BanSearchProps {
     citycode?: string
   }
   placeholder?: string
-  hasPreferedPageResult?: boolean
+  onSelect?: (feature: GeoJSON.Feature) => void
+  isDebugMode?: boolean
 }
 
-function BanSearch({ children, filter = {}, placeholder, hasPreferedPageResult }: BanSearchProps) {
+function BanSearch({
+  children,
+  filter = {},
+  placeholder,
+  onSelect,
+  isDebugMode,
+}: BanSearchProps) {
   const [error, setError] = useState<Error | null>(null)
 
   const router = useRouter()
   const onSearch = useMemo(() => searchDataInBan({ ...filter }), [filter])
 
-  interface FeatureProperties {
-    id: string
-    citycode: string
-    type: string
-  }
+  const defaultHandleSelect = useCallback((feature: GeoJSON.Feature) => {
+    const { id } = feature?.properties || {}
+    router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`)
+  }, [router])
 
-  interface Feature {
-    properties: FeatureProperties
-  }
-
-  const handleSelect = useCallback((feature: Feature) => {
-    const { id, citycode: codeCommune, type } = feature?.properties || {}
-    if (hasPreferedPageResult && type === 'municipality') {
-      router.push(`/commune/${codeCommune}`)
-    }
-    else if (id) {
-      router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`)
-    }
-  }, [hasPreferedPageResult, router])
   const handleError = useCallback((err: Error) => setError(err), [])
+
+  useEffect(() => {
+    if (isDebugMode) console.error('error >', error)
+  }, [error, isDebugMode])
 
   return (
     <SearchInput
       placeholder={placeholder}
       itemMenuFormater={itemMenuFormater}
       onSearch={onSearch}
-      onSelect={handleSelect}
+      onSelect={onSelect || defaultHandleSelect}
       onError={handleError}
       hasLoader
     >
       {children}
     </SearchInput>
   )
-}
-
-BanSearch.propTypes = {
-  filter: PropTypes.shape({
-    type: PropTypes.string,
-    postcode: PropTypes.string,
-    citycode: PropTypes.string,
-  }),
-  placeholder: PropTypes.string,
-  hasPreferedPageResult: PropTypes.bool,
 }
 
 export default BanSearch

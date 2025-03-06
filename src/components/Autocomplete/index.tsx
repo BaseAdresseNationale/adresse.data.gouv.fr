@@ -125,27 +125,27 @@ const Autocomplete = <T extends { code: string }>({
           {label}
         </label>
       )}
-      <div className="fr-input-group fr-search-bar" role="search">
-        <input
-          className="fr-input"
-          onChange={onSearch}
-          onFocus={() => setHasFocus(true)}
-          onBlur={(e) => {
-            if (
-              e.relatedTarget instanceof Element
-              && e.relatedTarget.tagName === 'BUTTON'
-            ) {
-              return
-            }
-            setHasFocus(false)
-          }}
-          type="search"
-          name="autocomplete-search"
-          {...inputProps}
-        />
-        <button className="fr-btn" title="Rechercher">
-          Rechercher
-        </button>
+      <div className="fr-input-group" role="search">
+        <div className="fr-input-wrap fr-icon-search-line">
+          <input
+            className="fr-input"
+            onChange={onSearch}
+            onFocus={() => setHasFocus(true)}
+            onBlur={(e) => {
+              if (
+                e.relatedTarget instanceof Element
+                && e.relatedTarget.tagName === 'BUTTON'
+              ) {
+                return
+              }
+              setHasFocus(false)
+            }}
+            type="search"
+            name="autocomplete-search"
+            autoComplete="off"
+            {...inputProps}
+          />
+        </div>
       </div>
       {hasFocus && (
         <div className="results">
