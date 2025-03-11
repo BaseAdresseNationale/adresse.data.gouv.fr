@@ -117,11 +117,11 @@ export default function ReviewForm({ onClose, partenaire }: ReviewFormProps) {
           style={{ marginBottom: '1em' }}
         />
         <Input
-          label="Commentaire"
+          label="Commentaire*"
           textArea
           nativeTextAreaProps={{
             rows: 4,
-            required: false,
+            required: true,
             value: formData.comment,
             onChange: handleEdit('comment'),
           }}

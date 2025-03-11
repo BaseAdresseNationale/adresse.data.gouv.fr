@@ -3,10 +3,11 @@ import { StyledWrapper } from './PartenaireReviews.styles'
 import StarRatingInput from '@/components/StarRatingInput'
 
 interface PartenaireReviewsProps {
+  partenaireName: string
   reviews: ReviewType[]
 }
 
-export default function PartenaireReviews({ reviews }: PartenaireReviewsProps) {
+export default function PartenaireReviews({ partenaireName, reviews }: PartenaireReviewsProps) {
   return (
     <StyledWrapper title="Avis des communes et collectivités">
       {reviews.map(review => (
@@ -21,6 +22,9 @@ export default function PartenaireReviews({ reviews }: PartenaireReviewsProps) {
           </div>
           <div className="review-content">
             <p>{review.comment}</p>
+            {review.reply && (
+              <p><b>Réponse de {partenaireName} : </b>{review.reply}</p>
+            )}
           </div>
         </div>
       ))}
