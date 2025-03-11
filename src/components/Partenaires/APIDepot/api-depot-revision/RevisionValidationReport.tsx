@@ -9,7 +9,6 @@ import styled from 'styled-components'
 const StyledWrapper = styled.div`
     .header {
         display: flex;
-        justify-content: space-between;
         margin-bottom: 1rem;
     }
 `
@@ -24,7 +23,6 @@ export default function RevisionValidationReport({ validationReport }: RevisionV
         <StyledWrapper>
           <div className="header">
             <div>Statut : {validationReport.valid ? <Badge severity="success">Valide</Badge> : <Badge severity="error">Invalide</Badge>}</div>
-            <div>Version du validateur : <b>{validationReport.validatorVersion}</b></div>
           </div>
           <p>Nombre de lignes dans le fichier BAL : <b>{validationReport.rowsCount}</b></p>
           <Alert
