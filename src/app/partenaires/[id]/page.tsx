@@ -32,7 +32,7 @@ export default async function PartenairePage({ params }: { params: { id: string 
         {partenaireDeLaCharte.services?.map(s => (
           <Badge style={{ marginRight: '1rem' }} key={s}>{s}</Badge>
         ))}
-        {partenaireDeLaCharte.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE && partenaireDeLaCharte.reviews && partenaireDeLaCharte.reviews.length > 0 && <PartenaireReviews reviews={partenaireDeLaCharte.reviews} />}
+        {partenaireDeLaCharte.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE && partenaireDeLaCharte.reviews && partenaireDeLaCharte.reviews.length > 0 && <PartenaireReviews partenaireName={partenaireDeLaCharte.name} reviews={partenaireDeLaCharte.reviews} />}
       </Section>
       {partenaireDeLaCharte.type === PartenaireDeLaCharteTypeEnum.ORGANISME && <PartenaireOrganisme availableTabs={availableTabs} partenaireDeLaCharte={partenaireDeLaCharte} />}
     </>
