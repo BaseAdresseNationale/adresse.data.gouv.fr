@@ -91,7 +91,8 @@ export type ReviewType = {
   isAnonymous?: boolean
   community: string
   rating: number
-  comment?: string
+  comment: string
+  reply?: string
   createdAt: string
   updatedAt: string
 }
