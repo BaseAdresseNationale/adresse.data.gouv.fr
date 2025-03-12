@@ -219,7 +219,7 @@ export default function Header(
           {
             iconId: 'fr-icon-book-2-fill',
             linkProps: {
-              href: '/ressources-et-documentations',
+              href: '/documentation-bal',
             },
             text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
           },
