@@ -48,14 +48,6 @@ function SharingBlock({ pageUrl, callMessage, title }: { pageUrl: string, callMe
       title: 'Partager sur Facebook',
     },
     {
-      iconId: 'fr-icon-twitter-x-line',
-      linkProps: {
-        href: `http://x.com/share?text=${callMessage}&url=${pageUrl}`,
-        target: '_blank',
-      },
-      title: 'Partager sur X.com (ex Twitter)',
-    },
-    {
       iconId: 'fr-icon-threads-line',
       linkProps: {
         href: `https://threads.net/intent/post?text=${callMessage}&url=${pageUrl}`,
