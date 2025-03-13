@@ -19,7 +19,6 @@ const SOCIAL_NETWORKS_URL_MASTODON = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTOD
 const SOCIAL_NETWORKS_URL_FACEBOOK = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBOOK')
 const SOCIAL_NETWORKS_URL_LINKEDIN = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_LINKEDIN')
 const SOCIAL_NETWORKS_URL_GITHUB = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_GITHUB')
-const SOCIAL_NETWORKS_URL_XCOM = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_XCOM')
 
 const NewsletterOptinWithNoSSR = dynamic(
   () => import('../components/NewsletterOptin'),
@@ -96,13 +95,7 @@ export default function Footer() {
           }}
           social={{
             buttons: [
-              {
-                linkProps: {
-                  href: SOCIAL_NETWORKS_URL_XCOM as unknown as URL ?? '',
-                  target: '_blank',
-                },
-                type: 'twitter-x',
-              },
+
               {
                 linkProps: {
                   href: SOCIAL_NETWORKS_URL_MASTODON as unknown as URL ?? '',
