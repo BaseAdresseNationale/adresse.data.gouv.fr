@@ -20,7 +20,6 @@ const SOCIAL_NETWORKS_URL_FACEBOOK = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBO
 const SOCIAL_NETWORKS_URL_LINKEDIN = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_LINKEDIN')
 const SOCIAL_NETWORKS_URL_GITHUB = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_GITHUB')
 
-
 const NewsletterOptinWithNoSSR = dynamic(
   () => import('../components/NewsletterOptin'),
   { ssr: false }
