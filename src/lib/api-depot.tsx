@@ -140,7 +140,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
 
   return [
     revision.isCurrent ? <Tooltip message="Révision courante"><span className="fr-icon-success-line" aria-hidden="true" /></Tooltip> : '',
-    `le ${frDateFormatter.format(new Date(revision.createdAt))} à ${new Date(revision.createdAt).toLocaleTimeString().split(':').slice(0, 2).join(':')}`,
+    `le ${frDateFormatter.format(new Date(revision.createdAt))} à ${new Date(revision.createdAt).toLocaleTimeString('fr', { hour12: false }).split(':').slice(0, 2).join(':')}`,
     modeDePublication,
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
