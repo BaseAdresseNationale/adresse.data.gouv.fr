@@ -46,5 +46,6 @@ public/dsfr
 /data/*
 public/communes-index.json
 public/data/communes-index.json
+public/newsletters
 
 .vscode/
