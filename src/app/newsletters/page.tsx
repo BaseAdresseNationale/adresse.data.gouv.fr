@@ -1,6 +1,6 @@
 import Section from '@/components/Section'
 import { getRootPath } from '@/utils/path'
-import { readdir } from 'fs/promises'
+import { readdir, readFile } from 'fs/promises'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 
 const getNewsletterName = (newsletter: string) => {
@@ -12,12 +12,19 @@ const getNewsletterName = (newsletter: string) => {
 export default async function NewslettersPage() {
   const newsletters = await readdir(getRootPath() + '/public/newsletters')
 
+  const newslettersWithContent = await Promise.all(newsletters.map(async (newsletter) => {
+    return {
+      name: getNewsletterName(newsletter),
+      htmlContent: await readFile(getRootPath() + '/public/newsletters/' + newsletter, 'utf-8'),
+    }
+  }))
+
   return (
     <Section title="Nos dernières newsletters">
       <div style={{ marginTop: '2rem' }}>
-        {newsletters.map((newsletter: string, index) => (
-          <Accordion key={index} label={getNewsletterName(newsletter)}>
-            <iframe width="100%" height="600px" src={`/newsletters/${newsletter}`} />
+        {newslettersWithContent.map(({ name, htmlContent }, index) => (
+          <Accordion key={index} label={name}>
+            <iframe width="100%" height="600px" srcDoc={htmlContent} />
           </Accordion>
         ))}
       </div>
