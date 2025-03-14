@@ -100,7 +100,13 @@ export default async function ProgrammeBALPage() {
               </div>
               <div className="fr-col-md-5 cta-card">
                 <h3>Avec accompagnement</h3>
-                <p>
+                <Link
+                  href="/formation-en-ligne"
+                  className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
+                >
+                  Suivre nos formations
+                </Link>
+                <p style={{ marginTop: '1em' }}>
                   Nos partenaires labellisés Charte de la Base Adresse Locale
                   vous proposent un accompagnement ou des outils adaptés à votre
                   territoire.
@@ -233,34 +239,8 @@ export default async function ProgrammeBALPage() {
           </div>
         </div>
       </Section>
-
       <Section>
         <div className="fr-container fr-py-5w">
-          <div className="fr-grid-row hide-mobile">
-            <p>
-              Le programme <strong>Base Adresse Locale</strong> permet de
-              reprendre la main sur les données de son territoire. Il est
-              soutenu par les maires et les territoires de France :
-            </p>
-          </div>
-          <div className="fr-grid-row space-around-row hide-mobile">
-            <div className="fr-col-md-3 image-wrapper">
-              <Link href="https://www.amf.asso.fr/" passHref>
-                <ResponsiveImage
-                  src="/programme-bal/AMF.png"
-                  alt="Logo de l'AMF"
-                />
-              </Link>
-            </div>
-            <div className="fr-col-md-3 image-wrapper">
-              <Link href="https://www.amrf.fr/" passHref>
-                <ResponsiveImage
-                  src="/programme-bal/AMFR.png"
-                  alt="Logo de l'AMRF"
-                />
-              </Link>
-            </div>
-          </div>
           <div className="fr-grid-row main-steps-row">
             <div className="fr-col-md-7 main-steps-card">
               <h2>Les grandes étapes de l&apos;adressage</h2>
@@ -348,6 +328,31 @@ export default async function ProgrammeBALPage() {
               author="Joël Marivain, maire de Kerfourn"
               source={<a href="https://adresse.data.gouv.fr/blog/lassociation-des-maires-du-morbihan-mobilise-les-communes-sur-leurs-adresses" target="_blank">Consulter l&apos;article entier</a>}
             />
+          </div>
+          <div className="fr-grid-row hide-mobile" style={{ marginTop: 50 }}>
+            <p>
+              Le programme <strong>Base Adresse Locale</strong> permet de
+              reprendre la main sur les données de son territoire. Il est
+              soutenu par les maires et les territoires de France :
+            </p>
+          </div>
+          <div className="fr-grid-row space-around-row hide-mobile">
+            <div className="fr-col-md-3 image-wrapper">
+              <Link href="https://www.amf.asso.fr/" passHref>
+                <ResponsiveImage
+                  src="/programme-bal/AMF.png"
+                  alt="Logo de l'AMF"
+                />
+              </Link>
+            </div>
+            <div className="fr-col-md-3 image-wrapper">
+              <Link href="https://www.amrf.fr/" passHref>
+                <ResponsiveImage
+                  src="/programme-bal/AMFR.png"
+                  alt="Logo de l'AMRF"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       </Section>

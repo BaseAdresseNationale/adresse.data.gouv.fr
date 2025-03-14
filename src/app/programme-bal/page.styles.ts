@@ -47,7 +47,7 @@ export const StyledPageProgrammeBAL = styled.div`
   }
 
   .main-steps-row {
-    margin-top: 100px;
+    margin-top: 50px;
     align-items: center;
   }
 
