@@ -36,7 +36,11 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   const dataNotices = {
     // data: [sampleNotice],
-    data: [],
+    // data: [],
+    data: [{
+      text: 'Incident technique sur la BAN : Resolutions en cours',
+      // link?: { href: string; target?: string}
+    }],
     duration: 4000,
   }
 
