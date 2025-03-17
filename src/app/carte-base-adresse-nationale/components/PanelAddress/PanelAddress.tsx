@@ -6,13 +6,17 @@ import {
   PanelDetailsItemValue,
   PanelDetailsOrigin,
   PanelDetailsCertification,
+  DiffWrapper,
 } from '../Panel'
 
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
 
+import FormDiffBan from '@/app/differentiel/components/FormDiffBan/FormDiffBan'
+
 interface PanelAddressProps {
   address: TypeAddressExtended
   onFlyToPosition?: () => void
+  isEditAddress?: boolean
 }
 
 interface Position {
@@ -71,7 +75,7 @@ const certificationLevelConfig = {
   },
 }
 
-function PanelAddress({ address, onFlyToPosition }: PanelAddressProps) {
+function PanelAddress({ address, onFlyToPosition, isEditAddress }: PanelAddressProps) {
   const dateMaj = isValidDate(address.dateMAJ)
     ? new Date(address.dateMAJ).toLocaleDateString('fr-FR', {
       year: 'numeric',
@@ -90,64 +94,72 @@ function PanelAddress({ address, onFlyToPosition }: PanelAddressProps) {
   const isMultiPosition = secondariesPositions.length > 0
 
   return (
-    <PanelDetailsWrapper>
-      <PanelDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
-      <PanelDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
-
-      <PanelDetailsItem className="ri-key-line">
-        <span>
-          Identifiant BAN : <br />
-          <PanelDetailsItemValue>{address.banId || 'Non renseigné'}</PanelDetailsItemValue>
-        </span>
-      </PanelDetailsItem>
-      <PanelDetailsItem className="ri-links-line">
-        <span>
-          Clé d’interopérabilité : <br />
-          <PanelDetailsItemValue>{address.cleInterop}</PanelDetailsItemValue>
-        </span>
-      </PanelDetailsItem>
-      <PanelDetailsItem className="ri-collage-line">
-        <span>
-          Parcelles cadastrales : <br />
-          <PanelDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</PanelDetailsItemValue>
-        </span>
-      </PanelDetailsItem>
-      <PanelDetailsItem className="ri-calendar-line">
-        Date de mise à jour : <br />
-        {dateMaj}
-      </PanelDetailsItem>
-      <PanelDetailsItem className="ri-signpost-line">
-        Libellé d’acheminement : <br />
-        {address.libelleAcheminement}
-      </PanelDetailsItem>
-      <PanelDetailsItem className="ri-map-pin-line">
-        {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
-        <AddressDetailPosition
-          type={mainPosition.positionType}
-          coords={mainPosition.position.coordinates as [number, number]}
-          marker={isMultiPosition ? '⦿' : undefined}
-          onFlyToPosition={onFlyToPosition}
-          isSmartDevice={isSmartDevice()}
-        />
-      </PanelDetailsItem>
-      {isMultiPosition && (
-        <PanelDetailsItem className="ri-map-pin-2-line">
-          Position Secondaire : <br />
-          <ol>
-            {secondariesPositions.map((entry, index) => (
-              <li key={index}>
-                <AddressDetailPosition
-                  type={`${entry.positionType}`}
-                  coords={entry.position.coordinates as [number, number]}
-                  onFlyToPosition={onFlyToPosition}
-                  isSmartDevice={isSmartDevice()}
-                />
-              </li>
-            ))}
-          </ol>
-        </PanelDetailsItem>
+    <>
+      {isEditAddress && (
+        <DiffWrapper>
+          <FormDiffBan banItem={address} />
+        </DiffWrapper>
       )}
-    </PanelDetailsWrapper>
+
+      <PanelDetailsWrapper>
+        <PanelDetailsOrigin config={configOriginAddress} origin={address.sourcePosition} />
+        <PanelDetailsCertification certificationConfig={certificationLevelConfig} isCertified={address.certifie} />
+
+        <PanelDetailsItem className="ri-key-line">
+          <span>
+            Identifiant BAN : <br />
+            <PanelDetailsItemValue>{address.banId || 'Non renseigné'}</PanelDetailsItemValue>
+          </span>
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-links-line">
+          <span>
+            Clé d’interopérabilité : <br />
+            <PanelDetailsItemValue>{address.cleInterop}</PanelDetailsItemValue>
+          </span>
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-collage-line">
+          <span>
+            Parcelles cadastrales : <br />
+            <PanelDetailsItemValue>{address?.parcelles.join(', ') || 'Non renseignée(s)'}</PanelDetailsItemValue>
+          </span>
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-calendar-line">
+          Date de mise à jour : <br />
+          {dateMaj}
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-signpost-line">
+          Libellé d’acheminement : <br />
+          {address.libelleAcheminement}
+        </PanelDetailsItem>
+        <PanelDetailsItem className="ri-map-pin-line">
+          {isMultiPosition ? 'Position Principale' : 'Position'} : <br />
+          <AddressDetailPosition
+            type={mainPosition.positionType}
+            coords={mainPosition.position.coordinates as [number, number]}
+            marker={isMultiPosition ? '⦿' : undefined}
+            onFlyToPosition={onFlyToPosition}
+            isSmartDevice={isSmartDevice()}
+          />
+        </PanelDetailsItem>
+        {isMultiPosition && (
+          <PanelDetailsItem className="ri-map-pin-2-line">
+            Position Secondaire : <br />
+            <ol>
+              {secondariesPositions.map((entry, index) => (
+                <li key={index}>
+                  <AddressDetailPosition
+                    type={`${entry.positionType}`}
+                    coords={entry.position.coordinates as [number, number]}
+                    onFlyToPosition={onFlyToPosition}
+                    isSmartDevice={isSmartDevice()}
+                  />
+                </li>
+              ))}
+            </ol>
+          </PanelDetailsItem>
+        )}
+      </PanelDetailsWrapper>
+    </>
   )
 }
 

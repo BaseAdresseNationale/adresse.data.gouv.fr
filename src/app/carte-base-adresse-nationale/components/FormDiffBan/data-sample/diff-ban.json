@@ -1,0 +1,5901 @@
+{
+  "date": "2024-07-05T15:53:31.048Z",
+  "status": "success",
+  "response": {
+    "__meta": {
+      "date": "2025-02-24T19:22:23.810Z",
+      "fromDate": "2024-06-24T00:00:00.000Z",
+      "toDate": "2024-07-05T00:00:00.000Z"
+    },
+    "created": {
+      "districts": [],
+      "commonToponyms": [
+        {
+          "id": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "boulevard Saint-Augustin"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -0.16989,
+              43.177489
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7",
+              "DEPRECATED_groupId": "slug-Tf2G7-boulevard-saint-augustin",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "d217849b-9e67-40ac-91f6-89b5ac636c14",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "rue Poulain"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -0.265308,
+              43.164463
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Dj2qV",
+              "DEPRECATED_groupId": "slug-Dj2qV-rue-poulain",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "85e91ce6-9b3d-4a56-9497-3cc21d7e25b3",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "rue Pie"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -0.556938,
+              43.12465
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_5vE8p",
+              "DEPRECATED_groupId": "slug-5vE8p-rue-pie",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "rue Poisson"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -1.313519,
+              43.021363
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_1REOz",
+              "DEPRECATED_groupId": "slug-1REOz-rue-poisson",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        }
+      ],
+      "addresses": [
+        {
+          "id": "6b1e2f1a-5165-47fb-b4df-58af0969569e",
+          "mainCommonToponymID": "fb25ce0f-534d-4f9e-b180-7d7c4e76666e",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 1,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.425513,
+                  43.142592
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_0ijPA_00001",
+              "DEPRECATED_cleInteropBAN": "06004_0ijPA_00001",
+              "cleInterop": "06004_0ijPA_00001",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_rnSwJl"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "265c9fae-3225-4b44-bf0a-c36bd9216223",
+          "mainCommonToponymID": "fb25ce0f-534d-4f9e-b180-7d7c4e76666e",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 2,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.487848,
+                  43.134082
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_0ijPA_00002",
+              "DEPRECATED_cleInteropBAN": "06004_0ijPA_00002",
+              "cleInterop": "06004_0ijPA_00002",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_vrkmrB"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "e0ae8912-c66c-420a-bcc6-b8f12d3fe872",
+          "mainCommonToponymID": "fb25ce0f-534d-4f9e-b180-7d7c4e76666e",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 3,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.10989,
+                  43.215685
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_0ijPA_00003",
+              "DEPRECATED_cleInteropBAN": "06004_0ijPA_00003",
+              "cleInterop": "06004_0ijPA_00003",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_CybDGo"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "6c5ac8ff-0095-46ea-909d-da44e577a262",
+          "mainCommonToponymID": "fb25ce0f-534d-4f9e-b180-7d7c4e76666e",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 4,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.259371,
+                  43.165274
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_0ijPA_00004",
+              "DEPRECATED_cleInteropBAN": "06004_0ijPA_00004",
+              "cleInterop": "06004_0ijPA_00004",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_MEPPIC"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "c3d33019-4544-4bc2-9727-98d7f14d7034",
+          "mainCommonToponymID": "dbde6157-5460-4623-966c-ead8c7c9fa05",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 6,
+          "suffix": "bis",
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.065756,
+                  43.209659
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_WO9HY_00006_bis",
+              "DEPRECATED_cleInteropBAN": "06004_WO9HY_00006_bis",
+              "cleInterop": "06004_WO9HY_00006_bis",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_gyZBkU"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "0a465958-12ed-4d6e-83d6-eac43d3c00fa",
+          "mainCommonToponymID": "dbde6157-5460-4623-966c-ead8c7c9fa05",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 6,
+          "suffix": "ter",
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  1.060951,
+                  43.345522
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_WO9HY_00006_ter",
+              "DEPRECATED_cleInteropBAN": "06004_WO9HY_00006_ter",
+              "cleInterop": "06004_WO9HY_00006_ter",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_dpyqpD"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "5c1c0c45-d2e0-4cea-9cdb-d714a47d4004",
+          "mainCommonToponymID": "59eee2cf-7be9-41d5-9511-df343354fa1c",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 592,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.020305,
+                  43.061392
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_C0pdM_00592",
+              "DEPRECATED_cleInteropBAN": "06004_C0pdM_00592",
+              "cleInterop": "06004_C0pdM_00592",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_mkXZyq"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "31c5844f-39bf-4e58-9cda-3c246a1021f4",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 1,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.840674,
+                  43.085915
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00001",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00001",
+              "cleInterop": "06004_soHxG_00001",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_Gcjl8I"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "07961e57-5093-4873-917a-7bf82d4e3c5a",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 2,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.466858,
+                  43.264417
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00002",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00002",
+              "cleInterop": "06004_soHxG_00002",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_7DYWnD"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "fc8c1884-2d03-4d1d-a122-e613f2fe7d1d",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 3,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.144905,
+                  43.220465
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00003",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00003",
+              "cleInterop": "06004_soHxG_00003",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_5POklx"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "84929a7c-c619-41ae-9ebc-5f7c1a4185b8",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 4,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.286226,
+                  43.025089
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00004",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00004",
+              "cleInterop": "06004_soHxG_00004",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_rReW1b"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "bf93e4a5-7ec5-4899-9a94-26569c2191db",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 5,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.254337,
+                  43.235404
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00005",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00005",
+              "cleInterop": "06004_soHxG_00005",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_uqZRu0"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "522d9701-371f-4698-a9f2-ff240e11d633",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 6,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.386145,
+                  43.253399
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00006",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00006",
+              "cleInterop": "06004_soHxG_00006",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_lHIU5j"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "771d7e14-cad5-48c1-b387-6cab68956a93",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 7,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  1.181284,
+                  43.36195
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00007",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00007",
+              "cleInterop": "06004_soHxG_00007",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_ACxNIk"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "8a703ccb-37bf-484c-bdc7-8ae369444956",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 8,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.186339,
+                  43.038725
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00008",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00008",
+              "cleInterop": "06004_soHxG_00008",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_Go1TI6"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "a8b61492-0295-4a21-980d-a23fb5378c10",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 9,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.059764,
+                  43.192524
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00009",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00009",
+              "cleInterop": "06004_soHxG_00009",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_vbi0hB"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "cf2fa743-49ea-4d22-aa4e-21728fffead0",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 10,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.414399,
+                  43.007591
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00010",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00010",
+              "cleInterop": "06004_soHxG_00010",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_40r5us"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "7eb207d2-6e09-4376-bfad-8a952f8a9319",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 11,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.246458,
+                  43.167036
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00011",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00011",
+              "cleInterop": "06004_soHxG_00011",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_0E9xek"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "b2dd13c2-e182-4933-ad14-7bdcb6e8e14c",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 12,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.979755,
+                  43.066928
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00012",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00012",
+              "cleInterop": "06004_soHxG_00012",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_CghzOO"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "a74e36bc-6161-4904-a50d-8cf85013ca71",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 13,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  1.077242,
+                  43.347746
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00013",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00013",
+              "cleInterop": "06004_soHxG_00013",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_mK9d2i"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "3e163bfe-49e1-42a0-8a1c-459e907ec8e0",
+          "mainCommonToponymID": "dcb4838b-2dd7-4357-be26-1f8f92fca7a5",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 14,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.104946,
+                  43.186355
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_soHxG_00014",
+              "DEPRECATED_cleInteropBAN": "06004_soHxG_00014",
+              "cleInterop": "06004_soHxG_00014",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_46B72C"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "958bd432-fd93-424d-a8a2-a0a81029b598",
+          "mainCommonToponymID": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 1,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.396759,
+                  43.254848
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7_00001",
+              "DEPRECATED_cleInteropBAN": "06004_Tf2G7_00001",
+              "cleInterop": "06004_Tf2G7_00001",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_NH2WHl"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "3c6d0d84-a24c-432d-8fb6-aab372b5383a",
+          "mainCommonToponymID": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 2,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.066739,
+                  43.055053
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7_00002",
+              "DEPRECATED_cleInteropBAN": "06004_Tf2G7_00002",
+              "cleInterop": "06004_Tf2G7_00002",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_nF0Wjx"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "39f2e0fc-4248-4435-aa26-8a212b9ce599",
+          "mainCommonToponymID": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 3,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.546872,
+                  43.275341
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7_00003",
+              "DEPRECATED_cleInteropBAN": "06004_Tf2G7_00003",
+              "cleInterop": "06004_Tf2G7_00003",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_keNZCO"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "cbd0b436-7774-49f7-b693-b729f48e804f",
+          "mainCommonToponymID": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 4,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.179022,
+                  43.176243
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7_00004",
+              "DEPRECATED_cleInteropBAN": "06004_Tf2G7_00004",
+              "cleInterop": "06004_Tf2G7_00004",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_EAjhMq"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "1fe61e5d-c7c3-4a32-8f1c-8db0d947719b",
+          "mainCommonToponymID": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 5,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.219417,
+                  43.230637
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7_00005",
+              "DEPRECATED_cleInteropBAN": "06004_Tf2G7_00005",
+              "cleInterop": "06004_Tf2G7_00005",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_cuHL2m"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "ab6c0a23-6349-4592-b8cc-d1160bebb57e",
+          "mainCommonToponymID": "ffa96f32-d7be-4eb2-a381-c884453f12aa",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 6,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.398184,
+                  43.009804
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_Tf2G7_00006",
+              "DEPRECATED_cleInteropBAN": "06004_Tf2G7_00006",
+              "cleInterop": "06004_Tf2G7_00006",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_y0XRAk"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        }
+      ]
+    },
+    "disabled": {
+      "districts": [],
+      "commonToponyms": [
+        {
+          "id": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "allée Spiller"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -1.444556,
+              43.003474
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_ZV0Oh",
+              "DEPRECATED_groupId": "slug-ZV0Oh-allée-spiller",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "fb5cc28d-b35b-4793-88c7-ee89f9bb008c",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "rue Garett"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              1.33659,
+              43.383152
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_1dA0f",
+              "DEPRECATED_groupId": "slug-1dA0f-rue-garett",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "042d58f3-2ebe-42af-9cc1-71fd7df8dc25",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "boulevard de la Paix"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              0.294256,
+              43.240854
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_eqjFA",
+              "DEPRECATED_groupId": "slug-eqjFA-boulevard-de-la-paix",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "d2e0d789-55e2-4816-92a6-117dda0f5ee9",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "rue de Brighton"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              0.173364,
+              43.22435
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_7Pk23",
+              "DEPRECATED_groupId": "slug-7Pk23-rue-de-brighton",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [
+            {
+              "isoCode": "fra",
+              "value": "boulevard Citadelle"
+            }
+          ],
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              0.465998,
+              43.2643
+            ]
+          },
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H",
+              "DEPRECATED_groupId": "slug-rDc6H-boulevard-citadelle",
+              "DEPRECATED_cleInteropBAN": null,
+              "BETA_cleInterop": "",
+              "category": "voie",
+              "sources": [
+                "bal"
+              ],
+              "sourceNomVoie": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "BETA_cadastre": "",
+              "BETA_codeFantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": [
+                "06160",
+                "06600"
+              ]
+            }
+          },
+          "BETA_legalityDate": "",
+          "BETA_lastRecordDate": ""
+        }
+      ],
+      "addresses": [
+        {
+          "id": "a794959a-c9ac-498f-9f3a-fa895811a95b",
+          "mainCommonToponymID": "d2e0d789-55e2-4816-92a6-117dda0f5ee9",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 1,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.020705,
+                  43.061337
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_7Pk23_00001",
+              "DEPRECATED_cleInteropBAN": "06004_7Pk23_00001",
+              "cleInterop": "06004_7Pk23_00001",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_dF2Kbf"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "9714ae55-6138-4004-9d0c-d06ca481113d",
+          "mainCommonToponymID": "d2e0d789-55e2-4816-92a6-117dda0f5ee9",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 2,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  1.413347,
+                  43.393631
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_7Pk23_00002",
+              "DEPRECATED_cleInteropBAN": "06004_7Pk23_00002",
+              "cleInterop": "06004_7Pk23_00002",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_FZYglr"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "6a4903c8-f395-4675-a6d4-3546797facc5",
+          "mainCommonToponymID": "d2e0d789-55e2-4816-92a6-117dda0f5ee9",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 3,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.809611,
+                  43.31121
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_7Pk23_00003",
+              "DEPRECATED_cleInteropBAN": "06004_7Pk23_00003",
+              "cleInterop": "06004_7Pk23_00003",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_ZxKgr9"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "544a7202-849d-4f5f-88cb-0617c9078562",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 1,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.228046,
+                  43.16955
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00001",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00001",
+              "cleInterop": "06004_rDc6H_00001",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_IAltG2"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "dd1ed7e3-4b01-4bcc-b854-7d0f303af98f",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 2,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  1.383691,
+                  43.389582
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00002",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00002",
+              "cleInterop": "06004_rDc6H_00002",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_U4hbMe"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "8cc66a19-a077-49cd-a13b-1000ff85b4d3",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 3,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.920069,
+                  43.326289
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00003",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00003",
+              "cleInterop": "06004_rDc6H_00003",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_kOVjAm"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "fdac19ee-2906-4300-add6-6325fa5432cd",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 4,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.721026,
+                  43.299116
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00004",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00004",
+              "cleInterop": "06004_rDc6H_00004",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_v1CoDZ"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "d9800925-a958-48a3-8183-273df2678ee8",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 5,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -1.213778,
+                  43.034979
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00005",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00005",
+              "cleInterop": "06004_rDc6H_00005",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_NN6yn9"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "63f6575c-42cd-4fa2-b56b-f466c35f0a58",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 6,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.304429,
+                  43.242243
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00006",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00006",
+              "cleInterop": "06004_rDc6H_00006",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_rL26p1"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "8b68ba85-9872-4990-a03f-a8e26be1daed",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 7,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.570074,
+                  43.122857
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00007",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00007",
+              "cleInterop": "06004_rDc6H_00007",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_EQzDQs"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "4f6ad9eb-2099-4db3-b4a0-f4cd2039a83c",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 8,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.647096,
+                  43.112342
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00008",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00008",
+              "cleInterop": "06004_rDc6H_00008",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_RzAIBF"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "cdbf51fb-a32e-4da8-9a5f-64cd8a8de36c",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 9,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.218747,
+                  43.230546
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00009",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00009",
+              "cleInterop": "06004_rDc6H_00009",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_HPqI9f"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "4f044291-0170-4dc4-b5f0-341146f43151",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 10,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  -0.837702,
+                  43.086321
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00010",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00010",
+              "cleInterop": "06004_rDc6H_00010",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_r7AKBJ"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "aa2c72c7-7bff-4963-bf38-24511857ddb5",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 11,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  0.285071,
+                  43.2396
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00011",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00011",
+              "cleInterop": "06004_rDc6H_00011",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_wqvJwA"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        },
+        {
+          "id": "69e702ad-48c0-4a60-9055-b005673c5ecd",
+          "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+          "secondaryCommonToponymIDs": null,
+          "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+          "labels": [],
+          "number": 12,
+          "suffix": null,
+          "certified": true,
+          "positions": [
+            {
+              "type": "entrée",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  1.446513,
+                  43.398159
+                ]
+              }
+            }
+          ],
+          "meta": {
+            "ban": {
+              "DEPRECATED_id": "06004_rDc6H_00012",
+              "DEPRECATED_cleInteropBAN": "06004_rDc6H_00012",
+              "cleInterop": "06004_rDc6H_00012",
+              "sources": [
+                "bal"
+              ],
+              "sourcePosition": "bal",
+              "BETA_hashIdFix": ""
+            },
+            "dgfip": {
+              "cadastre": [
+                "DGFiP_P_24LRsC"
+              ],
+              "BETA_fantoir": ""
+            },
+            "insee": {
+              "cog": "06004",
+              "oldCog": ""
+            },
+            "laPoste": {
+              "codePostal": "06160"
+            }
+          },
+          "legalityDate": "2015-12-17",
+          "BETA_lastRecordDate": ""
+        }
+      ]
+    },
+    "updated": {
+      "districts": [],
+      "commonToponyms": [
+        [
+          {
+            "id": "1060501f-b072-429d-aa55-e96a8101b72b",
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [
+              {
+                "isoCode": "fra",
+                "value": "rue Serin"
+              }
+            ],
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                0.465998,
+                43.2643
+              ]
+            },
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H",
+                "DEPRECATED_groupId": "slug-rDc6H-boulevard-citadelle",
+                "DEPRECATED_cleInteropBAN": null,
+                "BETA_cleInterop": "",
+                "category": "voie",
+                "sources": [
+                  "bal"
+                ],
+                "sourceNomVoie": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "BETA_cadastre": "",
+                "BETA_codeFantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": [
+                  "06160",
+                  "06600"
+                ]
+              }
+            },
+            "BETA_legalityDate": "",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "1060501f-b072-429d-aa55-e96a8101b72b",
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [
+              {
+                "isoCode": "fra",
+                "value": "boulevard Citadelle"
+              }
+            ],
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                0.465998,
+                43.2643
+              ]
+            },
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H",
+                "DEPRECATED_groupId": "slug-rDc6H-boulevard-citadelle",
+                "DEPRECATED_cleInteropBAN": null,
+                "BETA_cleInterop": "",
+                "category": "voie",
+                "sources": [
+                  "bal"
+                ],
+                "sourceNomVoie": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "BETA_cadastre": "",
+                "BETA_codeFantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": [
+                  "06160",
+                  "06600"
+                ]
+              }
+            },
+            "BETA_legalityDate": "",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "13e6469b-d990-48a6-95ec-f49273051208",
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [
+              {
+                "isoCode": "fra",
+                "value": "rue Blanc"
+              }
+            ],
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -0.556129,
+                43.124761
+              ]
+            },
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_WQj7s",
+                "DEPRECATED_groupId": "slug-WQj7s-rue-quadrille",
+                "DEPRECATED_cleInteropBAN": null,
+                "BETA_cleInterop": "",
+                "category": "voie",
+                "sources": [
+                  "bal"
+                ],
+                "sourceNomVoie": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "BETA_cadastre": "",
+                "BETA_codeFantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": [
+                  "06160",
+                  "06600"
+                ]
+              }
+            },
+            "BETA_legalityDate": "",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "13e6469b-d990-48a6-95ec-f49273051208",
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [
+              {
+                "isoCode": "fra",
+                "value": "rue Quadrille"
+              }
+            ],
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -0.556129,
+                43.124761
+              ]
+            },
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_WQj7s",
+                "DEPRECATED_groupId": "slug-WQj7s-rue-quadrille",
+                "DEPRECATED_cleInteropBAN": null,
+                "BETA_cleInterop": "",
+                "category": "voie",
+                "sources": [
+                  "bal"
+                ],
+                "sourceNomVoie": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "BETA_cadastre": "",
+                "BETA_codeFantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": [
+                  "06160",
+                  "06600"
+                ]
+              }
+            },
+            "BETA_legalityDate": "",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "eee7c9ab-ea9a-411b-9735-f09dddd6e8aa",
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [
+              {
+                "isoCode": "fra",
+                "value": "boulevard de Mariac"
+              }
+            ],
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -0.971936,
+                43.067995
+              ]
+            },
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_fB0Kr",
+                "DEPRECATED_groupId": "slug-fB0Kr-rue-de-mariac",
+                "DEPRECATED_cleInteropBAN": null,
+                "BETA_cleInterop": "",
+                "category": "voie",
+                "sources": [
+                  "bal"
+                ],
+                "sourceNomVoie": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "BETA_cadastre": "",
+                "BETA_codeFantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": [
+                  "06160",
+                  "06600"
+                ]
+              }
+            },
+            "BETA_legalityDate": "",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "eee7c9ab-ea9a-411b-9735-f09dddd6e8aa",
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [
+              {
+                "isoCode": "fra",
+                "value": "rue de Mariac"
+              }
+            ],
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                -0.971936,
+                43.067995
+              ]
+            },
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_fB0Kr",
+                "DEPRECATED_groupId": "slug-fB0Kr-rue-de-mariac",
+                "DEPRECATED_cleInteropBAN": null,
+                "BETA_cleInterop": "",
+                "category": "voie",
+                "sources": [
+                  "bal"
+                ],
+                "sourceNomVoie": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "BETA_cadastre": "",
+                "BETA_codeFantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": [
+                  "06160",
+                  "06600"
+                ]
+              }
+            },
+            "BETA_legalityDate": "",
+            "BETA_lastRecordDate": ""
+          }
+        ]
+      ],
+      "addresses": [
+        [
+          {
+            "id": "826eef31-6c31-43f5-9a3d-dec329f8551d",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.970747,
+                    43.068157
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00001",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00001",
+                "cleInterop": "06004_ZV0Oh_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_VB0YfZ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "826eef31-6c31-43f5-9a3d-dec329f8551d",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.970747,
+                    43.068157
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00001",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00001",
+                "cleInterop": "06004_ZV0Oh_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_VB0YfZ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "95dc1bf8-5be6-4a31-bd69-31ecf74fef6a",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.142366,
+                    43.220118
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00002",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00002",
+                "cleInterop": "06004_ZV0Oh_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_5PSQNH"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "95dc1bf8-5be6-4a31-bd69-31ecf74fef6a",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.142366,
+                    43.220118
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00002",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00002",
+                "cleInterop": "06004_ZV0Oh_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_5PSQNH"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "fffaf0cc-c571-459b-8144-63a7fe3db003",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.585751,
+                    43.120717
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00003",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00003",
+                "cleInterop": "06004_ZV0Oh_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_CQJXGe"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "fffaf0cc-c571-459b-8144-63a7fe3db003",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.585751,
+                    43.120717
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00003",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00003",
+                "cleInterop": "06004_ZV0Oh_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_CQJXGe"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "4252e649-647e-4327-8aba-70eacb073ac5",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.850776,
+                    43.316829
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00004",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00004",
+                "cleInterop": "06004_ZV0Oh_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_cSvDGm"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "4252e649-647e-4327-8aba-70eacb073ac5",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.850776,
+                    43.316829
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00004",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00004",
+                "cleInterop": "06004_ZV0Oh_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_cSvDGm"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "6cddb3c9-bc64-4a38-81ef-3c2109b268b5",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 5,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.61791,
+                    43.116326
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00005",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00005",
+                "cleInterop": "06004_ZV0Oh_00005",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_MQ1dCU"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "6cddb3c9-bc64-4a38-81ef-3c2109b268b5",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 5,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.61791,
+                    43.116326
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00005",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00005",
+                "cleInterop": "06004_ZV0Oh_00005",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_MQ1dCU"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "27489113-6cf7-430b-a82d-0fc2c533d7b7",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 6,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.730512,
+                    43.100954
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00006",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00006",
+                "cleInterop": "06004_ZV0Oh_00006",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_SYPV0e"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "27489113-6cf7-430b-a82d-0fc2c533d7b7",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 6,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.730512,
+                    43.100954
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00006",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00006",
+                "cleInterop": "06004_ZV0Oh_00006",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_SYPV0e"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "c2e5f9a8-8a90-445e-b83e-792700d31399",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 7,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.040767,
+                    43.342767
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00007",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00007",
+                "cleInterop": "06004_ZV0Oh_00007",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_BpQ4Hd"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "c2e5f9a8-8a90-445e-b83e-792700d31399",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 7,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.040767,
+                    43.342767
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00007",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00007",
+                "cleInterop": "06004_ZV0Oh_00007",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_BpQ4Hd"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "d443560c-600b-4052-949b-d45d53a66d82",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 8,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.130701,
+                    43.218526
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00008",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00008",
+                "cleInterop": "06004_ZV0Oh_00008",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_cy9X6S"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "d443560c-600b-4052-949b-d45d53a66d82",
+            "mainCommonToponymID": "2e86fef8-cb1c-4d1b-a6d3-0ea617e86df8",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 8,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.130701,
+                    43.218526
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_ZV0Oh_00008",
+                "DEPRECATED_cleInteropBAN": "06004_ZV0Oh_00008",
+                "cleInterop": "06004_ZV0Oh_00008",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_cy9X6S"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "23071461-eb5c-46aa-870e-f8515d0b69b3",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 9,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.156689,
+                    43.358592
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00001",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00001",
+                "cleInterop": "06004_1dA0f_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_YGTVUW"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "23071461-eb5c-46aa-870e-f8515d0b69b3",
+            "mainCommonToponymID": "fb5cc28d-b35b-4793-88c7-ee89f9bb008c",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.156689,
+                    43.358592
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00001",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00001",
+                "cleInterop": "06004_1dA0f_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_YGTVUW"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "3ce3a3b4-6205-4af8-a2c3-56ae8f46d087",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 10,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.755664,
+                    43.303845
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00002",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00002",
+                "cleInterop": "06004_1dA0f_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_X1U6tx"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "3ce3a3b4-6205-4af8-a2c3-56ae8f46d087",
+            "mainCommonToponymID": "fb5cc28d-b35b-4793-88c7-ee89f9bb008c",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.755664,
+                    43.303845
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00002",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00002",
+                "cleInterop": "06004_1dA0f_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_X1U6tx"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "0b83fc42-9af1-4bdc-9c71-094842e956fe",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 11,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -1.346267,
+                    43.016892
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00003",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00003",
+                "cleInterop": "06004_1dA0f_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_DRwszh"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "0b83fc42-9af1-4bdc-9c71-094842e956fe",
+            "mainCommonToponymID": "fb5cc28d-b35b-4793-88c7-ee89f9bb008c",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -1.346267,
+                    43.016892
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00003",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00003",
+                "cleInterop": "06004_1dA0f_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_DRwszh"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "bc7b3fbc-9d8b-4e7e-8cc7-eb6ba3e0bdc7",
+            "mainCommonToponymID": "1856fa75-c8d4-49e9-b3ec-cbd62422ba0e",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 12,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.711336,
+                    43.103572
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00004",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00004",
+                "cleInterop": "06004_1dA0f_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_zzWQZh"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "bc7b3fbc-9d8b-4e7e-8cc7-eb6ba3e0bdc7",
+            "mainCommonToponymID": "fb5cc28d-b35b-4793-88c7-ee89f9bb008c",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.711336,
+                    43.103572
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_1dA0f_00004",
+                "DEPRECATED_cleInteropBAN": "06004_1dA0f_00004",
+                "cleInterop": "06004_1dA0f_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_zzWQZh"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "4833842e-b3fb-451a-9a65-1689083e2a25",
+            "mainCommonToponymID": "435cb94c-3df2-4412-944c-14d164d63e18",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 8,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.847126,
+                    43.085034
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00001",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00001",
+                "cleInterop": "06004_eqjFA_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_YcrxMe"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "4833842e-b3fb-451a-9a65-1689083e2a25",
+            "mainCommonToponymID": "042d58f3-2ebe-42af-9cc1-71fd7df8dc25",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.847126,
+                    43.085034
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00001",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00001",
+                "cleInterop": "06004_eqjFA_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_YcrxMe"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "b1870acd-b3e1-4740-a5bd-b9166fe188a5",
+            "mainCommonToponymID": "435cb94c-3df2-4412-944c-14d164d63e18",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 9,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.475669,
+                    43.135745
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00002",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00002",
+                "cleInterop": "06004_eqjFA_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_yMzLkC"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "b1870acd-b3e1-4740-a5bd-b9166fe188a5",
+            "mainCommonToponymID": "042d58f3-2ebe-42af-9cc1-71fd7df8dc25",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.475669,
+                    43.135745
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00002",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00002",
+                "cleInterop": "06004_eqjFA_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_yMzLkC"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "639f3058-2962-4777-af87-05d8992554a5",
+            "mainCommonToponymID": "435cb94c-3df2-4412-944c-14d164d63e18",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 10,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.09184,
+                    43.21322
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00003",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00003",
+                "cleInterop": "06004_eqjFA_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_DTUWrd"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "639f3058-2962-4777-af87-05d8992554a5",
+            "mainCommonToponymID": "042d58f3-2ebe-42af-9cc1-71fd7df8dc25",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.09184,
+                    43.21322
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00003",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00003",
+                "cleInterop": "06004_eqjFA_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_DTUWrd"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "c8c9c5ed-63dc-4a7a-a0f9-8cf829db3326",
+            "mainCommonToponymID": "435cb94c-3df2-4412-944c-14d164d63e18",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 11,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.18534,
+                    43.17538
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00004",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00004",
+                "cleInterop": "06004_eqjFA_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_lfMOJJ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "c8c9c5ed-63dc-4a7a-a0f9-8cf829db3326",
+            "mainCommonToponymID": "042d58f3-2ebe-42af-9cc1-71fd7df8dc25",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.18534,
+                    43.17538
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00004",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00004",
+                "cleInterop": "06004_eqjFA_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_lfMOJJ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "f76520bd-5dfc-4016-8b72-b7fc486e43d2",
+            "mainCommonToponymID": "435cb94c-3df2-4412-944c-14d164d63e18",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 12,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.529812,
+                    43.128353
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00005",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00005",
+                "cleInterop": "06004_eqjFA_00005",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_8Q9piA"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "f76520bd-5dfc-4016-8b72-b7fc486e43d2",
+            "mainCommonToponymID": "042d58f3-2ebe-42af-9cc1-71fd7df8dc25",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 5,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.529812,
+                    43.128353
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_eqjFA_00005",
+                "DEPRECATED_cleInteropBAN": "06004_eqjFA_00005",
+                "cleInterop": "06004_eqjFA_00005",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_8Q9piA"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "3572a26b-5b07-4819-bbdb-537a0004f295",
+            "mainCommonToponymID": "d217849b-9e67-40ac-91f6-89b5ac636c14",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.900279,
+                    43.323588
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00009",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00009",
+                "cleInterop": "06004_FfoOZ_00009",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_sOtlcO"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "3572a26b-5b07-4819-bbdb-537a0004f295",
+            "mainCommonToponymID": "b3007e31-cac8-4313-a940-1c368b4e0eef",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 9,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.900279,
+                    43.323588
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00009",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00009",
+                "cleInterop": "06004_FfoOZ_00009",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_sOtlcO"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "40b98b50-8ba5-464e-a98b-7dce2a940397",
+            "mainCommonToponymID": "d217849b-9e67-40ac-91f6-89b5ac636c14",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.292441,
+                    43.377125
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00010",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00010",
+                "cleInterop": "06004_FfoOZ_00010",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_dd4yPn"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "40b98b50-8ba5-464e-a98b-7dce2a940397",
+            "mainCommonToponymID": "b3007e31-cac8-4313-a940-1c368b4e0eef",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 10,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.292441,
+                    43.377125
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00010",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00010",
+                "cleInterop": "06004_FfoOZ_00010",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_dd4yPn"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "37938e5f-e16a-4254-9b6a-76e635fae059",
+            "mainCommonToponymID": "d217849b-9e67-40ac-91f6-89b5ac636c14",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.912187,
+                    43.076152
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00011",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00011",
+                "cleInterop": "06004_FfoOZ_00011",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_WgHfOO"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "37938e5f-e16a-4254-9b6a-76e635fae059",
+            "mainCommonToponymID": "b3007e31-cac8-4313-a940-1c368b4e0eef",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 11,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.912187,
+                    43.076152
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00011",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00011",
+                "cleInterop": "06004_FfoOZ_00011",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_WgHfOO"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "09593605-d471-4b03-ac28-e22a29d91416",
+            "mainCommonToponymID": "d217849b-9e67-40ac-91f6-89b5ac636c14",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.176958,
+                    43.361359
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00012",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00012",
+                "cleInterop": "06004_FfoOZ_00012",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_IC1DIe"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "09593605-d471-4b03-ac28-e22a29d91416",
+            "mainCommonToponymID": "b3007e31-cac8-4313-a940-1c368b4e0eef",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 12,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.176958,
+                    43.361359
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_FfoOZ_00012",
+                "DEPRECATED_cleInteropBAN": "06004_FfoOZ_00012",
+                "cleInterop": "06004_FfoOZ_00012",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_IC1DIe"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "cdbf51fb-a32e-4da8-9a5f-64cd8a8de36c",
+            "mainCommonToponymID": "85e91ce6-9b3d-4a56-9497-3cc21d7e25b3",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.218747,
+                    43.230546
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00009",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00009",
+                "cleInterop": "06004_rDc6H_00009",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_HPqI9f"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "cdbf51fb-a32e-4da8-9a5f-64cd8a8de36c",
+            "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 9,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.218747,
+                    43.230546
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00009",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00009",
+                "cleInterop": "06004_rDc6H_00009",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_HPqI9f"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "4f044291-0170-4dc4-b5f0-341146f43151",
+            "mainCommonToponymID": "85e91ce6-9b3d-4a56-9497-3cc21d7e25b3",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.837702,
+                    43.086321
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00010",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00010",
+                "cleInterop": "06004_rDc6H_00010",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_r7AKBJ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "4f044291-0170-4dc4-b5f0-341146f43151",
+            "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 10,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.837702,
+                    43.086321
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00010",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00010",
+                "cleInterop": "06004_rDc6H_00010",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_r7AKBJ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "aa2c72c7-7bff-4963-bf38-24511857ddb5",
+            "mainCommonToponymID": "85e91ce6-9b3d-4a56-9497-3cc21d7e25b3",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.285071,
+                    43.2396
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00011",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00011",
+                "cleInterop": "06004_rDc6H_00011",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_wqvJwA"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "aa2c72c7-7bff-4963-bf38-24511857ddb5",
+            "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 11,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.285071,
+                    43.2396
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00011",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00011",
+                "cleInterop": "06004_rDc6H_00011",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_wqvJwA"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "69e702ad-48c0-4a60-9055-b005673c5ecd",
+            "mainCommonToponymID": "85e91ce6-9b3d-4a56-9497-3cc21d7e25b3",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.446513,
+                    43.398159
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00012",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00012",
+                "cleInterop": "06004_rDc6H_00012",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_24LRsC"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "69e702ad-48c0-4a60-9055-b005673c5ecd",
+            "mainCommonToponymID": "1060501f-b072-429d-aa55-e96a8101b72b",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 12,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.446513,
+                    43.398159
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_rDc6H_00012",
+                "DEPRECATED_cleInteropBAN": "06004_rDc6H_00012",
+                "cleInterop": "06004_rDc6H_00012",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_24LRsC"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "de76cb59-be9d-45fa-9c2e-2e818904e54a",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 52,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.370099,
+                    43.387727
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00001",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00001",
+                "cleInterop": "06004_Vt8Il_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_q4xZka"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "de76cb59-be9d-45fa-9c2e-2e818904e54a",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 1,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    1.370099,
+                    43.387727
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00001",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00001",
+                "cleInterop": "06004_Vt8Il_00001",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_q4xZka"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "ee9a928a-631f-4e6c-9fb8-eb9eaf5eff9e",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 106,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -1.388282,
+                    43.011156
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00002",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00002",
+                "cleInterop": "06004_Vt8Il_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_JVqUJB"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "ee9a928a-631f-4e6c-9fb8-eb9eaf5eff9e",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 2,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -1.388282,
+                    43.011156
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00002",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00002",
+                "cleInterop": "06004_Vt8Il_00002",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_JVqUJB"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "178c0475-fbd8-4f67-b961-de0420e8e32c",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 213,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.691729,
+                    43.106249
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00003",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00003",
+                "cleInterop": "06004_Vt8Il_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_1z4Wrp"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "178c0475-fbd8-4f67-b961-de0420e8e32c",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 3,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.691729,
+                    43.106249
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00003",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00003",
+                "cleInterop": "06004_Vt8Il_00003",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_1z4Wrp"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "2b072560-e981-4139-8e50-5565f5620755",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 320,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -1.349671,
+                    43.016427
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00004",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00004",
+                "cleInterop": "06004_Vt8Il_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_RR089F"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "2b072560-e981-4139-8e50-5565f5620755",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 4,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -1.349671,
+                    43.016427
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00004",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00004",
+                "cleInterop": "06004_Vt8Il_00004",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_RR089F"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "ffcdd822-1a87-4125-a6a2-efd4c3093f53",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 421,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.143466,
+                    43.181097
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00005",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00005",
+                "cleInterop": "06004_Vt8Il_00005",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_bbSupD"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "ffcdd822-1a87-4125-a6a2-efd4c3093f53",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 5,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    -0.143466,
+                    43.181097
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00005",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00005",
+                "cleInterop": "06004_Vt8Il_00005",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_bbSupD"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ],
+        [
+          {
+            "id": "4a8dcb15-12eb-4672-9f18-4792f1c79512",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 963,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.636221,
+                    43.287539
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00006",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00006",
+                "cleInterop": "06004_Vt8Il_00006",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_J50QjZ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          },
+          {
+            "id": "4a8dcb15-12eb-4672-9f18-4792f1c79512",
+            "mainCommonToponymID": "c02ecd3b-495f-40e3-aea6-d149c375ec53",
+            "secondaryCommonToponymIDs": null,
+            "districtID": "010f975f-1a65-41ce-8242-b5ec110b749f",
+            "labels": [],
+            "number": 6,
+            "suffix": null,
+            "certified": true,
+            "positions": [
+              {
+                "type": "entrée",
+                "geometry": {
+                  "type": "Point",
+                  "coordinates": [
+                    0.636221,
+                    43.287539
+                  ]
+                }
+              }
+            ],
+            "meta": {
+              "ban": {
+                "DEPRECATED_id": "06004_Vt8Il_00006",
+                "DEPRECATED_cleInteropBAN": "06004_Vt8Il_00006",
+                "cleInterop": "06004_Vt8Il_00006",
+                "sources": [
+                  "bal"
+                ],
+                "sourcePosition": "bal",
+                "BETA_hashIdFix": ""
+              },
+              "dgfip": {
+                "cadastre": [
+                  "DGFiP_P_J50QjZ"
+                ],
+                "BETA_fantoir": ""
+              },
+              "insee": {
+                "cog": "06004",
+                "oldCog": ""
+              },
+              "laPoste": {
+                "codePostal": "06160"
+              }
+            },
+            "legalityDate": "2015-12-17",
+            "BETA_lastRecordDate": ""
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -176,6 +176,7 @@ function CartoView() {
   const searchParams = useSearchParams()
   const initHash = useRef<string | null>(null)
   const [hash, setHash] = useState<HashMap | null>(null)
+  const [isEditAddress, setIsEditAddress] = useState(false)
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
@@ -213,6 +214,25 @@ function CartoView() {
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
   }, [updateHashPosition])
+
+  const handleClickAction = useCallback((action?: string) => {
+    switch (action) {
+      // case 'edit':
+      //   console.log('edit')
+      //   break
+      // case 'certificate':
+      //   console.log('certificate')
+      //   break
+      case 'panel-address--action--address-report':
+        setIsEditAddress(!isEditAddress)
+        break
+      default:
+        // console.log('default')
+        break
+    }
+
+    onTargetClick()
+  }, [onTargetClick, isEditAddress])
 
   // InitialPosition from hash
   useEffect(() => {
@@ -403,9 +423,9 @@ function CartoView() {
               || ((typeView === 'address') && (<PanelAddressHeader address={mapSearchResults as TypeAddressExtended} />))
             }
             footer={
-              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
-              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
-              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
+              ((typeView === 'district') && (<PanelDistrictFooter banItem={mapSearchResults as TypeDistrictExtended} withCertificate={withCertificate} onClickAction={handleClickAction} />))
+              || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} onClickAction={handleClickAction} />))
+              || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} onClickAction={handleClickAction} />))
             }
           >
             {mapSearchResults
@@ -415,7 +435,7 @@ function CartoView() {
                     <MapSearchResultsWrapper>
                       {(typeView === 'district') && (<PanelDistrict district={mapSearchResults as TypeDistrictExtended} />)}
                       {(typeView === 'micro-toponym') && (<PanelMicroToponym microToponym={mapSearchResults as TypeMicroToponymExtended} onFlyToPosition={onTargetClick} />)}
-                      {(typeView === 'address') && (<PanelAddress address={mapSearchResults as TypeAddressExtended} onFlyToPosition={onTargetClick} />)}
+                      {(typeView === 'address') && (<PanelAddress address={mapSearchResults as TypeAddressExtended} onFlyToPosition={onTargetClick} isEditAddress={isEditAddress} />)}
                     </MapSearchResultsWrapper>
                   </>
                 )

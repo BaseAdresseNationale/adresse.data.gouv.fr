@@ -14,7 +14,7 @@ interface PanelMicroToponymFooterProps {
   banItem: TypeMicroToponymExtended
   withCertificate: boolean
   children?: React.ReactNode
-  onClickAction?: () => void
+  onClickAction?: (actionName?: string) => void
 }
 
 function PanelMicroToponymFooter({ banItem: microToponym, children, onClickAction }: PanelMicroToponymFooterProps) {

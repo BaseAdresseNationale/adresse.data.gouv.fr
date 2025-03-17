@@ -1,0 +1,184 @@
+{
+  "type": "numero",
+  "adressesOriginales": [
+    {
+      "id": "f64b32b1-6401-479f-b724-fc6ebdc4618b",
+      "mainCommonToponymID": "208a5f72-0e3a-45a2-ba07-4fa6db2c2838",
+      "secondaryCommonToponymIDs": [],
+      "districtID": "b99b6b4f-3ce7-4e98-ad55-bc9fd6aa62f5",
+      "number": 2,
+      "suffix": null,
+      "labels": [],
+      "certified": true,
+      "positions": [
+        {
+          "type": "entrance",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -1.4463879464352625,
+              43.49397786587757
+            ]
+          }
+        }
+      ],
+      "updateDate": "2005-01-27T00:00:00.000Z",
+      "meta": {
+        "bal": {
+          "cleInterop": "64102_0332_00002"
+        },
+        "idfix": {
+          "hash": "c9ec1791ab7630613b182f01eeda10a3"
+        },
+        "cadastre": {
+          "ids": [
+            "640102000AS0814"
+          ]
+        },
+        "geography": {
+          "tiles": [
+            "12/2031/1497",
+            "13/4063/2994",
+            "14/8126/5989"
+          ],
+          "x": 340395.71,
+          "y": 6276226.42
+        },
+        "laposte": {
+          "codePostal": "64100",
+          "libelleAcheminement": "BAYONNE"
+        }
+      },
+      "range_validity": [
+        {
+          "value": "2024-10-22T09:42:20.065Z",
+          "inclusive": true
+        },
+        {
+          "value": null,
+          "inclusive": false
+        }
+      ],
+      "isActive": true,
+      "bbox": {
+        "crs": {
+          "type": "name",
+          "properties": {
+            "name": "EPSG:4326"
+          }
+        },
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -1.4458057902716663,
+              43.49445231735823
+            ],
+            [
+              -1.4457362478115645,
+              43.493554046301966
+            ],
+            [
+              -1.4469700929894813,
+              43.49350341143422
+            ],
+            [
+              -1.4470396546683362,
+              43.49440168166657
+            ],
+            [
+              -1.4458057902716663,
+              43.49445231735823
+            ]
+          ]
+        ]
+      },
+      "postal_code": "64100",
+      "libelleAcheminement": "BAYONNE",
+      "source_cp": "DATANOVA"
+    }
+  ],
+  "banId": "f64b32b1-6401-479f-b724-fc6ebdc4618b",
+  "banIdDistrict": "b99b6b4f-3ce7-4e98-ad55-bc9fd6aa62f5",
+  "banIdMainCommonToponym": "208a5f72-0e3a-45a2-ba07-4fa6db2c2838",
+  "banIdSecondaryCommonToponyms": null,
+  "certifie": true,
+  "cleInterop": "64102_0332_00002",
+  "codeAncienneCommune": null,
+  "codePostal": "64100",
+  "config": {
+    "certificate": {}
+  },
+  "dateMAJ": "2005-01-27",
+  "displayBBox": [
+    -1.447,
+    43.4935,
+    -1.4457,
+    43.4945
+  ],
+  "id": "64102_0332_00002",
+  "lat": 43.493978,
+  "libelleAcheminement": "BAYONNE",
+  "lieuDitComplementNom": null,
+  "lieuDitComplementNomAlt": {},
+  "lon": -1.446388,
+  "nomAncienneCommune": null,
+  "numero": 2,
+  "parcelles": [
+    "640102000AS0814"
+  ],
+  "position": {
+    "type": "Point",
+    "coordinates": [
+      -1.4463879464352625,
+      43.49397786587757
+    ]
+  },
+  "positionType": "entrée",
+  "positions": [
+    {
+      "position": {
+        "type": "Point",
+        "coordinates": [
+          -1.4463879464352625,
+          43.49397786587757
+        ]
+      },
+      "positionType": "entrée"
+    }
+  ],
+  "sourcePosition": "bal",
+  "sources": [
+    "bal"
+  ],
+  "suffixe": null,
+  "tiles": [
+    "12/2031/1497",
+    "13/4063/2994",
+    "14/8126/5989"
+  ],
+  "withBanId": true,
+  "x": 340395.71,
+  "y": 6276226.42,
+  "voie": {
+    "id": "64102_0332",
+    "idVoie": "64102_0332",
+    "nomVoie": "Allée Bernal",
+    "nomVoieAlt": {
+      "eus": "Bernal hiribidea"
+    }
+  },
+  "commune": {
+    "id": "64102",
+    "nom": "Bayonne",
+    "code": "64102",
+    "departement": {
+      "nom": "Pyrénées-Atlantiques",
+      "code": "64"
+    },
+    "region": {
+      "nom": "Nouvelle-Aquitaine",
+      "code": "75"
+    }
+  }
+}
