@@ -43,4 +43,9 @@ export const ActionMessage = styled.div<{ $isVisible?: boolean }>`
       font-size: inherit;
   }
 
+  button {
+    margin-top: 0.5rem;
+    box-shadow: none;
+  }
+
 `

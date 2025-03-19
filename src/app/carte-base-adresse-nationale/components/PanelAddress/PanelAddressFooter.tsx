@@ -15,6 +15,7 @@ import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 
 import type { MapItem } from '../ban-map/BanMap.context'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
+import ActionSignalementAddress from './ActionComponents/ActionSignalementAddress'
 
 interface AsideFooterAddressProps {
   banItem: TypeAddressExtended
@@ -64,6 +65,13 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
             Centrer la carte sur l’adresse
           </Button>
 
+        </ActionList>
+
+        <ActionList>
+          <ActionSignalementAddress
+            address={address}
+            mairiePageURL={mairiePageURL}
+          />
         </ActionList>
 
         <ActionList className="certificate">

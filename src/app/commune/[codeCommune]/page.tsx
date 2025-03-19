@@ -20,6 +20,7 @@ import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
 import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
 import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
 import { getCommuneAchievements } from '@/lib/commune'
+import { env } from 'next-runtime-env'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -151,7 +152,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 ? [{
                     iconId: 'fr-icon-error-warning-line',
                     linkProps: {
-                      href: 'https://signalement.adresse.data.gouv.fr/',
+                      href: `${env('NEXT_PUBLIC_MES_SIGNALEMENTS')}/#/?sourceId=${env('NEXT_PUBLIC_MES_SIGNALEMENTS_SOURCE_ID')}`,
                       target: '_blank',
                     },
                     priority: 'secondary',

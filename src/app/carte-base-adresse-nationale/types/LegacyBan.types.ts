@@ -3,7 +3,7 @@ type TypePosition = {
   coordinates: [number, number] | [number, number, number]
 }
 
-export type TypeItem = 'commune' | 'voie' | 'lieu-dit'
+export type TypeItem = 'commune' | 'voie' | 'lieu-dit' | 'numero'
 
 type TypeSourceAddress = Record<string, unknown>
 
@@ -18,6 +18,7 @@ export interface TypeMicroToponym extends TypeMicroToponymPartial {
   banId?: string
   sourceNomVoie: string
   sources: string[]
+  source?: string
   nbNumeros: number
   nbNumerosCertifies: number
 }
