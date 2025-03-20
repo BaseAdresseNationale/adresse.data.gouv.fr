@@ -6,7 +6,7 @@ import { env } from 'next-runtime-env'
 import { matomoTrackEvent } from '@/lib/matomo'
 import { SignalementTypeEnum } from '@/types/api-signalement.types'
 import Badge from '@codegouvfr/react-dsfr/Badge'
-import Link from 'next/link'
+import { useSignalementStatus } from '@/hooks/useSignalementStatus'
 
 interface ActionSignalementAddressProps {
   address: TypeAddressExtended
@@ -15,7 +15,7 @@ interface ActionSignalementAddressProps {
 
 const ActionSignalementAddress: React.FC<ActionSignalementAddressProps> = ({ address, mairiePageURL }) => {
   const [isExtended, setIsExtended] = useState(false)
-  const disabled = !address.sources.includes('bal')
+  const { disabled, disabledMessage } = useSignalementStatus(address, mairiePageURL)
 
   const browseToMesSignalements = useCallback((signalementType: SignalementTypeEnum) => {
     matomoTrackEvent('Mes Signalements', 'Browse to', signalementType, 1)
@@ -37,10 +37,7 @@ const ActionSignalementAddress: React.FC<ActionSignalementAddressProps> = ({ add
           <ActionMessage $isVisible={isExtended}>
             {disabled
               ? (
-                  <>
-                    Les signalements sont désactivés pour votre commune car cette dernière n&apos;a pas publié sa Base Adresse Locale.
-                    Nous vous recommandons de contacter directement votre <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
-                  </>
+                  disabledMessage
                 )
               : (
                   <>
