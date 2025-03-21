@@ -23,8 +23,8 @@ const getDisabledMessage = (status: SignalementStatus | null, mairiePageURL: str
     case SignalementStatus.DISABLED_PARTENAIRE:
       return (
         <>
-          Votre commune ne gère pas encore la prise en compte des signalements.
-          En attendant, nous vous recommandons de contacter directement votre <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
+          Cette commune ne gère pas encore la prise en compte des signalements depuis notre site.
+          Nous vous recommandons de contacter directement la <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
         </>
       )
     default:
