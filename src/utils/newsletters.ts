@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs'
 import { customFetch } from '@/lib/fetch'
 import { getRootPath } from './path'
 
-const DIRECTORY_NAME = '/public/newsletters'
+const DIRECTORY_NAME = '/data/newsletters'
 
 export async function downloadLastNewsletters() {
   const to = Date.now()

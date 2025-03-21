@@ -10,12 +10,12 @@ const getNewsletterName = (newsletter: string) => {
 }
 
 export default async function NewslettersPage() {
-  const newsletters = await readdir(getRootPath() + '/public/newsletters')
+  const newsletters = await readdir(getRootPath() + '/data/newsletters')
 
   const newslettersWithContent = await Promise.all(newsletters.map(async (newsletter) => {
     return {
       name: getNewsletterName(newsletter),
-      htmlContent: await readFile(getRootPath() + '/public/newsletters/' + newsletter, 'utf-8'),
+      htmlContent: await readFile(getRootPath() + '/data/newsletters/' + newsletter, 'utf-8'),
     }
   }))
 
