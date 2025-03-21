@@ -46,6 +46,7 @@ export const ActionMessage = styled.div<{ $isVisible?: boolean }>`
   button {
     margin-top: 0.5rem;
     box-shadow: none;
+    white-space: nowrap;
   }
 
 `

@@ -16,8 +16,8 @@ const getDisabledMessage = (status: SignalementStatus | null, mairiePageURL: str
     case SignalementStatus.DISABLED_ASSEMBLAGE:
       return (
         <>
-          Les signalements sont désactivés pour votre commune car cette dernière n&apos;a pas publié sa Base Adresse Locale.
-          Nous vous recommandons de contacter directement votre <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
+          Les signalements ne peuvent pas être proposés sur cette commune car elle n&apos;a pas publié sa Base Adresse Locale.
+          Nous vous recommandons de contacter directement la <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
         </>
       )
     case SignalementStatus.DISABLED_PARTENAIRE:
