@@ -108,6 +108,11 @@ const redirects = async () => [
     permanent: true,
   },
   {
+    source: '/bases-locales/temoignages/:path',
+    destination: '/blog/:path',
+    permanent: true,
+  },
+  {
     source: '/base-adresse-nationale/:path',
     destination: `${URL_CARTOGRAPHY_BAN}?id=:path`,
     permanent: true,
@@ -192,7 +197,7 @@ const redirects = async () => [
     destination: '/data/ban/adresses/:path*',
     permanent: true
   },
-  
+
 ]
 
 const nextConfig = withBundleAnalyzer({

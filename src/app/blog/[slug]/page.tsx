@@ -18,6 +18,8 @@ import {
 
 import AsideContent from './components/AsideContent'
 
+export const dynamic = 'force-dynamic'
+
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const pageUrl = `https://adresse.data.gouv.fr/blog/${params.slug}`
   const blogPost = await getSinglePost(params.slug) || {}

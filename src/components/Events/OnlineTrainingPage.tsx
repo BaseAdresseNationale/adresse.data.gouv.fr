@@ -93,6 +93,9 @@ export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: Onlin
 
   return (
     <>
+      <Section>
+        <b>L&apos;équipe de la Base Adresse Locale vous propose chaque semaine des formations à l&apos;outil, libre et gratuit, Mes Adresses. Venez découvrir la facilité d&apos;utilisation de notre outil, comprendre les enjeux et les principales règles de l&apos;adressage.</b>
+      </Section>
       <Section title="Prochaines formations">
         {upcomingEvents.length > 0
           ? (

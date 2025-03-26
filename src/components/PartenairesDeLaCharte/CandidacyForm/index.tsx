@@ -112,7 +112,7 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
   }
 
   const canSubmit = () => {
-    const requiredCommonFields = formData.name && formData.contactFirstName && formData.contactLastName && formData.contactEmail && formData.charteURL && formData.picture
+    const requiredCommonFields = formData.name && formData.contactFirstName && formData.contactLastName && formData.contactEmail && formData.picture
 
     if (formData.type === PartenaireDeLaCharteTypeEnum.COMMUNE) {
       return requiredCommonFields && formData.codeCommune && formData.codeRegion
@@ -273,12 +273,11 @@ function CandidacyForm({ onClose, services, departements }: CandidacyFormProps) 
         <h5>Autres informations</h5>
         <div className="form-row">
           <Input
-            label="Lien vers la charte sur votre site internet*"
+            label="Lien vers la charte sur votre site internet"
             nativeInputProps={{
               value: formData.charteURL,
               type: 'url',
               onChange: handleEdit('charteURL'),
-              required: true,
             }}
           />
           <Input
