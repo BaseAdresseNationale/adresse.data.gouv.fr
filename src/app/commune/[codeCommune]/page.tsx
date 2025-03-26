@@ -47,7 +47,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
-   APIGeoCommune?.codeEpci && getEPCI(APIGeoCommune.codeEpci),
+    APIGeoCommune?.codeEpci && getEPCI(APIGeoCommune.codeEpci),
     communeHasBAL
       ? getRevisions(codeCommune)
         .then(revisions => Promise.all(revisions
