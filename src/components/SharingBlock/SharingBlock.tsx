@@ -40,6 +40,14 @@ const ShareButton = (buttonProps: ButtonProps) => (
 function SharingBlock({ pageUrl, callMessage, title }: { pageUrl: string, callMessage: string, title: string }) {
   const shareingPlateform = [
     {
+      iconId: 'ri-bluesky-line',
+      linkProps: {
+        href: `https://bsky.app/intent/compose?text=${callMessage}%20${pageUrl}`,
+        target: '_blank',
+      },
+      title: 'Partager sur Bluesky',
+    },
+    {
       iconId: 'fr-icon-facebook-circle-line',
       linkProps: {
         href: `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`,
