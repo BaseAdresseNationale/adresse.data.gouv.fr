@@ -34,6 +34,8 @@ export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) 
       })
     }
 
+    setStatus('pending')
+
     try {
       const blob: Blob = await geocodeCsv(file, filters, columns)
       setBlob(blob)
