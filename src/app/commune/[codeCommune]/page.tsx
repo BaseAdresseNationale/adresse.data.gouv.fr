@@ -55,7 +55,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           .map(revision => getRevisionDetails(revision, commune)))
         )
       : [],
-    communeHasBAL ? getCommuneAchievements(commune) : {},
+    communeHasBAL ? getCommuneAchievements(commune) : null,
   ])
 
   if (mairiePageResponse.status === 'rejected') {
