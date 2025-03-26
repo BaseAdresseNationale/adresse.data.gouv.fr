@@ -48,7 +48,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
-    getEPCI(APIGeoCommune?.codeEpci),
+    APIGeoCommune?.codeEpci && getEPCI(APIGeoCommune.codeEpci),
     communeHasBAL
       ? getRevisions(codeCommune)
         .then(revisions => Promise.all(revisions
@@ -56,7 +56,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           .map(revision => getRevisionDetails(revision, commune)))
         )
       : [],
-    getCommuneAchievements(commune),
+    communeHasBAL ? getCommuneAchievements(commune) : null,
   ])
 
   if (mairiePageResponse.status === 'rejected') {
