@@ -153,6 +153,37 @@ export default function Footer() {
           termsLinkProps={{
             href: '/mentions-legales',
           }}
+          partnersLogos={{
+            main: {
+              alt: 'Ministère de la transition écologique et de la cohésion des territoires',
+              imgUrl: '/logos/LOGO-MINISTERE-ECOLOGIE.jpg',
+              linkProps: {
+                href: 'https://www.ecologie.gouv.fr/',
+                target: '_blank',
+                title: 'Lien vers le site du ministère de la transition écologique et de la cohésion des territoires',
+              },
+            },
+            sub: [
+              {
+                alt: 'IGN - Institut national de l’information géographique et forestière',
+                imgUrl: '/logos/LOGO-IGN.png',
+                linkProps: {
+                  href: 'https://www.ign.fr/',
+                  target: '_blank',
+                  title: 'Lien vers le site de l’IGN',
+                },
+              },
+              {
+                alt: 'Agence nationale de la cohésion des territoires',
+                imgUrl: '/logos/LOGO-ANCT.png',
+                linkProps: {
+                  href: 'https://agence-cohesion-territoires.gouv.fr/',
+                  target: '_blank',
+                  title: 'Lien vers le site l’ANCT',
+                },
+              },
+            ],
+          }}
           bottomItems={[
             {
               text: 'CGU',
