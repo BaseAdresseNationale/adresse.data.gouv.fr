@@ -30,13 +30,13 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
 
   // TODO : Connect to Grist API
-  // const sampleNotice = {
-  //   text: 'Alerte téléchargements : Des lenteurs sont identifiées. Résolution en cours',
-  // }
+  const sampleNotice = {
+    text: 'Déploiement en cours lundi 31 mars. Les exports "latest" sont suspendus pendant 48h.',
+  }
 
   const dataNotices = {
-    // data: [sampleNotice],
-    data: [],
+    data: [sampleNotice],
+    // data: [],
     duration: 4000,
   }
 
