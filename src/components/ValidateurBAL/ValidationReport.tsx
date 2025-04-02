@@ -3,7 +3,7 @@ import Section from '../Section'
 import styled from 'styled-components'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { Table } from '@codegouvfr/react-dsfr/Table'
-import { getLabel, PrevalidateType, ValidateProfile, profiles, ProfileErrorType, NotFoundFieldType, ErrorLevelEnum } from '@ban-team/validateur-bal'
+import { getLabel, ValidateType, ParseFileType, profiles, ProfileErrorType, NotFoundFieldLevelType, ErrorLevelEnum } from '@ban-team/validateur-bal'
 import ValidationSummary from './ValidationSummary'
 
 const StyledWrapper = styled.div`
@@ -32,24 +32,24 @@ const StyledWrapper = styled.div`
 
 `
 
-const sortBySeverity = (a: ProfileErrorType | NotFoundFieldType, b: ProfileErrorType | NotFoundFieldType) => {
+const sortBySeverity = (a: ProfileErrorType | NotFoundFieldLevelType, b: ProfileErrorType | NotFoundFieldLevelType) => {
   const levelOrder: Record<string, number> = { E: 0, W: 1, I: 2 }
   return levelOrder[a.level!] - levelOrder[b.level!]
 }
 
 interface ValidationReportProps {
-  report: PrevalidateType | ValidateProfile
+  report: ParseFileType | ValidateType
   profile: string
 }
 
 function ValidationReport({ report, profile }: ValidationReportProps) {
-  const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateProfile
+  const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
   const generalValidationRows = profilErrors
     .sort(sortBySeverity)
     .map(({ code, level }: ProfileErrorType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
 
   const notFoundFieldsRows = notFoundFields!.sort(sortBySeverity)
-    .map(({ schemaName, level }: NotFoundFieldType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, schemaName]))
+    .map(({ schemaName, level }: NotFoundFieldLevelType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, schemaName]))
 
   return (
     <StyledWrapper>

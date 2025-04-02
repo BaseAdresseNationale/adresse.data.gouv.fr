@@ -1,10 +1,10 @@
-import { getLabel, Profile } from '@ban-team/validateur-bal'
+import { getLabel, ProfileType } from '@ban-team/validateur-bal'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import Table from '@codegouvfr/react-dsfr/Table'
 import styled from 'styled-components'
 
 type ProfileDocumentationProps = {
-  profile: Profile
+  profile: ProfileType
 }
 
 const StyledWrapper = styled.div`
