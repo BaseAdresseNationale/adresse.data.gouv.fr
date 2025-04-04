@@ -38,8 +38,9 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
     // data: [sampleNotice],
     // data: [],
     data: [{
-      text: 'Incident technique sur la BAN : Resolutions en cours',
+      text: 'Operation en cours : Passage du Code officiel géographique 2025.',
       // link?: { href: string; target?: string}
+      link: { href: '/outils/telechargements' },
     }],
     duration: 4000,
   }
