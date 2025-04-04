@@ -1,11 +1,11 @@
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
-import { getLabel, ValidateRowType } from '@ban-team/validateur-bal'
+import { getLabel, ValidateRowFullType } from '@ban-team/validateur-bal'
 import styled from 'styled-components'
 import ValidationCodeTable from './ValidationCodeTable'
 
 type ValidationAccordionProps = {
   title: string
-  groups: Record<string, ValidateRowType[]>
+  groups: Record<string, ValidateRowFullType[]>
 }
 
 const StyledWrapper = styled.div`
