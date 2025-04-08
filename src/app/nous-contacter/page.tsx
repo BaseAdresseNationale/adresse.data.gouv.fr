@@ -52,6 +52,27 @@ export default function NousContacterPage() {
       </section>
       <section>
         <h2>
+        En tant qu’utilisateur des données, rejoignez notre Collectif des Utilisateurs de la BAN
+        </h2>
+        <p>
+        La démarche Adresse_Lab, instance de concertation et de co-construction sur les évolutions de la Base Adresse Nationale, propose des points d'échanges réguliers et met à disposition un espace collaboratif de travail au sein de l'outil "Expertises Territoires" du Cerema.
+        </p>
+        <p>
+          Il s&apos;adresse aux utilisateurs de la donnée BAN : administrations et services publics, services de secours et de sécurité, opérateurs de réseaux, services de localisation et navigation, ... constitués par le biais de cette démarche en &quot;Collectif des usagers de la BAN&quot;. L&apos;objectif est la connaissance des cas d&apos;application et la compréhension des besoins pour piloter les évolutions de la feuille de route BAN en adéquation avec les usages.
+        </p>
+        <div className="osmose-buttons">
+          <Button
+            iconId="fr-icon-question-answer-line"
+            linkProps={{
+              href: ' https://www.expertises-territoires.fr/jcms/pl1_563411/fr/collectif-des-utilisateurs-de-la-ban',
+            }}
+          >
+            Rejoindre le collectif Adresse-Lab
+          </Button>
+        </div>
+      </section>
+      <section>
+        <h2>
           Pour toute autre demande ou pour plus d’informations.
         </h2>
         <p>
@@ -67,36 +88,6 @@ export default function NousContacterPage() {
           }}
         >Nous contacter
         </Button>
-      </section>
-      <section>
-        <h2>
-          En tant qu’utilisateur des données, rejoignez Osmose
-        </h2>
-        <p>
-          Osmose est l&apos;outil d&apos;animation et de support de la démarche Adresse_Lab, instance de concertation et de co-construction sur les évolutions de la Base Adresse Nationale.
-        </p>
-        <p>
-          Il s&apos;adresse aux utilisateurs de la donnée BAN : administrations et services publics, services de secours et de sécurité, opérateurs de réseaux, services de localisation et navigation, ... constitués par le biais de cette démarche en &quot;Collectif des usagers de la BAN&quot;. L&apos;objectif est la connaissance des cas d&apos;application et la compréhension des besoins pour piloter les évolutions de la feuille de route BAN en adéquation avec les usages.
-        </p>
-        <div className="osmose-buttons">
-          <Button
-            iconId="fr-icon-mail-line"
-            priority="secondary"
-            linkProps={{
-              href: ' https://osmose.numerique.gouv.fr/jcms/p_4881391/fr/mtect-collectif-des-utilisateurs-de-la-ban',
-            }}
-          >
-            Demander à rejoindre Osmose
-          </Button>
-          <Button
-            iconId="fr-icon-question-answer-line"
-            linkProps={{
-              href: ' https://osmose.numerique.gouv.fr/jcms/p_4881391/fr/mtect-collectif-des-utilisateurs-de-la-ban',
-            }}
-          >
-            Accéder à Osmose
-          </Button>
-        </div>
       </section>
     </StyledWrapper>
   )
