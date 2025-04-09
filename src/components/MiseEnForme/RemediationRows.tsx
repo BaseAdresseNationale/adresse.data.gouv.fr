@@ -50,7 +50,7 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
       'date_der_maj',
       'certification_commune',
     ]
-  }, [])
+  }, []) as Array<keyof ParsedValues>
 
   const getValueBanIds = useCallback(({ additionalValues }: ValidateRowFullType, key: keyof ParsedValues) => {
     if (key === 'id_ban_commune') {
@@ -65,9 +65,8 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
   }, [])
 
   const getLine = useCallback((row: ValidateRowFullType, index: number) => {
-    console.log(row)
-    return headers.map(key => row.remediations[key as keyof ParsedValues]
-      ? <p key={index} className="info">{String(row.remediations[key as keyof ParsedValues])}</p>
+    return headers.map(key => row.remediations[key]
+      ? <p key={index} className="info">{String(row.remediations[key])}</p>
       : row.rawValues[key] || getValueBanIds(row, key)
     )
   }, [headers, getValueBanIds])
