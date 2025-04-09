@@ -69,7 +69,13 @@ function RemediationReport({ file, report }: RemediationReportProps) {
               title="Mise en forme disponible"
             />
           )}
-      {nbRowsRemediation > 0 && <RemediationTable rows={rows} /> }
+      {nbRowsRemediation > 0
+      && (
+        <>
+          <h3 style={{ marginTop: '32px', marginBottom: '12px' }}>Correction(s) ligne par ligne</h3>
+          <RemediationTable rows={rows} />
+        </>
+      )}
       <a ref={linkRef} style={{ display: 'none' }}>Download</a>
     </>
   )
