@@ -4,6 +4,7 @@ import { autofix, ValidateType } from '@ban-team/validateur-bal'
 import RemediationTable from './RemediationRows'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useRef } from 'react'
+import Loader from '../Loader'
 
 interface RemediationReportProps {
   file: File
@@ -11,10 +12,10 @@ interface RemediationReportProps {
 }
 
 function RemediationReport({ file, report }: RemediationReportProps) {
-  const linkRef = useRef<HTMLAnchorElement | null>(null);
   const { rows } = report
 
-  const nbRowsRemediation = rows.reduce((acc, value) => Object.keys(value.remediations).length > 0 ? acc + 1 : acc, 0)
+  const linkRef = useRef<HTMLAnchorElement | null>(null)
+  const nbRowsRemediation = rows?.reduce((acc, value) => Object.keys(value.remediations).length > 0 ? acc + 1 : acc, 0) || 0
 
   const handleClick = async () => {
     if (!file) {
@@ -60,14 +61,15 @@ function RemediationReport({ file, report }: RemediationReportProps) {
                     iconId="fr-icon-download-line"
                     onClick={handleClick}
                     title="Télécharger"
-                  />
+                  >Télécharger
+                  </Button>
                 </div>
               )}
               severity="info"
               title="Mise en forme disponible"
             />
           )}
-      {rows && <RemediationTable rows={rows} /> }
+      {nbRowsRemediation > 0 && <RemediationTable rows={rows} /> }
       <a ref={linkRef} style={{ display: 'none' }}>Download</a>
     </>
   )

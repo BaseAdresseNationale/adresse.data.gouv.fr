@@ -13,8 +13,6 @@ export default function MiseEnFormePage() {
   const [isLoading, setIsLoading] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [report, setReport] = useState<ParseFileType | ValidateType | null>(null)
-  // const [displayDownloadLink, setDisplayDownloadLink] = useState<boolean>(false)
-  // const downloadRef = useRef<HTMLAnchorElement | null>(null)
 
   const getReport = async (value: File) => {
     if (!value) {
@@ -32,30 +30,6 @@ export default function MiseEnFormePage() {
       setIsLoading(false)
     }
   }
-
-  // const getDownloadLink = async (value: File) => {
-  //   if (!value) {
-  //     throw new Error('No file selected')
-  //   }
-  //   try {
-  //     setIsLoading(true)
-  //     const buffer = await autofix(value as any)
-
-  //     const blob = new Blob([buffer], { type: 'text/plain' })
-  //     const url = URL.createObjectURL(blob)
-  //     if (downloadRef.current) {
-  //       downloadRef.current.href = url
-  //       downloadRef.current.download = 'bal_mise-en-forme.csv'
-  //     }
-  //     setDisplayDownloadLink(true)
-  //   }
-  //   catch (e) {
-  //     console.error(e)
-  //   }
-  //   finally {
-  //     setIsLoading(false)
-  //   }
-  // }
 
   const handleReset = () => {
     setFile(null)

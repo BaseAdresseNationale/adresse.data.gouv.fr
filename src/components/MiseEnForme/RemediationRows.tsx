@@ -23,6 +23,7 @@ const StyledWrapper = styled.div`
 const limit = 10
 
 export default function RemediationTable({ rows }: RemediationTableProps) {
+  const rowsWithRemediation = rows.filter(row => Object.keys(row.remediations).length > 0)
   const [currentPage, setCurrentPage] = useState(1)
 
   const headers = useMemo(() => {
@@ -51,21 +52,34 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
     ]
   }, [])
 
+  const getValueBanIds = useCallback(({ additionalValues }: ValidateRowFullType, key: keyof ParsedValues) => {
+    if (key === 'id_ban_commune') {
+      return additionalValues.uid_adresse.idBanCommune
+    }
+    else if (key === 'id_ban_toponyme') {
+      return additionalValues.uid_adresse.idBanToponyme
+    }
+    else if (key === 'id_ban_adresse') {
+      return additionalValues.uid_adresse.idBanAdresse
+    }
+  }, [])
+
   const getLine = useCallback((row: ValidateRowFullType, index: number) => {
+    console.log(row)
     return headers.map(key => row.remediations[key as keyof ParsedValues]
       ? <p key={index} className="info">{String(row.remediations[key as keyof ParsedValues])}</p>
-      : row.rawValues[key]
+      : row.rawValues[key] || getValueBanIds(row, key)
     )
-  }, [headers])
+  }, [headers, getValueBanIds])
 
   const data = useMemo(() => {
     const start = (currentPage - 1) * limit
 
-    return rows.slice(start, start + limit).map((row, index) => ([
+    return rowsWithRemediation.slice(start, start + limit).map((row, index) => ([
       row.line,
       ...getLine(row, index),
     ]))
-  }, [rows, currentPage, getLine])
+  }, [rowsWithRemediation, currentPage, getLine])
 
   return (
     <StyledWrapper>
@@ -76,7 +90,7 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
         />
         <SoftPagination
           currentPage={currentPage}
-          totalCount={rows.length}
+          totalCount={rowsWithRemediation.length}
           onPageChange={(page) => { setCurrentPage(page) }}
           limit={limit}
         />
