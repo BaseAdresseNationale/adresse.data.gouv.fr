@@ -30,13 +30,18 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
 
   // TODO : Connect to Grist API
-  const sampleNotice = {
-    text: 'Déploiement en cours lundi 31 mars. Les exports "latest" sont suspendus pendant 48h.',
-  }
+  // const sampleNotice = {
+  // text: 'Déploiement en cours lundi 31 mars. Les exports "latest" sont suspendus pendant 48h.',
+  // }
 
   const dataNotices = {
-    data: [sampleNotice],
+    // data: [sampleNotice],
     // data: [],
+    data: [{
+      text: 'Operation en cours : Passage du Code officiel géographique 2025.',
+      // link?: { href: string; target?: string}
+      link: { href: '/outils/telechargements' },
+    }],
     duration: 4000,
   }
 

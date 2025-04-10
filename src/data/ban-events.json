@@ -520,7 +520,7 @@
     "subtitle" : "Adresse_Lab",
     "description" : "Journée d'échanges entre les utilisateurs experts, autour des problématiques partagées : emprise d’utilisation large incluant données d’assemblage, besoin d’historisation de la donnée, adosser des données métier aux adresses de la BAN, besoins spécifiques sur la qualité et la mise à jour des données.",
     "target": "Les SI nationaux utilisateurs avancés de la donnée adresse",
-    "date": "2025-04-03",
+    "date": "2025-05-22",
     "startHour": "10:00",
     "endHour": "16:00",
     "tags": ["Technique", "Utilisateurs", "BAN"],

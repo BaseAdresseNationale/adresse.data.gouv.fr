@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import { Tag } from '@codegouvfr/react-dsfr/Tag'
+import { ReactNode } from 'react'
 
 export interface TagSelectProps {
   value: string[]
-  options: string[]
+  options: { label: ReactNode, value: string }[]
   onChange: (value: string[]) => void
 }
 
@@ -20,22 +21,22 @@ const StyledWrapper = styled.div`
 export default function TagSelect({ options, value, onChange }: TagSelectProps) {
   return (
     <StyledWrapper>
-      {options.map(tag => (
+      {options.map(({ label, value: _value }) => (
         <Tag
-          key={tag}
+          key={_value}
           nativeButtonProps={{
             onClick: () => {
-              if (value.includes(tag)) {
-                onChange(value.filter(t => t !== tag))
+              if (value.includes(_value)) {
+                onChange(value.filter(t => t !== _value))
               }
               else {
-                onChange([...value, tag])
+                onChange([...value, _value])
               }
             },
           }}
-          pressed={value.includes(tag)}
+          pressed={value.includes(_value)}
         >
-          {tag}
+          {label}
         </Tag>
       ))}
     </StyledWrapper>
