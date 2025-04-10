@@ -2,7 +2,7 @@
 
 import Section from '@/components/Section'
 import { useState } from 'react'
-import { validate, profiles, ValidateProfile, PrevalidateType } from '@ban-team/validateur-bal'
+import { validate, profiles, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
 import SelectInput from '@/components/SelectInput'
 import Loader from '@/components/Loader'
 import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
@@ -22,7 +22,7 @@ const profilesOptions: {
 
 export default function ValidateurBAL() {
   const [isLoading, setIsLoading] = useState(false)
-  const [validationReport, setValidationReport] = useState<PrevalidateType | ValidateProfile | null>(null)
+  const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[1])
   const [file, setFile] = useState<File | null>(null)
 
@@ -35,7 +35,7 @@ export default function ValidateurBAL() {
       setIsLoading(true)
       // const arrayBuffer: ArrayBuffer = await file.arrayBuffer()
       // const buffer: Buffer = Buffer.from(arrayBuffer)
-      const report: PrevalidateType | ValidateProfile = await validate(file as any, { profile })
+      const report: ParseFileType | ValidateType = await validate(file as any, { profile })
       setValidationReport(report)
     }
     catch (e) {
