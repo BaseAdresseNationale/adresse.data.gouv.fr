@@ -1,7 +1,8 @@
 import { fr } from '@codegouvfr/react-dsfr'
 import appTheme from '@/theme'
 import type { ColorTheme } from '@/theme'
-
+import { useMemo } from 'react'
+import slugify from 'slugify'
 import { SectionBlock, SectionFooter } from './Section.styles'
 
 interface SectionProps {
@@ -29,9 +30,20 @@ function Section({
   id,
   isVisible,
 }: SectionProps) {
+  const sectionId = useMemo(() => {
+    if (id) {
+      return id
+    }
+
+    const sectionTitle = pageTitle || title
+    if (sectionTitle) {
+      return slugify(sectionTitle, { lower: true, strict: true, trim: true })
+    }
+  }, [id, pageTitle, title])
+
   return (
     <SectionBlock
-      id={id}
+      id={sectionId}
       className={`fr-container-fluid ${classNameWrapper || ''}`}
       style={{
         ...style,
