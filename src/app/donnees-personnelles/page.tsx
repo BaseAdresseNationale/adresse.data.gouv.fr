@@ -39,7 +39,8 @@ export default async function Home() {
               noCaption
               data={[
                 [
-                  'Gérer l’abonnement et l’envoi de la lettre d’information Responsable de traitement ANCT',
+                  'Gérer l’abonnement et l’envoi de la lettre d’information',
+                  'ANCT',
                   'Nom, Prénom,Adresse couriel',
                   'Mission d’intérêt public relevant de la compétence de l’ANCT (article L. 1231-2 V 2° du code général des collectivités territoriales)',
                   'Jusqu’à ce que la personne concernée se désinscrive (lien de désinscription intégré aux newsletters)',
@@ -47,7 +48,8 @@ export default async function Home() {
                   'Les agents ANCT habilités',
                 ],
                 [
-                  'Gérer l’organisation des webinaires et évènements. L’ANCT traite les données pour les webinaires BAL et l’IGN les données pour les webinaires BAN',
+                  'Gérer l’organisation des webinaires et évènements.',
+                  'L’ANCT traite les données pour les webinaires BAL et l’IGN les données pour les webinaires BAN',
                   'Nom, Prénom, Adresse courriel, Fonction, Organisme',
                   'Mission d’intérêt public relevant de la compétence de l’ANCT (article L. 1231-2 V 2° du code général des collectivités territoriales)',
                   'Anonymisation 6 mois après la fin du webinaire',
@@ -55,7 +57,8 @@ export default async function Home() {
                   'Les agents ANCT et IGN habilités',
                 ],
                 [
-                  'Répondre aux messages envoyés via le formulaire de contact et l’adresse support. L’ANCT répond sur le périmètre relatif à l’accompagnement des communes à la constitution de la BAL. L’IGN répond sur le périmètre relatif à la donnée BAN et sa réutilisation.',
+                  'Répondre aux messages envoyés via le formulaire de contact et l’adresse support.',
+                  'L’ANCT répond sur le périmètre relatif à l’accompagnement des communes à la constitution de la BAL. L’IGN répond sur le périmètre relatif à la donnée BAN et sa réutilisation.',
                   'Nom, Prénom, Adresse couriel',
                   'Intérêt légitime',
                   '1 an à compter du dernier contact',
@@ -63,7 +66,8 @@ export default async function Home() {
                   'Les agents ANCT et IGN habilités',
                 ],
                 [
-                  'Lever la limite pour l’utilisation du service de géocodage. Responsable de traitement IGN',
+                  'Lever la limite pour l’utilisation du service de géocodage.',
+                  'IGN',
                   'Nom, Prénom, Service, Adresse IP, Description de la mission',
                   'Mission d’intérêt public relevant de la compétence de l’IGN (article 2 7° du Décret du 27 octobre 2011)',
                   '1 an à compter du dernier contact',
@@ -71,7 +75,8 @@ export default async function Home() {
                   'Les agents IGN habilités',
                 ],
                 [
-                  'Gérer les commentaires des communes sur les interventions des sociétés partenaires. Responsable de traitement ANCT',
+                  'Gérer les commentaires des communes sur les interventions des sociétés partenaires.',
+                  'ANCT',
                   'Nom, prénom, Adresse courriel',
                   'Mission d’intérêt public relevant de la compétence de l’ANCT (article L. 1231-2 V 2° du code général des collectivités territoriales)',
                   'Supprimées après la modération',
@@ -81,6 +86,7 @@ export default async function Home() {
               ]}
               headers={[
                 'Finalités de traitement',
+                'Responsable de traitement',
                 'Données traitées',
                 'Bases légales de traitement',
                 'Durée de conservation des données',
