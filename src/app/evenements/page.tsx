@@ -2,15 +2,9 @@ import { getBalEvents } from '@/lib/api-bal-admin'
 import banEvents from '@/data/ban-events.json'
 import { EventType } from '@/types/events.types'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
-import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import EventPage from '@/components/Events/EventPage'
 
 export const dynamic = 'force-dynamic'
-
-const Modal = createModal({
-  id: 'register-event-modal',
-  isOpenedByDefault: false,
-})
 
 export default async function EvenementsPage() {
   const balEvents = await getBalEvents()

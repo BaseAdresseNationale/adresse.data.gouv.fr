@@ -5,7 +5,13 @@ import styled from 'styled-components'
 export const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+  .loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
 
   .controls {
     .controls-input-wrapper {

@@ -1,4 +1,4 @@
-import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
+import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType, ReviewFormType } from '@/types/partenaire.types'
 import { EventType, ParticipantType } from '@/types/events.types'
 import { addSearchParams, customFetch } from './fetch'
 import { env } from 'next-runtime-env'
@@ -19,6 +19,7 @@ interface PartenairesDeLaCharteQuery {
   type?: PartenaireDeLaCharteTypeEnum
   search?: string
   withoutPictures?: boolean
+  shuffleResults?: boolean
 }
 
 export interface PaginatedPartenairesDeLaCharte {
@@ -40,15 +41,9 @@ export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaChart
   return customFetch(url)
 }
 
-export async function getPartenairesDeLaCharteServices(): Promise<string[]> {
-  return customFetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/services`)
-}
-
-export async function getRandomPartenairesDeLaCharte(limit: number) {
-  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/random`)
-  if (limit) {
-    url.searchParams.append('limit', limit.toString())
-  }
+export async function getPartenairesDeLaCharteServices(queryObject: PartenairesDeLaCharteQuery): Promise<Record<string, number>> {
+  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/services`)
+  addSearchParams(url, queryObject)
 
   return customFetch(url)
 }
@@ -74,6 +69,18 @@ export async function registrationToEvent(eventId: string, participant: Particip
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(participant),
+  })
+}
+
+export async function sendReview(partenaireId: string, review: ReviewFormType) {
+  const request = `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${partenaireId}/reviews`
+
+  return customFetch(request, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(review),
   })
 }
 

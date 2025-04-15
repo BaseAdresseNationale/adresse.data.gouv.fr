@@ -134,8 +134,8 @@ export const navEntries: MainNavigationProps.Item[] = [
       },
       { text: 'Communes partenaires', linkProps: { href: '/communaute/communes-partenaires' } },
       {
-        text: 'Sociétés partenaires',
-        linkProps: { href: '/communaute/societes-partenaires' },
+        text: 'Annuaire des prestatataires',
+        linkProps: { href: '/communaute/annuaire-des-prestataires' },
       },
       { text: 'Nos usagers', linkProps: { href: '/communaute/usages' } },
     ],
