@@ -100,6 +100,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/outils/telechargements' },
       },
       { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
+      { text: 'Mise en forme BAL', linkProps: { href: '/outils/mise-en-forme' } },
       { text: 'Géocodeur CSV', linkProps: { href: '/outils/csv' } },
       { text: 'Formulaire de publication', linkProps: { href: '/outils/formulaire-de-publication' } },
       {
