@@ -59,12 +59,16 @@ const redirects = async () => [
   },
   {
     source: '/bases-locales/charte/companies',
-    destination: '/communaute/societes-partenaires',
+    destination: '/communaute/annuaire-des-prestataires',
     permanent: true,
   },
   {
     source: '/bases-locales/charte/organismes',
     destination: '/communaute/organismes-partenaires',
+    permanent: true,
+  },
+  { source: '/communaute/societes-partenaires',
+    destination: '/communaute/annuaire-des-prestataires',
     permanent: true,
   },
   {
@@ -160,7 +164,7 @@ const redirects = async () => [
   {
     source: '/donnees-nationales/utilisateurs',
     destination: '/communaute/usages',
-    permanent: true
+    permanent: true,
   },
   {
     source: '/donnees-nationales/usages',
@@ -170,7 +174,7 @@ const redirects = async () => [
   {
     source: '/donnees-nationales/base-usages',
     destination: '/communaute/usages',
-    permanent: true
+    permanent: true,
   },
   {
     source: '/contribuer',
@@ -190,14 +194,13 @@ const redirects = async () => [
   {
     source: '/indicateurs',
     destination: '/stats',
-    permanent: true
+    permanent: true,
   },
   {
     source: '/data/ban/adresses-odbl/:path*',
     destination: '/data/ban/adresses/:path*',
-    permanent: true
+    permanent: true,
   },
-
 ]
 
 const nextConfig = withBundleAnalyzer({

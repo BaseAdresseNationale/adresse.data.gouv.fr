@@ -41,7 +41,7 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
   return (
     <section>
       <h5>Historique des Moissonnages</h5>
-      <p>Dès que des modifications ont été détéctés, le nouveau fichier est récupérer pour remplacer l&apos;ancien.</p>
+      <p>Dès que des modifications sont détéctées, le nouveau fichier est récupéré pour remplacer l&apos;ancien.</p>
       {(harvests && harvests.length > 0)
         ? (
             <div>

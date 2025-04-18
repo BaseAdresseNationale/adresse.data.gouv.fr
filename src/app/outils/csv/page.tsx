@@ -49,6 +49,7 @@ export default function Csv() {
   const [selectedColumns, setSelectedColumns] = useState<string[]>([])
   const [advancedPanel, setAdvancedPanel] = useState(false)
   const [filter, setFilter] = useState<string>('')
+  const [value, setValue] = useState('')
   const [error, setError] = useState<Error | null>(null)
 
   const resetState = () => {
@@ -122,12 +123,12 @@ export default function Csv() {
   }
 
   const toggleAdvancedPanel = () => {
-    setFilter('')
     setAdvancedPanel(!advancedPanel)
   }
 
   const handleFilter = (column: string) => {
     setFilter(column)
+    setValue(column)
   }
 
   const columns = csv ? csv.data[0] : []
@@ -180,16 +181,17 @@ export default function Csv() {
               {csv && (
                 <>
                   <div className="filters">
-                    <Accordion label="Paramètres avancés" onExpandedChange={setAdvancedPanel} expanded={advancedPanel}>
+                    <Accordion label="Paramètres avancés" onExpandedChange={toggleAdvancedPanel} expanded={advancedPanel}>
                       {advancedPanel && (
                         <Select
                           label="Code INSEE"
                           nativeSelectProps={{
                             onChange: event => handleFilter(event.target.value),
+                            value,
                           }}
                         >
-                          (<option value={filter}>Aucun</option>
-                          {columns.map((value: string) => (<option value={filter} key={value}>{value}</option>))})
+                          (<option value="">Aucun</option>
+                          {columns.map((value: string) => (<option value={value} key={value}>{value}</option>))})
                         </Select>
                       )}
                     </Accordion>

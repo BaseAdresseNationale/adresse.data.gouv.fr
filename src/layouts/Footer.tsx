@@ -159,6 +159,10 @@ export default function Footer() {
               linkProps: { href: '/cgu' },
             },
             {
+              text: 'Données personnelles',
+              linkProps: { href: '/donnees-personnelles' },
+            },
+            {
               text: 'Statistiques',
               linkProps: { href: '/stats' },
             },

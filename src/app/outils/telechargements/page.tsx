@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import Link from 'next/link'
+import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Button } from '@codegouvfr/react-dsfr/Button'
@@ -17,6 +18,21 @@ export default async function PageDownloadBan() {
 
   return (
     <>
+      <Section>
+        <Alert
+          severity="warning"
+          title="Passage du Code officiel géographique 2025"
+          description={(
+            <>
+              <b>Attention : </b>La prise en charge des évolutions administratives de l’INSEE (COG 2025)
+              est en cours.
+              Nos exports peuvent présenter des instabilités sur les communes concernées pendant
+              la période de l’intervention.
+            </>
+          )}
+        />
+      </Section>
+
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
