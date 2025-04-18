@@ -6,12 +6,25 @@ import Link from 'next/link'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useMemo } from 'react'
 import StarRatingInput from '@/components/StarRatingInput'
+import styled from 'styled-components'
 
 export interface PartenaireCardProps {
   partenaire: PartenaireDeLaChartType
   onReview?: (partenaire: PartenaireDeLaChartType) => void
   detail: string
 }
+
+const StyledGlobalReview = styled.div`
+  display: flex;
+  align-items: end;
+  margin-top: 0.5rem;
+
+  > span {
+    font-size: 0.8rem;
+    color: #f1bf42;
+    margin-left: 1rem;
+  }
+`
 
 export default function PartenaireCard({
   partenaire,
@@ -27,6 +40,7 @@ export default function PartenaireCard({
   }, [partenaire])
 
   const isCommune = partenaire.type === PartenaireDeLaCharteTypeEnum.COMMUNE
+  const isCompany = partenaire.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE
 
   return (
     <Card
@@ -35,10 +49,10 @@ export default function PartenaireCard({
         <Link href={isCommune ? `/commune/${partenaire.codeCommune}` : `/partenaires/${partenaire.id}`}>
           {partenaire.name}
           {globalReview && (
-            <div style={{ display: 'flex', alignItems: 'end', marginTop: '0.5rem' }}>
+            <StyledGlobalReview>
               <StarRatingInput value={globalReview} />
-              <span style={{ fontSize: '0.8rem', color: '#f1bf42', marginLeft: '1rem' }}>{(partenaire.reviews as ReviewType[]).length} avis</span>
-            </div>
+              <span>{(partenaire.reviews as ReviewType[]).length} avis</span>
+            </StyledGlobalReview>
           )}
         </Link>
       )}
@@ -47,7 +61,7 @@ export default function PartenaireCard({
       detail={detail}
       footer={(
         <>
-          {partenaire.link && <Button priority="secondary" linkProps={{ href: partenaire.link, target: '_blank' }} style={{ marginTop: '0.5rem' }}>Site du partenaire</Button>}
+          {partenaire.link && <Button priority="secondary" linkProps={{ href: partenaire.link, target: '_blank' }} style={{ marginTop: '0.5rem' }}>{isCompany ? 'Site de la société' : 'Site du partenaire'}</Button>}
           {onReview && <Button type="button" priority="secondary" style={{ marginTop: '0.5rem' }} onClick={() => onReview(partenaire)}>Noter la prestation</Button>}
         </>
       )}
