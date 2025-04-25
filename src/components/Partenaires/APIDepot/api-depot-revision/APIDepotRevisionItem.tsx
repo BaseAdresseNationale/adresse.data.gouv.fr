@@ -24,8 +24,8 @@ export default function APIDepotRevisionItem({ id, codeCommune, validation, isCu
         )
       default:
         return (
-          <Tooltip title={validation && validation.errors?.length > 0 ? 'Des erreurs de validations empèchent la publication, pour en savoir plus veuillez consulter le rapport de validation' : 'La révision est en attente de publication'}>
-            <Badge severity={validation && validation.errors?.length > 0 ? 'error' : 'warning'}>Non publiée</Badge>
+          <Tooltip title={(validation?.errors?.length || 0) > 0 ? 'Des erreurs de validations empêchent la publication, pour en savoir plus veuillez consulter le rapport de validation' : 'La révision est en attente de publication'}>
+            <Badge severity={(validation?.errors?.length || 0) > 0 ? 'error' : 'warning'}>Non publiée</Badge>
           </Tooltip>
         )
     }
