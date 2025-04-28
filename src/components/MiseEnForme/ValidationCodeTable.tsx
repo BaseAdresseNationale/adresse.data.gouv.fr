@@ -24,7 +24,7 @@ const StyledWrapper = styled.div`
 
 const limit = 10
 
-export default function ValidationCodeTable({ code, groupCode }: ValidationCodeTableProps) {
+export default function ValidationCodeTable({ code, groupCode = [] }: ValidationCodeTableProps) {
   const [currentPage, setCurrentPage] = useState(1)
 
   const data = useMemo(() => {

@@ -15,11 +15,9 @@ const StyledWrapper = styled.div`
 
 export default function ProfileDocumentation({ profile }: ProfileDocumentationProps) {
   const { name, errors, warnings, infos } = profile
-  const errorsLevel = errors
-    .map(code => ([code, getLabel(code.replace('@@', 'eus'))]))
-  const warningsLevel = warnings
-    .map(code => ([code, getLabel(code.replace('@@', 'eus'))]))
-  const infosLevel = infos?.map(code => ([code, getLabel(code.replace('@@', 'eus'))])) ?? []
+  const errorsLevel = errors?.map((code: string) => ([code, getLabel(code.replace('@@', 'eus'))])) ?? []
+  const warningsLevel = warnings?.map((code: string) => ([code, getLabel(code.replace('@@', 'eus'))])) ?? []
+  const infosLevel = infos?.map((code: string) => ([code, getLabel(code.replace('@@', 'eus'))])) ?? []
 
   return (
     <StyledWrapper>

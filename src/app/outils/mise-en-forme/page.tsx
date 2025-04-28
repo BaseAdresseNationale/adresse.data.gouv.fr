@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
-import { autofix, ParseFileType, validate, ValidateType } from '@ban-team/validateur-bal'
+import React, { useState } from 'react'
+import { ParseFileType, validate, ValidateType } from '@ban-team/validateur-bal'
 import Loader from '@/components/Loader'
 import DropZoneInput from '@/components/DropZoneInput'
 import Section from '@/components/Section'
