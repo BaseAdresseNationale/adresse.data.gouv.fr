@@ -1,12 +1,12 @@
 import Table from '@codegouvfr/react-dsfr/Table'
-import { ValidateRowType } from '@ban-team/validateur-bal'
+import { ValidateRowFullType } from '@ban-team/validateur-bal'
 import styled from 'styled-components'
 import { useMemo, useState } from 'react'
 import SoftPagination from '../Pagination/soft-pagination'
 
 type ValidationCodeTableProps = {
   code: string
-  groupCode: ValidateRowType[]
+  groupCode: ValidateRowFullType[]
 }
 
 const StyledWrapper = styled.div`

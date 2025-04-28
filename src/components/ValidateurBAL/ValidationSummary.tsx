@@ -1,15 +1,15 @@
 import Section from '../Section'
 import ValidationAccordion from './ValidationAccordion'
-import { ErrorLevelEnum, ValidateRowType } from '@ban-team/validateur-bal'
+import { ErrorLevelEnum, ValidateRowFullType } from '@ban-team/validateur-bal'
 
 type ValidationSummaryProps = {
-  rows: ValidateRowType[]
+  rows: ValidateRowFullType[]
 }
 
 export default function ValidationSummary({ rows }: ValidationSummaryProps) {
-  const errorsGroups: Record<string, ValidateRowType[]> = {}
-  const warningsGroups: Record<string, ValidateRowType[]> = {}
-  const infosGroups: Record<string, ValidateRowType[]> = {}
+  const errorsGroups: Record<string, ValidateRowFullType[]> = {}
+  const warningsGroups: Record<string, ValidateRowFullType[]> = {}
+  const infosGroups: Record<string, ValidateRowFullType[]> = {}
 
   rows.forEach((row) => {
     row.errors!.forEach(({ code, level }) => {
