@@ -22,7 +22,7 @@ const StyledWrapper = styled.div`
 
 const limit = 10
 
-export default function RemediationTable({ rows = [] }: RemediationTableProps) {
+export default function RemediationTable({ rows }: RemediationTableProps) {
   const rowsWithRemediation = rows.filter(row => Object.keys(row.remediations).length > 0)
   const [currentPage, setCurrentPage] = useState(1)
 
