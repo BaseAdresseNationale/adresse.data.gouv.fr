@@ -3,11 +3,9 @@
 import { Pagination } from '@codegouvfr/react-dsfr/Pagination'
 import TagSelect from '../../TagSelect'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
-import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
-import { Card } from '@codegouvfr/react-dsfr/Card'
+import { PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
+import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, getPartenairesDeLaCharteServices, PaginatedPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
-import ResponsiveImage from '../../ResponsiveImage'
 import { Departement } from '@/types/api-geo.types'
 import { Commune } from '@/types/api-geo.types'
 import { getPageFromHash, useHash } from '@/hooks/useHash'
@@ -16,51 +14,69 @@ import { StyledWrapper } from './SearchPartenaire.styles'
 import CardWrapper from '@/components/CardWrapper'
 import { getCommunes } from '@/lib/api-geo'
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
-import Link from 'next/link'
+import PartenaireCard from './PartenaireCard'
+import Loader from '@/components/Loader'
 
 export interface SearchPartenaireProps {
-  services: string[]
-  initialPartenaires: PaginatedPartenairesDeLaCharte
   departements: Departement[]
   filter?: { type: PartenaireDeLaCharteTypeEnum }
   searchBy: 'perimeter' | 'name'
-  renderInfos?: (partenaire: PaginatedPartenairesDeLaCharte) => Promise<React.ReactNode>
-  shuffle?: boolean
   pageSize?: number
+  placeholder: string
+  onReview?: (partenaire: PartenaireDeLaChartType) => void
+  onLoaded?: () => void
 }
 
 export default function SearchPartenaire({
-  services,
-  initialPartenaires,
   departements,
   filter,
   searchBy,
-  renderInfos,
-  shuffle,
+  placeholder,
   pageSize = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT,
+  onReview,
+  onLoaded,
 }: SearchPartenaireProps) {
   const { hash, resetHash } = useHash()
   const [search, onSearch] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
   const debouncedSearch = useDebounce(search, 500)
-  const [info, setInfo] = useState<React.ReactNode>(null)
   const [currentPage, setCurrentPage] = useState(getPageFromHash(hash))
   const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [selectedServices, setSelectedServices] = useState<string[]>([])
-  const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>(initialPartenaires)
+  const [partenaires, setPartenaires] = useState<PaginatedPartenairesDeLaCharte>()
+  const [services, setServices] = useState<Record<string, number>>()
 
   const fetchCommunes = useCallback((query: string) => getCommunes({ q: query }), [])
 
   const updatePartenaires = useCallback(async (page: number) => {
-    const updatedPartenaires = await getPartenairesDeLaCharte({
-      ...filter,
-      services: selectedServices,
-      codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
-      search: debouncedSearch,
-    }, page, pageSize)
+    try {
+      const updatedPartenaires = await getPartenairesDeLaCharte({
+        ...filter,
+        services: selectedServices,
+        codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+        search: debouncedSearch,
+        shuffleResults: filter?.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE,
+      }, page, pageSize)
 
-    setPartenaires(updatedPartenaires)
-    setCurrentPage(page)
-  }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize])
+      setPartenaires(updatedPartenaires)
+
+      const updatedServices = await getPartenairesDeLaCharteServices({
+        ...filter,
+        codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+        search: debouncedSearch,
+      })
+      setServices(updatedServices)
+
+      setCurrentPage(page)
+      onLoaded && onLoaded()
+    }
+    catch (err) {
+      console.error(err)
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }, [selectedServices, selectedCommune, debouncedSearch, filter, pageSize, onLoaded])
 
   useEffect(() => {
     if (hash) {
@@ -74,18 +90,26 @@ export default function SearchPartenaire({
     updatePartenaires(1)
   }, [selectedServices, selectedCommune, debouncedSearch, updatePartenaires, resetHash])
 
-  useEffect(() => {
-    if (renderInfos) {
-      renderInfos(partenaires).then(setInfo)
+  const count = useMemo(() => {
+    if (!partenaires) {
+      return 0
     }
-  }, [partenaires, renderInfos])
 
-  const count = useMemo(() => Math.ceil(partenaires.total / pageSize), [partenaires.total, pageSize])
+    return Math.ceil(partenaires.total / pageSize)
+  }, [partenaires, pageSize])
 
   const getDepartementNom = (code: string) => {
     const departement = departements.find(departement => departement.code === code)
     return departement?.nom || ''
   }
+
+  const tagSelectOption = useMemo(() => {
+    if (!services) {
+      return []
+    }
+
+    return Object.keys(services).map(service => ({ value: service, label: <div><Badge style={{ marginRight: 5 }}>{services[service]}</Badge>{service}</div> }))
+  }, [services])
 
   return (
     <StyledWrapper>
@@ -93,47 +117,47 @@ export default function SearchPartenaire({
         <div className="controls-input-wrapper">
           {searchBy === 'perimeter' && (
             <AutocompleteInput
-              label="Rechercher ma commune"
               value={selectedCommune}
               fetchResults={fetchCommunes}
               onChange={commune => setSelectedCommune(commune as Commune | null)}
-              placeholder="Rechercher ma commune"
+              placeholder={placeholder}
             />
           ) }
           {searchBy === 'name' && (
             <input
               className="fr-input"
-              placeholder="Rechercher un partenaire"
+              placeholder={placeholder}
               value={search}
               onChange={e => onSearch(e.target.value)}
             />
           )}
-          {info}
         </div>
-        <TagSelect options={services} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
+        <TagSelect options={tagSelectOption} value={selectedServices} onChange={selectedServices => setSelectedServices(selectedServices)} />
       </div>
-      <CardWrapper isSmallCard>
-        {partenaires.data.length === 0 && <p>Aucun partenaire trouvé</p>}
-        {partenaires.data.sort(() => {
-          if (shuffle) {
-            return Math.random() - 0.5
-          }
+      {isLoading
+        ? (
+            <div className="loader-wrapper">
+              <Loader size={50} />
+            </div>
+          )
+        : partenaires?.data.length === 0
+          ? <p>Aucun partenaire trouvé</p>
+          : (
+              <CardWrapper isSmallCard>
+                {partenaires?.data.map(partenaire => (
+                  <PartenaireCard
+                    key={partenaire.id}
+                    partenaire={partenaire}
+                    detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
+                    onReview={onReview}
+                  />
+                ))}
+              </CardWrapper>
+            )}
 
-          return 0
-        }).map(partenaire => (
-          <Card
-            key={partenaire.id}
-            title={<Link href={`/partenaires/${partenaire.id}`}>{partenaire.name}</Link>}
-            imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
-            start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
-            detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
-            {...(partenaire.link ? { footer: <a href={partenaire.link} target="_blank" className="fr-btn fr-btn--secondary">Site du partenaire</a> } : {})}
-          />
-        ))}
-      </CardWrapper>
-      {partenaires.total > pageSize && (
+      {partenaires && partenaires.total > pageSize && (
         <Pagination
-          style={{ marginTop: '1rem' }}
+          style={{ marginTop: '1rem', alignSelf: 'center' }}
           count={count}
           defaultPage={currentPage}
           getPageLinkProps={pageNumber => ({ href: `#page=${pageNumber}` })}

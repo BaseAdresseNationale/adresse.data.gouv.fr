@@ -4,7 +4,7 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import { formatDate } from '@/utils/date'
 import { getFileLink } from '@/lib/api-moissonneur-bal'
 import Tooltip from '@/components/Tooltip'
-import UpdateStatusBadge from '../UpdateStatus'
+import UpdateStatusBadge from '../../UpdateStatus'
 import { HarvestMoissonneurType } from '@/types/api-moissonneur-bal.types'
 
 interface StatusBadgeProps {

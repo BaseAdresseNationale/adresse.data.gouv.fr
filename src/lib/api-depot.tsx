@@ -1,5 +1,5 @@
 import { customFetch } from '@/lib/fetch'
-import { Habilitation, Revision } from '@/types/api-depot.types'
+import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
@@ -145,4 +145,17 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
   ]
+}
+
+export const getClientWithChefDeFile = async (clientId: string): Promise<ClientApiDepotWithChefDeFileType> => {
+  const client = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/clients/${clientId}`)
+  const chefDeFile = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/chefs-de-file/${(client as any).chefDeFileId}`)
+
+  return { ...client, chefDeFile }
+}
+
+export const getFirstRevisionsByClient = async (clientId: string): Promise<any> => {
+  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/client/${clientId}`)
+
+  return revisions
 }

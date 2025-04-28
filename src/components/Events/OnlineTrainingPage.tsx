@@ -7,7 +7,7 @@ import VideoMiniature from '@/components/VideoMiniature'
 import { EventType } from '@/types/events.types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import ParticipantForm from './ParticipantForm'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const Modal = createModal({
   id: 'register-event-modal',
@@ -81,6 +81,8 @@ interface OnlineTrainingPageProps {
 export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: OnlineTrainingPageProps) {
   const [eventIdRegister, setEventIdRegister] = useState('')
 
+  const eventRegister = useMemo(() => upcomingEvents.find(event => event.id === eventIdRegister), [eventIdRegister, upcomingEvents])
+
   const handleRegister = (eventId: string) => {
     setEventIdRegister(eventId)
     Modal.open()
@@ -90,6 +92,15 @@ export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: Onlin
     setEventIdRegister('')
     Modal.close()
   }
+
+  useEffect(() => {
+    if (window.location.hash.includes('open-event-modal')) {
+      setTimeout(() => {
+        const eventId = window.location.hash.split('open-event-modal-')[1]
+        handleRegister(eventId)
+      }, 0)
+    }
+  }, [])
 
   return (
     <>
@@ -119,7 +130,7 @@ export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: Onlin
           ))}
         </CardWrapper>
       </Section>
-      <Modal.Component title="Formulaire d'inscription formation">
+      <Modal.Component title={`Formulaire d'inscription - ${eventRegister?.title} - le ${new Date(eventRegister?.date || '').toLocaleDateString('fr-FR')} de ${eventRegister?.startHour} à ${eventRegister?.endHour}`}>
         <ParticipantForm onClose={handleCloseModal} eventId={eventIdRegister} />
       </Modal.Component>
     </>
