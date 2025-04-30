@@ -14,6 +14,7 @@ import {
   HeaderWrapper,
   CornerRibbons,
 } from './Header.styles'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
@@ -100,7 +101,13 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/outils/telechargements' },
       },
       { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
-      { text: 'Mise en forme BAL', linkProps: { href: '/outils/mise-en-forme' } },
+      { text:
+        (
+          <>
+            Mise en forme BAL{' '}
+            <Badge noIcon severity="info">BETA</Badge>
+          </>
+        ), linkProps: { href: '/outils/mise-en-forme' } },
       { text: 'Géocodeur CSV', linkProps: { href: '/outils/csv' } },
       { text: 'Formulaire de publication', linkProps: { href: '/outils/formulaire-de-publication' } },
       {

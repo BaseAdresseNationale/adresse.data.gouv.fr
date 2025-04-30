@@ -8,6 +8,7 @@ import Section from '@/components/Section'
 import Button from '@codegouvfr/react-dsfr/Button'
 import RemediationReport from '@/components/MiseEnForme/RemediationReport'
 import Alert from '@codegouvfr/react-dsfr/Alert'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function MiseEnFormeBAL() {
   const [isLoading, setIsLoading] = useState(false)
@@ -55,7 +56,13 @@ export default function MiseEnFormeBAL() {
 
   return (
     <>
-      <Section pageTitle="Mise en forme BAL">
+      <Section pageTitle={(
+        <>
+          Mise en forme BAL{' '}
+          <Badge noIcon severity="info">BETA</Badge>
+        </>
+      )}
+      >
         {isLoading
           ? <Loader />
           : (file && report)

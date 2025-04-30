@@ -6,7 +6,7 @@ import { SectionBlock, SectionFooter } from './Section.styles'
 
 interface SectionProps {
   children: React.ReactNode
-  pageTitle?: string
+  pageTitle?: string | React.ReactNode
   title?: string
   footer?: React.ReactNode
   theme?: ColorTheme
