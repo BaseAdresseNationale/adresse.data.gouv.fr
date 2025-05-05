@@ -13,8 +13,8 @@ const StyledWrapper = styled.div`
     overflow: scroll;
 
     td {
-      .info {
-        color: var(--text-default-info);
+      .new {
+        color: var(--text-default-success);
       }
     }
   }
@@ -66,7 +66,7 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
 
   const getLine = useCallback((row: ValidateRowFullType, index: number) => {
     return headers.map(key => row.remediations[key]
-      ? <p key={index} className="info">{String(row.remediations[key])}</p>
+      ? <p key={index} className="new">{String(row.remediations[key])}</p>
       : row.rawValues[key] || getValueBanIds(row, key)
     )
   }, [headers, getValueBanIds])
@@ -75,7 +75,7 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
     const start = (currentPage - 1) * limit
 
     return rowsWithRemediation.slice(start, start + limit).map((row, index) => ([
-      row.line,
+      row.line + 1,
       ...getLine(row, index),
     ]))
   }, [rowsWithRemediation, currentPage, getLine])

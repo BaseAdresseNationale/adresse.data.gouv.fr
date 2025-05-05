@@ -92,6 +92,31 @@ export default function MiseEnFormeBAL() {
                   />
                 )}
       </Section>
+      <Section title="Documentation" theme="primary">
+        <p>
+          La mise en forme BAL est un outil qui permet a partir d&apos;un fichier BAL valide, de générer un fichier BAL plus complet et mieux rangé.
+        </p>
+        <p>
+          Il propose quatre fonctionnalités :
+        </p>
+        <ul>
+          <li>
+            Ajout des champs manquants.
+          </li>
+          <li>
+            Rangement des champs par ordre du format BAL
+          </li>
+          <li>
+            Remediation de certains valeur de champs existant qui ne sont pas optimaux.
+          </li>
+          <li>
+            Auto-calcule de certaines valeurs de champs qui sont vide (ex : id_ban_commune, id_ban_toponyme, id_ban_adresse)
+          </li>
+        </ul>
+      </Section>
+      <Section>
+        <Alert title="Télécharger la mise en forme" severity="info" description={<p> Pour une utilisation avancée, vous pouvez télécharger le validateur sur cette <a href="https://github.com/BaseAdresseNationale/validateur-bal/releases" target="_blank" rel="noreferrer">page</a>.</p>} />
+      </Section>
     </>
   )
 }

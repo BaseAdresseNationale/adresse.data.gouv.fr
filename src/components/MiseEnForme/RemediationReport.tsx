@@ -56,7 +56,7 @@ function RemediationReport({ file, report }: RemediationReportProps) {
             <Alert
               description={(
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
-                  <p>Il y a {nbRowsRemediation} ligne(s) qui peuvent être mises en formes</p>
+                  <p>Il y a {nbRowsRemediation} ligne(s) qui peuvent être mises en forme</p>
                   <Button
                     iconId="fr-icon-download-line"
                     onClick={handleClick}
