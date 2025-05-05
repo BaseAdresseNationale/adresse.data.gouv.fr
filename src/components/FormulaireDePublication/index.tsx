@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import DropZoneInput from '@/components/DropZoneInput'
 import { StyledWrapper } from './FormulaireDePublication.styles'
 import Loader from '@/components/Loader'
-import { validate, PrevalidateType, ValidateProfile, ValidateRowType } from '@ban-team/validateur-bal'
+import { validate, ParseFileType, ValidateType, ValidateRowFullType } from '@ban-team/validateur-bal'
 import { getCommune } from '@/lib/api-geo'
 import { Commune } from '@/types/api-geo.types'
 import { validateHabilitationPinCode, createHabilitation, createRevision, getHabilitation, sendHabilitationPinCode, getCurrentRevision, publishRevision } from '@/lib/api-depot'
@@ -72,20 +72,26 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
     }
   }, [revision, habilitation, stepIndex])
 
+  const getReport = async (file?: File): Promise<ValidateType> => {
+    const report: ParseFileType | ValidateType = await validate(file as any, { profile: '1.3' })
+    if (!report.parseOk) {
+      throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
+    }
+    else if (!(report as ValidateType).profilesValidation?.['1.3'].isValid) {
+      throw new Error('Le fichier n\'est pas valide en version 1.3, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
+    }
+    return report as ValidateType
+  }
+
   const handleFileChange = async (file?: File) => {
     if (!file) {
       throw new Error('No file selected')
     }
     try {
       setIsLoading(true)
-      const report: PrevalidateType | ValidateProfile = await validate(file as any, { profile: '1.3' })
-      if (!report.parseOk) {
-        throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
-      }
-      else if (!report.profilesValidation?.['1.3'].isValid) {
-        throw new Error('Le fichier n\'est pas valide en version 1.3, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
-      }
-      const communes = new Set<string>(report.rows?.map((r: ValidateRowType) => r.parsedValues.commune_insee || r.additionalValues.cle_interop.codeCommune))
+      const report: ValidateType = await getReport(file)
+
+      const communes = new Set<string>(report.rows?.map((r: ValidateRowFullType) => r.parsedValues.commune_insee || r.additionalValues.cle_interop.codeCommune))
 
       if (communes.size !== 1) {
         throw new Error('Fichier BAL vide ou contenant plusieurs communes')
