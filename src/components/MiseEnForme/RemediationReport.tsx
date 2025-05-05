@@ -56,7 +56,7 @@ function RemediationReport({ file, report }: RemediationReportProps) {
             <Alert
               description={(
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
-                  <p>Il y a {nbRowsRemediation} ligne(s) qui peuvent être mises en forme</p>
+                  <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL corrigé</p>
                   <Button
                     iconId="fr-icon-download-line"
                     onClick={handleClick}
@@ -72,7 +72,7 @@ function RemediationReport({ file, report }: RemediationReportProps) {
       {nbRowsRemediation > 0
       && (
         <>
-          <h3 style={{ marginTop: '32px', marginBottom: '12px' }}>Correction(s) ligne par ligne</h3>
+          <h3 style={{ marginTop: '32px', marginBottom: '12px' }}>Consultez les modifications</h3>
           <RemediationTable rows={rows} />
         </>
       )}

@@ -15,6 +15,7 @@ const StyledWrapper = styled.div`
     td {
       .new {
         color: var(--text-default-success);
+        font-weight: bold;
       }
     }
   }

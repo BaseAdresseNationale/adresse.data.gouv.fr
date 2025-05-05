@@ -56,12 +56,14 @@ export default function MiseEnFormeBAL() {
 
   return (
     <>
-      <Section pageTitle={(
-        <>
-          Mise en forme BAL{' '}
-          <Badge noIcon severity="info">BETA</Badge>
-        </>
-      )}
+      <Section
+        pageTitle={(
+          <>
+            Mise en forme BAL{' '}
+            <Badge noIcon severity="info">BETA</Badge>
+          </>
+        )}
+        title="Améliorez votre BAL grâce à une mise forme automatique"
       >
         {isLoading
           ? <Loader />
@@ -94,23 +96,20 @@ export default function MiseEnFormeBAL() {
       </Section>
       <Section title="Documentation" theme="primary">
         <p>
-          La mise en forme BAL est un outil qui permet a partir d&apos;un fichier BAL valide, de générer un fichier BAL plus complet et mieux rangé.
-        </p>
-        <p>
-          Il propose quatre fonctionnalités :
+          Cette outil permet la mise en forme d&apos;un fichier BAL avec ces quatre fonctionnalités :
         </p>
         <ul>
           <li>
-            Ajout des champs manquants.
+            Ajout des champs manquants
           </li>
           <li>
             Rangement des champs par ordre du format BAL
           </li>
           <li>
-            Remediation de certains valeur de champs existant qui ne sont pas optimaux.
+            Remédiation de certaines valeurs de champs existants qui ne sont pas optimales
           </li>
           <li>
-            Auto-calcule de certaines valeurs de champs qui sont vide (ex : id_ban_commune, id_ban_toponyme, id_ban_adresse)
+            Auto-calcule de certaines valeurs de champs qui sont vides (ex : id_ban_commune, id_ban_toponyme, id_ban_adresse)
           </li>
         </ul>
       </Section>
