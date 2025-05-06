@@ -36,7 +36,7 @@ function Section({
     }
 
     const sectionTitle = pageTitle || title
-    if (sectionTitle) {
+    if (sectionTitle && typeof sectionTitle === 'string') {
       return slugify(sectionTitle, { lower: true, strict: true, trim: true })
     }
   }, [id, pageTitle, title])
