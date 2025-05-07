@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ParseFileType, validate, ValidateType } from '@ban-team/validateur-bal'
+import { autofix, ParseFileType, validate, ValidateType } from '@ban-team/validateur-bal'
 import Loader from '@/components/Loader'
 import DropZoneInput from '@/components/DropZoneInput'
 import Section from '@/components/Section'
@@ -12,39 +12,32 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default function MiseEnFormeBAL() {
   const [isLoading, setIsLoading] = useState(false)
-  const [file, setFile] = useState<File | null>(null)
   const [report, setReport] = useState<ParseFileType | ValidateType | null>(null)
-
-  const getReport = async (value: File) => {
-    if (!value) {
-      throw new Error('No file selected')
-    }
-    try {
-      setIsLoading(true)
-      const report = await validate(value as any)
-      setReport(report)
-    }
-    catch (e) {
-      console.error(e)
-    }
-    finally {
-      setIsLoading(false)
-    }
-  }
+  const [fileMiseEnForme, setFileMiseEnForme] = useState<Blob | null>(null)
+  const [reportMiseEnForme, setReportMiseEnForme] = useState<ValidateType | null>(null)
 
   const handleReset = () => {
-    setFile(null)
     setReport(null)
+    setFileMiseEnForme(null)
+    setReportMiseEnForme(null)
   }
 
-  const handleFileChange = async (value?: File) => {
-    if (!value) {
+  const handleFileChange = async (file?: File) => {
+    if (!file) {
       throw new Error('No file selected')
     }
     try {
       setIsLoading(true)
-      setFile(value)
-      getReport(value)
+      // setFile(file)
+      const report = await validate(file as any)
+      setReport(report)
+      const buffer = await autofix(file as any)
+      const blob = new Blob([buffer], { type: 'application/octet-stream' })
+      setFileMiseEnForme(blob)
+      const reportAutofix = await validate(blob as any)
+      if (reportAutofix.parseOk) {
+        setReportMiseEnForme(reportAutofix as ValidateType)
+      }
     }
     catch (e) {
       console.error(e)
@@ -67,13 +60,13 @@ export default function MiseEnFormeBAL() {
       >
         {isLoading
           ? <Loader />
-          : (file && report)
+          : (report)
               ? (
                   <>
                     <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content', marginBottom: 12 }} onClick={handleReset}>Retour à la sélection du fichier</Button>
                     {report.parseOk
                       ? (
-                          <RemediationReport file={file} report={report as ValidateType} />
+                          <RemediationReport report={report as ValidateType} fileMiseEnForme={fileMiseEnForme} reportMiseEnForme={reportMiseEnForme} />
                         )
                       : (
                           <Alert
