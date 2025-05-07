@@ -9,6 +9,7 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import RemediationReport from '@/components/MiseEnForme/RemediationReport'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import MiseEnFormeDocumentation from './MiseEnFormeDocumentation'
 
 export default function MiseEnFormeBAL() {
   const [isLoading, setIsLoading] = useState(false)
@@ -28,7 +29,6 @@ export default function MiseEnFormeBAL() {
     }
     try {
       setIsLoading(true)
-      // setFile(file)
       const report = await validate(file as any)
       setReport(report)
       const buffer = await autofix(file as any)
@@ -87,25 +87,7 @@ export default function MiseEnFormeBAL() {
                   />
                 )}
       </Section>
-      <Section title="Documentation" theme="primary">
-        <p>
-          Cette outil permet la mise en forme d&apos;un fichier BAL avec ces quatre fonctionnalités :
-        </p>
-        <ul>
-          <li>
-            Ajout des champs manquants
-          </li>
-          <li>
-            Rangement des champs par ordre du format BAL
-          </li>
-          <li>
-            Remédiation de certaines valeurs de champs existants qui ne sont pas optimales
-          </li>
-          <li>
-            Auto-calcule de certaines valeurs de champs qui sont vides (ex : id_ban_commune, id_ban_toponyme, id_ban_adresse)
-          </li>
-        </ul>
-      </Section>
+      <MiseEnFormeDocumentation />
       <Section>
         <Alert title="Télécharger la mise en forme" severity="info" description={<p> Pour une utilisation avancée, vous pouvez télécharger le validateur sur cette <a href="https://github.com/BaseAdresseNationale/validateur-bal/releases" target="_blank" rel="noreferrer">page</a>.</p>} />
       </Section>
