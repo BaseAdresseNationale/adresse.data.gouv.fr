@@ -9,15 +9,13 @@ type ValidationCodeTableProps = {
   groupCode: ValidateRowFullType[]
 }
 
-const StyledWrapper = styled.div`
-  .table-wrapper {
-    max-width: calc(100vw - 5.5rem);
-    overflow: scroll;
+const TableWrapper = styled.div`
+  max-width: calc(100vw - 5.5rem);
+  overflow: scroll;
 
-    td {
-      .error {
-        color: var(--text-default-error);
-      }
+  td {
+    .error {
+      color: var(--text-default-error);
     }
   }
 `
@@ -39,19 +37,17 @@ export default function ValidationCodeTable({ code, groupCode }: ValidationCodeT
   }, [code, groupCode, currentPage])
 
   return (
-    <StyledWrapper>
-      <div className="table-wrapper">
-        <Table
-          data={data}
-          headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
-        />
-        <SoftPagination
-          currentPage={currentPage}
-          totalCount={groupCode.length}
-          onPageChange={(page) => { setCurrentPage(page) }}
-          limit={limit}
-        />
-      </div>
-    </StyledWrapper>
+    <TableWrapper>
+      <Table
+        data={data}
+        headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
+      />
+      <SoftPagination
+        currentPage={currentPage}
+        totalCount={groupCode.length}
+        onPageChange={(page) => { setCurrentPage(page) }}
+        limit={limit}
+      />
+    </TableWrapper>
   )
 }
