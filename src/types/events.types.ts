@@ -1,6 +1,7 @@
 export enum EventTypeTypeEnum {
   FORMATION = 'formation',
   FORMATION_LVL2 = 'formation-lvl2',
+  FORMATION_SPECIALE = 'formation spéciale',
   PARTENAIRE = 'partenaire',
   ADRESSE_LAB = 'adresselab',
   ADRESSE_REGION = 'adresse-region',
