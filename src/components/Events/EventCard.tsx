@@ -17,6 +17,7 @@ interface EventCardProps {
 const backgroundColors: Record<string, string> = {
   [EventTypeTypeEnum.FORMATION]: 'rgba(136, 213, 156, 0.1)',
   [EventTypeTypeEnum.FORMATION_LVL2]: 'rgba(136, 213, 156, 0.25)',
+  [EventTypeTypeEnum.FORMATION_SPECIALE]: 'rgba(255, 115, 44, 0.25)',
 }
 
 export default function EventCard({ event, isPassed, tagToColor, onRegister }: EventCardProps) {
