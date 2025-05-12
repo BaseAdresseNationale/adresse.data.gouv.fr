@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
+import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
 import {
   CommuneActionsActionsWrapper,
   StyledIframeWrapper,
@@ -38,11 +39,17 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
         <CommuneActionsActionsWrapper style={{ marginBottom: '3rem' }}>
           {district.config?.certificate
             ? (
-                <Tooltip kind="hover" title={`Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`}>
-                  <CommuneConfigItem className="ri-file-paper-2-line">Certificat d’adressage :{' '}
-                    <b>Activé</b>
-                  </CommuneConfigItem>
-                </Tooltip>
+                <>
+                  {/* <ProConnectButton url="https://fca.integ01.dev-agentconnect.fr/" /> */}
+                  {/* url discovery https://fca.integ01.dev-agentconnect.fr/api/v2/.well-known/openid-configuration */}
+                  {/* <ProConnectButton url="https://fca.integ01.dev-agentconnect.fr/api/v2/authorize" /> */}
+                  <ProConnectButtonCustom loginUrl="/api/login" />
+                  <Tooltip kind="hover" title={`Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`}>
+                    <CommuneConfigItem className="ri-file-paper-2-line">Certificat d’adressage :{' '}
+                      <b>Activé</b>
+                    </CommuneConfigItem>
+                  </Tooltip>
+                </>
               )
             : null}
           {/* <Button
