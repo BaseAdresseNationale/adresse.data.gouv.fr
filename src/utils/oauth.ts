@@ -1,27 +1,45 @@
 import * as client from 'openid-client'
-import { chain, isObject } from 'lodash-es'
+import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
+import { isObject, mapValues, omitBy } from 'lodash'
 
-export const objToUrlParams = obj =>
-  new URLSearchParams(
-    chain(obj)
-      .omitBy(v => !v)
-      .mapValues(o => (isObject(o) ? JSON.stringify(o) : o))
-      .value()
+export const objToUrlParams = (obj: any) => {
+  const processedObj = mapValues(
+    omitBy(obj, v => !v),
+    o => (isObject(o) ? JSON.stringify(o) : o)
   )
+
+  return new URLSearchParams(processedObj)
+}
+
+// export const objToUrlParams = (obj: any) =>
+//   new URLSearchParams(
+//     chain(obj)
+//       .omitBy(v => !v)
+//       .mapValues(o => (isObject(o) ? JSON.stringify(o) : o))
+//       .value()
+//   )
+
+export const getCurrentUrl = (req: any) => {
+  const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
+  return url
+}
+
+export const configOptions
+  = process.env.IS_HTTP_PROTOCOL_FORBIDDEN === 'True'
+    ? undefined
+    : { execute: [client.allowInsecureRequests] }
 
 export const getProviderConfig = async () => {
   const config = await client.discovery(
-    new URL(process.env.PC_PROVIDER),
-    process.env.PC_CLIENT_ID,
+    new URL(`${process.env.PC_PROVIDER}`),
+    `${process.env.PC_CLIENT_ID}`,
     {
       id_token_signed_response_alg: process.env.PC_ID_TOKEN_SIGNED_RESPONSE_ALG,
-      userinfo_signed_response_alg:
-        process.env.PC_USERINFO_SIGNED_RESPONSE_ALG || null,
+      userinfo_signed_response_alg: process.env.PC_USERINFO_SIGNED_RESPONSE_ALG || undefined,
     },
     client.ClientSecretPost(process.env.PC_CLIENT_SECRET),
-    process.env.IS_HTTP_PROTOCOL_FORBIDDEN === 'True'
-      ? undefined
-      : { execute: [client.allowInsecureRequests] }
+    configOptions
   )
   return config
 }
@@ -38,4 +56,31 @@ export const AUTHORIZATION_DEFAULT_PARAMS = {
       },
     },
   },
+}
+
+export const getAuthorizationControllerFactory = async (extraParams?: any) => {
+  try {
+    const config = await getProviderConfig()
+    const nonce = client.randomNonce()
+    const state = client.randomState()
+
+    const cookieStore = cookies()
+    cookieStore.set('nonce', nonce, { httpOnly: true })
+    cookieStore.set('state', state, { httpOnly: true })
+
+    const redirectUrl = client.buildAuthorizationUrl(
+      config,
+      objToUrlParams({
+        nonce,
+        state,
+        ...AUTHORIZATION_DEFAULT_PARAMS,
+        ...extraParams,
+      })
+    )
+    return NextResponse.redirect(redirectUrl)
+  }
+  catch (e) {
+    console.error(e)
+    return NextResponse.json(e)
+  }
 }
