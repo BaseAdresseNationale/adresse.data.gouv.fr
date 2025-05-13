@@ -5,6 +5,9 @@ import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { Table } from '@codegouvfr/react-dsfr/Table'
 import { getLabel, profiles, ProfileErrorType, NotFoundFieldLevelType, ErrorLevelEnum, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
 import ValidationSummary from './ValidationSummary'
+import { useCallback, useMemo } from 'react'
+import { getErrorsWithRemediations, getNbRowsRemediation } from '@/utils/remediation'
+import Button from '@codegouvfr/react-dsfr/Button'
 
 const StyledWrapper = styled.div`
 .file-structure-wrapper {
@@ -45,9 +48,33 @@ interface ValidationReportProps {
 
 function ValidationReport({ report, profile }: ValidationReportProps) {
   const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
-  const generalValidationRows = profilErrors
-    .sort(sortBySeverity)
-    .map(({ code, level }: ProfileErrorType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
+
+  const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
+  const errorsWithRemediations = useMemo(() => getErrorsWithRemediations(rows), [rows])
+
+  const getBadgeLevel = (level: ErrorLevelEnum) => {
+    return level === ErrorLevelEnum.ERROR
+      ? <Badge severity="error">Erreur</Badge>
+      : level === ErrorLevelEnum.INFO
+        ? <Badge severity="info">Info</Badge>
+        : <Badge severity="warning">Avertissement</Badge>
+  }
+
+  const getHasRemediation = useCallback((code: string) => {
+    const nbRows = errorsWithRemediations[code]
+
+    return nbRows && <Badge>{`${nbRows} ligne${nbRows > 1 ? 's' : ''} corrigée${nbRows > 1 ? 's' : ''}`}</Badge>
+  }, [errorsWithRemediations])
+
+  const generalValidationRows = useMemo(() => {
+    return profilErrors
+      .sort(sortBySeverity)
+      .map(({ code, level }: ProfileErrorType) =>
+        ([
+          getBadgeLevel(level),
+          getLabel(code),
+          getHasRemediation(code)]))
+  }, [profilErrors, getHasRemediation])
 
   return (
     <StyledWrapper>
@@ -109,9 +136,33 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
             )
           : (
               <div className="table-wrapper">
-                <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label']} />
+                <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label', 'Correction']} />
               </div>
             )}
+        {nbRowsRemediation > 0 && (
+          <Alert
+            description={(
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+                <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL améliorer.
+                  <br />Les erreurs, avertissements et informations indiqués ci-dessus ont été corrigés
+                </p>
+                <Button
+                  iconId="fr-icon-download-line"
+                  // onClick={handleClick}
+                  title="Télécharger"
+                >Télécharger
+                </Button>
+              </div>
+            )}
+            severity="info"
+            title={(
+              <>
+                Mise en forme BAL{' '}
+                <Badge noIcon severity="info">BETA</Badge>
+              </>
+            )}
+          />
+        )}
       </Section>
 
       <Section theme="primary">

@@ -1,10 +1,9 @@
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
-import Section from '../Section'
 import { autofix, ValidateType } from '@ban-team/validateur-bal'
 import RemediationTable from './RemediationRows'
 import Button from '@codegouvfr/react-dsfr/Button'
-import { useRef } from 'react'
-import Loader from '../Loader'
+import { useMemo, useRef } from 'react'
+import { getNbRowsRemediation } from '../../utils/remediation'
 
 interface RemediationReportProps {
   file: File
@@ -15,7 +14,7 @@ function RemediationReport({ file, report }: RemediationReportProps) {
   const { rows } = report
 
   const linkRef = useRef<HTMLAnchorElement | null>(null)
-  const nbRowsRemediation = rows?.reduce((acc, value) => Object.keys(value.remediations).length > 0 ? acc + 1 : acc, 0) || 0
+  const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
 
   const handleClick = async () => {
     if (!file) {
