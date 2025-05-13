@@ -3,6 +3,7 @@ import { ParsedValues, ValidateRowFullType } from '@ban-team/validateur-bal'
 import styled from 'styled-components'
 import { useCallback, useMemo, useState } from 'react'
 import SoftPagination from '../Pagination/soft-pagination'
+import { RemediationsType } from '@ban-team/validateur-bal/dist/schema/shema.type'
 
 type RemediationTableProps = {
   rows: ValidateRowFullType[]
@@ -51,7 +52,7 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
       'date_der_maj',
       'certification_commune',
     ]
-  }, []) as Array<keyof ParsedValues>
+  }, []) as Array<keyof RemediationsType>
 
   const getValueBanIds = useCallback(({ additionalValues }: ValidateRowFullType, key: keyof ParsedValues) => {
     if (key === 'id_ban_commune') {
@@ -66,8 +67,8 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
   }, [])
 
   const getLine = useCallback((row: ValidateRowFullType, index: number) => {
-    return headers.map(key => row.remediations[key]
-      ? <p key={index} className="new">{String(row.remediations[key])}</p>
+    return headers.map(key => row.remediations[key]?.value
+      ? <p key={index} className="new">{String(row.remediations[key]?.value)}</p>
       : row.rawValues[key] || getValueBanIds(row, key)
     )
   }, [headers, getValueBanIds])
