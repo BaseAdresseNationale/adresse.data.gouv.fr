@@ -33,7 +33,6 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 22px;
 }
 `
 
@@ -120,14 +119,14 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
         {profilesValidation?.[profile].isValid
           ? (
               <Alert
-                description={`Le fichier Bal est valide (en version ${profiles[profile].name})`}
+                description={`Le fichier BAL est valide (en version ${profiles[profile].name})`}
                 severity="success"
                 title="Fichier valide"
               />
             )
           : (
               <Alert
-                description={`Le fichier Bal n'est pas valide (en version ${profiles[profile].name})`}
+                description={`Le fichier BAL n'est pas valide (en version ${profiles[profile].name})`}
                 severity="error"
                 title="Fichier non valide"
               />
@@ -137,7 +136,7 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
             description={(
               <AlertMiseEnFormeWrapper>
                 <div className="alert-mise-en-forme-wrapper">
-                  <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL améliorer.
+                  <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL amélioré.
                     <br />Les erreurs, avertissements et informations corrigés sont indiqués ci-dessous dans la partie Validation générale
                   </p>
                   <Button
@@ -213,26 +212,23 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
           <>
             <h4>Champs présents</h4>
             <div className="present-fields-wrapper">
-              {fields.map((field: { name: string }) => <Badge severity="success" key={field.name}>{field.name}</Badge>)}
+              {fields.map((field: { name: string }) => <Badge severity="success" style={{ textTransform: 'none' }} key={field.name}>{field.name}</Badge>)}
             </div>
           </>
         )}
         {notFoundFields && notFoundFields.length > 0 && (
           <>
+            <br />
             <h4>Champs non trouvés</h4>
             <div className="present-fields-wrapper">
-              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.ERROR).map(({ schemaName, level }: NotFoundFieldLevelType) =>
-                <Badge key={schemaName} severity="error">{schemaName}</Badge>
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.ERROR).map(({ schemaName }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} style={{ textTransform: 'none' }} severity="error">{schemaName}</Badge>
               )}
-            </div>
-            <div className="present-fields-wrapper">
-              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.WARNING).map(({ schemaName, level }: NotFoundFieldLevelType) =>
-                <Badge key={schemaName} severity="warning">{schemaName}</Badge>
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.WARNING).map(({ schemaName }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} style={{ textTransform: 'none' }} severity="warning">{schemaName}</Badge>
               )}
-            </div>
-            <div className="present-fields-wrapper">
-              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.INFO).map(({ schemaName, level }: NotFoundFieldLevelType) =>
-                <Badge key={schemaName} severity="info">{schemaName}</Badge>
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.INFO).map(({ schemaName }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} style={{ textTransform: 'none' }} severity="info">{schemaName}</Badge>
               )}
             </div>
           </>
