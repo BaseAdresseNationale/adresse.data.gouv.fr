@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
+import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
 import {
   CommuneActionsActionsWrapper,
   StyledIframeWrapper,
@@ -27,33 +28,76 @@ interface CommuneActionsProps {
   actionProps: CommuneActionProps[]
 }
 
+// Helper component for Tooltip with CommuneConfigItem
+const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, children: React.ReactNode }) => (
+  <Tooltip kind="hover" title={title}>
+    <CommuneConfigItem className="ri-file-paper-2-line">{children}</CommuneConfigItem>
+  </Tooltip>
+)
+
 function CommuneActions({ district, actionProps }: CommuneActionsProps) {
   const [isConfigDistrictVisible, setIsConfigDistrictVisible] = useState(false)
   const iframeSRC = 'https://grist.numerique.gouv.fr/o/ban/forms/4eCgRqqpyXW5FMoZzQ3nNm/4'
+  const habilitationEnabled = false
+  const techRequired = false
+  const techRequiredConditions = 'This is a tech required condition'
+
+  const renderHabilitationContent = () => {
+    if (!habilitationEnabled) {
+      return (
+        <>
+          <TooltipWithCommuneConfigItem title={techRequiredConditions}>
+            <b>Connectez-vous avec ProConnect pour vérifier votre habilitation</b>
+          </TooltipWithCommuneConfigItem>
+          <ProConnectButtonCustom loginUrl="/api/login" />
+          {/* <ProConnectButton url="https://fca.integ01.dev-agentconnect.fr/" /> */}
+        </>
+      )
+    }
+
+    const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
+
+    if (techRequired) {
+      return (
+        <TooltipWithCommuneConfigItem title={tooltipTitle}>
+          Certificat d’adressage :{' '}
+          <b>Activé</b>
+        </TooltipWithCommuneConfigItem>
+      )
+    }
+
+    // !techRequired
+    return (
+      <TooltipWithCommuneConfigItem title={tooltipTitle}>
+        Pour que le certificat d'adressage soit actif, il faut vérifier ces 3 conditions :{' '}
+        <b>la présence identifiants, </b>
+        <b>au moins 75% des adresses sont certifiées, </b>
+        <b>la présence des parcelles (au moins à 50%)</b>
+      </TooltipWithCommuneConfigItem>
+    )
+  }
 
   return (
     <>
       <link href={iframeSRC} rel="prefetch" />
       <Section>
         <CommuneActionsActionsWrapper style={{ marginBottom: '3rem' }}>
-          {district.config?.certificate
-            ? (
-                <Tooltip kind="hover" title={`Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`}>
-                  <CommuneConfigItem className="ri-file-paper-2-line">Certificat d’adressage :{' '}
-                    <b>Activé</b>
-                  </CommuneConfigItem>
-                </Tooltip>
-              )
-            : null}
-          {/* <Button
-                  key="set-config"
-                  iconId="ri-file-paper-2-line"
-                  onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-                >
-                  Demander l’activation du certificat d’adressage
-                </Button> */}
+          {district.config?.certificate ? renderHabilitationContent() : null}
+          {/*
+            <Button
+              key="set-config"
+              iconId="ri-file-paper-2-line"
+              onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+            >
+              Demander l’activation du certificat d’adressage
+            </Button>
+          */}
         </CommuneActionsActionsWrapper>
-        <Section title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`} theme="grey" isVisible={isConfigDistrictVisible}>
+        <Section
+          title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`}
+          theme="grey"
+          isVisible={isConfigDistrictVisible}
+        >
           <p>
             <i>
               Cette fonctionnalité est en développement.
