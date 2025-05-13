@@ -10,6 +10,8 @@ import { useCallback, useMemo, useRef } from 'react'
 import { getErrorsWithRemediations, getNbRowsRemediation } from '@/utils/remediation'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Notice from '@codegouvfr/react-dsfr/Notice'
+import AlertMiseEnForme from '../MiseEnForme/MiseEnFormeAlert'
+import ValidationTableError from './ValidationTableError'
 
 const StyledWrapper = styled.div`
 .file-structure-wrapper {
@@ -132,33 +134,7 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
               />
             )}
         {nbRowsRemediation > 0 && (
-          <Alert
-            description={(
-              <AlertMiseEnFormeWrapper>
-                <div className="alert-mise-en-forme-wrapper">
-                  <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL amélioré.
-                    <br />Les erreurs, avertissements et informations corrigés sont indiqués ci-dessous dans la partie Validation générale
-                  </p>
-                  <Button
-                    iconId="fr-icon-download-line"
-                    onClick={handleDowloadFileAutofix}
-                    title="Télécharger"
-                  >Télécharger
-                  </Button>
-                </div>
-                <Notice
-                  title="Le fichier téléchargé n&apos;est pas assuré d&apos;être un fichier BAL 100% valide."
-                />
-              </AlertMiseEnFormeWrapper>
-            )}
-            severity="info"
-            title={(
-              <>
-                Mise en forme BAL{' '}
-                <Badge noIcon severity="info">BETA</Badge>
-              </>
-            )}
-          />
+          <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} />
         )}
       </Section>
       <Section theme="primary">
@@ -196,15 +172,7 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
 
       <Section>
         <h4>Validation générale</h4>
-        {profilErrors.length === 0
-          ? (
-              <p>Aucun problème détécté</p>
-            )
-          : (
-              <div className="table-wrapper">
-                <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label', 'Correction']} />
-              </div>
-            )}
+        <ValidationTableError report={report} />
       </Section>
 
       <Section theme="primary">

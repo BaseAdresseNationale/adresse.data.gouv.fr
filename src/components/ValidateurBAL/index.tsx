@@ -65,7 +65,7 @@ export default function ValidateurBAL() {
       <Section pageTitle="Validateur BAL">
         {isLoading
           ? <Loader />
-          : (validationReport && profile)
+          : (validationReport && profile && file)
               ? (
                   <>
                     <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
@@ -86,7 +86,7 @@ export default function ValidateurBAL() {
               : (
                   <DropZoneInput
                     onChange={handleFileChange}
-                    label="Déposez ou cliquez ici pour télécharger votre fichier BAL à valider"
+                    label="Déposez ou cliquez ici pour uploader votre fichier BAL à valider"
                     hint="Taille maximale: 50 Mo. Format supporté : CSV"
                     accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
                     maxSize={50 * 1024 * 1024}
