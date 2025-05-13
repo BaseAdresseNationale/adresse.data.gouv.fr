@@ -9,15 +9,13 @@ type RemediationTableProps = {
   rows: ValidateRowFullType[]
 }
 
-const StyledWrapper = styled.div`
-  .table-wrapper {
-    overflow: scroll;
+const TableWrapper = styled.div`
+  overflow: scroll;
 
-    td {
-      .new {
-        color: var(--text-default-success);
-        font-weight: bold;
-      }
+  td {
+    .new {
+      color: var(--text-default-success);
+      font-weight: bold;
     }
   }
 `
@@ -83,19 +81,17 @@ export default function RemediationTable({ rows }: RemediationTableProps) {
   }, [rowsWithRemediation, currentPage, getLine])
 
   return (
-    <StyledWrapper>
-      <div className="table-wrapper">
-        <Table
-          data={data}
-          headers={['lignes', ...headers]}
-        />
-        <SoftPagination
-          currentPage={currentPage}
-          totalCount={rowsWithRemediation.length}
-          onPageChange={(page) => { setCurrentPage(page) }}
-          limit={limit}
-        />
-      </div>
-    </StyledWrapper>
+    <TableWrapper>
+      <Table
+        data={data}
+        headers={['lignes', ...headers]}
+      />
+      <SoftPagination
+        currentPage={currentPage}
+        totalCount={rowsWithRemediation.length}
+        onPageChange={(page) => { setCurrentPage(page) }}
+        limit={limit}
+      />
+    </TableWrapper>
   )
 }
