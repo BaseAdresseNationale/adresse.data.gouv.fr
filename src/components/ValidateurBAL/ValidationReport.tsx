@@ -22,12 +22,13 @@ const StyledWrapper = styled.div`
 
 .table-wrapper {
     max-width: calc(100vw - 7rem);
-  }
+}
 
 .present-fields-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  margin-bottom: 22px;
 }
 
 `
@@ -47,9 +48,6 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
   const generalValidationRows = profilErrors
     .sort(sortBySeverity)
     .map(({ code, level }: ProfileErrorType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
-
-  const notFoundFieldsRows = notFoundFields!.sort(sortBySeverity)
-    .map(({ schemaName, level }: NotFoundFieldLevelType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, schemaName]))
 
   return (
     <StyledWrapper>
@@ -117,20 +115,31 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
       </Section>
 
       <Section theme="primary">
-        {notFoundFields && notFoundFields.length > 0 && (
-          <>
-            <h4>Champs non trouvés</h4>
-            <div className="table-wrapper">
-              <Table noCaption data={notFoundFieldsRows} headers={['Criticité', 'Nom du champ', 'Version de la spécification']} />
-            </div>
-          </>
-        )}
-
         {fields && fields.length > 0 && (
           <>
             <h4>Champs présents</h4>
             <div className="present-fields-wrapper">
-              {fields.map((field: { name: string }) => <Badge style={{ textTransform: 'none' }} key={field.name}>{field.name}</Badge>)}
+              {fields.map((field: { name: string }) => <Badge severity="success" key={field.name}>{field.name}</Badge>)}
+            </div>
+          </>
+        )}
+        {notFoundFields && notFoundFields.length > 0 && (
+          <>
+            <h4>Champs non trouvés</h4>
+            <div className="present-fields-wrapper">
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.ERROR).map(({ schemaName, level }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} severity="error">{schemaName}</Badge>
+              )}
+            </div>
+            <div className="present-fields-wrapper">
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.WARNING).map(({ schemaName, level }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} severity="warning">{schemaName}</Badge>
+              )}
+            </div>
+            <div className="present-fields-wrapper">
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.INFO).map(({ schemaName, level }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} severity="info">{schemaName}</Badge>
+              )}
             </div>
           </>
         )}
