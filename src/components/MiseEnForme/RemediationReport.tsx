@@ -1,31 +1,26 @@
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
-import Section from '../Section'
-import { autofix, ValidateType } from '@ban-team/validateur-bal'
+import { ValidateType } from '@ban-team/validateur-bal'
 import RemediationTable from './RemediationRows'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useRef } from 'react'
-import Loader from '../Loader'
 
 interface RemediationReportProps {
-  file: File
   report: ValidateType
+  fileMiseEnForme: Blob | null
+  reportMiseEnForme: ValidateType | null
 }
 
-function RemediationReport({ file, report }: RemediationReportProps) {
+function RemediationReport({ report, fileMiseEnForme, reportMiseEnForme }: RemediationReportProps) {
   const { rows } = report
-
   const linkRef = useRef<HTMLAnchorElement | null>(null)
   const nbRowsRemediation = rows?.reduce((acc, value) => Object.keys(value.remediations).length > 0 ? acc + 1 : acc, 0) || 0
 
   const handleClick = async () => {
-    if (!file) {
-      throw new Error('No file selected')
+    if (!fileMiseEnForme) {
+      throw new Error('No file')
     }
     try {
-      const buffer = await autofix(file as any)
-      const blob = new Blob([buffer], { type: 'application/octet-stream' })
-
-      const url = URL.createObjectURL(blob)
+      const url = URL.createObjectURL(fileMiseEnForme)
 
       if (linkRef.current) {
         linkRef.current.href = url
@@ -44,11 +39,18 @@ function RemediationReport({ file, report }: RemediationReportProps) {
 
   return (
     <>
+      {!reportMiseEnForme?.profilesValidation['1.4'].isValid && (
+        <Alert
+          description={<p>Pour plus de détail utilisez le fichier mis en forme avec le <a href="/outils/validateur-bal">validateur</a>.</p>}
+          severity="warning"
+          title="Le fichier BAL mise en forme n'est pas valide"
+        />
+      )}
       {nbRowsRemediation <= 0
         ? (
             <Alert
               description={`Aucune mise en forme n'est détecté pour améliorer le fichier`}
-              severity="success"
+              severity="info"
               title="Mise en forme non disponible"
             />
           )
