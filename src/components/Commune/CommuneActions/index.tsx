@@ -83,13 +83,15 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
       <Section>
         <CommuneActionsActionsWrapper style={{ marginBottom: '3rem' }}>
           {district.config?.certificate ? renderHabilitationContent() : null}
-          {/* <Button
-                  key="set-config"
-                  iconId="ri-file-paper-2-line"
-                  onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-                >
-                  Demander l’activation du certificat d’adressage
-                </Button> */}
+          {/*
+            <Button
+              key="set-config"
+              iconId="ri-file-paper-2-line"
+              onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+            >
+              Demander l’activation du certificat d’adressage
+            </Button>
+          */}
         </CommuneActionsActionsWrapper>
         <Section
           title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`}
