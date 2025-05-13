@@ -89,7 +89,7 @@ export default function MiseEnFormeBAL() {
       </Section>
       <MiseEnFormeDocumentation />
       <Section>
-        <Alert title="Télécharger la mise en forme" severity="info" description={<p> Pour une utilisation avancée, vous pouvez télécharger le validateur sur cette <a href="https://github.com/BaseAdresseNationale/validateur-bal/releases" target="_blank" rel="noreferrer">page</a>.</p>} />
+        <Alert title="Télécharger l'outil de mise en forme" severity="info" description={<p> Pour une utilisation avancée, vous pouvez télécharger le validateur sur cette <a href="https://github.com/BaseAdresseNationale/validateur-bal/releases" target="_blank" rel="noreferrer">page</a>.</p>} />
       </Section>
     </>
   )

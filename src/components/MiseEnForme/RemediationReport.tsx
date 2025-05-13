@@ -41,7 +41,7 @@ function RemediationReport({ report, fileMiseEnForme, reportMiseEnForme }: Remed
     <>
       {!reportMiseEnForme?.profilesValidation['1.4'].isValid && (
         <Alert
-          description={<p>Pour plus de détail utilisez le fichier mise en forme avec le <a href="/outils/validateur-bal">validateur</a>.</p>}
+          description={<p>Pour plus de détail utilisez le fichier mis en forme avec le <a href="/outils/validateur-bal">validateur</a>.</p>}
           severity="warning"
           title="Le fichier BAL mise en forme n'est pas valide"
         />
