@@ -82,7 +82,7 @@ export default function ValidateurBAL() {
                         />
                       </div>
                     </div>
-                    <ValidationReport report={validationReport} profile={profile} />
+                    <ValidationReport file={file} report={validationReport} profile={profile} />
                   </>
                 )
               : (

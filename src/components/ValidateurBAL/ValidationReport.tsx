@@ -3,11 +3,13 @@ import Section from '../Section'
 import styled from 'styled-components'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { Table } from '@codegouvfr/react-dsfr/Table'
-import { getLabel, profiles, ProfileErrorType, NotFoundFieldLevelType, ErrorLevelEnum, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import { getLabel, profiles, ProfileErrorType, NotFoundFieldLevelType, ErrorLevelEnum, ValidateType, ParseFileType, autofix } from '@ban-team/validateur-bal'
 import ValidationSummary from './ValidationSummary'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { getErrorsWithRemediations, getNbRowsRemediation } from '@/utils/remediation'
 import Button from '@codegouvfr/react-dsfr/Button'
+import Notice from '@codegouvfr/react-dsfr/Notice'
 
 const StyledWrapper = styled.div`
 .file-structure-wrapper {
@@ -33,7 +35,16 @@ const StyledWrapper = styled.div`
   gap: 0.5rem;
   margin-bottom: 22px;
 }
+`
 
+const AlertMiseEnFormeWrapper = styled.div`
+
+.alert-mise-en-forme-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 12px;
+}
 `
 
 const sortBySeverity = (a: ProfileErrorType | NotFoundFieldLevelType, b: ProfileErrorType | NotFoundFieldLevelType) => {
@@ -42,11 +53,13 @@ const sortBySeverity = (a: ProfileErrorType | NotFoundFieldLevelType, b: Profile
 }
 
 interface ValidationReportProps {
+  file: File
   report: ParseFileType | ValidateType
   profile: string
 }
 
-function ValidationReport({ report, profile }: ValidationReportProps) {
+function ValidationReport({ file, report, profile }: ValidationReportProps) {
+  const linkRef = useRef<HTMLAnchorElement | null>(null)
   const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
 
   const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
@@ -76,6 +89,31 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
           getHasRemediation(code)]))
   }, [profilErrors, getHasRemediation])
 
+  const handleDowloadFileAutofix = async () => {
+    if (!file) {
+      throw new Error('No file selected')
+    }
+    try {
+      const buffer = await autofix(file as any)
+      const blob = new Blob([buffer], { type: 'application/octet-stream' })
+
+      const url = URL.createObjectURL(blob)
+
+      if (linkRef.current) {
+        linkRef.current.href = url
+        linkRef.current.download = 'bal-mise-en-forme.csv'
+        linkRef.current.click()
+      }
+
+      setTimeout(() => {
+        URL.revokeObjectURL(url)
+      }, 1000)
+    }
+    catch (e) {
+      console.error(e)
+    }
+  }
+
   return (
     <StyledWrapper>
       <Section>
@@ -94,6 +132,35 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
                 title="Fichier non valide"
               />
             )}
+        {nbRowsRemediation > 0 && (
+          <Alert
+            description={(
+              <AlertMiseEnFormeWrapper>
+                <div className="alert-mise-en-forme-wrapper">
+                  <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL améliorer.
+                    <br />Les erreurs, avertissements et informations corrigés sont indiqués ci-dessous dans la partie Validation générale
+                  </p>
+                  <Button
+                    iconId="fr-icon-download-line"
+                    onClick={handleDowloadFileAutofix}
+                    title="Télécharger"
+                  >Télécharger
+                  </Button>
+                </div>
+                <Notice
+                  title="Le fichier téléchargé n&apos;est pas assuré d&apos;être un fichier BAL 100% valide."
+                />
+              </AlertMiseEnFormeWrapper>
+            )}
+            severity="info"
+            title={(
+              <>
+                Mise en forme BAL{' '}
+                <Badge noIcon severity="info">BETA</Badge>
+              </>
+            )}
+          />
+        )}
       </Section>
       <Section theme="primary">
         <h4>Structure du fichier</h4>
@@ -139,30 +206,6 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
                 <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label', 'Correction']} />
               </div>
             )}
-        {nbRowsRemediation > 0 && (
-          <Alert
-            description={(
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
-                <p>{nbRowsRemediation} ligne{nbRowsRemediation > 1 && 's'} {nbRowsRemediation > 1 ? 'ont' : 'a'} été modifiée{nbRowsRemediation > 1 && 's'}, vous pouvez télécharger le fichier BAL améliorer.
-                  <br />Les erreurs, avertissements et informations indiqués ci-dessus ont été corrigés
-                </p>
-                <Button
-                  iconId="fr-icon-download-line"
-                  // onClick={handleClick}
-                  title="Télécharger"
-                >Télécharger
-                </Button>
-              </div>
-            )}
-            severity="info"
-            title={(
-              <>
-                Mise en forme BAL{' '}
-                <Badge noIcon severity="info">BETA</Badge>
-              </>
-            )}
-          />
-        )}
       </Section>
 
       <Section theme="primary">
@@ -196,6 +239,7 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
         )}
       </Section>
       {rows && <ValidationSummary rows={rows} /> }
+      <a ref={linkRef} style={{ display: 'none' }} />
     </StyledWrapper>
   )
 }

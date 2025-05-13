@@ -75,7 +75,7 @@ function RemediationReport({ file, report }: RemediationReportProps) {
           <RemediationTable rows={rows} />
         </>
       )}
-      <a ref={linkRef} style={{ display: 'none' }}>Download</a>
+      <a ref={linkRef} style={{ display: 'none' }} />
     </>
   )
 }
