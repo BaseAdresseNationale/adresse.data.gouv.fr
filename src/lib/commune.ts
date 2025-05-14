@@ -1,7 +1,12 @@
 import { BANCommune } from '@/types/api-ban.types'
-import { getSignalements } from './api-signalement'
-import { getPartenairesDeLaCharte } from './api-bal-admin'
-import { SignalementStatusEnum } from '@/types/api-signalement.types'
+import { PaginatedPartenairesDeLaCharte } from './api-bal-admin'
+import { PaginatedSignalements } from '@/types/api-signalement.types'
+
+type GetCommuneAchievementsParams = {
+  commune: BANCommune
+  paginatedPartenairesDeLaCharte?: PaginatedPartenairesDeLaCharte
+  paginatedSignalements?: PaginatedSignalements
+}
 
 export interface CommuneAchievements {
   hasPublishedBAL: boolean
@@ -13,18 +18,7 @@ export interface CommuneAchievements {
   hasStableID: boolean
 }
 
-export const getCommuneAchievements = async (commune: BANCommune): Promise<CommuneAchievements> => {
-  const [
-    paginatedSignalementsResponse,
-    paginatedPartenairesDeLaCharteResponse,
-  ] = await Promise.allSettled([
-    getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
-    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
-  ])
-
-  const paginatedSignalements = paginatedSignalementsResponse.status === 'fulfilled' ? paginatedSignalementsResponse.value : undefined
-  const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : undefined
-
+export const getCommuneAchievements = ({ commune, paginatedPartenairesDeLaCharte, paginatedSignalements }: GetCommuneAchievementsParams): CommuneAchievements => {
   const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
   const communeHasRegionalLanguage = commune.voies.some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
