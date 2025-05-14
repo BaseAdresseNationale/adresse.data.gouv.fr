@@ -21,6 +21,7 @@ import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSectio
 import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
 import { getCommuneAchievements } from '@/lib/commune'
 import { env } from 'next-runtime-env'
+import { getCommunesPrecedentes } from '@/lib/api-insee'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -37,6 +38,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ])
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
+  const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
@@ -45,6 +47,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     EPCIResponse,
     lastRevisionsDetailsResponse,
     communeAchievementsResponse,
+    communesPrecedentesResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
@@ -57,6 +60,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
         )
       : [],
     communeHasBAL ? getCommuneAchievements(commune) : null,
+    getCommunesPrecedentes(codeCommune),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -84,7 +88,14 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const communeAchievements = communeAchievementsResponse.status === 'fulfilled' ? communeAchievementsResponse.value : null
 
-  const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
+  if (communesPrecedentesResponse.status === 'rejected') {
+    console.error(`Failed to get communes precedentes for commune ${codeCommune}`, communesPrecedentesResponse.reason)
+  }
+  const communesPrecedentes = communesPrecedentesResponse.status === 'fulfilled' ? communesPrecedentesResponse.value : null
+
+  const filteredCommunesPrecedentes = communesPrecedentes
+    ?.filter(({ code }) => code !== codeCommune)
+    .map(({ code, intitule }) => `${intitule} - ${code}`)
 
   return (
     <>
@@ -96,6 +107,12 @@ export default async function CommunePage({ params }: CommunePageProps) {
             <br />
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
+
+          {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 0 && (
+            <div className="communes-precedentes-wrapper">
+              {filteredCommunesPrecedentes.length > 1 ? `Communes fusionnées` : `Commune fusionnée`} :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
+            </div>
+          )}
 
           <CardWrapper className="commune-general-info-wrapper">
             <div className="commune-general-info">
@@ -175,7 +192,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
         </Section>
 
-        <CommuneDownloadSection commune={commune} hasRevision={Boolean(lastRevisionsDetails)} />
+        <CommuneDownloadSection commune={commune} hasRevision={communeHasBAL} />
 
         {communeHasBAL && lastRevisionsDetails && (
           <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
