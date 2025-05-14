@@ -4,6 +4,16 @@ import styled from 'styled-components'
 
 export const StyledCommunePage = styled.div<{ $certificationPercentage: number }>`
 
+.communes-precedentes-wrapper {
+    text-align: center;
+    margin: 1rem 0;
+
+    b {
+        font-size: 1.2rem;
+    }
+
+}
+
 .commune-main-section {
     > h1 {
         text-align: center;
