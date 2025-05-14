@@ -22,6 +22,10 @@ import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificati
 import { getCommuneAchievements } from '@/lib/commune'
 import { env } from 'next-runtime-env'
 import { getCommunesPrecedentes } from '@/lib/api-insee'
+import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
+import { getSignalements } from '@/lib/api-signalement'
+import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { SignalementStatusEnum } from '@/types/api-signalement.types'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -38,7 +42,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
   ])
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
 
   const [
@@ -46,8 +49,9 @@ export default async function CommunePage({ params }: CommunePageProps) {
     communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
-    communeAchievementsResponse,
     communesPrecedentesResponse,
+    paginatedSignalementsResponse,
+    paginatedPartenairesDeLaCharteResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
@@ -59,8 +63,9 @@ export default async function CommunePage({ params }: CommunePageProps) {
           .map(revision => getRevisionDetails(revision, commune)))
         )
       : [],
-    communeHasBAL ? getCommuneAchievements(commune) : null,
     getCommunesPrecedentes(codeCommune),
+    getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
+    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -83,19 +88,42 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
-  if (communeAchievementsResponse.status === 'rejected') {
-    console.error(`Failed to get commune achievements for commune ${codeCommune}`, communeAchievementsResponse.reason)
-  }
-  const communeAchievements = communeAchievementsResponse.status === 'fulfilled' ? communeAchievementsResponse.value : null
-
   if (communesPrecedentesResponse.status === 'rejected') {
     console.error(`Failed to get communes precedentes for commune ${codeCommune}`, communesPrecedentesResponse.reason)
   }
   const communesPrecedentes = communesPrecedentesResponse.status === 'fulfilled' ? communesPrecedentesResponse.value : null
 
+  if (paginatedSignalementsResponse.status === 'rejected') {
+    console.error(`Failed to get paginated signalements for commune ${codeCommune}`, paginatedSignalementsResponse.reason)
+  }
+  const paginatedSignalements = paginatedSignalementsResponse.status === 'fulfilled' ? paginatedSignalementsResponse.value : undefined
+
+  if (paginatedPartenairesDeLaCharteResponse.status === 'rejected') {
+    console.error(`Failed to get paginated partenaires for commune ${codeCommune}`, paginatedPartenairesDeLaCharteResponse.reason)
+  }
+  const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : undefined
+
+  const communeAchievements = communeHasBAL
+    ? getCommuneAchievements({
+      commune,
+      paginatedPartenairesDeLaCharte,
+      paginatedSignalements,
+    })
+    : null
+
   const filteredCommunesPrecedentes = communesPrecedentes
     ?.filter(({ code }) => code !== codeCommune)
     .map(({ code, intitule }) => `${intitule} - ${code}`)
+
+  const partenaireDeLaCharte = paginatedPartenairesDeLaCharte?.data[0]
+  const publicationConsoleTabs = []
+
+  if (partenaireDeLaCharte?.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
+    publicationConsoleTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
+  }
+  if (partenaireDeLaCharte?.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
+    publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+  }
 
   return (
     <>
@@ -160,7 +188,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
               {
                 iconId: 'fr-icon-road-map-line',
                 linkProps: {
-                  href: districtMapURL,
+                  href: `/carte-base-adresse-nationale?id=${commune.codeCommune}`,
                 },
                 priority: 'secondary',
                 value: 'Afficher sur la carte',
@@ -197,6 +225,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
         {communeHasBAL && lastRevisionsDetails && (
           <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
+
+        {partenaireDeLaCharte && publicationConsoleTabs.length > 0 && <CommunePublicationConsole partenaireDeLaCharte={partenaireDeLaCharte} tabs={publicationConsoleTabs} />}
       </StyledCommunePage>
     </>
   )
