@@ -135,7 +135,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
 
-          {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 0 && (
+          {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 1 && (
             <div className="communes-precedentes-wrapper">
               Commune issue de la fusion de :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
             </div>
