@@ -138,7 +138,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
           {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 0 && (
             <div className="communes-precedentes-wrapper">
-              {filteredCommunesPrecedentes.length > 1 ? `Communes fusionnées` : `Commune fusionnée`} :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
+              {filteredCommunesPrecedentes.length > 1 ? `Communes historiques` : `Commune historique`} :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
             </div>
           )}
 
