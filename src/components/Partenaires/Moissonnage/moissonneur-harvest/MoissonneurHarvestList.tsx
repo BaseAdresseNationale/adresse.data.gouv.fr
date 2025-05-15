@@ -45,7 +45,7 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
       {(harvests && harvests.length > 0)
         ? (
             <div>
-              <div className="fr-table">
+              <div className="fr-table" style={{ overflowX: 'auto' }}>
                 <table>
                   <thead style={{ width: '100%' }}>
                     <tr>
