@@ -112,8 +112,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     : null
 
   const filteredCommunesPrecedentes = communesPrecedentes
-    ?.filter(({ code }) => code !== codeCommune)
-    .map(({ code, intitule }) => `${intitule} - ${code}`)
+    ?.map(({ code, intitule }) => `${intitule} - ${code}`)
 
   const partenaireDeLaCharte = paginatedPartenairesDeLaCharte?.data[0]
   const publicationConsoleTabs = []
@@ -138,7 +137,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
           {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 0 && (
             <div className="communes-precedentes-wrapper">
-              {filteredCommunesPrecedentes.length > 1 ? `Communes historiques` : `Commune historique`} :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
+              Commune issue de la fusion de :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
             </div>
           )}
 
