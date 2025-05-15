@@ -16,7 +16,7 @@ export function CommunePublicationConsole({ partenaireDeLaCharte, tabs }: Commun
   const [selectedTabId, setSelectedTabId] = useState(tabs[0]?.tabId || '')
 
   return (
-    <Section title="Console de publication" theme="primary">
+    <Section title="Console de publication">
       <Tabs
         selectedTabId={selectedTabId}
         tabs={tabs}

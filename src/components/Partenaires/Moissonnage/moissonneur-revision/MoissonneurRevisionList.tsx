@@ -32,7 +32,7 @@ function MoissonneurRevisionsList({ sourceId }: MoissonneurRevisionsListProps) {
       </p>
       {(revisions && revisions.length > 0)
         ? (
-            <div className="fr-table">
+            <div className="fr-table" style={{ overflowX: 'auto' }}>
               <table>
                 <thead>
                   <tr>
