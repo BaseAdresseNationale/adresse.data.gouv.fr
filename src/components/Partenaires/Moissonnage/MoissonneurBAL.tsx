@@ -46,7 +46,7 @@ export default function MoissonneurBal({ partenaireDeLaCharte }: MoissonneurBalP
   return isLoading
     ? <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '200px', alignItems: 'center' }}><Loader size={50} /></div>
     : (
-        <Section title="Publication de Bases Adresse Locale via moissonneur">
+        <Section title="Publication de Bases Adresses Locales via moissonneur">
           <Perimeters perimeters={aggregatedPerimeters} style={{ marginBottom: '1rem' }} />
           <section>
             <p>Les fichiers BAL mis à disposition sont quotidiennement moissonnés sur la plateforme ouverte des données publiques françaises (data.gouv.fr).</p>
