@@ -20,3 +20,9 @@ page: number = 1): Promise<PaginatedSignalements> {
 
   return customFetch(url)
 }
+
+export function isSignalementDisabledForCommune(codeCommune: string): Promise<boolean> {
+  const url = new URL(`${env('NEXT_PUBLIC_API_SIGNALEMENT')}/settings/communes-disabled/${codeCommune}`)
+
+  return customFetch(url)
+}

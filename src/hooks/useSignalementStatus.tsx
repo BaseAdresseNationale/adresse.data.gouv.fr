@@ -1,11 +1,14 @@
 import Loader from '@/components/Loader'
 import { getCurrentRevision } from '@/lib/api-depot'
+import { isSignalementDisabledForCommune } from '@/lib/api-signalement'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 export enum SignalementStatus {
   DISABLED_ASSEMBLAGE = 'DISABLED_ASSEMBLAGE',
   DISABLED_PARTENAIRE = 'DISABLED_PARTENAIRE',
+  DISABLED_COMMUNE = 'DISABLED_COMMUNE',
+  DISABLED_TECHNICAL = 'DISABLED_TECHNICAL',
   ENABLED = 'ENABLED',
 }
 
@@ -27,6 +30,20 @@ const getDisabledMessage = (status: SignalementStatus | null, mairiePageURL: str
           Nous vous recommandons de contacter directement la <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
         </>
       )
+    case SignalementStatus.DISABLED_COMMUNE:
+      return (
+        <>
+          Cette commune a demandé la désactivation du dépôt de signalements depuis notre site.
+          Nous vous recommandons de contacter directement la <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
+        </>
+      )
+    case SignalementStatus.DISABLED_TECHNICAL:
+      return (
+        <>
+          Une erreur technique est survenue lors de la récupération d&apos;informations de la commune.
+          Merci de réessayer plus tard ou de contacter directement la <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
+        </>
+      )
     default:
       return <Loader />
   }
@@ -38,6 +55,19 @@ export const useSignalementStatus = (address: { commune: TypeDistrict }, mairieP
 
   useEffect(() => {
     async function fetchData() {
+      try {
+        const isCommuneDisabled = await isSignalementDisabledForCommune(address.commune.code)
+        if (isCommuneDisabled) {
+          setStatus(SignalementStatus.DISABLED_COMMUNE)
+          return
+        }
+      }
+      catch (error) {
+        setStatus(SignalementStatus.DISABLED_TECHNICAL)
+        console.error('Error fetching communes disabled settings:', error)
+        return
+      }
+
       try {
         const currentRevision = await getCurrentRevision(address.commune.code)
         if (currentRevision?.context.extras?.balId
