@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { env } from 'next-runtime-env'
 import { Footer as FooterDSFR } from '@codegouvfr/react-dsfr/Footer'
-import { Follow } from '@codegouvfr/react-dsfr/Follow'
+import { Follow, type FollowProps } from '@codegouvfr/react-dsfr/Follow'
 import { headerFooterDisplayItem } from '@codegouvfr/react-dsfr/Display'
 
 import { newsletterOptIn } from '@/lib/api-brevo'
@@ -15,10 +15,12 @@ import {
   FooterBody,
 } from './Footer.styles'
 
+const SOCIAL_NETWORKS_URL_BLUESKY = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_BLUESKY')
 const SOCIAL_NETWORKS_URL_MASTODON = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTODON')
 const SOCIAL_NETWORKS_URL_FACEBOOK = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBOOK')
 const SOCIAL_NETWORKS_URL_LINKEDIN = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_LINKEDIN')
 const SOCIAL_NETWORKS_URL_GITHUB = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_GITHUB')
+const SOCIAL_NETWORKS_URL_RSS = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_RSS')
 
 const NewsletterOptinWithNoSSR = dynamic(
   () => import('../components/NewsletterOptin'),
@@ -95,7 +97,14 @@ export default function Footer() {
           }}
           social={{
             buttons: [
-
+              {
+                linkProps: {
+                  href: SOCIAL_NETWORKS_URL_BLUESKY as unknown as URL ?? '',
+                  target: '_blank',
+                  title: 'Suivez-nous sur Bluesky',
+                },
+                type: 'bluesky' as FollowProps.SocialType,
+              },
               {
                 linkProps: {
                   href: SOCIAL_NETWORKS_URL_MASTODON as unknown as URL ?? '',
@@ -112,10 +121,25 @@ export default function Footer() {
               },
               {
                 linkProps: {
+                  href: SOCIAL_NETWORKS_URL_FACEBOOK as unknown as URL ?? '',
+                  target: '_blank',
+                },
+                type: 'facebook',
+              },
+              {
+                linkProps: {
                   href: SOCIAL_NETWORKS_URL_GITHUB as unknown as URL ?? '',
                   target: '_blank',
                 },
                 type: 'github',
+              },
+              {
+                linkProps: {
+                  href: SOCIAL_NETWORKS_URL_RSS as unknown as URL ?? '',
+                  target: '_blank',
+                  title: 'Suivez nos flux RSS',
+                },
+                type: 'rss' as FollowProps.SocialType,
               },
             ],
           }}
@@ -152,6 +176,37 @@ export default function Footer() {
           }}
           termsLinkProps={{
             href: '/mentions-legales',
+          }}
+          partnersLogos={{
+            main: {
+              alt: 'Ministère de la transition écologique et de la cohésion des territoires',
+              imgUrl: '/logos/LOGO-MINISTERE-ECOLOGIE.jpg',
+              linkProps: {
+                href: 'https://www.ecologie.gouv.fr/',
+                target: '_blank',
+                title: 'Lien vers le site du ministère de la transition écologique et de la cohésion des territoires',
+              },
+            },
+            sub: [
+              {
+                alt: 'IGN - Institut national de l’information géographique et forestière',
+                imgUrl: '/logos/LOGO-IGN.png',
+                linkProps: {
+                  href: 'https://www.ign.fr/',
+                  target: '_blank',
+                  title: 'Lien vers le site de l’IGN',
+                },
+              },
+              {
+                alt: 'Agence nationale de la cohésion des territoires',
+                imgUrl: '/logos/LOGO-ANCT.png',
+                linkProps: {
+                  href: 'https://agence-cohesion-territoires.gouv.fr/',
+                  target: '_blank',
+                  title: 'Lien vers le site l’ANCT',
+                },
+              },
+            ],
           }}
           bottomItems={[
             {
