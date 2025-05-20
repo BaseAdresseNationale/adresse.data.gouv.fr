@@ -21,6 +21,12 @@ import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSectio
 import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
 import { getCommuneAchievements } from '@/lib/commune'
 import { env } from 'next-runtime-env'
+import { getCommunesPrecedentes } from '@/lib/api-insee'
+import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
+import { getSignalements } from '@/lib/api-signalement'
+import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { SignalementStatusEnum } from '@/types/api-signalement.types'
+import { notFound } from 'next/navigation'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -28,13 +34,21 @@ interface CommunePageProps {
 
 export default async function CommunePage({ params }: CommunePageProps) {
   const { codeCommune } = params
-  const [
-    commune,
-    APIGeoCommune,
-  ] = await Promise.all([
-    getBANCommune(codeCommune),
-    getAPIGeoCommune(codeCommune),
-  ])
+
+  let commune, APIGeoCommune
+
+  try {
+    const response = await Promise.all([
+      getBANCommune(codeCommune),
+      getAPIGeoCommune(codeCommune),
+    ])
+    commune = response[0]
+    APIGeoCommune = response[1]
+  }
+  catch (error) {
+    console.error(`Failed to get commune ${codeCommune}`, error)
+    notFound()
+  }
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
@@ -44,7 +58,9 @@ export default async function CommunePage({ params }: CommunePageProps) {
     communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
-    communeAchievementsResponse,
+    communesPrecedentesResponse,
+    paginatedSignalementsResponse,
+    paginatedPartenairesDeLaCharteResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
@@ -56,7 +72,9 @@ export default async function CommunePage({ params }: CommunePageProps) {
           .map(revision => getRevisionDetails(revision, commune)))
         )
       : [],
-    communeHasBAL ? getCommuneAchievements(commune) : null,
+    getCommunesPrecedentes(codeCommune),
+    getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
+    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -79,12 +97,41 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
 
-  if (communeAchievementsResponse.status === 'rejected') {
-    console.error(`Failed to get commune achievements for commune ${codeCommune}`, communeAchievementsResponse.reason)
+  if (communesPrecedentesResponse.status === 'rejected') {
+    console.error(`Failed to get communes precedentes for commune ${codeCommune}`, communesPrecedentesResponse.reason)
   }
-  const communeAchievements = communeAchievementsResponse.status === 'fulfilled' ? communeAchievementsResponse.value : null
+  const communesPrecedentes = communesPrecedentesResponse.status === 'fulfilled' ? communesPrecedentesResponse.value : null
 
-  const districtMapURL = `/carte-base-adresse-nationale?id=${commune.codeCommune}`
+  if (paginatedSignalementsResponse.status === 'rejected') {
+    console.error(`Failed to get paginated signalements for commune ${codeCommune}`, paginatedSignalementsResponse.reason)
+  }
+  const paginatedSignalements = paginatedSignalementsResponse.status === 'fulfilled' ? paginatedSignalementsResponse.value : undefined
+
+  if (paginatedPartenairesDeLaCharteResponse.status === 'rejected') {
+    console.error(`Failed to get paginated partenaires for commune ${codeCommune}`, paginatedPartenairesDeLaCharteResponse.reason)
+  }
+  const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : undefined
+
+  const communeAchievements = communeHasBAL
+    ? getCommuneAchievements({
+      commune,
+      paginatedPartenairesDeLaCharte,
+      paginatedSignalements,
+    })
+    : null
+
+  const filteredCommunesPrecedentes = communesPrecedentes
+    ?.map(({ code, intitule }) => `${intitule} - ${code}`)
+
+  const partenaireDeLaCharte = paginatedPartenairesDeLaCharte?.data[0]
+  const publicationConsoleTabs = []
+
+  if (partenaireDeLaCharte?.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
+    publicationConsoleTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
+  }
+  if (partenaireDeLaCharte?.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
+    publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+  }
 
   return (
     <>
@@ -96,6 +143,12 @@ export default async function CommunePage({ params }: CommunePageProps) {
             <br />
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
+
+          {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 1 && (
+            <div className="communes-precedentes-wrapper">
+              Commune issue de la fusion de :  <b>{filteredCommunesPrecedentes?.join(', ')}</b>
+            </div>
+          )}
 
           <CardWrapper className="commune-general-info-wrapper">
             <div className="commune-general-info">
@@ -143,7 +196,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
               {
                 iconId: 'fr-icon-road-map-line',
                 linkProps: {
-                  href: districtMapURL,
+                  href: `/carte-base-adresse-nationale?id=${commune.codeCommune}`,
                 },
                 priority: 'secondary',
                 value: 'Afficher sur la carte',
@@ -175,11 +228,13 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
         </Section>
 
-        <CommuneDownloadSection commune={commune} hasRevision={Boolean(lastRevisionsDetails)} />
+        <CommuneDownloadSection commune={commune} hasRevision={communeHasBAL} />
 
         {communeHasBAL && lastRevisionsDetails && (
           <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
+
+        {partenaireDeLaCharte && publicationConsoleTabs.length > 0 && <CommunePublicationConsole partenaireDeLaCharte={partenaireDeLaCharte} tabs={publicationConsoleTabs} />}
       </StyledCommunePage>
     </>
   )

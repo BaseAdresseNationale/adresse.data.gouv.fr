@@ -37,7 +37,7 @@ function APIDepotRevisionsList({ revisions }: APIDepotRevisionsListProps) {
         <p><b> Si vous rencontrez un problème pour la publication d&apos;une commune, vous obtiendrez des informations sur les erreurs de publication en consultant le rapport de validation.</b></p>
         {(revisions && revisions.length > 0)
           ? (
-              <div className="fr-table">
+              <div className="fr-table" style={{ overflowX: 'auto' }}>
                 <table>
                   <thead>
                     <tr>

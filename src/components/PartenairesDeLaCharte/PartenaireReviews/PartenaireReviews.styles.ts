@@ -21,6 +21,7 @@ export const StyledWrapper = styled(Section)`
 
         .review-header {
             flex-shrink: 0;
+            flex-basis: 20%;
             p {
                 margin-bottom: 0.5rem;
             }
