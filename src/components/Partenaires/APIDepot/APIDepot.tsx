@@ -39,7 +39,7 @@ export default function APIDepot({ partenaireDeLaCharte }: APIDepotProps) {
   return isLoading
     ? <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '200px', alignItems: 'center' }}><Loader size={50} /></div>
     : (
-        <Section title="Publication de Bases Adresse Locale via API">
+        <Section title="Publication de Bases Adresses Locales via API">
           <section>
             <p>Liste des clients d&apos;API de dépôt dont dispose {partenaireDeLaCharte.name} : </p>
             <div className="fr-accordions-group">
