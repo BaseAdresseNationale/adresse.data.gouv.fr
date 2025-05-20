@@ -33,8 +33,6 @@ export default function ValidateurBAL() {
   const getReport = async (file: File, profile: string) => {
     try {
       setIsLoading(true)
-      // const arrayBuffer: ArrayBuffer = await file.arrayBuffer()
-      // const buffer: Buffer = Buffer.from(arrayBuffer)
       const report: ParseFileType | ValidateType = await validate(file as any, { profile })
       setValidationReport(report)
     }
@@ -67,7 +65,7 @@ export default function ValidateurBAL() {
       <Section pageTitle="Validateur BAL">
         {isLoading
           ? <Loader />
-          : (validationReport && profile)
+          : (validationReport && profile && file)
               ? (
                   <>
                     <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
@@ -82,13 +80,13 @@ export default function ValidateurBAL() {
                         />
                       </div>
                     </div>
-                    <ValidationReport report={validationReport} profile={profile} />
+                    <ValidationReport file={file} report={validationReport} profile={profile} />
                   </>
                 )
               : (
                   <DropZoneInput
                     onChange={handleFileChange}
-                    label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
+                    label="Déposez ou cliquez ici pour uploader votre fichier BAL à valider"
                     hint="Taille maximale: 50 Mo. Format supporté : CSV"
                     accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
                     maxSize={50 * 1024 * 1024}
