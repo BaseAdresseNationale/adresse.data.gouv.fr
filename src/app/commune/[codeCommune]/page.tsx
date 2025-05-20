@@ -26,6 +26,7 @@ import { CommunePublicationConsole } from '@/components/Commune/CommunePublicati
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
+import { notFound } from 'next/navigation'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -33,13 +34,21 @@ interface CommunePageProps {
 
 export default async function CommunePage({ params }: CommunePageProps) {
   const { codeCommune } = params
-  const [
-    commune,
-    APIGeoCommune,
-  ] = await Promise.all([
-    getBANCommune(codeCommune),
-    getAPIGeoCommune(codeCommune),
-  ])
+
+  let commune, APIGeoCommune
+
+  try {
+    const response = await Promise.all([
+      getBANCommune(codeCommune),
+      getAPIGeoCommune(codeCommune),
+    ])
+    commune = response[0]
+    APIGeoCommune = response[1]
+  }
+  catch (error) {
+    console.error(`Failed to get commune ${codeCommune}`, error)
+    notFound()
+  }
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
