@@ -239,6 +239,20 @@ export default function Header(
             },
             text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
           },
+          {
+            iconId: 'fr-icon-account-circle-line',
+            linkProps: {
+              href: '/login',
+            },
+            text: <Tooltip kind="hover" title="Se connecter">Se connecter</Tooltip>,
+          },
+          {
+            iconId: 'fr-icon-logout-box-r-line',
+            linkProps: {
+              href: '/logout',
+            },
+            text: <Tooltip kind="hover" title="Se déconnecter">Se déconnecter</Tooltip>,
+          },
         ]}
         navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
       />
