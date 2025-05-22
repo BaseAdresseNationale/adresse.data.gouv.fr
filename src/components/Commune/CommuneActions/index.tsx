@@ -48,8 +48,9 @@ const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, chil
 function CommuneActions({ technicalRequirements, district, actionProps }: CommuneActionsProps) {
   const [isConfigDistrictVisible, setIsConfigDistrictVisible] = useState(false)
   const iframeSRC = 'https://grist.numerique.gouv.fr/o/ban/forms/4eCgRqqpyXW5FMoZzQ3nNm/4'
+  const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
-  const techRequired = false
+  const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
   const techRequiredConditions = 'This is a tech required condition'
 
   useEffect(() => {
@@ -57,6 +58,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
     (async () => {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
+      // if (!authenticated) return
       try {
         const response = await customFetch('/api/me')
         // Check if the commune's SIREN matches the first 9 digits of the SIRET
@@ -75,6 +77,8 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       }
     })()
   }, [district])
+
+  // @todo: add authenticated condition
 
   const renderHabilitationContent = () => {
     if (!habilitationEnabled) {

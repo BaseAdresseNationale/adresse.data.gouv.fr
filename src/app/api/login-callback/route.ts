@@ -42,6 +42,7 @@ export async function GET(req: NextRequest) {
 
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
     const url = req.nextUrl.clone()
+    url.pathname = '/'
     return NextResponse.redirect(url)
   }
   catch (error) {
