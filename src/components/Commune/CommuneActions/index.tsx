@@ -81,39 +81,51 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
   // @todo: add authenticated condition
 
   const renderHabilitationContent = () => {
-    if (!habilitationEnabled) {
+    const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
+
+    const conditions = (
+      <div>
+        Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}
+        <ul>
+          <li>la présence des identifiants</li>
+          <li>au moins 75% des adresses sont certifiées</li>
+          <li>la présence des parcelles (au moins à 50%)</li>
+        </ul>
+      </div>
+    )
+
+    if (!authenticated) {
       return (
         <>
-          <TooltipWithCommuneConfigItem title={techRequiredConditions}>
-            <b>Connectez-vous avec ProConnect pour vérifier votre habilitation</b>
-          </TooltipWithCommuneConfigItem>
-          {/* <ProConnectButtonCustom loginUrl="/api/login" /> */}
-          {/* <ProConnectButton url="https://fca.integ01.dev-agentconnect.fr/" /> */}
-          <ProConnectButton url="/login" />
+          {conditions}
+          <b>Connectez-vous avec ProConnect pour activer la certification d’adressage :</b>
+          <ProConnectButton url="/api/login" />
         </>
       )
     }
 
-    const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
-
-    if (techRequired) {
+    if (!habilitationEnabled) {
       return (
-        <TooltipWithCommuneConfigItem title={tooltipTitle}>
-          Certificat d’adressage :{' '}
-          <b>Activé</b>
-        </TooltipWithCommuneConfigItem>
+        <>
+          {conditions}
+          <b>Vous n’êtes pas habilité(e) pour cette commune à activer la certification d’adressage.</b>
+        </>
       )
     }
 
-    // !techRequired
-    return (
-      <TooltipWithCommuneConfigItem title={tooltipTitle}>
-        Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}
-        <b>la présence identifiants, </b>
-        <b>au moins 75% des adresses sont certifiées, </b>
-        <b>la présence des parcelles (au moins à 50%)</b>
-      </TooltipWithCommuneConfigItem>
-    )
+    if (techRequired) {
+      return (
+        <>
+          <TooltipWithCommuneConfigItem title={tooltipTitle}>
+            Certificat d’adressage :{' '}
+            <b>Activé</b>
+          </TooltipWithCommuneConfigItem>
+        </>
+      )
+    }
+    else {
+      return conditions
+    }
   }
 
   return (
@@ -121,7 +133,8 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       <link href={iframeSRC} rel="prefetch" />
       <Section>
         <CommuneActionsActionsWrapper style={{ marginBottom: '3rem' }}>
-          {district.config?.certificate ? renderHabilitationContent() : null}
+          {/* {district.config?.certificate ? renderHabilitationContent() : null} */}
+          {renderHabilitationContent()}
           {/*
             <Button
               key="set-config"

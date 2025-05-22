@@ -1,6 +1,16 @@
 'use client'
 
 import styled from 'styled-components'
+import { Tag } from '@codegouvfr/react-dsfr/Tag'
+
+export const TagWrapper = styled(Tag)`
+  display: flex;
+  // flex-direction: column;
+  gap: 0.25rem;
+  margin: 1rem 0.25rem;
+  // padding: 0;
+  list-style: none;
+`
 
 export const CommuneActionsActionsWrapper = styled.div`
   display: flex;
@@ -10,7 +20,6 @@ export const CommuneActionsActionsWrapper = styled.div`
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     flex-direction: row;
-    justify-content: flex-end;
     flex-wrap: wrap;
   }
 
