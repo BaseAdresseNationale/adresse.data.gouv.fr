@@ -80,7 +80,7 @@ services:
 
       # ProConnect
       - HOST=${HOST}
-      - SITE_TITLE=${SITE_TITLE}
+      #      - SITE_TITLE=${SITE_TITLE}
       - CALLBACK_URL=${CALLBACK_URL}
       - PC_CLIENT_ID=${PC_CLIENT_ID}
       - PC_CLIENT_SECRET=${PC_CLIENT_SECRET}

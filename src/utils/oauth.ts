@@ -1,5 +1,5 @@
 import * as client from 'openid-client'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isObject, mapValues, omitBy } from 'lodash'
 
@@ -20,8 +20,8 @@ export const objToUrlParams = (obj: any) => {
 //       .value()
 //   )
 
-export const getCurrentUrl = (req: any) => {
-  const url = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`)
+export const getCurrentUrl = (req: NextRequest) => {
+  const url = new URL(`${req.nextUrl.protocol}//${req.headers.get('host')}${req.nextUrl.pathname}${req.nextUrl.search}`)
   return url
 }
 
@@ -58,7 +58,7 @@ export const AUTHORIZATION_DEFAULT_PARAMS = {
   },
 }
 
-export const getAuthorizationControllerFactory = async (extraParams?: any) => {
+export const getAuthorizationControllerFactory = async (req: NextRequest, extraParams?: any) => {
   try {
     const config = await getProviderConfig()
     const nonce = client.randomNonce()
@@ -77,6 +77,10 @@ export const getAuthorizationControllerFactory = async (extraParams?: any) => {
         ...extraParams,
       })
     )
+
+    // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
+    const url = req.nextUrl.clone()
+    url.pathname = redirectUrl.pathname
     return NextResponse.redirect(redirectUrl)
   }
   catch (e) {
