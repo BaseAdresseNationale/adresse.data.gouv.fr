@@ -1,9 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { customFetch } from '@/lib/fetch'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
-import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
+import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
+// import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
+import { getCommune } from '@/lib/api-geo'
+
 import {
   CommuneActionsActionsWrapper,
   StyledIframeWrapper,
@@ -23,7 +27,13 @@ interface CommuneActionProps {
   value: string
 }
 
+interface technicalRequirements {
+  hasID: boolean
+  hasAbove75PercentCertifiedNumbers: boolean
+  hasAbove50PercentParcelles: boolean
+}
 interface CommuneActionsProps {
+  technicalRequirements: technicalRequirements
   district: BANCommune
   actionProps: CommuneActionProps[]
 }
@@ -35,12 +45,36 @@ const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, chil
   </Tooltip>
 )
 
-function CommuneActions({ district, actionProps }: CommuneActionsProps) {
+function CommuneActions({ technicalRequirements, district, actionProps }: CommuneActionsProps) {
   const [isConfigDistrictVisible, setIsConfigDistrictVisible] = useState(false)
   const iframeSRC = 'https://grist.numerique.gouv.fr/o/ban/forms/4eCgRqqpyXW5FMoZzQ3nNm/4'
-  const habilitationEnabled = false
+  const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
   const techRequired = false
   const techRequiredConditions = 'This is a tech required condition'
+
+  useEffect(() => {
+    if (!district) return
+    (async () => {
+      const commune = await getCommune(district.codeCommune)
+      if (!commune) return
+      try {
+        const response = await customFetch('/api/me')
+        // Check if the commune's SIREN matches the first 9 digits of the SIRET
+        setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
+        setAuthenticated(response)
+      }
+      catch (error: any) {
+        if (error?.status === 401) {
+          // Not authenticated, do not enable habilitation
+          setHabilitationEnabled(false)
+        }
+        else {
+          // Handle other errors if needed
+          console.error(error)
+        }
+      }
+    })()
+  }, [district])
 
   const renderHabilitationContent = () => {
     if (!habilitationEnabled) {
@@ -49,8 +83,9 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
           <TooltipWithCommuneConfigItem title={techRequiredConditions}>
             <b>Connectez-vous avec ProConnect pour vérifier votre habilitation</b>
           </TooltipWithCommuneConfigItem>
-          <ProConnectButtonCustom loginUrl="/api/login" />
+          {/* <ProConnectButtonCustom loginUrl="/api/login" /> */}
           {/* <ProConnectButton url="https://fca.integ01.dev-agentconnect.fr/" /> */}
+          <ProConnectButton url="/login" />
         </>
       )
     }
@@ -69,7 +104,7 @@ function CommuneActions({ district, actionProps }: CommuneActionsProps) {
     // !techRequired
     return (
       <TooltipWithCommuneConfigItem title={tooltipTitle}>
-        Pour que le certificat d'adressage soit actif, il faut vérifier ces 3 conditions :{' '}
+        Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}
         <b>la présence identifiants, </b>
         <b>au moins 75% des adresses sont certifiées, </b>
         <b>la présence des parcelles (au moins à 50%)</b>
