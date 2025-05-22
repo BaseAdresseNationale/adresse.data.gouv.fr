@@ -133,6 +133,12 @@ export default async function CommunePage({ params }: CommunePageProps) {
     publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
   }
 
+  const technicalRequirements = {
+    hasID: !!(communeAchievements?.hasStableID),
+    hasAbove75PercentCertifiedNumbers: !!communeAchievements?.hasAbove75PercentCertifiedNumbers,
+    hasAbove50PercentParcelles: !!communeAchievements?.hasAbove50PercentParcelles,
+  }
+
   return (
     <>
       <CommuneNavigation commune={commune} />
@@ -191,6 +197,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           />
 
           <CommuneActions
+            technicalRequirements={technicalRequirements}
             district={commune}
             actionProps={[
               {
