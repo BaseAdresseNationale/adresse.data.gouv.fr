@@ -1,4 +1,4 @@
-import { PaginatedSignalements, SignalementStatusEnum, SignalementTypeEnum } from '@/types/api-signalement.types'
+import { PaginatedSignalements, SignalementCommuneStatus, SignalementStatusEnum, SignalementTypeEnum } from '@/types/api-signalement.types'
 import { addSearchParams, customFetch } from './fetch'
 import { env } from 'next-runtime-env'
 
@@ -21,8 +21,21 @@ page: number = 1): Promise<PaginatedSignalements> {
   return customFetch(url)
 }
 
-export function isSignalementDisabledForCommune(codeCommune: string): Promise<boolean> {
-  const url = new URL(`${env('NEXT_PUBLIC_API_SIGNALEMENT')}/settings/communes-disabled/${codeCommune}`)
+export const getSignalementSourceId = (): string => {
+  const sourceId = env('NEXT_PUBLIC_MES_SIGNALEMENTS_SOURCE_ID')
+  if (!sourceId) {
+    throw new Error('REACT_APP_MES_SIGNALEMENTS_SOURCE_ID is not defined')
+  }
+
+  return sourceId
+}
+
+export async function getSignalementCommuneStatus(
+  codeCommune: string,
+): Promise<SignalementCommuneStatus> {
+  const url = new URL(`${env('NEXT_PUBLIC_API_SIGNALEMENT')}/settings/commune-status/${codeCommune}`)
+
+  url.searchParams.append('sourceId', getSignalementSourceId())
 
   return customFetch(url)
 }

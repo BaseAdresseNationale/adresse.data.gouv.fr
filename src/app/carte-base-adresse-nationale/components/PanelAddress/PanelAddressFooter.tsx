@@ -70,7 +70,6 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
         <ActionList>
           <ActionSignalementAddress
             address={address}
-            mairiePageURL={mairiePageURL}
           />
         </ActionList>
 
