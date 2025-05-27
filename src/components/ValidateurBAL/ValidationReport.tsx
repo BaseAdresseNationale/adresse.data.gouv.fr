@@ -60,7 +60,8 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
 
   const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
   const codeCommune = useMemo(() => {
-    return rows[0].parsedValues.commune_insee || rows[0].additionalValues?.uid_adresse?.codeCommune
+    console.log(rows[0])
+    return rows[0].parsedValues.commune_insee || rows[0].additionalValues?.cle_interop?.codeCommune
   }, [rows])
 
   return (
