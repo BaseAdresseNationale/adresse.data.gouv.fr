@@ -48,11 +48,6 @@ const AlertMiseEnFormeWrapper = styled.div`
 }
 `
 
-const sortBySeverity = (a: ProfileErrorType | NotFoundFieldLevelType, b: ProfileErrorType | NotFoundFieldLevelType) => {
-  const levelOrder: Record<string, number> = { E: 0, W: 1, I: 2 }
-  return levelOrder[a.level!] - levelOrder[b.level!]
-}
-
 interface ValidationReportProps {
   file: File
   report: ParseFileType | ValidateType
@@ -61,59 +56,12 @@ interface ValidationReportProps {
 
 function ValidationReport({ file, report, profile }: ValidationReportProps) {
   const linkRef = useRef<HTMLAnchorElement | null>(null)
-  const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
+  const { fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
 
   const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
-  const errorsWithRemediations = useMemo(() => getErrorsWithRemediations(rows), [rows])
-
-  const getBadgeLevel = (level: ErrorLevelEnum) => {
-    return level === ErrorLevelEnum.ERROR
-      ? <Badge severity="error">Erreur</Badge>
-      : level === ErrorLevelEnum.INFO
-        ? <Badge severity="info">Info</Badge>
-        : <Badge severity="warning">Avertissement</Badge>
-  }
-
-  const getHasRemediation = useCallback((code: string) => {
-    const nbRows = errorsWithRemediations[code]
-
-    return nbRows && <Badge>{`${nbRows} ligne${nbRows > 1 ? 's' : ''} corrigée${nbRows > 1 ? 's' : ''}`}</Badge>
-  }, [errorsWithRemediations])
-
-  const generalValidationRows = useMemo(() => {
-    return profilErrors
-      .sort(sortBySeverity)
-      .map(({ code, level }: ProfileErrorType) =>
-        ([
-          getBadgeLevel(level),
-          getLabel(code),
-          getHasRemediation(code)]))
-  }, [profilErrors, getHasRemediation])
-
-  const handleDowloadFileAutofix = async () => {
-    if (!file) {
-      throw new Error('No file selected')
-    }
-    try {
-      const buffer = await autofix(file as any)
-      const blob = new Blob([buffer], { type: 'application/octet-stream' })
-
-      const url = URL.createObjectURL(blob)
-
-      if (linkRef.current) {
-        linkRef.current.href = url
-        linkRef.current.download = 'bal-mise-en-forme.csv'
-        linkRef.current.click()
-      }
-
-      setTimeout(() => {
-        URL.revokeObjectURL(url)
-      }, 1000)
-    }
-    catch (e) {
-      console.error(e)
-    }
-  }
+  const codeCommune = useMemo(() => {
+    return rows[0].parsedValues.commune_insee || rows[0].additionalValues?.uid_adresse?.codeCommune
+  }, [rows])
 
   return (
     <StyledWrapper>
@@ -134,7 +82,7 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
               />
             )}
         {nbRowsRemediation > 0 && (
-          <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} />
+          <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} codeCommune={codeCommune} />
         )}
       </Section>
       <Section theme="primary">

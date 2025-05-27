@@ -19,6 +19,9 @@ interface RemediationReportProps {
 function RemediationReport({ file, report }: RemediationReportProps) {
   const { rows } = report
   const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
+  const codeCommune = useMemo(() => {
+    return rows[0].parsedValues.commune_insee || rows[0].additionalValues?.uid_adresse?.codeCommune
+  }, [rows])
 
   return (
     <StyledWrapper>
@@ -32,7 +35,7 @@ function RemediationReport({ file, report }: RemediationReportProps) {
           )
         : (
             <>
-              <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} />
+              <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} codeCommune={codeCommune} />
               <br />
               <h4>Consultez les erreurs</h4>
               <ValidationTableError report={report} />

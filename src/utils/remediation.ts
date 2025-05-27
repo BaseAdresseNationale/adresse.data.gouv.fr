@@ -6,11 +6,14 @@ export function getNbRowsRemediation(rows: ValidateRowFullType[]) {
 
 export function getErrorsWithRemediations(rows: ValidateRowFullType[]) {
   return rows?.reduce((acc: Record<string, number>, row) => {
+    const rowErrors: Set<string> = new Set()
     Object.values(row.remediations)?.forEach(({ errors }) => {
-      errors.forEach((error) => {
-        acc[error] = (acc[error] || 0) + 1
-      })
+      errors?.forEach(error => rowErrors.add(error))
     })
+    rowErrors.forEach((error) => {
+      acc[error] = (acc[error] || 0) + 1
+    })
+
     return acc
   }, {}) || {}
 }

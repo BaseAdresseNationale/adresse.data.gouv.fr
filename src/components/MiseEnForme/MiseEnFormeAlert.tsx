@@ -19,9 +19,10 @@ const AlertMiseEnFormeWrapper = styled.div`
 interface ValidationReportProps {
   file: File
   nbRowsRemediation: number
+  codeCommune: string
 }
 
-function AlertMiseEnForme({ file, nbRowsRemediation }: ValidationReportProps) {
+function AlertMiseEnForme({ file, nbRowsRemediation, codeCommune }: ValidationReportProps) {
   const linkRef = useRef<HTMLAnchorElement | null>(null)
 
   const handleDowloadFileAutofix = async () => {
@@ -36,7 +37,7 @@ function AlertMiseEnForme({ file, nbRowsRemediation }: ValidationReportProps) {
 
       if (linkRef.current) {
         linkRef.current.href = url
-        linkRef.current.download = 'bal-mise-en-forme.csv'
+        linkRef.current.download = `bal_${codeCommune}.csv`
         linkRef.current.click()
       }
 
