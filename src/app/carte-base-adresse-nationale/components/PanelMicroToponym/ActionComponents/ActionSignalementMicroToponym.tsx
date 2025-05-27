@@ -36,7 +36,7 @@ const ActionSignalementMicroToponym: React.FC<ActionSignalementMicroToponymProps
           <ActionMessage $isVisible={isExtended}>
             {disabled
               ? (
-                  disabledMessage
+                  <div dangerouslySetInnerHTML={{ __html: disabledMessage || '' }} />
                 )
               : (
                   <>
