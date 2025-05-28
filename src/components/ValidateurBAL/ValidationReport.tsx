@@ -3,8 +3,15 @@ import Section from '../Section'
 import styled from 'styled-components'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { Table } from '@codegouvfr/react-dsfr/Table'
-import { getLabel, profiles, ProfileErrorType, NotFoundFieldLevelType, ErrorLevelEnum, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
+import { Highlight } from '@codegouvfr/react-dsfr/Highlight'
+import { getLabel, profiles, ProfileErrorType, NotFoundFieldLevelType, ErrorLevelEnum, ValidateType, ParseFileType, autofix } from '@ban-team/validateur-bal'
 import ValidationSummary from './ValidationSummary'
+import { useCallback, useMemo, useRef } from 'react'
+import { getErrorsWithRemediations, getNbRowsRemediation } from '@/utils/remediation'
+import Button from '@codegouvfr/react-dsfr/Button'
+import Notice from '@codegouvfr/react-dsfr/Notice'
+import AlertMiseEnForme from '../MiseEnForme/MiseEnFormeAlert'
+import ValidationTableError from './ValidationTableError'
 
 const StyledWrapper = styled.div`
 .file-structure-wrapper {
@@ -22,34 +29,39 @@ const StyledWrapper = styled.div`
 
 .table-wrapper {
     max-width: calc(100vw - 7rem);
-  }
+}
 
 .present-fields-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 `
 
-const sortBySeverity = (a: ProfileErrorType | NotFoundFieldLevelType, b: ProfileErrorType | NotFoundFieldLevelType) => {
-  const levelOrder: Record<string, number> = { E: 0, W: 1, I: 2 }
-  return levelOrder[a.level!] - levelOrder[b.level!]
+const AlertMiseEnFormeWrapper = styled.div`
+
+.alert-mise-en-forme-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 12px;
 }
+`
 
 interface ValidationReportProps {
+  file: File
   report: ParseFileType | ValidateType
   profile: string
 }
 
-function ValidationReport({ report, profile }: ValidationReportProps) {
-  const { profilErrors, fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
-  const generalValidationRows = profilErrors
-    .sort(sortBySeverity)
-    .map(({ code, level }: ProfileErrorType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, getLabel(code)]))
+function ValidationReport({ file, report, profile }: ValidationReportProps) {
+  const linkRef = useRef<HTMLAnchorElement | null>(null)
+  const { fileValidation, notFoundFields, fields, rows, profilesValidation } = report as ValidateType
 
-  const notFoundFieldsRows = notFoundFields!.sort(sortBySeverity)
-    .map(({ schemaName, level }: NotFoundFieldLevelType) => ([level === ErrorLevelEnum.ERROR ? <Badge severity="error">Erreur</Badge> : level === ErrorLevelEnum.INFO ? <Badge severity="info">Info</Badge> : <Badge severity="warning">Avertissement</Badge>, schemaName]))
+  const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
+  const codeCommune = useMemo(() => {
+    return rows[0].parsedValues.commune_insee || rows[0].additionalValues?.cle_interop?.codeCommune
+  }, [rows])
 
   return (
     <StyledWrapper>
@@ -57,18 +69,21 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
         {profilesValidation?.[profile].isValid
           ? (
               <Alert
-                description={`Le fichier Bal est valide (en version ${profiles[profile].name})`}
+                description={`Le fichier BAL est valide (en version ${profiles[profile].name})`}
                 severity="success"
                 title="Fichier valide"
               />
             )
           : (
               <Alert
-                description={`Le fichier Bal n'est pas valide (en version ${profiles[profile].name})`}
+                description={`Le fichier BAL n'est pas valide (en version ${profiles[profile].name})`}
                 severity="error"
                 title="Fichier non valide"
               />
             )}
+        {nbRowsRemediation > 0 && (
+          <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} codeCommune={codeCommune} />
+        )}
       </Section>
       <Section theme="primary">
         <h4>Structure du fichier</h4>
@@ -105,37 +120,38 @@ function ValidationReport({ report, profile }: ValidationReportProps) {
 
       <Section>
         <h4>Validation générale</h4>
-        {profilErrors.length === 0
-          ? (
-              <p>Aucun problème détécté</p>
-            )
-          : (
-              <div className="table-wrapper">
-                <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label']} />
-              </div>
-            )}
+        <ValidationTableError report={report} />
       </Section>
 
       <Section theme="primary">
-        {notFoundFields && notFoundFields.length > 0 && (
-          <>
-            <h4>Champs non trouvés</h4>
-            <div className="table-wrapper">
-              <Table noCaption data={notFoundFieldsRows} headers={['Criticité', 'Nom du champ', 'Version de la spécification']} />
-            </div>
-          </>
-        )}
-
         {fields && fields.length > 0 && (
           <>
             <h4>Champs présents</h4>
             <div className="present-fields-wrapper">
-              {fields.map((field: { name: string }) => <Badge style={{ textTransform: 'none' }} key={field.name}>{field.name}</Badge>)}
+              {fields.map((field: { name: string }) => <Badge severity="success" style={{ textTransform: 'none' }} key={field.name}>{field.name}</Badge>)}
+            </div>
+          </>
+        )}
+        {notFoundFields && notFoundFields.length > 0 && (
+          <>
+            <br />
+            <h4>Champs non trouvés</h4>
+            <div className="present-fields-wrapper">
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.ERROR).map(({ schemaName }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} style={{ textTransform: 'none' }} severity="error">{schemaName}</Badge>
+              )}
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.WARNING).map(({ schemaName }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} style={{ textTransform: 'none' }} severity="warning">{schemaName}</Badge>
+              )}
+              {notFoundFields.filter(({ level }) => level === ErrorLevelEnum.INFO).map(({ schemaName }: NotFoundFieldLevelType) =>
+                <Badge key={schemaName} style={{ textTransform: 'none' }} severity="info">{schemaName}</Badge>
+              )}
             </div>
           </>
         )}
       </Section>
       {rows && <ValidationSummary rows={rows} /> }
+      <a ref={linkRef} style={{ display: 'none' }} />
     </StyledWrapper>
   )
 }

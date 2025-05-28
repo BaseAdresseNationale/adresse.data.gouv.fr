@@ -14,13 +14,11 @@ import MiseEnFormeDocumentation from './MiseEnFormeDocumentation'
 export default function MiseEnFormeBAL() {
   const [isLoading, setIsLoading] = useState(false)
   const [report, setReport] = useState<ParseFileType | ValidateType | null>(null)
-  const [fileMiseEnForme, setFileMiseEnForme] = useState<Blob | null>(null)
-  const [reportMiseEnForme, setReportMiseEnForme] = useState<ValidateType | null>(null)
+  const [file, setFile] = useState<File | null>(null)
 
   const handleReset = () => {
     setReport(null)
-    setFileMiseEnForme(null)
-    setReportMiseEnForme(null)
+    setFile(null)
   }
 
   const handleFileChange = async (file?: File) => {
@@ -29,15 +27,9 @@ export default function MiseEnFormeBAL() {
     }
     try {
       setIsLoading(true)
-      const report = await validate(file as any)
+      setFile(file)
+      const report = await validate(file as any, { profile: '1.4' })
       setReport(report)
-      const buffer = await autofix(file as any)
-      const blob = new Blob([buffer], { type: 'application/octet-stream' })
-      setFileMiseEnForme(blob)
-      const reportAutofix = await validate(blob as any)
-      if (reportAutofix.parseOk) {
-        setReportMiseEnForme(reportAutofix as ValidateType)
-      }
     }
     catch (e) {
       console.error(e)
@@ -60,13 +52,13 @@ export default function MiseEnFormeBAL() {
       >
         {isLoading
           ? <Loader />
-          : (report)
+          : (report && file)
               ? (
                   <>
                     <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content', marginBottom: 12 }} onClick={handleReset}>Retour à la sélection du fichier</Button>
                     {report.parseOk
                       ? (
-                          <RemediationReport report={report as ValidateType} fileMiseEnForme={fileMiseEnForme} reportMiseEnForme={reportMiseEnForme} />
+                          <RemediationReport file={file} report={report as ValidateType} />
                         )
                       : (
                           <Alert
@@ -80,7 +72,7 @@ export default function MiseEnFormeBAL() {
               : (
                   <DropZoneInput
                     onChange={handleFileChange}
-                    label="Déposer ou cliquer ici pour télécharger votre fichier BAL"
+                    label="Déposez ou cliquez ici pour uploader votre fichier BAL"
                     hint="Taille maximale: 50 Mo. Format supporté : CSV"
                     accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
                     maxSize={50 * 1024 * 1024}
