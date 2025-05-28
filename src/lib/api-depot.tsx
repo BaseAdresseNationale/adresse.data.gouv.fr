@@ -108,8 +108,6 @@ export const getCurrentRevisionDownloadUrl = (codeCommune: string) => {
   return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`
 }
 
-const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'long', year: 'numeric' })
-
 export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
   let modeDePublication = '-'
   if (revision?.context?.extras?.sourceId) {
@@ -142,7 +140,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
 
   return [
     revision.isCurrent ? <Tooltip message="Révision courante"><span className="fr-icon-success-line" aria-hidden="true" /></Tooltip> : '',
-    format(parseISO(revision.createdAt), '\'le\' dd MMMM yyyy \'à\' HH:mm', { locale: fr }),
+    revision.publishedAt,
     modeDePublication,
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
