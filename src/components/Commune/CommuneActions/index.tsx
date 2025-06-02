@@ -85,11 +85,24 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
 
     const conditions = (
       <div>
-        Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}
-        <ul>
-          <li>la présence des identifiants</li>
-          <li>au moins 75% des adresses sont certifiées</li>
-          <li>la présence des parcelles (au moins à 50%)</li>
+        <ul style={{ listStyleType: 'none' }}>
+          <li>
+            <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span>
+            <ul style={{ listStyleType: 'none' }}>
+              <li>
+                <span className="fr-icon-check-line" aria-hidden="true" />
+                la présence des identifiants
+              </li>
+              <li>
+                <span className="fr-icon-check-line" aria-hidden="true" />
+                au moins 75% des adresses sont certifiées
+              </li>
+              <li>
+                <span className="fr-icon-check-line" aria-hidden="true" />
+                la présence des parcelles (au moins à 50%)
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     )
@@ -108,7 +121,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       return (
         <>
           {conditions}
-          <b>Vous n’êtes pas habilité(e) pour cette commune à activer la certification d’adressage.</b>
+          <b>Vous n’êtes pas habilité·e pour cette commune à activer la certification d’adressage.</b>
         </>
       )
     }
@@ -116,6 +129,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
     if (techRequired) {
       return (
         <>
+          {conditions}
           <TooltipWithCommuneConfigItem title={tooltipTitle}>
             Certificat d’adressage :{' '}
             <b>Activé</b>
