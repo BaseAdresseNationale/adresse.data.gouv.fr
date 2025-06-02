@@ -19,7 +19,7 @@ export const CommuneActionsActionsWrapper = styled.div`
   line-height: 2.25;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
   }
 
