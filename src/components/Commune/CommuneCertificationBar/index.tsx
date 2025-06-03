@@ -4,10 +4,12 @@ import { assemblageSources } from '@/lib/api-ban'
 import { BANCommune } from '@/types/api-ban.types'
 import formatNumber from '@/app/carte-base-adresse-nationale/tools/formatNumber'
 import { StyledWrapper } from './CommuneCertificationBar.styles'
+import { format, parseISO } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 interface CommuneCertificationBarProps {
   commune: BANCommune
-  lastRevisionsDetails: (string | JSX.Element)[][] | null
+  lastRevisionsDetails: (string | JSX.Element | null)[][] | null
   certificationPercentage: number
   communeHasBAL: boolean
 }
@@ -69,7 +71,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
           </label>
           <div>
             {!communeHasBAL && '-'}
-            {communeHasBAL && lastRevisionsDetails && (lastRevisionsDetails[0][1] as string).split(' à ')[0]}
+            {communeHasBAL && lastRevisionsDetails && format(parseISO(lastRevisionsDetails[0][1] as string), '\'le\' dd MMMM yyyy \'à\' HH:mm', { locale: fr })}
           </div>
         </div>
       </CardWrapper>

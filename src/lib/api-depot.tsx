@@ -1,4 +1,6 @@
 import { customFetch } from '@/lib/fetch'
+import { format, parseISO } from 'date-fns'
+import { fr } from 'date-fns/locale'
 import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
@@ -106,8 +108,6 @@ export const getCurrentRevisionDownloadUrl = (codeCommune: string) => {
   return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`
 }
 
-const frDateFormatter = new Intl.DateTimeFormat('fr', { day: 'numeric', month: 'long', year: 'numeric' })
-
 export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
   let modeDePublication = '-'
   if (revision?.context?.extras?.sourceId) {
@@ -140,7 +140,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
 
   return [
     revision.isCurrent ? <Tooltip message="Révision courante"><span className="fr-icon-success-line" aria-hidden="true" /></Tooltip> : '',
-    `le ${frDateFormatter.format(new Date(revision.createdAt))} à ${new Date(revision.createdAt).toLocaleTimeString('fr', { hour12: false }).split(':').slice(0, 2).join(':')}`,
+    revision.publishedAt,
     modeDePublication,
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
