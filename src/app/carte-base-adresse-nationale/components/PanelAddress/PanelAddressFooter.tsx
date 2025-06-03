@@ -97,7 +97,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
                   message={(
                     <>
                       Cette adresse ne remplit pas les critères requis
-                      pour émettre un certificat d&apos;adressage
+                      pour émettre un certificat d&apos;adressage.<br/>
                       Veuillez contacter votre  <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
                     </>
                   )}
