@@ -6,16 +6,15 @@ import { env } from 'next-runtime-env'
 import { matomoTrackEvent } from '@/lib/matomo'
 import { SignalementTypeEnum } from '@/types/api-signalement.types'
 import Badge from '@codegouvfr/react-dsfr/Badge'
-import { useSignalementStatus } from '@/hooks/useSignalementStatus'
+import { useSignalementCommuneStatus } from '@/hooks/useSignalementCommuneStatus'
 
 interface ActionSignalementMicroToponymProps {
   address: TypeMicroToponymExtended
-  mairiePageURL: string | null
 }
 
-const ActionSignalementMicroToponym: React.FC<ActionSignalementMicroToponymProps> = ({ address, mairiePageURL }) => {
+const ActionSignalementMicroToponym: React.FC<ActionSignalementMicroToponymProps> = ({ address }) => {
   const [isExtended, setIsExtended] = useState(false)
-  const { disabled, disabledMessage } = useSignalementStatus(address, mairiePageURL)
+  const { disabled, disabledMessage } = useSignalementCommuneStatus(address)
 
   const browseToMesSignalements = useCallback((signalementType: SignalementTypeEnum) => {
     matomoTrackEvent('Mes Signalements', 'Browse to', signalementType, 1)

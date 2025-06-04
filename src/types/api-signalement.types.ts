@@ -18,3 +18,8 @@ export enum SignalementTypeEnum {
   LOCATION_TO_DELETE = 'LOCATION_TO_DELETE',
   LOCATION_TO_UPDATE = 'LOCATION_TO_UPDATE',
 }
+
+export type SignalementCommuneStatus = {
+  disabled: boolean
+  message?: string
+}
