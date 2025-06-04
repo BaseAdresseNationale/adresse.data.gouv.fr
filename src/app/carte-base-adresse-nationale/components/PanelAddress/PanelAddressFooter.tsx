@@ -96,10 +96,9 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
                   id={address.id}
                   message={(
                     <>
-                      Cette adresse ne remplit pas les critères minimums
-                      pour obtenir une certification.
-                      Veuillez contacter votre mairie pour obtenir un certificat d’adressage
-                      ou toute autre information.
+                      Cette adresse ne remplit pas les critères requis
+                      pour émettre un certificat d&apos;adressage.<br />
+                      Veuillez contacter votre  <Link className="fr-link" href={mairiePageURL || ''} target="_blank">mairie</Link>.
                     </>
                   )}
                   disabled
