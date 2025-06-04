@@ -36,7 +36,7 @@ const ActionSignalementAddress: React.FC<ActionSignalementAddressProps> = ({ add
           <ActionMessage $isVisible={isExtended}>
             {disabled
               ? (
-                  <div dangerouslySetInnerHTML={{ __html: disabledMessage || '' }} />
+                  disabledMessage
                 )
               : (
                   <>
