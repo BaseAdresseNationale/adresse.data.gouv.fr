@@ -21,7 +21,9 @@ export interface CommuneAchievements {
 export const getCommuneAchievements = ({ commune, paginatedPartenairesDeLaCharte, paginatedSignalements }: GetCommuneAchievementsParams): CommuneAchievements => {
   const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
-  const communeHasRegionalLanguage = commune.voies.some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
+  const communeHasRegionalLanguage = commune.voies
+    .filter(voie => Boolean(voie.nomVoieAlt))
+    .some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
   const hasProcessedSignalement = Boolean(paginatedSignalements && paginatedSignalements.total >= 1)
   const isPartenaireDeLaCharte = Boolean(paginatedPartenairesDeLaCharte?.data.find(partenaire => partenaire.codeCommune === commune.codeCommune))
   const hasStableID = Boolean(commune.banId)
