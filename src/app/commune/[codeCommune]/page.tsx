@@ -28,6 +28,8 @@ import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 
+import SaveUrlClient from '@/components/SaveUrlClient'
+
 interface CommunePageProps {
   params: { codeCommune: string }
 }
@@ -141,6 +143,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
   return (
     <>
+      <SaveUrlClient/>
       <CommuneNavigation commune={commune} />
       <StyledCommunePage $certificationPercentage={certificationPercentage}>
         <Section className="commune-main-section">
