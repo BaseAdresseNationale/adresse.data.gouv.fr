@@ -1,6 +1,6 @@
+import ProConnectRedirectClient from '@/components/ProConnectRedirectClient'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-
 import Section from '@/components/Section'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
@@ -27,6 +27,7 @@ export default async function Home() {
 
   return (
     <>
+      <ProConnectRedirectClient />
       <SectionHero
         pageTitle="La Base Adresse Nationale"
         picture={{
