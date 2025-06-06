@@ -81,8 +81,8 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
                   id={address.id}
                   message={(
                     <>
-                      Les certifications d’adresses sur la commune de {address.commune.nom} sont
-                      réalisées directement par la mairie.<br />
+                      L&apos;émission de certificats d&apos;adressage sur la commune de {address.commune.nom} est
+                      réalisée directement par la mairie.<br />
                       <Link className="fr-link" href={mairiePageURL || ''} target="_blank">Contactez-la</Link> pour obtenir un certificat d’adressage ou toute autre information.
                     </>
                   )}
