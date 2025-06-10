@@ -58,7 +58,6 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
     (async () => {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
-      if (!authenticated) return
       try {
         const response = await customFetch('/api/me')
         // Check if the commune's SIREN matches the first 9 digits of the SIRET
@@ -76,7 +75,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
         }
       }
     })()
-  }, [district])
+  }, [authenticated, district])
 
   // @todo: add authenticated condition
 
@@ -111,7 +110,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       return (
         <>
           {conditions}
-          <b>Connectez-vous avec ProConnect pour activer la certification d’adressage :</b>
+          <b>Gérer les options de la commune avec ProConnect :</b>
           <ProConnectButton url="/api/login" />
         </>
       )
