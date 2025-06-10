@@ -143,7 +143,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
   return (
     <>
-      <SaveUrlClient/>
+      <SaveUrlClient />
       <CommuneNavigation commune={commune} />
       <StyledCommunePage $certificationPercentage={certificationPercentage}>
         <Section className="commune-main-section">
