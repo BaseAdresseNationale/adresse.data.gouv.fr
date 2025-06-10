@@ -6,6 +6,7 @@ import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
 // import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
+import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 import { getCommune } from '@/lib/api-geo'
 
 import {
@@ -82,6 +83,9 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
   const renderHabilitationContent = () => {
     const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
 
+    const logOutButton = (
+      <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" loginUrl="/api/logout" />
+    )
     const conditions = (
       <div>
         <ul style={{ listStyleType: 'none' }}>
@@ -121,6 +125,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
         <>
           {conditions}
           <b>Vous n’êtes pas habilité·e pour cette commune à activer la certification d’adressage.</b>
+          {logOutButton}
         </>
       )
     }
@@ -133,6 +138,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
             Certificat d’adressage :{' '}
             <b>Activé</b>
           </TooltipWithCommuneConfigItem>
+          {logOutButton}
         </>
       )
     }
