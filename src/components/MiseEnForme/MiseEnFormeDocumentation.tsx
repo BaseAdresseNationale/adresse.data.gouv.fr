@@ -20,7 +20,7 @@ export default function MiseEnFormeDocumentation() {
       <ul>
         <li><b>id_ban_commune</b> : uuid proposé par la BAN</li>
         <li><b>id_ban_toponyme</b> : uuid généré aléatoirement (identique pour les lignes avec la même <CodeWrapper>voie_nom</CodeWrapper>)</li>
-        <li><b>id_ban_toponyme</b> : uuid généré aléatoirement (identique pour les numéros avec plusieurs positions)</li>
+        <li><b>id_ban_adresse</b> : uuid généré aléatoirement (identique pour les numéros avec plusieurs positions)</li>
         <li><b>commune_insee</b> : rempli s&apos;il est présent dans la <CodeWrapper>cle_interop</CodeWrapper></li>
         <li><b>commune_nom</b> : rempli à partir du <CodeWrapper>commune_insee</CodeWrapper> (même si calculé)</li>
         <li><b>date_der_maj</b> : rempli avec la date du jour</li>
