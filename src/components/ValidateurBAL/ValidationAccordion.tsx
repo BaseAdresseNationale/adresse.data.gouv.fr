@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import ValidationCodeTable from './ValidationCodeTable'
 
 type ValidationAccordionProps = {
-  title: string
+  title: string | JSX.Element | null
   groups: Record<string, ValidateRowFullType[]>
 }
 
 const StyledWrapper = styled.div`
-  margin-top: 1rem;
+  margin-top: 2rem;
 `
 
 export default function ValidationAccordion({ title, groups }: ValidationAccordionProps) {

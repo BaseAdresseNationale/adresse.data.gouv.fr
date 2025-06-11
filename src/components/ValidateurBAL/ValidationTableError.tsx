@@ -50,9 +50,7 @@ function ValidationTableError({ report }: ValidationTableErrorProps) {
 
   return (
     <StyledWrapper>
-      <div className="table-wrapper">
-        <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label', 'Correction']} />
-      </div>
+      <Table noCaption data={generalValidationRows} headers={['Criticité', 'Label', 'Correction']} />
     </StyledWrapper>
   )
 }

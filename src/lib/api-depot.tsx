@@ -1,6 +1,4 @@
 import { customFetch } from '@/lib/fetch'
-import { format, parseISO } from 'date-fns'
-import { fr } from 'date-fns/locale'
 import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
@@ -44,6 +42,15 @@ export async function getRevision(revisionId: string): Promise<Revision> {
 
 export async function getCurrentRevision(codeCommune: string): Promise<Revision | undefined> {
   return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision`)
+}
+
+export async function getCurrentRevisionFile(codeCommune: string): Promise<any> {
+  const options: RequestInit = {
+    mode: 'cors',
+    method: 'GET',
+  }
+
+  return fetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`, options)
 }
 
 export async function getRevisions(codeCommune: string): Promise<Revision[]> {
