@@ -85,48 +85,50 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
 
   // @todo: add authenticated condition
 
+  const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
+
+  const logOutButton = (
+    <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" loginUrl="/api/logout" />
+  )
+
+  const conditions = (
+    <>
+      <ul style={{ listStyleType: 'none', padding: 0 }}>
+        <li>
+          {technicalRequirements.hasID
+            ? (<span className="fr-icon-success-line" aria-hidden="true" />)
+            : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
+          <span>Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la présence des identifiants.</span>
+          {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la condition :{' '}</span> */}
+          {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span> */}
+          {/* <ul style={{ listStyleType: 'none' }}>
+            <li>
+              {technicalRequirements.hasID
+                ? (<span className="fr-icon-success-line" aria-hidden="true" />)
+                : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
+              {' '}la présence des identifiants
+
+            </li>
+            <li>
+              <span className="fr-icon-check-line" aria-hidden="true" />
+              au moins 75% des adresses sont certifiées
+            </li>
+            <li>
+              <span className="fr-icon-check-line" aria-hidden="true" />
+              la présence des parcelles (au moins à 50%)
+            </li>
+          </ul> */}
+        </li>
+      </ul>
+    </>
+  )
+
   const renderHabilitationContent = () => {
-    const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
-
-    const logOutButton = (
-      <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" loginUrl="/api/logout" />
-    )
-    const conditions = (
-      <>
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
-          <li>
-            {technicalRequirements.hasID
-              ? (<span className="fr-icon-success-line" aria-hidden="true" />)
-              : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
-            <span>Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la présence des identifiants.</span>
-            {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la condition :{' '}</span> */}
-            {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span> */}
-            {/* <ul style={{ listStyleType: 'none' }}>
-              <li>
-                {technicalRequirements.hasID
-                  ? (<span className="fr-icon-success-line" aria-hidden="true" />)
-                  : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
-                {' '}la présence des identifiants
-
-              </li>
-              <li>
-                <span className="fr-icon-check-line" aria-hidden="true" />
-                au moins 75% des adresses sont certifiées
-              </li>
-              <li>
-                <span className="fr-icon-check-line" aria-hidden="true" />
-                la présence des parcelles (au moins à 50%)
-              </li>
-            </ul> */}
-          </li>
-        </ul>
-      </>
-    )
-
     if (!authenticated) {
       return (
         <>
           {conditions}
+          <div>{requiredConditions}</div>
           <b>Gérer les options de la commune avec ProConnect :</b>
           <ProConnectButton url="/api/login" />
         </>
@@ -137,37 +139,31 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       return (
         <>
           {conditions}
+          <div>{requiredConditions}</div>
           <b>Vous n’êtes pas habilité·e pour cette commune à activer la certification d’adressage.</b>
           {logOutButton}
         </>
       )
     }
 
-    console.log('techRequired', techRequired)
+    // console.log('techRequired', techRequired)
 
     if (techRequired) {
       return (
         <>
           {conditions}
-          {technicalRequirements.hasID
-            ? (
-                <TooltipWithCommuneConfigItem title={tooltipTitle}>
-                  Certificat d’adressage :{' '}
-                  <b>Activé</b>
-                </TooltipWithCommuneConfigItem>
-              )
-            : (
-                <>
-                  <div>{requiredConditions}</div>
-                  <Button
-                    key="set-config"
-                    iconId="ri-file-paper-2-line"
-                    onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-                  >
-                    Activer le certificat d’adressage
-                  </Button>
-                </>
-              )}
+          <div>{requiredConditions}</div>
+          {!district.config?.certificate && (
+            <>
+              <Button
+                key="set-config"
+                iconId="ri-file-paper-2-line"
+                onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+              >
+                Activer le certificat d’adressage
+              </Button>
+            </>
+          )}
           {logOutButton}
         </>
       )
@@ -188,7 +184,14 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       <link href={iframeSRC} rel="prefetch" />
       <Section>
         <CommuneActionsSectionWrapper style={{ marginBottom: '3rem' }}>
-          {/* {district.config?.certificate ? renderHabilitationContent() : null} */}
+          {district.config?.certificate
+            ? (
+                <TooltipWithCommuneConfigItem title={tooltipTitle}>
+                  Certificat d’adressage :{' '}
+                  <b>Activé</b>
+                </TooltipWithCommuneConfigItem>
+              )
+            : null}
           {renderHabilitationContent()}
         </CommuneActionsSectionWrapper>
         <Section
