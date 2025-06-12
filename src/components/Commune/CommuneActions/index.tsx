@@ -123,12 +123,20 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
     </>
   )
 
+  const renderHabilitationWrapper = () => {
+    return (
+      <>
+        {conditions}
+        <div>{requiredConditions}</div>
+        {renderHabilitationContent()}
+      </>
+    )
+  }
+
   const renderHabilitationContent = () => {
     if (!authenticated) {
       return (
         <>
-          {conditions}
-          <div>{requiredConditions}</div>
           <b>Gérer les options de la commune avec ProConnect :</b>
           <ProConnectButton url="/api/login" />
         </>
@@ -138,44 +146,32 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
     if (!habilitationEnabled) {
       return (
         <>
-          {conditions}
-          <div>{requiredConditions}</div>
           <b>Vous n’êtes pas habilité·e pour cette commune à activer la certification d’adressage.</b>
           {logOutButton}
         </>
       )
     }
 
-    // console.log('techRequired', techRequired)
+    console.log('techRequired', techRequired)
 
     if (techRequired) {
       return (
         <>
-          {conditions}
-          <div>{requiredConditions}</div>
           {!district.config?.certificate && (
-            <>
-              <Button
-                key="set-config"
-                iconId="ri-file-paper-2-line"
-                onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-              >
-                Activer le certificat d’adressage
-              </Button>
-            </>
+            <Button
+              key="set-config"
+              iconId="ri-file-paper-2-line"
+              onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+            >
+              Activer le certificat d’adressage
+            </Button>
           )}
           {logOutButton}
         </>
       )
     }
     else {
-      return (
-        <>
-          {conditions}
-          <div>{requiredConditions}</div>
-          {logOutButton}
-        </>
-      )
+      return logOutButton
     }
   }
 
@@ -192,7 +188,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
                 </TooltipWithCommuneConfigItem>
               )
             : null}
-          {renderHabilitationContent()}
+          {renderHabilitationWrapper()}
         </CommuneActionsSectionWrapper>
         <Section
           title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`}
