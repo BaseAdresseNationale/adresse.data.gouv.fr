@@ -100,7 +100,7 @@ export default async function Outils() {
             <Card
               title="Service de géocodage Géoplateforme"
               titleAs="h5"
-              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale."
+              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale. Geocodage direct et inverse, unitaire et en masse."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -134,7 +134,7 @@ export default async function Outils() {
             <Card
               title="Le Géocodeur CSV"
               titleAs="h5"
-              desc="Le service de Géocodeur CSV permet de géocoder une liste d'adresses en ajoutant un fichier CSV et en paramétrant les colonnes à utiliser."
+              desc="Le service de Géocodeur CSV propose une interface pour vous permettre de géocoder facilement une liste d'adresses en ajoutant un fichier CSV et en paramétrant les colonnes à utiliser."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
