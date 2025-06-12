@@ -2,12 +2,17 @@ import Breadcrumb from '@/layouts/Breadcrumb'
 import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
 import { Suspense } from 'react'
+import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
+import Section from '@/components/Section'
 import SectionHero from '@/components/SectionHero'
 import HtmlViewer from '@/components/HtmlViewer'
-import CurlDoc from './components/curl-doc'
+
+import { TextWrapper } from './page.styled'
 
 async function ApiAdresse() {
-  const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/api-adresse') || {}
+  const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/service-geocodage--intro') || {}
+  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/service-geocodage') || {}
+
   return (
     <>
       <base target="_blank"></base>
@@ -38,7 +43,29 @@ async function ApiAdresse() {
           </SectionHero>
         )}
       </Suspense>
-      <CurlDoc />
+
+      <Section>
+        <TextWrapper>
+          <Suspense fallback={<p>Chargement...</p>}>
+            <article>
+              {contentHtml && <HtmlViewer html={contentHtml} />}
+            </article>
+            {
+              data?.aside && (
+                <aside>{data?.aside?.map(
+                  ({ data }) =>
+                    data?.contentHtml && (
+                      <CallOut key={`${data?.data?.title}`}>
+                        <HtmlViewer html={data?.contentHtml} />
+                      </CallOut>
+                    )
+                )}
+                </aside>
+              )
+            }
+          </Suspense>
+        </TextWrapper>
+      </Section>
     </>
   )
 }
