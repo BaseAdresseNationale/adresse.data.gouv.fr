@@ -79,8 +79,8 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
     )
 
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
-    const url = req.nextUrl.clone()
-    url.pathname = redirectUrl.pathname
+    // const url = req.nextUrl.clone()
+    // url.pathname = redirectUrl.pathname
     return NextResponse.redirect(redirectUrl)
   }
   catch (e) {
