@@ -1,15 +1,28 @@
 'use client'
 
 import styled from 'styled-components'
-import { Tag } from '@codegouvfr/react-dsfr/Tag'
 
-export const TagWrapper = styled(Tag)`
+export const CommuneActionsSectionWrapper = styled.div`
   display: flex;
-  // flex-direction: column;
-  gap: 0.25rem;
-  margin: 1rem 0.25rem;
-  // padding: 0;
-  list-style: none;
+  flex-direction: column;
+  gap: 2rem;
+  line-height: 2.25;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    flex-direction: column;
+    //justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .resume-card {
+    padding: 1rem;
+    border: 1px solid ${({ theme }) => theme.colors.grey.border};
+    border-radius: 5px;
+
+    > i {
+      margin-right: 0.5rem;
+    }
+  }
 `
 
 export const CommuneActionsActionsWrapper = styled.div`
@@ -19,7 +32,8 @@ export const CommuneActionsActionsWrapper = styled.div`
   line-height: 2.25;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     flex-wrap: wrap;
   }
 

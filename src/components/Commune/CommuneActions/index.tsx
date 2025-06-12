@@ -10,6 +10,7 @@ import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCus
 import { getCommune } from '@/lib/api-geo'
 
 import {
+  CommuneActionsSectionWrapper,
   CommuneActionsActionsWrapper,
   StyledIframeWrapper,
   StyledIframe,
@@ -51,8 +52,9 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
   const iframeSRC = 'https://grist.numerique.gouv.fr/o/ban/forms/4eCgRqqpyXW5FMoZzQ3nNm/4'
   const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
-  const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
-  const techRequiredConditions = 'This is a tech required condition'
+  // const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
+  const techRequired = technicalRequirements.hasID
+  const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
 
   useEffect(() => {
     if (!district) return
@@ -60,10 +62,13 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
       try {
+        // if (commune.code == '64102' || commune.code == '64103' || commune.code == '64104') {
         const response = await customFetch('/api/me')
+        console.log('commune.siren == JSON.parse(response).siret.slice(0, 9)?', commune.siren == JSON.parse(response).siret.slice(0, 9))
         // Check if the commune's SIREN matches the first 9 digits of the SIRET
         setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
         setAuthenticated(response)
+        // }
       }
       catch (error: any) {
         if (error?.status === 401) {
@@ -87,14 +92,22 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" loginUrl="/api/logout" />
     )
     const conditions = (
-      <div>
-        <ul style={{ listStyleType: 'none' }}>
+      <>
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
           <li>
-            <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span>
-            <ul style={{ listStyleType: 'none' }}>
+            {technicalRequirements.hasID
+              ? (<span className="fr-icon-success-line" aria-hidden="true" />)
+              : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
+            <span>Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la présence des identifiants.</span>
+            {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la condition :{' '}</span> */}
+            {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span> */}
+            {/* <ul style={{ listStyleType: 'none' }}>
               <li>
-                <span className="fr-icon-check-line" aria-hidden="true" />
-                la présence des identifiants
+                {technicalRequirements.hasID
+                  ? (<span className="fr-icon-success-line" aria-hidden="true" />)
+                  : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
+                {' '}la présence des identifiants
+
               </li>
               <li>
                 <span className="fr-icon-check-line" aria-hidden="true" />
@@ -104,10 +117,10 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
                 <span className="fr-icon-check-line" aria-hidden="true" />
                 la présence des parcelles (au moins à 50%)
               </li>
-            </ul>
+            </ul> */}
           </li>
         </ul>
-      </div>
+      </>
     )
 
     if (!authenticated) {
@@ -130,20 +143,43 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       )
     }
 
+    console.log('techRequired', techRequired)
+
     if (techRequired) {
       return (
         <>
           {conditions}
-          <TooltipWithCommuneConfigItem title={tooltipTitle}>
-            Certificat d’adressage :{' '}
-            <b>Activé</b>
-          </TooltipWithCommuneConfigItem>
+          {technicalRequirements.hasID
+            ? (
+                <TooltipWithCommuneConfigItem title={tooltipTitle}>
+                  Certificat d’adressage :{' '}
+                  <b>Activé</b>
+                </TooltipWithCommuneConfigItem>
+              )
+            : (
+                <>
+                  <div>{requiredConditions}</div>
+                  <Button
+                    key="set-config"
+                    iconId="ri-file-paper-2-line"
+                    onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+                  >
+                    Activer le certificat d’adressage
+                  </Button>
+                </>
+              )}
           {logOutButton}
         </>
       )
     }
     else {
-      return conditions
+      return (
+        <>
+          {conditions}
+          <div>{requiredConditions}</div>
+          {logOutButton}
+        </>
+      )
     }
   }
 
@@ -151,19 +187,10 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
     <>
       <link href={iframeSRC} rel="prefetch" />
       <Section>
-        <CommuneActionsActionsWrapper style={{ marginBottom: '3rem' }}>
+        <CommuneActionsSectionWrapper style={{ marginBottom: '3rem' }}>
           {/* {district.config?.certificate ? renderHabilitationContent() : null} */}
           {renderHabilitationContent()}
-          {/*
-            <Button
-              key="set-config"
-              iconId="ri-file-paper-2-line"
-              onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
-            >
-              Demander l’activation du certificat d’adressage
-            </Button>
-          */}
-        </CommuneActionsActionsWrapper>
+        </CommuneActionsSectionWrapper>
         <Section
           title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`}
           theme="grey"
