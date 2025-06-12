@@ -1,3 +1,4 @@
+import Badge from '@codegouvfr/react-dsfr/Badge'
 import Section from '../Section'
 import ValidationAccordion from './ValidationAccordion'
 import { ErrorLevelEnum, ValidateRowFullType } from '@ban-team/validateur-bal'
@@ -46,19 +47,18 @@ export default function ValidationSummary({ rows }: ValidationSummaryProps) {
   const totalErrorCount = errorsCount + warningsCount + infosCount
 
   const dataValidation = [
-    { title: 'Erreurs', count: errorsCount, groups: errorsGroups },
-    { title: 'Avertissements', count: warningsCount, groups: warningsGroups },
-    { title: 'Informations', count: infosCount, groups: infosGroups },
+    { key: 'errors', title: <Badge severity="error">Erreur</Badge>, count: errorsCount, groups: errorsGroups },
+    { key: 'warnings', title: <Badge severity="warning">Avertissement</Badge>, count: warningsCount, groups: warningsGroups },
+    { key: 'infos', title: <Badge severity="info">Info</Badge>, count: infosCount, groups: infosGroups },
   ]
 
   return totalErrorCount > 0
     ? (
-        <Section>
-          <h4>Validation ligne par ligne</h4>
-          {dataValidation.map(({ count, title, groups }) => (
-            count > 0 && <ValidationAccordion key={title} title={title} groups={groups} />
+        <>
+          {dataValidation.map(({ count, key, title, groups }) => (
+            count > 0 && <ValidationAccordion key={key} title={title} groups={groups} />
           ))}
-        </Section>
+        </>
       )
     : null
 }
