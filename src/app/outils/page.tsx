@@ -98,20 +98,18 @@ export default async function Outils() {
 
             />
             <Card
-              title="Api de géocodage (Nouveau)"
+              title="Service de géocodage Géoplateforme"
               titleAs="h5"
               desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
-                  iconId="fr-icon-code-s-slash-line"
                   linkProps={{
-                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
-                    target: '_blank',
+                    href: '/outils/api-doc/adresse',
                   }}
                   size="small"
                 >
-                  Documentation
+                  Service de géocodage Géoplateforme
                 </Button>
               )}
             />
@@ -146,23 +144,6 @@ export default async function Outils() {
                   size="small"
                 >
                   Géocodeur CSV
-                </Button>
-              )}
-            />
-            <Card
-              title="API Adresse (en cours de transfert vers le Service de géocodage de la Géoplateforme)"
-              titleAs="h5"
-              desc="Effectuer rapidement une recherche d’adresse pour y associer des coordonnées (géocoder) suivant plusieurs critères."
-              className="fr-card--horizontal-tier fr-card--md"
-              footer={(
-                <Button
-                  iconId="fr-icon-code-s-slash-line"
-                  linkProps={{
-                    href: '/outils/api-doc/adresse',
-                  }}
-                  size="small"
-                >
-                  API adresse
                 </Button>
               )}
             />
