@@ -17,7 +17,7 @@ async function ApiAdresse() {
     <>
       <base target="_blank"></base>
       <Breadcrumb
-        currentPageLabel="API adresse"
+        currentPageLabel="Service de géocodage de la Géoplateforme"
         segments={[
           {
             label: 'Outils & APIs',
