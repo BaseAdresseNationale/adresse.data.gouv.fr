@@ -98,9 +98,9 @@ export default async function Outils() {
 
             />
             <Card
-              title="Service de géocodage Géoplateforme"
+              title="Service de géocodage de la Géoplateforme"
               titleAs="h5"
-              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale. Geocodage direct et inverse, unitaire et en masse."
+              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale. Géocodage direct et inverse, unitaire et en masse."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
