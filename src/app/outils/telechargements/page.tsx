@@ -19,21 +19,6 @@ export default async function PageDownloadBan() {
   return (
     <>
       <Section>
-        <Alert
-          severity="warning"
-          title="Passage du Code officiel géographique 2025"
-          description={(
-            <>
-              <b>Attention : </b>La prise en charge des évolutions administratives de l’INSEE (COG 2025)
-              est en cours.
-              Nos exports peuvent présenter des instabilités sur les communes concernées pendant
-              la période de l’intervention.
-            </>
-          )}
-        />
-      </Section>
-
-      <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
             <article>
