@@ -34,6 +34,7 @@ interface CommunePageProps {
   params: { codeCommune: string }
 }
 
+
 export default async function CommunePage({ params }: CommunePageProps) {
   const { codeCommune } = params
 
@@ -60,7 +61,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
-    currentRevisionFileResponse,
     communesPrecedentesResponse,
     paginatedSignalementsResponse,
     paginatedPartenairesDeLaCharteResponse,
@@ -75,15 +75,15 @@ export default async function CommunePage({ params }: CommunePageProps) {
           .map(revision => getRevisionDetails(revision, commune)))
         )
       : [],
-    communeHasBAL
-      ? getCurrentRevisionFile(codeCommune)
-        .then(res => res.arrayBuffer())
-        .catch(() => null)
-      : null,
     getCommunesPrecedentes(codeCommune),
     getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
     getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
   ])
+
+  const DynamicCommuneValidationSection = dynamic(
+    () => import('../../../components/Commune/CommuneValidationSection').then(mod => mod.CommuneValidationSection),
+    { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
+  )
 
   if (mairiePageResponse.status === 'rejected') {
     console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason?.message)
@@ -104,15 +104,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     console.error(`Failed to get last revisions details for commune ${codeCommune}`, lastRevisionsDetailsResponse.reason?.message)
   }
   const lastRevisionsDetails = lastRevisionsDetailsResponse.status === 'fulfilled' ? lastRevisionsDetailsResponse.value : null
-
-  if (currentRevisionFileResponse.status === 'rejected') {
-    console.error(`Failed to get current revision file for commune ${codeCommune}`, currentRevisionFileResponse.reason)
-  }
-  const currentRevisionFile = currentRevisionFileResponse.status === 'fulfilled' ? Buffer.from(currentRevisionFileResponse.value).toString('base64') : null
-  const DynamicCommuneValidationSection = dynamic(
-    () => import('../../../components/Commune/CommuneValidationSection').then(mod => mod.CommuneValidationSection),
-    { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
-  )
 
   if (communesPrecedentesResponse.status === 'rejected') {
     console.error(`Failed to get communes precedentes for commune ${codeCommune}`, communesPrecedentesResponse.reason)
@@ -249,7 +240,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
         {communeHasBAL && lastRevisionsDetails && (
           <>
-            <DynamicCommuneValidationSection currentRevisionFile={currentRevisionFile} />
+            <DynamicCommuneValidationSection codeCommune={codeCommune} />
             <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
           </>
         )}

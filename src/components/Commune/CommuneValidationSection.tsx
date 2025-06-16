@@ -3,16 +3,18 @@
 import styled from 'styled-components'
 import Section from '../Section'
 import { useEffect, useState } from 'react'
-import { ParseFileType, profiles, validate, ValidateType } from '@ban-team/validateur-bal'
+import { profiles, validate, ValidateType } from '@ban-team/validateur-bal'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import ValidationStructureFile from '../ValidateurBAL/ValidationStructureFile'
 import ValidationTableError from '../ValidateurBAL/ValidationTableError'
 import ValidationFields from '../ValidateurBAL/ValidationFields'
 import ValidationSummary from '../ValidateurBAL/ValidationSummary'
+import { getCurrentRevisionFile } from '@/lib/api-depot'
+import Loader from '../Loader'
 
 interface CommuneValidationSectionProps {
-  currentRevisionFile: string | null
+  codeCommune: string
 }
 
 const StyledWrapper = styled.div`
@@ -39,33 +41,36 @@ const StyledWrapper = styled.div`
 
 const PROFILE = '1.4'
 
-export function CommuneValidationSection({ currentRevisionFile }: CommuneValidationSectionProps) {
+export function CommuneValidationSection({ codeCommune }: CommuneValidationSectionProps) {
   const [report, setReport] = useState<ValidateType | null>(null)
 
-  const handleFileChange = async (fileBase64?: string) => {
-    if (!fileBase64) {
-      throw new Error('No file selected')
-    }
-    try {
-      const fileBuffer = Buffer.from(fileBase64, 'base64')
-      const file = new Blob([fileBuffer], { type: 'text/csv' })
-      const reportFile = await validate(file as any, { profile: PROFILE })
-      if (reportFile.parseOk) {
-        setReport(reportFile as ValidateType)
-      }
-    }
-    catch (e) {
-      console.error(e)
-    }
-  }
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    handleFileChange(currentRevisionFile as string)
-  }, [currentRevisionFile])
+    const fetchCurrentRevisionFile = async () => {
+      const buffer = await getCurrentRevisionFile(codeCommune)
+        .then(res => res.arrayBuffer())
+
+      try {
+        const file = new Blob([buffer], { type: 'text/csv' })
+        const reportFile = await validate(file as any, { profile: PROFILE })
+        if (reportFile.parseOk) {
+          setReport(reportFile as ValidateType)
+        }
+        setIsLoading(false)
+      }
+      catch (e) {
+        console.error(e)
+      }
+    }
+
+    fetchCurrentRevisionFile()
+  }, [codeCommune])
 
   return (
     <Section title="Validation de la dernière BAL">
       <StyledWrapper>
+        {isLoading && <Loader />}
         {report && (
           <Accordion
             id="validation-bal"
