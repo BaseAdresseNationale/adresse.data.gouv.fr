@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
@@ -12,12 +12,16 @@ import { getCommune } from '@/lib/api-geo'
 import {
   CommuneActionsSectionWrapper,
   CommuneActionsActionsWrapper,
-  StyledIframeWrapper,
-  StyledIframe,
   CommuneConfigItem,
 } from './CommuneActions.styles'
 import { BANCommune } from '@/types/api-ban.types'
 import Section from '@/components/Section'
+
+import { env } from 'next-runtime-env'
+const NEXT_PUBLIC_CERTIFICATION_LIMITED = env('NEXT_PUBLIC_CERTIFICATION_LIMITED')
+const NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST = env('NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST')
+
+const limitedList = (NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST || '').split(',').map(code => code.trim())
 
 interface CommuneActionProps {
   iconId: any
@@ -48,13 +52,20 @@ const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, chil
 )
 
 function CommuneActions({ technicalRequirements, district, actionProps }: CommuneActionsProps) {
-  const [isConfigDistrictVisible, setIsConfigDistrictVisible] = useState(false)
-  const iframeSRC = 'https://grist.numerique.gouv.fr/o/ban/forms/4eCgRqqpyXW5FMoZzQ3nNm/4'
   const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
   // const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
   const techRequired = technicalRequirements.hasID
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
+  const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
+
+  const enableAddressingCertification = useCallback(async () => {
+    const options = {
+      method: 'PATCH',
+      // body: JSON.stringify({ id_token, access_token, communeId }),
+    }
+    await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
+  }, [])
 
   useEffect(() => {
     if (!district) return
@@ -62,13 +73,23 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
       try {
-        // if (commune.code == '64102' || commune.code == '64103' || commune.code == '64104') {
-        const response = await customFetch('/api/me')
-        console.log('commune.siren == JSON.parse(response).siret.slice(0, 9)?', commune.siren == JSON.parse(response).siret.slice(0, 9))
-        // Check if the commune's SIREN matches the first 9 digits of the SIRET
-        setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
-        setAuthenticated(response)
-        // }
+        // limited to some communes
+        if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
+          if (limitedList.includes(commune.code)) {
+            setFeatureProConnectEnabled(true)
+          }
+        }
+        else {
+          // unlimited communes
+          setFeatureProConnectEnabled(true)
+        }
+        if (featureProConnectEnabled) {
+          const response = await customFetch('/api/me')
+
+
+          setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
+          setAuthenticated(response)
+        }
       }
       catch (error: any) {
         if (error?.status === 401) {
@@ -81,9 +102,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
         }
       }
     })()
-  }, [authenticated, district])
-
-  // @todo: add authenticated condition
+  }, [authenticated, featureProConnectEnabled, district])
 
   const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
 
@@ -128,7 +147,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       <>
         {conditions}
         <div>{requiredConditions}</div>
-        {renderHabilitationContent()}
+        {featureProConnectEnabled && renderHabilitationContent()}
       </>
     )
   }
@@ -152,8 +171,6 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       )
     }
 
-    console.log('techRequired', techRequired)
-
     if (techRequired) {
       return (
         <>
@@ -161,9 +178,9 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
             <Button
               key="set-config"
               iconId="ri-file-paper-2-line"
-              onClick={() => setIsConfigDistrictVisible(!isConfigDistrictVisible)}
+              onClick={enableAddressingCertification}
             >
-              Activer le certificat d’adressage
+              Activer la certification d’adressage
             </Button>
           )}
           {logOutButton}
@@ -177,7 +194,6 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
 
   return (
     <>
-      <link href={iframeSRC} rel="prefetch" />
       <Section>
         <CommuneActionsSectionWrapper style={{ marginBottom: '3rem' }}>
           {district.config?.certificate
@@ -190,22 +206,6 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
             : null}
           {renderHabilitationWrapper()}
         </CommuneActionsSectionWrapper>
-        <Section
-          title={`Demande d'activation du certificat d'adressage pour la commune de ${district.nomCommune}`}
-          theme="grey"
-          isVisible={isConfigDistrictVisible}
-        >
-          <p>
-            <i>
-              Cette fonctionnalité est en développement.
-              Vous pouvez vous inscrire en liste d’attente pour l’activation
-              du certificat d’adressage pour votre commune.
-            </i>
-          </p>
-          <StyledIframeWrapper>
-            <StyledIframe src={iframeSRC} width="100%" height="800" frameBorder="0" />
-          </StyledIframeWrapper>
-        </Section>
         <CommuneActionsActionsWrapper>
           {actionProps && actionProps.length && actionProps.map(props => (
             <Button
