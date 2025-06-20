@@ -23,6 +23,8 @@ const NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST = env('NEXT_PUBLIC_CERTIFICATION_LI
 
 const limitedList = (NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST || '').split(',').map(code => code.trim())
 
+console.log('::::::: limitedList :::::::', limitedList)
+
 interface CommuneActionProps {
   iconId: any
   linkProps: {
@@ -39,6 +41,7 @@ interface technicalRequirements {
   hasAbove50PercentParcelles: boolean
 }
 interface CommuneActionsProps {
+  token: string
   technicalRequirements: technicalRequirements
   district: BANCommune
   actionProps: CommuneActionProps[]
@@ -51,7 +54,7 @@ const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, chil
   </Tooltip>
 )
 
-function CommuneActions({ technicalRequirements, district, actionProps }: CommuneActionsProps) {
+function CommuneActions({ token, technicalRequirements, district, actionProps }: CommuneActionsProps) {
   const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
   // const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
@@ -60,18 +63,26 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
 
   const enableAddressingCertification = useCallback(async () => {
+    console.log('district.banId', district.banId)
     const options = {
       method: 'PATCH',
-      // body: JSON.stringify({ id_token, access_token, communeId }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token,
+      },
+      body: JSON.stringify({
+        districtID: district.banId,
+      }),
     }
     await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
-  }, [])
+  }, [district, token])
 
   useEffect(() => {
     if (!district) return
     (async () => {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
+      console.log('district.withBanId', district.withBanId)
       try {
         // limited to some communes
         if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
@@ -83,9 +94,18 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
           // unlimited communes
           setFeatureProConnectEnabled(true)
         }
+
+        // check withBanId ancien/nouveau socle
+        if (!district.withBanId) {
+          setFeatureProConnectEnabled(false)
+        }
+
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
+          console.log('::::::: response :::::::', response)
+          console.log('::::::: siren siret :::::::', commune.siren + ' ' + JSON.parse(response).siret.slice(0, 9))
+          console.log('::::::: compare siren siret :::::::', commune.siren == JSON.parse(response).siret.slice(0, 9))
 
           setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
           setAuthenticated(response)

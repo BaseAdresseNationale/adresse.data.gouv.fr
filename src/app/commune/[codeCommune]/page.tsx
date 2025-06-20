@@ -30,6 +30,8 @@ import { notFound } from 'next/navigation'
 
 import SaveUrlClient from '@/components/SaveUrlClient'
 
+const BAN_API_TOKEN = env('BAN_API_TOKEN')
+
 interface CommunePageProps {
   params: { codeCommune: string }
 }
@@ -45,6 +47,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       getAPIGeoCommune(codeCommune),
     ])
     commune = response[0]
+    console.log(':::::::::: commune', commune)
     APIGeoCommune = response[1]
   }
   catch (error) {
@@ -200,6 +203,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           />
 
           <CommuneActions
+            token={BAN_API_TOKEN ?? ''}
             technicalRequirements={technicalRequirements}
             district={commune}
             actionProps={[
