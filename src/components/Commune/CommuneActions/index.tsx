@@ -58,31 +58,48 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
   const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
   // const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
-  const techRequired = technicalRequirements.hasID
+  // const techRequired = technicalRequirements.hasID
+  const techRequired = !!district?.withBanId
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
 
   const enableAddressingCertification = useCallback(async () => {
-    console.log('district.banId', district.banId)
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Token ' + token,
-      },
-      body: JSON.stringify({
-        districtID: district.banId,
-      }),
+    try {
+      if (authenticated) {
+        const response = await customFetch('/api/me')
+
+        console.log('district.banId', district.banId)
+        const options = {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + token,
+          },
+          body: JSON.stringify({
+            districtID: district.banId,
+            // sub: response.sub,
+            // sub: response.sub,
+            // sub: response.sub,
+            // sub: response.sub,
+            // sub: response.sub,
+            // sub: response.sub,
+            // sub: response.sub,
+          }),
+        }
+        await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
+      }
     }
-    await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
-  }, [district, token])
+    catch (error) {
+      console.log('error', error)
+    }
+  }, [district, token, authenticated])
 
   useEffect(() => {
     if (!district) return
     (async () => {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
-      console.log('district.withBanId', district.withBanId)
+      console.log('district.withBanId', district?.withBanId)
       try {
         // limited to some communes
         if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
@@ -96,7 +113,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
         }
 
         // check withBanId ancien/nouveau socle
-        if (!district.withBanId) {
+        if (!district?.withBanId) {
           setFeatureProConnectEnabled(false)
         }
 
@@ -134,7 +151,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
     <>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
         <li>
-          {technicalRequirements.hasID
+          {!!district?.withBanId
             ? (<span className="fr-icon-success-line" aria-hidden="true" />)
             : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
           <span>Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la présence des identifiants.</span>
@@ -161,16 +178,6 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
       </ul>
     </>
   )
-
-  const renderHabilitationWrapper = () => {
-    return (
-      <>
-        {conditions}
-        <div>{requiredConditions}</div>
-        {featureProConnectEnabled && renderHabilitationContent()}
-      </>
-    )
-  }
 
   const renderHabilitationContent = () => {
     if (!authenticated) {
@@ -210,6 +217,16 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
     else {
       return logOutButton
     }
+  }
+
+  const renderHabilitationWrapper = () => {
+    return (
+      <>
+        {conditions}
+        <div>{requiredConditions}</div>
+        {featureProConnectEnabled && renderHabilitationContent()}
+      </>
+    )
   }
 
   return (
