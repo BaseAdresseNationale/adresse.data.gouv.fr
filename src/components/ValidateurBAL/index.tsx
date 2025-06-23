@@ -27,7 +27,7 @@ export default function ValidateurBAL() {
   const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[1])
   const [file, setFile] = useState<File | null>(null)
-  console.log('ValidateurBAL', searchParams?.get('file'))
+
   const handleReset = () => {
     setValidationReport(null)
   }
@@ -64,10 +64,8 @@ export default function ValidateurBAL() {
 
   useEffect(() => {
     const loadFile = async () => {
-      console.log('loadFile')
       try {
         const fileUrl = searchParams?.get('file')
-        console.log('fileUrl', fileUrl)
         if (!fileUrl) {
           return
         }

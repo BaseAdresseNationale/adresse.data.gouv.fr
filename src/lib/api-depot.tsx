@@ -152,7 +152,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     modeDePublication,
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
-    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`${env('NEXT_PUBLIC_ADRESSE_URL')}/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>Rapport de validations</Link>,
+    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>Rapport de validations</Link>,
   ]
 }
 
