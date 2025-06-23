@@ -84,7 +84,7 @@ export default function ValidateurBAL() {
     }
 
     loadFile()
-  }, [searchParams])
+  }, [])
 
   return (
     <>
