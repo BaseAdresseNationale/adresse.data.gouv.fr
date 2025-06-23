@@ -1,3 +1,5 @@
+'use client'
+
 import CardWrapper from '../../CardWrapper'
 import { formatFr } from '@/lib/array'
 import { assemblageSources } from '@/lib/api-ban'
