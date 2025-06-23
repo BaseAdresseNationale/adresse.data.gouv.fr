@@ -2,7 +2,7 @@
 
 import Section from '@/components/Section'
 import { useEffect, useState } from 'react'
-import { validate, profiles, ValidateType, PrevalidateType, ParseFileType } from '@ban-team/validateur-bal'
+import { validate, profiles, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
 import SelectInput from '@/components/SelectInput'
 import Loader from '@/components/Loader'
 import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
@@ -11,7 +11,6 @@ import DropZoneInput from '../DropZoneInput'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useSearchParams } from 'next/navigation'
-import { env } from 'next-runtime-env'
 
 const availableProfiles = ['1.3', '1.4']
 
@@ -28,7 +27,7 @@ export default function ValidateurBAL() {
   const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[1])
   const [file, setFile] = useState<File | null>(null)
-
+  console.log('ValidateurBAL', searchParams?.get('file'))
   const handleReset = () => {
     setValidationReport(null)
   }
