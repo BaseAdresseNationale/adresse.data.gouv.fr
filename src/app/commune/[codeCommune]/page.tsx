@@ -6,7 +6,7 @@ import Section from '@/components/Section'
 import {
   getCommune as getBANCommune,
 } from '@/lib/api-ban'
-import { getCurrentRevisionFile, getRevisionDetails, getRevisions } from '@/lib/api-depot'
+import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { getCommuneFlag } from '@/lib/api-blasons-communes'
@@ -27,8 +27,6 @@ import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
-import dynamic from 'next/dynamic'
-import Loader from '@/components/Loader'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -78,11 +76,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
     getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
   ])
-
-  const DynamicCommuneValidationSection = dynamic(
-    () => import('../../../components/Commune/CommuneValidationSection').then(mod => mod.CommuneValidationSection),
-    { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
-  )
 
   if (mairiePageResponse.status === 'rejected') {
     console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason?.message)
@@ -238,10 +231,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
         <CommuneDownloadSection commune={commune} hasRevision={communeHasBAL} />
 
         {communeHasBAL && lastRevisionsDetails && (
-          <>
-            <DynamicCommuneValidationSection codeCommune={codeCommune} />
-            <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
-          </>
+          <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
 
         {partenaireDeLaCharte && publicationConsoleTabs.length > 0 && <CommunePublicationConsole partenaireDeLaCharte={partenaireDeLaCharte} tabs={publicationConsoleTabs} />}

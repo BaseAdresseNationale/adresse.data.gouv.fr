@@ -4,6 +4,7 @@ import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
 import Tooltip from '@/components/Tooltip'
+import Link from 'next/link'
 
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
@@ -151,6 +152,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     modeDePublication,
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
+    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`${env('NEXT_PUBLIC_ADRESSE_URL')}/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>Rapport de validations</Link>,
   ]
 }
 

@@ -58,6 +58,13 @@ const StyledWrapper = styled.div`
 `
 
 export function CommuneUpdatesSection({ lastRevisionsDetails }: CommuneUpdatesSectionProps) {
+
+  // href={
+  //   // <pathname>?sort=desc
+  //   pathname + '?' + createQueryString('sort', 'desc')
+  // }
+
+  console.log('lastRevisionsDetails', lastRevisionsDetails)
   const data = useMemo(() => {
     return lastRevisionsDetails.map((revision) => {
       return [
