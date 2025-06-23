@@ -65,8 +65,10 @@ export default function ValidateurBAL() {
 
   useEffect(() => {
     const loadFile = async () => {
+      console.log('loadFile')
       try {
         const fileUrl = searchParams?.get('file')
+        console.log('fileUrl', fileUrl)
         if (!fileUrl) {
           return
         }
