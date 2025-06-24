@@ -63,6 +63,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
   const techRequired = !!district?.withBanId
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
+  const [clickedEnable, setClickedEnable] = useState<boolean>(false)
 
   const enableAddressingCertification = useCallback(async () => {
     try {
@@ -92,6 +93,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
           }),
         }
         await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
+        setClickedEnable(true)
       }
     }
     catch (error) {
@@ -204,20 +206,30 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
     }
 
     if (techRequired) {
-      return (
-        <>
-          {!district.config?.certificate && (
-            <Button
-              key="set-config"
-              iconId="ri-file-paper-2-line"
-              onClick={enableAddressingCertification}
-            >
-              Activer la certification d’adressage
-            </Button>
-          )}
-          {logOutButton}
-        </>
-      )
+      if (!clickedEnable) {
+        return (
+          <>
+            {!district.config?.certificate && (
+              <Button
+                key="set-config"
+                iconId="ri-file-paper-2-line"
+                onClick={enableAddressingCertification}
+              >
+                Activer la certification d’adressage
+              </Button>
+            )}
+            {logOutButton}
+          </>
+        )
+      }
+      else {
+        return (
+          <>
+            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} dans minutes.
+            {logOutButton}
+          </>
+        )
+      }
     }
     else {
       return logOutButton
