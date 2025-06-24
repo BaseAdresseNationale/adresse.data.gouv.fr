@@ -68,32 +68,55 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
   const enableAddressingCertification = useCallback(async () => {
     try {
       if (authenticated) {
-        const response = await customFetch('/api/me')
+        await customFetch('/api/me')
+          .then((result) => {
+            const {
+              sub,
+              name,
+              given_name,
+              family_name,
+              usual_name,
+              email,
+              siret,
+              aud,
+              exp,
+              iat,
+              iss,
+            } = JSON.parse(result)
 
-        console.log('>>> district.banId', district.banId)
-        const options = {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Token ' + token,
-          },
-          body: JSON.stringify({
-            districtID: district.banId,
-            sub: response.sub,
-            name: response.name,
-            givenName: response?.given_name,
-            familyName: response?.family_name,
-            usualName: response?.usual_name,
-            email: response.email,
-            siret: response.siret,
-            aud: response.aud,
-            exp: response.exp,
-            iat: response.iat,
-            iss: response.iss,
-          }),
-        }
-        await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
-        setClickedEnable(true)
+            // console.log('>>> district.banId', district.banId)
+            const body = {
+              districtID: district.banId,
+              sub: sub,
+              name: name,
+              givenName: given_name,
+              familyName: family_name,
+              usualName: usual_name,
+              email: email,
+              siret: siret,
+              aud: aud,
+              exp: exp,
+              iat: iat,
+              iss: iss,
+            }
+
+            const options = {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + token,
+              },
+              body: JSON.stringify(body),
+            }
+
+            // console.log('>>> result result=', body)
+            return options
+          })
+          .then((options) => {
+            console.log('>>> options=', options)
+            customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
+            setClickedEnable(true)
+          })
       }
     }
     catch (error) {
