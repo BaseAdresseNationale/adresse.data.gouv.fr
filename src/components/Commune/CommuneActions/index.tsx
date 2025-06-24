@@ -23,7 +23,8 @@ const NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST = env('NEXT_PUBLIC_CERTIFICATION_LI
 
 const limitedList = (NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST || '').split(',').map(code => code.trim())
 
-console.log('::::::: limitedList :::::::', limitedList)
+console.log('>>> limited=', NEXT_PUBLIC_CERTIFICATION_LIMITED)
+console.log('>>> limitedList=', limitedList)
 
 interface CommuneActionProps {
   iconId: any
@@ -68,7 +69,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
       if (authenticated) {
         const response = await customFetch('/api/me')
 
-        console.log('district.banId', district.banId)
+        console.log('>>> district.banId', district.banId)
         const options = {
           method: 'PATCH',
           headers: {
@@ -77,13 +78,17 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
           },
           body: JSON.stringify({
             districtID: district.banId,
-            // sub: response.sub,
-            // sub: response.sub,
-            // sub: response.sub,
-            // sub: response.sub,
-            // sub: response.sub,
-            // sub: response.sub,
-            // sub: response.sub,
+            sub: response.sub,
+            name: response.name,
+            givenName: response?.given_name,
+            familyName: response?.family_name,
+            usualName: response?.usual_name,
+            email: response.email,
+            siret: response.siret,
+            aud: response.aud,
+            exp: response.exp,
+            iat: response.iat,
+            iss: response.iss,
           }),
         }
         await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
@@ -99,7 +104,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
     (async () => {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
-      console.log('district.withBanId', district?.withBanId)
+      console.log('>>> district.withBanId=', district?.withBanId)
       try {
         // limited to some communes
         if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
@@ -120,9 +125,9 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
-          console.log('::::::: response :::::::', response)
-          console.log('::::::: siren siret :::::::', commune.siren + ' ' + JSON.parse(response).siret.slice(0, 9))
-          console.log('::::::: compare siren siret :::::::', commune.siren == JSON.parse(response).siret.slice(0, 9))
+          console.log('>>>response=', response)
+          console.log('>>>siren siret=', commune.siren + ' ' + JSON.parse(response).siret)
+          console.log('>>>compare siren include in siret=', commune.siren == JSON.parse(response).siret.slice(0, 9))
 
           setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
           setAuthenticated(response)
