@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 export const PopupWrapper = styled.div`
   margin: .5rem 0;
+  width: 280px;
 
   .heading {
     align-items: flex-start;
