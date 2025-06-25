@@ -36,10 +36,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   const dataNotices = {
     // data: [sampleNotice],
-    data: [{
-      text: 'Maintenance du site le 24 Juin de 14h à 17h: des interruptions du site sont à prévoir sur ce créneau.',
-      // link?: { href: string; target?: string}
-    }],
+    data: [],
     duration: 4000,
   }
 
