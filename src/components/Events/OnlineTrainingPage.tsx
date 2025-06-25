@@ -19,7 +19,7 @@ const videoFormations = [
     title: 'Épisode 1 : Introduction',
     image: '/img/formations-en-ligne/e1.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/toyKNe4rKyVD7mUovsWLKd',
+      href: 'https://tube.numerique.gouv.fr/w/tsqJcL1c7axB9HrMgebyp8',
       target: '_blank',
     },
   },
@@ -27,7 +27,7 @@ const videoFormations = [
     title: 'Épisode 2 : Création',
     image: '/img/formations-en-ligne/e2.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/aNEtMh7fJCzsAPoGkwvFSg',
+      href: 'https://tube.numerique.gouv.fr/w/f2b6yiXosmfoKkmyF4YLtE',
       target: '_blank',
     },
   },
@@ -35,7 +35,7 @@ const videoFormations = [
     title: 'Épisode 3 : Voies',
     image: '/img/formations-en-ligne/e3.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/rgksUPigy8KWnmx8WFELDN',
+      href: 'https://tube.numerique.gouv.fr/w/v2caTXtfYkvg6wUELBvLs2',
       target: '_blank',
     },
   },
@@ -43,7 +43,7 @@ const videoFormations = [
     title: 'Épisode 4 : Numéros',
     image: '/img/formations-en-ligne/e4.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/un73nNp4kQofNkhT38D6YQ',
+      href: 'https://tube.numerique.gouv.fr/w/ts9chg7zehHXkTrotsjpqr',
       target: '_blank',
     },
   },
@@ -51,7 +51,7 @@ const videoFormations = [
     title: 'Épisode 5 : Lieux-dits',
     image: '/img/formations-en-ligne/e5.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/ttnYNTcXtcubCHQX8kHdGt',
+      href: 'https://tube.numerique.gouv.fr/w/7AeS1b84kmwjbL3A19Wphw',
       target: '_blank',
     },
   },
@@ -59,7 +59,7 @@ const videoFormations = [
     title: 'Épisode 6 : Publication',
     image: '/img/formations-en-ligne/e6.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/4uU6AHpTe7coPyhskBSANB',
+      href: 'https://tube.numerique.gouv.fr/w/oMKnhiVycDTjddCBXZuYMB',
       target: '_blank',
     },
   },
@@ -67,7 +67,7 @@ const videoFormations = [
     title: 'Épisode 7 : Récupération',
     image: '/img/formations-en-ligne/e7.png',
     link: {
-      href: 'https://peertube.adresse.data.gouv.fr/w/fdD1tzvPfktHkkVK8p7h5D',
+      href: 'https://tube.numerique.gouv.fr/w/wwf47pyuTNkMqK5GG5RUtP',
       target: '_blank',
     },
   },
