@@ -39,7 +39,7 @@ const PanelDetailsDesc = styled.div<{ $isOpen?: boolean }>`
   color: var(--text-mention-grey);
 
   overflow: hidden;
-  max-height: 5rem;
+  max-height: 9rem;
   transition: max-height 0.3s ease;
 
   ${({ $isOpen }) => !$isOpen && css`
