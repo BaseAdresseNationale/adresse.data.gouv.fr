@@ -24,7 +24,7 @@ const configOriginDistrict = {
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Les adresses de cette communune ne proviennent pas d’une BAL</>,
+    message: <>Les adresses de cette commune ne proviennent pas d’une BAL</>,
     desc: (
       <>
         En l&apos;absence d&apos;une BAL, une liste d&apos;adresses (nommée ASSEMBLAGE) est composée par l&apos;IGN à partir des meilleures sources disponibles (IGN, DGFIP, ARCEP).<br />
