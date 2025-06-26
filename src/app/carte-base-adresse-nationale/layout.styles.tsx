@@ -34,7 +34,7 @@ export const CartoWrapper = styled.div`
     background: var(--background-default-grey);
     border-radius: 0.5rem;
     padding: 0.75rem;
-    width: 280px;
+    width: 290px;
   }
 
   .maplibregl-popup-anchor-top-left .maplibregl-popup-content {
