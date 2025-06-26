@@ -1,8 +1,7 @@
 import * as client from 'openid-client'
 import { NextRequest, NextResponse } from 'next/server'
-import { getProviderConfig, getCurrentUrl } from '@/utils/oauth'
+import { configOptions, getProviderConfig, getCurrentUrl } from '@/utils/oauth'
 import { cookies } from 'next/headers'
-import { configOptions } from '../../../utils/oauth'
 
 export const dynamic = 'force-dynamic'
 
