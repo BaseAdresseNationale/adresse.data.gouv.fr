@@ -16,10 +16,10 @@ const defaultEnvVar = getNextEnv(defaultEnvVarRaw)
 const envVar = getNextEnv(process.env)
 
 const URL_CARTOGRAPHY_BAN = '/carte-base-adresse-nationale'
-const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE
+const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
 const imagesDomains = ['static.data.gouv.fr']
-if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE) {
-  imagesDomains.push(NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCE)
+if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES) {
+  imagesDomains.push(...NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES.split(','))
 }
 
 const withBundleAnalyzer = NextBundleAnalyzer({
