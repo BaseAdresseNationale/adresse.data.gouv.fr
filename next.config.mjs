@@ -19,7 +19,7 @@ const URL_CARTOGRAPHY_BAN = '/carte-base-adresse-nationale'
 const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
 const imagesDomains = ['static.data.gouv.fr']
 if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES) {
-  imagesDomains.push(...NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES.split(','))
+  imagesDomains.push(...NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES.split(',').map(item => item.trim()))
 }
 
 const withBundleAnalyzer = NextBundleAnalyzer({
