@@ -8,6 +8,7 @@ import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
 // import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
 import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 import { getCommune } from '@/lib/api-geo'
+import { Commune } from '@/types/api-geo.types'
 
 import {
   CommuneActionsSectionWrapper,
@@ -64,6 +65,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
   const [clickedEnable, setClickedEnable] = useState<boolean>(false)
+  const [commune, setCommune] = useState<Commune | null>(null)
 
   const enableAddressingCertification = useCallback(async () => {
     try {
@@ -93,7 +95,8 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
               familyName: family_name,
               usualName: usual_name,
               email: email,
-              siret: siret,
+              siret,
+              siren: commune?.siren,
               aud: aud,
               exp: exp,
               iat: iat,
@@ -129,6 +132,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
     (async () => {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
+      setCommune(commune)
       console.log('>>> district.withBanId=', district?.withBanId)
       try {
         // limited to some communes
@@ -232,7 +236,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
       if (!clickedEnable) {
         return (
           <>
-            {!district.config?.certificate && (
+            {!district?.config?.certificate && (
               <Button
                 key="set-config"
                 iconId="ri-file-paper-2-line"
