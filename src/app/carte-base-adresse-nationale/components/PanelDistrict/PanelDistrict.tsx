@@ -27,8 +27,7 @@ const configOriginDistrict = {
     message: <>Les adresses de cette communune ne proviennent pas d’une BAL</>,
     desc: (
       <>
-        En l'absence d'une BAL, une liste d'adresses (nommée ASSEMBLAGE) est composée par 
-        l'IGN à partir des meilleures sources disponibles (IGN, DGFIP, ARCEP).<br />
+        En l&apos;absence d&apos;une BAL, une liste d&apos;adresses (nommée ASSEMBLAGE) est composée par l&apos;IGN à partir des meilleures sources disponibles (IGN, DGFIP, ARCEP).<br />
         <Link href="/contribuer" className="fr-link--icon-left fr-icon-pencil-line">Contribuez à la Base Adresse Nationale&nbsp;(BAN)</Link>
       </>
     ),
