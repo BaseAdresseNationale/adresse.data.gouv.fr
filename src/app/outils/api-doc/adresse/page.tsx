@@ -9,7 +9,7 @@ import HtmlViewer from '@/components/HtmlViewer'
 
 import { TextWrapper } from './page.styled'
 
-async function ApiAdresse() {
+export default async function ApiAdresse() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/service-geocodage--intro') || {}
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/service-geocodage') || {}
 
@@ -69,4 +69,3 @@ async function ApiAdresse() {
     </>
   )
 }
-export default ApiAdresse

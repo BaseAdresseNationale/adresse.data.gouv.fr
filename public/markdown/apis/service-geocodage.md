@@ -1,6 +1,5 @@
 ---
 title: Service de Géocodage Géoplateforme
-aside: [{attach: "la-base-adresse-nationale", filename: "service-geocodage--la-base-adresse-nationale"}]
 ---
 
 ## Descriptif du service
@@ -40,6 +39,12 @@ Si le script sollicite l'API de géocodage sans précaution particulière, avec 
 
 * Les 50 premiers appels sont traités normalement ;
 * Le 51ème appel et les suivants sont bloqués tant que le script continue à solliciter l'API de géocodage au-delà de la limite de 50 requêtes par seconde et que le délai de 5 secondes qui s'en suit n'est pas écoulé.
-Solution : paramétrer le script de telle sorte que la fréquence d'appel à l'API de géocodage ne dépasse pas 50 requêtes par seconde, en instaurant par exemple un plafond à 40 ou 45 requêtes pas seconde.
 
-![Exemple avec FME](img/pages/outils/rate-limiting-fme.png)
+#### Solution: 
+Paramétrer le script de telle sorte que la fréquence d'appel à l'API de géocodage ne dépasse pas 50 requêtes par seconde, en instaurant par exemple un plafond à 40 ou 45 requêtes pas seconde.
+
+A titre d'illustration, pour une utilisation de l'ETL "FME" édité par Safe Software, le paramétrage de la fréquence d'appel peut être effectué comme suit :
+Paramétrage de la fréquence d'appel à une API dans FME
+
+
+![Exemple avec FME](/img/pages/outils/rate-limiting-fme.png)
