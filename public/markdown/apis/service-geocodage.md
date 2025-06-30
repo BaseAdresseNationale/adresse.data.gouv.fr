@@ -11,6 +11,8 @@ Il existe 2 types de geocodage (direct et inverse):
 
 **Ces deux types de géocodage se déclinent sous la forme d'appels unitaires, ou regroupés par fichiers (géocodage en masse de fichiers csv)**
 
+Un outil vous permettant de géocoder vos fichiers CSV est accessible sur notre site sur [la page Géocodeur CSV](https://adresse.data.gouv.fr/outils/csv).
+
 Vous pouvez avoir plus d'informations sur l'utilisation en consultant [la documentation du Service Géoplateforme de Géocodage](https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage)
 
 ## Limite d'usage
@@ -21,17 +23,17 @@ Lorsqu'une IP sollicite l' API au-delà de la limite d'usage fixée :
 
 *Une erreur HTML 429 (Too Many Requests) est envoyée en réponse à toute requête*
 
-Ce blocage intervient pour une durée de 5 secondes;
-La durée du blocage est indiquée dans un header "retry-after", avec une durée initialisée à 5 secondes et qui décroît à partir du moment où la sur-sollicitation cesse.*  
+*Ce blocage intervient pour une durée de 5 secondes;*
+*La durée du blocage est indiquée dans un header "retry-after", avec une durée initialisée à 5 secondes et qui décroît à partir du moment où la sur-sollicitation cesse.*
 
 
 2 options s’offrent à vous :
 *  Vous pouvez installer une instance de l’API sur vos propres serveurs. Nous vous indiquons la marche à suivre sur cette page : [Installer une instance docker avec les données de la BAN](https://geoplateforme.pages.gpf-tech.ign.fr/geocodage/geocodeur/user/installation/)
-*  Vous êtes un acteur public ET vous ne pouvez pas installer d’instance sur votre Système d’Information : vous pouvez demander une levée de cette limite en remplissant un formulaire sur [la page contact géoservices de l'IGN](https://www.demarches-simplifiees.fr/commencer/demande-de-levee-de-limite-de-l-api-base-adresse)  
+*  Vous êtes un acteur public et vous ne pouvez pas installer d’instance sur votre Système d’Information : vous pouvez demander une levée de cette limite pour vos missions de service public en remplissant le  formulaire sur [la page contact géoservices de l'IGN](https://geoservices.ign.fr/contact)  
  
  
   
-### Exemple de fonctionnement 
+### Exemple de fonctionnement du Gécodage de fichiers
 
 Prenons l'exemple du géocodage d’un fichier de 1000 lignes au moyen d’un script faisant appel à l’API de géocodage de la Géoplateforme.
 
