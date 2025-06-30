@@ -44,15 +44,15 @@ const configOriginAddress = {
   bal: {
     className: 'ri-send-plane-fill isFormal',
     message: <>Cette adresse est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
-    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+    desc: <>Les Bases&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont les fichiers de référence communale.</>,
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Cette adresse est fournie par l’IGN</>,
+    message: <>Cette adresse ne provient pas d’une BAL</>,
     desc: (
       <>
         En l’absence de Base Adresse Locale&nbsp;(BAL) officielle sur la commune,
-        l’IGN fournie des adresses produites à partir de multiples sources.
+        l’IGN propose des adresses produites à partir de multiples sources.
       </>
     ),
   },

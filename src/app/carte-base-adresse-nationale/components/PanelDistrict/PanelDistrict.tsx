@@ -20,15 +20,14 @@ const configOriginDistrict = {
   bal: {
     className: 'ri-send-plane-fill isFormal',
     message: <>Les adresses de cette commune sont issues d’une Base Adresse Locale&nbsp;(BAL)</>,
-    desc: <>Les Base Adresse Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+    desc: <>Les Bases Adresse Locale&nbsp;(BAL) sont les fichiers de référence communale.</>,
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Les adresses de cette commune sont produite par l’IGN</>,
+    message: <>Les adresses de cette commune ne proviennent pas d’une BAL</>,
     desc: (
       <>
-        En l’absence d’une Base Adresse Locale&nbsp;(BAL) officielle, l’IGN fournie ces adresses,
-        produites à partir de multiples sources.<br />
+        En l&apos;absence d&apos;une BAL, une liste d&apos;adresses (nommée ASSEMBLAGE) est composée par l&apos;IGN à partir des meilleures sources disponibles (IGN, DGFIP, ARCEP).<br />
         <Link href="/contribuer" className="fr-link--icon-left fr-icon-pencil-line">Contribuez à la Base Adresse Nationale&nbsp;(BAN)</Link>
       </>
     ),
