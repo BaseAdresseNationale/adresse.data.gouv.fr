@@ -1,8 +1,8 @@
 'use client'
 
 import Section from '@/components/Section'
-import { useState } from 'react'
-import { validate, profiles, ValidateType, PrevalidateType, ParseFileType } from '@ban-team/validateur-bal'
+import { useEffect, useState } from 'react'
+import { validate, profiles, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
 import SelectInput from '@/components/SelectInput'
 import Loader from '@/components/Loader'
 import ValidationReport from '@/components/ValidateurBAL/ValidationReport'
@@ -10,6 +10,7 @@ import ProfileDocumentation from '@/components/ValidateurBAL/ProfileDocumentatio
 import DropZoneInput from '../DropZoneInput'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import Button from '@codegouvfr/react-dsfr/Button'
+import { useSearchParams } from 'next/navigation'
 
 const availableProfiles = ['1.3', '1.4']
 
@@ -21,6 +22,7 @@ const profilesOptions: {
   .map(({ name, code }) => ({ label: name, value: code }))
 
 export default function ValidateurBAL() {
+  const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(false)
   const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[1])
@@ -59,6 +61,29 @@ export default function ValidateurBAL() {
     setProfile(value)
     getReport(file as File, value)
   }
+
+  useEffect(() => {
+    const loadFile = async () => {
+      try {
+        const fileUrl = searchParams?.get('file')
+        if (!fileUrl) {
+          return
+        }
+        const options: RequestInit = {
+          mode: 'cors',
+          method: 'GET',
+        }
+        const fileBuffer = await fetch(fileUrl, options).then(res => res.arrayBuffer())
+        const file = new File([fileBuffer], 'file.csv', { type: 'text/csv' })
+        await handleFileChange(file)
+      }
+      catch (e) {
+        console.error(e)
+      }
+    }
+
+    loadFile()
+  }, [])
 
   return (
     <>
