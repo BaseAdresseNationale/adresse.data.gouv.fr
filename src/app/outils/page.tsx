@@ -254,9 +254,9 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="Mise en forme BAL(Version Bêta)"
+            title="Mise en forme BAL (Version Bêta)"
             titleAs="h5"
-            desc="Améliorez votre BAL grâce à une mise en forme automatique."
+            desc="Améliorer votre BAL grâce à une mise en forme automatique."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
