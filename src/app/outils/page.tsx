@@ -254,7 +254,7 @@ export default async function Outils() {
           <Card
             title={(<>Mise en forme BAL <Badge noIcon severity="info">BETA</Badge></>)}
             titleAs="h5"
-            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
+            desc="Améliorer votre BAL grâce à une mise en forme automatique"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -291,7 +291,7 @@ export default async function Outils() {
           <Card
             title={<>API Validateur BAL <Badge noIcon severity="new">Nouveau</Badge></>}
             titleAs="h5"
-            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
+            desc="Vérifier la conformité de votre fichier Base Adresse Locale via une API."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
