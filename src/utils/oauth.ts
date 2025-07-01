@@ -3,6 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isObject, mapValues, omitBy } from 'lodash'
 
+// import secureSetup from '@/utils/secure'
+// import { env } from 'next-runtime-env'
+// const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+
 export const objToUrlParams = (obj: any) => {
   const processedObj = mapValues(
     omitBy(obj, v => !v),
@@ -65,6 +69,8 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
     const state = client.randomState()
 
     const cookieStore = cookies()
+    // cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: NEXT_PUBLIC_ADRESSE_URL, sameSite: 'strict' })
+    // cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: NEXT_PUBLIC_ADRESSE_URL, sameSite: 'strict' })
     cookieStore.set('nonce', nonce, { httpOnly: true })
     cookieStore.set('state', state, { httpOnly: true })
 
@@ -77,6 +83,7 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
         ...extraParams,
       })
     )
+    console.log('authorize', redirectUrl)
 
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
     // const url = req.nextUrl.clone()

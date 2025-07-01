@@ -5,6 +5,10 @@ import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
 
+// import secureSetup from '@/utils/secure'
+// import { env } from 'next-runtime-env'
+// const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+
 export async function GET(req: NextRequest) {
   try {
     const config = await getProviderConfig()
@@ -33,6 +37,10 @@ export async function GET(req: NextRequest) {
       tokens.access_token,
       claims.sub,
       configOptions as client.DPoPOptions)
+    // cookieStore.set('userinfo', JSON.stringify(userinfo), { httpOnly: true, secure: secureSetup, domain: `${NEXT_PUBLIC_ADRESSE_URL}`, sameSite: 'strict' })
+    // cookieStore.set('idtoken', JSON.stringify(claims), { httpOnly: true, secure: secureSetup, domain: `${NEXT_PUBLIC_ADRESSE_URL}`, sameSite: 'strict' })
+    // cookieStore.set('id_token_hint', JSON.stringify(tokens.id_token), { httpOnly: true, secure: secureSetup, domain: `${NEXT_PUBLIC_ADRESSE_URL}`, sameSite: 'strict' })
+    // cookieStore.set('oauth2token', JSON.stringify(tokens), { httpOnly: true, secure: secureSetup, domain: `${NEXT_PUBLIC_ADRESSE_URL}`, sameSite: 'strict' })
     cookieStore.set('userinfo', JSON.stringify(userinfo), { httpOnly: true })
     cookieStore.set('idtoken', JSON.stringify(claims), { httpOnly: true })
     cookieStore.set('id_token_hint', JSON.stringify(tokens.id_token), { httpOnly: true })
