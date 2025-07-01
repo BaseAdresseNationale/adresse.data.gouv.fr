@@ -254,6 +254,27 @@ export default async function Outils() {
             )}
           />
           <Card
+            title="Mise en forme BAL(Version Bêta)"
+            titleAs="h5"
+            desc="Améliorez votre BAL grâce à une mise en forme automatique."
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                <li>
+                  <Button
+                    className="fr-btn fr-btn"
+                    linkProps={{
+                      href: 'outils/mise-en-forme',
+                    }}
+                    size="small"
+                  >
+                    Mise en forme BAL
+                  </Button>
+                </li>
+              </ul>
+            )}
+          />
+          <Card
             title="API dépôt d’une Base Adresse Locale"
             titleAs="h5"
             desc="Soumettre une Base Adresse Locale à la Base Adresse Nationale avec les gestions des habilitations."
