@@ -30,8 +30,6 @@ import { notFound } from 'next/navigation'
 
 import SaveUrlClient from '@/components/SaveUrlClient'
 
-const BAN_API_TOKEN = env('BAN_API_TOKEN')
-
 interface CommunePageProps {
   params: { codeCommune: string }
 }
@@ -203,7 +201,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
           />
 
           <CommuneActions
-            token={BAN_API_TOKEN ?? ''}
             technicalRequirements={technicalRequirements}
             district={commune}
             actionProps={[

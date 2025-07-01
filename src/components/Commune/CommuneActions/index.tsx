@@ -43,7 +43,6 @@ interface technicalRequirements {
   hasAbove50PercentParcelles: boolean
 }
 interface CommuneActionsProps {
-  token: string
   technicalRequirements: technicalRequirements
   district: BANCommune
   actionProps: CommuneActionProps[]
@@ -56,7 +55,7 @@ const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, chil
   </Tooltip>
 )
 
-function CommuneActions({ token, technicalRequirements, district, actionProps }: CommuneActionsProps) {
+function CommuneActions({ technicalRequirements, district, actionProps }: CommuneActionsProps) {
   const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
   // const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
@@ -86,7 +85,6 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
               iss,
             } = JSON.parse(result)
 
-            // console.log('>>> district.banId', district.banId)
             const body = {
               districtID: district.banId,
               sub: sub,
@@ -104,20 +102,17 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
             }
 
             const options = {
-              method: 'PATCH',
+              method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Token ' + token,
               },
               body: JSON.stringify(body),
             }
 
-            // console.log('>>> result result=', body)
             return options
           })
           .then((options) => {
-            console.log('>>> options=', options)
-            customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/district/addressing-certification/enable`, options)
+            customFetch(`/api/addressing-certification-enable`, options)
             setClickedEnable(true)
           })
       }
@@ -125,7 +120,7 @@ function CommuneActions({ token, technicalRequirements, district, actionProps }:
     catch (error) {
       console.log('error', error)
     }
-  }, [district, token, authenticated])
+  }, [district, commune?.siren, authenticated])
 
   useEffect(() => {
     if (!district) return

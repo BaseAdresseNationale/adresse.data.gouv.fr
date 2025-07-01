@@ -21,7 +21,6 @@ import { CardContainer } from './page.styles'
 export const revalidate = 3600 // 1 hour
 
 import { env } from 'next-runtime-env'
-const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
 export default async function Home() {
   const stats = await getStats()
@@ -30,7 +29,7 @@ export default async function Home() {
 
   return (
     <>
-      <ProConnectRedirectClient token={BAN_API_TOKEN ?? ''} />
+      <ProConnectRedirectClient />
       <SectionHero
         pageTitle="La Base Adresse Nationale"
         picture={{

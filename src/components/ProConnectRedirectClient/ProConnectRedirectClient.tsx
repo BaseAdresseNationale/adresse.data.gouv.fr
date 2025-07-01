@@ -5,7 +5,7 @@ import { env } from 'next-runtime-env'
 import { useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
 
-export default function ProConnectRedirectClient({ token }: { token: string }) {
+export default function ProConnectRedirectClient() {
   useEffect(() => {
     const lastVisitedUrl = localStorage.getItem('previousUrl')
 
@@ -46,23 +46,21 @@ export default function ProConnectRedirectClient({ token }: { token: string }) {
           iss,
         }
 
-        console.log('token', token)
         const options = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Token ' + token,
           },
           body: JSON.stringify(body),
         }
-        customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/session`, options)
+        customFetch('/api/proconnect-session', options)
         localStorage.setItem('previousUrl', '')
         window.location.href = lastVisitedUrl
       }).catch((error) => {
         console.error('ProConnectRedirectClient: error fetching user data after ProConnect authentication', error)
       })
     }
-  }, [token])
+  }, [])
 
   return null
 }
