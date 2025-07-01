@@ -11,6 +11,7 @@ import Breadcrumb from '@/layouts/Breadcrumb'
 import type { DataType } from '@/lib/markdown'
 import { CardContainer } from '@/app/outils/page.styled'
 import { TextWrapper } from '../blog/page.styled'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 export default async function Outils() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('sommaire-outils') || {}
@@ -98,23 +99,25 @@ export default async function Outils() {
 
             />
             <Card
-              title="Service de géocodage de la Géoplateforme"
+              title={<>Api de géocodage <Badge noIcon severity="new">Nouveau</Badge></>}
               titleAs="h5"
-              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale. Géocodage direct et inverse, unitaire et en masse."
+              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
+                  iconId="fr-icon-code-s-slash-line"
                   linkProps={{
-                    href: '/outils/api-doc/adresse',
+                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage',
+                    target: '_blank',
                   }}
                   size="small"
                 >
-                  Service de géocodage Géoplateforme
+                  Documentation
                 </Button>
               )}
             />
             <Card
-              title="Service d'autocomplétion (Nouveau)"
+              title={<>Service d&apos;autocomplétion <Badge noIcon severity="new">Nouveau</Badge></>}
               titleAs="h5"
               desc="Faciliter la saisie en suggérant des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux."
               className="fr-card--horizontal-tier fr-card--md"
@@ -134,7 +137,7 @@ export default async function Outils() {
             <Card
               title="Le Géocodeur CSV"
               titleAs="h5"
-              desc="Le service de Géocodeur CSV propose une interface pour vous permettre de géocoder facilement une liste d'adresses en ajoutant un fichier CSV et en paramétrant les colonnes à utiliser."
+              desc="Le service de Géocodeur CSV permet de géocoder une liste d'adresses en ajoutant un fichier CSV et en paramétrant les colonnes à utiliser."
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -144,6 +147,23 @@ export default async function Outils() {
                   size="small"
                 >
                   Géocodeur CSV
+                </Button>
+              )}
+            />
+            <Card
+              title="API Adresse (en cours de transfert vers le Service de géocodage de la Géoplateforme)"
+              titleAs="h5"
+              desc="Effectuer rapidement une recherche d’adresse pour y associer des coordonnées (géocoder) suivant plusieurs critères."
+              className="fr-card--horizontal-tier fr-card--md"
+              footer={(
+                <Button
+                  iconId="fr-icon-code-s-slash-line"
+                  linkProps={{
+                    href: '/outils/api-doc/adresse',
+                  }}
+                  size="small"
+                >
+                  API adresse
                 </Button>
               )}
             />
@@ -202,10 +222,9 @@ export default async function Outils() {
             titleAs="h5"
             desc="Permettre aux communes de modifier les adresses de son territoire."
             className="fr-card--horizontal-tier fr-card--md"
-            imageAlt="mes-adresses"
-            imageUrl="/img/pages/outils/outils-ban.png"
             footer={(
               <Button
+                className="fr-btn fr-btn--secondary"
                 linkProps={{
                   href: 'https://mes-adresses.data.gouv.fr/',
                   target: '_blank',
@@ -217,7 +236,7 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="Le validateur Base Adresse locale"
+            title="Application Validateur BAL"
             titleAs="h5"
             desc="Vérifier la conformité de votre fichier Base Adresse Locale"
             className="fr-card--horizontal-tier fr-card--md"
@@ -233,9 +252,25 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="Publication d’une Base Adresse Locale"
+            title={(<>Mise en forme BAL <Badge noIcon severity="info">BETA</Badge></>)}
             titleAs="h5"
-            desc="Publier une base à partir d'un formulaire."
+            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                linkProps={{
+                  href: '/outils/validateur-bal',
+                }}
+                size="small"
+              >
+                Mise en forme BAL
+              </Button>
+            )}
+          />
+          <Card
+            title="Formulaire de publication"
+            titleAs="h5"
+            desc="Publier une base adresse locale à partir d'un formulaire."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -247,27 +282,79 @@ export default async function Outils() {
                     }}
                     size="small"
                   >
-                    Publication
+                    Formulaire Publication
                   </Button>
                 </li>
               </ul>
             )}
           />
           <Card
-            title="API dépôt d’une Base Adresse Locale"
+            title={<>API Validateur BAL <Badge noIcon severity="new">Nouveau</Badge></>}
             titleAs="h5"
-            desc="Soumettre une Base Adresse Locale à la Base Adresse Nationale avec les gestions des habilitations."
+            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
-                iconId="fr-icon-book-2-line"
+                className="fr-btn fr-btn--secondary"
                 linkProps={{
-                  href: 'https://github.com/BaseAdresseNationale/api-depot/wiki/Documentation',
+                  href: 'https://plateforme-bal.adresse.data.gouv.fr/validateur-api/api',
                   target: '_blank',
                 }}
                 size="small"
               >
-                API dépot d’une Base Adresse Locale
+                Swagger
+              </Button>
+            )}
+          />
+          <Card
+            title="API dépôt BAL"
+            titleAs="h5"
+            desc="Soumettre une Base Adresse Locale à la Base Adresse Nationale via API."
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                <li>
+                  <Button
+                    className="fr-btn fr-btn--secondary"
+                    linkProps={{
+                      href: 'https://plateforme-bal.adresse.data.gouv.fr/api-depot/api',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    Swagger
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    className="fr-btn fr-btn--secondary"
+                    linkProps={{
+                      href: 'https://github.com/BaseAdresseNationale/api-depot/wiki/04_Publication_BAL',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    Documentation publication BAL
+                  </Button>
+                </li>
+              </ul>
+            )}
+          />
+          <Card
+            title="Moissonneur BAL"
+            titleAs="h5"
+            desc="Soumettre une Base Adresse Locale à la Base Adresse Nationale via data.gouv.fr."
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                className="fr-btn fr-btn--secondary"
+                linkProps={{
+                  href: 'https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale',
+                  target: '_blank',
+                }}
+                size="small"
+              >
+                Documentation publication BAL
               </Button>
             )}
           />
