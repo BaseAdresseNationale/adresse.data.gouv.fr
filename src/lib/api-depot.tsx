@@ -1,11 +1,10 @@
 import { customFetch } from '@/lib/fetch'
-import { format, parseISO } from 'date-fns'
-import { fr } from 'date-fns/locale'
 import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
 import Tooltip from '@/components/Tooltip'
+import Link from 'next/link'
 
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
@@ -44,6 +43,15 @@ export async function getRevision(revisionId: string): Promise<Revision> {
 
 export async function getCurrentRevision(codeCommune: string): Promise<Revision | undefined> {
   return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision`)
+}
+
+export async function getCurrentRevisionFile(codeCommune: string): Promise<any> {
+  const options: RequestInit = {
+    mode: 'cors',
+    method: 'GET',
+  }
+
+  return fetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`, options)
 }
 
 export async function getRevisions(codeCommune: string): Promise<Revision[]> {
@@ -144,6 +152,7 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     modeDePublication,
     source,
     <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
+    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>Rapport de validation</Link>,
   ]
 }
 
