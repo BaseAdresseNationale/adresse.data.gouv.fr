@@ -24,19 +24,6 @@ export default async function PageDownloadBan() {
             <article>
               {contentHtml && <HtmlViewer html={contentHtml} />}
             </article>
-            {
-              data?.aside && (
-                <aside>{data?.aside?.map(
-                  ({ data }) =>
-                    data?.contentHtml && (
-                      <CallOut key={`${data?.data?.title}`}>
-                        <HtmlViewer html={data?.contentHtml} />
-                      </CallOut>
-                    )
-                )}
-                </aside>
-              )
-            }
           </Suspense>
         </TextWrapper>
       </Section>
