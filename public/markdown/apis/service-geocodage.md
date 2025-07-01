@@ -15,6 +15,8 @@ Un outil vous permettant de géocoder vos fichiers CSV est accessible sur notre 
 
 Vous pouvez avoir plus d'informations sur l'utilisation en consultant [la documentation du Service Géoplateforme de Géocodage](https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage)
 
+En cas de difficultés ou d'anomalies, vous pouvez contacter [le support technique de la géoplateforme](https://geoservices.ign.fr/contact)
+
 ## Limite d'usage
 
 Pour garantir un usage équitable de ce service très sollicité, une limite d'usage est appliquée. Elle est de **50 appels/IP/seconde.**
@@ -33,7 +35,7 @@ Lorsqu'une IP sollicite l' API au-delà de la limite d'usage fixée :
  
  
   
-### Exemple de fonctionnement du Gécodage de fichiers
+### Exemple de fonctionnement
 
 Prenons l'exemple du géocodage d’un fichier de 1000 lignes au moyen d’un script faisant appel à l’API de géocodage de la Géoplateforme.
 
