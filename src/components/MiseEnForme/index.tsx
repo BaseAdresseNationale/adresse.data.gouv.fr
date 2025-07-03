@@ -48,7 +48,7 @@ export default function MiseEnFormeBAL() {
             <Badge noIcon severity="info">BETA</Badge>
           </>
         )}
-        title="Améliorez votre BAL grâce à une mise forme automatique"
+        title="Améliorez votre BAL grâce à une mise en forme automatique"
       >
         {isLoading
           ? <Loader />

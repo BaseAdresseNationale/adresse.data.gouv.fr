@@ -83,6 +83,7 @@ export default function ValidateurBAL() {
     }
 
     loadFile()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
