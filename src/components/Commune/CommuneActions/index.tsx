@@ -141,7 +141,6 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
           setFeatureProConnectEnabled(true)
         }
 
-
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
