@@ -63,14 +63,16 @@ export const AUTHORIZATION_DEFAULT_PARAMS = {
 }
 
 export const getAuthorizationControllerFactory = async (req: NextRequest, extraParams?: any) => {
+  // eslint-disable-next-line
+  const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   try {
     const config = await getProviderConfig()
     const nonce = client.randomNonce()
     const state = client.randomState()
 
     const cookieStore = cookies()
-    cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: new URL(NEXT_PUBLIC_ADRESSE_URL).hostname, path: '/', sameSite: 'lax' })
-    cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: new URL(NEXT_PUBLIC_ADRESSE_URL).hostname, path: '/', sameSite: 'lax' })
+    cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
+    cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
 
     const redirectUrl = client.buildAuthorizationUrl(
       config,
