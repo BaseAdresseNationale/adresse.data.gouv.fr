@@ -76,4 +76,4 @@ USER node
 EXPOSE 3000
 
 # Commande de démarrage de l'application
-CMD ["sh", "-c", "npm start"]
+CMD ["sh", "-c", "npm run dev "]
