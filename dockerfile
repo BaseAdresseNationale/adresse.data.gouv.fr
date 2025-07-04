@@ -54,26 +54,14 @@ ENV NEXT_PUBLIC_MES_SIGNALEMENTS_SOURCE_ID=${NEXT_PUBLIC_MES_SIGNALEMENTS_SOURCE
 
 RUN npm i sharp
 
-RUN npm run build
-
-# Étape 2 : Image de production
-FROM node:20.15.1-alpine
-
-# Définit le répertoire de travail
-WORKDIR /app
-
-# Copie les fichiers nécessaires de l'étape de build
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
-
+# Crée le dossier pour les fichiers dynamiques
 RUN mkdir -p /app/data && chown -R node:node /app/data
 
-# Utilisation de l'utilisateur non-root
+# Utilisation d'un utilisateur non-root
 USER node
 
-# Expose le port de l'application
+# Expose le port dev de Next.js
 EXPOSE 3000
 
-# Commande de démarrage de l'application
-CMD ["sh", "-c", "npm run dev "]
+# Lance l'application en mode développement
+CMD ["npm", "run", "dev"]
