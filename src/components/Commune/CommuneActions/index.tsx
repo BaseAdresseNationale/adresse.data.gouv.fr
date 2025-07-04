@@ -247,7 +247,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       else {
         return (
           <>
-            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} dans minutes.
+            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} dans quelques minutes.
             {logOutButton}
           </>
         )
