@@ -8,7 +8,10 @@ export const dynamic = 'force-dynamic'
 import secureSetup from '@/utils/secure'
 import { env } from 'next-runtime-env'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
-const NEXT_DOMAIN_HOST_NAME = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
+if (!NEXT_PUBLIC_ADRESSE_URL) {
+  throw new Error('NEXT_PUBLIC_ADRESSE_URL is not defined')
+}
+const NEXT_DOMAIN_HOST_NAME = new URL(NEXT_PUBLIC_ADRESSE_URL).hostname
 
 export async function GET(req: NextRequest) {
   try {
