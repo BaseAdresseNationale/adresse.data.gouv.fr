@@ -15,7 +15,7 @@ export default function ProConnectRedirectClient() {
     // authenticated from ProConnect just after visited unit commune page, redirect to this unit page commune and clear lastVisitedUrl
     if (backFromProConnect && lastVisitedUrl && window.location.href !== lastVisitedUrl && window.location.href.indexOf('/commune/') == -1 && lastVisitedUrl.indexOf('/commune/') !== -1) {
       const response = customFetch('/api/me')
-      response.then((data) => {
+      response.then(async (data) => {
         // console.log('ProConnectRedirectClient: user authenticated from ProConnect, redirect to last visited commune page', data)
 
         const {
@@ -53,12 +53,15 @@ export default function ProConnectRedirectClient() {
           },
           body: JSON.stringify(body),
         }
-        customFetch('/api/proconnect-session', options)
-        localStorage.setItem('previousUrl', '')
-        window.location.href = lastVisitedUrl
-      }).catch((error) => {
-        console.error('ProConnectRedirectClient: error fetching user data after ProConnect authentication', error)
+        await customFetch('/api/proconnect-session', options)
       })
+        .finally(() => {
+          localStorage.setItem('previousUrl', '')
+          window.location.href = lastVisitedUrl
+        })
+        .catch((error) => {
+          console.error('ProConnectRedirectClient: error fetching user data after ProConnect authentication', error)
+        })
     }
   }, [])
 

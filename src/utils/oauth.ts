@@ -3,9 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { isObject, mapValues, omitBy } from 'lodash'
 
-// import secureSetup from '@/utils/secure'
-// import { env } from 'next-runtime-env'
-// const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+import secureSetup from '@/utils/secure'
+import { env } from 'next-runtime-env'
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+const NEXT_DOMAIN_HOST_NAME = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
 
 export const objToUrlParams = (obj: any) => {
   const processedObj = mapValues(
@@ -69,10 +70,8 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
     const state = client.randomState()
 
     const cookieStore = cookies()
-    // cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: NEXT_PUBLIC_ADRESSE_URL, sameSite: 'strict' })
-    // cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: NEXT_PUBLIC_ADRESSE_URL, sameSite: 'strict' })
-    cookieStore.set('nonce', nonce, { httpOnly: true })
-    cookieStore.set('state', state, { httpOnly: true })
+    cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: NEXT_DOMAIN_HOST_NAME, path: '/', sameSite: 'lax' })
+    cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: NEXT_DOMAIN_HOST_NAME, path: '/', sameSite: 'lax' })
 
     const redirectUrl = client.buildAuthorizationUrl(
       config,
