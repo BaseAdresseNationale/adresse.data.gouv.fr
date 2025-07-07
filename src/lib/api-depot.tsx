@@ -168,3 +168,10 @@ export const getFirstRevisionsByClient = async (clientId: string): Promise<any> 
 
   return revisions
 }
+
+export const getUrlProConnect = (
+  habiliationId: string,
+  redirectUrl: string
+): string => {
+  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/habilitations/${habiliationId}/authentication/proconnect?redirectUrl=${redirectUrl}`
+}

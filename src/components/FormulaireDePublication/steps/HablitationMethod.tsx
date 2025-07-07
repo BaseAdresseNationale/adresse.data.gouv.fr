@@ -2,10 +2,9 @@ import { Habilitation, Revision } from '@/types/api-depot.types'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import styled from 'styled-components'
 import Card from '@codegouvfr/react-dsfr/Card'
-import ResponsiveImage from '../../ResponsiveImage'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import Select from '@codegouvfr/react-dsfr/Select'
-import { getEmailsCommune } from '@/lib/api-depot'
+import { getEmailsCommune, getUrlProConnect } from '@/lib/api-depot'
 
 interface HabilitationMethodProps {
   revision: Revision
@@ -14,6 +13,8 @@ interface HabilitationMethodProps {
   emailSelected?: string
   setEmailSelected: Dispatch<SetStateAction<string | undefined>>
 }
+import styles from './button-pro-connect.module.css';
+import { Button } from '@codegouvfr/react-dsfr/Button'
 
 const StyledWrapper = styled.div`
     .habilitation-methods {
@@ -28,16 +29,23 @@ const StyledWrapper = styled.div`
     }
 `
 
+const StyledButton = styled(Button)`
+    width: 214px;
+    height: 56px;
+    text-align: left;
+    &::before {
+      width: 40px;
+      height: 40px;
+    }
+`
+
 export function HabilitationMethod({ revision, habilitation, sendPinCode, emailSelected, setEmailSelected }: HabilitationMethodProps) {
-  const [redirectUrl, setRedirectUrl] = useState('')
   const [emailsCommune, setEmailsCommune] = useState<string[]>([])
 
-  const franceConnectUrl = `${habilitation.franceconnectAuthenticationUrl}?redirectUrl=${encodeURIComponent(redirectUrl)}`
-
-  useEffect(() => {
-    const redirectUrl = `${window.location.href}?revisionId=${revision.id}&habilitationId=${habilitation.id}`
-    setRedirectUrl(redirectUrl)
-  }, [revision, habilitation])
+  const proConnectUrl = useMemo(() => {
+    const redirectUrl = encodeURIComponent(`${window.location.href}?revisionId=${revision.id}&habilitationId=${habilitation.id}`)
+    return getUrlProConnect(habilitation.id, redirectUrl)
+  }, [habilitation.id, revision.id])
 
   useEffect(() => {
     async function fetchEmailsCommune() {
@@ -67,9 +75,27 @@ export function HabilitationMethod({ revision, habilitation, sendPinCode, emailS
       <div className="habilitation-methods">
         {emailSelected && (
           <Card
-            imageComponent={<ResponsiveImage src="/commune/default-logo.svg" alt="Mairie de la commune" style={{ objectFit: 'contain' }} />}
             desc={(
               <>
+                <div
+                  className="fr-container"
+                  style={{
+                    padding: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '1rem',
+                    marginBottom: '1rem',
+                  }}
+                >
+                  <StyledButton
+                    iconId="fr-icon-mail-line"
+                    onClick={sendPinCode}
+                  >
+                    Recevoir un code d&apos;habilitation
+                  </StyledButton>
+                </div>
                 {emailsCommune.length === 1 && (
                   <span>
                     Un code d’authentification vous sera envoyé à l’adresse : <b>{emailSelected}</b>
@@ -92,22 +118,39 @@ export function HabilitationMethod({ revision, habilitation, sendPinCode, emailS
                 )}
               </>
             )}
-            linkProps={{
-              onClick: sendPinCode,
-              href: '#',
-            }}
-            title="Authentifier la mairie de la commune"
+            title="Via le courriel de la mairie"
             titleAs="h3"
           />
         )}
         <Card
-          desc={<span>Aucune donnée personnelle ne nous sera transmise durant ce processus d’authentification</span>}
-          imageComponent={<ResponsiveImage src="/img/france-connect.png" alt="Logo FranceConnect" style={{ objectFit: 'contain' }} />}
-          linkProps={{
-            onClick: () => window.location.href = franceConnectUrl,
-            href: '#',
-          }}
-          title="M'authentifier comme élu de la commune"
+          desc={(
+            <>
+              <div
+                className="fr-container"
+                style={{
+                  padding: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginTop: '1rem',
+                  marginBottom: '1rem',
+                }}
+              >
+                <button
+                  className={styles['proconnect-button']}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => window.location.href = proConnectUrl}
+                >
+                  <span className={styles['proconnect-sr-only']}>
+                    S&apos;identifier avec ProConnect
+                  </span>
+                </button>
+              </div>
+              <span>Aucune donnée personnelle ne nous sera transmise durant ce processus d’authentification</span>
+            </>
+          )}
+          title="Via votre compte ProConnect"
           titleAs="h3"
         />
       </div>
