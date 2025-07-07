@@ -5,6 +5,8 @@ import Card from '@codegouvfr/react-dsfr/Card'
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import Select from '@codegouvfr/react-dsfr/Select'
 import { getEmailsCommune, getUrlProConnect } from '@/lib/api-depot'
+import styles from './button-pro-connect.module.css'
+import { Button } from '@codegouvfr/react-dsfr/Button'
 
 interface HabilitationMethodProps {
   revision: Revision
@@ -13,8 +15,6 @@ interface HabilitationMethodProps {
   emailSelected?: string
   setEmailSelected: Dispatch<SetStateAction<string | undefined>>
 }
-import styles from './button-pro-connect.module.css';
-import { Button } from '@codegouvfr/react-dsfr/Button'
 
 const StyledWrapper = styled.div`
     .habilitation-methods {
