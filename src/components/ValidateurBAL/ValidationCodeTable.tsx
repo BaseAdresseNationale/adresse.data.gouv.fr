@@ -2,7 +2,7 @@ import Table from '@codegouvfr/react-dsfr/Table'
 import { ValidateRowFullType } from '@ban-team/validateur-bal'
 import styled from 'styled-components'
 import { useMemo, useState } from 'react'
-import SoftPagination from '../Pagination/soft-pagination'
+import Pagination from '@codegouvfr/react-dsfr/Pagination'
 
 type ValidationCodeTableProps = {
   code: string
@@ -42,11 +42,11 @@ export default function ValidationCodeTable({ code, groupCode }: ValidationCodeT
         data={data}
         headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
       />
-      <SoftPagination
-        currentPage={currentPage}
-        totalCount={groupCode.length}
-        onPageChange={(page) => { setCurrentPage(page) }}
-        limit={limit}
+      <Pagination
+        style={{ marginTop: '1rem' }}
+        count={Math.ceil(groupCode.length / limit)}
+        defaultPage={currentPage}
+        getPageLinkProps={pageNumber => ({ href: `#`, onClick: () => setCurrentPage(pageNumber) })}
       />
     </StyledWrapper>
   )
