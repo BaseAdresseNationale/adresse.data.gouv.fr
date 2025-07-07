@@ -142,10 +142,10 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
         }
 
         // check withBanId ancien/nouveau socle
-        if (!district?.withBanId) {
+        /*         if (!district?.withBanId) {
           setFeatureProConnectEnabled(false)
         }
-
+ */
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
