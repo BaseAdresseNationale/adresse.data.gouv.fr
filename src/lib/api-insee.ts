@@ -15,6 +15,10 @@ export const getCommunesPrecedentes = async (code: string): Promise<CommunePrece
   })
 
   if (!response.ok) {
+    if (response.status === 404) {
+      return []
+    }
+
     throw new Error(`Failed to fetch communes precedentes: ${response.statusText}`)
   }
 
