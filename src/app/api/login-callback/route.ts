@@ -55,8 +55,8 @@ export async function GET(req: NextRequest) {
     cookieStore.set('oauth2token', JSON.stringify(tokens), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     console.log('login call back after cookies set')
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
-    const url = req.nextUrl.clone()
-    url.pathname = '/'
+    const url = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`)
+    url.search = req.nextUrl.search.toString()
     console.log('login call back ended')
     return NextResponse.redirect(url)
   }
