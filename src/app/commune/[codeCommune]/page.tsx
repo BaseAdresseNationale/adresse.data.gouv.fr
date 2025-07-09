@@ -45,7 +45,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
       getAPIGeoCommune(codeCommune),
     ])
     commune = response[0]
-    // C console.log(':::::::::: commune', commune)
+    console.log('>>> Full commune object:', JSON.stringify(commune, null, 2))
+
     APIGeoCommune = response[1]
   }
   catch (error) {

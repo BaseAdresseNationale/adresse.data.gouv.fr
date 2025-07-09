@@ -128,6 +128,8 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
       setCommune(commune)
+      console.log('>>> Full district object:', JSON.stringify(district, null, 2))
+      console.log('>>> district.withBanId type:', typeof district?.withBanId)
       console.log('>>> district.withBanId=', district?.withBanId)
       try {
         // limited to some communes
@@ -142,10 +144,10 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
         }
 
         // check withBanId ancien/nouveau socle
-        /*         if (!district?.withBanId) {
+        if (!district?.withBanId) {
           setFeatureProConnectEnabled(false)
         }
- */
+        console.log('>>> featureProConnectEnabled=', featureProConnectEnabled)
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
