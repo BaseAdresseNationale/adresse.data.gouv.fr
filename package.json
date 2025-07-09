@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.645.0",
-    "@ban-team/validateur-bal": "^3.1.11",
+    "@ban-team/validateur-bal": "^3.1.12",
     "@codegouvfr/react-dsfr": "^1.14.1",
     "@etalab/decoupage-administratif": "^5.2.0",
     "@next/bundle-analyzer": "^14.2.13",
@@ -57,7 +57,6 @@
     "react-confetti": "^6.1.0",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
-    "react-js-pagination": "^3.0.3",
     "react-map-gl": "^7.1.7",
     "react-pdf": "^9.1.1",
     "react-pin-field": "^3.1.5",
