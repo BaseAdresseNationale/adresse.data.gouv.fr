@@ -235,38 +235,6 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="Application Validateur BAL"
-            titleAs="h5"
-            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
-            className="fr-card--horizontal-tier fr-card--md"
-            footer={(
-              <Button
-                linkProps={{
-                  href: '/outils/validateur-bal',
-                }}
-                size="small"
-              >
-                Validateur BAL
-              </Button>
-            )}
-          />
-          <Card
-            title={(<>Mise en forme BAL <Badge noIcon severity="info">BETA</Badge></>)}
-            titleAs="h5"
-            desc="Améliorer votre BAL grâce à une mise en forme automatique"
-            className="fr-card--horizontal-tier fr-card--md"
-            footer={(
-              <Button
-                linkProps={{
-                  href: '/outils/validateur-bal',
-                }}
-                size="small"
-              >
-                Mise en forme BAL
-              </Button>
-            )}
-          />
-          <Card
             title="Formulaire de publication"
             titleAs="h5"
             desc="Publier une base adresse locale à partir d'un formulaire."
@@ -285,23 +253,6 @@ export default async function Outils() {
                   </Button>
                 </li>
               </ul>
-            )}
-          />
-          <Card
-            title={<>API Validateur BAL <Badge noIcon severity="new">Nouveau</Badge></>}
-            titleAs="h5"
-            desc="Vérifier la conformité de votre fichier Base Adresse Locale via une API."
-            className="fr-card--horizontal-tier fr-card--md"
-            footer={(
-              <Button
-                linkProps={{
-                  href: 'https://plateforme-bal.adresse.data.gouv.fr/validateur-api/api',
-                  target: '_blank',
-                }}
-                size="small"
-              >
-                Swagger
-              </Button>
             )}
           />
           <Card
@@ -351,6 +302,55 @@ export default async function Outils() {
                 size="small"
               >
                 Documentation publication BAL
+              </Button>
+            )}
+          />
+          <Card
+            title={<>API Validateur BAL <Badge noIcon severity="new">Nouveau</Badge></>}
+            titleAs="h5"
+            desc="Vérifier la conformité de votre fichier Base Adresse Locale via une API."
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                linkProps={{
+                  href: 'https://plateforme-bal.adresse.data.gouv.fr/validateur-api/api',
+                  target: '_blank',
+                }}
+                size="small"
+              >
+                Swagger
+              </Button>
+            )}
+          />
+          <Card
+            title="Application Validateur BAL"
+            titleAs="h5"
+            desc="Vérifier la conformité de votre fichier Base Adresse Locale"
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                linkProps={{
+                  href: '/outils/validateur-bal',
+                }}
+                size="small"
+              >
+                Validateur BAL
+              </Button>
+            )}
+          />
+          <Card
+            title={(<>Mise en forme BAL <Badge noIcon severity="info">BETA</Badge></>)}
+            titleAs="h5"
+            desc="Améliorer votre BAL grâce à une mise en forme automatique"
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <Button
+                linkProps={{
+                  href: '/outils/validateur-bal',
+                }}
+                size="small"
+              >
+                Mise en forme BAL
               </Button>
             )}
           />
