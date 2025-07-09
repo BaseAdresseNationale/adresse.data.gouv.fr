@@ -224,7 +224,6 @@ export default async function Outils() {
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
-                className="fr-btn fr-btn--secondary"
                 linkProps={{
                   href: 'https://mes-adresses.data.gouv.fr/',
                   target: '_blank',
@@ -295,7 +294,6 @@ export default async function Outils() {
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
-                className="fr-btn fr-btn--secondary"
                 linkProps={{
                   href: 'https://plateforme-bal.adresse.data.gouv.fr/validateur-api/api',
                   target: '_blank',
@@ -315,7 +313,6 @@ export default async function Outils() {
               <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
                 <li>
                   <Button
-                    className="fr-btn fr-btn--secondary"
                     linkProps={{
                       href: 'https://plateforme-bal.adresse.data.gouv.fr/api-depot/api',
                       target: '_blank',
@@ -347,7 +344,6 @@ export default async function Outils() {
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
-                className="fr-btn fr-btn--secondary"
                 linkProps={{
                   href: 'https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale',
                   target: '_blank',
