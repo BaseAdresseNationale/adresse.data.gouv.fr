@@ -36,7 +36,11 @@ export type BANVoie = {
 }
 
 export type BANConfig = {
-  certificate: {}
+  certificate?: {}
+  defaultLanguage?: string
+  autoFixLabels?: boolean
+  computOldDistrict?: boolean
+  computInteropKey?: boolean
 }
 
 export type BANCommune = {
