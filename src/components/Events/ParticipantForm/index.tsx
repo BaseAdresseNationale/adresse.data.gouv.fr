@@ -80,7 +80,7 @@ function ParticipantForm({ onClose, eventId }: ParticipantFormProps) {
         {submitStatus === 'success' && (
           <div className="fr-alert fr-alert--success">
             <p>
-              Votre inscription est validée. Vous allez recevoir un mail de confirmation. Le webinaire se déroulera à cette <a target="_blank" href="https://webinaire.numerique.gouv.fr/meeting/signin/invite/6605/creator/940/hash/615257ce88cf93ab6af594265d5729623aab8de3">adresse</a>.
+              Votre inscription est validée. Vous allez recevoir un mail de confirmation. Le webinaire se déroulera à cette <a target="_blank" rel="noopener noreferrer" href="https://webinaire.numerique.gouv.fr/meeting/signin/invite/6605/creator/940/hash/615257ce88cf93ab6af594265d5729623aab8de3">adresse</a>.
             </p>
           </div>
         )}
