@@ -183,7 +183,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
           {!!district?.withBanId
             ? (<span className="fr-icon-success-line" aria-hidden="true" />)
             : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
-          <span>Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la présence des identifiants.</span>
+          <span>L&lsquo;activation de la fonctionnalité &quot;certificat d&lsquo;adressage&quot; nécessite, sous condition d&lsquo;éligibilité géographique, la présence des identifiants.</span>
           {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la condition :{' '}</span> */}
           {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span> */}
           {/* <ul style={{ listStyleType: 'none' }}>
@@ -247,7 +247,7 @@ function CommuneActions({ technicalRequirements, district, actionProps }: Commun
       else {
         return (
           <>
-            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} dans quelques minutes.
+            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} d’ici 1 heure.
             {logOutButton}
           </>
         )
