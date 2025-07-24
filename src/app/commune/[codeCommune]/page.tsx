@@ -29,6 +29,7 @@ import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 
 import SaveUrlClient from '@/components/SaveUrlClient'
+import CommuneAdministration from '@/components/Commune/CommuneAdministration'
 
 interface CommunePageProps {
   params: { codeCommune: string }
@@ -201,8 +202,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
           />
 
           <CommuneActions
-            technicalRequirements={technicalRequirements}
-            district={commune}
             actionProps={[
               {
                 iconId: 'fr-icon-road-map-line',
@@ -244,6 +243,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
         {communeHasBAL && lastRevisionsDetails && (
           <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
+
+        <CommuneAdministration {...commune} />
 
         {partenaireDeLaCharte && publicationConsoleTabs.length > 0 && <CommunePublicationConsole partenaireDeLaCharte={partenaireDeLaCharte} tabs={publicationConsoleTabs} />}
       </StyledCommunePage>
