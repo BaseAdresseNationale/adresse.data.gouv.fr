@@ -28,6 +28,8 @@ import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 
+import SaveUrlClient from '@/components/SaveUrlClient'
+
 interface CommunePageProps {
   params: { codeCommune: string }
 }
@@ -43,6 +45,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       getAPIGeoCommune(codeCommune),
     ])
     commune = response[0]
+    // C console.log(':::::::::: commune', commune)
     APIGeoCommune = response[1]
   }
   catch (error) {
@@ -133,8 +136,15 @@ export default async function CommunePage({ params }: CommunePageProps) {
     publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
   }
 
+  const technicalRequirements = {
+    hasID: !!(communeAchievements?.hasStableID),
+    hasAbove75PercentCertifiedNumbers: !!communeAchievements?.hasAbove75PercentCertifiedNumbers,
+    hasAbove50PercentParcelles: !!communeAchievements?.hasAbove50PercentParcelles,
+  }
+
   return (
     <>
+      <SaveUrlClient />
       <CommuneNavigation commune={commune} />
       <StyledCommunePage $certificationPercentage={certificationPercentage}>
         <Section className="commune-main-section">
@@ -191,6 +201,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           />
 
           <CommuneActions
+            technicalRequirements={technicalRequirements}
             district={commune}
             actionProps={[
               {
