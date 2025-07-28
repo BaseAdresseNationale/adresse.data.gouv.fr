@@ -62,6 +62,7 @@ export type BANCommune = {
   dateAnnulation: string
   voies: BANVoie[]
   config: BANConfig
+  withBanId?: boolean
 }
 
 export type BANStats = {
