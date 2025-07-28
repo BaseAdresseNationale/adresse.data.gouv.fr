@@ -39,61 +39,71 @@ function CommuneAdministration(district: BANCommune) {
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
   const [clickedEnable, setClickedEnable] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('')
   const [commune, setCommune] = useState<Commune | null>(null)
 
   const enableAddressingCertification = useCallback(async () => {
     try {
       if (authenticated) {
-        await customFetch('/api/me')
-          .then((result) => {
-            const {
-              sub,
-              name,
-              given_name,
-              family_name,
-              usual_name,
-              email,
-              siret,
-              aud,
-              exp,
-              iat,
-              iss,
-            } = JSON.parse(result)
+        setMessage('Action en cours... ne quittez pas la page sans avoir de message de confirmation.')
+        setClickedEnable(true)
 
-            const body = {
-              districtID: district.banId,
-              sub: sub,
-              name: name,
-              givenName: given_name,
-              familyName: family_name,
-              usualName: usual_name,
-              email: email,
-              siret,
-              siren: commune?.siren,
-              aud: aud,
-              exp: exp,
-              iat: iat,
-              iss: iss,
-            }
+        const result = await customFetch('/api/me')
 
-            const options = {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(body),
-            }
+        const {
+          sub,
+          name,
+          given_name,
+          family_name,
+          usual_name,
+          email,
+          siret,
+          aud,
+          exp,
+          iat,
+          iss,
+        } = JSON.parse(result)
 
-            return options
-          })
-          .then((options) => {
-            customFetch(`/api/addressing-certification-enable`, options)
-            setClickedEnable(true)
-          })
+        const body = {
+          districtID: district.banId,
+          sub: sub,
+          name: name,
+          givenName: given_name,
+          familyName: family_name,
+          usualName: usual_name,
+          email: email,
+          siret,
+          siren: commune?.siren,
+          aud: aud,
+          exp: exp,
+          iat: iat,
+          iss: iss,
+        }
+
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }
+
+        const res = await customFetch(`/api/addressing-certification-enable`, options).catch((error) => {
+          console.error('Error enabling addressing certification:', error)
+          setMessage(`Une erreur est survenue lors de l’activation de la certification d’adressage. Veuillez réessayer plus tard.`)
+        })
+
+        if (res && res.status === 'success') {
+          setMessage(`La certification d’adressage est en cours d’activation pour la commune de ${district.nomCommune} d’ici 1 heure.`)
+        }
       }
     }
     catch (error) {
       console.log('error', error)
+      setMessage('Une erreur est survenue. Veuillez réessayer plus tard.')
+    }
+    finally {
+      setClickedEnable(true)
     }
   }, [district, commune?.siren, authenticated])
 
@@ -219,10 +229,10 @@ function CommuneAdministration(district: BANCommune) {
           </>
         )
       }
-      else {
+      else if (message !== '') {
         return (
           <>
-            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} d’ici 1 heure.
+            {message}
             {logOutButton}
           </>
         )
