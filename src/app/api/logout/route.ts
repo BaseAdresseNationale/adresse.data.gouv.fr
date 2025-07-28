@@ -22,7 +22,6 @@ export async function POST() {
     return NextResponse.redirect(redirectUrl)
   }
   catch (error) {
-    console.error(error)
     return NextResponse.json({ error: 'Logout failed' }, { status: 500 })
   }
 }

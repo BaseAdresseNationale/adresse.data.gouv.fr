@@ -7,7 +7,6 @@ import Section from '../Section'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
-// import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
 import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import { CommuneConfigItem } from './CommuneActions/CommuneActions.styles'
@@ -19,9 +18,6 @@ const NEXT_PUBLIC_CERTIFICATION_LIMITED = env('NEXT_PUBLIC_CERTIFICATION_LIMITED
 const NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST = env('NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST')
 
 const limitedList = (NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST || '').split(',').map(code => code.trim())
-
-console.log('>>> limited=', NEXT_PUBLIC_CERTIFICATION_LIMITED)
-console.log('>>> limitedList=', limitedList)
 
 // Helper component for Tooltip with CommuneConfigItem
 const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, children: React.ReactNode }) => (
@@ -89,7 +85,6 @@ function CommuneAdministration(district: BANCommune) {
         }
 
         const res = await customFetch(`/api/addressing-certification-enable`, options).catch((error) => {
-          console.error('Error enabling addressing certification:', error)
           setMessage(`Une erreur est survenue lors de l’activation de la certification d’adressage. Veuillez réessayer plus tard.`)
         })
 
@@ -99,7 +94,6 @@ function CommuneAdministration(district: BANCommune) {
       }
     }
     catch (error) {
-      console.log('error', error)
       setMessage('Une erreur est survenue. Veuillez réessayer plus tard.')
     }
     finally {
@@ -113,7 +107,6 @@ function CommuneAdministration(district: BANCommune) {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
       setCommune(commune)
-      console.log('>>> district.withBanId=', district?.withBanId)
       try {
         // limited to some communes
         if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
@@ -134,10 +127,6 @@ function CommuneAdministration(district: BANCommune) {
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
-          console.log('>>>response=', response)
-          console.log('>>>siren siret=', commune.siren + ' ' + JSON.parse(response).siret)
-          console.log('>>>compare siren include in siret=', commune.siren == JSON.parse(response).siret.slice(0, 9))
-
           setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
           setAuthenticated(response)
         }
@@ -146,10 +135,6 @@ function CommuneAdministration(district: BANCommune) {
         if (error?.status === 401) {
           // Not authenticated, do not enable habilitation
           setHabilitationEnabled(false)
-        }
-        else {
-          // Handle other errors if needed
-          console.error(error)
         }
       }
     })()

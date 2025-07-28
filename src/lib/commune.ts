@@ -11,9 +11,7 @@ type GetCommuneAchievementsParams = {
 export interface CommuneAchievements {
   hasPublishedBAL: boolean
   hasAbove50PercentCertifiedNumbers: boolean
-  hasAbove75PercentCertifiedNumbers: boolean
   has100PercentCertifiedNumbers: boolean
-  hasAbove50PercentParcelles: boolean
   hasRegionalLanguage: boolean
   hasProcessedSignalement: boolean
   isPartenaireDeLaCharte: boolean
@@ -33,9 +31,7 @@ export const getCommuneAchievements = ({ commune, paginatedPartenairesDeLaCharte
   return {
     hasPublishedBAL: communeHasBAL,
     hasAbove50PercentCertifiedNumbers: certificationPercentage >= 50,
-    hasAbove75PercentCertifiedNumbers: certificationPercentage >= 75,
     has100PercentCertifiedNumbers: certificationPercentage === 100,
-    hasAbove50PercentParcelles: true,
     hasRegionalLanguage: communeHasRegionalLanguage,
     hasProcessedSignalement: hasProcessedSignalement,
     isPartenaireDeLaCharte: isPartenaireDeLaCharte,
