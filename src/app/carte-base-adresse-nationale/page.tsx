@@ -299,7 +299,7 @@ function CartoView() {
       && oldMapSearchResults.current !== mapSearchResults
     ) {
       const { current: banMapGL } = banMapRef
-      setIsMenuVisible(false)
+
       const banItem = mapSearchResults
 
       // Display Search results
