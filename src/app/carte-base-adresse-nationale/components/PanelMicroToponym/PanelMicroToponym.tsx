@@ -16,15 +16,15 @@ const configOriginAddress = {
   bal: {
     className: 'ri-send-plane-fill isFormal',
     message: <>Cet odonyme est issue d’une Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL)</>,
-    desc: <>Les Base&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont directement produites par les communes.</>,
+    desc: <>Les Bases&nbsp;Adresse&nbsp;Locale&nbsp;(BAL) sont les fichiers de référence communale.</>,
   },
   default: {
     className: 'ri-government-fill',
-    message: <>Cet odonyme est fournie par l’IGN</>,
+    message: <>Cet odonyme ne provient pas d’une BAL</>,
     desc: (
       <>
         En l’absence de Base Adresse Locale&nbsp;(BAL) officielle sur la commune,
-        l’IGN fournie des odonymes produits à partir de multiples sources.
+        l’IGN propose des odonymes produits à partir de multiples sources.
       </>
     ),
   },

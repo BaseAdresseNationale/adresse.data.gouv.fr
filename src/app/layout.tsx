@@ -36,12 +36,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   const dataNotices = {
     // data: [sampleNotice],
-    // data: [],
-    data: [{
-      text: 'Operation en cours : Passage du Code officiel géographique 2025.',
-      // link?: { href: string; target?: string}
-      link: { href: '/outils/telechargements' },
-    }],
+    data: [],
     duration: 4000,
   }
 

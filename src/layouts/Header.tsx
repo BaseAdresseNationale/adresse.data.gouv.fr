@@ -100,6 +100,8 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Télécharger les données',
         linkProps: { href: '/outils/telechargements' },
       },
+      { text: 'Service géocodage de la Géoplateforme', linkProps: { href: '/outils/api-doc/adresse' } },
+      { text: 'Géocodeur CSV', linkProps: { href: '/outils/csv' } },
       { text: 'Validateur BAL', linkProps: { href: '/outils/validateur-bal' } },
       { text:
         (
@@ -108,7 +110,6 @@ export const navEntries: MainNavigationProps.Item[] = [
             <Badge noIcon severity="info">BETA</Badge>
           </>
         ), linkProps: { href: '/outils/mise-en-forme' } },
-      { text: 'Géocodeur CSV', linkProps: { href: '/outils/csv' } },
       { text: 'Formulaire de publication', linkProps: { href: '/outils/formulaire-de-publication' } },
       {
         text: 'Supervision BAN/BAL',

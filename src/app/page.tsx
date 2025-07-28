@@ -1,6 +1,6 @@
+import ProConnectRedirectClient from '@/components/ProConnectRedirectClient'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-
 import Section from '@/components/Section'
 import SectionHero from '@/components/SectionHero'
 import SectionTilesList from '@/components/SectionTilesList'
@@ -20,6 +20,8 @@ import { CardContainer } from './page.styles'
 
 export const revalidate = 3600 // 1 hour
 
+import { env } from 'next-runtime-env'
+
 export default async function Home() {
   const stats = await getStats()
   const highlightedDatas = await getPosts({ limit: 3 })
@@ -27,6 +29,7 @@ export default async function Home() {
 
   return (
     <>
+      <ProConnectRedirectClient />
       <SectionHero
         pageTitle="La Base Adresse Nationale"
         picture={{

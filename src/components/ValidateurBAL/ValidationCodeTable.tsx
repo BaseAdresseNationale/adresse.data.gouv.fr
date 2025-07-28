@@ -2,7 +2,7 @@ import Table from '@codegouvfr/react-dsfr/Table'
 import { ValidateRowFullType } from '@ban-team/validateur-bal'
 import styled from 'styled-components'
 import { useMemo, useState } from 'react'
-import SoftPagination from '../Pagination/soft-pagination'
+import Pagination from '@codegouvfr/react-dsfr/Pagination'
 
 type ValidationCodeTableProps = {
   code: string
@@ -10,14 +10,12 @@ type ValidationCodeTableProps = {
 }
 
 const StyledWrapper = styled.div`
-  .table-wrapper {
-    max-width: calc(100vw - 5.5rem);
-    overflow: scroll;
+  max-width: calc(100vw - 5.5rem);
+  overflow: scroll;
 
-    td {
-      .error {
-        color: var(--text-default-error);
-      }
+  td {
+    .error {
+      color: var(--text-default-error);
     }
   }
 `
@@ -40,18 +38,16 @@ export default function ValidationCodeTable({ code, groupCode }: ValidationCodeT
 
   return (
     <StyledWrapper>
-      <div className="table-wrapper">
-        <Table
-          data={data}
-          headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
-        />
-        <SoftPagination
-          currentPage={currentPage}
-          totalCount={groupCode.length}
-          onPageChange={(page) => { setCurrentPage(page) }}
-          limit={limit}
-        />
-      </div>
+      <Table
+        data={data}
+        headers={['Ligne', ...Object.keys(groupCode[0].rawValues)]}
+      />
+      <Pagination
+        style={{ marginTop: '1rem' }}
+        count={Math.ceil(groupCode.length / limit)}
+        defaultPage={currentPage}
+        getPageLinkProps={pageNumber => ({ href: `#`, onClick: () => setCurrentPage(pageNumber) })}
+      />
     </StyledWrapper>
   )
 }
