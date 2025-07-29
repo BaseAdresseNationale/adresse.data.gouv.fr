@@ -94,15 +94,17 @@ function PanelMicroToponym({ microToponym, onFlyToPosition }: PanelMicroToponymP
           Date de dernière mise à jour : <br />
           {dateMaj}
         </PanelDetailsItem>
-        <PanelDetailsItem className="ri-map-pin-line">
-          Position : <br />
-          <AddressDetailPosition
-            type="Centroïde"
-            onFlyToPosition={onFlyToPosition}
-            coords={microToponym.position.coordinates as [number, number]}
-            isSmartDevice={isSmartDevice()}
-          />
-        </PanelDetailsItem>
+        {microToponym.position && (
+          <PanelDetailsItem className="ri-map-pin-line">
+            Position : <br />
+            <AddressDetailPosition
+              type="Centroïde"
+              onFlyToPosition={onFlyToPosition}
+              coords={microToponym.position.coordinates as [number, number]}
+              isSmartDevice={isSmartDevice()}
+            />
+          </PanelDetailsItem>
+        )}
       </PanelDetailsWrapper>
 
       <PanelMicroToponymAddressList microToponym={microToponym} />
