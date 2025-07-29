@@ -3,8 +3,14 @@ import { getProviderConfig, objToUrlParams } from '@/utils/oauth'
 import { cookies } from 'next/headers'
 import * as client from 'openid-client'
 import { env } from 'next-runtime-env'
+export const dynamic = 'force-dynamic'
+
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(request: Request) {
+  // eslint-disable-next-line
+  const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
+  const isProd = env('NODE_ENV') === 'production'
   try {
     const cookieStore = cookies()
     const { searchParams } = new URL(request.url)
@@ -23,10 +29,18 @@ export async function GET(request: Request) {
       response.cookies.set('post_logout_return_url', '', {
         path: '/',
         expires: new Date(0),
+        domain: hostname,
+        httpOnly: true,
+        secure: isProd,
+        sameSite: 'lax',
       })
       response.cookies.set('logout_initiated', '', {
         path: '/',
         expires: new Date(0),
+        domain: hostname,
+        httpOnly: true,
+        secure: isProd,
+        sameSite: 'lax',
       })
 
       return response
@@ -52,24 +66,30 @@ export async function GET(request: Request) {
     // Stocker les cookies utiles pour callback
     response.cookies.set('post_logout_return_url', returnUrl, {
       httpOnly: true,
-      secure: env('NODE_ENV') === 'production',
+      secure: isProd,
       sameSite: 'lax',
       maxAge: 300,
       path: '/',
+      domain: hostname,
     })
     response.cookies.set('logout_initiated', 'true', {
       httpOnly: true,
-      secure: env('NODE_ENV') === 'production',
+      secure: isProd,
       sameSite: 'lax',
       maxAge: 300,
       path: '/',
+      domain: hostname,
     })
 
-    // Supprimer les cookies liés à l'identité
+    // Supprimer les cookies liés à l'identité avec la bonne config
     const cookiesToDelete = ['userinfo', 'idtoken', 'id_token_hint', 'oauth2token']
     cookiesToDelete.forEach((name) => {
       response.cookies.set(name, '', {
         path: '/',
+        domain: hostname,
+        httpOnly: true,
+        secure: isProd,
+        sameSite: 'lax',
         expires: new Date(0),
       })
     })
