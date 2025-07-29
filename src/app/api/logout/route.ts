@@ -3,12 +3,14 @@ import { getProviderConfig, objToUrlParams } from '@/utils/oauth'
 import { cookies } from 'next/headers'
 import * as client from 'openid-client'
 import { env } from 'next-runtime-env'
+export const dynamic = 'force-dynamic'
 
-const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL') || ''
-const hostname = new URL(NEXT_PUBLIC_ADRESSE_URL).hostname
-const isProd = env('NODE_ENV') === 'production'
+const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(request: Request) {
+  // eslint-disable-next-line
+  const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
+  const isProd = env('NODE_ENV') === 'production'
   try {
     const cookieStore = cookies()
     const { searchParams } = new URL(request.url)
