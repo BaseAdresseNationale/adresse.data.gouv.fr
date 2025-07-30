@@ -46,7 +46,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
       getAPIGeoCommune(codeCommune),
     ])
     commune = response[0]
-    // C console.log(':::::::::: commune', commune)
     APIGeoCommune = response[1]
   }
   catch (error) {
@@ -135,12 +134,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   if (partenaireDeLaCharte?.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
     publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
-  }
-
-  const technicalRequirements = {
-    hasID: !!(communeAchievements?.hasStableID),
-    hasAbove75PercentCertifiedNumbers: !!communeAchievements?.hasAbove75PercentCertifiedNumbers,
-    hasAbove50PercentParcelles: !!communeAchievements?.hasAbove50PercentParcelles,
   }
 
   return (

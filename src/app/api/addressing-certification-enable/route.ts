@@ -19,7 +19,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(data, { status: response.status })
   }
   catch (error) {
-    console.error('Error in POST /api/addressing-certification-enable:', error)
     return new Response(JSON.stringify({ error: 'Internal Server Error' }), { status: 500 })
   }
 }

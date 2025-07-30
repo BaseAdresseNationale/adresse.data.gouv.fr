@@ -7,7 +7,6 @@ import Section from '../Section'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
-// import ProConnectButtonCustom from '../../ProConnectButtonCustom/ProConnectButtonCustom'
 import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import { CommuneConfigItem } from './CommuneActions/CommuneActions.styles'
@@ -19,9 +18,6 @@ const NEXT_PUBLIC_CERTIFICATION_LIMITED = env('NEXT_PUBLIC_CERTIFICATION_LIMITED
 const NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST = env('NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST')
 
 const limitedList = (NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST || '').split(',').map(code => code.trim())
-
-console.log('>>> limited=', NEXT_PUBLIC_CERTIFICATION_LIMITED)
-console.log('>>> limitedList=', limitedList)
 
 // Helper component for Tooltip with CommuneConfigItem
 const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, children: React.ReactNode }) => (
@@ -39,61 +35,69 @@ function CommuneAdministration(district: BANCommune) {
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
   const [clickedEnable, setClickedEnable] = useState<boolean>(false)
+  const [message, setMessage] = useState<string>('')
   const [commune, setCommune] = useState<Commune | null>(null)
 
   const enableAddressingCertification = useCallback(async () => {
     try {
       if (authenticated) {
-        await customFetch('/api/me')
-          .then((result) => {
-            const {
-              sub,
-              name,
-              given_name,
-              family_name,
-              usual_name,
-              email,
-              siret,
-              aud,
-              exp,
-              iat,
-              iss,
-            } = JSON.parse(result)
+        setMessage('Action en cours... ne quittez pas la page sans avoir de message de confirmation.')
+        setClickedEnable(true)
 
-            const body = {
-              districtID: district.banId,
-              sub: sub,
-              name: name,
-              givenName: given_name,
-              familyName: family_name,
-              usualName: usual_name,
-              email: email,
-              siret,
-              siren: commune?.siren,
-              aud: aud,
-              exp: exp,
-              iat: iat,
-              iss: iss,
-            }
+        const result = await customFetch('/api/me')
 
-            const options = {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(body),
-            }
+        const {
+          sub,
+          name,
+          given_name,
+          family_name,
+          usual_name,
+          email,
+          siret,
+          aud,
+          exp,
+          iat,
+          iss,
+        } = JSON.parse(result)
 
-            return options
-          })
-          .then((options) => {
-            customFetch(`/api/addressing-certification-enable`, options)
-            setClickedEnable(true)
-          })
+        const body = {
+          districtID: district.banId,
+          sub: sub,
+          name: name,
+          givenName: given_name,
+          familyName: family_name,
+          usualName: usual_name,
+          email: email,
+          siret,
+          siren: commune?.siren,
+          aud: aud,
+          exp: exp,
+          iat: iat,
+          iss: iss,
+        }
+
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }
+
+        const res = await customFetch(`/api/addressing-certification-enable`, options).catch((error) => {
+          setMessage(`Une erreur est survenue lors de l’activation de la certification d’adressage. Veuillez réessayer plus tard.`)
+        })
+
+        if (res && res.status === 'success') {
+          setMessage(`La certification d’adressage est en cours d’activation pour la commune de ${district.nomCommune} d’ici 1 heure.`)
+        }
       }
     }
     catch (error) {
-      console.log('error', error)
+      setMessage('Une erreur est survenue. Veuillez réessayer plus tard.')
+    }
+    finally {
+      setClickedEnable(true)
     }
   }, [district, commune?.siren, authenticated])
 
@@ -103,7 +107,6 @@ function CommuneAdministration(district: BANCommune) {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
       setCommune(commune)
-      console.log('>>> district.withBanId=', district?.withBanId)
       try {
         // limited to some communes
         if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
@@ -124,10 +127,6 @@ function CommuneAdministration(district: BANCommune) {
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
-          console.log('>>>response=', response)
-          console.log('>>>siren siret=', commune.siren + ' ' + JSON.parse(response).siret)
-          console.log('>>>compare siren include in siret=', commune.siren == JSON.parse(response).siret.slice(0, 9))
-
           setHabilitationEnabled(commune.siren == JSON.parse(response).siret.slice(0, 9))
           setAuthenticated(response)
         }
@@ -136,10 +135,6 @@ function CommuneAdministration(district: BANCommune) {
         if (error?.status === 401) {
           // Not authenticated, do not enable habilitation
           setHabilitationEnabled(false)
-        }
-        else {
-          // Handle other errors if needed
-          console.error(error)
         }
       }
     })()
@@ -219,10 +214,10 @@ function CommuneAdministration(district: BANCommune) {
           </>
         )
       }
-      else {
+      else if (message !== '') {
         return (
           <>
-            La certification d’adressage est en cours d’activation pour la commune de {district.nomCommune} d’ici 1 heure.
+            {message}
             {logOutButton}
           </>
         )
