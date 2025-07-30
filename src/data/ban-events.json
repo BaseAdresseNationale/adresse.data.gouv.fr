@@ -535,5 +535,26 @@
     "href": "",
     "isSubscriptionClosed": true,
     "instructions": ""
+  },
+  {
+    "title" : "Rencontre Utilisateurs Nationaux BAN#9",
+    "subtitle" : "Adresse_Lab",
+    "description" : "Journée d'échanges entre les utilisateurs experts, autour des problématiques partagées : emprise d’utilisation large incluant données d’assemblage, besoin d’historisation de la donnée, adosser des données métier aux adresses de la BAN, besoins spécifiques sur la qualité et la mise à jour des données.",
+    "target": "Les SI nationaux utilisateurs avancés de la donnée adresse",
+    "date": "2025-09-23",
+    "startHour": "10:00",
+    "endHour": "16:00",
+    "tags": ["Technique", "Utilisateurs", "BAN"],
+    "isOnlineOnly": false,
+     "address": {
+        "nom": "IGN",
+        "numero": "73",
+        "voie": "Avenue de Paris",
+        "codePostal": "94160",
+        "commune": "Saint-Mandé"
+      },
+    "href": "",
+    "isSubscriptionClosed": true,
+    "instructions": ""
   }
 ]
