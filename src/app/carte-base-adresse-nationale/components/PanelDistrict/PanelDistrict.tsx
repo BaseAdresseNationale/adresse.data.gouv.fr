@@ -69,12 +69,13 @@ function PanelDistrict({ district }: PanelDistrictProps) {
             <PanelDetailsItemValue>{district.banId || 'Non renseigné'}</PanelDetailsItemValue>
           </span>
         </PanelDetailsItem>
-        { typeof (district.population) === 'number'
-        && (
-          <PanelDetailsItem className="ri-group-line">
-            <b>{formatNumber(district.population)}</b>&nbsp;habitants
-          </PanelDetailsItem>
-        )}
+        <PanelDetailsItem className="ri-group-line">
+          {
+            typeof (district.population) === 'number'
+              ? (<><b>{formatNumber(district.population)}</b>&nbsp;habitants</>)
+              : <>Population <PanelDetailsItemValue>Non disponible</PanelDetailsItemValue></>
+          }
+        </PanelDetailsItem>
         <PanelDetailsItem className="ri-map-pin-line">
           <b>{formatNumber(nbAddress)}</b>&nbsp;adresses répertoriées{' '}
           {
