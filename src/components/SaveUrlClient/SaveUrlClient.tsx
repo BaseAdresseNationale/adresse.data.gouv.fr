@@ -8,11 +8,13 @@ export default function SaveUrlClient() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    setPreviousSavedUrl(window.location.href)
 
-    setStoredValue(previousSavedUrl)
-    localStorage.setItem('previousUrl', window.location.href)
-  }, [previousSavedUrl])
+    const currentUrl = window.location.href
+    setPreviousSavedUrl(currentUrl)
+
+    setStoredValue(currentUrl)
+    localStorage.setItem('previousUrl', currentUrl)
+  }, [])
 
   return null
 }
