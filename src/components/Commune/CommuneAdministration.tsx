@@ -13,6 +13,10 @@ import { CommuneConfigItem } from './CommuneActions/CommuneActions.styles'
 import { getCommune } from '@/lib/api-geo'
 import { Commune } from '@/types/api-geo.types'
 
+import {
+  getCommune as getBANCommune,
+} from '@/lib/api-ban'
+
 import { env } from 'next-runtime-env'
 const NEXT_PUBLIC_CERTIFICATION_LIMITED = env('NEXT_PUBLIC_CERTIFICATION_LIMITED')
 const NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST = env('NEXT_PUBLIC_CERTIFICATION_LIMITED_LIST')
@@ -31,12 +35,14 @@ function CommuneAdministration(district: BANCommune) {
   const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
   // const techRequired = (technicalRequirements.hasID && technicalRequirements.hasAbove75PercentCertifiedNumbers && technicalRequirements.hasAbove50PercentParcelles)
   // const techRequired = technicalRequirements.hasID
-  const techRequired = !!district?.withBanId
+  // const techRequired = !!district?.withBanId
   const requiredConditions = 'L’émission du certificat d’adressage n’est possible que si l’adresse est certifiée et rattachée à une parcelle.'
   const [featureProConnectEnabled, setFeatureProConnectEnabled] = useState<boolean>(false)
   const [clickedEnable, setClickedEnable] = useState<boolean>(false)
   const [message, setMessage] = useState<string>('')
   const [commune, setCommune] = useState<Commune | null>(null)
+  const [communeBAN, setCommuneBAN] = useState<BANCommune | null>(null)
+  const [techRequired, setTechRequired] = useState<boolean>(false)
 
   const enableAddressingCertification = useCallback(async () => {
     try {
@@ -107,6 +113,11 @@ function CommuneAdministration(district: BANCommune) {
       const commune = await getCommune(district.codeCommune)
       if (!commune) return
       setCommune(commune)
+
+      const getCommuneBAN = await getBANCommune(district.codeCommune)
+      if (!getCommuneBAN) return
+      setCommuneBAN(getCommuneBAN)
+      setTechRequired(!!getCommuneBAN?.withBanId)
       try {
         // limited to some communes
         if (NEXT_PUBLIC_CERTIFICATION_LIMITED === 'true') {
@@ -120,10 +131,11 @@ function CommuneAdministration(district: BANCommune) {
         }
 
         // check withBanId ancien/nouveau socle
-        /*         if (!district?.withBanId) {
+        /*
+        if (!district?.withBanId) {
           setFeatureProConnectEnabled(false)
         }
- */
+        */
         if (featureProConnectEnabled) {
           const response = await customFetch('/api/me')
 
@@ -150,7 +162,7 @@ function CommuneAdministration(district: BANCommune) {
     <>
       <ul style={{ listStyleType: 'none', padding: 0 }}>
         <li>
-          {!!district?.withBanId
+          {!!communeBAN?.withBanId
             ? (<span className="fr-icon-success-line" aria-hidden="true" />)
             : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
           <span>L&lsquo;activation de la fonctionnalité &quot;certificat d&lsquo;adressage&quot; nécessite, sous condition d&lsquo;éligibilité géographique, la présence des identifiants.</span>
@@ -201,7 +213,7 @@ function CommuneAdministration(district: BANCommune) {
       if (!clickedEnable) {
         return (
           <>
-            {!district?.config?.certificate && (
+            {!communeBAN?.config?.certificate && (
               <Button
                 key="set-config"
                 iconId="ri-file-paper-2-line"
@@ -245,7 +257,7 @@ function CommuneAdministration(district: BANCommune) {
       <div
         style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
       >
-        {district.config?.certificate
+        {communeBAN?.config?.certificate
           ? (
               <TooltipWithCommuneConfigItem title={tooltipTitle}>
                 Certificat d’adressage :{' '}
