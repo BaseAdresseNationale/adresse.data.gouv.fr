@@ -11,7 +11,6 @@ export default function SaveUrlClient() {
 
     const currentUrl = window.location.href
     setPreviousSavedUrl(currentUrl)
-
     setStoredValue(currentUrl)
     localStorage.setItem('previousUrl', currentUrl)
   }, [])
