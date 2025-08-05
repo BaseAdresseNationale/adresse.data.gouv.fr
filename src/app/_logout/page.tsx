@@ -1,6 +1,4 @@
 import SectionHero from '@/components/SectionHero'
-// import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
-// import { Button } from '@codegouvfr/react-dsfr/Button'
 import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 
 export default async function LogoutPage() {

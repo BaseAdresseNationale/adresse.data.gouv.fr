@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
     return getAuthorizationControllerFactory(customParams)
   }
   catch (error) {
-    console.error(error)
     return NextResponse.json({ error: 'Failed to initiate custom connection' }, { status: 500 })
   }
 }

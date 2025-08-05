@@ -83,7 +83,6 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
         ...extraParams,
       })
     )
-    console.log('redirectUrl auth factory', redirectUrl)
 
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
     // const url = req.nextUrl.clone()
@@ -93,7 +92,6 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
     return NextResponse.redirect(redirectUrl)
   }
   catch (e) {
-    console.error(e)
     return NextResponse.json(e)
   }
 }

@@ -33,7 +33,6 @@ export async function GET(req: NextRequest) {
     const claims = tokens.claims()
 
     if (!claims) throw new Error('Claims are undefined')
-    // return NextResponse.json({ error: 'Claims are undefined' })
     const userinfo = await client.fetchUserInfo(
       config,
       tokens.access_token,
@@ -50,8 +49,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(url)
   }
   catch (error) {
-    console.error(error)
-    // return NextResponse.json({ error: 'Failed to initiate login' })
     return NextResponse.json({ error: 'Callback failed' }, { status: 500 })
   }
 }

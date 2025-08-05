@@ -1,7 +1,5 @@
 'use client'
 
-import { env } from 'next-runtime-env'
-
 import { useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
 
@@ -16,8 +14,6 @@ export default function ProConnectRedirectClient() {
     if (backFromProConnect && lastVisitedUrl && window.location.href !== lastVisitedUrl && window.location.href.indexOf('/commune/') == -1 && lastVisitedUrl.indexOf('/commune/') !== -1) {
       const response = customFetch('/api/me')
       response.then(async (data) => {
-        // console.log('ProConnectRedirectClient: user authenticated from ProConnect, redirect to last visited commune page', data)
-
         const {
           sub,
           name,
@@ -60,7 +56,7 @@ export default function ProConnectRedirectClient() {
           window.location.href = lastVisitedUrl
         })
         .catch((error) => {
-          console.error('ProConnectRedirectClient: error fetching user data after ProConnect authentication', error)
+          throw new Error('ProConnectRedirectClient: error fetching user data after ProConnect authentication', error)
         })
     }
   }, [])
