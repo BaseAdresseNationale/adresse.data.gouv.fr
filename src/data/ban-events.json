@@ -537,6 +537,22 @@
     "instructions": ""
   },
   {
+    "title": "Adresse_Lab",
+    "subtitle": "Point d'échange trimestriel T3 2025",
+    "description": "Actualités BAN - Point d'échange trimestriel T3 2025",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2025-09-16",
+    "tags": ["Technique", "Base Adresse Nationale", "Utilisateurs"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2QwZDU3OWEtM2I5My00ZjliLTllODEtYjdkZjY3ZjAxMGYz%40thread.v2/0?context=%7b%22Tid%22%3a%223876b373-7e2c-4857-b024-53326b5b4bb2%22%2c%22Oid%22%3a%22b6c5bcc6-2261-4874-9aa5-508a6afa334e%22%7d",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
     "title" : "Rencontre Utilisateurs Nationaux BAN#9",
     "subtitle" : "Adresse_Lab",
     "description" : "Journée d'échanges entre les utilisateurs experts, autour des problématiques partagées : emprise d’utilisation large incluant données d’assemblage, besoin d’historisation de la donnée, adosser des données métier aux adresses de la BAN, besoins spécifiques sur la qualité et la mise à jour des données.",
