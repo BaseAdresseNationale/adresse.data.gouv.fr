@@ -54,18 +54,37 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
           {showAllDescription ? 'Voir moins' : 'Voir plus'}
         </button>
       )}
-
-      {!isSubscriptionClosed && !isPassed && onRegister && (
-        <Button
-          iconId="fr-icon-questionnaire-line"
-          iconPosition="right"
-          priority="secondary"
-          onClick={onRegister}
-          style={{ marginBottom: '1rem' }}
-        >
-          S&apos;inscrire
-        </Button>
-      )}
+      {
+        type === EventTypeTypeEnum.ADRESSE_LAB && event.href
+          ? (
+              <Button
+                iconId="fr-icon-questionnaire-line"
+                iconPosition="right"
+                priority="secondary"
+                style={{ marginBottom: '1rem' }}
+                linkProps={{
+                  href: event.href,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                }}
+              >
+                Rejoindre
+              </Button>
+            )
+          : (
+              !isSubscriptionClosed && !isPassed && onRegister && (
+                <Button
+                  iconId="fr-icon-questionnaire-line"
+                  iconPosition="right"
+                  priority="secondary"
+                  onClick={onRegister}
+                  style={{ marginBottom: '1rem' }}
+                >
+                  S&apos;inscrire
+                </Button>
+              )
+            )
+      }
     </StyledEventCard>
   )
 }
