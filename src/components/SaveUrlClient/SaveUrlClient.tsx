@@ -5,14 +5,17 @@ import { useEffect, useState } from 'react'
 export default function SaveUrlClient() {
   const [previousSavedUrl, setPreviousSavedUrl] = useState('')
   const [storedValue, setStoredValue] = useState('')
+  const [hydrated, setHydrated] = useState<boolean>(false)
 
   useEffect(() => {
+    setHydrated(true)
     if (typeof window === 'undefined') return
-    setPreviousSavedUrl(window.location.href)
 
-    setStoredValue(previousSavedUrl)
-    localStorage.setItem('previousUrl', window.location.href)
-  }, [previousSavedUrl])
+    const currentUrl = window.location.href
+    setPreviousSavedUrl(currentUrl)
+    setStoredValue(currentUrl)
+    localStorage.setItem('previousUrl', currentUrl)
+  }, [])
 
   return null
 }

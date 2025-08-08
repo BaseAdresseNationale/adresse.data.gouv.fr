@@ -74,3 +74,5 @@ export function CommuneNavigation({ commune }: CommuneNavigationProps) {
     </StyledWrapper>
   )
 }
+
+export default CommuneNavigation
