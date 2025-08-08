@@ -195,7 +195,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           />
 
           <CommuneActions
-          district={commune}
+            district={commune}
             actionProps={[
               {
                 iconId: 'fr-icon-road-map-line',
