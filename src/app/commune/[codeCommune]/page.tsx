@@ -1,3 +1,6 @@
+import dynamic from 'next/dynamic'
+import { env } from 'next-runtime-env'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -11,25 +14,34 @@ import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { getCommuneFlag } from '@/lib/api-blasons-communes'
 
-import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
-
-import CommuneActions from '../../../components/Commune/CommuneActions'
 import { StyledCommunePage } from './page.styles'
-import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
-import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
-import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
 import { getCommuneAchievements } from '@/lib/commune'
-import { env } from 'next-runtime-env'
 import { getCommunesPrecedentes } from '@/lib/api-insee'
-import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
+// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
+// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
+// import CommuneActions from '../../../components/Commune/CommuneActions'
+// import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
+// import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
+// import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
+// import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
+// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
+// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
+const CommuneDownloadSection = dynamic(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: false })
+const CommuneNavigation = dynamic(() => import('../../../components/Commune/CommuneNavigation'), { ssr: false })
+const CommuneActions = dynamic(() => import('../../../components/Commune/CommuneActions'), { ssr: false })
+const CommuneAchievements = dynamic(() => import('../../../components/Commune/CommuneAchievements'), { ssr: false })
+const CommuneUpdatesSection = dynamic(() => import('../../../components/Commune/CommuneUpdatesSection'), { ssr: false })
+const CommuneCertificationBar = dynamic(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: false })
+const CommunePublicationConsole = dynamic(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: false })
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 
-import SaveUrlClient from '@/components/SaveUrlClient'
-import CommuneAdministration from '@/components/Commune/CommuneAdministration'
+// import SaveUrlClient from '@/components/SaveUrlClient'
+// import CommuneAdministration from '@/components/Commune/CommuneAdministration'
+const SaveUrlClient = dynamic(() => import('../../../components/SaveUrlClient'), { ssr: false })
+const CommuneAdministration = dynamic(() => import('../../../components/Commune/CommuneAdministration'), { ssr: false })
 
 interface CommunePageProps {
   params: { codeCommune: string }

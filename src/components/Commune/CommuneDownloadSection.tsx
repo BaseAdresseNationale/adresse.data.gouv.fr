@@ -84,3 +84,5 @@ export function CommuneDownloadSection({ commune, hasRevision }: CommuneDownload
     </Section>
   )
 }
+
+export default CommuneDownloadSection
