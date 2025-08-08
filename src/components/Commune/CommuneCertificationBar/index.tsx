@@ -113,3 +113,5 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
     </StyledWrapper>
   )
 }
+
+export default CommuneCertificationBar
