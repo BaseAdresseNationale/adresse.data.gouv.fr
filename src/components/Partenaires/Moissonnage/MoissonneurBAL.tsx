@@ -21,6 +21,20 @@ export default function MoissonneurBal({ partenaireDeLaCharte }: MoissonneurBalP
   const [isLoading, setIsLoading] = useState(true)
   const [sources, setSources] = useState<ExtendedSourceMoissoneurType[]>([])
   const [aggregatedPerimeters, setAggregatedPerimeters] = useState<PerimeterType[]>([])
+  const [openAccordions, setOpenAccordions] = useState<Set<string>>(new Set())
+
+  const handleAccordionToggle = (sourceId: string, expanded: boolean) => {
+    setOpenAccordions((prev) => {
+      const newSet = new Set(prev)
+      if (expanded) {
+        newSet.add(sourceId)
+      }
+      else {
+        newSet.delete(sourceId)
+      }
+      return newSet
+    })
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -50,52 +64,56 @@ export default function MoissonneurBal({ partenaireDeLaCharte }: MoissonneurBalP
           <Perimeters perimeters={aggregatedPerimeters} style={{ marginBottom: '1rem' }} />
           <section>
             <p>Les fichiers BAL mis à disposition sont quotidiennement moissonnés sur la plateforme ouverte des données publiques françaises (data.gouv.fr).</p>
-            <div className="fr-accordions-group">
-              {sources.map(source => (
-                <Accordion
-                  id={source.id}
-                  key={source.id}
-                  label={(
+            {sources.map(source => (
+              <Accordion
+                id={source.id}
+                key={source.id}
+                expanded={openAccordions.has(source.id)}
+                onExpandedChange={(expanded: boolean) => handleAccordionToggle(source.id, expanded)}
+                label={(
+                  <div>
+                    <p style={{ marginBottom: 5 }}>{source.title}</p>
                     <div>
-                      <p style={{ marginBottom: 5 }}>{source.title}</p>
-                      <div>
-                        {source.deletedAt
-                          ? (
-                              <Badge severity="error" style={{ marginRight: 5, marginBottom: 2 }}>
-                                Supprimé
-                              </Badge>
-                            )
-                          : (source.enabled
-                              ? (
-                                  <Badge severity="success" style={{ marginRight: 5, marginBottom: 2 }}>
-                                    Activé
-                                  </Badge>
-                                )
-                              : (
-                                  <Badge severity="error" style={{ marginRight: 5, marginBottom: 2 }}>
-                                    Désactivé
-                                  </Badge>
-                                ))}
-                        {(source.harvestError || (source.nbRevisionError && source.nbRevisionError > 0))
-                          ? (
-                              <Badge severity="error" style={{ marginRight: 5, marginBottom: 2 }}>
-                                Erreur(s)
-                              </Badge>
-                            )
-                          : (
-                              <Badge severity="success" style={{ marginRight: 5, marginBottom: 2 }}>
-                                Aucune Erreur
-                              </Badge>
-                            )}
-                      </div>
+                      {source.deletedAt
+                        ? (
+                            <Badge severity="error" style={{ marginRight: 5, marginBottom: 2 }}>
+                              Supprimé
+                            </Badge>
+                          )
+                        : (source.enabled
+                            ? (
+                                <Badge severity="success" style={{ marginRight: 5, marginBottom: 2 }}>
+                                  Activé
+                                </Badge>
+                              )
+                            : (
+                                <Badge severity="error" style={{ marginRight: 5, marginBottom: 2 }}>
+                                  Désactivé
+                                </Badge>
+                              ))}
+                      {(source.harvestError || (source.nbRevisionError && source.nbRevisionError > 0))
+                        ? (
+                            <Badge severity="error" style={{ marginRight: 5, marginBottom: 2 }}>
+                              Erreur(s)
+                            </Badge>
+                          )
+                        : (
+                            <Badge severity="success" style={{ marginRight: 5, marginBottom: 2 }}>
+                              Aucune Erreur
+                            </Badge>
+                          )}
                     </div>
-                  )}
-                >
-                  <MoissonneurHarvestList sourceId={source.id} />
-                  <MoissonneurRevisionsList sourceId={source.id} />
-                </Accordion>
-              ))}
-            </div>
+                  </div>
+                )}
+              >
+                {openAccordions.has(source.id) && (
+                  <>
+                    <MoissonneurHarvestList sourceId={source.id} />
+                    <MoissonneurRevisionsList sourceId={source.id} />
+                  </>
+                )}
+              </Accordion>
+            ))}
           </section>
         </Section>
       )
