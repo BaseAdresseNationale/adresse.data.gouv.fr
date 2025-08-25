@@ -138,3 +138,5 @@ export function CommuneAchievements({ isMini, achievements: { hasProcessedSignal
     </StyledWrapper>
   )
 }
+
+export default CommuneAchievements

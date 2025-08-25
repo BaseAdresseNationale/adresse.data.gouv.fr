@@ -85,3 +85,5 @@ export function CommuneUpdatesSection({ lastRevisionsDetails }: CommuneUpdatesSe
     </Section>
   )
 }
+
+export default CommuneUpdatesSection

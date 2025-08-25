@@ -28,3 +28,5 @@ export function CommunePublicationConsole({ partenaireDeLaCharte, tabs }: Commun
     </Section>
   )
 }
+
+export default CommunePublicationConsole
