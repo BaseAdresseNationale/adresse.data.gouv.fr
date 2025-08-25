@@ -2,11 +2,11 @@
 
 _[Le site officiel de l'Adresse en France](https://adresse.data.gouv.fr/)_
 
-Ce dépôt contient le code logiciel FrontEnd du site [adresse.data.gouv.fr](https://adresse.data.gouv.fr/), devellopé sur le framework [Next.js](https://nextjs.org).
+Ce dépôt contient le code logiciel FrontEnd du site [adresse.data.gouv.fr](https://adresse.data.gouv.fr/), développé sur le framework [Next.js](https://nextjs.org).
 
 ## Pré-requis
 
-Ce site nécéssite l'instalation préalable des outils suivant :
+Ce site nécéssite l'instalation préalable des outils suivants :
 
 * Node.JS version 20 ou supérieure
 * NPM version 10 ou supérieure
@@ -43,7 +43,7 @@ npm run start
 
 ### Contrôler la qualité et le formatage du code
 
-La qualité et le formatage du code sont controlé via [ESlint](https://eslint.org/)(pour la qualité) et [ESLint Stylistic](https://eslint.style/)(pour le formatage).
+La qualité et le formatage du code sont contrôlés via [ESlint](https://eslint.org/)(pour la qualité) et [ESLint Stylistic](https://eslint.style/)(pour le formatage).
 
 ```bash
 npm run lint

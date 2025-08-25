@@ -70,13 +70,15 @@ function PanelMicroToponym({ microToponym, onFlyToPosition }: PanelMicroToponymP
   const certificatedAddresses = microToponym.numeros.reduce((acc, numero) => {
     return numero.certifie ? acc + 1 : acc
   }, 0)
-  const certificatedAddressesPercent = Math.ceil(certificatedAddresses / microToponym.nbNumeros * 100)
+  const nbNumeros = microToponym.nbNumeros || microToponym.numeros.length
+  const certificatedAddressesPercent = Math.ceil(certificatedAddresses / nbNumeros * 100)
 
+  const source = microToponym?.source || microToponym.sourceNomVoie
   return (
     <>
       <PanelDetailsWrapper>
-        <PanelDetailsOrigin config={configOriginAddress} origin={microToponym.sourceNomVoie} />
-        <PanelDetailsCertifications certificationConfig={certificationConfig} origin={microToponym.sourceNomVoie} certificatedPercent={certificatedAddressesPercent} />
+        <PanelDetailsOrigin config={configOriginAddress} origin={source} />
+        <PanelDetailsCertifications certificationConfig={certificationConfig} origin={source} certificatedPercent={certificatedAddressesPercent} />
 
         <PanelDetailsItem className="ri-key-line">
           <span>
