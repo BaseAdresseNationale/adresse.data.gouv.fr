@@ -33,7 +33,7 @@ async function AsideContent() {
         <li><Link className="fr-link fr-link--icon-left fr-icon-linkedin-box-fill" target="linkedin" href={SOCIAL_NETWORKS_URL_LINKEDIN ?? ''}>LinkedIn</Link></li>
         <li><Link className="fr-link fr-link--icon-left fr-icon-facebook-circle-fill" target="facebook" href={SOCIAL_NETWORKS_URL_FACEBOOK ?? ''}>Facebook</Link></li>
         <li><Link className="fr-link fr-link--icon-left ri-rss-fill" target="rss" href={SOCIAL_NETWORKS_URL_RSS ?? ''}>Flux RSS</Link></li>
-        <li><Link className="fr-link fr-link--icon-left ri-mail-send-fill" href="#newsletter-form">Newsletter</Link></li>
+        <li><Link className="fr-link fr-link--icon-left ri-mail-send-fill" href="/newsletters">Newsletter</Link></li>
       </AsideFollowList>
     </>
   )
