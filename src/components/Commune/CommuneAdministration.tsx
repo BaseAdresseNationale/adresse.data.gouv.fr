@@ -159,35 +159,14 @@ function CommuneAdministration(district: BANCommune) {
   )
 
   const conditions = (
-    <>
-      <ul style={{ listStyleType: 'none', padding: 0 }}>
-        <li>
-          {!!communeBAN?.withBanId
-            ? (<span className="fr-icon-success-line" aria-hidden="true" />)
-            : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
-          <span>L&lsquo;activation de la fonctionnalité &quot;certificat d&lsquo;adressage&quot; nécessite, sous condition d&lsquo;éligibilité géographique, la présence des identifiants.</span>
-          {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier la condition :{' '}</span> */}
-          {/* <span className="fr-h6">Pour que le certificat d&lsquo;adressage soit actif, il faut vérifier ces 3 conditions :{' '}</span> */}
-          {/* <ul style={{ listStyleType: 'none' }}>
-            <li>
-              {technicalRequirements.hasID
-                ? (<span className="fr-icon-success-line" aria-hidden="true" />)
-                : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
-              {' '}la présence des identifiants
-
-            </li>
-            <li>
-              <span className="fr-icon-check-line" aria-hidden="true" />
-              au moins 75% des adresses sont certifiées
-            </li>
-            <li>
-              <span className="fr-icon-check-line" aria-hidden="true" />
-              la présence des parcelles (au moins à 50%)
-            </li>
-          </ul> */}
-        </li>
-      </ul>
-    </>
+    <ul style={{ listStyleType: 'none', padding: 0 }}>
+      <li>
+        {!!communeBAN?.withBanId
+          ? (<span className="fr-icon-success-line" aria-hidden="true" />)
+          : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
+        <span>L&lsquo;activation de la fonctionnalité &quot;certificat d&lsquo;adressage&quot; nécessite, sous condition d&lsquo;éligibilité géographique, la présence des identifiants.</span>
+      </li>
+    </ul>
   )
 
   const renderHabilitationContent = () => {
@@ -236,14 +215,23 @@ function CommuneAdministration(district: BANCommune) {
       }
     }
     else {
-      return logOutButton
+      return (
+        <>
+          <div>L’activation de la fonctionnalité &quot;certificat d’adressage&quot; n’est pas encore disponible pour votre commune. Deux raisons sont possibles :</div>
+          <ul>
+            <li>L’ouverture de l’option n’est pas encore effective sur votre département</li>
+            <li>Un élément technique, nommé identifiant, est manquant dans le fichier de vos adresses</li>
+          </ul>
+          {logOutButton}
+        </>
+      )
     }
   }
 
   const renderHabilitationWrapper = () => {
     return (
       <>
-        {conditions}
+        {!(authenticated && !techRequired) && !communeBAN?.config?.certificate && conditions}
         <div>{requiredConditions}</div>
         {featureProConnectEnabled && renderHabilitationContent()}
       </>
