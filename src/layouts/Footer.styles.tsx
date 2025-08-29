@@ -40,7 +40,7 @@ export const FooterWrapper = styled.footer<{ $isHidden: boolean, $isEventReady: 
       max-height: 75dvh;
       overflow: visible;
       bottom: 0;
-      transform: translateY(calc(100% - ${footerDisplayButtonHeight}));
+      transform: translateY(100%);
 
       .footer-display-button {
         display: flex;
