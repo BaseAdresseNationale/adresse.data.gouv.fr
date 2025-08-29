@@ -77,11 +77,10 @@ export const CommuneInfosActionsWrapper = styled.div`
 export const CommuneConfigItem = styled.div`
   display: block;
   margin-bottom: 0.2em;
-
-  b {
-    font-weight: 500;
-    font-size: 1.1em;
-  }
+  color: var(--text-action-high-blue-france);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 
   &::before {
     width: 1.25em;

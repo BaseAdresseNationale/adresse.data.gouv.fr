@@ -252,7 +252,10 @@ function CommuneAdministration(district: BANCommune) {
                 <b>Activé</b>
               </TooltipWithCommuneConfigItem>
             )
-          : <span>Activation du certificat d’adressage</span>}
+          : (
+              <span style={{ color: 'var(--text-action-high-blue-france)', fontSize: '1.25rem', lineHeight: '1.75rem', fontWeight: 700 }}>Activation du certificat d’adressage
+              </span>
+            )}
         {renderHabilitationWrapper()}
       </div>
     </Section>
