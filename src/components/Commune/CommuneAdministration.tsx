@@ -217,7 +217,7 @@ function CommuneAdministration(district: BANCommune) {
     else {
       return (
         <>
-          <div>L’activation de la fonctionnalité &quot;certificat d’adressage&quot; n’est pas encore disponible pour votre commune. Deux raisons sont possibles :</div>
+          <div>L’activation de la fonctionnalité &quot;certificat d’adressage&quot; <b>n’est pas encore disponible pour votre commune.</b> Deux raisons sont possibles :</div>
           <ul>
             <li>L’ouverture de l’option n’est pas encore effective sur votre département</li>
             <li>Un élément technique, nommé identifiant, est manquant dans le fichier de vos adresses</li>
