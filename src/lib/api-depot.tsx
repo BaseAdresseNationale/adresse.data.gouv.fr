@@ -5,9 +5,20 @@ import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
 import Tooltip from '@/components/Tooltip'
 import Link from 'next/link'
-
+import { Badge } from '@codegouvfr/react-dsfr/Badge'
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
+}
+
+// Fonction pour récupérer les alertes d'une commune
+export async function getCommuneAlerts(codeCommune: string): Promise<any[]> {
+  try {
+    const response = await customFetch(`http://localhost:5000/api/alerts/communes/${codeCommune}/status?limit=10`)
+    return response?.response?.revisions_recentes || []
+  } catch (error) {
+    console.error(`Error fetching alerts for commune ${codeCommune}:`, error)
+    return []
+  }
 }
 
 export async function getHabilitation(habilitationId: string, opts = { useProxy: true }): Promise<Habilitation> {
@@ -146,8 +157,46 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     source = revision.client.nom
   }
 
+  // Gestion du statut uniquement pour la révision courante
+  let statusIcon: JSX.Element | string = ''
+  
+  if (revision.isCurrent) {
+    // Récupérer les alertes seulement pour la révision courante
+    const alerts = await getCommuneAlerts(commune.codeCommune)
+    const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
+    
+    if (revisionAlerts.length > 0) {
+      // Trier par date décroissante pour avoir la plus récente en premier
+      const sortedAlerts = revisionAlerts.sort((a, b) => 
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+      
+      // Prendre la plus récente
+      const latestAlert = sortedAlerts[0]
+      
+      if (latestAlert.status === 'error') {
+        statusIcon = (
+          <Badge severity="error" title={latestAlert.message}>
+            Erreur
+          </Badge>
+        )
+      } else if (latestAlert.status === 'warning') {
+        statusIcon = (
+          <Badge severity="warning" title={latestAlert.message}>
+            Avertissement
+          </Badge>
+        )
+      } else {
+        statusIcon = <Badge severity="success">Révision courante</Badge>
+      }
+    } else {
+      // Pas d'alerte = succès
+      statusIcon = <Badge severity="success">Révision courante</Badge>
+    }
+  }
+
   return [
-    revision.isCurrent ? <Tooltip message="Révision courante"><span className="fr-icon-success-line" aria-hidden="true" /></Tooltip> : '',
+    statusIcon,
     revision.publishedAt,
     modeDePublication,
     source,
