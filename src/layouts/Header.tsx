@@ -146,6 +146,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/communaute/annuaire-des-prestataires' },
       },
       { text: 'Nos usagers', linkProps: { href: '/communaute/usages' } },
+      { text: 'Contacter la communauté', linkProps: { href: '/communaute/contacter-la-communaute' } },
     ],
   },
 ]

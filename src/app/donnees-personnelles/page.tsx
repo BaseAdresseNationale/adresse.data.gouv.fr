@@ -83,6 +83,15 @@ export default async function Home() {
                   'NON',
                   'Les agents ANCT habilités',
                 ],
+                [
+                  'Sécuriser la connexion à l’espace d’administration de la page commune',
+                  'IGN',
+                  'Nom, Prénom, Adresse courriel professionnelle',
+                  'Mission d’intérêt public relevant de la compétence de l’IGN (article 2 7° du Décret du 27 octobre 2011)',
+                  '1 an à compter du dernier contact',
+                  'NON',
+                  'Les agents IGN habilités',
+                ],
               ]}
               headers={[
                 'Finalités de traitement',
@@ -128,6 +137,12 @@ export default async function Home() {
                   'Formulaire de demande de levée de limite de l’API',
                   'France',
                   'https://doc.demarches-simplifiees.fr/cgu#_toc108111743',
+                ],
+                [
+                  'DINUM/ProConnect',
+                  'Authentification communes',
+                  'France',
+                  'https://www.proconnect.gouv.fr/cgu',
                 ],
               ]}
               headers={[
