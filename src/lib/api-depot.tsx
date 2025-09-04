@@ -158,42 +158,40 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   }
 
   // Gestion du statut uniquement pour la révision courante
-  let statusIcon: JSX.Element | string = ''
+// Gestion du statut pour la révision courante OU si c'est la révision de référence de la commune
+let statusIcon: JSX.Element | string = ''
+
+if (revision.isCurrent || revision.id === commune.idRevision) {
+  // Récupérer les alertes
+  const alerts = await getCommuneAlerts(commune.codeCommune)
+  const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
   
-  if (revision.isCurrent) {
-    // Récupérer les alertes seulement pour la révision courante
-    const alerts = await getCommuneAlerts(commune.codeCommune)
-    const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
+  if (revisionAlerts.length > 0) {
+    const sortedAlerts = revisionAlerts.sort((a, b) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    const latestAlert = sortedAlerts[0]
     
-    if (revisionAlerts.length > 0) {
-      // Trier par date décroissante pour avoir la plus récente en premier
-      const sortedAlerts = revisionAlerts.sort((a, b) => 
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    if (latestAlert.status === 'error') {
+      statusIcon = (
+        <Badge severity="error" title={latestAlert.message}>
+          Erreur
+        </Badge>
       )
-      
-      // Prendre la plus récente
-      const latestAlert = sortedAlerts[0]
-      
-      if (latestAlert.status === 'error') {
-        statusIcon = (
-          <Badge severity="error" title={latestAlert.message}>
-            Erreur
-          </Badge>
-        )
-      } else if (latestAlert.status === 'warning') {
-        statusIcon = (
-          <Badge severity="warning" title={latestAlert.message}>
-            Avertissement
-          </Badge>
-        )
-      } else {
-        statusIcon = <Badge severity="success">Révision courante</Badge>
-      }
+    } else if (latestAlert.status === 'warning') {
+      statusIcon = (
+        <Badge severity="warning" title={latestAlert.message}>
+          Avertissement
+        </Badge>
+      )
     } else {
-      // Pas d'alerte = succès
-      statusIcon = <Badge severity="success">Révision courante</Badge>
+      statusIcon = <Badge severity="success" title="Dernière mise à jour prise en compte par la BAN" >Active</Badge>
     }
+  } else {
+    // Pas d'alerte = success
+    statusIcon = <Badge severity="success" title="Dernière mise à jour prise en compte par la BAN" >Active </Badge>
   }
+}
 
   return [
     statusIcon,
