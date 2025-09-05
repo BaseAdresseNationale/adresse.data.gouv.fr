@@ -94,7 +94,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         text: 'Carte de la Base adresse nationale (Explorateur)',
         linkProps: { href: `${URL_CARTOGRAPHY_BAN}` },
       },
-      // { text: 'Certificat d’adresse', linkProps: { href: '#' } },
+      { text: 'Certificat d’adressage', linkProps: { href: '/outils/certificat-adressage' } },
       // { text: 'Signalement', linkProps: { href: '#' } },
       {
         text: 'Télécharger les données',

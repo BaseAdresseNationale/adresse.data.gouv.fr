@@ -148,17 +148,22 @@ export default async function Outils() {
                 </Button>
               )}
             />
-            {/* <Card
-              title="Certificat d'adresse"
+            <Card
+              title={<>Certificat d&apos;adressage <Badge noIcon severity="new">Nouveau</Badge></>}
               titleAs="h5"
-              desc="Un organisme privé (ex. : un opérateur téléphonique) ou public (ex. : Notaire) vous demande un certificat d’adresse."
+              desc="Générer un certificat d'adressage officiel en un clic"
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
-                <div style={{ maxWidth: 600 }}>
-                  <input className="fr-input" aria-describedby="text-1-messages" name="text" id="text-1" type="text"></input>
-                </div>
+                <Button
+                  linkProps={{
+                    href: '/outils/certificat-adressage',
+                  }}
+                  size="small"
+                >
+                  Découvrir le certificat d&apos;adressage
+                </Button>
               )}
-            /> */}
+            />
             {/* <Card
               title="Signalement"
               titleAs="h5"
@@ -343,7 +348,7 @@ export default async function Outils() {
       >
         <CardContainer $cols={2}>
           <Card
-            title="API FANTOIR (Dépréciée)"
+            title={<>API FANTOIR  <Badge noIcon severity="new">Dépréciée</Badge></>}
             titleAs="h5"
             desc="Consulter la base FANTOIR de la Direction générale des finances publiques (DGFIP)."
             className="fr-card--horizontal-tier fr-card--md"
