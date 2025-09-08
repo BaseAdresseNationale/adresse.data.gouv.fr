@@ -14,11 +14,8 @@ export default function SearchBANWrapper() {
   }, [router])
 
   return (
-    <div style={{ maxWidth: 600, margin: '0 auto', padding: '2rem 0' }}>
+    <div style={{ maxWidth: 600, margin: '0 auto' }}>
       <SearchBAN onSelect={defaultHandleSelect}>
-        <h3 style={{ marginBottom: '0.5rem' }}>
-          Rechercher dans la Base Adresse Nationale
-        </h3>
         <p style={{ margin: 0 }}>
           Saisissez votre adresse, une voie, un lieu-dit ou une commune
         </p>

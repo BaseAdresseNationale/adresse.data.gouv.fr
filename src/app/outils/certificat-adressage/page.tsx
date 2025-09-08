@@ -21,8 +21,8 @@ export default async function Home() {
           <SectionHero
             pageTitle={heroData?.title || ''}
             picture={{
-              src: '/img/pages/decouvrir_la_BAN/illustration-ban.svg',
-              alt: 'Illustration de "La Base Adresse Nationale"',
+              src: '/img/pages/certificat-adressage/certificate_cqps.svg',
+              alt: 'Illustration pour le certificat',
               width: 400,
               height: 310,
             }}
@@ -31,9 +31,33 @@ export default async function Home() {
           </SectionHero>
         )}
       </Suspense>
-      <section>
-        <SearchBANWrapper />
-      </section>
+      <Section className="fr-container fr-my-6w">
+        <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+          <div className="fr-col-12 fr-col-md-6">
+            <p className="fr-text--lg">
+              <strong>
+                Vous avez besoin de ce document pour compléter un dossier ?
+                Vous pouvez maintenant l&apos;obtenir en un clic à partir de notre explorateur.
+              </strong>
+            </p>
+            <p>
+              C&apos;est fiable, rapide et certifié par la Mairie ! (et gratuit bien sûr 🙂)
+            </p>
+          </div>
+          <div className="fr-col-12 fr-col-md-6">
+            <h3 style={{ marginBottom: '0.5rem' }}>
+              Trouver une adresse pour générer un certificat
+            </h3>
+            <SearchBANWrapper />
+          </div>
+          <div className="fr-col-12">
+            <p>
+              Note : ce service repose sur des prérequis techniques dont toutes les adresses ne disposent pas, il n&apos;est pas accessible sur l&apos;ensemble des adresses.
+              En cas d&apos;indisponibilité du service sur votre adresse, veuillez contacter votre mairie.
+            </p>
+          </div>
+        </div>
+      </Section>
 
       <Section>
         <TextWrapper>
