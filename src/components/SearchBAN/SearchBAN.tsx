@@ -136,7 +136,7 @@ const searchDataInBan = ({
     return []
   }
 
-const PML = [
+const PLM = [
   {
     city: 'Paris',
     codes: [
@@ -162,7 +162,7 @@ const PML = [
     ],
   },
 ]
-const PMLCodes = new Set(PML.flatMap(entry => entry.codes))
+const PLMCodes = new Set(PLM.flatMap(entry => entry.codes))
 
 const itemMenuFormater = (item:
 { properties: { id: string, name: string, context: string, city: string, citycode: string, type: string, district: string }, header: string }
@@ -170,10 +170,10 @@ const itemMenuFormater = (item:
   const { properties: { id, name, context, city, citycode, type, district }, header } = item
   const [codeDepartement, departement, region] = context.split(', ')
   const label = name
-  const isInPML = PMLCodes.has(citycode)
+  const isInPLM = PLMCodes.has(citycode)
   const details = `${type === 'municipality'
     ? `Code Insee - COG ${citycode} `
-    : `${isInPML ? district : city} `
+    : `${isInPLM ? district : city} `
   }(${codeDepartement}, ${departement}${region ? `, ${region}` : ''})`
 
   return { id, header, label, details }
