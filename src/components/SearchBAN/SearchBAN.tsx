@@ -136,16 +136,44 @@ const searchDataInBan = ({
     return []
   }
 
-const itemMenuFormater = (item:
-{ properties: { id: string, name: string, context: string, city: string, citycode: string, type: string }, header: string }
-) => {
-  const { properties: { id, name, context, city, citycode, type }, header } = item
-  const [codeDepartement, departement, region] = context.split(', ')
+const PML = [
+  {
+    city: 'Paris',
+    codes: [
+      '75101', '75102', '75103', '75104', '75105', '75106',
+      '75107', '75108', '75109', '75110', '75111', '75112',
+      '75113', '75114', '75115', '75116', '75117', '75118',
+      '75119', '75120',
+    ],
+  },
+  {
+    city: 'Marseille',
+    codes: [
+      '13201', '13202', '13203', '13204', '13205', '13206',
+      '13207', '13208', '13209', '13210', '13211', '13212',
+      '13213', '13214', '13215', '13216',
+    ],
+  },
+  {
+    city: 'Lyon',
+    codes: [
+      '69381', '69382', '69383', '69384', '69385',
+      '69386', '69387', '69388', '69389',
+    ],
+  },
+]
+const PMLCodes = new Set(PML.flatMap(entry => entry.codes))
 
+const itemMenuFormater = (item:
+{ properties: { id: string, name: string, context: string, city: string, citycode: string, type: string, district: string }, header: string }
+) => {
+  const { properties: { id, name, context, city, citycode, type, district }, header } = item
+  const [codeDepartement, departement, region] = context.split(', ')
   const label = name
+  const isInPML = PMLCodes.has(citycode)
   const details = `${type === 'municipality'
     ? `Code Insee - COG ${citycode} `
-    : `${city} `
+    : `${isInPML ? district : city} `
   }(${codeDepartement}, ${departement}${region ? `, ${region}` : ''})`
 
   return { id, header, label, details }
