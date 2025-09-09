@@ -10,8 +10,10 @@ Il ne contient **aucune information personnelle ni nominative**.
 
 Un QR code est associé aux informations utiles du certificat numérique, permettant d'authentifier que le référentiel national est bien la source de l'émission du certificat.
 
+Ci-dessous un exemple de corps de certificat:
+
 ![Exemple certificat d'adressage](/img/pages/certificat-adressage/certificat-pdf.png)
-*Exemple de corps de certificat*
+
 
 ## Comment fonctionne le service
 
