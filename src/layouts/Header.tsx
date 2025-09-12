@@ -118,7 +118,13 @@ export const navEntries: MainNavigationProps.Item[] = [
           target: '_blank',
         },
       },
-      // { text: 'Fantoir', linkProps: { href: '#' } },
+      { text: (
+        <>
+          Notifications BAN{' '}
+          <Badge noIcon severity="info">BETA</Badge>
+        </>
+      ), linkProps: { href: '/outils/notifications-ban' } },
+      // { text: 'Fantoir', lBANhref: '#' } },
     ],
   },
   {

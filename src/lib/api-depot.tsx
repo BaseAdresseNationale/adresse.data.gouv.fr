@@ -6,16 +6,22 @@ import { env } from 'next-runtime-env'
 import Tooltip from '@/components/Tooltip'
 import Link from 'next/link'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
+import { AlertBadge } from './AlertBadge'
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
+}
+
+if (!env('NEXT_PUBLIC_API_BAN_URL')) {
+  throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined')
 }
 
 // Fonction pour récupérer les alertes d'une commune
 export async function getCommuneAlerts(codeCommune: string): Promise<any[]> {
   try {
-    const response = await customFetch(`http://localhost:5000/api/alerts/communes/${codeCommune}/status?limit=10`)
+    const response = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/communes/${codeCommune}/status?limit=10`)
     return response?.response?.revisions_recentes || []
-  } catch (error) {
+  }
+  catch (error) {
     console.error(`Error fetching alerts for commune ${codeCommune}:`, error)
     return []
   }
@@ -158,40 +164,55 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   }
 
   // Gestion du statut uniquement pour la révision courante
-// Gestion du statut pour la révision courante OU si c'est la révision de référence de la commune
-let statusIcon: JSX.Element | string = ''
+  // Gestion du statut pour la révision courante OU si c'est la révision de référence de la commune
+  let statusIcon: JSX.Element | string = ''
 
-if (revision.isCurrent || revision.id === commune.idRevision) {
+  if (revision.isCurrent || revision.id === commune.idRevision) {
   // Récupérer les alertes
-  const alerts = await getCommuneAlerts(commune.codeCommune)
-  const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
-  
-  if (revisionAlerts.length > 0) {
-    const sortedAlerts = revisionAlerts.sort((a, b) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    )
-    const latestAlert = sortedAlerts[0]
-    
-    if (latestAlert.status === 'error') {
-      statusIcon = (
-        <Badge severity="error" title={latestAlert.message}>
-          Erreur
-        </Badge>
+    const alerts = await getCommuneAlerts(commune.codeCommune)
+    const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
+
+    if (revisionAlerts.length > 0) {
+      const sortedAlerts = revisionAlerts.sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       )
-    } else if (latestAlert.status === 'warning') {
-      statusIcon = (
-        <Badge severity="warning" title={latestAlert.message}>
-          Avertissement
-        </Badge>
-      )
-    } else {
-      statusIcon = <Badge severity="success" title="Dernière mise à jour prise en compte par la BAN" >Active</Badge>
+      const latestAlert = sortedAlerts[0]
+
+      if (latestAlert.status === 'error') {
+        statusIcon = (
+          <AlertBadge
+            status="error"
+            message={latestAlert.message}
+            label="Erreur"
+          />
+        )
+      }
+      else if (latestAlert.status === 'warning') {
+        statusIcon = (
+          <AlertBadge
+            status="warning"
+            message={latestAlert.message}
+            label="Avertissement"
+          />
+        )
+      }
+      else {
+        statusIcon = (
+          <span title="Dernière mise à jour prise en compte par la BAN">
+            <Badge severity="success">Active</Badge>
+          </span>
+        )
+      }
     }
-  } else {
+    else {
     // Pas d'alerte = success
-    statusIcon = <Badge severity="success" title="Dernière mise à jour prise en compte par la BAN" >Active </Badge>
+      statusIcon = (
+        <span title="Dernière mise à jour prise en compte par la BAN">
+          <Badge severity="success">Active</Badge>
+        </span>
+      )
+    }
   }
-}
 
   return [
     statusIcon,
