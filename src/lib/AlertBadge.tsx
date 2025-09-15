@@ -19,6 +19,16 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
   const [message, setMessage] = useState('')
   const [label, setLabel] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const formatMessage = (msg?: string): string => {
+    if (!msg) return ''
+
+    // Cherche le premier contenu entre ** **
+    const match = msg.match(/\*\*(.*?)\*\*/)
+    const extracted = match ? match[1] : msg
+
+    // Coupe à 300 caractères max
+    return extracted.slice(0, 300)
+  }
 
   useEffect(() => {
     const determineStatus = async () => {
@@ -51,7 +61,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
         // Révision courante non synchronisée
         if (revision.isCurrent && revision.id !== commune.idRevision) {
           setStatus('error')
-          setMessage(latestAlert?.message.substring(0, 100) || 'Révision courante non synchronisée avec la référence')
+          setMessage(formatMessage(latestAlert?.message) || 'Révision courante non synchronisée avec la référence')
           setLabel('Erreur')
           return
         }
@@ -60,7 +70,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
         if (revision.id === commune.idRevision) {
           if (latestAlert?.status === 'warning') {
             setStatus('warning')
-            setMessage(latestAlert.message.substring(0, 100) || 'Avertissement détecté')
+            setMessage(formatMessage(latestAlert?.message) || 'Avertissement détecté')
             setLabel('Avertissement')
           }
           else {
@@ -73,7 +83,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
 
         // Révisions intermédiaires
         setStatus('error')
-        setMessage(latestAlert?.message.substring(0, 100) || 'Révision non validée')
+        setMessage(formatMessage(latestAlert?.message) || 'Révision non validée')
         setLabel('Erreur')
       }
       catch (err) {
