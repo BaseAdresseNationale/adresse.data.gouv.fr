@@ -51,7 +51,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
         // Révision courante non synchronisée
         if (revision.isCurrent && revision.id !== commune.idRevision) {
           setStatus('error')
-          setMessage(latestAlert?.message || 'Révision courante non synchronisée avec la référence')
+          setMessage(latestAlert?.message.substring(0, 100) || 'Révision courante non synchronisée avec la référence')
           setLabel('Erreur')
           return
         }
@@ -60,7 +60,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
         if (revision.id === commune.idRevision) {
           if (latestAlert?.status === 'warning') {
             setStatus('warning')
-            setMessage(latestAlert.message || 'Avertissement détecté')
+            setMessage(latestAlert.message.substring(0, 100) || 'Avertissement détecté')
             setLabel('Avertissement')
           }
           else {
@@ -73,7 +73,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
 
         // Révisions intermédiaires
         setStatus('error')
-        setMessage(latestAlert?.message || 'Révision non validée')
+        setMessage(latestAlert?.message.substring(0, 100) || 'Révision non validée')
         setLabel('Erreur')
       }
       catch (err) {
