@@ -1,92 +1,191 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
-import { createModal } from '@codegouvfr/react-dsfr/Modal'
-
-// Un seul modal partagé
-const { Component: AlertModal, open: openAlertModal, close: closeAlertModal } = createModal({
-  id: 'alert-modal',
-  isOpenedByDefault: false,
-})
+import { Button } from '@codegouvfr/react-dsfr/Button'
+import { getCommuneAlerts } from '@/lib/api-depot'
+import { Revision } from '@/types/api-depot.types'
+import { BANCommune } from '@/types/api-ban.types'
 
 interface AlertBadgeProps {
-  status: 'error' | 'warning' | 'success'
-  message: string
-  label: string
+  revision: Revision
+  commune: BANCommune
+  allRevisions: Revision[]
 }
 
-export const AlertBadge: React.FC<AlertBadgeProps> = ({ status, message, label }) => {
+export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRevisions }) => {
+  const [shouldShow, setShouldShow] = useState(false)
+  const [status, setStatus] = useState<'error' | 'warning' | 'active'>('active')
+  const [message, setMessage] = useState('')
+  const [label, setLabel] = useState('')
+  const [showModal, setShowModal] = useState(false)
+
+  useEffect(() => {
+    const determineStatus = async () => {
+      if (!revision || !commune || !allRevisions) return
+
+      const referenceRevision = allRevisions.find(r => r.id === commune.idRevision)
+      const currentRevision = allRevisions.find(r => r.isCurrent)
+      if (!referenceRevision || !currentRevision) return
+
+      const sortedRevisions = [...allRevisions].sort(
+        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+      const currentIndex = sortedRevisions.findIndex(r => r.isCurrent)
+      const referenceIndex = sortedRevisions.findIndex(r => r.id === commune.idRevision)
+      const revisionIndex = sortedRevisions.findIndex(r => r.id === revision.id)
+
+      if (revisionIndex < currentIndex || revisionIndex > referenceIndex) {
+        setShouldShow(false)
+        return
+      }
+
+      setShouldShow(true)
+
+      try {
+        const alerts = await getCommuneAlerts(commune.codeCommune)
+        const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
+        const latestAlert = revisionAlerts
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+
+        // Révision courante non synchronisée
+        if (revision.isCurrent && revision.id !== commune.idRevision) {
+          setStatus('error')
+          setMessage(latestAlert?.message || 'Révision courante non synchronisée avec la référence')
+          setLabel('Erreur')
+          return
+        }
+
+        // Révision de référence
+        if (revision.id === commune.idRevision) {
+          if (latestAlert?.status === 'warning') {
+            setStatus('warning')
+            setMessage(latestAlert.message || 'Avertissement détecté')
+            setLabel('Avertissement')
+          }
+          else {
+            setStatus('active')
+            setMessage('Révision synchronisée')
+            setLabel('Valide')
+          }
+          return
+        }
+
+        // Révisions intermédiaires
+        setStatus('error')
+        setMessage(latestAlert?.message || 'Révision non validée')
+        setLabel('Erreur')
+      }
+      catch (err) {
+        console.error(err)
+        setShouldShow(false)
+      }
+    }
+
+    determineStatus()
+  }, [revision, commune, allRevisions])
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element
+      if (!target.closest('.custom-modal') && !target.closest('button')) {
+        setShowModal(false)
+      }
+    }
+
+    if (showModal) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showModal])
+
+  if (!shouldShow) return null
+
   const getSeverity = (status: string) => {
     switch (status) {
-      case 'error':
-        return 'error' as const
-      case 'warning':
-        return 'warning' as const
-      default:
-        return 'success' as const
+      case 'error': return 'error' as const
+      case 'warning': return 'warning' as const
+      default: return 'success' as const
     }
   }
 
   const getModalTitle = (status: string) => {
     switch (status) {
-      case 'error':
-        return 'Détail de l\'erreur'
-      case 'warning':
-        return 'Détail de l\'avertissement'
-      default:
-        return 'Information'
+      case 'error': return 'Détail de l\'erreur'
+      case 'warning': return 'Détail de l\'avertissement'
+      default: return 'Information'
     }
   }
 
-  const getAlertClass = (status: string) => {
+  const getAlertType = (status: string) => {
     switch (status) {
-      case 'error':
-        return 'fr-alert fr-alert--error'
-      case 'warning':
-        return 'fr-alert fr-alert--warning'
-      default:
-        return 'fr-alert fr-alert--success'
+      case 'error': return 'error' as const
+      case 'warning': return 'warning' as const
+      default: return 'success' as const
     }
   }
 
   return (
     <>
-      <span
-        style={{ cursor: 'pointer', display: 'inline-block' }}
-        onClick={() => openAlertModal()}
+      <Button
+        priority="tertiary no outline"
+        size="small"
+        onClick={() => setShowModal(!showModal)}
         title="Cliquer pour voir le détail"
+        className="fr-p-0"
       >
-        <Badge severity={getSeverity(status)}>
-          {label}
-        </Badge>
-      </span>
+        <Badge severity={getSeverity(status)}>{label}</Badge>
+      </Button>
 
-      <AlertModal
-        title={getModalTitle(status)}
-        buttons={[
-          {
-            children: 'Fermer',
-            priority: 'primary' as const,
-            onClick: () => closeAlertModal(),
-          },
-        ]}
-      >
-        <div className={getAlertClass(status)}>
-          <h3 className="fr-alert__title">Message détaillé</h3>
-          <div
-            className="fr-alert__text"
-            style={{
-              maxHeight: '300px',
-              overflowY: 'auto',
-              wordBreak: 'break-word',
-              whiteSpace: 'pre-wrap',
-            }}
-          >
-            {message}
+      {showModal && (
+        <div
+          className="fr-modal fr-modal--opened custom-modal"
+          style={{
+            position: 'fixed',
+            left: '20px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            maxWidth: '400px',
+            width: 'auto',
+            zIndex: 1000,
+            background: 'transparent',
+          }}
+        >
+          <div className="fr-container fr-container--fluid fr-container-md">
+            <div className="fr-grid-row fr-grid-row--center">
+              <div className="fr-col-12">
+                <div className="fr-modal__body">
+                  <div className="fr-modal__header">
+                    <button
+                      className="fr-btn--close fr-btn"
+                      title="Fermer"
+                      onClick={() => setShowModal(false)}
+                    >
+                      Fermer
+                    </button>
+                  </div>
+                  <div className="fr-modal__content">
+                    <div
+                      className={`fr-alert fr-alert--${getAlertType(status)}`}
+                      style={{
+                        maxHeight: '300px',
+                        overflowY: 'auto',
+                        overflowX: 'hidden',
+                        whiteSpace: 'pre-wrap',
+                        wordBreak: 'break-word',
+                      }}
+                    >
+                      <div className="fr-alert__text fr-text--break">
+                        {message}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </AlertModal>
+      )}
     </>
   )
 }

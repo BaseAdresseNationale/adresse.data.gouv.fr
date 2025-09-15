@@ -325,10 +325,10 @@ function NotificationsBAN() {
       >
         <div className="fr-mb-4w">
           <p>
-            Recevez des <strong>alertes automatiques</strong> lorsqu'une Base Adresse Locale
-            rencontre un problème et doit être corrigée puis republiée.
-            Surveillez les erreurs de format, données manquantes et autres blocages
-            sur les communes qui vous intéressent.
+            Recevez des <strong>alertes automatiques </strong>à la publication d'une Base Adresse Locale,
+            avec l'identification des anomalies si la BAL doit être corrigée puis republiée.
+            Surveillez les erreurs de format, données manquantes et autres blocages sur les
+            communes qui vous intéressent.
           </p>
           <div className="fr-mt-3w">
             <Button
@@ -356,7 +356,7 @@ function NotificationsBAN() {
                 }, 600)
               }}
             >
-              Comment configurer les webhooks ?
+              Comment configurer votre abonnement ?
             </Button>
           </div>
         </div>

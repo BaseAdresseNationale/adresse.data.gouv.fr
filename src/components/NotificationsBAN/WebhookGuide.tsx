@@ -32,7 +32,6 @@ export default function WebhookGuide() {
         onExpandedChange={handleToggle}
       >
         <div className="fr-mt-2w fr-p-3w fr-background-alt--grey">
-
           {/* Introduction */}
           <div className="fr-mb-3w">
             <h4>Qu&apos;est-ce qu&apos;un webhook ?</h4>
@@ -41,16 +40,39 @@ export default function WebhookGuide() {
               automatiquement des données vers une autre application lorsqu'un événement se produit.
             </p>
             <p>
-              <strong>Dans le contexte des Bases Adresses Locales (BAL)</strong>, les webhooks permettent 
-              d&apos;être alerté instantanément lorsqu&apos;une BAL rencontre un problème et doit être 
-              corrigée puis republiée.
+              <strong>Dans le contexte des Bases Adresses Locales (BAL)</strong>, les webhooks permettent d'être 
+              alerté instantanément lorsqu'une BAL est publiée, ou si elle rencontre 
+              un problème et doit être corrigée puis republiée.
             </p>
-            <p>
-              <strong>Workflow complet :</strong> Commune ou prestataire (GeoPal, etc.) publie une BAL →
-              Problème détecté (erreur de format, données manquantes) → BAL bloquée →
-              Notification webhook envoyée → Équipe alertée → Correction de la BAL → Republication
-            </p>
-            <p>
+            
+            {/* Workflow en deux colonnes */}
+            <h4>Workflow </h4>
+            <div className="fr-grid-row fr-grid-row--gutters fr-mt-3w">
+              {/* Colonne gauche - Cas d'erreur */}
+              <div className="fr-col-12 fr-col-md-6">
+                <div className="fr-background-alt--red-marianne fr-p-2w">
+                  <h5 className="fr-text--bold">Cas d'erreur</h5>
+                  <p className="fr-text--sm">
+                    BAL publiée → Validation échoue → BAL bloquée → 
+                    Webhook d'alerte envoyé → Équipe technique notifiée → Investigation et correction → 
+                    Nouvelle soumission 
+                  </p>
+                </div>
+              </div>
+
+              {/* Colonne droite - Cas de validation réussie */}
+              <div className="fr-col-12 fr-col-md-6">
+                <div className="fr-background-alt--green-tilleul-verveine fr-p-2w">
+                  <h5 className="fr-text--bold">Cas de validation réussie</h5>
+                  <p className="fr-text--sm">
+                    BAL publiée → Validation réussie → BAL acceptée → 
+                    Webhook informatif envoyé → Équipe notifiée
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <p className="fr-mt-2w">
               <strong>Objectif :</strong> Réduire le délai entre la détection d&apos;un problème et sa résolution
               pour maintenir la qualité des données adresses en continu.
             </p>
@@ -94,7 +116,7 @@ export default function WebhookGuide() {
               <h4>Scénarios d&apos;usage</h4>
 
               <div className="fr-mb-2w fr-p-2w fr-background-contrast--grey">
-                <h5>Service communal / intercommunal</h5>
+                <h5>Service communal</h5>
                 <p className="fr-text--sm">
                   <strong>Contexte :</strong> Gestion directe des BAL pour 50 communes<br />
                   <strong>Configuration :</strong> Webhook → Canal Teams "Adressage"<br />
@@ -143,15 +165,15 @@ export default function WebhookGuide() {
               <div className="fr-col-12 fr-col-md-6">
                 <h5>Types d&apos;alertes</h5>
                 <ul className="fr-mb-3w">
-                  <li><Badge severity="error" small>error</Badge> BAL bloquée - Action requise</li>
-                  <li><Badge severity="warning" small>warning</Badge> Problème détecté - BAL bientôt bloquée</li>
-                  <li><Badge severity="success" small>success</Badge> BAL republiée avec succès</li>
-                  <li><Badge severity="info" small>info</Badge> Information sur le traitement</li>
+                  <li><Badge severity="error" small>ERREUR</Badge> BAL bloquée - Action requise</li>
+                  <li><Badge severity="warning" small>AVERTISSEMENT</Badge> Problème détecté - BAL bientôt bloquée</li>
+                  <li><Badge severity="success" small>SUCCÈS</Badge> BAL publiée avec succès</li>
+                  <li><Badge severity="info" small>INFORMATION</Badge> Information sur le traitement</li>
                 </ul>
 
                 <h5>Prérequis techniques</h5>
                 <ul>
-                  <li>URL endpoint en <strong>HTTPS</strong></li>
+                  <li>URL endpoint HTTPS et accessible publiquement</li>
                 </ul>
               </div>
             </div>

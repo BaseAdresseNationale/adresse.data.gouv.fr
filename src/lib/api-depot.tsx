@@ -133,7 +133,7 @@ export const getCurrentRevisionDownloadUrl = (codeCommune: string) => {
   return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`
 }
 
-export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
+export const getRevisionDetails = async (revision: Revision, commune: BANCommune, allRevisions: Revision[]) => {
   let modeDePublication = '-'
   if (revision?.context?.extras?.sourceId) {
     modeDePublication = 'Moissonneur'
@@ -163,64 +163,22 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
     source = revision.client.nom
   }
 
-  // Gestion du statut uniquement pour la révision courante
-  // Gestion du statut pour la révision courante OU si c'est la révision de référence de la commune
-  let statusIcon: JSX.Element | string = ''
-
-  if (revision.isCurrent || revision.id === commune.idRevision) {
-  // Récupérer les alertes
-    const alerts = await getCommuneAlerts(commune.codeCommune)
-    const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
-
-    if (revisionAlerts.length > 0) {
-      const sortedAlerts = revisionAlerts.sort((a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
-      const latestAlert = sortedAlerts[0]
-
-      if (latestAlert.status === 'error') {
-        statusIcon = (
-          <AlertBadge
-            status="error"
-            message={latestAlert.message}
-            label="Erreur"
-          />
-        )
-      }
-      else if (latestAlert.status === 'warning') {
-        statusIcon = (
-          <AlertBadge
-            status="warning"
-            message={latestAlert.message}
-            label="Avertissement"
-          />
-        )
-      }
-      else {
-        statusIcon = (
-          <span title="Dernière mise à jour prise en compte par la BAN">
-            <Badge severity="success">Active</Badge>
-          </span>
-        )
-      }
-    }
-    else {
-    // Pas d'alerte = success
-      statusIcon = (
-        <span title="Dernière mise à jour prise en compte par la BAN">
-          <Badge severity="success">Active</Badge>
-        </span>
-      )
-    }
-  }
-
   return [
-    statusIcon,
+    <AlertBadge
+      key={`alert-${revision.id}`}
+      revision={revision}
+      commune={commune}
+      allRevisions={allRevisions}
+    />,
     revision.publishedAt,
     modeDePublication,
     source,
-    <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
-    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>Rapport de validation</Link>,
+    <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download>
+      <span className="fr-icon-download-line" aria-hidden="true" />
+    </a>,
+    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>
+      Rapport de validation
+    </Link>,
   ]
 }
 
