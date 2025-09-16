@@ -22,11 +22,22 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
   const formatMessage = (msg?: string): string => {
     if (!msg) return ''
 
-    // Cherche le premier contenu entre ** **
-    const match = msg.match(/\*\*(.*?)\*\*/)
-    const extracted = match ? match[1] : msg
+    let extracted = ''
 
-    // Coupe à 300 caractères max
+    const firstMatch = msg.match(/\*\*(.*?)\*\*/)
+    if (firstMatch) {
+      extracted = firstMatch[1]
+
+      const remainingMsg = msg.substring(firstMatch.index! + firstMatch[0].length)
+      const secondMatch = remainingMsg.match(/\*\*(.*?)\*\*/)
+      if (secondMatch) {
+        extracted += ' ' + secondMatch[1]
+      }
+    }
+    else {
+      extracted = msg
+    }
+
     return extracted.slice(0, 300)
   }
 
