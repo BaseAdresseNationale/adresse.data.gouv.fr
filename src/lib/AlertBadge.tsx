@@ -31,7 +31,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
       const remainingMsg = msg.substring(firstMatch.index! + firstMatch[0].length)
       const secondMatch = remainingMsg.match(/\*\*(.*?)\*\*/)
       if (secondMatch) {
-        extracted += ' ' + secondMatch[1]
+        extracted += ', ' + secondMatch[1]
       }
     }
     else {
@@ -67,6 +67,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
         const alerts = await getCommuneAlerts(commune.codeCommune)
         const revisionAlerts = alerts.filter(a => a.revisionId === revision.id)
         const latestAlert = revisionAlerts
+          .filter(alert => alert.status === 'warning' || alert.status === 'error')
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
 
         // Révision courante non synchronisée
