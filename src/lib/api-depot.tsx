@@ -5,9 +5,26 @@ import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
 import Tooltip from '@/components/Tooltip'
 import Link from 'next/link'
-
+import { Badge } from '@codegouvfr/react-dsfr/Badge'
+import { AlertBadge } from './AlertBadge'
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
+}
+
+if (!env('NEXT_PUBLIC_API_BAN_URL')) {
+  throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined')
+}
+
+// Fonction pour récupérer les alertes d'une commune
+export async function getCommuneAlerts(codeCommune: string): Promise<any[]> {
+  try {
+    const response = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/communes/${codeCommune}/status?limit=10`)
+    return response?.response?.revisions_recentes || []
+  }
+  catch (error) {
+    console.error(`Error fetching alerts for commune ${codeCommune}:`, error)
+    return []
+  }
 }
 
 export async function getHabilitation(habilitationId: string, opts = { useProxy: true }): Promise<Habilitation> {
@@ -116,7 +133,7 @@ export const getCurrentRevisionDownloadUrl = (codeCommune: string) => {
   return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`
 }
 
-export const getRevisionDetails = async (revision: Revision, commune: BANCommune) => {
+export const getRevisionDetails = async (revision: Revision, commune: BANCommune, allRevisions: Revision[]) => {
   let modeDePublication = '-'
   if (revision?.context?.extras?.sourceId) {
     modeDePublication = 'Moissonneur'
@@ -147,12 +164,21 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
   }
 
   return [
-    revision.isCurrent ? <Tooltip message="Révision courante"><span className="fr-icon-success-line" aria-hidden="true" /></Tooltip> : '',
+    <AlertBadge
+      key={`alert-${revision.id}`}
+      revision={revision}
+      commune={commune}
+      allRevisions={allRevisions}
+    />,
     revision.publishedAt,
     modeDePublication,
     source,
-    <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download><span className="fr-icon-download-line" aria-hidden="true" /></a>,
-    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>Rapport de validation</Link>,
+    <a className="fr-btn" key={revision.id} href={getRevisionDownloadUrl(revision.id)} download>
+      <span className="fr-icon-download-line" aria-hidden="true" />
+    </a>,
+    <Link key={revision.id} style={{ color: 'var(--text-action-high-blue-france)' }} href={`/outils/validateur-bal?file=${getRevisionDownloadUrl(revision.id)}`}>
+      Rapport de validation
+    </Link>,
   ]
 }
 

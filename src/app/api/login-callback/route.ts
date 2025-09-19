@@ -44,6 +44,13 @@ export async function GET(req: NextRequest) {
     cookieStore.set('id_token_hint', JSON.stringify(tokens.id_token), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('oauth2token', JSON.stringify(tokens), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
+
+    const returnToCookie = cookieStore.get('auth_return_to')
+    if (returnToCookie) {
+      cookieStore.delete('auth_return_to')
+      const url = new URL(returnToCookie.value, NEXT_PUBLIC_ADRESSE_URL)
+      return NextResponse.redirect(url)
+    }
     const url = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`)
     url.search = req.nextUrl.search.toString()
     return NextResponse.redirect(url)
