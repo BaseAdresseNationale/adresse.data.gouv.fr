@@ -473,9 +473,9 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="Notifications BAN"
+            title={(<>Notifications BAN <Badge noIcon severity="info">BETA</Badge></>)}
             titleAs="h5"
-            desc="Recevoire les alertes et notifications du système de traitement des données BAN en temps réel."
+            desc="Recevoir les alertes et notifications du système de traitement des données BAN en temps réel."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -489,6 +489,7 @@ export default async function Outils() {
             )}
           />
         </CardContainer>
+
       </Section>
     </>
   )

@@ -94,18 +94,6 @@ export const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
   isFormValid,
   formErrors,
 }) => {
-  // Validation en temps réel
-  const isValidURL = (url: string): boolean => {
-    if (!url.trim()) return false
-
-    try {
-      const urlObj = new URL(url)
-      return urlObj.protocol === 'https:'
-    }
-    catch {
-      return false
-    }
-  }
 
   const handleStatusChange = (status: string, checked: boolean) => {
     setFormData(prev => ({

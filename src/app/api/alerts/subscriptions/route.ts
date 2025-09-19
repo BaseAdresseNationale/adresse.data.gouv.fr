@@ -158,8 +158,9 @@ export async function PATCH(request: NextRequest) {
     }
 
     const updateData = buildUpdateData(body)
+    updateData.createdBy = userID
 
-    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers/${body.id}`, {
+    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${body.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -213,11 +214,14 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers/${body.id}`, {
+    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${body.id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Token ${env('BAN_API_TOKEN')}`,
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${env('BAN_API_TOKEN')}`,
       },
+      // Passer l'userId dans le body pour l'authentification
+      body: JSON.stringify({ createdBy: userID }),
     })
 
     if (!response.ok) {
@@ -243,7 +247,6 @@ export async function DELETE(request: NextRequest) {
   }
 }
 
-// Fonctions utilitaires améliorées
 function parseUserData(userData: any): UserData | null {
   try {
     let parsedData = userData
