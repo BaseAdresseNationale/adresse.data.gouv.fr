@@ -16,112 +16,85 @@ interface AlertBadgeProps {
 function parseAlertMessage(rawMessage: string): string | null {
   if (!rawMessage) return null
 
-  const cleanMessage = rawMessage.replace(/✅|ℹ️|⚠️|❌|⛔️/g, '').trim()
-  const lowerMessage = cleanMessage.toLowerCase()
+  const lowerMessage = rawMessage.toLowerCase()
 
-  if (lowerMessage.includes('traité avec succès')
-    || lowerMessage.includes('terminé avec succès')
-    || lowerMessage.includes('aucun changement détecté')
-    || lowerMessage.includes('révision synchronisée')
-    || lowerMessage.includes('liste blanche')
-    || lowerMessage.includes('aucun district trouvé')
-    || lowerMessage.includes('utilise des banid')
-    || lowerMessage.includes('n\'utilise pas de banid')) {
+  // Messages de succès à ignorer
+  if (['traité avec succès', 'terminé avec succès', 'aucun changement détecté', 'révision synchronisée',
+    'liste blanche', 'aucun district trouvé', 'utilise des banid', 'n\'utilise pas de banid']
+    .some(msg => lowerMessage.includes(msg))) {
     return null
   }
 
-  // 1. JOB ÉCHOUÉ
+  // JOB ÉCHOUÉ
   if (lowerMessage.includes('job') && lowerMessage.includes('échoué')) {
-    if (cleanMessage.includes('updateDate is a required field')) {
-      return 'Date mise à jour manquante'
-    }
-    return 'Erreur interne contacter le support'
+    return rawMessage.includes('updateDate is a required field')
+      ? 'Révision courante non synchronisée avec la base - Date mise à jour manquante'
+      : 'Révision courante non synchronisée avec la base - Erreur interne contacter le support'
   }
 
-  // 2. DROITS MANQUANTS - afficher message complet
-  if (lowerMessage.includes('droits manquants') && lowerMessage.includes('districtids')) {
-    // Extraire tout ce qui suit "Droits manquants"
-    const match = cleanMessage.match(/droits manquants,\s*(.*)/i)
-    if (match) {
-      return `Droits manquants, ${match[1]}`
-    }
-    return 'Droits manquants'
+  // DROITS MANQUANTS
+  if (lowerMessage.includes('droits manquants')) {
+    const match = rawMessage.match(/droits manquants,\s*(.*)/i)
+    return match ? `Révision courante non synchronisée avec la base - Droits manquants, ${match[1]}` : 'Droits manquants'
   }
 
-  // 3. OPÉRATION NON AUTORISÉE - afficher tous les IDs
-  if (lowerMessage.includes('opération non autorisée') && lowerMessage.includes('éléments font partie')) {
-    let result = 'Opération non autorisée\n\nIdentifiants déjà utilisés dans la base:'
+  // OPÉRATION NON AUTORISÉE
+  if (lowerMessage.includes('opération non autorisée')) {
+    let result = 'Révision courante non synchronisée avec la base - Opération non autorisée\n\nIdentifiants déjà utilisés dans la base:'
 
-    // Extraire les adresses
-    const addressMatch = cleanMessage.match(/adresses non autorisées\s*:\s*`([^`]+)`/i)
+    const addressMatch = rawMessage.match(/adresses non autorisées\s*:\s*`([^`]+)`/i)
+    const toponymMatch = rawMessage.match(/toponymes non autorisés\s*:\s*`([^`]+)`/i)
+
     if (addressMatch) {
-      const addresses = addressMatch[1].split(',').map(id => id.trim())
-      result += '\n\nAdresses:'
-      addresses.forEach((addr) => {
-        result += `\n• ${addr}`
-      })
+      result += '\n\nAdresses:\n' + addressMatch[1].split(',').map(id => `• ${id.trim()}`).join('\n')
     }
-
-    // Extraire les toponymes
-    const toponymMatch = cleanMessage.match(/toponymes non autorisés\s*:\s*`([^`]+)`/i)
     if (toponymMatch) {
-      const toponyms = toponymMatch[1].split(',').map(id => id.trim())
-      result += '\n\nToponymes:'
-      toponyms.forEach((topo) => {
-        result += `\n• ${topo}`
-      })
+      result += '\n\nToponymes:\n' + toponymMatch[1].split(',').map(id => `• ${id.trim()}`).join('\n')
     }
 
     return result
   }
 
-  // 4. SEUIL DE SUPPRESSION - tout afficher en français
-  if (lowerMessage.includes('seuil de suppression dépassé')
-    || (lowerMessage.includes('exceeded') && (lowerMessage.includes('addresses') || lowerMessage.includes('toponyms')))) {
+  // SEUIL DE SUPPRESSION
+  if (lowerMessage.includes('seuil de suppression') || lowerMessage.includes('exceeded')) {
     let result = 'Seuil de suppression dépassé\n\nDépassé:'
 
-    // Convertir "Exceeded: Addresses: X% (Y/Z), Toponyms: A% (B/C)"
-    const addressMatch = cleanMessage.match(/addresses:\s*([0-9.,]+%)\s*\(([0-9,]+)\/([0-9,]+)\)/i)
-    const toponymMatch = cleanMessage.match(/toponyms:\s*([0-9.,]+%)\s*\(([0-9,]+)\/([0-9,]+)\)/i)
+    const addressMatch = rawMessage.match(/addresses:\s*([0-9.,]+%)\s*\(([0-9,]+)\/([0-9,]+)\)/i)
+    const toponymMatch = rawMessage.match(/toponyms:\s*([0-9.,]+%)\s*\(([0-9,]+)\/([0-9,]+)\)/i)
 
-    if (addressMatch) {
-      result += `\nAdresses: ${addressMatch[1]} (${addressMatch[2]}/${addressMatch[3]})`
-    }
-    if (toponymMatch) {
-      result += `\nToponymes: ${toponymMatch[1]} (${toponymMatch[2]}/${toponymMatch[3]})`
-    }
+    if (addressMatch) result += `\nAdresses: ${addressMatch[1]} (${addressMatch[2]}/${addressMatch[3]})`
+    if (toponymMatch) result += `\nToponymes: ${toponymMatch[1]} (${toponymMatch[2]}/${toponymMatch[3]})`
 
     return result
   }
 
-  // 5. DONNÉES MANQUANTES - messages spécifiques
-  if (lowerMessage.includes('addressid manquant')) {
-    return 'Enregistrement de la BAL sans les identifiants - addressID manquant - Consulter le rapport de validation'
+  // DONNÉES MANQUANTES - patterns spécifiques
+  const missingData = {
+    'addressid manquant': 'addressID',
+    'districtid manquant': 'districtID',
+    'maintopoid manquant': 'mainTopoID',
+    'ids manquants': 'IDs',
   }
-  if (lowerMessage.includes('districtid manquant')) {
-    return 'Enregistrement de la BAL sans les identifiants - districtID manquant - Consulter le rapport de validation'
+
+  for (const [pattern, type] of Object.entries(missingData)) {
+    if (lowerMessage.includes(pattern)) {
+      // Si déjà dans le nouveau système, pas d'enregistrement mais validation
+      if (lowerMessage.includes('le district est enregistré dans le nouveau système')) {
+        return `Révision courante non synchronisée avec la base - ${type} manquant - Consulter le rapport de validation`
+      }
+      return `Enregistrement de la BAL sans les identifiants - ${type} manquant - Consulter le rapport de validation`
+    }
   }
-  if (lowerMessage.includes('maintopoid manquant')) {
-    return 'Enregistrement de la BAL sans les identifiants - mainTopoID manquant - Consulter le rapport de validation'
-  }
-  if (lowerMessage.includes('ids manquants')) {
-    return 'Enregistrement de la BAL sans les identifiants - IDs manquants - Consulter le rapport de validation'
-  }
+
   if (lowerMessage.includes('enregistrement de la bal sans les identifiants')) {
     return 'Enregistrement de la BAL sans les identifiants - Consulter le rapport de validation'
   }
 
-  // 6. API ERRORS
-  if (lowerMessage.includes('api ban') || lowerMessage.includes('api dump')) {
-    return 'Erreur interne contactez le support'
+  // ERREURS INTERNES
+  if (['api ban', 'api dump', 'timeout'].some(err => lowerMessage.includes(err))) {
+    return 'Révision courante non synchronisée avec la base - Erreur interne contactez le support'
   }
 
-  // 7. TIMEOUT
-  if (lowerMessage.includes('timeout')) {
-    return 'Erreur interne contactez le support'
-  }
-
-  // Si aucun pattern reconnu, ne pas afficher
   return null
 }
 
@@ -131,7 +104,6 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
   const [rawMessage, setRawMessage] = useState('')
   const [label, setLabel] = useState('')
   const [showModal, setShowModal] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
 
   useEffect(() => {
     const determineStatus = async () => {
@@ -169,14 +141,6 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
           setLabel('Erreur')
           return
         }
-        /* test dev
-        if (revision.isCurrent && revision.id == commune.idRevision) {
-          setStatus('error')
-          setRawMessage(latestAlert?.message || 'Révision courante non synchronisée avec la base')
-          setLabel('Erreur')
-          return
-        } */
-
         // Révision de référence
         if (revision.id === commune.idRevision) {
           if (latestAlert?.status === 'warning') {
@@ -211,7 +175,6 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
       const target = event.target as Element
       if (!target.closest('.custom-modal') && !target.closest('button')) {
         setShowModal(false)
-        setIsExpanded(false)
       }
     }
 
@@ -221,18 +184,11 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
     }
   }, [showModal])
 
-  useEffect(() => {
-    if (showModal) {
-      setIsExpanded(false)
-    }
-  }, [showModal])
-
   if (!shouldShow) return null
 
-  // Parser le message seulement quand on a un message
   const displayMessage = parseAlertMessage(rawMessage)
 
-  // Si le parser retourne null pour les messages qu'on ne veut pas afficher, ne pas afficher
+  // Ne pas afficher si le parser retourne null pour les messages de succès
   if (displayMessage === null && rawMessage
     && (rawMessage.toLowerCase().includes('traité avec succès')
     || rawMessage.toLowerCase().includes('terminé avec succès')
@@ -256,8 +212,6 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
       default: return 'success' as const
     }
   }
-
-  const needsExpansion = rawMessage.length > 150
 
   return (
     <>
@@ -307,64 +261,16 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
                         overflowX: 'hidden',
                       }}
                     >
-                      {/* Message principal - parsé si possible, sinon original */}
                       <div
                         className="fr-alert__title"
                         style={{
                           fontSize: '1rem',
                           fontWeight: 'bold',
-                          marginBottom: needsExpansion ? '1rem' : '0',
                           whiteSpace: 'pre-line',
                         }}
                       >
                         {displayMessage || rawMessage}
                       </div>
-
-                      {/* Message technique complet si demandé */}
-                      {isExpanded && (
-                        <div
-                          className="fr-alert__text"
-                          style={{
-                            whiteSpace: 'pre-wrap',
-                            wordBreak: 'break-word',
-                            fontSize: '0.9rem',
-                            color: '#666',
-                            padding: '1rem',
-                            backgroundColor: 'rgba(0,0,0,0.05)',
-                            borderRadius: '4px',
-                          }}
-                        >
-                          <strong>Message technique original :</strong><br />
-                          {rawMessage}
-                        </div>
-                      )}
-
-                      {/* Bouton pour voir le message technique complet */}
-                      {/*                       {needsExpansion && (
-                        <div className="fr-mt-2w">
-                          {!isExpanded ? (
-                            <Button
-                              priority="tertiary no outline"
-                              size="small"
-                              onClick={() => setIsExpanded(true)}
-                              iconId="fr-icon-arrow-down-s-line"
-                              iconPosition="right"
-                            >
-                              Voir le message technique
-                            </Button>
-                          ) : (
-                            <Button
-                              priority="tertiary no outline"
-                              size="small"
-                              onClick={() => setIsExpanded(false)}
-                              iconId="fr-icon-arrow-up-s-line"
-                              iconPosition="right"
-                            >
-                              Masquer le détail
-                            </Button>
-                          )}
-                        </div>
-                      )} */}
                     </div>
                   </div>
                 </div>
