@@ -6,7 +6,6 @@ import Section from '@/components/Section'
 import SectionHero from '@/components/SectionHero'
 import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
-
 import Breadcrumb from '@/layouts/Breadcrumb'
 import type { DataType } from '@/lib/markdown'
 import { CardContainer } from '@/app/outils/page.styled'
@@ -51,6 +50,8 @@ export default async function Outils() {
               desc="Chercher des adresses dans la Base Adresse Nationale."
               imageAlt="explorateur ban"
               imageUrl="/img/pages/outils/outils-ban.png"
+              classes={{ img: 'my-card-img-wrapper' }}
+              nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -67,8 +68,10 @@ export default async function Outils() {
               title="Téléchargement des données"
               titleAs="h5"
               desc="Télécharger les données de la Base Adresse Nationale (BAN)"
-              imageAlt="download data"
-              imageUrl="/img/pages/outils/outils-ban.png"
+              imageAlt="Téléchargement des données"
+              imageUrl="/img/pages/outils/telechargement.png"
+              classes={{ img: 'my-card-img-wrapper' }}
+              nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--md fr-card--horizontal-tier"
               footer={(
                 <ul className="fr-btns-group fr-btns-group--equisized fr-btns-group--sm fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -99,9 +102,13 @@ export default async function Outils() {
 
             />
             <Card
-              title="Service de géocodage de la Géoplateforme"
+              title="Service de géocodage"
               titleAs="h5"
-              desc="Effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale. Géocodage direct et inverse, unitaire et en masse."
+              desc="Effectuer rapidement une recherche d’adresse, et récupérer ses coordonnées. Géocodage direct et inverse, unitaire et en masse."
+              imageAlt="Illustration service de géocodage"
+              imageUrl="/img/pages/outils/service-geocodage.png"
+              classes={{ img: 'my-card-img-wrapper' }}
+              nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -118,6 +125,10 @@ export default async function Outils() {
               title={<>Service d&apos;autocomplétion <Badge noIcon severity="new">Nouveau</Badge></>}
               titleAs="h5"
               desc="Faciliter la saisie en suggérant des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux."
+              imageAlt="Illustration le service d'autocomplétion du géocodeur"
+              imageUrl="/img/pages/outils/autocompletion.png"
+              classes={{ img: 'my-card-img-wrapper' }}
+              nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -133,9 +144,13 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="Le Géocodeur CSV"
+              title="Géocodeur CSV"
               titleAs="h5"
-              desc="Le service de Géocodeur CSV propose une interface pour vous permettre de géocoder facilement une liste d'adresses en ajoutant un fichier CSV et en paramétrant les colonnes à utiliser."
+              desc="Géocoder facilement une liste d'adresses à partir d'un fichier CSV."
+              imageAlt="Illustration pour le géocodeur csv"
+              imageUrl="/img/pages/outils/geocodeur-csv.png"
+              classes={{ img: 'my-card-img-wrapper' }}
+              nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -152,6 +167,10 @@ export default async function Outils() {
               title={<>Certificat d&apos;adressage <Badge noIcon severity="new">Nouveau</Badge></>}
               titleAs="h5"
               desc="Générer un certificat d'adressage officiel en un clic"
+              imageAlt="Illustation certificat d'adressage"
+              imageUrl="/img/pages/certificat-adressage/certificate_outils.png"
+              classes={{ img: 'my-card-img-wrapper' }}
+              nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
                 <Button
@@ -443,6 +462,10 @@ export default async function Outils() {
             title="Supervision des outils et Apis"
             titleAs="h5"
             desc="Consulter la disponibilité des différents composants de l'écosystème adresse grâce à un outil de monitoring."
+            imageAlt="Image pour les outils de supervision"
+            imageUrl="/img/pages/outils/serveur-status.png"
+            classes={{ img: 'my-card-img-wrapper' }}
+            nativeImgProps={{ style: { objectFit: 'contain' } }}
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
@@ -460,6 +483,10 @@ export default async function Outils() {
             title="Les métriques d'impact"
             titleAs="h5"
             desc="Consulter les statistiques sur la BAN"
+            imageAlt="Image pour les métriques"
+            imageUrl="/img/pages/outils/stats.png"
+            classes={{ img: 'my-card-img-wrapper' }}
+            nativeImgProps={{ style: { objectFit: 'contain' } }}
             className="fr-card fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
