@@ -84,7 +84,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       ? getRevisions(codeCommune)
         .then(revisions => Promise.all(revisions
           .slice(0, 5)
-          .map(revision => getRevisionDetails(revision, commune)))
+          .map(revision => getRevisionDetails(revision, commune, revisions)))
         )
       : [],
     getCommunesPrecedentes(codeCommune),
