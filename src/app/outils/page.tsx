@@ -144,7 +144,7 @@ export default async function Outils() {
               )}
             />
             <Card
-              title="Le Géocodeur CSV"
+              title="Géocodeur CSV"
               titleAs="h5"
               desc="Géocoder facilement une liste d'adresses à partir d'un fichier CSV."
               imageAlt="Illustration pour le géocodeur csv"
