@@ -50,7 +50,6 @@ export default async function Outils() {
               desc="Chercher des adresses dans la Base Adresse Nationale."
               imageAlt="explorateur ban"
               imageUrl="/img/pages/outils/outils-ban.png"
-              classes={{ img: 'my-card-img-wrapper' }}
               nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
@@ -70,7 +69,6 @@ export default async function Outils() {
               desc="Télécharger les données de la Base Adresse Nationale (BAN)"
               imageAlt="Téléchargement des données"
               imageUrl="/img/pages/outils/telechargement.png"
-              classes={{ img: 'my-card-img-wrapper' }}
               nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--md fr-card--horizontal-tier"
               footer={(
@@ -107,7 +105,6 @@ export default async function Outils() {
               desc="Effectuer rapidement une recherche d’adresse, et récupérer ses coordonnées. Géocodage direct et inverse, unitaire et en masse."
               imageAlt="Illustration service de géocodage"
               imageUrl="/img/pages/outils/service-geocodage.png"
-              classes={{ img: 'my-card-img-wrapper' }}
               nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
@@ -127,7 +124,6 @@ export default async function Outils() {
               desc="Faciliter la saisie en suggérant des localisants probables au fur et à mesure de la saisie d’adresses ou de noms de lieux."
               imageAlt="Illustration le service d'autocomplétion du géocodeur"
               imageUrl="/img/pages/outils/autocompletion.png"
-              classes={{ img: 'my-card-img-wrapper' }}
               nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
@@ -149,7 +145,6 @@ export default async function Outils() {
               desc="Géocoder facilement une liste d'adresses à partir d'un fichier CSV."
               imageAlt="Illustration pour le géocodeur csv"
               imageUrl="/img/pages/outils/geocodeur-csv.png"
-              classes={{ img: 'my-card-img-wrapper' }}
               nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
@@ -169,7 +164,6 @@ export default async function Outils() {
               desc="Générer un certificat d'adressage officiel en un clic"
               imageAlt="Illustation certificat d'adressage"
               imageUrl="/img/pages/certificat-adressage/certificate_outils.png"
-              classes={{ img: 'my-card-img-wrapper' }}
               nativeImgProps={{ style: { objectFit: 'contain' } }}
               className="fr-card--horizontal-tier fr-card--md"
               footer={(
@@ -464,7 +458,6 @@ export default async function Outils() {
             desc="Consulter la disponibilité des différents composants de l'écosystème adresse grâce à un outil de monitoring."
             imageAlt="Image pour les outils de supervision"
             imageUrl="/img/pages/outils/serveur-status.png"
-            classes={{ img: 'my-card-img-wrapper' }}
             nativeImgProps={{ style: { objectFit: 'contain' } }}
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
@@ -485,7 +478,6 @@ export default async function Outils() {
             desc="Consulter les statistiques sur la BAN"
             imageAlt="Image pour les métriques"
             imageUrl="/img/pages/outils/stats.png"
-            classes={{ img: 'my-card-img-wrapper' }}
             nativeImgProps={{ style: { objectFit: 'contain' } }}
             className="fr-card fr-card--horizontal-tier fr-card--md"
             footer={(
@@ -503,6 +495,9 @@ export default async function Outils() {
             title={(<>Notifications BAN <Badge noIcon severity="info">BETA</Badge></>)}
             titleAs="h5"
             desc="Recevoir les alertes et notifications du système de traitement des données BAN en temps réel."
+            imageAlt="Image pour les notifications BAN"
+            imageUrl="/img/pages/outils/notification-ban.png"
+            nativeImgProps={{ style: { objectFit: 'contain' } }}
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <Button
