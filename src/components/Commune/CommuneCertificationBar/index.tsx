@@ -73,7 +73,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
           </label>
           <div>
             {!communeHasBAL && '-'}
-            {communeHasBAL && lastRevisionsDetails && format(parseISO(lastRevisionsDetails[0][1] as string), '\'le\' dd MMMM yyyy \'à\' HH:mm', { locale: fr })}
+            {communeHasBAL && commune && format(parseISO(commune.dateRevision as string), '\'le\' dd MMMM yyyy \'à\' HH:mm', { locale: fr })}
           </div>
         </div>
       </CardWrapper>

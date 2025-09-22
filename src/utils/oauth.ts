@@ -73,6 +73,17 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
     const cookieStore = cookies()
     cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
+    const returnTo = req.nextUrl.searchParams.get('return_to')
+    if (returnTo) {
+      cookieStore.set('auth_return_to', returnTo, {
+        httpOnly: true,
+        secure: secureSetup,
+        domain: hostname,
+        path: '/',
+        sameSite: 'lax',
+        maxAge: 600,
+      })
+    }
 
     const redirectUrl = client.buildAuthorizationUrl(
       config,

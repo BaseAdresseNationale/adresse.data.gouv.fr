@@ -36,7 +36,9 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   const dataNotices = {
     // data: [sampleNotice],
-    data: [],
+    data: [{
+      text: 'Nouveau : le moteur de géocodage est maintenant actualisé 2 fois par semaine.',
+    }],
     duration: 4000,
   }
 
