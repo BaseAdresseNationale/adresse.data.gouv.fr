@@ -272,7 +272,7 @@ function parseUserData(userData: any): UserData | null {
 
 async function getUserDataFromRequest(request: NextRequest): Promise<UserData | null> {
   try {
-    const meResponse = await fetch(`${request.nextUrl.origin}/api/me`, {
+    const meResponse = await fetch(`${env('NEXT_PUBLIC_ADRESSE_URL')}/api/me`, {
       headers: {
         Cookie: request.headers.get('cookie') || '',
         Authorization: request.headers.get('authorization') || '',
