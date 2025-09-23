@@ -27,8 +27,6 @@ import { getCommunesPrecedentes } from '@/lib/api-insee'
 // import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 // import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 
-
-
 const CommuneDownloadSection = dynamic(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: false })
 const CommuneNavigation = dynamic(() => import('../../../components/Commune/CommuneNavigation'), { ssr: false })
 const CommuneActions = dynamic(() => import('../../../components/Commune/CommuneActions'), { ssr: false })
