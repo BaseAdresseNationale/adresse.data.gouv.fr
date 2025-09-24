@@ -26,6 +26,7 @@ import { getCommunesPrecedentes } from '@/lib/api-insee'
 // import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
 // import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 // import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
+
 const CommuneDownloadSection = dynamic(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: false })
 const CommuneNavigation = dynamic(() => import('../../../components/Commune/CommuneNavigation'), { ssr: false })
 const CommuneActions = dynamic(() => import('../../../components/Commune/CommuneActions'), { ssr: false })
@@ -43,6 +44,7 @@ import { notFound } from 'next/navigation'
 const SaveUrlClient = dynamic(() => import('../../../components/SaveUrlClient'), { ssr: false })
 const CommuneAdministration = dynamic(() => import('../../../components/Commune/CommuneAdministration'), { ssr: false })
 
+export const revalidate = 300
 interface CommunePageProps {
   params: { codeCommune: string }
 }
