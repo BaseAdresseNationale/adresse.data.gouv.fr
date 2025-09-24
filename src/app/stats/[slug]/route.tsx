@@ -15,16 +15,17 @@ import { env } from 'next-runtime-env'
 
 const NEXT_PUBLIC_MATOMO_URL = env('NEXT_PUBLIC_MATOMO_URL')
 const NEXT_PUBLIC_MATOMO_SITE_ID = env('NEXT_PUBLIC_MATOMO_SITE_ID')
+const MATOMO_TOKEN_AUTH = process.env.MATOMO_TOKEN_AUTH
 
 if (!NEXT_PUBLIC_MATOMO_URL || !NEXT_PUBLIC_MATOMO_SITE_ID) {
   throw new Error('MATOMO_URL and MATOMO_ID is not defined in the environment')
 }
 
-const URL_GET_STATS_MONTHLY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1`
-const URL_GET_STATS_MONTHLY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1`
-const URL_GET_STATS_DAILY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&module=API&format=JSON&period=day&date=previous30&method=Events.getCategory&expanded=1&filter_limit=10`
-const URL_GET_STATS_DAILY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`
-const URL_GET_STAT_VISIT = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`
+const URL_GET_STATS_MONTHLY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1`
+const URL_GET_STATS_MONTHLY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1`
+const URL_GET_STATS_DAILY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=day&date=previous30&method=Events.getCategory&expanded=1&filter_limit=10`
+const URL_GET_STATS_DAILY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`
+const URL_GET_STAT_VISIT = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`
 
 // Any : is from matomo's data extracted from helper.js
 type StatValue = Record<string, any>
