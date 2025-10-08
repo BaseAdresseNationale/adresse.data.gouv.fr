@@ -126,7 +126,7 @@ export default function BaseUsages() {
           <p>Faites nous part de votre usage et faites apparaître votre application sur cette page en remplissant le formulaire ci-dessous :</p>
           <iframe
             src="https://grist.numerique.gouv.fr/o/ban/forms/sz43WNuzi4c9sQXfwp85bp/83"
-            title="Contenu externe"
+            title="Formulaire ajout nouveaux usages"
             width="100%"
             height="800"
           />
