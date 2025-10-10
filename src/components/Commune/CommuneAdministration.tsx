@@ -173,8 +173,14 @@ function CommuneAdministration(district: BANCommune) {
     if (!authenticated) {
       return (
         <>
-          <b>Gérer les options de la commune avec ProConnect :</b>
-          <ProConnectButton url="/api/login" />
+          <div>
+            <b>Gérer les options de la commune avec ProConnect :</b>
+            <br /><br />
+            <ProConnectButton url="/api/login" />
+            <a href="https://proconnect.crisp.help/fr/article/utiliser-proconnect-au-sein-dune-collectivite-ou-dune-mairie-1mobnb6/" target="_blank" rel="noopener external" title="Lien vidéo connexion proconnect- nouvelle fenêtre" className="fr-link">
+              Agent de mairie, comment créer un compte Proconnect ?
+            </a>
+          </div>
         </>
       )
     }
