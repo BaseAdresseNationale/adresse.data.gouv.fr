@@ -111,6 +111,13 @@ export const navEntries: MainNavigationProps.Item[] = [
           </>
         ), linkProps: { href: '/outils/mise-en-forme' } },
       { text: 'Formulaire de publication', linkProps: { href: '/outils/formulaire-de-publication' } },
+      { text: (
+        <>
+          Notifications BAN{' '}
+          <Badge noIcon severity="info">BETA</Badge>
+        </>
+      ), linkProps: { href: '/outils/notifications-ban' },
+      },
       {
         text: 'Supervision BAN/BAL',
         linkProps: {
@@ -118,13 +125,6 @@ export const navEntries: MainNavigationProps.Item[] = [
           target: '_blank',
         },
       },
-      { text: (
-        <>
-          Notifications BAN{' '}
-          <Badge noIcon severity="info">BETA</Badge>
-        </>
-      ), linkProps: { href: '/outils/notifications-ban' } },
-      // { text: 'Fantoir', lBANhref: '#' } },
     ],
   },
   {

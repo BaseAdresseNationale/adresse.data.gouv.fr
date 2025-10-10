@@ -29,9 +29,9 @@ Lorsqu'une IP sollicite l' API au-delà de la limite d'usage fixée :
 *La durée du blocage est indiquée dans un header "retry-after", avec une durée initialisée à 5 secondes et qui décroît à partir du moment où la sur-sollicitation cesse.*
 
 
-2 options s’offrent à vous :
-*  Vous pouvez installer une instance de l’API sur vos propres serveurs. Nous vous indiquons la marche à suivre sur cette page : [Installer une instance docker avec les données de la BAN](https://geoplateforme.pages.gpf-tech.ign.fr/geocodage/geocodeur/user/installation/)
-*  Vous êtes un acteur public et vous ne pouvez pas installer d’instance sur votre Système d’Information : vous pouvez demander une levée de cette limite pour vos missions de service public en remplissant le  formulaire sur [la page contact géoservices de l'IGN](https://geoservices.ign.fr/contact)  
+Si dans le cadre de votre usage vous êtes régulièrement confrontés à cette limitation : 
+*  En tant qu'acteur public vous pouvez demander à étudier les conditions d'une levée de cette limite pour vos missions de service public en remplissant le  formulaire sur [la page contact géoservices de l'IGN](https://geoservices.ign.fr/contact).
+*  Vous avez également l'option d'installer en autonomie une instance de l’API sur vos propres serveurs. Nous vous indiquons la marche à suivre sur cette page : [Installer une instance docker avec les données de la BAN](https://geoplateforme.pages.gpf-tech.ign.fr/geocodage/geocodeur/user/installation/). Cette démarche ne rentre pas dans le périmètre des services accompagnés par l'IGN.  
  
  
   
