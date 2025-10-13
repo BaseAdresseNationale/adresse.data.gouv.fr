@@ -44,7 +44,7 @@ import { notFound } from 'next/navigation'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
 const CommuneAdministration = dynamicImport(() => import('../../../components/Commune/CommuneAdministration'), { ssr: false })
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 0
 interface CommunePageProps {
   params: { codeCommune: string }
 }
