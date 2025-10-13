@@ -14,7 +14,7 @@ import { getCommune } from '@/lib/api-geo'
 import { Commune } from '@/types/api-geo.types'
 
 import {
-  getCommune as getBANCommune,
+  getCommuneWithoutCache as getBANCommune,
 } from '@/lib/api-ban'
 
 import { env } from 'next-runtime-env'
