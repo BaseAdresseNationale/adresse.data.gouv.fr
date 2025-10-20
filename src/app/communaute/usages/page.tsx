@@ -123,17 +123,13 @@ export default function BaseUsages() {
           ))}
         </CardWrapper>
         <Section title="Vous utilisez la Base Adresse Nationale ?">
-          <p>Faites nous part de votre usage et faites apparaître votre application sur cette page</p>
-          <CenteredLink>
-            <Button
-              linkProps={{
-                href: 'mailto:adresse@data.gouv.fr?subject=Ajout d’un cas d’usage - Base Adresse Nationale',
-                target: '_blank',
-              }}
-            >
-              Ajoutez votre application
-            </Button>
-          </CenteredLink>
+          <p>Faites nous part de votre usage et faites apparaître votre application sur cette page en remplissant le formulaire ci-dessous :</p>
+          <iframe
+            src="https://grist.numerique.gouv.fr/o/ban/forms/sz43WNuzi4c9sQXfwp85bp/83"
+            title="Formulaire ajout nouveaux usages"
+            width="100%"
+            height="800"
+          />
         </Section>
       </Section>
     </>

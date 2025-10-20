@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
   const dataNotices = {
     // data: [sampleNotice],
     data: [{
-      text: 'Nouveau : le moteur de géocodage est maintenant actualisé 2 fois par semaine.',
+      text: <Link href="/outils/notifications-ban">Nouveau service de notification pour suivre la publication des BAL: &quot;Alertes et Notifications BAN&quot;</Link>,
     }],
     duration: 4000,
   }

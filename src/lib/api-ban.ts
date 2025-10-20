@@ -25,6 +25,13 @@ export function getCommune(codeCommune: string, signal?: AbortSignal): Promise<B
   return customFetch(`${API_BAN_SEARCH_URL}/lookup/${codeCommune}`, signal ? { signal } : {})
 }
 
+export function getCommuneWithoutCache(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${codeCommune}`, {
+    ...(signal && { signal }),
+    cache: 'no-store',
+  })
+}
+
 export function getAddressCSVLegacy(codeCommune: string) {
   return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-legacy/adresses`
 }
