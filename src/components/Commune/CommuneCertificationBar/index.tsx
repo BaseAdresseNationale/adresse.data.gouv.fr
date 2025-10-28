@@ -14,9 +14,10 @@ interface CommuneCertificationBarProps {
   lastRevisionsDetails: (string | JSX.Element | null)[][] | null
   certificationPercentage: number
   communeHasBAL: boolean
+  banId: string | null
 }
 
-export function CommuneCertificationBar({ commune, certificationPercentage, communeHasBAL, lastRevisionsDetails }: CommuneCertificationBarProps) {
+export function CommuneCertificationBar({ commune, certificationPercentage, communeHasBAL, lastRevisionsDetails, banId }: CommuneCertificationBarProps) {
   return (
     <StyledWrapper $certificationPercentage={certificationPercentage}>
       <CardWrapper>
@@ -106,7 +107,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
             Identifiant BAN :
           </label>
           <div>
-            {commune.banId || '-'}
+            {banId || '-'}
           </div>
         </div>
       </CardWrapper>

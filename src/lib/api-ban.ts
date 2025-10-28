@@ -87,3 +87,9 @@ export function getVoiesFantoir(communeCode: string) {
 export function getVoieFantoir(voieCode: string) {
   return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/voies/${voieCode}`)
 }
+
+export async function getIdDistrictByCodeCommune(codeCommune: string) {
+  const response = await customFetch(`${API_BAN_SEARCH_URL}/api/district/cog/${codeCommune}`)
+  const mainDistrict = response.response?.find((d: any) => d.meta?.insee?.isMain === true)
+  return mainDistrict?.meta?.insee?.mainId || null
+}
