@@ -40,11 +40,9 @@ const StatusBadgeRevision = ({
       publicationMoissoneur?.status == RevisionStatusMoissoneurEnum.PROVIDED_BY_OTHER_CLIENT
     ) {
       return (
-        <Tooltip message={publicationMoissoneur?.currentClientId || 'inconnu'}>
-          <Badge severity="warning" noIcon>
-            Publiée par un autre client
-          </Badge>
-        </Tooltip>
+        <Badge severity="warning" noIcon>
+          Publiée par un autre client
+        </Badge>
       )
     }
 
@@ -52,11 +50,9 @@ const StatusBadgeRevision = ({
       publicationMoissoneur?.status == RevisionStatusMoissoneurEnum.PROVIDED_BY_OTHER_SOURCE
     ) {
       return (
-        <Tooltip message={publicationMoissoneur?.currentSourceId || 'inconnue'}>
-          <Badge severity="error" noIcon>
-            Publiée par une autre source
-          </Badge>
-        </Tooltip>
+        <Badge severity="error" noIcon>
+          Publiée par une autre source
+        </Badge>
       )
     }
 
