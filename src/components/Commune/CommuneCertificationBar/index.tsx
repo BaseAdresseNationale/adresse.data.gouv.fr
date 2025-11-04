@@ -104,7 +104,7 @@ export function CommuneCertificationBar({ commune, certificationPercentage, comm
         <div className="publication-recap">
           <label>
             <i className="ri-key-line" />
-            Identifiant BAN :
+            Identifiant BAN commune :
           </label>
           <div>
             {banId || '-'}
