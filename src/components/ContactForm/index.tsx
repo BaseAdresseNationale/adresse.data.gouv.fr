@@ -63,23 +63,7 @@ export default function ContactForm() {
     }
   }, [altchaElement])
 
-  useEffect(() => {
-    if (waitingForVerification && isAltchaVerified) {
-      sendMessage()
-    }
-  }, [isAltchaVerified, waitingForVerification])
-
-  const handleChange = (field: keyof typeof formData) => (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData(prev => ({ ...prev, [field]: event.target.value }))
-  }
-
-  const handleBlur = (field: string) => () => {
-    setTouched(prev => ({ ...prev, [field]: true }))
-  }
-
-  const sendMessage = async () => {
+  const sendMessage = useCallback(async () => {
     setSubmitStatus('loading')
     setErrorMessage('')
     setWaitingForVerification(false)
@@ -110,12 +94,29 @@ export default function ContactForm() {
       setShowCaptcha(false)
       setAltchaKey(prev => prev + 1)
 
-      setTimeout(() => setSubmitStatus(null), 5000)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     catch (error) {
       setSubmitStatus('error')
       setErrorMessage('Message non envoyé')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
+  }, [formData])
+
+  useEffect(() => {
+    if (waitingForVerification && isAltchaVerified) {
+      sendMessage()
+    }
+  }, [isAltchaVerified, waitingForVerification, sendMessage])
+
+  const handleChange = (field: keyof typeof formData) => (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData(prev => ({ ...prev, [field]: event.target.value }))
+  }
+
+  const handleBlur = (field: string) => () => {
+    setTouched(prev => ({ ...prev, [field]: true }))
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -189,6 +190,8 @@ export default function ContactForm() {
           title="Message envoyé"
           description="Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais."
           className="fr-mb-4w"
+          closable
+          onClose={() => setSubmitStatus(null)}
         />
       )}
 
@@ -198,15 +201,19 @@ export default function ContactForm() {
           title="Erreur"
           description={errorMessage || 'Message non envoyé'}
           className="fr-mb-4w"
+          closable
+          onClose={() => setSubmitStatus(null)}
         />
       )}
 
-      {waitingForVerification && showCaptcha && !isAltchaVerified && (
+      {waitingForVerification && showCaptcha && !isAltchaVerified && submitStatus !== 'success' && submitStatus !== 'error' && (
         <Alert
           severity="info"
           title="Vérification en attente"
           description="Veuillez compléter la vérification anti-spam ci-dessous"
           className="fr-mb-4w"
+          closable
+          onClose={() => setWaitingForVerification(false)}
         />
       )}
 
@@ -353,6 +360,7 @@ export default function ContactForm() {
                     ? (
                         <altcha-widget
                           ref={onRefChange as any}
+                          test
                           challengeurl={`https://eu.altcha.org/api/v1/challenge?apiKey=${ALTCHA_API_KEY}`}
                           spamfilter={true}
                           blockspam={true}
