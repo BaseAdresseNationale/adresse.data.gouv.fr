@@ -52,7 +52,7 @@ export default async function Home() {
           </div>
           <div className="fr-col-12">
             <p>
-              Note : ce service repose sur des prérequis techniques dont toutes les adresses ne disposent pas, il n&apos;est pas accessible sur l&apos;ensemble des adresses.
+              Note : ce service repose sur des <b>prérequis techniques</b> dont toutes les adresses ne disposent pas, il n&apos;est pas accessible sur l&apos;ensemble des adresses.
               En cas d&apos;indisponibilité du service sur votre adresse, veuillez contacter votre mairie.
             </p>
           </div>
