@@ -2,13 +2,14 @@
 title: Certificat d'adressage
 ---
 
-## Contenu du certificat
+## Un dispositif sécurisé
 
 Le certificat atteste de l'existence d'une adresse sur le territoire de la commune, en le localisant grâce à l'identification de la **parcelle cadastrale associée.**
 
 Il ne contient **aucune information personnelle ni nominative**.
+L'émission de chaque certificat fait l'objet d'un suivi dans notre base de donnée.
 
-Un QR code est associé aux informations utiles du certificat numérique, permettant d'authentifier que le référentiel national est bien la source de l'émission du certificat.
+**Le QR code ou l'url** présent sur le certificat permet de vérifier **l'authenticité** des informations directement  aurpès de la base adresse nationale.
 
 Ci-dessous un exemple de corps de certificat:
 
