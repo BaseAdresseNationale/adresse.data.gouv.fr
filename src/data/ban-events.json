@@ -593,5 +593,21 @@
     "href": "",
     "isSubscriptionClosed": true,
     "instructions": ""
+  },
+  {
+    "title": "Adresse-Lab",
+    "subtitle": "Point d'échange trimestriel T4 2025",
+    "description": "Actualités BAN - Point d'échange trimestriel T4 2025",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2025-12-04",
+    "tags": ["Technique", "Utilisateurs", "Base Adresse Nationale"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/light-meetings/launch?context=%7B%22Tid%22%3A%223876b373-7e2c-4857-b024-53326b5b4bb2%22%2C%22Oid%22%3A%22b6c5bcc6-2261-4874-9aa5-508a6afa334e%22%7D&anon=true&lightExperience=true&correlationId=0180eb58-dcec-4a36-b527-7b2c60a88878&agent=web&version=25110306401&coords=eyJjb252ZXJzYXRpb25JZCI6IjE5Om1lZXRpbmdfWTJRd1pEVTNPV0V0TTJJNU15MDBaamxpTFRsbE9ERXRZamRrWmpZM1pqQXhNR1l6QHRocmVhZC52MiIsInRlbmFudElkIjoiMzg3NmIzNzMtN2UyYy00ODU3LWIwMjQtNTMzMjZiNWI0YmIyIiwib3JnYW5pemVySWQiOiJiNmM1YmNjNi0yMjYxLTQ4NzQtOWFhNS01MDhhNmFmYTMzNGUiLCJtZXNzYWdlSWQiOiIwIn0%3D&deeplinkId=72b2604b-78c8-4c6d-b9db-f825f6cae54c",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
   }
 ]
