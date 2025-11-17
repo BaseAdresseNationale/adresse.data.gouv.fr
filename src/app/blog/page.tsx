@@ -85,7 +85,7 @@ function BlogView() {
     <>
       {/* <Suspense fallback={<div>Loading...</div>}> */}
       <BlogGrid
-        title="Articles et témoignages"
+        title="Le blog : Nos articles et témoignages"
         posts={highlightedPosts}
         nbPost={3}
         isVisible={page === 1 && !tags.size}
