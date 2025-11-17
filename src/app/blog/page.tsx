@@ -85,7 +85,11 @@ function BlogView() {
     <>
       {/* <Suspense fallback={<div>Loading...</div>}> */}
       <BlogGrid
+<<<<<<< HEAD
         title="Le blog : Nos articles et témoignages"
+=======
+        title="Le blog : articles et témoignages"
+>>>>>>> 12610c65 (Mise en valeur du terme Blog sur le site adresse)
         posts={highlightedPosts}
         nbPost={3}
         isVisible={page === 1 && !tags.size}
