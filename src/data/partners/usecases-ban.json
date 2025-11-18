@@ -387,7 +387,7 @@
       "type_integration": "API",
       "dernier_telechargement": "",
       "url_application": "https://www.monservicedechets.com/",
-      "categorie_application": "Plateforme services",
+      "categorie_application": "Plateforme données et services",
       "": "",
       "tags_application": "territoire"
     },
@@ -446,5 +446,47 @@
       "categorie_application": "Administration",
       "": "",
       "tags_application": ""
+    },
+    {
+      "id_application": "8af514b9-8360-470c-906a-687b7859b951",
+      "nom_application": "France Chaleur urbaine",
+      "description_utilisation": "Faciliter les raccordements aux réseaux de chaleur",
+      "nom_utilisateur": "DRIEAT",
+      "image_utilisateur": "/img/logos/partners/re-users-ban/france-chaleur-urbaine.png",
+      "statut_integration": "en production",
+      "type_integration": "API",
+      "dernier_telechargement": "",
+      "url_application": "https://france-chaleur-urbaine.beta.gouv.fr/",
+      "categorie_application": "Plateforme données et services",
+      "": "",
+      "tags_application": "energie"
+    },
+    {
+      "id_application": "8af514b9-8360-470c-906a-687b7859b951",
+      "nom_application": "lemonde.fr",
+      "description_utilisation": "Service de localisation des actualités (législatives, etc...)",
+      "nom_utilisateur": "Le Monde",
+      "image_utilisateur": "/img/logos/partners/re-users-ban/lemonde.png",
+      "statut_integration": "en production",
+      "type_integration": "API",
+      "dernier_telechargement": "",
+      "url_application": "https://www.lemonde.fr",
+      "categorie_application": "Cartographie Géolocalisation",
+      "": "",
+      "tags_application": "média"
+    },
+    {
+      "id_application": "8af514b9-8360-470c-906a-687b7859b951",
+      "nom_application": "Villagile",
+      "description_utilisation": "Plateforme de centralisation des données des territoires pour une gestion plus collaborative et agile des services urbains",
+      "nom_utilisateur": "Suez",
+      "image_utilisateur": "/img/logos/partners/re-users-ban/suez-villagile.png",
+      "statut_integration": "en production",
+      "type_integration": "API",
+      "dernier_telechargement": "",
+      "url_application": "https://www.villagile.fr/page/pour-une-ville-agile",
+      "categorie_application": "Plateforme données et service",
+      "": "",
+      "tags_application": "territoire"
     }
   ]
