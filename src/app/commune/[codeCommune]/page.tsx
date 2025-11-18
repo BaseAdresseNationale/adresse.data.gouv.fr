@@ -7,7 +7,7 @@ import Link from 'next/link'
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
-  getCommuneWithoutCache as getBANCommune,
+  getCommuneWithoutCache as getBANCommune, getIdDistrictByCodeCommune,
 } from '@/lib/api-ban'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
@@ -78,6 +78,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     communesPrecedentesResponse,
     paginatedSignalementsResponse,
     paginatedPartenairesDeLaCharteResponse,
+    IdDistrictByCodeCommuneResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
     getCommuneFlag(codeCommune),
@@ -92,6 +93,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     getCommunesPrecedentes(codeCommune),
     getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
     getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
+    getIdDistrictByCodeCommune(codeCommune),
   ])
 
   if (mairiePageResponse.status === 'rejected') {
@@ -128,6 +130,13 @@ export default async function CommunePage({ params }: CommunePageProps) {
     console.error(`Failed to get paginated partenaires for commune ${codeCommune}`, paginatedPartenairesDeLaCharteResponse.reason)
   }
   const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : undefined
+
+  if (IdDistrictByCodeCommuneResponse.status === 'rejected') {
+    console.error(`Failed to get districtId for commune ${codeCommune}`, IdDistrictByCodeCommuneResponse.reason)
+  }
+  const districtId = IdDistrictByCodeCommuneResponse.status === 'fulfilled' ? IdDistrictByCodeCommuneResponse.value : null
+
+  const banId = commune.banId || districtId || null
 
   const communeAchievements = communeHasBAL
     ? getCommuneAchievements({
@@ -206,6 +215,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
             commune={commune}
             communeHasBAL={communeHasBAL}
             lastRevisionsDetails={lastRevisionsDetails}
+            banId={banId}
           />
 
           <CommuneActions

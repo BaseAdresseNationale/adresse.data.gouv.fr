@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.645.0",
-    "@ban-team/validateur-bal": "^3.2.0",
+    "@ban-team/validateur-bal": "^3.3.3",
     "@codegouvfr/react-dsfr": "^1.14.1",
     "@etalab/decoupage-administratif": "^5.2.0",
     "@next/bundle-analyzer": "^14.2.13",
