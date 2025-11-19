@@ -155,7 +155,7 @@ export default async function Home() {
       </Section>
 
       <BlogGrid
-        title="Articles et témoignages"
+        title="Le blog : articles et témoignages"
         posts={highlightedPosts}
         footer={(
           <Button
@@ -166,7 +166,7 @@ export default async function Home() {
             }}
             priority="primary"
           >
-            Parcourir tous les articles et témoignages
+            Parcourir tout le blog
           </Button>
         )}
       />
