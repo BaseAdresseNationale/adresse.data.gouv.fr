@@ -442,7 +442,7 @@
       "statut_integration": "en production",
       "type_integration": "API",
       "dernier_telechargement": "",
-      "url_application": "https://france-chaleur-urbaine.beta.gouv.fr/",
+      "url_application": "https://adresse.data.gouv.fr/blog/france-chaleur-urbaine",
       "categorie_application": "Plateforme données et services",
       "": "",
       "tags_application": "energie"
@@ -470,7 +470,7 @@
       "statut_integration": "en production",
       "type_integration": "API",
       "dernier_telechargement": "",
-      "url_application": "https://www.villagile.fr/page/pour-une-ville-agile",
+      "url_application": "https://adresse.data.gouv.fr/blog/suez-veut-rendre-la-ville-plus-agile-avec-la-ban",
       "categorie_application": "Plateforme données et service",
       "": "",
       "tags_application": "territoire"
