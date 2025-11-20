@@ -50,16 +50,7 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
                   <thead style={{ width: '100%' }}>
                     <tr>
                       <th scope="col">Date</th>
-                      <th scope="col">
-                        <Tooltip message="Est-ce le fichier a bien été récupéré sur data.gouv.fr">
-                          État du moissonnage
-                        </Tooltip>
-                      </th>
-                      <th scope="col">
-                        <Tooltip message="Est-ce que le fichier récupéré est valide ? Est-ce qu’il comporte des différences par rapport au précédent.">
-                          État de la mise à jour
-                        </Tooltip>
-                      </th>
+                      <th scope="col">État du moissonnage</th>
                       <th scope="col">Fichier moissonné</th>
                     </tr>
                   </thead>

@@ -39,22 +39,10 @@ function MoissonneurRevisionsList({ sourceId }: MoissonneurRevisionsListProps) {
                     <th scope="col">Commune</th>
                     <th scope="col">Date</th>
                     <th scope="col">
-                      <Tooltip message="Nombre de ligne totale du fichier / nombre de ligne comportant des erreurs dans celui-ci">
-                        Nbr ligne /erreur
-                      </Tooltip>
-                      Nombre ligne / erreur(s)
+                      Rapport de validation
                     </th>
                     <th scope="col">
-                      <Tooltip message="Est-ce que la nouvelle BAL créée est valide ? est-ce qu’elle comporte des différences par rapport à la BAN ?">
-                        Etat de la mise à jour
-                      </Tooltip>
-                      Status
-                    </th>
-                    <th scope="col">
-                      <Tooltip message="Lors d’une mise à jours, est-ce que celle-ci remonte bien dans la BAN">
-                        Etat de la publication
-                      </Tooltip>
-                      Publication
+                      Etat de la mise à jour
                     </th>
                     <th scope="col">Fichier</th>
                   </tr>

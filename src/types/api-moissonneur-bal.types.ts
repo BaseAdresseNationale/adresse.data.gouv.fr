@@ -70,6 +70,12 @@ export type PublicationMoissoneurType = {
   currentSourceId?: string
 }
 
+export type ValidationMoissoneurType = {
+  nbRows: number
+  nbRowsWithErrors: number
+  uniqueErrors: string[]
+}
+
 export type RevisionMoissoneurType = {
   id: string
   sourceId: string
@@ -82,11 +88,7 @@ export type RevisionMoissoneurType = {
   publication?: PublicationMoissoneurType
   current?: boolean
   createdAt: string
-  validation: {
-    nbRows?: number
-    nbRowsWithErrors?: number
-    uniqueErrors?: string[]
-  }
+  validation?: ValidationMoissoneurType
 }
 
 export interface OrganizationMoissoneurType {
