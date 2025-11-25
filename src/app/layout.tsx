@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
   const dataNotices = {
     // data: [sampleNotice],
     data: [{
-      text: <Link href="/outils/notifications-ban">Nouveau service de notification pour suivre la publication des BAL: &quot;Alertes et Notifications BAN&quot;</Link>,
+      text: 'Maintenance planifiée sur l\'infrastructure mardi 25 novembre entre 14h et 17h. Interruptions de service à prévoir',
     }],
     duration: 4000,
   }
