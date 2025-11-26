@@ -23,6 +23,8 @@ interface CertificatNumerotationProps {
       districtDefaultLabel: string
       cog: string
       lieuDitComplementNomDefaultLabel?: string
+      postalCode: string
+      multidistributed: boolean
     }
     cadastre_ids: string[]
   }
@@ -52,6 +54,8 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const year = dateObj.getFullYear()
   const etabliLe = `${day} ${month} ${year}`
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
+  const postalCode = data.full_address.postalCode
+  const multidistributed = data.full_address.multidistributed
 
   const groupParcelles = (parcelles: string[]): string[] => {
     const grouped: string[] = []
@@ -114,7 +118,7 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
             <View style={stylesDSFR.tableRow}>
               <View style={stylesDSFR.tableCol}>
                 <Text style={stylesDSFR.tableCell}>
-                  {suffix ? `${numero} ${suffix} ${libelleVoie}` : `${numero} ${libelleVoie}`}
+                  {suffix ? `${numero} ${suffix} ${libelleVoie}` : `${numero} ${libelleVoie}`}, {postalCode}
                 </Text>
                 <Text style={stylesDSFR.tableCell}>
                   {lieuDitComplementNomDefaultLabel}
@@ -130,6 +134,17 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
               </View>
             </View>
           </View>
+
+          {
+            multidistributed
+              ? (
+                  <>
+                    <Text>{'\n'}</Text>
+                    <Text>Cette commune dispose de plusieurs codes postaux fournis par &apos;La Poste&apos;. La Base Adresse Nationale ne garantit pas l&apos;exactitude du code postal fourni dans ce document. En cas de doute, veuillez vous rapprocher de la mairie pour l&apos;édition du certificat.</Text>
+                  </>
+                )
+              : null
+          }
 
           <Text> {'\n'}</Text>
 
