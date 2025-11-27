@@ -116,6 +116,7 @@ export default function BaseUsages() {
               descriptionUtilisation={appDescription.descriptionUtilisation}
               imageUtilisateur={appDescription.imageUtilisateur}
               urlApplication={appDescription.urlApplication}
+              urlArticle={appDescription.urlArticle}
               dernierTelechargement={appDescription.dernierTelechargement}
               nomUtilisateur={appDescription.nomUtilisateur}
               tagsApplication={appDescription.tagsApplication}
