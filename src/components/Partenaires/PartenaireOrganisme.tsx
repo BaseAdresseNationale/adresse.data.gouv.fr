@@ -1,10 +1,19 @@
 'use client'
 
-import MoissonneurBal from '@/components/Partenaires/Moissonnage/MoissonneurBAL'
+import dynamic from 'next/dynamic'
 import { PartenaireDeLaChartType } from '@/types/partenaire.types'
 import Tabs from '@codegouvfr/react-dsfr/Tabs'
 import { useState } from 'react'
 import APIDepot from './APIDepot/APIDepot'
+import Loader from '@/components/Loader'
+
+const MoissonneurBal = dynamic(
+  () => import('@/components/Partenaires/Moissonnage/MoissonneurBAL'),
+  {
+    ssr: false,
+    loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '200px', alignItems: 'center' }}><Loader size={50} /></div>
+  }
+)
 
 interface PartenaireOrganismeProps {
   partenaireDeLaCharte: PartenaireDeLaChartType
