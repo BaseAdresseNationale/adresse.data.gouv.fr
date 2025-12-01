@@ -251,7 +251,6 @@ const nextConfig = withBundleAnalyzer({
     serverActions: {
       bodySizeLimit: '3mb',
     },
-    instrumentationHook: true,
   },
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
