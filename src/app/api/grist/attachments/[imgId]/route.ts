@@ -7,7 +7,7 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: { imgId: string } }
 ) {
-  const { imgId } = params
+  const { imgId } = await params
   if (!imgId || !/^\d+$/.test(imgId)) {
     return new NextResponse('Invalid imgId', { status: 400 })
   }
