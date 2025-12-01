@@ -17,7 +17,7 @@ const envVar = getNextEnv(process.env)
 const URL_CARTOGRAPHY_BAN = '/carte-base-adresse-nationale'
 const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
   = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
-const NEXT_PUBLIC_DOC_ADRESSE_URL = process.env.NEXT_PUBLIC_DOC_ADRESSE_URL 
+const NEXT_PUBLIC_DOC_ADRESSE_URL = process.env.NEXT_PUBLIC_DOC_ADRESSE_URL
 const NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3 = process.env.NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3
 const NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3 = process.env.NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3
 
@@ -251,7 +251,6 @@ const nextConfig = withBundleAnalyzer({
     serverActions: {
       bodySizeLimit: '3mb',
     },
-    instrumentationHook: true,
   },
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
