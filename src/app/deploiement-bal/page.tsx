@@ -7,7 +7,8 @@ import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { Departement } from '@/types/api-geo.types'
 
-export default async function DeploiementBALPage({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function DeploiementBALPage(props: { searchParams: Promise<Record<string, string>> }) {
+  const searchParams = await props.searchParams;
   const stats = await getStats()
   const departementsWithCenter = Object.values(departements).map(({ properties, geometry }) => {
     return {
