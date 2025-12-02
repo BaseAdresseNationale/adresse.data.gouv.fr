@@ -11,11 +11,11 @@ const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl
 )
 
 interface FormulaireDePublicationPageProps {
-  searchParams: { habilitationId?: string, revisionId?: string }
+  searchParams: Promise<{ habilitationId?: string, revisionId?: string }>
 }
 
 export default async function FormulaireDePublicationPage(props: FormulaireDePublicationPageProps) {
-  const { habilitationId, revisionId } = props.searchParams
+  const { habilitationId, revisionId } = (await props.searchParams)
   let habilitation
   let revision
   let commune

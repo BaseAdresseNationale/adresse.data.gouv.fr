@@ -11,7 +11,11 @@ const computeTiles = async () => {
   return geojsonVt(featureCollection as geojsonVt.Data, { indexMaxZoom: 9 })
 }
 
-export async function GET(request: NextRequest, { params }: { params: { x: string, y: string, z: string } }) {
+export async function GET(
+  request: NextRequest,
+  props: { params: Promise<{ x: string, y: string, z: string }> }
+) {
+  const params = await props.params;
   const tiles = await getCachedData('deploiement-tiles', computeTiles)
 
   const z = Number.parseInt(params.z, 10)
