@@ -51,7 +51,7 @@ interface CommunePageProps {
 }
 
 export default async function CommunePage({ params }: CommunePageProps) {
-  const { codeCommune } = params
+  const { codeCommune } = await params
 
   let commune, APIGeoCommune
 
