@@ -11,7 +11,7 @@ const MoissonneurBal = dynamic(
   () => import('@/components/Partenaires/Moissonnage/MoissonneurBAL'),
   {
     ssr: false,
-    loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '200px', alignItems: 'center' }}><Loader size={50} /></div>
+    loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '200px', alignItems: 'center' }}><Loader size={50} /></div>,
   }
 )
 
