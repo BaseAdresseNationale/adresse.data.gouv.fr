@@ -8,11 +8,11 @@
   },
   "scripts": {
     "predev": "react-dsfr update-icons",
-    "dev": "next dev",
+    "dev": "next dev --webpack",
     "prebuild": "react-dsfr update-icons",
-    "build": "next build && node copy-assets.js",
+    "build": "next build --webpack && node copy-assets.js",
     "analyze": "ANALYZE=true next build",
-    "start": "node .next/standalone/server.js",
+    "start": "node .next/standalone/server.js --webpack",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "prestorybook": "react-dsfr update-icons",
@@ -98,9 +98,5 @@
     "storybook": "^8.2.7",
     "storybook-dark-mode": "^4.0.2",
     "typescript": "^5.5.0"
-  },
-  "overrides": {
-    "@types/react": "19.2.7",
-    "@types/react-dom": "19.2.3"
   }
 }
