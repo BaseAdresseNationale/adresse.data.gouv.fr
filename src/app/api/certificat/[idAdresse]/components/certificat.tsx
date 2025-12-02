@@ -151,6 +151,10 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
           <Text>
             En foi de quoi, le présent certificat est délivré au demandeur pour servir et valoir ce que de droit.
           </Text>
+          <Text> {'\n'}</Text>
+          <Text>
+            Ce document ne vaut pas : autorisation d'urbanisme, droit de passage, servitude, droit de propriété, certificat de résidence ou d'hébergement.
+          </Text>
         </View>
         <View style={stylesDSFR.qrCodeContainer}>
           <View style={stylesDSFR.qrCodeLinkContainer}>
