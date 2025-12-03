@@ -36,8 +36,10 @@ const stylesDSFR = StyleSheet.create({
   tableRow: { flexDirection: 'row' },
   tableCol: { width: '50%', borderStyle: 'solid', borderWidth: 1, borderColor: '#000' },
   tableCell: { margin: 5, fontSize: 10 },
+  tableCell10: { margin: 1, fontSize: 8 },
   tableHeader: { backgroundColor: '#f0f0f0', fontWeight: 'bold' },
   qrCodeLinkContainer: { flex: 1, marginRight: '5mm', minWidth: 1 },
+  annexe: { fontSize: '7pt' },
 })
 
 export { stylesDSFR }
