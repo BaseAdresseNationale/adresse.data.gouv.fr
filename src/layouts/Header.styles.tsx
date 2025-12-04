@@ -6,6 +6,12 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small', $withN
   position: relative;
   z-index: 990;
 
+  .fr-header__tools-links {
+    a::after {
+      display: none;
+    }
+  }
+
   .dsfr-notice {
       ${({ $size }) => $size === 'small' ? css`position: absolute;` : css`position: static;`}
       z-index: 1;

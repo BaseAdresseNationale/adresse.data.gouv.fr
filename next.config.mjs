@@ -4,11 +4,10 @@ import fs from 'node:fs'
 import NextBundleAnalyzer from '@next/bundle-analyzer'
 import dotenv from 'dotenv'
 
-const getNextEnv = envVars => Object.fromEntries(
-  Object
-    .entries(envVars)
-    .filter(([key]) => key.startsWith('NEXT_PUBLIC'))
-)
+const getNextEnv = envVars =>
+  Object.fromEntries(
+    Object.entries(envVars).filter(([key]) => key.startsWith('NEXT_PUBLIC'))
+  )
 
 const defaultEnvVarFile = '.env.default'
 const defaultEnvVarRaw = dotenv.parse(fs.readFileSync(defaultEnvVarFile))
@@ -16,10 +15,16 @@ const defaultEnvVar = getNextEnv(defaultEnvVarRaw)
 const envVar = getNextEnv(process.env)
 
 const URL_CARTOGRAPHY_BAN = '/carte-base-adresse-nationale'
-const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
+const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
+  = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
+const NEXT_PUBLIC_DOC_ADRESSE_URL = process.env.NEXT_PUBLIC_DOC_ADRESSE_URL
 const imagesDomains = ['static.data.gouv.fr']
 if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES) {
-  imagesDomains.push(...NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES.split(',').map(item => item.trim()))
+  imagesDomains.push(
+    ...NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES.split(',').map(item =>
+      item.trim()
+    )
+  )
 }
 
 const withBundleAnalyzer = NextBundleAnalyzer({
@@ -35,6 +40,11 @@ const redirects = async () => [
   {
     source: '/guides',
     destination: '/documentation-bal',
+    permanent: true,
+  },
+  {
+    source: '/documentation-bal',
+    destination: `${NEXT_PUBLIC_DOC_ADRESSE_URL}`,
     permanent: true,
   },
   {
@@ -67,7 +77,8 @@ const redirects = async () => [
     destination: '/communaute/organismes-partenaires',
     permanent: true,
   },
-  { source: '/communaute/societes-partenaires',
+  {
+    source: '/communaute/societes-partenaires',
     destination: '/communaute/annuaire-des-prestataires',
     permanent: true,
   },
