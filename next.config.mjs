@@ -256,7 +256,7 @@ const nextConfig = withBundleAnalyzer({
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
   ],
   output: 'standalone',
-  runtime: 'edge',
+  // runtime: 'edge',
 })
 
 export default nextConfig
