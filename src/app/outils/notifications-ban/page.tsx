@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 const DynamicNotificationsBAN = dynamic(
   () => import('../../../components/NotificationsBAN/NotificationsBAN'),
   {
-    ssr: false,
+    ssr: !!false,
     loading: () => (
       <div style={{
         display: 'flex',

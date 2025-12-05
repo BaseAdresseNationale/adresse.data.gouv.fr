@@ -3,7 +3,8 @@ import { getCurrentRevisionDownloadUrl } from '@/lib/api-depot'
 import { parseCSV } from '@/utils/csv'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest, { params }: { params: { codeCommune: string } }) {
+export async function GET(request: NextRequest, props: { params: Promise<{ codeCommune: string }> }) {
+  const params = await props.params;
   try {
     const from = request.nextUrl.searchParams.get('from') || 'ban'
 
