@@ -46,7 +46,8 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const parcelles = data.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2'))
 
   // const logoUrl = `public/logos/certificat/${cog}.png`
-  const logoAdresse = `public/logos/certificat/adresse-logo.png`
+  const logoAdresse = `public/logos/certificat/logo-ban.png`
+  const logoMarianne = `public/logos/certificat/logo-mariane.png`
 
   const dateObj = new Date(data.createdAt)
   const day = dateObj.getDate()
@@ -82,7 +83,10 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
     <Document title="Certificat d'adressage">
       <Page size="A4" style={stylesDSFR.page}>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Image src={logoMarianne} style={stylesDSFR.logoMarianne} />
+            <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
+          </View>
           <Image src={logoUrl} style={stylesDSFR.logoBloc} />
         </View>
         <Text> {'\n'}</Text>
@@ -144,17 +148,6 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
             </View>
           </View>
 
-          {
-            multidistributed
-              ? (
-                  <>
-                    <Text>{'\n'}</Text>
-                    <Text style={stylesDSFR.annexe}>Cette commune dispose de plusieurs codes postaux fournis par &apos;La Poste&apos;. La Base Adresse Nationale ne garantit pas l&apos;exactitude du code postal fourni dans ce document. En cas de doute, veuillez vous rapprocher de la mairie pour l&apos;édition du certificat.</Text>
-                  </>
-                )
-              : null
-          }
-
           <Text> {'\n'}</Text>
 
           <Text>
@@ -174,16 +167,21 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
         </View>
 
         <View style={stylesDSFR.footer}>
-          <Text style={stylesDSFR.footerText}>Ce document ne vaut pas : autorisation d&apos;urbanisme, droit de passage, servitude, droit de propriété, certificat de résidence ou d&apos;hébergement.</Text>
           <Text style={stylesDSFR.footerText}>
             Émis par les services de la Base Adresse Nationale, mandataire pour la ville de {nomCommune}.
           </Text>
+          <Text style={stylesDSFR.annexe}>Ce document ne vaut pas : autorisation d&apos;urbanisme, droit de passage, servitude, droit de propriété, certificat de résidence ou d&apos;hébergement.</Text>
+          {
+            multidistributed
+              ? (
+                  <>
+                    <Text>{'\n'}</Text>
+                    <Text style={stylesDSFR.annexe}>Cette commune dispose de plusieurs codes postaux fournis par &apos;La Poste&apos;. La Base Adresse Nationale ne garantit pas l&apos;exactitude du code postal fourni dans ce document. En cas de doute, veuillez vous rapprocher de la mairie pour l&apos;édition du certificat.</Text>
+                  </>
+                )
+              : null
+          }
 
-          <View style={stylesDSFR.logoContainer}>
-            {/* <Image src={logoUrl} style={stylesDSFR.footerLogo} /> */}
-            <View style={{ width: '2mm' }} />
-            <Image src="public/logos/certificat/BAN.png" style={stylesDSFR.footerLogo} />
-          </View>
         </View>
       </Page>
     </Document>
