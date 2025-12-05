@@ -8,7 +8,7 @@ import { Commune } from '@/types/api-geo.types'
 
 const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl: string }, initialRevision?: Revision, initialHabilitation?: Habilitation }>(
   () => import('../../../components/FormulaireDePublication'),
-  { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
+  { ssr: !!false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
 )
 
 interface FormulaireDePublicationPageProps {
