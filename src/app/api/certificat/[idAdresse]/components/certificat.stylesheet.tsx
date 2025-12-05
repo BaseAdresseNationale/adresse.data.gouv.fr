@@ -26,7 +26,8 @@ const stylesDSFR = StyleSheet.create({
   footerText: { marginBottom: '5mm', textAlign: 'left' },
   footerLogo: { width: '25', height: '25' },
   logoBloc: { maxWidth: '35mm', maxHeight: '20mm', width: 'auto', height: 'auto' },
-  logoAdresse: { maxWidth: '60mm', maxHeight: '35', width: 'auto', height: 'auto' },
+  logoAdresse: { height: '15mm', width: 'auto' },
+  logoMarianne: { height: '15mm', width: 'auto' },
   logoBanBloc: { width: '20mm', height: '20mm' },
   logoContainer: { flexDirection: 'row', alignItems: 'center' },
   boldText: { fontFamily: 'Marianne', fontWeight: 700 },
@@ -36,8 +37,10 @@ const stylesDSFR = StyleSheet.create({
   tableRow: { flexDirection: 'row' },
   tableCol: { width: '50%', borderStyle: 'solid', borderWidth: 1, borderColor: '#000' },
   tableCell: { margin: 5, fontSize: 10 },
+  tableCell10: { margin: 1, fontSize: 8 },
   tableHeader: { backgroundColor: '#f0f0f0', fontWeight: 'bold' },
   qrCodeLinkContainer: { flex: 1, marginRight: '5mm', minWidth: 1 },
+  annexe: { fontSize: '7pt' },
 })
 
 export { stylesDSFR }
