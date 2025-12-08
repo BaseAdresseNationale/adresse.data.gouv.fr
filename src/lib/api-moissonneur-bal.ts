@@ -9,13 +9,13 @@ if (!env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')) {
 export async function getOrganization(id: string): Promise<OrganizationMoissoneurType> {
   const url = new URL(`${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/organizations/${id}`)
 
-  return customFetch(url)
+  return customFetch(url, {cache: 'force-cache'})
 }
 
 export async function getOrganizationSources(id: string): Promise<ExtendedSourceMoissoneurType[]> {
   const url = new URL(`${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/organizations/${id}/sources`)
 
-  return customFetch(url)
+  return customFetch(url, {cache: 'force-cache'})
 }
 
 export async function getSourceHarvests(id: string, page = 1, limit = 20): Promise<{ results: HarvestMoissonneurType[], count: number }> {
@@ -24,13 +24,13 @@ export async function getSourceHarvests(id: string, page = 1, limit = 20): Promi
     offset: String(limit * (page - 1)),
   })
 
-  return customFetch(url)
+  return customFetch(url, {cache: 'force-cache'})
 }
 
 export async function getSourceRevisions(id: string): Promise<RevisionMoissoneurType[]> {
   const url = new URL(`${env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')}/sources/${id}/last-updated-revisions`)
 
-  return customFetch(url)
+  return customFetch(url, {cache: 'force-cache'})
 }
 
 export function getFileLink(id: string) {

@@ -12,6 +12,7 @@ export const getCommunesPrecedentes = async (code: string): Promise<CommunePrece
       'accept': 'application/json',
       'Content-Type': 'application/json',
     },
+    cache: 'force-cache',
   })
 
   if (!response.ok) {

@@ -23,6 +23,7 @@ export async function GET(request: NextRequest, props: { params: Promise<{ idCer
     headers: {
       'Content-Type': 'application/json',
     },
+    cache: 'force-cache',
   })
 
   if (!rawResponse.ok) {

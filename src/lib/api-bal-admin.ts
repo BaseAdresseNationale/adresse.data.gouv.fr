@@ -10,7 +10,7 @@ if (!env('NEXT_PUBLIC_BAL_ADMIN_API_URL')) {
 export async function getOnePartenairesDeLaCharte(id: string): Promise<PartenaireDeLaChartType> {
   const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${id}`)
 
-  return customFetch(url)
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 interface PartenairesDeLaCharteQuery {
@@ -38,14 +38,14 @@ export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaChart
   url.searchParams.append('limit', limit.toString())
   addSearchParams(url, queryObject)
 
-  return customFetch(url)
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 export async function getPartenairesDeLaCharteServices(queryObject: PartenairesDeLaCharteQuery): Promise<Record<string, number>> {
   const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/services`)
   addSearchParams(url, queryObject)
 
-  return customFetch(url)
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 export async function candidateToPartenairesDeLaCharte(candidacy: CandidatePartenaireDeLaCharteType) {
@@ -86,7 +86,7 @@ export async function sendReview(partenaireId: string, review: ReviewFormType) {
 
 export async function getBalEvents(): Promise<EventType[]> {
   try {
-    const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events`)
+    const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events`, { cache: 'force-cache' })
     if (!response.ok) {
       throw new Error('Error while fetching bal events')
     }

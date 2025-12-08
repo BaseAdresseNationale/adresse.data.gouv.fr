@@ -65,7 +65,7 @@ export async function GET(req: NextRequest, props: { params: Promise<{ slug: str
     }
 
     if (url) {
-      const response = await fetch(url)
+      const response = await fetch(url, {cache: 'force-cache'})
       const { status } = response
       const validStatus = [200, 304]
       if (!validStatus.includes(status)) {
