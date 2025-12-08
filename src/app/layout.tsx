@@ -36,7 +36,9 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   const dataNotices = {
     // data: [sampleNotice],
-    data: [],
+    data: [{
+      text: 'L\'API ADRESSE est dépréciée. L\'url sera décommissionnée fin Janvier 2026. Pensez à effectuer la bascule dans vos services.',
+    }],
     duration: 4000,
   }
 
