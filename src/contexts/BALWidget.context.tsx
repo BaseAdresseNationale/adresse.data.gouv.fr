@@ -98,7 +98,7 @@ export function BALWidgetProvider({ children }: BALWidgetProviderProps) {
   useEffect(() => {
     async function fetchBalWidgetConfig() {
       try {
-        const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/bal-widget/config`)
+        const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/bal-widget/config`, { cache: 'force-cache' })
         const data = await response.json()
         if (response.status !== 200) {
           throw new Error(data.message)

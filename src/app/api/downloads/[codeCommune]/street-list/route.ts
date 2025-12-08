@@ -14,6 +14,7 @@ export async function GET(request: NextRequest, props: { params: Promise<{ codeC
       headers: {
         'Content-Type': 'text/csv',
       },
+      cache: 'force-cache',
     })
     const csvFile = await response.text()
 

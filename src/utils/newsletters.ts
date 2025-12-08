@@ -35,6 +35,7 @@ export async function downloadLastNewsletters() {
               'content-type': 'application/json',
               'api-key': env('BREVO_API_KEY'),
             } as RequestInit['headers'],
+            cache: 'force-cache',
           }
       )
 
