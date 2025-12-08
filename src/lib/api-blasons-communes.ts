@@ -11,7 +11,7 @@ export const getCommuneFlagProxy = async (codeCommune: string): Promise<string> 
   const base = env('NEXT_PUBLIC_API_ANNUAIRE_DES_COLLECTIVITES') || 'https://api.collectivite.fr/api'
   if (base) {
     try {
-      const response = await fetch(`${base}/commune/logo/${codeCommune}`)
+      const response = await fetch(`${base}/commune/logo/${codeCommune}`, {cache: 'force-cache'})
       const url = await response.text()
       const isValidUrl = Boolean(
         url && (url.startsWith('http') || url.startsWith('data:image')),
