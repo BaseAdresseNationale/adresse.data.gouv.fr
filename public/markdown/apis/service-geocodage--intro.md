@@ -4,7 +4,7 @@ intro: [{attach: "la-base-adresse-nationale", filename: "service-geocodadage--in
 ---
 
 **Rappel** : *L'API Adresse BAN est dépréciée et intégrée dans le nouveau Service de géocodage de la Géoplateforme.*  
-**L\'url sera décommissionnée fin Janvier 2026. Pensez à effectuer la bascule dans vos services.**
+**L\'url api-adresse.data.gouv.fr sera décommissionnée fin Janvier 2026. Pensez à effectuer la bascule dans vos services.**
 
 Le Service de géocodage permet d'effectuer rapidement une recherche d’adresse, mais aussi associer selon plusieurs critères des coordonnées à une adresse, un point d'intérêt ou une parcelle cadastrale.
 
