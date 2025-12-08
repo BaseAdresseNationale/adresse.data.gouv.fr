@@ -23,6 +23,7 @@ async function Certificat(props: { params: Promise<{ idCertificat: string }> }) 
   const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
+    cache: 'force-cache',
   })
   const response = rawResponse.ok ? await rawResponse.json() : {}
   // temporary check migrating ban api response structure
