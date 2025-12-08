@@ -34,7 +34,7 @@ const ActionDownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, tit
         downloadUrl = `/api/certificat/pdf/${certificateId}`
       }
       else {
-        const response = await fetch(`/api/certificat/${id}`)
+        const response = await fetch(`/api/certificat/${id}`, { cache: 'force-cache' })
         if (!response.ok) {
           if (response.status === 401) {
             redirectToLogoutOnSessionExpired()

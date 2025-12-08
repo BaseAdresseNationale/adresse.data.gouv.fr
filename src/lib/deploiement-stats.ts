@@ -60,8 +60,8 @@ type CommuneSummary = {
 }
 
 export async function fetchStatsData() {
-  const currentRevisions: RevisionSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/current-revisions`)
-  const communesSummary: CommuneSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/communes-summary`)
+  const currentRevisions: RevisionSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/current-revisions`, { cache: 'force-cache' })
+  const communesSummary: CommuneSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/communes-summary`, { cache: 'force-cache' })
   const bals = await customFetch(`${env('NEXT_PUBLIC_BAL_API_URL')}/stats/bals?fields=id&fields=commune&fields=status`, { method: 'POST' })
 
   return { currentRevisions, communesSummary, bals }
@@ -102,9 +102,9 @@ export function createFeature(communeWithContour: any, currentRevisionsIndex: Re
       certificationPercentage,
       ...((hasBAL && revisions)
         ? {
-            idClient: revisions.client._id || '',
-            nomClient: revisions.client.nom || '',
-          }
+          idClient: revisions.client._id || '',
+          nomClient: revisions.client.nom || '',
+        }
         : {}),
       statusBals,
     },

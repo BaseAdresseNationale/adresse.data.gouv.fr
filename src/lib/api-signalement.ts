@@ -12,13 +12,13 @@ export function getSignalements(options?: {
   sourceIds?: string[]
   codeCommunes?: string[]
 }, limit: number = 10,
-page: number = 1): Promise<PaginatedSignalements> {
+  page: number = 1): Promise<PaginatedSignalements> {
   const url = new URL(`${env('NEXT_PUBLIC_API_SIGNALEMENT')}/signalements`)
   url.searchParams.append('page', page.toString())
   url.searchParams.append('limit', limit.toString())
   addSearchParams(url, options)
 
-  return customFetch(url)
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 export const getSignalementSourceId = (): string => {
@@ -37,5 +37,5 @@ export async function getSignalementCommuneStatus(
 
   url.searchParams.append('sourceId', getSignalementSourceId())
 
-  return customFetch(url)
+  return customFetch(url, { cache: 'force-cache' })
 }
