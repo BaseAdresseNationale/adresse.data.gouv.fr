@@ -31,6 +31,7 @@ export interface UsersBan {
   descriptionUtilisation: string
   imageUtilisateur: string
   urlApplication: string
+  urlArticle: string
   dernierTelechargement: string
   nomUtilisateur: string
   statutIntegration: string
@@ -44,6 +45,7 @@ function AppCard({
   descriptionUtilisation,
   imageUtilisateur,
   urlApplication,
+  urlArticle,
   dernierTelechargement,
   nomUtilisateur,
   tagsApplication,
@@ -71,16 +73,39 @@ function AppCard({
       )}
       endDetail={dernierTelechargement && <p>Dernier téléchargement: {dernierTelechargement}</p>}
 
-      footer={urlApplication && (
-        <Button
-          className="fr-btn fr-btn--secondary"
-          linkProps={{
-            href: urlApplication,
-            target: '_blank',
-          }}
-          size="small"
-        >Voir l`application
-        </Button>
+      footer={(
+        <>
+          <ul className="fr-btns-group fr-btns-group--sm">
+            {urlArticle && (
+              <li>
+                <Button
+                  className="fr-btn"
+                  linkProps={{
+                    href: urlArticle,
+                  }}
+                  size="small"
+                >
+                  En savoir plus
+                </Button>
+              </li>
+            )}
+            {urlApplication && (
+              <li>
+                <Button
+                  className="fr-btn fr-btn--secondary"
+                  linkProps={{
+                    href: urlApplication,
+                    target: '_blank',
+                  }}
+                  size="small"
+                >
+                  Voir l&apos;application
+                </Button>
+              </li>
+            )}
+          </ul>
+        </>
+
       )}
     />
 

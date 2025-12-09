@@ -6,6 +6,7 @@ import Alert from '@codegouvfr/react-dsfr/Alert'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
 import { ValidationMoissoneurType } from '@/types/api-moissonneur-bal.types'
+import { getFileLink } from '@/lib/api-moissonneur-bal'
 
 interface RevisionValidationReportProps {
   id: string
@@ -41,7 +42,7 @@ export default function RevisionValidationReport({
         <Link
           target="_blank"
           passHref
-          href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/outils/validateur-bal?file=${process.env.NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL}/files/${fileId}/download`}
+          href={`${process.env.NEXT_PUBLIC_ADRESSE_URL}/outils/validateur-bal?file=${getFileLink(fileId)}`}
         >
           Lien vers le validateur BAL
         </Link>
