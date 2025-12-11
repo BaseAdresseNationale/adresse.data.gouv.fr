@@ -230,7 +230,7 @@ export default function Header(
             linkProps: {
               href: '/carte-base-adresse-nationale',
             },
-            text: <Tooltip kind="hover" title="Carte de la Base adresse nationale (Explorateur)">La Carte</Tooltip>,
+            text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
           },
           {
             iconId: 'fr-icon-book-2-fill',
