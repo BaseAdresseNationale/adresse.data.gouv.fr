@@ -4,7 +4,7 @@ const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
 
 // Fetch the commune flag from a proxy for front-end to avoid CORS issues
 export const getCommuneFlagProxy = async (codeCommune: string): Promise<string> => {
-  const response = await fetch(`/api/proxy-flag-commune/${codeCommune}`, {cache: 'force-cache'})
+  const response = await fetch(`/api/proxy-flag-commune/${codeCommune}`, { cache: 'force-cache' })
 
   return response.json()
 }

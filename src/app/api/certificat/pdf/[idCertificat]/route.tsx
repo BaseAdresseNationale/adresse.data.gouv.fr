@@ -13,7 +13,7 @@ const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function GET(request: NextRequest, props: { params: Promise<{ idCertificat: string }> }) {
-  const params = await props.params;
+  const params = await props.params
   if (!isUUIDv4(params.idCertificat)) {
     return new NextResponse('Invalid certificate ID: Must be a valid UUID v4', { status: 400 })
   }

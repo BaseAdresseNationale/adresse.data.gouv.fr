@@ -7,7 +7,7 @@ const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
 export async function GET(request: NextRequest, props: { params: Promise<{ idAdresse: string }> }) {
-  const params = await props.params;
+  const params = await props.params
   let address
   try {
     address = await getAddress(params.idAdresse)

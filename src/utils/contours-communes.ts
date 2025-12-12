@@ -27,7 +27,7 @@ export async function downloadContoursCommunes() {
 
   console.log('Downloading contours communes…')
 
-  const response = await fetch('http://etalab-datasets.geo.data.gouv.fr/contours-administratifs/2025/geojson/communes-100m-2025-01-08.geojson', {cache: 'force-cache'})
+  const response = await fetch('http://etalab-datasets.geo.data.gouv.fr/contours-administratifs/2025/geojson/communes-100m-2025-01-08.geojson', { cache: 'force-cache' })
   const responseJson = await response.json()
   const communesIndex = JSON.stringify(keyBy([...responseJson.features], (f: any) => f.properties.code))
   writeFileSync(file_path, communesIndex)

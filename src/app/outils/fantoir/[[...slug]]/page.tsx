@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useCallback, use } from 'react';
+import { useState, useMemo, useEffect, useCallback, use } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { env } from 'next-runtime-env'
@@ -45,11 +45,11 @@ const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const viewTypeConfigKeys: ViewType[] = ['departement', 'commune', 'voie']
 
 function FantoirAppPage(props: { params: Promise<{ slug: string[] }> }) {
-  const params = use(props.params);
+  const params = use(props.params)
 
   const {
-    slug = []
-  } = params;
+    slug = [],
+  } = params
 
   const [defaultDepartements, setDefaultDepartements] = useState<Departement[]>([])
   const [departements, setDepartements] = useState<Departement[]>([])

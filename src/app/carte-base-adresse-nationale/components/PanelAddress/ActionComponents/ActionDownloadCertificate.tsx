@@ -33,7 +33,7 @@ const ActionDownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, tit
         downloadUrl = `/api/certificat/pdf/${certificateId}`
       }
       else {
-        const response = await fetch(`/api/certificat/${id}`, {cache: 'force-cache'})
+        const response = await fetch(`/api/certificat/${id}`, { cache: 'force-cache' })
         if (!response.ok) throw new Error('Erreur lors de la récupération du certificat')
 
         const result: CertificateResponse = await response.json()

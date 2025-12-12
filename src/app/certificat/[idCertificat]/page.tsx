@@ -13,7 +13,7 @@ import { isUUIDv4 } from '@/utils/validate'
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 async function Certificat(props: { params: Promise<{ idCertificat: string }> }) {
-  const params = await props.params;
+  const params = await props.params
   const { idCertificat } = params
 
   if (!isUUIDv4(idCertificat)) {
@@ -97,7 +97,7 @@ async function Certificat(props: { params: Promise<{ idCertificat: string }> }) 
         </CertificateContainer>
       </Section>
     </>
-  );
+  )
 }
 
 export default Certificat

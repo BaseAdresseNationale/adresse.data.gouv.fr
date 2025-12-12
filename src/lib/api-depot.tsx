@@ -18,7 +18,7 @@ if (!env('NEXT_PUBLIC_API_BAN_URL')) {
 // Fonction pour récupérer les alertes d'une commune
 export async function getCommuneAlerts(codeCommune: string): Promise<any[]> {
   try {
-    const response = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/communes/${codeCommune}/status?limit=10`, {cache: 'force-cache'})
+    const response = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/communes/${codeCommune}/status?limit=10`, { cache: 'force-cache' })
     return response?.response?.revisions_recentes || []
   }
   catch (error) {
@@ -55,11 +55,11 @@ export function validateHabilitationPinCode(habilitationId: string, code: string
 }
 
 export async function getRevision(revisionId: string): Promise<Revision> {
-  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}`, { cache: 'force-cache' })
 }
 
 export async function getCurrentRevision(codeCommune: string): Promise<Revision | undefined> {
-  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision`, { cache: 'force-cache' })
 }
 
 export async function getCurrentRevisionFile(codeCommune: string): Promise<any> {
@@ -73,7 +73,7 @@ export async function getCurrentRevisionFile(codeCommune: string): Promise<any> 
 }
 
 export async function getRevisions(codeCommune: string): Promise<Revision[]> {
-  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/revisions`, {cache: 'force-cache'})
+  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/revisions`, { cache: 'force-cache' })
 
   return revisions.sort((a: Revision, b: Revision) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -81,7 +81,7 @@ export async function getRevisions(codeCommune: string): Promise<Revision[]> {
 }
 
 export async function getEmailsCommune(codeCommune: string): Promise<string[]> {
-  return await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/emails`, {cache: 'force-cache'})
+  return await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/emails`, { cache: 'force-cache' })
 }
 
 export async function createRevision(codeCommune: string, file: File): Promise<Revision> {
@@ -184,14 +184,14 @@ export const getRevisionDetails = async (revision: Revision, commune: BANCommune
 }
 
 export const getClientWithChefDeFile = async (clientId: string): Promise<ClientApiDepotWithChefDeFileType> => {
-  const client = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/clients/${clientId}`, {cache: 'force-cache'})
-  const chefDeFile = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/chefs-de-file/${(client as any).chefDeFileId}`, {cache: 'force-cache'})
+  const client = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/clients/${clientId}`, { cache: 'force-cache' })
+  const chefDeFile = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/chefs-de-file/${(client as any).chefDeFileId}`, { cache: 'force-cache' })
 
   return { ...client, chefDeFile }
 }
 
 export const getFirstRevisionsByClient = async (clientId: string): Promise<any> => {
-  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/client/${clientId}`, {cache: 'force-cache'})
+  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/client/${clientId}`, { cache: 'force-cache' })
 
   return revisions
 }

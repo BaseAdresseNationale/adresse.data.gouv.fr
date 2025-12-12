@@ -7,11 +7,11 @@ if (!env('NEXT_PUBLIC_API_GEO_URL')) {
 }
 
 export function getDepartements(): Promise<Departement[]> {
-  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements`, { cache: 'force-cache' })
 }
 
 export function getDepartementByCode(code: string) {
-  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}`, { cache: 'force-cache' })
 }
 
 export function isCodeDepNaive(token: string) {
@@ -23,7 +23,7 @@ export function isCodeDepNaive(token: string) {
 }
 
 export function getCommune(code: string): Promise<Commune> {
-  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/communes/${code}`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/communes/${code}`, { cache: 'force-cache' })
 }
 
 export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
@@ -33,7 +33,7 @@ export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
     url.searchParams.append('fields', fields.toString())
   }
 
-  return customFetch(url, {cache: 'force-cache'})
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 export function getCommunes(args: any): Promise<Commune[]> {
@@ -57,7 +57,7 @@ export function getCommunes(args: any): Promise<Commune[]> {
     url += `&type=${type}`
   }
 
-  return customFetch(url, {cache: 'force-cache'})
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 export function getEpcis({ q, limit, fields }: { q: string, limit: number, fields: string[] }): Promise<EPCI[]> {
@@ -75,13 +75,13 @@ export function getEpcis({ q, limit, fields }: { q: string, limit: number, field
     url.searchParams.append('limit', limit.toString())
   }
 
-  return customFetch(url.toString(), {cache: 'force-cache'})
+  return customFetch(url.toString(), { cache: 'force-cache' })
 }
 
 export function getEpciCommunes(code: string): Promise<Commune[]> {
-  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${code}/communes`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${code}/communes`, { cache: 'force-cache' })
 }
 
 export function getDepartementCommunes(code: string): Promise<Commune[]> {
-  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}/communes`, {cache: 'force-cache'})
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}/communes`, { cache: 'force-cache' })
 }

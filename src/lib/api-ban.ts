@@ -77,19 +77,19 @@ export function getFilteredStats(codesCommune: string[]): Promise<BANStats> {
 
 // Legacy : Fantoir :
 export function getFantoir(departementCode: string) {
-  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/departements/${departementCode}/communes`, {cache: 'force-cache'})
+  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/departements/${departementCode}/communes`, { cache: 'force-cache' })
 }
 
 export function getVoiesFantoir(communeCode: string) {
-  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/communes/${communeCode}/voies`, {cache: 'force-cache'})
+  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/communes/${communeCode}/voies`, { cache: 'force-cache' })
 }
 
 export function getVoieFantoir(voieCode: string) {
-  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/voies/${voieCode}`, {cache: 'force-cache'})
+  return customFetch(`${API_BAN_SEARCH_URL}/api-fantoir/voies/${voieCode}`, { cache: 'force-cache' })
 }
 
 export async function getIdDistrictByCodeCommune(codeCommune: string) {
-  const response = await customFetch(`${API_BAN_SEARCH_URL}/api/district/cog/${codeCommune}`, {cache: 'force-cache'})
+  const response = await customFetch(`${API_BAN_SEARCH_URL}/api/district/cog/${codeCommune}`, { cache: 'force-cache' })
   const mainDistrict = response.response?.find((d: any) => d.meta?.insee?.isMain === true)
   return mainDistrict?.meta?.insee?.mainId || null
 }
