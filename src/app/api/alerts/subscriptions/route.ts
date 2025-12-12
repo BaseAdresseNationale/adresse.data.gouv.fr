@@ -44,6 +44,7 @@ export async function GET(request: NextRequest) {
       headers: {
         Authorization: `Token ${env('BAN_API_TOKEN')}`,
       },
+      cache: 'force-cache',
     })
 
     if (!response.ok) {

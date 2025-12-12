@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   try {
     const config = await getProviderConfig()
     const currentUrl = getCurrentUrl(req)
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const nonce = cookieStore.get('nonce')
     const state = cookieStore.get('state')
     const tokens = await client.authorizationCodeGrant(

@@ -47,7 +47,8 @@ const APIs: Record<string, DataResponse> = {
   'quality': { getter: getQualityData },
 }
 
-export async function GET(req: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params
   const res = Response
   const slug = params.slug
   try {
@@ -64,7 +65,7 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
     }
 
     if (url) {
-      const response = await fetch(url)
+      const response = await fetch(url, { cache: 'force-cache' })
       const { status } = response
       const validStatus = [200, 304]
       if (!validStatus.includes(status)) {
