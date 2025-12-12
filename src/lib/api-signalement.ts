@@ -18,7 +18,7 @@ page: number = 1): Promise<PaginatedSignalements> {
   url.searchParams.append('limit', limit.toString())
   addSearchParams(url, options)
 
-  return customFetch(url, {cache: 'force-cache'})
+  return customFetch(url, { cache: 'force-cache' })
 }
 
 export const getSignalementSourceId = (): string => {
@@ -37,5 +37,5 @@ export async function getSignalementCommuneStatus(
 
   url.searchParams.append('sourceId', getSignalementSourceId())
 
-  return customFetch(url, {cache: 'force-cache'})
+  return customFetch(url, { cache: 'force-cache' })
 }

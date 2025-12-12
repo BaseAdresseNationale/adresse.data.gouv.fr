@@ -60,8 +60,8 @@ type CommuneSummary = {
 }
 
 export async function fetchStatsData() {
-  const currentRevisions: RevisionSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/current-revisions`, {cache: 'force-cache'})
-  const communesSummary: CommuneSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/communes-summary`, {cache: 'force-cache'})
+  const currentRevisions: RevisionSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/current-revisions`, { cache: 'force-cache' })
+  const communesSummary: CommuneSummary[] = await customFetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/communes-summary`, { cache: 'force-cache' })
   const bals = await customFetch(`${env('NEXT_PUBLIC_BAL_API_URL')}/stats/bals?fields=id&fields=commune&fields=status`, { method: 'POST' })
 
   return { currentRevisions, communesSummary, bals }

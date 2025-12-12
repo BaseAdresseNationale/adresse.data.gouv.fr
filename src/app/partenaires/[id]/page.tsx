@@ -7,7 +7,7 @@ import { ClientTypeEnum, PartenaireDeLaCharteTypeEnum } from '@/types/partenaire
 import PartenaireOrganisme from '@/components/Partenaires/PartenaireOrganisme'
 
 export default async function PartenairePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
+  const params = await props.params
   const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
 
   const availableTabs = []

@@ -15,7 +15,7 @@ export async function GET(
   request: NextRequest,
   props: { params: Promise<{ x: string, y: string, z: string }> }
 ) {
-  const params = await props.params;
+  const params = await props.params
   const tiles = await getCachedData('deploiement-tiles', computeTiles)
 
   const z = Number.parseInt(params.z, 10)

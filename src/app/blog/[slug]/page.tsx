@@ -21,7 +21,7 @@ import AsideContent from './components/AsideContent'
 export const dynamic = 'force-dynamic'
 
 export default async function BlogPost(props: { params: Promise<{ slug: string }> }) {
-  const params = await props.params;
+  const params = await props.params
   const pageUrl = `https://adresse.data.gouv.fr/blog/${params.slug}`
   const blogPost = (await getSinglePost(params.slug)) || {}
 
