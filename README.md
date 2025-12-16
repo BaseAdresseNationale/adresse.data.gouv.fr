@@ -8,8 +8,8 @@ Ce dépôt contient le code logiciel FrontEnd du site [adresse.data.gouv.fr](htt
 
 Ce site nécéssite l'instalation préalable des outils suivants :
 
-* Node.JS version 20 ou supérieure
-* NPM version 10 ou supérieure
+* Node.JS version 22 ou supérieure
+* NPM version 11 ou supérieure
 
 ## Développement
 
