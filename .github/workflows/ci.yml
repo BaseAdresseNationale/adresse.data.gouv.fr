@@ -70,7 +70,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci
       - name: Lint the codebase
         run: npm run lint
       - name: Build

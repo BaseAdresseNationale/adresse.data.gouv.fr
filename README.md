@@ -46,7 +46,6 @@ npm run start
 La qualité et le formatage du code sont contrôlés via [ESlint](https://eslint.org/)(pour la qualité) et [ESLint Stylistic](https://eslint.style/)(pour le formatage).
 
 ```bash
-npm run lint
 ```
 
 ## Licence
