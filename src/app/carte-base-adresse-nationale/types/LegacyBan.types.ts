@@ -128,6 +128,8 @@ export interface TypeAddressExtended {
   commune: TypeDistrict
   withBanId: boolean
   config?: {
-    certificate: {}
+    certificate: {
+      value?: string
+    }
   }
 }

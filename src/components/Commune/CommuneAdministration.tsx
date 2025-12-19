@@ -2,7 +2,7 @@
 
 import { useCallback, useState, useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
-import { BANCommune } from '@/types/api-ban.types'
+import { BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import Section from '../Section'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { Button } from '@codegouvfr/react-dsfr/Button'
@@ -43,8 +43,23 @@ function CommuneAdministration(district: BANCommune) {
   const [commune, setCommune] = useState<Commune | null>(null)
   const [communeBAN, setCommuneBAN] = useState<BANCommune | null>(null)
   const [techRequired, setTechRequired] = useState<boolean>(false)
+  const [certificateType, setCertificateType] = useState<CertificateTypeEnum>(CertificateTypeEnum.DISABLED)
+  const [actualCertificateType] = useState<CertificateTypeEnum>(district?.config?.certificate?.value ? district?.config?.certificate?.value as CertificateTypeEnum : CertificateTypeEnum.DISABLED)
 
-  const enableAddressingCertification = useCallback(async () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const certificateType = formData.get('certification-type')
+
+    if (!certificateType) {
+      setCertificateType(CertificateTypeEnum.DISABLED)
+      return
+    }
+    enableAddressingCertification(certificateType as CertificateTypeEnum)
+  }
+
+  const enableAddressingCertification = useCallback(async (certificateType: CertificateTypeEnum) => {
     try {
       if (authenticated) {
         setMessage('Action en cours... ne quittez pas la page sans avoir de message de confirmation.')
@@ -80,6 +95,7 @@ function CommuneAdministration(district: BANCommune) {
           exp: exp,
           iat: iat,
           iss: iss,
+          certificateType: certificateType,
         }
 
         const options = {
@@ -164,9 +180,70 @@ function CommuneAdministration(district: BANCommune) {
         {!!communeBAN?.withBanId
           ? (<span className="fr-icon-success-line" aria-hidden="true" />)
           : (<span className="fr-icon-error-warning-line" aria-hidden="true" />)}
-        <span>L&lsquo;activation de la fonctionnalité &quot;certificat d&lsquo;adressage&quot; nécessite, sous condition d&lsquo;éligibilité géographique, la présence des identifiants.</span>
+        <span>L&lsquo;activation du service d&lsquo;émission de &quot;certificat d&lsquo;adressage&quot; nécessite la présence des identifiants ban.</span>
       </li>
     </ul>
+  )
+
+  const activateCertificate = (
+    <div>
+      <form onSubmit={handleSubmit}>
+        {
+          certificateType && (
+            <div className="fr-alert fr-alert--info">
+              <h3 className="fr-alert__title">Choix actuel : {CertificateTypeLabel[actualCertificateType]}</h3>
+              <p>Vous pouvez changer le choix actuel en remplissant le formulaire ci-dessous.</p>
+            </div>
+          )
+        }
+
+        <fieldset
+          className="fr-fieldset"
+          aria-describedby={certificateType ? 'certification-error' : undefined}
+        >
+        </fieldset>
+
+        <div className="fr-fieldset__element">
+          <div className="fr-radio-group">
+            <input type="radio" id="radio-disabled" name="certification-type" value={CertificateTypeEnum.DISABLED} />
+            <label className="fr-label" htmlFor="radio-disabled"> {CertificateTypeLabel[CertificateTypeEnum.DISABLED]}
+              <span className="fr-hint-text">Les certificats d&lsquo;adressage ne sont pas disponible pour cette commune depuis le site adresse.data.gouv.fr.</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="fr-fieldset__element">
+          <div className="fr-radio-group">
+            <input type="radio" id="radio-district" name="certification-type" value={CertificateTypeEnum.DISTRICT} />
+            <label className="fr-label" htmlFor="radio-district"> {CertificateTypeLabel[CertificateTypeEnum.DISTRICT]}
+              <span className="fr-hint-text">Les certificats seront téléchargeables depuis le site adresse.data.gouv.fr par toute personne connecté avec une adresse Email rattachée à la mairie de la commune.</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="fr-fieldset__element">
+          <div className="fr-radio-group">
+            <input type="radio" id="radio-all" name="certification-type" value={CertificateTypeEnum.ALL} />
+            <label className="fr-label" htmlFor="radio-all"> {CertificateTypeLabel[CertificateTypeEnum.ALL]}
+              <span className="fr-hint-text">Les certificats sont librement téléchargeables depuis le site adresse.data.gouv.fr. par tous.</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="fr-messages-group" id="storybook-form-messages" aria-live="polite">
+        </div>
+
+        <Button
+          key="set-config"
+          iconId="ri-file-paper-2-line"
+          type="submit"
+        >
+          Valider le choix
+        </Button>
+
+      </form>
+
+    </div>
   )
 
   const renderHabilitationContent = () => {
@@ -198,15 +275,7 @@ function CommuneAdministration(district: BANCommune) {
       if (!clickedEnable) {
         return (
           <>
-            {!communeBAN?.config?.certificate && (
-              <Button
-                key="set-config"
-                iconId="ri-file-paper-2-line"
-                onClick={enableAddressingCertification}
-              >
-                Activer la certification d’adressage
-              </Button>
-            )}
+            {activateCertificate}
             {logOutButton}
           </>
         )
@@ -237,11 +306,36 @@ function CommuneAdministration(district: BANCommune) {
   const renderHabilitationWrapper = () => {
     return (
       <>
-        {!(authenticated && !techRequired) && !communeBAN?.config?.certificate && conditions}
+        {!(authenticated && !techRequired) && (communeBAN?.config?.certificate?.value != CertificateTypeEnum.ALL) && conditions}
         <div>{requiredConditions}</div>
         {featureProConnectEnabled && renderHabilitationContent()}
       </>
     )
+  }
+
+  const renderCertificateTypeContent = () => {
+    if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.ALL) {
+      return (
+        <TooltipWithCommuneConfigItem title={tooltipTitle}>
+          Certificat d’adressage :{' '}
+          <b>Activé</b>
+        </TooltipWithCommuneConfigItem>
+      )
+    }
+    else if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.DISTRICT) {
+      return (
+        <TooltipWithCommuneConfigItem title={tooltipTitle}>
+          Certificat d’adressage :{' '}
+          <b>Restreint à la mairie</b>
+        </TooltipWithCommuneConfigItem>
+      )
+    }
+    else if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.DISABLED) {
+      return (
+        <span style={{ color: 'var(--text-action-high-blue-france)', fontSize: '1.25rem', lineHeight: '1.75rem', fontWeight: 700 }}>Activation du certificat d’adressage
+        </span>
+      )
+    }
   }
   return (
     <Section
@@ -251,17 +345,7 @@ function CommuneAdministration(district: BANCommune) {
       <div
         style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
       >
-        {communeBAN?.config?.certificate
-          ? (
-              <TooltipWithCommuneConfigItem title={tooltipTitle}>
-                Certificat d’adressage :{' '}
-                <b>Activé</b>
-              </TooltipWithCommuneConfigItem>
-            )
-          : (
-              <span style={{ color: 'var(--text-action-high-blue-france)', fontSize: '1.25rem', lineHeight: '1.75rem', fontWeight: 700 }}>Activation du certificat d’adressage
-              </span>
-            )}
+        {renderCertificateTypeContent()}
         {renderHabilitationWrapper()}
       </div>
     </Section>

@@ -1,3 +1,15 @@
+export enum CertificateTypeEnum {
+  DISTRICT = 'DISTRICT',
+  ALL = 'ALL',
+  DISABLED = 'DISABLED',
+}
+
+export const CertificateTypeLabel: Record<CertificateTypeEnum, string> = {
+  [CertificateTypeEnum.DISTRICT]: 'Téléchargement réservé à la Mairie',
+  [CertificateTypeEnum.ALL]: 'Téléchargement accessible à tous',
+  [CertificateTypeEnum.DISABLED]: 'Désactivé',
+}
+
 export type BANAddress = {
   id: string
   type: string
@@ -36,7 +48,9 @@ export type BANVoie = {
 }
 
 export type BANConfig = {
-  certificate: {}
+  certificate: {
+    value: CertificateTypeEnum
+  }
 }
 
 export type BANCommune = {
