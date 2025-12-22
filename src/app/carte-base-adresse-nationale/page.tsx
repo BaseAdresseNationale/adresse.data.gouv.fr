@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react'
+import { customFetch } from '@/lib/fetch'
 import { env } from 'next-runtime-env'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
@@ -8,6 +9,8 @@ import { LngLatBounds } from 'maplibre-gl'
 
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getBanItem } from '@/lib/api-ban'
+import { getCommune } from '@/lib/api-geo'
+import { CertificateTypeEnum } from '@/types/api-ban.types'
 
 import { useBanMapConfig } from './components/ban-map/BanMap.context'
 import Aside from './components/Aside'
@@ -153,6 +156,7 @@ function CartoView() {
   const [withCertificate, setWithCertificate] = useState<boolean>(false)
   const [isLoadMapSearchResults, setIsLoadMapSearchResults] = useState(false)
   const [isLoadMapTiles, setIsLoadMapTiles] = useState(false)
+  const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
 
   const banMapRef = useRef<MapRef>(null)
   const asideRef = useRef<HTMLDivElement>(null)
@@ -264,6 +268,19 @@ function CartoView() {
         setMapSearchResults(banItem)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
+        let connexion = null
+        try {
+          connexion = await customFetch('/api/me')
+        }
+        catch (e) {
+        }
+        if (!connexion) {
+          setHabilitationEnabled(false)
+          return
+        }
+        const codeCommune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
+        setHabilitationEnabled(codeCommune.siren == JSON.parse(connexion).siret.slice(0, 9))
+
         // Update breadcrumb path & Actions Params
         switch (getBanItemTypes(banItem)) {
           case 'district':
@@ -275,7 +292,12 @@ function CartoView() {
           case 'address':
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
-            setWithCertificate(config?.certificate ? true : false)
+            if ((config?.certificate?.value == CertificateTypeEnum.DISTRICT && habilitationEnabled) || config?.certificate?.value == CertificateTypeEnum.ALL) {
+              setWithCertificate(true)
+            }
+            else {
+              setWithCertificate(false)
+            }
             break
           default:
             setMapBreadcrumbPath([])
@@ -289,7 +311,7 @@ function CartoView() {
     else {
       return closeMapSearchResults()
     }
-  }, [banItemId, closeMapSearchResults])
+  }, [banItemId, habilitationEnabled, closeMapSearchResults])
 
   // Position map to Search results
   useEffect(() => {
