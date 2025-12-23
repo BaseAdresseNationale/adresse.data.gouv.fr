@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAddress, getCommune } from '@/lib/api-ban'
+import { getAddress } from '@/lib/api-ban'
 import { isAddressCertifiable } from '@/lib/ban'
 import { env } from 'next-runtime-env'
 

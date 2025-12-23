@@ -10,7 +10,6 @@ import { env } from 'next-runtime-env'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(req: NextRequest) {
-  // eslint-disable-next-line
   const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   try {
     const config = await getProviderConfig()
@@ -56,6 +55,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(url)
   }
   catch (error) {
-    return NextResponse.json({ error: 'Callback failed' }, { status: 500 })
+    return NextResponse.json({ error: `Callback failed ${error}` }, { status: 500 })
   }
 }

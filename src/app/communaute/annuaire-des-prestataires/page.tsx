@@ -7,12 +7,17 @@ const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.ENTREPRISE,
 }
 
+
+function mathRandom() {
+  return Math.random()
+}
+
 export default async function SocietesPartenairesPage() {
   const services = await getPartenairesDeLaCharteServices(PARTENAIRE_SEARCH_FILTER)
   const { totalEntreprises } = await getPartenairesDeLaCharte(PARTENAIRE_SEARCH_FILTER, 1, 1)
   const departements = await getDepartements()
   const numPages = Math.ceil(totalEntreprises / DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT)
-  const randomPage = Math.floor(Math.random() * numPages) + 1
+  const randomPage = Math.floor(mathRandom() * numPages) + 1
 
   return (
     <CompanyPage services={services} departements={departements} page={randomPage} />

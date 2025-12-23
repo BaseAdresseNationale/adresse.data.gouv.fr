@@ -1,7 +1,4 @@
-/* eslint-disable @stylistic/semi */
-/* eslint-disable @stylistic/multiline-ternary */
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @stylistic/no-multiple-empty-lines */
 'use client'
 
 import React, { useState, useEffect } from 'react'
@@ -59,15 +56,6 @@ function NotificationsBAN() {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
   const [isFormValid, setIsFormValid] = useState<boolean>(false)
 
-  useEffect(() => {
-    const hasWebhookURL = formData.webhookURL.trim() !== ''
-    const hasValidURL = isValidURL(formData.webhookURL)
-    const hasStatuses = formData.statusesToFollow.length > 0
-    const hasDistricts = formData.allDistricts || formData.districtsToFollow.trim() !== ''
-
-    setIsFormValid(hasWebhookURL && hasValidURL && hasStatuses && hasDistricts)
-  }, [formData])
-
   // Validation des champs
   const isValidURL = (url: string): boolean => {
     if (!url.trim()) return false
@@ -80,6 +68,17 @@ function NotificationsBAN() {
       return false
     }
   }
+
+  useEffect(() => {
+    const hasWebhookURL = formData.webhookURL.trim() !== ''
+    const hasValidURL = isValidURL(formData.webhookURL)
+    const hasStatuses = formData.statusesToFollow.length > 0
+    const hasDistricts = formData.allDistricts || formData.districtsToFollow.trim() !== ''
+    const changeIsFormValid = (param: boolean) => { 
+      setIsFormValid(hasWebhookURL && hasValidURL && hasStatuses && hasDistricts)
+    }
+    changeIsFormValid(hasWebhookURL && hasValidURL && hasStatuses && hasDistricts)
+  }, [formData])
 
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {}

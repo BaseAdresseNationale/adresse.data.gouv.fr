@@ -20,6 +20,9 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
   const [totalCount, setTotalCount] = useState(0)
 
   useEffect(() => {
+    const changeCurrentPage = (page: number) => {
+      setCurrentPage(page)
+    }
     const fetchHarvests = async () => {
       const { results, count } = await getSourceHarvests(
         sourceId,
@@ -34,7 +37,7 @@ export default function MoissonneurHarvestList({ sourceId }: MoissonneurHarvestL
       return
     }
 
-    setCurrentPage(currentPage)
+    changeCurrentPage(currentPage)
     fetchHarvests()
   }, [sourceId, currentPage])
 

@@ -115,7 +115,15 @@ export function useFocusOnMap(item: MapItem) {
   const [bound, setBound] = useState<LngLatBoundsLike>()
 
   useEffect(() => {
-    setBound(item?.displayBBox?.length === 4 ? (item.displayBBox as LngLatBoundsLike) : undefined)
+    const updateBound = () => {
+      if (item?.displayBBox?.length === 4) {
+        setBound(item.displayBBox as LngLatBoundsLike)
+      } else {
+        setBound(undefined)
+      }
+    }
+
+    updateBound()
   }, [map, item])
 
   const focusOnMap = useCallback((options = {}) => {

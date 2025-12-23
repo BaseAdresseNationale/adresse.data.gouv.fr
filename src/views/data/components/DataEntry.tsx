@@ -1,5 +1,4 @@
 import { Fragment, ReactNode } from 'react'
-import Link from 'next/link'
 import PropTypes from 'prop-types'
 import { filesize } from 'filesize'
 
@@ -18,12 +17,6 @@ import {
   ExplorerLinkDate,
   ExplorerLinkTime,
 } from './DataEntry.styled'
-
-const theme = {
-  breakPoints: {
-    desktop: '1024px',
-  },
-}
 
 const translatedName: { [key: string]: string } = {
   latest: 'Dernière(s) version(s) en date',

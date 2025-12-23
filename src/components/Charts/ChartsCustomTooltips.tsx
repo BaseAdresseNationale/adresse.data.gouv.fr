@@ -47,7 +47,7 @@ export default function ChartsCustomTooltip({ active, payload, label: labelProp 
 }
 
 interface ChartsCustomTooltipProps {
-  active?: boolean // eslint-disable-line react/boolean-prop-naming
+  active?: boolean
   payload?: Record<string, any>
   label?: string
 }

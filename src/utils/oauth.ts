@@ -63,7 +63,6 @@ export const AUTHORIZATION_DEFAULT_PARAMS = {
 }
 
 export const getAuthorizationControllerFactory = async (req: NextRequest, extraParams?: any) => {
-  // eslint-disable-next-line
   const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   try {
     const config = await getProviderConfig()

@@ -200,7 +200,6 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
       ? [...(s3Objects || []).filter(({ name }) => autorizedPathS3(name).auth)]
       : []
 
-    const paraXXX = alias.target?.params
     const targetAlias = aliasAction[alias.target.action](s3data, ...((alias.target?.params) || []))
 
     return ({

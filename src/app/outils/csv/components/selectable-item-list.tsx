@@ -7,7 +7,7 @@ import ActionButtonNeutral from '../components/action-button-neutral'
 interface SelectableItemListPropType {
   list: Array<{ key: string, value: string }>
   buttonIcon: '+' | '-'
-  action: Function
+  action: (column: string) => void
 }
 
 export default function SelectableItemList({ list, buttonIcon, action }: SelectableItemListPropType) {

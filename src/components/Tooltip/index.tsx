@@ -102,8 +102,13 @@ function getTooltipPosition(el: Element | null, placement: 'top' | 'bottom' | 'l
   }
 }
 
+function getMathRandom() {
+  return Math.random().toString(36).substring(7)  
+}
+
 export default function Tooltip({ children, message, style, placement = 'top' }: TooltipProps) {
-  const [id] = useState(Math.random().toString(36).substring(7))
+  const random = getMathRandom()
+  const [id] = useState(random)
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const [containerRef, setContainerRef] = useDOMRef<HTMLDivElement>()
@@ -120,9 +125,13 @@ export default function Tooltip({ children, message, style, placement = 'top' }:
 
   // Place tooltip
   useEffect(() => {
+    const changeTooltipPosition = (top: number, left: number) => {
+      setTooltipPosition({ top, left })
+    }
+
     if (containerRef) {
       const { top, left } = getTooltipPosition(containerRef, placement)
-      setTooltipPosition({ top, left })
+      changeTooltipPosition(top, left)
     }
   }, [containerRef, placement, isHovered])
 
@@ -132,17 +141,16 @@ export default function Tooltip({ children, message, style, placement = 'top' }:
       return
     }
 
-    const rect = tooltipRef.getBoundingClientRect()
-    if (rect.x < 0) {
-      setTooltipPosition((prev) => {
-        return { ...prev, right: window.innerWidth - rect.width + Math.abs(rect.x) }
-      })
-    }
-    else if (rect.y < 0) {
-      setTooltipPosition((prev) => {
-        return { ...prev, bottom: window.innerHeight - rect.height + Math.abs(rect.y) }
-      })
-    }
+    const updateTooltipPosition = () => {
+      const rect = tooltipRef.getBoundingClientRect();
+      setTooltipPosition(prev => ({
+        ...prev,
+        right: rect.x < 0 ? window.innerWidth - rect.width + Math.abs(rect.x) : null,
+        bottom: rect.y < 0 ? window.innerHeight - rect.height + Math.abs(rect.y) : null,
+      }));
+    };
+
+     updateTooltipPosition();
   }, [tooltipRef])
 
   const tooltipElem = (

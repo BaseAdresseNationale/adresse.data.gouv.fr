@@ -121,7 +121,7 @@ export async function computeStats({ currentRevisions, communesSummary, bals }: 
 
   const communes = codesCommune?.length > 0 ? new Set(codesCommune) : new Set([...currentRevisions.map(c => c.codeCommune), ...communesSummary.map(c => c.codeCommune)])
 
-  let communesWithContours = []
+  const communesWithContours = []
   for (const codeCommune of communes) {
     const communeWithContours = await getContourCommune(codeCommune)
     if (communeWithContours) {
