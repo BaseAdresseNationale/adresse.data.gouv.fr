@@ -4,8 +4,8 @@ import { ColumnSelectWrapper } from './columns-select.style'
 interface ColumnsSelectPropTypes {
   columns: Array<string>
   selectedColumns: Array<string>
-  onAdd: Function
-  onRemove: Function
+  onAdd: (column: string) => void
+  onRemove: (column: string) => void
 }
 
 export default function ColumnsSelect({ columns, selectedColumns, onAdd, onRemove }: ColumnsSelectPropTypes) {
