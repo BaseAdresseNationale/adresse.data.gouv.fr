@@ -38,12 +38,15 @@ export default function Footer() {
   const previousSize = useRef<typeof size | null>(null)
 
   useEffect(() => {
+    const handleEventReady =(param: boolean)=> {
+      setIsEventReady(param)
+    }
     if (previousSize.current !== size) {
       previousSize.current = size
-      setIsEventReady(false)
+      handleEventReady(false)
     }
     else if (!isEventReady) {
-      setIsEventReady(true)
+      handleEventReady(true)
     }
   }, [size, isEventReady])
 

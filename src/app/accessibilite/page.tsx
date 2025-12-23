@@ -2,7 +2,6 @@ import { Suspense } from 'react'
 import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 
 import Section from '@/components/Section'
-import SectionHero from '@/components/SectionHero'
 import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
 

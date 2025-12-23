@@ -3,9 +3,7 @@ import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/type
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
 import { env } from 'next-runtime-env'
-import Tooltip from '@/components/Tooltip'
 import Link from 'next/link'
-import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { AlertBadge } from './AlertBadge'
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
   throw new Error('NEXT_PUBLIC_API_DEPOT_URL is not defined')
