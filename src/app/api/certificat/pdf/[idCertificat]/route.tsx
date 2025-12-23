@@ -15,6 +15,7 @@ import {
 } from '@/lib/certificate-issuer-config'
 import { env } from 'next-runtime-env'
 import { isUUIDv4 } from '@/utils/validate'
+
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 

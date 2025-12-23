@@ -51,7 +51,7 @@ export default async function PageDownloadBan() {
               desc={(
                 <>
                   <ul>
-                    <li>Fichier d’usage général recommandé dans la majorité des cas. <a href="telechargements/format-csv">En savoir plus</a></li>
+                    <li>Fichier d&lsquo;usage général recommandé dans la majorité des cas. <a href="telechargements/format-csv">En savoir plus</a></li>
                     <li>Une position par adresse</li>
                     <li><a href="https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md" target="_blank">Schéma de données</a></li>
                   </ul>

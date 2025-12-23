@@ -11,10 +11,10 @@ import {
 } from './Data.styled'
 
 interface DataProps {
-  root: {
-    href: string
-    label: string
-  }
+  // root: {
+  //   href: string
+  //   label: string
+  // }
   path: string[]
   data: any[]
   config: {
@@ -42,7 +42,7 @@ const sortDirectory = (a: DataEntry, b: DataEntry) => {
   return a.isDirectory ? -1 : 1
 }
 
-function Data({ root, path = [], data: dataRaw = [], config = {} }: DataProps) {
+function Data({ path = [], data: dataRaw = [], config = {} }: DataProps) {
 // function Data({ root, path: _path = [], data: dataRaw = [], config = {} }: DataProps) {
   // const path = ['data', ..._path]
   // const currentDir = [...path].slice(-1)

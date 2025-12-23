@@ -593,12 +593,10 @@ export default function TabSuiviBAN({
   }
 
   const activeStatuts = activeStatutsProp ?? activeStatutsLocal
-  const onChangeRef = useRef(onActiveStatutsChange)
-  onChangeRef.current = onActiveStatutsChange
 
   const setActiveStatuts = (next: string[] | ((prev: string[]) => string[])) => {
     const resolved = typeof next === 'function' ? next(activeStatuts) : next
-    if (onChangeRef.current) onChangeRef.current(resolved)
+    if (onActiveStatutsChange) onActiveStatutsChange(resolved)
     else setActiveStatutsLocal(resolved)
   }
 
@@ -607,8 +605,8 @@ export default function TabSuiviBAN({
   useEffect(() => {
     setCommuneSearch('')
     setActiveStatutsLocal(['rouge', 'orange', 'vert', 'gris'])
-    if (onChangeRef.current) onChangeRef.current(['rouge', 'orange', 'vert', 'gris'])
-  }, [activeDeptCode])
+    if (onActiveStatutsChange) onActiveStatutsChange(['rouge', 'orange', 'vert', 'gris'])
+  }, [activeDeptCode, onActiveStatutsChange])
 
   useEffect(() => {
     if (activeDeptCode) {

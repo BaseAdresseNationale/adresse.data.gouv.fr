@@ -3,7 +3,7 @@ import { ControlPosition, useControl } from 'react-map-gl/maplibre'
 
 type FullScreenControlProps = {
   position?: ControlPosition
-  container?: HTMLElement | null
+  container?: React.RefObject<HTMLElement> | HTMLElement | null
 }
 
 export function FullScreenControl(props: FullScreenControlProps) {
@@ -11,7 +11,7 @@ export function FullScreenControl(props: FullScreenControlProps) {
 
   useControl((context) => {
     const fallbackContainer = context.map.getContainer().parentElement ?? context.map.getContainer()
-    return new maplibregl.FullscreenControl({ container: container ?? fallbackContainer })
+    return new maplibregl.FullscreenControl({ container: (container as React.RefObject<HTMLElement>)?.current ?? container ?? fallbackContainer })
   }, {
     position,
   })
