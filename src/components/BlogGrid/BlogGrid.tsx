@@ -20,11 +20,9 @@ interface BlogGridProps {
 function BlogGrid({ title, header, footer, posts, nbPost, isLoading, isVisible }: BlogGridProps) {
   const [loading, setLoading] = useState(isLoading ?? true)
 
-  useEffect(() => {
-    if (posts && posts.length) {
-      setLoading(false)
-    }
-  }, [posts])
+  if (posts && posts.length) {
+    setLoading(false)
+  }
 
   return (
     <Section title={title} isVisible={isVisible}>

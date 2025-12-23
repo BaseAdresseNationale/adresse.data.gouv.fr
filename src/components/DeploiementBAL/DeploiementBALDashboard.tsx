@@ -34,10 +34,21 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const [origin, setOrigin] = useState('')
 
   const suivi = useSuiviBan({ selectedTab })
-  const { mapRef, suiviBanSelectedDept, restoreSuiviBanView } = suivi
+  const {
+    mapRef,
+    mapContainerRef,
+    interactiveLayerIds,
+    suiviBanSelectedDept,
+    handleMapClick,
+    restoreSuiviBanView,
+   } = suivi
+   const mapContainerElement = mapContainerRef.current
 
   useEffect(() => {
-    setOrigin(window.location.origin)
+    const changeOrigin=() =>{
+      setOrigin(window.location.origin)
+    }
+    changeOrigin()
   }, [])
 
   // Panel gauche à chaque fois ; recentrage France/zoom 5 uniquement au premier passage sur l’onglet (session).
@@ -106,12 +117,12 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             onTabChange={handleTabChange}
           >
             <div
-              ref={suivi.mapContainerRef}
+              ref={mapContainerRef}
               className="bal-cover-map-container"
               style={{ position: 'relative', height: selectedTab === 'suivi-ban' ? 650 : undefined }}
             >
               <Map
-                ref={suivi.mapRef}
+                ref={mapRef}
                 initialViewState={{
                   longitude: 2,
                   latitude: 47,
@@ -119,8 +130,8 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 }}
                 renderWorldCopies={false}
                 mapStyle="/map-styles/osm-vector.json"
-                onClick={suivi.handleMapClick}
-                interactiveLayerIds={selectedTab === 'suivi-ban' ? suivi.interactiveLayerIds : []}
+                onClick={handleMapClick}
+                interactiveLayerIds={selectedTab === 'suivi-ban' ? interactiveLayerIds : []}
                 cursor={selectedTab === 'suivi-ban' ? 'pointer' : 'auto'}
               >
                 {selectedTab === 'source'
@@ -135,7 +146,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                   </div>
                 )}
                 <NavigationControl showZoom showCompass position="top-right" />
-                <FullScreenControl position="top-right" container={suivi.mapContainerRef.current} />
+                <FullScreenControl position="top-right" container={mapContainerRef as React.RefObject<HTMLElement>} />
 
                 {selectedTab !== 'suivi-ban' && (
                   <Source promoteId="code" id="data" type="vector" tiles={[getSuiviBanTilesTemplateUrl().startsWith('/api') ? `${origin}${getSuiviBanTilesTemplateUrl()}` : getSuiviBanTilesTemplateUrl()]}>

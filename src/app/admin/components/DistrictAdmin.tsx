@@ -254,7 +254,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     JSON.stringify(withCertificateFieldDefaults({ ...config }, district?.nomCommune, district?.population)),
   )
   const [configState, setConfigState] = useState<BANConfig>(() => {
-    let c = { ...config }
+    const c = { ...config }
     if (typeof c.certificateIssuerDetails === 'string') {
       c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
     }
@@ -276,7 +276,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     certificateIssuerBlockFingerprint(
       withCertificateFieldDefaults(
         (() => {
-          let c = { ...config }
+          const c = { ...config }
           if (typeof c.certificateIssuerDetails === 'string') {
             c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
           }

@@ -21,7 +21,7 @@ export async function downloadLastNewsletters() {
 
   console.log('Downloading newsletters...')
 
-  let newsletters: any[] = []
+  const newsletters: any[] = []
 
   try {
     do {

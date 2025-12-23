@@ -8,7 +8,7 @@ interface PanelDetailsCertificationsProps extends React.HTMLAttributes<HTMLLIEle
   certificatedPercent: number
 }
 
-export const PanelDetailsCertifications = ({ certificationConfig, origin, certificatedPercent, className, children, ...props }: PanelDetailsCertificationsProps) => {
+export const PanelDetailsCertifications = ({ certificationConfig, origin, certificatedPercent, className, ...props }: PanelDetailsCertificationsProps) => {
   const certificationLevel = origin === 'bal' && certificatedPercent > 98
     ? 2
     : (

@@ -29,7 +29,7 @@ export type MarkdownType = {
 
 const extractMarkdown = async (
   fileContents: string,
-  callback: (filename: string, host?: string | undefined) => Promise<{}>,
+  callback: (filename: string, host?: string | undefined) => Promise<object>,
   filename: string,
   host?: string
 ): Promise<MarkdownType> => {

@@ -65,7 +65,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown, hightLightAdressesBy
       })
     }
 
-    const onHover = (evt: MapMouseEvent & { features?: MapGeoJSONFeature[] | undefined } & Object) => {
+    const onHover = (evt: MapMouseEvent & { features?: MapGeoJSONFeature[] | undefined } & object) => {
       if (currentMap) {
         if (evt.features && evt.features.length > 0) {
           if (hoveredFeature.current) {

@@ -65,18 +65,19 @@ function BlogView() {
   }, [])
 
   useEffect(() => {
-    setLoading(true)
     getPosts({
       page,
       limit: nbPost,
       tags: tags.size ? [...tags].join(',') : undefined,
     }).then((data) => {
+      setLoading(true)
       setPosts(data.posts)
       setMeta(data.meta)
       setIntialLoading(false)
       setLoading(false)
     })
     getTags().then((tags) => {
+      setLoading(true)
       setAllTags(new Set(tags))
     })
   }, [page, tags])
@@ -120,7 +121,7 @@ function BlogView() {
                   <TagWrapper key={name}>
                     <Tag
                       nativeButtonProps={{
-                        onClick: (...args) => {
+                        onClick: () => {
                           const newTags = new Set(tags.has(slug)
                             ? [...tags].filter(tag => tag !== slug)
                             : [...tags, slug])
