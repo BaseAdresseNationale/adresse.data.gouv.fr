@@ -47,11 +47,13 @@ const CommuneAdministration = dynamicImport(() => import('../../../components/Co
 
 export const revalidate = 0
 interface CommunePageProps {
-  params: { codeCommune: string }
+  codeCommune: string
 }
 
-export default async function CommunePage({params}: CommunePageProps ){
-  const { codeCommune } = await params
+  
+export default async function CommunePage(props: { params: Promise<CommunePageProps> } ){
+  const params = await props.params
+  const codeCommune = params.codeCommune
 
   let commune, APIGeoCommune
 
