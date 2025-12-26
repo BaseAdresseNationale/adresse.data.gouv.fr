@@ -19,7 +19,7 @@ export function DocsContainer(props: Props) {
   useEffect(() => {
     channel.on(DARK_MODE_EVENT_NAME, setIsDark);
     return () => channel.off(DARK_MODE_EVENT_NAME, setIsDark);
-  }, [channel, setIsDark]);
+  }, [setIsDark]);
 
   return (
     <DocsContainer_base

@@ -1,5 +1,6 @@
-const fs = require('fs').promises
-const path = require('path')
+import { promises as fsp } from 'fs';
+import * as path from 'path';
+
 
 const staticSrcPath = path.join(__dirname, '.next/static')
 const staticDestPath = path.join(__dirname, '.next/standalone/.next/static')
@@ -8,8 +9,8 @@ const publicSrcPath = path.join(__dirname, 'public')
 const publicDestPath = path.join(__dirname, '.next/standalone/public')
 
 function copyAssets(src, dest) {
-  return fs.mkdir(dest, { recursive: true })
-    .then(() => fs.readdir(src, { withFileTypes: true }))
+  return fsp.mkdir(dest, { recursive: true })
+    .then(() => fsp.readdir(src, { withFileTypes: true }))
     .then((items) => {
       const promises = items.map((item) => {
         const srcPath = path.join(src, item.name)
@@ -19,7 +20,7 @@ function copyAssets(src, dest) {
           return copyAssets(srcPath, destPath)
         }
         else {
-          return fs.copyFile(srcPath, destPath)
+          return fsp.copyFile(srcPath, destPath)
         }
       })
       return Promise.all(promises)

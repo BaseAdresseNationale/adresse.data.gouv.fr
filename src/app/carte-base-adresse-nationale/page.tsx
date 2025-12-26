@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react'
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { env } from 'next-runtime-env'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
@@ -243,9 +243,12 @@ function CartoView() {
 
   // Load map tiles
   useEffect(() => {
-    isMapReady
-      ? setIsLoadMapTiles(false)
-      : setIsLoadMapTiles(true)
+    const loadMapTiles = () => {
+      isMapReady
+        ? setIsLoadMapTiles(false)
+        : setIsLoadMapTiles(true)  
+    }
+    loadMapTiles()
   }, [isMapReady])
 
   // Load search datas
@@ -287,7 +290,7 @@ function CartoView() {
       })()
     }
     else {
-      return closeMapSearchResults()
+      return () => { closeMapSearchResults() }
     }
   }, [banItemId, closeMapSearchResults])
 
@@ -309,13 +312,15 @@ function CartoView() {
 
       if (banMapGL && bbox && bbox.length === 4) {
         if (!initHash.current) {
-          setHash({
-            value: bbox.join('_'),
-            bounds: bbox,
-          })
+          function handleHash() {
+            setHash({
+              value: bbox.join('_'),
+              bounds: bbox,
+            })
+            setIsMenuVisible(true)
+          }
+          handleHash()
         }
-
-        setIsMenuVisible(true)
         oldMapSearchResults.current = banItem
       }
     }

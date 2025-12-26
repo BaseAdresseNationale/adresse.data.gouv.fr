@@ -28,7 +28,7 @@ const rankPosition = (mainPosition: Position, positions: Position[]) => {
   const isMultiPosition = Number(positions.length) > 1
   const defaultRankedPositions = { mainPosition, secondariesPositions: [] as Position[] }
   return isMultiPosition
-    ? positions.reduce<{ mainPosition: Position, secondariesPositions: Position[] }>((acc, entry, index) => {
+    ? positions.reduce<{ mainPosition: Position, secondariesPositions: Position[] }>((acc, entry) => {
       if (entry.position.coordinates.join('--') === mainPosition.position.coordinates.join('--')) {
         acc.mainPosition = entry
       }

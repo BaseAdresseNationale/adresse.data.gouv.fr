@@ -27,13 +27,14 @@ import { getCommunesPrecedentes } from '@/lib/api-insee'
 // import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
 // import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 
-const CommuneDownloadSection = dynamicImport(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: false })
-const CommuneNavigation = dynamicImport(() => import('../../../components/Commune/CommuneNavigation'), { ssr: false })
-const CommuneActions = dynamicImport(() => import('../../../components/Commune/CommuneActions'), { ssr: false })
-const CommuneAchievements = dynamicImport(() => import('../../../components/Commune/CommuneAchievements'), { ssr: false })
-const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Commune/CommuneUpdatesSection'), { ssr: false })
-const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: false })
-const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: false })
+// tips : https://github.com/PostHog/posthog/issues/26016#issuecomment-2629036307
+const CommuneDownloadSection = dynamicImport(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: !!false })
+const CommuneNavigation = dynamicImport(() => import('../../../components/Commune/CommuneNavigation'), { ssr: !!false })
+const CommuneActions = dynamicImport(() => import('../../../components/Commune/CommuneActions'), { ssr: !!false })
+const CommuneAchievements = dynamicImport(() => import('../../../components/Commune/CommuneAchievements'), { ssr: !!false })
+const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Commune/CommuneUpdatesSection'), { ssr: !!false })
+const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: !!false })
+const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: !!false })
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
@@ -41,16 +42,18 @@ import { notFound } from 'next/navigation'
 
 // import SaveUrlClient from '@/components/SaveUrlClient'
 // import CommuneAdministration from '@/components/Commune/CommuneAdministration'
-const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
-const CommuneAdministration = dynamicImport(() => import('../../../components/Commune/CommuneAdministration'), { ssr: false })
+const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: !!false })
+const CommuneAdministration = dynamicImport(() => import('../../../components/Commune/CommuneAdministration'), { ssr: !!false })
 
 export const revalidate = 0
 interface CommunePageProps {
-  params: { codeCommune: string }
+  codeCommune: string
 }
 
-export default async function CommunePage({ params }: CommunePageProps) {
-  const { codeCommune } = params
+  
+export default async function CommunePage(props: { params: Promise<CommunePageProps> } ){
+  const params = await props.params
+  const codeCommune = params.codeCommune
 
   let commune, APIGeoCommune
 

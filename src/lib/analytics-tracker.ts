@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 // CF. Tracking HTTP API documentation :
 // https://developer.matomo.org/api-reference/tracking-api
 

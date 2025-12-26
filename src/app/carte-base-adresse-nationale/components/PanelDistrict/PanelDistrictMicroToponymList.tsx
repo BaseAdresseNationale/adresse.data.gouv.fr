@@ -50,7 +50,7 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
       isMicroTopoWithoutAddressVisible,
     ])
 
-  useEffect(() => {
+  function handleSearch(param: string) {
     if (search === '') {
       setFiltredMicroToponymes(microToponymes)
     }
@@ -74,7 +74,8 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
       )
       setFiltredMicroToponymes(voies)
     }
-  }, [microToponymes, search])
+  }
+  
 
   return (
     <>
@@ -89,11 +90,11 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
       <Input
         label="Filtrer les odonymes"
         iconId="fr-icon-search-line"
-        addon={search && <ClearInputButton onClick={() => setSearch('')}>X</ClearInputButton>}
+        addon={search && <ClearInputButton onClick={() => handleSearch('')}>X</ClearInputButton>}
         nativeInputProps={{
           placeholder: 'Nom de voie, place ou lieu-dit',
           value: search,
-          onChange: (evt: React.ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value),
+          onChange: (evt: React.ChangeEvent<HTMLInputElement>) => handleSearch(evt.target.value),
         }}
       />
 

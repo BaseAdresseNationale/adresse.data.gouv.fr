@@ -31,7 +31,10 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const [origin, setOrigin] = useState('')
 
   useEffect(() => {
-    setOrigin(window.location.origin)
+    const changeOrigin=() =>{
+      setOrigin(window.location.origin)
+    }
+    changeOrigin()
   }, [])
 
   const handleSearch = useCallback(async (input: string) => {

@@ -2,10 +2,6 @@
 
 import styled, { css } from 'styled-components'
 
-interface DrawControlProps {
-  position: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
-}
-
 export const ControlGroupStyle = styled.div.attrs({
   className: 'maplibregl-ctrl-group maplibregl-ctrl',
 })<{ $positionH?: string, $positionV?: string }>`

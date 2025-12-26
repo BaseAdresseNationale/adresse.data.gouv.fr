@@ -53,6 +53,7 @@ interface TypeMicroToponym {
   numeros: TypeAddress[]
 }
 
+/*
 const microToponymSample: TypeMicroToponym = {
   id: '93051_0015',
   type: 'voie',
@@ -195,3 +196,4 @@ const microToponymSample: TypeMicroToponym = {
     },
   ],
 }
+ */

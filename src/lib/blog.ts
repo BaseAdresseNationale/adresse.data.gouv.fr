@@ -19,6 +19,7 @@ const fetchOptions: RequestInit = {
   method: 'GET',
   headers: { 'content-type': 'application/json' },
   mode: 'cors',
+  cache: 'force-cache',
 }
 
 function buildTagFilter(tags?: string) {
@@ -76,7 +77,7 @@ export async function getPosts(options: PostOptions = {}) {
 
 export async function getSinglePost(slug: string) {
   try {
-    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`)
+    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`, { cache: 'force-cache' })
 
     if (res.ok) {
       const data = await res.json()
@@ -92,7 +93,7 @@ export async function getSinglePost(slug: string) {
 
 export async function getTags() {
   try {
-    const res = await fetch(`${API_URL}/tags?key=${KEY}`)
+    const res = await fetch(`${API_URL}/tags?key=${KEY}`, { cache: 'force-cache' })
 
     if (res.ok) {
       const data = await res.json()

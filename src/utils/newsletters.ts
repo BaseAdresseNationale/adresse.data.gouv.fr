@@ -21,7 +21,7 @@ export async function downloadLastNewsletters() {
 
   console.log('Downloading newsletters...')
 
-  let newsletters: any[] = []
+  const newsletters: any[] = []
 
   try {
     do {
@@ -35,6 +35,7 @@ export async function downloadLastNewsletters() {
               'content-type': 'application/json',
               'api-key': env('BREVO_API_KEY'),
             } as RequestInit['headers'],
+            cache: 'force-cache',
           }
       )
 

@@ -8,15 +8,15 @@ import { Commune } from '@/types/api-geo.types'
 
 const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl: string }, initialRevision?: Revision, initialHabilitation?: Habilitation }>(
   () => import('../../../components/FormulaireDePublication'),
-  { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
+  { ssr: !!false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
 )
 
 interface FormulaireDePublicationPageProps {
-  searchParams: { habilitationId?: string, revisionId?: string }
+  searchParams: Promise<{ habilitationId?: string, revisionId?: string }>
 }
 
 export default async function FormulaireDePublicationPage(props: FormulaireDePublicationPageProps) {
-  const { habilitationId, revisionId } = props.searchParams
+  const { habilitationId, revisionId } = (await props.searchParams)
   let habilitation
   let revision
   let commune
@@ -25,7 +25,7 @@ export default async function FormulaireDePublicationPage(props: FormulaireDePub
     revision = await getRevision(revisionId)
 
     commune = await getCommune(revision.codeCommune)
-    const communeFlagUrl = await getCommuneFlag(revision.codeCommune) || '/commune/default-logo.svg'
+    const communeFlagUrl = (await getCommuneFlag(revision.codeCommune)) || '/commune/default-logo.svg'
     commune = { ...commune, flagUrl: communeFlagUrl }
   }
 

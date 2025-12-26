@@ -73,7 +73,7 @@ export default function ValidateurBAL() {
           mode: 'cors',
           method: 'GET',
         }
-        const fileBuffer = await fetch(fileUrl, options).then(res => res.arrayBuffer())
+        const fileBuffer = await fetch(fileUrl, { ...options, cache: 'force-cache' }).then(res => res.arrayBuffer())
         const file = new File([fileBuffer], 'file.csv', { type: 'text/csv' })
         await handleFileChange(file)
       }

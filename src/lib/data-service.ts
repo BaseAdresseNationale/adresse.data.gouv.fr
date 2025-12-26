@@ -112,14 +112,12 @@ export async function handleS3Data(context: Context) {
       const s3contentDir = [
         ...s3data,
         ...(alias && alias.parent === dirPath
-          /* eslint-disable @stylistic/indent */
           ? [{
             ...alias,
             ...(s3data.find(({ name }) => name === alias.target) || {}),
             name: alias.name,
             path: `${s3ObjectPath}/${alias.name}`,
           }]
-          /* eslint-enable @stylistic/indent */
           : []),
       ].sort(
         (a, b) => (

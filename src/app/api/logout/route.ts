@@ -8,11 +8,10 @@ export const dynamic = 'force-dynamic'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(request: Request) {
-  // eslint-disable-next-line
   const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   const isProd = env('NODE_ENV') === 'production'
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const { searchParams } = new URL(request.url)
 
     const returnUrlParam = searchParams.get('returnUrl')
@@ -99,6 +98,7 @@ export async function GET(request: Request) {
   catch (error) {
     const { searchParams } = new URL(request.url)
     const fallbackUrl: string = searchParams.get('returnUrl') || '/'
+    console.error('Logout error:', error)
     return NextResponse.redirect(`${env('HOST')}${fallbackUrl}`)
   }
 }
