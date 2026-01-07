@@ -44,7 +44,7 @@ function CommuneAdministration(district: BANCommune) {
   const [communeBAN, setCommuneBAN] = useState<BANCommune | null>(null)
   const [techRequired, setTechRequired] = useState<boolean>(false)
   const [certificateType, setCertificateType] = useState<CertificateTypeEnum>(CertificateTypeEnum.DISABLED)
-  const [actualCertificateType] = useState<CertificateTypeEnum>(district?.config?.certificate?.value ? district?.config?.certificate?.value as CertificateTypeEnum : CertificateTypeEnum.DISABLED)
+  const [actualCertificateType, setActualCertificateType] = useState<CertificateTypeEnum>(district?.config?.certificate?.value ? district?.config?.certificate?.value as CertificateTypeEnum : CertificateTypeEnum.DISABLED)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -57,6 +57,10 @@ function CommuneAdministration(district: BANCommune) {
       return
     }
     enableAddressingCertification(certificateType as CertificateTypeEnum)
+  }
+
+  const handleChange = (value: CertificateTypeEnum) => {
+    setActualCertificateType(value)
   }
 
   const enableAddressingCertification = useCallback(async (certificateType: CertificateTypeEnum) => {
@@ -168,7 +172,8 @@ function CommuneAdministration(district: BANCommune) {
     })()
   }, [authenticated, featureProConnectEnabled, district])
 
-  const tooltipTitle = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
+  const tooltipTitleAll = `Le certificat d’adressage est activé pour la commune de ${district.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`
+  const tooltipTitleDistrict = `Les certificats sont téléchargeables depuis le site adresse.data.gouv.fr uniquement par les agents authentifiés de la mairie de la commune.`
 
   const logOutButton = (
     <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" loginUrl="/api/logout" />
@@ -188,24 +193,10 @@ function CommuneAdministration(district: BANCommune) {
   const activateCertificate = (
     <div>
       <form onSubmit={handleSubmit}>
-        {
-          certificateType && (
-            <div className="fr-alert fr-alert--info">
-              <h3 className="fr-alert__title">Choix actuel : {CertificateTypeLabel[actualCertificateType]}</h3>
-              <p>Vous pouvez changer le choix actuel en remplissant le formulaire ci-dessous.</p>
-            </div>
-          )
-        }
-
-        <fieldset
-          className="fr-fieldset"
-          aria-describedby={certificateType ? 'certification-error' : undefined}
-        >
-        </fieldset>
 
         <div className="fr-fieldset__element">
           <div className="fr-radio-group">
-            <input type="radio" id="radio-disabled" name="certification-type" value={CertificateTypeEnum.DISABLED} />
+            <input type="radio" id="radio-disabled" name="certification-type" value={CertificateTypeEnum.DISABLED} checked={actualCertificateType === CertificateTypeEnum.DISABLED} onChange={() => handleChange(CertificateTypeEnum.DISABLED)} />
             <label className="fr-label" htmlFor="radio-disabled"> {CertificateTypeLabel[CertificateTypeEnum.DISABLED]}
               <span className="fr-hint-text">Les certificats d&lsquo;adressage ne sont pas disponible pour cette commune depuis le site adresse.data.gouv.fr.</span>
             </label>
@@ -214,7 +205,7 @@ function CommuneAdministration(district: BANCommune) {
 
         <div className="fr-fieldset__element">
           <div className="fr-radio-group">
-            <input type="radio" id="radio-district" name="certification-type" value={CertificateTypeEnum.DISTRICT} />
+            <input type="radio" id="radio-district" name="certification-type" value={CertificateTypeEnum.DISTRICT} checked={actualCertificateType === CertificateTypeEnum.DISTRICT} onChange={() => handleChange(CertificateTypeEnum.DISTRICT)} />
             <label className="fr-label" htmlFor="radio-district"> {CertificateTypeLabel[CertificateTypeEnum.DISTRICT]}
               <span className="fr-hint-text">Les certificats seront téléchargeables depuis le site adresse.data.gouv.fr par toute personne connecté avec une adresse Email rattachée à la mairie de la commune.</span>
             </label>
@@ -223,7 +214,7 @@ function CommuneAdministration(district: BANCommune) {
 
         <div className="fr-fieldset__element">
           <div className="fr-radio-group">
-            <input type="radio" id="radio-all" name="certification-type" value={CertificateTypeEnum.ALL} />
+            <input type="radio" id="radio-all" name="certification-type" value={CertificateTypeEnum.ALL} checked={actualCertificateType === CertificateTypeEnum.ALL} onChange={() => handleChange(CertificateTypeEnum.ALL)} />
             <label className="fr-label" htmlFor="radio-all"> {CertificateTypeLabel[CertificateTypeEnum.ALL]}
               <span className="fr-hint-text">Les certificats sont librement téléchargeables depuis le site adresse.data.gouv.fr. par tous.</span>
             </label>
@@ -316,7 +307,7 @@ function CommuneAdministration(district: BANCommune) {
   const renderCertificateTypeContent = () => {
     if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.ALL) {
       return (
-        <TooltipWithCommuneConfigItem title={tooltipTitle}>
+        <TooltipWithCommuneConfigItem title={tooltipTitleAll}>
           Certificat d’adressage :{' '}
           <b>Activé</b>
         </TooltipWithCommuneConfigItem>
@@ -324,7 +315,7 @@ function CommuneAdministration(district: BANCommune) {
     }
     else if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.DISTRICT) {
       return (
-        <TooltipWithCommuneConfigItem title={tooltipTitle}>
+        <TooltipWithCommuneConfigItem title={tooltipTitleDistrict}>
           Certificat d’adressage :{' '}
           <b>Restreint à la mairie</b>
         </TooltipWithCommuneConfigItem>

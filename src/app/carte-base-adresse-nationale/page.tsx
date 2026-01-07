@@ -274,12 +274,10 @@ function CartoView() {
         }
         catch (e) {
         }
-        if (!connexion) {
-          setHabilitationEnabled(false)
-          return
+        if (connexion) {
+          const codeCommune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
+          setHabilitationEnabled(codeCommune.siren == JSON.parse(connexion).siret.slice(0, 9))
         }
-        const codeCommune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
-        setHabilitationEnabled(codeCommune.siren == JSON.parse(connexion).siret.slice(0, 9))
 
         // Update breadcrumb path & Actions Params
         switch (getBanItemTypes(banItem)) {
