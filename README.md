@@ -25,6 +25,24 @@ npm install
 npm run dev
 ```
 
+### Demarrer le serveur de développement avec le proxy
+Ajouter le fichier index.js dans un dossier proxy à la racine des différents projets avec le contenu suivant :
+
+```bash
+const { setGlobalDispatcher, fetch, EnvHttpProxyAgent } = require('undici')
+const envHttpProxyAgent = new EnvHttpProxyAgent()
+setGlobalDispatcher(envHttpProxyAgent)
+```
+Installer undici dans le dossier proxy
+```bash
+npm i undici
+```
+
+Puis lancer le projet avec npm en lançant le script dev.sh
+```bash
+./dev.sh
+```
+
 ## Production
 
 ### Assembler le code pour la production
