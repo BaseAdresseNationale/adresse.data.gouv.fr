@@ -37,10 +37,8 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
   const dataNotices = {
     // data: [sampleNotice],
     data: [{
-      text: `Rappel : L'API Adresse est remplacée par l'API de Géocodage. L'url sera décommissionnée fin Janvier 2026. Pensez à effectuer la bascule dans vos services. Plus d'info sur le Blog.`,
-      link: {
-        href: 'https://adresse.data.gouv.fr/blog/lapi-adresse-de-la-base-adresse-nationale-est-transferee-a-lign',
-      },
+      text: `Maintenance planifiée sur la Géoplateforme le Mercredi 14 Janvier. Une dégradation des performances est à prévoir sur "La Carte" et le Géocodeur`,
+
     }],
     duration: 4000,
   }
