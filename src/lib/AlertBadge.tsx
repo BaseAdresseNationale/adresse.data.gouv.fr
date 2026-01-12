@@ -133,9 +133,21 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
         const latestAlert = revisionAlerts
           .filter(alert => alert.status === 'warning' || alert.status === 'error')
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
-
         // Révision courante non synchronisée
         if (revision.isCurrent && revision.id !== commune.idRevision) {
+          // Vérifier si la révision a été publiée il y a moins d'1 heure
+          if (revision.publishedAt) {
+            const publishedDate = new Date(revision.publishedAt)
+            const now = new Date()
+            const diffInMs = now.getTime() - publishedDate.getTime()
+            const diffInHours = diffInMs / (1000 * 60 * 60)
+            if (diffInHours < 1) {
+              setStatus('warning')
+              setRawMessage('En cours de traitement')
+              setLabel('En cours')
+              return
+            }
+          }
           setStatus('error')
           setRawMessage(latestAlert?.message || 'Révision courante non synchronisée avec la base')
           setLabel('Erreur')
