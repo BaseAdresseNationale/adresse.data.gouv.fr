@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAddress, getCommune } from '@/lib/api-ban'
+import { getAddress } from '@/lib/api-ban'
+import { getCommune } from '@/lib/api-geo'
 import { isAddressCertifiable } from '@/lib/ban'
 import { env } from 'next-runtime-env'
+import { CertificateTypeEnum } from '@/types/api-ban.types'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
 export async function GET(request: NextRequest, { params }: { params: { idAdresse: string } }) {
   let address
+  let connexion = null
+  let habilitation = false
   try {
     address = await getAddress(params.idAdresse)
     if (!address) {
@@ -18,7 +22,28 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     return new NextResponse(null, { status: 404 })
   }
 
-  const isCertifiable = address?.config?.certificate && await isAddressCertifiable(address)
+  try {
+    connexion = await fetch(`${env('NEXT_PUBLIC_ADRESSE_URL')}/api/me`, {
+      headers: {
+        Cookie: request.headers.get('cookie') || '',
+        Authorization: request.headers.get('authorization') || '',
+      },
+    })
+    if (connexion) {
+      const commune = await getCommune(address?.commune?.code)
+      if (commune.siren == JSON.parse(await connexion.json()).siret.slice(0, 9)) {
+        habilitation = true
+      }
+    }
+  }
+  catch (error: any) {
+    if (error?.status === 401) {
+      habilitation = false
+    }
+  }
+
+  const isCertifiable = (address?.config?.certificate?.value == CertificateTypeEnum.ALL || (address?.config?.certificate?.value == CertificateTypeEnum.DISTRICT && habilitation)) && await isAddressCertifiable(address)
+
   if (!isCertifiable) {
     return new NextResponse('Adresse incompatible avec le service', { status: 404 })
   }

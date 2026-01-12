@@ -271,12 +271,15 @@ function CartoView() {
         let connexion = null
         try {
           connexion = await customFetch('/api/me')
+          if (connexion) {
+            const commune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
+            setHabilitationEnabled(commune.siren == JSON.parse(connexion).siret.slice(0, 9))
+          }
         }
-        catch (e) {
-        }
-        if (connexion) {
-          const codeCommune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
-          setHabilitationEnabled(codeCommune.siren == JSON.parse(connexion).siret.slice(0, 9))
+        catch (error: any) {
+          if (error?.status === 401) {
+            setHabilitationEnabled(false)
+          }
         }
 
         // Update breadcrumb path & Actions Params
