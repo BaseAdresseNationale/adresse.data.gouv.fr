@@ -293,7 +293,7 @@ function CartoView() {
           case 'address':
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
-            if ((config?.certificate?.value == CertificateTypeEnum.DISTRICT && habilitationEnabled) || config?.certificate?.value == CertificateTypeEnum.ALL) {
+            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitationEnabled) || config?.certificate == CertificateTypeEnum.ALL) {
               setWithCertificate(true)
             }
             else {

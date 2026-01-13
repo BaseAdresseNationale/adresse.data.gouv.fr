@@ -42,7 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     }
   }
 
-  const isCertifiable = (address?.config?.certificate?.value == CertificateTypeEnum.ALL || (address?.config?.certificate?.value == CertificateTypeEnum.DISTRICT && habilitation)) && await isAddressCertifiable(address)
+  const isCertifiable = (address?.config?.certificate == CertificateTypeEnum.ALL || (address?.config?.certificate == CertificateTypeEnum.DISTRICT && habilitation)) && await isAddressCertifiable(address)
 
   if (!isCertifiable) {
     return new NextResponse('Adresse incompatible avec le service', { status: 404 })

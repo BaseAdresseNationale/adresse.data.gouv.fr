@@ -44,8 +44,7 @@ function CommuneAdministration(district: BANCommune) {
   const [communeBAN, setCommuneBAN] = useState<BANCommune | null>(null)
   const [techRequired, setTechRequired] = useState<boolean>(false)
   const [certificateType, setCertificateType] = useState<CertificateTypeEnum>(CertificateTypeEnum.DISABLED)
-  const [actualCertificateType, setActualCertificateType] = useState<CertificateTypeEnum>(district?.config?.certificate?.value ? district?.config?.certificate?.value as CertificateTypeEnum : CertificateTypeEnum.DISABLED)
-
+  const [actualCertificateType, setActualCertificateType] = useState<CertificateTypeEnum>(district?.config?.certificate ? district?.config?.certificate as CertificateTypeEnum : CertificateTypeEnum.DISABLED)
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -297,7 +296,7 @@ function CommuneAdministration(district: BANCommune) {
   const renderHabilitationWrapper = () => {
     return (
       <>
-        {!(authenticated && !techRequired) && (communeBAN?.config?.certificate?.value != CertificateTypeEnum.ALL) && conditions}
+        {!(authenticated && !techRequired) && (communeBAN?.config?.certificate != CertificateTypeEnum.ALL) && conditions}
         <div>{requiredConditions}</div>
         {featureProConnectEnabled && renderHabilitationContent()}
       </>
@@ -305,7 +304,7 @@ function CommuneAdministration(district: BANCommune) {
   }
 
   const renderCertificateTypeContent = () => {
-    if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.ALL) {
+    if (communeBAN?.config?.certificate == CertificateTypeEnum.ALL) {
       return (
         <TooltipWithCommuneConfigItem title={tooltipTitleAll}>
           Certificat d’adressage :{' '}
@@ -313,7 +312,7 @@ function CommuneAdministration(district: BANCommune) {
         </TooltipWithCommuneConfigItem>
       )
     }
-    else if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.DISTRICT) {
+    else if (communeBAN?.config?.certificate == CertificateTypeEnum.DISTRICT) {
       return (
         <TooltipWithCommuneConfigItem title={tooltipTitleDistrict}>
           Certificat d’adressage :{' '}
@@ -321,7 +320,7 @@ function CommuneAdministration(district: BANCommune) {
         </TooltipWithCommuneConfigItem>
       )
     }
-    else if (communeBAN?.config?.certificate?.value == CertificateTypeEnum.DISABLED) {
+    else if (communeBAN?.config?.certificate == CertificateTypeEnum.DISABLED) {
       return (
         <span style={{ color: 'var(--text-action-high-blue-france)', fontSize: '1.25rem', lineHeight: '1.75rem', fontWeight: 700 }}>Activation du certificat d’adressage
         </span>

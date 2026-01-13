@@ -50,7 +50,7 @@ export interface TypeDistrict extends TypeDistrictPartial {
 }
 
 export interface TypeDistrictConfig {
-  certificate?: {}
+  certificate: string
 }
 
 export interface TypeDistrictExtended extends TypeDistrictPartial {
@@ -128,8 +128,6 @@ export interface TypeAddressExtended {
   commune: TypeDistrict
   withBanId: boolean
   config?: {
-    certificate: {
-      value?: string
-    }
+    certificate: string
   }
 }

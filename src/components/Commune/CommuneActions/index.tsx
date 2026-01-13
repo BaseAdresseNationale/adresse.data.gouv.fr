@@ -24,7 +24,7 @@ interface CommuneActionsProps {
   actionProps: CommuneActionProps[]
 }
 function CommuneActions({ district, actionProps }: CommuneActionsProps) {
-  const certificateType = district?.config?.certificate?.value
+  const certificateType = district?.config?.certificate
   const CERTIFICATE_CONFIG = {
     [CertificateTypeEnum.ALL]: {
       label: 'Activé',

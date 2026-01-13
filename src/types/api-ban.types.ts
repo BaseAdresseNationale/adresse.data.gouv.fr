@@ -48,9 +48,7 @@ export type BANVoie = {
 }
 
 export type BANConfig = {
-  certificate: {
-    value: CertificateTypeEnum
-  }
+  certificate: CertificateTypeEnum
 }
 
 export type BANCommune = {
