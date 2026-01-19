@@ -630,5 +630,21 @@
     "href": "",
     "isSubscriptionClosed": true,
     "instructions": ""
+  },
+  {
+    "title": "Adresse-Lab",
+    "subtitle": "Point d'échange trimestriel T1 2026",
+    "description": "Actualités BAN - Point d'échange trimestriel T1 2026",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2026-03-03",
+    "tags": ["Technique", "Utilisateurs", "Base Adresse Nationale"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/meet/38329775365421?p=8eqMWoWIfCezfSjVLX",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
   }
 ]
