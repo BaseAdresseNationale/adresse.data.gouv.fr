@@ -250,6 +250,7 @@ const nextConfig = withBundleAnalyzer({
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
   ],
   output: 'standalone',
+  cacheMaxMemorySize: 0,
 })
 
 export default nextConfig
