@@ -26,7 +26,7 @@ const agent = new https.Agent({
   maxSockets: 300,
 })
 
-const clientS3 = new S3({
+const clientS3Donwload = new S3({
   credentials: {
     accessKeyId: S3_CONFIG_ACCESS_KEY_ID || 'default-access-key-id',
     secretAccessKey: S3_CONFIG_SECRET_ACCESS_KEY || 'default-secret-key',
@@ -36,6 +36,14 @@ const clientS3 = new S3({
   requestHandler: new NodeHttpHandler({
     httpsAgent: agent,
   }),
+})
+const clientS3 = new S3({
+  credentials: {
+    accessKeyId: S3_CONFIG_ACCESS_KEY_ID || 'default-access-key-id',
+    secretAccessKey: S3_CONFIG_SECRET_ACCESS_KEY || 'default-secret-key',
+  },
+  region: S3_CONFIG_REGION || 'default-region',
+  endpoint: S3_CONFIG_ENDPOINT || '',
 })
 
 interface Context extends GetServerSidePropsContext {
@@ -69,7 +77,7 @@ export async function handleS3Data(context: Context) {
         downloadFileName: dirPath,
         nbDownload: 1,
       }))
-      await asyncSendS3(clientS3)((req as unknown as Request), res, {
+      await asyncSendS3(clientS3Donwload)((req as unknown as Request), res, {
         params: {
           ...(req?.headers?.range ? { Range: req.headers.range } : {}),
           Bucket: bucketName || '',
