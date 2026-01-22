@@ -95,7 +95,7 @@ const getDepartementOrProvince = (district: TypeDistrict | TypeDistrictExtended)
   if (district?.departement?.nom) {
     if (district.departement.code == '987' || district.departement.code == '988') {
       const provinceName = provinces[((district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune) as keyof typeof provinces]
-      return (`${provinceName}\u00A0(${district.departement.code})`)
+      return (`${provinceName}`)
     }
     else {
       return (`${district.departement.nom}\u00A0(${district.departement.code})`)
