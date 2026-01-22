@@ -23,6 +23,8 @@ interface CertificatNumerotationProps {
       districtDefaultLabel: string
       cog: string
       lieuDitComplementNomDefaultLabel?: string
+      postalCode: string
+      multidistributed: boolean
     }
     cadastre_ids: string[]
   }
@@ -44,7 +46,8 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const parcelles = data.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2'))
 
   // const logoUrl = `public/logos/certificat/${cog}.png`
-  const logoAdresse = `public/logos/certificat/adresse-logo.png`
+  const logoAdresse = `public/logos/certificat/logo-ban.png`
+  const logoMarianne = `public/logos/certificat/logo-mariane.png`
 
   const dateObj = new Date(data.createdAt)
   const day = dateObj.getDate()
@@ -52,13 +55,24 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const year = dateObj.getFullYear()
   const etabliLe = `${day} ${month} ${year}`
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
+  const postalCode = data.full_address.postalCode
+  const multidistributed = data.full_address.multidistributed
 
   const groupParcelles = (parcelles: string[]): string[] => {
     const grouped: string[] = []
-    for (let i = 0; i < parcelles.length; i += 2) {
-      grouped.push(
-        parcelles[i] + (parcelles[i + 1] ? `    ,    ${parcelles[i + 1]}` : '')
-      )
+    if (parcelles.length > 10) {
+      for (let i = 0; i < parcelles.length; i += 3) {
+        grouped.push(
+          parcelles[i] + (parcelles[i + 1] ? `, ${parcelles[i + 1]}` : '') + (parcelles[i + 2] ? `, ${parcelles[i + 2]}` : '')
+        )
+      }
+    }
+    else {
+      for (let i = 0; i < parcelles.length; i += 2) {
+        grouped.push(
+          parcelles[i] + (parcelles[i + 1] ? `    ,    ${parcelles[i + 1]}` : '')
+        )
+      }
     }
     return grouped
   }
@@ -69,7 +83,10 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
     <Document title="Certificat d'adressage">
       <Page size="A4" style={stylesDSFR.page}>
         <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Image src={logoMarianne} style={stylesDSFR.logoMarianne} />
+            <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
+          </View>
           <Image src={logoUrl} style={stylesDSFR.logoBloc} />
         </View>
         <Text> {'\n'}</Text>
@@ -120,12 +137,12 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
                   {lieuDitComplementNomDefaultLabel}
                 </Text>
                 <Text style={stylesDSFR.tableCell}>
-                  {nomCommune}
+                  {postalCode} {nomCommune}
                 </Text>
               </View>
               <View style={stylesDSFR.tableCol}>
                 {groupedParcelles.map((parcelle, index) => (
-                  <Text key={index} style={stylesDSFR.tableCell}>{parcelle}</Text>
+                  <Text key={index} style={parcelles.length > 10 ? stylesDSFR.tableCell10 : stylesDSFR.tableCell}>{parcelle}</Text>
                 ))}
               </View>
             </View>
@@ -153,12 +170,18 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
           <Text style={stylesDSFR.footerText}>
             Émis par les services de la Base Adresse Nationale, mandataire pour la ville de {nomCommune}.
           </Text>
+          <Text style={stylesDSFR.annexe}>Ce document ne vaut pas : autorisation d&apos;urbanisme, droit de passage, servitude, droit de propriété, certificat de résidence ou d&apos;hébergement.</Text>
+          {
+            multidistributed
+              ? (
+                  <>
+                    <Text>{'\n'}</Text>
+                    <Text style={stylesDSFR.annexe}>Cette commune dispose de plusieurs codes postaux fournis par &apos;La Poste&apos;. La Base Adresse Nationale ne garantit pas l&apos;exactitude du code postal fourni dans ce document. En cas de doute, veuillez vous rapprocher de la mairie pour l&apos;édition du certificat.</Text>
+                  </>
+                )
+              : null
+          }
 
-          <View style={stylesDSFR.logoContainer}>
-            {/* <Image src={logoUrl} style={stylesDSFR.footerLogo} /> */}
-            <View style={{ width: '2mm' }} />
-            <Image src="public/logos/certificat/BAN.png" style={stylesDSFR.footerLogo} />
-          </View>
         </View>
       </Page>
     </Document>

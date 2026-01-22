@@ -17,6 +17,7 @@ import {
 import Badge from '@codegouvfr/react-dsfr/Badge'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
+const DOC_ADRESSE_URL = env('NEXT_PUBLIC_DOC_ADRESSE_URL')
 
 const markAsActive = (
   navigation: MainNavigationProps.Item[],
@@ -72,7 +73,7 @@ export const navEntries: MainNavigationProps.Item[] = [
       { text: 'Webinaires et tutoriels', linkProps: { href: '/formation-en-ligne' } },
       {
         text: 'Documentation adressage',
-        linkProps: { href: '/documentation-bal' },
+        linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' },
       },
       {
         text: 'Application Mes adresses',
@@ -230,13 +231,11 @@ export default function Header(
             linkProps: {
               href: '/carte-base-adresse-nationale',
             },
-            text: <Tooltip kind="hover" title="Carte de la Base adresse nationale (Explorateur)">La Carte</Tooltip>,
+            text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
           },
           {
             iconId: 'fr-icon-book-2-fill',
-            linkProps: {
-              href: '/documentation-bal',
-            },
+            linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' },
             text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
           },
           {

@@ -121,6 +121,13 @@ export default function ValidateurBAL() {
       </Section>
       <Section title="Documentation" theme="primary">
         <p>
+          <strong>
+            L&apos;unité de gestion des adresses est la commune, ou l&apos;arrondissement pour les villes à arrondissements.
+            <br />Le Validateur BAL est conçu pour vérifier des fichiers BAL unitaires.
+            <br />En cas de gestion pluri-communale, vous devez passer un fichier BAL par commune au Validateur BAL.
+          </strong>
+        </p>
+        <p>
           Le Validateur BAL vérifie qu&apos;un fichier soit conforme au format Base Adresse Locale.
         </p>
         <p>
