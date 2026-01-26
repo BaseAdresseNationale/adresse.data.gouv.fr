@@ -34,6 +34,8 @@ import type {
   TypeDistrict,
 } from './types/LegacyBan.types'
 
+import provinces from '@/data/provinces.json'
+
 interface LinkProps {
   href: string
   target?: string
@@ -89,9 +91,24 @@ const isBboxIntersect = (bounds1: Bounds, bounds2: Bounds): boolean => {
   )
 }
 
+const getDepartementOrProvince = (district: TypeDistrict | TypeDistrictExtended) => {
+  if (district?.departement?.nom) {
+    if (district.departement.code == '987' || district.departement.code == '988') {
+      const provinceName = provinces[((district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune) as keyof typeof provinces]
+      return (`${provinceName}`)
+    }
+    else {
+      return (`${district.departement.nom}\u00A0(${district.departement.code})`)
+    }
+  }
+  else {
+    return ('Département non renseigné')
+  }
+}
+
 const getDistrictBreadcrumbPath = (district: TypeDistrict | TypeDistrictExtended, districtLinkProps?: LinkProps) => ([
   district?.region?.nom ? `${district.region.nom}\u00A0(${district.region.code})` : 'Région non renseignée',
-  district?.departement?.nom ? `${district.departement.nom}\u00A0(${district.departement.code})` : 'Département non renseigné',
+  getDepartementOrProvince(district),
   districtLinkProps
     ? {
         label: `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
