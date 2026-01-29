@@ -445,6 +445,42 @@ export default async function Outils() {
               </ul>
             )}
           />
+          <Card
+            title="PlugIN QGIS Géocodage"
+            titleAs="h5"
+            desc="Accéder directement depuis QGIS aux services de la Géoplateforme, dont le service de géocodage unitaire et en fichiers"
+            imageAlt="Illustration service de géocodage"
+            imageUrl="/img/pages/outils/qgis.png"
+            nativeImgProps={{ style: { objectFit: 'contain' } }}
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                <li>
+                  <Button
+                    className="fr-btn fr-btn"
+                    linkProps={{
+                      href: 'https://github.com/Geoplateforme/plugin-qgis-geoplateforme',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    PlugIN QGIS GPF
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    className="fr-btn fr-btn--secondary"
+                    linkProps={{
+                      href: '/blog/plugin-qgis-pour-integrer-le-geocodeur-de-la-ban',
+                    }}
+                    size="small"
+                  >
+                    En savoir plus
+                  </Button>
+                </li>
+              </ul>
+            )}
+          />
         </CardContainer>
       </Section>
       <Section
