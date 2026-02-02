@@ -23,8 +23,7 @@ const profilesOptions: {
 
 export default function ValidateurBAL() {
   const searchParams = useSearchParams()
-  const [isFileLoading, setIsFileLoading] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(searchParams?.get('file') ? true : false)
   const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[1])
   const [file, setFile] = useState<File | null>(null)
@@ -37,6 +36,7 @@ export default function ValidateurBAL() {
     try {
       setIsLoading(true)
       const report: ParseFileType | ValidateType = await validate(file as any, { profile })
+      console.log(report)
       setValidationReport(report)
     }
     catch (e) {
@@ -68,7 +68,6 @@ export default function ValidateurBAL() {
       try {
         const fileUrl = searchParams?.get('file')
         if (!fileUrl) {
-          setIsFileLoading(false)
           return
         }
         const options: RequestInit = {
@@ -82,9 +81,6 @@ export default function ValidateurBAL() {
       catch (e) {
         console.error(e)
       }
-      finally {
-        setIsFileLoading(false)
-      }
     }
 
     loadFile()
@@ -95,7 +91,7 @@ export default function ValidateurBAL() {
     <>
       <Section pageTitle="Validateur BAL">
         {
-          isFileLoading || isLoading
+          isLoading
             ? <Loader />
             : (validationReport && profile && file)
                 ? (
