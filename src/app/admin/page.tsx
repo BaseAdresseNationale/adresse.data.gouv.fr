@@ -94,7 +94,10 @@ export default function Home() {
   const props: Record<TabId, any> = {
     mon_compte: {},
     mes_mandats: {},
-    ma_commune: {},
+    ma_commune: {
+      config: {},
+      onUpdateConfig: (newConfig: any) => console.log('New Config:', newConfig),
+    },
   }
 
   return (
