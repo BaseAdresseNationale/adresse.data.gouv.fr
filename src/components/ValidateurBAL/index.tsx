@@ -23,7 +23,7 @@ const profilesOptions: {
 
 export default function ValidateurBAL() {
   const searchParams = useSearchParams()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(searchParams?.get('file') ? true : false)
   const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
   const [profile, setProfile] = useState<string>(availableProfiles[1])
   const [file, setFile] = useState<File | null>(null)
@@ -89,35 +89,37 @@ export default function ValidateurBAL() {
   return (
     <>
       <Section pageTitle="Validateur BAL">
-        {isLoading
-          ? <Loader />
-          : (validationReport && profile && file)
-              ? (
-                  <>
-                    <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                      <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content' }} onClick={handleReset}>Retour à la sélection du fichier</Button>
-                      <div style={{ maxWidth: 400 }}>
-                        <SelectInput
-                          options={profilesOptions}
-                          label="Version de la spécification"
-                          value={profile}
-                          defaultOption="Choisir une version de la spécification"
-                          handleChange={handleProfileChange}
-                        />
+        {
+          isLoading
+            ? <Loader />
+            : (validationReport && profile && file)
+                ? (
+                    <>
+                      <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                        <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content' }} onClick={handleReset}>Retour à la sélection du fichier</Button>
+                        <div style={{ maxWidth: 400 }}>
+                          <SelectInput
+                            options={profilesOptions}
+                            label="Version de la spécification"
+                            value={profile}
+                            defaultOption="Choisir une version de la spécification"
+                            handleChange={handleProfileChange}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <ValidationReport file={file} report={validationReport} profile={profile} />
-                  </>
-                )
-              : (
-                  <DropZoneInput
-                    onChange={handleFileChange}
-                    label="Déposez ou cliquez ici pour uploader votre fichier BAL à valider"
-                    hint="Taille maximale: 50 Mo. Format supporté : CSV"
-                    accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
-                    maxSize={50 * 1024 * 1024}
-                  />
-                )}
+                      <ValidationReport file={file} report={validationReport} profile={profile} />
+                    </>
+                  )
+                : (
+                    <DropZoneInput
+                      onChange={handleFileChange}
+                      label="Déposez ou cliquez ici pour uploader votre fichier BAL à valider"
+                      hint="Taille maximale: 50 Mo. Format supporté : CSV"
+                      accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
+                      maxSize={50 * 1024 * 1024}
+                    />
+                  )
+        }
       </Section>
       <Section title="Documentation" theme="primary">
         <p>
