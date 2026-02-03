@@ -36,7 +36,6 @@ export default function ValidateurBAL() {
     try {
       setIsLoading(true)
       const report: ParseFileType | ValidateType = await validate(file as any, { profile })
-      console.log(report)
       setValidationReport(report)
     }
     catch (e) {
