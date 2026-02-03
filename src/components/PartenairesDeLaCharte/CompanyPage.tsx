@@ -63,7 +63,7 @@ export default function CompanyPage({
           Néanmoins, cela ne préjuge pas de la qualité du travail réalisé par ces sociétés, et nous invitons les communes à comparer la nature et le coût de ces prestations.
         </p>
         <p>
-          En savoir plus sur le choix d&apos;un <a href="https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/les-prestations-pour-la-realisation-dune-base-adresse-locale" target="_blank">prestataire</a>.
+          En savoir plus sur le choix d&apos;un <a href="https://doc.adresse.data.gouv.fr/docs/documentation-generale/Mettre%20%C3%A0%20jour%20sa%20Base%20Adresse%20Locale/Les%20prestations%20pour%20la%20r%C3%A9alisation%20d%E2%80%99une%20Base%20Adresse%20Locale#%C3%A0-propos-des-prestations-" target="_blank">prestataire</a>.
         </p>
         <br />
         <p>
