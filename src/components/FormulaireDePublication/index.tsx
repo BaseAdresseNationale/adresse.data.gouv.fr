@@ -111,9 +111,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
         const currentRevision = await getCurrentRevision(codeCommune)
         setCommuneCurrentRevision(currentRevision)
       }
-      catch (e) {
-        setError(e as Error)
-      }
+      catch {}
 
       setCommune({ ...commune, flagUrl: communeFlagUrl })
     }
