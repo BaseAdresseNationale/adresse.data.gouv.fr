@@ -83,6 +83,8 @@ export const CartoMenu = styled.div`
   bottom: 0;
   width: 100%;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
   pointer-events: none;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {

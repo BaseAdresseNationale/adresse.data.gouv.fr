@@ -1,5 +1,15 @@
 import type { MapGeoJSONFeature } from 'react-map-gl/maplibre'
 
+export interface Territory {
+  id: string
+  title: string
+  description: string
+  zoom?: string | null
+  bbox: number[]
+  thumbnail: string
+  icon: string
+}
+
 export interface Address {
   id: string
   type: string

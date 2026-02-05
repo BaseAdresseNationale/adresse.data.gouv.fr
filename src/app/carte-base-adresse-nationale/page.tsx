@@ -25,7 +25,7 @@ import { MapWrapper, MapSearchResultsWrapper } from './page.styles'
 
 import type { MapRef } from 'react-map-gl/maplibre'
 import type { MapBreadcrumbPath } from './components/MapBreadcrumb'
-import type { Address } from './components/ban-map/types'
+import type { Address, Territory } from './components/ban-map/types'
 import type {
   TypeAddressExtended,
   TypeMicroToponymPartial,
@@ -35,7 +35,7 @@ import type {
 } from './types/LegacyBan.types'
 
 import provinces from '@/data/provinces.json'
-
+import territories from '@/data/territories.json'
 interface LinkProps {
   href: string
   target?: string
@@ -202,6 +202,7 @@ function CartoView() {
 
   const [{ mapStyle, displayLandRegister }] = banMapConfigState
   const banItemId = searchParams?.get('id')
+  const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
 
   const selectBanItem = useCallback(({ id }: { id: string }) => router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`), [router])
@@ -330,6 +331,23 @@ function CartoView() {
       return closeMapSearchResults()
     }
   }, [banItemId, habilitationEnabled, closeMapSearchResults])
+
+  useEffect(() => {
+  if (tomId && isMapReady) {
+    const territory = territories.territories.find(territory => territory.id === tomId)
+    if (!territory) return
+
+    const bbox = territory.bbox as [number, number, number, number]
+
+    setHash({
+      value: bbox.join('_'),
+      bounds: bbox,
+    })
+
+    setIsMenuVisible(true)
+    oldMapSearchResults.current = null
+  }
+}, [tomId, isMapReady])
 
   // Position map to Search results
   useEffect(() => {

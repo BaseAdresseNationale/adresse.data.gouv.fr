@@ -22,7 +22,7 @@ export interface MapItem {
 }
 
 const initBanMapConfig = {
-  mapStyle: 'osm-vector',
+  mapStyle: 'ign-vector',
   displayLandRegister: false,
   displayMenuConfig: true,
 }
