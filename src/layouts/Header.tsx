@@ -8,7 +8,9 @@ import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import Notices from '@/components/Notices'
+import UserMenuPortal from '@/components/UserMenuPortal/UserMenuPortal'
 import { useMainLayout } from './MainLayout'
+import { useAuth } from '@/hooks/useAuth'
 
 import {
   HeaderWrapper,
@@ -185,6 +187,7 @@ export default function Header(
 ) {
   const { typeLayout } = useMainLayout()
   const pathname = usePathname()
+  const { authenticated, userInfo, loading } = useAuth()
 
   const selectedNavigationLinks = useMemo(
     () => markAsActive(navEntries as MainNavigationProps.Item[], pathname || ''),
@@ -192,6 +195,39 @@ export default function Header(
   )
 
   const size = useMemo(() => (typeLayout === 'default' ? 'default' : 'small'), [typeLayout])
+  const quickAccessItems = useMemo(() => {
+    const baseItems = [
+      {
+        iconId: 'fr-icon-road-map-fill' as const,
+        linkProps: {
+          href: '/carte-base-adresse-nationale',
+        },
+        text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
+      },
+      {
+        iconId: 'fr-icon-book-2-fill' as const,
+        linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' as const },
+        text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
+      },
+    ]
+
+    if (authenticated && userInfo) {
+      return baseItems
+    }
+    else {
+      // Si non connecté OU en chargement : Carte + Documentation + Se connecter (max 3)
+      return [
+        ...baseItems,
+        {
+          iconId: 'fr-icon-account-circle-fill' as const,
+          linkProps: {
+            href: `/api/login?return_to=${encodeURIComponent(pathname || '/')}`,
+          },
+          text: <Tooltip kind="hover" title="Se connecter avec ProConnect">Se connecter</Tooltip>,
+        },
+      ]
+    }
+  }, [authenticated, userInfo, pathname])
 
   return (
     <HeaderWrapper $size={size} $withNotice={notices && notices.data.length > 0}>
@@ -225,29 +261,22 @@ export default function Header(
           imgUrl: '/logo-ban-site.svg',
           orientation: 'vertical',
         }}
-        quickAccessItems={[
-          {
-            iconId: 'fr-icon-road-map-fill',
-            linkProps: {
-              href: '/carte-base-adresse-nationale',
-            },
-            text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
-          },
-          {
-            iconId: 'fr-icon-book-2-fill',
-            linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' },
-            text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
-          },
-          {
-            iconId: 'ri-quill-pen-fill',
-            linkProps: {
-              href: '/blog',
-            },
-            text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
-          },
-        ]}
+        quickAccessItems={quickAccessItems}
         navigation={selectedNavigationLinks as MainNavigationProps.Item[]}
       />
+      {authenticated && userInfo && (
+        <UserMenuPortal
+          displayName={
+            userInfo.given_name && userInfo.usual_name
+              ? `${userInfo.given_name} ${userInfo.usual_name}`
+              : userInfo.email?.split('@')[0]
+          }
+          userEmail={userInfo.email}
+          organization={userInfo.organization?.name || (userInfo.siret ? `SIRET : ${userInfo.siret}` : undefined)}
+          accountUrl="/admin#mon_compte"
+          logoutUrl={`/api/logout?returnUrl=${encodeURIComponent(pathname || '/')}`}
+        />
+      )}
       {notices && notices.data.length > 0 && <Notices className="dsfr-notice" {...notices} />}
     </HeaderWrapper>
   )

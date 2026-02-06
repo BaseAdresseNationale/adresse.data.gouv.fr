@@ -94,6 +94,16 @@ export async function GET(request: Request) {
       })
     })
 
+    // Suppression du cookie public de statut de connexion
+    response.cookies.set('ban_connected', '', {
+      path: '/',
+      domain: hostname,
+      httpOnly: false,
+      secure: isProd,
+      sameSite: 'lax',
+      expires: new Date(0),
+    })
+
     return response
   }
   catch (error) {

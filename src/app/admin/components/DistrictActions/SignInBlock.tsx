@@ -4,18 +4,7 @@ import React from 'react'
 
 import ConnectionBox from './ConnectionBox'
 
-function SignInBlock({onConnect}: {onConnect?: (connectionStatus: boolean, data: Record<string, unknown>) => void  }) {
-    const connectUser = (connectionStatus: boolean) => {
-    if (connectionStatus) {
-      // TODO : Handle successful connection logic here
-    } else {
-      // TODO : Handle disconnection logic here
-    }
-    if (onConnect) {
-      onConnect(connectionStatus, {})
-    }
-  }
-
+function SignInBlock({ onConnect }: { onConnect?: (connectionStatus: boolean, data: Record<string, unknown>) => void }) {
   return (
     <div>
       <ConnectionBox
@@ -23,7 +12,10 @@ function SignInBlock({onConnect}: {onConnect?: (connectionStatus: boolean, data:
           Connectez-vous pour acceder à votre espace personnel et
           gérer vos options, en tant qu'utilisateur de l'adresse,
           mandataire de collectivités, ou administrateur d'une commune.`}
-        onConnect={(connectionStatus: boolean) => connectUser(connectionStatus)}
+        onConnect={() => {
+          // Rediriger vers l'API de connexion ProConnect
+          window.location.href = '/api/login?return_to=/admin'
+        }}
       />
     </div>
   )

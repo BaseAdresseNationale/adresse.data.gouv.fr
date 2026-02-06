@@ -21,7 +21,7 @@ function AccountAdmin() {
     <AdminContentWrapper>
       <section>
         <h4>Communes favorites</h4>
-        <p className='fr-hint-text'>{' '}
+        <p className="fr-hint-text">{' '}
           Conservez une liste de communes que vous souhaitez suivre de près.
         </p>
         <p>
@@ -32,12 +32,12 @@ function AccountAdmin() {
 
       <section>
         <h4>Notifications</h4>
-        <p className='fr-hint-text'>{' '}
+        <p className="fr-hint-text">{' '}
           Gérez vos abonnements aux alertes BAN.
         </p>
         <p>
-          Recevez des alertes automatiques à la publication d'une Base Adresse Locale,
-          avec l'identification des anomalies si la BAL doit être corrigée puis republiée.
+          Recevez des alertes automatiques à la publication d&apos;une Base Adresse Locale,
+          avec l&apos;identification des anomalies si la BAL doit être corrigée puis republiée.
           Surveillez les erreurs de format, données manquantes et
           autres blocages sur les communes qui vous intéressent.<br />
           En savoir plus sur les{' '}
@@ -49,11 +49,11 @@ function AccountAdmin() {
 
       <section>
         <h4>Jeton API</h4>
-        <p className='fr-hint-text'>{' '}
+        <p className="fr-hint-text">{' '}
           Générez et gérez vos jetons API pour accéder aux services de la Base Adresse Nationale.
         </p>
         <p>
-          Pour les developpeurs d'applications et services utilisant
+          Pour les developpeurs d&apos;applications et services utilisant
           les données de la Base Adresse Nationale,
           nos API HTTP/REST sont librement accessibles.
           Le nombre de requêtes sur ces API est volontairement limité

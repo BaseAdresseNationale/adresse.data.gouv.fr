@@ -2,6 +2,7 @@ import * as client from 'openid-client'
 import { NextRequest, NextResponse } from 'next/server'
 import { configOptions, getProviderConfig, getCurrentUrl } from '@/utils/oauth'
 import { cookies } from 'next/headers'
+import { getOrganizationName } from '@/lib/api-insee-sirene'
 
 export const dynamic = 'force-dynamic'
 
@@ -39,10 +40,25 @@ export async function GET(req: NextRequest) {
       claims.sub,
       configOptions as client.DPoPOptions
     )
+
+    if (userinfo.siret) {
+      const organizationName = await getOrganizationName(userinfo.siret as string)
+      if (organizationName) {
+        userinfo.nom_structure = organizationName
+        if (typeof userinfo.organization === 'object' && userinfo.organization !== null) {
+          (userinfo.organization as any).name = organizationName
+        }
+        else {
+          userinfo.organization = { name: organizationName }
+        }
+      }
+    }
+
     cookieStore.set('userinfo', JSON.stringify(userinfo), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('idtoken', JSON.stringify(claims), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('id_token_hint', JSON.stringify(tokens.id_token), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('oauth2token', JSON.stringify(tokens), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
+    cookieStore.set('ban_connected', 'true', { httpOnly: false, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
 
     const returnToCookie = cookieStore.get('auth_return_to')
