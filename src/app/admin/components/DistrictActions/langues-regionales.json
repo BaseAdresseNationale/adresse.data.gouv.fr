@@ -1,0 +1,66 @@
+[
+  {
+    "code": "fra",
+    "label": "français"
+  },
+  {
+    "code": "bre",
+    "label": "breton"
+  },
+  {
+    "code": "eus",
+    "label": "basque"
+  },
+  {
+    "code": "gsw",
+    "label": "alsacien"
+  },
+  {
+    "code": "cos",
+    "label": "corse"
+  },
+  {
+    "code": "gcr",
+    "label": "créole-guyanais"
+  },
+  {
+    "code": "gcf",
+    "label": "créole-martiniquais-guadeloupéen"
+  },
+  {
+    "code": "rcf",
+    "label": "créole-réunionnais"
+  },
+  {
+    "code": "swb",
+    "label": "mahorais"
+  },
+  {
+    "code": "oci",
+    "label": "occitan"
+  },
+  {
+    "code": "cat",
+    "label": "catalan"
+  },
+  {
+    "code": "pcd",
+    "label": "picard"
+  },
+  {
+    "code": "oc-provenc",
+    "label": "provençal"
+  },
+  {
+    "code": "oc-nicard",
+    "label": "niçard"
+  },
+  {
+    "code": "vls",
+    "label": "flamand"
+  },
+  {
+    "code": "fr-gallo",
+    "label": "gallo"
+  }
+]
