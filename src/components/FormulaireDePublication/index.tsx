@@ -205,6 +205,29 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
   return (
     <Section pageTitle="Formulaire de publication">
+      <div>
+        <Alert
+          severity="info"
+          title="Attention"
+          description={(
+            <p>
+              Vous allez publier votre BAL dans la Base Adresse Nationale.
+              Pour assurer la cohérence et la généalogie de la donnée, merci de vous assurer
+              d&apos;être reparti de la version des données telle que publiée sur la BAN.
+              <br />
+              <Link
+                href="https://adresse.data.gouv.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fr-link fr-link--icon-right fr-icon-external-link-line"
+              >
+                En savoir plus sur la stabilité de l&apos;identifiant (nouvelle fenêtre)
+              </Link>
+            </p>
+          )}
+        />
+      </div>
+      <br />
       <Stepper currentStep={stepIndex + 1} stepCount={steps.length} title={steps[stepIndex].title} nextTitle={steps[stepIndex + 1]?.title} />
       {error && <Alert title="Une erreur est survenue" severity="error" description={error.message} />}
       <StyledWrapper>
