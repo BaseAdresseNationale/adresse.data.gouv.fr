@@ -5,6 +5,7 @@ import { ToastContainer, Slide } from 'react-toastify'
 import { DsfrHead } from '@codegouvfr/react-dsfr/next-appdir/DsfrHead'
 import { DsfrProvider } from '@codegouvfr/react-dsfr/next-appdir/DsfrProvider'
 import { getHtmlAttributes } from '@codegouvfr/react-dsfr/next-appdir/getHtmlAttributes'
+import type { Metadata } from 'next' // Diperlukan untuk mendefinisikan tipe metadata
 
 import { StartDsfr } from '@/providers'
 import { LayoutProvider } from '@/layouts/MainLayout'
@@ -20,6 +21,13 @@ import { useEffect } from 'react'
 import { init as matomoInit } from '@socialgouv/matomo-next'
 import { BALWidgetProvider } from '@/contexts/BALWidget.context'
 import { PublicEnvScript, env } from 'next-runtime-env'
+
+// 🚨 BLOK PERBAIKAN AKSEBILITAS (METADATA JUDUL) 🚨
+export const metadata: Metadata = {
+  title: 'Base Adresse Nationale | Le référentiel officiel des adresses en France',
+  description: 'Le site de la Base Adresse Nationale pour consulter et télécharger les adresses officielles.',
+}
+// --------------------------------------------------------
 
 import {
   StyledLayout,
