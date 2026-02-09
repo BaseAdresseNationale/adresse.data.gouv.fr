@@ -88,7 +88,10 @@ export default function ValidateurBAL() {
 
   return (
     <>
-      <Section pageTitle="Validateur BAL">
+      <Section
+        pageTitle="Validateur BAL"
+        title="Vérifier la conformité de votre fichier Base Adresse Locale"
+      >
         {
           isLoading
             ? <Loader />
