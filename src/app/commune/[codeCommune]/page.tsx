@@ -149,7 +149,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
   const filteredCommunesPrecedentes = communesPrecedentes
     ?.map(({ code, intitule }) => `${intitule} - ${code}`)
 
-  const dateCommunePrecedente = communesPrecedentes?.[0]?.dateSuppression
+  const dateCommunesFusion = communesPrecedentes?.[0]?.dateSuppression
     ? new Date(communesPrecedentes[0].dateSuppression)
     : null
 
@@ -177,7 +177,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
           {filteredCommunesPrecedentes && filteredCommunesPrecedentes.length > 1 && (
             <div className="communes-precedentes-wrapper">
-              Commune issue de la fusion de :  <b>{filteredCommunesPrecedentes?.join(', ')}</b> {dateCommunePrecedente ? `en ${dateCommunePrecedente?.getFullYear()}` : null}
+              Commune issue de la fusion de :  <b>{filteredCommunesPrecedentes?.join(', ')}</b> {dateCommunesFusion ? `en ${dateCommunesFusion?.getFullYear()}` : null}
             </div>
           )}
 
