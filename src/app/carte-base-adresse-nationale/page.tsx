@@ -200,7 +200,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, displayLandRegister }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -232,9 +232,26 @@ function CartoView() {
   }, [router])
   const onMoveHandle = useCallback(() => {
     const { current: banMapGL } = banMapRef
+    if (!banMapGL) return
+
+    const bounds = banMapGL.getBounds()
+    const zoom = banMapGL.getZoom()
+
+    const territory = territories.territories.find(t =>
+      t.mapStyle && zoom >= 7 && buttonMapStyle == 'ign-vector' && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
+    )
+
+    const targetStyle = territory?.mapStyle ?? buttonMapStyle
+
+    if (targetStyle && targetStyle !== mapStyle) {
+      banMapConfigState[1]({
+        type: 'SET_MAP_STYLE',
+        payload: targetStyle,
+      })
+    }
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
-  }, [updateHashPosition])
+  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle])
 
   // InitialPosition from hash
   useEffect(() => {
@@ -333,21 +350,21 @@ function CartoView() {
   }, [banItemId, habilitationEnabled, closeMapSearchResults])
 
   useEffect(() => {
-  if (tomId && isMapReady) {
-    const territory = territories.territories.find(territory => territory.id === tomId)
-    if (!territory) return
+    if (tomId && isMapReady) {
+      const territory = territories.territories.find(territory => territory.id === tomId)
+      if (!territory) return
 
-    const bbox = territory.bbox as [number, number, number, number]
+      const bbox = territory.bbox as [number, number, number, number]
 
-    setHash({
-      value: bbox.join('_'),
-      bounds: bbox,
-    })
+      setHash({
+        value: bbox.join('_'),
+        bounds: bbox,
+      })
 
-    setIsMenuVisible(true)
-    oldMapSearchResults.current = null
-  }
-}, [tomId, isMapReady])
+      setIsMenuVisible(true)
+      oldMapSearchResults.current = null
+    }
+  }, [tomId, isMapReady])
 
   // Position map to Search results
   useEffect(() => {

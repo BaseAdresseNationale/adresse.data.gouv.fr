@@ -8,6 +8,7 @@ export interface Territory {
   bbox: number[]
   thumbnail: string
   icon: string
+  mapStyle?: string
 }
 
 export interface Address {
@@ -27,12 +28,13 @@ export interface Address {
 
 export interface BanMapConfig {
   mapStyle: string
+  buttonMapStyle?: string
   displayLandRegister: boolean
   displayMenuConfig: boolean
 }
 
 interface SetMapStyleAction {
-  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOOGLE_MENU_CONFIG'
+  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOOGLE_MENU_CONFIG' | 'SET_BUTTON_MAP_STYLE'
   payload: string | boolean
 }
 

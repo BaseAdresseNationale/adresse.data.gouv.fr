@@ -23,6 +23,7 @@ export interface MapItem {
 
 const initBanMapConfig = {
   mapStyle: 'ign-vector',
+  buttonMapStyle: 'ign-vector',
   displayLandRegister: false,
   displayMenuConfig: true,
 }
@@ -38,6 +39,13 @@ function banMapReducer(
       return {
         ...banMapConfig,
         mapStyle: action.payload as string,
+      }
+    }
+    case 'SET_BUTTON_MAP_STYLE': {
+      return {
+        ...banMapConfig,
+        mapStyle: action.payload as string,
+        buttonMapStyle: action.payload as string,
       }
     }
     case 'TOGGLE_CADASTER_LAYER': {

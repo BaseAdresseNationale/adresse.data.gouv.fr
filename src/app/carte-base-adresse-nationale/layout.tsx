@@ -58,7 +58,7 @@ function Carto({ children }: { children: JSX.Element }) {
   }, [isTOMVisible])
 
   const handleMapStyleChange = useCallback((style: string) => {
-    dispatchToBanMapConfig({ type: 'SET_MAP_STYLE', payload: style })
+    dispatchToBanMapConfig({ type: 'SET_BUTTON_MAP_STYLE', payload: style })
   }, [dispatchToBanMapConfig])
 
   const toggleCadasterLayer = useCallback(() => {
@@ -73,10 +73,10 @@ function Carto({ children }: { children: JSX.Element }) {
         <MapParamsWrapper $isHidden={!displayMenuConfig}>
           <RingButton tooltip="Légende" className={isLegendVisible ? 'ri-close-large-line' : 'ri-apps-2-line'} onClick={toggleLegend} $isActive={isLegendVisible} />
           <RingButton tooltip="Afficher les parcelles cadastrales" className={displayLandRegister ? 'ri-collage-fill' : 'ri-collage-line'} onClick={toggleCadasterLayer} $isActive={displayLandRegister} />
+          <RingButton tooltip="Zoom sur les TOM" className="ri-earth-line" onClick={toggleTOM} $isActive={isTOMVisible} />
           <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={mapStyle === 'osm-vector'} $isTypeRadio />
           <RingButton tooltip="Utiliser les fonds IGN" $img="/img/map/bg-button-map-style-ign-vector.png" onClick={() => handleMapStyleChange('ign-vector')} $isActive={mapStyle === 'ign-vector'} $isTypeRadio />
           <RingButton tooltip="Utiliser la vue satellite IGN" $img="/img/map/bg-button-map-style-ign-ortho.png" onClick={() => handleMapStyleChange('ign-ortho')} $isActive={mapStyle === 'ign-ortho'} $isTypeRadio />
-          <RingButton tooltip="Zoom sur les TOM" className="ri-earth-line" onClick={toggleTOM} $isActive={isTOMVisible} />
         </MapParamsWrapper>
 
         <Legend className="layer" isVisible={displayMenuConfig && isLegendVisible}>
@@ -88,8 +88,8 @@ function Carto({ children }: { children: JSX.Element }) {
           </LegendList>
         </Legend>
 
-        <PanelTOM 
-        isVisible={isTOMVisible}
+        <PanelTOM
+          isVisible={isTOMVisible}
         />
 
       </CartoMenu>
