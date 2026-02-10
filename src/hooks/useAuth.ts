@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { customFetch } from '@/lib/fetch'
 
-interface UserInfo {
+export interface UserInfo {
   sub: string
   email?: string
   given_name?: string

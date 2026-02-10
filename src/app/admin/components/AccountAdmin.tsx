@@ -1,67 +1,159 @@
 import React from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
+import { Button } from '@codegouvfr/react-dsfr/Button'
+import { type UserInfo } from '@/hooks/useAuth'
+import { useFavorites } from '@/hooks/useFavorites'
+import FavoritesList from './FavoritesList'
+import AddCommuneModal, { addCommuneModal } from './AddCommuneModal'
 
-const AdminContentWrapper = styled.div`
-  /* list-style: none;
-  padding: 0;
-  margin: 1.5rem 0; */
+interface AccountAdminProps {
+  userInfo?: UserInfo | null
+}
 
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+function AccountAdmin({ userInfo }: AccountAdminProps) {
+  const { favorites, addFavorite, removeFavorite, count, maxReached } = useFavorites(userInfo?.sub)
 
-  h4 + .fr-hint-text {
-    margin-top: -2em;
+  const getDisplayName = () => {
+    if (!userInfo) return 'Utilisateur'
+
+    // 1. Try given_name + family_name
+    if (userInfo.given_name && userInfo.family_name) {
+      return `${userInfo.given_name} ${userInfo.family_name}`
+    }
+
+    // 2. Try given_name + usual_name
+    if (userInfo.given_name && userInfo.usual_name) {
+      return `${userInfo.given_name} ${userInfo.usual_name}`
+    }
+
+    // 3. Try name (standard OIDC field)
+    if (userInfo.name) {
+      return userInfo.name
+    }
+
+    // 4. Try usual_name alone
+    if (userInfo.usual_name) {
+      return userInfo.usual_name
+    }
+
+    // 5. Fallback to email
+    if (userInfo.email) return userInfo.email
+
+    return 'Utilisateur'
   }
-`
 
-function AccountAdmin() {
+  const getOrganizationName = () => {
+    if (!userInfo) return null
+    if (userInfo.nom_structure) return userInfo.nom_structure
+    if (userInfo.organization?.name) return userInfo.organization.name
+    return null
+  }
+
   return (
-    <AdminContentWrapper>
-      <section>
-        <h4>Communes favorites</h4>
-        <p className="fr-hint-text">{' '}
-          Conservez une liste de communes que vous souhaitez suivre de près.
+    <div className="fr-container--fluid">
+      <section className="fr-mb-6w">
+        <h4>Mes informations</h4>
+        <p className="fr-hint-text">
+          Informations récupérées via ProConnect.
         </p>
-        <p>
-          Obtenir en un clin d’œil l’état de publication des Bases Adresses Locales
-          de vos communes favorites depuis votre tableau de bord.
-        </p>
+
+        <div className="fr-grid-row fr-grid-row--gutters">
+          <div className="fr-col-12 fr-col-md-6">
+            <div className="fr-card fr-card--no-border fr-card--grey">
+              <div className="fr-card__body">
+                <div className="fr-card__content">
+                  <h5 className="fr-card__title">Identité</h5>
+                  <p className="fr-card__desc">
+                    <strong>Nom :</strong> {getDisplayName()}<br />
+                    <strong>Email :</strong> {userInfo?.email || 'Non renseigné'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {(userInfo?.siret || getOrganizationName()) && (
+            <div className="fr-col-12 fr-col-md-6">
+              <div className="fr-card fr-card--no-border fr-card--grey">
+                <div className="fr-card__body">
+                  <div className="fr-card__content">
+                    <h5 className="fr-card__title">Organisation</h5>
+                    <p className="fr-card__desc">
+                      {getOrganizationName() && (
+                        <><strong>Structure :</strong> {getOrganizationName()}<br /></>
+                      )}
+                      {userInfo?.siret && (
+                        <><strong>SIRET :</strong> {userInfo.siret}</>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
-      <section>
-        <h4>Notifications</h4>
-        <p className="fr-hint-text">{' '}
-          Gérez vos abonnements aux alertes BAN.
-        </p>
-        <p>
-          Recevez des alertes automatiques à la publication d&apos;une Base Adresse Locale,
-          avec l&apos;identification des anomalies si la BAL doit être corrigée puis republiée.
-          Surveillez les erreurs de format, données manquantes et
-          autres blocages sur les communes qui vous intéressent.<br />
-          En savoir plus sur les{' '}
-          <Link href="/outils/notifications-ban" target="_blank" rel="noopener noreferrer">
-            notifications BAN
-          </Link>.
-        </p>
+      <section className="fr-mb-6w">
+        <div className="fr-grid-row fr-grid-row--middle fr-grid-row--space-between fr-mb-3w">
+          <div className="fr-col-auto">
+            <h4 className="fr-mb-0">Mes communes favorites</h4>
+            {count > 0 && (
+              <p className="fr-text--sm fr-text-mention--grey fr-mb-0">
+                {count} / 20 commune{count > 1 ? 's' : ''}
+              </p>
+            )}
+          </div>
+          {count > 0 && (
+            <div className="fr-col-auto">
+              <Button
+                priority="secondary"
+                size="small"
+                iconId="fr-icon-add-line"
+                onClick={() => addCommuneModal.open()}
+                disabled={maxReached}
+              >
+                Ajouter
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {count === 0 && (
+          <p className="fr-hint-text">
+            Suivez l&apos;état des BAL de vos communes et accédez rapidement à leurs pages.
+          </p>
+        )}
+
+        <FavoritesList
+          favorites={favorites}
+          onRemove={removeFavorite}
+          onAdd={() => addCommuneModal.open()}
+        />
+
+        <AddCommuneModal
+          onAdd={addFavorite}
+          maxReached={maxReached}
+        />
       </section>
 
-      <section>
-        <h4>Jeton API</h4>
-        <p className="fr-hint-text">{' '}
-          Générez et gérez vos jetons API pour accéder aux services de la Base Adresse Nationale.
-        </p>
+      <section className="fr-mb-6w">
+        <h4>Notifications et Alertes</h4>
         <p>
-          Pour les developpeurs d&apos;applications et services utilisant
-          les données de la Base Adresse Nationale,
-          nos API HTTP/REST sont librement accessibles.
-          Le nombre de requêtes sur ces API est volontairement limité
-          afin de garantir la qualité de service pour tous les utilisateurs.<br />
-          Pour des usages plus intensifs, un jeton API vous est nécessaire.
+          Gérez vos abonnements aux alertes de la Base Adresse Nationale pour être informé des publications et des anomalies.
         </p>
+        <Button
+          priority="secondary"
+          linkProps={{
+            href: '/outils/notifications-ban',
+            target: '_blank',
+          }}
+          iconId="fr-icon-notification-3-line"
+          iconPosition="left"
+        >
+          Gérer mes notifications
+        </Button>
       </section>
-    </AdminContentWrapper>
+    </div>
   )
 }
 

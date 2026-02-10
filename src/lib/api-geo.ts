@@ -82,6 +82,10 @@ export function getEpciCommunes(code: string): Promise<Commune[]> {
   return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${code}/communes`)
 }
 
+export function getCommunesBySiren(siren: string): Promise<Commune[]> {
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/communes?siren=${siren}`)
+}
+
 export function getDepartementCommunes(code: string): Promise<Commune[]> {
   return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/departements/${code}/communes`)
 }

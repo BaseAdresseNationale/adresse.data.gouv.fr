@@ -267,9 +267,9 @@ export default function Header(
       {authenticated && userInfo && (
         <UserMenuPortal
           displayName={
-            userInfo.given_name && userInfo.usual_name
+            (userInfo.given_name && userInfo.usual_name
               ? `${userInfo.given_name} ${userInfo.usual_name}`
-              : userInfo.email?.split('@')[0]
+              : userInfo.email?.split('@')[0])
           }
           userEmail={userInfo.email}
           organization={userInfo.organization?.name || (userInfo.siret ? `SIRET : ${userInfo.siret}` : undefined)}

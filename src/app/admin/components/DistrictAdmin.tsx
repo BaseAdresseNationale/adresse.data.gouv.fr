@@ -1,43 +1,38 @@
-import React, { useCallback, useState } from 'react'
-import styled from 'styled-components'
+import React, { useCallback, useState, useEffect } from 'react'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import { Select } from '@codegouvfr/react-dsfr/Select'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
+import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import Link from 'next/link'
 import { CommuneConfigItem } from './DistrictActions/DistrictActions.styles'
 import language from './DistrictActions/langues-regionales.json'
+import { CommuneStatusBadge } from './CommuneStatusBadge'
 
 import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
+import { Commune } from '@/types/api-geo.types'
+import { type UserInfo } from '@/hooks/useAuth'
+import { customFetch } from '@/lib/fetch'
+import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 
 const DEFAULT_CODE_LANGUAGE = 'fra'
 const DEFAULT_MANDATORY_ID = 'mairie'
 
-const AdminContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
-  h4 + .fr-hint-text {
-    margin-top: -2em;
+function formatDate(dateString?: string) {
+  if (!dateString) return 'N/A'
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
   }
-`
-
-const DistrictOptionsFormWrapper = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
-  .fr-toggle .fr-hint-text {
-    // Fix for Reac-DSFR issue where hint text has extra top margin
-    margin-top: 0;
+  catch {
+    return 'N/A'
   }
-`
+}
 
 // FIXME: Available mandatories should come from an API or a constants file
 const mandatories = [
@@ -53,61 +48,284 @@ const availableMandatary = mandatories
     id: mandatory.id,
     label: mandatory.label,
   })).sort((a, b) => {
-    if (a.id === DEFAULT_MANDATORY_ID) return -1 // Default Mandatory should always be first
-    if (b.id === DEFAULT_MANDATORY_ID) return 1 // Default Mandatory should always be first
+    if (a.id === DEFAULT_MANDATORY_ID) return -1
+    if (b.id === DEFAULT_MANDATORY_ID) return 1
     if (a.label < b.label) return -1
     if (a.label > b.label) return 1
     return 0
   })
 
 const availableLanguage = language
-  .filter(lang => lang.code.length === 3) // Exclude unsuported values (e.g. 'fr-gallo', 'en', 'de')
+  .filter(lang => lang.code.length === 3)
   .map(lang => ({
     code: lang.code,
     label: lang.label,
     formatedLabel: `${lang.label.charAt(0).toUpperCase()}${lang.label.slice(1)}`,
   })).sort((a, b) => {
-    if (a.code === DEFAULT_CODE_LANGUAGE) return -1 // Default Language should always be first
-    if (b.code === DEFAULT_CODE_LANGUAGE) return 1 // Default Language should always be first
+    if (a.code === DEFAULT_CODE_LANGUAGE) return -1
+    if (b.code === DEFAULT_CODE_LANGUAGE) return 1
     if (a.label < b.label) return -1
     if (a.label > b.label) return 1
     return 0
   })
 
 interface DistrictOptionsFormProps {
+  district?: BANCommune | null
+  commune?: Commune | null
   config: BANCommune['config']
   onUpdateConfig: (config: BANCommune['config']) => void
   readOnly?: boolean
+  loading?: boolean
+  userInfo?: UserInfo | null
 }
 
-function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }: DistrictOptionsFormProps) {
+type MessageType = 'success' | 'error' | 'info'
+
+interface Message {
+  text: string
+  type: MessageType
+}
+
+function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true, readOnly = false, loading = false, userInfo }: DistrictOptionsFormProps) {
+  const hasBanId = district?.withBanId
+  const isUserAuthorized = district
+    && commune?.siren
+    && userInfo?.siret
+    && userInfo.siret.length >= 9
+    && commune.siren === userInfo.siret.substring(0, 9)
+  const hasTechnicalRequirements = district && district.nbNumerosCertifies > 0
+
   const [currentConfig, setCurrentConfig] = useState<string>(JSON.stringify({ ...config }))
   const [configState, setConfigState] = useState<BANCommune['config']>({ ...config })
   const [enableMandataryChange, setEnableMandataryChange] = useState<boolean>(false)
   const [enableMandataryChangeWarning, setEnableMandataryChangeWarning] = useState<boolean>(false)
+  const [message, setMessage] = useState<Message | null>(null)
+  const [flagUrl, setFlagUrl] = useState<string>('')
+  const [isSaving, setIsSaving] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (config) {
+      setConfigState({ ...config })
+      setCurrentConfig(JSON.stringify({ ...config }))
+    }
+  }, [config])
+
+  useEffect(() => {
+    let isMounted = true
+
+    if (district?.codeCommune) {
+      getCommuneFlagProxy(district.codeCommune).then((url) => {
+        if (isMounted) {
+          setFlagUrl(url)
+        }
+      }).catch((error) => {
+        console.error('Error fetching flag:', error)
+      })
+    }
+
+    return () => {
+      isMounted = false
+    }
+  }, [district?.codeCommune])
 
   const handleUpdateConfig = useCallback((updatedConfig: BANCommune['config']) => {
     setConfigState(updatedConfig)
   }, [])
 
-  const pushConfigUpdate = useCallback(() => {
+  const saveDistrictConfig = useCallback(async (newConfig: BANCommune['config'], originalConfig: BANCommune['config']) => {
+    try {
+      if (userInfo && district) {
+        const body = {
+          districtID: district.banId,
+          config: newConfig,
+          originalConfig: originalConfig,
+        }
+
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        }
+
+        await customFetch(`/api/addressing-certification-enable`, options)
+      }
+    }
+    catch (error: any) {
+      console.error('Error saving district config', error)
+      setMessage({ text: `Une erreur est survenue lors de la sauvegarde. (${error?.message || 'Erreur inconnue'})`, type: 'error' })
+      throw error
+    }
+  }, [district, userInfo])
+
+  const pushConfigUpdate = useCallback(async () => {
+    setMessage(null)
+    setIsSaving(true)
     const newConfig = { ...configState }
-    onUpdateConfig(newConfig)
-    setCurrentConfig(JSON.stringify(newConfig))
-  }, [configState, onUpdateConfig])
+
+    try {
+      await saveDistrictConfig(newConfig, config)
+      onUpdateConfig(newConfig)
+      setCurrentConfig(JSON.stringify(newConfig))
+      setMessage({
+        text: 'Modifications enregistrées avec succès.',
+        type: 'success',
+      })
+    }
+    catch (e) {
+      console.error(e)
+      setMessage({
+        text: 'Une erreur est survenue lors de l\'enregistrement.',
+        type: 'error',
+      })
+    }
+    finally {
+      setIsSaving(false)
+    }
+  }, [configState, config, onUpdateConfig, saveDistrictConfig])
+
+  if (loading) {
+    return (
+      <div className="fr-container--fluid">
+        <p>Chargement des informations de la commune...</p>
+      </div>
+    )
+  }
+
+  if (!district) {
+    return (
+      <div className="fr-container--fluid">
+        <Alert
+          severity="info"
+          title="Espace Ma commune"
+          description="Votre compte n'est pas associé à une commune connue. Cet espace est réservé aux représentants des communes (Mairies)."
+        />
+      </div>
+    )
+  }
 
   return (
-    <AdminContentWrapper>
+    <div className="fr-container--fluid">
+
       <form>
-        <section>
-          <h4>Certificat d&apos;adressage</h4>
-          <p className="fr-hint-text">Certifiez l&apos;existance d&apos;une adresse sur le territoire de votre commune.</p>
-          <p>A noter : L’émission d&apos;un certificat d’adressage n’est possible que pour les adresses certifiées et rattachées à une parcelle.</p>
-          <DistrictOptionsFormWrapper>
-            <li>
+        {message && (
+          <Alert
+            severity={message.type}
+            title={message.type === 'error' ? 'Erreur' : message.type === 'success' ? 'Succès' : 'Information'}
+            description={message.text}
+            small
+            closable
+            onClose={() => setMessage(null)}
+            className="fr-mb-3w"
+          />
+        )}
+        <section className="fr-mb-6w">
+          {district && (
+            <div className="fr-mb-3w">
+              <Link href={`/commune/${district.codeCommune}`} className="fr-link" style={{ textDecoration: 'none' }}>
+                <div className="fr-card fr-card--horizontal fr-card--grey fr-card--no-border">
+                  <div className="fr-card__body">
+                    <div className="fr-card__content">
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                        {flagUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={flagUrl}
+                            alt={`Logo de ${district.nomCommune}`}
+                            width={48}
+                            height={48}
+                            style={{ objectFit: 'contain', flexShrink: 0 }}
+                          />
+                        )}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <h5 className="fr-card__title fr-text--md fr-mb-0">
+                            {district.nomCommune}
+                          </h5>
+                          <p className="fr-text--sm fr-text-mention--grey fr-mb-0">
+                            {district.codeCommune} • {formatDate(district.dateRevision)}
+                          </p>
+                        </div>
+                        <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div className="fr-text--xs fr-text-mention--grey fr-mb-1w">État BAL</div>
+                            {district ? <CommuneStatusBadge commune={district} /> : <span className="fr-text--xs">-</span>}
+                          </div>
+                          <div style={{ textAlign: 'center' }}>
+                            <div className="fr-text--xs fr-text-mention--grey fr-mb-1w">Voies</div>
+                            <div className="fr-text--md fr-text--bold">{district.nbVoies.toLocaleString('fr-FR')}</div>
+                          </div>
+                          <div style={{ textAlign: 'center' }}>
+                            <div className="fr-text--xs fr-text-mention--grey fr-mb-1w">Adresses</div>
+                            <div className="fr-text--md fr-text--bold">{district.nbNumeros.toLocaleString('fr-FR')}</div>
+                          </div>
+                          <div style={{ textAlign: 'center' }}>
+                            <div className="fr-text--xs fr-text-mention--grey fr-mb-1w">Lieux-dits</div>
+                            <div className="fr-text--md fr-text--bold">{district.nbLieuxDits > 0 ? district.nbLieuxDits.toLocaleString('fr-FR') : '0'}</div>
+                          </div>
+                          <div style={{ textAlign: 'center' }}>
+                            <div className="fr-text--xs fr-text-mention--grey fr-mb-1w">Certifiées</div>
+                            {district.nbNumeros > 0
+                              ? (
+                                  <>
+                                    <div className="fr-text--md fr-text--bold">
+                                      {Math.round((district.nbNumerosCertifies / district.nbNumeros) * 100)}%
+                                    </div>
+                                    <div className="fr-text--xs fr-text-mention--grey">
+                                      {district.nbNumerosCertifies.toLocaleString('fr-FR')} adresse{district.nbNumerosCertifies > 1 ? 's' : ''}
+                                    </div>
+                                  </>
+                                )
+                              : (
+                                  <div className="fr-text--md fr-text--bold">0%</div>
+                                )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          )}
+
+          <div className="fr-mb-3w">
+            <h4 className="fr-mb-0">Certificat d&apos;adressage</h4>
+            <p className="fr-hint-text fr-mt-1w fr-mb-0">Certifiez l&apos;existence d&apos;une adresse sur le territoire de votre commune.</p>
+            <p className="fr-mt-2w fr-mb-0">A noter : L&apos;émission d&apos;un certificat d&apos;adressage n&apos;est possible que pour les adresses certifiées et rattachées à une parcelle.</p>
+          </div>
+
+          {!hasBanId && (
+            <Alert
+              severity="warning"
+              title="Fonctionnalité indisponible"
+              description="Cette commune ne dispose pas encore des identifiants BAN. La certification d'adressage et les options de configuration ne sont pas disponibles."
+              small
+              className="fr-mb-3w"
+            />
+          )}
+
+          <ul className="fr-raw-list fr-mt-4w">
+            <li className="fr-mb-2w">
               {!readOnly
                 ? (
                     <>
+                      {!isUserAuthorized && (
+                        <Alert
+                          severity="warning"
+                          title="Activation impossible"
+                          description="Votre compte ne semble pas rattaché à cette commune (SIREN différent). Vous ne pouvez pas activer la certification."
+                          small
+                        />
+                      )}
+                      {!hasTechnicalRequirements && isUserAuthorized && (
+                        <Alert
+                          severity="warning"
+                          title="Conditions techniques non remplies"
+                          description="Cette commune ne dispose pas d'adresses certifiées. L'émission de certificats est impossible."
+                          small
+                        />
+                      )}
                       <div className="fr-fieldset__element">
                         <div className="fr-radio-group">
                           <input
@@ -116,6 +334,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                             name="certification-type"
                             value={CertificateTypeEnum.DISABLED}
                             checked={configState?.certificate === CertificateTypeEnum.DISABLED || !configState?.certificate}
+                            disabled={!isUserAuthorized || !hasBanId}
                             onChange={() => handleUpdateConfig({
                               ...configState,
                               certificate: CertificateTypeEnum.DISABLED,
@@ -135,6 +354,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                             name="certification-type"
                             value={CertificateTypeEnum.DISTRICT}
                             checked={configState?.certificate === CertificateTypeEnum.DISTRICT}
+                            disabled={!isUserAuthorized || !hasTechnicalRequirements || !hasBanId}
                             onChange={() => handleUpdateConfig({
                               ...configState,
                               certificate: CertificateTypeEnum.DISTRICT,
@@ -154,6 +374,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                             name="certification-type"
                             value={CertificateTypeEnum.ALL}
                             checked={configState?.certificate === CertificateTypeEnum.ALL}
+                            disabled={!isUserAuthorized || !hasTechnicalRequirements || !hasBanId}
                             onChange={() => handleUpdateConfig({
                               ...configState,
                               certificate: CertificateTypeEnum.ALL,
@@ -180,14 +401,14 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                     </CommuneConfigItem>
                   )}
             </li>
-          </DistrictOptionsFormWrapper>
+          </ul>
         </section>
 
-        <section>
+        <section className="fr-mb-6w">
           <h4>Paramétrage des options</h4>
           <p className="fr-hint-text">Indiquez à la BAN les options de traitement spécifiques aux fichiers BAL de votre commune.</p>
-          <DistrictOptionsFormWrapper>
-            <li>
+          <ul className="fr-raw-list fr-mt-4w">
+            <li className="fr-mb-2w">
               {!readOnly
                 ? (
                     <div>
@@ -197,17 +418,18 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                         nativeSelectProps={{
                           onChange: event => handleUpdateConfig({
                             ...configState,
-                            defaultLanguage: event.target.value,
+                            defaultBalLang: event.target.value,
                           }),
-                          value: configState?.defaultLanguage || DEFAULT_CODE_LANGUAGE,
+                          value: configState?.defaultBalLang || DEFAULT_CODE_LANGUAGE,
+                          disabled: !hasBanId,
                         }}
                       >
-                        <option value="" disabled hidden>Selectionnez une langue</option>
+                        <option value="" disabled hidden>Sélectionnez une langue</option>
                         {availableLanguage.map(lang => (
                           <option
                             key={lang.code}
                             value={lang.code}
-                            selected={configState?.defaultLanguage === lang.code}
+                            selected={configState?.defaultBalLang === lang.code}
                             style={{ textTransform: 'capitalize' }}
                           >
                             {lang.formatedLabel}
@@ -219,23 +441,21 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                 : (
                     <CommuneConfigItem className="ri-global-line">
                       Langue par defaut des odonymes :{' '}
-                      <b>{config?.defaultLanguage || DEFAULT_CODE_LANGUAGE}</b>
+                      <b>{config?.defaultBalLang || DEFAULT_CODE_LANGUAGE}</b>
                     </CommuneConfigItem>
                   )}
             </li>
-            <li>
+            <li className="fr-mb-2w">
               {!readOnly
                 ? (
                     <ToggleSwitch
                       label="Redressement automatique des odonymes"
                       helperText="Corrige les odonymes pour respecter les règles typographiques recommandé par le Standard Adresse."
-                      checked={configState?.autoFixLabels === false ? false : true}
+                      checked={true}
                       showCheckedHint={false}
                       labelPosition="left"
-                      onChange={checked => handleUpdateConfig({
-                        ...configState,
-                        autoFixLabels: checked,
-                      })}
+                      disabled={true}
+                      onChange={() => {}}
                     />
                   )
                 : (
@@ -245,19 +465,17 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                     </CommuneConfigItem>
                   )}
             </li>
-            <li>
+            <li className="fr-mb-2w">
               {!readOnly
                 ? (
                     <ToggleSwitch
                       label="Calcul automatique des communes anciennes"
                       helperText="Ajoute aux adresses l’information de la commune ancienne (Cette information peut permettre de distinguer les possibles doublons de voies ou adresses)."
-                      checked={configState?.computOldDistrict === false ? false : true}
+                      checked={true}
                       showCheckedHint={false}
                       labelPosition="left"
-                      onChange={checked => handleUpdateConfig({
-                        ...configState,
-                        computOldDistrict: checked,
-                      })}
+                      disabled={true}
+                      onChange={() => {}}
                     />
                   )
                 : (
@@ -267,7 +485,8 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                     </CommuneConfigItem>
                   )}
             </li>
-            <li>
+            {/* Temporairement désactivé - à réactiver plus tard
+            <li className="fr-mb-2w">
               {!readOnly
                 ? (
                     <ToggleSwitch
@@ -276,6 +495,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                       checked={configState?.computInteropKey === false ? false : true}
                       showCheckedHint={false}
                       labelPosition="left"
+                      disabled={!hasBanId}
                       onChange={checked => handleUpdateConfig({ ...configState, computInteropKey: checked })}
                     />
                   )
@@ -286,10 +506,11 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                     </CommuneConfigItem>
                   )}
             </li>
-          </DistrictOptionsFormWrapper>
+            */}
+          </ul>
         </section>
 
-        <section>
+        <section className="fr-mb-6w">
           <h4>Délégation</h4>
           <p className="fr-hint-text">Gérez le mandataire autorisé à nous déposer des fichiers BAL pour votre commune.</p>
           <p>
@@ -300,23 +521,24 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
 
           {!enableMandataryChange
             ? (
-                <DistrictOptionsFormWrapper>
-                  <li>
+                <ul className="fr-raw-list fr-mt-4w">
+                  <li className="fr-mb-2w">
                     <Button
                       type="button"
                       priority="primary"
                       iconId="ri-edit-2-line"
                       onClick={() => setEnableMandataryChange(true)}
                       size="small"
+                      disabled={!hasBanId}
                     >
                       Modifier mon mandataire
                     </Button>
                   </li>
-                </DistrictOptionsFormWrapper>
+                </ul>
               )
             : (
-                <DistrictOptionsFormWrapper>
-                  <li>
+                <ul className="fr-raw-list fr-mt-4w">
+                  <li className="fr-mb-2w">
                     <p className="ri-edit-2-line">{' '}
                       Selectionnez un mandataire pour
                       lui permettre des deposer des BAL en votre nom,
@@ -343,8 +565,6 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                             value: 'understood-mandatary-change-warning',
                             checked: enableMandataryChangeWarning,
                             onChange: (checkbox) => {
-                              console.log('elem checked', checkbox.target.checked)
-                              // Handle checkbox change
                               if (checkbox.target.checked) {
                                 setEnableMandataryChangeWarning(true)
                               }
@@ -378,7 +598,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                       Annuler & conserver mon mandataire actuel
                     </Button>
                   </li>
-                  <li>
+                  <li className="fr-mb-2w">
                     {!readOnly
                       ? (
                           <div>
@@ -398,10 +618,11 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                                 }),
                                 value: enableMandataryChangeWarning ? configState?.mandatary : config?.mandatary || DEFAULT_MANDATORY_ID,
                                 defaultValue: enableMandataryChangeWarning ? configState?.mandatary : config?.mandatary || DEFAULT_MANDATORY_ID,
+                                disabled: !hasBanId,
                               }}
-                              disabled={!enableMandataryChangeWarning}
+                              disabled={!enableMandataryChangeWarning || !hasBanId}
                             >
-                              <option value="" disabled hidden>Selectionnez une langue</option>
+                              <option value="" disabled hidden>Sélectionnez un mandataire</option>
                               {availableMandatary.map(mandatary => (
                                 <option
                                   key={mandatary.id}
@@ -421,7 +642,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                           </CommuneConfigItem>
                         )}
                   </li>
-                </DistrictOptionsFormWrapper>
+                </ul>
               )}
 
           {!readOnly && (
@@ -431,6 +652,7 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
                   <Button
                     type="button"
                     priority="secondary"
+                    disabled={isSaving}
                     onClick={() => {
                       handleUpdateConfig({ ...config })
                     }}
@@ -443,16 +665,16 @@ function DistrictAdmin({ config, onUpdateConfig = () => true, readOnly = false }
               <Button
                 type="button"
                 priority="primary"
-                disabled={JSON.stringify(configState) === currentConfig}
+                disabled={JSON.stringify(configState) === currentConfig || isSaving}
                 onClick={() => pushConfigUpdate()}
               >
-                Enregistrer les modifications
+                {isSaving ? 'Enregistrement en cours...' : 'Enregistrer les modifications'}
               </Button>
             </footer>
           )}
         </section>
       </form>
-    </AdminContentWrapper>
+    </div>
   )
 }
 

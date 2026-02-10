@@ -51,7 +51,7 @@ export type BANConfig = {
   certificate: CertificateTypeEnum
   // Additional properties can be added as needed
   mandatary?: string
-  defaultLanguage?: string
+  defaultBalLang?: string
   autoFixLabels?: boolean
   computOldDistrict?: boolean
   computInteropKey?: boolean

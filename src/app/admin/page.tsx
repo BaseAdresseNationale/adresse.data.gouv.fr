@@ -16,6 +16,11 @@ import MandatoryAdmin from './components/MandatoryAdmin'
 import AccountAdmin from './components/AccountAdmin'
 import SignInBlock from './components/DistrictActions/SignInBlock'
 
+import { getCommunesBySiren } from '@/lib/api-geo'
+import { getCommuneWithoutCache } from '@/lib/api-ban'
+import { BANCommune } from '@/types/api-ban.types'
+import { Commune } from '@/types/api-geo.types'
+
 // TODO: Move to a shared hooks file ?
 const useHash = () => {
   const [hash, setHash] = useState(() =>
@@ -42,11 +47,12 @@ const tabsDescriptions = {
     iconId: 'fr-icon-user-fill',
     content: AccountAdmin,
   },
-  mes_mandats: {
-    label: 'Mes mandats',
-    iconId: 'ri-pin-distance-fill',
-    content: MandatoryAdmin,
-  },
+  // Temporairement désactivé - à réactiver plus tard
+  // mes_mandats: {
+  //   label: 'Mes mandats',
+  //   iconId: 'ri-pin-distance-fill',
+  //   content: MandatoryAdmin,
+  // },
   ma_commune: {
     label: 'Ma commune',
     iconId: 'ri-map-pin-2-fill',
@@ -54,8 +60,19 @@ const tabsDescriptions = {
   },
 } as const satisfies Record<string, { label: string, iconId: TabsProps['tabs'][number]['iconId'], content: React.ComponentType<any> }>
 
+// Temporairement désactivé - à réactiver plus tard
+// const tabsDescriptionsWithMandats = {
+//   ...tabsDescriptions,
+//   mes_mandats: {
+//     label: 'Mes mandats',
+//     iconId: 'ri-pin-distance-fill',
+//     content: MandatoryAdmin,
+//   },
+// }
+
 type ControlledTabs = Extract<TabsProps, { selectedTabId: string }>['tabs']
 const tabDefinitions: ControlledTabs = Object.entries(tabsDescriptions)
+  .filter(([tabId]) => tabId !== 'mes_mandats') // Temporairement désactivé
   .map(([tabId, { label, iconId }]) => ({
     tabId,
     label,
@@ -72,6 +89,37 @@ export default function Home() {
   const searchParams = useSearchParams()
   const { authenticated, userInfo, loading } = useAuth()
   const [selectedTab, setSelectedTab] = useState<TabId>((hash as TabId) || (tabDefinitions[0].tabId as TabId))
+  const [district, setDistrict] = useState<BANCommune | null>(null)
+  const [commune, setCommune] = useState<Commune | null>(null)
+  const [loadingDistrict, setLoadingDistrict] = useState<boolean>(false)
+  const [sessionInitialized, setSessionInitialized] = useState(false)
+  const [sessionError, setSessionError] = useState<string>('')
+
+  useEffect(() => {
+    if (authenticated && userInfo && !sessionInitialized) {
+      const initSession = async () => {
+        try {
+          const response = await fetch('/api/proconnect-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userInfo),
+          })
+
+          if (!response.ok) {
+            throw new Error('Erreur lors de l\'initialisation de la session')
+          }
+
+          setSessionInitialized(true)
+          setSessionError('')
+        }
+        catch (e) {
+          console.error('Failed to init session', e)
+          setSessionError('Impossible d\'initialiser la session. Certaines fonctionnalités peuvent être indisponibles.')
+        }
+      }
+      initSession()
+    }
+  }, [authenticated, userInfo, sessionInitialized])
 
   useEffect(() => {
     if (hash && isTabId(hash)) {
@@ -81,6 +129,34 @@ export default function Home() {
       setSelectedTab(tabDefinitions[0].tabId as TabId)
     }
   }, [hash])
+
+  const fetchDistrict = useCallback(async () => {
+    if (authenticated && userInfo?.siret) {
+      setLoadingDistrict(true)
+      try {
+        const siren = userInfo.siret.substring(0, 9)
+        const communes = await getCommunesBySiren(siren)
+        if (communes && communes.length > 0) {
+          const commune = communes[0] // Assume first one for now
+          const banCommune = await getCommuneWithoutCache(commune.code)
+          setDistrict(banCommune)
+          setCommune(commune)
+        }
+      }
+      catch (error) {
+        console.error('Error fetching district:', error)
+        setDistrict(null)
+        setCommune(null)
+      }
+      finally {
+        setLoadingDistrict(false)
+      }
+    }
+  }, [authenticated, userInfo?.siret])
+
+  useEffect(() => {
+    fetchDistrict()
+  }, [fetchDistrict])
 
   const tabNavigation = useCallback(
     (tabId: TabId) => {
@@ -92,17 +168,31 @@ export default function Home() {
     [router, pathname, searchParams]
   )
 
-  // TODO: Load required props for each tab ?
-  const props: Record<TabId, any> = {
-    mon_compte: {},
-    mes_mandats: {},
+  const props: Partial<Record<TabId, any>> = {
+    mon_compte: {
+      userInfo: userInfo,
+    },
+    // Temporairement désactivé - à réactiver plus tard
+    // mes_mandats: {},
     ma_commune: {
-      config: {},
-      onUpdateConfig: (newConfig: any) => console.log('New Config:', newConfig),
+      district: district,
+      commune: commune,
+      config: district?.config || {},
+      onUpdateConfig: (newConfig: any) => {
+        setDistrict((prev) => {
+          if (!prev) return prev
+          return {
+            ...prev,
+            config: newConfig,
+          }
+        })
+      },
+      readOnly: loadingDistrict || !district,
+      loading: loadingDistrict,
+      userInfo: userInfo,
     },
   }
 
-  // Afficher un loader pendant la vérification de l'authentification
   if (loading) {
     return (
       <>
@@ -111,14 +201,12 @@ export default function Home() {
           segments={[]}
         />
         <Section>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: '400px',
-          }}
-          >
-            <Loader size={50} />
+          <div className="fr-container fr-container--fluid">
+            <div className="fr-grid-row fr-grid-row--center fr-grid-row--middle" style={{ minHeight: '400px' }}>
+              <div className="fr-col-auto">
+                <Loader size={50} />
+              </div>
+            </div>
           </div>
         </Section>
       </>
@@ -132,15 +220,14 @@ export default function Home() {
         segments={[]}
       />
       <Section>
-        <div>
-          {authenticated && (
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-              <LogoutProConnectButtonCustom
-                text="Se déconnecter"
-                loginUrl="/api/logout"
-              />
+        {sessionError && (
+          <div className="fr-mb-3w">
+            <div className="fr-alert fr-alert--warning fr-alert--sm">
+              <p>{sessionError}</p>
             </div>
-          )}
+          </div>
+        )}
+        <div>
           {
             authenticated
               ? (
