@@ -285,17 +285,19 @@ function CartoView() {
         setMapSearchResults(banItem)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
-        let connexion = null
+        let habilitation = false
         try {
-          connexion = await customFetch('/api/me')
-          if (connexion) {
+          const connexion = await customFetch('/api/me')
+          if (connexion && typeof connexion === 'object' && 'siret' in connexion) {
             const commune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
-            setHabilitationEnabled(commune.siren == JSON.parse(connexion).siret.slice(0, 9))
+            if (commune?.siren && connexion.siret && commune.siren === connexion.siret.slice(0, 9)) {
+              habilitation = true
+            }
           }
         }
         catch (error: any) {
           if (error?.status === 401) {
-            setHabilitationEnabled(false)
+            habilitation = false
           }
         }
 
@@ -310,7 +312,8 @@ function CartoView() {
           case 'address':
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
-            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitationEnabled) || config?.certificate == CertificateTypeEnum.ALL) {
+            // Utiliser la variable locale habilitation au lieu de habilitationEnabled
+            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitation) || config?.certificate == CertificateTypeEnum.ALL) {
               setWithCertificate(true)
             }
             else {
@@ -322,6 +325,8 @@ function CartoView() {
             setWithCertificate(false)
             break
         }
+        
+        setHabilitationEnabled(habilitation)
 
         setIsLoadMapSearchResults(false)
       })()

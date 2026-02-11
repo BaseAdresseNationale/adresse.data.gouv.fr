@@ -289,12 +289,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
             </div>
           )}
 
-          <div className="fr-mb-3w">
-            <h4 className="fr-mb-0">Certificat d&apos;adressage</h4>
-            <p className="fr-hint-text fr-mt-1w fr-mb-0">Certifiez l&apos;existence d&apos;une adresse sur le territoire de votre commune.</p>
-            <p className="fr-mt-2w fr-mb-0">A noter : L&apos;émission d&apos;un certificat d&apos;adressage n&apos;est possible que pour les adresses certifiées et rattachées à une parcelle.</p>
-          </div>
-
           {!hasBanId && (
             <Alert
               severity="warning"
@@ -304,6 +298,12 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               className="fr-mb-3w"
             />
           )}
+
+          <div className="fr-mb-3w">
+            <h4 className="fr-mb-0">Certificat d&apos;adressage</h4>
+            <p className="fr-hint-text fr-mt-1w fr-mb-0">Certifiez l&apos;existence d&apos;une adresse sur le territoire de votre commune.</p>
+            <p className="fr-mt-2w fr-mb-0">A noter : L&apos;émission d&apos;un certificat d&apos;adressage n&apos;est possible que pour les adresses certifiées et rattachées à une parcelle.</p>
+          </div>
 
           <ul className="fr-raw-list fr-mt-4w">
             <li className="fr-mb-2w">
@@ -415,6 +415,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                       <Select
                         label="Langue par défaut des odonymes"
                         hint="Langue par défaut des odonymes fournis dans le fichier BAL sur les champs 'toponyme' (BAL 1.5) ou 'voie_nom' (BAL 1.4)."
+                        disabled={!hasBanId}
                         nativeSelectProps={{
                           onChange: event => handleUpdateConfig({
                             ...configState,
