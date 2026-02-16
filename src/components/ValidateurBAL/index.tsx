@@ -12,7 +12,7 @@ import Alert from '@codegouvfr/react-dsfr/Alert'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useSearchParams } from 'next/navigation'
 
-const availableProfiles = ['1.3', '1.4']
+const availableProfiles = ['1.3', '1.4', '1.5']
 
 const profilesOptions: {
   label: string
@@ -139,7 +139,7 @@ export default function ValidateurBAL() {
           Il est utilisé pour s&apos;assurer avant la publication que toutes les adresses d&apos;une BAL remonteront correctement dans la Base Adresse Nationale.
         </p>
         <p>
-          Il existe deux profils sur le validateur :
+          Il existe trois profils sur le validateur :
         </p>
         <ul>
           <li>
@@ -147,6 +147,9 @@ export default function ValidateurBAL() {
           </li>
           <li>
             <b>BAL 1.4</b> est le profil par défaut. Il intégre les identifiants uniques de la BAN.
+          </li>
+          <li>
+            <b>BAL 1.5</b> (beta) consolide l&apos;intégration des identifiants uniques de la BAN.
           </li>
         </ul>
         <p>
