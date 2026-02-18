@@ -83,8 +83,8 @@ function FavoriteCommuneCard({ codeCommune, nomCommune, data, loading, error, on
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 {flagUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img 
-                    src={flagUrl} 
+                  <img
+                    src={flagUrl}
                     alt={`Logo de ${nomCommune}`}
                     width={32}
                     height={32}
@@ -117,21 +117,23 @@ function FavoriteCommuneCard({ codeCommune, nomCommune, data, loading, error, on
 
           <div className="fr-mt-3w">
             <div className="fr-badges-group">
-              {hasBAL ? (
-                <Badge severity="success" small>BAL publiée</Badge>
-              ) : (
-                <Badge severity="info" small>Pas de BAL</Badge>
-              )}
-              
+              {hasBAL
+                ? (
+                    <Badge severity="success" small>BAL publiée</Badge>
+                  )
+                : (
+                    <Badge severity="info" small>Pas de BAL</Badge>
+                  )}
+
               {nbAnomalies > 0 && (
                 <Badge severity="warning" small>{nbAnomalies} anomalie{nbAnomalies > 1 ? 's' : ''}</Badge>
               )}
-              
+
               {nbCertifies > 0 && (
                 <Badge severity="info" small>{nbCertifies.toLocaleString('fr-FR')} certifiée{nbCertifies > 1 ? 's' : ''}</Badge>
               )}
             </div>
-            
+
             <p className="fr-text--sm fr-mb-0 fr-mt-2w">
               {nbAdresses.toLocaleString('fr-FR')} adresse{nbAdresses > 1 ? 's' : ''} au total
             </p>

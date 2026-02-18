@@ -39,7 +39,7 @@ export function CommuneStatusBadge({ commune }: CommuneStatusBadgeProps) {
             const publishedDate = new Date(currentRevision.publishedAt)
             const now = new Date()
             const diffInHours = (now.getTime() - publishedDate.getTime()) / (1000 * 60 * 60)
-            
+
             if (diffInHours < 1) {
               setStatus('warning')
               setLabel('En cours')

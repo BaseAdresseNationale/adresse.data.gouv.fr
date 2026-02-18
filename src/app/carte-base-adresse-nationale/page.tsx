@@ -325,7 +325,7 @@ function CartoView() {
             setWithCertificate(false)
             break
         }
-        
+
         setHabilitationEnabled(habilitation)
 
         setIsLoadMapSearchResults(false)

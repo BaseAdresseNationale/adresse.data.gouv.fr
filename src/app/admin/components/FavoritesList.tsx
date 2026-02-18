@@ -21,14 +21,13 @@ interface FavoritesListProps {
   onAdd: () => void
 }
 
-
 function formatDate(dateString?: string) {
   if (!dateString) return 'N/A'
   try {
     const date = new Date(dateString)
-    return date.toLocaleDateString('fr-FR', { 
-      day: '2-digit', 
-      month: '2-digit', 
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
       year: 'numeric',
     })
   }
@@ -132,37 +131,43 @@ function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
                   {formatDate(dateRevision)}
                 </td>
                 <td>
-                  {favorite.data ? (
-                    <CommuneStatusBadge commune={favorite.data} />
-                  ) : (
-                    <span className="fr-text--sm fr-text-mention--grey">-</span>
-                  )}
+                  {favorite.data
+                    ? (
+                        <CommuneStatusBadge commune={favorite.data} />
+                      )
+                    : (
+                        <span className="fr-text--sm fr-text-mention--grey">-</span>
+                      )}
                 </td>
                 <td className="fr-text--sm">{nbVoies.toLocaleString('fr-FR')}</td>
                 <td className="fr-text--sm">{nbAdresses.toLocaleString('fr-FR')}</td>
                 <td className="fr-text--sm">
-                  {nbLieuxDits > 0 ? (
-                    <span>{nbLieuxDits.toLocaleString('fr-FR')}</span>
-                  ) : (
-                    <span className="fr-text-mention--grey">0</span>
-                  )}
+                  {nbLieuxDits > 0
+                    ? (
+                        <span>{nbLieuxDits.toLocaleString('fr-FR')}</span>
+                      )
+                    : (
+                        <span className="fr-text-mention--grey">0</span>
+                      )}
                 </td>
                 <td className="fr-text--sm">
-                  {nbCertifies > 0 ? (
-                    <div>
-                      <span className="fr-text--bold">{tauxCertification}%</span>
-                      <br />
-                      <span className="fr-text--xs fr-text-mention--grey">
-                        {nbCertifies.toLocaleString('fr-FR')}
-                      </span>
-                    </div>
-                  ) : (
-                    <span className="fr-text-mention--grey">0%</span>
-                  )}
+                  {nbCertifies > 0
+                    ? (
+                        <div>
+                          <span className="fr-text--bold">{tauxCertification}%</span>
+                          <br />
+                          <span className="fr-text--xs fr-text-mention--grey">
+                            {nbCertifies.toLocaleString('fr-FR')}
+                          </span>
+                        </div>
+                      )
+                    : (
+                        <span className="fr-text-mention--grey">0%</span>
+                      )}
                 </td>
                 <td>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <Link 
+                    <Link
                       href={`/commune/${favorite.codeCommune}`}
                       className="fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-eye-line"
                       title="Voir la commune"

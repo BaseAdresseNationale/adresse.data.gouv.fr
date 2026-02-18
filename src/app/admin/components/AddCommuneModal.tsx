@@ -84,7 +84,7 @@ function AddCommuneModal({ onAdd, maxReached }: AddCommuneModalProps) {
         hintText="Saisissez un nom ou un code postal"
         nativeInputProps={{
           value: searchQuery,
-          onChange: (e) => handleSearch(e.target.value),
+          onChange: e => handleSearch(e.target.value),
           placeholder: 'Ex: Paris, 75000',
           disabled: maxReached,
         }}
@@ -109,7 +109,7 @@ function AddCommuneModal({ onAdd, maxReached }: AddCommuneModalProps) {
             {searchResults.length} résultat{searchResults.length > 1 ? 's' : ''} trouvé{searchResults.length > 1 ? 's' : ''}
           </p>
           <ul className="fr-raw-list">
-            {searchResults.map((commune) => (
+            {searchResults.map(commune => (
               <li key={commune.code} className="fr-mb-2w">
                 <div className="fr-card fr-card--horizontal fr-card--sm fr-card--no-border">
                   <div className="fr-card__body">

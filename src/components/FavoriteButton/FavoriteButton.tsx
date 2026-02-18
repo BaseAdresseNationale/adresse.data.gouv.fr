@@ -10,8 +10,8 @@ interface FavoriteButtonProps {
   priority?: 'primary' | 'secondary' | 'tertiary' | 'tertiary no outline'
 }
 
-export function FavoriteButton({ 
-  districtID, 
+export function FavoriteButton({
+  districtID,
   className,
   size = 'small',
   priority = 'tertiary no outline',
@@ -20,7 +20,7 @@ export function FavoriteButton({
   const { addFavorite, removeFavorite, isFavorite, maxReached } = useFavorites(userInfo?.sub)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  
+
   const isFav = isFavorite(districtID)
 
   const handleClick = async () => {
@@ -30,7 +30,7 @@ export function FavoriteButton({
     try {
       if (isFav) {
         await removeFavorite(districtID)
-      } 
+      }
       else {
         if (maxReached) {
           throw new Error('Vous avez atteint la limite de 20 communes favorites')
@@ -41,7 +41,7 @@ export function FavoriteButton({
     catch (e: any) {
       setError(e.message || 'Une erreur est survenue')
       console.error('Favorite toggle error:', e)
-      
+
       // Afficher l'erreur dans un toast (optionnel, tu peux utiliser une lib comme react-hot-toast)
       // toast.error(e.message)
     }

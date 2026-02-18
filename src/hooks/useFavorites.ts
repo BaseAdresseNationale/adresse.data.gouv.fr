@@ -34,7 +34,7 @@ async function getCommuneWithCache(codeCommune: string): Promise<BANCommune> {
   }
 
   const data = await getCommuneWithoutCache(codeCommune)
-  
+
   communeDataCache.set(codeCommune, {
     data,
     timestamp: now,
@@ -47,17 +47,17 @@ export function useFavorites(userId?: string) {
   const [favorites, setFavorites] = useState<FavoriteCommune[]>([])
   const [favoritesWithData, setFavoritesWithData] = useState<FavoriteCommuneWithData[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  
+
   const fetchFavorites = useCallback(async () => {
     if (!userId) {
       setIsLoading(false)
       return
     }
-    
+
     try {
       setIsLoading(true)
       const response = await fetch('/api/favorites')
-      
+
       if (!response.ok) {
         if (response.status === 401) {
           console.warn('User not authenticated')
@@ -82,7 +82,7 @@ export function useFavorites(userId?: string) {
   useEffect(() => {
     fetchFavorites()
   }, [fetchFavorites])
-  
+
   useEffect(() => {
     if (favorites.length === 0) {
       setFavoritesWithData([])
@@ -98,7 +98,7 @@ export function useFavorites(userId?: string) {
     favorites.forEach(async (fav, index) => {
       try {
         const data = await getCommuneWithCache(fav.codeCommune)
-        setFavoritesWithData(prev => {
+        setFavoritesWithData((prev) => {
           const updated = [...prev]
           updated[index] = {
             ...fav,
@@ -109,7 +109,7 @@ export function useFavorites(userId?: string) {
         })
       }
       catch (error: any) {
-        setFavoritesWithData(prev => {
+        setFavoritesWithData((prev) => {
           const updated = [...prev]
           updated[index] = {
             ...fav,
@@ -121,7 +121,7 @@ export function useFavorites(userId?: string) {
       }
     })
   }, [favorites])
-  
+
   const addFavorite = useCallback(async (codeCommune: string) => {
     if (favorites.length >= MAX_FAVORITES) {
       throw new Error(`Vous ne pouvez pas ajouter plus de ${MAX_FAVORITES} communes favorites`)
@@ -154,7 +154,7 @@ export function useFavorites(userId?: string) {
       throw error
     }
   }, [favorites, fetchFavorites])
-  
+
   const removeFavorite = useCallback(async (districtID: string) => {
     try {
       const response = await fetch(`/api/favorites/${districtID}`, {
@@ -173,11 +173,11 @@ export function useFavorites(userId?: string) {
       throw error
     }
   }, [fetchFavorites])
-  
+
   const isFavorite = useCallback((identifier: string) => {
     return favorites.some(f => f.districtID === identifier || f.codeCommune === identifier)
   }, [favorites])
-  
+
   return {
     favorites: favoritesWithData,
     addFavorite,
