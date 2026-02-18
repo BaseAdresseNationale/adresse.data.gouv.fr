@@ -69,9 +69,8 @@ function FavoriteCommuneCard({ codeCommune, nomCommune, data, loading, error, on
     )
   }
 
-  const nbAdresses = data?.nbAdresses || 0
+  const nbAdresses = data?.nbNumeros || 0
   const nbCertifies = data?.nbNumerosCertifies || 0
-  const nbAnomalies = data?.nbAdressesAnomalie || 0
   const hasBAL = data?.type === 'bal'
 
   return (
@@ -124,11 +123,6 @@ function FavoriteCommuneCard({ codeCommune, nomCommune, data, loading, error, on
                 : (
                     <Badge severity="info" small>Pas de BAL</Badge>
                   )}
-
-              {nbAnomalies > 0 && (
-                <Badge severity="warning" small>{nbAnomalies} anomalie{nbAnomalies > 1 ? 's' : ''}</Badge>
-              )}
-
               {nbCertifies > 0 && (
                 <Badge severity="info" small>{nbCertifies.toLocaleString('fr-FR')} certifiée{nbCertifies > 1 ? 's' : ''}</Badge>
               )}
