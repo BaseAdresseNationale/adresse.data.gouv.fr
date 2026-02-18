@@ -139,7 +139,7 @@ export default function ValidateurBAL() {
           Il est utilisé pour s&apos;assurer avant la publication que toutes les adresses d&apos;une BAL remonteront correctement dans la Base Adresse Nationale.
         </p>
         <p>
-          Il existe trois profils sur le validateur :
+          Il existe {availableProfiles.length} profils sur le validateur :
         </p>
         <ul>
           <li>
