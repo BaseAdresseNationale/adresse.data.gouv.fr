@@ -1,13 +1,42 @@
 import { env } from 'next-runtime-env'
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { type BANConfig } from '@/types/api-ban.types'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
+const NEXT_PUBLIC_API_GEO_URL = env('NEXT_PUBLIC_API_GEO_URL')
 const DEFAULT_CODE_LANGUAGE = 'fra'
+
+type CachedOwnership = { siren: string, expiresAt: number }
+// Cache in-memory : non partagé entre instances serverless, mais suffisant pour limiter les appels upstream répétés sur une même instance.
+const ownershipCache = new Map<string, CachedOwnership>()
+const OWNERSHIP_CACHE_TTL_MS = 5 * 60 * 1000
+
+function getCachedSirenForDistrict(districtID: string): string | null {
+  const entry = ownershipCache.get(districtID)
+  if (!entry) return null
+  if (Date.now() > entry.expiresAt) {
+    ownershipCache.delete(districtID)
+    return null
+  }
+  return entry.siren
+}
+
+function setCachedSirenForDistrict(districtID: string, siren: string) {
+  ownershipCache.set(districtID, { siren, expiresAt: Date.now() + OWNERSHIP_CACHE_TTL_MS })
+}
+
+function isUpstreamServerError(status: number): boolean {
+  return status >= 500
+}
 
 export async function POST(request: NextRequest) {
   try {
+    if (!BAN_API_TOKEN || !NEXT_PUBLIC_API_BAN_URL || !NEXT_PUBLIC_API_GEO_URL) {
+      return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
+    }
+
     const cookieStore = cookies()
     const userinfo = cookieStore.get('userinfo')
 
@@ -28,7 +57,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid user data' }, { status: 401 })
     }
 
-    const body = await request.json()
+    const userSiret = typeof user?.siret === 'string' ? user.siret : ''
+    const userSiren = userSiret.length >= 9 ? userSiret.slice(0, 9) : ''
+    if (!userSiren || userSiren.length !== 9) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const body = await request.json() as {
+      districtID: string
+      config: Partial<BANConfig>
+      originalConfig?: Partial<BANConfig>
+    }
     const { districtID, config, originalConfig } = body
 
     if (!districtID || !config) {
@@ -53,11 +92,79 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Contrôle serveur: on vérifie que le district appartient bien à la commune (SIREN) de l'utilisateur
+    // NB: les UUID de district ne sont pas résolus via /lookup ; on utilise /api/district/:id.
+    // On renvoie 403 (plutôt que 404) pour limiter l'énumération d'UUID valides.
+    const districtSiren = getCachedSirenForDistrict(districtID)
+    if (!districtSiren) {
+      let districtRes: Response
+      try {
+        districtRes = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/district/${districtID}`, {
+          method: 'GET',
+          cache: 'no-store',
+        })
+      }
+      catch (error) {
+        console.error('District lookup upstream error:', error)
+        return NextResponse.json({ error: 'Unable to validate commune ownership' }, { status: 502 })
+      }
+
+      if (!districtRes.ok) {
+        if (isUpstreamServerError(districtRes.status)) {
+          return NextResponse.json({ error: 'Unable to validate commune ownership' }, { status: 502 })
+        }
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+      }
+
+      const districtData: any = await districtRes.json().catch(() => null)
+      const codeCommune = (
+        (typeof districtData?.response?.meta?.insee?.cog === 'string' && districtData.response.meta.insee.cog)
+        || (typeof districtData?.meta?.insee?.cog === 'string' && districtData.meta.insee.cog)
+        || null
+      )
+      if (!codeCommune) {
+        return NextResponse.json({ error: 'Unable to validate commune ownership' }, { status: 502 })
+      }
+
+      let geoRes: Response
+      try {
+        geoRes = await fetch(`${NEXT_PUBLIC_API_GEO_URL}/communes/${codeCommune}`, {
+          method: 'GET',
+          cache: 'no-store',
+        })
+      }
+      catch (error) {
+        console.error('Geo commune lookup upstream error:', error)
+        return NextResponse.json({ error: 'Unable to validate commune ownership' }, { status: 502 })
+      }
+
+      if (!geoRes.ok) {
+        return NextResponse.json({ error: 'Unable to validate commune ownership' }, { status: 502 })
+      }
+
+      const geoData: any = await geoRes.json().catch(() => null)
+      const resolvedSiren = typeof geoData?.siren === 'string' ? geoData.siren : ''
+      if (!resolvedSiren) {
+        return NextResponse.json({ error: 'Unable to validate commune ownership' }, { status: 502 })
+      }
+      setCachedSirenForDistrict(districtID, resolvedSiren)
+
+      if (resolvedSiren !== userSiren) {
+        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+      }
+    }
+    else if (districtSiren !== userSiren) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const changedConfig: Record<string, any> = {}
 
-    if (config.certificate !== originalConfig?.certificate) {
-      changedConfig.certificate = config.certificate
+    const setIfChanged = (key: string, nextValue: any, prevValue: any) => {
+      if (nextValue === undefined) return
+      if (nextValue !== prevValue) changedConfig[key] = nextValue
     }
+
+    setIfChanged('certificate', config.certificate, originalConfig?.certificate)
 
     const normalizedOriginal = originalConfig?.defaultBalLang || DEFAULT_CODE_LANGUAGE
     const normalizedNew = config.defaultBalLang || DEFAULT_CODE_LANGUAGE
@@ -71,21 +178,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    if (config.autoFixLabels !== originalConfig?.autoFixLabels) {
-      changedConfig.autoFixLabels = config.autoFixLabels
-    }
+    setIfChanged('autoFixLabels', config.autoFixLabels, originalConfig?.autoFixLabels)
 
-    if (config.computOldDistrict !== originalConfig?.computOldDistrict) {
-      changedConfig.computOldDistrict = config.computOldDistrict
-    }
+    setIfChanged('computOldDistrict', config.computOldDistrict, originalConfig?.computOldDistrict)
 
-    if (config.computInteropKey !== originalConfig?.computInteropKey) {
-      changedConfig.computInteropKey = config.computInteropKey
-    }
+    setIfChanged('computInteropKey', config.computInteropKey, originalConfig?.computInteropKey)
 
-    if (config.mandatary !== originalConfig?.mandatary) {
-      changedConfig.mandatary = config.mandatary
-    }
+    setIfChanged('mandatary', config.mandatary, originalConfig?.mandatary)
 
     if (Object.keys(changedConfig).length === 0) {
       return NextResponse.json({
@@ -137,11 +236,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (changedConfig.mandatary !== undefined && changedConfig.mandatary !== null && typeof changedConfig.mandatary !== 'string') {
-      return NextResponse.json(
-        { error: 'Invalid mandatary format' },
-        { status: 400 }
-      )
+    if (changedConfig.mandatary !== undefined && changedConfig.mandatary !== null) {
+      if (typeof changedConfig.mandatary !== 'string') {
+        return NextResponse.json(
+          { error: 'Invalid mandatary format' },
+          { status: 400 }
+        )
+      }
+      if (changedConfig.mandatary.trim() === '') {
+        return NextResponse.json(
+          { error: 'Invalid mandatary identifier' },
+          { status: 400 }
+        )
+      }
     }
 
     const sessionData = {
@@ -161,7 +268,7 @@ export async function POST(request: NextRequest) {
     const backendBody = {
       districtID,
       config: changedConfig,
-      siren: user.siret?.substring(0, 9),
+      siren: userSiren,
       ...sessionData,
     }
 

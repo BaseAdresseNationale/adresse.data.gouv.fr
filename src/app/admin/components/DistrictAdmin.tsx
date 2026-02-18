@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import { Select } from '@codegouvfr/react-dsfr/Select'
 import { Button } from '@codegouvfr/react-dsfr/Button'
@@ -15,9 +15,10 @@ import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
 import { customFetch } from '@/lib/fetch'
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
+import { getClientsRecap, type ClientRecapItem, type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
+import { env } from 'next-runtime-env'
 
 const DEFAULT_CODE_LANGUAGE = 'fra'
-const DEFAULT_MANDATORY_ID = 'mairie'
 
 function formatDate(dateString?: string) {
   if (!dateString) return 'N/A'
@@ -33,27 +34,6 @@ function formatDate(dateString?: string) {
     return 'N/A'
   }
 }
-
-// FIXME: Available mandatories should come from an API or a constants file
-const mandatories = [
-  { id: 'mairie', label: 'Mairie' },
-  { id: 'intercommunalite', label: 'Intercommunalité' },
-  { id: 'departement', label: 'Département' },
-  { id: 'region', label: 'Région' },
-  { id: 'etat', label: 'État' },
-]
-
-const availableMandatary = mandatories
-  .map(mandatory => ({
-    id: mandatory.id,
-    label: mandatory.label,
-  })).sort((a, b) => {
-    if (a.id === DEFAULT_MANDATORY_ID) return -1
-    if (b.id === DEFAULT_MANDATORY_ID) return 1
-    if (a.label < b.label) return -1
-    if (a.label > b.label) return 1
-    return 0
-  })
 
 const availableLanguage = language
   .filter(lang => lang.code.length === 3)
@@ -86,6 +66,110 @@ interface Message {
   type: MessageType
 }
 
+const RECAP_TIMEOUT_MS = 15000
+const MANDATARY_MODE_ORDER = ['Mes Adresses', 'API Dépôt', 'Moissonneur BAL', 'Formulaire de publication'] as const
+
+function getMandataryDisplayName(
+  clientId: string | undefined,
+  recap: ClientRecapItem[] | null,
+  fallback = 'Mandataire inconnu',
+): string {
+  if (!clientId) return 'Aucun mandataire sélectionné'
+  if (!recap) return 'Mandataire déclaré'
+  const item = recap.find(r => r.client_id === clientId)
+  if (!item) return fallback
+  if (item.mode === item.nom_affichage) return item.mode
+  return `${item.mode} – ${item.nom_affichage}`
+}
+
+interface MandatarySelectorProps {
+  byMode: Record<string, ClientRecapItem[]>
+  configState: BANCommune['config']
+  config: BANCommune['config']
+  selectedMode: string
+  setSelectedMode: (mode: string) => void
+  enableMandataryChangeWarning: boolean
+  hasBanId: boolean | undefined
+  recapLoading: boolean
+  recapError: string | null
+  handleUpdateConfig: (config: BANCommune['config']) => void
+}
+
+function MandatarySelector({
+  byMode,
+  configState,
+  config,
+  selectedMode,
+  setSelectedMode,
+  enableMandataryChangeWarning,
+  hasBanId,
+  recapLoading,
+  recapError,
+  handleUpdateConfig,
+}: MandatarySelectorProps) {
+  if (recapLoading) return <p className="fr-hint-text">Chargement des mandataires…</p>
+  if (recapError) return <Alert severity="error" description={recapError} small />
+
+  const availableModes = MANDATARY_MODE_ORDER.filter(m => byMode[m]?.length)
+  const currentMandatary = enableMandataryChangeWarning ? configState?.mandatary : config?.mandatary
+  const currentMode = selectedMode || availableModes[0] || ''
+  const apiDepotClients = byMode['API Dépôt'] ?? []
+  const isApiDepotMode = currentMode === 'API Dépôt'
+  const mustChooseApiDepotClient = isApiDepotMode && apiDepotClients.length > 1 && !currentMandatary
+
+  return (
+    <>
+      <Select
+        label="Type de mandataire"
+        hint={(
+          <>
+            Seuls les organismes adhérents à la{' '}
+            <Link href="/communaute/charte-base-adresse-locale">Charte de la Base Adresse Locale</Link>{' '}
+            sont éligibles au statut de mandataire.
+          </>
+        )}
+        nativeSelectProps={{
+          onChange: (event) => {
+            const mode = event.target.value as typeof MANDATARY_MODE_ORDER[number]
+            setSelectedMode(mode)
+            const clients = byMode[mode] ?? []
+            const isApiDepot = mode === 'API Dépôt'
+            const nextMandatary = isApiDepot && clients.length > 1 ? '' : clients[0]?.client_id
+            handleUpdateConfig({ ...configState, mandatary: nextMandatary })
+          },
+          value: currentMode,
+        }}
+        disabled={!enableMandataryChangeWarning || !hasBanId}
+      >
+        <option value="" disabled hidden>Sélectionnez un type</option>
+        {availableModes.map(mode => (
+          <option key={mode} value={mode}>{mode}</option>
+        ))}
+      </Select>
+      {isApiDepotMode && apiDepotClients.length > 0 && (
+        <Select
+          label="Organisme API Dépôt"
+          hint={mustChooseApiDepotClient ? 'Sélection obligatoire pour finaliser le changement de mandataire.' : undefined}
+          nativeSelectProps={{
+            onChange: (event) => {
+              handleUpdateConfig({ ...configState, mandatary: event.target.value })
+            },
+            value: currentMandatary || '',
+          }}
+          disabled={!enableMandataryChangeWarning || !hasBanId}
+        >
+          <option value="" disabled hidden>Sélectionnez un organisme</option>
+          {apiDepotClients.map(item => (
+            <option key={item.client_id} value={item.client_id}>
+              {item.nom_affichage}
+            </option>
+          ))}
+        </Select>
+      )}
+    </>
+  )
+}
+
 function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true, readOnly = false, loading = false, userInfo }: DistrictOptionsFormProps) {
   const hasBanId = district?.withBanId
   const isUserAuthorized = district
@@ -102,6 +186,33 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const [message, setMessage] = useState<Message | null>(null)
   const [flagUrl, setFlagUrl] = useState<string>('')
   const [isSaving, setIsSaving] = useState<boolean>(false)
+  const [clientsRecap, setClientsRecap] = useState<ClientRecapItem[] | null>(null)
+  const [recapLoading, setRecapLoading] = useState<boolean>(true)
+  const [recapError, setRecapError] = useState<string | null>(null)
+  const recapEffectIdRef = useRef(0)
+  const formTopRef = useRef<HTMLDivElement>(null)
+  const [selectedMandataryMode, setSelectedMandataryMode] = useState<string>('')
+
+  const clientsByMode = useMemo<Record<string, ClientRecapItem[]>>(() => {
+    if (!clientsRecap) return {}
+    return clientsRecap.reduce<Record<string, ClientRecapItem[]>>((acc, item) => {
+      (acc[item.mode] = acc[item.mode] ?? []).push(item)
+      return acc
+    }, {})
+  }, [clientsRecap])
+
+  useEffect(() => {
+    const availableModes = MANDATARY_MODE_ORDER.filter(mode => clientsByMode[mode]?.length)
+    if (availableModes.length === 0) return
+    const activeMandatary = enableMandataryChangeWarning ? configState?.mandatary : config?.mandatary
+    const activeItem = activeMandatary
+      ? Object.values(clientsByMode).flat().find(item => item.client_id === activeMandatary)
+      : null
+    const nextMode = activeItem?.mode ?? (selectedMandataryMode || availableModes[0])
+    if (nextMode !== selectedMandataryMode) {
+      setSelectedMandataryMode(nextMode)
+    }
+  }, [clientsByMode, config?.mandatary, configState?.mandatary, enableMandataryChangeWarning, selectedMandataryMode])
 
   useEffect(() => {
     if (config) {
@@ -127,6 +238,56 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
       isMounted = false
     }
   }, [district?.codeCommune])
+
+  useEffect(() => {
+    const effectId = recapEffectIdRef.current + 1
+    recapEffectIdRef.current = effectId
+    let isMounted = true
+    let timeoutId: ReturnType<typeof setTimeout> | null = null
+    const clearRecapTimeout = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = null
+      }
+    }
+    setRecapLoading(true)
+    setRecapError(null)
+    const apiDepotBase = env('NEXT_PUBLIC_API_DEPOT_URL') || 'https://plateforme-bal.adresse.data.gouv.fr/api-depot'
+    const clientsPromise = customFetch(`${apiDepotBase}/clients`) as Promise<ClientDepotRaw[]>
+    const chefsPromise = customFetch(`${apiDepotBase}/chefs-de-file`) as Promise<ChefDeFileDepotRaw[]>
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => {
+        reject(new Error(`Délai dépassé (${RECAP_TIMEOUT_MS / 1000} s) — vérifiez l’onglet Réseau pour ${apiDepotBase}/clients et /chefs-de-file`))
+      }, RECAP_TIMEOUT_MS)
+    })
+    Promise.race([
+      Promise.all([clientsPromise, chefsPromise]),
+      timeoutPromise,
+    ])
+      .then(([clients, chefsDeFile]) => {
+        if (!isMounted || recapEffectIdRef.current !== effectId) {
+          return
+        }
+        const recap = getClientsRecap(clients, chefsDeFile)
+        setClientsRecap(recap)
+      })
+      .catch((err) => {
+        if (!isMounted || recapEffectIdRef.current !== effectId) return
+        setRecapError(err?.message ?? 'Erreur chargement mandataires')
+        setClientsRecap(null)
+      })
+      .finally(() => {
+        clearRecapTimeout()
+        if (isMounted && recapEffectIdRef.current === effectId) {
+          setRecapLoading(false)
+        }
+      })
+    const cleanup = () => {
+      isMounted = false
+      clearRecapTimeout()
+    }
+    return cleanup
+  }, [])
 
   const handleUpdateConfig = useCallback((updatedConfig: BANCommune['config']) => {
     setConfigState(updatedConfig)
@@ -160,9 +321,13 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   }, [district, userInfo])
 
   const pushConfigUpdate = useCallback(async () => {
-    setMessage(null)
-    setIsSaving(true)
     const newConfig = { ...configState }
+    setMessage({
+      text: 'Votre demande est en cours de traitement. Patientez jusqu\'au message « Modifications enregistrées avec succès » — si vous quittez avant, l\'affichage pourrait être temporairement désynchronisé à votre retour.',
+      type: 'info',
+    })
+    setIsSaving(true)
+    formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
     try {
       await saveDistrictConfig(newConfig, config)
@@ -185,6 +350,11 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     }
   }, [configState, config, onUpdateConfig, saveDistrictConfig])
 
+  const isMandatarySelectionInvalid = enableMandataryChangeWarning
+    && selectedMandataryMode === 'API Dépôt'
+    && (clientsByMode['API Dépôt']?.length ?? 0) > 1
+    && !configState?.mandatary
+
   if (loading) {
     return (
       <div className="fr-container--fluid">
@@ -206,13 +376,13 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   }
 
   return (
-    <div className="fr-container--fluid">
+    <div ref={formTopRef} className="fr-container--fluid">
 
       <form>
         {message && (
           <Alert
             severity={message.type}
-            title={message.type === 'error' ? 'Erreur' : message.type === 'success' ? 'Succès' : 'Information'}
+            title={message.type === 'error' ? 'Erreur' : message.type === 'success' ? 'Succès' : 'En cours'}
             description={message.text}
             small
             closable
@@ -430,7 +600,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                           <option
                             key={lang.code}
                             value={lang.code}
-                            selected={configState?.defaultBalLang === lang.code}
                             style={{ textTransform: 'capitalize' }}
                           >
                             {lang.formatedLabel}
@@ -486,28 +655,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     </CommuneConfigItem>
                   )}
             </li>
-            {/* Temporairement désactivé - à réactiver plus tard
-            <li className="fr-mb-2w">
-              {!readOnly
-                ? (
-                    <ToggleSwitch
-                      label="Calcul automatique des clés d’interopérabilités"
-                      helperText="Calcule les clés d'interopérabilité. (⚠ Attention : Si activé, les valeurs calculées remplacent celles fournies dans le fichier BAL)"
-                      checked={configState?.computInteropKey === false ? false : true}
-                      showCheckedHint={false}
-                      labelPosition="left"
-                      disabled={!hasBanId}
-                      onChange={checked => handleUpdateConfig({ ...configState, computInteropKey: checked })}
-                    />
-                  )
-                : (
-                    <CommuneConfigItem className="ri-links-line">
-                      Calcul automatique des clés d’interopérabilités :{' '}
-                      <b>{config?.computInteropKey === false ? 'Désactivé' : 'Activé'}</b>
-                    </CommuneConfigItem>
-                  )}
-            </li>
-            */}
           </ul>
         </section>
 
@@ -516,8 +663,12 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
           <p className="fr-hint-text">Gérez le mandataire autorisé à nous déposer des fichiers BAL pour votre commune.</p>
           <p>
             Seul le mandataire déclaré est autorisé à déposer des BAL pour votre commune.<br />
-            Votre mandataire actuel : <b>Municipalité via Mes adresses</b>
-            {' '}
+            Votre mandataire actuel :{' '}
+            <b>
+              {recapError
+                ? 'Impossible d’afficher le mandataire'
+                : getMandataryDisplayName(config?.mandatary ?? configState?.mandatary, clientsRecap)}
+            </b>
           </p>
 
           {!enableMandataryChange
@@ -541,9 +692,9 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 <ul className="fr-raw-list fr-mt-4w">
                   <li className="fr-mb-2w">
                     <p className="ri-edit-2-line">{' '}
-                      Selectionnez un mandataire pour
-                      lui permettre des deposer des BAL en votre nom,
-                      et lui donner accès aux parametrages des options de la commune.
+                      Sélectionnez un mandataire pour
+                      lui permettre de déposer des BAL en votre nom,
+                      et lui donner accès aux paramétrages des options de la commune.
                     </p>
                     <Alert
                       severity="warning"
@@ -551,12 +702,13 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                       description={`
                             Tout changement de mandataire implique une possible et
                             temporaire interruption de dépôt de BAL.
-                            Pour eviter une interruption de service et un blocage du fichier BAL,
+                            Pour éviter une interruption de service et un blocage du fichier BAL,
                             assurez-vous que le nouveau mandataire est en capacité d'assurer
                             la continuité du service à partir des données existantes.
                           `}
                       small
-                    /><br />
+                      className="fr-mb-2w"
+                    />
                     <Checkbox
                       options={[
                         {
@@ -603,43 +755,26 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     {!readOnly
                       ? (
                           <div>
-                            <Select
-                              label="Mandataire de la commune"
-                              hint={(
-                                <>
-                                  Seul les organismes adhérents à la{' '}
-                                  <Link href="/communaute/charte-base-adresse-locale">Charte de la Base Adresse Locale</Link>{' '}
-                                  sont éligibles au statut de mandataire.
-                                </>
-                              )}
-                              nativeSelectProps={{
-                                onChange: event => handleUpdateConfig({
-                                  ...configState,
-                                  mandatary: event.target.value,
-                                }),
-                                value: enableMandataryChangeWarning ? configState?.mandatary : config?.mandatary || DEFAULT_MANDATORY_ID,
-                                defaultValue: enableMandataryChangeWarning ? configState?.mandatary : config?.mandatary || DEFAULT_MANDATORY_ID,
-                                disabled: !hasBanId,
-                              }}
-                              disabled={!enableMandataryChangeWarning || !hasBanId}
-                            >
-                              <option value="" disabled hidden>Sélectionnez un mandataire</option>
-                              {availableMandatary.map(mandatary => (
-                                <option
-                                  key={mandatary.id}
-                                  value={mandatary.id}
-                                  style={{ textTransform: 'capitalize' }}
-                                >
-                                  {mandatary.label}
-                                </option>
-                              ))}
-                            </Select>
+                            <MandatarySelector
+                              byMode={clientsByMode}
+                              configState={configState}
+                              config={config}
+                              selectedMode={selectedMandataryMode}
+                              setSelectedMode={setSelectedMandataryMode}
+                              enableMandataryChangeWarning={enableMandataryChangeWarning}
+                              hasBanId={hasBanId}
+                              recapLoading={recapLoading}
+                              recapError={recapError}
+                              handleUpdateConfig={handleUpdateConfig}
+                            />
                           </div>
                         )
                       : (
                           <CommuneConfigItem className="ri-global-line">
                             Mandataire de la commune :{' '}
-                            <b>{config?.mandatary || mandatories.find(m => m.id === DEFAULT_MANDATORY_ID)?.label}</b>
+                            <b>
+                              {getMandataryDisplayName(config?.mandatary, clientsRecap, config?.mandatary ?? '—')}
+                            </b>
                           </CommuneConfigItem>
                         )}
                   </li>
@@ -666,7 +801,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               <Button
                 type="button"
                 priority="primary"
-                disabled={JSON.stringify(configState) === currentConfig || isSaving}
+                disabled={JSON.stringify(configState) === currentConfig || isSaving || isMandatarySelectionInvalid}
                 onClick={() => pushConfigUpdate()}
               >
                 {isSaving ? 'Enregistrement en cours...' : 'Enregistrer les modifications'}
