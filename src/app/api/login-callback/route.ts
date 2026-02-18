@@ -41,20 +41,24 @@ export async function GET(req: NextRequest) {
       configOptions as client.DPoPOptions
     )
 
-    if (userinfo.siret) {
-      const organizationName = await getOrganizationName(userinfo.siret as string)
+    let enrichedUserinfo: Record<string, unknown> = { ...userinfo }
+
+    if (typeof userinfo.siret === 'string') {
+      const organizationName = await getOrganizationName(userinfo.siret)
       if (organizationName) {
-        userinfo.nom_structure = organizationName
-        if (typeof userinfo.organization === 'object' && userinfo.organization !== null) {
-          (userinfo.organization as any).name = organizationName
-        }
-        else {
-          userinfo.organization = { name: organizationName }
+        const organization = typeof userinfo.organization === 'object' && userinfo.organization !== null
+          ? { ...(userinfo.organization as Record<string, unknown>), name: organizationName }
+          : { name: organizationName }
+
+        enrichedUserinfo = {
+          ...enrichedUserinfo,
+          nom_structure: organizationName,
+          organization,
         }
       }
     }
 
-    cookieStore.set('userinfo', JSON.stringify(userinfo), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
+    cookieStore.set('userinfo', JSON.stringify(enrichedUserinfo), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('idtoken', JSON.stringify(claims), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('id_token_hint', JSON.stringify(tokens.id_token), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('oauth2token', JSON.stringify(tokens), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
