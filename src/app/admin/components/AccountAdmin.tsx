@@ -4,6 +4,7 @@ import { type UserInfo } from '@/hooks/useAuth'
 import { useFavorites } from '@/hooks/useFavorites'
 import FavoritesList from './FavoritesList'
 import AddCommuneModal, { addCommuneModal } from './AddCommuneModal'
+import NotificationsBAN from '@/components/NotificationsBAN/NotificationsBAN'
 
 interface AccountAdminProps {
   userInfo?: UserInfo | null
@@ -95,7 +96,7 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
 
       <section className="fr-mb-6w">
         <div className="fr-grid-row fr-grid-row--middle fr-grid-row--space-between fr-mb-3w">
-          <div className="fr-col-auto">
+          <div className="fr-col-12 fr-col-md-8">
             <h4 className="fr-mb-0">Mes communes favorites</h4>
             {count > 0 && (
               <p className="fr-text--sm fr-text-mention--grey fr-mb-0">
@@ -104,7 +105,7 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
             )}
           </div>
           {count > 0 && (
-            <div className="fr-col-auto">
+            <div className="fr-col-12 fr-col-md-4 fr-text-right">
               <Button
                 priority="secondary"
                 size="small"
@@ -112,7 +113,7 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
                 onClick={() => addCommuneModal.open()}
                 disabled={maxReached}
               >
-                Ajouter
+                Ajouter une commune
               </Button>
             </div>
           )}
@@ -138,20 +139,10 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
 
       <section className="fr-mb-6w">
         <h4>Notifications et Alertes</h4>
-        <p>
-          Gérez vos abonnements aux alertes de la Base Adresse Nationale pour être informé des publications et des anomalies.
+        <p className="fr-hint-text">
+          Gérez vos abonnements aux alertes BAN directement depuis votre espace.
         </p>
-        <Button
-          priority="secondary"
-          linkProps={{
-            href: '/outils/notifications-ban',
-            target: '_blank',
-          }}
-          iconId="fr-icon-notification-3-line"
-          iconPosition="left"
-        >
-          Gérer mes notifications
-        </Button>
+        <NotificationsBAN embedded />
       </section>
     </div>
   )

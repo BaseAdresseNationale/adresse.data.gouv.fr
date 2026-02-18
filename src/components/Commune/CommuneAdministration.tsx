@@ -5,6 +5,7 @@ import Section from '../Section'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import { CommuneConfigItem } from './CommuneActions/CommuneActions.styles'
+import Link from 'next/link'
 
 // Helper component for Tooltip with CommuneConfigItem
 const TooltipWithCommuneConfigItem = ({ title, children }: { title: string, children: React.ReactNode }) => (
@@ -49,12 +50,15 @@ function CommuneAdministration(district: BANCommune) {
       title={(<>Administration <Badge noIcon severity="info">BETA</Badge></>)}
       theme="grey"
     >
-      <div
-        style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
-      >
-        {renderCertificateTypeContent()}
+      <div>
+        <div className="fr-mb-3w">
+          {renderCertificateTypeContent()}
+        </div>
         <div>
-          L’activation et la gestion du certificat d’adressage se font désormais depuis votre espace <b>Ma commune</b>.
+          L’activation et la gestion du certificat d’adressage se font désormais depuis votre espace{' '}
+          <Link href="/admin#ma_commune" className="fr-link">
+            Ma commune
+          </Link>.
         </div>
       </div>
     </Section>

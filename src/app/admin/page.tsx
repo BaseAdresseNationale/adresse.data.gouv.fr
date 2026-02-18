@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import type { TabsProps } from '@codegouvfr/react-dsfr/Tabs'
+import Badge from '@codegouvfr/react-dsfr/Badge'
 
 import Section from '@/components/Section'
 import Breadcrumb from '@/layouts/Breadcrumb'
@@ -220,6 +221,12 @@ export default function Home() {
         segments={[]}
       />
       <Section>
+        <div className="fr-mb-3w">
+          <h2 className="fr-mb-0">
+            Espace administration{' '}
+            <Badge noIcon severity="info">BETA</Badge>
+          </h2>
+        </div>
         {sessionError && (
           <div className="fr-mb-3w">
             <div className="fr-alert fr-alert--warning fr-alert--sm">
