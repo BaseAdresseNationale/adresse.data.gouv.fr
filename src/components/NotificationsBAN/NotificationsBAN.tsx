@@ -12,11 +12,12 @@ import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
 import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import Link from 'next/link'
 import { useSubscriptions } from './useSubscriptions'
 import { SubscriptionForm, SubscriptionTable } from './SubscriptionComponents'
 import WebhookGuide from './WebhookGuide'
 import { FormData } from './types'
-import '@codegouvfr/react-dsfr/dsfr/dsfr.min.css';
+import Loader from '@/components/Loader'
 // Création des modales en dehors du composant
 
 const { Component: CreateModal, open: openCreateModal, close: closeCreateModal } = createModal({
@@ -29,11 +30,15 @@ const { Component: EditModal, open: openEditModal, close: closeEditModal } = cre
   isOpenedByDefault: false,
 })
 
-function NotificationsBAN() {
+interface NotificationsBANProps {
+  embedded?: boolean
+}
+
+function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
   const {
+    authLoading,
     authenticated,
     subscriptions,
-    hasExistingSubscription,
     loading,
     actionLoading,
     message,
@@ -159,17 +164,13 @@ function NotificationsBAN() {
     try {
       if (isEditing) {
         await updateSubscription(formData)
-        // Fermer la modal d'édition si succès
-        if (!loading) {
-          handleCloseEditModal()
-        }
+        // Si on arrive ici, la mise à jour a réussi.
+        handleCloseEditModal()
       }
       else {
         await createSubscription(formData)
-        // Fermer la modal de création si succès
-        if (!loading) {
-          handleCloseCreateModal()
-        }
+        // Si on arrive ici, la création a réussi.
+        handleCloseCreateModal()
       }
     }
     catch (error) {
@@ -177,7 +178,20 @@ function NotificationsBAN() {
     }
   }
 
+  const loginReturnTo = embedded ? '/admin#mon_compte' : '/outils/notifications-ban'
+  const loginUrl = `/api/login?return_to=${encodeURIComponent(loginReturnTo)}`
+
   const renderContent = () => {
+    if (authLoading) {
+      return (
+        <div className="fr-grid-row fr-grid-row--center">
+          <div className="fr-col-auto fr-mt-4w fr-mb-4w">
+            <Loader size={32} />
+          </div>
+        </div>
+      )
+    }
+
     if (!authenticated) {
       return (
         <div className="fr-grid-row fr-grid-row--center">
@@ -185,7 +199,7 @@ function NotificationsBAN() {
             <p>Connectez-vous avec ProConnect pour gérer vos abonnements aux alertes BAN.</p>
             <div className="fr-grid-row fr-grid-row--center">
               <div className="fr-col-auto">
-                <ProConnectButton url="/api/login?return_to=/outils/notifications-ban" />
+                <ProConnectButton url={loginUrl} />
               </div>
             </div>
           </div>
@@ -196,7 +210,7 @@ function NotificationsBAN() {
     return (
       <div className="fr-grid-row fr-grid-row--gutters">
         <div className="fr-col-12">
-          <h3>Gestion des notifications</h3>
+          {!embedded && <h3>Gestion des notifications</h3>}
 
           {message && (
             <div className="fr-mt-2w">
@@ -209,91 +223,117 @@ function NotificationsBAN() {
             </div>
           )}
 
-          {hasExistingSubscription ? (
-            <div className="fr-mt-4w">
-              <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
-                <div className="fr-col-12 fr-col-md-8">
-                  <h4>Vos abonnements actuels ({subscriptions.length})</h4>
-                </div>
-                <div className="fr-col-12 fr-col-md-4 fr-text-right">
-                  <Button
-                    iconId="fr-icon-add-line"
-                    iconPosition="left"
-                    priority="secondary"
-                    onClick={handleOpenCreateModal}
-                  >
-                    Créer un nouvel abonnement
-                  </Button>
-                </div>
-              </div>
+          <div className="fr-mt-4w">
+            {subscriptions.length > 0
+              ? (
+                  <>
+                    <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+                      <div className="fr-col-12 fr-col-md-8">
+                        <h4>Vos abonnements actuels ({subscriptions.length})</h4>
+                      </div>
+                      <div className="fr-col-12 fr-col-md-4 fr-text-right">
+                        <Button
+                          iconId="fr-icon-add-line"
+                          iconPosition="left"
+                          priority="secondary"
+                          onClick={handleOpenCreateModal}
+                        >
+                          Créer un nouvel abonnement
+                        </Button>
+                      </div>
+                    </div>
 
-              <div className="fr-mt-2w">
-                <SubscriptionTable
-                  subscriptions={subscriptions}
-                  onEdit={handleEdit}
-                  onDelete={deleteSubscription}
-                  onToggle={toggleSubscription}
-                  actionLoading={actionLoading}
-                />
-              </div>
+                    <div className="fr-mt-2w">
+                      <SubscriptionTable
+                        subscriptions={subscriptions}
+                        onEdit={handleEdit}
+                        onDelete={deleteSubscription}
+                        onToggle={toggleSubscription}
+                        actionLoading={actionLoading}
+                      />
+                    </div>
+                  </>
+                )
+              : (
+                  <div className="fr-card fr-card--grey fr-card--no-border">
+                    <div className="fr-card__body">
+                      <div className="fr-card__content" style={{ textAlign: 'center', padding: '2rem' }}>
+                        <span className="fr-icon-notification-3-line fr-icon--lg fr-text-mention--grey" aria-hidden="true" style={{ fontSize: '3rem' }}></span>
+                        <h5 className="fr-mt-3w">Aucune notification configurée</h5>
+                        <p className="fr-text--sm fr-text-mention--grey">
+                          Créez un abonnement pour recevoir des alertes BAN sur les communes que vous suivez.
+                        </p>
+                        <Button
+                          iconId="fr-icon-add-line"
+                          iconPosition="left"
+                          priority="secondary"
+                          onClick={handleOpenCreateModal}
+                          className="fr-mt-3w"
+                        >
+                          Créer un abonnement
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
-              {/* Modal de création */}
-              <CreateModal
-                title="Créer un nouvel abonnement"
-                size="large"
-                buttons={[
-                  {
-                    children: 'Annuler',
-                    priority: 'secondary' as const,
-                    onClick: handleCloseCreateModal,
-                    disabled: loading,
-                  },
-                ]}
-              >
-                <SubscriptionForm
-                  formData={formData}
-                  setFormData={setFormData}
-                  onSubmit={handleSubmit}
-                  loading={loading}
-                  isEditing={false}
-                  isFormValid={isFormValid}
-                  formErrors={formErrors}
-                />
-              </CreateModal>
+            {/* Modal de création */}
+            <CreateModal
+              title="Créer un nouvel abonnement"
+              size="large"
+              buttons={[
+                {
+                  children: 'Annuler',
+                  priority: 'secondary' as const,
+                  onClick: handleCloseCreateModal,
+                  disabled: loading,
+                },
+              ]}
+            >
+              <SubscriptionForm
+                formData={formData}
+                setFormData={setFormData}
+                onSubmit={handleSubmit}
+                loading={loading}
+                isEditing={false}
+                isFormValid={isFormValid}
+                formErrors={formErrors}
+              />
+            </CreateModal>
 
-              {/* Modal de modification */}
-              <EditModal
-                title={`Modifier l'abonnement "${editingSubscription?.subscriptionName || 'Sans nom'}"`}
-                size="large"
-              >
-                <SubscriptionForm
-                  formData={formData}
-                  setFormData={setFormData}
-                  onSubmit={handleSubmit}
-                  loading={loading}
-                  isEditing={true}
-                  onCancel={handleCloseEditModal}
-                  isFormValid={isFormValid}
-                  formErrors={formErrors}
-                />
-              </EditModal>
-            </div>
-          ) : (
-            <div className="fr-mt-4w">
-              <h4>Créer votre premier abonnement</h4>
-              <div className="fr-mt-2w">
-                <SubscriptionForm
-                  formData={formData}
-                  setFormData={setFormData}
-                  onSubmit={handleSubmit}
-                  loading={loading}
-                  isEditing={false}
-                  isFormValid={isFormValid}
-                  formErrors={formErrors}
-                />
-              </div>
-            </div>
-          )}
+            {/* Modal de modification */}
+            <EditModal
+              title={`Modifier l'abonnement "${editingSubscription?.subscriptionName || 'Sans nom'}"`}
+              size="large"
+            >
+              <SubscriptionForm
+                formData={formData}
+                setFormData={setFormData}
+                onSubmit={handleSubmit}
+                loading={loading}
+                isEditing={true}
+                onCancel={handleCloseEditModal}
+                isFormValid={isFormValid}
+                formErrors={formErrors}
+              />
+            </EditModal>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (embedded) {
+    return (
+      <div className="fr-mt-2w">
+        {renderContent()}
+        <div className="fr-mt-4w">
+          <p className="fr-hint-text fr-mb-0">
+            Besoin d&apos;aide pour configurer votre webhook ?{' '}
+            <Link href="/outils/notifications-ban" className="fr-link">
+              Consultez la documentation notifications BAN
+            </Link>.
+          </p>
         </div>
       </div>
     )

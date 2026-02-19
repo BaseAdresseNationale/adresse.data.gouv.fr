@@ -34,7 +34,10 @@ const ActionDownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, tit
       }
       else {
         const response = await fetch(`/api/certificat/${id}`)
-        if (!response.ok) throw new Error('Erreur lors de la récupération du certificat')
+        if (!response.ok) {
+          const errorText = await response.text()
+          throw new Error(`Erreur ${response.status}: ${errorText || 'Erreur lors de la récupération du certificat'}`)
+        }
 
         const result: CertificateResponse = await response.json()
         setCertificateId(result.id)
