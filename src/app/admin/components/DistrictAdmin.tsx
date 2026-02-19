@@ -660,7 +660,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
         <section className="fr-mb-6w">
           <h4>Délégation</h4>
-          <p className="fr-hint-text">Gérez le mandataire autorisé à nous déposer des fichiers BAL pour votre commune.</p>
+          <p className="fr-hint-text">Gérez le mandataire autorisé à publier dans la BAN le fichier BAL pour votre commune.</p>
           <p>
             Seul le mandataire déclaré est autorisé à déposer des BAL pour votre commune.<br />
             Votre mandataire actuel :{' '}
