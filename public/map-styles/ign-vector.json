@@ -7585,31 +7585,6 @@
         "text-halo-width": 1
       }
     },
-    {
-      "id": "toponyme - lieu dit non habité",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_ocs_ponc",
-      "filter": [
-        "all",
-        ["==", "symbo", "LIEU-DIT_NON_HABITE"],
-        ["in", "txt_typo", "TYPO_B_7", "TYPO_B_8", "TYPO_B_9"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 12,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
-      }
-    },
 
     {
       "id": "toponyme localite importance 5",
@@ -7677,31 +7652,6 @@
         "text-color": "#287B00",
         "text-halo-width": 1,
         "text-halo-color": "rgba(255, 255, 255, 0.5)"
-      }
-    },
-    {
-      "id": "toponyme - lieu dit non habité 1",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_ocs_ponc",
-      "filter": [
-        "all",
-        ["==", "symbo", "LIEU-DIT_NON_HABITE"],
-        ["in", "txt_typo", "TYPO_B_5", "TYPO_B_4"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 15,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
       }
     },
 
@@ -7973,10 +7923,12 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 7,
+      "maxzoom": 13,
       "filter": [
         "in",
         "txt_typo",
         "commune 4",
+        "TYPO_A_4",
         "BAT_COMMUNE_4",
         "BAT_COMMUNE_4_T"
       ],
@@ -8301,10 +8253,12 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 5,
+      "maxzoom": 13,
       "filter": [
         "in",
         "txt_typo",
         "commune 3",
+        "TYPO_A_3",
         "BAT_COMMUNE_3",
         "BAT_COMMUNE_3_T"
       ],
@@ -8323,72 +8277,6 @@
         "text-allow-overlap": false,
         "text-anchor": "bottom-left",
         "text-offset": [0.3, 0.1],
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA7 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_7"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 13],
-            [17, 16]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA6 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_6"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 15],
-            [17, 18]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
         "text-padding": 1,
         "text-font": ["Open Sans Regular"]
       },
@@ -8466,34 +8354,6 @@
         "text-color": "#863831",
         "text-halo-color": "rgba(255, 255, 255, 0.5)",
         "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA4 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_4"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 17,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 3
       }
     },
     {
@@ -8702,10 +8562,12 @@
       "source": "plan_ign",
       "source-layer": "toponyme_localite_ponc",
       "minzoom": 4,
+      "maxzoom": 13,
       "filter": [
         "in",
         "txt_typo",
         "commune 2",
+        "TYPO_A_2",
         "BAT_COMMUNE_2",
         "BAT_COMMUNE-2",
         "BAT_COMMUNE_2_T"
@@ -8739,62 +8601,6 @@
         "text-color": "#000000",
         "text-halo-color": "rgba(255, 255, 255, 0.5)",
         "text-halo-width": 3
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA3 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_3"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 19,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 3
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA2 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_2"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 21,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 4
       }
     },
     {
@@ -8863,34 +8669,7 @@
         "text-halo-width": 2
       }
     },
-    {
-      "id": "toponyme localite n0 typoA1 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_1"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 23,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 4
-      }
-    },
+
     {
       "id": "toponyme localite n0 typoA4 commune",
       "type": "symbol",
