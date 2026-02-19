@@ -200,7 +200,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, buttonMapStyle, displayLandRegister }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, isIGNMapStyleAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -237,11 +237,22 @@ function CartoView() {
     const bounds = banMapGL.getBounds()
     const zoom = banMapGL.getZoom()
 
-    const territory = territories.territories.find(t =>
-      t.mapStyle && zoom >= 7 && buttonMapStyle == 'ign-vector' && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
-    )
+    const territoryWithoutIGNMapStyle = zoom >= 7
+      ? territories.territories.find(t =>
+        t.mapStyle && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
+      )
+      : undefined
 
+    const isIGNMapStyleNotAccessible = Boolean(territoryWithoutIGNMapStyle)
+    const territory = buttonMapStyle == 'ign-vector' ? territoryWithoutIGNMapStyle : undefined
     const targetStyle = territory?.mapStyle ?? buttonMapStyle
+
+    if (isIGNMapStyleNotAccessible == isIGNMapStyleAccessible) {
+      banMapConfigState[1]({
+        type: 'SET_IGN_MAP_STYLE_ACCESSIBLE',
+        payload: !isIGNMapStyleNotAccessible,
+      })
+    }
 
     if (targetStyle && targetStyle !== mapStyle) {
       banMapConfigState[1]({

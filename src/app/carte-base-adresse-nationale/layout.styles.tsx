@@ -140,6 +140,7 @@ export const RingButtonStyled = styled.button.attrs({
   $img?: string
   $isActive?: boolean
   $isTypeRadio?: boolean
+  $isButtonAvailable?: boolean
 }>`
   border: 0.15rem solid currentColor;
   padding: 0.5rem;
@@ -169,14 +170,15 @@ export const RingButtonStyled = styled.button.attrs({
   transform: scale(.95);
   transition: background-color 0.15s, filter 0.15s, transform 0.15s, box-shadow 0.15s;
 
-  &:hover {
-    filter: grayscale(0) brightness(1);
-    transform: scale(1);
-    ${({ $isActive }) => $isActive
-      ? css`transform: scale(.95);`
-      : css`transform: scale(1);`
+  ${({ $isButtonAvailable, $isActive }) =>
+  $isButtonAvailable
+  && css`
+    &:hover {
+      filter: grayscale(0) brightness(1);
+      transform: ${$isActive ? 'scale(.95)' : 'scale(1)'};
     }
-  }
+  `}
+
 `
 
 export const LegendList = styled.ul`

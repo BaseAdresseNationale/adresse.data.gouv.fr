@@ -31,10 +31,11 @@ export interface BanMapConfig {
   buttonMapStyle?: string
   displayLandRegister: boolean
   displayMenuConfig: boolean
+  isIGNMapStyleAccessible: boolean
 }
 
 interface SetMapStyleAction {
-  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOOGLE_MENU_CONFIG' | 'SET_BUTTON_MAP_STYLE'
+  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOOGLE_MENU_CONFIG' | 'SET_BUTTON_MAP_STYLE' | 'SET_IGN_MAP_STYLE_ACCESSIBLE'
   payload: string | boolean
 }
 
