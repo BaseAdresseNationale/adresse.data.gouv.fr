@@ -12,7 +12,10 @@ export const StyledIFrame = styled.iframe<{ $isOpen: boolean, $isVisible: boolea
   // Fix to avoid white box when dark mode is enabled
   color-scheme: normal;
   border: none;
-  ${({ $isOpen }) => $isOpen ? css`height: 600px; width: 450px;` : css`height: 60px; width: 60px;`}
+  ${({ $isOpen }) => $isOpen
+? css`height: 600px; width: 450px;max-height: calc(100vh - 80px);
+          max-width: calc(100vw - 80px);`
+: css`height: 60px; width: 60px;`}
   ${({ $isVisible }) => $isVisible ? css`transform: translateX(0);` : css`transform: translateX(300%);`}
   transition: transform 0.3s ease;
 
@@ -20,7 +23,7 @@ export const StyledIFrame = styled.iframe<{ $isOpen: boolean, $isVisible: boolea
   @media screen and (max-width: 450px) {
     bottom: 10px;
     right: 10px;
-    ${({ $isOpen }) => $isOpen && 'width: calc(100% - 20px);'}
+    ${({ $isOpen }) => $isOpen && 'width: calc(100% - 20px);max-height: calc(100vh - 20px);'}
   }
 `
 
