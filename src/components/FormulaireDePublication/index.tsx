@@ -216,12 +216,12 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
               d&apos;être reparti de la version des données telle que publiée sur la BAN.
               <br />
               <Link
-                href="https://adresse.data.gouv.fr"
+                href="https://doc.adresse.data.gouv.fr/docs/documentation-generale/utiliser-la-base-adresse-nationale/identifiants-gestion-et-guide-pratique/gestion-des-identifiants-bonnes-pratiques/resume-des-regles-de-bonnes-pratiques"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fr-link fr-link--icon-right fr-icon-external-link-line"
               >
-                En savoir plus sur la stabilité de l&apos;identifiant (nouvelle fenêtre)
+                En savoir plus sur la stabilité de l&apos;identifiant.
               </Link>
             </p>
           )}
