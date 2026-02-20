@@ -43,6 +43,7 @@ interface LinkProps {
 
 const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 6
+const MAX_ZOOM = 22
 const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
@@ -455,6 +456,7 @@ function CartoView() {
             latitude: (DEFAULT_CENTER[1]),
             longitude: (DEFAULT_CENTER[0]),
           }}
+          maxZoom={MAX_ZOOM}
           style={{
             position: 'relative',
             width: '100%',
