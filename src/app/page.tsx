@@ -140,7 +140,7 @@ export default async function Home() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: 'https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale',
+                    href: 'https://doc.adresse.data.gouv.fr/docs/mes-adresses/publier-une-base-adresse-locale/generalites-sur-la-publication',
                     target: '_blank',
                   }}
                   priority="secondary"

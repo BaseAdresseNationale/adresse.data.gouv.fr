@@ -88,7 +88,10 @@ export default function ValidateurBAL() {
 
   return (
     <>
-      <Section pageTitle="Validateur BAL">
+      <Section
+        pageTitle="Validateur BAL"
+        title="Vérifier la conformité de votre fichier Base Adresse Locale"
+      >
         {
           isLoading
             ? <Loader />
@@ -140,10 +143,10 @@ export default function ValidateurBAL() {
         </p>
         <ul>
           <li>
-            BAL 1.3 est le profil par défaut. Il assure une conformité complète avec la spécification de l&apos;AITF.
+            <b>BAL 1.3</b> (legacy) assure la conformité complète avec la spécification de l&apos;AITF.
           </li>
           <li>
-            BAL 1.4 est un profil qui intégre les identifiants uniques de la BAN.
+            <b>BAL 1.4</b> est le profil par défaut. Il intégre les identifiants uniques de la BAN.
           </li>
         </ul>
         <p>

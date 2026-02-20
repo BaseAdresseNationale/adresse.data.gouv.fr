@@ -295,7 +295,7 @@ export default async function Outils() {
             footer={(
               <Button
                 linkProps={{
-                  href: 'https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale',
+                  href: 'https://doc.adresse.data.gouv.fr/docs/mes-adresses/publier-une-base-adresse-locale/generalites-sur-la-publication',
                   target: '_blank',
                 }}
                 size="small"
@@ -400,7 +400,7 @@ export default async function Outils() {
                   <Button
                     className="fr-btn fr-btn--secondary"
                     linkProps={{
-                      href: 'https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
+                      href: 'https://doc.adresse.data.gouv.fr/docs/documentation-generale/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
                       target: '_blank',
                     }}
                     size="small"

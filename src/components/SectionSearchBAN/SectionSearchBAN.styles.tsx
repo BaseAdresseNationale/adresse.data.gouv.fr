@@ -50,4 +50,11 @@ export const FormDescription = styled.div`
   margin-bottom: .5em;
 `
 
+export const FormInformation = styled.div`
+  font-size: .75rem;
+  margin-bottom: .5em;
+  font-style: italic;
+  text-align:right;
+`
+
 export const ButtonLink = styled.button<{ href: string }>``
