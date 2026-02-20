@@ -212,8 +212,16 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
           description={(
             <p>
               Vous allez publier votre BAL dans la Base Adresse Nationale.
-              Pour assurer la cohérence et la généalogie de la donnée, merci de vous assurer
-              d&apos;être reparti de la version des données telle que publiée sur la BAN.
+              Pour assurer la cohérence de la donnée, merci de vous assurer d&apos;être bien reparti de la version précédente de la BAL,
+              dont une copie est disponible sur &nbsp;
+              <Link
+                href="/commune"
+                rel="noopener noreferrer"
+                className="fr-link fr-link--icon-right"
+              >
+                la page commune
+              </Link>
+              &nbsp;(fichier Format Local - BAL).
               <br />
               <Link
                 href="https://doc.adresse.data.gouv.fr/docs/documentation-generale/utiliser-la-base-adresse-nationale/identifiants-gestion-et-guide-pratique/gestion-des-identifiants-bonnes-pratiques/resume-des-regles-de-bonnes-pratiques"
