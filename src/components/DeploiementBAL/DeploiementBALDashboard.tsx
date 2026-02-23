@@ -15,6 +15,9 @@ import DeploiementMap, { getStyle } from './DeploiementMap'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { FullScreenControl } from '../Map/FullScreenControl'
+import { useSuiviBan } from './useSuiviBan'
+import { SuiviBanMapLayers } from './SuiviBanMapLayers'
+import { SuiviBanOverlay } from './SuiviBanOverlay'
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -27,8 +30,10 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source' | 'bal'>('source')
+  const [selectedTab, setSelectedTab] = useState<'source' | 'bal' | 'suivi-ban'>('source')
   const [origin, setOrigin] = useState('')
+
+  const suivi = useSuiviBan({ selectedTab })
 
   useEffect(() => {
     setOrigin(window.location.origin)
@@ -78,20 +83,30 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             tabs={[
               { tabId: 'source', label: 'Déploiement BAL' },
               { tabId: 'bal', label: 'Suivi Mes-Adresses' },
+              { tabId: 'suivi-ban', label: 'Déploiement idban' },
             ]}
             onTabChange={setSelectedTab as (tabId: string) => void}
           >
-            <div className="bal-cover-map-container">
+            <div
+              ref={suivi.mapContainerRef}
+              className="bal-cover-map-container"
+              style={{ position: 'relative', height: selectedTab === 'suivi-ban' ? 650 : undefined }}
+            >
               <Map
+                ref={suivi.mapRef}
                 initialViewState={{
                   longitude: 2,
                   latitude: 47,
                   zoom: 5,
                 }}
                 mapStyle="/map-styles/osm-vector.json"
+                onClick={suivi.handleMapClick}
+                interactiveLayerIds={selectedTab === 'suivi-ban' ? suivi.interactiveLayerIds : []}
+                cursor={selectedTab === 'suivi-ban' ? 'pointer' : 'auto'}
               >
                 <NavigationControl showZoom showCompass position="top-right" />
-                <FullScreenControl position="top-right" />
+                <FullScreenControl position="top-right" container={suivi.mapContainerRef.current} />
+
                 <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
                   <Layer
                     id="bal-polygon-fill"
@@ -99,7 +114,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                     source="data"
                     source-layer="communes"
                     paint={{
-                      'fill-color': getStyle(selectedTab, filteredCodesCommmune),
+                      'fill-color': getStyle(suivi.balPaintLayer, filteredCodesCommmune),
                       'fill-opacity': [
                         'case',
                         ['boolean', ['feature-state', 'hover'], false],
@@ -110,14 +125,21 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                     filter={['==', '$type', 'Polygon']}
                   />
                 </Source>
-                <DeploiementMap
-                  center={geometry.center}
-                  zoom={geometry.zoom}
-                  filteredCodesCommmune={filteredCodesCommmune}
-                  selectedPaintLayer={selectedTab}
-                />
+                {selectedTab !== 'suivi-ban' && (
+                  <DeploiementMap
+                    center={geometry.center}
+                    zoom={geometry.zoom}
+                    filteredCodesCommmune={filteredCodesCommmune}
+                    selectedPaintLayer={suivi.balPaintLayer}
+                  />
+                )}
+
+                {selectedTab === 'suivi-ban' && <SuiviBanMapLayers suivi={suivi} />}
               </Map>
+
+              {selectedTab === 'suivi-ban' && <SuiviBanOverlay suivi={suivi} filter={filter} />}
             </div>
+
             {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
             {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
           </Tabs>
