@@ -25,17 +25,20 @@ export default function ValidateurBAL() {
   const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(searchParams?.get('file') ? true : false)
   const [validationReport, setValidationReport] = useState<ParseFileType | ValidateType | null>(null)
-  const [profile, setProfile] = useState<string>(availableProfiles[1])
+  const [profile, setProfile] = useState<string | null>(null)
   const [file, setFile] = useState<File | null>(null)
 
   const handleReset = () => {
     setValidationReport(null)
   }
 
-  const getReport = async (file: File, profile: string) => {
+  const getReport = async (file: File, profile: string | null) => {
     try {
       setIsLoading(true)
-      const report: ParseFileType | ValidateType = await validate(file as any, { profile })
+      const report = await validate(file as any, profile ? { profile } : undefined)
+      if (report.parseOk) {
+        setProfile((report as ValidateType).profile)
+      }
       setValidationReport(report)
     }
     catch (e) {
@@ -51,7 +54,7 @@ export default function ValidateurBAL() {
       throw new Error('No file selected')
     }
     setFile(value)
-    getReport(value, profile)
+    getReport(value, null)
   }
 
   const handleProfileChange = async (value?: string) => {
