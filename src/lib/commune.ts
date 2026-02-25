@@ -1,10 +1,10 @@
 import { BANCommune } from '@/types/api-ban.types'
-import { PaginatedPartenairesDeLaCharte } from './api-bal-admin'
 import { PaginatedSignalements } from '@/types/api-signalement.types'
+import { PartenaireDeLaChartType } from '@/types/partenaire.types'
 
 type GetCommuneAchievementsParams = {
   commune: BANCommune
-  paginatedPartenairesDeLaCharte?: PaginatedPartenairesDeLaCharte
+  partenairesDeLaCharte?: PartenaireDeLaChartType[]
   paginatedSignalements?: PaginatedSignalements
 }
 
@@ -18,14 +18,14 @@ export interface CommuneAchievements {
   hasStableID: boolean
 }
 
-export const getCommuneAchievements = ({ commune, paginatedPartenairesDeLaCharte, paginatedSignalements }: GetCommuneAchievementsParams): CommuneAchievements => {
+export const getCommuneAchievements = ({ commune, partenairesDeLaCharte, paginatedSignalements }: GetCommuneAchievementsParams): CommuneAchievements => {
   const communeHasBAL = commune.typeComposition !== 'assemblage'
   const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
   const communeHasRegionalLanguage = commune.voies
     .filter(voie => Boolean(voie.nomVoieAlt))
     .some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
   const hasProcessedSignalement = Boolean(paginatedSignalements && paginatedSignalements.total >= 1)
-  const isPartenaireDeLaCharte = Boolean(paginatedPartenairesDeLaCharte?.data.find(partenaire => partenaire.codeCommune === commune.codeCommune))
+  const isPartenaireDeLaCharte = Boolean(partenairesDeLaCharte?.find(partenaire => partenaire.codeCommune === commune.codeCommune))
   const hasStableID = Boolean(commune.banId)
 
   return {

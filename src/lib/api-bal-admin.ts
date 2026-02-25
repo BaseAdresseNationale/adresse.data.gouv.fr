@@ -32,6 +32,12 @@ export interface PaginatedPartenairesDeLaCharte {
 
 export const DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT = 8
 
+export async function getPartenairesDeLaCharteByCommune(codeCommune: string): Promise<PartenaireDeLaChartType[]> {
+  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/commune/${codeCommune}`)
+
+  return customFetch(url)
+}
+
 export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaCharteQuery, page: number = 1, limit: number = DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT): Promise<PaginatedPartenairesDeLaCharte> {
   const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/paginated`)
   url.searchParams.append('page', page.toString())
