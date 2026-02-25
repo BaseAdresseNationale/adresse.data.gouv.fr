@@ -1,0 +1,23 @@
+{
+  "version": 8,
+  "name": "Plan IGN J+1",
+  "sources": {
+    "planign_j1": {
+      "type": "raster",
+      "tiles": [
+        "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.BDUNI.J1&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=image/png"
+      ],
+      "tileSize": 256,
+      "maxzoom": 22
+    }
+  },
+  "layers": [
+    {
+      "id": "planign_j1_layer",
+      "type": "raster",
+      "source": "planign_j1",
+      "minzoom": 0,
+      "maxzoom": 22
+    }
+  ]
+}

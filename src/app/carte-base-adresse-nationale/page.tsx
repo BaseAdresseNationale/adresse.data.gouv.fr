@@ -201,7 +201,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, buttonMapStyle, displayLandRegister, isIGNMapStyleAccessible }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayIGNJ1, isIGNMapStyleAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -477,6 +477,7 @@ function CartoView() {
             address={mapSearchResults as unknown as Address}
             onSelect={selectBanItem}
             isCadastreLayersShown={displayLandRegister}
+            isIGNJ1Shown={displayIGNJ1}
           />
 
           <Aside

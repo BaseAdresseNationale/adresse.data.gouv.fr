@@ -25,6 +25,7 @@ const initBanMapConfig = {
   mapStyle: 'ign-vector',
   buttonMapStyle: 'ign-vector',
   displayLandRegister: false,
+  displayIGNJ1: false,
   displayMenuConfig: true,
   isIGNMapStyleAccessible: true,
 }
@@ -59,6 +60,12 @@ function banMapReducer(
       return {
         ...banMapConfig,
         displayLandRegister: action.payload as boolean,
+      }
+    }
+    case 'TOGGLE_IGN_J1' : {
+      return {
+        ...banMapConfig,
+        displayIGNJ1: action.payload as boolean,
       }
     }
     case 'TOOGLE_MENU_CONFIG': {

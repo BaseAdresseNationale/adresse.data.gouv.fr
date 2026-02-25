@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { useMap, Popup } from 'react-map-gl/maplibre'
 
-import LayerBan, { LayerAddressPositions } from './LayerBan'
+import LayerBan, { LayerAddressPositions,  } from './LayerBan'
+import LayerIGNJ1 from './LayerIGN/LayerIGNJ1'
 import LayerCadastre from './LayerCadastre'
 import Popups from './Popups'
 
@@ -13,6 +14,7 @@ interface BanMapProps {
   address: Address
   onSelect: (properties: any) => void
   isCadastreLayersShown?: boolean
+  isIGNJ1Shown?: boolean
 }
 
 interface HoveredFeature extends PopupFeature {
@@ -26,7 +28,7 @@ interface HighLightAdressesByProperties {
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
+function BanMap({ address, onSelect, isCadastreLayersShown, isIGNJ1Shown }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
@@ -140,6 +142,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
           <Popups features={infoPopup?.features as unknown as PopupFeature[] || []} />
         </Popup>
       )}
+      <LayerIGNJ1 address={address} isVisible={isIGNJ1Shown} />
       <LayerBan address={address} />
       <LayerAddressPositions address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />

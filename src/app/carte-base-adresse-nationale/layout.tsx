@@ -41,7 +41,7 @@ function Carto({ children }: { children: JSX.Element }) {
   const [isTOMVisible, setIsTOMVisible] = useState(false)
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
-  const { mapStyle, isIGNMapStyleAccessible, displayLandRegister, displayMenuConfig } = banMapConfig
+  const { mapStyle, isIGNMapStyleAccessible, displayLandRegister, displayIGNJ1, displayMenuConfig } = banMapConfig
 
   useEffect(() => {
     setTypeLayout('full-screen')
@@ -65,6 +65,11 @@ function Carto({ children }: { children: JSX.Element }) {
     dispatchToBanMapConfig({ type: 'TOGGLE_CADASTER_LAYER', payload: !displayLandRegister })
   }, [dispatchToBanMapConfig, displayLandRegister])
 
+  // soit on envoie le style comme pour les fond de plan, soit un boolean comme pour les parcelles
+  const addIGNJ1 = useCallback(() => {
+    dispatchToBanMapConfig({ type: 'TOGGLE_IGN_J1', payload: !displayIGNJ1 })
+  }, [dispatchToBanMapConfig, displayIGNJ1])
+
   return (
     <CartoWrapper>
       <CartoMenu>
@@ -75,6 +80,7 @@ function Carto({ children }: { children: JSX.Element }) {
           <RingButton tooltip="Afficher les parcelles cadastrales" className={displayLandRegister ? 'ri-collage-fill' : 'ri-collage-line'} onClick={toggleCadasterLayer} $isActive={displayLandRegister} $isButtonAvailable />
           <RingButton tooltip="Zoom sur les TOM" className="ri-earth-line" onClick={toggleTOM} $isActive={isTOMVisible} $isButtonAvailable />
           <RingButton tooltip={isIGNMapStyleAccessible ? 'Utiliser les fonds IGN' : 'Non accessible'} $img="/img/map/bg-button-map-style-ign-vector.png" onClick={isIGNMapStyleAccessible ? () => handleMapStyleChange('ign-vector') : undefined} $isActive={mapStyle === 'ign-vector'} $isTypeRadio $isButtonAvailable={isIGNMapStyleAccessible} />
+          <RingButton tooltip="Utiliser les fonds IGN J+1" className={displayIGNJ1 ? 'ri-collage-fill' : 'ri-collage-line'} onClick={addIGNJ1} $isActive={displayIGNJ1} $isButtonAvailable />
           <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={mapStyle === 'osm-vector'} $isTypeRadio $isButtonAvailable />
           <RingButton tooltip="Utiliser la vue satellite IGN" $img="/img/map/bg-button-map-style-ign-ortho.png" onClick={() => handleMapStyleChange('ign-ortho')} $isActive={mapStyle === 'ign-ortho'} $isTypeRadio $isButtonAvailable />
         </MapParamsWrapper>
