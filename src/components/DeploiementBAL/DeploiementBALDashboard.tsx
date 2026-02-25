@@ -51,10 +51,11 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
         zoom: 4.8,
         duration: 800,
       })
-    } else {
+    }
+    else {
       map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 })
     }
-  }, [selectedTab])
+  }, [selectedTab, suivi.mapRef])
 
   const handleSearch = useCallback(async (input: string) => {
     const filteredEpcis = await getEpcis({ q: input, limit: 10, fields: ['centre', 'contour'] })
