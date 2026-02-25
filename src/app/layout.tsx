@@ -36,9 +36,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   const dataNotices = {
     // data: [sampleNotice],
-    data: [{
-      text: `Maintenance planifiée sur l\'infrastructure Mardi 24 Février entre 14h et 17h. Interruptions de service à prévoir.`,
-    }],
+    data: [],
     duration: 4000,
   }
 
