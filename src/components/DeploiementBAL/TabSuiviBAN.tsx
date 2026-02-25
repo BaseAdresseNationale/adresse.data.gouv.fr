@@ -739,6 +739,7 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
   })()
 
   const total = displayStats.total || 1
+  const statusesToShow = statuses.filter(s => s !== 'gris' || (displayStats?.gris ?? 0) > 0)
 
   const fmt = (n: number) => (n || 0).toLocaleString('fr-FR')
   const STAT_CARDS = activeDeptCode
@@ -848,7 +849,7 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
 
       <div className="status-section">
         <div className="status-bar">
-          {statuses.map(s => (
+          {statusesToShow.map(s => (
             <div
               key={s}
               className="status-bar-segment"
@@ -857,7 +858,7 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
           ))}
         </div>
         <div className="status-rows">
-          {statuses.map((s) => {
+          {statusesToShow.map((s) => {
             const isActive = activeStatuts.includes(s)
             const isFiltering = activeStatuts.length < 4
             const p = pct(displayStats[s] ?? 0, total)

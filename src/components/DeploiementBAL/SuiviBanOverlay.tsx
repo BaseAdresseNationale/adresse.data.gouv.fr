@@ -209,13 +209,13 @@ function DeptTooltip({ dept }: { dept: NonNullable<SuiviBanContext['hoveredDept'
             <div style={{ width: `${pct(dept.vert)}%`, background: DSFR_HEX_OVERLAY.text.default.success.default }} />
             <div style={{ width: `${pct(dept.orange)}%`, background: DSFR_HEX_OVERLAY.text.default.warning.default }} />
             <div style={{ width: `${pct(dept.rouge)}%`, background: DSFR_HEX_OVERLAY.text.default.error.default }} />
-            <div style={{ width: `${pct(dept.gris)}%`, background: DSFR_HEX_OVERLAY.text.default.grey.default }} />
+            {dept.gris > 0 && <div style={{ width: `${pct(dept.gris)}%`, background: DSFR_HEX_OVERLAY.text.default.grey.default }} />}
           </div>
           <div style={{ fontSize: 12, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <span><span style={{ color: DSFR_HEX_OVERLAY.text.default.success.default }}>●</span> {pct(dept.vert)}%</span>
             <span><span style={{ color: DSFR_HEX_OVERLAY.text.default.warning.default }}>●</span> {pct(dept.orange)}%</span>
             <span><span style={{ color: DSFR_HEX_OVERLAY.text.default.error.default }}>●</span> {pct(dept.rouge)}%</span>
-            <span><span style={{ color: DSFR_HEX_OVERLAY.text.default.grey.default }}>●</span> {pct(dept.gris)}%</span>
+            {dept.gris > 0 && <span><span style={{ color: DSFR_HEX_OVERLAY.text.default.grey.default }}>●</span> {pct(dept.gris)}%</span>}
           </div>
         </>
       )}

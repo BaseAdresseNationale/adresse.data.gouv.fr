@@ -39,6 +39,23 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     setOrigin(window.location.origin)
   }, [])
 
+  // Centrer la France quand on arrive sur l’onglet Déploiement idban (panel 370px à gauche)
+  const SUIVI_BAN_PANEL_WIDTH = 370
+  useEffect(() => {
+    const map = suivi.mapRef.current?.getMap()
+    if (!map) return
+    if (selectedTab === 'suivi-ban') {
+      map.setPadding({ left: SUIVI_BAN_PANEL_WIDTH, top: 0, right: 0, bottom: 0 })
+      map.flyTo({
+        center: [2.35, 47.95],
+        zoom: 4.8,
+        duration: 800,
+      })
+    } else {
+      map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 })
+    }
+  }, [selectedTab])
+
   const handleSearch = useCallback(async (input: string) => {
     const filteredEpcis = await getEpcis({ q: input, limit: 10, fields: ['centre', 'contour'] })
     const filteredDepartements = departements.filter(({ nom }) => nom.toLowerCase().includes(input.toLowerCase()))
