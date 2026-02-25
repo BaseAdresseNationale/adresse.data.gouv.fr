@@ -205,6 +205,37 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
   return (
     <Section pageTitle="Formulaire de publication">
+      <div>
+        <Alert
+          severity="info"
+          title="Attention"
+          description={(
+            <p>
+              Vous allez publier votre BAL dans la Base Adresse Nationale.
+              Pour assurer la cohérence de la donnée, merci de vous assurer d&apos;être bien reparti de la version précédente de la BAL,
+              dont une copie est disponible sur &nbsp;
+              <Link
+                href="/commune"
+                rel="noopener noreferrer"
+                className="fr-link fr-link--icon-right"
+              >
+                la page commune
+              </Link>
+              &nbsp;(fichier Format Local - BAL).
+              <br />
+              <Link
+                href="https://doc.adresse.data.gouv.fr/docs/documentation-generale/utiliser-la-base-adresse-nationale/identifiants-gestion-et-guide-pratique/gestion-des-identifiants-bonnes-pratiques/resume-des-regles-de-bonnes-pratiques"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fr-link fr-link--icon-right fr-icon-external-link-line"
+              >
+                En savoir plus sur la stabilité de l&apos;identifiant.
+              </Link>
+            </p>
+          )}
+        />
+      </div>
+      <br />
       <Stepper currentStep={stepIndex + 1} stepCount={steps.length} title={steps[stepIndex].title} nextTitle={steps[stepIndex + 1]?.title} />
       {error && <Alert title="Une erreur est survenue" severity="error" description={error.message} />}
       <StyledWrapper>
