@@ -17,15 +17,6 @@ import { getCommuneFlag } from '@/lib/api-blasons-communes'
 import { StyledCommunePage } from './page.styles'
 import { getCommuneAchievements } from '@/lib/commune'
 import { getCommunesPrecedentes } from '@/lib/api-insee'
-// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
-// import CommuneActions from '../../../components/Commune/CommuneActions'
-// import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
-// import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
-// import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
-// import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
-// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 
 const CommuneDownloadSection = dynamicImport(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: false })
 const CommuneNavigation = dynamicImport(() => import('../../../components/Commune/CommuneNavigation'), { ssr: false })
@@ -35,12 +26,10 @@ const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Co
 const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: false })
 const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: false })
 import { getSignalements } from '@/lib/api-signalement'
-import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
+import { getPartenairesDeLaCharteByCommune } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 
-// import SaveUrlClient from '@/components/SaveUrlClient'
-// import CommuneAdministration from '@/components/Commune/CommuneAdministration'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
 const CommuneAdministration = dynamicImport(() => import('../../../components/Commune/CommuneAdministration'), { ssr: false })
 
@@ -77,7 +66,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     lastRevisionsDetailsResponse,
     communesPrecedentesResponse,
     paginatedSignalementsResponse,
-    paginatedPartenairesDeLaCharteResponse,
+    partenairesDeLaCharteResponse,
     IdDistrictByCodeCommuneResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
@@ -92,7 +81,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       : [],
     getCommunesPrecedentes(codeCommune),
     getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
-    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
+    getPartenairesDeLaCharteByCommune(commune.codeCommune),
     getIdDistrictByCodeCommune(codeCommune),
   ])
 
@@ -126,10 +115,10 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
   const paginatedSignalements = paginatedSignalementsResponse.status === 'fulfilled' ? paginatedSignalementsResponse.value : undefined
 
-  if (paginatedPartenairesDeLaCharteResponse.status === 'rejected') {
-    console.error(`Failed to get paginated partenaires for commune ${codeCommune}`, paginatedPartenairesDeLaCharteResponse.reason)
+  if (partenairesDeLaCharteResponse.status === 'rejected') {
+    console.error(`Failed to get paginated partenaires for commune ${codeCommune}`, partenairesDeLaCharteResponse.reason)
   }
-  const paginatedPartenairesDeLaCharte = paginatedPartenairesDeLaCharteResponse.status === 'fulfilled' ? paginatedPartenairesDeLaCharteResponse.value : undefined
+  const partenairesDeLaCharte = partenairesDeLaCharteResponse.status === 'fulfilled' ? partenairesDeLaCharteResponse.value : undefined
 
   if (IdDistrictByCodeCommuneResponse.status === 'rejected') {
     console.error(`Failed to get districtId for commune ${codeCommune}`, IdDistrictByCodeCommuneResponse.reason)
@@ -141,7 +130,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
   const communeAchievements = communeHasBAL
     ? getCommuneAchievements({
       commune,
-      paginatedPartenairesDeLaCharte,
+      partenairesDeLaCharte,
       paginatedSignalements,
     })
     : null
@@ -153,7 +142,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
     ? new Date(communesPrecedentes[0].dateSuppression)
     : null
 
-  const partenaireDeLaCharte = paginatedPartenairesDeLaCharte?.data[0]
+  const partenaireDeLaCharte = partenairesDeLaCharte?.[0]
   const publicationConsoleTabs = []
 
   if (partenaireDeLaCharte?.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
