@@ -9,7 +9,7 @@ export const MapBreadcrumbWrapper = styled.div`
 
 export const MapBreadcrumbEntry = styled.span.attrs({
   className: 'fr-breadcrumb',
-})`
+})<{ $allowWrap?: boolean }>`
   vertical-align: 0.25rem;
-  white-space: nowrap;
+  white-space: ${({ $allowWrap }) => ($allowWrap ? 'normal' : 'nowrap')};
 `
