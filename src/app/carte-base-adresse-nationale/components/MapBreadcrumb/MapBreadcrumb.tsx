@@ -37,11 +37,6 @@ function MapBreadcrumb({ path = [] }: MapBreadcrumbProps) {
 
                   return (
                     <li key={index}>
-                      {/* Applique le style de retour à la ligne ($allowWrap) UNIQUEMENT si :
-                          1. C'est le dernier élément
-                          2. Il suit un lien cliquable (donc c'est une Voie ou un Numéro)
-                          3. Ce N'EST PAS un numéro (on veut garder les numéros sur une seule ligne)
-                      */}
                       <MapBreadcrumbEntry $allowWrap={Boolean(isLastSegment && followsClickableSegment && !isAddressNumberSegment)}>
                         {segment}
                       </MapBreadcrumbEntry>
