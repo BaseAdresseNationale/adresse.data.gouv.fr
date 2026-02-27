@@ -81,8 +81,8 @@ function Carto({ children }: { children: JSX.Element }) {
 
         <Legend className="layer" isVisible={displayMenuConfig && isLegendVisible}>
           <LegendList>
-            <li><span><PointPaint $fill={theme.bal} /> Base Adresse Locale</span></li>
-            <li><span><PointPaint $fill={theme.noBal} /> Adresse Produite par l’IGN</span></li>
+            <li><span><PointPaint $fill={theme.bal} /> Source Base Adresse Locale</span></li>
+            <li><span><PointPaint $fill={theme.noBal} /> Source Assemblage</span></li>
             <li><span><PointPaint $stroke={theme.certified} /> Adresse certifiée</span></li>
             <li><span><PointPaint $stroke={theme.noCertified} /> Adresse non certifiée</span></li>
           </LegendList>

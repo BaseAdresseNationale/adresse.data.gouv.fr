@@ -270,7 +270,7 @@ function CartoView() {
     if (window?.location?.hash) {
       initHash.current = window?.location?.hash?.slice(1)
       const hash = initHash.current
-      const [lon, lat, zoom] = hash.split('_').map(Number)
+      const [lat, lon, zoom] = hash.split('_').map(Number)
       const hashPosition = [lon, lat, zoom]
       setHash({
         value: hash,
@@ -424,7 +424,7 @@ function CartoView() {
         const isBBoxVisible: boolean = (Math.ceil(mapZoom) >= 9) && isBboxIntersect(mapBounds, hashBounds)
 
         banMapGL.flyTo({
-          center: [position[1], position[0]],
+          center: [position[0], position[1]],
           zoom: position[2],
           animate: isBBoxVisible,
         })
