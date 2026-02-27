@@ -25,7 +25,7 @@ import { MapWrapper, MapSearchResultsWrapper } from './page.styles'
 
 import type { MapRef } from 'react-map-gl/maplibre'
 import type { MapBreadcrumbPath } from './components/MapBreadcrumb'
-import type { Address } from './components/ban-map/types'
+import type { Address, Territory } from './components/ban-map/types'
 import type {
   TypeAddressExtended,
   TypeMicroToponymPartial,
@@ -35,7 +35,7 @@ import type {
 } from './types/LegacyBan.types'
 
 import provinces from '@/data/provinces.json'
-
+import territories from '@/data/territories.json'
 interface LinkProps {
   href: string
   target?: string
@@ -43,6 +43,7 @@ interface LinkProps {
 
 const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 6
+const MAX_ZOOM = 22
 const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
@@ -200,8 +201,9 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, displayLandRegister }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, isIGNMapStyleAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
+  const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
 
   const selectBanItem = useCallback(({ id }: { id: string }) => router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`), [router])
@@ -231,9 +233,37 @@ function CartoView() {
   }, [router])
   const onMoveHandle = useCallback(() => {
     const { current: banMapGL } = banMapRef
+    if (!banMapGL) return
+
+    const bounds = banMapGL.getBounds()
+    const zoom = banMapGL.getZoom()
+
+    const territoryWithoutIGNMapStyle = zoom >= 7
+      ? territories.territories.find(t =>
+        t.mapStyle && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
+      )
+      : undefined
+
+    const isIGNMapStyleNotAccessible = Boolean(territoryWithoutIGNMapStyle)
+    const territory = buttonMapStyle == 'ign-vector' ? territoryWithoutIGNMapStyle : undefined
+    const targetStyle = territory?.mapStyle ?? buttonMapStyle
+
+    if (isIGNMapStyleNotAccessible == isIGNMapStyleAccessible) {
+      banMapConfigState[1]({
+        type: 'SET_IGN_MAP_STYLE_ACCESSIBLE',
+        payload: !isIGNMapStyleNotAccessible,
+      })
+    }
+
+    if (targetStyle && targetStyle !== mapStyle) {
+      banMapConfigState[1]({
+        type: 'SET_MAP_STYLE',
+        payload: targetStyle,
+      })
+    }
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
-  }, [updateHashPosition])
+  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle])
 
   // InitialPosition from hash
   useEffect(() => {
@@ -331,6 +361,23 @@ function CartoView() {
     }
   }, [banItemId, habilitationEnabled, closeMapSearchResults])
 
+  useEffect(() => {
+    if (tomId && isMapReady) {
+      const territory = territories.territories.find(territory => territory.id === tomId)
+      if (!territory) return
+
+      const bbox = territory.bbox as [number, number, number, number]
+
+      setHash({
+        value: bbox.join('_'),
+        bounds: bbox,
+      })
+
+      setIsMenuVisible(true)
+      oldMapSearchResults.current = null
+    }
+  }, [tomId, isMapReady])
+
   // Position map to Search results
   useEffect(() => {
     if (
@@ -409,6 +456,7 @@ function CartoView() {
             latitude: (DEFAULT_CENTER[1]),
             longitude: (DEFAULT_CENTER[0]),
           }}
+          maxZoom={MAX_ZOOM}
           style={{
             position: 'relative',
             width: '100%',

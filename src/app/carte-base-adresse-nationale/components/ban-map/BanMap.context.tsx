@@ -22,9 +22,11 @@ export interface MapItem {
 }
 
 const initBanMapConfig = {
-  mapStyle: 'osm-vector',
+  mapStyle: 'ign-vector',
+  buttonMapStyle: 'ign-vector',
   displayLandRegister: false,
   displayMenuConfig: true,
+  isIGNMapStyleAccessible: true,
 }
 
 const BanMapContext = createContext<[BanMapConfig, React.Dispatch<BanMapAction>] | null>(null)
@@ -38,6 +40,19 @@ function banMapReducer(
       return {
         ...banMapConfig,
         mapStyle: action.payload as string,
+      }
+    }
+    case 'SET_BUTTON_MAP_STYLE': {
+      return {
+        ...banMapConfig,
+        mapStyle: action.payload as string,
+        buttonMapStyle: action.payload as string,
+      }
+    }
+    case 'SET_IGN_MAP_STYLE_ACCESSIBLE': {
+      return {
+        ...banMapConfig,
+        isIGNMapStyleAccessible: action.payload as boolean,
       }
     }
     case 'TOGGLE_CADASTER_LAYER': {
