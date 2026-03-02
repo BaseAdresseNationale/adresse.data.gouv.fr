@@ -10,11 +10,26 @@ import Map, { Layer, NavigationControl, Source } from 'react-map-gl/maplibre'
 import TabDeploiementBAL from './TabDeploiementBAL'
 import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
-import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { FullScreenControl } from '../Map/FullScreenControl'
+import DoughnutCounter from '../ChartJS/DoughnutCounter'
+import { numFormater } from '@/utils/number'
+
+const options = {
+  height: 200,
+  width: 200,
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      enabled: false,
+    },
+  },
+}
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -29,6 +44,17 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
   const [selectedTab, setSelectedTab] = useState<'source'>('source')
   const [origin, setOrigin] = useState('')
+
+  const {
+    dataPopulationCouverte,
+    communesCouvertesPercent,
+    dataCommunesCouvertes,
+    adressesGereesBALPercent,
+    dataAdressesGereesBAL,
+    adressesCertifieesPercent,
+    dataAdressesCertifiees,
+    total,
+  } = formatedStats
 
   useEffect(() => {
     setOrigin(window.location.origin)
@@ -62,6 +88,40 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
 
   return (
     <StyledDeploiementBALDashboard>
+      <div className="stats">
+        {!Number.isNaN(adressesGereesBALPercent) && (
+          <DoughnutCounter
+            title="Adresses issues des BAL"
+            valueUp={numFormater(stats.bal.nbAdresses)}
+            valueDown={`${adressesGereesBALPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+            data={dataAdressesGereesBAL}
+            options={options}
+          />
+        )}
+        <DoughnutCounter
+          title="Communes couvertes"
+          valueUp={numFormater(stats.bal.nbCommunesCouvertes)}
+          valueDown={`${communesCouvertesPercent}% des ${numFormater(total.nbCommunes)} communes`}
+          data={dataCommunesCouvertes}
+          options={options}
+        />
+        <DoughnutCounter
+          title="Population couverte"
+          valueUp={numFormater(stats.bal.populationCouverte)}
+          valueDown={`${Math.round((stats.bal.populationCouverte * 100) / total.population)}% des ${numFormater(total.population)} d’habitants`}
+          data={dataPopulationCouverte}
+          options={options}
+        />
+        {!Number.isNaN(adressesGereesBALPercent) && (
+          <DoughnutCounter
+            title="Adresses certifiées"
+            valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
+            valueDown={`${adressesCertifieesPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+            data={dataAdressesCertifiees}
+            options={options}
+          />
+        )}
+      </div>
       <div className="map-stats-container" id="map-stat">
         <div className="input-wrapper">
           <AutocompleteInput

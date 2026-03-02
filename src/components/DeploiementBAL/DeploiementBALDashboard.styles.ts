@@ -8,6 +8,16 @@ export const StyledDeploiementBALDashboard = styled.div`
     height: 100%;
     width: 100%;
 
+    .stats {
+        height: fit-content;
+        display: grid;
+        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+        gap: 1em;
+        margin-top: 1em;
+        margin-bottom: 3em;
+        text-align: center;
+    }
+
     .map-stats-container {
         display: flex;
         flex-direction: column;
@@ -16,28 +26,7 @@ export const StyledDeploiementBALDashboard = styled.div`
 
     .input-wrapper {
         max-width: 400px;
-        margin-bottom: 1rem;
-    }
-
-    .stats-wrapper {
-        display: flex;
-        flex-direction: column;
-
-        .fr-tabs {
-            margin-top: 1em;
-
-            .fr-tabs__panel {
-                padding: 1rem;
-            }
-        }
-    }
-
-    .stats {
-        height: fit-content;
-        display: grid;
-        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
-        gap: 1em;
-        margin-top: 1em;
+        margin-bottom: 2rem;
     }
 
     .bal-cover-map-container {
