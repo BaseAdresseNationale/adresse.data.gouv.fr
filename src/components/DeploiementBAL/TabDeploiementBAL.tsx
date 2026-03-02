@@ -8,6 +8,7 @@ import { numFormater } from '@/utils/number'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useState } from 'react'
 import styled from 'styled-components'
+import TabMesAdresses from './TabMesAdresses'
 
 const StyledWrapper = styled.div`
 .stats {
@@ -85,6 +86,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
 
       const csvHeaders = ['code', 'nom', 'nbNumeros', 'certificationPercentage', 'hasBAL', 'nomClient']
       const response = await customFetch(url)
+      console.log(response)
       const csvString = [csvHeaders.join(';'), ...response.features.map(({ properties }: any) => csvHeaders.map(property => properties[property]).join(';'))].join('\n')
 
       const link = document.createElement('a')
@@ -176,6 +178,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
         <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">format CSV</Button>
         <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadGeoJSON} iconId="fr-icon-download-fill">format GéoJSON</Button>
       </div>
+      <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />
     </StyledWrapper>
   )
 }

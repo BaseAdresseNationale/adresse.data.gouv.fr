@@ -40,9 +40,15 @@ const paintLayers = {
     name: 'Déploiement BAL',
     legend: [
       {
-        title: 'Déploiement BAL',
+        title: 'Mes Adresses',
         content: {
-          mesadresses: { name: 'Mes Adresses', color: toolsColors.mesAdresses },
+          published: { name: 'Publiée', color: toolsColors.mesAdresses },
+          draft: { name: 'Brouillon', color: `${toolsColors.mesAdresses}80` },
+        },
+      },
+      {
+        title: 'Autres sources',
+        content: {
           moissoneur: { name: 'Moissonneur', color: toolsColors.moissonneur },
           form: { name: 'Formulaire', color: toolsColors.formulaire },
           api: { name: 'Api', color: toolsColors.api },
@@ -85,47 +91,12 @@ const paintLayers = {
           ], // API
           color: toolsColors.api,
         },
-      ],
-      default: '#ddd',
-    },
-  },
-  bal: {
-    name: 'Suivi Mes Adresses',
-    legend: [
-      {
-        title: 'Mes Adresses',
-        content: {
-          published: { name: 'Publiée', color: toolsColors.mesAdresses },
-          draft: { name: 'Brouillon', color: `${toolsColors.mesAdresses}80` },
-        },
-      },
-      {
-        title: 'Autre source',
-        content: {
-          other: { name: 'Api, formulaire, moissonneur', color: `${toolsColors.api}80` },
-        },
-      },
-    ],
-
-    paint: {
-      styles: [
         {
           expression: [
-            ['==', ['get', 'statusBals'], 'published'],
-          ], // Mes Adresses
-          color: toolsColors.mesAdresses,
-        },
-        {
-          expression: [
+            ['==', ['get', 'hasBAL'], false],
             ['==', ['get', 'statusBals'], 'draft'],
           ], // Mes Adresses
           color: `${toolsColors.mesAdresses}80`,
-        },
-        {
-          expression: [
-            ['==', ['get', 'hasBAL'], true],
-          ],
-          color: `${toolsColors.api}80`,
         },
       ],
       default: '#ddd',
@@ -133,7 +104,7 @@ const paintLayers = {
   },
 }
 
-export const getStyle = (selectedPaintLayer: 'source' | 'bal', filteredCodesCommmune: string[]) => {
+export const getStyle = (selectedPaintLayer: 'source', filteredCodesCommmune: string[]) => {
   const stylePaint = ['case'] as any
 
   (paintLayers[selectedPaintLayer] as any).paint.styles.forEach((style: any) => {
@@ -166,7 +137,7 @@ interface DeploiementMapProps {
   center: [number, number]
   zoom: number
   filteredCodesCommmune: string[]
-  selectedPaintLayer: 'source' | 'bal'
+  selectedPaintLayer: 'source'
 }
 
 export default function DeploiementMap({ center, zoom, filteredCodesCommmune, selectedPaintLayer }: DeploiementMapProps) {

@@ -27,7 +27,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source' | 'bal'>('source')
+  const [selectedTab, setSelectedTab] = useState<'source'>('source')
   const [origin, setOrigin] = useState('')
 
   useEffect(() => {
@@ -77,7 +77,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             selectedTabId={selectedTab}
             tabs={[
               { tabId: 'source', label: 'Déploiement BAL' },
-              { tabId: 'bal', label: 'Suivi Mes-Adresses' },
             ]}
             onTabChange={setSelectedTab as (tabId: string) => void}
           >
@@ -119,7 +118,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
               </Map>
             </div>
             {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
-            {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
           </Tabs>
         </div>
       </div>

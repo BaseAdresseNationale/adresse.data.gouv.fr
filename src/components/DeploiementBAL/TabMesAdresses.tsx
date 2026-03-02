@@ -43,10 +43,8 @@ const initialStats = {
 }
 
 const StyledWrapper = styled.div`
-  margin-bottom: 2rem;
-  display: flex;
-  justify-content: space-around;
-  
+  margin-top: 2rem;
+  text-align: left;
 `
 
 interface TabMesAdressesProps {
@@ -55,76 +53,39 @@ interface TabMesAdressesProps {
 
 export default function TabMesAdresses({ filteredCodesCommmune }: TabMesAdressesProps) {
   const [bals, setBals] = useState<Partial<BaseAdresseLocale>[]>([])
-  const [dataStats, setDataStats] = useState(initialStats)
-
-  const setDataStatsWithBal = useCallback((data: any) => {
-    setDataStats((dataStats) => {
-      return {
-        ...dataStats,
-        datasets: [
-          {
-            ...dataStats.datasets[0],
-            data,
-          },
-        ],
-      }
-    })
-  }, [])
 
   useEffect(() => {
-    async function loadBalsStatus() {
-      const balsStatus = await getBalsStatus()
-      const statusData = [
-        balsStatus.find(({ status }: Partial<BaseAdresseLocale>) => status === BaseAdresseLocaleStatus.PUBLISHED)?.count || 0,
-        balsStatus.find(({ status }: Partial<BaseAdresseLocale>) => status === BaseAdresseLocaleStatus.DRAFT)?.count || 0,
-      ]
-      setDataStatsWithBal(statusData)
-    }
-
     async function loadBals() {
       const fields = ['id', 'commune', 'status', 'nom', 'updatedAt', 'sync']
       const balsFiltered = await getStatsBals(fields, filteredCodesCommmune)
       setBals(balsFiltered)
-      const statusData = [
-        balsFiltered.filter(({ status }) => status === BaseAdresseLocaleStatus.PUBLISHED).length,
-        balsFiltered.filter(({ status }) => status === BaseAdresseLocaleStatus.DRAFT).length,
-      ]
-      setDataStatsWithBal(statusData)
     }
 
-    if (filteredCodesCommmune.length <= 0) {
-      loadBalsStatus()
-    }
-    else {
+    if (filteredCodesCommmune.length > 0) {
       loadBals()
     }
-  }, [filteredCodesCommmune, setDataStatsWithBal])
+  }, [filteredCodesCommmune])
 
   const balsByCommune = useMemo(() => {
     return groupBy(bals, 'commune')
   }, [bals])
-
+  console.log(filteredCodesCommmune)
+  console.log(balsByCommune)
   return (
     <StyledWrapper>
-      <div>
-        <h3>Statut des BAL(s)</h3>
-        <Doughnut data={dataStats} options={options} />
-      </div>
-      <div>
-        <h3>Liste des Communes</h3>
-        {filteredCodesCommmune.length > 0
-          ? (
-              <div>
-                {Object.keys(balsByCommune).map((codeCommune) => {
-                  const balsCommune = balsByCommune[codeCommune] || []
-                  return <CommuneBALList key={codeCommune} codeCommune={codeCommune} balsCommune={balsCommune} />
-                })}
-              </div>
-            )
-          : (
-              <p>Aucun Département ou EPCI sélectionné</p>
-            )}
-      </div>
+      <h3>Liste des Communes</h3>
+      {filteredCodesCommmune.length > 0
+        ? (
+            <div>
+              {Object.keys(balsByCommune).map((codeCommune) => {
+                const balsCommune = balsByCommune[codeCommune] || []
+                return <CommuneBALList key={codeCommune} codeCommune={codeCommune} balsCommune={balsCommune} />
+              })}
+            </div>
+          )
+        : (
+            <p>Aucun Département ou EPCI sélectionné</p>
+          )}
     </StyledWrapper>
   )
 }
