@@ -22,7 +22,7 @@ const PanelTOM: React.FC<PanelTOMProps> = ({ isVisible }) => {
   return (
     <PanelContainer>
       <PanelHeader>
-        Territoires d’outre-mer
+        Sélectionner un territoire
       </PanelHeader>
 
       <PanelContent>

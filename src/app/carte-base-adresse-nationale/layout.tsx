@@ -72,8 +72,8 @@ function Carto({ children }: { children: JSX.Element }) {
 
         <MapParamsWrapper $isHidden={!displayMenuConfig}>
           <RingButton tooltip="Légende" className={isLegendVisible ? 'ri-close-large-line' : 'ri-apps-2-line'} onClick={toggleLegend} $isActive={isLegendVisible} $isButtonAvailable />
+          <RingButton tooltip="Zoom sur un territoire" className={isTOMVisible ? 'ri-close-large-line' : 'ri-earth-line'} onClick={toggleTOM} $isActive={isTOMVisible} $isButtonAvailable />
           <RingButton tooltip="Afficher les parcelles cadastrales" className={displayLandRegister ? 'ri-collage-fill' : 'ri-collage-line'} onClick={toggleCadasterLayer} $isActive={displayLandRegister} $isButtonAvailable />
-          <RingButton tooltip="Zoom sur les TOM" className="ri-earth-line" onClick={toggleTOM} $isActive={isTOMVisible} $isButtonAvailable />
           <RingButton tooltip={isIGNMapStyleAccessible ? 'Utiliser les fonds IGN' : 'Non accessible'} $img="/img/map/bg-button-map-style-ign-vector.png" onClick={isIGNMapStyleAccessible ? () => handleMapStyleChange('ign-vector') : undefined} $isActive={mapStyle === 'ign-vector'} $isTypeRadio $isButtonAvailable={isIGNMapStyleAccessible} />
           <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={mapStyle === 'osm-vector'} $isTypeRadio $isButtonAvailable />
           <RingButton tooltip="Utiliser la vue satellite IGN" $img="/img/map/bg-button-map-style-ign-ortho.png" onClick={() => handleMapStyleChange('ign-ortho')} $isActive={mapStyle === 'ign-ortho'} $isTypeRadio $isButtonAvailable />
@@ -89,7 +89,7 @@ function Carto({ children }: { children: JSX.Element }) {
         </Legend>
 
         <PanelTOM
-          isVisible={isTOMVisible}
+          isVisible={displayMenuConfig && isTOMVisible}
         />
 
       </CartoMenu>

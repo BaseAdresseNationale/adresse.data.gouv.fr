@@ -263,7 +263,7 @@ function CartoView() {
     }
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
-  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle])
+  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible])
 
   // InitialPosition from hash
   useEffect(() => {
