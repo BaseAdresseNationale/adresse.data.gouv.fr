@@ -6,9 +6,12 @@ import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CommuneConfigItem } from './DistrictActions/DistrictActions.styles'
 import language from './DistrictActions/langues-regionales.json'
 import { CommuneStatusBadge } from './CommuneStatusBadge'
+import { SaveProgressBar } from './SaveProgressBar'
+import { useDistrictConfigSave } from './useDistrictConfigSave'
 
 import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
@@ -57,13 +60,6 @@ interface DistrictOptionsFormProps {
   readOnly?: boolean
   loading?: boolean
   userInfo?: UserInfo | null
-}
-
-type MessageType = 'success' | 'error' | 'info'
-
-interface Message {
-  text: string
-  type: MessageType
 }
 
 const RECAP_TIMEOUT_MS = 15000
@@ -183,9 +179,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const [configState, setConfigState] = useState<BANCommune['config']>({ ...config })
   const [enableMandataryChange, setEnableMandataryChange] = useState<boolean>(false)
   const [enableMandataryChangeWarning, setEnableMandataryChangeWarning] = useState<boolean>(false)
-  const [message, setMessage] = useState<Message | null>(null)
   const [flagUrl, setFlagUrl] = useState<string>('')
-  const [isSaving, setIsSaving] = useState<boolean>(false)
   const [clientsRecap, setClientsRecap] = useState<ClientRecapItem[] | null>(null)
   const [recapLoading, setRecapLoading] = useState<boolean>(true)
   const [recapError, setRecapError] = useState<string | null>(null)
@@ -293,62 +287,23 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     setConfigState(updatedConfig)
   }, [])
 
-  const saveDistrictConfig = useCallback(async (newConfig: BANCommune['config'], originalConfig: BANCommune['config']) => {
-    try {
-      if (userInfo && district) {
-        const body = {
-          districtID: district.banId,
-          config: newConfig,
-          originalConfig: originalConfig,
-        }
-
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        }
-
-        await customFetch(`/api/addressing-certification-enable`, options)
-      }
-    }
-    catch (error: any) {
-      console.error('Error saving district config', error)
-      setMessage({ text: `Une erreur est survenue lors de la sauvegarde. (${error?.message || 'Erreur inconnue'})`, type: 'error' })
-      throw error
-    }
-  }, [district, userInfo])
-
-  const pushConfigUpdate = useCallback(async () => {
-    const newConfig = { ...configState }
-    setMessage({
-      text: 'Votre demande est en cours de traitement. Patientez jusqu\'au message « Modifications enregistrées avec succès » — si vous quittez avant, l\'affichage pourrait être temporairement désynchronisé à votre retour.',
-      type: 'info',
-    })
-    setIsSaving(true)
-    formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
-    try {
-      await saveDistrictConfig(newConfig, config)
-      onUpdateConfig(newConfig)
-      setCurrentConfig(JSON.stringify(newConfig))
-      setMessage({
-        text: 'Modifications enregistrées avec succès.',
-        type: 'success',
-      })
-    }
-    catch (e) {
-      console.error(e)
-      setMessage({
-        text: 'Une erreur est survenue lors de l\'enregistrement.',
-        type: 'error',
-      })
-    }
-    finally {
-      setIsSaving(false)
-    }
-  }, [configState, config, onUpdateConfig, saveDistrictConfig])
+  const {
+    message,
+    setMessage,
+    isSaving,
+    saveProgress,
+    pushConfigUpdate,
+  } = useDistrictConfigSave({
+    district,
+    userInfo,
+    config,
+    configState,
+    onUpdateConfig,
+    setCurrentConfig,
+    onBeforeSave: () => {
+      formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    },
+  })
 
   const isMandatarySelectionInvalid = enableMandataryChangeWarning
     && selectedMandataryMode === 'API Dépôt'
@@ -390,6 +345,9 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
             className="fr-mb-3w"
           />
         )}
+        {(isSaving || saveProgress > 0) && (
+          <SaveProgressBar value={saveProgress} />
+        )}
         <section className="fr-mb-6w">
           {district && (
             <div className="fr-mb-3w">
@@ -399,9 +357,10 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     <div className="fr-card__content">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                         {flagUrl && (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
+                          <Image
                             src={flagUrl}
+                            loader={({ src }) => src}
+                            unoptimized
                             alt={`Logo de ${district.nomCommune}`}
                             width={48}
                             height={48}
@@ -802,7 +761,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 type="button"
                 priority="primary"
                 disabled={JSON.stringify(configState) === currentConfig || isSaving || isMandatarySelectionInvalid}
-                onClick={() => pushConfigUpdate()}
+                onClick={pushConfigUpdate}
               >
                 {isSaving ? 'Enregistrement en cours...' : 'Enregistrer les modifications'}
               </Button>
