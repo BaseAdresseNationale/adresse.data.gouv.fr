@@ -7,6 +7,7 @@ import Image from 'next/image'
 import styled from 'styled-components'
 
 const ConnectionBoxWrapper = styled.div`
+  font-family: var(--font-family-default);
   display: flex;
   flex-direction: column;
   max-width: 45rem;
@@ -19,33 +20,35 @@ const ConnectionBoxWrapper = styled.div`
 `
 
 const TitlePictureWrapper = styled.div`
-position: relative;
-text-align: center;
-padding: 1.5rem;
-padding-right: calc(1.5rem + 1.5rem - 8px);
+  font-family: var(--font-family-default);
+  position: relative;
+  text-align: center;
+  padding: 1.5rem;
+  padding-right: calc(1.5rem + 1.5rem - 0.5rem);
 
-img {
-  min-width: 5em;
-  height: auto;
-};
-
-@media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 1rem;
-    right: 0rem;
-    bottom: 1rem;
-    width: 1px;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-    box-shadow: 1px 0 1px 0px ${({ theme }) => theme.colors.grey.border};
+  img {
+    min-width: 5em;
+    height: auto;
   }
-}
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 1rem;
+      right: 0;
+      bottom: 1rem;
+      width: 0.0625rem;
+      margin-left: 1.5rem;
+      margin-right: 1.5rem;
+      box-shadow: 0.0625rem 0 0.0625rem 0 ${({ theme }) => theme.colors.grey.border};
+    }
+  }
 `
 
 const TeaserAndButtonWrapper = styled.div`
+  font-family: var(--font-family-default);
   align-self: end;
 `
 
@@ -64,7 +67,7 @@ function ConnectionBox({ teaser, onConnect }: {
         />
       </TitlePictureWrapper>
       <TeaserAndButtonWrapper>
-        {teaser && <p>{teaser}</p>}
+        {teaser && <p className="fr-text--sm fr-mb-0">{teaser}</p>}
         <div>
           <ProConnectButton
             onClick={() => onConnect(true)}

@@ -1,15 +1,16 @@
 'use client'
 
 import styled from 'styled-components'
-// blue-france
+
 export const AdministrationBlockWrapper = styled.div`
+  font-family: var(--font-family-default);
   margin-bottom: 1.25rem;
   width: 100%;
   padding: 0.75rem 1rem 0.75rem 1.25rem;
   background: var(--background-alt-purple-glycine);
   border: 1px solid var(--border-default-grey);
-  border-radius: 6px;
-  border-left: 4px solid var(--background-action-high-purple-glycine);
+  border-radius: 0.25rem;
+  border-left: 0.25rem solid var(--background-action-high-purple-glycine);
   color: var(--text-default-grey);
 
   .admin-block-header {
@@ -22,9 +23,9 @@ export const AdministrationBlockWrapper = styled.div`
   }
 
   .admin-block-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
     background: var(--background-action-high-purple-glycine);
     color: var(--text-inverted-grey);
     display: flex;
@@ -32,7 +33,7 @@ export const AdministrationBlockWrapper = styled.div`
     justify-content: center;
     flex-shrink: 0;
 
-    i {
+    .fr-icon {
       font-size: 1rem;
     }
   }
@@ -41,7 +42,7 @@ export const AdministrationBlockWrapper = styled.div`
     margin: 0;
     font-size: 1rem;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--text-title-grey);
     display: flex;
     align-items: center;
@@ -69,10 +70,10 @@ export const AdministrationBlockWrapper = styled.div`
       font-weight: 600;
       letter-spacing: 0.01em;
       color: var(--text-mention-grey);
-      line-height: 1.3;
+      line-height: 1.5;
       flex-shrink: 0;
 
-      > i {
+      > .fr-icon {
         margin-right: 0.375rem;
         color: var(--text-action-high-purple-glycine);
       }
@@ -80,11 +81,11 @@ export const AdministrationBlockWrapper = styled.div`
 
     .admin-recap-value {
       background: var(--background-raised-grey);
-      border-radius: 4px;
+      border-radius: 0.25rem;
       padding: 0.5rem 0.75rem;
-      font-size: 0.8125rem;
+      font-size: 0.875rem;
       font-weight: 600;
-      line-height: 1.4;
+      line-height: 1.5;
       color: var(--text-title-grey);
       border: 1px solid var(--border-default-grey);
       white-space: nowrap;
@@ -112,12 +113,12 @@ export const AdministrationBlockWrapper = styled.div`
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--text-action-high-purple-glycine);
     text-decoration: none;
     padding: 0.375rem 0.75rem;
-    border-radius: 6px;
+    border-radius: 0.25rem;
     background: var(--background-alt-purple-glycine);
     border: 1px solid var(--border-plain-purple-glycine);
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -129,8 +130,8 @@ export const AdministrationBlockWrapper = styled.div`
     }
 
     &:focus-visible {
-      outline: 2px solid var(--background-action-high-purple-glycine);
-      outline-offset: 2px;
+      outline: 0.125rem solid var(--background-action-high-purple-glycine);
+      outline-offset: 0.125rem;
     }
 
     .admin-block-footer-cta-arrow {
@@ -138,7 +139,7 @@ export const AdministrationBlockWrapper = styled.div`
     }
 
     &:hover .admin-block-footer-cta-arrow {
-      transform: translateX(2px);
+      transform: translateX(0.125rem);
     }
   }
 

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import Link from 'next/link'
 import { BANCommune } from '@/types/api-ban.types'
 import { CommuneStatusBadge } from './CommuneStatusBadge'
+import { EmptyStateBox, FavoritesTableWrapper } from './DistrictActions/DistrictActions.styles'
 
 interface FavoriteCommuneWithData {
   districtID: string
@@ -22,77 +22,81 @@ interface FavoritesListProps {
 }
 
 function formatDate(dateString?: string) {
-  if (!dateString) return 'N/A'
+  if (!dateString) return '—'
   try {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('fr-FR', {
+    return new Date(dateString).toLocaleDateString('fr-FR', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
     })
   }
   catch {
-    return 'N/A'
+    return '—'
   }
+}
+
+function getCertLevel(taux: number): 'high' | 'mid' | 'low' {
+  if (taux >= 80) return 'high'
+  if (taux >= 30) return 'mid'
+  return 'low'
 }
 
 function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
   if (favorites.length === 0) {
     return (
-      <div className="fr-card fr-card--grey fr-card--no-border">
-        <div className="fr-card__body">
-          <div className="fr-card__content" style={{ textAlign: 'center', padding: '2rem' }}>
-            <span className="fr-icon-map-pin-2-line fr-icon--lg" aria-hidden="true" style={{ fontSize: '3rem', color: 'var(--text-mention-grey)' }}></span>
-            <h5 className="fr-mt-3w">Aucune commune favorite</h5>
-            <p className="fr-text--sm fr-text-mention--grey">
-              Ajoutez des communes pour suivre l&apos;état de leurs adresses et accéder rapidement à leurs pages.
-            </p>
-            <Button
-              priority="secondary"
-              iconId="fr-icon-add-line"
-              onClick={onAdd}
-              className="fr-mt-3w"
-            >
-              Ajouter une commune
-            </Button>
-          </div>
-        </div>
-      </div>
+      <EmptyStateBox className="fr-py-6w fr-px-4w">
+        <span className="fr-icon fr-icon-map-pin-2-line fr-icon--lg empty-state-icon" aria-hidden="true" />
+        <p className="fr-text--bold fr-mb-0">Aucune commune favorite</p>
+        <p className="fr-text--sm fr-text-mention--grey fr-mb-0 empty-state-desc">
+          Ajoutez des communes pour suivre l&apos;état de leurs adresses et accéder rapidement à leurs pages.
+        </p>
+        <Button
+          priority="secondary"
+          iconId="fr-icon-add-line"
+          iconPosition="left"
+          onClick={onAdd}
+          className="fr-mt-2w"
+        >
+          Ajouter une commune
+        </Button>
+      </EmptyStateBox>
     )
   }
 
   return (
-    <div className="fr-table fr-table--bordered">
-      <table>
+    <FavoritesTableWrapper>
+      <table className="fr-table fr-table--bordered fr-table--no-caption" aria-label="Mes communes favorites">
         <thead>
           <tr>
             <th scope="col">Commune</th>
             <th scope="col">Code</th>
             <th scope="col">Date révision</th>
             <th scope="col">État BAL</th>
-            <th scope="col">Voies</th>
-            <th scope="col">Adresses</th>
-            <th scope="col">Lieux-dits</th>
-            <th scope="col">Certifiées</th>
+            <th scope="col" className="col-num">Voies</th>
+            <th scope="col" className="col-num">Adresses</th>
+            <th scope="col" className="col-num">Lieux-dits</th>
+            <th scope="col" className="col-num">Certifiées</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {favorites.map((favorite) => {
-            const nbVoies = favorite.data?.nbVoies || 0
-            const nbAdresses = favorite.data?.nbNumeros || 0
-            const nbCertifies = favorite.data?.nbNumerosCertifies || 0
-            const nbLieuxDits = favorite.data?.nbLieuxDits || 0
-            const dateRevision = favorite.data?.dateRevision
-            const tauxCertification = nbAdresses > 0 ? Math.round((nbCertifies / nbAdresses) * 100) : 0
+            const nbVoies = favorite.data?.nbVoies ?? 0
+            const nbAdresses = favorite.data?.nbNumeros ?? 0
+            const nbCertifies = favorite.data?.nbNumerosCertifies ?? 0
+            const nbLieuxDits = favorite.data?.nbLieuxDits ?? 0
+            const taux = nbAdresses > 0 ? Math.round((nbCertifies / nbAdresses) * 100) : 0
+            const certLevel = getCertLevel(taux)
 
             if (favorite.loading) {
               return (
                 <tr key={favorite.codeCommune}>
-                  <td>{favorite.nomCommune}</td>
-                  <td>{favorite.codeCommune}</td>
+                  <td>
+                    <span className="fr-text--bold">{favorite.nomCommune}</span>
+                  </td>
+                  <td className="fr-text--sm fr-text-mention--grey">{favorite.codeCommune}</td>
                   <td colSpan={7} className="fr-text--sm fr-text-mention--grey">
-                    Chargement...
+                    Chargement…
                   </td>
                 </tr>
               )
@@ -101,19 +105,24 @@ function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
             if (favorite.error) {
               return (
                 <tr key={favorite.codeCommune}>
-                  <td>{favorite.nomCommune}</td>
-                  <td>{favorite.codeCommune}</td>
+                  <td>
+                    <span className="fr-text--bold">{favorite.nomCommune}</span>
+                  </td>
+                  <td className="fr-text--sm fr-text-mention--grey">{favorite.codeCommune}</td>
                   <td colSpan={6} className="fr-text--sm fr-error-text">
+                    <span className="fr-icon fr-icon-error-warning-line fr-icon--sm fr-mr-1v" aria-hidden="true" />
                     {favorite.error}
                   </td>
                   <td>
-                    <Button
-                      priority="tertiary no outline"
-                      size="small"
-                      iconId="fr-icon-delete-line"
-                      onClick={() => onRemove(favorite.districtID)}
-                      title="Retirer des favoris"
-                    />
+                    <div className="actions-cell">
+                      <Button
+                        priority="tertiary no outline"
+                        size="small"
+                        iconId="fr-icon-delete-line"
+                        onClick={() => onRemove(favorite.districtID)}
+                        title={`Retirer ${favorite.nomCommune} des favoris`}
+                      />
+                    </div>
                   </td>
                 </tr>
               )
@@ -122,62 +131,76 @@ function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
             return (
               <tr key={favorite.codeCommune}>
                 <td>
-                  <Link href={`/commune/${favorite.codeCommune}`} className="fr-link">
+                  <Link href={`/commune/${favorite.codeCommune}`} className="fr-link fr-text--bold">
                     {favorite.nomCommune}
                   </Link>
                 </td>
-                <td className="fr-text--sm">{favorite.codeCommune}</td>
-                <td className="fr-text--sm fr-text-mention--grey">
-                  {formatDate(dateRevision)}
+
+                <td className="fr-text--sm fr-text-mention--grey cell-nowrap">
+                  {favorite.codeCommune}
                 </td>
+
+                <td className="fr-text--sm fr-text-mention--grey cell-nowrap">
+                  {formatDate(favorite.data?.dateRevision)}
+                </td>
+
                 <td>
                   {favorite.data
-                    ? (
-                        <CommuneStatusBadge commune={favorite.data} />
-                      )
-                    : (
-                        <span className="fr-text--sm fr-text-mention--grey">-</span>
-                      )}
+                    ? <CommuneStatusBadge commune={favorite.data} />
+                    : <span className="fr-text-mention--grey">—</span>}
                 </td>
-                <td className="fr-text--sm">{nbVoies.toLocaleString('fr-FR')}</td>
-                <td className="fr-text--sm">{nbAdresses.toLocaleString('fr-FR')}</td>
-                <td className="fr-text--sm">
+
+                <td className="col-num">
+                  {nbVoies > 0
+                    ? nbVoies.toLocaleString('fr-FR')
+                    : <span className="col-num--muted">0</span>}
+                </td>
+
+                <td className="col-num">
+                  {nbAdresses > 0
+                    ? nbAdresses.toLocaleString('fr-FR')
+                    : <span className="col-num--muted">0</span>}
+                </td>
+
+                <td className="col-num">
                   {nbLieuxDits > 0
-                    ? (
-                        <span>{nbLieuxDits.toLocaleString('fr-FR')}</span>
-                      )
-                    : (
-                        <span className="fr-text-mention--grey">0</span>
-                      )}
+                    ? nbLieuxDits.toLocaleString('fr-FR')
+                    : <span className="col-num--muted">0</span>}
                 </td>
-                <td className="fr-text--sm">
-                  {nbCertifies > 0
+
+                <td className="col-num">
+                  {nbAdresses > 0
                     ? (
-                        <div>
-                          <span className="fr-text--bold">{tauxCertification}%</span>
-                          <br />
-                          <span className="fr-text--xs fr-text-mention--grey">
-                            {nbCertifies.toLocaleString('fr-FR')}
+                        <div className="cert-cell">
+                          <span className={`cert-cell__label cert-cell__label--${certLevel}`}>
+                            {taux}%
+                          </span>
+                          <div className="cert-bar" role="progressbar" aria-valuenow={taux} aria-valuemin={0} aria-valuemax={100} aria-label={`${taux}% certifiées`}>
+                            <div className={`cert-bar__fill cert-bar__fill--${certLevel}`} style={{ width: `${taux}%` }} />
+                          </div>
+                          <span className="cert-cell__count">
+                            {nbCertifies.toLocaleString('fr-FR')} adr.
                           </span>
                         </div>
                       )
-                    : (
-                        <span className="fr-text-mention--grey">0%</span>
-                      )}
+                    : <span className="col-num--muted">—</span>}
                 </td>
+
                 <td>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <Link
-                      href={`/commune/${favorite.codeCommune}`}
-                      className="fr-btn fr-btn--tertiary-no-outline fr-btn--sm fr-icon-eye-line"
-                      title="Voir la commune"
+                  <div className="actions-cell">
+                    <Button
+                      priority="tertiary no outline"
+                      size="small"
+                      iconId="fr-icon-eye-line"
+                      linkProps={{ href: `/commune/${favorite.codeCommune}` }}
+                      title={`Voir la fiche de ${favorite.nomCommune}`}
                     />
                     <Button
                       priority="tertiary no outline"
                       size="small"
                       iconId="fr-icon-delete-line"
                       onClick={() => onRemove(favorite.districtID)}
-                      title="Retirer des favoris"
+                      title={`Retirer ${favorite.nomCommune} des favoris`}
                     />
                   </div>
                 </td>
@@ -186,7 +209,7 @@ function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
           })}
         </tbody>
       </table>
-    </div>
+    </FavoritesTableWrapper>
   )
 }
 

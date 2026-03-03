@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Section from '../Section'
+import { EmptyStateBox } from '@/app/admin/components/DistrictActions/DistrictActions.styles'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
@@ -18,12 +19,13 @@ import { SubscriptionForm, SubscriptionTable } from './SubscriptionComponents'
 import WebhookGuide from './WebhookGuide'
 import { FormData } from './types'
 import Loader from '@/components/Loader'
-// Création des modales en dehors du composant
-
 const { Component: CreateModal, open: openCreateModal, close: closeCreateModal } = createModal({
   id: 'create-subscription-modal',
   isOpenedByDefault: false,
 })
+
+/** Permet d’ouvrir la modal de création depuis l’en-tête de la section (ex. AccountAdmin). */
+export { openCreateModal as openCreateSubscriptionModal }
 
 const { Component: EditModal, open: openEditModal, close: closeEditModal } = createModal({
   id: 'edit-subscription-modal',
@@ -32,9 +34,11 @@ const { Component: EditModal, open: openEditModal, close: closeEditModal } = cre
 
 interface NotificationsBANProps {
   embedded?: boolean
+  /** En mode embarqué : notifie le parent du nombre d’abonnements (pour afficher le bouton en-tête seulement s’il y en a). */
+  onSubscriptionsCountChange?: (count: number) => void
 }
 
-function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
+function NotificationsBAN({ embedded = false, onSubscriptionsCountChange }: NotificationsBANProps) {
   const {
     authLoading,
     authenticated,
@@ -52,6 +56,12 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
     toggleSubscription,
     deleteSubscription,
   } = useSubscriptions()
+
+  useEffect(() => {
+    if (embedded && onSubscriptionsCountChange && !authLoading) {
+      onSubscriptionsCountChange(subscriptions.length)
+    }
+  }, [embedded, onSubscriptionsCountChange, authLoading, subscriptions.length])
 
   const [formData, setFormData] = useState<FormData>({
     subscriptionName: '',
@@ -73,7 +83,6 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
     setIsFormValid(hasWebhookURL && hasValidURL && hasStatuses && hasDistricts)
   }, [formData])
 
-  // Validation des champs
   const isValidURL = (url: string): boolean => {
     if (!url.trim()) return false
 
@@ -196,7 +205,7 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
       return (
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12">
-            <p>Connectez-vous avec ProConnect pour gérer vos abonnements aux alertes BAN.</p>
+            <p className="fr-text--sm fr-mb-2w">Connectez-vous avec ProConnect pour gérer vos abonnements aux alertes BAN.</p>
             <div className="fr-grid-row fr-grid-row--center">
               <div className="fr-col-auto">
                 <ProConnectButton url={loginUrl} />
@@ -223,15 +232,12 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
             </div>
           )}
 
-          <div className="fr-mt-4w">
+          <div className={embedded ? 'fr-mt-2w' : 'fr-mt-4w'}>
             {subscriptions.length > 0
               ? (
                   <>
-                    <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
-                      <div className="fr-col-12 fr-col-md-8">
-                        <h4>Vos abonnements actuels ({subscriptions.length})</h4>
-                      </div>
-                      <div className="fr-col-12 fr-col-md-4 fr-text-right">
+                    {!embedded && (
+                      <div className="fr-mb-2w fr-text-right">
                         <Button
                           iconId="fr-icon-add-line"
                           iconPosition="left"
@@ -241,9 +247,9 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
                           Créer un nouvel abonnement
                         </Button>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="fr-mt-2w">
+                    <div className={embedded ? '' : 'fr-mt-2w'}>
                       <SubscriptionTable
                         subscriptions={subscriptions}
                         onEdit={handleEdit}
@@ -254,28 +260,48 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
                     </div>
                   </>
                 )
-              : (
-                  <div className="fr-card fr-card--grey fr-card--no-border">
-                    <div className="fr-card__body">
-                      <div className="fr-card__content" style={{ textAlign: 'center', padding: '2rem' }}>
-                        <span className="fr-icon-notification-3-line fr-icon--lg fr-text-mention--grey" aria-hidden="true" style={{ fontSize: '3rem' }}></span>
-                        <h5 className="fr-mt-3w">Aucune notification configurée</h5>
-                        <p className="fr-text--sm fr-text-mention--grey">
-                          Créez un abonnement pour recevoir des alertes BAN sur les communes que vous suivez.
-                        </p>
-                        <Button
-                          iconId="fr-icon-add-line"
-                          iconPosition="left"
-                          priority="secondary"
-                          onClick={handleOpenCreateModal}
-                          className="fr-mt-3w"
-                        >
-                          Créer un abonnement
-                        </Button>
+              : embedded
+                ? (
+                    /* En mode embarqué : pas de carte imbriquée ni de bouton (présent dans l’en-tête de section). */
+                    <EmptyStateBox className="fr-py-6w fr-px-4w">
+                      <span className="fr-icon fr-icon-notification-3-line fr-icon--lg empty-state-icon" aria-hidden="true" />
+                      <p className="fr-text--bold fr-mb-0">Aucune notification configurée</p>
+                      <p className="fr-text--sm fr-text-mention--grey fr-mb-0 empty-state-desc">
+                        Créez un abonnement pour recevoir des alertes BAN sur les communes que vous suivez.
+                      </p>
+                      <Button
+                        priority="secondary"
+                        iconId="fr-icon-add-line"
+                        iconPosition="left"
+                        onClick={handleOpenCreateModal}
+                        className="fr-mt-2w"
+                      >
+                        Créer un abonnement
+                      </Button>
+                    </EmptyStateBox>
+                  )
+                : (
+                    <div className="fr-card fr-card--grey fr-card--no-border">
+                      <div className="fr-card__body">
+                        <div className="fr-card__content fr-p-4w fr-text--center">
+                          <span className="fr-icon fr-icon-notification-3-line fr-icon--lg fr-text-mention--grey" aria-hidden="true" />
+                          <h5 className="fr-mt-3w">Aucune notification configurée</h5>
+                          <p className="fr-text--sm fr-text-mention--grey">
+                            Créez un abonnement pour recevoir des alertes BAN sur les communes que vous suivez.
+                          </p>
+                          <Button
+                            iconId="fr-icon-add-line"
+                            iconPosition="left"
+                            priority="secondary"
+                            onClick={handleOpenCreateModal}
+                            className="fr-mt-3w"
+                          >
+                            Créer un abonnement
+                          </Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
             {/* Modal de création */}
             <CreateModal
@@ -364,7 +390,7 @@ function NotificationsBAN({ embedded = false }: NotificationsBANProps) {
         theme="primary"
       >
         <div className="fr-mb-4w">
-          <p>
+          <p className="fr-text--sm fr-mb-0">
             Recevez des <strong>alertes automatiques </strong>à la publication d'une Base Adresse Locale,
             avec l'identification des anomalies si la BAL doit être corrigée puis republiée.
             Surveillez les erreurs de format, données manquantes et autres blocages sur les

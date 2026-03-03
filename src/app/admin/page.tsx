@@ -13,7 +13,6 @@ import Loader from '@/components/Loader'
 import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 
 import DistrictAdmin from './components/DistrictAdmin'
-import MandatoryAdmin from './components/MandatoryAdmin'
 import AccountAdmin from './components/AccountAdmin'
 import SignInBlock from './components/DistrictActions/SignInBlock'
 
@@ -203,7 +202,7 @@ export default function Home() {
         />
         <Section>
           <div className="fr-container fr-container--fluid">
-            <div className="fr-grid-row fr-grid-row--center fr-grid-row--middle" style={{ minHeight: '400px' }}>
+            <div className="fr-grid-row fr-grid-row--center fr-grid-row--middle" style={{ minHeight: '25rem' }}>
               <div className="fr-col-auto">
                 <Loader size={50} />
               </div>

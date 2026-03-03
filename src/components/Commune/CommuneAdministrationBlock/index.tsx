@@ -46,7 +46,7 @@ export function CommuneAdministrationBlock({ commune }: CommuneAdministrationBlo
     <AdministrationBlockWrapper>
       <header className="admin-block-header">
         <span className="admin-block-icon" aria-hidden>
-          <i className="ri-government-line" />
+          <span className="fr-icon fr-icon-government-line" aria-hidden="true" />
         </span>
         <h3 className="admin-block-title">
           Administration <Badge noIcon severity="info">BETA</Badge>
@@ -55,7 +55,7 @@ export function CommuneAdministrationBlock({ commune }: CommuneAdministrationBlo
       <div className="admin-recap">
         <div className="admin-recap-item">
           <label>
-            <i className="ri-file-paper-2-line" aria-hidden />
+            <span className="fr-icon fr-icon-file-text-line" aria-hidden="true" />
             Certificat d&apos;adressage
           </label>
           {certificatTitle
@@ -74,8 +74,8 @@ export function CommuneAdministrationBlock({ commune }: CommuneAdministrationBlo
         </div>
         <div className="admin-recap-item">
           <label>
-            <i className="ri-global-line" aria-hidden />
-            Langue des odonymes
+            <span className="fr-icon fr-icon-global-line" aria-hidden="true" />
+            Langue principale des odonymes
           </label>
           <span className="admin-recap-value admin-recap-value--active">
             {defaultBalLang ? (LANGUE_LABELS[defaultBalLang] ?? defaultBalLang) : 'français'}
@@ -84,9 +84,9 @@ export function CommuneAdministrationBlock({ commune }: CommuneAdministrationBlo
       </div>
       <footer className="admin-block-footer">
         <Link href="/admin#ma_commune" className="admin-block-footer-cta">
-          <i className="ri-user-settings-line" aria-hidden />
+          <span className="fr-icon fr-icon-user-settings-line" aria-hidden="true" />
           <span>Activer ou gérer ces options</span>
-          <i className="ri-arrow-right-line admin-block-footer-cta-arrow" aria-hidden />
+          <span className="fr-icon fr-icon-arrow-right-line admin-block-footer-cta-arrow" aria-hidden="true" />
         </Link>
       </footer>
     </AdministrationBlockWrapper>

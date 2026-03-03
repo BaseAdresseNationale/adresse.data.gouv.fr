@@ -6,7 +6,7 @@ import { getCommunes } from '@/lib/api-geo'
 import { Commune } from '@/types/api-geo.types'
 
 interface AddCommuneModalProps {
-  onAdd: (codeCommune: string) => void
+  onAdd: (codeCommune: string) => void | Promise<void>
   maxReached: boolean
 }
 
@@ -47,14 +47,15 @@ function AddCommuneModal({ onAdd, maxReached }: AddCommuneModalProps) {
 
   const handleAddCommune = async (commune: Commune) => {
     try {
-      onAdd(commune.code)
+      await Promise.resolve(onAdd(commune.code))
       setSearchQuery('')
       setSearchResults([])
       setError('')
       addCommuneModal.close()
     }
-    catch (e: any) {
-      setError(e.message || 'Erreur lors de l\'ajout')
+    catch (e: unknown) {
+      const message = e instanceof Error ? e.message : 'Erreur lors de l\'ajout'
+      setError(message)
     }
   }
 
@@ -75,7 +76,7 @@ function AddCommuneModal({ onAdd, maxReached }: AddCommuneModalProps) {
     >
       {maxReached && (
         <div className="fr-alert fr-alert--warning fr-alert--sm fr-mb-3w">
-          <p>Vous avez atteint le nombre maximum de communes favorites (20).</p>
+          <p className="fr-text--sm fr-mb-0">Vous avez atteint le nombre maximum de communes favorites (20).</p>
         </div>
       )}
 
@@ -93,13 +94,13 @@ function AddCommuneModal({ onAdd, maxReached }: AddCommuneModalProps) {
 
       {error && (
         <div className="fr-alert fr-alert--error fr-alert--sm fr-mt-2w">
-          <p>{error}</p>
+          <p className="fr-text--sm fr-mb-0">{error}</p>
         </div>
       )}
 
       {isSearching && (
-        <div className="fr-mt-3w" style={{ textAlign: 'center' }}>
-          <p className="fr-text--sm">Recherche en cours...</p>
+        <div className="fr-mt-3w fr-grid-row fr-grid-row--center">
+          <p className="fr-text--sm fr-mb-0">Recherche en cours...</p>
         </div>
       )}
 
@@ -145,8 +146,8 @@ function AddCommuneModal({ onAdd, maxReached }: AddCommuneModalProps) {
       )}
 
       {!isSearching && searchQuery.length >= 2 && searchResults.length === 0 && (
-        <div className="fr-mt-3w" style={{ textAlign: 'center' }}>
-          <p className="fr-text--sm fr-text-mention--grey">Aucune commune trouvée</p>
+        <div className="fr-mt-3w fr-grid-row fr-grid-row--center">
+          <p className="fr-text--sm fr-text-mention--grey fr-mb-0">Aucune commune trouvée</p>
         </div>
       )}
     </addCommuneModal.Component>
