@@ -6,6 +6,8 @@ import { ProConnectButton } from '@codegouvfr/react-dsfr/ProConnectButton'
 import Image from 'next/image'
 import styled from 'styled-components'
 
+const PROCONNECT_AIDE_MAIRIE_URL = 'https://proconnect.crisp.help/fr/article/utiliser-proconnect-au-sein-dune-collectivite-ou-dune-mairie-1mobnb6/'
+
 const ConnectionBoxWrapper = styled.div`
   font-family: var(--font-family-default);
   display: flex;
@@ -68,11 +70,22 @@ function ConnectionBox({ teaser, onConnect }: {
       </TitlePictureWrapper>
       <TeaserAndButtonWrapper>
         {teaser && <p className="fr-text--sm fr-mb-0">{teaser}</p>}
-        <div>
+        <div className="fr-mb-2w">
           <ProConnectButton
             onClick={() => onConnect(true)}
           />
         </div>
+        <p className="fr-text--sm fr-mb-0">
+          <a
+            href={PROCONNECT_AIDE_MAIRIE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fr-link fr-link--icon-right fr-icon-external-link-line"
+            title="Lien vidéo connexion Proconnect - nouvelle fenêtre"
+          >
+            Agent de mairie, comment créer un compte Proconnect ?
+          </a>
+        </p>
       </TeaserAndButtonWrapper>
     </ConnectionBoxWrapper>
   )
