@@ -6,6 +6,7 @@ import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
+import { Tag } from '@codegouvfr/react-dsfr/Tag'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CommuneHeroCard, SectionEditCard } from './DistrictActions/DistrictActions.styles'
@@ -54,6 +55,87 @@ const availableLanguage = (language as { code: string, label: string }[])
     if (a.label > b.label) return 1
     return 0
   })
+
+/** Codes des langues ayant un drapeau dans /public/img/flags (nom fichier = code.svg) */
+const LANG_CODES_WITH_FLAG = new Set(availableLanguage.map(l => l.code))
+
+const BAL_PARAMS_HINTS = {
+  langue: 'Langue des noms de voies et lieux-dits dans le fichier BAL (champs toponyme / voie_nom).',
+  redressement: 'Corrige les odonymes selon les règles typographiques du Standard Adresse.',
+  communesAnciennes: 'Ajoute la commune ancienne aux adresses pour distinguer les doublons.',
+} as const
+
+function BalParamsSummary({
+  defaultBalLang,
+  availableLanguage: langs,
+  redressementOdonymes,
+  communesAnciennes,
+}: {
+  defaultBalLang: string
+  availableLanguage: typeof availableLanguage
+  redressementOdonymes: boolean
+  communesAnciennes: boolean
+}) {
+  const currentLang = langs.find(l => l.code === defaultBalLang) ?? { code: DEFAULT_CODE_LANGUAGE, formatedLabel: 'Français' }
+  const flagSrc = LANG_CODES_WITH_FLAG.has(currentLang.code) ? `/img/flags/${currentLang.code}.svg` : '/img/flags/fra.svg'
+
+  return (
+    <div className="sec-card__value bal-params-summary fr-mb-0">
+      <div className="bal-params-summary__row">
+        <div className="bal-params-summary__label-line">
+          <span className="fr-icon fr-icon-global-line bal-params-summary__row-icon" aria-hidden="true" />
+          <span className="bal-params-summary__label">Langue principale</span>
+          <Tag
+            nativeSpanProps={{
+              className: 'fr-tag--blue-cumulus',
+              title: 'Langue principale des odonymes',
+            }}
+          >
+            <Image
+              src={flagSrc}
+              alt=""
+              width={16}
+              height={12}
+              className="bal-params-summary__tag-flag"
+            />
+            <span>{currentLang.formatedLabel}</span>
+          </Tag>
+        </div>
+        <p className="fr-hint-text bal-params-summary__hint">{BAL_PARAMS_HINTS.langue}</p>
+      </div>
+
+      <div className="bal-params-summary__row">
+        <div className="bal-params-summary__label-line">
+          <span className="fr-icon fr-icon-font-size bal-params-summary__row-icon" aria-hidden="true" />
+          <span className="bal-params-summary__label">Redressement des odonymes</span>
+          <Tag
+            nativeSpanProps={{
+              title: 'Redressement automatique des odonymes',
+            }}
+          >
+            {redressementOdonymes ? 'Activé par défaut' : 'Désactivé'}
+          </Tag>
+        </div>
+        <p className="fr-hint-text bal-params-summary__hint">{BAL_PARAMS_HINTS.redressement}</p>
+      </div>
+
+      <div className="bal-params-summary__row">
+        <div className="bal-params-summary__label-line">
+          <span className="fr-icon fr-icon-building-line bal-params-summary__row-icon" aria-hidden="true" />
+          <span className="bal-params-summary__label">Communes anciennes</span>
+          <Tag
+            nativeSpanProps={{
+              title: 'Calcul automatique des communes anciennes',
+            }}
+          >
+            {communesAnciennes ? 'Activé par défaut' : 'Désactivé'}
+          </Tag>
+        </div>
+        <p className="fr-hint-text bal-params-summary__hint">{BAL_PARAMS_HINTS.communesAnciennes}</p>
+      </div>
+    </div>
+  )
+}
 
 interface DistrictOptionsFormProps {
   district?: BANCommune | null
@@ -494,13 +576,16 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
             </CommuneHeroCard>
           )}
 
-          {!hasBanId && isAssemblage && (
+          {isAssemblage && (
             <Alert
               severity="warning"
               title="Commune en assemblage"
               description={(
                 <>
-                  Cette commune ne dispose pas encore de Base Adresse Locale (BAL). Passez rapidement à la création de votre première BAL pour alimenter la Base Adresse Nationale.{' '}
+                  Cette commune ne dispose pas encore de Base Adresse Locale (BAL). Les options de paramétrage et de délégation ne sont pas disponibles. Créez votre première BAL pour alimenter la Base Adresse Nationale.{' '}
+                  <Link href="https://adresse.data.gouv.fr/programme-bal" className="fr-link">
+                    Comment créer votre BAL
+                  </Link>
                 </>
               )}
               small
@@ -520,9 +605,11 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
           <SectionEditCard className="fr-mb-3w">
             <div className="sec-card__header">
               <div className="sec-card__header-left">
-                <span className="fr-icon fr-icon-file-text-line sec-card__icon" aria-hidden="true" />
-                <div>
+                <div className="sec-card__title-row">
+                  <span className="fr-icon fr-icon-file-text-line sec-card__icon" aria-hidden="true" />
                   <h3 className="sec-card__title">Certificat d&apos;adressage</h3>
+                </div>
+                <div className="sec-card__header-content">
                   <p className="sec-card__value fr-mb-0">
                     <Badge
                       severity={
@@ -543,7 +630,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   </p>
                 </div>
               </div>
-              {!readOnly && hasBanId && (
+              {!readOnly && hasBanId && !isAssemblage && (
                 <Button
                   type="button"
                   priority="secondary"
@@ -623,17 +710,17 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
           <SectionEditCard className="fr-mb-3w">
             <div className="sec-card__header">
               <div className="sec-card__header-left">
-                <span className="fr-icon fr-icon-settings-5-line sec-card__icon" aria-hidden="true" />
-                <div>
+                <div className="sec-card__title-row">
+                  <span className="fr-icon fr-icon-settings-5-line sec-card__icon" aria-hidden="true" />
                   <h3 className="sec-card__title">Paramètres des fichiers BAL</h3>
-                  <p className="sec-card__value fr-mb-0">
-                    Langue&nbsp;principale:&nbsp;
-                    <strong>
-                      {availableLanguage.find(l => l.code === (configState?.defaultBalLang || DEFAULT_CODE_LANGUAGE))?.formatedLabel ?? 'Français'}
-                    </strong>
-                    {' · '}Redressement odonymes&nbsp;: <strong>Activé</strong>
-                    {' · '}Communes anciennes&nbsp;: <strong>Activé</strong>
-                  </p>
+                </div>
+                <div className="sec-card__header-content">
+                  <BalParamsSummary
+                    defaultBalLang={configState?.defaultBalLang || DEFAULT_CODE_LANGUAGE}
+                    availableLanguage={availableLanguage}
+                    redressementOdonymes={true}
+                    communesAnciennes={true}
+                  />
                 </div>
               </div>
               {!readOnly && hasBanId && (
@@ -643,6 +730,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   iconId={editingSection === 'parametrage' ? 'fr-icon-close-line' : 'fr-icon-edit-line'}
                   iconPosition="left"
                   size="small"
+                  disabled
                   aria-expanded={editingSection === 'parametrage'}
                   aria-controls="sec-parametrage-body"
                   onClick={() => setEditingSection(s => s === 'parametrage' ? null : 'parametrage')}
@@ -696,9 +784,11 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
           <SectionEditCard id="ma-commune-delegation" className="fr-mb-3w">
             <div className="sec-card__header">
               <div className="sec-card__header-left">
-                <span className="fr-icon fr-icon-team-line sec-card__icon" aria-hidden="true" />
-                <div>
+                <div className="sec-card__title-row">
+                  <span className="fr-icon fr-icon-team-line sec-card__icon" aria-hidden="true" />
                   <h3 className="sec-card__title">Délégation</h3>
+                </div>
+                <div className="sec-card__header-content">
                   <p className="sec-card__value fr-mb-0">
                     La source de publication des adresses BAL de votre commune.
                   </p>
@@ -710,7 +800,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 <Alert
                   severity="info"
                   title="Plusieurs sources dans les dernières publications"
-                  description="Des publications par différents producteurs ont été constatées pour cette commune. Une source unique et pérenne est recommandée pour maintenir la cohérence des identifiants BAN et assurer la continuité pour les réutilisateurs. La source indiquée ci-dessous est celle de la publication la plus récente."
+                  description="Des publications par différents producteurs ont été constatées pour cette commune. Attention, il est nécessaire de s'assurer de la continuité des données entre différentes versions de la BAL."
                   small
                   className="fr-mb-2w"
                 />
@@ -720,25 +810,27 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 <div className="mandatary-row__info">
                   {(recapLoading || revisionsLoading)
                     ? '…'
-                    : recapError
-                      ? 'Indisponible'
-                      : (() => {
-                          const { mode, source } = getSourceDisplayFromMap(effectiveClientId, clientIdToDisplay)
-                          return (
-                            <>
-                              <div>
-                                <span className="mandatary-row__label">Source</span>
-                                <span className="mandatary-row__name">{source}</span>
-                              </div>
-                              <div>
-                                <span className="mandatary-row__label">Mode de publication</span>
-                                <span className="mandatary-row__name">{mode}</span>
-                              </div>
-                            </>
-                          )
-                        })()}
+                    : (recapError || revisionsError)
+                        ? 'Indisponible'
+                        : isAssemblage
+                          ? <span className="fr-hint-text">Aucune publication — cette commune n&apos;a pas encore de BAL.</span>
+                          : (() => {
+                              const { mode, source } = getSourceDisplayFromMap(effectiveClientId, clientIdToDisplay)
+                              return (
+                                <>
+                                  <div>
+                                    <span className="mandatary-row__label">Source</span>
+                                    <span className="mandatary-row__name">{source}</span>
+                                  </div>
+                                  <div>
+                                    <span className="mandatary-row__label">Mode de publication</span>
+                                    <span className="mandatary-row__name">{mode}</span>
+                                  </div>
+                                </>
+                              )
+                            })()}
                 </div>
-                {/* Pour l’instant pas alignés sur le principe de choix de source : modification désactivée.
+                {/* Modification désactivée (alignement choix de source)
                 {!enableMandataryChange && !readOnly && (
                   <Button
                     type="button"
@@ -760,7 +852,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 */}
               </div>
 
-              {/* Bloc « comment choisir / changer la source » mis en commentaire en attendant alignement.
+              {/* Bloc changement de source désactivé (alignement en cours)
               {enableMandataryChange && (
                 <>
                   <hr className="fr-hr mandatary-edit-sep" />

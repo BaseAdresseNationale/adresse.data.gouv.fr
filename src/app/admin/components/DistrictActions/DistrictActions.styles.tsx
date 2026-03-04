@@ -64,7 +64,6 @@ export const ProfileCard = styled.div`
     grid-column: 1;
   }
 
-  /* Annule les marges DSFR pour garder l’alignement avec le nom */
   .profile__row .fr-icon {
     margin: 0 !important;
   }
@@ -362,10 +361,16 @@ export const SectionEditCard = styled.div`
 
   .sec-card__header-left {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    gap: 0.25rem;
     flex: 1;
     min-width: 0;
+  }
+
+  .sec-card__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .sec-card__icon {
@@ -381,10 +386,78 @@ export const SectionEditCard = styled.div`
     color: var(--text-title-grey);
   }
 
+  .sec-card__title-row .sec-card__title {
+    margin: 0;
+  }
+
+  .sec-card__header-content {
+    padding-left: 2.25rem;
+  }
+
   .sec-card__value {
     font-size: 0.875rem;
     color: var(--text-mention-grey);
     margin: 0;
+  }
+
+  .bal-params-summary {
+    margin: 0;
+  }
+
+  .bal-params-summary__row {
+    margin-bottom: 1rem;
+  }
+
+  .bal-params-summary__row:last-child {
+    margin-bottom: 0;
+  }
+
+  .bal-params-summary__label-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .bal-params-summary__row-icon {
+    font-size: 1rem;
+    color: var(--blue-france-sun-113-625);
+    flex-shrink: 0;
+  }
+
+  .bal-params-summary__label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-label-grey);
+  }
+
+  .bal-params-summary__hint {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    color: var(--text-mention-grey);
+  }
+
+  .bal-params-summary span.fr-tag--blue-cumulus {
+    background-color: var(--background-action-low-blue-cumulus);
+    color: var(--text-action-high-blue-cumulus);
+  }
+
+  .bal-params-summary span.fr-tag--green-emeraude {
+    background-color: var(--background-action-low-green-emeraude);
+    color: var(--text-action-high-green-emeraude);
+  }
+
+  .bal-params-summary .bal-params-summary__tag-flag {
+    width: 1rem;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 0.125rem;
+    flex-shrink: 0;
+    margin-right: 0.25rem;
+    vertical-align: middle;
   }
 
   .sec-card__body {

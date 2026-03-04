@@ -37,8 +37,8 @@ export function ConfigSaveStickyBar({
     if (hasUnsavedChanges && !hadUnsavedChangesRef.current) {
       hadUnsavedChangesRef.current = true
       const t = setTimeout(() => {
-        stickyBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-      }, 100)
+        stickyBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+      }, 150)
       return () => clearTimeout(t)
     }
     if (!hasUnsavedChanges) hadUnsavedChangesRef.current = false
