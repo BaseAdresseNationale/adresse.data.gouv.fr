@@ -5,25 +5,11 @@ import Badge from '@codegouvfr/react-dsfr/Badge'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 import Section from '@/components/Section'
 import { BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
+import languesRegionales from '@/app/admin/components/DistrictActions/langues-regionales.json'
 
-const LANGUE_LABELS: Record<string, string> = {
-  'fra': 'français',
-  'bre': 'breton',
-  'eus': 'basque',
-  'gsw': 'alsacien',
-  'cos': 'corse',
-  'gcr': 'créole-guyanais',
-  'gcf': 'créole-martiniquais-guadeloupéen',
-  'rcf': 'créole-réunionnais',
-  'swb': 'mahorais',
-  'oci': 'occitan',
-  'cat': 'catalan',
-  'pcd': 'picard',
-  'oc-provenc': 'provençal',
-  'oc-nicard': 'niçard',
-  'vls': 'flamand',
-  'fr-gallo': 'gallo',
-}
+const LANGUE_LABELS: Record<string, string> = Object.fromEntries(
+  (languesRegionales as { code: string, label: string }[]).map(l => [l.code, l.label]),
+)
 
 interface CommuneAdministrationBlockProps {
   commune: BANCommune

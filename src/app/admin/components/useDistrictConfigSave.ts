@@ -34,6 +34,7 @@ interface UseDistrictConfigSaveParams {
   onUpdateConfig: (config: BANCommune['config']) => void
   setCurrentConfig: (config: string) => void
   onBeforeSave?: () => void
+  onSuccess?: () => void
 }
 
 export function useDistrictConfigSave({
@@ -44,6 +45,7 @@ export function useDistrictConfigSave({
   onUpdateConfig,
   setCurrentConfig,
   onBeforeSave,
+  onSuccess,
 }: UseDistrictConfigSaveParams) {
   const [message, setMessage] = useState<SaveMessage | null>(null)
   const [isSaving, setIsSaving] = useState(false)
@@ -157,6 +159,7 @@ export function useDistrictConfigSave({
                 text: 'Modifications enregistrées',
                 type: 'success',
               })
+              onSuccess?.()
             }
           }
           catch {
@@ -175,6 +178,7 @@ export function useDistrictConfigSave({
     district?.nbNumeros,
     handleSaveError,
     onBeforeSave,
+    onSuccess,
     onUpdateConfig,
     saveDistrictConfig,
     setCurrentConfig,
