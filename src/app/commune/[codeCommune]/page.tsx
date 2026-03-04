@@ -38,10 +38,7 @@ const CommunePublicationConsole = dynamicImport(() => import('../../../component
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
-import { CertificateTypeEnum } from '@/types/api-ban.types'
 import { notFound } from 'next/navigation'
-import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
-import { CommuneConfigItem } from '@/components/Commune/CommuneActions/CommuneActions.styles'
 
 // import SaveUrlClient from '@/components/SaveUrlClient'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
@@ -220,24 +217,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
             banId={banId}
           />
 
-          {commune.config?.certificate === CertificateTypeEnum.ALL && (
-            <div className="fr-mb-3w" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Tooltip kind="hover" title={`Le certificat d'adressage est activé pour la commune de ${commune.nomCommune}, les téléchargements sont disponibles via l'explorateur BAN.`}>
-                <CommuneConfigItem className="ri-file-paper-2-line">
-                  Certificat d&apos;adressage : <b>Activé</b>
-                </CommuneConfigItem>
-              </Tooltip>
-            </div>
-          )}
-          {commune.config?.certificate === CertificateTypeEnum.DISTRICT && (
-            <div className="fr-mb-3w" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Tooltip kind="hover" title="Les certificats sont téléchargeables depuis le site adresse.data.gouv.fr uniquement par les agents authentifiés de la mairie de la commune.">
-                <CommuneConfigItem className="ri-file-paper-2-line">
-                  Certificat d&apos;adressage : <b>Restreint à la mairie</b>
-                </CommuneConfigItem>
-              </Tooltip>
-            </div>
-          )}
           <CommuneActions
             district={commune}
             actionProps={[
@@ -282,11 +261,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
           <CommuneUpdatesSection lastRevisionsDetails={lastRevisionsDetails} />
         )}
 
-        <div className="fr-container-fluid">
-          <div className="fr-container" style={{ padding: '1.5rem' }}>
-            <CommuneAdministrationBlock commune={commune} />
-          </div>
-        </div>
+        <CommuneAdministrationBlock commune={commune} />
 
         {partenaireDeLaCharte && publicationConsoleTabs.length > 0 && <CommunePublicationConsole partenaireDeLaCharte={partenaireDeLaCharte} tabs={publicationConsoleTabs} />}
       </StyledCommunePage>
