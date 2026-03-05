@@ -49,6 +49,11 @@ export type BANVoie = {
 
 export type BANConfig = {
   certificate: CertificateTypeEnum
+  mandatary?: string // client_id de l'api-dépôt
+  defaultBalLang?: string // langue par défaut pour les BAL
+  autoFixLabels?: boolean // beautifier
+  computOldDistrict?: boolean // calculer les anciennes communes
+  computInteropKey?: boolean // recalcul des clés d'interopérabilité
 }
 
 export type BANCommune = {

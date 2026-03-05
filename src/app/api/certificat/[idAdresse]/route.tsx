@@ -29,9 +29,10 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
         Authorization: request.headers.get('authorization') || '',
       },
     })
-    if (connexion) {
+    if (connexion && connexion.ok) {
+      const userInfo = await connexion.json()
       const commune = await getCommune(address?.commune?.code)
-      if (commune.siren == JSON.parse(await connexion.json()).siret.slice(0, 9)) {
+      if (userInfo?.siret && commune?.siren && commune.siren === userInfo.siret.slice(0, 9)) {
         habilitation = true
       }
     }
