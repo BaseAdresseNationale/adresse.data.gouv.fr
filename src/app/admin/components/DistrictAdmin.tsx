@@ -61,6 +61,7 @@ const LANG_CODES_WITH_FLAG = new Set(availableLanguage.map(l => l.code))
 
 const BAL_PARAMS_HINTS = {
   langue: 'Langue des noms de voies et lieux-dits dans le fichier BAL (champs toponyme / voie_nom).',
+  langueRegionale: 'Langue des noms de voies et lieux-dits alternatifs dans le fichier BAL (champs nom_voie_alt / toponyme_alt).',
   redressement: 'Corrige les odonymes selon les règles typographiques du Standard Adresse.',
   communesAnciennes: 'Ajoute la commune ancienne aux adresses pour distinguer les doublons.',
 } as const
@@ -68,16 +69,24 @@ const BAL_PARAMS_HINTS = {
 function BalParamsSummary({
   defaultBalLang,
   availableLanguage: langs,
+  altLangCodes = [],
   redressementOdonymes,
   communesAnciennes,
 }: {
   defaultBalLang: string
   availableLanguage: typeof availableLanguage
+  altLangCodes?: string[]
   redressementOdonymes: boolean
   communesAnciennes: boolean
 }) {
   const currentLang = langs.find(l => l.code === defaultBalLang) ?? { code: DEFAULT_CODE_LANGUAGE, formatedLabel: 'Français' }
   const flagSrc = LANG_CODES_WITH_FLAG.has(currentLang.code) ? `/img/flags/${currentLang.code}.svg` : '/img/flags/fra.svg'
+  const altLangsWithLabel = altLangCodes
+    .map((code) => {
+      const lang = langs.find(l => l.code === code)
+      return lang ? { code: lang.code, formatedLabel: lang.formatedLabel } : null
+    })
+    .filter((l): l is { code: string, formatedLabel: string } => Boolean(l))
 
   return (
     <div className="sec-card__value bal-params-summary fr-mb-0">
@@ -103,6 +112,37 @@ function BalParamsSummary({
         </div>
         <p className="fr-hint-text bal-params-summary__hint">{BAL_PARAMS_HINTS.langue}</p>
       </div>
+
+      {altLangsWithLabel.length > 0 && (
+        <div className="bal-params-summary__row">
+          <div className="bal-params-summary__label-line">
+            <span className="fr-icon fr-icon-global-line bal-params-summary__row-icon" aria-hidden="true" />
+            <span className="bal-params-summary__label">Langue(s) alternative(s)</span>
+            {altLangsWithLabel.map(({ code, formatedLabel }) => {
+              const flagSrc = LANG_CODES_WITH_FLAG.has(code) ? `/img/flags/${code}.svg` : '/img/flags/fra.svg'
+              return (
+                <Tag
+                  key={code}
+                  nativeSpanProps={{
+                    className: 'fr-tag--blue-cumulus',
+                    title: `Odonymes en ${formatedLabel}`,
+                  }}
+                >
+                  <Image
+                    src={flagSrc}
+                    alt=""
+                    width={16}
+                    height={12}
+                    className="bal-params-summary__tag-flag"
+                  />
+                  <span>{formatedLabel}</span>
+                </Tag>
+              )
+            })}
+          </div>
+          <p className="fr-hint-text bal-params-summary__hint">{BAL_PARAMS_HINTS.langueRegionale}</p>
+        </div>
+      )}
 
       <div className="bal-params-summary__row">
         <div className="bal-params-summary__label-line">
@@ -307,6 +347,18 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     const lastRevision = communeRevisions?.[0]
     return lastRevision?.client?.id
   }, [config?.mandatary, configState?.mandatary, communeRevisions])
+
+  const altLangCodes = useMemo<string[]>(() => {
+    if (!district?.voies?.length) return []
+    const codes = new Set<string>()
+    for (const voie of district.voies) {
+      if (!voie.nomVoieAlt || typeof voie.nomVoieAlt !== 'object') continue
+      for (const code of Object.keys(voie.nomVoieAlt)) {
+        if (code) codes.add(code)
+      }
+    }
+    return Array.from(codes)
+  }, [district?.voies])
 
   const LAST_N_REVISIONS_FOR_SENSIBILISATION = 10
   const multipleProducersInRecentRevisions = useMemo(() => {
@@ -718,6 +770,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   <BalParamsSummary
                     defaultBalLang={configState?.defaultBalLang || DEFAULT_CODE_LANGUAGE}
                     availableLanguage={availableLanguage}
+                    altLangCodes={altLangCodes}
                     redressementOdonymes={true}
                     communesAnciennes={true}
                   />

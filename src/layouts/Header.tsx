@@ -221,13 +221,13 @@ export default function Header(
         {
           iconId: 'fr-icon-account-circle-fill' as const,
           linkProps: {
-            href: `/api/login?return_to=${encodeURIComponent(pathname || '/')}`,
+            href: '/admin',
           },
-          text: <Tooltip kind="hover" title="Se connecter avec ProConnect">Se connecter</Tooltip>,
+          text: <Tooltip kind="hover" title="Accéder à l'espace admin">Se connecter</Tooltip>,
         },
       ]
     }
-  }, [authenticated, userInfo, pathname])
+  }, [authenticated, userInfo])
 
   return (
     <HeaderWrapper $size={size} $withNotice={notices && notices.data.length > 0}>
