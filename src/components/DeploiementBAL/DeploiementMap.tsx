@@ -111,12 +111,14 @@ const paintLayers = {
       styles: [
         {
           expression: [
+            ['==', ['get', 'hasBAL'], true],
             ['==', ['get', 'statusBals'], 'published'],
           ], // Mes Adresses
           color: toolsColors.mesAdresses,
         },
         {
           expression: [
+            ['==', ['get', 'hasBAL'], false],
             ['==', ['get', 'statusBals'], 'draft'],
           ], // Mes Adresses
           color: `${toolsColors.mesAdresses}80`,

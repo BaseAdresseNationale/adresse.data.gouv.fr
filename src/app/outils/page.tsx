@@ -295,7 +295,7 @@ export default async function Outils() {
             footer={(
               <Button
                 linkProps={{
-                  href: 'https://doc.adresse.data.gouv.fr/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale',
+                  href: 'https://doc.adresse.data.gouv.fr/docs/mes-adresses/publier-une-base-adresse-locale/generalites-sur-la-publication',
                   target: '_blank',
                 }}
                 size="small"
@@ -400,7 +400,7 @@ export default async function Outils() {
                   <Button
                     className="fr-btn fr-btn--secondary"
                     linkProps={{
-                      href: 'https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
+                      href: 'https://doc.adresse.data.gouv.fr/docs/documentation-generale/utiliser-la-base-adresse-nationale/adresses-et-fantoir',
                       target: '_blank',
                     }}
                     size="small"
@@ -440,6 +440,42 @@ export default async function Outils() {
                     size="small"
                   >
                     En savoir plus sur CRAIG
+                  </Button>
+                </li>
+              </ul>
+            )}
+          />
+          <Card
+            title="PlugIN QGIS Géocodage"
+            titleAs="h5"
+            desc="Accéder directement depuis QGIS aux services de la Géoplateforme, dont le service de géocodage unitaire et en fichiers"
+            imageAlt="Illustration service de géocodage"
+            imageUrl="/img/pages/outils/qgis.png"
+            nativeImgProps={{ style: { objectFit: 'contain' } }}
+            className="fr-card--horizontal-tier fr-card--md"
+            footer={(
+              <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
+                <li>
+                  <Button
+                    className="fr-btn fr-btn"
+                    linkProps={{
+                      href: 'https://github.com/Geoplateforme/plugin-qgis-geoplateforme',
+                      target: '_blank',
+                    }}
+                    size="small"
+                  >
+                    PlugIN QGIS GPF
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    className="fr-btn fr-btn--secondary"
+                    linkProps={{
+                      href: '/blog/plugin-qgis-pour-integrer-le-geocodeur-de-la-ban',
+                    }}
+                    size="small"
+                  >
+                    En savoir plus
                   </Button>
                 </li>
               </ul>

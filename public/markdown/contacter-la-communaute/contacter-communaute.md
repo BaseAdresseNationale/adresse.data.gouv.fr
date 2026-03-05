@@ -25,4 +25,4 @@ Vous souhaitez discuter avec la communauté des producteurs pour échanger sur l
 
 ### Pour toute autre demande ou pour plus d’informations.
 
-Si vous ne trouvez pas les réponses à vos questions sur ce site ou dans la documentation ou la [FAQ](https://doc.adresse.data.gouv.fr/utiliser-la-base-adresse-nationale/foire-aux-questions), vous pouvez nous contacter à l’adresse suivante :  [adresse@data.gouv.fr](mailto:adresse@data.gouv.fr)
+Si vous ne trouvez pas les réponses à vos questions sur ce site ou dans la documentation, vous pouvez nous contacter à l’adresse suivante :  [adresse@data.gouv.fr](mailto:adresse@data.gouv.fr)
