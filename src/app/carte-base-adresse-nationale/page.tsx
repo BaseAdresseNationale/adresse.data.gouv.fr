@@ -201,6 +201,7 @@ function CartoView() {
   const banMapRef = useRef<MapRef>(null)
   const asideRef = useRef<HTMLDivElement>(null)
   const oldMapSearchResults = useRef<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | null>(null)
+  const closePanelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   type Lon = number
   type Lat = number
@@ -232,17 +233,25 @@ function CartoView() {
   const unselectBanItem = useCallback(() => router.push(`${URL_CARTOGRAPHY_BAN}`), [router])
   const onTargetClick = useCallback(() => asideRef.current?.scrollTo(0, 0), [])
   const closeMapSearchResults = useCallback(() => {
+    if (closePanelTimeoutRef.current) {
+      clearTimeout(closePanelTimeoutRef.current)
+      closePanelTimeoutRef.current = null
+    }
+
     setIsMenuVisible(false)
-    const timer = setTimeout(() => {
+
+    closePanelTimeoutRef.current = setTimeout(() => {
       setMapSearchResults(undefined)
       setMapBreadcrumbPath([])
       setDistrictLogo(undefined)
     }, 1000)
+  }, [])
+
+  useEffect(() => {
     return () => {
-      setMapSearchResults(undefined)
-      setMapBreadcrumbPath([])
-      setDistrictLogo(undefined)
-      clearTimeout(timer)
+      if (closePanelTimeoutRef.current) {
+        clearTimeout(closePanelTimeoutRef.current)
+      }
     }
   }, [])
   const updateHashPosition = useCallback((hash: string) => {
@@ -326,10 +335,19 @@ function CartoView() {
 
   // Load search datas
   useEffect(() => {
-    if (banItemId) {
-      (async () => {
-        setIsLoadMapSearchResults(true)
+    if (!banItemId) {
+      closeMapSearchResults()
+      setWithCertificate(false)
+      setHabilitationEnabled(false)
+      return
+    }
 
+    let isCancelled = false;
+
+    (async () => {
+      setIsLoadMapSearchResults(true)
+
+      try {
         // Load search item & district flag
         const banItemPromise = (getBanItem(banItemId))
         const districtFlagUrlPromise = getCommuneFlagProxy(banItemId)
@@ -337,58 +355,85 @@ function CartoView() {
           banItemPromise as unknown as Promise<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended>,
           districtFlagUrlPromise as Promise<string | undefined>,
         ])
+
+        if (isCancelled) {
+          return
+        }
+
         setMapSearchResults(banItem)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
-        let habilitation = false
+        let isHabilited = false
+        const banItemType = getBanItemTypes(banItem)
         try {
           const connexion = await customFetch('/api/me')
           if (connexion && typeof connexion === 'object' && 'siret' in connexion) {
             const commune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
             if (commune?.siren && connexion.siret && commune.siren === connexion.siret.slice(0, 9)) {
-              habilitation = true
+              isHabilited = true
             }
           }
         }
         catch (error: any) {
           if (error?.status === 401) {
-            habilitation = false
+            isHabilited = false
           }
         }
 
+        if (isCancelled) {
+          return
+        }
+
+        setHabilitationEnabled(isHabilited)
+
         // Update breadcrumb path & Actions Params
-        switch (getBanItemTypes(banItem)) {
+        switch (banItemType) {
           case 'district':
             setMapBreadcrumbPath(getDistrictBreadcrumbPath(banItem as TypeDistrictExtended))
+            setWithCertificate(false)
             break
           case 'micro-toponym':
             setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
+            setWithCertificate(false)
             break
-          case 'address':
+          case 'address': {
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
             // Utiliser la variable locale habilitation au lieu de habilitationEnabled
-            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitation) || config?.certificate == CertificateTypeEnum.ALL) {
+            if ((config?.certificate == CertificateTypeEnum.DISTRICT && isHabilited) || config?.certificate == CertificateTypeEnum.ALL) {
               setWithCertificate(true)
             }
             else {
               setWithCertificate(false)
             }
             break
+          }
           default:
             setMapBreadcrumbPath([])
             setWithCertificate(false)
             break
         }
 
-        setHabilitationEnabled(habilitation)
+        setHabilitationEnabled(isHabilited)
 
         setIsLoadMapSearchResults(false)
-      })()
+      }
+      catch (error) {
+        if (!isCancelled) {
+          closeMapSearchResults()
+        }
+      }
+      finally {
+        if (!isCancelled) {
+          setIsLoadMapSearchResults(false)
+        }
+      }
+    })()
+
+    return () => {
+      isCancelled = true
     }
-    else {
-      return () => { closeMapSearchResults() }
-    }
+    
   }, [banItemId, habilitationEnabled, closeMapSearchResults])
 
   useEffect(() => {

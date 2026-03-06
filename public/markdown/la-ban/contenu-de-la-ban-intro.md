@@ -1,7 +1,7 @@
 ---
 title: Contenu de la BAN
-intro: [{attach: "la-base-adresse-nationale", filename: "contenu-de-la-ban-intro"}]
-aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir_la_BAN--la_base_adresse_nationale"}]
+intro: [{attach: "la-base-adresse-nationale", filename: "la-ban/contenu-de-la-ban-intro"}]
+aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--la-base-adresse-nationale"}]
 ---
 
 La Base Adresse Nationale (BAN) est le référentiel des adresses du territoire. 
