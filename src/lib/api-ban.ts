@@ -10,11 +10,14 @@ if (!API_BAN_SEARCH_URL) {
 }
 
 export function getAddress(idAddress: string) {
-  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idAddress}`, { cache: 'force-cache' })
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(idAddress)}`, { cache: 'force-cache' })
 }
 
 export function getBanItem(idBanItem: string, signal?: AbortSignal): Promise<BANCommune | BANVoie | BANAddress> {
-  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${idBanItem}`, signal ? { signal, cache: 'force-cache' } : { cache: 'force-cache' })
+  return customFetch(
+    `${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(idBanItem)}`,
+    signal ? { signal, cache: 'force-cache' } : { cache: 'force-cache' }
+  )
 }
 
 export function getStats(): Promise<BANStats> {
@@ -22,11 +25,14 @@ export function getStats(): Promise<BANStats> {
 }
 
 export function getCommune(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {
-  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${codeCommune}`, signal ? { signal, cache: 'force-cache' } : { cache: 'force-cache' })
+  return customFetch(
+    `${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(codeCommune)}`,
+    signal ? { signal, cache: 'force-cache' } : { cache: 'force-cache' }
+  )
 }
 
 export function getCommuneWithoutCache(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {
-  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${codeCommune}`, {
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(codeCommune)}`, {
     ...(signal && { signal }),
     cache: 'no-store',
   })

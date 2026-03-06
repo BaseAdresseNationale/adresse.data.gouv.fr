@@ -207,7 +207,13 @@ function CartoView() {
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
 
-  const selectBanItem = useCallback(({ id }: { id: string }) => router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`), [router])
+  const selectBanItem = useCallback(({ id }: { id?: string | null }) => {
+    if (!id || id === 'undefined' || id === 'null') {
+      return
+    }
+
+    router.push(`${URL_CARTOGRAPHY_BAN}?id=${encodeURIComponent(id)}`)
+  }, [router])
   const unselectBanItem = useCallback(() => router.push(`${URL_CARTOGRAPHY_BAN}`), [router])
   const onTargetClick = useCallback(() => asideRef.current?.scrollTo(0, 0), [])
   const closeMapSearchResults = useCallback(() => {
@@ -233,13 +239,28 @@ function CartoView() {
     }
   }, [])
   const updateHashPosition = useCallback((hash: string) => {
-    if (window && window.location) {
-      if (window.location?.hash === hash) return
-      const locationPrefix = `${window.location.pathname}${window.location.search}`
-      const newLocation = hash ? `${locationPrefix}#${hash}` : locationPrefix
-      router.replace(newLocation)
+    if (typeof window === 'undefined' || !window.location) {
+      return
     }
-  }, [router])
+
+    const nextHash = hash ? `#${hash}` : ''
+    if (window.location.hash === nextHash) {
+      return
+    }
+
+    // Update only the URL hash to avoid dropping current search params (e.g. ?id=...)
+    // during map move events.
+    if (nextHash) {
+      window.history.replaceState(window.history.state, '', nextHash)
+    }
+    else {
+      window.history.replaceState(
+        window.history.state,
+        '',
+        `${window.location.pathname}${window.location.search}`
+      )
+    }
+  }, [])
   const onMoveHandle = useCallback(() => {
     const { current: banMapGL } = banMapRef
     if (!banMapGL) return
@@ -327,12 +348,8 @@ function CartoView() {
 
       try {
         // Load search item & district flag
-        const banItemPromise = (getBanItem(banItemId))
-        const districtFlagUrlPromise = getCommuneFlagProxy(banItemId)
-        const [banItem, districtFlagUrl] = await Promise.all([
-          banItemPromise as unknown as Promise<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended>,
-          districtFlagUrlPromise as Promise<string | undefined>,
-        ])
+        const banItem = await getBanItem(banItemId) as unknown as TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended
+        const districtFlagUrl = await getCommuneFlagProxy(banItemId).catch(() => DEFAULT_URL_DISTRICT_FLAG)
 
         if (isCancelled) {
           return
