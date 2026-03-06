@@ -61,16 +61,24 @@ export async function GET(request: NextRequest, props: { params: Promise<{ idCer
     />
   )
 
-  const chunks: Buffer[] = []
-  pdfStream.on('data', (chunk) => {
+  const chunks: Uint8Array[] = []
+  pdfStream.on('data', (chunk: Uint8Array) => {
     chunks.push(chunk)
   })
 
   return new Promise<NextResponse>((resolve, reject) => {
     pdfStream.on('end', () => {
-      const buffer = Buffer.concat(chunks as unknown as Uint8Array[])
+      const totalSize = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0)
+      const merged = new Uint8Array(totalSize)
+      let offset = 0
+
+      for (const chunk of chunks) {
+        merged.set(chunk, offset)
+        offset += chunk.byteLength
+      }
+
       const headers = new Headers({ 'Content-Type': 'application/pdf' })
-      resolve(new NextResponse(buffer, { headers }))
+      resolve(new NextResponse(merged, { headers }))
     })
 
     pdfStream.on('error', (error) => {

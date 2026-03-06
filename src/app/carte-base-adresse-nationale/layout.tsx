@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useContext, useEffect } from 'react'
+import { useCallback, useState, useContext, useEffect, type ReactNode } from 'react'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import SearchBAN from '@/components/SearchBAN'
@@ -34,7 +34,7 @@ const RingButton = ({ tooltip, ...props }: { tooltip?: string, [key: string]: an
       )
 }
 
-function Carto({ children }: { children: JSX.Element }) {
+function Carto({ children }: { children: ReactNode }) {
   const { setTypeLayout } = useMainLayout()
 
   const [isLegendVisible, setIsLegendVisible] = useState(false)
@@ -98,7 +98,7 @@ function Carto({ children }: { children: JSX.Element }) {
   )
 }
 
-export default function RootLayout({ children }: { children: JSX.Element }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const balWidgetContext = useContext(BALWidgetContext)
   const { hideWidget, showWidget } = balWidgetContext || {}
 
