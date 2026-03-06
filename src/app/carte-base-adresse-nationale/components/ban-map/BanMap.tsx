@@ -106,11 +106,21 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
 
     const handleClick = (
       evt: MapMouseEvent & { features?: MapGeoJSONFeature[] | undefined },
-      callBack: (properties: MapGeoJSONFeature['properties']) => void
+      callBack: (properties: { id: string }) => void
     ) => {
       if (evt.features && evt.features.length > 0) {
         const feature: MapGeoJSONFeature = evt.features[0]
-        callBack(feature.properties)
+        const idFromProperties =
+          feature.properties?.id
+          ?? feature.properties?.idVoie
+          ?? feature.properties?.idToponyme
+          ?? feature.id
+
+        if (!idFromProperties) {
+          return
+        }
+
+        callBack({ id: String(idFromProperties) })
       }
     }
 
