@@ -4,11 +4,12 @@ import styled from 'styled-components'
 import Section from '../Section'
 import Table from '@codegouvfr/react-dsfr/Table'
 import { useMemo } from 'react'
+import type { ReactNode } from 'react'
 import { format, parseISO } from 'date-fns'
 import { fr } from 'date-fns/locale'
 
 interface CommuneUpdatesSectionProps {
-  lastRevisionsDetails: (string | JSX.Element | null)[][]
+  lastRevisionsDetails: (string | ReactNode | null)[][]
 }
 
 const StyledWrapper = styled.div`
