@@ -10,7 +10,6 @@ import { useMainLayout } from '@/layouts/MainLayout'
 import { BanMapProvider, useBanMapConfig } from './components/ban-map/BanMap.context'
 import { theme } from './components/ban-map/theme'
 import Legend from './components/Legend'
-import { PublicEnvScript } from 'next-runtime-env'
 
 import {
   CartoWrapper,
@@ -99,7 +98,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <BanMapProvider>
-      <PublicEnvScript />
       <Carto>
         { children }
       </Carto>
