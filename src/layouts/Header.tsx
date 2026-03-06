@@ -198,6 +198,7 @@ export default function Header(
       <div className="header-spacer" />
       {isBeta && <CornerRibbons>Version βετα</CornerRibbons>}
       <HeaderDSFR
+        key={pathname || '/'}
         id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
         className="dsfr-header"
         brandTop={(
@@ -230,18 +231,24 @@ export default function Header(
             iconId: 'fr-icon-road-map-fill',
             linkProps: {
               href: '/carte-base-adresse-nationale',
+              'aria-label': 'La Carte - Explorateur de la Base adresse nationale',
             },
             text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
           },
           {
             iconId: 'fr-icon-book-2-fill',
-            linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' },
+            linkProps: {
+              href: `${DOC_ADRESSE_URL}`,
+              target: '_blank',
+              'aria-label': 'La Documentation - Ressources & Documentations',
+            },
             text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
           },
           {
             iconId: 'ri-quill-pen-fill',
             linkProps: {
               href: '/blog',
+              'aria-label': 'Le Blog - Le blog et les témoignages',
             },
             text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
           },
