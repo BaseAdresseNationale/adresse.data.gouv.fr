@@ -31,7 +31,8 @@ function AlertMiseEnForme({ file, nbRowsRemediation, codeCommune }: ValidationRe
     }
     try {
       const buffer = await autofix(file as any)
-      const blob = new Blob([buffer], { type: 'application/octet-stream' })
+      const bytes = Uint8Array.from(buffer as ArrayLike<number>)
+      const blob = new Blob([bytes], { type: 'application/octet-stream' })
 
       const url = URL.createObjectURL(blob)
 
