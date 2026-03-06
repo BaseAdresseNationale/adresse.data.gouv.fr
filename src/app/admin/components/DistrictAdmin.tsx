@@ -857,40 +857,40 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     </div>
                   )
                 : (
-                  <>
-              {multipleProducersInRecentRevisions.active && (
-                <Alert
-                  severity="info"
-                  title="Plusieurs sources dans les dernières publications"
-                  description="Des publications par différents producteurs ont été constatées pour cette commune. Attention, il est nécessaire de s'assurer de la continuité des données entre différentes versions de la BAL."
-                  small
-                  className="fr-mb-2w"
-                />
-              )}
-              <div className="mandatary-row fr-mb-3w">
-                <span className="fr-icon fr-icon-user-line mandatary-row__icon" aria-hidden="true" />
-                <div className="mandatary-row__info">
-                  {(recapError || revisionsError)
-                        ? 'Indisponible'
-                        : isAssemblage
-                          ? <span className="fr-hint-text">Aucune publication — cette commune n&apos;a pas encore de BAL.</span>
-                          : (() => {
-                              const { mode, source } = getSourceDisplayFromMap(effectiveClientId, clientIdToDisplay)
-                              return (
-                                <>
-                                  <div>
-                                    <span className="mandatary-row__label">Source</span>
-                                    <span className="mandatary-row__name">{source}</span>
-                                  </div>
-                                  <div>
-                                    <span className="mandatary-row__label">Mode de publication</span>
-                                    <span className="mandatary-row__name">{mode}</span>
-                                  </div>
-                                </>
-                              )
-                            })()}
-                </div>
-                {/* Modification désactivée (alignement choix de source)
+                    <>
+                      {multipleProducersInRecentRevisions.active && (
+                        <Alert
+                          severity="info"
+                          title="Plusieurs sources dans les dernières publications"
+                          description="Des publications par différents producteurs ont été constatées pour cette commune. Attention, il est nécessaire de s'assurer de la continuité des données entre différentes versions de la BAL."
+                          small
+                          className="fr-mb-2w"
+                        />
+                      )}
+                      <div className="mandatary-row fr-mb-3w">
+                        <span className="fr-icon fr-icon-user-line mandatary-row__icon" aria-hidden="true" />
+                        <div className="mandatary-row__info">
+                          {(recapError || revisionsError)
+                            ? 'Indisponible'
+                            : isAssemblage
+                              ? <span className="fr-hint-text">Aucune publication — cette commune n&apos;a pas encore de BAL.</span>
+                              : (() => {
+                                  const { mode, source } = getSourceDisplayFromMap(effectiveClientId, clientIdToDisplay)
+                                  return (
+                                    <>
+                                      <div>
+                                        <span className="mandatary-row__label">Source</span>
+                                        <span className="mandatary-row__name">{source}</span>
+                                      </div>
+                                      <div>
+                                        <span className="mandatary-row__label">Mode de publication</span>
+                                        <span className="mandatary-row__name">{mode}</span>
+                                      </div>
+                                    </>
+                                  )
+                                })()}
+                        </div>
+                        {/* Modification désactivée (alignement choix de source)
                 {!enableMandataryChange && !readOnly && (
                   <Button
                     type="button"
@@ -910,9 +910,9 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   </Button>
                 )}
                 */}
-              </div>
+                      </div>
 
-              {/* Bloc changement de source désactivé (alignement en cours)
+                      {/* Bloc changement de source désactivé (alignement en cours)
               {enableMandataryChange && (
                 <>
                   <hr className="fr-hr mandatary-edit-sep" />
@@ -979,8 +979,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 </>
               )}
               */}
-                  </>
-                )}
+                    </>
+                  )}
             </div>
           </SectionEditCard>
         </section>
