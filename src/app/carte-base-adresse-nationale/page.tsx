@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
+import { customFetch } from '@/lib/fetch'
 import { env } from 'next-runtime-env'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
@@ -8,6 +9,8 @@ import { LngLatBounds } from 'maplibre-gl'
 
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getBanItem } from '@/lib/api-ban'
+import { getCommune } from '@/lib/api-geo'
+import { CertificateTypeEnum } from '@/types/api-ban.types'
 
 import { useBanMapConfig } from './components/ban-map/BanMap.context'
 import Aside from './components/Aside'
@@ -30,6 +33,8 @@ import type {
   TypeDistrictExtended,
   TypeDistrict,
 } from './types/LegacyBan.types'
+
+import provinces from '@/data/provinces.json'
 
 interface LinkProps {
   href: string
@@ -86,9 +91,24 @@ const isBboxIntersect = (bounds1: Bounds, bounds2: Bounds): boolean => {
   )
 }
 
+const getDepartementOrProvince = (district: TypeDistrict | TypeDistrictExtended) => {
+  if (district?.departement?.nom) {
+    if (district.departement.code == '987' || district.departement.code == '988') {
+      const provinceName = provinces[((district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune) as keyof typeof provinces]
+      return (`${provinceName}`)
+    }
+    else {
+      return (`${district.departement.nom}\u00A0(${district.departement.code})`)
+    }
+  }
+  else {
+    return ('Département non renseigné')
+  }
+}
+
 const getDistrictBreadcrumbPath = (district: TypeDistrict | TypeDistrictExtended, districtLinkProps?: LinkProps) => ([
   district?.region?.nom ? `${district.region.nom}\u00A0(${district.region.code})` : 'Région non renseignée',
-  district?.departement?.nom ? `${district.departement.nom}\u00A0(${district.departement.code})` : 'Département non renseigné',
+  getDepartementOrProvince(district),
   districtLinkProps
     ? {
         label: `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
@@ -153,6 +173,7 @@ function CartoView() {
   const [withCertificate, setWithCertificate] = useState<boolean>(false)
   const [isLoadMapSearchResults, setIsLoadMapSearchResults] = useState(false)
   const [isLoadMapTiles, setIsLoadMapTiles] = useState(false)
+  const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
 
   const banMapRef = useRef<MapRef>(null)
   const asideRef = useRef<HTMLDivElement>(null)
@@ -219,7 +240,7 @@ function CartoView() {
     if (window?.location?.hash) {
       initHash.current = window?.location?.hash?.slice(1)
       const hash = initHash.current
-      const [lon, lat, zoom] = hash.split('_').map(Number)
+      const [lat, lon, zoom] = hash.split('_').map(Number)
       const hashPosition = [lon, lat, zoom]
       setHash({
         value: hash,
@@ -267,6 +288,20 @@ function CartoView() {
         setMapSearchResults(banItem)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
+        let connexion = null
+        try {
+          connexion = await customFetch('/api/me')
+          if (connexion) {
+            const commune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
+            setHabilitationEnabled(commune.siren == JSON.parse(connexion).siret.slice(0, 9))
+          }
+        }
+        catch (error: any) {
+          if (error?.status === 401) {
+            setHabilitationEnabled(false)
+          }
+        }
+
         // Update breadcrumb path & Actions Params
         switch (getBanItemTypes(banItem)) {
           case 'district':
@@ -278,7 +313,12 @@ function CartoView() {
           case 'address':
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
-            setWithCertificate(config?.certificate ? true : false)
+            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitationEnabled) || config?.certificate == CertificateTypeEnum.ALL) {
+              setWithCertificate(true)
+            }
+            else {
+              setWithCertificate(false)
+            }
             break
           default:
             setMapBreadcrumbPath([])
@@ -292,7 +332,7 @@ function CartoView() {
     else {
       return () => { closeMapSearchResults() }
     }
-  }, [banItemId, closeMapSearchResults])
+  }, [banItemId, habilitationEnabled, closeMapSearchResults])
 
   // Position map to Search results
   useEffect(() => {
@@ -342,7 +382,7 @@ function CartoView() {
         const isBBoxVisible: boolean = (Math.ceil(mapZoom) >= 9) && isBboxIntersect(mapBounds, hashBounds)
 
         banMapGL.flyTo({
-          center: [position[1], position[0]],
+          center: [position[0], position[1]],
           zoom: position[2],
           animate: isBBoxVisible,
         })

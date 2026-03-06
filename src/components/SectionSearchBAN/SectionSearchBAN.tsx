@@ -15,6 +15,7 @@ import {
   IntroWrapper,
   Title,
   FormDescription,
+  FormInformation,
   ButtonLink,
 } from './SectionSearchBAN.styles'
 import { env } from 'next-runtime-env'
@@ -45,6 +46,7 @@ function SectionSearchBAN({ id }: SectionSearchBANProps) {
             <Title>Rechercher dans la Base Adresse Nationale</Title>
             <FormDescription>Saisissez votre adresse, une voie, un lieu-dit ou une commune</FormDescription>
           </SearchBAN>
+          <FormInformation>Actualisation du moteur de recherche les lundi et jeudi</FormInformation>
           <FormWrapperFooter>
             <Link className="fr-link fr-link--icon-left fr-icon-road-map-line" href={`.${URL_CARTOGRAPHY_BAN}`}>Consultez directement la carte</Link>
             <ButtonLink className="fr-link fr-link--icon-left fr-icon-questionnaire-line" href="#" onClick={handleContactParticuliers}>J’ai un souci avec mon adresse</ButtonLink>

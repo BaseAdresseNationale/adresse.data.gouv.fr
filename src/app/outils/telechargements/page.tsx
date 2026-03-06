@@ -72,13 +72,13 @@ export default async function PageDownloadBan() {
           </div>
           <div>
             <Card
-              title="Format BAL"
+              title="Format CSV avec identifiants BAN"
               titleAs="h3"
               desc={(
                 <>
                   <ul>
-                    <li>Fichier CSV au format BAL 1.3 (AITF)</li>
-                    <li>Plusieurs positions par adresse</li>
+                    <li>Fichier CSV avec les colonnes identifiants BAN</li>
+                    <li>Une position par adresse</li>
                   </ul>
                 </>
               )}
@@ -86,11 +86,11 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: '/data/ban/adresses/latest/csv-bal/',
+                    href: '/data/ban/adresses/latest/csv-with-ids',
                   }}
                   size="small"
                 >
-                  Télécharger au format BAL
+                  Télécharger au format CSV
                 </Button>
               )}
             />

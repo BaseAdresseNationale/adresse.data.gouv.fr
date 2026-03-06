@@ -2,16 +2,16 @@ name: Docker
 
 on:
   push:
-    branches: 
+    branches:
       - "master"
-      - "main"  # Ajout de la branche main
+      - "main" # Ajout de la branche main
       - "develop"
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags: ["v*.*.*"]
   pull_request:
-    branches: 
+    branches:
       - "master"
-      - "main"  # Ajout de la branche main
+      - "main" # Ajout de la branche main
       - "develop"
 
 env:
@@ -22,7 +22,6 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -90,6 +89,7 @@ jobs:
             NEXT_PUBLIC_API_SIGNALEMENT=${{ vars.NEXT_PUBLIC_API_SIGNALEMENT }}
             NEXT_PUBLIC_MES_SIGNALEMENTS=${{ vars.NEXT_PUBLIC_MES_SIGNALEMENTS }}
             NEXT_PUBLIC_MES_SIGNALEMENTS_SOURCE_ID=${{ vars.NEXT_PUBLIC_MES_SIGNALEMENTS_SOURCE_ID }}
+            NEXT_PUBLIC_DOC_ADRESSE_URL=${{ vars.NEXT_PUBLIC_DOC_ADRESSE_URL }}
       # Debug: Afficher les informations de débogage
       - name: Print Debug Info
         run: |
