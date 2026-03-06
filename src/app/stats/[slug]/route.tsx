@@ -1,4 +1,4 @@
-import type { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 import {
   matomoToVisitData,
   matomoDailyDownloadToData,
@@ -11,21 +11,6 @@ import {
   defDataBanVisit,
   defDataDailyDownload,
 } from '../utils/stats-config-data'
-import { env } from 'next-runtime-env'
-
-const NEXT_PUBLIC_MATOMO_URL = env('NEXT_PUBLIC_MATOMO_URL')
-const NEXT_PUBLIC_MATOMO_SITE_ID = env('NEXT_PUBLIC_MATOMO_SITE_ID')
-const MATOMO_TOKEN_AUTH = process.env.MATOMO_TOKEN_AUTH
-
-if (!NEXT_PUBLIC_MATOMO_URL || !NEXT_PUBLIC_MATOMO_SITE_ID) {
-  throw new Error('MATOMO_URL and MATOMO_ID is not defined in the environment')
-}
-
-const URL_GET_STATS_MONTHLY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1`
-const URL_GET_STATS_MONTHLY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1`
-const URL_GET_STATS_DAILY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=day&date=previous30&method=Events.getCategory&expanded=1&filter_limit=10`
-const URL_GET_STATS_DAILY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`
-const URL_GET_STAT_VISIT = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`
 
 // Any : is from matomo's data extracted from helper.js
 type StatValue = Record<string, any>
@@ -39,18 +24,54 @@ interface DataResponse {
   data?: object
 }
 
-const APIs: Record<string, DataResponse> = {
-  'monthly-usage': { getter: getMonthlyUsageData([URL_GET_STATS_MONTHLY_DOWNLOAD, URL_GET_STATS_MONTHLY_LOOKUP]) },
-  'daily-lookup': { url: URL_GET_STATS_DAILY_LOOKUP, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup) },
-  'daily-download': { url: URL_GET_STATS_DAILY_DOWNLOAD, converter: matomoDailyDownloadToData(defDataDailyDownload) },
-  'visit': { url: URL_GET_STAT_VISIT, converter: matomoToVisitData(defDataBanVisit) },
-  'quality': { getter: getQualityData },
+const emptyMonthlyUsage = { period: '', value: [] }
+const emptySeries: any[] = []
+
+function getMatomoUrls() {
+  const matomoUrl = process.env.NEXT_PUBLIC_MATOMO_URL
+  const matomoSiteId = process.env.NEXT_PUBLIC_MATOMO_SITE_ID
+  const matomoTokenAuth = process.env.MATOMO_TOKEN_AUTH
+
+  if (!matomoUrl || !matomoSiteId || !matomoTokenAuth) {
+    return null
+  }
+
+  return {
+    monthlyDownload: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1`,
+    monthlyLookup: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1`,
+    dailyDownload: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=day&date=previous30&method=Events.getCategory&expanded=1&filter_limit=10`,
+    dailyLookup: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`,
+    visit: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`,
+  }
 }
 
-export async function GET(req: NextRequest, props: { params: Promise<{ slug: string }> }) {
+function getApis(): Record<string, DataResponse> {
+  const matomoUrls = getMatomoUrls()
+
+  if (!matomoUrls) {
+    return {
+      'monthly-usage': { data: emptyMonthlyUsage },
+      'daily-lookup': { data: emptySeries },
+      'daily-download': { data: emptySeries },
+      'visit': { data: emptySeries },
+      'quality': { getter: getQualityData },
+    }
+  }
+
+  return {
+    'monthly-usage': { getter: getMonthlyUsageData([matomoUrls.monthlyDownload, matomoUrls.monthlyLookup]) },
+    'daily-lookup': { url: matomoUrls.dailyLookup, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup) },
+    'daily-download': { url: matomoUrls.dailyDownload, converter: matomoDailyDownloadToData(defDataDailyDownload) },
+    'visit': { url: matomoUrls.visit, converter: matomoToVisitData(defDataBanVisit) },
+    'quality': { getter: getQualityData },
+  }
+}
+
+export async function GET(_req: NextRequest, props: { params: Promise<{ slug: string }> }) {
   const params = await props.params
   const res = Response
   const slug = params.slug
+  const APIs = getApis()
   try {
     const { url, getter, data: dataRaw, converter = (d: object) => d }: DataResponse = APIs?.[slug] || {}
 
