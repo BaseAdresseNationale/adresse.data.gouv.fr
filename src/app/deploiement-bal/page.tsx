@@ -3,7 +3,7 @@ import departements from '@/data/departement-center.json'
 import { getStats } from '@/lib/api-ban'
 import DeploiementBALDashboard from '../../components/DeploiementBAL/DeploiementBALDashboard'
 import Section from '@/components/Section'
-import { mapToSearchResult } from '@/lib/deploiement-stats'
+import { mapToSearchResult } from '@/lib/deploiement-search'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { Departement } from '@/types/api-geo.types'
 

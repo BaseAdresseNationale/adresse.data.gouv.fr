@@ -1,6 +1,9 @@
 import { promises as fsp } from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const staticSrcPath = path.join(__dirname, '.next/static')
 const staticDestPath = path.join(__dirname, '.next/standalone/.next/static')
