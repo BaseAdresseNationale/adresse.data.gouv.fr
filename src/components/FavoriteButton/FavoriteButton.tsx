@@ -33,7 +33,7 @@ export function FavoriteButton({
       }
       else {
         if (maxReached) {
-          throw new Error('Vous avez atteint la limite de 20 communes favorites')
+          throw new Error('Vous avez atteint la limite de communes favorites')
         }
         await addFavorite(districtID)
       }
@@ -41,9 +41,6 @@ export function FavoriteButton({
     catch (e: any) {
       setError(e.message || 'Une erreur est survenue')
       console.error('Favorite toggle error:', e)
-
-      // Afficher l'erreur dans un toast (optionnel, tu peux utiliser une lib comme react-hot-toast)
-      // toast.error(e.message)
     }
     finally {
       setIsLoading(false)

@@ -18,6 +18,7 @@ import { useDistrictConfigSave } from './useDistrictConfigSave'
 import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
+import Loader from '@/components/Loader'
 import { customFetch } from '@/lib/fetch'
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getClientsRecap, type ClientRecapItem, type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
@@ -849,7 +850,15 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               </div>
             </div>
             <div className="sec-card__body">
-              {multipleProducersInRecentRevisions.active && !recapLoading && !revisionsLoading && (
+              {(recapLoading || revisionsLoading)
+                ? (
+                    <div style={{ display: 'flex', justifyContent: 'center', padding: '2.5rem' }} aria-busy="true">
+                      <Loader size={36} />
+                    </div>
+                  )
+                : (
+                  <>
+              {multipleProducersInRecentRevisions.active && (
                 <Alert
                   severity="info"
                   title="Plusieurs sources dans les dernières publications"
@@ -861,9 +870,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               <div className="mandatary-row fr-mb-3w">
                 <span className="fr-icon fr-icon-user-line mandatary-row__icon" aria-hidden="true" />
                 <div className="mandatary-row__info">
-                  {(recapLoading || revisionsLoading)
-                    ? '…'
-                    : (recapError || revisionsError)
+                  {(recapError || revisionsError)
                         ? 'Indisponible'
                         : isAssemblage
                           ? <span className="fr-hint-text">Aucune publication — cette commune n&apos;a pas encore de BAL.</span>
@@ -972,6 +979,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 </>
               )}
               */}
+                  </>
+                )}
             </div>
           </SectionEditCard>
         </section>

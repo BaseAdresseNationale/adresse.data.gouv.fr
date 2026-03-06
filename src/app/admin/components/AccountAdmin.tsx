@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { type UserInfo } from '@/hooks/useAuth'
+import Loader from '@/components/Loader'
 import { useFavorites } from '@/hooks/useFavorites'
 import FavoritesList from './FavoritesList'
 import AddCommuneModal, { addCommuneModal } from './AddCommuneModal'
 import NotificationsBAN, { openCreateSubscriptionModal } from '@/components/NotificationsBAN/NotificationsBAN'
-import { ProfileCard, SectionEditCard } from './DistrictActions/DistrictActions.styles'
+import { ProfileCard, ScrollableCardBody, SectionEditCard } from './DistrictActions/DistrictActions.styles'
+import { getStatutsCommunes, type StatutCommune } from '@/lib/api-ban'
 
 interface AccountAdminProps {
   userInfo?: UserInfo | null
@@ -21,8 +23,39 @@ function getInitials(displayName: string): string {
 }
 
 function AccountAdmin({ userInfo }: AccountAdminProps) {
-  const { favorites, addFavorite, removeFavorite, count, maxReached } = useFavorites(userInfo?.sub)
+  const { favorites, addFavorite, removeFavorite, refreshFavorites, count, maxReached, isLoading: favoritesLoading } = useFavorites(userInfo?.sub)
   const [notificationsCount, setNotificationsCount] = useState(0)
+  const [statuts, setStatuts] = useState<StatutCommune[]>([])
+
+  useEffect(() => {
+    if (favorites.length === 0) {
+      setStatuts([])
+      return
+    }
+    let cancelled = false
+    const cogs = favorites.map(f => f.codeCommune)
+    getStatutsCommunes(cogs)
+      .then((res) => {
+        if (cancelled) return
+        setStatuts(res)
+      })
+      .catch((err) => {
+        console.error('Erreur chargement statuts-communes:', err)
+        if (!cancelled) setStatuts([])
+      })
+    return () => {
+      cancelled = true
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- recalc when count changes only
+  }, [favorites.length])
+
+  const statutsByCog = useMemo(() => {
+    const map: Record<string, StatutCommune> = {}
+    for (const s of statuts) {
+      map[s.cog] = s
+    }
+    return map
+  }, [statuts])
 
   const getDisplayName = () => {
     if (!userInfo) return 'Utilisateur'
@@ -83,7 +116,7 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
               <h3 className="sec-card__title">Mes communes favorites</h3>
               <p className="sec-card__value fr-mb-0">
                 {count > 0
-                  ? `${count} / 20 commune${count > 1 ? 's' : ''} suivie${count > 1 ? 's' : ''}`
+                  ? `${count} commune${count > 1 ? 's' : ''} suivie${count > 1 ? 's' : ''}`
                   : 'Suivez l\'état des BAL et accédez rapidement à leurs pages.'}
               </p>
             </div>
@@ -97,18 +130,27 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
               size="small"
               disabled={maxReached}
               onClick={() => addCommuneModal.open()}
-              aria-label={maxReached ? 'Limite de 20 communes atteinte' : 'Ajouter une commune aux favoris'}
+              aria-label={maxReached ? 'Limite de communes atteinte' : 'Ajouter une commune aux favoris'}
             >
               Ajouter une commune
             </Button>
           )}
         </div>
         <div className="sec-card__body sec-card__body--neutral">
-          <FavoritesList
-            favorites={favorites}
-            onRemove={removeFavorite}
-            onAdd={() => addCommuneModal.open()}
-          />
+          {favoritesLoading
+            ? (
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }} aria-busy="true">
+                  <Loader size={40} />
+                </div>
+              )
+            : (
+                <FavoritesList
+                  favorites={favorites}
+                  onRemove={removeFavorite}
+                  onAdd={() => addCommuneModal.open()}
+                  statutsByCog={statutsByCog}
+                />
+              )}
         </div>
       </SectionEditCard>
 
@@ -142,14 +184,16 @@ function AccountAdmin({ userInfo }: AccountAdminProps) {
           )}
         </div>
         <div className="sec-card__body sec-card__body--neutral">
-          <NotificationsBAN
-            embedded
-            onSubscriptionsCountChange={setNotificationsCount}
-          />
+          <ScrollableCardBody style={{ padding: '1.5rem' }}>
+            <NotificationsBAN
+              embedded
+              onSubscriptionsCountChange={setNotificationsCount}
+            />
+          </ScrollableCardBody>
         </div>
       </SectionEditCard>
 
-      <AddCommuneModal onAdd={addFavorite} maxReached={maxReached} />
+      <AddCommuneModal onAdd={addFavorite} onRefresh={refreshFavorites} maxReached={maxReached} />
     </div>
   )
 }

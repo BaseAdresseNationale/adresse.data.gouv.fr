@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
+import Loader from '@/components/Loader'
 import { getCommuneAlerts, getRevisions } from '@/lib/api-depot'
 import { BANCommune } from '@/types/api-ban.types'
 
@@ -14,9 +15,10 @@ export function CommuneStatusBadge({ commune }: CommuneStatusBadgeProps) {
   useEffect(() => {
     const determineStatus = async () => {
       try {
+        const cog = commune.codeCommune
         const [alerts, revisions] = await Promise.all([
-          getCommuneAlerts(commune.codeCommune),
-          getRevisions(commune.codeCommune),
+          getCommuneAlerts(cog),
+          getRevisions(cog),
         ])
 
         if (!revisions || revisions.length === 0) {
@@ -47,7 +49,6 @@ export function CommuneStatusBadge({ commune }: CommuneStatusBadgeProps) {
             }
           }
 
-          // Chercher l'alerte la plus récente
           const revisionAlerts = alerts.filter((a: any) => a.revisionId === currentRevision.id)
           const latestAlert = revisionAlerts
             .filter((alert: any) => alert.status === 'warning' || alert.status === 'error')
@@ -79,7 +80,6 @@ export function CommuneStatusBadge({ commune }: CommuneStatusBadgeProps) {
           return
         }
 
-        // Par défaut
         setStatus('success')
         setLabel('Valide')
       }
@@ -94,7 +94,12 @@ export function CommuneStatusBadge({ commune }: CommuneStatusBadgeProps) {
   }, [commune])
 
   if (status === 'loading') {
-    return <span className="fr-text--sm fr-text-mention--grey">...</span>
+    return (
+      <span className="fr-text--sm fr-text-mention--grey" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+        <Loader size={14} />
+        <span>Chargement…</span>
+      </span>
+    )
   }
 
   const getSeverity = () => {
