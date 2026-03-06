@@ -93,3 +93,34 @@ export async function getIdDistrictByCodeCommune(codeCommune: string) {
   const mainDistrict = response.response?.find((d: any) => d.meta?.insee?.isMain === true)
   return mainDistrict?.meta?.insee?.mainId || null
 }
+
+export interface StatutCommune {
+  cog: string
+  status: 'error' | 'warning' | 'success'
+  label: string
+  nomCommune?: string
+  dateRevision?: string
+  idRevision?: string
+  nbVoies?: number
+  nbNumeros?: number
+  nbLieuxDits?: number
+  nbNumerosCertifies?: number
+  tauxCertifies?: number
+}
+
+export async function getStatutsCommunes(cogs: string[]): Promise<StatutCommune[]> {
+  if (cogs.length === 0) return []
+  try {
+    const response = await customFetch(`${API_BAN_SEARCH_URL}/api/alerts/statuts-communes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cogs }),
+    })
+    const statuts = response?.response?.statuts ?? response?.statuts ?? []
+    return Array.isArray(statuts) ? statuts : []
+  }
+  catch (error) {
+    console.error('Error fetching statuts-communes:', error)
+    return []
+  }
+}

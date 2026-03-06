@@ -30,10 +30,10 @@ export async function GET(request: NextRequest, props: { params: Promise<{ idAdr
         Authorization: request.headers.get('authorization') || '',
       },
     })
-    if (connexion?.ok) {
-      const me = await connexion.json()
+    if (connexion && connexion.ok) {
+      const userInfo = await connexion.json()
       const commune = await getCommune(address?.commune?.code)
-      if (commune.siren == (me?.siret || '').slice(0, 9)) {
+      if (userInfo?.siret && commune?.siren && commune.siren === userInfo.siret.slice(0, 9)) {
         habilitation = true
       }
     }
