@@ -107,9 +107,14 @@ export const EmptyStateBox = styled.div`
   }
 `
 
+/** Hauteur ~7 lignes de tableau pour limiter l’allongement de la page */
+const SCROLLABLE_BLOCK_MAX_HEIGHT = '22rem'
+
 export const FavoritesTableWrapper = styled.div`
   font-family: var(--font-family-default);
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: ${SCROLLABLE_BLOCK_MAX_HEIGHT};
   -webkit-overflow-scrolling: touch;
   border-radius: 0 0 0.25rem 0.25rem;
 
@@ -230,6 +235,13 @@ export const FavoritesTableWrapper = styled.div`
     font-size: 0.875rem;
     font-family: var(--font-family-code);
   }
+`
+
+/** Bloc déroulant pour limiter la hauteur (~7 lignes) et éviter d’allonger la page */
+export const ScrollableCardBody = styled.div`
+  max-height: ${SCROLLABLE_BLOCK_MAX_HEIGHT};
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 `
 
 export const CommuneHeroCard = styled.div`

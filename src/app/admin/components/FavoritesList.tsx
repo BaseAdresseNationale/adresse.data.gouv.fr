@@ -1,24 +1,22 @@
 import React from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
+import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import Link from 'next/link'
-import { BANCommune } from '@/types/api-ban.types'
-import { CommuneStatusBadge } from './CommuneStatusBadge'
 import { EmptyStateBox, FavoritesTableWrapper } from './DistrictActions/DistrictActions.styles'
+import type { StatutCommune } from '@/lib/api-ban'
 
-interface FavoriteCommuneWithData {
+interface FavoriteCommuneRow {
   districtID: string
   codeCommune: string
   nomCommune: string
   addedAt: string
-  data?: BANCommune
-  loading: boolean
-  error?: string
 }
 
 interface FavoritesListProps {
-  favorites: FavoriteCommuneWithData[]
+  favorites: FavoriteCommuneRow[]
   onRemove: (districtID: string) => void
   onAdd: () => void
+  statutsByCog: Record<string, StatutCommune>
 }
 
 function formatDate(dateString?: string) {
@@ -41,7 +39,7 @@ function getCertLevel(taux: number): 'high' | 'mid' | 'low' {
   return 'low'
 }
 
-function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
+function FavoritesList({ favorites, onRemove, onAdd, statutsByCog }: FavoritesListProps) {
   if (favorites.length === 0) {
     return (
       <EmptyStateBox className="fr-py-6w fr-px-4w">
@@ -81,52 +79,15 @@ function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
         </thead>
         <tbody>
           {favorites.map((favorite) => {
-            const nbVoies = favorite.data?.nbVoies ?? 0
-            const nbAdresses = favorite.data?.nbNumeros ?? 0
-            const nbCertifies = favorite.data?.nbNumerosCertifies ?? 0
-            const nbLieuxDits = favorite.data?.nbLieuxDits ?? 0
-            const taux = nbAdresses > 0 ? Math.round((nbCertifies / nbAdresses) * 100) : 0
+            const statut = statutsByCog[favorite.codeCommune]
+            const nbVoies = statut?.nbVoies ?? 0
+            const nbAdresses = statut?.nbNumeros ?? 0
+            const nbCertifies = statut?.nbNumerosCertifies ?? 0
+            const nbLieuxDits = statut?.nbLieuxDits ?? 0
+            const taux = typeof statut?.tauxCertifies === 'number'
+              ? statut.tauxCertifies
+              : (nbAdresses > 0 ? Math.round((nbCertifies / nbAdresses) * 100) : 0)
             const certLevel = getCertLevel(taux)
-
-            if (favorite.loading) {
-              return (
-                <tr key={favorite.codeCommune}>
-                  <td>
-                    <span className="fr-text--bold">{favorite.nomCommune}</span>
-                  </td>
-                  <td className="fr-text--sm fr-text-mention--grey">{favorite.codeCommune}</td>
-                  <td colSpan={7} className="fr-text--sm fr-text-mention--grey">
-                    Chargement…
-                  </td>
-                </tr>
-              )
-            }
-
-            if (favorite.error) {
-              return (
-                <tr key={favorite.codeCommune}>
-                  <td>
-                    <span className="fr-text--bold">{favorite.nomCommune}</span>
-                  </td>
-                  <td className="fr-text--sm fr-text-mention--grey">{favorite.codeCommune}</td>
-                  <td colSpan={6} className="fr-text--sm fr-error-text">
-                    <span className="fr-icon fr-icon-error-warning-line fr-icon--sm fr-mr-1v" aria-hidden="true" />
-                    {favorite.error}
-                  </td>
-                  <td>
-                    <div className="actions-cell">
-                      <Button
-                        priority="tertiary no outline"
-                        size="small"
-                        iconId="fr-icon-delete-line"
-                        onClick={() => onRemove(favorite.districtID)}
-                        title={`Retirer ${favorite.nomCommune} des favoris`}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              )
-            }
 
             return (
               <tr key={favorite.codeCommune}>
@@ -141,12 +102,25 @@ function FavoritesList({ favorites, onRemove, onAdd }: FavoritesListProps) {
                 </td>
 
                 <td className="fr-text--sm fr-text-mention--grey cell-nowrap">
-                  {formatDate(favorite.data?.dateRevision)}
+                  {formatDate(statut?.dateRevision)}
                 </td>
 
                 <td>
-                  {favorite.data
-                    ? <CommuneStatusBadge commune={favorite.data} />
+                  {statut
+                    ? (
+                        <Badge
+                          severity={
+                            statut.status === 'error'
+                              ? 'error'
+                              : statut.status === 'warning'
+                                ? 'warning'
+                                : 'success'
+                          }
+                          small
+                        >
+                          {statut.label}
+                        </Badge>
+                      )
                     : <span className="fr-text-mention--grey">—</span>}
                 </td>
 

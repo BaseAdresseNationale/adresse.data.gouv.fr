@@ -18,6 +18,7 @@ import { useDistrictConfigSave } from './useDistrictConfigSave'
 import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
+import Loader from '@/components/Loader'
 import { customFetch } from '@/lib/fetch'
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getClientsRecap, type ClientRecapItem, type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
@@ -849,41 +850,47 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               </div>
             </div>
             <div className="sec-card__body">
-              {multipleProducersInRecentRevisions.active && !recapLoading && !revisionsLoading && (
-                <Alert
-                  severity="info"
-                  title="Plusieurs sources dans les dernières publications"
-                  description="Des publications par différents producteurs ont été constatées pour cette commune. Attention, il est nécessaire de s'assurer de la continuité des données entre différentes versions de la BAL."
-                  small
-                  className="fr-mb-2w"
-                />
-              )}
-              <div className="mandatary-row fr-mb-3w">
-                <span className="fr-icon fr-icon-user-line mandatary-row__icon" aria-hidden="true" />
-                <div className="mandatary-row__info">
-                  {(recapLoading || revisionsLoading)
-                    ? '…'
-                    : (recapError || revisionsError)
-                        ? 'Indisponible'
-                        : isAssemblage
-                          ? <span className="fr-hint-text">Aucune publication — cette commune n&apos;a pas encore de BAL.</span>
-                          : (() => {
-                              const { mode, source } = getSourceDisplayFromMap(effectiveClientId, clientIdToDisplay)
-                              return (
-                                <>
-                                  <div>
-                                    <span className="mandatary-row__label">Source</span>
-                                    <span className="mandatary-row__name">{source}</span>
-                                  </div>
-                                  <div>
-                                    <span className="mandatary-row__label">Mode de publication</span>
-                                    <span className="mandatary-row__name">{mode}</span>
-                                  </div>
-                                </>
-                              )
-                            })()}
-                </div>
-                {/* Modification désactivée (alignement choix de source)
+              {(recapLoading || revisionsLoading)
+                ? (
+                    <div style={{ display: 'flex', justifyContent: 'center', padding: '2.5rem' }} aria-busy="true">
+                      <Loader size={36} />
+                    </div>
+                  )
+                : (
+                    <>
+                      {multipleProducersInRecentRevisions.active && (
+                        <Alert
+                          severity="info"
+                          title="Plusieurs sources dans les dernières publications"
+                          description="Des publications par différents producteurs ont été constatées pour cette commune. Attention, il est nécessaire de s'assurer de la continuité des données entre différentes versions de la BAL."
+                          small
+                          className="fr-mb-2w"
+                        />
+                      )}
+                      <div className="mandatary-row fr-mb-3w">
+                        <span className="fr-icon fr-icon-user-line mandatary-row__icon" aria-hidden="true" />
+                        <div className="mandatary-row__info">
+                          {(recapError || revisionsError)
+                            ? 'Indisponible'
+                            : isAssemblage
+                              ? <span className="fr-hint-text">Aucune publication — cette commune n&apos;a pas encore de BAL.</span>
+                              : (() => {
+                                  const { mode, source } = getSourceDisplayFromMap(effectiveClientId, clientIdToDisplay)
+                                  return (
+                                    <>
+                                      <div>
+                                        <span className="mandatary-row__label">Source</span>
+                                        <span className="mandatary-row__name">{source}</span>
+                                      </div>
+                                      <div>
+                                        <span className="mandatary-row__label">Mode de publication</span>
+                                        <span className="mandatary-row__name">{mode}</span>
+                                      </div>
+                                    </>
+                                  )
+                                })()}
+                        </div>
+                        {/* Modification désactivée (alignement choix de source)
                 {!enableMandataryChange && !readOnly && (
                   <Button
                     type="button"
@@ -903,9 +910,9 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   </Button>
                 )}
                 */}
-              </div>
+                      </div>
 
-              {/* Bloc changement de source désactivé (alignement en cours)
+                      {/* Bloc changement de source désactivé (alignement en cours)
               {enableMandataryChange && (
                 <>
                   <hr className="fr-hr mandatary-edit-sep" />
@@ -972,6 +979,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 </>
               )}
               */}
+                    </>
+                  )}
             </div>
           </SectionEditCard>
         </section>

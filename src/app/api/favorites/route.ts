@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
 
     if (!banCommune || !banCommune.banId) {
       return NextResponse.json(
-        { error: 'District not found for this codeCommune' },
+        { error: 'Cette commune n\'existe pas dans la Base Adresse Nationale.' },
         { status: 404 }
       )
     }
