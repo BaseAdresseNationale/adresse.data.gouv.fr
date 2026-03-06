@@ -18,6 +18,7 @@ import {
 
 import type {
   UseComboboxStateChangeOptions,
+  UseComboboxStateChange,
   UseComboboxState,
 } from 'downshift'
 
@@ -75,11 +76,11 @@ export default function SearchInput({
         case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputKeyDownEnter:
           const selectedValue = changes.selectedItem || (actionAndChanges as TypeActionAndChanges)?.props?.items?.[0]
-          onSelect(selectedValue)
           return {
             ...changes,
             ...(selectedValue
               ? {
+                  selectedItem: selectedValue,
                   inputValue: selectedValue.properties.name,
                 }
               : null),
@@ -88,8 +89,21 @@ export default function SearchInput({
           return changes
       }
     },
-  [onSelect]
+  []
   )
+
+  const onStateChange = useCallback((changes: UseComboboxStateChange<TypeItem>) => {
+    const { type, selectedItem } = changes
+    if (
+      type === useCombobox.stateChangeTypes.ItemClick
+      || type === useCombobox.stateChangeTypes.InputKeyDownEnter
+    ) {
+      const selectedValue = selectedItem || items[0]
+      if (selectedValue) {
+        onSelect(selectedValue)
+      }
+    }
+  }, [items, onSelect])
 
   const onInputValueChange = useDebouncedCallback(async ({ inputValue }: { inputValue: string }) => {
     if (controller.current) {
@@ -119,6 +133,7 @@ export default function SearchInput({
     isOpen,
   } = useCombobox<TypeItem>({
     onInputValueChange,
+    onStateChange,
     items,
     itemToString: item => item ? item.properties.name : '',
     stateReducer,
