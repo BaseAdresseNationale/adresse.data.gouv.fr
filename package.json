@@ -8,11 +8,11 @@
   },
   "scripts": {
     "predev": "react-dsfr update-icons",
-    "dev": "next dev --webpack",
+    "dev": "next dev --turbopack",
     "prebuild": "react-dsfr update-icons",
-    "build": "next build --webpack && node copy-assets.js",
-    "analyze": "ANALYZE=true next build --webpack",
-    "start": "node .next/standalone/server.js --webpack",
+    "build": "next build --turbopack && node copy-assets.mjs",
+    "analyze": "ANALYZE=true next build --turbopack",
+    "start": "node .next/standalone/server.js",
     "lint": "eslint .",
     "type-check": "tsc --noEmit"
   },
