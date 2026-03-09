@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 import {
   matomoToVisitData,
   matomoDailyDownloadToData,
@@ -19,7 +20,7 @@ type Converter = (data: object) => Promise<object> | object
 
 interface DataResponse {
   url?: string | URL | Request | undefined
-  getter?: () => Promise< StatValue[] | { period: string, value: StatValue[] } > | (StatValue[] | { period: string, value: StatValue[] })
+  getter?: () => Promise<StatValue[] | { period: string, value: StatValue[] }> | (StatValue[] | { period: string, value: StatValue[] })
   converter?: Converter
   data?: object
 }
@@ -27,21 +28,110 @@ interface DataResponse {
 const emptyMonthlyUsage = { period: '', value: [] }
 const emptySeries: any[] = []
 
-function getMatomoUrls() {
-  const matomoUrl = process.env.NEXT_PUBLIC_MATOMO_URL
-  const matomoSiteId = process.env.NEXT_PUBLIC_MATOMO_SITE_ID
-  const matomoTokenAuth = process.env.MATOMO_TOKEN_AUTH
+function normalizeEnvValue(value?: string) {
+  return value?.trim() || ''
+}
 
-  if (!matomoUrl || !matomoSiteId || !matomoTokenAuth) {
+function isPlaceholderEnvValue(value: string) {
+  return value.startsWith('YOUR_') || value.includes('YOUR_NEXT_PUBLIC_')
+}
+
+function isValidMatomoBaseUrl(value: string) {
+  try {
+    const url = new URL(value)
+    return ['http:', 'https:'].includes(url.protocol)
+  }
+  catch {
+    return false
+  }
+}
+
+function getMatomoUrls() {
+  const NEXT_PUBLIC_MATOMO_URL = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_URL)
+  const NEXT_PUBLIC_MATOMO_SITE_ID = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_SITE_ID)
+  const MATOMO_TOKEN_AUTH = normalizeEnvValue(process.env.MATOMO_TOKEN_AUTH)
+
+  if (!NEXT_PUBLIC_MATOMO_URL || !NEXT_PUBLIC_MATOMO_SITE_ID || !MATOMO_TOKEN_AUTH) {
     return null
   }
 
+  if (
+    isPlaceholderEnvValue(NEXT_PUBLIC_MATOMO_URL)
+    || isPlaceholderEnvValue(NEXT_PUBLIC_MATOMO_SITE_ID)
+    || isPlaceholderEnvValue(MATOMO_TOKEN_AUTH)
+    || !isValidMatomoBaseUrl(NEXT_PUBLIC_MATOMO_URL)
+  ) {
+    return null
+  }
+
+  const baseUrl = new URL('/index.php', NEXT_PUBLIC_MATOMO_URL)
+  const buildMatomoUrl = (params: Record<string, string>) => {
+    const url = new URL(baseUrl.toString())
+    Object.entries(params).forEach(([key, value]) => {
+      url.searchParams.set(key, value)
+    })
+    return url.toString()
+  }
+
+  const defaultParams = {
+    idSite: NEXT_PUBLIC_MATOMO_SITE_ID,
+    token_auth: MATOMO_TOKEN_AUTH,
+    module: 'API',
+    format: 'JSON',
+  }
+
+  const URL_GET_STATS_MONTHLY_DOWNLOAD = buildMatomoUrl({
+    ...defaultParams,
+    period: 'month',
+    date: 'previous12',
+    method: 'Events.getCategory',
+    filter_pattern: '^download',
+    format_metrics: '1',
+    expanded: '1',
+  })
+  const URL_GET_STATS_MONTHLY_LOOKUP = buildMatomoUrl({
+    ...defaultParams,
+    period: 'month',
+    date: 'previous12',
+    method: 'Events.getAction',
+    label: 'Lookup',
+    filter_limit: '-1',
+    format_metrics: '1',
+    expanded: '1',
+  })
+  const URL_GET_STATS_DAILY_DOWNLOAD = buildMatomoUrl({
+    ...defaultParams,
+    period: 'day',
+    date: 'previous30',
+    method: 'Events.getCategory',
+    expanded: '1',
+    filter_limit: '10',
+  })
+  const URL_GET_STATS_DAILY_LOOKUP = buildMatomoUrl({
+    ...defaultParams,
+    period: 'day',
+    date: 'previous30',
+    method: 'Events.getAction',
+    expanded: '1',
+    filter_limit: '10',
+    filter_pattern: '^Lookup',
+  })
+  const URL_GET_STAT_VISIT = buildMatomoUrl({
+    ...defaultParams,
+    period: 'month',
+    date: 'previous12',
+    method: 'API.get',
+    filter_limit: '100',
+    format_metrics: '1',
+    expanded: '1',
+  })
+
   return {
-    monthlyDownload: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1`,
-    monthlyLookup: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1`,
-    dailyDownload: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=day&date=previous30&method=Events.getCategory&expanded=1&filter_limit=10`,
-    dailyLookup: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`,
-    visit: `${matomoUrl}/index.php?idSite=${matomoSiteId}&token_auth=${matomoTokenAuth}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`,
+    URL_GET_STATS_MONTHLY_DOWNLOAD,
+    URL_GET_STATS_MONTHLY_LOOKUP,
+    URL_GET_STATS_DAILY_DOWNLOAD,
+    URL_GET_STATS_DAILY_LOOKUP,
+    URL_GET_STAT_VISIT,
   }
 }
 
@@ -59,17 +149,16 @@ function getApis(): Record<string, DataResponse> {
   }
 
   return {
-    'monthly-usage': { getter: getMonthlyUsageData([matomoUrls.monthlyDownload, matomoUrls.monthlyLookup]) },
-    'daily-lookup': { url: matomoUrls.dailyLookup, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup) },
-    'daily-download': { url: matomoUrls.dailyDownload, converter: matomoDailyDownloadToData(defDataDailyDownload) },
-    'visit': { url: matomoUrls.visit, converter: matomoToVisitData(defDataBanVisit) },
+    'monthly-usage': { getter: getMonthlyUsageData([matomoUrls.URL_GET_STATS_MONTHLY_DOWNLOAD, matomoUrls.URL_GET_STATS_MONTHLY_LOOKUP]) },
+    'daily-lookup': { url: matomoUrls.URL_GET_STATS_DAILY_LOOKUP, converter: matomoToLookupMonthlyUsage(defDataMonthlyLookup) },
+    'daily-download': { url: matomoUrls.URL_GET_STATS_DAILY_DOWNLOAD, converter: matomoDailyDownloadToData(defDataDailyDownload) },
+    'visit': { url: matomoUrls.URL_GET_STAT_VISIT, converter: matomoToVisitData(defDataBanVisit) },
     'quality': { getter: getQualityData },
   }
 }
 
 export async function GET(_req: NextRequest, props: { params: Promise<{ slug: string }> }) {
   const params = await props.params
-  const res = Response
   const slug = params.slug
   const APIs = getApis()
   try {
@@ -77,12 +166,12 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
 
     if (getter) {
       const data = await converter(await getter())
-      return res.json(data, { status: 200 })
+      return NextResponse.json(data, { status: 200 })
     }
 
     if (dataRaw) {
       const data = await converter(dataRaw)
-      return res.json(data, { status: 200 })
+      return NextResponse.json(data, { status: 200 })
     }
 
     if (url) {
@@ -94,7 +183,7 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
       }
 
       const data = await converter(await response.json())
-      return res.json(data, { status: 200 })
+      return NextResponse.json(data, { status: 200 })
     }
 
     throw new Error('API not found ', { cause: { details: 'API not found', status: 404 } })
@@ -102,6 +191,6 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
   catch (error) {
     const { message, cause } = error as Error
     console.error('Error on Front-end Stat API :', message, cause, error)
-    return new res(message || 'Internal server error', { status: ((cause as any)?.status || 500) })
+    return NextResponse.json({ error: message || 'Internal server error' }, { status: ((cause as any)?.status || 500) })
   }
 }
