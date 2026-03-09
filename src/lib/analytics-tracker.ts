@@ -8,7 +8,7 @@ const ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const MATOMO_URL = env('NEXT_PUBLIC_MATOMO_URL')
 const MATOMO_SITE_ID = env('NEXT_PUBLIC_MATOMO_SITE_ID')
 const MATOMO_TOKEN_AUTH = env('MATOMO_TOKEN_AUTH')
-const NODE_ENV = env('NODE_ENV')
+const NODE_ENV = process.env.NODE_ENV
 const IS_DEV_MODE = NODE_ENV !== 'production'
 
 const logMatomoError = (err: Error) => {

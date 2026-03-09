@@ -4,9 +4,11 @@ import { customFetch } from '@/lib/fetch'
 import { getRootPath } from './path'
 
 const DIRECTORY_NAME = '/data/newsletters'
+const END_DATE_SAFETY_MARGIN_MS = 5 * 60 * 1000
 
 export async function downloadLastNewsletters() {
-  const to = Date.now()
+  // Keep a small safety margin to avoid providers rejecting a date seen as "in the future".
+  const to = Date.now() - END_DATE_SAFETY_MARGIN_MS
   const from = new Date(to - 1000 * 60 * 60 * 24 * 30 * 12) // Last 12 months
   let count = 0
   let offset = 0

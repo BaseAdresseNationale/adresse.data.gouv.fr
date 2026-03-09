@@ -11,7 +11,7 @@ const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(request: Request) {
   const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
-  const isProd = env('NODE_ENV') === 'production'
+  const isProd = process.env.NODE_ENV === 'production'
   try {
     const cookieStore = await cookies()
     const { searchParams } = new URL(request.url)
