@@ -29,13 +29,14 @@ function BlogView() {
   const [highlightedPosts, setHighlightedPosts] = useState([])
   const [posts, setPosts] = useState([])
   const [meta, setMeta] = useState<PostMeta>({})
-  const [loading, setLoading] = useState(false)
+  const [loadedQueryKey, setLoadedQueryKey] = useState('')
   const [intialLoading, setIntialLoading] = useState(true)
 
   const nbHighlightedPosts = 3
   const nbPost = 15
   const page: number = useMemo(() => Number(searchParams?.get('page') || 1), [searchParams])
   const tags: Set<string> = useMemo(() => new Set(decodeURI(searchParams?.get('tags') || '')?.split(',').filter(t => t).sort() || []), [searchParams])
+  const queryKey = useMemo(() => `${page}|${[...tags].join(',')}`, [page, tags])
 
   const getPageLink = useCallback(({ page, tags: _tags }: { page?: number, tags?: string[] }) => {
     const urlSearchParams = searchParams?.entries() as unknown as string[][]
@@ -65,22 +66,38 @@ function BlogView() {
   }, [])
 
   useEffect(() => {
-    getPosts({
-      page,
-      limit: nbPost,
-      tags: tags.size ? [...tags].join(',') : undefined,
-    }).then((data) => {
-      setLoading(true)
-      setPosts(data.posts)
-      setMeta(data.meta)
-      setIntialLoading(false)
-      setLoading(false)
-    })
-    getTags().then((tags) => {
-      setLoading(true)
-      setAllTags(new Set(tags))
-    })
-  }, [page, tags])
+    let isCurrent = true
+
+    Promise.all([
+      getPosts({
+        page,
+        limit: nbPost,
+        tags: tags.size ? [...tags].join(',') : undefined,
+      }),
+      getTags(),
+    ])
+      .then(([postsData, tagsData]) => {
+        if (!isCurrent) {
+          return
+        }
+
+        setPosts(postsData.posts)
+        setMeta(postsData.meta)
+        setAllTags(new Set(tagsData))
+        setLoadedQueryKey(queryKey)
+      })
+      .finally(() => {
+        if (!isCurrent) {
+          return
+        }
+
+        setIntialLoading(false)
+      })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [page, tags, queryKey])
 
   return (
     <>
@@ -154,7 +171,7 @@ function BlogView() {
             ? (posts.slice((!page || page === 1) && tags.size === 0 ? 3 : 0, nbPost))
             : undefined
         }
-        isLoading={loading && !intialLoading}
+        isLoading={!intialLoading && loadedQueryKey !== queryKey}
       />
       {/* </Suspense> */}
     </>
