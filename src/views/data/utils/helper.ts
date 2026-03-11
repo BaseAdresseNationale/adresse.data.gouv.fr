@@ -105,6 +105,15 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               return resolve()
             }
 
+            res.on('close', () => {
+              if (!res.writableFinished) {
+                const formattedDate = getFormatedDate()
+                console.warn(`[${formattedDate} - WARN]`, 'Client aborted download')
+                destroy(Body)
+                resolve()
+              }
+            });
+
             (Body as NodeJS.ReadableStream)
               ?.on('error', (err: Error) => {
                 const formattedDate = getFormatedDate()

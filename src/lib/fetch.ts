@@ -28,6 +28,8 @@ export async function customFetch(url: string | URL | globalThis.Request, custom
   if (response.ok && contentType && contentType.includes('application/json')) {
     return response.json()
   }
+
+  void response.body?.cancel().catch(() => {})
 }
 
 export function addSearchParams(url: URL, queryObject: any) {
