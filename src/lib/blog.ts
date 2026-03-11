@@ -63,9 +63,9 @@ export async function getPosts(options: PostOptions = {}) {
   try {
     const res = await fetch(query, fetchOptions)
     if (res.ok) {
-      const data = await res.json()
-      return data
+      return await res.json()
     }
+    void res.body?.cancel().catch(() => {})
   }
   catch (error) {
     console.log(error)
@@ -82,6 +82,7 @@ export async function getSinglePost(slug: string) {
       const data = await res.json()
       return data.posts[0]
     }
+    void res.body?.cancel().catch(() => {})
   }
   catch (error) {
     console.log(error)
@@ -98,6 +99,7 @@ export async function getTags() {
       const data = await res.json()
       return data.tags
     }
+    void res.body?.cancel().catch(() => {})
   }
   catch (error) {
     console.log(error)
