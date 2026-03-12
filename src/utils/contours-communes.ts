@@ -1,16 +1,14 @@
 import { writeFileSync, readFile, existsSync, mkdirSync } from 'fs'
 import { keyBy } from 'lodash'
 import { getCachedData } from './cache'
-import { fileURLToPath } from 'url'
+import { getRootPath } from './path'
 import path from 'path'
 
 function getFilePath() {
-  const __filename = fileURLToPath(import.meta.url)
-  const __dirname = path.dirname(__filename)
-  const root_path = path.resolve(__dirname, '../..')
-  const directory_path = `${root_path}/data`
+  const root_path = getRootPath()
+  const directory_path = path.join(root_path, 'data')
   const file_name = 'communes-index.json'
-  const file_path = `${directory_path}/${file_name}`
+  const file_path = path.join(directory_path, file_name)
   return { directory_path, file_name, file_path }
 }
 

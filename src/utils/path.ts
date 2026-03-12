@@ -1,10 +1,12 @@
-import { fileURLToPath } from 'url'
 import path from 'path'
 
 export function getRootPath() {
-  const __filename = fileURLToPath(import.meta.url)
-  const __dirname = path.dirname(__filename)
-  const root_path = path.resolve(__dirname, '../..')
+  const currentWorkingDirectory = process.cwd()
+  const standaloneSuffix = `${path.sep}.next${path.sep}standalone`
 
-  return root_path
+  if (currentWorkingDirectory.endsWith(standaloneSuffix)) {
+    return currentWorkingDirectory.slice(0, -standaloneSuffix.length)
+  }
+
+  return currentWorkingDirectory
 }
