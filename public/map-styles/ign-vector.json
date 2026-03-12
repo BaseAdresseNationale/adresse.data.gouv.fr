@@ -8268,39 +8268,6 @@
       }
     },
     {
-      "id": "toponyme localite n0 typoA6 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_6"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 15],
-            [17, 18]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
       "id": "toponyme - oro lineaire 1",
       "type": "symbol",
       "source": "plan_ign",
