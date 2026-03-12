@@ -2,8 +2,8 @@ import { env } from 'next-runtime-env'
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs'
 import { customFetch } from '@/lib/fetch'
 import { getRootPath } from './path'
+import path from 'path'
 
-const DIRECTORY_NAME = '/data/newsletters'
 const END_DATE_SAFETY_MARGIN_MS = 5 * 60 * 1000
 
 export async function downloadLastNewsletters() {
@@ -14,7 +14,7 @@ export async function downloadLastNewsletters() {
   let offset = 0
 
   const rootPath = getRootPath()
-  const directoryPath = rootPath + DIRECTORY_NAME
+  const directoryPath = path.join(rootPath, 'data', 'newsletters')
 
   if (existsSync(directoryPath)) {
     console.log('Cleaning newsletters directory...')
@@ -63,7 +63,7 @@ export async function downloadLastNewsletters() {
           mkdirSync(directoryPath, { recursive: true })
         }
         const fileName = `${index}__${campaign.name}.html`
-        writeFileSync(`${directoryPath}/${fileName}`, campaign.htmlContent)
+        writeFileSync(path.join(directoryPath, fileName), campaign.htmlContent)
       })
 
     console.log('Newsletters downloaded')
