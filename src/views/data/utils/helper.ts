@@ -105,10 +105,13 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               return resolve()
             }
 
+            let streamEnded = false
+            let streamErrored = false
+
             res.on('close', () => {
-              if (!res.writableFinished) {
+              if (!streamEnded && !streamErrored && !res.writableFinished) {
                 const formattedDate = getFormatedDate()
-                console.warn(`[${formattedDate} - WARN]`, 'Client aborted download')
+                console.warn(`[${formattedDate} - WARN]`, 'Client aborted download', { key: options.params.Key, fileName: options.fileName })
                 destroy(Body)
                 resolve()
               }
@@ -116,12 +119,14 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
 
             (Body as NodeJS.ReadableStream)
               ?.on('error', (err: Error) => {
+                streamErrored = true
                 const formattedDate = getFormatedDate()
-                console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
+                console.warn(`[${formattedDate} - ERROR]`, 'Download stream error', { key: options.params.Key, fileName: options.fileName, error: err.message })
                 destroy(Body) // purge
                 reject(err)
               })
               ?.on('end', () => {
+                streamEnded = true
                 resolve()
               })
               .pipe(res)

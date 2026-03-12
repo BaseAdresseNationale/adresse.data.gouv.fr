@@ -92,8 +92,11 @@ export const sendToTracker = async (params: TrackerParams = {}) => {
 
   const matomoUrl = `${MATOMO_URL}/matomo.php${urlSearchParams ? `?${urlSearchParams}` : ''}`
 
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 15_000)
+
   try {
-    const sentToMatomoWithHTTP = await fetch(matomoUrl, { method: 'POST' })
+    const sentToMatomoWithHTTP = await fetch(matomoUrl, { method: 'POST', signal: controller.signal })
     void sentToMatomoWithHTTP.body?.cancel().catch(() => {})
 
     if (sentToMatomoWithHTTP.status !== 200) {
@@ -102,6 +105,9 @@ export const sendToTracker = async (params: TrackerParams = {}) => {
   }
   catch (error) {
     logMatomoError(error as Error)
+  }
+  finally {
+    clearTimeout(timeout)
   }
 }
 
