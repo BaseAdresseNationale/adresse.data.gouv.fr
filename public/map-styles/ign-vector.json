@@ -5620,27 +5620,6 @@
       }
     },
     {
-      "id": "ligne electrique",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "bati_lin",
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["==", "symbo", "LIGNE_ELECTRIQUE"],
-      "paint": {
-        "line-color": "#808080",
-        "line-width": {
-          "stops": [
-            [13, 1],
-            [17, 2]
-          ]
-        }
-      }
-    },
-    {
       "id": "autre construction linéaire",
       "type": "line",
       "source": "plan_ign",
@@ -5779,45 +5758,6 @@
       "filter": ["==", "symbo", "BARRIERE"],
       "paint": {
         "icon-color": "#969696"
-      }
-    },
-    {
-      "id": "hydro ponctuel",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "hydro_ponc",
-      "minzoom": 13,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "FONTAINE",
-        "POINT_D_EAU",
-        "SOURCE",
-        "SOURCE_CAPTEE",
-        "PERTE",
-        "RESURGENCE",
-        "CASCADE",
-        "AUTRE_HYDRO_PONC"
-      ],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 7]
-          ]
-        },
-        "circle-color": "#FFFFFF",
-        "circle-opacity": 1,
-        "circle-stroke-width": {
-          "stops": [
-            [14, 2],
-            [17, 5]
-          ]
-        },
-        "circle-stroke-color": "#1466B2"
       }
     },
     {
@@ -7139,6 +7079,85 @@
       }
     },
     {
+      "id": "toponyme - hydro lineaire 3",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_hydro_lin",
+      "filter": [
+        "in",
+        "txt_typo",
+        "HYD_LIN_3",
+        "HYD_LIN_4",
+        "HYD_LIN_5",
+        "petite rivière",
+        "canal",
+        "HYD_SURF_3",
+        "HYD_SURF_3_T",
+        "HYD_SURF_4",
+        "HYD_SURF_4_T",
+        "HYD_SURF_5",
+        "HYD_SURF_5_T",
+        "TYPO_D_5"
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [14, 12],
+            [18, 19]
+          ]
+        },
+        "text-anchor": "center",
+        "text-keep-upright": true,
+        "text-max-angle": 45,
+        "text-padding": 10,
+        "text-font": ["Open Sans Regular"],
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#447FB3",
+        "text-halo-width": 1.5,
+        "text-halo-color": "rgba(255, 255, 255, 0.7)"
+      }
+    },
+    {
+      "id": "toponyme - hydro lineaire 4",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_hydro_lin",
+      "minzoom": 14,
+      "filter": [
+        "in",
+        "txt_typo",
+        "TYPO_D_6",
+        "TYPO_D_8",
+        "TYPO_D_9",
+        "TYPO_D_10"
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [14, 10],
+            [18, 16]
+          ]
+        },
+        "text-anchor": "center",
+        "text-keep-upright": true,
+        "text-max-angle": 45,
+        "text-padding": 10,
+        "text-font": ["Open Sans Regular"],
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#447FB3",
+        "text-halo-width": 1.5,
+        "text-halo-color": "rgba(255, 255, 255, 0.7)"
+      }
+    },
+    {
       "id": "toponyme - hydro ponc 3",
       "type": "symbol",
       "source": "plan_ign",
@@ -7402,6 +7421,42 @@
       },
       "paint": {
         "text-color": "#863831",
+        "text-halo-width": 2,
+        "text-halo-color": "rgba(255, 255, 255, 0.5)"
+      }
+    },
+    {
+      "id": "toponyme - hydro lineaire 2",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_hydro_lin",
+      "filter": [
+        "in",
+        "txt_typo",
+        "HYD_LIN_2",
+        "rivière moyenne",
+        "HYD_SURF_2",
+        "HYD_SURF_2_T",
+        "TYPO_D_3"
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": "{texte}",
+        "text-size": {
+          "stops": [
+            [14, 15],
+            [18, 21]
+          ]
+        },
+        "text-anchor": "center",
+        "text-keep-upright": true,
+        "text-max-angle": 45,
+        "text-padding": 10,
+        "text-font": ["Open Sans Regular"],
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#447FB3",
         "text-halo-width": 2,
         "text-halo-color": "rgba(255, 255, 255, 0.5)"
       }
@@ -7679,6 +7734,39 @@
         "text-anchor": "center",
         "text-keep-upright": true,
         "text-max-angle": 45,
+        "text-font": ["Open Sans Regular"],
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "#447FB3",
+        "text-halo-width": 2,
+        "text-halo-color": "rgba(255, 255, 255, 0.5)"
+      }
+    },
+    {
+      "id": "toponyme - hydro lineaire 1",
+      "type": "symbol",
+      "source": "plan_ign",
+      "source-layer": "toponyme_hydro_lin",
+      "filter": [
+        "in",
+        "txt_typo",
+        "HYD_LIN_1",
+        "HYD-LIN-1",
+        "grande rivière",
+        "HYD_SURF_1",
+        "HYD_SURF_1_T",
+        "TYPO_D_1",
+        "TYPO_D_2"
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": "{texte}",
+        "text-size": 18,
+        "text-anchor": "center",
+        "text-keep-upright": true,
+        "text-max-angle": 45,
+        "text-padding": 10,
         "text-font": ["Open Sans Regular"],
         "visibility": "visible"
       },
