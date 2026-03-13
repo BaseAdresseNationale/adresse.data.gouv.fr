@@ -27,20 +27,103 @@ interface DataResponse {
 const emptyMonthlyUsage = { period: '', value: [] }
 const emptySeries: any[] = []
 
+function normalizeEnvValue(value?: string) {
+  return value?.trim() || ''
+}
+
+function isPlaceholderEnvValue(value: string) {
+  return value.startsWith('YOUR_') || value.includes('YOUR_NEXT_PUBLIC_')
+}
+
+function isValidMatomoBaseUrl(value: string) {
+  try {
+    const url = new URL(value)
+    return ['http:', 'https:'].includes(url.protocol)
+  }
+  catch {
+    return false
+  }
+}
+
 function getMatomoUrls() {
-  const NEXT_PUBLIC_MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL
-  const NEXT_PUBLIC_MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID
-  const MATOMO_TOKEN_AUTH = process.env.MATOMO_TOKEN_AUTH
+  const NEXT_PUBLIC_MATOMO_URL = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_URL)
+  const NEXT_PUBLIC_MATOMO_SITE_ID = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_SITE_ID)
+  const MATOMO_TOKEN_AUTH = normalizeEnvValue(process.env.MATOMO_TOKEN_AUTH)
 
   if (!NEXT_PUBLIC_MATOMO_URL || !NEXT_PUBLIC_MATOMO_SITE_ID || !MATOMO_TOKEN_AUTH) {
     return null
   }
 
-  const URL_GET_STATS_MONTHLY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=Events.getCategory&filter_pattern=^download&format_metrics=1&expanded=1`
-  const URL_GET_STATS_MONTHLY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=Events.getAction&label=Lookup&filter_limit=-1&format_metrics=1&expanded=1`
-  const URL_GET_STATS_DAILY_DOWNLOAD = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=day&date=previous30&method=Events.getCategory&expanded=1&filter_limit=10`
-  const URL_GET_STATS_DAILY_LOOKUP = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=day&date=previous30&method=Events.getAction&expanded=1&filter_limit=10&filter_pattern=^Lookup`
-  const URL_GET_STAT_VISIT = `${NEXT_PUBLIC_MATOMO_URL}/index.php?idSite=${NEXT_PUBLIC_MATOMO_SITE_ID}&token_auth=${MATOMO_TOKEN_AUTH}&module=API&format=JSON&period=month&date=previous12&method=API.get&filter_limit=100&format_metrics=1&expanded=1`
+  if (
+    isPlaceholderEnvValue(NEXT_PUBLIC_MATOMO_URL)
+    || isPlaceholderEnvValue(NEXT_PUBLIC_MATOMO_SITE_ID)
+    || isPlaceholderEnvValue(MATOMO_TOKEN_AUTH)
+    || !isValidMatomoBaseUrl(NEXT_PUBLIC_MATOMO_URL)
+  ) {
+    return null
+  }
+
+  const baseUrl = new URL('/index.php', NEXT_PUBLIC_MATOMO_URL)
+  const buildMatomoUrl = (params: Record<string, string>) => {
+    const url = new URL(baseUrl.toString())
+    Object.entries(params).forEach(([key, value]) => {
+      url.searchParams.set(key, value)
+    })
+    return url.toString()
+  }
+
+  const defaultParams = {
+    idSite: NEXT_PUBLIC_MATOMO_SITE_ID,
+    token_auth: MATOMO_TOKEN_AUTH,
+    module: 'API',
+    format: 'JSON',
+  }
+
+  const URL_GET_STATS_MONTHLY_DOWNLOAD = buildMatomoUrl({
+    ...defaultParams,
+    period: 'month',
+    date: 'previous12',
+    method: 'Events.getCategory',
+    filter_pattern: '^download',
+    format_metrics: '1',
+    expanded: '1',
+  })
+  const URL_GET_STATS_MONTHLY_LOOKUP = buildMatomoUrl({
+    ...defaultParams,
+    period: 'month',
+    date: 'previous12',
+    method: 'Events.getAction',
+    label: 'Lookup',
+    filter_limit: '-1',
+    format_metrics: '1',
+    expanded: '1',
+  })
+  const URL_GET_STATS_DAILY_DOWNLOAD = buildMatomoUrl({
+    ...defaultParams,
+    period: 'day',
+    date: 'previous30',
+    method: 'Events.getCategory',
+    expanded: '1',
+    filter_limit: '10',
+  })
+  const URL_GET_STATS_DAILY_LOOKUP = buildMatomoUrl({
+    ...defaultParams,
+    period: 'day',
+    date: 'previous30',
+    method: 'Events.getAction',
+    expanded: '1',
+    filter_limit: '10',
+    filter_pattern: '^Lookup',
+  })
+  const URL_GET_STAT_VISIT = buildMatomoUrl({
+    ...defaultParams,
+    period: 'month',
+    date: 'previous12',
+    method: 'API.get',
+    filter_limit: '100',
+    format_metrics: '1',
+    expanded: '1',
+  })
 
   return {
     URL_GET_STATS_MONTHLY_DOWNLOAD,
