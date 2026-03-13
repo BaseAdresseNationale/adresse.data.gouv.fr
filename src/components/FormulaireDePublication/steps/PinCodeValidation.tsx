@@ -48,7 +48,14 @@ export function PinCodeValidation({ onSubmit, email, sendPinCode, isLoading }: P
     <StyledWrapper>
       <p>Entrer le code qui vous a été envoyé à l&apos;adresse : <b>{email}</b></p>
       <div className="pin-wrapper">
-        <PinField disabled={isLoading} onComplete={code => onSubmit(code)} validate={/^[0-9]$/} length={6} className="pin-field" />
+        <PinField
+          disabled={isLoading}
+          onComplete={code => onSubmit(code)}
+          pattern="[0-9]"
+          inputMode="numeric"
+          length={6}
+          className="pin-field"
+        />
       </div>
       <p>Vous n’avez pas reçu votre code ?</p>
       <Button priority="secondary" onClick={sendPinCode}>

@@ -8,7 +8,8 @@ import { CertificateTypeEnum } from '@/types/api-ban.types'
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
-export async function GET(request: NextRequest, { params }: { params: { idAdresse: string } }) {
+export async function GET(request: NextRequest, props: { params: Promise<{ idAdresse: string }> }) {
+  const params = await props.params
   let address
   let connexion = null
   let habilitation = false
@@ -43,7 +44,13 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
     }
   }
 
-  const isCertifiable = (address?.config?.certificate == CertificateTypeEnum.ALL || (address?.config?.certificate == CertificateTypeEnum.DISTRICT && habilitation)) && await isAddressCertifiable(address)
+  const certificateMode = address?.config?.certificate
+  const canIssueCertificate = (
+    certificateMode === true
+    || certificateMode == CertificateTypeEnum.ALL
+    || (certificateMode == CertificateTypeEnum.DISTRICT && habilitation)
+  )
+  const isCertifiable = canIssueCertificate && (await isAddressCertifiable(address))
 
   if (!isCertifiable) {
     return new NextResponse('Adresse incompatible avec le service', { status: 404 })

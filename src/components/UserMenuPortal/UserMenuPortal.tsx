@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
@@ -52,13 +52,14 @@ export default function UserMenuPortal({
   accountUrl,
   logoutUrl,
 }: UserMenuPortalProps) {
-  const [container, setContainer] = useState<Element | null>(null)
   const [open, setOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => {
-    const el = document.querySelector('.fr-header__tools-links .fr-btns-group')
-    setContainer(el)
+  const container = useMemo(() => {
+    if (typeof document === 'undefined') {
+      return null
+    }
+    return document.querySelector('.fr-header__tools-links .fr-btns-group')
   }, [])
 
   const content = useMemo(() => {

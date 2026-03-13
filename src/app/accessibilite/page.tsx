@@ -2,7 +2,6 @@ import { Suspense } from 'react'
 import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 
 import Section from '@/components/Section'
-import SectionHero from '@/components/SectionHero'
 import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
 
@@ -26,7 +25,7 @@ export default async function Home() {
                 <aside>{data?.aside?.map(
                   ({ data }) =>
                     data?.contentHtml && (
-                      <CallOut key={`${data?.data?.title}`}>
+                      <CallOut key={`${data?.data?.title}`} bodyAs="div">
                         <HtmlViewer html={data?.contentHtml} />
                       </CallOut>
                     )

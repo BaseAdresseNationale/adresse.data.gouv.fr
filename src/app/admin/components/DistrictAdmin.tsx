@@ -349,7 +349,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     return lastRevision?.client?.id
   }, [config?.mandatary, configState?.mandatary, communeRevisions])
 
-  const altLangCodes = useMemo<string[]>(() => {
+  const altLangCodes = (() => {
     if (!district?.voies?.length) return []
     const codes = new Set<string>()
     for (const voie of district.voies) {
@@ -359,7 +359,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
       }
     }
     return Array.from(codes)
-  }, [district?.voies])
+  })()
 
   const LAST_N_REVISIONS_FOR_SENSIBILISATION = 10
   const multipleProducersInRecentRevisions = useMemo(() => {
@@ -372,6 +372,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
   useEffect(() => {
     if (config) {
+      // Keep local editable state in sync when backend config is refreshed.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setConfigState({ ...config })
       setCurrentConfig(JSON.stringify({ ...config }))
     }
@@ -398,6 +400,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   useEffect(() => {
     let isMounted = true
     if (!district?.codeCommune) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCommuneRevisions(null)
       setRevisionsLoading(false)
       setRevisionsError(null)
@@ -425,6 +428,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
   useEffect(() => {
     if (!communeRevisions?.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setOrganizationNamesBySourceId({})
       return
     }
@@ -472,6 +476,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
         timeoutId = null
       }
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecapLoading(true)
     setRecapError(null)
     const apiDepotBase = env('NEXT_PUBLIC_API_DEPOT_URL') || 'https://plateforme-bal.adresse.data.gouv.fr/api-depot'

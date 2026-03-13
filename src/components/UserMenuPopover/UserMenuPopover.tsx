@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 interface UserMenuPopoverProps {
   open: boolean
-  anchorRef: React.RefObject<HTMLElement>
+  anchorRef: React.RefObject<HTMLElement | null>
   onClose: () => void
   displayName?: string
   userEmail?: string
@@ -107,7 +107,6 @@ export default function UserMenuPopover({
 
   useEffect(() => {
     if (!open) {
-      setPosition(null)
       return
     }
 

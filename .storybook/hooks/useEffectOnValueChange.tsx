@@ -14,5 +14,5 @@ export function useEffectOnValueChange<
     }
 
     return effect(...values);
-  }, values);
+  }, [effect, values]);
 }

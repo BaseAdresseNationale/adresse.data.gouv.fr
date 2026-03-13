@@ -7,12 +7,13 @@ import * as fs from 'node:fs'
 import { getMairie } from '@/lib/api-etablissement-public'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 import { env } from 'next-runtime-env'
-import { getCommuneLogo } from '@/lib/api-wikidata'
+//import { getCommuneLogo } from '@/lib/api-wikidata'
 import { isUUIDv4 } from '@/utils/validate'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
-export async function GET(request: NextRequest, { params }: { params: { idCertificat: string } }) {
+export async function GET(request: NextRequest, props: { params: Promise<{ idCertificat: string }> }) {
+  const params = await props.params
   if (!isUUIDv4(params.idCertificat)) {
     return new NextResponse('Invalid certificate ID: Must be a valid UUID v4', { status: 400 })
   }
@@ -22,6 +23,7 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
     headers: {
       'Content-Type': 'application/json',
     },
+    cache: 'force-cache',
   })
 
   if (!rawResponse.ok) {
@@ -59,16 +61,24 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
     />
   )
 
-  const chunks: Buffer[] = []
-  pdfStream.on('data', (chunk) => {
+  const chunks: Uint8Array[] = []
+  pdfStream.on('data', (chunk: Uint8Array) => {
     chunks.push(chunk)
   })
 
   return new Promise<NextResponse>((resolve, reject) => {
     pdfStream.on('end', () => {
-      const buffer = Buffer.concat(chunks as unknown as Uint8Array[])
+      const totalSize = chunks.reduce((acc, chunk) => acc + chunk.byteLength, 0)
+      const merged = new Uint8Array(totalSize)
+      let offset = 0
+
+      for (const chunk of chunks) {
+        merged.set(chunk, offset)
+        offset += chunk.byteLength
+      }
+
       const headers = new Headers({ 'Content-Type': 'application/pdf' })
-      resolve(new NextResponse(buffer, { headers }))
+      resolve(new NextResponse(merged, { headers }))
     })
 
     pdfStream.on('error', (error) => {

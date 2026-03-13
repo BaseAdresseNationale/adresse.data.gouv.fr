@@ -26,7 +26,6 @@ const useHash = () => {
   const [hash, setHash] = useState(() =>
     typeof window !== 'undefined' ? window.location.hash.replace('#', '') : ''
   )
-  const [hashInitialized, setHashInitialized] = useState(false)
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -34,11 +33,10 @@ const useHash = () => {
     }
 
     window.addEventListener('hashchange', handleHashChange)
-    setHashInitialized(true)
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
-  return { hash, hashInitialized }
+  return { hash }
 }
 
 const tabsDescriptions = {
@@ -85,7 +83,7 @@ const isTabId = (value: string): value is TabId => value in tabsDescriptions
 export default function Home() {
   const router = useRouter()
   const pathname = usePathname()
-  const { hash, hashInitialized } = useHash()
+  const { hash } = useHash()
   const searchParams = useSearchParams()
   const { authenticated, userInfo, loading } = useAuth()
   const [selectedTab, setSelectedTab] = useState<TabId>((hash as TabId) || (tabDefinitions[0].tabId as TabId))
@@ -237,18 +235,13 @@ export default function Home() {
           {
             authenticated
               ? (
-                  hashInitialized
-                    ? (
-                        <Tabs
-                          onTabChange={(tabId: string) => tabNavigation(tabId as TabId)}
-                          selectedTabId={selectedTab}
-                          tabs={tabDefinitions}
-                        >
-                          {React.createElement(tabsDescriptions[selectedTab]?.content as React.ComponentType<any>, props[selectedTab])}
-                        </Tabs>
-                      )
-                    : (<p>Chargement...</p>
-                      )
+                  <Tabs
+                    onTabChange={(tabId: string) => tabNavigation(tabId as TabId)}
+                    selectedTabId={selectedTab}
+                    tabs={tabDefinitions}
+                  >
+                    {React.createElement(tabsDescriptions[selectedTab]?.content as React.ComponentType<any>, props[selectedTab])}
+                  </Tabs>
                 )
               : (
                   <SignInBlock />

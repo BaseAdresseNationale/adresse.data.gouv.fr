@@ -22,7 +22,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return handleS3Data(context as any)
 }
 
-export default function DataPage({ title, path, data, config, errorCode, errorMessage }: DataPageProps) {
+export default function DataPage({ path, data, config, errorCode }: DataPageProps) {
   const currentDir = ['data', ...(path || [])].slice(-1)
 
   return errorCode && errorCode !== 200
@@ -64,7 +64,8 @@ export default function DataPage({ title, path, data, config, errorCode, errorMe
               />
 
               <Section>
-                <Data {...{ root: rootLink, path, data, config }} />
+                <Data {...{ path, data, config }} />
+                {/* <Data {...{ root: rootLink, path, data, config }} /> */}
               </Section>
             </>
           )

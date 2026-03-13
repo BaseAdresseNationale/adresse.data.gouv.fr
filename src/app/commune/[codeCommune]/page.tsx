@@ -1,4 +1,3 @@
-import dynamicImport from 'next/dynamic'
 import { env } from 'next-runtime-env'
 
 import Image from 'next/image'
@@ -17,39 +16,31 @@ import { getCommuneFlag } from '@/lib/api-blasons-communes'
 import { StyledCommunePage } from './page.styles'
 import { getCommuneAchievements } from '@/lib/commune'
 import { getCommunesPrecedentes } from '@/lib/api-insee'
-// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
-// import CommuneActions from '../../../components/Commune/CommuneActions'
-// import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
-// import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
-// import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
-// import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
-// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
-
-const CommuneDownloadSection = dynamicImport(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: false })
-const CommuneNavigation = dynamicImport(() => import('../../../components/Commune/CommuneNavigation'), { ssr: false })
-const CommuneActions = dynamicImport(() => import('../../../components/Commune/CommuneActions'), { ssr: false })
-const CommuneAchievements = dynamicImport(() => import('../../../components/Commune/CommuneAchievements'), { ssr: false })
-const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Commune/CommuneUpdatesSection'), { ssr: false })
-const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: false })
-const CommuneAdministrationBlock = dynamicImport(() => import('../../../components/Commune/CommuneAdministrationBlock'), { ssr: false })
-const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: false })
+import CommuneDownloadSection from '../../../components/Commune/CommuneDownloadSection'
+import CommuneNavigation from '../../../components/Commune/CommuneNavigation'
+import CommuneActions from '../../../components/Commune/CommuneActions'
+import CommuneAchievements from '../../../components/Commune/CommuneAchievements'
+import CommuneUpdatesSection from '../../../components/Commune/CommuneUpdatesSection'
+import CommuneCertificationBar from '../../../components/Commune/CommuneCertificationBar'
+import CommuneAdministrationBlock from '../../../components/Commune/CommuneAdministrationBlock'
+import CommunePublicationConsole from '../../../components/Commune/CommunePublicationConsole'
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 
-// import SaveUrlClient from '@/components/SaveUrlClient'
-const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
+import SaveUrlClient from '../../../components/SaveUrlClient/SaveUrlClient'
 
 export const revalidate = 0
+export const dynamicParams = true
 interface CommunePageProps {
-  params: { codeCommune: string }
+  codeCommune: string
 }
 
-export default async function CommunePage({ params }: CommunePageProps) {
-  const { codeCommune } = params
+  
+export default async function CommunePage(props: { params: Promise<CommunePageProps> } ){
+  const params = await props.params
+  const codeCommune = params.codeCommune
 
   let commune, APIGeoCommune
 

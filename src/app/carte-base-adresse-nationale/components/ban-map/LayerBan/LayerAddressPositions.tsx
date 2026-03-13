@@ -16,27 +16,6 @@ import {
 
 import type { Address } from '../types'
 
-// sort Position for Main Position first
-interface FeatureProperties {
-  isMain?: boolean
-}
-const sortFct = (
-  a: GeoJSON.Feature<GeoJSON.Geometry, FeatureProperties>,
-  b: GeoJSON.Feature<GeoJSON.Geometry, FeatureProperties>,
-): number => {
-  if (a.properties?.isMain) return -1
-  if (b.properties?.isMain) return 1
-  return 0
-}
-
-function sortPositions(positions: GeoJSON.Feature[]) {
-  return positions.sort((a, b) => {
-    if (a.properties?.isMain) return 1
-    if (b.properties?.isMain) return -1
-    return 0
-  })
-}
-
 const getPositionsFeatures = (address: Address): GeoJSON.Feature[] => {
   return address
     ?.positions

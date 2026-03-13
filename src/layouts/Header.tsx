@@ -234,6 +234,7 @@ export default function Header(
       <div className="header-spacer" />
       {isBeta && <CornerRibbons>Version βετα</CornerRibbons>}
       <HeaderDSFR
+        key={pathname || '/'}
         id="fr-header-header-with-quick-access-items-nav-items-and-search-engine"
         className="dsfr-header"
         brandTop={(

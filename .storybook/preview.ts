@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDarkMode as useStorybookUiDarkMode } from "storybook-dark-mode";
 import type { Preview } from "@storybook/react";
 import { UPDATE_STORY_ARGS } from "@storybook/core-events";
@@ -92,7 +92,7 @@ const preview = {
             updatedArgs: { darkMode: isStorybookUiDark },
           });
         },
-        []
+        [channel, context.id, isStorybookUiDark, setIsDsfrDark]
       );
       useEffectOnValueChange(() => {
         setIsDsfrDark(context.args.darkMode);
