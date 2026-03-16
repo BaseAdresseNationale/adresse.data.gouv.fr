@@ -25,6 +25,7 @@ import {
   StyledLayout,
   PageWrapper,
 } from './layout.styles'
+import SessionExpiredBanner from '@/components/SessionExpiredBanner/SessionExpiredBanner'
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
@@ -71,6 +72,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
                   <GlobalStyle />
                   <StyledLayout>
                     <Header notices={dataNotices} />
+                    <SessionExpiredBanner />
                     <PageWrapper>
                       {
                       // <Breadcrumb />

@@ -10,7 +10,6 @@ import Section from '@/components/Section'
 import Breadcrumb from '@/layouts/Breadcrumb'
 import { useAuth } from '@/hooks/useAuth'
 import Loader from '@/components/Loader'
-import LogoutProConnectButtonCustom from '@/components/LogoutProConnectButtonCustom/LogoutProConnectButtonCustom'
 
 import DistrictAdmin from './components/DistrictAdmin'
 import AccountAdmin from './components/AccountAdmin'
@@ -20,7 +19,6 @@ import { getCommunesBySiren } from '@/lib/api-geo'
 import { getCommuneWithoutCache } from '@/lib/api-ban'
 import { BANCommune } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
-
 // TODO: Move to a shared hooks file ?
 const useHash = () => {
   const [hash, setHash] = useState(() =>
@@ -92,34 +90,7 @@ export default function Home() {
   const [district, setDistrict] = useState<BANCommune | null>(null)
   const [commune, setCommune] = useState<Commune | null>(null)
   const [loadingDistrict, setLoadingDistrict] = useState<boolean>(false)
-  const [sessionInitialized, setSessionInitialized] = useState(false)
-  const [sessionError, setSessionError] = useState<string>('')
-
-  useEffect(() => {
-    if (authenticated && userInfo && !sessionInitialized) {
-      const initSession = async () => {
-        try {
-          const response = await fetch('/api/proconnect-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userInfo),
-          })
-
-          if (!response.ok) {
-            throw new Error('Erreur lors de l\'initialisation de la session')
-          }
-
-          setSessionInitialized(true)
-          setSessionError('')
-        }
-        catch (e) {
-          console.error('Failed to init session', e)
-          setSessionError('Impossible d\'initialiser la session. Certaines fonctionnalités peuvent être indisponibles.')
-        }
-      }
-      initSession()
-    }
-  }, [authenticated, userInfo, sessionInitialized])
+  const sessionInitialized = !!(authenticated && userInfo)
 
   useEffect(() => {
     if (hash && isTabId(hash)) {
@@ -171,6 +142,7 @@ export default function Home() {
   const props: Partial<Record<TabId, any>> = {
     mon_compte: {
       userInfo: userInfo,
+      sessionInitialized,
     },
     // Temporairement désactivé - à réactiver plus tard
     // mes_mandats: {},
@@ -226,13 +198,6 @@ export default function Home() {
             <Badge noIcon severity="info">BETA</Badge>
           </h2>
         </div>
-        {sessionError && (
-          <div className="fr-mb-3w">
-            <div className="fr-alert fr-alert--warning fr-alert--sm">
-              <p>{sessionError}</p>
-            </div>
-          </div>
-        )}
         <div>
           {
             authenticated

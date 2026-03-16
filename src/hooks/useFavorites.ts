@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 
 interface FavoriteCommune {
   districtID: string
@@ -9,7 +10,13 @@ interface FavoriteCommune {
 
 const MAX_FAVORITES = 1000
 
-export function useFavorites(userId?: string) {
+export interface UseFavoritesOptions {
+  /** Si false, le chargement des favoris n'est pas lancé (ex. en attente d'init session). Défaut true. */
+  enabled?: boolean
+}
+
+export function useFavorites(userId?: string, options?: UseFavoritesOptions) {
+  const enabled = options?.enabled !== false
   const [favorites, setFavorites] = useState<FavoriteCommune[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -25,8 +32,7 @@ export function useFavorites(userId?: string) {
 
       if (!response.ok) {
         if (response.status === 401) {
-          console.warn('User not authenticated')
-          setFavorites([])
+          redirectToLogoutOnSessionExpired()
           return
         }
         throw new Error('Failed to fetch favorites')
@@ -45,8 +51,12 @@ export function useFavorites(userId?: string) {
   }, [userId])
 
   useEffect(() => {
+    if (!enabled) {
+      setIsLoading(false)
+      return
+    }
     fetchFavorites()
-  }, [fetchFavorites])
+  }, [fetchFavorites, enabled])
 
   const addFavorite = useCallback(async (codeCommune: string, options?: { skipRefresh?: boolean }) => {
     if (favorites.length >= MAX_FAVORITES) {
@@ -69,6 +79,10 @@ export function useFavorites(userId?: string) {
       })
 
       if (!response.ok) {
+        if (response.status === 401) {
+          redirectToLogoutOnSessionExpired()
+          return
+        }
         const errorData = await response.json()
         throw new Error(errorData.error || 'Failed to add favorite')
       }
@@ -90,6 +104,10 @@ export function useFavorites(userId?: string) {
       })
 
       if (!response.ok) {
+        if (response.status === 401) {
+          redirectToLogoutOnSessionExpired()
+          return
+        }
         const errorData = await response.json()
         throw new Error(errorData.error || 'Failed to remove favorite')
       }
