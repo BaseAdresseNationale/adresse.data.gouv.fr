@@ -25,7 +25,12 @@ import {
   StyledLayout,
   PageWrapper,
 } from './layout.styles'
-import SessionExpiredBanner from '@/components/SessionExpiredBanner/SessionExpiredBanner'
+import dynamic from 'next/dynamic'
+
+const SessionExpiredBanner = dynamic(
+  () => import('@/components/SessionExpiredBanner/SessionExpiredBanner'),
+  { ssr: false },
+)
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
