@@ -1,5 +1,6 @@
 import { useCallback, useState, useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
+import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 import { NotificationSubscription, FormData, UseSubscriptionsReturn } from './types'
 
 export const useSubscriptions = (): UseSubscriptionsReturn => {
@@ -63,7 +64,11 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       const subs = data.subscriptions || []
       setSubscriptions(subs)
     }
-    catch (error) {
+    catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       console.error('Erreur lors du chargement des abonnements:', error)
       setMessage({
         type: 'error',
@@ -135,6 +140,10 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       await loadSubscriptions()
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la création de l\'abonnement')
       setMessage({ type: 'error', text: errorMessage })
       throw new Error(errorMessage)
@@ -187,6 +196,10 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       cancelEdit()
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la modification')
       setMessage({ type: 'error', text: errorMessage })
       throw new Error(errorMessage)
@@ -217,6 +230,10 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       })
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la modification')
       setMessage({ type: 'error', text: errorMessage })
     }
@@ -243,6 +260,10 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       })
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la suppression')
       setMessage({ type: 'error', text: errorMessage })
     }

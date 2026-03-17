@@ -4,6 +4,7 @@ import { type BANCommune } from '@/types/api-ban.types'
 import { type UserInfo } from '@/hooks/useAuth'
 import { customFetch } from '@/lib/fetch'
 import { getCommuneWithoutCache } from '@/lib/api-ban'
+import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 
 const NO_QUICK_ERROR_MS = 20000
 const POLL_INTERVAL_MS = 10000
@@ -66,6 +67,10 @@ export function useDistrictConfigSave({
   }, [])
 
   const handleSaveError = useCallback((error: unknown) => {
+    if (error && typeof error === 'object' && 'status' in error && (error as { status: number }).status === 401) {
+      redirectToLogoutOnSessionExpired()
+      return
+    }
     clearTimers()
     setSaveProgress(100)
     setIsSaving(false)

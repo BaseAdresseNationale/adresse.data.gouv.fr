@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
+import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 
 export default function ProConnectRedirectClient() {
   useEffect(() => {
@@ -12,51 +13,60 @@ export default function ProConnectRedirectClient() {
 
     // authenticated from ProConnect just after visited unit commune page, redirect to this unit page commune and clear lastVisitedUrl
     if (backFromProConnect && lastVisitedUrl && window.location.href !== lastVisitedUrl && window.location.href.indexOf('/commune/') == -1 && lastVisitedUrl.indexOf('/commune/') !== -1) {
+      let sessionExpiredRedirect = false
       const response = customFetch('/api/me')
-      response.then(async (data) => {
-        const {
-          sub,
-          name,
-          given_name,
-          family_name,
-          usual_name,
-          email,
-          siret,
-          aud,
-          exp,
-          iat,
-          iss,
-        } = JSON.parse(data)
+      response
+        .then(async (data) => {
+          const {
+            sub,
+            name,
+            given_name,
+            family_name,
+            usual_name,
+            email,
+            siret,
+            aud,
+            exp,
+            iat,
+            iss,
+          } = JSON.parse(data)
 
-        const body = {
-          sub,
-          name,
-          given_name,
-          family_name,
-          usual_name,
-          email,
-          siret,
-          aud,
-          exp,
-          iat,
-          iss,
-        }
+          const body = {
+            sub,
+            name,
+            given_name,
+            family_name,
+            usual_name,
+            email,
+            siret,
+            aud,
+            exp,
+            iat,
+            iss,
+          }
 
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        }
-        await customFetch('/api/proconnect-session', options)
-      })
-        .finally(() => {
-          localStorage.setItem('previousUrl', '')
-          window.location.href = lastVisitedUrl
+          const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+          }
+          await customFetch('/api/proconnect-session', options)
         })
         .catch((error) => {
+          if (error?.status === 401) {
+            sessionExpiredRedirect = true
+            redirectToLogoutOnSessionExpired(lastVisitedUrl || '/admin')
+            return
+          }
           throw new Error('ProConnectRedirectClient: error fetching user data after ProConnect authentication', error)
+        })
+        .finally(() => {
+          localStorage.setItem('previousUrl', '')
+          if (!sessionExpiredRedirect) {
+            window.location.href = lastVisitedUrl
+          }
         })
     }
   }, [])
