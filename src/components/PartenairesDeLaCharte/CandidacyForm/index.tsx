@@ -36,6 +36,7 @@ interface CandidacyFormProps {
 function CandidacyForm({ onClose, services, departements, defaultType = PartenaireDeLaCharteTypeEnum.COMMUNE }: CandidacyFormProps) {
   const [selectedCommune, setSelectedCommune] = useState<Commune | null>(null)
   const [formData, setFormData] = useState<CandidatePartenaireDeLaCharteType>({
+    siret: '',
     type: defaultType,
     organismeType: PartenaireDeLaCharteOrganismeTypeEnum.EPCI,
     name: '',
@@ -185,6 +186,17 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
               }}
             />
           )}
+        </div>
+
+        <div className="form-row" style={{ paddingBottom: '24px' }}>
+          <Input
+            label="Siret*"
+            nativeInputProps={{
+              required: true,
+              value: formData.siret,
+              onChange: handleEdit('siret'),
+            }}
+          />
         </div>
 
         <ImageInput

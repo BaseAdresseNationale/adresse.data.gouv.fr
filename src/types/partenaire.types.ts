@@ -40,7 +40,7 @@ export enum PartenaireDeLaCharteOrganismeTypeEnum {
 
 export type CandidatePartenaireDeLaCharteType = {
   name: string
-  siret?: string
+  siret: string
   picture?: string
   contactLastName: string
   contactFirstName: string
