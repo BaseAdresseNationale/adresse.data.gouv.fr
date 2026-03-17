@@ -38,14 +38,15 @@ export default function MoissonneurBal({ partenaireDeLaCharte }: MoissonneurBalP
 
   useEffect(() => {
     async function fetchData() {
-      if (!partenaireDeLaCharte.clients?.some(({ type }) => type === ClientTypeEnum.MOISSONNEUR_BAL)) {
-        throw new Error('No client moissonneur')
+      const orgaMoissonneur = partenaireDeLaCharte.clients?.filter(({ type }) => type === ClientTypeEnum.MOISSONNEUR_BAL) ?? []
+      if (orgaMoissonneur.length <= 0) {
+        throw new Error('No organisation moissonneur')
       }
       const moissonneur = {
         organizations: [] as OrganizationMoissoneurType[],
         sources: [] as ExtendedSourceMoissoneurType[],
       }
-      for (const { clientId } of partenaireDeLaCharte.clients) {
+      for (const { clientId } of orgaMoissonneur) {
         moissonneur.organizations.push(await getOrganization(clientId))
         moissonneur.sources.push(...(await getOrganizationSources(clientId)))
       }

@@ -18,11 +18,12 @@ export default function APIDepot({ partenaireDeLaCharte }: APIDepotProps) {
 
   useEffect(() => {
     async function fetchData() {
-      if (!partenaireDeLaCharte.clients?.some(({ type }) => type === ClientTypeEnum.API_DEPOT)) {
+      const clientApiDepot = partenaireDeLaCharte.clients?.filter(({ type }) => type === ClientTypeEnum.API_DEPOT) ?? []
+      if (clientApiDepot.length <= 0) {
         throw new Error('No client api-depot')
       }
       const _clients = []
-      for (const { clientId } of partenaireDeLaCharte.clients) {
+      for (const { clientId } of clientApiDepot) {
         const client = await getClientWithChefDeFile(clientId)
         const revisions = await getFirstRevisionsByClient(clientId)
         _clients.push({

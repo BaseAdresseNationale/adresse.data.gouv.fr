@@ -20,6 +20,7 @@ interface PartenairesDeLaCharteQuery {
   search?: string
   withoutPictures?: boolean
   shuffleResults?: boolean
+  codeCommune?: string
 }
 
 export interface PaginatedPartenairesDeLaCharte {

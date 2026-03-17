@@ -92,7 +92,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       : [],
     getCommunesPrecedentes(codeCommune),
     getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
-    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
+    getPartenairesDeLaCharte({ codeCommune: commune.codeCommune }, 1, 1),
     getIdDistrictByCodeCommune(codeCommune),
   ])
 
