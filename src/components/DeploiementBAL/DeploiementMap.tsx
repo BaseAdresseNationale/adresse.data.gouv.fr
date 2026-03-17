@@ -14,7 +14,7 @@ const StyledWrapper = styled.div`
       z-index: 1;
       padding: 0.5em;
       left: 13px;
-      top: 8px;
+      top: 58px;
       background-color: rgba(255,255,255,0.9);
 
       .legend-title {

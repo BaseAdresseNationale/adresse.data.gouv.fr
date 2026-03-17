@@ -62,15 +62,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
-        <div className="input-wrapper">
-          <AutocompleteInput
-            label="Rechercher une collectivité ou un département :"
-            value={filter}
-            fetchResults={handleSearch}
-            onChange={value => handleFilter(value as DeploiementBALSearchResult | null)}
-            placeholder="CC du Val d'Amboise ou Indre-et-Loire"
-          />
-        </div>
+
         <div className="stats-wrapper">
           <Tabs
             selectedTabId={selectedTab}
@@ -88,6 +80,17 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 }}
                 mapStyle="/map-styles/osm-vector.json"
               >
+                {selectedTab === 'source'
+                && (
+                  <div className="input-wrapper">
+                    <AutocompleteInput
+                      value={filter}
+                      fetchResults={handleSearch}
+                      onChange={value => handleFilter(value as DeploiementBALSearchResult | null)}
+                      placeholder="CC du Val d'Amboise ou Indre-et-Loire"
+                    />
+                  </div>
+                )}
                 <NavigationControl showZoom showCompass position="top-right" />
                 <FullScreenControl position="top-right" />
                 <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>

@@ -15,6 +15,9 @@ export const StyledDeploiementBALDashboard = styled.div`
     }
 
     .input-wrapper {
+        position: absolute;
+        top: 8px;
+        left: 13px;
         max-width: 400px;
         margin-bottom: 2rem;
     }
