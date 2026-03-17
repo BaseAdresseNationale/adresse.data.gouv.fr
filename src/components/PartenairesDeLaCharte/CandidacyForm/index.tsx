@@ -41,22 +41,19 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
     name: '',
     picture: '',
     services: [],
-    codeDepartement: [],
-    isPerimeterFrance: false,
+    coverDepartement: [],
+    entrepriseIsPerimeterFrance: false,
 
     contactFirstName: '',
     contactLastName: '',
     contactEmail: '',
 
-    link: '',
+    webSiteURL: '',
     charteURL: '',
 
-    codeRegion: null,
-    codeCommune: null,
-    testimonyURL: '',
-    balURL: '',
-    infos: '',
-    perimeter: '',
+    communeCodeInsee: '',
+    communeBalURL: '',
+    organismeInfo: '',
   })
   const [submitStatus, setSubmitStatus] = useState<'loading' | 'success' | 'error' | null>(null)
 
@@ -116,7 +113,7 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
     const requiredCommonFields = formData.name && formData.contactFirstName && formData.contactLastName && formData.contactEmail && formData.picture
 
     if (formData.type === PartenaireDeLaCharteTypeEnum.COMMUNE) {
-      return requiredCommonFields && formData.codeCommune && formData.codeRegion
+      return requiredCommonFields && formData.communeCodeInsee
     }
 
     if (formData.type === PartenaireDeLaCharteTypeEnum.ORGANISME) {
@@ -218,7 +215,7 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
             <MultiSelectInput
               label="Couverture géographique"
               placeholder="Sélectionnez un ou plusieurs départements"
-              value={formData.codeDepartement}
+              value={formData.coverDepartement}
               options={departementsOptions}
               onChange={(codeDepartement: string[]) => {
                 setFormData(state => ({
@@ -235,8 +232,8 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
             <input
               style={{ marginLeft: '1em' }}
               type="checkbox"
-              checked={formData.isPerimeterFrance}
-              onChange={handleToggle('isPerimeterFrance')}
+              checked={formData.entrepriseIsPerimeterFrance}
+              onChange={handleToggle('entrepriseIsPerimeterFrance')}
             />
           </div>
         )}
@@ -284,30 +281,30 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
           <Input
             label="Lien vers le site"
             nativeInputProps={{
-              value: formData.link,
+              value: formData.webSiteURL,
               type: 'url',
-              onChange: handleEdit('link') }}
+              onChange: handleEdit('webSiteURL') }}
           />
         </div>
         {formData.type === 'commune' && (
           <div className="form-row">
-            <Input
+            {/* <Input
               label="Lien vers le témoignage"
               nativeInputProps={{
                 value: formData.testimonyURL,
                 type: 'url',
                 onChange: handleEdit('testimonyURL') }}
-            />
+            /> */}
             <Input
               label="Lien vers la BAL"
               nativeInputProps={{
-                value: formData.balURL,
+                value: formData.communeBalURL,
                 type: 'url',
-                onChange: handleEdit('balURL') }}
+                onChange: handleEdit('communeBalURL') }}
             />
           </div>
         )}
-        {formData.type === PartenaireDeLaCharteTypeEnum.ORGANISME && (
+        {/* {formData.type === PartenaireDeLaCharteTypeEnum.ORGANISME && (
           <div className="form-row" style={{ marginBottom: '1.5rem' }}>
             <Input
               label="Lien vers le témoignage"
@@ -317,23 +314,23 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
                 onChange: handleEdit('testimonyURL') }}
             />
           </div>
-        )}
+        )} */}
         {formData.type !== PartenaireDeLaCharteTypeEnum.COMMUNE && (
           <div className="form-row">
-            <Input
+            {/* <Input
               label="Périmètre"
               textArea
               nativeTextAreaProps={{
                 value: formData.perimeter,
                 onChange: handleEdit('perimeter'),
               }}
-            />
+            /> */}
             <Input
               label="Descriptif"
               textArea
               nativeTextAreaProps={{
-                value: formData.infos,
-                onChange: handleEdit('infos'),
+                value: formData.organismeInfo,
+                onChange: handleEdit('organismeInfo'),
               }}
             />
           </div>

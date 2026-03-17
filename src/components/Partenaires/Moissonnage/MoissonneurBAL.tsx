@@ -9,7 +9,7 @@ import { OrganizationMoissoneurType } from '@/types/api-moissonneur-bal.types'
 import { PerimeterType } from '@/types/api-depot.types'
 import { flattenDeep } from 'lodash'
 import Perimeters from '../Perimeters'
-import { PartenaireDeLaChartType } from '@/types/partenaire.types'
+import { ClientTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { useEffect, useState } from 'react'
 import Loader from '@/components/Loader'
 
@@ -38,16 +38,16 @@ export default function MoissonneurBal({ partenaireDeLaCharte }: MoissonneurBalP
 
   useEffect(() => {
     async function fetchData() {
-      if (!partenaireDeLaCharte.dataGouvOrganizationId || partenaireDeLaCharte.dataGouvOrganizationId.length === 0) {
-        throw new Error('No dataGouvOrganizationId')
+      if (!partenaireDeLaCharte.clients?.some(({ type }) => type === ClientTypeEnum.MOISSONNEUR_BAL)) {
+        throw new Error('No client moissonneur')
       }
       const moissonneur = {
         organizations: [] as OrganizationMoissoneurType[],
         sources: [] as ExtendedSourceMoissoneurType[],
       }
-      for (const orgaId of partenaireDeLaCharte.dataGouvOrganizationId) {
-        moissonneur.organizations.push(await getOrganization(orgaId))
-        moissonneur.sources.push(...(await getOrganizationSources(orgaId)))
+      for (const { clientId } of partenaireDeLaCharte.clients) {
+        moissonneur.organizations.push(await getOrganization(clientId))
+        moissonneur.sources.push(...(await getOrganizationSources(clientId)))
       }
       const aggregatePerimeters: PerimeterType[] = flattenDeep(moissonneur.organizations.map(({ perimeters }) => perimeters) as any)
       setAggregatedPerimeters(aggregatePerimeters)

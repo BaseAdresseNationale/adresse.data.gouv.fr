@@ -1,3 +1,22 @@
+import { PerimeterType } from './api-depot.types'
+
+export enum ClientTypeEnum {
+  API_DEPOT = 'api-depot',
+  MOISSONNEUR_BAL = 'moissonneur-bal',
+}
+
+export type ClientType = {
+  id?: string
+  name: string
+  clientId: string
+  partenaireId: string
+  type: ClientTypeEnum
+  perimeters?: PerimeterType[]
+  createdAt?: Date
+  updatedAt?: Date
+  deletedAt: Date
+}
+
 export enum PartenaireDeLaCharteServiceEnum {
   FORMATION = 'formation',
   ACCOMPAGNEMENT_TECNIQUE = 'accompagnement technique',
@@ -20,69 +39,66 @@ export enum PartenaireDeLaCharteOrganismeTypeEnum {
 }
 
 export type CandidatePartenaireDeLaCharteType = {
-  type: PartenaireDeLaCharteTypeEnum
-  organismeType?: PartenaireDeLaCharteOrganismeTypeEnum
   name: string
-  picture: string
-  services: PartenaireDeLaCharteServiceEnum[]
-  codeDepartement: string[]
-  isPerimeterFrance?: boolean
-  contactFirstName: string
+  siret?: string
+  picture?: string
   contactLastName: string
+  contactFirstName: string
   contactEmail: string
-  link?: string
-  charteURL?: string
-  codeRegion: string | null
-  codeCommune: string | null
-  testimonyURL?: string
-  balURL?: string
-  infos?: string
-  perimeter?: string
+  type: PartenaireDeLaCharteTypeEnum
+  services: PartenaireDeLaCharteServiceEnum[]
+  webSiteURL: string
+  coverDepartement: string[]
+  charteURL: string
+  charteSignatureDate?: Date
+  createdAt?: string
+  updatedAt?: string
+  deletedAt?: Date
+
+  entrepriseIsPerimeterFrance: boolean
+  communeCodeInsee: string
+  communeBalURL: string
+  organismeType: PartenaireDeLaCharteOrganismeTypeEnum
+  organismeInfo: string
 }
 
 export type PartenaireDeLaChartType = {
   id: string
+  name: string
+  siret: string
+  picture: string
+  contactLastName: string
+  contactFirstName: string
+  contactEmail: string
+  type: PartenaireDeLaCharteTypeEnum
+  services: PartenaireDeLaCharteServiceEnum[]
+  webSiteURL: string
+  coverDepartement: string[]
+  charteURL: string
+  charteSignatureDate: Date
+  clients: ClientType[]
   createdAt: string
   updatedAt: string
-  type: PartenaireDeLaCharteTypeEnum
-  name: string
-  picture: string
-  contactFirstName: string
-  contactLastName: string
-  contactEmail: string
-  services: PartenaireDeLaCharteServiceEnum[]
-  codeDepartement: string[]
-  codeCommune?: string
-  link?: string
-  charteURL?: string
-  signatureDate?: string
-  dataGouvOrganizationId?: string[]
-  apiDepotClientId: string[]
-  infos: string
-  reviews?: ReviewType[]
+  deletedAt: Date
+
+  entrepriseReviews?: ReviewType[]
+  communeCodeInsee: string
+  organismeInfo: string
 }
 
 export type PartenaireDeLaCharteCommuneType = PartenaireDeLaChartType & {
   type: PartenaireDeLaCharteTypeEnum.COMMUNE
-  codeRegion: string
-  codeCommune: string
-  testimonyURL?: string
-  balURL?: string
+  communeBalURL: string
 }
 
 export type PartenaireDeLaCharteOrganismeType = PartenaireDeLaChartType & {
   type: PartenaireDeLaCharteTypeEnum.ORGANISME
   organismeType: PartenaireDeLaCharteOrganismeTypeEnum
-  testimonyURL?: string
-  infos?: string
-  perimeter?: string
 }
 
 export type PartenaireDeLaCharteEntrepriseType = PartenaireDeLaChartType & {
   type: PartenaireDeLaCharteTypeEnum.ENTREPRISE
-  isPerimeterFrance?: boolean
-  infos?: string
-  perimeter?: string
+  entrepriseIsPerimeterFrance: boolean
 }
 
 export type ReviewType = {

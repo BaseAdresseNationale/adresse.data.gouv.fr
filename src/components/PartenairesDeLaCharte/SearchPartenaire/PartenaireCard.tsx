@@ -32,11 +32,11 @@ export default function PartenaireCard({
   detail,
 }: PartenaireCardProps) {
   const globalReview = useMemo(() => {
-    if (!partenaire.reviews || partenaire.reviews.length === 0) {
+    if (!partenaire.entrepriseReviews || partenaire.entrepriseReviews.length === 0) {
       return
     }
 
-    return partenaire.reviews.reduce((acc, review) => acc + review.rating, 0) / partenaire.reviews.length
+    return partenaire.entrepriseReviews.reduce((acc, review) => acc + review.rating, 0) / partenaire.entrepriseReviews.length
   }, [partenaire])
 
   const isCommune = partenaire.type === PartenaireDeLaCharteTypeEnum.COMMUNE
@@ -46,12 +46,12 @@ export default function PartenaireCard({
     <Card
       key={partenaire.id}
       title={(
-        <Link href={isCommune ? `/commune/${partenaire.codeCommune}` : `/partenaires/${partenaire.id}`}>
+        <Link href={isCommune ? `/commune/${partenaire.communeCodeInsee}` : `/partenaires/${partenaire.id}`}>
           {partenaire.name}
           {globalReview && (
             <StyledGlobalReview>
               <StarRatingInput value={globalReview} />
-              <span>{(partenaire.reviews as ReviewType[]).length} avis</span>
+              <span>{(partenaire.entrepriseReviews as ReviewType[]).length} avis</span>
             </StyledGlobalReview>
           )}
         </Link>
@@ -61,7 +61,7 @@ export default function PartenaireCard({
       detail={detail}
       footer={(
         <>
-          {partenaire.link && <Button priority="secondary" linkProps={{ href: partenaire.link, target: '_blank' }} style={{ marginTop: '0.5rem' }}>{isCompany ? 'Site de la société' : 'Site du partenaire'}</Button>}
+          {partenaire.webSiteURL && <Button priority="secondary" linkProps={{ href: partenaire.webSiteURL, target: '_blank' }} style={{ marginTop: '0.5rem' }}>{isCompany ? 'Site de la société' : 'Site du partenaire'}</Button>}
           {onReview && <Button type="button" priority="secondary" style={{ marginTop: '0.5rem' }} onClick={() => onReview(partenaire)}>Noter la prestation</Button>}
         </>
       )}

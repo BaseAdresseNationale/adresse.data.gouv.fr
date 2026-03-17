@@ -2,7 +2,7 @@ import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import Section from '@/components/Section'
 import { ClientsWithChefDeFileAndRevisions } from '@/types/api-depot.types'
 import Perimeters from '../Perimeters'
-import { PartenaireDeLaChartType } from '@/types/partenaire.types'
+import { ClientTypeEnum, PartenaireDeLaChartType } from '@/types/partenaire.types'
 import { useEffect, useState } from 'react'
 import Loader from '@/components/Loader'
 import { getClientWithChefDeFile, getFirstRevisionsByClient } from '@/lib/api-depot'
@@ -18,11 +18,11 @@ export default function APIDepot({ partenaireDeLaCharte }: APIDepotProps) {
 
   useEffect(() => {
     async function fetchData() {
-      if (!partenaireDeLaCharte.apiDepotClientId || partenaireDeLaCharte.apiDepotClientId.length === 0) {
-        throw new Error('No apiDepotClientId')
+      if (!partenaireDeLaCharte.clients?.some(({ type }) => type === ClientTypeEnum.API_DEPOT)) {
+        throw new Error('No client api-depot')
       }
       const _clients = []
-      for (const clientId of partenaireDeLaCharte.apiDepotClientId) {
+      for (const { clientId } of partenaireDeLaCharte.clients) {
         const client = await getClientWithChefDeFile(clientId)
         const revisions = await getFirstRevisionsByClient(clientId)
         _clients.push({

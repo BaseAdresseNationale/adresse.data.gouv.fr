@@ -39,6 +39,7 @@ import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
+import { ClientTypeEnum } from '@/types/partenaire.types'
 
 // import SaveUrlClient from '@/components/SaveUrlClient'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
@@ -155,11 +156,13 @@ export default async function CommunePage({ params }: CommunePageProps) {
   const partenaireDeLaCharte = paginatedPartenairesDeLaCharte?.data[0]
   const publicationConsoleTabs = []
 
-  if (partenaireDeLaCharte?.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
-    publicationConsoleTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
-  }
-  if (partenaireDeLaCharte?.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
-    publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+  if (partenaireDeLaCharte?.clients?.length ?? 0 > 0) {
+    if (partenaireDeLaCharte?.clients?.some(({ type }) => type === ClientTypeEnum.API_DEPOT)) {
+      publicationConsoleTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
+    }
+    if (partenaireDeLaCharte?.clients?.some(({ type }) => type === ClientTypeEnum.MOISSONNEUR_BAL)) {
+      publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+    }
   }
 
   return (
