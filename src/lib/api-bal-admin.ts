@@ -88,6 +88,7 @@ export async function getBalEvents(): Promise<EventType[]> {
   try {
     const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events`)
     if (!response.ok) {
+      void response.body?.cancel().catch(() => {})
       throw new Error('Error while fetching bal events')
     }
 

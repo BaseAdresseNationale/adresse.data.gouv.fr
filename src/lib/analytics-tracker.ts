@@ -94,6 +94,7 @@ export const sendToTracker = async (params: TrackerParams = {}) => {
 
   try {
     const sentToMatomoWithHTTP = await fetch(matomoUrl, { method: 'POST' })
+    void sentToMatomoWithHTTP.body?.cancel().catch(() => {})
 
     if (sentToMatomoWithHTTP.status !== 200) {
       throw new Error(`Matomo HTTP API returned ${sentToMatomoWithHTTP.status}`)

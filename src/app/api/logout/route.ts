@@ -3,6 +3,8 @@ import { getProviderConfig, objToUrlParams } from '@/utils/oauth'
 import { cookies } from 'next/headers'
 import * as client from 'openid-client'
 import { env } from 'next-runtime-env'
+import { SESSION_EXPIRED_REASON } from '@/utils/sessionExpired'
+
 export const dynamic = 'force-dynamic'
 
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
@@ -16,11 +18,16 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
 
     const returnUrlParam = searchParams.get('returnUrl')
+    const reason = searchParams.get('reason')
     const hasPostLogoutCookie = cookieStore.get('post_logout_return_url')
     const isLogoutInitiated = cookieStore.get('logout_initiated')
     const isCallback = !returnUrlParam && hasPostLogoutCookie && isLogoutInitiated
 
-    const returnUrl = hasPostLogoutCookie?.value || returnUrlParam || '/'
+    let returnUrl = hasPostLogoutCookie?.value || returnUrlParam || '/'
+    if (reason === SESSION_EXPIRED_REASON && !returnUrl.includes('reason=')) {
+      const separator = returnUrl.includes('?') ? '&' : '?'
+      returnUrl = `${returnUrl}${separator}reason=${SESSION_EXPIRED_REASON}`
+    }
 
     if (isCallback) {
       // Rediriger vers l'URL de retour avec suppression des cookies
@@ -92,6 +99,16 @@ export async function GET(request: Request) {
         sameSite: 'lax',
         expires: new Date(0),
       })
+    })
+
+    // Suppression du cookie public de statut de connexion
+    response.cookies.set('ban_connected', '', {
+      path: '/',
+      domain: hostname,
+      httpOnly: false,
+      secure: isProd,
+      sameSite: 'lax',
+      expires: new Date(0),
     })
 
     return response
