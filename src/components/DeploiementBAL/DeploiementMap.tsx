@@ -4,6 +4,17 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import { MapMouseEvent, Popup, useMap } from 'react-map-gl/maplibre'
 import { toolsColors } from '@/theme/theme'
 
+export type PropertyDataType = {
+  nom: string
+  code: string
+  nbNumeros: number
+  hasBAL: boolean
+  certificationPercentage: string
+  idClient?: string
+  nomClient?: string
+  statusBals: string
+}
+
 const StyledWrapper = styled.div`
   .legend-wrapper {
       position: absolute;
@@ -196,21 +207,21 @@ const paintLayers = {
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'nomClient'], 'Mes Adresses'],
+            ['==', ['get', 'idClient'], 'mes-adresses'],
           ], // Mes Adresses
           color: toolsColors.mesAdresses,
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'nomClient'], 'Moissonneur BAL'],
+            ['==', ['get', 'idClient'], 'moissonneur-bal'],
           ], // Moissonneur
           color: toolsColors.moissonneur,
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'nomClient'], 'Formulaire de publication'],
+            ['==', ['get', 'idClient'], 'formulaire-publication'],
           ], // Formulaire
           color: toolsColors.formulaire,
         },
@@ -234,11 +245,11 @@ const paintLayers = {
   },
 }
 
-const getPopupAccentColor = (hasBAL: boolean, nomClient: string): string => {
+const getPopupAccentColor = ({ hasBAL, idClient }: PropertyDataType): string => {
   if (!hasBAL) return '#aaa'
-  if (nomClient === 'Mes Adresses') return toolsColors.mesAdresses
-  if (nomClient === 'Moissonneur BAL') return '#b88200' // toolsColors.moissonneur assombri pour le contraste
-  if (nomClient === 'Formulaire de publication') return toolsColors.formulaire
+  if (idClient === 'mes-adresses') return toolsColors.mesAdresses
+  if (idClient === 'moissonneur-bal') return '#b88200' // toolsColors.moissonneur assombri pour le contraste
+  if (idClient === 'formulaire-publication') return toolsColors.formulaire
   return '#8c8a00' // toolsColors.api assombri pour le contraste
 }
 
@@ -392,7 +403,7 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
       </div>
       {popup && (
         <Popup className="deploiement-popup" latitude={popup.latitude} longitude={popup.longitude} onClose={closePopup}>
-          <PopupContent accentColor={getPopupAccentColor(popup.properties.hasBAL, popup.properties.nomClient)}>
+          <PopupContent accentColor={getPopupAccentColor(popup.properties)}>
             <div className="popup-header">
               <div className="header-row">
                 <p className="commune-name">{popup.properties.nom}</p>

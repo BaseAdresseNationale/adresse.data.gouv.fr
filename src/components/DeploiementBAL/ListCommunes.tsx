@@ -8,6 +8,7 @@ import { customFetch } from '@/lib/fetch'
 import CommuneBALList from './CommuneBALList'
 import styled from 'styled-components'
 import { BaseAdresseLocale } from '@/types/api-mes-adresses.types'
+import { PropertyDataType } from './DeploiementMap'
 
 const StyledWrapper = styled.div`
   margin-top: 2rem;
@@ -36,12 +37,7 @@ const listHeaderStyle: React.CSSProperties = {
   backgroundColor: '#f8f8f8',
 }
 
-export interface CommuneDeploiementData {
-  nomClient?: string
-  hasBAL: boolean
-  statusBals: string
-  idClient?: string
-}
+export type CommuneDeploiementData = Pick<PropertyDataType, 'nomClient' | 'hasBAL' | 'statusBals' | 'idClient'>
 
 interface ListCommunesProps {
   filteredCodesCommmune: string[]
@@ -69,7 +65,7 @@ export default function ListCommunes({ filteredCodesCommmune }: ListCommunesProp
 
         const byCommune: Record<string, CommuneDeploiementData> = {}
         for (const feature of deploiementResponse.features) {
-          const { code, nomClient, hasBAL, statusBals, idClient } = feature.properties
+          const { code, nomClient, hasBAL, statusBals, idClient } = feature.properties as PropertyDataType
           byCommune[code] = { nomClient, hasBAL, statusBals, idClient }
         }
         setDeploiementByCommune(byCommune)

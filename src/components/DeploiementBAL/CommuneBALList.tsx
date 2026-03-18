@@ -127,12 +127,12 @@ function getSourceInfo(sourceData: CommuneDeploiementData | undefined): { label:
     return { label: 'Assemblage BAN', color: '#ddd' }
   }
 
-  const { nomClient, hasBAL, statusBals } = sourceData
+  const { idClient, hasBAL, statusBals } = sourceData
 
   if (hasBAL) {
-    if (nomClient === 'Mes Adresses') return { label: 'Mes Adresses', color: toolsColors.mesAdresses }
-    if (nomClient === 'Moissonneur BAL') return { label: 'Moissonneur', color: toolsColors.moissonneur }
-    if (nomClient === 'Formulaire de publication') return { label: 'Formulaire', color: toolsColors.formulaire }
+    if (idClient === 'mes-adresses') return { label: 'Mes Adresses', color: toolsColors.mesAdresses }
+    if (idClient === 'moissonneur-bal') return { label: 'Moissonneur', color: toolsColors.moissonneur }
+    if (idClient === 'formulaire-publication') return { label: 'Formulaire', color: toolsColors.formulaire }
     return { label: 'Api', color: toolsColors.api }
   }
 
