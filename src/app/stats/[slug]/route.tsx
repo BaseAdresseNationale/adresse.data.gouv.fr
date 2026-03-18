@@ -1,4 +1,5 @@
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 import {
   matomoToVisitData,
   matomoDailyDownloadToData,
@@ -158,7 +159,6 @@ function getApis(): Record<string, DataResponse> {
 
 export async function GET(_req: NextRequest, props: { params: Promise<{ slug: string }> }) {
   const params = await props.params
-  const res = Response
   const slug = params.slug
   const APIs = getApis()
   try {
@@ -166,12 +166,12 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
 
     if (getter) {
       const data = await converter(await getter())
-      return res.json(data, { status: 200 })
+      return NextResponse.json(data, { status: 200 })
     }
 
     if (dataRaw) {
       const data = await converter(dataRaw)
-      return res.json(data, { status: 200 })
+      return NextResponse.json(data, { status: 200 })
     }
 
     if (url) {
@@ -183,7 +183,7 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
       }
 
       const data = await converter(await response.json())
-      return res.json(data, { status: 200 })
+      return NextResponse.json(data, { status: 200 })
     }
 
     throw new Error('API not found ', { cause: { details: 'API not found', status: 404 } })
@@ -191,6 +191,6 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
   catch (error) {
     const { message, cause } = error as Error
     console.error('Error on Front-end Stat API :', message, cause, error)
-    return new res(message || 'Internal server error', { status: ((cause as any)?.status || 500) })
+    return NextResponse.json({ error: message || 'Internal server error' }, { status: ((cause as any)?.status || 500) })
   }
 }
