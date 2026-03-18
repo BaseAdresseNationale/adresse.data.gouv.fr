@@ -27,7 +27,7 @@ export default async function Home() {
                 <aside>{data?.aside?.map(
                   ({ data }) =>
                     data?.contentHtml && (
-                      <CallOut key={`${data?.data?.title}`} bodyAs="div">
+                      <CallOut key={`${data?.data?.title}`}>
                         <HtmlViewer html={data?.contentHtml} />
                       </CallOut>
                     )
