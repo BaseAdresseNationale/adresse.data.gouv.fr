@@ -146,8 +146,10 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
               <Axis
                 key={areaItem.dataKey}
                 {...(areaItem || {})}
+                name={areaItem.dataKey}
+                dataKey={(entry: Record<string, any>) => Number(entry?.[areaItem.dataKey] || 0)}
               >
-                {totalKeyName && index === arr.length - 1 && <LabelList dataKey={totalKeyName} position="top" content={<ChartsCustomAxisLabel />} />}
+                {totalKeyName && index === arr.length - 1 && <LabelList dataKey={(entry: Record<string, any>) => entry?.[totalKeyName] || 0} position="top" content={<ChartsCustomAxisLabel />} />}
               </Axis>
             ))}
           </>
