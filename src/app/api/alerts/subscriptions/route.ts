@@ -31,7 +31,6 @@ interface UserData {
 export async function GET(request: NextRequest) {
   try {
     const userID = await getUserFromRequest(request)
-    console.log('GET: userID final utilisé:', userID)
 
     if (!userID) {
       return NextResponse.json(
@@ -44,7 +43,6 @@ export async function GET(request: NextRequest) {
       headers: {
         Authorization: `Token ${env('BAN_API_TOKEN')}`,
       },
-      cache: 'force-cache',
     })
 
     if (!response.ok) {
@@ -56,7 +54,6 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json()
-    console.log('Abonnements reçus de l\'API Express:', data)
 
     return NextResponse.json(normalizeAPIResponse(data))
   }
@@ -73,7 +70,6 @@ export async function POST(request: NextRequest) {
   try {
     const body: CreateSubscriptionBody = await request.json()
     const userData = await getUserDataFromRequest(request)
-    console.log('body', body)
 
     if (!userData) {
       return NextResponse.json(
@@ -96,8 +92,6 @@ export async function POST(request: NextRequest) {
       createdByEmail: userData.email,
     }
 
-    console.log('Envoi vers API Express:', payload)
-
     const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers`, {
       method: 'POST',
       headers: {
@@ -117,7 +111,6 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await response.json()
-    console.log('Réponse API Express:', result)
 
     return NextResponse.json({
       success: true,

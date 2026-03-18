@@ -108,7 +108,6 @@ export async function GET(request: Request) {
   catch (error) {
     const { searchParams } = new URL(request.url)
     const fallbackUrl: string = searchParams.get('returnUrl') || '/'
-    console.error('Logout error:', error)
     return NextResponse.redirect(`${env('HOST')}${fallbackUrl}`)
   }
 }
