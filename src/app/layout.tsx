@@ -25,6 +25,12 @@ import {
   StyledLayout,
   PageWrapper,
 } from './layout.styles'
+import dynamic from 'next/dynamic'
+
+const SessionExpiredBanner = dynamic(
+  () => import('@/components/SessionExpiredBanner/SessionExpiredBanner'),
+  { ssr: false },
+)
 
 export default function RootLayout({ children }: { children: JSX.Element }) {
   const lang = 'fr'
@@ -71,6 +77,7 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
                   <GlobalStyle />
                   <StyledLayout>
                     <Header notices={dataNotices} />
+                    <SessionExpiredBanner />
                     <PageWrapper>
                       {
                       // <Breadcrumb />
