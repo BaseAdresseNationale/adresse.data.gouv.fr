@@ -75,6 +75,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(url)
   }
   catch (error) {
-    return NextResponse.json({ error: `Callback failed ${error}` }, { status: 500 })
+    console.error('Login callback failed', error)
+    return NextResponse.json({ error: 'Callback failed' }, { status: 500 })
   }
 }
