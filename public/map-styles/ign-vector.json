@@ -7809,39 +7809,6 @@
       }
     },
     {
-      "id": "toponyme localite n0 typoA6 commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_6"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 15],
-            [17, 18]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-transform": "uppercase",
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
       "id": "toponyme localite n0 typoA1 non commune",
       "type": "symbol",
       "source": "plan_ign",
@@ -7867,62 +7834,6 @@
         "text-color": "#000000",
         "text-halo-color": "rgba(255, 255, 255, 0.5)",
         "text-halo-width": 4
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA4 commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_4"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 17,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-transform": "uppercase",
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 3
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA3 commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_3"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 19,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-transform": "uppercase",
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 3
       }
     },
     {
