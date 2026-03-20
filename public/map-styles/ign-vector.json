@@ -5776,65 +5776,6 @@
       }
     },
     {
-      "id": "bati ponctuel hydrographique",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "minzoom": 14,
-      "layout": {
-        "visibility": "visible",
-        "icon-image": "Pompage",
-        "icon-size": {
-          "stops": [
-            [13, 0.2],
-            [17, 0.6]
-          ]
-        },
-        "icon-allow-overlap": true
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "CITERNE",
-        "LAVOIR",
-        "STATION_EPURATION",
-        "STATION_DE_POMPAGE",
-        "USINE_PRODUCTION_EAU",
-        "USINE_ELEVATRICE"
-      ],
-      "paint": {
-        "icon-color": "#1C62A6"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique - Puits-Abreuvoir",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "minzoom": 13,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": ["in", "symbo", "PUITS", "ABREUVOIR"],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 7]
-          ]
-        },
-        "circle-color": "#FFFFFF",
-        "circle-opacity": 1,
-        "circle-stroke-width": {
-          "stops": [
-            [14, 2],
-            [17, 5]
-          ]
-        },
-        "circle-stroke-color": "#1466B2"
-      }
-    },
-    {
       "id": "bati ponctuel hydrographique - Phare",
       "type": "symbol",
       "source": "plan_ign",
@@ -5936,53 +5877,6 @@
       "filter": ["==", "symbo", "BARRAGE_PONC"],
       "paint": {
         "icon-color": "#1C62A6"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique - Chateau d'eau",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": ["==", "symbo", "CHATEAU_EAU_PONC"],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 8]
-          ]
-        },
-        "circle-color": "#1466B2"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique - Réservoir d'eau",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": ["==", "symbo", "RESERVOIR_EAU_PONC"],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 8]
-          ]
-        },
-        "circle-color": "#AAD5E9",
-        "circle-opacity": 1,
-        "circle-stroke-width": {
-          "stops": [
-            [14, 1],
-            [17, 2.5]
-          ]
-        },
-        "circle-stroke-color": "#1466B2"
       }
     },
     {
@@ -6335,28 +6229,6 @@
         "text-color": "#000000",
         "text-halo-width": 1,
         "text-halo-color": "rgba(255, 255, 255, 1)"
-      }
-    },
-    {
-      "id": "toponyme station epuration, de pompage, usine de production eau",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_bati_ponc",
-      "minzoom": 14,
-      "filter": ["==", "txt_typo", "station"],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{designation}",
-        "text-anchor": "left",
-        "text-offset": [0.8, 0],
-        "text-size": 11,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#447FB3"
       }
     },
     {
@@ -7527,39 +7399,6 @@
         "text-allow-overlap": false,
         "text-anchor": "bottom-left",
         "text-offset": [0.3, 0.1],
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA7 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_7"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 13],
-            [17, 16]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
         "text-padding": 1,
         "text-font": ["Open Sans Regular"]
       },
