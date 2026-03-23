@@ -27,11 +27,11 @@ function getPercentage(value: number, totalValue: number) {
 }
 
 type RevisionSummary = {
-  _id: string
+  id: string
   codeCommune: string
   client: {
-    _id: string
     id: string
+    legacyId: string
     nom: string
     mandataire: string
   }
@@ -102,7 +102,7 @@ export function createFeature(communeWithContour: any, currentRevisionsIndex: Re
       certificationPercentage,
       ...((hasBAL && revisions)
         ? {
-            idClient: revisions.client._id || '',
+            idClient: revisions.client.legacyId || revisions.client.id || '',
             nomClient: revisions.client.nom || '',
           }
         : {}),
