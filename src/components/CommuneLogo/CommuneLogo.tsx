@@ -16,8 +16,8 @@ export const COMMUNE_LOGO_SIZE_SMALL = 28
 /** Page commune : carré 80×80, rectangle max 80×320 */
 export const COMMUNE_LOGO_PAGE_PRESET = { size: 80, maxWidth: 320 }
 
-/** Panel district : carré 80×80, rectangle max 80×140 */
-export const COMMUNE_LOGO_PANEL_PRESET = { size: 80, maxWidth: 140 }
+/** Panel district : carré 80×80, rectangle max 80×100**/
+export const COMMUNE_LOGO_PANEL_PRESET = { size: 80, maxWidth: 100 }
 
 const DEFAULT_LOGO_SRC = '/commune/default-logo.svg'
 
