@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 import ActionButtonDisabled from './ActionButtonDisabled'
+import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 
 interface DownloadCertificateProps {
   id: string
@@ -35,6 +36,10 @@ const ActionDownloadCertificate: React.FC<DownloadCertificateProps> = ({ id, tit
       else {
         const response = await fetch(`/api/certificat/${id}`)
         if (!response.ok) {
+          if (response.status === 401) {
+            redirectToLogoutOnSessionExpired()
+            return
+          }
           const errorText = await response.text()
           throw new Error(`Erreur ${response.status}: ${errorText || 'Erreur lors de la récupération du certificat'}`)
         }

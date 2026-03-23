@@ -72,9 +72,21 @@ export const adresseCircleLayer = {
     'circle-radius': [
       'interpolate',
       ['linear'], ['zoom'],
-      10, 0.1,
-      15.5, 2.5,
-      19, 7,
+      10, 1,
+      15.5,
+      [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        4,
+        2.5,
+      ],
+      19,
+      [
+        'case',
+        ['boolean', ['feature-state', 'hover'], false],
+        10,
+        7,
+      ],
     ],
     'circle-stroke-color': defaultLayerDraw,
     'circle-stroke-width': [
@@ -94,13 +106,7 @@ export const adresseLabelLayer = {
   'minzoom': NUMEROS_MIN,
   'paint': {
     'text-color': defaultLayerPaint,
-    'text-halo-color': [
-      'case',
-      ['boolean', ['feature-state', 'hover'], false],
-      theme.primary,
-      '#fff',
-    ],
-    'text-halo-width': 1,
+    'text-halo-color': '#fff',
   },
   'layout': {
     'text-font': ['Noto Sans Bold'],
@@ -139,13 +145,7 @@ export const adresseCompletLabelLayer = {
   'filter': ['==', ['get', 'id'], ''],
   'paint': {
     'text-color': defaultLayerPaint,
-    'text-halo-color': [
-      'case',
-      ['boolean', ['feature-state', 'hover'], false],
-      theme.primary,
-      '#fff',
-    ],
-    'text-halo-width': 1,
+    'text-halo-color': '#fff',
   },
   'layout': {
     'text-font': ['Noto Sans Bold'],

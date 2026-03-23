@@ -61,10 +61,10 @@ const availableLanguage = (language as { code: string, label: string }[])
 const LANG_CODES_WITH_FLAG = new Set(availableLanguage.map(l => l.code))
 
 const BAL_PARAMS_HINTS = {
-  langue: 'Langue des noms de voies et lieux-dits dans le fichier BAL (champs toponyme / voie_nom).',
-  langueRegionale: 'Langue des noms de voies et lieux-dits alternatifs dans le fichier BAL (champs nom_voie_alt / toponyme_alt).',
-  redressement: 'Corrige les odonymes selon les règles typographiques du Standard Adresse.',
-  communesAnciennes: 'Ajoute la commune ancienne aux adresses pour distinguer les doublons.',
+  langue: 'Langue principale des noms de voies et lieux-dits dans le fichier BAL (champs toponyme / voie_nom).',
+  langueRegionale: 'Langue alternative des noms de voies et lieux-dits  dans le fichier BAL (champs nom_voie_alt / toponyme_alt).',
+  redressement: 'Harmonise les libellés des odonymes (voies et lieux-dits) selon les règles typographiques (casse, accents, etc.).',
+  communesAnciennes: 'Le nom des communes historiques est ajouté aux adresses.',
 } as const
 
 function BalParamsSummary({
@@ -148,7 +148,7 @@ function BalParamsSummary({
       <div className="bal-params-summary__row">
         <div className="bal-params-summary__label-line">
           <span className="fr-icon fr-icon-font-size bal-params-summary__row-icon" aria-hidden="true" />
-          <span className="bal-params-summary__label">Redressement des odonymes</span>
+          <span className="bal-params-summary__label">Harmonisation des odonymes</span>
           <Tag
             nativeSpanProps={{
               title: 'Redressement automatique des odonymes',
@@ -163,7 +163,7 @@ function BalParamsSummary({
       <div className="bal-params-summary__row">
         <div className="bal-params-summary__label-line">
           <span className="fr-icon fr-icon-building-line bal-params-summary__row-icon" aria-hidden="true" />
-          <span className="bal-params-summary__label">Communes anciennes</span>
+          <span className="bal-params-summary__label">Communes historiques</span>
           <Tag
             nativeSpanProps={{
               title: 'Calcul automatique des communes anciennes',
@@ -765,7 +765,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               <div className="sec-card__header-left">
                 <div className="sec-card__title-row">
                   <span className="fr-icon fr-icon-settings-5-line sec-card__icon" aria-hidden="true" />
-                  <h3 className="sec-card__title">Paramètres des fichiers BAL</h3>
+                  <h3 className="sec-card__title">Paramètres dans le système BAN</h3>
                 </div>
                 <div className="sec-card__header-content">
                   <BalParamsSummary
@@ -844,7 +844,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 </div>
                 <div className="sec-card__header-content">
                   <p className="sec-card__value fr-mb-0">
-                    La source de publication des adresses BAL de votre commune.
+                    La Source de publication des adresses BAL de votre commune.
                   </p>
                 </div>
               </div>
