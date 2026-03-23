@@ -66,7 +66,7 @@ export type PartenaireDeLaChartType = {
   id: string
   name: string
   siret: string
-  picture: string
+  pictureUrl: string
   contactLastName: string
   contactFirstName: string
   contactEmail: string

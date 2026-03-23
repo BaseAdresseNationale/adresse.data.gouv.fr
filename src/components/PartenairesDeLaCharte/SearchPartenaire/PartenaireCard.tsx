@@ -56,7 +56,7 @@ export default function PartenaireCard({
           )}
         </Link>
       )}
-      imageComponent={<ResponsiveImage src={partenaire.picture} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
+      imageComponent={<ResponsiveImage src={partenaire.pictureUrl} alt={`Logo de ${partenaire.name}`} style={{ objectFit: 'contain' }} />}
       start={<ul className="fr-badges-group">{partenaire.services.map(service => <Badge key={service} small noIcon severity="info">{service}</Badge>)}</ul>}
       detail={detail}
       footer={(

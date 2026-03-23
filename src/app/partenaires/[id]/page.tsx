@@ -24,7 +24,7 @@ export default async function PartenairePage({ params }: { params: { id: string 
     <>
       <Section>
         <div className="fr-grid-row" style={{ flexWrap: 'nowrap', marginBottom: '2rem' }}>
-          <ResponsiveImage style={{ maxWidth: 300, maxHeight: 300, marginRight: '1rem' }} src={partenaireDeLaCharte.picture} alt={`Logo de ${partenaireDeLaCharte.name}`} />
+          <ResponsiveImage style={{ maxWidth: 300, maxHeight: 300, marginRight: '1rem' }} src={partenaireDeLaCharte.pictureUrl} alt={`Logo de ${partenaireDeLaCharte.name}`} />
           <div>
             <h2>{partenaireDeLaCharte.name}</h2>
             {partenaireDeLaCharte.organismeInfo
