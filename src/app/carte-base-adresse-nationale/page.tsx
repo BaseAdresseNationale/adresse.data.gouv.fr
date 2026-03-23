@@ -96,26 +96,41 @@ const getDepartementOrProvince = (district: TypeDistrict | TypeDistrictExtended)
   if (district?.departement?.nom) {
     if (district.departement.code == '987' || district.departement.code == '988') {
       const provinceName = provinces[((district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune) as keyof typeof provinces]
-      return (`${provinceName}`)
+      return ({
+        label: provinceName,
+        type: 'Province' as const,
+      })
     }
     else {
-      return (`${district.departement.nom}\u00A0(${district.departement.code})`)
+      return ({
+        label: `${district.departement.nom}\u00A0(${district.departement.code})`,
+        type: 'Departement' as const,
+      })
     }
   }
   else {
-    return ('Département non renseigné')
+    return ({
+      label: 'Département non renseigné',
+      type: 'Departement' as const,
+    })
   }
 }
 
 const getDistrictBreadcrumbPath = (district: TypeDistrict | TypeDistrictExtended, districtLinkProps?: LinkProps) => ([
-  district?.region?.nom ? `${district.region.nom}\u00A0(${district.region.code})` : 'Région non renseignée',
+  district?.region?.nom
+    ? { label: `${district.region.nom}\u00A0(${district.region.code})`, type: 'Region' as const }
+    : { label: 'Région non renseignée', type: 'Region' as const },
   getDepartementOrProvince(district),
   districtLinkProps
     ? {
         label: `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
         linkProps: districtLinkProps,
+        type: 'District' as const,
       }
-    : `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
+    : {
+        label: `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
+        type: 'District' as const,
+      },
 ])
 
 const getMicroTopoBreadcrumbPath = (
@@ -131,13 +146,20 @@ const getMicroTopoBreadcrumbPath = (
     ? {
         label: microTopo.nomVoie,
         linkProps: microTopoLinkProps,
+        type: 'Toponyme' as const,
       }
-    : microTopo.nomVoie,
+    : {
+        label: microTopo.nomVoie,
+        type: 'Toponyme' as const,
+      },
 ])
 
 const getAddressBreadcrumbPath = (address: TypeAddressExtended) => ([
   ...getMicroTopoBreadcrumbPath(address.voie, address.commune, { href: `${URL_CARTOGRAPHY_BAN}?id=${address.voie.idVoie}` }),
-  `Numéro ${address.numero ?? 'non renseigné'}${address.suffixe ? ` ${address.suffixe}` : ''}`,
+  {
+    label: `Numéro ${address.numero ?? 'non renseigné'}${address.suffixe ? ` ${address.suffixe}` : ''}`,
+    type: 'Address' as const,
+  },
 ])
 
 interface Position {
