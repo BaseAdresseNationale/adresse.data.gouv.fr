@@ -10,6 +10,7 @@ import Map, { Layer, NavigationControl, Source } from 'react-map-gl/maplibre'
 import TabDeploiementBAL from './TabDeploiementBAL'
 import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
+import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
@@ -26,7 +27,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source'>('source')
+  const [selectedTab, setSelectedTab] = useState<'source' | 'bal'>('source')
   const [origin, setOrigin] = useState('')
 
   useEffect(() => {
@@ -62,12 +63,21 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
-
+        <div className="input-wrapper">
+          <AutocompleteInput
+            label="Rechercher une collectivité ou un département :"
+            value={filter}
+            fetchResults={handleSearch}
+            onChange={value => handleFilter(value as DeploiementBALSearchResult | null)}
+            placeholder="CC du Val d'Amboise ou Indre-et-Loire"
+          />
+        </div>
         <div className="stats-wrapper">
           <Tabs
             selectedTabId={selectedTab}
             tabs={[
               { tabId: 'source', label: 'Déploiement BAL' },
+              { tabId: 'bal', label: 'Suivi Mes-Adresses' },
             ]}
             onTabChange={setSelectedTab as (tabId: string) => void}
           >
@@ -80,17 +90,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 }}
                 mapStyle="/map-styles/osm-vector.json"
               >
-                {selectedTab === 'source'
-                && (
-                  <div className="input-wrapper">
-                    <AutocompleteInput
-                      value={filter}
-                      fetchResults={handleSearch}
-                      onChange={value => handleFilter(value as DeploiementBALSearchResult | null)}
-                      placeholder="CC du Val d'Amboise ou Indre-et-Loire"
-                    />
-                  </div>
-                )}
                 <NavigationControl showZoom showCompass position="top-right" />
                 <FullScreenControl position="top-right" />
                 <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
@@ -120,6 +119,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
               </Map>
             </div>
             {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
+            {selectedTab === 'bal' && <TabMesAdresses filteredCodesCommmune={filteredCodesCommmune} />}
           </Tabs>
         </div>
       </div>
