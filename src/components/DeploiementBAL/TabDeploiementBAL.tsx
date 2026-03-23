@@ -8,10 +8,17 @@ import { numFormater } from '@/utils/number'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useState } from 'react'
 import styled from 'styled-components'
-import ListCommunes from './ListCommunes'
 
 const StyledWrapper = styled.div`
-  .download-wrapper {
+.stats {
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.download-wrapper {
     display: flex;
     align-items: center;
     margin-top: 1em;
@@ -21,26 +28,14 @@ const StyledWrapper = styled.div`
     button {
         margin-right: 1em;
     }
-  }
+}
 
-
-  .stats {
-      height: fit-content;
-      display: grid;
-      grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
-      gap: 1em;
-      margin-top: 1em;
-      margin-bottom: 3em;
-      text-align: center;
-  }
-
-
-  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
-    .download-wrapper {
-      flex-direction: column;
-      gap: 1em;
-    } 
-  }
+@media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
+  .download-wrapper {
+    flex-direction: column;
+    gap: 1em;
+  } 
+}
 `
 
 const options = {
@@ -75,6 +70,10 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
     dataAdressesGereesBAL,
     adressesCertifieesPercent,
     dataAdressesCertifiees,
+    communesAvecBanIdPercent,
+    dataCommunesAvecBanId,
+    adressesAvecBanIdPercent,
+    dataAdressesAvecBanId,
     total,
   } = formatedStats
 
@@ -157,13 +156,26 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
             options={options}
           />
         )}
+        <DoughnutCounter
+          title="Communes avec identifiant BAN"
+          valueUp={numFormater(stats.ban.nbCommunesAvecBanId)}
+          valueDown={`${communesAvecBanIdPercent}% des ${numFormater(total.nbCommunes)} communes`}
+          data={dataCommunesAvecBanId}
+          options={options}
+        />
+        <DoughnutCounter
+          title="Adresses avec identifiant BAN"
+          valueUp={numFormater(stats.ban.nbAdressesAvecBanId)}
+          valueDown={`${adressesAvecBanIdPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+          data={dataAdressesAvecBanId}
+          options={options}
+        />
       </div>
       <div className="download-wrapper">
         <label>Télécharger les données : </label>
         <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">format CSV</Button>
         <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadGeoJSON} iconId="fr-icon-download-fill">format GéoJSON</Button>
       </div>
-      <ListCommunes filteredCodesCommmune={filteredCodesCommmune} />
     </StyledWrapper>
   )
 }
