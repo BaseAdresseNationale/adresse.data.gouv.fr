@@ -60,7 +60,7 @@ function logoWrapper(size: number, maxWidth: number, children: ReactNode) {
         justifyContent: 'center',
         overflow: 'visible',
         borderRadius: 8,
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
       }}
     >
       {children}
