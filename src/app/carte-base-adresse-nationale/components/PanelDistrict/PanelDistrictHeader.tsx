@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import CommuneLogo, { COMMUNE_LOGO_PANEL_PRESET } from '@/components/CommuneLogo/CommuneLogo'
 
 import {
   DistrictHeaderWrapper,
@@ -30,12 +30,15 @@ function PanelDistrictHeader({ district, logo }: PanelDistrictHeaderProps) {
     <>
       <DistrictLink district={formatedDistrict}>
         <DistrictHeaderWrapper>
-          {logo && (
-            <DistrictLogoWrapper>
-              <Image width={80} height={80} alt="logo commune par défault" src={logo} />
-              {certificatedAddressPercent > 98 && <DistrictLogoBadge title={`Les adresse de cette commune sont certifiées à ${certificatedAddressPercent}%`} />}
-            </DistrictLogoWrapper>
-          )}
+          <DistrictLogoWrapper>
+            <CommuneLogo
+              src={logo}
+              codeCommune={district.codeCommune}
+              alt="Logo de la commune"
+              {...COMMUNE_LOGO_PANEL_PRESET}
+            />
+            {certificatedAddressPercent > 98 && <DistrictLogoBadge title={`Les adresse de cette commune sont certifiées à ${certificatedAddressPercent}%`} />}
+          </DistrictLogoWrapper>
           <DistrictLabelWrapper>
             <DistrictLabelPrefix>Commune de </DistrictLabelPrefix>
             <DistrictLabel>

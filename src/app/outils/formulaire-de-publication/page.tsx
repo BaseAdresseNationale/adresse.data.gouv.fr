@@ -1,12 +1,11 @@
 import Loader from '@/components/Loader'
 import dynamic from 'next/dynamic'
 import { getCommune } from '@/lib/api-geo'
-import { getCommuneFlag } from '@/lib/api-blasons-communes'
 import { getHabilitation, getRevision } from '@/lib/api-depot'
 import { Habilitation, Revision } from '@/types/api-depot.types'
 import { Commune } from '@/types/api-geo.types'
 
-const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl: string }, initialRevision?: Revision, initialHabilitation?: Habilitation }>(
+const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl?: string }, initialRevision?: Revision, initialHabilitation?: Habilitation }>(
   () => import('../../../components/FormulaireDePublication'),
   { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
 )
@@ -25,8 +24,6 @@ export default async function FormulaireDePublicationPage(props: FormulaireDePub
     revision = await getRevision(revisionId)
 
     commune = await getCommune(revision.codeCommune)
-    const communeFlagUrl = await getCommuneFlag(revision.codeCommune) || '/commune/default-logo.svg'
-    commune = { ...commune, flagUrl: communeFlagUrl }
   }
 
   if (habilitationId) {
