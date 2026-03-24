@@ -73,7 +73,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
   }, [revision, habilitation, stepIndex])
 
   const getReport = async (file?: File): Promise<ValidateType> => {
-    const report: ParseFileType | ValidateType = await validate(file as any, { profile: '1.3' })
+    const report: ParseFileType | ValidateType = await validate(file as any)
     if (!report.parseOk) {
       throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
     }

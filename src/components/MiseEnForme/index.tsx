@@ -28,7 +28,7 @@ export default function MiseEnFormeBAL() {
     try {
       setIsLoading(true)
       setFile(file)
-      const report = await validate(file as any, { profile: '1.4' })
+      const report = await validate(file as any)
       setReport(report)
     }
     catch (e) {

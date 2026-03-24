@@ -23,7 +23,7 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
 
   const nbRowsRemediation = useMemo(() => getNbRowsRemediation(rows), [rows])
   const codeCommune = useMemo(() => {
-    return rows[0].parsedValues.commune_insee || rows[0].additionalValues?.cle_interop?.codeCommune
+    return rows?.[0].parsedValues.commune_insee || rows?.[0].additionalValues?.cle_interop?.codeCommune || null
   }, [rows])
 
   const hasProfileError = useMemo(() => {
@@ -58,7 +58,7 @@ function ValidationReport({ file, report, profile }: ValidationReportProps) {
                 title="Fichier non valide"
               />
             )}
-        {nbRowsRemediation > 0 && (
+        {nbRowsRemediation > 0 && codeCommune !== null && (
           <AlertMiseEnForme file={file} nbRowsRemediation={nbRowsRemediation} codeCommune={codeCommune} />
         )}
       </Section>
