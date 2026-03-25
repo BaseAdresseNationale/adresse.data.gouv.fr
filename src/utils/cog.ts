@@ -16,7 +16,7 @@ type CogCommune = {
   population: number
 }
 
-const communesActuelles = (communes as CogCommune[]).filter(({ type }: CogCommune) => type === 'commune-actuelle')
+const communesActuelles = (communes as CogCommune[]).filter(({ type }: CogCommune) => ['commune-actuelle', 'arrondissement-municipal'].includes(type))
 const communesIndex = keyBy(communesActuelles, 'code')
 
 export function findCommuneName(codeCommune: string) {
