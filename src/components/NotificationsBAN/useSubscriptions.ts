@@ -1,12 +1,13 @@
 import { useCallback, useState, useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
+import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 import { NotificationSubscription, FormData, UseSubscriptionsReturn } from './types'
 
 export const useSubscriptions = (): UseSubscriptionsReturn => {
+  const [authLoading, setAuthLoading] = useState<boolean>(true)
   const [authenticated, setAuthenticated] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<any>(null)
   const [subscriptions, setSubscriptions] = useState<NotificationSubscription[]>([])
-  const [hasExistingSubscription, setHasExistingSubscription] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null)
@@ -62,9 +63,12 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
 
       const subs = data.subscriptions || []
       setSubscriptions(subs)
-      setHasExistingSubscription(subs.length > 0)
     }
-    catch (error) {
+    catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       console.error('Erreur lors du chargement des abonnements:', error)
       setMessage({
         type: 'error',
@@ -85,7 +89,11 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
     catch (error: any) {
       if (error?.status === 401) {
         setAuthenticated(false)
+        setUserInfo(null)
       }
+    }
+    finally {
+      setAuthLoading(false)
     }
   }, [loadSubscriptions])
 
@@ -132,8 +140,13 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       await loadSubscriptions()
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la création de l\'abonnement')
       setMessage({ type: 'error', text: errorMessage })
+      throw new Error(errorMessage)
     }
     finally {
       setLoading(false)
@@ -183,8 +196,13 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       cancelEdit()
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la modification')
       setMessage({ type: 'error', text: errorMessage })
+      throw new Error(errorMessage)
     }
     finally {
       setLoading(false)
@@ -212,6 +230,10 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       })
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la modification')
       setMessage({ type: 'error', text: errorMessage })
     }
@@ -236,25 +258,25 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
         type: 'success',
         text: data.message || 'Abonnement supprimé avec succès',
       })
-
-      if (subscriptions.length === 1) {
-        setHasExistingSubscription(false)
-      }
     }
     catch (error: any) {
+      if (error?.status === 401) {
+        redirectToLogoutOnSessionExpired()
+        return
+      }
       const errorMessage = extractErrorMessage(error, 'Erreur lors de la suppression')
       setMessage({ type: 'error', text: errorMessage })
     }
     finally {
       setActionLoading(null)
     }
-  }, [subscriptions.length])
+  }, [])
 
   return {
+    authLoading,
     authenticated,
     userInfo,
     subscriptions,
-    hasExistingSubscription,
     loading,
     actionLoading,
     message,

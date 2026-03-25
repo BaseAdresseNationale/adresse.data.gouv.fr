@@ -25,7 +25,7 @@ import { MapWrapper, MapSearchResultsWrapper } from './page.styles'
 
 import type { MapRef } from 'react-map-gl/maplibre'
 import type { MapBreadcrumbPath } from './components/MapBreadcrumb'
-import type { Address } from './components/ban-map/types'
+import type { Address, Territory } from './components/ban-map/types'
 import type {
   TypeAddressExtended,
   TypeMicroToponymPartial,
@@ -35,7 +35,7 @@ import type {
 } from './types/LegacyBan.types'
 
 import provinces from '@/data/provinces.json'
-
+import territories from '@/data/territories.json'
 interface LinkProps {
   href: string
   target?: string
@@ -43,6 +43,7 @@ interface LinkProps {
 
 const DEFAULT_CENTER = [1.7, 46.9]
 const DEFAULT_ZOOM = 6
+const MAX_ZOOM = 22
 const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 
@@ -95,26 +96,41 @@ const getDepartementOrProvince = (district: TypeDistrict | TypeDistrictExtended)
   if (district?.departement?.nom) {
     if (district.departement.code == '987' || district.departement.code == '988') {
       const provinceName = provinces[((district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune) as keyof typeof provinces]
-      return (`${provinceName}`)
+      return ({
+        label: provinceName,
+        type: 'Province' as const,
+      })
     }
     else {
-      return (`${district.departement.nom}\u00A0(${district.departement.code})`)
+      return ({
+        label: `${district.departement.nom}\u00A0(${district.departement.code})`,
+        type: 'Departement' as const,
+      })
     }
   }
   else {
-    return ('Département non renseigné')
+    return ({
+      label: 'Département non renseigné',
+      type: 'Departement' as const,
+    })
   }
 }
 
 const getDistrictBreadcrumbPath = (district: TypeDistrict | TypeDistrictExtended, districtLinkProps?: LinkProps) => ([
-  district?.region?.nom ? `${district.region.nom}\u00A0(${district.region.code})` : 'Région non renseignée',
+  district?.region?.nom
+    ? { label: `${district.region.nom}\u00A0(${district.region.code})`, type: 'Region' as const }
+    : { label: 'Région non renseignée', type: 'Region' as const },
   getDepartementOrProvince(district),
   districtLinkProps
     ? {
         label: `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
         linkProps: districtLinkProps,
+        type: 'District' as const,
       }
-    : `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
+    : {
+        label: `${(district as TypeDistrict)?.nom || (district as TypeDistrictExtended)?.nomCommune}\u00A0(COG\u00A0${(district as TypeDistrict)?.code || (district as TypeDistrictExtended)?.codeCommune})`,
+        type: 'District' as const,
+      },
 ])
 
 const getMicroTopoBreadcrumbPath = (
@@ -130,13 +146,20 @@ const getMicroTopoBreadcrumbPath = (
     ? {
         label: microTopo.nomVoie,
         linkProps: microTopoLinkProps,
+        type: 'Toponyme' as const,
       }
-    : microTopo.nomVoie,
+    : {
+        label: microTopo.nomVoie,
+        type: 'Toponyme' as const,
+      },
 ])
 
 const getAddressBreadcrumbPath = (address: TypeAddressExtended) => ([
   ...getMicroTopoBreadcrumbPath(address.voie, address.commune, { href: `${URL_CARTOGRAPHY_BAN}?id=${address.voie.idVoie}` }),
-  `Numéro ${address.numero ?? 'non renseigné'}${address.suffixe ? ` ${address.suffixe}` : ''}`,
+  {
+    label: `Numéro ${address.numero ?? 'non renseigné'}${address.suffixe ? ` ${address.suffixe}` : ''}`,
+    type: 'Address' as const,
+  },
 ])
 
 interface Position {
@@ -200,8 +223,9 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, displayLandRegister }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, isIGNMapStyleAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
+  const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
 
   const selectBanItem = useCallback(({ id }: { id: string }) => router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`), [router])
@@ -231,9 +255,37 @@ function CartoView() {
   }, [router])
   const onMoveHandle = useCallback(() => {
     const { current: banMapGL } = banMapRef
+    if (!banMapGL) return
+
+    const bounds = banMapGL.getBounds()
+    const zoom = banMapGL.getZoom()
+
+    const territoryWithoutIGNMapStyle = zoom >= 7
+      ? territories.territories.find(t =>
+        t.mapStyle && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
+      )
+      : undefined
+
+    const isIGNMapStyleNotAccessible = Boolean(territoryWithoutIGNMapStyle)
+    const territory = buttonMapStyle == 'ign-vector' ? territoryWithoutIGNMapStyle : undefined
+    const targetStyle = territory?.mapStyle ?? buttonMapStyle
+
+    if (isIGNMapStyleNotAccessible == isIGNMapStyleAccessible) {
+      banMapConfigState[1]({
+        type: 'SET_IGN_MAP_STYLE_ACCESSIBLE',
+        payload: !isIGNMapStyleNotAccessible,
+      })
+    }
+
+    if (targetStyle && targetStyle !== mapStyle) {
+      banMapConfigState[1]({
+        type: 'SET_MAP_STYLE',
+        payload: targetStyle,
+      })
+    }
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
-  }, [updateHashPosition])
+  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible])
 
   // InitialPosition from hash
   useEffect(() => {
@@ -285,17 +337,19 @@ function CartoView() {
         setMapSearchResults(banItem)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
-        let connexion = null
+        let habilitation = false
         try {
-          connexion = await customFetch('/api/me')
-          if (connexion) {
+          const connexion = await customFetch('/api/me')
+          if (connexion && typeof connexion === 'object' && 'siret' in connexion) {
             const commune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
-            setHabilitationEnabled(commune.siren == JSON.parse(connexion).siret.slice(0, 9))
+            if (commune?.siren && connexion.siret && commune.siren === connexion.siret.slice(0, 9)) {
+              habilitation = true
+            }
           }
         }
         catch (error: any) {
           if (error?.status === 401) {
-            setHabilitationEnabled(false)
+            habilitation = false
           }
         }
 
@@ -310,7 +364,8 @@ function CartoView() {
           case 'address':
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
-            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitationEnabled) || config?.certificate == CertificateTypeEnum.ALL) {
+            // Utiliser la variable locale habilitation au lieu de habilitationEnabled
+            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitation) || config?.certificate == CertificateTypeEnum.ALL) {
               setWithCertificate(true)
             }
             else {
@@ -323,6 +378,8 @@ function CartoView() {
             break
         }
 
+        setHabilitationEnabled(habilitation)
+
         setIsLoadMapSearchResults(false)
       })()
     }
@@ -330,6 +387,23 @@ function CartoView() {
       return closeMapSearchResults()
     }
   }, [banItemId, habilitationEnabled, closeMapSearchResults])
+
+  useEffect(() => {
+    if (tomId && isMapReady) {
+      const territory = territories.territories.find(territory => territory.id === tomId)
+      if (!territory) return
+
+      const bbox = territory.bbox as [number, number, number, number]
+
+      setHash({
+        value: bbox.join('_'),
+        bounds: bbox,
+      })
+
+      setIsMenuVisible(true)
+      oldMapSearchResults.current = null
+    }
+  }, [tomId, isMapReady])
 
   // Position map to Search results
   useEffect(() => {
@@ -409,6 +483,7 @@ function CartoView() {
             latitude: (DEFAULT_CENTER[1]),
             longitude: (DEFAULT_CENTER[0]),
           }}
+          maxZoom={MAX_ZOOM}
           style={{
             position: 'relative',
             width: '100%',

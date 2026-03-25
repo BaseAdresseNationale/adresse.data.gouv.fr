@@ -3,18 +3,17 @@ import React, { useState, useEffect } from 'react'
 import { Input } from '@codegouvfr/react-dsfr/Input'
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-import { Table } from '@codegouvfr/react-dsfr/Table'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import { NotificationSubscription, FormData, SubscriptionFormProps, SubscriptionTableProps } from './types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
+import { FavoritesTableWrapper } from '@/app/admin/components/DistrictActions/DistrictActions.styles'
 
 export const DeleteButtonWithConfirm: React.FC<{
   onConfirm: () => void
   loading?: boolean
   subscriptionName?: string
-  subscriptionId: string // Ajout pour créer un ID unique
+  subscriptionId: string
 }> = ({ onConfirm, loading, subscriptionName, subscriptionId }) => {
-  // Créer un modal unique pour ce bouton avec l'ID de l'abonnement
   const modalId = `confirm-delete-${subscriptionId}`
   const { Component: ConfirmDeleteModal, open: openConfirmDeleteModal, close: closeConfirmDeleteModal } = createModal({
     id: modalId,
@@ -55,8 +54,8 @@ export const DeleteButtonWithConfirm: React.FC<{
           },
         ]}
       >
-        <p>Êtes-vous sûr de vouloir supprimer l&apos;abonnement "<strong>{subscriptionName || 'Sans nom'}</strong>" ?</p>
-        <p><em>Cette action est irréversible.</em></p>
+        <p className="fr-text--sm fr-mb-2w">Êtes-vous sûr de vouloir supprimer l&apos;abonnement &quot;<strong>{subscriptionName || 'Sans nom'}</strong>&quot; ?</p>
+        <p className="fr-text--sm fr-text-mention--grey fr-mb-0"><em>Cette action est irréversible.</em></p>
       </ConfirmDeleteModal>
     </>
   )
@@ -64,19 +63,19 @@ export const DeleteButtonWithConfirm: React.FC<{
 
 export const CommunesCell: React.FC<{ subscription: NotificationSubscription }> = ({ subscription }) => {
   if (subscription.allDistricts) {
-    return <span>Toutes les communes</span>
+    return <span className="fr-text--sm">Toutes les communes</span>
   }
 
   if (!subscription.districtsToFollow || subscription.districtsToFollow.length === 0) {
-    return <span>Toutes les communes</span>
+    return <span className="fr-text--sm">Toutes les communes</span>
   }
 
   return (
-    <details>
-      <summary>
+    <details className="fr-text--sm">
+      <summary className="fr-link">
         {subscription.districtsToFollow.length} commune{subscription.districtsToFollow.length > 1 ? 's' : ''}
       </summary>
-      <div>
+      <div className="fr-mt-1v">
         {subscription.districtsToFollow.join(', ')}
       </div>
     </details>
@@ -112,7 +111,7 @@ export const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div className="fr-flex fr-flex--column fr-gap-6w">
         <Input
           label="Identifiant de l'alerte"
           hintText="Nom pour identifier cet abonnement"
@@ -140,8 +139,8 @@ export const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
         />
 
         <div>
-          <fieldset>
-            <legend>Types de messages à recevoir</legend>
+          <fieldset className="fr-fieldset">
+            <legend className="fr-fieldset__legend fr-text--bold">Types de messages à recevoir</legend>
             {[
               { value: 'success', label: 'Succès' },
               { value: 'error', label: 'Erreurs' },
@@ -161,7 +160,7 @@ export const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
             ))}
           </fieldset>
           {formErrors.statusesToFollow && (
-            <p>
+            <p className="fr-error-text fr-text--sm fr-mt-1w">
               {formErrors.statusesToFollow}
             </p>
           )}
@@ -192,7 +191,7 @@ export const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
           />
         )}
 
-        <div style={{ display: 'flex', gap: '1rem' }}>
+        <div className="fr-flex fr-gap-4w">
           <Button
             type="submit"
             disabled={loading || !isFormValid}
@@ -242,60 +241,79 @@ export const SubscriptionTable: React.FC<SubscriptionTableProps> = ({
 
   if (subscriptions.length === 0) return null
 
-  const tableData = subscriptions.map(sub => [
-    sub.subscriptionName || 'Sans nom',
-    (
-      <div
-        key={`webhook-${sub.id}`}
-        style={{
-          maxWidth: '300px',
-          wordBreak: 'break-all',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-        }}
-        title={sub.webhookUrl}
-      >
-        {sub.webhookUrl}
-      </div>
-    ),
-    sub.statusesToFollow.join(', '),
-    <CommunesCell key={`communes-${sub.id}`} subscription={sub} />,
-    formatDate(sub.createdAt),
-    (
-      <ToggleSwitch
-        key={sub.id}
-        checked={sub.isActive}
-        onChange={checked => onToggle(sub.id, checked)}
-        label=""
-        inputTitle={`${sub.isActive ? 'Désactiver' : 'Activer'} l'abonnement`}
-        disabled={actionLoading === sub.id}
-      />
-    ),
-    (
-      <div key={`actions-${sub.id}`} style={{ display: 'flex', gap: '0.5rem' }}>
-        <Button
-          iconId="fr-icon-edit-fill"
-          priority="tertiary no outline"
-          size="small"
-          onClick={() => onEdit(sub)}
-          title="Modifier l'abonnement"
-          disabled={actionLoading === sub.id}
-        />
-        <DeleteButtonWithConfirm
-          onConfirm={() => onDelete(sub.id)}
-          loading={actionLoading === sub.id}
-          subscriptionName={sub.subscriptionName}
-          subscriptionId={sub.id} // ← Ajout de l'ID unique
-        />
-      </div>
-    ),
-  ])
-
   return (
-    <Table
-      headers={['Nom', 'Webhook URL', 'Types de messages', 'Communes', 'Créé le', 'Statut', 'Actions']}
-      data={tableData}
-    />
+    <FavoritesTableWrapper>
+      <table aria-label="Vos abonnements aux alertes BAN">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Webhook URL</th>
+            <th scope="col">Types de messages</th>
+            <th scope="col">Communes</th>
+            <th scope="col" className="cell-nowrap">Créé le</th>
+            <th scope="col">Statut</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {subscriptions.map(sub => (
+            <tr key={sub.id}>
+              <td className="fr-text--bold cell-nowrap">
+                {sub.subscriptionName || <span className="fr-text-mention--grey">Sans nom</span>}
+              </td>
+
+              <td>
+                <div className="cell-webhook" title={sub.webhookUrl}>
+                  {sub.webhookUrl}
+                </div>
+              </td>
+
+              <td className="fr-text--sm">
+                {sub.statusesToFollow.join(', ')}
+              </td>
+
+              <td className="fr-text--sm">
+                <CommunesCell subscription={sub} />
+              </td>
+
+              <td className="fr-text--sm fr-text-mention--grey cell-nowrap">
+                {formatDate(sub.createdAt)}
+              </td>
+
+              <td>
+                <ToggleSwitch
+                  checked={sub.isActive}
+                  onChange={checked => onToggle(sub.id, checked)}
+                  label={sub.isActive ? 'Actif' : 'Inactif'}
+                  inputTitle={`${sub.isActive ? 'Désactiver' : 'Activer'} l'abonnement`}
+                  disabled={actionLoading === sub.id}
+                  showCheckedHint={false}
+                  labelPosition="right"
+                />
+              </td>
+
+              <td>
+                <div className="actions-cell">
+                  <Button
+                    iconId="fr-icon-edit-fill"
+                    priority="tertiary no outline"
+                    size="small"
+                    onClick={() => onEdit(sub)}
+                    title="Modifier l'abonnement"
+                    disabled={actionLoading === sub.id}
+                  />
+                  <DeleteButtonWithConfirm
+                    onConfirm={() => onDelete(sub.id)}
+                    loading={actionLoading === sub.id}
+                    subscriptionName={sub.subscriptionName}
+                    subscriptionId={sub.id}
+                  />
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </FavoritesTableWrapper>
   )
 }

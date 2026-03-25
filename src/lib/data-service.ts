@@ -24,6 +24,7 @@ export const rootDir = ['adresse-data']
 const agent = new https.Agent({
   keepAlive: true,
   maxSockets: 300,
+  timeout: 600000, // 10 min
 })
 
 const clientS3 = new S3({

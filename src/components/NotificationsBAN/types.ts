@@ -20,10 +20,10 @@ export interface FormData {
 }
 
 export interface UseSubscriptionsReturn {
+  authLoading: boolean
   authenticated: boolean
   userInfo: any
   subscriptions: NotificationSubscription[]
-  hasExistingSubscription: boolean
   loading: boolean
   actionLoading: string | null
   message: { type: 'success' | 'error' | 'info', text: string } | null
