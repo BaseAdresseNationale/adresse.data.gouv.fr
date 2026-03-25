@@ -1,0 +1,146 @@
+'use client'
+
+import React, { useMemo, useState } from 'react'
+import { camelCase } from 'lodash'
+import Section from '@/components/Section'
+import { Select } from '@codegouvfr/react-dsfr/Select'
+import Breadcrumb from '@/layouts/Breadcrumb'
+import AppCard from './app-card'
+import { Filters } from '../page.styles'
+import CardWrapper from '@/components/CardWrapper'
+import Input from '@codegouvfr/react-dsfr/Input'
+
+const sortByKey = (key: string) => (a: Record<string, string>, b: Record<string, string>) => ((a[key] < b[key]) && -1) || ((a[key] > b[key]) && 1) || 0
+
+export default function UsagesClient({ appsData }: { appsData: Record<string, any>[] }) {
+  const [categorieFilter, setCategorieFilter] = useState('')
+  const [statutFilter, setStatutFilter] = useState('')
+  const [typeFilter, setTypeFilter] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const appsDataCamel = useMemo(() => appsData.map(
+    appData => Object.fromEntries(
+      Object
+        .entries(appData)
+        .filter(([key]) => key)
+        .map(([key, value]) => [camelCase(key), value])
+    )
+  ), [appsData])
+
+  const filterCategories = useMemo(
+    () => [...new Set(appsDataCamel.map(({ categorieApplication }) => categorieApplication))],
+    [appsDataCamel]
+  )
+  const filterStatuts = useMemo(
+    () => [...new Set(appsDataCamel.map(({ statutIntegration }) => statutIntegration))],
+    [appsDataCamel]
+  )
+  const filterTypes = useMemo(
+    () => [...new Set(appsDataCamel.map(({ typeIntegration }) => typeIntegration))],
+    [appsDataCamel]
+  )
+
+  const filteredApps = useMemo(() => appsDataCamel.filter(({
+    categorieApplication,
+    statutIntegration,
+    typeIntegration,
+    nomApplication,
+    descriptionUtilisation,
+    tagsApplication,
+  }) => (
+    (categorieFilter === '' || categorieApplication === categorieFilter)
+    && (statutFilter === '' || statutIntegration === statutFilter)
+    && (typeFilter === '' || typeIntegration === typeFilter)
+    && (searchTerm === '' || (
+      (nomApplication && nomApplication.toLowerCase().includes(searchTerm.toLowerCase()))
+      || (descriptionUtilisation && descriptionUtilisation.toLowerCase().includes(searchTerm.toLowerCase()))
+      || (tagsApplication && tagsApplication.split(', ').some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+    ))
+  )
+  ).sort(sortByKey('nomApplication')), [appsDataCamel, categorieFilter, statutFilter, typeFilter, searchTerm])
+
+  return (
+    <>
+      <Breadcrumb
+        currentPageLabel="Nos usagers"
+        segments={[]}
+      />
+      <Section pageTitle="Une donnée d’intérêt général">
+        <p>
+          L’adresse est une donnée d’intérêt général, son utilisation est un enjeu dans de nombreux domaines :<br />
+          services publics, services de sécurité et de secours, gestionnaires de réseaux, services de livraison et navigation ...<br /><br />
+          Les organismes partenaires (entreprises, administrations, etc) référencés sur cette page reconnaissent la BAN comme source de référence officielle pour les adresses en France en application de la Loi 3DS. Ils travaillent activement à l’utilisation des adresses BAN dans leur processus.<br /><br />
+          Note : les opérations d’exploitation et les choix techniques des opérateurs peuvent induire des sélections et des délais de prise en compte des nouvelles adresses, qui peuvent aller jusqu’à plusieurs mois.
+        </p>
+      </Section>
+      <Section>
+        <Filters>
+          <Select
+            label="Catégories"
+            nativeSelectProps={{
+              onChange: e => setCategorieFilter(e.target.value),
+            }}
+          >
+            <option value="">Toutes les catégories</option>
+            {filterCategories.map((categorie, index) => (<option key={index} value={categorie}>{categorie}</option>))}
+          </Select>
+          <Select
+            label="Status"
+            nativeSelectProps={{
+              onChange: e => setStatutFilter(e.target.value),
+            }}
+          >
+            <option value="">Tous les statuts</option>
+            {filterStatuts.map((statut, index) => (<option key={index} value={statut}>{statut}</option>))}
+          </Select>
+          <Select
+            label="Modes"
+            nativeSelectProps={{
+              onChange: e => setTypeFilter(e.target.value),
+            }}
+          >
+            <option value="">Tous les modes</option>
+            {filterTypes.map((type, index) => (<option key={index} value={type}>{type}</option>))}
+          </Select>
+          <Input
+            label="Rechercher"
+            iconId="fr-icon-user-search-line"
+            nativeInputProps={{
+              placeholder: 'Rechercher...',
+              type: 'text',
+              onChange: e => setSearchTerm(e.target.value),
+              value: searchTerm,
+            }}
+            className="filter-search"
+          />
+        </Filters>
+        <CardWrapper isSmallCard>
+          {filteredApps.map((appDescription, index) => appDescription && appDescription.imageUtilisateur && (
+            <AppCard
+              key={index}
+              statutIntegration={appDescription.statutIntegration}
+              typeIntegration={appDescription.typeIntegration}
+              nomApplication={appDescription.nomApplication}
+              descriptionUtilisation={appDescription.descriptionUtilisation}
+              imageUtilisateur={appDescription.imageUtilisateur}
+              urlApplication={appDescription.urlApplication}
+              urlArticle={appDescription.urlArticle}
+              dernierTelechargement={appDescription.dernierTelechargement}
+              nomUtilisateur={appDescription.nomUtilisateur}
+              tagsApplication={appDescription.tagsApplication}
+            />
+          ))}
+        </CardWrapper>
+        <Section title="Vous utilisez la Base Adresse Nationale ?">
+          <p>Faites nous part de votre usage et faites apparaître votre application sur cette page en remplissant le formulaire ci-dessous :</p>
+          <iframe
+            src="https://grist.numerique.gouv.fr/o/ban/forms/sz43WNuzi4c9sQXfwp85bp/83"
+            title="Formulaire ajout nouveaux usages"
+            width="100%"
+            height="800"
+          />
+        </Section>
+      </Section>
+    </>
+  )
+}
