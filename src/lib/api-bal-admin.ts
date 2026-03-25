@@ -14,12 +14,13 @@ export async function getOnePartenairesDeLaCharte(id: string): Promise<Partenair
 }
 
 interface PartenairesDeLaCharteQuery {
-  codeDepartement?: string[]
+  coverDepartement?: string[]
   services?: string[]
   type?: PartenaireDeLaCharteTypeEnum
   search?: string
   withoutPictures?: boolean
   shuffleResults?: boolean
+  codeCommune?: string
 }
 
 export interface PaginatedPartenairesDeLaCharte {
