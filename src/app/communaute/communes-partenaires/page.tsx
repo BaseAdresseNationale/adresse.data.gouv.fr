@@ -3,7 +3,7 @@ import CandidacyModal from '@/components/PartenairesDeLaCharte/CandidacyModal'
 import { PartenairesMap } from '@/components/PartenairesDeLaCharte/PartenairesMap'
 import SearchPartenaire from '@/components/PartenairesDeLaCharte/SearchPartenaire'
 import Section from '@/components/Section'
-import { getPartenairesDeLaCharte, getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
+import { getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 
