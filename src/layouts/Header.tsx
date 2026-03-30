@@ -56,7 +56,6 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/decouvrir-la-BAN' },
       },
       { text: 'Contenu de la BAN', linkProps: { href: '/contenu-de-la-ban' } },
-      { text: 'Documentation', linkProps: { href: '/ressources-et-documentations' } },
       { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
       { text: 'Statistiques', linkProps: { href: '/stats' } },
     ],
@@ -83,6 +82,19 @@ export const navEntries: MainNavigationProps.Item[] = [
           href: 'https://mes-adresses.data.gouv.fr/',
           target: '_blank',
         },
+      },
+    ],
+  },
+  {
+    text: 'La documentation',
+    menuLinks: [
+      {
+        text: 'Documentation technique BAN',
+        linkProps: { href: '/ressources-et-documentations' },
+      },
+      {
+        text: 'Documentation adressage',
+        linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' },
       },
     ],
   },
