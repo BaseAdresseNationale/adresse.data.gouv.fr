@@ -205,9 +205,11 @@ export default function Header(
         text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
       },
       {
-        iconId: 'fr-icon-book-2-fill' as const,
-        linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' as const },
-        text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
+        iconId: 'ri-quill-pen-fill' as const,
+        linkProps: {
+          href: '/blog',
+        },
+        text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
       },
     ]
 
@@ -215,7 +217,7 @@ export default function Header(
       return baseItems
     }
     else {
-      // Si non connecté OU en chargement : Carte + Documentation + Se connecter (max 3)
+      // Si non connecté OU en chargement : Carte + Blog + Se connecter (max 3)
       return [
         ...baseItems,
         {
