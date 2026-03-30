@@ -1,9 +1,9 @@
 import dynamicImport from 'next/dynamic'
 import { env } from 'next-runtime-env'
 
-import Image from 'next/image'
 import Link from 'next/link'
 
+import CommuneLogo, { COMMUNE_LOGO_PAGE_PRESET } from '@/components/CommuneLogo/CommuneLogo'
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
@@ -12,7 +12,6 @@ import {
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
-import { getCommuneFlag } from '@/lib/api-blasons-communes'
 
 import { StyledCommunePage } from './page.styles'
 import { getCommuneAchievements } from '@/lib/commune'
@@ -72,7 +71,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
   const [
     mairiePageResponse,
-    communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
     communesPrecedentesResponse,
@@ -81,7 +79,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     IdDistrictByCodeCommuneResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
-    getCommuneFlag(codeCommune),
     APIGeoCommune?.codeEpci && getEPCI(APIGeoCommune.codeEpci),
     communeHasBAL
       ? getRevisions(codeCommune)
@@ -100,11 +97,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason?.message)
   }
   const mairiePageUrl = mairiePageResponse.status === 'fulfilled' ? mairiePageResponse.value : null
-
-  if (communeFlagResponse.status === 'rejected') {
-    console.error(`Failed to get commune flag for commune  ${codeCommune}`, communeFlagResponse.reason?.message)
-  }
-  const communeFlagUrl = communeFlagResponse.status === 'fulfilled' ? communeFlagResponse.value : null
 
   if (EPCIResponse.status === 'rejected') {
     console.error(`Failed to get EPCI for commune ${codeCommune}`, EPCIResponse.reason?.message)
@@ -172,7 +164,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       <StyledCommunePage $certificationPercentage={certificationPercentage}>
         <Section className="commune-main-section">
           <h1>
-            <Image width={80} height={80} alt="logo commune par défault" src={communeFlagUrl || '/commune/default-logo.svg'} />
+            <CommuneLogo codeCommune={codeCommune} alt="Logo de la commune" {...COMMUNE_LOGO_PAGE_PRESET} />
             <br />
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
@@ -189,7 +181,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Région
               </label>
               <div>
-                {commune.region.nom}
+                {commune.region?.nom ?? '-'}
               </div>
             </div>
             <div className="commune-general-info">
@@ -197,7 +189,13 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Département
               </label>
               <div>
-                <Link href={`/deploiement-bal?departement=${commune.departement.code}`}>{commune.departement.nom}</Link>
+                {commune.departement
+                  ? (
+                      <Link href={`/deploiement-bal?departement=${commune.departement.code}`}>
+                        {commune.departement.nom}
+                      </Link>
+                    )
+                  : '-'}
               </div>
             </div>
             <div className="commune-general-info">
