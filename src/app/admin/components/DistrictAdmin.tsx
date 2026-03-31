@@ -18,9 +18,9 @@ import { useDistrictConfigSave } from './useDistrictConfigSave'
 import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
+import CommuneLogo, { COMMUNE_LOGO_SIZE_SMALL } from '@/components/CommuneLogo/CommuneLogo'
 import Loader from '@/components/Loader'
 import { customFetch } from '@/lib/fetch'
-import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getClientsRecap, type ClientRecapItem, type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
 import { getRevisions } from '@/lib/api-depot'
 import type { Revision } from '@/types/api-depot.types'
@@ -61,10 +61,10 @@ const availableLanguage = (language as { code: string, label: string }[])
 const LANG_CODES_WITH_FLAG = new Set(availableLanguage.map(l => l.code))
 
 const BAL_PARAMS_HINTS = {
-  langue: 'Langue des noms de voies et lieux-dits dans le fichier BAL (champs toponyme / voie_nom).',
-  langueRegionale: 'Langue des noms de voies et lieux-dits alternatifs dans le fichier BAL (champs nom_voie_alt / toponyme_alt).',
-  redressement: 'Corrige les odonymes selon les règles typographiques du Standard Adresse.',
-  communesAnciennes: 'Ajoute la commune ancienne aux adresses pour distinguer les doublons.',
+  langue: 'Langue principale des noms de voies et lieux-dits dans le fichier BAL (champs toponyme / voie_nom).',
+  langueRegionale: 'Langue alternative des noms de voies et lieux-dits  dans le fichier BAL (champs nom_voie_alt / toponyme_alt).',
+  redressement: 'Harmonise les libellés des odonymes (voies et lieux-dits) selon les règles typographiques (casse, accents, etc.).',
+  communesAnciennes: 'Le nom des communes historiques est ajouté aux adresses.',
 } as const
 
 function BalParamsSummary({
@@ -148,7 +148,7 @@ function BalParamsSummary({
       <div className="bal-params-summary__row">
         <div className="bal-params-summary__label-line">
           <span className="fr-icon fr-icon-font-size bal-params-summary__row-icon" aria-hidden="true" />
-          <span className="bal-params-summary__label">Redressement des odonymes</span>
+          <span className="bal-params-summary__label">Harmonisation des odonymes</span>
           <Tag
             nativeSpanProps={{
               title: 'Redressement automatique des odonymes',
@@ -163,7 +163,7 @@ function BalParamsSummary({
       <div className="bal-params-summary__row">
         <div className="bal-params-summary__label-line">
           <span className="fr-icon fr-icon-building-line bal-params-summary__row-icon" aria-hidden="true" />
-          <span className="bal-params-summary__label">Communes anciennes</span>
+          <span className="bal-params-summary__label">Communes historiques</span>
           <Tag
             nativeSpanProps={{
               title: 'Calcul automatique des communes anciennes',
@@ -306,7 +306,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const [configState, setConfigState] = useState<BANCommune['config']>({ ...config })
   const [enableMandataryChange, setEnableMandataryChange] = useState<boolean>(false)
   const [enableMandataryChangeWarning, setEnableMandataryChangeWarning] = useState<boolean>(false)
-  const [flagUrl, setFlagUrl] = useState<string>('')
   const [clientsRecap, setClientsRecap] = useState<ClientRecapItem[] | null>(null)
   const [recapLoading, setRecapLoading] = useState<boolean>(true)
   const [recapError, setRecapError] = useState<string | null>(null)
@@ -376,24 +375,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
       setCurrentConfig(JSON.stringify({ ...config }))
     }
   }, [config])
-
-  useEffect(() => {
-    let isMounted = true
-
-    if (district?.codeCommune) {
-      getCommuneFlagProxy(district.codeCommune).then((url) => {
-        if (isMounted) {
-          setFlagUrl(url)
-        }
-      }).catch((error) => {
-        console.error('Error fetching flag:', error)
-      })
-    }
-
-    return () => {
-      isMounted = false
-    }
-  }, [district?.codeCommune])
 
   useEffect(() => {
     let isMounted = true
@@ -568,16 +549,9 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 className="commune-hero__link"
                 aria-label={`Voir la fiche de la commune ${district.nomCommune}`}
               >
-                {flagUrl && (
+                {district?.codeCommune && (
                   <div className="commune-hero__blason">
-                    <Image
-                      src={flagUrl}
-                      loader={({ src }) => src}
-                      unoptimized
-                      alt=""
-                      width={24}
-                      height={24}
-                    />
+                    <CommuneLogo codeCommune={district.codeCommune} alt="" size={COMMUNE_LOGO_SIZE_SMALL} maxWidth={COMMUNE_LOGO_SIZE_SMALL} />
                   </div>
                 )}
                 <span className="commune-hero__name">{district.nomCommune}</span>
@@ -765,7 +739,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
               <div className="sec-card__header-left">
                 <div className="sec-card__title-row">
                   <span className="fr-icon fr-icon-settings-5-line sec-card__icon" aria-hidden="true" />
-                  <h3 className="sec-card__title">Paramètres des fichiers BAL</h3>
+                  <h3 className="sec-card__title">Paramètres dans le système BAN</h3>
                 </div>
                 <div className="sec-card__header-content">
                   <BalParamsSummary
@@ -844,7 +818,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 </div>
                 <div className="sec-card__header-content">
                   <p className="sec-card__value fr-mb-0">
-                    La source de publication des adresses BAL de votre commune.
+                    La Source de publication des adresses BAL de votre commune.
                   </p>
                 </div>
               </div>

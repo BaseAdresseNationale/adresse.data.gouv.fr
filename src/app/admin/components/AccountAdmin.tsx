@@ -12,6 +12,7 @@ import { getStatutsCommunes, type StatutCommune } from '@/lib/api-ban'
 
 interface AccountAdminProps {
   userInfo?: UserInfo | null
+  sessionInitialized?: boolean
 }
 
 function getInitials(displayName: string): string {
@@ -22,8 +23,8 @@ function getInitials(displayName: string): string {
   return displayName.substring(0, 2).toUpperCase()
 }
 
-function AccountAdmin({ userInfo }: AccountAdminProps) {
-  const { favorites, addFavorite, removeFavorite, refreshFavorites, count, maxReached, isLoading: favoritesLoading } = useFavorites(userInfo?.sub)
+function AccountAdmin({ userInfo, sessionInitialized }: AccountAdminProps) {
+  const { favorites, addFavorite, removeFavorite, refreshFavorites, count, maxReached, isLoading: favoritesLoading } = useFavorites(userInfo?.sub, { enabled: sessionInitialized })
   const [notificationsCount, setNotificationsCount] = useState(0)
   const [statuts, setStatuts] = useState<StatutCommune[]>([])
 

@@ -21,8 +21,11 @@ export async function customFetch(url: string | URL | globalThis.Request, custom
   const contentType = response.headers.get('content-type')
 
   if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error?.message || response.statusText)
+    const body = await response.json().catch(() => ({}))
+    const message = body?.error || body?.message || response.statusText
+    const err = new Error(message) as Error & { status: number }
+    err.status = response.status
+    throw err
   }
 
   if (response.ok && contentType && contentType.includes('application/json')) {

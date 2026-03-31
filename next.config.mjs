@@ -17,8 +17,15 @@ const envVar = getNextEnv(process.env)
 const URL_CARTOGRAPHY_BAN = '/carte-base-adresse-nationale'
 const NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
   = process.env.NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES
-const NEXT_PUBLIC_DOC_ADRESSE_URL = process.env.NEXT_PUBLIC_DOC_ADRESSE_URL
-const imagesDomains = ['static.data.gouv.fr']
+const NEXT_PUBLIC_DOC_ADRESSE_URL = process.env.NEXT_PUBLIC_DOC_ADRESSE_URL 
+const NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3 = process.env.NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3
+const NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3 = process.env.NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3
+
+const imagesDomains = [
+  'static.data.gouv.fr',
+  NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3 || 'annuaire-des-collectivites-production-storage.s3.fr-par.scw.cloud',
+  NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3 || 'base-adresse-locale-prod-blasons-communes.s3.fr-par.scw.cloud',
+]
 if (NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES) {
   imagesDomains.push(
     ...NEXT_PUBLIC_GHOST_URL_IMAGES_SOURCES.split(',').map(item =>
