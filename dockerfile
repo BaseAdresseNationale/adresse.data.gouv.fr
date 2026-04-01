@@ -1,8 +1,6 @@
 # Étape 1 : Construction de l'image avec les variables d'environnement injectées
 FROM node:24.14.0-alpine AS builder
 
-RUN npm i -g npm@11.11.0
-
 # Définit le répertoire de travail
 WORKDIR /app
 
@@ -10,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Installe les dépendances
-RUN npm install --force
+RUN npm install
 
 # Copie le reste des fichiers de l'application
 COPY . .
@@ -62,8 +60,6 @@ RUN npm run build
 
 # Étape 2 : Image de production
 FROM node:24.14.0-alpine
-
-RUN npm i -g npm@11.11.0
 
 # Définit le répertoire de travail
 WORKDIR /app
