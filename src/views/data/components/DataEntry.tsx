@@ -2,8 +2,6 @@ import { Fragment, ReactNode } from 'react'
 import PropTypes from 'prop-types'
 import { filesize } from 'filesize'
 
-// import theme from '@/styles/theme'
-
 import dateFormatOptions from '../config/date-format-options'
 
 import {

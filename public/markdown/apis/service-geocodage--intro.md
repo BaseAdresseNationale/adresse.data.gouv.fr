@@ -1,6 +1,6 @@
 ---
 title: Service de géocodage Géoplateforme
-intro: [{attach: "la-base-adresse-nationale", filename: "apis/service-geocodage--intro"}]
+intro: [{attach: "la-base-adresse-nationale", filename: "service-geocodage--intro"}]
 ---
 
 **Rappel** : *L'API Adresse BAN est dépréciée et intégrée dans le nouveau Service de géocodage de la Géoplateforme.*  
