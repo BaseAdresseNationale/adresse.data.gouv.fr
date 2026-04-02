@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
-import { Card } from '@codegouvfr/react-dsfr/Card'
+import CardListDesc from '@/components/CardListDesc'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 
 import Section from '@/components/Section'
@@ -16,7 +16,7 @@ import type { DataType } from '@/lib/markdown'
 export default async function PageDownloadBan() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('les_donnees_de_la_BAN') || {}
 
-  return (
+ return (
     <>
       <Section>
         <TextWrapper>
@@ -45,24 +45,17 @@ export default async function PageDownloadBan() {
       >
         <CardContainer $cols={4}>
           <div>
-            <Card
+            <CardListDesc
               title="Format CSV historique"
-              titleAs="h3"
-              desc={(
-                <>
-                  <ul>
-                    <li>Fichier d’usage général recommandé dans la majorité des cas. <a href="telechargements/format-csv">En savoir plus</a></li>
-                    <li>Une position par adresse</li>
-                    <li><a href="https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md" target="_blank">Schéma de données</a></li>
-                  </ul>
-                </>
-              )}
+              items={[
+                <>Fichier d'usage général recommandé dans la majorité des cas.{' '}<a href="telechargements/format-csv">En savoir plus</a></>,
+                <>Une position par adresse</>,
+                <><a href="https://github.com/BaseAdresseNationale/adresse.data.gouv.fr/blob/master/public/schemas/adresses-csv.md" target="_blank" rel="noopener noreferrer">Schéma de données</a></>,
+              ]}
               footer={(
                 <Button
                   iconId="fr-icon-book-2-line"
-                  linkProps={{
-                    href: '/data/ban/adresses/latest/csv',
-                  }}
+                  linkProps={{ href: '/data/ban/adresses/latest/csv' }}
                   size="small"
                 >
                   Télécharger au format CSV
@@ -70,24 +63,18 @@ export default async function PageDownloadBan() {
               )}
             />
           </div>
+
           <div>
-            <Card
+            <CardListDesc
               title="Format CSV avec identifiants BAN"
-              titleAs="h3"
-              desc={(
-                <>
-                  <ul>
-                    <li>Fichier CSV avec les colonnes identifiants BAN</li>
-                    <li>Une position par adresse</li>
-                  </ul>
-                </>
-              )}
+              items={[
+                <>Fichier CSV avec les colonnes identifiants BAN</>,
+                <>Une position par adresse</>,
+              ]}
               footer={(
                 <Button
                   iconId="fr-icon-book-2-line"
-                  linkProps={{
-                    href: '/data/ban/adresses/latest/csv-with-ids',
-                  }}
+                  linkProps={{ href: '/data/ban/adresses/latest/csv-with-ids' }}
                   size="small"
                 >
                   Télécharger au format CSV
@@ -95,24 +82,18 @@ export default async function PageDownloadBan() {
               )}
             />
           </div>
+
           <div>
-            <Card
+            <CardListDesc
               title="Format Addok"
-              titleAs="h3"
-              desc={(
-                <>
-                  <ul>
-                    <li>Fichier spécifique pour le géocodeur Addok</li>
-                    <li>Une position par adresse</li>
-                  </ul>
-                </>
-              )}
+              items={[
+                <>Fichier spécifique pour le géocodeur Addok</>,
+                <>Une position par adresse</>,
+              ]}
               footer={(
                 <Button
                   iconId="fr-icon-book-2-line"
-                  linkProps={{
-                    href: '/data/ban/adresses/latest/addok',
-                  }}
+                  linkProps={{ href: '/data/ban/adresses/latest/addok' }}
                   size="small"
                 >
                   Télécharger au format Addok
@@ -122,33 +103,35 @@ export default async function PageDownloadBan() {
           </div>
         </CardContainer>
       </Section>
-      <Section
-        title="Services cartographiques"
-        id="carto"
-      >
+
+      <Section title="Services cartographiques" id="carto">
         <p>
-          <Link className="fr-link" href="https://geoservices.ign.fr/documentation/services/utilisation-sig" target="_blank">Retrouver les tutoriels d’utilisation des flux avec un outil SIG</Link>
+          <Link
+            className="fr-link"
+            href="https://geoservices.ign.fr/documentation/services/utilisation-sig"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Retrouver les tutoriels d’utilisation des flux avec un outil SIG
+          </Link>
         </p>
+
         <CardContainer $cols={3}>
           <div>
-            <Card
+            <CardListDesc
               title="Format MVT (tuiles vectorielles)"
-              titleAs="h3"
-              desc={(
-                <>
-                  Visualisation cartographique des adresses BAN en tuiles vectorielles
-                  <ul>
-                    <li>Mise à jour en temps réel</li>
-                    <li>1 position par adresse</li>
-                  </ul>
-                </>
-              )}
+              descPrefix="Visualisation cartographique des adresses BAN en tuiles vectorielles"
+              items={[
+                <>Mise à jour en temps réel</>,
+                <>1 position par adresse</>,
+              ]}
               footer={(
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
                     href: 'https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Tuiles-vectorielles',
                     target: '_blank',
+                    rel: 'noopener noreferrer',
                   }}
                   size="small"
                 >
@@ -157,26 +140,23 @@ export default async function PageDownloadBan() {
               )}
             />
           </div>
+
           <div>
-            <Card
+            <CardListDesc
               title="Format WFS"
-              titleAs="h3"
-              desc={(
-                <>
-                  Visualisation cartographique des adresses BAN en WFS
-                  <ul>
-                    <li>Mise à jour mensuelle</li>
-                    <li>Nom de la couche : BAN.DATA.GOUV:ban</li>
-                    <li>1 position par adresse</li>
-                  </ul>
-                </>
-              )}
+              descPrefix="Visualisation cartographique des adresses BAN en WFS"
+              items={[
+                <>Mise à jour mensuelle</>,
+                <>Nom de la couche : BAN.DATA.GOUV:ban</>,
+                <>1 position par adresse</>,
+              ]}
               footer={(
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
                     href: 'https://geoservices.ign.fr/services-web-experts-adresse',
                     target: '_blank',
+                    rel: 'noopener noreferrer',
                   }}
                   size="small"
                 >
@@ -185,26 +165,23 @@ export default async function PageDownloadBan() {
               )}
             />
           </div>
+
           <div>
-            <Card
+            <CardListDesc
               title="Format WMS"
-              titleAs="h3"
-              desc={(
-                <>
-                  Visualisation cartographique des adresses BAN en WMS
-                  <ul>
-                    <li>Mise à jour mensuelle</li>
-                    <li>Nom de la couche : BAN.DATA.GOUV</li>
-                    <li>1 position par adresse</li>
-                  </ul>
-                </>
-              )}
+              descPrefix="Visualisation cartographique des adresses BAN en WMS"
+              items={[
+                <>Mise à jour mensuelle</>,
+                <>Nom de la couche : BAN.DATA.GOUV</>,
+                <>1 position par adresse</>,
+              ]}
               footer={(
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
                     href: 'https://geoservices.ign.fr/services-web-experts-adresse',
                     target: '_blank',
+                    rel: 'noopener noreferrer',
                   }}
                   size="small"
                 >
