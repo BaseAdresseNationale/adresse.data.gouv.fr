@@ -2497,7 +2497,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "filter": ["==", "symbo", "PISTE_CYCLABLE"],
+      "filter": ["in", "symbo", "PISTE_CYCLABLE", "VOIE_VERTE"],
       "paint": {
         "line-color": {
           "stops": [
