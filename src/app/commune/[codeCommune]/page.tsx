@@ -33,6 +33,7 @@ const CommuneActions = dynamicImport(() => import('../../../components/Commune/C
 const CommuneAchievements = dynamicImport(() => import('../../../components/Commune/CommuneAchievements'), { ssr: !!false })
 const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Commune/CommuneUpdatesSection'), { ssr: !!false })
 const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: !!false })
+const CommuneAdministrationBlock = dynamicImport(() => import('../../../components/Commune/CommuneAdministrationBlock'), { ssr: !!false })
 const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: !!false })
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
@@ -43,7 +44,7 @@ import { ClientTypeEnum } from '@/types/partenaire.types'
 // import SaveUrlClient from '@/components/SaveUrlClient'
 // import CommuneAdministration from '@/components/Commune/CommuneAdministration'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: !!false })
-const CommuneAdministration = dynamicImport(() => import('../../../components/Commune/CommuneAdministration'), { ssr: !!false })
+
 
 export const revalidate = 0
 interface CommunePageProps {
