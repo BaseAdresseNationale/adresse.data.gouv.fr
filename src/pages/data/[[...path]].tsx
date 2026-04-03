@@ -64,8 +64,7 @@ export default function DataPage({ path, data, config, errorCode }: DataPageProp
               />
 
               <Section>
-                <Data {...{ path, data, config }} />
-                {/* <Data {...{ root: rootLink, path, data, config }} /> */}
+                {<Data {...{ root: rootLink, path, data, config }} />}
               </Section>
             </>
           )
