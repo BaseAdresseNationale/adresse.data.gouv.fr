@@ -1,5 +1,5 @@
 # Étape 1 : Construction de l'image avec les variables d'environnement injectées
-FROM node:20.15.1-alpine AS builder
+FROM node:24.14.0-alpine AS builder
 
 # Définit le répertoire de travail
 WORKDIR /app
@@ -59,7 +59,7 @@ RUN npm i sharp
 RUN npm run build
 
 # Étape 2 : Image de production
-FROM node:20.15.1-alpine
+FROM node:24.14.0-alpine
 
 # Définit le répertoire de travail
 WORKDIR /app

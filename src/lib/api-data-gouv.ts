@@ -6,5 +6,5 @@ if (!env('NEXT_PUBLIC_DATAGOUV_URL')) {
 }
 
 export function getDataset(datasetId: string) {
-  return customFetch(`${env('NEXT_PUBLIC_DATAGOUV_URL')}/datasets/${datasetId}`)
+  return customFetch(`${env('NEXT_PUBLIC_DATAGOUV_URL')}/datasets/${datasetId}`, { cache: 'force-cache' })
 }

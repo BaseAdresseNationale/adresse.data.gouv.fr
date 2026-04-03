@@ -1,4 +1,4 @@
-import { Children, isValidElement, cloneElement, forwardRef, useCallback, useEffect, useRef } from 'react'
+import { forwardRef, useCallback, useEffect, useRef } from 'react'
 import { fr } from '@codegouvfr/react-dsfr'
 
 import { useDebouncedCallback } from '@/hooks/useDebounce'

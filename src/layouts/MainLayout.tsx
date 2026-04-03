@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, type ReactNode } from 'react'
 
 type TypeLayout = 'default' | 'small' | 'full-screen'
 
@@ -16,7 +16,7 @@ const defaultMainLayout: DefaultMainLayout = {
 
 const LayoutContext = createContext(defaultMainLayout)
 
-export const LayoutProvider = ({ children }: { children: JSX.Element }) => {
+export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   const [typeLayout, setTypeLayout] = useState<TypeLayout>('default')
   const mainLayout = {
     typeLayout,

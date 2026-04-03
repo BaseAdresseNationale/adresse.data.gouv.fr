@@ -235,15 +235,6 @@ const nextConfig = withBundleAnalyzer({
       pathname: '/**',
     })),
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.woff2$/,
-      type: 'asset/resource',
-    })
-    config.resolve.fallback = { fs: false }
-
-    return config
-  },
   compiler: {
     styledComponents: true,
   },
@@ -251,7 +242,6 @@ const nextConfig = withBundleAnalyzer({
     serverActions: {
       bodySizeLimit: '3mb',
     },
-    instrumentationHook: true,
   },
   transpilePackages: [
     '@codegouvfr/react-dsfr', // Require for the "pages-router" of nextJS
