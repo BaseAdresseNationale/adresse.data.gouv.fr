@@ -16,17 +16,9 @@ import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
 import { StyledCommunePage } from './page.styles'
 import { getCommuneAchievements } from '@/lib/commune'
 import { getCommunesPrecedentes } from '@/lib/api-insee'
-// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
-// import CommuneActions from '../../../components/Commune/CommuneActions'
-// import { CommuneAchievements } from '@/components/Commune/CommuneAchievements'
-// import { CommuneUpdatesSection } from '@/components/Commune/CommuneUpdatesSection'
-// import { CommuneCertificationBar } from '@/components/Commune/CommuneCertificationBar'
-// import { CommunePublicationConsole } from '@/components/Commune/CommunePublicationConsole'
-// import { CommuneDownloadSection } from '../../../components/Commune/CommuneDownloadSection'
-// import { CommuneNavigation } from '../../../components/Commune/CommuneNavigation'
 
 // tips : https://github.com/PostHog/posthog/issues/26016#issuecomment-2629036307
+const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: !!false })
 const CommuneDownloadSection = dynamicImport(() => import('../../../components/Commune/CommuneDownloadSection'), { ssr: !!false })
 const CommuneNavigation = dynamicImport(() => import('../../../components/Commune/CommuneNavigation'), { ssr: !!false })
 const CommuneActions = dynamicImport(() => import('../../../components/Commune/CommuneActions'), { ssr: !!false })
@@ -41,17 +33,11 @@ import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 import { ClientTypeEnum } from '@/types/partenaire.types'
 
-// import SaveUrlClient from '@/components/SaveUrlClient'
-// import CommuneAdministration from '@/components/Commune/CommuneAdministration'
-const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: !!false })
-
-
 export const revalidate = 0
 interface CommunePageProps {
   codeCommune: string
 }
-
-  
+ 
 export default async function CommunePage(props: { params: Promise<CommunePageProps> } ){
   const params = await props.params
   const codeCommune = params.codeCommune
