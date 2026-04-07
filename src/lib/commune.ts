@@ -25,7 +25,7 @@ export const getCommuneAchievements = ({ commune, paginatedPartenairesDeLaCharte
     .filter(voie => Boolean(voie.nomVoieAlt))
     .some(voie => Object.keys(voie.nomVoieAlt).length >= 1)
   const hasProcessedSignalement = Boolean(paginatedSignalements && paginatedSignalements.total >= 1)
-  const isPartenaireDeLaCharte = Boolean(paginatedPartenairesDeLaCharte?.data.find(partenaire => partenaire.codeCommune === commune.codeCommune))
+  const isPartenaireDeLaCharte = Boolean(paginatedPartenairesDeLaCharte?.data.find(partenaire => partenaire.communeCodeInsee === commune.codeCommune))
   const hasStableID = Boolean(commune.banId)
 
   return {

@@ -53,7 +53,7 @@ export default function SearchPartenaire({
       const updatedPartenaires = await getPartenairesDeLaCharte({
         ...filter,
         services: selectedServices,
-        codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+        coverDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
         search: debouncedSearch,
         shuffleResults: filter?.type === PartenaireDeLaCharteTypeEnum.ENTREPRISE,
       }, page, pageSize)
@@ -62,7 +62,7 @@ export default function SearchPartenaire({
 
       const updatedServices = await getPartenairesDeLaCharteServices({
         ...filter,
-        codeDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
+        coverDepartement: selectedCommune?.codeDepartement ? [selectedCommune.codeDepartement] : [],
         search: debouncedSearch,
       })
       setServices(updatedServices)
@@ -148,7 +148,7 @@ export default function SearchPartenaire({
                   <PartenaireCard
                     key={partenaire.id}
                     partenaire={partenaire}
-                    detail={partenaire.codeDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
+                    detail={partenaire.coverDepartement.reduce((acc, code) => `${acc} ${getDepartementNom(code)}`, '')}
                     onReview={onReview}
                   />
                 ))}

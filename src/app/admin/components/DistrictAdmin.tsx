@@ -18,9 +18,9 @@ import { useDistrictConfigSave } from './useDistrictConfigSave'
 import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
+import CommuneLogo, { COMMUNE_LOGO_SIZE_SMALL } from '@/components/CommuneLogo/CommuneLogo'
 import Loader from '@/components/Loader'
 import { customFetch } from '@/lib/fetch'
-import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getClientsRecap, type ClientRecapItem, type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
 import { getRevisions } from '@/lib/api-depot'
 import type { Revision } from '@/types/api-depot.types'
@@ -306,7 +306,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const [configState, setConfigState] = useState<BANCommune['config']>({ ...config })
   const [enableMandataryChange, setEnableMandataryChange] = useState<boolean>(false)
   const [enableMandataryChangeWarning, setEnableMandataryChangeWarning] = useState<boolean>(false)
-  const [flagUrl, setFlagUrl] = useState<string>('')
   const [clientsRecap, setClientsRecap] = useState<ClientRecapItem[] | null>(null)
   const [recapLoading, setRecapLoading] = useState<boolean>(true)
   const [recapError, setRecapError] = useState<string | null>(null)
@@ -376,24 +375,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
       setCurrentConfig(JSON.stringify({ ...config }))
     }
   }, [config])
-
-  useEffect(() => {
-    let isMounted = true
-
-    if (district?.codeCommune) {
-      getCommuneFlagProxy(district.codeCommune).then((url) => {
-        if (isMounted) {
-          setFlagUrl(url)
-        }
-      }).catch((error) => {
-        console.error('Error fetching flag:', error)
-      })
-    }
-
-    return () => {
-      isMounted = false
-    }
-  }, [district?.codeCommune])
 
   useEffect(() => {
     let isMounted = true
@@ -568,16 +549,9 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                 className="commune-hero__link"
                 aria-label={`Voir la fiche de la commune ${district.nomCommune}`}
               >
-                {flagUrl && (
+                {district?.codeCommune && (
                   <div className="commune-hero__blason">
-                    <Image
-                      src={flagUrl}
-                      loader={({ src }) => src}
-                      unoptimized
-                      alt=""
-                      width={24}
-                      height={24}
-                    />
+                    <CommuneLogo codeCommune={district.codeCommune} alt="" size={COMMUNE_LOGO_SIZE_SMALL} maxWidth={COMMUNE_LOGO_SIZE_SMALL} />
                   </div>
                 )}
                 <span className="commune-hero__name">{district.nomCommune}</span>

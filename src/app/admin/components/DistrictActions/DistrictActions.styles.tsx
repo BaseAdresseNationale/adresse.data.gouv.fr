@@ -278,12 +278,14 @@ export const CommuneHeroCard = styled.div`
 
   .commune-hero__blason {
     flex-shrink: 0;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
   .commune-hero__blason img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
   }
   .commune-hero__name {
