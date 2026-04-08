@@ -1,6 +1,5 @@
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import Section from '../Section'
-import styled from 'styled-components'
 import { profiles, ValidateType, ParseFileType } from '@ban-team/validateur-bal'
 import ValidationSummary from './ValidationSummary'
 import { useMemo, useRef } from 'react'
@@ -9,7 +8,6 @@ import AlertMiseEnForme from '../MiseEnForme/MiseEnFormeAlert'
 import ValidationTableError from './ValidationTableError'
 import ValidationStructureFile from './ValidationStructureFile'
 import ValidationFields from './ValidationFields'
-import { error } from 'console'
 
 interface ValidationReportProps {
   file: File
