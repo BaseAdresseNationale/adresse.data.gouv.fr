@@ -106,6 +106,7 @@ export const adresseLabelLayer = {
   'minzoom': NUMEROS_MIN,
   'paint': {
     'text-color': defaultLayerPaint,
+    'text-halo-width': 1,
     'text-halo-color': '#fff',
   },
   'layout': {
@@ -145,6 +146,7 @@ export const adresseCompletLabelLayer = {
   'filter': ['==', ['get', 'id'], ''],
   'paint': {
     'text-color': defaultLayerPaint,
+    'text-halo-width': 1,
     'text-halo-color': '#fff',
   },
   'layout': {
