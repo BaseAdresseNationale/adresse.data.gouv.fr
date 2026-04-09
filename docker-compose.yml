@@ -16,7 +16,6 @@ services:
       - ./.env.default:/app/.env.default
       - ./.git:/app/.git
       - ./.next:/app/.next
-      - ./.storybook:/app/.storybook
     ports:
       - "3000:3000"
     environment:
