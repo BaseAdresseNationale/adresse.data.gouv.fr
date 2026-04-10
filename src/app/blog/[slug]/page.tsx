@@ -30,6 +30,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     title,
     tags,
     feature_image: featureImage,
+    feature_image_caption: featureImageCaption,
     authors,
     published_at: publishedAt,
     reading_time: readingTime,
@@ -90,7 +91,15 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
             {featureImage && (
               <ImageWrapper>
-                <ResponsiveImage src={featureImage} alt={title} />
+                <figure>
+                  <ResponsiveImage src={featureImage} alt={title} />
+
+                  {featureImageCaption && (
+                    <figcaption
+                      dangerouslySetInnerHTML={{ __html: featureImageCaption }}
+                    />
+                  )}
+                </figure>
               </ImageWrapper>
             )}
 
