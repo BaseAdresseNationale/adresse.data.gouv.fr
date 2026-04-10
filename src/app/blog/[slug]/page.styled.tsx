@@ -50,17 +50,32 @@ export const TextWrapper = styled.div`
 export const ImageWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  max-height: 25rem;
-  overflow: hidden;
   margin: 2rem -2rem;
-  box-shadow: 0 0 0.3rem rgba(0,0,0,0.1);
+
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 25rem;
+    overflow: hidden;
+    box-shadow: 0 0 0.3rem rgba(0,0,0,0.1);
+  }
 
   img {
     width: 100%;
     height: auto;
   }
+  figure {
+  margin: 0;
+  width: 100%;
+}
+
+figcaption {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+}
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
     margin: 2rem 0 2rem -${ARTICLE_MARGIN_LEFT};
