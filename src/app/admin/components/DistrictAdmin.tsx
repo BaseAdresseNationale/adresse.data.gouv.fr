@@ -15,7 +15,7 @@ import language from './DistrictActions/langues-regionales.json'
 import { CommuneStatusBadge } from './CommuneStatusBadge'
 import { useDistrictConfigSave } from './useDistrictConfigSave'
 
-import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
+import { type BANCommune, type BANConfig, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
 import CommuneLogo, { COMMUNE_LOGO_SIZE_SMALL } from '@/components/CommuneLogo/CommuneLogo'
@@ -181,8 +181,8 @@ function BalParamsSummary({
 interface DistrictOptionsFormProps {
   district?: BANCommune | null
   commune?: Commune | null
-  config: BANCommune['config']
-  onUpdateConfig: (config: BANCommune['config']) => void
+  config: BANConfig
+  onUpdateConfig: (config: BANConfig) => void
   readOnly?: boolean
   loading?: boolean
   userInfo?: UserInfo | null
@@ -238,12 +238,12 @@ function getModeAndSourceFromRevision(
 interface SourceSelectorProps {
   sourceOptions: { clientId: string, label: string }[]
   effectiveClientId: string | undefined
-  configState: BANCommune['config']
+  configState: BANConfig
   enableMandataryChangeWarning: boolean
   hasBanId: boolean | undefined
   revisionsLoading: boolean
   revisionsError: string | null
-  handleUpdateConfig: (config: BANCommune['config']) => void
+  handleUpdateConfig: (config: BANConfig) => void
 }
 
 function SourceSelector({
@@ -303,7 +303,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const hasTechnicalRequirements = district && district.nbNumerosCertifies > 0
 
   const [currentConfig, setCurrentConfig] = useState<string>(JSON.stringify({ ...config }))
-  const [configState, setConfigState] = useState<BANCommune['config']>({ ...config })
+  const [configState, setConfigState] = useState<BANConfig>({ ...config })
   const [enableMandataryChange, setEnableMandataryChange] = useState<boolean>(false)
   const [enableMandataryChangeWarning, setEnableMandataryChangeWarning] = useState<boolean>(false)
   const [clientsRecap, setClientsRecap] = useState<ClientRecapItem[] | null>(null)
@@ -492,7 +492,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     return cleanup
   }, [])
 
-  const handleUpdateConfig = useCallback((updatedConfig: BANCommune['config']) => {
+  const handleUpdateConfig = useCallback((updatedConfig: BANConfig) => {
     setConfigState(updatedConfig)
   }, [])
 
@@ -505,14 +505,11 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   } = useDistrictConfigSave({
     district,
     userInfo,
-    config,
     configState,
     onUpdateConfig,
     setCurrentConfig,
     onSuccess: () => setEditingSection(null),
   })
-
-  const isMandatarySelectionInvalid = false
 
   if (loading) {
     return (
@@ -746,8 +743,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     defaultBalLang={configState?.defaultBalLang || DEFAULT_CODE_LANGUAGE}
                     availableLanguage={availableLanguage}
                     altLangCodes={altLangCodes}
-                    redressementOdonymes={true}
-                    communesAnciennes={true}
+                    redressementOdonymes={configState?.autoFixLabels ?? true}
+                    communesAnciennes={configState?.computOldDistrict ?? true}
                   />
                 </div>
               </div>
@@ -761,7 +758,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   disabled
                   aria-expanded={editingSection === 'parametrage'}
                   aria-controls="sec-parametrage-body"
-                  onClick={() => setEditingSection(s => s === 'parametrage' ? null : 'parametrage')}
                 >
                   {editingSection === 'parametrage' ? 'Fermer' : 'Modifier'}
                 </Button>
@@ -968,7 +964,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
             isSaving={isSaving}
             saveProgress={saveProgress}
             onSave={pushConfigUpdate}
-            saveDisabled={isMandatarySelectionInvalid}
+            saveDisabled={false}
             saveDisabledAriaLabel="Enregistrer les modifications"
           />
         )}

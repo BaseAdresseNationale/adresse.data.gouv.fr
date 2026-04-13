@@ -16,8 +16,8 @@ import AccountAdmin from './components/AccountAdmin'
 import SignInBlock from './components/DistrictActions/SignInBlock'
 
 import { getCommunesBySiren } from '@/lib/api-geo'
-import { getCommuneWithoutCache } from '@/lib/api-ban'
-import { BANCommune } from '@/types/api-ban.types'
+import { getCommuneWithoutCache, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
+import { BANCommune, CertificateTypeEnum } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 // TODO: Move to a shared hooks file ?
 const useHash = () => {
@@ -110,6 +110,7 @@ export default function Home() {
         if (communes && communes.length > 0) {
           const commune = communes[0] // Assume first one for now
           const banCommune = await getCommuneWithoutCache(commune.code)
+          banCommune.config = (await getDistrictConfigByCodeCommune(commune.code)) ?? { certificate: CertificateTypeEnum.DISABLED }
           setDistrict(banCommune)
           setCommune(commune)
         }
@@ -149,7 +150,7 @@ export default function Home() {
     ma_commune: {
       district: district,
       commune: commune,
-      config: district?.config || {},
+      config: district?.config ?? { certificate: CertificateTypeEnum.DISABLED },
       onUpdateConfig: (newConfig: any) => {
         setDistrict((prev) => {
           if (!prev) return prev
