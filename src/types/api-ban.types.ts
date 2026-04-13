@@ -56,6 +56,20 @@ export type BANConfig = {
   computInteropKey?: boolean // recalcul des clés d'interopérabilité
 }
 
+/** Sous-ensemble exposé au navigateur via GET /api/district-config/:id (pas de secrets). */
+export type BANPublicConfig = Pick<BANConfig, 'certificate' | 'defaultBalLang'>
+
+export function toPublicDistrictConfig(raw: Partial<BANConfig> | null | undefined): BANPublicConfig {
+  const cert = raw?.certificate
+  const certificate = Object.values(CertificateTypeEnum).includes(cert as CertificateTypeEnum)
+    ? (cert as CertificateTypeEnum)
+    : CertificateTypeEnum.DISABLED
+  return {
+    certificate,
+    defaultBalLang: typeof raw?.defaultBalLang === 'string' ? raw.defaultBalLang : undefined,
+  }
+}
+
 export type BANCommune = {
   id: string
   type: string
@@ -78,7 +92,8 @@ export type BANCommune = {
   dateRevision: string
   dateAnnulation: string
   voies: BANVoie[]
-  config: BANConfig
+  /** Absent si la commune provient de GET /lookup/:id (ne renvoie plus la config). Utiliser GET /api/district-config/:districtId. */
+  config?: BANConfig
   withBanId?: boolean
 }
 

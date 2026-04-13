@@ -8,7 +8,7 @@ import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl }
 import { LngLatBounds } from 'maplibre-gl'
 
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
-import { getBanItem } from '@/lib/api-ban'
+import { getBanItem, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
 import { getCommune } from '@/lib/api-geo'
 import { CertificateTypeEnum } from '@/types/api-ban.types'
 
@@ -361,10 +361,14 @@ function CartoView() {
           case 'micro-toponym':
             setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
             break
-          case 'address':
+          case 'address': {
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
-            const config = (banItem as TypeAddressExtended).config
-            // Utiliser la variable locale habilitation au lieu de habilitationEnabled
+            const address = banItem as TypeAddressExtended
+            const codeCommune = address.commune?.code
+            const config = codeCommune
+              ? await getDistrictConfigByCodeCommune(codeCommune) ?? undefined
+              : undefined
+
             if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitation) || config?.certificate == CertificateTypeEnum.ALL) {
               setWithCertificate(true)
             }
@@ -372,6 +376,7 @@ function CartoView() {
               setWithCertificate(false)
             }
             break
+          }
           default:
             setMapBreadcrumbPath([])
             setWithCertificate(false)
