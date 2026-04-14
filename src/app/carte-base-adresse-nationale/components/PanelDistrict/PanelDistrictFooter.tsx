@@ -14,7 +14,7 @@ interface PanelDistrictFooterProps {
   banItem: TypeDistrictExtended
   withCertificate: boolean
   children?: React.ReactNode
-  onClickAction?: () => void
+  onClickAction?: (actionName?: string) => void
 }
 
 function PanelDistrictFooter({ banItem: microToponym, children, onClickAction }: PanelDistrictFooterProps) {
