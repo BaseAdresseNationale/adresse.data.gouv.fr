@@ -1,7 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+import Button from '@codegouvfr/react-dsfr/Button'
 import { MapMouseEvent, Popup, useMap } from 'react-map-gl/maplibre'
 import { toolsColors } from '@/theme/theme'
+
+export type PropertyDataType = {
+  nom: string
+  code: string
+  nbNumeros: number
+  hasBAL: boolean
+  certificationPercentage: string
+  idClient?: string
+  nomClient?: string
+  statusBals: string
+}
 
 const StyledWrapper = styled.div`
   .legend-wrapper {
@@ -13,36 +25,171 @@ const StyledWrapper = styled.div`
       z-index: 1;
       padding: 0.5em;
       left: 13px;
-      top: 8px;
+      top: 58px;
       background-color: rgba(255,255,255,0.9);
 
       .legend-title {
         font-weight: bold;
         text-align: left;
     }
-    
+
     .legend-container {
         display: flex;
         align-items: center;
         text-align: left;
     }
-    
+
     .legend-color {
         width: 15px;
         height: 15px;
         margin-right: 0.5em;
     }
   }
-            `
+
+  }
+`
+
+const DeploiementPopupGlobalStyle = createGlobalStyle`
+  .deploiement-popup .maplibregl-popup-content {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    text-align: left;
+  }
+
+  .deploiement-popup .maplibregl-popup-close-button {
+    display: none;
+  }
+`
+
+const PopupContent = styled.div<{ accentColor: string }>`
+  font-family: inherit;
+  min-width: 230px;
+
+  .popup-header {
+    background-color: ${({ accentColor }) => accentColor};
+    color: #fff;
+    padding: 12px 14px 10px;
+
+    .header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .commune-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 3px;
+      line-height: 1.2;
+    }
+
+    .commune-code {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .close-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+      transition: background 0.15s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.35);
+      }
+    }
+  }
+
+  .popup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 14px 12px;
+  }
+
+  .popup-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: #3a3a3a;
+
+    .row-label {
+      color: #777;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .row-value {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  }
+
+  .popup-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background-color: ${({ accentColor }) => accentColor}22;
+    color: ${({ accentColor }) => accentColor};
+    border: 1px solid ${({ accentColor }) => accentColor}55;
+    align-self: flex-start;
+  }
+
+  .popup-no-bal {
+    font-size: 0.78rem;
+    color: #888;
+    font-style: italic;
+  }
+
+  .popup-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 2px 0;
+  }
+
+  .popup-link-wrapper {
+    margin-top: 4px;
+    display: flex;
+
+    > a, > button {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+`
 
 const paintLayers = {
   source: {
     name: 'Déploiement BAL',
     legend: [
       {
-        title: 'Déploiement BAL',
+        title: 'Mes Adresses',
         content: {
-          mesadresses: { name: 'Mes Adresses', color: toolsColors.mesAdresses },
+          published: { name: 'Publiée', color: toolsColors.mesAdresses },
+          draft: { name: 'Brouillon', color: `${toolsColors.mesAdresses}80` },
+        },
+      },
+      {
+        title: 'Autres sources',
+        content: {
           moissoneur: { name: 'Moissonneur', color: toolsColors.moissonneur },
           form: { name: 'Formulaire', color: toolsColors.formulaire },
           api: { name: 'Api', color: toolsColors.api },
@@ -60,21 +207,21 @@ const paintLayers = {
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'nomClient'], 'Mes Adresses'],
+            ['==', ['get', 'idClient'], 'mes-adresses'],
           ], // Mes Adresses
           color: toolsColors.mesAdresses,
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'nomClient'], 'Moissonneur BAL'],
+            ['==', ['get', 'idClient'], 'moissonneur-bal'],
           ], // Moissonneur
           color: toolsColors.moissonneur,
         },
         {
           expression: [
             ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'nomClient'], 'Formulaire de publication'],
+            ['==', ['get', 'idClient'], 'formulaire-publication'],
           ], // Formulaire
           color: toolsColors.formulaire,
         },
@@ -85,37 +232,6 @@ const paintLayers = {
           ], // API
           color: toolsColors.api,
         },
-      ],
-      default: '#ddd',
-    },
-  },
-  bal: {
-    name: 'Suivi Mes Adresses',
-    legend: [
-      {
-        title: 'Mes Adresses',
-        content: {
-          published: { name: 'Publiée', color: toolsColors.mesAdresses },
-          draft: { name: 'Brouillon', color: `${toolsColors.mesAdresses}80` },
-        },
-      },
-      {
-        title: 'Autre source',
-        content: {
-          other: { name: 'Api, formulaire, moissonneur', color: `${toolsColors.api}80` },
-        },
-      },
-    ],
-
-    paint: {
-      styles: [
-        {
-          expression: [
-            ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'statusBals'], 'published'],
-          ], // Mes Adresses
-          color: toolsColors.mesAdresses,
-        },
         {
           expression: [
             ['==', ['get', 'hasBAL'], false],
@@ -123,19 +239,21 @@ const paintLayers = {
           ], // Mes Adresses
           color: `${toolsColors.mesAdresses}80`,
         },
-        {
-          expression: [
-            ['==', ['get', 'hasBAL'], true],
-          ],
-          color: `${toolsColors.api}80`,
-        },
       ],
       default: '#ddd',
     },
   },
 }
 
-export const getStyle = (selectedPaintLayer: 'source' | 'bal', filteredCodesCommmune: string[]) => {
+const getPopupAccentColor = ({ hasBAL, idClient }: PropertyDataType): string => {
+  if (!hasBAL) return '#aaa'
+  if (idClient === 'mes-adresses') return toolsColors.mesAdresses
+  if (idClient === 'moissonneur-bal') return '#b88200' // toolsColors.moissonneur assombri pour le contraste
+  if (idClient === 'formulaire-publication') return toolsColors.formulaire
+  return '#8c8a00' // toolsColors.api assombri pour le contraste
+}
+
+export const getStyle = (selectedPaintLayer: 'source', filteredCodesCommmune: string[]) => {
   const stylePaint = ['case'] as any
 
   (paintLayers[selectedPaintLayer] as any).paint.styles.forEach((style: any) => {
@@ -168,7 +286,7 @@ interface DeploiementMapProps {
   center: [number, number]
   zoom: number
   filteredCodesCommmune: string[]
-  selectedPaintLayer: 'source' | 'bal'
+  selectedPaintLayer: 'source'
 }
 
 export default function DeploiementMap({ center, zoom, filteredCodesCommmune, selectedPaintLayer }: DeploiementMapProps) {
@@ -265,6 +383,7 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
 
   return (
     <StyledWrapper>
+      <DeploiementPopupGlobalStyle />
       <div
         className="legend-wrapper"
       >
@@ -283,14 +402,39 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
         }
       </div>
       {popup && (
-        <Popup latitude={popup.latitude} longitude={popup.longitude} onClose={closePopup}>
-          <div>
-            <b>{popup.properties.nom} ({popup.properties.code})</b>
-            <div>Nombre d’adresses : {popup.properties.nbNumeros}</div>
-            <div>{`${popup.properties.certificationPercentage ? `Taux de certification : ${popup.properties.certificationPercentage}%` : 'Aucune adresse n’est certifiée par la commune'}`}</div>
-            {popup.properties.hasBAL ? <div>Déposé via : {popup.properties.nomClient}</div> : <div>Ne dispose pas d&apos;une BAL</div>}
-            <a href={`/commune/${popup.properties.code}`}>Voir la page commune</a>
-          </div>
+        <Popup className="deploiement-popup" latitude={popup.latitude} longitude={popup.longitude} onClose={closePopup}>
+          <PopupContent accentColor={getPopupAccentColor(popup.properties)}>
+            <div className="popup-header">
+              <div className="header-row">
+                <p className="commune-name">{popup.properties.nom}</p>
+                <button className="close-btn" onClick={closePopup} aria-label="Fermer">&#x2715;</button>
+              </div>
+              <span className="commune-code">Code INSEE : {popup.properties.code}</span>
+            </div>
+            <div className="popup-body">
+              <div className="popup-row">
+                <span className="row-label">Adresses :</span>
+                <span className="row-value">{popup.properties.nbNumeros}</span>
+              </div>
+              <div className="popup-row">
+                <span className="row-label">Certification :</span>
+                <span className="row-value">
+                  {popup.properties.certificationPercentage ? `${popup.properties.certificationPercentage}%` : 'Aucune'}
+                </span>
+              </div>
+              <div className="popup-row">
+                <span className="row-label">Source :</span>
+                {popup.properties.hasBAL
+                  ? <span className="popup-badge">{popup.properties.nomClient}</span>
+                  : <span className="popup-no-bal">Pas de BAL&nbsp;d&eacute;pos&eacute;e</span>}
+              </div>
+              <div className="popup-link-wrapper">
+                <Button linkProps={{ href: `/commune/${popup.properties.code}` }}>
+                  Voir la page commune
+                </Button>
+              </div>
+            </div>
+          </PopupContent>
         </Popup>
       )}
     </StyledWrapper>
