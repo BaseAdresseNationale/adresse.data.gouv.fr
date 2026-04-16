@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-import React, { useState, useEffect } from 'react'
+ import React, { useState, useEffect } from 'react'
 import { Input } from '@codegouvfr/react-dsfr/Input'
 import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 import { Button } from '@codegouvfr/react-dsfr/Button'

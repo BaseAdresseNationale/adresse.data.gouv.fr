@@ -203,7 +203,7 @@ export const getMonthlyUsageData = ([monthlyDownloadUrl, monthlyLookupUrl]) => a
     [
       monthlyDownloadUrl,
       monthlyLookupUrl,
-    ].map(url => fetch(url))
+    ].map(url => fetch(url, { cache: 'force-cache' }))
   )
 
   const { status: statusMonthlyDownload } = responseMonthlyDownload

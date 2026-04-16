@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, Suspense, useCallback, useMemo } from 'react'
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { customFetch } from '@/lib/fetch'
 import { env } from 'next-runtime-env'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -201,6 +201,7 @@ function CartoView() {
   const banMapRef = useRef<MapRef>(null)
   const asideRef = useRef<HTMLDivElement>(null)
   const oldMapSearchResults = useRef<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | null>(null)
+  const closePanelTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   type Lon = number
   type Lat = number
@@ -228,31 +229,60 @@ function CartoView() {
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
 
-  const selectBanItem = useCallback(({ id }: { id: string }) => router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`), [router])
+  const selectBanItem = useCallback(({ id }: { id?: string | null }) => {
+    if (!id || id === 'undefined' || id === 'null') {
+      return
+    }
+
+    router.push(`${URL_CARTOGRAPHY_BAN}?id=${encodeURIComponent(id)}`)
+  }, [router])
   const unselectBanItem = useCallback(() => router.push(`${URL_CARTOGRAPHY_BAN}`), [router])
   const onTargetClick = useCallback(() => asideRef.current?.scrollTo(0, 0), [])
   const closeMapSearchResults = useCallback(() => {
+    if (closePanelTimeoutRef.current) {
+      clearTimeout(closePanelTimeoutRef.current)
+      closePanelTimeoutRef.current = null
+    }
+
     setIsMenuVisible(false)
-    const timer = setTimeout(() => {
+
+    closePanelTimeoutRef.current = setTimeout(() => {
       setMapSearchResults(undefined)
       setMapBreadcrumbPath([])
       setDistrictLogo(undefined)
     }, 1000)
+  }, [])
+
+  useEffect(() => {
     return () => {
-      setMapSearchResults(undefined)
-      setMapBreadcrumbPath([])
-      setDistrictLogo(undefined)
-      clearTimeout(timer)
+      if (closePanelTimeoutRef.current) {
+        clearTimeout(closePanelTimeoutRef.current)
+      }
     }
   }, [])
   const updateHashPosition = useCallback((hash: string) => {
-    if (window && window.location) {
-      if (window.location?.hash === hash) return
-      const locationPrefix = `${window.location.pathname}${window.location.search}`
-      const newLocation = hash ? `${locationPrefix}#${hash}` : locationPrefix
-      router.replace(newLocation)
+    if (typeof window === 'undefined' || !window.location) {
+      return
     }
-  }, [router])
+
+    const nextHash = hash ? `#${hash}` : ''
+    if (window.location.hash === nextHash) {
+      return
+    }
+
+    // Update only the URL hash to avoid dropping current search params (e.g. ?id=...)
+    // during map move events.
+    if (nextHash) {
+      window.history.replaceState(window.history.state, '', nextHash)
+    }
+    else {
+      window.history.replaceState(
+        window.history.state,
+        '',
+        `${window.location.pathname}${window.location.search}`
+      )
+    }
+  }, [])
   const onMoveHandle = useCallback(() => {
     const { current: banMapGL } = banMapRef
     if (!banMapGL) return
@@ -316,76 +346,111 @@ function CartoView() {
 
   // Load map tiles
   useEffect(() => {
-    isMapReady
-      ? setIsLoadMapTiles(false)
-      : setIsLoadMapTiles(true)
+    const loadMapTiles = () => {
+      isMapReady
+        ? setIsLoadMapTiles(false)
+        : setIsLoadMapTiles(true)  
+    }
+    loadMapTiles()
   }, [isMapReady])
 
   // Load search datas
   useEffect(() => {
-    if (banItemId) {
-      (async () => {
-        setIsLoadMapSearchResults(true)
+    if (!banItemId) {
+      closeMapSearchResults()
+      setWithCertificate(false)
+      setHabilitationEnabled(false)
+      return
+    }
 
+    let isCancelled = false;
+
+    (async () => {
+      setIsLoadMapSearchResults(true)
+
+      try {
         // Load search item & district flag
-        const banItemPromise = (getBanItem(banItemId))
-        const districtFlagUrlPromise = getCommuneFlagProxy(banItemId)
-        const [banItem, districtFlagUrl] = await Promise.all([
-          banItemPromise as unknown as Promise<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended>,
-          districtFlagUrlPromise as Promise<string | undefined>,
-        ])
+        const banItem = await getBanItem(banItemId) as unknown as TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended
+        const districtFlagUrl = await getCommuneFlagProxy(banItemId).catch(() => DEFAULT_URL_DISTRICT_FLAG)
+
+        if (isCancelled) {
+          return
+        }
+
         setMapSearchResults(banItem)
         setDistrictLogo(districtFlagUrl || DEFAULT_URL_DISTRICT_FLAG)
 
-        let habilitation = false
+        let isHabilited = false
+        const banItemType = getBanItemTypes(banItem)
         try {
           const connexion = await customFetch('/api/me')
           if (connexion && typeof connexion === 'object' && 'siret' in connexion) {
             const commune = await getCommune((banItem as TypeAddressExtended)?.commune?.code)
             if (commune?.siren && connexion.siret && commune.siren === connexion.siret.slice(0, 9)) {
-              habilitation = true
+              isHabilited = true
             }
           }
         }
         catch (error: any) {
           if (error?.status === 401) {
-            habilitation = false
+            isHabilited = false
           }
         }
 
+        if (isCancelled) {
+          return
+        }
+
+        setHabilitationEnabled(isHabilited)
+
         // Update breadcrumb path & Actions Params
-        switch (getBanItemTypes(banItem)) {
+        switch (banItemType) {
           case 'district':
             setMapBreadcrumbPath(getDistrictBreadcrumbPath(banItem as TypeDistrictExtended))
+            setWithCertificate(false)
             break
           case 'micro-toponym':
             setMapBreadcrumbPath(getMicroTopoBreadcrumbPath(banItem as TypeMicroToponymExtended))
+            setWithCertificate(false)
             break
-          case 'address':
+          case 'address': {
             setMapBreadcrumbPath(getAddressBreadcrumbPath(banItem as TypeAddressExtended))
             const config = (banItem as TypeAddressExtended).config
             // Utiliser la variable locale habilitation au lieu de habilitationEnabled
-            if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitation) || config?.certificate == CertificateTypeEnum.ALL) {
+            if ((config?.certificate == CertificateTypeEnum.DISTRICT && isHabilited) || config?.certificate == CertificateTypeEnum.ALL) {
               setWithCertificate(true)
             }
             else {
               setWithCertificate(false)
             }
             break
+          }
           default:
             setMapBreadcrumbPath([])
             setWithCertificate(false)
             break
         }
 
-        setHabilitationEnabled(habilitation)
+        setHabilitationEnabled(isHabilited)
 
         setIsLoadMapSearchResults(false)
-      })()
+      }
+      catch (error) {
+        if (!isCancelled) {
+          closeMapSearchResults()
+        }
+      }
+      finally {
+        if (!isCancelled) {
+          setIsLoadMapSearchResults(false)
+        }
+      }
+    })()
+
+    return () => {
+      isCancelled = true
     }
-    else {
-      return closeMapSearchResults()
-    }
+    
   }, [banItemId, habilitationEnabled, closeMapSearchResults])
 
   useEffect(() => {
@@ -423,13 +488,15 @@ function CartoView() {
 
       if (banMapGL && bbox && bbox.length === 4) {
         if (!initHash.current) {
-          setHash({
-            value: bbox.join('_'),
-            bounds: bbox,
-          })
+          function handleHash() {
+            setHash({
+              value: bbox.join('_'),
+              bounds: bbox,
+            })
+            setIsMenuVisible(true)
+          }
+          handleHash()
         }
-
-        setIsMenuVisible(true)
         oldMapSearchResults.current = banItem
       }
     }

@@ -8,8 +8,8 @@ Ce dépôt contient le code logiciel FrontEnd du site [adresse.data.gouv.fr](htt
 
 Ce site nécéssite l'instalation préalable des outils suivants :
 
-* Node.JS version 20 ou supérieure
-* NPM version 10 ou supérieure
+* Node.JS version 24 ou supérieure
+* NPM version 11 ou supérieure
 
 ## Développement
 
@@ -26,6 +26,7 @@ npm run dev
 ```
 
 ### Demarrer le serveur de développement avec le proxy
+
 Ajouter le fichier index.js dans un dossier proxy à la racine des différents projets avec le contenu suivant :
 
 ```bash
@@ -33,12 +34,15 @@ const { setGlobalDispatcher, fetch, EnvHttpProxyAgent } = require('undici')
 const envHttpProxyAgent = new EnvHttpProxyAgent()
 setGlobalDispatcher(envHttpProxyAgent)
 ```
+
 Installer undici dans le dossier proxy
+
 ```bash
 npm i undici
 ```
 
 Puis lancer le projet avec npm en lançant le script dev.sh
+
 ```bash
 ./dev.sh
 ```
@@ -65,6 +69,7 @@ La qualité et le formatage du code sont contrôlés via [ESlint](https://eslint
 
 ```bash
 npm run lint
+npm run type-check
 ```
 
 ## Licence

@@ -16,14 +16,6 @@ export const objToUrlParams = (obj: any) => {
   return new URLSearchParams(processedObj)
 }
 
-// export const objToUrlParams = (obj: any) =>
-//   new URLSearchParams(
-//     chain(obj)
-//       .omitBy(v => !v)
-//       .mapValues(o => (isObject(o) ? JSON.stringify(o) : o))
-//       .value()
-//   )
-
 export const getCurrentUrl = (req: NextRequest) => {
   const url = new URL(`${req.nextUrl.protocol}//${req.headers.get('host')}${req.nextUrl.pathname}${req.nextUrl.search}`)
   return url
@@ -63,14 +55,13 @@ export const AUTHORIZATION_DEFAULT_PARAMS = {
 }
 
 export const getAuthorizationControllerFactory = async (req: NextRequest, extraParams?: any) => {
-  // eslint-disable-next-line
   const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   try {
     const config = await getProviderConfig()
     const nonce = client.randomNonce()
     const state = client.randomState()
 
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     const returnTo = req.nextUrl.searchParams.get('return_to')

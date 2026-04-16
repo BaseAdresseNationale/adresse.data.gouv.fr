@@ -13,7 +13,7 @@ import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import TabMesAdresses from './TabMesAdresses'
 import DeploiementMap, { getStyle } from './DeploiementMap'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { mapToSearchResult } from '@/lib/deploiement-stats'
+import { mapToSearchResult } from '@/lib/deploiement-search'
 import { FullScreenControl } from '../Map/FullScreenControl'
 
 interface DeploiementBALMapProps {
@@ -31,7 +31,10 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const [origin, setOrigin] = useState('')
 
   useEffect(() => {
-    setOrigin(window.location.origin)
+    const changeOrigin=() =>{
+      setOrigin(window.location.origin)
+    }
+    changeOrigin()
   }, [])
 
   const handleSearch = useCallback(async (input: string) => {

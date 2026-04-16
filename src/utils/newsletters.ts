@@ -2,17 +2,19 @@ import { env } from 'next-runtime-env'
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs'
 import { customFetch } from '@/lib/fetch'
 import { getRootPath } from './path'
+import path from 'path'
 
-const DIRECTORY_NAME = '/data/newsletters'
+const END_DATE_SAFETY_MARGIN_MS = 5 * 60 * 1000
 
 export async function downloadLastNewsletters() {
-  const to = Date.now()
+  // Keep a small safety margin to avoid providers rejecting a date seen as "in the future".
+  const to = Date.now() - END_DATE_SAFETY_MARGIN_MS
   const from = new Date(to - 1000 * 60 * 60 * 24 * 30 * 12) // Last 12 months
   let count = 0
   let offset = 0
 
   const rootPath = getRootPath()
-  const directoryPath = rootPath + DIRECTORY_NAME
+  const directoryPath = path.join(rootPath, 'data', 'newsletters')
 
   if (existsSync(directoryPath)) {
     console.log('Cleaning newsletters directory...')
@@ -21,7 +23,7 @@ export async function downloadLastNewsletters() {
 
   console.log('Downloading newsletters...')
 
-  let newsletters: any[] = []
+  const newsletters: any[] = []
 
   try {
     do {
@@ -35,6 +37,7 @@ export async function downloadLastNewsletters() {
               'content-type': 'application/json',
               'api-key': env('BREVO_API_KEY'),
             } as RequestInit['headers'],
+            cache: 'force-cache',
           }
       )
 
@@ -60,7 +63,7 @@ export async function downloadLastNewsletters() {
           mkdirSync(directoryPath, { recursive: true })
         }
         const fileName = `${index}__${campaign.name}.html`
-        writeFileSync(`${directoryPath}/${fileName}`, campaign.htmlContent)
+        writeFileSync(path.join(directoryPath, fileName), campaign.htmlContent)
       })
 
     console.log('Newsletters downloaded')
