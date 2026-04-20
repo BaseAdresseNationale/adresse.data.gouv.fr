@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { readFile } from 'node:fs/promises'
 import { Resvg, initWasm } from '@resvg/resvg-wasm'
@@ -5,7 +6,10 @@ import { Resvg, initWasm } from '@resvg/resvg-wasm'
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 
 export const CERTIFICAT_DEFAULT_LOGO_RELATIVE = 'public/logos/certificat/default.png'
-const RESVG_WASM_FILE = join(process.cwd(), 'node_modules', '@resvg', 'resvg-wasm', 'index_bg.wasm')
+
+const RESVG_WASM_STANDALONE = join(process.cwd(), '.next', 'standalone', 'node_modules', '@resvg', 'resvg-wasm', 'index_bg.wasm')
+const RESVG_WASM_ROOT = join(process.cwd(), 'node_modules', '@resvg', 'resvg-wasm', 'index_bg.wasm')
+const RESVG_WASM_FILE = existsSync(RESVG_WASM_STANDALONE) ? RESVG_WASM_STANDALONE : RESVG_WASM_ROOT
 
 let wasmInitializationPromise: Promise<void> | null = null
 
@@ -41,7 +45,6 @@ function isSvgBuffer(buffer: Buffer): boolean {
   return /<svg[\s>]/i.test(buffer.subarray(0, 512).toString('utf8'))
 }
 
-/** Repli PDF : logo générique uniquement (pas de PNG par code commune). */
 export function resolveCertificatCommuneLogoPath(_codeCommune: string): string {
   return CERTIFICAT_DEFAULT_LOGO_RELATIVE
 }
