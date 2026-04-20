@@ -12,6 +12,7 @@ import { env } from 'next-runtime-env'
 import {
   getDefaultAttestationTemplate,
   insertSoftBreaksForPdfWrapping,
+  isVilleParPopulation,
   issuerPdfLinesFromInputs,
 } from '@/lib/certificate-issuer-config'
 
@@ -73,6 +74,8 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
   const postalCode = data.full_address.postalCode
   const multidistributed = data.full_address.multidistributed
+  const estVille = isVilleParPopulation(issuerCustomization?.population)
+  const libelleCollectivite = estVille ? 'ville' : 'commune'
 
   const groupParcelles = (parcelles: string[]): string[] => {
     const grouped: string[] = []
@@ -193,7 +196,7 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
 
         <View style={stylesDSFR.footer}>
           <Text style={stylesDSFR.footerText}>
-            Émis par les services de la Base Adresse Nationale, mandataire pour la ville de {nomCommune}.
+            {`Émis par les services de la Base Adresse Nationale, mandataire pour la ${libelleCollectivite} de ${nomCommune}.`}
           </Text>
           <Text style={stylesDSFR.annexe}>Ce document ne vaut pas : autorisation d&apos;urbanisme, droit de passage, servitude, droit de propriété, certificat de résidence ou d&apos;hébergement.</Text>
           {
@@ -201,7 +204,9 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
               ? (
                   <>
                     <Text>{'\n'}</Text>
-                    <Text style={stylesDSFR.annexe}>Cette commune dispose de plusieurs codes postaux fournis par &apos;La Poste&apos;. La Base Adresse Nationale ne garantit pas l&apos;exactitude du code postal fourni dans ce document. En cas de doute, veuillez vous rapprocher de la mairie pour l&apos;édition du certificat.</Text>
+                    <Text style={stylesDSFR.annexe}>
+                      {`Cette ${libelleCollectivite} dispose de plusieurs codes postaux fournis par 'La Poste'. La Base Adresse Nationale ne garantit pas l'exactitude du code postal fourni dans ce document. En cas de doute, veuillez vous rapprocher de la mairie pour l'édition du certificat.`}
+                    </Text>
                   </>
                 )
               : null
