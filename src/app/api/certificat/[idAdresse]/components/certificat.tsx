@@ -9,8 +9,23 @@ import {
 } from '@react-pdf/renderer'
 import { stylesDSFR } from './certificat.stylesheet'
 import { env } from 'next-runtime-env'
+import {
+  CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE,
+  insertSoftBreaksForPdfWrapping,
+  issuerPdfLinesFromInputs,
+} from '@/lib/certificate-issuer-config'
 
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+
+function communeLogoPdfSrc(logoUrl: string): string {
+  return logoUrl.trim()
+}
+
+export interface CertificatNumerotationIssuerCustomization {
+  showCommuneLogo: boolean
+  issuerDetails?: string
+  attestationText?: string
+}
 
 interface CertificatNumerotationProps {
   data: {
@@ -34,9 +49,10 @@ interface CertificatNumerotationProps {
     email?: string
   }
   logoUrl: string
+  issuerCustomization?: CertificatNumerotationIssuerCustomization
 }
 
-const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, qrCodeDataURL, mairie, logoUrl }) => {
+const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, qrCodeDataURL, mairie, logoUrl, issuerCustomization }) => {
   const nomCommune = data.full_address.districtDefaultLabel
   const libelleVoie = data.full_address.commonToponymDefaultLabel
   const numero = data.full_address.number
@@ -45,7 +61,6 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   const lieuDitComplementNomDefaultLabel = data.full_address.lieuDitComplementNomDefaultLabel || null
   const parcelles = data.cadastre_ids.map(id => id.replace(/(\d+)([A-Z])/, '$1 $2'))
 
-  // const logoUrl = `public/logos/certificat/${cog}.png`
   const logoAdresse = `public/logos/certificat/logo-ban.png`
   const logoMarianne = `public/logos/certificat/logo-mariane.png`
 
@@ -78,6 +93,20 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
   }
 
   const groupedParcelles = groupParcelles(parcelles)
+  const issuerLines = issuerPdfLinesFromInputs({
+    nomCommune,
+    mairie,
+    issuerDetails: issuerCustomization?.issuerDetails,
+  })
+  const defaultAttestationText = CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE
+    .replace(/\{commune\}/g, nomCommune)
+    .replace(/\{date\}/g, etabliLe)
+  const attestationTemplate = issuerCustomization?.attestationText?.trim()
+  const attestationText = attestationTemplate
+    ? attestationTemplate
+      .replace(/\{commune\}/g, nomCommune)
+      .replace(/\{date\}/g, etabliLe)
+    : defaultAttestationText
 
   return (
     <Document title="Certificat d'adressage">
@@ -87,36 +116,30 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
             <Image src={logoMarianne} style={stylesDSFR.logoMarianne} />
             <Image src={logoAdresse} style={stylesDSFR.logoAdresse} />
           </View>
-          <Image src={logoUrl} style={stylesDSFR.logoBloc} />
+          {issuerCustomization?.showCommuneLogo === true && (
+            <Image src={communeLogoPdfSrc(logoUrl)} style={stylesDSFR.logoBloc} />
+          )}
         </View>
         <Text> {'\n'}</Text>
         {/* Conteneur pour le logo de la mairie et les informations */}
         <View style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
           <View>
-            <Text>Ville de {nomCommune}</Text>
-
-            {cog === '49331'
-              ? (
-                  <>
-                    <Text>Secrétariat Général</Text>
-                    <Text>02 41 92 52 74</Text>
-                    <Text>fabienne.prodhomme@segreenanjoubleu.fr</Text>
-                  </>
-                )
-              : (
-                  <>
-                    <Text>{mairie?.telephone}</Text>
-                    <Text>{mairie?.email}</Text>
-                  </>
-                )}
+            {issuerLines.map((line, index) => (
+              <Text key={index} style={stylesDSFR.issuerBlockLine}>
+                {insertSoftBreaksForPdfWrapping(line)}
+              </Text>
+            ))}
           </View>
         </View>
         <Text style={stylesDSFR.titre}>Certificat d&apos;adressage</Text>
         <View style={stylesDSFR.contenu}>
-          <Text>
-            La ville de {nomCommune} atteste que l&apos;adresse ci-dessous est certifiée dans la Base Adresse
-            Nationale à la date du {etabliLe}.
-          </Text>
+          <View style={{ width: '100%' }}>
+            {attestationText.split(/\r?\n/).map((line, i) => (
+              <Text key={i} style={stylesDSFR.attestationLine}>
+                {line}
+              </Text>
+            ))}
+          </View>
           <Text> {'\n'}</Text>
 
           <View style={stylesDSFR.table}>

@@ -1,12 +1,17 @@
 import { env } from 'next-runtime-env'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
-import { type BANConfig } from '@/types/api-ban.types'
+import { type BANConfig, CertificateTypeEnum } from '@/types/api-ban.types'
 import {
   getCachedCommuneSirenForDistrict,
   readUserSirenFromCookies,
   resolveCommuneSirenForDistrictId,
 } from '@/lib/district-ownership'
+import {
+  getCertificateAttestationPlaceholderError,
+  sanitizeCertificateAttestationText,
+  sanitizeCertificateIssuerDetails,
+} from '@/lib/certificate-issuer-config'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
@@ -54,6 +59,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid districtID format' }, { status: 400 })
     }
 
+    const sanitizedConfig: Partial<BANConfig> = {
+      ...config,
+      certificateIssuerDetails: typeof config?.certificateIssuerDetails === 'string'
+        ? sanitizeCertificateIssuerDetails(config.certificateIssuerDetails)
+        : config?.certificateIssuerDetails,
+      certificateAttestationText: typeof config?.certificateAttestationText === 'string'
+        ? sanitizeCertificateAttestationText(config.certificateAttestationText)
+        : config?.certificateAttestationText,
+    }
+
+    const certEnabled = config?.certificate != null && config.certificate !== CertificateTypeEnum.DISABLED
+    if (certEnabled) {
+      const attestationErr = getCertificateAttestationPlaceholderError(
+        typeof sanitizedConfig.certificateAttestationText === 'string'
+          ? sanitizedConfig.certificateAttestationText
+          : undefined,
+      )
+      if (attestationErr) {
+        return NextResponse.json({ error: attestationErr }, { status: 400 })
+      }
+    }
+
     const cachedSiren = getCachedCommuneSirenForDistrict(districtID)
     if (cachedSiren !== null) {
       if (cachedSiren !== userSiren) {
@@ -97,7 +124,7 @@ export async function POST(request: NextRequest) {
         'Content-Type': 'application/json',
         'Authorization': `Token ${BAN_API_TOKEN}`,
       },
-      body: JSON.stringify({ districtID, config, siren: userSiren, ...sessionData }),
+      body: JSON.stringify({ districtID, config: sanitizedConfig, siren: userSiren, ...sessionData }),
     })
 
     const data = await response.json().catch(() => ({}))

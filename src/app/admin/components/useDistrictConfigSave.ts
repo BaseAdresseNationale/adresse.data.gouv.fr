@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { type BANCommune, type BANConfig } from '@/types/api-ban.types'
+import {
+  getCertificateAttestationPlaceholderError,
+  sanitizeCertificateIssuerDetails,
+} from '@/lib/certificate-issuer-config'
+import { type BANCommune, type BANConfig, CertificateTypeEnum } from '@/types/api-ban.types'
 import { type UserInfo } from '@/hooks/useAuth'
 import { customFetch } from '@/lib/fetch'
 import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
@@ -20,6 +24,7 @@ interface UseDistrictConfigSaveParams {
   setCurrentConfig: (config: string) => void
   onBeforeSave?: () => void
   onSuccess?: () => void
+  validateBeforeCertificateSave?: () => string | null
 }
 
 export function useDistrictConfigSave({
@@ -30,6 +35,7 @@ export function useDistrictConfigSave({
   setCurrentConfig,
   onBeforeSave,
   onSuccess,
+  validateBeforeCertificateSave,
 }: UseDistrictConfigSaveParams) {
   const [message, setMessage] = useState<SaveMessage | null>(null)
   const [isSaving, setIsSaving] = useState(false)
@@ -76,8 +82,25 @@ export function useDistrictConfigSave({
 
   const pushConfigUpdate = useCallback(async () => {
     const newConfig = { ...configState }
+    if (typeof newConfig.certificateIssuerDetails === 'string') {
+      newConfig.certificateIssuerDetails = sanitizeCertificateIssuerDetails(newConfig.certificateIssuerDetails)
+    }
     const districtID = district?.banId
     if (!districtID || !userInfo) return
+
+    const certEnabled = newConfig.certificate != null && newConfig.certificate !== CertificateTypeEnum.DISABLED
+    if (certEnabled) {
+      const attestationErr = getCertificateAttestationPlaceholderError(newConfig.certificateAttestationText)
+      if (attestationErr) {
+        setMessage({ text: attestationErr, type: 'error' })
+        return
+      }
+      const certPreviewErr = validateBeforeCertificateSave?.() ?? null
+      if (certPreviewErr) {
+        setMessage({ text: certPreviewErr, type: 'error' })
+        return
+      }
+    }
 
     clearTimers()
     setSaveProgress(0)
@@ -121,6 +144,7 @@ export function useDistrictConfigSave({
     onUpdateConfig,
     setCurrentConfig,
     userInfo,
+    validateBeforeCertificateSave,
   ])
 
   useEffect(() => () => {

@@ -54,9 +54,11 @@ export type BANConfig = {
   autoFixLabels?: boolean // beautifier
   computOldDistrict?: boolean // calculer les anciennes communes
   computInteropKey?: boolean // recalcul des clés d'interopérabilité
+  certificateShowLogo?: boolean | null
+  certificateIssuerDetails?: string | null
+  certificateAttestationText?: string | null
 }
 
-/** Sous-ensemble exposé au navigateur via GET /api/district-config/:id (pas de secrets). */
 export type BANPublicConfig = Pick<BANConfig, 'certificate' | 'defaultBalLang'>
 
 export function toPublicDistrictConfig(raw: Partial<BANConfig> | null | undefined): BANPublicConfig {
@@ -92,7 +94,6 @@ export type BANCommune = {
   dateRevision: string
   dateAnnulation: string
   voies: BANVoie[]
-  /** Absent si la commune provient de GET /lookup/:id (ne renvoie plus la config). Utiliser GET /api/district-config/:districtId. */
   config?: BANConfig
   withBanId?: boolean
 }
