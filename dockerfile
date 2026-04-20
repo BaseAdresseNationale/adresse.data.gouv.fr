@@ -68,6 +68,9 @@ WORKDIR /app
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
+# Certificat PDF (SVG→PNG) : le trace standalone n’embarque pas toujours ce paquet
+RUN mkdir -p /app/.next/standalone/node_modules/@resvg
+COPY --from=builder /app/node_modules/@resvg/resvg-wasm /app/.next/standalone/node_modules/@resvg/resvg-wasm
 
 RUN mkdir -p /app/data && chown -R node:node /app/data
 
