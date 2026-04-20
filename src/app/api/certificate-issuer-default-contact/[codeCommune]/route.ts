@@ -2,6 +2,7 @@ import { readUserSirenFromCookies } from '@/lib/district-ownership'
 import { getMairie } from '@/lib/api-etablissement-public'
 import {
   defaultCertificateIssuerDetailsLines,
+  isVilleParPopulation,
   sanitizeCertificateIssuerDetails,
 } from '@/lib/certificate-issuer-config'
 import { cookies } from 'next/headers'
@@ -41,9 +42,14 @@ export async function GET(
 
     const mairie = await getMairie(codeCommune)
     const nomCommune = typeof geoData?.nom === 'string' ? geoData.nom.trim() : ''
+    const population
+      = typeof geoData?.population === 'number' && Number.isFinite(geoData.population)
+        ? geoData.population
+        : undefined
     const body = defaultCertificateIssuerDetailsLines(mairie)
+    const collectivitePrefix = isVilleParPopulation(population) ? 'Ville' : 'Commune'
     const raw = nomCommune
-      ? `Ville de ${nomCommune}\n${body}`.trim()
+      ? `${collectivitePrefix} de ${nomCommune}\n${body}`.trim()
       : body
     const certificateIssuerDetails = sanitizeCertificateIssuerDetails(raw)
 
