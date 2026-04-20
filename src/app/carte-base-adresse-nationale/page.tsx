@@ -401,8 +401,6 @@ function CartoView() {
           return
         }
 
-        setHabilitationEnabled(isHabilited)
-
         // Update breadcrumb path & Actions Params
         switch (banItemType) {
           case 'district':
@@ -451,7 +449,7 @@ function CartoView() {
       isCancelled = true
     }
     
-  }, [banItemId, habilitationEnabled, closeMapSearchResults])
+  }, [banItemId, closeMapSearchResults])
 
   useEffect(() => {
     if (tomId && isMapReady) {

@@ -107,9 +107,8 @@ function getMathRandom() {
 }
 
 export default function Tooltip({ children, message, style, placement = 'top' }: TooltipProps) {
-  const random = getMathRandom()
-  const [id] = useState(random)
-  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 })
+  const [id] = useState(() => getMathRandom())
+  const [tooltipPosition, setTooltipPosition] = useState<{ top: number; left: number; right?: number; bottom?: number }>({ top: 0, left: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const [containerRef, setContainerRef] = useDOMRef<HTMLDivElement>()
   const [tooltipRef, setTooltipRef] = useDOMRef<HTMLSpanElement>()
@@ -145,8 +144,8 @@ export default function Tooltip({ children, message, style, placement = 'top' }:
       const rect = tooltipRef.getBoundingClientRect();
       setTooltipPosition(prev => ({
         ...prev,
-        right: rect.x < 0 ? window.innerWidth - rect.width + Math.abs(rect.x) : null,
-        bottom: rect.y < 0 ? window.innerHeight - rect.height + Math.abs(rect.y) : null,
+        right: rect.x < 0 ? window.innerWidth - rect.width + Math.abs(rect.x) : undefined,
+        bottom: rect.y < 0 ? window.innerHeight - rect.height + Math.abs(rect.y) : undefined,
       }));
     };
 
