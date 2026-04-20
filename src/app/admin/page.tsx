@@ -16,10 +16,10 @@ import AccountAdmin from './components/AccountAdmin'
 import SignInBlock from './components/DistrictActions/SignInBlock'
 
 import { getCommunesBySiren } from '@/lib/api-geo'
-import { getCommuneWithoutCache, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
+import { getCommuneWithoutCache, getDistrictConfigForAdminByCodeCommune } from '@/lib/api-ban'
 import { BANCommune, CertificateTypeEnum } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
-// TODO: Move to a shared hooks file ?
+
 const useHash = () => {
   const [hash, setHash] = useState(() =>
     typeof window !== 'undefined' ? window.location.hash.replace('#', '') : ''
@@ -69,13 +69,11 @@ const tabsDescriptions = {
 // }
 
 type ControlledTabs = Extract<TabsProps, { selectedTabId: string }>['tabs']
-const tabDefinitions: ControlledTabs = Object.entries(tabsDescriptions)
-  .filter(([tabId]) => tabId !== 'mes_mandats') // Temporairement désactivé
-  .map(([tabId, { label, iconId }]) => ({
-    tabId,
-    label,
-    iconId,
-  }))
+const tabDefinitions: ControlledTabs = Object.entries(tabsDescriptions).map(([tabId, { label, iconId }]) => ({
+  tabId,
+  label,
+  iconId,
+}))
 
 type TabId = keyof typeof tabsDescriptions
 const isTabId = (value: string): value is TabId => value in tabsDescriptions
@@ -108,9 +106,9 @@ export default function Home() {
         const siren = userInfo.siret.substring(0, 9)
         const communes = await getCommunesBySiren(siren)
         if (communes && communes.length > 0) {
-          const commune = communes[0] // Assume first one for now
+          const commune = communes[0]
           const banCommune = await getCommuneWithoutCache(commune.code)
-          banCommune.config = (await getDistrictConfigByCodeCommune(commune.code)) ?? { certificate: CertificateTypeEnum.DISABLED }
+          banCommune.config = (await getDistrictConfigForAdminByCodeCommune(commune.code)) ?? { certificate: CertificateTypeEnum.DISABLED }
           setDistrict(banCommune)
           setCommune(commune)
         }

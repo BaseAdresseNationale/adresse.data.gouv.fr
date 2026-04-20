@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useRef } from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { StickyActions } from './DistrictActions.styles'
 import type { SaveMessage } from '../useDistrictConfigSave'
@@ -31,18 +31,7 @@ export function ConfigSaveStickyBar({
   saveDisabledAriaLabel,
 }: ConfigSaveStickyBarProps) {
   const stickyBarRef = useRef<HTMLDivElement>(null)
-  const hadUnsavedChangesRef = useRef(false)
-
-  useEffect(() => {
-    if (hasUnsavedChanges && !hadUnsavedChangesRef.current) {
-      hadUnsavedChangesRef.current = true
-      const t = setTimeout(() => {
-        stickyBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
-      }, 150)
-      return () => clearTimeout(t)
-    }
-    if (!hasUnsavedChanges) hadUnsavedChangesRef.current = false
-  }, [hasUnsavedChanges])
+  const hadUnsavedScrollDoneRef = useRef(false)
 
   useEffect(() => {
     if (message?.type === 'success') {
@@ -50,6 +39,36 @@ export function ConfigSaveStickyBar({
       return () => clearTimeout(timer)
     }
   }, [message, setMessage])
+
+  useLayoutEffect(() => {
+    if (!hasUnsavedChanges) {
+      hadUnsavedScrollDoneRef.current = false
+      return
+    }
+    if (hadUnsavedScrollDoneRef.current) return
+    hadUnsavedScrollDoneRef.current = true
+    const ae = document.activeElement
+    if (ae instanceof HTMLTextAreaElement || ae instanceof HTMLSelectElement) return
+    if (ae instanceof HTMLElement && ae.isContentEditable) return
+    if (ae instanceof HTMLInputElement) {
+      const t = ae.type
+      const nonTextEntry = ['button', 'checkbox', 'radio', 'submit', 'reset', 'file', 'hidden', 'image', 'color'].includes(t)
+      if (!nonTextEntry) return
+    }
+    const el = stickyBarRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const vh = window.innerHeight
+    const intersects = rect.top < vh && rect.bottom > 0
+    if (!intersects) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [hasUnsavedChanges])
+
+  useLayoutEffect(() => {
+    if (message?.type !== 'error') return
+    stickyBarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }, [message])
 
   const visible = hasUnsavedChanges || isSaving || saveProgress > 0 || message
   if (!visible) return null

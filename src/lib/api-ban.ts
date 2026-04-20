@@ -1,5 +1,4 @@
-import { BANCommune, BANVoie, BANAddress, BANConfig } from '@/types/api-ban.types'
-import { BANStats } from '@/types/api-ban.types'
+import { BANAddress, BANCommune, BANConfig, BANStats, BANVoie } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
 import { env } from 'next-runtime-env'
 
@@ -94,11 +93,6 @@ export async function getIdDistrictByCodeCommune(codeCommune: string) {
   return mainDistrict?.meta?.insee?.mainId || null
 }
 
-/**
- * Côté serveur (token présent) : config BAN complète.
- * Côté client : GET /api/district-config — config complète si session `userinfo` avec SIREN
- * de la commune du district, sinon uniquement certificate et defaultBalLang.
- */
 export async function getDistrictConfigByCodeCommune(codeCommune: string): Promise<BANConfig | null> {
   try {
     const districtId = await getIdDistrictByCodeCommune(codeCommune)
@@ -127,6 +121,24 @@ export async function getDistrictConfigByCodeCommune(codeCommune: string): Promi
   catch {
     return null
   }
+}
+
+/** Réservé au client : côté serveur la config « admin » n’est pas exposée via cette fonction. */
+export async function getDistrictConfigForAdminByCodeCommune(codeCommune: string): Promise<BANConfig | null> {
+  if (typeof window !== 'undefined') {
+    try {
+      const districtId = await getIdDistrictByCodeCommune(codeCommune)
+      if (!districtId) return null
+      const res = await fetch(`/api/district-config/${districtId}/full`, { credentials: 'same-origin' })
+      if (!res.ok) return null
+      const data = await res.json().catch(() => null)
+      return (data?.config as BANConfig) ?? null
+    }
+    catch {
+      return null
+    }
+  }
+  return null
 }
 
 export interface StatutCommune {
