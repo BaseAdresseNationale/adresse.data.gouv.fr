@@ -10,7 +10,7 @@ import {
 import { stylesDSFR } from './certificat.stylesheet'
 import { env } from 'next-runtime-env'
 import {
-  CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE,
+  getDefaultAttestationTemplate,
   insertSoftBreaksForPdfWrapping,
   issuerPdfLinesFromInputs,
 } from '@/lib/certificate-issuer-config'
@@ -25,6 +25,7 @@ export interface CertificatNumerotationIssuerCustomization {
   showCommuneLogo: boolean
   issuerDetails?: string
   attestationText?: string
+  population?: number
 }
 
 interface CertificatNumerotationProps {
@@ -97,8 +98,9 @@ const CertificatNumerotation: React.FC<CertificatNumerotationProps> = ({ data, q
     nomCommune,
     mairie,
     issuerDetails: issuerCustomization?.issuerDetails,
+    population: issuerCustomization?.population,
   })
-  const defaultAttestationText = CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE
+  const defaultAttestationText = getDefaultAttestationTemplate(issuerCustomization?.population)
     .replace(/\{commune\}/g, nomCommune)
     .replace(/\{date\}/g, etabliLe)
   const attestationTemplate = issuerCustomization?.attestationText?.trim()

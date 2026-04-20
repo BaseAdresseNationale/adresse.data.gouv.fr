@@ -251,14 +251,14 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const hasTechnicalRequirements = district && district.nbNumerosCertifies > 0
 
   const [currentConfig, setCurrentConfig] = useState<string>(() =>
-    JSON.stringify(withCertificateFieldDefaults({ ...config }, district?.nomCommune)),
+    JSON.stringify(withCertificateFieldDefaults({ ...config }, district?.nomCommune, district?.population)),
   )
   const [configState, setConfigState] = useState<BANConfig>(() => {
     let c = { ...config }
     if (typeof c.certificateIssuerDetails === 'string') {
       c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
     }
-    return withCertificateFieldDefaults(c, district?.nomCommune)
+    return withCertificateFieldDefaults(c, district?.nomCommune, district?.population)
   })
   const [issuerDetailsFallbackFromApi, setIssuerDetailsFallbackFromApi] = useState('')
   const [recapLoading, setRecapLoading] = useState<boolean>(true)
@@ -283,6 +283,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
           return c
         })(),
         district?.nomCommune,
+        district?.population,
       ),
     ),
   )
@@ -368,12 +369,12 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
       if (typeof next.certificateIssuerDetails === 'string') {
         next.certificateIssuerDetails = sanitizeCertificateIssuerDetails(next.certificateIssuerDetails)
       }
-      next = withCertificateFieldDefaults(next, district?.nomCommune)
+      next = withCertificateFieldDefaults(next, district?.nomCommune, district?.population)
       setConfigState(next)
       setCurrentConfig(JSON.stringify(next))
       setIssuerBlockPreviewValidFor(certificateIssuerBlockFingerprint(next))
     }
-  }, [config, district?.nomCommune])
+  }, [config, district?.nomCommune, district?.population])
 
   useEffect(() => {
     const code = district?.codeCommune
@@ -745,6 +746,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     hasBanId={Boolean(hasBanId)}
                     codeCommune={district?.codeCommune}
                     nomCommune={district?.nomCommune}
+                    communePopulation={district?.population}
                     certificatePdfUiPhase={certificatePdfUiPhase}
                     setCertificatePdfUiPhase={setCertificatePdfUiPhase}
                     certificateContentStep={certificateContentStep}

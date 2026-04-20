@@ -73,6 +73,11 @@ export async function POST(request: Request) {
     const nomCommune = nomCommuneBody?.trim()
       || (typeof geoData?.nom === 'string' ? geoData.nom : null)
       || `Commune ${codeCommune}`
+
+    const population
+      = typeof geoData?.population === 'number' && Number.isFinite(geoData.population)
+        ? geoData.population
+        : undefined
     const codesPostaux: string[] = Array.isArray(geoData?.codesPostaux) ? geoData.codesPostaux : []
     const postalCode = codesPostaux[0] || '00000'
 
@@ -113,6 +118,7 @@ export async function POST(request: Request) {
           showCommuneLogo: certificateShowLogo,
           issuerDetails,
           attestationText: sanitizeCertificateAttestationText(certificateAttestationText) || undefined,
+          population,
         }}
       />,
     )

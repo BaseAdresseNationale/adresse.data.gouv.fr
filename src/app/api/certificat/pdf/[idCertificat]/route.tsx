@@ -3,7 +3,7 @@ import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
 
 import { getMairie } from '@/lib/api-etablissement-public'
-import { getDistrictConfigByCodeCommune } from '@/lib/api-ban'
+import { getCommuneWithoutCache, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 import {
   CERTIFICAT_DEFAULT_LOGO_RELATIVE,
@@ -44,6 +44,16 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
   const mairieData = mairie || { telephone: undefined, email: undefined }
 
   const districtConfig = await getDistrictConfigByCodeCommune(data.full_address.cog)
+  let population: number | undefined
+  try {
+    const banCommune = await getCommuneWithoutCache(data.full_address.cog)
+    population = typeof banCommune?.population === 'number' && Number.isFinite(banCommune.population)
+      ? banCommune.population
+      : undefined
+  }
+  catch {
+    population = undefined
+  }
   const showCommuneLogo = districtConfig?.certificateShowLogo === true
   const logoUrl = showCommuneLogo
     ? await resolveCertificatCommuneLogoForGeneration(data.full_address.cog)
@@ -63,6 +73,7 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
         showCommuneLogo,
         issuerDetails,
         attestationText: attestationText || undefined,
+        population,
       }}
     />
   )

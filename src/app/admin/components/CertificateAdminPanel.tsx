@@ -15,7 +15,7 @@ import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import { CertificatePdfCustomizationFields } from './CertificatePdfCustomizationFields'
 import { CertificatePdfPreviewButtonClean } from './CertificatePdfPreviewButtonClean'
 import {
-  CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE,
+  getDefaultAttestationTemplate,
   resetCertificatePresentationToServiceDefaults,
 } from '@/lib/certificate-issuer-config'
 import { type BANConfig, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
@@ -33,6 +33,7 @@ type CertificateAdminPanelProps = {
   hasBanId: boolean
   codeCommune: string | undefined
   nomCommune: string | undefined
+  communePopulation?: number
   certificatePdfUiPhase: CertificatePdfUiPhase
   setCertificatePdfUiPhase: Dispatch<SetStateAction<CertificatePdfUiPhase>>
   certificateContentStep: CertificateContentStep
@@ -52,6 +53,7 @@ export function CertificateAdminPanel({
   hasBanId,
   codeCommune,
   nomCommune,
+  communePopulation,
   certificatePdfUiPhase,
   setCertificatePdfUiPhase,
   certificateContentStep,
@@ -88,12 +90,14 @@ export function CertificateAdminPanel({
       nomCommune: nomCommune ?? '',
       certificateShowLogo: configState?.certificateShowLogo ?? false,
       certificateIssuerDetails: issuerHeaderBlockForInput,
-      certificateAttestationText: configState?.certificateAttestationText ?? CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE,
+      certificateAttestationText:
+        configState?.certificateAttestationText ?? getDefaultAttestationTemplate(communePopulation),
       disabled: readOnly || !isUserAuthorized || !hasBanId,
     }
   }, [
     codeCommune,
     nomCommune,
+    communePopulation,
     configState?.certificateAttestationText,
     configState?.certificateShowLogo,
     issuerHeaderBlockForInput,
@@ -333,7 +337,7 @@ export function CertificateAdminPanel({
                             isUserAuthorized={Boolean(isUserAuthorized)}
                             hasBanId={Boolean(hasBanId)}
                             nomCommune={nomCommune}
-                            defaultAttestationTemplate={CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE}
+                            defaultAttestationTemplate={getDefaultAttestationTemplate(communePopulation)}
                           />
                         </div>
                       )}
@@ -354,9 +358,10 @@ export function CertificateAdminPanel({
                             isUserAuthorized={Boolean(isUserAuthorized)}
                             hasBanId={Boolean(hasBanId)}
                             nomCommune={nomCommune}
-                            defaultAttestationTemplate={CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE}
+                            defaultAttestationTemplate={getDefaultAttestationTemplate(communePopulation)}
                             issuerHeaderBlockForInput={issuerHeaderBlockForInput}
                             issuerDetailsDefaultHint={issuerDetailsDefaultHint}
+                            communePopulation={communePopulation}
                             onIssuerHeaderBlockInput={onIssuerHeaderBlockInput}
                           />
                         </div>

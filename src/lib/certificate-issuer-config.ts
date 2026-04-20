@@ -35,7 +35,19 @@ export function certificateAttestationEffectiveMaxChars(): number {
   )
 }
 
-export const CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE = 'La ville de {commune} atteste que l\'adresse ci-dessous est certifiée dans la Base Adresse Nationale à la date du {date}.'
+export const POPULATION_SEUIL_VILLE = 2000
+
+export function isVilleParPopulation(population: number | undefined): boolean {
+  return typeof population === 'number' && Number.isFinite(population) && population >= POPULATION_SEUIL_VILLE
+}
+
+export function getDefaultAttestationTemplate(population?: number): string {
+  return isVilleParPopulation(population)
+    ? 'La ville de {commune} atteste que l\'adresse ci-dessous est certifiée dans la Base Adresse Nationale à la date du {date}.'
+    : 'La commune de {commune} atteste que l\'adresse ci-dessous est certifiée dans la Base Adresse Nationale à la date du {date}.'
+}
+
+export const CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE = getDefaultAttestationTemplate()
 
 /** Texte attestation non vide : doit contenir {commune} et {date}. */
 export function getCertificateAttestationPlaceholderError(
@@ -60,6 +72,7 @@ export function issuerPdfLinesFromInputs(options: {
   nomCommune: string
   mairie: { telephone?: string, email?: string } | null | undefined
   issuerDetails?: string | null
+  population?: number
 }): string[] {
   const detailsRaw = options.issuerDetails?.replace(/\r\n/g, '\n').trim()
   if (detailsRaw) {
@@ -68,23 +81,41 @@ export function issuerPdfLinesFromInputs(options: {
       .slice(0, CERTIFICATE_ISSUER_DETAILS_MAX_INPUT_LINES)
       .filter(line => line.trim().length > 0)
   }
-  const villeLine = `Ville de ${options.nomCommune}`
+  const collectiviteLine = isVilleParPopulation(options.population)
+    ? `Ville de ${options.nomCommune}`
+    : `Commune de ${options.nomCommune}`
   const tel = options.mairie?.telephone?.trim() ?? ''
   const em = options.mairie?.email?.trim() ?? ''
-  const lines: string[] = [villeLine]
+  const lines: string[] = [collectiviteLine]
   if (tel) lines.push(tel)
   if (em) lines.push(em)
   return lines
 }
 
+export function issuerDetailsDefaultHintWithCommuneVillePrefix(
+  hint: string | undefined,
+  nomCommune: string | undefined,
+  population: number | undefined,
+): string | undefined {
+  if (hint == null || !String(hint).trim()) return hint
+  if (!nomCommune?.trim()) return hint
+  if (typeof population !== 'number' || !Number.isFinite(population)) return hint
+  const lines = hint.replace(/\r\n/g, '\n').split('\n')
+  const prefix = isVilleParPopulation(population) ? 'Ville' : 'Commune'
+  const first = `${prefix} de ${nomCommune.trim()}`
+  const rest = lines.slice(1).join('\n').trimEnd()
+  return rest.length > 0 ? `${first}\n${rest}` : first
+}
+
 export function withCertificateFieldDefaults(
   c: BANConfig,
   nomCommune: string | undefined,
+  population?: number,
 ): BANConfig {
   if (!nomCommune?.trim()) return c
   const next = { ...c }
   if (!next.certificateAttestationText?.trim()) {
-    next.certificateAttestationText = CERTIFICATE_ATTESTATION_DEFAULT_TEMPLATE
+    next.certificateAttestationText = getDefaultAttestationTemplate(population)
   }
   return next
 }

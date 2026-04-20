@@ -5,6 +5,7 @@ import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import {
   CERTIFICATE_ISSUER_DETAILS_MAX_CHARS_PER_LOGICAL_LINE,
   certificateIssuerDetailsEffectiveMaxChars,
+  issuerDetailsDefaultHintWithCommuneVillePrefix,
   normalizeCertificateAttestationTextInput,
   normalizeCertificateIssuerDetailsInput,
 } from '@/lib/certificate-issuer-config'
@@ -27,6 +28,7 @@ export type CertificatePdfCustomizationFieldsProps = CertificatePdfCustomization
     variant: 'service'
     issuerHeaderBlockForInput: string
     issuerDetailsDefaultHint?: string
+    communePopulation?: number
     onIssuerHeaderBlockInput: (raw: string) => void
   }
 )
@@ -64,17 +66,27 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
 
   const issuerHeaderBlockForInput = variant === 'service' ? props.issuerHeaderBlockForInput : ''
   const issuerDetailsDefaultHint = variant === 'service' ? props.issuerDetailsDefaultHint : undefined
+  const communePopulation = variant === 'service' ? props.communePopulation : undefined
   const onIssuerHeaderBlockInput = variant === 'service' ? props.onIssuerHeaderBlockInput : undefined
 
+  const issuerDetailsDefaultHintAdjusted = useMemo(
+    () => issuerDetailsDefaultHintWithCommuneVillePrefix(
+      issuerDetailsDefaultHint,
+      nomCommune,
+      communePopulation,
+    ),
+    [issuerDetailsDefaultHint, nomCommune, communePopulation],
+  )
+
   const issuerHeaderPlaceholder = useMemo(() => {
-    const hint = issuerDetailsDefaultHint?.trim()
+    const hint = issuerDetailsDefaultHintAdjusted?.trim()
     if (!hint) return undefined
     return [
       'Texte utilisé par défaut si vous ne saisissez rien',
       '',
       hint,
     ].join('\n')
-  }, [issuerDetailsDefaultHint])
+  }, [issuerDetailsDefaultHintAdjusted])
 
   const issuerInputForCounters = useDeferredValue(issuerHeaderBlockForInput)
   const lineCharStats = useMemo(() => {
