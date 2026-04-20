@@ -10,7 +10,7 @@ import { LngLatBounds } from 'maplibre-gl'
 import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
 import { getBanItem, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
 import { getCommune } from '@/lib/api-geo'
-import { CertificateTypeEnum } from '@/types/api-ban.types'
+import { type BANConfig, CertificateTypeEnum } from '@/types/api-ban.types'
 
 import { useBanMapConfig } from './components/ban-map/BanMap.context'
 import Aside from './components/Aside'
@@ -46,6 +46,17 @@ const DEFAULT_ZOOM = 6
 const MAX_ZOOM = 22
 const DEFAULT_URL_DISTRICT_FLAG = '/commune/default-logo.svg'
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
+
+const districtConfigByCodeCommuneCache = new globalThis.Map<string, BANConfig | null>()
+
+async function getDistrictConfigByCodeCommuneCached(codeCommune: string): Promise<BANConfig | null> {
+  if (districtConfigByCodeCommuneCache.has(codeCommune)) {
+    return districtConfigByCodeCommuneCache.get(codeCommune)!
+  }
+  const config = await getDistrictConfigByCodeCommune(codeCommune)
+  districtConfigByCodeCommuneCache.set(codeCommune, config)
+  return config
+}
 
 const getBanItemTypes = (banItem?: { type: 'commune' | 'voie' | 'lieu-dit' | 'numero' }) => {
   switch (banItem?.type) {
@@ -196,8 +207,6 @@ function CartoView() {
   const [withCertificate, setWithCertificate] = useState<boolean>(false)
   const [isLoadMapSearchResults, setIsLoadMapSearchResults] = useState(false)
   const [isLoadMapTiles, setIsLoadMapTiles] = useState(false)
-  const [habilitationEnabled, setHabilitationEnabled] = useState<boolean>(false)
-
   const banMapRef = useRef<MapRef>(null)
   const asideRef = useRef<HTMLDivElement>(null)
   const oldMapSearchResults = useRef<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | null>(null)
@@ -366,7 +375,7 @@ function CartoView() {
             const address = banItem as TypeAddressExtended
             const codeCommune = address.commune?.code
             const config = codeCommune
-              ? await getDistrictConfigByCodeCommune(codeCommune) ?? undefined
+              ? await getDistrictConfigByCodeCommuneCached(codeCommune) ?? undefined
               : undefined
 
             if ((config?.certificate == CertificateTypeEnum.DISTRICT && habilitation) || config?.certificate == CertificateTypeEnum.ALL) {
@@ -383,15 +392,13 @@ function CartoView() {
             break
         }
 
-        setHabilitationEnabled(habilitation)
-
         setIsLoadMapSearchResults(false)
       })()
     }
     else {
       return closeMapSearchResults()
     }
-  }, [banItemId, habilitationEnabled, closeMapSearchResults])
+  }, [banItemId, closeMapSearchResults])
 
   useEffect(() => {
     if (tomId && isMapReady) {
