@@ -51,19 +51,19 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
     ])
 
   function handleSearch(param: string) {
-    if (search === '') {
+    setSearch(param)
+    if (param === '') {
       setFiltredMicroToponymes(microToponymes)
     }
     else {
       const voies = microToponymes.filter(
         (voie: any) => deburr(voie.nomVoie.toLowerCase())
-          .includes(deburr(search.toLowerCase()))
+          .includes(deburr(param.toLowerCase()))
       ).sort(
-        // Sort by position of 'search value' in each word of the name
         (voieA: any, voieB: any) => {
           const nameA = deburr(voieA.nomVoie.toLowerCase())
           const nameB = deburr(voieB.nomVoie.toLowerCase())
-          const searchLower = deburr(search.toLowerCase())
+          const searchLower = deburr(param.toLowerCase())
           const positionA = nameA.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
           const positionB = nameB.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
           if (positionA.length === 0 && positionB.length === 0) return 0
