@@ -42,6 +42,10 @@ type CertificateAdminPanelProps = {
   issuerDetailsDefaultHint?: string
   onIssuerHeaderBlockInput: (raw: string) => void
   onCertificatePdfPreviewDisplayed?: () => void
+  /** Enregistrement depuis l’aperçu PDF (retourne `true` si succès). */
+  onSaveConfiguration?: () => Promise<boolean>
+  /** Synchronisé avec la barre d’enregistrement : sans changement, le bouton du modal est désactivé. */
+  hasUnsavedChanges?: boolean
 }
 
 export function CertificateAdminPanel({
@@ -62,6 +66,8 @@ export function CertificateAdminPanel({
   issuerDetailsDefaultHint,
   onIssuerHeaderBlockInput,
   onCertificatePdfPreviewDisplayed,
+  onSaveConfiguration,
+  hasUnsavedChanges = true,
 }: CertificateAdminPanelProps) {
   const certIsEnabled = Boolean(configState?.certificate && configState.certificate !== CertificateTypeEnum.DISABLED)
   const certPdfPreviewAnchorRef = useRef<HTMLDivElement>(null)
@@ -92,6 +98,7 @@ export function CertificateAdminPanel({
       certificateIssuerDetails: issuerHeaderBlockForInput,
       certificateAttestationText:
         configState?.certificateAttestationText ?? getDefaultAttestationTemplate(communePopulation),
+      communePopulation,
       disabled: readOnly || !isUserAuthorized || !hasBanId,
     }
   }, [
@@ -106,6 +113,13 @@ export function CertificateAdminPanel({
     readOnly,
   ])
 
+  const saveFromPreviewAllowed = Boolean(
+    onSaveConfiguration
+    && !readOnly
+    && isUserAuthorized
+    && hasBanId,
+  )
+
   const renderPdfPreviewButton = (triggerPriority: 'primary' | 'secondary') =>
     pdfPreviewProps
       ? (
@@ -113,6 +127,9 @@ export function CertificateAdminPanel({
             {...pdfPreviewProps}
             triggerPriority={triggerPriority}
             onPdfDisplayed={onCertificatePdfPreviewDisplayed}
+            previewOpenButtonId="certificat-pdf-apercu-bouton"
+            onRequestSaveFromPreview={saveFromPreviewAllowed ? onSaveConfiguration : undefined}
+            saveFromPreviewDisabled={saveFromPreviewAllowed && !hasUnsavedChanges}
           />
         )
       : null
@@ -204,13 +221,13 @@ export function CertificateAdminPanel({
 
             {certificatePdfUiPhase === 'preview-only' && (
               <div
-                className="fr-p-3w"
+                id="certificat-pdf-apercu-ancre"
+                className="fr-p-3w fr-background-alt--blue-france"
                 style={{
-                  border: '1px solid var(--blue-france-850-200)',
+                  border: '1px solid var(--border-default-grey)',
                   borderLeftWidth: '0.25rem',
-                  borderLeftColor: 'var(--blue-france-sun-113-625)',
+                  borderLeftColor: 'var(--border-action-high-blue-france)',
                   borderRadius: '0.25rem',
-                  background: 'var(--blue-france-975-75)',
                 }}
               >
                 <p className="fr-text--sm fr-mb-2w" style={{ textWrap: 'pretty' }}>
@@ -293,7 +310,7 @@ export function CertificateAdminPanel({
                       <li className="fr-mb-0">
                         <strong>Service émetteur et coordonnées</strong>
                         {' '}
-                        — texte libre en haut à gauche (service, coordonnées, etc., selon votre choix ; jusqu&apos;à 5
+                        — texte libre en haut à droite (service, coordonnées, etc., selon votre choix ; jusqu&apos;à 5
                         lignes).
                       </li>
                     </ul>
@@ -372,6 +389,7 @@ export function CertificateAdminPanel({
 
                 <hr className="fr-hr fr-mt-4w fr-mb-0" />
                 <div
+                  id="certificat-pdf-apercu-ancre"
                   ref={certPdfPreviewAnchorRef}
                   className="fr-pt-4w"
                   style={{

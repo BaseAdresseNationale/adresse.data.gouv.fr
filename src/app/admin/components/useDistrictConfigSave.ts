@@ -11,9 +11,16 @@ import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 
 export type SaveMessageType = 'success' | 'error' | 'info'
 
+export interface SaveMessageAction {
+  label: string
+  onClick: () => void
+}
+
 export interface SaveMessage {
   text: string
   type: SaveMessageType
+  /** Boutons d’appel à l’action (ex. ouvrir l’aperçu PDF si enregistrement refusé) */
+  actions?: readonly SaveMessageAction[]
 }
 
 interface UseDistrictConfigSaveParams {
@@ -25,6 +32,8 @@ interface UseDistrictConfigSaveParams {
   onBeforeSave?: () => void
   onSuccess?: () => void
   validateBeforeCertificateSave?: () => string | null
+  /** Enrichit le message d’erreur lorsque l’aperçu certificat est obligatoire (bouton vers l’aperçu). */
+  enrichCertificatePreviewError?: (message: string) => SaveMessage
 }
 
 export function useDistrictConfigSave({
@@ -36,6 +45,7 @@ export function useDistrictConfigSave({
   onBeforeSave,
   onSuccess,
   validateBeforeCertificateSave,
+  enrichCertificatePreviewError,
 }: UseDistrictConfigSaveParams) {
   const [message, setMessage] = useState<SaveMessage | null>(null)
   const [isSaving, setIsSaving] = useState(false)
@@ -80,25 +90,26 @@ export function useDistrictConfigSave({
     })
   }, [clearTimers])
 
-  const pushConfigUpdate = useCallback(async () => {
+  /** Retourne `true` seulement si la configuration a bien été enregistrée (ex. fermer l’aperçu PDF). */
+  const pushConfigUpdate = useCallback(async (): Promise<boolean> => {
     const newConfig = { ...configState }
     if (typeof newConfig.certificateIssuerDetails === 'string') {
       newConfig.certificateIssuerDetails = sanitizeCertificateIssuerDetails(newConfig.certificateIssuerDetails)
     }
     const districtID = district?.banId
-    if (!districtID || !userInfo) return
+    if (!districtID || !userInfo) return false
 
     const certEnabled = newConfig.certificate != null && newConfig.certificate !== CertificateTypeEnum.DISABLED
     if (certEnabled) {
       const attestationErr = getCertificateAttestationPlaceholderError(newConfig.certificateAttestationText)
       if (attestationErr) {
         setMessage({ text: attestationErr, type: 'error' })
-        return
+        return false
       }
       const certPreviewErr = validateBeforeCertificateSave?.() ?? null
       if (certPreviewErr) {
-        setMessage({ text: certPreviewErr, type: 'error' })
-        return
+        setMessage(enrichCertificatePreviewError?.(certPreviewErr) ?? { text: certPreviewErr, type: 'error' })
+        return false
       }
     }
 
@@ -130,9 +141,11 @@ export function useDistrictConfigSave({
       setTimeout(() => setSaveProgress(0), 600)
       setMessage({ text: 'Modifications enregistrées', type: 'success' })
       onSuccess?.()
+      return true
     }
     catch (error) {
       handleSaveError(error)
+      return false
     }
   }, [
     clearTimers,
@@ -145,6 +158,7 @@ export function useDistrictConfigSave({
     setCurrentConfig,
     userInfo,
     validateBeforeCertificateSave,
+    enrichCertificatePreviewError,
   ])
 
   useEffect(() => () => {

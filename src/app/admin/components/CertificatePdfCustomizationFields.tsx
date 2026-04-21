@@ -1,16 +1,30 @@
 'use client'
 
-import { useDeferredValue, useEffect, useMemo, useRef } from 'react'
+import { Fragment, type CSSProperties, useEffect, useMemo, useRef } from 'react'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import {
   CERTIFICATE_ISSUER_DETAILS_MAX_CHARS_PER_LOGICAL_LINE,
+  CERTIFICATE_ISSUER_DETAILS_MAX_INPUT_LINES,
   certificateIssuerDetailsEffectiveMaxChars,
   issuerDetailsDefaultHintWithCommuneVillePrefix,
   normalizeCertificateAttestationTextInput,
-  normalizeCertificateIssuerDetailsInput,
 } from '@/lib/certificate-issuer-config'
 import { collectiviteFrCommuneAuthUrl } from '@/lib/collectivite-fr-url'
 import { type BANConfig } from '@/types/api-ban.types'
+
+const ISSUER_DETAILS_MAX_TOTAL_CHARS = certificateIssuerDetailsEffectiveMaxChars()
+
+const ISSUER_TEXTAREA_SHARED_STYLE: CSSProperties = {
+  font: '400 1rem/1.5 var(--font-family-default, Marianne, arial, sans-serif)',
+  padding: '0.5rem 1rem',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-all',
+  overflowWrap: 'break-word',
+  tabSize: 4,
+  boxSizing: 'border-box',
+  WebkitTextSizeAdjust: '100%',
+  textSizeAdjust: '100%',
+}
 
 type CertificatePdfCustomizationFieldsBase = {
   configState: BANConfig | undefined
@@ -47,8 +61,6 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
 
   const logoOn = configState?.certificateShowLogo ?? false
   const collectiviteAuthHref = collectiviteFrCommuneAuthUrl(nomCommune)
-  const headerBlockMaxChars = useMemo(() => certificateIssuerDetailsEffectiveMaxChars(), [])
-
   const configRef = useRef(configState)
   configRef.current = configState
 
@@ -88,19 +100,19 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
     ].join('\n')
   }, [issuerDetailsDefaultHintAdjusted])
 
-  const issuerInputForCounters = useDeferredValue(issuerHeaderBlockForInput)
-  const lineCharStats = useMemo(() => {
-    const lines = issuerInputForCounters.replace(/\r\n/g, '\n').split('\n')
-    return lines.map((line, i) => {
-      const maxLen = CERTIFICATE_ISSUER_DETAILS_MAX_CHARS_PER_LOGICAL_LINE
-      return {
-        lineNumber: i + 1,
-        length: line.length,
-        maxLen,
-        over: line.length > maxLen,
-      }
-    })
-  }, [issuerInputForCounters])
+  const { issuerLines, lineCharStats } = useMemo(() => {
+    const lines = issuerHeaderBlockForInput.replace(/\r\n/g, '\n').split('\n')
+    const maxLen = CERTIFICATE_ISSUER_DETAILS_MAX_CHARS_PER_LOGICAL_LINE
+    const maxLines = CERTIFICATE_ISSUER_DETAILS_MAX_INPUT_LINES
+    const lineCharStats = lines.map((line, i) => ({
+      lineNumber: i + 1,
+      length: line.length,
+      maxLen,
+      over: line.length > maxLen || i >= maxLines,
+    }))
+    return { issuerLines: lines, lineCharStats }
+  }, [issuerHeaderBlockForInput])
+  const hasIssuerText = issuerHeaderBlockForInput.length > 0
 
   if (variant === 'logo') {
     return (
@@ -127,8 +139,8 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
 
         <ToggleSwitch
           id="cert-toggle-show-logo"
-          label="Afficher l’emblème communal sur le certificat"
-          helperText="Désactivé par défaut. Activez pour afficher l’emblème communal sur le certificat."
+          label="Afficher l&apos;emblème communal sur le certificat"
+          helperText="Désactivé par défaut. Activez pour afficher l&apos;emblème communal sur le certificat."
           checked={logoOn}
           showCheckedHint
           labelPosition="left"
@@ -145,7 +157,7 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
             <strong>Emblème communal</strong>
           </p>
           <p className="fr-text--sm fr-mb-2w">
-            L’emblème affiché sur ce site est celui du référentiel officiel de l’
+            L&apos;emblème affiché sur ce site est celui du référentiel officiel de l&apos;
             <a
               href="https://collectivite.fr"
               className="fr-link"
@@ -158,8 +170,8 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
             (collectivite.fr). Il reprend le visuel associé à votre commune sur ce service public.
           </p>
           <p className="fr-text--sm fr-mb-2w">
-            Pour <strong>modifier l’emblème communal</strong> de votre collectivité, connectez-vous à l’espace
-            sécurisé de l’annuaire (authentification sur collectivite.fr). Les changements effectués côté annuaire
+            Pour <strong>modifier l&apos;emblème communal</strong> de votre collectivité, connectez-vous à l&apos;espace
+            sécurisé de l&apos;annuaire (authentification sur collectivite.fr). Les changements effectués côté annuaire
             peuvent ensuite se refléter ici après mise à jour du référentiel.
           </p>
           <p className="fr-text--sm fr-mb-1w">
@@ -176,8 +188,8 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
             </a>
           </p>
           <p className="fr-hint-text fr-mb-0">
-            Lorsque l’interrupteur ci-dessus est activé, l’emblème communal apparaît en haut à droite du
-            certificat, à côté du bandeau Marianne et du bloc d’adresse.
+            Lorsque l&apos;interrupteur ci-dessus est activé, l&apos;emblème communal apparaît en haut à droite du
+            certificat, à côté du bandeau Marianne et du bloc d&apos;adresse.
           </p>
         </div>
       </>
@@ -187,13 +199,12 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
   return (
     <>
       <div
-        className="fr-p-3w fr-mb-0"
+        className="fr-p-3w fr-mb-0 fr-background-alt--blue-france"
         style={{
-          border: '1px solid var(--blue-france-850-200)',
+          border: '1px solid var(--border-default-grey)',
           borderLeftWidth: '0.25rem',
-          borderLeftColor: 'var(--blue-france-sun-113-625)',
+          borderLeftColor: 'var(--border-action-high-blue-france)',
           borderRadius: '0.25rem',
-          background: 'var(--blue-france-975-75)',
           overflowAnchor: 'none',
         }}
       >
@@ -212,10 +223,10 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
           </div>
         </div>
         <p className="fr-hint-text fr-mb-2w" style={{ textWrap: 'pretty' }}>
-          Ce texte figure en haut à gauche du certificat. Vous choisissez <strong>librement</strong> ce qu’il contient :
-          par exemple l’intitulé du service qui délivre le document, des coordonnées (téléphone, courriel, horaires),
+          Ce texte figure en haut à droite du certificat. Vous choisissez <strong>librement</strong> ce qu&apos;il contient :
+          par exemple l&apos;intitulé du service qui délivre le document, des coordonnées (téléphone, courriel, horaires),
           ou toute autre mention — <strong>selon ce que vous jugez utile</strong> pour votre commune et ce que vous
-          affichez d’habitude sur les documents délivrés en mairie. Rien n’oblige à renseigner tous ces éléments à la
+          affichez d&apos;habitude sur les documents délivrés en mairie. Rien n&apos;oblige à renseigner tous ces éléments à la
           fois ; vous adaptez le bloc à votre pratique.
         </p>
         <p className="fr-hint-text fr-mb-2w" style={{ textWrap: 'pretty' }}>
@@ -223,9 +234,9 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
           (espaces compris), pour que le texte reste lisible sur le certificat imprimé.
         </p>
         <p className="fr-hint-text fr-mb-2w" style={{ textWrap: 'pretty' }}>
-          Si vous ne renseignez pas ce champ, le certificat reprend des <strong>informations par défaut</strong>. Après toute modification, <strong>contrôlez le rendu dans l’aperçu</strong> sous cette
-          section : vous restez <strong>responsable du texte</strong> tel qu’il apparaîtra sur le document — vérifiez-le
-          avant d’enregistrer en bas de page.
+          Si vous ne renseignez pas ce champ, le certificat reprend des <strong>informations par défaut</strong>. Après toute modification, <strong>contrôlez le rendu dans l&apos;aperçu</strong> sous cette
+          section : vous restez <strong>responsable du texte</strong> tel qu&apos;il apparaîtra sur le document — vérifiez-le
+          avant d&apos;enregistrer en bas de page.
         </p>
 
         <div className="fr-input-group fr-mb-0" style={{ overflowAnchor: 'none' }}>
@@ -234,21 +245,88 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
           </label>
           <p className="fr-hint-text fr-mb-1w" style={{ textWrap: 'pretty' }}>
             Touche <strong>Entrée</strong> pour un saut de ligne. Les compteurs sous le champ indiquent la longueur par
-            ligne et le total ; un dépassement apparaît avant enregistrement.
+            ligne et le total. La partie qui dépasse 50 caractères et ne sera <strong>pas retenue</strong> dans le PDF.
           </p>
-          <textarea
-            id="certificate-issuer-header-block"
-            className="fr-input"
-            rows={8}
-            value={issuerHeaderBlockForInput}
-            disabled={disabled}
-            placeholder={issuerHeaderPlaceholder}
-            style={{ overflowAnchor: 'none' }}
-            onChange={(e) => {
-              onIssuerHeaderBlockInput?.(normalizeCertificateIssuerDetailsInput(e.target.value))
+
+          <div
+            style={{
+              position: 'relative',
+              borderRadius: '0.25rem',
+              border: '1px solid var(--border-plain-grey)',
+              background: disabled
+                ? 'var(--background-disabled-grey)'
+                : 'var(--background-raised-grey)',
+              overflowAnchor: 'none',
             }}
-            aria-describedby="certificate-issuer-header-line-counters"
-          />
+          >
+            <pre
+              aria-hidden
+              style={{
+                ...ISSUER_TEXTAREA_SHARED_STYLE,
+                position: 'absolute',
+                inset: 0,
+                pointerEvents: 'none',
+                overflow: 'hidden',
+                borderRadius: 'inherit',
+                margin: 0,
+              }}
+            >
+              {issuerLines.map((line, i) => {
+                if (i >= CERTIFICATE_ISSUER_DETAILS_MAX_INPUT_LINES) {
+                  return (
+                    <Fragment key={i}>
+                      {i > 0 ? '\n' : null}
+                      <span style={{ color: 'var(--text-default-error)' }}>{line}</span>
+                    </Fragment>
+                  )
+                }
+                const maxChars = CERTIFICATE_ISSUER_DETAILS_MAX_CHARS_PER_LOGICAL_LINE
+                const ok = line.slice(0, maxChars)
+                const over = line.slice(maxChars)
+                return (
+                  <Fragment key={i}>
+                    {i > 0 ? '\n' : null}
+                    <span style={{ color: 'var(--text-title-grey)' }}>{ok}</span>
+                    {over.length > 0 && (
+                      <span style={{ color: 'var(--text-default-error)' }}>{over}</span>
+                    )}
+                  </Fragment>
+                )
+              })}
+            </pre>
+
+            <textarea
+              id="certificate-issuer-header-block"
+              rows={8}
+              value={issuerHeaderBlockForInput}
+              disabled={disabled}
+              placeholder={issuerHeaderPlaceholder}
+              style={{
+                ...ISSUER_TEXTAREA_SHARED_STYLE,
+                position: 'relative',
+                display: 'block',
+                width: '100%',
+                minHeight: '12rem',
+                border: 'none',
+                outline: 'none',
+                background: 'transparent',
+                ...(hasIssuerText
+                  ? {
+                      color: 'transparent',
+                      WebkitTextFillColor: 'transparent',
+                    }
+                  : {}),
+                caretColor: 'var(--text-title-grey)',
+                resize: 'vertical',
+                overflowAnchor: 'none',
+              }}
+              onChange={(e) => {
+                onIssuerHeaderBlockInput?.(e.target.value)
+              }}
+              aria-describedby="certificate-issuer-header-line-counters"
+            />
+          </div>
+
           <div
             id="certificate-issuer-header-line-counters"
             className="fr-mt-1w fr-p-2w fr-background-alt--grey"
@@ -266,8 +344,7 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
                 display: 'flex',
                 flexWrap: 'wrap',
                 alignItems: 'baseline',
-                gap: '0 0.35rem',
-                columnGap: '0.5rem',
+                gap: '0 0.5rem',
                 lineHeight: 1.45,
               }}
             >
@@ -286,7 +363,7 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
                 </span>
               ))}
               <span className="fr-text-mention--grey" style={{ whiteSpace: 'nowrap' }}>
-                — Total {issuerInputForCounters.length}/{headerBlockMaxChars}
+                — Total {issuerHeaderBlockForInput.length}/{ISSUER_DETAILS_MAX_TOTAL_CHARS}
               </span>
             </div>
           </div>
