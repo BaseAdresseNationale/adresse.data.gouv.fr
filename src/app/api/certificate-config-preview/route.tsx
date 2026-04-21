@@ -41,6 +41,7 @@ export async function POST(request: Request) {
       certificateIssuerDetails?: string
       certificateAttestationText?: string
       nomCommune?: string
+      communePopulation?: number
     }
     try {
       body = JSON.parse(raw) as typeof body
@@ -55,6 +56,7 @@ export async function POST(request: Request) {
       certificateIssuerDetails = '',
       certificateAttestationText = '',
       nomCommune: nomCommuneBody,
+      communePopulation: communePopulationBody,
     } = body
     if (!codeCommune || typeof codeCommune !== 'string' || !/^\d{5}$/.test(codeCommune)) {
       return NextResponse.json({ error: 'Invalid codeCommune' }, { status: 400 })
@@ -74,10 +76,15 @@ export async function POST(request: Request) {
       || (typeof geoData?.nom === 'string' ? geoData.nom : null)
       || `Commune ${codeCommune}`
 
-    const population
+    const populationFromClient
+      = typeof communePopulationBody === 'number' && Number.isFinite(communePopulationBody)
+        ? communePopulationBody
+        : undefined
+    const populationFromGeo
       = typeof geoData?.population === 'number' && Number.isFinite(geoData.population)
         ? geoData.population
         : undefined
+    const population = populationFromClient ?? populationFromGeo
     const codesPostaux: string[] = Array.isArray(geoData?.codesPostaux) ? geoData.codesPostaux : []
     const postalCode = codesPostaux[0] || '00000'
 

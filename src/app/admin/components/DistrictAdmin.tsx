@@ -11,7 +11,7 @@ import { CommuneHeroCard, SectionEditCard } from './DistrictActions/DistrictActi
 import { ConfigSaveStickyBar } from './DistrictActions/ConfigSaveStickyBar'
 import language from './DistrictActions/langues-regionales.json'
 import { CommuneStatusBadge } from './CommuneStatusBadge'
-import { useDistrictConfigSave } from './useDistrictConfigSave'
+import { useDistrictConfigSave, type SaveMessage } from './useDistrictConfigSave'
 import { CertificateAdminPanel, type CertificateContentStep, type CertificatePdfUiPhase } from './CertificateAdminPanel'
 
 import {
@@ -524,10 +524,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
   const issuerHeaderBlockForInput = useMemo(() => {
     const stored = configState?.certificateIssuerDetails
-    if (typeof stored === 'string' && stored.trim()) {
-      return normalizeCertificateIssuerDetailsInput(stored)
-    }
-    return ''
+    return typeof stored === 'string' ? stored : ''
   }, [configState?.certificateIssuerDetails])
 
   const issuerDetailsDefaultHint = useMemo(
@@ -536,12 +533,11 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   )
 
   const updateIssuerHeaderBlockInput = useCallback((raw: string) => {
-    const detailsNorm = normalizeCertificateIssuerDetailsInput(raw)
-    handleUpdateConfig({
-      ...configState,
-      certificateIssuerDetails: detailsNorm,
-    })
-  }, [configState, handleUpdateConfig])
+    setConfigState(prev => ({
+      ...prev,
+      certificateIssuerDetails: raw,
+    }))
+  }, [])
 
   const handleCertificatePdfPreviewDisplayed = useCallback(() => {
     setIssuerBlockPreviewValidFor(certificateIssuerBlockFingerprint(configState))
@@ -556,6 +552,27 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     return null
   }, [configState, issuerBlockPreviewValidFor])
 
+  const scrollToCertPdfPreviewAndOpen = useCallback(() => {
+    setEditingSection('certificat')
+    window.setTimeout(() => {
+      document.getElementById('certificat-pdf-apercu-ancre')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      window.setTimeout(() => {
+        document.getElementById('certificat-pdf-apercu-bouton')?.click()
+      }, 420)
+    }, 220)
+  }, [])
+
+  const enrichCertificatePreviewError = useCallback((text: string): SaveMessage => ({
+    text,
+    type: 'error',
+    actions: [
+      {
+        label: 'Voir l’aperçu du certificat',
+        onClick: scrollToCertPdfPreviewAndOpen,
+      },
+    ],
+  }), [scrollToCertPdfPreviewAndOpen])
+
   const {
     message,
     setMessage,
@@ -569,6 +586,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     onUpdateConfig,
     setCurrentConfig,
     validateBeforeCertificateSave,
+    enrichCertificatePreviewError,
     onSuccess: () => setEditingSection(null),
   })
 
@@ -755,6 +773,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     issuerDetailsDefaultHint={issuerDetailsDefaultHint}
                     onIssuerHeaderBlockInput={updateIssuerHeaderBlockInput}
                     onCertificatePdfPreviewDisplayed={handleCertificatePdfPreviewDisplayed}
+                    onSaveConfiguration={pushConfigUpdate}
+                    hasUnsavedChanges={hasUnsavedChanges}
                   />
                 </div>
               )}

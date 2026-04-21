@@ -1,9 +1,53 @@
 'use client'
 
-import React, { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { StickyActions } from './DistrictActions.styles'
 import type { SaveMessage } from '../useDistrictConfigSave'
+
+function StickyMessageContent({
+  message,
+  onDismiss,
+}: {
+  message: SaveMessage
+  onDismiss: () => void
+}) {
+  const extraActions = message.actions ?? []
+  return (
+    <>
+      <span className="sticky-message__text fr-text--sm">{message.text}</span>
+      <div className="sticky-message__actions fr-mt-2w fr-mt-md-0">
+        <ul className="fr-btns-group fr-btns-group--inline fr-btns-group--icon-left fr-btns-group--sm fr-mb-0">
+          {extraActions.map((action, index) => (
+            <li key={`${action.label}-${index}`}>
+              <Button
+                type="button"
+                priority="secondary"
+                size="small"
+                iconId="fr-icon-eye-line"
+                onClick={action.onClick}
+              >
+                {action.label}
+              </Button>
+            </li>
+          ))}
+          <li>
+            <Button
+              type="button"
+              priority="secondary"
+              size="small"
+              iconId="fr-icon-close-line"
+              onClick={onDismiss}
+              title="Masquer ce message"
+            >
+              Fermer
+            </Button>
+          </li>
+        </ul>
+      </div>
+    </>
+  )
+}
 
 const SUCCESS_AUTO_DISMISS_MS = 4000
 
@@ -105,20 +149,16 @@ export function ConfigSaveStickyBar({
             className={`fr-icon ${message.type === 'success' ? 'fr-icon-checkbox-circle-line' : 'fr-icon-error-warning-line'} fr-icon--sm`}
             aria-hidden="true"
           />
-          <span className="fr-text--sm">{message.text}</span>
-          {message.type === 'error' && (
-            <Button
-              type="button"
-              priority="tertiary no outline"
-              iconId="fr-icon-close-line"
-              size="small"
-              className="sticky-message__close"
-              onClick={() => setMessage(null)}
-              title="Fermer le message d'erreur"
-            >
-              Fermer
-            </Button>
-          )}
+          {message.type === 'success'
+            ? <span className="fr-text--sm">{message.text}</span>
+            : (
+                <div className="sticky-message__body sticky-message__body--error">
+                  <StickyMessageContent
+                    message={message}
+                    onDismiss={() => setMessage(null)}
+                  />
+                </div>
+              )}
         </div>
       )}
 

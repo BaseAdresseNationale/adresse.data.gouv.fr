@@ -11,9 +11,16 @@ type CertificatePdfPreviewButtonProps = {
   certificateShowLogo: boolean
   certificateIssuerDetails: string
   certificateAttestationText: string
+  communePopulation?: number
   disabled?: boolean
   triggerPriority?: 'primary' | 'secondary'
   onPdfDisplayed?: () => void
+  /** `id` du bouton d’ouverture (lien depuis la barre d’enregistrement). */
+  previewOpenButtonId?: string
+  /** Enregistrement depuis le modal : renvoie `true` si succès (fermeture du modal). */
+  onRequestSaveFromPreview?: () => Promise<boolean>
+  /** Désactive « Enregistrer » dans le modal (ex. aucune modification locale à envoyer). */
+  saveFromPreviewDisabled?: boolean
 }
 
 const OVERLAY_Z = 2147483000
@@ -25,9 +32,13 @@ export function CertificatePdfPreviewButtonClean({
   certificateShowLogo,
   certificateIssuerDetails,
   certificateAttestationText,
+  communePopulation,
   disabled = false,
   triggerPriority = 'secondary',
   onPdfDisplayed,
+  previewOpenButtonId,
+  onRequestSaveFromPreview,
+  saveFromPreviewDisabled = false,
 }: CertificatePdfPreviewButtonProps) {
   const [mounted, setMounted] = useState(false)
   const [open, setOpen] = useState(false)
@@ -35,6 +46,7 @@ export function CertificatePdfPreviewButtonClean({
   const [prefetching, setPrefetching] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [saveFromModalBusy, setSaveFromModalBusy] = useState(false)
 
   const requestBody = useMemo(
     () => ({
@@ -43,6 +55,7 @@ export function CertificatePdfPreviewButtonClean({
       certificateShowLogo,
       certificateIssuerDetails,
       certificateAttestationText,
+      communePopulation,
     }),
     [
       certificateAttestationText,
@@ -50,6 +63,7 @@ export function CertificatePdfPreviewButtonClean({
       certificateShowLogo,
       codeCommune,
       nomCommune,
+      communePopulation,
     ],
   )
 
@@ -171,6 +185,18 @@ export function CertificatePdfPreviewButtonClean({
     setError(null)
   }, [])
 
+  const handleSaveFromModal = useCallback(async () => {
+    if (!onRequestSaveFromPreview) return
+    setSaveFromModalBusy(true)
+    try {
+      const ok = await onRequestSaveFromPreview()
+      if (ok) closeModal()
+    }
+    finally {
+      setSaveFromModalBusy(false)
+    }
+  }, [closeModal, onRequestSaveFromPreview])
+
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
@@ -286,22 +312,45 @@ export function CertificatePdfPreviewButtonClean({
               </p>
             </div>
             <div className="fr-col-auto">
-              <div className="fr-btns-group fr-btns-group--inline-md fr-btns-group--right fr-btns-group--icon-left">
+              <ul className="fr-btns-group fr-btns-group--inline-md fr-btns-group--right fr-btns-group--icon-left fr-mb-0">
                 {previewUrl && !modalLoading && (
-                  <Button
-                    type="button"
-                    priority="secondary"
-                    iconId="fr-icon-external-link-line"
-                    size="small"
-                    onClick={openPdfInNewTab}
-                  >
-                    Nouvel onglet
-                  </Button>
+                  <li>
+                    <Button
+                      type="button"
+                      priority="secondary"
+                      iconId="fr-icon-external-link-line"
+                      size="small"
+                      onClick={openPdfInNewTab}
+                    >
+                      Nouvel onglet
+                    </Button>
+                  </li>
                 )}
-                <Button type="button" priority="primary" size="small" onClick={closeModal}>
-                  Fermer
-                </Button>
-              </div>
+                {previewUrl && !modalLoading && onRequestSaveFromPreview && (
+                  <li>
+                    <Button
+                      type="button"
+                      priority="primary"
+                      iconId="fr-icon-save-line"
+                      size="small"
+                      disabled={saveFromModalBusy || saveFromPreviewDisabled}
+                      title={
+                        saveFromPreviewDisabled && !saveFromModalBusy
+                          ? 'Aucune modification à enregistrer. Changez la configuration puis enregistrez, ou utilisez le bouton en bas de page.'
+                          : undefined
+                      }
+                      onClick={handleSaveFromModal}
+                    >
+                      {saveFromModalBusy ? 'Enregistrement…' : 'Enregistrer les modifications'}
+                    </Button>
+                  </li>
+                )}
+                <li>
+                  <Button type="button" priority="secondary" size="small" onClick={closeModal}>
+                    Fermer
+                  </Button>
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -369,6 +418,7 @@ export function CertificatePdfPreviewButtonClean({
             size="small"
             disabled={disabled || open}
             onClick={handleOpen}
+            nativeButtonProps={previewOpenButtonId ? { id: previewOpenButtonId } : undefined}
           >
             {modalLoading && open ? 'Génération…' : 'Aperçu du certificat (modèle officiel)'}
           </Button>
