@@ -22,6 +22,7 @@ const NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3 = process.env.NEXT_PUBLIC_ANNUAIRE_C
 const NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3 = process.env.NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3
 
 const imagesDomains = [
+  's3.fr-par.scw.cloud',
   'static.data.gouv.fr',
   NEXT_PUBLIC_ANNUAIRE_COLLECTIVITES_S3 || 'annuaire-des-collectivites-production-storage.s3.fr-par.scw.cloud',
   NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3 || 'base-adresse-locale-prod-blasons-communes.s3.fr-par.scw.cloud',
