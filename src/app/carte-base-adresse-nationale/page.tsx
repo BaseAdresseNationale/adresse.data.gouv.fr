@@ -22,6 +22,7 @@ import { PanelAddressHeader, PanelAddress, PanelAddressFooter } from './componen
 import { PanelMicroToponymHeader, PanelMicroToponym, PanelMicroToponymFooter } from './components/PanelMicroToponym'
 import { PanelDistrictHeader, PanelDistrict, PanelDistrictFooter } from './components/PanelDistrict'
 import { MapWrapper, MapSearchResultsWrapper } from './page.styles'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 import type { MapRef } from 'react-map-gl/maplibre'
 import type { MapBreadcrumbPath } from './components/MapBreadcrumb'
@@ -188,6 +189,7 @@ const getBboxFromPositions = (positions: Position[]): [number, number, number, n
 }
 
 function CartoView() {
+  useClientSidePageTitle('Carte')
   const [isMapReady, setIsMapReady] = useState(false)
   const [isMenuVisible, setIsMenuVisible] = useState(false)
   const [mapSearchResults, setMapSearchResults] = useState<TypeDistrictExtended | TypeMicroToponymExtended | TypeAddressExtended | undefined>()

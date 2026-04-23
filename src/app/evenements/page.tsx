@@ -3,6 +3,9 @@ import banEvents from '@/data/ban-events.json'
 import { EventType } from '@/types/events.types'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 import EventPage from '@/components/Events/EventPage'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Évènements')
 
 export const dynamic = 'force-dynamic'
 

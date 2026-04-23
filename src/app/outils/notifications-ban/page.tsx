@@ -4,8 +4,10 @@ import React from 'react'
 import Link from 'next/link'
 import Section from '@/components/Section'
 import WebhookGuide from '@/components/NotificationsBAN/WebhookGuide'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 export default function NotificationsBANPage() {
+  useClientSidePageTitle('Notifications')
   return (
     <Section title="Notifications BAN">
       <div className="fr-container fr-py-4w">
