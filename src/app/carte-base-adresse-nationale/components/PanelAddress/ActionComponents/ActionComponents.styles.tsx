@@ -16,6 +16,17 @@ export const ActionList = styled.ul`
   padding: 0;
   margin: 0;
   list-style: none;
+
+  button {
+    text-align: left;
+    align-items: baseline;
+    line-height: 1.3;
+
+    &::before {
+      position: relative;
+      top: 0.15rem;
+    }
+  }
 `
 
 export const ActionMessage = styled.div<{ $isVisible?: boolean }>`

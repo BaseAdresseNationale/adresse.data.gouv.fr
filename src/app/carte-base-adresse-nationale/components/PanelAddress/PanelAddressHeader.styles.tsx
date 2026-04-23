@@ -131,6 +131,7 @@ export const AddressLabelWrapper = styled(PanelHeaderWrapper)`
   position: relative;
   display: block;
   flex: 1;
+  z-index: 0;
 
   &::after {
     content: '';
@@ -145,6 +146,7 @@ export const AddressNumber = styled.span`
   line-height: 1;
   font-weight: 300;
 `
+
 export const AddressNumberSuffix = styled.span`
   font-size: 0.75em;
   vertical-align: top;
