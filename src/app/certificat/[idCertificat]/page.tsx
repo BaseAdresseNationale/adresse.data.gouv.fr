@@ -9,6 +9,21 @@ import {
 } from './page.styles'
 import { env } from 'next-runtime-env'
 import { isUUIDv4 } from '@/utils/validate'
+import { Metadata } from 'next'
+
+interface CertificatProps {
+  params: { idCertificat: string }
+}
+
+export async function generateMetadata({
+  params,
+}: CertificatProps): Promise<Metadata> {
+  const { idCertificat } = await params
+
+  return {
+    title: `Certificat - ${idCertificat}`,
+  }
+}
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 

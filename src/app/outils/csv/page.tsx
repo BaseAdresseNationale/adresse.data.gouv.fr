@@ -12,6 +12,7 @@ import Step from './components/step'
 import ColumnsSelect from './components/columns-select'
 import DropZoneInput from '@/components/DropZoneInput'
 import Table from '@codegouvfr/react-dsfr/Table'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 const allowedTypes = new Set([
   'text/plain',
@@ -43,6 +44,7 @@ function getFileExtension(fileName: string) {
 }
 
 export default function Csv() {
+  useClientSidePageTitle('CSV')
   const [file, setFile] = useState<File | null>(null)
   const [csv, setCsv] = useState<Record<string, any> | null>(null)
   const [loading, setLoading] = useState(false)

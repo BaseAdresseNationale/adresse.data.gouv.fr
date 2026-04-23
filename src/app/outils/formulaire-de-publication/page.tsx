@@ -4,6 +4,9 @@ import { getCommune } from '@/lib/api-geo'
 import { getHabilitation, getRevision } from '@/lib/api-depot'
 import { Habilitation, Revision } from '@/types/api-depot.types'
 import { Commune } from '@/types/api-geo.types'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Formulaire')
 
 const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl?: string }, initialRevision?: Revision, initialHabilitation?: Habilitation }>(
   () => import('../../../components/FormulaireDePublication'),

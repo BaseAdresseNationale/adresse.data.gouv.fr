@@ -7,6 +7,9 @@ import type { DataType } from '@/lib/markdown'
 import Breadcrumb from '@/layouts/Breadcrumb'
 import { TextWrapper } from './page.styled'
 import { Table } from '@codegouvfr/react-dsfr/Table'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Données')
 
 export default async function Home() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('donnees-personnelles') || {}

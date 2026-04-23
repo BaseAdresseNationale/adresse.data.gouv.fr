@@ -6,6 +6,9 @@ import Section from '@/components/Section'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { Departement } from '@/types/api-geo.types'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Déploiement')
 
 export default async function DeploiementBALPage({ searchParams }: { searchParams: Record<string, string> }) {
   const stats = await getStats()
