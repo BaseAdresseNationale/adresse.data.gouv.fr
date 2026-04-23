@@ -37,7 +37,7 @@ interface TypeAddressExtended {
   voie: TypeVoie
   commune: TypeDistrict
 }
-
+/*
 const addressSample: TypeAddressExtended = {
   type: 'numero',
   banId: '1fe5a90e-8cce-45ff-828f-2a97ce50f5e0',
@@ -223,3 +223,4 @@ const addressSample: TypeAddressExtended = {
     },
   },
 }
+*/

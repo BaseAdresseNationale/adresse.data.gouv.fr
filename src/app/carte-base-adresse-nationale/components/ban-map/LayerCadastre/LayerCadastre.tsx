@@ -16,7 +16,7 @@ function LayerCadastre({ address, isVisible }: PropsLayerCadastre) {
     address?.parcelles && address.parcelles.length > 0
       ? ['any', ...address.parcelles.map(id => ['==', ['get', 'id'], id])]
       : ['==', ['get', 'id'], '']
-  ), [address?.parcelles])
+  ), [address])
 
   return (
     <Source

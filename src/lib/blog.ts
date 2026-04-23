@@ -1,7 +1,7 @@
 import { env } from 'next-runtime-env'
 
-const URL = env ('NEXT_PUBLIC_GHOST_URL')
-const KEY = env ('NEXT_PUBLIC_GHOST_KEY')
+const URL = env('NEXT_PUBLIC_GHOST_URL')
+const KEY = env('NEXT_PUBLIC_GHOST_KEY')
 
 const LIMIT = 15
 const INCLUDE = 'authors,tags'
@@ -19,6 +19,7 @@ const fetchOptions: RequestInit = {
   method: 'GET',
   headers: { 'content-type': 'application/json' },
   mode: 'cors',
+  cache: 'force-cache',
 }
 
 function buildTagFilter(tags?: string) {
@@ -65,7 +66,7 @@ export async function getPosts(options: PostOptions = {}) {
     if (res.ok) {
       return await res.json()
     }
-    void res.body?.cancel().catch(() => {})
+    void res.body?.cancel().catch(() => { })
   }
   catch (error) {
     console.log(error)
@@ -76,13 +77,13 @@ export async function getPosts(options: PostOptions = {}) {
 
 export async function getSinglePost(slug: string) {
   try {
-    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`)
+    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`, { cache: 'force-cache' })
 
     if (res.ok) {
       const data = await res.json()
       return data.posts[0]
     }
-    void res.body?.cancel().catch(() => {})
+    void res.body?.cancel().catch(() => { })
   }
   catch (error) {
     console.log(error)
@@ -93,13 +94,13 @@ export async function getSinglePost(slug: string) {
 
 export async function getTags() {
   try {
-    const res = await fetch(`${API_URL}/tags?key=${KEY}`)
+    const res = await fetch(`${API_URL}/tags?key=${KEY}`, { cache: 'force-cache' })
 
     if (res.ok) {
       const data = await res.json()
       return data.tags
     }
-    void res.body?.cancel().catch(() => {})
+    void res.body?.cancel().catch(() => { })
   }
   catch (error) {
     console.log(error)

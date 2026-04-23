@@ -1,6 +1,7 @@
 'use client'
 
 import CardWrapper from '../../CardWrapper'
+import type { ReactNode } from 'react'
 import { formatFr } from '@/lib/array'
 import { assemblageSources } from '@/lib/api-ban'
 import { BANCommune } from '@/types/api-ban.types'
@@ -11,7 +12,7 @@ import { fr } from 'date-fns/locale'
 
 interface CommuneCertificationBarProps {
   commune: BANCommune
-  lastRevisionsDetails: (string | JSX.Element | null)[][] | null
+  lastRevisionsDetails: (string | ReactNode | null)[][] | null
   certificationPercentage: number
   communeHasBAL: boolean
   banId: string | null

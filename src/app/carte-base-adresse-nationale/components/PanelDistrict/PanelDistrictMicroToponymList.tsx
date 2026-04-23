@@ -50,20 +50,20 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
       isMicroTopoWithoutAddressVisible,
     ])
 
-  useEffect(() => {
-    if (search === '') {
+  function handleSearch(param: string) {
+    setSearch(param)
+    if (param === '') {
       setFiltredMicroToponymes(microToponymes)
     }
     else {
       const voies = microToponymes.filter(
         (voie: any) => deburr(voie.nomVoie.toLowerCase())
-          .includes(deburr(search.toLowerCase()))
+          .includes(deburr(param.toLowerCase()))
       ).sort(
-        // Sort by position of 'search value' in each word of the name
         (voieA: any, voieB: any) => {
           const nameA = deburr(voieA.nomVoie.toLowerCase())
           const nameB = deburr(voieB.nomVoie.toLowerCase())
-          const searchLower = deburr(search.toLowerCase())
+          const searchLower = deburr(param.toLowerCase())
           const positionA = nameA.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
           const positionB = nameB.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
           if (positionA.length === 0 && positionB.length === 0) return 0
@@ -74,7 +74,8 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
       )
       setFiltredMicroToponymes(voies)
     }
-  }, [microToponymes, search])
+  }
+  
 
   return (
     <>
@@ -89,11 +90,11 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
       <Input
         label="Filtrer les odonymes"
         iconId="fr-icon-search-line"
-        addon={search && <ClearInputButton onClick={() => setSearch('')}>X</ClearInputButton>}
+        addon={search && <ClearInputButton onClick={() => handleSearch('')}>X</ClearInputButton>}
         nativeInputProps={{
           placeholder: 'Nom de voie, place ou lieu-dit',
           value: search,
-          onChange: (evt: React.ChangeEvent<HTMLInputElement>) => setSearch(evt.target.value),
+          onChange: (evt: React.ChangeEvent<HTMLInputElement>) => handleSearch(evt.target.value),
         }}
       />
 
