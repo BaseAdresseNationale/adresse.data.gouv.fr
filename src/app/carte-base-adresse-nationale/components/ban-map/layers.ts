@@ -68,7 +68,14 @@ export const adresseCircleLayer = {
       10.5, 0,
       14, 1,
     ],
-    'circle-color': defaultLayerPaint,
+    'circle-color': [
+      'case',
+      ['any',
+        ['boolean', ['feature-state', 'selected'], false],
+      ],
+      defaultLayerDraw,
+      defaultLayerPaint,
+    ],
     'circle-radius': [
       'interpolate',
       ['linear'], ['zoom'],
@@ -92,8 +99,18 @@ export const adresseCircleLayer = {
     'circle-stroke-width': [
       'interpolate',
       ['linear'], ['zoom'],
-      15, 0.1,
-      17, 3.5,
+      15, [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false],
+        1,
+        0.1,
+      ],
+      17, [
+        'case',
+        ['boolean', ['feature-state', 'selected'], false],
+        6,
+        3.5,
+      ],
     ],
   },
 }
