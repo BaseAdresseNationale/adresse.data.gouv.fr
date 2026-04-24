@@ -120,7 +120,7 @@ function SuiviBanPanel({ filter, suivi }: PanelProps) {
               </button>
             )}
             {isCommuneLevel && (
-              <button type="button" onClick={() => suivi.setSuiviBanSelectedCommune(null)} style={panelBackBtnStyle}>
+              <button type="button" onClick={suivi.handleBackToDepartment} style={panelBackBtnStyle}>
                 ← {dept.nom}
               </button>
             )}
@@ -149,6 +149,10 @@ function SuiviBanPanel({ filter, suivi }: PanelProps) {
           <TabSuiviBAN
             filter={filter}
             deptFilter={dept}
+            deptCommunesMeta={suivi.suiviBanCommunesMeta}
+            deptCommunesLoading={suivi.suiviBanLoadingCommunes}
+            deptCommunesError={suivi.suiviBanCommunesError}
+            communeTilesEmpty={suivi.suiviBanCommuneTilesEmpty}
             onCommuneClick={suivi.handleCommuneClick}
             onSearchSelect={suivi.handleSearchSelect}
             activeStatuts={suivi.suiviBanActiveStatuts}

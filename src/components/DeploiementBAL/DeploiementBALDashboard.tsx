@@ -5,7 +5,7 @@ import { DeploiementBALSearchResult, useStatsDeploiement } from '@/hooks/useStat
 import { getEpcis } from '@/lib/api-geo'
 import { BANStats } from '@/types/api-ban.types'
 import { Departement } from '@/types/api-geo.types'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Map, { Layer, NavigationControl, Source } from 'react-map-gl/maplibre'
 import TabDeploiementBAL from './TabDeploiementBAL'
 import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
@@ -32,6 +32,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
   const [selectedTab, setSelectedTab] = useState<'source' | 'bal' | 'suivi-ban'>('source')
   const [origin, setOrigin] = useState('')
+  const suiviBanInitialEaseAppliedRef = useRef(false)
 
   const suivi = useSuiviBan({ selectedTab })
 
@@ -39,18 +40,21 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     setOrigin(window.location.origin)
   }, [])
 
-  // Centrer la France quand on arrive sur l’onglet Déploiement idban (panel 370px à gauche)
+  // Panel gauche à chaque fois ; recentrage France/zoom 5 uniquement au premier passage sur l’onglet (session).
   const SUIVI_BAN_PANEL_WIDTH = 370
   useEffect(() => {
     const map = suivi.mapRef.current?.getMap()
     if (!map) return
     if (selectedTab === 'suivi-ban') {
       map.setPadding({ left: SUIVI_BAN_PANEL_WIDTH, top: 0, right: 0, bottom: 0 })
-      map.flyTo({
-        center: [2.35, 47.95],
-        zoom: 4.8,
-        duration: 800,
-      })
+      if (!suiviBanInitialEaseAppliedRef.current) {
+        map.easeTo({
+          center: [2, 47],
+          zoom: 5,
+          duration: 800,
+        })
+        suiviBanInitialEaseAppliedRef.current = true
+      }
     }
     else {
       map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 })
@@ -117,6 +121,8 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                   latitude: 47,
                   zoom: 5,
                 }}
+                projection="mercator"
+                renderWorldCopies={false}
                 mapStyle="/map-styles/osm-vector.json"
                 onClick={suivi.handleMapClick}
                 interactiveLayerIds={selectedTab === 'suivi-ban' ? suivi.interactiveLayerIds : []}

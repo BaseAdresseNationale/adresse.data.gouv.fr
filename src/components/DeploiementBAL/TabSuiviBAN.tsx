@@ -70,6 +70,10 @@ interface Producteur {
 interface TabSuiviBanProps {
   filter: DeploiementBALSearchResult | null
   deptFilter: { code: string, nom: string } | null
+  deptCommunesMeta?: any[]
+  deptCommunesLoading?: boolean
+  deptCommunesError?: boolean
+  communeTilesEmpty?: boolean
   onCommuneClick: (commune: any) => void
   onSearchSelect?: (commune: any) => void
   activeStatuts?: string[]
@@ -548,11 +552,25 @@ function pct(value: number, total: number): number {
   return Math.round((value / total) * 1000) / 10
 }
 
-export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSearchSelect, activeStatuts: activeStatutsProp, onActiveStatutsChange, producteurFilter: producteurFilterProp, onProducteurFilterChange, allProducteurs = [], inPanel }: TabSuiviBanProps) {
-  const [stats, setStats] = useState<SuiviBanStats | null>(null)
-  const [communes, setCommunes] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+export default function TabSuiviBAN({
+  filter,
+  deptFilter,
+  deptCommunesMeta = [],
+  deptCommunesLoading = false,
+  deptCommunesError = false,
+  communeTilesEmpty = false,
+  onCommuneClick,
+  onSearchSelect,
+  activeStatuts: activeStatutsProp,
+  onActiveStatutsChange,
+  producteurFilter: producteurFilterProp,
+  onProducteurFilterChange,
+  allProducteurs = [],
+  inPanel,
+}: TabSuiviBanProps) {
+  const [globalStats, setGlobalStats] = useState<SuiviBanStats | null>(null)
+  const [loadingGlobal, setLoadingGlobal] = useState(true)
+  const [errorGlobal, setErrorGlobal] = useState(false)
   const [activeStatutsLocal, setActiveStatutsLocal] = useState<string[]>(['rouge', 'orange', 'vert', 'gris'])
   const [communeSearch, setCommuneSearch] = useState('')
   const [producteurFilterLocal, setProducteurFilterLocal] = useState<string | null>(null)
@@ -584,52 +602,18 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
     setCommuneSearch('')
     setActiveStatutsLocal(['rouge', 'orange', 'vert', 'gris'])
     if (onChangeRef.current) onChangeRef.current(['rouge', 'orange', 'vert', 'gris'])
+  }, [activeDeptCode])
 
-    if (!activeDeptCode) {
-      setCommunes([])
+  useEffect(() => {
+    if (activeDeptCode) {
+      setLoadingGlobal(false)
+      setErrorGlobal(false)
       return
     }
 
     const controller = new AbortController()
-    setLoading(true)
-    setError(false)
-
-    fetch(`${SUIVI_BAN_API}/departement/${activeDeptCode}/communes`, { signal: controller.signal })
-      .then((r) => {
-        if (!r.ok) throw new Error('API error')
-        return r.json()
-      })
-      .then((data) => {
-        if (controller.signal.aborted) return
-        const features: any[] = data?.features || []
-        const counts: SuiviBanStats = { total: features.length, vert: 0, orange: 0, rouge: 0, gris: 0, numeros: 0, voies: 0 }
-        features.forEach((f: any) => {
-          const s = (f.properties?.statut || 'gris') as keyof SuiviBanStats
-          if (s in counts) (counts[s] as number)++
-          counts.numeros += f.properties?.nb_numeros || 0
-          counts.voies += f.properties?.nb_voies || 0
-        })
-        setStats(counts)
-        setCommunes(features.map(f => f.properties).sort((a, b) =>
-          STATUS_ORDER.indexOf(a.statut || 'gris') - STATUS_ORDER.indexOf(b.statut || 'gris')
-        ))
-      })
-      .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(true)
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setLoading(false)
-      })
-
-    return () => controller.abort()
-  }, [activeDeptCode])
-
-  useEffect(() => {
-    if (activeDeptCode) return
-
-    const controller = new AbortController()
-    setLoading(true)
-    setError(false)
+    setLoadingGlobal(true)
+    setErrorGlobal(false)
 
     const url = producteurFilter
       ? `${SUIVI_BAN_API}/producteur/${encodeURIComponent(producteurFilter)}/stats`
@@ -641,13 +625,13 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
         return r.json()
       })
       .then((data) => {
-        if (!controller.signal.aborted) setStats(data)
+        if (!controller.signal.aborted) setGlobalStats(data)
       })
       .catch((e: Error) => {
-        if (e.name !== 'AbortError') setError(true)
+        if (e.name !== 'AbortError') setErrorGlobal(true)
       })
       .finally(() => {
-        if (!controller.signal.aborted) setLoading(false)
+        if (!controller.signal.aborted) setLoadingGlobal(false)
       })
 
     return () => controller.abort()
@@ -684,8 +668,16 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
     )
   }
 
+  const communes = activeDeptCode
+    ? [...(deptCommunesMeta || [])].sort((a, b) =>
+        STATUS_ORDER.indexOf(a.statut || 'gris') - STATUS_ORDER.indexOf(b.statut || 'gris')
+      )
+    : []
+
+  const loading = activeDeptCode ? deptCommunesLoading : loadingGlobal
+  const error = activeDeptCode ? deptCommunesError : (errorGlobal || !globalStats)
   if (loading) return <StyledWrapper $inPanel={inPanel}><p className="loading">Chargement…</p></StyledWrapper>
-  if (error || !stats) return <StyledWrapper $inPanel={inPanel}><p className="error">Erreur de chargement.</p></StyledWrapper>
+  if (error) return <StyledWrapper $inPanel={inPanel}><p className="error">Erreur de chargement.</p></StyledWrapper>
 
   const statuses = ['vert', 'orange', 'rouge', 'gris'] as const
 
@@ -705,8 +697,10 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
   })
 
   const displayStats = (() => {
-    if (activeDeptCode && producteurFilter) {
-      const base = communes.filter(c => c.producteur === producteurFilter)
+    if (activeDeptCode) {
+      const base = producteurFilter
+        ? communes.filter(c => c.producteur === producteurFilter)
+        : communes
       return {
         total: base.length,
         vert: base.filter(c => c.statut === 'vert').length,
@@ -730,12 +724,12 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
           orange: o,
           rouge: r,
           gris: Math.max(0, t - v - o - r),
-          numeros: stats?.numeros || 0,
-          voies: stats?.voies || 0,
+          numeros: globalStats?.numeros || 0,
+          voies: globalStats?.voies || 0,
         }
       }
     }
-    return stats
+    return globalStats as SuiviBanStats
   })()
 
   const total = displayStats.total || 1
@@ -1061,6 +1055,18 @@ export default function TabSuiviBAN({ filter, deptFilter, onCommuneClick, onSear
                 })()}
           </div>
         </>
+      )}
+
+      {activeDeptCode && !loading && communes.length > 0 && communeTilesEmpty && (
+        <p className="source-link" style={{ marginTop: '0.75rem', color: 'var(--text-default-grey)' }}>
+          Certaines tuiles cartographiques sont vides à ce niveau de zoom, mais la liste metadata reste disponible.
+        </p>
+      )}
+
+      {activeDeptCode && !loading && communes.length === 0 && (
+        <p className="source-link" style={{ marginTop: '0.75rem', color: 'var(--text-default-grey)' }}>
+          Aucune commune metadata disponible pour ce département.
+        </p>
       )}
 
       {filter?.type === 'EPCI' && !deptFilter && (
