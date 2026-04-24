@@ -25,12 +25,15 @@ interface DeploiementBALMapProps {
   departements: (Departement & { centre: { type: string, coordinates: number[] } })[]
 }
 
+// Mode temporaire pour tester uniquement l'onglet Déploiement idban
+const IDBAN_ONLY_TEST_MODE = true
+
 export default function DeploiementBALMap({ initialStats, initialFilter, departements }: DeploiementBALMapProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source' | 'bal' | 'suivi-ban'>('source')
+  const [selectedTab, setSelectedTab] = useState<'source' | 'bal' | 'suivi-ban'>(IDBAN_ONLY_TEST_MODE ? 'suivi-ban' : 'source')
   const [origin, setOrigin] = useState('')
   const suiviBanInitialEaseAppliedRef = useRef(false)
 
@@ -87,6 +90,11 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     setFilter(filter)
   }, [setFilter, pathname, searchParams, router])
 
+  const handleTabChange = useCallback((tabId: string) => {
+    if (IDBAN_ONLY_TEST_MODE && tabId !== 'suivi-ban') return
+    setSelectedTab(tabId as 'source' | 'bal' | 'suivi-ban')
+  }, [])
+
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
@@ -107,7 +115,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
               { tabId: 'bal', label: 'Suivi Mes-Adresses' },
               { tabId: 'suivi-ban', label: 'Déploiement idban' },
             ]}
-            onTabChange={setSelectedTab as (tabId: string) => void}
+            onTabChange={handleTabChange}
           >
             <div
               ref={suivi.mapContainerRef}
@@ -131,25 +139,27 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 <NavigationControl showZoom showCompass position="top-right" />
                 <FullScreenControl position="top-right" container={suivi.mapContainerRef.current} />
 
-                <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
-                  <Layer
-                    id="bal-polygon-fill"
-                    type="fill"
-                    source="data"
-                    source-layer="communes"
-                    paint={{
-                      'fill-color': getStyle(suivi.balPaintLayer, filteredCodesCommmune),
-                      'fill-opacity': [
-                        'case',
-                        ['boolean', ['feature-state', 'hover'], false],
-                        0.8,
-                        0.6,
-                      ],
-                    }}
-                    filter={['==', '$type', 'Polygon']}
-                  />
-                </Source>
-                {selectedTab !== 'suivi-ban' && (
+                {!IDBAN_ONLY_TEST_MODE && (
+                  <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
+                    <Layer
+                      id="bal-polygon-fill"
+                      type="fill"
+                      source="data"
+                      source-layer="communes"
+                      paint={{
+                        'fill-color': getStyle(suivi.balPaintLayer, filteredCodesCommmune),
+                        'fill-opacity': [
+                          'case',
+                          ['boolean', ['feature-state', 'hover'], false],
+                          0.8,
+                          0.6,
+                        ],
+                      }}
+                      filter={['==', '$type', 'Polygon']}
+                    />
+                  </Source>
+                )}
+                {!IDBAN_ONLY_TEST_MODE && selectedTab !== 'suivi-ban' && (
                   <DeploiementMap
                     center={geometry.center}
                     zoom={geometry.zoom}
