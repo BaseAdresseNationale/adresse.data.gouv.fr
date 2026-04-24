@@ -129,7 +129,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                   latitude: 47,
                   zoom: 5,
                 }}
-                projection="mercator"
                 renderWorldCopies={false}
                 mapStyle="/map-styles/osm-vector.json"
                 onClick={suivi.handleMapClick}
