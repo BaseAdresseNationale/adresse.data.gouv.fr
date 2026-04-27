@@ -15,6 +15,9 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { FullScreenControl } from '../Map/FullScreenControl'
 import { getSuiviBanTilesTemplateUrl } from '@/lib/suivi-ban-api'
+import { useSuiviBan } from './useSuiviBan'
+import { SuiviBanMapLayers } from './SuiviBanMapLayers'
+import { SuiviBanOverlay } from './SuiviBanOverlay'
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -27,12 +30,38 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source'>('source')
+  const [selectedTab, setSelectedTab] = useState<'source' | 'suivi-ban'>('source')
   const [origin, setOrigin] = useState('')
+
+  const suivi = useSuiviBan({ selectedTab })
+  const { mapRef, suiviBanSelectedDept, restoreSuiviBanView } = suivi
 
   useEffect(() => {
     setOrigin(window.location.origin)
   }, [])
+
+  // Panel gauche à chaque fois ; recentrage France/zoom 5 uniquement au premier passage sur l’onglet (session).
+  const SUIVI_BAN_PANEL_WIDTH = 370
+  useEffect(() => {
+    const map = mapRef.current?.getMap()
+    if (!map) return
+    if (selectedTab === 'suivi-ban') {
+      map.setPadding({ left: SUIVI_BAN_PANEL_WIDTH, top: 0, right: 0, bottom: 0 })
+      if (suiviBanSelectedDept) {
+        restoreSuiviBanView()
+      }
+      else {
+        map.easeTo({
+          center: [2, 47],
+          zoom: 4.64,
+          duration: 800,
+        })
+      }
+    }
+    else {
+      map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 })
+    }
+  }, [selectedTab, mapRef, suiviBanSelectedDept, restoreSuiviBanView])
 
   const handleSearch = useCallback(async (input: string) => {
     const filteredEpcis = await getEpcis({ q: input, limit: 10, fields: ['centre', 'contour'] })
@@ -60,6 +89,10 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     setFilter(filter)
   }, [setFilter, pathname, searchParams, router])
 
+  const handleTabChange = useCallback((tabId: string) => {
+    setSelectedTab(tabId as 'source' | 'suivi-ban')
+  }, [])
+
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
@@ -68,17 +101,27 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             selectedTabId={selectedTab}
             tabs={[
               { tabId: 'source', label: 'Déploiement BAL' },
+              { tabId: 'suivi-ban', label: 'Déploiement idban' },
             ]}
-            onTabChange={setSelectedTab as (tabId: string) => void}
+            onTabChange={handleTabChange}
           >
-            <div className="bal-cover-map-container">
+            <div
+              ref={suivi.mapContainerRef}
+              className="bal-cover-map-container"
+              style={{ position: 'relative', height: selectedTab === 'suivi-ban' ? 650 : undefined }}
+            >
               <Map
+                ref={suivi.mapRef}
                 initialViewState={{
                   longitude: 2,
                   latitude: 47,
                   zoom: 5,
                 }}
+                renderWorldCopies={false}
                 mapStyle="/map-styles/osm-vector.json"
+                onClick={suivi.handleMapClick}
+                interactiveLayerIds={selectedTab === 'suivi-ban' ? suivi.interactiveLayerIds : []}
+                cursor={selectedTab === 'suivi-ban' ? 'pointer' : 'auto'}
               >
                 {selectedTab === 'source'
                 && (
@@ -92,33 +135,41 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                   </div>
                 )}
                 <NavigationControl showZoom showCompass position="top-right" />
-                <FullScreenControl position="top-right" />
+                <FullScreenControl position="top-right" container={suivi.mapContainerRef.current} />
 
-                <Source promoteId="code" id="data" type="vector" tiles={[getSuiviBanTilesTemplateUrl().startsWith('/api') ? `${origin}${getSuiviBanTilesTemplateUrl()}` : getSuiviBanTilesTemplateUrl()]}>
-                  <Layer
-                    id="bal-polygon-fill"
-                    type="fill"
-                    source="data"
-                    source-layer="communes"
-                    paint={{
-                      'fill-color': getStyle(selectedTab, filteredCodesCommmune),
-                      'fill-opacity': [
-                        'case',
-                        ['boolean', ['feature-state', 'hover'], false],
-                        0.8,
-                        0.6,
-                      ],
-                    }}
-                    filter={['==', '$type', 'Polygon']}
+                {selectedTab !== 'suivi-ban' && (
+                  <Source promoteId="code" id="data" type="vector" tiles={[getSuiviBanTilesTemplateUrl().startsWith('/api') ? `${origin}${getSuiviBanTilesTemplateUrl()}` : getSuiviBanTilesTemplateUrl()]}>
+                    <Layer
+                      id="bal-polygon-fill"
+                      type="fill"
+                      source="data"
+                      source-layer="communes"
+                      paint={{
+                        'fill-color': getStyle('source', filteredCodesCommmune),
+                        'fill-opacity': [
+                          'case',
+                          ['boolean', ['feature-state', 'hover'], false],
+                          0.8,
+                          0.6,
+                        ],
+                      }}
+                      filter={['==', '$type', 'Polygon']}
+                    />
+                  </Source>
+                )}
+                {selectedTab !== 'suivi-ban' && (
+                  <DeploiementMap
+                    center={geometry.center}
+                    zoom={geometry.zoom}
+                    filteredCodesCommmune={filteredCodesCommmune}
+                    selectedPaintLayer="source"
                   />
-                </Source>
-                <DeploiementMap
-                  center={geometry.center}
-                  zoom={geometry.zoom}
-                  filteredCodesCommmune={filteredCodesCommmune}
-                  selectedPaintLayer={selectedTab}
-                />
+                )}
+
+                {selectedTab === 'suivi-ban' && <SuiviBanMapLayers suivi={suivi} />}
               </Map>
+
+              {selectedTab === 'suivi-ban' && <SuiviBanOverlay suivi={suivi} filter={filter} />}
             </div>
 
             {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
