@@ -14,6 +14,7 @@ import DeploiementMap, { getStyle } from './DeploiementMap'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-stats'
 import { FullScreenControl } from '../Map/FullScreenControl'
+import { getSuiviBanTilesTemplateUrl } from '@/lib/suivi-ban-api'
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -62,7 +63,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   return (
     <StyledDeploiementBALDashboard>
       <div className="map-stats-container" id="map-stat">
-
         <div className="stats-wrapper">
           <Tabs
             selectedTabId={selectedTab}
@@ -93,7 +93,8 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 )}
                 <NavigationControl showZoom showCompass position="top-right" />
                 <FullScreenControl position="top-right" />
-                <Source promoteId="code" id="data" type="vector" tiles={[`${origin}/api/deploiement-stats/{z}/{x}/{y}.pbf`]}>
+
+                <Source promoteId="code" id="data" type="vector" tiles={[getSuiviBanTilesTemplateUrl().startsWith('/api') ? `${origin}${getSuiviBanTilesTemplateUrl()}` : getSuiviBanTilesTemplateUrl()]}>
                   <Layer
                     id="bal-polygon-fill"
                     type="fill"
@@ -119,6 +120,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 />
               </Map>
             </div>
+
             {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
           </Tabs>
         </div>

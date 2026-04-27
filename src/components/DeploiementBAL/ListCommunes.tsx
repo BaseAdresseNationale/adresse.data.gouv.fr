@@ -9,6 +9,7 @@ import CommuneBALList from './CommuneBALList'
 import styled from 'styled-components'
 import { BaseAdresseLocale } from '@/types/api-mes-adresses.types'
 import { PropertyDataType } from './DeploiementMap'
+import { getSuiviBanStatsUrl } from '@/lib/suivi-ban-api'
 
 const StyledWrapper = styled.div`
   margin-top: 2rem;
@@ -53,12 +54,9 @@ export default function ListCommunes({ filteredCodesCommmune }: ListCommunesProp
       setIsLoading(true)
       try {
         const fields = ['id', 'commune', 'status', 'nom', 'updatedAt', 'sync']
-        const deploiementUrl = new URL(`${window.location.origin}/api/deploiement-stats`)
-        deploiementUrl.searchParams.append('codesCommune', filteredCodesCommmune.toString())
-
         const [balsFiltered, deploiementResponse] = await Promise.all([
           getStatsBals(fields, filteredCodesCommmune),
-          customFetch(deploiementUrl),
+          customFetch(getSuiviBanStatsUrl(filteredCodesCommmune)),
         ])
 
         setBals(balsFiltered)

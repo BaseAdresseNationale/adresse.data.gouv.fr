@@ -9,6 +9,7 @@ import Button from '@codegouvfr/react-dsfr/Button'
 import { useState } from 'react'
 import styled from 'styled-components'
 import ListCommunes from './ListCommunes'
+import { getSuiviBanStatsUrl } from '@/lib/suivi-ban-api'
 
 const StyledWrapper = styled.div`
   .download-wrapper {
@@ -81,11 +82,8 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
   const handleDownloadCSV = async () => {
     try {
       setIsDownloadingData(true)
-      const url = new URL(`${window.location.origin}/api/deploiement-stats`)
-      url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
-
       const csvHeaders = ['code', 'nom', 'nbNumeros', 'certificationPercentage', 'hasBAL', 'nomClient']
-      const response = await customFetch(url)
+      const response = await customFetch(getSuiviBanStatsUrl(filteredCodesCommmune))
       const csvString = [csvHeaders.join(';'), ...response.features.map(({ properties }: any) => csvHeaders.map(property => properties[property]).join(';'))].join('\n')
 
       const link = document.createElement('a')
@@ -104,10 +102,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
   const handleDownloadGeoJSON = async () => {
     try {
       setIsDownloadingData(true)
-      const url = new URL(`${window.location.origin}/api/deploiement-stats`)
-      url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
-
-      const response = await customFetch(url)
+      const response = await customFetch(getSuiviBanStatsUrl(filteredCodesCommmune))
 
       const link = document.createElement('a')
       link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(response, null, 2))
