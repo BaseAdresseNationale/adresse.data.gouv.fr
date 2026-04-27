@@ -354,7 +354,7 @@ export function CertificateAdminPanel({
                             isUserAuthorized={Boolean(isUserAuthorized)}
                             hasBanId={Boolean(hasBanId)}
                             nomCommune={nomCommune}
-                            defaultAttestationTemplate={getDefaultAttestationTemplate(communePopulation)}
+                            codeCommune={codeCommune}
                           />
                         </div>
                       )}
@@ -375,7 +375,7 @@ export function CertificateAdminPanel({
                             isUserAuthorized={Boolean(isUserAuthorized)}
                             hasBanId={Boolean(hasBanId)}
                             nomCommune={nomCommune}
-                            defaultAttestationTemplate={getDefaultAttestationTemplate(communePopulation)}
+                            codeCommune={codeCommune}
                             issuerHeaderBlockForInput={issuerHeaderBlockForInput}
                             issuerDetailsDefaultHint={issuerDetailsDefaultHint}
                             communePopulation={communePopulation}

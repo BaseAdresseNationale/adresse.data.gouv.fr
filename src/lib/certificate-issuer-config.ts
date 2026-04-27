@@ -25,9 +25,6 @@ export const CERTIFICATE_ATTESTATION_MAX_INPUT_LINES = 4
 
 export const CERTIFICATE_ATTESTATION_MAX_RAW_CHARS_PER_LOGICAL_LINE = 400
 
-/** Date d’aperçu admin (libellé long en fr-FR). */
-export const CERTIFICATE_PREVIEW_CREATED_AT_FOR_LONGEST_DATE = new Date(2099, 8, 30, 12, 0, 0).toISOString()
-
 export function certificateAttestationEffectiveMaxChars(): number {
   return Math.min(
     DISTRICT_CONFIG_FIELD_LIMITS.certificateAttestationText,

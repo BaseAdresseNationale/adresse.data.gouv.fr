@@ -12,7 +12,6 @@ import {
   resolveCertificatCommuneLogoForGeneration,
 } from '@/lib/resolve-certificat-commune-logo'
 import {
-  CERTIFICATE_PREVIEW_CREATED_AT_FOR_LONGEST_DATE,
   normalizedIssuerDetailsForPdf,
   sanitizeCertificateAttestationText,
 } from '@/lib/certificate-issuer-config'
@@ -87,6 +86,7 @@ export async function POST(request: Request) {
     const population = populationFromClient ?? populationFromGeo
     const codesPostaux: string[] = Array.isArray(geoData?.codesPostaux) ? geoData.codesPostaux : []
     const postalCode = codesPostaux[0] || '00000'
+    const multidistributed = codesPostaux.length > 1
 
     const mairie = await getMairie(codeCommune)
     const mairieData = mairie || { telephone: undefined, email: undefined }
@@ -101,14 +101,14 @@ export async function POST(request: Request) {
 
     const mockData = {
       id: previewId,
-      createdAt: CERTIFICATE_PREVIEW_CREATED_AT_FOR_LONGEST_DATE,
+      createdAt: new Date().toISOString(),
       full_address: {
         number: 1,
         commonToponymDefaultLabel: 'Rue de la Mairie',
         districtDefaultLabel: nomCommune,
         cog: codeCommune,
         postalCode,
-        multidistributed: false,
+        multidistributed,
       },
       cadastre_ids: ['000AB0001'],
     }

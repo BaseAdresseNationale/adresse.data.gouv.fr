@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import {
-  getCertificateAttestationPlaceholderError,
-  sanitizeCertificateIssuerDetails,
-} from '@/lib/certificate-issuer-config'
+import { sanitizeCertificateIssuerDetails } from '@/lib/certificate-issuer-config'
 import { type BANCommune, type BANConfig, CertificateTypeEnum } from '@/types/api-ban.types'
 import { type UserInfo } from '@/hooks/useAuth'
 import { customFetch } from '@/lib/fetch'
@@ -96,16 +93,12 @@ export function useDistrictConfigSave({
     if (typeof newConfig.certificateIssuerDetails === 'string') {
       newConfig.certificateIssuerDetails = sanitizeCertificateIssuerDetails(newConfig.certificateIssuerDetails)
     }
+    newConfig.certificateAttestationText = null
     const districtID = district?.banId
     if (!districtID || !userInfo) return false
 
     const certEnabled = newConfig.certificate != null && newConfig.certificate !== CertificateTypeEnum.DISABLED
     if (certEnabled) {
-      const attestationErr = getCertificateAttestationPlaceholderError(newConfig.certificateAttestationText)
-      if (attestationErr) {
-        setMessage({ text: attestationErr, type: 'error' })
-        return false
-      }
       const certPreviewErr = validateBeforeCertificateSave?.() ?? null
       if (certPreviewErr) {
         setMessage(enrichCertificatePreviewError?.(certPreviewErr) ?? { text: certPreviewErr, type: 'error' })

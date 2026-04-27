@@ -1,14 +1,14 @@
 'use client'
 
-import { Fragment, type CSSProperties, useEffect, useMemo, useRef } from 'react'
+import { Fragment, type CSSProperties, useMemo } from 'react'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import {
   CERTIFICATE_ISSUER_DETAILS_MAX_CHARS_PER_LOGICAL_LINE,
   CERTIFICATE_ISSUER_DETAILS_MAX_INPUT_LINES,
   certificateIssuerDetailsEffectiveMaxChars,
   issuerDetailsDefaultHintWithCommuneVillePrefix,
-  normalizeCertificateAttestationTextInput,
 } from '@/lib/certificate-issuer-config'
+import CommuneLogo, { COMMUNE_LOGO_PANEL_PRESET } from '@/components/CommuneLogo/CommuneLogo'
 import { collectiviteFrCommuneAuthUrl } from '@/lib/collectivite-fr-url'
 import { type BANConfig } from '@/types/api-ban.types'
 
@@ -33,7 +33,8 @@ type CertificatePdfCustomizationFieldsBase = {
   isUserAuthorized: boolean
   hasBanId: boolean
   nomCommune: string | undefined
-  defaultAttestationTemplate: string
+  /** Pour afficher l’emblème réel dans l’en-tête de l’onglet « Emblème communal ». */
+  codeCommune?: string
 }
 
 export type CertificatePdfCustomizationFieldsProps = CertificatePdfCustomizationFieldsBase & (
@@ -55,24 +56,12 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
     isUserAuthorized,
     hasBanId,
     nomCommune,
-    defaultAttestationTemplate,
+    codeCommune,
     variant,
   } = props
 
   const logoOn = configState?.certificateShowLogo ?? false
   const collectiviteAuthHref = collectiviteFrCommuneAuthUrl(nomCommune)
-  const configRef = useRef(configState)
-  configRef.current = configState
-
-  useEffect(() => {
-    const c = configRef.current
-    if (!c) return
-    const raw = c.certificateAttestationText ?? defaultAttestationTemplate
-    const normalized = normalizeCertificateAttestationTextInput(raw)
-    if (raw !== normalized) {
-      handleUpdateConfig({ ...c, certificateAttestationText: normalized } as BANConfig)
-    }
-  }, [configState?.certificateAttestationText, defaultAttestationTemplate, handleUpdateConfig])
 
   const disabled = readOnly || !isUserAuthorized || !hasBanId
 
@@ -120,11 +109,21 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
         <div className="fr-background-alt--grey fr-p-3w fr-mb-3w">
           <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
             <div className="fr-col-auto">
-              <span
-                className="fr-icon fr-icon-image-line fr-text--xl"
-                style={{ color: 'var(--artwork-major-blue-france)' }}
-                aria-hidden
-              />
+              {codeCommune
+                ? (
+                    <CommuneLogo
+                      codeCommune={codeCommune}
+                      alt=""
+                      {...COMMUNE_LOGO_PANEL_PRESET}
+                    />
+                  )
+                : (
+                    <span
+                      className="fr-icon fr-icon-image-line fr-text--xl"
+                      style={{ color: 'var(--artwork-major-blue-france)' }}
+                      aria-hidden
+                    />
+                  )}
             </div>
             <div className="fr-col">
               <p className="fr-text--sm fr-mb-1w">
