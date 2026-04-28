@@ -6,6 +6,7 @@ const BAL_BLASON_BUCKET_URL
 const isWikimediaUrl = (url: string): boolean =>
   /wikimedia|wikidata|wikipedia\.org/i.test(url)
 
+// Côté client uniquement : annuaire (navigateur) puis fallback S3.
 export const getCommuneFlagProxy = async (codeCommune: string): Promise<string> => {
   const base = env('NEXT_PUBLIC_API_ANNUAIRE_DES_COLLECTIVITES') || 'https://api.collectivite.fr/api'
   if (base) {

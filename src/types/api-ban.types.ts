@@ -54,22 +54,6 @@ export type BANConfig = {
   autoFixLabels?: boolean // beautifier
   computOldDistrict?: boolean // calculer les anciennes communes
   computInteropKey?: boolean // recalcul des clés d'interopérabilité
-  certificateShowLogo?: boolean | null
-  certificateIssuerDetails?: string | null
-  certificateAttestationText?: string | null
-}
-
-export type BANPublicConfig = Pick<BANConfig, 'certificate' | 'defaultBalLang'>
-
-export function toPublicDistrictConfig(raw: Partial<BANConfig> | null | undefined): BANPublicConfig {
-  const cert = raw?.certificate
-  const certificate = Object.values(CertificateTypeEnum).includes(cert as CertificateTypeEnum)
-    ? (cert as CertificateTypeEnum)
-    : CertificateTypeEnum.DISABLED
-  return {
-    certificate,
-    defaultBalLang: typeof raw?.defaultBalLang === 'string' ? raw.defaultBalLang : undefined,
-  }
 }
 
 export type BANCommune = {
@@ -94,7 +78,7 @@ export type BANCommune = {
   dateRevision: string
   dateAnnulation: string
   voies: BANVoie[]
-  config?: BANConfig
+  config: BANConfig
   withBanId?: boolean
 }
 
