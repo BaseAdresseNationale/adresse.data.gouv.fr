@@ -3,7 +3,7 @@ import { env } from 'next-runtime-env'
 const BASE_URL = env('NEXT_PUBLIC_GRIST_API_URL') || ''
 const DOC_ID = env('NEXT_PUBLIC_GRIST_DOC_ID') || ''
 const WANTED_TABLE_ID = env('NEXT_PUBLIC_GRIST_TABLE_ID') || ''
-const API_TOKEN = env('NEXT_PUBLIC_GRIST_API_TOKEN') || ''
+const API_TOKEN = env('GRIST_API_TOKEN') || ''
 
 interface GristRecord {
   id: number
@@ -17,7 +17,7 @@ interface ProcessedRecord {
   nom_application: string
   description_utilisation: string
   nom_utilisateur: string
-  image_utilisateur: string
+  logo_download_url: string
   statut_integration: string
   type_integration: string
   url_article: string
@@ -27,7 +27,7 @@ interface ProcessedRecord {
 }
 
 async function fetchTableJson(): Promise<{ records: GristRecord[] }> {
-  const filterDict = { non_publication_usage: [false] }
+  const filterDict = { non_publication_usage: [false], publication: [true] }
   const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
 
   const response = await fetch(`${BASE_URL}/docs/${DOC_ID}/tables/${WANTED_TABLE_ID}/records?${params}`, {
@@ -39,11 +39,10 @@ async function fetchTableJson(): Promise<{ records: GristRecord[] }> {
       tags: ['grist'],
     },
   })
-
   if (!response.ok) {
-    throw new Error(`Erreur HTTP ${response.status} lors de la récupération des données.`)
+    console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist.`))
+    return { records: [] }
   }
-
   return response.json()
 }
 
@@ -72,13 +71,13 @@ export async function fetchAndProcessGristData(): Promise<ProcessedRecord[]> {
     if (tagsApplication) {
       tagsApplication = flattenTags(tagsApplication)
     }
-
+    const imgId = fields.Logo2?.[1]?.toString() ?? ''
     return {
       id_application: fields.id_application,
       nom_application: fields.nom_application,
       description_utilisation: fields.description_utilisation,
       nom_utilisateur: fields.nom_utilisateur,
-      image_utilisateur: fields.image_utilisateur,
+      logo_download_url: imgId ? `/api/grist/attachments/${imgId}` : '',
       statut_integration: fields.statut_integration,
       type_integration: fields.type_integration,
       url_article: fields.url_article_blog,
