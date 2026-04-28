@@ -1,9 +1,7 @@
-import React, { useCallback, useState, useEffect, useRef, useMemo } from 'react'
-import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
+import React, { useCallback, useState, useEffect, useLayoutEffect, useRef, useMemo } from 'react'
+import { ToggleSwitch, addToggleSwitchTranslations } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import { Select } from '@codegouvfr/react-dsfr/Select'
-import { RadioButtons } from '@codegouvfr/react-dsfr/RadioButtons'
 import { Button } from '@codegouvfr/react-dsfr/Button'
-import { Checkbox } from '@codegouvfr/react-dsfr/Checkbox'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 import { Tag } from '@codegouvfr/react-dsfr/Tag'
@@ -13,15 +11,22 @@ import { CommuneHeroCard, SectionEditCard } from './DistrictActions/DistrictActi
 import { ConfigSaveStickyBar } from './DistrictActions/ConfigSaveStickyBar'
 import language from './DistrictActions/langues-regionales.json'
 import { CommuneStatusBadge } from './CommuneStatusBadge'
-import { useDistrictConfigSave } from './useDistrictConfigSave'
+import { useDistrictConfigSave, type SaveMessage } from './useDistrictConfigSave'
+import { CertificateAdminPanel, type CertificateContentStep, type CertificatePdfUiPhase } from './CertificateAdminPanel'
 
-import { type BANCommune, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
+import {
+  certificateIssuerBlockFingerprint,
+  normalizeCertificateIssuerDetailsInput,
+  sanitizeCertificateIssuerDetails,
+  withCertificateFieldDefaults,
+} from '@/lib/certificate-issuer-config'
+import { type BANCommune, type BANConfig, CertificateTypeEnum, CertificateTypeLabel } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
 import { type UserInfo } from '@/hooks/useAuth'
 import CommuneLogo, { COMMUNE_LOGO_SIZE_SMALL } from '@/components/CommuneLogo/CommuneLogo'
 import Loader from '@/components/Loader'
 import { customFetch } from '@/lib/fetch'
-import { getClientsRecap, type ClientRecapItem, type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
+import { type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
 import { getRevisions } from '@/lib/api-depot'
 import type { Revision } from '@/types/api-depot.types'
 import { getDataset } from '@/lib/api-data-gouv'
@@ -57,7 +62,6 @@ const availableLanguage = (language as { code: string, label: string }[])
     return 0
   })
 
-/** Codes des langues ayant un drapeau dans /public/img/flags (nom fichier = code.svg) */
 const LANG_CODES_WITH_FLAG = new Set(availableLanguage.map(l => l.code))
 
 const BAL_PARAMS_HINTS = {
@@ -181,14 +185,15 @@ function BalParamsSummary({
 interface DistrictOptionsFormProps {
   district?: BANCommune | null
   commune?: Commune | null
-  config: BANCommune['config']
-  onUpdateConfig: (config: BANCommune['config']) => void
+  config: BANConfig
+  onUpdateConfig: (config: BANConfig) => void
   readOnly?: boolean
   loading?: boolean
   userInfo?: UserInfo | null
 }
 
 const RECAP_TIMEOUT_MS = 15000
+const LAST_N_REVISIONS_FOR_SENSIBILISATION = 10
 
 function getSourceDisplayFromMap(
   clientId: string | undefined,
@@ -235,63 +240,6 @@ function getModeAndSourceFromRevision(
   }
 }
 
-interface SourceSelectorProps {
-  sourceOptions: { clientId: string, label: string }[]
-  effectiveClientId: string | undefined
-  configState: BANCommune['config']
-  enableMandataryChangeWarning: boolean
-  hasBanId: boolean | undefined
-  revisionsLoading: boolean
-  revisionsError: string | null
-  handleUpdateConfig: (config: BANCommune['config']) => void
-}
-
-function SourceSelector({
-  sourceOptions,
-  effectiveClientId,
-  configState,
-  enableMandataryChangeWarning,
-  hasBanId,
-  revisionsLoading,
-  revisionsError,
-  handleUpdateConfig,
-}: SourceSelectorProps) {
-  const currentClientId = enableMandataryChangeWarning ? configState?.mandatary : effectiveClientId
-
-  if (revisionsLoading) return <p className="fr-hint-text">Chargement des publications…</p>
-  if (revisionsError) return <Alert severity="error" description={revisionsError} small />
-  if (sourceOptions.length === 0) {
-    return <p className="fr-hint-text">Aucune publication passée pour cette commune.</p>
-  }
-
-  return (
-    <Select
-      label="Changer la source"
-      hint={(
-        <>
-          Seuls les organismes adhérents à la{' '}
-          <Link href="/communaute/charte-base-adresse-locale">Charte de la Base Adresse Locale</Link>{' '}
-          sont éligibles au statut de source de publication.
-        </>
-      )}
-      nativeSelectProps={{
-        onChange: (event) => {
-          handleUpdateConfig({ ...configState, mandatary: event.target.value })
-        },
-        value: currentClientId || sourceOptions[0]?.clientId || '',
-      }}
-      disabled={!enableMandataryChangeWarning || !hasBanId}
-    >
-      <option value="" disabled hidden>Sélectionnez une source</option>
-      {sourceOptions.map(opt => (
-        <option key={opt.clientId} value={opt.clientId}>
-          {opt.label}
-        </option>
-      ))}
-    </Select>
-  )
-}
-
 function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true, readOnly = false, loading = false, userInfo }: DistrictOptionsFormProps) {
   const hasBanId = district?.withBanId
   const isAssemblage = district?.typeComposition === 'assemblage'
@@ -302,11 +250,17 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     && commune.siren === userInfo.siret.substring(0, 9)
   const hasTechnicalRequirements = district && district.nbNumerosCertifies > 0
 
-  const [currentConfig, setCurrentConfig] = useState<string>(JSON.stringify({ ...config }))
-  const [configState, setConfigState] = useState<BANCommune['config']>({ ...config })
-  const [enableMandataryChange, setEnableMandataryChange] = useState<boolean>(false)
-  const [enableMandataryChangeWarning, setEnableMandataryChangeWarning] = useState<boolean>(false)
-  const [clientsRecap, setClientsRecap] = useState<ClientRecapItem[] | null>(null)
+  const [currentConfig, setCurrentConfig] = useState<string>(() =>
+    JSON.stringify(withCertificateFieldDefaults({ ...config }, district?.nomCommune, district?.population)),
+  )
+  const [configState, setConfigState] = useState<BANConfig>(() => {
+    let c = { ...config }
+    if (typeof c.certificateIssuerDetails === 'string') {
+      c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
+    }
+    return withCertificateFieldDefaults(c, district?.nomCommune, district?.population)
+  })
+  const [issuerDetailsFallbackFromApi, setIssuerDetailsFallbackFromApi] = useState('')
   const [recapLoading, setRecapLoading] = useState<boolean>(true)
   const [recapError, setRecapError] = useState<string | null>(null)
   const [communeRevisions, setCommuneRevisions] = useState<Revision[] | null>(null)
@@ -314,10 +268,60 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   const [revisionsError, setRevisionsError] = useState<string | null>(null)
   const [organizationNamesBySourceId, setOrganizationNamesBySourceId] = useState<Record<string, string>>({})
   const recapEffectIdRef = useRef(0)
-  const formTopRef = useRef<HTMLDivElement>(null)
+  const certificatEditAnchorRef = useRef<HTMLDivElement>(null)
   const [editingSection, setEditingSection] = useState<'certificat' | 'parametrage' | null>(null)
+  const [certificateContentStep, setCertificateContentStep] = useState<CertificateContentStep>('customize-logo')
+  const [certificatePdfUiPhase, setCertificatePdfUiPhase] = useState<CertificatePdfUiPhase>('preview-only')
+  const [issuerBlockPreviewValidFor, setIssuerBlockPreviewValidFor] = useState<string>(() =>
+    certificateIssuerBlockFingerprint(
+      withCertificateFieldDefaults(
+        (() => {
+          let c = { ...config }
+          if (typeof c.certificateIssuerDetails === 'string') {
+            c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
+          }
+          return c
+        })(),
+        district?.nomCommune,
+        district?.population,
+      ),
+    ),
+  )
+  const certStepPrevCertRef = useRef(configState?.certificate)
 
   const hasUnsavedChanges = JSON.stringify(configState) !== currentConfig
+
+  useEffect(() => {
+    if (editingSection === 'certificat') {
+      setCertificateContentStep('customize-logo')
+      setCertificatePdfUiPhase('preview-only')
+    }
+  }, [editingSection])
+
+  useLayoutEffect(() => {
+    if (editingSection !== 'certificat') return
+    const el = certificatEditAnchorRef.current
+    if (!el) return
+    const t = window.setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
+    return () => window.clearTimeout(t)
+  }, [editingSection])
+
+  useEffect(() => {
+    if (editingSection !== 'certificat') {
+      certStepPrevCertRef.current = configState?.certificate
+      return
+    }
+    const prev = certStepPrevCertRef.current
+    certStepPrevCertRef.current = configState?.certificate
+    const wasDisabled = !prev || prev === CertificateTypeEnum.DISABLED
+    const nowEnabled = Boolean(configState?.certificate && configState.certificate !== CertificateTypeEnum.DISABLED)
+    if (wasDisabled && nowEnabled) {
+      setCertificateContentStep('customize-logo')
+      setCertificatePdfUiPhase('preview-only')
+    }
+  }, [editingSection, configState?.certificate])
 
   const clientIdToDisplay = useMemo<Record<string, { mode: string, source: string }>>(() => {
     if (!communeRevisions?.length) return {}
@@ -331,15 +335,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     }
     return result
   }, [communeRevisions, district?.nomCommune, organizationNamesBySourceId])
-
-  const sourceOptions = useMemo<{ clientId: string, label: string }[]>(() => {
-    if (!communeRevisions?.length) return []
-    const uniqueIds = getUniqueClientIdsFromRevisions(communeRevisions)
-    return uniqueIds.map((clientId) => {
-      const d = clientIdToDisplay[clientId]
-      return { clientId, label: d?.source ?? 'Source inconnue' }
-    })
-  }, [communeRevisions, clientIdToDisplay])
 
   const effectiveClientId = useMemo(() => {
     const stored = configState?.mandatary ?? config?.mandatary
@@ -360,7 +355,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     return Array.from(codes)
   }, [district?.voies])
 
-  const LAST_N_REVISIONS_FOR_SENSIBILISATION = 10
   const multipleProducersInRecentRevisions = useMemo(() => {
     if (!communeRevisions?.length) return { active: false, count: 0 }
     const recent = communeRevisions.slice(0, LAST_N_REVISIONS_FOR_SENSIBILISATION)
@@ -371,10 +365,45 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
   useEffect(() => {
     if (config) {
-      setConfigState({ ...config })
-      setCurrentConfig(JSON.stringify({ ...config }))
+      let next: BANConfig = { ...config }
+      if (typeof next.certificateIssuerDetails === 'string') {
+        next.certificateIssuerDetails = sanitizeCertificateIssuerDetails(next.certificateIssuerDetails)
+      }
+      next = withCertificateFieldDefaults(next, district?.nomCommune, district?.population)
+      setConfigState(next)
+      setCurrentConfig(JSON.stringify(next))
+      setIssuerBlockPreviewValidFor(certificateIssuerBlockFingerprint(next))
     }
-  }, [config])
+  }, [config, district?.nomCommune, district?.population])
+
+  useEffect(() => {
+    const code = district?.codeCommune
+    if (!code || !/^\d{5}$/.test(code)) return
+    let cancelled = false
+    void fetch(`/api/certificate-issuer-default-contact/${code}`, { credentials: 'same-origin' })
+      .then(async (res) => {
+        if (!res.ok) return null
+        return res.json() as Promise<{ certificateIssuerDetails?: string }>
+      })
+      .then((data) => {
+        if (cancelled || !data?.certificateIssuerDetails?.trim()) return
+        setIssuerDetailsFallbackFromApi(data.certificateIssuerDetails)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [district?.codeCommune])
+
+  useEffect(() => {
+    addToggleSwitchTranslations({
+      lang: 'fr',
+      messages: {
+        checked: 'Afficher',
+        unchecked: 'Masquer',
+      },
+    })
+  }, [])
 
   useEffect(() => {
     let isMounted = true
@@ -467,17 +496,14 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
       Promise.all([clientsPromise, chefsPromise]),
       timeoutPromise,
     ])
-      .then(([clients, chefsDeFile]) => {
+      .then(() => {
         if (!isMounted || recapEffectIdRef.current !== effectId) {
           return
         }
-        const recap = getClientsRecap(clients, chefsDeFile)
-        setClientsRecap(recap)
       })
       .catch((err) => {
         if (!isMounted || recapEffectIdRef.current !== effectId) return
         setRecapError(err?.message ?? 'Erreur chargement mandataires')
-        setClientsRecap(null)
       })
       .finally(() => {
         clearRecapTimeout()
@@ -492,9 +518,60 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     return cleanup
   }, [])
 
-  const handleUpdateConfig = useCallback((updatedConfig: BANCommune['config']) => {
+  const handleUpdateConfig = useCallback((updatedConfig: BANConfig) => {
     setConfigState(updatedConfig)
   }, [])
+
+  const issuerHeaderBlockForInput = useMemo(() => {
+    const stored = configState?.certificateIssuerDetails
+    return typeof stored === 'string' ? stored : ''
+  }, [configState?.certificateIssuerDetails])
+
+  const issuerDetailsDefaultHint = useMemo(
+    () => normalizeCertificateIssuerDetailsInput(issuerDetailsFallbackFromApi),
+    [issuerDetailsFallbackFromApi],
+  )
+
+  const updateIssuerHeaderBlockInput = useCallback((raw: string) => {
+    setConfigState(prev => ({
+      ...prev,
+      certificateIssuerDetails: raw,
+    }))
+  }, [])
+
+  const handleCertificatePdfPreviewDisplayed = useCallback(() => {
+    setIssuerBlockPreviewValidFor(certificateIssuerBlockFingerprint(configState))
+  }, [configState])
+
+  const validateBeforeCertificateSave = useCallback((): string | null => {
+    const certEnabled = configState.certificate != null && configState.certificate !== CertificateTypeEnum.DISABLED
+    if (!certEnabled) return null
+    if (certificateIssuerBlockFingerprint(configState) !== issuerBlockPreviewValidFor) {
+      return 'Ouvrez l’aperçu du certificat PDF et vérifiez le rendu (emblème communal et bloc service / coordonnées) avant d’enregistrer.'
+    }
+    return null
+  }, [configState, issuerBlockPreviewValidFor])
+
+  const scrollToCertPdfPreviewAndOpen = useCallback(() => {
+    setEditingSection('certificat')
+    window.setTimeout(() => {
+      document.getElementById('certificat-pdf-apercu-ancre')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      window.setTimeout(() => {
+        document.getElementById('certificat-pdf-apercu-bouton')?.click()
+      }, 420)
+    }, 220)
+  }, [])
+
+  const enrichCertificatePreviewError = useCallback((text: string): SaveMessage => ({
+    text,
+    type: 'error',
+    actions: [
+      {
+        label: 'Voir l’aperçu du certificat',
+        onClick: scrollToCertPdfPreviewAndOpen,
+      },
+    ],
+  }), [scrollToCertPdfPreviewAndOpen])
 
   const {
     message,
@@ -505,14 +582,13 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   } = useDistrictConfigSave({
     district,
     userInfo,
-    config,
     configState,
     onUpdateConfig,
     setCurrentConfig,
+    validateBeforeCertificateSave,
+    enrichCertificatePreviewError,
     onSuccess: () => setEditingSection(null),
   })
-
-  const isMandatarySelectionInvalid = false
 
   if (loading) {
     return (
@@ -535,7 +611,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
   }
 
   return (
-    <div ref={formTopRef} className="fr-container--fluid">
+    <div className="fr-container--fluid">
 
       <form aria-label="Configuration de la commune">
         <section className="fr-mb-4w" aria-labelledby="district-config-section-title">
@@ -629,110 +705,81 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
             />
           )}
 
-          <SectionEditCard className="fr-mb-3w">
-            <div className="sec-card__header">
-              <div className="sec-card__header-left">
-                <div className="sec-card__title-row">
-                  <span className="fr-icon fr-icon-file-text-line sec-card__icon" aria-hidden="true" />
-                  <h3 className="sec-card__title">Certificat d&apos;adressage</h3>
+          <div
+            ref={certificatEditAnchorRef}
+            className="fr-mb-3w"
+            style={{ scrollMarginTop: '1.5rem' }}
+          >
+            <SectionEditCard className="fr-mb-0">
+              <div className="sec-card__header">
+                <div className="sec-card__header-left">
+                  <div className="sec-card__title-row">
+                    <span className="fr-icon fr-icon-file-text-line sec-card__icon" aria-hidden="true" />
+                    <h3 className="sec-card__title">Certificat d&apos;adressage</h3>
+                  </div>
+                  <div className="sec-card__header-content">
+                    <p className="sec-card__value fr-mb-0">
+                      <Badge
+                        severity={
+                          configState?.certificate === CertificateTypeEnum.ALL
+                            ? 'success'
+                            : configState?.certificate === CertificateTypeEnum.DISTRICT
+                              ? 'info'
+                              : 'warning'
+                        }
+                        small
+                      >
+                        {configState?.certificate === CertificateTypeEnum.DISTRICT
+                          ? CertificateTypeLabel[CertificateTypeEnum.DISTRICT]
+                          : configState?.certificate === CertificateTypeEnum.ALL
+                            ? CertificateTypeLabel[CertificateTypeEnum.ALL]
+                            : CertificateTypeLabel[CertificateTypeEnum.DISABLED]}
+                      </Badge>
+                    </p>
+                  </div>
                 </div>
-                <div className="sec-card__header-content">
-                  <p className="sec-card__value fr-mb-0">
-                    <Badge
-                      severity={
-                        configState?.certificate === CertificateTypeEnum.ALL
-                          ? 'success'
-                          : configState?.certificate === CertificateTypeEnum.DISTRICT
-                            ? 'info'
-                            : 'warning'
-                      }
-                      small
-                    >
-                      {configState?.certificate === CertificateTypeEnum.DISTRICT
-                        ? CertificateTypeLabel[CertificateTypeEnum.DISTRICT]
-                        : configState?.certificate === CertificateTypeEnum.ALL
-                          ? CertificateTypeLabel[CertificateTypeEnum.ALL]
-                          : CertificateTypeLabel[CertificateTypeEnum.DISABLED]}
-                    </Badge>
-                  </p>
-                </div>
+                {!readOnly && hasBanId && !isAssemblage && (
+                  <Button
+                    type="button"
+                    priority="secondary"
+                    iconId={editingSection === 'certificat' ? 'fr-icon-close-line' : 'fr-icon-edit-line'}
+                    iconPosition="left"
+                    size="small"
+                    aria-expanded={editingSection === 'certificat'}
+                    aria-controls="sec-certificat-body"
+                    onClick={() => setEditingSection(s => s === 'certificat' ? null : 'certificat')}
+                  >
+                    {editingSection === 'certificat' ? 'Fermer' : 'Modifier'}
+                  </Button>
+                )}
               </div>
-              {!readOnly && hasBanId && !isAssemblage && (
-                <Button
-                  type="button"
-                  priority="secondary"
-                  iconId={editingSection === 'certificat' ? 'fr-icon-close-line' : 'fr-icon-edit-line'}
-                  iconPosition="left"
-                  size="small"
-                  aria-expanded={editingSection === 'certificat'}
-                  aria-controls="sec-certificat-body"
-                  onClick={() => setEditingSection(s => s === 'certificat' ? null : 'certificat')}
-                >
-                  {editingSection === 'certificat' ? 'Fermer' : 'Modifier'}
-                </Button>
+              {editingSection === 'certificat' && (
+                <div id="sec-certificat-body" className="sec-card__body">
+                  <CertificateAdminPanel
+                    configState={configState}
+                    handleUpdateConfig={handleUpdateConfig}
+                    readOnly={readOnly}
+                    isUserAuthorized={Boolean(isUserAuthorized)}
+                    hasTechnicalRequirements={Boolean(hasTechnicalRequirements)}
+                    hasBanId={Boolean(hasBanId)}
+                    codeCommune={district?.codeCommune}
+                    nomCommune={district?.nomCommune}
+                    communePopulation={district?.population}
+                    certificatePdfUiPhase={certificatePdfUiPhase}
+                    setCertificatePdfUiPhase={setCertificatePdfUiPhase}
+                    certificateContentStep={certificateContentStep}
+                    setCertificateContentStep={setCertificateContentStep}
+                    issuerHeaderBlockForInput={issuerHeaderBlockForInput}
+                    issuerDetailsDefaultHint={issuerDetailsDefaultHint}
+                    onIssuerHeaderBlockInput={updateIssuerHeaderBlockInput}
+                    onCertificatePdfPreviewDisplayed={handleCertificatePdfPreviewDisplayed}
+                    onSaveConfiguration={pushConfigUpdate}
+                    hasUnsavedChanges={hasUnsavedChanges}
+                  />
+                </div>
               )}
-            </div>
-            {editingSection === 'certificat' && (
-              <div id="sec-certificat-body" className="sec-card__body">
-                <p className="fr-hint-text fr-mb-1w">Certifiez l&apos;existence d&apos;une adresse sur le territoire de votre commune.</p>
-                <p className="fr-text--sm fr-mb-3w">À noter : l&apos;émission d&apos;un certificat d&apos;adressage n&apos;est possible que pour les adresses certifiées et rattachées à une parcelle cadastrale.</p>
-                {!isUserAuthorized && (
-                  <Alert
-                    severity="warning"
-                    title="Activation impossible"
-                    description="Votre compte ne semble pas rattaché à cette commune (SIREN différent). Vous ne pouvez pas activer la certification."
-                    small
-                    className="fr-mb-2w"
-                  />
-                )}
-                {!hasTechnicalRequirements && isUserAuthorized && (
-                  <Alert
-                    severity="warning"
-                    title="Conditions techniques non remplies"
-                    description="Cette commune ne dispose pas d'adresses certifiées. L'émission de certificats est impossible."
-                    small
-                    className="fr-mb-2w"
-                  />
-                )}
-                <RadioButtons
-                  legend="Niveau d'accès aux certificats"
-                  name="certification-type"
-                  options={[
-                    {
-                      label: CertificateTypeLabel[CertificateTypeEnum.DISABLED],
-                      hintText: `Les certificats d'adressage ne sont pas disponibles pour cette commune depuis le site adresse.data.gouv.fr.`,
-                      nativeInputProps: {
-                        value: CertificateTypeEnum.DISABLED,
-                        checked: configState?.certificate === CertificateTypeEnum.DISABLED || !configState?.certificate,
-                        onChange: () => handleUpdateConfig({ ...configState, certificate: CertificateTypeEnum.DISABLED }),
-                        disabled: !isUserAuthorized || !hasBanId,
-                      },
-                    },
-                    {
-                      label: CertificateTypeLabel[CertificateTypeEnum.DISTRICT],
-                      hintText: `Les certificats seront téléchargeables depuis le site adresse.data.gouv.fr par toute personne connectée avec une adresse e-mail rattachée à la mairie de la commune.`,
-                      nativeInputProps: {
-                        value: CertificateTypeEnum.DISTRICT,
-                        checked: configState?.certificate === CertificateTypeEnum.DISTRICT,
-                        onChange: () => handleUpdateConfig({ ...configState, certificate: CertificateTypeEnum.DISTRICT }),
-                        disabled: !isUserAuthorized || !hasTechnicalRequirements || !hasBanId,
-                      },
-                    },
-                    {
-                      label: CertificateTypeLabel[CertificateTypeEnum.ALL],
-                      hintText: `Les certificats sont librement téléchargeables depuis le site adresse.data.gouv.fr par tous.`,
-                      nativeInputProps: {
-                        value: CertificateTypeEnum.ALL,
-                        checked: configState?.certificate === CertificateTypeEnum.ALL,
-                        onChange: () => handleUpdateConfig({ ...configState, certificate: CertificateTypeEnum.ALL }),
-                        disabled: !isUserAuthorized || !hasTechnicalRequirements || !hasBanId,
-                      },
-                    },
-                  ]}
-                />
-              </div>
-            )}
-          </SectionEditCard>
+            </SectionEditCard>
+          </div>
 
           <SectionEditCard className="fr-mb-3w">
             <div className="sec-card__header">
@@ -746,8 +793,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                     defaultBalLang={configState?.defaultBalLang || DEFAULT_CODE_LANGUAGE}
                     availableLanguage={availableLanguage}
                     altLangCodes={altLangCodes}
-                    redressementOdonymes={true}
-                    communesAnciennes={true}
+                    redressementOdonymes={configState?.autoFixLabels ?? true}
+                    communesAnciennes={configState?.computOldDistrict ?? true}
                   />
                 </div>
               </div>
@@ -761,7 +808,6 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                   disabled
                   aria-expanded={editingSection === 'parametrage'}
                   aria-controls="sec-parametrage-body"
-                  onClick={() => setEditingSection(s => s === 'parametrage' ? null : 'parametrage')}
                 >
                   {editingSection === 'parametrage' ? 'Fermer' : 'Modifier'}
                 </Button>
@@ -864,95 +910,8 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                                   )
                                 })()}
                         </div>
-                        {/* Modification désactivée (alignement choix de source)
-                {!enableMandataryChange && !readOnly && (
-                  <Button
-                    type="button"
-                    priority="secondary"
-                    iconId="fr-icon-edit-line"
-                    iconPosition="left"
-                    size="small"
-                    disabled={!hasBanId}
-                    onClick={() => {
-                      setEnableMandataryChange(true)
-                      if (!configState?.mandatary && effectiveClientId) {
-                        setConfigState({ ...configState, mandatary: effectiveClientId })
-                      }
-                    }}
-                  >
-                    Modifier
-                  </Button>
-                )}
-                */}
                       </div>
 
-                      {/* Bloc changement de source désactivé (alignement en cours)
-              {enableMandataryChange && (
-                <>
-                  <hr className="fr-hr mandatary-edit-sep" />
-                  <Alert
-                    severity="info"
-                    title="Attention"
-                    description="En cas de changement de source de publication, pour assurer la cohérence de la donnée, merci de vous assurer avec le nouveau producteur d'être bien reparti de la version précédente de la BAL, dont une copie est disponible sur la page commune (fichier Format Local - BAL)."
-                    small
-                    className="fr-mb-2w"
-                  />
-                  <Checkbox
-                    options={[{
-                      label: 'J\'ai compris les risques associés au changement de source pour ma commune.',
-                      nativeInputProps: {
-                        name: 'checkboxes-1',
-                        value: 'understood-mandatary-change-warning',
-                        checked: enableMandataryChangeWarning,
-                        onChange: (checkbox) => {
-                          if (checkbox.target.checked) {
-                            setEnableMandataryChangeWarning(true)
-                          }
-                          else {
-                            setConfigState({ ...configState, mandatary: config?.mandatary })
-                            setEnableMandataryChangeWarning(false)
-                          }
-                        },
-                      },
-                    }]}
-                    state="default"
-                  />
-                  {!readOnly && (
-                    <>
-                      <SourceSelector
-                        sourceOptions={sourceOptions}
-                        effectiveClientId={effectiveClientId}
-                        configState={configState}
-                        enableMandataryChangeWarning={enableMandataryChangeWarning}
-                        hasBanId={hasBanId}
-                        revisionsLoading={revisionsLoading}
-                        revisionsError={revisionsError}
-                        handleUpdateConfig={handleUpdateConfig}
-                      />
-                      <p className="fr-hint-text fr-mt-1w fr-mb-0">
-                        Si vous souhaitez désigner une source qui n&apos;a jamais publié pour cette commune,{' '}
-                        <Link href="/nous-contacter">contactez le support</Link>.
-                      </p>
-                    </>
-                  )}
-                  <div className="mandatary-edit-actions">
-                    <Button
-                      type="button"
-                      priority="secondary"
-                      iconId="fr-icon-close-line"
-                      onClick={() => {
-                        setConfigState({ ...configState, mandatary: config?.mandatary })
-                        setEnableMandataryChangeWarning(false)
-                        setEnableMandataryChange(false)
-                      }}
-                      size="small"
-                    >
-                      Annuler & conserver ma source actuelle
-                    </Button>
-                  </div>
-                </>
-              )}
-              */}
                     </>
                   )}
             </div>
@@ -968,7 +927,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
             isSaving={isSaving}
             saveProgress={saveProgress}
             onSave={pushConfigUpdate}
-            saveDisabled={isMandatarySelectionInvalid}
+            saveDisabled={false}
             saveDisabledAriaLabel="Enregistrer les modifications"
           />
         )}

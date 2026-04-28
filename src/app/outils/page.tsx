@@ -130,7 +130,7 @@ export default async function Outils() {
                 <Button
                   iconId="fr-icon-code-s-slash-line"
                   linkProps={{
-                    href: 'https://geoservices.ign.fr/documentation/services/services-geoplateforme/autocompletion',
+                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/autocompletion',
                     target: '_blank',
                   }}
                   size="small"

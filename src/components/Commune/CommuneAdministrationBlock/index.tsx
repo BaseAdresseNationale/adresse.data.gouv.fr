@@ -16,7 +16,7 @@ interface CommuneAdministrationBlockProps {
 }
 
 export function CommuneAdministrationBlock({ commune }: CommuneAdministrationBlockProps) {
-  const config = commune.config
+  const config = commune.config ?? { certificate: CertificateTypeEnum.DISABLED }
   const certificate = config?.certificate ?? CertificateTypeEnum.DISABLED
   const defaultBalLang = config?.defaultBalLang
   const certificateLabel = CertificateTypeLabel[certificate] ?? 'Désactivé'

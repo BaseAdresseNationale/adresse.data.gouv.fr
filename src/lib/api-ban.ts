@@ -1,5 +1,4 @@
-import { BANCommune, BANVoie, BANAddress } from '@/types/api-ban.types'
-import { BANStats } from '@/types/api-ban.types'
+import { BANAddress, BANCommune, BANConfig, BANStats, BANVoie } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
 import { env } from 'next-runtime-env'
 
@@ -92,6 +91,54 @@ export async function getIdDistrictByCodeCommune(codeCommune: string) {
   const response = await customFetch(`${API_BAN_SEARCH_URL}/api/district/cog/${codeCommune}`)
   const mainDistrict = response.response?.find((d: any) => d.meta?.insee?.isMain === true)
   return mainDistrict?.meta?.insee?.mainId || null
+}
+
+export async function getDistrictConfigByCodeCommune(codeCommune: string): Promise<BANConfig | null> {
+  try {
+    const districtId = await getIdDistrictByCodeCommune(codeCommune)
+    if (!districtId) return null
+
+    const isServer = typeof window === 'undefined'
+    const token = isServer ? env('BAN_API_TOKEN') : null
+
+    if (token) {
+      const res = await fetch(`${API_BAN_SEARCH_URL}/api/district-config/${districtId}`, {
+        headers: { Authorization: `Token ${token}` },
+        cache: 'no-store',
+      })
+      if (!res.ok) return null
+      const data = await res.json().catch(() => null)
+      const payload = data?.response ?? data
+      return (payload?.config as BANConfig) ?? null
+    }
+    else {
+      const res = await fetch(`/api/district-config/${districtId}`, { credentials: 'same-origin' })
+      if (!res.ok) return null
+      const data = await res.json().catch(() => null)
+      return (data?.config as BANConfig) ?? null
+    }
+  }
+  catch {
+    return null
+  }
+}
+
+/** Réservé au client : côté serveur la config « admin » n’est pas exposée via cette fonction. */
+export async function getDistrictConfigForAdminByCodeCommune(codeCommune: string): Promise<BANConfig | null> {
+  if (typeof window !== 'undefined') {
+    try {
+      const districtId = await getIdDistrictByCodeCommune(codeCommune)
+      if (!districtId) return null
+      const res = await fetch(`/api/district-config/${districtId}/full`, { credentials: 'same-origin' })
+      if (!res.ok) return null
+      const data = await res.json().catch(() => null)
+      return (data?.config as BANConfig) ?? null
+    }
+    catch {
+      return null
+    }
+  }
+  return null
 }
 
 export interface StatutCommune {

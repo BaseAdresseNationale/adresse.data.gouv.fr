@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAddress } from '@/lib/api-ban'
+import { getAddress, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
 import { getCommune } from '@/lib/api-geo'
 import { isAddressCertifiable } from '@/lib/ban'
 import { env } from 'next-runtime-env'
@@ -37,13 +37,15 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
       }
     }
   }
-  catch (error: any) {
-    if (error?.status === 401) {
+  catch (error: unknown) {
+    if (error && typeof error === 'object' && 'status' in error && (error as { status?: number }).status === 401) {
       habilitation = false
     }
   }
 
-  const isCertifiable = (address?.config?.certificate == CertificateTypeEnum.ALL || (address?.config?.certificate == CertificateTypeEnum.DISTRICT && habilitation)) && await isAddressCertifiable(address)
+  const codeCommune = address?.codeCommune ?? address?.commune?.code
+  const addressConfig = codeCommune ? await getDistrictConfigByCodeCommune(codeCommune) : null
+  const isCertifiable = (addressConfig?.certificate == CertificateTypeEnum.ALL || (addressConfig?.certificate == CertificateTypeEnum.DISTRICT && habilitation)) && await isAddressCertifiable(address)
 
   if (!isCertifiable) {
     return new NextResponse('Adresse incompatible avec le service', { status: 404 })
@@ -60,9 +62,11 @@ export async function GET(request: NextRequest, { params }: { params: { idAdress
   })
 
   if (!rawResponse.ok) {
-    const errorMessage = `Erreur ${rawResponse.status}: ${rawResponse.statusText}`
-    console.error('Échec de la publication des données :', errorMessage)
-    throw new Error(errorMessage)
+    console.error(
+      'Échec de la publication des données :',
+      `Erreur ${rawResponse.status}: ${rawResponse.statusText}`,
+    )
+    return new NextResponse(null, { status: rawResponse.status })
   }
 
   const response = await rawResponse.json()
