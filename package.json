@@ -23,6 +23,7 @@
     "@etalab/decoupage-administratif": "^6.0.0",
     "@next/bundle-analyzer": "^14.2.13",
     "@react-pdf/renderer": "^4.0.0",
+    "@resvg/resvg-wasm": "^2.6.2",
     "@socialgouv/matomo-next": "^1.9.0",
     "@turf/bbox-polygon": "^7.1.0",
     "@turf/boolean-contains": "^7.1.0",
