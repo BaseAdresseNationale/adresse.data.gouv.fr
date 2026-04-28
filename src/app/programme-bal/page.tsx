@@ -6,6 +6,9 @@ import { StyledPageProgrammeBAL } from './page.styles'
 import IconCard from '@/components/IconCard'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { Quote } from '@codegouvfr/react-dsfr/Quote'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Programme BAL')
 
 export default async function ProgrammeBALPage() {
   const stats = await getStats()

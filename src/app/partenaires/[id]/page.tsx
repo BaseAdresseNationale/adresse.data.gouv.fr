@@ -5,6 +5,22 @@ import ResponsiveImage from '@/components/ResponsiveImage'
 import PartenaireReviews from '@/components/PartenairesDeLaCharte/PartenaireReviews'
 import { ClientTypeEnum, PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import PartenaireOrganisme from '@/components/Partenaires/PartenaireOrganisme'
+import { Metadata } from 'next'
+
+interface PartenairePageprops {
+  params: { id: string }
+}
+
+export async function generateMetadata({
+  params,
+}: PartenairePageprops): Promise<Metadata> {
+  const { id } = await params
+  const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
+
+  return {
+    title: `Partenaire - ${partenaireDeLaCharte.name}`,
+  }
+}
 
 export default async function PartenairePage({ params }: { params: { id: string } }) {
   const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)

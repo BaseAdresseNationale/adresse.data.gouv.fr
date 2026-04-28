@@ -2,6 +2,9 @@ import CompanyPage from '@/components/PartenairesDeLaCharte/CompanyPage'
 import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Annuaire')
 
 const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.ENTREPRISE,

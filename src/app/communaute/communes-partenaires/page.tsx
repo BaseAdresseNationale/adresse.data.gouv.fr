@@ -6,6 +6,9 @@ import Section from '@/components/Section'
 import { getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Communes partenaires')
 
 const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.COMMUNE,

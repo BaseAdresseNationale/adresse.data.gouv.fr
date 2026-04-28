@@ -9,6 +9,9 @@ import { getMarkdown } from '@/lib/markdown'
 import { TextWrapper } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Contenu')
 
 export default async function Home() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('la-ban/contenu-de-la-ban-intro') || {}

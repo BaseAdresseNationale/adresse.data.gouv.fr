@@ -21,6 +21,9 @@ import { CardContainer } from './page.styles'
 export const revalidate = 3600 // 1 hour
 
 import { env } from 'next-runtime-env'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Accueil')
 
 export default async function Home() {
   const stats = await getStats()
