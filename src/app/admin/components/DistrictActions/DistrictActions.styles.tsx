@@ -623,51 +623,11 @@ export const StickyActions = styled.div`
 
   .sticky-message {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
     flex: 1;
-  }
-
-  .sticky-message__body {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-
-    @media (min-width: 48em) {
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem 1rem;
-    }
-  }
-
-  /* Boutons DSFR : ne pas hériter du rouge du message d’erreur */
-  .sticky-message__body--error .sticky-message__actions {
-    color: var(--text-action-high-grey);
-  }
-
-  .sticky-message__text {
-    font-weight: 600;
-    color: inherit;
-    flex: 1;
-    min-width: min(100%, 12rem);
-  }
-
-  .sticky-message__actions {
-    flex-shrink: 0;
-    align-self: flex-start;
-
-    @media (min-width: 48em) {
-      align-self: center;
-    }
-  }
-
-  .sticky-message__actions .fr-btns-group {
-    margin-bottom: 0;
   }
 
   .sticky-message--success {
@@ -676,9 +636,13 @@ export const StickyActions = styled.div`
 
   .sticky-message--error {
     color: var(--text-default-error);
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.5rem 0.75rem;
+  }
+
+  .sticky-message__close,
+  .sticky-message__close * {
+    color: inherit !important;
+    flex-shrink: 0;
   }
 `
