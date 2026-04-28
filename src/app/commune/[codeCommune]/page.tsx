@@ -7,7 +7,7 @@ import CommuneLogo, { COMMUNE_LOGO_PAGE_PRESET } from '@/components/CommuneLogo/
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
-  getCommuneWithoutCache as getBANCommune, getIdDistrictByCodeCommune,
+  getCommuneWithoutCache as getBANCommune, getIdDistrictByCodeCommune, getDistrictConfigByCodeCommune,
 } from '@/lib/api-ban'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
@@ -34,6 +34,7 @@ const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Co
 const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: false })
 const CommuneAdministrationBlock = dynamicImport(() => import('../../../components/Commune/CommuneAdministrationBlock'), { ssr: false })
 const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: false })
+import { CertificateTypeEnum } from '@/types/api-ban.types'
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
@@ -78,7 +79,9 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
+  const certificationPercentage = commune.nbNumeros > 0
+    ? Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
+    : 0
 
   const [
     mairiePageResponse,
@@ -140,6 +143,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
   const districtId = IdDistrictByCodeCommuneResponse.status === 'fulfilled' ? IdDistrictByCodeCommuneResponse.value : null
 
   const banId = commune.banId || districtId || null
+
+  commune.config = (await getDistrictConfigByCodeCommune(codeCommune)) ?? { certificate: CertificateTypeEnum.DISABLED }
 
   const communeAchievements = communeHasBAL
     ? getCommuneAchievements({
