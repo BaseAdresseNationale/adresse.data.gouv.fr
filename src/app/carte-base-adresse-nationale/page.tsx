@@ -296,6 +296,24 @@ function CartoView() {
     updateHashPosition(hash || '')
   }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible])
 
+  const [banItemSelected, setBanItemSelected] = useState<TypeMicroToponymExtended | null>(null)
+
+  const hightLightAdressesByItem = useCallback((
+    banItemToSelect: TypeMicroToponymExtended,
+    isSelected: boolean
+  ) => {
+    const { current: banMapGL } = banMapRef
+    if (banMapGL) {
+      banItemToSelect.numeros.forEach((numero) => {
+        banMapGL.setFeatureState(
+          { source: 'base-adresse-nationale', sourceLayer: 'adresses', id: numero.id },
+          { selected: isSelected }
+        )
+      })
+    }
+    isSelected ? setBanItemSelected(banItemToSelect) : setBanItemSelected(null)
+  }, [])
+
   // InitialPosition from hash
   useEffect(() => {
     if (window?.location?.hash) {
@@ -443,10 +461,14 @@ function CartoView() {
 
         setIsMenuVisible(true)
         oldMapSearchResults.current = banItem
+
+        if (banMapGL && banItem.type === 'voie' && (banItem as TypeMicroToponymExtended).numeros) {
+          hightLightAdressesByItem(banItem as TypeMicroToponymExtended, true)
+        }
       }
     }
   }
-  , [isMapReady, mapSearchResults])
+  , [isMapReady, mapSearchResults, hightLightAdressesByItem])
 
   // Map focus & animation
   useEffect(() => {
@@ -512,11 +534,15 @@ function CartoView() {
           <NavigationControl position="bottom-right" showCompass />
           <AttributionControl position="bottom-left" customAttribution="IGN" compact={true} />
 
-          <BanMap
-            address={mapSearchResults as unknown as Address}
-            onSelect={selectBanItem}
-            isCadastreLayersShown={displayLandRegister}
-          />
+          {mapSearchResults && (
+            <BanMap
+              address={mapSearchResults as unknown as Address}
+              onSelect={selectBanItem}
+              isCadastreLayersShown={displayLandRegister}
+              hightLightAdressesByItem={hightLightAdressesByItem}
+              banItemSelected={banItemSelected as TypeMicroToponymExtended}
+            />
+          )}
 
           <Aside
             ref={asideRef}

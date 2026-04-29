@@ -8,11 +8,17 @@ import Popups from './Popups'
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
 import type { Address, PopupInfo } from './types'
+import { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
 
 interface BanMapProps {
   address: Address
   onSelect: (properties: any) => void
   isCadastreLayersShown?: boolean
+  hightLightAdressesByItem: (
+    banItem: TypeMicroToponymExtended,
+    isSelected: boolean
+  ) => void
+  banItemSelected: TypeMicroToponymExtended
 }
 
 interface HoveredFeature extends PopupFeature {
@@ -26,7 +32,7 @@ interface HighLightAdressesByProperties {
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
+function BanMap({ address, onSelect, isCadastreLayersShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
@@ -69,6 +75,9 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
           hoveredFeature.current = {
             id: `${evt.features[0].id}`?.split('_').slice(0, 2).join('_'),
             nom: evt.features[0].properties.nomVoie,
+          }
+          if (banItemSelected) {
+            hightLightAdressesByItem(banItemSelected as TypeMicroToponymExtended, false)
           }
           highLightAdressesByProperties(true, hoveredFeature.current)
 
@@ -131,7 +140,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown }: BanMapProps) {
         })
       }
     }
-  }, [map, onSelect])
+  }, [map, banItemSelected, onSelect, hightLightAdressesByItem])
 
   return (
     <>
