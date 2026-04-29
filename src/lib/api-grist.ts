@@ -27,7 +27,7 @@ interface ProcessedRecord {
 }
 
 async function fetchTableJson(): Promise<{ records: GristRecord[] }> {
-  const filterDict = { non_publication_usage: [false], publication: [true] }
+  const filterDict = { non_publication_usage: [false], validation_publication: [true] }
   const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
 
   const response = await fetch(`${BASE_URL}/docs/${DOC_ID}/tables/${WANTED_TABLE_ID}/records?${params}`, {
