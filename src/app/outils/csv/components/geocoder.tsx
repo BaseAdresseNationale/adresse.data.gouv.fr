@@ -24,7 +24,7 @@ export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) 
   const [blob, setBlob] = useState<Blob>()
   const [error, setError] = useState<Error | undefined>()
 
-  const handleGeocodeClick = async () => {
+  const handleGeocodeClick = async (mode: 'search' | 'reverse') => {
     const filters = []
 
     if (filter) {
@@ -37,7 +37,7 @@ export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) 
     setStatus('pending')
 
     try {
-      const blob: Blob = await geocodeCsv(file, filters, columns)
+      const blob: Blob = await geocodeCsv(file, filters, columns, mode)
       setBlob(blob)
       setStatus('done')
     }
@@ -49,7 +49,10 @@ export default function Geocoder({ file, columns, filter }: GeocodeurPropTypes) 
   return (
     <div className="geocoder" style={{ margin: '2em 0', textAlign: 'center' }}>
       {!status && (
-        <Button onClick={handleGeocodeClick}>Lancer le géocodage</Button>
+        <>
+          <Button onClick={() => handleGeocodeClick('search')}>Lancer le géocodage</Button>
+          <Button style={{ marginLeft: '20px' }} onClick={() => handleGeocodeClick('reverse')}>Lancer le géocodage inversé</Button>
+        </>
       )}
 
       {status === 'pending' && (
