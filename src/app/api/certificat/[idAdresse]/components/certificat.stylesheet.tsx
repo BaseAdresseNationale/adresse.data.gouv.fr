@@ -30,7 +30,7 @@ const stylesDSFR = StyleSheet.create({
   qrCodeContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '10mm' },
   footer: { position: 'absolute', bottom: '20mm', left: '20mm', right: '20mm', fontSize: 10, flexDirection: 'column', alignItems: 'flex-start' },
   footerText: { marginBottom: '5mm', textAlign: 'left' },
-  logoBloc: { maxWidth: '35mm', maxHeight: '20mm', width: 'auto', height: 'auto' },
+  logoBloc: { height: '20mm', maxWidth: '80mm', width: 'auto', objectFit: 'contain' },
   logoAdresse: { height: '15mm', width: 'auto' },
   logoMarianne: { height: '15mm', width: 'auto' },
   table: { display: 'flex', width: 'auto', marginTop: '10mm', borderStyle: 'solid', borderWidth: 1, borderColor: '#000' },

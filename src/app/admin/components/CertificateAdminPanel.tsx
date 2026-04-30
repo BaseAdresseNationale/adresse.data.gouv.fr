@@ -235,19 +235,11 @@ export function CertificateAdminPanel({
                 </p>
                 <div className="fr-mt-1w">{renderPdfPreviewButton('primary')}</div>
 
-                <div
-                  className="fr-grid-row fr-grid-row--gutters fr-grid-row--middle fr-my-3w fr-text--sm fr-hint-text"
+                <hr
+                  className="fr-hr fr-my-3w"
                   style={{ maxWidth: '36rem' }}
                   aria-hidden
-                >
-                  <div className="fr-col">
-                    <hr className="fr-hr fr-mb-0" />
-                  </div>
-                  <div className="fr-col-auto fr-px-1w">ou bien</div>
-                  <div className="fr-col">
-                    <hr className="fr-hr fr-mb-0" />
-                  </div>
-                </div>
+                />
 
                 <div>
                   <p className="fr-text--sm fr-mb-2w fr-text--bold">
