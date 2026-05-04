@@ -55,7 +55,8 @@ interface SuiviBanStats {
   rouge: number
   gris: number
   numeros: number
-  voies: number
+  voies?: number
+  pct_numeros_fiabilises?: number
 }
 
 interface Producteur {
@@ -552,6 +553,11 @@ function pct(value: number, total: number): number {
   return Math.round((value / total) * 1000) / 10
 }
 
+function formatPctNumerosFiabilises(n: number | null | undefined): string {
+  if (n == null || Number.isNaN(n)) return '—'
+  return `${n.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %`
+}
+
 export default function TabSuiviBAN({
   filter,
   deptFilter,
@@ -725,7 +731,6 @@ export default function TabSuiviBAN({
           rouge: r,
           gris: Math.max(0, t - v - o - r),
           numeros: globalStats?.numeros || 0,
-          voies: globalStats?.voies || 0,
         }
       }
     }
@@ -740,13 +745,13 @@ export default function TabSuiviBAN({
     ? [
         { value: fmt(displayStats.total), label: 'Communes', accent: DSFR.text.actionHigh.blueFrance.default, valueColor: DSFR.text.actionHigh.blueFrance.default },
         { value: fmt(displayStats.numeros), label: 'Numéros', accent: DSFR.text.actionHigh.blueCumulus.default, valueColor: DSFR.text.actionHigh.blueCumulus.default },
-        { value: fmt(displayStats.voies), label: 'Voies', accent: DSFR.text.actionHigh.greenArchipel.default, valueColor: DSFR.text.actionHigh.greenArchipel.default },
+        { value: fmt(displayStats.voies ?? 0), label: 'Voies', accent: DSFR.text.actionHigh.greenArchipel.default, valueColor: DSFR.text.actionHigh.greenArchipel.default },
       ]
     : [
         { value: fmt(displayStats.total), label: 'Communes', accent: DSFR.text.actionHigh.blueFrance.default, valueColor: DSFR.text.actionHigh.blueFrance.default },
-        { value: `${pct(displayStats.vert, total)}%`, label: 'Fiabilisés', accent: STATUS_TEXT_COLORS.vert, valueColor: STATUS_TEXT_COLORS.vert },
+        { value: `${pct(displayStats.vert, total)}%`, label: 'Communes fiabilisées', accent: STATUS_TEXT_COLORS.vert, valueColor: STATUS_TEXT_COLORS.vert },
         { value: fmt(displayStats.numeros), label: 'Numéros', accent: DSFR.text.actionHigh.blueCumulus.default, valueColor: DSFR.text.actionHigh.blueCumulus.default },
-        { value: fmt(displayStats.voies), label: 'Voies', accent: DSFR.text.actionHigh.greenArchipel.default, valueColor: DSFR.text.actionHigh.greenArchipel.default },
+        { value: formatPctNumerosFiabilises(globalStats?.pct_numeros_fiabilises), label: 'Numéros fiabilisés', accent: DSFR.text.actionHigh.greenArchipel.default, valueColor: DSFR.text.actionHigh.greenArchipel.default },
       ]
 
   return (
